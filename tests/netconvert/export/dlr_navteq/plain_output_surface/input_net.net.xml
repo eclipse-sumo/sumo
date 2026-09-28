@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-09-28T13:58:05.290703+01:00 by Eclipse SUMO netconvert v1_27_1+0791-85591e12186
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+        <dlr-navteq.plain value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+        <proj.plain-geo value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <junctions.join value="true"/>
+    </junctions>
+
+    <formats>
+        <osm.all-attributes value="true"/>
+    </formats>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-405835.67,-5802787.52" convBoundary="0.00,0.00,356.34,573.83" origBoundary="13.616814,52.367297,13.622075,52.372423" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" oneway="0"/>
+    <type id="highway.service" priority="1" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle" oneway="0"/>
+
+    <edge id="-1014536730#0" from="9174725154" to="32493628" priority="1" type="highway.service" routingType="narrow">
+        <lane id="-1014536730#0_0" index="0" allow="delivery bicycle" speed="5.56" length="7.17" width="1.60" shape="87.74,360.71 87.62,361.03"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="service"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lanes" value="1"/>
+        <param key="lit" value="yes"/>
+        <param key="name" value="Am Graben"/>
+        <param key="sidewalk:right" value="separate"/>
+        <param key="smoothness" value="intermediate"/>
+        <param key="surface" value="sett"/>
+    </edge>
+    <edge id="-226082972" from="9367452564" to="cluster_32493627_9174725140_9174725155" priority="1" type="highway.service" routingType="narrow" shape="213.65,13.98 213.16,15.77 206.09,41.53 204.78,46.30 200.32,62.57 195.27,80.94 190.53,98.22 189.50,101.99 180.93,133.21 179.09,140.09 176.78,148.78 168.66,179.30 164.73,194.06 162.58,202.66 156.69,223.13 151.29,236.93 150.28,239.53 133.90,280.58 127.08,297.68 120.50,314.17 118.76,318.53 101.75,361.17 100.80,363.59">
+        <lane id="-226082972_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="374.92" width="1.60" shape="214.42,14.19 213.93,15.98 206.86,41.74 205.55,46.51 201.09,62.78 196.04,81.15 191.30,98.43 190.27,102.20 181.70,133.42 179.86,140.30 177.55,148.99 169.43,179.51 165.50,194.26 163.35,202.87 157.45,223.39 152.04,237.22 151.02,239.82 134.64,280.88 127.82,297.98 121.24,314.47 119.50,318.83 102.47,361.53"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="highway" value="service"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lanes" value="1"/>
+        <param key="lit" value="yes"/>
+        <param key="name" value="Am Graben"/>
+        <param key="sidewalk" value="left"/>
+        <param key="sidewalk:both" value="no"/>
+        <param key="smoothness" value="intermediate"/>
+        <param key="surface" value="asphalt sett"/>
+    </edge>
+    <edge id="-226082973" from="262862175" to="9174725154" priority="1" type="highway.service" routingType="narrow" shape="203.10,0.00 200.31,7.63 199.91,9.18 196.03,24.32 191.90,39.88 168.55,130.34 166.86,136.88 164.38,145.54 151.62,189.97 148.95,199.29 142.73,220.94 136.94,236.94 134.72,243.07 132.53,249.09 130.82,253.81 128.73,258.90 117.43,286.38 115.27,291.60 108.14,308.94 99.23,330.62 97.19,335.55 88.61,356.42 87.78,358.43">
+        <lane id="-226082973_0" index="0" allow="delivery bicycle" speed="5.56" length="377.18" width="1.60" shape="203.85,0.27 201.07,7.87 200.68,9.38 196.80,24.52 192.67,40.08 169.32,130.54 167.63,137.09 165.15,145.76 152.39,190.19 149.72,199.51 143.49,221.19 137.69,237.21 135.47,243.34 133.28,249.36 131.57,254.10 129.47,259.20 118.17,286.68 116.01,291.90 108.88,309.24 99.97,330.92 97.93,335.85 89.49,356.38"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="service"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lanes" value="1"/>
+        <param key="lit" value="yes"/>
+        <param key="name" value="Am Graben"/>
+        <param key="sidewalk:left" value="no"/>
+        <param key="sidewalk:right" value="separate"/>
+        <param key="smoothness" value="intermediate"/>
+        <param key="surface" value="asphalt sett"/>
+    </edge>
+    <edge id="-4935083#0" from="9359995244" to="32493629" priority="3" type="highway.residential" shape="80.04,363.13 58.09,354.69 41.00,348.15 34.93,345.83">
+        <lane id="-4935083#0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="48.31" width="3.50" shape="76.95,363.81 57.46,356.32 40.37,349.78 34.31,347.46"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="residential"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed:type" value="DE:urban"/>
+        <param key="name" value="Schmöckwitzer Straße"/>
+        <param key="sidewalk:both" value="separate"/>
+        <param key="smoothness" value="intermediate"/>
+        <param key="source:width" value="ARCore"/>
+        <param key="surface" value="sett"/>
+        <param key="width" value="7"/>
+    </edge>
+    <edge id="-4935083#1" from="32493628" to="9359995244" priority="3" type="highway.residential">
+        <lane id="-4935083#1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="5.49" width="3.50" shape="81.87,365.71 81.66,365.63"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="residential"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed:type" value="DE:urban"/>
+        <param key="name" value="Schmöckwitzer Straße"/>
+        <param key="sidewalk:both" value="separate"/>
+        <param key="smoothness" value="intermediate"/>
+        <param key="source:width" value="ARCore"/>
+        <param key="surface" value="sett"/>
+        <param key="width" value="7"/>
+    </edge>
+    <edge id="-4935083#2" from="cluster_32493627_9174725140_9174725155" to="32493628" priority="3" type="highway.residential" shape="98.36,370.04 85.16,365.10">
+        <lane id="-4935083#2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="14.04" width="3.50" shape="94.58,370.49 87.50,367.85"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="residential"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed:type" value="DE:urban"/>
+        <param key="name" value="Schmöckwitzer Straße"/>
+        <param key="sidewalk:both" value="separate"/>
+        <param key="smoothness" value="intermediate"/>
+        <param key="source:width" value="ARCore"/>
+        <param key="surface" value="sett"/>
+        <param key="width" value="7"/>
+    </edge>
+    <edge id="-4935083#3" from="9359995229" to="cluster_32493627_9174725140_9174725155" priority="3" type="highway.residential" shape="103.98,372.15 98.36,370.04">
+        <lane id="-4935083#3_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="6.06" width="3.50" shape="101.00,372.90 100.71,372.79"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="residential"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed:type" value="DE:urban"/>
+        <param key="name" value="Schmöckwitzer Straße"/>
+        <param key="sidewalk:both" value="separate"/>
+        <param key="smoothness" value="intermediate"/>
+        <param key="source:width" value="ARCore"/>
+        <param key="surface" value="sett"/>
+        <param key="width" value="7"/>
+    </edge>
+    <edge id="-4935083#4" from="9359808851" to="9359995229" priority="3" type="highway.residential" shape="356.34,464.95 331.88,456.00 326.51,454.04 314.41,449.61 311.60,448.59 296.41,443.04 279.10,436.70 275.70,435.46 252.08,426.82 231.61,419.34 224.25,416.63 217.66,414.22 192.69,404.99 187.06,402.92 168.52,396.07 166.39,395.29 149.27,388.97 147.73,388.40 130.77,382.13 126.96,380.72 103.98,372.15">
+        <lane id="-4935083#4_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="268.88" width="3.50" shape="355.74,466.59 331.28,457.64 325.91,455.68 313.81,451.25 311.00,450.23 295.81,444.68 278.50,438.34 275.10,437.10 251.48,428.46 231.01,420.98 223.65,418.27 217.05,415.86 192.08,406.63 186.45,404.56 167.91,397.71 165.78,396.93 148.66,390.61 147.12,390.04 130.16,383.77 126.35,382.36 105.72,374.67"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="residential"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed:type" value="DE:urban"/>
+        <param key="name" value="Schmöckwitzer Straße"/>
+        <param key="sidewalk:both" value="separate"/>
+        <param key="smoothness" value="intermediate"/>
+        <param key="source:width" value="ARCore"/>
+        <param key="surface" value="sett"/>
+        <param key="width" value="7"/>
+    </edge>
+    <edge id="1014536711#0" from="9174725166" to="9174725144" priority="1" type="highway.footway" spreadType="center" shape="43.71,341.26 60.74,347.82 82.94,356.39">
+        <lane id="1014536711#0_0" index="0" allow="pedestrian" speed="2.78" length="42.05" width="2.00" shape="43.71,341.26 60.74,347.82 80.57,355.48"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="residential"/>
+        <param key="is_sidepath:of:name" value="Schmöckwitzer Straße"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="paving_stones"/>
+    </edge>
+    <edge id="1014536711#1" from="9174725144" to="9174725154" priority="1" type="highway.footway" spreadType="center">
+        <lane id="1014536711#1_0" index="0" allow="pedestrian" speed="2.78" length="5.25" width="2.00" shape="84.92,357.22 85.24,357.36"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="residential"/>
+        <param key="is_sidepath:of:name" value="Schmöckwitzer Straße"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="paving_stones"/>
+    </edge>
+    <edge id="1014536711#2" from="9174725154" to="cluster_32493627_9174725140_9174725155" priority="1" type="highway.footway" spreadType="center" shape="87.78,358.43 90.75,359.56 97.58,362.38 100.80,363.59">
+        <lane id="1014536711#2_0" index="0" allow="pedestrian" speed="2.78" length="18.29" width="2.00" shape="90.70,359.54 97.54,362.36"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="residential"/>
+        <param key="is_sidepath:of:name" value="Schmöckwitzer Straße"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="paving_stones"/>
+    </edge>
+    <edge id="1014536711#3" from="cluster_32493627_9174725140_9174725155" to="9174725147" priority="1" type="highway.footway" spreadType="center" shape="100.80,363.59 106.37,365.66">
+        <lane id="1014536711#3_0" index="0" allow="pedestrian" speed="2.78" length="10.50" width="2.00" shape="103.72,364.68 104.03,364.79"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="residential"/>
+        <param key="is_sidepath:of:name" value="Schmöckwitzer Straße"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="paving_stones"/>
+    </edge>
+    <edge id="1014536711#4" from="9174725147" to="9359990508" priority="1" type="highway.footway" spreadType="center" shape="106.37,365.66 151.69,382.03 171.06,389.02 189.85,395.80 220.42,406.83 223.69,408.02">
+        <lane id="1014536711#4_0" index="0" allow="pedestrian" speed="2.78" length="124.73" width="2.00" shape="108.72,366.51 151.69,382.03 171.06,389.02 189.85,395.80 220.42,406.83 223.69,408.02"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="residential"/>
+        <param key="is_sidepath:of:name" value="Schmöckwitzer Straße"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="paving_stones"/>
+    </edge>
+    <edge id="1014536728#0" from="9359995232" to="9174725136" priority="1" type="highway.footway" spreadType="center" shape="23.56,573.83 30.95,555.93 37.19,540.20 51.27,504.74 63.29,474.47 65.21,469.66 78.73,435.83 79.94,432.81 84.99,420.16 87.46,413.98 101.55,378.72">
+        <lane id="1014536728#0_0" index="0" allow="pedestrian" speed="2.78" length="210.12" width="2.00" shape="23.56,573.83 30.95,555.93 37.19,540.20 51.27,504.74 63.29,474.47 65.21,469.66 78.73,435.83 79.94,432.81 84.99,420.16 87.46,413.98 100.61,381.08"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="service"/>
+        <param key="is_sidepath:of:name" value="Am Graben"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="paving_stones"/>
+    </edge>
+    <edge id="1014536728#1" from="9174725136" to="9359995229" priority="1" type="highway.footway" spreadType="center">
+        <lane id="1014536728#1_0" index="0" allow="pedestrian" speed="2.78" length="7.00" width="2.00" shape="102.30,376.70 102.37,376.51"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="service"/>
+        <param key="is_sidepath:of:name" value="Am Graben"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="paving_stones"/>
+    </edge>
+    <edge id="1014536728#2" from="9359995229" to="9174725147" priority="1" type="highway.footway" spreadType="center">
+        <lane id="1014536728#2_0" index="0" allow="pedestrian" speed="2.78" length="6.92" width="2.00" shape="105.57,367.82 105.64,367.63"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="service"/>
+        <param key="is_sidepath:of:name" value="Am Graben"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="paving_stones"/>
+    </edge>
+    <edge id="1014536729#1" from="cluster_32493627_9174725140_9174725155" to="9367452564" priority="1" type="highway.service" routingType="narrow" shape="100.80,363.59 101.75,361.17 118.76,318.53 120.50,314.17 127.08,297.68 133.90,280.58 150.28,239.53 151.29,236.93 156.69,223.13 162.58,202.66 164.73,194.06 168.66,179.30 176.78,148.78 179.09,140.09 180.93,133.21 189.50,101.99 190.53,98.22 195.27,80.94 200.32,62.57 204.78,46.30 206.09,41.53 213.16,15.77 213.65,13.98">
+        <lane id="1014536729#1_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="374.92" width="1.60" shape="100.98,360.94 118.02,318.23 119.76,313.87 126.34,297.38 133.16,280.28 149.54,239.23 150.54,236.64 155.93,222.87 161.81,202.45 163.96,193.86 167.89,179.09 176.01,148.57 178.32,139.88 180.16,133.00 188.73,101.78 189.76,98.01 194.50,80.73 199.55,62.36 204.01,46.09 205.32,41.32 212.39,15.56 212.88,13.77"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="highway" value="service"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lanes" value="1"/>
+        <param key="lit" value="yes"/>
+        <param key="name" value="Am Graben"/>
+        <param key="sidewalk" value="left"/>
+        <param key="sidewalk:both" value="no"/>
+        <param key="smoothness" value="intermediate"/>
+        <param key="surface" value="sett asphalt"/>
+    </edge>
+    <edge id="1014536730#0" from="32493628" to="9174725154" priority="1" type="highway.service" routingType="narrow">
+        <lane id="1014536730#0_0" index="0" allow="delivery bicycle" speed="5.56" length="7.17" width="1.60" shape="86.13,360.45 86.25,360.13"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="service"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lanes" value="1"/>
+        <param key="lit" value="yes"/>
+        <param key="name" value="Am Graben"/>
+        <param key="sidewalk:right" value="separate"/>
+        <param key="smoothness" value="intermediate"/>
+        <param key="surface" value="sett"/>
+    </edge>
+    <edge id="1014536730#1" from="9174725154" to="262862175" priority="1" type="highway.service" routingType="narrow" shape="87.78,358.43 88.61,356.42 97.19,335.55 99.23,330.62 108.14,308.94 115.27,291.60 117.43,286.38 128.73,258.90 130.82,253.81 132.53,249.09 134.72,243.07 136.94,236.94 142.73,220.94 148.95,199.29 151.62,189.97 164.38,145.54 166.86,136.88 168.55,130.34 191.90,39.88 196.03,24.32 199.91,9.18 200.31,7.63 203.10,0.00">
+        <lane id="1014536730#1_0" index="0" allow="delivery bicycle" speed="5.56" length="377.18" width="1.60" shape="88.01,355.77 96.45,335.25 98.49,330.32 107.40,308.64 114.53,291.30 116.69,286.08 127.99,258.60 130.07,253.52 131.78,248.82 133.97,242.80 136.19,236.67 141.97,220.69 148.18,199.07 150.85,189.75 163.61,145.32 166.09,136.67 167.78,130.14 191.13,39.68 195.26,24.12 199.14,8.98 199.55,7.39 202.35,-0.27"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="service"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lanes" value="1"/>
+        <param key="lit" value="yes"/>
+        <param key="name" value="Am Graben"/>
+        <param key="sidewalk:left" value="no"/>
+        <param key="sidewalk:right" value="separate"/>
+        <param key="smoothness" value="intermediate"/>
+        <param key="surface" value="sett asphalt"/>
+    </edge>
+    <edge id="1014536733#0" from="9367477176" to="9174725137" priority="1" type="highway.footway" spreadType="center" shape="0.00,564.24 1.34,560.87 8.30,543.31 16.40,522.89 24.80,501.74 30.07,488.47 41.61,459.38 49.27,440.08 51.18,435.28 63.75,403.58 77.13,369.87">
+        <lane id="1014536733#0_0" index="0" allow="pedestrian" speed="2.78" length="209.11" width="2.00" shape="-0.00,564.24 1.34,560.87 8.30,543.31 16.40,522.89 24.80,501.74 30.07,488.47 41.61,459.38 49.27,440.08 51.18,435.28 63.75,403.58 76.20,372.22"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="service"/>
+        <param key="is_sidepath:of:name" value="Am Graben"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="concrete:plates"/>
+    </edge>
+    <edge id="1014536733#1" from="9174725137" to="9359995244" priority="1" type="highway.footway" spreadType="center">
+        <lane id="1014536733#1_0" index="0" allow="pedestrian" speed="2.78" length="7.34" width="2.00" shape="78.04,367.76 78.14,367.52"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="service"/>
+        <param key="is_sidepath:of:name" value="Am Graben"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="concrete:plates"/>
+    </edge>
+    <edge id="1014536733#2" from="9359995244" to="9174725144" priority="1" type="highway.footway" spreadType="center">
+        <lane id="1014536733#2_0" index="0" allow="pedestrian" speed="2.78" length="7.34" width="2.00" shape="81.94,358.72 82.03,358.50"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="service"/>
+        <param key="is_sidepath:of:name" value="Am Graben"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="concrete:plates"/>
+    </edge>
+    <edge id="1014536733#3" from="9174725144" to="9359995243" priority="1" type="highway.footway" spreadType="center" shape="82.94,356.39 92.14,333.52 94.15,328.53 102.87,306.84 109.94,289.26 112.01,284.10 123.01,256.76 126.93,247.00 129.33,241.03 131.80,234.79">
+        <lane id="1014536733#3_0" index="0" allow="pedestrian" speed="2.78" length="131.05" width="2.00" shape="83.87,354.08 92.14,333.52 94.15,328.53 102.87,306.84 109.94,289.26 112.01,284.10 123.01,256.76 126.93,247.00 129.33,241.03 131.80,234.79"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="service"/>
+        <param key="is_sidepath:of:name" value="Am Graben"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="concrete:plates"/>
+    </edge>
+    <edge id="37294394#1" from="cluster_32493627_9174725140_9174725155" to="429920296" priority="1" type="highway.service" spreadType="center" shape="95.68,376.63 81.67,411.62 78.28,420.08 74.09,430.54 72.86,433.64 59.35,467.36 57.44,472.14 45.27,502.54 31.17,537.74 27.12,547.86 19.38,567.21">
+        <lane id="37294394#1_0" index="0" allow="delivery bicycle" speed="5.56" length="212.32" shape="94.73,379.00 81.67,411.62 78.28,420.08 74.09,430.54 72.86,433.64 59.35,467.36 57.44,472.14 45.27,502.54 31.17,537.74 27.12,547.86 19.38,567.21"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="description" value="Kopfsteinpflaster wurde 2025 abgeschliffen."/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="service"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lanes" value="1"/>
+        <param key="lit" value="yes"/>
+        <param key="mapillary" value="1102587764655371"/>
+        <param key="name" value="Am Graben"/>
+        <param key="oneway" value="yes"/>
+        <param key="oneway:bicycle" value="no"/>
+        <param key="parking:right" value="lane"/>
+        <param key="parking:right:smoothness" value="bad"/>
+        <param key="parking:right:surface" value="sett"/>
+        <param key="sidewalk:left" value="no"/>
+        <param key="sidewalk:right" value="separate"/>
+        <param key="smoothness" value="good"/>
+        <param key="surface" value="sett"/>
+    </edge>
+    <edge id="37294410#0" from="429920367" to="9174725139" priority="1" type="highway.service" spreadType="center" shape="7.08,562.60 13.86,545.48 21.94,525.10 30.31,503.97 35.64,490.53 47.03,461.77 54.75,442.27 56.66,437.45 69.21,405.77 82.64,371.88">
+        <lane id="37294410#0_0" index="0" allow="delivery bicycle" speed="5.56" length="205.14" shape="7.08,562.60 13.86,545.48 21.94,525.10 30.31,503.97 35.64,490.53 47.03,461.77 54.75,442.27 56.66,437.45 69.21,405.77 81.70,374.25"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="service"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lanes" value="1"/>
+        <param key="lit" value="yes"/>
+        <param key="name" value="Am Graben"/>
+        <param key="oneway" value="yes"/>
+        <param key="sidewalk:left" value="no"/>
+        <param key="sidewalk:right" value="separate"/>
+        <param key="smoothness" value="bad"/>
+        <param key="surface" value="sett"/>
+    </edge>
+    <edge id="37294410#1" from="9174725139" to="32493628" priority="1" type="highway.service" spreadType="center">
+        <lane id="37294410#1_0" index="0" allow="delivery bicycle" speed="5.56" length="7.23" shape="83.42,369.79 83.51,369.53"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="service"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lanes" value="1"/>
+        <param key="lit" value="yes"/>
+        <param key="name" value="Am Graben"/>
+        <param key="oneway" value="yes"/>
+        <param key="sidewalk:left" value="no"/>
+        <param key="sidewalk:right" value="separate"/>
+        <param key="smoothness" value="bad"/>
+        <param key="surface" value="sett"/>
+    </edge>
+    <edge id="4935083#0" from="32493629" to="9359995244" priority="3" type="highway.residential" shape="34.93,345.83 41.00,348.15 58.09,354.69 80.04,363.13">
+        <lane id="4935083#0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="48.31" width="3.50" shape="35.55,344.20 41.63,346.52 58.72,353.06 78.20,360.55"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="residential"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed:type" value="DE:urban"/>
+        <param key="name" value="Schmöckwitzer Straße"/>
+        <param key="sidewalk:both" value="separate"/>
+        <param key="smoothness" value="intermediate"/>
+        <param key="source:width" value="ARCore"/>
+        <param key="surface" value="sett"/>
+        <param key="width" value="7"/>
+    </edge>
+    <edge id="4935083#1" from="9359995244" to="32493628" priority="3" type="highway.residential">
+        <lane id="4935083#1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="5.49" width="3.50" shape="82.92,362.36 83.13,362.44"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="residential"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed:type" value="DE:urban"/>
+        <param key="name" value="Schmöckwitzer Straße"/>
+        <param key="sidewalk:both" value="separate"/>
+        <param key="smoothness" value="intermediate"/>
+        <param key="source:width" value="ARCore"/>
+        <param key="surface" value="sett"/>
+        <param key="width" value="7"/>
+    </edge>
+    <edge id="4935083#2" from="32493628" to="cluster_32493627_9174725140_9174725155" priority="3" type="highway.residential" shape="85.16,365.10 98.36,370.04">
+        <lane id="4935083#2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="14.04" width="3.50" shape="88.73,364.57 95.78,367.21"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="residential"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed:type" value="DE:urban"/>
+        <param key="name" value="Schmöckwitzer Straße"/>
+        <param key="sidewalk:both" value="separate"/>
+        <param key="smoothness" value="intermediate"/>
+        <param key="source:width" value="ARCore"/>
+        <param key="surface" value="sett"/>
+        <param key="width" value="7"/>
+    </edge>
+    <edge id="4935083#3" from="cluster_32493627_9174725140_9174725155" to="9359995229" priority="3" type="highway.residential" shape="98.36,370.04 103.98,372.15">
+        <lane id="4935083#3_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="6.06" width="3.50" shape="101.93,369.51 102.23,369.63"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="residential"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed:type" value="DE:urban"/>
+        <param key="name" value="Schmöckwitzer Straße"/>
+        <param key="sidewalk:both" value="separate"/>
+        <param key="smoothness" value="intermediate"/>
+        <param key="source:width" value="ARCore"/>
+        <param key="surface" value="sett"/>
+        <param key="width" value="7"/>
+    </edge>
+    <edge id="4935083#4" from="9359995229" to="9359808851" priority="3" type="highway.residential" shape="103.98,372.15 126.96,380.72 130.77,382.13 147.73,388.40 149.27,388.97 166.39,395.29 168.52,396.07 187.06,402.92 192.69,404.99 217.66,414.22 224.25,416.63 231.61,419.34 252.08,426.82 275.70,435.46 279.10,436.70 296.41,443.04 311.60,448.59 314.41,449.61 326.51,454.04 331.88,456.00 356.34,464.95">
+        <lane id="4935083#4_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="268.88" width="3.50" shape="106.94,371.39 127.57,379.08 131.38,380.49 148.34,386.76 149.88,387.33 167.00,393.65 169.13,394.43 187.67,401.28 193.30,403.35 218.27,412.58 224.85,414.99 232.21,417.70 252.68,425.18 276.30,433.82 279.70,435.06 297.01,441.40 312.20,446.95 315.01,447.97 327.11,452.40 332.48,454.36 356.94,463.31"/>
+        <param key="cycleway:both" value="no"/>
+        <param key="foot" value="use_sidepath"/>
+        <param key="highway" value="residential"/>
+        <param key="lane_markings" value="no"/>
+        <param key="lit" value="yes"/>
+        <param key="maxspeed:type" value="DE:urban"/>
+        <param key="name" value="Schmöckwitzer Straße"/>
+        <param key="sidewalk:both" value="separate"/>
+        <param key="smoothness" value="intermediate"/>
+        <param key="source:width" value="ARCore"/>
+        <param key="surface" value="sett"/>
+        <param key="width" value="7"/>
+    </edge>
+    <edge id="993073878#0" from="9359990505" to="9174725136" priority="1" type="highway.footway" spreadType="center" shape="218.25,421.59 215.31,420.47 190.33,411.30 164.21,401.71 145.41,394.81 128.46,388.59 124.61,387.18 101.55,378.72">
+        <lane id="993073878#0_0" index="0" allow="pedestrian" speed="2.78" length="124.33" width="2.00" shape="218.25,421.59 215.31,420.47 190.33,411.30 164.21,401.71 145.41,394.81 128.46,388.59 124.61,387.18 103.90,379.58"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="residential"/>
+        <param key="is_sidepath:of:name" value="Schmöckwitzer Straße"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="paving_stones"/>
+    </edge>
+    <edge id="993073878#1" from="9174725136" to="cluster_32493627_9174725140_9174725155" priority="1" type="highway.footway" spreadType="center" shape="101.55,378.72 95.68,376.63">
+        <lane id="993073878#1_0" index="0" allow="pedestrian" speed="2.78" length="10.55" width="2.00" shape="99.16,377.87 98.86,377.76"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="residential"/>
+        <param key="is_sidepath:of:name" value="Schmöckwitzer Straße"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="paving_stones"/>
+    </edge>
+    <edge id="993073878#2" from="cluster_32493627_9174725140_9174725155" to="9174725139" priority="1" type="highway.footway" spreadType="center" shape="95.68,376.63 82.64,371.88">
+        <lane id="993073878#2_0" index="0" allow="pedestrian" speed="2.78" length="18.53" width="2.00" shape="92.74,375.56 85.56,372.94"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="residential"/>
+        <param key="is_sidepath:of:name" value="Schmöckwitzer Straße"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="paving_stones"/>
+    </edge>
+    <edge id="993073878#3" from="9174725139" to="9174725137" priority="1" type="highway.footway" spreadType="center">
+        <lane id="993073878#3_0" index="0" allow="pedestrian" speed="2.78" length="5.87" width="2.00" shape="79.70,370.81 79.53,370.75"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="residential"/>
+        <param key="is_sidepath:of:name" value="Schmöckwitzer Straße"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="paving_stones"/>
+    </edge>
+    <edge id="993073878#4" from="9174725137" to="9174725138" priority="1" type="highway.footway" spreadType="center">
+        <lane id="993073878#4_0" index="0" allow="pedestrian" speed="2.78" length="41.58" width="2.00" shape="74.76,369.00 38.13,355.46"/>
+        <param key="footway" value="sidewalk"/>
+        <param key="highway" value="footway"/>
+        <param key="is_sidepath" value="yes"/>
+        <param key="is_sidepath:of" value="residential"/>
+        <param key="is_sidepath:of:name" value="Schmöckwitzer Straße"/>
+        <param key="lit" value="yes"/>
+        <param key="surface" value="paving_stones"/>
+    </edge>
+
+    <junction id="262862175" type="priority" x="203.10" y="0.00" incLanes="1014536730#1_0" intLanes="" shape="203.10,0.00 201.60,-0.55 203.10,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="32493628" type="priority" x="85.16" y="365.10" incLanes="-4935083#2_0 -1014536730#0_0 4935083#1_0 37294410#1_0" intLanes="" shape="86.89,369.48 89.34,362.93 88.62,362.48 88.43,362.19 88.34,361.84 88.36,361.45 88.49,361.01 85.51,359.84 85.04,360.57 84.74,360.78 84.39,360.87 83.99,360.85 83.55,360.73 81.03,367.26 81.76,367.72 81.96,368.03 82.05,368.38 82.04,368.78 81.92,369.23 84.92,370.35 85.37,369.63 85.67,369.43 86.03,369.34 86.43,369.36">
+        <request index="0" response="0000000000" foes="1110001000"/>
+        <request index="1" response="0001100000" foes="1101111000"/>
+        <request index="2" response="0001000000" foes="1001000000"/>
+        <request index="3" response="0111000011" foes="0111000011"/>
+        <request index="4" response="0100100010" foes="0100100010"/>
+        <request index="5" response="0000000000" foes="0100010010"/>
+        <request index="6" response="0000000000" foes="1100001110"/>
+        <request index="7" response="0000000001" foes="0000001001"/>
+        <request index="8" response="0001100011" foes="0001111011"/>
+        <request index="9" response="0001000111" foes="0001000111"/>
+    </junction>
+    <junction id="32493629" type="priority" x="34.93" y="345.83" incLanes="-4935083#0_0" intLanes="" shape="34.93,345.83 33.68,349.10 34.93,345.83">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="429920296" type="dead_end" x="19.38" y="567.21" incLanes="37294394#1_0" intLanes="" shape="20.87,567.80 17.89,566.62"/>
+    <junction id="429920367" type="dead_end" x="7.08" y="562.60" incLanes="" intLanes="" shape="8.57,563.19 5.59,562.01"/>
+    <junction id="9174725136" type="dead_end" x="101.55" y="378.72" incLanes="993073878#0_0 1014536728#0_0" intLanes="" shape="103.56,380.52 104.24,378.64 103.52,378.20 103.32,377.90 103.22,377.56 103.24,377.16 103.36,376.72 101.48,376.03 101.03,376.76 100.72,376.96 100.36,377.06 99.95,377.05 99.49,376.93 98.82,378.81 99.55,379.24 99.74,379.54 99.83,379.88 99.81,380.27 99.68,380.71 101.54,381.45 102.02,380.70 102.33,380.49 102.69,380.39 103.10,380.40"/>
+    <junction id="9174725137" type="dead_end" x="77.13" y="369.87" incLanes="993073878#3_0 1014536733#0_0" intLanes="" shape="79.19,371.69 79.88,369.81 79.16,369.37 78.97,369.08 78.89,368.74 78.92,368.35 79.06,367.92 77.23,367.12 76.71,367.89 76.38,368.10 76.00,368.20 75.58,368.18 75.11,368.06 74.42,369.93 75.14,370.38 75.33,370.67 75.42,371.01 75.40,371.41 75.27,371.85 77.13,372.59 77.61,371.84 77.93,371.64 78.30,371.54 78.72,371.56"/>
+    <junction id="9174725138" type="dead_end" x="38.13" y="355.46" incLanes="993073878#4_0" intLanes="" shape="37.78,356.40 38.48,354.52"/>
+    <junction id="9174725139" type="priority" x="82.64" y="371.88" incLanes="993073878#2_0 37294410#0_0" intLanes="" shape="85.22,373.88 85.90,372.00 85.18,371.56 84.97,371.27 84.88,370.92 84.89,370.53 85.01,370.08 82.01,368.97 81.56,369.70 81.26,369.91 80.90,370.00 80.50,369.99 80.04,369.87 79.36,371.75 80.08,372.19 80.28,372.48 80.37,372.82 80.34,373.22 80.22,373.66 83.19,374.83 83.68,374.07 83.99,373.86 84.35,373.76 84.76,373.76">
+        <request index="0" response="0" foes="0"/>
+        <param key="crossing" value="unmarked"/>
+        <param key="highway" value="crossing"/>
+        <param key="tactile_paving" value="no"/>
+    </junction>
+    <junction id="9174725144" type="dead_end" x="82.94" y="356.39" incLanes="1014536711#0_0 1014536733#2_0" intLanes="" shape="84.85,358.28 85.63,356.44 84.92,355.96 84.72,355.65 84.64,355.30 84.66,354.90 84.80,354.46 82.94,353.71 82.47,354.42 82.16,354.61 81.80,354.70 81.39,354.68 80.93,354.54 80.21,356.41 80.92,356.86 81.11,357.16 81.19,357.50 81.16,357.89 81.02,358.33 82.86,359.12 83.35,358.39 83.66,358.20 84.01,358.11 84.41,358.14"/>
+    <junction id="9174725147" type="dead_end" x="106.37" y="365.66" incLanes="1014536711#3_0 1014536728#2_0" intLanes="" shape="108.38,367.45 109.06,365.57 104.38,363.85 103.68,365.73 104.40,366.17 104.61,366.47 104.70,366.82 104.69,367.21 104.57,367.66 106.45,368.35 106.89,367.62 107.19,367.42 107.53,367.32 107.93,367.33"/>
+    <junction id="9174725154" type="priority" x="87.78" y="358.43" incLanes="-226082973_0 1014536711#1_0 1014536730#0_0" intLanes="" shape="90.35,360.48 91.06,358.61 90.38,358.15 90.18,357.85 90.08,357.50 90.10,357.12 90.23,356.69 87.27,355.47 86.79,356.19 86.49,356.38 86.14,356.47 85.74,356.44 85.31,356.30 84.53,358.14 85.25,358.63 85.45,358.94 85.54,359.30 85.51,359.71 85.38,360.16 88.36,361.33 88.84,360.59 89.15,360.40 89.51,360.32 89.92,360.35">
+        <request index="0" response="0000" foes="1000"/>
+        <request index="1" response="0100" foes="0100"/>
+        <request index="2" response="0000" foes="0010"/>
+        <request index="3" response="0001" foes="0001"/>
+        <param key="crossing" value="unmarked"/>
+        <param key="highway" value="crossing"/>
+        <param key="tactile_paving" value="no"/>
+    </junction>
+    <junction id="9174725166" type="dead_end" x="43.71" y="341.26" incLanes="" intLanes="" shape="43.35,342.19 44.07,340.33"/>
+    <junction id="9359808851" type="priority" x="356.34" y="464.95" incLanes="4935083#4_0" intLanes="" shape="356.34,464.95 357.54,461.66 356.34,464.95">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="9359990505" type="dead_end" x="218.25" y="421.59" incLanes="" intLanes="" shape="218.61,420.66 217.89,422.52"/>
+    <junction id="9359990508" type="dead_end" x="223.69" y="408.02" incLanes="1014536711#4_0" intLanes="" shape="224.03,407.08 223.35,408.96"/>
+    <junction id="9359995229" type="priority" x="103.98" y="372.15" incLanes="-4935083#4_0 4935083#3_0 1014536728#1_0" intLanes="" shape="105.11,376.31 107.55,369.75 106.82,369.29 106.61,368.99 106.52,368.64 106.53,368.25 106.65,367.80 104.77,367.11 104.33,367.83 104.03,368.03 103.69,368.12 103.29,368.11 102.85,367.99 100.39,374.54 101.13,375.00 101.34,375.30 101.44,375.65 101.43,376.05 101.31,376.50 103.18,377.19 103.63,376.47 103.92,376.26 104.27,376.17 104.66,376.19">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+        <param key="crossing" value="unmarked"/>
+        <param key="crossing:island" value="no"/>
+        <param key="highway" value="crossing"/>
+        <param key="tactile_paving" value="no"/>
+    </junction>
+    <junction id="9359995232" type="dead_end" x="23.56" y="573.83" incLanes="" intLanes="" shape="24.48,574.21 22.64,573.45"/>
+    <junction id="9359995243" type="dead_end" x="131.80" y="234.79" incLanes="1014536733#3_0" intLanes="" shape="130.87,234.42 132.73,235.16"/>
+    <junction id="9359995244" type="priority" x="80.04" y="363.13" incLanes="-4935083#1_0 4935083#0_0 1014536733#1_0" intLanes="" shape="81.24,367.34 83.76,360.81 83.05,360.36 82.86,360.06 82.78,359.72 82.81,359.33 82.95,358.89 81.11,358.10 80.58,358.84 80.23,359.03 79.82,359.11 79.35,359.07 78.83,358.91 76.32,365.45 77.03,365.90 77.22,366.20 77.30,366.54 77.27,366.93 77.12,367.36 78.96,368.16 79.49,367.42 79.84,367.23 80.25,367.15 80.72,367.19">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+        <param key="crossing" value="unmarked"/>
+        <param key="crossing:island" value="no"/>
+        <param key="highway" value="crossing"/>
+        <param key="tactile_paving" value="no"/>
+    </junction>
+    <junction id="9367452564" type="priority" x="213.65" y="13.98" incLanes="1014536729#1_0" intLanes="" shape="213.65,13.98 212.11,13.56 213.65,13.98">
+        <request index="0" response="0" foes="0"/>
+        <param key="direction" value="forward"/>
+        <param key="highway" value="give_way"/>
+    </junction>
+    <junction id="9367477176" type="dead_end" x="0.00" y="564.24" incLanes="" intLanes="" shape="0.93,564.61 -0.93,563.87"/>
+    <junction id="cluster_32493627_9174725140_9174725155" type="priority" x="98.28" y="370.09" incLanes="-4935083#3_0 -226082972_0 1014536711#2_0 4935083#2_0 993073878#1_0" intLanes="" shape="98.51,378.70 104.07,363.74 103.35,363.29 103.16,362.98 103.07,362.63 103.10,362.22 103.21,361.82 100.23,360.65 99.73,361.37 99.37,361.58 98.96,361.66 98.48,361.62 97.89,361.42 92.39,376.50 93.12,376.94 93.31,377.23 93.40,377.57 93.38,377.96 93.25,378.40 96.22,379.59 96.74,378.83 97.09,378.62 97.50,378.53 97.98,378.56">
+        <request index="0" response="0000000000" foes="1000010000"/>
+        <request index="1" response="0000000000" foes="1000110000"/>
+        <request index="2" response="0110000000" foes="0111110000"/>
+        <request index="3" response="0100000000" foes="0100000000"/>
+        <request index="4" response="1100000111" foes="1100000111"/>
+        <request index="5" response="1100000110" foes="1100000110"/>
+        <request index="6" response="0010000100" foes="0010000100"/>
+        <request index="7" response="0000000000" foes="0001000100"/>
+        <request index="8" response="0000000000" foes="0000111100"/>
+        <request index="9" response="0000000011" foes="0000110011"/>
+    </junction>
+
+    <connection from="-1014536730#0" to="4935083#2" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="-1014536730#0" to="-4935083#1" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="-1014536730#0" to="1014536730#0" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="-226082972" to="4935083#3" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="-226082972" to="37294394#1" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="-226082972" to="-4935083#2" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="-226082972" to="1014536729#1" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="-226082973" to="-1014536730#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-226082973" to="1014536730#1" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="-4935083#0" to="4935083#0" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="-4935083#1" to="-4935083#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-4935083#2" to="-4935083#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-4935083#2" to="1014536730#0" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="-4935083#3" to="37294394#1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="-4935083#3" to="-4935083#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-4935083#3" to="1014536729#1" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="-4935083#4" to="-4935083#3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1014536729#1" to="-226082972" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="1014536730#0" to="1014536730#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1014536730#0" to="-1014536730#0" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="1014536730#1" to="-226082973" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="37294410#0" to="37294410#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="37294410#1" to="-4935083#1" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="37294410#1" to="1014536730#0" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="37294410#1" to="4935083#2" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="4935083#0" to="4935083#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="4935083#1" to="1014536730#0" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="4935083#1" to="4935083#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="4935083#2" to="1014536729#1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="4935083#2" to="4935083#3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="4935083#2" to="37294394#1" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="4935083#3" to="4935083#4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="4935083#4" to="-4935083#4" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>

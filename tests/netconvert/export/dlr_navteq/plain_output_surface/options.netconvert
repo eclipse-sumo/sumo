@@ -1,0 +1,3 @@
+--dlr-navteq.plain -p plain -s input_net.net.xml
+--proj.plain-geo
+--output.street-names

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-09-28T14:00:09.703303+01:00 by Eclipse SUMO netconvert v1_27_1+0791-85591e12186
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <plain-output-prefix value="plain"/>
+        <dlr-navteq.plain value="true"/>
+    </output>
+
+    <projection>
+        <proj.plain-geo value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <node id="262862175" x="13.619955" y="52.367297" type="priority"/>
+    <node id="32493628" x="13.618120" y="52.370558" type="priority"/>
+    <node id="32493629" x="13.617388" y="52.370376" type="priority"/>
+    <node id="429920296" x="13.617098" y="52.372363" type="dead_end"/>
+    <node id="429920367" x="13.616918" y="52.372320" type="dead_end"/>
+    <node id="9174725136" x="13.618357" y="52.370683" type="dead_end"/>
+    <node id="9174725137" x="13.618001" y="52.370600" type="dead_end"/>
+    <node id="9174725138" x="13.617433" y="52.370463" type="dead_end"/>
+    <node id="9174725139" x="13.618082" y="52.370619" type="priority">
+        <param key="crossing" value="unmarked"/>
+        <param key="highway" value="crossing"/>
+        <param key="tactile_paving" value="no"/>
+    </node>
+    <node id="9174725144" x="13.618090" y="52.370479" type="dead_end"/>
+    <node id="9174725147" x="13.618432" y="52.370567" type="dead_end"/>
+    <node id="9174725154" x="13.618161" y="52.370499" type="priority">
+        <param key="crossing" value="unmarked"/>
+        <param key="highway" value="crossing"/>
+        <param key="tactile_paving" value="no"/>
+    </node>
+    <node id="9174725166" x="13.617518" y="52.370337" type="dead_end"/>
+    <node id="9359808851" x="13.622074" y="52.371502" type="priority"/>
+    <node id="9359990505" x="13.620059" y="52.371089" type="dead_end"/>
+    <node id="9359990508" x="13.620143" y="52.370968" type="dead_end"/>
+    <node id="9359995229" x="13.618395" y="52.370625" type="priority">
+        <param key="crossing" value="unmarked"/>
+        <param key="crossing:island" value="no"/>
+        <param key="highway" value="crossing"/>
+        <param key="tactile_paving" value="no"/>
+    </node>
+    <node id="9359995232" x="13.617157" y="52.372423" type="dead_end"/>
+    <node id="9359995243" x="13.618842" y="52.369395" type="dead_end"/>
+    <node id="9359995244" x="13.618046" y="52.370539" type="priority">
+        <param key="crossing" value="unmarked"/>
+        <param key="crossing:island" value="no"/>
+        <param key="highway" value="crossing"/>
+        <param key="tactile_paving" value="no"/>
+    </node>
+    <node id="9367452564" x="13.620106" y="52.367424" type="priority">
+        <param key="direction" value="forward"/>
+        <param key="highway" value="give_way"/>
+    </node>
+    <node id="9367477176" x="13.616814" y="52.372333" type="dead_end"/>
+    <node id="cluster_32493627_9174725140_9174725155" x="13.618312" y="52.370605" type="priority"/>
+</nodes>
