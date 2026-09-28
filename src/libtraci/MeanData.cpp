@@ -48,6 +48,18 @@ LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(MeanData, MEANDATA)
 LIBTRACI_PARAMETER_IMPLEMENTATION(MeanData, MEANDATA)
 
 
+double
+MeanData::getAttributeValue(const std::string& meanDataID, const std::string& laneID, const std::string& attr) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedString(content, laneID);
+    StoHelp::writeTypedString(content, attr);
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
+    return Dom::getDouble(libsumo::VAR_MEANDATA_LANE, meanDataID, &content);
+}
+
+
+
 }
 
 

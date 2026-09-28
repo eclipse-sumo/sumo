@@ -801,6 +801,9 @@ TRACI_CONST int VAR_LAST_INTERVAL_TIMELOSS = 0x35;
 // last interval vehicle count(set, get: e1, e2)
 TRACI_CONST int VAR_VIRTUAL_DETECTION = 0x22;
 
+// generic lane attribute access (get: meandata)
+TRACI_CONST int VAR_MEANDATA_LANE = 0x16;
+
 // last step person list (get: edges, vehicles)
 TRACI_CONST int LAST_STEP_PERSON_ID_LIST = 0x1a;
 

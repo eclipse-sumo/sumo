@@ -24,6 +24,7 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSMeanData.h>
 #include <libsumo/TraCIConstants.h>
+#include "StorageHelper.h"
 #include "Helper.h"
 #include "MeanData.h"
 
@@ -52,6 +53,21 @@ MeanData::getIDList() {
 int
 MeanData::getIDCount() {
     return (int)getIDList().size();
+}
+
+
+double
+MeanData::getAttributeValue(const std::string& meanDataID, const std::string& laneID, const std::string& attr) {
+    if (!SUMOXMLDefinitions::Attrs.hasString(attr)) {
+        throw TraCIException("Unknown Meandata attribute '" + attr + "'.");
+    }
+    MSLane* const lane = MSLane::dictionary(laneID);
+    if (lane == nullptr) {
+        throw TraCIException("Lane '" + laneID + "' is not known");
+    }
+    MSMeanData* md = getMeanData(meanDataID);
+    SumoXMLAttr a = (SumoXMLAttr)SUMOXMLDefinitions::Attrs.get(attr);
+    return md->getAttributeValue(lane, a, INVALID_DOUBLE_VALUE);
 }
 
 
@@ -105,6 +121,12 @@ MeanData::handleVariable(const std::string& objID, const int variable, VariableW
         case libsumo::VAR_PARAMETER_WITH_KEY:
             paramData->readUnsignedByte();
             return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
+        case libsumo::VAR_MEANDATA_LANE: {
+            StoHelp::readCompound(*paramData);
+            const std::string laneID = StoHelp::readTypedString(*paramData);
+            const std::string attr = StoHelp::readTypedString(*paramData);
+            return wrapper->wrapDouble(objID, variable, getAttributeValue(objID, laneID, attr));
+        }
         default:
             return false;
     }

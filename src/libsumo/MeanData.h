@@ -40,7 +40,7 @@ class MSMeanData;
 namespace LIBSUMO_NAMESPACE {
 class MeanData {
 public:
-    //static double getFrequency(const std::string& meanDataID);
+    static double getAttributeValue(const std::string& meanDataID, const std::string& laneID, const std::string& attr);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
