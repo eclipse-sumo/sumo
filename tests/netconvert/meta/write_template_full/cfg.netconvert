@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-07-07T13:52:17.734950+01:00 by Eclipse SUMO netconvert v1_27_1+0194-8d0b2b6a43c
+<!-- generated on 2026-09-28T13:19:23.633437+01:00 by Eclipse SUMO netconvert v1_27_1+0788-b04dbbe6fbc
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -62,6 +62,7 @@
         <dlr-navteq-output value="" type="FILE" help="The generated net will be written to dlr-navteq files with the given PREFIX"/>
         <dlr-navteq.version value="6.5" type="STR" help="The dlr-navteq output format version to write"/>
         <dlr-navteq.precision value="2" type="INT" help="The network coordinates are written with the specified level of output precision"/>
+        <dlr-navteq.plain value="false" type="BOOL" help="Write extra attributes into plain output"/>
         <output.street-names value="false" type="BOOL" help="Street names will be included in the output (if available)"/>
         <output.original-names value="false" type="BOOL" help="Writes original names, if given, as parameter"/>
         <output.removed-nodes value="false" type="BOOL" help="Writes IDs of nodes remove with --geometry.remove into edge param"/>
