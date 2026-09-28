@@ -595,6 +595,7 @@ NWWriter_DlrNavteq::writeEdgeAttrs(OutputDevice& device, const NBEdge* edge) {
     device.writeAttr("isRamp", edge->isOffRamp());
     device.writeAttr("brunnelType", getBrunnelType(edge));
     device.writeAttr("postalCode", getSinglePostalCode(edge->getParameter("postal_code", UNDEFINED), edge->getID()));
+    device.writeAttr("surface", edge->getParameter("surface", UNDEFINED));
 }
 
 
