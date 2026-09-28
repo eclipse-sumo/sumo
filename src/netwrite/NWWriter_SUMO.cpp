@@ -40,6 +40,7 @@
 #include <netbuild/NBDistrict.h>
 #include <netbuild/NBHelpers.h>
 #include "NWFrame.h"
+#include "NWWriter_DlrNavteq.h"
 #include "NWWriter_SUMO.h"
 
 
@@ -811,6 +812,9 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
             into.writeAttr(SUMO_ATTR_VISIBILITY_DISTANCE, c.visibility);
         }
     }
+    if (style == PLAIN_NAVTEQ) {
+        NWWriter_DlrNavteq::writeConnectionAttrs(into, c);
+    }
     c.writeParams(into);
     into.closeTag();
 }
@@ -1003,12 +1007,12 @@ NWWriter_SUMO::prohibitionConnection(const NBConnection& c) {
 
 
 void
-NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicCont& tllCont) {
+NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicCont& tllCont, ConnectionStyle style) {
     std::vector<NBTrafficLightLogic*> logics = tllCont.getComputed();
     for (NBTrafficLightLogic* logic : logics) {
-        writeTrafficLight(into, logic);
-        // only raise warnings on write instead of on compute (to avoid cluttering netedit)
         NBTrafficLightDefinition* def = tllCont.getDefinition(logic->getID(), logic->getProgramID());
+        writeTrafficLight(into, logic, def, style);
+        // only raise warnings on write instead of on compute (to avoid cluttering netedit)
         assert(def != nullptr);
         def->finalChecks();
     }
@@ -1019,12 +1023,22 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
 
 
 void
-NWWriter_SUMO::writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* logic) {
+NWWriter_SUMO::writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* logic, const NBTrafficLightDefinition* def, ConnectionStyle style) {
     into.openTag(SUMO_TAG_TLLOGIC);
     into.writeAttr(SUMO_ATTR_ID, logic->getID());
     into.writeAttr(SUMO_ATTR_TYPE, logic->getType());
     into.writeAttr(SUMO_ATTR_PROGRAMID, logic->getProgramID());
     into.writeAttr(SUMO_ATTR_OFFSET, logic->getOffset() == SUMOTime_MAX ? "begin" : writeSUMOTime(logic->getOffset()));
+    if (style == PLAIN_NAVTEQ) {
+        into.writeAttr(SUMO_ATTR_NODES, toString(def->getNodes()));
+        PositionVector nodePos;
+        for (const NBNode* n : def->getNodes()) {
+            Position pos = n->getPosition();
+            GeoConvHelper::getFinal().cartesian2geo(pos);
+            nodePos.push_back(pos);
+        }
+        into.writeAttr(SUMO_ATTR_POSITION, nodePos);
+    }
     // write the phases
     const bool varPhaseLength = logic->getType() != TrafficLightType::STATIC;
     for (const NBTrafficLightLogic::PhaseDefinition& phase : logic->getPhases()) {

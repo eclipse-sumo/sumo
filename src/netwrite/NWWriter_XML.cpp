@@ -38,6 +38,7 @@
 #include <netbuild/NBParking.h>
 #include "NWFrame.h"
 #include "NWWriter_SUMO.h"
+#include "NWWriter_DlrNavteq.h"
 #include "NWWriter_XML.h"
 
 
@@ -200,6 +201,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     bool useGeo = oc.exists("proj.plain-geo") && oc.getBool("proj.plain-geo");
     const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();
+    const bool dlrNavteq = oc.exists("dlr-navteq.plain") && oc.getBool("dlr-navteq.plain");
 
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
@@ -246,6 +248,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
         }
         edevice.writeOptionalAttr(SUMO_ATTR_DISTANCE, e->getDistance(), e->getDistance() == 0);
         edevice.writeOptionalAttr(SUMO_ATTR_BIDI, e->getBidiEdge() == nullptr ? "" : e->getBidiEdge()->getID(), e->getBidiEdge() == nullptr);
+        if (dlrNavteq) {
+            NWWriter_DlrNavteq::writeEdgeAttrs(edevice, e);
+        }
         if (e->needsLaneSpecificOutput() || writeLanes) {
             int idx = 0;
             for (const NBEdge::Lane& lane : e->getLanes()) {
@@ -295,7 +300,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
             }
         } else {
             for (NBEdge::Connection c : connections) {
-                NWWriter_SUMO::writeConnection(cdevice, *e, c, false, NWWriter_SUMO::PLAIN, useGeo, geoAccuracy);
+                NWWriter_SUMO::writeConnection(cdevice, *e, c, false, dlrNavteq ? NWWriter_SUMO::PLAIN_NAVTEQ : NWWriter_SUMO::PLAIN, useGeo, geoAccuracy);
             }
             cdevice.lf();
         }
@@ -351,7 +356,9 @@ NWWriter_XML::writeTrafficLights(const std::string& prefix, NBTrafficLightLogicC
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
     OutputDevice& device = OutputDevice::getDevice(prefix + ".tll." + ext);
     device.writeXMLHeader("tlLogics", "tllogic_file.xsd", attrs);
-    NWWriter_SUMO::writeTrafficLights(device, tc);
+    const OptionsCont& oc = OptionsCont::getOptions();
+    const bool dlrNavteq = oc.exists("dlr-navteq.plain") && oc.getBool("dlr-navteq.plain");
+    NWWriter_SUMO::writeTrafficLights(device, tc, dlrNavteq ? NWWriter_SUMO::PLAIN_NAVTEQ : NWWriter_SUMO::PLAIN);
     // we also need to remember the associations between tlLogics and connections
     // since the information in con.xml is insufficient
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {

@@ -99,6 +99,9 @@ NWFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.doRegister("dlr-navteq.precision", new Option_Integer(2));
     oc.addDescription("dlr-navteq.precision", "Output", TL("The network coordinates are written with the specified level of output precision"));
 
+    oc.doRegister("dlr-navteq.plain", new Option_Bool(false));
+    oc.addDescription("dlr-navteq.plain", "Output", TL("Write extra attributes into plain output"));
+
     oc.doRegister("output.street-names", new Option_Bool(false));
     oc.addDescription("output.street-names", "Output", TL("Street names will be included in the output (if available)"));
 

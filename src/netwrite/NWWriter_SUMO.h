@@ -58,6 +58,7 @@ public:
     enum ConnectionStyle {
         SUMONET, // all connection information
         PLAIN,   // only edges and link indices
+        PLAIN_NAVTEQ, // like plain but with some extra attributes
         TLL      // like plain but include tl information
     };
 
@@ -83,10 +84,10 @@ public:
     static void writeProhibitions(OutputDevice& into, const NBConnectionProhibits& prohibitions, const NBEdgeCont& ec);
 
     /// @brief writes the traffic light logics to the given device
-    static void writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicCont& tllCont);
+    static void writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicCont& tllCont, ConnectionStyle style = SUMONET);
 
     /// @brief writes a single traffic light logic to the given device
-    static void writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* logic);
+    static void writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* logic, const NBTrafficLightDefinition* def, ConnectionStyle style = SUMONET);
 
     /** @brief Writes roundabouts
      * @param[in] into The device to write the edge into

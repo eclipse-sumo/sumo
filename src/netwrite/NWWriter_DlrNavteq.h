@@ -66,6 +66,10 @@ public:
     /// @brief get the form of way
     static int getFormOfWay(const NBEdge* const edge);
 
+    /// @brief extra attributes into plain output
+    static void writeEdgeAttrs(OutputDevice& device, const NBEdge* edge);
+    static void writeConnectionAttrs(OutputDevice& device, const NBEdge::Connection& c);
+
 private:
     /** @brief Writes the nodes_unsplitted file
      * @param[in] oc The options to use
@@ -128,4 +132,7 @@ private:
     static inline int speedInKph(double metersPerSecond) {
         return (int)std::floor(metersPerSecond * 3.6 + 0.5);
     }
+
+    /// @brief get the maximum width of all lanes
+    static double getMaxLaneWidth(const NBEdge* const edge);
 };

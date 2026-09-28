@@ -3002,7 +3002,7 @@ GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
         OutputDevice& device = OutputDevice::getDevice(file.text());
         // save program
         device.writeXMLHeader("additional", "additional_file.xsd");
-        NWWriter_SUMO::writeTrafficLight(device, myTLSEditorParent->myEditedDef->getLogic());
+        NWWriter_SUMO::writeTrafficLight(device, myTLSEditorParent->myEditedDef->getLogic(), myTLSEditorParent->myEditedDef);
         device.close();
     }
     myTLSEditorParent->updateModules();

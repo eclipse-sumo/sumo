@@ -573,5 +573,35 @@ NWWriter_DlrNavteq::writeConnectedLanes(const OptionsCont& oc, NBNodeCont& nc) {
     device.close();
 }
 
+double
+NWWriter_DlrNavteq::getMaxLaneWidth(const NBEdge* const edge) {
+    double result = 0;
+    for (int i = 0; i < edge->getNumLanes(); i++) {
+        result = MAX2(result, edge->getLaneWidth(i));
+    }
+    return result;
+}
+
+
+void
+NWWriter_DlrNavteq::writeEdgeAttrs(OutputDevice& device, const NBEdge* edge) {
+    const int kph = speedInKph(edge->getSpeed());
+    device.writeAttr("speedCategory", getSpeedCategory(kph));
+    device.writeAttr("speedRestriction", getSpeedCategoryUpperBound(kph));
+    device.writeAttr("maxWidth", getMaxLaneWidth(edge));
+    device.writeAttr("FRC", getRoadClass(edge));
+    device.writeAttr("vehicleTypeCode", getAllowedTypes(edge->getPermissions()));
+    device.writeAttr("formOfWay", getFormOfWay(edge));
+    device.writeAttr("isRamp", edge->isOffRamp());
+    device.writeAttr("brunnelType", getBrunnelType(edge));
+    device.writeAttr("postalCode", getSinglePostalCode(edge->getParameter("postal_code", UNDEFINED), edge->getID()));
+}
+
+
+void
+NWWriter_DlrNavteq::writeConnectionAttrs(OutputDevice& device, const NBEdge::Connection& c) {
+    device.writeAttr(SUMO_ATTR_NODE, c.toEdge->getFromNode());
+    device.writeAttr("vehicleTypeCode", getAllowedTypes(c.permissions));
+}
 
 /****************************************************************************/
