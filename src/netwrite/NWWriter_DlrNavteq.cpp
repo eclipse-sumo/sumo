@@ -600,7 +600,7 @@ NWWriter_DlrNavteq::writeEdgeAttrs(OutputDevice& device, const NBEdge* edge) {
 
 void
 NWWriter_DlrNavteq::writeConnectionAttrs(OutputDevice& device, const NBEdge::Connection& c) {
-    device.writeAttr(SUMO_ATTR_NODE, c.toEdge->getFromNode());
+    device.writeAttr(SUMO_ATTR_NODE, c.toEdge->getFromNode()->getID());
     device.writeAttr("vehicleTypeCode", getAllowedTypes(c.permissions));
 }
 
