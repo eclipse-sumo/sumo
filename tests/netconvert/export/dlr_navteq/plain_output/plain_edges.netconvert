@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-09-28T13:26:48.500741+01:00 by Eclipse SUMO netconvert v1_27_1+0788-b04dbbe6fbc
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <plain-output-prefix value="plain"/>
+        <dlr-navteq.plain value="true"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <projection>
+        <proj.plain-geo value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-142575672#2" from="1652675093" to="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" name="Franz-Ehrlich-Straße" priority="5" type="highway.unclassified" numLanes="2" speed="13.89" shape="13.539199,52.434091 13.538917,52.434282" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="142575672"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="142575672"/>
+        </lane>
+    </edge>
+    <edge id="-142575695#0" from="5564696431" to="1652675093" name="Moriz-Seeler-Straße" priority="5" type="highway.unclassified" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="142575695"/>
+        </lane>
+    </edge>
+    <edge id="-142575695#1" from="4854982237" to="5564696431" name="Moriz-Seeler-Straße" priority="5" type="highway.unclassified" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="142575695"/>
+        </lane>
+    </edge>
+    <edge id="-142575695#2" from="38918520" to="4854982237" name="Moriz-Seeler-Straße" priority="5" type="highway.unclassified" numLanes="1" speed="13.89" shape="13.537629,52.433106 13.537733,52.433169 13.537834,52.433230 13.538818,52.433849" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="142575695"/>
+        </lane>
+    </edge>
+    <edge id="-318210373" from="1652675075" to="1652675093" name="Franz-Ehrlich-Straße" priority="5" type="highway.unclassified" numLanes="1" speed="13.89" shape="13.540968,52.432974 13.539736,52.433752 13.539686,52.433784 13.539440,52.433939 13.539199,52.434091" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="318210373"/>
+        </lane>
+    </edge>
+    <edge id="-318210394" from="837697455" to="3246050935" name="Wagner-Régeny-Straße" priority="6" type="highway.tertiary" numLanes="1" speed="13.89" shape="13.537624,52.435110 13.537693,52.435064 13.538009,52.434866" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="318210394"/>
+        </lane>
+    </edge>
+    <edge id="-52080655#2" from="3246050935" to="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" name="Wagner-Régeny-Straße" priority="6" type="highway.tertiary" numLanes="2" speed="13.89" shape="13.538009,52.434866 13.538422,52.434602 13.538461,52.434577 13.538582,52.434500" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="52080655"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="52080655"/>
+        </lane>
+    </edge>
+    <edge id="142575672#2" from="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" to="1652675093" name="Franz-Ehrlich-Straße" priority="5" type="highway.unclassified" numLanes="1" speed="13.89" shape="13.538917,52.434282 13.539199,52.434091" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="142575672"/>
+        </lane>
+    </edge>
+    <edge id="142575695#0" from="1652675093" to="5564696431" name="Moriz-Seeler-Straße" priority="5" type="highway.unclassified" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="142575695"/>
+        </lane>
+    </edge>
+    <edge id="142575695#1" from="5564696431" to="4854982237" name="Moriz-Seeler-Straße" priority="5" type="highway.unclassified" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="142575695"/>
+        </lane>
+    </edge>
+    <edge id="142575695#2" from="4854982237" to="38918520" name="Moriz-Seeler-Straße" priority="5" type="highway.unclassified" numLanes="1" speed="13.89" shape="13.538818,52.433849 13.537834,52.433230 13.537733,52.433169 13.537629,52.433106" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="142575695"/>
+        </lane>
+    </edge>
+    <edge id="143308549#0" from="36268429" to="4854982234" name="Rudower Chaussee" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="13.536430,52.432897 13.536539,52.432966 13.537030,52.433279 13.538356,52.434120" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="2" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="143308549"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="143308549"/>
+        </lane>
+    </edge>
+    <edge id="143308549#2" from="4854982234" to="3246050928" name="Rudower Chaussee" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="13.538356,52.434120 13.538585,52.434267 13.538630,52.434293" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="2" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="143308549"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="143308549"/>
+        </lane>
+    </edge>
+    <edge id="143308549#4" from="3246050928" to="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" name="Rudower Chaussee" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="13.538630,52.434293 13.538774,52.434378" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="2" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="143308549"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="143308549"/>
+        </lane>
+    </edge>
+    <edge id="158236381" from="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" to="1817224129" name="Rudower Chaussee" priority="15" type="highway.service|railway.tram" numLanes="2" speed="13.89" shape="13.538924,52.434494 13.539684,52.434791 13.540050,52.434934 13.540273,52.435021 13.540396,52.435071 13.540421,52.435082 13.540451,52.435092" spreadType="center" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="000000010011" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="158236381 220194458"/>
+        </lane>
+        <lane index="1" allow="delivery bicycle tram">
+            <param key="origId" value="158236381 220194458"/>
+        </lane>
+    </edge>
+    <edge id="179699938" from="1901247283" to="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="13.541960,52.435698 13.541579,52.435559 13.541185,52.435412 13.541083,52.435374 13.541024,52.435352 13.540448,52.435135 13.540401,52.435117 13.540363,52.435103 13.540018,52.434972 13.539644,52.434823 13.538878,52.434521 13.538741,52.434463 13.538678,52.434440" spreadType="center" allow="tram" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="000000000000" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="179699938 206889079 206889079"/>
+        </lane>
+    </edge>
+    <edge id="206889079#2" from="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" to="1704693568" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="13.538678,52.434440 13.538530,52.434365 13.538470,52.434338 13.538341,52.434273 13.538159,52.434165 13.536405,52.433044 13.536296,52.432975 13.536177,52.432901 13.535316,52.432363 13.535214,52.432295 13.535089,52.432218 13.534620,52.431911 13.533942,52.431478 13.533724,52.431339 13.533484,52.431187 13.533213,52.431030 13.532996,52.430927 13.532679,52.430809 13.532201,52.430620 13.531519,52.430363 13.531118,52.430201 13.530787,52.430044 13.530751,52.430026 13.530586,52.429944 13.530317,52.429813" spreadType="center" allow="tram" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="000000000000" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="206889079"/>
+        </lane>
+    </edge>
+    <edge id="220198808#0" from="1704693564" to="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="13.530349,52.429788 13.530604,52.429908 13.530672,52.429944 13.530783,52.430003 13.530832,52.430030 13.531145,52.430177 13.531543,52.430348 13.532511,52.430710 13.532720,52.430782 13.532933,52.430872 13.533102,52.430941 13.533227,52.431000 13.533415,52.431103 13.533576,52.431202 13.533961,52.431449 13.535052,52.432145 13.535126,52.432195 13.535252,52.432271 13.535360,52.432338 13.536219,52.432879 13.536336,52.432952 13.536445,52.433021 13.538189,52.434145 13.538358,52.434245 13.538498,52.434315 13.538555,52.434345 13.538710,52.434419" spreadType="center" allow="tram" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="000000000000" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="220198808"/>
+        </lane>
+    </edge>
+    <edge id="318210373" from="1652675093" to="1652675075" name="Franz-Ehrlich-Straße" priority="5" type="highway.unclassified" numLanes="1" speed="13.89" shape="13.539199,52.434091 13.539440,52.433939 13.539686,52.433784 13.539736,52.433752 13.540968,52.432974" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="318210373"/>
+        </lane>
+    </edge>
+    <edge id="318210389#0" from="3246050934" to="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" name="Rudower Chaussee" priority="7" type="highway.secondary" numLanes="3" speed="13.89" shape="13.539393,52.434813 13.539123,52.434710 13.538847,52.434603 13.538798,52.434584" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="2" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="318210389"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="318210389"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="318210389"/>
+        </lane>
+    </edge>
+    <edge id="318210394" from="3246050935" to="837697455" name="Wagner-Régeny-Straße" priority="6" type="highway.tertiary" numLanes="1" speed="13.89" shape="13.538009,52.434866 13.537693,52.435064 13.537624,52.435110" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="318210394"/>
+        </lane>
+    </edge>
+    <edge id="329733348" from="583899005" to="3246050928" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000001" formOfWay="15" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="329733348"/>
+        </lane>
+    </edge>
+    <edge id="493598966" from="4854982234" to="5543924043" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="13.538356,52.434120 13.538500,52.434036 13.538576,52.433991" spreadType="center" width="2.00" allow="pedestrian" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000001" formOfWay="15" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="493598966 493598968"/>
+        </lane>
+    </edge>
+    <edge id="493598967#1" from="5564696428" to="4854982237" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000001" formOfWay="15" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="493598967"/>
+        </lane>
+    </edge>
+    <edge id="493598968#1" from="5543924043" to="5564696428" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="13.538576,52.433991 13.538646,52.433950 13.538752,52.433888" spreadType="center" width="2.00" allow="pedestrian" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000001" formOfWay="15" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="493598968 493598967"/>
+        </lane>
+    </edge>
+    <edge id="52036180#1" from="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" to="279806670" name="Rudower Chaussee" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="13.538974,52.434456 13.539956,52.434836" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="2" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="52036180"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="52036180"/>
+        </lane>
+    </edge>
+    <edge id="52036180#2" from="279806670" to="1652675105" name="Rudower Chaussee" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="13.539956,52.434836 13.540018,52.434859 13.540098,52.434890 13.540250,52.434949 13.540444,52.435024 13.540881,52.435194 13.540888,52.435197 13.541120,52.435285 13.541267,52.435342" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="2" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="52036180"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="52036180"/>
+        </lane>
+    </edge>
+    <edge id="52080655#0" from="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" to="3246050935" name="Wagner-Régeny-Straße" priority="6" type="highway.tertiary" numLanes="1" speed="13.89" shape="13.538582,52.434500 13.538461,52.434577 13.538422,52.434602 13.538009,52.434866" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="3" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="52080655"/>
+        </lane>
+    </edge>
+    <edge id="541676219" from="1525212345" to="3246050934" name="Rudower Chaussee" priority="7" type="highway.secondary" numLanes="2" speed="13.89" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="2" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="541676219"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="541676219"/>
+        </lane>
+    </edge>
+    <edge id="578659336#0" from="5543923977" to="5564695005" priority="1" type="highway.path" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian bicycle" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000011" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="578659336"/>
+        </lane>
+    </edge>
+    <edge id="578659336#1" from="5564695005" to="5543923976" priority="1" type="highway.path" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian bicycle" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000011" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="578659336"/>
+        </lane>
+    </edge>
+    <edge id="578659338#1" from="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" to="5543923977" priority="1" type="highway.path" numLanes="1" speed="2.78" shape="13.539061,52.434308 13.539209,52.434334" spreadType="center" width="2.00" allow="pedestrian bicycle" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000011" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="578659338"/>
+        </lane>
+    </edge>
+    <edge id="578659338#2" from="5543923977" to="5564695002" priority="1" type="highway.path" numLanes="1" speed="2.78" shape="13.539209,52.434334 13.539845,52.434448 13.539842,52.434472 13.539841,52.434508 13.539919,52.434731" spreadType="center" width="2.00" allow="pedestrian bicycle" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000011" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="578659338"/>
+        </lane>
+    </edge>
+    <edge id="578659338#3" from="5564695002" to="279806670" priority="1" type="highway.path" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian bicycle" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000011" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="578659338"/>
+        </lane>
+    </edge>
+    <edge id="578659357" from="4854982240" to="5543924043" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000001" formOfWay="15" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="578659357"/>
+        </lane>
+    </edge>
+    <edge id="581635138#0" from="5564694995" to="5564695003" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="13.541153,52.433007 13.541076,52.433045 13.540954,52.433103 13.539834,52.433806 13.539754,52.433867 13.539527,52.434012" spreadType="center" width="2.00" allow="pedestrian" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000001" formOfWay="15" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="581635138"/>
+        </lane>
+    </edge>
+    <edge id="581635138#1" from="5564695003" to="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="13.539527,52.434012 13.539061,52.434308" spreadType="center" width="2.00" allow="pedestrian" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000001" formOfWay="15" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="581635138"/>
+        </lane>
+    </edge>
+    <edge id="581635138#2" from="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" to="5564695002" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="13.539061,52.434308 13.538983,52.434359 13.539919,52.434731" spreadType="center" width="2.00" allow="pedestrian" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000001" formOfWay="15" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="581635138"/>
+        </lane>
+    </edge>
+    <edge id="581635139#0" from="5564695003" to="5564695005" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="13.539527,52.434012 13.539618,52.434033 13.539661,52.434061" spreadType="center" width="2.00" allow="pedestrian" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000001" formOfWay="15" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="581635139"/>
+        </lane>
+    </edge>
+    <edge id="581635139#1" from="5564695005" to="5564695017" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="13.539661,52.434061 13.539730,52.434094 13.539792,52.434110 13.539902,52.434150 13.540031,52.434197 13.540163,52.434247 13.540263,52.434287 13.540405,52.434361 13.540512,52.434431 13.540533,52.434438 13.540609,52.434464 13.540691,52.434463 13.540788,52.434417 13.540825,52.434391" spreadType="center" width="2.00" allow="pedestrian" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000001" formOfWay="15" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="581635139"/>
+        </lane>
+    </edge>
+    <edge id="581635141#0" from="5564696424" to="5564696425" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="13.538026,52.433251 13.538323,52.433440 13.539176,52.433982" spreadType="center" width="2.00" allow="pedestrian" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000001" formOfWay="15" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="581635141"/>
+        </lane>
+    </edge>
+    <edge id="581635141#1" from="5564696425" to="5564696426" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000001" formOfWay="15" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="581635141"/>
+        </lane>
+    </edge>
+    <edge id="581635143" from="5564696428" to="5564696429" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000001" formOfWay="15" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="581635143"/>
+        </lane>
+    </edge>
+    <edge id="581635144#0" from="5564696430" to="5564696431" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000001" formOfWay="15" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="581635144"/>
+        </lane>
+    </edge>
+    <edge id="581635144#1" from="5564696431" to="5564696425" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000001" formOfWay="15" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="581635144"/>
+        </lane>
+    </edge>
+    <edge id="581635145" from="5564696430" to="5564696428" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian" speedCategory="8" speedRestriction="10" maxWidth="2.00" FRC="4" vehicleTypeCode="000000000001" formOfWay="15" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="581635145"/>
+        </lane>
+    </edge>
+    <edge id="81639675#0" from="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" to="583899005" name="Rudower Chaussee" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="13.538582,52.434500 13.538419,52.434420" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="2" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="81639675"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="81639675"/>
+        </lane>
+    </edge>
+    <edge id="81639675#1" from="583899005" to="30618470" name="Rudower Chaussee" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="13.538419,52.434420 13.537804,52.434026 13.537185,52.433637 13.536606,52.433272 13.536360,52.433121 13.536315,52.433094 13.536208,52.433027" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speedCategory="6" speedRestriction="50" maxWidth="3.20" FRC="2" vehicleTypeCode="011111111111" formOfWay="3" isRamp="0" brunnelType="-1" postalCode="-1">
+        <lane index="0">
+            <param key="origId" value="81639675"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="81639675"/>
+        </lane>
+    </edge>
+</edges>

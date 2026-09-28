@@ -5,3 +5,6 @@ footpath
 
 # see #16279
 footpath_bidi
+
+# plain xml output with extra navteq attrs
+plain_output
