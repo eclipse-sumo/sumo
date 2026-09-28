@@ -29,12 +29,19 @@ import traci  # noqa
 import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
-for step in range(3):
-    print("step", step)
-    traci.simulationStep()
+
 print("meandata", traci.meandata.getIDList())
 print("meandata count", traci.meandata.getIDCount())
-meandataID = "meandata_ID"
-print("examining", meandataID)
+lanes = traci.lane.getIDList()
+attrs = ["density", "laneDensity", "waitingTime", "timeLoss", "speed",
+         "speedRelative", "departed", "arrived", "entered", "left", "flow", "distance"]
+
+print('\t'.join(map(str, ["time"] + attrs)))
+for step in range(1200):
+    traci.simulationStep()
+    if step % 100 == 0:
+        for a in attrs:
+            data = [traci.meandata.getAttributeValue("ed", "1si_0", a) for a in attrs]
+        print('\t'.join(map(str, [step] + data)))
 
 traci.close()

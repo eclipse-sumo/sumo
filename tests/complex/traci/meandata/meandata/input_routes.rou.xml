@@ -1,3 +1,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-
+    <flow id="a" from="1fi" to="3o" begin="0" period="10" end="3600"/>
+    <flow id="b" from="1fi" to="2o" begin="0" period="5" end="3600"/>
+    <flow id="c" from="1fi" to="4o" begin="0" period="20" end="3600"/>
 </routes>
