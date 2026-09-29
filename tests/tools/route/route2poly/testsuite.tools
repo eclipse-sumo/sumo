@@ -16,6 +16,9 @@ spread
 # spread shapes to avoid overlap
 filterCount
 
+# test loading rou.alt.xml
+route_alternatives
+
 # test generating polygons from a route file
 standalone
 
