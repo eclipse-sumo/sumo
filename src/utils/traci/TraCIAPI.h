@@ -591,6 +591,7 @@ public:
         double getAngle(const std::string& vehicleID) const;
         std::string getRoadID(const std::string& vehicleID) const;
         std::string getLaneID(const std::string& vehicleID) const;
+        std::string getShadowLaneID(const std::string& vehicleID) const;
         int getLaneIndex(const std::string& vehicleID) const;
         std::string getTypeID(const std::string& vehicleID) const;
         std::string getRouteID(const std::string& vehicleID) const;

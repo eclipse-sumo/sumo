@@ -180,6 +180,14 @@ Vehicle::getLaneID(const std::string& vehID) {
 }
 
 
+std::string
+Vehicle::getShadowLaneID(const std::string& vehID) {
+    MSBaseVehicle* veh = Helper::getVehicle(vehID);
+    MSVehicle* microVeh = dynamic_cast<MSVehicle*>(veh);
+    return (microVeh != nullptr && microVeh->isOnRoad()) ? (Named::getIDSecure(microVeh->getLaneChangeModel().getShadowLane(),"")) : "";
+}
+
+
 int
 Vehicle::getLaneIndex(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
@@ -2868,6 +2876,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapDouble(objID, variable, getSlope(objID));
         case VAR_LANE_ID:
             return wrapper->wrapString(objID, variable, getLaneID(objID));
+        case VAR_SHADOW_LANE_ID:
+            return wrapper->wrapString(objID, variable, getShadowLaneID(objID));
         case VAR_LANE_INDEX:
             return wrapper->wrapInt(objID, variable, getLaneIndex(objID));
         case VAR_SEGMENT_ID:

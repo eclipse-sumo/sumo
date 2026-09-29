@@ -120,6 +120,12 @@ Vehicle::getLaneID(const std::string& vehID) {
 }
 
 
+std::string
+Vehicle::getShadowLaneID(const std::string& vehID) {
+    return Dom::getString(libsumo::VAR_SHADOW_LANE_ID, vehID);
+}
+
+
 int
 Vehicle::getLaneIndex(const std::string& vehID) {
     return Dom::getInt(libsumo::VAR_LANE_INDEX, vehID);

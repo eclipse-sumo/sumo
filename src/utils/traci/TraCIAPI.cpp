@@ -2276,6 +2276,11 @@ TraCIAPI::VehicleScope::getLaneID(const std::string& vehicleID) const {
     return getString(libsumo::VAR_LANE_ID, vehicleID);
 }
 
+std::string
+TraCIAPI::VehicleScope::getShadowLaneID(const std::string& vehicleID) const {
+    return getString(libsumo::VAR_SHADOW_LANE_ID, vehicleID);
+}
+
 int
 TraCIAPI::VehicleScope::getLaneIndex(const std::string& vehicleID) const {
     return getInt(libsumo::VAR_LANE_INDEX, vehicleID);

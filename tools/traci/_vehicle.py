@@ -351,6 +351,13 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_LANE_ID, vehID)
 
+    def getShadowLaneID(self, vehID):
+        """getShadowLaneID(string) -> string
+
+        Returns the id of the shadow lane if the vehicle is currently changing lanes.
+        """
+        return self._getUniversal(tc.VAR_SHADOW_LANE_ID, vehID)
+
     def getLaneIndex(self, vehID):
         """getLaneIndex(string) -> integer
 

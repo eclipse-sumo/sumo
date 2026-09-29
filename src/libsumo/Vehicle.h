@@ -57,6 +57,7 @@ public:
     static double getSlope(const std::string& vehID);
     static std::string getRoadID(const std::string& vehID);
     static std::string getLaneID(const std::string& vehID);
+    static std::string getShadowLaneID(const std::string& vehID);
     static int getLaneIndex(const std::string& vehID);
     static std::string getSegmentID(const std::string& vehID);
     static int getSegmentIndex(const std::string& vehID);

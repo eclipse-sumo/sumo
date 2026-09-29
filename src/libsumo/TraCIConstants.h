@@ -1487,6 +1487,9 @@ TRACI_CONST int VAR_ACCESS_BADGE = 0x9b;
 // charging station total power
 TRACI_CONST int VAR_CS_TOTAL_POWER = 0x9c;
 
+// shadow lane (get: vehicle)
+TRACI_CONST int VAR_SHADOW_LANE_ID = 0x9d;
+
 } // namespace libsumo
 
 #undef TRACI_CONST
