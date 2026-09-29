@@ -414,6 +414,7 @@ MSMeanData::MSMeanData(const std::string& id,
     myDumpBegin(dumpBegin),
     myDumpEnd(dumpEnd),
     myInitTime(SUMOTime_MAX),
+    myLastResetTime(dumpBegin),
     myEdges(edges),
     myDumpInternal(withInternal && MSGlobals::gUsingInternalLanes),
     myTrackVehicles(trackVehicles),
@@ -808,6 +809,7 @@ void
 MSMeanData::writeXMLOutput(OutputDevice& dev,
                            SUMOTime startTime, SUMOTime stopTime) {
     // check whether this dump shall be written for the current time
+    myLastResetTime = SIMSTEP;
     int numReady = myDumpBegin < stopTime && myDumpEnd - DELTA_T >= startTime ? 1 : 0;
     if (myTrackVehicles && myDumpBegin < stopTime) {
         myPendingIntervals.push_back(std::make_pair(startTime, stopTime));
@@ -907,7 +909,6 @@ MSMeanData::getAttributeValue(const MSLane* lane, SumoXMLAttr a, double defaultV
         }
         values = sumData;
     }
-    const SUMOTime myLastResetTime = 0; // XXX store last reset time
     const SUMOTime period = SIMSTEP - myLastResetTime;
     result = values->getAttributeValue(a, period, lane->getEdge().getNumLanes(), lane->getSpeedLimit());
     if (myAmEdgeBased) {
