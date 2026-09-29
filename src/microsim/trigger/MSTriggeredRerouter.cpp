@@ -691,7 +691,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
     bool keepDestination = false;
     // if we have a closingReroute, only assign new destinations to vehicles which cannot reach their original destination
     // if we have a closingLaneReroute, no new destinations should be assigned
-    if (closedEdges.empty() || destUnreachable || rerouteDef->isVia) {
+    if (closedEdges.empty() || destUnreachable || (rerouteDef->isVia && affected(tObject.getUpcomingEdgeIDs(), closedEdges))) {
         newEdge = rerouteDef->edgeProbs.getOverallProb() > 0 ? rerouteDef->edgeProbs.get() : lastEdge;
         assert(newEdge != nullptr);
         if (newEdge == &mySpecialDest_terminateRoute) {
@@ -715,7 +715,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
     // we have a new destination, let's replace the route (if it is affected)
     MSEdgeVector closed = rerouteDef->getClosedEdges();
     Prohibitions prohibited = rerouteDef->getClosed();
-    if (rerouteDef->closed.empty() || destUnreachable || rerouteDef->isVia || affected(tObject.getUpcomingEdgeIDs(), closed)) {
+    if (rerouteDef->closed.empty() || destUnreachable || affected(tObject.getUpcomingEdgeIDs(), closed)) {
         if (tObject.ignoreTransientPermissions()) {
             // after learning about network changes, the driver must no longer forget them
             if (!myHaveClosingUntil) {
@@ -809,7 +809,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
         }
     }
     // it was only a via so calculate the remaining part
-    if (rerouteDef->isVia) {
+    if (rerouteDef->isVia && newEdge != lastEdge) {
         if (tObject.isVehicle()) {
             SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
             if (!edges.empty()) {
