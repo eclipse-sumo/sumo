@@ -48,7 +48,7 @@ The relevant netconvert options are explained in the following
 # Importing GTFS
 
 ```
-python $SUMO_HOME/tools/import/gtfs/gtfs2pt.py --gtfs GTFS.zip --date 20260622 -H --stops osm.stops2.xml --sort -n net2.net.xml.gz --modes train,light_rail --radius 500 --network-split-vclass --rail-priority-factor 5 --remove-detour-factor 5
+python $SUMO_HOME/tools/import/gtfs/gtfs2pt.py --gtfs GTFS.zip --date 20260622 -H --stops osm.stops2.xml --sort -n net2.net.xml.gz --modes train,light_rail --radius 500 --network-split-vclass --rail-priority-factor 5 --remove-detour-factor 5 --maxcache 2000
 ```
 
 The relevant options are explained in the following
@@ -58,7 +58,7 @@ The relevant options are explained in the following
 - **--radius**: The default radius of 200m is to low for mapping large railway stations
 - **--rail-priority-factor 5**: This helps to match train routes to the correct side of double tracked lines (it relies on priorities assigned in the Network import stage)
 - **--remove-detour-factor 5**: This reports and filters out train routes with implausible detours. Investigating these reports is recommended
-
+- **--maxxache 2000**: Setting a larger cache can speed up routing in large scenarios. Experiment to find a value that does not exhaust your memory.
 
 # Running the Scenario
 
