@@ -31,4 +31,5 @@
     <person id="person_0" depart="0">
         <walk edges="1si"/>
     </person>
+    <edgeData id="meandata_0" file="NUL"/>
 </additional>

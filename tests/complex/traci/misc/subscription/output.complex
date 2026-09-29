@@ -177,6 +177,7 @@ Subscribing to lanearea.VAR_PARAMETER_WITH_KEY.
 Subscribing to lanearea.VAR_POSITION.
 Expecting failure for lanearea.ADD subscription.
 Could not add subscription. Get Lane Area Detector Variable: unsupported variable 0x80 specified
+Subscribing to meandata.VAR_MEANDATA_LANE.
 Subscribing to meandata.ID_COUNT.
 Subscribing to meandata.TRACI_ID_LIST.
 Subscribing to meandata.VAR_PARAMETER.
@@ -860,7 +861,11 @@ Could not add subscription. Get Vehicle Type Variable: unsupported variable 0x80
                 68: 10.0,
                 81: '2si_1',
                 126: ''}}
-{'meandata_0': {0: (), 1: 0, 62: ('3o_0', ''), 126: ''}}
+{'meandata_0': {0: ('meandata_0',),
+                1: 1,
+                22: 12.604700382370503,
+                62: ('3o_0', ''),
+                126: ''}}
 {'multientryexit_0': {0: ('multientryexit_0',),
                       1: 1,
                       16: 0,
