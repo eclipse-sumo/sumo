@@ -1,0 +1,11 @@
+
+[Step 1] Before lane change:
+  Primary Lane: 'edge0_0', Shadow Lane: ''
+
+Commanding lane change from lane 0 to lane 1 (duration: 3s)...
+[Step 2] Primary Lane: 'edge0_0', Shadow Lane: 'edge0_1', Subscribed: 'edge0_1'
+[Step 3] Primary Lane: 'edge0_1', Shadow Lane: 'edge0_0', Subscribed: 'edge0_0'
+[Step 4] Primary Lane: 'edge0_1', Shadow Lane: '', Subscribed: ''
+
+After lane change completion:
+  Primary Lane: 'edge0_1', Shadow Lane: ''

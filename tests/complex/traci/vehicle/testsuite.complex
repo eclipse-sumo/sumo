@@ -164,3 +164,6 @@ addTrip_junctions
 
 # add a trip between taz
 addTrip_taz
+
+# Tests traci.vehicle.getShadowLaneID() method
+getShadowLaneID
