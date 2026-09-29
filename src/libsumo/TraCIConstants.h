@@ -803,6 +803,8 @@ TRACI_CONST int VAR_VIRTUAL_DETECTION = 0x22;
 
 // generic lane attribute access (get: meandata)
 TRACI_CONST int VAR_MEANDATA_LANE = 0x16;
+TRACI_CONST int VAR_MEANDATA_VALUES = 0x17;
+TRACI_CONST int VAR_MEANDATA_IDS = 0x18;
 
 // last step person list (get: edges, vehicles)
 TRACI_CONST int LAST_STEP_PERSON_ID_LIST = 0x1a;

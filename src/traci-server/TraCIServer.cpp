@@ -492,6 +492,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myExecutors[libsumo::CMD_SET_OVERHEADWIRE_VARIABLE] = &TraCIServerAPI_OverheadWire::processSet;
 
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_MEANDATA_VARIABLE, libsumo::VAR_MEANDATA_LANE));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_MEANDATA_VARIABLE, libsumo::VAR_MEANDATA_VALUES));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE, libsumo::VAR_EDGE_TRAVELTIME));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE, libsumo::VAR_EDGE_EFFORT));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE, libsumo::VAR_ANGLE));

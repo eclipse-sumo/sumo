@@ -59,6 +59,19 @@ MeanData::getAttributeValue(const std::string& meanDataID, const std::string& la
 }
 
 
+std::vector<std::string>
+MeanData::getIDs(const std::string&meanDataID) {
+    return Dom::getStringVector(libsumo::VAR_MEANDATA_IDS, meanDataID);
+}
+
+
+std::vector<double>
+MeanData::getAttributeValues(const std::string& meanDataID, const std::string& attr) {
+    tcpip::Storage content;
+    StoHelp::writeTypedString(content, attr);
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
+    return Dom::getDoubleVector(libsumo::VAR_MEANDATA_IDS, meanDataID, &content);
+}
 
 }
 

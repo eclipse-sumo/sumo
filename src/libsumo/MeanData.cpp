@@ -71,6 +71,48 @@ MeanData::getAttributeValue(const std::string& meanDataID, const std::string& la
 }
 
 
+std::vector<std::string>
+MeanData::getIDs(const std::string&meanDataID) {
+    MSMeanData* md = getMeanData(meanDataID);
+    std::vector<std::string> result;
+    if (md->isEdgeData()) {
+        for (const MSEdge* e : md->getEdges()) {
+            result.push_back(e->getID());
+        }
+    } else {
+        for (const MSEdge* e : md->getEdges()) {
+            for (const MSLane* lane : e->getLanes()) {
+                result.push_back(lane->getID());
+            }
+        }
+    }
+    return result;
+}
+
+
+std::vector<double>
+MeanData::getAttributeValues(const std::string& meanDataID, const std::string& attr) {
+    if (!SUMOXMLDefinitions::Attrs.hasString(attr)) {
+        throw TraCIException("Unknown Meandata attribute '" + attr + "'.");
+    }
+    MSMeanData* md = getMeanData(meanDataID);
+    SumoXMLAttr a = (SumoXMLAttr)SUMOXMLDefinitions::Attrs.get(attr);
+    std::vector<double> result;
+    if (md->isEdgeData()) {
+        for (const MSEdge* e : md->getEdges()) {
+            result.push_back(md->getAttributeValue(e->getLanes().front(), a, INVALID_DOUBLE_VALUE));
+        }
+    } else {
+        for (const MSEdge* e : md->getEdges()) {
+            for (const MSLane* lane : e->getLanes()) {
+                result.push_back(md->getAttributeValue(lane, a, INVALID_DOUBLE_VALUE));
+            }
+        }
+    }
+    return result;
+}
+
+
 std::string
 MeanData::getParameter(const std::string& /* dataID */, const std::string& /* param */) {
     return "";
@@ -126,6 +168,11 @@ MeanData::handleVariable(const std::string& objID, const int variable, VariableW
             const std::string laneID = StoHelp::readTypedString(*paramData);
             const std::string attr = StoHelp::readTypedString(*paramData);
             return wrapper->wrapDouble(objID, variable, getAttributeValue(objID, laneID, attr));
+        }
+        case libsumo::VAR_MEANDATA_IDS: 
+            return wrapper->wrapStringList(objID, variable, getIDs(objID));
+        case libsumo::VAR_MEANDATA_VALUES: {
+            return wrapper->wrapDoubleList(objID, variable, getAttributeValues(objID, StoHelp::readTypedString(*paramData)));
         }
         default:
             return false;

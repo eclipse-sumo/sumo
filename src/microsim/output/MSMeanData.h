@@ -406,6 +406,11 @@ public:
         mySubData = subData;
     }
 
+    const MSEdgeVector& getEdges() const {
+        return myEdges;
+    }
+
+
 protected:
     /** @brief Create an instance of MeanDataValues
      *
