@@ -1,0 +1,5 @@
+# force detour for all vehicles
+basic
+
+# combine viaProbReroute with closingReroute. Only affected vehicles should use the detour
+with_closing

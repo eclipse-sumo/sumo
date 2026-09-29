@@ -17,6 +17,9 @@ optimizeStops
 closingLaneReroute
 routeProb
 
+# test viaProbReroute
+viaProb
+
 # circular route tests
 cyclic_route
 
