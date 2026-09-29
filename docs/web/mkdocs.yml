@@ -40,7 +40,7 @@ plugins:
       dir: images
       excluded_files:
         - apple-touch-icon.png
-        - favicon.ico
+        - favicon.svg
         - image-facebook.jpg
         - mkdocs-grid.png
         - sumo-logo.png

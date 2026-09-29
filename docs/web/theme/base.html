@@ -21,7 +21,7 @@ Build Date UTC : {{ build_date_utc.strftime('%d %B %Y %H:%M:%S') }}
         {% if page and page.is_homepage %}<meta name="description" content="{{ config['site_description'] }}">{% endif %}
         {% if config.site_author %}<meta name="author" content="{{ config.site_author }}">{% endif %}
         {% if page and page.canonical_url %}<link rel="canonical" href="{{ page.canonical_url }}">{% endif %}
-        <link rel="shortcut icon" href="{{ 'images/favicon.ico'|url }}">
+        <link rel="shortcut icon" href="{{ 'images/favicon.svg'|url }}" type="image/svg+xml">
       {%- endblock %}
 
       {%- block htmltitle %}
