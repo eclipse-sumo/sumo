@@ -111,16 +111,27 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     const double priorityFactor = oc.getFloat("weights.priority-factor");
     const SUMOTime begin = string2time(oc.getString("begin"));
     const SUMOTime end = oc.isDefault("end") ? SUMOTime_MAX : string2time(oc.getString("end"));
-    DijkstraRouter<ROEdge, ROVehicle>::Operation op = &ROEdge::getTravelTimeStatic;
+    DijkstraRouter<ROEdge, ROVehicle>::Operation op = ttFunction;
+    if (measure == "traveltime") {
+        if (priorityFactor != 0) {
+            if (ROEdge::initPriorityFactor(priorityFactor)) {
+                if (gWeightsRandomFactor > 0) {
+                    op = &ROEdge::getTravelTimeStaticPriorityFactorRandomized;
+                } else {
+                    op = &ROEdge::getTravelTimeStaticPriorityFactor;
+                }
+            }
+        }
+    }
 
     if (oc.isSet("restriction-params") &&
             (routingAlgorithm == "CH" || routingAlgorithm == "CHWrapper")) {
         throw ProcessError(TLF("Routing algorithm '%' does not support restriction-params", routingAlgorithm));
     }
 
-    if (measure == "traveltime" && priorityFactor == 0) {
+    if (measure == "traveltime") {
         if (routingAlgorithm == "dijkstra") {
-            router = new DijkstraRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction, nullptr, false, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
+            router = new DijkstraRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, nullptr, false, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
         } else if (routingAlgorithm == "astar") {
             typedef AStarRouter<ROEdge, ROVehicle, ROMapMatcher> AStar;
             std::shared_ptr<const AStar::LookupTable> lookup;
@@ -144,20 +155,20 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), ROEdge::getAllEdges(), &forward, &backward, &defaultVehicle,
                          oc.isSet("astar.save-landmark-distances") ? oc.getString("astar.save-landmark-distances") : "", oc.getInt("routing-threads"), mapMatcher);
             }
-            router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction, lookup, net.hasPermissions(), oc.isSet("restriction-params"));
+            router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, lookup, net.hasPermissions(), oc.isSet("restriction-params"));
         } else if (routingAlgorithm == "CH" && !net.hasPermissions() && !gRoutingPreferences && !net.hasSpeedRestrictions()) {
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            SUMOTime_MAX);
             router = new CHRouter<ROEdge, ROVehicle>(
-                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction, SVC_IGNORING, weightPeriod, net.hasPermissions(), oc.isSet("restriction-params"));
+                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, SVC_IGNORING, weightPeriod, net.hasPermissions(), oc.isSet("restriction-params"));
         } else if (routingAlgorithm == "CHWrapper" || routingAlgorithm == "CH") {
             // use CHWrapper instead of CH if the net has permissions, preferences or speed restriction
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            SUMOTime_MAX);
             router = new CHRouterWrapper<ROEdge, ROVehicle>(
-                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction,
+                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op,
                 begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
         } else if (routingAlgorithm == "CCH") {
             // One weight-independent hierarchy over the union graph; one
@@ -176,9 +187,9 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             // Process-lifetime singletons: the topology and metric store are
             // shared by every router clone until duarouter exits.
             ROCCHGraph* cchGraph = new ROCCHGraph(ROEdge::getAllEdges());
-            ROCCHMetrics::init(cchGraph, ttFunction, begin, weightPeriod);
+            ROCCHMetrics::init(cchGraph, op, begin, weightPeriod);
             SUMOAbstractRouter<ROEdge, ROVehicle>* fallback = new AStarRouter<ROEdge, ROVehicle, ROMapMatcher>(
-                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction,
+                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op,
                 nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
             // restriction-params are handled natively: each distinct
             // restriction profile gets its own masked metric (see
@@ -186,7 +197,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             // trip crosses a weight-period boundary re-query on the next
             // period's metric.
             router = new CCHRouter<ROEdge, ROVehicle, ROCCHGraph>(
-                cchGraph, &ROCCHMetrics::get, ttFunction,
+                cchGraph, &ROCCHMetrics::get, op,
                 oc.getBool("ignore-errors"), fallback,
                 hasWeights ? &ROCCHMetrics::periodEnd : nullptr);
         } else if (routingAlgorithm == "arcflag") {
@@ -203,11 +214,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             throw ProcessError(TLF("Unknown routing algorithm '%'!", routingAlgorithm));
         }
     } else {
-        if (measure == "traveltime") {
-            if (ROEdge::initPriorityFactor(priorityFactor)) {
-                op = &ROEdge::getTravelTimeStaticPriorityFactor;
-            }
-        } else if (measure == "CO") {
+        if (measure == "CO") {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::CO>;
         } else if (measure == "CO2") {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::CO2>;

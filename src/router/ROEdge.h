@@ -445,6 +445,17 @@ public:
         return result * getRoutingFactor(edge, veh);
     }
 
+    /// @brief Return traveltime weighted by edge priority (scaled penalty for low-priority edges)
+    static inline double getTravelTimeStaticPriorityFactorRandomized(const ROEdge* const edge, const ROVehicle* const veh, double time) {
+        double result = edge->getTravelTime(veh, time);
+        // lower priority should result in higher effort (and the edge with
+        // minimum priority receives a factor of myPriorityFactor
+        const double relativeInversePrio = 1 - ((edge->getPriority() - myMinEdgePriority) / myEdgePriorityRange);
+        result *= 1 + relativeInversePrio * myPriorityFactor;
+        result *= (1 + RandHelper::randHash(veh->getRandomSeed() ^ edge->getNumericalID()) * (gWeightsRandomFactor - 1));
+        return result * getRoutingFactor(edge, veh);
+    }
+
     static inline double getRoutingFactor(const ROEdge* const edge, const ROVehicle* const veh) {
         return gRoutingPreferences ?  1 / edge->getPreference(veh->getVTypeParameter()) : 1;
     }
