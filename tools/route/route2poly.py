@@ -222,7 +222,11 @@ def parseRoutes(options):
         else:
             for vehicle in parse(routefile, 'vehicle'):
                 # print("found veh", vehicle.id)
-                yield unique_id(vehicle.id), filterEdges(vehicle.route[0].edges.split(), keep), None
+                if vehicle.routeDistribution:
+                    for route in vehicle.routeDistribution[0].route:
+                        yield unique_id(vehicle.id), filterEdges(route.edges.split(), keep), None
+                elif vehicle.route:
+                    yield unique_id(vehicle.id), filterEdges(vehicle.route[0].edges.split(), keep), None
 
 
 def main(args):
