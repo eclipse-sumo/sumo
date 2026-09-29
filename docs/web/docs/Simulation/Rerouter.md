@@ -243,6 +243,48 @@ The attributes used within a destProbReroute are:
 - *terminateRoute*: the vehicle immediately leaves the simulation and
    counts as arrived at its current position on the rerouter edge
 
+## Assigning an intermediate waypoint
+
+A "viaProbReroute" forces the rerouter to assign an intermediate (via) edge to
+vehicles that pass one of the edges defined in the edges-attribute of
+the rerouter's declaration. A probability distribution of multiple via edges is defined as follows (only one will be chosen per vehicle):
+
+```xml
+<rerouter>
+   <interval begin="<BEGIN_TIME>" end="<END_TIME>">
+      <viaProbReroute id="<EDGE_ID1>" probability="<PROBABILITY1>"/>
+      <viaProbReroute id="<EDGE_ID2>" probability="<PROBABILITY2>"/>
+   </interval>
+
+   ... further intervals ...
+
+</rerouter>
+```
+
+The fastest route is computed automatically using the Dijkstra-algorithm
+and starting at the edge the vehicle is located at, to the chosen via edge and ending at the original destination.
+The following travel times are considered for routing (the
+first applicable value is used):
+
+- the current (smoothed) travel times in the network are used if the
+   vehicle is equipped with a [rerouting
+   device](../Demand/Automatic_Routing.md)
+- subjective edge costs for the current vehicle if set via [TraCI
+   command *change edge travel time
+   information*](../TraCI/Change_Vehicle_State.md#change_edge_travel_time_information_0x58)
+- edge weights loaded via the [sumo](../sumo.md) option **--weight-files**
+- travel times in the empty network
+
+The attributes used within a viaProbReroute are:
+
+| Attribute Name  | Value Type                        | Description                                                                                                                                         |
+| --------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **id**          | id (string)                       | The id of the via edge; the id must be the id of an edge within the network |
+| **probability** | float (should be between 0 and 1) | The probability with which a vehicle will use the given edge as intermediate waypoint; the probabilities are automatically normalized to sum to 1   |
+
+!!! note
+      It is possible to combine **closingReroute** and **viaProbReroute** within the same interval. In this case, only vehicles which cannot use their original route because it passed one of the closed edges draw a via edge from the probability distribution.
+
 ## Assigning a new Route
 
 A "routeProbReroute" forces the rerouter to assign a new route to
