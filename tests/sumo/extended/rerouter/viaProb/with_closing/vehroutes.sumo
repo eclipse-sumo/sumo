@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-29T23:19:34.092205+01:00 by Eclipse SUMO sumo v1_27_1+0816-421b13bbb51
+<!-- generated on 2026-09-29T23:30:19.705955+01:00 by Eclipse SUMO sumo v1_27_1+0818-71d84ebe947
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -56,13 +56,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="b.1" depart="35.00" arrival="167.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="50.00" probability="0" edges="beg beg2left left left2end end"/>
-            <route edges="beg beg2right right"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="a.2" depart="60.00" arrival="192.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="60.00" probability="0" edges="beg middle end rend"/>
@@ -74,13 +67,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2left left left2end end"/>
     </vehicle>
 
-    <vehicle id="b.2" depart="65.00" arrival="197.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="65.00" probability="0" edges="beg beg2left left left2end end"/>
-            <route edges="beg beg2right right"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="a.3" depart="90.00" arrival="222.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="90.00" probability="0" edges="beg middle end rend"/>
@@ -88,11 +74,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="b.3" depart="95.00" arrival="227.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="95.00" probability="0" edges="beg beg2left left left2end end"/>
-            <route edges="beg beg2right right"/>
-        </routeDistribution>
+    <vehicle id="b.1" depart="35.00" arrival="226.00">
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
 
     <vehicle id="a.4" depart="120.00" arrival="252.00">
@@ -102,11 +85,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="b.4" depart="125.00" arrival="257.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="125.00" probability="0" edges="beg beg2left left left2end end"/>
-            <route edges="beg beg2right right"/>
-        </routeDistribution>
+    <vehicle id="b.2" depart="65.00" arrival="256.00">
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
 
     <vehicle id="a.5" depart="150.00" arrival="282.00">
@@ -116,11 +96,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="b.5" depart="155.00" arrival="287.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="155.00" probability="0" edges="beg beg2left left left2end end"/>
-            <route edges="beg beg2right right"/>
-        </routeDistribution>
+    <vehicle id="b.3" depart="95.00" arrival="286.00">
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
 
     <vehicle id="a.6" depart="180.00" arrival="312.00">
@@ -130,11 +107,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="b.6" depart="185.00" arrival="317.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="185.00" probability="0" edges="beg beg2left left left2end end"/>
-            <route edges="beg beg2right right"/>
-        </routeDistribution>
+    <vehicle id="b.4" depart="125.00" arrival="316.00">
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
 
     <vehicle id="a.7" depart="210.00" arrival="342.00">
@@ -144,11 +118,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="b.7" depart="215.00" arrival="347.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="215.00" probability="0" edges="beg beg2left left left2end end"/>
-            <route edges="beg beg2right right"/>
-        </routeDistribution>
+    <vehicle id="b.5" depart="155.00" arrival="346.00">
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
 
     <vehicle id="a.8" depart="240.00" arrival="372.00">
@@ -158,11 +129,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="b.8" depart="245.00" arrival="377.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="245.00" probability="0" edges="beg beg2left left left2end end"/>
-            <route edges="beg beg2right right"/>
-        </routeDistribution>
+    <vehicle id="b.6" depart="185.00" arrival="376.00">
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
 
     <vehicle id="a.9" depart="270.00" arrival="402.00">
@@ -172,11 +140,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="b.9" depart="275.00" arrival="407.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="275.00" probability="0" edges="beg beg2left left left2end end"/>
-            <route edges="beg beg2right right"/>
-        </routeDistribution>
+    <vehicle id="b.7" depart="215.00" arrival="406.00">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="b.8" depart="245.00" arrival="436.00">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="b.9" depart="275.00" arrival="466.00">
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
 
 </routes>
