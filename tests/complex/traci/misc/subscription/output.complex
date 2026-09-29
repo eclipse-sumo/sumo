@@ -178,8 +178,10 @@ Subscribing to lanearea.VAR_POSITION.
 Expecting failure for lanearea.ADD subscription.
 Could not add subscription. Get Lane Area Detector Variable: unsupported variable 0x80 specified
 Subscribing to meandata.VAR_MEANDATA_LANE.
+Subscribing to meandata.VAR_MEANDATA_VALUES.
 Subscribing to meandata.ID_COUNT.
 Subscribing to meandata.TRACI_ID_LIST.
+Subscribing to meandata.VAR_MEANDATA_IDS.
 Subscribing to meandata.VAR_PARAMETER.
 Subscribing to meandata.VAR_PARAMETER_WITH_KEY.
 Expecting failure for meandata.ADD subscription.
@@ -864,7 +866,49 @@ Could not add subscription. Get Vehicle Type Variable: unsupported variable 0x80
 {'meandata_0': {0: ('meandata_0',),
                 1: 1,
                 22: 12.604700382370503,
-                62: ('3o_0', ''),
+                23: (nan,
+                     nan,
+                     12.604700382370503,
+                     10.323718408159912,
+                     nan,
+                     nan,
+                     nan,
+                     nan,
+                     nan,
+                     nan,
+                     nan,
+                     nan,
+                     62.505,
+                     nan,
+                     nan,
+                     62.505,
+                     nan,
+                     nan,
+                     nan,
+                     27.780000000000005,
+                     nan),
+                24: ('1fi',
+                     '1o',
+                     '1si',
+                     '2fi',
+                     '2o',
+                     '2si',
+                     '3fi',
+                     '3o',
+                     '3si',
+                     '4fi',
+                     '4o',
+                     '4si',
+                     'a',
+                     'b',
+                     'c',
+                     'd',
+                     'e',
+                     'f',
+                     'g',
+                     'h',
+                     'i'),
+                62: ('flow', ''),
                 126: ''}}
 {'multientryexit_0': {0: ('multientryexit_0',),
                       1: 1,

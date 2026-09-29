@@ -1,2 +1,8 @@
 # Tests the meandata API
 meandata
+
+# retrieve vectorized data
+meandata_vectorized
+
+# retrieve vectorized data
+meandata_vectorized_lanes

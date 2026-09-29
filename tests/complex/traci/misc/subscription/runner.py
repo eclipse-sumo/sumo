@@ -65,7 +65,10 @@ try:
                             name = dt._name + "_0"
                         param = None
                         if '"s"' in remainder:
-                            param = {v: "3o_0"}
+                            if dt._name == "meandata":
+                                param = {v: "flow"}
+                            else:
+                                param = {v: "3o_0"}
                         elif '"d"' in remainder:
                             param = {v: 0.}
                         elif '"i"' in remainder:
