@@ -27,9 +27,9 @@ class MeanDataDomain(Domain):
                         tc.CMD_SUBSCRIBE_MEANDATA_VARIABLE, tc.RESPONSE_SUBSCRIBE_MEANDATA_VARIABLE,
                         tc.CMD_SUBSCRIBE_MEANDATA_CONTEXT, tc.RESPONSE_SUBSCRIBE_MEANDATA_CONTEXT)
 
-    def getAttributeValue(self, meandataID, laneID, attr):
+    def getAttributeValue(self, meanDataID, laneID, attr):
         """getAttributeValue(string, string, string) -> double
         Return the requested attribute for the give laneID as collected by the named laneData or edgeData definition
         If the id belongs to edgeData, then any lane of the edge may be used.
         """
-        return self._getUniversal(tc.VAR_MEANDATA_LANE, meandataID, "tss", 2, laneID, attr)
+        return self._getUniversal(tc.VAR_MEANDATA_LANE, meanDataID, "tss", 2, laneID, attr)
