@@ -34,6 +34,7 @@ next stops (0x73).
 | angle (0x43) | double | Returns the angle of the named vehicle within the last step [°]; error value: -2^30 | [getAngle](https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getAngle) |
 | road id (0x50) | string | Returns the id of the edge the named vehicle was at within the last step; error value: "" | [getRoadID](https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getRoadID) |
 | lane id (0x51) | string | Returns the id of the lane the named vehicle was at within the last step; error value: "" | [getLaneID](https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLaneID) |
+| shadow lane id (0x9d) | string | Returns the id of the shadow lane if the vehicle is currently changing lanes; error value: "" | [getShadowLaneID](https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getShadowLaneID) |
 | lane index (0x52) | int | Returns the index of the lane the named vehicle was at within the last step; error value: -2^30 | [getLaneIndex](https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLaneIndex) |
 | type id (0x4f) | string | Returns the id of the type of the named vehicle | [getTypeID](https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getTypeID) |
 | route id (0x53) | string | Returns the id of the route of the named vehicle | [getRouteID](https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getRouteID) |
