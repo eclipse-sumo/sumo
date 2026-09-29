@@ -15,7 +15,7 @@
 # @author  Michael Behrisch
 # @date    2025-11-15
 
-for f in *; do
+for f in $*; do
   sha256sum $f > $f.sha256
   gpg --armor --detach-sign $f
 done

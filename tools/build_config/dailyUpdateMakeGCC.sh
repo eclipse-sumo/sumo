@@ -59,6 +59,7 @@ if make -j32 >> $MAKELOG 2>&1; then
   if make install >> $MAKELOG 2>&1; then
     if test "$FILEPREFIX" == "gcc"; then
       make -j distcheck >> $MAKELOG 2>&1 || (echo "make distcheck failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+      for f in ../../*.gz ../../*.zip; do sha256sum $f > $f.sha256; done
     fi
   else
     echo "make install failed" | tee -a $STATUSLOG; tail -10 $MAKELOG
