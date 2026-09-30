@@ -77,7 +77,7 @@ assert found_shadow_lane, "Expected a non-empty shadow lane during active lane c
 # After lane change is completed, shadow lane should be empty again
 lane_id = traci.vehicle.getLaneID(veh_id)
 shadow_lane = traci.vehicle.getShadowLaneID(veh_id)
-print(f"\nAfter lane change completion:")
+print("\nAfter lane change completion:")
 print(f"  Primary Lane: '{lane_id}', Shadow Lane: '{shadow_lane}'")
 assert shadow_lane == "", f"Expected empty shadow lane after LC completion, got '{shadow_lane}'"
 
