@@ -449,16 +449,17 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
 }
 
 void
-GUILane::drawArrows(bool secondaryShape) const {
+GUILane::drawArrows(const GUIVisualizationSettings& s, const RGBColor& color) const {
     if (myLinks.size() == 0) {
         return;
     }
+    const RGBColor laneCol = color.isValid() ? color : setColor(s);
     // draw all links
-    const Position& end = getShape(secondaryShape).back();
-    const Position& f = getShape(secondaryShape)[-2];
+    const Position& end = getShape(s.secondaryShape).back();
+    const Position& f = getShape(s.secondaryShape)[-2];
     const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
     GLHelper::pushMatrix();
-    glColor3d(1, 1, 1);
+    GLHelper::setColor(laneCol.getContrastingColor());
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
     if (myWidth < SUMO_const_laneWidth) {
@@ -754,7 +755,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                             }
                         }
                         if (s.showLinkDecals && !drawRails && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
-                            drawArrows(s.secondaryShape);
+                            drawArrows(s, color);
                         }
                         glTranslated(0, 0, 1000);
                         if (s.drawLinkJunctionIndex.show(nullptr)) {
@@ -782,17 +783,17 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             if (mustDrawMarkings && drawDetails && s.laneShowBorders) { // needs matrix reset
-                drawMarkings(s, exaggeration);
+                drawMarkings(s, exaggeration, color);
             }
             if (drawDetails && isInternal && s.showBikeMarkings && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi
                     && MSGlobals::gUsingInternalLanes
                     && getNormalSuccessorLane()->getPermissions() == SVC_BICYCLE && getNormalPredecessorLane()->getPermissions() == SVC_BICYCLE) {
-                drawBikeMarkings();
+                drawBikeMarkings(color);
             }
             if (drawDetails && isInternal && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi && myIndex > 0
                     && !(myEdge->getLanes()[myIndex - 1]->allowsChangingLeft(SVC_PASSENGER) && allowsChangingRight(SVC_PASSENGER))) {
                 // draw lane changing prohibitions on junction
-                drawJunctionChangeProhibitions();
+                drawJunctionChangeProhibitions(color);
             }
         }
     } else {
@@ -841,7 +842,7 @@ GUILane::neighLaneNotBidi() const {
 }
 
 void
-GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
+GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale, const RGBColor& color) const {
     GLHelper::pushMatrix();
     glTranslated(0, 0, GLO_EDGE);
     setColor(s);
@@ -852,8 +853,9 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
         const bool cr = allowsChangingRight(SVC_PASSENGER);
         GLHelper::drawInverseMarkings(getShape(s2), getShapeRotations(s2), getShapeLengths(s2), 3, 6, myHalfLaneWidth, cl, cr, MSGlobals::gLefthand, scale);
     }
-    // draw white boundings and white markings
-    glColor3d(1, 1, 1);
+    // draw boundings and markings
+    const RGBColor laneCol = color.isValid() ? color : setColor(s);
+    GLHelper::setColor(laneCol.getContrastingColor());
     GLHelper::drawBoxLines(
         getShape(s2),
         getShapeRotations(s2),
@@ -864,9 +866,9 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
 
 
 void
-GUILane::drawBikeMarkings() const {
+GUILane::drawBikeMarkings(const RGBColor& color) const {
     // draw bike lane markings onto the intersection
-    glColor3d(1, 1, 1);
+    GLHelper::setColor(color.isValid() ? color.getContrastingColor() : RGBColor::WHITE);
     /// fixme
     const bool s2 = false;
     const int e = (int) getShape(s2).size() - 1;
@@ -893,12 +895,12 @@ GUILane::drawBikeMarkings() const {
 
 
 void
-GUILane::drawJunctionChangeProhibitions() const {
+GUILane::drawJunctionChangeProhibitions(const RGBColor& color) const {
     // fixme
     const bool s2 = false;
-    // draw white markings
+    // draw markings
     if (myIndex > 0 && (myEdge->getLanes()[myIndex - 1]->getPermissions() & myPermissions) != 0) {
-        glColor3d(1, 1, 1);
+        GLHelper::setColor(color.isValid() ? color.getContrastingColor() : RGBColor::WHITE);
         const bool cl = myEdge->getLanes()[myIndex - 1]->allowsChangingLeft(SVC_PASSENGER);
         const bool cr = allowsChangingRight(SVC_PASSENGER);
         // solid line marking

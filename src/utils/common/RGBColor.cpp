@@ -200,6 +200,24 @@ RGBColor::invertedColor() const {
 }
 
 
+int
+RGBColor::getBrightness() const {
+    return (int)((299 * (int)myRed + 587 * (int)myGreen + 114 * (int)myBlue) / 1000);
+}
+
+
+RGBColor
+RGBColor::getContrastingColor() const {
+    if (getBrightness() > 180) {
+        RGBColor result = changedBrightness(-150);
+        result.setAlpha(255);
+        return result;
+    } else {
+        return RGBColor::WHITE;
+    }
+}
+
+
 SumoRNG*
 RGBColor::getColorRNG() {
     return &myRNG;

@@ -402,7 +402,7 @@ private:
     void drawChildren(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane markings
-    void drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const;
+    void drawMarkingsAndBoundings(const GUIVisualizationSettings& s, const RGBColor& laneColor = RGBColor(false)) const;
 
     /// @brief draw link Number
     void drawLinkNo(const GUIVisualizationSettings& s) const;
@@ -411,7 +411,7 @@ private:
     void drawTLSLinkNo(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane arrows
-    void drawArrows(const GUIVisualizationSettings& s) const;
+    void drawArrows(const GUIVisualizationSettings& s, const RGBColor& laneColor = RGBColor(false)) const;
 
     /// @brief draw lane to lane connections
     void drawLane2LaneConnections() const;

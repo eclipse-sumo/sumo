@@ -220,14 +220,14 @@ public:
     /// @brief whether any of the neighboring lanes is not a bidi-lane
     bool neighLaneNotBidi() const;
 
-    /// @brief draw lane borders and white markings
-    void drawMarkings(const GUIVisualizationSettings& s, double scale) const;
+    /// @brief draw lane borders and markings
+    void drawMarkings(const GUIVisualizationSettings& s, double scale, const RGBColor& color = RGBColor(false)) const;
 
     /// @brief bike lane markings on top of an intersection
-    void drawBikeMarkings() const;
+    void drawBikeMarkings(const RGBColor& color = RGBColor(false)) const;
 
-    /// @brief bike lane markings on top of an intersection
-    void drawJunctionChangeProhibitions() const;
+    /// @brief lane change prohibitions on top of an intersection
+    void drawJunctionChangeProhibitions(const RGBColor& color = RGBColor(false)) const;
 
     /// @brief direction indicators for lanes
     void drawDirectionIndicators(double exaggeration, bool spreadSuperposed, bool s2) const;
@@ -319,7 +319,7 @@ private:
     void drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) const;
     void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, const MSLink* link,
                       const PositionVector& shape, double x1, double x2) const;
-    void drawArrows(bool secondaryShape) const;
+    void drawArrows(const GUIVisualizationSettings& s, const RGBColor& color = RGBColor(false)) const;
     void drawLane2LaneConnections(double exaggeration, bool s2) const;
 
 

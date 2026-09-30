@@ -115,6 +115,12 @@ public:
     /// @brief obtain inverted of current RGBColor
     RGBColor invertedColor() const;
 
+    /// @brief return the perceived brightness (0-255)
+    int getBrightness() const;
+
+    /// @brief return a contrasting color for markings/arrows (darkened if bright, white if dark)
+    RGBColor getContrastingColor() const;
+
     /// @brief get color RNG
     static SumoRNG* getColorRNG();
 

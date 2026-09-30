@@ -1037,13 +1037,13 @@ GNELane::drawLane(const GUIVisualizationSettings& s, const double layer) const {
         // check if draw details
         if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
             // draw markings
-            drawMarkingsAndBoundings(s);
+            drawMarkingsAndBoundings(s, laneColor);
             // Draw direction indicators
             drawDirectionIndicators(s);
             // draw lane textures
             drawTextures(s);
             // draw lane arrows
-            drawArrows(s);
+            drawArrows(s, laneColor);
             // draw link numbers
             drawLinkNo(s);
             // draw TLS link numbers
@@ -1126,9 +1126,11 @@ GNELane::drawChildren(const GUIVisualizationSettings& s) const {
 
 
 void
-GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
+GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s, const RGBColor& laneColor) const {
     // check conditions
     if (s.laneShowBorders && !myDrawingConstants->drawAsRailway()) {
+        const RGBColor currentLaneColor = laneColor.isValid() ? laneColor : setLaneColor(s);
+        const RGBColor defaultMarkingColor = currentLaneColor.getContrastingColor();
         // check if this is the last lane (note: First lane is the lane more far of the edge's center)
         const bool firstlane = (myIndex == 0);
         const bool lastLane = (myIndex == (getParentEdges().front()->getNBEdge()->getNumLanes() - 1));
@@ -1140,7 +1142,7 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
         const bool changeRightCurrent = firstlane ? true : getParentEdges().front()->getNBEdge()->allowsChangingRight(myIndex, SVC_PASSENGER);
         const bool changeLeftBot = firstlane ? true : getParentEdges().front()->getNBEdge()->allowsChangingLeft(myIndex - 1, SVC_PASSENGER);
         // save current color
-        const auto currentColor = GLHelper::getColor();
+        const auto currentColor = currentLaneColor;
         // separator offsets
         const double topSeparatorOffset = myDrawingConstants->getOffset() + (myDrawingConstants->getDrawingWidth() * -1) + separatorWidth;
         const double botSeparatorOffset = myDrawingConstants->getOffset() + myDrawingConstants->getDrawingWidth() - separatorWidth;
@@ -1151,12 +1153,12 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
         // continue depending of lanes
         if (myDrawingConstants->drawSuperposed() || (firstlane && lastLane)) {
             // draw top and bot separator only
-            GLHelper::setColor(RGBColor::WHITE);
+            GLHelper::setColor(defaultMarkingColor);
             GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth, topSeparatorOffset);
             GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth, botSeparatorOffset);
         } else if (firstlane) {
             // draw top separator
-            GLHelper::setColor((changeLeftCurrent && changeRightTop) ? RGBColor::WHITE : RGBColor::ORANGE);
+            GLHelper::setColor((changeLeftCurrent && changeRightTop) ? defaultMarkingColor : RGBColor::ORANGE);
             GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth, topSeparatorOffset);
             // check if draw inverse marking
             if (changeLeftCurrent) {
@@ -1165,14 +1167,14 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
                                               3, 6, topSeparatorOffset, true, true, s.lefthand, 1);
             }
             // draw bot separator
-            GLHelper::setColor(RGBColor::WHITE);
+            GLHelper::setColor(defaultMarkingColor);
             GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth, botSeparatorOffset);
         } else if (lastLane) {
             // draw top separator
-            GLHelper::setColor(RGBColor::WHITE);
+            GLHelper::setColor(defaultMarkingColor);
             GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth, topSeparatorOffset);
             // draw bot separator
-            GLHelper::setColor((changeRightCurrent && changeLeftBot) ? RGBColor::WHITE : RGBColor::ORANGE);
+            GLHelper::setColor((changeRightCurrent && changeLeftBot) ? defaultMarkingColor : RGBColor::ORANGE);
             GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth, botSeparatorOffset);
             // check if draw inverse marking
             if (changeRightCurrent) {
@@ -1182,7 +1184,7 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
             }
         } else {
             // draw top separator
-            GLHelper::setColor((changeLeftCurrent && changeRightTop) ? RGBColor::WHITE : RGBColor::ORANGE);
+            GLHelper::setColor((changeLeftCurrent && changeRightTop) ? defaultMarkingColor : RGBColor::ORANGE);
             GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth, topSeparatorOffset);
             // check if draw inverse marking
             if (changeLeftCurrent) {
@@ -1191,7 +1193,7 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
                                               3, 6, topSeparatorOffset, true, true, s.lefthand, 1);
             }
             // draw bot separator
-            GLHelper::setColor((changeRightCurrent && changeLeftBot) ? RGBColor::WHITE : RGBColor::ORANGE);
+            GLHelper::setColor((changeRightCurrent && changeLeftBot) ? defaultMarkingColor : RGBColor::ORANGE);
             GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth, botSeparatorOffset);
             // check if draw inverse marking
             if (changeRightCurrent) {
@@ -1281,8 +1283,9 @@ GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
 
 
 void
-GNELane::drawArrows(const GUIVisualizationSettings& s) const {
+GNELane::drawArrows(const GUIVisualizationSettings& s, const RGBColor& laneColor) const {
     if (s.showLinkDecals && getParentEdges().front()->getToJunction()->isLogicValid()) {
+        const RGBColor currentLaneColor = laneColor.isValid() ? laneColor : setLaneColor(s);
         // calculate begin, end and rotation
         const Position& begin = myLaneGeometry.getShape()[-2];
         const Position& end = myLaneGeometry.getShape().back();
@@ -1293,9 +1296,9 @@ GNELane::drawArrows(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, 3);
         // change color depending of spreadSuperposed
         if (myDrawingConstants->drawSuperposed()) {
-            GLHelper::setColor(RGBColor::CYAN);
+            GLHelper::setColor(currentLaneColor.getBrightness() > 180 ? RGBColor::CYAN.changedBrightness(-160) : RGBColor::CYAN);
         } else {
-            GLHelper::setColor(RGBColor::WHITE);
+            GLHelper::setColor(currentLaneColor.getContrastingColor());
         }
         // move to end
         glTranslated(end.x(), end.y(), 0);
