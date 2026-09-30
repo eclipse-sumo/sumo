@@ -316,10 +316,12 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
     SUMOTime duration = 0;
     if (myHolder.hasDeparted()) {
         duration = (myArrivalTime == NOT_ARRIVED ? SIMSTEP : myArrivalTime) - myHolder.getDeparture();
+        const SUMOTime drivingDuration = duration - myStoppingTime;
+        const SUMOTime speed = drivingDuration > 0 ? routeLength / STEPS2TIME(drivingDuration) : 0;
         if (myHolder.getVClass() == SVC_BICYCLE) {
             myBikeCount++;
             myTotalBikeRouteLength += routeLength;
-            myTotalBikeSpeed += routeLength / STEPS2TIME(duration);
+            myTotalBikeSpeed += speed;
             myTotalBikeDuration += duration;
             myTotalBikeWaitingTime += myWaitingTime;
             myTotalBikeTimeLoss += timeLoss;
@@ -327,7 +329,7 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
         } else {
             myVehicleCount++;
             myTotalRouteLength += routeLength;
-            myTotalSpeed += routeLength / STEPS2TIME(duration);
+            myTotalSpeed += speed;
             myTotalDuration += duration;
             myTotalWaitingTime += myWaitingTime;
             myTotalTimeLoss += timeLoss;
