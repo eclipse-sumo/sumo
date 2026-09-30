@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-30T09:48:26.016801+01:00 by Eclipse SUMO sumo v1_27_1+0827-ff7c2abaf69
+<!-- generated on 2023-06-05 14:40:50 by Eclipse SUMO sumo Version v1_17_0+0716-331573c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net2.net.xml"/>
@@ -30,8 +30,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </time>
 
     <processing>
-        <default.departspeed value="0"/>
-        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -41,17 +39,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</sumoConfiguration>
+</configuration>
 -->
 
 <statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
-    <performance clockBegin="1790754506.02" clockEnd="1790754506.02" clockDuration="0.01" traciDuration="0.00" realTimeFactor="6428.57" vehicleUpdatesPerSecond="173000.00" personUpdatesPerSecond="0.00" begin="0.00" end="45.00" duration="45.00"/>
+    <performance clockBegin="1685968850.68" clockEnd="1685968850.70" clockDuration="0.02" traciDuration="0.00" realTimeFactor="2368.42" vehicleUpdatesPerSecond="63736.84" personUpdatesPerSecond="0.00" begin="0.00" end="45.00" duration="45.00"/>
     <vehicles loaded="91" inserted="60" running="40" waiting="30"/>
     <teleports total="0" jam="0" yield="0" wrongLane="0"/>
     <safety collisions="0" emergencyStops="0" emergencyBraking="0"/>
     <persons loaded="0" running="0" jammed="0"/>
     <personTeleports total="0" abortWait="0" wrongDest="0"/>
-    <vehicleTripStatistics count="60" routeLength="96.05" speed="5.03" duration="20.18" waitingTime="9.42" timeLoss="12.42" departDelay="4.47" departDelayWaiting="9.27" totalTravelTime="1211.00" totalDepartDelay="546.00"/>
+    <vehicleTripStatistics count="60" routeLength="96.05" speed="5.54" duration="20.18" waitingTime="9.42" timeLoss="12.42" departDelay="4.47" departDelayWaiting="9.27" totalTravelTime="1211.00" totalDepartDelay="546.00"/>
     <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
     <rideStatistics number="0"/>
     <transportStatistics number="0"/>

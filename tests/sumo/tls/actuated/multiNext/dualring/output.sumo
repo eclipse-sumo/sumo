@@ -1,22 +1,22 @@
 Loading net-file from 'net.net.xml' ... done (1ms).
-Loading additional-files from 'input_additional.add.xml' ... done (1ms).
-Loading additional-files from 'input_additional2.add.xml' ... done (0ms).
+Loading additional-files from 'input_additional.add.xml' ... done (0ms).
+Loading additional-files from 'input_additional2.add.xml' ... done (1ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_27_1+0827-ff7c2abaf69 started with time: 0.00.
+Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
 Simulation ended at time: 163.00.
 Reason: All vehicles have left the simulation.
 Performance:
  Duration: 0.02s
- Real time factor: 7761.9
- UPS: 174952.380952
+ Real time factor: 10187.5
+ UPS: 229625.000000
 Vehicles:
  Inserted: 90
  Running: 0
  Waiting: 0
 Statistics (avg of 90):
  RouteLength: 394.26
- Speed: 9.39
+ Speed: 9.96
  Duration: 40.82
  WaitingTime: 3.46
  TimeLoss: 11.96
