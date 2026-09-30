@@ -63,6 +63,17 @@
         <xsd:attribute name="bidi" type="xsd:string" use="optional"/>
         <xsd:attribute name="sidewalkWidth" type="nonNegativeFloatType"/>
         <xsd:attribute name="bikeLaneWidth" type="nonNegativeFloatType"/>
+        <!-- attributes for dlr-navteq.plain -->
+        <xsd:attribute name="speedCategory" type="xsd:nonNegativeInteger" use="optional"/>
+        <xsd:attribute name="speedRestriction" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="maxWidth" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="FRC" type="xsd:nonNegativeInteger" use="optional"/>
+        <xsd:attribute name="vehicleTypeCode" type="xsd:string" use="optional"/>
+        <xsd:attribute name="formOfWay" type="xsd:nonNegativeInteger" use="optional"/>
+        <xsd:attribute name="isRamp" type="boolType" use="optional"/>
+        <xsd:attribute name="brunnelType" type="xsd:integer" use="optional"/>
+        <xsd:attribute name="postalCode" type="xsd:string" use="optional"/>
+        <xsd:attribute name="surface" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="laneType">

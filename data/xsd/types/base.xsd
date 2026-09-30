@@ -182,6 +182,9 @@
         <xsd:attribute name="type" type="tlTypeType" use="optional"/>
         <xsd:attribute name="programID" type="xsd:string" use="required"/>
         <xsd:attribute name="offset" type="offsetType" use="optional"/>
+        <!-- attributes for dlr-navteq.plain -->
+        <xsd:attribute name="nodes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="pos" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:simpleType name="tlTypeType">
