@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-20T17:44:54.948577+01:00 by Eclipse SUMO netgenerate v1_26_0+1616-c90c1dc4a14
+<!-- generated on 2026-09-30T07:28:39.826759+01:00 by Eclipse SUMO netgenerate v1_27_1+0821-1b97e1932a8
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -102,6 +102,7 @@
             <xsd:element name="dlr-navteq-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="dlr-navteq.version" type="strOptionType" minOccurs="0"/>
             <xsd:element name="dlr-navteq.precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="dlr-navteq.plain" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output.street-names" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output.original-names" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output.removed-nodes" type="boolOptionType" minOccurs="0"/>

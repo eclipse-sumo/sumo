@@ -80,7 +80,7 @@ configuration:
 | **--precision.geo** {{DT_INT}} | Defines the number of digits after the comma for lon,lat output; *default:* **6** |
 | **--output.compression** {{DT_STR}} | Defines the standard compression algorithm (currently only for parquet output) |
 | **--output.format** {{DT_STR}} | Defines the standard output format if not derivable from the file name ('xml', 'csv', 'parquet'); *default:* **xml** |
-| **--output.column-header** {{DT_STR}} | How to derive column headers from attribute names ('none', 'tag', 'auto', 'plain'); *default:* **tag** |
+| **--output.column-header** {{DT_STR}} | How to derive column headers from attribute names ('none', 'tag', 'auto', 'plain', 'full'); *default:* **auto** |
 | **--output.column-separator** {{DT_STR}} | Separator in CSV output; *default:* **;** |
 | **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rather than seconds; *default:* **false** |
 | **--netstate-dump** {{DT_FILE}} | Save complete network states into FILE |
@@ -120,6 +120,10 @@ configuration:
 | **--full-output** {{DT_FILE}} | Save a lot of information for each timestep (very redundant) |
 | **--queue-output** {{DT_FILE}} | Save the vehicle queues at the junctions (experimental) |
 | **--queue-output.period** {{DT_TIME}} | Save vehicle queues with the given period; *default:* **-1** |
+| **--queue-output.aggregation** {{DT_TIME}} | Write aggregated queue length statistics (max, median, 95th percentile) per edge for the given period (e.g. a traffic light cycle) instead of per-timestep data; *default:* **-1** |
+| **--queue-output.speed-threshold** {{DT_FLOAT}} | Maximum speed for counting a vehicle as queued; *default:* **1.38889** |
+| **--queue-output.percentile** {{DT_FLOAT}} | The percentile (0-100) to report as percentileQueueLength in aggregated queue output; *default:* **95** |
+| **--queue-output.skip-empty** {{DT_BOOL}} | Do not save data for time steps / intervals which have no queue (required for column based output formats); *default:* **false** |
 | **--vtk-output** {{DT_FILE}} | Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files) |
 | **--amitran-output** {{DT_FILE}} | Save the vehicle trajectories in the Amitran format |
 | **--summary-output** {{DT_FILE}} | Save aggregated vehicle departure info into FILE |
@@ -237,6 +241,7 @@ configuration:
 | **--railsignal.moving-block.max-dist** {{DT_FLOAT}} | Maximum signal distance above which zipper conflicts are ignored; *default:* **200** |
 | **--railsignal.max-block-length** {{DT_FLOAT}} | Do not build blocks longer than FLOAT and issue a warning instead; *default:* **20000** |
 | **--railsignal.default-classes** {{DT_STR_LIST}} | List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them; *default:* **rail,rail_fast,rail_electric,rail_urban,subway** |
+| **--slope-centered** {{DT_BOOL}} | Compute slope at the vehicle center of mass instead of integrating over front and back; *default:* **false** |
 | **--time-to-impatience** {{DT_TIME}} | Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth; *default:* **180** |
 | **--default.departspeed** {{DT_STR}} | Select default depart speed; *default:* **avg** |
 | **--default.departlane** {{DT_STR}} | Select default depart lane; *default:* **best_prob** |
@@ -284,7 +289,7 @@ configuration:
 
 | Option | Description |
 |--------|-------------|
-| **--routing-algorithm** {{DT_STR}} | Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']; *default:* **dijkstra** |
+| **--routing-algorithm** {{DT_STR}} | Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper', 'CCH']; *default:* **dijkstra** |
 | **--weights.random-factor** {{DT_FLOAT}} | Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT); *default:* **1** |
 | **--weights.random-factor.dynamic** {{DT_BOOL}} | When using option --weights.random-factor, vary the randomness over time; *default:* **false** |
 | **--weights.minor-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing minimum routing costs for minor-link internal lanes; *default:* **1.5** |
@@ -310,8 +315,12 @@ configuration:
 | **--device.rerouting.adaptation-weight** {{DT_FLOAT}} | The weight of prior edge weights for exponential moving average; *default:* **0** |
 | **--device.rerouting.adaptation-steps** {{DT_INT}} | The number of steps for moving average weight of prior edge weights; *default:* **180** |
 | **--device.rerouting.adaptation-interval** {{DT_TIME}} | The interval for updating the edge weights; *default:* **1** |
+| **--device.rerouting.cch-update-threshold.factor** {{DT_FLOAT}} | Only propagate an arc weight into the CCH metric if it changed by more than the given factor; *default:* **1** |
+| **--device.rerouting.cch-update-threshold.constant** {{DT_TIME}} | Only propagate an arc weight into the CCH metric if it changed by more than the given TIME; *default:* **0** |
+| **--device.rerouting.cch-ensemble** {{DT_INT}} | Keep this many frozen weights.random-factor realizations (CCH metrics) per vehicle type and assign vehicles to them by a stable id hash; *default:* **1** |
 | **--device.rerouting.threshold.factor** {{DT_FLOAT}} | Only reroute if the new route is faster than the current route by the given factor; *default:* **1** |
 | **--device.rerouting.threshold.constant** {{DT_TIME}} | Only reroute if the new route is faster than the current route by the given TIME; *default:* **0** |
+| **--device.rerouting.invalidation** {{DT_BOOL}} | Only perform a periodic reroute when the current route's remaining cost has drifted beyond the threshold (cheap re-scoring gate before the full reroute); *default:* **false** |
 | **--device.rerouting.with-taz** {{DT_BOOL}} | Use zones (districts) as routing start- and endpoints; *default:* **false** |
 | **--device.rerouting.mode** {{DT_STR}} | Set routing flags (8 ignores temporary blockages); *default:* **0** |
 | **--device.rerouting.init-with-loaded-weights** {{DT_BOOL}} | Use weight files given with option --weight-files for initializing edge weights; *default:* **false** |
@@ -399,7 +408,6 @@ configuration:
 | **--device.stationfinder.radius** {{DT_TIME}} | Search radius in travel time seconds; *default:* **180** |
 | **--device.stationfinder.maxEuclideanDistance** {{DT_FLOAT}} | Euclidean search distance in meters (a negative value disables the restriction); *default:* **-1** |
 | **--device.stationfinder.repeat** {{DT_TIME}} | When to trigger a new search if no station has been found; *default:* **60** |
-| **--device.stationfinder.maxChargePower** {{DT_FLOAT}} | The maximum charging speed of the vehicle battery; *default:* **100000** |
 | **--device.stationfinder.chargeType** {{DT_STR}} | Type of energy transfer; *default:* **charging** |
 | **--device.stationfinder.waitForCharge** {{DT_TIME}} | After this waiting time vehicle searches for a new station when the initial one is blocked; *default:* **600** |
 | **--device.stationfinder.minOpportunityDuration** {{DT_TIME}} | Only stops with a predicted duration of at least the given threshold are considered for opportunistic charging.; *default:* **3600** |
@@ -579,7 +587,8 @@ configuration:
 | **--device.fcd-replay.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'fcd-replay' device; *default:* **-1** |
 | **--device.fcd-replay.explicit** {{DT_STR_LIST}} | Assign a 'fcd-replay' device to named vehicles |
 | **--device.fcd-replay.deterministic** {{DT_BOOL}} | The 'fcd-replay' devices are set deterministic using a fraction of 1000; *default:* **false** |
-| **--device.fcd-replay.file** {{DT_FILE}} | FCD file to read |
+| **--device.fcd-replay.files** {{DT_FILE}} | FCD files to read |
+| **--device.fcd-replay.consistency** {{DT_STR_LIST}} | Values to use when replaying ('all' or any combination of 'x', 'y', 'edge', 'lane', 'speed', 'position', 'angle', 'type'); *default:* **all** |
 
 ### Traci Server
 | Option | Description |
@@ -592,6 +601,7 @@ configuration:
 | Option | Description |
 |--------|-------------|
 | **--mesosim** {{DT_BOOL}} | Enables mesoscopic simulation; *default:* **false** |
+| **--meso-ltm** {{DT_BOOL}} | Enables the meso-LTM (LIFT) model; *default:* **false** |
 | **--meso-edgelength** {{DT_FLOAT}} | Length of an edge segment in mesoscopic simulation; *default:* **98** |
 | **--meso-tauff** {{DT_TIME}} | Factor for calculating the net free-free headway time; *default:* **1.13** |
 | **--meso-taufj** {{DT_TIME}} | Factor for calculating the net free-jam headway time; *default:* **1.13** |

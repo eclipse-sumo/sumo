@@ -59,6 +59,7 @@
 |type|string|A typename for the polygon|
 |imgFile|filename(Existent)|A bitmap to use for rendering this poly|
 |angle|angle[0, 360]|Angle of rendered image in degree *default:* **0.00**|
+|height|non-negative float|Height of polygonin meters *default:* **0.00**|
 |geo|boolean|Enable or disable GEO attributes *default:* **0**|
 |geoShape|list of unique positions|A custom geo shape for this polygon|
 
@@ -308,7 +309,7 @@ child element of [entryExitDetector](#entryexitdetector)
 |writeAttributes|list of strings|List of attribute names that shall be written|
 |edges|list of strings|Restrict output to the given list of edge ids|
 |edgesFile|filename(Existent)|Restrict output to the given list of edges given in file|
-|aggregate|boolean|Whether the traffic statistic of all edges shall be aggregated into a single value *default:* **0**|
+|aggregate|discrete |Whether the traffic statistic of all edges shall be aggregated into a single value *default:* **false**|
 
 ## laneData
 | Attribute | Type | Description |
@@ -330,7 +331,7 @@ child element of [entryExitDetector](#entryexitdetector)
 |writeAttributes|list of strings|List of attribute names that shall be written|
 |edges|list of strings|Restrict output to the given list of edge ids|
 |edgesFile|filename(Existent)|Restrict output to the given list of edges given in file|
-|aggregate|boolean|Whether the traffic statistic of all edges shall be aggregated into a single value *default:* **0**|
+|aggregate|discrete |Whether the traffic statistic of all edges shall be aggregated into a single value *default:* **false**|
 
 ## instantInductionLoop
 | Attribute | Type | Description |
@@ -389,12 +390,13 @@ child element of [entryExitDetector](#entryexitdetector)
 |end|SUMOTime|End of departure interval *default:* **3600.00**|
 |type|string|The id of the vehicle type to use for this calibrator flow *default:* **DEFAULT_VEHTYPE**|
 |route|unique string|The id of the route the vehicle shall drive along|
+|routeProbe|string|The id of the routeProbe element from which to determine the route distribution for generated vehicles|
 |vehsPerHour|integer|Number of vehicles per hour, equally spaced *default:* **1800**|
 |speed|float|Vehicle's speed *default:* **15.00**|
 |color|color|The RGBA color with which the calibratorFlow shall be displayed *default:* **yellow**|
-|departLane|string|The lane on which the vehicle shall be inserted *default:* **first**|
+|departLane|string|The lane on which the vehicle shall be inserted *default:* **best_prob**|
 |departPos|string|The position at which the vehicle shall enter the net *default:* **base**|
-|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **0**|
+|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **avg**|
 |arrivalLane|string|The lane at which the vehicle shall leave the network *default:* **current**|
 |arrivalPos|string|The position at which the vehicle shall leave the network *default:* **max**|
 |arrivalSpeed|string|The speed with which the vehicle shall leave the network *default:* **current**|
@@ -545,9 +547,9 @@ child element of [variableSpeedSign](#variablespeedsign)
 |type|string|The id of the vehicle type to use for this vehicle *default:* **DEFAULT_VEHTYPE**|
 |departEdge|string|The index of the edge within route the vehicle starts at|
 |arrivalEdge|string|The index of the edge within route the vehicle ends at|
-|departLane|string|The lane on which the vehicle shall be inserted *default:* **first**|
+|departLane|string|The lane on which the vehicle shall be inserted *default:* **best_prob**|
 |departPos|string|The position at which the vehicle shall enter the net *default:* **base**|
-|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **0**|
+|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **avg**|
 |arrivalLane|string|The lane at which the vehicle shall leave the network *default:* **current**|
 |arrivalPos|string|The position at which the vehicle shall leave the network *default:* **max**|
 |arrivalSpeed|string|The speed with which the vehicle shall leave the network *default:* **current**|
@@ -569,9 +571,9 @@ child element of [variableSpeedSign](#variablespeedsign)
 |type|string|The id of the vehicle type to use for this vehicle *default:* **DEFAULT_VEHTYPE**|
 |departEdge|string|The index of the edge within route the vehicle starts at|
 |arrivalEdge|string|The index of the edge within route the vehicle ends at|
-|departLane|string|The lane on which the vehicle shall be inserted *default:* **first**|
+|departLane|string|The lane on which the vehicle shall be inserted *default:* **best_prob**|
 |departPos|string|The position at which the vehicle shall enter the net *default:* **base**|
-|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **0**|
+|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **avg**|
 |arrivalLane|string|The lane at which the vehicle shall leave the network *default:* **current**|
 |arrivalPos|string|The position at which the vehicle shall leave the network *default:* **max**|
 |arrivalSpeed|string|The speed with which the vehicle shall leave the network *default:* **current**|
@@ -593,9 +595,9 @@ child element of [variableSpeedSign](#variablespeedsign)
 |type|string|The id of the vehicle type to use for this vehicle *default:* **DEFAULT_VEHTYPE**|
 |departEdge|string|The index of the edge within route the vehicle starts at|
 |arrivalEdge|string|The index of the edge within route the vehicle ends at|
-|departLane|string|The lane on which the vehicle shall be inserted *default:* **first**|
+|departLane|string|The lane on which the vehicle shall be inserted *default:* **best_prob**|
 |departPos|string|The position at which the vehicle shall enter the net *default:* **base**|
-|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **0**|
+|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **avg**|
 |arrivalLane|string|The lane at which the vehicle shall leave the network *default:* **current**|
 |arrivalPos|string|The position at which the vehicle shall leave the network *default:* **max**|
 |arrivalSpeed|string|The speed with which the vehicle shall leave the network *default:* **current**|
@@ -616,9 +618,9 @@ child element of [variableSpeedSign](#variablespeedsign)
 |type|string|The id of the vehicle type to use for this vehicle *default:* **DEFAULT_VEHTYPE**|
 |departEdge|string|The index of the edge within route the vehicle starts at|
 |arrivalEdge|string|The index of the edge within route the vehicle ends at|
-|departLane|string|The lane on which the vehicle shall be inserted *default:* **first**|
+|departLane|string|The lane on which the vehicle shall be inserted *default:* **best_prob**|
 |departPos|string|The position at which the vehicle shall enter the net *default:* **base**|
-|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **0**|
+|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **avg**|
 |arrivalLane|string|The lane at which the vehicle shall leave the network *default:* **current**|
 |arrivalPos|string|The position at which the vehicle shall leave the network *default:* **max**|
 |arrivalSpeed|string|The speed with which the vehicle shall leave the network *default:* **current**|
@@ -638,9 +640,9 @@ child element of [variableSpeedSign](#variablespeedsign)
 |type|string|The id of the vehicle type to use for this vehicle *default:* **DEFAULT_VEHTYPE**|
 |departEdge|string|The index of the edge within route the vehicle starts at|
 |arrivalEdge|string|The index of the edge within route the vehicle ends at|
-|departLane|string|The lane on which the vehicle shall be inserted *default:* **first**|
+|departLane|string|The lane on which the vehicle shall be inserted *default:* **best_prob**|
 |departPos|string|The position at which the vehicle shall enter the net *default:* **base**|
-|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **0**|
+|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **avg**|
 |arrivalLane|string|The lane at which the vehicle shall leave the network *default:* **current**|
 |arrivalPos|string|The position at which the vehicle shall leave the network *default:* **max**|
 |arrivalSpeed|string|The speed with which the vehicle shall leave the network *default:* **current**|
@@ -663,9 +665,9 @@ child element of [variableSpeedSign](#variablespeedsign)
 |type|string|The id of the vehicle type to use for this vehicle *default:* **DEFAULT_VEHTYPE**|
 |departEdge|string|The index of the edge within route the vehicle starts at|
 |arrivalEdge|string|The index of the edge within route the vehicle ends at|
-|departLane|string|The lane on which the vehicle shall be inserted *default:* **first**|
+|departLane|string|The lane on which the vehicle shall be inserted *default:* **best_prob**|
 |departPos|string|The position at which the vehicle shall enter the net *default:* **base**|
-|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **0**|
+|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **avg**|
 |arrivalLane|string|The lane at which the vehicle shall leave the network *default:* **current**|
 |arrivalPos|string|The position at which the vehicle shall leave the network *default:* **max**|
 |arrivalSpeed|string|The speed with which the vehicle shall leave the network *default:* **current**|
@@ -695,9 +697,9 @@ child element of [variableSpeedSign](#variablespeedsign)
 |type|string|The id of the vehicle type to use for this vehicle *default:* **DEFAULT_VEHTYPE**|
 |departEdge|string|The index of the edge within route the vehicle starts at|
 |arrivalEdge|string|The index of the edge within route the vehicle ends at|
-|departLane|string|The lane on which the vehicle shall be inserted *default:* **first**|
+|departLane|string|The lane on which the vehicle shall be inserted *default:* **best_prob**|
 |departPos|string|The position at which the vehicle shall enter the net *default:* **base**|
-|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **0**|
+|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **avg**|
 |arrivalLane|string|The lane at which the vehicle shall leave the network *default:* **current**|
 |arrivalPos|string|The position at which the vehicle shall leave the network *default:* **max**|
 |arrivalSpeed|string|The speed with which the vehicle shall leave the network *default:* **current**|
@@ -727,9 +729,9 @@ child element of [variableSpeedSign](#variablespeedsign)
 |type|string|The id of the vehicle type to use for this vehicle *default:* **DEFAULT_VEHTYPE**|
 |departEdge|string|The index of the edge within route the vehicle starts at|
 |arrivalEdge|string|The index of the edge within route the vehicle ends at|
-|departLane|string|The lane on which the vehicle shall be inserted *default:* **first**|
+|departLane|string|The lane on which the vehicle shall be inserted *default:* **best_prob**|
 |departPos|string|The position at which the vehicle shall enter the net *default:* **base**|
-|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **0**|
+|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **avg**|
 |arrivalLane|string|The lane at which the vehicle shall leave the network *default:* **current**|
 |arrivalPos|string|The position at which the vehicle shall leave the network *default:* **max**|
 |arrivalSpeed|string|The speed with which the vehicle shall leave the network *default:* **current**|
@@ -1261,9 +1263,9 @@ child element of [dataSet](#dataset)
 |type|string|The id of the vehicle type to use for this vehicle *default:* **DEFAULT_VEHTYPE**|
 |departEdge|string|The index of the edge within route the vehicle starts at|
 |arrivalEdge|string|The index of the edge within route the vehicle ends at|
-|departLane|string|The lane on which the vehicle shall be inserted *default:* **first**|
+|departLane|string|The lane on which the vehicle shall be inserted *default:* **best_prob**|
 |departPos|string|The position at which the vehicle shall enter the net *default:* **base**|
-|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **0**|
+|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **avg**|
 |arrivalLane|string|The lane at which the vehicle shall leave the network *default:* **current**|
 |arrivalPos|string|The position at which the vehicle shall leave the network *default:* **max**|
 |arrivalSpeed|string|The speed with which the vehicle shall leave the network *default:* **current**|
@@ -1291,9 +1293,9 @@ child element of [dataSet](#dataset)
 |type|string|The id of the vehicle type to use for this vehicle *default:* **DEFAULT_VEHTYPE**|
 |departEdge|string|The index of the edge within route the vehicle starts at|
 |arrivalEdge|string|The index of the edge within route the vehicle ends at|
-|departLane|string|The lane on which the vehicle shall be inserted *default:* **first**|
+|departLane|string|The lane on which the vehicle shall be inserted *default:* **best_prob**|
 |departPos|string|The position at which the vehicle shall enter the net *default:* **base**|
-|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **0**|
+|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **avg**|
 |arrivalLane|string|The lane at which the vehicle shall leave the network *default:* **current**|
 |arrivalPos|string|The position at which the vehicle shall leave the network *default:* **max**|
 |arrivalSpeed|string|The speed with which the vehicle shall leave the network *default:* **current**|

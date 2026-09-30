@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-24T21:27:02.744287+01:00 by Eclipse SUMO sumo v1_27_0+0344-274e100a87e
+<!-- generated on 2026-09-30T07:28:40.223062+01:00 by Eclipse SUMO sumo v1_27_1+0821-1b97e1932a8
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -99,6 +99,10 @@
             <xsd:element name="full-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="queue-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="queue-output.period" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="queue-output.aggregation" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="queue-output.speed-threshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="queue-output.percentile" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="queue-output.skip-empty" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vtk-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="amitran-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="summary-output" type="fileOptionType" minOccurs="0"/>
@@ -216,6 +220,7 @@
             <xsd:element name="railsignal.moving-block.max-dist" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railsignal.max-block-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railsignal.default-classes" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="slope-centered" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="time-to-impatience" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="default.departspeed" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.departlane" type="strOptionType" minOccurs="0"/>
@@ -289,8 +294,12 @@
             <xsd:element name="device.rerouting.adaptation-weight" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.adaptation-steps" type="intOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.adaptation-interval" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.cch-update-threshold.factor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.cch-update-threshold.constant" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.cch-ensemble" type="intOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.threshold.factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.threshold.constant" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.invalidation" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.with-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.mode" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.init-with-loaded-weights" type="boolOptionType" minOccurs="0"/>
@@ -378,7 +387,6 @@
             <xsd:element name="device.stationfinder.radius" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.maxEuclideanDistance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.repeat" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="device.stationfinder.maxChargePower" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.chargeType" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.waitForCharge" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.minOpportunityDuration" type="timeOptionType" minOccurs="0"/>
@@ -565,7 +573,8 @@
             <xsd:element name="device.fcd-replay.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.fcd-replay.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.fcd-replay.deterministic" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="device.fcd-replay.file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="device.fcd-replay.files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="device.fcd-replay.consistency" type="strArrayOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -579,6 +588,7 @@
     <xsd:complexType name="sumomesoscopicTopicType">
         <xsd:all>
             <xsd:element name="mesosim" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="meso-ltm" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-edgelength" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="meso-tauff" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="meso-taufj" type="timeOptionType" minOccurs="0"/>
