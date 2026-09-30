@@ -57,6 +57,8 @@ def get_options(args=None):
                     help="file to write the generated public transport stops and routes to")
     ap.add_argument("--duration", default=10, category="input",
                     type=int, help="minimum time to wait on a stop")
+    ap.add_argument("--write-arrival", action="store_true", default=False, dest="writeArrival",
+                    help="write stop arrival times (estimated from duration if GTFS gives arrival_time equal to departure_time)")  # noqa
     ap.add_argument("--bus-parking", action="store_true", default=False, dest="busParking",
                     help="set parking to true for bus mode")
     ap.add_argument("--bus-stop-length", default=13, category="input", type=float,
