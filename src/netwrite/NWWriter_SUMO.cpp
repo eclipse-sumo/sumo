@@ -776,7 +776,7 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
         into.writeOptionalAttr(SUMO_ATTR_INDIRECT, c.indirectLeft, !c.indirectLeft);
         into.writeOptionalAttr(SUMO_ATTR_TYPE, c.edgeType, c.edgeType == "");
     }
-    if (style != PLAIN) {
+    if (style != PLAIN && style != PLAIN_NAVTEQ) {
         if (includeInternal) {
             into.writeAttr(SUMO_ATTR_VIA, c.getInternalLaneID());
         }
