@@ -317,7 +317,7 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
     if (myHolder.hasDeparted()) {
         duration = (myArrivalTime == NOT_ARRIVED ? SIMSTEP : myArrivalTime) - myHolder.getDeparture();
         const SUMOTime drivingDuration = duration - myStoppingTime;
-        const SUMOTime speed = drivingDuration > 0 ? routeLength / STEPS2TIME(drivingDuration) : 0;
+        const double speed = drivingDuration > 0 ? routeLength / STEPS2TIME(drivingDuration) : 0;
         if (myHolder.getVClass() == SVC_BICYCLE) {
             myBikeCount++;
             myTotalBikeRouteLength += routeLength;
