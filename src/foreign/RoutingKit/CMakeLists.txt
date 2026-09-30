@@ -39,6 +39,8 @@ add_library(foreign_routingkit STATIC ${foreign_routingkit_STAT_SRCS})
 target_include_directories(foreign_routingkit PUBLIC include)
 if (MSVC)
     target_compile_definitions(foreign_routingkit PRIVATE ROUTING_KIT_NO_GCC_EXTENSIONS)
+    # disabling warnings about unused parameters, integer conversion, removed inline functions, assignment operators
+    target_compile_options(foreign_routingkit PRIVATE /wd4100 /wd4242 /wd4244 /wd4267 /wd4365 /wd4514 /wd4626 /wd4820 /wd5027)
 endif ()
 set_property(TARGET foreign_routingkit PROPERTY PROJECT_LABEL "z_foreign_routingkit")
 if (SUMO_UTILS)

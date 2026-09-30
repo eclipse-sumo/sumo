@@ -51,11 +51,15 @@
 #include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/Position.h>
+#ifdef __GNUC__
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
+#endif
 #include <routingkit/customizable_contraction_hierarchy.h>
 #include <routingkit/nested_dissection.h>
+#ifdef __GNUC__
 #pragma GCC diagnostic pop
+#endif
 
 // #define CCH_DEBUG
 
@@ -216,7 +220,7 @@ public:
         std::cout << "CCH: " << nNodes << " road nodes, "
                   << arcCount() << " arcs, "
                   << myCCH.cch_arc_count() << " cch-arcs (fill x" << (double)myCCH.cch_arc_count() / MAX2((unsigned)1, arcCount())
-                  << "), " << nTazSrc<< " TAZ sources, " << nTazSnk << " TAZ sinks." << std::endl;
+                  << "), " << nTazSrc << " TAZ sources, " << nTazSnk << " TAZ sinks." << std::endl;
 #endif
     }
 
