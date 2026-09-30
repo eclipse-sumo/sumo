@@ -2230,7 +2230,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_HEIGHT,
                                    GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("Height of polygonin meters"),
+                                   TL("Height of polygon in meters"),
                                    toString(Shape::DEFAULT_HEIGHT));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_GEO,
