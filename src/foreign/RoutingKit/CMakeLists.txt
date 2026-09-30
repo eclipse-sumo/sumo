@@ -33,6 +33,7 @@ if (GNU_COMPILER OR CLANG_COMPILER)
     set_source_files_properties(src/contraction_hierarchy.cpp src/customizable_contraction_hierarchy.cpp src/nested_dissection.cpp PROPERTIES
         COMPILE_OPTIONS "-Wno-unused-parameter"
     )
+    set_source_files_properties(src/bit_vector.cpp PROPERTIES COMPILE_OPTIONS "-Wno-psabi")
 endif ()
 
 add_library(foreign_routingkit STATIC ${foreign_routingkit_STAT_SRCS})
