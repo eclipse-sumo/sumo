@@ -230,7 +230,7 @@
      stopTime 5.00
   count 2
   routeLength 285.50
-  speed 8.62
+  speed 10.17
   duration 33.50
   waitingTime 1.50
   timeLoss 3.70
@@ -240,7 +240,7 @@
   totalDepartDelay 0.50
   vehicleTripStatistics.count 2
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 8.62
+  vehicleTripStatistics.speed 10.17
   vehicleTripStatistics.duration 33.50
   vehicleTripStatistics.waitingTime 1.50
   vehicleTripStatistics.timeLoss 3.70
@@ -287,7 +287,7 @@
      stopTime 5.00
   count 3
   routeLength 285.50
-  speed 7.91
+  speed 9.22
   duration 37.00
   waitingTime 3.67
   timeLoss 7.40
@@ -297,7 +297,7 @@
   totalDepartDelay 1.50
   vehicleTripStatistics.count 3
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 7.91
+  vehicleTripStatistics.speed 9.22
   vehicleTripStatistics.duration 37.00
   vehicleTripStatistics.waitingTime 3.67
   vehicleTripStatistics.timeLoss 7.40
@@ -344,7 +344,7 @@
      stopTime 5.00
   count 4
   routeLength 285.50
-  speed 7.33
+  speed 8.47
   duration 40.50
   waitingTime 5.75
   timeLoss 11.22
@@ -354,7 +354,7 @@
   totalDepartDelay 3.00
   vehicleTripStatistics.count 4
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 7.33
+  vehicleTripStatistics.speed 8.47
   vehicleTripStatistics.duration 40.50
   vehicleTripStatistics.waitingTime 5.75
   vehicleTripStatistics.timeLoss 11.22
@@ -401,7 +401,7 @@
      stopTime 5.00
   count 5
   routeLength 285.50
-  speed 6.85
+  speed 7.85
   duration 44.00
   waitingTime 8.00
   timeLoss 14.78
@@ -411,7 +411,7 @@
   totalDepartDelay 5.00
   vehicleTripStatistics.count 5
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 6.85
+  vehicleTripStatistics.speed 7.85
   vehicleTripStatistics.duration 44.00
   vehicleTripStatistics.waitingTime 8.00
   vehicleTripStatistics.timeLoss 14.78
@@ -458,7 +458,7 @@
      stopTime 5.00
   count 6
   routeLength 285.50
-  speed 6.42
+  speed 7.31
   duration 47.83
   waitingTime 10.17
   timeLoss 17.98
@@ -468,7 +468,7 @@
   totalDepartDelay 6.50
   vehicleTripStatistics.count 6
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 6.42
+  vehicleTripStatistics.speed 7.31
   vehicleTripStatistics.duration 47.83
   vehicleTripStatistics.waitingTime 10.17
   vehicleTripStatistics.timeLoss 17.98
@@ -515,7 +515,7 @@
      stopTime 5.00
   count 7
   routeLength 285.50
-  speed 6.06
+  speed 6.87
   duration 51.43
   waitingTime 12.43
   timeLoss 21.73
@@ -525,7 +525,7 @@
   totalDepartDelay 8.50
   vehicleTripStatistics.count 7
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 6.06
+  vehicleTripStatistics.speed 6.87
   vehicleTripStatistics.duration 51.43
   vehicleTripStatistics.waitingTime 12.43
   vehicleTripStatistics.timeLoss 21.73
@@ -572,7 +572,7 @@
      stopTime 5.00
   count 8
   routeLength 285.50
-  speed 5.74
+  speed 6.48
   duration 55.12
   waitingTime 14.62
   timeLoss 25.13
@@ -582,7 +582,7 @@
   totalDepartDelay 11.00
   vehicleTripStatistics.count 8
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 5.74
+  vehicleTripStatistics.speed 6.48
   vehicleTripStatistics.duration 55.12
   vehicleTripStatistics.waitingTime 14.62
   vehicleTripStatistics.timeLoss 25.13
@@ -629,7 +629,7 @@
      stopTime 5.00
   count 9
   routeLength 285.50
-  speed 5.47
+  speed 6.14
   duration 58.67
   waitingTime 16.89
   timeLoss 28.65
@@ -639,7 +639,7 @@
   totalDepartDelay 14.00
   vehicleTripStatistics.count 9
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 5.47
+  vehicleTripStatistics.speed 6.14
   vehicleTripStatistics.duration 58.67
   vehicleTripStatistics.waitingTime 16.89
   vehicleTripStatistics.timeLoss 28.65
@@ -682,7 +682,7 @@
 final
   count 10
   routeLength 285.50
-  speed 5.22
+  speed 5.85
   duration 62.30
   waitingTime 19.20
   timeLoss 32.03
@@ -692,7 +692,7 @@ final
   totalDepartDelay 17.50
   vehicleTripStatistics.count 10
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 5.22
+  vehicleTripStatistics.speed 5.85
   vehicleTripStatistics.duration 62.30
   vehicleTripStatistics.waitingTime 19.20
   vehicleTripStatistics.timeLoss 32.03

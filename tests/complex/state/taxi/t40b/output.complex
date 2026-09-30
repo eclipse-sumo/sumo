@@ -1,15 +1,15 @@
-Loading net-file from 'net.net.xml' ... done (9ms).
+Loading net-file from 'net.net.xml' ... done (44ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading route-files incrementally from 'input_routes2.rou.xml'
 Loading done.
-Simulation version v1_26_0+1357-4cb6fe19152 started with time: 0.00.
+Simulation version v1_27_1+0833-702478ffd23 started with time: 0.00.
 Simulation ended at time: 2428.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.05s
- Real time factor: 50583.3
- UPS: 101166.666667
- UPS-Persons: 501354.166667
+ Duration: 0.22s
+ Real time factor: 10839.3
+ UPS: 21678.571429
+ UPS-Persons: 107433.035714
 Vehicles:
  Inserted: 2
  Running: 2
@@ -19,7 +19,7 @@ Persons:
  Running: 0
 Statistics (avg of 2):
  RouteLength: 15058.11
- Speed: 6.20
+ Speed: 10.77
  Duration: 2428.00
  WaitingTime: 34.00
  TimeLoss: 203.96
@@ -31,18 +31,18 @@ Ride Statistics (avg of 20 rides):
  Duration: 144.50
  Taxi: 20
 DijkstraRouter answered 90 queries and explored 27.27 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.02ms on average).
-Loading net-file from 'net.net.xml' ... done (19ms).
-Loading state from 'state.xml' ... done (44ms).
+DijkstraRouter spent 0.01s answering queries (0.16ms on average).
+Loading net-file from 'net.net.xml' ... done (52ms).
+Loading state from 'state.xml' ... done (231ms).
 Loading done.
-Simulation version v1_26_0+1357-4cb6fe19152 started with time: 40.00.
+Simulation version v1_27_1+0833-702478ffd23 started with time: 40.00.
 Simulation ended at time: 2428.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.18s
- Real time factor: 13340.8
- UPS: 26681.564246
- UPS-Persons: 133882.681564
+ Duration: 0.64s
+ Real time factor: 3719.63
+ UPS: 7439.252336
+ UPS-Persons: 37328.660436
 Vehicles:
  Inserted: 2
  Running: 2
@@ -52,7 +52,7 @@ Persons:
  Running: 0
 Statistics (avg of 2):
  RouteLength: 15058.11
- Speed: 6.20
+ Speed: 10.77
  Duration: 2428.00
  WaitingTime: 34.00
  TimeLoss: 203.96
@@ -64,4 +64,4 @@ Ride Statistics (avg of 20 rides):
  Duration: 144.50
  Taxi: 20
 DijkstraRouter answered 82 queries and explored 28.12 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+DijkstraRouter spent 0.00s answering queries (0.02ms on average).

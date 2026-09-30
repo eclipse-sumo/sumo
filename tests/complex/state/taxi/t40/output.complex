@@ -1,15 +1,15 @@
-Loading net-file from 'net.net.xml' ... done (19ms).
+Loading net-file from 'net.net.xml' ... done (20ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading route-files incrementally from 'input_routes2.rou.xml'
 Loading done.
-Simulation version v1_26_0+1357-4cb6fe19152 started with time: 0.00.
+Simulation version v1_27_1+0833-702478ffd23 started with time: 0.00.
 Simulation ended at time: 1272.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.05s
- Real time factor: 25440
- UPS: 50880.000000
- UPS-Persons: 129420.000000
+ Duration: 0.13s
+ Real time factor: 10176
+ UPS: 20352.000000
+ UPS-Persons: 51768.000000
 Vehicles:
  Inserted: 2
  Running: 2
@@ -19,7 +19,7 @@ Persons:
  Running: 0
 Statistics (avg of 2):
  RouteLength: 7544.32
- Speed: 5.93
+ Speed: 10.71
  Duration: 1272.00
  WaitingTime: 17.50
  TimeLoss: 105.47
@@ -32,17 +32,17 @@ Ride Statistics (avg of 10 rides):
  Taxi: 10
 DijkstraRouter answered 46 queries and explored 25.74 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
-Loading net-file from 'net.net.xml' ... done (9ms).
-Loading state from 'state.xml' ... done (24ms).
+Loading net-file from 'net.net.xml' ... done (15ms).
+Loading state from 'state.xml' ... done (234ms).
 Loading done.
-Simulation version v1_26_0+1357-4cb6fe19152 started with time: 40.00.
+Simulation version v1_27_1+0833-702478ffd23 started with time: 40.00.
 Simulation ended at time: 1272.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.07s
- Real time factor: 17352.1
- UPS: 34704.225352
- UPS-Persons: 89732.394366
+ Duration: 0.42s
+ Real time factor: 2912.53
+ UPS: 5825.059102
+ UPS-Persons: 15061.465721
 Vehicles:
  Inserted: 2
  Running: 2
@@ -52,7 +52,7 @@ Persons:
  Running: 0
 Statistics (avg of 2):
  RouteLength: 7544.32
- Speed: 5.93
+ Speed: 10.71
  Duration: 1272.00
  WaitingTime: 17.50
  TimeLoss: 105.47
@@ -64,4 +64,4 @@ Ride Statistics (avg of 10 rides):
  Duration: 145.30
  Taxi: 10
 DijkstraRouter answered 38 queries and explored 27.26 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.03ms on average).
+DijkstraRouter spent 0.01s answering queries (0.24ms on average).
