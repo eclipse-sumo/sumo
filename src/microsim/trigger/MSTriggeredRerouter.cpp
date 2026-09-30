@@ -686,12 +686,12 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
     const MSEdge* newEdge = lastEdge;
     // ok, try using a new destination
     double newArrivalPos = -1;
-    const MSEdgeVector closedEdges = rerouteDef->getClosedEdges();
-    const bool destUnreachable = std::find(closedEdges.begin(), closedEdges.end(), lastEdge) != closedEdges.end();
+    const MSEdgeVector closed = rerouteDef->getClosedEdges();
+    const bool destUnreachable = std::find(closed.begin(), closed.end(), lastEdge) != closed.end();
     bool keepDestination = false;
     // if we have a closingReroute, only assign new destinations to vehicles which cannot reach their original destination
     // if we have a closingLaneReroute, no new destinations should be assigned
-    if (closedEdges.empty() || destUnreachable || (rerouteDef->isVia && affected(tObject.getUpcomingEdgeIDs(), closedEdges))) {
+    if (closed.empty() || destUnreachable || (rerouteDef->isVia && affected(tObject.getUpcomingEdgeIDs(), closed))) {
         newEdge = rerouteDef->edgeProbs.getOverallProb() > 0 ? rerouteDef->edgeProbs.get() : lastEdge;
         assert(newEdge != nullptr);
         if (newEdge == &mySpecialDest_terminateRoute) {
@@ -713,7 +713,6 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
     ConstMSEdgeVector edges;
     std::vector<MSTransportableRouter::TripItem> items;
     // we have a new destination, let's replace the route (if it is affected)
-    MSEdgeVector closed = rerouteDef->getClosedEdges();
     Prohibitions prohibited = rerouteDef->getClosed();
     if (rerouteDef->closed.empty() || destUnreachable || affected(tObject.getUpcomingEdgeIDs(), closed)) {
         if (tObject.ignoreTransientPermissions()) {
@@ -771,7 +770,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                 if (DEBUGCOND(tObject)) std::cout << "   rerouting:  newDest=" << newEdge->getID()
                                                       << " newEdges=" << toString(edges)
                                                       << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
-                                                      << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->getClosedEdges()) << "\n";
+                                                      << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(closed) << "\n";
 #endif
                 if (ok && newArrivalPos != -1) {
                     // must be called here because replaceRouteEdges may also set the arrivalPos
@@ -828,7 +827,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             if (DEBUGCOND(tObject)) std::cout << "   rerouting:  newDest=" << newEdge->getID()
                                                   << " newEdges=" << toString(edges)
                                                   << " useNewRoute=" << useNewRoute << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
-                                                  << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->getClosedEdges()) << "\n";
+                                                  << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(closed) << "\n";
 #endif
             if (useNewRoute && newArrivalPos != -1) {
                 // must be called here because replaceRouteEdges may also set the arrivalPos
