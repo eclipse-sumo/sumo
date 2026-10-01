@@ -83,6 +83,8 @@ output/fcd-output/persons/parquet
 output/fcd-output/persons/separate_parquet
 extended/rerouter/closingLaneReroute/closingLane
 extended/rerouter/closingLaneReroute/closingLane_all
+extended/rerouter/closingLaneReroute/closingLane_with_rerouting
+extended/rerouter/closingLaneReroute/closingLane_no_notification
 extended/calibrator/high_flow
 cf_model/fundamental/circle_krauss_d30_t1
 cf_model/fundamental/circle_2lane_idm
