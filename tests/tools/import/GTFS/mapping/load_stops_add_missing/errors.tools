@@ -1,2 +1,2 @@
-Warning! Adding stop at index 0 that was not loaded for t1 (10, 10.50688, 52.255635, 0, 'stopname1', 'stop1', '', '', '', '').
-Warning! Adding stop at index 1 that was not loaded for t1 (50, 10.51082, 52.255611, 50, 'stopname2', 'stop2', '', '', '', '').
+Warning! Adding stop at index 0 that was not loaded for t1 Stop(lon=10.50688, lat=52.255635, until=0, name='stopname1', gtfsid='stop1', block='', fareZone='', fareSymbol='', startFare='', fcdtime=10).
+Warning! Adding stop at index 1 that was not loaded for t1 Stop(lon=10.51082, lat=52.255611, until=50, name='stopname2', gtfsid='stop2', block='', fareZone='', fareSymbol='', startFare='', fcdtime=50).
