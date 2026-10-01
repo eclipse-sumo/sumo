@@ -501,7 +501,10 @@ MSTransportable::getUpcomingEdgeIDs() const {
     std::set<SUMOTrafficObject::NumericalID> result;
     for (auto step = myStep; step != myPlan->end(); ++step) {
         for (const MSEdge* const e : (*step)->getEdges()) {
-            result.insert(e->getNumericalID());
+            if (e != nullptr) {
+                // catch incomplete rides
+                result.insert(e->getNumericalID());
+            }
         }
     }
     return result;
