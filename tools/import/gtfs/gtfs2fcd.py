@@ -27,7 +27,7 @@ import os
 import sys
 import io
 from xml.sax import saxutils
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 import pandas as pd
 
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
@@ -103,8 +103,9 @@ def dataAvailable(options):
 
 
 def groupRoutes(options, full_data_merged):
+    Stop = namedtuple("Stop", ["lon", "lat", "until", "name", "gtfsid", "block", "fareZone", "fareSymbol", "startFare", "fcdtime"])
     vehicles = defaultdict(list)  # mode -> [(trip_id, route, type, depart, line, params), ...]
-    routes = defaultdict(lambda: defaultdict(list))  # mode -> trip_id -> [(lon, lat, until, name, gtfsid, bloc, fareZone, fareSymbol startFare, speed), ...]
+    routes = defaultdict(lambda: defaultdict(list))  # mode -> trip_id -> [Stop, ...]
 
     modes = options.modes.split(",")
     timeIndex = 0
@@ -138,11 +139,17 @@ def groupRoutes(options, full_data_merged):
                 departureSec = d.departure_time + timeIndex
                 until = 0 if firstDep is None else departureSec - timeIndex - firstDep
                 stopSeq.append((d.stop_id, until))
-                currentRoute.append((arrivalSec - offset, d.stop_lon, d.stop_lat, until,
-                         saxutils.escape(d.stop_name),
-                         saxutils.escape(d.stop_id),
-                         "" if not options.joinBlocks or pd.isna(d.block_id) else d.block_id,
-                         d.fare_zone, d.fare_token, d.start_char))
+                currentRoute.append(Stop(
+                    lon=d.stop_lon,
+                    lat=d.stop_lat,
+                    until=until,
+                    name=saxutils.escape(d.stop_name),
+                    gtfsid=saxutils.escape(d.stop_id),
+                    block="" if not options.joinBlocks or pd.isna(d.block_id) else d.block_id,
+                    fareZone=d.fare_zone,
+                    fareSymbol=d.fare_token,
+                    startFare=d.start_char,
+                    fcdtime=arrivalSec - offset))
                 if firstDep is None:
                     firstDep = departureSec - timeIndex
                     firstStop = d.stop_name
@@ -150,8 +157,8 @@ def groupRoutes(options, full_data_merged):
                 lastIndex = d.stop_sequence
             mode = GTFS2OSM_MODES[d.route_type]
             if mode in modes:
-                s = tuple(stopSeq)
-                if s not in seqs:
+                stopSeq = tuple(stopSeq)
+                if stopSeq not in seqs:
                     lineID = d.route_short_name.replace(" ", "_")
                     if not options.origLines:
                         baseLine = lineID
@@ -160,13 +167,13 @@ def groupRoutes(options, full_data_merged):
                             i += 1
                             lineID = "%s#%s" % (baseLine, i)
                     lines.add(lineID)
-                    seqs[s] = trip_id, lineID
+                    seqs[stopSeq] = trip_id, lineID
                     routes[mode][trip_id] = currentRoute
                     timeIndex = arrivalSec
                 # The `line` attribute shall hold the line short name that can be used to determine person rides
                 # as per https://sumo.dlr.de/docs/Specification/Persons.html#rides
                 # The spaces in the route name are replaced by underscores to allow for space-separated lists of lines.
-                routeID, lineID = seqs[s]
+                routeID, lineID = seqs[stopSeq]
                 params = [("gtfs.route_name", d.route_short_name)]
                 if d.trip_headsign:
                     params.append(("gtfs.trip_headsign", d.trip_headsign))
@@ -189,11 +196,11 @@ def writeFCD(options, routes):
         if options.verbose:
             print('Writing fcd file "%s"' % fcdFile.name)
         for trip_id, locations in routes[mode].items():
-            for time, x, y, until, name, gtfsid, block, fareZone, fareSymbol, startFare in locations:
+            for s in locations:
                 fcdFile.write((u'    <timestep time="%s"><vehicle id="%s" x="%s" y="%s" until="%s" ' +
                                u'name="%s" gtfsid="%s" block="%s" fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/>' +
-                               u'</timestep>\n') % (
-                                  time, trip_id, x, y, until, name, gtfsid, block, fareZone, fareSymbol, startFare))
+                               u'</timestep>\n') % (s.fcdtime, trip_id, s.lon, s.lat, s.until,
+                                                    s.name, s.gtfsid, s.block, s.fareZone, s.fareSymbol, s.startFare))
         fcdFile.write(u'</fcd-export>\n')
         fcdFile.close()
 
@@ -224,7 +231,6 @@ def main(options):
     if full_data_merged.empty:
         return False
     vehicles, routes = groupRoutes(options, full_data_merged)
-
     if routes:
         if not os.path.exists(options.fcd):
             os.makedirs(options.fcd)

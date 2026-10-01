@@ -232,8 +232,8 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
                 alpha = (4 - i) / 4
                 preferences[str(i)] = alpha * 1 / (1 + options.rpFactor) + (1 - alpha)
 
-        for tid, locations in geoRoutes[mode].items():
-            trace = tuple(net.convertLonLat2XY(float(loc[1]), float(loc[2])) for loc in locations)
+        for tid, stops in geoRoutes[mode].items():
+            trace = tuple(net.convertLonLat2XY(s.lon, s.lat) for s in stops)
             if options.poiOut is not None:
                 for idx, pos in enumerate(trace):
                     outf.write('    <poi id="%s:%s" x="%.2f" y="%.2f" color="%s"/>\n' % (
@@ -344,13 +344,12 @@ def map_stops(options, net, typedNets, routes, rout, edgeMap, fixedStops, stopLo
                 continue
             lastIndex = 0
             lastPos = -1
-            for stopIndex, loc in enumerate(locations):
-                time, lon, lat, until, stopName, gtfsid, block, fareZone, fareSymbol, startFare = loc
+            for stopIndex, s in enumerate(locations):
                 childs = []
-                if fareZone:
-                    childs += ['        <param key="fareZone" value="%s"/>\n' % fareZone,
-                               '        <param key="fareSymbol" value="%s"/>\n' % fareSymbol,
-                               '        <param key="startFare" value="%s"/>\n' % startFare]
+                if s.fareZone:
+                    childs += ['        <param key="fareZone" value="%s"/>\n' % s.fareZone,
+                               '        <param key="fareSymbol" value="%s"/>\n' % s.fareSymbol,
+                               '        <param key="startFare" value="%s"/>\n' % s.startFare]
                 if rid not in fixed:
                     route, indices = routes[rid]
                     routeFixed = [route[0]]
@@ -398,13 +397,13 @@ def map_stops(options, net, typedNets, routes, rout, edgeMap, fixedStops, stopLo
                 else:
                     stopLength = options.train_stop_length
                 if options.use_gtfs_stopids:
-                    stop = "gtfs_%s" % gtfsid
+                    stop = "gtfs_%s" % s.gtfsid
                 else:
                     # This is the original
                     stop = "%s.%s" % (rid, stopIndex)
                 if stop in fixedStops:
-                    s = fixedStops[stop]
-                    laneID, start, end = s.lane, float(s.startPos), float(s.endPos)
+                    fs = fixedStops[stop]
+                    laneID, start, end = fs.lane, float(fs.startPos), float(fs.endPos)
                 else:
                     result = None
                     candidate_edges = route[lastIndex:]
@@ -419,7 +418,7 @@ def map_stops(options, net, typedNets, routes, rout, edgeMap, fixedStops, stopLo
                                 # this helps to prevent matching to very short junction edges
                                 candidate_edges += [route[indices[stopIndex] + 1]]
                     if stopLookup.hasCandidates():
-                        xy = net.convertLonLat2XY(lon, lat)
+                        xy = net.convertLonLat2XY(s.lon, s.lat)
                         candidates = stopLookup.getCandidates(xy, options.radius)
                         if candidates:
                             on_route = [s for s in candidates if sumolib._laneID2edgeID(s.lane) in candidate_edges]
@@ -446,15 +445,15 @@ def map_stops(options, net, typedNets, routes, rout, edgeMap, fixedStops, stopLo
                                         bestDist = dist
                                         result = (lane.getID(), float(stopObj.startPos), endPos)
                     if result is None and candidate_edges:
-                        result = gtfsutils.getBestLane(net, lon, lat, options.radius, stopLength, options.center_stops,
+                        result = gtfsutils.getBestLane(net, s.lon, s.lat, options.radius, stopLength, options.center_stops,
                                                       candidate_edges, OSM2SUMO_MODES[mode],
                                                       (route[lastIndex], lastPos))
                         if options.warn_unmapped and result is not None and stopLookup.hasCandidates():
                             print("Warning! Adding stop at index %s that was not loaded for %s %s." % (
-                                stopIndex, rid, loc), file=sys.stderr)
+                                stopIndex, rid, s), file=sys.stderr)
                     if result is None:
                         if options.warn_unmapped:
-                            print("Warning! No stop at index %s for %s %s." % (stopIndex, rid, loc), file=sys.stderr)
+                            print("Warning! No stop at index %s for %s %s." % (stopIndex, rid, s), file=sys.stderr)
                         continue
                     laneID, start, end = result
                 edgeID = laneID.rsplit("_", 1)[0]
@@ -475,7 +474,7 @@ def map_stops(options, net, typedNets, routes, rout, edgeMap, fixedStops, stopLo
                         break
                 if ((options.parkingThreshold is not None
                      and lastStop == stop
-                     and until - lastUntil >= options.parkingThreshold)):
+                     and s.until - lastUntil >= options.parkingThreshold)):
                     isParking = True
                 if keep:
                     if stop in stopID2Lane:
@@ -487,17 +486,17 @@ def map_stops(options, net, typedNets, routes, rout, edgeMap, fixedStops, stopLo
                         print("Warning: GTFS stop_id '%s' occurs on lane '%s' and '%s', assigning new id '%s'." % (
                             oldID, stopID2Lane[oldID], laneID, stop), file=sys.stderr)
                     if not options.skip_access:
-                        childs += gtfsutils.getAccess(net, lon, lat, options.access_radius, laneID)
+                        childs += gtfsutils.getAccess(net, s.lon, s.lat, options.access_radius, laneID)
                     if not options.overtake_right:
                         lane = net.getLane(laneID)
                         idx = lane.getIndex()
                         edge = lane.getEdge()
                         if not all([edge.getLane(i).allows("pedestrian") for i in range(idx)]):
                             childs.append(u'        <param key="allowOvertakeRight" value="false"/>\n')
-                    stopDesc[laneID].append([typ, stop, start, end, stopName, childs])
+                    stopDesc[laneID].append([typ, stop, start, end, s.name, childs])
                     stopID2Lane[stop] = laneID
-                stops[rid].append((stop, until, stopName, block, isParking))
-                lastUntil = until
+                stops[rid].append((stop, s.until, s.name, s.block, isParking))
+                lastUntil = s.until
                 lastStop = stop
     for laneID, stopList in stopDesc.items():
         for typ, stop, start, end, stopName, childs in stopList:
