@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-21T09:56:36.957436+01:00 by Eclipse SUMO sumo v1_27_0+0279-a98528887a8
+<!-- generated on 2026-10-01T13:13:24.797553+01:00 by Eclipse SUMO sumo v1_27_1+0847-f9af083ba51
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,8 +39,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <e3Detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e3_file.xsd">
-    <interval begin="0.00" end="300.00" id="e3_C" meanTravelTime="52.89" meanOverlapTravelTime="54.72" meanSpeed="6.14" meanHaltsPerVehicle="1.07" meanTimeLoss="36.65" vehicleSum="258" meanSpeedWithin="5.26" meanHaltsPerVehicleWithin="1.67" meanDurationWithin="64.12" vehicleSumWithin="104" meanIntervalSpeedWithin="5.26" meanIntervalHaltsPerVehicleWithin="1.67" meanIntervalDurationWithin="64.12" meanTimeLossWithin="50.31"/>
-    <interval begin="300.00" end="600.00" id="e3_C" meanTravelTime="87.11" meanOverlapTravelTime="89.05" meanSpeed="4.76" meanHaltsPerVehicle="1.98" meanTimeLoss="71.05" vehicleSum="316" meanSpeedWithin="3.64" meanHaltsPerVehicleWithin="3.13" meanDurationWithin="103.35" vehicleSumWithin="134" meanIntervalSpeedWithin="3.64" meanIntervalHaltsPerVehicleWithin="3.10" meanIntervalDurationWithin="102.94" meanTimeLossWithin="90.72"/>
-    <interval begin="600.00" end="900.00" id="e3_C" meanTravelTime="120.01" meanOverlapTravelTime="121.99" meanSpeed="4.53" meanHaltsPerVehicle="3.12" meanTimeLoss="104.04" vehicleSum="278" meanSpeedWithin="4.02" meanHaltsPerVehicleWithin="3.60" meanDurationWithin="141.98" vehicleSumWithin="90" meanIntervalSpeedWithin="4.02" meanIntervalHaltsPerVehicleWithin="3.08" meanIntervalDurationWithin="124.80" meanTimeLossWithin="110.61"/>
-    <interval begin="900.00" end="1169.00" id="e3_C" meanTravelTime="154.63" meanOverlapTravelTime="156.25" meanSpeed="4.42" meanHaltsPerVehicle="3.69" meanTimeLoss="137.87" vehicleSum="148" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+    <interval begin="0.00" end="300.00" id="e3_C" meanTravelTime="52.89" meanOverlapTravelTime="54.72" meanSpeed="6.14" meanHaltsPerVehicle="1.07" meanTimeLoss="36.65" vehicleSum="258" meanSpeedWithin="5.27" meanHaltsPerVehicleWithin="1.67" meanDurationWithin="64.13" vehicleSumWithin="104" meanIntervalSpeedWithin="5.27" meanIntervalHaltsPerVehicleWithin="1.67" meanIntervalDurationWithin="64.13" meanTimeLossWithin="50.30"/>
+    <interval begin="300.00" end="600.00" id="e3_C" meanTravelTime="90.01" meanOverlapTravelTime="91.96" meanSpeed="4.54" meanHaltsPerVehicle="1.97" meanTimeLoss="73.97" vehicleSum="315" meanSpeedWithin="3.40" meanHaltsPerVehicleWithin="3.08" meanDurationWithin="99.77" vehicleSumWithin="137" meanIntervalSpeedWithin="3.40" meanIntervalHaltsPerVehicleWithin="3.08" meanIntervalDurationWithin="99.76" meanTimeLossWithin="87.47"/>
+    <interval begin="600.00" end="900.00" id="e3_C" meanTravelTime="119.18" meanOverlapTravelTime="121.18" meanSpeed="4.64" meanHaltsPerVehicle="2.91" meanTimeLoss="103.22" vehicleSum="283" meanSpeedWithin="3.83" meanHaltsPerVehicleWithin="3.83" meanDurationWithin="143.49" vehicleSumWithin="103" meanIntervalSpeedWithin="3.81" meanIntervalHaltsPerVehicleWithin="3.35" meanIntervalDurationWithin="129.50" meanTimeLossWithin="116.30"/>
+    <interval begin="900.00" end="1150.00" id="e3_C" meanTravelTime="172.81" meanOverlapTravelTime="174.31" meanSpeed="3.68" meanHaltsPerVehicle="4.20" meanTimeLoss="155.89" vehicleSum="144" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
 </e3Detector>
