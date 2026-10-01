@@ -766,3 +766,15 @@ background-color:rgba(0, 0, 0, 0.5);
 color: #fff;
 padding: 3px;
 }
+
+.btn-xs {
+padding: 0.25rem 0.25rem;
+font-size: 0.7rem;
+line-height: .8;
+border-radius: 0.2rem;
+}
+
+.btn-outline-secondary {
+color: #868e96;
+border-color: #868e96;
+}
