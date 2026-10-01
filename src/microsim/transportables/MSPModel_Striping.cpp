@@ -1031,6 +1031,7 @@ MSPModel_Striping::arriveAndAdvance(Pedestrians& pedestrians, SUMOTime currentTi
             if (p->getLane() != nullptr) {
                 changedLane.insert(p->getPerson());
                 myActiveLanes[p->getLane()].push_back(p);
+                p->getStage()->activateEntryReminders(p->getPerson());
             } else {
                 // end walking stage and destroy PState
                 p->getStage()->moveToNextEdge(p->getPerson(), currentTime, dir);
@@ -1812,8 +1813,6 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
             assert(!arrived);
             assert(myDir != UNDEFINED_DIRECTION);
             myNLI = getNextLane(*this, myLane, oldLane);
-            // reminders must be called after updated myNLI (to ensure that getNextEdgePtr returns the correct edge)
-            myStage->activateEntryReminders(myPerson);
             assert(myNLI.lane != oldLane); // do not turn around
             if DEBUGCOND(*this) {
                 std::cout << "    nextLane=" << (myNLI.lane == nullptr ? "NULL" : myNLI.lane->getID()) << "\n";
