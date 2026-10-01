@@ -29,7 +29,7 @@ import math
 import io
 import re
 from collections import defaultdict
-import hashlib
+import zipfile
 
 # from pprint import pprint
 
@@ -40,7 +40,8 @@ sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.xml import parse_fast_nested  # noqa
 from sumolib.miscutils import benchmark, parseTime, humanReadableTime  # noqa
-from gtfsutils import OSM2SUMO_MODES, GTFS2OSM_MODES, import_gtfs, getBestLane, getAccess, write_vtypes  # noqa
+import gtfsutils
+from gtfsutils import OSM2SUMO_MODES, GTFS2OSM_MODES, getBestLane, getAccess  # noqa
 
 
 def get_line_dir(line_orig, line_dest):
@@ -340,7 +341,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
         output_file.write(u'</additional>\n')
 
     sequence_errors = []
-    write_vtypes(options)
+    gtfsutils.write_vtypes(options)
 
     with sumolib.openz(options.route_output, mode='w') as output_file:
         sumolib.xml.writeHeader(output_file, root="routes", options=options)
@@ -463,3 +464,33 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
             for stop in sorted(set(sequence_errors)):
                 output_file.write(u'    <stopSequence stop_id="%s" stop_name=%s ptLine="%s" trip_headsign=%s direction_id="%s" trip_id="%s"/>\n' % stop)  # noqa
             output_file.write(u'</missingElements>\n')
+
+
+def process(options, net):
+    gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False, printErrors=True))
+    routes, trips_on_day, shapes, stops, stop_times = gtfsutils.import_gtfs(options, gtfsZip)
+    gtfsZip.fp.close()
+    if options.mergedCSVOutput:
+        full_data_merged = gtfsutils.get_merged_data(options)
+        full_data_merged.sort_values(by=['trip_id', 'stop_sequence'], inplace=True)
+        full_data_merged.to_csv(options.mergedCSVOutput, sep=";", index=False)
+
+    if routes.empty or trips_on_day.empty:
+        return
+    if shapes is None:
+        print('Warning: GTFS shapes file not found! Continuing mapping without shapes.', file=sys.stderr)
+    (gtfs_data, trip_list,
+        filtered_stops,
+        shapes, shapes_dict) = gtfsutils.filter_gtfs(options, routes,
+                                                    trips_on_day, shapes,
+                                                    stops, stop_times)
+
+    osm_routes = import_osm(options, net)
+
+    (mapped_routes, mapped_stops,
+        missing_stops, missing_lines) = map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes,
+                                                              shapes_dict, filtered_stops)
+
+    write_gtfs_osm_outputs(options, mapped_routes, mapped_stops,
+                                    missing_stops, missing_lines,
+                                    gtfs_data, trip_list, shapes_dict, net)

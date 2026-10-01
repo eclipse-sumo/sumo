@@ -26,6 +26,7 @@ from __future__ import absolute_import
 import os
 import sys
 import io
+from xml.sax import saxutils
 from collections import defaultdict
 import pandas as pd
 
@@ -102,9 +103,6 @@ def dataAvailable(options):
 
 
 def groupRoutes(options, full_data_merged):
-    if not os.path.exists(options.fcd):
-        os.makedirs(options.fcd)
-
     vehicles = defaultdict(list)  # mode -> [(trip_id, route, type, depart, line, params), ...]
     routes = defaultdict(lambda: defaultdict(list))  # mode -> trip_id -> [(lon, lat, until, name, gtfsid, bloc, fareZone, fareSymbol startFare, speed), ...]
 
@@ -141,12 +139,8 @@ def groupRoutes(options, full_data_merged):
                 until = 0 if firstDep is None else departureSec - timeIndex - firstDep
                 stopSeq.append((d.stop_id, until))
                 currentRoute.append((arrivalSec - offset, d.stop_lon, d.stop_lat, until,
-                         sumolib.xml.quoteattr(d.stop_name, True),
-                         # Store also the original GTFS stop ID which allows us to map other external data to
-                         # this particular stop (mapping by `name` is ambiguous, we may have several platforms
-                         # of a stop with the identical name). By definition, the `stop_id` is a UTF8 string, hence
-                         # the quoting.
-                         sumolib.xml.quoteattr(d.stop_id, True),
+                         saxutils.escape(d.stop_name),
+                         saxutils.escape(d.stop_id),
                          "" if not options.joinBlocks or pd.isna(d.block_id) else d.block_id,
                          d.fare_zone, d.fare_token, d.start_char))
                 if firstDep is None:
@@ -197,7 +191,7 @@ def writeFCD(options, routes):
         for trip_id, locations in routes[mode].items():
             for time, x, y, until, name, gtfsid, block, fareZone, fareSymbol, startFare in locations:
                 fcdFile.write((u'    <timestep time="%s"><vehicle id="%s" x="%s" y="%s" until="%s" ' +
-                               u'name=%s gtfsid=%s block="%s" fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/>' +
+                               u'name="%s" gtfsid="%s" block="%s" fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/>' +
                                u'</timestep>\n') % (
                                   time, trip_id, x, y, until, name, gtfsid, block, fareZone, fareSymbol, startFare))
         fcdFile.write(u'</fcd-export>\n')
@@ -232,6 +226,8 @@ def main(options):
     vehicles, routes = groupRoutes(options, full_data_merged)
 
     if routes:
+        if not os.path.exists(options.fcd):
+            os.makedirs(options.fcd)
         writeFCD(options, routes)
         writeVehicles(options, vehicles)
         gtfsutils.write_vtypes(options, sorted(vehicles.keys()))
