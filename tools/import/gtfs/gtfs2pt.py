@@ -32,6 +32,7 @@ import subprocess
 import collections
 import rtree
 import pandas as pd
+from collections import namedtuple
 pd.options.mode.chained_assignment = None  # default='warn'
 
 sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
@@ -318,6 +319,7 @@ def generate_polygons(net, routes, outfile):
 
 
 def map_stops(options, net, typedNets, routes, rout, edgeMap, fixedStops, stopLookup, geoRoutes):
+    MappedStop = namedtuple("MappedStop", ["id", "arrival", "until", "name", "block", "isParking"])
     stops = collections.defaultdict(list)
     stopDesc = collections.defaultdict(list)  # laneID -> [(typ, id, start, end, stopName, childs)]
     stopID2Lane = dict()
@@ -495,7 +497,7 @@ def map_stops(options, net, typedNets, routes, rout, edgeMap, fixedStops, stopLo
                             childs.append(u'        <param key="allowOvertakeRight" value="false"/>\n')
                     stopDesc[laneID].append([typ, stop, start, end, s.name, childs])
                     stopID2Lane[stop] = laneID
-                stops[rid].append((stop, s.until, s.name, s.block, isParking))
+                stops[rid].append(MappedStop(stop, s.arrival, s.until, s.name, s.block, isParking))
                 lastUntil = s.until
                 lastStop = stop
     for laneID, stopList in stopDesc.items():
@@ -518,7 +520,7 @@ def filter_trips(options, routes, stops, outf, begin, end, vehicles):
         for veh in vehicles[mode]:
             tripID, routeID, orig_depart, line, params = veh
             if routeID in routes and len(routes[routeID][0]) > 0 and len(stops.get(routeID, [])) > 1:
-                until = stops[routeID][0][1]
+                until = stops[routeID][0].until
                 for d in range(numDays):
                     depart = max(0, d * 86400 + orig_depart + until - options.duration)
                     if begin <= depart < end:
@@ -640,14 +642,16 @@ def writeRoute(options, rout, vehID, edges, stops, edgeMap):
         # read the changing trip_ids out of the block attribute
         blocks = set([stop[3] for stop in stops[vehID]])
         isJoined = len(blocks) > 1
-    for stopID, until, name, blockID, isParking in stops[vehID]:
-        tripId = ' tripId="%s"' % blockID if isJoined and lastTripId != blockID else ''
-        parking = ' parking="true"' if isParking else ""
+    for s in stops[vehID]:
+        tripId = ' tripId="%s"' % s.block if isJoined and lastTripId != s.block else ''
+        parking = ' parking="true"' if s.isParking else ""
         if offset is None:
-            offset = until
-        rout.write(u'        <stop busStop="%s" duration="%s" until="%s"%s%s/> <!-- %s -->\n' %
-                   (stopID, ft(options.duration), ft(until - offset), parking, tripId,
-                    removeDoubleHypen(name)))
+            offset = s.until
+        # ensure arrival preceeds until by at least duration
+        arrival = 'arrival="%s" ' % ft(max(0, min(s.arrival - offset, s.until - options.duration))) if options.writeArrival else ""
+        rout.write(u'        <stop busStop="%s" %sduration="%s" until="%s"%s%s/> <!-- %s -->\n' %
+                   (s.id, arrival, ft(options.duration), ft(s.until - offset), parking, tripId,
+                    removeDoubleHypen(s.name)))
     rout.write(u'    </route>\n')
 
 

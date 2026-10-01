@@ -103,7 +103,7 @@ def dataAvailable(options):
 
 
 def groupRoutes(options, full_data_merged):
-    Stop = namedtuple("Stop", ["lon", "lat", "until", "name", "gtfsid", "block", "fareZone", "fareSymbol", "startFare", "fcdtime"])
+    Stop = namedtuple("Stop", ["lon", "lat", "arrival", "until", "name", "gtfsid", "block", "fareZone", "fareSymbol", "startFare", "fcdtime"])
     vehicles = defaultdict(list)  # mode -> [(trip_id, route, type, depart, line, params), ...]
     routes = defaultdict(lambda: defaultdict(list))  # mode -> trip_id -> [Stop, ...]
 
@@ -138,10 +138,12 @@ def groupRoutes(options, full_data_merged):
                 arrivalSec = d.arrival_time + timeIndex
                 departureSec = d.departure_time + timeIndex
                 until = 0 if firstDep is None else departureSec - timeIndex - firstDep
+                arrival = 0 if firstDep is None else arrivalSec - timeIndex - firstDep
                 stopSeq.append((d.stop_id, until))
                 currentRoute.append(Stop(
                     lon=d.stop_lon,
                     lat=d.stop_lat,
+                    arrival=arrival,
                     until=until,
                     name=saxutils.escape(d.stop_name),
                     gtfsid=saxutils.escape(d.stop_id),
