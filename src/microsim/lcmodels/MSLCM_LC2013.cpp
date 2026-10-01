@@ -313,7 +313,7 @@ MSLCM_LC2013::_patchSpeed(double min, const double wanted, double max, const MSC
             gotOne = true;
 #ifdef DEBUG_PATCH_SPEED
             if (DEBUG_COND) {
-                std::cout << SIMTIME << " veh=" << myVehicle.getID() << " got nVSafe=" << nVSafe << " isOwn: " << i.second << " rawV=" << v << "\n";
+                std::cout << SIMTIME << " veh=" << myVehicle.getID() << " got nVSafe=" << nVSafe << " isOwn: " << toString((LaneChangeAction)i.second) << " rawV=" << v << "\n";
             }
 #endif
         } else {
@@ -1268,6 +1268,7 @@ MSLCM_LC2013::_wantsChange(
     const bool hasStoppedLeader = leader.first != 0 && leader.first->isStopped() && leader.second < (currentDist - posOnLane);
     const bool hasBidiLeader = myVehicle.getLane()->getBidiLane() != nullptr && MSLCHelper::isBidiLeader(leader.first, curr.bestContinuations);
     const bool hasBidiNeighLeader = neighLane.getBidiLane() != nullptr && MSLCHelper::isBidiLeader(neighLead.first, neigh.bestContinuations);
+    const bool hasJunctionLeader = leader.first != nullptr && leader.first == neighLead.first;
 
     if (bestLaneOffset == 0 && hasBidiLeader) {
         // getting out of the way is enough to clear the blockage
@@ -1528,7 +1529,7 @@ MSLCM_LC2013::_wantsChange(
                                          //MAX2(STEPS2TIME(TS), (myLeftSpace-myLeadingBlockerLength) / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / remainingLanes / urgency) :
                                          MAX2(STEPS2TIME(TS), myLeftSpace / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / remainingLanes / urgency) :
                                          myVehicle.getInfluencer().changeRequestRemainingSeconds(currentTime));
-        if (!hasBidiNeighLeader) {
+        if (!hasBidiNeighLeader && !hasJunctionLeader) {
             const double plannedSpeed = informLeader(msgPass, blocked, myLca, neighLead, remainingSeconds);
             // NOTE: for the  ballistic update case negative speeds may indicate a stop request,
             //       while informLeader returns -1 in that case. Refs. #2577
@@ -1556,7 +1557,8 @@ MSLCM_LC2013::_wantsChange(
                           << " veh=" << myVehicle.getID()
                           << " myLeftSpace=" << myLeftSpace
                           << " remainingSeconds=" << remainingSeconds
-                          << " hasBidiNeighLeader\n";
+                          << " hasBidiNeighLeader=" << hasBidiNeighLeader
+                          << " hasJunctionLeader=" << hasJunctionLeader << "\n";
             }
 #endif
         }

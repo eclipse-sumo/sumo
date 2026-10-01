@@ -1652,6 +1652,7 @@ StringBijection<LaneChangeAction>::Entry SUMOXMLDefinitions::laneChangeActionVal
     { "amBBS",       LCA_AMBACKBLOCKER_STANDING },
     { "MR",          LCA_MRIGHT },
     { "ML",          LCA_MLEFT },
+    { "Help",        LCA_CHANGE_TO_HELP },
     { "unknown",     LCA_UNKNOWN } //< must be the last one
 };
 
