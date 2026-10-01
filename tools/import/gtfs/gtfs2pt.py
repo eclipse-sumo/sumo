@@ -44,7 +44,8 @@ import tracemapper  # noqa
 
 import gtfs2fcd  # noqa
 import gtfs2osm  # noqa
-from gtfsutils import OSM2SUMO_MODES, GTFS2OSM_MODES, import_gtfs, filter_gtfs, write_vtypes
+import gtfsutils  # noqa
+from gtfsutils import OSM2SUMO_MODES, GTFS2OSM_MODES  # noqa
 
 
 def get_options(args=None):
@@ -460,7 +461,7 @@ def map_stops(options, net, typedNets, routes, rout, edgeMap, fixedStops, stopLo
                                     bestDist = dist
                                     result = (lane.getID(), float(stopObj.startPos), endPos)
                 if result is None and candidate_edges:
-                    result = gtfs2osm.getBestLane(net, veh.x, veh.y, options.radius, stopLength, options.center_stops,
+                    result = gtfsutils.getBestLane(net, veh.x, veh.y, options.radius, stopLength, options.center_stops,
                                                   candidate_edges, OSM2SUMO_MODES[mode],
                                                   (route[lastIndex], lastPos))
                     if options.warn_unmapped and result is not None and stopLookup.hasCandidates():
@@ -501,7 +502,7 @@ def map_stops(options, net, typedNets, routes, rout, edgeMap, fixedStops, stopLo
                     print("Warning: GTFS stop_id '%s' occurs on lane '%s' and '%s', assigning new id '%s'." % (
                         oldID, stopID2Lane[oldID], laneID, stop), file=sys.stderr)
                 if not options.skip_access:
-                    childs += gtfs2osm.getAccess(net, veh.x, veh.y, options.access_radius, laneID)
+                    childs += gtfsutils.getAccess(net, veh.x, veh.y, options.access_radius, laneID)
                 if not options.overtake_right:
                     lane = net.getLane(laneID)
                     idx = lane.getIndex()
@@ -612,10 +613,10 @@ def main(options):
     if legacy_osm_routes:
         # Import PT from GTFS and OSM routes
         gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False, printErrors=True))
-        routes, trips_on_day, shapes, stops, stop_times = import_gtfs(options, gtfsZip)
+        routes, trips_on_day, shapes, stops, stop_times = gtfsutils.import_gtfs(options, gtfsZip)
         gtfsZip.fp.close()
         if options.mergedCSVOutput:
-            full_data_merged = gtfs2fcd.get_merged_data(options)
+            full_data_merged = gtfsutils.get_merged_data(options)
             full_data_merged.sort_values(by=['trip_id', 'stop_sequence'], inplace=True)
             full_data_merged.to_csv(options.mergedCSVOutput, sep=";", index=False)
 
@@ -625,7 +626,7 @@ def main(options):
             print('Warning: GTFS shapes file not found! Continuing mapping without shapes.', file=sys.stderr)
         (gtfs_data, trip_list,
             filtered_stops,
-            shapes, shapes_dict) = filter_gtfs(options, routes,
+            shapes, shapes_dict) = gtfsutils.filter_gtfs(options, routes,
                                                         trips_on_day, shapes,
                                                         stops, stop_times)
 

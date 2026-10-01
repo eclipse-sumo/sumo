@@ -40,8 +40,7 @@ sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.xml import parse_fast_nested  # noqa
 from sumolib.miscutils import benchmark, parseTime, humanReadableTime  # noqa
-
-from gtfsutils import OSM2SUMO_MODES, GTFS2OSM_MODES, import_gtfs, write_vtypes
+from gtfsutils import OSM2SUMO_MODES, GTFS2OSM_MODES, import_gtfs, getBestLane, getAccess, write_vtypes  # noqa
 
 
 def get_line_dir(line_orig, line_dest):
@@ -184,43 +183,6 @@ def _addToDataFrame(gtfs_data, row, shapes_dict, stop, edge):
     gtfs_data.loc[(gtfs_data["stop_id"] == row.stop_id) &
                   (gtfs_data["shape_id"].isin(shape_list)),
                   "edge_id"] = edge
-
-
-def getBestLane(net, lon, lat, radius, stop_length, center, edge_set, pt_class, last_pos=None):
-    # get edges near stop location
-    x, y = net.convertLonLat2XY(lon, lat)
-    edges = [e for e in net.getNeighboringEdges(x, y, radius, includeJunctions=False) if e[0].getID() in edge_set]
-    # sort by distance but have edges longer than stop length first
-    # TODO we should rather go for maximum overlap but it is unclear how to weight this against distance
-    for edge, _ in sorted(edges, key=lambda x: (x[0].getLength() <= stop_length, x[1])):
-        for lane in edge.getLanes():
-            if lane.allows(pt_class):
-                pos = lane.getClosestLanePosAndDist((x, y))[0]
-                start = max(0, pos - (stop_length / 2. if center else stop_length))
-                end = min(start + stop_length, lane.getLength())
-                if last_pos is None or end >= last_pos[1] or edge.getID() != last_pos[0]:
-                    return lane.getID(), start, end
-    return None
-
-
-def getAccess(net, lon, lat, radius, lane_id, max_access=10):
-    x, y = net.convertLonLat2XY(lon, lat)
-    lane = net.getLane(lane_id)
-    access = []
-    if not lane.getEdge().allows("pedestrian"):
-        for access_edge, _ in sorted(net.getNeighboringEdges(x, y, radius), key=lambda i: (i[1], i[0].getID())):
-            if access_edge.allows("pedestrian"):
-                access_lane_idx, access_pos, access_dist = access_edge.getClosestLanePosDist((x, y))
-                if not access_edge.getLane(access_lane_idx).allows("pedestrian"):
-                    for idx, lane in enumerate(access_edge.getLanes()):
-                        if lane.allows("pedestrian"):
-                            access_lane_idx = idx
-                            break
-                access.append((u'        <access friendlyPos="true" lane="%s_%s" pos="%.2f" length="%.2f"/>\n') %
-                              (access_edge.getID(), access_lane_idx, access_pos, 1.5 * access_dist))
-                if len(access) == max_access:
-                    break
-    return access
 
 
 @benchmark

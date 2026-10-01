@@ -27,13 +27,13 @@ import os
 import sys
 import io
 import pandas as pd
-import zipfile
 
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 from sumolib.miscutils import humanReadableTime  # noqa
 import traceExporter  # noqa
-import gtfs2osm  # noqa
+import gtfsutils  # noqa
+from gtfsutils import OSM2SUMO_MODES, GTFS2OSM_MODES  # noqa
 
 
 def add_options():
@@ -54,7 +54,7 @@ def add_options():
     op.add_argument("--gpsdat", category="input", type=op.data_file,
                     help="directory to write / read the generated gpsdat files to / from")
     op.add_argument("--modes", category="input", help="comma separated list of modes to import (%s)" %
-                    (", ".join(gtfs2osm.OSM2SUMO_MODES.keys())))
+                    (", ".join(OSM2SUMO_MODES.keys())))
     op.add_argument("--sbahn-is-light-rail", action="store_true", default=False, dest="sbahnLR", category="input",
                     help="interpret GTFS mode 109 (S-Bahn) as light_rail instead of train (Berlin, Hamburg)")
     op.add_argument("--vtype-output", default="vtypes.xml", category="output", type=op.file,
@@ -85,7 +85,7 @@ def check_options(options):
     if options.gpsdat is None:
         options.gpsdat = os.path.join('input', options.region)
     if options.modes is None:
-        options.modes = ",".join(gtfs2osm.OSM2SUMO_MODES.keys())
+        options.modes = ",".join(OSM2SUMO_MODES.keys())
     if options.gtfs and not options.date:
         raise ValueError("When option --gtfs is set, option --date must be set as well")
     options.ft = humanReadableTime if options.hrtime else lambda x: x
@@ -93,78 +93,11 @@ def check_options(options):
     return options
 
 
-def time2sec(s):
-    t = s.split(":")
-    return int(t[0]) * 3600 + int(t[1]) * 60 + int(t[2])
-
-
-def get_merged_data(options):
-    gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False, printErrors=True))
-    routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
-    gtfsZip.fp.close()
-
-    if options.bbox:
-        stops['stop_lat'] = stops['stop_lat'].astype(float)
-        stops['stop_lon'] = stops['stop_lon'].astype(float)
-        stops = stops[(options.bbox[1] <= stops['stop_lat']) & (stops['stop_lat'] <= options.bbox[3]) &
-                      (options.bbox[0] <= stops['stop_lon']) & (stops['stop_lon'] <= options.bbox[2])]
-    stop_times['arrival_time'] = stop_times['arrival_time'].map(time2sec)
-    stop_times['departure_time'] = stop_times['departure_time'].map(time2sec)
-
-    if 'fare_stops.txt' in gtfsZip.namelist():
-        zones = pd.read_csv(gtfsZip.open('fare_stops.txt'), dtype=str)
-        stops_merged = pd.merge(pd.merge(stops, stop_times, on='stop_id'), zones, on='stop_id')
-    else:
-        stops_merged = pd.merge(stops, stop_times, on='stop_id')
-        stops_merged['fare_zone'] = ''
-        stops_merged['fare_token'] = ''
-        stops_merged['start_char'] = ''
-
-    trips_routes_merged = pd.merge(trips_on_day, routes, on='route_id')
-    merged = pd.merge(stops_merged, trips_routes_merged, on='trip_id').drop_duplicates()
-    cols = ['trip_id', 'block_id', 'route_id', 'route_short_name', 'route_type',
-            'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
-            'fare_zone', 'fare_token', 'start_char', 'trip_headsign',
-            'arrival_time', 'departure_time']
-    # 'block_id' is optional
-    if 'block_id' not in merged.columns:
-        cols.remove('block_id')
-        options.joinBlocks = False
-    merged = merged[cols]
-    return merged
-
-
 def dataAvailable(options):
     for mode in options.modes.split(","):
         if os.path.exists(os.path.join(options.fcd, "%s.fcd.xml" % mode)):
             return True
     return False
-
-
-def joinBlocks(data):
-    """For trips that have the same non-empty block_id:
-       - sort trips by first depart
-       - swap trip_id and block_id (old trip_id can be written as stop attribute tripId)
-       - concatenate route_ids to form a descriptive route id for the joined trips
-       - renumber stop_sequence
-    """
-    blocks = []
-    for block_id, block in data.groupby('block_id', dropna=False):
-        if not pd.isna(block_id) and block_id != "":
-            departs = block.groupby('trip_id')['departure_time'].min().rename('trip_departure_time')
-            if len(departs) > 1:
-                block = block.join(departs, on='trip_id')
-                block.sort_values(by=['trip_departure_time', 'stop_sequence'], inplace=True)
-                block.reset_index(drop=True, inplace=True)
-                block['stop_sequence'] = block.index
-                # block.to_csv('debug_%s.csv' % block_id, sep=";", index=False)
-                del block['trip_departure_time']
-                # swap columns so later code will treat the block like a single trip (but preserve the original trip_id)
-                block[['trip_id', 'block_id']] = block[['block_id', 'trip_id']].values
-                # concatenate route_ids if they differ within the block
-                block['route_id'] = "_".join(block['route_id'].unique())
-        blocks.append(block)
-    return pd.concat(blocks)
 
 
 def main(options):
@@ -184,14 +117,14 @@ def main(options):
         if 'block_id' not in full_data_merged.columns:
             options.joinBlocks = False
     else:
-        full_data_merged = get_merged_data(options)
+        full_data_merged = gtfsutils.get_merged_data(options)
     if options.mergedCSVOutput:
         full_data_merged.sort_values(by=['trip_id', 'stop_sequence'], inplace=True)
         full_data_merged.to_csv(options.mergedCSVOutput, sep=";", index=False)
     if full_data_merged.empty:
         return False
     if options.joinBlocks:
-        full_data_merged = joinBlocks(full_data_merged)
+        full_data_merged = gtfsutils.joinBlocks(full_data_merged)
 
     fcdFile = {}
     tripFile = {}
@@ -252,7 +185,7 @@ def main(options):
                     firstStop = d.stop_name
                 offset += departureSec - arrivalSec
                 lastIndex = d.stop_sequence
-            mode = gtfs2osm.GTFS2OSM_MODES[d.route_type]
+            mode = GTFS2OSM_MODES[d.route_type]
             if mode in modes:
                 s = tuple(stopSeq)
                 if s not in seqs:
@@ -302,7 +235,7 @@ def main(options):
                 traceExporter.main(['--base-date', '0', '-i', fcdFile[mode].name,
                                     '--gpsdat-output', os.path.join(options.gpsdat, "gpsdat_%s.csv" % mode)])
     if dataAvailable(options):
-        gtfs2osm.write_vtypes(options, seenModes)
+        gtfsutils.write_vtypes(options, seenModes)
     return True
 
 

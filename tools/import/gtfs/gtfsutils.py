@@ -31,6 +31,7 @@ import hashlib
 
 # from pprint import pprint
 
+import zipfile
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 
@@ -365,3 +366,106 @@ def write_vtypes(options, seen=None):
                     vout.write(u'    <vType id="%s" vClass="%s"/>\n' %
                                (osm_type, sumo_class))
             vout.write(u'</additional>\n')
+
+def time2sec(s):
+    t = s.split(":")
+    return int(t[0]) * 3600 + int(t[1]) * 60 + int(t[2])
+
+
+def joinBlocks(data):
+    """For trips that have the same non-empty block_id:
+       - sort trips by first depart
+       - swap trip_id and block_id (old trip_id can be written as stop attribute tripId)
+       - concatenate route_ids to form a descriptive route id for the joined trips
+       - renumber stop_sequence
+    """
+    blocks = []
+    for block_id, block in data.groupby('block_id', dropna=False):
+        if not pd.isna(block_id) and block_id != "":
+            departs = block.groupby('trip_id')['departure_time'].min().rename('trip_departure_time')
+            if len(departs) > 1:
+                block = block.join(departs, on='trip_id')
+                block.sort_values(by=['trip_departure_time', 'stop_sequence'], inplace=True)
+                block.reset_index(drop=True, inplace=True)
+                block['stop_sequence'] = block.index
+                # block.to_csv('debug_%s.csv' % block_id, sep=";", index=False)
+                del block['trip_departure_time']
+                # swap columns so later code will treat the block like a single trip (but preserve the original trip_id)
+                block[['trip_id', 'block_id']] = block[['block_id', 'trip_id']].values
+                # concatenate route_ids if they differ within the block
+                block['route_id'] = "_".join(block['route_id'].unique())
+        blocks.append(block)
+    return pd.concat(blocks)
+
+
+def get_merged_data(options):
+    gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False, printErrors=True))
+    routes, trips_on_day, shapes, stops, stop_times = import_gtfs(options, gtfsZip)
+    gtfsZip.fp.close()
+
+    if options.bbox:
+        stops['stop_lat'] = stops['stop_lat'].astype(float)
+        stops['stop_lon'] = stops['stop_lon'].astype(float)
+        stops = stops[(options.bbox[1] <= stops['stop_lat']) & (stops['stop_lat'] <= options.bbox[3]) &
+                      (options.bbox[0] <= stops['stop_lon']) & (stops['stop_lon'] <= options.bbox[2])]
+    stop_times['arrival_time'] = stop_times['arrival_time'].map(time2sec)
+    stop_times['departure_time'] = stop_times['departure_time'].map(time2sec)
+
+    if 'fare_stops.txt' in gtfsZip.namelist():
+        zones = pd.read_csv(gtfsZip.open('fare_stops.txt'), dtype=str)
+        stops_merged = pd.merge(pd.merge(stops, stop_times, on='stop_id'), zones, on='stop_id')
+    else:
+        stops_merged = pd.merge(stops, stop_times, on='stop_id')
+        stops_merged['fare_zone'] = ''
+        stops_merged['fare_token'] = ''
+        stops_merged['start_char'] = ''
+
+    trips_routes_merged = pd.merge(trips_on_day, routes, on='route_id')
+    merged = pd.merge(stops_merged, trips_routes_merged, on='trip_id').drop_duplicates()
+    cols = ['trip_id', 'block_id', 'route_id', 'route_short_name', 'route_type',
+            'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
+            'fare_zone', 'fare_token', 'start_char', 'trip_headsign',
+            'arrival_time', 'departure_time']
+    # 'block_id' is optional
+    if 'block_id' not in merged.columns:
+        cols.remove('block_id')
+        options.joinBlocks = False
+    merged = merged[cols]
+    return merged
+
+
+def getBestLane(net, lon, lat, radius, stop_length, center, edge_set, pt_class, last_pos=None):
+    # get edges near stop location
+    x, y = net.convertLonLat2XY(lon, lat)
+    edges = [e for e in net.getNeighboringEdges(x, y, radius, includeJunctions=False) if e[0].getID() in edge_set]
+    # sort by distance but have edges longer than stop length first
+    # TODO we should rather go for maximum overlap but it is unclear how to weight this against distance
+    for edge, _ in sorted(edges, key=lambda x: (x[0].getLength() <= stop_length, x[1])):
+        for lane in edge.getLanes():
+            if lane.allows(pt_class):
+                pos = lane.getClosestLanePosAndDist((x, y))[0]
+                start = max(0, pos - (stop_length / 2. if center else stop_length))
+                end = min(start + stop_length, lane.getLength())
+                if last_pos is None or end >= last_pos[1] or edge.getID() != last_pos[0]:
+                    return lane.getID(), start, end
+    return None
+
+
+def getAccess(net, lon, lat, radius, lane_id, max_access=10):
+    x, y = net.convertLonLat2XY(lon, lat)
+    lane = net.getLane(lane_id)
+    access = []
+    if not lane.getEdge().allows("pedestrian"):
+        for access_edge, _ in sorted(net.getNeighboringEdges(x, y, radius), key=lambda i: (i[1], i[0].getID())):
+            if access_edge.allows("pedestrian"):
+                access_lane_idx, access_pos, access_dist = access_edge.getClosestLanePosDist((x, y))
+                if not access_edge.getLane(access_lane_idx).allows("pedestrian"):
+                    for idx, lane in enumerate(access_edge.getLanes()):
+                        if lane.allows("pedestrian"):
+                            access_lane_idx = idx
+                            break
+                access.append((u'        <access friendlyPos="true" lane="%s_%s" pos="%.2f" length="%.2f"/>\n') %
+                              (access_edge.getID(), access_lane_idx, access_pos, 1.5 * access_dist))
+                if len(access) == max_access:
+                    break
+    return access
