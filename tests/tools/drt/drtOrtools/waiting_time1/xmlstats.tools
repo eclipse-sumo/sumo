@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-23T14:31:14.766953+01:00 by Eclipse SUMO sumo v1_26_0+1357-4cb6fe19152
+<!-- generated on 2026-10-01T08:58:51.144123+01:00 by Eclipse SUMO sumo v1_27_1+0839-c65313e65c5
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -27,20 +27,20 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="39683"/>
+        <remote-port value="33323"/>
     </traci_server>
 
 </sumoConfiguration>
 -->
 
 <statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
-    <performance clockBegin="1776947474.77" clockEnd="1776947474.79" clockDuration="0.02" traciDuration="0.01" realTimeFactor="30000.00" vehicleUpdatesPerSecond="30000.00" personUpdatesPerSecond="5714.29" begin="0.00" end="630.00" duration="630.00"/>
+    <performance clockBegin="1790837931.15" clockEnd="1790837931.19" clockDuration="0.04" traciDuration="0.04" realTimeFactor="14318.18" vehicleUpdatesPerSecond="14318.18" personUpdatesPerSecond="2727.27" begin="0.00" end="630.00" duration="630.00"/>
     <vehicles loaded="1" inserted="1" running="1" waiting="0"/>
     <teleports total="0" jam="0" yield="0" wrongLane="0"/>
     <safety collisions="0" emergencyStops="0" emergencyBraking="0"/>
     <persons loaded="2" running="0" jammed="0"/>
     <personTeleports total="0" abortWait="0" wrongDest="0"/>
-    <vehicleTripStatistics count="1" routeLength="282.50" speed="0.45" duration="630.00" waitingTime="0.00" timeLoss="4.32" departDelay="0.00" departDelayWaiting="0.00" totalTravelTime="630.00" totalDepartDelay="0.00"/>
+    <vehicleTripStatistics count="1" routeLength="282.50" speed="10.46" duration="630.00" waitingTime="0.00" timeLoss="4.32" departDelay="0.00" departDelayWaiting="0.00" totalTravelTime="630.00" totalDepartDelay="0.00"/>
     <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
     <rideStatistics number="2" waitingTime="60.00" routeLength="-1.00" duration="60.00" bus="0" train="0" taxi="0" bike="0" aborted="0"/>
     <transportStatistics number="0"/>
