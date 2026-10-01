@@ -27,12 +27,15 @@ title: ChangeLog
   - Fixed negative timeloss when using the AGLOSA device #18239
   - Changing permissions (with rerouters or TraCI) now work if the loaded network had default permissions ("all") #18317
   - Closing a turning lane with a rerouter now affects routing even if the vehicle was configured to ignore temporary closures (device.rerouting.mode 8) #18302
+  - Time spent with scheduled stops no longer lowers average trip speed returned in statistic-output #18305
+  - Fixed crash when pedestrians pass a rerouter while also having an upcoming ride in their plan #18329
 
 
 - sumo-gui
   - Fixed crash when coloring by insertion backlog #18215
   - Fixed crash when trying to render a long partial vehicle that has already left the simulation (sublane) #18271
   - No longer creating an invalid file when attempting to save a snapshot in an invalid format #14763
+  - Fixed crash when using "Reload" or "Quick-Reload" after network loading failed #18320
 
 - meso
   - Fixed exaggerated headways when passing short edges #18315 (regression in 1.10.0)
@@ -80,7 +83,8 @@ title: ChangeLog
   - gtfs2pt.py: routes with the same sequence of stops but different timing are now distinguished #18238
   - gtfs2pt.py: fixed invalid cache-reuse when called twice with different input networks #18291
   - csv2xml.py: fixed problem when converting plain.nod.csv #18176
-  - plotting tools: fixed error when Matplotlib version string contains non-integer components #18294
+  - route2poly.py: now handles rou.alt.xml files #18327
+  - plotting tools: fixed error when Matplotlib version string contains non-integer components #18294  
 
 ### Enhancements
 
@@ -98,6 +102,7 @@ title: ChangeLog
   - meandata output has an attribute `distance` #18255
   - meandata values for net, emissions and noise can now be merged into a single line or table row #18254
   - Added laneChangeModel parameters `lcCooperativeMinSpeed` and `lcCooperativeHelpThreshold` which make cooperative yielding dependent on ego speed and also on the speed difference between ego and the blocked vehicle which requires help #17717
+  - Rerouters now support `viaProbReroute` for rerouting vehicles but keeping it's destination. This can be combined with closingReroute for fine-grained control over detours #18316
 
 - netedit
   - Added visualization toggle switch for showing start and end symbols (S, E) for polygons #17911
@@ -121,9 +126,13 @@ title: ChangeLog
   - Added new bottom bar icons/labels that track important scenario-health metrics: The total number of vehicles that are insertion-delayed and the percentage of teleports relative to the total number of inserted vehicles #18066
   - in meso, the edge context menu now permits to inspect lane attributes (i.e. to check lane permissions) #18265
   - Added a context menu to the Message Window (also affects netedit) #10453
+  - When coloring roads with a brighter color, turning arrow colors are adjusted automatically for contrast #12062
 
 - duarouter
   - vTypeDistribution can now reference an existing vType using attribute `refId` without creating a new type (similar to routeDistributions) #18178  
+
+- netconvert
+  - Added option **--dlr-navteq.plain** for adding extra attributes in plain output #18287
 
 - polyconvert
   - Now importing polygon height from OSM #18216
@@ -136,6 +145,10 @@ title: ChangeLog
   - Option **--queue-output** is now supported. Queue lengths are measured per segment queue based on vehicle entry order and, when **--meso-interpolate-pos** is set, on interpolated positions #18212  - 
   - Added warning when loading a network with multi-modal edges where a risk of miscalculating capacity exists #4113
 
+- traci
+  - Added function `vehicle.getShadowLaneID` #7407
+  - Added functions for getting aggregated traffic data from traci.meandata #9242
+
 - tools
   - instantOutToEdgeData.py: added option **--poi-output** to visualize extra values and aid in debugging #18166
   - edgeDataFromFlow.py: added option **--turn-output** to write edgeRelations for detectors that have a unique sucessor edge #17955
@@ -144,6 +157,7 @@ title: ChangeLog
   - randomTrips.py: Now warns when routing personTrips with mode public and without pt input #18006
   - randomTrips.py: Added option **--return-to-origin** which can be used with **--intermediate** to model return trips. #14817
   - gtfs2pt.py now interprets extended gtfs trip modes. The default interpretation of mode 109 was changed to 'train' as this is by far the more common case. Special cases such as Berlin and Hamburg where 109 is mapped as 'light_rail' in OSM can be handled by setting the new option **--sbahn-is-light-rail** #18292
+  - gtfs2pt.py: Added option **--write-arrival** to include scheduled arrival times in the output #18306
   - diffMerge.py: [new tool](Tools/Net.md#diffmergepy) for helping to merge conflicts when trying to integrate two sets of network changes #18096
   - flowConservation.py: [new tool](Tools/Detector.md#flowconservationpy) to sanity check edgeData around junctions #18183
   - filterDistricts.py: added option **--min-connections** to filter out sources with to few outgoing edges and sinks with to few incoming edges #10618
