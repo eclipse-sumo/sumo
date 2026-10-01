@@ -469,3 +469,28 @@ def getAccess(net, lon, lat, radius, lane_id, max_access=10):
                 if len(access) == max_access:
                     break
     return access
+
+
+def loadGTFS(options):
+    if options.mergedCSV:
+        # Need everything except few columns as strings. The exceptions are:
+        # - `arrival_time` and `departure_time` have to be integers,
+        # - `stop_lat`, `stop_lon`, and `stop_sequence` have to be floats
+        full_data_merged = pd.read_csv(options.mergedCSV, sep=";",
+                                       keep_default_na=False,
+                                       dtype=str)
+        full_data_merged['arrival_time'] = full_data_merged['arrival_time'].astype(int)
+        full_data_merged['departure_time'] = full_data_merged['departure_time'].astype(int)
+        full_data_merged['stop_lat'] = full_data_merged['stop_lat'].astype(float)
+        full_data_merged['stop_lon'] = full_data_merged['stop_lon'].astype(float)
+        full_data_merged['stop_sequence'] = full_data_merged['stop_sequence'].astype(float)
+        if 'block_id' not in full_data_merged.columns:
+            options.joinBlocks = False
+    else:
+        full_data_merged = get_merged_data(options)
+    if options.mergedCSVOutput:
+        full_data_merged.sort_values(by=['trip_id', 'stop_sequence'], inplace=True)
+        full_data_merged.to_csv(options.mergedCSVOutput, sep=";", index=False)
+    if options.joinBlocks and not full_data_merged.empty:
+        full_data_merged = joinBlocks(full_data_merged)
+    return full_data_merged
