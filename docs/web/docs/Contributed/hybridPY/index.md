@@ -7,7 +7,7 @@ hybridPY (formerly known as SUMOPy). hybridPY is intended to expand the user-bas
 micro-simulator SUMO by providing a user-friendly, yet flexible
 simulation suite. The original publication related to SUMOPy can be
 found at the [University of Bologna](https://web.archive.org/web/20181101145057/https://campus.unibo.it/200538/1/Research-A-Choudhry-657079-.pdf)
-and in the [proceedings of the SUMO2013](https://sumo.dlr.de/2013/SUMO2013_15-17May%202013_Berlin-Adlershof.pdf).
+and in the [proceedings of the SUMO2013](https://elib.dlr.de/97715/1/Proceeding_SUMO2013_15-17May%202013_Berlin-Adlershof.pdf).
 
 A further scope of hybridPY is to manage the huge amount of data necessary
 to run complex multi-modal simulations. This includes different demand

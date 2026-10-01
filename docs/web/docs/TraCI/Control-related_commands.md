@@ -6,13 +6,13 @@ title: Control-related commands
 
 | Parameter     | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)|
 | :-----------: | :-----------: |
-|      \-       | [getVersion](https://sumo.dlr.de/pydoc/traci.main.html#-getVersion) |
+|      \-       | [getVersion](https://sumo.dlr.de/pydoc/traci.html#-getVersion) |
 
 ### Response 0x00: Version
 
 | ValueType   | Description| [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)|
 | --------- | -------- | ----------- |
-|   tuple     |   Returns a tuple containing the TraCI API version number (integer) and a string identifying the SUMO version running on the TraCI server in human-readable form.   | [getVersion](https://sumo.dlr.de/pydoc/traci.main.html#-getVersion) |
+|   tuple     |   Returns a tuple containing the TraCI API version number (integer) and a string identifying the SUMO version running on the TraCI server in human-readable form.   | [getVersion](https://sumo.dlr.de/pydoc/traci.html#-getVersion) |
 
 The server responds to a **Get Version** command by sending two items:
 
@@ -51,7 +51,7 @@ TraCI server in human-readable form
 
 | Variable       | ValueType      | Description    | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)|
 | -------------- | -------------- | -------------- | -------------- |
-| simulationStep (0x02) |  double     | Make a simulation step. | [simulationStep](https://sumo.dlr.de/pydoc/traci.main.html#-simulationStep) |
+| simulationStep (0x02) |  double     | Make a simulation step. | [simulationStep](https://sumo.dlr.de/pydoc/traci.html#-simulationStep) |
 
 Forces SUMO to perform simulation. If *TargetTime* is 0 (zero), SUMO
 performs exactly one time step. Otherwise SUMO performs the simulation
@@ -78,7 +78,7 @@ so the parser should regard the id of the returned command.
 
 | Parameter     | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)|
 | :-----------: | :-----------: |
-|      \-       | [executeMove](https://sumo.dlr.de/pydoc/traci.main.html#-executeMove) |
+|      \-       | [executeMove](https://sumo.dlr.de/pydoc/traci.html#-executeMove) |
 
 Performs only the first part of a simulation step until the vehicles have moved but before the outputs are generated.
 A subsequent call to simulation step will then create the output.
@@ -87,7 +87,7 @@ A subsequent call to simulation step will then create the output.
 
 | Parameter     | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)|
 | :-----------: | :-----------: |
-|      \-       | [close](https://sumo.dlr.de/pydoc/traci.main.html#-close) |
+|      \-       | [close](https://sumo.dlr.de/pydoc/traci.html#-close) |
 
 Tells TraCI to close the connection to any client, stop simulation and
 shut down sumo.
@@ -96,7 +96,7 @@ shut down sumo.
 
 | Options     |  Description | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)|
 | :-----------: |:-----------: | :-----------: |
-| stringList     | Let sumo load a simulation using the given command line like options | [load](https://sumo.dlr.de/pydoc/traci.main.html#-load) |
+| stringList     | Let sumo load a simulation using the given command line like options | [load](https://sumo.dlr.de/pydoc/traci.html#-load) |
 
 Tells TraCI to reload the simulation with the given options.
 
@@ -107,7 +107,7 @@ Tells TraCI to reload the simulation with the given options.
 
 | Parameter     | ValueType | Description | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)|
 | ----------- | ----------- | ----------- | ----------- |
-| number of the client    | int  | Specify the execution order (when using multiple clients) | [setOrder](https://sumo.dlr.de/pydoc/traci.main.html#-setOrder) |
+| number of the client    | int  | Specify the execution order (when using multiple clients) | [setOrder](https://sumo.dlr.de/pydoc/traci.html#-setOrder) |
 
 Tells TraCI to give the current client the given position in the
 execution order. It is mandatory to send this as the first command after

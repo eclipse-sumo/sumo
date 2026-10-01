@@ -30,10 +30,10 @@ The aim of the model is to correctly replicate submicroscopic acceleration profi
 
 !!! caution
     The model is not compatible with the [actionSteps](index.md#actionsteplength) feature.
- 
+
 ## References
 
-1. ["Extending the Intelligent Driver Model in SUMO and Verifying the Drive Off Trajectories with Aerial Measurements"](https://sumo.dlr.de/2020/SUMO2020_paper_28.pdf);
+1. ["Extending the Intelligent Driver Model in SUMO and Verifying the Drive Off Trajectories with Aerial Measurements"](https://eclipse.dev/sumo/documents/2020/SUMO2020_paper_28.pdf);
    Dominik Salles, Stefan Kaufmann, Hans-Christian Reuss. SUMO User Conference 2020.
 2. Platform-dependent behavior: ["Github-issue #8921"](https://github.com/eclipse-sumo/sumo/issues/8921)
 3. ["SUMO Conference presentation"](https://www.youtube.com/watch?v=0VuSguxDVv8)

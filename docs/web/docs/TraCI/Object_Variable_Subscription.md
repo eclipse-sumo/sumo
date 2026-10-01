@@ -86,7 +86,7 @@ the error message.
 - In the [python
   library](../TraCI/Interfacing_TraCI_from_Python.md#subscriptions),
   all domains support the methods [*subscribe* and
-  *unsubscribe*](https://sumo.dlr.de/pydoc/traci.domain.html#Domain)
+  *unsubscribe*](https://sumo.dlr.de/pydoc/traci/domain.html#Domain)
 - In the [C++ library](../TraCI/C++TraCIAPI.md), the method
   *simulation.subscribe* takes an additional argument that encodes the
   domain
