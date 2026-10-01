@@ -312,11 +312,36 @@ switch($type){
 $file = $_SERVER['DOCUMENT_ROOT']. $file;
 if(file_exists($file)){
 $size = "<span class='badge badge-pill badge-secondary' style='margin-left:5px;'>" . round(((filesize($file))/1048576),1) . " MB" . "</span>";
+$checksumBtn = "";
+$modal = "";
+$shaFile = $file . ".sha256";
+if(file_exists($shaFile)){
+  $shaContent = trim(file_get_contents($shaFile));
+  $parts = preg_split('/\s+/', $shaContent);
+  $checksum = !empty($parts) ? $parts[0] : $shaContent;
+  $modalId = "checksum_" . md5($file);
+  $checksumBtn = "<button type='button' class='btn btn-sm btn-outline-secondary'" . $modalId . "' title='View SHA256 checksum'>Checksum</button>";
+  $modal = "<div class='modal fade' id='" . $modalId . "' tabindex='-1' role='dialog' aria-labelledby='" . $modalId . "Label' aria-hidden='true'>"
+         . "<div class='modal-dialog modal-dialog-centered' role='document'>"
+         . "<div class='modal-content'>"
+         . "<div class='modal-header'>"
+         . "<h5 class='modal-title' id='" . $modalId . "Label'>SHA256 Checksum</h5>"
+         . "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
+         . "</div>"
+         . "<div class='modal-body' style='color: #495057 !important;'>"
+         . "<p><strong>File:</strong> " . htmlspecialchars($fname) . "</p>"
+         . "<p><strong>Checksum (SHA256):</strong></p>"
+         . "<div class='codehilite'><pre><span></span><code class='hljs'>" . htmlspecialchars($checksum) . "</code></pre></div>"
+         . "</div>"
+         . "</div>"
+         . "</div>"
+         . "</div>";
+}
 if ($nightly) {
   $fileDate = "<span class='badge badge-pill badge-light' style='margin-left:5px;'>" . date("F d Y H:i:s", filemtime($file)) . " UTC</span>";
-  echo $fileDate . $size;
+  echo $fileDate . $size . $checksumBtn . $modal;
 } else {
-  echo $size;
+  echo $size . $checksumBtn . $modal;
 }
 }}
 
