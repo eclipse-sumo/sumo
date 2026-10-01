@@ -4,5 +4,8 @@ gtfs2pt_osm
 # set options --osm-routes and --stops
 gtfs2pt_osm_stops
 
+# test option --write-arrival
+gtfs2pt_osm_arrival
+
 # import public transport using shorter path between stops
 gtfs2pt_fcd
