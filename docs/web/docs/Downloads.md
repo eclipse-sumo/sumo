@@ -320,7 +320,7 @@ if(file_exists($shaFile)){
   $parts = preg_split('/\s+/', $shaContent);
   $checksum = !empty($parts) ? $parts[0] : $shaContent;
   $modalId = "checksum_" . md5($file);
-  $checksumBtn = "<button type='button' class='btn btn-sm btn-outline-secondary'" . $modalId . "' title='View SHA256 checksum'>Checksum</button>";
+  $checksumBtn = "<button type='button' class='btn btn-sm btn-outline-secondary' data-toggle='modal' data-target='#" . $modalId . "' title='View SHA256 checksum'>Checksum</button>";
   $modal = "<div class='modal fade' id='" . $modalId . "' tabindex='-1' role='dialog' aria-labelledby='" . $modalId . "Label' aria-hidden='true'>"
          . "<div class='modal-dialog modal-dialog-centered' role='document'>"
          . "<div class='modal-content'>"
