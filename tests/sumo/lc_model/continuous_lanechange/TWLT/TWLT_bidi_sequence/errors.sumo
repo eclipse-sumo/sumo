@@ -1,1 +1,2 @@
-Warning: Vehicle 'v.2' could not finish continuous lane change (turn lane) time=47.00.
+Warning: Vehicle 'b.9'; frontal collision with vehicle 'v.1', lane='E1_1', gap=-4.86, latGap=-0.98, time=38.00, stage=laneChange.
+Warning: Vehicle 'v.2' could not finish continuous lane change (turn lane) time=43.00.
