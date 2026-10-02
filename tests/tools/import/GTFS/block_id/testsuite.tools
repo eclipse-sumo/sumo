@@ -4,3 +4,6 @@ noJoin
 
 # join trips that have the same block_id
 join
+
+# join trips that have the same block_id but also include trips that are not joined
+join2
