@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-01T16:48:34.613549+00:00 by Eclipse SUMO netconvert v1_27_1+0866-2b871eb25c2
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="/repro/minimal/nodes.nod.xml"/>
+        <edge-files value="/repro/minimal/edges.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/repro/minimal/net.net.xml"/>
+    </output>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,60.00,0.00" origBoundary="0.00,0.00,60.00,0.00" projParameter="!"/>
+
+    <edge id=":b_0" function="internal">
+        <lane id=":b_0_0" index="0" disallow="pedestrian" speed="13.90" length="0.10" shape="20.00,-1.60 20.00,-1.60"/>
+    </edge>
+    <edge id=":c_0" function="internal">
+        <lane id=":c_0_0" index="0" disallow="pedestrian" speed="13.90" length="0.10" shape="40.00,-1.60 40.00,-1.60"/>
+    </edge>
+
+    <edge id="entry" from="a" to="b" priority="-1">
+        <lane id="entry_0" index="0" allow="pedestrian" speed="13.90" length="20.00" width="2.00" shape="-0.00,-4.20 20.00,-4.20"/>
+        <lane id="entry_1" index="1" disallow="pedestrian" speed="13.90" length="20.00" shape="-0.00,-1.60 20.00,-1.60"/>
+    </edge>
+    <edge id="exit" from="c" to="d" priority="-1">
+        <lane id="exit_0" index="0" allow="pedestrian" speed="13.90" length="20.00" width="2.00" shape="40.00,-4.20 60.00,-4.20"/>
+        <lane id="exit_1" index="1" disallow="pedestrian" speed="13.90" length="20.00" shape="40.00,-1.60 60.00,-1.60"/>
+    </edge>
+    <edge id="trigger" from="b" to="c" priority="-1">
+        <lane id="trigger_0" index="0" allow="pedestrian" speed="13.90" length="20.00" width="2.00" shape="20.00,-4.20 40.00,-4.20"/>
+        <lane id="trigger_1" index="1" disallow="pedestrian" speed="13.90" length="20.00" shape="20.00,-1.60 40.00,-1.60"/>
+    </edge>
+
+    <junction id="a" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,0.00 -0.00,-5.20"/>
+    <junction id="b" type="priority" x="20.00" y="0.00" incLanes="entry_0 entry_1" intLanes=":b_0_0" shape="20.00,0.00 20.00,-5.20 20.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="c" type="priority" x="40.00" y="0.00" incLanes="trigger_0 trigger_1" intLanes=":c_0_0" shape="40.00,0.00 40.00,-5.20 40.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="d" type="dead_end" x="60.00" y="0.00" incLanes="exit_0 exit_1" intLanes="" shape="60.00,-5.20 60.00,0.00"/>
+
+    <connection from="entry" to="trigger" fromLane="1" toLane="1" via=":b_0_0" dir="s" state="M"/>
+    <connection from="trigger" to="exit" fromLane="1" toLane="1" via=":c_0_0" dir="s" state="M"/>
+
+    <connection from=":b_0" to="trigger" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":c_0" to="exit" fromLane="0" toLane="1" dir="s" state="M"/>
+
+</net>

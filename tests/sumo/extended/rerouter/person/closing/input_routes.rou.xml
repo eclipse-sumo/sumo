@@ -1,0 +1,3 @@
+<routes>
+<person id="p" depart="0"><walk edges="entry trigger exit"/></person>
+</routes>

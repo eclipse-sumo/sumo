@@ -10,5 +10,8 @@ viaProb
 # 
 optional
 
+# test for #18330
+closing
+
 # test for #18329
 closing_ride
