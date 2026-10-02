@@ -327,7 +327,7 @@ if ($nightly) {
 function getNightlyFreshness($fname){
 $zip = new ZipArchive;
 $zip->open($_SERVER['DOCUMENT_ROOT']. "/daily/" . $fname);
-$freshnessIs = str_replace("\"","",str_replace("#define VERSION_STRING ","",$zip->getFromName('sumo-git/include/version.h')));
+$freshnessIs = str_replace("\"","",str_replace("#define VERSION_STRING ","",$zip->getFromName('sumo-win64-git/include/version.h')));
 echo $freshnessIs;
 $zip->close();
 }
