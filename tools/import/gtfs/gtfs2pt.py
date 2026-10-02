@@ -638,7 +638,7 @@ def writeRoute(options, rout, vehID, edges, stops, edgeMap):
     if options.joinBlocks:
         # if multiple trip_id share the same block_id, this is treated by swapping trip_id and block_id, hence we can
         # read the changing trip_ids out of the block attribute
-        blocks = set([stop[3] for stop in stops[vehID]])
+        blocks = set([s.block for s in stops[vehID]])
         isJoined = len(blocks) > 1
     for s in stops[vehID]:
         tripId = ' tripId="%s"' % s.block if isJoined and lastTripId != s.block else ''
