@@ -43,34 +43,55 @@ OSM2SUMO_MODES = {
     'monorail': 'rail_urban',
     'subway': 'subway',
     'aerialway': 'cable_car',
+    'funicular': 'cable_car',
     'ferry': 'ship',
+    'aeroway': 'aircraft',
+    'taxi': 'taxi',
     'trolleybus': 'bus'  # Assume trolleybus access to edges is the same as for bus vehicles
 }
+GTFS2OSM_MODES = {}
+# https://developers.google.com/transit/gtfs/reference/extended-route-types
+for i in range(100, 118):
+    GTFS2OSM_MODES[str(i)] = 'train'
+for i in range(200, 210):
+    GTFS2OSM_MODES[str(i)] = 'bus' # actually coach but OSM does not distinguish this
+for i in range(700, 717):
+    GTFS2OSM_MODES[str(i)] = 'bus'
+for i in range(900, 907):
+    GTFS2OSM_MODES[str(i)] = 'tram'
+for i in range(1300, 1308):
+    GTFS2OSM_MODES[str(i)] = 'tram'
+for i in range(1500, 1508):
+    GTFS2OSM_MODES[str(i)] = 'taxi'
 
-GTFS2OSM_MODES = {
+GTFS2OSM_MODES.update({
     # https://developers.google.com/transit/gtfs/reference/#routestxt
     '0':  'tram',
     '1':  'subway',
     '2':  'train',
     '3':  'bus',
     '4':  'ferry',
-    # '5':  'cableTram',
-    # '6':  'aerialLift',
-    # '7':  'funicular',
+    '5':  'tram',
+    '6':  'aerialway',
+    '7':  'funicular',
     '11': 'trolleybus',  # used in Pilsen
-    '800': 'trolleybus',  # used in Prague, as per Extended GTFS Route Types
+    '12': 'monorail',
     # https://developers.google.com/transit/gtfs/reference/extended-route-types
-    '100':  'train',        # DB
-    '101':  'train',
-    '102':  'train',
-    '103':  'train',
-    '106':  'train',
-    '109':  'train',        # S-Bahn
-    '400':  'subway',       # U-Bahn
-    '1000': 'ferry',        # Faehre
-    # additional modes used in Hamburg
+    '108':  'light_rail',
+    '109':  'train',        # S-Bahn (light_rail with option --sbahn-is-light-rail needed for Berlin, Hamburg)
+    '400':  'subway',       # actually train but used for U-Bahn in Hamburg
+    '401':  'train',
     '402':  'subway',       # U-Bahn
+    '403':  'train',
+    '404':  'train',
+    '405':  'monorail',
+    '800':  'trolleybus',  # used in Prague, as per Extended GTFS Route Types
+    '1000': 'ferry',        # Faehre
+    '1100': 'aeroway',
     '1200': 'ferry',        # Faehre
+    '1400': 'funicular',
+    # '1700': 'misc',
+    '1702': 'horse',
     # modes used by hafas
     's': 'train',
     'RE': 'train',
@@ -92,12 +113,7 @@ GTFS2OSM_MODES = {
     'BUS': 'bus',        # tbd
     'Str': 'tram',        # tbd
     'DPF': 'train',        # tbd
-}
-# https://developers.google.com/transit/gtfs/reference/extended-route-types
-for i in range(700, 717):
-    GTFS2OSM_MODES[str(i)] = 'bus'
-for i in range(900, 907):
-    GTFS2OSM_MODES[str(i)] = 'tram'
+})
 
 
 def sha256hash(s):
