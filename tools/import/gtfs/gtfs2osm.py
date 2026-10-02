@@ -23,7 +23,6 @@ This is a legacy code path. Instead it is recommended to map GTFS to OSM stops w
 import os
 import sys
 import subprocess
-import datetime
 import time
 import math
 import io
@@ -40,7 +39,7 @@ sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.xml import parse_fast_nested  # noqa
 from sumolib.miscutils import benchmark, parseTime, humanReadableTime  # noqa
-import gtfsutils
+import gtfsutils  # noqa
 from gtfsutils import OSM2SUMO_MODES, GTFS2OSM_MODES, getBestLane, getAccess  # noqa
 
 
@@ -482,15 +481,15 @@ def process(options, net):
     (gtfs_data, trip_list,
         filtered_stops,
         shapes, shapes_dict) = gtfsutils.filter_gtfs(options, routes,
-                                                    trips_on_day, shapes,
-                                                    stops, stop_times)
+                                                     trips_on_day, shapes,
+                                                     stops, stop_times)
 
     osm_routes = import_osm(options, net)
 
     (mapped_routes, mapped_stops,
         missing_stops, missing_lines) = map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes,
-                                                              shapes_dict, filtered_stops)
+                                                     shapes_dict, filtered_stops)
 
     write_gtfs_osm_outputs(options, mapped_routes, mapped_stops,
-                                    missing_stops, missing_lines,
-                                    gtfs_data, trip_list, shapes_dict, net)
+                           missing_stops, missing_lines,
+                           gtfs_data, trip_list, shapes_dict, net)

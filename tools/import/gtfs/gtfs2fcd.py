@@ -103,7 +103,8 @@ def dataAvailable(options):
 
 
 def groupRoutes(options, full_data_merged):
-    Stop = namedtuple("Stop", ["lon", "lat", "arrival", "until", "name", "gtfsid", "block", "fareZone", "fareSymbol", "startFare", "fcdtime"])
+    Stop = namedtuple("Stop", ["lon", "lat", "arrival", "until", "name", "gtfsid",
+                               "block", "fareZone", "fareSymbol", "startFare", "fcdtime"])
     vehicles = defaultdict(list)  # mode -> [(trip_id, route, type, depart, line, params), ...]
     routes = defaultdict(lambda: defaultdict(list))  # mode -> trip_id -> [Stop, ...]
 
@@ -199,10 +200,10 @@ def writeFCD(options, routes):
             print('Writing fcd file "%s"' % fcdFile.name)
         for trip_id, locations in routes[mode].items():
             for s in locations:
-                fcdFile.write((u'    <timestep time="%s"><vehicle id="%s" x="%s" y="%s" until="%s" ' +
-                               u'name="%s" gtfsid="%s" block="%s" fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/>' +
-                               u'</timestep>\n') % (s.fcdtime, trip_id, s.lon, s.lat, s.until,
-                                                    s.name, s.gtfsid, s.block, s.fareZone, s.fareSymbol, s.startFare))
+                fcdFile.write((u'    <timestep time="%s"><vehicle id="%s" x="%s" y="%s" until="%s" name="%s" ' +
+                               u'gtfsid="%s" block="%s" fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/>' +
+                               u'</timestep>\n') % (s.fcdtime, trip_id, s.lon, s.lat, s.until, s.name,
+                                                    s.gtfsid, s.block, s.fareZone, s.fareSymbol, s.startFare))
         fcdFile.write(u'</fcd-export>\n')
         fcdFile.close()
 

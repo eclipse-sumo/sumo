@@ -27,7 +27,6 @@ from __future__ import division
 import os
 import sys
 import random
-import glob
 import subprocess
 import collections
 import rtree
@@ -39,8 +38,7 @@ sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
              os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')]
 import route2poly  # noqa
 import sumolib  # noqa
-from sumolib.miscutils import euclidean, parseTime, intIfPossible, getBaseName, flattenPath# noqa
-import tracemapper  # noqa
+from sumolib.miscutils import euclidean, getBaseName, flattenPath  # noqa
 
 import gtfs2fcd  # noqa
 import gtfs2osm  # noqa
@@ -447,9 +445,9 @@ def map_stops(options, net, typedNets, routes, rout, edgeMap, fixedStops, stopLo
                                         bestDist = dist
                                         result = (lane.getID(), float(stopObj.startPos), endPos)
                     if result is None and candidate_edges:
-                        result = gtfsutils.getBestLane(net, s.lon, s.lat, options.radius, stopLength, options.center_stops,
-                                                      candidate_edges, OSM2SUMO_MODES[mode],
-                                                      (route[lastIndex], lastPos))
+                        result = gtfsutils.getBestLane(net, s.lon, s.lat, options.radius, stopLength,
+                                                       options.center_stops, candidate_edges, OSM2SUMO_MODES[mode],
+                                                       (route[lastIndex], lastPos))
                         if options.warn_unmapped and result is not None and stopLookup.hasCandidates():
                             print("Warning! Adding stop at index %s that was not loaded for %s %s." % (
                                 stopIndex, rid, s), file=sys.stderr)
@@ -648,7 +646,8 @@ def writeRoute(options, rout, vehID, edges, stops, edgeMap):
         if offset is None:
             offset = s.until
         # ensure arrival preceeds until by at least duration
-        arrival = 'arrival="%s" ' % ft(max(0, min(s.arrival - offset, s.until - options.duration))) if options.writeArrival else ""
+        arrival = 'arrival="%s" ' % ft(
+            max(0, min(s.arrival - offset, s.until - options.duration))) if options.writeArrival else ""
         rout.write(u'        <stop busStop="%s" %sduration="%s" until="%s"%s%s/> <!-- %s -->\n' %
                    (s.id, arrival, ft(options.duration), ft(s.until - offset), parking, tripId,
                     removeDoubleHypen(s.name)))
