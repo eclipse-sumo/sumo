@@ -453,7 +453,7 @@ MSStageWalking::getRoutePosition() const {
 
 double
 MSStageWalking::getMaxSpeed(const MSTransportable* const person) const {
-    return mySpeed >= 0 ? mySpeed : person->getMaxSpeed();
+    return mySpeed >= 0 ? mySpeed : (person != nullptr ? person->getMaxSpeed() : DEFAULT_PEDESTRIAN_SPEED);
 }
 
 std::string
