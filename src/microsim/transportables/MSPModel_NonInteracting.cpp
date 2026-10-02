@@ -101,6 +101,9 @@ MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
         return 0;
     }
     myParent.activateEntryReminders(myTransportable);
+    if (myTransportable == nullptr) {
+        return 0; // descheduled by rerouter on new edge
+    }
     return static_cast<PState*>(myParent.getPState())->computeDuration(old, myParent, currentTime);
 }
 
