@@ -30,6 +30,8 @@ option(ENABLE_GL2PS "Enable GL2PS for vector graphics export" ${CHECK_OPTIONAL_L
 option(ENABLE_JUPEDSIM "Enable JuPedSim pedestrian simulation integration" ${CHECK_OPTIONAL_LIBS})
 option(ENABLE_BOOST "Enable Boost for stacktrace support" ${CHECK_OPTIONAL_LIBS})
 option(VERBOSE_SUB "Let sub-commands be more verbose")
+option(WASM_LEGACY_EXCEPTIONS "Use the JavaScript based exception handling instead of native WebAssembly exceptions (Emscripten only)" OFF)
+option(WASM_ES6_MODULE "Emit the WebAssembly glue code as an ES6 module (Emscripten only)" OFF)
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 set(JUPEDSIM_CUSTOMDIR "" CACHE PATH "Custom install location of jupedsim")
@@ -111,6 +113,33 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set (CLANG_COMPILER True)
 endif ()
 
+# Emscripten / WebAssembly target. The features below need a desktop window or
+# a native language runtime, so they cannot work in a browser sandbox no matter
+# which libraries are available (netedit, the 3D view and the video export
+# follow from ENABLE_FOX being off). Everything else (PROJ, GDAL, Eigen, {fmt},
+# tcmalloc, ...) is already gated by its find_package / find_library below and
+# switches itself off unless a cross compiled version is in CMAKE_FIND_ROOT_PATH.
+if (EMSCRIPTEN)
+    foreach (wasm_disabled_feature
+             ENABLE_FOX ENABLE_GTEST ENABLE_FMI
+             ENABLE_PYTHON_BINDINGS ENABLE_JAVA_BINDINGS ENABLE_CS_BINDINGS ENABLE_C_BINDINGS)
+        set(${wasm_disabled_feature} OFF)
+    endforeach ()
+    message(STATUS "Disabled the GUI, the language bindings, the FMI library and Google Test for WebAssembly")
+
+    # libsumo and its dependencies throw and catch across translation unit
+    # boundaries, so exception support has to be requested explicitly and the
+    # very same mode has to be used for every cross compiled dependency
+    # (notably Xerces-C), otherwise throw and catch do not find each other.
+    set(WASM_EXCEPTION_FLAG "-fwasm-exceptions")
+    if (WASM_LEGACY_EXCEPTIONS)
+        set(WASM_EXCEPTION_FLAG "-fexceptions")
+    endif ()
+    add_compile_options(${WASM_EXCEPTION_FLAG})
+    add_link_options(${WASM_EXCEPTION_FLAG})
+    set(ENABLED_FEATURES "${ENABLED_FEATURES} WebAssembly")
+endif ()
+
 # C++20 is needed by Parquet >= 24.
 # C++17 is needed by std::filesystem and Parquet.
 # C++14 is needed by Google Test >= 1.13, for all the other parts C++11 should be enough.
@@ -145,7 +174,13 @@ if (GNU_COMPILER OR CLANG_COMPILER)
         set(CMAKE_BUILD_TYPE "Release")
     else ()
         # flags for clang and gcc in linux
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -pedantic -Wextra")
+        # (-pthread would pull in the SharedArrayBuffer based threading of
+        # Emscripten which needs special HTTP headers to be served, so the
+        # WebAssembly build stays single threaded)
+        if (NOT EMSCRIPTEN)
+            set(SUMO_PTHREAD_FLAG "-pthread")
+        endif ()
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SUMO_PTHREAD_FLAG} -Wall -pedantic -Wextra")
     endif ()
     if (GNU_COMPILER)
         # see https://stackoverflow.com/questions/23499909/adjust-variable-tracking-assignment-length
@@ -201,7 +236,7 @@ endif ()
 
 # special debug flags
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
-if (CLANG_COMPILER)
+if (CLANG_COMPILER AND NOT EMSCRIPTEN)
     if (WIN32)
         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,integer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build_config/clang_sanitize_blacklist.txt")
         add_compile_definitions(_ITERATOR_DEBUG_LEVEL=0)

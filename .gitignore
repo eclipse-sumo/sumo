@@ -57,6 +57,7 @@ __pycache__
 # build dir
 /build
 /build_clang
+/build-wasm
 /cmclang
 /cmvs
 /out

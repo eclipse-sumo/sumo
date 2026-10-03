@@ -64,37 +64,43 @@ set_target_properties(libsumostatic PROPERTIES FOLDER "libsumo" PREFIX ""
     OUTPUT_NAME libsumostatic${BINARY_SUFFIX}
     OUTPUT_NAME_DEBUG libsumostatic${BINARY_SUFFIX}D)
 
-if (FOX_FOUND)
-    # libsumoguistatic contains a compiled version of src/libsumo with HAVE_LIBSUMOGUI being defined
-    # the define also affects code in Simulation and Helper so we need to recompile
-    add_library(libsumoguistatic STATIC ${libsumostatic_STAT_SRCS} GUI.cpp GUI.h)
-    add_dependencies(libsumoguistatic generate-version-h install_dll)
-    set_target_properties(libsumoguistatic PROPERTIES FOLDER "libsumo" PREFIX ""
-        OUTPUT_NAME libsumoguistatic${BINARY_SUFFIX}
-        OUTPUT_NAME_DEBUG libsumoguistatic${BINARY_SUFFIX}D)
-    target_compile_definitions(libsumoguistatic PUBLIC HAVE_LIBSUMOGUI)
+# without FOX there is no GUI to link against
+set(sumo_link_libraries ${sumolibs} libsumostatic)
 
-    # for libsumocpp we need to recompile a third time to make sure everything is in the public interface
-    add_library(libsumocpp SHARED ${libsumostatic_STAT_SRCS} GUI.cpp GUI.h)
-    target_compile_definitions(libsumocpp PUBLIC HAVE_LIBSUMOGUI)
-    set(sumo_link_libraries ${sumoguilibs} libsumoguistatic)
-    target_link_libraries(libsumocpp PRIVATE ${sumoguilibs})
-else ()
-    add_library(libsumocpp SHARED ${libsumostatic_STAT_SRCS})
-    set(sumo_link_libraries ${sumolibs} libsumostatic)
-    target_link_libraries(libsumocpp PRIVATE ${sumolibs})
-endif()
-# TODO libsumocpp may contain GUI or not, you cannot tell from the name
-add_dependencies(libsumocpp generate-version-h install_dll)
+# Emscripten knows no shared libraries, everything is linked into the
+# WebAssembly module at the end of this file instead of into libsumocpp.
+if (NOT EMSCRIPTEN)
+    if (FOX_FOUND)
+        # libsumoguistatic contains a compiled version of src/libsumo with HAVE_LIBSUMOGUI being defined
+        # the define also affects code in Simulation and Helper so we need to recompile
+        add_library(libsumoguistatic STATIC ${libsumostatic_STAT_SRCS} GUI.cpp GUI.h)
+        add_dependencies(libsumoguistatic generate-version-h install_dll)
+        set_target_properties(libsumoguistatic PROPERTIES FOLDER "libsumo" PREFIX ""
+            OUTPUT_NAME libsumoguistatic${BINARY_SUFFIX}
+            OUTPUT_NAME_DEBUG libsumoguistatic${BINARY_SUFFIX}D)
+        target_compile_definitions(libsumoguistatic PUBLIC HAVE_LIBSUMOGUI)
 
-set_target_properties(libsumocpp PROPERTIES FOLDER "libsumo" PREFIX ""
-    OUTPUT_NAME libsumocpp${BINARY_SUFFIX}
-    OUTPUT_NAME_DEBUG libsumocpp${BINARY_SUFFIX}D)
-target_include_directories(libsumocpp PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>)
-install(TARGETS libsumocpp EXPORT SUMOConfig COMPONENT runtime
-    RUNTIME LIBRARY ARCHIVE
-    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
+        # for libsumocpp we need to recompile a third time to make sure everything is in the public interface
+        add_library(libsumocpp SHARED ${libsumostatic_STAT_SRCS} GUI.cpp GUI.h)
+        target_compile_definitions(libsumocpp PUBLIC HAVE_LIBSUMOGUI)
+        set(sumo_link_libraries ${sumoguilibs} libsumoguistatic)
+        target_link_libraries(libsumocpp PRIVATE ${sumoguilibs})
+    else ()
+        add_library(libsumocpp SHARED ${libsumostatic_STAT_SRCS})
+        target_link_libraries(libsumocpp PRIVATE ${sumolibs})
+    endif()
+    # TODO libsumocpp may contain GUI or not, you cannot tell from the name
+    add_dependencies(libsumocpp generate-version-h install_dll)
+
+    set_target_properties(libsumocpp PROPERTIES FOLDER "libsumo" PREFIX ""
+        OUTPUT_NAME libsumocpp${BINARY_SUFFIX}
+        OUTPUT_NAME_DEBUG libsumocpp${BINARY_SUFFIX}D)
+    target_include_directories(libsumocpp PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>)
+    install(TARGETS libsumocpp EXPORT SUMOConfig COMPONENT runtime
+        RUNTIME LIBRARY ARCHIVE
+        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    )
+endif ()
 
 if (SWIG_FOUND)
     include(${SWIG_USE_FILE})
@@ -211,3 +217,32 @@ if (SWIG_FOUND)
     endif(ENABLE_PYTHON_BINDINGS)
 
 endif(SWIG_FOUND)
+
+if (EMSCRIPTEN)
+    # The JavaScript / WebAssembly module. Build it with
+    #   cmake --build <builddir> --target libsumojs
+    # which yields bin/libsumo.js together with bin/libsumo.wasm.
+    add_executable(libsumojs libsumo_wasm.cpp)
+    add_dependencies(libsumojs generate-version-h)
+    target_link_libraries(libsumojs ${sumo_link_libraries})
+    set_target_properties(libsumojs PROPERTIES FOLDER "libsumo" OUTPUT_NAME libsumo SUFFIX ".js"
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+    target_link_options(libsumojs PRIVATE
+        -lembind
+        # SUMO networks and demand easily exceed the default heap
+        -sALLOW_MEMORY_GROWTH=1
+        -sINITIAL_MEMORY=64MB
+        # the XML parser and the routing algorithms recurse deeply
+        -sSTACK_SIZE=8MB
+        # libsumo reads its input from (and writes its output to) files
+        -sFORCE_FILESYSTEM=1
+        -sEXPORTED_RUNTIME_METHODS=FS
+        -sMODULARIZE=1
+        -sEXPORT_NAME=createLibsumo
+        # the default also includes the standalone shell, which we never target
+        -sENVIRONMENT=web,worker,node
+    )
+    if (WASM_ES6_MODULE)
+        target_link_options(libsumojs PRIVATE -sEXPORT_ES6=1)
+    endif ()
+endif ()

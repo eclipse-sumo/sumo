@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <vType id="car" accel="2.6" decel="4.5" sigma="0.5" length="5.00" minGap="2.50" maxSpeed="13.89"/>
+
+    <flow id="south_north" type="car" begin="0" end="900" period="5" from="A0A1" to="A1A2"/>
+    <flow id="west_east" type="car" begin="0" end="900" period="6" from="A1B1" to="B1C1"/>
+    <flow id="north_south" type="car" begin="0" end="900" period="7" from="C2C1" to="C1C0"/>
+
+</routes>
