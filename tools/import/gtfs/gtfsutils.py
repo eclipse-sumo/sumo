@@ -54,7 +54,7 @@ GTFS2OSM_MODES = {}
 for i in range(100, 118):
     GTFS2OSM_MODES[str(i)] = 'train'
 for i in range(200, 210):
-    GTFS2OSM_MODES[str(i)] = 'bus' # actually coach but OSM does not distinguish this
+    GTFS2OSM_MODES[str(i)] = 'bus'  # actually coach but OSM does not distinguish this
 for i in range(700, 717):
     GTFS2OSM_MODES[str(i)] = 'bus'
 for i in range(900, 907):

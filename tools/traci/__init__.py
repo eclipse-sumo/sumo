@@ -28,7 +28,9 @@ __all__ = ['busstop', 'calibrator', 'chargingstation', 'edge', 'gui', 'induction
            'multientryexit', 'overheadwire', 'parkingarea', 'person', 'poi', 'polygon', 'rerouter', 'route',
            'routeprobe', 'simulation', 'trafficlight', 'variablespeedsign', 'vehicle', 'vehicletype',
            'connection', 'constants', 'domain', 'exceptions',
-           'start', 'close', 'load', 'executeMove', 'getVersion', 'load', 'setOrder', 'simulationStep']
+           'start', 'close', 'load', 'executeMove', 'getVersion', 'load', 'setOrder', 'simulationStep',
+           'setConnectHook', 'connect', 'init', 'isLibsumo', 'isLibtraci', 'hasGUI', 'isLoaded',
+           'addStepListener', 'removeStepListener']
 
 try:
     # this tries to determine the version number of an installed wheel
