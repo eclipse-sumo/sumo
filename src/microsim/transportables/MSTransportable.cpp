@@ -95,7 +95,8 @@ MSTransportable::getRNG() const {
 
 int
 MSTransportable::getRNGIndex() const {
-    return getEdge()->getLanes()[0]->getRNGIndex();
+    const std::vector<MSLane*>& lanes = getEdge()->getLanes();
+    return lanes.empty() ? 0 : lanes[0]->getRNGIndex();
 }
 
 bool
@@ -720,7 +721,7 @@ MSTransportable::loadState(const std::string& state) {
         MSStage* prior = *(myPlan->begin() + priorIndex);
         myStep = myPlan->begin() + priorIndex + 1;
         bool waitAtStop = prior->getDestinationStop() != nullptr
-            && &prior->getDestinationStop()->getLane().getEdge() != prior->getDestination();
+                          && &prior->getDestinationStop()->getLane().getEdge() != prior->getDestination();
         checkAccess(prior, waitAtStop);
         //std::cout << " step=" << step << " i=" << getCurrentStageIndex() << " stage=" << getStageSummary(true) << "\n";
     } else {
