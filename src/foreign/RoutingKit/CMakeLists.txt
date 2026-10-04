@@ -30,9 +30,10 @@ set(foreign_routingkit_STAT_SRCS
     src/timer.cpp
 )
 if (GNU_COMPILER OR CLANG_COMPILER)
-    set_source_files_properties(src/contraction_hierarchy.cpp src/customizable_contraction_hierarchy.cpp src/nested_dissection.cpp PROPERTIES
+    set_source_files_properties(src/contraction_hierarchy.cpp src/customizable_contraction_hierarchy.cpp src/graph_util.cpp src/nested_dissection.cpp PROPERTIES
         COMPILE_OPTIONS "-Wno-unused-parameter"
     )
+    set_source_files_properties(src/bit_select.cpp PROPERTIES COMPILE_OPTIONS "-Wno-sign-compare")
     set_source_files_properties(src/bit_vector.cpp PROPERTIES COMPILE_OPTIONS "-Wno-psabi")
 endif ()
 
