@@ -906,7 +906,7 @@ RORouteHandler::retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std:
     if (tag != SUMO_TAG_NOTHING) {
         toStop = myNet.getStoppingPlace(id, tag);
         if (toStop == nullptr) {
-            WRITE_ERROR(TLF("The % '%' is not known%", toString(tag), id, errorSuffix));
+            myErrorOutput->inform(TLF("The % '%' is not known%", toString(tag), id, errorSuffix));
         }
     }
     return toStop;
