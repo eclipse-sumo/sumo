@@ -829,7 +829,7 @@ or by using the command-line `sumo-gui -c example.sumocfg`.
 
 You may use a XML schema definition file for setting up a sumo-gui
 configuration:
-[sumoConfiguration.xsd](https://sumo.dlr.de/xsd/sumoConfiguration.xsd).****
+[sumoConfiguration.xsd](https://sumo.dlr.de/xsd/sumoConfiguration.xsd).
 
 # GUI-settings Files
 
