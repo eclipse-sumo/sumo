@@ -21,18 +21,18 @@ title: Tutorials
 The SUMO User Conference is an annual event organized by the German Aerospace Center (DLR) in Berlin. Since 2015, each conference begins with a SUMO tutorial session. Below you can find the tutorial material (slide deck and input files). Since 2019, the tutorials have also been recorded on video.
 
 ## Files
-* [SUMO 2015](https://sumo.dlr.de/daily/sumo2015_tutorial.zip): Network editing with xml patch, persons
-* [SUMO 2016](https://sumo.dlr.de/daily/sumo2016_tutorial.zip): Network editing, meso, containers, [New Features 2016 (Slides)](https://sumo.dlr.de/daily/SUMO2016_new_features.pdf)
-* [SUMO 2017](https://sumo.dlr.de/daily/sumo2017_tutorial.zip): Network editing, randomTrips, calibrators (xml only), public transport (obsolete)
-* [SUMO 2018](https://sumo.dlr.de/daily/sumo2018_tutorial.zip): Fixing intermodal junctions, calibrators in netedit, junction model parameters, editing shapes
-* [SUMO 2019](https://sumo.dlr.de/daily/sumo2019_tutorial.zip): Network editing, visualizing traffic data, public transport from OSM, parking, netgenerate
-* [SUMO 2020](https://sumo.dlr.de/daily/sumo2020_tutorial.zip): Turn lanes, routeSampler.py, defining counting data in netedit, taxi/DRT
-* [SUMO 2021](https://sumo.dlr.de/daily/sumo2021_tutorial.zip): Traffic light layout, indirect left turn, TAZ, OD-traffic, GTFS
-* [SUMO 2022](https://sumo.dlr.de/daily/sumo2022_tutorial.zip): Network editing, flows, opposite driving, pedestrian crossings, parking search
-* [SUMO 2023](https://sumo.dlr.de/daily/sumo2023_tutorial.zip): Graphical diff, personFlow, plotting tools, analyzing repeated runs
-* [SUMO 2024](https://sumo.dlr.de/daily/sumo2024_tutorial.zip): Debugging simulation warnings, pedestrian models, flying taxis
-* [SUMO 2025](https://sumo.dlr.de/daily/sumo2025_tutorial.zip): Railway simulation, GTFS, detector count import, electric vehicles, automated charging
-* [SUMO 2026](https://sumo.dlr.de/daily/sumo2026_tutorial.zip): Podcars, state saving/loading, routing preferences
+* [SUMO 2015](https://eclipse.dev/sumo/documents/2015/sumo2015_tutorial.zip): Network editing with xml patch, persons
+* [SUMO 2016](https://eclipse.dev/sumo/documents/2016/sumo2016_tutorial.zip): Network editing, meso, containers, [New Features 2016 (Slides)](https://eclipse.dev/sumo/documents/2016/SUMO2016_new_features.pdf)
+* [SUMO 2017](https://eclipse.dev/sumo/documents/2017/sumo2017_tutorial.zip): Network editing, randomTrips, calibrators (xml only), public transport (obsolete)
+* [SUMO 2018](https://eclipse.dev/sumo/documents/2018/sumo2018_tutorial.zip): Fixing intermodal junctions, calibrators in netedit, junction model parameters, editing shapes
+* [SUMO 2019](https://eclipse.dev/sumo/documents/2019/sumo2019_tutorial.zip): Network editing, visualizing traffic data, public transport from OSM, parking, netgenerate
+* [SUMO 2020](https://eclipse.dev/sumo/documents/2020/sumo2020_tutorial.zip): Turn lanes, routeSampler.py, defining counting data in netedit, taxi/DRT
+* [SUMO 2021](https://eclipse.dev/sumo/documents/2021/sumo2021_tutorial.zip): Traffic light layout, indirect left turn, TAZ, OD-traffic, GTFS
+* [SUMO 2022](https://eclipse.dev/sumo/documents/2022/sumo2022_tutorial.zip): Network editing, flows, opposite driving, pedestrian crossings, parking search
+* [SUMO 2023](https://eclipse.dev/sumo/documents/2023/sumo2023_tutorial.zip): Graphical diff, personFlow, plotting tools, analyzing repeated runs
+* [SUMO 2024](https://eclipse.dev/sumo/documents/2024/sumo2024_tutorial.zip): Debugging simulation warnings, pedestrian models, flying taxis
+* [SUMO 2025](https://eclipse.dev/sumo/documents/2025/sumo2025_tutorial.zip): Railway simulation, GTFS, detector count import, electric vehicles, automated charging
+* [SUMO 2026](https://eclipse.dev/sumo/documents/2026/sumo2026_tutorial.zip): Podcars, state saving/loading, routing preferences
 
 ## Videos
 
