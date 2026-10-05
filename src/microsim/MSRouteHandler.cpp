@@ -1237,38 +1237,10 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
 
 MSStoppingPlace*
 MSRouteHandler::retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std::string& errorSuffix, SUMOVehicleParameter::Stop* stopParam) {
-    bool ok = true;
-    // dummy stop parameter to hold the attributes
-    SUMOVehicleParameter::Stop stop;
-    if (stopParam != nullptr) {
-        stop = *stopParam;
-    } else {
-        stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, nullptr, ok, "");
-        stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, nullptr, ok, stop.busstop); // alias
-        stop.chargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, nullptr, ok, "");
-        stop.overheadWireSegment = attrs.getOpt<std::string>(SUMO_ATTR_OVERHEAD_WIRE_SEGMENT, nullptr, ok, "");
-        stop.containerstop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, nullptr, ok, "");
-        stop.parkingarea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, nullptr, ok, "");
-    }
     MSStoppingPlace* toStop = nullptr;
     SumoXMLTag tag = SUMO_TAG_NOTHING;
     std::string id;
-    if (stop.busstop != "") {
-        tag = SUMO_TAG_BUS_STOP;
-        id = stop.busstop;
-    } else if (stop.containerstop != "") {
-        tag = SUMO_TAG_CONTAINER_STOP;
-        id = stop.containerstop;
-    } else if (stop.parkingarea != "") {
-        tag = SUMO_TAG_PARKING_AREA;
-        id = stop.parkingarea;
-    } else if (stop.chargingStation != "") {
-        tag = SUMO_TAG_CHARGING_STATION;
-        id = stop.chargingStation;
-    } else if (stop.overheadWireSegment != "") {
-        tag = SUMO_TAG_OVERHEAD_WIRE_SEGMENT;
-        id = stop.overheadWireSegment;
-    }
+    bool ok = SUMOVehicleParserHelper::parseStopTag(attrs, stopParam, tag, id);
     if (tag != SUMO_TAG_NOTHING) {
         toStop = MSNet::getInstance()->getStoppingPlace(id, tag);
         if (toStop == nullptr) {

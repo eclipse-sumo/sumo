@@ -35,7 +35,6 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/router/IntermodalNetwork.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 
 #include "SUMOVehicleParserHelper.h"
@@ -1876,6 +1875,41 @@ SUMOVehicleParserHelper::parseCarWalkTransfer(const OptionsCont& oc, const bool 
         }
     }
     return carWalk;
+}
+
+
+bool
+SUMOVehicleParserHelper::parseStopTag(const SUMOSAXAttributes& attrs, const SUMOVehicleParameter::Stop* stopParam, SumoXMLTag& tag, std::string& id) {
+    bool ok = true;
+    // dummy stop parameter to hold the attributes
+    SUMOVehicleParameter::Stop stop;
+    if (stopParam != nullptr) {
+        stop = *stopParam;
+    } else {
+        stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, nullptr, ok, "");
+        stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, nullptr, ok, stop.busstop); // alias
+        stop.chargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, nullptr, ok, "");
+        stop.overheadWireSegment = attrs.getOpt<std::string>(SUMO_ATTR_OVERHEAD_WIRE_SEGMENT, nullptr, ok, "");
+        stop.containerstop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, nullptr, ok, "");
+        stop.parkingarea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, nullptr, ok, "");
+    }
+    if (stop.busstop != "") {
+        tag = SUMO_TAG_BUS_STOP;
+        id = stop.busstop;
+    } else if (stop.containerstop != "") {
+        tag = SUMO_TAG_CONTAINER_STOP;
+        id = stop.containerstop;
+    } else if (stop.parkingarea != "") {
+        tag = SUMO_TAG_PARKING_AREA;
+        id = stop.parkingarea;
+    } else if (stop.chargingStation != "") {
+        tag = SUMO_TAG_CHARGING_STATION;
+        id = stop.chargingStation;
+    } else if (stop.overheadWireSegment != "") {
+        tag = SUMO_TAG_OVERHEAD_WIRE_SEGMENT;
+        id = stop.overheadWireSegment;
+    }
+    return ok;
 }
 
 

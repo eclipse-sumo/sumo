@@ -27,13 +27,13 @@
 #include <string>
 #include <utils/common/SUMOTime.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include "SUMOVehicleParameter.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class SUMOSAXAttributes;
-class SUMOVehicleParameter;
 class SUMOVTypeParameter;
 
 
@@ -185,6 +185,9 @@ public:
     static bool validProfile(SUMOVTypeParameter* vtype, const std::string data, const SumoXMLAttr attr);
 
     static int parseCarWalkTransfer(const OptionsCont& oc, const bool hasTaxi);
+
+    /// @brief parse named stopping place attrs (or use stopParam attrs) and return it's tag and id
+    static bool parseStopTag(const SUMOSAXAttributes& attrs, const SUMOVehicleParameter::Stop* stopParam, SumoXMLTag& tag, std::string& id);
 
 private:
     /**@brief parse ID
