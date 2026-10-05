@@ -63,9 +63,11 @@ If you want to know more about projects which helped funding SUMO, have a look a
 
 The following organizations already funded SUMO development in the past:
 
-### DLR / BMWi
+### DLR / BMWE (formerly BMWk, BMWi) / BMFTR (formerly BMBF) / BMV (formerly BMDV)
 
-### EU Horizon
+### EU-FP6 / EU-FP7 / EU Horizon
+
+### KfW Development Bank
 
 ### transcality
 
