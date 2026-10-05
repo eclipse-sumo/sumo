@@ -1,4 +1,4 @@
 Warning: The edge 'right' within the route for vehicle '0' is not known.
-Error: The busStop 'stopRight' is not known in vehicle '0'.
+Warning: The busStop 'stopRight' is not known in vehicle '0'.
 Warning: A stop must be placed on a bus stop, a container stop, a parking area, an edge or a lane in vehicle '0'.
-Quitting (on error).
+Warning: Repaired route of vehicle '0'.
