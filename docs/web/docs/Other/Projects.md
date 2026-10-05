@@ -6,7 +6,7 @@ title: Projects
 
 ### Current Projects
 
-- [KoFeMo]([https://www.uitp.org/projects/show/](https://www.dlr.de/de/ts/forschung-und-transfer/projekte/kofemo)
+- [KoFeMo](https://www.uitp.org/projects/show/](https://www.dlr.de/de/ts/forschung-und-transfer/projekte/kofemo)
 focuses on the detailed measurement and analysis of vehicle acceleration and deceleration behaviour and its representation in traffic flow simulations. By calibrating the simulation models against real-world vehicle dynamics, the project aims to derive reliable predictions for other areas, specific traffic situations, and different vehicle fleets.
 
 - [ReTraSON](https://www.dlr.de/en/ts/research-transfer/projects/retrason)
@@ -30,7 +30,7 @@ Model for data on the future development of passenger transport demand in urban 
 
 ### Past Projects
 
-- [SeKQuaSens³]([https://www.uitp.org/projects/show/](https://www.dlr.de/de/forschung-und-transfer/projekte-und-missionen/sekquasens)
+- [SeKQuaSens³](https://www.uitp.org/projects/show/](https://www.dlr.de/de/forschung-und-transfer/projekte-und-missionen/sekquasens)
 SUMO was used to model microscopic traffic and investigate EV energy consumption, supporting the assessment of mobility-related electricity demand. A key activity was the comparison and parameterisation of different EV energy-consumption models in SUMO.
 
 - [SHOW](https://www.uitp.org/projects/show/)
