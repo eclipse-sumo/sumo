@@ -33,6 +33,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+Distribution_Parameterized::Distribution_Parameterized() :
+    Distribution("") {
+}
+
 /// @brief Constructor for any temporary distribution parsed directly from the description
 Distribution_Parameterized::Distribution_Parameterized(const std::string& description) :
     Distribution("") {
@@ -104,6 +109,9 @@ Distribution_Parameterized::isValidDescription(const std::string& description, s
 
 double
 Distribution_Parameterized::sample(SumoRNG* which) const {
+    if (myParameter.empty()) {
+        throw ProcessError(TL("Attempted to sample from dummy distribution"));
+    }
     if (myParameter[1] <= 0.) {
         return myParameter[0];
     }
@@ -121,6 +129,9 @@ Distribution_Parameterized::sample(SumoRNG* which) const {
 
 double
 Distribution_Parameterized::getMax() const {
+    if (myParameter.empty()) {
+        return std::numeric_limits<double>::infinity();
+    }
     if (myParameter[1] <= 0.) {
         return myParameter[0];
     }
@@ -130,6 +141,9 @@ Distribution_Parameterized::getMax() const {
 
 double
 Distribution_Parameterized::getMin() const {
+    if (myParameter.empty()) {
+        return -std::numeric_limits<double>::infinity();
+    }
     if (myParameter[1] <= 0.) {
         return myParameter[0];
     }
@@ -139,13 +153,18 @@ Distribution_Parameterized::getMin() const {
 
 void
 Distribution_Parameterized::setParameter(const int index, const double value) {
+    if (index >= (int)myParameter.size()) {
+        throw ProcessError(TLF("Attempted to set parameter index % of distribut '%' with % parameters", index, myID, myParameter.size()));
+    }
     myParameter[index] = value;
 }
 
 
 std::string
 Distribution_Parameterized::toStr(std::streamsize accuracy) const {
-    if (myParameter[1] < 0) {
+    if (myParameter.empty()) {
+        return "";
+    } else if (myParameter[1] < 0) {
         // only write simple speedFactor
         return toString(myParameter[0]);
     } else {
@@ -158,7 +177,9 @@ Distribution_Parameterized::toStr(std::streamsize accuracy) const {
 
 const std::string
 Distribution_Parameterized::isValid() const {
-    if (myParameter[1] > 0.) {
+    if (myParameter.empty()) {
+        return "Dummy Distribution (invalid)";
+    } else if (myParameter.size() >= 2 && myParameter[1] > 0.) {
         if (getMin() > getMax()) {
             return TLF("minimum value % larger than maximum %", getMin(), getMax());
         }

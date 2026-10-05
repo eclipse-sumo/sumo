@@ -28,6 +28,7 @@
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/distribution/Distribution_Parameterized.h>
 
 
 // ===========================================================================
@@ -399,6 +400,7 @@ public:
 
         /// @brief The stopping duration
         SUMOTime duration = -1;
+        Distribution_Parameterized durationDist;
 
         /// @brief The time at which the vehicle may continue its journey
         SUMOTime until = -1;

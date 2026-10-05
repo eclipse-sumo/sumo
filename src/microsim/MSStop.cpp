@@ -27,11 +27,13 @@
 #include "MSNet.h"
 #include "MSParkingArea.h"
 #include "MSStoppingPlace.h"
+#include "MSRouteHandler.h"
 #include "MSStop.h"
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 double
 MSStop::getEndPos(const SUMOVehicle& veh) const {
     const double brakePos = veh.getEdge() == getEdge() ? veh.getPositionOnLane() + veh.getBrakeGap() : 0;
@@ -152,7 +154,7 @@ MSStop::initPars(const SUMOVehicleParameter::Stop& stopPar) {
     parkingarea = static_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(stopPar.parkingarea, SUMO_TAG_PARKING_AREA));
     chargingStation = MSNet::getInstance()->getStoppingPlace(stopPar.chargingStation, SUMO_TAG_CHARGING_STATION);
     overheadWireSegment = MSNet::getInstance()->getStoppingPlace(stopPar.overheadWireSegment, SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
-    duration = stopPar.duration;
+    duration = stopPar.durationDist.isVariable() ? TIME2STEPS(stopPar.durationDist.sample(MSRouteHandler::getParsingRNG())) : stopPar.duration;
     triggered = stopPar.triggered;
     containerTriggered = stopPar.containerTriggered;
     joinTriggered = stopPar.joinTriggered || stopPar.join != "";

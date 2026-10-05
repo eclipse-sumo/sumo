@@ -39,6 +39,9 @@
 class Distribution_Parameterized : public Distribution {
 
 public:
+    /// @brief Dummy Constructor for a default distribution
+    Distribution_Parameterized();
+
     /// @brief Constructor for any temporary distribution parsed directly from the description
     Distribution_Parameterized(const std::string& description);
 
@@ -79,6 +82,14 @@ public:
 
     /// @brief check whether the distribution is valid
     const std::string isValid() const;
+
+    bool isDummy() const {
+        return myParameter.empty();
+    }
+
+    bool isVariable() const {
+        return !myParameter.empty() && getMin() != getMax();
+    }
 
     /// @brief Returns the string representation of this distribution
     std::string toStr(std::streamsize accuracy) const;

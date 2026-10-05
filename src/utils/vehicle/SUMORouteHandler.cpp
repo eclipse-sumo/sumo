@@ -524,7 +524,8 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
         errorOutput->inform(TLF("Invalid duration for a stop% (%).", errorSuffix, error));
         return false;
     }
-    stop.duration = TIME2STEPS(Distribution_Parameterized(durationStr).sample(&myParsingRNG));
+    stop.durationDist = Distribution_Parameterized(durationStr);
+    stop.duration = TIME2STEPS(stop.durationDist.sample(&myParsingRNG));
     stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok, -1);
     if (!expectTrigger && (!ok || (stop.duration < 0 && stop.until < 0 && stop.speed == 0))) {
         errorOutput->inform(TLF("Invalid duration or end time is given for a stop%.", errorSuffix));
