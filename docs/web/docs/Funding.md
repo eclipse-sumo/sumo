@@ -42,7 +42,7 @@ If you feel you or your company should be listed below, send an email to sumo-de
 DLR is Germany's national aerospace and transport research center. Its Institute of Transportation Systems conducts world-class
 research on traffic modelling and intelligent transport systems. It started the SUMO development in 2001 and has been the leading
 contributor ever since. As a research organization the best way to involve DLR is through a research project, especially
-with funding by a German or European institution. If you want to contact them, write to sumo@dlr.de.
+with funding by a German or European institution, or another eligible funding body. If you want to contact them, write to sumo@dlr.de.
 
 ### Consultancy for engineers (co4e)
 
