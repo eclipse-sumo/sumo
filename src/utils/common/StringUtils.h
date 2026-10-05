@@ -161,6 +161,12 @@ public:
     /// @return the default value if the data is empty
     static double toDoubleSecure(const std::string& sData, const double def);
 
+    /**@brief converts a string into a double value. Values in human-readable-time format (see string2time) are permitted and return seconds
+     * @throw an EmptyData - exception if the given string is empty
+     * @throw a NumberFormatException - exception when the string does not contain a double or time value
+     */
+    static double toDoubleAllowTime(const std::string& sData);
+
     /**@brief converts a string into the bool value described by it by calling the char-type converter
      * @return true if the sData is one of the following (case insensitive): '1', 'x', 'true', 'yes', 'on', 't'
      * @return false if the sData is one of the following (case insensitive): '0', '-', 'false', 'no', 'off', 'f'

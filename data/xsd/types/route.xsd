@@ -858,7 +858,7 @@
         <xsd:attribute name="posLat" type="floatType"/>
         <xsd:attribute name="friendlyPos" type="boolType"/>
         <xsd:attribute name="arrival" type="timeType"/>
-        <xsd:attribute name="duration" type="timeType"/>
+        <xsd:attribute name="duration" type="xsd:string"/>
         <xsd:attribute name="until" type="timeType"/>
         <xsd:attribute name="extension" type="timeType"/>
         <xsd:attribute name="index" type="xsd:string"/>

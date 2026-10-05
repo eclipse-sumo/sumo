@@ -24,6 +24,7 @@
 
 #include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/RandHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
@@ -31,6 +32,10 @@
 
 #include "SUMORouteHandler.h"
 
+// ===========================================================================
+// static members
+// ===========================================================================
+SumoRNG SUMORouteHandler::myParsingRNG("routehandler");
 
 // ===========================================================================
 // method definitions
@@ -513,7 +518,13 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     }
     SUMOVehicleParameter::parseStopTriggers(triggers, expectTrigger, stop);
     stop.arrival = attrs.getOptSUMOTimeReporting(SUMO_ATTR_ARRIVAL, nullptr, ok, -1);
-    stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, nullptr, ok, -1);
+    const std::string durationStr = attrs.getOpt<std::string>(SUMO_ATTR_DURATION, nullptr, ok, "-1");
+    std::string error;
+    if (!Distribution_Parameterized::isValidDescription(durationStr, error)) {
+        errorOutput->inform(TLF("Invalid duration for a stop% (%).", errorSuffix, error));
+        return false;
+    }
+    stop.duration = TIME2STEPS(Distribution_Parameterized(durationStr).sample(&myParsingRNG));
     stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok, -1);
     if (!expectTrigger && (!ok || (stop.duration < 0 && stop.until < 0 && stop.speed == 0))) {
         errorOutput->inform(TLF("Invalid duration or end time is given for a stop%.", errorSuffix));

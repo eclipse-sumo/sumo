@@ -845,8 +845,14 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_MAXSPEED:
             return canParse<double>(value) && (parse<double>(value) >= 0);
-        case SUMO_ATTR_SPEEDFACTOR:
-            return Distribution_Parameterized::isValidDescription(value);
+        case SUMO_ATTR_SPEEDFACTOR: {
+            std::string error;
+            const bool ok = Distribution_Parameterized::isValidDescription(value, error);
+            if (!ok) {
+                WRITE_ERROR(error);
+            }
+            return ok;
+        }
         case SUMO_ATTR_DESIRED_MAXSPEED:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_COLOR:

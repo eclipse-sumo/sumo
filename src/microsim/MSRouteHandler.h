@@ -65,11 +65,6 @@ public:
     /// @brief standard destructor
     virtual ~MSRouteHandler();
 
-    /// @brief get parsing RNG
-    static SumoRNG* getParsingRNG() {
-        return &myParsingRNG;
-    }
-
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -243,9 +238,6 @@ protected:
 
     /// @brief whether we are loading a personFlow that is starting triggered in a vehicle flow
     bool myStartTriggeredInFlow;
-
-    /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
-    static SumoRNG myParsingRNG;
 
 private:
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.

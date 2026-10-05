@@ -67,10 +67,10 @@ Distribution_Parameterized::parse(const std::string& description, const bool har
         if (distName == "norm" || distName == "normc") {
             const std::vector<std::string> params = StringTokenizer(description.substr(distName.size() + 1, description.size() - distName.size() - 2), ',').getVector();
             myParameter.resize(params.size());
-            std::transform(params.begin(), params.end(), myParameter.begin(), StringUtils::toDouble);
+            std::transform(params.begin(), params.end(), myParameter.begin(), StringUtils::toDoubleAllowTime);
             setID(distName);
         } else {
-            myParameter[0] = StringUtils::toDouble(description);
+            myParameter[0] = StringUtils::toDoubleAllowTime(description);
         }
         if (myParameter.size() == 1) {
             myParameter.push_back(0.);
@@ -88,16 +88,15 @@ Distribution_Parameterized::parse(const std::string& description, const bool har
 
 
 bool
-Distribution_Parameterized::isValidDescription(const std::string& description) {
+Distribution_Parameterized::isValidDescription(const std::string& description, std::string& error) {
     try {
         Distribution_Parameterized dummy(description);
-        const std::string error = dummy.isValid();
+        error = dummy.isValid();
         if (error == "") {
             return true;
         }
-        WRITE_ERROR(error);
     } catch (...) {
-        WRITE_ERROR(TL("Invalid format of distribution parameterized"));
+        error = TL("Invalid format of distribution parameterized");
     }
     return false;
 }

@@ -71,6 +71,11 @@ public:
     /// @brief Returns the last loaded depart time
     SUMOTime getLastDepart() const;
 
+    /// @brief get parsing RNG
+    static SumoRNG* getParsingRNG() {
+        return &myParsingRNG;
+    }
+
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
@@ -262,6 +267,9 @@ protected:
 
     /// @brief IDs of skipped vehicles to suppress errors for the triggered transportables within
     std::set<std::string> mySkippedVehicles;
+
+    /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
+    static SumoRNG myParsingRNG;
 
 private:
     /// @brief Invalidated copy constructor

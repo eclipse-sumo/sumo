@@ -84,7 +84,7 @@ public:
     std::string toStr(std::streamsize accuracy) const;
 
     /// @brief validate input description
-    static bool isValidDescription(const std::string& description);
+    static bool isValidDescription(const std::string& description, std::string& error);
 
 private:
     /// @brief The distribution's parameters

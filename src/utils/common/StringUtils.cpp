@@ -559,6 +559,16 @@ StringUtils::toDoubleSecure(const std::string& sData, const double def) {
 }
 
 
+double
+StringUtils::toDoubleAllowTime(const std::string& sData) {
+    if (sData.find(":") == std::string::npos) {
+        return toDouble(sData);
+    } else if (isTime(sData)) {
+        return STEPS2TIME(string2time(sData));
+    }
+    throw NumberFormatException("(double) " + sData);
+}
+
 bool
 StringUtils::toBool(const std::string& sData) {
     if (sData.length() == 0) {
