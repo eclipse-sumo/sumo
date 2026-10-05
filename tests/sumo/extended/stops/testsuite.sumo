@@ -16,6 +16,7 @@ jumps
 
 # adapt speed in response to known stop arrival time
 arrival
+randomDuration
 
 # Tests whether stops can be handled
 simple_stop
