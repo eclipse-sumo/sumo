@@ -54,6 +54,7 @@
 #include <netimport/NIXMLTypesHandler.h>
 #include <netwrite/NWFrame.h>
 #include <utils/common/SystemFrame.h>
+#include <fxkeys.h>
 #include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
@@ -479,6 +480,13 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_JA,    GNEApplicationWindow::onUpdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_KO,    GNEApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_KO,    GNEApplicationWindow::onUpdChangeLanguage),
+    // coordinate inputs
+    FXMAPFUNC(SEL_COMMAND,  MID_GEO_COORDINATE,          GNEApplicationWindow::onCmdSetGeoCoordinate),
+    FXMAPFUNC(SEL_COMMAND,  MID_CARTESIAN_COORDINATE,    GNEApplicationWindow::onCmdSetCartesianCoordinate),
+    FXMAPFUNC(SEL_FOCUSIN,  MID_GEO_COORDINATE,          GNEApplicationWindow::onCmdFocusCoordinate),
+    FXMAPFUNC(SEL_FOCUSIN,  MID_CARTESIAN_COORDINATE,    GNEApplicationWindow::onCmdFocusCoordinate),
+    FXMAPFUNC(SEL_FOCUSOUT, MID_GEO_COORDINATE,          GNEApplicationWindow::onCmdUnfocusCoordinate),
+    FXMAPFUNC(SEL_FOCUSOUT, MID_CARTESIAN_COORDINATE,    GNEApplicationWindow::onCmdUnfocusCoordinate),
     // tools
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_RUNNETGENERATE,             GNEApplicationWindow::onCmdRunNetgenerate),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_POSTPROCESSINGNETGENERATE,  GNEApplicationWindow::onCmdPostprocessingNetgenerate),
@@ -584,12 +592,20 @@ GNEApplicationWindow::dependentBuild() {
     myRequireRecomputingButton->setHelpText(TL("Recomputing is needed"));
     // build geo coordinates label
     myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myGeoCoordinate = new FXLabel(myGeoFrame, TL("N/A"), nullptr, GUIDesignLabelStatusBar);
-    myGeoCoordinate->setHelpText(TL("Original coordinate (before coordinate transformation in netconvert)"));
+    myGeoCoordinate = new FXTextField(myGeoFrame, 26, this, MID_GEO_COORDINATE, FRAME_NONE | LAYOUT_CENTER_Y | TEXTFIELD_ENTER_ONLY, 0, 0, 0, GUIDesignHeight, 2, 2, 1, 1);
+    myGeoCoordinate->setHelpText(TL("Original coordinate (before coordinate transformation in netconvert). Enter 'lat, lon' or 'lat:... lon:...' to center view"));
+    myGeoCoordinate->setTipText(TL("Enter 'lat, lon' to center view"));
+    myGeoCoordinate->setBackColor(myGeoFrame->getBackColor());
+    myGeoCoordinate->setText(TL("N/A"));
+    myGeoCoordinate->disable();
+    myGeoCoordinate->setEditable(false);
     // build cartesian coordinates label
     myCartesianFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myCartesianCoordinate = new FXLabel(myCartesianFrame, TL("N/A"), nullptr, GUIDesignLabelStatusBar);
-    myCartesianCoordinate->setHelpText(TL("Network coordinate"));
+    myCartesianCoordinate = new FXTextField(myCartesianFrame, 22, this, MID_CARTESIAN_COORDINATE, FRAME_NONE | LAYOUT_CENTER_Y | TEXTFIELD_ENTER_ONLY, 0, 0, 0, GUIDesignHeight, 2, 2, 1, 1);
+    myCartesianCoordinate->setHelpText(TL("Network coordinate. Enter 'x, y' to center view"));
+    myCartesianCoordinate->setTipText(TL("Enter 'x, y' to center view"));
+    myCartesianCoordinate->setBackColor(myCartesianFrame->getBackColor());
+    myCartesianCoordinate->setText(TL("N/A"));
     // build test coordinates label (only if gui-testing is enabled)
     myTestFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
     myTestCoordinate = new FXLabel(myTestFrame, TL("N/A"), nullptr, GUIDesignLabelStatusBar);
@@ -1723,6 +1739,8 @@ GNEApplicationWindow::closeAllWindows(const bool resetFilenames) {
     myTrackerLock.unlock();
     // remove coordinate information
     myGeoCoordinate->setText(TL("N/A"));
+    myGeoCoordinate->disable();
+    myGeoCoordinate->setEditable(false);
     myCartesianCoordinate->setText(TL("N/A"));
     myTestCoordinate->setText(TL("N/A"));
     myTestFrame->hide();
@@ -5234,6 +5252,23 @@ GNEApplicationWindow::GNEApplicationWindow() :
 
 long
 GNEApplicationWindow::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
+    FXEvent* e = (FXEvent*) eventData;
+    if (e && e->code == KEY_Escape) {
+        if (myGeoCoordinate && myGeoCoordinate->hasFocus()) {
+            myGeoCoordinate->killFocus();
+            if (getActiveView()) {
+                getActiveView()->updatePositionInformationLabel();
+            }
+            return 1;
+        }
+        if (myCartesianCoordinate && myCartesianCoordinate->hasFocus()) {
+            myCartesianCoordinate->killFocus();
+            if (getActiveView()) {
+                getActiveView()->updatePositionInformationLabel();
+            }
+            return 1;
+        }
+    }
     const long handled = FXMainWindow::onKeyPress(o, sel, eventData);
     if (handled == 0 && myMDIClient->numChildren() > 0) {
         GNEViewParent* w = dynamic_cast<GNEViewParent*>(myMDIClient->getActiveChild());

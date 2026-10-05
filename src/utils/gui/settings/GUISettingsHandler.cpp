@@ -33,6 +33,7 @@
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/foxtools/MFXImageHelper.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/xml/SUMOSAXReader.h>
 #include <utils/xml/XMLSubSys.h>
 #include "GUISettingsHandler.h"
@@ -94,8 +95,15 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             myDelay = attrs.getOpt<double>(SUMO_ATTR_VALUE, nullptr, ok, myDelay);
             break;
         case SUMO_TAG_VIEWPORT: {
-            const double x = attrs.getOpt<double>(SUMO_ATTR_X, nullptr, ok, myLookFrom.x());
-            const double y = attrs.getOpt<double>(SUMO_ATTR_Y, nullptr, ok, myLookFrom.y());
+            double x = attrs.getOpt<double>(SUMO_ATTR_X, nullptr, ok, myLookFrom.x());
+            double y = attrs.getOpt<double>(SUMO_ATTR_Y, nullptr, ok, myLookFrom.y());
+            if (attrs.hasAttribute(SUMO_ATTR_LAT) && attrs.hasAttribute(SUMO_ATTR_LON)) {
+                Position geo(attrs.get<double>(SUMO_ATTR_LON, nullptr, ok), attrs.get<double>(SUMO_ATTR_LAT, nullptr, ok));
+                if (GeoConvHelper::getFinal().x2cartesian_const(geo)) {
+                    x = geo.x();
+                    y = geo.y();
+                }
+            }
             const double z = attrs.getOpt<double>(SUMO_ATTR_Z, nullptr, ok, myLookFrom.z());
             attrs.get<double>(SUMO_ATTR_Z, nullptr, myZCoordSet, false);
             myLookFrom.set(x, y, z);

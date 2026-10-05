@@ -265,13 +265,25 @@ void
 GUISUMOAbstractView::updatePositionInformationLabel() const {
     Position pos = getPositionInformation();
     // set cartesian position
-    myApp->getCartesianLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y())).c_str());
+    if (!myApp->getCartesianLabel()->hasFocus()) {
+        myApp->getCartesianLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y())).c_str());
+    }
     // set geo position
-    GeoConvHelper::getFinal().cartesian2geo(pos);
-    if (GeoConvHelper::getFinal().usingGeoProjection()) {
-        myApp->getGeoLabel()->setText(("lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo)).c_str());
-    } else {
-        myApp->getGeoLabel()->setText(TL("(No projection defined)"));
+    if (!myApp->getGeoLabel()->hasFocus()) {
+        GeoConvHelper::getFinal().cartesian2geo(pos);
+        if (GeoConvHelper::getFinal().usingGeoProjection()) {
+            if (!myApp->getGeoLabel()->isEnabled()) {
+                myApp->getGeoLabel()->enable();
+                myApp->getGeoLabel()->setEditable(true);
+            }
+            myApp->getGeoLabel()->setText(("lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo)).c_str());
+        } else {
+            myApp->getGeoLabel()->setText(TL("(No projection defined)"));
+            if (myApp->getGeoLabel()->isEnabled()) {
+                myApp->getGeoLabel()->disable();
+                myApp->getGeoLabel()->setEditable(false);
+            }
+        }
     }
     // if enabled, set test position
     if (myApp->getTestFrame()) {

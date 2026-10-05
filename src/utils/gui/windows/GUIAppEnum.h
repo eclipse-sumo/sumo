@@ -375,6 +375,10 @@ enum {
     MID_SHOWPERSONSTATS,
     /// @brief update traci status
     MID_TRACI_STATUS,
+    /// @brief enter geo coordinate to center view
+    MID_GEO_COORDINATE,
+    /// @brief enter cartesian coordinate to center view
+    MID_CARTESIAN_COORDINATE,
 
     /// @name Common View Settings - IDs
     /// @{

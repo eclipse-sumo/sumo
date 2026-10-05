@@ -202,6 +202,9 @@ public:
     /// @brief A method that updates the tooltip
     void updateToolTip();
 
+    /// @brief update position information labels
+    virtual void updatePositionInformationLabel() const;
+
     /// @brief @name Dealing with snapshots
     ///@{
 
@@ -485,9 +488,6 @@ protected:
 
     /// @brief performs the painting of the simulation
     void paintGL();
-
-    /// @brief update position information labels
-    virtual void updatePositionInformationLabel() const;
 
     /// @brief paint GL
     virtual int doPaintGL(int /*mode*/, const Boundary& /*boundary*/);

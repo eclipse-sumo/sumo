@@ -34,13 +34,17 @@
 #endif
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/foxtools/MFXStaticToolTip.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/options/OptionsCont.h>
+#include <regex>
 #include "GUIMainWindow.h"
 #include "GUIGlChildWindow.h"
+#include "GUISUMOAbstractView.h"
 
 
 // ===========================================================================
@@ -222,15 +226,196 @@ GUIMainWindow::getStaticTooltipView() const {
 }
 
 
-FXLabel*
+FXTextField*
 GUIMainWindow::getCartesianLabel() {
     return myCartesianCoordinate;
 }
 
 
-FXLabel*
+FXTextField*
 GUIMainWindow::getGeoLabel() {
     return myGeoCoordinate;
+}
+
+
+bool
+GUIMainWindow::parseGeoCoordinate(const std::string& text, double& lat, double& lon) {
+    std::string s = StringUtils::to_lower_case(StringUtils::prune(text));
+    if (s.empty()) {
+        return false;
+    }
+    std::regex latRegex(R"((?:lat(?:itude)?)\s*[:=]?\s*([+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?))");
+    std::regex lonRegex(R"((?:lon(?:gitude)?)\s*[:=]?\s*([+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?))");
+    std::smatch latMatch, lonMatch;
+    if (std::regex_search(s, latMatch, latRegex) && std::regex_search(s, lonMatch, lonRegex)) {
+        try {
+            double l1 = std::stod(latMatch[1]);
+            double l2 = std::stod(lonMatch[1]);
+            if (l1 >= -90.0 && l1 <= 90.0 && l2 >= -180.0 && l2 <= 180.0) {
+                lat = l1;
+                lon = l2;
+                return true;
+            }
+        } catch (...) {
+            return false;
+        }
+        return false;
+    }
+    std::string clean = s;
+    for (char& c : clean) {
+        if (c == ',' || c == ';' || c == '/' || c == '\t') {
+            c = ' ';
+        }
+    }
+    StringTokenizer st(clean, " ");
+    std::vector<double> vals;
+    while (st.hasNext()) {
+        std::string token = st.next();
+        try {
+            size_t idx = 0;
+            double v = std::stod(token, &idx);
+            if (idx == token.size()) {
+                vals.push_back(v);
+            }
+        } catch (...) {}
+    }
+    if (vals.size() >= 2) {
+        double v1 = vals[0];
+        double v2 = vals[1];
+        if (std::abs(v1) > 90.0 && std::abs(v2) <= 90.0) {
+            lon = v1;
+            lat = v2;
+        } else if (std::abs(v2) > 90.0 && std::abs(v1) <= 90.0) {
+            lat = v1;
+            lon = v2;
+        } else {
+            lat = v1;
+            lon = v2;
+        }
+        if (lat >= -90.0 && lat <= 90.0 && lon >= -180.0 && lon <= 180.0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+GUIMainWindow::parseCartesianCoordinate(const std::string& text, double& x, double& y) {
+    std::string s = StringUtils::to_lower_case(StringUtils::prune(text));
+    if (s.empty()) {
+        return false;
+    }
+    std::regex xRegex(R"((?:x)\s*[:=]?\s*([+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?))");
+    std::regex yRegex(R"((?:y)\s*[:=]?\s*([+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?))");
+    std::smatch xMatch, yMatch;
+    if (std::regex_search(s, xMatch, xRegex) && std::regex_search(s, yMatch, yRegex)) {
+        try {
+            x = std::stod(xMatch[1]);
+            y = std::stod(yMatch[1]);
+            return true;
+        } catch (...) {
+            return false;
+        }
+    }
+    std::string clean = s;
+    for (char& c : clean) {
+        if (c == ',' || c == ';' || c == '/' || c == '\t') {
+            c = ' ';
+        }
+    }
+    StringTokenizer st(clean, " ");
+    std::vector<double> vals;
+    while (st.hasNext()) {
+        std::string token = st.next();
+        try {
+            size_t idx = 0;
+            double v = std::stod(token, &idx);
+            if (idx == token.size()) {
+                vals.push_back(v);
+            }
+        } catch (...) {}
+    }
+    if (vals.size() >= 2) {
+        x = vals[0];
+        y = vals[1];
+        return true;
+    }
+    return false;
+}
+
+
+long
+GUIMainWindow::onCmdSetGeoCoordinate(FXObject*, FXSelector, void*) {
+    if (myGeoCoordinate) {
+        myGeoCoordinate->killFocus();
+        if (!GeoConvHelper::getFinal().usingGeoProjection()) {
+            setStatusBarText(TL("No projection defined"));
+            myGeoCoordinate->setText(TL("(No projection defined)"));
+            myGeoCoordinate->disable();
+            myGeoCoordinate->setEditable(false);
+            return 1;
+        }
+        const std::string text = myGeoCoordinate->getText().text();
+        double lat, lon;
+        if (parseGeoCoordinate(text, lat, lon)) {
+            Position p(lon, lat);
+            if (GeoConvHelper::getFinal().x2cartesian_const(p)) {
+                GUISUMOAbstractView* view = getActiveView();
+                if (view) {
+                    view->centerToPos(p, false);
+                    view->update();
+                    setStatusBarText(TLF("Centered view on %. Geo coordinates: lat %, lon %", toString(p), toString(lat, gPrecisionGeo), toString(lon, gPrecisionGeo)));
+                    return 1;
+                }
+            }
+        }
+        setStatusBarText(TL("Invalid geo coordinate. Use 'lat, lon' or 'lat:... lon:...'"));
+    }
+    return 1;
+}
+
+
+long
+GUIMainWindow::onCmdSetCartesianCoordinate(FXObject*, FXSelector, void*) {
+    if (myCartesianCoordinate) {
+        myCartesianCoordinate->killFocus();
+        const std::string text = myCartesianCoordinate->getText().text();
+        double x, y;
+        if (parseCartesianCoordinate(text, x, y)) {
+            Position p(x, y);
+            GUISUMOAbstractView* view = getActiveView();
+            if (view) {
+                view->centerToPos(p, false);
+                view->update();
+                setStatusBarText(TLF("Centered view on x: %, y: %", toString(x), toString(y)));
+                return 1;
+            }
+        }
+        setStatusBarText(TL("Invalid cartesian coordinate. Use 'x, y' or 'x:... y:...'"));
+    }
+    return 1;
+}
+
+
+long
+GUIMainWindow::onCmdFocusCoordinate(FXObject* sender, FXSelector, void*) {
+    FXTextField* tf = dynamic_cast<FXTextField*>(sender);
+    if (tf && tf->isEnabled()) {
+        tf->setBackColor(FXRGB(255, 255, 255));
+        tf->selectAll();
+    }
+    return 1;
+}
+
+
+long
+GUIMainWindow::onCmdUnfocusCoordinate(FXObject* sender, FXSelector, void*) {
+    FXTextField* tf = dynamic_cast<FXTextField*>(sender);
+    if (tf && tf->getParent()) {
+        tf->setBackColor(tf->getParent()->getBackColor());
+    }
+    return 1;
 }
 
 
@@ -284,6 +469,9 @@ GUIMainWindow::getActiveView() const {
     GUIGlChildWindow* w = dynamic_cast<GUIGlChildWindow*>(myMDIClient->getActiveChild());
     if (w != nullptr) {
         return w->getView();
+    }
+    if (!myGLWindows.empty()) {
+        return myGLWindows.front()->getView();
     }
     return nullptr;
 }

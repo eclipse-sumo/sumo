@@ -149,6 +149,10 @@ private:
     FXRealSpinner* myZOff = nullptr;
     FXRealSpinner* myRotation = nullptr;
 
+    /// @brief The spin dialers used to change geo coordinates
+    FXRealSpinner* myLatitude = nullptr;
+    FXRealSpinner* myLongitude = nullptr;
+
     /// @brief The spin dialers used to change the view at (osg only)
     FXRealSpinner* myLookAtX = nullptr;
     FXRealSpinner* myLookAtY = nullptr;

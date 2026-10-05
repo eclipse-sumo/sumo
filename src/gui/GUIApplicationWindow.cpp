@@ -228,6 +228,13 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_JA,    GUIApplicationWindow::onUpdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_KO,    GUIApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_KO,    GUIApplicationWindow::onUpdChangeLanguage),
+    // coordinate inputs
+    FXMAPFUNC(SEL_COMMAND,  MID_GEO_COORDINATE,          GUIApplicationWindow::onCmdSetGeoCoordinate),
+    FXMAPFUNC(SEL_COMMAND,  MID_CARTESIAN_COORDINATE,    GUIApplicationWindow::onCmdSetCartesianCoordinate),
+    FXMAPFUNC(SEL_FOCUSIN,  MID_GEO_COORDINATE,          GUIApplicationWindow::onCmdFocusCoordinate),
+    FXMAPFUNC(SEL_FOCUSIN,  MID_CARTESIAN_COORDINATE,    GUIApplicationWindow::onCmdFocusCoordinate),
+    FXMAPFUNC(SEL_FOCUSOUT, MID_GEO_COORDINATE,          GUIApplicationWindow::onCmdUnfocusCoordinate),
+    FXMAPFUNC(SEL_FOCUSOUT, MID_CARTESIAN_COORDINATE,    GUIApplicationWindow::onCmdUnfocusCoordinate),
     // keys
     FXMAPFUNC(SEL_KEYPRESS,              0,     GUIApplicationWindow::onKeyPress),
     FXMAPFUNC(SEL_KEYRELEASE,            0,     GUIApplicationWindow::onKeyRelease),
@@ -315,10 +322,20 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
         }
         // build geo coordiantes
         myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myGeoCoordinate = GUIDesigns::buildFXLabel(myGeoFrame, TL("N/A"), "", TL("Original coordinate (before coordinate transformation in netconvert)"), nullptr, LAYOUT_CENTER_Y);
+        myGeoCoordinate = new FXTextField(myGeoFrame, 26, this, MID_GEO_COORDINATE, FRAME_NONE | LAYOUT_CENTER_Y | TEXTFIELD_ENTER_ONLY, 0, 0, 0, GUIDesignHeight, 2, 2, 1, 1);
+        myGeoCoordinate->setHelpText(TL("Original coordinate (before coordinate transformation in netconvert). Enter 'lat, lon' or 'lat:... lon:...' to center view"));
+        myGeoCoordinate->setTipText(TL("Enter 'lat, lon' to center view"));
+        myGeoCoordinate->setBackColor(myGeoFrame->getBackColor());
+        myGeoCoordinate->setText(TL("N/A"));
+        myGeoCoordinate->disable();
+        myGeoCoordinate->setEditable(false);
         // build cartesian coordinates
         myCartesianFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myCartesianCoordinate = GUIDesigns::buildFXLabel(myCartesianFrame, TL("N/A"), "", TL("Network coordinate"), nullptr, LAYOUT_CENTER_Y);
+        myCartesianCoordinate = new FXTextField(myCartesianFrame, 22, this, MID_CARTESIAN_COORDINATE, FRAME_NONE | LAYOUT_CENTER_Y | TEXTFIELD_ENTER_ONLY, 0, 0, 0, GUIDesignHeight, 2, 2, 1, 1);
+        myCartesianCoordinate->setHelpText(TL("Network coordinate. Enter 'x, y' to center view"));
+        myCartesianCoordinate->setTipText(TL("Enter 'x, y' to center view"));
+        myCartesianCoordinate->setBackColor(myCartesianFrame->getBackColor());
+        myCartesianCoordinate->setText(TL("N/A"));
         // build buttons
         std::vector<std::string> help({
             TL("number of running vehicles"),
@@ -2353,6 +2370,8 @@ GUIApplicationWindow::closeAllWindows() {
     myTrackerLock.unlock();
     // remove coordinate information
     myGeoCoordinate->setText(TL("N/A"));
+    myGeoCoordinate->disable();
+    myGeoCoordinate->setEditable(false);
     myCartesianCoordinate->setText(TL("N/A"));
     if (myTestCoordinate) {
         myTestCoordinate->setText(TL("N/A"));
@@ -2477,6 +2496,22 @@ GUIApplicationWindow::addHotkey(int key, Command* press, Command* release) {
 long
 GUIApplicationWindow::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
     FXEvent* e = (FXEvent*) ptr;
+    if (e->code == KEY_Escape) {
+        if (myGeoCoordinate && myGeoCoordinate->hasFocus()) {
+            myGeoCoordinate->killFocus();
+            if (getActiveView()) {
+                getActiveView()->updatePositionInformationLabel();
+            }
+            return 1;
+        }
+        if (myCartesianCoordinate && myCartesianCoordinate->hasFocus()) {
+            myCartesianCoordinate->killFocus();
+            if (getActiveView()) {
+                getActiveView()->updatePositionInformationLabel();
+            }
+            return 1;
+        }
+    }
     // PgUp and PgDown switch between widgets by default and binding them via menu shortcuts does not work reliably
     // so we must intercept them before FXMainWindow can handle it
     if (e->code == FX::KEY_Page_Up) {

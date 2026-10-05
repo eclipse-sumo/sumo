@@ -977,18 +977,42 @@ void
 GUIOSGView::updatePositionInformation() const {
     Position pos;
     if (getPositionAtCursor(myOSGNormalizedCursorX, myOSGNormalizedCursorY, pos)) {
-        myApp->getCartesianLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y())).c_str());
+        if (!myApp->getCartesianLabel()->hasFocus()) {
+            myApp->getCartesianLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y())).c_str());
+        }
         // set geo position
-        GeoConvHelper::getFinal().cartesian2geo(pos);
-        if (GeoConvHelper::getFinal().usingGeoProjection()) {
-            myApp->getGeoLabel()->setText(("lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo)).c_str());
-        } else {
-            myApp->getGeoLabel()->setText(TL("(No projection defined)"));
+        if (!myApp->getGeoLabel()->hasFocus()) {
+            GeoConvHelper::getFinal().cartesian2geo(pos);
+            if (GeoConvHelper::getFinal().usingGeoProjection()) {
+                if (!myApp->getGeoLabel()->isEnabled()) {
+                    myApp->getGeoLabel()->enable();
+                    myApp->getGeoLabel()->setEditable(true);
+                }
+                myApp->getGeoLabel()->setText(("lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo)).c_str());
+            } else {
+                myApp->getGeoLabel()->setText(TL("(No projection defined)"));
+                if (myApp->getGeoLabel()->isEnabled()) {
+                    myApp->getGeoLabel()->disable();
+                    myApp->getGeoLabel()->setEditable(false);
+                }
+            }
         }
     } else {
         // set placeholder
-        myApp->getCartesianLabel()->setText(TL("N/A"));
-        myApp->getGeoLabel()->setText(TL("N/A"));
+        if (!myApp->getCartesianLabel()->hasFocus()) {
+            myApp->getCartesianLabel()->setText(TL("N/A"));
+        }
+        if (!myApp->getGeoLabel()->hasFocus()) {
+            if (GeoConvHelper::getFinal().usingGeoProjection()) {
+                myApp->getGeoLabel()->setText(TL("N/A"));
+            } else {
+                myApp->getGeoLabel()->setText(TL("(No projection defined)"));
+                if (myApp->getGeoLabel()->isEnabled()) {
+                    myApp->getGeoLabel()->disable();
+                    myApp->getGeoLabel()->setEditable(false);
+                }
+            }
+        }
     }
 }
 
