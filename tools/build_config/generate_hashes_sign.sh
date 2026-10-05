@@ -16,6 +16,7 @@
 # @date    2025-11-15
 
 for f in $*; do
-  sha256sum $f > $f.sha256
-  gpg --armor --detach-sign $f
+  case "$f" in *.asc|*.sha256) continue;; esac
+  [ -s "$f.sha256" ] || sha256sum $f > $f.sha256
+  [ -s "$f.asc" ] || gpg --armor --detach-sign $f
 done
