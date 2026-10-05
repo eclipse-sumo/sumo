@@ -6,11 +6,11 @@ title: Projects
 
 ### Current Projects
 
+- [KoFeMo]([https://www.uitp.org/projects/show/](https://www.dlr.de/de/ts/forschung-und-transfer/projekte/kofemo)
+focuses on the detailed measurement and analysis of vehicle acceleration and deceleration behaviour and its representation in traffic flow simulations. By calibrating the simulation models against real-world vehicle dynamics, the project aims to derive reliable predictions for other areas, specific traffic situations, and different vehicle fleets.
+
 - [ReTraSON](https://www.dlr.de/en/ts/research-transfer/projects/retrason)
    Infrastructure Transformation in Lower Saxony (German)
-
-- [SHOW](https://www.uitp.org/projects/show/)
-shows the integration of fleets of automated vehicles in public transport, demand-responsive transport (DRT), Mobility a Service (MaaS) and Logistics as a Service (LaaS) schemes
 
 - [Spurplan](https://www.dlr.de/en/ts/research-transfer/projects/sumo-trackplan-5-deadlock-processing-for-large-scale-scenarios)
 SUMO is being expanded and improved in various areas for modeling rail traffic
@@ -29,6 +29,12 @@ Model for data on the future development of passenger transport demand in urban 
 
 
 ### Past Projects
+
+- [SeKQuaSens³]([https://www.uitp.org/projects/show/](https://www.dlr.de/de/forschung-und-transfer/projekte-und-missionen/sekquasens)
+SUMO was used to model microscopic traffic and investigate EV energy consumption, supporting the assessment of mobility-related electricity demand. A key activity was the comparison and parameterisation of different EV energy-consumption models in SUMO.
+
+- [SHOW](https://www.uitp.org/projects/show/)
+shows the integration of fleets of automated vehicles in public transport, demand-responsive transport (DRT), Mobility a Service (MaaS) and Logistics as a Service (LaaS) schemes
 
 - [ITS for Asia](https://www.dlr.de/en/ts/research-transfer/projects/itsforasia)
 Monitoring intersections to identify accident spots
