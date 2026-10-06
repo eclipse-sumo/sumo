@@ -56,8 +56,13 @@ extern SUMOTime DELTA_T;
 #define SPEED2ACCEL(x) ((x)/TS)
 
 #define STEPS2TIME(x) (static_cast<double>(x)/1000.)
-// static cast to long long int truncates so we must pad away from 0 for correct rounding
-#define TIME2STEPS(x) (static_cast<SUMOTime>((x) * 1000. + ((x) >= 0 ? 0.5 : -0.5)))
+
+inline constexpr SUMOTime TIME2STEPS(double x) {
+    // static cast to long long int truncates so we must pad away from 0 for correct rounding
+    return static_cast<SUMOTime>(x * 1000. + (x >= 0 ? 0.5 : -0.5));
+}
+
+
 #define STEPFLOOR(x) (static_cast<SUMOTime>((x)/DELTA_T)*DELTA_T)
 #define STEPS2MS(x) (x)
 
