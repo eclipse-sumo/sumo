@@ -89,6 +89,9 @@ public:
     /// @brief get menu for tooltips menu
     MFXCheckableButton* getShowToolTipsMenu() const;
 
+    /// @brief get menu for tooltips view
+    MFXCheckableButton* getShowToolTipsView() const;
+
     /** @brief Centers the view onto the given artifact
      * @param[in] id The id of the object to center the view on
      */

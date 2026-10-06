@@ -44,6 +44,7 @@ class GUIParameterTableWindow;
 class GUIDialog_Breakpoints;
 class MFXLCDLabel;
 class MFXLabelTooltip;
+class MFXCheckableButton;
 
 
 // ===========================================================================
@@ -263,6 +264,22 @@ public:
     long onCmdNewOSG(FXObject*, FXSelector, void*);
 #endif
 
+    /// @brief Called on "show tool tips in view"
+    long onCmdShowToolTipsView(FXObject*, FXSelector, void*);
+
+    /// @brief Called on "show tool tips in menu"
+    long onCmdShowToolTipsMenu(FXObject*, FXSelector, void*);
+
+    /// @brief get checkable button for menu tooltips
+    MFXCheckableButton* getShowToolTipsMenu() const override {
+        return myShowToolTipsMenu;
+    }
+
+    /// @brief get checkable button for view tooltips
+    MFXCheckableButton* getShowToolTipsView() const override {
+        return myShowToolTipsView;
+    }
+
     /// @brief Determines whether opening is enabled
     long onUpdOpen(FXObject*, FXSelector, void*);
 
@@ -457,6 +474,12 @@ protected:
 
     /// @brief the demand scale
     FXRealSpinner* myDemandScaleSpinner = nullptr;
+
+    /// @brief checkable button for show tool tips in view
+    MFXCheckableButton* myShowToolTipsView = nullptr;
+
+    /// @brief checkable button for show tool tips in menu
+    MFXCheckableButton* myShowToolTipsMenu = nullptr;
 
     /// @brief The alternate simulation delay in milliseconds for toggling
     double myAlternateSimDelay = 0;

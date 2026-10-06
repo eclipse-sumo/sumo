@@ -43,10 +43,12 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
+#include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/foxtools/MFXLCDLabel.h>
 #include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/foxtools/MFXRealSpinner.h>
+#include <utils/foxtools/MFXStaticToolTip.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -131,6 +133,8 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_NEW_OSGVIEW,    GUIApplicationWindow::onUpdAddView),
 
 #endif
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_VIEW,                              GUIApplicationWindow::onCmdShowToolTipsView),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_MENU,                              GUIApplicationWindow::onCmdShowToolTipsMenu),
     // Time
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS,        GUIApplicationWindow::onCmdStart),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS,   GUIApplicationWindow::onCmdStart),
@@ -803,6 +807,17 @@ GUIApplicationWindow::buildToolBars() {
         new MFXButtonTooltip(myToolBar5, myStaticTooltipMenu, (std::string("\t") + TL("Open new 3D view") + std::string("\t") + TL("Open a new 3D view.")).c_str(),
                              GUIIconSubSys::getIcon(GUIIcon::OSGVIEW), this, MID_NEW_OSGVIEW, GUIDesignButtonToolbar);
 #endif
+        // add toggle button for tooltips in view on/off (by default unchecked)
+        myShowToolTipsView = new MFXCheckableButton(false, myToolBar5,
+                myStaticTooltipMenu, (std::string("\t") + TL("Toggle View Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the view shall be shown.")).c_str(),
+                GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_VIEW), this, MID_SHOWTOOLTIPS_VIEW, GUIDesignMFXCheckableButtonSquare);
+        myStaticTooltipView->enableStaticToolTip(false);
+        // add toggle button for tooltips in menu on/off (by default checked)
+        myShowToolTipsMenu = new MFXCheckableButton(false, myToolBar5,
+                myStaticTooltipMenu, (std::string("\t") + TL("Toggle Menu Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the menu shall be shown.")).c_str(),
+                GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
+        myShowToolTipsMenu->setChecked(getApp()->reg().readIntEntry("gui", "menuToolTips", 0) != 1);
+        myStaticTooltipMenu->enableStaticToolTip(myShowToolTipsMenu->amChecked());
     }
     /// game specific stuff
     {
@@ -1767,6 +1782,28 @@ GUIApplicationWindow::onCmdNewOSG(FXObject*, FXSelector, void*) {
     return 1;
 }
 #endif
+
+
+long
+GUIApplicationWindow::onCmdShowToolTipsView(FXObject*, FXSelector, void*) {
+    // invert check
+    myShowToolTipsView->setChecked(!myShowToolTipsView->amChecked());
+    // update parent
+    myStaticTooltipView->enableStaticToolTip(myShowToolTipsView->amChecked());
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
+    // invert check
+    myShowToolTipsMenu->setChecked(!myShowToolTipsMenu->amChecked());
+    // update parent
+    myStaticTooltipMenu->enableStaticToolTip(myShowToolTipsMenu->amChecked());
+    // save in registry
+    getApp()->reg().writeIntEntry("gui", "menuToolTips", myShowToolTipsMenu->amChecked() ? 0 : 1);
+    return 1;
+}
 
 
 long

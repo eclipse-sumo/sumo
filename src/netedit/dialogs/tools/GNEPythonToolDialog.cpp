@@ -123,7 +123,7 @@ long
 GNEPythonToolDialog::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
     // toggle check
     myShowToolTipsMenu->setChecked(!myShowToolTipsMenu->amChecked());
-    if (myApplicationWindow->getViewNet()) {
+    if (myApplicationWindow->getViewNet() && myApplicationWindow->getViewNet()->getViewParent()->getShowToolTipsMenu()) {
         myApplicationWindow->getViewNet()->getViewParent()->getShowToolTipsMenu()->setChecked(myShowToolTipsMenu->amChecked());
         myApplicationWindow->getViewNet()->getViewParent()->getShowToolTipsMenu()->update();
     }

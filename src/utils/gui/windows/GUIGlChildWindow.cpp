@@ -134,18 +134,19 @@ GUIGlChildWindow::buildNavigationToolBar() {
     myLocatorButton = new MFXMenuButtonTooltip(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
             myGUIMainWindowParent->getStaticTooltipMenu(), (std::string("\t") + TL("Locate Structures") + std::string("\t") + TL("Locate structures within the network.")).c_str(),
             GUIIconSubSys::getIcon(GUIIcon::LOCATE), myLocatorPopup, nullptr, GUIDesignButtonToolbarLocator);
-    // add toggle button for tooltips in view on/off (by default unchecked)
-    myShowToolTipsView = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-            myGUIMainWindowParent->getStaticTooltipMenu(), (std::string("\t") + TL("Toggle View Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the view shall be shown.")).c_str(),
-            GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_VIEW), this, MID_SHOWTOOLTIPS_VIEW, GUIDesignMFXCheckableButtonSquare);
-    myGUIMainWindowParent->getStaticTooltipView()->enableStaticToolTip(false);
-    myGUIMainWindowParent->getStaticTooltipView()->enableStaticToolTip(false);
-    // add toggle button for tooltips in menu on/off (by default checked)
-    myShowToolTipsMenu = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-            myGUIMainWindowParent->getStaticTooltipMenu(), (std::string("\t") + TL("Toggle Menu Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the menu shall be shown.")).c_str(),
-            GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
-    myShowToolTipsMenu->setChecked(getApp()->reg().readIntEntry("gui", "menuToolTips", 0) != 1);
-    myGUIMainWindowParent->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
+    if (myGripNavigationToolbar != nullptr) {
+        // add toggle button for tooltips in view on/off (by default unchecked)
+        myShowToolTipsView = new MFXCheckableButton(false, myGripNavigationToolbar,
+                myGUIMainWindowParent->getStaticTooltipMenu(), (std::string("\t") + TL("Toggle View Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the view shall be shown.")).c_str(),
+                GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_VIEW), this, MID_SHOWTOOLTIPS_VIEW, GUIDesignMFXCheckableButtonSquare);
+        myGUIMainWindowParent->getStaticTooltipView()->enableStaticToolTip(false);
+        // add toggle button for tooltips in menu on/off (by default checked)
+        myShowToolTipsMenu = new MFXCheckableButton(false, myGripNavigationToolbar,
+                myGUIMainWindowParent->getStaticTooltipMenu(), (std::string("\t") + TL("Toggle Menu Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the menu shall be shown.")).c_str(),
+                GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
+        myShowToolTipsMenu->setChecked(getApp()->reg().readIntEntry("gui", "menuToolTips", 0) != 1);
+        myGUIMainWindowParent->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
+    }
 }
 
 
@@ -204,6 +205,12 @@ GUIGlChildWindow::getShowToolTipsMenu() const {
 }
 
 
+MFXCheckableButton*
+GUIGlChildWindow::getShowToolTipsView() const {
+    return myShowToolTipsView;
+}
+
+
 long
 GUIGlChildWindow::onCmdRecenterView(FXObject*, FXSelector, void*) {
     myView->recenterView();
@@ -228,24 +235,28 @@ GUIGlChildWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 
 long
 GUIGlChildWindow::onCmdShowToolTipsView(FXObject*, FXSelector, void*) {
-    // toggle check
-    myShowToolTipsView->setChecked(!myShowToolTipsView->amChecked());
-    // enable/disable static tooltip
-    myGUIMainWindowParent->getStaticTooltipView()->enableStaticToolTip(myShowToolTipsView->amChecked());
-    update();
+    if (myShowToolTipsView != nullptr) {
+        // toggle check
+        myShowToolTipsView->setChecked(!myShowToolTipsView->amChecked());
+        // enable/disable static tooltip
+        myGUIMainWindowParent->getStaticTooltipView()->enableStaticToolTip(myShowToolTipsView->amChecked());
+        update();
+    }
     return 1;
 }
 
 
 long
 GUIGlChildWindow::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
-    // toggle check
-    myShowToolTipsMenu->setChecked(!myShowToolTipsMenu->amChecked());
-    // enable/disable static tooltip
-    myGUIMainWindowParent->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
-    // save in registry
-    getApp()->reg().writeIntEntry("gui", "menuToolTips", myShowToolTipsMenu->amChecked() ? 0 : 1);
-    update();
+    if (myShowToolTipsMenu != nullptr) {
+        // toggle check
+        myShowToolTipsMenu->setChecked(!myShowToolTipsMenu->amChecked());
+        // enable/disable static tooltip
+        myGUIMainWindowParent->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
+        // save in registry
+        getApp()->reg().writeIntEntry("gui", "menuToolTips", myShowToolTipsMenu->amChecked() ? 0 : 1);
+        update();
+    }
     return 1;
 }
 

@@ -38,6 +38,7 @@ class GUIEvent;
 class GUIGlChildWindow;
 class GUISUMOAbstractView;
 class MFXStaticToolTip;
+class MFXCheckableButton;
 
 
 // ===========================================================================
@@ -165,6 +166,16 @@ public:
 
     /// @brief Sets the breakpoints of the parent application
     virtual void setBreakpoints(const std::vector<SUMOTime>&) {}
+
+    /// @brief get checkable button for menu tooltips (if any)
+    virtual MFXCheckableButton* getShowToolTipsMenu() const {
+        return nullptr;
+    }
+
+    /// @brief get checkable button for view tooltips (if any)
+    virtual MFXCheckableButton* getShowToolTipsView() const {
+        return nullptr;
+    }
 
     /** @brief Sends an event from the application thread to the GUI and waits until it is handled
      * @param event the event to send

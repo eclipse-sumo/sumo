@@ -221,7 +221,7 @@ GNEOptionsEditor::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
     auto viewNet = myDialog->getApplicationWindow()->getViewNet();
     // toggle check
     myShowToolTipsMenu->setChecked(!myShowToolTipsMenu->amChecked());
-    if (viewNet) {
+    if (viewNet && viewNet->getViewParent()->getShowToolTipsMenu()) {
         viewNet->getViewParent()->getShowToolTipsMenu()->setChecked(myShowToolTipsMenu->amChecked());
         viewNet->getViewParent()->getShowToolTipsMenu()->update();
     }

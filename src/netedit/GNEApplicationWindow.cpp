@@ -1663,6 +1663,24 @@ GNEApplicationWindow::getViewNet() {
 }
 
 
+MFXCheckableButton*
+GNEApplicationWindow::getShowToolTipsMenu() const {
+    if (myViewNet && myViewNet->getViewParent()) {
+        return myViewNet->getViewParent()->getShowToolTipsMenu();
+    }
+    return nullptr;
+}
+
+
+MFXCheckableButton*
+GNEApplicationWindow::getShowToolTipsView() const {
+    if (myViewNet && myViewNet->getViewParent()) {
+        return myViewNet->getViewParent()->getShowToolTipsView();
+    }
+    return nullptr;
+}
+
+
 GNEApplicationWindowHelper::ToolbarsGrip&
 GNEApplicationWindow::getToolbarsGrip() {
     return myToolbarsGrip;
