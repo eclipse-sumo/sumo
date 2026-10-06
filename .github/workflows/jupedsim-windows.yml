@@ -70,6 +70,7 @@ jobs:
 
     - name: Building jupedsim
       run: |
+        python -m pip install "pybind11-stubgen>=3.0,<4"
         cmake -B jupedsim-build-${{ matrix.build_config }} -DCMAKE_INSTALL_PREFIX=jupedsim-install-${{ matrix.build_config }} jupedsim
         cmake --build jupedsim-build-${{ matrix.build_config }} -j4 --config ${{ matrix.build_config }}
         cmake --install jupedsim-build-${{ matrix.build_config }} --config ${{ matrix.build_config }}
