@@ -811,7 +811,8 @@ GUIApplicationWindow::buildToolBars() {
         myShowToolTipsView = new MFXCheckableButton(false, myToolBar5,
                 myStaticTooltipMenu, (std::string("\t") + TL("Toggle View Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the view shall be shown.")).c_str(),
                 GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_VIEW), this, MID_SHOWTOOLTIPS_VIEW, GUIDesignMFXCheckableButtonSquare);
-        myStaticTooltipView->enableStaticToolTip(false);
+        myShowToolTipsView->setChecked(getApp()->reg().readIntEntry("gui", "viewToolTips", 0) == 1);
+        myStaticTooltipView->enableStaticToolTip(myShowToolTipsView->amChecked());
         // add toggle button for tooltips in menu on/off (by default checked)
         myShowToolTipsMenu = new MFXCheckableButton(false, myToolBar5,
                 myStaticTooltipMenu, (std::string("\t") + TL("Toggle Menu Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the menu shall be shown.")).c_str(),
@@ -1790,6 +1791,8 @@ GUIApplicationWindow::onCmdShowToolTipsView(FXObject*, FXSelector, void*) {
     myShowToolTipsView->setChecked(!myShowToolTipsView->amChecked());
     // update parent
     myStaticTooltipView->enableStaticToolTip(myShowToolTipsView->amChecked());
+    // save in registry
+    getApp()->reg().writeIntEntry("gui", "viewToolTips", myShowToolTipsView->amChecked() ? 1 : 0);
     return 1;
 }
 
