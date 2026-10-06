@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-05T15:45:47.757529+01:00 by Eclipse SUMO sumo v1_27_1+0890-6cbbfc9bfff
+<!-- generated on 2026-10-06T16:35:24.131680+01:00 by Eclipse SUMO sumo v1_27_1+0907-65b9b3563e3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,15 +39,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="veh" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="6.00" ended="17.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.0" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="106.00" ended="111.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.1" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="206.00" ended="221.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="veh" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="6.00" ended="13.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.0" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="106.00" ended="121.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.1" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="206.00" ended="218.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="f.2" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="306.00" ended="319.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.3" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="406.00" ended="416.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.4" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="506.00" ended="510.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.5" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="606.00" ended="613.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.6" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="706.00" ended="717.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.7" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="806.00" ended="815.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.8" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="906.00" ended="910.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.9" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="1006.00" ended="1014.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.3" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="406.00" ended="411.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.4" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="506.00" ended="513.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.5" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="606.00" ended="621.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.6" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="706.00" ended="718.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.7" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="806.00" ended="819.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.8" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="906.00" ended="923.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.9" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="1006.00" ended="1016.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
 </stops>

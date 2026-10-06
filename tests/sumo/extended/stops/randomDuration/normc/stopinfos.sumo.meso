@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-05T15:47:28.582992+01:00 by Eclipse SUMO sumo v1_27_1+0890-6cbbfc9bfff
+<!-- generated on 2026-10-06T16:37:00.599394+01:00 by Eclipse SUMO sumo v1_27_1+0907-65b9b3563e3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,15 +43,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="veh" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="0.00" ended="18.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.0" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="100.00" ended="111.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.1" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="200.00" ended="222.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="veh" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="0.00" ended="14.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.0" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="100.00" ended="121.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.1" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="200.00" ended="219.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="f.2" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="300.00" ended="319.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.3" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="400.00" ended="417.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.4" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="500.00" ended="511.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.5" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="600.00" ended="614.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.3" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="400.00" ended="411.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.4" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="500.00" ended="514.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.5" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="600.00" ended="622.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="f.6" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="700.00" ended="718.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.7" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="800.00" ended="816.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.8" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="900.00" ended="911.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="f.9" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="1000.00" ended="1015.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.7" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="800.00" ended="819.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.8" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="900.00" ended="923.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="f.9" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="1000.00" ended="1017.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
 </stops>
