@@ -1,6 +1,7 @@
 name: Remove Docker Tag
 
 on:
+    push:
     workflow_dispatch:
 
 jobs:
