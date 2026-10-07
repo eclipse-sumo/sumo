@@ -1,7 +1,6 @@
 name: Remove Docker Tag
 
 on:
-    push:
     workflow_dispatch:
 
 jobs:
@@ -15,9 +14,19 @@ jobs:
       packages: write
 
     steps:
-    - name: Remove Docker Tag
-      uses: rafalkk/remove-dockertag-action@v1
-      with:
-        tag_name: dependabot-github_actions-docker-build-push-action-7
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        is_organization: true
+#    - name: Remove Docker Tag
+#      uses: rafalkk/remove-dockertag-action@v1
+#      with:
+#        tag_name: dependabot-github_actions-docker-build-push-action-7
+#        github_token: ${{ secrets.GITHUB_TOKEN }}
+#        is_organization: true
+      - uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          docker pull ghcr.io/sumo:v1_24_0
+          docker run --name tmp-update ghcr.io/sumo:v1_24_0 pip uninstall eclipse-sumo
+          docker commit tmp-update ghcr.io/sumo:1.24.0
+          docker push ghcr.io/sumo:1.24.0
