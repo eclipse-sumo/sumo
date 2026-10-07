@@ -128,6 +128,18 @@ The lateral offset at departure will only affect simulation behavior when using 
 # Lateral Variation
 When setting the lane change mode attribute `lcSigma` to a positive value, Vehicles will exhibit some random lateral drift.
 
+# Specifying Distributed Input values
+
+Several attributes and options support a syntax where they can be defined either as constants ("3.14") or as distribution strings. The following distributions are supported:
+- 'norm(a,b)': normal distribution with expected value *a* and standard deviation *b*
+- 'normc(a,b,c,d)': normal distribution with expected value *a* and standard deviation *b* that truncates it's results to the range [c, d]
+
+Distribution strings are supported in the following locations
+- `<vType>` attribute ['speedFactor'](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions)
+- `<stop>` attribute ['duration'](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints)
+- [netgenerate] options **--perturb-x**, **--perturb-y** and **--perturb-z**
+- all options and [Generic Parameter keys](GenericParameters.md) for configuring [devices](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.nd#devices)
+
 # Further sources of randomness
 
 - The tool [randomTrips.py](../Tools/Trip.md#randomtripspy) allows generating traffic between random edges. It also supports randomizing arrival rates.
