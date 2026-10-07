@@ -1658,7 +1658,7 @@ NIImporter_OpenDrive::discretizeOffsets(PositionVector& geom, const std::vector<
     std::vector<double> laneOffsets;
     // make sure there are intermediate points for each offset-section
     for (const OpenDriveLaneOffset& el : offsets) {
-        // check wether we need to insert a new point at dist
+        // check whether we need to insert a new point at dist
         Position pS = geom.positionAtOffset2D(el.s);
         int iS = geom.indexOfClosest(pS);
         // prevent close spacing to reduce impact of rounding errors in z-axis
@@ -1679,7 +1679,7 @@ NIImporter_OpenDrive::discretizeOffsets(PositionVector& geom, const std::vector<
             laneOffsets.push_back(fabs(offset) > POSITION_EPS ? -offset : 0);
             kk++;
             if (kk < (int)geom.size()) {
-                // XXX pos understimates the actual position since the
+                // XXX pos underestimates the actual position since the
                 // actual geometry between k-1 and k could be curved
                 ppos += geom[kk - 1].distanceTo2D(geom[kk]);
             }
@@ -1694,7 +1694,7 @@ NIImporter_OpenDrive::addOffsets(bool left, PositionVector& geom, const std::vec
     UNUSED_PARAMETER(id);
     // make sure there are intermediate points for each offset-section
     for (const OpenDriveLaneOffset& el : offsets) {
-        // check wether we need to insert a new point at dist
+        // check whether we need to insert a new point at dist
         Position pS = geom.positionAtOffset2D(el.s);
         int iS = geom.indexOfClosest(pS);
         // prevent close spacing to reduce impact of rounding errors in z-axis

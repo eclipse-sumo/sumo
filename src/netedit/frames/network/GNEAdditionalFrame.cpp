@@ -184,7 +184,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
     }
     // obtain tagproperty (only for improve code legibility)
     const auto& tagProperties = myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty();
-    // check if toogle selection
+    // check if toggle selection
     if ((viewObjects.getAttributeCarrierFront() == viewObjects.getLaneFront()) &&
             (myViewObjetsSelector->toggleSelectedLane(viewObjects.getLaneFront()))) {
         return true;

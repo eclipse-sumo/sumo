@@ -366,7 +366,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             const SUMOTime arrival = (itsov == stopsOnVia.end() ? -1 : itsov->second.arrival);
             const double pos = (itsov == stopsOnVia.end() ? 0 : itsov->second.pos);
             stops.push_back(StopEdgeInfo(viaEdge, priority, arrival, pos));
-            // @todo determine wether the viaEdge is also used by a stop and then use the stop priority here
+            // @todo determine whether the viaEdge is also used by a stop and then use the stop priority here
             if (jumpEdges.count(viaEdge) != 0) {
                 jumps.insert((int)stops.size());
             }

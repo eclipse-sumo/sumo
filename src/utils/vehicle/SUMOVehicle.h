@@ -134,7 +134,7 @@ public:
      * @return Whether the vehicle's current route is valid
      */
     virtual bool hasValidRoute(std::string& msg, ConstMSRoutePtr route = 0) const = 0;
-    /// @brief checks wether the vehicle can depart on the first edge
+    /// @brief checks whether the vehicle can depart on the first edge
     virtual bool hasValidRouteStart(std::string& msg) = 0;
 
     /// @brief computes validity attributes for the current route

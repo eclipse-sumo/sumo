@@ -105,7 +105,7 @@ private:
      */
     static void writeConnectedLanes(const OptionsCont& oc, NBNodeCont& nc);
 
-    /// @brief write header comments (input paramters, date, etc...)
+    /// @brief write header comments (input parameters, date, etc...)
     static void writeHeader(OutputDevice& device, const OptionsCont& oc);
 
     /// @brief build the ascii-bit-vector for column vehicle_type

@@ -134,7 +134,7 @@ public:
      * @param[in] id The id of the parsed element, for error message generation
      * @return The parsed vehicle class
      * @see SUMOVehicleClass
-     * @todo Recheck how errors are handled and what happens if they occure
+     * @todo Recheck how errors are handled and what happens if they occur
      */
     static SUMOVehicleClass parseVehicleClass(const SUMOSAXAttributes& attrs, const std::string& id);
 
@@ -150,7 +150,7 @@ public:
      * @param[in] id The id of the parsed element, for error message generation
      * @return The parsed vehicle shape
      * @see SUMOVehicleShape
-     * @todo Recheck how errors are handled and what happens if they occure
+     * @todo Recheck how errors are handled and what happens if they occur
      */
     static SUMOVehicleShape parseGuiShape(const SUMOSAXAttributes& attrs, const std::string& id);
 

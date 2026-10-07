@@ -362,8 +362,8 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
         device << "                    <lane id=\"" << s2x(j, numLanes) << "\" type=\"" << laneType << "\" level=\"true\">\n";
         device << "                        <link/>\n";
         // this could be used for geometry-link junctions without u-turn,
-        // predecessor and sucessors would be lane indices,
-        // road predecessor / succesfors would be of type 'road' rather than
+        // predecessor and successors would be lane indices,
+        // road predecessor / successors would be of type 'road' rather than
         // 'junction'
         //device << "                            <predecessor id=\"-1\"/>\n";
         //device << "                            <successor id=\"-1\"/>\n";

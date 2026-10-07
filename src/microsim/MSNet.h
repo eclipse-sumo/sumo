@@ -268,7 +268,7 @@ public:
      * @param[in] stop The end time step of the simulation
      * @return Returns always 0
      * @todo Recheck return value
-     * @todo What exceptions may occure?
+     * @todo What exceptions may occur?
      */
     SimulationState simulate(SUMOTime start, SUMOTime stop);
 
@@ -879,7 +879,7 @@ protected:
     /// @brief check all lanes for type walkingArea
     bool checkWalkingarea();
 
-    /// @brief check wether bidirectional edges occur in the network
+    /// @brief check whether bidirectional edges occur in the network
     bool checkBidiEdges();
 
     /// @brief remove collisions from the previous simulation step

@@ -1720,7 +1720,7 @@ PositionVector::rotate2D(const Position& pos, double angle) {
 void
 PositionVector::rotateAroundFirstElement2D(double angle) {
     if (size() > 1) {
-        // translate position vector to (0,0), rotate, and traslate back again
+        // translate position vector to (0,0), rotate, and translate back again
         const Position offset = front();
         sub(offset);
         rotate2D(angle);
@@ -1881,7 +1881,7 @@ PositionVector::smoothedZFront(double dist) const {
     // if the shape only has 2 points it is as smooth as possible already
     if (size() > 2 && dz != 0) {
         dist = MIN2(dist, length2D());
-        // check wether we need to insert a new point at dist
+        // check whether we need to insert a new point at dist
         Position pDist = positionAtOffset2D(dist);
         int iLast = indexOfClosest(pDist);
         // prevent close spacing to reduce impact of rounding errors in z-axis

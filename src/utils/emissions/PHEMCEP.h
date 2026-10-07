@@ -120,7 +120,7 @@ public:
     double GetDecelCoast(double speed, double acc, double gradient, double vehicleLoading) const;
 
 
-    /** @brief Getter function to recieve vehicle data from CEP
+    /** @brief Getter function to receive vehicle data from CEP
      * @return PHEM emission class of vehicle
      */
     SUMOEmissionClass GetEmissionClass() const {
@@ -128,7 +128,7 @@ public:
     }
 
 
-    /** @brief Getter function to recieve vehicle data from CEP
+    /** @brief Getter function to receive vehicle data from CEP
      * @return Rolling resistance f0
      */
     double GetResistanceF0() const {
@@ -136,7 +136,7 @@ public:
     }
 
 
-    /** @brief Getter function to recieve vehicle data from CEP
+    /** @brief Getter function to receive vehicle data from CEP
      * @return Rolling resistance f1
      */
     double GetResistanceF1() const {
@@ -144,7 +144,7 @@ public:
     }
 
 
-    /** @brief Getter function to recieve vehicle data from CEP
+    /** @brief Getter function to receive vehicle data from CEP
      * @return Rolling resistance f2
      */
     double GetResistanceF2() const {
@@ -152,7 +152,7 @@ public:
     }
 
 
-    /** @brief Getter function to recieve vehicle data from CEP
+    /** @brief Getter function to receive vehicle data from CEP
      * @return Rolling resistance f3
      */
     double GetResistanceF3() const {
@@ -160,7 +160,7 @@ public:
     }
 
 
-    /** @brief Getter function to recieve vehicle data from CEP
+    /** @brief Getter function to receive vehicle data from CEP
      * @return Rolling resistance f4
      */
     double GetResistanceF4() const {
@@ -168,7 +168,7 @@ public:
     }
 
 
-    /** @brief Getter function to recieve vehicle data from CEP
+    /** @brief Getter function to receive vehicle data from CEP
      * @return Cw value
      * @todo: Why is it named "cdValue", here?
      */
@@ -176,7 +176,7 @@ public:
         return _cdValue;
     }
 
-    /** @brief Getter function to recieve vehicle data from CEP
+    /** @brief Getter function to receive vehicle data from CEP
      * @return crosssectional area of vehicle
      */
     double GetCrossSectionalArea() const {
@@ -184,14 +184,14 @@ public:
     }
 
 
-    /** @brief Getter function to recieve vehicle data from CEP
+    /** @brief Getter function to receive vehicle data from CEP
      * @return vehicle mass
      */
     double GetMassVehicle() const {
         return _massVehicle;
     }
 
-    /** @brief Getter function to recieve vehicle data from CEP
+    /** @brief Getter function to receive vehicle data from CEP
      * @return vehicle loading
      */
     double GetVehicleLoading() const {
@@ -199,7 +199,7 @@ public:
     }
 
 
-    /** @brief Getter function to recieve vehicle data from CEP
+    /** @brief Getter function to receive vehicle data from CEP
      * @return rotational mass of vehicle
      */
     double GetMassRot() const {
@@ -207,14 +207,14 @@ public:
     }
 
 
-    /** @brief Getter function to recieve vehicle data from CEP
+    /** @brief Getter function to receive vehicle data from CEP
      * @return rated power of vehicle
      */
     double GetRatedPower() const {
         return _ratedPower;
     }
 
-    /** @brief Getter function to recieve vehicle data from CEP
+    /** @brief Getter function to receive vehicle data from CEP
      * @return fuel type of vehicle
      */
     const std::string& GetVehicleFuelType() const {

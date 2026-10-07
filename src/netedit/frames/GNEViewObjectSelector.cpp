@@ -122,7 +122,7 @@ GNEViewObjectSelector::toggleSelectedElement(const GNEAttributeCarrier* AC) {
         myFrameParent->getViewNet()->update();
         return true;
     } else {
-        // nothing to toogle
+        // nothing to toggle
         return false;
     }
 }
@@ -137,7 +137,7 @@ GNEViewObjectSelector::toggleSelectedLane(const GNELane* lane) {
             return toggleSelectedElement(lane);
         }
     } else {
-        // nothing to toogle
+        // nothing to toggle
         return false;
     }
 }
@@ -168,7 +168,7 @@ GNEViewObjectSelector::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* ba
 
 void
 GNEViewObjectSelector::clearSelection() {
-    // clear list of egdge ids
+    // clear list of edge ids
     myList->clearItems();
     mySelectedACs.clear();
     // update viewNet
@@ -178,7 +178,7 @@ GNEViewObjectSelector::clearSelection() {
 
 long
 GNEViewObjectSelector::onCmdUseSelectedElements(FXObject*, FXSelector, void*) {
-    // clear list of egdge ids
+    // clear list of edge ids
     myList->clearItems();
     mySelectedACs.clear();
     // get all selected ACs

@@ -162,7 +162,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         for (size_t i = 0; i != myLines.size(); ++i) {
             // push a new matrix for every line
             GLHelper::pushMatrix();
-            // traslate and rotate
+            // translate and rotate
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
             glRotated(180, 1, 0, 0);
             glRotated(mySignRot, 0, 0, 1);

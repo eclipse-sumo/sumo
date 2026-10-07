@@ -464,7 +464,7 @@ private:
     }
 
     /** @brief tries to update the priority of the first edge
-     * @return wether updating changed the first edge
+     * @return whether updating changed the first edge
      */
     bool tryUpdateFront(std::vector<CHInfo*>& queue) {
         myUpdateCount++;

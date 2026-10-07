@@ -232,7 +232,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
             for (int i = 0; i < (int)myLines.size(); ++i) {
                 // push a new matrix for every line
                 GLHelper::pushMatrix();
-                // traslate and rotate
+                // translate and rotate
                 glTranslated(signPos.x(), signPos.y(), 0);
                 glRotated(-lineAngle, 0, 0, 1);
                 // draw line

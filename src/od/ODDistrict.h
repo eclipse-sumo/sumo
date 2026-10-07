@@ -58,7 +58,7 @@ public:
      *  the network. The weight is used when a random source shall be
      *  chosen.
      *
-     * BTW, it is possible to add a source twice. In this case it will occure
+     * BTW, it is possible to add a source twice. In this case it will occur
      *  twice within the distribution so that the behaviour is as adding
      *  both given probabilities.
      *
@@ -74,7 +74,7 @@ public:
      *  network and reach the district.  The weight is used when a random
      *  sink shall be chosen.
      *
-     * BTW, it is possible to add a sink twice. In this case it will occure
+     * BTW, it is possible to add a sink twice. In this case it will occur
      *  twice within the distribution so that the behaviour is as adding
      *  both given probabilities.
      *

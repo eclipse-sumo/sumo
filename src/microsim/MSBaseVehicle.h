@@ -116,7 +116,7 @@ public:
     /// @brief replace the vehicle parameter (deleting the old one)
     void replaceParameter(const SUMOVehicleParameter* newParameter);
 
-    /// @brief check whether the vehicle is equiped with a device of the given name
+    /// @brief check whether the vehicle is equipped with a device of the given name
     bool hasDevice(const std::string& deviceName) const;
 
     /// @brief create device of the given type
@@ -128,7 +128,7 @@ public:
     /// @brief try to set the given parameter from any of the vehicles devices, raise InvalidArgument if no device parameter by that name exists
     void setDeviceParameter(const std::string& deviceName, const std::string& key, const std::string& value);
 
-    /// @brief set individual junction model paramete (not type related)
+    /// @brief set individual junction model parameter (not type related)
     void setJunctionModelParameter(const std::string& key, const std::string& value);
 
     /// @brief set individual carFollow model parameters (not type related)
@@ -240,7 +240,7 @@ public:
         return false;
     }
 
-    /** @brief Returns the information whether the front of the vehhicle is on the given lane
+    /** @brief Returns the information whether the front of the vehicle is on the given lane
      * @return Whether the vehicle's front is on that lane
      */
     virtual bool isFrontOnLane(const MSLane*) const {
@@ -434,7 +434,7 @@ public:
         return myDeparture != NOT_YET_DEPARTED;
     }
 
-    /** @brief Returns whether this vehicle has already arived
+    /** @brief Returns whether this vehicle has already arrived
      * (by default this is true if the vehicle has reached its final edge)
      */
     virtual bool hasArrived() const;
@@ -488,7 +488,7 @@ public:
     std::vector<std::string> getPersonIDList() const;
 
     /** @brief Returns the number of containers
-     * @return The number of contaiers on-board
+     * @return The number of containers on-board
      */
     int getContainerNumber() const;
 
@@ -527,7 +527,7 @@ public:
     /// @brief returns whether the vehicle serves a public transport line that serves the given stop
     bool isLineStop(double position) const;
 
-    /// @brief check wether the vehicle has jump at the given part of its route
+    /// @brief check whether the vehicle has jump at the given part of its route
     bool hasJump(const MSRouteIterator& it) const;
 
     /** @brief Validates the current or given route
@@ -539,13 +539,13 @@ public:
 
     bool hasValidRoute(std::string& msg, MSRouteIterator start, MSRouteIterator last, bool checkJumps) const;
 
-    /// @brief checks wether the vehicle can depart on the first edge
+    /// @brief checks whether the vehicle can depart on the first edge
     virtual bool hasValidRouteStart(std::string& msg);
 
     /// @brief check for route validity at first insertion attempt
     int getRouteValidity(bool update = true, bool silent = false, std::string* msgReturn = nullptr);
 
-    /// @brief Checks whether the vehilce has the given MoveReminder
+    /// @brief Checks whether the vehicle has the given MoveReminder
     bool hasReminder(MSMoveReminder* rem) const;
 
     /** @brief Adds a MoveReminder dynamically

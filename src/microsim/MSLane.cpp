@@ -1014,7 +1014,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 if (mayContinue(aVehicle) && hasUnsafeLink()) {
                     // since the route is likely to continue we must be prepared for braking
                     if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, seen),
-                                patchSpeedSpecial, "junction '" + currentLane->getEdge().getToJunction()->getID() + "' too close", InsertionCheck::JUNCTION)) {
+                                     patchSpeedSpecial, "junction '" + currentLane->getEdge().getToJunction()->getID() + "' too close", InsertionCheck::JUNCTION)) {
                         // we may not drive with the given velocity - we cannot stop at the junction
                         return false;
                     }
@@ -1479,7 +1479,7 @@ MSLane::getLastVehicleInformation(const MSVehicle* ego, double latOffset, double
 #ifdef DEBUG_SURROUNDING
     if (DEBUG_COND2(ego) || DEBUG_COND) {
         std::cout << "    getLastVehicleInformation lane=" << getID() << " ego=" << Named::getIDSecure(ego) << " latOffset=" << latOffset << " minPos=" << minPos << " allowCached=" << allowCached
-        << " hasCache=" << (myLeaderInfoTime >= MSNet::getInstance()->getCurrentTimeStep()) << "\n";
+                  << " hasCache=" << (myLeaderInfoTime >= MSNet::getInstance()->getCurrentTimeStep()) << "\n";
     }
 #endif
     if (myLeaderInfoTime < MSNet::getInstance()->getCurrentTimeStep() || ego != nullptr || minPos > 0 || !allowCached) {
@@ -2914,7 +2914,7 @@ MSLane::addApproachingLane(MSLane* lane, bool warnMultiCon) {
         myApproachingLanes[approachingEdge] = std::vector<MSLane*>();
     } else if (!approachingEdge->isInternal() && warnMultiCon) {
         // whenever a normal edge connects twice, there is a corresponding
-        // internal edge wich connects twice, one warning is sufficient
+        // internal edge which connects twice, one warning is sufficient
         WRITE_WARNINGF(TL("Lane '%' is approached multiple times from edge '%'. This may cause collisions."),
                        getID(), approachingEdge->getID());
     }
@@ -3945,8 +3945,8 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
             for (std::vector<MSLane::IncomingLaneInfo>::iterator it = toExamine.begin(); it != toExamine.end(); ++it) {
                 MSLane* next = (*it).lane;
                 searchDist = maxSearchDist
-                    ? MAX2(searchDist, next->getMaximumBrakeDist() - backOffset)
-                    : MIN2(searchDist, next->getMaximumBrakeDist() - backOffset);
+                             ? MAX2(searchDist, next->getMaximumBrakeDist() - backOffset)
+                             : MIN2(searchDist, next->getMaximumBrakeDist() - backOffset);
                 MSLeaderInfo first = next->getFirstVehicleInformation(nullptr, 0, false, std::numeric_limits<double>::max(), false);
                 MSLeaderInfo firstFront = next->getFirstVehicleInformation(nullptr, 0, true);
 #ifdef DEBUG_CONTEXT
@@ -4202,7 +4202,9 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
             dist = ego->getCarFollowModel().brakeGap(nextLane->getVehicleMaxSpeed(ego));
         }
 #ifdef DEBUG_CONTEXT
-        if (DEBUG_COND2(ego)) std::cout << "   newDist=" << dist << " newSeen=" << seen << "\n";
+        if (DEBUG_COND2(ego)) {
+            std::cout << "   newDist=" << dist << " newSeen=" << seen << "\n";
+        }
 #endif
         if (!nextInternal) {
             view++;

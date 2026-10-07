@@ -707,7 +707,7 @@ public:
      *
      * This method goes through all vehicles calling their executeMove method
      * which causes vehicles to update their positions and speeds.
-     * Vehicles wich move to the next lane are stored in the targets lane buffer
+     * Vehicles which move to the next lane are stored in the targets lane buffer
      *
      * @return Returns true, if all vehicles left the lane.
      *
@@ -727,7 +727,7 @@ public:
     ///@}
 
 
-    /// @brief short-circut collision check if nothing changed since the last check
+    /// @brief short-circuit collision check if nothing changed since the last check
     inline bool needsCollisionCheck() const {
         return myNeedsCollisionCheck;
     }
@@ -1111,7 +1111,7 @@ public:
     /// @brief Returns all upcoming links within given range along the given (non-internal) continuation lanes measured from given position
     std::vector<const MSLink*> getUpcomingLinks(double pos, double range, const std::vector<MSLane*>& contLanes) const;
 
-    /** @brief get the most likely precedecessor lane (sorted using by_connections_to_sorter).
+    /** @brief get the most likely predecessor lane (sorted using by_connections_to_sorter).
      * The result is cached in myLogicalPredecessorLane
      */
     MSLane* getLogicalPredecessorLane() const;

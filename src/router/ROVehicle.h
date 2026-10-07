@@ -145,7 +145,7 @@ public:
 private:
     /** @brief Adds a stop to this vehicle
      *
-     * @param[in] stopPar the stop paramters
+     * @param[in] stopPar the stop parameters
      * @param[in] net     pointer to the network, used for edge retrieval
      */
     void addStop(const SUMOVehicleParameter::Stop& stopPar,

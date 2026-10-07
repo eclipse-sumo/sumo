@@ -2489,7 +2489,7 @@ InternalTestStep::modifyBoolAttribute(Category category, const int tabs, const i
     for (int i = 0; i < (tabs + overlappedTabs); i++) {
         buildPressKeyEvent(category, "tab", false);
     }
-    // toogle attribute
+    // toggle attribute
     buildPressKeyEvent(category, "space", true);
 }
 

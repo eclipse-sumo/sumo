@@ -48,7 +48,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream& from) {
     from >> id;
     //
     std::string tag;
-    // the following elements may occure: "Name", "Beschriftung", "Typ",
+    // the following elements may occur: "Name", "Beschriftung", "Typ",
     //  followed by the mandatory "Laenge"
     std::string name, label, type;
     double length = -1;
