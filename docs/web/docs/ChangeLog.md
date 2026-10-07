@@ -84,7 +84,7 @@ title: ChangeLog
   - gtfs2pt.py: fixed invalid cache-reuse when called twice with different input networks #18291
   - csv2xml.py: fixed problem when converting plain.nod.csv #18176
   - route2poly.py: now handles rou.alt.xml files #18327
-  - plotting tools: fixed error when Matplotlib version string contains non-integer components #18294  
+  - plotting tools: fixed error when Matplotlib version string contains non-integer components #18294
 
 ### Enhancements
 
@@ -116,7 +116,7 @@ title: ChangeLog
   - added 'show edge parameter' to the lane context menu
   - added 'delete' item in every context menu #15050
   - Connection mode now allows to hide connections not originating from the current source edge to reduce clutter #16677
-  - Connection mode now also allows to toggle the 'show connections in inspect mode' toogle (for better discoverability of this feature) #16677
+  - Connection mode now also allows to toggle the 'show connections in inspect mode' toggle (for better discoverability of this feature) #16677
   - Connection mode now allows to inspect any connection via clicking #16677
   - Added Checkbox to enable/disable filled drawing of walking areas #17981
   - In additional mode, during access creation, a dotted contour is drawn around viable access lanes #17091
@@ -129,7 +129,7 @@ title: ChangeLog
   - When coloring roads with a brighter color, turning arrow colors are adjusted automatically for contrast #12062
 
 - duarouter
-  - vTypeDistribution can now reference an existing vType using attribute `refId` without creating a new type (similar to routeDistributions) #18178  
+  - vTypeDistribution can now reference an existing vType using attribute `refId` without creating a new type (similar to routeDistributions) #18178
 
 - netconvert
   - Added option **--dlr-navteq.plain** for adding extra attributes in plain output #18287
@@ -142,7 +142,7 @@ title: ChangeLog
   - Refactored data structure to reduce running time by 5-9% #18207
   - Now supports traffic light type 'actuated' #8735
   - Added inductionLoop attribute `mesoTLS`. Detectors with this attribute can be used as custom detectors for actuated traffic lights (i.e. to register vehicles of a specific type) #18245
-  - Option **--queue-output** is now supported. Queue lengths are measured per segment queue based on vehicle entry order and, when **--meso-interpolate-pos** is set, on interpolated positions #18212  - 
+  - Option **--queue-output** is now supported. Queue lengths are measured per segment queue based on vehicle entry order and, when **--meso-interpolate-pos** is set, on interpolated positions #18212  -
   - Added warning when loading a network with multi-modal edges where a risk of miscalculating capacity exists #4113
 
 - traci
@@ -151,7 +151,7 @@ title: ChangeLog
 
 - tools
   - instantOutToEdgeData.py: added option **--poi-output** to visualize extra values and aid in debugging #18166
-  - edgeDataFromFlow.py: added option **--turn-output** to write edgeRelations for detectors that have a unique sucessor edge #17955
+  - edgeDataFromFlow.py: added option **--turn-output** to write edgeRelations for detectors that have a unique successor edge #17955
   - edgeDataFromFlow.py: added option **--skip-incomplete** to exclude data from incomplete cross-sections #18182
   - flow2POI.poi: added [new tool](Tools/Detector.md#flow2poipy) for visualizing detector flow #18193
   - randomTrips.py: Now warns when routing personTrips with mode public and without pt input #18006
