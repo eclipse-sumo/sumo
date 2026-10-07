@@ -59,7 +59,7 @@
 |type|string|A typename for the polygon|
 |imgFile|filename(Existent)|A bitmap to use for rendering this poly|
 |angle|angle[0, 360]|Angle of rendered image in degree *default:* **0.00**|
-|height|non-negative float|Height of polygonin meters *default:* **0.00**|
+|height|non-negative float|Height of polygon in meters *default:* **0.00**|
 |geo|boolean|Enable or disable GEO attributes *default:* **0**|
 |geoShape|list of unique positions|A custom geo shape for this polygon|
 
