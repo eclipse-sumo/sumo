@@ -36,6 +36,7 @@ title: ChangeLog
   - Fixed crash when trying to render a long partial vehicle that has already left the simulation (sublane) #18271
   - No longer creating an invalid file when attempting to save a snapshot in an invalid format #14763
   - Fixed crash when using "Reload" or "Quick-Reload" after network loading failed #18320
+  - Translations did not work in the windows release #18229 (regression in 1.27.0)
 
 - meso
   - Fixed exaggerated headways when passing short edges #18315 (regression in 1.10.0)
