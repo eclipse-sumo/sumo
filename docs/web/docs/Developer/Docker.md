@@ -18,7 +18,7 @@ There are several Dockerfiles available in the SUMO repository.
 To build them, check out [the SUMO repository](https://github.com/eclipse-sumo/sumo) and use the following command while in the `build_config/docker` directory of the repository:
 
 ```shell
-    docker build -f {NAME_OF_DOCKERFILE} .
+docker build -f {NAME_OF_DOCKERFILE} .
 ```
 
 !!! note
@@ -64,10 +64,10 @@ A complete example is available in [the tutorial on containerized SUMO](../Tutor
 A quick example for running a prepared simulation looks like this:
 
 ```shell
-   docker run \
-      -v /path/to/your/simulation/data:/data \
-      ghcr.io/eclipse-sumo/sumo:main \
-      sumo /data/simulation.sumocfg
+docker run \
+    -v /path/to/your/simulation/data:/data \
+    ghcr.io/eclipse-sumo/sumo:main \
+    sumo /data/simulation.sumocfg
 ```
 
 A use-case for this could be preparing the simulation data on a computer with SUMO installed and then running the simulation on a server without needing to install SUMO.

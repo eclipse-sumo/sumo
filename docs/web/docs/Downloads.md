@@ -310,7 +310,7 @@ if(file_exists($shaFile)){
          . "<div class='modal-body' style='color: #495057 !important;'>"
          . "<p><strong>File:</strong> " . htmlspecialchars($fname) . "</p>"
          . "<p><strong>Checksum (SHA256):</strong></p>"
-         . "<div class='codehilite'><pre><span></span><code class='hljs'>" . htmlspecialchars($checksum) . "</code></pre></div>"
+         . "<pre><span></span><code class='hljs'>" . htmlspecialchars($checksum) . "</code></pre>"
          . "</div>"
          . "</div>"
          . "</div>"

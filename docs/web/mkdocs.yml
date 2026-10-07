@@ -100,7 +100,6 @@ markdown_extensions:
       user: eclipse-sumo
       repo: sumo
   - plantuml_markdown
-  - codehilite
 
 extra:
     Version: 1.27.1
