@@ -131,13 +131,15 @@ When setting the lane change mode attribute `lcSigma` to a positive value, Vehic
 # Specifying Distributed Input values
 
 Several attributes and options support a syntax where they can be defined either as constants ("3.14") or as distribution strings. The following distributions are supported:
+
 - 'norm(a,b)': normal distribution with expected value *a* and standard deviation *b*
 - 'normc(a,b,c,d)': normal distribution with expected value *a* and standard deviation *b* that truncates it's results to the range [c, d]
 
-Distribution strings are supported in the following locations
+Distribution strings are supported in the following locations:
+
 - `<vType>` attribute ['speedFactor'](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions)
 - `<stop>` attribute ['duration'](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints)
-- [netgenerate] options **--perturb-x**, **--perturb-y** and **--perturb-z**
+- [netgenerate](../netgenerate.md) options **--perturb-x**, **--perturb-y** and **--perturb-z**
 - all options and [Generic Parameter keys](GenericParameters.md) for configuring [devices](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.nd#devices)
 
 # Further sources of randomness
