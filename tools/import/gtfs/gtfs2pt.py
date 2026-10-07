@@ -535,7 +535,7 @@ def filter_trips(options, routes, stops, outf, begin, end, vehicles):
             outf.write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s">\n' %
                        (tripID, routeID, mode, options.ft(depart), line))
             for k, v in params:
-                outf.write(u'        <param key="%s" value=%s/>\n' % (k, sumolib.xml.quoteattr(v, True)))
+                outf.write(u'        <param key="%s" value=%s/>\n' % (k, sumolib.xml.quoteattr(str(v), True)))
             outf.write(u'    </vehicle>\n')
 
 
