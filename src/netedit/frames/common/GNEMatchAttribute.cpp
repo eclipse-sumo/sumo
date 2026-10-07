@@ -41,7 +41,7 @@
 FXDEFMAP(GNEMatchAttribute) GNEMatchAttributeMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTTAG,        GNEMatchAttribute::onCmdTagSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTATTRIBUTE,  GNEMatchAttribute::onCmdAttributeSelected),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_TOGGLECOMMON,     GNEMatchAttribute::onCmdToogleOnlyCommon),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_TOGGLECOMMON,     GNEMatchAttribute::onCmdToggleOnlyCommon),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_PROCESSSTRING,    GNEMatchAttribute::onCmdProcessString),
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNEMatchAttribute::onCmdHelp)
 };
@@ -250,7 +250,7 @@ GNEMatchAttribute::onCmdAttributeSelected(FXObject*, FXSelector, void*) {
 
 
 long
-GNEMatchAttribute::onCmdToogleOnlyCommon(FXObject*, FXSelector, void*) {
+GNEMatchAttribute::onCmdToggleOnlyCommon(FXObject*, FXSelector, void*) {
     // simply refresh attribute
     refreshMatchAttribute();
     return 1;

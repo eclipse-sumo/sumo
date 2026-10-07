@@ -85,7 +85,7 @@ GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vCl
         solution.push_back(edges.front());
         return solution;
     } else if ((edges.size() == 2) && (edges.front() == edges.back())) {
-        // typical case for stops. Used to avoid unnecesary calls to compute
+        // typical case for stops. Used to avoid unnecessary calls to compute
         solution.push_back(edges.front());
         return solution;
     } else {
@@ -221,16 +221,16 @@ GNEPathManager::PathCalculator::calculateReachability(const SUMOVehicleClass vCl
         }
         // update traveltime
         traveltime += edge->getNBEdge()->getLength() / MIN2(edge->getNBEdge()->getSpeed(), defaultMaxSpeed);
-        std::vector<GNEEdge*> sucessors;
+        std::vector<GNEEdge*> successors;
         // get successor edges
-        for (const auto& sucessorEdge : edge->getToJunction()->getGNEOutgoingEdges()) {
+        for (const auto& successorEdge : edge->getToJunction()->getGNEOutgoingEdges()) {
             // check if edge is connected with successor edge
-            if (consecutiveEdgesConnected(vClass, edge, sucessorEdge)) {
-                sucessors.push_back(sucessorEdge);
+            if (consecutiveEdgesConnected(vClass, edge, successorEdge)) {
+                successors.push_back(successorEdge);
             }
         }
         // add successors to check vector
-        for (const auto& nextEdge : sucessors) {
+        for (const auto& nextEdge : successors) {
             // revisit edge via faster path
             if ((reachableEdges.count(nextEdge) == 0) || (reachableEdges[nextEdge] > traveltime)) {
                 reachableEdges[nextEdge] = traveltime;

@@ -973,12 +973,12 @@ GNEFileSelector::buildButtons(FXHorizontalFrame* navigatorHorizontalFrame, MFXSt
     auto showDetailsButton = new MFXButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_DETAILS),
             myFileSelector, FXFileList::ID_SHOW_DETAILS, GUIDesignButtonIconFileDialog);
     showDetailsButton->setTipText(TL("Display detailed directory listing"));
-    // create button for toogle show/hide hidden files
-    auto showHiddeToogleButton = new MFXToggleButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "", "",
+    // create button for toggle show/hide hidden files
+    auto showHideToggleButton = new MFXToggleButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "", "",
             GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_HIDDEN),
             GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_SHOWN),
             myFileSelector, FXFileList::ID_TOGGLE_HIDDEN, GUIDesignButtonIconFileDialog);
-    showHiddeToogleButton->setTipText(TL("Toggle show hidden files and directories"));
+    showHideToggleButton->setTipText(TL("Toggle show hidden files and directories"));
 }
 
 

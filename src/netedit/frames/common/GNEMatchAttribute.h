@@ -73,8 +73,8 @@ public:
     /// @brief Called when the user selects an attribute in the match box
     long onCmdAttributeSelected(FXObject*, FXSelector, void*);
 
-    /// @brief Called when the user toogle the only common checkbox
-    long onCmdToogleOnlyCommon(FXObject*, FXSelector, void*);
+    /// @brief Called when the user toggle the only common checkbox
+    long onCmdToggleOnlyCommon(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user enters a new selection expression
     long onCmdProcessString(FXObject*, FXSelector, void*);
