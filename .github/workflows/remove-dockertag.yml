@@ -28,6 +28,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - run: |
           docker pull ghcr.io/eclipse-sumo/sumo:v1_24_0
-          docker run --name tmp-update ghcr.io/eclipse-sumo/sumo:v1_24_0 pip uninstall eclipse-sumo
+          docker run --name tmp-update ghcr.io/eclipse-sumo/sumo:v1_24_0 pip uninstall -y eclipse-sumo
           docker commit tmp-update ghcr.io/eclipse-sumo/sumo:1.24.0
           docker push ghcr.io/eclipse-sumo/sumo:1.24.0
