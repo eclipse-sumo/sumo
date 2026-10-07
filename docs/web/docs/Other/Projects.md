@@ -8,22 +8,16 @@ title: Projects
 
 - [KoFeMo](https://www.dlr.de/de/ts/forschung-und-transfer/projekte/kofemo)
 focuses on the detailed measurement and analysis of vehicle acceleration and deceleration behaviour and its representation in traffic flow simulations. By calibrating the simulation models against real-world vehicle dynamics, the project aims to derive reliable predictions for other areas, specific traffic situations, and different vehicle fleets.
-
 - [ReTraSON](https://www.dlr.de/en/ts/research-transfer/projects/retrason)
    Infrastructure Transformation in Lower Saxony (German)
-
 - [Spurplan](https://www.dlr.de/en/ts/research-transfer/projects/sumo-trackplan-5-deadlock-processing-for-large-scale-scenarios)
 SUMO is being expanded and improved in various areas for modeling rail traffic
-
 - [VMo4Orte](https://www.dlr.de/en/research-and-transfer/projects-and-missions/vmo4orte-connected-mobility-for-liveable-places)
 Development of solution modules that can be used to contribute to the transformation of the transport system
-
 - [MoCKiii](https://www.dlr.de/en/ts/research-transfer/projects/mockiii)
 Creation of a dash board with which the city of Cologne can easily detect the current traffic situation, changes in mobility behavior and the traffic situation in order to then be able to initiate suitable countermeasures
-
 - [KoKoVi](https://www.dlr.de/en/research-and-transfer/projects-and-missions/kokovi)
 Transport as a cooperative and networked system
-
 - [TAPAS](https://github.com/DLR-VF/TAPAS)
 Model for data on the future development of passenger transport demand in urban areas
 
@@ -32,40 +26,28 @@ Model for data on the future development of passenger transport demand in urban 
 
 - [SeKQuaSens³](https://www.dlr.de/de/forschung-und-transfer/projekte-und-missionen/sekquasens)
 SUMO was used to model microscopic traffic and investigate EV energy consumption, supporting the assessment of mobility-related electricity demand. A key activity was the comparison and parameterisation of different EV energy-consumption models in SUMO.
-
 - [SHOW](https://www.uitp.org/projects/show/)
 shows the integration of fleets of automated vehicles in public transport, demand-responsive transport (DRT), Mobility a Service (MaaS) and Logistics as a Service (LaaS) schemes
-
 - [ITS for Asia](https://www.dlr.de/en/ts/research-transfer/projects/itsforasia)
 Monitoring intersections to identify accident spots
-
 - [Digitaler Knoten 4.0](https://www.dlr.de/en/ts/research-transfer/projects/digitaler-knoten-4-0)
 Investigation of networked, efficient and safe organization of mixed traffic situations
-
 - [UrMo Digital](http://web.archive.org/web/20240424063206/https://verkehrsforschung.dlr.de/de/projekte/urmo-digital)
 Investigation of mobility and logistics concepts under the influence of digitalization
-
 - [Local Traffic Safety Analyzer (LTSA)](https://www.dlr.de/en/ts/research-transfer/projects/ltsa)
 In terms of infrastructure, it recognizes and analyzes the road and provides movement lines (trajectories) as well as messages describing the situation for road users
-
 - [DATAMOST](https://www.dlr.de/en/vf/research-and-transfer/projects/datamost)
 Data and Model-based Solutions for the Transformation of Mobility
-
 - [DIGEST](https://www.dlr.de/en/ts/research-transfer/projects/digest)
 Digital twin of the road transport system
-
 - [ALFRIED](https://www.dlr.de/en/ts/research-transfer/projects/alfried)
 Automatisiertes und vernetztes Fahren in der Logistik am Testfeld Friedrichshafen
-
 - [Spurplan-4](https://www.dlr.de/en/ts/research-transfer/projects/spurplan-4)
 Simulation of regional rail traffic for regular operations, disrupted operations and planning interventions
-
 - [VM50City](https://www.dlr.de/en/ts/research-transfer/projects/vm50kcity)
 Examination of established categories of measures for potential and feasibility for small and medium-sized cities
-
 - [eUVM](https://www.dlr.de/en/ts/research-transfer/projects/euvm)
 Testing and implementing suitable measures to reduce traffic-related emissions
-
 - [AutomoVer](https://www.dlr.de/en/fk/research-and-transfer/research-services/market-simulation-vector21/vector21-projects)
 Development of guidance for decision-makers
 - [MAVEN](https://cordis.europa.eu/project/id/690727) Managing Automated Vehicles
