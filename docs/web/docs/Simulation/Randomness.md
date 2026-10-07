@@ -140,7 +140,7 @@ Distribution strings are supported in the following locations:
 - `<vType>` attribute ['speedFactor'](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions)
 - `<stop>` attribute ['duration'](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints)
 - [netgenerate](../netgenerate.md) options **--perturb-x**, **--perturb-y** and **--perturb-z**
-- all options and [Generic Parameter keys](GenericParameters.md) for configuring [devices](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.nd#devices)
+- all options and [Generic Parameter keys](GenericParameters.md) for configuring [devices](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#devices)
 
 # Further sources of randomness
 
