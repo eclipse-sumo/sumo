@@ -191,6 +191,7 @@ title: ChangeLog
 - Windows builds (nightly and release) now use Visual Studio 2026
 - Removed stationFinder device parameter `maxChargePower`. It was never in use because the quantity in question is already defined by `device.battery.maximumChargeRate` #18275
 - As a consequence of fixing #18131, meso defaults to running with internal links if they are present in the network (which improves accuracy in route length and positioning but slightly reduces simulation speed).
+- The docker images ghcr.io/eclipse-sumo/sumo:v1_23_0 to v1_26_0 were broken and were republished #18274
 
 
 ## Version 1.27.1 (25.06.2026)
