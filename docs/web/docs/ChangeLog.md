@@ -1,7 +1,7 @@
 ---
 title: ChangeLog
 ---
-## Git Main ([nightly development builds](https://sumo.dlr.de/docs/Downloads.php#nightly_snapshots))
+## Version 1.28.0 (08.10.2026)
 
 ### Bugfixes
 

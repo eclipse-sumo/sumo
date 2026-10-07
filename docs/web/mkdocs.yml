@@ -102,8 +102,8 @@ markdown_extensions:
   - plantuml_markdown
 
 extra:
-    Version: 1.27.1
-    ReleaseDate: 25.06.2026
+    Version: 1.28.0
+    ReleaseDate: 08.10.2026
     DOI: "10.5281/zenodo.13907886"
 
     AdditionalFile: '[*additional-file*](/docs/sumo.html#format_of_additional_files)'
