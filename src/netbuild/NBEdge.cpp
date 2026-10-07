@@ -1227,7 +1227,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     if (myStep == EdgeBuildingStep::INIT_REJECT_CONNECTIONS) {
         return false;
     }
-    // some kind of a misbehaviour which may occure when the junction's outgoing
+    // some kind of a misbehavior which may occur when the junction's outgoing
     //  edge priorities were not properly computed, what may happen due to
     //  an incomplete or not proper input
     // what happens is that under some circumstances a single lane may set to
@@ -4853,7 +4853,7 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
         const double dist2 = MIN2(myGeom.distance2D(other->getGeometry()[i2]),
                                   other->getGeometry().distance2D(myGeom[i]));
         const double neededOffset2 = neededOffset + (other->getLaneSpreadFunction() == LaneSpreadFunction::CENTER
-                ? (other->getTotalWidth()) / 2 : 0);
+                                     ? (other->getTotalWidth()) / 2 : 0);
         const double missing = neededOffset - dist;
         const double missing2 = neededOffset2 - dist2;
         double shift = 0;
@@ -4963,7 +4963,7 @@ NBEdge::getViaSuccessors(SUMOVehicleClass vClass, bool /*ignoreTransientPermissi
         std::pair<const NBEdge*, const Connection*> pair(con.toEdge, nullptr);
         // special case for Persons in Netedit
         if (vClass == SVC_PEDESTRIAN) {
-            myViaSuccessors.push_back(pair);    // Pedestrians have complete freedom of movement in all sucessors
+            myViaSuccessors.push_back(pair);    // Pedestrians have complete freedom of movement in all successors
         } else if ((con.fromLane >= 0) && (con.toLane >= 0) &&
                    (con.toEdge != nullptr) &&
                    ((getPermissions(con.fromLane) & con.toEdge->getPermissions(con.toLane) & vClass) == vClass)) {

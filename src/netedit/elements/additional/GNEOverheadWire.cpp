@@ -224,7 +224,7 @@ GNEOverheadWire::drawLanePartialGL(const GUIVisualizationSettings& s, const GNES
             const RGBColor overheadWireColorBot = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.overheadWireColorBot;
             // push layer matrix
             GLHelper::pushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
+            // Start with the drawing of the area translating matrix to origin
             glTranslated(0, 0, getType() + offsetFront);
             // Set top color
             GLHelper::setColor(overheadWireColorTop);
@@ -283,7 +283,7 @@ GNEOverheadWire::drawJunctionPartialGL(const GUIVisualizationSettings& s, const 
         if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // Add a draw matrix
             GLHelper::pushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
+            // Start with the drawing of the area translating matrix to origin
             glTranslated(0, 0, getType() + offsetFront);
             // Set top color
             GLHelper::setColor(overheadWireColorTop);

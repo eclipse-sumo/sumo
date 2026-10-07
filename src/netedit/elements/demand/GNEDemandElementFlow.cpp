@@ -53,7 +53,7 @@ GNEDemandElementFlow::drawFlowLabel(const Position& position, const double rotat
     const double contourWidth = (0.05 * exaggeration);
     // Push matrix
     GLHelper::pushMatrix();
-    // Traslate to  bot
+    // Translate to  bot
     glTranslated(position.x(), position.y(), GLO_VEHICLELABELS);
     // glTranslated(position.x(), position.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW + 0.1);
     glRotated(rotation, 0, 0, -1);

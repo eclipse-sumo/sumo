@@ -127,7 +127,7 @@ public:
 
     /// @name Methods for joining nodes
     /// @{
-    /* @brief add ids of nodes wich shall not be joined
+    /* @brief add ids of nodes which shall not be joined
      * @param[in] ids A list of ids to exclude from joining
      * @note it does not check whether the nodes exist because all nodes may not have been loaded yet
      */
@@ -159,7 +159,7 @@ public:
     /** @brief add ids of nodes which shall be joined into a single node
      * @param[in] cluster The cluster to add
      */
-    void addCluster2Join(const std::set<std::string>& cluster, NBNode* node, const bool resetConnections=false);
+    void addCluster2Join(const std::set<std::string>& cluster, NBNode* node, const bool resetConnections = false);
 
     /// @brief Joins loaded junction clusters (see NIXMLNodesHandler)
     int joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
@@ -417,7 +417,7 @@ private:
     /// @brief remove nodes that form a slip lane from cluster
     void pruneSlipLaneNodes(NodeSet& cluster, double maxDist) const;
 
-    /// @brief determine wether the cluster is not too complex for joining
+    /// @brief determine whether the cluster is not too complex for joining
     bool feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*, std::vector<NBNode*> >& ptStopEnds,
                          double maxDist, std::string& reason, NBNode*& tryRemove) const;
 
@@ -430,17 +430,17 @@ private:
 
     /// @name Helper methods for guessing/computing traffic lights
     /// @{
-    /** @brief Returns whethe the given node cluster should be controlled by a tls
+    /** @brief Returns whether the given node cluster should be controlled by a tls
      * @param[in] c The node cluster
      * @param[in] laneSpeedThreshold threshold for determining whether a node or cluster should be tls controlled
      * @return Whether this node cluster shall be controlled by a tls
      */
     bool shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold, bool recheck = false) const;
 
-    /// @brief check wheter the set of nodes only contains pedestrian crossings
+    /// @brief check whether the set of nodes only contains pedestrian crossings
     bool onlyCrossings(const NodeSet& c) const;
 
-    /// @brief check wheter the set of nodes contains traffic lights with custom id
+    /// @brief check whether the set of nodes contains traffic lights with custom id
     bool customTLID(const NodeSet& c) const;
     /// @}
 

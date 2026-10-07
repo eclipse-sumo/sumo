@@ -40,7 +40,7 @@ class MSCFModel_IDM : public MSCFModel {
 public:
     /** @brief Constructor
      *  @param[in] vtype the type for which this model is built and also the parameter object to configure this model
-     *  @param[in] idmm Wether IDM or IDMM shall be built
+     *  @param[in] idmm Whether IDM or IDMM shall be built
      */
     MSCFModel_IDM(const MSVehicleType* vtype, bool idmm);
 

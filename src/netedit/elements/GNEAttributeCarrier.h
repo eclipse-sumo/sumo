@@ -313,8 +313,8 @@ public:
     template<typename T>
     static T parse(const std::string& string);
 
-    /**@brief true if a value of type T can be parsed from string (requieres network)
-     * @note checkConsecutivity doesn't check connectivity trought connections
+    /**@brief true if a value of type T can be parsed from string (requires network)
+     * @note checkConsecutivity doesn't check connectivity trough connections
      */
     template<typename T>
     static bool canParse(const GNENet* net, const std::string& value, const bool checkConsecutivity);

@@ -411,7 +411,7 @@ GNEDetector::drawE1DetectorLogo(const GUIVisualizationSettings& s, const GUIVisu
         const double rot = s.getTextAngle(myAdditionalGeometry.getShapeRotations().front() + 90);
         // Start pushing matrix
         GLHelper::pushMatrix();
-        // Traslate to position
+        // Translate to position
         glTranslated(pos.x(), pos.y(), 0.1);
         // scale text
         glScaled(exaggeration, exaggeration, 1);
@@ -436,7 +436,7 @@ GNEDetector::drawE2DetectorLogo(const GUIVisualizationSettings& s, const GUIVisu
         const double rot = s.getTextAngle(myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint) + 90);
         // Start pushing matrix
         GLHelper::pushMatrix();
-        // Traslate to position
+        // Translate to position
         glTranslated(pos.x(), pos.y(), 0.1);
         // scale text
         glScaled(exaggeration, exaggeration, 1);

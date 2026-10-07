@@ -546,7 +546,7 @@ GNEDemandElement::drawJunctionLine(const GNEDemandElement* element) const {
     const double len = posA.distanceTo2D(posB);
     // push draw matrix
     GLHelper::pushMatrix();
-    // Start with the drawing of the area traslating matrix to origin
+    // Start with the drawing of the area translating matrix to origin
     drawInLayer(element->getType() + 0.1);
     // set trip color
     GLHelper::setColor(RGBColor::RED);
@@ -564,7 +564,7 @@ GNEDemandElement::drawStackLabel(const int number, const std::string& element, c
     const double contourWidth = (0.05 * exaggeration);
     // Push matrix
     GLHelper::pushMatrix();
-    // Traslate to  top
+    // Translate to top
     glTranslated(position.x(), position.y(), GLO_VEHICLELABELS);
     glRotated(rotation, 0, 0, -1);
     glTranslated((width * exaggeration * 0.5) + (0.35 * exaggeration) + 0.05, 0, 0);

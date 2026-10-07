@@ -4355,9 +4355,9 @@ GNEViewNetHelper::LockIcon::drawLockIcon(const GUIVisualizationSettings::Detail 
     if (checkDrawing(d, AC, type, exaggeration)) {
         // Start pushing matrix
         GLHelper::pushMatrix();
-        // Traslate to position
+        // Translate to position
         glTranslated(position.x(), position.y(), GLO_LOCKICON);
-        // Traslate depending of the offset
+        // Translate depending of the offset
         glTranslated(offsetx, offsety, 0);
         // rotate to avoid draw invert
         glRotated(180, 0, 0, 1);

@@ -1162,7 +1162,7 @@ struct GNENetHelper {
         /// @brief get Redo name
         std::string redoName() const;
 
-        /// @brief wether original and new value differ
+        /// @brief whether original and new value differ
         bool trueChange();
 
     private:

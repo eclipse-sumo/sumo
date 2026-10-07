@@ -272,7 +272,7 @@ GNEEntryExitDetector::drawEntryLogo(const GUIVisualizationSettings::Detail d,
         GLHelper::pushMatrix();
         // set color
         GLHelper::setColor(color);
-        // Traslate to center of detector
+        // Translate to center of detector
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), getType() + 0.1);
         // rotate over lane
         GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
@@ -309,7 +309,7 @@ GNEEntryExitDetector::drawE3Logo(const GUIVisualizationSettings::Detail d,
         GLHelper::pushMatrix();
         // set color
         GLHelper::setColor(color);
-        // Traslate to center of detector
+        // Translate to center of detector
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), getType() + 0.1);
         // rotate over lane
         GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());

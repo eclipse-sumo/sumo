@@ -1780,7 +1780,7 @@ GNEApplicationWindow::loadOptionOnStartup() {
         const auto outputFile = neteditOptions.getString("output-file");
         // create new network reset all options
         createNewNetwork();
-        // check if define network file using this ouput file
+        // check if define network file using this output file
         if (!outputFile.empty()) {
             myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, outputFile);
         }
@@ -3710,7 +3710,7 @@ GNEApplicationWindow::onUpdSaveNeteditConfig(FXObject* sender, FXSelector, void*
     if (myNet == nullptr) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myNet->getAttributeCarriers()->getEdges().size() == 0) {
-        // a config requieres at least ONE edge
+        // a config requires at least ONE edge
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETEDIT_CONFIG)) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -3738,7 +3738,7 @@ GNEApplicationWindow::onUpdSaveNeteditConfigAs(FXObject* sender, FXSelector, voi
     if (myNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myNet->getAttributeCarriers()->getEdges().size() == 0) {
-        // a config requieres at least ONE edge
+        // a config requires at least ONE edge
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -3856,7 +3856,7 @@ GNEApplicationWindow::onUpdSaveSumoConfig(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myNet->getAttributeCarriers()->getEdges().size() == 0) {
-        // a config requieres at least ONE edge
+        // a config requires at least ONE edge
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::SUMO_CONFIG)) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -3873,7 +3873,7 @@ GNEApplicationWindow::onUpdSaveSumoConfigAs(FXObject* sender, FXSelector, void*)
     if (myNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myNet->getAttributeCarriers()->getEdges().size() == 0) {
-        // a config requieres at least ONE edge
+        // a config requires at least ONE edge
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -5175,7 +5175,7 @@ GNEApplicationWindow::loadTrafficLights(const std::string operation) {
             myUndoList->end();
             update();
         }
-        // requiere save network
+        // require save network
         myNet->requireRecompute();
         // if defined, require save netedit config
         if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETEDIT_CONFIG)) {
@@ -5215,7 +5215,7 @@ GNEApplicationWindow::loadEdgeTypes(const std::string operation) {
         myViewNet->getUndoList()->end();
         // refresh edge type selector
         myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
-        // requiere save network
+        // require save network
         myNet->requireRecompute();
         // if defined, require save netedit config
         if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETEDIT_CONFIG)) {

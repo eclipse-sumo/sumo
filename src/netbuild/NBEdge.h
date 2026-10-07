@@ -613,7 +613,7 @@ public:
     double getFinalLength() const;
 
     /** @brief Returns whether a length was set explicitly
-     * @return Wether the edge's length was specified
+     * @return Whether the edge's length was specified
      */
     bool hasLoadedLength() const {
         return myLoadedLength > 0;
@@ -1291,7 +1291,7 @@ public:
     void moveOutgoingConnectionsFrom(NBEdge* e, int laneOff);
 
     /* @brief return the turn destination if it exists
-     * @param[in] possibleDestination Wether myPossibleTurnDestination should be returned if no turnaround connection
+     * @param[in] possibleDestination Whether myPossibleTurnDestination should be returned if no turnaround connection
      * exists
      */
     NBEdge* getTurnDestination(bool possibleDestination = false) const;
@@ -1305,7 +1305,7 @@ public:
     /// @brief get lane friction of specified lane
     double getLaneFriction(int lane) const;
 
-    /// @brief Check if edge is near enought to be joined to another edge
+    /// @brief Check if edge is near enough to be joined to another edge
     bool isNearEnough2BeJoined2(NBEdge* e, double threshold) const;
 
     /** @brief Returns the angle of the edge's geometry at the given node
@@ -1348,13 +1348,13 @@ public:
     /// @brief mark edge as in lane to state lane
     void markAsInLane2LaneState();
 
-    /// @brief add a pedestrian sidewalk of the given width and shift existing connctions
+    /// @brief add a pedestrian sidewalk of the given width and shift existing connections
     void addSidewalk(double width);
 
     /// @brief restore an previously added sidewalk
     void restoreSidewalk(std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections);
 
-    /// add a bicycle lane of the given width and shift existing connctions
+    /// add a bicycle lane of the given width and shift existing connections
     void addBikeLane(double width);
 
     /// @brief restore an previously added BikeLane
@@ -1679,7 +1679,7 @@ private:
     /** @brief Initialization routines common to all constructors
      *
      * Checks whether the number of lanes>0, whether the junction's from-
-     *  and to-nodes are given (!=0) and whether they are distict. Throws
+     *  and to-nodes are given (!=0) and whether they are distinct. Throws
      *  a ProcessError if any of these checks fails.
      *
      * Adds the nodes positions to geometry if it shall not be ignored or

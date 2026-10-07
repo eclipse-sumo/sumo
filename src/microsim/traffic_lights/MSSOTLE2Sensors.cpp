@@ -49,7 +49,7 @@ void MSSOTLE2Sensors::buildSensors(
     //for each lane build an appropriate sensor on it
     MSLane* currentLane = nullptr;
 
-    //input and ouput lanes
+    //input and output lanes
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector =
                 controlledLanes.begin(); laneVector != controlledLanes.end();
             laneVector++) {
@@ -69,7 +69,7 @@ void MSSOTLE2Sensors::buildCountSensors(
     NLDetectorBuilder& nb) {
     //for each lane build an appropriate sensor on it
     MSLane* currentLane = nullptr;
-    //input and ouput lanes
+    //input and output lanes
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector =
                 controlledLanes.begin(); laneVector != controlledLanes.end();
             laneVector++) {
@@ -87,7 +87,7 @@ void MSSOTLE2Sensors::buildCountOutSensors(
     //for each lane build an appropriate sensor on it
     MSLane* currentLane = nullptr;
 
-    //input and ouput lanes
+    //input and output lanes
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector =
                 controlledLanes.begin(); laneVector != controlledLanes.end();
             laneVector++) {
@@ -110,7 +110,7 @@ void MSSOTLE2Sensors::buildOutSensors(
     //for each lane build an appropriate sensor on it
     MSLane* currentLane = nullptr;
 
-    //input and ouput lanes
+    //input and output lanes
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector =
                 controlledLanes.begin(); laneVector != controlledLanes.end();
             laneVector++) {

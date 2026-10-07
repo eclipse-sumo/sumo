@@ -409,7 +409,7 @@ GNEParkingSpace::drawSpace(const GUIVisualizationSettings& s, const GUIVisualiza
     shapeLengthInner.scaleAbsolute(-0.1);
     // draw intern
     if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
-        // Traslate to front
+        // Translate to front
         glTranslated(0, 0, 0.1);
         // set base color
         GLHelper::setColor(drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColor);

@@ -487,7 +487,7 @@ GNELaneAreaDetector::drawE2PartialLane(const GUIVisualizationSettings& s, const 
     const RGBColor E2Color = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.detectorSettings.E2Color;
     // push layer matrix
     GLHelper::pushMatrix();
-    // Start with the drawing of the area traslating matrix to origin
+    // Start with the drawing of the area translating matrix to origin
     glTranslated(0, 0, getType() + offsetFront);
     // Set color
     GLHelper::setColor(E2Color);
@@ -525,7 +525,7 @@ GNELaneAreaDetector::drawE2PartialLane(const GUIVisualizationSettings& s, const 
         const double rot = s.getTextAngle((geometry.getShape().rotationDegreeAtOffset(middlePoint) * -1) + 90);
         // Start pushing matrix
         GLHelper::pushMatrix();
-        // Traslate to position
+        // Translate to position
         glTranslated(pos.x(), pos.y(), getType() + offsetFront + 0.1);
         // rotate
         glRotated(rot, 0, 0, 1);
@@ -550,7 +550,7 @@ GNELaneAreaDetector::drawE2PartialJunction(const GUIVisualizationSettings& s, co
     const double width = s.detectorSettings.E2Width * exaggeration * (invalid ? 0.5 : 1);
     // Add a draw matrix
     GLHelper::pushMatrix();
-    // Start with the drawing of the area traslating matrix to origin
+    // Start with the drawing of the area translating matrix to origin
     glTranslated(0, 0, getType() + offsetFront);
     // Set color of the base
     if (drawUsingSelectColor()) {

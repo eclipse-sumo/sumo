@@ -1056,7 +1056,7 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
                 (tagProperty->isPlanContainer() && s.checkDrawContainer(d, myPlanElement->isAttributeCarrierSelected()))) {
             // Add a draw matrix
             GLHelper::pushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
+            // Start with the drawing of the area translating matrix to origin
             myPlanElement->drawInLayer(myPlanElement->getType(), offsetFront);
             // Set color
             GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
@@ -1127,7 +1127,7 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
         if (!s.drawForViewObjectsHandler) {
             // push a draw matrix
             GLHelper::pushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
+            // Start with the drawing of the area translating matrix to origin
             myPlanElement->drawInLayer(myPlanElement->getType(), offsetFront);
             // Set plan color
             GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);

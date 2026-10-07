@@ -214,7 +214,7 @@ public:
 
     void initDevices();
 
-    /// @brief checks wether the vehicle can depart on the first edge
+    /// @brief checks whether the vehicle can depart on the first edge
     bool hasValidRouteStart(std::string& msg);
 
     /// @name insertion/removal

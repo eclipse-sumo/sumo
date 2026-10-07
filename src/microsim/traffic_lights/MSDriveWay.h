@@ -80,19 +80,19 @@ public:
     bool notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const MSLane* leftLane);
     bool notifyReroute(SUMOTrafficObject& veh);
 
-    /// @brief Wether there is a flank conflict with the given driveway
+    /// @brief Whether there is a flank conflict with the given driveway
     bool flankConflict(const MSDriveWay& other) const;
 
-    /// @brief Wether there is a crossing conflict with the given driveway
+    /// @brief Whether there is a crossing conflict with the given driveway
     bool crossingConflict(const MSDriveWay& other) const;
 
-    /// @brief Wether there is a bidi conflict with the given driveway
+    /// @brief Whether there is a bidi conflict with the given driveway
     bool bidiBlockedBy(const MSDriveWay& other) const;
 
-    /// @brief Wether there is a bidi conflict with the end of the given driveway
+    /// @brief Whether there is a bidi conflict with the end of the given driveway
     bool bidiBlockedByEnd(const MSDriveWay& other) const;
 
-    /// @brief Wether the route of other passes into the forward section of this driveway
+    /// @brief Whether the route of other passes into the forward section of this driveway
     bool forwardRouteConflict(std::set<const MSEdge*> forward, const MSDriveWay& other, bool secondCheck = false);
 
     /// @brief whether any of myConflictLanes is occupied (vehicles that are the target of a join must be ignored)
@@ -259,7 +259,7 @@ protected:
     /// @brief Whether the approaching vehicle is prevent from driving by another vehicle approaching the given link
     bool hasLinkConflict(const Approaching& closest, const MSLink* foeLink) const;
 
-    /// @brief Wether this driveway (route) overlaps with the given one
+    /// @brief Whether this driveway (route) overlaps with the given one
     bool overlap(const MSDriveWay& other) const;
 
     /* @brief determine route that identifies this driveway (a subset of the

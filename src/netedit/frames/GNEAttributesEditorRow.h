@@ -72,7 +72,7 @@ public:
     /// @brief set new string/bool attribute
     long onCmdSetAttribute(FXObject* obj, FXSelector, void*);
 
-    /// @brief called when user press the checkBox for toogle enable/disable attribute
+    /// @brief called when user press the checkBox for toggle enable/disable attribute
     long onCmdToggleEnableAttribute(FXObject*, FXSelector, void*);
 
     /// @brief called when user press "edit color" dialog
@@ -105,7 +105,7 @@ protected:
     /// @brief get value from edited ACs
     const std::string getAttributeValue(const bool enabled) const;
 
-    /// @brief show attribute toogle enable
+    /// @brief show attribute toggle enable
     void showAttributeToggleEnable(const GNEAttributeProperties* attrProperty, const bool value);
 
     /// @brief show attribute button reparent

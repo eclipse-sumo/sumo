@@ -108,6 +108,6 @@ private:
     GNEChange_Attribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const std::string& value,
                         const std::string& customOrigValue);
 
-    /// @brief wether original and new value differ
+    /// @brief whether original and new value differ
     bool trueChange();
 };

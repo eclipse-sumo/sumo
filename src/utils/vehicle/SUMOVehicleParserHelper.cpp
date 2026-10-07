@@ -1279,7 +1279,7 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
             } else if (it == SUMO_ATTR_SPEED_TABLE || it == SUMO_ATTR_TRACTION_TABLE || it == SUMO_ATTR_RESISTANCE_TABLE) {
                 into->cfParameter[it] = parsedCFMAttribute;
             } else if (it == SUMO_ATTR_CF_IDM_STEPPING) {
-                // declare a int in wich save CFM int attribute
+                // declare a int in which save CFM int attribute
                 double CFMDoubleAttribute = -1;
                 try {
                     // obtain CFM attribute in int format
@@ -1302,7 +1302,7 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
                     return false;
                 }
             } else {
-                // declare a double in wich save CFM float attribute
+                // declare a double in which save CFM float attribute
                 double CFMDoubleAttribute = -1;
                 try {
                     // obtain CFM attribute in double format
@@ -1613,7 +1613,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel
             if (!ok) {
                 return false;
             }
-            // declare a double in wich save CFM attribute
+            // declare a double in which save CFM attribute
             double LCMAttribute = -1;
             try {
                 // obtain CFM attribute in double format
@@ -1684,7 +1684,7 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAt
             if (!ok) {
                 return false;
             }
-            // declare a double in wich save CFM attribute
+            // declare a double in which save CFM attribute
             double JMAttribute = INVALID_DOUBLE;
             try {
                 // obtain CFM attribute in double format

@@ -341,7 +341,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             const std::string file = getTypeParent()->getAttribute(SUMO_ATTR_IMGFILE);
             // push draw matrix
             GLHelper::pushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
+            // Start with the drawing of the area translating matrix to origin
             drawInLayer(getType());
             // translate and rotate
             glTranslated(personPosition.x(), personPosition.y(), 0);

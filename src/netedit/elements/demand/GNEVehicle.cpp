@@ -987,7 +987,7 @@ GNEVehicle::computePathElement() {
         // calculate path
         myNet->getDemandPathManager()->calculatePath(this, getVClass(), getParentJunctions().front(), getParentJunctions().back());
     } else if (myTagProperty->vehicleEdges()) {
-        // save edges in wich this vehicle has to stop
+        // save edges in which this vehicle has to stop
         std::vector<GNEEdge*> edgeStops;
         // iterate over child demand elements
         for (const auto& demandElement : getChildDemandElements()) {

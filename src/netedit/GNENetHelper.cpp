@@ -3389,7 +3389,7 @@ GNENetHelper::SavingStatus::isNeteditConfigSaved() const {
 void
 GNENetHelper::SavingStatus::requireSaveNetwork() {
     myNetworkSaved = false;
-    // implies requiere save netedit config and sumo config
+    // implies require save netedit config and sumo config
     myNeteditConfigSaved = false;
     mySumoConfigSaved = false;
 }
@@ -3446,7 +3446,7 @@ GNENetHelper::SavingStatus::isEdgeTypeSaved() const {
 void
 GNENetHelper::SavingStatus::requireSaveAdditionals() {
     myAdditionalSaved = false;
-    // implies requiere save netedit config and sumo config
+    // implies require save netedit config and sumo config
     myNeteditConfigSaved = false;
     mySumoConfigSaved = false;
 }
@@ -3467,7 +3467,7 @@ GNENetHelper::SavingStatus::isAdditionalsSaved() const {
 void
 GNENetHelper::SavingStatus::requireSaveDemandElements() {
     myDemandElementSaved = false;
-    // implies requiere save netedit config and sumo config
+    // implies require save netedit config and sumo config
     myNeteditConfigSaved = false;
     mySumoConfigSaved = false;
 }
@@ -3488,7 +3488,7 @@ GNENetHelper::SavingStatus::isDemandElementsSaved() const {
 void
 GNENetHelper::SavingStatus::requireSaveDataElements() {
     myDataElementSaved = false;
-    // implies requiere save netedit config and sumo config
+    // implies require save netedit config and sumo config
     myNeteditConfigSaved = false;
     mySumoConfigSaved = false;
 }
@@ -3509,7 +3509,7 @@ GNENetHelper::SavingStatus::isDataElementsSaved() const {
 void
 GNENetHelper::SavingStatus::requireSaveMeanDatas() {
     myMeanDataElementSaved = false;
-    // implies requiere save netedit config and sumo config
+    // implies require save netedit config and sumo config
     myNeteditConfigSaved = false;
     mySumoConfigSaved = false;
 }

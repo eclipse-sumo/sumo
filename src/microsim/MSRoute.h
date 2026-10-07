@@ -140,9 +140,9 @@ public:
      * but only at the start or the end, not between two regular edges. If the route contains internal edges at the begin
      * routePosition needs to be 0.
      *
-     * @param[in] fromPos  position on the first edge, at wich the computed distance begins
+     * @param[in] fromPos  position on the first edge, at which the computed distance begins
      * @param[in] toPos    position on the last edge, at which the computed distance ends
-     * @param[in] fromLane lane at wich computation begins
+     * @param[in] fromLane lane at which computation begins
      * @param[in] toLane   lane at which distance computation shall stop
      * @param[in] routePosition Optional offset when searching for the fromEdge within the route
      * @return             distance between the position fromPos on fromEdge and toPos on toEdge
@@ -153,9 +153,9 @@ public:
      * This has the same semantics as above but uses iterators instead of edge
      * points so looping routes are not an issue.
      *
-     * @param[in] fromPos  position on the first edge, at wich the computed distance begins
+     * @param[in] fromPos  position on the first edge, at which the computed distance begins
      * @param[in] toPos    position on the last edge, at which the coumputed distance endsance
-     * @param[in] fromEdge edge at wich computation begins
+     * @param[in] fromEdge edge at which computation begins
      * @param[in] toEdge   edge at which distance computation shall stop
      * @param[in] includeInternal Whether the lengths of internal edges shall be counted
      * @return             distance between the position fromPos on fromEdge and toPos on toEdge

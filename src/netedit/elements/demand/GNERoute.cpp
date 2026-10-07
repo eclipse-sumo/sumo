@@ -750,7 +750,7 @@ GNERoute::drawRoutePartialLane(const GUIVisualizationSettings& s, const GUIVisua
     const double routeWidth = (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
     // push layer matrix
     GLHelper::pushMatrix();
-    // Start with the drawing of the area traslating matrix to origin
+    // Start with the drawing of the area translating matrix to origin
     glTranslated(0, 0, getType() + offsetFront);
     // Set color
     if (drawUsingSelectColor()) {
@@ -790,7 +790,7 @@ GNERoute::drawRoutePartialJunction(const GUIVisualizationSettings& s, const GUIV
     const double routeWidth = (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
     // Add a draw matrix
     GLHelper::pushMatrix();
-    // Start with the drawing of the area traslating matrix to origin
+    // Start with the drawing of the area translating matrix to origin
     glTranslated(0, 0, getType() + offsetFront);
     // Set color of the base
     if (drawUsingSelectColor()) {

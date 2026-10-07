@@ -15,7 +15,7 @@
 /// @author  Jakob Erdmann
 /// @date    Wed, 21.12.2016
 ///
-// Ouput information about planned vehicle stop
+// Output information about planned vehicle stop
 /****************************************************************************/
 #pragma once
 #include <config.h>

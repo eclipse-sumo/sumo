@@ -105,7 +105,7 @@ GNEParkingArea::updateGeometry() {
     // calculate length
     const double length = (myLength > 0) ? myLength : spaceDim;
     // Update common geometry of stopping place
-    setStoppingPlaceGeometry((myOnRoad)? 0 : myWidth);
+    setStoppingPlaceGeometry((myOnRoad) ? 0 : myWidth);
     // Obtain a copy of the shape
     PositionVector tmpShape = myAdditionalGeometry.getShape();
     // Move shape to side
@@ -163,7 +163,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GUIGeometry::drawGeometry(d, myAdditionalGeometry, myWidth * 0.5 * MIN2(1.0, parkingAreaExaggeration));
             // draw sign
             drawSign(s, d, parkingAreaExaggeration, baseColor, signColor, "P");
-            // Traslate to front
+            // Translate to front
             glTranslated(0, 0, 0.1);
             // draw lotSpaceDefinitions
             if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {

@@ -54,7 +54,7 @@ public:
     /// @brief check if option was modified
     bool isOptionModified() const;
 
-    /// @brief check if modified network requiere save network
+    /// @brief check if modified network require save network
     bool requireSaveNetwork() const;
 
     /// @name FOX-callbacks

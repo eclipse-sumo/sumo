@@ -435,7 +435,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const GUIVisualiza
         const double rot = (myAdditionalGeometry.getShape().size() <= 1) ? 0 : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint) - 180. * rotSign;
         // push matrix
         GLHelper::pushMatrix();
-        // Start drawing sign traslating matrix to signal position
+        // Start drawing sign translating matrix to signal position
         glTranslated(mySymbolPosition.x(), mySymbolPosition.y(), 0);
         // rotate over lane
         GUIGeometry::rotateOverLane(rot);
@@ -447,7 +447,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const GUIVisualiza
         GLHelper::drawFilledCircleDetailed(d, s.stoppingPlaceSettings.symbolExternalRadius);
         // continue depending of rectangle selection
         if (d <= GUIVisualizationSettings::Detail::Text) {
-            // Traslate to front
+            // Translate to front
             glTranslated(0, 0, .1);
             // set color
             GLHelper::setColor(signColor);

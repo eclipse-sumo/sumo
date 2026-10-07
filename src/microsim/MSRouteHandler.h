@@ -206,7 +206,7 @@ protected:
     /// @brief The name of the current object type
     std::string myActiveTypeName;
 
-    /// @brief Wether an object with 'via'-attribute is being parsed
+    /// @brief Whether an object with 'via'-attribute is being parsed
     bool myHaveVia;
 
     /// @brief The plan of the current transportable (person or container)

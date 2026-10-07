@@ -64,7 +64,7 @@ public:
         /// @name FOX-callbacks
         /// @{
 
-        /// @brief event when user toogle the vClass button
+        /// @brief event when user toggle the vClass button
         long onCmdToggleVClass(FXObject*, FXSelector, void*);
 
         /// @}
