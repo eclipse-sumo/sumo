@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-10-08 14:13+0200\n"
-"PO-Revision-Date: 2026-09-15 02:51+0000\n"
+"PO-Revision-Date: 2026-10-09 17:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.10.dev0\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -3677,7 +3677,7 @@ msgstr "Non si può definire un tratto % senza %."
 
 #: src/microsim/MSRouteHandler.cpp:1247
 msgid "The % '%' is not known%."
-msgstr ""
+msgstr "Il/la % '%' è sconosciuto/a%."
 
 #: src/microsim/MSRouteHandler.cpp:1251
 msgid "Invalid stop definition%."
@@ -4434,13 +4434,15 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:63
 msgid "FCD files to read"
-msgstr ""
+msgstr "File FCD da leggere"
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:65
 msgid ""
 "Values to use when replaying ('all' or any combination of 'x', 'y', 'edge', "
 "'lane', 'speed', 'position', 'angle', 'type')"
 msgstr ""
+"Valori da usare nella riproduzione ('all' oppure ogni combinazione possibile "
+"di 'x', 'y', 'edge', 'lane', 'speed', 'position', 'angle', 'type')"
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:265
 msgid "Unknown edge '%' in fcd replay file for person '%'."
@@ -5779,7 +5781,7 @@ msgstr "Corsia di inseguimento '%' sconosciuta nello stato caricato."
 
 #: src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:130
 msgid "SOTL can only handle E2 sensors."
-msgstr ""
+msgstr "SOTL funziona soltanto con rivelatori E2."
 
 #: src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:169
 msgid "Listing output lanes"
@@ -11582,6 +11584,7 @@ msgid ""
 "The meandata type 'hbefa' is deprecated. Please use the type 'emissions' "
 "instead."
 msgstr ""
+"Il tipo di meandata 'hbefa' non si usa più. Invece usa il tipo 'emissions'."
 
 #: src/netload/NLEdgeControlBuilder.cpp:214
 msgid "Asymmetrical neigh lane '%' for lane '%'"
@@ -13004,19 +13007,21 @@ msgstr "L'accesso invalido dall'arco '%' vietato ai pedoni viene ignorato."
 
 #: src/router/ROPerson.cpp:414
 msgid "No route for trip in person '%'."
-msgstr ""
+msgstr "Una corsa della persona '%' è sprovvista di itinerario."
 
 #: src/router/ROPerson.cpp:469
 msgid "Person '%' has no valid route (traveltime % exceeds max-traveltime)."
 msgstr ""
+"La persona '%' non tiene nessun itinerario valido (il tempo di percorso % "
+"eccede il tempo massimo permesso)"
 
 #: src/router/RORouteDef.cpp:104
 msgid "Vehicle '%' is not allowed to depart on edge '%'."
-msgstr ""
+msgstr "Il veicolo '%' non è autorizzato di partire dall'arco '%'."
 
 #: src/router/RORouteDef.cpp:111
 msgid "Vehicle '%' is not allowed to arrive on edge '%'."
-msgstr ""
+msgstr "Il veicolo '%' non è autorizzato di arrivare sull'arco '%'."
 
 #: src/router/RORouteDef.cpp:121
 msgid "Repaired route of vehicle '%'."
