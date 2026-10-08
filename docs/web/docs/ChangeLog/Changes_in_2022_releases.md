@@ -57,7 +57,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
     - fcd-output now includes riding persons even if their vehicle is not equipped with fcd device. Issue #11454
     - fcd-output of persons now respects edge and shape filters. Issue #11455
     - Output of a persons speed in access stage is now correct (was given as 0 before). Issue #11453
-    - Fixed several bugs that prevented intermodal vehroute output from being re-used as simulation input. Issue #7006
+    - Fixed several bugs that prevented intermodal vehroute output from being reused as simulation input. Issue #7006
     - Vehroute-output no longer includes unfinished persons by default. Issue #11730
   - railways:
     - Fixed unsafe train insertion with oncoming vehicle. Issue #11384
@@ -189,7 +189,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - Option **--emission-output.precision** now also applies to emissions in tripinfo-output. Issue #11474
   - Added option **--time-to-teleport.bidi** to resolve deadlocks on bidirectional edges. Issue #11435
   - The vType attributes `timeToTeleport` and `timeToTeleportBidi` can now be used to customize teleporting behavior. Issue #9497
-  - Pedestrians now react to edge speed limit (i.e. for modelling stairs). Issue #11526
+  - Pedestrians now react to edge speed limit (i.e. for modeling stairs). Issue #11526
   - Added option **--vehroute-output.internal** to include internal edges in the output. Issue #10601
   - Specifying pedestrian `<walk>` with `departPosLat="random"` is now supported. Issue #10573
   - Option **--devices.ssm.measures** now supports comma-separated values. Issue #10478
@@ -477,7 +477,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
     - Fixed invalid OSG light def written in decal (background image) settings. Issue #10950
     - Exported viewport settings mismatch with actual 3D-view #10949
     - Fixed Crash when setting up GL2 compatible shaders. Issue #10895
-    - Visualisation settings now maintain their type (3D/2D). Issue #11000
+    - Visualization settings now maintain their type (3D/2D). Issue #11000
     - Coloring vehicles by type attribute or randomly is now working. Issue #2120
     - Avoid duplicated background objects after loading/reloading. Issue #11047
     - Fixed rendering of walkingareas (they are now raised above the road level). Issue #10773
@@ -525,10 +525,10 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
 ### Enhancements
 
 - Simulation
-  - Added support for PHEMlight V5. Among other things, this permits modelling of fleet aging. Issue #10237
+  - Added support for PHEMlight V5. Among other things, this permits modeling of fleet aging. Issue #10237
   - Added support for the [HBEFA4 emission model](../Models/Emissions/HBEFA4-based.md) with more than 800 emission classes. Issue #7277
   - Vehicles at longer planned stops now switch off their engine. Issue #10491, #4019
-  - Automated engine start/stop can be modelled. Issue #10441
+  - Automated engine start/stop can be modeled. Issue #10441
   - Jammed detectors of actuated traffic lights can now be ignored for phase extension after a configurable time threshold. Issue #5212
   - When jam detection is activated (i.e. via option **--tls.actuated.jam-threshold**), all detectors are usable for activation and this eliminates the warnings about "no controlling detectors". Issue #9280, #10682
   - InductionLoop detectors now support optional attribute 'length'. Issue #10668
@@ -562,7 +562,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - Added 'confirm relation' button to tazRelation mode. Issue #10733
   - Shift-click in demand-stop mode now sets parent element (i.e. vehicle). Issue #10288
   - Added gzip file endings in file selection dialogs. Issue #10513
-  - Create edge mode now visually previews whether a new junction will be created or an existing junction will be re-used. Issue #8454
+  - Create edge mode now visually previews whether a new junction will be created or an existing junction will be reused. Issue #8454
   - A click-preview-indicator is now provided when creating tazRelations and vehicle-over-route. Issue #10997
   - A click-preview-indicator is now provided when splitting edges in in create-edge-mode. Issue #10998
   - The hide/show-TAZRel buttons can now be used to hide all relations. Issue #10972
@@ -572,7 +572,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - A custom color rainbow is now supported for all data elements. Issue #10934
 
 - sumo-gui
-  - InductionLoop detectors now list the time of continuos occupation in their parameter dialog. Issue #10671
+  - InductionLoop detectors now list the time of continuous occupation in their parameter dialog. Issue #10671
   - 3D-view now permits opening vehicle context menu via right-click. Issue #10191
   - Geometry points of polygons junctions and walkingareas can now be annotated to aid in debugging (activated in the openGL settings). Issue #10594
   - Can now color polygons (and TAZ) randomly. Issue #10938
@@ -726,7 +726,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - Fixed invalid exaggerated vehicle size when drawing vehicle as imgFile. Issue #10381
   - Loading edge data for unknown edges is no longer an error. Issue #10379
   - Fixed inconsistent gui settings on reload (settings will be kept on reload unless the settings-file was modified). Issue #10398
-  - Cancelling a change in viewsettings now takes effect immediately. Issue #10495
+  - Canceling a change in viewsettings now takes effect immediately. Issue #10495
   - Fixed x-axis annotation of moused-over value in plot window.
   - Fixed slow simulation when there are many vehicles at a parkingArea. Issue #10570
 

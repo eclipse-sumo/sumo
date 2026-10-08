@@ -35,7 +35,7 @@ title: Changes in the 2024 releases (versions 1.20.0 and 1.21.0)
   - Removal of JuPedSim-pedestrians in vanishing area with period < 1 is now working. #14900
   - No more cooperative speed adaptation when setting lcCooperative=-1. #14871
   - Fixed invalid initial blinker for continuous lanechange in lefthand network #15058
-  - Now avoiding orthogonal sliding in continuos lane change model with attribute `lcMaxSpeedLatStanding="0"` #15052
+  - Now avoiding orthogonal sliding in continuous lane change model with attribute `lcMaxSpeedLatStanding="0"` #15052
   - GLOSA device now follows intended 3-phase speed trajectory (decel, constant, accel) instead of (decel, accel) #15067
   - Fixed negative emissions with HBEFA4 model #15079
   - Fixed duplicate 'started' and 'ended' values in vehroute-output #15086

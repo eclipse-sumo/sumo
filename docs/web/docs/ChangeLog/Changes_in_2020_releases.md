@@ -606,7 +606,7 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
   - Fixed invalid error when loading a network where edge-IDs have non-ascii characters. Issue #6597
 
 - sumo-gui
-  - Fixed visualisation of containers. Issue #6426
+  - Fixed visualization of containers. Issue #6426
   - Text setting options 'constant size' and 'background' are now working for 'link junction index' and 'link tls index'. Issue #6376
   - Traffic light parameter 'running duration' is now correct when switching phases via TraCI. Issue #6520
   - Fixed bug where Locator-Dialog 'Center' button remained disabled after successfully locating objects via substring filtering. Issue #6593

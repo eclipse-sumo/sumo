@@ -696,7 +696,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Fixed crash when using network property dialog in meso. Issue #7998
   - Person drawing style "as circles" is now drawing circles as intended. Issue #8130
   - Fixed crash when opening person parameter dialog for a person with depart="triggered". Issue #8164
-  - Default coloring now indicates lanes that allow rails and busses. #8315
+  - Default coloring now indicates lanes that allow rails and buses. #8315
 
 - netedit
   - Fixed invalid E2 detector shape Issue #7895 (Regression in 1.7.0)

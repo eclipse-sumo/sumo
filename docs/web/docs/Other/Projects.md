@@ -7,7 +7,7 @@ title: Projects
 ### Current Projects
 
 - [KoFeMo](https://www.dlr.de/de/ts/forschung-und-transfer/projekte/kofemo)
-focuses on the detailed measurement and analysis of vehicle acceleration and deceleration behaviour and its representation in traffic flow simulations. By calibrating the simulation models against real-world vehicle dynamics, the project aims to derive reliable predictions for other areas, specific traffic situations, and different vehicle fleets.
+focuses on the detailed measurement and analysis of vehicle acceleration and deceleration behavior and its representation in traffic flow simulations. By calibrating the simulation models against real-world vehicle dynamics, the project aims to derive reliable predictions for other areas, specific traffic situations, and different vehicle fleets.
 - [ReTraSON](https://www.dlr.de/en/ts/research-transfer/projects/retrason)
    Infrastructure Transformation in Lower Saxony (German)
 - [Spurplan](https://www.dlr.de/en/ts/research-transfer/projects/sumo-trackplan-5-deadlock-processing-for-large-scale-scenarios)
@@ -25,7 +25,7 @@ Model for data on the future development of passenger transport demand in urban 
 ### Past Projects
 
 - [SeKQuaSens³](https://www.dlr.de/de/forschung-und-transfer/projekte-und-missionen/sekquasens)
-SUMO was used to model microscopic traffic and investigate EV energy consumption, supporting the assessment of mobility-related electricity demand. A key activity was the comparison and parameterisation of different EV energy-consumption models in SUMO.
+SUMO was used to model microscopic traffic and investigate EV energy consumption, supporting the assessment of mobility-related electricity demand. A key activity was the comparison and parameterization of different EV energy-consumption models in SUMO.
 - [SHOW](https://www.uitp.org/projects/show/)
 shows the integration of fleets of automated vehicles in public transport, demand-responsive transport (DRT), Mobility a Service (MaaS) and Logistics as a Service (LaaS) schemes
 - [ITS for Asia](https://www.dlr.de/en/ts/research-transfer/projects/itsforasia)
@@ -85,7 +85,7 @@ Addresses the environmental footprint in the transport sector by developing a ne
   Traffic prognosis during the FIFA-WorldCup 2006
 - Weltjugendtag2005: Traffic prognosis during the world youth day 2005
 - [TrafficTower](https://www.dlr.de/en/research-and-transfer/research-infrastructure/traffic-tower-en):
-  A virtual traffic management centre
+  A virtual traffic management center
 - [INVENT](https://web.archive.org/web/20070310215410/http://www.invent-online.de/de/projekte.html): Evaluation of modern traffic
   management approaches
 - [OIS](https://web.archive.org/web/20040826034935/https://www.dlr.de/vf/forschung/projekte/ois): Verification of

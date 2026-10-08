@@ -455,7 +455,7 @@ title: Changes in the 2023 releases (versions 1.16.0, 1.17.0, 1.18.0 and 1.19.0)
     - Fixed loading of 2D viewports. Issue #12638
     - Fixed invalid interpretation of background image attribute. Issue #12671
     - Fixed usage of non-Ascii characters. Issue #12628
-    - Preset visualisation scheme in GUI settings file is now used. Issue #12682
+    - Preset visualization scheme in GUI settings file is now used. Issue #12682
     - Now clearing background objects on loading a different simulation. Issue #12751
 
 - netconvert
@@ -507,7 +507,7 @@ title: Changes in the 2023 releases (versions 1.16.0, 1.17.0, 1.18.0 and 1.19.0)
 - Simulation
   - Vehroute-output now includes the used vehicles for `<driving>` stage. Issue #12520
   - DriverState now optionally affects free flow speed (using param `freeSpeedErrorCoefficient`). Issue #6331
-  - Element `<vTypeDistribution>` now supports attribute `probabilities` together with `vTypes` to re-use the same `<Types>` with different probabilities. Issue #12799
+  - Element `<vTypeDistribution>` now supports attribute `probabilities` together with `vTypes` to reuse the same `<Types>` with different probabilities. Issue #12799
   - Some warnings about inconsistent public transport stop times are now avoided when using option **--use-stop-ended** along with stop attribute `ended`. #12825
   - Stop-output now includes optional attribute `usedEnded` to indicate whether a stop was affected by option **--use-stop-ended**. Issue #12863
   - Public transport vehicles may now slow down by a configurable factor when they are ahead of their schedule. (using new vType attribute `speedFactorPremature`). This is based on optional stop attribute `arrival`. If the new option **--use-stop-started** is set, this is instead based on the optional `started` attribute of the stop. Issue #11899
@@ -637,14 +637,14 @@ title: Changes in the 2023 releases (versions 1.16.0, 1.17.0, 1.18.0 and 1.19.0)
   - Fixed invalid right of way rules for two conflicting connections with internal junctions. Issue #11988
   - Fixed incomplete vehroute-output when using option **--vehroute-output.sorted** and some cars or vehicle do not finish their journey. Issue #12049
   - stop-output now always contains the correct 'started' values even if other values were part of the input. Issue #12125
-  - Fixed error when trying to use laneChangeModel *DK2008* with continuos lane change model. Issue #12144
+  - Fixed error when trying to use laneChangeModel *DK2008* with continuous lane change model. Issue #12144
   - Fixed invalid lane choice in the presence of lane change restrictions. Issue #12118, #12461
   - Fixed crash in public transport scenario with looped routes. Issue #12150
   - Fixed invalid error when loading edgeData with negative electricity consumption. Issue #12172
   - Fixed collision on bidi edge. Issue #12393
   - Fixed invalid switching in branching 'actuated' traffic light programs. Issue #12265
   - Fixed invalid bike lane detector placement for 'actuated' traffic lights. Issue #12266
-  - Fixed vehicle angles when using 'lcSigma' with the continuos lane change mode. Issue #12201
+  - Fixed vehicle angles when using 'lcSigma' with the continuous lane change mode. Issue #12201
   - Fixed inconsistency in waitingTime definition between tripinfo-output and accumulated waitingTime. Issue #12287
   - Fixed invalid lot assignment for onRoad parkingArea. Issue #12330
   - Fixed invalid change to lane with stopped leader. Issue #12113
@@ -848,7 +848,7 @@ title: Changes in the 2023 releases (versions 1.16.0, 1.17.0, 1.18.0 and 1.19.0)
   - Aggregated detector values are now listed in their respective parameter dialog. Issue #12031
   - Detector outputs are now flushed at simulation end even while the gui remains open. Issue #12293
   - Added guiShape "aircraft". Issue #12314
-  - Added vehicle setting to maintain orientation after reversal. This achieves a more realistic visualisation of reversing trains and (grounded) aircraft. Issue #12140
+  - Added vehicle setting to maintain orientation after reversal. This achieves a more realistic visualization of reversing trains and (grounded) aircraft. Issue #12140
   - Added settings to show/hide HUD elements in 3D view. Issue #12294
   - Added terrain to 3D view (using flat background color) #12279
   - Added Fly Movement mode in SUMO 3D View for Windows OS (Linux still pending). Issue #11473

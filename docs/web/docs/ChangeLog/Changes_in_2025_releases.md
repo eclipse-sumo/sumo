@@ -33,7 +33,7 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
   - Fixed error when setting departSpeed="avg" #17208
   - Setting invalid attributes for edgeData `writeAttributes` now always gives a meaningful error message #17230
   - A vehicle that has persons starting inside of it, no longer causes an error when skipped with option **--begin** #9026
-  - Option **--load-state.remove-vehicles** now permits to re-use the removed vehicle-id with a new route #17270
+  - Option **--load-state.remove-vehicles** now permits to reuse the removed vehicle-id with a new route #17270
   - Fixed crash when vehicle is inserted on an internal lane with invalid route and option **--ignore-route-errors** #17248
   - Fixed inflated density in lane/edgeData output #16241
   - Fixed emergency braking after teleport when using the EIDM carFollowModel #17317
@@ -121,7 +121,7 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
   - Fixed invalid error when using option **--bulk-routing** #17267
   - Option **--bulk-routing** now works for railways #17266
   - Option **--ignore-errors** can now filter out loaded routes that violate edge permissions #17294
-  - option **--keep-vtype-distributions** ist now working for flows #17305
+  - option **--keep-vtype-distributions** is now working for flows #17305
 
 - TraCI
   - Fixed exaggerated slowDown after the end of the desired slowDown duration #17172 (regression in 1.23.0)
@@ -297,7 +297,7 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
   - Fixed invalid right of way at left_before_right junction at specific angles #16793 (regression in 1.23.0)
   - Fixed bug where option **--tls.rebuild** creates invalid signal plan when using custom crossing traffic light indices. #16653
   - Fixed unsafe signal plan when crossings use linkIndex2 #16657
-  - Fixed missing yellow phase when crossing re-uses vehicular link index #16658
+  - Fixed missing yellow phase when crossing reuses vehicular link index #16658
   - OSM import: fixed low default speed for edge type *highway.service* when used by public transport #16763
   - Fixed bug where small roundabouts were sometimes not detected #16787
   - Fixed inconsistent opposite-driving information in network #16905
@@ -337,7 +337,7 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
   - Vehicles may now exceed their vType-`maxSpeed` when using `carFollowModel="KraussPS"` and going downhill (up to their `desiredMaxSpeed`) #16805
   - containerStop now supports element `<access>` #16811
   - Vehroute output for persons and containers can now selectively be disabled via param key `"has.vehroute.person-device"`  #16820
-  - It is now possible to model [trailers / marshalling](../Specification/Logistics.md#trailers_and_rail_cars) by changing vehicle properties upon loading/unloading of containers #8800
+  - It is now possible to model [trailers / marshaling](../Specification/Logistics.md#trailers_and_rail_cars) by changing vehicle properties upon loading/unloading of containers #8800
   - Custom traffic light switching rules now support function `w:DETID` to retrieve the longest individual waiting time in seconds for vehicles on detector #16841
   - Rerouting trains now always use the current edge as reroute-origin #16852
   - Added options **--default.departspeed** and **--default.departlane** to override the default value when vehicles do not define the respective attributes #16925
@@ -607,7 +607,7 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
   - `traci.start` now supports argument `traceGetters="print"`. When this is set, the generated traceFile will print the outputs of all *get* commands when replayed. #16156
   - Added function `traci.route.delete` #15452
   - `simulation.getMinExpectedNumber` now takes into account pending taxi reservations #16187
-  - Addedd function `person.getWalkingDistance` #16197
+  - Added function `person.getWalkingDistance` #16197
   - Added `lanearea` functions `getIntervalMeanTimeLoss` and `getLastIntervalMeanTimeLoss` #16311
   - Added function `domainID` to all domains. This can be used as the target domain in `subscribeContext` #16418
   - subscriptions to all complex types should now work #15963 #15962 #15785 #7648
@@ -870,7 +870,7 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
   - GLOSA Device now looks several phases into the future and can also take queues into account #15614
   - Added new vType attributes `jmAdvance` and `jmExtraGap` to configure the behavior on junctions for crossing and merging streams of traffic #15654
   - Added new attribute `jmStopLineGapMinor` to set the distance from the stop line at non-prioritized links #15442
-  - vType attriubte `jmStopLineGap` now applies to allway_stop #15448
+  - vType attribute `jmStopLineGap` now applies to allway_stop #15448
   - Added new vType attribute `lcStrategicLookahead`  for configuring the lookahead distance when computing strategic best lanes #14718
   - Added new vType attribute `lcSpeedGainRemainTime` which controls the minimum time a vehicle can drive on the new lane after a tactical lane change (formerly hard-coded to 20s) #12109
   - Added new insertion behavior `departLane="best_prob"` to increase throughput on multi-lane roads #15661
@@ -967,7 +967,7 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
   - routeSampler.py: now warn about duplicate counting data #15997
   - routeSampler.py: now includes GEH in mismatch-output #16000
   - routeSampler.py: Added option **--geh-scale** to permit custom scaling for GEH value (i.e. to avoid averaging daily counts over 24 hours) #16001
-  - routeSampler.py: Options that set attributse to parse (i.e. **--edgedata-attribute**) now support a list of comma separated attributes (values are added) #16020
+  - routeSampler.py: Options that set attributes to parse (i.e. **--edgedata-attribute**) now support a list of comma separated attributes (values are added) #16020
   - routeSampler.py: Added option **--init-input.remove-overflow** to downsample demand from a given route file where traffic exceeds counts (and keeping as many of the routes as possible) #15971
   - edgeDataDiff.py: Added option **--geh-scale** to permit custom scaling for GEH value and otherwise scaling data to hourly values automatically #16002
   - edgeDataDiff.py: Added option **--attributes** to allow comparing files with differing attribute names #15898

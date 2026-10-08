@@ -82,7 +82,7 @@ title: ChangeLog
   - Fixed crash when rail signal connection link index is patched #18142
   - OSM: no longer importing superfluous tls where tram runs on road #18146
   - Fixed missed joins when using **--edges.join-tram-dist** on a network with joined junctions #18154
-  - When option **--sidewalks.guess** is set, high-speed edges without sidewalks are no longer modelled as shared space #18170
+  - When option **--sidewalks.guess** is set, high-speed edges without sidewalks are no longer modeled as shared space #18170
   - Setting options **--plain-output-prefix** and **--output.format csv** now writes files with *.csv* extension #18171
   - Fixed crash when using **--plain-output-prefix** and **--output.format parquet** #18179
   - Fixed several issues that caused invalid content to be written when using options **--plain-output-prefix** and **--output.format csv** #18180, #18175, #18197, #18189
