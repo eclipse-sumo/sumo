@@ -16,6 +16,9 @@ reversal_impossible
 # the train is just as long as the available reversal section. This would make it get stuck in the simulation so routing should fail
 reversal_impossible_slack
 
+# vehicle needs to continue more edges past the switch to enable reversal but they are forbidden
+reversal_impossible_vclass
+
 # the train is just as long as the first edge of the available reversal section. This should prolong the route to another section to prevent it from getting stuck.
 reversal_possible_slack
 
