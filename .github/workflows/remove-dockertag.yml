@@ -27,6 +27,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - run: |
+          docker pull ghcr.io/eclipse-sumo/sumo:v1_28_0
           docker tag ghcr.io/eclipse-sumo/sumo:v1_28_0 ghcr.io/eclipse-sumo/sumo:1.28.0
           docker push ghcr.io/eclipse-sumo/sumo:1.28.0
 #          docker pull ghcr.io/eclipse-sumo/sumo:v1_26_0
