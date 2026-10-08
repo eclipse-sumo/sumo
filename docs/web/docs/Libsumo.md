@@ -38,6 +38,9 @@ The following things currently do not work (or work differently than with the Tr
 
 To avoid the limitations with respect to GUI, multi-clients support, you can also use [libtraci](Libtraci.md). This is a C++ traci client library which is fully API-compatible with libsumo.
 
+Libsumo can also be compiled to [WebAssembly](Libsumo_WebAssembly.md), which lets a
+simulation run in a browser or in Node.js without installing SUMO.
+
 # Building and Installing it
 
 The binary windows release already contains the readily compiled libsumo
