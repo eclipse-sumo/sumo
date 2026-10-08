@@ -239,6 +239,8 @@ class Net:
         self._version = None
         self._edgeTypes = defaultdict(lambda: EdgeType("DEFAULT_EDGETYPE", "", ""))
         self._routingCache = None
+        self._edgeSuccessorCache = None
+        self._edgeCostCache = None
 
     def initRoutingCache(self, maxsize=1000):
         self._routingCache = lru_cache(maxsize=maxsize)(lambda fromEdge, fromPos, fastest, vClass, ignoreDirection, reversalPenalty, preferences: {})  # noqa
@@ -604,6 +606,7 @@ class Net:
                     minPath = viaPath
         return minPath, minInternalCost
 
+
     def getOptimalPath(self, fromEdge, toEdge, fastest=False, maxCost=1e400, vClass=None, reversalPenalty=0,
                        includeFromToCost=True, withInternal=False, ignoreDirection=False,
                        fromPos=None, toPos=None, preferences={}):
@@ -646,12 +649,24 @@ class Net:
             else:
                 return []
 
+        if self._edgeSuccessorCache != (vClass, ignoreDirection):
+            self._edgeSuccessorCache = (vClass, ignoreDirection)
+            for e1 in self.getEdges():
+                e1._succCacche = tuple(chain(e1.getAllowedOutgoing(vClass).items(),
+                                       e1.getIncoming().items() if ignoreDirection else [],
+                                       getToNormalIncoming(e1) if ignoreDirection and not self.hasWalkingArea else []))
+
+        if self._edgeCostCache != (fastest, preferences):
+            self._edgeCostCache = (fastest, preferences)
+            for e1 in self.getEdges():
+                e1._costCache = e1.getLength() / speedFunc(e1)
+
         if self.hasInternal:
             appendix = []
             appendixCost = 0.
             while toEdge.getFunction() == "internal":
                 appendix = [toEdge] + appendix
-                appendixCost += toEdge.getLength() / speedFunc(toEdge)
+                appendixCost += toEdge._costCache
                 toEdge = list(toEdge.getIncoming().keys())[0]
 
         def finalizeCost(cost, path):
@@ -743,7 +758,7 @@ class Net:
         elif needLoop:
             # start search on successors of fromEdge
             for e2, conn in fromEdge.getAllowedOutgoing(vClass).items():
-                q.append((e2.getLength() / speedFunc(e2), e2, fromEdge))
+                q.append((e2._costCache, e2, fromEdge))
 
         if len(dist) == 0:
             dist[fromEdge] = (0., None)
@@ -760,11 +775,9 @@ class Net:
             if cost > maxCost:
                 return None, cost
 
-            for e2, conn in chain(e1.getAllowedOutgoing(vClass).items(),
-                                  e1.getIncoming().items() if ignoreDirection else [],
-                                  getToNormalIncoming(e1) if ignoreDirection and not self.hasWalkingArea else []):
+            for e2, conn in e1._succCacche:
                 if e2 not in seen:
-                    newCost = cost + e2.getLength() / speedFunc(e2)
+                    newCost = cost + e2._costCache
                     #  print(cost, newCost, e2.getID(), speedFunc(e2))
                     if e2 == e1.getBidi():
                         newCost += reversalPenalty

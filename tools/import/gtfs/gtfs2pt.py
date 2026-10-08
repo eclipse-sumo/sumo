@@ -39,6 +39,7 @@ sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
 import route2poly  # noqa
 import sumolib  # noqa
 from sumolib.miscutils import euclidean, getBaseName, flattenPath  # noqa
+from sumolib.miscutils import benchmark  # noqa
 
 import gtfs2fcd  # noqa
 import gtfs2osm  # noqa
@@ -206,6 +207,7 @@ def splitNet(options, modes):
     return edgeMap, invEdgeMap, typedNets
 
 
+@benchmark
 def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, radius, geoRoutes):
     if options.poiOut is not None:
         colorgen = sumolib.miscutils.Colorgen(('random', 1, 1))
