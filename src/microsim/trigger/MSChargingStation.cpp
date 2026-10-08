@@ -204,7 +204,7 @@ MSChargingStation::setTotalChargingPower(double totalPower) {
 
 SUMOTime
 MSChargingStation::checkTotalPower(SUMOTime currentTime) {
-    if ((!myChargeInTransit && !myChargingVehicle) || myTotalChargingPower <= 0.0) {
+    if (myTotalChargingPower <= 0.0) {
         myTotalPowerCheckEvent = nullptr;
         myChargedBatteries.clear();
         myLastChargeStep.clear();
@@ -251,7 +251,17 @@ MSChargingStation::checkTotalPower(SUMOTime currentTime) {
         ++it;
     }
 
+    // A non-charging vehicle can clear the shared flag after another vehicle
+    // has charged in this step. Use the actual requests to decide whether the
+    // station is charging and whether the total power check must continue.
+    myChargingVehicle = !thisStepRequests.empty();
     if (thisStepRequests.empty()) {
+        if (!myChargeInTransit) {
+            myTotalPowerCheckEvent = nullptr;
+            myChargedBatteries.clear();
+            myLastChargeStep.clear();
+            return 0;
+        }
         return DELTA_T;
     }
 
