@@ -1,2 +1,4 @@
-Warning: Teleporting vehicle 't0'; waited too long (wrong lane), lane='d_0', time=343.00.
-Warning: Vehicle 't0' ends teleporting on edge '-d', time=348.00.
+Warning: No connection between edge 'a' and edge '-a2' found.
+Warning: No route for vehicle 't0' found.
+Error: Vehicle 't0' has no valid route.
+Quitting (on error).
