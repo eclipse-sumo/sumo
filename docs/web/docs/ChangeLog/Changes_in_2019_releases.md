@@ -4,6 +4,8 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
 
 ## Version 1.4.0 (10.12.2019)
 
+[Downloads](https://sumo.dlr.de/releases/1.4.0/)
+
 ### Bugfixes
 
 - Simulation
@@ -148,6 +150,8 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
 
 ## Version 1.3.1 (27.08.2019)
 
+[Downloads](https://sumo.dlr.de/releases/1.3.1/)
+
 ### Bugfixes
 
 - netedit
@@ -195,6 +199,8 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
   - removed doxygen docu from the distribution
 
 ## Version 1.3.0 (20.08.2019)
+
+[Downloads](https://sumo.dlr.de/releases/1.3.0/)
 
 ### Bugfixes
 
@@ -410,6 +416,8 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
   - Option **--rand.min-angle** {{DT_FLOAT}} now expects and argument in degrees instead of radians. Issue #5521
 
 ## Version 1.2.0 (16.04.2019)
+
+[Downloads](https://sumo.dlr.de/releases/1.2.0/)
 
 ### Bugfixes
 

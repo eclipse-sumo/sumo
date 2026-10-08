@@ -4,6 +4,8 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
 
 ## Version 1.1.0 (18.12.2018)
 
+[Downloads](https://sumo.dlr.de/releases/1.1.0/)
+
 ### Bugfixes
 
 - Simulation
@@ -178,6 +180,8 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
 
 ## Version 1.0.1 (18.09.2018)
 
+[Downloads](https://sumo.dlr.de/releases/1.0.1/)
+
 ### Bugfixes
 
 - Simulation
@@ -260,6 +264,8 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
     attributes.
 
 ## Version 1.0.0 (04.09.2018)
+
+[Downloads](https://sumo.dlr.de/releases/1.0.0/)
 
 ### Bugfixes
 

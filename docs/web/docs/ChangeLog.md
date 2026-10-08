@@ -5,9 +5,14 @@ title: ChangeLog
 
 ### Bugfixes
 
+### Enhancements
+
+### Miscellaneous
 
 
 ## Version 1.28.0 (08.10.2026)
+
+[Downloads](https://sumo.dlr.de/docs/Downloads.php)
 
 ### Bugfixes
 
@@ -188,7 +193,9 @@ title: ChangeLog
 - As a consequence of fixing #18131, meso defaults to running with internal links if they are present in the network (which improves accuracy in route length and positioning but slightly reduces simulation speed).
 
 
-## Version 1.27.1 (25.06.2026) ([downloads](https://sumo.dlr.de/docs/Downloads.php))
+## Version 1.27.1 (25.06.2026)
+
+[Downloads](https://sumo.dlr.de/releases/1.27.1/)
 
 ### Bugfixes
 
@@ -279,6 +286,8 @@ title: ChangeLog
 - Added new [Railway scenario tutorial](Tutorials/RailwayScenario.md) #17929
 
 ## Version 1.27.0 (21.05.2026)
+
+[Downloads](https://sumo.dlr.de/releases/1.27.0/)
 
 ### Bugfixes
 
@@ -557,6 +566,8 @@ title: ChangeLog
 
 
 ## Version 1.26.0 (29.01.2026)
+
+[Downloads](https://sumo.dlr.de/releases/1.26.0/)
 
 ### Bugfixes
 

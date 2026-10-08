@@ -4,6 +4,8 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
 
 ## Version 1.15.0 (08.11.2022)
 
+[Downloads](https://sumo.dlr.de/releases/1.15.0/)
+
 ### Bugfixes
 
 - Simulation
@@ -333,6 +335,8 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
 
 ## Version 1.14.1 (19.07.2022)
 
+[Downloads](https://sumo.dlr.de/releases/1.14.1/)
+
 ### Bugfixes
 
 - Simulation
@@ -389,6 +393,8 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
 
 
 ## Version 1.14.0 (12.07.2022)
+
+[Downloads](https://sumo.dlr.de/releases/1.14.0/)
 
 ### Bugfixes
 
@@ -619,6 +625,8 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
 - The documentation now has a `Copy`-button next to every code block. Issue #11050
 
 ## Version 1.13.0 (03.05.2022)
+
+[Downloads](https://sumo.dlr.de/releases/1.13.0/)
 
 ### Bugfixes
 
@@ -946,6 +954,8 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
 
 
 ## Version 1.12.0 (25.01.2022)
+
+[Downloads](https://sumo.dlr.de/releases/1.12.0/)
 
 ### Bugfixes
 

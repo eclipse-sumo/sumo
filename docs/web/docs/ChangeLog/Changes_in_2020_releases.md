@@ -4,6 +4,8 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
 
 ## Version 1.8.0 (02.12.2020)
 
+[Downloads](https://sumo.dlr.de/releases/1.8.0/)
+
 ### Bugfixes
 - simulation
   - Fixed automatic ride sharing for personTrips between the same origin and destination that did not declare a common 'group'. By default, rides are not shared. Automatic ride sharing for personTrips and rides can be enabled by setting option **--persontrip.default.group STR** to an arbitrary value. Issue #7559, #7560
@@ -182,6 +184,8 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
 
 
 ## Version 1.7.0 (09.09.2020)
+
+[Downloads](https://sumo.dlr.de/releases/1.7.0/)
 
 ### Bugfixes
 - Simulation
@@ -423,6 +427,8 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
 
 ## Version 1.6.0 (28.04.2020)
 
+[Downloads](https://sumo.dlr.de/releases/1.6.0/)
+
 ### Bugfixes
 
 - Simulation
@@ -584,6 +590,8 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
   - Default color for edge-geometry points changed to avoid confusion with rail signals when coloring junctions by type. Issue #6749
 
 ## Version 1.5.0 (11.02.2020)
+
+[Downloads](https://sumo.dlr.de/releases/1.5.0/)
 
 ### Bugfixes
 - Simulation

@@ -4,6 +4,8 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
 
 ## Version 1.11.0 (23.11.2021)
 
+[Downloads](https://sumo.dlr.de/releases/1.11.0/)
+
 ### Bugfixes
 
 - simulation
@@ -356,6 +358,8 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
 
 ## Version 1.10.0 (17.08.2021)
 
+[Downloads](https://sumo.dlr.de/releases/1.10.0/)
+
 ### Bugfixes
 
 - simulation
@@ -510,6 +514,8 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
 
 ## Version 1.9.2 (18.05.2021)
 
+[Downloads](https://sumo.dlr.de/releases/1.9.2/)
+
 ### Bugfixes
 
 - simulation
@@ -553,6 +559,8 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
 
 
 ## Version 1.9.1 (04.05.2021)
+
+[Downloads](https://sumo.dlr.de/releases/1.9.1/)
 
 ### Bugfixes
 - Simulation
@@ -634,6 +642,8 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Documented [statistic-output](../Simulation/Output/StatisticOutput.md). Issue #8188
 
 ## Version 1.9.0 (13.04.2021)
+
+[Downloads](https://sumo.dlr.de/releases/1.9.0/)
 
 ### Bugfixes
 - Simulation

@@ -4,6 +4,8 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
 
 ## Version 1.25.0 (13.11.2025)
 
+[Downloads](https://sumo.dlr.de/releases/1.25.0/)
+
 ### Bugfixes
 
 - sumo
@@ -218,6 +220,8 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
 
 ## Version 1.24.0 (22.07.2025)
 
+[Downloads](https://sumo.dlr.de/releases/1.24.0/)
+
 ### Bugfixes
 
 - sumo
@@ -386,6 +390,8 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
 
 ## Version 1.23.1 (08.05.2025)
 
+[Downloads](https://sumo.dlr.de/releases/1.23.1/)
+
 ### Bugfixes
 
 - sumo
@@ -405,6 +411,8 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
 
 
 ## Version 1.23.0 (06.05.2025)
+
+[Downloads](https://sumo.dlr.de/releases/1.23.0/)
 
 ### Bugfixes
 
@@ -651,6 +659,8 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
   - the functions `simulation.getBusStop*` are deprecated in favor of the corresponding functions in the busstop domain #16433
 
 ## Version 1.22.0 (04.02.2025)
+
+[Downloads](https://sumo.dlr.de/releases/1.22.0/)
 
 ### Bugfixes
 

@@ -4,6 +4,8 @@ title: Changes in the 2024 releases (versions 1.20.0 and 1.21.0)
 
 ## Version 1.21.0 (10.10.2024)
 
+[Downloads](https://sumo.dlr.de/releases/1.21.0/)
+
 ### Bugfixes
 
 - sumo
@@ -310,6 +312,8 @@ title: Changes in the 2024 releases (versions 1.20.0 and 1.21.0)
 - A warning is now given when trying to use carFollowModel EIDM with actionSteps #15557
 
 ## Version 1.20.0 (07.05.2024)
+
+[Downloads](https://sumo.dlr.de/releases/1.20.0/)
 
 ### Bugfixes
 

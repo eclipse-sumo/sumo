@@ -4,6 +4,8 @@ title: Changes in the 2023 releases (versions 1.16.0, 1.17.0, 1.18.0 and 1.19.0)
 
 ## Version 1.19.0 (07.11.2023)
 
+[Downloads](https://sumo.dlr.de/releases/1.19.0/)
+
 ### Bugfixes
 
 - Simulation
@@ -161,6 +163,8 @@ title: Changes in the 2023 releases (versions 1.16.0, 1.17.0, 1.18.0 and 1.19.0)
   - Added wheels for Python 3.12 and improved on wheel testing in CI
 
 ## Version 1.18.0 (29.06.2023)
+
+[Downloads](https://sumo.dlr.de/releases/1.18.0/)
 
 ### Bugfixes
 
@@ -375,6 +379,8 @@ title: Changes in the 2023 releases (versions 1.16.0, 1.17.0, 1.18.0 and 1.19.0)
 
 
 ## Version 1.17.0 (25.04.2023)
+
+[Downloads](https://sumo.dlr.de/releases/1.17.0/)
 
 ### Bugfixes
 
@@ -619,6 +625,8 @@ title: Changes in the 2023 releases (versions 1.16.0, 1.17.0, 1.18.0 and 1.19.0)
 
 
 ## Version 1.16.0 (07.02.2023)
+
+[Downloads](https://sumo.dlr.de/releases/1.16.0/)
 
 ### Bugfixes
 
