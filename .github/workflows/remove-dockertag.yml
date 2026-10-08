@@ -27,9 +27,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - run: |
-          docker pull ghcr.io/eclipse-sumo/sumo:v1_26_0
-          docker run --name tmp-update ghcr.io/eclipse-sumo/sumo:v1_26_0 bash -c "rm apache-arrow-apt-source-latest-jammy.deb && wget https://packages.apache.org/artifactory/arrow/ubuntu/apache-arrow-apt-source-latest-jammy.deb && apt-get -qq -y install ./apache-arrow-apt-source-latest-jammy.deb && apt-get -qq update && apt-get -qq -y install libparquet2300"
-          docker commit tmp-update ghcr.io/eclipse-sumo/sumo:1.26.0
-          docker tag ghcr.io/eclipse-sumo/sumo:1.26.0 ghcr.io/eclipse-sumo/sumo:v1_26_0
-          docker push ghcr.io/eclipse-sumo/sumo:1.26.0
-          docker push ghcr.io/eclipse-sumo/sumo:v1_26_0
+          docker tag ghcr.io/eclipse-sumo/sumo:v1_28_0 ghcr.io/eclipse-sumo/sumo:1.28.0
+          docker push ghcr.io/eclipse-sumo/sumo:1.28.0
+#          docker pull ghcr.io/eclipse-sumo/sumo:v1_26_0
+#          docker run --name tmp-update ghcr.io/eclipse-sumo/sumo:v1_26_0 bash -c "rm apache-arrow-apt-source-latest-jammy.deb && wget https://packages.apache.org/artifactory/arrow/ubuntu/apache-arrow-apt-source-latest-jammy.deb && apt-get -qq -y install ./apache-arrow-apt-source-latest-jammy.deb && apt-get -qq update && apt-get -qq -y install libparquet2300"
+#          docker commit tmp-update ghcr.io/eclipse-sumo/sumo:1.26.0
+#          docker tag ghcr.io/eclipse-sumo/sumo:1.26.0 ghcr.io/eclipse-sumo/sumo:v1_26_0
+#          docker push ghcr.io/eclipse-sumo/sumo:1.26.0
+#          docker push ghcr.io/eclipse-sumo/sumo:v1_26_0
