@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2026-07-21 20:51+0200\n"
+"POT-Creation-Date: 2026-10-08 14:13+0200\n"
 "PO-Revision-Date: 2025-11-05 10:40+0000\n"
 "Last-Translator: forevernull <forevernull@163.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -730,19 +730,20 @@ msgid ""
 "disabled."
 msgstr "当-写行程（write-trips）被禁用时，选项-write-trips.junctions没有影响。"
 
-#: src/duarouter/duarouter_main.cpp:113
+#: src/duarouter/duarouter_main.cpp:129
 msgid "Routing algorithm '%' does not support restriction-params"
 msgstr "路径算法'%'不支持限制性参数"
 
-#: src/duarouter/duarouter_main.cpp:168 src/marouter/marouter_main.cpp:180
-msgid "Unknown routing Algorithm '%'!"
+#: src/duarouter/duarouter_main.cpp:214
+#: src/microsim/devices/MSRoutingEngine.cpp:621
+msgid "Unknown routing algorithm '%'!"
 msgstr "未知的路径算法'%'!"
 
-#: src/duarouter/duarouter_main.cpp:195 src/marouter/marouter_main.cpp:210
+#: src/duarouter/duarouter_main.cpp:237 src/marouter/marouter_main.cpp:229
 msgid "No weight data was loaded for attribute '%'."
 msgstr "没有加载属性'%'的权重数据。"
 
-#: src/duarouter/duarouter_main.cpp:233
+#: src/duarouter/duarouter_main.cpp:275
 msgid ""
 "Shortest path router and DUE computer for the microscopic, multi-modal "
 "traffic simulation SUMO."
@@ -898,7 +899,7 @@ msgstr "'%' 车辆受交通控制界面(TraCI)的控制而被移除"
 msgid "Person '%' was removed though being controlled by TraCI"
 msgstr "'%' 人员受交通控制界面(TraCI)的控制而被移除"
 
-#: src/libsumo/MeanData.cpp:83
+#: src/libsumo/MeanData.cpp:141
 msgid "Found % meanData definitions with id '%'."
 msgstr "找到id为'%'的% meanData定义。"
 
@@ -915,7 +916,7 @@ msgid ""
 "Departure time=% for person '%' is in the past; using current time=% instead."
 msgstr "人'%'的出发时间=%是过去的；用当前时间=%代替。"
 
-#: src/libsumo/Person.cpp:1033 src/libsumo/Vehicle.cpp:1815
+#: src/libsumo/Person.cpp:1033 src/libsumo/Vehicle.cpp:1823
 msgid "Could not determine position on lane '%' at lateral position %."
 msgstr "无法确定横向位置%的车道'%'上的位置。"
 
@@ -938,30 +939,30 @@ msgstr ""
 "由于车辆 '%' 的路径尚未计算，所以无法检查在swapConstraintsg上所有的交通死结"
 "(deadlocks)"
 
-#: src/libsumo/Vehicle.cpp:1305 src/libsumo/Vehicle.cpp:1443
+#: src/libsumo/Vehicle.cpp:1313 src/libsumo/Vehicle.cpp:1451
 msgid "Unsupported parameter '%'"
 msgstr "不支持的参数'%'"
 
-#: src/libsumo/Vehicle.cpp:1385
+#: src/libsumo/Vehicle.cpp:1393
 msgid "Waypoint (speed = %) at index % does not support triggers"
 msgstr "索引%的行驶点（速度=%）不支持触发器"
 
-#: src/libsumo/Vehicle.cpp:1423
+#: src/libsumo/Vehicle.cpp:1431
 msgid ""
 "Triggered stop at index % cannot be changed into a waypoint by setting speed "
 "to %"
 msgstr "索引%处的触发式停靠不能通过设置速度为%来改变为一个行驶点"
 
-#: src/libsumo/Vehicle.cpp:1549
+#: src/libsumo/Vehicle.cpp:1557
 msgid "Ignoring changeLaneRelative for vehicle '%' that isn't on the road"
 msgstr "忽略不在路上的车辆'%'的换车道关系（changeLaneRelative）"
 
-#: src/libsumo/Vehicle.cpp:1551
+#: src/libsumo/Vehicle.cpp:1559
 msgid "Ignoring indexOffset % for vehicle '%' on laneIndex %."
 msgstr "忽略车道索引 %上的车辆'%'的索引偏移（indexOffset） %。"
 
-#: src/libsumo/Vehicle.cpp:1606 src/libsumo/Vehicle.cpp:2027
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:424
+#: src/libsumo/Vehicle.cpp:1614 src/libsumo/Vehicle.cpp:2035
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:423
 msgid ""
 "Internal routes receive an ID starting with '!' and must not be referenced "
 "in other vehicle or flow definitions. Please remove all references to route "
@@ -970,16 +971,16 @@ msgstr ""
 "内部路由接收到以“!”开头的ID，并且不得在其他车辆或车流定义中引用。如果路"
 "由“%”是内部的，请删除对它的所有引用。"
 
-#: src/libsumo/Vehicle.cpp:1650
+#: src/libsumo/Vehicle.cpp:1658
 msgid ""
 "Departure time for vehicle '%' is in the past; using current time instead."
 msgstr "车辆'%'的出发时间是过去的；用当前时间代替。"
 
-#: src/libsumo/Vehicle.cpp:2031 src/microsim/MSBaseVehicle.cpp:593
+#: src/libsumo/Vehicle.cpp:2039 src/microsim/MSBaseVehicle.cpp:593
 msgid "Invalid route replacement for vehicle '%'. %"
 msgstr "替换车辆'%'的路径无效。%"
 
-#: src/libsumo/Vehicle.cpp:2756
+#: src/libsumo/Vehicle.cpp:2764
 msgid ""
 "Ignoring lane change subscription filter with non-neighboring lane offset "
 "direction=%."
@@ -1150,56 +1151,56 @@ msgstr "收缩分层在k最短路径搜索中不起作用（请使用不同的�
 msgid "No origin or no destination given, ignoring '%'!"
 msgstr "没有给出出发地或目的地，忽略'%'!"
 
-#: src/marouter/marouter_main.cpp:239
+#: src/marouter/marouter_main.cpp:199
+msgid "Unknown routing Algorithm '%'!"
+msgstr "未知的路径算法'%'!"
+
+#: src/marouter/marouter_main.cpp:258
 msgid ""
 "Deterministic user equilibrium ('UE') is not implemented yet, using "
 "stochastic method ('SUE')."
 msgstr "确定性的用户平衡（'UE'）还没有实现，使用随机方法（'SUE'）。"
 
-#: src/marouter/marouter_main.cpp:324 src/od2trips_main.cpp:324
+#: src/marouter/marouter_main.cpp:343 src/od2trips_main.cpp:324
 msgid "No output file given."
 msgstr "没有给出输出文件。"
 
-#: src/marouter/marouter_main.cpp:341
+#: src/marouter/marouter_main.cpp:360
 msgid ""
 "Import O/D-matrices for macroscopic traffic assignment to generate SUMO "
 "routes."
 msgstr "为宏观交通分配导入O/D矩阵，生成SUMO路径。"
 
-#: src/marouter/marouter_main.cpp:377
+#: src/marouter/marouter_main.cpp:396
 msgid "No districts loaded, will use edge ids!"
 msgstr "没有加载区域，将使用路段ID!"
 
-#: src/marouter/marouter_main.cpp:388
+#: src/marouter/marouter_main.cpp:407
 msgid "No valid vehicles loaded."
 msgstr "没有加载有效的车辆。"
 
-#: src/marouter/marouter_main.cpp:391 src/od2trips_main.cpp:292
+#: src/marouter/marouter_main.cpp:410 src/od2trips_main.cpp:292
 msgid "Loading failed."
 msgstr "加载失败。"
 
-#: src/mesosim/MELoop.cpp:90 src/microsim/MSVehicleTransfer.cpp:67
+#: src/mesosim/MELoop.cpp:124 src/microsim/MSVehicleTransfer.cpp:67
 #: src/microsim/MSVehicleTransfer.cpp:193
 msgid "Vehicle '%' teleports beyond arrival edge '%', time=%."
 msgstr "车辆'%'传送到到达路段'%'之外，时间=%。"
 
-#: src/mesosim/MELoop.cpp:117
+#: src/mesosim/MELoop.cpp:161
 msgid "Vehicle '%' ends teleporting on edge '%':%, time=%."
 msgstr "车辆'%'在路段'%'结束传送：%，时间=%。"
 
-#: src/mesosim/MELoop.cpp:184 src/mesosim/MELoop.cpp:215
+#: src/mesosim/MELoop.cpp:232 src/mesosim/MELoop.cpp:263
 msgid "Teleporting vehicle '%'; waited too long, from edge '%':%, time=%."
 msgstr "传送车辆'%'；等待时间过长，从路段'%'：%，时间=%。"
 
-#: src/mesosim/MELoop.cpp:205
+#: src/mesosim/MELoop.cpp:253
 msgid ""
 "Teleporting vehicle '%'; waited too long%, from edge '%':% to edge '%':%, "
 "time=%."
 msgstr "瞬移车辆'%‘；等待时间过长%，从边缘'%':% 到边缘'%':%，用时=%。"
-
-#: src/mesosim/MESegment.cpp:401 src/microsim/MSBaseVehicle.cpp:1022
-msgid "Vehicle '%' has no valid route. %"
-msgstr "车辆'%'没有有效的路径。%"
 
 #: src/mesosim/METriggeredCalibrator.cpp:84
 msgid "Emission of vehicle '%' in calibrator '%' failed!"
@@ -1234,22 +1235,22 @@ msgid ""
 "merged)."
 msgstr "车辆'%'在'%'段有多个停车点，时间=%（停车输出将被合并）。"
 
-#: src/mesosim/MEVehicle.cpp:422 src/microsim/MSVehicle.cpp:1761
+#: src/mesosim/MEVehicle.cpp:421 src/microsim/MSVehicle.cpp:1761
 msgid ""
 "Vehicle '%' ignores triggered stop on lane '%' due to capacity constraints."
 msgstr "由于容量限制，车辆'%'忽略了在车道'%'上触发的停车。"
 
-#: src/mesosim/MEVehicle.cpp:439 src/microsim/MSVehicle.cpp:1776
+#: src/mesosim/MEVehicle.cpp:438 src/microsim/MSVehicle.cpp:1776
 msgid ""
 "Vehicle '%' ignores container triggered stop on lane '%' due to capacity "
 "constraints."
 msgstr "由于容量限制，车辆'%'忽略了货箱在车道'%'上触发的停车。"
 
-#: src/mesosim/MEVehicle.cpp:627
+#: src/mesosim/MEVehicle.cpp:638
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
 msgstr "错误：状态中的无效车辆（可能是一个微型状态）!"
 
-#: src/mesosim/MEVehicle.cpp:677
+#: src/mesosim/MEVehicle.cpp:688
 msgid "Unknown segment '%:%' for vehicle '%' in loaded state."
 msgstr "在加载状态下，车辆“%”的未知段“%:%”。"
 
@@ -1334,6 +1335,10 @@ msgstr "车辆 '%' 的出发速度对车辆类型 '%' 来说太高。"
 #: src/microsim/MSBaseVehicle.cpp:992
 msgid "Vehicle '%' is not allowed to depart on any lane of edge '%'."
 msgstr "车辆 '%' 不被允许在路段 '%' 的任何一条车道上出发。"
+
+#: src/microsim/MSBaseVehicle.cpp:1022
+msgid "Vehicle '%' has no valid route. %"
+msgstr "车辆'%'没有有效的路径。%"
 
 #: src/microsim/MSBaseVehicle.cpp:1116
 msgid ""
@@ -1471,37 +1476,37 @@ msgstr "getLeader还没有在meso实现"
 msgid "getFollower not yet implemented for meso"
 msgstr "getFollower还没有在meso实现"
 
-#: src/microsim/MSEdge.cpp:788
+#: src/microsim/MSEdge.cpp:812
 msgid ""
 "Choosing new speed factor % for vehicle '%' to match departure speed % (max "
 "%)."
 msgstr "为车辆'%'选择新的速度系数%，以匹配出发速度%（最大%）。"
 
-#: src/microsim/MSEdge.cpp:812 src/microsim/MSEdge.cpp:815
+#: src/microsim/MSEdge.cpp:836 src/microsim/MSEdge.cpp:839
 msgid ""
 "Departure speed for vehicle '%' is too high for the departure edge '%', "
 "time=%."
 msgstr ""
 
-#: src/microsim/MSEdge.cpp:832 src/microsim/MSLane.cpp:857
+#: src/microsim/MSEdge.cpp:856 src/microsim/MSLane.cpp:858
 msgid ""
 "Invalid departPos % given for vehicle '%', time=%. Inserting at lane end "
 "instead."
 msgstr ""
 
-#: src/microsim/MSEdge.cpp:877
+#: src/microsim/MSEdge.cpp:901
 msgid "Could not insert vehicle '%' on any lane of edge '%', time=%."
 msgstr ""
 
-#: src/microsim/MSEdge.cpp:1422
+#: src/microsim/MSEdge.cpp:1445
 msgid "Bidi-edge '%' does not exist"
 msgstr "Bidi-路段'%'不存在"
 
-#: src/microsim/MSEdge.cpp:1435
+#: src/microsim/MSEdge.cpp:1458
 msgid "Ambiguous superposable edges between junction '%' and '%'."
 msgstr "路口'%'和'%'之间有模糊的可叠加路段。"
 
-#: src/microsim/MSEdge.cpp:1466
+#: src/microsim/MSEdge.cpp:1489
 msgid "Edge '%' and bidi edge '%' have no matching bidi lanes"
 msgstr "路段'%'和bidi路段'%'没有匹配的bidi车道"
 
@@ -2852,7 +2857,7 @@ msgid ""
 msgstr ""
 "集成方法被设置为 'ballistic'（弹道方法），因为指定了一个默认的动作步长。"
 
-#: src/microsim/MSInsertionControl.cpp:288 src/router/RONet.cpp:527
+#: src/microsim/MSInsertionControl.cpp:300 src/router/RONet.cpp:527
 msgid "Another vehicle with the id '%' exists."
 msgstr "存在另一辆ID为'%'的车辆。"
 
@@ -2860,132 +2865,132 @@ msgstr "存在另一辆ID为'%'的车辆。"
 msgid "Internal junction % has no incoming lanes"
 msgstr "内部路口处%没有进入车道"
 
-#: src/microsim/MSLane.cpp:343
+#: src/microsim/MSLane.cpp:344
 msgid "Unequal lengths of neigh lane '%' and lane '%' (% != %)."
 msgstr "邻近车道'%'和车道'%'的长度不等（% !=%）。"
 
-#: src/microsim/MSLane.cpp:352
+#: src/microsim/MSLane.cpp:353
 msgid "Unequal lengths of bidi lane '%' and lane '%' (% != %)."
 msgstr "标线'%'和标线'%'的长度不等（% !=%）。"
 
-#: src/microsim/MSLane.cpp:833
+#: src/microsim/MSLane.cpp:834
 msgid "Vehicle '%' is inserted in an emergency situation, time=%."
 msgstr ""
 
-#: src/microsim/MSLane.cpp:839
+#: src/microsim/MSLane.cpp:840
 msgid ""
 "Vehicle '%' will not be able to depart on lane '%' with speed % (%), time=%."
 msgstr "车辆“%”将无法以速度%（%）从车道“%”出发，时间为%。"
 
-#: src/microsim/MSLane.cpp:1196
+#: src/microsim/MSLane.cpp:1197
 msgid ""
 "Vehicle '%' is inserted too fast and will violate the speed limit on a lane "
 "'%', time=%."
 msgstr ""
 
-#: src/microsim/MSLane.cpp:1200
+#: src/microsim/MSLane.cpp:1201
 msgid ""
 "Vehicle '%' will not be able to depart using the given velocity (slow lane "
 "ahead), time=%."
 msgstr ""
 
-#: src/microsim/MSLane.cpp:2088
+#: src/microsim/MSLane.cpp:2095
 msgid "frontal collision"
 msgstr "正面碰撞"
 
-#: src/microsim/MSLane.cpp:2091
+#: src/microsim/MSLane.cpp:2098
 msgid "side collision"
 msgstr "侧面碰撞"
 
-#: src/microsim/MSLane.cpp:2094
+#: src/microsim/MSLane.cpp:2101
 msgid "junction collision"
 msgstr "路口碰撞"
 
-#: src/microsim/MSLane.cpp:2097
+#: src/microsim/MSLane.cpp:2104
 msgid "collision"
 msgstr "碰撞"
 
-#: src/microsim/MSLane.cpp:2104
+#: src/microsim/MSLane.cpp:2111
 msgid "Vehicle '%'; % with vehicle '%"
 msgstr "车辆 '%'; % 与 车辆 '%"
 
-#: src/microsim/MSLane.cpp:2161
+#: src/microsim/MSLane.cpp:2168
 msgid "Teleporting vehicle '%'; % with vehicle '%"
 msgstr "正在传送车辆 '%'; % 与车辆 '%"
 
-#: src/microsim/MSLane.cpp:2166
+#: src/microsim/MSLane.cpp:2173
 msgid "Removing % participants: vehicle '%', vehicle '%"
 msgstr "移除%名参与者：车辆‘%’，车辆‘%’"
 
-#: src/microsim/MSLane.cpp:2179
+#: src/microsim/MSLane.cpp:2186
 msgid "Keeping remote-controlled % participants: vehicle '%', vehicle '%"
 msgstr "保持遥控%个参与者：车辆“%”，车辆“%”"
 
-#: src/microsim/MSLane.cpp:2181
+#: src/microsim/MSLane.cpp:2188
 msgid ""
 "Removing % participant: vehicle '%', keeping remote-controlled vehicle '%"
 msgstr "移除%个参与者：车辆'%'，保留遥控车辆'%'"
 
-#: src/microsim/MSLane.cpp:2184
+#: src/microsim/MSLane.cpp:2191
 msgid ""
 "Keeping remote-controlled % participant: vehicle '%', removing vehicle '%"
 msgstr "保持遥控%个参与者：车辆“%”，移除车辆“%”"
 
-#: src/microsim/MSLane.cpp:2195
+#: src/microsim/MSLane.cpp:2202
 msgid ", latGap="
 msgstr "，latGap="
 
-#: src/microsim/MSLane.cpp:2222
+#: src/microsim/MSLane.cpp:2229
 msgid "Vehicle '%'"
 msgstr "车辆'%'"
 
-#: src/microsim/MSLane.cpp:2251
+#: src/microsim/MSLane.cpp:2258
 msgid "Teleporting vehicle '%' after"
 msgstr "传送车辆'%'后"
 
-#: src/microsim/MSLane.cpp:2256
+#: src/microsim/MSLane.cpp:2263
 msgid "Removing vehicle '%' after"
 msgstr "删除车辆后的'%'"
 
-#: src/microsim/MSLane.cpp:2260
+#: src/microsim/MSLane.cpp:2267
 msgid "Keeping remote-controlled vehicle '%' after"
 msgstr "保持远程遥控车'%'后"
 
-#: src/microsim/MSLane.cpp:2273
+#: src/microsim/MSLane.cpp:2280
 msgid " collision with person '%', lane='%', gap=%, time=%, stage=%."
 msgstr " 与人'%'碰撞，车道='%'，间隙=%，时间=%，阶段=%。"
 
-#: src/microsim/MSLane.cpp:2276
+#: src/microsim/MSLane.cpp:2283
 msgid " collision with person '%', lane='%', time=%, stage=%."
 msgstr " 与人'%'相撞，车道='%'，时间=%，阶段=%。"
 
-#: src/microsim/MSLane.cpp:2356
+#: src/microsim/MSLane.cpp:2363
 msgid "Removing vehicle '%' after breaking down, lane='%', time=%."
 msgstr "故障后移除车辆'%'，车道='%'，时间=%。"
 
-#: src/microsim/MSLane.cpp:2367
+#: src/microsim/MSLane.cpp:2374
 msgid "Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."
 msgstr "遥控车'%'；超出车道尽头，目标车道='%'，时间=%。"
 
-#: src/microsim/MSLane.cpp:2375
+#: src/microsim/MSLane.cpp:2382
 msgid "Removing vehicle '%' after earlier collision, lane='%', time=%."
 msgstr "在先前的碰撞后移走车辆'%'，车道='%'，时间=%。"
 
-#: src/microsim/MSLane.cpp:2380
+#: src/microsim/MSLane.cpp:2387
 msgid "Teleporting vehicle '%' after earlier collision, lane='%', time=%."
 msgstr "在先前的碰撞后，将车辆'%'遥控，车道='%'，时间=%。"
 
-#: src/microsim/MSLane.cpp:2911
+#: src/microsim/MSLane.cpp:2918
 msgid ""
 "Lane '%' is approached multiple times from edge '%'. This may cause "
 "collisions."
 msgstr "车道'%'从路段'%'多次接近。这可能导致碰撞。"
 
-#: src/microsim/MSLane.cpp:4544
+#: src/microsim/MSLane.cpp:4577
 msgid "Invalid % '%'."
 msgstr "无效 % '%'。"
 
-#: src/microsim/MSLane.cpp:4712
+#: src/microsim/MSLane.cpp:4745
 msgid ""
 "State was saved with more than % threads. Change the number of threads or do "
 "not load RNG state"
@@ -2996,80 +3001,80 @@ msgstr "状态被保存在超过%的线程中。改变线程数或不加载RNG�
 msgid "Method not supported"
 msgstr "不支持该方法"
 
-#: src/microsim/MSLink.cpp:252
+#: src/microsim/MSLink.cpp:260
 msgid "Internal lane '%' has % predecessors"
 msgstr "内部车道“%”有%个前置车道"
 
-#: src/microsim/MSNet.cpp:203 src/router/RONet.cpp:60
+#: src/microsim/MSNet.cpp:205 src/router/RONet.cpp:60
 msgid "A network was not yet constructed."
 msgstr "一个网络还没有建成。"
 
-#: src/microsim/MSNet.cpp:236 src/router/RONet.cpp:87
+#: src/microsim/MSNet.cpp:238 src/router/RONet.cpp:87
 msgid "A network was already constructed."
 msgstr "一个网络已经建成。"
 
-#: src/microsim/MSNet.cpp:302
+#: src/microsim/MSNet.cpp:304
 msgid ""
 "Option weights.separate-turns is only supported when simulating with "
 "internal lanes"
 msgstr "仅在使用內部车道进行仿真时,才可以使用选项 weights.separate-turns"
 
-#: src/microsim/MSNet.cpp:464
+#: src/microsim/MSNet.cpp:472
 msgid "Simulation version % started with time: %."
 msgstr "仿真版本%开始时间：%。"
 
-#: src/microsim/MSNet.cpp:758
+#: src/microsim/MSNet.cpp:766
 msgid "Simulation ended at time: %."
 msgstr "仿真于此时刻结束：%."
 
-#: src/microsim/MSNet.cpp:760
+#: src/microsim/MSNet.cpp:768
 msgid "Reason: "
 msgstr "原因： "
 
-#: src/microsim/MSNet.cpp:1025
+#: src/microsim/MSNet.cpp:1042
 msgid "The final simulation step has been reached."
 msgstr "已达到最终的模拟步骤。"
 
-#: src/microsim/MSNet.cpp:1027
+#: src/microsim/MSNet.cpp:1044
 msgid "All vehicles have left the simulation."
 msgstr "所有车辆已离开模拟环境。"
 
-#: src/microsim/MSNet.cpp:1029
+#: src/microsim/MSNet.cpp:1046
 msgid "TraCI requested termination."
 msgstr "TraCI 请求终止。"
 
-#: src/microsim/MSNet.cpp:1031
+#: src/microsim/MSNet.cpp:1048
 msgid "An error occurred (see log)."
 msgstr "发生了一个错误（请查看日志）。"
 
-#: src/microsim/MSNet.cpp:1033
+#: src/microsim/MSNet.cpp:1050
 msgid "Interrupted."
 msgstr "被打断。"
 
-#: src/microsim/MSNet.cpp:1035
+#: src/microsim/MSNet.cpp:1052
 msgid "Too many teleports."
 msgstr "太多传送点。"
 
-#: src/microsim/MSNet.cpp:1037
+#: src/microsim/MSNet.cpp:1054
 msgid "TraCI issued load command."
 msgstr "TraCI 发出了加载命令。"
 
-#: src/microsim/MSNet.cpp:1039
+#: src/microsim/MSNet.cpp:1056
 msgid "Unknown reason."
 msgstr "未知原因。"
 
-#: src/microsim/MSNet.cpp:1646
+#: src/microsim/MSNet.cpp:1673
 msgid ""
 "TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."
 msgstr "TraCI和Triggers不能使用路径算法'%'，使用'astar'代替。"
 
-#: src/microsim/MSNet.cpp:1815 src/netload/NLBuilder.cpp:472
+#: src/microsim/MSNet.cpp:1842 src/netload/NLBuilder.cpp:472
 #: src/router/ROLoader.cpp:243 src/tools/emissionsDrivingCycle_main.cpp:223
 #: src/tools/emissionsMap_main.cpp:84
 msgid "Loading of % failed."
 msgstr "加载%失败。"
 
-#: src/microsim/MSNet.cpp:1835
+#: src/microsim/MSNet.cpp:1862
 msgid "Loading state from '%' failed."
 msgstr "从'%'载入状态失败。"
 
@@ -3087,150 +3092,134 @@ msgid ""
 "(network error)"
 msgstr "发现连接至交汇点“%”（%，最大%）的链接逻辑位置无效 -> （网络错误）"
 
-#: src/microsim/MSRouteHandler.cpp:111 src/router/RORouteHandler.cpp:111
+#: src/microsim/MSRouteHandler.cpp:110 src/router/RORouteHandler.cpp:111
 msgid "Taz usage was requested but no taz present in % '%'!"
 msgstr "要求使用交通分区（Taz），但%'%'中没有Taz!"
 
-#: src/microsim/MSRouteHandler.cpp:321
+#: src/microsim/MSRouteHandler.cpp:320
 msgid "Vehicle type distribution '%' is empty."
 msgstr "车辆类型分布'%'为空。"
 
-#: src/microsim/MSRouteHandler.cpp:325 src/microsim/MSRouteHandler.cpp:996
+#: src/microsim/MSRouteHandler.cpp:324 src/microsim/MSRouteHandler.cpp:995
 msgid "Another vehicle type (or distribution) with the id '%' exists."
 msgstr "存在另一个ID为'%'的车辆类型（或分布）。"
 
-#: src/microsim/MSRouteHandler.cpp:346 src/router/RORouteHandler.cpp:360
+#: src/microsim/MSRouteHandler.cpp:345 src/router/RORouteHandler.cpp:360
 msgid "Ids of internal routes are ignored (vehicle '%')."
 msgstr "内部路径的编号被忽略（车辆'%'）。"
 
-#: src/microsim/MSRouteHandler.cpp:365
+#: src/microsim/MSRouteHandler.cpp:364
 msgid "Invalid reference to route '%' in route %."
 msgstr "路径%中对路径'%'的引用无效。"
 
-#: src/microsim/MSRouteHandler.cpp:377
+#: src/microsim/MSRouteHandler.cpp:376
 msgid "Attribute 'period' is deprecated for route. Use 'cycleTime' instead."
 msgstr "路径的属性'period'已不适用。请使用'cycleTime'代替。"
 
-#: src/microsim/MSRouteHandler.cpp:381
+#: src/microsim/MSRouteHandler.cpp:380
 msgid "Invalid cost for route '%'."
 msgstr "路径'%'的成本无效。"
 
-#: src/microsim/MSRouteHandler.cpp:438
+#: src/microsim/MSRouteHandler.cpp:437
 msgid "Route '%' has no edges."
 msgstr "路径'%'没有路段。"
 
-#: src/microsim/MSRouteHandler.cpp:457
+#: src/microsim/MSRouteHandler.cpp:456
 msgid " for vehicle '%' with vClass %."
 msgstr " 车辆'%'的 vClass %。"
 
-#: src/microsim/MSRouteHandler.cpp:462
+#: src/microsim/MSRouteHandler.cpp:461
 msgid ""
 "Disconnected route '%' when repeating. Last edge '%' is not connected to "
 "first edge '%'%"
 msgstr "重复时，未连接的路由 '%'。最后一条边 '%' 未连接到第一条边 '%'%"
 
-#: src/microsim/MSRouteHandler.cpp:475 src/router/RORouteHandler.cpp:490
+#: src/microsim/MSRouteHandler.cpp:474 src/router/RORouteHandler.cpp:490
 msgid ""
 "Cannot repeat stops with 'until' in route % because no cycleTime is defined."
 msgstr "不能重复路径%中带有'until'的站点，因为没有定义cycleTime。"
 
-#: src/microsim/MSRouteHandler.cpp:484
+#: src/microsim/MSRouteHandler.cpp:483
 msgid ""
 "Cannot repeat stops with 'arrival' in route % because no cycleTime is "
 "defined."
 msgstr "不能重复路径%中带有'到达'的站点，因为没有定义cycleTime。"
 
-#: src/microsim/MSRouteHandler.cpp:512
+#: src/microsim/MSRouteHandler.cpp:511
 msgid "A vehicle with id '%' already exists."
 msgstr "已经存在一个ID为'%'的车辆。"
 
-#: src/microsim/MSRouteHandler.cpp:515 src/microsim/MSRouteHandler.cpp:592
+#: src/microsim/MSRouteHandler.cpp:514 src/microsim/MSRouteHandler.cpp:591
 msgid "Another route (or distribution) with the id '%' exists."
 msgstr "存在另一个ID为'%'的路径（或分布）。"
 
-#: src/microsim/MSRouteHandler.cpp:596
+#: src/microsim/MSRouteHandler.cpp:595
 msgid "Route distribution '%' is empty."
 msgstr "路径分布'%'是空的。"
 
-#: src/microsim/MSRouteHandler.cpp:637 src/router/RORouteHandler.cpp:646
+#: src/microsim/MSRouteHandler.cpp:636 src/router/RORouteHandler.cpp:646
 msgid ""
 "Vehicle type '%' with vClass=pedestrian should only be used for persons and "
 "not for vehicle '%'."
 msgstr "vClass=pedestrian的车辆类型'%'只能用于人员，不能用于车辆'%'。"
 
-#: src/microsim/MSRouteHandler.cpp:646
+#: src/microsim/MSRouteHandler.cpp:645
 msgid ""
 "Ignoring child element 'route' for vehicle '%' because attribute 'route' is "
 "set."
 msgstr "忽略车辆'%'的子元素'route'，因为属性'route'已设置。"
 
-#: src/microsim/MSRouteHandler.cpp:655
+#: src/microsim/MSRouteHandler.cpp:654
 msgid "Vehicle '%' has no route."
 msgstr "车辆'%'没有路径。"
 
-#: src/microsim/MSRouteHandler.cpp:800
+#: src/microsim/MSRouteHandler.cpp:799
 msgid ""
 "Could not merge vehicle stops for vehicle '%' into implicitly defined route "
 "'%'"
 msgstr "无法将车辆 '%' 的车辆停靠点合并到隐式定义的路径中 '%'"
 
-#: src/microsim/MSRouteHandler.cpp:831
-#: src/microsim/transportables/MSTransportable.cpp:456
+#: src/microsim/MSRouteHandler.cpp:830
+#: src/microsim/transportables/MSTransportable.cpp:457
 msgid ""
 "Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."
 msgstr "人'%'收到类型'%'，隐含地使用不合适的vClass'%'。"
 
-#: src/microsim/MSRouteHandler.cpp:975
+#: src/microsim/MSRouteHandler.cpp:974
 msgid ""
 "There exists a person and a container with the same id '%'. Starting with "
 "SUMO 1.9.0 this is an error."
 msgstr "存在一个人和一个具有相同id'%'的货箱。从SUMO 1.9.0开始，这是一个错误。"
 
-#: src/microsim/MSRouteHandler.cpp:1087
+#: src/microsim/MSRouteHandler.cpp:1086
 msgid "Another flow with the id '%' exists."
 msgstr "存在另一个ID为'%'的流量。"
 
-#: src/microsim/MSRouteHandler.cpp:1115
+#: src/microsim/MSRouteHandler.cpp:1114
 msgid "Cannot define % stage without %."
 msgstr "没有 %，无法定义 % 阶段。"
 
-#: src/microsim/MSRouteHandler.cpp:1258
-msgid "The busStop '%' is not known%."
-msgstr "公共汽车站'%'不详%。"
+#: src/microsim/MSRouteHandler.cpp:1247
+msgid "The % '%' is not known%."
+msgstr ""
 
-#: src/microsim/MSRouteHandler.cpp:1264
-msgid "The containerStop '%' is not known%."
-msgstr "货箱停靠点'%'不详%。"
-
-#: src/microsim/MSRouteHandler.cpp:1270
-msgid "The parkingArea '%' is not known%."
-msgstr "停车区'%'不详%。"
-
-#: src/microsim/MSRouteHandler.cpp:1277
-msgid "The chargingStation '%' is not known%."
-msgstr "充电站'%'不知道%。"
-
-#: src/microsim/MSRouteHandler.cpp:1284
-msgid "The overhead wire segment '%' is not known%."
-msgstr "高架线段'%'不详%。"
-
-#: src/microsim/MSRouteHandler.cpp:1288
+#: src/microsim/MSRouteHandler.cpp:1251
 msgid "Invalid stop definition%."
 msgstr "无效的停靠定义%。"
 
-#: src/microsim/MSRouteHandler.cpp:1345
+#: src/microsim/MSRouteHandler.cpp:1308
 msgid "The edge '%' for a stop is not known%."
 msgstr "停靠点%所在道路“%”未知。"
 
-#: src/microsim/MSRouteHandler.cpp:1359
+#: src/microsim/MSRouteHandler.cpp:1322
 msgid "The lane '%' for a stop is not known%."
 msgstr "停靠点%所在车道“%”未知。"
 
-#: src/microsim/MSRouteHandler.cpp:1391
+#: src/microsim/MSRouteHandler.cpp:1354
 msgid "Could not map stop position '%' to the network%."
 msgstr "不能将停靠位置 '%' 映射到路网%。"
 
-#: src/microsim/MSRouteHandler.cpp:1409
+#: src/microsim/MSRouteHandler.cpp:1372
 msgid ""
 "A stop must be placed on a busStop, a chargingStation, an "
 "overheadWireSegment, a containerStop, a parkingArea, an edge or a lane%."
@@ -3238,30 +3227,30 @@ msgstr ""
 "停靠点必须设置在公共汽车站、充电站、高架线路段、集装箱站、停车区、道路或车道%"
 "上。"
 
-#: src/microsim/MSRouteHandler.cpp:1420
+#: src/microsim/MSRouteHandler.cpp:1383
 msgid "Deprecated attribute 'pos' in description of stop%."
 msgstr "停靠点%的描述中，属性 'pos' 已不适用。"
 
-#: src/microsim/MSRouteHandler.cpp:1431
+#: src/microsim/MSRouteHandler.cpp:1394
 msgid "Invalid start or end position for stop on %'%."
 msgstr "停靠点%'%上的起始或终止位置无效。"
 
-#: src/microsim/MSRouteHandler.cpp:1448
+#: src/microsim/MSRouteHandler.cpp:1411
 msgid "Disconnected plan for % '%' (%!=%)."
 msgstr "%'%'的计划已断开（%!=%）。"
 
-#: src/microsim/MSRouteHandler.cpp:1459
+#: src/microsim/MSRouteHandler.cpp:1422
 msgid ""
 "Disconnected plan for % '%' (stop range %-% does not cover previous arrival "
 "position %)."
 msgstr "%'%'的计划已断开连接（停止范围%-%不包含先前的到达位置%）。"
 
-#: src/microsim/MSRouteHandler.cpp:1495
+#: src/microsim/MSRouteHandler.cpp:1458
 msgid "Stop edge '%' missing in attribute 'via' for % '%'."
 msgstr "%'%' 的属性 “via” 中缺少停靠边。"
 
-#: src/microsim/MSRouteHandler.cpp:1516 src/router/RORouteHandler.cpp:1186
-#: src/router/RORouteHandler.cpp:1305
+#: src/microsim/MSRouteHandler.cpp:1479 src/router/RORouteHandler.cpp:1148
+#: src/router/RORouteHandler.cpp:1267
 msgid ""
 "The attribute departPos is no longer supported for walks, please use the "
 "person attribute, the arrivalPos of the previous step or explicit stops."
@@ -3269,59 +3258,59 @@ msgstr ""
 "对于步行，不再支持departPos属性，请使用人的属性、上一步的到达位置"
 "（ arrivalPos）或明确的停靠。"
 
-#: src/microsim/MSRouteHandler.cpp:1542
+#: src/microsim/MSRouteHandler.cpp:1505
 msgid "Ignoring arrivalPos for % because it is outside the given stop '%'."
 msgstr "忽略%的到达位置（arrivationPos），因为它在给定站点'%'之外。"
 
-#: src/microsim/MSRouteHandler.cpp:1548 src/router/RORouteHandler.cpp:1207
+#: src/microsim/MSRouteHandler.cpp:1511 src/router/RORouteHandler.cpp:1169
 msgid "No destination edge for %."
 msgstr "没有目的地路段的%。"
 
-#: src/microsim/MSRouteHandler.cpp:1567 src/microsim/MSRouteHandler.cpp:1657
+#: src/microsim/MSRouteHandler.cpp:1530 src/microsim/MSRouteHandler.cpp:1620
 msgid "Cannot define person stage without person."
 msgstr "缺少人员，无法定义人员阶段。"
 
-#: src/microsim/MSRouteHandler.cpp:1581 src/router/RORouteHandler.cpp:1227
+#: src/microsim/MSRouteHandler.cpp:1544 src/router/RORouteHandler.cpp:1189
 msgid "Start edge not defined for person '%'."
 msgstr "没有为'%'的人定义起始路段。"
 
-#: src/microsim/MSRouteHandler.cpp:1592 src/microsim/MSRouteHandler.cpp:1666
-#: src/router/RORouteHandler.cpp:1238 src/router/RORouteHandler.cpp:1296
+#: src/microsim/MSRouteHandler.cpp:1555 src/microsim/MSRouteHandler.cpp:1629
+#: src/router/RORouteHandler.cpp:1200 src/router/RORouteHandler.cpp:1258
 msgid "Non-positive walking duration for '%'."
 msgstr "为'%'没有正的行走时间。"
 
-#: src/microsim/MSRouteHandler.cpp:1624 src/microsim/MSRouteHandler.cpp:1672
-#: src/router/RORouteHandler.cpp:1300
+#: src/microsim/MSRouteHandler.cpp:1587 src/microsim/MSRouteHandler.cpp:1635
+#: src/router/RORouteHandler.cpp:1262
 msgid "Non-positive walking speed for '%'."
 msgstr "为'%'没有正的行走速度。"
 
-#: src/microsim/MSRouteHandler.cpp:1697
+#: src/microsim/MSRouteHandler.cpp:1660
 msgid "No edges to walk for person '%'."
 msgstr "为人'%'没有步行的路段。"
 
-#: src/microsim/MSRouteHandler.cpp:1746
+#: src/microsim/MSRouteHandler.cpp:1709
 msgid ""
 "Could not find departure lane for walk of person '%' when interpreting "
 "departPosLat"
 msgstr "在解释出发侧向位置(departPosLat)时,找不到人员'%' 步行的出发巷道"
 
-#: src/microsim/MSRouteHandler.cpp:1780
+#: src/microsim/MSRouteHandler.cpp:1743
 msgid "The type '%' for % '%' is not known."
 msgstr "%'%' 的类型 '%' 未知。"
 
-#: src/microsim/MSRouteHandler.cpp:1803
+#: src/microsim/MSRouteHandler.cpp:1766
 msgid "Could not read tranship speed for container '%'."
 msgstr "无法读取货箱'%'的转运速度。"
 
-#: src/microsim/MSRouteHandler.cpp:1811
+#: src/microsim/MSRouteHandler.cpp:1774
 msgid "Non-positive tranship speed for container '%'."
 msgstr "为货箱\"%\"没有正的转运速度。"
 
-#: src/microsim/MSRouteHandler.cpp:1837
+#: src/microsim/MSRouteHandler.cpp:1800
 msgid "The start edge for container '%' is not known."
 msgstr "货箱'%'的起始路段未知。"
 
-#: src/microsim/MSRouteHandler.cpp:1854
+#: src/microsim/MSRouteHandler.cpp:1817
 msgid ""
 "Inconsistent tranship for container '%', needs either: 'edges', 'to', "
 "'containerStop' (or any other stopping place)"
@@ -3329,12 +3318,12 @@ msgstr ""
 "集装箱“%”的转运信息不一致，需要提供以下信息之一：'edges'（路段）、'to'（目的"
 "地）、'containerStop'（或任何其他停靠点）"
 
-#: src/microsim/MSRouteHandler.cpp:1861
+#: src/microsim/MSRouteHandler.cpp:1824
 msgid "No edges to tranship container '%'."
 msgstr "没有路段来转运货箱'%'。"
 
 #: src/microsim/MSStateHandler.cpp:79
-#: src/microsim/devices/MSDevice_FCDReplay.cpp:85
+#: src/microsim/devices/MSDevice_FCDReplay.cpp:115
 #: src/polyconvert/PCNetProjectionLoader.cpp:64
 #: src/utils/options/OptionsIO.cpp:165 src/utils/vehicle/SUMORouteLoader.cpp:37
 msgid "Can not read XML-file '%'."
@@ -3416,39 +3405,39 @@ msgstr "由于路线不兼容，无法将车辆'%'连接到车辆'%'。"
 msgid "Suspicious right_before_left junction '%'."
 msgstr "可疑的右先于左（right_before_left）路口'%'。"
 
-#: src/microsim/MSVehicle.cpp:4786
+#: src/microsim/MSVehicle.cpp:4788
 msgid " for unknown reasons"
 msgstr " 原因不详"
 
-#: src/microsim/MSVehicle.cpp:4788
+#: src/microsim/MSVehicle.cpp:4790
 msgid ""
 "Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
 "offset=%), time=%."
 msgstr "车辆'%'在车道'%'的末端执行紧急停车（减速=%，偏移=%），时间=%。"
 
-#: src/microsim/MSVehicle.cpp:4871
+#: src/microsim/MSVehicle.cpp:4873
 msgid "Unexpected end of opposite lane for vehicle '%' at lane '%', time=%."
 msgstr "车辆'%'在'%'车道上意外结束对向车道，时间=%。"
 
-#: src/microsim/MSVehicle.cpp:4994
+#: src/microsim/MSVehicle.cpp:4996
 msgid ""
 "Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, "
 "severity=%, time=%."
 msgstr "车辆'%'在车道'%'上执行紧急制动，减速=%，希望=%，严重程度=%，时间=%。"
 
-#: src/microsim/MSVehicle.cpp:5820 src/microsim/MSVehicle.cpp:5913
+#: src/microsim/MSVehicle.cpp:5830 src/microsim/MSVehicle.cpp:5923
 msgid "Vehicle '%' skips stop on lane '%' time=%."
 msgstr "车辆 '%' 在 % 时刻在车道 '%' 上跳过了停靠。"
 
-#: src/microsim/MSVehicle.cpp:5907
+#: src/microsim/MSVehicle.cpp:5917
 msgid "Vehicle '%' aborts stop."
 msgstr "车辆'%'放弃停靠。"
 
-#: src/microsim/MSVehicle.cpp:7871
+#: src/microsim/MSVehicle.cpp:7888
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
 msgstr "错误： 状态中的无效车辆（可能是一个中观状态）！！"
 
-#: src/microsim/MSVehicle.cpp:7928
+#: src/microsim/MSVehicle.cpp:7948
 msgid "Action steps are out of sync for loaded vehicle '%'."
 msgstr "装载车辆'%'的操作步骤不同步。"
 
@@ -3460,7 +3449,7 @@ msgstr "车辆 '%' 中止等待 %。"
 msgid "Vehicle '%' ends teleporting on edge '%', time=%."
 msgstr "车辆'%'在路段'%'结束传送，时间=%。"
 
-#: src/microsim/MSVehicleType.cpp:339
+#: src/microsim/MSVehicleType.cpp:340
 msgid ""
 "The vType '%' has a 'mass' attribute and a 'vehicleMass' parameter. The "
 "'mass' attribute will take precedence."
@@ -3468,7 +3457,7 @@ msgstr ""
 "vType '%' 同时具有 'mass' 属性和 'vehicleMass' 参数。'mass' 属性将被优先使"
 "用。"
 
-#: src/microsim/MSVehicleType.cpp:341
+#: src/microsim/MSVehicleType.cpp:342
 msgid ""
 "The vType '%' has a 'vehicleMass' parameter, which is deprecated. Please use "
 "the 'mass' attribute (for the empty mass) and the 'loading' parameter, if "
@@ -3477,13 +3466,13 @@ msgstr ""
 "vType '%' 具有 'vehicleMass' 参数，该参数已不适用。如果需要，请使用 ’mass‘ 属"
 "性（用于空载）和 'loading' 属性。"
 
-#: src/microsim/MSVehicleType.cpp:355
+#: src/microsim/MSVehicleType.cpp:356
 msgid ""
 "Value of 'emergencyDecel' (%) should be higher than 'decel' (%) for vType "
 "'%'."
 msgstr "对于vType'%'，'紧急emergencyDecel'（%）的值应该高于'decel'（%）。"
 
-#: src/microsim/MSVehicleType.cpp:358
+#: src/microsim/MSVehicleType.cpp:359
 msgid ""
 "Value of 'emergencyDecel' (%) is lower than 'apparentDecel' (%) for vType "
 "'%' may cause collisions."
@@ -3491,21 +3480,21 @@ msgstr ""
 "对于vType'%'，'紧急emergencyDecel'(%)的值低于'apparentDecel'(%)，可能会导致碰"
 "撞。"
 
-#: src/microsim/MSVehicleType.cpp:445
+#: src/microsim/MSVehicleType.cpp:450
 msgid "singular "
 msgstr "单向 "
 
-#: src/microsim/MSVehicleType.cpp:446
+#: src/microsim/MSVehicleType.cpp:451
 msgid "could not add %type %"
 msgstr "无法添加% 类型 %"
 
-#: src/microsim/MSVehicleType.cpp:480
+#: src/microsim/MSVehicleType.cpp:485
 msgid ""
 "Value of tau=% in vehicle type '%' lower than simulation step size may cause "
 "collisions."
 msgstr "车辆类型'%'中的tau=%的值低于仿真步长，可能导致碰撞。"
 
-#: src/microsim/MSVehicleType.cpp:486
+#: src/microsim/MSVehicleType.cpp:491
 msgid ""
 "Vehicle class '%' of vType '%' is set as ignored by option --meso-ignore-"
 "lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-"
@@ -3514,7 +3503,7 @@ msgstr ""
 "vType'%'的车辆类别'%'被选项--meso-ignore-lanes-by-vclass设置为忽略，以确保默"
 "认车辆容量。设置选项--meso-lane-queue，用于多模式的meso模拟"
 
-#: src/microsim/MSVehicleType.cpp:496
+#: src/microsim/MSVehicleType.cpp:501
 msgid ""
 "The battery device is active for vType '%' but no emission class is set. The "
 "emission class Energy/unknown will be used, please consider setting an "
@@ -3869,39 +3858,45 @@ msgstr "找不到用于过滤浮动车资料（fcd）输出的指定形状'%'。
 msgid "Could not load names of edges for filtering fcd-output from '%'."
 msgstr "无法从'%'中载入用于过滤浮动车资料（fcd）输出的路段名称。"
 
-#: src/microsim/devices/MSDevice_FCDReplay.cpp:61
-msgid "FCD file to read"
-msgstr "读取FCD文件"
+#: src/microsim/devices/MSDevice_FCDReplay.cpp:63
+msgid "FCD files to read"
+msgstr ""
 
-#: src/microsim/devices/MSDevice_FCDReplay.cpp:216
+#: src/microsim/devices/MSDevice_FCDReplay.cpp:65
+msgid ""
+"Values to use when replaying ('all' or any combination of 'x', 'y', 'edge', "
+"'lane', 'speed', 'position', 'angle', 'type')"
+msgstr ""
+
+#: src/microsim/devices/MSDevice_FCDReplay.cpp:265
 msgid "Unknown edge '%' in fcd replay file for person '%'."
 msgstr "未知路段“%”，在行人“%”的fcd回放文件中。"
 
-#: src/microsim/devices/MSDevice_FCDReplay.cpp:216
+#: src/microsim/devices/MSDevice_FCDReplay.cpp:265
 msgid "Unknown lane '%' in fcd replay file for vehicle '%'."
 msgstr "未知车道“%”，在车辆“%”的回放文件中。"
 
-#: src/microsim/devices/MSDevice_FCDReplay.cpp:353
+#: src/microsim/devices/MSDevice_FCDReplay.cpp:401
 msgid "Unknown vType '%'."
 msgstr "位置vType \"%\"。"
 
-#: src/microsim/devices/MSDevice_FCDReplay.cpp:357
+#: src/microsim/devices/MSDevice_FCDReplay.cpp:405
 msgid "No edge in fcd replay file for person '%' at time %."
 msgstr "在fcd回放文件中，人员'%'没有路段信息，在时间 %时。"
 
-#: src/microsim/devices/MSDevice_FCDReplay.cpp:359
+#: src/microsim/devices/MSDevice_FCDReplay.cpp:407
 msgid "No lane in fcd replay file for vehicle '%' at time %."
 msgstr "车辆“%”的回放文件中，在时间“%”时，没有车道信息。"
 
-#: src/microsim/devices/MSDevice_FCDReplay.cpp:371
+#: src/microsim/devices/MSDevice_FCDReplay.cpp:419
 msgid "Duplicate person '%'."
 msgstr "重复的行人“%”。"
 
-#: src/microsim/devices/MSDevice_FCDReplay.cpp:384
+#: src/microsim/devices/MSDevice_FCDReplay.cpp:432
 msgid "Could not add route '%'."
 msgstr "无法添加路径“%”。"
 
-#: src/microsim/devices/MSDevice_FCDReplay.cpp:393
+#: src/microsim/devices/MSDevice_FCDReplay.cpp:441
 msgid "Duplicate vehicle '%'."
 msgstr "重复车辆“%”。"
 
@@ -3977,52 +3972,76 @@ msgstr "更新路段权重的时间间隔"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:72
 msgid ""
+"Only propagate an arc weight into the CCH metric if it changed by more than "
+"the given factor"
+msgstr ""
+
+#: src/microsim/devices/MSDevice_Routing.cpp:75
+msgid ""
+"Only propagate an arc weight into the CCH metric if it changed by more than "
+"the given TIME"
+msgstr ""
+
+#: src/microsim/devices/MSDevice_Routing.cpp:77
+msgid ""
+"Keep this many frozen weights.random-factor realizations (CCH metrics) per "
+"vehicle type and assign vehicles to them by a stable id hash"
+msgstr ""
+
+#: src/microsim/devices/MSDevice_Routing.cpp:80
+msgid ""
 "Only reroute if the new route is faster than the current route by the given "
 "factor"
 msgstr "仅当新路线比当前路线快出给定倍数时才重新规划路线"
 
-#: src/microsim/devices/MSDevice_Routing.cpp:75
+#: src/microsim/devices/MSDevice_Routing.cpp:83
 msgid ""
 "Only reroute if the new route is faster than the current route by the given "
 "TIME"
 msgstr "仅当新路线比当前路线快给定的时间时，才重新规划路线"
 
-#: src/microsim/devices/MSDevice_Routing.cpp:80
+#: src/microsim/devices/MSDevice_Routing.cpp:86
+msgid ""
+"Only perform a periodic reroute when the current route's remaining cost has "
+"drifted beyond the threshold (cheap re-scoring gate before the full reroute)"
+msgstr ""
+
+#: src/microsim/devices/MSDevice_Routing.cpp:91
 msgid "Use zones (districts) as routing start- and endpoints"
 msgstr "使用区域（地区）作为路径的起点和终点"
 
-#: src/microsim/devices/MSDevice_Routing.cpp:83
+#: src/microsim/devices/MSDevice_Routing.cpp:94
 #: src/microsim/devices/MSTransportableDevice_Routing.cpp:51
 msgid "Set routing flags (8 ignores temporary blockages)"
 msgstr "设置路由标志（8表示忽略临时阻塞）"
 
-#: src/microsim/devices/MSDevice_Routing.cpp:86
+#: src/microsim/devices/MSDevice_Routing.cpp:97
 msgid ""
 "Use weight files given with option --weight-files for initializing edge "
 "weights"
 msgstr "使用选项--weight-files 指定权重文件，以进行路段权重的初始化"
 
-#: src/microsim/devices/MSDevice_Routing.cpp:90
+#: src/microsim/devices/MSDevice_Routing.cpp:101
 msgid "The number of parallel execution threads used for rerouting"
 msgstr "用于重新搜寻路径的平行执行的线程(threads)数量"
 
-#: src/microsim/devices/MSDevice_Routing.cpp:93
+#: src/microsim/devices/MSDevice_Routing.cpp:104
 msgid "Let rerouting happen at the same time for all vehicles"
 msgstr "让所有车辆在同一时间进行改道"
 
-#: src/microsim/devices/MSDevice_Routing.cpp:96
+#: src/microsim/devices/MSDevice_Routing.cpp:107
 msgid "Allow rerouting triggered by rail signals."
 msgstr "允许由铁路信号引发的改道。"
 
-#: src/microsim/devices/MSDevice_Routing.cpp:99
+#: src/microsim/devices/MSDevice_Routing.cpp:110
 msgid "Compute separate average speeds for bicycles"
 msgstr "计算自行车的个别平均速度"
 
-#: src/microsim/devices/MSDevice_Routing.cpp:102
+#: src/microsim/devices/MSDevice_Routing.cpp:113
 msgid "Save adapting weights to FILE"
 msgstr "将适应的权重保存到文件中"
 
-#: src/microsim/devices/MSDevice_Routing.cpp:110
+#: src/microsim/devices/MSDevice_Routing.cpp:121
 msgid ""
 "Only one of the options 'device.rerouting.adaptation-steps' or "
 "'device.rerouting.adaptation-weight' may be given."
@@ -4030,24 +4049,24 @@ msgstr ""
 "只有给定一个选项 'device.rerouting.adaptation-steps' 或"
 "是'devicererouting.adaptation-weight' 。"
 
-#: src/microsim/devices/MSDevice_Routing.cpp:114
+#: src/microsim/devices/MSDevice_Routing.cpp:125
 msgid "weights.random-factor cannot be less than 1"
 msgstr "weights.random-factor 不能小于 1"
 
-#: src/microsim/devices/MSDevice_Routing.cpp:118
+#: src/microsim/devices/MSDevice_Routing.cpp:129
 msgid "Negative value for device.rerouting.adaptation-interval!"
 msgstr "device.rerouting.adaptation-interval 的值为负值!"
 
-#: src/microsim/devices/MSDevice_Routing.cpp:123
+#: src/microsim/devices/MSDevice_Routing.cpp:134
 msgid ""
 "The value for device.rerouting.adaptation-weight must be between 0 and 1!"
 msgstr "device.rerouting.adaptation-weight 的值必须在 0 和 1 之间!"
 
-#: src/microsim/devices/MSDevice_Routing.cpp:128 src/router/ROFrame.cpp:258
+#: src/microsim/devices/MSDevice_Routing.cpp:139 src/router/ROFrame.cpp:258
 msgid "Parallel routing is only possible when compiled with Fox."
 msgstr "平行路径只有在用Fox编译时才能实现。"
 
-#: src/microsim/devices/MSDevice_Routing.cpp:133
+#: src/microsim/devices/MSDevice_Routing.cpp:144
 msgid "Adapting number of routing threads to number of simulation threads."
 msgstr "将路径搜寻的线程(threads)数调整为仿真的线程(threads)数。"
 
@@ -4369,128 +4388,124 @@ msgid "When to trigger a new search if no station has been found"
 msgstr "如果没有找到台站，何时触发新的搜索"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:77
-msgid "The maximum charging speed of the vehicle battery"
-msgstr "车辆电池的最大充电速度"
-
-#: src/microsim/devices/MSDevice_StationFinder.cpp:79
 msgid "Type of energy transfer"
 msgstr "能量传递类型"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:81
+#: src/microsim/devices/MSDevice_StationFinder.cpp:79
 msgid ""
 "After this waiting time vehicle searches for a new station when the initial "
 "one is blocked"
 msgstr "等待时间结束后，当初始站点被堵塞时，车辆会搜索新的站点"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:83
+#: src/microsim/devices/MSDevice_StationFinder.cpp:81
 msgid ""
 "Only stops with a predicted duration of at least the given threshold are "
 "considered for opportunistic charging."
 msgstr "仅考虑那些预计停留时间至少达到给定阈值的站点，以进行机会性充电。"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:85
+#: src/microsim/devices/MSDevice_StationFinder.cpp:83
 msgid "Target state of charge after which the vehicle stops charging"
 msgstr "车辆停止充电的目标荷电状态"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:87
+#: src/microsim/devices/MSDevice_StationFinder.cpp:85
 msgid "State of charge the vehicle begins searching for charging stations"
 msgstr "车辆电量状态开始寻找充电站"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:89
+#: src/microsim/devices/MSDevice_StationFinder.cpp:87
 msgid ""
 "State of charge below which the vehicle may look for charging opportunities "
 "along its planned stops"
 msgstr "电量低于此值时，车辆可在计划停靠站寻找充电机会"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:91
+#: src/microsim/devices/MSDevice_StationFinder.cpp:89
 msgid ""
 "Share of stopping time of the next independently planned stop to use for "
 "charging instead"
 msgstr "下次独立计划的停靠时间中用于充电的停靠时间占比"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:93
+#: src/microsim/devices/MSDevice_StationFinder.cpp:91
 msgid ""
 "Maximum distance in meters from the original stop to be replaced by the "
 "charging stop"
 msgstr "从原始站点到充电站点的最大替换距离（以米为单位）"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:95
+#: src/microsim/devices/MSDevice_StationFinder.cpp:93
 msgid ""
 "Set a charging strategy to alter time and charging load from the set: [none, "
 "balanced, latest]"
 msgstr "设置充电策略以更改时间及充电负荷，选项包括：[无，均衡，最新]"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:97
+#: src/microsim/devices/MSDevice_StationFinder.cpp:95
 msgid ""
 "Only search for charging stations if the battery charge is not estimated "
 "sufficient to complete the current route"
 msgstr "仅在预计电池电量不足以完成当前路线时，才搜索充电站"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:138
+#: src/microsim/devices/MSDevice_StationFinder.cpp:136
 msgid "Invalid device.stationfinder.chargingStrategy '%'."
 msgstr "无效的 device.stationfinder.chargingStrategy '%'。"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:148
+#: src/microsim/devices/MSDevice_StationFinder.cpp:146
 msgid "Invalid device.stationfinder.rescueAction '%'."
 msgstr "无效的 device.stationfinder.rescueAction '%'。"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:164
+#: src/microsim/devices/MSDevice_StationFinder.cpp:161
 msgid ""
 "Vehicle '%' searches for charging stations only in the rescue case due to "
 "search threshold % <= rescue threshold %."
 msgstr "车辆“%”仅在救援情况下搜索充电站，因为搜索阈值% ≤ 救援阈值%。"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:169
+#: src/microsim/devices/MSDevice_StationFinder.cpp:166
 msgid ""
 "Vehicle '%' won't do opportunistic charging as the threshold % is too close "
 "to the regular one %."
 msgstr "车辆“%”不会进行机会性充电，因为其阈值%与常规阈值%太接近。"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:212
+#: src/microsim/devices/MSDevice_StationFinder.cpp:209
 msgid ""
 "Rerouted vehicle '%' after waiting too long at the previous charging station "
 "at time=%."
 msgstr "车辆“%”在先前充电站等待时间过长后，已被重新调度，时间=%。"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:257
+#: src/microsim/devices/MSDevice_StationFinder.cpp:254
 msgid ""
 "Vehicle '%' wants to stop on lane % at pos % because of low battery charge % "
 "at time=%."
 msgstr "车辆“%”欲在车道%的%位置停车，因电量低至%，在时间=%时。"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:499
+#: src/microsim/devices/MSDevice_StationFinder.cpp:496
 msgid "Problem with inserting the charging station stop for vehicle %."
 msgstr "在为车辆%插入车辆充电站站点时出现问题。"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:519
+#: src/microsim/devices/MSDevice_StationFinder.cpp:516
 msgid ""
 "Vehicle '%' wants to charge at time=% but does not find any charging station "
 "nearby."
 msgstr "车辆“%”希望在时间%时充电，但附近未找到任何充电站。"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:591
+#: src/microsim/devices/MSDevice_StationFinder.cpp:588
 msgid ""
 "There is no charging station available to teleport the vehicle '%' to at "
 "time=%. Thus the vehicle will be removed."
 msgstr "没有可用的充电站供车辆“%”使用，当前时间为%时。因此，该车辆将被移除。"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:711
+#: src/microsim/devices/MSDevice_StationFinder.cpp:708
 msgid "The charging rate limit of vehicle '%' is lifted at time=%"
 msgstr "车辆“%”的充电速率限制在时间%时被解除"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:713
+#: src/microsim/devices/MSDevice_StationFinder.cpp:710
 msgid "The charging rate of vehicle '%' is limited to % at time=%"
 msgstr "车辆“%”的充电速率被限制为%，在时间%时"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:777
+#: src/microsim/devices/MSDevice_StationFinder.cpp:774
 msgid "Parameter '%' is not supported for device of type '%'"
 msgstr "参数“%”不支持设备类型为“%”的设备"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:787
+#: src/microsim/devices/MSDevice_StationFinder.cpp:784
 msgid "Setting parameter '%' requires a number for device of type '%'"
 msgstr "设置参数“%”需要为类型为“%”的设备指定一个数字"
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:802
+#: src/microsim/devices/MSDevice_StationFinder.cpp:799
 msgid "Setting parameter '%' is not supported for device of type '%'"
 msgstr "设置参数“%”对于类型为“%”的设备不支持"
 
@@ -4738,25 +4753,21 @@ msgstr "车辆'%'在囊底路停止空转结束/怠速"
 msgid "Could not determine taxi stand for vehicle '%' at time=%"
 msgstr "时间=%时无法确定车辆'%'的出租车停靠点"
 
-#: src/microsim/devices/MSRoutingEngine.cpp:102
+#: src/microsim/devices/MSRoutingEngine.cpp:117
 msgid "Rerouting is useless if the edge weights do not get updated!"
 msgstr "如果路段的权重没有得到更新，重新搜寻路径是没有用的！"
 
-#: src/microsim/devices/MSRoutingEngine.cpp:135
+#: src/microsim/devices/MSRoutingEngine.cpp:150
 msgid "weights.priority-factor cannot be negative."
 msgstr "权重。优先因子（weights.priority-factor）不能是负数。"
 
-#: src/microsim/devices/MSRoutingEngine.cpp:145
+#: src/microsim/devices/MSRoutingEngine.cpp:160
 msgid ""
 "Option weights.priority-factor does not take effect because all edges have "
 "the same priority"
 msgstr ""
 "选项权重。优先因子（weights.priority-factor）不生效，因为所有路段都有相同的优"
 "先级"
-
-#: src/microsim/devices/MSRoutingEngine.cpp:415
-msgid "Unknown routing algorithm '%'!"
-msgstr "未知的路径算法'%'!"
 
 #: src/microsim/devices/MSTransportableDevice_Routing.cpp:48
 msgid "The period with which the person shall be rerouted"
@@ -4806,8 +4817,8 @@ msgstr "多车道的e2D检测器还不支持检测人员"
 msgid "Negative vehicle step fraction for '%' on lane '%'."
 msgstr "车道'%'上 '%' 的负车辆步长分数(step fraction)。"
 
-#: src/microsim/output/MSMeanData.cpp:557
-#: src/microsim/output/MSMeanData.cpp:610
+#: src/microsim/output/MSMeanData.cpp:571
+#: src/microsim/output/MSMeanData.cpp:627
 msgid "aggregated meanData output not yet implemented for trackVehicles"
 msgstr "尚未为trackVehicles完成汇总(aggregated)的平均资料（meanData）输出"
 
@@ -4983,6 +4994,10 @@ msgstr "路口'%'的铁路信号不控制任何路段"
 #: src/microsim/traffic_lights/MSRailSignalConstraint.cpp:157
 msgid "Unknown tracker lane '%' in loaded state."
 msgstr "在载入的状态內,未知的追踪车道(tracker lane) '%'。"
+
+#: src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:130
+msgid "SOTL can only handle E2 sensors."
+msgstr ""
 
 #: src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:169
 msgid "Listing output lanes"
@@ -5282,7 +5297,7 @@ msgid "Error creating the simulation: %"
 msgstr "创建模拟器时出错：%"
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:124
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:925
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:924
 msgid ""
 "Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width "
 "and this may cause collisions with vehicles."
@@ -5294,19 +5309,19 @@ msgstr ""
 msgid "Invalid walkingarea '%' does not allow continuation."
 msgstr "无效的步行区域'%'不允许继续。"
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:1548
+#: src/microsim/transportables/MSPModel_Striping.cpp:1549
 msgid " between edge '%' and edge '%'"
 msgstr " 在路段 '%' 和 '%' 之间"
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:1550
+#: src/microsim/transportables/MSPModel_Striping.cpp:1551
 msgid "Person '%' walking from edge '%' to edge '%' has a disconnect%, time=%."
 msgstr "行人“%”从路段“%”走到路段“%”时出现断开连接%，时间为%。"
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:1855
+#: src/microsim/transportables/MSPModel_Striping.cpp:1854
 msgid "Disconnected walk for person '%'."
 msgstr "人员 '%' 有不连接的步行。"
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:2062
+#: src/microsim/transportables/MSPModel_Striping.cpp:2061
 msgid "Person '%' is jammed on edge '%', time=%."
 msgstr "行人'%'被卡在路段'%'，时间=%。"
 
@@ -5322,7 +5337,7 @@ msgid ""
 "'%', time=%"
 msgstr "车辆“%”超过了容器容量%，在放置已触发的容器“%”时，时间为%"
 
-#: src/microsim/transportables/MSStageTrip.cpp:157
+#: src/microsim/transportables/MSStageTrip.cpp:170
 msgid ""
 "Ignoring vehicle type '%' when routing person '%' because it is not allowed "
 "on the start edge."
@@ -5351,15 +5366,15 @@ msgid ""
 msgstr ""
 "行人模型使用网络中不存在的基础设施，因此timeLoss和routeLength可能无效。"
 
-#: src/microsim/transportables/MSTransportable.cpp:153
+#: src/microsim/transportables/MSTransportable.cpp:154
 msgid "Changing a transportable ID is not permitted"
 msgstr "不允许更换可运输的ID"
 
-#: src/microsim/transportables/MSTransportable.cpp:308
+#: src/microsim/transportables/MSTransportable.cpp:309
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
 msgstr "移送(teleporting) % '%； 等待太久，从路段 '%', 时间=%。"
 
-#: src/microsim/transportables/MSTransportable.cpp:532
+#: src/microsim/transportables/MSTransportable.cpp:536
 msgid "parkingAreaReroute not supported for containers"
 msgstr "停车区域重新引导(parkingAreaReroute)不支持货柜"
 
@@ -5486,102 +5501,109 @@ msgstr "车辆参数'%'的数值无效"
 msgid "Invalid value '%' for vType parameter '%'"
 msgstr "车辆类型(vType)参数 '%' 的值 '%' 无效"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:139
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:142
 msgid "rerouter '%': interval end % is not after begin %."
 msgstr "重路由“%”：间隔结束时间 % 不在开始时间 % 之后。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:149
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:152
 msgid "rerouter '%': destProbReroute has no destination edge id."
 msgstr "重路由程序“%”：destProbReroute没有目标路段ID。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:158
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:161
 msgid "rerouter '%': Destination edge '%' is not known."
 msgstr "重路由程序“%”：目标路径%未知。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:168
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:171
 msgid ""
 "rerouter '%': Attribute 'probability' for destination '%' is negative (must "
 "not)."
 msgstr "重路由选择器“%”：目的地“%”的属性“probability”为负值（不允许为负）。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:179
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:182
 #: src/router/RONetHandler.cpp:167
 msgid "rerouter '%': Edge '%' to close is not known."
 msgstr "重路由选择器“%”：路段“%”是否关闭未知。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:194
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:201
 #: src/router/RONetHandler.cpp:183
 msgid "rerouter '%': Lane '%' to close is not known."
 msgstr "重路由选择器“%”：车道“%”是否关闭未知。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:211
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:218
 msgid "rerouter '%': routeProbReroute has no alternative route id."
 msgstr "重路由选择器“%”：routeProbReroute没有备选路线id。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:215
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:222
 msgid "rerouter '%': Alternative route '%' does not exist."
 msgstr "重路由选择器“%”：备选路由“%”不存在。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:225
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:232
 msgid ""
 "rerouter '%': Attribute 'probability' for alternative route '%' is negative "
 "(must not)."
 msgstr "路由选择器“%”：备选路线“%”的属性“probability”为负数（不允许为负）。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:234
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:241
 msgid "rerouter '%': parkingAreaReroute requires a parkingArea id."
 msgstr "重路由选择器“%”：parkingAreaReroute需要一个停车区ID。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:238
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:245
 msgid "rerouter '%': parkingArea '%' is not known."
 msgstr "重路由选择器“%”：停车区“%”未知。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:247
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:254
 msgid ""
 "rerouter '%': Attribute 'probability' for parkingArea '%' is negative (must "
 "not)."
 msgstr "重路由选择器“%”： 停车区域“%”的属性“probability”为负值（不应为负值）。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:259
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:266
 msgid "rerouter '%': No via edge id given."
 msgstr "重路由选择器“%”:未给出途径路径id。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:263
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:270
 msgid "rerouter '%': Via Edge '%' is not known."
 msgstr "重路由选择器“%”：途径路径“%”未知。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:272
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:279
 msgid ""
 "rerouter '%': Attribute 'probability' for via '%' is negative (must not)."
 msgstr "重路由选择器“%”： via “%”的属性“probability”为负值（不应为负值）。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:285
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:292
 msgid "The main edge '%' to use within rerouter '%' is not known."
 msgstr "主路段“%”，在重路由器“%”中未知。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:293
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:300
 msgid "The siding edge '%' to use within rerouter '%' is not known."
 msgstr "侧边路段“%”，在重路由器“%”中未知。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:300
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:307
 msgid "The siding within rerouter '%' does not have a rail signal."
 msgstr "重路由器“%”内的侧线没有轨道信号。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:317
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:324
 msgid "rerouter '%': stationReroute requires a stopping place id."
 msgstr "重路由器“%”：stationReroute需要一个停靠站点的ID。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:321
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:328
 msgid "rerouter '%': stopping place '%' is not known."
 msgstr "重路由器“%”：停车地点“%”未知。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:696
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:706
 msgid ""
 "Cannot keep destination edge '%' for vehicle '%' due to closed edges. "
 "Terminating route."
 msgstr "由于封闭路段，无法为车辆'%'保留目的地路段'%'。终止路径。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:1301
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:723
+msgid ""
+"Periodic rerouting and rerouting mode 8 for vehicle '%' are incompatible "
+"with closingReroute attribute 'until' in rerouter (vehicle may return to an "
+"invalid route."
+msgstr ""
+
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:1319
 msgid ""
 "ParkingArea '%' is targeted by rerouter '%' but doesn't have its own "
 "rerouter. This may cause parking search to abort."
@@ -7037,48 +7059,48 @@ msgstr "roundabouts.visibility-distance 必须为正数或 -1"
 msgid "Unknown value for default.spreadtype '%'."
 msgstr "default.spreadtype '%' 的值未知。"
 
-#: src/netbuild/NBHeightMapper.cpp:88
+#: src/netbuild/NBHeightMapper.cpp:89
 msgid "Cannot supply height since no height data was loaded"
 msgstr "无法提供高度, 因为未载入高度资料"
 
-#: src/netbuild/NBHeightMapper.cpp:154
+#: src/netbuild/NBHeightMapper.cpp:155
 msgid "Could not get height data for coordinate %"
 msgstr "无法取得坐标% 的高度资料"
 
-#: src/netbuild/NBHeightMapper.cpp:208
+#: src/netbuild/NBHeightMapper.cpp:209
 msgid "Could not open shape file '%'."
 msgstr "无法开启形狀(shape)文件 '%'。"
 
-#: src/netbuild/NBHeightMapper.cpp:226
+#: src/netbuild/NBHeightMapper.cpp:227
 msgid ""
 "Could not create geocoordinates converter; check whether proj.4 is installed."
 msgstr "无法建立地理坐标转换器； 检查是否已安裝 proj.4。"
 
-#: src/netbuild/NBHeightMapper.cpp:253
+#: src/netbuild/NBHeightMapper.cpp:254
 msgid "Ignored heightmap feature type %"
 msgstr "忽略的高度映成表(heightmap)特征类型 %"
 
-#: src/netbuild/NBHeightMapper.cpp:298
+#: src/netbuild/NBHeightMapper.cpp:299
 msgid "Cannot load shape file since SUMO was compiled without GDAL support."
 msgstr "无法载入形状文件，因为 SUMO 是在沒有 GDAL 支持的情況下编译的。"
 
-#: src/netbuild/NBHeightMapper.cpp:310
+#: src/netbuild/NBHeightMapper.cpp:311
 msgid "Cannot load GeoTIFF file."
 msgstr "无法载入 GeoTIFF 文件。"
 
-#: src/netbuild/NBHeightMapper.cpp:325
+#: src/netbuild/NBHeightMapper.cpp:326
 msgid "Could not parse geo information from %."
 msgstr "无法解析来自 % 的地理信息。"
 
-#: src/netbuild/NBHeightMapper.cpp:334
+#: src/netbuild/NBHeightMapper.cpp:335
 msgid "Unknown color band in %."
 msgstr "% 中有未知色帶。"
 
-#: src/netbuild/NBHeightMapper.cpp:341
+#: src/netbuild/NBHeightMapper.cpp:342
 msgid "Failure in reading %."
 msgstr "读取 % 失败。"
 
-#: src/netbuild/NBHeightMapper.cpp:375
+#: src/netbuild/NBHeightMapper.cpp:376
 msgid "Cannot load GeoTIFF file since SUMO was compiled without GDAL support."
 msgstr "无法载入 GeoTIFF 文件，因为 SUMO 是在沒有 GDAL 支持的情況下编译的。"
 
@@ -8523,28 +8545,28 @@ msgstr "未设定环境变量 SUMO_HOME, 將使用內置类型映成表(maps)。
 msgid "It is recommended to use option osm.crossings with osm.sidewalks"
 msgstr "建议使用选项 osm.crossings 和 osm.sidewalks"
 
-#: src/netimport/NIImporter_ArcView.cpp:137
-#: src/polyconvert/PCLoaderArcView.cpp:142
+#: src/netimport/NIImporter_ArcView.cpp:138
+#: src/polyconvert/PCLoaderArcView.cpp:143
 msgid "Could not open shape description '%'."
 msgstr "无法打开形狀描述 '%'。"
 
-#: src/netimport/NIImporter_ArcView.cpp:190
+#: src/netimport/NIImporter_ArcView.cpp:191
 msgid "Needed field '%' (street-id) is missing."
 msgstr "缺少所需字段(field) '%' (街道识别名(street-id))。"
 
-#: src/netimport/NIImporter_ArcView.cpp:201
+#: src/netimport/NIImporter_ArcView.cpp:202
 msgid "Needed field '%' (from node id) is missing."
 msgstr "缺少所需字段(field) '%' (起始节点识别名(from node id))。"
 
-#: src/netimport/NIImporter_ArcView.cpp:205
+#: src/netimport/NIImporter_ArcView.cpp:206
 msgid "Needed field '%' (to node id) is missing."
 msgstr "缺少所需字段(field) '%' (到达节点识别名(to node id))。"
 
-#: src/netimport/NIImporter_ArcView.cpp:221
+#: src/netimport/NIImporter_ArcView.cpp:222
 msgid "Unknown type '%' for edge '%'"
 msgstr "类型 '%' 未知 (路段为'%')"
 
-#: src/netimport/NIImporter_ArcView.cpp:236
+#: src/netimport/NIImporter_ArcView.cpp:237
 msgid ""
 "Required field '%' or '%' is missing (add fields or set option --"
 "shapefile.use-defaults-on-failure)."
@@ -8552,22 +8574,22 @@ msgstr ""
 "缺少必填字段 '%' 或 '%' (增加字段(fields)或设定选项 --shapefile。use-"
 "defaults-on-failure)。"
 
-#: src/netimport/NIImporter_ArcView.cpp:252
+#: src/netimport/NIImporter_ArcView.cpp:253
 msgid ""
 "Road geometry must be of type 'linestring' or 'linestring25D' (found '%')"
 msgstr "道路几何必须是 'linestring' 或 'linestring25D' 类型 (找到 '%')"
 
-#: src/netimport/NIImporter_ArcView.cpp:264
-#: src/polyconvert/PCLoaderArcView.cpp:95
+#: src/netimport/NIImporter_ArcView.cpp:265
+#: src/polyconvert/PCLoaderArcView.cpp:96
 msgid "No coordinate system found and coordinates look already projected."
 msgstr "未找到坐标系統，坐标看起來已经投影。"
 
-#: src/netimport/NIImporter_ArcView.cpp:267
-#: src/polyconvert/PCLoaderArcView.cpp:98
+#: src/netimport/NIImporter_ArcView.cpp:268
+#: src/polyconvert/PCLoaderArcView.cpp:99
 msgid "Could not find geo coordinate system, assuming WGS84."
 msgstr "无法找到地理坐标系统,假设为 WGS84。"
 
-#: src/netimport/NIImporter_ArcView.cpp:280
+#: src/netimport/NIImporter_ArcView.cpp:281
 #: src/netimport/NIImporter_OpenDrive.cpp:1622
 #: src/netimport/NIXMLEdgesHandler.cpp:600
 #: src/netimport/vissim/tempstructs/NIVissimAbstractEdge.cpp:44
@@ -8575,33 +8597,33 @@ msgstr "无法找到地理坐标系统,假设为 WGS84。"
 msgid "Unable to project coordinates for edge '%'."
 msgstr "无法投影路段 '%' 的坐标。"
 
-#: src/netimport/NIImporter_ArcView.cpp:296
-#: src/netimport/NIImporter_ArcView.cpp:313
+#: src/netimport/NIImporter_ArcView.cpp:297
+#: src/netimport/NIImporter_ArcView.cpp:314
 msgid "Node '%' could not be added"
 msgstr "无法增加节点 '%'"
 
-#: src/netimport/NIImporter_ArcView.cpp:321
+#: src/netimport/NIImporter_ArcView.cpp:322
 msgid "Edge '%' connects identical nodes, skipping."
 msgstr "路段 '%' 连接相同的节点, 跳过。"
 
-#: src/netimport/NIImporter_ArcView.cpp:338
+#: src/netimport/NIImporter_ArcView.cpp:339
 msgid "Edge '%' is not unique."
 msgstr "路段 '%' 不是唯一的。"
 
-#: src/netimport/NIImporter_ArcView.cpp:347
+#: src/netimport/NIImporter_ArcView.cpp:348
 msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
 msgstr "路段 '%' 不是唯一的。 将随后的路段重新命名为 '%'。"
 
-#: src/netimport/NIImporter_ArcView.cpp:366
+#: src/netimport/NIImporter_ArcView.cpp:367
 msgid "Could not create edge '%'. An edge with the same id already exists."
 msgstr "无法建立路段 '%'。 已存在具有相同识别名(id)的路段。"
 
-#: src/netimport/NIImporter_ArcView.cpp:383
+#: src/netimport/NIImporter_ArcView.cpp:384
 msgid "Could not create edge '-%'. An edge with the same id already exists."
 msgstr "无法建立路段 '-%'。 已存在具有相同识别名(id)的路段。"
 
-#: src/netimport/NIImporter_ArcView.cpp:397
-#: src/polyconvert/PCLoaderArcView.cpp:341
+#: src/netimport/NIImporter_ArcView.cpp:398
+#: src/polyconvert/PCLoaderArcView.cpp:342
 msgid "SUMO was compiled without GDAL support."
 msgstr "SUMO 是在沒有 GDA支持的情況下编译的。"
 
@@ -9291,7 +9313,7 @@ msgstr "未构建禁止中的路段 '%'。"
 msgid "Deprecated vehicle class(es) '%' in input network."
 msgstr "不适用(deprecated)的车辆类别 '%' 出现在输入的路网內。"
 
-#: src/netimport/NIImporter_SUMO.cpp:419 src/netload/NLHandler.cpp:1717
+#: src/netimport/NIImporter_SUMO.cpp:419 src/netload/NLHandler.cpp:1718
 msgid "Unknown edge '%' in roundabout"
 msgstr "在圆环上有未知的路段 '%'"
 
@@ -9825,11 +9847,11 @@ msgstr "停靠点 '%' 无法找到; 路线(line)为 '%'"
 msgid "Stop '%' within route '%' not found"
 msgstr "停靠点 '%' 无法找到; 路径(route)为 '%'"
 
-#: src/netimport/NIXMLShapeHandler.cpp:46 src/netload/NLHandler.cpp:1772
+#: src/netimport/NIXMLShapeHandler.cpp:46 src/netload/NLHandler.cpp:1773
 msgid "Lane '%' to place poi '%' on is not known."
 msgstr "未知的车道 '%', 其用来放置兴趣点(poi) '%'。"
 
-#: src/netimport/NIXMLShapeHandler.cpp:59 src/netload/NLHandler.cpp:1785
+#: src/netimport/NIXMLShapeHandler.cpp:59 src/netload/NLHandler.cpp:1786
 msgid "lane position % for poi '%' is not valid."
 msgstr "无效的车道位置 '%', 其用来放置兴趣点(poi)。"
 
@@ -10092,11 +10114,11 @@ msgid ""
 "active. Falling back to edgeData."
 msgstr "中观模拟请求 LaneData，但 --meso-lane-queue 未激活。退回到 edgeData。"
 
-#: src/netload/NLDetectorBuilder.cpp:534
+#: src/netload/NLDetectorBuilder.cpp:550
 msgid ""
-"The netstate type 'hbefa' is deprecated. Please use the type 'emissions' "
+"The meandata type 'hbefa' is deprecated. Please use the type 'emissions' "
 "instead."
-msgstr "路网状态(netstate)类型 'hbefa' 已不适用。请改用类型 'emissions'。"
+msgstr ""
 
 #: src/netload/NLEdgeControlBuilder.cpp:214
 msgid "Asymmetrical neigh lane '%' for lane '%'"
@@ -10164,98 +10186,98 @@ msgstr ""
 msgid "Duplicate condition '%' in tlLogic '%'"
 msgstr "信号逻辑(tlLogic) % 中的条件 '%' 重复"
 
-#: src/netload/NLHandler.cpp:1041
+#: src/netload/NLHandler.cpp:1042
 msgid ""
 "VTypeProbes are deprecated. Use fcd-output devices (assigned to the vType) "
 "instead."
 msgstr "VTypeProbe 已不适用。请改用 fcd-output 装置 （指派给vType）。"
 
-#: src/netload/NLHandler.cpp:1101
+#: src/netload/NLHandler.cpp:1102
 msgid "Ignoring deprecated argument 'cont' for E2 detector '%'"
 msgstr "忽略已不适用的引数 'cont', 其用于 E2 探测器 '%'"
 
-#: src/netload/NLHandler.cpp:1122
+#: src/netload/NLHandler.cpp:1123
 msgid ""
 "Trying to specify detector's lane by the given id since the argument 'lane' "
 "is missing."
 msgstr "由于缺少参数 'lane'，试图通过给定的识别名(id)指定探测器的车道。"
 
-#: src/netload/NLHandler.cpp:1162
+#: src/netload/NLHandler.cpp:1163
 msgid ""
 "Missing argument 'pos' for E2Detector '%'. Assuming detector start == lane "
 "start of lane '%'."
 msgstr ""
 "缺少E2 探测器 '%' 的参数 'pos'。假设探测器开始 == 车道 '%' 的车道开端。"
 
-#: src/netload/NLHandler.cpp:1167
+#: src/netload/NLHandler.cpp:1168
 msgid ""
 "Missing argument 'endPos' for E2Detector '%'. Assuming detector end == lane "
 "end of lane '%'."
 msgstr ""
 "缺少E2 探测器 '%' 的参数 'endPos'。假设探测器末端 == 车道 '%' 的车道末端。"
 
-#: src/netload/NLHandler.cpp:1236
+#: src/netload/NLHandler.cpp:1237
 msgid ""
 "Ignoring argument 'period' for E2Detector '%' since argument 'tl' was given."
 msgstr "因为参数 'tl' 已给定, 忽略 E2 探测器 '%' 的参数 'period'。"
 
-#: src/netload/NLHandler.cpp:1371
+#: src/netload/NLHandler.cpp:1372
 msgid "Invalid person mode '%' in edgeData definition '%'"
 msgstr "人员(person)模式 '%' 无效, 其位于路段数据(edgeData)定义 '%' 內"
 
-#: src/netload/NLHandler.cpp:1395
+#: src/netload/NLHandler.cpp:1396
 msgid "Unknown edge '%' in edgeData definition '%'"
 msgstr "未知路段 '%', 其位于路段数据(edgeData)定义 '%' 內"
 
-#: src/netload/NLHandler.cpp:1402
+#: src/netload/NLHandler.cpp:1403
 msgid ""
 "LaneData '%' requested for mesoscopic simulation but --meso-lane-queue is "
 "not active. Falling back to edgeData."
 msgstr ""
 "中观模拟请求 LaneData '%'，但 --meso-lane-queue 未激活。退回到 edgeData。"
 
-#: src/netload/NLHandler.cpp:1446
+#: src/netload/NLHandler.cpp:1447
 msgid "Unknown from-edge '%' in connection."
 msgstr "在连接(connection)中, 起始路段(from-edge) '%' 未知。"
 
-#: src/netload/NLHandler.cpp:1452
+#: src/netload/NLHandler.cpp:1453
 msgid "Unknown to-edge '%' in connection."
 msgstr "在连接(connection)中, 到达路段(to-edge) '%' 未知。"
 
-#: src/netload/NLHandler.cpp:1457
+#: src/netload/NLHandler.cpp:1458
 msgid "Invalid lane index in connection from '%' to '%'."
 msgstr "从 '%' 到 '%' 的连接线的车道索引无效。"
 
-#: src/netload/NLHandler.cpp:1538
+#: src/netload/NLHandler.cpp:1539
 msgid "Unknown from-edge '%' in conflict."
 msgstr "冲突中未知的起始路段(from-edge) '%' 。"
 
-#: src/netload/NLHandler.cpp:1543
+#: src/netload/NLHandler.cpp:1544
 msgid "Unknown to-edge '%' in conflict."
 msgstr "冲突中未知的到达路段(to-edge) '%' 。"
 
-#: src/netload/NLHandler.cpp:1548
+#: src/netload/NLHandler.cpp:1549
 msgid "Invalid lane index in conflict with '%' to '%'."
 msgstr "无效的车道索引(index)与 '%' 至 '%' 冲突。"
 
-#: src/netload/NLHandler.cpp:1600
+#: src/netload/NLHandler.cpp:1601
 msgid ""
 "no valid geo projection loaded from network. fcd-output.geo will not work"
 msgstr "没有从路网载入有效的地理投影。 fcd-output.geo 将无作用"
 
-#: src/netload/NLHandler.cpp:1630
+#: src/netload/NLHandler.cpp:1631
 msgid "Replacing junction-taz '%' with loaded TAZ."
 msgstr "用载入的分区(TAZ)替换路口分区(junction-taz) '%'。"
 
-#: src/netload/NLHandler.cpp:1673
+#: src/netload/NLHandler.cpp:1674
 msgid "Skipping visualization of taz '%', polygon already exists."
 msgstr "跳过可视化分区 '%', 多边形已存在。"
 
-#: src/netload/NLHandler.cpp:1704
+#: src/netload/NLHandler.cpp:1705
 msgid "At district '%': succeeding edge '%' does not exist."
 msgstr "分区 '%': 后续路段 '%' 不存在。"
 
-#: src/netload/NLHandler.cpp:1851
+#: src/netload/NLHandler.cpp:1852
 msgid "Invalid person mode '%' in E1 detector definition '%'"
 msgstr "人员(person)模式 '%' 无效, 其位於 E1 探测器定义 '%' 內"
 
@@ -10435,85 +10457,89 @@ msgid ""
 msgstr "路网坐标依据指定的输出精确度数写出"
 
 #: src/netwrite/NWFrame.cpp:103
+msgid "Write extra attributes into plain output"
+msgstr ""
+
+#: src/netwrite/NWFrame.cpp:106
 msgid "Street names will be included in the output (if available)"
 msgstr "街道名称将包含在输出文件內 (如果有)"
 
-#: src/netwrite/NWFrame.cpp:106
+#: src/netwrite/NWFrame.cpp:109
 msgid "Writes original names, if given, as parameter"
 msgstr "写出原始名称（如果给定）作为参数"
 
-#: src/netwrite/NWFrame.cpp:109
+#: src/netwrite/NWFrame.cpp:112
 msgid "Writes IDs of nodes remove with --geometry.remove into edge param"
 msgstr "使用--geometry.remove参数将移除的节点的ID写入到edge参数"
 
-#: src/netwrite/NWFrame.cpp:112
+#: src/netwrite/NWFrame.cpp:115
 msgid "Writes street signs as POIs to FILE"
 msgstr "将街道标志作为兴趣点(POIs)写入文件"
 
-#: src/netwrite/NWFrame.cpp:116
+#: src/netwrite/NWFrame.cpp:119
 msgid "Writes public transport stops to FILE"
 msgstr "将大众运输停靠电写入文件"
 
-#: src/netwrite/NWFrame.cpp:118
+#: src/netwrite/NWFrame.cpp:121
 msgid "Writes public transport lines to FILE"
 msgstr "将大众运输路线写入文件"
 
-#: src/netwrite/NWFrame.cpp:120
+#: src/netwrite/NWFrame.cpp:123
 msgid "Clean-up pt stops that are not served by any line"
 msgstr "清理未提供服务的路线停靠点"
 
-#: src/netwrite/NWFrame.cpp:123
+#: src/netwrite/NWFrame.cpp:126
 msgid "Writes parking areas to FILE"
 msgstr "将停车区域写入文件"
 
-#: src/netwrite/NWFrame.cpp:126
+#: src/netwrite/NWFrame.cpp:129
 msgid "Analyze topology of the railway network"
 msgstr "分析铁路网的拓扑结构(topology)"
 
-#: src/netwrite/NWFrame.cpp:130
+#: src/netwrite/NWFrame.cpp:133
 msgid ""
 "Write shapes that are embedded in the network input and that are not "
 "supported by polyconvert (OpenDRIVE)"
 msgstr "写出在路网输入內且不受 polyconvert 支持的形状 (OpenDRIVE)"
 
-#: src/netwrite/NWFrame.cpp:135
+#: src/netwrite/NWFrame.cpp:138
 msgid ""
 "Builds parameterized curves whenever the angular change between straight "
 "segments exceeds FLOAT degrees"
 msgstr "当直线段之间的角度变化超过 FLOAT 度时,构建参数化曲线"
 
-#: src/netwrite/NWFrame.cpp:139
+#: src/netwrite/NWFrame.cpp:142
 msgid "Write lanes in lefthand networks on the left side (positive indices)"
 msgstr "在左行(lefthand)路网內的左侧写入车道 (正索引值)"
 
-#: src/netwrite/NWFrame.cpp:142
+#: src/netwrite/NWFrame.cpp:145
 msgid ""
 "Match loaded shapes to the closest edge within FLOAT and export as road "
 "objects"
 msgstr "将载入的形状在 FLOAT 范围內与最近的路段匹配并导出(export)为道路物件"
 
-#: src/netwrite/NWFrame.cpp:165
+#: src/netwrite/NWFrame.cpp:168
 msgid "OpenDRIVE export needs internal links computation."
 msgstr "exportOpenDRIVE 导出需要內部路段計算。"
 
-#: src/netwrite/NWFrame.cpp:175
+#: src/netwrite/NWFrame.cpp:178
 msgid ""
 "OpenDRIVE cannot represent oblique lane cuts and should use option "
 "'rectangular-lane-cut'."
 msgstr ""
 "OpenDRIVE 不能表示出斜的车道切割，应该使用选项 'rectangular-lane-cut'。"
 
-#: src/netwrite/NWFrame.cpp:182
+#: src/netwrite/NWFrame.cpp:185
 msgid "public transport lines output requires 'ptstop-output' to be set"
 msgstr "大众运输路线输出需要设置 'ptstop-output'"
 
-#: src/netwrite/NWFrame.cpp:186
+#: src/netwrite/NWFrame.cpp:189
 msgid ""
 "'ptline-clean-up' only works in conjunction with 'ptline-output'. Ignoring "
 "invalid option."
 msgstr "'ptline-clean-up' 只能与 'ptline-output' 一起结合使用。忽略无效选项。"
 
-#: src/netwrite/NWFrame.cpp:201
+#: src/netwrite/NWFrame.cpp:204
 msgid "Writing network"
 msgstr "正在写出路网"
 
@@ -10544,21 +10570,21 @@ msgid ""
 "Uneven stop line at lane '%' (dist=%) cannot be represented in OpenDRIVE."
 msgstr "OpenDRIVE 中无法表示出车道 '%' (距离=%) 处的不均勻停止线。"
 
-#: src/netwrite/NWWriter_SUMO.cpp:239
+#: src/netwrite/NWWriter_SUMO.cpp:240
 msgid ""
 "Embedding TAZ-data inside the network is deprecated. Use option --taz-output "
 "instead"
 msgstr "在路网中嵌入 的分区(TAZ)数据已不适用。 使用选项 --taz-output 代替"
 
-#: src/netwrite/NWWriter_SUMO.cpp:470
+#: src/netwrite/NWWriter_SUMO.cpp:471
 msgid "Could not find bidi-connection for edge '%'"
 msgstr "找不到路段 '%' 的双向连接线 (bidi-connection)"
 
-#: src/netwrite/NWWriter_XML.cpp:106 src/utils/options/OptionsCont.cpp:695
+#: src/netwrite/NWWriter_XML.cpp:107 src/utils/options/OptionsCont.cpp:695
 msgid "Could not save configuration to '%'"
 msgstr "无法将设定(configuration)保存到 '%'"
 
-#: src/netwrite/NWWriter_XML.cpp:120 src/polyconvert/PCPolyContainer.cpp:105
+#: src/netwrite/NWWriter_XML.cpp:121 src/polyconvert/PCPolyContainer.cpp:105
 msgid ""
 "Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined"
 msgstr "忽略选项 \"proj.plain-geo\", 因为沒有定义地理坐标转换"
@@ -10715,7 +10741,7 @@ msgid ""
 "'%'."
 msgstr "无法为出发地 '%' 和目的地 '%' 找到不同的起始及结束路段。"
 
-#: src/od/ODMatrix.cpp:373 src/od/ODMatrix.cpp:395 src/od/ODMatrix.cpp:422
+#: src/od/ODMatrix.cpp:373 /src/od/ODMatrix.cpp:395 src/od/ODMatrix.cpp:422
 msgid ""
 "Flow density of % vehicles per second, cannot be represented with a simple "
 "probability. Falling back to even spacing."
@@ -10746,7 +10772,7 @@ msgstr "缺少分区 % 的列(line)。"
 msgid "More entries than districts found."
 msgstr "找到比分区更多的输入项目(entries)。"
 
-#: src/od/ODMatrix.cpp:550 src/od/ODMatrix.cpp:598
+#: src/od/ODMatrix.cpp:550 /src/od/ODMatrix.cpp:598
 msgid "Not numeric vehicle number in line '%'."
 msgstr "在 '%' 列中有不是数字的车辆编号。"
 
@@ -10758,11 +10784,11 @@ msgstr "在列 '%' 中至少缺少一项信息。"
 msgid "Could not open '%'."
 msgstr "无法打开'%'。"
 
-#: src/od/ODMatrix.cpp:670 src/od/ODMatrix.cpp:676
+#: src/od/ODMatrix.cpp:670 /src/od/ODMatrix.cpp:676
 msgid "'%' does not contain the needed information about the time described."
 msgstr "'%' 不包含有关所描述时间的必要信息。"
 
-#: src/od/ODMatrix.cpp:686 src/od/ODMatrix.cpp:699
+#: src/od/ODMatrix.cpp:686 /src/od/ODMatrix.cpp:699
 msgid "Could not access matrix file '%' to load."
 msgstr "无法读取要载入的矩阵(matrix)文件 '%' 。"
 
@@ -10806,34 +10832,34 @@ msgstr "'%' 中有无效的连接索引(link index)。"
 msgid "Unknown traffic light in '%'."
 msgstr "'%' 中有未知的交通信号。"
 
-#: src/osgview/GUIOSGView.cpp:986
+#: src/osgview/GUIOSGView.cpp:993 src/osgview/GUIOSGView.cpp:1009
 msgid "(No projection defined)"
 msgstr "(未定義投影方式)"
 
-#: src/osgview/GUIOSGView.cpp:990 src/osgview/GUIOSGView.cpp:991
+#: src/osgview/GUIOSGView.cpp:1003 src/osgview/GUIOSGView.cpp:1007
 msgid "N/A"
 msgstr "不适用"
 
-#: src/polyconvert/PCLoaderArcView.cpp:112
+#: src/polyconvert/PCLoaderArcView.cpp:113
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:208
 #: src/polyconvert/PCLoaderOSM.cpp:240 src/polyconvert/PCLoaderVisum.cpp:345
 #: src/utils/shapes/ShapeHandler.cpp:249
 msgid "Unable to project coordinates for polygon '%'."
 msgstr "无法投影多边形 '%' 的坐标。"
 
-#: src/polyconvert/PCLoaderArcView.cpp:191
+#: src/polyconvert/PCLoaderArcView.cpp:192
 msgid "Missing id under '%'"
 msgstr "在 '%' 下缺少识别名(id)"
 
-#: src/polyconvert/PCLoaderArcView.cpp:242
-#: src/polyconvert/PCLoaderArcView.cpp:277
+#: src/polyconvert/PCLoaderArcView.cpp:243
+#: src/polyconvert/PCLoaderArcView.cpp:278
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:140
 #: src/polyconvert/PCLoaderOSM.cpp:279 src/polyconvert/PCLoaderVisum.cpp:273
 #: src/polyconvert/PCLoaderVisum.cpp:391 src/utils/shapes/ShapeHandler.cpp:190
 msgid "Unable to project coordinates for POI '%'."
 msgstr "无法投影兴趣点(POI) '%' 的坐标。"
 
-#: src/polyconvert/PCLoaderArcView.cpp:314
+#: src/polyconvert/PCLoaderArcView.cpp:315
 msgid "Unsupported shape type occurred (id='%')."
 msgstr "出现不支持的形状类型 (id='%')。"
 
@@ -11211,8 +11237,9 @@ msgstr "用于选路的平行执行绪(threads)的数量"
 
 #: src/router/ROFrame.cpp:183
 msgid ""
-"Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']"
-msgstr "在路径演算法 ['dijkstra', 'astar', 'CH', 'CHWrapper'] 中选择"
+"Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper', "
+"'CCH']"
+msgstr ""
 
 #: src/router/ROFrame.cpp:187
 msgid ""
@@ -11378,23 +11405,51 @@ msgstr "在连接(connection)中, 未知的经过路段(via-edge) '%'"
 msgid "Ignoring invalid access from non-pedestrian edge '%'."
 msgstr "忽略源自非行人使用路段 '%' 的无效连络通道(access)。"
 
-#: src/router/RORouteDef.cpp:123
+#: src/router/ROPerson.cpp:414
+msgid "No route for trip in person '%'."
+msgstr ""
+
+#: src/router/ROPerson.cpp:469
+msgid "Person '%' has no valid route (traveltime % exceeds max-traveltime)."
+msgstr ""
+
+#: src/router/RORouteDef.cpp:104
+msgid "Vehicle '%' is not allowed to depart on edge '%'."
+msgstr ""
+
+#: src/router/RORouteDef.cpp:111
+msgid "Vehicle '%' is not allowed to arrive on edge '%'."
+msgstr ""
+
+#: src/router/RORouteDef.cpp:121
 msgid "Repaired route of vehicle '%'."
 msgstr "车辆 '%' 的路径已修复。"
 
-#: src/router/RORouteDef.cpp:228
+#: src/router/RORouteDef.cpp:207
+msgid "Could not find new starting edge for vehicle '%'."
+msgstr ""
+
+#: src/router/RORouteDef.cpp:226
 msgid "Removing invalid edge '%' from route for vehicle '%'."
 msgstr ""
 
-#: src/router/RORouteDef.cpp:236
+#: src/router/RORouteDef.cpp:234
 msgid ""
 "There are stop edges which were not part of the original route for vehicle "
 "'%'."
 msgstr "这里有不属于车辆 '%' 的原始路径的停等路段(stop edges)。"
 
-#: src/router/RORouteDef.cpp:268
+#: src/router/RORouteDef.cpp:266
 msgid "Edge '%' not connected to edge '%' for vehicle '%'."
 msgstr "“路段 '%' 未连接到路段 '%'; 车辆: '%'。"
+
+#: src/router/RORouteDef.cpp:307
+msgid "Mandatory edge '%' not reachable by vehicle '%'."
+msgstr ""
+
+#: src/router/RORouteDef.cpp:346
+msgid "Stop edge '%' is inconsistent with via edges for vehicle '%'."
+msgstr ""
 
 #: src/router/RORouteHandler.cpp:234
 msgid "Triggered departure for person '%' requires starting with a ride."
@@ -11437,14 +11492,39 @@ msgstr "丢弃货柜 '%', 因为它的计划是空的"
 msgid "Discarding containerFlow '%' because its plan is empty"
 msgstr "丢弃货柜流量(containerFlow) '%', 因为它的计划是空的"
 
-#: src/router/RORouteHandler.cpp:1140
+#: src/router/RORouteHandler.cpp:909
+msgid "The % '%' is not known%"
+msgstr ""
+
+#: src/router/RORouteHandler.cpp:1102
 msgid "Triggered departure for container '%' requires a unique lines value."
 msgstr ""
 "货柜 '%' 的触发出发(triggered departure)需要一个唯一的列值(unique lines "
 "value)。"
 
-#: src/router/RORouteHandler.cpp:1348
+#: src/router/RORouteHandler.cpp:1310
 msgid "Unknown vehicle type '%'."
+msgstr ""
+
+#: src/router/ROVehicle.cpp:75
+msgid "Stop edge '%' does not allow vehicle '%'."
+msgstr ""
+
+#: src/router/ROVehicle.cpp:96
+msgid "Jumps are not supported from internal stop edge '%'."
+msgstr ""
+
+#: src/router/ROVehicle.cpp:124 src/router/ROVehicle.cpp:137
+msgid "The vehicle '%' has no valid route."
+msgstr ""
+
+#: src/router/ROVehicle.cpp:155
+msgid "The vehicle '%' has no valid route (after removing loops)."
+msgstr ""
+
+#: src/router/ROVehicle.cpp:163
+msgid ""
+"The vehicle '%' has no valid route (traveltime % exceeds max-traveltime)."
 msgstr ""
 
 #: src/sumo_main.cpp:49
@@ -11459,7 +11539,7 @@ msgstr "收到中断信号, 试图正常退出。"
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "微观多运具交通仿真软件。"
 
-#: src/sumo_main.cpp:114 src/sumo_main.cpp:123
+#: src/sumo_main.cpp:114 /src/sumo_main.cpp:123
 msgid "Quitting (on error)."
 msgstr "退出 (由于错误)。"
 
@@ -11689,23 +11769,23 @@ msgstr "排放物类别 (-e) 必须给定。"
 msgid "The output file (-o) must be given."
 msgstr "输出文件 (-o)必须给定。"
 
-#: src/traci-server/TraCIServer.cpp:534
+#: src/traci-server/TraCIServer.cpp:536
 msgid "Starting TraCI without using internal lanes!"
 msgstr "在不使用內部车道的情況下, 启动 TraCI!"
 
-#: src/traci-server/TraCIServer.cpp:540
+#: src/traci-server/TraCIServer.cpp:542
 msgid "***Starting server on port % ***"
 msgstr "***在端口（port) % 上启动服务器 % ***"
 
-#: src/traci-server/TraCIServer.cpp:543
+#: src/traci-server/TraCIServer.cpp:545
 msgid "  waiting for % clients..."
 msgstr "  等待 % 个用户端..."
 
-#: src/traci-server/TraCIServer.cpp:567
+#: src/traci-server/TraCIServer.cpp:569
 msgid "  client connected"
 msgstr "  已连接用户端"
 
-#: src/traci-server/TraCIServer.cpp:700
+#: src/traci-server/TraCIServer.cpp:702
 msgid ""
 "Execution order (libsumo::CMD_SETORDER) was not set for all TraCI clients in "
 "pre-execution phase."
@@ -11823,13 +11903,13 @@ msgstr "未知的车辆类别“%”已被忽略。"
 msgid "Unknown vehicle class '%' encountered."
 msgstr "遇到未知的车辆类别 '%'。"
 
-#: src/utils/common/SUMOVehicleClass.cpp:404
+#: src/utils/common/SUMOVehicleClass.cpp:409
 msgid ""
 "SVCPermissions must be specified either via 'allow' or 'disallow'. Ignoring "
 "'disallow'"
 msgstr "SVCPermissions 必须通过 'allow' 或 'disallow' 指定。 忽略 'disallow'"
 
-#: src/utils/common/SUMOVehicleClass.cpp:444
+#: src/utils/common/SUMOVehicleClass.cpp:449
 msgid "The vehicle class '%' is deprecated, use '%' instead."
 msgstr "车辆类别 '%' 已不适用,请改用 '%'。"
 
@@ -11991,25 +12071,33 @@ msgstr "超出边界"
 msgid "Unknown Element"
 msgstr "未知的元素"
 
-#: src/utils/distribution/Distribution_Parameterized.cpp:82
-#: src/utils/distribution/Distribution_Parameterized.cpp:84
-#: src/utils/distribution/Distribution_Parameterized.cpp:100
+#: src/utils/distribution/Distribution_Parameterized.cpp:87
+#: src/utils/distribution/Distribution_Parameterized.cpp:89
+#: src/utils/distribution/Distribution_Parameterized.cpp:104
 msgid "Invalid format of distribution parameterized"
 msgstr "已参数化的分配的格式无效"
 
-#: src/utils/distribution/Distribution_Parameterized.cpp:164
+#: src/utils/distribution/Distribution_Parameterized.cpp:113
+msgid "Attempted to sample from dummy distribution"
+msgstr ""
+
+#: src/utils/distribution/Distribution_Parameterized.cpp:157
+msgid "Attempted to set parameter index % of distribut '%' with % parameters"
+msgstr ""
+
+#: src/utils/distribution/Distribution_Parameterized.cpp:184
 msgid "minimum value % larger than maximum %"
 msgstr "最小值%比最大值大%"
 
-#: src/utils/distribution/Distribution_Parameterized.cpp:167
+#: src/utils/distribution/Distribution_Parameterized.cpp:187
 msgid "minimum value % too large for distribution with mean % and deviation %"
 msgstr "最小值%对于平均值为%且偏差为%的分布而言过大"
 
-#: src/utils/distribution/Distribution_Parameterized.cpp:170
+#: src/utils/distribution/Distribution_Parameterized.cpp:190
 msgid "maximum value % too small for distribution with mean % and deviation %"
 msgstr "最大值%对于平均值为%且偏差为%的分布来说过小"
 
-#: src/utils/distribution/Distribution_Parameterized.cpp:173
+#: src/utils/distribution/Distribution_Parameterized.cpp:193
 msgid ""
 "maximum value % and minimum value % too close for distribution with mean % "
 "and deviation %"
@@ -12415,7 +12503,7 @@ msgid "Speed and duration attributes cannot be defined together in tranships"
 msgstr "在转运中，速度和持续时间属性不能同时定义"
 
 #: src/utils/handlers/RouteHandler.cpp:1139
-#: src/utils/vehicle/SUMORouteHandler.cpp:213
+#: src/utils/vehicle/SUMORouteHandler.cpp:218
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
 "'%', use attributes instead!"
@@ -12425,8 +12513,8 @@ msgstr ""
 
 #: src/utils/handlers/RouteHandler.cpp:1147
 #: src/utils/handlers/RouteHandler.cpp:1149
-#: src/utils/vehicle/SUMORouteHandler.cpp:216
-#: src/utils/vehicle/SUMORouteHandler.cpp:218
+#: src/utils/vehicle/SUMORouteHandler.cpp:221
+#: src/utils/vehicle/SUMORouteHandler.cpp:223
 msgid "Invalid parsing embedded VType"
 msgstr "解析嵌入的(embedded)车辆类型(vType)无效"
 
@@ -12465,8 +12553,8 @@ msgid "Error on closing output devices."
 msgstr "关闭输出装置时发生错误。"
 
 #: src/utils/iodevices/OutputDevice.cpp:329
-msgid "Attribute '%' is not support for filtering written attributes in %."
-msgstr "属性“%”不支持用于筛选%中的已写入属性。"
+msgid "Attribute '%' is not supported for filtering written attributes in %."
+msgstr ""
 
 #: src/utils/iodevices/OutputDevice.cpp:332
 msgid "Unknown attribute '%' to write in %."
@@ -12713,9 +12801,9 @@ msgstr "地标%无法从%的路段到达，且无法到达总路段数%中的%�
 msgid "Saving new matrix to '%'."
 msgstr "将新的矩阵存入 '%'。"
 
-#: src/utils/router/AStarRouter.h:276 src/utils/router/CHRouter.h:336
-#: src/utils/router/DijkstraRouter.h:248
-#: src/utils/router/SUMOAbstractRouter.h:245
+#: src/utils/router/AStarRouter.h:276 src/utils/router/CCHRouter.h:240
+#: src/utils/router/CHRouter.h:336 src/utils/router/DijkstraRouter.h:248
+#: src/utils/router/SUMOAbstractRouter.h:246
 msgid "No connection between edge '%' and edge '%' found."
 msgstr "未发现路段“%”和路段“%”之间存在连接。"
 
@@ -12961,31 +13049,35 @@ msgstr ""
 msgid "Undefined element type for '%'."
 msgstr "'%' 有未定义的元素类型。"
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:66
+#: src/utils/vehicle/SUMORouteHandler.cpp:71
 msgid "Route file should be sorted by departure time, ignoring '%'!"
 msgstr "路径文件应按出发时间排序, 忽略 '%'!"
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:391
+#: src/utils/vehicle/SUMORouteHandler.cpp:396
 msgid "Ignoring param for referenced vType %"
 msgstr ""
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:503
+#: src/utils/vehicle/SUMORouteHandler.cpp:508
 msgid "Speed cannot be negative for stop%."
 msgstr "对于停靠点%而言，速度不能为负。"
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:519
+#: src/utils/vehicle/SUMORouteHandler.cpp:525
+msgid "Invalid duration for a stop% (%)."
+msgstr ""
+
+#: src/utils/vehicle/SUMORouteHandler.cpp:533
 msgid "Invalid duration or end time is given for a stop%."
 msgstr "对于停靠点%而言，无效的持续时长或结束时间。"
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:523
+#: src/utils/vehicle/SUMORouteHandler.cpp:537
 msgid "Triggers and waypoints cannot be combined%."
 msgstr "触发器和站点不能合并%。"
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:530
+#: src/utils/vehicle/SUMORouteHandler.cpp:544
 msgid "Stop at parkingArea overrides attribute 'parking' for stop%."
 msgstr "对停靠点%而言，在停车区域停车会覆盖属性“parking”。"
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:571
+#: src/utils/vehicle/SUMORouteHandler.cpp:585
 msgid "Invalid 'index' for stop%."
 msgstr "对停靠点%而言，无效索引值。"
 
@@ -13029,29 +13121,29 @@ msgstr ""
 "停靠属性 'trigger' 的值必须是 '人员(person)', '货柜(container)', '合并"
 "(join)'或一个布林值(boolean)"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:269
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:268
 msgid "Undefined end for % '%', defaulting to 24hour duration."
 msgstr "% '%' 的结束未定义, 预设为 24 小時持续时间。"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:403
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:402
 msgid "Invalid % id '%'."
 msgstr "无效的 % 的识别名(id) '%'。"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:405
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:404
 msgid "Invalid % id '%'. Contains invalid characters."
 msgstr "无效的 % 的识别名(id) '%'。 含有无效字元。"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1001
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1000
 msgid "Lane change model 'JE2013' is deprecated. Using default model instead."
 msgstr "车道变换模式 'JE2013'已经不适用。 改为使用预设模式。"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1217
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1216
 msgid "maneuverAngleTimes format for vType '%' % contains an invalid triplet."
 msgstr ""
 "车辆类型(vType) '%' % 的 maneuverAngleTimes 格式含有一个无效的三个二进制元素"
 "位元组(Triplet)。"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1226
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1225
 msgid ""
 "Triplet '%' for vType '%' maneuverAngleTimes cannot be parsed as 'int double "
 "double'"
@@ -13059,86 +13151,86 @@ msgstr ""
 "maneuverAngleTimes 的三个二进制元素位元组(Triplet) '%' (车辆类型(vType)为%')"
 "无法解析为 'int double double'"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1252
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1251
 msgid "Unknown car-following model % when parsing vType '%'"
 msgstr "未知的跟车模式 % 出现于解析 vType '%' 的时候"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1254
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1253
 msgid "Unknown car-following model when parsing vType '%'"
 msgstr "当解析 vType '%' 时, 未知的跟车模式"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1289
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1312
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1288
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1311
 msgid "Invalid Car-Following-Model Attribute %. Cannot be parsed to float"
 msgstr "无效的跟 车模式属性 %。 无法解析为浮点数"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1293
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1323
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1292
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1322
 msgid "Invalid Car-Following-Model Attribute %. Must be greater than 0"
 msgstr "无效的跟车模式属性 %。必须大于 0"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1302
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1301
 msgid ""
 "Invalid Car-Following-Model Attribute %. Cannot be parsed as a vector of "
 "<speed accel> pairs"
 msgstr "车辆跟驰模型属性%无效。无法解析为<速度 加速>对的向量"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1334
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1333
 msgid ""
 "Invalid Car-Following-Model Attribute %. Only values between [0-1] are "
 "allowed"
 msgstr "无效的跟车模式属性 %。 只允许 [0-1] 之间的值"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1615
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1622
 msgid "Invalid Lane-Change-Model Attribute %. Cannot be parsed to float"
 msgstr "无效的车道变换模式属性 %。 无法解析为浮点数"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1632
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1639
 msgid "Invalid Lane-Change-Model Attribute %. Must be equal or greater than 0"
 msgstr "无效的车道变换模式属性 %。必须等于或是大于 0"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1643
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1650
 msgid "Invalid Lane-Change-Model Attribute %. Must be greater than 0"
 msgstr "无效的车道变换模式属性 %。 必须大于 0"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1654
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1661
 msgid "Invalid Lane-Change-Model Attribute %. Must be between -1 and 1"
 msgstr "无效的车道变换模式属性 %。 必须在 -1与 1 之间"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1686
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1693
 msgid "Invalid Junction-Model Attribute %. Cannot be parsed to float"
 msgstr "无效的路口模式属性 %。 无法解析为浮点数"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1695
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1702
 msgid ""
 "Invalid Junction-Model Attribute %. Only values between [0-1] are allowed"
 msgstr "无效的路口模式属性 %。 只允许 [0-1] 之间的值"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1706
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1713
 msgid "Invalid Junction-Model Attribute %. Must be equal or greater than 0"
 msgstr "无效的路口模式属性 %。 必须等于或大于 0"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1736
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1743
 msgid "The vehicle class '%' for % '%' is not known."
 msgstr "% '%' 的车辆类别(vehicle class)未知。"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1754
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1761
 msgid "The shape '%' for % '%' is not known."
 msgstr "% '%' 的形状(shape)未知。"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1812
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1819
 msgid ""
 "Invalid Car-Following-Model Attribute %. An acceleration profile value "
 "cannot be negative"
 msgstr "车辆跟驰模型属性%无效。加速度曲线值不能为负"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1816
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1823
 msgid "Entry '%' of % table for vType '%' cannot be parsed as 'double'"
 msgstr "条目“%”（表%）无法解析为“double”类型，对于vType %"
 
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1835
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1851
-#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1866
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1842
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1858
+#: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1873
 msgid ""
 "Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and "
 "'allJunctions'"
@@ -13210,8 +13302,30 @@ msgstr "XML解析器(parser)无法初始化。"
 msgid "The XML-parser could not be build."
 msgstr "无法建立XML解析器(parser)。"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1698
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1766
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1703
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1771
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1783
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1789
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1795
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1801
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1807
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1813
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1819
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1825
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1831
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1837
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1843
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1848
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1854
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1865
+msgid "XML files"
+msgstr "XML文件"
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1704
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1709
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1714
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1719
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1773
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1778
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1784
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1790
@@ -13223,226 +13337,204 @@ msgstr "无法建立XML解析器(parser)。"
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1826
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1832
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1838
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1843
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1849
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1860
-msgid "XML files"
-msgstr "XML文件"
-
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1699
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1704
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1709
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1714
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1768
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1773
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1779
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1785
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1791
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1797
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1803
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1809
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1815
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1821
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1827
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1833
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1839
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1844
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1850
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1849
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1855
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1861
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1860
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1866
 msgid "All files"
 msgstr "所有文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1703
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1708
 msgid "Plain text files"
 msgstr "纯文本文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1708
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1713
 msgid "CSV files"
 msgstr "CSV文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1713
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1718
 msgid "Open scene graph files"
 msgstr "场景图文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1718
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1723
 msgid "All Image Files"
 msgstr "所有图像文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1719
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1745
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1724
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1750
 msgid "GIF Image"
 msgstr "GIF图"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1720
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1746
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1725
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1751
 msgid "BMP Image"
 msgstr "BMP图"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1721
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1747
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1726
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1752
 msgid "XPM Image"
 msgstr "XPM图"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1722
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1748
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1727
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1753
 msgid "PCX Image"
 msgstr "PCX图"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1723
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1749
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1728
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1754
 msgid "ICO Image"
 msgstr "ICO图"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1724
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1750
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1729
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1755
 msgid "RGB Image"
 msgstr "RGB图"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1725
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1751
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1730
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1756
 msgid "XBM Image"
 msgstr "XBM图"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1726
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1752
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1731
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1757
 msgid "TARGA Image"
 msgstr "TARGA图"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1727
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1753
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1732
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1758
 msgid "PNG Image"
 msgstr "PNG图"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1728
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1754
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1733
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1759
 msgid "JPEG Image"
 msgstr "JPEG图"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1729
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1755
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1734
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1760
 msgid "TIFF Image"
 msgstr "TIFF图"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1730
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1756
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1735
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1761
 msgid "Postscript"
 msgstr "附言（Postscript）"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1731
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1757
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1736
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1762
 msgid "Encapsulated Postscript"
 msgstr "封装式Postscript"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1732
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1758
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1737
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1763
 msgid "Portable Document Format"
 msgstr "便携式文档格式"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1733
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1759
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1738
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1764
 msgid "Scalable Vector Graphics"
 msgstr "可缩放矢量图形"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1734
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1760
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1739
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1765
 msgid "LATEX text strings"
 msgstr "LATEX 文本字符串"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1735
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1740
 msgid "Portable LaTeX Graphics"
 msgstr "便携式LaTeX图形"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1736
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1762
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1741
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1767
 msgid "All Files"
 msgstr "所有文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1740
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1745
 msgid "All Image and Video Files"
 msgstr "所有图像和视频文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1741
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1746
 msgid "All Video Files"
 msgstr "所有视频文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1742
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1747
 msgid "G264 Video"
 msgstr "G264视频"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1743
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1748
 msgid "HEVC Video"
 msgstr "HEVC视频"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1744
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1749
 msgid "MP4 Video"
 msgstr "MP4视频"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1761
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1766
 msgid "Portable"
 msgstr "便携的"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1767
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1772
 msgid "Plain text"
 msgstr "纯文本"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1772
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1777
 msgid "View settings files"
 msgstr "视图设置文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1777
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1782
 msgid "State GZipped XML files"
 msgstr "状态GZipped XML文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1783
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1788
 msgid "Sumo config"
 msgstr "Sumo配置"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1789
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1794
 msgid "Netedit config files"
 msgstr "Netedit配置文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1795
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1800
 msgid "Netconvert config files"
 msgstr "Netconvert配置文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1801
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1806
 msgid "Netconvert plain-xml files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1807
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1812
 msgid "OSM network files"
 msgstr "OSM路网文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1813
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1818
 msgid "SUMO network files"
 msgstr "SUMO路网文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1819
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1824
 msgid "TLS files"
 msgstr "TLS文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1825
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1830
 msgid "Junction files"
 msgstr "路口文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1831
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1836
 msgid "Edge type files"
 msgstr "路段类型文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1837
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1842
 msgid "Additional files"
 msgstr "附加文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1848
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1853
 msgid "Route files"
 msgstr "路径文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1854
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1859
 msgid "Edge data files"
 msgstr "路段数据文件"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1859
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1864
 msgid "Mean data files"
 msgstr "平均值数据文件"
 
@@ -13492,6 +13584,39 @@ msgstr ""
 #: src/utils/xml/XMLSubSys.cpp:191
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "当解析'%'时,发生未指定的错误"
+
+#~ msgid "The busStop '%' is not known%."
+#~ msgstr "公共汽车站'%'不详%。"
+
+#~ msgid "The containerStop '%' is not known%."
+#~ msgstr "货箱停靠点'%'不详%。"
+
+#~ msgid "The parkingArea '%' is not known%."
+#~ msgstr "停车区'%'不详%。"
+
+#~ msgid "The chargingStation '%' is not known%."
+#~ msgstr "充电站'%'不知道%。"
+
+#~ msgid "The overhead wire segment '%' is not known%."
+#~ msgstr "高架线段'%'不详%。"
+
+#~ msgid "FCD file to read"
+#~ msgstr "读取FCD文件"
+
+#~ msgid "The maximum charging speed of the vehicle battery"
+#~ msgstr "车辆电池的最大充电速度"
+
+#~ msgid ""
+#~ "The netstate type 'hbefa' is deprecated. Please use the type 'emissions' "
+#~ "instead."
+#~ msgstr "路网状态(netstate)类型 'hbefa' 已不适用。请改用类型 'emissions'。"
+
+#~ msgid ""
+#~ "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']"
+#~ msgstr "在路径演算法 ['dijkstra', 'astar', 'CH', 'CHWrapper'] 中选择"
+
+#~ msgid "Attribute '%' is not support for filtering written attributes in %."
+#~ msgstr "属性“%”不支持用于筛选%中的已写入属性。"
 
 #~ msgid ""
 #~ "How to derive column headers from attribute names ('none', 'tag', 'auto', "
