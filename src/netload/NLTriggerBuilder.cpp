@@ -158,6 +158,8 @@ NLTriggerBuilder::parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttribut
     double topos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
     const double chargingPower = attrs.getOpt<double>(SUMO_ATTR_CHARGINGPOWER, id.c_str(), ok, 22000);
     const double totalPower = attrs.getOpt<double>(SUMO_ATTR_TOTALPOWER, id.c_str(), ok, -1);
+    const std::string chargingStrategyString = attrs.getOpt<std::string>(SUMO_ATTR_CHARGINGSTRATEGY, id.c_str(), ok,
+                                               SUMOXMLDefinitions::ChargingStationStrategies.getString(ChargingStationStrategy::PROPORTIONAL));
     const double efficiency = attrs.getOpt<double>(SUMO_ATTR_EFFICIENCY, id.c_str(), ok, 0.95);
     const bool chargeInTransit = attrs.getOpt<bool>(SUMO_ATTR_CHARGEINTRANSIT, id.c_str(), ok, 0);
     const SUMOTime chargeDelay = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CHARGEDELAY, id.c_str(), ok, 0);
@@ -171,12 +173,17 @@ NLTriggerBuilder::parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttribut
     if ((chargeType != "normal") && (chargeType != "battery-exchange") && (chargeType != "fuel")) {
         throw InvalidArgument("The chargeType to use within MSLaneSpeedTrigger '" + id + "' is invalid.");
     }
+    if (!SUMOXMLDefinitions::ChargingStationStrategies.hasString(chargingStrategyString)) {
+        throw InvalidArgument("Invalid chargingStrategy '" + chargingStrategyString + "' for charging station '" + id + "'.");
+    }
+    const ChargingStationStrategy chargingStrategy = SUMOXMLDefinitions::ChargingStationStrategies.get(chargingStrategyString);
 
     if (!ok || (myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos) != SUMORouteHandler::StopPos::STOPPOS_VALID)) {
         throw InvalidArgument("Invalid position for charging station '" + id + "'.");
     }
 
-    buildChargingStation(net, id, lane, frompos, topos, name, chargingPower, totalPower, efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime, parkingArea);
+    buildChargingStation(net, id, lane, frompos, topos, name, chargingPower, totalPower, chargingStrategy, efficiency, chargeInTransit,
+                         chargeDelay, chargeType, waitingTime, parkingArea);
 }
 
 
@@ -890,11 +897,11 @@ NLTriggerBuilder::endStoppingPlace() {
 
 void
 NLTriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
-                                       const std::string& name, double chargingPower, double totalPower, double efficiency,
+                                       const std::string& name, double chargingPower, double totalPower, ChargingStationStrategy chargingStrategy, double efficiency,
                                        bool chargeInTransit, SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime, MSParkingArea* parkingArea) {
-    MSChargingStation* chargingStation = (parkingArea == nullptr) ? new MSChargingStation(id, *lane, frompos, topos, name, chargingPower, totalPower, efficiency,
-                                         chargeInTransit, chargeDelay, chargeType, waitingTime) : new MSChargingStation(id, parkingArea, name, chargingPower, totalPower, efficiency,
-                                                 chargeInTransit, chargeDelay, chargeType, waitingTime);
+    MSChargingStation* chargingStation = (parkingArea == nullptr) ? new MSChargingStation(id, *lane, frompos, topos, name, chargingPower, totalPower, chargingStrategy, efficiency,
+                                         chargeInTransit, chargeDelay, chargeType, waitingTime) : new MSChargingStation(id, parkingArea, name, chargingPower, totalPower, chargingStrategy,
+                                                 efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime);
     if (!net.addStoppingPlace(SUMO_TAG_CHARGING_STATION, chargingStation)) {
         delete chargingStation;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");

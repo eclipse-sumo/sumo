@@ -789,6 +789,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     // Charging Station
     { "power",                  SUMO_ATTR_CHARGINGPOWER },
     { "totalPower",             SUMO_ATTR_TOTALPOWER },
+    { "chargingStrategy",       SUMO_ATTR_CHARGINGSTRATEGY },
     { "efficiency",             SUMO_ATTR_EFFICIENCY },
     { "chargeInTransit",        SUMO_ATTR_CHARGEINTRANSIT },
     { "chargeDelay",            SUMO_ATTR_CHARGEDELAY},
@@ -1489,6 +1490,12 @@ StringBijection<ChargeType>::Entry SUMOXMLDefinitions::chargeTypeValues[] = {
     {"fuel",                ChargeType::FUEL }              // use fuel for charging
 };
 
+StringBijection<ChargingStationStrategy>::Entry SUMOXMLDefinitions::chargingStationStrategyValues[] = {
+    {"proportional",    ChargingStationStrategy::PROPORTIONAL},
+    {"max-min",         ChargingStationStrategy::MAX_MIN},
+    {"flat",            ChargingStationStrategy::FLAT}
+};
+
 StringBijection<RightOfWay>::Entry SUMOXMLDefinitions::rightOfWayValuesInitializer[] = {
     {"edgePriority",  RightOfWay::EDGEPRIORITY }, // use only edge priority values
     {"mixedPriority", RightOfWay::MIXEDPRIORITY }, // use the default behavior but encode this explicitly (only needed for overriding the NEMA fallback behavior)
@@ -1886,6 +1893,9 @@ StringBijection<ParkingType> SUMOXMLDefinitions::ParkingTypes(
 
 StringBijection<ChargeType> SUMOXMLDefinitions::ChargeTypes(
     SUMOXMLDefinitions::chargeTypeValues, ChargeType::FUEL);
+
+StringBijection<ChargingStationStrategy> SUMOXMLDefinitions::ChargingStationStrategies(
+    SUMOXMLDefinitions::chargingStationStrategyValues, ChargingStationStrategy::FLAT);
 
 StringBijection<RightOfWay> SUMOXMLDefinitions::RightOfWayValues(
     SUMOXMLDefinitions::rightOfWayValuesInitializer, RightOfWay::DEFAULT);

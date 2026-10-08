@@ -27,6 +27,7 @@
 #include <string>
 #include <vector>
 #include <utils/common/RGBColor.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
@@ -338,8 +339,8 @@ protected:
      * @exception InvalidArgument If the charging station can not be added to the net (is duplicate)
      */
     virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos, const std::string& name,
-                                      double chargingPower, double totalPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
-                                      std::string chargeType, SUMOTime waitingTime, MSParkingArea* parkingArea);
+                                      double chargingPower, double totalPower, ChargingStationStrategy chargingStrategy, double efficiency,
+                                      bool chargeInTransit, SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime, MSParkingArea* parkingArea);
 
     /** @brief Builds an overhead wire segment
     *
