@@ -561,6 +561,16 @@ TraCIAPI::EdgeScope::getLastStepMeanSpeed(const std::string& edgeID) const {
 }
 
 double
+TraCIAPI::EdgeScope::getMaxSpeed(const std::string& edgeID) const {
+    return getDouble(libsumo::VAR_MAXSPEED, edgeID);
+}
+
+double
+TraCIAPI::EdgeScope::getFriction(const std::string& edgeID) const {
+    return getDouble(libsumo::VAR_FRICTION, edgeID);
+}
+
+double
 TraCIAPI::EdgeScope::getLastStepOccupancy(const std::string& edgeID) const {
     return getDouble(libsumo::LAST_STEP_OCCUPANCY, edgeID);
 }
@@ -645,6 +655,11 @@ TraCIAPI::EdgeScope::setEffort(const std::string& edgeID, double effort, double 
 void
 TraCIAPI::EdgeScope::setMaxSpeed(const std::string& edgeID, double speed) const {
     setDouble(libsumo::VAR_MAXSPEED, edgeID, speed);
+}
+
+void
+TraCIAPI::EdgeScope::setFriction(const std::string& edgeID, double friction) const {
+    setDouble(libsumo::VAR_FRICTION, edgeID, friction);
 }
 
 

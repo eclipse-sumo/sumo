@@ -50,6 +50,8 @@ print("Fuel", traci.edge.getFuelConsumption(edgeID))
 print("Noise", traci.edge.getNoiseEmission(edgeID))
 print("Elec", traci.edge.getElectricityConsumption(edgeID))
 print("meanSpeed", traci.edge.getLastStepMeanSpeed(edgeID))
+print("maxSpeed", traci.edge.getMaxSpeed(edgeID))
+print("friction", traci.edge.getFriction(edgeID))
 print("occupancy", traci.edge.getLastStepOccupancy(edgeID))
 print("lastLength", traci.edge.getLastStepLength(edgeID))
 print("traveltime", traci.edge.getTraveltime(edgeID))
@@ -92,7 +94,9 @@ print("effort after adaption in interval (check time 25)",
 
 
 traci.edge.setMaxSpeed(edgeID, 23.)
-print("max speed after adaption", traci.lane.getMaxSpeed(edgeID + "_0"))
+print("max speed after adaption", traci.edge.getMaxSpeed(edgeID))
+traci.edge.setFriction(edgeID, 0.5)
+print("friction after adaption", traci.edge.getFriction(edgeID))
 
 traci.edge.subscribe(edgeID)
 print(traci.edge.getSubscriptionResults(edgeID))
