@@ -123,6 +123,20 @@ class EdgeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_FRICTION, edgeID)
 
+    def getMaxSpeed(self, edgeID):
+        """getMaxSpeed(string) -> double
+
+        Returns the maximum speed (in m/s) for all lanes of the edge.
+        """
+        return self._getUniversal(tc.VAR_MAXSPEED, edgeID)
+
+    def getFriction(self, edgeID):
+        """getFriction(string) -> double
+
+        Returns the mean friction value [0..1] for all lanes of the edge.
+        """
+        return self._getUniversal(tc.VAR_FRICTION, edgeID)
+
     def getLastStepOccupancy(self, edgeID):
         """getLastStepOccupancy(string) -> double
 
