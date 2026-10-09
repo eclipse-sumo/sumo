@@ -243,7 +243,7 @@ class Net:
         self._edgeCostCache = None
 
     def initRoutingCache(self, maxsize=1000):
-        self._routingCache = lru_cache(maxsize=maxsize)(lambda fromEdge, fromPos, fastest, vClass, ignoreDirection, reversalPenalty, preferences: {})  # noqa
+        self._routingCache = lru_cache(maxsize=maxsize)(lambda fromEdge, fastest, vClass, ignoreDirection, reversalPenalty, preferences: {})  # noqa
 
     def getVersion(self):
         return self._version
@@ -741,7 +741,7 @@ class Net:
                 else:
                     return None, 1e400
 
-            dist = self._routingCache(fromEdge, fromPos, fastest, vClass, ignoreDirection, reversalPenalty,
+            dist = self._routingCache(fromEdge, fastest, vClass, ignoreDirection, reversalPenalty,
                                       tuple(preferences.items()))
             if toEdge in dist:
                 return constructPath(dist)
