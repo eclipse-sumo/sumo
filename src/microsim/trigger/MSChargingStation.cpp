@@ -190,11 +190,8 @@ MSChargingStation::setChargingVehicle(bool value) {
 
 void
 MSChargingStation::setTotalChargingPower(double totalPower) {
-    if (totalPower < 0.0) {
-        throw InvalidArgument(TLF("totalPower attribute must be non-negative ('%' is not valid).", totalPower));
-    }
     const bool hadLimit = myTotalChargingPower > 0;
-    myTotalChargingPower = totalPower;
+    myTotalChargingPower = totalPower <= 0.0 ? 0.0 : totalPower;
     if (!hadLimit && myTotalChargingPower > 0 && (myChargeInTransit || myChargingVehicle) && myTotalPowerCheckEvent == nullptr) {
         myTotalPowerCheckEvent = new WrappingCommand<MSChargingStation>(this, &MSChargingStation::checkTotalPower);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myTotalPowerCheckEvent);
