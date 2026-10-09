@@ -59,7 +59,7 @@ except ImportError:
 import sumolib
 from . import lane, edge, netshiftadaptor, node, connection, roundabout  # noqa
 from .connection import Connection
-from sumolib.miscutils import intIfPossible
+from sumolib.miscutils import intIfPossible, openz
 
 
 class TLS:
@@ -1118,6 +1118,17 @@ def lane2edge(laneID):
 
 def lane2index(laneID):
     return int(laneID[laneID.rfind("_") + 1:])
+
+
+def hasInternal(filename):
+    with openz(filename) as f:
+        for line in f:
+            if '<edge id="' in line:
+                if '<edge id=":' in line:
+                    return True
+                else:
+                    return False
+    return False
 
 
 def readNet(filename, **others):

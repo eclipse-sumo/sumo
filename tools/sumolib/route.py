@@ -133,7 +133,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
             # print("idx %s: vias=%s, candidates=%s (%s)" % (idx, len(vias[idx]),
             #    len(candidates), [ed[0].getID() for ed in candidates]))
         else:
-            candidates = net.getNeighboringEdges(x, y, delta, False)
+            candidates = [ec for ec in net.getNeighboringEdges(x, y, delta, False) if not ec[0].isSpecial()]
         if debug:
             print("\n\nindex: %s pos:%s, %s" % (idx, x, y))
             print("candidates:%s\n" % [(e.getID(), c) for e, c in candidates])
