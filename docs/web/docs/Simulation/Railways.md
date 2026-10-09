@@ -753,9 +753,12 @@ used. The attribute `source` must be set to the ID of the junction the rail sign
 # Limitations
 
 - Individual rail cars / coupling / uncoupling cannot currently be modeled
-- Distant signals (Vorsignale) are not modelled. Instead trains act as if always having full visibility onto the next main signal
-- Delay of railroad switches is not modelled
-- Overlap (Durchrutschweg) after a rail signal (which guarantees safety if a red signal is violated), is currently not modelled by the rail signal safety assessment
+- Distant signals (Vorsignale) are not modeled. Instead trains act as if always having full visibility onto the next main signal
+- Trains immediately accelerate once their next signal shows green (proceed)
+- Braking curves assume constant deceleration, Trains drive at maximum physically safe speed.
+- Driver effects during braking (staying below a mandatory braking curve to avoid forced braking) are not modeled
+- Delay of railroad switches is not modeled
+- Overlap (Durchrutschweg) after a rail signal (which guarantees safety if a red signal is violated), is currently not modeled by the rail signal safety assessment
 - Axle counters are assumed after every signal and every railway switch and correspondingly, partial driveways (Teilfahrstraßen) are used in the most efficient manner
-- Stretching and shorting of long trains is not modelled
-- Operational restrictions on reversing trains (Shunting) are not modelled. Trains may reverse according to their defined route and move at normal speeds / acceleration in either direction (subject to rail signal safety rules).
+- Stretching and shortening of long trains is not modeled
+- Operational restrictions on reversing trains (Shunting) are not modeled. Trains may reverse according to their defined route and move at normal speeds / acceleration in either direction (subject to rail signal safety rules).
