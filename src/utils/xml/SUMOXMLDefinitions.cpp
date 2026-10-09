@@ -1894,6 +1894,7 @@ StringBijection<ParkingType> SUMOXMLDefinitions::ParkingTypes(
 StringBijection<ChargeType> SUMOXMLDefinitions::ChargeTypes(
     SUMOXMLDefinitions::chargeTypeValues, ChargeType::FUEL);
 
+// The second argument terminates the entry list; the charging station default is PROPORTIONAL.
 StringBijection<ChargingStationStrategy> SUMOXMLDefinitions::ChargingStationStrategies(
     SUMOXMLDefinitions::chargingStationStrategyValues, ChargingStationStrategy::FLAT);
 
