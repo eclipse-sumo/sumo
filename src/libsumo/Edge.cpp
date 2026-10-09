@@ -234,12 +234,6 @@ Edge::getMaxSpeed(const std::string& edgeID) {
 
 
 double
-Edge::getFriction(const std::string& edgeID) {
-    return getMeanFriction(edgeID);
-}
-
-
-double
 Edge::getLastStepOccupancy(const std::string& edgeID) {
     return getEdge(edgeID)->getOccupancy();
 }
