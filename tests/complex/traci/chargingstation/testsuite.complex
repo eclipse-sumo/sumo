@@ -3,3 +3,6 @@ basic
 chargingPower
 
 efficiency
+allocationStrategies
+
+chargingStrategyValidation

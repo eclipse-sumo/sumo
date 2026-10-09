@@ -1025,6 +1025,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_CHARGINGPOWER,
     /// @brief total charge in W/s of the Charging Stations
     SUMO_ATTR_TOTALPOWER,
+    /// @brief Strategy for distributing totalPower among charging vehicles
+    SUMO_ATTR_CHARGINGSTRATEGY,
     /// @brief Eficiency of the charge in Charging Stations
     SUMO_ATTR_EFFICIENCY,
     /// @brief Allow/disallow charge in transit in Charging Stations
@@ -2017,6 +2019,16 @@ enum class ChargeType {
     FUEL = 2,
 };
 
+/**
+ * @enum ChargingStationStrategy
+ * @brief Strategies for distributing a charging station's total power
+ */
+enum class ChargingStationStrategy {
+    PROPORTIONAL = 0,
+    MAX_MIN = 1,
+    FLAT = 2,
+};
+
 /// @brief algorithms for computing right of way
 enum class RightOfWay {
     DEFAULT,
@@ -2548,6 +2560,9 @@ public:
     /// @brief charge type
     static StringBijection<ChargeType> ChargeTypes;
 
+    /// @brief charging station total power distribution strategy
+    static StringBijection<ChargingStationStrategy> ChargingStationStrategies;
+
     /// @brief righ of way algorithms
     static StringBijection<RightOfWay> RightOfWayValues;
 
@@ -2743,6 +2758,9 @@ private:
 
     /// @brief charge type values
     static StringBijection<ChargeType>::Entry chargeTypeValues[];
+
+    /// @brief charging station total power distribution strategy values
+    static StringBijection<ChargingStationStrategy>::Entry chargingStationStrategyValues[];
 
     /// @brief lane spread function values
     static StringBijection<RightOfWay>::Entry rightOfWayValuesInitializer[];

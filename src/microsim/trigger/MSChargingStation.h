@@ -29,6 +29,7 @@
 #include <fstream>
 #include <sstream>
 #include <microsim/MSStoppingPlace.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
@@ -92,12 +93,12 @@ public:
 
     /// @brief constructor
     MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
-                      const std::string& name, double chargingPower, double totalPower, double efficency, bool chargeInTransit,
-                      SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime);
+                      const std::string& name, double chargingPower, double totalPower, ChargingStationStrategy chargingStrategy,
+                      double efficency, bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime);
 
     MSChargingStation(const std::string& chargingStationID, const MSParkingArea* parkingArea, const std::string& name, double chargingPower,
-                      double totalPower, double efficency, bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType,
-                      SUMOTime waitingTime);
+                      double totalPower, ChargingStationStrategy chargingStrategy, double efficency, bool chargeInTransit, SUMOTime chargeDelay,
+                      const std::string& chargeType, SUMOTime waitingTime);
 
     /// @brief destructor
     ~MSChargingStation();
@@ -139,6 +140,12 @@ public:
 
     /// @brief Get charging station's total power
     double getTotalChargingPower() const;
+
+    /// @brief Get the strategy used to distribute the total power
+    ChargingStationStrategy getChargingStrategy() const;
+
+    /// @brief Set the strategy used for subsequent total power allocations
+    void setChargingStrategy(ChargingStationStrategy strategy);
 
     /// @brief set charging station's total power
     void setTotalChargingPower(double totalPower);
@@ -220,6 +227,9 @@ protected:
     /// @brief The maximal charging power available to serve all charging vehicles (value <= 0 take no effect)
     double myTotalChargingPower = 0;
 
+    /// @brief Strategy for distributing total power among charging vehicles
+    ChargingStationStrategy myChargingStrategy;
+
     /// @brief Efficiency of the charging station
     double myEfficiency = 0;
 
@@ -249,14 +259,26 @@ protected:
     /// @brief order vehicles by time of first charge
     std::vector<std::string> myChargedVehicles;
 
-    /// @brief map with the Batteries charged by this charging station (key = vehicleID)
-    std::map<std::string, MSDevice_Battery*> myChargedBatteries;
+    /// @brief last timestep a vehicle's charge request was refreshed (key = vehicleID)
+    std::map<std::string, SUMOTime> myLastChargeStep;
 
     /// @brief Event for checking at every time-step if myTotalPower has been exceeded
     Command* myTotalPowerCheckEvent;
 
 
 private:
+    /// @brief Compute delivered energy for all requests according to the configured strategy
+    std::vector<double> computeAllocation(const std::vector<double>& requests, double capacity) const;
+
+    /// @brief Scale all requests by the same ratio
+    static std::vector<double> computeProportionalAllocation(const std::vector<double>& requests, double capacity);
+
+    /// @brief Allocate capacity using max-min fairness (water filling)
+    static std::vector<double> computeMaxMinAllocation(const std::vector<double>& requests, double capacity);
+
+    /// @brief Subtract an equal amount from all positive allocations, clamping at zero
+    static std::vector<double> computeFlatAllocation(const std::vector<double>& requests, double capacity);
+
     /// @brief Invalidated copy constructor.
     MSChargingStation(const MSChargingStation&) = delete;
 
