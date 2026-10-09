@@ -110,7 +110,7 @@ By default, each index of the state controls exactly one connection so the inner
 
 ### Structure of result compound object swap constraints (0x32)
 
-If you request a constraint swap, the result list of constraints indicates all the new contraints that were created a a result of the swap. Each part is preceded by a byte which represents
+If you request a constraint swap, the result list of constraints indicates all the new constraints that were created a a result of the swap. Each part is preceded by a byte which represents
 its data type, except "length".
 
 |          integer               |       constraint                 | ... |

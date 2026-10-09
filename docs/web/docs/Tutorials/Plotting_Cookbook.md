@@ -57,7 +57,7 @@ python plot_summary.py -i mo\summary.xml,dido\summary.xml,fr\summary.xml,sa\summ
 ![summary_running.png](../images/Summary_running.png "summary_running.png")
 
 The [summary-output](../Simulation/Output/Summary.md) contains
-further measures that can be visualised in the same way, among them
+further measures that can be visualized in the same way, among them
 `loaded`, `inserted`, `waiting`, or `ended`. Please consult the
 [summary-output](../Simulation/Output/Summary.md) documentation for
 a complete list.
@@ -65,4 +65,4 @@ a complete list.
 Further information can be found at:
 
 - [summary-output](../Simulation/Output/Summary.md) documentation
-- [visualisation tools](../Tools/Visualization.md) documentation
+- [visualization tools](../Tools/Visualization.md) documentation

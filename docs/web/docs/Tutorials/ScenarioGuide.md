@@ -39,7 +39,7 @@ Then import the network as described here:
 
 # Generate the traffic
 
-First, you should understand the basics of vehicle modelling:
+First, you should understand the basics of vehicle modeling:
 [Definition_of_Vehicles,_Vehicle_Types,_and_Routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md).
 There are various ways to insert vehicles into the map. Your choice
 basically depends on what kind of information about the traffic you

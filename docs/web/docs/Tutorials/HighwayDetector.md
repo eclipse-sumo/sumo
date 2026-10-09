@@ -72,7 +72,6 @@ When routeSampler.py fails to find a good solution, the
 option **--mismatch-output** can be used to write the mismatch between measured and assigned traffic
 counts. The most likely source of mismatch is an unsuitable set of candidate routes (i.e. too long or too short).
 See a detailed treatment at the [routeSampler documentation](../Tools/Turns.md#quality_control).
-Ther
 
 ### Simulation mismatch
 
@@ -120,4 +119,3 @@ Diagnosing and fixing simulation mismatch requires investigation the following s
 - traffic participant calibration (i.e. time headways and merging gap acceptance)
 - routeSampler result ambiguity: the space of traffic inputs that match a given set of counts is large. Not all of them
   may be compatible with realistic traffic flow
-

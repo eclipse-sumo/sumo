@@ -101,8 +101,8 @@ number of lanes, which is 2 to allow for overtaking vehicles which slowly turn
 into the lot.
 
 The code for the (cyber)bus edges follows the same pattern but is a little bit
-more involved because it needs also a street in the opposite direction since the busses
-need to turn around. Furthermore it needs a sidewalk (modelled as a lane for pedestrians).
+more involved because it needs also a street in the opposite direction since the buses
+need to turn around. Furthermore it needs a sidewalk (modeled as a lane for pedestrians).
 The code for generating a forward and back connection between two parking streets is:
 ```python
 print("""<edge id="%s" from="cyber%s" to="cyber%s" numLanes="3" spreadType="center">
@@ -175,6 +175,7 @@ Most of the vehicle type definition is for the look (the color) and the vehicle 
 it will only use the right roads. The cyber car also has a taxi device to react to passenger requests.
 We will also define a regular bus to allow for comparisons with a regular bus service in further iterations
 of this tutorial.
+
 ```python
 print(("""    <vType id="car" color="0.7,0.7,0.7"/>
     <vType id="ped_pedestrian" vClass="pedestrian" color="1,0.2,0.2"/>

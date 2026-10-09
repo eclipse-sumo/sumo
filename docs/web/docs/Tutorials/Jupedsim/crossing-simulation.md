@@ -51,7 +51,7 @@ For each road a sidewalk is created.
 Clear the selection by pressing *ESC* and compute the junctions again (press *F5*).
 The network should look like this:
 
-![Final egdes](../../images/network_edges_final.png)
+![Final edges](../../images/network_edges_final.png)
 
 Now we add a traffic light.
 Switch to *Traffic light mode* and select the junction in the middle of the network.

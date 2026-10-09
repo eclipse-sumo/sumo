@@ -4,14 +4,14 @@ title: Berlin
 
 ## Validation of a small inner-urban scenario simulated within the SUMO-package
 
-This article describes how a detailed traffic scenario was modelled
+This article describes how a detailed traffic scenario was modeled
 using the SUMO simulation package and demonstrates how the simulation
 results match measurements made from real world traffic.
 
 ## The study area
 
 The UTRaLab (Urban Traffic Research Laboratory) is a test track with a
-length of 1.2 kilometres along a small river called “Ernst-Ruska-Ufer”
+length of 1.2 kilometers along a small river called “Ernst-Ruska-Ufer”
 in Berlin \[1\]. It is a multilane road with about 30.000 vehicles
 using it each day between the federal motorway on workdays. Along with other
 measurement technology, the UTRaLab is equipped with 45 double induction
@@ -21,20 +21,20 @@ of the induction loops is given in Fig. 1.
 
 ![Berlin.png](../../images/Berlin.png)
 
-## Modelling within the SUMO-Package
+## Modeling within the SUMO-Package
 
-Preparing a traffic simulation includes modelling the road network as
-well as modelling the traffic demand within the traffic network.
+Preparing a traffic simulation includes modeling the road network as
+well as modeling the traffic demand within the traffic network.
 
-### Traffic Net Modelling
+### Traffic Net Modeling
 
 The simulation net includes the section between
 “Wegedornstraße” and “Adlergestell”. It represents the exact number of
 lanes, turn lanes and links to all side roads. Within the considered
 section, there are two traffic lights, one at the junction “Altglienicker
-Brücke” and one at the junction “Am Studio”. Both are modelled with
+Brücke” and one at the junction “Am Studio”. Both are modeled with
 fixed time schedules according to the time of day. The main
-challenge in modelling was a spill-back into the study area caused
+challenge in modeling was a spill-back into the study area caused
 outside at the junction Adlergestell. As there was no sensor data
 available to model the bottleneck itself, Variable Speed Signs (VSS)
 \[3\] were placed in the model at the outbound of the junction
@@ -42,7 +42,7 @@ available to model the bottleneck itself, Variable Speed Signs (VSS)
 vehicles crossing with a new maximum speed, derived from the single
 value data from the detectors.
 
-### Traffic Demand Modelling
+### Traffic Demand Modeling
 
 While looking for a work day, outside of the holiday seasons, where considerable congestion occurred, Tuesday the 11 of January 2011 was chosen. The traffic data from this day
 was aggregated to intervals of one minute. This minor simplification
