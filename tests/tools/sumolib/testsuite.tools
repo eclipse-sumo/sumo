@@ -68,3 +68,6 @@ connection_permissions
 
 # get neighboring lanes and edges (test includeJunctions=True/False)
 getNeighboring
+
+# get the nearest lane, with vehicle-class filtering and geographic coordinates
+getNearestLane
