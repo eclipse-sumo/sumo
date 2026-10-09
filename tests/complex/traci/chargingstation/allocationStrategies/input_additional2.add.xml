@@ -1,0 +1,6 @@
+<additional>
+    <chargingStation id="cs_0" lane="E0_0" startPos="0.1" endPos="-0.1"
+                     power="20000" totalPower="30000" efficiency="1.0"
+                     chargeDelay="0" chargeInTransit="true" chargeType="normal"
+                     chargingStrategy="proportional"/>
+</additional>
