@@ -192,6 +192,9 @@ void
 MSChargingStation::setTotalChargingPower(double totalPower) {
     const bool hadLimit = myTotalChargingPower > 0;
     myTotalChargingPower = totalPower <= 0.0 ? 0.0 : totalPower;
+    if (myTotalChargingPower == 0.0) {
+        myLastChargeStep.clear();
+    }
     if (!hadLimit && myTotalChargingPower > 0 && (myChargeInTransit || myChargingVehicle) && myTotalPowerCheckEvent == nullptr) {
         myTotalPowerCheckEvent = new WrappingCommand<MSChargingStation>(this, &MSChargingStation::checkTotalPower);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myTotalPowerCheckEvent);
@@ -203,7 +206,6 @@ SUMOTime
 MSChargingStation::checkTotalPower(SUMOTime currentTime) {
     if (myTotalChargingPower <= 0.0) {
         myTotalPowerCheckEvent = nullptr;
-        myChargedBatteries.clear();
         myLastChargeStep.clear();
         return 0;
     }
@@ -216,24 +218,25 @@ MSChargingStation::checkTotalPower(SUMOTime currentTime) {
     };
 
     std::vector<StepRequest> thisStepRequests;
-    thisStepRequests.reserve(myChargedBatteries.size());
+    thisStepRequests.reserve(myLastChargeStep.size());
     double sumReqWh = 0;
 
-    for (auto it = myChargedBatteries.begin(); it != myChargedBatteries.end();) {
+    for (auto it = myLastChargeStep.begin(); it != myLastChargeStep.end();) {
         const std::string& vehicleID = it->first;
-        MSDevice_Battery* const battery = it->second;
-        if (MSNet::getInstance()->getVehicleControl().getVehicle(vehicleID) == nullptr
-                || battery == nullptr
-                || battery->getChargingStation() != this) {
-            myLastChargeStep.erase(vehicleID);
-            it = myChargedBatteries.erase(it);
+        if (it->second != currentTime) {
+            it = myLastChargeStep.erase(it);
+            continue;
+        }
+        SUMOVehicle* const vehicle = MSNet::getInstance()->getVehicleControl().getVehicle(vehicleID);
+        MSDevice_Battery* const battery = vehicle == nullptr
+                                          ? nullptr : static_cast<MSDevice_Battery*>(vehicle->getDevice(typeid(MSDevice_Battery)));
+        if (battery == nullptr || battery->getChargingStation() != this) {
+            it = myLastChargeStep.erase(it);
             continue;
         }
 
-        const auto lastStepIt = myLastChargeStep.find(vehicleID);
-        const bool isFresh = lastStepIt != myLastChargeStep.end() && lastStepIt->second == currentTime;
         const double requestedWh = battery->getEnergyCharged();
-        if (isFresh && requestedWh > 0.0) {
+        if (requestedWh > 0.0) {
             Charge* outputRow = nullptr;
             const auto chargeValuesIt = myChargeValues.find(vehicleID);
             if (chargeValuesIt != myChargeValues.end() && !chargeValuesIt->second.empty()) {
@@ -255,7 +258,6 @@ MSChargingStation::checkTotalPower(SUMOTime currentTime) {
     if (thisStepRequests.empty()) {
         if (!myChargeInTransit) {
             myTotalPowerCheckEvent = nullptr;
-            myChargedBatteries.clear();
             myLastChargeStep.clear();
             return 0;
         }
@@ -443,8 +445,9 @@ MSChargingStation::isCharging() const {
 void
 MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* battery) {
     const std::string vehID = battery->getHolder().getID();
-    myChargedBatteries[vehID] = battery;
-    myLastChargeStep[vehID] = MSNet::getInstance()->getCurrentTimeStep();
+    if (myTotalChargingPower > 0.0 && WCharged > 0.0) {
+        myLastChargeStep[vehID] = MSNet::getInstance()->getCurrentTimeStep();
+    }
     myTotalCharge += WCharged;
 
     if (!OptionsCont::getOptions().isSet("chargingstations-output")) {

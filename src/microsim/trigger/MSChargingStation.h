@@ -259,9 +259,6 @@ protected:
     /// @brief order vehicles by time of first charge
     std::vector<std::string> myChargedVehicles;
 
-    /// @brief map with the Batteries charged by this charging station (key = vehicleID)
-    std::map<std::string, MSDevice_Battery*> myChargedBatteries;
-
     /// @brief last timestep a vehicle's charge request was refreshed (key = vehicleID)
     std::map<std::string, SUMOTime> myLastChargeStep;
 
