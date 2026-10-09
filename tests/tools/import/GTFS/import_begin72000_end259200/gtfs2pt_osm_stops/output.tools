@@ -1,9 +1,9 @@
+Success.
 Loading net
-function import_gtfs called at Thu, 01 Oct 2026 15:08:59 +0000
+function import_gtfs called at Fri, 09 Oct 2026 15:13:51 +0000
 Loading GTFS data "gtfs.zip"
-function import_gtfs finished after 0.103256 seconds
-Success.
-Success.
+function import_gtfs finished after 0.092076 seconds
+function traceMap called at Fri, 09 Oct 2026 15:13:51 +0000
 mapping bus
 mapping trace with 5 points ... (31 router calls)
 mapping trace with 5 points ... (188 router calls)
@@ -14,4 +14,4 @@ mapping trace with 7 points ... (200 router calls)
 mapping trace with 3 points ... (20 router calls)
 mapping trace with 3 points ... (11 router calls)
 mapped 9 traces to 9 routes (1 cacheHits)
-Reading resources/gtfs/net_bus.net.xml
+function traceMap finished after 0.196597 seconds
