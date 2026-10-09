@@ -185,7 +185,6 @@ public:
         double getElectricityConsumption(const std::string& edgeID) const;
         double getLastStepMeanSpeed(const std::string& edgeID) const;
         double getMaxSpeed(const std::string& edgeID) const;
-        double getFriction(const std::string& edgeID) const;
         double getLastStepOccupancy(const std::string& edgeID) const;
         double getLastStepLength(const std::string& edgeID) const;
         double getTraveltime(const std::string& edgeID) const;
@@ -198,7 +197,6 @@ public:
         void adaptTraveltime(const std::string& edgeID, double time, double beginSeconds = 0., double endSeconds = std::numeric_limits<double>::max()) const;
         void setEffort(const std::string& edgeID, double effort, double beginSeconds = 0., double endSeconds = std::numeric_limits<double>::max()) const;
         void setMaxSpeed(const std::string& edgeID, double speed) const;
-        void setFriction(const std::string& edgeID, double friction) const;
     };
 
 

@@ -51,7 +51,7 @@ print("Noise", traci.edge.getNoiseEmission(edgeID))
 print("Elec", traci.edge.getElectricityConsumption(edgeID))
 print("meanSpeed", traci.edge.getLastStepMeanSpeed(edgeID))
 print("maxSpeed", traci.edge.getMaxSpeed(edgeID))
-print("friction", traci.edge.getFriction(edgeID))
+print("meanFriction", traci.edge.getMeanFriction(edgeID))
 print("occupancy", traci.edge.getLastStepOccupancy(edgeID))
 print("lastLength", traci.edge.getLastStepLength(edgeID))
 print("traveltime", traci.edge.getTraveltime(edgeID))
@@ -96,7 +96,8 @@ print("effort after adaption in interval (check time 25)",
 traci.edge.setMaxSpeed(edgeID, 23.)
 print("max speed after adaption", traci.edge.getMaxSpeed(edgeID))
 traci.edge.setFriction(edgeID, 0.5)
-print("friction after adaption", traci.edge.getFriction(edgeID))
+print("mean friction after adaption", traci.edge.getMeanFriction(edgeID))
+assert traci.edge.getMaxSpeed(edgeID) == 23.
 
 traci.edge.subscribe(edgeID)
 print(traci.edge.getSubscriptionResults(edgeID))
@@ -118,5 +119,10 @@ traci.edge.setAllowed(edgeID, "bicycle")
 print("allow_1", traci.lane.getAllowed(edgeID + "_0"))
 traci.edge.setAllowed(edgeID, ["bicycle", "pedestrian"])
 print("allow_2", traci.lane.getAllowed(edgeID + "_0"))
+
+traci.lane.setMaxSpeed("1si_0", 10.)
+traci.lane.setMaxSpeed("1si_1", 20.)
+print("max speed with different lane values", traci.edge.getMaxSpeed("1si"))
+assert traci.edge.getMaxSpeed("1si") == 10.
 
 traci.close()
