@@ -1,0 +1,6 @@
+nearest pedestrian: pos=30.0 dist=1.0
+nearest passenger: pos=60.0 dist=3.0
+nearest without filtering: second lane
+no candidate: None
+outside lane endpoints: clamped position
+nearest lane checks passed
