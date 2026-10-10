@@ -326,8 +326,8 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                     i = 1
                     for routeEdgeID in route[1:]:
                         path, _ = net.getShortestPath(net.getEdge(routeFixed[-1]),
-                                                           net.getEdge(routeEdgeID),
-                                                           vClass=vclass)
+                                                                  net.getEdge(routeEdgeID),
+                                                                  vClass=vclass)
                         if path is None or len(path) > options.fill_gaps + 2:
                             error = "no path found" if path is None else "path too long (%s)" % len(path)
                             print("Warning! Disconnected route '%s' between '%s' and '%s', %s. Keeping longer part." %

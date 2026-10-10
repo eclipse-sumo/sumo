@@ -606,7 +606,6 @@ class Net:
                     minPath = viaPath
         return minPath, minInternalCost
 
-
     def getOptimalPath(self, fromEdge, toEdge, fastest=False, maxCost=1e400, vClass=None, reversalPenalty=0,
                        includeFromToCost=True, withInternal=False, ignoreDirection=False,
                        fromPos=None, toPos=None, preferences={}):
