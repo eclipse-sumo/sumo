@@ -106,6 +106,29 @@ if len(edges) > 0:
     dist, closestEdge = distancesAndEdges[0]
 ```
 
+## locate the nearest lane
+
+`getNearestLane` returns the nearest lane, the position along it, and the
+distance to it in meters. Only lanes at a distance less than the search
+radius are considered; it returns `None` if no lane matches.
+
+```python
+result = net.getNearestLane(x, y, r=100, vClass="passenger")
+if result is not None:
+    lane, lanePos, dist = result
+```
+
+Omit `vClass` to consider all vehicle classes. To pass longitude and latitude
+instead of network coordinates, use `isGeo=True` (requires `pyproj` and a
+network with a geo-projection). The radius remains in meters:
+
+```python
+result = net.getNearestLane(lon, lat, r=100, vClass="passenger", isGeo=True)
+```
+
+Matching uses the actual lane shapes without extending them to junction
+centers. To include internal lanes, load the network with `withInternal=True`.
+
 ## parse all edges in a route file
 
 ```python
@@ -160,8 +183,9 @@ lon, lat = net.convertXY2LonLat(x, y, True)
 # from lane position to network coordinates
 x,y = sumolib.geomhelper.positionAtShapeOffset(net.getLane(laneID).getShape(), lanePos)
 # from network coordinates to lane position
-lane, d = net.getNeighboringLanes(x, y, radius)[0] (see "locate nearby edges based on the geo-coordinate" above)
-lanePos, dist = sumolib.geomhelper.polygonOffsetAndDistanceToPoint((x,y), lane.getShape())
+result = net.getNearestLane(x, y, radius)
+if result is not None:
+    lane, lanePos, dist = result
 ```
 
 see also
