@@ -101,8 +101,8 @@ MELoop::wasInvalidated(const LeaderEvent& e) {
                 myInvalidatedLeaderCars.pop();
             }
         }
-        for (LeaderEvent& e : tmp) {
-            myInvalidatedLeaderCars.push(e);
+        for (LeaderEvent& le : tmp) {
+            myInvalidatedLeaderCars.push(le);
         }
         return curInvalid;
     }
@@ -128,10 +128,10 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return leaveTime;
     } else if ((!MSGlobals::gCheckRoutes || veh->ignoreTransientPermissions())
-            && !ignoreLink
-            && !MESegment::isInvalid(onSegment)
-            && &onSegment->getEdge() != &toSegment->getEdge()
-            && veh->getEdge()->allowedLanes(*veh->succEdge(1), veh->getVClass()) == nullptr) {
+               && !ignoreLink
+               && !MESegment::isInvalid(onSegment)
+               && &onSegment->getEdge() != &toSegment->getEdge()
+               && veh->getEdge()->allowedLanes(*veh->succEdge(1), veh->getVClass()) == nullptr) {
         if (veh->isStopped()) {
             veh->processStop();
         }
@@ -204,7 +204,7 @@ MELoop::checkCar(MEVehicle* veh) {
         }
     }
     if (veh->getBlockTime() == SUMOTime_MAX && (!veh->isStopped()
-                || (!veh->isStoppedTriggered() && veh->isStoppedParking()))) {
+            || (!veh->isStoppedTriggered() && veh->isStoppedParking()))) {
         veh->setBlockTime(leaveTime);
     }
     if (nextEntry == SUMOTime_MAX) {
@@ -365,8 +365,8 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
     for (int s = numSegments - 1; s >= 0; s--) {
         std::string id = e.getID() + ":" + toString(s);
         newSegment = lift
-            ? new MELSegment(id, e, nextSegment, slength, e.getLanes()[0]->getSpeedLimit(), s, multiQueue, edgeType)
-            : new MESegment(id, e, nextSegment, slength, e.getLanes()[0]->getSpeedLimit(), s, multiQueue, edgeType);
+                     ? new MELSegment(id, e, nextSegment, slength, e.getLanes()[0]->getSpeedLimit(), s, multiQueue, edgeType)
+                     : new MESegment(id, e, nextSegment, slength, e.getLanes()[0]->getSpeedLimit(), s, multiQueue, edgeType);
         multiQueue = laneQueue;
         nextSegment = newSegment;
     }
