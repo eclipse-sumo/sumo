@@ -99,5 +99,5 @@ as trac, blog, etc. The links in the central area mainly point you to
 the according, old wiki sections.
 
 The current version will be surely modified in the future. Any
-comments/advices/something on the contents and/or the presentation are
+comments/advice/something on the contents and/or the presentation are
 highly welcome.

@@ -264,7 +264,7 @@ differ. An edge has either the priority 1 (higher prioritized) or 0
 - **reason**: We need this to compute the right-of-way rules.
 - **how**
 
-All priorities are initialised to 0.
+All priorities are initialized to 0.
 
 - **state**: orange
 
@@ -276,7 +276,7 @@ All priorities are initialised to 0.
 
 # OLD
 
-## Steps \#9-\#10: Computing certain signalling/right-of-ways
+## Steps \#9-\#10: Computing certain signaling/right-of-ways
 
 ## Steps \#11-\#17: Computing and setting lane-to-lane connections
 

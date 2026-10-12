@@ -23,7 +23,7 @@ thus adapts to jams and other changes in the network.
 The options listed below allow configuring which of the vehicles shall
 be equipped, how often rerouting decisions shall be made and how the
 estimation of travel times is computed from current and recent
-knowledge. 
+knowledge.
 
 Further information on [routing is available](../Simulation/Routing.md).
 
@@ -157,7 +157,7 @@ The device can be accessed using the TraCI function
 
 # Improvement Thresholds
 
-By default, periodic rerouting will change a vehicles route if the new route is percieved to reduce the travelTime compared to the old route by any amount.
+By default, periodic rerouting will change a vehicles route if the new route is perceived to reduce the travelTime compared to the old route by any amount.
 Let `oldTime` be the estimated travelTime of the currentRoute and `newTime` the estimated time for the fastest route:
 
 - When setting option **--device.rerouting.threshold.factor FLOAT**, the route will be changed only if `oldTime / newTime > FLOAT`.
