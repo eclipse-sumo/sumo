@@ -119,7 +119,7 @@ vehicles (see macroscopic)
 
 - **multimodal**:
 A multimodal traffic simulation is capable of processing
-different types of traffic (busses, trains, vehicles etc.)
+different types of traffic (buses, trains, vehicles etc.)
 
 ## N
 
@@ -193,7 +193,7 @@ Surrogate Safety Measures, safety-related indicators in a simulation
 - **submicroscopic**:
 In a submicroscopic traffic (flow) simulation, the
 atomic instances are parts of the vehicle or the driver (gearing or
-behavior is modelled)
+behavior is modeled)
 
 ## T
 

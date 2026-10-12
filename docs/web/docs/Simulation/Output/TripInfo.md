@@ -137,7 +137,7 @@ By default all vehicles will generated tripinfo-output. By [assigning a tripinfo
 
 Example:
 Setting SUMO-option **--device.tripinfo.probability 0** will disable the device for all vehicles by default.
-The following definition overrides this default end enables the device for busses:
+The following definition overrides this default end enables the device for buses:
 
 ```xml
 <vType id="bus">

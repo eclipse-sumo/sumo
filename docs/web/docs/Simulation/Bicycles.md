@@ -11,7 +11,7 @@ be take in comparison to a plain vehicular simulation.
 !!! caution
     The simulation of bicycles is a developing subject and still carries some difficulties. These are discussed below.
 
-# Approaches to bicycle modelling
+# Approaches to bicycle modeling
 
 Currently, no exclusive movement model for bicycles is implemented.
 Existing models need to be re-purposed
@@ -30,7 +30,7 @@ Note, that that the `guiShape="bicycle"` along with [sensible default
 parameters](../Vehicle_Type_Parameter_Defaults.md) are
 automatically used when specifying `vClass="bicycle"`. By adapting [vType-parameters for
 acceleration,deceleration,maximumSpeed,etc..](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
-different cyclist types can be modelled.
+different cyclist types can be modeled.
 
 ## Useful Model Parameters
 Once the vClass "bicycle" is chosen, the following parameters, which can still be customized, are set for bicycle:
@@ -52,11 +52,11 @@ The values of some other parameters for bicycles are different from those for ve
 - lcTurnAlignmentDistance = 20. (distance to a location where bicycles start to keeping right/left of their lane for preparing to make turns)
 - jmCrossingGap = 4 (Minimum distance to pedestrians that are walking towards the conflict point with a bike - lower than the default of 10 for cars)
 - jmSigmaMinor = 0. (no imperfection while passing a minor link)
-- jmStoplineGap = 0.5 (Stopping distance in front of prioritary / TL-controlled stop line)
+- jmStoplineGap = 0.5 (Stopping distance in front of priority / TL-controlled stop line)
 
 ### Speed limits
 
-Bicycles are usually not limited by the road speed limit but rather by individual preferences. This cannot easily be modelled by vType attribute `maxSpeed` because it is not subject the the randomly chosen personal `speedFactor` (unless `carFollowModel="KraussPS"` is set). Instead, bicycle speed is limited by `desiredMaxSpeed` (multiplied by the individual speedFactor). For this reason, the `desiredMaxSpeed < maxSpeed` by default.
+Bicycles are usually not limited by the road speed limit but rather by individual preferences. This cannot easily be modeled by vType attribute `maxSpeed` because it is not subject the the randomly chosen personal `speedFactor` (unless `carFollowModel="KraussPS"` is set). Instead, bicycle speed is limited by `desiredMaxSpeed` (multiplied by the individual speedFactor). For this reason, the `desiredMaxSpeed < maxSpeed` by default.
 
 To model the effect of slopes on bicycle speed (only with `carFollowModel="KraussPS"`), it is necessary that the `desiredMaxSpeed` is above the "power limit" (`maxSpeed`).
 The slope-dependent speed is scaled according to `maxSpeed * speedFactor` which results in the follow behavior:

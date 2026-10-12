@@ -419,7 +419,7 @@ Compares two files with output of [instantInductionLoops](../Simulation/Output/I
 python tools/output/instantOutDiff.py DETECTIONS1.xml DETECTIONS2.xml DIFF.xml
 ```
 
-The third agument defines the output file which holds statistical measures for each detector. 
-For each detector in the first input file, the best-matching event in the second file is identified (without constraints on re-use) and the time difference is collected as a data point.
+The third argument defines the output file which holds statistical measures for each detector.
+For each detector in the first input file, the best-matching event in the second file is identified (without constraints on reuse) and the time difference is collected as a data point.
 The attribute `delta` is the difference in number of detected events of the two files.
 Additional information on missing detectors is given as command line output

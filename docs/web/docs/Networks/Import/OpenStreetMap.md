@@ -250,7 +250,7 @@ osmBuild.py --oldapi-prefix <NAME --tiles <INT> [--vehicle-classes (all|road|pas
 
 # Elevation Data
 
-Incooperating z-coordinates in networks is still experimental so please
+Incorporating z-coordinates in networks is still experimental so please
 report anything odd.
 
 ## SRTM
@@ -408,7 +408,7 @@ not desirable for multi-modal scenarios.
 
 ## Shared Space for Trams and Road Vehicles
 
-In the OSM database, shared space for tram and road vehicles is often modelled with distinct elements that occupy the same space. When imported directly, this would allow those modes of traffic to ignore each other due to running on different edges.
+In the OSM database, shared space for tram and road vehicles is often modeled with distinct elements that occupy the same space. When imported directly, this would allow those modes of traffic to ignore each other due to running on different edges.
 To fix this, the option **--edges.join-tram-dist FLOAT** may be used. When this option is set (values between 1 and 2 are recommended), overlapping OSM elements will be converted to road lanes with shared permissions (indicated by a dark purple in [sumo-gui](../../sumo-gui.md#default_coloring)).
 
 
@@ -458,7 +458,7 @@ following command keeps motorways and motorway links while filtering out
 everything else:
 
 ```
-java -jar osmosis.jar --read-xml file="orginal.osm.xml" --way-key-value \
+java -jar osmosis.jar --read-xml file="original.osm.xml" --way-key-value \
     keyValueList="highway.motorway,highway.motorway_link" \
     --used-node --write-xml file="filtered.osm.xml"
 ```
@@ -624,7 +624,7 @@ OSM data coverage and definition style for sidewalks varies by region which may 
 By adding a typemap such as {{SUMO_HOME}}/data/osmNetconvertPedestrians.typ.xml, sidewalks of a pre-configured width a added to a specific set of road types and all non-sidewalk lanes are forbidden for pedestrians.
 
 OSM-sidewalk data will only be considered if it explicitly disables sidewalks on an edge.
-This ensures good sidewalk coverage but may lead to double-sidewalks if OSM modellers have added the "sidewalks" as parallel foot paths edges.
+This ensures good sidewalk coverage but may lead to double-sidewalks if OSM modelers have added the "sidewalks" as parallel foot paths edges.
 
 ## Sidewalks from OSM
 
@@ -632,7 +632,7 @@ By setting option **--osm.sidewalks**, all sidewalk data from OSM will be loaded
 
 When **--osm.sidewalks** is set, by setting option **--osm.crossings** the "highway=crossing" tags will be loaded and crossings will be generated.
 
-This definition style prevents double-sidewalks but may lead to missing sidewalks wherever OSM modellers did not add sidewalk information.
+This definition style prevents double-sidewalks but may lead to missing sidewalks wherever OSM modelers did not add sidewalk information.
 
 [osmWebWizard](../../Tutorials/OSMWebWizard.md) uses this style beginning with version 1.11.0.
 

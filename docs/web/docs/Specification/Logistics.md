@@ -90,7 +90,7 @@ network). This takes the following form:
 
 ## Spacing of waiting containers
 
-The spacing between waiting containers defaults to 2.5. This is appropriate when standard shipping containers of 2.44m width are stacked next to each other in paralle..
+The spacing between waiting containers defaults to 2.5. This is appropriate when standard shipping containers of 2.44m width are stacked next to each other in parallel..
 When containers are stacked at a different angle, the distance along the stop must be increased. This can be done with params:
 
 ```xml
@@ -102,7 +102,7 @@ When containers are stacked at a different angle, the distance along the stop mu
 
 # Trailers and Rail Cars
 
-Containers can be used to model trailers and marshalling/switching by changing the length of the vehicle dynamically upon being loaded/unloaded.
+Containers can be used to model trailers and marshaling/switching by changing the length of the vehicle dynamically upon being loaded/unloaded.
 This is done by setting [Generic Parameter](../Simulation/GenericParameters.md) `<param key="device.container.loadedType" value="TYPE_ID"/>`.
 
 The `<vType>` with `id="TYPE_ID"` must be defined and the following of its values will be used by the simulation:

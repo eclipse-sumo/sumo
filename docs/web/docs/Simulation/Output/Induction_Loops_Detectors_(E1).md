@@ -89,7 +89,7 @@ were still on the detector when the interval ended). The values that are
 collected for the vehicles correspond to
 "`nVehContrib`".
 
-## Visualisation
+## Visualization
 
 | A scenario with induction loops | A close-up view at an induction loop |
 |:---:|:---:|

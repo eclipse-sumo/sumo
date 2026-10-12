@@ -236,11 +236,11 @@ Stops are either loaded from the input (i.e. OSM) or with option **--ptstop-file
 
 For each public transport stop, at most two signals will be added:
 
-- a signal at the end of the stop edge 
+- a signal at the end of the stop edge
 - a signal at the start of the stop edge or the next upstream edge that is at least 200m upstream of the stop edge end (unless the node happens to be a switch)
 
 !!! note
-    By default, this operationg may declare railway switches as rail signals. The switches and signals will continue to work normally but there will be no overlap (Durchrutschweg)
+    By default, this operation may declare railway switches as rail signals. The switches and signals will continue to work normally but there will be no overlap (Durchrutschweg)
 
 By also setting option **--railway.signal.guess.by-stops.split** the edges will be split in order create suitable rail_signal nodes near the stop location. This also ensures that switches remain uncontrolled.
 
@@ -250,7 +250,7 @@ The minimum distance of 200m between the two signals can be customized with opti
 
 In mainline rail operations, a rail signal is located upstream of a conflict point (i.e. a switch) by 50 to 200 meters and even more on high-speed lines. This means it will often be necessary to split an edge so that a new node is created at the exact location where a rail signal is needed (whenever a missing rail signal is added manually). This splitting can be accomplished in [netedit](../Netedit/neteditPopupFunctions.md#split_edge_here) or by loading [split definitions](../Networks/PlainXML.md#road_segment_refining) in netconvert patch file.
 
-An altenative is to define, the switch itself as type `rail_signal` and to move the stop line upstream with [edge attribute `endOffset`](../Networks/PlainXML.md#edge_descriptions). This has several implications:
+An alternative is to define, the switch itself as type `rail_signal` and to move the stop line upstream with [edge attribute `endOffset`](../Networks/PlainXML.md#edge_descriptions). This has several implications:
 
 - it preserves existing network topology and route validity because no new nodes or edges are introduced
 - it requires simulation with [internal links](Intersections.md#internal_links) because vehicles will spend significant time on the greatly enlarged junction (switch) interior.
@@ -331,10 +331,10 @@ The speeds must be given in m/s whereas the traction and resistance forces are i
 
 Example:
 ```xml
-	<vType id="0" vClass="rail" carFollowModel="Rail" trainType="custom"
-           speedTable="0 2.78 5.56 8.33 11.11 13.89 16.67 19.44 22.22 25 27.78 30.56 33.33"
-           tractionTable="300 300 263 179 135 108 90 77 67.5 60 54 49 45"
-           resistanceTable="2 4 8.5 14 22 31 41.5 54 68 83.5 111 120 140"/>
+<vType id="0" vClass="rail" carFollowModel="Rail" trainType="custom"
+        speedTable="0 2.78 5.56 8.33 11.11 13.89 16.67 19.44 22.22 25 27.78 30.56 33.33"
+        tractionTable="300 300 263 179 135 108 90 77 67.5 60 54 49 45"
+        resistanceTable="2 4 8.5 14 22 31 41.5 54 68 83.5 111 120 140"/>
 ```
 
 ## Custom dynamics model with parameterized curves
@@ -350,8 +350,8 @@ The vType attributes `resCoef_quadratic`, `resCoef_linear` and `resCoef_constant
 
 Example:
 ```xml
-   <vType id="0" vClass="rail" carFollowModel="Rail" trainType="custom" maxPower="2350" maxTraction="150"
-        resCoef_quadratic="0.00028" resCoef_linear="0.00003" resCoef_constant="1.670"/>
+<vType id="0" vClass="rail" carFollowModel="Rail" trainType="custom" maxPower="2350" maxTraction="150"
+    resCoef_quadratic="0.00028" resCoef_linear="0.00003" resCoef_constant="1.670"/>
 ```
 
 ## Curve Resistance
@@ -364,7 +364,7 @@ The formula is computed from vType attributes as follows:
 For a curve radius below attribute `roeckl_sharp_radius`, the values `roeckl_numerator_sharp` and `roeckl_offset_sharp` are used instead.
 All defaults are given below. They are tailored to mainline rail on a gauge of 1,435mmm
 
-By default, curvature will be integrated over at least *100m*. If the geometry data of the network is very sparse it may be nessary to set a larger value using vType attribute `curveIntegration`.
+By default, curvature will be integrated over at least *100m*. If the geometry data of the network is very sparse it may be necessary to set a larger value using vType attribute `curveIntegration`.
 
 !!! caution
     For rail networks with lower gauge and very shape turns (or rolling stock with short wheel base), the values should be adapted. Attempting to compute resistance for a radius below the offset value will raise a warning.
@@ -382,17 +382,17 @@ By default, curvature will be integrated over at least *100m*. If the geometry d
 
 ## Effects of train length
 
-The length of a train has several imporant effects on a railway simulation:
+The length of a train has several important effects on a railway simulation:
 
 - **block occupancy**: A longer train takes up more space and takes longer to completely pass a signal block which impacts capacity
-- **speed limits**: The maximum permitted speed for a train is the mimimum of all edges that it occupies (Whereas for road vehicles, only the speed at the front edge is considered).
+- **speed limits**: The maximum permitted speed for a train is the minimum of all edges that it occupies (Whereas for road vehicles, only the speed at the front edge is considered).
 - **reversal after a swich**: In order to turn a "sharp corner" at a switch, a train must completely pass the switch and the reverse. The route of train must contain enough edges on the facing side (with one entering track) to let the whole length of the train pass the switch before reversal is possible.
 - **stopping after reversal**: After reversal, the front and the rear of the train exchange their positions. This may cause the head of the train to skip past a stop edge and cause this stop to be skipped if the route does not go far enough past the stop (it is therefore recommended to always stop *before* the reversal).
 
 ## Train Schedules
 
 Train schedules are defined in the same way as for any other type of [public transport](Public_Transport.md#public_transport_schedules).
-For long-distance trains that pass stations or other operation control points without scheduled stops, it may be useful to add [waypoints](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#waypoints) to their route. This faciliates computing intermediate edges between stops and results in additional data points for [stop-output](Output/StopOutput.md).
+For long-distance trains that pass stations or other operation control points without scheduled stops, it may be useful to add [waypoints](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#waypoints) to their route. This facilitates computing intermediate edges between stops and results in additional data points for [stop-output](Output/StopOutput.md).
 
 <img src="../images/schedule_until.png" width="500px"/>
 
@@ -691,7 +691,7 @@ Rail simulation provides optional outputs related to driveways (Fahrstraßen)
 
 ## railsignal-block-output
 
-By setting option **--railsignal-block-output FILE**, an output file that contains informations for every drivway / signaling block is written.
+By setting option **--railsignal-block-output FILE**, an output file that contains information for every driveway / signaling block is written.
 
 | Element / Attribute Name  | Value Type                                | Description                            |
 | --------------- | --------------------------------------------------- | -------------------------------------- |

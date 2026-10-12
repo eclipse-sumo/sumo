@@ -189,8 +189,8 @@ connectivity in all directions.
 
 ## Shared space
 
-If persons are not restricted from walking on the roads (i.e. by not defining any sidewalks and keeping roads at their default permissions), the network models shared space. Each junction approached by shared space roads will be modelled as a single *walkingarea* that covers the whole junction.
-Thus, shared space simulations are indicated in [sumo-gui](../sumo-gui.md) by having grey rather than black junction areas.
+If persons are not restricted from walking on the roads (i.e. by not defining any sidewalks and keeping roads at their default permissions), the network models shared space. Each junction approached by shared space roads will be modeled as a single *walkingarea* that covers the whole junction.
+Thus, shared space simulations are indicated in [sumo-gui](../sumo-gui.md) by having gray rather than black junction areas.
 
 Cars will interact by pedestrians (by slowing down or stopping) when encountering them on a shared road lane or when passing a walkingarea that is used by pedestrians. Likewise, pedestrians will take some care to avoid walking into vehicles.
 

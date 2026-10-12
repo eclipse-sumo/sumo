@@ -70,7 +70,7 @@ Multiple persons can travel together from the same origin to the same destinatio
     </person>
 ```
 
-Starting with version SUMO 1.27.0 this grouping also works if reservations are received after a taxi has alrady been dispatched. Persons in the same group will be permitted to join the ride up to the capacity of the vehicle.
+Starting with version SUMO 1.27.0 this grouping also works if reservations are received after a taxi has already been dispatched. Persons in the same group will be permitted to join the ride up to the capacity of the vehicle.
 
 ## Prebooking
 Direct ride hailing can be regarded as a spontaneous booking. If the taxi is to be requested before the person is at the pick-up location, prebooking is necessary. This is used by specifying an `earliestPickupTime` and a `reservationTime` in the `ride`. The `reservationTime` specifies the time at which the reservation is created and made available to the dispatch. It may also be less than the person's depart. The `earliestPickupTime` specifies the time at which the person is ready to be picked up. Depending on the algorithm used, this may allow a better dispatch to be made. Especially in combination with a custom dispatch algorithm via [TraCi](#traci), the requirements of different use cases can be addressed.
@@ -149,7 +149,7 @@ The option **--device.taxi.dispatch-algorithm.params KEY1:VALUE1[,KEY2:VALUE]** 
 ## Swapping tasks after dispatch
 
 Taxis can be configured with `<param key="device.taxi.swapGroup" value="<GROUPNAME>"/>` in their `vType` or `<vehicle>`-definition (setting `<GROUPNAME>` to an arbitrary non-empty string).
-If a taxi sets this parameter, it can receive tasks from other taxis with the same `swapGroup` value upon entering the idle state. This is doen if the other taxi has not yet picked up any passengers and the idle taxi is closer to the pickup location.
+If a taxi sets this parameter, it can receive tasks from other taxis with the same `swapGroup` value upon entering the idle state. This is done if the other taxi has not yet picked up any passengers and the idle taxi is closer to the pickup location.
 
 ## Algorithm-Output
 
@@ -215,7 +215,7 @@ Example declarations for the rerouter and the taxi vType that references it:
 
 When defining taxi stands for rail taxis, overtaking on a rail track is not possible and thus parking spaces will automatically be filled beginning at the downstream end.
 If the first taxi in the queue of waiting taxis is dispatched, all idling taxis behind it will then automatically advance in the queue to fill up that spot.
-If another vehicle approaches the end of the queue and cannot park (due to lack of free capacity or havin a different destination), the whole queue ahead will exit the parkingArea to allow the rear vehcle to pass.
+If another vehicle approaches the end of the queue and cannot park (due to lack of free capacity or having a different destination), the whole queue ahead will exit the parkingArea to allow the rear vehicle to pass.
 
 ## Customer Stops
 
@@ -314,11 +314,11 @@ If a taxi is not in state empty the following re-dispatch calls are supported
 
 ## Controlling Idle Taxis
 
-The default idle algorithm ("stop") aims to ensure that the taxi doesn't exit the simulation (which were to happen if it ever drives past the final edge of it's route). To this end, it makes the taxi stop where it is or uses an existing stop on the route of the taxi and sets it to `triggered="person"` (which effectively makes the taxi wait indefinitely until the next dispatch).
+The default idle algorithm ("stop") aims to ensure that the taxi doesn't exit the simulation (which were to happen if it ever drives past the final edge of its route). To this end, it makes the taxi stop where it is or uses an existing stop on the route of the taxi and sets it to `triggered="person"` (which effectively makes the taxi wait indefinitely until the next dispatch).
 
-In oder to send an idle taxi to another destination, the following things need to happend in order:
+In order to send an idle taxi to another destination, the following things need to happen in order:
 
-1. The taxi needs to extend it's route (i.e. with `vehicle.changeTarget` or `vehicle.setRoute`)
+1. The taxi needs to extend its route (i.e. with `vehicle.changeTarget` or `vehicle.setRoute`)
 2. The current stop must be aborted with `vehicle.resume`
 3. A new stop must be added (i.e. with `vehicle.setStop`.
 

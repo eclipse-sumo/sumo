@@ -106,7 +106,7 @@ page](https://wiki.openstreetmap.org/wiki/API) for the latest version.
 
 # Downloading a City
 
-Modelling a single city is a common simulation use case. [OSM Overpass
+Modeling a single city is a common simulation use case. [OSM Overpass
 API](https://www.overpass-api.de/) provides a comfortable interface to
 obtain the road network and infrastructure within a city boundary (or
 other administrative region).
