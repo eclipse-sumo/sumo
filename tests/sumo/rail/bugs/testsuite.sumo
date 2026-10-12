@@ -123,3 +123,6 @@ ticket17862
 
 # invalid assertion
 ticket18196
+
+# invalid back lane when inserting on short edge
+ticket18345
