@@ -66,21 +66,21 @@ not accomplish what was to do).
 
 For this, the main function of each of our command line applications has
 a try/catch-block and all of the processing done by this application is
-done within this block. What is always catched is the **ProcessError** -
+done within this block. What is always caught is the **ProcessError** -
 exception, defined in src/utils/common/UtilExceptions. This class
 contains a message which is reported as soon as the try/catch-block
 located in the main function is reached. As in earlier versions of SUMO,
 a ProcessError could be called with no message (in this case the message
-is set to "Process Error"), we only print the message if the catched
+is set to "Process Error"), we only print the message if the caught
 ProcessError has really one set.
 
 ```
 int
 main(int argc, char **argv)
 {
-    // initialise return code
+    // initialize return code
     int ret = 0;
-    ... make uncritical initialisation ...
+    ... make uncritical initialization ...
     try {
        ... do some critical stuff ...
     } catch (ProcessError &e) {
@@ -115,7 +115,7 @@ the input data are reporting the errors to the error instance of the
 MsgHandler. As soon as reading a file ends, it is checked whether an
 error occurred. In this case, a ProcessError is thrown. If the handler is
 not parsing the data himself, but using other structures, these
-structures may throw an **InvalidArgument** which then has to be catched
+structures may throw an **InvalidArgument** which then has to be caught
 and reported to the error instance of the MsgHandler.
 
 Be aware that some things already allocated have to be deleted before
@@ -128,12 +128,12 @@ catch everything else. In fact, these may be both system failures and
 programming faults. So, we only catch this in the release-version so
 that an end-user will be informed about an error (though with no verbose
 error message). In the case we are debugging the code, the
-exception/fault is not catched - our debugger should stay at the
+exception/fault is not caught - our debugger should stay at the
 position the exception was generated.
 
 #### System failures
 
-Are currently catched by the later catch-block. Probably, the easiest
+Are currently caught by the later catch-block. Probably, the easiest
 method to handle those would be to give a list of possible failures and
 try to handle them in catch-blocks as it is done with **ProcessErrors**.
 

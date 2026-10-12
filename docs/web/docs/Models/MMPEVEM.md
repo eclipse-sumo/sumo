@@ -20,7 +20,7 @@ represent auxiliary devices such as air conditioning, and the battery.
 
 # Using the Model
 
-To utilise MMPEVEM, set `emissionClass="MMPEVEM"` in the `vType` definitions of
+To utilize MMPEVEM, set `emissionClass="MMPEVEM"` in the `vType` definitions of
 the vehicles you are interested in and add the following parameter:
 ```xml
 <param key="has.battery.device" value="true"/>
@@ -160,12 +160,12 @@ MMPEVEM is a backward-facing model, meaning that it expects a velocity,
 acceleration, slope, and time step size to calculate the energy demand. This
 also means that it has no way to stop the vehicle from running into invalid
 operating points. The latter can be caused by implausible accelerations (for
-instance due to teleportations), wrong vehicle parameters, etc. Another reason is the use of the "default" acceleration when driving at hight speed.
+instance due to teleportations), wrong vehicle parameters, etc. Another reason is the use of the "default" acceleration when driving at high speed.
 This can be mitigated by providing an [`maxAccelProfile` or `desAccelProfile`](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#car-following_model_parameters)
 
 !!! caution
     If the model finds itself in an invalid state, it returns `nan` as energy consumption
-    
+
 On a related note, MMPEVEM assumes that the driver perfectly operates the mechanical brakes such that
 torque and power are clipped to the motor's limits during recuperation.
 

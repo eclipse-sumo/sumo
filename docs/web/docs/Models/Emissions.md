@@ -78,7 +78,7 @@ the free data set).
 
 # Outputs
 
-Pollutants emitted by the simulated vehicles can be visualised using
+Pollutants emitted by the simulated vehicles can be visualized using
 [sumo-gui](../sumo-gui.md) or be written into output files, both by
 [sumo](../sumo.md) and [sumo-gui](../sumo-gui.md). The
 following output can be used:

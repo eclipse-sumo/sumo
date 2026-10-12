@@ -11,7 +11,7 @@ whether they are of a correct type. The options sub system also supports
 writing configuration-templates, saving current (parsed/loaded) settings
 to files, and printing the help screen.
 
-## Initialising Options
+## Initializing Options
 
 ### First Steps
 

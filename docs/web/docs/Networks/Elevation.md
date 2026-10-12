@@ -12,7 +12,7 @@ Elevation data can be imported from the following sources
 
 - by applying extra data from supplemental files
   - from a shapefile mesh by using the [netconvert](../netconvert.md) option **--heightmap.shapefiles**
-  - from a greyscale height-map using [netconvert](../netconvert.md) option **--heightmap.geotiff**.
+  - from a grayscale height-map using [netconvert](../netconvert.md) option **--heightmap.geotiff**.
   - from [*edg.xml files*](../Networks/PlainXML.md#edge_descriptions) as part of the shape specification
 
 - by shifting geometry points and junctions along the z-axis in [netedit move mode](../Netedit/editModesCommon.md#changing_elevation).

@@ -60,7 +60,7 @@ The values without a tick in the "On" column need to be [enabled explicitly](#fu
 | lane     | id                   |  (x) |      | The id of the current lane (only available in microsimulation).                                                                                 |
 | edge     | id                   |  (x) |   x  | The id of the current edge (only available in meso).                                                        |
 | slope    | degree               |  x |   x  | The slope of the vehicle in degrees (equals the slope of the road at the current position)                  |
-| signals  | bitset               |    |      | The [signal state information](../../TraCI/Vehicle_Signalling.md) (blinkers, etc)                           |
+| signals  | bitset               |    |      | The [signal state information](../../TraCI/Vehicle_Signaling.md) (blinkers, etc)                           |
 | acceleration  | m/s<sup>2</sup  |    |      | The longitudinal acceleration                                                                               |
 | accelerationLat | m/s<sup>2</sup |   |      | The lateral acceleration (only with enabled sublane model)                                                  |
 | accelerationVec | m/s<sup>2</sup |   |      | The acceleration vector of the vehicle: acceleration_x,acceleration_y                                          |
@@ -206,7 +206,7 @@ The value **all** enables all attributes (including emission output). There are 
 - **--fcd-output.geo** will toggle output coordinates to WGS84 (for
   geo-referenced networks)
 - **--fcd-output.signals** will add [signal state
-  information](../../TraCI/Vehicle_Signalling.md) to the output
+  information](../../TraCI/Vehicle_Signaling.md) to the output
 - **--fcd-output.distance** will add [kilometrage](../Railways.md#kilometrage_mileage_chainage) information to the output
 - **--fcd-output.acceleration** will add acceleration data to the output (also lateral acceleration when using the [sublane model](../SublaneModel.md))
 - **--fcd-output.max-leader-distance FLOAT** will add attributes leaderGap, leaderSpeed, leaderID whenever a vehicle has a leader within the given distance. Otherwise, leaderID will be "" and leaderGap, leaderSpeed will be -1.

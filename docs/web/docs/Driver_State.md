@@ -29,7 +29,7 @@ To apply the imperfect driving functionality for a vehicle it is
 equipped with a **Driver State Device**, see [the description of
 equipment
 procedures](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)
-(and use <device name>`=driverstate`). 
+(and use <device name>`=driverstate`).
 
 An example definition that equips one vehicle with a Driver State is show below.
 At the default parameters, the driverstate models perfect awareness / no errors. To observe effects from this device, the initialAwarenss must be set to a value below 1.
@@ -111,7 +111,7 @@ Here, the expected quantities are
 ## Free flow error
 
 The `freeSpeedErrorCofficient` can be used to model imprecision in the perception of the drivers own speed and thereby induce fluctuations in free flow speed.
-The error model is: 
+The error model is:
 
 `pereivedSpeed = speed + myFreeSpeedErrorCoefficient * error(t) * sqrt(speed)`
 
@@ -130,7 +130,7 @@ The following models support the driverstate effects speedDifferenceError and he
 
 # Publication
 
-See sectino *2.3.1.3 Modelling of a Decreased Post-ToC Driver Performance* in 
-[TransAID project report: Modelling, simulation and assessment of vehicle
-automations and automated vehicles’ driver behaviour in
+See section *2.3.1.3 Modeling of a Decreased Post-ToC Driver Performance* in
+[TransAID project report: Modeling, simulation and assessment of vehicle
+automations and automated vehicles’ driver behavior in
 mixed traffic](https://www.transaid.eu/wp-content/uploads/2017/Deliverables/WP3/TransAID_D3.1_Modelling-simulation-and-assessment-of-vehicle-automations.pdf)

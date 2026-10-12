@@ -2,8 +2,7 @@
 title: Net Importer
 ---
 
-In the following, advices on implementing a new network importer are
-given-
+In the following, advice on implementing a new network importer is given:
 
 Implementing an own network import module is very easy. The following
 steps are necessary:

@@ -44,7 +44,7 @@ First, you should understand the basics of vehicle modeling:
 There are various ways to insert vehicles into the map. Your choice
 basically depends on what kind of information about the traffic you
 have:
-[Demand/Introduction_to_demand_modelling_in_SUMO](../Demand/Introduction_to_demand_modelling_in_SUMO.md).
+[Demand/Introduction_to_demand_modeling_in_SUMO](../Demand/Introduction_to_demand_modeling_in_SUMO.md).
 
 # Improve your Scenario
 

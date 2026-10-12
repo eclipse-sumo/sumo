@@ -1,5 +1,5 @@
 ---
-title: Vehicle Signalling
+title: Vehicle Signaling
 ---
 
 # Signaling

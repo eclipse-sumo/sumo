@@ -236,7 +236,7 @@ as a group in [netedit](Netedit/index.md).
 ### Loading a selection automatically
 
 By setting option **--selection-file FILE** a selection file as described above can be given to **sumo-gui** at startup.
-Any objects that are loaded at the start of the simulation will be selected immediately. 
+Any objects that are loaded at the start of the simulation will be selected immediately.
 Any persons, vehicles or containers that were not loaded will be selected once they are loaded at a later simulation time.
 
 ## Locating Objects
@@ -473,7 +473,7 @@ This will color each edge according to the travel time from the point of origin.
 The following coloring options are useful in this regard:
 
 - Recalibrate Rainbow: Configure colors to the data range of encountered travel times
-- 'hide below threshold' (0): color unreachable edges grey as their value is set to -1. (must be activated before using 'Recalibrate Rainbow')
+- 'hide below threshold' (0): color unreachable edges gray as their value is set to -1. (must be activated before using 'Recalibrate Rainbow')
 - 'show edge color value': show the actual travel times for each edge
 - disable 'constant text size' for 'show edge color value': avoid cluttering the display when zoomed out
 
@@ -487,7 +487,7 @@ The following coloring options are useful in this regard:
 - If specific models are used, e.g. sublane and IDM, the respective information can be seen by right-clicking
   a road user (vehicle, pedestrian,train...) and further choosing "Show Parameter".
 
-# Changing the appearance/visualisation of the simulation
+# Changing the appearance/visualization of the simulation
 
 The View Settings menu allows to change and customize the simulations'
 appearance and visualization. To open the visualization settings use
@@ -531,7 +531,7 @@ value/range
   - Show color value: show the numerical value that is used for
     coloring (text configuration options as for the id)
 
-## Vehicle Visualisation Settings
+## Vehicle Visualization Settings
 
 ### Vehicle shape schemes
 
@@ -617,13 +617,13 @@ The following textual annotations are supported:
 
 Each text can be configured with regard to its size color and background color. By activating the option *Only for selected*, The textual annotation is limited to vehicles with the [*selected*](#selecting_objects) status.
 
-## Edge/Lane Visualisation Settings
+## Edge/Lane Visualization Settings
 
 **Table 2.1 Lane coloring schemes**
 
 | Name                                     | Measure | Description                                                                                   |
 | ---------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------- |
-| uniform                                  | \-      | All road edges are drawn using the same color. Bicycle lanes are drawn in brown, sidewalks in grey and prohibited lanes (allowing no vehicle classes) are transparent. |
+| uniform                                  | \-      | All road edges are drawn using the same color. Bicycle lanes are drawn in brown, sidewalks in gray and prohibited lanes (allowing no vehicle classes) are transparent. |
 | by selection (lane-/streetwise)          | \-      | selected lanes are drawn different than those that are not                                                                                                             |
 | by permission code                       | \-      | all lanes are colored according to the permitted vehicle classes. The code for each lane can be retrieved from the lane parameter dialog (permission code).            |
 | by allowed speed (lanewise)              | m/s     | The maximum velocity allowed on this lane                                                                                                                              |
@@ -777,8 +777,8 @@ The following attributes are supported
     When loading an image file with an embedded geo-reference (i.e. [GeoTIFF](https://en.wikipedia.org/wiki/GeoTIFF)) and the simulation network also has a geo-reference, then the image will be positioned automatically.
 
 !!! caution
-    When loading an image with an assocciated [world file](https://en.wikipedia.org/wiki/World_file), that file must be encoded in WGS84 (lon,lat).
-    
+    When loading an image with an associated [world file](https://en.wikipedia.org/wiki/World_file), that file must be encoded in WGS84 (lon,lat).
+
 !!! note
     Background images for a network can be downloaded with the [tileGet tool](Tools/Misc.md#tilegetpy) or by using the [osmWebWizard](Tools/Import/OSM.md#osmwebwizardpy).
 
@@ -788,7 +788,7 @@ All image files in the visualization support transparency. For vehicles,
 pois and polygons, this transparency can be set dynamically by changing
 the color via [TraCI](TraCI/index.md) and setting the alpha-channel.
 
-All objects that have their color set (via input files or visualisation
+All objects that have their color set (via input files or visualization
 settings) support (Red,Green,Blue,Alpha) color values.
 
 ## 3D-specific Settings
@@ -833,7 +833,7 @@ configuration:
 
 # GUI-settings Files
 
-All the settings configured in the *View Settings* dialog can be saved to a file and re-used for a new simulation. We refer to such files as gui-settings files. Such a file can also include information about breakpoints, tls trackers, screenshots, simulation delay and background images.
+All the settings configured in the *View Settings* dialog can be saved to a file and reused for a new simulation. We refer to such files as gui-settings files. Such a file can also include information about breakpoints, tls trackers, screenshots, simulation delay and background images.
 The easiest way to obtain a gui-settings file is via the *View Settings*-Dialog
 ![icon_colorwheel.png](images/icon_colorwheel.png
 "Open viewsettings editor"). Simply modify the settings and
@@ -1068,7 +1068,7 @@ coloring scheme that spans the loaded data range for the selected attribute.
 Using the checkboxes min, max, center and 'fix range' it is also possible make the colors span a custom range.
 When defining a color scheme, a dedicated color for missing data ('No Data') can always be configured.
 
-  
+
 !!! caution
     edgeData is time based so it will only be shown when the simulation time has advance to the begin time of the respective data interval. Make sure to advance the simulation to time 0 (step once) or to whatever begin time was used for edgeData generation before using *Recalibrate Rainbow*. To see further data frames, advance the simulation by using delay or breakpoints.
 

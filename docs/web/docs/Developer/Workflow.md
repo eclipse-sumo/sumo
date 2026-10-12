@@ -40,7 +40,7 @@ and the central place where all current development tasks are documented.
 We do issue triage every second week in the developer meeting. Send us a [message](../Contact.md) if you want to take part.
 The goal is that in the end every issue is in (at least) one of the following states:
 
-- labelled as "question" or "review needed"
+- labeled as "question" or "review needed"
 - has a (numbered) milestone and at least one assignee
 - is in the backlog
 - is closed
