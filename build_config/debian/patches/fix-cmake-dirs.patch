@@ -1,0 +1,30 @@
+Index: sumo-1.28.0/src/libsumo/CMakeLists.txt
+===================================================================
+--- sumo-1.28.0.orig/src/libsumo/CMakeLists.txt
++++ sumo-1.28.0/src/libsumo/CMakeLists.txt
+@@ -92,7 +92,9 @@ set_target_properties(libsumocpp PROPERT
+     OUTPUT_NAME_DEBUG libsumocpp${BINARY_SUFFIX}D)
+ target_include_directories(libsumocpp PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>)
+ install(TARGETS libsumocpp EXPORT SUMOConfig COMPONENT runtime
+-    RUNTIME LIBRARY ARCHIVE
++    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
++    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
++    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+ )
+ 
+Index: sumo-1.28.0/src/libtraci/CMakeLists.txt
+===================================================================
+--- sumo-1.28.0.orig/src/libtraci/CMakeLists.txt
++++ sumo-1.28.0/src/libtraci/CMakeLists.txt
+@@ -50,7 +50,9 @@ set_target_properties(libtracicpp PROPER
+     OUTPUT_NAME_DEBUG libtracicpp${BINARY_SUFFIX}D)
+ target_include_directories(libtracicpp PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>)
+ install(TARGETS libtracicpp EXPORT SUMOConfig COMPONENT runtime
+-    RUNTIME LIBRARY ARCHIVE
++    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
++    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
++    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+ )
+ 
