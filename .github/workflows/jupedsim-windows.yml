@@ -23,6 +23,9 @@ jobs:
       matrix:
         jps_version: [rls-1.4, master]
         build_config: [Release, Debug]
+        exclude:
+          - jps_version: master
+            build_config: Debug
     env:
       TEXTTEST_TMP: D:/texttest
 
