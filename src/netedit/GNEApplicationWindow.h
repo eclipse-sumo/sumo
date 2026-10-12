@@ -595,10 +595,10 @@ public:
     GNEViewNet* getViewNet();
 
     /// @brief get checkable button for menu tooltips
-    MFXCheckableButton* getShowToolTipsMenu() const override;
+    MFXCheckableButton* getShowToolTipsMenu() const;
 
     /// @brief get checkable button for view tooltips
-    MFXCheckableButton* getShowToolTipsView() const override;
+    MFXCheckableButton* getShowToolTipsView() const;
 
     /// @brief get ToolbarsGrip
     GNEApplicationWindowHelper::ToolbarsGrip& getToolbarsGrip();
