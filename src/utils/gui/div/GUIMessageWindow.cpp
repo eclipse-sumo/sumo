@@ -142,6 +142,9 @@ GUIMessageWindow::hasActiveStringObject(const FXString& text, const FXint pos) c
         if (o != nullptr) {
             GUIGlObjectStorage::gIDStorage.unblockObject(o->getGlID());
             return true;
+        } else if (type == "junction") {
+            // some messages may occur before junction GUIGlObjects are built
+            return true;
         }
     }
     return false;
