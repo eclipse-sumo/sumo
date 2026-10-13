@@ -183,7 +183,7 @@ private:
         const E* start = from;
         while (backDist > 0) {
             const E* prev = getStraightPredecessor(start, into, (int)backLengths.size());
-            if (prev == nullptr) {
+            if (prev == nullptr || prev == to) {
 #ifdef RailwayRouter_DEBUG_ROUTES
                 std::cout << " Could not determine back edge for vehicle '" << vehicle->getID() << "' when routing from edge '" << from->getID() << "' at time=" << time2string(msTime) << "\n";
 #endif
