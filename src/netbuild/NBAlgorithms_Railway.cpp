@@ -588,7 +588,7 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLi
         getRailEdges(n, inRail, outRail);
         for (NBEdge* start : outRail) {
             if (lineEdges.count(start)) {
-                // ptline edges should never be reversed. They are fixed by a different algorithm require their original ids and orientation
+                // ptline edges should never be reversed. They are fixed by a different algorithm which requires their original ids and orientation
                 continue;
             }
             EdgeVector tmp;
