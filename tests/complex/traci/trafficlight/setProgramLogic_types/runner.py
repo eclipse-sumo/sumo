@@ -62,8 +62,12 @@ logics = [
     #       Phase(3,  "rrrrryyyyyrrrrryyyyy")]),
 ]
 
-for logic in logics:
+for index, logic in enumerate(logics):
+    logic.offset = 5.5 + index
     traci.trafficlight.setProgramLogic(tlsID, logic)
+    loaded = next(program for program in traci.trafficlight.getAllProgramLogics(tlsID)
+                  if program.programID == logic.programID)
+    assert loaded.offset == logic.offset, (loaded.offset, logic.offset)
     print("set logic type=%s" % traci.trafficlight.getParameter(tlsID, "typeName"))
     phase = traci.trafficlight.getPhase(tlsID)
     for step in range(100):

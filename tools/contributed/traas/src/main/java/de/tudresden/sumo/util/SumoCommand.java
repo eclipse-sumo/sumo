@@ -353,7 +353,7 @@ public class SumoCommand {
 
             SumoTLSProgram stl = (SumoTLSProgram) input;
             cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
-            cmd.content().writeInt(5);
+            cmd.content().writeInt(6);
 
             cmd.content().writeUnsignedByte(Constants.TYPE_STRING);
             cmd.content().writeStringASCII(stl.subID);
@@ -363,6 +363,9 @@ public class SumoCommand {
 
             cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
             cmd.content().writeInt(stl.currentPhaseIndex);
+
+            cmd.content().writeUnsignedByte(Constants.TYPE_DOUBLE);
+            cmd.content().writeDouble(stl.offset);
 
             cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
             cmd.content().writeInt(stl.phases.size());
