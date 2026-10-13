@@ -3264,7 +3264,7 @@ MSLane::getLogicalPredecessorLane() const {
         // get only those edges which connect to this lane
         for (MSEdgeVector::iterator i = pred.begin(); i != pred.end();) {
             std::vector<IncomingLaneInfo>::const_iterator j = find_if(myIncomingLanes.begin(), myIncomingLanes.end(), edge_finder(*i));
-            if (j == myIncomingLanes.end()) {
+            if (j == myIncomingLanes.end() || myEdge->getBidiEdge() == *i || ((*i)->isInternal() && myEdge->getBidiEdge() == (*i)->getNormalBefore())) {
                 i = pred.erase(i);
             } else {
                 ++i;
