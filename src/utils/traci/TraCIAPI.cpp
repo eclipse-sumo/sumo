@@ -1679,8 +1679,11 @@ TraCIAPI::TrafficLightScope::getAllProgramLogics(const std::string& tlsID) const
             myParent.myInput.readUnsignedByte();
             const int phaseIndex = myParent.myInput.readInt();
             myParent.myInput.readUnsignedByte();
+            const double offset = myParent.myInput.readDouble();
+            myParent.myInput.readUnsignedByte();
             const int phaseNumber = myParent.myInput.readInt();
             libsumo::TraCILogic logic(programID, type, phaseIndex);
+            logic.offset = offset;
             for (int j = 0; j < phaseNumber; j++) {
                 myParent.myInput.readUnsignedByte();
                 myParent.myInput.readInt();
@@ -1833,13 +1836,15 @@ void
 TraCIAPI::TrafficLightScope::setProgramLogic(const std::string& tlsID, const libsumo::TraCILogic& logic) const {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(5);
+    content.writeInt(6);
     content.writeUnsignedByte(libsumo::TYPE_STRING);
     content.writeString(logic.programID);
     content.writeUnsignedByte(libsumo::TYPE_INTEGER);
     content.writeInt(logic.type);
     content.writeUnsignedByte(libsumo::TYPE_INTEGER);
     content.writeInt(logic.currentPhaseIndex);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(logic.offset);
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
     content.writeInt((int)logic.phases.size());
     for (const std::shared_ptr<libsumo::TraCIPhase>& p : logic.phases) {

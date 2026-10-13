@@ -60,15 +60,15 @@ The message contents are as following:
 
 ### complete program definition (0x2c)
 
-|         byte          |   integer   |        byte         |   string   |         byte         |     integer     |         byte          |           compound           |         byte         |   integer   |         byte         |   integer    | <phases\> |
-| :-------------------: | :---------: | :-----------------: | :--------: | :------------------: | :-------------: | :-------------------: | :--------------------------: | :------------------: | :---------: | :------------------: | :----------: | :------: |
-| value type *compound* | item number | value type *string* | program ID | value type *integer* | Type (always 0) | value type *compound* | Compound Length (always 0\!) | value type *integer* | Phase Index | value type *integer* | Phase Number |  Phases  |
+The value is a compound with six elements:
 
-with Phases:
+| type + string | type + integer | type + integer | type + double | type + compound | type + compound |
+| :-----------: | :------------: | :------------: | :-----------: | :-------------: | :-------------: |
+| Program ID | Type | Current phase index | Offset (seconds) | Phases | Parameters |
 
-|       byte        |       double        |        byte         | double |        byte         | double |        byte         |            string            |
-| :---------------: | :-----------------: | :-----------------: | :----: | :-----------------: | :----: | :-----------------: | :--------------------------: |
-| value type double | Duration in seconds | value type *double* | unused | value type *double* | unused | value type *string* | State (light/priority-tuple) |
+Phases and parameters use the same structure as the
+[complete program retrieval](Traffic_Lights_Value_Retrieval.md#structure_of_compound_object_traffic_light_program_0x2b).
+The offset defaults to zero in the clients and is used when creating a new program.
 
 !!! note
     For more information about what value should be put in each of the fields mentioned above, see [Tutorials/TraCI4Traffic_Lights#Appendix](../Tutorials/TraCI4Traffic_Lights.md#appendix). Remember that you can check which integer value is associated with particular value type [here](../TraCI/Protocol.md#data_types).
