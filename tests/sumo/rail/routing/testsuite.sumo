@@ -36,3 +36,6 @@ reverse_short_start_stops
 
 # reverse on the starting edge that is shorter than the train
 reverse_on_short_start
+
+# reverse on the starting edge that is shorter than the train
+short_start_back_on_dest
