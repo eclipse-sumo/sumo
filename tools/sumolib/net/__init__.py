@@ -59,7 +59,7 @@ except ImportError:
 import sumolib
 from . import lane, edge, netshiftadaptor, node, connection, roundabout  # noqa
 from .connection import Connection
-from sumolib.miscutils import intIfPossible, openz
+from sumolib.miscutils import intIfPossible, openz, PRACTICAL_INFINITY
 
 
 class TLS:
@@ -589,7 +589,7 @@ class Net:
             e.rebuildShape()
 
     def getInternalPath(self, conn, fastest=False):
-        minInternalCost = 1e400
+        minInternalCost = PRACTICAL_INFINITY
         minPath = None
         for c in conn:
             if c.getViaLaneID() != "":
@@ -606,8 +606,8 @@ class Net:
                     minPath = viaPath
         return minPath, minInternalCost
 
-    def getOptimalPath(self, fromEdge, toEdge, fastest=False, maxCost=1e400, vClass=None, reversalPenalty=0,
-                       includeFromToCost=True, withInternal=False, ignoreDirection=False,
+    def getOptimalPath(self, fromEdge, toEdge, fastest=False, maxCost=PRACTICAL_INFINITY, vClass=None,
+                       reversalPenalty=0, includeFromToCost=True, withInternal=False, ignoreDirection=False,
                        fromPos=None, toPos=None, preferences={}):
         """
         Finds the optimal (shortest or fastest) path for vClass from fromEdge to toEdge
@@ -739,7 +739,7 @@ class Net:
                         bestCost += remainder(fromEdge, fromPos) / speedFunc(fromEdge)
                     return tuple(path), bestCost
                 else:
-                    return None, 1e400
+                    return None, PRACTICAL_INFINITY
 
             dist = self._routingCache(fromEdge, fastest, vClass, ignoreDirection, reversalPenalty,
                                       tuple(preferences.items()))
@@ -787,9 +787,9 @@ class Net:
                     if e2 not in dist or newCost < dist[e2][0]:
                         dist[e2] = (newCost, e1)
                         heapq.heappush(q, (newCost, e2, e1))
-        return None, 1e400
+        return None, PRACTICAL_INFINITY
 
-    def getShortestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None, reversalPenalty=0,
+    def getShortestPath(self, fromEdge, toEdge, maxCost=PRACTICAL_INFINITY, vClass=None, reversalPenalty=0,
                         includeFromToCost=True, withInternal=False, ignoreDirection=False,
                         fromPos=None, toPos=None, preferences={}):
         """
@@ -809,7 +809,7 @@ class Net:
                                    includeFromToCost, withInternal, ignoreDirection, fromPos, toPos,
                                    preferences)
 
-    def getFastestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None, reversalPenalty=0,
+    def getFastestPath(self, fromEdge, toEdge, maxCost=PRACTICAL_INFINITY, vClass=None, reversalPenalty=0,
                        includeFromToCost=True, withInternal=False, ignoreDirection=False,
                        fromPos=None, toPos=None, preferences={}):
         """
