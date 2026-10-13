@@ -591,8 +591,6 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLi
                 // ptline edges should never be reversed. They are fixed by a different algorithm which requires their original ids and orientation
                 continue;
             }
-            EdgeVector tmp;
-            tmp.push_back(start);
             // only reverse edges where the node would be unbroken afterwards
             if (!allBroken(n, start, inRail, outRail)
                     || (inRail.size() == 1 && outRail.size() == 1)) {
