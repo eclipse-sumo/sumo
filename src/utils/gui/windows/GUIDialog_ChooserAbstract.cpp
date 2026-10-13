@@ -54,7 +54,9 @@ FXDEFMAP(GUIDialog_ChooserAbstract) GUIDialog_ChooserAbstractMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER_SUBSTR,  GUIDialog_ChooserAbstract::onCmdFilterSubstr),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,         GUIDialog_ChooserAbstract::onCmdToggleSelection),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SELECT,         GUIDialog_ChooserAbstract::onCmdAddListSelection),
+    FXMAPFUNC(SEL_UPDATE,   MID_CHOOSEN_SELECT,         GUIDialog_ChooserAbstract::onUpdAddListSelection),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,          GUIDialog_ChooserAbstract::onCmdClearListSelection),
+    FXMAPFUNC(SEL_UPDATE,   MID_CHOOSEN_CLEAR,          GUIDialog_ChooserAbstract::onUpdClearListSelection),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_NAME,           GUIDialog_ChooserAbstract::onCmdLocateByName),
     FXMAPFUNC(SEL_COMMAND,  MID_UPDATE,                 GUIDialog_ChooserAbstract::onCmdUpdate),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_CASESENSITIVE,  GUIDialog_ChooserAbstract::onCmdCaseSensitive),
@@ -80,8 +82,11 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     myList(nullptr),
     myCenterButton(nullptr),
     myTrackButton(nullptr),
+    mySelectAllButton(nullptr),
+    myDeselectAllButton(nullptr),
     mySelected(nullptr),
     myTextEntry(nullptr),
+    myNumSelectedItems(0),
     myHideUnselected(nullptr),
     myLocateByName(nullptr),
     myFilterSubstring(nullptr),
@@ -105,8 +110,8 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     }
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     GUIDesigns::buildFXButton(layoutRight, TL("&Select/deselect"), "", TL("Select/deselect current object"), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
-    GUIDesigns::buildFXButton(layoutRight, TL("Select &all"), "", TL("Select all items in list"), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_SELECT, GUIDesignChooserButtons);
-    GUIDesigns::buildFXButton(layoutRight, TL("&Deselect all"), "", TL("Deselect all items in list"), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
+    mySelectAllButton = GUIDesigns::buildFXButton(layoutRight, TL("Select &all"), "", TL("Select all items in list"), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_SELECT, GUIDesignChooserButtons);
+    myDeselectAllButton = GUIDesigns::buildFXButton(layoutRight, TL("&Deselect all"), "", TL("Deselect all items in list"), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
     GUIDesigns::buildFXButton(layoutRight, TL("&Update"), "", TL("Reload all ids"), GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_UPDATE, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     GUIDesigns::buildFXButton(layoutRight, TL("&Close"), "", "", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
@@ -357,6 +362,23 @@ GUIDialog_ChooserAbstract::onCmdAutoCenter(FXObject*, FXSelector, void*) {
 }
 
 
+long
+GUIDialog_ChooserAbstract::onUpdAddListSelection(FXObject* sender, FXSelector, void* ptr) {
+    const int numItems = myList ? myList->getNumItems() : 0;
+    const bool enable = (numItems > 0 && myNumSelectedItems < numItems);
+    sender->handle(this, enable ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), ptr);
+    return 1;
+}
+
+
+long
+GUIDialog_ChooserAbstract::onUpdClearListSelection(FXObject* sender, FXSelector, void* ptr) {
+    const bool enable = (myNumSelectedItems > 0);
+    sender->handle(this, enable ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), ptr);
+    return 1;
+}
+
+
 bool
 GUIDialog_ChooserAbstract::locateByName() const {
     return myLocateByName != nullptr && myLocateByName->getCheck() == TRUE;
@@ -491,6 +513,38 @@ GUIDialog_ChooserAbstract::applyFilters() {
             myTrackButton->disable();
         }
     }
+    updateSelectionButtons();
+}
+
+
+void
+GUIDialog_ChooserAbstract::updateSelectionButtons() {
+    const int numItems = myList ? myList->getNumItems() : 0;
+    int numSelected = 0;
+    if (myList != nullptr) {
+        for (int i = 0; i < numItems; i++) {
+            if (myList->getItemIcon(i) != nullptr) {
+                numSelected++;
+            }
+        }
+    }
+    myNumSelectedItems = numSelected;
+    const bool enableSelectAll = (numItems > 0 && numSelected < numItems);
+    const bool enableDeselectAll = (numSelected > 0);
+    if (mySelectAllButton != nullptr) {
+        if (enableSelectAll) {
+            mySelectAllButton->enable();
+        } else {
+            mySelectAllButton->disable();
+        }
+    }
+    if (myDeselectAllButton != nullptr) {
+        if (enableDeselectAll) {
+            myDeselectAllButton->enable();
+        } else {
+            myDeselectAllButton->disable();
+        }
+    }
 }
 
 
@@ -498,16 +552,21 @@ long
 GUIDialog_ChooserAbstract::onCmdToggleSelection(FXObject*, FXSelector, void*) {
     FXIcon* flag = GUIIconSubSys::getIcon(GUIIcon::FLAG);
     int i = myList->getCurrentItem();
-    if (i >= 0) {
+    if (i >= 0 && i < myList->getNumItems()) {
         toggleSelection(i);
         if (myList->getItemIcon(i) == flag) {
             myList->setItemIcon(i, nullptr);
+            if (myHideUnselected != nullptr && myHideUnselected->getCheck() == TRUE) {
+                applyFilters();
+                return 1;
+            }
         } else {
             myList->setItemIcon(i, flag);
         }
     }
     myList->update();
     myWindowsParent->getView()->update();
+    updateSelectionButtons();
     return 1;
 }
 
@@ -522,6 +581,7 @@ GUIDialog_ChooserAbstract::onCmdAddListSelection(FXObject*, FXSelector, void*) {
     }
     myList->update();
     myWindowsParent->getView()->update();
+    updateSelectionButtons();
     return 1;
 }
 
@@ -533,8 +593,13 @@ GUIDialog_ChooserAbstract::onCmdClearListSelection(FXObject*, FXSelector, void*)
         deselect(i);
         myList->setItemIcon(i, nullptr);
     }
-    myList->update();
-    myWindowsParent->getView()->update();
+    if (myHideUnselected != nullptr && myHideUnselected->getCheck() == TRUE) {
+        applyFilters();
+    } else {
+        myList->update();
+        myWindowsParent->getView()->update();
+        updateSelectionButtons();
+    }
     return 1;
 }
 

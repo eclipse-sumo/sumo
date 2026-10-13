@@ -112,6 +112,12 @@ public:
     long onCmdAddListSelection(FXObject*, FXSelector, void*);
     long onCmdClearListSelection(FXObject*, FXSelector, void*);
 
+    /// @brief Callback: Update "Select all" button
+    long onUpdAddListSelection(FXObject*, FXSelector, void*);
+
+    /// @brief Callback: Update "Deselect all" button
+    long onUpdClearListSelection(FXObject*, FXSelector, void*);
+
     /// @brief Callback: Toggle locator by name
     long onCmdLocateByName(FXObject*, FXSelector, void*);
 
@@ -155,6 +161,9 @@ protected:
     /// @brief apply current filters and update list
     void applyFilters();
 
+    /// @brief update "Select all" and "Deselect all" buttons status
+    void updateSelectionButtons();
+
     /// @brief whether locate by name is active
     bool locateByName() const;
 
@@ -177,6 +186,12 @@ private:
     /// @brief The button that triggers tracking on the select vehicle
     FXButton* myTrackButton;
 
+    /// @brief The button to select all items in list
+    FXButton* mySelectAllButton;
+
+    /// @brief The button to deselect all items in list
+    FXButton* myDeselectAllButton;
+
     /// @brief The chosen id
     GUIGlObject* mySelected;
 
@@ -188,6 +203,9 @@ private:
 
     /// @brief all object IDs available for choosing
     std::vector<GUIGlID> myAllIDs;
+
+    /// @brief number of selected items currently displayed in myList
+    int myNumSelectedItems;
 
     /// @brief whether to hide unselected items
     FXCheckButton* myHideUnselected;
