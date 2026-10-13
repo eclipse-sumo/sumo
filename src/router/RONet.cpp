@@ -822,6 +822,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
             break;
         }
         const SUMOTime minTime = MIN2(routableTime, containerTime);
+        myHaveProcessedRoutes = true;
         if (routableTime == minTime) {
             // check whether to print the output
             if (lastTime != routableTime && lastTime != -1) {

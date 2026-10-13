@@ -413,6 +413,19 @@ public:
 
     /// Returns the information whether further vehicles, persons or containers are stored
     bool furtherStored();
+
+    /// @brief Record routes excluded by the begin time.
+    void routeSkipped() {
+        myHaveSkippedRoutes = true;
+    }
+
+    bool haveSkippedRoutes() const {
+        return myHaveSkippedRoutes;
+    }
+
+    bool haveProcessedRoutes() const {
+        return myHaveProcessedRoutes;
+    }
     //@}
 
 
@@ -605,6 +618,10 @@ private:
 
     /// @brief The number of written routes
     int myWrittenRouteNo;
+
+    /// @brief Whether traffic was excluded by the begin time or processed for output.
+    bool myHaveSkippedRoutes = false;
+    bool myHaveProcessedRoutes = false;
 
     /// @brief Whether the network contains edges which not all vehicles may pass
     bool myHavePermissions;

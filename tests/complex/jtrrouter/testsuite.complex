@@ -1,2 +1,5 @@
 # make sure that flows are random when the option --randomized-flow is enabled
 randomized_flow
+
+# Warn when the routing time window excludes all demand.
+time_window
