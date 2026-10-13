@@ -2500,11 +2500,10 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:588
 msgid ""
-"Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim', "
-"'remote']"
+"Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim']"
 msgstr ""
-"Yaya modelleri arasından seçim yapın ['etkileşimsiz', 'şeritleme', "
-"'jupedsim', 'uzak']"
+"Yaya modelleri arasından seçim yapın ['nonInteracting', 'striping', "
+"'jupedsim']"
 
 #: src/microsim/MSFrame.cpp:591
 msgid ""

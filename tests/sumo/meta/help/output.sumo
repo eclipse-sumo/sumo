@@ -413,7 +413,7 @@ Processing Options:
                                         started times when given
   --pedestrian.model STR               Select among pedestrian models
                                         ['nonInteracting', 'striping',
-                                        'jupedsim', 'remote']
+                                        'jupedsim']
   --pedestrian.timegap-crossing FLOAT  Minimal acceptable gap (in seconds)
                                         between two vehicles before starting to
                                         cross
