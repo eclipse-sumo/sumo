@@ -33,6 +33,7 @@
 #include <guisim/GUINet.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
 #include <microsim/MSEdgeControl.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/transportables/MSTransportableControl.h>
@@ -348,12 +349,23 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
             TL("number of active persons"),
             TL("number of active containers")});
 
-        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", help[STAT_VEHS], help[STAT_VEHS], GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE), this, MID_SHOWVEHSTATS));
+        const GUIIcon greenVehIcon = (OptionsCont::getOptions().isSet("mesosim") && OptionsCont::getOptions().getBool("mesosim")) ?
+                                     GUIIcon::GREEN_VEHICLE_MESO : GUIIcon::GREENVEHICLE;
+        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", help[STAT_VEHS], help[STAT_VEHS], GUIIconSubSys::getIcon(greenVehIcon), this, MID_SHOWVEHSTATS));
         myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", help[STAT_DELAYED], help[STAT_DELAYED], GUIIconSubSys::getIcon(GUIIcon::INSERTION_DELAY), this, MID_SHOWVEHSTATS));
         myStatButtons.back()->hide();
         myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", help[STAT_TELEPORTS], help[STAT_TELEPORTS], GUIIconSubSys::getIcon(GUIIcon::TELEPORT), this, MID_SHOWVEHSTATS));
         myStatButtons.back()->hide();
-        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", help[STAT_PERSONS], help[STAT_PERSONS], GUIIconSubSys::getIcon(GUIIcon::GREENPERSON), this, MID_SHOWPERSONSTATS));
+        GUIIcon greenPersonIcon = GUIIcon::GREENPERSON;
+        if (OptionsCont::getOptions().isSet("pedestrian.model")) {
+            const std::string pedModel = OptionsCont::getOptions().getString("pedestrian.model");
+            if (StringUtils::to_lower_case(pedModel) == "noninteracting") {
+                greenPersonIcon = GUIIcon::GREEN_PERSON_NON_INTERACTING;
+            } else if (StringUtils::to_lower_case(pedModel) == "jupedsim") {
+                greenPersonIcon = GUIIcon::GREEN_PERSON_JUPEDSIM;
+            }
+        }
+        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", help[STAT_PERSONS], help[STAT_PERSONS], GUIIconSubSys::getIcon(greenPersonIcon), this, MID_SHOWPERSONSTATS));
         myStatButtons.back()->hide();
         myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", help[STAT_CONTAINERS], help[STAT_CONTAINERS], GUIIconSubSys::getIcon(GUIIcon::GREENCONTAINER), this, MID_SHOWVEHSTATS));
         myStatButtons.back()->hide();
@@ -2070,6 +2082,18 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             }
             // set simulation step begin information
             myLCDLabel->setText("----------------");
+            const GUIIcon greenVehIcon = MSGlobals::gUseMesoSim ? GUIIcon::GREEN_VEHICLE_MESO : GUIIcon::GREENVEHICLE;
+            myStatButtons[STAT_VEHS]->setIcon(GUIIconSubSys::getIcon(greenVehIcon));
+
+            const std::string pedModel = OptionsCont::getOptions().getString("pedestrian.model");
+            if (StringUtils::to_lower_case(pedModel) == "noninteracting") {
+                myStatButtons[STAT_PERSONS]->setIcon(GUIIconSubSys::getIcon(GUIIcon::GREEN_PERSON_NON_INTERACTING));
+            } else if (StringUtils::to_lower_case(pedModel) == "jupedsim") {
+                myStatButtons[STAT_PERSONS]->setIcon(GUIIconSubSys::getIcon(GUIIcon::GREEN_PERSON_JUPEDSIM));
+            } else {
+                myStatButtons[STAT_PERSONS]->setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENPERSON));
+            }
+
             for (std::vector<FXButton*>::const_iterator it = myStatButtons.begin(); it != myStatButtons.end(); ++it) {
                 (*it)->setText("-");
             }
@@ -2111,13 +2135,14 @@ GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
     const int backlog = myRunThread->getNet().getInsertionControl().getWaitingVehicleNo();
     const int teleports = myRunThread->getNet().getVehicleControl().getTeleportCount();
     const int departed = myRunThread->getNet().getVehicleControl().getDepartedVehicleNo();
+    const GUIIcon greenVehIcon = MSGlobals::gUseMesoSim ? GUIIcon::GREEN_VEHICLE_MESO : GUIIcon::GREENVEHICLE;
     if (backlog > running) {
-        if (vehStats->getIcon() == GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE)) {
+        if (vehStats->getIcon() == GUIIconSubSys::getIcon(greenVehIcon)) {
             vehStats->setIcon(GUIIconSubSys::getIcon(GUIIcon::YELLOWVEHICLE));
         }
     } else {
         if (vehStats->getIcon() == GUIIconSubSys::getIcon(GUIIcon::YELLOWVEHICLE)) {
-            vehStats->setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
+            vehStats->setIcon(GUIIconSubSys::getIcon(greenVehIcon));
         }
     }
     vehStats->setText(toString(running).c_str());
@@ -2365,6 +2390,8 @@ void
 GUIApplicationWindow::closeAllWindows() {
     myTrackerLock.lock();
     myLCDLabel->setText("----------------");
+    myStatButtons[STAT_VEHS]->setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
+    myStatButtons[STAT_PERSONS]->setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENPERSON));
     for (std::vector<FXButton*>::const_iterator it = myStatButtons.begin(); it != myStatButtons.end(); ++it) {
         (*it)->setText("-");
         if (it != myStatButtons.begin()) {
