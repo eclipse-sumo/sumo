@@ -29,6 +29,8 @@ import random
 import gzip
 import codecs
 import io
+import atexit
+from functools import wraps
 from pathlib import Path
 from types import ModuleType, FunctionType
 from gc import get_referents
@@ -67,16 +69,46 @@ def benchmark(func):
     """
     decorator for timing a function
     """
+    @wraps(func)
     def benchmark_wrapper(*args, **kwargs):
         started = time.time()
         now = time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())
         print('function %s called at %s' % (func.__name__, now))
         sys.stdout.flush()
         result = func(*args, **kwargs)
-        print('function %s finished after %f seconds' %
+        print('function %s finished after %.6f seconds' %
               (func.__name__, time.time() - started))
         sys.stdout.flush()
         return result
+    return benchmark_wrapper
+
+
+def benchmark_cumulative(func):
+    """
+    Decorator for timing a function and tracking execution statistics over repeated invocations.
+    Prints statistics at program end.
+    """
+    @wraps(func)
+    def benchmark_wrapper(*args, **kwargs):
+        if not hasattr(benchmark_wrapper, 'call_count'):
+            benchmark_wrapper.call_count = 0
+            benchmark_wrapper.total_duration = 0.0
+        started = time.time()
+        result = func(*args, **kwargs)
+        elapsed = time.time() - started
+        benchmark_wrapper.call_count += 1
+        benchmark_wrapper.total_duration += elapsed
+        return result
+
+    def print_stats():
+        count = getattr(benchmark_wrapper, 'call_count', 0)
+        if count > 0:
+            total = benchmark_wrapper.total_duration
+            avg = total / count
+            print(f"\n--- Statistics for {func.__name__}: calls={count} total(s)={total:.6f} avg(s)={avg:.6f} ---")
+            sys.stdout.flush()
+
+    atexit.register(print_stats)
     return benchmark_wrapper
 
 
