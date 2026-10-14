@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-03T22:27:04.159717+01:00 by Eclipse SUMO sumo v1_27_1+0600-3f7ce74d7c5
+<!-- generated on 2026-10-14T09:22:23.591051+01:00 by Eclipse SUMO sumo v1_28_0+0069-9da5ff73f39
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -585,7 +585,7 @@
         <!-- Override stop arrival times with stop started times when given -->
         <use-stop-started value="false" type="BOOL"/>
 
-        <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;jupedsim&apos;, &apos;remote&apos;] -->
+        <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;jupedsim&apos;] -->
         <pedestrian.model value="striping" type="STR"/>
 
         <!-- Minimal acceptable gap (in seconds) between two vehicles before starting to cross -->
