@@ -5,10 +5,46 @@ title: ChangeLog
 
 ### Bugfixes
 
+- sumo
+  - Fixed invalid predecessor lane used when inserting long train on short edge #18345
+
+- sumo-gui
+  - Fixed invalid error on reloading polygon file if SUMO_HOME is not set #13584
+  - Fixed missing underline in object ids for warnings during network loading #18351
+
+- meso
+  - Fixed extreme slow-down when running simulation with option **--time-to-teleport.disconnected** (regression in 1.28.0) #18357
+
+- netconvert
+  - Fixed invalid track direction when processing OSM data with option **--railway.topology.repair** #18349
+
+- duarouter
+  - Fixed invalid abort of train routing when running with **--ignore-errors** (also affects sumo) #18335
+  - Fixed crash during railway routing (also affects sumo) #18340
+  - Fixed invalid route output with **--bulk-routing** #18355
+
 ### Enhancements
 
+- sumo-gui
+  - Converted some buttons into checkboxes in the locate dialog #9925
+  - Status line icons now indicate whether micro or meso is running and which pedestrian model is active #9228
+
+- meso
+  - vType-specific timeToTeleport now takes effect #18359
+
+- netconvert
+  - Added options for setting default atcuated tls params #10836
+
+- TraCI
+  - Added function `traci.edge.getMaxSpeed` #14489
+
+- tools
+  - gtfs2pt.py: now runs twice as fast due to better caching #18333
+
+  
 ### Miscellaneous
 
+- Fixed VISSIM import documentation language #6082
 
 ## Version 1.28.0 (08.10.2026)
 
