@@ -4,62 +4,73 @@ title: Funding and Support
 
 # Funding and Support
 
-Eclipse SUMO is a project of the Eclipse Foundation and has a number of enthusiastic committers
-behind it, working for several companies contributing to the overall project.
+Eclipse SUMO is an open-source project of the Eclipse Foundation, maintained and developed by a dedicated community of committers from several organizations.
 
-The main source of funding for the maintenance and further development is through joint research projects.
+Keeping SUMO reliable, up to date, and continuously evolving requires sustained effort and funding. 
+Much of this work is currently supported through collaborative research projects, but additional funding is needed to ensure ongoing maintenance and further development.
 
-## Research projects
+You can help support SUMO by collaborating with us on research projects or by funding the development of specific features and bug fixes through our implementation partners.
 
-If you have (or plan) a project with SUMO please consider involving one of the companies below to
-support your project and maybe also add new functionality which will be useful for the whole SUMO community.
-We are also open to preparing funding applications together with you. Just get in touch with one of the partners below
-or write to sumo-dev@eclipse.org (mailing list requires registration).
+## Research Projects
 
-## Sponsor a feature or a bug fix
+If you are planning or already working on a research project involving SUMO, consider collaborating with one of the partners listed below. 
+They can contribute their expertise, support your project, and help develop new functionality that benefits the entire SUMO community.
+We also welcome opportunities to prepare joint research proposals and funding applications.
+To explore possible collaborations, contact one of the partners directly or reach out via sumo-dev@eclipse.org (registration is required to post to the mailing list).
 
-If you need a specific feature or a fix and do not want to wait for it to be picked up,
-you can commission it from one of the implementation partners below. What you pay for is development work, not a donation.
-The result is merged into SUMO and therefore available to everybody.
+## Fund a Feature or Bug Fix
 
- 1. Check the issue tracker whether your request already exists, otherwise open a new issue and describe it.
- 2. Contact one of the partners below and refer to the issue.
- 3. Agree on scope, price and schedule directly with the partner.
+If you need a specific feature or bug fix and would like to speed up its development, you can commission one of the implementation partners listed below. 
+This is paid development work rather than a donation. 
+The resulting changes are intended to be integrated into SUMO, making them available to the entire community.
 
-We tag issues which might especially benefit from funding with the label
-[`fundable`](https://github.com/eclipse-sumo/sumo/issues?q=label%3Afundable) in our issue tracker.
+Here's how it works:
 
-Your payment will go to the partner company, not the SUMO project or the Eclipse Foundation.
+1. Check the [issue tracker](https://github.com/eclipse-sumo/sumo/issues) to see whether your request already exists. If not, open a new issue describing your needs.
+2. Contact one of the implementation partners below and refer to the issue.
+3. Agree on the scope, cost, and timeline directly with the partner.
 
-## Implementation partners
+We also highlight issues that could particularly benefit from financial support with the [`fundable`](https://github.com/eclipse-sumo/sumo/issues?q=label%3Afundable) label.
 
-Below we list possible partners you can approach to work on a SUMO project together.
-If you feel you or your company should be listed below, send an email to sumo-dev@eclipse.org
-(mailing list requires registration).
+Contracts and payments are handled directly between you and the implementation partner, not through the SUMO project or the Eclipse Foundation.
+
+## Implementation Partners
+
+The organizations listed below can support your SUMO-related projects through research collaborations, technical expertise, or commissioned development. 
+Feel free to contact them directly to discuss opportunities for working together.
+
+If you or your organization would like to be listed as an implementation partner, please contact us at sumo-dev@eclipse.org (registration is required to post to the mailing list).
 
 ### German Aerospace Center (DLR)
 
-DLR is Germany's national aerospace and transport research center. Its Institute of Transportation Systems conducts world-class
-research on traffic modeling and intelligent transport systems. It started the SUMO development in 2001 and has been the leading
-contributor ever since. As a research organization the best way to involve DLR is through a research project, especially
-with funding by a German or European institution, or another eligible funding body. If you want to contact them, write to sumo@dlr.de.
+DLR is Germany's national aerospace and transport research center. 
+Its Institute of Transportation Systems specializes in traffic modeling and intelligent transportation systems. 
+DLR initiated the development of SUMO in 2001 and has remained its leading contributor ever since.
 
-### Consultancy for engineers (co4e)
+As a publicly funded, non-profit research organization, DLR primarily engages in collaborative research projects, particularly those supported by German, European, or other suitable funding programs. 
+Direct contracting for specific development or consulting services is also possible.
 
-The co4e GmbH is a spin-off from the German Aerospace Center (DLR). It is based in Berlin and provides technology consultancy services
-and specialized software tools for system engineers. It is the developer of [SESAM](https://co4e.com/sesam) which is a collaborative platform for building
-digital twins and mobility simulations in the cloud. They offer:
+To discuss potential collaborations, contact [sumo@dlr.de](mailto:sumo@dlr.de).
 
- - Training and workshops to gain SUMO proficiency
- - Consultancy and service for the successful application of SUMO in your projects
- - Development of SUMO features and adaptation of existing functionality
- - Implementation of projects based on SUMO
+### Consultancy for Engineers (co4e)
 
-If you want to contact them, write to robert.hilbrich@co4e.com.
+co4e GmbH is a Berlin-based spin-off of the German Aerospace Center (DLR), providing technology consultancy and specialized software solutions for systems engineering. 
+The company also develops [SESAM](https://sesam.co4e.com), a collaborative cloud platform for building digital twins and running mobility simulations based on SUMO - for humans and agents.
+
+co4e offers a range of services to support SUMO users and projects:
+
+- Training and hands-on workshops to build SUMO expertise
+- Consulting and technical support for applying SUMO in research and industry projects
+- Development of new SUMO features and enhancements to existing functionality
+- Design and implementation of SUMO-based simulation projects
+
+To discuss potential collaborations or commissioned development, contact [robert.hilbrich@co4e.com](mailto:robert.hilbrich@co4e.com).
 
 ## Past projects
 
-If you want to know more about projects which helped funding SUMO, have a look at [our project page](Other/Projects.md).
+To learn more about past projects that have supported SUMO's development, visit [our project page](Other/Projects.md).
+
+<!-- Robert: ich glaube, die müssten wir erst fragen ... Da fehlt dann auch noch BOSCH, ZF, Städte?, ...
 
 The following organizations already funded SUMO development in the past:
 
@@ -72,3 +83,5 @@ The following organizations already funded SUMO development in the past:
 ### transcality
 
 ### VW
+
+-->
