@@ -128,7 +128,7 @@ public:
         const SUMOVehicleClass vClass = vehicle == nullptr ? SVC_IGNORING : vehicle->getVClass();
         const bool ignoreTransient = vehicle == nullptr ? false : vehicle->ignoreTransientPermissions();
         std::tuple<const E*, const V*, SUMOTime> query = std::make_tuple(from, vehicle, msTime);
-        if ((this->myBulkMode || (this->myAutoBulkMode && query == myLastQuery)) && !this->myAmClean) {
+        if (((this->myBulkMode && from == std::get<0>(myLastQuery)) || (this->myAutoBulkMode && query == myLastQuery)) && !this->myAmClean) {
 #ifdef DijkstraRouter_DEBUG_BULKMODE
             if (query != myLastQuery) {
                 std::cout << " invalid bulk mode. myLastQuery="
