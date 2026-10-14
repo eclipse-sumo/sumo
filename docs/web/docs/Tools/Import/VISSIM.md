@@ -2,138 +2,75 @@
 title: VISSIM
 ---
 
-# Extension tools to import features from VISSIM \*.inpx files
+Extension tools for importing features from VISSIM `*.inpx` files
 
-!!! caution
-    documentation is WORK IN PROGRESS -- more doc to come...
+# Extending SUMO network conversion
 
-**TODO:**
+With version 6 of PTV's commercial traffic microsimulation software, which is used to visualize traffic behavior not only in German-speaking countries, the file format was changed to an XML-based `.inpx` format. However, the SUMO tool `netconvert`, which converts networks from other source formats into a SUMO network, was still based on the old `.inp` format through version 0.23.0. A newer version is therefore required to convert current networks in the `.inpx` format. Since nothing in the program workflow has changed apart from reading the network information, the procedure for using `netconvert` to convert VISSIM networks remains the same.
 
-- translation to english
+During conversion of `.inpx` networks, priority rules within SUMO junctions are also defined by reading the conflict-area definitions from VISSIM.
 
-# Erweiterung der SUMO Netzkonversion
+In addition, Python tools were developed for the XML-based `.inpx` format. After the raw network information has been converted, these tools can import routes, vehicle flows, traffic lights, and detectors.
 
-Mit Version 6 der kommerziellen Verkehrsmikrosimulation der Firma PTV,
-die nicht nur im deutschsprachigen Raum zur Visualisierung von
-Verkehrssachverhalten verwendet wird, wurde das Dateiformat auf ein
-XML-basiertes `.inpx-Format` geändert. Da jedoch das SUMO-Tool
-`netconvert`, welches zur Konversion von Netzen aus anderen
-Quellformaten in ein SUMO-Netz dient bis version 0.23.0 noch auf dem
-alten `.inp-Format` basiert, muss eine neuere version verwendet werden
-um auch aktuelle Netze im `.inpx-Format` konvertieren zu können. Da sich
-außer dem Einlesen der Netzinformationen am Programmablauf nichts
-geändert hat, bleibt die Bedienung des/der BenutzerIn von `netconvert`
-zur Konversion von VISSIM-Netzen identisch.
+## Usage
 
-Beim Konvertierungsvorgang von .inpx-Netzen werden jedoch zusätzlich die
-Priorisierungen innerhalb der SUMO-junctions durch das Einlesen der
-Konfliktflächendefinitionen aus VISSIM definiert.
-
-Des Weiteren wurden für das XML-basierte .inpx-Format zusätzliche Python
-Tools entwickelt, die nach der Konversion der rohen Netzinformationen
-das Einlesen von Routen, Zuflüssen, Lichtsignalanlagen sowie Detektoren
-ermöglichen.
-
-## Verwendung
-
-Der Aufruf von `netconvert` für VISSIM-Netze erfolgt über:
+Run `netconvert` for VISSIM networks as follows:
 
 ```
-netconvert --vissim-file=<VISSIM_FILE –-output-file=MySUMOFile.net.xml
+netconvert --vissim-file <VISSIM_FILE> –-output-file MySUMOFile.net.xml
 ```
 
-Die Unterscheidung, ob es sich um ein VISSIM-Netz im neuen `inpx`- oder
-alten `inp`-Format handelt wird während der Konversion geprüft. Somit
-muss sich der/die BenutzerIn nicht darum kümmern, in welcher Version das
-VISSIM-Netz vorliegt. Wollen jedoch außer der reinen Netzkonversion auch
-die zusätzlichen Python-Tools zur Konversion weiterer Daten verwendet
-werden, so muss das Netz im `.inpx-Format` vorliegen.
+The conversion process determines whether the VISSIM network uses the new `inpx` format or the old `inp` format. Users therefore do not need to know which version the VISSIM network uses. However, if you want to use the additional Python tools to convert data beyond the network itself, the network must be in `.inpx` format.
 
-## Beispiele
+## Examples
 
-Je nach Komplexität des vorliegenden Netzes kann es notwendig sein, noch
-weitere Anpassungen nach der Konversion vornehmen zu müssen. Die
-folgenden Abbildungen zeigen eine beispielhafte Konversion eines
-`.inpx-Netzes` in ein SUMO-Netz.
+Depending on the complexity of the network, additional adjustments may be necessary after conversion. The following figures show an example of converting an `.inpx` network to a SUMO network.
 
 ![Vissim_net.png](../../images/Vissim_net.png "Vissim_net.png")
 ![SUMO_net.png](../../images/SUMO_net.png "SUMO_net.png")
 
-Abbildung "Junction conversion" zeigt eine komplexe Kreuzung, welche in
-VISSIM erstellt und anschließend in SUMO konvertiert wurde. Die
-Abbildung zeigt, dass die Geometrien (und Abbiegerelationen) korrekt
-übersetzt werden.
+The figure "Junction conversion" shows a complex intersection created in VISSIM and then converted to SUMO. The figure shows that the geometry (and turning relationships) are translated correctly.
 
 ![TurningRelation_VISSIM.png](../../images/TurningRelation_VISSIM.png
 "TurningRelation_VISSIM.png")
 ![TurningRelation_SUMO.png](../../images/TurningRelation_SUMO.png
 "TurningRelation_SUMO.png")
 
-## Priorisierung gemäß VISSIM-Konfliktflächen
+## Priorities based on VISSIM conflict areas
 
-Zur Überprüfung der Konversion der Konfliktflächen wurde eine VISSIM
-Kreuzung erstellt, die den herkömmlichen Vorrangregeln des
-Rechtsverkehrs widerspricht. Anschließend wurde das VISSIM-Netz mittels
-`netconvert` in ein SUMO-Netz konvertiert. In den Abbildungen "Conflict
-areas" ist zu sehen, dass die Bevorrangung der Linksabbieger gegenüber
-den Geradeausfahrern korrekt übersetzt wurden.
+To verify the conversion of conflict areas, a VISSIM intersection was created that contradicts the usual priority rules for right-hand traffic. The VISSIM network was then converted to a SUMO network using `netconvert`. The figures "Conflict areas" show that the priority given to left-turning vehicles over through traffic was translated correctly.
 
 **Conflict areas**
 
 ![conflArea_vissim.png](../../images/ConflArea_vissim.png "conflArea_vissim.png")
 ![conflArea_sumo.png](../../images/ConflArea_sumo.png "conflArea_sumo.png")
 
-Die Daten zur Dargestellten Situation finden sich im Verzeichnis der
-Testdaten unter `tests/netconvert/import/leftist_conflictarea-prio/`, wo
-sich auch ein entsprechendes `README.md` befindet.
+The data for the situation shown can be found in the test data directory at `tests/netconvert/import/leftist_conflictarea-prio/`. A corresponding `README.md` file is also located there.
 
-# Konversion der Routen und Zuflüsse
+# Converting routes and vehicle flows
 
-Die Definition von Routen und Zuflüssen sind ein wesentlicher
-Bestandteil einer Simulation. Das Python Tool
-`convert_vissimXML_flows_statRoutes.py` ermöglicht es, VISSIM-Routen und
--Zuflüsse zu parsen und anhand deren Information eine SUMO-Routendatei
-für das konvertierte Netz zu erstellen. Diese hat die Endung `.rou.xml`
-und wird bei der Simulation als Argument angegeben. Bei der Konversion
-werden **nur statische Routendefinitionen** unterstützt, die eine exakte
-Routenabfolge beinhalten. Der Aufruf erfolgt über:
+Route and vehicle-flow definitions are an essential part of a simulation. The Python tool `convert_vissimXML_flows_statRoutes.py` parses VISSIM routes and vehicle flows and uses that information to create a SUMO route file for the converted network. This file has the extension `.rou.xml` and is specified as an argument when running the simulation. Conversion supports **only static route definitions** that specify an exact route sequence. Run the tool as follows:
 
 ```
 convert_vissimXML_flows_statRoutes.py -V <vissim-file> -n <sumo-net-file> -o <output-filename>
 ```
 
-## Routendefinition VISSIM
+## VISSIM route definitions
 
-Zuflüsse sind in der .inpx-Datei durch den XML-tag
-`<timeIntervalVehVolume>` gekennzeichnet. Ein Zufluss ist immer einer
-Strecke zugewiesen und durch einen Namen (der auch leer sein kann) und
-einer eindeutige ID definiert. Da sich der Fahrzeugzufluss mit der Zeit
-ändern kann, werden einem Zufluss Zeitintervalle hinzugefügt, die durch
-die Fahrzeugzusammensetzung und die Verkehrsstärke definiert sind. Die
-Beginnzeiten der Zeitintervalle sind in Millisekunden angegeben und die
-Verkehrsstärke hat die Einheit Fz/h. Eine Zuflussdefinition sieht in
-VISSIM wie folgt aus:
+Vehicle flows are identified in the `.inpx` file by the XML tag `<timeIntervalVehVolume>`. Each vehicle flow is assigned to a link and is defined by a name (which may be empty) and a unique ID. Because the vehicle flow rate can change over time, time intervals are added to a flow and defined by the vehicle composition and traffic volume. The start times of the intervals are specified in milliseconds, and traffic volume is measured in vehicles per hour (veh/h). A vehicle-flow definition in VISSIM looks like this:
 
 ```xml
-  <vehicleInput anmFlag="false" link="9" name="Parkplatz 30221" no="1">
-     <timeIntVehVols>
-        <timeIntervalVehVolume cont="false" timeInt="1 0" vehComp="6" volType="STOCHASTIC" volume="48.000000"/>
-        <timeIntervalVehVolume cont="false" timeInt="1 900000" vehComp="6" volType="STOCHASTIC" volume="84.000000"/>
-        <timeIntervalVehVolume cont="false" timeInt="1 1800000" vehComp="6" volType="STOCHASTIC" volume="120.040000"/>
-        <timeIntervalVehVolume cont="false" timeInt="1 2700000" vehComp="6" volType="STOCHASTIC" volume="120.040000"/>
-     </timeIntVehVols>
-  </vehicleInput>
+<vehicleInput anmFlag="false" link="9" name="Parkplatz 30221" no="1">
+   <timeIntVehVols>
+      <timeIntervalVehVolume cont="false" timeInt="1 0" vehComp="6" volType="STOCHASTIC" volume="48.000000"/>
+      <timeIntervalVehVolume cont="false" timeInt="1 900000" vehComp="6" volType="STOCHASTIC" volume="84.000000"/>
+      <timeIntervalVehVolume cont="false" timeInt="1 1800000" vehComp="6" volType="STOCHASTIC" volume="120.040000"/>
+      <timeIntervalVehVolume cont="false" timeInt="1 2700000" vehComp="6" volType="STOCHASTIC" volume="120.040000"/>
+   </timeIntVehVols>
+</vehicleInput>
 ```
 
-Routenentscheidungen werden in VISSIM durch ihre Startpunkte
-zusammengefasst. Von einer Strecke können mehrere statische Routen
-ausgehen, die zu unterschiedlichen Zielstrecken führen. Diese sind durch
-das Attribut `destLink` gegeben. Für jede Route werden wie bei den
-Zuflüssen Zeitintervalle festgelegt, für welche die relativen Anteile
-der Zuflüsse für die Routen definiert sind. Der Verlauf der Route ist
-durch die angeführte Streckenfolge gegeben, welche durch den XML-tag
-`<linkSeq>` eingeleitet wird. Eine Routendefinition zeigt folgendes
-Beispiel:
+In VISSIM, route decisions are grouped by their starting points. Multiple static routes can start from a single link and lead to different destination links. The destination is specified by the `destLink` attribute. As with vehicle flows, time intervals are defined for each route; these specify the relative shares of the flow assigned to each route. The route itself is specified by the sequence of links introduced by the XML tag `<linkSeq>`. The following example shows a route definition:
 
 ```xml
 <vehicleRoutingDecisionStatic allVehTypes="true" anmFlag="false" combineStaRoutDec="false" link="9" name="Parkplatz 30221" no="1" pos="1.000000">
@@ -151,14 +88,9 @@ Beispiel:
   </vehicleRoutingDecisionStatic>
 ```
 
-## Routendefinition SUMO
+## SUMO route definitions
 
-In SUMO können definiert werden, bei denen wie in VISSIM mehrere Routen
-von einem gemeinsamen Startpunkt zusammengefasst werden. Jede Route in
-der Verteilung ist über ihre Streckenabfolge, sowie ihrer
-Wahrscheinlichkeit definiert. Die Summe der Wahrscheinlichkeiten aller
-Routen muss immer 1 ergeben und die Referenzierung auf eine
-Routen-Verteilung erfolgt über deren eindeutige ID:
+In SUMO, multiple routes can be grouped into a route distribution, as in VISSIM, with all routes sharing a common starting point. Each route in the distribution is defined by its sequence of edges and its probability. The probabilities of all routes must sum to 1. A route distribution is referenced by its unique ID:
 
 ```xml
 <routeDistribution id="81_900.0">
@@ -170,11 +102,7 @@ Routen-Verteilung erfolgt über deren eindeutige ID:
 </routeDistribution>
 ```
 
-Des weiteren gehören zur Routendefinition auch Fahzeugtyp-Verteilungen .
-Diese geben die Eigenschaften und die Wahrscheinlichkeit der definierten
-Fahrzeugtypen an und müssen vorher definiert werden. Wie bei der
-Routen-Verteilung erfolgt die Referenzierung auch hier über die
-eindeutige ID:
+Vehicle-type distributions are also part of a route definition. They specify the properties and probabilities of the defined vehicle types, which must be defined beforehand. As with route distributions, vehicle-type distributions are referenced by their unique ID:
 
 ```xml
 <vTypeDistribution id="6">
@@ -183,13 +111,7 @@ eindeutige ID:
 </vTypeDistribution>
 ```
 
-Auch die Fahrzeugzuflüsse werden in der Routen-Datei definiert. Diese
-werden wie in VISSIM für ein gewisses Zeitintervall festgelegt. Wichtig
-ist, dass die Zuflüsse **aufsteigend nach der Zeit sortiert** werden, da
-diese ansonsten nicht korrekt eingelesen werden können. Jedem Zufluss
-wird des Weiteren noch eine zuvor definierte Routen-Verteilung, eine
-Fahrzeugtypen-Verteilung sowie eine ID zugeordnet. Zuflüsse werden in
-SUMO wie folgt definiert:
+Vehicle flows are also defined in the route file. As in VISSIM, each flow is specified for a particular time interval. It is important to **sort flows in ascending order by time**; otherwise, they may not be read correctly. Each flow is also assigned a previously defined route distribution, a vehicle-type distribution, and an ID. SUMO flows are defined as follows:
 
 ```xml
 <flow begin="0.0" color="1,1,0" end="900.0" id="fl81_st0.0" route="81_0.0" type="6" vehsPerHour="94.56"/>
@@ -197,69 +119,41 @@ SUMO wie folgt definiert:
 <flow begin="1800.0" color="1,1,0" end="2700.0" id="fl108_st1800.0" route="108_1800.0" type="6" vehsPerHour="161.88"/>
 ```
 
-Allgemeine Informationen zur Definition von Routen und Zuflüssen finden
-sich unter
-<https://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html>
-(zuletzt geprüft am 28.07.2015).
+General information on defining routes and vehicle flows is available here: [Definition of Vehicles, Vehicle Types, and Routes](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
 
-## Umsetzung
+## Implementation
 
-Bei der Konversion durch das Tool
-`convert_vissimXML_flows_statRoutes.py` werden folgende VISSIM-Attribute
-übernommen:
+The `convert_vissimXML_flows_statRoutes.py` tool imports the following VISSIM attributes:
 
-- statische Routenentscheidungen
-- Zuflüsse
-- Fahrzeugtypen
-  - Geschwindigkeit
-  - Länge
-  - maximale Beschleunigung
-  - Fahrzeugzusammensetzung
+- Static route decisions
+- Vehicle flows
+- Vehicle types
+  - Speed
+  - Length
+  - Maximum acceleration
+  - Vehicle composition
 
-Da es sich in VISSIM bei Geschwindigkeit, Beschleunigung und Länge um
-Wahrscheinlichkeitsverteilungen handelt, müssen aus den Daten erst
-Mittelwerte berechnet werden. Des Weiteren ist zu beachten, dass die
-Zuflüsse nach der Zeit sortiert werden, um eine korrekte Umsetzung
-gewährleisten zu können. Die zeitliche Abfolge muss beim Editieren der
-Zuflüsse somit ebenfalls beachtet werden. Durch das Tool wird eine
-`.rou.xml` Datei erzeugt, die alle relevanten Routen-Informationen für
-die Simulation in SUMO beinhaltet. Diese muss anschließend in die
-SUMO-Konfigurationsdatei eingetragen werden.
+In VISSIM, speed, acceleration, and length are represented as probability distributions, so their mean values must first be calculated from the data. Note also that vehicle flows are sorted by time to ensure correct conversion. The chronological order must therefore also be maintained when editing flows. The tool creates a `.rou.xml` file containing all route information required for a SUMO simulation. This file must then be added to the SUMO configuration file.
 
-# Konversion der Lichtsignalprogramme
+# Converting traffic-light programs
 
-Das zusätzliche Tool `tls_vissimXML2SUMO.py` ermöglicht es, VISSIM
-Lichtsignalanlagen zu parsen und das konvertierte SUMO-Netz mit diesen
-Informationen zu erweitern. Der Aufruf erfolgt über:
+The additional tool `tls_vissimXML2SUMO.py` parses VISSIM traffic lights and adds this information to the converted SUMO network. Run it as follows:
 
 ```
 tls_vissimXML2SUMO.py -V <vissim-file> -S <sumo-file> -o <output-filename>
 ```
 
-## LSA-Definition: VISSIM
+## Traffic-light definitions in VISSIM
 
-In VISSIM wird für jede erstellte Lichtsignalanlage eine zusätzliche
-`.sig-Datei` angelegt. Diese beinhaltet alle relevanten Informationen
-(wie z.B. Signalsequenz und Signalfolge) zu den definierten
-Signalprogrammen einer LSA. Die restlichen Definitionen der LSA befinden
-sich in der bestehenden `.inpx-Datei` des zugehörigen Netzes. Folgend
-wird an einem Beispiel gezeigt, wie die Struktur dieser Dateien
-aussieht.
+In VISSIM, an additional `.sig` file is created for each traffic light. It contains all relevant information about the defined signal programs, such as the signal sequence and signal order. The remaining traffic-light definitions are stored in the network's existing `.inpx` file. The following example illustrates the structure of these files.
 
-### .inpx-Datei
+### `.inpx` file
 
-In der `.inpx-Datei` sind die Lichtsignalanlagen durch den XML-tag
-`<signalController>` gekennzeichnet. Die benötigten Attribute für die
-Konversion in das SUMO-Format sind die zugehörige `.sig-Datei` sowie die
-Auflistung der definierten Signalgruppen. Signalgruppen können mehreren
-Fahrstreifen zugewiesen werden und sind durch eine Signalabfolge
-definiert. Diese sind als Attribut des Kindelementes
-`<signalOutputConfigurationElement>` vorzufinden. Eine
-Lichtsignalanlagen-Definition sieht in VISSIM wie folgt aus:
+In the `.inpx` file, traffic lights are identified by the XML tag `<signalController>`. The attributes required for conversion to SUMO format are the associated `.sig` file and the list of defined signal groups. Signal groups can be assigned to multiple lanes and are defined by a signal sequence. These sequences appear as an attribute of the child element `<signalOutputConfigurationElement>`. A traffic-light definition in VISSIM looks like this:
 
 ```xml
 <signalController active="true" cycTm="0.000000" cycTmIsVar="true" debug="false" guiFile="VISSIG_GUI.dll" name="VLSA 301 (WienerStr./JudendorferStr.)" no="301" offset="0.000000" progFile="VISSIG_Controller.dll" progNo="1" scDetRecFile="VISSIM_302.ldp" scDetRecShortNam="false" sigTmsTabAutoConfig="true" supplyFile1="vissig.config" supplyFile2="TestsiteGraz_v01301.sig" supplyFile3="" type="FIXEDTIME">
-     <sGs>
+    <sGs>
         <signalGroup amber="0.000000" greenFlsh="0.000000" minGreen="0.000000" minRed="0.000000" name="11GR" no="1" redAmber="0.000000" type="NORMAL"/>
         < ... >
         <signalGroup amber="0.000000" greenFlsh="0.000000" minGreen="0.000000" minRed="0.000000" name="14R" no="8" redAmber="0.000000" type="NORMAL"/>
@@ -274,10 +168,7 @@ Lichtsignalanlagen-Definition sieht in VISSIM wie folgt aus:
   </signalController>
 ```
 
-In der .inpx-Datei befinden sich ebenfalls die Definitionen der
-Lichtsignalgeber aller Lichtsignalanlagen. Diese sind einem Fahrstreifen
-einer Strecke zugewiesen und gehören zu einer zuvor definierten
-Signalgruppe:
+The `.inpx` file also contains the definitions of the signal heads for all traffic lights. Each signal head is assigned to a lane on a link and belongs to a previously defined signal group:
 
 ```xml
 <signalHeads>
@@ -286,11 +177,9 @@ Signalgruppe:
   </signalHeads>
 ```
 
-### .sig-Datei
+### `.sig` file
 
-Die Signalphasen werden in der `.sig-Datei` über ihre ID referenziert.
-Welche ID zu welcher Phase gehört, wird am Anfang der Datei wie folgt
-definiert:
+Signal phases are referenced by ID in the `.sig` file. The mapping between IDs and phases is defined at the beginning of the file as follows:
 
 ```xml
  <signaldisplays>
@@ -301,10 +190,7 @@ definiert:
 
 </source>
 
-Des Weiteren werden in VISSIM für die Definition eines Signalprogrammes
-fixe Signalsequenzen verwendet, die ebenfalls am Anfang der `.sig-Datei`
-zu finden sind. Diese definieren die Abfolge der Phasen und die
-Referenzierung erfolgt über die jeweilige ID:
+VISSIM also uses fixed signal sequences to define a signal program. These are also located near the beginning of the `.sig` file. They define the order of the phases, which are referenced by their respective IDs:
 
 ```xml
 <signalsequences>
@@ -322,16 +208,13 @@ Referenzierung erfolgt über die jeweilige ID:
 </signalsequences>
 ```
 
-Anschließend erfolgt die Definition aller Signalprogramme und deren
-Umlaufzeiten:
+All signal programs and their cycle times are then defined:
 
 ```xml
 <prog id="1" cycletime="80000" switchpoint="0" offset="13000" intergreens="0" fitness="0.000000" vehicleCount="0" name="Morgenprogramm S 2.7"/>
 ```
 
-Die Definition der Signalgruppen besteht aus den Beginnzeiten der Rot-
-und Grünphase und den Zeitdauern der restlichen Phasen, welche sich in
-der zugehörigen Signalsequenz befinden:
+Signal groups are defined by the start times of the red and green phases and the durations of the remaining phases, which are specified in the corresponding signal sequence:
 
 ```xml
 <sg sg_id="1" signal_sequence="5">
@@ -347,28 +230,11 @@ der zugehörigen Signalsequenz befinden:
 </sg>
 ```
 
-## LSA Definition: SUMO
+## Traffic-light definitions in SUMO
 
-Im Gegensatz zu VISSIM benötigt SUMO nicht für jede Lichtsignalanlage
-eine zusätzliche Datei; es werden die Definitionen aller
-Lichtsignalanlagen sowie deren Programme in die bestehende Netzdatei
-geschrieben, in der auch alle Graphen-Informationen enthalten sind.
-Nachfolgend findet sich die Erklärung einer beispielhaften
-LSA-Definition in SUMO.
+Unlike VISSIM, SUMO does not require a separate file for each traffic light. The definitions of all traffic lights and their programs are written to the existing network file, which also contains all graph information. The following explains an example of a SUMO traffic-light definition.
 
-Eine Lichtsignale ist in der SUMO-Netzdatei durch den XML Element Node
-`<tlLogic>` gekennzeichnet. Es können die Attribute `id`, `type`, `offset`
-und `programID` vergeben werden, wobei bei der Konversion nur die `id`
-und die `programID` definiert werden. Die ID der LSA muss identisch mit
-der ID der zugeordneten Kreuzung sein (junction id = tlLogic id) und die
-programID beschreibt den Namen des Schaltprogramms. Das Attribut `type`
-wird konstant auf “’static”’ gesetzt, was bedeuted, dass die Phasen eine
-fixe Zeitdauer aufweisen. Der zeitliche Versatz der LSA, welcher durch
-das Attribut `offset` festgelegt ist, wird ebenfalls konstant auf 0.00
-gesetzt. Als Kindelemente finden sich die einzelnen Phasen der
-Schaltung, welche durch eine Zeitspanne in Sekunden und einen Zustand
-gekennzeichnet sind. Jeder Buchstabe des `states` definiert den
-aktuellen Zustand eines Fahrstreifens:
+A traffic light is identified in the SUMO network file by the XML element `<tlLogic>`. The attributes `id`, `type`, `offset`, and `programID` can be specified, although conversion defines only `id` and `programID`. The traffic-light ID must match the ID of its associated junction (`junction id = tlLogic id`), and `programID` specifies the name of the signal program. The `type` attribute is always set to `"static"`, meaning that the phases have fixed durations. The traffic-light offset, specified by the `offset` attribute, is also always set to `0.00`. The child elements define the individual signal phases, each with a duration in seconds and a state. Each character in `states` defines the current state of a lane:
 
 ```xml
 <tlLogic id="69" type="static" programID="Tagesprogramm S 5.3" offset="0.00">
@@ -379,11 +245,7 @@ aktuellen Zustand eines Fahrstreifens:
 </tlLogic>
 ```
 
-Welcher `state-Index` zu welchem Fahrstreifen zugeordnet wird, ist in
-der zugehörigen *Connection* durch deren `linkIndex` definiert.
-Zusätzlich muss jede *Connection*, die von einer Lichtsignalanlage
-beeinflusst wird, dieser auch zugewiesen werden. Hierfür wird dem
-Attribut `tl` die ID der jeweiligen LSA zugeteilt:
+The `linkIndex` attribute of the corresponding *connection* specifies which lane corresponds to each `state` index. In addition, every *connection* controlled by a traffic light must be assigned to that traffic light. To do this, set the `tl` attribute to the ID of the relevant traffic light:
 
 ```xml
 <connection dir="r" from="117" fromLane="0" to="88" toLane="0" via=":69_1_0" tl="69" linkIndex="2" state="o"/>
@@ -392,11 +254,7 @@ Attribut `tl` die ID der jeweiligen LSA zugeteilt:
 <connection dir="r" from="89" fromLane="0" to="76" toLane="0" via=":69_0_0" tl="69" linkIndex="0" state="o"/>
 ```
 
-Auch die *junction*, auf der die Lichtsignalanlage platziert werden
-soll, muss als solche definiert werden. Dies geschieht über das Attribut
-`type`, welches die Regelungsart der Kreuzung festlegt. Wird einer
-*junction* eine LSA zugewiesen so muss der `type` auf “’traffic_light”’
-gesetzt werden:
+The *junction* where the traffic light is placed must also be defined accordingly. This is done using the `type` attribute, which specifies the junction's control type. If a traffic light is assigned to a *junction*, its `type` must be set to `"traffic_light"`:
 
 ```xml
 <junction id="69" incLanes="89_0 117_0 117_1" intLanes=":69_0_0 :69_1_0 :69_2_0 :69_2_1" shape="3276.61,1952.22 3277.64,1946.15 3275.74,1944.30 3269.32,1943.27 3265.23,1952.29 3274.96,1953.43" type="traffic_light" x="3273.91" y="1947.87">
@@ -407,15 +265,7 @@ gesetzt werden:
 </junction>
 ```
 
-Zusätzlich ist es möglich in SUMO mehrere Programme für eine LSA zu
-definieren. Dies geschieht über die Definition einer
-Wochenschaltautomatik (kurz WAUT). Durch das Attribut `startProg` wird
-festgelegt, welches Programm am Anfang der Simulation ausgewählt werden
-soll. Dieses Startprogramm wird aus der VISSIM `.inpx-Datei` übernommen
-und die Zuordnung der Signalprogramme geschieht über deren ProgramID.
-Während der Simulation können die Signalprogramme entweder in dem GUI
-per Hand oder durch das Kindelement `<wautSwitch>` zu einem angegebenen
-Zeitpunkt verändert werden:
+SUMO also allows multiple programs to be defined for one traffic light. This is done by defining a weekly switching schedule (WAUT). The `startProg` attribute specifies which program is selected at the start of the simulation. This initial program is taken from the VISSIM network's `.inpx` file, and signal programs are mapped using their program IDs. During the simulation, signal programs can be changed manually in the GUI or automatically at a specified time using the `<wautSwitch>` child element:
 
 ```xml
 <WAUT refTime="0" id="myWAUT" startProg="weekday_night">
@@ -424,65 +274,37 @@ Zeitpunkt verändert werden:
 </WAUT>
 ```
 
-Nähere Beschreibungen zur Definition von Lichtsignalanlagen befinden
-sich unter <https://sumo.dlr.de/docs/Simulation/Traffic_Lights.html> (zuletzt
-geprüft am 28.07.2015).
+More information about defining traffic lights is available here: [Traffic Lights](../../Simulation/Traffic_Lights.md).
 
-## Umsetzung
+## Implementation
 
-Im Gegensatz zu den anderen Tools müssen hierbei zusätzlich alle `.sig Files` ausgelesen werden, die für jede Lichtsignalanlage automatisch
-erzeugt worden sind. Diese müssen sich wie auch von VISSIM verlangt im
-selben Ordner wie die `.inpx-Datei` befinden. Nach der Konversion aller
-Signalschaltbilder wird die zuvor konvertierte SUMO `.net-Datei` mit den
-Informationen der Lichtsignalanlagen ergänzt. Es werden alle
-Signalprogramme ausgelesen, zwischen denen über die WAUT gewechselt
-werden kann. Das Standardprogramm, welches zu Beginn der Simulation
-ausgewählt wird, ist in der `.inpx-Datei` des VISSIM-Netzes definiert
-und wird aus dieser übernommen.
+Unlike the other tools, this tool must also read all `.sig` files that were automatically generated for each traffic light. As required by VISSIM, these files must be located in the same directory as the `.inpx` file. After all signal displays have been converted, the previously converted SUMO `.net` file is supplemented with the traffic-light information. All signal programs that can be switched between using the WAUT are read. The default program selected at the beginning of the simulation is defined in the VISSIM network's `.inpx` file and is imported from there.
 
-## Beispiel
+## Example
 
 ![311_vissim.png](../../images/311_vissim.png "311_vissim.png")
 ![311_sumo.png](../../images/311_sumo.png "311_sumo.png")
 
-Hier ein Vergleich zweier Signalprogramme über die graphische Oberfläche
-von VISSIM und SUMO zu sehen. Die Abbildung zeigt, dass die umgesetzten
-Signalgruppen übereinstimmen. Da in VISSIM jedoch der Signalzustand
-grün-blinkend existiert, welcher in SUMO nicht definiert ist, musste
-dieser bei der Konversion vereinfacht als grün angenommen werden. Des
-Weiteren ist zu sehen, dass nicht alle Signalgruppen aus VISSIM bei der
-Konversion in SUMO übernommen worden sind. Diese wurden zwar in VISSIM
-definiert, jedoch keiner Strecke zugeordnet und somit haben diese keinen
-Einfluss auf die Simulation.
+The two signal programs shown here are compared using the graphical interfaces of VISSIM and SUMO. The figure shows that the converted signal groups match. However, VISSIM includes a flashing-green signal state that is not defined in SUMO, so it had to be simplified to green during conversion. The figure also shows that not all signal groups defined in VISSIM were imported into SUMO. These groups were defined in VISSIM but were not assigned to any link, so they have no effect on the simulation.
 
-# Konversion der Induktionsschleifen und Reisezeitmessungen
+# Converting induction loops and travel-time measurements
 
-Das Python Skript `convert_detectors2SUMO.py` ermöglicht es,
-Induktionsschleifen und Reisezeitmessungen aus einem VISSIM-Netz
-auszulesen und in das zuvor durch `netconvert` konvertierte SUMO-Netz zu
-übernehmen. Bei der Konversion entsteht eine zusätzliches
-`.add.xml-Datei`, welche anschließend der SUMO config-Datei für die
-Simulation hinzugefügt werden muss. Der Aufruf erfolgt über:
+The Python script `convert_detectors2SUMO.py` reads induction loops and travel-time measurements from a VISSIM network and imports them into the SUMO network previously converted by `netconvert`. Conversion creates an additional `.add.xml` file, which must then be added to the SUMO configuration file for the simulation. Run the script as follows:
 
 ```
 convert_detectors2SUMO.py -V <vissim-file> -S <sumo-file> -o <output-filename>
 ```
 
-## Detektor-Definition VISSIM
+## Detector definitions in VISSIM
 
-Querschnittsmessungen werden in VISSIM durch den XML-tag
-`<dataCollectionPoint>` gekennzeichnet. Die Position der einzelnen
-Detektoren ist durch den jeweiligen Fahrstreifen der Strecke sowie deren
-Laufmeter gegeben:
+Cross-section measurements are identified in VISSIM by the XML tag `<dataCollectionPoint>`. Each detector's position is specified by the lane on the link and its distance along that lane:
 
 ```xml
 <dataCollectionPoint lane="108 1" name="301.41" no="1" pos="162.558473"/>
 <dataCollectionPoint lane="262 4" name="301.12" no="10" pos="32.960054"/>
 ```
 
-Resezeitmessungen sind in VISSIM nicht fahrstreifen- sondern
-streckenbezogen. Hierfür wird die Strecke und der Laufmeter für den
-Start- und Endpunkt festgelegt:
+Travel-time measurements in VISSIM are defined for links, not individual lanes. The link and distance along it are specified for both the start and end points:
 
 ```xml
 <vehicleTravelTimeMeasurement name="Wienerstrasse_Sueden" no="1">
@@ -491,23 +313,16 @@ Start- und Endpunkt festgelegt:
 </vehicleTravelTimeMeasurement>
 ```
 
-## Detektor-Definition SUMO
+## Detector definitions in SUMO
 
-Induktionsschleifen werden in SUMO ähnlich definiert wie die
-Querschnittsmessungen in VISSIM. Zur Positionierung werden ebenfalls
-Fahrstreifen und Laufmeter angegeben. Es ist jedoch zusätzlich möglich
-das Zeitintervall zu definieren, in dem die Daten aggregiert werden.
+Induction loops in SUMO are defined similarly to cross-section measurements in VISSIM. Their positions are also specified by lane and distance along the lane. However, SUMO additionally allows you to define the time interval over which the data are aggregated.
 
 ```xml
 <inductionLoop file="ind_out.xml" period="900" id="1_301.41" lane="108_0" pos="162.554736186"/>
 <inductionLoop file="ind_out.xml" period="900" id="33_359.21" lane="123_0" pos="28.1962390136"/>
 ```
 
-Wie bei den Induktionsschleifen sind auch die Reisezeitmessungen durch
-das Zeitintervall der Aggregierung und deren Position definiert. In SUMO
-muss sich jedoch im Gegensatz zu VISSIM die Reisezeitmessung nicht auf
-die ganze Strecke beziehen, da definiert wird, welche Fahrstreifen
-berücksichtigt werden sollen.
+As with induction loops, travel-time measurements are defined by their aggregation interval and position. Unlike VISSIM, however, a SUMO travel-time measurement does not have to cover an entire link, because the lanes to be included can be specified.
 
 ```xml
 <entryExitDetector file="time_out.xml" period="900" id="1">
@@ -518,20 +333,8 @@ berücksichtigt werden sollen.
 </entryExitDetector>
 ```
 
-## Umsetzung
+## Implementation
 
-Da bei der Netzkonversion die Verbindungsstrecken aus VISSIM zu
-SUMO-*junctions* zusammengefasst werden, bleiben die Streckenlängen
-nicht exakt erhalten. Dies hat zur Folge, dass auch die Laufmeterangabe
-nicht mehr übereinstimmt. Daher werden die Detektor-Koordinaten in
-VISSIM ermittelt und anschließend in SUMO-Koordinaten transformiert. Zur
-Ermittlung des Laufmeters in SUMO wird danach der Punkt auf der Strecke
-gesucht, der den geringsten Abstand zu den zuvor ermittelten Koordinaten
-aufweist.
+During network conversion, connecting links from VISSIM are combined into SUMO *junctions*, so link lengths are not preserved exactly. As a result, the distances along the links no longer match. Detector coordinates are therefore obtained from VISSIM and then transformed into SUMO coordinates. To determine the distance along the link in SUMO, the point on the link closest to the previously obtained coordinates is then found.
 
-Ein weiteres Problem bei der Konversion der Reisezeitmessungen ergibt
-sich dadurch, dass die Messungen immer für einen geschlossenen Bereich
-definiert sein müssen, was in VISSIM nicht der Fall ist. Dadurch ergeben
-sich Fehlermeldungen während der Simulation, falls Fahrzeuge den
-Endpunkt einer Reisezeitmessung passieren, den Startpunkt jedoch nie
-erreicht haben.
+Another issue with converting travel-time measurements is that measurements must always define a closed interval, which is not required in VISSIM. This can cause errors during simulation if vehicles pass the end point of a travel-time measurement without ever having passed its start point.
