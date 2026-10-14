@@ -60,9 +60,9 @@ The values without a tick in the "On" column need to be [enabled explicitly](#fu
 | edge     | id                    | (x)|  x  | The id of the current edge (only available in meso).                                                        |
 | slope    | degree                |  x |  x  | The slope of the vehicle in degrees (equals the slope of the road at the current position)                  |
 | signals  | bitset                |    |     | The [signal state information](../../TraCI/Vehicle_Signaling.md) (blinkers, etc)                            |
-| acceleration  | m/s<sup>2</sup   |    |     | The longitudinal acceleration                                                                               |
-| accelerationLat | m/s<sup>2</sup |    |     | The lateral acceleration (only with enabled sublane model)                                                  |
-| accelerationVec | m/s<sup>2</sup |    |     | The acceleration vector of the vehicle: acceleration_x,acceleration_y                                       |
+| acceleration  | m/s<sup>2</sup>   |    |     | The longitudinal acceleration                                                                               |
+| accelerationLat | m/s<sup>2</sup> |    |     | The lateral acceleration (only with enabled sublane model)                                                  |
+| accelerationVec | m/s<sup>2</sup> |    |     | The acceleration vector of the vehicle: acceleration_x,acceleration_y                                       |
 | speedVec | m/s                   |    |  x  | The speed vector of the vehicle:speed_x,speed_y                                                             |
 | distance | m                     |    |  x  | The [kilometrage / mileage position](../Railways.md#kilometrage_mileage_chainage) of the vehicle.           |
 | odometer | m                     |    |  x  | The odometer value (distance driven since departure).                                                       |
