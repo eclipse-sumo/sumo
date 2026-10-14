@@ -15,5 +15,17 @@ appdata=netgen
 appdata=od2trips
 appdata=polyconvert
 appdata=sumo
+basic/person/scale/individual/scale3
+basic/person/scale/personFlow_number/scale3
+basic/containerFlow/tranship_probability
+basic/containerFlow/trip_chain
+pedestrian_model/nonInteracting/no_sidewalks
+rail/rail_signal/large_step_size
+rail/siding/long_siding_occupied_wait
+rail/siding/long_siding_occupied_wait2
+rail/deadlocks/loop_4veh
+rail/deadlocks/triangle_6veh
+rail/deadlocks_loadHints/loop_4veh
+rail/deadlocks_loadHints/triangle_6veh
 appdata=tools
 appdata=traci
