@@ -212,8 +212,16 @@ MELoop::checkCar(MEVehicle* veh) {
         SUMOTime newEventTime = MAX3(toSegment->getEventTime() + 1, leaveTime + 1, leaveTime + myFullRecheckInterval);
         if (MSGlobals::gTimeToGridlock > 0) {
             // if teleporting is enabled, make sure we look at the vehicle when the gridlock-time is up
-            const SUMOTime recheck = MSGlobals::gTimeToTeleportDisconnected >= 0 ? MIN2(MSGlobals::gTimeToGridlock, MSGlobals::gTimeToTeleportDisconnected) : MSGlobals::gTimeToGridlock;
-            newEventTime = MAX2(MIN2(newEventTime, veh->getBlockTime() + recheck + 1), leaveTime + 1);
+            const SUMOTime recheck = veh->getBlockTime() + 1 + MSGlobals::gTimeToGridlock;
+            if (recheck > leaveTime) {
+                newEventTime = MIN2(newEventTime, recheck);
+            }
+        }
+        if (MSGlobals::gTimeToTeleportDisconnected >= 0) {
+            const SUMOTime recheck = veh->getBlockTime() + 1 + MSGlobals::gTimeToTeleportDisconnected;
+            if (recheck > leaveTime && veh->getEdge()->allowedLanes(*veh->succEdge(1), veh->getVClass()) == nullptr) {
+                newEventTime = MIN2(newEventTime, recheck);
+            }
         }
         veh->setEventTime(newEventTime);
     } else {
