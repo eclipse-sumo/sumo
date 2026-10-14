@@ -137,9 +137,10 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
         }
         // all queues on the next segment are forbidden. We don't want to check
         // too often whether the forbiden edge has become permitted again
-        if (MSGlobals::gTimeToGridlock > 0) {
+        const SUMOTime ttt = veh->getVehicleType().getParameter().getTimeToTeleport(MSGlobals::gTimeToGridlock);
+        if (ttt > 0) {
             // if teleporting is enabled, make sure we look at the vehicle when the gridlock-time is up
-            const SUMOTime recheck = MSGlobals::gTimeToTeleportDisconnected >= 0 ? MIN2(MSGlobals::gTimeToGridlock, MSGlobals::gTimeToTeleportDisconnected) : MSGlobals::gTimeToGridlock;
+            const SUMOTime recheck = MSGlobals::gTimeToTeleportDisconnected >= 0 ? MIN2(ttt, MSGlobals::gTimeToTeleportDisconnected) : ttt;
             return MAX2(MIN2(leaveTime + myLinkRecheckInterval, MIN2(veh->getBlockTime(), leaveTime) + recheck + 1), leaveTime + 1);
         }
         return leaveTime + myLinkRecheckInterval;
@@ -192,7 +193,8 @@ MELoop::checkCar(MEVehicle* veh) {
     if (nextEntry == leaveTime) {
         return;
     }
-    const bool r1 = MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock;
+    const SUMOTime ttt = veh->getVehicleType().getParameter().getTimeToTeleport(MSGlobals::gTimeToGridlock);
+    const bool r1 = ttt > 0 && veh->getWaitingTime() > ttt;
     const bool r3 = MSGlobals::gTimeToTeleportDisconnected >= 0 && veh->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected;
     if (!veh->isStopped() && (r1 || r3)) {
         const bool disconnected = (MSGlobals::gTimeToTeleportDisconnected >= 0
@@ -210,9 +212,9 @@ MELoop::checkCar(MEVehicle* veh) {
     if (nextEntry == SUMOTime_MAX) {
         // all usable queues on the next segment are full
         SUMOTime newEventTime = MAX3(toSegment->getEventTime() + 1, leaveTime + 1, leaveTime + myFullRecheckInterval);
-        if (MSGlobals::gTimeToGridlock > 0) {
+        if (ttt) {
             // if teleporting is enabled, make sure we look at the vehicle when the gridlock-time is up
-            const SUMOTime recheck = veh->getBlockTime() + 1 + MSGlobals::gTimeToGridlock;
+            const SUMOTime recheck = veh->getBlockTime() + 1 + ttt;
             if (recheck > leaveTime) {
                 newEventTime = MIN2(newEventTime, recheck);
             }
