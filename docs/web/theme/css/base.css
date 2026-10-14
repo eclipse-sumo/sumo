@@ -433,6 +433,7 @@ color: #495057 !important;
 .navbar {
 background-image: -webkit-linear-gradient(#589037,#338033 60%,#217831);
 background-image: linear-gradient(#589037,#338033 60%,#217831);
+background-color: #338033 !important;
 background-repeat: no-repeat;
 border-bottom: 1px solid #1b6618;
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff589037',endColorstr='#ff217831',GradientType=0);
