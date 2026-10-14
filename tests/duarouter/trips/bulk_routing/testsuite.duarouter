@@ -15,3 +15,6 @@ bulk
 
 # Test with bulk routing 2 vehicles having same origin and different destinations
 bulk_rail_fromEqualTo
+
+# see #18355
+bulk_reset_after_trivial_trip
