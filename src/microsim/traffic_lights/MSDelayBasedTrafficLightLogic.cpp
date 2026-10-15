@@ -101,7 +101,7 @@ MSDelayBasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                     // check whether the lane (or unamibiguous lane sequence) is long enough and avoid overlapping detectors
                     double length = lane->getLength();
                     MSLane* firstLane = lane;
-                    while (length < myDetectionRange && firstLane->getIncomingLanes().size() == 1
+                    while (length < myDetectionRange && firstLane->getLogicalPredecessorLane() != nullptr
                             && firstLane->getIncomingLanes().front().viaLink->getCorrespondingEntryLink()->getTLLogic() == nullptr) {
                         firstLane = firstLane->getLogicalPredecessorLane();
                         if (firstLane->getLinkCont().size() > 1) {
