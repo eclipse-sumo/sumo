@@ -364,6 +364,10 @@ MSRoutingEngine::initCCH() {
     std::vector<std::string> vtypeIDs;
     MSNet::getInstance()->getVehicleControl().insertVTypeIDs(vtypeIDs);
     for (const std::string& id : vtypeIDs) {
+        if (MSNet::getInstance()->getVehicleControl().hasVTypeDistribution(id)) {
+            // the members are in the list as well, resolving the distribution would draw from the default RNG
+            continue;
+        }
         const MSVehicleType* vt = MSNet::getInstance()->getVehicleControl().getVType(id, nullptr, true);
         if (vt != nullptr && !vt->isVehicleSpecific()) {
             myCCHLive->seedKey(vt);
