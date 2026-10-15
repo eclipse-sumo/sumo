@@ -288,7 +288,8 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             sink = myRoute->getLastEdge();
         }
     }
-    ConstMSEdgeVector oldEdgesRemaining(source == *myCurrEdge ? myCurrEdge : myCurrEdge + 1, myRoute->end());
+    // on insertion, the new route is compared against the complete loaded route
+    ConstMSEdgeVector oldEdgesRemaining(onInit ? myRoute->begin() : (source == *myCurrEdge ? myCurrEdge : myCurrEdge + 1), myRoute->end());
     ConstMSEdgeVector edges;
     if (source != sink || !sink->prohibits(this)) {
         edges.push_back(source);
@@ -501,9 +502,11 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         edges.pop_back();
     }
     const double routeCost = router.recomputeCosts(edges, this, t);
-    const double previousCost = onInit ? routeCost : router.recomputeCosts(oldEdgesRemaining, this, t);
+    // trips have no loaded route to compare against when routed on insertion
+    const bool isTripInit = onInit && myParameter->wasSet(VEHPARS_FORCE_REROUTE);
+    const double previousCost = isTripInit ? routeCost : router.recomputeCosts(oldEdgesRemaining, this, t);
     const double savings = previousCost - routeCost;
-    bool savingsOk = onInit || info != "device.rerouting" || gWeightsRandomFactor != 1;
+    bool savingsOk = isTripInit || info != "device.rerouting" || gWeightsRandomFactor != 1;
     if (!savingsOk) {
         MSDevice_Routing* routingDevice = static_cast<MSDevice_Routing*>(getDevice(typeid(MSDevice_Routing)));
         assert(routingDevice != 0);
