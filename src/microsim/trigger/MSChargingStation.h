@@ -259,8 +259,12 @@ protected:
     /// @brief order vehicles by time of first charge
     std::vector<std::string> myChargedVehicles;
 
-    /// @brief last timestep a vehicle's charge request was refreshed (key = vehicleID)
-    std::map<std::string, SUMOTime> myLastChargeStep;
+    /// @brief Energy requested by each vehicle at this station in its last charging step
+    struct ChargeRequest {
+        SUMOTime timeStep;
+        double requestedWh;
+    };
+    std::map<std::string, ChargeRequest> myLastChargeStep;
 
     /// @brief Event for checking at every time-step if myTotalPower has been exceeded
     Command* myTotalPowerCheckEvent;

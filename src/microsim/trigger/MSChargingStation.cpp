@@ -223,19 +223,21 @@ MSChargingStation::checkTotalPower(SUMOTime currentTime) {
 
     for (auto it = myLastChargeStep.begin(); it != myLastChargeStep.end();) {
         const std::string& vehicleID = it->first;
-        if (it->second != currentTime) {
+        if (it->second.timeStep != currentTime) {
             it = myLastChargeStep.erase(it);
             continue;
         }
         SUMOVehicle* const vehicle = MSNet::getInstance()->getVehicleControl().getVehicle(vehicleID);
         MSDevice_Battery* const battery = vehicle == nullptr
                                           ? nullptr : static_cast<MSDevice_Battery*>(vehicle->getDevice(typeid(MSDevice_Battery)));
-        if (battery == nullptr || battery->getChargingStation() != this) {
+        if (battery == nullptr) {
             it = myLastChargeStep.erase(it);
             continue;
         }
 
-        const double requestedWh = battery->getEnergyCharged();
+        // The vehicle may have reached another station later in this same step.
+        // Its current station and energyCharged then no longer describe this request.
+        const double requestedWh = it->second.requestedWh;
         if (requestedWh > 0.0) {
             Charge* outputRow = nullptr;
             const auto chargeValuesIt = myChargeValues.find(vehicleID);
@@ -299,7 +301,11 @@ MSChargingStation::checkTotalPower(SUMOTime currentTime) {
             }
 
             request.battery->setActualBatteryCapacity(actualBatteryCapacity - excessWh);
-            request.battery->setEnergyCharged(deliveredWh);
+            // energyCharged describes the most recent station in this step. Do not
+            // replace that value when correcting an earlier station's request.
+            if (request.battery->getChargingStation() == this) {
+                request.battery->setEnergyCharged(deliveredWh);
+            }
             myTotalCharge -= excessWh;
 
 #ifdef DEBUG_SIMSTEP
@@ -446,7 +452,8 @@ void
 MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* battery) {
     const std::string vehID = battery->getHolder().getID();
     if (myTotalChargingPower > 0.0 && WCharged > 0.0) {
-        myLastChargeStep[vehID] = MSNet::getInstance()->getCurrentTimeStep();
+        const SUMOTime timeStep = MSNet::getInstance()->getCurrentTimeStep();
+        myLastChargeStep[vehID] = {timeStep, WCharged};
     }
     myTotalCharge += WCharged;
 
