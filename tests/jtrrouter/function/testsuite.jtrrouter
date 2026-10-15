@@ -18,3 +18,6 @@ loops
 
 # Testing maximum number of edges
 max_edges
+
+# Demand outside the routing time window or absent altogether
+time_window
