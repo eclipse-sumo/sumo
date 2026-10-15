@@ -57,6 +57,7 @@
 // static member definitions
 // ===========================================================================
 MSEdge::DictType MSEdge::myDict;
+std::unordered_map<std::string, MSEdge*> MSEdge::myHashDict;
 MSEdgeVector MSEdge::myEdges;
 SVCPermissions MSEdge::myMesoIgnoredVClasses(0);
 DepartLaneDefinition MSEdge::myDefaultDepartLaneDefinition(DepartLaneDefinition::DEFAULT);
@@ -1107,6 +1108,7 @@ MSEdge::dictionary(const std::string& id, MSEdge* ptr) {
     if (it == myDict.end() || it->first != id) {
         // id not in myDict
         myDict.emplace_hint(it, id, ptr);
+        myHashDict[id] = ptr;
         while (ptr->getNumericalID() >= (int)myEdges.size()) {
             myEdges.push_back(nullptr);
         }
@@ -1119,8 +1121,8 @@ MSEdge::dictionary(const std::string& id, MSEdge* ptr) {
 
 MSEdge*
 MSEdge::dictionary(const std::string& id) {
-    const DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
+    const auto it = myHashDict.find(id);
+    if (it == myHashDict.end()) {
         return nullptr;
     }
     return it->second;
@@ -1152,6 +1154,7 @@ MSEdge::clear() {
         delete (*i).second;
     }
     myDict.clear();
+    myHashDict.clear();
     myEdges.clear();
 }
 
@@ -1167,8 +1170,31 @@ MSEdge::insertIDs(std::vector<std::string>& into) {
 void
 MSEdge::parseEdgesList(const std::string& desc, ConstMSEdgeVector& into,
                        const std::string& rid) {
-    StringTokenizer st(desc);
-    parseEdgesList(st.getVector(), into, rid);
+    // split at white space like StringTokenizer but without building a vector of strings
+    std::string id;
+    const std::string::size_type len = desc.length();
+    std::string::size_type beg = 0;
+    while (true) {
+        while (beg < len && (unsigned char)desc[beg] <= ' ') {
+            beg++;
+        }
+        if (beg >= len) {
+            break;
+        }
+        std::string::size_type end = beg;
+        while (end < len && (unsigned char)desc[end] > ' ') {
+            end++;
+        }
+        id.assign(desc, beg, end - beg);
+        const MSEdge* edge = MSEdge::dictionary(id);
+        // check whether the edge exists
+        if (edge == nullptr) {
+            throw ProcessError("The edge '" + id + "' within the route " + rid + " is not known."
+                               + "\n The route can not be build.");
+        }
+        into.push_back(edge);
+        beg = end;
+    }
 }
 
 

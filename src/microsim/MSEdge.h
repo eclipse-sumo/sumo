@@ -27,6 +27,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <unordered_map>
 #include <iostream>
 #ifdef HAVE_FOX
 #include <utils/foxtools/fxheader.h>
@@ -1054,6 +1055,9 @@ protected:
      * @deprecated Move to MSEdgeControl, make non-static
      */
     static DictType myDict;
+
+    /// @brief hashed index of myDict for fast lookups by id
+    static std::unordered_map<std::string, MSEdge*> myHashDict;
 
     /** @brief Static list of edges
      * @deprecated Move to MSEdgeControl, make non-static
