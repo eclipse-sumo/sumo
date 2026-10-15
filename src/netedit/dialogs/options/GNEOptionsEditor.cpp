@@ -111,8 +111,8 @@ GNEOptionsEditor::GNEOptionsEditor(GNEDialog* dialog, const std::string& titleNa
         if (myIgnoredTopics.count(topic) == 0) {
             // add topic into myTreeItemTopics and tree
             myTreeItemTopics[myTopicsTreeList->appendItem(myRootItem, topic.c_str())] = topic;
-            // processing options require save network
-            const bool requireSaveNetwork = (topic == "Processing");
+            // network options require save network
+            const bool requireSaveNetwork = (myNetworkTopics.count(topic) != 0);
             // iterate over entries
             const std::vector<std::string> entries = myOptionsContainer.getSubTopicsEntries(topic);
             for (const auto& entry : entries) {
