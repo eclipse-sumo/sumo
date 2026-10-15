@@ -1,0 +1,28 @@
+<routes>
+    <!-- CCH must not draw from the default random number generator when it resolves the distribution at the first reroute -->
+    <vTypeDistribution id="mix">
+        <vType id="car" probability="0.8"/>
+        <vType id="van" length="7" probability="0.2"/>
+    </vTypeDistribution>
+    <trip id="t0" type="mix" depart="0" from="WC" to="CE"/>
+    <trip id="t1" type="mix" depart="5" from="WC" to="CE"/>
+    <trip id="t2" type="mix" depart="10" from="WC" to="CE"/>
+    <trip id="t3" type="mix" depart="15" from="WC" to="CE"/>
+    <trip id="t4" type="mix" depart="20" from="WC" to="CE"/>
+    <trip id="t5" type="mix" depart="25" from="WC" to="CE"/>
+    <trip id="t6" type="mix" depart="30" from="WC" to="CE"/>
+    <trip id="t7" type="mix" depart="35" from="WC" to="CE"/>
+    <trip id="t8" type="mix" depart="40" from="WC" to="CE"/>
+    <trip id="t9" type="mix" depart="45" from="WC" to="CE"/>
+    <trip id="t10" type="mix" depart="50" from="WC" to="CE"/>
+    <trip id="t11" type="mix" depart="55" from="WC" to="CE"/>
+    <trip id="t12" type="mix" depart="60" from="WC" to="CE"/>
+    <trip id="t13" type="mix" depart="65" from="WC" to="CE"/>
+    <trip id="t14" type="mix" depart="70" from="WC" to="CE"/>
+    <trip id="t15" type="mix" depart="75" from="WC" to="CE"/>
+    <trip id="t16" type="mix" depart="80" from="WC" to="CE"/>
+    <trip id="t17" type="mix" depart="85" from="WC" to="CE"/>
+    <trip id="t18" type="mix" depart="90" from="WC" to="CE"/>
+    <trip id="t19" type="mix" depart="95" from="WC" to="CE"/>
+    <trip id="t20" type="mix" depart="100" from="WC" to="CE"/>
+</routes>

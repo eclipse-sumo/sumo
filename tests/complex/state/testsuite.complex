@@ -185,3 +185,6 @@ waut2
 
 # see #17897
 routeLoader
+
+# the CCH router must not change the default random number state when loading state
+cch_vTypeDistribution
