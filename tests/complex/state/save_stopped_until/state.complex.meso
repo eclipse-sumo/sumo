@@ -40,7 +40,7 @@
     </route>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="t0" sigma="0"/>
-    <vehicle id="v0" type="t0" depart="10.00" route="r0" distance="7 0" speedFactor="1.0000" state="2050 10000 1 0 0 0 47199 17000 9223372036854774807 1 0 0 0">
+    <vehicle id="v0" type="t0" depart="10.00" route="r0" distance="7 0" speedFactor="1.0000" state="2050 10000 1 0 0 0 47199 17000 9223372036854774807 1 0 0 0 47199">
         <stop lane="middle_0" endPos="60.00" duration="10.00" until="40.00" parking="0" started="17.00"/>
         <device id="tripinfo_v0" state="beg_0 1 7 0 0 0 23000 -1 -1000 NONE -1 0 -1"/>
     </vehicle>

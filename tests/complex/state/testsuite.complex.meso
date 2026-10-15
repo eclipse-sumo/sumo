@@ -158,3 +158,6 @@ meso_jam_flag
 
 # simultaneous events keep their order when loading state (#18363)
 meso_event_order
+
+# meso-ltm keeps the gap times of its queues and the unqueued event times of vehicles when loading state (#18364)
+meso_ltm_queue_state

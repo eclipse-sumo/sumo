@@ -37,8 +37,8 @@
     <route id="!train2" state="0" edges="-e -b -d"/>
     <delay number="2" begin="2" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="train" length="20.00" vClass="rail" accel="2"/>
-    <vehicle id="train" type="train" depart="0.00" departSpeed="max" route="!train" distance="580.62 0" speedFactor="1.0000" state="18 0 2 0 0 0 31758 21962 9223372036854774807 0 0 0 1"/>
-    <vehicle id="train2" type="train" depart="0.00" departSpeed="max" route="!train2" distance="0 0" speedFactor="1.0000" state="18 0 0 0 0 0 109796 0 9223372036854774807 1 0 0 0">
+    <vehicle id="train" type="train" depart="0.00" departSpeed="max" route="!train" distance="580.62 0" speedFactor="1.0000" state="18 0 2 0 0 0 31758 21962 9223372036854774807 0 0 0 1 31758"/>
+    <vehicle id="train2" type="train" depart="0.00" departSpeed="max" route="!train2" distance="0 0" speedFactor="1.0000" state="18 0 0 0 0 0 109796 0 9223372036854774807 1 0 0 0 109796">
         <stop lane="-e_0" duration="100.00" started="0.00"/>
     </vehicle>
     <segment id=":A_2:0">

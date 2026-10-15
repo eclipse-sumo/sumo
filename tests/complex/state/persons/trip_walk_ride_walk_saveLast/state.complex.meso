@@ -111,7 +111,7 @@
     <delay number="1" begin="2" end="1" depart="0.00" time="214.00" speedFactor="1.00" decel="4.50"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="busType" speedFactor="normc(1.00,0.00)" sigma="0"/>
-    <vehicle id="bus.1" type="busType" depart="300.00" line="bus" route="!bus.1!var#1" distance="2512.32 1" speedFactor="1.0000" reroute="1" state="295074 300000 4 0 4 0 513597 446214 9223372036854774807 1 2 0 0">
+    <vehicle id="bus.1" type="busType" depart="300.00" line="bus" route="!bus.1!var#1" distance="2512.32 1" speedFactor="1.0000" reroute="1" state="295074 300000 4 0 4 0 513597 446214 9223372036854774807 1 2 0 0 513597">
         <stop busStop="beg_0" until="310.00" started="314.39" ended="318.00"/>
         <stop busStop="left_0" until="410.00" started="368.54" ended="414.00"/>
         <stop busStop="end_0" until="510.00" started="446.21"/>

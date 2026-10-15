@@ -605,6 +605,7 @@ MEVehicle::saveState(OutputDevice& out) {
     internals.push_back(myPastStops.size());
     internals.push_back(myWasJammed);
     internals.push_back((SUMOTime)MSGlobals::gMesoNet->getEventIndex(this));
+    internals.push_back(myUnqueuedEventTime);
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     // save past stops
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
@@ -663,6 +664,7 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     if (!(bis >> myLoadedEventIndex)) {
         myLoadedEventIndex = -1;
     }
+    const bool hasUnqueued = static_cast<bool>(bis >> myUnqueuedEventTime);
     myDepartPos /= 1000.; // was stored as mm
 
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS_RANDOMIZED)) {
@@ -678,6 +680,9 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
         myDeparture -= offset;
         myEventTime -= offset;
         myLastEntryTime -= offset;
+        if (hasUnqueued) {
+            myUnqueuedEventTime -= offset;
+        }
         myCurrEdge = myRoute->begin() + routeOffset;
         // fix stops
         while (pastStops > 0) {
