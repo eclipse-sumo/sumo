@@ -104,8 +104,8 @@ def benchmark_cumulative(func):
         count = getattr(benchmark_wrapper, 'call_count', 0)
         if count > 0:
             total = benchmark_wrapper.total_duration
-            avg = total / count
-            print(f"\n--- Statistics for {func.__name__}: calls={count} total(s)={total:.6f} avg(s)={avg:.6f} ---")
+            print("\n--- Statistics for %s: calls=%s total(s)=%.6f avg(s)=%.6f ---" %
+                  (func.__name__, count, total, total / count))
             sys.stdout.flush()
 
     atexit.register(print_stats)
