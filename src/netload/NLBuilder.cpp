@@ -166,7 +166,7 @@ NLBuilder::build() {
             if (myOptions.isDefault("load-state.offset")) {
                 if (!defaultBegin) {
                     WRITE_WARNINGF(TL("State was written at a different time=% than the begin time % (set option load-state.offset to force a different begin)!"),
-                            time2string(stateTime), myOptions.getString("begin"));
+                                   time2string(stateTime), myOptions.getString("begin"));
                 }
                 myOptions.resetWritable("begin");
                 defaultBegin = true;
@@ -221,14 +221,14 @@ NLBuilder::build() {
     // load meso edge types
     bool haveSeenMesoEdgeType = false;
     if (MSGlobals::gUseMesoSim) {
-        if (myOptions.isSet("additional-files")) {
+        if (myOptions.isSet("additional-files") && !myOptions.getBool("ignore.additionalelements")) {
             haveSeenMesoEdgeType = loadMesoEdgeTypes("additional-files");
         }
         // meso segment building must be delayed until meso edge types have been read from additional files
         myNet.getEdgeControl().buildMesoSegments();
     }
     // load additional net elements (sources, detectors, ...)
-    if (myOptions.isSet("additional-files")) {
+    if (myOptions.isSet("additional-files") && !myOptions.getBool("ignore.additionalelements")) {
         if (!load("additional-files")) {
             return false;
         }
@@ -307,7 +307,7 @@ NLBuilder::build() {
     // routes from FCD files
     MSDevice_FCDReplay::init();
     // load routes
-    if (myOptions.isSet("route-files")) {
+    if (myOptions.isSet("route-files") && !myOptions.getBool("ignore.routeelements")) {
         if (string2time(myOptions.getString("route-steps")) <= 0) {
             // incremental loading is disabled. Load route files fully
             if (!load("route-files")) {
@@ -498,7 +498,7 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
     // build the loaders
     SUMORouteLoaderControl* loaders =  new SUMORouteLoaderControl(string2time(oc.getString("route-steps")));
     // check whether a list is existing
-    if (oc.isSet("route-files") && string2time(oc.getString("route-steps")) > 0) {
+    if (oc.isSet("route-files") && !oc.getBool("ignore.routeelements") && string2time(oc.getString("route-steps")) > 0) {
         std::vector<std::string> files = oc.getStringVector("route-files");
         for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
             if (!FileHelpers::isReadable(*fileIt)) {

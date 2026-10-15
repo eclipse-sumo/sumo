@@ -2355,9 +2355,6 @@ bool
 GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     // get options
     auto& neteditOptions = OptionsCont::getOptions();
-    // before reset defaults, save ignore route and demand elements (because usually are loaded trought console)
-    const bool ignoreAdditionalElements = neteditOptions.getBool("ignore.additionalelements");
-    const bool ignoreRouteElements = neteditOptions.getBool("ignore.routeelements");
     // reset options
     neteditOptions.resetDefault();
     // make all options writables
@@ -2388,15 +2385,6 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETWORK, neteditOptions.getString("sumo-net-file"));
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::TLS, neteditOptions.getString("tls-file"));
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::EDGETYPE, neteditOptions.getString("edgetypes-file"));
-    // restore ignores
-    neteditOptions.resetWritable();
-    // check if ignore additional or route files
-    if (ignoreAdditionalElements) {
-        neteditOptions.resetDefault("additional-files");
-    }
-    if (ignoreRouteElements) {
-        neteditOptions.resetDefault("route-files");
-    }
     return true;
 }
 

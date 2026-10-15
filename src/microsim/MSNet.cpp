@@ -1834,14 +1834,16 @@ MSNet::quickReload() {
     clearState(string2time(oc.getString("begin")), true);
     NLBuilder::initRandomness();
     // load traffic from additional files
-    for (std::string file : oc.getStringVector("additional-files")) {
-        // ignore failure on parsing calibrator flow
-        MSRouteHandler rh(file, true);
-        const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading traffic from '" + file + "'");
-        if (!XMLSubSys::runParser(rh, file, false)) {
-            throw ProcessError(TLF("Loading of % failed.", file));
+    if (!oc.getBool("ignore.additionalelements")) {
+        for (std::string file : oc.getStringVector("additional-files")) {
+            // ignore failure on parsing calibrator flow
+            MSRouteHandler rh(file, true);
+            const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading traffic from '" + file + "'");
+            if (!XMLSubSys::runParser(rh, file, false)) {
+                throw ProcessError(TLF("Loading of % failed.", file));
+            }
+            PROGRESS_TIME_MESSAGE(before);
         }
-        PROGRESS_TIME_MESSAGE(before);
     }
     delete myRouteLoaders;
     myRouteLoaders = NLBuilder::buildRouteLoaderControl(OptionsCont::getOptions());
