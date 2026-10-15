@@ -1446,6 +1446,11 @@ GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
         loadDemandElements("Loading");
         loadDataElements("Loading");
         loadMeanDataElements("Loading");
+        // update checkboxes in edit menu to reflect loaded elements
+        myEditMenuCommands.loadAdditionalsInSUMOGUI->setCheck(
+            !OptionsCont::getOptions().getBool("ignore.additionalelements") ? TRUE : FALSE);
+        myEditMenuCommands.loadDemandInSUMOGUI->setCheck(
+            !OptionsCont::getOptions().getBool("ignore.routeelements") ? TRUE : FALSE);
         // load selection
         if (!OptionsCont::getOptions().isDefault("selection-file")) {
             myViewNet->getViewParent()->getSelectorFrame()->getSelectionOperationModul()->loadFromFile(OptionsCont::getOptions().getString("selection-file"));
@@ -4975,6 +4980,10 @@ void
 GNEApplicationWindow::loadAdditionalElements(const std::string operation) {
     // get netedit option container
     auto& neteditOptions = OptionsCont::getOptions();
+    // check if ignore loading of additional files
+    if ((operation == "Loading") && neteditOptions.getBool("ignore.additionalelements")) {
+        return;
+    }
     // get additional files (don't use reference because it's modified during loading)
     const StringVector additionalFiles = neteditOptions.getStringVector("additional-files");
     // check if we have additionals to load
@@ -5024,6 +5033,10 @@ void
 GNEApplicationWindow::loadDemandElements(const std::string operation) {
     // get netedit option container
     auto& neteditOptions = OptionsCont::getOptions();
+    // check if ignore loading of demand files
+    if ((operation == "Loading") && neteditOptions.getBool("ignore.routeelements")) {
+        return;
+    }
     // get demand files (don't use reference because it's modified during loading)
     const StringVector demandFiles = neteditOptions.getStringVector("route-files");
     // check if we have demand files to load
