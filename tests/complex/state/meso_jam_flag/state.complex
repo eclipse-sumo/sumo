@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-15T13:01:53.549491+01:00 by Eclipse SUMO sumo UNKNOWN
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="121,200"/>
+        <save-state.files value="state.xml,compare.xml"/>
+        <save-state.rng value="true"/>
+        <save-state.precision value="9"/>
+    </output>
+
+    <time>
+        <end value="201"/>
+    </time>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<snapshot type="meso" version="UNKNOWN" time="121.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <rngState default="0" routeHandler="236" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
+        <rngLane index="0" state="0"/>
+        <rngLane index="1" state="0"/>
+        <rngLane index="2" state="0"/>
+        <rngLane index="3" state="0"/>
+        <rngLane index="4" state="0"/>
+        <rngLane index="5" state="0"/>
+        <rngLane index="6" state="0"/>
+        <rngLane index="7" state="0"/>
+        <rngLane index="8" state="0"/>
+        <rngLane index="9" state="0"/>
+        <rngLane index="10" state="0"/>
+        <rngLane index="11" state="0"/>
+        <rngLane index="12" state="0"/>
+        <rngLane index="13" state="0"/>
+        <rngLane index="14" state="0"/>
+        <rngLane index="15" state="0"/>
+        <rngLane index="16" state="0"/>
+        <rngLane index="17" state="0"/>
+        <rngLane index="18" state="0"/>
+        <rngLane index="19" state="0"/>
+        <rngLane index="20" state="0"/>
+        <rngLane index="21" state="0"/>
+        <rngLane index="22" state="0"/>
+        <rngLane index="23" state="0"/>
+        <rngLane index="24" state="0"/>
+        <rngLane index="25" state="0"/>
+        <rngLane index="26" state="0"/>
+        <rngLane index="27" state="0"/>
+        <rngLane index="28" state="0"/>
+        <rngLane index="29" state="0"/>
+        <rngLane index="30" state="0"/>
+        <rngLane index="31" state="0"/>
+        <rngLane index="32" state="0"/>
+        <rngLane index="33" state="0"/>
+        <rngLane index="34" state="0"/>
+        <rngLane index="35" state="0"/>
+        <rngLane index="36" state="0"/>
+        <rngLane index="37" state="0"/>
+        <rngLane index="38" state="0"/>
+        <rngLane index="39" state="0"/>
+        <rngLane index="40" state="0"/>
+        <rngLane index="41" state="0"/>
+        <rngLane index="42" state="0"/>
+        <rngLane index="43" state="0"/>
+        <rngLane index="44" state="0"/>
+        <rngLane index="45" state="0"/>
+        <rngLane index="46" state="0"/>
+        <rngLane index="47" state="0"/>
+        <rngLane index="48" state="0"/>
+        <rngLane index="49" state="0"/>
+        <rngLane index="50" state="0"/>
+        <rngLane index="51" state="0"/>
+        <rngLane index="52" state="0"/>
+        <rngLane index="53" state="0"/>
+        <rngLane index="54" state="0"/>
+        <rngLane index="55" state="0"/>
+        <rngLane index="56" state="0"/>
+        <rngLane index="57" state="0"/>
+        <rngLane index="58" state="0"/>
+        <rngLane index="59" state="0"/>
+        <rngLane index="60" state="0"/>
+        <rngLane index="61" state="0"/>
+        <rngLane index="62" state="0"/>
+        <rngLane index="63" state="0"/>
+    </rngState>
+    <route id="r" state="1" edges="left0A0 A0B0 B0C0 C0D0 D0E0 E0F0 F0right0"/>
+    <delay number="51" begin="94" end="5" depart="44.000000000" time="549.000000000" speedFactor="1.179700000" decel="4.500000000" loaderTime="202400"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vehicle id="v_1.4" depart="8.800" route="r" distance="600 0" speedFactor="0.831000000" state="2048 9000 6 0 0 0 120760 112096 9223372036854774807 0 0 1"/>
+    <vehicle id="v_1.5" depart="11.000" route="r" distance="600 0" speedFactor="1.045800000" state="2048 11000 6 0 0 0 122429 114365 9223372036854774807 0 0 1"/>
+    <vehicle id="v_1.6" depart="13.200" route="r" distance="600 0" speedFactor="0.886000000" state="2048 14000 6 0 0 0 124760 116634 9223372036854774807 0 0 1"/>
+    <vehicle id="v_1.7" depart="15.400" route="r" distance="600 0" speedFactor="0.937900000" state="2048 16000 6 0 0 0 126579 118903 9223372036854774807 0 0 1"/>
+    <vehicle id="v_1.8" depart="17.600" route="r" distance="500 0" speedFactor="0.856900000" state="2048 18000 5 0 0 0 121172 60010 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.9" depart="19.800" route="r" distance="500 0" speedFactor="1.090700000" state="2048 20000 5 0 0 0 117441 61679 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.10" depart="22.000" route="r" distance="500 0" speedFactor="1.026300000" state="2048 22000 5 0 0 0 119110 63348 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.11" depart="24.200" route="r" distance="500 0" speedFactor="1.047100000" state="2048 25000 5 0 0 0 120779 65017 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.12" depart="26.400" route="r" distance="500 0" speedFactor="1.122900000" state="2048 27000 5 0 0 0 122448 100752 9223372036854774807 0 0 1"/>
+    <vehicle id="v_1.13" depart="28.600" route="r" distance="500 0" speedFactor="0.991200000" state="2048 29000 5 0 0 0 124597 117334 9223372036854774807 0 0 1"/>
+    <vehicle id="v_1.14" depart="30.800" route="r" distance="400 0" speedFactor="0.926800000" state="2048 31000 4 0 0 0 122110 62073 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.15" depart="33.000" route="r" distance="400 0" speedFactor="0.878400000" state="2048 33000 4 0 0 0 73981 65785 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.16" depart="35.200" route="r" distance="400 0" speedFactor="0.941400000" state="2048 36000 4 0 0 0 75650 67454 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.17" depart="37.400" route="r" distance="400 0" speedFactor="0.936200000" state="2048 38000 4 0 0 0 77319 69123 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.18" depart="39.600" route="r" distance="400 0" speedFactor="1.158200000" state="2048 40000 4 0 0 0 78988 70792 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.19" depart="41.800" route="r" distance="400 0" speedFactor="1.018100000" state="2048 42000 4 0 0 0 80657 72461 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.20" depart="44.000" route="r" distance="400 0" speedFactor="1.010200000" state="2048 44000 4 0 0 0 82326 74130 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.21" depart="46.200" route="r" distance="400 0" speedFactor="0.975000000" state="2048 47000 4 0 0 0 83995 76536 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.22" depart="48.400" route="r" distance="400 0" speedFactor="0.889600000" state="2048 49000 4 0 0 0 89464 81371 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.23" depart="50.600" route="r" distance="400 0" speedFactor="0.825700000" state="2048 51000 4 0 0 0 94595 85876 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.24" depart="52.800" route="r" distance="400 0" speedFactor="0.872600000" state="2048 53000 4 0 0 0 96264 87545 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.25" depart="55.000" route="r" distance="400 0" speedFactor="0.917200000" state="2048 55000 4 0 0 0 117334 100753 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.26" depart="57.200" route="r" distance="400 0" speedFactor="0.948800000" state="2048 58000 4 0 0 0 124923 117335 9223372036854774807 0 0 1"/>
+    <vehicle id="v_1.27" depart="59.400" route="r" distance="392.5 0" speedFactor="1.131800000" state="2048 60000 3 0 0 0 133917 117336 9223372036854774807 0 0 1"/>
+    <vehicle id="v_1.28" depart="61.600" route="r" distance="200 0" speedFactor="0.931300000" state="2048 62000 2 0 1 0 133918 85175 119605 0 0 0"/>
+    <vehicle id="v_1.29" depart="63.800" route="r" distance="200 0" speedFactor="1.178600000" state="2048 64000 2 0 1 0 95236 86844 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.30" depart="66.000" route="r" distance="200 0" speedFactor="1.154400000" state="2048 66000 2 0 1 0 96905 88513 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.31" depart="68.200" route="r" distance="200 0" speedFactor="1.005200000" state="2048 69000 2 0 1 0 98574 90218 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.32" depart="70.400" route="r" distance="200 0" speedFactor="1.171800000" state="2048 71000 2 0 1 0 100243 91887 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.33" depart="72.600" route="r" distance="200 0" speedFactor="0.994800000" state="2048 73000 2 0 1 0 101912 94440 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.34" depart="74.800" route="r" distance="200 0" speedFactor="1.019700000" state="2048 75000 2 0 1 0 103581 96109 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.35" depart="77.000" route="r" distance="200 0" speedFactor="0.973200000" state="2048 77000 2 0 1 0 106036 98916 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.36" depart="79.200" route="r" distance="200 0" speedFactor="1.179700000" state="2048 80000 2 0 1 0 107705 100585 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.37" depart="81.400" route="r" distance="200 0" speedFactor="1.102300000" state="2048 82000 2 0 1 0 109374 102254 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.38" depart="83.600" route="r" distance="200 0" speedFactor="0.900600000" state="2048 84000 2 0 1 0 115376 107682 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.39" depart="85.800" route="r" distance="200 0" speedFactor="1.030400000" state="2048 86000 2 0 1 0 124062 117337 9223372036854774807 0 0 1"/>
+    <vehicle id="v_1.40" depart="88.000" route="r" distance="200 0" speedFactor="0.957100000" state="2048 88000 2 0 0 0 132169 103326 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.41" depart="90.200" route="r" distance="200 0" speedFactor="1.091900000" state="2048 91000 2 0 0 0 112689 104995 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.42" depart="92.400" route="r" distance="200 0" speedFactor="1.037800000" state="2048 93000 2 0 0 0 114358 106874 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.43" depart="94.600" route="r" distance="200 0" speedFactor="1.043400000" state="2048 95000 2 0 0 0 116027 108800 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.44" depart="96.800" route="r" distance="200 0" speedFactor="1.088000000" state="2048 97000 2 0 0 0 117696 110469 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.45" depart="99.000" route="r" distance="200 0" speedFactor="0.997400000" state="2048 99000 2 0 0 0 120384 113436 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.46" depart="101.200" route="r" distance="200 0" speedFactor="0.900500000" state="2048 102000 2 0 0 0 132169 117990 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.47" depart="103.400" route="r" distance="100 0" speedFactor="0.876900000" state="2048 104000 1 0 0 0 120420 112210 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.48" depart="105.600" route="r" distance="100 0" speedFactor="0.850400000" state="2048 106000 1 0 0 0 122932 114466 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.49" depart="107.800" route="r" distance="100 0" speedFactor="0.854900000" state="2048 108000 1 0 0 0 124842 116421 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.50" depart="110.000" route="r" distance="100 0" speedFactor="1.168900000" state="2048 110000 1 0 0 0 126511 118090 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.51" depart="112.200" route="r" distance="0 0" speedFactor="1.016800000" state="2048 113000 0 0 0 0 120080 113000 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.52" depart="114.400" route="r" distance="0 0" speedFactor="1.095800000" state="2048 115000 0 0 0 0 121749 115000 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.53" depart="116.600" route="r" distance="0 0" speedFactor="1.003200000" state="2048 117000 0 0 0 0 124176 117000 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.54" depart="118.800" route="r" distance="0 0" speedFactor="0.996000000" state="2048 119000 0 0 0 0 126228 119000 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.55" depart="121.000" route="r" distance="0 0" speedFactor="0.898900000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.56" depart="123.200" route="r" distance="0 0" speedFactor="1.142500000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.57" depart="125.400" route="r" distance="0 0" speedFactor="1.023600000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.58" depart="127.600" route="r" distance="0 0" speedFactor="0.969500000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.59" depart="129.800" route="r" distance="0 0" speedFactor="1.082500000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.60" depart="132.000" route="r" distance="0 0" speedFactor="1.119300000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.61" depart="134.200" route="r" distance="0 0" speedFactor="1.015800000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.62" depart="136.400" route="r" distance="0 0" speedFactor="0.987000000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.63" depart="138.600" route="r" distance="0 0" speedFactor="0.937600000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.64" depart="140.800" route="r" distance="0 0" speedFactor="0.882300000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.65" depart="143.000" route="r" distance="0 0" speedFactor="0.906800000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.66" depart="145.200" route="r" distance="0 0" speedFactor="0.914600000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.67" depart="147.400" route="r" distance="0 0" speedFactor="1.040000000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.68" depart="149.600" route="r" distance="0 0" speedFactor="1.022100000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.69" depart="151.800" route="r" distance="0 0" speedFactor="1.023000000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.70" depart="154.000" route="r" distance="0 0" speedFactor="0.972900000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.71" depart="156.200" route="r" distance="0 0" speedFactor="0.940100000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.72" depart="158.400" route="r" distance="0 0" speedFactor="1.055700000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.73" depart="160.600" route="r" distance="0 0" speedFactor="0.955100000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.74" depart="162.800" route="r" distance="0 0" speedFactor="0.984900000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.75" depart="165.000" route="r" distance="0 0" speedFactor="1.032500000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.76" depart="167.200" route="r" distance="0 0" speedFactor="0.981900000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.77" depart="169.400" route="r" distance="0 0" speedFactor="1.007300000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.78" depart="171.600" route="r" distance="0 0" speedFactor="1.086900000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.79" depart="173.800" route="r" distance="0 0" speedFactor="1.034500000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.80" depart="176.000" route="r" distance="0 0" speedFactor="0.998100000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.81" depart="178.200" route="r" distance="0 0" speedFactor="1.016900000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.82" depart="180.400" route="r" distance="0 0" speedFactor="0.967000000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.83" depart="182.600" route="r" distance="0 0" speedFactor="1.147800000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.84" depart="184.800" route="r" distance="0 0" speedFactor="0.975900000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.85" depart="187.000" route="r" distance="0 0" speedFactor="1.001700000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.86" depart="189.200" route="r" distance="0 0" speedFactor="1.042800000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.87" depart="191.400" route="r" distance="0 0" speedFactor="1.007100000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.88" depart="193.600" route="r" distance="0 0" speedFactor="1.022000000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.89" depart="195.800" route="r" distance="0 0" speedFactor="1.016700000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.90" depart="198.000" route="r" distance="0 0" speedFactor="0.891800000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.91" depart="200.200" route="r" distance="0 0" speedFactor="0.833600000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <vehicle id="v_1.92" depart="202.400" route="r" distance="0 0" speedFactor="0.921400000" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0"/>
+    <segment id="A0B0:0">
+        <vehicles time="119659" blockTime="119758" value="v_1.50 v_1.49 v_1.48 v_1.47"/>
+    </segment>
+    <segment id="B0C0:0">
+        <vehicles time="132169" blockTime="119658" value="v_1.46 v_1.45 v_1.44 v_1.43 v_1.42 v_1.41 v_1.40"/>
+    </segment>
+    <segment id="B0C0:1">
+        <vehicles time="119605" blockTime="119005" value="v_1.39 v_1.38 v_1.37 v_1.36 v_1.35 v_1.34 v_1.33 v_1.32 v_1.31 v_1.30 v_1.29 v_1.28"/>
+    </segment>
+    <segment id="C0D0:0">
+        <vehicles time="133917" blockTime="119004" value="v_1.27"/>
+    </segment>
+    <segment id="D0E0:0">
+        <vehicles time="122110" blockTime="119003" value="v_1.26 v_1.25 v_1.24 v_1.23 v_1.22 v_1.21 v_1.20 v_1.19 v_1.18 v_1.17 v_1.16 v_1.15 v_1.14"/>
+    </segment>
+    <segment id="E0F0:0">
+        <vehicles time="121172" blockTime="119002" value="v_1.13 v_1.12 v_1.11 v_1.10 v_1.9 v_1.8"/>
+    </segment>
+    <segment id="F0right0:0">
+        <vehicles time="116815" blockTime="120571" value="v_1.7 v_1.6 v_1.5 v_1.4"/>
+    </segment>
+    <segment id="left0A0:0">
+        <vehicles time="119759" blockTime="-9223372036854775808" value="v_1.54 v_1.53 v_1.52 v_1.51"/>
+    </segment>
+</snapshot>

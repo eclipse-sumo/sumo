@@ -39,8 +39,8 @@
     <route id="!train2" state="0" edges="-d2 -c -b -a2"/>
     <delay number="2" begin="2" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="train" length="20.00" vClass="rail" accel="2"/>
-    <vehicle id="train" type="train" depart="0.00" route="!train" distance="384.96 0" speedFactor="1.0000" state="2 0 2 0 0 0 21451 14407 9223372036854774807 0 0"/>
-    <vehicle id="train2" type="train" depart="1.00" route="!train2" distance="467.8 0" speedFactor="1.0000" state="2 1000 2 0 0 0 25409 18365 9223372036854774807 0 0"/>
+    <vehicle id="train" type="train" depart="0.00" route="!train" distance="384.96 0" speedFactor="1.0000" state="2 0 2 0 0 0 21451 14407 9223372036854774807 0 0 0"/>
+    <vehicle id="train2" type="train" depart="1.00" route="!train2" distance="467.8 0" speedFactor="1.0000" state="2 1000 2 0 0 0 25409 18365 9223372036854774807 0 0 0"/>
     <segment id=":A_2:0">
         <vehicles time="10285" blockTime="9742" value=""/>
     </segment>

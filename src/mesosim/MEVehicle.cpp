@@ -603,6 +603,7 @@ MEVehicle::saveState(OutputDevice& out) {
     internals.push_back(myBlockTime);
     internals.push_back(isStopped());
     internals.push_back(myPastStops.size());
+    internals.push_back(myWasJammed);
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     // save past stops
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
@@ -654,6 +655,10 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> myBlockTime;
     bis >> stopped;
     bis >> pastStops;
+    // optional for states written before the jam flag was saved
+    if (!(bis >> myWasJammed)) {
+        myWasJammed = false;
+    }
     myDepartPos /= 1000.; // was stored as mm
 
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS_RANDOMIZED)) {

@@ -40,10 +40,10 @@
     <route id="r0" state="1" edges="SC CN"/>
     <delay number="2" begin="3" end="1" depart="0.00" time="10.00" speedFactor="1.06" decel="4.50"/>
     <vType id="car" sigma="0"/>
-    <vehicle id="cali.0.1" type="car" depart="24.00" departPos="random_free" departSpeed="max" route="r0" distance="183.9 0" speedFactor="0.9383" state="2074 24000 1 0 0 0 35133 28078 9223372036854774807 0 0">
+    <vehicle id="cali.0.1" type="car" depart="24.00" departPos="random_free" departSpeed="max" route="r0" distance="183.9 0" speedFactor="0.9383" state="2074 24000 1 0 0 0 35133 28078 9223372036854774807 0 0 0">
         <device id="vehroute_cali.0.1" state="31.27 0.00 0"/>
     </vehicle>
-    <vehicle id="cali.0.2" type="car" depart="24.00" departPos="random_free" departSpeed="max" route="r0" distance="183.9 0" speedFactor="1.0104" state="2074 24000 1 0 0 0 33760 27208 9223372036854774807 0 0">
+    <vehicle id="cali.0.2" type="car" depart="24.00" departPos="random_free" departSpeed="max" route="r0" distance="183.9 0" speedFactor="1.0104" state="2074 24000 1 0 0 0 33760 27208 9223372036854774807 0 0 0">
         <device id="vehroute_cali.0.2" state="33.68 0.00 0"/>
     </vehicle>
     <segment id=":C_11:0">

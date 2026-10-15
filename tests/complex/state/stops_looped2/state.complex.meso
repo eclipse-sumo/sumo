@@ -16,6 +16,8 @@
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -36,7 +38,7 @@
     <route id="!v_0" state="0" edges="E0 -E0"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE"/>
-    <vehicle id="v_0" depart="0.00" route="!v_0" distance="235 0" speedFactor="1.0000" state="0 0 1 0 0 0 22642 13687 9223372036854774807 0 1">
+    <vehicle id="v_0" depart="0.00" route="!v_0" distance="235 0" speedFactor="1.0000" state="0 0 1 0 0 0 22642 13687 9223372036854774807 0 1 0">
         <stop parkingArea="pa_1" duration="5.00" started="8.69" ended="14.00"/>
     </vehicle>
     <segment id=":J1_0:0">

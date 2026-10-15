@@ -104,7 +104,7 @@
     <vType id="t1" length="3.00" sigma="0"/>
     <vType id="t2" sigma="0"/>
     <vTypeDistribution id="tD" vTypes="t1 t2" probabilities="1.00 1.00"/>
-    <vehicle id="v7" type="t2" depart="700.00" departSpeed="avg" route="r1" distance="0 0" speedFactor="1.0907" state="2066 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+    <vehicle id="v7" type="t2" depart="700.00" departSpeed="avg" route="r1" distance="0 0" speedFactor="1.0907" state="2066 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0">
         <device id="tripinfo_v7"/>
     </vehicle>
     <segment id=":C_11:0">

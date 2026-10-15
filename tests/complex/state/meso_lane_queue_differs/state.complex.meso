@@ -14,6 +14,11 @@
         <save-state.files value="state.xml"/>
     </output>
 
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
     <report>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
@@ -32,10 +37,10 @@
     <route id="!1" state="0" edges="E1"/>
     <delay number="2" begin="2" end="0" depart="0.00" time="0.00" speedFactor="1.06" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <vehicle id="0" depart="0.00" departSpeed="10.00" route="!0" distance="0 0" speedFactor="1.0600" state="16 0 0 0 0 0 6792 0 9223372036854774807 0 0">
+    <vehicle id="0" depart="0.00" departSpeed="10.00" route="!0" distance="0 0" speedFactor="1.0600" state="16 0 0 0 0 0 6792 0 9223372036854774807 0 0 0">
         <device id="tripinfo_0" state="E0_0 14.7232 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
     </vehicle>
-    <vehicle id="1" depart="0.00" departSpeed="10.00" route="!1" distance="0 0" speedFactor="0.9383" state="16 0 0 0 0 0 7673 0 9223372036854774807 0 0">
+    <vehicle id="1" depart="0.00" departSpeed="10.00" route="!1" distance="0 0" speedFactor="0.9383" state="16 0 0 0 0 0 7673 0 9223372036854774807 0 0 0">
         <device id="tripinfo_1" state="E1_0 13.0327 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
     </vehicle>
     <segment id="E0:0">

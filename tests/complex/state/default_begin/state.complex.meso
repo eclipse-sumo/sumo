@@ -36,7 +36,7 @@
     <route id="!v0!var#1" state="0" edges="beg middle end"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="t0" sigma="0"/>
-    <vehicle id="v0" type="t0" depart="0.00" route="!v0!var#1" distance="207 1" speedFactor="1.0000" reroute="1" state="262146 0 2 0 0 0 28597 21398 9223372036854774807 0 0">
+    <vehicle id="v0" type="t0" depart="0.00" route="!v0!var#1" distance="207 1" speedFactor="1.0000" reroute="1" state="262146 0 2 0 0 0 28597 21398 9223372036854774807 0 0 0">
         <device id="routing_v0" state="0 0"/>
     </vehicle>
     <segment id="beg:0">

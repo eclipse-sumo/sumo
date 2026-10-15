@@ -36,7 +36,7 @@
     <route id="!train2" state="0" edges="a b c"/>
     <delay number="1" begin="2" end="1" depart="0.00" time="22.00" speedFactor="1.00" decel="4.50"/>
     <vType id="train" length="20.00" vClass="rail" accel="2"/>
-    <vehicle id="train2" type="train" depart="60.00" departSpeed="max" route="!train2" distance="200 0" speedFactor="1.0000" state="18 60000 1 0 1 0 87199 74405 9223372036854774807 1 0">
+    <vehicle id="train2" type="train" depart="60.00" departSpeed="max" route="!train2" distance="200 0" speedFactor="1.0000" state="18 60000 1 0 1 0 87199 74405 9223372036854774807 1 0 0">
         <stop edge="b" until="80.00" started="74.41"/>
         <rem id="DriveWay_gneJ0.d0" time="74405" pos="100.00"/>
         <rem id="DriveWay_A.d0" time="74405" pos="100.00"/>
