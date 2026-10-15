@@ -132,10 +132,11 @@ endif()
 
 # compiler specific flags
 if (GNU_COMPILER OR CLANG_COMPILER)
+    add_compile_options(-Wall -Wextra)
     # set flags for clang in windows
     if (CLANG_COMPILER AND WIN32)
         # flags for clang in windows
-        add_compile_options(-Wall -Wextra -Wno-unsafe-buffer-usage)
+        add_compile_options(-Wno-unsafe-buffer-usage)
         # disable warnings
         add_compile_options(/clang:-Wno-unsafe-buffer-usage /clang:-Wno-reserved-identifier /clang:-Wno-c++98-compat)
         # disable debug build (due a problem with Runtime Libraries)
@@ -143,7 +144,7 @@ if (GNU_COMPILER OR CLANG_COMPILER)
         set(CMAKE_BUILD_TYPE "Release")
     else ()
         # flags for clang and gcc in linux / macos
-        add_compile_options(-Wall -pedantic -Wextra -ffp-contract=off)
+        add_compile_options(-pedantic -ffp-contract=off)
     endif ()
     if (GNU_COMPILER)
         # see https://stackoverflow.com/questions/23499909/adjust-variable-tracking-assignment-length
@@ -164,20 +165,12 @@ if (GNU_COMPILER OR CLANG_COMPILER)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Coverage")
     endif ()
 elseif (MSVC)
+    add_compile_options(/Wall)
     # enabling /WX is not possible due to warnings in external headers
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-        # this is a workaround to disable lots of warnings for replacing /W3 with /W4 in VS 2019
-        # there is a policy for that starting with CMake 3.15
-        if (MSVC_VERSION GREATER 1900)
-            string(REPLACE "/W3" "/Wall" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-        else ()
-            string(REPLACE "/W3" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-        endif ()
         # netedit hits the 4GB limit with incremental linking
         set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} /INCREMENTAL:NO")
         set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} /PDBPAGESIZE:8192")
-    else ()
-        add_compile_options(/Wall)
     endif ()
     if (MULTITHREADED_BUILD)
         add_compile_options(/MP)
@@ -268,7 +261,7 @@ if (MSVC AND ENABLE_PYTHON_BINDINGS)
         message(WARNING "Python language bindings are only supported for 64 bit.")
         set(ENABLE_PYTHON_BINDINGS OFF)
     endif()
-    if (NOT PYTHON_DEBUG_LIBRARY AND "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    if (NOT PYTHON_DEBUG_LIBRARY AND CMAKE_BUILD_TYPE STREQUAL "Debug")
         message(WARNING "Did not find Python debug library. Please reinstall your Python and enable the Python debug libraries in the installer.")
         set(ENABLE_PYTHON_BINDINGS OFF)
     endif()

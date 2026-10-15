@@ -102,7 +102,7 @@
     /* Disable integer overflow in arithmetics warnings */
     #pragma warning(disable: 26451)
     /* Disable inline function warnings */
-    #pragma warning(disable: 4514 4710)
+    #pragma warning(disable: 4514 4710 4711)
     /* Disable byte padding warnings */
     #pragma warning(disable: 4820)
     /* Disable unhandled switch case warnings (which get triggered even with a default branch) */
