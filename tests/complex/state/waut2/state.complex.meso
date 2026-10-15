@@ -36,7 +36,7 @@
     <route id="r1" state="1" edges="E0 E1"/>
     <delay number="1" begin="20" end="19" depart="0.00" time="285.00" speedFactor="1.00" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE" speedFactor="normc(1.00,0.00)" sigma="0"/>
-    <vehicle id="v.19" depart="190.00" departSpeed="max" route="r1" distance="100 0" speedFactor="1.0000" state="2256 190000 1 0 0 0 204398 197199 9223372036854774807 0 0 0">
+    <vehicle id="v.19" depart="190.00" departSpeed="max" route="r1" distance="100 0" speedFactor="1.0000" state="2256 190000 1 0 0 0 204398 197199 9223372036854774807 0 0 0 0">
         <device id="tripinfo_v.19" state="E0_0 13.89 100 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
     </vehicle>
     <flowState id="v" begin="0.00" number="30" period="10" departSpeed="max" next="200.00" route="r1" done="20" index="20"/>

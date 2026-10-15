@@ -155,3 +155,6 @@ cch_vTypeDistribution
 
 # vehicles leaving a jam over a short edge keep their jam flag when loading state (#18362)
 meso_jam_flag
+
+# simultaneous events keep their order when loading state (#18363)
+meso_event_order

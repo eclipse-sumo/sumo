@@ -36,7 +36,7 @@
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="t0" maxSpeed="5.00" sigma="0"/>
-    <vehicle id="v0" type="t0" depart="0.00" route="r0" distance="7 0" speedFactor="1.0000" state="2050 0 1 0 0 0 27000 7000 9223372036854774807 0 0 0"/>
+    <vehicle id="v0" type="t0" depart="0.00" route="r0" distance="7 0" speedFactor="1.0000" state="2050 0 1 0 0 0 27000 7000 9223372036854774807 0 0 0 0"/>
     <segment id="beg:0">
         <vehicles time="15630" blockTime="-9223372036854775808" value=""/>
     </segment>

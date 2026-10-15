@@ -44,12 +44,12 @@
     <route id="!t1!var#1" state="0" edges="d e c"/>
     <delay number="2" begin="3" end="1" depart="9.00" time="39.00" speedFactor="1.00" decel="4.50"/>
     <vType id="train" length="50.00" vClass="rail"/>
-    <vehicle id="t0" type="train" depart="0.00" departSpeed="max" route="!t0!var#1" distance="500 1" speedFactor="1.0000" reroute="1" state="262162 0 2 0 2 0 137199 50393 9223372036854774807 1 0 0">
+    <vehicle id="t0" type="train" depart="0.00" departSpeed="max" route="!t0!var#1" distance="500 1" speedFactor="1.0000" reroute="1" state="262162 0 2 0 2 0 137199 50393 9223372036854774807 1 0 0 0">
         <stop busStop="stop_c" arrival="100.00" duration="30.00" until="130.00" started="50.39"/>
         <device id="tripinfo_t0" state="a_0 13.89 500 0 0 0 79607 -1 -1000 NONE -1 0 -1"/>
         <device id="routing_t0" state="0 0"/>
     </vehicle>
-    <vehicle id="t1" type="train" depart="20.00" departSpeed="max" route="!t1!var#1" distance="400.05 1" speedFactor="1.0000" reroute="1" state="262162 29000 1 0 0 0 67968 57800 9223372036854774807 0 0 0">
+    <vehicle id="t1" type="train" depart="20.00" departSpeed="max" route="!t1!var#1" distance="400.05 1" speedFactor="1.0000" reroute="1" state="262162 29000 1 0 0 0 67968 57800 9223372036854774807 0 0 0 1">
         <stop busStop="stop_c" arrival="50.00" duration="30.00" until="80.00"/>
         <device id="tripinfo_t1" state="d_0 13.89 400.05 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
         <device id="routing_t1" state="0 20000"/>

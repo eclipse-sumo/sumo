@@ -35,13 +35,13 @@
     <route id="r1" state="1" edges="beg middle end"/>
     <delay number="1" begin="6" end="3" depart="0.00" time="87.00" speedFactor="1.08" decel="4.50" loaderTime="600000"/>
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <vehicle id="b" depart="390.00" route="r1" distance="7 0" speedFactor="1.0827" state="2048 390000 1 0 0 0 403115 396465 9223372036854774807 0 0 0">
+    <vehicle id="b" depart="390.00" route="r1" distance="7 0" speedFactor="1.0827" state="2048 390000 1 0 0 0 403115 396465 9223372036854774807 0 0 0 0">
         <device id="vehroute_b" state="1.08 0.00 0"/>
     </vehicle>
-    <vehicle id="2" depart="410.00" route="r1" distance="0 0" speedFactor="1.0303" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0">
+    <vehicle id="2" depart="410.00" route="r1" distance="0 0" speedFactor="1.0303" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0 -1">
         <device id="vehroute_2" state="-1.00 -1.00 0"/>
     </vehicle>
-    <vehicle id="3" depart="600.00" route="r1" distance="0 0" speedFactor="0.8310" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0">
+    <vehicle id="3" depart="600.00" route="r1" distance="0 0" speedFactor="0.8310" state="2048 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0 -1">
         <device id="vehroute_3" state="-1.00 -1.00 0"/>
     </vehicle>
     <segment id="beg:0">

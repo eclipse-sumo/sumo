@@ -604,6 +604,7 @@ MEVehicle::saveState(OutputDevice& out) {
     internals.push_back(isStopped());
     internals.push_back(myPastStops.size());
     internals.push_back(myWasJammed);
+    internals.push_back((SUMOTime)MSGlobals::gMesoNet->getEventIndex(this));
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     // save past stops
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
@@ -658,6 +659,9 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     // optional for states written before the jam flag was saved
     if (!(bis >> myWasJammed)) {
         myWasJammed = false;
+    }
+    if (!(bis >> myLoadedEventIndex)) {
+        myLoadedEventIndex = -1;
     }
     myDepartPos /= 1000.; // was stored as mm
 

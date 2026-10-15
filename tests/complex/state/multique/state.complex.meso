@@ -36,11 +36,11 @@
     <route id="!0" state="0" edges="SC CW"/>
     <delay number="2" begin="3" end="1" depart="0.00" time="13.00" speedFactor="1.06" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <vehicle id="0.1" depart="00:00:10" route="!0" distance="179.2 0" speedFactor="0.9383" reroute="1" state="262304 10000 1 0 0 0 24284 17409 9223372036854774807 0 0 0">
+    <vehicle id="0.1" depart="00:00:10" route="!0" distance="179.2 0" speedFactor="0.9383" reroute="1" state="262304 10000 1 0 0 0 24284 17409 9223372036854774807 0 0 0 0">
         <device id="vehroute_0.1" state="13.03 0.00 0"/>
         <device id="routing_0.1" state="0 10000"/>
     </vehicle>
-    <vehicle id="0.2" depart="00:00:20" route="!0" distance="0 0" speedFactor="1.0104" reroute="1" state="262304 20000 0 0 0 1 26384 20000 9223372036854774807 0 0 0">
+    <vehicle id="0.2" depart="00:00:20" route="!0" distance="0 0" speedFactor="1.0104" reroute="1" state="262304 20000 0 0 0 1 26384 20000 9223372036854774807 0 0 0 1">
         <device id="vehroute_0.2" state="14.03 0.00 0"/>
         <device id="routing_0.2" state="0 20000"/>
     </vehicle>

@@ -72,6 +72,13 @@ public:
      */
     void removeLeaderCar(MEVehicle* v);
 
+    /** @brief Returns the rank of the vehicle's pending event among all pending events (-1 if it has none)
+     *
+     * Events with the same time are processed in the order in which they were added.
+     * The rank is saved in the state so that this order can be restored.
+     */
+    long long int getEventIndex(const MEVehicle* veh) const;
+
     /** @brief remove the given car and clean up the relevant data structures */
     void vaporizeCar(MEVehicle* v, MSMoveReminder::Notification reason);
 
@@ -169,6 +176,10 @@ private:
     typedef std::priority_queue<LeaderEvent> LeaderEventQeue;
     LeaderEventQeue myLeaderCars;
     LeaderEventQeue myInvalidatedLeaderCars;
+
+    /// @brief ranks of the pending events by numerical vehicle id (computed once per saving step)
+    mutable std::map<long long int, long long int> myEventIndexCache;
+    mutable SUMOTime myEventIndexCacheTime = -1;
 
     /// @brief mapping from internal edge ids to their initial segments
     std::vector<MESegment*> myEdges2FirstSegments;

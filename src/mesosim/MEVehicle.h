@@ -380,6 +380,15 @@ public:
         return myWasJammed;
     }
 
+    /// @brief the order of the vehicle's event among simultaneous events, read from a loaded state (-1 if unset)
+    long long int getLoadedEventIndex() const {
+        return myLoadedEventIndex;
+    }
+
+    void setLoadedEventIndex(long long int index) {
+        myLoadedEventIndex = index;
+    }
+
     /// @name state io
     //@{
 
@@ -413,6 +422,9 @@ protected:
 
     /// @brief Whether this vehicle was jammed on it's previous normal segment
     bool myWasJammed;
+
+    /// @brief the order of the vehicle's event among simultaneous events, read from a loaded state (-1 if unset)
+    long long int myLoadedEventIndex = -1;
 
     /// @brief An instance of a velocity/lane influencing instance; built in "getInfluencer"
     BaseInfluencer* myInfluencer;

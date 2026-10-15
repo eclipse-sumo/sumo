@@ -21,6 +21,7 @@
 
 #include <queue>
 #include <vector>
+#include <algorithm>
 #include <map>
 #include <cmath>
 
@@ -299,7 +300,14 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment, bool disconn
 
 void
 MELoop::addLeaderCar(MEVehicle* veh, MSLink* link) {
-    myLeaderCars.push(LeaderEvent(veh));
+    LeaderEvent e(veh);
+    if (veh->getLoadedEventIndex() >= 0) {
+        // restore the order of simultaneous events from the loaded state
+        e.eventIndex = veh->getLoadedEventIndex();
+        veh->setLoadedEventIndex(-1);
+        LeaderEvent::myEventCounter = MAX2(LeaderEvent::myEventCounter, e.eventIndex + 1);
+    }
+    myLeaderCars.push(e);
     veh->setApproaching(link);
 }
 
@@ -308,6 +316,36 @@ void
 MELoop::clearState() {
     myLeaderCars = LeaderEventQeue();
     myInvalidatedLeaderCars = LeaderEventQeue();
+}
+
+
+long long int
+MELoop::getEventIndex(const MEVehicle* veh) const {
+    if (myEventIndexCacheTime != SIMSTEP) {
+        myEventIndexCache.clear();
+        std::map<std::pair<SUMOTime, long long int>, int> invalid;
+        for (LeaderEventQeue inv = myInvalidatedLeaderCars; !inv.empty(); inv.pop()) {
+            invalid[std::make_pair(inv.top().time, inv.top().nid)]++;
+        }
+        std::vector<std::pair<long long int, long long int> > pending;
+        for (LeaderEventQeue q = myLeaderCars; !q.empty(); q.pop()) {
+            const LeaderEvent& e = q.top();
+            auto it = invalid.find(std::make_pair(e.time, e.nid));
+            if (it != invalid.end() && it->second > 0) {
+                it->second--;
+                continue;
+            }
+            pending.push_back(std::make_pair(e.eventIndex, e.nid));
+        }
+        // save ranks instead of the indices so that the values do not depend on the number of events processed before
+        std::sort(pending.begin(), pending.end());
+        for (int i = 0; i < (int)pending.size(); i++) {
+            myEventIndexCache[pending[i].second] = i;
+        }
+        myEventIndexCacheTime = SIMSTEP;
+    }
+    auto it = myEventIndexCache.find(veh->getNumericalID());
+    return it == myEventIndexCache.end() ? -1 : it->second;
 }
 
 
