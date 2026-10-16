@@ -1057,9 +1057,6 @@ protected:
     static DictType myDict;
     static std::unordered_map<std::string_view, MSEdge*> myHashDict;
 
-    /// @brief hashed index of myDict for fast lookups by id
-    static std::unordered_map<std::string, MSEdge*> myHashDict;
-
     /** @brief Static list of edges
      * @deprecated Move to MSEdgeControl, make non-static
      */
