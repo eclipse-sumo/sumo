@@ -40,12 +40,12 @@
     </route>
     <delay number="1" begin="2" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50" loaderTime="23000"/>
     <vType id="t0" sigma="0"/>
-    <vehicle id="v0" type="t0" depart="0.00" route="r0" distance="7 0" speedFactor="1.0000" state="2050 0 1 0 0 -1 27000 7000 9223372036854774807 1 0">
+    <vehicle id="v0" type="t0" depart="0.00" route="r0" distance="7 0" speedFactor="1.0000" state="2050 0 1 0 0 -1 27000 7000 9223372036854774807 1 0 0 0 7000">
         <stop busStop="busstop" duration="20.00" parking="1" started="7.00"/>
         <stop busStop="busstop2" duration="20.00" parking="1"/>
         <device id="vehroute_v0" state="1.00 0.00 0"/>
     </vehicle>
-    <vehicle id="v1" type="t0" depart="23.00" route="r0" distance="0 0" speedFactor="1.0000" state="2050 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+    <vehicle id="v1" type="t0" depart="23.00" route="r0" distance="0 0" speedFactor="1.0000" state="2050 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0 -1 0">
         <stop busStop="busstop" duration="20.00" parking="1"/>
         <device id="vehroute_v1" state="-1.00 -1.00 0"/>
     </vehicle>

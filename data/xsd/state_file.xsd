@@ -243,6 +243,7 @@
         <xsd:attribute name="time" type="xsd:long" use="required"/>
         <xsd:attribute name="blockTime" type="xsd:long" use="required"/>
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="state" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="vehicleTransferType">

@@ -367,6 +367,9 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 const SUMOTime blockTime = StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME));
                 const SUMOTime entryBlockTime = StringUtils::toLong(attrs.getString(SUMO_ATTR_BLOCKTIME));
                 mySegment->loadState(vehs, blockTime - myOffset, entryBlockTime - myOffset, myQueIndex);
+                if (attrs.hasAttribute(SUMO_ATTR_STATE)) {
+                    mySegment->loadQueueExtraState(myQueIndex, attrs.getString(SUMO_ATTR_STATE), myOffset);
+                }
                 myQueIndex++;
             } else {
                 myCurrentLane->loadState(vehs);
