@@ -1154,6 +1154,7 @@ MSEdge::clear() {
         delete (*i).second;
     }
     myDict.clear();
+    myHashDict.clear();
     myEdges.clear();
 }
 

@@ -27,6 +27,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <unordered_map>
 #include <iostream>
 #ifdef HAVE_FOX
 #include <utils/foxtools/fxheader.h>
