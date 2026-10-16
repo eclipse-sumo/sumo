@@ -4,6 +4,12 @@ plain
 # the first route the vehicles have is longer than the best
 initial_longer
 
+# the first route the vehicles have is longer than the best, keep by setting an absolute threshold
+initial_longer_keep
+
+# the first route the vehicles have is longer than the best, keep by setting a relative threshold
+initial_longer_keep2
+
 # test effect of attribute arrivalEdge
 initial_longer_arrivalEdge
 
