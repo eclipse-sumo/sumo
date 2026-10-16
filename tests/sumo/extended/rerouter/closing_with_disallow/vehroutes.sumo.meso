@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-23T21:56:59.819690+01:00 by Eclipse SUMO sumo v1_27_1+0760-3b5a208f4b8
+<!-- generated on 2026-10-16T10:35:08.423305+01:00 by Eclipse SUMO sumo v1_28_0+0103-f5848282d2f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -112,42 +112,42 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <vehicle id="flow_maybe_detour.10" depart="100.00" arrival="298.00">
         <routeDistribution>
-            <route cost="-1.00" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="100.00" probability="0" edges="beg middle end rend"/>
+            <route cost="89.93" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="100.00" probability="0" edges="beg middle end rend"/>
             <route cost="197.84" savings="-107.91" edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.11" depart="110.00" arrival="308.00">
         <routeDistribution>
-            <route cost="-1.00" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="110.00" probability="0" edges="beg middle end rend"/>
+            <route cost="89.93" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="110.00" probability="0" edges="beg middle end rend"/>
             <route cost="197.84" savings="-107.91" edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.12" depart="120.00" arrival="318.00">
         <routeDistribution>
-            <route cost="-1.00" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="120.00" probability="0" edges="beg middle end rend"/>
+            <route cost="89.93" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="120.00" probability="0" edges="beg middle end rend"/>
             <route cost="197.84" savings="-107.91" edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.13" depart="130.00" arrival="328.00">
         <routeDistribution>
-            <route cost="-1.00" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="130.00" probability="0" edges="beg middle end rend"/>
+            <route cost="89.93" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="130.00" probability="0" edges="beg middle end rend"/>
             <route cost="197.84" savings="-107.91" edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.15" depart="150.00" arrival="348.00">
         <routeDistribution>
-            <route cost="-1.00" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="150.00" probability="0" edges="beg middle end rend"/>
+            <route cost="89.93" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="150.00" probability="0" edges="beg middle end rend"/>
             <route cost="197.84" savings="-107.91" edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.17" depart="170.00" arrival="368.00">
         <routeDistribution>
-            <route cost="-1.00" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="170.00" probability="0" edges="beg middle end rend"/>
+            <route cost="89.93" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="170.00" probability="0" edges="beg middle end rend"/>
             <route cost="197.84" savings="-107.91" edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
