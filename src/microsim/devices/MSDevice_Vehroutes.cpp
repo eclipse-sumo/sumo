@@ -143,9 +143,14 @@ MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& i
     myDepartPos(-1),
     myDepartSpeed(-1),
     myDepartPosLat(0),
-    myStopOut(2) {
-        std::string dummyMsg;
-        myCurrentValid = myHolder.hasValidRoute(dummyMsg, myCurrentRoute);
+    myInitialCost(-1),
+    myStopOut(2)
+{
+    std::string dummyMsg;
+    myCurrentValid = myHolder.hasValidRoute(dummyMsg, myCurrentRoute);
+    if (myCurrentRoute->getCosts() < 0 && myWriteCosts) {
+        myInitialCost = myHolder.getRouterTT().recomputeCosts(myCurrentRoute->getEdges(), &myHolder, SIMSTEP);
+    }
 }
 
 
@@ -245,7 +250,11 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
     if (index >= 0) {
         assert((int)myReplacedRoutes.size() > index);
         if (myDUAStyle || myWriteCosts) {
-            os.writeAttr(SUMO_ATTR_COST, myReplacedRoutes[index].route->getCosts());
+            double cost = myReplacedRoutes[index].route->getCosts();
+            if (cost < 0 && index == 0) {
+                cost = myInitialCost;
+            }
+            os.writeAttr(SUMO_ATTR_COST, cost);
         }
         if (myWriteCosts) {
             os.writeAttr(SUMO_ATTR_SAVINGS, myReplacedRoutes[index].route->getSavings());
@@ -568,6 +577,7 @@ MSDevice_Vehroutes::saveState(OutputDevice& out) const {
     }
     internals.push_back(toString(myDepartSpeed));
     internals.push_back(toString(myDepartPos));
+    internals.push_back(toString(myInitialCost));
     internals.push_back(toString(myReplacedRoutes.size()));
     for (int i = 0; i < (int)myReplacedRoutes.size(); ++i) {
         const std::string replacedOnEdge = myReplacedRoutes[i].edge == nullptr ? "!NULL" : myReplacedRoutes[i].edge->getID();
@@ -597,6 +607,7 @@ MSDevice_Vehroutes::loadState(const SUMOSAXAttributes& attrs) {
     }
     bis >> myDepartSpeed;
     bis >> myDepartPos;
+    bis >> myInitialCost;
     int size;
     bis >> size;
     for (int i = 0; i < size; ++i) {

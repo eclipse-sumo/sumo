@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-03T22:27:04.166808+01:00 by Eclipse SUMO sumo v1_27_1+0600-3f7ce74d7c5
+<!-- generated on 2026-10-16T08:34:27.094985+01:00 by Eclipse SUMO sumo v1_28_0+0100-bb553965bae
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -39,7 +39,9 @@
         <xsd:all>
             <xsd:element name="net-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="route-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="ignore.routeelements" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="ignore.additionalelements" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weight-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="weight-attribute" type="strOptionType" minOccurs="0"/>
             <xsd:element name="load-state" type="fileOptionType" minOccurs="0"/>
