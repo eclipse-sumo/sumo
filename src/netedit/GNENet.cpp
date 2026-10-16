@@ -1616,9 +1616,11 @@ GNENet::computeJunction(GNEJunction* junction) {
 
 
 void
-GNENet::requireRecompute() {
+GNENet::requireRecompute(const bool requireSaving) {
     myNeedRecompute = true;
-    mySavingStatus->requireSaveNetwork();
+    if (requireSaving) {
+        mySavingStatus->requireSaveNetwork();
+    }
 }
 
 

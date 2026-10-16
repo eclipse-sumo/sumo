@@ -45,8 +45,6 @@ if __name__ == '__main__':
 ###############################################################################
 # IMPORTS
 
-# import wxversion
-# wxversion.select("2.8")
 
 import wx
 from collections import OrderedDict
@@ -2669,14 +2667,6 @@ class Fancylines(Lines):
                              info='Arrow stretch factor.',
                              ))
 
-        # self.add(cm.AttrConf(  'arrowlength', arrowlength,
-        #                                groupnames = ['options'],
-        #                                perm='wr',
-        #                                is_save = True,
-        #                                is_plugin = False,
-        #                                name = 'Arrow length',
-        #                                info = 'Arrow length.',
-        #                                ))
 
         self.add(cm.AttrConf('is_lefthalf', is_lefthalf,
                              groupnames=['options'],
@@ -2735,6 +2725,19 @@ class Fancylines(Lines):
                                   is_save=True,
                                   info='Line width',
                                   ))
+                                  
+        # TODO: currently colors_arrow has no effect
+        # _update_colorvbo must be defined here and adapted from DrawobjMixin 
+        # as done in Polylines, which inherits this class
+        self.add_col(am.ArrayConf( 'colors_arrow',  np.zeros(4, dtype=np.float32),
+                                        dtype=np.float32,
+                                        groupnames = ['_private'],
+                                        perm='rw',
+                                        metatype = 'color',
+                                        name = 'Arrow color',
+                                        is_save = False,
+                                        info = 'Arrow head color with format [r,g,b,a]',
+                                        ))
 
     def add_drawobj(self, vertices, width, color, color_highl=None,
                     beginstyle=None,
@@ -3246,6 +3249,14 @@ class Polylines(Fancylines):
                 # print '  polyvinds\n',polyvinds
                 vi = np.zeros((2*n_seg-2), np.int32)
                 vi[0] = polyvinds[0]
+                try:
+                    vi[-2]=polyvinds[-2]
+                except:
+                    print ('WARNING in _make_lines: in complete polygon')
+                    print('  polyline\n',polyline)
+                    print ('  polyvinds\n',polyvinds)
+                    vi[-2]=polyvinds[-1]
+                    
                 vi[-1] = polyvinds[-1]
 
                 # Important type conversion!!
@@ -3340,10 +3351,6 @@ class Polylines(Fancylines):
 
     def _update_colorvbo(self):
         n = len(self._polyinds)
-        # n_vert = self.get_n_vert()
-        # print '_update_colorvbo fancyline'
-        # self._linecolors = np.array(linecolors, np.float32)
-        # self._linecolors_highl = np.array(linecolors_highl, np.float32)
         if self._is_outline.value:
             colors = self.colors.value[self._polyinds] + \
                 self.are_highlighted.value[self._polyinds].reshape(n, 1)*self.colors_highl.value[self._polyinds]
@@ -3352,11 +3359,15 @@ class Polylines(Fancylines):
                     _vbo.update_colors(colors)
 
         if self._is_fill.value:
-            colors = self.colors_fill.value[self._polyinds] + self.are_highlighted.value[self._polyinds].reshape(
-                n, 1)*self.colors_fill_highl.value[self._polyinds]
-            for _vbo in self.get_vbos():
+            colors = self.colors_fill.value[self._polyinds]  + self.are_highlighted.value[self._polyinds].reshape(n,1)*self.colors_fill_highl.value[self._polyinds]
+            colors_arrow = self.colors_arrow.value[self._polyinds]
+            for _vbo in self.get_vbos(): # TODO: this seems inefficient, avoid this loop by calling only relevant vbos
+                #print ('  vbo:',_vbo.get_ident(),'is_fill',_vbo.is_fill(),'is arrow',_vbo.get_ident()[2] in LINEHEADS)
                 if _vbo.is_fill():
-                    _vbo.update_colors(colors)
+                    if _vbo.get_ident()[2] in LINEHEADS:
+                        _vbo.update_colors(colors_arrow)
+                    else:
+                        _vbo.update_colors(colors)
 
     def pick(self, p, detectwidth=0.1):
         """

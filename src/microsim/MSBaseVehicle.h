@@ -983,7 +983,7 @@ public:
         myRoutingMode = value;
     }
 
-
+    /// @brief returns the router according to the current routing mode of the vehicle
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT() const;
 
     /** @brief Returns the vehicle's internal edge travel times/efforts container

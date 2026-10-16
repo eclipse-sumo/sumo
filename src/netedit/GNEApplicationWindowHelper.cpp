@@ -2258,12 +2258,22 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     // get options
     auto& neteditOptions = OptionsCont::getOptions();
     auto& sumoOptions = myApplicationWindow->getSumoOptions();
+    // get ignore flags before resetting
+    const bool ignoreAdditionals = neteditOptions.getBool("ignore.additionalelements");
+    const bool ignoreRoutes = neteditOptions.getBool("ignore.routeelements");
     // reset options
     sumoOptions.resetDefault();
     neteditOptions.resetDefault();
     // make all options writables
     sumoOptions.resetWritable();
     neteditOptions.resetWritable();
+    // restore flags
+    if (ignoreAdditionals) {
+        neteditOptions.set("ignore.additionalelements", "true");
+    }
+    if (ignoreRoutes) {
+        neteditOptions.set("ignore.routeelements", "true");
+    }
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
     parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
@@ -2294,8 +2304,12 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
         WRITE_ERROR(TLF("No network defined in sumo configuration '%'.", mySumoConfigFile));
         return false;
     }
-    neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
-    neteditOptions.set("route-files", sumoOptions.getString("route-files"));
+    if (!ignoreAdditionals) {
+        neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
+    }
+    if (!ignoreRoutes) {
+        neteditOptions.set("route-files", sumoOptions.getString("route-files"));
+    }
     return true;
 }
 
@@ -2355,13 +2369,20 @@ bool
 GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     // get options
     auto& neteditOptions = OptionsCont::getOptions();
-    // before reset defaults, save ignore route and demand elements (because usually are loaded trought console)
-    const bool ignoreAdditionalElements = neteditOptions.getBool("ignore.additionalelements");
-    const bool ignoreRouteElements = neteditOptions.getBool("ignore.routeelements");
+    // get ignore flags before resetting
+    const bool ignoreAdditionals = neteditOptions.getBool("ignore.additionalelements");
+    const bool ignoreRoutes = neteditOptions.getBool("ignore.routeelements");
     // reset options
     neteditOptions.resetDefault();
     // make all options writables
     neteditOptions.resetWritable();
+    // restore flags
+    if (ignoreAdditionals) {
+        neteditOptions.set("ignore.additionalelements", "true");
+    }
+    if (ignoreRoutes) {
+        neteditOptions.set("ignore.routeelements", "true");
+    }
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
     parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
@@ -2382,21 +2403,20 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     }
     // relocate files
     neteditOptions.relocateFiles(myNeteditConfigFile);
+    // check if ignore additional or route files
+    neteditOptions.resetWritable();
+    if (ignoreAdditionals) {
+        neteditOptions.resetDefault("additional-files");
+    }
+    if (ignoreRoutes) {
+        neteditOptions.resetDefault("route-files");
+    }
     // configure files in bucket
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDIT_CONFIG, myNeteditConfigFile);
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, neteditOptions.getString("sumocfg-file"));
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETWORK, neteditOptions.getString("sumo-net-file"));
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::TLS, neteditOptions.getString("tls-file"));
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::EDGETYPE, neteditOptions.getString("edgetypes-file"));
-    // restore ignores
-    neteditOptions.resetWritable();
-    // check if ignore additional or route files
-    if (ignoreAdditionalElements) {
-        neteditOptions.resetDefault("additional-files");
-    }
-    if (ignoreRouteElements) {
-        neteditOptions.resetDefault("route-files");
-    }
     return true;
 }
 

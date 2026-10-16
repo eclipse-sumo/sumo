@@ -2194,36 +2194,37 @@ class UpdateDeparturesFromDetectorflows(Process):
         activities of the virtual population, before running the planner
 
         '''
-# ............Preparation
+        #............Preparation
         demand = self.parent.parent
-
+        
         virtualpop = demand.virtualpop
         trips = demand.trips
         edges = trips.get_net().edges
-
+        
         detector_flows = self.parent.flowmeasurements
         ids_detflow = detector_flows.get_ids()
-        det_hours = detector_flows.timeperiods[ids_detflow]  # in seconds
+        det_hours = detector_flows.timeperiods[ids_detflow]# in seconds
         det_flows = detector_flows.flows_passenger[ids_detflow] + detector_flows.flows_heavyduty[ids_detflow]
         step_hours = np.sort(np.unique(det_hours))
         interval_time = step_hours[1]-step_hours[0]
-
-        time_interval_half = 0.5*interval_time  # in seconds
+        
+        time_interval_half = 0.5*interval_time# in seconds
         if self.is_randomize:
             fact_randomize = 1.0
         else:
             fact_randomize = 0.0
-
-        step_hours += interval_time/2.  # in seconds
-        det_hours += interval_time/2.  # in seconds
+        
+        step_hours+=interval_time/2.# in seconds
+        det_hours+=interval_time/2.# in seconds
 
         step_flows0 = []
         step_flows_dep0 = []
         step_flows_arr0 = []
-
+        
+        
         if self.is_update_activities | self.is_add_returntrips:
-
-            # ............Split flows in departure and return
+                
+        #............Split flows in departure and return
             for step_hour in step_hours:
                 step_flow = np.sum(det_flows[(det_hours == step_hour)])
                 step_flows0.append(step_flow)
@@ -2231,357 +2232,356 @@ class UpdateDeparturesFromDetectorflows(Process):
                     step_flows_dep0.append(step_flow)
                     step_flows_arr0.append(0.)
                 elif step_hour/3600. < self.max_departure_hour and step_hour/3600. > self.min_return_hour:
-                    step_flows_arr0.append((step_hour/3600.-self.min_return_hour) /
-                                           (self.max_departure_hour-self.min_return_hour)*step_flow)
-                    step_flows_dep0.append((1-(step_hour/3600.-self.min_return_hour) /
-                                           (self.max_departure_hour-self.min_return_hour))*step_flow)
+                    step_flows_arr0.append((step_hour/3600.-self.min_return_hour)/(self.max_departure_hour-self.min_return_hour)*step_flow)
+                    step_flows_dep0.append((1-(step_hour/3600.-self.min_return_hour)/(self.max_departure_hour-self.min_return_hour))*step_flow)
                 elif step_hour/3600. >= self.max_departure_hour and step_hour/3600. >= self.min_return_hour:
                     step_flows_dep0.append(0.)
                     step_flows_arr0.append(step_flow)
-
-        # ............Plot
+                    
+        #............Plot
             # ~ if self.is_plot_flows:
-                # ~ fig, ax = plt.subplots()
+                # ~ fig, ax = plt.subplots() 
                 # ~ ax.plot(step_hours/3600., step_flows, label = 'Total flows')
                 # ~ ax.plot(step_hours/3600., step_flows_dep, label = 'Departure flows')
-                # ~ ax.plot(step_hours/3600., step_flows_arr, label = 'Arrival flows')
+                # ~ ax.plot(step_hours/3600., step_flows_arr, label = 'Arrival flows') 
                 # ~ ax.legend()
                 # ~ ax.set_xlabel('Hour')
                 # ~ ax.set_ylabel('Total flow')
                 # ~ ax.set_title('Total flow distribution - Initial ')
                 # ~ plt.show()
-
-        # ............Smooth the curve to make the total number of departures equal to the total number of arrival
+            
+        #............Smooth the curve to make the total number of departures equal to the total number of arrival
             sum_step_flows_dep = np.sum(step_flows_dep0)
             sum_step_flows_arr = np.sum(step_flows_arr0)
             arr_minus_dep = sum_step_flows_arr-sum_step_flows_dep
-            n_intermediate_steps = len(
-                step_hours[(step_hours/3600. < self.max_departure_hour) & (step_hours/3600. > self.min_return_hour)])
+            n_intermediate_steps = len(step_hours[(step_hours/3600. < self.max_departure_hour)&(step_hours/3600. > self.min_return_hour)])
             shares = []
             for intermediate_step in range(n_intermediate_steps):
-                shares.append(float(n_intermediate_steps+1)/2. -
-                              abs((float(n_intermediate_steps+1)/2-intermediate_step-1.))-0.5)
+                shares.append(float(n_intermediate_steps+1)/2.-abs((float(n_intermediate_steps+1)/2-intermediate_step-1.))-0.5)        
             i = 0
             for step_hour, j in zip(step_hours, list(range(len(step_hours)))):
                 if step_hour/3600. < self.max_departure_hour and step_hour/3600. > self.min_return_hour:
                     step_flows_arr0[j] -= arr_minus_dep*shares[i]/np.sum(shares)/2.
                     step_flows_dep0[j] += arr_minus_dep*shares[i]/np.sum(shares)/2.
-                    i += 1
+                    i+=1
                     if step_flows_arr0[j] < 0 or step_flows_dep0[j] < 0:
                         print('WARNING, negative flow. Change parameters and plot to check.')
-
+                    
             sum_step_flows_dep = np.sum(step_flows_dep0)
             sum_step_flows_arr = np.sum(step_flows_arr0)
-
-            # ............Plot
+    
+                #............Plot
             if self.is_plot_flows:
-                fig, ax = plt.subplots()
-                ax.plot(step_hours/3600., step_flows0, label='Total flows')
-                ax.plot(step_hours/3600., step_flows_dep0, label='Departure flows')
-                ax.plot(step_hours/3600., step_flows_arr0, label='Arrival flows')
+                fig, ax = plt.subplots() 
+                ax.plot(step_hours/3600., step_flows0, label = 'Total flows')
+                ax.plot(step_hours/3600., step_flows_dep0, label = 'Departure flows')
+                ax.plot(step_hours/3600., step_flows_arr0, label = 'Arrival flows') 
                 ax.legend()
                 ax.set_xlabel('Hour')
                 ax.set_ylabel('Total flow')
                 ax.set_title('Total flow distribution')
                 plt.show()
-
-                # ............Preparation
-            # step_flows_dep_prob = step_flows_dep0/sum_step_flows_dep
-            # step_flows_arr_prob = step_flows_arr0/sum_step_flows_arr
-
+                
+                #............Preparation
+            #step_flows_dep_prob = step_flows_dep0/sum_step_flows_dep
+            #step_flows_arr_prob = step_flows_arr0/sum_step_flows_arr
+            
         if self.is_update_activities:
-            # ............Update times of activities
-            # step_flows = copy(step_flows0)
+            #............Update times of activities
+            #step_flows = copy(step_flows0)
             probs_go = step_flows_dep0/step_flows_dep0.sum()
             probs_ret = step_flows_arr0/step_flows_arr0.sum()
-
+            
             ids_vp = virtualpop.get_ids()
-
-            plans = virtualpop.get_plans()
+            
+            plans =  virtualpop.get_plans()
 
             activities = virtualpop.get_activities()
-
+           
+           
             # generate joint deparrture probabilty matrix
             # from marginal probabilities
-            # where rows satisfies probs_go and
-            P_dep = np.outer(probs_go, probs_ret).reshape(n_int, -1)
-            print('  P_dep.shape=\n', P_dep.shape, np.sum(P_dep), 'max',
-                  np.max(P_dep), 'len(step_hours)', len(step_hours))
-
+            # where rows satisfies probs_go and 
+            P_dep  = np.outer(probs_go, probs_ret).reshape(n_int,-1)
+            print('  P_dep.shape=\n',P_dep.shape,np.sum(P_dep),'max',np.max(P_dep),'len(step_hours)',len(step_hours))
+           
+           
+           
             convergenze = False
             while convergenze == False:
                 convergenze = True
-
-                for id_vp, ids_activity, id_plan in zip(
-                    ids_vp,
-                    virtualpop.activitypatterns[ids_vp],
-                    virtualpop.ids_plan[ids_vp],
-                ):
+                
+                for id_vp, ids_activity, id_plan in zip(\
+                                        ids_vp, 
+                                        virtualpop.activitypatterns[ids_vp], 
+                                        virtualpop.ids_plan[ids_vp],
+                                        ):
                     id_first_activity = ids_activity[0]
                     id_intermediate_act = ids_activity[1]
-
+                    
                     print('-'*70)
-                    print('  id_vp', id_vp, 'id_plan', id_plan, 'ids_activity', ids_activity)
-
+                    print('  id_vp',id_vp,'id_plan',id_plan,'ids_activity',ids_activity)
+                    
                     # get estimated travel time from initial to first activity
                     triptime_to_main_activity = -1
-
+                    
                     # has a plan be generated?
                     if id_plan > -1:
                         stagelist = plans.stagelists[id_plan]
                         # make a flat list of start and end times of each activity
-                        # tt = [t_start1, t_end1, t_start2, t_end2, ...]
+                        # tt = [t_start1, t_end1, t_start2, t_end2, ...] 
                         tt = []
                         for stage, id_stage in stagelist:
-                            if stage.ident == 'activities':
-                                print('      id_act %d: t_dep %.2f' % (id_stage, stage.times_start[id_stage]), 't_ret %.2f' % (
-                                    stage.times_start[id_stage] + stage.durations[id_stage]))
-                                tt += [stage.times_start[id_stage], stage.times_start[id_stage] + stage.durations[id_stage]]
-                            # break after first 3 activities have been processed
-                            if len(tt) == 6:
-                                break
-
+                                if stage.ident == 'activities':
+                                        print('      id_act %d: t_dep %.2f'%(id_stage, stage.times_start[id_stage]),'t_ret %.2f'%(stage.times_start[id_stage] + stage.durations[id_stage]))
+                                        tt += [stage.times_start[id_stage] , stage.times_start[id_stage] + stage.durations[id_stage]]
+                                # break after first 3 activities have been processed
+                                if len(tt) == 6:
+                                        break
+                                        
                         # extract here the travel time between first and second activity
-                        if len(tt) >= 3:
+                        if len(tt) >= 3: 
                             triptime_to_main_activity = tt[2]-tt[1]
-
-                        # ............Extract departure and return time
-                    # Firstly assign intermediate departure times between
-                    # earliest arrival and latest departure in order to achieve convergenze
-
+                        
+                        
+                        #............Extract departure and return time
+                    #Firstly assign intermediate departure times between 
+                    #earliest arrival and latest departure in order to achieve convergenze
+                    
                     ind_go, int_ret = generate_index_from_pmatrix(P_dep)
-
-                    # here we determine the times for  deparure and return,
-                    t_dep0 = int(step_hours[ind_go]+np.random.uniform(-time_interval_half,
-                                 time_interval_half))  # max(0, int(choice_dep[0]))
-                    t_ret0 = int(step_hours[int_ret]+np.random.uniform(-time_interval_half,
-                                 time_interval_half))  # max(0, int(choice_ret[0]))
-                    print('      desired: t_dep0 %.2f' % (float(t_dep0)/3600), 't_ret0 %.2f' % (float(t_ret0)/3600))
-
+                    
+                    
+                    
+                    # here we determine the times for  deparure and return, 
+                    t_dep0 = int(step_hours[ind_go]+np.random.uniform(-time_interval_half,time_interval_half)) #max(0, int(choice_dep[0]))
+                    t_ret0 = int(step_hours[int_ret]+np.random.uniform(-time_interval_half,time_interval_half)) #max(0, int(choice_ret[0]))
+                    print('      desired: t_dep0 %.2f'%(float(t_dep0)/3600),'t_ret0 %.2f'%(float(t_ret0)/3600))
+                    
+                    
                     # anticipate departure times according to some estimates:
-
-                    if (id_plan > -1) & (len(tt) == 6) & self.is_anticipate_with_triptime:  # make shure there is a valid plan with 3 activities
+                    
+                    if (id_plan > -1) & (len(tt) == 6) & self.is_anticipate_with_triptime:# make shure there is a valid plan with 3 activities
                         # travel times list, marking start end end of activities
                         # if (self.is_anticipate_with_triptime) & (triptime_to_main_activity > -1):
                         # for adjusting stages
                         #  anticipate departure time by triptime_to_main_activity
-                        # => anticipate departure times proportional to the
-                        # door to door trip time
+                        # => anticipate departure times proportional to the 
+                        # door to door trip time 
                         t_dep = t_dep0 - self.factor_anticipate_go * triptime_to_main_activity
                         t_ret = t_ret0 - self.factor_anticipate_return * triptime_to_main_activity
-
+                        
+                                
                     else:
                         t_dep = t_dep0 - self.factor_anticipate_go * self.av_dtd_time_vp
                         t_ret = t_ret0 - self.factor_anticipate_return * self.av_dtd_time_vp
-
-                    print('      t_dep', t_dep, 't_ret', t_ret)
-
-                    if (self.is_update_plans) & (id_plan > -1):  # make shure there is a valid plan
+                                    
+                        
+                    print('      t_dep',t_dep,'t_ret',t_ret)
+                                
+                        
+                    
+                    
+                    if (self.is_update_plans)&(id_plan > -1):# make shure there is a valid plan
                         # travel times list, marking start end end of activities
-
-                        # only proceed if plan contains 3 activities
+                        
+                        
+                        
+                                        
+                        # only proceed if plan contains 3 activities 
                         if len(tt) == 6:
-
-                            delta = [t_dep-0.5*(tt[1]+tt[2]), t_ret-0.5*(tt[3]+tt[4])]
-
-                            # be sure there is positive time for activity 2
-                            is_ok1 = tt[2] + delta[0] < tt[3] + delta[1]
-
-                            print('      delta[0]', delta[0]/3600., 'delta[1]', delta[1]/3600.,
-                                  'is_ok1', is_ok1, 'dur2=', (tt[3] + delta[1] - tt[2] + delta[0])/3600)
-                            if is_ok1:
-                                i_act = -1
-                                for stage, id_stage in stagelist:
-                                    if stage.ident == 'activities':  # activity stage
-                                        time_start = stage.times_start[id_stage]
-                                        i_act += 1
-
-                                        if i_act == 0:  # activity stage
-                                            # adjust first activity
-                                            # only extend duration
-                                            # because the beginning of the activity
-                                            # is typically in the past day
-                                            #  e.g when the person is sleeping
-                                            # adjusting the duration will define the
-                                            # begin time  of the first transport activity
-
-                                            # however, start time + duration should
-                                            # result in the desired departure time
-                                            stage.durations[id_stage] += delta[0]
-
-                                        elif i_act == 1:
-                                            # adjust second activity
-                                            stage.durations[id_stage] = tt[3] + delta[0] - tt[2] - delta[1]
-                                            stage.times_start[id_stage] += delta[0]
-
-                                        else:
-                                            # for all other stages, just shift start time
-                                            stage.times_start[id_stage] += delta[1]
-
-                                    else:  # transport stage
-                                        if i_act in [0, 1]:
-                                            stage.times_start[id_stage] += delta[i_act]
-                                        else:
-                                            # just shift all times by the last delta
-                                            stage.times_start[id_stage] += delta[1]
-
-                            else:
-                                print('WARNING go time', tt[2] + delta[0], 'greater than retuen time', tt[3] + delta[1])
+                                
+                                
+                                
+                                delta = [t_dep-0.5*(tt[1]+tt[2]), t_ret-0.5*(tt[3]+tt[4]) ]
+                              
+                                
+                                # be sure there is positive time for activity 2
+                                is_ok1 = tt[2] + delta[0] < tt[3] + delta[1]
+                                
+                                print('      delta[0]',delta[0]/3600., 'delta[1]',delta[1]/3600.,'is_ok1',is_ok1,'dur2=',(tt[3] +  delta[1] - tt[2] + delta[0])/3600)
+                                if is_ok1:
+                                        i_act = -1
+                                        for stage, id_stage in stagelist:
+                                                if stage.ident == 'activities': # activity stage
+                                                        time_start = stage.times_start[id_stage]
+                                                        i_act += 1
+                                                        # TODO: here we *should* use stage.modify_stage( id_stage, time_start = None,  **kwargs)
+                                                    
+                                                        if i_act == 0:# activity stage
+                                                                # adjust first activity
+                                                                # only extend duration
+                                                                # because the beginning of the activity 
+                                                                # is typically in the past day
+                                                                #  e.g when the person is sleeping
+                                                                # adjusting the duration will define the
+                                                                # begin time  of the first transport activity
+                                                                
+                                                                # however, start time + duration should 
+                                                                # result in the desired departure time
+                                                                stage.durations[id_stage] += delta[0] 
+                                                                
+                                                                
+                                                                
+                                                        elif i_act == 1:
+                                                                # adjust second activity
+                                                                stage.durations[id_stage] = tt[3] + delta[0] - tt[2] -  delta[1]  
+                                                                stage.times_start[id_stage] += delta[0]
+                                                                
+                                                        else:
+                                                                # for all other stages, just shift start time
+                                                                stage.times_start[id_stage] += delta[1]
+                                                        
+                                                else: # transport stage
+                                                        if  i_act in [0,1]:
+                                                                stage.times_start[id_stage] += delta[i_act]
+                                                        else:   
+                                                                # just shift all times by the last delta
+                                                                stage.times_start[id_stage] += delta[1]    
+                                
+                                else:
+                                    print ('WARNING go time', tt[2] + delta[0] ,'greater than retuen time',tt[3] + delta[1])        
                         # debug:
                         for stage, id_stage in stagelist:
-                            print('      Control stage: stage', stage.get_ident(), 'id_stage',
-                                  id_stage, 'times_start', stage.times_start[id_stage])
+                            print('      Control stage: stage',stage.get_ident(),'id_stage',id_stage,'times_start',stage.times_start[id_stage])
                             if stage.get_ident() != 'activities':
                                 if stage.times_start[id_stage] < 0:
                                     print('ERROR: negative start time!!')
                                     sys.exit()
 
-                        # ............Update times of activities
-
+                    
+                    
+                    
+                        #............Update times of activities
+                    
                     # means sleeping starts at midnight, no negative times are allowed!!
                     # anyway, sleeping will not be simulated, only stages after the first activity
                     activities.hours_begin_earliest[id_first_activity] = 0.
                     activities.hours_begin_latest[id_first_activity] = 0.05
-
+                    
                     # set min activity duration
                     if (self.is_anticipate_with_triptime) & (triptime_to_main_activity > -1):
                         # for adjusting activities
                         # anticipate det_depart by triptime_to_main_activity
                         #   term -interval_time/7200. to offset half time interval for min duration
-                        t_min = det_depart-self.factor_anticipate_go*triptime_to_main_activity/3600.-interval_time / \
-                            7200.+fact_randomize*np.random.uniform(-time_interval_half, time_interval_half)/3600.
+                        t_min = det_depart-self.factor_anticipate_go*triptime_to_main_activity/3600.-interval_time/7200.+fact_randomize*np.random.uniform(-time_interval_half,time_interval_half)/3600.
                     else:
-                        t_min = det_depart-self.factor_anticipate_go*self.av_dtd_time_vp/3600.-interval_time / \
-                            7200.+fact_randomize*np.random.uniform(-time_interval_half, time_interval_half)/3600.
-
-                    if t_min <= 0.:
+                        t_min = det_depart-self.factor_anticipate_go*self.av_dtd_time_vp/3600.-interval_time/7200.+fact_randomize*np.random.uniform(-time_interval_half,time_interval_half)/3600.
+                    
+                    if  t_min<= 0.:
                         activities.durations_min[id_first_activity] = 0.
                     else:
-                        activities.durations_min[id_first_activity] = t_min  # <<<<<<<<<
-
+                        activities.durations_min[id_first_activity] = t_min#<<<<<<<<<
+                    
                     # set max activity duration
                     #   term +interval_time/7200. to offset half time interval for max duration
                     if (self.is_anticipate_with_triptime) & (triptime_to_main_activity > -1):
-                        t_min = det_depart-self.factor_anticipate_go*triptime_to_main_activity/3200.+interval_time / \
-                            7200 + fact_randomize*np.random.uniform(-time_interval_half, time_interval_half)/3600.
+                        t_min =  det_depart-self.factor_anticipate_go*triptime_to_main_activity/3200.+interval_time/7200 +fact_randomize*np.random.uniform(-time_interval_half,time_interval_half)/3600.
                     else:
-                        t_min = det_depart-self.factor_anticipate_go*self.av_dtd_time_vp/3600.+interval_time / \
-                            7200 + fact_randomize*np.random.uniform(-time_interval_half, time_interval_half)/3600.
-
+                        t_min =  det_depart-self.factor_anticipate_go*self.av_dtd_time_vp/3600.+interval_time/7200 +fact_randomize*np.random.uniform(-time_interval_half,time_interval_half)/3600.
+                        
                     if t_min <= 0.:
                         activities.durations_max[id_first_activity] = 0.05
                     else:
-                        activities.durations_max[id_first_activity] = t_min  # <<<<<<<<<
-
+                        activities.durations_max[id_first_activity] = t_min #<<<<<<<<<
+                    
                     # ?????? why set them to zero, hope they are not used any more, but just duration!!
                     activities.hours_begin_earliest[id_intermediate_act] = 0.
                     activities.hours_begin_latest[id_intermediate_act] = 0.
-
+                    
                     if (self.is_anticipate_with_triptime) & (triptime_to_main_activity > -1):
-                        activities.durations_min[id_intermediate_act] = det_return-det_depart-self.factor_anticipate_return*triptime_to_main_activity / \
-                            3600.-interval_time/7200.+fact_randomize * \
-                            np.random.uniform(-time_interval_half, time_interval_half)/3600.
-                        activities.durations_max[id_intermediate_act] = det_return-det_depart-self.factor_anticipate_return*triptime_to_main_activity / \
-                            3600.+interval_time/7200.+fact_randomize * \
-                            np.random.uniform(-time_interval_half, time_interval_half)/3600.
+                        activities.durations_min[id_intermediate_act] = det_return-det_depart-self.factor_anticipate_return*triptime_to_main_activity/3600.-interval_time/7200.+fact_randomize*np.random.uniform(-time_interval_half,time_interval_half)/3600.
+                        activities.durations_max[id_intermediate_act] = det_return-det_depart-self.factor_anticipate_return*triptime_to_main_activity/3600.+interval_time/7200.+fact_randomize*np.random.uniform(-time_interval_half,time_interval_half)/3600.
                     else:
-                        activities.durations_min[id_intermediate_act] = det_return-det_depart-self.factor_anticipate_return*self.av_dtd_time_vp / \
-                            3600.-interval_time/7200.+fact_randomize * \
-                            np.random.uniform(-time_interval_half, time_interval_half)/3600.
-                        activities.durations_max[id_intermediate_act] = det_return-det_depart-self.factor_anticipate_return*self.av_dtd_time_vp / \
-                            3600.+interval_time/7200.+fact_randomize * \
-                            np.random.uniform(-time_interval_half, time_interval_half)/3600.
-
-                    print('      Control act: id_first_activity', id_first_activity, 'tbe=%d tbl=%d dmin =%d dmax =%d ' % (
-                        activities.hours_begin_earliest[id_first_activity], activities.hours_begin_latest[id_first_activity], activities.durations_min[id_first_activity], activities.durations_max[id_first_activity]))
-                    print('                   id_inter_activity', id_intermediate_act, 'tbe=%d tbl=%d dmin =%d dmax =%d ' % (
-                        activities.hours_begin_earliest[id_intermediate_act], activities.hours_begin_latest[id_intermediate_act], activities.durations_min[id_intermediate_act], activities.durations_max[id_intermediate_act]))
+                        activities.durations_min[id_intermediate_act] = det_return-det_depart-self.factor_anticipate_return*self.av_dtd_time_vp/3600.-interval_time/7200.+fact_randomize*np.random.uniform(-time_interval_half,time_interval_half)/3600.
+                        activities.durations_max[id_intermediate_act] = det_return-det_depart-self.factor_anticipate_return*self.av_dtd_time_vp/3600.+interval_time/7200.+fact_randomize*np.random.uniform(-time_interval_half,time_interval_half)/3600.
+                        
+                    print('      Control act: id_first_activity',id_first_activity,'tbe=%d tbl=%d dmin =%d dmax =%d '%(activities.hours_begin_earliest[id_first_activity],activities.hours_begin_latest[id_first_activity], activities.durations_min[id_first_activity], activities.durations_max[id_first_activity] ))
+                    print('                   id_inter_activity',id_intermediate_act,'tbe=%d tbl=%d dmin =%d dmax =%d '%(activities.hours_begin_earliest[id_intermediate_act] , activities.hours_begin_latest[id_intermediate_act], activities.durations_min[id_intermediate_act], activities.durations_max[id_intermediate_act]))
                     if activities.hours_begin_earliest[id_first_activity] + activities.durations_min[id_first_activity] < 0.0:
                         print('ERROR: activity end time!!')
-
-                        # sys.exit()
-
+                        
+                        #sys.exit()
+                        
         if self.is_update_trips:
-            trips.estimate_routedurations()  # just to be shore, but in the future should always be updated after routing
+            trips.estimate_routedurations() # just to be shore, but in the future should always be updated after routing
             trips.estimate_times_arrival()
-
-        # ............add return trips and Update times of trips
+            
+            
+        #............add return trips and Update times of trips 
         if self.is_add_returntrips & self.is_update_trips:
             step_flows = copy(step_flows0)
             step_flows_dep = copy(step_flows_dep0)
             step_flows_arr = copy(step_flows_arr0)
-
+            
             ids_trips_dep = trips.get_ids()
-            ids_trips_arr = trips.add_returntrips(0, ids_trip=ids_trips_dep)
-
-            ids_trip = trips.get_ids()  # all trips
+            ids_trips_arr = trips.add_returntrips(0, ids_trip = ids_trips_dep)
+            
+            ids_trip = trips.get_ids() # all trips
 
             steps = list(range(len(step_hours)))
             choices = []
             for step, step_hour in zip(steps, step_hours):
-                choices.append([step_hour, step])
+                choices.append([step_hour,step])
             unit = np.sum(step_flows_dep+step_flows_arr)/(len(ids_trip)*2.)
-
+            
             for id_trip, time_depart0, time_arrival0 in zip(ids_trips_dep, trips.times_depart[ids_trips_dep], trips.times_arrival_est[ids_trips_dep]):
-
-                # ............Extract departure and return time
+                
+                #............Extract departure and return time
                 step_flows_prob = step_flows_dep/np.sum(step_flows_dep)
-                step = np.random.choice(steps, p=step_flows_prob)
+                step = np.random.choice(steps, p = step_flows_prob)
                 choice = choices[step]
-
-                # ............Update probabilities to force obtaining the imposed trend
+                
+                #............Update probabilities to force obtaining the imposed trend
                 step_flows_dep[choice[1]] -= unit
                 if step_flows_dep[choice[1]] < 0:
                     step_flows_dep[choice[1]] = 0.
                 step_flows_prob = step_flows_dep/np.sum(step_flows_dep)
-
-                # ............Update times of trips
+                
+                #............Update times of trips
                 # modify here VVVVVVVVVVVVVVVVVV self.av_dtd_time_trips/2.)
-
+                
                 if self.is_anticipate_with_triptime:
-                    trips.times_depart[id_trip] = choice[0] - self.factor_anticipate_go * \
-                        (time_arrival0-time_depart0) + fact_randomize * \
-                        np.random.randint(-interval_time/2., interval_time/2., 1)
-
+                    trips.times_depart[id_trip]    = choice[0]- self.factor_anticipate_go*(time_arrival0-time_depart0) + fact_randomize*np.random.randint(-interval_time/2.,interval_time/2.,1)
+                
                 else:
-                    trips.times_depart[id_trip] = choice[0] - self.factor_anticipate_go*self.av_dtd_time_trips + \
-                        fact_randomize * np.random.randint(-interval_time/2., interval_time/2., 1)
-
+                    trips.times_depart[id_trip]    = choice[0]- self.factor_anticipate_go*self.av_dtd_time_trips + fact_randomize * np.random.randint(-interval_time/2.,interval_time/2.,1)
+                
                 if trips.times_depart[id_trip] < 0:
                     trips.times_depart[id_trip] = 0.
-
+                    
             for id_trip in ids_trips_arr:
-
-                # ............Extract departure and return time
+                
+                #............Extract departure and return time
                 step_flows_prob = step_flows_arr/np.sum(step_flows_arr)
-                step = np.random.choice(steps, p=step_flows_prob)
+                step = np.random.choice(steps, p = step_flows_prob)
                 choice = choices[step]
-
-                # ............Update probabilities to force obtaining the imposed trend
+                
+                #............Update probabilities to force obtaining the imposed trend
                 step_flows_arr[choice[1]] -= unit
                 if step_flows_arr[choice[1]] < 0:
                     step_flows_arr[choice[1]] = 0.
                 step_flows_prob = step_flows_arr/np.sum(step_flows_arr)
-
-                # ............Update times of return trips
+                
+                #............Update times of return trips
                 if self.is_anticipate_with_triptime:
-                    trips.times_depart[id_trip] = choice[0] - self.factor_anticipate_return * \
-                        (time_arrival0-time_depart0) + fact_randomize * \
-                        np.random.randint(-interval_time/2., interval_time/2., 1)
-
+                    trips.times_depart[id_trip]    = choice[0]- self.factor_anticipate_return*(time_arrival0-time_depart0) + fact_randomize*np.random.randint(-interval_time/2.,interval_time/2.,1)
+                
                 else:
-                    trips.times_depart[id_trip] = choice[0] - self.factor_anticipate_return*self.av_dtd_time_trips + \
-                        fact_randomize * np.random.randint(-interval_time/2., interval_time/2., 1)
-
+                    trips.times_depart[id_trip]    = choice[0]- self.factor_anticipate_return*self.av_dtd_time_trips + fact_randomize * np.random.randint(-interval_time/2.,interval_time/2.,1)
+                
+                
+                
                 if trips.times_depart[id_trip] < 0:
                     trips.times_depart[id_trip] = 0.
-
+                
+                
+                
         elif self.is_update_trips:
-            # ............Only Update times of existing trips
+                #............Only Update times of existing trips
             trips = demand.trips
             ids_trip = trips.get_ids()
-
-            # ............Preparation
+            
+                #............Preparation
             step_flows = []
             for step_hour in step_hours:
                 step_flow = np.sum(det_flows[(det_hours == step_hour)])
@@ -2589,35 +2589,39 @@ class UpdateDeparturesFromDetectorflows(Process):
             steps = list(range(len(step_hours)))
             choices = []
             for step, step_hour in zip(steps, step_hours):
-                choices.append([step_hour, step])
+                choices.append([step_hour,step])
             unit = np.sum(step_flows)/len(ids_trip)
             for id_trip in ids_trip:
-
-                # ............Extract departure and return time
+                
+                #............Extract departure and return time
                 step_flows_prob = step_flows/np.sum(step_flows)
-                step = np.random.choice(steps, p=step_flows_prob)
+                step = np.random.choice(steps, p = step_flows_prob)
                 choice = choices[step]
-
-                # ............Update probabilities to force obtaining the imposed trend
+                
+                #............Update probabilities to force obtaining the imposed trend
                 step_flows[choice[1]] -= unit
                 if step_flows[choice[1]] < 0:
                     step_flows[choice[1]] = 0.
                 step_flows_prob = step_flows/np.sum(step_flows)
-
-                # ............Update times of trips
-                # modify here go trips
+                
+                #............Update times of trips
+                # modify here go trips 
                 # ATTENTION: not possible with this method to distinguish go nd return trips!
                 # so it is better to actually create the retuen trips and adjust the departure times, as with previous option
                 if self.is_anticipate_with_triptime:
-                    trips.times_depart[id_trip] = choice[0] - self.factor_anticipate_go * \
-                        (time_arrival0-time_depart0) + fact_randomize * \
-                        np.random.randint(-interval_time/2., interval_time/2., 1)
-
+                    trips.times_depart[id_trip]    = choice[0]- self.factor_anticipate_go*(time_arrival0-time_depart0) + fact_randomize*np.random.randint(-interval_time/2.,interval_time/2.,1)
+                
                 else:
-                    trips.times_depart[id_trip] = choice[0] - self.factor_anticipate_go*self.av_dtd_time_trips + \
-                        fact_randomize * np.random.randint(-interval_time/2., interval_time/2., 1)
-
+                    trips.times_depart[id_trip]    = choice[0]- self.factor_anticipate_go*self.av_dtd_time_trips + fact_randomize * np.random.randint(-interval_time/2.,interval_time/2.,1)
+                
+                
+    
+                
+                
+                
                 if trips.times_depart[id_trip] < 0:
                     trips.times_depart[id_trip] = 0.
+
+
 
         return True

@@ -1446,6 +1446,11 @@ GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
         loadDemandElements("Loading");
         loadDataElements("Loading");
         loadMeanDataElements("Loading");
+        // update checkboxes in edit menu to reflect loaded elements
+        myEditMenuCommands.loadAdditionalsInSUMOGUI->setCheck(
+            !OptionsCont::getOptions().getBool("ignore.additionalelements") ? TRUE : FALSE);
+        myEditMenuCommands.loadDemandInSUMOGUI->setCheck(
+            !OptionsCont::getOptions().getBool("ignore.routeelements") ? TRUE : FALSE);
         // load selection
         if (!OptionsCont::getOptions().isDefault("selection-file")) {
             myViewNet->getViewParent()->getSelectorFrame()->getSelectionOperationModul()->loadFromFile(OptionsCont::getOptions().getString("selection-file"));
@@ -2255,9 +2260,10 @@ long
 GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject* obj, FXSelector sel, void* ptr) {
     // input parameters
     std::string inputParameters;
-    // if we have only a network, then load directly without creating a SumoConfig
-    if ((myNet->getAttributeCarriers()->getNumberOfAdditionals() == 0 && myNet->getAttributeCarriers()->getNumberOfDemandElements() == 0) ||
-            ((myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == FALSE) && (myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == FALSE))) {
+    // if we have only a network and no SumoConfig defined, then load directly without creating a SumoConfig
+    if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::SUMO_CONFIG) &&
+            ((myNet->getAttributeCarriers()->getNumberOfAdditionals() == 0 && myNet->getAttributeCarriers()->getNumberOfDemandElements() == 0) ||
+             ((myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == FALSE) && (myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == FALSE)))) {
         // force save network
         if (onCmdSaveNetwork(obj, sel, ptr) == 0) {
             // network wasn't saved, then stop
@@ -2273,6 +2279,13 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject* obj, FXSelector sel, void* ptr)
             return 0;
         }
         inputParameters = " --registry-viewport -c \"" + myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG) + "\"";
+        // check if ignore additional or demand elements
+        if (myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == FALSE) {
+            inputParameters += " --ignore.additionalelements";
+        }
+        if (myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == FALSE) {
+            inputParameters += " --ignore.routeelements";
+        }
         // write info
         WRITE_MESSAGE(TLF("Loading sumo config '%' in SUMO-GUI.", myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG)));
     }
@@ -4967,6 +4980,10 @@ void
 GNEApplicationWindow::loadAdditionalElements(const std::string operation) {
     // get netedit option container
     auto& neteditOptions = OptionsCont::getOptions();
+    // check if ignore loading of additional files
+    if ((operation == "Loading") && neteditOptions.getBool("ignore.additionalelements")) {
+        return;
+    }
     // get additional files (don't use reference because it's modified during loading)
     const StringVector additionalFiles = neteditOptions.getStringVector("additional-files");
     // check if we have additionals to load
@@ -5016,6 +5033,10 @@ void
 GNEApplicationWindow::loadDemandElements(const std::string operation) {
     // get netedit option container
     auto& neteditOptions = OptionsCont::getOptions();
+    // check if ignore loading of demand files
+    if ((operation == "Loading") && neteditOptions.getBool("ignore.routeelements")) {
+        return;
+    }
     // get demand files (don't use reference because it's modified during loading)
     const StringVector demandFiles = neteditOptions.getStringVector("route-files");
     // check if we have demand files to load

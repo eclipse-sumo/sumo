@@ -4019,7 +4019,7 @@ GNEViewNet::onCmdToggleShowConnections(FXObject*, FXSelector sel, void*) {
     // change flag "showLane2Lane" in myVisualizationSettings
     myVisualizationSettings->showLane2Lane = (myNetworkViewOptions.menuCheckShowConnections->amChecked() == TRUE);
     // Hide/show connections require recompute
-    getNet()->requireRecompute();
+    getNet()->requireRecompute(false);
     // Update viewNet to show/hide connections
     updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>

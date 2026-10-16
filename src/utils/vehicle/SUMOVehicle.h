@@ -128,6 +128,9 @@ public:
      */
     virtual bool reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false, const bool silent = false, const MSEdge* sink = nullptr) = 0;
 
+    /// @brief returns the router according to the current routing mode of the vehicle
+    virtual SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT() const = 0;
+
     /** @brief Validates the current or given route
      * @param[out] msg Description why the route is not valid (if it is the case)
      * @param[in] route The route to check (or 0 if the current route shall be checked)

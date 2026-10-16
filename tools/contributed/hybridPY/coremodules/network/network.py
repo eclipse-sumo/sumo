@@ -3639,75 +3639,73 @@ class Network(cm.BaseObjman):
         self.modes.add_default()
         # do other cleanup jobs
 
-    def call_netedit(self, filepath=None, is_maps=False, is_poly=None, command='netedit'):
-        print('call_netedit')
-        # filepath = self.export_netxml(filepath)
+    def call_netedit(self, filepath = None, is_maps = False, is_poly = None, command = 'netedit',is_zone = False):
+        print('call_netedit',filepath,'is_maps', is_maps , 'is_poly',is_poly,'is_zone',is_zone)
+        #filepath = self.export_netxml(filepath)
         if filepath is None:
             filepath = self.get_filepath()
 
         # remove old netfile, is exists
-        # if os.path.isfile(filepath):
+        #if os.path.isfile(filepath):
         #    os.remove(filepath)
 
-        filepath_edges, filepath_nodes, filepath_connections, filepath_tlss = self.export_netxml(
-            filepath=filepath, is_export_tlss=True, is_return_plainfilepath=True)
+        
+        filepath_edges,filepath_nodes,filepath_connections,filepath_tlss = self.export_netxml(filepath = filepath, is_export_tlss = True, is_return_plainfilepath = True)
         # with plain text files netedit does no longer write to  --output-file
-        # filepath_edges,filepath_nodes,filepath_connections,filepath_tlss = self.export_painxml(filepath = filepath)
-
+        #filepath_edges,filepath_nodes,filepath_connections,filepath_tlss = self.export_painxml(filepath = filepath)
+        
         if os.path.isfile(filepath):
             time_mod_filepath = os.path.getmtime(filepath)
-            # print ('  netconvert: success')
+            #print ('  netconvert: success')
             names = os.path.basename(filepath).split('.')
             dirname = os.path.dirname(filepath)
-            if len(names) >= 3:
+            if len(names)>=3:
                 rootname = '.'.join(names[:-2])
-            elif len(names) <= 2:
+            elif len(names)<=2:
                 rootname = names[0]
-
-            if is_poly is None:  # not specified, let's find out
-                is_poly = (len(self.parent.landuse.facilities) > 0) | (len(self.parent.landuse.pois) > 0)
-
+                
+            if is_poly is None: # not specified, let's find out
+                is_poly = (len(self.parent.landuse.facilities) > 0) | (len(self.parent.landuse.pois) >0)
+            
             is_ptstops = len(self.ptstops) > 0
-
-            addfilepath = self.export_addxml(is_ptstops=is_ptstops, is_poly=is_poly)
+            
+            addfilepath = self.export_addxml(is_ptstops = is_ptstops, is_poly = is_poly, is_zone = is_zone)
             if addfilepath is not False:
                 option_addfiles_in = '  --additional-files '+filepathlist_to_filepathstring(addfilepath)
             else:
                 option_addfiles_in = ''
 
-            # option_addfiles_out = ' --additionals-output ' + filepathlist_to_filepathstring(self.get_addfilepath())
-
             configfilepath = self.write_guiconfig(rootname, dirname, is_maps)
 
             cml = command+' --ignore-errors.edge-type'\
-                + ' --sumo-net-file ' + filepathlist_to_filepathstring(filepath)\
-                + ' --output-file '+filepathlist_to_filepathstring(filepath)\
-                + ' --gui-settings-file ' + filepathlist_to_filepathstring(configfilepath)\
-                + option_addfiles_in
-            # + option_addfiles_out
-            # + ' --output-prefix '+ filepathlist_to_filepathstring(os.path.join(dirname,rootname))
+                    +' --sumo-net-file ' + filepathlist_to_filepathstring(filepath)\
+                    +' --output-file '+filepathlist_to_filepathstring(filepath)\
+                    +' --gui-settings-file ' + filepathlist_to_filepathstring(configfilepath)\
+                    + option_addfiles_in
+                    #+ option_addfiles_out
+                    #+ ' --output-prefix '+ filepathlist_to_filepathstring(os.path.join(dirname,rootname))
 
-            if len(self.tlss) > 0:
+            if len(self.tlss)>0:
                 cml += ' --tllogic-files '+filepathlist_to_filepathstring(filepath_tlss)
 
-            print('  call cml=', cml)
+            print('  call cml=',cml)
             proc = subprocess.Popen(cml, shell=True)
-            # print ('  now wait for pid = ',proc.pid)
-
+            #print ('  now wait for pid = ',proc.pid)
+            
             proc.wait()
-            # print ('  Waiting')
+            #print ('  Waiting')
             # remove net file if there have been no changes
             # netfile will be actually reimported
-            if time_mod_filepath == os.path.getmtime(filepath):  # if os.path.isfile(filepath):
+            if time_mod_filepath == os.path.getmtime(filepath):
                 os.remove(filepath)
-
+                
             if proc.returncode == 0:
-                print('  ', command, ':success')
-
+                print('  ',command,':success')
+                
                 return self.import_netxml()
-
+                
             else:
-                print('  ', command, ':error')
+                print('  ',command,':error')
                 return False
         else:
             print('  netconvert:error')
@@ -3835,11 +3833,11 @@ class Network(cm.BaseObjman):
         if os.path.isfile(filepath):
             # print '  modes.names',self.modes.names
             cml = 'netconvert'\
-                + ' --sumo-net-file '+filepathlist_to_filepathstring(filepath)\
-                + ' --plain-output-prefix '+filepathlist_to_filepathstring(os.path.join(dirname, rootname))
-            proc = subprocess.Popen(cml, shell=True)
-            print('  run_cml cml=', cml)
-            print('  pid = ', proc.pid)
+                    +' --sumo-net-file '+filepathlist_to_filepathstring(os.path.basename(filepath))\
+                    +' --plain-output-prefix '+filepathlist_to_filepathstring(rootname)
+            proc = subprocess.Popen(cml, shell=True, cwd = os.path.dirname(filepath))
+            print('  run_cml cml=',cml)
+            print('  pid = ',proc.pid,'cwd = ',os.path.dirname(filepath))
             proc.wait()
             if not proc.returncode:
                 print('  modes.names', self.modes.names)
@@ -3849,49 +3847,57 @@ class Network(cm.BaseObjman):
         else:
             return False
 
-    def export_addxml(self, filepath=None,
-                      is_ptstops=True, is_poly=False,
-                      encoding='UTF-8'):
-        """
-        Export additional file
-        """
-        if filepath is None:
-            filepath = self.get_addfilepath()
+    def export_addxml(self, filepath = None,
+                            is_ptstops = True, is_poly = False, is_zone = True,
+                            encoding = 'UTF-8'):
+            """
+            Export additional file
+            """
+            if filepath is None:
+                filepath = self.get_addfilepath()
 
-        try:
-            fd = open(filepath, 'w', encoding="utf-8")
+            try:
+                fd=open(filepath,'w', encoding="utf-8")
 
-        except:
-            print('WARNING in write_obj_to_xml: could not open', filepath)
-            return False
+            except:
+                print('WARNING in write_obj_to_xml: could not open',filepath)
+                return False
 
-        # xmltag, xmltag_item, attrname_id = self.xmltag
-        fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
-        indent = 0
-        # fd.write(xm.begin('routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd"',indent))
+            fd.write('<?xml version="1.0" encoding="%s"?>\n'%encoding)
+            indent = 0
+  
 
-        fd.write(xm.begin('additional', indent))
+            fd.write(xm.begin('additional',indent))
 
-        if is_ptstops:
-            if len(self.ptstops) > 0:
-                self.ptstops.write_xml(fd, indent=indent+2)
+            if is_ptstops:
+                if len(self.ptstops)>0:
+                        self.ptstops.write_xml(fd, indent=indent+2)
 
-        if is_poly:
-            if self.parent is not None:
-                facilities = self.parent.landuse.facilities
-                if len(facilities) > 0:
-                    fd.write(xm.start('location', indent+2))
-                    # print '  groups:',self.parent.net.get_attrsman().get_groups()
-                    for attrconfig in self.get_attrsman().get_group('location'):
-                        # print '    locationconfig',attrconfig.attrname
-                        attrconfig.write_xml(fd)
-                    fd.write(xm.stopit())
 
-                    facilities.write_xml(fd, indent=indent+2, is_print_begin_end=False)
+            if is_poly:
+                if self.parent is not None:
+                    facilities = self.parent.landuse.facilities
+                    if len(facilities)>0:
+                        fd.write(xm.start('location',indent+2))
+                        #print '  groups:',self.parent.net.get_attrsman().get_groups()
+                        for attrconfig in self.get_attrsman().get_group('location'):
+                            #print '    locationconfig',attrconfig.attrname
+                            attrconfig.write_xml(fd)
+                        fd.write(xm.stopit())
 
-        fd.write(xm.end('additional', indent))
-        fd.close()
-        return filepath
+                        facilities.write_xml(fd, indent=indent+2, is_print_begin_end = False)
+                    
+                    
+            if is_zone:
+                if self.parent is not None:
+                    zones = self.parent.landuse.zones
+                    if len(zones) > 0:
+                        zones.write_xml_poly(fd, indent=indent+2, is_print_begin_end = False)
+                    
+                
+            fd.write(xm.end('additional',indent))
+            fd.close()
+            return filepath
 
     def export_painxml(self, filepath=None, is_export_tlss=True):
         # now create rootfilepath in order to export first
@@ -3934,22 +3940,23 @@ class Network(cm.BaseObjman):
 
         # cml = 'netconvert --verbose --ignore-errors.edge-type'
         cml = 'netconvert --ignore-errors.edge-type'\
-            + ' --ignore-errors.connections'\
-            + ' --node-files '+filepathlist_to_filepathstring(filepath_nodes)\
-            + ' --edge-files '+filepathlist_to_filepathstring(filepath_edges)\
-            + ' --connection-files '+filepathlist_to_filepathstring(filepath_connections)\
-            + ' --output-file '+filepathlist_to_filepathstring(filepath)
+                +' --ignore-errors.connections'\
+                +' --node-files '+filepathlist_to_filepathstring(os.path.basename(filepath_nodes))\
+                +' --edge-files '+filepathlist_to_filepathstring(os.path.basename(filepath_edges))\
+                +' --connection-files '+filepathlist_to_filepathstring(os.path.basename(filepath_connections))\
+                +' --output-file '+filepathlist_to_filepathstring(os.path.basename(filepath))
 
-        if (len(self.tlss) > 0) & (is_export_tlss):
-            cml += ' --tllogic-files '+filepathlist_to_filepathstring(filepath_tlss)
+
+        if (len(self.tlss)>0)&(is_export_tlss):
+            cml += ' --tllogic-files '+filepathlist_to_filepathstring(os.path.basename(filepath_tlss))
 
         if is_no_internal_links:
             cml += ' --no-internal-links '
-
+            
         if is_netconvert:
-            proc = subprocess.Popen(cml, shell=True)
-            print('run_cml cml=', cml)
-            print('  pid = ', proc.pid)
+            proc = subprocess.Popen(cml, shell=True, cwd = os.path.dirname(filepath))
+            print('run_cml cml=',cml)
+            print('  pid = ',proc.pid,'cwd',os.path.dirname(filepath))
             proc.wait()
             if proc.returncode == 0:
                 print('  success.')

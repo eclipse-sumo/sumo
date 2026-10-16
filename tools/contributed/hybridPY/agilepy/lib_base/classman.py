@@ -36,15 +36,10 @@
 # different attrconfig classe (numbers, strings, lists, colors,...)
 
 
-import types
-import os
-import pickle
-import sys
-import string
-import math
+import types, os, pickle, sys, string, math
 from collections import OrderedDict
 from datetime import datetime
-# import numpy as np
+#import numpy as np
 from . import xmlman as xm
 from .logger import Logger
 from .misc import get_inversemap
@@ -52,96 +47,94 @@ from collections.abc import Iterable
 ##########
 
 
+ 
 # event triggers
 #       plugtype    plugcode
-EVTDEL = 0  # delete attribute
-EVTSET = 1  # set attribute
-EVTGET = 2  # get attribute
-EVTADD = 3  # add/create attribute
+EVTDEL =  0 # delete attribute 
+EVTSET =  1 # set attribute
+EVTGET =  2 # get attribute
+EVTADD =  3 # add/create attribute
 
-EVTDELITEM = 20  # delete attribute
-EVTSETITEM = 21  # set attribute
-EVTGETITEM = 22  # get attribute
-EVTADDITEM = 23  # add/create attribute
+EVTDELITEM = 20 # delete attribute 
+EVTSETITEM = 21 # set attribute
+EVTGETITEM = 22 # get attribute
+EVTADDITEM = 23 # add/create attribute
 
 
-ATTRS_NOSAVE = ('value', 'plugin', '_obj', '_manager', 'get', 'set', 'add',
-                'del', 'delete', 'childs', 'parent', '_attrconfig_id_tab')
-ATTRS_SAVE = ('ident', '_name', 'managertype', '_info', 'xmltag', '_attrs_nosave')
-ATTRS_SAVE_TABLE = ('_is_localvalue', 'attrname', '_colconfigs', '_ids', '_inds', '_attrconfigs',
-                    '_groups', 'plugin', '_is_indexing', '_index_to_id', '_id_to_index')
+            
+ATTRS_NOSAVE = ('value','plugin','_obj','_manager','get','set','add','del','delete','childs','parent','_attrconfig_id_tab')   
+ATTRS_SAVE = ('ident','_name','managertype','_info','xmltag','_attrs_nosave')  
+ATTRS_SAVE_TABLE = ('_is_localvalue','attrname','_colconfigs','_ids','_inds','_attrconfigs','_groups','plugin','_is_indexing', '_index_to_id','_id_to_index')       
 
-STRUCTS_COL = ('odict', 'array')
-STRUCTS_SCALAR = ('scalar', 'list', 'matrix', 'scalar.func')
+STRUCTS_COL = ('odict','array') 
+STRUCTS_SCALAR = ('scalar','list','matrix','scalar.func') 
 
-NUMERICTYPES = (bool, float, int, int, complex)
-STRINGTYPES = (bytes, str)
+NUMERICTYPES = (bool,float,int,int,complex)
+STRINGTYPES = (bytes,str)
 NODATATYPES = (types.FunctionType, types.LambdaType)
 
-
-def save_obj(obj, filename, is_not_save_parent=False):
+def save_obj(obj,filename, is_not_save_parent=False):
     """
     Saves python object to a file with filename.
     Filename may also include absolute or relative path.
     If operation fails a False is returned and True otherwise.
     """
-    # print 'save_obj',is_not_save_parent,filename,obj.parent
+    #print 'save_obj',is_not_save_parent,filename,obj.parent
     try:
-        f = open(filename, 'wb')
+        f=open(filename,'wb')
     except:
-        print('WARNING in save: could not open', filename)
+        print('WARNING in save: could not open',filename)
         return False
-
+    
     if is_not_save_parent:
         parent = obj.parent
         obj.parent = None
-    # print '  before',is_not_save_parent,parent,obj.parent
+    #print '  before',is_not_save_parent,parent,obj.parent
     pickle.dump(obj, f, protocol=2)
     f.close()
     #  set all objects and attrubutes to unsaved again
     # obj.set_unsaved()
     # no, decided to eliminate _is_saved restriction
-    # print '  after',is_not_save_parent,parent,obj.parent
+    #print '  after',is_not_save_parent,parent,obj.parent
     if is_not_save_parent:
-        obj.parent = parent
+        obj.parent=parent
     return True
 
-
-def load_obj(filename, parent=None, is_throw_error=False):
+def load_obj(filename,parent=None, is_throw_error = False):
     """
     Reads python object from a file with filename and returns object.
     Filename may also include absolute or relative path.
     If operation fails a None object is returned.
     """
-    print('load_obj', filename)
-
+    print('load_obj',filename)
+    
     if is_throw_error:
-        f = open(filename, 'rb')
+        f=open(filename,'rb')
     else:
         try:
-            f = open(filename, 'rb')
+            f=open(filename,'rb')
         except:
-            print('WARNING in load_obj: could not open', filename)
+            print('WARNING in load_obj: could not open',filename)
             return None
-
-    # try:
-    # print '  pickle.load...'
-    obj = pickle.load(f)
+    
+    #try:
+    #print '  pickle.load...'
+    obj=pickle.load(f)
     f.close()
-
+    
     # init_postload_internal is to restore INTERNAL states from INTERNAL states
-    # print 'load_obj->init_postload_internal',obj.ident
+    #print 'load_obj->init_postload_internal',obj.ident
     obj.init_postload_internal(parent)
-    # print '  after init_postload_internal  obj.parent',obj.parent
-
-    # init_postload_external is to restore INTERNAL states from EXTERNAL states
+    #print '  after init_postload_internal  obj.parent',obj.parent
+    
+    # init_postload_external is to restore INTERNAL states from EXTERNAL states 
     # such as linking
-    # obj.init_postload_external(is_root = True)
+    #obj.init_postload_external(is_root = True)
     obj.init_postload_external()
-
+    
     # _init4_ is to do misc stuff when everything is set
-    # obj._init4_config()
-
+    #obj._init4_config()
+    
     return obj
 
 # class ObjXmlMixin:

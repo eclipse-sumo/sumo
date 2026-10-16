@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-15T13:11:18.147817+01:00 by Eclipse SUMO sumo UNKNOWN
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="210,300"/>
+        <save-state.files value="state.xml,compare.xml"/>
+        <save-state.rng value="true"/>
+        <save-state.precision value="9"/>
+    </output>
+
+    <time>
+        <end value="301"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.adaptation-steps value="10"/>
+    </routing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<snapshot type="meso" version="UNKNOWN" time="210.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <rngState default="0" routeHandler="544" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
+        <rngLane index="0" state="0"/>
+        <rngLane index="1" state="0"/>
+        <rngLane index="2" state="0"/>
+        <rngLane index="3" state="0"/>
+        <rngLane index="4" state="0"/>
+        <rngLane index="5" state="0"/>
+        <rngLane index="6" state="0"/>
+        <rngLane index="7" state="0"/>
+        <rngLane index="8" state="0"/>
+        <rngLane index="9" state="0"/>
+        <rngLane index="10" state="0"/>
+        <rngLane index="11" state="0"/>
+        <rngLane index="12" state="0"/>
+        <rngLane index="13" state="0"/>
+        <rngLane index="14" state="0"/>
+        <rngLane index="15" state="0"/>
+        <rngLane index="16" state="0"/>
+        <rngLane index="17" state="0"/>
+        <rngLane index="18" state="0"/>
+        <rngLane index="19" state="0"/>
+        <rngLane index="20" state="0"/>
+        <rngLane index="21" state="0"/>
+        <rngLane index="22" state="0"/>
+        <rngLane index="23" state="0"/>
+        <rngLane index="24" state="0"/>
+        <rngLane index="25" state="0"/>
+        <rngLane index="26" state="0"/>
+        <rngLane index="27" state="0"/>
+        <rngLane index="28" state="0"/>
+        <rngLane index="29" state="0"/>
+        <rngLane index="30" state="0"/>
+        <rngLane index="31" state="0"/>
+        <rngLane index="32" state="0"/>
+        <rngLane index="33" state="0"/>
+        <rngLane index="34" state="0"/>
+        <rngLane index="35" state="0"/>
+        <rngLane index="36" state="0"/>
+        <rngLane index="37" state="0"/>
+        <rngLane index="38" state="0"/>
+        <rngLane index="39" state="0"/>
+        <rngLane index="40" state="0"/>
+        <rngLane index="41" state="0"/>
+        <rngLane index="42" state="0"/>
+        <rngLane index="43" state="0"/>
+        <rngLane index="44" state="0"/>
+        <rngLane index="45" state="0"/>
+        <rngLane index="46" state="0"/>
+        <rngLane index="47" state="0"/>
+        <rngLane index="48" state="0"/>
+        <rngLane index="49" state="0"/>
+        <rngLane index="50" state="0"/>
+        <rngLane index="51" state="0"/>
+        <rngLane index="52" state="0"/>
+        <rngLane index="53" state="0"/>
+        <rngLane index="54" state="0"/>
+        <rngLane index="55" state="0"/>
+        <rngLane index="56" state="0"/>
+        <rngLane index="57" state="0"/>
+        <rngLane index="58" state="0"/>
+        <rngLane index="59" state="0"/>
+        <rngLane index="60" state="0"/>
+        <rngLane index="61" state="0"/>
+        <rngLane index="62" state="0"/>
+        <rngLane index="63" state="0"/>
+    </rngState>
+    <route id="!t100!var#1" state="0" edges="beg b end"/>
+    <route id="!t101!var#1" state="0" edges="beg b end"/>
+    <route id="!t102!var#1" state="0" edges="beg b end"/>
+    <route id="!t103!var#1" state="0" edges="beg b end"/>
+    <route id="!t104!var#1" state="0" edges="beg b end"/>
+    <route id="!t105!var#1" state="0" edges="beg b end"/>
+    <route id="!t106!var#1" state="0" edges="beg b end"/>
+    <route id="!t107!var#1" state="0" edges="beg b end"/>
+    <route id="!t108!var#1" state="0" edges="beg b end"/>
+    <route id="!t109!var#1" state="0" edges="beg b end"/>
+    <route id="!t110!var#1" state="0" edges="beg b end"/>
+    <route id="!t111!var#1" state="0" edges="beg b end"/>
+    <route id="!t112!var#1" state="0" edges="beg b end"/>
+    <route id="!t113!var#1" state="0" edges="beg b end"/>
+    <route id="!t114!var#1" state="0" edges="beg b end"/>
+    <route id="!t115!var#1" state="0" edges="beg b end"/>
+    <route id="!t116!var#1" state="0" edges="beg b end"/>
+    <route id="!t117!var#1" state="0" edges="beg b end"/>
+    <route id="!t118!var#1" state="0" edges="beg b end"/>
+    <route id="!t119!var#1" state="0" edges="beg b end"/>
+    <route id="!t120!var#1" state="0" edges="beg b end"/>
+    <route id="!t121!var#2" state="0" edges="beg a end"/>
+    <route id="!t122!var#1" state="0" edges="beg b end"/>
+    <route id="!t123!var#1" state="0" edges="beg b end"/>
+    <route id="!t124!var#1" state="0" edges="beg b end"/>
+    <route id="!t125!var#1" state="0" edges="beg b end"/>
+    <route id="!t126!var#1" state="0" edges="beg b end"/>
+    <route id="!t127!var#1" state="0" edges="beg b end"/>
+    <route id="!t128!var#1" state="0" edges="beg b end"/>
+    <route id="!t129!var#1" state="0" edges="beg b end"/>
+    <route id="!t130!var#1" state="0" edges="beg b end"/>
+    <route id="!t131!var#1" state="0" edges="beg b end"/>
+    <route id="!t132!var#1" state="0" edges="beg b end"/>
+    <route id="!t133!var#1" state="0" edges="beg b end"/>
+    <route id="!t134!var#1" state="0" edges="beg b end"/>
+    <route id="!t135!var#1" state="0" edges="beg b end"/>
+    <route id="!t136!var#1" state="0" edges="beg b end"/>
+    <route id="!t137!var#1" state="0" edges="beg b end"/>
+    <route id="!t138!var#1" state="0" edges="beg b end"/>
+    <route id="!t139!var#1" state="0" edges="beg b end"/>
+    <route id="!t140!var#1" state="0" edges="beg b end"/>
+    <route id="!t141!var#1" state="0" edges="beg b end"/>
+    <route id="!t142!var#1" state="0" edges="beg b end"/>
+    <route id="!t143!var#1" state="0" edges="beg b end"/>
+    <route id="!t144!var#1" state="0" edges="beg b end"/>
+    <route id="!t145!var#1" state="0" edges="beg b end"/>
+    <route id="!t146!var#1" state="0" edges="beg b end"/>
+    <route id="!t147!var#1" state="0" edges="beg b end"/>
+    <route id="!t148!var#1" state="0" edges="beg b end"/>
+    <route id="!t149!var#1" state="0" edges="beg b end"/>
+    <route id="!t150!var#1" state="0" edges="beg b end"/>
+    <route id="!t151!var#1" state="0" edges="beg b end"/>
+    <route id="!t152!var#1" state="0" edges="beg b end"/>
+    <route id="!t153!var#1" state="0" edges="beg b end"/>
+    <route id="!t154!var#1" state="0" edges="beg b end"/>
+    <route id="!t155!var#1" state="0" edges="beg b end"/>
+    <route id="!t156!var#1" state="0" edges="beg b end"/>
+    <route id="!t157!var#1" state="0" edges="beg b end"/>
+    <route id="!t158!var#1" state="0" edges="beg b end"/>
+    <route id="!t159!var#1" state="0" edges="beg b end"/>
+    <route id="!t160!var#1" state="0" edges="beg b end"/>
+    <route id="!t161!var#1" state="0" edges="beg b end"/>
+    <route id="!t162!var#1" state="0" edges="beg b end"/>
+    <route id="!t163!var#1" state="0" edges="beg b end"/>
+    <route id="!t164!var#1" state="0" edges="beg b end"/>
+    <route id="!t165!var#1" state="0" edges="beg b end"/>
+    <route id="!t166!var#1" state="0" edges="beg b end"/>
+    <route id="!t167!var#1" state="0" edges="beg b end"/>
+    <route id="!t168!var#1" state="0" edges="beg b end"/>
+    <route id="!t169!var#1" state="0" edges="beg b end"/>
+    <route id="!t170!var#1" state="0" edges="beg b end"/>
+    <route id="!t171!var#1" state="0" edges="beg b end"/>
+    <route id="!t172!var#1" state="0" edges="beg b end"/>
+    <route id="!t173!var#1" state="0" edges="beg b end"/>
+    <route id="!t174!var#1" state="0" edges="beg b end"/>
+    <route id="!t175!var#1" state="0" edges="beg b end"/>
+    <route id="!t176!var#1" state="0" edges="beg b end"/>
+    <route id="!t177!var#1" state="0" edges="beg b end"/>
+    <route id="!t178!var#1" state="0" edges="beg b end"/>
+    <route id="!t179!var#1" state="0" edges="beg b end"/>
+    <route id="!t180!var#1" state="0" edges="beg b end"/>
+    <route id="!t181!var#1" state="0" edges="beg b end"/>
+    <route id="!t182!var#1" state="0" edges="beg b end"/>
+    <route id="!t183!var#1" state="0" edges="beg b end"/>
+    <route id="!t184!var#1" state="0" edges="beg b end"/>
+    <route id="!t185!var#1" state="0" edges="beg b end"/>
+    <route id="!t186!var#1" state="0" edges="beg b end"/>
+    <route id="!t187!var#1" state="0" edges="beg b end"/>
+    <route id="!t188!var#1" state="0" edges="beg b end"/>
+    <route id="!t189!var#1" state="0" edges="beg a end"/>
+    <route id="!t190!var#1" state="0" edges="beg a end"/>
+    <route id="!t191!var#1" state="0" edges="beg a end"/>
+    <route id="!t192!var#1" state="0" edges="beg a end"/>
+    <route id="!t193!var#1" state="0" edges="beg a end"/>
+    <route id="!t194!var#1" state="0" edges="beg a end"/>
+    <route id="!t195!var#1" state="0" edges="beg a end"/>
+    <route id="!t196!var#1" state="0" edges="beg a end"/>
+    <route id="!t197!var#1" state="0" edges="beg a end"/>
+    <route id="!t198!var#1" state="0" edges="beg a end"/>
+    <route id="!t199!var#1" state="0" edges="beg a end"/>
+    <route id="!t200!var#1" state="0" edges="beg a end"/>
+    <route id="!t99!var#1" state="0" edges="beg b end"/>
+    <delay number="35" begin="201" end="99" depart="3785.000000000" time="5294.000000000" speedFactor="1.179700000" decel="4.500000000"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vehicle id="t99" depart="99.000" route="!t99!var#1" distance="270.71 1" speedFactor="1.097200000" reroute="1" state="262144 155000 2 0 0 0 210199 204583 9223372036854774807 0 0">
+        <device id="routing_t99" state="0 99000"/>
+    </vehicle>
+    <vehicle id="t100" depart="100.000" route="!t100!var#1" distance="270.71 1" speedFactor="1.065000000" reroute="1" state="262144 156000 2 0 0 0 211868 206252 9223372036854774807 0 0">
+        <device id="routing_t100" state="0 100000"/>
+    </vehicle>
+    <vehicle id="t101" depart="101.000" route="!t101!var#1" distance="270.71 1" speedFactor="0.956700000" reroute="1" state="262144 158000 2 0 0 0 213537 207921 9223372036854774807 0 0">
+        <device id="routing_t101" state="0 101000"/>
+    </vehicle>
+    <vehicle id="t102" depart="102.000" route="!t102!var#1" distance="70.71 1" speedFactor="0.968200000" reroute="1" state="262144 160000 1 0 1 0 209590 201815 9223372036854774807 0 0">
+        <device id="routing_t102" state="0 102000"/>
+    </vehicle>
+    <vehicle id="t103" depart="103.000" route="!t103!var#1" distance="70.71 1" speedFactor="0.952500000" reroute="1" state="262144 161000 1 0 1 0 211642 204084 9223372036854774807 0 0">
+        <device id="routing_t103" state="0 103000"/>
+    </vehicle>
+    <vehicle id="t104" depart="104.000" route="!t104!var#1" distance="70.71 1" speedFactor="0.893900000" reroute="1" state="262144 163000 1 0 1 0 214407 206353 9223372036854774807 0 0">
+        <device id="routing_t104" state="0 104000"/>
+    </vehicle>
+    <vehicle id="t105" depart="105.000" route="!t105!var#1" distance="70.71 1" speedFactor="1.072700000" reroute="1" state="262144 165000 1 0 1 0 216076 208622 9223372036854774807 0 0">
+        <device id="routing_t105" state="0 105000"/>
+    </vehicle>
+    <vehicle id="t106" depart="106.000" route="!t106!var#1" distance="70.71 1" speedFactor="1.014000000" reroute="1" state="262144 166000 1 0 0 0 210891 172473 9223372036854774807 0 0">
+        <device id="routing_t106" state="0 106000"/>
+    </vehicle>
+    <vehicle id="t107" depart="107.000" route="!t107!var#1" distance="70.71 1" speedFactor="1.034500000" reroute="1" state="262144 168000 1 0 0 0 189336 174142 9223372036854774807 0 0">
+        <device id="routing_t107" state="0 107000"/>
+    </vehicle>
+    <vehicle id="t108" depart="108.000" route="!t108!var#1" distance="70.71 1" speedFactor="1.064800000" reroute="1" state="262144 170000 1 0 0 0 191005 175811 9223372036854774807 0 0">
+        <device id="routing_t108" state="0 108000"/>
+    </vehicle>
+    <vehicle id="t109" depart="109.000" route="!t109!var#1" distance="70.71 1" speedFactor="0.959600000" reroute="1" state="262144 171000 1 0 0 0 192674 177480 9223372036854774807 0 0">
+        <device id="routing_t109" state="0 109000"/>
+    </vehicle>
+    <vehicle id="t110" depart="110.000" route="!t110!var#1" distance="70.71 1" speedFactor="0.927700000" reroute="1" state="262144 173000 1 0 0 0 194343 179149 9223372036854774807 0 0">
+        <device id="routing_t110" state="0 110000"/>
+    </vehicle>
+    <vehicle id="t111" depart="111.000" route="!t111!var#1" distance="70.71 1" speedFactor="0.865900000" reroute="1" state="262144 175000 1 0 0 0 196012 184330 9223372036854774807 0 0">
+        <device id="routing_t111" state="0 111000"/>
+    </vehicle>
+    <vehicle id="t112" depart="112.000" route="!t112!var#1" distance="70.71 1" speedFactor="1.098500000" reroute="1" state="262144 176000 1 0 0 0 207466 200912 9223372036854774807 0 0">
+        <device id="routing_t112" state="0 112000"/>
+    </vehicle>
+    <vehicle id="t113" depart="113.000" route="!t113!var#1" distance="0 1" speedFactor="1.009000000" reroute="1" state="262144 178000 0 0 0 1 213559 178000 9223372036854774807 0 0">
+        <device id="routing_t113" state="0 113000"/>
+    </vehicle>
+    <vehicle id="t114" depart="114.000" route="!t114!var#1" distance="0 1" speedFactor="1.096400000" reroute="1" state="262144 180000 0 0 0 1 185886 180000 9223372036854774807 0 0">
+        <device id="routing_t114" state="0 114000"/>
+    </vehicle>
+    <vehicle id="t115" depart="115.000" route="!t115!var#1" distance="0 1" speedFactor="0.922000000" reroute="1" state="262144 181000 0 0 0 1 187555 181000 9223372036854774807 0 0">
+        <device id="routing_t115" state="0 115000"/>
+    </vehicle>
+    <vehicle id="t116" depart="116.000" route="!t116!var#1" distance="0 1" speedFactor="1.177100000" reroute="1" state="262144 181000 0 0 0 1 189224 181000 9223372036854774807 0 0">
+        <device id="routing_t116" state="0 116000"/>
+    </vehicle>
+    <vehicle id="t117" depart="117.000" route="!t117!var#1" distance="0 1" speedFactor="1.004300000" reroute="1" state="262144 185000 0 0 0 1 200912 185000 9223372036854774807 0 0">
+        <device id="routing_t117" state="0 117000"/>
+    </vehicle>
+    <vehicle id="t118" depart="118.000" route="!t118!var#1" distance="0 1" speedFactor="0.991400000" reroute="1" state="262144 185000 0 0 0 1 202581 185000 9223372036854774807 0 0">
+        <device id="routing_t118" state="0 118000"/>
+    </vehicle>
+    <vehicle id="t119" depart="119.000" route="!t119!var#1" distance="0 1" speedFactor="1.070900000" reroute="1" state="262144 185000 0 0 0 1 204250 185000 9223372036854774807 0 0">
+        <device id="routing_t119" state="0 119000"/>
+    </vehicle>
+    <vehicle id="t120" depart="120.000" route="!t120!var#1" distance="0 1" speedFactor="0.941500000" reroute="1" state="262144 185000 0 0 0 1 205919 185000 9223372036854774807 0 0">
+        <device id="routing_t120" state="0 120000"/>
+    </vehicle>
+    <vehicle id="t121" depart="121.000" route="!t121!var#2" distance="0 2" speedFactor="1.103200000" reroute="1" state="262144 201000 0 0 0 1 213559 201000 9223372036854774807 0 0">
+        <device id="routing_t121" state="0 121000"/>
+    </vehicle>
+    <vehicle id="t122" depart="122.000" route="!t122!var#1" distance="0 1" speedFactor="1.031400000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t122" state="0 122000"/>
+    </vehicle>
+    <vehicle id="t123" depart="123.000" route="!t123!var#1" distance="0 1" speedFactor="1.023400000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t123" state="0 123000"/>
+    </vehicle>
+    <vehicle id="t124" depart="124.000" route="!t124!var#1" distance="0 1" speedFactor="1.060900000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t124" state="0 124000"/>
+    </vehicle>
+    <vehicle id="t125" depart="125.000" route="!t125!var#1" distance="0 1" speedFactor="1.152800000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t125" state="0 125000"/>
+    </vehicle>
+    <vehicle id="t126" depart="126.000" route="!t126!var#1" distance="0 1" speedFactor="1.032200000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t126" state="0 126000"/>
+    </vehicle>
+    <vehicle id="t127" depart="127.000" route="!t127!var#1" distance="0 1" speedFactor="0.822100000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t127" state="0 127000"/>
+    </vehicle>
+    <vehicle id="t128" depart="128.000" route="!t128!var#1" distance="0 1" speedFactor="1.118400000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t128" state="0 128000"/>
+    </vehicle>
+    <vehicle id="t129" depart="129.000" route="!t129!var#1" distance="0 1" speedFactor="1.008300000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t129" state="0 129000"/>
+    </vehicle>
+    <vehicle id="t130" depart="130.000" route="!t130!var#1" distance="0 1" speedFactor="1.032200000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t130" state="0 130000"/>
+    </vehicle>
+    <vehicle id="t131" depart="131.000" route="!t131!var#1" distance="0 1" speedFactor="1.068300000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t131" state="0 131000"/>
+    </vehicle>
+    <vehicle id="t132" depart="132.000" route="!t132!var#1" distance="0 1" speedFactor="0.959700000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t132" state="0 132000"/>
+    </vehicle>
+    <vehicle id="t133" depart="133.000" route="!t133!var#1" distance="0 1" speedFactor="1.037400000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t133" state="0 133000"/>
+    </vehicle>
+    <vehicle id="t134" depart="134.000" route="!t134!var#1" distance="0 1" speedFactor="1.226000000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t134" state="0 134000"/>
+    </vehicle>
+    <vehicle id="t135" depart="135.000" route="!t135!var#1" distance="0 1" speedFactor="1.011700000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t135" state="0 135000"/>
+    </vehicle>
+    <vehicle id="t136" depart="136.000" route="!t136!var#1" distance="0 1" speedFactor="1.119500000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t136" state="0 136000"/>
+    </vehicle>
+    <vehicle id="t137" depart="137.000" route="!t137!var#1" distance="0 1" speedFactor="1.015200000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t137" state="0 137000"/>
+    </vehicle>
+    <vehicle id="t138" depart="138.000" route="!t138!var#1" distance="0 1" speedFactor="1.003900000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t138" state="0 138000"/>
+    </vehicle>
+    <vehicle id="t139" depart="139.000" route="!t139!var#1" distance="0 1" speedFactor="0.953500000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t139" state="0 139000"/>
+    </vehicle>
+    <vehicle id="t140" depart="140.000" route="!t140!var#1" distance="0 1" speedFactor="1.113800000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t140" state="0 140000"/>
+    </vehicle>
+    <vehicle id="t141" depart="141.000" route="!t141!var#1" distance="0 1" speedFactor="1.164300000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t141" state="0 141000"/>
+    </vehicle>
+    <vehicle id="t142" depart="142.000" route="!t142!var#1" distance="0 1" speedFactor="0.936400000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t142" state="0 142000"/>
+    </vehicle>
+    <vehicle id="t143" depart="143.000" route="!t143!var#1" distance="0 1" speedFactor="1.129000000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t143" state="0 143000"/>
+    </vehicle>
+    <vehicle id="t144" depart="144.000" route="!t144!var#1" distance="0 1" speedFactor="0.733600000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t144" state="0 144000"/>
+    </vehicle>
+    <vehicle id="t145" depart="145.000" route="!t145!var#1" distance="0 1" speedFactor="1.140800000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t145" state="0 145000"/>
+    </vehicle>
+    <vehicle id="t146" depart="146.000" route="!t146!var#1" distance="0 1" speedFactor="0.886800000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t146" state="0 146000"/>
+    </vehicle>
+    <vehicle id="t147" depart="147.000" route="!t147!var#1" distance="0 1" speedFactor="1.002200000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t147" state="0 147000"/>
+    </vehicle>
+    <vehicle id="t148" depart="148.000" route="!t148!var#1" distance="0 1" speedFactor="0.966800000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t148" state="0 148000"/>
+    </vehicle>
+    <vehicle id="t149" depart="149.000" route="!t149!var#1" distance="0 1" speedFactor="1.039900000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t149" state="0 149000"/>
+    </vehicle>
+    <vehicle id="t150" depart="150.000" route="!t150!var#1" distance="0 1" speedFactor="0.963000000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t150" state="0 150000"/>
+    </vehicle>
+    <vehicle id="t151" depart="151.000" route="!t151!var#1" distance="0 1" speedFactor="1.004600000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t151" state="0 151000"/>
+    </vehicle>
+    <vehicle id="t152" depart="152.000" route="!t152!var#1" distance="0 1" speedFactor="1.071400000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t152" state="0 152000"/>
+    </vehicle>
+    <vehicle id="t153" depart="153.000" route="!t153!var#1" distance="0 1" speedFactor="0.927000000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t153" state="0 153000"/>
+    </vehicle>
+    <vehicle id="t154" depart="154.000" route="!t154!var#1" distance="0 1" speedFactor="1.064600000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t154" state="0 154000"/>
+    </vehicle>
+    <vehicle id="t155" depart="155.000" route="!t155!var#1" distance="0 1" speedFactor="1.123600000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t155" state="0 155000"/>
+    </vehicle>
+    <vehicle id="t156" depart="156.000" route="!t156!var#1" distance="0 1" speedFactor="1.179000000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t156" state="0 156000"/>
+    </vehicle>
+    <vehicle id="t157" depart="157.000" route="!t157!var#1" distance="0 1" speedFactor="1.078800000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t157" state="0 157000"/>
+    </vehicle>
+    <vehicle id="t158" depart="158.000" route="!t158!var#1" distance="0 1" speedFactor="0.909700000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t158" state="0 158000"/>
+    </vehicle>
+    <vehicle id="t159" depart="159.000" route="!t159!var#1" distance="0 1" speedFactor="1.142100000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t159" state="0 159000"/>
+    </vehicle>
+    <vehicle id="t160" depart="160.000" route="!t160!var#1" distance="0 1" speedFactor="0.878600000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t160" state="0 160000"/>
+    </vehicle>
+    <vehicle id="t161" depart="161.000" route="!t161!var#1" distance="0 1" speedFactor="1.077700000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t161" state="0 161000"/>
+    </vehicle>
+    <vehicle id="t162" depart="162.000" route="!t162!var#1" distance="0 1" speedFactor="0.992800000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t162" state="0 162000"/>
+    </vehicle>
+    <vehicle id="t163" depart="163.000" route="!t163!var#1" distance="0 1" speedFactor="1.126900000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t163" state="0 163000"/>
+    </vehicle>
+    <vehicle id="t164" depart="164.000" route="!t164!var#1" distance="0 1" speedFactor="1.051900000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t164" state="0 164000"/>
+    </vehicle>
+    <vehicle id="t165" depart="165.000" route="!t165!var#1" distance="0 1" speedFactor="0.914400000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t165" state="0 165000"/>
+    </vehicle>
+    <vehicle id="t166" depart="166.000" route="!t166!var#1" distance="0 1" speedFactor="1.004400000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t166" state="0 166000"/>
+    </vehicle>
+    <vehicle id="t167" depart="167.000" route="!t167!var#1" distance="0 1" speedFactor="1.029600000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t167" state="0 167000"/>
+    </vehicle>
+    <vehicle id="t168" depart="168.000" route="!t168!var#1" distance="0 1" speedFactor="0.983800000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t168" state="0 168000"/>
+    </vehicle>
+    <vehicle id="t169" depart="169.000" route="!t169!var#1" distance="0 1" speedFactor="0.940200000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t169" state="0 169000"/>
+    </vehicle>
+    <vehicle id="t170" depart="170.000" route="!t170!var#1" distance="0 1" speedFactor="1.086900000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t170" state="0 170000"/>
+    </vehicle>
+    <vehicle id="t171" depart="171.000" route="!t171!var#1" distance="0 1" speedFactor="0.896300000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t171" state="0 171000"/>
+    </vehicle>
+    <vehicle id="t172" depart="172.000" route="!t172!var#1" distance="0 1" speedFactor="0.892900000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t172" state="0 172000"/>
+    </vehicle>
+    <vehicle id="t173" depart="173.000" route="!t173!var#1" distance="0 1" speedFactor="1.142000000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t173" state="0 173000"/>
+    </vehicle>
+    <vehicle id="t174" depart="174.000" route="!t174!var#1" distance="0 1" speedFactor="0.955900000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t174" state="0 174000"/>
+    </vehicle>
+    <vehicle id="t175" depart="175.000" route="!t175!var#1" distance="0 1" speedFactor="0.919300000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t175" state="0 175000"/>
+    </vehicle>
+    <vehicle id="t176" depart="176.000" route="!t176!var#1" distance="0 1" speedFactor="1.089700000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t176" state="0 176000"/>
+    </vehicle>
+    <vehicle id="t177" depart="177.000" route="!t177!var#1" distance="0 1" speedFactor="1.030900000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t177" state="0 177000"/>
+    </vehicle>
+    <vehicle id="t178" depart="178.000" route="!t178!var#1" distance="0 1" speedFactor="1.083400000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t178" state="0 178000"/>
+    </vehicle>
+    <vehicle id="t179" depart="179.000" route="!t179!var#1" distance="0 1" speedFactor="1.064500000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t179" state="0 179000"/>
+    </vehicle>
+    <vehicle id="t180" depart="180.000" route="!t180!var#1" distance="0 1" speedFactor="1.099800000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t180" state="0 180000"/>
+    </vehicle>
+    <vehicle id="t181" depart="181.000" route="!t181!var#1" distance="0 1" speedFactor="1.026200000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t181" state="0 181000"/>
+    </vehicle>
+    <vehicle id="t182" depart="182.000" route="!t182!var#1" distance="0 1" speedFactor="1.029700000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t182" state="0 182000"/>
+    </vehicle>
+    <vehicle id="t183" depart="183.000" route="!t183!var#1" distance="0 1" speedFactor="1.082000000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t183" state="0 183000"/>
+    </vehicle>
+    <vehicle id="t184" depart="184.000" route="!t184!var#1" distance="0 1" speedFactor="0.941800000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t184" state="0 184000"/>
+    </vehicle>
+    <vehicle id="t185" depart="185.000" route="!t185!var#1" distance="0 1" speedFactor="0.916000000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t185" state="0 185000"/>
+    </vehicle>
+    <vehicle id="t186" depart="186.000" route="!t186!var#1" distance="0 1" speedFactor="1.079000000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t186" state="0 186000"/>
+    </vehicle>
+    <vehicle id="t187" depart="187.000" route="!t187!var#1" distance="0 1" speedFactor="0.891400000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t187" state="0 187000"/>
+    </vehicle>
+    <vehicle id="t188" depart="188.000" route="!t188!var#1" distance="0 1" speedFactor="0.971500000" reroute="1" state="262144 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
+        <device id="routing_t188" state="0 188000"/>
+    </vehicle>
+    <vehicle id="t189" depart="189.000" route="!t189!var#1" distance="70.71 1" speedFactor="0.971200000" reroute="1" state="262144 189000 1 0 1 0 209068 201655 9223372036854774807 0 0">
+        <device id="routing_t189" state="0 189000"/>
+    </vehicle>
+    <vehicle id="t190" depart="190.000" route="!t190!var#1" distance="70.71 1" speedFactor="0.901500000" reroute="1" state="262144 190000 1 0 1 0 211883 203897 9223372036854774807 0 0">
+        <device id="routing_t190" state="0 190000"/>
+    </vehicle>
+    <vehicle id="t191" depart="191.000" route="!t191!var#1" distance="70.71 1" speedFactor="0.927900000" reroute="1" state="262144 191000 1 0 1 0 213552 205566 9223372036854774807 0 0">
+        <device id="routing_t191" state="0 191000"/>
+    </vehicle>
+    <vehicle id="t192" depart="192.000" route="!t192!var#1" distance="70.71 1" speedFactor="1.095700000" reroute="1" state="262144 192000 1 0 1 0 215221 207235 9223372036854774807 0 0">
+        <device id="routing_t192" state="0 192000"/>
+    </vehicle>
+    <vehicle id="t193" depart="193.000" route="!t193!var#1" distance="70.71 1" speedFactor="1.067800000" reroute="1" state="262144 195000 1 0 1 0 216890 208904 9223372036854774807 0 0">
+        <device id="routing_t193" state="0 195000"/>
+    </vehicle>
+    <vehicle id="t194" depart="194.000" route="!t194!var#1" distance="70.71 1" speedFactor="0.998900000" reroute="1" state="262144 196000 1 0 0 0 210573 202587 9223372036854774807 0 0">
+        <device id="routing_t194" state="0 195000"/>
+    </vehicle>
+    <vehicle id="t195" depart="195.000" route="!t195!var#1" distance="70.71 1" speedFactor="0.841200000" reroute="1" state="262144 198000 1 0 0 0 212815 204256 9223372036854774807 0 0">
+        <device id="routing_t195" state="0 195000"/>
+    </vehicle>
+    <vehicle id="t196" depart="196.000" route="!t196!var#1" distance="70.71 1" speedFactor="1.030000000" reroute="1" state="262144 200000 1 0 0 0 214484 205925 9223372036854774807 0 0">
+        <device id="routing_t196" state="0 196000"/>
+    </vehicle>
+    <vehicle id="t197" depart="197.000" route="!t197!var#1" distance="70.71 1" speedFactor="0.872800000" reroute="1" state="262144 202000 1 0 0 0 216153 207833 9223372036854774807 0 0">
+        <device id="routing_t197" state="0 198000"/>
+    </vehicle>
+    <vehicle id="t198" depart="198.000" route="!t198!var#1" distance="0 1" speedFactor="1.064700000" reroute="1" state="262144 203000 0 0 0 0 209502 203000 9223372036854774807 0 0">
+        <device id="routing_t198" state="0 198000"/>
+    </vehicle>
+    <vehicle id="t199" depart="199.000" route="!t199!var#1" distance="0 1" speedFactor="0.827700000" reroute="1" state="262144 205000 0 0 0 0 211171 205000 9223372036854774807 0 0">
+        <device id="routing_t199" state="0 200000"/>
+    </vehicle>
+    <vehicle id="t200" depart="200.000" route="!t200!var#1" distance="0 1" speedFactor="0.947400000" reroute="1" state="262144 206000 0 0 0 0 212840 206000 9223372036854774807 0 0">
+        <device id="routing_t200" state="0 200000"/>
+    </vehicle>
+    <segment id="a:0">
+        <vehicles time="210573" blockTime="209501" value="t197 t196 t195 t194"/>
+    </segment>
+    <segment id="a:1">
+        <vehicles time="187763" blockTime="210572" value="t193 t192 t191 t190 t189"/>
+    </segment>
+    <segment id="b:0">
+        <vehicles time="210891" blockTime="202580" value="t112 t111 t110 t109 t108 t107 t106"/>
+    </segment>
+    <segment id="b:1">
+        <vehicles time="209590" blockTime="210290" value="t105 t104 t103 t102"/>
+    </segment>
+    <segment id="beg:0">
+        <vehicles time="209502" blockTime="-9223372036854775808" value="t200 t199 t198"/>
+        <vehicles time="213559" blockTime="-9223372036854775808" value="t121 t120 t119 t118 t117 t116 t115 t114 t113"/>
+    </segment>
+    <segment id="end:0">
+        <vehicles time="208530" blockTime="209589" value="t101 t100 t99"/>
+    </segment>
+    <routingEngine last="209000" index="0">
+        <edge id="a" speed="12.574304199" pastSpeed="12.763888809 12.715493717 12.715493717 12.683230322 12.683230322 12.540427118 12.433324716 12.433324716 12.387314277 12.387314277"/>
+        <edge id="b" speed="5.916969192" pastSpeed="5.044217043 5.188748961 5.878458617 5.903403330 5.903403330 6.169482819 6.169482819 6.374868989 5.815615938 6.722010075"/>
+        <edge id="beg" speed="4.863548093" pastSpeed="5.558166436 4.538273417 5.012067986 5.022862965 5.022862965 5.034838754 4.912034298 4.912034298 4.311169907 4.311169907"/>
+        <edge id="end" speed="12.668578746" pastSpeed="12.798190045 12.798190045 12.729064019 12.694501006 12.659937992 12.642656486 12.590811966 12.590811966 12.590811966 12.590811966"/>
+    </routingEngine>
+</snapshot>
