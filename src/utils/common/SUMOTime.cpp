@@ -89,10 +89,7 @@ isTime(const std::string& r) {
 
 std::string
 time2string(SUMOTime t, bool humanReadable) {
-    std::ostringstream oss;
-    if (t < 0) {
-        oss << "-";
-    }
+    const bool negative = t < 0;
     // needed for signed zero errors, see #5926
     // llabs(SUMOTime_MIN) would create overflow and must be handleed separately
     t = t == SUMOTime_MIN ? SUMOTime_MAX : (SUMOTime)llabs(t);
@@ -106,6 +103,10 @@ time2string(SUMOTime t, bool humanReadable) {
     }
     const SUMOTime second = TIME2STEPS(1) / scale;
     if (humanReadable) {
+        std::ostringstream oss;
+        if (negative) {
+            oss << "-";
+        }
         const SUMOTime minute = 60 * second;
         const SUMOTime hour = 60 * minute;
         const SUMOTime day = 24 * hour;
@@ -126,12 +127,18 @@ time2string(SUMOTime t, bool humanReadable) {
             oss << std::setw(MIN2(3, gPrecision));
             oss << t;
         }
-    } else {
-        oss << t / second << ".";
-        oss << std::setfill('0') << std::setw(MIN2(3, gPrecision));
-        oss << t % second;
+        return oss.str();
     }
-    return oss.str();
+    // build the plain format without a string stream, it is written for every time value in the outputs
+    std::string result = negative ? "-" : "";
+    result += std::to_string(t / second);
+    result += '.';
+    const std::string fraction = std::to_string(t % second);
+    const int width = MIN2(3, gPrecision);
+    if ((int)fraction.size() < width) {
+        result.append(width - (int)fraction.size(), '0');
+    }
+    return result + fraction;
 }
 
 
