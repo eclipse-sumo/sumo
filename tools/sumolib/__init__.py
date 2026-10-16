@@ -26,7 +26,7 @@ import warnings
 from . import files, net, output, sensors, shapes, statistics, fpdiff  # noqa
 from . import color, geomhelper, miscutils, options, route, vehicletype, version  # noqa
 # the visualization submodule is not imported to avoid an explicit matplotlib dependency
-from .miscutils import openz, PRACTICAL_INFINITY
+from .miscutils import openz
 from .options import pullOptions, ArgumentParser
 from .version import _version as __version__  # noqa
 from .xml import writeHeader as writeXMLHeader  # noqa

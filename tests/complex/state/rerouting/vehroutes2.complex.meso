@@ -267,17 +267,11 @@
     </vehicle>
 
     <vehicle id="veh332" type="default" depart="573.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="600.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="573.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh333" type="default" depart="575.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="602.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="575.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh334" type="default" depart="576.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="604.00">
@@ -285,10 +279,7 @@
     </vehicle>
 
     <vehicle id="veh335" type="default" depart="578.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="605.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="578.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh336" type="default" depart="580.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="607.00">
@@ -296,17 +287,11 @@
     </vehicle>
 
     <vehicle id="veh337" type="default" depart="582.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="609.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="582.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh338" type="default" depart="583.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="610.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="583.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh339" type="default" depart="585.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="612.00">
@@ -314,17 +299,11 @@
     </vehicle>
 
     <vehicle id="veh340" type="default" depart="587.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="614.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="587.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh341" type="default" depart="588.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="615.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="588.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh342" type="default" depart="590.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="617.00">
@@ -344,10 +323,7 @@
     </vehicle>
 
     <vehicle id="veh347" type="default" depart="599.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="624.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="599.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh346" type="default" depart="597.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="625.00">
@@ -355,10 +331,7 @@
     </vehicle>
 
     <vehicle id="veh349" type="default" depart="602.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="627.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="602.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh348" type="default" depart="600.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="629.00">
@@ -370,10 +343,7 @@
     </vehicle>
 
     <vehicle id="veh351" type="default" depart="605.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="632.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="605.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh352" type="default" depart="607.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="635.00">
@@ -381,10 +351,7 @@
     </vehicle>
 
     <vehicle id="veh354" type="default" depart="611.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="636.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="611.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh353" type="default" depart="609.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="638.00">
@@ -392,10 +359,7 @@
     </vehicle>
 
     <vehicle id="veh356" type="default" depart="614.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="640.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="614.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh355" type="default" depart="612.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="641.00">
@@ -407,10 +371,7 @@
     </vehicle>
 
     <vehicle id="veh359" type="default" depart="620.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="645.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="620.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh358" type="default" depart="618.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="646.00">
@@ -418,10 +379,7 @@
     </vehicle>
 
     <vehicle id="veh361" type="default" depart="623.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="648.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="623.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh360" type="default" depart="621.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="650.00">
@@ -429,10 +387,7 @@
     </vehicle>
 
     <vehicle id="veh363" type="default" depart="626.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="651.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="626.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh362" type="default" depart="625.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="653.00">
@@ -444,10 +399,7 @@
     </vehicle>
 
     <vehicle id="veh366" type="default" depart="631.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="656.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="631.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh365" type="default" depart="630.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="658.00">
@@ -455,10 +407,7 @@
     </vehicle>
 
     <vehicle id="veh367" type="default" depart="633.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="660.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="633.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh368" type="default" depart="635.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="661.00">
@@ -466,10 +415,7 @@
     </vehicle>
 
     <vehicle id="veh369" type="default" depart="636.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="663.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="636.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh370" type="default" depart="638.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="665.00">
@@ -477,10 +423,7 @@
     </vehicle>
 
     <vehicle id="veh371" type="default" depart="640.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="666.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="640.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh372" type="default" depart="641.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="668.00">
@@ -548,10 +491,7 @@
     </vehicle>
 
     <vehicle id="veh389" type="default" depart="672.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="695.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="672.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
-            <route edges="gneE0 gneE1 gneE2 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
     </vehicle>
 
     <vehicle id="veh388" type="default" depart="670.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="697.00">

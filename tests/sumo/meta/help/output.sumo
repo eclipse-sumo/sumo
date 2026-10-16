@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_27_1+0600-3f7ce74d7c5
+Eclipse SUMO sumo v1_28_0+0100-bb553965bae
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -17,7 +17,11 @@ Configuration Options:
 Input Options:
   -n, --net-file FILE                  Load road network description from FILE
   -r, --route-files FILE               Load routes descriptions from FILE(s)
+  --ignore.routeelements               Ignore route elements during loading of
+                                        sumo-configs
   -a, --additional-files FILE          Load further descriptions from FILE(s)
+  --ignore.additionalelements          Ignore additional elements during
+                                        loading of sumo-configs
   -w, --weight-files FILE              Load edge/lane weights for online
                                         rerouting from FILE
   -x, --weight-attribute STR           Name of the xml attribute which gives
