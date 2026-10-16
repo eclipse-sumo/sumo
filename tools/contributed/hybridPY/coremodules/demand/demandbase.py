@@ -609,20 +609,30 @@ class RouteCounter(handler.ContentHandler):
 class RouteReader(TripReader):
     """Reads trips from trip or route file into trip table"""
 
-    def __init__(self, trips,  counter):
-
+    def __init__(self, trips,  counter, vtype_default = None, id_vtype_default = None):
+        
         self._trips = trips
         n_veh = counter.n_veh
         n_per = counter.n_pers
-        # n_rou = counter.n_rou
+        #n_rou = counter.n_rou
         n_trip = n_veh+n_per
         demand = trips.parent
-        print('RouteReader.__init__', demand.ident, 'reading', n_trip, 'routes of which n_veh', n_veh)
+        print('RouteReader.__init__',demand.ident,'reading',n_trip,'routes of which n_veh',n_veh)
         net = demand.get_scenario().net
         self._modemap = net.modes.names.get_indexmap()
         self._get_vtype_for_mode = demand.vtypes.get_vtype_for_mode
 
         self._ids_vtype_sumo = demand.vtypes.ids_sumo
+        
+        if vtype_default is not None:
+                id_vtype_default = demand.vtypes.ids_sumo.get_id_from_index(vtype_default)
+
+                
+        if id_vtype_default is None:
+            self._id_vtype_default = demand.vtypes.get_ids()[1]# make passenger type explicit!
+        else:
+            self._id_vtype_default = id_vtype_default
+            
         self._ids_edge_sumo = net.edges.ids_sumo
 
         self.ids_sumo = np.zeros(n_trip, np.object_)
@@ -915,9 +925,7 @@ class RouteAlternativesReader(RouteReader):
             self.routes[ind] = []
             self.costs[ind] = []
             self.probabilities[ind] = []
-            # self._ids_sumoedges_current = []
-            # self._costs_current = []
-            # self._probabilities_current = []
+
 
         if name == 'route':
             if (self._id_sumoveh_current is not None):
@@ -2134,7 +2142,7 @@ class TripsBase(DemandobjMixin, am.ArrayObjman):
                        If None, routes are read into all demand objects 
         is_fastest: If true import fastest route and replace current route.
         """
-        print('import_routes_xml from %s add trips %s' % (filepath, is_add))
+        print('import_routes_xml from %s add trips %s is fastest %s' % (filepath, is_add,is_fastest))
 
         counter = RouteCounter()
         parse(filepath, counter)

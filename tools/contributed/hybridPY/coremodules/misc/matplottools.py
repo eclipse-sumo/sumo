@@ -173,46 +173,62 @@ def new_doubkeplot(tight_layout=True):
     return plt.subplot(2, 1, 1), plt.subplot(2, 1, 2)
 
 
-def plot_net(ax, net, color_edge="gray", width_edge=2, color_node=None,
-             alpha=0.5, is_show_connections=False, mapscale=1.0,
-             scale_width_edge=0.8, is_show_nodes=True, zorder=-100):
-
-    n_edges = len(net.edges)
+def plot_net(ax, net, color_edge = "gray", width_edge = 2, color_node = None,
+                alpha = 0.5, is_show_connections = False,mapscale=1.0,
+                scale_width_edge = 0.8, is_show_nodes = True, zorder = -100,
+                ids_edge = None, colors_edge = None):
+    
+    if ids_edge is None:
+        ids_edge = net.edges.get_ids()
+        
+    n_edges = len(ids_edge)
     n_nodes = len(net.nodes)
-    print('plot_net with', n_edges, 'edges and', n_nodes, 'nodes')
+    #print ('plot_net with',n_edges,'edges and',n_nodes,'nodes')
     i = 0
     Polygon = mpl.patches.Polygon
-    ids_edge = net.edges.get_ids()
+    
     if scale_width_edge > 0:
-        edgewidths = np.array(net.edges.widths[ids_edge] * scale_width_edge, dtype=np.int32)+1
+        edgewidths = np.array(net.edges.widths[ids_edge] * scale_width_edge, dtype = np.int32)+1
     else:
-        edgewidths = np.ones(len(ids_edge), dtype=np.int32)*int(width_edge)
-
-    for shape, width in zip(net.edges.shapes[ids_edge], edgewidths):
-        # x_vec = np.array(shape)[:,0]
-        # y_vec = np.array(shape)[:,1]
-        # ax.plot(x_vec*mapscale, y_vec*mapscale, color = color_edge, lw = width_edge,alpha=alpha ,zorder = -100)
-
-        ax.add_patch(Polygon(np.array(shape)[:, :2]*mapscale,
-                             linewidth=width,
-                             edgecolor=color_edge,
-                             facecolor=None,
-                             fill=False,
-                             alpha=alpha,
-                             zorder=zorder))
-
-        i += 1
-        # print '  plot edge %d/%d %d pc'%(i,n_edges,int(100.0*i/n_edges))
-
+        edgewidths = np.ones(len(ids_edge), dtype = np.int32)*int(width_edge)
+    
+    if colors_edge is None:    
+        for shape, width in zip(net.edges.shapes[ids_edge], edgewidths):
+            #x_vec = np.array(shape)[:,0]
+            #y_vec = np.array(shape)[:,1]
+            #ax.plot(x_vec*mapscale, y_vec*mapscale, color = color_edge, lw = width_edge,alpha=alpha ,zorder = -100)
+            
+            ax.add_patch(Polygon(  np.array(shape)[:,:2]*mapscale, 
+                                    linewidth = width,
+                                    edgecolor = color_edge, 
+                                    facecolor = None, 
+                                    fill = False,
+                                    alpha = alpha,
+                                    zorder = zorder,
+                                    closed = False))
+            
+            i += 1
+            #print '  plot edge %d/%d %d pc'%(i,n_edges,int(100.0*i/n_edges))
+    else:
+        for shape, width, edgecolor in zip(net.edges.shapes[ids_edge], edgewidths, colors_edge):
+            ax.add_patch(Polygon(  np.array(shape)[:,:2]*mapscale, 
+                                    linewidth = width,
+                                    edgecolor = edgecolor, 
+                                    facecolor = None, 
+                                    fill = False,
+                                    alpha = alpha,
+                                    zorder = zorder,
+                                    closed = False))
+            
+            i += 1 
+            
+        
     if is_show_connections:
         for id_connection in net.connections.get_ids():
-            x_vec = np.array([net.edges.shapes[net.lanes.ids_edge[net.connections.ids_fromlane[id_connection]]]
-                             [-1, 0], net.edges.shapes[net.lanes.ids_edge[net.connections.ids_tolane[id_connection]]][0, 0]])
-            y_vec = np.array([net.edges.shapes[net.lanes.ids_edge[net.connections.ids_fromlane[id_connection]]]
-                             [-1, 1], net.edges.shapes[net.lanes.ids_edge[net.connections.ids_tolane[id_connection]]][0, 1]])
-            ax.plot(x_vec*mapscale, y_vec*mapscale, color=color_edge,
-                    lw=width_edge*scale_width_edge, alpha=alpha, zorder=-100)
-
+            x_vec = np.array([net.edges.shapes[net.lanes.ids_edge[net.connections.ids_fromlane[id_connection]]][-1,0], net.edges.shapes[net.lanes.ids_edge[net.connections.ids_tolane[id_connection]]][0,0]])
+            y_vec = np.array([net.edges.shapes[net.lanes.ids_edge[net.connections.ids_fromlane[id_connection]]][-1,1], net.edges.shapes[net.lanes.ids_edge[net.connections.ids_tolane[id_connection]]][0,1]])
+            ax.plot(x_vec*mapscale, y_vec*mapscale, color = color_edge, lw = width_edge*scale_width_edge,alpha=alpha ,zorder = -100)  
+    
     if is_show_nodes:
         # do nodes
         if color_node is None:
@@ -220,25 +236,25 @@ def plot_net(ax, net, color_edge="gray", width_edge=2, color_node=None,
             color_node = 'none'
         else:
             is_nodefill = True
-
-        # ax.scatter(x_vec[0], y_vec[0], s=np.pi * (10.0)**2, c=colors, alpha=0.5)
+            
+        
+        #ax.scatter(x_vec[0], y_vec[0], s=np.pi * (10.0)**2, c=colors, alpha=0.5)
         coords = net.nodes.coords.get_value()
         radii = net.nodes.radii.get_value()
-        # ax.scatter(coords[:,0], coords[:,1], s=np.pi * (radii)**2, alpha=0.5)
-        # patches = []
+        #ax.scatter(coords[:,0], coords[:,1], s=np.pi * (radii)**2, alpha=0.5)
+        #patches = []
         i = 0
         for coord, radius in zip(coords, radii):
             i += 1
-            # print '  plot node %d/%d %d pc'%(i,n_nodes,int(100.0*i/n_nodes))
-            ax.add_patch(Circle(coord*mapscale, radius=radius*mapscale,
-                                linewidth=width_edge,
-                                edgecolor=color_edge,
-                                facecolor=color_node,
-                                fill=is_nodefill,
-                                alpha=alpha,
-                                zorder=-50))
-
-
+            #print '  plot node %d/%d %d pc'%(i,n_nodes,int(100.0*i/n_nodes))
+            ax.add_patch(Circle(  coord*mapscale, radius=radius*mapscale, 
+                                    linewidth = width_edge,
+                                    edgecolor = color_edge, 
+                                    facecolor = color_node, 
+                                    fill = is_nodefill,
+                                    alpha = alpha,
+                                    zorder = -50))
+                                    
 def plot_maps(ax, maps, alpha=0.5, mapscale=1.0):
     # print 'plot_maps'
     net = maps.parent.get_net()

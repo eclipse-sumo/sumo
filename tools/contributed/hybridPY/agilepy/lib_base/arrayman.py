@@ -21,7 +21,8 @@
 
 from .classman import *
 import numpy as np
-
+np.bool = np.bool_
+np.bool_ = np.bool
 TYPES_INT = (np.int32, np.int64, int, int)
 TYPES_FLOAT = (np.float32, np.float64, float, complex)
 

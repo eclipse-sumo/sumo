@@ -4866,6 +4866,11 @@ class StageTypeMixin(am.ArrayObjman):
 
     def prepare_planning(self):
         pass
+        
+    def update_timing(self, time_init_anticipate = 360):
+        """Here we adapt the vehicle timing to a new time_start"""
+        # to be overridden in case of a ride stage
+        pass
 
     def append_stage(self, id_plan, time_start,  **kwargs):
 
@@ -5021,6 +5026,11 @@ class TransitStages(StageTypeMixin):
         # ind_ride gives the index of this ride (within the same plan??)
         # ind_ride = self.parent.get_iautos().append_ride(id_veh, id_stage)
         return id_stage, time_end
+        
+    def update_timing(self, time_anticipation = 360):
+            """Here we adapt the vehicle timing to a new time_start"""
+            self.times_init.set_value(np.max( (self.times_start.get_value() - time_anticipation, np.zeros(len(self), dtype = np.float32) ),0))
+       
 
     def to_xml(self, id_stage, fd, indent=0):
         # <ride from="1/3to0/3" to="0/4to1/4" lines="train0"/>
@@ -5227,11 +5237,12 @@ class AutorideStages(StageTypeMixin):
 
         return route, dist, duration_approx, is_fallback
 
-    # def make_id_veh_ride(self, id_stage, i_ride):
-    #    # make a unique vehicle ID for this stage
-    #    self.inds_ride[id_stage] = i_ride
-    #    return str(self.ids_veh[id_stage])+'.'+str(i_ride)
 
+    def update_timing(self, time_anticipation = 360):
+            """Here we adapt the vehicle timing to a new time_start"""
+            self.times_init.set_value(np.max( (self.times_start.get_value() - time_anticipation, np.zeros(len(self), dtype = np.float32) ),0))
+                
+            
     def get_writexmlinfo(self, ids_plan, is_route=True, is_plain=False):
         print('AutorideStages.get_writexmlinfo', 'is_route', is_route, 'is_plain', is_plain)
         iautos = self.get_virtualpop().get_iautos()
@@ -5417,7 +5428,11 @@ class BikerideStages(StageTypeMixin):
         else:
             # not connected or too short of a distance
             return -1, time_start  # no stage creation took place
-
+    
+    def update_timing(self, time_anticipation = 360):
+            """Here we adapt the vehicle timing to a new time_start"""
+            self.times_init.set_value(np.max( (self.times_start.get_value() - time_anticipation, np.zeros(len(self), dtype = np.float32) ),0))
+    
     def get_writexmlinfo(self, ids_plan, is_route=True, is_plain=False):
         print('BikerideStages.get_writexmlinfo', 'is_route', is_route, 'is_plain', is_plain, len(ids_plan), len(self))
         ibikes = self.get_virtualpop().get_ibikes()
@@ -5596,6 +5611,11 @@ class MotorcyclerideStages(StageTypeMixin):
             # not connected or too short of a distance
             return -1, time_start  # no stage creation took place
 
+    def update_timing(self, time_anticipation = 360):
+            """Here we adapt the vehicle timing to a new time_start"""
+            self.times_init.set_value(np.max( (self.times_start.get_value() - time_anticipation, np.zeros(len(self), dtype = np.float32) ),0))
+    
+    
     def get_writexmlinfo(self, ids_plan, is_route=True, is_plain=False):
         print('MotorcyclerideStages.get_writexmlinfo', 'is_route', is_route, 'is_plain', is_plain)
         imotos = self.get_virtualpop().get_imotos()
@@ -5899,6 +5919,11 @@ class SAVrideStages(StageTypeMixin):
             # not connected or too short of a distance
             return -1, time_start  # no stage creation took place
 
+    def update_timing(self, time_anticipation = 360):
+            """Here we adapt the vehicle timing to a new time_start"""
+            self.times_init.set_value(np.max( (self.times_start.get_value() - time_anticipation, np.zeros(len(self), dtype = np.float32) ),0))
+               
+               
     def to_xml(self, id_stage, fd, indent=0):
         scenario = self.get_virtualpop().get_scenario()
 
@@ -6354,7 +6379,14 @@ class Plans(am.ArrayObjman):
             return []
         else:
             return stages
-
+    
+    def update_stage_timing(self):
+        """This is a helper function to udate vehicle timing
+        to be called after stage start time has been mofified
+        """
+        for stageobj in self.get_group('stagetables'):
+            stageobj.get_value().update_timing()
+            
     def append_stage(self, id_plan, stage, id_stage):
         # test: stage = cm.TableEntry(stagetable, id_plan)
         # print ('Plans.append_stage',self,id_plan, stage, id_stage)
