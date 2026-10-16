@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-14T09:22:23.577698+01:00 by Eclipse SUMO sumo v1_28_0+0069-9da5ff73f39
+<!-- generated on 2026-10-16T08:34:27.126549+01:00 by Eclipse SUMO sumo v1_28_0+0100-bb553965bae
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -17,7 +17,9 @@
     <input>
         <net-file value="" synonymes="n net" type="FILE" help="Load road network description from FILE"/>
         <route-files value="" synonymes="r routes" type="FILE" help="Load routes descriptions from FILE(s)"/>
+        <ignore.routeelements value="false" type="BOOL" help="Ignore route elements during loading of sumo-configs"/>
         <additional-files value="" synonymes="a additional" type="FILE" help="Load further descriptions from FILE(s)"/>
+        <ignore.additionalelements value="false" type="BOOL" help="Ignore additional elements during loading of sumo-configs"/>
         <weight-files value="" synonymes="w weights" type="FILE" help="Load edge/lane weights for online rerouting from FILE"/>
         <weight-attribute value="traveltime" synonymes="measure x" deprecated="measure" type="STR" help="Name of the xml attribute which gives the edge weight"/>
         <load-state value="" type="FILE" help="Loads a network state from FILE"/>
