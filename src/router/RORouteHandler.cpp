@@ -629,6 +629,7 @@ RORouteHandler::closeVehicle() {
     // get the vehicle id
     if (myVehicleParameter->departProcedure == DepartDefinition::GIVEN && myVehicleParameter->depart < myBegin) {
         mySkippedVehicles.insert(myVehicleParameter->id);
+        myNet.routeSkipped();
         return;
     }
     // get vehicle type
@@ -721,6 +722,8 @@ RORouteHandler::closePerson() {
             checkLastDepart();
             registerLastDepart();
         }
+    } else {
+        myNet.routeSkipped();
     }
     deleteActivePlanAndVehicleParameter();
 }
@@ -789,6 +792,10 @@ RORouteHandler::closePersonFlow() {
 
 void
 RORouteHandler::addFlowPerson(const std::string& typeID, SUMOTime depart, const std::string& baseID, int i) {
+    if (myVehicleParameter->departProcedure == DepartDefinition::GIVEN && depart < myBegin) {
+        myNet.routeSkipped();
+        return;
+    }
     SUMOVehicleParameter pars = *myVehicleParameter;
     pars.id = baseID + "." + toString(i);
     pars.depart = depart;
@@ -858,6 +865,7 @@ RORouteHandler::closeFlow() {
     while (myVehicleParameter->repetitionTotalOffset < offsetToBegin) {
         myVehicleParameter->incrementFlow(1);
         if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {
+            myNet.routeSkipped();
             delete myVehicleParameter;
             myVehicleParameter = nullptr;
             return;

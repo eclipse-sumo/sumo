@@ -1,0 +1,3 @@
+<routes>
+    <flow id="f" from="beg" begin="40" end="41" number="1"/>
+</routes>
