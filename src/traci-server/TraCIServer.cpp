@@ -286,10 +286,11 @@ bool
 TraCIServer::wrapLogicVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCILogic>& value) {
     StoHelp::writeCompound(myWrapperStorage, (int)value.size());
     for (const libsumo::TraCILogic& logic : value) {
-        StoHelp::writeCompound(myWrapperStorage, 5);
+        StoHelp::writeCompound(myWrapperStorage, 6);
         StoHelp::writeTypedString(myWrapperStorage, logic.programID);
         StoHelp::writeTypedInt(myWrapperStorage, logic.type);
         StoHelp::writeTypedInt(myWrapperStorage, logic.currentPhaseIndex);
+        StoHelp::writeTypedDouble(myWrapperStorage, logic.offset);
         StoHelp::writeCompound(myWrapperStorage, (int)logic.phases.size());
         for (const std::shared_ptr<libsumo::TraCIPhase>& phase : logic.phases) {
             StoHelp::writeCompound(myWrapperStorage, 6);

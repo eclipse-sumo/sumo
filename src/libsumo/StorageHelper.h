@@ -276,10 +276,11 @@ public:
     }
 
     static inline void readLogic(tcpip::Storage& inputStorage, libsumo::TraCILogic& logic, const std::string& error = "") {
-        readCompound(inputStorage, 5, error);
+        readCompound(inputStorage, 6, error);
         logic.programID = readTypedString(inputStorage);
         logic.type = readTypedInt(inputStorage);
         logic.currentPhaseIndex = readTypedInt(inputStorage);
+        logic.offset = readTypedDouble(inputStorage);
         int numPhases = readCompound(inputStorage);
         while (numPhases-- > 0) {
             readCompound(inputStorage, 6);

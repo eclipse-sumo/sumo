@@ -181,7 +181,10 @@ public class CommandProcessor extends Query {
                 s.readUnsignedByte();
                 int currentPhaseIndex = s.readInt();
 
-                SumoTLSProgram stl = new SumoTLSProgram(subID, type0, currentPhaseIndex);
+                s.readUnsignedByte();
+                double offset = s.readDouble();
+
+                SumoTLSProgram stl = new SumoTLSProgram(subID, type0, currentPhaseIndex, offset);
 
                 s.readUnsignedByte();
                 int nbPhases = s.readInt();
@@ -495,7 +498,11 @@ public class CommandProcessor extends Query {
                     int currentPhaseIndex = resp.content().readInt();
                     //System.out.println("currentPhaseIndex=" + currentPhaseIndex);
 
-                    SumoTLSProgram stl = new SumoTLSProgram(subID, type, currentPhaseIndex);
+                    resp.content().readUnsignedByte();
+                    double offset = resp.content().readDouble();
+                    //System.out.println("offset=" + offset);
+
+                    SumoTLSProgram stl = new SumoTLSProgram(subID, type, currentPhaseIndex, offset);
 
                     resp.content().readUnsignedByte();
                     int nbPhases = resp.content().readInt();
