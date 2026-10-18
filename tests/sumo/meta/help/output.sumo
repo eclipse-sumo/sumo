@@ -1050,6 +1050,9 @@ Mesoscopic Options:
                                         (default)
   --meso-multi-queue                   Enable multiple queues at edge ends
   --meso-lane-queue                    Enable separate queues for every lane
+  --meso-lookahead FLOAT               Only use the lane queues leading to the
+                                        next edge on segments that end within
+                                        FLOAT m of the edge end
   --meso-ignore-lanes-by-vclass STR[]  Do not build queues (or reduce capacity)
                                         for lanes allowing only the given
                                         vclasses
