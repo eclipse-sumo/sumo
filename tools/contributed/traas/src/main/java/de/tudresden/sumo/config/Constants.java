@@ -22,7 +22,7 @@ public class Constants {
     // ****************************************
     // VERSION
     // ****************************************
-    public static final int TRACI_VERSION = 22;
+    public static final int TRACI_VERSION = 23;
 
     // ****************************************
     // COMMANDS

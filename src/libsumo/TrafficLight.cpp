@@ -874,10 +874,34 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
     }
     if (vars.getLogic(logic.programID) == nullptr) {
         MSTLLogicControl& tlc = MSNet::getInstance()->getTLSControl();
+        const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
         int step = logic.currentPhaseIndex;
         const std::string basePath = "";
         MSTrafficLightLogic* tlLogic = nullptr;
-        SUMOTime nextSwitch = MSNet::getInstance()->getCurrentTimeStep() + phases[0]->duration;
+        SUMOTime nextSwitch = now + phases[step]->duration;
+        if (logic.offset != 0. && (TrafficLightType)logic.type == TrafficLightType::STATIC) {
+            // apply the offset in the same way as NLJunctionControlBuilder::closeTrafficLightLogic
+            // when loading a program from a network file: a positive offset delays all phases,
+            // a negative offset advances them. The resulting position within the cycle determines
+            // both the current phase and the time of the next switch. This is only done
+            // for static programs; the semantics of offset are undefined for variable-length phases.
+            SUMOTime cycleTime = 0;
+            for (const MSPhaseDefinition* phase : phases) {
+                cycleTime += phase->duration;
+            }
+            if (cycleTime > 0) {
+                const SUMOTime offsetSteps = TIME2STEPS(logic.offset);
+                SUMOTime positionInCycle = (offsetSteps > 0
+                                            ? (cycleTime - (offsetSteps % cycleTime)) % cycleTime
+                                            : ((-offsetSteps) % cycleTime));
+                step = 0;
+                while (positionInCycle >= phases[step]->duration) {
+                    positionInCycle -= phases[step]->duration;
+                    step++;
+                }
+                nextSwitch = now + phases[step]->duration - positionInCycle;
+            }
+        }
         switch ((TrafficLightType)logic.type) {
             case TrafficLightType::ACTUATED:
                 tlLogic = new MSActuatedTrafficLightLogic(tlc,

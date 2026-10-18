@@ -69,6 +69,10 @@ The value is a compound with six elements:
 Phases and parameters use the same structure as the
 [complete program retrieval](Traffic_Lights_Value_Retrieval.md#structure_of_compound_object_traffic_light_program_0x2b).
 The offset defaults to zero in the clients and is used when creating a new program.
+For static programs, a non-zero offset shifts the program in the same way as the `offset` attribute of a
+`tlLogic`: it determines the position within the cycle and therefore the current phase
+as well as the time of the next switch. For actuated, NEMA and delay-based programs the
+offset is stored and passed to the controller unchanged.
 
 !!! note
     For more information about what value should be put in each of the fields mentioned above, see [Tutorials/TraCI4Traffic_Lights#Appendix](../Tutorials/TraCI4Traffic_Lights.md#appendix). Remember that you can check which integer value is associated with particular value type [here](../TraCI/Protocol.md#data_types).
