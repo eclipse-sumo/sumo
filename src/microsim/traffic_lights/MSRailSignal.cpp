@@ -544,7 +544,7 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh, int searchStart) {
     }
     MSRailSignal* rs = const_cast<MSRailSignal*>(dynamic_cast<const MSRailSignal*>(myLink->getTLLogic()));
     if (firstIt == veh->getRoute().end()) {
-        WRITE_WARNING("Invalid approach information to rail signal '" + MSDriveWay::getClickableTLLinkID(myLink) + "' after rerouting for vehicle '" + veh->getID()
+        WRITE_WARNING("Invalid approach information to rail signal " + MSDriveWay::getClickableTLLinkID(myLink) + " after rerouting for vehicle '" + veh->getID()
                       + "' first driveway edge '" + first->getID() + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
         if (myDriveways.empty()) {
             ConstMSEdgeVector dummyRoute;
