@@ -68,6 +68,22 @@ for index, logic in enumerate(logics):
     loaded = next(program for program in traci.trafficlight.getAllProgramLogics(tlsID)
                   if program.programID == logic.programID)
     assert loaded.offset == logic.offset, (loaded.offset, logic.offset)
+    if logic.type == tc.TRAFFICLIGHT_TYPE_STATIC:
+        # a non-zero offset must shift the program like the tlLogic offset attribute:
+        # the position within the cycle determines the current phase and the next switch
+        now = traci.simulation.getTime()
+        cycleTime = sum(phase_.duration for phase_ in logic.phases)
+        inCycle = ((cycleTime - (logic.offset % cycleTime)) % cycleTime
+                   if logic.offset >= 0 else ((-logic.offset) % cycleTime))
+        expectedStep = 0
+        while inCycle >= logic.phases[expectedStep].duration:
+            inCycle -= logic.phases[expectedStep].duration
+            expectedStep += 1
+        assert traci.trafficlight.getPhase(tlsID) == expectedStep, (
+            traci.trafficlight.getPhase(tlsID), expectedStep)
+        expectedSwitch = now + logic.phases[expectedStep].duration - inCycle
+        assert abs(traci.trafficlight.getNextSwitch(tlsID) - expectedSwitch) < 1e-6, (
+            traci.trafficlight.getNextSwitch(tlsID), expectedSwitch)
     print("set logic type=%s" % traci.trafficlight.getParameter(tlsID, "typeName"))
     phase = traci.trafficlight.getPhase(tlsID)
     for step in range(100):
