@@ -1,0 +1,2 @@
+Warning: Teleporting vehicle 'light_rail_S46:0'; waited too long (jam), lane='branch2_0', time=350.00.
+Warning: Vehicle 'light_rail_S46:0' ends teleporting on edge '-branch2', time=350.00.

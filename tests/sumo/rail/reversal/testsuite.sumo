@@ -120,3 +120,6 @@ consecutive_before_reversal
 
 # see #15608
 both_reverse
+
+# reverse with few edges remaining
+close_to_end
