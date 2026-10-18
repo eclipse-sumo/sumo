@@ -160,6 +160,13 @@ class PersonDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_LANEPOSITION, personID)
 
+    def getArrivalPos(self, personID):
+        """getArrivalPos(string) -> double
+
+        The final arrival position of the person's plan in m.
+        """
+        return self._getUniversal(tc.VAR_ARRIVALPOS, personID)
+
     def getWalkingDistance(self, personID, edgeID, pos, laneIndex=0):
         """getWalkingDistance(string, string, double, integer) -> double
 
