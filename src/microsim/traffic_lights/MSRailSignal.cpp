@@ -530,7 +530,7 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh, int searchStart) {
         // because first is short or the step-length is high)
         // lets look backward along the route
         // give some slack because the vehicle might have been braking from a higher speed and using ballistic integration
-        double lookBack = SPEED2DIST(veh->getSpeed() + 10);
+        double lookBack = SPEED2DIST(veh->getSpeed() + 10) + veh->getLength();
         int routeIndex = veh->getRoutePosition() - 1;
         while (lookBack > 0 && routeIndex > 0) {
             const MSEdge* prevEdge = veh->getRoute().getEdges()[routeIndex];
