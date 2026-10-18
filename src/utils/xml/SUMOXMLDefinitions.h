@@ -1912,6 +1912,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_MESO_MINOR_PENALTY,
     SUMO_ATTR_MESO_OVERTAKING,
     SUMO_ATTR_MESO_EDGELENGHT,
+    SUMO_ATTR_MESO_LOOKAHEAD,
     // @}
 
     /// @brief invalid attribute, must be the last one

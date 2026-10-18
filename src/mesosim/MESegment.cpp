@@ -138,7 +138,8 @@ MESegment::MESegment(const std::string& id,
         usableLanes = 1;
     }
     if (multiQueue) {
-        if (next == nullptr) {
+        // vehicles choose their queue by their next edge on the last segment and on all segments ending within the lookahead distance
+        if (next == nullptr || parent.getLength() - (idx + 1) * length < edgeType.lookahead) {
             for (const MSEdge* const edge : parent.getSuccessors()) {
                 if (edge->isTazConnector()) {
                     continue;
@@ -335,7 +336,7 @@ MESegment::hasSpaceFor(const MEVehicle* const veh, const SUMOTime entryTime, int
     }
     const SUMOVehicleClass svc = veh->getVClass();
     int minSize = std::numeric_limits<int>::max();
-    const MSEdge* const succ = myNextSegment == nullptr ? veh->succEdge(veh->getEdge() == &myEdge ? 1 : 2) : nullptr;
+    const MSEdge* const succ = myFollowerMap.empty() ? nullptr : veh->succEdge(veh->getEdge() == &myEdge ? 1 : 2);
     for (int i = 0; i < (int)myQueues.size(); i++) {
         const Queue& q = myQueues[i];
         const double newOccupancy = q.size() == 0 ? 0. : q.getOccupancy() + veh->getVehicleType().getLengthWithGap();
