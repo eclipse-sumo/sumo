@@ -4349,8 +4349,8 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
 
         // ensure that the vehicle is fully on bidi edges that allow reversal
         const int neededFutureRoute = 1 + (int)(MSGlobals::gUsingInternalLanes
-                                                ? myFurtherLanes.size()
-                                                : ceil((double)myFurtherLanes.size() / 2.0));
+                                                ? ceil((double)myFurtherLanes.size() / 2.0)
+                                                : myFurtherLanes.size());
         const int remainingRoute = int(myRoute->end() - myCurrEdge) - 1;
         if (remainingRoute < neededFutureRoute) {
 #ifdef DEBUG_REVERSE_BIDI
