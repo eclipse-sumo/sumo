@@ -1437,6 +1437,9 @@
         <!-- Enable separate queues for every lane -->
         <meso-lane-queue value="false" type="BOOL"/>
 
+        <!-- Only use the lane queues leading to the next edge on segments that end within FLOAT m of the edge end -->
+        <meso-lookahead value="0" type="FLOAT"/>
+
         <!-- Do not build queues (or reduce capacity) for lanes allowing only the given vclasses -->
         <meso-ignore-lanes-by-vclass value="pedestrian,bicycle" synonymes="meso.ignore-lanes.by-vclass" type="STR[]"/>
 
