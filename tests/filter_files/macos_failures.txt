@@ -29,6 +29,9 @@ appdata=polyconvert
 appdata=sumo
 basic/person/scale/individual/scale3
 basic/person/scale/personFlow_number/scale3
+basic/personFlow/walk_poisson
+basic/personFlow/walk_probability
+basic/personFlow/trip_chain
 basic/containerFlow/tranship_probability
 basic/containerFlow/trip_chain
 pedestrian_model/nonInteracting/no_sidewalks
