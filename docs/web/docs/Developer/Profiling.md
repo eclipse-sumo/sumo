@@ -52,4 +52,44 @@ TBD
 
 # Python profiling
 
-TBD
+## Individual methods or code sections
+
+```
+from sumolib.miscutils import Benchmarker, benchmark, benchmark_cumulative
+
+# timing for each invocation of this code section
+with Benchmarker(True, "info text"):
+    your_method()
+    your_method2()
+
+@benchmark
+def method3():
+    ...
+# individual timing for each call of the function
+method3()
+
+@benchmark_cumulative
+def method4():
+    ...
+
+# cumulative timing for all calls of the function
+for i in range(10):
+    method4()
+```
+
+## All Lines of a function
+
+requisite: `pip install line_profiler`
+
+```
+from line_profiler import profile
+
+@profile
+def your_method():
+  ...
+```
+This generates statistics on every line of `your_method` accumulated over all invocations (number of executions, total time, relative time).
+
+call
+`kernprof -l script.py > profiling_info.txt`
+
