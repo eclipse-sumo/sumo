@@ -28,11 +28,11 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="1.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" count="1" time="1.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!v!var#1" state="0" edges="A1B1 B1C1 C1D1"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.06" decel="4.50"/>
     <vType id="car" sigma="0"/>
-    <vehicle id="v" type="car" depart="0.00" departSpeed="avg" route="!v!var#1" distance="0 1" speedFactor="1.0600" reroute="1" state="262162 0 0 0 0 0 6153 0 9223372036854774807 0 0">
+    <vehicle id="v" type="car" depart="0.00" departSpeed="avg" route="!v!var#1" distance="0 1" speedFactor="1.0600" reroute="1" state="262162 0 0 0 0 0 6153 0 9223372036854774807 0 0 0 0 6153">
         <stop lane="B1C1_0" startPos="0.90" endPos="1.00" duration="9223372036854774.807"/>
         <device id="routing_v" state="0 0"/>
     </vehicle>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-16T14:05:11.338847+01:00 by Eclipse SUMO sumo v1_28_0+0111-6cad2727460
+<!-- generated on 2026-10-19T17:27:47.815232+01:00 by Eclipse SUMO sumo v1_28_0+0141-b852030622e
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -38,7 +38,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_28_0+0111-6cad2727460" time="500.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_28_0+0141-b852030622e" count="60" time="500.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="6" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -111,7 +111,7 @@
     <delay number="1" begin="2" end="1" depart="0.00" time="214.00" speedFactor="1.00" decel="4.50"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="busType" speedFactor="normc(1.00,0.00)" sigma="0"/>
-    <vehicle id="bus.1" type="busType" depart="300.00" line="bus" route="!bus.1!var#1" distance="2512.32 1" speedFactor="1.0000" reroute="1" state="295074 300000 4 0 4 0 513597 446214 9223372036854774807 1 2">
+    <vehicle id="bus.1" type="busType" depart="300.00" line="bus" route="!bus.1!var#1" distance="2512.32 1" speedFactor="1.0000" reroute="1" state="295074 300000 4 0 4 0 513597 446214 9223372036854774807 1 2 0 59 513597">
         <stop busStop="beg_0" until="310.00" started="314.39" ended="318.00"/>
         <stop busStop="left_0" until="410.00" started="368.54" ended="414.00"/>
         <stop busStop="end_0" until="510.00" started="446.21"/>
