@@ -3043,6 +3043,8 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
         initJunctionsAndEdges(true);
         // init default vTypes again
         myAttributeCarriers->addDefaultVTypes();
+        // require save network
+        mySavingStatus->requireSaveNetwork();
     } else {
         // insert all junctions of grid again
         for (const auto& junction : myAttributeCarriers->getJunctions()) {
