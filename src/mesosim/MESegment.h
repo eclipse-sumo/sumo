@@ -198,6 +198,12 @@ public:
     /// @brief update entry blockTime for all queues
     virtual void updateEntryBlockTime(SUMOTime /*time*/) {}
 
+    /// @brief model specific queue state (e.g. the gap times of meso-ltm) for saving / loading
+    virtual std::string getQueueExtraState(int /*qIdx*/) const {
+        return "";
+    }
+    virtual void loadQueueExtraState(int /*qIdx*/, const std::string& /*state*/, SUMOTime /*offset*/) {}
+
     /** @brief Inserts (emits) vehicle into the segment
      *
      * @param[in] veh The vehicle to emit

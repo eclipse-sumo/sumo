@@ -40,6 +40,9 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/ToString.h>
 #include "MEVehicle.h"
 #include "MELoop.h"
 #include "MELSegment.h"
@@ -126,6 +129,22 @@ MELSegment::hasSpaceForInsertion(const Queue& q, int qIdx, double /*newOccupancy
         gapTimes.pop_back();
     }
     return q.getOccupancy() + (double)gapTimes.size() * DEFAULT_VEH_LENGTH_WITH_GAP <= myQueueCapacity;
+}
+
+
+std::string
+MELSegment::getQueueExtraState(int qIdx) const {
+    return joinToString(myGapTimes[qIdx], " ");
+}
+
+
+void
+MELSegment::loadQueueExtraState(int qIdx, const std::string& state, SUMOTime offset) {
+    GapTimes& gapTimes = myGapTimes[qIdx];
+    gapTimes.clear();
+    for (const std::string& t : StringTokenizer(state).getVector()) {
+        gapTimes.push_back(StringUtils::toLong(t) - offset);
+    }
 }
 
 
