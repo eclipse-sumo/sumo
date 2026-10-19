@@ -165,7 +165,7 @@ GNEOptionsEditorRow::OptionString::onCmdSetOption(FXObject*, FXSelector, void*) 
     myOptionsEditor->myOptionsContainer.resetWritable();
     // check if reset or set
     if (myStringTextField->getText().text() == myOptionsEditor->myOriginalOptionsContainer.getString(myName)) {
-        myOptionsEditor->myOptionsContainer.resetDefault(myName);
+        myOptionsEditor->myOptionsContainer.setDefault(myName, myStringTextField->getText().text());
     } else {
         myOptionsEditor->myOptionsContainer.set(myName, myStringTextField->getText().text());
     }
@@ -223,7 +223,7 @@ GNEOptionsEditorRow::OptionStringVector::onCmdSetOption(FXObject*, FXSelector, v
     myOptionsEditor->myOptionsContainer.resetWritable();
     // check if reset or set
     if (myStringVectorTextField->getText().text() == myOptionsEditor->myOriginalOptionsContainer.getValueString(myName)) {
-        myOptionsEditor->myOptionsContainer.resetDefault(myName);
+        myOptionsEditor->myOptionsContainer.setDefault(myName, myStringVectorTextField->getText().text());
     } else {
         myOptionsEditor->myOptionsContainer.set(myName, myStringVectorTextField->getText().text());
     }
@@ -297,7 +297,7 @@ GNEOptionsEditorRow::OptionBool::onCmdSetOption(FXObject*, FXSelector, void*) {
     // check if reset or set
     const bool check = myCheckButton->getCheck() == TRUE;
     if (check == myOptionsEditor->myOriginalOptionsContainer.getBool(myName)) {
-        myOptionsEditor->myOptionsContainer.resetDefault(myName);
+        myOptionsEditor->myOptionsContainer.setDefault(myName, check ? "true" : "false");
     } else if (check) {
         myOptionsEditor->myOptionsContainer.set(myName, "true");
     } else {
@@ -385,7 +385,7 @@ GNEOptionsEditorRow::OptionInt::onCmdSetOption(FXObject*, FXSelector, void*) {
         myOptionsEditor->myOptionsContainer.resetWritable();
         // check if reset or set
         if (myIntTextField->getText().text() == myOptionsEditor->myOriginalOptionsContainer.getValueString(myName)) {
-            myOptionsEditor->myOptionsContainer.resetDefault(myName);
+            myOptionsEditor->myOptionsContainer.setDefault(myName, myIntTextField->getText().text());
         } else {
             myOptionsEditor->myOptionsContainer.set(myName, myIntTextField->getText().text());
         }
@@ -453,8 +453,8 @@ GNEOptionsEditorRow::OptionIntVector::onCmdSetOption(FXObject*, FXSelector, void
         }
         myOptionsEditor->myOptionsContainer.resetWritable();
         // check if reset or set
-        if (myIntVectorTextField->getText().text() == myOptionsEditor->myOriginalOptionsContainer.getString(myName)) {
-            myOptionsEditor->myOptionsContainer.resetDefault(myName);
+        if (myIntVectorTextField->getText().text() == myOptionsEditor->myOriginalOptionsContainer.getValueString(myName)) {
+            myOptionsEditor->myOptionsContainer.setDefault(myName, myIntVectorTextField->getText().text());
         } else {
             myOptionsEditor->myOptionsContainer.set(myName, myIntVectorTextField->getText().text());
         }
@@ -524,7 +524,7 @@ GNEOptionsEditorRow::OptionFloat::onCmdSetOption(FXObject*, FXSelector, void*) {
         myOptionsEditor->myOptionsContainer.resetWritable();
         // check if reset or set
         if (myFloatTextField->getText().text() == myOptionsEditor->myOriginalOptionsContainer.getValueString(myName)) {
-            myOptionsEditor->myOptionsContainer.resetDefault(myName);
+            myOptionsEditor->myOptionsContainer.setDefault(myName, myFloatTextField->getText().text());
         } else {
             myOptionsEditor->myOptionsContainer.set(myName, myFloatTextField->getText().text());
         }
@@ -601,7 +601,7 @@ GNEOptionsEditorRow::OptionTime::onCmdSetOption(FXObject*, FXSelector, void*) {
         myOptionsEditor->myOptionsContainer.resetWritable();
         // check if reset or set
         if (myTimeTextField->getText().text() == myOptionsEditor->myOriginalOptionsContainer.getValueString(myName)) {
-            myOptionsEditor->myOptionsContainer.resetDefault(myName);
+            myOptionsEditor->myOptionsContainer.setDefault(myName, myTimeTextField->getText().text());
         } else {
             myOptionsEditor->myOptionsContainer.set(myName, myTimeTextField->getText().text());
         }
@@ -702,7 +702,7 @@ GNEOptionsEditorRow::OptionFilename::onCmdSetOption(FXObject*, FXSelector, void*
         myOptionsEditor->myOptionsContainer.resetWritable();
         // check if reset or set
         if (myFilenameTextField->getText().text() == myOptionsEditor->myOriginalOptionsContainer.getValueString(myName)) {
-            myOptionsEditor->myOptionsContainer.resetDefault(myName);
+            myOptionsEditor->myOptionsContainer.setDefault(myName, myFilenameTextField->getText().text());
         } else {
             myOptionsEditor->myOptionsContainer.set(myName, myFilenameTextField->getText().text());
         }

@@ -195,6 +195,9 @@ Option::resetWritable() {
 void
 Option::resetDefault() {
     myHaveTheDefaultValue = true;
+    if (myValueString.empty()) {
+        myAmSet = false;
+    }
 }
 
 
