@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-28T13:26:48.504676+01:00 by Eclipse SUMO netconvert v1_27_1+0788-b04dbbe6fbc
+<!-- generated on 2026-10-19T13:28:42.651500+01:00 by Eclipse SUMO netconvert v1_28_0+0133-542dee45494
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tlLogics version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
-    <tlLogic id="joinedS_0" type="actuated" programID="0" offset="0" nodes="3246050928 583899005 cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" pos="13.54,52.43 13.54,52.43 13.54,52.43">
+    <tlLogic id="joinedS_0" type="actuated" programID="0" offset="0" nodes="3246050928 583899005 cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" pos="13.538630,52.434293 13.538419,52.434420 13.538829,52.434418">
         <phase duration="18" state="rrGGGGGggggrrrrrrrrrrrrrGGrrrrrr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rryyyyyggggrrrrrrrrrrrrryyrrrrrr"/>
         <phase duration="6"  state="rrrrrrrGGGGrrrrrrrrrrrrrrrrrrrrr" minDur="5" maxDur="50"/>
