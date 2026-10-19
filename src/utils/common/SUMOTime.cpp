@@ -138,7 +138,8 @@ time2string(SUMOTime t, bool humanReadable) {
     if ((int)fraction.size() < width) {
         result.append(width - (int)fraction.size(), '0');
     }
-    return result + fraction;
+    result += fraction;
+    return result;
 }
 
 
