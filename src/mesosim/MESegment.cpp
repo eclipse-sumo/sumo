@@ -874,7 +874,7 @@ MESegment::loadState(const std::vector<SUMOVehicle*>& vehs, const SUMOTime block
         // add the last vehicle of this queue
         // !!! one question - what about the previously added vehicle? Is it stored twice?
         MEVehicle* veh = q.getVehicles().back();
-        MSGlobals::gMesoNet->addLeaderCar(veh, getLink(veh));
+        MSGlobals::gMesoNet->addLeaderCar(veh, getLink(veh), true);
     }
     q.setBlockTime(blockTime);
     q.setEntryBlockTime(entryBlockTime);

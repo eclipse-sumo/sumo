@@ -135,6 +135,9 @@ private:
     /// @brief vehicles that were removed when loading state
     int myRemoved;
 
+    /// @brief the loaded counter of meso leader events (-1 if not given)
+    long long int myMesoEventCounter;
+
     /// @brief index of the currently parse flowState
     int myFlowIndex;
 

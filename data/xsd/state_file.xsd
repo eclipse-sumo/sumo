@@ -33,6 +33,7 @@
             <xsd:attribute name="type" type="xsd:string"/>
             <xsd:attribute name="constraints" type="boolType"/>
             <xsd:attribute name="rail" type="boolType"/>
+            <xsd:attribute name="count" type="xsd:long"/>
         </xsd:complexType>
     </xsd:element>
 

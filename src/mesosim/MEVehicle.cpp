@@ -56,6 +56,7 @@ MEVehicle::MEVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
     mySegment(nullptr),
     myQueIndex(0),
     myEventTime(SUMOTime_MIN),
+    myEventIndex(-1),
     myLastEntryTime(SUMOTime_MIN),
     myBlockTime(SUMOTime_MAX),
     myWasJammed(false),
@@ -604,6 +605,7 @@ MEVehicle::saveState(OutputDevice& out) {
     internals.push_back(isStopped());
     internals.push_back(myPastStops.size());
     internals.push_back(myWasJammed);
+    internals.push_back(myEventIndex);
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     // save past stops
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
@@ -656,6 +658,7 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> stopped;
     bis >> pastStops;
     bis >> myWasJammed;
+    bis >> myEventIndex;
     myDepartPos /= 1000.; // was stored as mm
 
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS_RANDOMIZED)) {
@@ -692,14 +695,14 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
             }
             setSegment(seg, queIndex);
             if (queIndex == MESegment::PARKING_QUEUE) {
-                MSGlobals::gMesoNet->addLeaderCar(this, nullptr);
+                MSGlobals::gMesoNet->addLeaderCar(this, nullptr, true);
                 getCurrentEdge()->getLanes()[0]->addParking(this);
             }
         } else {
             // on teleport
             setSegment(nullptr, 0);
             assert(myEventTime != SUMOTime_MIN);
-            MSGlobals::gMesoNet->addLeaderCar(this, nullptr);
+            MSGlobals::gMesoNet->addLeaderCar(this, nullptr, true);
         }
         // see MSBaseVehicle constructor
         if (myParameter->wasSet(VEHPARS_FORCE_REROUTE)) {
