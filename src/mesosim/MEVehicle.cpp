@@ -59,6 +59,7 @@ MEVehicle::MEVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
     myEventIndex(-1),
     myLastEntryTime(SUMOTime_MIN),
     myBlockTime(SUMOTime_MAX),
+    myUnqueuedEventTime(SUMOTime_MIN),
     myWasJammed(false),
     myInfluencer(nullptr) {
 }
@@ -606,6 +607,7 @@ MEVehicle::saveState(OutputDevice& out) {
     internals.push_back(myPastStops.size());
     internals.push_back(myWasJammed);
     internals.push_back(myEventIndex);
+    internals.push_back(myUnqueuedEventTime);
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     // save past stops
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
@@ -659,6 +661,7 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> pastStops;
     bis >> myWasJammed;
     bis >> myEventIndex;
+    bis >> myUnqueuedEventTime;
     myDepartPos /= 1000.; // was stored as mm
 
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS_RANDOMIZED)) {
@@ -711,6 +714,9 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     }
     if (myBlockTime != SUMOTime_MAX) {
         myBlockTime -= offset;
+    }
+    if (myUnqueuedEventTime != SUMOTime_MIN) {
+        myUnqueuedEventTime -= offset;
     }
     std::istringstream dis(attrs.getString(SUMO_ATTR_DISTANCE));
     dis >> myOdometer >> myNumberReroutes;

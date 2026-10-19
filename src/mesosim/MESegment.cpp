@@ -829,19 +829,24 @@ MESegment::getEventTime() const {
 void
 MESegment::saveState(OutputDevice& out) const {
     bool write = false;
-    for (const Queue& q : myQueues) {
-        if (q.getBlockTime() != -1 || !q.getVehicles().empty()) {
+    for (int i = 0; i < (int)myQueues.size(); i++) {
+        if (myQueues[i].getBlockTime() != -1 || !myQueues[i].getVehicles().empty() || getQueueExtraState(i) != "") {
             write = true;
             break;
         }
     }
     if (write) {
         out.openTag(SUMO_TAG_SEGMENT).writeAttr(SUMO_ATTR_ID, getID());
-        for (const Queue& q : myQueues) {
+        for (int i = 0; i < (int)myQueues.size(); i++) {
+            const Queue& q = myQueues[i];
             out.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES);
             out.writeAttr(SUMO_ATTR_TIME, toString<SUMOTime>(q.getBlockTime()));
             out.writeAttr(SUMO_ATTR_BLOCKTIME, toString<SUMOTime>(q.getEntryBlockTime()));
             out.writeAttr(SUMO_ATTR_VALUE, q.getVehicles());
+            const std::string extra = getQueueExtraState(i);
+            if (extra != "") {
+                out.writeAttr(SUMO_ATTR_STATE, extra);
+            }
             out.closeTag();
         }
         out.closeTag();

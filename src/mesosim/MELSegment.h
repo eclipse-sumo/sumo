@@ -69,6 +69,10 @@ public:
     /// @brief update entry blockTime for all queues
     void updateEntryBlockTime(SUMOTime time) override; 
 
+    /// @brief the gap times of the given queue for saving / loading
+    std::string getQueueExtraState(int qIdx) const override;
+    void loadQueueExtraState(int qIdx, const std::string& state, SUMOTime offset) override;
+
 protected:
     /// @brief compute current headway depending on traffic state
     SUMOTime computeHeadway(Queue& q, const Queue& qNext, const MESegment* const next, const MEVehicle* veh) const override;
