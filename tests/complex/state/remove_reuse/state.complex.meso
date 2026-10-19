@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-16T14:05:13.065690+01:00 by Eclipse SUMO sumo v1_28_0+0111-6cad2727460
+<!-- generated on 2026-10-19T17:28:04.652607+01:00 by Eclipse SUMO sumo v1_28_0+0141-b852030622e
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -31,11 +31,11 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_28_0+0111-6cad2727460" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_28_0+0141-b852030622e" count="6" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!0" state="0" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.06" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE"/>
-    <vehicle id="0" depart="0.00" departPos="100.00" departSpeed="10.00" route="!0" distance="400 0" speedFactor="1.0600" state="24 0 1 0 1 0 56604 47170 9223372036854774807 0 0">
+    <vehicle id="0" depart="0.00" departPos="100.00" departSpeed="10.00" route="!0" distance="400 0" speedFactor="1.0600" state="24 0 1 0 1 0 56604 47170 9223372036854774807 0 0 0 5 56604">
         <device id="vehroute_0" state="10.60 0.00 -1.00 0"/>
         <rem id="vehroute_0" time="47170" pos="100.00"/>
     </vehicle>
