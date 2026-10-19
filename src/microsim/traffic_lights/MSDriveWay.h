@@ -288,7 +288,7 @@ protected:
     /* @brief find upstream protection from the given link
      * @param[out] flank: the stored flank lanes
      */
-    void findFlankProtection(MSLink* link, MSLink* origLink, std::vector<const MSLane*>& flank);
+    void findFlankProtection(MSLink* link, MSLink* origLink, const std::vector<const MSLane*>& flank);
 
     /// @brief add all driveWays that start at the given link as foes
     void addFoes(const MSLink* link);

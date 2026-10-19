@@ -1313,7 +1313,7 @@ MSDriveWay::checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited, s
 }
 
 void
-MSDriveWay::findFlankProtection(MSLink* link, MSLink* origLink, std::vector<const MSLane*>& flank) {
+MSDriveWay::findFlankProtection(MSLink* link, MSLink* origLink, const std::vector<const MSLane*>& flank) {
 #ifdef DEBUG_CHECK_FLANKS
     if (gDebugFlag4) {
         std::cout << "  findFlankProtection link=" << link->getDescription() << " origLink=" << origLink->getDescription() << "\n";
