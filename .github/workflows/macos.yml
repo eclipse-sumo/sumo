@@ -40,6 +40,11 @@ jobs:
       with:
         key: ${{ matrix.os }}
 
+    - name: Configuring Python
+      uses: actions/setup-python@v7
+      with:
+        python-version: 3.14
+
     - name: Installing dependencies
       run: sumo/build_config/install_dependencies.sh
 
