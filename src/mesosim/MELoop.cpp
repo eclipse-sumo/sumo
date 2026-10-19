@@ -298,7 +298,10 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment, bool disconn
 
 
 void
-MELoop::addLeaderCar(MEVehicle* veh, MSLink* link) {
+MELoop::addLeaderCar(MEVehicle* veh, MSLink* link, const bool fromState) {
+    if (!fromState) {
+        veh->setEventIndex(LeaderEvent::myEventCounter++);
+    }
     myLeaderCars.push(LeaderEvent(veh));
     veh->setApproaching(link);
 }
@@ -420,7 +423,7 @@ MELoop::isEnteringRoundabout(const MSEdge& e) {
 
 MELoop::LeaderEvent::LeaderEvent(MEVehicle* v):
     time(v->getEventTime()),
-    eventIndex(myEventCounter++),
+    eventIndex(v->getEventIndex()),
     nid(v->getNumericalID()),
     veh(v) { }
 
