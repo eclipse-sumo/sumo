@@ -1,5 +1,5 @@
 nodes_version,location_netOffset,location_convBoundary,location_origBoundary,location_projParameter,node_id,node_x,node_y,node_type,node_tl,node_tlType,node_controlledInner,node_shape,node_radius,node_keepClear,node_rightOfWay,node_fringe,node_roundabout,node_name,param_key,param_value
-1.20,"-395408.93,-5809112.45","0.00,0.00,5580.65,3531.77","13.46,52.42,13.54,52.45",+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs,,,,,,,,,,,,,,,,
+1.20,"-395408.93,-5809112.45","0.00,0.00,5580.65,3531.77","13.460807,52.423029,13.543874,52.453954",+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs,,,,,,,,,,,,,,,,
 1.20,,,,,1292264830,4422.9900,509.3100,priority,,,,,,,,,,,,
 1.20,,,,,1292264836,4486.5000,500.8500,right_before_left,,,,,,,,,,,,
 1.20,,,,,1292264851,4528.3000,399.6100,priority,,,,,,,,,,,,
