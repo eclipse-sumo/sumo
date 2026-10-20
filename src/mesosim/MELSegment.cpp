@@ -71,7 +71,9 @@ MELSegment::MELSegment(const std::string& id,
                        const int idx,
                        const bool multiQueue,
                        const MesoEdgeType& edgeType):
-    MESegment(id, parent, next, length, speed, idx, multiQueue, edgeType) {
+    MESegment(id, parent, next, length, speed, idx, multiQueue, edgeType),
+    // the gap only has to pass the vehicles that fit into the segment (the remaining length cannot be occupied)
+    myJamLength(MAX2(1., floor(length / DEFAULT_VEH_LENGTH_WITH_GAP)) * DEFAULT_VEH_LENGTH_WITH_GAP) {
     myGapTimes.resize(myQueues.size());
 }
 
@@ -101,7 +103,7 @@ MELSegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMO
     // record time when the gap vacated by ego will reach the upstream end of the segment
     // gaps travel quickly in free flow (the number of gaps and vehicles stays below the segment capacity)
     // but they travel more slowly when queued (startupDelay)
-    gapTimes.insert(gapTimes.begin(), time + (SUMOTime)(myLength * (double)(veh->getQueuingTimeLoss() > 0 ? myTau_jj : myTau_ff) / DEFAULT_VEH_LENGTH_WITH_GAP));
+    gapTimes.insert(gapTimes.begin(), time + (SUMOTime)(myJamLength * (double)(veh->getQueuingTimeLoss() > 0 ? myTau_jj : myTau_ff) / DEFAULT_VEH_LENGTH_WITH_GAP));
     MESegment::send(veh, next, nextQIdx, time, reason);
 }
 
