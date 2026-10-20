@@ -110,25 +110,29 @@ void
 MELSegment::updateEntryBlockTime(SUMOTime time) {
     for (int qIdx = 0; qIdx < (int)myQueues.size(); qIdx++) {
         Queue& q = myQueues[qIdx];
-        GapTimes& gapTimes = myGapTimes[qIdx];
-        while (!gapTimes.empty() && gapTimes.back() <= time) {
-            gapTimes.pop_back();
-        }
-        if (!gapTimes.empty() && q.getOccupancy() + (double)gapTimes.size() * DEFAULT_VEH_LENGTH_WITH_GAP > myQueueCapacity) {
+        const int numGaps = numTravelingGaps(qIdx, time);
+        // the entering vehicle needs space in addition to the vehicles and the traveling gaps
+        if (numGaps > 0 && q.getOccupancy() + (double)(numGaps + 1) * DEFAULT_VEH_LENGTH_WITH_GAP > myQueueCapacity) {
             // segment is jammed because the empty spaces have not yet reached the upstream end.
-            q.setEntryBlockTime(MAX2(q.getEntryBlockTime(), gapTimes.back()));
+            q.setEntryBlockTime(MAX2(q.getEntryBlockTime(), myGapTimes[qIdx].back()));
         }
     }
 }
 
 
 bool
-MELSegment::hasSpaceForInsertion(const Queue& q, int qIdx, double /*newOccupancy*/, SUMOTime entryTime) const {
+MELSegment::hasSpaceForInsertion(const Queue& /*q*/, int qIdx, double newOccupancy, SUMOTime entryTime) const {
+    return newOccupancy + (double)numTravelingGaps(qIdx, entryTime) * DEFAULT_VEH_LENGTH_WITH_GAP <= myQueueCapacity;
+}
+
+
+int
+MELSegment::numTravelingGaps(int qIdx, SUMOTime time) const {
     GapTimes& gapTimes = const_cast<GapTimes&>(myGapTimes[qIdx]);
-    while (!gapTimes.empty() && gapTimes.back() <= entryTime) {
+    while (!gapTimes.empty() && gapTimes.back() <= time) {
         gapTimes.pop_back();
     }
-    return q.getOccupancy() + (double)gapTimes.size() * DEFAULT_VEH_LENGTH_WITH_GAP <= myQueueCapacity;
+    return (int)gapTimes.size();
 }
 
 
