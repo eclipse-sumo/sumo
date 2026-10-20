@@ -29,6 +29,7 @@
 #include <list>
 #ifdef HAVE_FMT
 #include <fmt/format.h>
+#include <fmt/ranges.h>
 #endif
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -330,6 +331,9 @@ template <typename T_BETWEEN>
 inline std::string joinToString(const std::vector<std::string>& v, const T_BETWEEN& between, std::streamsize accuracy = gPrecision) {
     // strings need no formatting, so concatenate directly
     const std::string separator = toString(between, accuracy);
+#ifdef HAVE_FMT
+    return fmt::format("{}", fmt::join(v, separator));
+#else
     std::string::size_type size = 0;
     for (const std::string& s : v) {
         size += s.size() + separator.size();
@@ -346,6 +350,7 @@ inline std::string joinToString(const std::vector<std::string>& v, const T_BETWE
         result += s;
     }
     return result;
+#endif
 }
 
 

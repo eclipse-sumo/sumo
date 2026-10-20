@@ -25,6 +25,9 @@
 #include <sstream>
 #include <iostream>
 #include <iomanip>
+#ifdef HAVE_FMT
+#include <fmt/format.h>
+#endif
 #include "SUMOTime.h"
 #include "StringTokenizer.h"
 #include "StringUtils.h"
@@ -131,14 +134,20 @@ time2string(SUMOTime t, bool humanReadable) {
     }
     // build the plain format without a string stream, it is written for every time value in the outputs
     std::string result = negative ? "-" : "";
+#ifdef HAVE_FMT
+    result += fmt::format_int(t / second).c_str();
+    result += '.';
+    const fmt::format_int fraction(t % second);
+#else
     result += std::to_string(t / second);
     result += '.';
     const std::string fraction = std::to_string(t % second);
+#endif
     const int width = MIN2(3, gPrecision);
     if ((int)fraction.size() < width) {
         result.append(width - (int)fraction.size(), '0');
     }
-    result += fraction;
+    result.append(fraction.data(), fraction.size());
     return result;
 }
 
