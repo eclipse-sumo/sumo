@@ -547,6 +547,11 @@ protected:
     /// @brief check jam-avoidance constraints during insertion
     virtual bool hasSpaceForInsertion(const Queue& q, int qIdx, double newOccupancy, SUMOTime entryTime) const;
 
+    /// @brief whether space vacated by vehicles that left the given queue has not yet reached the upstream end
+    virtual bool hasTravelingGaps(int /*qIdx*/, SUMOTime /*time*/) const {
+        return false;
+    }
+
 protected:
     /// @brief The microsim edge this segment belongs to
     const MSEdge& myEdge;
