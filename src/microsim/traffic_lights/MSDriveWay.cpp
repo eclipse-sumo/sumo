@@ -797,12 +797,11 @@ MSDriveWay::flankConflict(const MSDriveWay& other) const {
                 }
             }
         }
-        for (const MSLane* lane2 : other.myBidiExtended) {
-            if (lane == lane2) {
-                if (bidiBlockedBy(other)) {
-                    // it's only a deadlock if both trains block symmetrically
-                    return true;
-                }
+        auto it = std::lower_bound(other.myBidiExtendedSorted.begin(), other.myBidiExtendedSorted.end(), lane);
+        if (it != other.myBidiExtendedSorted.end() && *it == lane) {
+            if (bidiBlockedBy(other)) {
+                // it's only a deadlock if both trains block symmetrically
+                return true;
             }
         }
     }
@@ -860,15 +859,16 @@ MSDriveWay::bidiBlockedBy(const MSDriveWay& other) const {
             }
         }
     }
-    for (const MSLane* lane : myBidiExtended) {
-        for (const MSLane* lane2 : other.myForward) {
-            if (lane == lane2) {
-                if (overlap(other)) {
-                    return true;
-                }
+
+    for (const MSLane* lane2 : other.myForward) {
+        auto it = std::lower_bound(myBidiExtendedSorted.begin(), myBidiExtendedSorted.end(), lane2);
+        if (it != myBidiExtendedSorted.end() && *it == lane2) {
+            if (overlap(other)) {
+                return true;
             }
         }
     }
+
     return false;
 }
 
@@ -881,11 +881,10 @@ MSDriveWay::bidiBlockedByEnd(const MSDriveWay& other) const {
             return true;
         }
     }
-    for (const MSLane* lane : myBidiExtended) {
-        if (lane == end) {
-            if (overlap(other)) {
-                return true;
-            }
+    auto it = std::lower_bound(myBidiExtendedSorted.begin(), myBidiExtendedSorted.end(), end);
+    if (it != myBidiExtendedSorted.end() && *it == end) {
+        if (overlap(other)) {
+            return true;
         }
     }
     return false;
@@ -1450,6 +1449,8 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     gDebugFlag4 = DEBUG_COND_DW(dw);
 #endif
     dw->buildRoute(link, first, end, visited, flankSwitches);
+    dw->myBidiExtendedSorted.assign(dw->myBidiExtended.begin(), dw->myBidiExtended.end());
+    std::sort(dw->myBidiExtendedSorted.begin(), dw->myBidiExtendedSorted.end());
     dw->myCoreSize = (int)dw->myRoute.size();
 
     MSRailSignal* rs = link ? const_cast<MSRailSignal*>(static_cast<const MSRailSignal*>(link->getTLLogic())) : nullptr;
@@ -1934,6 +1935,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         tmp.myForward.push_back(lane);
         tmp.myBidi = myBidi;
         tmp.myBidiExtended = myBidiExtended;
+        tmp.myBidiExtendedSorted = myBidiExtendedSorted;
         tmp.myRoute.push_back(lane->getNextNormal());
         tmp.myCoreSize = 1;
         flankC = tmp.flankConflict(*foe);

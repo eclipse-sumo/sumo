@@ -239,6 +239,7 @@ protected:
     /* @brief the list of bidirectional edges that can enter the forward
      * section and which might contain deadlock-relevant traffic */
     std::vector<const MSLane*> myBidiExtended;
+    std::vector<const MSLane*> myBidiExtendedSorted;
 
     /* @brief the list of edges that merge with the forward section
      * (found via backward search, up to the first element that could give protection) */
