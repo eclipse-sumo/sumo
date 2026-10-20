@@ -126,6 +126,12 @@ MELSegment::hasSpaceForInsertion(const Queue& /*q*/, int qIdx, double newOccupan
 }
 
 
+bool
+MELSegment::hasTravelingGaps(int qIdx, SUMOTime time) const {
+    return numTravelingGaps(qIdx, time) > 0;
+}
+
+
 int
 MELSegment::numTravelingGaps(int qIdx, SUMOTime time) const {
     GapTimes& gapTimes = const_cast<GapTimes&>(myGapTimes[qIdx]);

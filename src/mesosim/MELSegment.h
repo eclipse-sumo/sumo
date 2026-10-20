@@ -80,6 +80,9 @@ protected:
     /// @brief check jam-avoidance constraints during insertion
     bool hasSpaceForInsertion(const Queue& q, int qIdx, double newOccupancy, SUMOTime entryTime) const override;
 
+    /// @brief whether space vacated by vehicles that left the given queue has not yet reached the upstream end
+    bool hasTravelingGaps(int qIdx, SUMOTime time) const override;
+
 private:
     /// @brief discard gaps that reached the upstream end until the given time and return the number of remaining gaps
     int numTravelingGaps(int qIdx, SUMOTime time) const;
