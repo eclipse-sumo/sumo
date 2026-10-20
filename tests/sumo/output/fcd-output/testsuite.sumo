@@ -7,6 +7,12 @@ cartesian
 # output fcd data in geo-coordinates
 geo
 
+# output fcd data in geo-coordinates
+geo_csv
+
+# output fcd data in geo-coordinates
+geo_parquet
+
 # output fcd data in utm-coordinates
 utm
 
