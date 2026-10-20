@@ -81,6 +81,9 @@ protected:
     bool hasSpaceForInsertion(const Queue& q, int qIdx, double newOccupancy, SUMOTime entryTime) const override;
 
 private:
+    /// @brief discard gaps that reached the upstream end until the given time and return the number of remaining gaps
+    int numTravelingGaps(int qIdx, SUMOTime time) const;
+
     /// @brief upstream arrival times of traveling gaps between cars (for each queue)
     // @note: could be slightly faster as a double-index ring-buffer
     typedef std::vector<SUMOTime> GapTimes;
