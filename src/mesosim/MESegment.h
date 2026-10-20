@@ -578,6 +578,11 @@ protected:
     /// @brief check jam-avoidance constraints during insertion
     virtual bool hasSpaceForInsertion(const Queue& q, int qIdx, double newOccupancy, SUMOTime entryTime) const;
 
+    /// @brief whether space vacated by vehicles that left the given queue has not yet reached the upstream end
+    virtual bool hasTravelingGaps(int /*qIdx*/, SUMOTime /*time*/) const {
+        return false;
+    }
+
     /// @brief the (distance, depth) pairs at which a downstream edge was searched with a given lane reach
     typedef std::map<std::pair<const MSEdge*, std::vector<int> >, std::vector<std::pair<double, int> > > SearchedMap;
 
