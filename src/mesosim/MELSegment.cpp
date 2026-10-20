@@ -71,7 +71,7 @@ MELSegment::MELSegment(const std::string& id,
     MESegment(id, parent, next, length, speed, idx, multiQueue, edgeType),
     // the gap only has to pass the vehicles that fit into the segment (the remaining length cannot be occupied)
     myJamLength(MAX2(1., floor(length / DEFAULT_VEH_LENGTH_WITH_GAP)) * DEFAULT_VEH_LENGTH_WITH_GAP) {
-    myGapTimes.resize(myQueues.size());
+    myGaps.resize(myQueues.size());
 }
 
 
@@ -96,11 +96,14 @@ MELSegment::computeHeadway(Queue& /*q*/, const Queue& /*qNext*/, const MESegment
 
 void
 MELSegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOTime time, const MSMoveReminder::Notification reason) {
-    GapTimes& gapTimes = myGapTimes[veh->getQueIndex()];
+    Gaps& gaps = myGaps[veh->getQueIndex()];
     // record time when the gap vacated by ego will reach the upstream end of the segment
     // gaps travel quickly in free flow (the number of gaps and vehicles stays below the segment capacity)
     // but they travel more slowly when queued (startupDelay)
-    gapTimes.insert(gapTimes.begin(), time + (SUMOTime)(myJamLength * (double)(veh->getQueuingTimeLoss() > 0 ? myTau_jj : myTau_ff) / DEFAULT_VEH_LENGTH_WITH_GAP));
+    const bool queued = veh->getQueuingTimeLoss() > 0;
+    myEdge.lock(); // the gui reads the gaps when drawing vehicles
+    gaps.insert(gaps.begin(), {time + (SUMOTime)(myJamLength * (double)(queued ? myTau_jj : myTau_ff) / DEFAULT_VEH_LENGTH_WITH_GAP), time, queued});
+    myEdge.unlock();
     MESegment::send(veh, next, nextQIdx, time, reason);
 }
 
@@ -113,7 +116,7 @@ MELSegment::updateEntryBlockTime(SUMOTime time) {
         // the entering vehicle needs space in addition to the vehicles and the traveling gaps
         if (numGaps > 0 && q.getOccupancy() + (double)(numGaps + 1) * DEFAULT_VEH_LENGTH_WITH_GAP > myQueueCapacity) {
             // segment is jammed because the empty spaces have not yet reached the upstream end.
-            q.setEntryBlockTime(MAX2(q.getEntryBlockTime(), myGapTimes[qIdx].back()));
+            q.setEntryBlockTime(MAX2(q.getEntryBlockTime(), myGaps[qIdx].back().arrival));
         }
     }
 }
@@ -131,13 +134,31 @@ MELSegment::hasTravelingGaps(int qIdx, SUMOTime time) const {
 }
 
 
+double
+MELSegment::getMinDistanceToEnd(int qIdx, double lengthAhead, double distToEnd, SUMOTime time) const {
+    // a queued vehicle may only move into the space vacated by a departing vehicle once the start wave has reached it
+    const double distFraction = MIN2(1., distToEnd / myJamLength);
+    int waveNotArrived = 0;
+    for (const Gap& gap : myGaps[qIdx]) {
+        if (gap.queued && gap.departure + (SUMOTime)((double)(gap.arrival - gap.departure) * distFraction) > time) {
+            waveNotArrived++;
+        }
+    }
+    return (lengthAhead + (double)waveNotArrived * DEFAULT_VEH_LENGTH_WITH_GAP) * myLength / myQueueCapacity;
+}
+
+
 int
 MELSegment::numTravelingGaps(int qIdx, SUMOTime time) const {
-    GapTimes& gapTimes = const_cast<GapTimes&>(myGapTimes[qIdx]);
-    while (!gapTimes.empty() && gapTimes.back() <= time) {
-        gapTimes.pop_back();
+    Gaps& gaps = const_cast<Gaps&>(myGaps[qIdx]);
+    if (!gaps.empty() && gaps.back().arrival <= time) {
+        myEdge.lock(); // the gui reads the gaps when drawing vehicles
+        while (!gaps.empty() && gaps.back().arrival <= time) {
+            gaps.pop_back();
+        }
+        myEdge.unlock();
     }
-    return (int)gapTimes.size();
+    return (int)gaps.size();
 }
 
 
