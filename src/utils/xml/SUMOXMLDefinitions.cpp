@@ -145,6 +145,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "stopLane",                               GNE_TAG_STOP_LANE },
     { "polygonType",                            SUMO_TAG_POLYTYPE },
     { "connection",                             SUMO_TAG_CONNECTION },
+    { "prohibitedConnection",                   SUMO_TAG_PROHIBITED_CONNECTION },
     { "conflict",                               SUMO_TAG_CONFLICT },
     { "prohibition",                            SUMO_TAG_PROHIBITION },
     { "split",                                  SUMO_TAG_SPLIT },
