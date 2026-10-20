@@ -87,6 +87,9 @@ private:
     /// @brief discard gaps that reached the upstream end until the given time and return the number of remaining gaps
     int numTravelingGaps(int qIdx, SUMOTime time) const;
 
+    /// @brief the length of a segment filled with jammed (default) vehicles
+    const double myJamLength;
+
     /// @brief upstream arrival times of traveling gaps between cars (for each queue)
     // @note: could be slightly faster as a double-index ring-buffer
     typedef std::vector<SUMOTime> GapTimes;
