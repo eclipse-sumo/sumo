@@ -22,9 +22,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <sstream>
 #include <iostream>
-#include <iomanip>
 #ifdef HAVE_FMT
 #include <fmt/format.h>
 #endif
@@ -90,6 +88,21 @@ isTime(const std::string& r) {
 }
 
 
+// append the digits of value, padded with leading zeros to the given width
+static void
+appendPadded(std::string& result, SUMOTime value, int width) {
+#ifdef HAVE_FMT
+    const fmt::format_int digits(value);
+#else
+    const std::string digits = std::to_string(value);
+#endif
+    if ((int)digits.size() < width) {
+        result.append(width - (int)digits.size(), '0');
+    }
+    result.append(digits.data(), digits.size());
+}
+
+
 std::string
 time2string(SUMOTime t, bool humanReadable) {
     const bool negative = t < 0;
@@ -105,49 +118,34 @@ time2string(SUMOTime t, bool humanReadable) {
         }
     }
     const SUMOTime second = TIME2STEPS(1) / scale;
+    std::string result = negative ? "-" : "";
     if (humanReadable) {
-        std::ostringstream oss;
-        if (negative) {
-            oss << "-";
-        }
         const SUMOTime minute = 60 * second;
         const SUMOTime hour = 60 * minute;
         const SUMOTime day = 24 * hour;
         // 123456 -> "00:00:12.34"
         if (t > day) {
-            oss << t / day << ":";
+            appendPadded(result, t / day, 0);
+            result += ':';
             t %= day;
         }
-        oss << std::setfill('0') << std::setw(2);
-        oss << t / hour << ":";
+        appendPadded(result, t / hour, 2);
+        result += ':';
         t %= hour;
-        oss << std::setw(2) << t / minute << ":";
+        appendPadded(result, t / minute, 2);
+        result += ':';
         t %= minute;
-        oss << std::setw(2) << t / second;
+        appendPadded(result, t / second, 2);
         t %= second;
         if (t != 0 || TS < 1.) {
-            oss << ".";
-            oss << std::setw(MIN2(3, gPrecision));
-            oss << t;
+            result += '.';
+            appendPadded(result, t, MIN2(3, gPrecision));
         }
-        return oss.str();
+        return result;
     }
-    // build the plain format without a string stream, it is written for every time value in the outputs
-    std::string result = negative ? "-" : "";
-#ifdef HAVE_FMT
-    result += fmt::format_int(t / second).c_str();
+    appendPadded(result, t / second, 0);
     result += '.';
-    const fmt::format_int fraction(t % second);
-#else
-    result += std::to_string(t / second);
-    result += '.';
-    const std::string fraction = std::to_string(t % second);
-#endif
-    const int width = MIN2(3, gPrecision);
-    if ((int)fraction.size() < width) {
-        result.append(width - (int)fraction.size(), '0');
-    }
-    result.append(fraction.data(), fraction.size());
+    appendPadded(result, t % second, MIN2(3, gPrecision));
     return result;
 }
 
