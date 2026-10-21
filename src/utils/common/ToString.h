@@ -327,31 +327,13 @@ inline std::string joinToString(const std::vector<T>& v, const T_BETWEEN& betwee
 }
 
 
+#ifdef HAVE_FMT
+// without fmt, vectors of strings use the generic version above
 template <typename T_BETWEEN>
 inline std::string joinToString(const std::vector<std::string>& v, const T_BETWEEN& between, std::streamsize accuracy = gPrecision) {
-    // strings need no formatting, so concatenate directly
-    const std::string separator = toString(between, accuracy);
-#ifdef HAVE_FMT
-    return fmt::format("{}", fmt::join(v, separator));
-#else
-    std::string::size_type size = 0;
-    for (const std::string& s : v) {
-        size += s.size() + separator.size();
-    }
-    std::string result;
-    result.reserve(size);
-    bool connect = false;
-    for (const std::string& s : v) {
-        if (connect) {
-            result += separator;
-        } else {
-            connect = true;
-        }
-        result += s;
-    }
-    return result;
-#endif
+    return fmt::format("{}", fmt::join(v, toString(between, accuracy)));
 }
+#endif
 
 
 template <typename T, typename T_BETWEEN>
