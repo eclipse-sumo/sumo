@@ -262,7 +262,12 @@ MEVehicle::checkStop(SUMOTime time) {
         }
         const SUMOTime cur = time;
         if (stop.duration > 0) { // it might be a triggered stop with duration -1
-            time += stop.duration;
+            if (stop.duration >= SUMOTime_MAX / 2) {
+                // avoid overflow!
+                time = SUMOTime_MAX / 2;
+            } else {
+                time += stop.duration;
+            }
         }
         if (stop.pars.until > time) {
             // @note: this assumes the stop is reached at time. With the way this is called in MESegment (time == entryTime),
