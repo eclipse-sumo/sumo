@@ -1790,17 +1790,21 @@ MSEdge::getMesoPositions() const {
                     SUMOTime earliestExitTime = segment->getQueueBlockTime(laneIndex);
                     int overlap = 0;
                     double prevPos = std::numeric_limits<double>::max();
+                    double lengthAhead = 0.;
                     for (int i = 0; i < queueSize; ++i) {
                         const MEVehicle* const veh = queue[queueSize - i - 1];
                         earliestExitTime = MAX2(earliestExitTime, veh->getEventTime());
                         const double vehLength = veh->getVehicleType().getLengthWithGap();
-                        double maxPos = segmentOffset + segLength;
+                        const double segmentEnd = segmentOffset + segLength;
                         auto it = old.find(veh);
                         const double oldPos = it != old.end() ? it->second.first : 0.;  // store the old position to prevent backwards moving vehicles
+                        // queued vehicles may have to wait for the start wave (meso-ltm)
+                        double maxPos = segmentEnd - segment->getMinDistanceToEnd(laneIndex, lengthAhead, segmentEnd - oldPos, SIMSTEP);
                         if (i > 0) {
                             earliestExitTime += segment->getMinTauWithVehLength(vehLength, veh->getVehicleType().getCarFollowModel().getHeadwayTime());
                             maxPos = MIN2(maxPos, prevPos - vehLength / lanesCovered);
                         }
+                        lengthAhead += vehLength;
                         const double entry = veh->getLastEntryTimeSeconds();
                         assert(STEPS2TIME(earliestExitTime) > entry);
                         const double pos = MAX2(MIN2(segmentOffset + segLength * (now - entry) / (STEPS2TIME(earliestExitTime) - entry), maxPos), oldPos);
