@@ -968,6 +968,19 @@ MSNet::postMoveStep() {
         // warnings. we must remove them now to ensure correct output.
         removeOutdatedCollisions();
     }
+    if (MSGlobals::gUseMesoSim && MSGlobals::gMesoInterpolatePos) {
+        // interpolated positions must not move backwards which makes them depend on the previous update,
+        // so update them in every step for all occupied edges instead of only when queried
+        for (MSVehicleControl::constVehIt it = myVehicleControl->loadedVehBegin(); it != myVehicleControl->loadedVehEnd(); ++it) {
+            if (it->second->isOnRoad()) {
+                const MSEdge* const edge = it->second->getEdge();
+                // the gui draws from the same cache in another thread
+                edge->lock();
+                edge->getMesoPositions();
+                edge->unlock();
+            }
+        }
+    }
     // update and write (if needed) detector values
     mySimStepDuration = SysUtils::getCurrentMillis() - mySimStepDuration;
     writeOutput();
