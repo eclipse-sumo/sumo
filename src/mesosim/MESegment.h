@@ -202,10 +202,9 @@ public:
      *
      * @param[in] qIdx The queue of the vehicle
      * @param[in] lengthAhead The total length (with gaps) of the vehicles ahead in the queue
-     * @param[in] distToEnd The current distance between the vehicle and the segment end
      * @param[in] time The current time
      */
-    virtual double getMinDistanceToEnd(int /*qIdx*/, double /*lengthAhead*/, double /*distToEnd*/, SUMOTime /*time*/) const {
+    virtual double getMinDistanceToEnd(int /*qIdx*/, double /*lengthAhead*/, SUMOTime /*time*/) const {
         return 0.;
     }
 

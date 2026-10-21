@@ -135,16 +135,27 @@ MELSegment::hasTravelingGaps(int qIdx, SUMOTime time) const {
 
 
 double
-MELSegment::getMinDistanceToEnd(int qIdx, double lengthAhead, double distToEnd, SUMOTime time) const {
-    // a queued vehicle may only move into the space vacated by a departing vehicle once the start wave has reached it
-    const double distFraction = MIN2(1., distToEnd / myJamLength);
+MELSegment::getMinDistanceToEnd(int qIdx, double lengthAhead, SUMOTime time) const {
+    // a queued vehicle may only move into the space vacated by a departing vehicle once the start wave
+    // has reached the place where it waits (one jam spacing behind the vacated space).
+    // The distance grows with the number of waves that did not yet arrive so we search the smallest consistent distance
+    const double lengthToDist = myLength / myQueueCapacity;
+    double dist = lengthAhead * lengthToDist;
     int waveNotArrived = 0;
-    for (const Gap& gap : myGaps[qIdx]) {
-        if (gap.queued && gap.departure + (SUMOTime)((double)(gap.arrival - gap.departure) * distFraction) > time) {
-            waveNotArrived++;
+    while (true) {
+        const double distFraction = MIN2(1., (dist + DEFAULT_VEH_LENGTH_WITH_GAP * lengthToDist) / myJamLength);
+        int count = 0;
+        for (const Gap& gap : myGaps[qIdx]) {
+            if (gap.queued && gap.departure + (SUMOTime)((double)(gap.arrival - gap.departure) * distFraction) > time) {
+                count++;
+            }
         }
+        if (count <= waveNotArrived) {
+            return dist;
+        }
+        waveNotArrived = count;
+        dist = (lengthAhead + (double)waveNotArrived * DEFAULT_VEH_LENGTH_WITH_GAP) * lengthToDist;
     }
-    return (lengthAhead + (double)waveNotArrived * DEFAULT_VEH_LENGTH_WITH_GAP) * myLength / myQueueCapacity;
 }
 
 

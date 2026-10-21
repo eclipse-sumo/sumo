@@ -1799,7 +1799,7 @@ MSEdge::getMesoPositions() const {
                         auto it = old.find(veh);
                         const double oldPos = it != old.end() ? it->second.first : 0.;  // store the old position to prevent backwards moving vehicles
                         // queued vehicles may have to wait for the start wave (meso-ltm)
-                        double maxPos = segmentEnd - segment->getMinDistanceToEnd(laneIndex, lengthAhead, segmentEnd - oldPos, SIMSTEP);
+                        double maxPos = segmentEnd - segment->getMinDistanceToEnd(laneIndex, lengthAhead, SIMSTEP);
                         if (i > 0) {
                             earliestExitTime += segment->getMinTauWithVehLength(vehLength, veh->getVehicleType().getCarFollowModel().getHeadwayTime());
                             maxPos = MIN2(maxPos, prevPos - vehLength / lanesCovered);

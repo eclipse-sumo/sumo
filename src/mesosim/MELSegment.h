@@ -75,10 +75,9 @@ public:
      * usable once the start wave has traveled back to the vehicle
      * @param[in] qIdx The queue of the vehicle
      * @param[in] lengthAhead The total length (with gaps) of the vehicles ahead in the queue
-     * @param[in] distToEnd The current distance between the vehicle and the segment end
      * @param[in] time The current time
      */
-    double getMinDistanceToEnd(int qIdx, double lengthAhead, double distToEnd, SUMOTime time) const override;
+    double getMinDistanceToEnd(int qIdx, double lengthAhead, SUMOTime time) const override;
 
 protected:
     /// @brief compute current headway depending on traffic state
