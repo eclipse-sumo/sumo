@@ -352,7 +352,9 @@ public:
                 const double effNow = myGateEffort(e, nullptr, now);
                 const double effApplied = myAppliedEffort[backShared][id];
                 bool pass = true;
-                if (!std::isnan(effApplied) && effApplied > 0. && effNow > 0.) {
+                // without a threshold every marked edge passes: the gate effort may be clamped
+                // at the minimum travel time while a type with speedFactor > 1 still sees changes
+                if ((myUpdateFactor > 1. || myUpdateConstant > 0.) && !std::isnan(effApplied) && effApplied > 0. && effNow > 0.) {
                     const double hi = MAX2(effNow, effApplied);
                     const double lo = MIN2(effNow, effApplied);
                     pass = (hi / lo > myUpdateFactor) && (hi - lo > myUpdateConstant);
