@@ -1342,7 +1342,41 @@ class Zones(am.ArrayObjman):
             fd.write(xm.end('coordinates', indent + 6))
             fd.write(xm.end('LineString', indent + 4))
             fd.write(xm.end('Placemark', indent + 2))
-
+    
+    def write_xml_poly(self, fd, indent=0, is_print_begin_end = True, delta = np.zeros(3,dtype=np.float32)):
+        """
+        This xml export is ment to be inserted in the poly xml file
+        for import with netedit
+        """
+        xmltag, xmltag_item, attrname_id = self.xmltag
+        
+        print('write_xml_poly n_zones=',len(self))
+        if is_print_begin_end:
+            fd.write(xm.begin(xmltag, indent))
+        
+        ids_zone = self.get_ids()
+        for _id, id_sumo, color in zip(ids_zone, self.ids_sumo[ids_zone], self.parent.landusetypes.colors[self.ids_landusetype[ids_zone]]):
+            fd.write(xm.start(xmltag_item,indent+2))
+            fd.write(xm.num('id',_id))
+            fd.write(xm.color('color', color))
+            fd.write(xm.num('width',10))
+            fd.write(xm.num('name',id_sumo))
+            #fd.write(xm.num('fill','true'))
+            # no:fd.write(xm.num('alpha','0.2'))
+            #self.ids_sumo.write_xml(fd,_id)
+            fd.write(xm.mat(self.shapes.xmltag ,self.shapes[_id] - delta)) 
+            
+            # TODO: find out how to insert the taz name
+            # https://sumo.dlr.de/docs/Netedit/editModesData.html#select_taz_relations
+            # this is breaking xml standard:
+            #fd.write(f""" <param key="Id" value="{id_sumo:s}"\>""")
+            fd.write(xm.stopit()) 
+        
+        
+            
+        if is_print_begin_end:
+            fd.write(xm.end(xmltag, indent))
+            
     def write_xml(self, fd=None, indent=0, zoneinfo=None):
         print('Zones.write_xml')
         net = self.parent.parent.net
@@ -1405,6 +1439,23 @@ class Zones(am.ArrayObjman):
 
             return self._proj, self._offset
 
+    def get_shapes_lonlat(self, ids_zone):
+        """
+        Return zone shapes with given zone IDs in longitude, latitude format, ignoring altitude
+        """    
+        if self._proj is None:
+            self._proj, self._offset = self.get_proj_and_offset()
+            
+        shapes_lonlat = np.zeros(len(self), dtype = np.object_)
+        
+        for i,shape in enumerate(self.shapes[ids_zone]):
+            coords = np.array(shape)
+            lons, lats = self._proj(coords[:,0]-self._offset[0], coords[:,1]-self._offset[1], inverse = True )
+            shapes_lonlat[i] = list(np.transpose(np.stack((lons, lats))))
+            
+        
+        return list(shapes_lonlat)
+        
     def get_zonefilepath(self):
         return self.parent.parent.get_rootfilepath()+'.taz'
 
@@ -2671,8 +2722,13 @@ class SumoPolyReader(handler.ContentHandler):
 
         elif name == 'param':
             i = self._ind_fac
-            if attrs['key'] == 'height':
-                self.heights[i] = string_to_float(attrs['value'])
+            if  attrs['key'] == 'height':
+                try:
+                    self.heights[i] = string_to_float(attrs['value'])
+                except:
+                    # do nothing, default height will be used
+                    pass
+                    
             elif attrs['key'] == 'name':
                 self.names[i] = attrs['value']
 
@@ -3465,187 +3521,310 @@ class Landuse(cm.BaseObjman):
         else:
             return None
 
-    def export_polyxml(self, filepath=None, encoding='UTF-8', delta=np.zeros(3, dtype=np.float32)):
+    def export_polyxml(self, filepath=None, encoding = 'UTF-8', delta = np.zeros(3,dtype=np.float32)):
         """
         Export landuse facilities to SUMO poly.xml file.
         """
         if len(self.facilities) == 0:
             return None
-
-        if filepath is None:
+        
+        if filepath  is None:
             if self.parent is not None:
                 filepath = self.get_filepath()
             else:
-                filepath = os.path.join(os.getcwd(), 'landuse.poly.xml')
-
-        print('export_polyxml', filepath)
+                filepath = os.path.join(os.getcwd(),'landuse.poly.xml')
+                
+        print('export_polyxml',filepath)
         try:
-            fd = open(filepath, 'w', encoding="utf-8")
+            fd=open(filepath,'w', encoding="utf-8")
         except:
-            print('WARNING in export_poly_xml: could not open', filepath)
+            print('WARNING in export_poly_xml: could not open',filepath)
             return None
-
-        # xmltag, xmltag_item, attrname_id = self.xmltag
+        
+        #xmltag, xmltag_item, attrname_id = self.xmltag
         xmltag_poly = 'additional'
-        fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
+        fd.write('<?xml version="1.0" encoding="%s"?>\n'%encoding)
         fd.write(xm.begin(xmltag_poly))
         indent = 2
-
-        fd.write(xm.start('location', indent+2))
-        # print '  groups:',self.parent.net.get_attrsman().get_groups()
+        
+        fd.write(xm.start('location',indent+2))
+        #print '  groups:',self.parent.net.get_attrsman().get_groups()
         for attrconfig in self.parent.net.get_attrsman().get_group('location'):
-            # print '    locationconfig',attrconfig.attrname
+            #print '    locationconfig',attrconfig.attrname
             if attrconfig.attrname == '_boundaries':
-                delta_bb = np.zeros(4, dtype=np.float32)
+                delta_bb = np.zeros(4, dtype = np.float32)
                 delta_bb[0:2] = delta[:2]
                 delta_bb[2:4] = delta[:2]
-                fd.write(xm.arr('convBoundary', attrconfig.get_value()-delta_bb))
+                fd.write(xm.arr('convBoundary',attrconfig.get_value()-delta_bb))
             else:
                 attrconfig.write_xml(fd)
         fd.write(xm.stopit())
-
-        self.facilities.write_xml(fd, indent=indent+2, is_print_begin_end=False, delta=delta)
-
+        
+        self.facilities.write_xml(fd, indent=indent+2, is_print_begin_end = False, delta = delta)
+        self.zones.write_xml_poly(fd, indent=indent+2, is_print_begin_end = False, delta = delta)
+        
         fd.write(xm.end(xmltag_poly))
         fd.close()
         return filepath
 
     def get_filepath(self):
         return self.parent.get_rootfilepath() + '.poly.xml'
-
-    def import_polyxml(self, rootname=None, dirname='', filepath=None, is_clear=True, is_pois=True, **kwargs):
+    
+    def import_polyxml(self, rootname=None, dirname='', filepath = None, is_clear = False, is_pois = True, **kwargs):
         if filepath is None:
             if rootname is not None:
-                filepath = os.path.join(dirname, rootname+'.poly.xml')
+                filepath = os.path.join(dirname,rootname+'.poly.xml')
             else:
                 filepath = self.get_filepath()
-
+        
         if os.path.isfile(filepath):
-            self.facilities.import_poly(filepath, is_clear=is_clear, **kwargs)
+            self.facilities.import_poly(filepath, is_clear = is_clear,**kwargs)
             if is_pois:
-                self.pois.import_poly(filepath, is_clear=is_clear, **kwargs)
+                self.pois.import_poly(filepath, is_clear = is_clear,**kwargs)
         else:
-            self.get_logger().w('import_xml: files not found:'+filepath, key='message')
-
+            self.get_logger().w('import_xml: files not found:'+filepath, key='message')                            
+        
         #
         # here may be other relevant imports
         #
 
 
 class ZoneFromGeojsonImporter(Process):
-    def __init__(self, zones,  logger=None, **kwargs):
+    def __init__(self, zones,  logger = None, **kwargs):
         print('ZoneFromGeojsonImporter.__init__')
-
-        self._init_common('zonefromgeojsonimporter',
-                          parent=zones,
-                          name='Zone from Geojson importer',
-                          logger=logger,
-                          info='Imports zone data from geojason file.',
-                          )
-
+                
+           
+        self._init_common(  'zonefromgeojsonimporter', 
+                            parent = zones,
+                            name = 'Zone from Geojson importer', 
+                            logger = logger,
+                            info ='Imports zone data from geojason file.',
+                            )
+        
+        
         attrsman = self.set_attrsman(cm.Attrsman(self))
-
-        self.jsonfilepath = attrsman.add(cm.AttrConf('jsonfilepath', kwargs.get('jsonfilepath', ''),
-                                                     groupnames=['options'],
-                                                     perm='rw',
-                                                     name='Geo-Json file',
-                                                     wildcards='json file (*.json)|*.json',
-                                                     metatype='filepath',
-                                                     info="Geo jason file path with data.",
-                                                     ))
-
-        self.attrname_id = attrsman.add(cm.AttrConf('attrname_id', kwargs.get('attrname_id', ''),
-                                                    groupnames=['options'],
-                                                    perm='rw',
-                                                    name='ID attribute name',
-                                                    info="Zone ID attribute name.Ids generated automatically when left blank.",
-                                                    ))
-        self.attrname_name = attrsman.add(cm.AttrConf('attrname_name', kwargs.get('attrname_name', 'name'),
-                                                      groupnames=['options'],
-                                                      perm='rw',
-                                                      name='Name attribute name',
-                                                      info="Zone Name attribute name.",
-                                                      ))
-        self.prefix = attrsman.add(cm.AttrConf('prefix', kwargs.get('prefix', ''),
-                                               groupnames=['options'],
-                                               perm='rw',
-                                               name='Prefix',
-                                               info="Prefix will be automatically prepended to zone ID, Leave blank if no prefix is desired.",
-                                               ))
-
+        
+        self.jsonfilepath = attrsman.add(cm.AttrConf('jsonfilepath',kwargs.get('jsonfilepath',''),
+                                    groupnames = ['options'],
+                                    perm='rw', 
+                                    name = 'Geo-Json file', 
+                                    wildcards = 'json file (*.json)|*.json',
+                                    metatype = 'filepath',
+                                    info = "Geo json file path with data.",
+                                    ))
+                                    
+                                    
+        self.attrname_id = attrsman.add(cm.AttrConf('attrname_id',kwargs.get('attrname_id','i'),
+                                    groupnames = ['options'],
+                                    perm='rw', 
+                                    name = 'ID attribute name', 
+                                    info = "Zone ID attribute name.Ids generated automatically when left blank.",
+                                    ))
+        self.attrname_name = attrsman.add(cm.AttrConf('attrname_name',kwargs.get('attrname_name','name'),
+                                    groupnames = ['options'],
+                                    perm='rw', 
+                                    name = 'Name attribute name', 
+                                    info = "Zone Name attribute name.",
+                                    ))
+        self.prefix = attrsman.add(cm.AttrConf('prefix',kwargs.get('prefix',''),
+                                    groupnames = ['options'],
+                                    perm='rw', 
+                                    name = 'Prefix', 
+                                    info = "Prefix will be automatically prepended to zone ID, Leave blank if no prefix is desired.",
+                                    ))
+        
     def do(self):
         print(self.get_name()+'.do')
         zones = self.parent
-        #
-
+        # 
+        
         net = zones.parent.get_net()
         proj_params = str(net.get_projparams())
         self._proj = pyproj.Proj(proj_params)
         self._offset = net.get_offset()
-
+                
         ids_zone, names_extended, shapes = self.extract_zones_from_jasonfile()
 
-        print('  Found', len(ids_zone), 'Zones in jason file.')
-
+        print('  Found',len(ids_zone),'Zones in jason file.')
+        
         for id_zone, name_extended, shape in zip(ids_zone, names_extended, shapes):
-            print('    add zone id', id_zone, name_extended)
-            lonlats = np.array(shape, dtype=np.float32)
-            shapes_3d = self.project(lonlats[:, 0], lonlats[:, 1])
-            print('      shapes_3d', shapes_3d)
-            zones.make(zonename=id_zone,
-                       name_extended=name_extended,
-                       id_landusetype=6,  # 6=mixed landuse as default
-                       shape=list(shapes_3d),
-                       is_identify_zoneedges=False)
-
+            print('    add zone id',id_zone,name_extended)
+            lonlats = np.array(shape,dtype = np.float32)
+            shapes_3d = self.project(lonlats[:,0],lonlats[:,1])
+            print ('      shapes_3d',shapes_3d)
+            zones.make(     zonename = id_zone, 
+                            name_extended = name_extended,
+                            id_landusetype = 6,# 6=mixed landuse as default
+                            shape = list(shapes_3d),
+                            is_identify_zoneedges = False)
+            
+                            
         return True
-
-    def project(self, lons, lats, alts=None):
+        
+    
+    def project(self, lons, lats, alts = None):
         """Projecting lon,lat vector in local coordinate system"""
         # TODO: this function could go into net
-
+  
         coords_x, coords_y = self._proj(lons, lats)
         if alts is None:
-            alts = np.zeros(len(lons), dtype=np.float32)
-        # print('  ',(coords_x+self._offset[0]).shape,(coords_y+self._offset[1]).shape,alts.shape)
-        return np.transpose(np.concatenate(([coords_x+self._offset[0]], [coords_y+self._offset[1]], [alts]), axis=0))
-
+           alts =  np.zeros(len(lons),dtype = np.float32)
+        #print('  ',(coords_x+self._offset[0]).shape,(coords_y+self._offset[1]).shape,alts.shape)
+        return np.transpose(np.concatenate(([coords_x+self._offset[0]],[coords_y+self._offset[1]],[alts]), axis=0))
+        
     def extract_zones_from_jasonfile(self):
         with open(self.jsonfilepath, "r", encoding="utf-8") as f:
             geojson = json.load(f)
-
+    
         ids_zone = []
         names_extended = []
         shapes = []
-
+        
         for idx, feature in enumerate(geojson["features"]):
             geometry = feature.get("geometry", {})
             props = feature.get("properties", {})
-
+    
             if geometry.get("type") != "Polygon":
                 continue
-
-            if self.attrname_id != '':
+    
+            if self.attrname_id is not '':
                 zone_id = self.prefix+str(props.get(self.attrname_id))
             else:
                 zone_id = self.prefix+str(idx)
-
-            if self.attrname_name != '':
+       
+            if self.attrname_name is not '':
                 name = props.get(self.attrname_name)
             else:
                 name = ''
-
+    
             # Polygon coordinates: [outer_ring, hole1, hole2, ...]
             coordinates = geometry["coordinates"][0]
-
+    
             ids_zone.append(zone_id)
             names_extended.append(name)
             shapes.append(coordinates)
-
+          
+            
         n_zones = len(ids_zone)
+   
+        return ids_zone,names_extended,shapes
+   
+   
+    
+class ZoneToGeojsonExporter(Process):
+    
+    def __init__(self, zones,  logger = None, **kwargs):
+        print('ZoneToGeojsonExporter.__init__')
+                
+           
+        self._init_common(  'zonetogeojsonexporter', 
+                            parent = zones,
+                            name = 'Zone to Geojson exporter', 
+                            logger = logger,
+                            info ='Exports zone data to geojason file.',
+                            )
+        
+        
+        attrsman = self.set_attrsman(cm.Attrsman(self))
+        
+        scenario = zones.parent.parent
+        #rootname = scenario.get_rootfilename()
+        #rootdirpath = os.getcwd()
+        #jsonfilepath_default =os.path.join(rootdirpath,rootname+'_zones'+'.json')
+        jsonfilepath_default = scenario.get_rootfilepath()+'_zones'+'.json'
+        self.jsonfilepath = attrsman.add(cm.AttrConf('jsonfilepath',kwargs.get('jsonfilepath',jsonfilepath_default),
+                                    groupnames = ['options'],
+                                    perm='rw', 
+                                    name = 'Geo-Json file', 
+                                    wildcards = 'json file (*.json)|*.json',
+                                    metatype = 'filepath',
+                                    info = "Geo json file path with data.",
+                                    ))
+                                    
+                                    
+        
+    
+    def make_geojson(self, zone_ids, names, shapes):
+        """
+        Creates a GeoJSON FeatureCollection from zone IDs, names, and polygon shapes.
+    
+        Parameters
+        ----------
+        zone_ids : list
+            List of zone IDs.
+        names : list
+            List of zone names.
+        shapes : list
+            List of polygon coordinate lists.
+            Each polygon should be: [(lon, lat), (lon, lat), ...]
+    
+        Returns
+        -------
+        dict
+            GeoJSON FeatureCollection.
+        """
+        print ('make_geojson',len(zone_ids))
+        if not (len(zone_ids) == len(names) == len(shapes)):
+            raise ValueError(
+                "zone_ids, names, and shapes must have the same length."
+            )
+    
+        features = []
+    
+        for zone_id, name, shape in zip(zone_ids, names, shapes):
+            print ('  zone_id',zone_id,'shape',shape)
+            ring = close_polygon_ring(shape)
+            if name == '':
+                name_exp = 'zone_'+str(zone_id)
+            else:
+                name_exp = name
+            feature = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        ring
+                    ]
+                },
+                "properties": {
+                    "name": name_exp,
+                    "i": zone_id
+                }
+            }
+    
+            features.append(feature)
+    
+        geojson = {
+            "type": "FeatureCollection",
+            "features": features
+        }
+    
+        return geojson
+    
+    def do(self):
+        print(self.get_name()+'.do')
+        
+        zones = self.parent
+                            
+        ids_zone =  zones.get_ids()          
 
-        return ids_zone, names_extended, shapes
+        geojson = self.make_geojson(zones.ids_sumo[ids_zone], zones.names_extended[ids_zone], zones.get_shapes_lonlat(ids_zone))
 
+        output_path = Path(self.jsonfilepath)
+    
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump(geojson, f, indent=2, ensure_ascii=False)
+    
+        print(f"Saved GeoJSON file to: {output_path}")
+        return True
+        
+    #def unproject(self, coords):
+    #    """UnProjecting from local coordinate system to lons,lats, alts vector """
+    #    # TODO: there is alreadt a zone.project method
+    # 
+    #    lons, lats = self._proj(coords[:,0]-self._offset[0], coords[:,1]-self._offset[1], inverse = True )
+    #    #print('  ',(coords_x+self._offset[0]).shape,(coords_y+self._offset[1]).shape,alts.shape)
+    #    return lons, lats, coords[:,0]
 
 class ZonePopulationImporter(Process):
     def __init__(self, zones,  logger=None, **kwargs):
@@ -3895,69 +4074,82 @@ class ZonePopulationImporter(Process):
 
 
 class ZoneGenerator(Process):
-    def __init__(self, ident='zonegenerator', zones=None,  logger=None, **kwargs):
+    def __init__(self, ident='zonegenerator', zones = None,  logger = None, **kwargs):
         print('ZoneGenerator.__init__')
-
-        self._init_common(ident,
-                          parent=zones,
-                          name='Zone Generator',
-                          logger=logger,
-                          info='Generates zones in a given study area.',
-                          )
-
+                
+           
+        self._init_common(  ident, 
+                            parent = zones,
+                            name = 'Zone Generator', 
+                            logger = logger,
+                            info ='Generates zones in a given study area.',
+                            )
+        
+        
         attrsman = self.set_attrsman(cm.Attrsman(self))
-
-        self.clear_zones = attrsman.add(cm.AttrConf('clear_zones', kwargs.get('clear_zones', True),
-                                                    groupnames=['options'],
-                                                    perm='rw',
-                                                    name='Clear zones',
-                                                    info="""If true, delete existing zones.""",
-                                                    ))
-
-        self.method = attrsman.add(cm.AttrConf('method', kwargs.get('method', True),
-                                               choices={'Facilities Clusterization': True, 'Grid Zoning': False},
-                                               groupnames=['options'],
-                                               name='Creation method',
-                                               info='Choose wether to create the zones through a clusterization of Facilities and/or Points of Interest, or generating a grid zoning',
-                                               ))
-
-        self.n_zones = attrsman.add(cm.AttrConf('n_zones', kwargs.get('n_zones', 49),
-                                                groupnames=['options'],
-                                                perm='rw',
-                                                name='Number of zones',
-                                                info="""Number of zones to be created""",
-                                                ))
-        self.use_landusetype = attrsman.add(cm.AttrConf('use_landusetype', kwargs.get('use_landusetype', True),
-                                                        groupnames=['options'],
-                                                        perm='rw',
-                                                        name='Use Landuse Type',
-                                                        info="""If true, the landuse of facilities and eventually of the points of interest will be used for the eventual cluster analysis and for guessing the landuse type of the created zones.""",
-                                                        ))
-        self.include_pois = attrsman.add(cm.AttrConf('include_pois', kwargs.get('include_pois', False),
-                                                     groupnames=['options'],
-                                                     perm='rw',
-                                                     name='Include POIs',
-                                                     info="""If true, include points of interest in the eventual cluster analysis and in the eventual guessing of the landuse type related to the created zones.""",
-                                                     ))
+                                 
+        self.clear_zones = attrsman.add(cm.AttrConf( 'clear_zones',kwargs.get('clear_zones',True),
+                            groupnames = ['options'], 
+                            perm='rw', 
+                            name = 'Clear zones', 
+                            info = """If true, delete existing zones.""",
+                            ))
+                            
+        self.method = attrsman.add(cm.AttrConf( 'method',kwargs.get('method',True),
+                                                         choices = {'Facilities Clusterization': True, 'Grid Zoning': False},
+                                                         groupnames = ['options'],
+                                                         name = 'Creation method',
+                                                         info = 'Choose wether to create the zones through a clusterization of Facilities and/or Points of Interest, or generating a grid zoning',
+                                                         ))
+                            
+        self.n_zones = attrsman.add(cm.AttrConf( 'n_zones',kwargs.get('n_zones',49),
+                            groupnames = ['options'], 
+                            perm='rw', 
+                            name = 'Number of zones', 
+                            info = """Number of zones to be created""",
+                            )) 
+                            
+         
+        self.is_identify_zoneedges = attrsman.add(cm.AttrConf( 'is_identify_zoneedges',kwargs.get('is_identify_zoneedges',True),
+                            groupnames = ['options'], 
+                            perm='rw', 
+                            name = 'Identify zone edges', 
+                            info = 'Identifu zone edges og the newly created zones. This may take a while and can be performed later.',
+                            )) 
+                            
+        self.use_landusetype = attrsman.add(cm.AttrConf( 'use_landusetype',kwargs.get('use_landusetype',True),
+                            groupnames = ['options'], 
+                            perm='rw', 
+                            name = 'Use Landuse Type', 
+                            info = """If true, the landuse of facilities and eventually of the points of interest will be used for the eventual cluster analysis and for guessing the landuse type of the created zones.""",
+                            ))
+        self.is_include_pois = attrsman.add(cm.AttrConf( 'is_include_pois',kwargs.get('is_include_pois',False),
+                            groupnames = ['options'], 
+                            perm='rw', 
+                            name = 'Include POIs', 
+                            info = """If true, include points of interest in the eventual cluster analysis and in the eventual guessing of the landuse type related to the created zones.""",
+                            ))
         # ~ self.include_nodes = attrsman.add(cm.AttrConf( 'include_nodes',kwargs.get('include_nodes',False),
-        # ~ groupnames = ['options'],
-        # ~ perm='rw',
-        # ~ name = 'Include Nodes',
-        # ~ unit= 'm',
-        # ~ info = """If true, include network Nodes in the clusterization analysis.""",
-        # ~ ))
-        self.is_apply_bbox_explicit = attrsman.add(cm.AttrConf('is_apply_bbox_explicit', kwargs.get('is_apply_bbox_explicit', False),
-                                                               groupnames=['options'],
-                                                               perm='rw',
-                                                               name='Apply expicit bounding box',
-                                                               info='Apply expicit bounding box for the zone creation. If False, landuse boundaries are applied.',
-                                                               ))
-        self.bbox_explicit = attrsman.add(cm.ListConf('bbox_explicit', kwargs.get('bbox_explicit', [0.0, 0.0, 0.0, 0.0]),
-                                                      groupnames=['options'],
-                                                      name='Explicit bounding box',
-                                                      info="""Expicit bounding box of the format [x_min, y_min,x_max, y_max]. Empty list means no explicit bounding borders are applied, and the zoning will be performed in the area occupied by facilities.""",
-                                                      ))
+                            # ~ groupnames = ['options'], 
+                            # ~ perm='rw', 
+                            # ~ name = 'Include Nodes', 
+                            # ~ unit= 'm',
+                            # ~ info = """If true, include network Nodes in the clusterization analysis.""",
+                            # ~ ))
+        self.is_apply_bbox_explicit = attrsman.add(cm.AttrConf( 'is_apply_bbox_explicit',kwargs.get('is_apply_bbox_explicit',False),
+                            groupnames = ['options'], 
+                            perm='rw', 
+                            name = 'Apply expicit bounding box', 
+                            info = 'Apply expicit bounding box for the zone creation. If False, landuse boundaries are applied.',
+                            ))
+        self.bbox_explicit = attrsman.add(cm.ListConf('bbox_explicit',kwargs.get('bbox_explicit',[0.0,0.0,0.0,0.0]), 
+                                            groupnames = ['options'], 
+                                            name = 'Explicit bounding box', 
+                                            info = """Expicit bounding box of the format [x_min, y_min,x_max, y_max]. Empty list means no explicit bounding borders are applied, and the zoning will be performed in the area occupied by facilities.""",
+                                            ))
+        
 
+                    
     def do(self):
         print(self.get_name()+'.do')
 
@@ -3968,49 +4160,69 @@ class ZoneGenerator(Process):
         ids_fac = facilities.get_ids()
         pois = zones.parent.pois
         ids_poi = pois.get_ids()
-
+        
         if self.clear_zones:
             zones.clear()
         if self.method:
-            print('k-Mean cluster')
-            features = facilities.centroids[ids_fac][:, :-1]
-            if self.include_pois:
-                features = np.concatenate((features, landuse.pois.coords[zones.parent.pois.get_ids()][:, :-1]), axis=0)
+            print('k-Mean cluster use_landusetype',self.use_landusetype,'is_include_pois',self.is_include_pois)
+            features = facilities.centroids[ids_fac][:,:-1]
+            if (self.is_include_pois):
+                    features = np.concatenate((features, landuse.pois.coords[zones.parent.pois.get_ids()][:,:-1]), axis=0)
+                    
             if self.use_landusetype:
-                if self.include_pois:
+                if self.is_include_pois:
                     landusetypes = np.transpose(np.array([np.concatenate((facilities.ids_landusetype[ids_fac],
-                                                                          pois.ids_landusetype[ids_poi]))]))
-                    features = np.concatenate((np.array(features), landusetypes), axis=1)
+                        pois.ids_landusetype[ids_poi]))]))
+                    
+                    features = np.concatenate((np.array(features), landusetypes ), axis = 1)
+                    print ('  features landuse,poi',features[:10,:])
                 else:
-                    features = np.concatenate((np.array(features), np.transpose(
-                        np.array([facilities.ids_landusetype[ids_fac]]))), axis=1)
+                    features = np.concatenate((np.array(features), np.transpose(np.array([facilities.ids_landusetype[ids_fac]]))), axis = 1)
+                    print ('  features landuse',features[:10,:])
+            
             if self.is_apply_bbox_explicit:
-                features = features[(features[:, 0] > self.bbox_explicit[0])]
-                features = features[(features[:, 1] > self.bbox_explicit[1])]
-                features = features[(features[:, 0] < self.bbox_explicit[2])]
-                features = features[(features[:, 1] < self.bbox_explicit[3])]
+                print ('  is_apply_bbox_explicit features',features)
+                features = features[(features[:,0]>self.bbox_explicit[0])]
+                features = features[(features[:,1]>self.bbox_explicit[1])]
+                features = features[(features[:,0]<self.bbox_explicit[2])]
+                features = features[(features[:,1]<self.bbox_explicit[3])]    
             codebook, label = kmeans2(features, self.n_zones)
-            vor = Voronoi(codebook[:, :2])
+            vor = Voronoi(codebook[:,:2])
             zone_name = 1
             regions, vertices = self.voronoi_finite_polygons_2d(vor)
             for region, i in zip(regions, list(range(len(regions)))):
-                if region != []:
+                if len(region) > 0:
                     zone_shape = []
-                    for vertice in region:
-                        zone_shape.append(np.array([vertices[vertice][0], vertices[vertice][1], 0.], dtype=np.float32))
-
+                    for vertice in region:  
+                        coord = np.array([vertices[vertice][0], vertices[vertice][1],0.], dtype = np.float32)
+                        
+                        
+                        # TODO: not very efficient clipping
+                        # maybe better numarray -> clipping,
+                        #  then conver to list after
+                        #print ('  coord',coord)
+                        if coord[0] < self.bbox_explicit[0]:
+                            coord[0] = self.bbox_explicit[0]
+                        if coord[0] > self.bbox_explicit[2]:
+                            coord[0] = self.bbox_explicit[2]
+                            
+                        if coord[1] < self.bbox_explicit[1]:
+                            coord[1] = self.bbox_explicit[1]
+                        if coord[1] > self.bbox_explicit[3]:
+                            coord[1] = self.bbox_explicit[3]
+                        zone_shape.append(coord)
+                        
+                            
+                    
                     if self.use_landusetype:
-                        cluster_landusetypes = np.array(features[(label == i)][:, 2], dtype=np.int32)
-                        if cluster_landusetypes != []:
-                            zones.make(zonename=zone_name, shape=zone_shape,
-                                       id_landusetype=np.bincount(cluster_landusetypes).argmax())
+                        cluster_landusetypes = np.array(features[(label == i)][:,2], dtype = np.int32)
+                        if len(cluster_landusetypes) > 0:
+                            zones.make(zonename = zone_name, shape = zone_shape, id_landusetype = np.bincount(cluster_landusetypes).argmax() , is_identify_zoneedges = self.is_identify_zoneedges)
                         else:
-                            zones.make(zonename=zone_name, shape=zone_shape,
-                                       id_landusetype=landuse.landusetypes.get_id_from_formatted('mixed'))
+                            zones.make(zonename = zone_name, shape = zone_shape, id_landusetype = landuse.landusetypes.get_id_from_formatted('mixed'), is_identify_zoneedges = self.is_identify_zoneedges )
                     else:
-                        zones.make(zonename=zone_name, shape=zone_shape,
-                                   id_landusetype=landuse.landusetypes.get_id_from_formatted('mixed'))
-                    zone_name += 1
+                        zones.make(zonename = zone_name, shape = zone_shape, id_landusetype = landuse.landusetypes.get_id_from_formatted('mixed'), is_identify_zoneedges = self.is_identify_zoneedges)
+                    zone_name +=1
         else:
             zone_binx = np.int(np.sqrt(self.n_zones))
             zone_biny = np.int(np.sqrt(self.n_zones))
@@ -4020,10 +4232,10 @@ class ZoneGenerator(Process):
                 x_max = self.bbox_explicit[2]
                 y_max = self.bbox_explicit[3]
             else:
-                x_min = np.min(facilities.centroids[ids_fac][:, 0])
-                y_min = np.min(facilities.centroids[ids_fac][:, 1])
-                x_max = np.max(facilities.centroids[ids_fac][:, 0])
-                y_max = np.max(facilities.centroids[ids_fac][:, 1])
+                x_min = np.min(facilities.centroids[ids_fac][:,0])
+                y_min = np.min(facilities.centroids[ids_fac][:,1])
+                x_max = np.max(facilities.centroids[ids_fac][:,0])
+                y_max = np.max(facilities.centroids[ids_fac][:,1])
             x_bin = (x_max-x_min)/(zone_binx)
             y_bin = (y_max-y_min)/(zone_biny)
             zone_name = 1
@@ -4033,28 +4245,24 @@ class ZoneGenerator(Process):
                     y_min_i = y_min+j*y_bin
                     x_max_i = x_min+(i+1)*x_bin
                     y_max_i = y_min+(j+1)*y_bin
-                    zone_shape = [np.array([x_min_i, y_min_i, 0.], dtype=np.float32), np.array([x_min_i, y_max_i, 0.], dtype=np.float32),
-                                  np.array([x_max_i, y_max_i, 0.], dtype=np.float32), np.array([x_max_i, y_min_i, 0.], dtype=np.float32)]
+                    zone_shape = [np.array([x_min_i,y_min_i,0.], dtype = np.float32), np.array([x_min_i,y_max_i,0.], dtype = np.float32),
+                        np.array([x_max_i,y_max_i,0.], dtype = np.float32),np.array([x_max_i,y_min_i,0.], dtype = np.float32)]
                     if self.use_landusetype:
-                        zone_landusetypes = facilities.ids_landusetype[ids_fac][(facilities.centroids[ids_fac][:, 0] > x_min_i) & (
-                            facilities.centroids[ids_fac][:, 1] > y_min_i) & (facilities.centroids[ids_fac][:, 0] < x_max_i) & (facilities.centroids[ids_fac][:, 1] < y_max_i)]
-                        if self.include_pois:
-                            zone_landusetypes = np.concatenate((zone_landusetypes, pois.ids_landusetype[ids_poi][(pois.coords[ids_poi][:, 0] > x_min_i) & (
-                                pois.coords[ids_poi][:, 1] > y_min_i) & (pois.coords[ids_poi][:, 0] < x_max_i) & (pois.coords[ids_poi][:, 1] < y_max_i)]))
-                        if zone_landusetypes != []:
-                            zones.make(zonename=zone_name,  shape=zone_shape,
-                                       id_landusetype=np.bincount(zone_landusetypes).argmax())
+                        zone_landusetypes = facilities.ids_landusetype[ids_fac][(facilities.centroids[ids_fac][:,0]>x_min_i)&(facilities.centroids[ids_fac][:,1]>y_min_i)&(facilities.centroids[ids_fac][:,0]<x_max_i)&(facilities.centroids[ids_fac][:,1]<y_max_i)]
+                        if self.is_include_pois:
+                            zone_landusetypes = np.concatenate((zone_landusetypes, pois.ids_landusetype[ids_poi][(pois.coords[ids_poi][:,0]>x_min_i)&(pois.coords[ids_poi][:,1]>y_min_i)&(pois.coords[ids_poi][:,0]<x_max_i)&(pois.coords[ids_poi][:,1]<y_max_i)]))
+                        if len(zone_landusetypes) > 0:
+                            zones.make(zonename = zone_name,  shape = zone_shape, id_landusetype =  np.bincount(zone_landusetypes).argmax() , is_identify_zoneedges = self.is_identify_zoneedges)
                         else:
-                            zones.make(zonename=zone_name, shape=zone_shape,
-                                       id_landusetype=landuse.landusetypes.get_id_from_formatted('mixed'))
+                            zones.make(zonename = zone_name, shape = zone_shape, id_landusetype = landuse.landusetypes.get_id_from_formatted('mixed'), is_identify_zoneedges = self.is_identify_zoneedges)
                     else:
-                        zones.make(zonename=zone_name, shape=zone_shape,
-                                   id_landusetype=landuse.landusetypes.get_id_from_formatted('mixed'))
+                        zones.make(zonename = zone_name, shape = zone_shape, id_landusetype = landuse.landusetypes.get_id_from_formatted('mixed'), is_identify_zoneedges = self.is_identify_zoneedges)
                     zone_name += 1
-        print('  Done, generated %d zones' % (zone_name-1))
+        print('  Done, generated %d zones'%(zone_name-1))
 
         return True
 
+                    
     def voronoi_finite_polygons_2d(self, vor, radius=None):
         """
         Reconstruct infinite voronoi regions in a 2D diagram to finite
@@ -4074,67 +4282,66 @@ class ZoneGenerator(Process):
             of input vertices, with 'points at infinity' appended to the
             end.
         """
-
+    
         if vor.points.shape[1] != 2:
             raise ValueError("Requires 2D input")
-
+    
         new_regions = []
         new_vertices = vor.vertices.tolist()
-
+    
         center = vor.points.mean(axis=0)
         if radius is None:
             radius = vor.points.ptp().max()*2
-
+    
         # Construct a map containing all ridges for a given point
         all_ridges = {}
         for (p1, p2), (v1, v2) in zip(vor.ridge_points, vor.ridge_vertices):
             all_ridges.setdefault(p1, []).append((p2, v1, v2))
             all_ridges.setdefault(p2, []).append((p1, v1, v2))
-
+    
         # Reconstruct infinite regions
         for p1, region in enumerate(vor.point_region):
             vertices = vor.regions[region]
-
+    
             if all(v >= 0 for v in vertices):
                 # finite region
                 new_regions.append(vertices)
                 continue
-
+    
             # reconstruct a non-finite region
             ridges = all_ridges[p1]
             new_region = [v for v in vertices if v >= 0]
-
+    
             for p2, v1, v2 in ridges:
                 if v2 < 0:
                     v1, v2 = v2, v1
                 if v1 >= 0:
                     # finite ridge: already in the region
                     continue
-
+    
                 # Compute the missing endpoint of an infinite ridge
-
-                t = vor.points[p2] - vor.points[p1]  # tangent
+    
+                t = vor.points[p2] - vor.points[p1] # tangent
                 t /= np.linalg.norm(t)
                 n = np.array([-t[1], t[0]])  # normal
-
+    
                 midpoint = vor.points[[p1, p2]].mean(axis=0)
                 direction = np.sign(np.dot(midpoint - center, n)) * n
                 far_point = vor.vertices[v2] + direction * radius
-
+    
                 new_region.append(len(new_vertices))
                 new_vertices.append(far_point.tolist())
-
+    
             # sort region counterclockwise
             vs = np.asarray([new_vertices[v] for v in new_region])
             c = vs.mean(axis=0)
-            angles = np.arctan2(vs[:, 1] - c[1], vs[:, 0] - c[0])
+            angles = np.arctan2(vs[:,1] - c[1], vs[:,0] - c[0])
             new_region = np.array(new_region)[np.argsort(angles)]
-
+    
             # finish
             new_regions.append(new_region.tolist())
-
+    
         return new_regions, np.asarray(new_vertices)
-
 
 class FacilityGenerator(Process):
     def __init__(self, ident='facilitygenerator', facilities=None,  logger=None, **kwargs):

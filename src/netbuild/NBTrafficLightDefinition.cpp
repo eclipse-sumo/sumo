@@ -127,7 +127,7 @@ NBTrafficLightDefinition::compute(const OptionsCont& oc) {
     NBTrafficLightLogic* ret = myCompute(brakingTime);
     ret->updateParameters(getParametersMap());
     if (ret->getType() == TrafficLightType::ACTUATED) {
-        for (const std::string& param : {
+        for (const std::string param : {
                     "jam-threshold", "passing-time", "detector-gap", "detector-length", "inactive-threshold"
                 }) {
             if (!oc.isDefault("tls.actuated." + param) && !ret->hasParameter(param)) {

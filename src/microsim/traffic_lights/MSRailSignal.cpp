@@ -530,7 +530,7 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh, int searchStart) {
         // because first is short or the step-length is high)
         // lets look backward along the route
         // give some slack because the vehicle might have been braking from a higher speed and using ballistic integration
-        double lookBack = SPEED2DIST(veh->getSpeed() + 10);
+        double lookBack = SPEED2DIST(veh->getSpeed() + 10) + veh->getLength();
         int routeIndex = veh->getRoutePosition() - 1;
         while (lookBack > 0 && routeIndex > 0) {
             const MSEdge* prevEdge = veh->getRoute().getEdges()[routeIndex];
@@ -544,7 +544,7 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh, int searchStart) {
     }
     MSRailSignal* rs = const_cast<MSRailSignal*>(dynamic_cast<const MSRailSignal*>(myLink->getTLLogic()));
     if (firstIt == veh->getRoute().end()) {
-        WRITE_WARNING("Invalid approach information to rail signal '" + MSDriveWay::getClickableTLLinkID(myLink) + "' after rerouting for vehicle '" + veh->getID()
+        WRITE_WARNING("Invalid approach information to rail signal " + MSDriveWay::getClickableTLLinkID(myLink) + " after rerouting for vehicle '" + veh->getID()
                       + "' first driveway edge '" + first->getID() + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
         if (myDriveways.empty()) {
             ConstMSEdgeVector dummyRoute;

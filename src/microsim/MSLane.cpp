@@ -4133,9 +4133,6 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
 #endif
             // check for link leaders
             const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(ego, seen);
-            if (DEBUG_COND2(ego)) {
-                std::cout << "    numLinkLeaders=" << linkLeaders.size() << "\n";
-            }
             for (const MSLink::LinkLeader& ll : linkLeaders) {
                 MSVehicle* veh = ll.vehAndGap.first;
                 // in the context of lane changing all junction leader candidates must be respected

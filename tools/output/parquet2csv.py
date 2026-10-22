@@ -24,4 +24,4 @@ import pandas as pd
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding='utf-8')
-pd.read_parquet(sys.argv[1]).to_csv(sys.stdout, index=False, lineterminator='\n', float_format='%.2f')
+pd.read_parquet(sys.argv[1]).to_csv(sys.stdout, index=False, lineterminator='\n', float_format='%.4f')

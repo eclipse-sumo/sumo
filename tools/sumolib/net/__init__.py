@@ -419,6 +419,27 @@ class Net:
                         lanes.append((the_lane, d))
         return lanes
 
+    def getNearestLane(self, x, y, r=0.1, vClass=None, isGeo=False, allowFallback=True):
+        """Return (lane, lanePos, dist) for the nearest lane at a distance less than r,
+        or None if no lane matches. Both lanePos and dist are in meters.
+
+        If vClass is given, only lanes allowing that vehicle class are considered.
+        If isGeo is True, x and y are longitude and latitude, respectively, and
+        the network's geo-projection is used (requires pyproj).
+        Distances are measured to the lane shape without junction extensions.
+        Internal lanes are considered if the network was read withInternal=True.
+        """
+        if isGeo:
+            x, y = self.convertLonLat2XY(x, y)
+        candidates = [(lane, dist) for lane, dist in
+                      self.getNeighboringLanes(x, y, r, includeJunctions=False, allowFallback=allowFallback)
+                      if lane.allows(vClass)]
+        if not candidates:
+            return None
+        lane, dist = min(candidates, key=lambda candidate: candidate[1])
+        lanePos, dist = lane.getClosestLanePosAndDist((x, y))
+        return lane, lanePos, dist
+
     def hasNode(self, id):
         return id in self._id2node
 

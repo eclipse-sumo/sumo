@@ -1,6 +1,5 @@
 cask "xquartz"
 
-brew "python@3.14", link: :overwrite
 brew "xerces-c"
 brew "fox"
 brew "proj"

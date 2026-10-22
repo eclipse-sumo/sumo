@@ -28,7 +28,7 @@
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
 // Avoid some noisy warnings with Visual Studio
-#pragma warning(disable:4820 4514 5045 4710)
+#pragma warning(disable:4820 4514 5045 4710 4711)
 #endif
 #include <vector>
 #include <iostream>

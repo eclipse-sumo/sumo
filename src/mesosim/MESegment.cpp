@@ -112,7 +112,7 @@ MESegment::MESegment(const std::string& id,
                      const MesoEdgeType& edgeType):
     Named(id), myEdge(parent), myNextSegment(next),
     myLength(length), myIndex(idx),
-    myTau_length(TIME2STEPS(1) / MAX2(MESO_MIN_SPEED, speed)),
+    myTau_length((double)TIME2STEPS(1) / MAX2(MESO_MIN_SPEED, speed)),
     myNumVehicles(0),
     myLastHeadway(TIME2STEPS(-1)),
     myMeanSpeed(speed),
@@ -158,7 +158,7 @@ MESegment::MESegment(const std::string& id,
         maxAllow &= ~minAllow;
         if ((maxAllow & ~myMultiModalWarnings) != 0) {
             WRITE_WARNINGF("Mismodelled capacity on edge '%'. Not all lanes are usable by vClass '%'. Use option --meso-lane-queue or add unused class to option --meso-ignore-lanes-by-vclass.",
-                    myEdge.getID(), getVehicleClassNames(maxAllow & ~myMultiModalWarnings));
+                           myEdge.getID(), getVehicleClassNames(maxAllow & ~myMultiModalWarnings));
             myMultiModalWarnings |= maxAllow;
         }
     }
@@ -173,7 +173,7 @@ MESegment::initSegment(const MesoEdgeType& edgeType, const MSEdge& parent, const
     if (myQueues.size() == 1) {
         const double laneScale = capacity / myLength;
         myQueueCapacity = capacity;
-        myTau_length = TIME2STEPS(1) / MAX2(MESO_MIN_SPEED, myMeanSpeed) / laneScale;
+        myTau_length = (double)TIME2STEPS(1) / MAX2(MESO_MIN_SPEED, myMeanSpeed) / laneScale;
         // Eissfeldt p. 90 and 151 ff.
         myTau_ff = (SUMOTime)((double)edgeType.tauff / laneScale);
         myTau_fj = (SUMOTime)((double)edgeType.taufj / laneScale);
@@ -572,8 +572,8 @@ SUMOTime
 MESegment::computeHeadway(Queue& /*q*/, const Queue& qNext, const MESegment* const next, const MEVehicle* veh) const {
     const bool nextFree = qNext.getOccupancy() <= next->myJamThreshold;
     const SUMOTime tau = (!veh->wasJammed()
-            ? (nextFree ? myTau_ff : myTau_fj)
-            : (nextFree ? myTau_jf : getTauJJ((double)qNext.size(), next->myQueueCapacity, next->myJamThreshold)));
+                          ? (nextFree ? myTau_ff : myTau_fj)
+                          : (nextFree ? myTau_jf : getTauJJ((double)qNext.size(), next->myQueueCapacity, next->myJamThreshold)));
     assert(tau >= 0);
     SUMOTime headway = tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap(), veh->getVehicleType().getCarFollowModel().getHeadwayTime());
     if (myTLSPenalty) {
@@ -600,7 +600,7 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
     }
     MEVehicle* lc = removeCar(veh, time, reason); // new leaderCar
     q.setBlockTime(time);
-    if (myEdge.isNormal() && myCapacity >= 22.5 ) {
+    if (myEdge.isNormal() && myCapacity >= 22.5) {
         veh->markJammed(q.getOccupancy() > myJamThreshold);
     }
     if (!isInvalid(next)) {
@@ -829,19 +829,24 @@ MESegment::getEventTime() const {
 void
 MESegment::saveState(OutputDevice& out) const {
     bool write = false;
-    for (const Queue& q : myQueues) {
-        if (q.getBlockTime() != -1 || !q.getVehicles().empty()) {
+    for (int i = 0; i < (int)myQueues.size(); i++) {
+        if (myQueues[i].getBlockTime() != -1 || !myQueues[i].getVehicles().empty() || getQueueExtraState(i) != "") {
             write = true;
             break;
         }
     }
     if (write) {
         out.openTag(SUMO_TAG_SEGMENT).writeAttr(SUMO_ATTR_ID, getID());
-        for (const Queue& q : myQueues) {
+        for (int i = 0; i < (int)myQueues.size(); i++) {
+            const Queue& q = myQueues[i];
             out.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES);
             out.writeAttr(SUMO_ATTR_TIME, toString<SUMOTime>(q.getBlockTime()));
             out.writeAttr(SUMO_ATTR_BLOCKTIME, toString<SUMOTime>(q.getEntryBlockTime()));
             out.writeAttr(SUMO_ATTR_VALUE, q.getVehicles());
+            const std::string extra = getQueueExtraState(i);
+            if (extra != "") {
+                out.writeAttr(SUMO_ATTR_STATE, extra);
+            }
             out.closeTag();
         }
         out.closeTag();
@@ -874,7 +879,7 @@ MESegment::loadState(const std::vector<SUMOVehicle*>& vehs, const SUMOTime block
         // add the last vehicle of this queue
         // !!! one question - what about the previously added vehicle? Is it stored twice?
         MEVehicle* veh = q.getVehicles().back();
-        MSGlobals::gMesoNet->addLeaderCar(veh, getLink(veh));
+        MSGlobals::gMesoNet->addLeaderCar(veh, getLink(veh), true);
     }
     q.setBlockTime(blockTime);
     q.setEntryBlockTime(entryBlockTime);

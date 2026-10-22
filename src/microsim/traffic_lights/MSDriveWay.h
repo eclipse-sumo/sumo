@@ -239,6 +239,7 @@ protected:
     /* @brief the list of bidirectional edges that can enter the forward
      * section and which might contain deadlock-relevant traffic */
     std::vector<const MSLane*> myBidiExtended;
+    std::vector<const MSLane*> myBidiExtendedSorted;
 
     /* @brief the list of edges that merge with the forward section
      * (found via backward search, up to the first element that could give protection) */
@@ -288,7 +289,7 @@ protected:
     /* @brief find upstream protection from the given link
      * @param[out] flank: the stored flank lanes
      */
-    void findFlankProtection(MSLink* link, MSLink* origLink, std::vector<const MSLane*>& flank);
+    void findFlankProtection(MSLink* link, MSLink* origLink, const std::vector<const MSLane*>& flank);
 
     /// @brief add all driveWays that start at the given link as foes
     void addFoes(const MSLink* link);

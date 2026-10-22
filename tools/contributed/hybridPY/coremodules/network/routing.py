@@ -1034,6 +1034,13 @@ class MaRouter(CmlMixin, Process):
                                          """,
                                                                  ))
 
+        self.is_update_routes_prob = attrsman.add(am.AttrConf('is_update_routes_prob',  kwargs.get('is_update_routes_prob', False),
+                                                                 groupnames=['options'],
+                                                                 name='Update routes with probable',
+                                                                 info="""Update all routes with most probable route found by the macroscopic router.  
+                                         """,
+                                                                 ))
+
         self.is_use_odflows = attrsman.add(am.AttrConf('is_use_odflows',  kwargs.get('is_use_odflows', False),
                                                        groupnames=['options'],
                                                        name='Use OD flows',
@@ -1240,7 +1247,7 @@ class MaRouter(CmlMixin, Process):
         """
         Imports simulation resuts into results object.
         """
-        print('import_results of marouter')
+        print('import_results of marouter is_update_routes_fastest',self.is_update_routes_fastest)
 
         myscenario = self.parent
 
@@ -1248,7 +1255,17 @@ class MaRouter(CmlMixin, Process):
             results = self._results
             if results is None:
                 results = myscenario.simulation.results
-
+        
+        print('  result object defined',results is not None)
+        print('  flowoutputfilepath defined',self.flowoutputfilepath is not None,self.flowoutputfilepath)
+        if self.flowoutputfilepath is not None:
+            print('  flowoutputfilepath existing',os.path.isfile(self.flowoutputfilepath))
+        
+        print('  routeoutputfilepath defined',self.routeoutputfilepath is not None,self.routeoutputfilepath)
+        if self.routeoutputfilepath is not None:
+            print('  routeoutputfilepath existing',os.path.isfile(self.routeoutputfilepath))
+            
+            
         if results is not None:
             # self.routeoutputfilepath = None
 
@@ -1263,3 +1280,8 @@ class MaRouter(CmlMixin, Process):
                     if os.path.isfile(self.routeoutputfilepath):
                         myscenario.demand.import_routealternatives_xml(
                             self.routeoutputfilepath, is_fastest=True, is_add=False)
+                            
+                elif self.is_update_routes_prob:
+                    if os.path.isfile(self.routeoutputfilepath):
+                        myscenario.demand.import_routealternatives_xml(
+                            self.routeoutputfilepath, is_fastest=False, is_add=False)

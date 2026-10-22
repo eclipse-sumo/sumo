@@ -421,6 +421,16 @@ MSDevice_Routing::loadState(const SUMOSAXAttributes& attrs) {
             }
         }
         rebuildRerouteCommand(SIMSTEP + offset);
+    } else if (myRerouteCommand != nullptr && myLastRouting >= 0) {
+        // the pre-insertion reroute scheduled by the constructor already happened before saving
+        myRerouteCommand->deschedule();
+        myRerouteCommand = nullptr;
+        const MSEdge* source = *myHolder.getRoute().begin();
+        if (myPreInsertionPeriod > 0 && (source->isTazConnector() || myHolder.getParameter().departLaneProcedure == DepartLaneDefinition::BEST_FREE)) {
+            // repeated pre-insertion rerouting continues with its original phase
+            myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::preInsertionReroute);
+            MSNet::getInstance()->getInsertionEvents()->addEvent(myRerouteCommand, myLastRouting + myPreInsertionPeriod);
+        }
     }
 }
 

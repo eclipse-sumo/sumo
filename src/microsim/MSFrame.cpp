@@ -85,9 +85,15 @@ MSFrame::fillOptions() {
     oc.addSynonyme("route-files", "routes");
     oc.addDescription("route-files", "Input", TL("Load routes descriptions from FILE(s)"));
 
+    oc.doRegister("ignore.routeelements", new Option_Bool(false));
+    oc.addDescription("ignore.routeelements", "Input", TL("Ignore route elements during loading of sumo-configs"));
+
     oc.doRegister("additional-files", 'a', new Option_FileName());
     oc.addSynonyme("additional-files", "additional");
     oc.addDescription("additional-files", "Input", TL("Load further descriptions from FILE(s)"));
+
+    oc.doRegister("ignore.additionalelements", new Option_Bool(false));
+    oc.addDescription("ignore.additionalelements", "Input", TL("Ignore additional elements during loading of sumo-configs"));
 
     oc.doRegister("weight-files", 'w', new Option_FileName());
     oc.addSynonyme("weight-files", "weights");
@@ -938,6 +944,14 @@ bool
 MSFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     bool ok = true;
+    if (oc.getBool("ignore.routeelements")) {
+        oc.resetWritable("route-files");
+        oc.resetDefault("route-files");
+    }
+    if (oc.getBool("ignore.additionalelements")) {
+        oc.resetWritable("additional-files");
+        oc.resetDefault("additional-files");
+    }
     if (!oc.isSet("net-file") && oc.isDefault("remote-port")) {
         WRITE_ERROR(TL("No network file (-n) specified."));
         ok = false;

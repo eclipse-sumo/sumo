@@ -2717,6 +2717,8 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
             if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && !outsideEdge()
                     // account for imprecise driving by some models
                     && (vehDist.second >= vehDist.first->getVehicleType().getMinGap() * (1 - vehDist.first->getCarFollowModel().getCollisionMinGapFactor())
+                        || (vehDist.second < 0 && myVehicle.getLane()->isNormal() && vehDist.first->getLane()->isNormal()
+                            && vehDist.second >= -myVehicle.getVehicleType().getMinGap() * (1 - myVehicle.getCarFollowModel().getCollisionMinGapFactor()))
                         // avoid deadlock due to #3729
                         || (!leaders
                             && myVehicle.getPositionOnLane() >= myVehicle.getVehicleType().getLength()

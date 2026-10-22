@@ -131,6 +131,116 @@ def get_loop(digraph, ids_node, ids_nodepairs=[], n_node_max=4):
 
         return get_loop(digraph, ids_node, ids_nodepairs, n_node_max)
 
+def extract_connected_ascendents_decendents_subgraphs_fast(G):
+    """
+    Returns G1_edges, G2_edges, G3_edges  
+
+    G1: largest strongly connected edge component
+    G2: edges that can eventually reach G1
+    G3: edges that are eventually reachable from G1
+    """
+
+    if not G.is_directed():
+        raise ValueError("G must be directed")
+
+    L = nx.line_graph(G)
+
+    if L.number_of_nodes() == 0:
+        return [],[],[]
+
+    # Condensation graph of the line graph
+    # Each node in C represents one SCC of L
+    C = nx.condensation(L)
+
+    # Mapping from edge in G to SCC id in C
+    edge_to_scc = C.graph["mapping"]
+
+    # Find largest SCC
+    scc_to_edges = {}
+
+    for edge, scc_id in edge_to_scc.items():
+        scc_to_edges.setdefault(scc_id, set()).add(edge)
+
+    g1_scc = max(scc_to_edges, key=lambda scc: len(scc_to_edges[scc]))
+    G1_edges = scc_to_edges[g1_scc]
+
+    # SCCs that can reach G1
+    upstream_sccs = nx.ancestors(C, g1_scc)
+
+    # SCCs reachable from G1
+    downstream_sccs = nx.descendants(C, g1_scc)
+
+    G2_edges = set()
+    G3_edges = set()
+
+    for scc_id in upstream_sccs:
+        G2_edges.update(scc_to_edges[scc_id])
+
+    for scc_id in downstream_sccs:
+        G3_edges.update(scc_to_edges[scc_id])
+
+
+    return G1_edges, G2_edges, G3_edges 
+
+
+class NxGraph:
+
+    
+    
+    def __init__(self, net, id_mode = 0, modename = None):
+        """
+        Takes the SUMO network and generates a networkx DiGraph for a given mode.
+        id_mode = 0 means that vehicle can use all edges of the graph
+        It also retuens a lookup table with node pair as key and 
+        edge ID as value.
+        
+        """
+        
+        if modename is not None:
+            id_mode = net.modes.get_id_mode(modename)
+        self._id_mode = id_mode
+        ids_edge = net.edges.get_ids()
+        # getting times is a trick to get the edges where mode is allowed
+        # if times is non then mode is not allowed
+        # times could also be used to define edge weights of the digraph
+        times = net.edges.get_times(id_mode, is_check_lanes = True)
+        #print('NxGraph.__init__')
+        
+        
+        fstar = net.edges.get_fstar( is_ignor_connections = False, id_mode = id_mode )
+        bstar = net.edges.get_bstar( is_ignor_connections = False, id_mode = id_mode )
+        ids_edge_mode = ids_edge[np.logical_not(np.isnan(times[ids_edge]))]
+        self._nodepair_to_edge = {}
+        self._digraph = nx.DiGraph()
+        for id_edge, id_fromnode, id_tonode  in zip(ids_edge_mode, net.edges.ids_fromnode[ids_edge_mode], net.edges.ids_tonode[ids_edge_mode]):
+            if len(fstar[id_edge]) == 0:
+                id_tonode_graf = -id_tonode
+            else:
+                id_tonode_graf = id_tonode
+                
+            if len(bstar[id_edge]) == 0:
+                id_fromnode_graf = -id_fromnode
+            else:
+                id_fromnode_graf = id_fromnode
+            
+            self._digraph.add_edge(id_fromnode_graf, id_tonode_graf)
+            self._nodepair_to_edge[(id_fromnode_graf, id_tonode_graf)] = id_edge
+        
+        
+    def get_nxgraph(self):
+        return self._digraph 
+
+        
+    def get_edges_connected_ascendents_decendents(self):
+        nodepairs_connected, nodepairs_from, nodepairs_to = extract_connected_ascendents_decendents_subgraphs_fast(self._digraph)
+        return  self._get_edges_from_nodepairs(nodepairs_connected),\
+                self._get_edges_from_nodepairs(nodepairs_from),\
+                self._get_edges_from_nodepairs(nodepairs_to)
+    
+    def _get_edges_from_nodepairs(self, nodepaires):
+        return [self._nodepair_to_edge[nodepair] for nodepair in nodepaires]
+        
+
 
 class Road:
     def __init__(self, element, parent):

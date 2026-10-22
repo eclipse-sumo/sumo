@@ -871,51 +871,65 @@ class WxGui(ModuleGui):
                             bitmap=self.get_icon('map_del_24px.png'),
                             )
 
-        menubar.append_menu('landuse/zones',
-                            bitmap=self.get_icon("fig_zone_24px.png"),
-                            )
-
-        menubar.append_item('landuse/zones/generate...',
-                            self.on_generate_zones,
-                            # bitmap = self.get_icon('Files-Osm-icon_24.png'),#
-                            )
-        menubar.append_item('landuse/zones/import from shapefile...',
-                            self.on_import_zones_from_shape,
-                            # bitmap = self.get_icon('Files-Osm-icon_24.png'),#
-                            )
-        menubar.append_item('landuse/zones/import from geojason...',
-                            self.on_import_zones_from_geojason,
-                            # bitmap = self.get_icon('Files-Osm-icon_24.png'),#
-                            )
-        menubar.append_item('landuse/zones/import zonedata from CSV...',
-                            self.on_import_zonedata_from_csv,
-                            # bitmap = self.get_icon('Files-Osm-icon_24.png'),#
-                            )
-        menubar.append_item('landuse/zones/identify zone edges',
-                            self.on_refresh_zoneedges,
-                            info='Identify network edges that are located within each zone.',
-                            # bitmap = self.get_icon('Files-Osm-icon_24.png'),#
-                            )
-        menubar.append_item('landuse/zones/identify zone areas',
-                            self.on_refresh_zoneareas,
-                            info='Identify area of each zone in square kilometers.',
-                            # bitmap = self.get_icon('Files-Osm-icon_24.png'),#
-                            )
-        menubar.append_item('landuse/zones/export zone.kml',
-                            self.on_export_zone_kml,
-                            info='Export zones in .kml format.',
-                            bitmap=self.get_agileicon("Document_Export_24px.png"),
-                            )
-        menubar.append_item('landuse/zones/export to shape file...',
-                            self.on_zones_to_shapefile,
-                            # bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU)
-                            bitmap=self.get_agileicon("Document_Export_24px.png"),
-                            )
-        menubar.append_item('landuse/zones/clear all',
-                            self.on_clear_zones,
-                            info='Delete all zones.',
-                            bitmap=wx.ArtProvider.GetBitmap(wx.ART_DELETE, wx.ART_MENU),
-                            )
+        menubar.append_menu( 'landuse/zones',
+            bitmap = self.get_icon("fig_zone_24px.png"),
+            )
+        
+        
+        
+        menubar.append_item( 'landuse/zones/generate...',
+            self.on_generate_zones, 
+            #bitmap = self.get_icon('Files-Osm-icon_24.png'),#
+            ) 
+        menubar.append_item( 'landuse/zones/import from shapefile...',
+            self.on_import_zones_from_shape, 
+            #bitmap = self.get_icon('Files-Osm-icon_24.png'),#
+            ) 
+        menubar.append_item( 'landuse/zones/import from geojson...',
+            self.on_import_zones_from_geojson, 
+            #bitmap = self.get_icon('Files-Osm-icon_24.png'),#
+            )     
+        menubar.append_item( 'landuse/zones/export to geojson...',
+            self.on_export_zones_to_geojson, 
+            #bitmap = self.get_icon('Files-Osm-icon_24.png'),#
+            )      
+            
+        menubar.append_item( 'landuse/zones/import zonedata from CSV...',
+            self.on_import_zonedata_from_csv, 
+            #bitmap = self.get_icon('Files-Osm-icon_24.png'),#
+            )    
+            
+        menubar.append_item( 'landuse/zones/edit Zones with SUMO netedit...',
+            self.on_zoneedit, 
+            bitmap = self.get_icon('netedit.png'),
+            )
+            
+        menubar.append_item( 'landuse/zones/identify zone edges',
+            self.on_refresh_zoneedges, 
+            info='Identify network edges that are located within each zone.',
+            #bitmap = self.get_icon('Files-Osm-icon_24.png'),#
+            ) 
+        menubar.append_item( 'landuse/zones/identify zone areas',
+            self.on_refresh_zoneareas, 
+            info='Identify area of each zone in square kilometers.',
+            #bitmap = self.get_icon('Files-Osm-icon_24.png'),#
+            ) 
+        menubar.append_item( 'landuse/zones/export zone.kml',
+            self.on_export_zone_kml, 
+            info='Export zones in .kml format.',
+            bitmap = self.get_agileicon("Document_Export_24px.png"),#
+            ) 
+        menubar.append_item(    'landuse/zones/export to shape file...', 
+                                self.on_zones_to_shapefile, 
+                                #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU)
+                                bitmap = self.get_agileicon("Document_Export_24px.png"),
+                                )
+        menubar.append_item( 'landuse/zones/clear all',
+            self.on_clear_zones, 
+            info='Delete all zones.',
+            bitmap = wx.ArtProvider.GetBitmap(wx.ART_DELETE,wx.ART_MENU),
+            ) 
+            
 
         menubar.append_menu('landuse/facilities',
                             bitmap=self.get_icon("city-icon_24px.png"),
@@ -975,11 +989,11 @@ class WxGui(ModuleGui):
                             bitmap=self.get_agileicon("Document_Import_24px.png"),
                             )
 
-        menubar.append_item('landuse/Points of interest/export to poly file...',
-                            self.on_export_poly, info='Export facilities to SUMO poly xml file...',
-                            # bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU)
-                            bitmap=self.get_agileicon("Document_Export_24px.png"),
-                            )
+        #menubar.append_item('landuse/Points of interest/export to poly file...',
+        #                    self.on_export_poly, info='Export facilities to SUMO poly xml file...',
+        #                    # bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU)
+        #                    bitmap=self.get_agileicon("Document_Export_24px.png"),
+        #                    )
 
         menubar.append_item('landuse/Points of interest/guess facility',
                             self.on_guess_facilities,
@@ -1024,6 +1038,15 @@ class WxGui(ModuleGui):
         self._landuse.import_polyxml(filepath=addfilepath, is_pois=False)  # do not import pois
         self._mainframe.refresh_moduleguis()
 
+    def on_zoneedit(self,event = None):
+        """Edit Zones with SUMO's netedit.
+        """
+        self.get_scenario().net.call_netedit(is_maps = False, is_poly = False, is_zone = True)
+        addfilepath = self.get_scenario().get_rootfilepath()+'.add.xml'
+        # 
+        #self._landuse.import_polyxml(filepath = addfilepath, is_pois = False)# do not import pois
+        self._mainframe.refresh_moduleguis()
+        
     def on_guess_facilities(self, event=None):
         self._landuse.pois.guess_facilities()
         self._mainframe.browse_obj(self._landuse.pois)
@@ -1040,33 +1063,53 @@ class WxGui(ModuleGui):
         self._mainframe.browse_obj(self._landuse.pois)
         self._mainframe.refresh_moduleguis()
 
-    def on_import_zones_from_geojason(self, event=None):
+    def on_export_zones_to_geojson(self, event=None):
+        
         """
-        Import zones from geojason file format.
+        Export zones to geojson file format.
         """
 
-        proc = landuse.ZoneFromGeojsonImporter(self._landuse.zones, logger=self._mainframe.get_logger())
+        proc = landuse.ZoneToGeojsonExporter(self._landuse.zones, logger = self._mainframe.get_logger())
         dlg = ProcessDialog(self._mainframe, proc, immediate_apply=True)
-
+                         
         dlg.CenterOnScreen()
-
+    
         # this does not return until the dialog is closed.
         val = dlg.ShowModal()
-        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
-        # print '  status =',dlg.get_status()
-        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
-            # print ">>>>>>>>>Unsuccessful\n"
+        if dlg.get_status() != 'success':#val == wx.ID_CANCEL:
             dlg.Destroy()
-
+            
         if dlg.get_status() == 'success':
-            # print ">>>>>>>>>successful\n"
+            dlg.apply()
+            dlg.Destroy()
+            self._mainframe.browse_obj(self._landuse.zones)
+            
+            
+            
+    def on_import_zones_from_geojson(self, event=None):
+        
+        """
+        Import zones from geojson file format.
+        """
+
+        proc = landuse.ZoneFromGeojsonImporter(self._landuse.zones, logger = self._mainframe.get_logger())
+        dlg = ProcessDialog(self._mainframe, proc, immediate_apply=True)
+                         
+        dlg.CenterOnScreen()
+    
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        if dlg.get_status() != 'success':#val == wx.ID_CANCEL:
+            dlg.Destroy()
+            
+        if dlg.get_status() == 'success':
             # apply current widget values to scenario instance
             dlg.apply()
             dlg.Destroy()
-            # self._landuse.zones.refresh_zoneedges()
             self._mainframe.browse_obj(self._landuse.zones)
-            self._is_needs_refresh = True
+            self._is_needs_refresh = True    
             self._mainframe.refresh_moduleguis()
+            
 
     def on_import_zones_from_shape(self, event=None):
         """

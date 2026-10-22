@@ -6,11 +6,31 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
-  - Fixed invalid predecessor lane used when inserting long train on short edge #18345
+  - Fixed deadlock on a short lane when using the sublane model #18379 (regression in 1.24.0)
+  - Fixed lane-changing deadlock with carFollowModel IDM #17483  
+  - device.rerouting.threshold.factor and device.rerouting.threshold.constant now apply to insertion rerouting if a complete route was loaded #18354
+  - Fixed railway issues:
+    - Fixed invalid predecessor lane used when inserting long train on short edge #18345
+    - Fixed failure to reverse train near route end #18385
+    - Fixed invalid error "Warning: Invalid approach information to rail signal 'junction ..." #17810
+  - Fixed issues that caused divergence when loading state:
+    - initialization of CCH-router when vTypeDistributions are loaded from state #18365
+    - rerouting device: vehicles that have not departed repeat no longer perform extra rerouting after loading state #18366
+    
+
+- netedit
+  - When called from sumo-gui with CTRL+T, traffic demand loading now honors checkbox #18347 (regression in 1.26.0)
+  - Setting no-internal-links=false in the options menu (F10) to add internal lanes to a network takes effect again #18356 (regression in 1.27.0)
+  - Fixed invalid prompt to save network after activating "show connections" in inspect mode #18350 (regression in 1.27.1)
+  - When calling sumo-gui with CLTR+T, traffic demand loading now honors the checkbox #18377
+  - The "save network" button now activates after recomputing a network with volatile options (SHIFT+F5) #18173
 
 - sumo-gui
   - Fixed invalid error on reloading polygon file if SUMO_HOME is not set #13584
   - Fixed missing underline in object ids for warnings during network loading #18351
+
+- netconvert
+  - Fixed insufficient geo-precision in parquet output #18390
 
 - meso
   - Fixed extreme slow-down when running simulation with option **--time-to-teleport.disconnected** (regression in 1.28.0) #18357
@@ -24,6 +44,10 @@ title: ChangeLog
   - Fixed invalid route output with **--bulk-routing** #18355
 
 ### Enhancements
+
+- sumo
+  - When setting option **--vehroute-output.cost**, the initial route cost is now included #18378
+  - Improved speed of computing safety interlocks when loading new train routes #18387
 
 - sumo-gui
   - Converted some buttons into checkboxes in the locate dialog #9925
@@ -45,6 +69,7 @@ title: ChangeLog
 ### Miscellaneous
 
 - Fixed VISSIM import documentation language #6082
+- Fixed gprof/profiling build so that it generates profiling output again with newer compilers #18386
 
 ## Version 1.28.0 (08.10.2026)
 

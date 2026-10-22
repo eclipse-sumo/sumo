@@ -27,6 +27,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <unordered_map>
 #include <iostream>
 #ifdef HAVE_FOX
 #include <utils/foxtools/fxheader.h>
@@ -831,7 +832,7 @@ public:
     static bool dictionary(const std::string& id, MSEdge* edge);
 
     /** @brief Returns the MSEdge associated to the key id if it exists, otherwise returns nullptr. */
-    static MSEdge* dictionary(const std::string& id);
+    static MSEdge* dictionary(const std::string_view& id);
 
     /** @brief Returns the MSEdge associated to the key id giving a hint with a numerical id. */
     static MSEdge* dictionaryHint(const std::string& id, const int startIdx);
@@ -1054,6 +1055,7 @@ protected:
      * @deprecated Move to MSEdgeControl, make non-static
      */
     static DictType myDict;
+    static std::unordered_map<std::string_view, MSEdge*> myHashDict;
 
     /** @brief Static list of edges
      * @deprecated Move to MSEdgeControl, make non-static

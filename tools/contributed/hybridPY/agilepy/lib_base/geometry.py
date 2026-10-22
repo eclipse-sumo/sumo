@@ -509,7 +509,7 @@ def is_polyline_intersect_polygon(polyline, polygon, is_use_shapely=True, is_lin
 
 
 def is_polyline_in_polygon(polyline, polygon, is_use_shapely=True):
-    if IS_SHAPELY & is_use_shapely:
+    if IS_SHAPELY & is_use_shapely & (len(polyline)>=3):
         poly = Polygon(np.array(polygon)[:, :2])
         return MultiPoint(np.array(polyline)[:, :2]).within(poly)
 
