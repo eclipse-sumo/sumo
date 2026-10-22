@@ -1437,7 +1437,7 @@
         <!-- Enable separate queues for every lane -->
         <meso-lane-queue value="false" type="BOOL"/>
 
-        <!-- Only use the lane queues leading to the next edge on segments that end within FLOAT m of the edge end -->
+        <!-- Choose lane queues by the route of the vehicle at all turns up to FLOAT m ahead -->
         <meso-lookahead value="0" type="FLOAT"/>
 
         <!-- Do not build queues (or reduce capacity) for lanes allowing only the given vclasses -->
