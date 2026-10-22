@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-21T22:36:48.111481+01:00 by Eclipse SUMO sumo v1_28_0+0168-6edec047c3b
+<!-- generated on 2026-10-21T22:37:24.017388+01:00 by Eclipse SUMO sumo v1_28_0+0168-6edec047c3b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -113,43 +113,36 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep id="8.00">
         <link from="NC_0" via=":C_0_0" to="CW_0">
             <approaching id="fast" impatience="0.00" arrivalTime="14.59" leaveTime="15.31" arrivalSpeed="13.89" arrivalSpeedBraking="13.89" leaveSpeed="13.89" willPass="1"/>
-            <approaching id="slow" impatience="0.00" arrivalTime="91.95" leaveTime="101.95" arrivalSpeed="1.00" arrivalSpeedBraking="1.00" leaveSpeed="1.00" willPass="1"/>
         </link>
     </timestep>
     <timestep id="9.00">
         <link from="NC_0" via=":C_0_0" to="CW_0">
             <approaching id="fast" impatience="0.00" arrivalTime="14.59" leaveTime="15.31" arrivalSpeed="13.89" arrivalSpeedBraking="13.89" leaveSpeed="13.89" willPass="1"/>
-            <approaching id="slow" impatience="0.00" arrivalTime="91.95" leaveTime="101.95" arrivalSpeed="1.00" arrivalSpeedBraking="1.00" leaveSpeed="1.00" willPass="1"/>
         </link>
     </timestep>
     <timestep id="10.00">
         <link from="NC_0" via=":C_0_0" to="CW_0">
             <approaching id="fast" impatience="0.00" arrivalTime="14.59" leaveTime="15.31" arrivalSpeed="13.89" arrivalSpeedBraking="13.89" leaveSpeed="13.89" willPass="1"/>
-            <approaching id="slow" impatience="0.00" arrivalTime="91.95" leaveTime="101.95" arrivalSpeed="1.00" arrivalSpeedBraking="1.00" leaveSpeed="1.00" willPass="1"/>
         </link>
     </timestep>
     <timestep id="11.00">
         <link from="NC_0" via=":C_0_0" to="CW_0">
             <approaching id="fast" impatience="0.00" arrivalTime="14.59" leaveTime="15.31" arrivalSpeed="13.89" arrivalSpeedBraking="13.89" leaveSpeed="13.89" willPass="1"/>
-            <approaching id="slow" impatience="0.00" arrivalTime="91.95" leaveTime="101.95" arrivalSpeed="1.00" arrivalSpeedBraking="1.00" leaveSpeed="1.00" willPass="1"/>
         </link>
     </timestep>
     <timestep id="12.00">
         <link from="NC_0" via=":C_0_0" to="CW_0">
             <approaching id="fast" impatience="0.00" arrivalTime="14.59" leaveTime="15.31" arrivalSpeed="13.89" arrivalSpeedBraking="13.89" leaveSpeed="13.89" willPass="1"/>
-            <approaching id="slow" impatience="0.00" arrivalTime="91.95" leaveTime="101.95" arrivalSpeed="1.00" arrivalSpeedBraking="1.00" leaveSpeed="1.00" willPass="1"/>
         </link>
     </timestep>
     <timestep id="13.00">
         <link from="NC_0" via=":C_0_0" to="CW_0">
             <approaching id="fast" impatience="0.00" arrivalTime="14.59" leaveTime="15.31" arrivalSpeed="13.89" arrivalSpeedBraking="13.89" leaveSpeed="13.89" willPass="1"/>
-            <approaching id="slow" impatience="0.00" arrivalTime="91.95" leaveTime="101.95" arrivalSpeed="1.00" arrivalSpeedBraking="1.00" leaveSpeed="1.00" willPass="1"/>
         </link>
     </timestep>
     <timestep id="14.00">
         <link from="NC_0" via=":C_0_0" to="CW_0">
             <approaching id="fast" impatience="0.00" arrivalTime="14.59" leaveTime="15.31" arrivalSpeed="13.89" arrivalSpeedBraking="13.89" leaveSpeed="13.89" willPass="1"/>
-            <approaching id="slow" impatience="0.00" arrivalTime="91.95" leaveTime="101.95" arrivalSpeed="1.00" arrivalSpeedBraking="1.00" leaveSpeed="1.00" willPass="1"/>
         </link>
     </timestep>
     <timestep id="15.00">
