@@ -1345,6 +1345,7 @@ MSDriveWay::findFlankProtection(MSLink* link, MSLink* origLink, const std::vecto
                 std::cout << "    predecessors of " << link->getDescription() << " isSwitch\n";
             }
 #endif
+            addSwitchFoes(link);
             for (MSLink* pred : predLinks) {
                 addSwitchFoes(pred);
             }
