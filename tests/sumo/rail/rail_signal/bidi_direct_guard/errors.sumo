@@ -1,0 +1,2 @@
+Warning: Teleporting vehicle 'v_0'; collision with vehicle 'v_1', lane='E2_0', gap=-1.00, time=28.00, stage=move.
+Warning: Vehicle 'v_0' teleports beyond arrival edge 'E4', time=36.00.

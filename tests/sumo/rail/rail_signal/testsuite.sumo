@@ -58,6 +58,9 @@ halting_conflict
 # two tracks cross and the conflict node is a rail signal
 crossing_direct_guard
 
+# an oncoming conflict involving a controlled switch (#18395)
+bidi_direct_guard
+
 # switches for a bidirectional section guarded by extra rail signal nodes
 indirect_guard
 
