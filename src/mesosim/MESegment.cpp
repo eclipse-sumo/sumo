@@ -112,7 +112,7 @@ MESegment::MESegment(const std::string& id,
                      const MesoEdgeType& edgeType):
     Named(id), myEdge(parent), myNextSegment(next),
     myLength(length), myIndex(idx),
-    myTau_length(TIME2STEPS(1) / MAX2(MESO_MIN_SPEED, speed)),
+    myTau_length((double)TIME2STEPS(1) / MAX2(MESO_MIN_SPEED, speed)),
     myNumVehicles(0),
     myLastHeadway(TIME2STEPS(-1)),
     myMeanSpeed(speed),
@@ -158,7 +158,7 @@ MESegment::MESegment(const std::string& id,
         maxAllow &= ~minAllow;
         if ((maxAllow & ~myMultiModalWarnings) != 0) {
             WRITE_WARNINGF("Mismodelled capacity on edge '%'. Not all lanes are usable by vClass '%'. Use option --meso-lane-queue or add unused class to option --meso-ignore-lanes-by-vclass.",
-                    myEdge.getID(), getVehicleClassNames(maxAllow & ~myMultiModalWarnings));
+                           myEdge.getID(), getVehicleClassNames(maxAllow & ~myMultiModalWarnings));
             myMultiModalWarnings |= maxAllow;
         }
     }
@@ -173,7 +173,7 @@ MESegment::initSegment(const MesoEdgeType& edgeType, const MSEdge& parent, const
     if (myQueues.size() == 1) {
         const double laneScale = capacity / myLength;
         myQueueCapacity = capacity;
-        myTau_length = TIME2STEPS(1) / MAX2(MESO_MIN_SPEED, myMeanSpeed) / laneScale;
+        myTau_length = (double)TIME2STEPS(1) / MAX2(MESO_MIN_SPEED, myMeanSpeed) / laneScale;
         // Eissfeldt p. 90 and 151 ff.
         myTau_ff = (SUMOTime)((double)edgeType.tauff / laneScale);
         myTau_fj = (SUMOTime)((double)edgeType.taufj / laneScale);
@@ -572,8 +572,8 @@ SUMOTime
 MESegment::computeHeadway(Queue& /*q*/, const Queue& qNext, const MESegment* const next, const MEVehicle* veh) const {
     const bool nextFree = qNext.getOccupancy() <= next->myJamThreshold;
     const SUMOTime tau = (!veh->wasJammed()
-            ? (nextFree ? myTau_ff : myTau_fj)
-            : (nextFree ? myTau_jf : getTauJJ((double)qNext.size(), next->myQueueCapacity, next->myJamThreshold)));
+                          ? (nextFree ? myTau_ff : myTau_fj)
+                          : (nextFree ? myTau_jf : getTauJJ((double)qNext.size(), next->myQueueCapacity, next->myJamThreshold)));
     assert(tau >= 0);
     SUMOTime headway = tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap(), veh->getVehicleType().getCarFollowModel().getHeadwayTime());
     if (myTLSPenalty) {
@@ -600,7 +600,7 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
     }
     MEVehicle* lc = removeCar(veh, time, reason); // new leaderCar
     q.setBlockTime(time);
-    if (myEdge.isNormal() && myCapacity >= 22.5 ) {
+    if (myEdge.isNormal() && myCapacity >= 22.5) {
         veh->markJammed(q.getOccupancy() > myJamThreshold);
     }
     if (!isInvalid(next)) {
