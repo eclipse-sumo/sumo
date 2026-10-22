@@ -37,6 +37,11 @@
         <stop lane="B1C1_0" startPos="0.90" endPos="1.00" duration="9223372036854684.76" started="10.00"/>
         <device id="routing_v" state="0 0"/>
     </vehicle>
+    <lane id=":C1_13_0">
+        <link to="C1D1_0">
+            <approaching id="v" arrivalTime="-9223372036854753975" arrivalSpeed="7.46" departSpeed="7.46" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="99.00"/>
+        </link>
+    </lane>
     <lane id="B1C1_0">
         <vehicles value="v"/>
     </lane>
