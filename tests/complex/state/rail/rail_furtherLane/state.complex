@@ -36,6 +36,11 @@
         <device id="tripinfo_vehicle_0" state="gneE1_0 0 20 90.04 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
         <device id="routing_vehicle_0" state="0 0"/>
     </vehicle>
+    <lane id=":gneJ1_0_0">
+        <link to="gneE2_0">
+            <approaching id="vehicle_0" arrivalTime="4502" arrivalSpeed="20.00" departSpeed="20.00" request="1" arrivalSpeedBraking="20.00" waitingTime="0" distance="10.04"/>
+        </link>
+    </lane>
     <lane id="gneE2_0">
         <vehicles value="vehicle_0"/>
     </lane>

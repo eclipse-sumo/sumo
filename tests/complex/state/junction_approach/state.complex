@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-21T23:29:06.849465+01:00 by Eclipse SUMO sumo v1_28_0+0168-6edec047c3b
+<!-- generated on 2026-10-21T23:53:55.667151+01:00 by Eclipse SUMO sumo v1_28_0+0168-6edec047c3b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -41,9 +41,20 @@
     <vehicle id="left" type="car" depart="64.000" departLane="1" route="!left" distance="91.95 0" speedFactor="1.000000000" state="6 64000 0 5.100000000 3000 6.293088553 77000 0 0 0 73000 9223372036854774807 73000" pos="6.309000000 1.309000000 0.000000000" speed="0.000000000 0.000000000" angle="72.677633152" posLat="0.000000000" waitingTime="100000 1 0 3000" lcStateBase="0.000000000" lcState2="0 0 0 0 0"/>
     <lane id=":C_6_1">
         <vehicles value="straight"/>
+        <link to="CW_1">
+            <approaching id="straight" arrivalTime="80450" arrivalSpeed="3.000000000" departSpeed="3.000000000" request="1" arrivalSpeedBraking="0.000000000" waitingTime="0" distance="13.350000000"/>
+        </link>
     </lane>
     <lane id=":C_18_0">
         <vehicles value="left"/>
+        <link to=":C_26_0">
+            <approaching id="left" arrivalTime="76038" arrivalSpeed="2.699110965" departSpeed="0.000000000" request="1" arrivalSpeedBraking="2.699110965" waitingTime="2000" distance="0.101000000"/>
+        </link>
+    </lane>
+    <lane id=":C_26_0">
+        <link to="CN_1">
+            <approaching id="left" arrivalTime="169310" arrivalSpeed="0.000000000" departSpeed="0.000000000" request="1" arrivalSpeedBraking="0.000000000" waitingTime="2000" distance="9.331000000"/>
+        </link>
     </lane>
     <tlLogic id="C" programID="0" phase="4" duration="33000" until="78000" cycleTime="78000" active="1"/>
 </snapshot>

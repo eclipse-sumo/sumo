@@ -36,6 +36,11 @@
     <vehicle id="v_0" depart="0.000" departPos="0.0000" departSpeed="7.0000" route="!v_0" distance="0 0" speedFactor="1.0600" state="24 0 0 0.0000 0 1.1060 2000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="20.8487 15.8487 11.3559" speed="11.3559 9.4927" angle="86.2388" posLat="1.2800" waitingTime="100000 0" lcStateBase="266.0000" lcState="0.6400 0.4000 1.0000" lcState2="0 0 0 94927494 0">
         <device id="vehroute_v_0" state="0 0.0000 7.0000 0.0000 -1.0000 0"/>
     </vehicle>
+    <lane id=":cluster_J1_gneJ27_0_0">
+        <link to="detection_area_0">
+            <approaching id="v_0" arrivalTime="5034" arrivalSpeed="14.4999" departSpeed="14.4999" request="1" arrivalSpeedBraking="0.0000" waitingTime="0" distance="57.3773" posLat="0.6400"/>
+        </link>
+    </lane>
     <lane id="merge.102.8_0">
         <vehicles value="v_0"/>
     </lane>
