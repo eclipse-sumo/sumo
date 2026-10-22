@@ -10,6 +10,7 @@ appdata=marouter
 appdata=netconvert
 import/XML/output_formats/parquet
 export/tabular/adlershof_parquet
+export/tabular/parquet_geo
 appdata=netedit
 appdata=neteditoutput
 appdata=netgen
