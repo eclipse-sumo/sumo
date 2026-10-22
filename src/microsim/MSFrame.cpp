@@ -797,7 +797,7 @@ MSFrame::fillOptions() {
     oc.doRegister("meso-lane-queue", new Option_Bool(false));
     oc.addDescription("meso-lane-queue", "Mesoscopic", TL("Enable separate queues for every lane"));
     oc.doRegister("meso-lookahead", new Option_Float(0));
-    oc.addDescription("meso-lookahead", "Mesoscopic", TL("Only use the lane queues leading to the next edge on segments that end within FLOAT m of the edge end"));
+    oc.addDescription("meso-lookahead", "Mesoscopic", TL("Choose lane queues by the route of the vehicle at all turns up to FLOAT m ahead"));
     oc.doRegister("meso-ignore-lanes-by-vclass", new Option_StringVector(StringVector({ "pedestrian", "bicycle" })));
     oc.addDescription("meso-ignore-lanes-by-vclass", "Mesoscopic", TL("Do not build queues (or reduce capacity) for lanes allowing only the given vclasses"));
     oc.addSynonyme("meso-ignore-lanes-by-vclass", "meso.ignore-lanes.by-vclass");
