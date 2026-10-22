@@ -150,6 +150,9 @@ calibrator
 # see #11394
 continous_lanechange
 
+# a vehicle that waits on the junction for a foe keeps waiting after loading state
+junction_approach
+
 # vehicle stops twice in the same spot, state is saved before departure
 stops_looped
 
