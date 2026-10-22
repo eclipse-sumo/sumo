@@ -3750,8 +3750,10 @@ MSLane::saveState(OutputDevice& out) {
     const bool toRailJunction = myLinks.size() > 0 && (
                                     myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL
                                     || myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_CROSSING);
+    // foes on the junction are judged by the approach information of the previous step
+    const bool saveApproaching = toRailJunction || isInternal();
     const bool hasVehicles = myVehicles.size() > 0;
-    if (hasVehicles || (toRailJunction && hasApproaching())) {
+    if (hasVehicles || (saveApproaching && hasApproaching())) {
         out.openTag(SUMO_TAG_LANE);
         out.writeAttr(SUMO_ATTR_ID, getID());
         if (hasVehicles) {
@@ -3759,7 +3761,7 @@ MSLane::saveState(OutputDevice& out) {
             out.writeAttr(SUMO_ATTR_VALUE, myVehicles);
             out.closeTag();
         }
-        if (toRailJunction) {
+        if (saveApproaching) {
             for (const MSLink* link : myLinks) {
                 if (link->getApproaching().size() > 0) {
                     out.openTag(SUMO_TAG_LINK);
