@@ -1,0 +1,12 @@
+<routes>
+    <vType id="ev" accel="100" decel="5" maxSpeed="13.89" length="4" minGap="1"
+           emissionClass="Energy/unknown">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="64000"/>
+        <param key="device.battery.maximumChargeRate" value="20000"/>
+    </vType>
+    <route id="r" edges="A0B0 B0C0"/>
+    <vehicle id="ev0" type="ev" route="r" depart="0" departPos="0" departSpeed="13.89">
+        <param key="device.battery.chargeLevel" value="1000"/>
+    </vehicle>
+</routes>
