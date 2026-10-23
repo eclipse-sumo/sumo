@@ -1,0 +1,21 @@
+name: Fetch SUMOLibraries
+description: Downloads the current release zip of SUMOLibraries and unpacks it
+inputs:
+  tag:
+    required: false
+    default: '1.28.0'
+outputs:
+  path:
+    value: ${{ steps.download.outputs.path }}
+runs:
+  using: composite
+  steps:
+    - name: Download and unzip SUMOLibraries
+      id: download
+      shell: bash
+      run: |
+        gh release download "${{ inputs.tag }}" --repo "DLR-TS/SUMOLibraries" --pattern "SUMOLibraries*.zip" --output "$RUNNER_TEMP/release.zip"
+        unzip -q -o $RUNNER_TEMP/release.zip
+        echo path=$PWD/SUMOLibraries* >> "$GITHUB_OUTPUT"
+      env:
+        GH_TOKEN: ${{ github.token }}
