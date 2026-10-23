@@ -12,6 +12,6 @@ runs:
       run: |
         gh release download "${{ inputs.tag }}" --repo "DLR-TS/SUMOLibraries" --pattern "SUMOLibraries*.zip" --output "$RUNNER_TEMP/release.zip"
         unzip -q -o $RUNNER_TEMP/release.zip
-        echo "SUMO_LIBRARIES=$(cygpath -m SUMOLibraries*)" >> "$GITHUB_ENV"
+        echo "SUMO_LIBRARIES=$(cygpath -m $PWD/SUMOLibraries*)" >> "$GITHUB_ENV"
       env:
         GH_TOKEN: ${{ github.token }}
