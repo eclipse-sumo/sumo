@@ -25,7 +25,6 @@ jobs:
     env:
       CC: cl
       CXX: cl
-      SUMO_LIBRARIES: D:\a\sumo\sumo\SUMOLibraries
       TEXTTEST_TMP: D:/texttest
 
     steps:
