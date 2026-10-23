@@ -68,3 +68,8 @@ siding_deadlock_approaching_limit
 
 # insertion into siding must be delayed because it is already reserved for passing (#18415)
 siding_deadlock_insertion
+
+# insertion into siding must be delayed because it is already reserved for passing (#18415)
+# 
+# the inserted vehicle is long enough to blow two siding spots
+siding_deadlock_insertion2
