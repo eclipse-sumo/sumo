@@ -898,6 +898,13 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 std::cout << "   foe of driveway " + dw->getID() + " has occupied edges " + toString(occupied) << "\n";
             }
 #endif
+        } else if (dw->sidingDeadlock()) {
+            dwBlocked = true;
+#ifdef DEBUG_INSERTION
+            if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                std::cout << "   insertion on driveway " + dw->getID() + " would cause deadlock\n";
+            }
+#endif
         }
 #ifdef DEBUG_INSERTION
         gDebugFlag4 = false;
