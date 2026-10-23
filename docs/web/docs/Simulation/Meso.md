@@ -155,6 +155,11 @@ Lateral movement is not modelled explicitly. Vehicles may overtake each
 other (swap their position) if the option **--meso-overtaking** is enabled. This is a
 randomized process depending on vehicle speeds and density.
 
+When using option **--meso-lane-queue**, every lane is a separate queue and vehicles enter the shortest queue that they may use.
+Only on the last segment of an edge do they restrict their choice to the queues of the lanes that lead to their next edge.
+Thus, a spill-back from a turning lane (e.g. from a jammed off-ramp) blocks all queues on the upstream segments.
+With option **--meso-lookahead** {{DT_FLOAT}}, vehicles choose their queue by their next edge on all segments that end within the given distance (in m) of the edge end.
+
 ## Junction Model
 
 There are 3 basic options for modelling junction control
@@ -236,7 +241,7 @@ The model parameters described above can be customized for each edge type id by 
     <type id="highway.motorway" ...>
         <meso tauff="1.13" taufj="1.13" taujf="1.73" taujj="1.4" jamThreshold="-1"
              multiQueue="true" junctionControl="false" tlsPenalty="0" tlsFlowPenalty="0"
-             minorPenalty="0" overtaking="false" edgeLength="98"/>
+             minorPenalty="0" overtaking="false" edgeLength="98" lookahead="0"/>
     </type>
 </additional>
 ```
