@@ -1,2 +1,4 @@
 [run_dependent_text]
 output:Removing .* from list of valid servers.
+errors:Pandas4Warning: The 'mode.chained_assignment' option is deprecated.{LINES 2}
+errors:Pandas4Warning: The inplace keyword in DataFrame.sort_values is deprecated{LINES 3}

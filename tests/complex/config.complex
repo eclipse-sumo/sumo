@@ -205,8 +205,6 @@ errors:Fontconfig warning:
 errors:Unable to revert mtime:
 errors:DeprecationWarning: builtin type .*wig.* has no __module__ attribute
 errors:Error: tcpip::Socket::accept() Unable to create listening socket: Address already in use{LINES 4}
-errors:Pandas4Warning: The 'mode.chained_assignment' option is deprecated.{LINES 2}
-errors:Pandas4Warning: The inplace keyword in DataFrame.sort_values is deprecated{LINES 3}
 ps:%%CreationDate
 gtfs_additional:<!-- generated on{[->]}-->
 gtfs_routes:<!-- generated on{[->]}-->
