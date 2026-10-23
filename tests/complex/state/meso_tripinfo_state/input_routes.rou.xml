@@ -1,0 +1,8 @@
+<routes>
+    <!-- input_state.xml is saved at 20 without tripinfo output; v1 is held behind the slow v0 and collects timeLoss -->
+    <vType id="slow" maxSpeed="3" sigma="0" speedDev="0"/>
+    <vType id="fast" sigma="0" speedDev="0"/>
+    <route id="r0" edges="beg middle end"/>
+    <vehicle id="v0" type="slow" route="r0" depart="0"/>
+    <vehicle id="v1" type="fast" route="r0" depart="5"/>
+</routes>

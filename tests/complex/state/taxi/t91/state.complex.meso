@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-19T17:27:52.001425+01:00 by Eclipse SUMO sumo v1_28_0+0141-b852030622e
+<!-- generated on 2026-10-21T21:28:01.510826+01:00 by Eclipse SUMO sumo v1_28_0+0168-6edec047c3b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -44,7 +44,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_28_0+0141-b852030622e" count="39" time="91.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_28_0+0168-6edec047c3b" count="39" time="91.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="6" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -126,7 +126,7 @@
         <stop lane="C1C2_1" startPos="0.000000" endPos="5.000000" duration="0.000" triggered="person" parking="0" permitted="p0.0" actType="pickup p0.0 (0)" started="6.990" ended="14.000"/>
         <stop busStop="stop_B0C0" duration="0.000" parking="0" actType="dropOff p0.0 (0)" started="62.614" ended="70.000"/>
         <device id="vehroute_trip_0" state="14.306700 0.000000 -1.000000 0"/>
-        <device id="tripinfo_trip_0" state="C0C1_1 14.3067 1264.65 0 0 0 1000 -1 -1000 NONE -1 0 -1"/>
+        <device id="tripinfo_trip_0" state="C0C1_1 14.3067 1264.65 0 0 0 1000 -1 -1000 NONE -1 0 -1 1000"/>
         <device id="routing_trip_0" state="0 0"/>
         <device id="taxi_trip_0" state="0 1 781.51 56624"/>
         <device id="person_trip_0" state="0 0 0"/>
@@ -135,7 +135,7 @@
         <stop lane="C1C2_1" startPos="0.000000" endPos="5.000000" duration="0.000" triggered="person" parking="0" permitted="p0.1" actType="pickup p0.1 (1)" started="8.659" ended="16.000"/>
         <stop busStop="stop_B0C0" duration="0.000" parking="0" actType="dropOff p0.1 (1)" started="64.283" ended="71.000"/>
         <device id="vehroute_trip_1" state="11.186618 0.000000 -1.000000 0"/>
-        <device id="tripinfo_trip_1" state="C0C1_1 11.1866 979.05 0 0 0 1000 -1 -1000 NONE -1 0 -1"/>
+        <device id="tripinfo_trip_1" state="C0C1_1 11.1866 979.05 0 0 0 1000 -1 -1000 NONE -1 0 -1 15399"/>
         <device id="routing_trip_1" state="0 0"/>
         <device id="taxi_trip_1" state="0 1 781.51 56624"/>
         <device id="person_trip_1" state="0 0 0"/>
