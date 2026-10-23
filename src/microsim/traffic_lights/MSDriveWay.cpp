@@ -71,7 +71,7 @@ std::map<const MSJunction*, int> MSDriveWay::myDepartDrivewayIndex;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myDepartureDrivewaysEnds;
 std::map<const MSEdge*, std::vector<MSDriveWay*>, ComparatorNumericalIdLess> MSDriveWay::myEndingDriveways;
 std::map<const MSEdge*, std::vector<std::pair<MSDriveWay*, MSDriveWay*> >, ComparatorNumericalIdLess> MSDriveWay::mySidingDriveways;
-const MSEdge* MSDriveWay::myCurrentSidingCheck(nullptr);
+std::vector<const MSEdge*> MSDriveWay::myCurrentSidingCheck;
 std::map<ConstMSEdgeVector, MSDriveWay*> MSDriveWay::myDriveWayRouteLookup;
 std::map<std::string, MSDriveWay*> MSDriveWay::myDriveWayLookup;
 
@@ -667,7 +667,8 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, const MS
 #endif
                         continue;
                     }
-                    if ((!sidingApproach->myTrains.empty() && *sidingApproach->myTrains.begin() != ego) || myCurrentSidingCheck == sidingEnd) {
+                    if ((!sidingApproach->myTrains.empty() && *sidingApproach->myTrains.begin() != ego)
+                            || std::find(myCurrentSidingCheck.begin(), myCurrentSidingCheck.end(), sidingEnd) != myCurrentSidingCheck.end()) {
                         // possibly the foe vehicle can use the other part of the siding
                         if (recurseSidingEnd == nullptr) {
                             const SUMOVehicle* foeVeh = nullptr;
@@ -767,7 +768,7 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, const MS
 
 
 bool
-MSDriveWay::sidingDeadlock() const {
+MSDriveWay::sidingDeadlock(const SUMOVehicle* veh) const {
     const MSEdge* end = &myForward.back()->getEdge();
     const auto it = mySidingDriveways.find(end);
     if (it != mySidingDriveways.end()) {
@@ -781,9 +782,25 @@ MSDriveWay::sidingDeadlock() const {
                     std::cout << SIMTIME << " sidingDeadlock insertionDw=" << getID() << " approachingDW=" << item.first->getID() << " foeDW=" << item.second->getID() << "\n";
                 }
 #endif
-                myCurrentSidingCheck = end;
+                myCurrentSidingCheck.push_back(end);
+                if (veh->getLength() > end->getLength() && !MSGlobals::gUseMesoSim) {
+                    double backDist =  veh->getLength() - getForwardDistance(myForward.size() - 1);
+                    const MSLane* lane = myForward.front();
+                    const MSLane* prev = lane->getLogicalPredecessorLane();
+                    while (backDist > 0 && prev != nullptr) {
+                        backDist -= lane->getLength();
+                        const MSLink* link = prev->getLinkTo(lane);
+                        if (prev->isNormal() && link->getTLLogic() != nullptr
+                                && link->getTLLogic()->getLogicType() == TrafficLightType::RAIL_SIGNAL) {
+                            // inserted train back reaches onto this edge
+                            myCurrentSidingCheck.push_back(&prev->getEdge());
+                        }
+                        lane = prev;
+                        prev = lane->getLogicalPredecessorLane();
+                    }
+                }
                 const bool requiredSiding = !item.first->canUseSiding(*item.first->myTrains.begin(), item.second).first;
-                myCurrentSidingCheck = nullptr;
+                myCurrentSidingCheck.clear();
                 if (requiredSiding) {
                     return true;
                 }
