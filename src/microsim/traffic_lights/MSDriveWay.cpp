@@ -691,8 +691,7 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, const MS
                                 continue;
                             }
                         }
-                        // possibly the foe vehicle
-                        // @todo: in principle it might still be possible to continue if vehicle that approaches the siding can safely leave the situation
+                        // @todo: in principle it might still be possible to continue if vehicle that approaches the siding can safely leave the situation (#18416)
 #ifdef DEBUG_SIGNALSTATE
                         if (gDebugFlag4 || DEBUG_COND_DW2 || DEBUG_HELPER(ego)) {
                             std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " foe=" << foe->getID()
