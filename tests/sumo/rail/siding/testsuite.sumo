@@ -60,3 +60,6 @@ siding_deadlock_intermediate_dw
 
 # required siding is beyond the current pre-registration limit (#17834)
 siding_deadlock_approaching_limit
+
+# insertion into siding must be delayed because it is already reserved for passing (#18415)
+siding_deadlock_insertion
