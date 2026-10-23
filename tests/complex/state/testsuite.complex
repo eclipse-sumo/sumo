@@ -189,5 +189,8 @@ routeLoader
 # the CCH router must not change the default random number state when loading state
 cch_vTypeDistribution
 
+# the CCH metric follows edge speeds above the speed limit, so a reloaded state replicates
+cch_speedFactor
+
 # vehicles waiting for insertion do not repeat their pre-insertion reroute after loading state (#18366)
 preinsertion_reroute

@@ -1,0 +1,9 @@
+--no-step-log --no-duration-log -n input_net.net.xml -r input_routes.rou.xml
+--routing-algorithm CCH --device.rerouting.period 10 --device.rerouting.adaptation-steps 10 -e 251
+--save-state.times 100,250 --save-state.files state.xml,compare.xml --save-state.rng --save-state.precision 9
+:
+--no-step-log --no-duration-log -n input_net.net.xml
+--routing-algorithm CCH --device.rerouting.period 10 --device.rerouting.adaptation-steps 10 -e 251
+--load-state state.xml --save-state.times 250 --save-state.files compare2.xml --save-state.rng --save-state.precision 9
+--compare compare
+tests/complex/state/runner.py
