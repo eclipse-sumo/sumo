@@ -141,6 +141,9 @@ teleporting_highbegin
 # load actuated tls
 actuated
 
+# a static traffic light keeps the start of its current phase when loading state
+tls_spentDuration
+
 # test saving and load vehicles added by calibrator
 calibrator
 
