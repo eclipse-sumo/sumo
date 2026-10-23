@@ -61,6 +61,9 @@ crossing_direct_guard
 # an oncoming conflict involving a controlled switch (#18395)
 bidi_direct_guard
 
+# an invalid conflict involving a controlled switch (#18394)
+siding_direct_guard
+
 # switches for a bidirectional section guarded by extra rail signal nodes
 indirect_guard
 

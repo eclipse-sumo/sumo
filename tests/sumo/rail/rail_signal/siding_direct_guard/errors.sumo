@@ -1,0 +1,2 @@
+Warning: Teleporting vehicle 'v_0'; waited too long (yield, railSignal), lane='-E8_0', time=231.00.
+Warning: Vehicle 'v_0' ends teleporting on edge '-E7', time=240.00.
