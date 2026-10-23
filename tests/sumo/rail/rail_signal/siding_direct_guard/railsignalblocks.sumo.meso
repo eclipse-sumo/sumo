@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-23T09:36:41.295956+01:00 by Eclipse SUMO sumo v1_28_0+0180-dc90e947dd5
+<!-- generated on 2026-10-23T10:08:19.302570+01:00 by Eclipse SUMO sumo v1_28_0+0181-efd7099a9cb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -84,8 +84,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes="-E3_0"
                     deadlockCheck="-E4_0 -E5_0"/>
                 <flank lanes=""/>
-                <conflictLinks signals="J15_0 J16_1 J17_0"/>
-                <foes driveWays="J15.1 J17.0"/>
+                <conflictLinks signals="J15_0 J16_1"/>
+                <foes driveWays="J15.1"/>
             </driveWay>
         </link>
         <link linkIndex="3" from="E2_0" to="E8_0"/>
@@ -120,7 +120,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes="E4_0 E10_0 E9_0 E8_0"
                     deadlockCheck="E2_0 E7_0 E6_0"/>
                 <flank lanes=""/>
-                <conflictLinks signals="J13_1 J15_2 J15_3 J16_2"/>
+                <conflictLinks signals="J13_1 J15_3 J16_2"/>
                 <foes driveWays="J13.0 J16.1 J17.0"/>
                 <sidings foe="J13.0">
                     <siding start="-E10" end="-E8" length="191.42" intermediateEnds="-E4"/>
