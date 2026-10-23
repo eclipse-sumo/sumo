@@ -814,6 +814,14 @@ MSDriveWay::crossingConflict(const MSDriveWay& other) const {
     for (const MSLane* lane : myForward) {
         for (const MSLane* lane2 : other.myForward) {
             if (lane->isNormal() && lane2->isNormal() && lane->getEdge().getToJunction() == lane2->getEdge().getToJunction()) {
+                if (lane->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL
+                        && lane == myForward.back()
+                        && &lane->getEdge() != myRoute.back()) {
+                    // switch/crossing is also a rail_signal (direct control) at the end of the forward section.
+                    // (and the route continues)
+                    // This means the coflict is already guarded
+                    return false;
+                }
                 return true;
             }
         }
