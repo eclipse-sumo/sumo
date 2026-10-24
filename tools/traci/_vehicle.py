@@ -1455,7 +1455,8 @@ class VehicleDomain(VTypeDomain):
     def add(self, vehID, routeID, typeID="DEFAULT_VEHTYPE", depart="now",
             departLane="first", departPos="base", departSpeed="0",
             arrivalLane="current", arrivalPos="max", arrivalSpeed="current",
-            fromTaz="", toTaz="", line="", personCapacity=0, personNumber=0):
+            fromTaz="", toTaz="", line="", personCapacity=0, personNumber=0,
+            departPosLat="", arrivalPosLat="", speedFactor=-1, insertionChecks=""):
         """
         Add a new vehicle (new style with all possible parameters)
         If routeID is "", the vehicle will be inserted on a random network edge
@@ -1465,9 +1466,11 @@ class VehicleDomain(VTypeDomain):
         if depart is None:
             # legacy compatibility
             depart = str(self._connection.simulation.getTime())
-        self._setCmd(tc.ADD_FULL, vehID, "t" + (12 * "s") + "ii", 14,
+        self._setCmd(tc.ADD_FULL, vehID, "t" + (12 * "s") + "ii" + "ss" + "d" + "s", 18,
                      routeID, typeID, depart, departLane, departPos, departSpeed,
-                     arrivalLane, arrivalPos, arrivalSpeed, fromTaz, toTaz, line, personCapacity, personNumber)
+                     arrivalLane, arrivalPos, arrivalSpeed, fromTaz, toTaz, line,
+                     personCapacity, personNumber, departPosLat, arrivalPosLat,
+                     speedFactor, insertionChecks)
 
     addFull = add
 
