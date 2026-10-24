@@ -92,6 +92,12 @@ Person::getLanePosition(const std::string& personID) {
 
 
 double
+Person::getArrivalPos(const std::string& personID) {
+    return Dom::getDouble(libsumo::VAR_ARRIVALPOS, personID);
+}
+
+
+double
 Person::getWalkingDistance(const std::string& personID, const std::string& edgeID, double pos, int laneIndex) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 2);

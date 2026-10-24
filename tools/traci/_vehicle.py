@@ -415,6 +415,13 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_LANEPOSITION, vehID)
 
+    def getArrivalPos(self, vehID):
+        """getArrivalPos(string) -> double
+
+        The position at which the vehicle will arrive on the last edge of its route in m.
+        """
+        return self._getUniversal(tc.VAR_ARRIVALPOS, vehID)
+
     def getCO2Emission(self, vehID):
         """getCO2Emission(string) -> double
 

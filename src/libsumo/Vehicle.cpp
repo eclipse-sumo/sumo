@@ -260,6 +260,11 @@ Vehicle::getLanePosition(const std::string& vehID) {
 }
 
 double
+Vehicle::getArrivalPos(const std::string& vehID) {
+    return Helper::getVehicle(vehID)->getArrivalPos();
+}
+
+double
 Vehicle::getLateralLanePosition(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
     return veh->isOnRoad() ? CALL_MICRO_FUN(veh, getLateralPositionOnLane(), 0) : INVALID_DOUBLE_VALUE;
@@ -2898,6 +2903,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapColor(objID, variable, getColor(objID));
         case VAR_LANEPOSITION:
             return wrapper->wrapDouble(objID, variable, getLanePosition(objID));
+        case VAR_ARRIVALPOS:
+            return wrapper->wrapDouble(objID, variable, getArrivalPos(objID));
         case VAR_LANEPOSITION_LAT:
             return wrapper->wrapDouble(objID, variable, getLateralLanePosition(objID));
         case VAR_CO2EMISSION:
