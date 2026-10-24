@@ -412,8 +412,9 @@ namespace libsumo {
 struct TraCILogic {
     TraCILogic() {}
     TraCILogic(const std::string& _programID, const int _type, const int _currentPhaseIndex,
-               const std::vector<std::shared_ptr<libsumo::TraCIPhase> >& _phases = std::vector<std::shared_ptr<libsumo::TraCIPhase> >())
-        : programID(_programID), type(_type), currentPhaseIndex(_currentPhaseIndex), phases(_phases) {}
+               const std::vector<std::shared_ptr<libsumo::TraCIPhase> >& _phases = std::vector<std::shared_ptr<libsumo::TraCIPhase> >(),
+               const double _offset = 0.)
+        : programID(_programID), type(_type), currentPhaseIndex(_currentPhaseIndex), phases(_phases), offset(_offset) {}
 
     std::string getString() const {
         std::ostringstream os;
@@ -426,6 +427,7 @@ struct TraCILogic {
     int currentPhaseIndex;
     std::vector<std::shared_ptr<libsumo::TraCIPhase> > phases;
     std::map<std::string, std::string> subParameter;
+    double offset = 0.;
 };
 
 

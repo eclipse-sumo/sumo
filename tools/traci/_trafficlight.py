@@ -24,7 +24,7 @@ from .exceptions import TraCIException, deprecated, alias_param
 
 class Logic:
 
-    def __init__(self, programID, type, currentPhaseIndex, phases=None, subParameter=None):
+    def __init__(self, programID, type, currentPhaseIndex, phases=None, subParameter=None, offset=0.):
         """
         Constructs a new Logic object with the following arguments:
           programID (string) - arbitrary
@@ -36,12 +36,14 @@ class Logic:
           currentPhaseIndex (integer) - must be in range [0, len(phases) - 1]
           phases (list of Phase objects)
           subParameter (dictl) - corresponds to generic <param> objects
+          offset (float) - the program offset in seconds
         """
         self.programID = programID
         self.type = type
         self.currentPhaseIndex = currentPhaseIndex
         self.phases = phases if phases is not None else []
         self.subParameter = subParameter if subParameter is not None else {}
+        self.offset = offset
 
     def getPhases(self):
         return self.phases
@@ -67,10 +69,11 @@ def _readLogics(result):
     numLogics = result.readInt()
     logics = []
     for _ in range(numLogics):
-        result.readCompound(5)
+        result.readCompound(6)
         programID = result.readTypedString()
         type = result.readTypedInt()
         currentPhaseIndex = result.readTypedInt()
+        offset = result.readTypedDouble()
         numPhases = result.readCompound()
         phases = []
         for __ in range(numPhases):
@@ -83,7 +86,7 @@ def _readLogics(result):
             next = tuple([result.readTypedInt() for ___ in range(numNext)])
             name = result.readTypedString()
             phases.append(Phase(duration, state, minDur, maxDur, next, name))
-        logic = Logic(programID, type, currentPhaseIndex, tuple(phases))
+        logic = Logic(programID, type, currentPhaseIndex, tuple(phases), offset=offset)
         numParams = result.readCompound()
         for __ in range(numParams):
             key, value = result.readTypedStringList()
@@ -421,8 +424,8 @@ class TrafficLightDomain(Domain):
         Sets a new program for the given tlsID from a Logic object.
         See getAllProgramLogics which returns a tuple of Logic objects.
         """
-        format = "tsiit"
-        values = [5, logic.programID, logic.type, logic.currentPhaseIndex, len(logic.phases)]
+        format = "tsiidt"
+        values = [6, logic.programID, logic.type, logic.currentPhaseIndex, logic.offset, len(logic.phases)]
         for p in logic.phases:
             format += "tdsddt"
             values += [6, p.duration, p.state, p.minDur, p.maxDur, len(p.next)]
