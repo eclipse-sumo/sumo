@@ -4049,9 +4049,15 @@ GNEApplicationWindow::onCmdOpenAdditionalElements(FXObject*, FXSelector, void*) 
         } else {
             // write info
             WRITE_MESSAGE(TLF("Loading of additional file '%' successfully.", bucket->getFilename()));
+            // check if file is meanData
+            const bool isMeanData = checkMeanDataFileBucket(additionalFileDialog.getFilename(), bucket, generalHandler);
             // enable save if there is errors loading additionals
-            if (previouslySaved && !generalHandler.isErrorCreatingElement()) {
-                myNet->getSavingStatus()->additionalsSaved();
+            if (!generalHandler.isErrorCreatingElement()) {
+                if (isMeanData) {
+                    myNet->getSavingStatus()->meanDatasSaved();
+                } else if (previouslySaved) {
+                    myNet->getSavingStatus()->additionalsSaved();
+                }
             }
         }
         // end undoList operation
@@ -4976,6 +4982,30 @@ GNEApplicationWindow::getNetgenerateOptions() {
 }
 
 
+bool
+GNEApplicationWindow::checkMeanDataFileBucket(const std::string& file, FileBucket* bucket, const GNEGeneralHandler& generalHandler) {
+    if (generalHandler.isMeanDataFile() && !generalHandler.isAdditionalFile()) {
+        auto meanDataBucket = myFileBucketHandler->getBucket(FileBucket::Type::MEANDATA, file, true);
+        for (const auto& meanDataTag : myNet->getAttributeCarriers()->getMeanDatas()) {
+            for (const auto& meanDataPair : meanDataTag.second) {
+                if (meanDataPair.second->getFileBucket() == bucket) {
+                    bucket->removeElement(false);
+                    meanDataPair.second->setFileBucket(meanDataBucket);
+                    meanDataBucket->addElement(false);
+                }
+            }
+        }
+        if (bucket->isDefaultBucket()) {
+            bucket->setFilename("");
+        }
+        myFileBucketHandler->removeEmptyBuckets();
+        myFileBucketHandler->updateOptions();
+        return true;
+    }
+    return false;
+}
+
+
 void
 GNEApplicationWindow::loadAdditionalElements(const std::string operation) {
     // get netedit option container
@@ -4992,8 +5022,11 @@ GNEApplicationWindow::loadAdditionalElements(const std::string operation) {
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TLF("% additional elements from '%'", operation, toString(additionalFiles)));
-        // use this flag for mark all elements as saved after loading, if it was sucessfully
-        bool setSaved = additionalFiles.size() == 1;
+        // count actual files
+        int numAdditionalFiles = 0;
+        int numMeanDataFiles = 0;
+        bool additionalErrors = false;
+        bool meanDataErrors = false;
         // iterate over every additional file
         for (const auto& file : additionalFiles) {
             // check if ignore missing inputs
@@ -5008,18 +5041,35 @@ GNEApplicationWindow::loadAdditionalElements(const std::string operation) {
                     generalHandler.forceOverwriteElements();
                 }
                 // Run parser
-                if (!generalHandler.parse()) {
+                const bool parsed = generalHandler.parse();
+                if (!parsed) {
                     WRITE_ERROR(TLF("% of '%' failed.", operation, file));
+                    additionalErrors = true;
+                    meanDataErrors = true;
+                } else if (generalHandler.isErrorCreatingElement()) {
+                    if (generalHandler.isErrorCreatingAdditional() || generalHandler.isAdditionalFile()) {
+                        additionalErrors = true;
+                    }
+                    if (generalHandler.isErrorCreatingMeanData() || generalHandler.isMeanDataFile()) {
+                        meanDataErrors = true;
+                    }
                 }
-                setSaved &= !generalHandler.isErrorCreatingElement();
+                if (checkMeanDataFileBucket(file, bucket, generalHandler)) {
+                    numMeanDataFiles++;
+                } else if (generalHandler.isAdditionalFile()) {
+                    numAdditionalFiles++;
+                }
             }
         }
         // end undo list
         myUndoList->end();
         // disable validation for additionals
         XMLSubSys::setValidation("auto", "auto", "auto");
-        if (setSaved) {
+        if (!additionalErrors && (numAdditionalFiles <= 1)) {
             myNet->getSavingStatus()->additionalsSaved();
+        }
+        if (!meanDataErrors && (numMeanDataFiles <= 1) && (myNet->getAttributeCarriers()->getNumberOfMeanDatas() > 0)) {
+            myNet->getSavingStatus()->meanDatasSaved();
         }
         // check if clear undoList
         if (!myAllowUndoRedoLoading) {
@@ -5147,9 +5197,13 @@ GNEApplicationWindow::loadMeanDataElements(const std::string operation) {
         for (const auto& file : meanDataFiles) {
             // check if ignore missing inputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
-                WRITE_MESSAGE(TLF("% meanData elements from '%'.", operation, file));
                 // get (or create) bucket for this new file
                 auto bucket = myFileBucketHandler->getBucket(FileBucket::Type::MEANDATA, file, true);
+                // check if already loaded in this operation
+                if ((operation == "Loading") && (bucket->getNumElements() > 0)) {
+                    continue;
+                }
+                WRITE_MESSAGE(TLF("% meanData elements from '%'.", operation, file));
                 // declare general handler
                 GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
                 // check if force overwritte

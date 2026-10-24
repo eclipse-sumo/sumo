@@ -1150,11 +1150,12 @@ MSEdge::getAllEdges() {
 
 void
 MSEdge::clear() {
+    // the keys point into myDict so we need to clear this one first
+    myHashDict.clear();
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); ++i) {
         delete (*i).second;
     }
     myDict.clear();
-    myHashDict.clear();
     myEdges.clear();
 }
 
@@ -1174,7 +1175,7 @@ MSEdge::parseEdgesList(const std::string& desc, ConstMSEdgeVector& into,
         StringTokenizer::tokenizeAndLookup(desc, into);
     } catch (const InvalidArgument& e) {
         throw ProcessError("The edge '" + std::string(e.what()) + "' within the route " + rid + " is not known."
-                + "\n The route can not be build.");
+                           + "\n The route can not be build.");
     }
 }
 

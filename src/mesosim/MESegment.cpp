@@ -390,7 +390,7 @@ MESegment::initialise(MEVehicle* veh, SUMOTime time) {
                 && isRailwayOrShared(myEdge.getPermissions())) {
             const MSDriveWay* dw = MSDriveWay::getDepartureDriveway(veh);
             MSEdgeVector occupied;
-            if (dw->foeDriveWayOccupied(false, veh, occupied)) {
+            if (dw->foeDriveWayOccupied(false, veh, occupied) || dw->sidingDeadlock(veh)) {
                 myEdge.getLanes()[0]->setParameter("insertionBlocked:" + veh->getID(), dw->getID());
                 return false;
             }
