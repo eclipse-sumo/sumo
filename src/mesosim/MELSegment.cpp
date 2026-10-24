@@ -178,16 +178,28 @@ MELSegment::numTravelingGaps(int qIdx, SUMOTime time) const {
 
 std::string
 MELSegment::getQueueExtraState(int qIdx) const {
-    return joinToString(myGapTimes[qIdx], " ");
+    // three values per gap: arrival, departure, queued
+    std::string result;
+    for (const Gap& gap : myGaps[qIdx]) {
+        if (!result.empty()) {
+            result += " ";
+        }
+        result += toString(gap.arrival);
+        result += " ";
+        result += toString(gap.departure);
+        result += gap.queued ? " 1" : " 0";
+    }
+    return result;
 }
 
 
 void
 MELSegment::loadQueueExtraState(int qIdx, const std::string& state, SUMOTime offset) {
-    GapTimes& gapTimes = myGapTimes[qIdx];
-    gapTimes.clear();
-    for (const std::string& t : StringTokenizer(state).getVector()) {
-        gapTimes.push_back(StringUtils::toLong(t) - offset);
+    Gaps& gaps = myGaps[qIdx];
+    gaps.clear();
+    const std::vector<std::string> values = StringTokenizer(state).getVector();
+    for (int i = 0; i + 2 < (int)values.size(); i += 3) {
+        gaps.push_back({StringUtils::toLong(values[i]) - offset, StringUtils::toLong(values[i + 1]) - offset, values[i + 2] == "1"});
     }
 }
 
