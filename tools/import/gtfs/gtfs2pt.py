@@ -429,6 +429,16 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                 lastIndex = route.index(edgeID, lastIndex)
                 lastPos = end
                 keep = True
+                if (lastIndex > 0
+                        and net.getEdge(edgeID).getBidi() == net.getEdge(route[lastIndex - 1])):
+                    # stop before reversal to avoid skipping
+                    lastIndex -= 1
+                    edgeID = route[lastIndex]
+                    laneID = edgeID + "_0"
+                    edgeLength = net.getEdge(edgeID).getLength()
+                    start, end = edgeLength - end, edgeLength - start
+                    lastPos = end
+                    stop += ".reversed"
                 typ = "busStop" if mode in ("bus", "trolleybus") else "trainStop"
                 isParking = options.busParking and mode == "bus"
                 for stopItem in stopDesc[laneID]:

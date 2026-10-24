@@ -104,6 +104,12 @@ GNEAttributeCarrier::getNet() const {
 
 
 void
+GNEAttributeCarrier::setFileBucket(FileBucket* fileBucket) {
+    myFileBucket = fileBucket;
+}
+
+
+void
 GNEAttributeCarrier::selectAttributeCarrier() {
     auto glObject = getGUIGlObject();
     if (glObject && myTagProperty->isSelectable()) {

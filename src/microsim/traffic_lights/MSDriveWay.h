@@ -101,6 +101,9 @@ public:
     /// @brief whether any of myFoes is occupied (vehicles that are the target of a join must be ignored)
     bool foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector& occupied) const;
 
+    /// @brief whether insertion on this driveway would cause deadlock in an approached siding
+    bool sidingDeadlock(const SUMOVehicle* veh) const;
+
     /// @brief whether any of my Foes is being approached
     bool foeDriveWayApproached() const;
 
@@ -403,6 +406,9 @@ private:
 
     /// @brief all driveways that end on the given edge
     static std::map<const MSEdge*, std::vector<MSDriveWay*>, ComparatorNumericalIdLess> myEndingDriveways;
+    /// @brief all driveways that use a siding which ends on this edge as pair (dw, foe)
+    static std::map<const MSEdge*, std::vector<std::pair<MSDriveWay*, MSDriveWay*> >, ComparatorNumericalIdLess> mySidingDriveways;
+    static std::vector<const MSEdge*> myCurrentSidingCheck;
 
     /// @brief lookup table for state loading
     static std::map<ConstMSEdgeVector, MSDriveWay*> myDriveWayRouteLookup;
