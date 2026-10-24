@@ -25,7 +25,6 @@ jobs:
     env:
       CC: cl
       CXX: cl
-      SUMO_LIBRARIES: D:\a\sumo\sumo\SUMOLibraries
       TEXTTEST_TMP: D:/texttest
 
     steps:
@@ -37,11 +36,9 @@ jobs:
         # to work around actions/checkout#1467
         ref: ${{ github.ref }}
 
-    - name: Cloning SUMO Libraries
-      uses: actions/checkout@v7
-      with:
-        repository: DLR-TS/SUMOLibraries
-        path: SUMOLibraries
+    - name: Fetching SUMO Libraries
+      # this also sets $SUMO_LIBRARIES
+      uses: ./.github/actions/fetch-sumo-libraries
 
     - name: Setup fail-fast PowerShell
       run: |
