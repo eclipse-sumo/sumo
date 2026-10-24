@@ -1,0 +1,11 @@
+<routes>
+    <!-- the state is saved while the left turner waits on the junction for the slow straight vehicle -->
+    <vType id="slow" maxSpeed="3" sigma="0" speedDev="0" lcStrategic="-1" lcKeepRight="0" lcSpeedGain="0"/>
+    <vType id="car" sigma="0" speedDev="0" lcStrategic="-1" lcKeepRight="0" lcSpeedGain="0"/>
+    <vehicle id="straight" type="slow" depart="46" departLane="1" arrivalLane="1">
+        <route edges="EC CW"/>
+    </vehicle>
+    <vehicle id="left" type="car" depart="64" departLane="1">
+        <route edges="WC CN"/>
+    </vehicle>
+</routes>

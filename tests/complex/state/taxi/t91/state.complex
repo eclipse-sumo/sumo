@@ -142,6 +142,16 @@
             <ride from="C1C2" to="B0C0" busStop="stop_B0C0" lines="taxi" routeLength="27.077758" vehicle="trip_1" started="27.000" ended="-1"/>
         </person>
     </transportables>
+    <lane id=":C0_8_0">
+        <link to=":C0_11_0">
+            <approaching id="trip_0" arrivalTime="109274" arrivalSpeed="3.759500" departSpeed="3.759500" request="1" arrivalSpeedBraking="0.000000" waitingTime="0" distance="68.440824"/>
+        </link>
+    </lane>
+    <lane id=":C0_11_0">
+        <link to="C0B0_1">
+            <approaching id="trip_0" arrivalTime="109896" arrivalSpeed="3.759500" departSpeed="3.759500" request="1" arrivalSpeedBraking="0.000000" waitingTime="0" distance="70.780824"/>
+        </link>
+    </lane>
     <lane id="B0C0_1">
         <vehicles value="trip_1 trip_0"/>
     </lane>

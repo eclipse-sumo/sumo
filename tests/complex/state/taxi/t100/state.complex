@@ -164,6 +164,16 @@
             <ride from="C1B1" to="E0D0" lines="taxi"/>
         </person>
     </transportables>
+    <lane id=":B1_1_0">
+        <link to="B1B0_1">
+            <approaching id="trip_0" arrivalTime="102078" arrivalSpeed="14.3067000000000011" departSpeed="14.3067000000000011" request="1" arrivalSpeedBraking="0.0000000000000000" waitingTime="0" distance="58.3384641249412965"/>
+        </link>
+    </lane>
+    <lane id=":C1_14_0">
+        <link to="C1C2_1">
+            <approaching id="trip_1" arrivalTime="103663" arrivalSpeed="7.7535999999999996" departSpeed="7.7535999999999996" request="1" arrivalSpeedBraking="0.0000000000000000" waitingTime="0" distance="72.6216258980666680"/>
+        </link>
+    </lane>
     <lane id="B1C1_1">
         <vehicles value="trip_1"/>
     </lane>
