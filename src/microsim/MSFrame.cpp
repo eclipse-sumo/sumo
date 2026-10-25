@@ -73,6 +73,7 @@ MSFrame::fillOptions() {
     oc.addOptionSubTopic("Time");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Routing");
+    oc.addOptionSubTopic("Persons");
 
     // register configuration options
     //  register input options
@@ -199,7 +200,7 @@ MSFrame::fillOptions() {
 
     oc.doRegister("person-fcd-output", new Option_FileName());
     oc.addSynonyme("person-fcd-output", "person-fcd");
-    oc.addDescription("person-fcd-output", "Output", TL("Save fcd for persons and container to separate FILE"));
+    oc.addDescription("person-fcd-output", "Persons", TL("Save fcd for persons and container to separate FILE"));
 
     oc.doRegister("device.ssm.filter-edges.input-file", new Option_FileName());
     oc.addDescription("device.ssm.filter-edges.input-file", "Output", TL("Restrict SSM device output to the edge selection from the given input file"));
@@ -234,7 +235,7 @@ MSFrame::fillOptions() {
     oc.addDescription("summary-output.period", "Output", TL("Save summary-output with the given period"));
 
     oc.doRegister("person-summary-output", new Option_FileName());
-    oc.addDescription("person-summary-output", "Output", TL("Save aggregated person counts into FILE"));
+    oc.addDescription("person-summary-output", "Persons", TL("Save aggregated person counts into FILE"));
 
     oc.doRegister("tripinfo-output", new Option_FileName());
     oc.addSynonyme("tripinfo-output", "tripinfo");
@@ -248,7 +249,7 @@ MSFrame::fillOptions() {
 
     oc.doRegister("personinfo-output", new Option_FileName());
     oc.addSynonyme("personinfo-output", "personinfo");
-    oc.addDescription("personinfo-output", "Output", TL("Save personinfo and containerinfo to separate FILE"));
+    oc.addDescription("personinfo-output", "Persons", TL("Save personinfo and containerinfo to separate FILE"));
 
     oc.doRegister("vehroute-output", new Option_FileName());
     oc.addSynonyme("vehroute-output", "vehroutes");
@@ -301,7 +302,7 @@ MSFrame::fillOptions() {
 
     oc.doRegister("personroute-output", new Option_FileName());
     oc.addSynonyme("personroute-output", "personroutes");
-    oc.addDescription("personroute-output", "Output", TL("Save person and container routes to separate FILE"));
+    oc.addDescription("personroute-output", "Persons", TL("Save person and container routes to separate FILE"));
 
     oc.doRegister("link-output", new Option_FileName());
     oc.addDescription("link-output", "Output", TL("Save links states into FILE"));
@@ -369,7 +370,7 @@ MSFrame::fillOptions() {
     oc.doRegister("save-state.rng", new Option_Bool(false));
     oc.addDescription("save-state.rng", "Output", TL("Save random number generator states"));
     oc.doRegister("save-state.transportables", new Option_Bool(false));
-    oc.addDescription("save-state.transportables", "Output", TL("Save person and container states (experimental)"));
+    oc.addDescription("save-state.transportables", "Persons", TL("Save person and container states (experimental)"));
     oc.doRegister("save-state.constraints", new Option_Bool(false));
     oc.addDescription("save-state.constraints", "Output", TL("Save rail signal constraints"));
     oc.doRegister("save-state.precision", new Option_Integer(2));
@@ -441,7 +442,7 @@ MSFrame::fillOptions() {
     oc.addDescription("max-num-vehicles", "Processing", TL("Delay vehicle insertion to stay within the given maximum number"));
 
     oc.doRegister("max-num-persons", new Option_Integer(-1));
-    oc.addDescription("max-num-persons", "Processing", TL("Delay person insertion to stay within the given maximum number"));
+    oc.addDescription("max-num-persons", "Persons", TL("Delay person insertion to stay within the given maximum number"));
 
     oc.doRegister("max-num-teleports", new Option_Integer(-1));
     oc.addDescription("max-num-teleports", "Processing", TL("Abort the simulation if the given maximum number of teleports is exceeded"));
@@ -471,7 +472,7 @@ MSFrame::fillOptions() {
     oc.addDescription("time-to-teleport.remove-constraint", "Processing", TL("Whether rail-signal-constraint based deadlocks shall be cleared by removing a constraint"));
 
     oc.doRegister("time-to-teleport.ride", new Option_String("-1", "TIME"));
-    oc.addDescription("time-to-teleport.ride", "Processing", TL("The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting"));
+    oc.addDescription("time-to-teleport.ride", "Persons", TL("The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting"));
 
     oc.doRegister("time-to-teleport.bidi", new Option_String("-1", "TIME"));
     oc.addDescription("time-to-teleport.bidi", "Processing", TL("The waiting time after which vehicles on bidirectional edges are teleported"));
@@ -701,29 +702,29 @@ MSFrame::fillOptions() {
     oc.addDescription("astar.landmark-distances", "Routing", TL("Initialize lookup table for astar ALT-variant from the given file"));
 
     oc.doRegister("persontrip.walkfactor", new Option_Float(double(0.75)));
-    oc.addDescription("persontrip.walkfactor", "Routing", TL("Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"));
+    oc.addDescription("persontrip.walkfactor", "Persons", TL("Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"));
 
     oc.doRegister("persontrip.walk-opposite-factor", new Option_Float(1.0));
-    oc.addDescription("persontrip.walk-opposite-factor", "Processing", TL("Use FLOAT as a factor on walking speed against vehicle traffic direction"));
+    oc.addDescription("persontrip.walk-opposite-factor", "Persons", TL("Use FLOAT as a factor on walking speed against vehicle traffic direction"));
 
     oc.doRegister("persontrip.transfer.car-walk", new Option_StringVector(StringVector({ "parkingAreas" })));
-    oc.addDescription("persontrip.transfer.car-walk", "Routing",
+    oc.addDescription("persontrip.transfer.car-walk", "Persons",
                       "Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations)");
 
     oc.doRegister("persontrip.transfer.taxi-walk", new Option_StringVector());
-    oc.addDescription("persontrip.transfer.taxi-walk", "Routing", TL("Where taxis can drop off customers ('allJunctions, 'ptStops', 'parkingAreas')"));
+    oc.addDescription("persontrip.transfer.taxi-walk", "Persons", TL("Where taxis can drop off customers ('allJunctions, 'ptStops', 'parkingAreas')"));
 
     oc.doRegister("persontrip.transfer.walk-taxi", new Option_StringVector());
-    oc.addDescription("persontrip.transfer.walk-taxi", "Routing", TL("Where taxis can pick up customers ('allJunctions, 'ptStops', 'parkingAreas')"));
+    oc.addDescription("persontrip.transfer.walk-taxi", "Persons", TL("Where taxis can pick up customers ('allJunctions, 'ptStops', 'parkingAreas')"));
 
     oc.doRegister("persontrip.default.group", new Option_String());
-    oc.addDescription("persontrip.default.group", "Routing", TL("When set, trips between the same origin and destination will share a taxi by default"));
+    oc.addDescription("persontrip.default.group", "Persons", TL("When set, trips between the same origin and destination will share a taxi by default"));
 
     oc.doRegister("persontrip.taxi.waiting-time", new Option_String("300", "TIME"));
-    oc.addDescription("persontrip.taxi.waiting-time", "Routing", TL("Estimated time for taxi pickup"));
+    oc.addDescription("persontrip.taxi.waiting-time", "Persons", TL("Estimated time for taxi pickup"));
 
     oc.doRegister("persontrip.ride-public-line", new Option_Bool(false));
-    oc.addDescription("persontrip.ride-public-line", "Routing", TL("Only use the intended public transport line rather than any alternative line that stops at the destination"));
+    oc.addDescription("persontrip.ride-public-line", "Persons", TL("Only use the intended public transport line rather than any alternative line that stops at the destination"));
 
     oc.doRegister("railway.max-train-length", new Option_Float(1000.0));
     oc.addDescription("railway.max-train-length", "Routing", TL("Use FLOAT as a maximum train length when initializing the railway router"));
@@ -740,7 +741,7 @@ MSFrame::fillOptions() {
     oc.addDescription("phemlight-path", "Emissions", TL("Determines where to load PHEMlight definitions from"));
 
     oc.doRegister("phemlight-year", new Option_Integer(0));
-    oc.addDescription("phemlight-year", "Emissions", TL("Enable fleet age modeling with the given reference year in PHEMlight5"));
+    oc.addDescription("phemlight-year", "Emissions", TL("Enable fleet age modelling with the given reference year in PHEMlight5"));
 
     oc.doRegister("phemlight-temperature", new Option_Float(INVALID_DOUBLE));
     oc.addDescription("phemlight-temperature", "Emissions", TL("Set ambient temperature to correct NOx emissions in PHEMlight5"));
@@ -826,7 +827,7 @@ MSFrame::fillOptions() {
     // the reason that we include them in vanilla sumo as well is to make reusing config files easy
     oc.addOptionSubTopic("GUI Only");
     oc.doRegister("gui-settings-file", 'g', new Option_FileName());
-    oc.addDescription("gui-settings-file", "GUI Only", TL("Load visualization settings from FILE"));
+    oc.addDescription("gui-settings-file", "GUI Only", TL("Load visualisation settings from FILE"));
 
     oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
     oc.addDescription("quit-on-end", "GUI Only", TL("Quits the GUI when the simulation stops"));
