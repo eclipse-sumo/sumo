@@ -784,7 +784,7 @@ MSDriveWay::sidingDeadlock(const SUMOVehicle* veh) const {
 #endif
                 myCurrentSidingCheck.push_back(end);
                 if (veh->getLength() > end->getLength() && !MSGlobals::gUseMesoSim) {
-                    double backDist =  veh->getLength() - getForwardDistance(myForward.size() - 1);
+                    double backDist =  veh->getLength() - getForwardDistance((int)myForward.size() - 1);
                     const MSLane* lane = myForward.front();
                     const MSLane* prev = lane->getLogicalPredecessorLane();
                     while (backDist > 0 && prev != nullptr) {
