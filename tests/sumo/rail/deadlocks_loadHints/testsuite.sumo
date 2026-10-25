@@ -20,3 +20,6 @@ triangle_6veh
 
 # avoid deadlock by loading a deadlock file
 circle_3veh
+
+# a deadlock is loaded but re-occurs (#18422)
+siding_crossing
