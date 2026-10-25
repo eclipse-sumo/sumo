@@ -632,7 +632,7 @@ configuration:
 
 | Option | Description |
 |--------|-------------|
-| **-g** {{DT_FILE}}<br> **--gui-settings-file** {{DT_FILE}} | Load visualisation settings from FILE |
+| **-g** {{DT_FILE}}<br> **--gui-settings-file** {{DT_FILE}} | Load visualization settings from FILE |
 | **-Q** {{DT_BOOL}}<br> **--quit-on-end** {{DT_BOOL}} | Quits the GUI when the simulation stops; *default:* **false** |
 | **-G** {{DT_BOOL}}<br> **--game** {{DT_BOOL}} | Start the GUI in gaming mode; *default:* **false** |
 | **--game.mode** {{DT_STR}} | Select the game type ('tls', 'drt'); *default:* **tls** |

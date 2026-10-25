@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_28_0+0202-00ab3302464d
+Eclipse SUMO sumo v1_28_0+0203-956beccee8c8
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -1090,7 +1090,7 @@ Random Number Options:
                                         repeatable simulations).
 
 GUI Only Options:
-  -g, --gui-settings-file FILE         Load visualisation settings from FILE
+  -g, --gui-settings-file FILE         Load visualization settings from FILE
   -Q, --quit-on-end                    Quits the GUI when the simulation stops
   -G, --game                           Start the GUI in gaming mode
   --game.mode STR                      Select the game type ('tls', 'drt')

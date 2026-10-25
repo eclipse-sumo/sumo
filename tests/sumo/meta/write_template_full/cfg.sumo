@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-25T07:05:16.801518+01:00 by Eclipse SUMO sumo v1_28_0+0202-00ab3302464d
+<!-- generated on 2026-10-25T07:34:32.187966+01:00 by Eclipse SUMO sumo v1_28_0+0203-956beccee8c8
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -549,7 +549,7 @@
     </random_number>
 
     <gui_only>
-        <gui-settings-file value="" synonymes="g" type="FILE" help="Load visualisation settings from FILE"/>
+        <gui-settings-file value="" synonymes="g" type="FILE" help="Load visualization settings from FILE"/>
         <quit-on-end value="false" synonymes="Q" type="BOOL" help="Quits the GUI when the simulation stops"/>
         <game value="false" synonymes="G" type="BOOL" help="Start the GUI in gaming mode"/>
         <game.mode value="tls" type="STR" help="Select the game type (&apos;tls&apos;, &apos;drt&apos;)"/>

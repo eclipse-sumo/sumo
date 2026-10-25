@@ -575,7 +575,7 @@ GUIApplicationWindow::fillMenuBar() {
                                            TL("Edit Breakpoints"), "Ctrl+B", TL("Opens a dialog for editing breakpoints."),
                                            GUIIconSubSys::getIcon(GUIIcon::APP_BREAKPOINTS), this, MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS);
     GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
-                                           TL("Edit Visualisation"), "F9", TL("Opens a dialog for editing visualization settings."),
+                                           TL("Edit Visualization"), "F9", TL("Opens a dialog for editing visualization settings."),
                                            GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), this, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
     GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
                                            TL("Edit Viewport"), "Ctrl+I", TL("Opens a dialog for editing viewing area, zoom and rotation."),

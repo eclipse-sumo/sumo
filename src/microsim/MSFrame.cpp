@@ -826,7 +826,7 @@ MSFrame::fillOptions() {
     // the reason that we include them in vanilla sumo as well is to make reusing config files easy
     oc.addOptionSubTopic("GUI Only");
     oc.doRegister("gui-settings-file", 'g', new Option_FileName());
-    oc.addDescription("gui-settings-file", "GUI Only", TL("Load visualisation settings from FILE"));
+    oc.addDescription("gui-settings-file", "GUI Only", TL("Load visualization settings from FILE"));
 
     oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
     oc.addDescription("quit-on-end", "GUI Only", TL("Quits the GUI when the simulation stops"));

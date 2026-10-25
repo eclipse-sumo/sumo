@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-25T07:05:16.843700+01:00 by Eclipse SUMO sumo v1_28_0+0202-00ab3302464d
+<!-- generated on 2026-10-25T07:34:32.440701+01:00 by Eclipse SUMO sumo v1_28_0+0203-956beccee8c8
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -1479,7 +1479,7 @@
     </random_number>
 
     <gui_only>
-        <!-- Load visualisation settings from FILE -->
+        <!-- Load visualization settings from FILE -->
         <gui-settings-file value="" synonymes="g" type="FILE"/>
 
         <!-- Quits the GUI when the simulation stops -->
