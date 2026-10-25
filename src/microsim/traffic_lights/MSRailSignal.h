@@ -285,6 +285,9 @@ public:
         return myMovingBlock;
     }
 
+    /// @brief get the unique junction controlled by this signal
+    const MSJunction* getJunction() const;
+
     static bool storeVehicles() {
         return myStoreVehicles;
     }

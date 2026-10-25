@@ -39,6 +39,7 @@ class MSDriveWay;
  */
 class MSRailSignalControl : public MSNet::VehicleStateListener {
 public:
+
     ~MSRailSignalControl();
 
     static MSRailSignalControl& getInstance();
@@ -149,6 +150,7 @@ private:
     std::vector<std::pair<MSLink*, int> > mySwitchedGreenFlanks;
     std::map<std::pair<int, int>, bool> myDriveWayCompatibility;
     std::set<MSRailSignal*, ComparatorNumericalIdLess> myActiveSignals;
+    double myMaxTrainLength;
 
     /// @brief signalized classes
     static SVCPermissions mySignalizedClasses;

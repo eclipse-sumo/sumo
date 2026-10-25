@@ -178,6 +178,17 @@ public:
         return myFoundSignal;
     }
 
+    bool isSubDriveWay() const {
+        return myParent != nullptr;
+    }
+
+    const MSDriveWay* getParent() const {
+        return myParent;
+    }
+
+    /// @brief return for how much longer the parent driveway continues after the end of this subdriveway
+    double getParentRemainingLength() const;
+
     static void init();
 
     static bool hasRS(const MSEdge* cur, const MSEdge* next);
@@ -255,10 +266,6 @@ protected:
      * Conflict resolution must be performed if vehicles are approaching the
      * current link and any of the conflict links */
     std::vector<MSLink*> myConflictLinks;
-
-    bool isSubDriveWay() const {
-        return myParent != nullptr;
-    }
 
     /// @brief Whether the approaching vehicle is prevent from driving by another vehicle approaching the given link
     bool hasLinkConflict(const Approaching& closest, const MSLink* foeLink) const;

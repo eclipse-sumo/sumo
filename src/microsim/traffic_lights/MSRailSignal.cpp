@@ -740,6 +740,12 @@ MSRailSignal::retrieveDriveWays(int tlIndex) const {
 }
 
 
+const MSJunction*
+MSRailSignal::getJunction() const {
+    return myLinkInfos.front().myLink->getJunction();
+}
+
+
 std::string
 MSRailSignal::getBlockingVehicleIDs() const {
     MSRailSignal* rs = const_cast<MSRailSignal*>(this);

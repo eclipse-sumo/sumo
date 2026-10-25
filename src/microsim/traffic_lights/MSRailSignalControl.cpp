@@ -45,7 +45,8 @@ SVCPermissions MSRailSignalControl::myMBClasses(SVC_UNSPECIFIED);
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRailSignalControl::MSRailSignalControl()
+MSRailSignalControl::MSRailSignalControl():
+    myMaxTrainLength(OptionsCont::getOptions().getFloat("railway.max-train-length"))
 {}
 
 MSRailSignalControl&
@@ -89,6 +90,9 @@ MSRailSignalControl::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet
             if (vehicle->getEdge()->getFunction() != SumoXMLEdgeFunc::CONNECTOR && isRailwayOrShared(vehicle->getEdge()->getPermissions())) {
                 MSRailSignal::initDriveWays(vehicle, to == MSNet::VehicleState::NEWROUTE);
             }
+        }
+        if (to == MSNet::VehicleState::BUILT) {
+            myMaxTrainLength = MAX2(myMaxTrainLength, vehicle->getLength());
         }
     }
 }
@@ -245,6 +249,7 @@ MSRailSignalControl::findDeadlockFoes(const MSDriveWay* dw, const std::vector<co
     int circleIndex = (int)deadlockFoes.size();
     if (circleIndex < (int)others.size()) {
         const MSRailSignal* other = others[circleIndex];
+        const MSJunction* otherJ = other->getJunction();
 #ifdef DEBUG_BUILD_DEADLOCK_CHECK
         std::cout << "      findDLfoes dw=" << dw->getID() << " foundFoes=" << toString(deadlockFoes) << " otherRS=" << other->getID() << "\n";
 #endif
@@ -254,7 +259,11 @@ MSRailSignalControl::findDeadlockFoes(const MSDriveWay* dw, const std::vector<co
             //std::cout << "        follower=" << follower->getID() << " followerFoes=" << toString(follower->getFoes()) << "\n";
 #endif
             for (MSDriveWay* foe : follower->getFoes()) {
-                if (foe->getForward().back()->getEdge().getToJunction()->getID() == other->getID()) {
+                if (foe->getForward().back()->getToJunction() == otherJ ||
+                        // check also for subdriveway-parents where the remaining part is short and thus a long train might reach back onto the subdriveway
+                        // @note: technically we do not need to check this in meso because train ends cannot reach into multiple segments
+                        // but it wouldn't help to make meso "better" by ignoring this foe relationship
+                        (foe->isSubDriveWay() && foe->getParent()->getForward().back()->getToJunction() == otherJ && foe->getParentRemainingLength() < myMaxTrainLength)) {
                     findDeadlockFoes(foe, others, deadlockFoes);
                 }
             }

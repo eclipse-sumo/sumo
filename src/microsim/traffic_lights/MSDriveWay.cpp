@@ -2588,4 +2588,18 @@ MSDriveWay::hasTrain(SUMOVehicle* veh) const {
     return myTrains.count(veh) != 0;
 }
 
+
+double
+MSDriveWay::getParentRemainingLength() const {
+    double result = 0;
+    if (myParent != nullptr) {
+        auto it = std::find(myParent->myForward.begin(), myParent->myForward.end(), myForward.back());
+        assert(it != myParent->myForward.end());
+        for (; it != myParent->myForward.end(); it++) {
+            result += (*it)->getLength();
+        }
+    }
+    return result;
+}
+
 /****************************************************************************/
