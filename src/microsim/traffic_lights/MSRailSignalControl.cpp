@@ -209,6 +209,9 @@ MSRailSignalControl::addDeadlockCheck(std::vector<const MSRailSignal*> signals) 
         for (int j = 0; j < n; j++) {
             others.push_back(signals[(i + j + 1) % n]);
         }
+#ifdef DEBUG_BUILD_DEADLOCK_CHECK
+        std::cout << "   loadDeadlockCheck rs=" << signals[i]->getID() << " others=" << toString(others) << "\n";
+#endif
         myDeadlockChecks[signals[i]] = others;
     }
 }
@@ -223,6 +226,9 @@ MSRailSignalControl::addDrivewayFollower(const MSDriveWay* dw, const MSDriveWay*
 
 void
 MSRailSignalControl::addDWDeadlockChecks(const MSRailSignal* rs, MSDriveWay* dw) {
+#ifdef DEBUG_BUILD_DEADLOCK_CHECK
+    std::cout << "    addDeadlockCheck rs=" << rs->getID() << " dw=" << dw->getID() << "\n";
+#endif
     auto itDL = MSRailSignalControl::getInstance().getDeadlockChecks().find(rs);
     if (itDL == MSRailSignalControl::getInstance().getDeadlockChecks().end()) {
         return;
@@ -236,14 +242,17 @@ MSRailSignalControl::addDWDeadlockChecks(const MSRailSignal* rs, MSDriveWay* dw)
 
 void
 MSRailSignalControl::findDeadlockFoes(const MSDriveWay* dw, const std::vector<const MSRailSignal*>& others, std::vector<const MSDriveWay*> deadlockFoes) {
-#ifdef DEBUG_BUILD_DEADLOCK_CHECK
-    //std::cout << " findDLfoes dw=" << dw->getID() << " dlFoes=" << toString(deadlockFoes) << "\n";
-#endif
     int circleIndex = (int)deadlockFoes.size();
     if (circleIndex < (int)others.size()) {
         const MSRailSignal* other = others[circleIndex];
+#ifdef DEBUG_BUILD_DEADLOCK_CHECK
+        std::cout << "      findDLfoes dw=" << dw->getID() << " foundFoes=" << toString(deadlockFoes) << " otherRS=" << other->getID() << "\n";
+#endif
         deadlockFoes.push_back(dw);
         for (const MSDriveWay* follower : myDriveWaySucc[dw]) {
+#ifdef DEBUG_BUILD_DEADLOCK_CHECK
+            //std::cout << "        follower=" << follower->getID() << " followerFoes=" << toString(follower->getFoes()) << "\n";
+#endif
             for (MSDriveWay* foe : follower->getFoes()) {
                 if (foe->getForward().back()->getEdge().getToJunction()->getID() == other->getID()) {
                     findDeadlockFoes(foe, others, deadlockFoes);
@@ -252,7 +261,7 @@ MSRailSignalControl::findDeadlockFoes(const MSDriveWay* dw, const std::vector<co
         }
     } else {
 #ifdef DEBUG_BUILD_DEADLOCK_CHECK
-        std::cout << " add deadlock check foes=" << toString(deadlockFoes) << "\n";;
+        std::cout << " add deadlock check dlFoes=" << toString(deadlockFoes) << "\n";;
 #endif
         for (const MSDriveWay* dldw : deadlockFoes) {
             if (dldw->isDepartDriveway()) {
