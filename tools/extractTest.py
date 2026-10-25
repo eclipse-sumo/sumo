@@ -145,6 +145,7 @@ calls = [
         curDir = source
         if curDir[-1] == os.path.sep:
             curDir = os.path.dirname(curDir)
+        testsRoot = os.path.realpath(join(SUMO_HOME, "tests"))
         while True:
             for f in sorted(os.listdir(curDir)):
                 path = join(curDir, f)
@@ -154,7 +155,11 @@ calls = [
                     optionsFiles[f[8:]].append(path)
                 if f.startswith("config."):
                     configFiles[f[7:]].append(path)
-            if curDir == os.path.realpath(join(SUMO_HOME, "tests")) or curDir == os.path.dirname(curDir):
+            # do not walk above the tests directory (this used to include
+            # unrelated files such as SUMO_HOME/data when extracting a test
+            # which is not located below SUMO_HOME/tests)
+            if (curDir == testsRoot or curDir == os.path.dirname(curDir)
+                    or (not curDir.startswith(testsRoot + os.sep) and curDir != testsRoot)):
                 break
             curDir = os.path.dirname(curDir)
         if not configFiles:
