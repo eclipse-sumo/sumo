@@ -590,11 +590,34 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
         if (allOccupied) {
 #ifdef DEBUG_SIGNALSTATE
             if (gDebugFlag4 || DEBUG_COND_DW2 || DEBUG_HELPER(ego)) {
-                std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " deadlockCheck " << joinNamedToString(dlFoes, " ") << "\n";
+                std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " deadlockCheck " << joinNamedToString(dlFoes, " ") << " myFoes=" << toString(myFoes) << "\n";
             }
 #endif
             for (const MSDriveWay* dlFoe : dlFoes) {
                 MSRailSignal::blockingDriveWays().push_back(dlFoe);
+            }
+            // for addWaitRelation we need to find the foe that results in the
+            // longest chain (otherwise the deadlock relation is smaller than the original)
+            int start = myForwardEdgeCount;
+            bool foundFoe = false;
+            while (start < (int)myRoute.size() && !foundFoe) {
+                const MSEdge* e = myRoute[start];
+                if (e->getFromJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+                    const MSEdge* p = myRoute[start - 1];
+                    const MSLink* link = p->getLanes().front()->getLinkTo(e->getLanes().front());
+                    if (link != nullptr && link->isTLSControlled()) {
+                        MSRailSignal* rs = const_cast<MSRailSignal*>(dynamic_cast<const MSRailSignal*>(link->getTLLogic()));
+                        const MSDriveWay& cand = rs->getExistingDriveWay(link, myRoute.begin() + start, myRoute.end());
+                        for (const MSDriveWay* dlFoe : dlFoes) {
+                            if (std::find(cand.myFoes.begin(), cand.myFoes.end(), dlFoe) != cand.myFoes.end()) {
+                                foundFoe = true;
+                                const MSRailSignal* rs2 = myOrigin != nullptr ? dynamic_cast<const MSRailSignal*>(myOrigin->getTLLogic()) : nullptr;
+                                MSRailSignalControl::getInstance().addWaitRelation(ego, rs2, *dlFoe->myTrains.begin());
+                            }
+                        }
+                    }
+                }
+                start += 1;
             }
             return true;
         }
