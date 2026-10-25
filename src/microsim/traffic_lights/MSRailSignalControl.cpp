@@ -270,25 +270,22 @@ MSRailSignalControl::findDeadlockFoes(const MSDriveWay* dw, const std::vector<co
         }
     } else {
 #ifdef DEBUG_BUILD_DEADLOCK_CHECK
-        std::cout << " add deadlock check dlFoes=" << toString(deadlockFoes) << "\n";;
+        std::cout << "        add deadlock check dlFoes=" << toString(deadlockFoes) << "\n";;
 #endif
         for (const MSDriveWay* dldw : deadlockFoes) {
-            if (dldw->isDepartDriveway()) {
-                const_cast<MSDriveWay*>(dldw)->addDWDeadlock(deadlockFoes);
-            } else {
-                for (const MSDriveWay* pred : myDriveWayPred[dldw]) {
-                    if (!pred->isDepartDriveway()) {
-                        const MSRailSignal* predRS = dynamic_cast<const MSRailSignal*>(pred->getOrigin()->getTLLogic());
-                        if (std::find(others.begin(), others.end(), predRS) != others.end()) {
-                            // driveways that participate in the deadlock don't need to
-                            // do checking since they cannot prevent the deadlock
-                            // (unless they are departDriveways)
-                            continue;
-                        }
-                        const_cast<MSDriveWay*>(pred)->addDWDeadlock(deadlockFoes);
-                    }
+            if (!dldw->isDepartDriveway()) {
+                const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(dldw->getOrigin()->getTLLogic());
+                if (std::find(others.begin(), others.end(), rs) != others.end()) {
+                    // moving into dldw frees up another part of the deadlock
+                    continue;
                 }
             }
+            std::vector<const MSDriveWay*> df(deadlockFoes);
+            df.erase(std::find(df.begin(), df.end(), dldw));
+#ifdef DEBUG_BUILD_DEADLOCK_CHECK
+            std::cout << "           dldw=" << dldw->getID() << " df=" << toString(df) << "\n";
+#endif
+            const_cast<MSDriveWay*>(dldw)->addDWDeadlock(df);
         }
     }
 }
