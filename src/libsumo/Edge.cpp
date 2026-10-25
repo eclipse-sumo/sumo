@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <iterator>
+#include <limits>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdgeWeightsStorage.h>
@@ -358,7 +359,23 @@ Edge::setAllowedSVCPermissions(const std::string& edgeID, long long int permissi
 
 void
 Edge::adaptTraveltime(const std::string& edgeID, double time, double beginSeconds, double endSeconds) {
-    MSNet::getInstance()->getWeightsStorage().addTravelTime(getEdge(edgeID), beginSeconds, endSeconds, time);
+    MSEdge* edge = getEdge(edgeID);
+    MSEdgeWeightsStorage& storage = MSNet::getInstance()->getWeightsStorage();
+    if (time != INVALID_DOUBLE_VALUE) {
+        // add time
+        if (beginSeconds == 0 && endSeconds == std::numeric_limits<double>::max()) {
+            // clean up old values before setting whole range
+            while (storage.knowsTravelTime(edge)) {
+                storage.removeTravelTime(edge);
+            }
+        }
+        storage.addTravelTime(edge, beginSeconds, endSeconds, time);
+    } else {
+        // remove time
+        while (storage.knowsTravelTime(edge)) {
+            storage.removeTravelTime(edge);
+        }
+    }
 }
 
 
