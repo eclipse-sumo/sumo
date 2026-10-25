@@ -110,9 +110,9 @@ MSRailSignalControl::addSignal(MSRailSignal* signal) {
 
 
 void
-MSRailSignalControl::addWaitRelation(const SUMOVehicle* waits, const MSRailSignal* rs, const SUMOVehicle* reason, MSRailSignalConstraint* constraint) {
+MSRailSignalControl::addWaitRelation(const SUMOVehicle* waits, const MSRailSignal* rs, const SUMOVehicle* reason, MSRailSignalConstraint* constraint, bool loadedDeadlock) {
     //std::cout << time2string(SIMSTEP) << " addWaitRelation waits=" << waits->getID() << " foe=" << reason->getID() << "\n";
-    myWaitRelations[waits] = WaitRelation(rs, reason, constraint);
+    myWaitRelations[waits] = WaitRelation(rs, reason, constraint, loadedDeadlock);
 }
 
 
@@ -190,8 +190,25 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
                     resolved->write(od, resolvedUnblocked->getParameter().getParameter("tripId", resolvedUnblocked->getID()));
                     od.closeTag();
                 }
+                bool writeDriveWays = false;
+                for (auto item : list) {
+                    writeDriveWays |= item.loadedDeadlock;
+                }
+                if (writeDriveWays) {
+                    for (auto item : list) {
+                        int start = item.foe->getRoutePosition();
+                        if (!MSGlobals::gUseMesoSim) {
+                            const std::vector<MSLane*>& further = dynamic_cast<const MSVehicle*>(item.foe)->getFurtherLanes();
+                            start = MAX2(0.0, start - (MSGlobals::gUsingInternalLanes ? ceil(further.size() / 2) : further.size()));
+                        }
+                        const MSRoute& route = item.foe->getRoute();
+                        ConstMSEdgeVector future(route.begin() + start, route.end());
+                        od.openTag(SUMO_TAG_ROUTEPART);
+                        od.writeAttr(SUMO_ATTR_EDGES, toString(future));
+                        od.closeTag();
+                    }
+                }
                 od.closeTag();
-
             }
         }
         return resolved == nullptr;
@@ -238,7 +255,9 @@ MSRailSignalControl::addDWDeadlockChecks(const MSRailSignal* rs, MSDriveWay* dw)
         return;
     }
     const std::vector<const MSRailSignal*>& others = itDL->second;
-    // the driveway could be part of a deadlock. check whether it would be blocked by the next signal in the circle
+    // the driveway dw ends at signal rs and could be part of a deadlock.
+    // check whether we can form a sequence of driveways that link it with all others (railsignals)
+    // findDeadlockFoes calls itself recursively until all circles have been found
     std::vector<const MSDriveWay*> deadlockFoes;
     findDeadlockFoes(dw, others, deadlockFoes);
 }
