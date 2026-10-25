@@ -2415,7 +2415,7 @@ MSDriveWay::addDWDeadlock(const std::vector<const MSDriveWay*>& deadlockFoes) {
     }
     if (std::find(myDeadlocks.begin(), myDeadlocks.end(), filtered) == myDeadlocks.end()) {
         myDeadlocks.push_back(filtered);
-        //std::cout << getID() << " deadlockFoes=" << toString(deadlockFoes) << "\n";
+        //std::cout << getID() << " deadlockFoes=" << toString(filtered) << "\n";
     }
 }
 
