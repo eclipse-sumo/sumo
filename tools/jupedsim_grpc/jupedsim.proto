@@ -1,5 +1,9 @@
 syntax = "proto3";
 
+// This option is mainly to reduce the size of the binary, it disables some features like reflection.
+// Changing it needs also a change in the CMakeLists to link the proper libprotobuf.
+option optimize_for = LITE_RUNTIME;
+
 package sumo_jupedsim_api;
 
 import "google/protobuf/struct.proto";
