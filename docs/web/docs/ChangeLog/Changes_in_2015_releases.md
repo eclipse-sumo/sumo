@@ -371,7 +371,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
     classes now cause these vehicles to wait until the closing ends
     if the destination edge is closed.
   - Vehicles with a `<stop>` in their route are now being overtaken if there
-    is sufficient space. This was causing problems when modelling
+    is sufficient space. This was causing problems when modeling
     parked vehicles on a multi-lane road.
   - Fixed bug that resulted in invalid routes when routing at
     simulation time (at intersections where a required connection
