@@ -90,6 +90,7 @@ NWWriter_XML::writeConfig(const OptionsCont& oc, const std::string& prefix, bool
     }
     const std::string ext = oc.getString("output.format");
     OptionsCont* tmp = oc.clone();
+    tmp->setApplicationName("netconvert", StringUtils::replace(oc.getFullName(), "netedit", "netconvert"));
     tmp->set("node-files", prefix + ".nod." + ext);
     tmp->set("edge-files", prefix + ".edg." + ext);
     tmp->set("connection-files", prefix + ".con." + ext);
@@ -97,8 +98,23 @@ NWWriter_XML::writeConfig(const OptionsCont& oc, const std::string& prefix, bool
     if (haveTypes) {
         tmp->set("type-files", prefix + ".typ." + ext);
     }
-    tmp->setDefault("sumo-net-file", "");
-    tmp->setDefault("plain-output-prefix", "");
+    const std::vector<std::string> toReset = {
+        "sumo-net-file", "plain-output-prefix",
+        "additional-files", "route-files", "data-files", "meandata-files",
+        "sumocfg-file", "netecfg-file", "netccfg-file", "gui-settings-file",
+        "selection-file", "test-file", "tls-file", "edgetypes-file",
+        "ignore-missing-inputs", "autosave-netconvert-file",
+        "default.action-step-length", "default.speeddev"
+    };
+    for (const std::string& opt : toReset) {
+        if (tmp->exists(opt)) {
+            tmp->resetDefault(opt);
+            tmp->removeOption(opt);
+        }
+    }
+    tmp->removeSubTopic("Netedit");
+    tmp->removeSubTopic("Visualisation");
+    tmp->removeSubTopic("Time");
 
     const std::string configPath = prefix + ".netccfg";
     std::ofstream out(configPath.c_str());
