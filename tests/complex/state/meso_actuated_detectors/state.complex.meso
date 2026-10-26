@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-22T11:25:36.799132+01:00 by Eclipse SUMO sumo v1_28_0+0168-6edec047c3b
+<!-- generated on 2026-10-22T12:11:04.365269+01:00 by Eclipse SUMO sumo v1_28_0+0168-6edec047c3b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -179,5 +179,14 @@
         <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
     </segment>
     <tlLogic id="C" programID="0" phase="0" duration="30000" until="303000" cycleTime="30000" active="0"/>
-    <tlLogic id="C" programID="P1" phase="0" duration="1000" until="304000" cycleTime="1000" active="1" state="3900.000000000 3900.000000000 3900.000000000 3900.000000000 0.982000000 3900.000000000 0.489000000 3900.000000000"/>
+    <tlLogic id="C" programID="P1" phase="0" duration="1000" until="304000" cycleTime="1000" active="1"/>
+    <inductionLoop id="C_P1_D0.0" time="-3600.000000000" next="" last="" headway="-1000"/>
+    <inductionLoop id="C_P1_D0.1" time="-3600.000000000" next="" last="" headway="-1000"/>
+    <inductionLoop id="C_P1_D1.0" time="-3600.000000000" next="" last="" headway="-1000"/>
+    <inductionLoop id="C_P1_D1.1" time="-3600.000000000" next="" last="" headway="-1000"/>
+    <inductionLoop id="C_P1_D2.0" time="-3600.000000000" next="299018 300725" last="261466" headway="1669"/>
+    <inductionLoop id="C_P1_D2.1" time="-3600.000000000" next="" last="" headway="1669"/>
+    <inductionLoop id="C_P1_D3.0" time="-3600.000000000" next="299511 301626" last="296531" headway="1669"/>
+    <inductionLoop id="C_P1_D3.1" time="-3600.000000000" next="" last="" headway="1669"/>
+    <inductionLoop id="dBus" time="-3600.000000000" next="295936" last="225234" headway="1669"/>
 </snapshot>
