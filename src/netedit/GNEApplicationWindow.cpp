@@ -763,6 +763,8 @@ long
 GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
     // check if close current simulation
     if (onCmdClose(0, 0, 0) == 1) {
+        // set flag
+        myStartedWithNewNet = true;
         // create new network
         createNewNetwork();
     }
@@ -1077,6 +1079,26 @@ GNEApplicationWindow::onCmdSmartReload(FXObject* sender, FXSelector sel, void* p
         }
         // store size, position and viewport
         storeWindowSizeAndPos();
+        // check if started with new net
+        if (myStartedWithNewNet) {
+            // preserve output file if defined in bucket
+            const auto outputFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETWORK);
+            // create new network
+            createNewNetwork();
+            // restore ignore flags
+            neteditOptions.resetWritable();
+            if (ignoreAdditionals) {
+                neteditOptions.set("ignore.additionalelements", "true");
+            }
+            if (ignoreRoutes) {
+                neteditOptions.set("ignore.routeelements", "true");
+            }
+            // restore output file in bucket if it was defined
+            if (!outputFile.empty()) {
+                myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, outputFile);
+            }
+            return 1;
+        }
         // set flag
         myAmLoading = true;
         // get files
@@ -1132,6 +1154,9 @@ GNEApplicationWindow::onUpdSmartReload(FXObject* sender, FXSelector, void*) {
     // check options
     if (myNet == nullptr) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_SETSTRINGVALUE), &reload);
+    } else if (myStartedWithNewNet) {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
         sender->handle(this, FXSEL(SEL_COMMAND, ID_SETSTRINGVALUE), &reload);
     } else if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETEDIT_CONFIG)) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -1425,24 +1450,31 @@ GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
         std::string successMessage;
         switch (fileLoadedEvent->getType()) {
             case GNEEvent_FileLoaded::Type::NETECFG:
+                myStartedWithNewNet = false;
                 successMessage = TLF("Netedit config '%' loaded", fileLoadedEvent->getFile());
                 break;
             case GNEEvent_FileLoaded::Type::SUMOCFG:
+                myStartedWithNewNet = false;
                 successMessage = TLF("Sumo config '%' loaded", fileLoadedEvent->getFile());
                 break;
             case GNEEvent_FileLoaded::Type::NETCCFG:
+                myStartedWithNewNet = false;
                 successMessage = TLF("Netconvert config '%' loaded", fileLoadedEvent->getFile());
                 break;
             case GNEEvent_FileLoaded::Type::NETWORK:
+                myStartedWithNewNet = false;
                 successMessage = TLF("Network '%' loaded", fileLoadedEvent->getFile());
                 break;
             case GNEEvent_FileLoaded::Type::OSM:
+                myStartedWithNewNet = false;
                 successMessage = TLF("OSM Network '%' loaded", fileLoadedEvent->getFile());
                 break;
             case GNEEvent_FileLoaded::Type::CONSOLE:
+                myStartedWithNewNet = false;
                 successMessage = TLF("Network '%' loaded through console", fileLoadedEvent->getFile());
                 break;
             case GNEEvent_FileLoaded::Type::NEW:
+                myStartedWithNewNet = true;
                 successMessage = TL("New network successfully created");
                 break;
             default:
@@ -1824,6 +1856,8 @@ void
 GNEApplicationWindow::loadOptionOnStartup() {
     auto& neteditOptions = OptionsCont::getOptions();
     if (neteditOptions.getBool("new")) {
+        // set flag
+        myStartedWithNewNet = true;
         // save output file
         const auto outputFile = neteditOptions.getString("output-file");
         // create new network reset all options
