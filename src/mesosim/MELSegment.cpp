@@ -104,8 +104,11 @@ MELSegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMO
     // gaps travel quickly in free flow (the number of gaps and vehicles stays below the segment capacity)
     // but they travel more slowly when queued (startupDelay)
     const bool queued = veh->getQueuingTimeLoss() > 0;
+    const SUMOTime waveTime = (SUMOTime)(myJamLength * (double)(queued ? myTau_jj : myTau_ff) / DEFAULT_VEH_LENGTH_WITH_GAP);
+    // the entering vehicle needs this long to drive through the length that cannot be occupied
+    const SUMOTime remainderTime = TIME2STEPS((myLength - myJamLength) / myEdge.getSpeedLimit());
     myEdge.lock(); // the gui reads the gaps when drawing vehicles
-    gaps.insert(gaps.begin(), {time + (SUMOTime)(myJamLength * (double)(queued ? myTau_jj : myTau_ff) / DEFAULT_VEH_LENGTH_WITH_GAP), time, queued});
+    gaps.insert(gaps.begin(), {time + MAX2((SUMOTime)0, waveTime - remainderTime), time, queued});
     myEdge.unlock();
     MESegment::send(veh, next, nextQIdx, time, reason);
 }
@@ -149,7 +152,7 @@ MELSegment::getMinDistanceToEnd(int qIdx, double lengthAhead, SUMOTime time) con
         const double distFraction = MIN2(1., (dist + DEFAULT_VEH_LENGTH_WITH_GAP * lengthToDist) / myJamLength);
         int count = 0;
         for (const Gap& gap : myGaps[qIdx]) {
-            if (gap.queued && gap.departure + (SUMOTime)((double)(gap.arrival - gap.departure) * distFraction) > time) {
+            if (gap.queued && gap.departure + (SUMOTime)(myJamLength * (double)myTau_jj / DEFAULT_VEH_LENGTH_WITH_GAP * distFraction) > time) {
                 count++;
             }
         }
