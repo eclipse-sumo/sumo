@@ -173,6 +173,9 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
                     vehicles.push_back(item.foe->getID());
                     tripIDs.push_back(item.foe->getParameter().getParameter("tripId", item.foe->getID()));
                 }
+                // rotate signals so their are aligned with the vehicle waiting
+                // at that signal instead of the foe that is blocking the signal
+                std::rotate(signals.begin(), signals.begin() + 1, signals.end());
                 OutputDevice& od = OutputDevice::getDeviceByOption("deadlock-output");
                 if (constraints.empty()) {
                     od.openTag(SUMO_TAG_DEADLOCK);
