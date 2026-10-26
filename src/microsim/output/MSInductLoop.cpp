@@ -48,7 +48,9 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 
 #define HAS_NOT_LEFT_DETECTOR -1
 
@@ -333,8 +335,33 @@ MSInductLoop::getTimeSinceLastDetection() const {
 
 
 void
-MSInductLoop::loadTimeSinceLastDetection(double time) {
-    myLastLeaveTime = SIMTIME - time;
+MSInductLoop::saveState(OutputDevice& out) const {
+    out.openTag(SUMO_TAG_INDUCTION_LOOP);
+    out.writeAttr(SUMO_ATTR_ID, getID());
+    out.writeAttr(SUMO_ATTR_TIME, myLastLeaveTime);
+    if (mySegment != nullptr) {
+        out.writeAttr(SUMO_ATTR_NEXT, getTimes(myNextMesoLeaveTimes, SIMSTEP));
+        out.writeAttr(SUMO_ATTR_LAST, getTimes(myLastMesoLeaveTimes, SIMSTEP));
+        // used for the next detection when a vehicle leaves the segment
+        out.writeAttr(SUMO_ATTR_HEADWAY, toString<SUMOTime>(mySegment->getLastHeadway()));
+    }
+    out.closeTag();
+}
+
+
+void
+MSInductLoop::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
+    bool ok = true;
+    myLastLeaveTime = attrs.get<double>(SUMO_ATTR_TIME, getID().c_str(), ok) - STEPS2TIME(offset);
+    if (mySegment != nullptr) {
+        for (const std::string& t : StringTokenizer(attrs.getString(SUMO_ATTR_NEXT)).getVector()) {
+            myNextMesoLeaveTimes.push(StringUtils::toLong(t) - offset);
+        }
+        for (const std::string& t : StringTokenizer(attrs.getString(SUMO_ATTR_LAST)).getVector()) {
+            myLastMesoLeaveTimes.push(StringUtils::toLong(t) - offset);
+        }
+        mySegment->setLastHeadway(StringUtils::toLong(attrs.getString(SUMO_ATTR_HEADWAY)));
+    }
 }
 
 
@@ -392,6 +419,21 @@ MSInductLoop::discardOldTimes(TimeQueue& tq, SUMOTime now) {
         }
         tq.push(last);
     }
+}
+
+
+std::vector<SUMOTime>
+MSInductLoop::getTimes(TimeQueue tq, SUMOTime now) {
+    std::vector<SUMOTime> result;
+    if (!tq.empty()) {
+        // the next query discards them anyway
+        discardOldTimes(tq, now);
+    }
+    while (!tq.empty()) {
+        result.push_back(tq.top());
+        tq.pop();
+    }
+    return result;
 }
 
 
@@ -606,6 +648,8 @@ MSInductLoop::clearState(SUMOTime time) {
     myLastVehicleDataCont.clear();
     myVehicleDataCont.clear();
     myVehiclesOnDet.clear();
+    myNextMesoLeaveTimes = TimeQueue();
+    myLastMesoLeaveTimes = TimeQueue();
 }
 
 /****************************************************************************/

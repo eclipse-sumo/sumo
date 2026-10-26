@@ -212,4 +212,14 @@ MSDetectorControl::clearState(SUMOTime step) {
     myReminders.clear();
 }
 
+
+void
+MSDetectorControl::saveState(OutputDevice& out) const {
+    for (const auto& i : myDetectors) {
+        for (const auto& j : getTypedDetectors(i.first)) {
+            j.second->saveState(out);
+        }
+    }
+}
+
 /****************************************************************************/

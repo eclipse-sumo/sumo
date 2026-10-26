@@ -1415,6 +1415,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "loaderTime",        SUMO_ATTR_LOADERTIME },
     { "entryPos",          SUMO_ATTR_ENTRYPOS },
     { "routeLength",       SUMO_ATTR_ROUTELENGTH },
+    { "headway",           SUMO_ATTR_HEADWAY },
     // @}
 
     //@name meso edge type attributes

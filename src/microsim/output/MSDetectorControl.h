@@ -180,6 +180,9 @@ public:
     /** @brief Remove all vehicles before quick-loading state */
     void clearState(SUMOTime step);
 
+    /// @brief Saves the state of all detectors
+    void saveState(OutputDevice& out) const;
+
     /// @brief retrieve reminders of all detectors (for loading state)
     const std::map<std::string, MSMoveReminder*>& getAllReminders();
 
