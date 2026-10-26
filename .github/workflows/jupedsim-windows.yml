@@ -103,7 +103,7 @@ jobs:
         cd jupedsim
         python -m pip install -U --no-deps .
         cd ..
-        $env:TEXTTEST_CI_APPS = "-a sumo.extra.${{ matrix.jps_version }}"
+        $env:TEXTTEST_CI_APPS = "-a sumo.extra.${{ matrix.jps_version }},sumo.extra.legacy.${{ matrix.jps_version }},sumo.extra.sf,sumo.extra.gcf.${{ matrix.jps_version }}"
         sumo\tests\runCiTests.bat
 
     - name: Compressing test results

@@ -112,6 +112,7 @@ class SimulationManager:
     def __init__(self, debug=False, sqlite=False):
         self._geometry_id_counter = 0
         self._simulation_id_counter = 0
+        self._region_id = None
         self._geometries = {}  # geometry_id -> shapely.Polygon
         self._simulations = {}  # sim_id -> jps.Simulation
         self._agents = {}  # agent_id -> simulation_id
@@ -152,9 +153,13 @@ class SimulationManager:
             if len(obstacle) < 3:
                 return None, "each obstacle needs at least 3 points"
         geometry_id = self.generate_geometry_id()
-        self._geometries[geometry_id] = shapely.Polygon(
-            boundary, holes=obstacles
-        )
+        polygon = shapely.Polygon(boundary, holes=obstacles)
+        if jps.__version__ >= '2':
+            surface = jps.WalkableSurface()
+            self._region_id = surface.add_region(polygon=polygon)
+            self._geometries[geometry_id] = surface
+        else:
+            self._geometries[geometry_id] = polygon
         return dict(geometry_id=geometry_id), None
 
     def switch_geometry(self, simulation_id, geometry_id):
@@ -185,6 +190,9 @@ class SimulationManager:
         param_dict = {}
         if parameters is not None:
             param_dict = json_format.MessageToDict(parameters)
+        if jps.__version__ >= '2' and model_class == 'GeneralizedCentrifugalForceModel':
+            if (geometry_repulsion := param_dict.pop("strength_geometry_repulsion", None)) is not None:
+                param_dict["strength_wall_repulsion"] = geometry_repulsion
         # The model class is a dataclass; unset parameters keep their defaults.
         try:
             model = jps_model_cls(**param_dict)
@@ -253,12 +261,27 @@ class SimulationManager:
             if key in param_dict and isinstance(param_dict[key], float):
                 param_dict[key] = int(param_dict[key])
 
-        # Create model parameters
-        jps_model_param_cls = getattr(
-            jps, f"{agent_model_class}AgentParameters"
-        )
-        agent_params = jps_model_param_cls(**param_dict)
-        agent_id = simulation.add_agent(agent_params)
+        if jps.__version__ >= '2':
+            journey_id = param_dict.pop("journey_id")
+            stage_id = param_dict.pop("stage_id")
+            position = param_dict.pop("position")
+            if agent_model_class == "SocialForceModel":
+                # TODO we should probably calculate a proper velocity vector instead
+                param_dict.pop("orientation", None)
+            # Create model state
+            jps_model_state_cls = getattr(
+                jps, f"{agent_model_class}State"
+            )
+            agent_state = jps_model_state_cls(**param_dict)
+            agent_id = simulation.add_agent(journey_id=journey_id, stage_id=stage_id,
+                                            position=position, state=agent_state, region_id=self._region_id)
+        else:
+            # Create model parameters
+            jps_model_param_cls = getattr(
+                jps, f"{agent_model_class}AgentParameters"
+            )
+            agent_params = jps_model_param_cls(**param_dict)
+            agent_id = simulation.add_agent(agent_params)
         self._agents[agent_id] = simulation_id
         if (script := self._script(simulation_id)) is not None:
             script.write(
@@ -307,7 +330,10 @@ class SimulationManager:
         ring = list(region)
         if ring[0] != ring[-1]:  # agents_in_polygon wants a closed ring
             ring.append(ring[0])
-        agent_ids = simulation.agents_in_polygon(ring)
+        if jps.__version__ >= '2':
+            agent_ids = [a.id for a in simulation.agents_in_polygon(ring)]
+        else:
+            agent_ids = simulation.agents_in_polygon(ring)
         return dict(agent_ids=agent_ids), None
 
     def get_desired_speed_of_agents(self, simulation_id, agent_ids):
@@ -326,7 +352,10 @@ class SimulationManager:
             return None, f"simulation ID {simulation_id} unknown"
         try:
             for agent_id, speed in desired_speeds.items():
-                simulation.agent(agent_id).model.desired_speed = speed
+                if jps.__version__ >= '2':
+                    simulation.agent(agent_id).state.desired_speed = speed
+                else:
+                    simulation.agent(agent_id).model.desired_speed = speed
         except (RuntimeError, AttributeError) as e:
             return None, str(e)
         if (script := self._script(simulation_id)) is not None:
@@ -365,7 +394,11 @@ class SimulationManager:
     def add_waypoint_stage(self, simulation_id, x, y, distance):
         if (simulation := self._simulations.get(simulation_id, None)) is None:
             return None, f"simulation ID {simulation_id} unknown"
-        waypoint_id = simulation.add_waypoint_stage((x, y), distance)
+        if jps.__version__ >= '2':
+            waypoint_id = simulation.add_waypoint_stage([(jps.circle_to_polygon(center=(x, y), radius=distance),
+                                                          self._region_id)])
+        else:
+            waypoint_id = simulation.add_waypoint_stage((x, y), distance)
         self._stages[waypoint_id] = simulation_id
         if (script := self._script(simulation_id)) is not None:
             script.write(
@@ -443,12 +476,16 @@ class SimulationManager:
             return None, f"simulation ID {simulation_id} unknown"
         properties = {}
         for agent in simulation.agents():
+            if jps.__version__ >= '2':
+                orientation = getattr(agent.state, "orientation", (1, 0))
+            else:
+                orientation = agent.orientation
             properties[agent.id] = jupedsim_pb2.AgentCoreProperties(
                 position=jupedsim_pb2.Point(
                     x=agent.position[0], y=agent.position[1]
                 ),
                 orientation=jupedsim_pb2.Point(
-                    x=agent.orientation[0], y=agent.orientation[1]
+                    x=orientation[0], y=orientation[1]
                 ),
             )
         return dict(properties=properties), None
