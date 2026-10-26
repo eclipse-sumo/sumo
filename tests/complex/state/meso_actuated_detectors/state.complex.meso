@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-22T11:25:36.799132+01:00 by Eclipse SUMO sumo v1_28_0+0168-6edec047c3b
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="300,310"/>
+        <save-state.files value="state.xml,compare.xml"/>
+        <save-state.rng value="true"/>
+        <save-state.precision value="9"/>
+    </output>
+
+    <time>
+        <end value="311"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<snapshot type="meso" version="v1_28_0+0168-6edec047c3b" count="581" time="300.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <rngState default="0" routeHandler="212" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
+        <rngLane index="0" state="0"/>
+        <rngLane index="1" state="0"/>
+        <rngLane index="2" state="0"/>
+        <rngLane index="3" state="0"/>
+        <rngLane index="4" state="0"/>
+        <rngLane index="5" state="0"/>
+        <rngLane index="6" state="0"/>
+        <rngLane index="7" state="0"/>
+        <rngLane index="8" state="0"/>
+        <rngLane index="9" state="0"/>
+        <rngLane index="10" state="0"/>
+        <rngLane index="11" state="0"/>
+        <rngLane index="12" state="0"/>
+        <rngLane index="13" state="0"/>
+        <rngLane index="14" state="0"/>
+        <rngLane index="15" state="0"/>
+        <rngLane index="16" state="0"/>
+        <rngLane index="17" state="0"/>
+        <rngLane index="18" state="0"/>
+        <rngLane index="19" state="0"/>
+        <rngLane index="20" state="0"/>
+        <rngLane index="21" state="0"/>
+        <rngLane index="22" state="0"/>
+        <rngLane index="23" state="0"/>
+        <rngLane index="24" state="0"/>
+        <rngLane index="25" state="0"/>
+        <rngLane index="26" state="0"/>
+        <rngLane index="27" state="0"/>
+        <rngLane index="28" state="0"/>
+        <rngLane index="29" state="0"/>
+        <rngLane index="30" state="0"/>
+        <rngLane index="31" state="0"/>
+        <rngLane index="32" state="0"/>
+        <rngLane index="33" state="0"/>
+        <rngLane index="34" state="0"/>
+        <rngLane index="35" state="0"/>
+        <rngLane index="36" state="0"/>
+        <rngLane index="37" state="0"/>
+        <rngLane index="38" state="0"/>
+        <rngLane index="39" state="0"/>
+        <rngLane index="40" state="0"/>
+        <rngLane index="41" state="0"/>
+        <rngLane index="42" state="0"/>
+        <rngLane index="43" state="0"/>
+        <rngLane index="44" state="0"/>
+        <rngLane index="45" state="0"/>
+        <rngLane index="46" state="0"/>
+        <rngLane index="47" state="0"/>
+        <rngLane index="48" state="0"/>
+        <rngLane index="49" state="0"/>
+        <rngLane index="50" state="0"/>
+        <rngLane index="51" state="0"/>
+        <rngLane index="52" state="0"/>
+        <rngLane index="53" state="0"/>
+        <rngLane index="54" state="0"/>
+        <rngLane index="55" state="0"/>
+        <rngLane index="56" state="0"/>
+        <rngLane index="57" state="0"/>
+        <rngLane index="58" state="0"/>
+        <rngLane index="59" state="0"/>
+        <rngLane index="60" state="0"/>
+        <rngLane index="61" state="0"/>
+        <rngLane index="62" state="0"/>
+        <rngLane index="63" state="0"/>
+    </rngState>
+    <route id="ES" state="1" edges="EC CS"/>
+    <route id="NW" state="1" edges="NC CW"/>
+    <route id="SN" state="1" edges="SC CN"/>
+    <route id="WE" state="1" edges="WC CE"/>
+    <delay number="13" begin="88" end="75" depart="0.000000000" time="3384.000000000" speedFactor="1.179700000" decel="4.000000000"/>
+    <vType id="DEFAULT_VEHTYPE" sigma="0">
+        <param key="has.tripinfo.device" value="false"/>
+    </vType>
+    <vType id="busType" vClass="bus" sigma="0">
+        <param key="has.tripinfo.device" value="true"/>
+    </vType>
+    <vehicle id="WE.64" depart="256.000" route="WE" distance="579.2 0" speedFactor="0.972900000" state="2208 256000 1 0 2 0 300397 293254 9223372036854774807 0 0 0 572 300397"/>
+    <vehicle id="WE.65" depart="260.000" route="WE" distance="579.2 0" speedFactor="0.940100000" state="2208 260000 1 0 2 0 305951 298558 9223372036854774807 0 0 0 568 305951"/>
+    <vehicle id="WE.66" depart="264.000" route="WE" distance="579.2 0" speedFactor="1.055700000" state="2208 264000 1 0 1 0 299392 292024 9223372036854774807 0 0 0 578 299392"/>
+    <vehicle id="WE.67" depart="268.000" route="WE" distance="579.2 0" speedFactor="0.955100000" state="2208 268000 1 0 1 0 305953 298676 9223372036854774807 0 0 0 565 305953"/>
+    <vehicle id="WE.68" depart="272.000" route="WE" distance="579.2 0" speedFactor="0.984900000" state="2208 272000 1 0 0 0 301744 294688 9223372036854774807 0 0 0 579 301744"/>
+    <vehicle id="WE.69" depart="276.000" route="WE" distance="579.2 0" speedFactor="1.032500000" state="2208 276000 1 0 0 0 304374 297643 9223372036854774807 0 0 0 576 304374"/>
+    <vehicle id="WE.70" depart="280.000" route="WE" distance="0 0" speedFactor="0.981900000" state="2208 280000 0 0 2 0 301234 294156 9223372036854774807 0 0 0 575 301234"/>
+    <vehicle id="SN.7" depart="280.000" route="SN" distance="0 0" speedFactor="1.007300000" state="2208 280000 0 0 2 0 300697 293798 9223372036854774807 0 0 0 570 300697"/>
+    <vehicle id="bSN.4" type="busType" depart="280.000" route="SN" distance="0 0" speedFactor="1.000000000" state="2210 280000 0 0 2 0 302416 295466 9223372036854774807 0 0 0 573 302416">
+        <device id="tripinfo_bSN.4" state="SC_0 12.4833 -0 783 0 0 0 -1 -1000 NONE -1 0 -1"/>
+        <rem id="tripinfo_bSN.4" time="295466" pos="193.066666667"/>
+    </vehicle>
+    <vehicle id="WE.71" depart="284.000" route="WE" distance="0 0" speedFactor="1.086900000" state="2208 284000 0 0 2 0 303182 296788 9223372036854774807 0 0 0 571 303182"/>
+    <vehicle id="WE.72" depart="288.000" route="WE" distance="0 0" speedFactor="1.034500000" state="2208 288000 0 0 1 0 301436 294718 9223372036854774807 0 0 0 577 301436"/>
+    <vehicle id="WE.73" depart="292.000" route="WE" distance="0 0" speedFactor="0.998100000" state="2208 292000 0 0 1 0 305926 298963 9223372036854774807 0 0 0 574 305926"/>
+    <vehicle id="WE.74" depart="296.000" route="WE" distance="0 0" speedFactor="1.016900000" state="2208 296000 0 0 0 0 302834 296000 9223372036854774807 0 0 0 580 302834"/>
+    <flowState id="WE" begin="0.000" end="1000.000" period="4" next="300.000000000" route="WE" done="75" index="75"/>
+    <flowState id="SN" begin="0.000" end="1000.000" period="40" next="320.000000000" route="SN" done="8" index="8"/>
+    <flowState id="bSN" type="busType" begin="0.000" end="1000.000" period="70" next="350.000000000" route="SN" done="5" index="5"/>
+    <segment id=":C_7:0">
+        <vehicles time="266103" blockTime="264465" value=""/>
+    </segment>
+    <segment id=":C_10:0">
+        <vehicles time="299312" blockTime="297861" value=""/>
+    </segment>
+    <segment id="CE:0">
+        <vehicles time="299510" blockTime="298476" value="WE.69 WE.68"/>
+    </segment>
+    <segment id="CE:1">
+        <vehicles time="299392" blockTime="299509" value="WE.67 WE.66"/>
+    </segment>
+    <segment id="CE:2">
+        <vehicles time="294228" blockTime="299391" value="WE.65 WE.64"/>
+    </segment>
+    <segment id="CN:0">
+        <vehicles time="272867" blockTime="265267" value=""/>
+    </segment>
+    <segment id="CN:1">
+        <vehicles time="280466" blockTime="272866" value=""/>
+    </segment>
+    <segment id="CN:2">
+        <vehicles time="287231" blockTime="280465" value=""/>
+    </segment>
+    <segment id="SC:0">
+        <vehicles time="288819" blockTime="-9223372036854775808" value=""/>
+    </segment>
+    <segment id="SC:1">
+        <vehicles time="296552" blockTime="288818" value=""/>
+    </segment>
+    <segment id="SC:2">
+        <vehicles time="264466" blockTime="297638" value="bSN.4 SN.7"/>
+        <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
+    </segment>
+    <segment id="WC:0">
+        <vehicles time="299797" blockTime="-9223372036854775808" value="WE.74"/>
+    </segment>
+    <segment id="WC:1">
+        <vehicles time="297622" blockTime="299796" value="WE.73 WE.72"/>
+    </segment>
+    <segment id="WC:2">
+        <vehicles time="297862" blockTime="298456" value="WE.71 WE.70"/>
+        <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
+    </segment>
+    <tlLogic id="C" programID="0" phase="0" duration="30000" until="303000" cycleTime="30000" active="0"/>
+    <tlLogic id="C" programID="P1" phase="0" duration="1000" until="304000" cycleTime="1000" active="1" state="3900.000000000 3900.000000000 3900.000000000 3900.000000000 0.982000000 3900.000000000 0.489000000 3900.000000000"/>
+</snapshot>
