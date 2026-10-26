@@ -27,5 +27,8 @@ triangle_6veh
 # avoid deadlock by loading a deadlock file
 circle_3veh
 
+# deadlock see #18432
+circle_3veh_x4
+
 # a deadlock is loaded but re-occurs (#18422)
 siding_crossing
