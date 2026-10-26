@@ -76,7 +76,7 @@ choice depends on your available input data:
 
 ## Using data from other sources
 
-  see [SUMO_User_Documentation\#Demand_Modelling](../index.md#demand_modelling)
+  see [SUMO_User_Documentation\#Demand_Modeling](../index.md#demand_modeling)
 
 By now, the SUMO-package contains four applications for generating
 routes. [duarouter](../duarouter.md) is responsible for importing

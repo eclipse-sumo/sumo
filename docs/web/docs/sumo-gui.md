@@ -708,7 +708,7 @@ option in the *File*-menu.
 Shapes and POIs can be [located based on their unique
 ID](#locating_objects) and their appearance can be
 [customized as
-well](#changing_the_appearancevisualisation_of_the_simulation).
+well](#changing_the_appearancevisualization_of_the_simulation).
 
 ## Showing Background Images
 
@@ -871,7 +871,7 @@ It possible to reference a predefined scheme by its name alone:
 </viewsettings>
 ```
 
-The name may either be one of the "native" schemas ("standard", "real world", ...) or any schema [stored in the registry](#changing_the_appearancevisualisation_of_the_simulation) by the user.
+The name may either be one of the "native" schemas ("standard", "real world", ...) or any schema [stored in the registry](#changing_the_appearancevisualization_of_the_simulation) by the user.
 
 ## Breakpoints
 
@@ -979,7 +979,7 @@ Only some of the regular network components have been ported to the 3D view (yet
 - traffic lights
 
 Automatically generated traffic lights come in different variants and can be shown/hidden independently of each other
-through the 3D part of the [GUI settings](#changing_the_appearancevisualisation_of_the_simulation):
+through the 3D part of the [GUI settings](#changing_the_appearancevisualization_of_the_simulation):
 
 - bubbles above the stop line which change their color according to the connection they belong to
 - detailed model with pole(s) and signals (either a cantilever beam or a signal bridge for large roads; single pedestrian signals are placed across the street)
@@ -1134,7 +1134,7 @@ The [background images (decals)](#showing_background_images) support attribute `
   Walkingarea Path*.
 - To highlight an arbitrary set of edges in the simulation create a
   [selection file](#selecting_objects) and [color edges *by
-  selection*](#edgelane_visualisation_settings)
+  selection*](#edgelane_visualization_settings)
 - To Visualize all routes in a route file use the tool
   [Tools/Routes\#route2poly.py](Tools/Routes.md#route2polypy)
   or

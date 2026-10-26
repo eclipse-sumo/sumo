@@ -47,6 +47,11 @@ long_siding_occupied_wait
 # 
 long_siding_occupied_wait2
 
+# no deadlock should be found because the sidings will clear up in time (even if the first siding is too short for the train)
+# 
+# different insertion order compared to the 'wait2' test
+long_siding_occupied_wait3
+
 # no deadlock should be found because the sidings accomodate multiple vehicles
 long_siding_occupied_advance
 
@@ -60,3 +65,14 @@ siding_deadlock_intermediate_dw
 
 # required siding is beyond the current pre-registration limit (#17834)
 siding_deadlock_approaching_limit
+
+# insertion into siding must be delayed because it is already reserved for passing (#18415)
+siding_deadlock_insertion
+
+# insertion into siding must be delayed because it is already reserved for passing (#18415)
+# 
+# the inserted vehicle is long enough to blow two siding spots
+siding_deadlock_insertion2
+
+# deadlock involving a long train that blocks the outflow of the other side over a diamond crossing
+siding_crossing_deadlock

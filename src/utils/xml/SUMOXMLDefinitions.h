@@ -250,6 +250,8 @@ enum SumoXMLTag {
     SUMO_TAG_POLYTYPE,
     /// @brief connectioon between two lanes
     SUMO_TAG_CONNECTION,
+    /// @brief no connection permitted between two edges
+    SUMO_TAG_PROHIBITED_CONNECTION,
     /// @brief conflict between two connections
     SUMO_TAG_CONFLICT,
     /// @brief prohibition of circulation between two edges
@@ -300,6 +302,7 @@ enum SumoXMLTag {
     SUMO_TAG_DEADLOCK,
     /// @brief Saved driveway information
     SUMO_TAG_DRIVEWAY,
+    SUMO_TAG_ROUTEPART,
     SUMO_TAG_SUBDRIVEWAY,
     /// @brief Link information for state-saving
     SUMO_TAG_LINK,

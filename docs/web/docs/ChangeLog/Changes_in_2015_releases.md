@@ -160,7 +160,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
   - Int and float options can now be set in the
     *Processing-\>Options* dialog.
   - Added many lane- and junction-coloring modes already known from
-    [sumo-gui](../sumo-gui.md#edgelane_visualisation_settings). #1756
+    [sumo-gui](../sumo-gui.md#edgelane_visualization_settings). #1756
   - Pedestrian crossings are now supported when editing traffic
     light plans.
   - Attributes of pedestrian crossings can now be modified.
@@ -204,7 +204,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
     will make vehicles recompute their route when entering that
     edge.
   - The size and color of link indices can now be customized (old
-    [gui settings files](../sumo-gui.md#changing_the_appearancevisualisation_of_the_simulation)
+    [gui settings files](../sumo-gui.md#changing_the_appearancevisualization_of_the_simulation)
     may have to be updated).
   - Average trip data (for completed vehicle trips) is now available
     in the network parameter dialogue when running with option **--duration-log.statistics**.
@@ -371,7 +371,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
     classes now cause these vehicles to wait until the closing ends
     if the destination edge is closed.
   - Vehicles with a `<stop>` in their route are now being overtaken if there
-    is sufficient space. This was causing problems when modelling
+    is sufficient space. This was causing problems when modeling
     parked vehicles on a multi-lane road.
   - Fixed bug that resulted in invalid routes when routing at
     simulation time (at intersections where a required connection
@@ -839,7 +839,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
   - Markings for bike lanes are now drawn at road intersections
     (bike lanes are lanes which only allow vClass *bicycle*).
   - Added options for saving the current viewport and simulation
-    delay along with the current visualisation settings. #1625
+    delay along with the current visualization settings. #1625
 
 - netconvert
   - read heightmaps from GeoTIFFs for instance [SRTM data](https://opendem.info/download_srtm.html) #1495

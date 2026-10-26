@@ -33,6 +33,8 @@ class GNETagPropertiesDatabase;
 class GNELoadThread;
 class GNEInternalTest;
 class GNEExternalRunner;
+class FileBucket;
+class GNEGeneralHandler;
 
 // ===========================================================================
 // class definition
@@ -864,6 +866,9 @@ private:
 
     /// @brief warns about unsaved changes and gives the user the option to abort
     bool askSaveElements(FXObject* sender, FXSelector sel, void* ptr);
+
+    /// @brief check if loaded additional file is a meanData file and update buckets accordingly
+    bool checkMeanDataFileBucket(const std::string& file, FileBucket* bucket, const GNEGeneralHandler& generalHandler);
 
     /// @brief Invalidated copy constructor.
     GNEApplicationWindow(const GNEApplicationWindow&) = delete;

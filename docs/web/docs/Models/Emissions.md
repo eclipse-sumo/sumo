@@ -97,11 +97,11 @@ following output can be used:
 - [emission-output](../Simulation/Output/EmissionOutput.md):
   Unaggregated emission values for every vehicle and time step
 - [Color vehicles by
-  emissions](../sumo-gui.md#vehicle_visualisation_settings): This
+  emissions](../sumo-gui.md#vehicle_visualization_settings): This
   can be used to show the emissions for each vehicle during each
   simulation step
 - [Color lanes/edges by
-  emissions](../sumo-gui.md#edgelane_visualisation_settings):
+  emissions](../sumo-gui.md#edgelane_visualization_settings):
   This can be used to show the emissions for all vehicles on a lane
   during each simulation step (or for the whole edge in
   [Simulation/Meso](../Simulation/Meso.md)).

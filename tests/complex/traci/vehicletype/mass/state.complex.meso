@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-18T08:04:07.309645+01:00 by Eclipse SUMO sumo v1_27_0+0246-77aedaaf8e3
+<!-- generated on 2026-10-19T19:49:04.570236+01:00 by Eclipse SUMO sumo v1_28_0+0141-b852030622e
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,7 +22,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="46747"/>
+        <remote-port value="52515"/>
     </traci_server>
 
     <mesoscopic>
@@ -38,17 +38,17 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_27_0+0246-77aedaaf8e3" time="30.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_28_0+0141-b852030622e" count="9" time="30.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r1" state="1" edges="1fi 1si"/>
     <delay number="3" begin="4" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE" mass="1234.00" sigma="0"/>
     <vType id="t1" mass="4321.00" sigma="0"/>
     <vType id="t2" emissionClass="Energy/default"/>
     <vType id="t3" vClass="truck" emissionClass="Energy/default"/>
-    <vehicle id="veh0" depart="0.00" route="r1" distance="248.5 0" speedFactor="1.0000" state="2048 0 1 0 0 0 30905 22368 9223372036854774807 0 0"/>
-    <vehicle id="veh1" type="t1" depart="10.00" route="r1" distance="0 0" speedFactor="1.0000" state="2050 10000 0 0 2 0 32368 24912 9223372036854774807 0 0"/>
-    <vehicle id="veh2" type="t2" depart="20.00" route="r1" distance="0 0" speedFactor="1.0000" state="2050 20000 0 0 1 0 34912 27456 9223372036854774807 0 0"/>
-    <vehicle id="veh3" type="t3" depart="30.00" route="r1" distance="0 0" speedFactor="1.0000" state="2050 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0"/>
+    <vehicle id="veh0" depart="0.00" route="r1" distance="248.5 0" speedFactor="1.0000" state="2048 0 1 0 0 0 30905 22368 9223372036854774807 0 0 0 6 30905"/>
+    <vehicle id="veh1" type="t1" depart="10.00" route="r1" distance="0 0" speedFactor="1.0000" state="2050 10000 0 0 2 0 32368 24912 9223372036854774807 0 0 0 7 32368"/>
+    <vehicle id="veh2" type="t2" depart="20.00" route="r1" distance="0 0" speedFactor="1.0000" state="2050 20000 0 0 1 0 34912 27456 9223372036854774807 0 0 0 8 34912"/>
+    <vehicle id="veh3" type="t3" depart="30.00" route="r1" distance="0 0" speedFactor="1.0000" state="2050 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0 -1 -9223372036854775808"/>
     <segment id="1fi:0">
         <vehicles time="29261" blockTime="-9223372036854775808" value=""/>
     </segment>

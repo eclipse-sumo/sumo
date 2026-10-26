@@ -1098,6 +1098,11 @@ MSNet::clearState(const SUMOTime step, bool quickReload) {
             for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge); s != nullptr; s = s->getNextSegment()) {
                 s->clearState();
             }
+            for (MSLane* const lane : edge->getLanes()) {
+                for (MSLink* link : lane->getLinkCont()) {
+                    link->clearState();
+                }
+            }
         }
     } else {
         for (MSEdge* const edge : MSEdge::getAllEdges()) {

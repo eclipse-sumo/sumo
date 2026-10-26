@@ -70,6 +70,8 @@ std::map<const MSEdge*, std::vector<MSDriveWay*>, ComparatorNumericalIdLess> MSD
 std::map<const MSJunction*, int> MSDriveWay::myDepartDrivewayIndex;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myDepartureDrivewaysEnds;
 std::map<const MSEdge*, std::vector<MSDriveWay*>, ComparatorNumericalIdLess> MSDriveWay::myEndingDriveways;
+std::map<const MSEdge*, std::vector<std::pair<MSDriveWay*, MSDriveWay*> >, ComparatorNumericalIdLess> MSDriveWay::mySidingDriveways;
+std::vector<const MSEdge*> MSDriveWay::myCurrentSidingCheck;
 std::map<ConstMSEdgeVector, MSDriveWay*> MSDriveWay::myDriveWayRouteLookup;
 std::map<std::string, MSDriveWay*> MSDriveWay::myDriveWayLookup;
 
@@ -128,6 +130,7 @@ MSDriveWay::cleanup() {
     MSDriveWay::myDepartDrivewayIndex.clear();
     MSDriveWay::myDepartureDrivewaysEnds.clear();
     MSDriveWay::myEndingDriveways.clear();
+    MSDriveWay::mySidingDriveways.clear();
 }
 
 void
@@ -587,11 +590,34 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
         if (allOccupied) {
 #ifdef DEBUG_SIGNALSTATE
             if (gDebugFlag4 || DEBUG_COND_DW2 || DEBUG_HELPER(ego)) {
-                std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " deadlockCheck " << joinNamedToString(dlFoes, " ") << "\n";
+                std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " deadlockCheck " << joinNamedToString(dlFoes, " ") << " myFoes=" << toString(myFoes) << "\n";
             }
 #endif
             for (const MSDriveWay* dlFoe : dlFoes) {
                 MSRailSignal::blockingDriveWays().push_back(dlFoe);
+            }
+            // for addWaitRelation we need to find the foe that results in the
+            // longest chain (otherwise the deadlock relation is smaller than the original)
+            int start = myForwardEdgeCount;
+            bool foundFoe = false;
+            while (start < (int)myRoute.size() && !foundFoe) {
+                const MSEdge* e = myRoute[start];
+                if (e->getFromJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+                    const MSEdge* p = myRoute[start - 1];
+                    const MSLink* link = p->getLanes().front()->getLinkTo(e->getLanes().front());
+                    if (link != nullptr && link->isTLSControlled()) {
+                        MSRailSignal* rs = const_cast<MSRailSignal*>(dynamic_cast<const MSRailSignal*>(link->getTLLogic()));
+                        const MSDriveWay& cand = rs->getExistingDriveWay(link, myRoute.begin() + start, myRoute.end());
+                        for (const MSDriveWay* dlFoe : dlFoes) {
+                            if (std::find(cand.myFoes.begin(), cand.myFoes.end(), dlFoe) != cand.myFoes.end()) {
+                                foundFoe = true;
+                                const MSRailSignal* rs2 = myOrigin != nullptr ? dynamic_cast<const MSRailSignal*>(myOrigin->getTLLogic()) : nullptr;
+                                MSRailSignalControl::getInstance().addWaitRelation(ego, rs2, *dlFoe->myTrains.begin(), nullptr, true);
+                            }
+                        }
+                    }
+                }
+                start += 1;
             }
             return true;
         }
@@ -664,7 +690,8 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, const MS
 #endif
                         continue;
                     }
-                    if (!sidingApproach->myTrains.empty() && *sidingApproach->myTrains.begin() != ego) {
+                    if ((!sidingApproach->myTrains.empty() && *sidingApproach->myTrains.begin() != ego)
+                            || std::find(myCurrentSidingCheck.begin(), myCurrentSidingCheck.end(), sidingEnd) != myCurrentSidingCheck.end()) {
                         // possibly the foe vehicle can use the other part of the siding
                         if (recurseSidingEnd == nullptr) {
                             const SUMOVehicle* foeVeh = nullptr;
@@ -688,8 +715,7 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, const MS
                                 continue;
                             }
                         }
-                        // possibly the foe vehicle
-                        // @todo: in principle it might still be possible to continue if vehicle that approaches the siding can safely leave the situation
+                        // @todo: in principle it might still be possible to continue if vehicle that approaches the siding can safely leave the situation (#18416)
 #ifdef DEBUG_SIGNALSTATE
                         if (gDebugFlag4 || DEBUG_COND_DW2 || DEBUG_HELPER(ego)) {
                             std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " foe=" << foe->getID()
@@ -763,6 +789,51 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, const MS
     return std::make_pair(false, nullptr);
 }
 
+
+bool
+MSDriveWay::sidingDeadlock(const SUMOVehicle* veh) const {
+    const MSEdge* end = &myForward.back()->getEdge();
+    const auto it = mySidingDriveways.find(end);
+    if (it != mySidingDriveways.end()) {
+        for (const auto& item : it->second) {
+            if (!item.first->myTrains.empty() && !item.second->myTrains.empty()
+                    && bidiBlockedBy(*item.second)) {
+                // we found two driveways that are in conflict and
+                // could make use of this siding. Inserting a vehicle here could create deadlock.
+#ifdef DEBUG_SIGNALSTATE
+                if (gDebugFlag4 || DEBUG_COND_DW2) {
+                    std::cout << SIMTIME << " sidingDeadlock insertionDw=" << getID() << " approachingDW=" << item.first->getID() << " foeDW=" << item.second->getID() << "\n";
+                }
+#endif
+                myCurrentSidingCheck.push_back(end);
+                if (veh->getLength() > end->getLength() && !MSGlobals::gUseMesoSim) {
+                    double backDist =  veh->getLength() - getForwardDistance((int)myForward.size() - 1);
+                    const MSLane* lane = myForward.front();
+                    const MSLane* prev = lane->getLogicalPredecessorLane();
+                    while (backDist > 0 && prev != nullptr) {
+                        backDist -= lane->getLength();
+                        const MSLink* link = prev->getLinkTo(lane);
+                        if (prev->isNormal() && link->getTLLogic() != nullptr
+                                && link->getTLLogic()->getLogicType() == TrafficLightType::RAIL_SIGNAL) {
+                            // inserted train back reaches onto this edge
+                            myCurrentSidingCheck.push_back(&prev->getEdge());
+                        }
+                        lane = prev;
+                        prev = lane->getLogicalPredecessorLane();
+                    }
+                }
+                const bool requiredSiding = !item.first->canUseSiding(*item.first->myTrains.begin(), item.second).first;
+                myCurrentSidingCheck.clear();
+                if (requiredSiding) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
 bool
 MSDriveWay::overlap(const MSDriveWay& other) const {
     for (int i = 0; i < myCoreSize; i++) {
@@ -797,12 +868,11 @@ MSDriveWay::flankConflict(const MSDriveWay& other) const {
                 }
             }
         }
-        for (const MSLane* lane2 : other.myBidiExtended) {
-            if (lane == lane2) {
-                if (bidiBlockedBy(other)) {
-                    // it's only a deadlock if both trains block symmetrically
-                    return true;
-                }
+        auto it = std::lower_bound(other.myBidiExtendedSorted.begin(), other.myBidiExtendedSorted.end(), lane);
+        if (it != other.myBidiExtendedSorted.end() && *it == lane) {
+            if (bidiBlockedBy(other)) {
+                // it's only a deadlock if both trains block symmetrically
+                return true;
             }
         }
     }
@@ -815,6 +885,14 @@ MSDriveWay::crossingConflict(const MSDriveWay& other) const {
     for (const MSLane* lane : myForward) {
         for (const MSLane* lane2 : other.myForward) {
             if (lane->isNormal() && lane2->isNormal() && lane->getEdge().getToJunction() == lane2->getEdge().getToJunction()) {
+                if (lane->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL
+                        && lane == myForward.back()
+                        && &lane->getEdge() != myRoute.back()) {
+                    // switch/crossing is also a rail_signal (direct control) at the end of the forward section.
+                    // (and the route continues)
+                    // This means the coflict is already guarded
+                    return false;
+                }
                 return true;
             }
         }
@@ -860,15 +938,16 @@ MSDriveWay::bidiBlockedBy(const MSDriveWay& other) const {
             }
         }
     }
-    for (const MSLane* lane : myBidiExtended) {
-        for (const MSLane* lane2 : other.myForward) {
-            if (lane == lane2) {
-                if (overlap(other)) {
-                    return true;
-                }
+
+    for (const MSLane* lane2 : other.myForward) {
+        auto it = std::lower_bound(myBidiExtendedSorted.begin(), myBidiExtendedSorted.end(), lane2);
+        if (it != myBidiExtendedSorted.end() && *it == lane2) {
+            if (overlap(other)) {
+                return true;
             }
         }
     }
+
     return false;
 }
 
@@ -881,11 +960,10 @@ MSDriveWay::bidiBlockedByEnd(const MSDriveWay& other) const {
             return true;
         }
     }
-    for (const MSLane* lane : myBidiExtended) {
-        if (lane == end) {
-            if (overlap(other)) {
-                return true;
-            }
+    auto it = std::lower_bound(myBidiExtendedSorted.begin(), myBidiExtendedSorted.end(), end);
+    if (it != myBidiExtendedSorted.end() && *it == end) {
+        if (overlap(other)) {
+            return true;
         }
     }
     return false;
@@ -1346,6 +1424,7 @@ MSDriveWay::findFlankProtection(MSLink* link, MSLink* origLink, const std::vecto
                 std::cout << "    predecessors of " << link->getDescription() << " isSwitch\n";
             }
 #endif
+            addSwitchFoes(link);
             for (MSLink* pred : predLinks) {
                 addSwitchFoes(pred);
             }
@@ -1450,6 +1529,8 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     gDebugFlag4 = DEBUG_COND_DW(dw);
 #endif
     dw->buildRoute(link, first, end, visited, flankSwitches);
+    dw->myBidiExtendedSorted.assign(dw->myBidiExtended.begin(), dw->myBidiExtended.end());
+    std::sort(dw->myBidiExtendedSorted.begin(), dw->myBidiExtendedSorted.end());
     dw->myCoreSize = (int)dw->myRoute.size();
 
     MSRailSignal* rs = link ? const_cast<MSRailSignal*>(static_cast<const MSRailSignal*>(link->getTLLogic())) : nullptr;
@@ -1934,6 +2015,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         tmp.myForward.push_back(lane);
         tmp.myBidi = myBidi;
         tmp.myBidiExtended = myBidiExtended;
+        tmp.myBidiExtendedSorted = myBidiExtendedSorted;
         tmp.myRoute.push_back(lane->getNextNormal());
         tmp.myCoreSize = 1;
         flankC = tmp.flankConflict(*foe);
@@ -2296,6 +2378,15 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
         }
         next = cur;
     }
+    // register in mySidingDriveways
+    MSDriveWay* dw = addToFoe ? foe : this;
+    MSDriveWay* dwFoe = addToFoe ? this : foe;
+    auto it = dw->mySidings.find(dwFoe);
+    if (it != dw->mySidings.end()) {
+        for (const auto& siding : it->second) {
+            mySidingDriveways[dw->myRoute[siding.end]].push_back(std::make_pair(dw, dwFoe));
+        }
+    }
 }
 
 
@@ -2347,7 +2438,7 @@ MSDriveWay::addDWDeadlock(const std::vector<const MSDriveWay*>& deadlockFoes) {
     }
     if (std::find(myDeadlocks.begin(), myDeadlocks.end(), filtered) == myDeadlocks.end()) {
         myDeadlocks.push_back(filtered);
-        //std::cout << getID() << " deadlockFoes=" << toString(deadlockFoes) << "\n";
+        //std::cout << getID() << " deadlockFoes=" << toString(filtered) << "\n";
     }
 }
 
@@ -2518,6 +2609,20 @@ MSDriveWay::retrieveDepartDriveWay(const MSEdge* edge, const std::string& id) {
 bool
 MSDriveWay::hasTrain(SUMOVehicle* veh) const {
     return myTrains.count(veh) != 0;
+}
+
+
+double
+MSDriveWay::getParentRemainingLength() const {
+    double result = 0;
+    if (myParent != nullptr) {
+        auto it = std::find(myParent->myForward.begin(), myParent->myForward.end(), myForward.back());
+        assert(it != myParent->myForward.end());
+        for (; it != myParent->myForward.end(); it++) {
+            result += (*it)->getLength();
+        }
+    }
+    return result;
 }
 
 /****************************************************************************/

@@ -618,6 +618,17 @@ MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) 
     }
 }
 
+
+const MSDriveWay&
+MSRailSignal::getExistingDriveWay(const MSLink* link, MSRouteIterator firstIt, MSRouteIterator endIt) {
+    LinkInfo& li = myLinkInfos[link->getTLIndex()];
+    const MSDriveWay& cand = li.getDriveWay(firstIt, endIt, "_tmp_");
+    // an existing driveway should be found
+    assert(cand->myFirstVehicle != "_tmp_");
+    return cand;
+}
+
+
 void
 MSRailSignal::resetStored() {
     myBlockingVehicles.clear();
@@ -737,6 +748,12 @@ MSRailSignal::retrieveDriveWayForRoute(int tlIndex, MSRouteIterator first, MSRou
 const std::vector<MSDriveWay*>
 MSRailSignal::retrieveDriveWays(int tlIndex) const {
     return myLinkInfos[tlIndex].myDriveways;
+}
+
+
+const MSJunction*
+MSRailSignal::getJunction() const {
+    return myLinkInfos.front().myLink->getJunction();
 }
 
 

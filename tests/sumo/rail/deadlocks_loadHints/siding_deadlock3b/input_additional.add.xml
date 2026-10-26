@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <deadlock time="230.00" signals="D F C2 A" vehicles="t3 t1 t2 t0"/>
+    <deadlock time="230.00" signals="D G C2 A" vehicles="t3 t1 t2 t0"/>
+</additional>

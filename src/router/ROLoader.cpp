@@ -178,7 +178,7 @@ ROLoader::openRoutes(RONet& net) {
         if (!net.furtherStored()) {
             if (MsgHandler::getErrorInstance()->wasInformed()) {
                 throw ProcessError();
-            } else {
+            } else if (!net.haveSkippedRoutes()) {
                 const std::string error = "No route input specified or all routes were invalid.";
                 if (myOptions.getBool("ignore-errors")) {
                     WRITE_WARNING(error);
@@ -223,6 +223,10 @@ ROLoader::processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime
     }
     if (myLogSteps) {
         WRITE_MESSAGEF(TL("Routes found between time steps % and %."), time2string(firstStep), time2string(lastStep));
+    }
+    if (!net.haveProcessedRoutes() && (net.haveSkippedRoutes() || net.furtherStored())
+            && !MsgHandler::getErrorInstance()->wasInformed()) {
+        WRITE_WARNINGF(TL("No routes found between begin time % and end time %."), time2string(start), time2string(end));
     }
 }
 

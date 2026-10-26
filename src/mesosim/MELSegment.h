@@ -69,6 +69,7 @@ public:
     /// @brief update entry blockTime for all queues
     void updateEntryBlockTime(SUMOTime time) override; 
 
+
     /** @brief Returns the minimum distance between the segment end and the front of a queued vehicle
      *
      * The space vacated by queued vehicles that left the segment only becomes
@@ -78,6 +79,11 @@ public:
      * @param[in] time The current time
      */
     double getMinDistanceToEnd(int qIdx, double lengthAhead, SUMOTime time) const override;
+
+    /// @brief the gap times of the given queue for saving / loading
+    std::string getQueueExtraState(int qIdx) const override;
+    void loadQueueExtraState(int qIdx, const std::string& state, SUMOTime offset) override;
+
 
 protected:
     /// @brief compute current headway depending on traffic state

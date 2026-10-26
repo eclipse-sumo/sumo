@@ -1,0 +1,8 @@
+# All demand departs before begin
+before_begin
+
+# All demand departs after end
+after_end
+
+# Empty demand file keeps the existing error
+no_demand
