@@ -549,7 +549,6 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* app, const GNETagPropertiesDat
     GNELoadThread::setDefaultOptions(myOriginalNeteditOptions);
     // parse options
     TemplateHandler::parseTemplate(mySumoOptions, sumoTemplate);
-    TemplateHandler::parseTemplate(myNetconvertOptions, netconvertTemplate);
     TemplateHandler::parseTemplate(myOriginalSumoOptions, sumoTemplate);
     TemplateHandler::parseTemplate(myNetgenerateOptions, netgenerateTemplate);
     TemplateHandler::parseTemplate(myOriginalNetgenerateOptions, netgenerateTemplate);
@@ -3557,7 +3556,7 @@ GNEApplicationWindow::onCmdSavePlainXML(FXObject* sender, FXSelector sel, void* 
             // we use the prefix instead the netconvert config
             const auto& plainXMLPrefix = myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETCONVERT_PREFIX);
             // save plain xml
-            myNet->savePlain(plainXMLPrefix, myNetconvertOptions);
+            myNet->savePlain(plainXMLPrefix, OptionsCont::getOptions());
             // write info
             WRITE_MESSAGE(TLF("Plain XML saved with prefix '%'.", plainXMLPrefix));
         } catch (IOError& e) {
