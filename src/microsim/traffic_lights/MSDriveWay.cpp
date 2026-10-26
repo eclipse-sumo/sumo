@@ -74,6 +74,7 @@ std::map<const MSEdge*, std::vector<std::pair<MSDriveWay*, MSDriveWay*> >, Compa
 std::vector<const MSEdge*> MSDriveWay::myCurrentSidingCheck;
 std::map<ConstMSEdgeVector, MSDriveWay*> MSDriveWay::myDriveWayRouteLookup;
 std::map<std::string, MSDriveWay*> MSDriveWay::myDriveWayLookup;
+const std::vector<MSDriveWay*> MSDriveWay::EMPTY_DRIVEWAY_VECTOR;
 
 // ---------------------------------------------------------------------------
 // static initialisation methods
@@ -2471,6 +2472,17 @@ MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh, bool init) {
     myDepartureDrivewaysEnds[&dw->myForward.back()->getEdge()].push_back(dw);
     dw->setVehicle(veh->getID());
     return dw;
+}
+
+
+const std::vector<MSDriveWay*>&
+MSDriveWay::getEndingDriveWays(const MSEdge* edge) {
+    auto it = myEndingDriveways.find(edge);
+    if (it == myEndingDriveways.end()) {
+        return EMPTY_DRIVEWAY_VECTOR;
+    } else {
+        return it->second;
+    }
 }
 
 

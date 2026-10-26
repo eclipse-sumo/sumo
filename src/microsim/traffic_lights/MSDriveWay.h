@@ -208,6 +208,8 @@ public:
 
     static const MSDriveWay* getDepartureDriveway(const SUMOVehicle* veh, bool init = false);
 
+    static const std::vector<MSDriveWay*>& getEndingDriveWays(const MSEdge* edge);
+
     static void writeDepatureBlocks(OutputDevice& od, bool writeVehicles);
 
     /** @brief Save driveway occupancy into the given stream */
@@ -424,5 +426,6 @@ private:
     /// @brief lookup table for state loading
     static std::map<ConstMSEdgeVector, MSDriveWay*> myDriveWayRouteLookup;
     static std::map<std::string, MSDriveWay*> myDriveWayLookup;
+    static const std::vector<MSDriveWay*> EMPTY_DRIVEWAY_VECTOR;
 
 };

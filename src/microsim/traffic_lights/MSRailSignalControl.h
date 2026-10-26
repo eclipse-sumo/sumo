@@ -113,11 +113,13 @@ public:
     struct Deadlock {
         std::vector<const MSRailSignal*> signals;
         std::vector<ConstMSEdgeVector> edges;
+        ConstMSEdgeVector forwardEnds;
     };
 
 protected:
 
     void findDeadlockFoes(const MSDriveWay* dw, const Deadlock& dl, int signalIndex, std::vector<const MSDriveWay*> deadlockFoes);
+    void findDeadlockFoesFromRoutes(const MSDriveWay* dw, const Deadlock& dl, int signalIndex, std::vector<const MSDriveWay*> deadlockFoes);
 
 
 private:
