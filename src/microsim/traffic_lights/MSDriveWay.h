@@ -146,6 +146,10 @@ public:
         myFirstVehicle = vehID;
     }
 
+    const std::string& getFirstVehicle() const {
+        return myFirstVehicle;
+    }
+
     const std::vector<MSDriveWay*>& getFoes() const {
         return myFoes;
     }
