@@ -70,6 +70,7 @@ public:
     bool haveDeadlock(const SUMOVehicle* veh) const;
 
     void addDeadlockCheck(std::vector<const MSRailSignal*> signals);
+    void addDeadlockRoute(const ConstMSEdgeVector& edges);
 
     /** @brief Called if a vehicle changes its state
      * @param[in] vehicle The vehicle which changed its state
@@ -82,10 +83,6 @@ public:
 
     const std::vector<MSRailSignal*>& getSignals() const {
         return mySignals;
-    }
-
-    const std::map<const MSRailSignal*, std::vector<const MSRailSignal*> >& getDeadlockChecks() const {
-        return myDeadlockChecks;
     }
 
     /// switch rail signal to active
@@ -112,9 +109,15 @@ public:
         myMBClasses = mbSvc;
     }
 
+    /// @brief storage for loaded deadlocks
+    struct Deadlock {
+        std::vector<const MSRailSignal*> signals;
+        std::vector<ConstMSEdgeVector> edges;
+    };
+
 protected:
 
-    void findDeadlockFoes(const MSDriveWay* dw, const std::vector<const MSRailSignal*>& others, std::vector<const MSDriveWay*> deadlockFoes);
+    void findDeadlockFoes(const MSDriveWay* dw, const Deadlock& dl, int signalIndex, std::vector<const MSDriveWay*> deadlockFoes);
 
 
 private:
@@ -141,7 +144,10 @@ private:
 
     mutable std::set<std::set<const SUMOVehicle*> > myWrittenDeadlocks;
 
-    std::map<const MSRailSignal*, std::vector<const MSRailSignal*> > myDeadlockChecks;
+    std::vector<Deadlock> myLoadedDeadlocks;
+    // @brief index in list of loaded deadlocks, index of signal in list of signals
+    std::map<const MSRailSignal*, std::vector<std::pair<int, int> > > mySignalDeadlocks;
+
     std::map<const MSDriveWay*, std::set<const MSDriveWay*>> myDriveWaySucc;
     std::map<const MSDriveWay*, std::set<const MSDriveWay*>> myDriveWayPred;
 

@@ -313,6 +313,9 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_DEADLOCK:
                 addDeadlock(attrs);
                 break;
+            case SUMO_TAG_ROUTEPART:
+                addDeadlockRoute(attrs);
+                break;
             default:
                 break;
         }
@@ -1740,6 +1743,16 @@ NLHandler::addDeadlock(const SUMOSAXAttributes& attrs) {
     }
     MSRailSignalControl::getInstance().addDeadlockCheck(signals);
 }
+
+
+void
+NLHandler::addDeadlockRoute(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    ConstMSEdgeVector edges;
+    MSEdge::parseEdgesList(attrs.get<std::string>(SUMO_ATTR_EDGES, "deadlock", ok), edges, "deadlock");
+    MSRailSignalControl::getInstance().addDeadlockRoute(edges);
+}
+
 
 // ----------------------------------
 void
