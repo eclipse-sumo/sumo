@@ -894,21 +894,31 @@ GNEApplicationWindow::onCmdOpenSumoConfig(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdReloadNeteditConfig(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdReloadNeteditConfig(FXObject* sender, FXSelector sel, void* ptr) {
     // get existent configuration file
     const auto neteditConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETEDIT_CONFIG);
+    auto& neteditOptions = OptionsCont::getOptions();
+    // get ignore flags
+    const bool ignoreAdditionals = neteditOptions.getBool("ignore.additionalelements");
+    const bool ignoreRoutes = neteditOptions.getBool("ignore.routeelements");
     // check if close current simulation
-    if (onCmdClose(0, 0, 0) == 1) {
+    if (onCmdClose(sender, sel, ptr) == 1) {
         // stop test before calling load thread
         if (myInternalTest) {
             myInternalTest->stopTests();
         }
-        auto& neteditOptions = OptionsCont::getOptions();
         // reset options
         myLoadThread->fillOptions(neteditOptions);
         myLoadThread->setDefaultOptions(neteditOptions);
-        // set netedit configuration file to load
+        // restore ignore flags
         neteditOptions.resetWritable();
+        if (ignoreAdditionals) {
+            neteditOptions.set("ignore.additionalelements", "true");
+        }
+        if (ignoreRoutes) {
+            neteditOptions.set("ignore.routeelements", "true");
+        }
+        // set netedit configuration file to load
         neteditOptions.set("netecfg-file", neteditConfigFile);
         // run load thread
         myLoadThread->loadNetworkOrConfig();
@@ -920,21 +930,31 @@ GNEApplicationWindow::onCmdReloadNeteditConfig(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdReloadSumoConfig(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdReloadSumoConfig(FXObject* sender, FXSelector sel, void* ptr) {
     // get existent sumo config file
     const auto sumoConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG);
+    auto& neteditOptions = OptionsCont::getOptions();
+    // get ignore flags
+    const bool ignoreAdditionals = neteditOptions.getBool("ignore.additionalelements");
+    const bool ignoreRoutes = neteditOptions.getBool("ignore.routeelements");
     // check if close current simulation
-    if (onCmdClose(0, 0, 0) == 1) {
+    if (onCmdClose(sender, sel, ptr) == 1) {
         // stop test before calling load thread
         if (myInternalTest) {
             myInternalTest->stopTests();
         }
-        auto& neteditOptions = OptionsCont::getOptions();
         // reset options
         myLoadThread->fillOptions(neteditOptions);
         myLoadThread->setDefaultOptions(neteditOptions);
-        // set configuration file to load
+        // restore ignore flags
         neteditOptions.resetWritable();
+        if (ignoreAdditionals) {
+            neteditOptions.set("ignore.additionalelements", "true");
+        }
+        if (ignoreRoutes) {
+            neteditOptions.set("ignore.routeelements", "true");
+        }
+        // set configuration file to load
         neteditOptions.set("sumocfg-file", sumoConfigFile);
         // run load thread
         myLoadThread->loadNetworkOrConfig();
@@ -1044,10 +1064,13 @@ GNEApplicationWindow::onUpdReloadEdgeTypes(FXObject* sender, FXSelector, void*) 
 
 
 long
-GNEApplicationWindow::onCmdSmartReload(FXObject*, FXSelector sel, void*) {
+GNEApplicationWindow::onCmdSmartReload(FXObject* sender, FXSelector sel, void* ptr) {
     auto& neteditOptions = OptionsCont::getOptions();
+    // get ignore flags
+    const bool ignoreAdditionals = neteditOptions.getBool("ignore.additionalelements");
+    const bool ignoreRoutes = neteditOptions.getBool("ignore.routeelements");
     // check if close current file
-    if (onCmdClose(0, sel, 0) == 1) {
+    if (onCmdClose(sender, sel, ptr) == 1) {
         // stop test before calling load thread
         if (myInternalTest) {
             myInternalTest->stopTests();
@@ -1064,8 +1087,15 @@ GNEApplicationWindow::onCmdSmartReload(FXObject*, FXSelector sel, void*) {
         myLoadThread->fillOptions(neteditOptions);
         // set default options defined in GNELoadThread::setDefaultOptions(...)
         myLoadThread->setDefaultOptions(neteditOptions);
-        // set file to load
+        // restore ignore flags
         neteditOptions.resetWritable();
+        if (ignoreAdditionals) {
+            neteditOptions.set("ignore.additionalelements", "true");
+        }
+        if (ignoreRoutes) {
+            neteditOptions.set("ignore.routeelements", "true");
+        }
+        // set file to load
         if (neteditConfig.size() > 0) {
             // set netedit config
             myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETEDIT_CONFIG, neteditConfig);
@@ -1121,10 +1151,13 @@ GNEApplicationWindow::onUpdSmartReload(FXObject* sender, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdReloadNetwork(FXObject*, FXSelector sel, void*) {
+GNEApplicationWindow::onCmdReloadNetwork(FXObject* sender, FXSelector sel, void* ptr) {
     auto& neteditOptions = OptionsCont::getOptions();
+    // get ignore flags
+    const bool ignoreAdditionals = neteditOptions.getBool("ignore.additionalelements");
+    const bool ignoreRoutes = neteditOptions.getBool("ignore.routeelements");
     // check if close current file
-    if (onCmdClose(0, sel, 0) == 1) {
+    if (onCmdClose(sender, sel, ptr) == 1) {
         // stop test before calling load thread
         if (myInternalTest) {
             myInternalTest->stopTests();
@@ -1139,11 +1172,19 @@ GNEApplicationWindow::onCmdReloadNetwork(FXObject*, FXSelector sel, void*) {
         myLoadThread->fillOptions(neteditOptions);
         // set default options defined in GNELoadThread::setDefaultOptions(...)
         myLoadThread->setDefaultOptions(neteditOptions);
+        // restore ignore flags
+        neteditOptions.resetWritable();
+        if (ignoreAdditionals) {
+            neteditOptions.set("ignore.additionalelements", "true");
+        }
+        if (ignoreRoutes) {
+            neteditOptions.set("ignore.routeelements", "true");
+        }
         // set file to load
         myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, networkFile);
         // set status bar
         setStatusBarText(TLF("Reloading network file '%'", networkFile));
-        // loaad network
+        // load network
         myLoadThread->loadNetworkOrConfig();
     }
     return 1;
@@ -1196,7 +1237,10 @@ GNEApplicationWindow::onCmdClose(FXObject* sender, FXSelector sel, void* ptr) {
         return 1;
     } else if (askSaveElements(sender, sel, ptr)) {
         // check if is reloading
-        const bool reloading = (FXSELID(sel) == MID_GNE_TOOLBARFILE_RELOADNETWORK) || (FXSELID(sel) == MID_HOTKEY_CTRL_R_RELOAD);
+        const bool reloading = (FXSELID(sel) == MID_GNE_TOOLBARFILE_RELOADNETWORK) ||
+                               (FXSELID(sel) == MID_HOTKEY_CTRL_R_RELOAD) ||
+                               (FXSELID(sel) == MID_GNE_TOOLBARFILE_RELOAD_NETEDITCONFIG) ||
+                               (FXSELID(sel) == MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG);
         // close all windows
         closeAllWindows(!reloading);
         // add a separator to the log
