@@ -20,6 +20,7 @@ import argparse
 import glob
 import logging
 import os
+import shutil
 import subprocess
 
 APPS = ("activitygen", "dfrouter", "duarouter", "jtrrouter", "marouter",
@@ -67,11 +68,19 @@ def run(suffix, args, guiTests=False, chrouter=True, apps=None, force_gui=False)
                 apps += ",complex.libsumo.gui"
     elif apps == "all":
         apps = ",".join(APPS) + ",complex,netgen,tools,traci"
-    process = subprocess.Popen("%s %s -a %s" % ("texttest", args, apps), env=env,
-                               stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+    tt = env.get("TEXTTESTPY")
+    if not tt:
+        if os.name != "posix":
+            tt = shutil.which("texttest.exe")
+        if not tt:
+            tt = shutil.which("texttest") or "texttest"
+    if not logging.root.handlers:
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
+    process = subprocess.Popen("%s %s -a %s" % (tt, args, apps), env=env,
+                               stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, shell=True)
     with process.stdout:
         for line in process.stdout:
-            logging.info(line)
+            logging.info(line.rstrip())
     process.wait()
 
 
