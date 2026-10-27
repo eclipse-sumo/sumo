@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-27T14:52:53.064599+01:00 by Eclipse SUMO sumo v1_28_0+0253-5032ce1ff09
+<!-- generated on 2026-10-27T14:54:02.375219+01:00 by Eclipse SUMO sumo v1_28_0+0255-21b97297c29
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <deadlock time="230.00" signals="C2 A D F" vehicles="t1 t2 t0 t3">
         <routePart edges="-d2 -c2 -b -a"/>
         <routePart edges="a b c d"/>
-        <routePart edges="d e f g"/>
+        <routePart edges="c d e f g"/>
         <routePart edges="-g -f -e2 -d2"/>
     </deadlock>
 </additional>
