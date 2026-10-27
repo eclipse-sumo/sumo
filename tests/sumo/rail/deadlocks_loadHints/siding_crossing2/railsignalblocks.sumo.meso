@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-27T11:17:23.182709+01:00 by Eclipse SUMO sumo v1_28_0+0239-df6c4daf276
+<!-- generated on 2026-10-27T11:32:58.834590+01:00 by Eclipse SUMO sumo v1_28_0+0240-2b4f48acd35
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -103,6 +103,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <conflictLinks signals="D2_0"/>
                 <foes driveWays="D2.0.0 F.0"/>
+                <deadlock foes="C2.d0 J0.d0"/>
+                <deadlock foes="A.0 J0.d0"/>
             </driveWay>
             <subDriveWay id="F.0.0" vehicle="" edges="-f">
                 <forward lanes=":F_0_0 -f_0"/>
@@ -130,6 +132,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <conflictLinks signals="C_0"/>
             <foes driveWays="C.0 J0.d0"/>
+            <deadlock foes="C2.d0 F.0"/>
+            <deadlock foes="A.0 F.0"/>
         </driveWay>
     </departJunction>
     <departJunction id="C2">
@@ -140,6 +144,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <conflictLinks signals=""/>
             <foes driveWays="A.0 C2.d0"/>
+            <deadlock foes="F.0 J0.d0"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

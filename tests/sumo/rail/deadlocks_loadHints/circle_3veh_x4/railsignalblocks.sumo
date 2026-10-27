@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-26T12:38:44.506694+01:00 by Eclipse SUMO sumo v1_28_0+0228-36ce3947aa0
+<!-- generated on 2026-10-27T11:32:07.309457+01:00 by Eclipse SUMO sumo v1_28_0+0240-2b4f48acd35
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -348,6 +348,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="J1.0 J1.1 J1.2 J1.d0"/>
+                <deadlock foes="A.0 C.2"/>
+                <deadlock foes="A.d0 C.2"/>
             </driveWay>
         </link>
     </railSignal>
@@ -398,6 +400,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="J6.0 J6.1 J6.2 J6.d0"/>
+                <deadlock foes="A.0 B.d0"/>
+                <deadlock foes="A.0 B.3"/>
             </driveWay>
         </link>
     </railSignal>
@@ -441,6 +445,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="J8.0 J8.1 J8.2 J8.d0"/>
+                <deadlock foes="B.3 C.2"/>
+                <deadlock foes="B.3 C.d0"/>
             </driveWay>
             <driveWay id="J8.2" vehicle="t11" edges="b5 c c5 a5">
                 <forward lanes=":J8_0_0 b5_0"/>
@@ -462,6 +468,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <deadlock foes="A.d0 B.d0"/>
             <deadlock foes="A.0 B.3"/>
             <deadlock foes="A.d0 B.3"/>
+            <deadlock foes="B.3 J8.1"/>
+            <deadlock foes="B.3 J8.d0"/>
         </driveWay>
         <subDriveWay id="C.d0.0" vehicle="" edges="a">
             <forward lanes="a_0"/>
@@ -488,6 +496,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <conflictLinks signals="J6_0"/>
             <foes driveWays="J6.0 J6.1 J6.2 J6.d0"/>
+            <deadlock foes="A.0 B.d0"/>
+            <deadlock foes="A.0 B.3"/>
             <deadlock foes="A.d1 J5.0"/>
             <deadlock foes="A.6 J5.0"/>
             <deadlock foes="A.d1 J5.d0"/>
@@ -518,6 +528,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <deadlock foes="B.d0 C.2"/>
             <deadlock foes="B.3 C.2"/>
             <deadlock foes="B.3 C.d0"/>
+            <deadlock foes="C.2 J1.d0"/>
+            <deadlock foes="C.2 J1.2"/>
         </driveWay>
         <subDriveWay id="A.d0.0" vehicle="" edges="b">
             <forward lanes="b_0"/>
@@ -557,6 +569,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <conflictLinks signals="J8_0"/>
             <foes driveWays="J8.0 J8.1 J8.2 J8.d0"/>
+            <deadlock foes="B.3 C.2"/>
+            <deadlock foes="B.3 C.d0"/>
             <deadlock foes="B.d1 J7.0"/>
             <deadlock foes="B.d1 J7.d0"/>
             <deadlock foes="B.7 J7.0"/>
@@ -574,6 +588,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <deadlock foes="A.0 C.2"/>
             <deadlock foes="A.d0 C.d0"/>
             <deadlock foes="A.d0 C.2"/>
+            <deadlock foes="A.0 J6.d0"/>
+            <deadlock foes="A.0 J6.2"/>
         </driveWay>
         <subDriveWay id="B.d0.0" vehicle="" edges="c">
             <forward lanes="c_0"/>
@@ -600,6 +616,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <conflictLinks signals="J1_0"/>
             <foes driveWays="J1.0 J1.1 J1.2 J1.d0"/>
+            <deadlock foes="A.0 C.2"/>
+            <deadlock foes="A.d0 C.2"/>
             <deadlock foes="C.d1 J0.0"/>
             <deadlock foes="C.6 J0.0"/>
             <deadlock foes="C.d1 J0.d0"/>
