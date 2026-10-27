@@ -271,6 +271,9 @@ MSRailSignalControl::loadDeadlockRoute(const ConstMSEdgeVector& edges) {
     }
     dl.forwardEnds.push_back(firstSignalEdge);
     dl.edges.push_back(edges);
+#ifdef DEBUG_BUILD_DEADLOCK_CHECK
+    std::cout << "      loadedDeadlockRoute signal=" << rs->getID() << " signalEdge=" << firstSignalEdge->getID() << " edges=" << toString(edges) << "\n";
+#endif
 }
 
 
