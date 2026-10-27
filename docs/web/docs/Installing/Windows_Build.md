@@ -16,9 +16,9 @@ may also [download pre-built Windows binaries](../Downloads.md).
 - Python 3.X
 - SUMO sources (either an unpacked src zip or a git clone, see
   [Getting the source code](../Installing/Linux_Build.md#getting_the_source_code))
-- Installed Libraries (Xerces-C, Proj, Fox) preferably by cloning <https://github.com/DLR-TS/SUMOLibraries/>
-  - Make sure that the `SUMO_LIBRARIES` environment variable points to your cloned directory in case you didn't put the libraries in the same directory as the SUMO repository
-  - Note that in case you don't have admin rights, you can still configure environment variables for you only
+- Installed Libraries (Xerces-C, Proj, Fox) preferably by downloading the [dependent libraries](https://github.com/DLR-TS/SUMOLibraries/releases).
+  - Make sure that the `SUMO_LIBRARIES` environment variable points to your unzipped directory in case you didn't put the libraries in the same directory as the SUMO repository
+  - Note that in case you don't have admin rights, you can still configure environment variables for your user
 
 ## Recommended Windows setup
 
