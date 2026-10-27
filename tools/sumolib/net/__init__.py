@@ -629,7 +629,7 @@ class Net:
 
     def getOptimalPath(self, fromEdge, toEdge, fastest=False, maxCost=PRACTICAL_INFINITY, vClass=None,
                        reversalPenalty=0, includeFromToCost=True, withInternal=False, ignoreDirection=False,
-                       fromPos=None, toPos=None, preferences={}):
+                       fromPos=None, toPos=None, preferences={}, length=None):
         """
         Finds the optimal (shortest or fastest) path for vClass from fromEdge to toEdge
         by using using Dijkstra's algorithm.
@@ -787,19 +787,17 @@ class Net:
 
         while q:
             cost, e1, prev = heapq.heappop(q)
-            if e1 in seen:
-                continue
-            seen.add(e1)
             if e1 == toEdge:
                 return constructPath(dist)
             if cost > maxCost:
                 return None, cost
-
+            seen.add(e1)
+            bidi = e1._bidi  # attribute access is faster than method access
             for e2, conn in e1._succCacche:
                 if e2 not in seen:
                     newCost = cost + e2._costCache
                     #  print(cost, newCost, e2.getID(), speedFunc(e2))
-                    if e2 == e1.getBidi():
+                    if e2 == bidi:
                         newCost += reversalPenalty
                     if self.hasInternal and conn is not None:
                         viaPath, minInternalCost = self.getInternalPath(conn, fastest=fastest)
