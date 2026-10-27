@@ -258,7 +258,18 @@ MSRailSignalControl::loadDeadlockRoute(const ConstMSEdgeVector& edges) {
     if (it == edges.end()) {
         throw ProcessError("Rail signal junction '" + j->getID() + "' not passed by loaded deadlock edges '" + toString(edges) + "'.");
     }
-    dl.forwardEnds.push_back(*it);
+    const MSEdge* firstSignalEdge = *it;
+    // maybe there is an earlier signal, in this case we must look for driveways that start there
+    for (auto it2 = edges.begin(); it2 != it; it2++) {
+        if ((*it2)->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+            const MSLink* link = (*it2)->getLanes().front()->getLinkTo((*(it2 + 1))->getLanes().front());
+            if (link != nullptr && link->isTLSControlled()) {
+                firstSignalEdge = *it2;
+                break;
+            }
+        }
+    }
+    dl.forwardEnds.push_back(firstSignalEdge);
     dl.edges.push_back(edges);
 }
 
