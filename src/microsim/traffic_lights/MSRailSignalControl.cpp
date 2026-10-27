@@ -194,9 +194,13 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
                     resolved->write(od, resolvedUnblocked->getParameter().getParameter("tripId", resolvedUnblocked->getID()));
                     od.closeTag();
                 }
-                bool writeDriveWays = true;
+                bool writeDriveWays = false;
+                // we need to write driveways if the deadlock involves loaded
+                // deadlock hints or if it involves long trains that are blocked
+                // on short edges
                 for (auto item : list) {
                     writeDriveWays |= item.loadedDeadlock;
+                    writeDriveWays |= item.foe->getBackLane() != item.foe->getLane();
                 }
                 if (writeDriveWays) {
                     for (auto item : list) {
