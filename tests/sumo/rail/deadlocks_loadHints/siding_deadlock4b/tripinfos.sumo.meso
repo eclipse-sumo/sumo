@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-27T15:59:11.485465+01:00 by Eclipse SUMO sumo v1_28_0+0258-b005cde221d
+<!-- generated on 2026-10-27T16:19:30.771015+01:00 by Eclipse SUMO sumo v1_28_0+0259-24ee2a03885
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="t1" depart="0.00" departLane="-d2_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="53.00" arrivalLane="-a_0" arrivalPos="100.00" arrivalSpeed="13.89" duration="53.00" routeLength="440.46" waitingTime="0.00" waitingCount="0" stopTime="21.00" timeLoss="21.00" rerouteNo="1" devices="tripinfo_t1 routing_t1" vType="train" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="t0" depart="20.00" departLane="c_0" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="76.00" arrivalLane="g_0" arrivalPos="100.00" arrivalSpeed="13.89" duration="56.00" routeLength="494.95" waitingTime="0.00" waitingCount="0" stopTime="20.00" timeLoss="20.00" rerouteNo="1" devices="tripinfo_t0 routing_t0" vType="longtrain" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t2" depart="20.00" departLane="a_0" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="71.00" arrivalLane="d_0" arrivalPos="100.00" arrivalSpeed="3.42" duration="51.00" routeLength="400.21" waitingTime="0.00" waitingCount="0" stopTime="22.00" timeLoss="22.00" rerouteNo="1" devices="tripinfo_t2 routing_t2" vType="train" speedFactor="1.00" vaporized=""/>
     <tripinfo id="t3" depart="20.00" departLane="-g_0" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="77.00" arrivalLane="-d2_0" arrivalPos="98.67" arrivalSpeed="3.28" duration="57.00" routeLength="440.46" waitingTime="2.00" waitingCount="1" stopTime="23.00" timeLoss="25.00" rerouteNo="1" devices="tripinfo_t3 routing_t3" vType="train" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="t2" depart="20.00" departLane="a_0" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="85.00" arrivalLane="d_0" arrivalPos="100.00" arrivalSpeed="3.42" duration="65.00" routeLength="400.21" waitingTime="14.00" waitingCount="1" stopTime="22.00" timeLoss="36.00" rerouteNo="1" devices="tripinfo_t2 routing_t2" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t0" depart="42.00" departLane="c_0" departPos="0.00" departSpeed="13.89" departDelay="22.00" arrival="121.00" arrivalLane="g_0" arrivalPos="100.00" arrivalSpeed="13.89" duration="79.00" routeLength="494.95" waitingTime="23.00" waitingCount="1" stopTime="20.00" timeLoss="43.00" rerouteNo="1" devices="tripinfo_t0 routing_t0" vType="longtrain" speedFactor="1.00" vaporized=""/>
 </tripinfos>
