@@ -228,6 +228,9 @@ MSRailSignalControl::addDeadlockCheck(std::vector<const MSRailSignal*> signals) 
     if (MSDriveWay::haveDriveWays()) {
         WRITE_WARNING("Deadlocks should be loaded before any vehicles");
     }
+#ifdef DEBUG_BUILD_DEADLOCK_CHECK
+    std::cout << "    loadedDeadlockCheck signals=" << toString(signals) << "\n";
+#endif
     const int deadlockIndex = (int)myLoadedDeadlocks.size();
     myLoadedDeadlocks.push_back(Deadlock());
     myLoadedDeadlocks.back().signals = signals;
@@ -266,13 +269,13 @@ MSRailSignalControl::addDrivewayFollower(const MSDriveWay* dw, const MSDriveWay*
 
 void
 MSRailSignalControl::addDWDeadlockChecks(const MSRailSignal* rs, MSDriveWay* dw) {
-#ifdef DEBUG_BUILD_DEADLOCK_CHECK
-    std::cout << "    addDeadlockCheck rs=" << rs->getID() << " dw=" << dw->getID() << "\n";
-#endif
     auto itDL = mySignalDeadlocks.find(rs);
     if (itDL == mySignalDeadlocks.end()) {
         return;
     }
+#ifdef DEBUG_BUILD_DEADLOCK_CHECK
+    std::cout << "    addDeadlockCheck rs=" << rs->getID() << " dw=" << dw->getID() << "\n";
+#endif
     // the driveway dw ends at signal rs and could be part of a deadlock.
     // check whether we can form a sequence of driveways that link it with all others (railsignals)
     // findDeadlockFoes calls itself recursively until all circles have been found
@@ -300,15 +303,16 @@ MSRailSignalControl::findDeadlockFoes(const MSDriveWay* dw, const Deadlock& dl, 
         deadlockFoes.push_back(dw);
         for (const MSDriveWay* follower : myDriveWaySucc[dw]) {
 #ifdef DEBUG_BUILD_DEADLOCK_CHECK
-            //std::cout << "        follower=" << follower->getID() << " followerFoes=" << toString(follower->getFoes()) << "\n";
+            std::cout << "        follower=" << follower->getID() << " followerFoes=" << toString(follower->getFoes()) << "\n";
 #endif
             for (MSDriveWay* foe : follower->getFoes()) {
-                if (foe->getForward().back()->getToJunction() == otherJ ||
-                        // check also for subdriveway-parents where the remaining part is short and thus a long train might reach back onto the subdriveway
-                        // @note: technically we do not need to check this in meso because train ends cannot reach into multiple segments
-                        // but it wouldn't help to make meso "better" by ignoring this foe relationship
-                        (foe->isSubDriveWay() && foe->getParent()->getForward().back()->getToJunction() == otherJ && foe->getParentRemainingLength() < myMaxTrainLength)) {
+                if (foe->getForward().back()->getToJunction() == otherJ) {
                     findDeadlockFoes(foe, dl, signalIndex, deadlockFoes);
+                } else if (foe->isSubDriveWay() && foe->getParent()->getForward().back()->getToJunction() == otherJ && foe->getParentRemainingLength() < myMaxTrainLength) {
+                    // subdriveway-parents where the remaining part is short and thus a long train might reach back onto the subdriveway
+                    // @note: technically we do not need to check this in meso because train ends cannot reach into multiple segments
+                    // but it wouldn't help to make meso "better" by ignoring this foe relationship
+                    findDeadlockFoes(foe->getParent(), dl, signalIndex, deadlockFoes);
                 }
             }
         }
