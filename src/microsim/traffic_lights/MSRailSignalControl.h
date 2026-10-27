@@ -150,7 +150,7 @@ private:
     // @brief index in list of loaded deadlocks, index of signal in list of signals
     std::map<const MSRailSignal*, std::vector<std::pair<int, int> > > mySignalDeadlocks;
 
-    std::map<const MSDriveWay*, std::set<const MSDriveWay*>> myDriveWaySucc;
+    std::map<const MSDriveWay*, std::set<const MSDriveWay*, ComparatorNumericalIdLess>> myDriveWaySucc;
     std::map<const MSDriveWay*, std::set<const MSDriveWay*>> myDriveWayPred;
 
     /// @brief list of all rail signals
