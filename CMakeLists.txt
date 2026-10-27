@@ -64,8 +64,26 @@ endif()
 set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
 
 # some user place SUMOLibraries in the same SUMO folder
-if (NOT SUMO_LIBRARIES AND EXISTS "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
-    set(SUMO_LIBRARIES "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
+if (NOT SUMO_LIBRARIES)
+    # choose the lexicographically highest SUMOLibraries* directory (e.g. SUMOLibraries-1.29 over SUMOLibraries-1.28),
+    # a release (SUMOLibraries-1.29.0) ranks above its pre-releases (SUMOLibraries-1.29.0.dev),
+    # plain SUMOLibraries sorts last and is thus the fallback
+    file(GLOB SUMO_LIBRARIES_CANDIDATES LIST_DIRECTORIES true "${CMAKE_SOURCE_DIR}/../SUMOLibraries*")
+    set(SUMO_LIBRARIES_SORTED "")
+    foreach (CANDIDATE ${SUMO_LIBRARIES_CANDIDATES})
+        if (IS_DIRECTORY "${CANDIDATE}")
+            # the trailing ~ is only a sort aid and removed again below
+            if (CANDIDATE MATCHES "/SUMOLibraries-[0-9.]+$")
+                set(CANDIDATE "${CANDIDATE}~")
+            endif ()
+            list(APPEND SUMO_LIBRARIES_SORTED "${CANDIDATE}")
+        endif ()
+    endforeach ()
+    list(SORT SUMO_LIBRARIES_SORTED COMPARE STRING ORDER DESCENDING)
+    if (SUMO_LIBRARIES_SORTED)
+        list(GET SUMO_LIBRARIES_SORTED 0 SUMO_LIBRARIES)
+        string(REGEX REPLACE "~$" "" SUMO_LIBRARIES "${SUMO_LIBRARIES}")
+    endif ()
 endif ()
 
 if (CCACHE_SUPPORT)
