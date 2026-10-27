@@ -32,3 +32,8 @@ circle_3veh_x4
 
 # a deadlock is loaded but re-occurs (#18422)
 siding_crossing
+
+# a deadlock is loaded but re-occurs (#18422)
+# 
+# in this case the order of the signals is rotated
+siding_crossing2
