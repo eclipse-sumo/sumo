@@ -613,7 +613,7 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                             if (std::find(cand.myFoes.begin(), cand.myFoes.end(), dlFoe) != cand.myFoes.end()) {
                                 foundFoe = true;
                                 const MSRailSignal* rs2 = myOrigin != nullptr ? dynamic_cast<const MSRailSignal*>(myOrigin->getTLLogic()) : nullptr;
-                                MSRailSignalControl::getInstance().addWaitRelation(ego, rs2, *dlFoe->myTrains.begin(), nullptr, true);
+                                MSRailSignalControl::getInstance().addWaitRelation(ego, rs2, *dlFoe->myTrains.begin(), nullptr);
                             }
                         }
                     }

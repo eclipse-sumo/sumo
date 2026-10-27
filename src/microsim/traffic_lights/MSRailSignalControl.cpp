@@ -111,9 +111,9 @@ MSRailSignalControl::addSignal(MSRailSignal* signal) {
 
 
 void
-MSRailSignalControl::addWaitRelation(const SUMOVehicle* waits, const MSRailSignal* rs, const SUMOVehicle* reason, MSRailSignalConstraint* constraint, bool loadedDeadlock) {
+MSRailSignalControl::addWaitRelation(const SUMOVehicle* waits, const MSRailSignal* rs, const SUMOVehicle* reason, MSRailSignalConstraint* constraint) {
     //std::cout << time2string(SIMSTEP) << " addWaitRelation waits=" << waits->getID() << " foe=" << reason->getID() << "\n";
-    myWaitRelations[waits] = WaitRelation(rs, reason, constraint, loadedDeadlock);
+    myWaitRelations[waits] = WaitRelation(rs, reason, constraint);
 }
 
 
@@ -194,27 +194,17 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
                     resolved->write(od, resolvedUnblocked->getParameter().getParameter("tripId", resolvedUnblocked->getID()));
                     od.closeTag();
                 }
-                bool writeDriveWays = false;
-                // we need to write driveways if the deadlock involves loaded
-                // deadlock hints or if it involves long trains that are blocked
-                // on short edges
                 for (auto item : list) {
-                    writeDriveWays |= item.loadedDeadlock;
-                    writeDriveWays |= item.foe->getBackLane() != item.foe->getLane();
-                }
-                if (writeDriveWays) {
-                    for (auto item : list) {
-                        int start = item.foe->getRoutePosition();
-                        if (!MSGlobals::gUseMesoSim) {
-                            const std::vector<MSLane*>& further = dynamic_cast<const MSVehicle*>(item.foe)->getFurtherLanes();
-                            start = MAX2(0.0, start - (MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks() ? ceil(further.size() / 2) : further.size()));
-                        }
-                        const MSRoute& route = item.foe->getRoute();
-                        ConstMSEdgeVector future(route.begin() + start, route.end());
-                        od.openTag(SUMO_TAG_ROUTEPART);
-                        od.writeAttr(SUMO_ATTR_EDGES, toString(future));
-                        od.closeTag();
+                    int start = item.foe->getRoutePosition();
+                    if (!MSGlobals::gUseMesoSim) {
+                        const std::vector<MSLane*>& further = dynamic_cast<const MSVehicle*>(item.foe)->getFurtherLanes();
+                        start = MAX2(0.0, start - (MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks() ? ceil(further.size() / 2) : further.size()));
                     }
+                    const MSRoute& route = item.foe->getRoute();
+                    ConstMSEdgeVector future(route.begin() + start, route.end());
+                    od.openTag(SUMO_TAG_ROUTEPART);
+                    od.writeAttr(SUMO_ATTR_EDGES, toString(future));
+                    od.closeTag();
                 }
                 od.closeTag();
             }
