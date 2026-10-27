@@ -292,7 +292,7 @@ MSRailSignalControl::addDWDeadlockChecks(const MSRailSignal* rs, MSDriveWay* dw)
         return;
     }
 #ifdef DEBUG_BUILD_DEADLOCK_CHECK
-    std::cout << "    addDeadlockCheck rs=" << rs->getID() << " dw=" << dw->getID() << "\n";
+    std::cout << "    needsDeadlockChecks? rs=" << rs->getID() << " dw=" << dw->getID() << "\n";
 #endif
     // the driveway dw ends at signal rs and could be part of a deadlock.
     // check whether we can form a sequence of driveways that link it with all others (railsignals)
@@ -303,7 +303,14 @@ MSRailSignalControl::addDWDeadlockChecks(const MSRailSignal* rs, MSDriveWay* dw)
         if (dl.edges.empty()) {
             findDeadlockFoes(dw, dl, pair.second, deadlockFoes);
         } else {
-            findDeadlockFoesFromRoutes(dw, dl, pair.second, deadlockFoes);
+            const MSEdge* forwardEnd = dl.forwardEnds[pair.second];
+            if (forwardEnd == &dw->getForward().back()->getEdge()) {
+                findDeadlockFoesFromRoutes(dw, dl, pair.second, deadlockFoes);
+            } else {
+                for (MSDriveWay* cand : MSDriveWay::getEndingDriveWays(forwardEnd)) {
+                    findDeadlockFoesFromRoutes(cand, dl, pair.second, deadlockFoes);
+                }
+            }
         }
     }
 }
