@@ -1,0 +1,4 @@
+--sumo-net-file input_net2.net.xml.gz
+--plain-output-prefix=plain
+--output.format parquet
+--proj.plain-geo

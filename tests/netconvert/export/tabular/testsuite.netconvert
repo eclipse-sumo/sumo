@@ -3,3 +3,11 @@ adlershof_csv
 
 # a complex network to parquet
 adlershof_parquet
+
+# a small geo-referenced network to csv
+# 
+csv_geo
+
+# a small geo-referenced network to parquet
+# 
+parquet_geo

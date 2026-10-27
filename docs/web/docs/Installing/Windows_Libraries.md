@@ -9,13 +9,13 @@ title: Windows Libraries
 
 ### Xerces-C
 
-SUMO uses Xerces-C 3.1.x or 3.2.x by default. Please be
+SUMO uses Xerces-C 3.x by default. Please be
 aware that Xerces-C 3.1.4 can cause problems when using unicode
 characters in your networks (especially importing chinese street names
 from OpenStreetMap).
 
 Apache does not provide binary distributions any longer, but you can
-try our own build of [Xerces-C 3.2.4 in the SUMOLibraries](https://github.com/DLR-TS/SUMOLibraries).
+try our own build of [Xerces-C 3.x in the SUMOLibraries](https://github.com/DLR-TS/SUMOLibraries).
 Please note that setting environment variables to find a custom Xerces build does not work any longer.
 
 ### Fox

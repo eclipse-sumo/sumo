@@ -53,7 +53,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     new FXLabel(descriptionFrame, "Eclipse SUMO - Simulation of Urban MObility", nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(descriptionFrame, TL("Graphical user interface for the microscopic, multi-modal traffic simulation SUMO."), nullptr, GUIDesignLabelAboutInfo);
     // show modules
-#ifdef HAVE_JUPEDSIM
+#ifdef HAVE_JUPEDSIM_LEGACY
     new FXLabel(descriptionFrame, TLF("Includes JuPedSim %.%.%", int(JPS_VERSION / 100), int(JPS_VERSION % 100 / 10), JPS_VERSION % 10).c_str(), nullptr, GUIDesignLabelAboutInfo);
 #endif
     new FXLabel(descriptionFrame, HAVE_ENABLED, nullptr, GUIDesignLabelAboutInfo);

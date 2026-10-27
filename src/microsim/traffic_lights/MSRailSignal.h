@@ -285,6 +285,11 @@ public:
         return myMovingBlock;
     }
 
+    /// @brief get the unique junction controlled by this signal
+    const MSJunction* getJunction() const;
+
+    const MSDriveWay& getExistingDriveWay(const MSLink* link, MSRouteIterator firstIt, MSRouteIterator endIt);
+
     static bool storeVehicles() {
         return myStoreVehicles;
     }

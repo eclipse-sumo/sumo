@@ -33,7 +33,7 @@
  */
 
 #ifdef _MSC_VER
-#pragma warning(disable:4820 4514 5045)
+#pragma warning(disable:4820 4514 5045 4711)
 #endif
 
 /* ====== INCLUSIONS ====== */

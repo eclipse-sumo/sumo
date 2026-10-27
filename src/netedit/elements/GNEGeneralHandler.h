@@ -58,6 +58,15 @@ public:
     /// @brief get flag for check if a element wasn't created
     bool isErrorCreatingElement() const;
 
+    /// @brief check if error creating additional element
+    bool isErrorCreatingAdditional() const;
+
+    /// @brief check if error creating demand element
+    bool isErrorCreatingDemand() const;
+
+    /// @brief check if error creating meanData element
+    bool isErrorCreatingMeanData() const;
+
     /// @brief check if the parser file is a additional file
     bool isAdditionalFile() const;
 
@@ -118,8 +127,14 @@ private:
     /// @brief meanData handler
     GNEMeanDataHandler myMeanDataHandler;
 
-    /// @brief flag for set file type
-    TagType::Type fileType = TagType::Type::NONE;
+    /// @brief flag for additional elements
+    bool myHasAdditionalElements = false;
+
+    /// @brief flag for demand elements
+    bool myHasDemandElements = false;
+
+    /// @brief flag for meanData elements
+    bool myHasMeanDataElements = false;
 
     /// @brief start element
     void beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs);

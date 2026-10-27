@@ -8,10 +8,10 @@ A Sumo simulation network uses multiple coordinate system
 1. x,y,z: coordinates in meters (Cartesian coordinates)
 2. lon,lat,z: geo-coordinates + [elevation](../Networks/Elevation.md) in meters (typically WGS84) if the network is [geo-referenced](../Geo-Coordinates.md)
 3. edgeID, laneIndex, lanePosition: The lanePosition is the driving distance from the start of the edge (road) in meters
-4. linear coordinates / distance along a specific road or railway route (also known as kilometrage/mileage/chainage)  
+4. linear coordinates / distance along a specific road or railway route (also known as kilometrage/mileage/chainage)
 
 For the simulation behavior of the vehicles, only coordinate system 3 is used
-whereas the other systems are for visualization and output. 
+whereas the other systems are for visualization and output.
 
 # Converting between coordinates
 
@@ -51,7 +51,7 @@ However, lengths of edges and lanes can be different from the euclidean
 distance (referred to as a **length-geometry-mismatch**) and there are several reasons why this occurs.
 
 
-[sumo-gui](../sumo-gui.md#edgelane_visualisation_settings) and [netedit](../Netedit/index.md) can be configured to color lanes by ''by given length/geometrical length'' which highlights the mismatch between both distance values.
+[sumo-gui](../sumo-gui.md#edgelane_visualization_settings) and [netedit](../Netedit/index.md) can be configured to color lanes by ''by given length/geometrical length'' which highlights the mismatch between both distance values.
 
 ## Short Lanes
 Lanes with a geometrical length of 0 have an assigned minimum length of 0.1m.

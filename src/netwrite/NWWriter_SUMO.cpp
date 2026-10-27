@@ -1037,7 +1037,9 @@ NWWriter_SUMO::writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* 
             GeoConvHelper::getFinal().cartesian2geo(pos);
             nodePos.push_back(pos);
         }
+        into.setPrecision(gPrecisionGeo);
         into.writeAttr(SUMO_ATTR_POSITION, nodePos);
+        into.setPrecision();
     }
     // write the phases
     const bool varPhaseLength = logic->getType() != TrafficLightType::STATIC;

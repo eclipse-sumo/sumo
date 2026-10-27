@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-21 14:25:05.429500 by Eclipse SUMO gtfs2pt.py v1_28_0+0169-95560c63373
+<configuration>
+    <merged-csv value="data.csv"/>
+    <modes value="train"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net.net.xml"/>
+    <stops value="input_stops.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop id="54175.0" lane="E0_0" startPos="50.13" endPos="60.13" friendlyPos="true" name="First"/>
+    <trainStop id="54175.1.reversed" lane="E1_0" startPos="30.26" endPos="40.26" friendlyPos="true" name="Second"/>
+    <trainStop id="54175.2" lane="E2_0" startPos="177.38" endPos="187.38" friendlyPos="true" name="Third"/>
+</additional>

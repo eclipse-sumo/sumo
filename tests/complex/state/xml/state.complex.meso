@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-16T14:05:11.871364+01:00 by Eclipse SUMO sumo v1_28_0+0111-6cad2727460
+<!-- generated on 2026-10-19T17:27:53.216992+01:00 by Eclipse SUMO sumo v1_28_0+0141-b852030622e
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -31,14 +31,14 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_28_0+0111-6cad2727460" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_28_0+0141-b852030622e" count="9" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r1" state="1" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     <delay number="2" begin="2" end="0" depart="0.00" time="0.00" speedFactor="1.06" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" actionStepLength="1.00" accel="0.8" decel="4.5" sigma="0"/>
-    <vehicle id="0" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="2072 0 1 0 0 0 50000 40000 9223372036854774807 0 0">
+    <vehicle id="0" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="2072 0 1 0 0 0 50000 40000 9223372036854774807 0 0 0 8 50000">
         <device id="vehroute_0" state="10.00 0.00 -1.00 0"/>
     </vehicle>
-    <vehicle id="1" depart="5.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="2072 5000 1 0 0 0 55000 45000 9223372036854774807 0 0">
+    <vehicle id="1" depart="5.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="2072 5000 1 0 0 0 55000 45000 9223372036854774807 0 0 0 7 55000">
         <device id="vehroute_1" state="10.00 0.00 -1.00 0"/>
     </vehicle>
     <segment id="3/1to2/1:0">
