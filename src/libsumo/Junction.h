@@ -46,6 +46,7 @@ class Junction {
 public:
     static libsumo::TraCIPosition getPosition(const std::string& junctionID, bool includeZ = false);
     static libsumo::TraCIPositionVector getShape(const std::string& junctionID);
+    static libsumo::TraCIPositionVector getShape3D(const std::string& junctionID);
     static const std::vector<std::string> getIncomingEdges(const std::string& junctionID);
     static const std::vector<std::string> getOutgoingEdges(const std::string& junctionID);
 

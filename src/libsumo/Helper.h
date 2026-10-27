@@ -68,7 +68,7 @@ public:
     static Subscription* addSubscriptionFilter(SubscriptionFilterType filter);
 
     /// @brief helper functions
-    static TraCIPositionVector makeTraCIPositionVector(const PositionVector& positionVector);
+    static TraCIPositionVector makeTraCIPositionVector(const PositionVector& positionVector, const bool includeZ = false);
     static TraCIPosition makeTraCIPosition(const Position& position, const bool includeZ = false);
     static Position makePosition(const TraCIPosition& position);
 

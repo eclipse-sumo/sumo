@@ -36,12 +36,26 @@ class JunctionDomain(Domain):
         """
         return self._getUniversal(tc.VAR_POSITION3D if includeZ else tc.VAR_POSITION, junctionID)
 
+    def getPosition3D(self, junctionID):
+        """getPosition3D(string) -> (double, double, double)
+
+        Returns the 3D coordinates of the center of the junction.
+        """
+        return self.getPosition(junctionID, True)
+
     def getShape(self, junctionID):
         """getShape(string) -> tuple((double, double))
 
         Tuple of 2D positions (cartesian) describing the geometry.
         """
         return self._getUniversal(tc.VAR_SHAPE, junctionID)
+
+    def getShape3D(self, junctionID):
+        """getShape3D(string) -> tuple((double, double, double))
+
+        Tuple of 3D positions (cartesian) describing the geometry.
+        """
+        return self._getUniversal(tc.VAR_SHAPE3D, junctionID)
 
     def getIncomingEdges(self, junctionID):
         """getIncomingEdges(string) -> tuple(string)

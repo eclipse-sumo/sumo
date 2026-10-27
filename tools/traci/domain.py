@@ -46,6 +46,8 @@ def _parse(valueFunc, varID, data):
         return data.read("!dd")
     if varType in (tc.POSITION_3D, tc.POSITION_LON_LAT_ALT):
         return data.read("!ddd")
+    if varType == tc.POLYGON_3D:
+        return data.readShape3D()
     if varType == tc.TYPE_POLYGON:
         return data.readShape()
     if varType == tc.TYPE_UBYTE:

@@ -325,7 +325,11 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
     $result = PyTuple_New($1.value.size());
     int index = 0;
     for (auto iter = $1.value.begin(); iter != $1.value.end(); ++iter) {
-        PyTuple_SetItem($result, index++, Py_BuildValue("(dd)", iter->x, iter->y));
+        if (iter->z != libsumo::INVALID_DOUBLE_VALUE) {
+            PyTuple_SetItem($result, index++, Py_BuildValue("(ddd)", iter->x, iter->y, iter->z));
+        } else {
+            PyTuple_SetItem($result, index++, Py_BuildValue("(dd)", iter->x, iter->y));
+        }
     }
 };
 
@@ -522,7 +526,7 @@ SUBSCRIBE_HELPER(RouteProbe)
 // ignore constant conditional expression (C4127) and unreachable/unsafe code warnings
 // and hidden local declaration (C4456), uninitialized variable (C4701), assignment in conditional expression (C4706)
 // also see config.h.cmake
-#pragma warning(disable:4127 4456 4701 4702 4706 4996 4365 4820 4514 5045 4191 4710 4711 4668 5267)
+#pragma warning(disable:4127 4456 4701 4702 4706 4996 4365 4820 4514 5045 4191 4710 4668)
 #else
 // ignore unused parameter warnings for vector template code
 #pragma GCC diagnostic ignored "-Wunused-parameter"
