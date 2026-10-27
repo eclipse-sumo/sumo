@@ -116,8 +116,8 @@ GUI::getBoundary(const std::string& viewID) {
     maxV.x = b.xmax();
     minV.y = b.ymin();
     maxV.y = b.ymax();
-    minV.z = b.zmin();
-    maxV.z = b.zmax();
+    minV.z = INVALID_DOUBLE_VALUE;
+    maxV.z = INVALID_DOUBLE_VALUE;
     tb.value.push_back(minV);
     tb.value.push_back(maxV);
     return tb;
