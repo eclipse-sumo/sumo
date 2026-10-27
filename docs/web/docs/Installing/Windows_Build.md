@@ -243,6 +243,10 @@ Your version of Visual Studio doesn't support Debugging, you can only compile in
 
 ## How to build JuPedSim and then build SUMO with JuPedSim
 
+!!! note
+    This section is outdated and refers to the legacy JuPedSim module. For the current SUMO version it suffices to have JuPedSim installed in
+    the active Python environment.
+
 In this section, you will learn how to build the latest version of the pedestrian simulator JuPedSim and how to compile SUMO with this latest version of JuPedSim, in case the release version of JuPedSim that comes with SUMO isn't sufficient for your needs. You can consult the JuPedSim build procedure [here](https://github.com/PedestrianDynamics/jupedsim#readme); hereafter proposes a similar procedure. First of all, clone the JuPedSim repository:
 
 ``` bash
