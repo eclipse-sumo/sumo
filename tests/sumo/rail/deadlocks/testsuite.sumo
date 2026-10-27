@@ -9,6 +9,9 @@ siding_deadlock3
 # siding cannot be used because it is already occupied, vehicle routes start or end in the siding, one extra signal that is blocked by a long trian end to complicate loading of deadlocks
 siding_deadlock4
 
+# siding cannot be used because it is already occupied, vehicle routes start or end in the siding, one extra signal that is blocked by a long trian end to complicate loading of deadlocks
+siding_deadlock4_noInternal
+
 # a loop that reverses on itself can create a deadlock with 4 vehicles (2 from either direction)
 loop_4veh
 
