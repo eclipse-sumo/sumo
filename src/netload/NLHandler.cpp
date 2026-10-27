@@ -1741,7 +1741,7 @@ NLHandler::addDeadlock(const SUMOSAXAttributes& attrs) {
             throw InvalidArgument("Rail signal '" + toString(id) + "' in " + toString(SUMO_TAG_DEADLOCK) + " is not known");
         }
     }
-    MSRailSignalControl::getInstance().addDeadlockCheck(signals);
+    MSRailSignalControl::getInstance().loadDeadlockCheck(signals);
 }
 
 
@@ -1750,7 +1750,7 @@ NLHandler::addDeadlockRoute(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     ConstMSEdgeVector edges;
     MSEdge::parseEdgesList(attrs.get<std::string>(SUMO_ATTR_EDGES, "deadlock", ok), edges, "deadlock");
-    MSRailSignalControl::getInstance().addDeadlockRoute(edges);
+    MSRailSignalControl::getInstance().loadDeadlockRoute(edges);
 }
 
 

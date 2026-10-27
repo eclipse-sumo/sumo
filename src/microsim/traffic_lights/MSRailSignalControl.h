@@ -69,8 +69,8 @@ public:
     /// @brief whether there is a circle in the waiting-for relationships that contains the given vehicle
     bool haveDeadlock(const SUMOVehicle* veh) const;
 
-    void addDeadlockCheck(std::vector<const MSRailSignal*> signals);
-    void addDeadlockRoute(const ConstMSEdgeVector& edges);
+    void loadDeadlockCheck(std::vector<const MSRailSignal*> signals);
+    void loadDeadlockRoute(const ConstMSEdgeVector& edges);
 
     /** @brief Called if a vehicle changes its state
      * @param[in] vehicle The vehicle which changed its state

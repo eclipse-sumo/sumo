@@ -194,7 +194,7 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
                     resolved->write(od, resolvedUnblocked->getParameter().getParameter("tripId", resolvedUnblocked->getID()));
                     od.closeTag();
                 }
-                bool writeDriveWays = false;
+                bool writeDriveWays = true;
                 for (auto item : list) {
                     writeDriveWays |= item.loadedDeadlock;
                 }
@@ -224,7 +224,7 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
 
 
 void
-MSRailSignalControl::addDeadlockCheck(std::vector<const MSRailSignal*> signals) {
+MSRailSignalControl::loadDeadlockCheck(std::vector<const MSRailSignal*> signals) {
     if (MSDriveWay::haveDriveWays()) {
         WRITE_WARNING("Deadlocks should be loaded before any vehicles");
     }
@@ -242,7 +242,7 @@ MSRailSignalControl::addDeadlockCheck(std::vector<const MSRailSignal*> signals) 
 
 
 void
-MSRailSignalControl::addDeadlockRoute(const ConstMSEdgeVector& edges) {
+MSRailSignalControl::loadDeadlockRoute(const ConstMSEdgeVector& edges) {
     Deadlock& dl = myLoadedDeadlocks.back();
     const int signalIndex = (int)dl.edges.size();
     const MSRailSignal* rs = dl.signals[signalIndex];
