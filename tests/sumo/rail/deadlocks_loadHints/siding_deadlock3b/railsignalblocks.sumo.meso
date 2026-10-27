@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-25T23:57:51.030432+01:00 by Eclipse SUMO sumo v1_28_0+0215-a4557583c16
+<!-- generated on 2026-10-27T08:23:20.665804+01:00 by Eclipse SUMO sumo v1_28_0+0238-4adb63149af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,7 +16,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <input>
         <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
-        <additional-files value="input_additional.add.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
     </input>
 
     <output>
@@ -134,6 +134,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <conflictLinks signals=""/>
             <foes driveWays="D2.d0 F.0"/>
+            <deadlock foes="C.d0 I.d0 J0.d0"/>
             <deadlock foes="C.d0 G.0 J0.d0"/>
         </driveWay>
     </departJunction>
@@ -144,6 +145,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <conflictLinks signals="D_0"/>
             <foes driveWays="D.0 I.d0"/>
+            <deadlock foes="C.d0 D2.d0 J0.d0"/>
         </driveWay>
     </departJunction>
     <departJunction id="J0">
@@ -153,6 +155,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <conflictLinks signals="C2_0"/>
             <foes driveWays="C2.0 J0.d0"/>
+            <deadlock foes="C.d0 D2.d0 I.d0"/>
             <deadlock foes="C.d0 D2.d0 G.0"/>
         </driveWay>
     </departJunction>
@@ -164,6 +167,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <conflictLinks signals=""/>
             <foes driveWays="A.0 C.d0"/>
+            <deadlock foes="D2.d0 I.d0 J0.d0"/>
             <deadlock foes="D2.d0 G.0 J0.d0"/>
         </driveWay>
     </departJunction>
