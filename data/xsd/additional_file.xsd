@@ -677,7 +677,7 @@
 
     <xsd:complexType name="deadlockType">
         <xsd:sequence>
-            <xsd:element name="routePart" type="routePartType" minOccurs="0"/>
+            <xsd:element name="routePart" type="routePartType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="time" type="timeType" use="optional"/>
         <xsd:attribute name="vehicles" type="xsd:string" use="optional"/>
