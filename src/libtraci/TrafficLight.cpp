@@ -219,11 +219,14 @@ TrafficLight::setPhaseDuration(const std::string& tlsID, const double phaseDurat
 void
 TrafficLight::setProgramLogic(const std::string& tlsID, const libsumo::TraCILogic& logic) {
     tcpip::Storage content;
-    StoHelp::writeCompound(content, 6);
+    const bool withOffset = logic.offset != 0.;
+    StoHelp::writeCompound(content, withOffset ? 6 : 5);
     StoHelp::writeTypedString(content, logic.programID);
     StoHelp::writeTypedInt(content, logic.type);
     StoHelp::writeTypedInt(content, logic.currentPhaseIndex);
-    StoHelp::writeTypedDouble(content, logic.offset);
+    if (withOffset) {
+        StoHelp::writeTypedDouble(content, logic.offset);
+    }
     StoHelp::writeCompound(content, (int)logic.phases.size());
     for (const std::shared_ptr<libsumo::TraCIPhase>& phase : logic.phases) {
         StoHelp::writeCompound(content, 6);

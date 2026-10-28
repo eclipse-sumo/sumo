@@ -276,11 +276,14 @@ public:
     }
 
     static inline void readLogic(tcpip::Storage& inputStorage, libsumo::TraCILogic& logic, const std::string& error = "") {
-        readCompound(inputStorage, 6, error);
+        const int numElements = readCompound(inputStorage, -1, error);
+        if (numElements != 5 && numElements != 6) {
+            throw TraCIException("A traffic light logic must have five or six elements.");
+        }
         logic.programID = readTypedString(inputStorage);
         logic.type = readTypedInt(inputStorage);
         logic.currentPhaseIndex = readTypedInt(inputStorage);
-        logic.offset = readTypedDouble(inputStorage);
+        logic.offset = numElements == 6 ? readTypedDouble(inputStorage) : 0.;
         int numPhases = readCompound(inputStorage);
         while (numPhases-- > 0) {
             readCompound(inputStorage, 6);

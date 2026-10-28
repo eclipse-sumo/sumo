@@ -22,7 +22,7 @@ This script contains TraCI constant definitions from <SUMO_HOME>/src/libsumo/Tra
 #  ****************************************
 #  VERSION
 #  ****************************************
-TRACI_VERSION = 23
+TRACI_VERSION = 22
 
 #  ****************************************
 #  COMMANDS

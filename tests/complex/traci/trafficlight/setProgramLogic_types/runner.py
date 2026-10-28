@@ -65,9 +65,6 @@ logics = [
 for index, logic in enumerate(logics):
     logic.offset = 5.5 + index
     traci.trafficlight.setProgramLogic(tlsID, logic)
-    loaded = next(program for program in traci.trafficlight.getAllProgramLogics(tlsID)
-                  if program.programID == logic.programID)
-    assert loaded.offset == logic.offset, (loaded.offset, logic.offset)
     if logic.type == tc.TRAFFICLIGHT_TYPE_STATIC:
         # a non-zero offset must shift the program like the tlLogic offset attribute:
         # the position within the cycle determines the current phase and the next switch

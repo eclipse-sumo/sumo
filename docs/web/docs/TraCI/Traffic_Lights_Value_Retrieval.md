@@ -60,11 +60,15 @@ The outer compound contains one element for each program.
 
 where **logic** is described by:
 
-Each logic is a compound with six elements:
+Each logic is a compound with five elements:
 
-| type + string | type + integer | type + integer | type + double | type + compound | type + compound |
-| :-----------: | :------------: | :------------: | :-----------: | :-------------: | :-------------: |
-| Program ID | Type | Current phase index | Offset (seconds) | Phases | Parameters |
+| type + string | type + integer | type + integer | type + compound | type + compound |
+| :-----------: | :------------: | :------------: | :-------------: | :-------------: |
+| Program ID | Type | Current phase index | Phases | Parameters |
+
+The offset is not part of the returned program. It is only used when
+[setting a program](Change_Traffic_Lights_State.md) and can be supplied as an
+optional sixth element there.
 
 The parameters compound contains string lists of two entries: key and value.
 
