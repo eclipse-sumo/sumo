@@ -28,9 +28,7 @@
 #include "fxheader.h"
 
 #ifdef WIN32
-#define NOMINMAX
 #include <windows.h>
-#undef NOMINMAX
 #endif
 
 // loads the FOX defs

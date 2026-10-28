@@ -25,13 +25,8 @@
 // stacktrace is not supported in MAC
 #if defined(HAVE_BOOST) && !defined(__APPLE__)
 #ifdef _MSC_VER
-// needed to avoid problem in boost win winsocket
-#pragma warning(push, 0)
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
 #include <windows.h>
 #include <boost/stacktrace.hpp>
-#pragma warning(pop)
 #else
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wall"
