@@ -1098,6 +1098,11 @@ MSNet::clearState(const SUMOTime step, bool quickReload) {
             for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge); s != nullptr; s = s->getNextSegment()) {
                 s->clearState();
             }
+            for (MSLane* const lane : edge->getLanes()) {
+                for (MSLink* link : lane->getLinkCont()) {
+                    link->clearState();
+                }
+            }
         }
     } else {
         for (MSEdge* const edge : MSEdge::getAllEdges()) {
@@ -1834,14 +1839,16 @@ MSNet::quickReload() {
     clearState(string2time(oc.getString("begin")), true);
     NLBuilder::initRandomness();
     // load traffic from additional files
-    for (std::string file : oc.getStringVector("additional-files")) {
-        // ignore failure on parsing calibrator flow
-        MSRouteHandler rh(file, true);
-        const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading traffic from '" + file + "'");
-        if (!XMLSubSys::runParser(rh, file, false)) {
-            throw ProcessError(TLF("Loading of % failed.", file));
+    if (!oc.getBool("ignore.additionalelements")) {
+        for (std::string file : oc.getStringVector("additional-files")) {
+            // ignore failure on parsing calibrator flow
+            MSRouteHandler rh(file, true);
+            const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading traffic from '" + file + "'");
+            if (!XMLSubSys::runParser(rh, file, false)) {
+                throw ProcessError(TLF("Loading of % failed.", file));
+            }
+            PROGRESS_TIME_MESSAGE(before);
         }
-        PROGRESS_TIME_MESSAGE(before);
     }
     delete myRouteLoaders;
     myRouteLoaders = NLBuilder::buildRouteLoaderControl(OptionsCont::getOptions());

@@ -234,7 +234,7 @@ title: Changes in the 2009 releases (versions 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.
   - changed default simulation end time to INT_MAX
   - simulation stops on running empty only if there is no end time
     specified
-  - closed work on pollutant emission modelling based on HBEFA
+  - closed work on pollutant emission modeling based on HBEFA
 
 - netconvert / Netgen
   - trying to deal with problems on network building; networks are

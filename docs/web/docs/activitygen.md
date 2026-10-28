@@ -113,6 +113,5 @@ Applications\#Random Number Options](Basics/Using_the_Command_Line_Applications.
 
 | Option | Description |
 |--------|-------------|
-| **--random** {{DT_BOOL}} | Initialises the random number generator with the current system time; *default:* **false** |
-| **--seed** {{DT_INT}} | Initialises the random number generator with the given value; *default:* **23423** |
-
+| **--random** {{DT_BOOL}} | Initializes the random number generator with the current system time; *default:* **false** |
+| **--seed** {{DT_INT}} | Initializes the random number generator with the given value; *default:* **23423** |

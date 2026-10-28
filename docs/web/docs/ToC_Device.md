@@ -35,7 +35,7 @@ figure).
 
 ![TimelineToC.png](images/TimelineToC.png "Timeline ToC")
 
-*Figure 1: Timeline of a ToC as modelled by the ToC Device*
+*Figure 1: Timeline of a ToC as modeled by the ToC Device*
 
 ## Configuration
 

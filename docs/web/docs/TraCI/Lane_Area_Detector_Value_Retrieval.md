@@ -47,7 +47,7 @@ value is also shown in the table.
 | last interval speed (0x28)  | double | The average (time mean) speed of vehicles during the previous interval | [getLastIntervalMeanSpeed](https://sumo.dlr.de/pydoc/traci/_lanearea.html#LaneAreaDomain.getLastIntervalMeanSpeed)  |
 | last interval number (0x29)  |int | The number of vehicles (or persons, if so configured) that passed the detector during the previous interval | [getLastIntervalVehicleNumber](https://sumo.dlr.de/pydoc/traci/_lanearea.html#LaneAreaDomain.getLastIntervalVehicleNumber)  |
 | last interval mean timeLoss (0x345  |double | The mean timeLoss per vehicle that passed the detector during the previous interval | [getLastIntervalMeanTimeLoss](https://sumo.dlr.de/pydoc/traci/_lanearea.html#LaneAreaDomain.getLastIntervalMeanTimeLoss)  |
-| last interval max jam length in meters (0x33)   | stringList | TThe maximum jam length in meters during the previous interval | [getLastIntervalMaxJamLengthInMeters](https://sumo.dlr.de/pydoc/traci/_lanearea.html#LaneAreaDomain.getLastIntervalMaxJamLengthInMeterss)  |
+| last interval max jam length in meters (0x33)   | stringList | The maximum jam length in meters during the previous interval | [getLastIntervalMaxJamLengthInMeters](https://sumo.dlr.de/pydoc/traci/_lanearea.html#LaneAreaDomain.getLastIntervalMaxJamLengthInMeterss)  |
 
 ## Response 0xbd: LaneAreaDetector Variable
 

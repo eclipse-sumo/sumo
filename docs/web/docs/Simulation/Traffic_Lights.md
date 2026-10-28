@@ -4,10 +4,10 @@ title: Traffic Lights
 
 # High level Overview
 
-The purpose of traffic light modelling in SUMO is threefold:
+The purpose of traffic light modeling in SUMO is threefold:
 
-1. provide comfortable ways to set up plausible traffic signals for a whole city 
-2. provide functionality to replicate an existing traffic light with high fidelity 
+1. provide comfortable ways to set up plausible traffic signals for a whole city
+2. provide functionality to replicate an existing traffic light with high fidelity
 3. provide functionality to simulate any conceivable traffic light algorithm for research purposes
 
 The first aim is supported by a deep pool of heuristics that construct traffic lights and programs.
@@ -228,9 +228,9 @@ The following signal colors are used:
 | --------- | ---------------------------------------------------------- | -------------------- |
 | r         | <span style="color:#FF0000; background:#FF0000">FOO</span> | 'red light' for a signal - vehicles must stop     |
 | y         | <span style="color:#FFFF00; background:#FFFF00">FOO</span> | 'amber (yellow) light' for a signal - vehicles will start to decelerate if far away from the junction, otherwise they pass    |
-| g         | <span style="color:#00B300; background:#00B300">FOO</span> | 'green light' for a signal, no priority - vehicles may pass the junction if no vehicle uses a higher priorised foe stream, otherwise they decelerate for letting it pass. They always decelerate on approach until they are within the configured [visibility distance](../Networks/PlainXML.md#explicitly_setting_which_edge_lane_is_connected_to_which) |
+| g         | <span style="color:#00B300; background:#00B300">FOO</span> | 'green light' for a signal, no priority - vehicles may pass the junction if no vehicle uses a higher prioritized foe stream, otherwise they decelerate for letting it pass. They always decelerate on approach until they are within the configured [visibility distance](../Networks/PlainXML.md#explicitly_setting_which_edge_lane_is_connected_to_which) |
 | G         | <span style="color:#00FF00; background:#00FF00">FOO</span> | 'green light' for a signal, priority - vehicles may pass the junction                                                                                                                                                                                                                                                                                                                                 |
-| s         | <span style="color:#800080; background:#800080">FOO</span> | 'green right-turn arrow' requires stopping - vehicles may pass the junction if no vehicle uses a higher priorised foe stream. They always stop before passing. This is only generated for junction type *traffic_light_right_on_red*.                                                                                                                                                             |
+| s         | <span style="color:#800080; background:#800080">FOO</span> | 'green right-turn arrow' requires stopping - vehicles may pass the junction if no vehicle uses a higher prioritized foe stream. They always stop before passing. This is only generated for junction type *traffic_light_right_on_red*.                                                                                                                                                             |
 | u         | <span style="color:#FF8000; background:#FF8000">FOO</span> | 'red+yellow light' for a signal, may be used to indicate upcoming green phase but vehicles may not drive yet (shown as orange in the gui)                                                                                                                                                                                                                                                             |
 | o         | <span style="color:#804000; background:#804000">FOO</span> | 'off - blinking' signal is switched off, blinking light indicates vehicles have to yield                                                                                                                                                                                                                                                                                                              |
 | O         | <span style="color:#00FFFF; background:#00FFFF">FOO</span> | 'off - no signal' signal is switched off, vehicles have the right of way|
@@ -485,7 +485,7 @@ Examples for this type of traffic light logic can be found in [{{SUMO}}/tests/su
 
 The helper script [buildTransitions.py](../Tools/tls.md#buildtransitionspy) can be used to generate such logics from simplified definitions.
 
-#### Exampe: left-turn phases can be skipped
+#### Example: left-turn phases can be skipped
 
 ```xml
     <tlLogic id="C" type="actuated" programID="P1" offset="0">

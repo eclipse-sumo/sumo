@@ -142,7 +142,7 @@ lcPushy. default: 0 (no effect) range -1 to 1. Impatience acts as a
 multiplier. At -1 the multiplier is 0.5 and at 1 the multiplier is
 1.5
 - **lcTimeToImpatience**: Time to reach maximum impatience (of 1).
-Impatience grows whenever a lane-change manoeuvre is blocked.
+Impatience grows whenever a lane-change maneuver is blocked.
 - **lcAccelLat**: maximum lateral acceleration per second. Together
 with *maxSpeedLat* this constrains lateral movement speed.
 - **latAlignment**: preferred lateral alignment within a lane.
@@ -180,11 +180,11 @@ phenomena related to lateral vehicle dynamics at the price of increased
 computational load.
 
 One important aspect of lateral dynamics is the fact that a lane-change
-manoeuvre generally takes longer than a single simulation step where is
+maneuver generally takes longer than a single simulation step where is
 lane-changing is instantaneous without activating the sublane model.
 
 If only the non-instantaneous aspect of lane-changing needs to be
-modelled, a simplified (and thus faster) model may be used as an
+modeled, a simplified (and thus faster) model may be used as an
 alternative to the sublane model.
 
 The *Simple continuous lane-change model* is activated by setting the
@@ -192,7 +192,7 @@ option **--lanechange.duration** {{DT_FLOAT}} which specifies the default time f
 lanes in seconds (instead of setting option **--lateral-resolution**).
 
 When using this model, vehicles will move with constant lateral speed to
-complete a manoeuvre in the specified time. Lane-changing decisions take
+complete a maneuver in the specified time. Lane-changing decisions take
 the extra time required into account.
 
 ## Additional Vehicle Parameters

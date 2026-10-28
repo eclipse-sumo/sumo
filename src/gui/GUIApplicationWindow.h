@@ -271,12 +271,12 @@ public:
     long onCmdShowToolTipsMenu(FXObject*, FXSelector, void*);
 
     /// @brief get checkable button for menu tooltips
-    MFXCheckableButton* getShowToolTipsMenu() const override {
+    MFXCheckableButton* getShowToolTipsMenu() const {
         return myShowToolTipsMenu;
     }
 
     /// @brief get checkable button for view tooltips
-    MFXCheckableButton* getShowToolTipsView() const override {
+    MFXCheckableButton* getShowToolTipsView() const {
         return myShowToolTipsView;
     }
 

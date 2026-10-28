@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate v1_27_1+0788-b04dbbe6fbc
+Eclipse SUMO netgenerate v1_28_0+0001-b9466dc3ede
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -231,6 +231,18 @@ Processing Options:
   --edges.join                         Merges edges which connect the same
                                         nodes and are close to each other
                                         (recommended for VISSIM import)
+  --tls.actuated.jam-threshold FLOAT   Sets default jam-threshold parameter for
+                                        all actuation detectors
+  --tls.actuated.show-detectors        Sets default show-detectors parameter
+                                        for all actuation detectors
+  --tls.actuated.passing-time FLOAT    Sets default passing-time parameter for
+                                        all actuation detectors
+  --tls.actuated.detector-gap FLOAT    Sets default detector-gap parameter for
+                                        all actuation detectors
+  --tls.actuated.detector-length FLOAT  Sets default detector-length parameter
+                                        for all actuation detectors
+  --tls.actuated.inactive-threshold FLOAT  Sets default inactive-threshold
+                                        parameter for all actuation detectors
 
 Building Defaults Options:
   -L, --default.lanenumber INT         The default number of lanes in an edge

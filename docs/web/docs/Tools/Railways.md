@@ -238,10 +238,10 @@ For every siding that is found an new rerouter element is created. Since trains 
 # patchRailConflicts.py
 
 This tool modifies junction types, edge offsets and connection attributes in a network to ensure that conflicts between different tracks are guarded by rail signals. It's main use is for patching tram networks where real-world data on signal infrastructure is often lacking.
-The tool works by identifiyng conflict junctions (i.e. switches and crossings) and change their type `rail_signal` and optionally shifting the waiting position to be somewhat ahead of the conflict.
+The tool works by identifying conflict junctions (i.e. switches and crossings) and change their type `rail_signal` and optionally shifting the waiting position to be somewhat ahead of the conflict.
 
 !!! caution
-    When using this tool for convential rail operations, option **--split-offset** should be set to ensure that signals are created well in advance of switches and crossings to account for overrun distance (*Durchrutschweg*).
+    When using this tool for conventional rail operations, option **--split-offset** should be set to ensure that signals are created well in advance of switches and crossings to account for overrun distance (*Durchrutschweg*).
 
 Example call
 ```

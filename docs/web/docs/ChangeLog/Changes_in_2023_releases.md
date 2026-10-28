@@ -889,7 +889,7 @@ title: Changes in the 2023 releases (versions 1.16.0, 1.17.0, 1.18.0 and 1.19.0)
   - Added new tool [filterElements.py](../Tools/Xml.md#filterelementspy) to filter elements from an xml file (either all instances or filtered by attribute value). Issue #12304
   - Added new tool [attributeDiff.py](../Tools/Output.md#attributediffpy) to compute the numerical difference between two xml files with the same structure. Issue #12318
   - Added new tool [fcdDiff.py](../Tools/Output.md#fcddiffpy) to compare two fcd-output files (by vehicle id and time). Issue #12233
-  - Added new tool [fcdReplay.py](../Tools/Visualization.md#visulizing_fcd-data_as_moving_pois) to review a fcd recording as moving POIs (optionally alongside a running simulation). Issue #12433
+  - Added new tool [fcdReplay.py](../Tools/Visualization.md#visualizing_fcd-data_as_moving_pois) to review a fcd recording as moving POIs (optionally alongside a running simulation). Issue #12433
   - plotXMLAttributes.py
     - can now plot data without assigning ids to the data points. Issue #11969
     - can now plot categorical (non-numerical) data and also a mix of data types. Issue #11970, #11976

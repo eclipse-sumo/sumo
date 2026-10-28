@@ -2,7 +2,7 @@
 title: VTKOutput
 ---
 
-This output option offers you the possibility to visualise/analyse your
+This output option offers you the possibility to visualize/analyze your
 simulation data using the famous VTK file format. There are several
 Tools and Frameworks to get started with VTK e.g.
 [ParaView](https://paraview.org/).

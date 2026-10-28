@@ -63,8 +63,9 @@ public:
      *
      * @param[in] veh the car which became a leading one
      * @param[in] link the link on which the car shall register its approach
+     * @param[in] fromState whether the event is restored from a loaded state (keeping the vehicle's event index)
      */
-    void addLeaderCar(MEVehicle* veh, MSLink* link);
+    void addLeaderCar(MEVehicle* veh, MSLink* link, const bool fromState = false);
 
     /** @brief Removes the given car from the leading vehicles
      *
@@ -104,6 +105,15 @@ public:
 
     /** @brief Remove all vehicles before quick-loading state */
     void clearState();
+
+    /// @brief the number of leader events so far (for saving and loading state)
+    static long long int getEventCounter() {
+        return LeaderEvent::myEventCounter;
+    }
+
+    static void setEventCounter(long long int counter) {
+        LeaderEvent::myEventCounter = counter;
+    }
 
 private:
     /** @brief Check whether the vehicle may move

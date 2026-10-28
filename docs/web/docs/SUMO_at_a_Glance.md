@@ -9,7 +9,7 @@ open source, microscopic, multi-modal traffic simulation. It allows to
 simulate how a given traffic demand which consists of single vehicles
 moves through a given road network. The simulation allows to address a
 large set of traffic management topics. It is purely microscopic: each
-vehicle is modelled explicitly, has an own route, and moves individually
+vehicle is modeled explicitly, has an own route, and moves individually
 through the network. Simulations are deterministic by default but there
 are various options for [introducing randomness](Simulation/Randomness.md).
 

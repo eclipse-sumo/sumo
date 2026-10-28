@@ -15,8 +15,8 @@ If your publication mentions SUMO, please let us know!
 ```
 @INPROCEEDINGS{8569938,
   author={Lopez, Pablo Alvarez and Behrisch, Michael and Bieker-Walz, Laura and Erdmann, Jakob and Flötteröd, Yun-Pang and Hilbrich, Robert and Lücken, Leonhard and Rummel, Johannes and Wagner, Peter and Wiessner, Evamarie},
-  booktitle={2018 21st International Conference on Intelligent Transportation Systems (ITSC)}, 
-  title={Microscopic Traffic Simulation using SUMO}, 
+  booktitle={2018 21st International Conference on Intelligent Transportation Systems (ITSC)},
+  title={Microscopic Traffic Simulation using SUMO},
   year={2018},
   volume={},
   number={},
@@ -50,6 +50,7 @@ Alvarez Lopez, P., Banse, A., Behrisch, M., Erdmann, J., Flötteröd, Y.-P., Hil
 | SUMO Conference  | [SUMO Conference Page](https://sumo.dlr.de/2023)  | [SUMO 2023](https://www.tib-op.org/ojs/index.php/scp/issue/view/11)  | TIB Open Publishing  | 2023 |
 | SUMO Conference  | [SUMO Conference Page](https://sumo.dlr.de/2024)  | [SUMO 2024](https://www.tib-op.org/ojs/index.php/scp/issue/view/29)  | TIB Open Publishing  | 2024 |
 | SUMO Conference  | [SUMO Conference Page](https://sumo.dlr.de/2025)  | [SUMO 2025](https://www.tib-op.org/ojs/index.php/scp/issue/view/182) | TIB Open Publishing  | 2025 |
+| SUMO Conference  | [SUMO Conference Page](https://sumo.dlr.de/2026)  | [SUMO 2026](https://www.tib-op.org/ojs/index.php/scp/issue/view/205) | TIB Open Publishing  | 2026 |
 
 
 

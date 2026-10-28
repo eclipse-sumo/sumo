@@ -18,6 +18,8 @@ Fuel 1599.1883668137841
 Noise 68.96613013111516
 Elec 0.0
 meanSpeed 4.033343723951839
+maxSpeed 11.11
+meanFriction 1.0
 occupancy 0.02012072434607646
 lastLength 5.0
 traveltime 61.61141152545303
@@ -41,6 +43,7 @@ effort after adaption in interval (check time 0) 1234.0
 effort after adaption in interval (check time 15) 2468.0
 effort after adaption in interval (check time 25) 1234.0
 max speed after adaption 23.0
+mean friction after adaption 0.5
 {16: 1}
 step 3
 {16: 1}
@@ -72,3 +75,4 @@ pending ()
 allow_0 ('private', 'emergency', 'authority', 'army', 'vip', 'pedestrian', 'passenger', 'hov', 'taxi', 'bus', 'coach', 'delivery', 'truck', 'trailer', 'motorcycle', 'moped', 'bicycle', 'evehicle', 'tram', 'rail_urban', 'rail', 'rail_electric', 'rail_fast', 'ship', 'container', 'cable_car', 'subway', 'aircraft', 'wheelchair', 'scooter', 'drone', 'custom1', 'custom2')
 allow_1 ('bicycle',)
 allow_2 ('pedestrian', 'bicycle')
+max speed with different lane values 10.0

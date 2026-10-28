@@ -39,7 +39,7 @@ GNEACChooserDialog::GNEACChooserDialog(GNEViewParent* viewParent, int messageId,
     myACs.reserve(ACs.size());
     myFilteredACs.reserve(ACs.size());
     for (const auto& AC : ACs) {
-        myACs.push_back(AC.second);
+        myACs.insert(AC.second);
         myFilteredACs.push_back(AC.second);
     }
     // @note refresh must be called here because the base class constructor cannot
@@ -59,50 +59,57 @@ GNEACChooserDialog::~GNEACChooserDialog() {
 
 void
 GNEACChooserDialog::toggleSelection(int listIndex) {
-    // always filtered ACs
-    GNEAttributeCarrier* ac = myFilteredACs[listIndex];
-    if (ac->isAttributeCarrierSelected()) {
-        ac->unselectAttributeCarrier();
-    } else {
-        ac->selectAttributeCarrier();
+    if (listIndex >= 0 && listIndex < (int)myFilteredACs.size()) {
+        GNEAttributeCarrier* ac = myFilteredACs[listIndex];
+        if (ac->isAttributeCarrierSelected()) {
+            ac->unselectAttributeCarrier();
+        } else {
+            ac->selectAttributeCarrier();
+        }
     }
 }
 
 
 void
 GNEACChooserDialog::select(int listIndex) {
-    // always filtered ACs
-    GNEAttributeCarrier* ac = myFilteredACs[listIndex];
-    if (!ac->isAttributeCarrierSelected()) {
-        ac->selectAttributeCarrier();
+    if (listIndex >= 0 && listIndex < (int)myFilteredACs.size()) {
+        GNEAttributeCarrier* ac = myFilteredACs[listIndex];
+        if (!ac->isAttributeCarrierSelected()) {
+            ac->selectAttributeCarrier();
+        }
     }
 }
 
 
 void
 GNEACChooserDialog::deselect(int listIndex) {
-    // always filtered ACs
-    GNEAttributeCarrier* ac = myFilteredACs[listIndex];
-    if (ac->isAttributeCarrierSelected()) {
-        ac->unselectAttributeCarrier();
+    if (listIndex >= 0 && listIndex < (int)myFilteredACs.size()) {
+        GNEAttributeCarrier* ac = myFilteredACs[listIndex];
+        if (ac->isAttributeCarrierSelected()) {
+            ac->unselectAttributeCarrier();
+        }
     }
 }
 
 
 void
 GNEACChooserDialog::filterACs(const std::vector<GUIGlID>& GLIDs) {
-    if (GLIDs.empty()) {
-        myFilteredACs = myACs;
-    } else {
-        // clear myFilteredACs
-        myFilteredACs.clear();
-        // iterate over myACs
-        for (const auto& AC : myACs) {
-            // search in GLIDs
-            if (std::find(GLIDs.begin(), GLIDs.end(), AC->getGUIGlObject()->getGlID()) != GLIDs.end()) {
-                myFilteredACs.push_back(AC);
+    myFilteredACs.clear();
+    for (const auto glID : GLIDs) {
+        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(glID);
+        GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(o);
+        if (ac) {
+            myFilteredACs.push_back(ac);
+            myACs.insert(ac);
+        } else {
+            for (const auto& candidate : myACs) {
+                if (candidate->getGUIGlObject()->getGlID() == glID) {
+                    myFilteredACs.push_back(candidate);
+                    break;
+                }
             }
         }
+        GUIGlObjectStorage::gIDStorage.unblockObject(glID);
     }
 }
 

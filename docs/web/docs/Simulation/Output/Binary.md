@@ -48,9 +48,9 @@ is one of the following:
 - Route (32bit integer encoding length (n), followed by binary
   encoded route, see below)
 - Scaled Integer (32bit int, fixed point float with two decimals)
-- Scaled Position2D (2 32bit int, analogue Position2D fixed point
+- Scaled Position2D (2 32bit int, analog Position2D fixed point
   float with two decimals)
-- Scaled Position3D (3 32bit int, analogue Position3D fixed point
+- Scaled Position3D (3 32bit int, analog Position3D fixed point
   float with two decimals)
 
 The change from version 1 to version 2 consisted of an "upgrade" of

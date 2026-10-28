@@ -1,0 +1,5 @@
+--osm-files osm.xml.gz
+--railway.topology.repair
+-R
+--keep-edges.by-vclass rail
+--no-internal-links

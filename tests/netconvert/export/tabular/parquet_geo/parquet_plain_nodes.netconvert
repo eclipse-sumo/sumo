@@ -1,0 +1,11 @@
+nodes_version,node_id,node_x,node_y,node_type,node_tl,node_tlType,node_controlledInner,node_shape,node_radius,node_keepClear,node_rightOfWay,node_fringe,node_roundabout,node_name
+1.20,1560223789,13.5195,52.4287,priority,,,,,,,,,,
+1.20,1560223809,13.5202,52.4287,right_before_left,,,,,,,,,,
+1.20,2007005087,13.5198,52.4278,priority,,,,,,,,,,
+1.20,2165987554,13.5185,52.4284,priority,,,,,,,,,,
+1.20,2165987556,13.5194,52.4289,priority,,,,,,,,,,
+1.20,301292499,13.5182,52.4285,priority,,,,,,,,,,
+1.20,492462300,13.5196,52.4282,priority,,,,,,,,,,
+1.20,671564296,13.5196,52.4284,priority,,,,,,,,,,
+1.20,851572267,13.5222,52.4284,dead_end,,,,,,,,,,
+1.20,851573004,13.5222,52.4285,dead_end,,,,,,,,,,

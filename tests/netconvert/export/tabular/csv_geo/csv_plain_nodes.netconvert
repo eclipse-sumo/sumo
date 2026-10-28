@@ -1,0 +1,11 @@
+nodes_version;node_id;node_x;node_y;node_type;node_tl;node_tlType;node_controlledInner;node_shape;node_radius;node_keepClear;node_rightOfWay;node_fringe;node_roundabout;node_name
+1.20;1560223789;13.519497;52.428676;priority;;;;;;;;;;
+1.20;1560223809;13.520192;52.428742;right_before_left;;;;;;;;;;
+1.20;2007005087;13.519772;52.427805;priority;;;;;;;;;;
+1.20;2165987554;13.518546;52.428397;priority;;;;;;;;;;
+1.20;2165987556;13.519395;52.428941;priority;;;;;;;;;;
+1.20;301292499;13.518176;52.428495;priority;;;;;;;;;;
+1.20;492462300;13.519615;52.428234;priority;;;;;;;;;;
+1.20;671564296;13.519576;52.428355;priority;;;;;;;;;;
+1.20;851572267;13.522226;52.428371;dead_end;;;;;;;;;;
+1.20;851573004;13.522211;52.428457;dead_end;;;;;;;;;;

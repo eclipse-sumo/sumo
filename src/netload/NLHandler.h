@@ -213,6 +213,7 @@ protected:
      * @param[in] attrs The attributes that hold the parameters
      */
     virtual void addDeadlock(const SUMOSAXAttributes& attrs);
+    virtual void addDeadlockRoute(const SUMOSAXAttributes& attrs);
 
     /// Closes the process of building an edge
     virtual void closeEdge();

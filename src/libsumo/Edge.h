@@ -62,6 +62,7 @@ public:
     static int getLastStepVehicleNumber(const std::string& edgeID);
     static double getLastStepMeanSpeed(const std::string& edgeID);
     static double getMeanFriction(const std::string& edgeID);
+    static double getMaxSpeed(const std::string& edgeID);
     static double getLastStepOccupancy(const std::string& edgeID);
     static int getLastStepHaltingNumber(const std::string& edgeID);
     static double getLastStepLength(const std::string& edgeID);

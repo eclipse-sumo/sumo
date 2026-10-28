@@ -165,7 +165,7 @@ The response is a list of Collision objects:
 The simulation supports retrieval of additional object parameters using
 the [generic parameter retrieval call](../TraCI/GenericParameters.md#get_parameter).
 
-### Stoppping Place Information
+### Stopping Place Information
 
 The *object id* of `getParameter` refers to the object (i.e. chargingStation) id. The following parameters
 are supported:

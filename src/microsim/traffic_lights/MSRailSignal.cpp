@@ -530,7 +530,7 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh, int searchStart) {
         // because first is short or the step-length is high)
         // lets look backward along the route
         // give some slack because the vehicle might have been braking from a higher speed and using ballistic integration
-        double lookBack = SPEED2DIST(veh->getSpeed() + 10);
+        double lookBack = SPEED2DIST(veh->getSpeed() + 10) + veh->getLength();
         int routeIndex = veh->getRoutePosition() - 1;
         while (lookBack > 0 && routeIndex > 0) {
             const MSEdge* prevEdge = veh->getRoute().getEdges()[routeIndex];
@@ -544,7 +544,7 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh, int searchStart) {
     }
     MSRailSignal* rs = const_cast<MSRailSignal*>(dynamic_cast<const MSRailSignal*>(myLink->getTLLogic()));
     if (firstIt == veh->getRoute().end()) {
-        WRITE_WARNING("Invalid approach information to rail signal '" + MSDriveWay::getClickableTLLinkID(myLink) + "' after rerouting for vehicle '" + veh->getID()
+        WRITE_WARNING("Invalid approach information to rail signal " + MSDriveWay::getClickableTLLinkID(myLink) + " after rerouting for vehicle '" + veh->getID()
                       + "' first driveway edge '" + first->getID() + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
         if (myDriveways.empty()) {
             ConstMSEdgeVector dummyRoute;
@@ -617,6 +617,17 @@ MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) 
 #endif
     }
 }
+
+
+const MSDriveWay&
+MSRailSignal::getExistingDriveWay(const MSLink* link, MSRouteIterator firstIt, MSRouteIterator endIt) {
+    LinkInfo& li = myLinkInfos[link->getTLIndex()];
+    const MSDriveWay& cand = li.getDriveWay(firstIt, endIt, "_tmp_");
+    // an existing driveway should be found
+    assert(cand.getFirstVehicle() != "_tmp_");
+    return cand;
+}
+
 
 void
 MSRailSignal::resetStored() {
@@ -737,6 +748,12 @@ MSRailSignal::retrieveDriveWayForRoute(int tlIndex, MSRouteIterator first, MSRou
 const std::vector<MSDriveWay*>
 MSRailSignal::retrieveDriveWays(int tlIndex) const {
     return myLinkInfos[tlIndex].myDriveways;
+}
+
+
+const MSJunction*
+MSRailSignal::getJunction() const {
+    return myLinkInfos.front().myLink->getJunction();
 }
 
 

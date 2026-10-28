@@ -597,6 +597,10 @@ enum {
     MID_CHOOSER_FILTER,
     /// @brief Filter list by substring
     MID_CHOOSER_FILTER_SUBSTR,
+    /// @brief Case sensitive search
+    MID_CHOOSER_CASESENSITIVE,
+    /// @brief Auto center
+    MID_CHOOSER_AUTOCENTER,
 
     /// @}
 

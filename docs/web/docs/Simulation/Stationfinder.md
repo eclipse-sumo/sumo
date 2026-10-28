@@ -90,7 +90,7 @@ element of the form `<param key="device.stationfinder.<PARAMETER NAME>" value="<
 ### Inspect the target function result
 The target function value of each searched charging station of the vehicle can be inspected in [sumo-gui](../sumo-gui.md). Proceed with the following steps to see the results next to the charging stations:
 
-- Open the vehicle visualization settings](../sumo-gui.md#vehicle_visualisation_settings) and check "Show charging info"
+- Open the vehicle visualization settings](../sumo-gui.md#vehicle_visualization_settings) and check "Show charging info"
 - Move to vehicle of interest and open its context menu by right click, then choose "Show Current Route"
 
 Some charging stations may not show target function results. They may be excluded beforehand due to stationfinder device settings like `radius` and `maxEuclideanDistance`.
@@ -114,7 +114,7 @@ The stationfinder device can be configured using the parameters `rescueTime` and
 By default, the stationfinder device will add stops at charging stations without changing any other planned stops. However it checks if there are planned stops at charging stations which have not been created by the device itself.
 In case a charging need is detected and the vehicle stops next at a charging station, the device will refrain from planning an additional stop if the battery capacity is assumed sufficient to reach said stop.
 
-Addind additional stops may influence the vehicle's travel time. Under real-world conditions users may prefer charging the vehicle close to their activity location and walk the remaining distance.
+Adding additional stops may influence the vehicle's travel time. Under real-world conditions users may prefer charging the vehicle close to their activity location and walk the remaining distance.
 This can be modeled using the parameters `replacePlannedStop` and `maxDistanceToReplacedStop` and stops with defined departure times through the `until` attribute (see [stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints)):
 
 - `replacePlannedStop` > 0: Defines the share of stopping time to be transferred from the next planned stop to charging. If the value exceeds 1, the next planned stop is skipped. If the value is set to 0, no stopping time is transferred.

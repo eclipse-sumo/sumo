@@ -6,7 +6,7 @@ This tutorial shows how to use the Traffic Control Interface (in short
 TraCI) to build a pedestrian-actuated crossing. It assumes
 familiarity with
 [Tutorials/TraCI4Traffic_Lights](../Tutorials/TraCI4Traffic_Lights.md)
-which builds a vehicle-actuated controller. Additional information related to pedestrian modelling can be found at
+which builds a vehicle-actuated controller. Additional information related to pedestrian modeling can be found at
 [Simulation/Pedestrians](../Simulation/Pedestrians.md).
 
 All files mentioned here can also be found in the

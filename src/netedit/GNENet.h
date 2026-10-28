@@ -424,7 +424,7 @@ public:
     void computeJunction(GNEJunction* junction);
 
     /// @brief inform the net about the need for recomputation
-    void requireRecompute();
+    void requireRecompute(const bool requireSaving = true);
 
     /// @brief check if net require recomputing
     bool isNetRecomputed() const;

@@ -146,6 +146,13 @@ private:
     /// @brief ignores topics
     const std::set<std::string> myIgnoredTopics = {"Configuration"};
 
+    /// @brief topics that require save network
+    const std::set<std::string> myNetworkTopics = {
+        "Processing", "Building Defaults", "TLS Building", "Ramp Guessing",
+        "Edge Removal", "Unregulated Nodes", "Junctions", "Pedestrian",
+        "Bicycle", "Railway", "Formats", "Projection", "Output"
+    };
+
     /// @brief ignores entries
     const std::set<std::string> myCriticalEntries = {"geometry.remove", "edges.join", "geometry.split", "ramps.guess", "ramps.set"};
 

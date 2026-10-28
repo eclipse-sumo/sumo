@@ -46,12 +46,12 @@ title: Links
 - [TraffSpot](https://traffspot.db-nico.de/) A microscopic simulation
   with a nice 3D-view.
 
-### Traffic Lights Optimisation
+### Traffic Lights Optimization
 
 - [Green Light District](https://sourceforge.net/projects/stoplicht/) A software
-  for testing optimisation methods from the artificial intelligence,
+  for testing optimization methods from the artificial intelligence,
   such as reinforcement or genetic algorithms on their abilities to
-  optimise traffic lights within a complex environment. Seems to be
+  optimize traffic lights within a complex environment. Seems to be
   closed in July, 2001., works pretty fine.
 
 ### Applets

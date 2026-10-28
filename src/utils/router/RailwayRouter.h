@@ -183,7 +183,7 @@ private:
         const E* start = from;
         while (backDist > 0) {
             const E* prev = getStraightPredecessor(start, into, (int)backLengths.size());
-            if (prev == nullptr) {
+            if (prev == nullptr || prev == to) {
 #ifdef RailwayRouter_DEBUG_ROUTES
                 std::cout << " Could not determine back edge for vehicle '" << vehicle->getID() << "' when routing from edge '" << from->getID() << "' at time=" << time2string(msTime) << "\n";
 #endif
@@ -236,9 +236,13 @@ private:
             std::cout << "RailRouter: backLengths=" << toString(backLengths) << " bls=" << backLengths.size() << " intoSize=" << intoSize << " final result=" << toString(into) << "\n";
 #endif
             if (backLengths.size() > 0) {
+                bool validBackTracking = intoSize + backLengths.size() <= into.size();
                 // skip the virtual back-edges
-                into.erase(into.begin() + intoSize, into.begin() + intoSize + backLengths.size());
-                if (*(into.begin() + intoSize) != from) {
+                if (validBackTracking) {
+                    into.erase(into.begin() + intoSize, into.begin() + intoSize + backLengths.size());
+                    validBackTracking = *(into.begin() + intoSize) == from;
+                }
+                if (!validBackTracking) {
                     if (!avoidUnsafeBackTracking) {
                         // try again, this time with more safety (but unable to
                         // make use of turn-arounds on short edge)
@@ -249,6 +253,8 @@ private:
                     } else {
                         WRITE_WARNING("Railway routing failure due to turn-around on short edge '" + from->getID()
                                       + "' for vehicle '" + vehicle->getID() + "' time=" + time2string(msTime) + ".");
+                        into.erase(into.begin() + intoSize, into.end());
+                        return false;
                     }
                 }
             }

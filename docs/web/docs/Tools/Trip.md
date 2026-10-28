@@ -56,8 +56,8 @@ Further options relating to the fringe:
 
  - **--fringe-speed-exponent** {{DT_FLOAT}}: can be used to further differentiate fringe edges according to the speed limit.
  - **--fringe-threshold** {{DT_FLOAT}}: Only edges with speed above {{DT_FLOAT}} are considered as fringe
- - **--allow-fringe**: Allow departur on edges that have no successor and arriving on edges that have no predecessor (i.e. if the scenario has a single long edge).
- - **--fringe-junctions**: Classify edges as fringe only if the their from-junction (for departures) or to-junction (for arrivals) has set a value for attibute `fringe` ("inner" our "outer").
+ - **--allow-fringe**: Allow departure on edges that have no successor and arriving on edges that have no predecessor (i.e. if the scenario has a single long edge).
+ - **--fringe-junctions**: Classify edges as fringe only if the their from-junction (for departures) or to-junction (for arrivals) has set a value for attribute `fringe` ("inner" our "outer").
 
 ### Further options
 

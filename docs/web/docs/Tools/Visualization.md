@@ -253,7 +253,7 @@ where -x is the attribute for the x axis; -y is the attribute for the y axis; -o
 !!! note
     The tool [plotStops.py](Railways.md#plotstopspy) simplifies plotting such schedules
 
-In this type of plot time is on the y-axis running from top to bottom. Input is route file of a [public transport schedule](../Simulation/Public_Transport.md#public_transport_schedules) where each vehicle is modelled individually.
+In this type of plot time is on the y-axis running from top to bottom. Input is route file of a [public transport schedule](../Simulation/Public_Transport.md#public_transport_schedules) where each vehicle is modeled individually.
 A similar plot could also be generated from [stop-output](../Simulation/Output/StopOutput.md) by using attribute `started` or `ended` (or `started,ended`) instead of `until`.
 
 
@@ -544,7 +544,7 @@ plot_summary.py reads one or multiple
 [summary-files](../Simulation/Output/Summary.md) and plots a
 selected measure (attribute of the read
 [summary-files](../Simulation/Output/Summary.md)). The measure is
-visualised as a time line along the simulation time.
+visualized as a time line along the simulation time.
 
 | Output | Command |
 |---|---|
@@ -565,7 +565,7 @@ plot_tripinfo_distributions.py reads one or multiple
 [tripinfo-files](../Simulation/Output/TripInfo.md) and plots a
 selected measure (attribute of the read
 [tripinfo-files](../Simulation/Output/TripInfo.md)). The measure is
-visualised as vertical bars that represent the numbers of occurrences of
+visualized as vertical bars that represent the numbers of occurrences of
 the measure (vehicles) that fall into a bin.
 
 | Output | Command |
@@ -588,7 +588,7 @@ the measure (vehicles) that fall into a bin.
 ## plot_csv_timeline.py
 
 plot_csv_timeline.py reads a .csv file and plots columns selected
-using the **--columns** {{DT_INT}}\[,{{DT_INT}}\]\* option. The values are visualised as lines.
+using the **--columns** {{DT_INT}}\[,{{DT_INT}}\]\* option. The values are visualized as lines.
 
 | Output | Command |
 |---|---|
@@ -606,7 +606,7 @@ using the **--columns** {{DT_INT}}\[,{{DT_INT}}\]\* option. The values are visua
 
 plot_csv_pie.py reads a .csv file that is assumed to contain a name in
 the first and an according value in the second column. The read
-name/value-pairs are visualised as a pie chart.
+name/value-pairs are visualized as a pie chart.
 
 | Output | Command |
 |---|---|
@@ -628,7 +628,7 @@ name/value-pairs are visualised as a pie chart.
 
 plot_csv_bars.py reads a .csv file that is assumed to contain a name
 in the first and an according value in the second column. The read
-name/value-pairs are visualised as a bar chart.
+name/value-pairs are visualized as a bar chart.
 
 | Output | Command |
 |---|---|
@@ -753,7 +753,7 @@ After that, you need to do the following settings:
 
 <img width="188" height="262" alt="3" src="https://github.com/user-attachments/assets/ba57342b-6b2c-432f-a8a9-41631bf6dafe" />
 
-Regarding "Recalibrate Rainbow" it is done with use of the data read in the current step. So, it may be needed to run some steps to get data sometimes before klicking "Recalibrate Rainbow". Moreover, the result may be different if data in another step are used. Alternatively, you can (1) set min and max next to the icon "Recalibrate Rainbow" directly or (2) set the interval threshold for each interval manuelly.
+Regarding "Recalibrate Rainbow" it is done with use of the data read in the current step. So, it may be needed to run some steps to get data sometimes before klicking "Recalibrate Rainbow". Moreover, the result may be different if data in another step are used. Alternatively, you can (1) set min and max next to the icon "Recalibrate Rainbow" directly or (2) set the interval threshold for each interval manually.
 
 ## Intersection Flow Diagram
 
@@ -770,7 +770,7 @@ To visualize the flow on an intersection with line widths according to the amoun
 
 <img src="../images/Route2poly_intersectionFlow.png" width="400px"/>
 
-## Visulizing FCD-Data as moving POIs
+## Visualizing FCD-Data as moving POIs
 
 The tool `fcdReplay.py` can be used to replay an [fcd-output file](../Simulation/Output/FCDOutput.md) in [sumo-gui](../sumo-gui.md).
 

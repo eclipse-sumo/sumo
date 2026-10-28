@@ -98,6 +98,9 @@ public:
     /// @brief get reference to fileBucket in which save this AC
     virtual FileBucket* getFileBucket() const = 0;
 
+    /// @brief set reference to fileBucket in which save this AC
+    virtual void setFileBucket(FileBucket* fileBucket);
+
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 

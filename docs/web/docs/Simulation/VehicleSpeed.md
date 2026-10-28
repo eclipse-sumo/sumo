@@ -19,7 +19,7 @@ The [`<vType>-attribute desiredMaxSpeed`](../Definition_of_Vehicles,_Vehicle_Typ
 models the (mean) desired maximum speed that the vehicles drivers of that type wish to use. The actual desired maximum speed of an individual vehicle is computed by multiplying the `maxDesiredSpeed` of its type with the [individual speedFactor](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions) of that vehicle.
 The individual desired max speed serves as another upper bound on speed next to the `maxSpeed` and the road speed limit.
 
-The main use of this property is to model speed distributions for vehicles that are not limited by the legal road speed limit (i.e. pedestrians and bicycles). In contrast, regular cars are typically restrained by the speed limit and so their speed distribution is modelled by multiplying their individual speedFactor with the speedLimit. Thus, different [vClasses](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#abstract_vehicle_class) have different default values for `desiredMaxSpeed`:
+The main use of this property is to model speed distributions for vehicles that are not limited by the legal road speed limit (i.e. pedestrians and bicycles). In contrast, regular cars are typically restrained by the speed limit and so their speed distribution is modeled by multiplying their individual speedFactor with the speedLimit. Thus, different [vClasses](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#abstract_vehicle_class) have different default values for `desiredMaxSpeed`:
 
 - `pedestrian`: 1.39 (5km/h)
 - `bicycle`: 5.56 (20km/h)
@@ -156,7 +156,7 @@ modify the speed limit of an edge.
 [Vehicle devices](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices) are a way to customize vehicle behavior or create additional output. The following devices can impact vehicle speed:
 
 - [glosa](../Simulation/GLOSA.md) : slow down and speed up to smooth speed near traffic lights
-- [driverstate](../Driver_State.md) : random changes to speed based on modelled perception errors with regard to car-following gap and speed difference
+- [driverstate](../Driver_State.md) : random changes to speed based on modeled perception errors with regard to car-following gap and speed difference
 
 # TraCI
 

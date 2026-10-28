@@ -219,6 +219,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 ilpos = length - inductLoopPosition;
                 MSLane* placementLane = lane;
                 while (ilpos < 0 && placementLane->getIncomingLanes().size() == 1
+                        && placementLane->getLogicalPredecessorLane() != nullptr
                         && placementLane->getIncomingLanes().front().viaLink->getCorrespondingEntryLink()->getTLLogic() == nullptr) {
                     placementLane = placementLane->getLogicalPredecessorLane();
                     ilpos += placementLane->getLength();

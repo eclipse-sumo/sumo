@@ -2354,9 +2354,8 @@ msgstr "若有給定,用停靠站的開始時間覆蓋停靠站的抵達時間"
 
 #: src/microsim/MSFrame.cpp:588
 msgid ""
-"Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim', "
-"'remote']"
-msgstr "選擇行人模擬模式 ['nonInteracting', 'striping', 'jupedsim', 'remote']"
+"Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim']"
+msgstr "選擇行人模擬模式 ['nonInteracting', 'striping', 'jupedsim']"
 
 #: src/microsim/MSFrame.cpp:591
 msgid ""

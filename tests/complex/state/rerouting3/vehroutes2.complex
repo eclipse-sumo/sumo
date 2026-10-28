@@ -13,6 +13,11 @@
         <vehroute-output value="vehroutes2.xml"/>
     </output>
 
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
     <routing>
         <device.rerouting.probability value="1.0"/>
         <device.rerouting.period value="10"/>
@@ -616,11 +621,7 @@
     </vehicle>
 
     <vehicle id="96" depart="120.00" arrival="223.00">
-        <routeDistribution>
-            <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="100.00" probability="0" edges="B1C1 C1C2 C2D2 D2E2 E2E1"/>
-            <route replacedOnEdge="B1C1" reason="device.rerouting" replacedAtTime="130.00" probability="0" edges="B1C1 C1D1 D1E1 E1E2 E2E1"/>
-            <route edges="B1C1 C1C2 C2D2 D2E2 E2E1"/>
-        </routeDistribution>
+        <route edges="B1C1 C1C2 C2D2 D2E2 E2E1"/>
     </vehicle>
 
     <vehicle id="41" depart="41.00" arrival="227.00">

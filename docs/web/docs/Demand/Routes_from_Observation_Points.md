@@ -123,8 +123,8 @@ with induction loops.
 ## Computing Flows
 
 The next step is to use the computed routes and flow amounts from the
-real-world detectors to compute flows across the modelled network. The
-flows are given to dfrouter using **--measure-files** {{DT_STR}} (or **-f <DETECTOR_FLOWS\>[,<DETECTOR_FLOWS\>]+**. They are assumed to be stored
+real-world detectors to compute flows across the modeled network. The
+flows are given to dfrouter using **--measure-files** {{DT_STR}} (or **-f <DETECTOR_FLOWS\>[,<DETECTOR_FLOWS\>]+**). They are assumed to be stored
 in CSV-format using ';' as dividing character. The file should look as
 follows:
 

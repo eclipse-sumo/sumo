@@ -74,7 +74,7 @@ end
 
 # Pedestrian Lifecycle and update Loop
 
-Persons in SUMO are modelled by the distinct [stages](../../Specification/Persons.md#simulation_behavior) *walk*, *ride*, *stop* and *access*.
+Persons in SUMO are modeled by the distinct [stages](../../Specification/Persons.md#simulation_behavior) *walk*, *ride*, *stop* and *access*.
 The simulation behavior of a person in stage *walk* is controlled by the pedestrian model configured via option **--pedestrian.model**.
 
 The model must inherit from [class MSPModel]({{Source}}src/microsim/transportables/MSPModel.h) and provide instances of MSTransportableStateAdapter for each pedestrian. The adapter instances are used by the simulation to retrieve the state of the pedestrian (i.e. position and speed). The MSPModel is responsible for signaling when the pedestrian changes to another edge. The following sketch describes the interaction.
@@ -103,7 +103,7 @@ end
 
 group move pedestrian
 events -> model : //execute movements//
-model -> ... : MSLink->opend (optional, used by model 'striping')
+model -> ... : MSLink->opened (optional, used by model 'striping')
 model -> ... : //retrieve vehicles// (optional, used by model 'striping')
 model -> adapter : //update state//
 model -> events : //register walk events// (optional, used by event-based model 'nonInteracting')

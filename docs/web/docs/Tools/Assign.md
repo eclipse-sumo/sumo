@@ -1,7 +1,7 @@
 ---
 title: Assign
 ---
-The following tools are useful in the contect of [Dynamic User Assignment](../Demand/Dynamic_User_Assignment.md).
+The following tools are useful in the context of [Dynamic User Assignment](../Demand/Dynamic_User_Assignment.md).
 
 # Assignment Tools
 
@@ -56,7 +56,7 @@ This tool is designed to solve the multiclass traffic assignment problem for mix
 ### duaIterate_analysis.py
 
 To check the evolution of different simulation parameters during the dua
-estimation an additional script is provided which analyses teleport counts
+estimation an additional script is provided which analyzes teleport counts
 and how they evolve over the iterations.
 
 ```

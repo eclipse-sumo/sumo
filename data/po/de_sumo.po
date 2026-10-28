@@ -2661,11 +2661,9 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:588
 msgid ""
-"Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim', "
-"'remote']"
+"Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim']"
 msgstr ""
-"Aus Fußgängermodellen ['nonInteracting', 'striping', 'jupedsim', 'remote'] "
-"auswählen"
+"Aus Fußgängermodellen ['nonInteracting', 'striping', 'jupedsim'] auswählen"
 
 #: src/microsim/MSFrame.cpp:591
 msgid ""

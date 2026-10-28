@@ -161,7 +161,9 @@ private:
     };
 
     /// @brief get active string object
+    static bool findObjectTypeID(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE, std::string& id, std::string& type);
     const GUIGlObject* getActiveStringObject(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const;
+    bool hasActiveStringObject(const FXString& text, const FXint pos) const;
 
     /// @brief get time string object
     SUMOTime getTimeString(const FXString& text, const FXint pos) const;

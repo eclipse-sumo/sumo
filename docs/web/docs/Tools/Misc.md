@@ -285,7 +285,7 @@ A *ptlines-file* is typically created by [netconvert](../netconvert.md) option *
 However it can also be customized or created from scratch for a non OSM network.
 
 !!! note
-    A [tutorial](../Tutorials/PT_from_OpenStreetMap.md) for using this tool with OSM data is also availabe
+    A [tutorial](../Tutorials/PT_from_OpenStreetMap.md) for using this tool with OSM data is also available
 
 ## Example Input
 
@@ -321,11 +321,11 @@ The resulting bus definition may look like this:
 ## Further Options
 
 - **--types**: only export lines with the given list of types
-- **--bus.parking**: let busses clear the road while stopping
+- **--bus.parking**: let buses clear the road while stopping
 - **--vtype-prefix**: prefix for generated vehicle types (to allow combining multiple runs in the same simulation)
 - **--stop-duration**: minimum duration for stops (default 20)
 - **--stop-duration.slack**: time to reserve in the schedule per stop (default 10)
-- **--speedfactor.bus**: assumed relative travel speed of busses (default 0.95)
+- **--speedfactor.bus**: assumed relative travel speed of buses (default 0.95)
 - **--speedfactor.tram**: assumed relative travel speed of trams (default 1)
 - **--night**: only export lines that run during the night (by default, only lines running during the day are used)
 - **--begin**: flow begin time in output (default 0)

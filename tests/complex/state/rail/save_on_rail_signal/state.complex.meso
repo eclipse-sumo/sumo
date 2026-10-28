@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-27T19:18:18.579674+01:00 by Eclipse SUMO sumo v1_27_0+0036-2714d6183a1
+<!-- generated on 2026-10-19T17:27:47.325172+01:00 by Eclipse SUMO sumo v1_28_0+0141-b852030622e
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -32,15 +32,15 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_27_0+0036-2714d6183a1" time="116.00" rail="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_28_0+0141-b852030622e" count="10" time="116.00" rail="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!train2" state="0" edges="-e -b -d"/>
     <route id="!train3" state="0" edges="-e -b -d"/>
     <delay number="2" begin="3" end="1" depart="0.00" time="32.00" speedFactor="1.00" decel="4.50"/>
     <vType id="train" length="20.00" vClass="rail" accel="2"/>
-    <vehicle id="train2" type="train" depart="0.00" departSpeed="max" route="!train2" distance="272.12 0" speedFactor="1.0000" state="18 0 1 0 0 0 117358 110314 9223372036854774807 0 1">
+    <vehicle id="train2" type="train" depart="0.00" departSpeed="max" route="!train2" distance="272.12 0" speedFactor="1.0000" state="18 0 1 0 0 0 117358 110314 9223372036854774807 0 1 0 9 117358">
         <stop lane="-e_0" duration="100.00" started="0.00" ended="110.00"/>
     </vehicle>
-    <vehicle id="train3" type="train" depart="110.00" departSpeed="max" route="!train3" distance="0 0" speedFactor="1.0000" state="18 110000 0 0 0 0 119796 110000 9223372036854774807 0 0"/>
+    <vehicle id="train3" type="train" depart="110.00" departSpeed="max" route="!train3" distance="0 0" speedFactor="1.0000" state="18 110000 0 0 0 0 119796 110000 9223372036854774807 0 0 0 8 119796"/>
     <segment id=":A_2:0">
         <vehicles time="10285" blockTime="9742" value=""/>
     </segment>

@@ -102,7 +102,7 @@
     /* Disable integer overflow in arithmetics warnings */
     #pragma warning(disable: 26451)
     /* Disable inline function warnings */
-    #pragma warning(disable: 4514 4710)
+    #pragma warning(disable: 4514 4710 4711)
     /* Disable byte padding warnings */
     #pragma warning(disable: 4820)
     /* Disable unhandled switch case warnings (which get triggered even with a default branch) */
@@ -201,8 +201,14 @@
 /* defined and set to version if JuPedSim is available */
 #cmakedefine JPS_VERSION @JPS_VERSION@
 
-/* defined if JuPedSim is available */
-#cmakedefine HAVE_JUPEDSIM
+/* defined if JuPedSim is available as library */
+#cmakedefine HAVE_JUPEDSIM_LEGACY
+
+/* defined if JuPedSim is available via gRPC (never in Windows debug builds, see src/microsim/transportables/CMakeLists.txt) */
+#cmakedefine HAVE_JUPEDSIM_GRPC
+#if defined(HAVE_JUPEDSIM_GRPC) && defined(_WIN32) && defined(_DEBUG)
+#undef HAVE_JUPEDSIM_GRPC
+#endif
 
 /* defined if osg is available */
 #cmakedefine HAVE_OSG

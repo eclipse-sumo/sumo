@@ -229,11 +229,32 @@ public:
             std::cout << getID() << " maxLength=" << myMaxLength << " veh=" << vehicle->getID() << " length=" << vehicle->getLength() << "\n";
         }
 #endif
-        return vehicle->getLength() > myMaxLength || (myOriginal != nullptr && myOriginal->prohibits(vehicle));
+        return vehicle->getLength() > myMaxLength
+            || (myOriginal != nullptr && myOriginal->prohibits(vehicle))
+            || replacementProhibits(vehicle);
     }
 
+    bool replacementProhibits(const V* const vehicle) const {
+        for (const E* e : myReplacementEdges) {
+            if (e->prohibits(vehicle)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     inline bool restricts(const V* const vehicle) const {
-        return myOriginal != nullptr && myOriginal->restricts(vehicle);
+        return (myOriginal != nullptr && myOriginal->restricts(vehicle)) || replacementRestricts(vehicle);
+    }
+
+    bool replacementRestricts(const V* const vehicle) const {
+        for (const E* e : myReplacementEdges) {
+            if (e->restricts(vehicle)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     const ConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const {

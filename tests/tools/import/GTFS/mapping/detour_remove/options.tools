@@ -1,4 +1,4 @@
 -n net.net.xml.gz --merged-csv data.csv --vtype-output vehtypes.xml
 --stops input_stops.xml
---remove-detour-factor 10
+--remove-detour-factor 9
 tools/import/gtfs/gtfs2pt.py

@@ -129,6 +129,8 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DEIGEN3_INCLU
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DPython_EXECUTABLE=/usr/bin/python3 ..
 %endif
 %endif
+# limit the number of parallel processes if memory is sparse
+%{?constrain_build:%constrain_build -m 3500}
 make %{?_smp_mflags}
 make %{?_smp_mflags} man
 

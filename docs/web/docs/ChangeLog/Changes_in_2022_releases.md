@@ -245,7 +245,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
     - Add buttons for visually creating and changing joined traffic lights. Issue #11367
 
 - sumo-gui
-  - EdgeData and laneData values recorded by the current simulation can now be used [for live edge coloring](../sumo-gui.md#edgelane_visualisation_settings). Issue #9756
+  - EdgeData and laneData values recorded by the current simulation can now be used [for live edge coloring](../sumo-gui.md#edgelane_visualization_settings). Issue #9756
   - 3D view now permits clicking on more objects (lanes, junctions, traffic lights). Issue #10882
   - 3D view now supports realistic drawing of traffic signals for cars and pedestrians. Issue #10913, #11162
   - 3D view brightness can now be configured. Issue #11865
@@ -950,7 +950,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
  - The ubuntu package now includes emission tools, header files and libsumo/libtraci.so files. Issue #10136
  - Removed obsolete and broken tool 'personGenerator.py' (use personFlow instead). Issue #10143
  - Added [examples and documentation](../Tutorials/FundamentalDiagram.md) for spontaneous break-down of traffic flow jamming. Issue #10244
- - Documented [attribute plotting](../sumo-gui.md#plotting_object_properties) and [extended vehicle visualization features](../sumo-gui.md#vehicle_visualisation_settings). Issue #10558, #10559
+ - Documented [attribute plotting](../sumo-gui.md#plotting_object_properties) and [extended vehicle visualization features](../sumo-gui.md#vehicle_visualization_settings). Issue #10558, #10559
 
 
 ## Version 1.12.0 (25.01.2022)

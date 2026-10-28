@@ -220,6 +220,9 @@ public:
     /// @brief remove created chooser dialog
     void eraseACChooserDialog(GNEACChooserDialog* chooserDialog);
 
+    /// @brief get object IDs
+    std::vector<GUIGlID> getObjectIDs(int messageId) const;
+
     /// @brief update toolbar undo/redo buttons (called when user press Ctrl+Z/Y)
     void updateUndoRedoButtons();
 

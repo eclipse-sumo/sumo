@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-03T22:27:04.159717+01:00 by Eclipse SUMO sumo v1_27_1+0600-3f7ce74d7c5
+<!-- generated on 2026-10-25T07:34:32.440701+01:00 by Eclipse SUMO sumo v1_28_0+0203-956beccee8c8
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -33,8 +33,14 @@
         <!-- Load routes descriptions from FILE(s) -->
         <route-files value="" synonymes="r routes" type="FILE"/>
 
+        <!-- Ignore route elements during loading of sumo-configs -->
+        <ignore.routeelements value="false" type="BOOL"/>
+
         <!-- Load further descriptions from FILE(s) -->
         <additional-files value="" synonymes="a additional" type="FILE"/>
+
+        <!-- Ignore additional elements during loading of sumo-configs -->
+        <ignore.additionalelements value="false" type="BOOL"/>
 
         <!-- Load edge/lane weights for online rerouting from FILE -->
         <weight-files value="" synonymes="w weights" type="FILE"/>
@@ -585,7 +591,7 @@
         <!-- Override stop arrival times with stop started times when given -->
         <use-stop-started value="false" type="BOOL"/>
 
-        <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;jupedsim&apos;, &apos;remote&apos;] -->
+        <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;jupedsim&apos;] -->
         <pedestrian.model value="striping" type="STR"/>
 
         <!-- Minimal acceptable gap (in seconds) between two vehicles before starting to cross -->
@@ -879,7 +885,7 @@
         <!-- Determines where to load PHEMlight definitions from -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
 
-        <!-- Enable fleet age modelling with the given reference year in PHEMlight5 -->
+        <!-- Enable fleet age modeling with the given reference year in PHEMlight5 -->
         <phemlight-year value="0" type="INT"/>
 
         <!-- Set ambient temperature to correct NOx emissions in PHEMlight5 -->
@@ -1473,7 +1479,7 @@
     </random_number>
 
     <gui_only>
-        <!-- Load visualisation settings from FILE -->
+        <!-- Load visualization settings from FILE -->
         <gui-settings-file value="" synonymes="g" type="FILE"/>
 
         <!-- Quits the GUI when the simulation stops -->

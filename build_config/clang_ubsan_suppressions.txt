@@ -1,6 +1,7 @@
 # STL
 shift-base:bitset
 unsigned-integer-overflow:basic_string.h
+unsigned-integer-overflow:stl_uninitialized.h
 # fontstash
 implicit-integer-sign-change:fontstash.h
 shift-base:fontstash.h

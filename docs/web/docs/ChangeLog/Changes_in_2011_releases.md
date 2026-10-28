@@ -134,13 +134,13 @@ not be loaded into old SUMO versions.
     back bumper of its leader in a traffic jam.
 - netconvert
   - added optional attribute `name` to
-    plain edge input. This is used for visualisation (Street name)
+    plain edge input. This is used for visualization (Street name)
   - added optional attribute `endOffset`
     to plain edge input. This can be used to shorten the usable
     edge/lane length when stopping (i.e. in case of pedestrian
     crossings)
   - added optional attribute `width` to
-    plain edge input. This will be used for visualisation in future
+    plain edge input. This will be used for visualization in future
     patches
   - plain edge input now supports lane specific speeds
   - plain edge input now supports edge-specific vehicle class

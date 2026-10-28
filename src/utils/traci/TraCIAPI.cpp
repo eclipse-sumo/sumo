@@ -561,6 +561,11 @@ TraCIAPI::EdgeScope::getLastStepMeanSpeed(const std::string& edgeID) const {
 }
 
 double
+TraCIAPI::EdgeScope::getMaxSpeed(const std::string& edgeID) const {
+    return getDouble(libsumo::VAR_MAXSPEED, edgeID);
+}
+
+double
 TraCIAPI::EdgeScope::getLastStepOccupancy(const std::string& edgeID) const {
     return getDouble(libsumo::LAST_STEP_OCCUPANCY, edgeID);
 }

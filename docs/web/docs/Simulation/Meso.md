@@ -12,7 +12,7 @@ uses the same input data as the main [sumo](../sumo.md) model. It
 computes vehicle movements with queues and runs up to 100 times faster
 than the microscopic model of [sumo](../sumo.md). Additionally, due
 to using a coarser model for intersections and lane-changing it is more
-tolerant of network modelling errors than [sumo](../sumo.md).
+tolerant of network modeling errors than [sumo](../sumo.md).
 
 - **Purpose:** Simulates a defined scenario
 - **System:** portable (Linux/Windows is tested); runs on command line
@@ -138,7 +138,7 @@ The option **--meso-recheck** {{DT_TIME}} can be used to delay traffic flow into
 
 When setting option **--meso-ltm**, an alternative longitudinal model (the mesoscopic **L**ink **T**ransmission **M**odel) is activated. This model is based on a [publications](https://www.sciencedirect.com/science/article/pii/S1569190X26000018) by Ying-Chuan Ni et. al.
 
-Instead of classifying segments as jammed/free based on **--meso-jam-threshold**, this model achieves jam dynamics by tracking gaps between cars that travel upstream when a car exists a segment.
+Instead of classifying segments as jammed/free based on **--meso-jam-threshold**, this model achieves jam dynamics by tracking gaps between cars that travel upstream when a car exits a segment.
 Whereas the other model achieves increased headway whenever a car travels from a "jammed" segment into another "jammed" segment, the meso-LTM model achieves increased headway whenever a segment is filled with a combination of cars and gaps. As soon as gaps reach the upstream end of the segment they disappear and thus free up capacity for vehicles from the upstream segment.
 The following parameters are used by the model:
 
@@ -157,7 +157,7 @@ randomized process depending on vehicle speeds and density.
 
 ## Junction Model
 
-There are 3 basic options for modelling junction control
+There are 3 basic options for modeling junction control
 
 1. **--meso-junction-control false** (the default): No junction control takes place. This should only be
     used for motorway scenarios or in combination with the penalty options below

@@ -102,6 +102,7 @@ MSDelayBasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                     double length = lane->getLength();
                     MSLane* firstLane = lane;
                     while (length < myDetectionRange && firstLane->getIncomingLanes().size() == 1
+                            && firstLane->getLogicalPredecessorLane() != nullptr
                             && firstLane->getIncomingLanes().front().viaLink->getCorrespondingEntryLink()->getTLLogic() == nullptr) {
                         firstLane = firstLane->getLogicalPredecessorLane();
                         if (firstLane->getLinkCont().size() > 1) {

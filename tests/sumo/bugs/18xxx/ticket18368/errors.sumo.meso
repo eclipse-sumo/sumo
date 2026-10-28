@@ -1,0 +1,1 @@
+Warning: Traffic light type 'delay_based' cannot be used in mesoscopic simulation. Using 'static' as fallback.

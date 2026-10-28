@@ -842,7 +842,7 @@ registered
 - If your simulation area is too big, cars will not be displayed
   unless you zoom into the net. Cars are simply to small when looking
   from far away. To change this you may also set the option *Draw with
-  constant size when zoomed out* (see [visualization settings for vehicles](sumo-gui.md#changing_the_appearancevisualisation_of_the_simulation)).
+  constant size when zoomed out* (see [visualization settings for vehicles](sumo-gui.md#changing_the_appearancevisualization_of_the_simulation)).
 - The simulation is too fast so that all vehicles disappear before
   being seen. To avoid this, you may [increase the *Delay*-value](sumo-gui.md#usage_description) to slow down
   the simulation.
@@ -934,7 +934,7 @@ There are several reasons why a counter-lane-change-deadlock can happen:
 
   This may be caused by invalid lane-to-lane connections. Check the
   connections in [sumo-gui](sumo-gui.md) by activating
-  *Junctions-\>show lane to lane connections* in the [gui settings dialog](sumo-gui.md#changing_the_appearancevisualisation_of_the_simulation).
+  *Junctions-\>show lane to lane connections* in the [gui settings dialog](sumo-gui.md#changing_the_appearancevisualization_of_the_simulation).
 
 ### Why do the vehicles not use all available lanes?
 

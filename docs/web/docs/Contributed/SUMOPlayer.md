@@ -50,7 +50,7 @@ title: SUMOPlayer
      -Dndump=<sumo_ndump_xml_file>      # sumo network-dump simulation file
      -d
 
-     -Dequipped=<propability>           # a floating value between 0 and 1
+     -Dequipped=<probability>           # a floating value between 0 and 1
      -e                                 # defining the number of tracked
                                         # vehicles. 0.01 is 1%
 

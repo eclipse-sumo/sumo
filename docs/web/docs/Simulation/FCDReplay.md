@@ -13,7 +13,6 @@ Vehicles are equipped explicitly by being part of fcd file loaded for replay
 with option **--device.fcd-replay.file**.
 
 # Vehicle Behavior
-A vehicle with fcd-replay device will follow the recored trajectory.
+A vehicle with fcd-replay device will follow the recorded trajectory.
 
 # Parameters
-

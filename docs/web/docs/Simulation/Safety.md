@@ -60,7 +60,7 @@ Rear-end collisions during normal driving may be caused by any of the following:
 size (default 1s) when using the default Krauss model.
 - vehicles with a value of *tau* that is lower than their *actionStepLength*
 - vehicles with an *apparentDecel* parameter that is lower than their *decel* parameter (causing other drivers to misjudge their deceleration capabilities)
-- [driver imperfection modelled with the
+- [driver imperfection modeled with the
   *driverstate*-device](../Driver_State.md)
 - The [carFollowModel EIDM](../Car-Following-Models/EIDM.md) natively includes [parameters for driving errors](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#car-following_model_parameters) that can be used to provoke dangerous situations and collisions
 - Disable some or all insertion checks using [attribute `insertionChecks`](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#available_vehicle_attributes) and then configure insertion with high speed and small gap
@@ -115,7 +115,7 @@ To simulate the **effects** of an accident see
 # Reaction Times
 
 In Reality, drivers take actions with some delay in regard to the
-evolving traffic situation. This reaction time is modelled in the
+evolving traffic situation. This reaction time is modeled in the
 simulation in various ways. Reaction time should not be confused with
 the **tau** parameter as this models the *desired* time headway. Keeping
 sufficient headway is necessary for safe driving with delayed reaction.
@@ -183,7 +183,7 @@ are safety related:
 - **apparentDecel**: this is the deceleration value that will be
   assumed by other vehicles of the configured vehicle. By default this
   takes the same value as **decel**
-- [driver imperfection modelled with the
+- [driver imperfection modeled with the
   *driverstate*-device](../Driver_State.md)
 - option **--emergency-insert** permits insertion of vehicles at *dangerous* speeds as long as they are are still recoverable with the use of emergency braking
 

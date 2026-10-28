@@ -1,0 +1,3 @@
+-e input_plain.edg.xml -n input_plain.nod.xml
+ --tls.default-type actuated --tls.actuated.detector-gap 1 --tls.actuated.detector-length 10
+ --tls.actuated.jam-threshold 30 --tls.actuated.inactive-threshold 23 --tls.actuated.passing-time 3 --tls.actuated.show-detectors

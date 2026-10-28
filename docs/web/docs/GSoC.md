@@ -207,7 +207,7 @@ the required files via menus.
 
 Right now, SUMO can account for pedestrians when simulating inter-modal
 traffic. However, the model is quite coarse. The time for crossing roads
-is not modelled. Also, there is no flow model for crowded side walks.
+is not modeled. Also, there is no flow model for crowded side walks.
 
 ## Open for your Ideas
 

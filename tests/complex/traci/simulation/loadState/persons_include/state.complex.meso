@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-18T08:03:13.598419+01:00 by Eclipse SUMO sumo v1_27_0+0246-77aedaaf8e3
+<!-- generated on 2026-10-19T17:32:25.176859+01:00 by Eclipse SUMO sumo v1_28_0+0141-b852030622e
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -23,7 +23,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="43417"/>
+        <remote-port value="64796"/>
     </traci_server>
 
     <mesoscopic>
@@ -34,12 +34,12 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_27_0+0246-77aedaaf8e3" time="1.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_28_0+0141-b852030622e" count="1" time="1.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!0" state="0" edges="WC CE"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.06" decel="4.50"/>
     <vType id="car" sigma="0"/>
     <vType id="ped" vClass="pedestrian"/>
-    <vehicle id="0" type="car" depart="0.00" route="!0" distance="0 0" speedFactor="1.0600" reroute="1" state="262146 0 0 0 0 0 6245 0 9223372036854774807 0 0">
+    <vehicle id="0" type="car" depart="0.00" route="!0" distance="0 0" speedFactor="1.0600" reroute="1" state="262146 0 0 0 0 0 6245 0 9223372036854774807 0 0 0 0 6245">
         <device id="tripinfo_0" state="WC_0 14.7234 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
         <device id="routing_0" state="0 0"/>
     </vehicle>

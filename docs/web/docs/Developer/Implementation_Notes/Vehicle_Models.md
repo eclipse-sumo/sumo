@@ -66,7 +66,7 @@ After some talks, the following description of vehicle types was chosen:
 `vtype` will contain parameters which can
 neither be counted to the lane-changing nor the car-following model,
 such as the vehicle type's color, the width of the vehicle etc. which
-are (currently) used for visualisation only. Also, the vehicle's length
+are (currently) used for visualization only. Also, the vehicle's length
 and other parameter which are not only used by one of the models are
 stored herein.
 
@@ -114,7 +114,7 @@ parameters which are assumed to be neither part of the car-following
 model nor part of the lane-change model: *id*, *length*, *maxSpeed*,
 *defaultProbability*, *speedFactor*, *speedDev*, *emissionClass*,
 *color*, *vehicleClass*, *width*, *offset*, *shape*. These values are
-initialised with defaults. When reading values, SUMOVehicleParserHelper
+initialized with defaults. When reading values, SUMOVehicleParserHelper
 stores the information about which value was set from the XML
 description in *SUMOVTypeParameter::setParameter*. This allows to save
 (pass) only set values when writing the definitions back to a file -

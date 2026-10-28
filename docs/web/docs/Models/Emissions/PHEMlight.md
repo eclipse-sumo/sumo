@@ -23,7 +23,7 @@ light (LCV_) and heavy duty vehicles (HDV_). Since the class ames are
 disjoint both models can be used alternatively or even in parallel
 although the old classes are considered deprecated.
 
-PHEMlight uses data files that include the parameters of the modelled
+PHEMlight uses data files that include the parameters of the modeled
 emission classes. At the time being, data sets for two emission classes
 are included in SUMO: PKW_D_EU4 and PKW_G_EU4 (PC_D_EU4 and
 PC_G_EU4 for the new model), resembling passenger vehicles, Euro Norm
@@ -39,7 +39,7 @@ SUMO is looking into <SUMO_HOME\>/data/emissions/PHEMlight and in the PHEMlight 
 of your working directory.
 
 In addition, your vehicles must be assigned to one of PHEMlight's
-vehicle emission classes, summarised in the following table. To use the
+vehicle emission classes, summarized in the following table. To use the
 emission classes below prepend the class name with the PHEMlight prefix,
 e.g. `emissionClass="PHEMlight/PKW_G_EU4"`.
 
@@ -119,7 +119,7 @@ been defined as follows:
     (recuperation, boosting, charging etc.)
 
 Also note that plugin hybrids (where the main powertrain is electric)
-should be modelled as battery vehicles and need to switch their emission
+should be modeled as battery vehicles and need to switch their emission
 class (and thus their vehicle type in SUMO) when running conventional.
 
 The following tables show the available classes. Some classes

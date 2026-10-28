@@ -605,4 +605,30 @@ NWWriter_DlrNavteq::writeConnectionAttrs(OutputDevice& device, const NBEdge::Con
     device.writeAttr("vehicleTypeCode", getAllowedTypes(c.permissions));
 }
 
+
+void
+NWWriter_DlrNavteq::writeProhibitedManoeuvresAttrs(OutputDevice& device, const NBNodeCont& nc) {
+    // similar to writeProhibitedManoeuvres but as xml/csv/parquet
+    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
+        NBNode* n = (*i).second;
+        const EdgeVector& incoming = n->getIncomingEdges();
+        const EdgeVector& outgoing = n->getOutgoingEdges();
+        for (EdgeVector::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
+            NBEdge* inEdge = *j;
+            const SVCPermissions inPerm = inEdge->getPermissions();
+            for (EdgeVector::const_iterator k = outgoing.begin(); k != outgoing.end(); ++k) {
+                NBEdge* outEdge = *k;
+                const SVCPermissions outPerm = outEdge->getPermissions();
+                const SVCPermissions commonPerm = inPerm & outPerm;
+                if (commonPerm != 0 && commonPerm != SVC_PEDESTRIAN && !inEdge->isConnectedTo(outEdge)) {
+                    device.openTag(SUMO_TAG_PROHIBITED_CONNECTION);
+                    device.writeAttr(SUMO_ATTR_FROM, inEdge->getID());
+                    device.writeAttr(SUMO_ATTR_TO, outEdge->getID());
+                    device.closeTag();
+                }
+            }
+        }
+    }
+}
+
 /****************************************************************************/

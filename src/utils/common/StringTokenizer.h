@@ -24,6 +24,8 @@
 #include <string>
 #include <vector>
 #include <set>
+#include <string_view>
+#include "UtilExceptions.h"
 
 /**
  * StringTokenizer
@@ -125,6 +127,31 @@ public:
 
     /// @brief return set of strings
     std::set<std::string> getSet();
+
+    // @brief parse a space-delelimited list of ids into vector of objects without building an intermediate vector of strings
+    template <typename T>
+    static void tokenizeAndLookup(std::string_view input, std::vector<T*>& result) {
+        std::string_view::size_type pos = 0;
+        std::string_view::size_type prev = 0;
+
+        while ((pos = input.find(' ', prev)) != std::string_view::npos) {
+            if (pos > prev) {
+                std::string_view id = input.substr(prev, pos - prev);
+                result.push_back(T::dictionary(id));
+                if (result.back() == nullptr) {
+                    throw InvalidArgument(std::string(id));
+                }
+            }
+            prev = pos + 1;
+        }
+        if (prev < input.length()) {
+            std::string_view id = input.substr(prev);
+            result.push_back(T::dictionary(id));
+            if (result.back() == nullptr) {
+                throw InvalidArgument(std::string(id));
+            }
+        }
+    }
 
 private:
     /// @brief splits the first string at all occurrences of the second. If the third parameter is true split at all chars given in the second

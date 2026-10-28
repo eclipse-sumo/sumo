@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-28T13:19:24.601127+01:00 by Eclipse SUMO netgenerate v1_27_1+0788-b04dbbe6fbc
+<!-- generated on 2026-10-13T16:01:18.984856+01:00 by Eclipse SUMO netgenerate v1_28_0+0001-b9466dc3ede
 -->
 
 <netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -341,6 +341,24 @@
 
         <!-- Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import) -->
         <edges.join value="false" type="BOOL"/>
+
+        <!-- Sets default jam-threshold parameter for all actuation detectors -->
+        <tls.actuated.jam-threshold value="-1" type="FLOAT"/>
+
+        <!-- Sets default show-detectors parameter for all actuation detectors -->
+        <tls.actuated.show-detectors value="false" type="BOOL"/>
+
+        <!-- Sets default passing-time parameter for all actuation detectors -->
+        <tls.actuated.passing-time value="-1" type="FLOAT"/>
+
+        <!-- Sets default detector-gap parameter for all actuation detectors -->
+        <tls.actuated.detector-gap value="0" type="FLOAT"/>
+
+        <!-- Sets default detector-length parameter for all actuation detectors -->
+        <tls.actuated.detector-length value="-1" type="FLOAT"/>
+
+        <!-- Sets default inactive-threshold parameter for all actuation detectors -->
+        <tls.actuated.inactive-threshold value="-1" type="FLOAT"/>
 
     </processing>
 

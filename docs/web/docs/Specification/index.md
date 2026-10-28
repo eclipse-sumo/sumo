@@ -128,9 +128,9 @@ in long execution time for very narrow intervals).
 ### Type distributions
 
 Type distributions define probability distributions of vehicle types.
-They should have at least two vType childs, although defining only one
-child is valid as well. All vehicle type childs maybe referenced outside
-the distribution as well. The sum of the probabilities of the childs
+They should have at least two vType children, although defining only one
+child is valid as well. All vehicle type children maybe referenced outside
+the distribution as well. The sum of the probabilities of the children
 should be larger than zero.
 
 | Attribute | Type   | Range         | Default | Remark                      |
@@ -139,7 +139,7 @@ should be larger than zero.
 
 ### Categories
 
-Categories define vehicle classes such as cars, trucks, busses, but also
+Categories define vehicle classes such as cars, trucks, buses, but also
 height, width and weight categories might (to some extent) be modeled
 here. The sole purpose of the category is to determine whether a car is
 allowed to (or prefers to) drive on a certain street or lane.
@@ -186,7 +186,7 @@ given in m/s.
 | Attribute  | Type       | Range                  | Default | Remark                                                                         |
 | ---------- | ---------- | ---------------------- | ------- | ------------------------------------------------------------------------------ |
 | id         | string     | valid XML ids          | \-      |                                                                                |
-| refId      | string     | another edge id        | \-      | all attributes and childs are copied from the given edge and maybe overwritten |
+| refId      | string     | another edge id        | \-      | all attributes and children are copied from the given edge and maybe overwritten |
 | from       | string     | node id                | \-      |                                                                                |
 | to         | string     | node id                | \-      |                                                                                |
 | function   | string     | normal,internal,ramp   | normal  | cannot be given as input, appears only in generated nets                       |
@@ -227,7 +227,7 @@ consecutive. Optionally they can have a list of stops as child elements.
 ### Route distributions
 
 Route distributions define probability distributions of routes. They
-should have at least two route childs.
+should have at least two route children.
 
 | Attribute | Type   | Range         | Default | Remark |
 | --------- | ------ | ------------- | ------- | ------ |
@@ -235,7 +235,7 @@ should have at least two route childs.
 
 ### Stops
 
-Stops can be childs of vehicles, routes or persons.
+Stops can be children of vehicles, routes or persons.
 
 | Attribute          | Type              | Range                                                                          | Default            | Remark                                                                                                 |
 | ------------------ | ----------------- | ------------------------------------------------------------------------------ | ------------------ | ------------------------------------------------------------------------------------------------------ |
