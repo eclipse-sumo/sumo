@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-28 22:27:26.138699 by Eclipse SUMO gtfs2pt.py v1_28_0+0305-1af951e6c6c
+<!-- generated on 2026-10-28 22:58:38.517228 by Eclipse SUMO gtfs2pt.py v1_28_0+0307-a13172ac69a
 <configuration>
     <merged-csv value="data.csv"/>
     <vtype-output value="vehtypes.xml"/>
@@ -12,3 +12,6 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop id="1162780.0" lane="-16963309_0" startPos="0.00" endPos="27.82" friendlyPos="true" name="Wernigerode Wernigerode Westerntor Gleis 1"/>
+    <trainStop id="1162780.2" lane="198186800#1_0" startPos="53.62" endPos="253.62" friendlyPos="true" name="Wernigerode Wd_Wdt 003 P3"/>
+</additional>

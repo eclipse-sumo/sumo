@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "/scr1/sumo/tests/../tools/import/gtfs/gtfs2pt.py", line 765, in <module>
-    main(get_options())
-  File "/scr1/sumo/tests/../tools/import/gtfs/gtfs2pt.py", line 726, in main
-    stops = map_stops(options, orignet, routes, aout, fixedStops, stopLookup, geoRoutes)
-  File "/scr1/sumo/tests/../tools/import/gtfs/gtfs2pt.py", line 547, in map_stops
-    lastIndex = route.index(edgeID, lastIndex)
-ValueError: '-399334324' is not in list
