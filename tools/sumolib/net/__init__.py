@@ -711,7 +711,9 @@ class Net:
         def constructPath(dist):
             # destination was already reached in a previous query
             cost, pred = dist[toEdge]
-            if cost == PRACTICAL_INFINITY or cost > maxCost:
+            if cost == PRACTICAL_INFINITY or (cost > maxCost
+                    # the final node may exceed max cost but the prior node may not
+                    and cost - toEdge._costCache > maxCost):
                 return None, cost
             path = [toEdge]
             while pred is not None:
