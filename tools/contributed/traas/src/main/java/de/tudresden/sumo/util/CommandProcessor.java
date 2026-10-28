@@ -176,13 +176,16 @@ public class CommandProcessor extends Query {
                 int type0 = s.readInt();
 
                 s.readUnsignedByte();
-                s.readInt();
+                int numElements = s.readInt();
 
                 s.readUnsignedByte();
                 int currentPhaseIndex = s.readInt();
 
-                s.readUnsignedByte();
-                double offset = s.readDouble();
+                double offset = 0.;
+                if (numElements == 6) {
+                    s.readUnsignedByte();
+                    offset = s.readDouble();
+                }
 
                 SumoTLSProgram stl = new SumoTLSProgram(subID, type0, currentPhaseIndex, offset);
 
@@ -483,8 +486,8 @@ public class CommandProcessor extends Query {
                 SumoTLSController sp = new SumoTLSController();
                 for (int i = 0; i < length; i++) {
                     resp.content().readUnsignedByte(); // type compound
-                    resp.content().readInt(); // 5
-                    //System.out.println("read compound " + tmp);
+                    int numElements = resp.content().readInt();
+                    //System.out.println("read compound " + numElements);
 
                     resp.content().readUnsignedByte();
                     String subID = resp.content().readStringASCII();
@@ -498,8 +501,11 @@ public class CommandProcessor extends Query {
                     int currentPhaseIndex = resp.content().readInt();
                     //System.out.println("currentPhaseIndex=" + currentPhaseIndex);
 
-                    resp.content().readUnsignedByte();
-                    double offset = resp.content().readDouble();
+                    double offset = 0.;
+                    if (numElements == 6) {
+                        resp.content().readUnsignedByte();
+                        offset = resp.content().readDouble();
+                    }
                     //System.out.println("offset=" + offset);
 
                     SumoTLSProgram stl = new SumoTLSProgram(subID, type, currentPhaseIndex, offset);

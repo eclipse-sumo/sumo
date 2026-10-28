@@ -69,11 +69,11 @@ def _readLogics(result):
     numLogics = result.readInt()
     logics = []
     for _ in range(numLogics):
-        result.readCompound(6)
+        numElements = result.readCompound()
         programID = result.readTypedString()
         type = result.readTypedInt()
         currentPhaseIndex = result.readTypedInt()
-        offset = result.readTypedDouble()
+        offset = result.readTypedDouble() if numElements == 6 else 0.
         numPhases = result.readCompound()
         phases = []
         for __ in range(numPhases):
@@ -424,8 +424,13 @@ class TrafficLightDomain(Domain):
         Sets a new program for the given tlsID from a Logic object.
         See getAllProgramLogics which returns a tuple of Logic objects.
         """
-        format = "tsiidt"
-        values = [6, logic.programID, logic.type, logic.currentPhaseIndex, logic.offset, len(logic.phases)]
+        withOffset = logic.offset != 0.
+        format = "tsiidt" if withOffset else "tsiit"
+        values = [6 if withOffset else 5, logic.programID, logic.type,
+                  logic.currentPhaseIndex]
+        if withOffset:
+            values.append(logic.offset)
+        values.append(len(logic.phases))
         for p in logic.phases:
             format += "tdsddt"
             values += [6, p.duration, p.state, p.minDur, p.maxDur, len(p.next)]

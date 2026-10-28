@@ -7,10 +7,9 @@ TraCITestClient output file. Date: Sun Sep  8 10:47:28 2024
 -> Command sent: <GetVariable>:
   domID=162 varID=43 objID=0
 .. Command acknowledged (162), [description: ]
-  CommandID=178  VariableID=43  ObjectID=0 valueDataType=15 compound value with 1 members: [ valueDataType=15 compound value with 6 members: [ valueDataType=12 string value: 0
+  CommandID=178  VariableID=43  ObjectID=0 valueDataType=15 compound value with 1 members: [ valueDataType=15 compound value with 5 members: [ valueDataType=12 string value: 0
  valueDataType=9 Int value: 0
  valueDataType=9 Int value: 0
- valueDataType=11 Double value: 0.00
  valueDataType=15 compound value with 8 members: [ valueDataType=15 compound value with 6 members: [ valueDataType=11 Double value: 31.00
  valueDataType=12 string value: GGggrrrrGGggrrrr
  valueDataType=11 Double value: 31.00

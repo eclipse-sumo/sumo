@@ -60,11 +60,15 @@ The message contents are as following:
 
 ### complete program definition (0x2c)
 
-The value is a compound with six elements:
+The value is a compound with five elements. An optional sixth element may be
+inserted after the current phase index and before the phases:
 
-| type + string | type + integer | type + integer | type + double | type + compound | type + compound |
-| :-----------: | :------------: | :------------: | :-----------: | :-------------: | :-------------: |
+| type + string | type + integer | type + integer | type + double (optional) | type + compound | type + compound |
+| :-----------: | :------------: | :------------: | :----------------------: | :-------------: | :-------------: |
 | Program ID | Type | Current phase index | Offset (seconds) | Phases | Parameters |
+
+Clients omit the optional offset element when the offset is zero and send it
+only for non-zero offsets. The server accepts both five and six elements.
 
 Phases and parameters use the same structure as the
 [complete program retrieval](Traffic_Lights_Value_Retrieval.md#structure_of_compound_object_traffic_light_program_0x2b).
