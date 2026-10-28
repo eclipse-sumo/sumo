@@ -335,7 +335,7 @@ form:
 
 ## Parameter Retrieval
 The following parameters can be retrieved via `traci.vehicle.getParameter` and written via **--fcd-output.params**.
-It is also possible to color vehicles in [SUMO-GUI 'by param (numerical)'](../sumo-gui.md#vehicle_visualisation_settings) by setting these keys.
+It is also possible to color vehicles in [SUMO-GUI 'by param (numerical)'](../sumo-gui.md#vehicle_visualization_settings) by setting these keys.
 
 - device.taxi.state: returns integer value (see #gettaxifleet)
 - device.taxi.customers: total number of customers served

@@ -30,7 +30,7 @@
 #include <utils/gui/div/GUIGeometry.h>
 #define FONTSTASH_IMPLEMENTATION // Expands implementation
 #ifdef _MSC_VER
-#pragma warning(disable: 4505 5219) // do not warn about unused functions and implicit float conversions
+#pragma warning(disable: 4505 5219 5262) // do not warn about unused functions, implicit float conversions, implicit fall-through
 #endif
 #if __GNUC__ > 3
 #pragma GCC diagnostic push
