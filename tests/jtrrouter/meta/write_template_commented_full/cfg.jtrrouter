@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-07-08T11:09:33.663801+01:00 by Eclipse SUMO jtrrouter v1_27_1+0194-8d0b2b6a43c
+<!-- generated on 2026-10-25T07:05:17.123583+01:00 by Eclipse SUMO jtrrouter v1_28_0+0202-00ab3302464d
 -->
 
 <jtrrouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -39,7 +39,7 @@
         <!-- Determines where to load PHEMlight definitions from -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
 
-        <!-- Enable fleet age modelling with the given reference year in PHEMlight5 -->
+        <!-- Enable fleet age modeling with the given reference year in PHEMlight5 -->
         <phemlight-year value="0" type="INT"/>
 
         <!-- Set ambient temperature to correct NOx emissions in PHEMlight5 -->

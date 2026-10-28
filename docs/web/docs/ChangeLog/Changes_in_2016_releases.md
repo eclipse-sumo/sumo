@@ -833,7 +833,7 @@ title: Changes in the 2016 releases (versions 0.26.0, 0.27.0, 0.27.1 and 0.28.0)
   - Extended [netedit](../Netedit/index.md) documentation.
   - Described [netdiff.py](../Tools/Net.md#netdiffpy), a tool
     for comparing networks which was undocumented for a long time.
-  - Added page on [modelling networks for motorway simulation. In
+  - Added page on [modeling networks for motorway simulation. In
     particular
     on-off-ramps](../Simulation/Motorways.md#building_a_network_for_motorway_simulation)
   - Added new [overview page for usage of elevation

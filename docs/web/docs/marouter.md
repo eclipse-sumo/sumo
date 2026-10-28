@@ -112,7 +112,7 @@ configuration:
 | **-a** {{DT_FILE}}<br> **--additional-files** {{DT_FILE}} | Read additional network data (districts, bus stops) from FILE(s) |
 | **-r** {{DT_FILE}}<br> **--route-files** {{DT_FILE}} | Read sumo routes, alternatives, flows, and trips from FILE(s) |
 | **--phemlight-path** {{DT_FILE}} | Determines where to load PHEMlight definitions from; *default:* **./PHEMlight/** |
-| **--phemlight-year** {{DT_INT}} | Enable fleet age modelling with the given reference year in PHEMlight5; *default:* **0** |
+| **--phemlight-year** {{DT_INT}} | Enable fleet age modeling with the given reference year in PHEMlight5; *default:* **0** |
 | **--phemlight-temperature** {{DT_FLOAT}} | Set ambient temperature to correct NOx emissions in PHEMlight5; *default:* **1.79769e+308** |
 | **-w** {{DT_FILE}}<br> **--weight-files** {{DT_FILE}} | Read network weights from FILE(s) |
 | **--lane-weight-files** {{DT_FILE}} | Read lane-based network weights from FILE(s) |
@@ -243,4 +243,3 @@ configuration:
 |--------|-------------|
 | **--random** {{DT_BOOL}} | Initialises the random number generator with the current system time; *default:* **false** |
 | **--seed** {{DT_INT}} | Initialises the random number generator with the given value; *default:* **23423** |
-

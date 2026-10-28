@@ -300,7 +300,7 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addOptionSubTopic("Railway");
     neteditOptions.addOptionSubTopic("Formats");
     neteditOptions.addOptionSubTopic("Netedit");
-    neteditOptions.addOptionSubTopic("Visualisation");
+    neteditOptions.addOptionSubTopic("Visualization");
     neteditOptions.addOptionSubTopic("Time");
 
     // TOPIC: Input
@@ -506,46 +506,46 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.doRegister("meanDataLane-prefix", new Option_String("ld"));
     neteditOptions.addDescription("meanDataLane-prefix", "Netedit", TL("Prefix for meanDataLane naming"));
 
-    // TOPIC: Visualisation
+    // TOPIC: Visualization
 
     // textures
 
     neteditOptions.doRegister("disable-laneIcons", new Option_Bool(false));
-    neteditOptions.addDescription("disable-laneIcons", "Visualisation", TL("Disable icons of special lanes"));
+    neteditOptions.addDescription("disable-laneIcons", "Visualization", TL("Disable icons of special lanes"));
 
     neteditOptions.doRegister("disable-textures", 'T', new Option_Bool(false)); // !!!
-    neteditOptions.addDescription("disable-textures", "Visualisation", TL("Disable textures"));
+    neteditOptions.addDescription("disable-textures", "Visualization", TL("Disable textures"));
 
     neteditOptions.doRegister("gui-settings-file", 'g', new Option_FileName());
-    neteditOptions.addDescription("gui-settings-file", "Visualisation", TL("Load visualisation settings from FILE"));
+    neteditOptions.addDescription("gui-settings-file", "Visualization", TL("Load visualization settings from FILE"));
 
     // windows position
 
     neteditOptions.doRegister("registry-viewport", new Option_Bool(false));
-    neteditOptions.addDescription("registry-viewport", "Visualisation", TL("Load current viewport from registry"));
+    neteditOptions.addDescription("registry-viewport", "Visualization", TL("Load current viewport from registry"));
 
     neteditOptions.doRegister("window-size", new Option_StringVector());
-    neteditOptions.addDescription("window-size", "Visualisation", TL("Create initial window with the given x,y size"));
+    neteditOptions.addDescription("window-size", "Visualization", TL("Create initial window with the given x,y size"));
 
     neteditOptions.doRegister("window-pos", new Option_StringVector());
-    neteditOptions.addDescription("window-pos", "Visualisation", TL("Create initial window at the given x,y position"));
+    neteditOptions.addDescription("window-pos", "Visualization", TL("Create initial window at the given x,y position"));
 
     // testing
 
     neteditOptions.doRegister("gui-testing", new Option_Bool(false));
-    neteditOptions.addDescription("gui-testing", "Visualisation", TL("Enable overlay for screen recognition"));
+    neteditOptions.addDescription("gui-testing", "Visualization", TL("Enable overlay for screen recognition"));
 
     neteditOptions.doRegister("gui-testing-debug", new Option_Bool(false));
-    neteditOptions.addDescription("gui-testing-debug", "Visualisation", TL("Enable output messages during GUI-Testing"));
+    neteditOptions.addDescription("gui-testing-debug", "Visualization", TL("Enable output messages during GUI-Testing"));
 
     neteditOptions.doRegister("gui-testing-debug-gl", new Option_Bool(false));
-    neteditOptions.addDescription("gui-testing-debug-gl", "Visualisation", TL("Enable output messages during GUI-Testing specific of gl functions"));
+    neteditOptions.addDescription("gui-testing-debug-gl", "Visualization", TL("Enable output messages during GUI-Testing specific of gl functions"));
 
     neteditOptions.doRegister("gui-testing.setting-output", new Option_FileName());
-    neteditOptions.addDescription("gui-testing.setting-output", "Visualisation", TL("Save gui settings in the given settings-output file"));
+    neteditOptions.addDescription("gui-testing.setting-output", "Visualization", TL("Save gui settings in the given settings-output file"));
 
     neteditOptions.doRegister("quit-on-fail", 'Q', new Option_Bool(false));
-    neteditOptions.addDescription("quit-on-fail", "Visualisation", TL("Quit the app if the initial net/config loading fails"));
+    neteditOptions.addDescription("quit-on-fail", "Visualization", TL("Quit the app if the initial net/config loading fails"));
 
     // TOPIC: Time
 

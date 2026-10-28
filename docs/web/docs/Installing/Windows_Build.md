@@ -16,9 +16,9 @@ may also [download pre-built Windows binaries](../Downloads.md).
 - Python 3.X
 - SUMO sources (either an unpacked src zip or a git clone, see
   [Getting the source code](../Installing/Linux_Build.md#getting_the_source_code))
-- Installed Libraries (Xerces-C, Proj, Fox) preferably by cloning <https://github.com/DLR-TS/SUMOLibraries/>
-  - Make sure that the `SUMO_LIBRARIES` environment variable points to your cloned directory in case you didn't put the libraries in the same directory as the SUMO repository
-  - Note that in case you don't have admin rights, you can still configure environment variables for you only
+- Installed Libraries (Xerces-C, Proj, Fox) preferably by downloading the [dependent libraries](https://github.com/DLR-TS/SUMOLibraries/releases).
+  - Make sure that the `SUMO_LIBRARIES` environment variable points to your unzipped directory in case you didn't put the libraries in the same directory as the SUMO repository
+  - Note that in case you don't have admin rights, you can still configure environment variables for your user
 
 ## Recommended Windows setup
 
@@ -242,6 +242,10 @@ You can check if all dependencies are correct using
 Your version of Visual Studio doesn't support Debugging, you can only compile in release mode.
 
 ## How to build JuPedSim and then build SUMO with JuPedSim
+
+!!! note
+    This section is outdated and refers to the legacy JuPedSim module. For the current SUMO version it suffices to have JuPedSim installed in
+    the active Python environment.
 
 In this section, you will learn how to build the latest version of the pedestrian simulator JuPedSim and how to compile SUMO with this latest version of JuPedSim, in case the release version of JuPedSim that comes with SUMO isn't sufficient for your needs. You can consult the JuPedSim build procedure [here](https://github.com/PedestrianDynamics/jupedsim#readme); hereafter proposes a similar procedure. First of all, clone the JuPedSim repository:
 

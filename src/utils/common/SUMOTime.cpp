@@ -22,9 +22,10 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <sstream>
 #include <iostream>
-#include <iomanip>
+#ifdef HAVE_FMT
+#include <fmt/format.h>
+#endif
 #include "SUMOTime.h"
 #include "StringTokenizer.h"
 #include "StringUtils.h"
@@ -87,12 +88,24 @@ isTime(const std::string& r) {
 }
 
 
+// append the digits of value, padded with leading zeros to the given width
+static void
+appendPadded(std::string& result, SUMOTime value, int width) {
+#ifdef HAVE_FMT
+    const fmt::format_int digits(value);
+#else
+    const std::string digits = std::to_string(value);
+#endif
+    if ((int)digits.size() < width) {
+        result.append(width - (int)digits.size(), '0');
+    }
+    result.append(digits.data(), digits.size());
+}
+
+
 std::string
 time2string(SUMOTime t, bool humanReadable) {
-    std::ostringstream oss;
-    if (t < 0) {
-        oss << "-";
-    }
+    const bool negative = t < 0;
     // needed for signed zero errors, see #5926
     // llabs(SUMOTime_MIN) would create overflow and must be handleed separately
     t = t == SUMOTime_MIN ? SUMOTime_MAX : (SUMOTime)llabs(t);
@@ -105,33 +118,35 @@ time2string(SUMOTime t, bool humanReadable) {
         }
     }
     const SUMOTime second = TIME2STEPS(1) / scale;
+    std::string result = negative ? "-" : "";
     if (humanReadable) {
         const SUMOTime minute = 60 * second;
         const SUMOTime hour = 60 * minute;
         const SUMOTime day = 24 * hour;
         // 123456 -> "00:00:12.34"
         if (t > day) {
-            oss << t / day << ":";
+            appendPadded(result, t / day, 0);
+            result += ':';
             t %= day;
         }
-        oss << std::setfill('0') << std::setw(2);
-        oss << t / hour << ":";
+        appendPadded(result, t / hour, 2);
+        result += ':';
         t %= hour;
-        oss << std::setw(2) << t / minute << ":";
+        appendPadded(result, t / minute, 2);
+        result += ':';
         t %= minute;
-        oss << std::setw(2) << t / second;
+        appendPadded(result, t / second, 2);
         t %= second;
         if (t != 0 || TS < 1.) {
-            oss << ".";
-            oss << std::setw(MIN2(3, gPrecision));
-            oss << t;
+            result += '.';
+            appendPadded(result, t, MIN2(3, gPrecision));
         }
-    } else {
-        oss << t / second << ".";
-        oss << std::setfill('0') << std::setw(MIN2(3, gPrecision));
-        oss << t % second;
+        return result;
     }
-    return oss.str();
+    appendPadded(result, t / second, 0);
+    result += '.';
+    appendPadded(result, t % second, MIN2(3, gPrecision));
+    return result;
 }
 
 

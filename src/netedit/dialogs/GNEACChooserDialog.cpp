@@ -39,7 +39,7 @@ GNEACChooserDialog::GNEACChooserDialog(GNEViewParent* viewParent, int messageId,
     myACs.reserve(ACs.size());
     myFilteredACs.reserve(ACs.size());
     for (const auto& AC : ACs) {
-        myACs.push_back(AC.second);
+        myACs.insert(AC.second);
         myFilteredACs.push_back(AC.second);
     }
     // @note refresh must be called here because the base class constructor cannot
@@ -100,9 +100,7 @@ GNEACChooserDialog::filterACs(const std::vector<GUIGlID>& GLIDs) {
         GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(o);
         if (ac) {
             myFilteredACs.push_back(ac);
-            if (std::find(myACs.begin(), myACs.end(), ac) == myACs.end()) {
-                myACs.push_back(ac);
-            }
+            myACs.insert(ac);
         } else {
             for (const auto& candidate : myACs) {
                 if (candidate->getGUIGlObject()->getGlID() == glID) {

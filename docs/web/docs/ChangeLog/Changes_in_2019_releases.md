@@ -76,7 +76,7 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
   - The new option **--aggregate-warnings** can be used to group warnings of the same type and give only their count after the first N warnings occurred.
 
 - Simulation
-  - Simulation of parking vehicles now optionally takes into account [maneuvering times](../Simulation/ParkingArea.md#modelling_maneuvering_times_when_entering_and_leaving_the_parking_space). Issue #5956
+  - Simulation of parking vehicles now optionally takes into account [maneuvering times](../Simulation/ParkingArea.md#modeling_maneuvering_times_when_entering_and_leaving_the_parking_space). Issue #5956
   - Vehicle stop elements now support attribute 'speed'. This can be used to force a vehicle to drive with a fixed speed on a particular stretch of lane. Issue #1020
   - When defining a person ride, setting attribute `lines="ANY"` can now be used to take any vehicle that stops at the destination busStop or destination edge. Issue #6039
   - when defining vehicle stops, the new attribute 'extension' can be used to limit delays when too many people are boarding or when expected persons do not show up. Issue #6072 #3635

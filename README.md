@@ -51,11 +51,8 @@ Build and Installation
 ----------------------
 
 For Windows we provide pre-compiled binaries and CMake files to generate Visual Studio projects.
-If you want to develop under Windows, please also clone the dependent libraries using:
-
-```
-git clone --recursive https://github.com/DLR-TS/SUMOLibraries
-```
+If you want to develop under Windows, please also download the [dependent libraries](https://github.com/DLR-TS/SUMOLibraries/releases).
+Use the latest release if you are developing, if not use the release matching your SUMO version.
 
 If you're using Linux, you should have a look whether your distribution already contains sumo.
 There is also a [ppa for ubuntu users](https://launchpad.net/~sumo) and an
