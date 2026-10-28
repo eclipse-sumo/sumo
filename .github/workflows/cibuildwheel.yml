@@ -77,19 +77,19 @@ jobs:
           ref: ${{ github.ref }}
 
       - name: Fetching SUMO Libraries
-        if: matrix.os == 'windows-latest'
+        if: ${{ startsWith(matrix.os, 'windows') }}
         # this also sets $SUMO_LIBRARIES
         uses: ./.github/actions/fetch-sumo-libraries
 
       - name: "Set up MSVC Developer Command Prompt"
-        if: matrix.os == 'windows-latest'
+        if: ${{ startsWith(matrix.os, 'windows') }}
         uses: compnerd/gha-setup-vsdevenv@v7
 
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2.24
         with:
           key: ${{ matrix.os }}-${{ matrix.manylinux }}
-          variant: ${{ matrix.os == 'windows-latest' && 'sccache' || 'ccache' }}
+          variant: ${{ startsWith(matrix.os, 'windows') && 'sccache' || 'ccache' }}
 
       - name: Set up Python
         uses: actions/setup-python@v7

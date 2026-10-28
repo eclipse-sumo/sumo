@@ -944,7 +944,7 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
             return "";
 #endif
         } else if (key == "buildConfig.JPS_VERSION") {
-#ifdef HAVE_JUPEDSIM
+#ifdef HAVE_JUPEDSIM_LEGACY
             return toString(JPS_VERSION);
 #else
             return "";

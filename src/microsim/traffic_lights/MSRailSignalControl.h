@@ -59,7 +59,7 @@ public:
         myWrittenDeadlocks.clear();
     }
 
-    void addWaitRelation(const SUMOVehicle* waits, const MSRailSignal* rs, const SUMOVehicle* reason, MSRailSignalConstraint* constraint = nullptr, bool loadedDeadlock = false);
+    void addWaitRelation(const SUMOVehicle* waits, const MSRailSignal* rs, const SUMOVehicle* reason, MSRailSignalConstraint* constraint = nullptr);
 
     void addDrivewayFollower(const MSDriveWay* dw, const MSDriveWay* dw2);
 
@@ -133,14 +133,12 @@ private:
     std::set<const MSEdge*> myUsedEdges;
 
     struct WaitRelation {
-        WaitRelation(const MSRailSignal* _railSignal = nullptr, const SUMOVehicle* _foe = nullptr, MSRailSignalConstraint* _constraint = nullptr, bool _loadedDeadlock = false) :
-            railSignal(_railSignal), foe(_foe), constraint(_constraint), loadedDeadlock(_loadedDeadlock) {}
+        WaitRelation(const MSRailSignal* _railSignal = nullptr, const SUMOVehicle* _foe = nullptr, MSRailSignalConstraint* _constraint = nullptr) :
+            railSignal(_railSignal), foe(_foe), constraint(_constraint) {}
         // indices along route
         const MSRailSignal* railSignal;
         const SUMOVehicle* foe;
         MSRailSignalConstraint* constraint;
-        // whether this waiting relation is due to a loaded deadlock
-        bool loadedDeadlock;
     };
     std::map<const SUMOVehicle*, WaitRelation> myWaitRelations;
 
