@@ -1071,6 +1071,7 @@ if (PYINSTALLER_FOUND AND EXISTS ${CMAKE_SOURCE_DIR}/tools/game/runner.spec)
 endif()
 
 add_test(exampletest ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
+set_tests_properties(exampletest PROPERTIES TIMEOUT 300)
 find_package(Git)
 if (GIT_FOUND)
     add_custom_target(dist

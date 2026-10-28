@@ -94,9 +94,10 @@ jobs:
       run: cmake --build build_msvc --target traas
 
     - name: Running examples and unit tests
+      # the timeout is redundant to the settings in the CMakeLists but maybe submodules add tests too
       run: |
         cmake --build build_msvc --target examples
-        ctest --test-dir build_msvc --output-on-failure
+        ctest --test-dir build_msvc --output-on-failure --timeout 60
 
     - name: Building installers
       run: |
