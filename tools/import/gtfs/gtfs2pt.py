@@ -268,7 +268,9 @@ def precomputeRoutes(options, net, modePreferences, noIntNet, veh2mode, fixedSto
                "--no-step-log",
                "--no-warnings",
                "--routing-threads", str(options.bulkThreads),
-               "--ignore-errors"]
+               "--ignore-errors",
+               "--log", options.bulkPrefix + ".log",
+               "--verbose"]
     subprocess.call(duaCall, stdout=subprocess.DEVNULL)
     net.initRoutingCache(nTripSources)
 
