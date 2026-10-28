@@ -167,6 +167,3 @@ addTrip_taz
 
 # Tests traci.vehicle.getShadowLaneID() method
 getShadowLaneID
-
-# test retrieval of the arrival position for vehicles and persons
-getArrivalPos
