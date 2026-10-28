@@ -775,8 +775,13 @@ class Net:
 
             if self._routingCacheOD is not None and (fromEdge, toEdge, fastest, vClass) in self._routingCacheOD:
                 cost, path = self._routingCacheOD[(fromEdge, toEdge, fastest, vClass)]
+                if cost == PRACTICAL_INFINITY:
+                    return None, cost
                 cost = finalizeCost(cost, path)
-                return tuple(path), cost
+                if cost > maxCost:
+                    return None, cost
+                else:
+                    return tuple(path), cost
 
             dist = self._routingCache(fromEdge, fastest, vClass, ignoreDirection, reversalPenalty,
                                       tuple(preferences.items()))

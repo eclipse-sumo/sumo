@@ -296,28 +296,16 @@ def precomputeRoutes(options, net, modePreferences, noIntNet, veh2mode, fixedSto
                                   tuple(modePreferences[vehicle.type].items()))
         cost = -edges[0]._costCache
         prev = None
-        cacheOD = False
         for i, edge in enumerate(edges):
             cost += edge._costCache
             if prev is not None and prev == edge.getBidi():
                 cost += options.reversalPenalty
-            if edge in dist and dist[edge] != (cost, prev):
-                # railway routing has created ambiguous fastest predecessors, cache the path directly
-                cacheOD = True
-            if not cacheOD:
-                dist[edge] = cost, prev
-            #print("  ", edge.getID(), "cost=", cost, "prev=", prev.getID() if prev is not None else "None", "len=", edge.getLength(), "speed=", edge.getSpeed(), "cost=", edge._costCache)
             prev = edge
-
-        if cacheOD:
-            net.cacheRoute(fromEdge, toEdge, True, vClass, cost, edges)
+        net.cacheRoute(fromEdge, toEdge, True, vClass, cost, edges)
 
     for fromEdge, toEdge, mode in disconnected:
         vClass = OSM2SUMO_MODES[mode]
-        dist = net._routingCache(fromEdge, True, vClass, False, 1000,
-                                  tuple(modePreferences[mode].items()))
-        dist[toEdge] = PRACTICAL_INFINITY, None
-
+        net.cacheRoute(fromEdge, toEdge, True, vClass, PRACTICAL_INFINITY, None)
 
 @benchmark
 def traceMap(options, net, modePreferences, veh2mode, fixedStops, stopLookup, radius, geoRoutes):
