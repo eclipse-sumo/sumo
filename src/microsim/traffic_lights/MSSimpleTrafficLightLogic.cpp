@@ -349,6 +349,13 @@ MSSimpleTrafficLightLogic::saveState(OutputDevice& out) const {
 }
 
 
+void
+MSSimpleTrafficLightLogic::loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration, SUMOTime nextSwitch, SUMOTime timeInCycle, bool active) {
+    MSTrafficLightLogic::loadState(tlcontrol, t, step, spentDuration, nextSwitch, timeInCycle, active);
+    myPhases[myStep]->myLastSwitch = t - spentDuration;
+}
+
+
 const std::string
 MSSimpleTrafficLightLogic::getParameter(const std::string& key, const std::string defaultValue) const {
     if (key == "cycleTime") {

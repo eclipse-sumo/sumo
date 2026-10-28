@@ -149,8 +149,8 @@ As you can see the pedestrians are moving and waiting in structured formations.
 
 ## Run with JuPedSim Model
 
-Now we want to use the *JupedSim* model instead.
-For this, we open *nededit* again and change the configuration options by clicking on *Processing > Sumo options*.
+Now we want to use the *JuPedSim* model instead.
+For this, we open *netedit* again and change the configuration options by clicking on *Processing > Sumo options*.
 An new window is opened.
 Search for *model* and type in *jupedsim* as a pedestrian model.
 

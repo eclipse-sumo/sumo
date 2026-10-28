@@ -189,6 +189,9 @@ public:
         */
     virtual void saveState(OutputDevice& out) const override;
 
+    /// @brief restores the tls state, including the start of the current phase
+    virtual void loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration, SUMOTime nextSwitch, SUMOTime timeInCycle, bool active) override;
+
     virtual SUMOTime mapTimeInCycle(SUMOTime t) const override;
 
     /**@brief gets a parameter */

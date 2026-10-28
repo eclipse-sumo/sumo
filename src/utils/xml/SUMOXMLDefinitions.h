@@ -302,6 +302,7 @@ enum SumoXMLTag {
     SUMO_TAG_DEADLOCK,
     /// @brief Saved driveway information
     SUMO_TAG_DRIVEWAY,
+    SUMO_TAG_ROUTEPART,
     SUMO_TAG_SUBDRIVEWAY,
     /// @brief Link information for state-saving
     SUMO_TAG_LINK,

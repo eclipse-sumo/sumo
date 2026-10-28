@@ -171,6 +171,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "railSignalConstraintTracker",            SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER },
     { "deadlock",                               SUMO_TAG_DEADLOCK },
     { "driveWay",                               SUMO_TAG_DRIVEWAY },
+    { "routePart",                              SUMO_TAG_ROUTEPART },
     { "subDriveWay",                            SUMO_TAG_SUBDRIVEWAY },
     { "link",                                   SUMO_TAG_LINK },
     { "approaching",                            SUMO_TAG_APPROACHING },

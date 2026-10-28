@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-16T08:34:27.093065+01:00 by Eclipse SUMO sumo v1_28_0+0100-bb553965bae
+<!-- generated on 2026-10-25T07:34:32.440701+01:00 by Eclipse SUMO sumo v1_28_0+0203-956beccee8c8
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -885,7 +885,7 @@
         <!-- Determines where to load PHEMlight definitions from -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
 
-        <!-- Enable fleet age modelling with the given reference year in PHEMlight5 -->
+        <!-- Enable fleet age modeling with the given reference year in PHEMlight5 -->
         <phemlight-year value="0" type="INT"/>
 
         <!-- Set ambient temperature to correct NOx emissions in PHEMlight5 -->
@@ -1479,7 +1479,7 @@
     </random_number>
 
     <gui_only>
-        <!-- Load visualisation settings from FILE -->
+        <!-- Load visualization settings from FILE -->
         <gui-settings-file value="" synonymes="g" type="FILE"/>
 
         <!-- Quits the GUI when the simulation stops -->

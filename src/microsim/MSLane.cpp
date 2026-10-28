@@ -887,22 +887,32 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             && isRailwayOrShared(myPermissions)) {
         const MSDriveWay* dw = MSDriveWay::getDepartureDriveway(aVehicle);
         MSEdgeVector occupied;
+        bool dwBlocked = false;
 #ifdef DEBUG_INSERTION
         gDebugFlag4 = DEBUG_COND2(aVehicle) || DEBUG_COND;
 #endif
         if (dw->foeDriveWayOccupied(false, aVehicle, occupied)) {
-            setParameter("insertionBlocked:" + aVehicle->getID(), dw->getID());
+            dwBlocked = true;
 #ifdef DEBUG_INSERTION
             if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
                 std::cout << "   foe of driveway " + dw->getID() + " has occupied edges " + toString(occupied) << "\n";
             }
-            gDebugFlag4 = false;
 #endif
-            return false;
+        } else if (dw->sidingDeadlock(aVehicle)) {
+            dwBlocked = true;
+#ifdef DEBUG_INSERTION
+            if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                std::cout << "   insertion on driveway " + dw->getID() + " would cause deadlock\n";
+            }
+#endif
         }
 #ifdef DEBUG_INSERTION
         gDebugFlag4 = false;
 #endif
+        if (dwBlocked) {
+            setParameter("insertionBlocked:" + aVehicle->getID(), dw->getID());
+            return false;
+        }
     }
     if (getBidiLane() != nullptr && isRail) {
         // do not insert if the bidirectional edge is occupied

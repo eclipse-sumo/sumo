@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-24T01:32:13.103776+01:00 by Eclipse SUMO netedit v1_28_0+0197-be0a5093cd9
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="train" length="50.00" vClass="rail"/>
+    <vType id="longtrain" length="250.00" vClass="rail"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="v_0" type="train" depart="0.00">
+        <route edges="d2 e2 E0 E1"/>
+    </vehicle>
+    <vehicle id="v_1" type="longtrain" depart="0.00">
+        <route edges="-g -f -e -d -c -b -a"/>
+    </vehicle>
+    <vehicle id="v_2" type="train" depart="3.00">
+        <route edges="a b c2 d2 e2 E0 E1"/>
+    </vehicle>
+</routes>

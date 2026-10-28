@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-21 14:25:05.434616 by Eclipse SUMO gtfs2pt.py v1_28_0+0169-95560c63373
+<configuration>
+    <merged-csv value="data.csv"/>
+    <modes value="train"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net.net.xml"/>
+    <stops value="input_stops.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="54175" edges="E0 E1 -E1 -E0 E2">
+        <stop busStop="54175.0" duration="10" until="0"/> <!-- First -->
+        <stop busStop="54175.1.reversed" duration="10" until="100"/> <!-- Second -->
+        <stop busStop="54175.2" duration="10" until="200"/> <!-- Third -->
+    </route>
+    <vehicle id="54175.0" route="54175" type="train" depart="110" line="N68">
+        <param key="gtfs.route_name" value="N68"/>
+        <param key="gtfs.trip_headsign" value="S Adlershof"/>
+    </vehicle>
+</routes>
