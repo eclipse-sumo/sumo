@@ -238,11 +238,17 @@ class Net:
         self._version = None
         self._edgeTypes = defaultdict(lambda: EdgeType("DEFAULT_EDGETYPE", "", ""))
         self._routingCache = None
+        self._routingCacheOD = None
         self._edgeSuccessorCache = None
         self._edgeCostCache = None
 
     def initRoutingCache(self, maxsize=1000):
         self._routingCache = lru_cache(maxsize=maxsize)(lambda fromEdge, fastest, vClass, ignoreDirection, reversalPenalty, preferences: {})  # noqa
+
+    def cacheRoute(self, fromEdge, toEdge, fastest, vClass, cost, path):
+        if self._routingCacheOD is None:
+            self._routingCacheOD = dict()
+        self._routingCacheOD[(fromEdge, toEdge, fastest, vClass)] = (cost, path)
 
     def getVersion(self):
         return self._version
@@ -764,6 +770,11 @@ class Net:
                     return tuple(path), bestCost
                 else:
                     return None, PRACTICAL_INFINITY
+
+            if self._routingCacheOD is not None and (fromEdge, toEdge, fastest, vClass) in self._routingCacheOD:
+                cost, path = self._routingCacheOD[(fromEdge, toEdge, fastest, vClass)]
+                cost = finalizeCost(cost, path)
+                return tuple(path), cost
 
             dist = self._routingCache(fromEdge, fastest, vClass, ignoreDirection, reversalPenalty,
                                       tuple(preferences.items()))
