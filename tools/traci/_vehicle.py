@@ -1466,11 +1466,19 @@ class VehicleDomain(VTypeDomain):
         if depart is None:
             # legacy compatibility
             depart = str(self._connection.simulation.getTime())
-        self._setCmd(tc.ADD_FULL, vehID, "t" + (12 * "s") + "ii" + "ss" + "d" + "s", 18,
-                     routeID, typeID, depart, departLane, departPos, departSpeed,
-                     arrivalLane, arrivalPos, arrivalSpeed, fromTaz, toTaz, line,
-                     personCapacity, personNumber, departPosLat, arrivalPosLat,
-                     speedFactor, insertionChecks)
+        withOptional = (departPosLat != "" or arrivalPosLat != ""
+                        or speedFactor != -1 or insertionChecks != "")
+        if withOptional:
+            self._setCmd(tc.ADD_FULL, vehID, "t" + (12 * "s") + "ii" + "ss" + "d" + "s", 18,
+                         routeID, typeID, depart, departLane, departPos, departSpeed,
+                         arrivalLane, arrivalPos, arrivalSpeed, fromTaz, toTaz, line,
+                         personCapacity, personNumber, departPosLat, arrivalPosLat,
+                         speedFactor, insertionChecks)
+        else:
+            self._setCmd(tc.ADD_FULL, vehID, "t" + (12 * "s") + "ii", 14,
+                         routeID, typeID, depart, departLane, departPos, departSpeed,
+                         arrivalLane, arrivalPos, arrivalSpeed, fromTaz, toTaz, line,
+                         personCapacity, personNumber)
 
     addFull = add
 

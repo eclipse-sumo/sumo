@@ -860,7 +860,9 @@ Vehicle::add(const std::string& vehID,
              double speedFactor,
              const std::string& insertionChecks) {
     tcpip::Storage content;
-    StoHelp::writeCompound(content, 18);
+    const bool withOptional = !departPosLat.empty() || !arrivalPosLat.empty()
+                              || speedFactor != -1. || !insertionChecks.empty();
+    StoHelp::writeCompound(content, withOptional ? 18 : 14);
     StoHelp::writeTypedString(content, routeID);
     StoHelp::writeTypedString(content, typeID);
     StoHelp::writeTypedString(content, depart);
@@ -879,10 +881,12 @@ Vehicle::add(const std::string& vehID,
     StoHelp::writeTypedInt(content, personCapacity);
     StoHelp::writeTypedInt(content, personNumber);
 
-    StoHelp::writeTypedString(content, departPosLat);
-    StoHelp::writeTypedString(content, arrivalPosLat);
-    StoHelp::writeTypedDouble(content, speedFactor);
-    StoHelp::writeTypedString(content, insertionChecks);
+    if (withOptional) {
+        StoHelp::writeTypedString(content, departPosLat);
+        StoHelp::writeTypedString(content, arrivalPosLat);
+        StoHelp::writeTypedDouble(content, speedFactor);
+        StoHelp::writeTypedString(content, insertionChecks);
+    }
 
     Dom::set(libsumo::ADD_FULL, vehID, &content);
 }
