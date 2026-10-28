@@ -53,8 +53,6 @@ jobs:
     - name: Fetching SUMO Libraries
       # this also sets $SUMO_LIBRARIES
       uses: ./sumo/.github/actions/fetch-sumo-libraries
-      with:
-        commit: 5c3b1905bd8b06274dc172d9771d061f39579d9e
 
     - name: Setup fail-fast PowerShell
       run: |

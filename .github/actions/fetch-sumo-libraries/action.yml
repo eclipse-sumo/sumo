@@ -3,7 +3,7 @@ description: Downloads the current release zip (or a given commit) of SUMOLibrar
 inputs:
   commit:
     required: false
-    default: '1.28.0'
+    default: '1.29.0.dev'
     description: 'tag or full commit hash to fetch'
 runs:
   using: composite

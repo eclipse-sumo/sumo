@@ -39,9 +39,6 @@ jobs:
     - name: Fetching SUMO Libraries
       # this also sets $SUMO_LIBRARIES
       uses: ./.github/actions/fetch-sumo-libraries
-      with:
-        # this is needed for grpc
-        commit: 5c3b1905bd8b06274dc172d9771d061f39579d9e
 
     - name: Setup fail-fast PowerShell
       run: |
