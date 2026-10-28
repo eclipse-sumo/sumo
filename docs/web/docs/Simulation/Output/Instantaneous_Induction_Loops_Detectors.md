@@ -77,7 +77,7 @@ teleported a leave event without occupancy is generated.
 !!! note
     The timing values are of sub-step resolution, computed by interpolating from the last two simulation steps. This interpolation takes into account **--step-method**.
 
-## Visualisation
+## Visualization
 
 | A scenario with induction loops | A close-up view at an induction loop |
 |:---:|:---:|

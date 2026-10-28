@@ -65,7 +65,6 @@ jobs:
       matrix: ${{ fromJSON(needs.generate-matrix.outputs.build_matrix) }}
     runs-on: ${{ matrix.os }}
     env:
-      SUMO_LIBRARIES: D:\a\sumo\sumo\SUMOLibraries
       MACOSX_DEPLOYMENT_TARGET: '15.0'
 
     steps:
@@ -77,22 +76,20 @@ jobs:
           # to work around actions/checkout#1467
           ref: ${{ github.ref }}
 
-      - name: Cloning SUMO Libraries
-        if: matrix.os == 'windows-latest'
-        uses: actions/checkout@v7
-        with:
-          repository: DLR-TS/SUMOLibraries
-          path: SUMOLibraries
+      - name: Fetching SUMO Libraries
+        if: ${{ startsWith(matrix.os, 'windows') }}
+        # this also sets $SUMO_LIBRARIES
+        uses: ./.github/actions/fetch-sumo-libraries
 
       - name: "Set up MSVC Developer Command Prompt"
-        if: matrix.os == 'windows-latest'
+        if: ${{ startsWith(matrix.os, 'windows') }}
         uses: compnerd/gha-setup-vsdevenv@v7
 
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2.24
         with:
           key: ${{ matrix.os }}-${{ matrix.manylinux }}
-          variant: ${{ matrix.os == 'windows-latest' && 'sccache' || 'ccache' }}
+          variant: ${{ startsWith(matrix.os, 'windows') && 'sccache' || 'ccache' }}
 
       - name: Set up Python
         uses: actions/setup-python@v7
@@ -114,7 +111,7 @@ jobs:
         #   python tools/build_config/version.py --pep440 build_config/pyproject/eclipse-sumo.toml pyproject.toml
 
       - name: Building wheel eclipse-sumo
-        uses: pypa/cibuildwheel@v4.3.1
+        uses: pypa/cibuildwheel@v4.3.4
         env:
           CIBW_ENVIRONMENT_LINUX: CCACHE_DIR=/host/home/runner/work/sumo/sumo/.ccache
           CIBW_ENVIRONMENT_WINDOWS: CMAKE_GENERATOR=Ninja PATH="D:\\a\\sumo\\sumo\\bin;$PATH"
@@ -132,7 +129,7 @@ jobs:
         run: python tools/build_config/version.py --pep440 build_config/pyproject/libsumo.toml pyproject.toml
 
       - name: Building wheel libsumo
-        uses: pypa/cibuildwheel@v4.3.1
+        uses: pypa/cibuildwheel@v4.3.4
         env:
           CIBW_ENVIRONMENT_LINUX: CCACHE_DIR=/host/home/runner/work/sumo/sumo/.ccache
           CIBW_ENVIRONMENT_WINDOWS: CMAKE_GENERATOR=Ninja PATH="D:\\a\\sumo\\sumo\\bin;$PATH"

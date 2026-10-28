@@ -1323,7 +1323,7 @@ void
 GNEApplicationWindowHelper::EditMenuCommands::buildViewMenuCommands(FXMenuPane* editMenu) {
     // build rest of menu commands
     editViewScheme = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
-                     TL("Edit Visualisation"), "F9", TL("Opens a dialog for editing visualization settings."),
+                     TL("Edit Visualization"), "F9", TL("Opens a dialog for editing visualization settings."),
                      GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), myApplicationWindow, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
     editViewPort = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
                    TL("Edit Viewport"), "Ctrl+I", TL("Opens a dialog for editing viewing area, zoom and rotation."),
@@ -2695,13 +2695,13 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
         mySumoOptions.resetDefault("net-file");
     }
     // additional file (only netedit)
-    if (additional.size() > 0) {
+    if ((additional.size() > 0) && !myNeteditOptions.getBool("ignore.additionalelements")) {
         myNeteditOptions.set("additional-files", additional);
     } else {
         myNeteditOptions.resetDefault("additional-files");
     }
     // demand file (netedit)
-    if (demandFile.size() > 0) {
+    if ((demandFile.size() > 0) && !myNeteditOptions.getBool("ignore.routeelements")) {
         myNeteditOptions.set("route-files", demandFile);
     } else {
         myNeteditOptions.resetDefault("route-files");

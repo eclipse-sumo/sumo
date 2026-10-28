@@ -366,7 +366,7 @@ configuration:
 |--------|-------------|
 | **--emissions.volumetric-fuel** {{DT_BOOL}} | Return fuel consumption values in (legacy) unit l instead of mg; *default:* **false** |
 | **--phemlight-path** {{DT_FILE}} | Determines where to load PHEMlight definitions from; *default:* **./PHEMlight/** |
-| **--phemlight-year** {{DT_INT}} | Enable fleet age modelling with the given reference year in PHEMlight5; *default:* **0** |
+| **--phemlight-year** {{DT_INT}} | Enable fleet age modeling with the given reference year in PHEMlight5; *default:* **0** |
 | **--phemlight-temperature** {{DT_FLOAT}} | Set ambient temperature to correct NOx emissions in PHEMlight5; *default:* **1.79769e+308** |
 | **--device.emissions.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'emissions' device; *default:* **-1** |
 | **--device.emissions.explicit** {{DT_STR_LIST}} | Assign a 'emissions' device to named vehicles |
@@ -632,7 +632,7 @@ configuration:
 
 | Option | Description |
 |--------|-------------|
-| **-g** {{DT_FILE}}<br> **--gui-settings-file** {{DT_FILE}} | Load visualisation settings from FILE |
+| **-g** {{DT_FILE}}<br> **--gui-settings-file** {{DT_FILE}} | Load visualization settings from FILE |
 | **-Q** {{DT_BOOL}}<br> **--quit-on-end** {{DT_BOOL}} | Quits the GUI when the simulation stops; *default:* **false** |
 | **-G** {{DT_BOOL}}<br> **--game** {{DT_BOOL}} | Start the GUI in gaming mode; *default:* **false** |
 | **--game.mode** {{DT_STR}} | Select the game type ('tls', 'drt'); *default:* **tls** |

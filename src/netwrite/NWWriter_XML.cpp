@@ -346,6 +346,13 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
 
     edevice.close();
     cdevice.close();
+
+    if (dlrNavteq) {
+        OutputDevice& cdevice2 = OutputDevice::getDevice(prefix + ".cpr." + ext);
+        cdevice2.writeXMLHeader("connections", "connections_file.xsd");
+        NWWriter_DlrNavteq::writeProhibitedManoeuvresAttrs(cdevice2, nc);
+        cdevice2.close();
+    }
 }
 
 

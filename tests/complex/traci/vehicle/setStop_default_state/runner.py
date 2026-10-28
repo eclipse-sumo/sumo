@@ -43,5 +43,6 @@ traci.simulation.saveState("state.xml")
 traci.simulation.loadState("state.xml")
 while traci.simulation.getTime() < 100:
     traci.simulationStep()
+traci.simulation.saveState("state2.xml")
 
 traci.close()

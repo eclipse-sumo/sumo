@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-08 12:34:44.061205 by Eclipse SUMO gtfs2pt.py v1_26_0+1530-6c035dc6a12
+<!-- generated on 2026-10-28 20:46:21.504275 by Eclipse SUMO gtfs2pt.py v1_28_0+0299-30cbd60de3b
 <configuration>
     <merged-csv value="data.csv"/>
     <modes value="bus"/>
     <vtype-output value="vehtypes.xml"/>
     <network value="net.net.xml"/>
-    <bus-parking value="True"/>
     <stops value="input_stops.xml"/>
+    <parking-threshold value="3600.0"/>
 </configuration>
 -->
 

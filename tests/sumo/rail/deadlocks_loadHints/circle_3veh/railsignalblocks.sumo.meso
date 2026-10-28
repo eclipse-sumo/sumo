@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:38:01.896763+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-10-27T17:13:20.248429+01:00 by Eclipse SUMO sumo v1_28_0+0262-c98aeb3e7fe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,6 +28,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <time-to-teleport.railsignal-deadlock value="200"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -128,9 +130,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <conflictLinks signals="C_0"/>
             <foes driveWays="C.0 C.1 C.2 C.d0"/>
-            <deadlock foes="A.0 B.1"/>
-            <deadlock foes="A.d0 B.1"/>
-            <deadlock foes="A.0 B.d0"/>
+            <deadlock foes="A.1 B.d0"/>
             <deadlock foes="A.d0 B.d0"/>
         </driveWay>
     </departJunction>
@@ -141,10 +141,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <conflictLinks signals="A_0"/>
             <foes driveWays="A.0 A.1 A.2 A.d0"/>
-            <deadlock foes="B.1 C.d0"/>
+            <deadlock foes="B.d0 C.0"/>
             <deadlock foes="B.d0 C.d0"/>
-            <deadlock foes="B.1 C.2"/>
-            <deadlock foes="B.d0 C.2"/>
         </driveWay>
     </departJunction>
     <departJunction id="B">
@@ -154,10 +152,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <conflictLinks signals="B_0"/>
             <foes driveWays="B.0 B.1 B.2 B.d0"/>
-            <deadlock foes="A.0 C.d0"/>
+            <deadlock foes="A.1 C.0"/>
+            <deadlock foes="A.d0 C.0"/>
+            <deadlock foes="A.1 C.d0"/>
             <deadlock foes="A.d0 C.d0"/>
-            <deadlock foes="A.0 C.2"/>
-            <deadlock foes="A.d0 C.2"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

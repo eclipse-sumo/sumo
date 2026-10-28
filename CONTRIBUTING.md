@@ -5,7 +5,7 @@ Thanks for your interest in this project.
 ## Project description
 
 Eclipse Simulation of Urban Mobility (SUMO) is a free and open traffic
-simulation toolsuite. SUMO allows modelling and analyzing intermodal traffic
+simulation toolsuite. SUMO allows modeling and analyzing intermodal traffic
 systems, including road vehicles, public transport, cargo logistics and
 pedestrians. Included with SUMO is a wealth of supporting tools, which handle
 tasks like route finding, visualization, network import and emission
