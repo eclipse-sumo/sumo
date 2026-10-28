@@ -54,20 +54,38 @@ GNEGeneralHandler::isErrorCreatingElement() const {
 
 
 bool
+GNEGeneralHandler::isErrorCreatingAdditional() const {
+    return myAdditionalHandler.isErrorCreatingElement();
+}
+
+
+bool
+GNEGeneralHandler::isErrorCreatingDemand() const {
+    return myDemandHandler.isErrorCreatingElement();
+}
+
+
+bool
+GNEGeneralHandler::isErrorCreatingMeanData() const {
+    return myMeanDataHandler.isErrorCreatingElement();
+}
+
+
+bool
 GNEGeneralHandler::isAdditionalFile() const {
-    return fileType == TagType::Type::ADDITIONAL;
+    return myHasAdditionalElements;
 }
 
 
 bool
 GNEGeneralHandler::isRouteFile() const {
-    return fileType == TagType::Type::DEMAND;
+    return myHasDemandElements;
 }
 
 
 bool
 GNEGeneralHandler::isMeanDataFile() const {
-    return fileType == TagType::Type::MEANDATA;
+    return myHasMeanDataElements;
 }
 
 
@@ -159,21 +177,15 @@ GNEGeneralHandler::endTag() {
     } else if (myQueue.back().isAdditional()) {
         // end parse additional elements
         myAdditionalHandler.endParseAttributes();
-        // mark file as additional
-        fileType = TagType::Type::ADDITIONAL;
+        myHasAdditionalElements = true;
     } else if (myQueue.back().isDemand()) {
         // end parse demand elements
         myDemandHandler.endParseAttributes();
-        // mark file as demand
-        fileType = TagType::Type::DEMAND;
+        myHasDemandElements = true;
     } else if (myQueue.back().isMeanData()) {
         // end parse meanData elements
         myMeanDataHandler.endParseAttributes();
-        // mark file as mean data
-        fileType = TagType::Type::MEANDATA;
-    } else {
-        // mark file as demand
-        fileType = TagType::Type::NONE;
+        myHasMeanDataElements = true;
     }
 }
 

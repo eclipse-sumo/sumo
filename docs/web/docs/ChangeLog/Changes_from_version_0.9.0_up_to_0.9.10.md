@@ -438,7 +438,7 @@ lanes](https://sourceforge.net/tracker/index.php?func=detail&aid=1840944&group_i
   consecutive phases
 - made static comboboxes really static
 - VISUM: patching problems on loading split lanes and tls
-- added blinker visualisation and vehicle tracking (unfinished)
+- added blinker visualization and vehicle tracking (unfinished)
 - retrieval-methods have the "get" prependix; EmitControl has no
   dictionary; MSVehicle is completely scheduled by MSVehicleControl;
   new lanechanging algorithm
@@ -463,7 +463,7 @@ lanes](https://sourceforge.net/tracker/index.php?func=detail&aid=1840944&group_i
 - added vehicle class support to microsim
 - added vehicle class support to microsim
 - removed deprecated c2c functions, added new made by Danilot Boyom
-- c2c visualisation added (unfinished)
+- c2c visualization added (unfinished)
 - added the possibility to copy an artefact's (gl-object's) name to
   clipboard (windows)
 - removed unneeded id member in MSMoveReminder
@@ -574,7 +574,7 @@ User-relevant changes
   - segfaults on loading broken configs patched
   - catching opening a second file using recent files added
   - subwindows are now deleted on (re)loading the simulation
-  - some improvements on visualisation (unfinished (GridBuilder))
+  - some improvements on visualization (unfinished (GridBuilder))
   - viewport changer debugged
   - problems on loading geometry items patched
   - list of selected items is now cleared on closing/reloading (was
@@ -648,14 +648,14 @@ User-relevant changes:
     - Selection-Editor now saves to \*.txt-files
   - Centering of objects has been revalidated
   - Variable Speed Signs
-    - Visualisation of vss added
+    - Visualization of vss added
     - Added the possibility to interact with vss'
   - "Reload Simulation" option added
   - Status-Bar message patched
   - Rotation removed (was buggy)
   - Error on closing the gui if parameter tracker are opened patched
   - Value tracker may now be aggregated and are able to save the tracked values
-  - POlygon visualisation added
+  - Polygon visualization added
   - Breakpoints added
   - Setting and Saving of additional net weights added (preliminary, subject to improve)
   - Coloring by type and by route added

@@ -59,8 +59,7 @@ except ImportError:
 import sumolib
 from . import lane, edge, netshiftadaptor, node, connection, roundabout  # noqa
 from .connection import Connection
-from sumolib.miscutils import intIfPossible, openz, PRACTICAL_INFINITY
-
+from sumolib.miscutils import intIfPossible, openz, PRACTICAL_INFINITY, benchmark_cumulative
 
 class TLS:
 
@@ -239,11 +238,17 @@ class Net:
         self._version = None
         self._edgeTypes = defaultdict(lambda: EdgeType("DEFAULT_EDGETYPE", "", ""))
         self._routingCache = None
+        self._routingCacheOD = None
         self._edgeSuccessorCache = None
         self._edgeCostCache = None
 
     def initRoutingCache(self, maxsize=1000):
         self._routingCache = lru_cache(maxsize=maxsize)(lambda fromEdge, fastest, vClass, ignoreDirection, reversalPenalty, preferences: {})  # noqa
+
+    def cacheRoute(self, fromEdge, toEdge, fastest, vClass, cost, path):
+        if self._routingCacheOD is None:
+            self._routingCacheOD = dict()
+        self._routingCacheOD[(fromEdge, toEdge, fastest, vClass)] = (cost, path)
 
     def getVersion(self):
         return self._version
@@ -627,9 +632,11 @@ class Net:
                     minPath = viaPath
         return minPath, minInternalCost
 
+    #@benchmark_cumulative
+    #@profile
     def getOptimalPath(self, fromEdge, toEdge, fastest=False, maxCost=PRACTICAL_INFINITY, vClass=None,
                        reversalPenalty=0, includeFromToCost=True, withInternal=False, ignoreDirection=False,
-                       fromPos=None, toPos=None, preferences={}):
+                       fromPos=None, toPos=None, preferences={}, length=None):
         """
         Finds the optimal (shortest or fastest) path for vClass from fromEdge to toEdge
         by using using Dijkstra's algorithm.
@@ -704,6 +711,10 @@ class Net:
         def constructPath(dist):
             # destination was already reached in a previous query
             cost, pred = dist[toEdge]
+            if cost == PRACTICAL_INFINITY or (cost > maxCost
+                    # the final node may exceed max cost but the prior node may not
+                    and cost - toEdge._costCache > maxCost):
+                return None, cost
             path = [toEdge]
             while pred is not None:
                 if self.hasInternal and withInternal:
@@ -762,6 +773,16 @@ class Net:
                 else:
                     return None, PRACTICAL_INFINITY
 
+            if self._routingCacheOD is not None and (fromEdge, toEdge, fastest, vClass) in self._routingCacheOD:
+                cost, path = self._routingCacheOD[(fromEdge, toEdge, fastest, vClass)]
+                if cost == PRACTICAL_INFINITY:
+                    return None, cost
+                cost = finalizeCost(cost, path)
+                if cost > maxCost:
+                    return None, cost
+                else:
+                    return tuple(path), cost
+
             dist = self._routingCache(fromEdge, fastest, vClass, ignoreDirection, reversalPenalty,
                                       tuple(preferences.items()))
             if toEdge in dist:
@@ -787,19 +808,17 @@ class Net:
 
         while q:
             cost, e1, prev = heapq.heappop(q)
-            if e1 in seen:
-                continue
-            seen.add(e1)
             if e1 == toEdge:
                 return constructPath(dist)
             if cost > maxCost:
                 return None, cost
-
+            seen.add(e1)
+            bidi = e1._bidi  # attribute access is faster than method access
             for e2, conn in e1._succCacche:
                 if e2 not in seen:
                     newCost = cost + e2._costCache
                     #  print(cost, newCost, e2.getID(), speedFunc(e2))
-                    if e2 == e1.getBidi():
+                    if e2 == bidi:
                         newCost += reversalPenalty
                     if self.hasInternal and conn is not None:
                         viaPath, minInternalCost = self.getInternalPath(conn, fastest=fastest)

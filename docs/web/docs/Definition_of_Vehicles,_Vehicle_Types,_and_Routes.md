@@ -807,7 +807,7 @@ following table.
 | carFollowing-ACC            | ACC                                             | [Car following model by Milanés V. and Shladover S.E.](Car-Following-Models/ACC.md)  |
 | carFollowing-NaSch          | NaSch                                           | Discretized cellular-automaton model by Nagel and Schreckenberg (1992); speeds are rounded to multiples of the "cell size" implied by **accel** and only the gap (not the leader's speed) bounds the safe speed |
 | carFollowing-CACC           | CACC                                            | [Car following model by Milanés V. and Shladover S.E.](Car-Following-Models/CACC.md) |
-| carFollowing-Rail           | Rail                                            | [Model for various train types](Simulation/Railways.md#modelling_trains)                    |
+| carFollowing-Rail           | Rail                                            | [Model for various train types](Simulation/Railways.md#modeling_trains)                    |
 
 ### Car-Following Model Parameters
 
@@ -862,7 +862,7 @@ lists which parameter are used by which model(s). [Details on car-following mode
 | cc7                          | 0.25                                                  |          | Oscillation Acceleration - m/s^2                                                                          | W99       |
 | cc8                          | 2.00                                                  |          | Standstill Acceleration - m/s^2                                                                           | W99       |
 | cc9                          | 1.50                                                  |          | Acceleration at 80km/h - m/s^2                                                                            | W99       |
-| trainType                    |                                                       |          | [string id for pre-defined train type](Simulation/Railways.md#modelling_trains)   | Rail      |
+| trainType                    |                                                       |          | [string id for pre-defined train type](Simulation/Railways.md#modeling_trains)   | Rail      |
 | tractionTable                | depends on trainType                                  | list of FLOAT  | traction values for each speed givein in speedTable                         | Rail      |
 | resistanceTable              | depends on trainType                                  | list of FLOAT  | resistance values for each speed givein in speedTable                       | Rail      |
 | massFactor                   | 1.04 - 1.1 depending on trainType                     | > 0      | factor for train mass to compute rotational weight                                | Rail      |
@@ -1318,7 +1318,7 @@ in a vehicle, route or vType.
 ```
 
 In the default visualization settings the vehicle color will be used if
-define, otherwise the type and finally the route color. [These settings can be changed.](sumo-gui.md#vehicle_visualisation_settings)
+define, otherwise the type and finally the route color. [These settings can be changed.](sumo-gui.md#vehicle_visualization_settings)
 
 By default color components should be given as integers in the range of
 (0,255) but other definitions are also supported:

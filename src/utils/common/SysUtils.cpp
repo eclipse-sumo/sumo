@@ -31,9 +31,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 #else
-#define NOMINMAX
 #include <windows.h>
-#undef NOMINMAX
 #define stat _stat
 #endif
 

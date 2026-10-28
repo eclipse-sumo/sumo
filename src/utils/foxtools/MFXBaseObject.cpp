@@ -26,21 +26,7 @@
  * ======================================================================= */
 #include <config.h>
 
-#define NOMINMAX
-#undef NOMINMAX
 #include "fxheader.h"
-/*
-#include <FXString.h>
-#include <FXHash.h>
-#include <FXStream.h>
-#include <FXSize.h>
-#include <FXPoint.h>
-#include <FXRectangle.h>
-#include <FXRegistry.h>
-#include <FXMutex.h>
-#include <FXApp.h>
-#include <FXWindow.h>
-*/
 using namespace FX;
 #include "MFXBaseObject.h"
 
