@@ -5,7 +5,7 @@ title: VehicleInsertion
 # Loading
 
 Vehicles are either loaded [from XML
-inputs](../index.md#demand_modelling) or [added
+inputs](../index.md#demand_modeling) or [added
 at runtime via TraCI](../TraCI/index.md). When loading from XML, not all
 vehicles are loaded at once. Instead, vehicles are loaded in chunks, the
 size of which can be configured with the option **--route-steps**. This is done to

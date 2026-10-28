@@ -1,0 +1,28 @@
+name: Fetch SUMOLibraries
+description: Downloads the current release zip (or a given commit) of SUMOLibraries and unpacks it
+inputs:
+  commit:
+    required: false
+    default: '1.29.0.dev'
+    description: 'tag or full commit hash to fetch'
+runs:
+  using: composite
+  steps:
+    - name: Download and unzip SUMOLibraries
+      shell: bash
+      run: |
+        repo="DLR-TS/SUMOLibraries"
+        if gh release download "${{ inputs.commit }}" --repo "$repo" --pattern "SUMOLibraries*.zip" --output "$RUNNER_TEMP/SUMOLibraries.zip"; then
+          unzip -q -o $RUNNER_TEMP/SUMOLibraries.zip
+        else
+          run_id=$(gh run list --repo "$repo" --workflow "package.yml" --commit "${{ inputs.commit }}" --status success --limit 1 --json databaseId --jq '.[0].databaseId // empty')
+          if [ -z "$run_id" ]; then
+            echo "No successful run for ${{ inputs.commit }} in $repo" >&2
+            exit 1
+          fi
+          gh run download "$run_id" --repo "$repo" --pattern 'SUMOLibraries*'
+          mv SUMOLibraries*.zip/* . && rmdir SUMOLibraries*.zip
+        fi
+        echo "SUMO_LIBRARIES=$(cygpath -m $PWD/SUMOLibraries*)" >> "$GITHUB_ENV"
+      env:
+        GH_TOKEN: ${{ github.token }}

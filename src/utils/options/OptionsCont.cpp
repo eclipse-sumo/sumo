@@ -603,6 +603,27 @@ OptionsCont::addOptionSubTopic(const std::string& topic) {
 
 
 void
+OptionsCont::removeSubTopic(const std::string& topic) {
+    auto it = std::find(mySubTopics.begin(), mySubTopics.end(), topic);
+    if (it != mySubTopics.end()) {
+        mySubTopics.erase(it);
+    }
+    mySubTopicEntries.erase(topic);
+}
+
+
+void
+OptionsCont::removeOption(const std::string& name) {
+    for (auto& entry : mySubTopicEntries) {
+        auto it = std::find(entry.second.begin(), entry.second.end(), name);
+        if (it != entry.second.end()) {
+            entry.second.erase(it);
+        }
+    }
+}
+
+
+void
 OptionsCont::splitLines(std::ostream& os, std::string what,
                         int offset, int nextOffset) {
     while (what.length() > 0) {

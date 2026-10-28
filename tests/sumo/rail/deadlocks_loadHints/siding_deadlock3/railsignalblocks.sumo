@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-07T08:35:53.223038+01:00 by Eclipse SUMO sumo v1_26_0+1003-0dd91ece098
+<!-- generated on 2026-10-25T20:42:03.275567+01:00 by Eclipse SUMO sumo v1_28_0+0211-16595a282c7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <input>
         <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
     </input>
 
     <output>
@@ -28,6 +29,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <processing>
         <collision.action value="warn"/>
         <time-to-teleport.railsignal-deadlock value="200"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -117,6 +120,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <conflictLinks signals="D_0"/>
                 <foes driveWays="D.0.0 D.d0.0 E.d0.0 G.0"/>
+                <deadlock foes="C.d0 D2.d0 J0.d0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -128,6 +132,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <conflictLinks signals=""/>
             <foes driveWays="D2.d0 F.0"/>
+            <deadlock foes="C.d0 G.0 J0.d0"/>
         </driveWay>
     </departJunction>
     <departJunction id="I">
@@ -146,6 +151,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <conflictLinks signals="C2_0"/>
             <foes driveWays="C2.0 J0.d0"/>
+            <deadlock foes="C.d0 D2.d0 G.0"/>
         </driveWay>
     </departJunction>
     <departJunction id="A">
@@ -168,6 +174,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <conflictLinks signals=""/>
             <foes driveWays="A.0 A.d0 C.d0"/>
+            <deadlock foes="D2.d0 G.0 J0.d0"/>
         </driveWay>
     </departJunction>
     <departJunction id="D">

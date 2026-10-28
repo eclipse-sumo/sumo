@@ -12,7 +12,7 @@ uses the same input data as the main [sumo](../sumo.md) model. It
 computes vehicle movements with queues and runs up to 100 times faster
 than the microscopic model of [sumo](../sumo.md). Additionally, due
 to using a coarser model for intersections and lane-changing it is more
-tolerant of network modelling errors than [sumo](../sumo.md).
+tolerant of network modeling errors than [sumo](../sumo.md).
 
 - **Purpose:** Simulates a defined scenario
 - **System:** portable (Linux/Windows is tested); runs on command line
@@ -157,7 +157,7 @@ randomized process depending on vehicle speeds and density.
 
 ## Junction Model
 
-There are 3 basic options for modelling junction control
+There are 3 basic options for modeling junction control
 
 1. **--meso-junction-control false** (the default): No junction control takes place. This should only be
     used for motorway scenarios or in combination with the penalty options below

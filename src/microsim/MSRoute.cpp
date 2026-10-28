@@ -229,19 +229,24 @@ MSRoute::writeEdgeIDs(OutputDevice& os, int firstIndex, int lastIndex, bool with
         lastIndex = (int)myEdges.size();
     }
     int internal = 0;
+    // collect the ids first, writing them to the stream one by one is slow
+    std::string ids;
     for (int i = firstIndex; i < lastIndex; i++) {
-        os << myEdges[i]->getID() << ' ';
+        ids += myEdges[i]->getID();
+        ids += ' ';
         if (withInternal && i + 1 < lastIndex) {
             const MSEdge* next = myEdges[i + 1];
             const MSEdge* edge = myEdges[i]->getInternalFollowingEdge(next, svc);
             // Take into account non-internal lengths until next non-internal edge
             while (edge != nullptr && edge->isInternal()) {
-                os << edge->getID() << ' ';
+                ids += edge->getID();
+                ids += ' ';
                 internal++;
                 edge = edge->getInternalFollowingEdge(next, svc);
             }
         }
     }
+    os << ids;
     return internal + lastIndex - firstIndex;
 }
 
