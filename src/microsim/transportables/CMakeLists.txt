@@ -48,7 +48,8 @@ set(microsim_transportables_STAT_SRCS
 add_library(microsim_transportables STATIC ${microsim_transportables_STAT_SRCS} ${remote_model})
 target_link_libraries(microsim_transportables PUBLIC
     $<$<BOOL:${HAVE_JUPEDSIM_LEGACY}>:jupedsim::jupedsim>
-    $<$<AND:$<BOOL:${HAVE_JUPEDSIM_GRPC}>,${jps_grpc_enabled}>:gRPC::grpc++_unsecure protobuf::libprotobuf-lite>
+    $<$<BOOL:${jps_grpc_enabled}>:gRPC::grpc++_unsecure>
+    $<$<BOOL:${jps_grpc_enabled}>:protobuf::libprotobuf-lite>
 )
 # You can also use $<$<BOOL:${HAVE_JUPEDSIM_GRPC}>:gRPC::grpc++ protobuf::libprotobuf> above,
 # if you need ssl communication or protobuf reflection.

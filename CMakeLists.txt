@@ -383,9 +383,11 @@ if (SUMO_LIBRARIES AND WIN32)
         file(GLOB FMT_PATH "${SUMO_LIBRARIES}/fmt-*")
         file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-*")
     endif ()
+    # make sure gRPC and the rest use the same zlib
+    set(ZLIB_ROOT "${ZLIB_PATH}")
 
     # set all paths in prefix
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${GRPC_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext;${ARROW_PATH};${LZ4_PATH};${ZSTD_PATH};${BZIP2_PATH};${THRIFT_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH};${BOOST_PATH}")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${ZLIB_PATH};${GRPC_PATH};${EIGEN3_PATH};${XERCES_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext;${ARROW_PATH};${LZ4_PATH};${ZSTD_PATH};${BZIP2_PATH};${THRIFT_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH};${BOOST_PATH}")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${ZLIB_PATH}/bin/*.dll"
@@ -444,8 +446,7 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
     if (ENABLE_JUPEDSIM)
         file(GLOB _JUPEDSIM_DLLS "${JUPEDSIM_CUSTOMDIR}/bin/*.dll"
-                                 "${GEOS_PATH}/bin/*.dll"
-                                 "${GRPC_PATH}/bin/*.dll")
+                                 "${GEOS_PATH}/bin/*.dll")
         list(APPEND SUMO_LIBRARIES_DLL ${_JUPEDSIM_DLLS})
     endif ()
     if (ENABLE_PARQUET)
@@ -1071,6 +1072,7 @@ if (PYINSTALLER_FOUND AND EXISTS ${CMAKE_SOURCE_DIR}/tools/game/runner.spec)
 endif()
 
 add_test(exampletest ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
+set_tests_properties(exampletest PROPERTIES TIMEOUT 300)
 find_package(Git)
 if (GIT_FOUND)
     add_custom_target(dist

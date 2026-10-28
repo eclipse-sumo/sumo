@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-08 15:51:15.567074 by Eclipse SUMO gtfs2pt.py v1_26_0+1535-ebbacc658c7
+<!-- generated on 2026-10-28 20:46:21.514571 by Eclipse SUMO gtfs2pt.py v1_28_0+0299-30cbd60de3b
 <configuration>
     <merged-csv value="data.csv"/>
     <modes value="bus"/>
