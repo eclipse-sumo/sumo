@@ -6,6 +6,15 @@ siding_deadlock2
 # See #17826
 siding_deadlock3
 
+# siding cannot be used because it is already occupied, vehicle routes start or end in the siding, one extra signal that is blocked by a long trian end to complicate loading of deadlocks
+siding_deadlock4
+
+# siding cannot be used because it is already occupied, vehicle routes start or end in the siding, one extra signal that is blocked by a long trian end to complicate loading of deadlocks
+siding_deadlock4_noInternal
+
+# siding cannot be used because it is already occupied, vehicle routes start or end in the siding, one extra signal that is blocked by a long trian end to complicate loading of deadlocks. Different vehicle insertion order
+siding_deadlock4b
+
 # a loop that reverses on itself can create a deadlock with 4 vehicles (2 from either direction)
 loop_4veh
 
@@ -21,5 +30,14 @@ triangle_6veh
 # deadlock
 circle_3veh
 
+# deadlock see #18432
+circle_3veh_x4
+
 # deadlock detecting cannot work when time-to-teleport is lower than time-to-teleport.railsignal-deadlock
 bad_teleport_option
+
+# deadlock involving a long train that blocks the outflow of the other side over a diamond crossing
+siding_crossing_deadlock
+
+# deadlock involving a long train that blocks the outflow of the other side over a diamond crossing. Different order of arrivals
+siding_crossing_deadlock2

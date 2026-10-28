@@ -27,9 +27,7 @@
 #include <algorithm>
 #include <iostream>
 #ifdef WIN32
-#define NOMINMAX
 #include <windows.h>
-#undef NOMINMAX
 #else
 #include <unistd.h>
 #endif

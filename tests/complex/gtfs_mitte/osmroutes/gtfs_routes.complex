@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-08-25 09:31:57.934234 by Eclipse SUMO gtfs2pt.py v1_27_1+0465-6f889c1943f
+<!-- generated on 2026-10-28 02:31:33.548384 by Eclipse SUMO gtfs2pt.py v1_28_0+0281-645e02eb1b8
 <configuration>
     <gtfs value="data/GTFS_VBB_Mitte_20190713.zip"/>
     <date value="20190713"/>
+    <sbahn-is-light-rail value="True"/>
     <network value="test/osm.net.xml.gz"/>
     <osm-routes value="test/osm_ptlines.xml"/>
 </configuration>
@@ -42,8 +43,8 @@
         <stop busStop="070101007179_0" arrival="420" duration="10" until="420"/><!--stopSequence="17.0/22.0" "Berlin, Mollstr./Prenzlauer Allee"-->
         <stop busStop="070101006409_0" arrival="480" duration="10" until="480"/><!--stopSequence="18.0/22.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <route id="8441" edges="153537614#0 153537614#1 153537614#4 153537614#5 153537614#6 153537614#7 153537614#8 153537614#9 153537614#10 153522303#0 153522303#3 46140393 1328606975#0 1328606975#1 101699679#0 101699679#1 101699679#3 101699679#5 101699679#6 101699679#8 101699679#11 101699679#12 1044592563#1 1044592563#2 154321040#1 154321040#2 154321040#4 154321040#5 1340133919#1 1340133919#2 1340133919#5 1340133919#6 1053166658#1 167140670#0 167140670#2 167140670#3 167140670#5 167140670#6 30122986#0 30122986#1 388702048 168453605#0 388702047#1 388702047#2 93584120#2 93584120#3 1340133932#0 1340133932#1 1340133929#0 1340133929#1 1340133928#1 22820560#0 22820560#1 22820560#2 22820560#4 22820560#5 22820560#6 22820560#7 22820560#8 93584121#0 93584121#4 1340133916#0 144014233#2 144014233#3 144014233#4 144014233#5 144014233#6 1340133915 144014230#0 144014230#1 144014230#3"/>
-    <vehicle id="114237293.trimmed.0" route="8441" line="17438_900_114237293.trimmed" depart="240" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <route id="8441" edges="153537614#0 153537614#1 153537614#4 153537614#5 153537614#6 153537614#7 153537614#8 153537614#9 153537614#10 153522303#0 153522303#3 46140393 1328606975#0 1328606975#1 101699679#0 101699679#1 101699679#3 101699679#5 101699679#6 101699679#8 101699679#11 101699679#12 1044592563#1 1044592563#2 154321040#1 154321040#2 154321040#4 154321040#5 1340133919#1 1340133919#2 1340133919#5 1340133919#6 1053166658#1 167140670#0 167140670#2 167140670#3 167140670#5 167140670#6 30122986#0 30122986#1 388702048 168453605#0 388702047#1 388702047#2 93584120#2 93584120#3 1340133932#0 1340133932#1 1340133929#0 1340133929#1 1340133928#1 22820560#0 22820560#1 22820560#2 22820560#4 22820560#5 22820560#6 22820560#7 22820560#8 93584121#0 93584121#4 1340133916#0 144014233#2 144014233#3 144014233#4 1340133915 144014230#0 144014230#1 144014230#3"/>
+    <vehicle id="114237293.trimmed.0" route="8441" line="17438_900_114237293.trimmed" depart="240" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="240" duration="10" until="240"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -154,7 +155,7 @@
         <stop busStop="070101007173_0" arrival="600" duration="10" until="600"/><!--stopSequence="16.0/17.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070101007175_0" arrival="720" duration="10" until="720"/><!--stopSequence="17.0/17.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
     </vehicle>
-    <route id="6403" edges="144014228#2 1340133914#1 1340133914#2 1340133913 207364192#0 207364192#1 1340133923#1 168254756#0 168254756#1 168254756#2 168254756#3 1340133921 1340133920#0 1340133920#1 1340133920#2 1340133920#3 167272512#0 167272512#3 167272512#8 167272512#9 167272512#10 167272512#11 167272512#13 195411594#0 195411594#1 195411594#2 195411594#3 195411594#4 165409971#1 165409971#2 165409971#3 165409971#4 1340133927#0 1340133927#1 1340133931#1 1340133926 388702049#0 388702049#1 1044592562#0 1044592562#2 1044592562#3 167272531#0 167272531#1 1340133930#0 167140669#0 167140669#1 167140669#2 167140669#3 167140669#4 1046153050 169953964#0 169953964#3 1340133933"/>
+    <route id="6403" edges="144014228#3 1340133914#1 1340133914#2 1340133913 207364192#0 207364192#1 1340133923#1 168254756#0 168254756#1 168254756#2 168254756#3 1340133921 1340133920#0 1340133920#1 1340133920#2 1340133920#3 167272512#0 167272512#3 167272512#8 167272512#9 167272512#10 167272512#11 167272512#13 195411594#0 195411594#1 195411594#2 195411594#3 195411594#4 165409971#1 165409971#2 165409971#3 165409971#4 1340133927#0 1340133927#1 1340133931#1 1340133926 388702049#0 388702049#1 1044592562#0 1044592562#2 1044592562#3 167272531#0 167272531#1 1340133930#0 167140669#0 167140669#1 167140669#2 167140669#3 167140669#4 1046153050 169953964#0 169953964#3 1340133933"/>
     <vehicle id="114187058.trimmed.0" route="6403" line="17301_900_114187058.trimmed" depart="120" departEdge="52" arrivalEdge="52" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="12"/>
         <param key="gtfs.trip_headsign" value="Berlin, Pasedagplatz"/>
@@ -179,7 +180,7 @@
         <stop busStop="070101006406_0" arrival="420" duration="10" until="420"/><!--stopSequence="11.0/14.0" "Berlin, Neumannsgasse"-->
         <stop busStop="070101005118_0" arrival="540" duration="10" until="540"/><!--stopSequence="12.0/14.0" "Berlin, Fischerinsel."-->
     </vehicle>
-    <route id="6399" edges="11482920#0 11482920#1 1340133936#0 1340133935 6228154#0 6228154#2 30122986#0 30122986#1 388702048 168453605#0 388702047#1 388702047#2 93584120#2 93584120#3 1340133932#0 1340133932#1 1340133929#0 1340133929#1 1340133928#1 22820560#0 22820560#1 22820560#2 22820560#4 22820560#5 22820560#6 22820560#7 22820560#8 93584121#0 93584121#4 1340133917#0 144014228#1 144014228#2"/>
+    <route id="6399" edges="11482920#0 11482920#1 1340133936#0 1340133935 6228154#0 6228154#2 30122986#0 30122986#1 388702048 168453605#0 388702047#1 388702047#2 93584120#2 93584120#3 1340133932#0 1340133932#1 1340133929#0 1340133929#1 1340133928#1 22820560#0 22820560#1 22820560#2 22820560#4 22820560#5 22820560#6 22820560#7 22820560#8 93584121#0 93584121#4 1340133917#0 144014228#1 144014228#3"/>
     <vehicle id="114187241.trimmed.0" route="6399" line="17301_900_114187241.trimmed" depart="720" departEdge="0" arrivalEdge="31" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="12"/>
         <param key="gtfs.trip_headsign" value="Berlin, Am Kupfergraben"/>
@@ -214,7 +215,7 @@
         <stop busStop="070301008816_0" arrival="240" duration="10" until="240"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="600" duration="10" until="600"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236860.trimmed.0" route="8441" line="17438_900_114236860.trimmed" depart="840" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236860.trimmed.0" route="8441" line="17438_900_114236860.trimmed" depart="840" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="840" duration="10" until="840"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -394,7 +395,7 @@
         <stop busStop="070301009378_0" arrival="1200" duration="10" until="1200"/><!--stopSequence="3.0/11.0" "U Oranienburger Tor (Berlin) [Tram/Bus]"-->
         <stop busStop="070301009822_0" arrival="1320" duration="10" until="1320"/><!--stopSequence="4.0/11.0" "U Naturkundemuseum (Berlin) [Chausseestr.]"-->
     </vehicle>
-    <vehicle id="114237294.trimmed.0" route="8441" line="17438_900_114236860.trimmed" depart="1440" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237294.trimmed.0" route="8441" line="17438_900_114236860.trimmed" depart="1440" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="1440" duration="10" until="1440"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -529,7 +530,7 @@
         <stop busStop="070301008808_0" arrival="1680" duration="10" until="1680"/><!--stopSequence="3.0/7.0" "U Alexanderplatz (Berlin) [Tram]"-->
         <stop busStop="070301008810_0" arrival="1860" duration="10" until="1860"/><!--stopSequence="4.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236872.0" route="8441" line="17438_900_114236860.trimmed" depart="2040" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236872.0" route="8441" line="17438_900_114236860.trimmed" depart="2040" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="2040" duration="10" until="2040"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -837,7 +838,7 @@
         <param key="gtfs.trip_headsign" value="S+U Alexanderplatz"/>
         <stop busStop="070201053901_0" arrival="2850" duration="10" until="2850"/><!--stopSequence="12.0/13.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237311.0" route="8441" line="17438_900_114236860.trimmed" depart="3300" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237311.0" route="8441" line="17438_900_114236860.trimmed" depart="3300" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="3300" duration="10" until="3300"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -1113,7 +1114,7 @@
         <param key="gtfs.trip_headsign" value="S+U Alexanderplatz"/>
         <stop busStop="070201053901_0" arrival="4650" duration="10" until="4650"/><!--stopSequence="12.0/13.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237312.0" route="8441" line="17438_900_114236860.trimmed" depart="5100" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237312.0" route="8441" line="17438_900_114236860.trimmed" depart="5100" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="5100" duration="10" until="5100"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -1374,7 +1375,7 @@
         <stop busStop="070101007154_0" arrival="6780" duration="10" until="6780"/><!--stopSequence="29.0/30.0" "U Alexanderplatz [Bus]"-->
         <stop busStop="070101006736_0" arrival="6780" duration="10" until="6780"/><!--stopSequence="30.0/30.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237313.0" route="8441" line="17438_900_114236860.trimmed" depart="6900" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237313.0" route="8441" line="17438_900_114236860.trimmed" depart="6900" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="6900" duration="10" until="6900"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -1598,7 +1599,7 @@
         <stop busStop="070101007175_0" arrival="8700" duration="10" until="8700"/><!--stopSequence="20.0/21.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
         <stop busStop="070101007113_1" arrival="8820" duration="10" until="8820"/><!--stopSequence="21.0/21.0" "Berlin, Memhardstr."-->
     </vehicle>
-    <vehicle id="114237314.0" route="8441" line="17438_900_114236860.trimmed" depart="8700" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237314.0" route="8441" line="17438_900_114236860.trimmed" depart="8700" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="8700" duration="10" until="8700"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -1825,7 +1826,7 @@
         <stop busStop="070101007175_0" arrival="10500" duration="10" until="10500"/><!--stopSequence="20.0/21.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
         <stop busStop="070101007113_1" arrival="10620" duration="10" until="10620"/><!--stopSequence="21.0/21.0" "Berlin, Memhardstr."-->
     </vehicle>
-    <vehicle id="114237315.0" route="8441" line="17438_900_114236860.trimmed" depart="10500" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237315.0" route="8441" line="17438_900_114236860.trimmed" depart="10500" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="10500" duration="10" until="10500"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -2059,7 +2060,7 @@
         <stop busStop="070101007175_0" arrival="12300" duration="10" until="12300"/><!--stopSequence="20.0/21.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
         <stop busStop="070101007113_1" arrival="12420" duration="10" until="12420"/><!--stopSequence="21.0/21.0" "Berlin, Memhardstr."-->
     </vehicle>
-    <vehicle id="114237316.0" route="8441" line="17438_900_114236860.trimmed" depart="12300" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237316.0" route="8441" line="17438_900_114236860.trimmed" depart="12300" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="12300" duration="10" until="12300"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -2267,7 +2268,7 @@
         <stop busStop="070101007175_0" arrival="14100" duration="10" until="14100"/><!--stopSequence="20.0/21.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
         <stop busStop="070101007113_1" arrival="14220" duration="10" until="14220"/><!--stopSequence="21.0/21.0" "Berlin, Memhardstr."-->
     </vehicle>
-    <vehicle id="114237308.0" route="8441" line="17438_900_114236860.trimmed" depart="14100" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237308.0" route="8441" line="17438_900_114236860.trimmed" depart="14100" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="14100" duration="10" until="14100"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -2474,7 +2475,7 @@
         <stop busStop="070101007173_0" arrival="15780" duration="10" until="15780"/><!--stopSequence="19.0/20.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070101007175_0" arrival="15900" duration="10" until="15900"/><!--stopSequence="20.0/20.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237309.0" route="8441" line="17438_900_114236860.trimmed" depart="15900" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237309.0" route="8441" line="17438_900_114236860.trimmed" depart="15900" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="15900" duration="10" until="15900"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -2672,7 +2673,7 @@
         <stop busStop="070101007173_0" arrival="17580" duration="10" until="17580"/><!--stopSequence="19.0/20.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070101007175_0" arrival="17700" duration="10" until="17700"/><!--stopSequence="20.0/20.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237310.0" route="8441" line="17438_900_114236860.trimmed" depart="17700" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237310.0" route="8441" line="17438_900_114236860.trimmed" depart="17700" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="17700" duration="10" until="17700"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -2908,7 +2909,7 @@
         <stop busStop="070301009133_0" arrival="19200" duration="10" until="19200"/><!--stopSequence="25.0/32.0" "Berlin, Mollstr./Prenzlauer Allee"-->
         <stop busStop="070301009134_0" arrival="19260" duration="10" until="19260"/><!--stopSequence="26.0/32.0" "U Rosa-Luxemburg-Platz (Berlin)"-->
     </vehicle>
-    <vehicle id="114237317.0" route="8441" line="17438_900_114236860.trimmed" depart="19500" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237317.0" route="8441" line="17438_900_114236860.trimmed" depart="19500" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="19500" duration="10" until="19500"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -3003,7 +3004,7 @@
         <stop busStop="070301009587_0" arrival="19680" duration="10" until="19680"/><!--stopSequence="10.0/12.0" "Berlin, Mollstr./Prenzlauer Allee"-->
         <stop busStop="070301008815_0" arrival="19800" duration="10" until="19800"/><!--stopSequence="11.0/12.0" "Berlin, Memhardstr."-->
     </vehicle>
-    <vehicle id="114237151.0" route="8441" line="17438_900_114237151" depart="20100" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237151.0" route="8441" line="17438_900_114237151" depart="20100" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="20100" duration="10" until="20100"/><!--stopSequence="20.0/24.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -3059,7 +3060,7 @@
         <stop busStop="070101007179_0" arrival="20280" duration="10" until="20280"/><!--stopSequence="9.0/19.0" "Berlin, Mollstr./Prenzlauer Allee"-->
         <stop busStop="070101006409_0" arrival="20340" duration="10" until="20340"/><!--stopSequence="10.0/19.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114237152.0" route="8441" line="17438_900_114237151" depart="20400" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237152.0" route="8441" line="17438_900_114237151" depart="20400" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="20400" duration="10" until="20400"/><!--stopSequence="20.0/24.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -3218,7 +3219,7 @@
         <stop busStop="070301008801_0" arrival="20880" duration="10" until="20880"/><!--stopSequence="23.0/24.0" "U Alexanderplatz (Berlin) [Tram]"-->
         <stop busStop="070301008816_1" arrival="21000" duration="10" until="21000"/><!--stopSequence="24.0/24.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237153.0" route="8441" line="17438_900_114237151" depart="21000" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237153.0" route="8441" line="17438_900_114237151" depart="21000" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="21000" duration="10" until="21000"/><!--stopSequence="20.0/24.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -3297,7 +3298,7 @@
         <stop busStop="070201053901_0" arrival="20850" duration="10" until="20850"/><!--stopSequence="12.0/13.0" "U Schillingstr. (Berlin)"-->
         <stop busStop="070201054002_1" arrival="20940" duration="10" until="20940"/><!--stopSequence="13.0/13.0" "S+U Alexanderplatz (Berlin) [U5]"-->
     </vehicle>
-    <vehicle id="114237318.0" route="8441" line="17438_900_114236860.trimmed" depart="21300" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237318.0" route="8441" line="17438_900_114236860.trimmed" depart="21300" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="21300" duration="10" until="21300"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -3571,7 +3572,7 @@
         <stop busStop="070201063502_0" arrival="21990" duration="10" until="21990"/><!--stopSequence="14.0/16.0" "U Oranienburger Tor (Berlin)"-->
         <stop busStop="070201063402_0" arrival="22080" duration="10" until="22080"/><!--stopSequence="15.0/16.0" "U Naturkundemuseum (Berlin)"-->
     </vehicle>
-    <vehicle id="114236861.0" route="8441" line="17438_900_114236860.trimmed" depart="22440" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236861.0" route="8441" line="17438_900_114236860.trimmed" depart="22440" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="22440" duration="10" until="22440"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -3721,7 +3722,7 @@
         <stop busStop="070301009378_0" arrival="22800" duration="10" until="22800"/><!--stopSequence="3.0/11.0" "U Oranienburger Tor (Berlin) [Tram/Bus]"-->
         <stop busStop="070301009822_0" arrival="22920" duration="10" until="22920"/><!--stopSequence="4.0/11.0" "U Naturkundemuseum (Berlin) [Chausseestr.]"-->
     </vehicle>
-    <vehicle id="114237295.0" route="8441" line="17438_900_114236860.trimmed" depart="23040" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237295.0" route="8441" line="17438_900_114236860.trimmed" depart="23040" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="23040" duration="10" until="23040"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -3862,7 +3863,7 @@
         <stop busStop="070301008808_0" arrival="23280" duration="10" until="23280"/><!--stopSequence="3.0/7.0" "U Alexanderplatz (Berlin) [Tram]"-->
         <stop busStop="070301008810_0" arrival="23460" duration="10" until="23460"/><!--stopSequence="4.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236862.0" route="8441" line="17438_900_114236860.trimmed" depart="23640" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236862.0" route="8441" line="17438_900_114236860.trimmed" depart="23640" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="23640" duration="10" until="23640"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -4015,7 +4016,7 @@
         <stop busStop="070101006242_0" arrival="23640" duration="10" until="23640"/><!--stopSequence="0.0/8.0" "U Märkisches Museum (Berlin)"-->
         <stop busStop="070101006241_0" arrival="23670" duration="10" until="23670"/><!--stopSequence="1.0/8.0" "U Märkisches Museum/Inselstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237296.0" route="8441" line="17438_900_114236860.trimmed" depart="24240" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237296.0" route="8441" line="17438_900_114236860.trimmed" depart="24240" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="24240" duration="10" until="24240"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -4171,7 +4172,7 @@
         <stop busStop="070301008816_0" arrival="24240" duration="10" until="24240"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="24600" duration="10" until="24600"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236863.0" route="8441" line="17438_900_114236860.trimmed" depart="24840" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236863.0" route="8441" line="17438_900_114236860.trimmed" depart="24840" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="24840" duration="10" until="24840"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -4312,7 +4313,7 @@
         <stop busStop="070301008808_0" arrival="25080" duration="10" until="25080"/><!--stopSequence="3.0/7.0" "U Alexanderplatz (Berlin) [Tram]"-->
         <stop busStop="070301008810_0" arrival="25260" duration="10" until="25260"/><!--stopSequence="4.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114237297.0" route="8441" line="17438_900_114236860.trimmed" depart="25440" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237297.0" route="8441" line="17438_900_114236860.trimmed" depart="25440" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="25440" duration="10" until="25440"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -4491,7 +4492,7 @@
         <stop busStop="070301008816_0" arrival="25440" duration="10" until="25440"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="25800" duration="10" until="25800"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236864.0" route="8441" line="17438_900_114236860.trimmed" depart="26040" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236864.0" route="8441" line="17438_900_114236860.trimmed" depart="26040" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="26040" duration="10" until="26040"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -4638,7 +4639,7 @@
         <stop busStop="070101006242_0" arrival="26040" duration="10" until="26040"/><!--stopSequence="0.0/8.0" "U Märkisches Museum (Berlin)"-->
         <stop busStop="070101006241_0" arrival="26070" duration="10" until="26070"/><!--stopSequence="1.0/8.0" "U Märkisches Museum/Inselstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237298.0" route="8441" line="17438_900_114236860.trimmed" depart="26640" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237298.0" route="8441" line="17438_900_114236860.trimmed" depart="26640" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="26640" duration="10" until="26640"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -4818,7 +4819,7 @@
         <stop busStop="070301008816_0" arrival="26640" duration="10" until="26640"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="27000" duration="10" until="27000"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236865.0" route="8441" line="17438_900_114236860.trimmed" depart="27240" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236865.0" route="8441" line="17438_900_114236860.trimmed" depart="27240" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="27240" duration="10" until="27240"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -4980,7 +4981,7 @@
         <stop busStop="070101006242_0" arrival="27240" duration="10" until="27240"/><!--stopSequence="0.0/8.0" "U Märkisches Museum (Berlin)"-->
         <stop busStop="070101006241_0" arrival="27270" duration="10" until="27270"/><!--stopSequence="1.0/8.0" "U Märkisches Museum/Inselstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237299.0" route="8441" line="17438_900_114236860.trimmed" depart="27840" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237299.0" route="8441" line="17438_900_114236860.trimmed" depart="27840" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="27840" duration="10" until="27840"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -5154,7 +5155,7 @@
         <stop busStop="070301008816_0" arrival="27840" duration="10" until="27840"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="28200" duration="10" until="28200"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236866.0" route="8441" line="17438_900_114236860.trimmed" depart="28440" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236866.0" route="8441" line="17438_900_114236860.trimmed" depart="28440" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="28440" duration="10" until="28440"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -5316,7 +5317,7 @@
         <stop busStop="070301009378_0" arrival="28800" duration="10" until="28800"/><!--stopSequence="3.0/11.0" "U Oranienburger Tor (Berlin) [Tram/Bus]"-->
         <stop busStop="070301009822_0" arrival="28920" duration="10" until="28920"/><!--stopSequence="4.0/11.0" "U Naturkundemuseum (Berlin) [Chausseestr.]"-->
     </vehicle>
-    <vehicle id="114237300.0" route="8441" line="17438_900_114236860.trimmed" depart="29040" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237300.0" route="8441" line="17438_900_114236860.trimmed" depart="29040" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="29040" duration="10" until="29040"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -5495,7 +5496,7 @@
         <stop busStop="070301008816_0" arrival="29040" duration="10" until="29040"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="29400" duration="10" until="29400"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236867.0" route="8441" line="17438_900_114236860.trimmed" depart="29640" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236867.0" route="8441" line="17438_900_114236860.trimmed" depart="29640" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="29640" duration="10" until="29640"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -5636,7 +5637,7 @@
         <stop busStop="070301008808_0" arrival="29880" duration="10" until="29880"/><!--stopSequence="3.0/7.0" "U Alexanderplatz (Berlin) [Tram]"-->
         <stop busStop="070301008810_0" arrival="30060" duration="10" until="30060"/><!--stopSequence="4.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114237301.0" route="8441" line="17438_900_114236860.trimmed" depart="30240" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237301.0" route="8441" line="17438_900_114236860.trimmed" depart="30240" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="30240" duration="10" until="30240"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -5830,7 +5831,7 @@
         <stop busStop="070301008816_0" arrival="30240" duration="10" until="30240"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="30600" duration="10" until="30600"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236868.0" route="8441" line="17438_900_114236860.trimmed" depart="30840" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236868.0" route="8441" line="17438_900_114236860.trimmed" depart="30840" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="30840" duration="10" until="30840"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -6000,7 +6001,7 @@
         <stop busStop="070301009378_0" arrival="31200" duration="10" until="31200"/><!--stopSequence="3.0/11.0" "U Oranienburger Tor (Berlin) [Tram/Bus]"-->
         <stop busStop="070301009822_0" arrival="31320" duration="10" until="31320"/><!--stopSequence="4.0/11.0" "U Naturkundemuseum (Berlin) [Chausseestr.]"-->
     </vehicle>
-    <vehicle id="114237302.0" route="8441" line="17438_900_114236860.trimmed" depart="31440" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237302.0" route="8441" line="17438_900_114236860.trimmed" depart="31440" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="31440" duration="10" until="31440"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -6184,7 +6185,7 @@
         <stop busStop="070301008808_0" arrival="31680" duration="10" until="31680"/><!--stopSequence="3.0/7.0" "U Alexanderplatz (Berlin) [Tram]"-->
         <stop busStop="070301008810_0" arrival="31860" duration="10" until="31860"/><!--stopSequence="4.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236869.0" route="8441" line="17438_900_114236860.trimmed" depart="32040" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236869.0" route="8441" line="17438_900_114236860.trimmed" depart="32040" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="32040" duration="10" until="32040"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -6363,7 +6364,7 @@
         <stop busStop="070101005225_0" arrival="33120" duration="10" until="33120"/><!--stopSequence="13.0/16.0" "Berlin, Deutsches Theater"-->
         <stop busStop="070101005411_0" arrival="33180" duration="10" until="33180"/><!--stopSequence="14.0/16.0" "Berlin, Schumannstr."-->
     </vehicle>
-    <vehicle id="114237303.0" route="8441" line="17438_900_114236860.trimmed" depart="32640" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237303.0" route="8441" line="17438_900_114236860.trimmed" depart="32640" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="32640" duration="10" until="32640"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -6578,7 +6579,7 @@
         <stop busStop="070101007156_0" arrival="33240" duration="10" until="33240"/><!--stopSequence="12.0/20.0" "S+U Alexanderplatz (Bln) [Bus K.-Liebknecht-Str]"-->
         <stop busStop="070101007309_0" arrival="33300" duration="10" until="33300"/><!--stopSequence="13.0/20.0" "Berlin, Spandauer Str./Marienkirche"-->
     </vehicle>
-    <vehicle id="114236870.0" route="8441" line="17438_900_114236860.trimmed" depart="33240" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236870.0" route="8441" line="17438_900_114236860.trimmed" depart="33240" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="33240" duration="10" until="33240"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -6781,7 +6782,7 @@
         <stop busStop="070101007179_0" arrival="34320" duration="10" until="34320"/><!--stopSequence="17.0/22.0" "Berlin, Mollstr./Prenzlauer Allee"-->
         <stop busStop="070101006409_0" arrival="34440" duration="10" until="34440"/><!--stopSequence="18.0/22.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114237304.0" route="8441" line="17438_900_114236860.trimmed" depart="33840" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237304.0" route="8441" line="17438_900_114236860.trimmed" depart="33840" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="33840" duration="10" until="33840"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -6982,7 +6983,7 @@
         <stop busStop="070301009377_0" arrival="34080" duration="10" until="34080"/><!--stopSequence="2.0/10.0" "S+U Friedrichstr. Bhf (Berlin)"-->
         <stop busStop="070301009378_0" arrival="34200" duration="10" until="34200"/><!--stopSequence="3.0/10.0" "U Oranienburger Tor (Berlin) [Tram/Bus]"-->
     </vehicle>
-    <vehicle id="114236871.0" route="8441" line="17438_900_114236860.trimmed" depart="34440" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236871.0" route="8441" line="17438_900_114236860.trimmed" depart="34440" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="34440" duration="10" until="34440"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -7097,7 +7098,7 @@
         <stop busStop="070101007596_0" arrival="34620" duration="10" until="34620"/><!--stopSequence="21.0/28.0" "Berlin, Littenstr."-->
         <stop busStop="070101005399_0" arrival="34740" duration="10" until="34740"/><!--stopSequence="22.0/28.0" "S+U Alexanderpl./Grunerstr.(Bln) [Alexanderstr.]"-->
     </vehicle>
-    <vehicle id="114237148.0" route="8441" line="17438_900_114237151" depart="34800" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237148.0" route="8441" line="17438_900_114237151" depart="34800" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="34800" duration="10" until="34800"/><!--stopSequence="20.0/24.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -7275,7 +7276,7 @@
         <stop busStop="070301008803_0" arrival="35220" duration="10" until="35220"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="35280" duration="10" until="35280"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114237417.0" route="8441" line="17438_900_114236860.trimmed" depart="35160" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237417.0" route="8441" line="17438_900_114236860.trimmed" depart="35160" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="35160" duration="10" until="35160"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -7474,7 +7475,7 @@
         <stop busStop="070201054002_0" arrival="35130" duration="10" until="35130"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="35250" duration="10" until="35250"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114236982.0" route="8441" line="17438_900_114236860.trimmed" depart="35760" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236982.0" route="8441" line="17438_900_114236860.trimmed" depart="35760" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="35760" duration="10" until="35760"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -7759,7 +7760,7 @@
         <stop busStop="070201063502_0" arrival="36030" duration="10" until="36030"/><!--stopSequence="9.0/11.0" "U Oranienburger Tor (Berlin)"-->
         <stop busStop="070201063402_0" arrival="36120" duration="10" until="36120"/><!--stopSequence="10.0/11.0" "U Naturkundemuseum (Berlin)"-->
     </vehicle>
-    <vehicle id="114237418.0" route="8441" line="17438_900_114236860.trimmed" depart="36360" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237418.0" route="8441" line="17438_900_114236860.trimmed" depart="36360" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="36360" duration="10" until="36360"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -7977,7 +7978,7 @@
         <stop busStop="070201054002_0" arrival="36330" duration="10" until="36330"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="36450" duration="10" until="36450"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114236983.0" route="8441" line="17438_900_114236860.trimmed" depart="36960" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236983.0" route="8441" line="17438_900_114236860.trimmed" depart="36960" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="36960" duration="10" until="36960"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -8256,7 +8257,7 @@
         <stop busStop="070201054002_0" arrival="36930" duration="10" until="36930"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="37050" duration="10" until="37050"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237419.0" route="8441" line="17438_900_114236860.trimmed" depart="37560" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237419.0" route="8441" line="17438_900_114236860.trimmed" depart="37560" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="37560" duration="10" until="37560"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -8533,7 +8534,7 @@
         <stop busStop="070301008803_0" arrival="38220" duration="10" until="38220"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="38280" duration="10" until="38280"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114236984.0" route="8441" line="17438_900_114236860.trimmed" depart="38160" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236984.0" route="8441" line="17438_900_114236860.trimmed" depart="38160" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="38160" duration="10" until="38160"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -8796,7 +8797,7 @@
         <stop busStop="070201063502_0" arrival="38430" duration="10" until="38430"/><!--stopSequence="14.0/16.0" "U Oranienburger Tor (Berlin)"-->
         <stop busStop="070201063402_0" arrival="38520" duration="10" until="38520"/><!--stopSequence="15.0/16.0" "U Naturkundemuseum (Berlin)"-->
     </vehicle>
-    <vehicle id="114237420.0" route="8441" line="17438_900_114236860.trimmed" depart="38760" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237420.0" route="8441" line="17438_900_114236860.trimmed" depart="38760" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="38760" duration="10" until="38760"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -9064,7 +9065,7 @@
         <stop busStop="070101005179_0" arrival="39540" duration="10" until="39540"/><!--stopSequence="12.0/15.0" "Berlin, Fischerinsel"-->
         <stop busStop="070101005153_0" arrival="39660" duration="10" until="39660"/><!--stopSequence="13.0/15.0" "U Spittelmarkt (Berlin)"-->
     </vehicle>
-    <vehicle id="114236985.0" route="8441" line="17438_900_114236860.trimmed" depart="39360" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236985.0" route="8441" line="17438_900_114236860.trimmed" depart="39360" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="39360" duration="10" until="39360"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -9381,7 +9382,7 @@
         <stop busStop="070301008803_0" arrival="40020" duration="10" until="40020"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="40080" duration="10" until="40080"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114237421.0" route="8441" line="17438_900_114236860.trimmed" depart="39960" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237421.0" route="8441" line="17438_900_114236860.trimmed" depart="39960" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="39960" duration="10" until="39960"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -9652,7 +9653,7 @@
         <stop busStop="070101005179_0" arrival="40140" duration="10" until="40140"/><!--stopSequence="3.0/6.0" "Berlin, Fischerinsel"-->
         <stop busStop="070101005153_0" arrival="40260" duration="10" until="40260"/><!--stopSequence="4.0/6.0" "U Spittelmarkt (Berlin)"-->
     </vehicle>
-    <vehicle id="114236986.0" route="8441" line="17438_900_114236860.trimmed" depart="40560" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236986.0" route="8441" line="17438_900_114236860.trimmed" depart="40560" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="40560" duration="10" until="40560"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -9947,7 +9948,7 @@
         <stop busStop="070201054002_0" arrival="40530" duration="10" until="40530"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="40650" duration="10" until="40650"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237422.0" route="8441" line="17438_900_114236860.trimmed" depart="41160" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237422.0" route="8441" line="17438_900_114236860.trimmed" depart="41160" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="41160" duration="10" until="41160"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -10228,7 +10229,7 @@
         <stop busStop="070301008818_0" arrival="41280" duration="10" until="41280"/><!--stopSequence="1.0/6.0" "Berlin, Memhardstr."-->
         <stop busStop="070301009556_0" arrival="41400" duration="10" until="41400"/><!--stopSequence="2.0/6.0" "Berlin, Mollstr./Prenzlauer Allee"-->
     </vehicle>
-    <vehicle id="114236987.0" route="8441" line="17438_900_114236860.trimmed" depart="41760" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236987.0" route="8441" line="17438_900_114236860.trimmed" depart="41760" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="41760" duration="10" until="41760"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -10522,7 +10523,7 @@
         <stop busStop="070301008803_0" arrival="42420" duration="10" until="42420"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="42480" duration="10" until="42480"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114237423.0" route="8441" line="17438_900_114236860.trimmed" depart="42360" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237423.0" route="8441" line="17438_900_114236860.trimmed" depart="42360" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="42360" duration="10" until="42360"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -10803,7 +10804,7 @@
         <stop busStop="070101005179_0" arrival="42540" duration="10" until="42540"/><!--stopSequence="3.0/6.0" "Berlin, Fischerinsel"-->
         <stop busStop="070101005153_0" arrival="42660" duration="10" until="42660"/><!--stopSequence="4.0/6.0" "U Spittelmarkt (Berlin)"-->
     </vehicle>
-    <vehicle id="114236988.0" route="8441" line="17438_900_114236860.trimmed" depart="42960" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236988.0" route="8441" line="17438_900_114236860.trimmed" depart="42960" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="42960" duration="10" until="42960"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -11104,7 +11105,7 @@
         <stop busStop="070301009378_0" arrival="43320" duration="10" until="43320"/><!--stopSequence="3.0/11.0" "U Oranienburger Tor (Berlin) [Tram/Bus]"-->
         <stop busStop="070301009822_0" arrival="43440" duration="10" until="43440"/><!--stopSequence="4.0/11.0" "U Naturkundemuseum (Berlin) [Chausseestr.]"-->
     </vehicle>
-    <vehicle id="114237424.0" route="8441" line="17438_900_114236860.trimmed" depart="43560" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237424.0" route="8441" line="17438_900_114236860.trimmed" depart="43560" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="43560" duration="10" until="43560"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -11375,7 +11376,7 @@
         <stop busStop="070301008803_0" arrival="44220" duration="10" until="44220"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="44280" duration="10" until="44280"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114236989.0" route="8441" line="17438_900_114236860.trimmed" depart="44160" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236989.0" route="8441" line="17438_900_114236860.trimmed" depart="44160" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="44160" duration="10" until="44160"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -11670,7 +11671,7 @@
         <stop busStop="070201054002_0" arrival="44130" duration="10" until="44130"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="44250" duration="10" until="44250"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237425.0" route="8441" line="17438_900_114236860.trimmed" depart="44760" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237425.0" route="8441" line="17438_900_114236860.trimmed" depart="44760" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="44760" duration="10" until="44760"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -11944,7 +11945,7 @@
         <stop busStop="070101005179_0" arrival="44940" duration="10" until="44940"/><!--stopSequence="3.0/6.0" "Berlin, Fischerinsel"-->
         <stop busStop="070101005153_0" arrival="45060" duration="10" until="45060"/><!--stopSequence="4.0/6.0" "U Spittelmarkt (Berlin)"-->
     </vehicle>
-    <vehicle id="114236990.0" route="8441" line="17438_900_114236860.trimmed" depart="45360" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236990.0" route="8441" line="17438_900_114236860.trimmed" depart="45360" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="45360" duration="10" until="45360"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -12236,7 +12237,7 @@
         <stop busStop="070201054002_0" arrival="45330" duration="10" until="45330"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="45450" duration="10" until="45450"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237426.0" route="8441" line="17438_900_114236860.trimmed" depart="45960" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237426.0" route="8441" line="17438_900_114236860.trimmed" depart="45960" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="45960" duration="10" until="45960"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -12526,7 +12527,7 @@
         <stop busStop="070301008803_0" arrival="46620" duration="10" until="46620"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="46680" duration="10" until="46680"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114236991.0" route="8441" line="17438_900_114236860.trimmed" depart="46560" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236991.0" route="8441" line="17438_900_114236860.trimmed" depart="46560" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="46560" duration="10" until="46560"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -12827,7 +12828,7 @@
         <stop busStop="070301009378_0" arrival="46920" duration="10" until="46920"/><!--stopSequence="3.0/11.0" "U Oranienburger Tor (Berlin) [Tram/Bus]"-->
         <stop busStop="070301009822_0" arrival="47040" duration="10" until="47040"/><!--stopSequence="4.0/11.0" "U Naturkundemuseum (Berlin) [Chausseestr.]"-->
     </vehicle>
-    <vehicle id="114237427.0" route="8441" line="17438_900_114236860.trimmed" depart="47160" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237427.0" route="8441" line="17438_900_114236860.trimmed" depart="47160" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="47160" duration="10" until="47160"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -13064,7 +13065,7 @@
         <stop busStop="070201054002_0" arrival="47130" duration="10" until="47130"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="47250" duration="10" until="47250"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114236992.0" route="8441" line="17438_900_114236860.trimmed" depart="47760" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236992.0" route="8441" line="17438_900_114236860.trimmed" depart="47760" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="47760" duration="10" until="47760"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -13393,7 +13394,7 @@
         <stop busStop="070201063502_0" arrival="48030" duration="10" until="48030"/><!--stopSequence="14.0/16.0" "U Oranienburger Tor (Berlin)"-->
         <stop busStop="070201063402_0" arrival="48120" duration="10" until="48120"/><!--stopSequence="15.0/16.0" "U Naturkundemuseum (Berlin)"-->
     </vehicle>
-    <vehicle id="114237428.0" route="8441" line="17438_900_114236860.trimmed" depart="48360" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237428.0" route="8441" line="17438_900_114236860.trimmed" depart="48360" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="48360" duration="10" until="48360"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -13674,7 +13675,7 @@
         <stop busStop="070301008818_0" arrival="48480" duration="10" until="48480"/><!--stopSequence="1.0/6.0" "Berlin, Memhardstr."-->
         <stop busStop="070301009556_0" arrival="48600" duration="10" until="48600"/><!--stopSequence="2.0/6.0" "Berlin, Mollstr./Prenzlauer Allee"-->
     </vehicle>
-    <vehicle id="114236993.0" route="8441" line="17438_900_114236860.trimmed" depart="48960" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236993.0" route="8441" line="17438_900_114236860.trimmed" depart="48960" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="48960" duration="10" until="48960"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -13968,7 +13969,7 @@
         <stop busStop="070301008803_0" arrival="49620" duration="10" until="49620"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="49680" duration="10" until="49680"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114237429.0" route="8441" line="17438_900_114236860.trimmed" depart="49560" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237429.0" route="8441" line="17438_900_114236860.trimmed" depart="49560" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="49560" duration="10" until="49560"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -14240,7 +14241,7 @@
         <stop busStop="070301008803_0" arrival="50220" duration="10" until="50220"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="50280" duration="10" until="50280"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114236994.0" route="8441" line="17438_900_114236860.trimmed" depart="50160" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236994.0" route="8441" line="17438_900_114236860.trimmed" depart="50160" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="50160" duration="10" until="50160"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -14541,7 +14542,7 @@
         <stop busStop="070201054002_0" arrival="50130" duration="10" until="50130"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="50250" duration="10" until="50250"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237430.0" route="8441" line="17438_900_114236860.trimmed" depart="50760" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237430.0" route="8441" line="17438_900_114236860.trimmed" depart="50760" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="50760" duration="10" until="50760"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -14821,7 +14822,7 @@
         <stop busStop="070101005179_0" arrival="50940" duration="10" until="50940"/><!--stopSequence="3.0/6.0" "Berlin, Fischerinsel"-->
         <stop busStop="070101005153_0" arrival="51060" duration="10" until="51060"/><!--stopSequence="4.0/6.0" "U Spittelmarkt (Berlin)"-->
     </vehicle>
-    <vehicle id="114236995.0" route="8441" line="17438_900_114236860.trimmed" depart="51360" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236995.0" route="8441" line="17438_900_114236860.trimmed" depart="51360" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="51360" duration="10" until="51360"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -15116,7 +15117,7 @@
         <stop busStop="070201054002_0" arrival="51330" duration="10" until="51330"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="51450" duration="10" until="51450"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237431.0" route="8441" line="17438_900_114236860.trimmed" depart="51960" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237431.0" route="8441" line="17438_900_114236860.trimmed" depart="51960" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="51960" duration="10" until="51960"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -15372,7 +15373,7 @@
         <stop busStop="070101005179_0" arrival="52740" duration="10" until="52740"/><!--stopSequence="12.0/15.0" "Berlin, Fischerinsel"-->
         <stop busStop="070101005153_0" arrival="52860" duration="10" until="52860"/><!--stopSequence="13.0/15.0" "U Spittelmarkt (Berlin)"-->
     </vehicle>
-    <vehicle id="114236996.0" route="8441" line="17438_900_114236860.trimmed" depart="52560" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236996.0" route="8441" line="17438_900_114236860.trimmed" depart="52560" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="52560" duration="10" until="52560"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -15682,7 +15683,7 @@
         <stop busStop="070201054002_0" arrival="52530" duration="10" until="52530"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="52650" duration="10" until="52650"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237432.0" route="8441" line="17438_900_114236860.trimmed" depart="53160" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237432.0" route="8441" line="17438_900_114236860.trimmed" depart="53160" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="53160" duration="10" until="53160"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -15956,7 +15957,7 @@
         <stop busStop="070101005179_0" arrival="53340" duration="10" until="53340"/><!--stopSequence="3.0/6.0" "Berlin, Fischerinsel"-->
         <stop busStop="070101005153_0" arrival="53460" duration="10" until="53460"/><!--stopSequence="4.0/6.0" "U Spittelmarkt (Berlin)"-->
     </vehicle>
-    <vehicle id="114236997.0" route="8441" line="17438_900_114236860.trimmed" depart="53760" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236997.0" route="8441" line="17438_900_114236860.trimmed" depart="53760" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="53760" duration="10" until="53760"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -16282,7 +16283,7 @@
         <stop busStop="070301009378_0" arrival="54120" duration="10" until="54120"/><!--stopSequence="3.0/11.0" "U Oranienburger Tor (Berlin) [Tram/Bus]"-->
         <stop busStop="070301009822_0" arrival="54240" duration="10" until="54240"/><!--stopSequence="4.0/11.0" "U Naturkundemuseum (Berlin) [Chausseestr.]"-->
     </vehicle>
-    <vehicle id="114237433.0" route="8441" line="17438_900_114236860.trimmed" depart="54360" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237433.0" route="8441" line="17438_900_114236860.trimmed" depart="54360" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="54360" duration="10" until="54360"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -16510,7 +16511,7 @@
         <stop busStop="070201054002_0" arrival="54330" duration="10" until="54330"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="54450" duration="10" until="54450"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114236998.0" route="8441" line="17438_900_114236860.trimmed" depart="54960" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236998.0" route="8441" line="17438_900_114236860.trimmed" depart="54960" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="54960" duration="10" until="54960"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -16839,7 +16840,7 @@
         <stop busStop="070201063502_0" arrival="55230" duration="10" until="55230"/><!--stopSequence="14.0/16.0" "U Oranienburger Tor (Berlin)"-->
         <stop busStop="070201063402_0" arrival="55320" duration="10" until="55320"/><!--stopSequence="15.0/16.0" "U Naturkundemuseum (Berlin)"-->
     </vehicle>
-    <vehicle id="114237434.0" route="8441" line="17438_900_114236860.trimmed" depart="55560" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237434.0" route="8441" line="17438_900_114236860.trimmed" depart="55560" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="55560" duration="10" until="55560"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -17113,7 +17114,7 @@
         <stop busStop="070301008803_0" arrival="56220" duration="10" until="56220"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="56280" duration="10" until="56280"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114236999.0" route="8441" line="17438_900_114236860.trimmed" depart="56160" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236999.0" route="8441" line="17438_900_114236860.trimmed" depart="56160" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="56160" duration="10" until="56160"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -17405,7 +17406,7 @@
         <stop busStop="070201054002_0" arrival="56130" duration="10" until="56130"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="56250" duration="10" until="56250"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237435.0" route="8441" line="17438_900_114236860.trimmed" depart="56760" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237435.0" route="8441" line="17438_900_114236860.trimmed" depart="56760" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="56760" duration="10" until="56760"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -17695,7 +17696,7 @@
         <stop busStop="070301008803_0" arrival="57420" duration="10" until="57420"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="57480" duration="10" until="57480"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114237000.0" route="8441" line="17438_900_114236860.trimmed" depart="57360" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237000.0" route="8441" line="17438_900_114236860.trimmed" depart="57360" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="57360" duration="10" until="57360"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -18005,7 +18006,7 @@
         <stop busStop="070301008803_0" arrival="58020" duration="10" until="58020"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="58080" duration="10" until="58080"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114237436.0" route="8441" line="17438_900_114236860.trimmed" depart="57960" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237436.0" route="8441" line="17438_900_114236860.trimmed" depart="57960" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="57960" duration="10" until="57960"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -18258,7 +18259,7 @@
         <stop busStop="070301008818_0" arrival="58080" duration="10" until="58080"/><!--stopSequence="1.0/6.0" "Berlin, Memhardstr."-->
         <stop busStop="070301009556_0" arrival="58200" duration="10" until="58200"/><!--stopSequence="2.0/6.0" "Berlin, Mollstr./Prenzlauer Allee"-->
     </vehicle>
-    <vehicle id="114237001.0" route="8441" line="17438_900_114236860.trimmed" depart="58560" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237001.0" route="8441" line="17438_900_114236860.trimmed" depart="58560" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="58560" duration="10" until="58560"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -18571,7 +18572,7 @@
         <stop busStop="070301008803_0" arrival="59220" duration="10" until="59220"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="59280" duration="10" until="59280"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114237437.0" route="8441" line="17438_900_114236860.trimmed" depart="59160" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237437.0" route="8441" line="17438_900_114236860.trimmed" depart="59160" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="59160" duration="10" until="59160"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -18827,7 +18828,7 @@
         <stop busStop="070201054002_0" arrival="59130" duration="10" until="59130"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="59250" duration="10" until="59250"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237002.0" route="8441" line="17438_900_114236860.trimmed" depart="59760" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237002.0" route="8441" line="17438_900_114236860.trimmed" depart="59760" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="59760" duration="10" until="59760"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -19128,7 +19129,7 @@
         <stop busStop="070201054002_0" arrival="59730" duration="10" until="59730"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="59850" duration="10" until="59850"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237438.0" route="8441" line="17438_900_114236860.trimmed" depart="60360" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237438.0" route="8441" line="17438_900_114236860.trimmed" depart="60360" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="60360" duration="10" until="60360"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -19402,7 +19403,7 @@
         <stop busStop="070201054002_0" arrival="60330" duration="10" until="60330"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="60450" duration="10" until="60450"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237003.0" route="8441" line="17438_900_114236860.trimmed" depart="60960" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237003.0" route="8441" line="17438_900_114236860.trimmed" depart="60960" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="60960" duration="10" until="60960"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -19710,7 +19711,7 @@
         <stop busStop="070201054002_0" arrival="60930" duration="10" until="60930"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="61050" duration="10" until="61050"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237439.0" route="8441" line="17438_900_114236860.trimmed" depart="61560" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237439.0" route="8441" line="17438_900_114236860.trimmed" depart="61560" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="61560" duration="10" until="61560"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -19990,7 +19991,7 @@
         <stop busStop="070301008818_0" arrival="61680" duration="10" until="61680"/><!--stopSequence="1.0/6.0" "Berlin, Memhardstr."-->
         <stop busStop="070301009556_0" arrival="61800" duration="10" until="61800"/><!--stopSequence="2.0/6.0" "Berlin, Mollstr./Prenzlauer Allee"-->
     </vehicle>
-    <vehicle id="114237004.0" route="8441" line="17438_900_114236860.trimmed" depart="62160" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237004.0" route="8441" line="17438_900_114236860.trimmed" depart="62160" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="62160" duration="10" until="62160"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -20294,7 +20295,7 @@
         <stop busStop="070301008803_0" arrival="62820" duration="10" until="62820"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="62880" duration="10" until="62880"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114237440.0" route="8441" line="17438_900_114236860.trimmed" depart="62760" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237440.0" route="8441" line="17438_900_114236860.trimmed" depart="62760" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="62760" duration="10" until="62760"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -20550,7 +20551,7 @@
         <stop busStop="070201063502_0" arrival="63030" duration="10" until="63030"/><!--stopSequence="14.0/16.0" "U Oranienburger Tor (Berlin)"-->
         <stop busStop="070201063402_0" arrival="63120" duration="10" until="63120"/><!--stopSequence="15.0/16.0" "U Naturkundemuseum (Berlin)"-->
     </vehicle>
-    <vehicle id="114237005.0" route="8441" line="17438_900_114236860.trimmed" depart="63360" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237005.0" route="8441" line="17438_900_114236860.trimmed" depart="63360" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="63360" duration="10" until="63360"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -20860,7 +20861,7 @@
         <stop busStop="070301008803_0" arrival="64020" duration="10" until="64020"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="64080" duration="10" until="64080"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114237441.0" route="8441" line="17438_900_114236860.trimmed" depart="63960" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237441.0" route="8441" line="17438_900_114236860.trimmed" depart="63960" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="63960" duration="10" until="63960"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -21125,7 +21126,7 @@
         <stop busStop="070201054002_0" arrival="63930" duration="10" until="63930"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="64050" duration="10" until="64050"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237006.0" route="8441" line="17438_900_114236860.trimmed" depart="64560" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237006.0" route="8441" line="17438_900_114236860.trimmed" depart="64560" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="64560" duration="10" until="64560"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -21433,7 +21434,7 @@
         <stop busStop="070201054002_0" arrival="64530" duration="10" until="64530"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="64650" duration="10" until="64650"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237442.0" route="8441" line="17438_900_114236860.trimmed" depart="65160" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237442.0" route="8441" line="17438_900_114236860.trimmed" depart="65160" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="65160" duration="10" until="65160"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -21716,7 +21717,7 @@
         <stop busStop="070101007179_0" arrival="65880" duration="10" until="65880"/><!--stopSequence="18.0/28.0" "Berlin, Mollstr./Prenzlauer Allee"-->
         <stop busStop="070101006409_0" arrival="65940" duration="10" until="65940"/><!--stopSequence="19.0/28.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114237007.0" route="8441" line="17438_900_114236860.trimmed" depart="65760" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237007.0" route="8441" line="17438_900_114236860.trimmed" depart="65760" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="65760" duration="10" until="65760"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -22017,7 +22018,7 @@
         <stop busStop="070301008803_0" arrival="66420" duration="10" until="66420"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="66480" duration="10" until="66480"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114237443.0" route="8441" line="17438_900_114236860.trimmed" depart="66360" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237443.0" route="8441" line="17438_900_114236860.trimmed" depart="66360" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="66360" duration="10" until="66360"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -22289,7 +22290,7 @@
         <stop busStop="070301009378_0" arrival="66720" duration="10" until="66720"/><!--stopSequence="3.0/11.0" "U Oranienburger Tor (Berlin) [Tram/Bus]"-->
         <stop busStop="070301009822_0" arrival="66840" duration="10" until="66840"/><!--stopSequence="4.0/11.0" "U Naturkundemuseum (Berlin) [Chausseestr.]"-->
     </vehicle>
-    <vehicle id="114237008.0" route="8441" line="17438_900_114236860.trimmed" depart="66960" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237008.0" route="8441" line="17438_900_114236860.trimmed" depart="66960" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="66960" duration="10" until="66960"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -22574,7 +22575,7 @@
         <stop busStop="070201063502_0" arrival="67230" duration="10" until="67230"/><!--stopSequence="14.0/16.0" "U Oranienburger Tor (Berlin)"-->
         <stop busStop="070201063402_0" arrival="67320" duration="10" until="67320"/><!--stopSequence="15.0/16.0" "U Naturkundemuseum (Berlin)"-->
     </vehicle>
-    <vehicle id="114237444.0" route="8441" line="17438_900_114236860.trimmed" depart="67560" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237444.0" route="8441" line="17438_900_114236860.trimmed" depart="67560" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="67560" duration="10" until="67560"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -22855,7 +22856,7 @@
         <stop busStop="070301008818_0" arrival="67680" duration="10" until="67680"/><!--stopSequence="1.0/6.0" "Berlin, Memhardstr."-->
         <stop busStop="070301009556_0" arrival="67800" duration="10" until="67800"/><!--stopSequence="2.0/6.0" "Berlin, Mollstr./Prenzlauer Allee"-->
     </vehicle>
-    <vehicle id="114237009.0" route="8441" line="17438_900_114236860.trimmed" depart="68160" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237009.0" route="8441" line="17438_900_114236860.trimmed" depart="68160" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="68160" duration="10" until="68160"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -23155,7 +23156,7 @@
         <stop busStop="070301008803_0" arrival="68820" duration="10" until="68820"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="68880" duration="10" until="68880"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114237445.0" route="8441" line="17438_900_114236860.trimmed" depart="68760" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237445.0" route="8441" line="17438_900_114236860.trimmed" depart="68760" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="68760" duration="10" until="68760"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -23429,7 +23430,7 @@
         <stop busStop="070301008803_0" arrival="69420" duration="10" until="69420"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="69480" duration="10" until="69480"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114237010.0" route="8441" line="17438_900_114236860.trimmed" depart="69360" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237010.0" route="8441" line="17438_900_114236860.trimmed" depart="69360" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="69360" duration="10" until="69360"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -23699,7 +23700,7 @@
         <stop busStop="070201063502_0" arrival="69630" duration="10" until="69630"/><!--stopSequence="14.0/16.0" "U Oranienburger Tor (Berlin)"-->
         <stop busStop="070201063402_0" arrival="69720" duration="10" until="69720"/><!--stopSequence="15.0/16.0" "U Naturkundemuseum (Berlin)"-->
     </vehicle>
-    <vehicle id="114237446.0" route="8441" line="17438_900_114236860.trimmed" depart="69960" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237446.0" route="8441" line="17438_900_114236860.trimmed" depart="69960" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="69960" duration="10" until="69960"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -23974,7 +23975,7 @@
         <stop busStop="070101007179_0" arrival="70680" duration="10" until="70680"/><!--stopSequence="18.0/28.0" "Berlin, Mollstr./Prenzlauer Allee"-->
         <stop busStop="070101006409_0" arrival="70740" duration="10" until="70740"/><!--stopSequence="19.0/28.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114237011.0" route="8441" line="17438_900_114236860.trimmed" depart="70560" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237011.0" route="8441" line="17438_900_114236860.trimmed" depart="70560" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="70560" duration="10" until="70560"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -24242,7 +24243,7 @@
         <stop busStop="070201054002_0" arrival="70530" duration="10" until="70530"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="70650" duration="10" until="70650"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237447.0" route="8441" line="17438_900_114236860.trimmed" depart="71160" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237447.0" route="8441" line="17438_900_114236860.trimmed" depart="71160" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="71160" duration="10" until="71160"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -24498,7 +24499,7 @@
         <stop busStop="070201063502_0" arrival="71430" duration="10" until="71430"/><!--stopSequence="14.0/16.0" "U Oranienburger Tor (Berlin)"-->
         <stop busStop="070201063402_0" arrival="71520" duration="10" until="71520"/><!--stopSequence="15.0/16.0" "U Naturkundemuseum (Berlin)"-->
     </vehicle>
-    <vehicle id="114237012.0" route="8441" line="17438_900_114236860.trimmed" depart="71760" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237012.0" route="8441" line="17438_900_114236860.trimmed" depart="71760" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="71760" duration="10" until="71760"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -24790,7 +24791,7 @@
         <stop busStop="070201063502_0" arrival="72030" duration="10" until="72030"/><!--stopSequence="14.0/16.0" "U Oranienburger Tor (Berlin)"-->
         <stop busStop="070201063402_0" arrival="72120" duration="10" until="72120"/><!--stopSequence="15.0/16.0" "U Naturkundemuseum (Berlin)"-->
     </vehicle>
-    <vehicle id="114237448.0" route="8441" line="17438_900_114236860.trimmed" depart="72360" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237448.0" route="8441" line="17438_900_114236860.trimmed" depart="72360" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="72360" duration="10" until="72360"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -25058,7 +25059,7 @@
         <stop busStop="070301008818_0" arrival="72480" duration="10" until="72480"/><!--stopSequence="1.0/6.0" "Berlin, Memhardstr."-->
         <stop busStop="070301009556_0" arrival="72600" duration="10" until="72600"/><!--stopSequence="2.0/6.0" "Berlin, Mollstr./Prenzlauer Allee"-->
     </vehicle>
-    <vehicle id="114237013.0" route="8441" line="17438_900_114236860.trimmed" depart="72960" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237013.0" route="8441" line="17438_900_114236860.trimmed" depart="72960" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="72960" duration="10" until="72960"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -25301,7 +25302,7 @@
         <stop busStop="070201063502_0" arrival="73230" duration="10" until="73230"/><!--stopSequence="14.0/16.0" "U Oranienburger Tor (Berlin)"-->
         <stop busStop="070201063402_0" arrival="73320" duration="10" until="73320"/><!--stopSequence="15.0/16.0" "U Naturkundemuseum (Berlin)"-->
     </vehicle>
-    <vehicle id="114237449.0" route="8441" line="17438_900_114236860.trimmed" depart="73560" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237449.0" route="8441" line="17438_900_114236860.trimmed" depart="73560" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="73560" duration="10" until="73560"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -25586,7 +25587,7 @@
         <stop busStop="070201063502_0" arrival="73830" duration="10" until="73830"/><!--stopSequence="14.0/16.0" "U Oranienburger Tor (Berlin)"-->
         <stop busStop="070201063402_0" arrival="73920" duration="10" until="73920"/><!--stopSequence="15.0/16.0" "U Naturkundemuseum (Berlin)"-->
     </vehicle>
-    <vehicle id="114237014.0" route="8441" line="17438_900_114236860.trimmed" depart="74160" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237014.0" route="8441" line="17438_900_114236860.trimmed" depart="74160" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="74160" duration="10" until="74160"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -25839,7 +25840,7 @@
         <stop busStop="070201054002_0" arrival="74130" duration="10" until="74130"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="74250" duration="10" until="74250"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237450.0" route="8441" line="17438_900_114236860.trimmed" depart="74760" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237450.0" route="8441" line="17438_900_114236860.trimmed" depart="74760" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="74760" duration="10" until="74760"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -26118,7 +26119,7 @@
         <stop busStop="070301008803_0" arrival="75420" duration="10" until="75420"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="75480" duration="10" until="75480"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114237015.0" route="8441" line="17438_900_114236860.trimmed" depart="75360" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237015.0" route="8441" line="17438_900_114236860.trimmed" depart="75360" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="75360" duration="10" until="75360"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -26388,7 +26389,7 @@
         <stop busStop="070101006406_0" arrival="76020" duration="10" until="76020"/><!--stopSequence="11.0/14.0" "Berlin, Neumannsgasse"-->
         <stop busStop="070101005118_0" arrival="76140" duration="10" until="76140"/><!--stopSequence="12.0/14.0" "Berlin, Fischerinsel."-->
     </vehicle>
-    <vehicle id="114237451.0" route="8441" line="17438_900_114236860.trimmed" depart="75960" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237451.0" route="8441" line="17438_900_114236860.trimmed" depart="75960" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="75960" duration="10" until="75960"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -26627,7 +26628,7 @@
         <stop busStop="070301008803_0" arrival="76620" duration="10" until="76620"/><!--stopSequence="25.0/26.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070301008804_0" arrival="76680" duration="10" until="76680"/><!--stopSequence="26.0/26.0" "S Hackescher Markt (Berlin)"-->
     </vehicle>
-    <vehicle id="114237016.0" route="8441" line="17438_900_114236860.trimmed" depart="76560" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237016.0" route="8441" line="17438_900_114236860.trimmed" depart="76560" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="76560" duration="10" until="76560"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -26857,7 +26858,7 @@
         <stop busStop="070201054002_0" arrival="76530" duration="10" until="76530"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="76650" duration="10" until="76650"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237452.0" route="8441" line="17438_900_114236860.trimmed" depart="77160" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237452.0" route="8441" line="17438_900_114236860.trimmed" depart="77160" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="77160" duration="10" until="77160"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -27072,7 +27073,7 @@
         <stop busStop="070301008801_0" arrival="77700" duration="10" until="77700"/><!--stopSequence="20.0/21.0" "U Alexanderplatz (Berlin) [Tram]"-->
         <stop busStop="070301008816_1" arrival="77820" duration="10" until="77820"/><!--stopSequence="21.0/21.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237017.0" route="8441" line="17438_900_114236860.trimmed" depart="77760" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237017.0" route="8441" line="17438_900_114236860.trimmed" depart="77760" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="77760" duration="10" until="77760"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -27233,7 +27234,7 @@
         <stop busStop="070101005179_0" arrival="78180" duration="10" until="78180"/><!--stopSequence="12.0/15.0" "Berlin, Fischerinsel"-->
         <stop busStop="070101005153_0" arrival="78300" duration="10" until="78300"/><!--stopSequence="13.0/15.0" "U Spittelmarkt (Berlin)"-->
     </vehicle>
-    <vehicle id="114237286.0" route="8441" line="17438_900_114236860.trimmed" depart="78240" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237286.0" route="8441" line="17438_900_114236860.trimmed" depart="78240" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="78240" duration="10" until="78240"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -27445,7 +27446,7 @@
         <stop busStop="070301008808_0" arrival="78480" duration="10" until="78480"/><!--stopSequence="3.0/7.0" "U Alexanderplatz (Berlin) [Tram]"-->
         <stop busStop="070301008810_0" arrival="78660" duration="10" until="78660"/><!--stopSequence="4.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236853.0" route="8441" line="17438_900_114236860.trimmed" depart="78840" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236853.0" route="8441" line="17438_900_114236860.trimmed" depart="78840" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="78840" duration="10" until="78840"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -27654,7 +27655,7 @@
         <stop busStop="070101006242_0" arrival="78780" duration="10" until="78780"/><!--stopSequence="0.0/8.0" "U Märkisches Museum (Berlin)"-->
         <stop busStop="070101006241_0" arrival="78810" duration="10" until="78810"/><!--stopSequence="1.0/8.0" "U Märkisches Museum/Inselstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114237287.0" route="8441" line="17438_900_114236860.trimmed" depart="79440" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237287.0" route="8441" line="17438_900_114236860.trimmed" depart="79440" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="79440" duration="10" until="79440"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -27860,7 +27861,7 @@
         <stop busStop="070301008816_0" arrival="79440" duration="10" until="79440"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="79800" duration="10" until="79800"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236854.0" route="8441" line="17438_900_114236860.trimmed" depart="80040" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236854.0" route="8441" line="17438_900_114236860.trimmed" depart="80040" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="80040" duration="10" until="80040"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -28062,7 +28063,7 @@
         <stop busStop="070301008816_0" arrival="80040" duration="10" until="80040"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="80400" duration="10" until="80400"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114237288.0" route="8441" line="17438_900_114236860.trimmed" depart="80640" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237288.0" route="8441" line="17438_900_114236860.trimmed" depart="80640" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="80640" duration="10" until="80640"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -28263,7 +28264,7 @@
         <stop busStop="070301008816_0" arrival="80640" duration="10" until="80640"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="81000" duration="10" until="81000"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236855.0" route="8441" line="17438_900_114236860.trimmed" depart="81240" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236855.0" route="8441" line="17438_900_114236860.trimmed" depart="81240" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="81240" duration="10" until="81240"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -28455,7 +28456,7 @@
         <stop busStop="070301008816_0" arrival="81240" duration="10" until="81240"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="81600" duration="10" until="81600"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114237289.0" route="8441" line="17438_900_114236860.trimmed" depart="81840" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237289.0" route="8441" line="17438_900_114236860.trimmed" depart="81840" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="81840" duration="10" until="81840"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -28637,7 +28638,7 @@
         <stop busStop="070301008808_0" arrival="82080" duration="10" until="82080"/><!--stopSequence="3.0/7.0" "U Alexanderplatz (Berlin) [Tram]"-->
         <stop busStop="070301008810_0" arrival="82260" duration="10" until="82260"/><!--stopSequence="4.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236856.0" route="8441" line="17438_900_114236860.trimmed" depart="82440" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236856.0" route="8441" line="17438_900_114236860.trimmed" depart="82440" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="82440" duration="10" until="82440"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -28826,7 +28827,7 @@
         <stop busStop="070301009378_0" arrival="82800" duration="10" until="82800"/><!--stopSequence="3.0/11.0" "U Oranienburger Tor (Berlin) [Tram/Bus]"-->
         <stop busStop="070301009822_0" arrival="82920" duration="10" until="82920"/><!--stopSequence="4.0/11.0" "U Naturkundemuseum (Berlin) [Chausseestr.]"-->
     </vehicle>
-    <vehicle id="114237290.0" route="8441" line="17438_900_114236860.trimmed" depart="83040" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237290.0" route="8441" line="17438_900_114236860.trimmed" depart="83040" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="83040" duration="10" until="83040"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -28996,7 +28997,7 @@
         <stop busStop="070301008808_0" arrival="83280" duration="10" until="83280"/><!--stopSequence="3.0/7.0" "U Alexanderplatz (Berlin) [Tram]"-->
         <stop busStop="070301008810_0" arrival="83460" duration="10" until="83460"/><!--stopSequence="4.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236857.0" route="8441" line="17438_900_114236860.trimmed" depart="83640" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236857.0" route="8441" line="17438_900_114236860.trimmed" depart="83640" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="83640" duration="10" until="83640"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -29180,7 +29181,7 @@
         <stop busStop="070301008816_0" arrival="83640" duration="10" until="83640"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="84000" duration="10" until="84000"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114237291.0" route="8441" line="17438_900_114236860.trimmed" depart="84240" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237291.0" route="8441" line="17438_900_114236860.trimmed" depart="84240" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="84240" duration="10" until="84240"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -29350,7 +29351,7 @@
         <stop busStop="070301008808_0" arrival="84480" duration="10" until="84480"/><!--stopSequence="3.0/7.0" "U Alexanderplatz (Berlin) [Tram]"-->
         <stop busStop="070301008810_0" arrival="84660" duration="10" until="84660"/><!--stopSequence="4.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236858.0" route="8441" line="17438_900_114236860.trimmed" depart="84840" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236858.0" route="8441" line="17438_900_114236860.trimmed" depart="84840" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="84840" duration="10" until="84840"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -29523,7 +29524,7 @@
         <stop busStop="070301009378_0" arrival="85200" duration="10" until="85200"/><!--stopSequence="3.0/11.0" "U Oranienburger Tor (Berlin) [Tram/Bus]"-->
         <stop busStop="070301009822_0" arrival="85320" duration="10" until="85320"/><!--stopSequence="4.0/11.0" "U Naturkundemuseum (Berlin) [Chausseestr.]"-->
     </vehicle>
-    <vehicle id="114237292.0" route="8441" line="17438_900_114236860.trimmed" depart="85440" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237292.0" route="8441" line="17438_900_114236860.trimmed" depart="85440" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="85440" duration="10" until="85440"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -29706,7 +29707,7 @@
         <stop busStop="070301008816_0" arrival="85440" duration="10" until="85440"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="85800" duration="10" until="85800"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114236859.0" route="8441" line="17438_900_114236860.trimmed" depart="86040" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236859.0" route="8441" line="17438_900_114236860.trimmed" depart="86040" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="86040" duration="10" until="86040"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -29870,7 +29871,7 @@
         <stop busStop="070301008816_0" arrival="86040" duration="10" until="86040"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="86400" duration="10" until="86400"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114237293.0" route="8441" line="17438_900_114236860.trimmed" depart="86640" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237293.0" route="8441" line="17438_900_114236860.trimmed" depart="86640" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="86640" duration="10" until="86640"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -30000,7 +30001,7 @@
         <stop busStop="070101007173_0" arrival="87000" duration="10" until="87000"/><!--stopSequence="16.0/17.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070101007175_0" arrival="87120" duration="10" until="87120"/><!--stopSequence="17.0/17.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114236860.0" route="8441" line="17438_900_114236860.trimmed" depart="87240" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114236860.0" route="8441" line="17438_900_114236860.trimmed" depart="87240" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="87240" duration="10" until="87240"/><!--stopSequence="26.0/30.0" "Berlin, Torstr./U Oranienburger Tor"-->
@@ -30090,7 +30091,7 @@
         <stop busStop="070101005178_0" arrival="87540" duration="10" until="87540"/><!--stopSequence="45.0/46.0" "U Märkisches Museum (Berlin)"-->
         <stop busStop="070101006242_0" arrival="87600" duration="10" until="87600"/><!--stopSequence="46.0/46.0" "U Märkisches Museum (Berlin)"-->
     </vehicle>
-    <vehicle id="114237294.0" route="8441" line="17438_900_114236860.trimmed" depart="87840" departEdge="41" arrivalEdge="70" type="tram" color="190,20,20">
+    <vehicle id="114237294.0" route="8441" line="17438_900_114236860.trimmed" depart="87840" departEdge="41" arrivalEdge="68" type="tram" color="190,20,20">
         <param key="gtfs.route_name" value="M1"/>
         <param key="gtfs.trip_headsign" value="Mitte, Am Kupfergraben"/>
         <stop busStop="070301009372_0" arrival="87840" duration="10" until="87840"/><!--stopSequence="24.0/28.0" "Berlin, Torstr./U Oranienburger Tor"-->

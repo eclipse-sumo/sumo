@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" length="50.00" vClass="rail"/>
+    <trip id="t0" type="train" depart="0" from="a" to="c2"/>
+    <trip id="t1" type="train" depart="0" from="b" to="a2"/>
+    <trip id="t2" type="train" depart="0" from="c" to="b2"/>
+
+    <trip id="t3" type="train" depart="400" from="a" to="c3"/>
+    <trip id="t4" type="train" depart="400" from="b3" to="a3"/>
+    <trip id="t5" type="train" depart="400" from="c3" to="b3"/>
+
+    <trip id="t6" type="train" depart="800" from="b" to="a4"/>
+    <trip id="t7" type="train" depart="800" from="c4" to="b4"/>
+    <trip id="t8" type="train" depart="800" from="a4" to="c4"/>
+
+    <trip id="t9"  type="train" depart="1200" from="c" to="b5"/>
+    <trip id="t10" type="train" depart="1200" from="a5" to="c5"/>
+    <trip id="t11" type="train" depart="1200" from="b5" to="a5"/>
+</routes>
