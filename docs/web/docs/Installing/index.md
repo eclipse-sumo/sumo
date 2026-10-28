@@ -161,6 +161,7 @@ If you encounter a blank screen after opening sumo-gui (cf. https://github.com/e
 SUMO contains lots of [Python tools](../Tools/index.md) which are part of the sources and the Windows distribution
 and may be packaged on Linux in the sumo or a separate sumo-tools package. To take full advantage of these tools
 you need several additional python modules. The easiest way to install them is to use `pip install -r $SUMO_HOME/tools/requirements.txt`.
+If you want to use JuPedSim as a pedestrian model you also need to `pip install --no-deps jupedsim`.
 
 # via Docker
 
