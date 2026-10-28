@@ -450,6 +450,102 @@ GNEViewParent::updateUndoRedoButtons() {
 }
 
 
+std::vector<GUIGlID>
+GNEViewParent::getObjectIDs(int messageId) const {
+    std::vector<GUIGlID> ids;
+    GNEViewNet* viewNet = dynamic_cast<GNEViewNet*>(myView);
+    if (viewNet == nullptr || viewNet->getNet() == nullptr) {
+        return ids;
+    }
+    switch (messageId) {
+        case MID_HOTKEY_SHIFT_J_LOCATEJUNCTION:
+            for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+                ids.push_back(junction.second->getGUIGlObject()->getGlID());
+            }
+            break;
+        case MID_HOTKEY_SHIFT_E_LOCATEEDGE:
+            for (const auto& edge : viewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                ids.push_back(edge.second->getGUIGlObject()->getGlID());
+            }
+            break;
+        case MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA:
+            for (const auto& walkingArea : viewNet->getNet()->getAttributeCarriers()->getWalkingAreas()) {
+                ids.push_back(walkingArea.second->getGUIGlObject()->getGlID());
+            }
+            break;
+        case MID_HOTKEY_SHIFT_V_LOCATEVEHICLE: {
+            for (const auto& vehicleTag : NamespaceIDs::vehicles) {
+                for (const auto& vehicle : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(vehicleTag)) {
+                    ids.push_back(vehicle.second->getGUIGlObject()->getGlID());
+                }
+            }
+            break;
+        }
+        case MID_HOTKEY_SHIFT_P_LOCATEPERSON:
+            for (const auto& personTag : NamespaceIDs::persons) {
+                for (const auto& person : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(personTag)) {
+                    ids.push_back(person.second->getGUIGlObject()->getGlID());
+                }
+            }
+            break;
+        case MID_HOTKEY_SHIFT_C_LOCATECONTAINER:
+            for (const auto& containerTag : NamespaceIDs::containers) {
+                for (const auto& container : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(containerTag)) {
+                    ids.push_back(container.second->getGUIGlObject()->getGlID());
+                }
+            }
+            break;
+        case MID_HOTKEY_SHIFT_R_LOCATEROUTE:
+            for (const auto& route : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
+                ids.push_back(route.second->getGUIGlObject()->getGlID());
+            }
+            break;
+        case MID_HOTKEY_SHIFT_S_LOCATESTOP: {
+            for (const auto& stopTag : NamespaceIDs::stops) {
+                for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(stopTag)) {
+                    ids.push_back(flowTAZ.second->getGUIGlObject()->getGlID());
+                }
+            }
+            break;
+        }
+        case MID_HOTKEY_SHIFT_T_LOCATETLS:
+            for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+                if (junction.second->getNBNode()->getControllingTLS().size() > 0) {
+                    ids.push_back(junction.second->getGUIGlObject()->getGlID());
+                }
+            }
+            break;
+        case MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL:
+            for (const auto& additionalTag : viewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
+                const auto tagProperty = viewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionalTag.first, true);
+                if (!tagProperty->isShapeElement() && !tagProperty->isTAZElement()) {
+                    for (const auto& additional : additionalTag.second) {
+                        ids.push_back(additional.second->getGUIGlObject()->getGlID());
+                    }
+                }
+            }
+            break;
+        case MID_HOTKEY_SHIFT_O_LOCATEPOI:
+            for (const auto& POITag : NamespaceIDs::POIs) {
+                for (const auto& poi : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(POITag)) {
+                    ids.push_back(poi.second->getGUIGlObject()->getGlID());
+                }
+            }
+            break;
+        case MID_HOTKEY_SHIFT_L_LOCATEPOLY:
+            for (const auto& polygonTag : NamespaceIDs::polygons) {
+                for (const auto& polygon : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(polygonTag)) {
+                    ids.push_back(polygon.second->getGUIGlObject()->getGlID());
+                }
+            }
+            break;
+        default:
+            break;
+    }
+    return ids;
+}
+
+
 FXVerticalFrame*
 GNEViewParent::getFramesArea() const {
     return myFramesArea;

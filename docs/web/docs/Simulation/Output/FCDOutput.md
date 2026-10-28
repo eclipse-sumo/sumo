@@ -45,44 +45,48 @@ The generated XML file looks like this:
 
 The values without a tick in the "On" column need to be [enabled explicitly](#further_options) and the ones without a tick at "Meso" are not available for the [mesoscopic simulation](../Meso.md).
 
-| Name     | Type                 | On | Meso | Description                                                                                                 |
-| -------- | -------------------- | -- | ---- | ----------------------------------------------------------------------------------------------------------- |
-| timestep | (simulation) seconds |  x |   x  | The time step described by the values within this timestep-element                                          |
-| id       | id                   |  x |   x  | The id of the vehicle                                                                                       |
-| x        | m or longitude       |  x |   x  | The absolute X coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection. With the option **--fcd-output.utm**, the value is given in UTM coordinates, taking the network offset into account. If the network has no TUM projection (check the line containing "location netOffset" in the network file), you need to reprojected it, e.g. using netconvert. With the option **--fcd-output.geo**, the longitude is given (WGS84).|
-| y        | m or latitude        |  x |   x  | The absolute Y coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection. With the option **--fcd-output.utm**, the value is given in UTM coordinates, taking the network offset into account (see the info above regarding the projection issue). With the option **--fcd-output.geo**, the lattitude is given (WGS84).|
-| z        | m                    |  (x) |   x  | The z value of the vehicle (center of front bumper).<br><br>**Note:** This value is only present if the network contains elevation data      |
-| angle    | degree               |  x |   x  | The angle of the vehicle in navigational standard (0-360 degrees, going clockwise with 0 at the 12'o clock position)    |
-| type     | id                   |  x |   x  | The name of the vehicle type                                                                                |
-| speed    | m/s                  |  x |   x  | The speed of the vehicle                                                                                    |
-| speedVec | m/s                  |  x |   x  | The speed vector of the vehicle:speed_x,speed_y                                                             |
-| pos      | m                    |  x |   x  | The running position of the vehicle measured from the start of the current lane.                            |
-| lane     | id                   |  (x) |      | The id of the current lane (only available in microsimulation).                                                                                 |
-| edge     | id                   |  (x) |   x  | The id of the current edge (only available in meso).                                                        |
-| slope    | degree               |  x |   x  | The slope of the vehicle in degrees (equals the slope of the road at the current position)                  |
-| signals  | bitset               |    |      | The [signal state information](../../TraCI/Vehicle_Signalling.md) (blinkers, etc)                           |
-| acceleration  | m/s<sup>2</sup  |    |      | The longitudinal acceleration                                                                               |
-| accelerationLat | m/s<sup>2</sup |   |      | The lateral acceleration (only with enabled sublane model)                                                  |
-| accelerationVec | m/s<sup>2</sup |   |      | The acceleration vector of the vehicle: acceleration_x,acceleration_y                                          |
-| distance | m                    |    |   x  | The [kilometrage / mileage position](../Railways.md#kilometrage_mileage_chainage) of the vehicle.           |
-| odometer | m                    |    |   x  | The odometer value (distance driven since departure).                                                       |
-| vehicle  | id                   |    |   x  | The id of the vehicle the person is currently riding (only available for persons)                           |
-| posLat   | m                    |    |      | The [lateral position](../SublaneModel.md#lateral_resolution_and_vehicle_position) on the lane              |
-| speedLat | m/s                  |    |      | The lateral speed (negative if the vehicle moves to the right)                                              |
-| leaderID | id                   |    |      | The id of the leading vehicle                                                                               |
-| leaderSpeed | m/s               |    |      | The speed of the leader                                                                                     |
-| leaderGap | m                   |    |      | The gap to the leader                                                                                       |
-| segment | m                     |    |  x   | The [segment index within the current edge](../Meso.md#longitudinal_model)                                  |
-| queue | m                       |    |  x   | The [queue index within the current edge](../Meso.md#longitudinal_model)                                    |
-| entryTime | m                   |    |  x   | The time at which the vehicle entered the current segment                                                   |
-| eventTime | m                   |    |  x   | The earliest time at which the vehicle can leave the current segment                                        |
-| blockTime | m                   |    |  x   | The time at which the vehicle was blocked from leaving the current segment (or -1 if not blocked)           |
-| tag | string                    |    |      | Whether a vehicle, container or person is being written (mainly useful for tabular output)           |
+| Name     | Type                  | On | Meso | Description                                                                                                 |
+| -------- | --------------------  | -- | ---- | ----------------------------------------------------------------------------------------------------------- |
+| timestep | (simulation) seconds  |  x |  x  | The time step described by the values within this timestep-element                                          |
+| id       | id                    |  x |  x  | The id of the vehicle                                                                                       |
+| x        | m or longitude        |  x |  x  | The absolute X coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection. With the option **--fcd-output.utm**, the value is given in UTM coordinates, taking the network offset into account. If the network has no TUM projection (check the line containing "location netOffset" in the network file), you need to reprojected it, e.g. using netconvert. With the option **--fcd-output.geo**, the longitude is given (WGS84).|
+| y        | m or latitude         |  x |  x  | The absolute Y coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection. With the option **--fcd-output.utm**, the value is given in UTM coordinates, taking the network offset into account (see the info above regarding the projection issue). With the option **--fcd-output.geo**, the latitude is given (WGS84).|
+| z        | m                     | (x)|  x  | The z value of the vehicle (center of front bumper).<br><br>**Note:** This value is only present if the network contains elevation data      |
+| angle    | degree                |  x |  x  | The angle of the vehicle in navigational standard (0-360 degrees, going clockwise with 0 at the 12'o clock position)    |
+| type     | id                    |  x |  x  | The name of the vehicle type                                                                                |
+| speed    | m/s                   |  x |  x  | The speed of the vehicle                                                                                    |
+| pos      | m                     |  x |  x  | The running position of the vehicle measured from the start of the current lane.                            |
+| lane     | id                    | (x)|     | The id of the current lane (only available in microsimulation).                                             |
+| edge     | id                    | (x)|  x  | The id of the current edge (only available in meso).                                                        |
+| slope    | degree                |  x |  x  | The slope of the vehicle in degrees (equals the slope of the road at the current position)                  |
+| signals  | bitset                |    |     | The [signal state information](../../TraCI/Vehicle_Signaling.md) (blinkers, etc)                            |
+| acceleration  | m/s<sup>2</sup>   |    |     | The longitudinal acceleration                                                                               |
+| accelerationLat | m/s<sup>2</sup> |    |     | The lateral acceleration (only with enabled sublane model)                                                  |
+| accelerationVec | m/s<sup>2</sup> |    |     | The acceleration vector of the vehicle: acceleration_x,acceleration_y                                       |
+| speedVec | m/s                   |    |  x  | The speed vector of the vehicle:speed_x,speed_y                                                             |
+| distance | m                     |    |  x  | The [kilometrage / mileage position](../Railways.md#kilometrage_mileage_chainage) of the vehicle.           |
+| odometer | m                     |    |  x  | The odometer value (distance driven since departure).                                                       |
+| vehicle  | id                    |    |  x  | The id of the vehicle the person is currently riding (only available for persons)                           |
+| posLat   | m                     |    |     | The [lateral position](../SublaneModel.md#lateral_resolution_and_vehicle_position) on the lane              |
+| speedLat | m/s                   |    |     | The lateral speed (negative if the vehicle moves to the right)                                              |
+| speedRelative |                  |    |     | The speed of the vehicle divided by the speed limit                                                         |
+| leaderID | id                    |    |     | The id of the leading vehicle                                                                               |
+| leaderSpeed | m/s                |    |     | The speed of the leader                                                                                     |
+| leaderGap | m                    |    |     | The gap to the leader                                                                                       |
+| arrivalDelay | s                 |    |     | The difference between estimated and scheduled arrival time at the next stop                                |
+| delay        | s                 |    |     | The difference between estimated and scheduled departure time at the next stop                              |
+| segment | m                      |    |  x  | The [segment index within the current edge](../Meso.md#longitudinal_model)                                  |
+| queue | m                        |    |  x  | The [queue index within the current edge](../Meso.md#longitudinal_model)                                    |
+| entryTime | m                    |    |  x  | The time at which the vehicle entered the current segment                                                   |
+| eventTime | m                    |    |  x  | The earliest time at which the vehicle can leave the current segment                                        |
+| blockTime | m                    |    |  x  | The time at which the vehicle was blocked from leaving the current segment (or -1 if not blocked)           |
+| tag | string                     |    |     | Whether a vehicle, container or person is being written (mainly useful for tabular output)                  |
 
 ### Emission Attributes
 
 All attributes from the [emission output](EmissionOutput.md) can be added to the FCD output as well.
-They need to be enabled by using the option **--fcd-output.attributes**, see below.
+They need to be enabled by using the option **--fcd-output.attributes emissions** or by given an explicit list of
+attribute names as shown below.
 
 ```xml
 <configuration>
@@ -206,7 +210,7 @@ The value **all** enables all attributes (including emission output). There are 
 - **--fcd-output.geo** will toggle output coordinates to WGS84 (for
   geo-referenced networks)
 - **--fcd-output.signals** will add [signal state
-  information](../../TraCI/Vehicle_Signalling.md) to the output
+  information](../../TraCI/Vehicle_Signaling.md) to the output
 - **--fcd-output.distance** will add [kilometrage](../Railways.md#kilometrage_mileage_chainage) information to the output
 - **--fcd-output.acceleration** will add acceleration data to the output (also lateral acceleration when using the [sublane model](../SublaneModel.md))
 - **--fcd-output.max-leader-distance FLOAT** will add attributes leaderGap, leaderSpeed, leaderID whenever a vehicle has a leader within the given distance. Otherwise, leaderID will be "" and leaderGap, leaderSpeed will be -1.

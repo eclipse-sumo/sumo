@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-14T10:20:20.171696+01:00 by Eclipse SUMO netedit v1_28_0+0069-9da5ff73f39
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="t_0" depart="0.00" from="E0" to="E2"/>
+    <trip id="t_1" depart="0.00" from="E3" to="E1"/>
+    <trip id="t_2" depart="0.00" from="E3" to="E2"/>
+</routes>

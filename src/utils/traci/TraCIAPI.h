@@ -184,6 +184,7 @@ public:
         double getNoiseEmission(const std::string& edgeID) const;
         double getElectricityConsumption(const std::string& edgeID) const;
         double getLastStepMeanSpeed(const std::string& edgeID) const;
+        double getMaxSpeed(const std::string& edgeID) const;
         double getLastStepOccupancy(const std::string& edgeID) const;
         double getLastStepLength(const std::string& edgeID) const;
         double getTraveltime(const std::string& edgeID) const;

@@ -23,7 +23,7 @@ thus adapts to jams and other changes in the network.
 The options listed below allow configuring which of the vehicles shall
 be equipped, how often rerouting decisions shall be made and how the
 estimation of travel times is computed from current and recent
-knowledge. 
+knowledge.
 
 Further information on [routing is available](../Simulation/Routing.md).
 
@@ -91,7 +91,7 @@ To understand the evolution of edge weights during the simulation it can
 be helpful to look at the values in detail:
 
 - used road coloring *by routing device assumed speed* in
-  [sumo-gui](../sumo-gui.md#changing_the_appearancevisualisation_of_the_simulation)
+  [sumo-gui](../sumo-gui.md#changing_the_appearancevisualization_of_the_simulation)
 - use option **--device.rerouting.output** {{DT_FILE}} to get the raw numbers
 - use [TraCI function
   ''vehicle.getParameter("device.rerouting.edge:EDGEID")](../TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters)
@@ -157,7 +157,7 @@ The device can be accessed using the TraCI function
 
 # Improvement Thresholds
 
-By default, periodic rerouting will change a vehicles route if the new route is percieved to reduce the travelTime compared to the old route by any amount.
+By default, periodic rerouting will change a vehicles route if the new route is perceived to reduce the travelTime compared to the old route by any amount.
 Let `oldTime` be the estimated travelTime of the currentRoute and `newTime` the estimated time for the fastest route:
 
 - When setting option **--device.rerouting.threshold.factor FLOAT**, the route will be changed only if `oldTime / newTime > FLOAT`.

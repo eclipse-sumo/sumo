@@ -1,0 +1,26 @@
+/* XPM */
+static const char * green_person_jupedsim_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1",
+" 	c None",
+".	c Black",
+"X	c Green",
+"+	c #0052A4",
+/* pixels */
+"                ",
+"           +++++",
+"   ..         ++",
+" ..XX..       ++",
+".XXXXXX.      ++",
+" .XX.X.    +  ++",
+" .XXX.      +++ ",
+"  .X..          ",
+" .XXXX...       ",
+" .XXXXXXX.      ",
+" .XXX..         ",
+" .XXXXX...      ",
+".XX...XXXX.     ",
+".XX.  .XX.      ",
+".XXX.  ..       ",
+" ...            "
+};

@@ -33,6 +33,8 @@ class GNETagPropertiesDatabase;
 class GNELoadThread;
 class GNEInternalTest;
 class GNEExternalRunner;
+class FileBucket;
+class GNEGeneralHandler;
 
 // ===========================================================================
 // class definition
@@ -595,10 +597,10 @@ public:
     GNEViewNet* getViewNet();
 
     /// @brief get checkable button for menu tooltips
-    MFXCheckableButton* getShowToolTipsMenu() const override;
+    MFXCheckableButton* getShowToolTipsMenu() const;
 
     /// @brief get checkable button for view tooltips
-    MFXCheckableButton* getShowToolTipsView() const override;
+    MFXCheckableButton* getShowToolTipsView() const;
 
     /// @brief get ToolbarsGrip
     GNEApplicationWindowHelper::ToolbarsGrip& getToolbarsGrip();
@@ -786,9 +788,6 @@ private:
     /// @brief sumo options container
     OptionsCont mySumoOptions;
 
-    /// @brief netconvert options container
-    OptionsCont myNetconvertOptions;
-
     /// @brief original sumo options container
     OptionsCont myOriginalSumoOptions;
 
@@ -853,6 +852,9 @@ private:
     /// @brief allow undo-redo loading (read from registry)
     bool myAllowUndoRedoLoading = true;
 
+    /// @brief flag for checking if netedit was started with a new network
+    bool myStartedWithNewNet = false;
+
     /// @brief The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu = nullptr;
 
@@ -864,6 +866,9 @@ private:
 
     /// @brief warns about unsaved changes and gives the user the option to abort
     bool askSaveElements(FXObject* sender, FXSelector sel, void* ptr);
+
+    /// @brief check if loaded additional file is a meanData file and update buckets accordingly
+    bool checkMeanDataFileBucket(const std::string& file, FileBucket* bucket, const GNEGeneralHandler& generalHandler);
 
     /// @brief Invalidated copy constructor.
     GNEApplicationWindow(const GNEApplicationWindow&) = delete;

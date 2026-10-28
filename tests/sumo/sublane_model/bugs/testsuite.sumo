@@ -110,6 +110,9 @@ ticket15932
 # Copy of ticket17386
 ticket17383
 ticket17386
+
+# failed change for IDM after stopping within minGap 
+ticket17483
 ticket17502
 
 # crash

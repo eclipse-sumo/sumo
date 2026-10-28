@@ -203,7 +203,7 @@ where ![grafik](https://github.com/eclipse-sumo/sumo/assets/6240630/c8927274-d95
  and ![grafik](https://github.com/eclipse-sumo/sumo/assets/6240630/4f0dd98f-4ad4-4d3a-b0f3-4f181be25feb) are, respectively, the traffic flow of link *a* at simulation steps *i-1* and *i-2*.
 
 The Dynamic System Optimal traffic assignment can be activated by setting options **--marginal-cost, --marginal-cost.exp**, in duaIterate.py. As the MTTs in the proposed algorithm are calculated based on a local approximation, it may lead to its overestimation. Therefore, it is recommended to use the second term of the MTT equation for calibration (option **--marginal-cost.exp**)
-For more information about dynamic system optimal modelling in SUMO please refer to https://doi.org/10.52825/scp.v3i.119.
+For more information about dynamic system optimal modeling in SUMO please refer to https://doi.org/10.52825/scp.v3i.119.
 
 # Iterative Assignment (Mixing DUE and SO)
 

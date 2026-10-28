@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-21 14:03:46.221769 by Eclipse SUMO gtfs2pt.py v1_28_0+0168-6edec047c3b
+<configuration>
+    <merged-csv value="data.csv"/>
+    <modes value="train"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net.net.xml"/>
+    <stops value="input_stops.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="train" vClass="rail"/>
+</additional>

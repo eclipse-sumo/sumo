@@ -100,7 +100,7 @@ For a complete list of attributes for the "stop"-element of a vehicle
 see
 [Definition_of_Vehicles,_Vehicle_Types,_and_Routes\#Stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints).
 
-# Modelling Maneuvering Times when Entering and Leaving the Parking Space
+# Modeling Maneuvering Times when Entering and Leaving the Parking Space
 
 When setting the (boolean) option **--parking.maneuver**, vehicles will spend extra time on the road when leaving and entering a parkingArea. This time depends on the angle of the parking lot relative to the road lane and can be configured with the vType attribute *maneuverAngleTimes*. This is a comma-separated list of number-triplets of the form *ANGLE ENTERINGTIME LEAVINGTIME*:
 

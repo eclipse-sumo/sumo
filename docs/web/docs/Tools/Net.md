@@ -276,7 +276,7 @@ python tools/net/remap_additionals.py --orig-net input_net.net.xml --target-net 
 
 # remap_renamed.py
 
-Remap infrastructure, vehicles, routes or a selection file from one network to another if the new network has an `origId` param on every lane that reflects the edge id of the original network. A supported use case is converting the origial network with option **--numerical-ids** and then transforming other scenario file so that it can be used with the new network.
+Remap infrastructure, vehicles, routes or a selection file from one network to another if the new network has an `origId` param on every lane that reflects the edge id of the original network. A supported use case is converting the original network with option **--numerical-ids** and then transforming other scenario file so that it can be used with the new network.
 
 Example calls:
 ```
@@ -287,7 +287,7 @@ python tools/net/remap_additionals.py -n input_net2.net.xml -s input_selection.t
 
 # remap_network.py
 
-Compute correspondence between two networks with somewhat similar geometry (but different splits, joins, ids etc). The output is a csv-file with an 1-to-n mapping of original edge to zero or more target edges. 
+Compute correspondence between two networks with somewhat similar geometry (but different splits, joins, ids etc). The output is a csv-file with an 1-to-n mapping of original edge to zero or more target edges.
 For each target edge, the common length in m as well as the fraction of the target edge being covered by the original edge are listed. Output on the quality of the mapping is written to **--success-output**.
 
 Example call:
@@ -298,7 +298,7 @@ python tools/net/remap_network.py --orig-net net.net.xml --target-net net2.net.x
 # generateStationEdges.py
 
 Generate pedestrian edges for every public transport stop to serve as access
-edge in otherwise pure railway networks. If a single edge is generated for all stops with the same name (option **--join**), persons starting on such an edge can automatically pick the stop (plattform) that best suits their journey.
+edge in otherwise pure railway networks. If a single edge is generated for all stops with the same name (option **--join**), persons starting on such an edge can automatically pick the stop (platform) that best suits their journey.
 
 Example call:
 ```

@@ -73,6 +73,9 @@ signal_dir_unpreferred
 # see #17781
 signal_dir_unpreferred_allBidi
 
+# see #18349
+signal_dir_override_repair
+
 # see #17823
 spreadType
 

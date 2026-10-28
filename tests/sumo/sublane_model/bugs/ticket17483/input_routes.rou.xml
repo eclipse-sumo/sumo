@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- SUMO issue #17483: synthetic minimal case. Bug case: IDM.
+     'obstacle' stands on E0_0 at 200 m for the whole run. 'blocker' stands beside it on E0_1 until t=30 s,
+     so 'ego' (E0_0) has to stop behind 'obstacle' first; from t=30 s the left lane is empty and ego should change. -->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="t_0" carFollowModel="IDM" accel="1.5" decel="2.0" tau="1.0" minGap="2.5" length="5.0" speedFactor="1" speedDev="0"/>
+    <route id="r_0" edges="E0"/>
+    <vehicle id="obstacle" type="t_0" route="r_0" depart="0.00" departLane="0" departPos="200.00" departSpeed="0.00">
+        <stop lane="E0_0" endPos="200.00" duration="1000.00"/>
+    </vehicle>
+    <vehicle id="blocker" type="t_0" route="r_0" depart="0.00" departLane="1" departPos="200.00" departSpeed="0.00">
+        <stop lane="E0_1" endPos="200.00" duration="30.00"/>
+    </vehicle>
+    <vehicle id="ego" type="t_0" route="r_0" depart="0.00" departLane="0" departPos="0.00" departSpeed="max"/>
+</routes>

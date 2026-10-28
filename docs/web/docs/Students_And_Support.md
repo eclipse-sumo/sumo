@@ -31,7 +31,7 @@ topics, in German](DiplomStudArb.md).
 
 ## Topics related to Traffic Science
 
-### Pollutant Emission Modelling and Evaluation ("eco-mobility")
+### Pollutant Emission Modeling and Evaluation ("eco-mobility")
 
 - Implementation and Evaluation of Pollutant Emission Models
 
@@ -40,7 +40,7 @@ topics, in German](DiplomStudArb.md).
 - Methods for Green Light District Computation
 - A Methodology for Comparing Traffic Lights Algorithm
 
-### Route Choice and Demand Modelling
+### Route Choice and Demand Modeling
 
 - Evaluation of one-shot Traffic Assignment Approaches
 - Evaluation of Gawron's Dynamic User Assignment Algorithm
@@ -75,18 +75,18 @@ topics, in German](DiplomStudArb.md).
 ### Algorithms and theoretical Information Science
 
 - Evaluation of the Usability of the Optimal Network Flow Algorithm
-  for Demand Modelling (war: Analyse und Implementation eines
+  for Demand Modeling (war: Analyse und Implementation eines
   Netzwerkflussalgorithmus zur Routenfindung)
 - Evaluation of the Usability of the Quickest Flows Algorithm for
-  Demand Modelling
+  Demand Modeling
 - Matching Road Networks
 
 ### Software Engineering
 
 - Checkstyle for c++
 - Fixed point vs. Floating point
-- Multi-Core Parallelisation (Simulation and Routing Modules)
-- Parallelisation for Computer Clusters (Simulation and Routing
+- Multi-Core Parallelization (Simulation and Routing Modules)
+- Parallelization for Computer Clusters (Simulation and Routing
   Modules)
 - SUMO-as-a-Service – SOA-based traffic simulation
 
@@ -121,7 +121,7 @@ would be a nice programming course topic, too.
 - Ideas/Designs for a documentation
 - Improved search
 - XML schemata for files
-- a data catalogue for SUMO files
+- a data catalog for SUMO files
 
 ## Validation
 

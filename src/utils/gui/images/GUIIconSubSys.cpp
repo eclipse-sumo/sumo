@@ -108,8 +108,11 @@
 #include "icons/green_edge.xpm"
 #include "icons/yellow_edge.xpm"
 #include "icons/green_vehicle.xpm"
+#include "icons/green_vehicle_meso.xpm"
 #include "icons/yellow_vehicle.xpm"
 #include "icons/green_person.xpm"
+#include "icons/green_person_non_interacting.xpm"
+#include "icons/green_person_jupedsim.xpm"
 #include "icons/yellow_person.xpm"
 
 #include "icons/teleport.xpm"
@@ -705,7 +708,10 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::GREENCONTAINER] = new FXXPMIcon(a, green_container_xpm);
     myIcons[GUIIcon::GREENEDGE] = new FXXPMIcon(a, green_edge_xpm);
     myIcons[GUIIcon::GREENVEHICLE] = new FXXPMIcon(a, green_vehicle_xpm);
+    myIcons[GUIIcon::GREEN_VEHICLE_MESO] = new FXXPMIcon(a, green_vehicle_meso_xpm);
     myIcons[GUIIcon::GREENPERSON] = new FXXPMIcon(a, green_person_xpm);
+    myIcons[GUIIcon::GREEN_PERSON_NON_INTERACTING] = new FXXPMIcon(a, green_person_non_interacting_xpm);
+    myIcons[GUIIcon::GREEN_PERSON_JUPEDSIM] = new FXXPMIcon(a, green_person_jupedsim_xpm);
     myIcons[GUIIcon::YELLOWCONTAINER] = new FXXPMIcon(a, yellow_container_xpm);
     myIcons[GUIIcon::YELLOWEDGE] = new FXXPMIcon(a, yellow_edge_xpm);
     myIcons[GUIIcon::YELLOWVEHICLE] = new FXXPMIcon(a, yellow_vehicle_xpm);

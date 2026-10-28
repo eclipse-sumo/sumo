@@ -97,8 +97,8 @@ GUIMessageWindow::~GUIMessageWindow() {
 }
 
 
-const GUIGlObject*
-GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const {
+bool
+GUIMessageWindow::findObjectTypeID(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE, std::string& id, std::string& type) {
     const FXint idS = MAX2(text.rfind(" '", pos), text.rfind("='", pos));
     const FXint idE = text.find("'", pos);
     if (idS >= 0 && idE >= 0 && idS >= lineS && idE <= lineE) {
@@ -107,20 +107,49 @@ GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, c
             if (text.at(typeS + 1) == '(') {
                 typeS++;
             }
-            std::string type(text.mid(typeS + 1, idS - typeS - 1).lower().text());
+            type = std::string(text.mid(typeS + 1, idS - typeS - 1).lower().text());
             const auto& tsIt = myTypeStrings.find(type);
             if (tsIt != myTypeStrings.end()) {
                 type = tsIt->second;
             }
-            const std::string id(text.mid(idS + 2, idE - idS - 2).text());
-            const std::string typedID = type + ":" + id;
-            const GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(typedID);
-            //std::cout << " getActiveStringObject '" << typedID << "' o=" << (o == nullptr ? "NULL" : o->getMicrosimID()) << "\n";
-            return o;
+            id = std::string(text.mid(idS + 2, idE - idS - 2).text());
+            return true;
         }
+    }
+    return false;
+}
+
+
+const GUIGlObject*
+GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const {
+    std::string id, type;
+    if (findObjectTypeID(text, pos, lineS, lineE, id, type)) {
+        const std::string typedID = type + ":" + id;
+        const GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(typedID);
+        //std::cout << " getActiveStringObject '" << typedID << "' o=" << (o == nullptr ? "NULL" : o->getMicrosimID()) << "\n";
+        return o;
     }
     return nullptr;
 }
+
+
+bool
+GUIMessageWindow::hasActiveStringObject(const FXString& text, const FXint pos) const {
+    std::string id, type;
+    if (findObjectTypeID(text, pos, 0, text.length(), id, type)) {
+        const std::string typedID = type + ":" + id;
+        const GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(typedID);
+        if (o != nullptr) {
+            GUIGlObjectStorage::gIDStorage.unblockObject(o->getGlID());
+            return true;
+        } else if (type == "junction") {
+            // some messages may occur before junction GUIGlObjects are built
+            return true;
+        }
+    }
+    return false;
+}
+
 
 SUMOTime
 GUIMessageWindow::getTimeString(const FXString& text, const FXint pos) const {
@@ -230,9 +259,7 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
     if (myLocateLinks) {
         FXint pos = text.find("'");
         while (pos >= 0) {
-            const GUIGlObject* const glObj = getActiveStringObject(text, pos + 1, 0, text.length());
-            if (glObj != nullptr) {
-                GUIGlObjectStorage::gIDStorage.unblockObject(glObj->getGlID());
+            if (hasActiveStringObject(text, pos + 1)) {
                 FXString insText = text.left(pos + 1);
                 FXText::appendStyledText(insText, style + 1);
                 text.erase(0, pos + 1);

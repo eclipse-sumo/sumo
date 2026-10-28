@@ -17,6 +17,8 @@ Fuel 0.0
 Noise 0.0
 Elec 0.0
 meanSpeed 11.1096208869814
+maxSpeed 11.11
+meanFriction 1.0
 occupancy 0.02012072434607646
 lastLength 5.0
 traveltime 22.368000000000006
@@ -40,6 +42,7 @@ effort after adaption in interval (check time 0) 1234.0
 effort after adaption in interval (check time 15) 2468.0
 effort after adaption in interval (check time 25) 1234.0
 max speed after adaption 23.0
+mean friction after adaption 0.5
 {16: 1}
 step 3
 {16: 1}
@@ -71,3 +74,4 @@ pending ()
 allow_0 ()
 allow_1 ('bicycle',)
 allow_2 ('pedestrian', 'bicycle')
+max speed with different lane values 10.0

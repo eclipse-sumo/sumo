@@ -317,13 +317,13 @@ The new junction will get the id *cluster_id0_id1*. If there are more nodes in t
 the id will be abbreviated to something like *cluster_id0_id1_id2_id3_#5more* (for a 9 node cluster).
 
 ### Reasons for joining node clusters
-Within an intersection, special rules of traffic do apply. When modelling an intersection by a cluster of nodes, the edges within the cluster are regular roads where these rules cannot be applied.
+Within an intersection, special rules of traffic do apply. When modeling an intersection by a cluster of nodes, the edges within the cluster are regular roads where these rules cannot be applied.
 - To prevent jamming cross-traffic, vehicles should only enter an intersection space if they are not prevented from leaving by a downstream jam
 - Vehicles that turn left from opposite directions may turn ahead of each other (without intersecting trajectories). In an unjoined cluster long vehicles easily block each other when turning left from opposite directions.
 
 Further Issues:
 - Trajectories of left-turning traffic are invalid in an unjoined cluster. Instead of cutting the corner in a smooth curve, the trajectory would consist of two mostly straight legs with a sharp turn in the middle.
-- Proper modelling of left-turn dynamics requires extra traffic light signals within the cluster to reflect the changing priorities on the second leg of a left turn (which is also the first leg of a straight movement).
+- Proper modeling of left-turn dynamics requires extra traffic light signals within the cluster to reflect the changing priorities on the second leg of a left turn (which is also the first leg of a straight movement).
 - Automatically generated traffic light plans work much better at a single intersection
 
 ### Algorithm for joining node clusters
@@ -340,7 +340,7 @@ joinable node clusters works like this:
     outside) are removed
 5.  clusters which are to complex are simplified or filtered out (a warning with an
     explanation is issued for each case)
-   - if a cluster has parallel incoming edges (in the same direction of travel) it is filtered out. The threshold for being considered parallel can be controlled with option **--junctions.join.parallel-threshold** (default 30 degrees).    
+   - if a cluster has parallel incoming edges (in the same direction of travel) it is filtered out. The threshold for being considered parallel can be controlled with option **--junctions.join.parallel-threshold** (default 30 degrees).
 7.  each cluster is turned into a joined node
 
 ### Specifying and excluding explicit joins
@@ -366,7 +366,7 @@ The supported attributes for element `<join>` are described below.
 | --------------- | ----------------------------------------- | ------------------------------------------------------------------------- |
 | **nodes*        | id list (string)                          | The ids of nodes to join                                                  |
 | reset           | bool (default: *false*)                   | Whether all connections at the created node should be re-guessed          |
-| <any [node node attriutes](#node_descriptions)>             | Sets attributes on the new node (i.e. its `id` or `type`)                 |
+| <any [node node attributes](#node_descriptions)>             | Sets attributes on the new node (i.e. its `id` or `type`)                 |
 
 
 ### Connections after joining nodes
@@ -518,7 +518,7 @@ semantics:
 
 - neither *allow* nor *disallow* given: no access restrictions.
 - *allow* given: Allow only the list of specified vehicle classes
-(i.e. `allow="bus bicycle"` allows only busses and bicycles)
+(i.e. `allow="bus bicycle"` allows only buses and bicycles)
 - *disallow* given: Allow all classes except the list of specified
 ones (i.e.  allows everything but pedestrians)
   - the special value *all* may be used to disallow everything (`disallow="all"`) to
@@ -860,7 +860,7 @@ If you leave some connections unspecified
 information based on heuristics.
 
 !!! note
-    It is possible to connect two incoming lanes to the same outgoing lane. In many cases (i.e. motorway on-ramps) this should be avoided because the expected vehicle behavior is to change the lane as soon as possible rather than driving to the end of the lane). Netconvert will generate these "double connections" when a bicycle lane ends and bikes must move onto the road. SUMO vehicles are aware of the conflicts set up this way and [this can sometimes be a useful tool for network modelling](../Simulation/Motorways.md#combined_on-off-ramps).
+    It is possible to connect two incoming lanes to the same outgoing lane. In many cases (i.e. motorway on-ramps) this should be avoided because the expected vehicle behavior is to change the lane as soon as possible rather than driving to the end of the lane). netconvert will generate these "double connections" when a bicycle lane ends and bikes must move onto the road. SUMO vehicles are aware of the conflicts set up this way and [this can sometimes be a useful tool for network modeling](../Simulation/Motorways.md#combined_on-off-ramps).
 
 ## Explicitly setting which Edge / Lane is connected to which
 
@@ -930,7 +930,7 @@ Here, a connection from the edge's "*<FROM_EDGE_ID\>*" lane with the number *<IN
 
 [netconvert](../netconvert.md) may be used to patch existing sumo networks (*.net.xml* files) and changing connections is one of the supported use cases.
 If you only wish to **remove** a connection it may be convenient to use
-the following xml definition: 
+the following xml definition:
 
 ```
 <delete from="<FROM_EDGE_ID>" to="<T0_EDGE_ID>"/>
@@ -1075,7 +1075,7 @@ horizontal edge because otherwise the vehicles on the horizontal edge
 want to wait due to right-before-left - rule. The network looks like
 this:
 
-![cross3l_prohibitions.gif](../images/Cross3l_prohibitions.gif "Network with explicite prohibitions")
+![cross3l_prohibitions.gif](../images/Cross3l_prohibitions.gif "Network with explicit prohibitions")
 Network with explicit prohibitions
 
 The syntax of a prohibition-tag is: `<prohibition prohibitor="<PROHIBITING_FROM_EDGE_ID>-><PROHIBITING_TO_EDGE_ID>" prohibited="<PROHIBITED_FROM_EDGE_ID>-><PROHIBITED_TO_EDGE_ID>"/>`.

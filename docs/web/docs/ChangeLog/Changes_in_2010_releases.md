@@ -21,7 +21,7 @@ title: Changes in the 2010 releases (versions 0.12.0, 0.12.1 and 0.12.2)
 - TraCI
   - added a possibility to access a vehicle's signals, wipers, and
     other things; see [Vehicle Value Retrieval](../TraCI/Vehicle_Value_Retrieval.md), [Change Vehicle State](../TraCI/Change_Vehicle_State.md), and
-    [Vehicle Signalling](../TraCI/Vehicle_Signalling.md)
+    [Vehicle Signaling](../TraCI/Vehicle_Signaling.md)
 - Simulation
   - corrected direction when departing at a lane's begin
   - introduced a new `departpos` named "`base`". The vehicle starts at
@@ -67,7 +67,7 @@ title: Changes in the 2010 releases (versions 0.12.0, 0.12.1 and 0.12.2)
   - solved bug 2872900: same title/naming for different dialog boxes
   - solved bug 2872824: fox related sumo crash
   - Viewport settings can now be saved/loaded
-  - Added new visualisation options
+  - Added new visualization options
     - lanes: by vclass
     - vehicles: HSV by depart position/arrival position/direction
       and distance

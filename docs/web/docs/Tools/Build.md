@@ -128,7 +128,7 @@ Adding the option **--clear** will remove the obsolete translations permanently 
 There is an option called **--patch** to link obsolete translations again if the updated message ID / the current source string is known .
 The script is provided with a sequence of arguments which form pairs of first the outdated message ID and then new updated one.
 ```
-python obsoleteTranslations.py --patch "Add Sidewalk" "Add sidewalk" "Overrids default shape of pedestrian sidewalk" "Overrides default shape of pedestrian sidewalk"
+python obsoleteTranslations.py --patch "Add Sidewalk" "Add sidewalk" "Overrides default shape of pedestrian sidewalk" "Overrides default shape of pedestrian sidewalk"
 ```
 The script looks into the translation files and moves the actual translations from the obsolete to the current entry (only if the current one is still empty). The obsolete entry
 is removed in case its content has been transferred to the current entry.

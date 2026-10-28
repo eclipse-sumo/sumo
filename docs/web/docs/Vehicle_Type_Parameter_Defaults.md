@@ -21,12 +21,12 @@ Please also note that the mass in the handbook
 of a private car usually *includes* the average driver's weight.
 
 Whether the exclusion is correct or not also depends on the way you set up the simulation. If persons are
-modelled explicitly it is right, if not, you probably do not care about personCapacity and variable mass anyway,
+modeled explicitly it is right, if not, you probably do not care about personCapacity and variable mass anyway,
 but if you do please revisit your vType settings.
 
 ### On default emission classes
 Note that with the transition to [HBEFA4](Models/Emissions/HBEFA4-based.md) there are no more aggregated emission classes like `HDV` available.
-That means the default emission class for each vehicle class is usually the most frequent vehicle in the 2022 fleet composition as estimated in the HBEFA. This can vastly underestimate real emissions which may be dominated by older vehicles, so if precision is important you are encouraged to use a distribution of vehicle types fitting your modelled vehicle fleet. It is also possible to go back to the [HBEFA3](Models/Emissions/HBEFA3-based.md) classes.
+That means the default emission class for each vehicle class is usually the most frequent vehicle in the 2022 fleet composition as estimated in the HBEFA. This can vastly underestimate real emissions which may be dominated by older vehicles, so if precision is important you are encouraged to use a distribution of vehicle types fitting your modeled vehicle fleet. It is also possible to go back to the [HBEFA3](Models/Emissions/HBEFA3-based.md) classes.
 
 Please also note that the default emission class for all electric trains is `zero` and all other trains (and ships) still use the dirtiest diesel emissions of the HBEFA3 model. You are encouraged to model your train (and ship) explicitly if consumption is of interest. This includes adapting parameters like the mass (which means the empty vehicle mass) and loading.
 
@@ -64,7 +64,7 @@ All passenger cars share the defaults listed above, the values below are just id
 |passenger|<img src="images/Wikicommons_passenger_wagon.jpg" width="180" title="" alt="Passenger Wagon" /><br><small>[(C) OSX](https://commons.wikimedia.org/wiki/File:2014_Mitsubishi_Outlander_(ZJ_MY14.5)_ES_4WD_wagon_(2015-05-29)_02.jpg)<br>[Public Domain](https://en.wikipedia.org/wiki/en:public_domain)</small>|passenger/wagon<br><img src="images/passenger-wagon.PNG" width="80" alt="Passenger Wagon" />||5|
 |passenger|<img src="images/Wikicommons_passenger_van.jpg" width="180" title="" alt="Passenger Van" /><br><small>[(C) Kuha455405](https://commons.wikimedia.org/wiki/File:Nissan_Largo_1993.jpg)<br>[CC-BY-SA-3.0](https://creativecommons.org/licenses/by-sa/3.0/deed.en)</small>|passenger/van<br><img src="images/passenger-van.PNG" width="80" alt="Passenger Van" />|4.7m<sup>(16)</sup><br>1.9m<sup>(16)</sup><br>1.73m<sup>(16)</sup>|6|
 
-## Trucks and Busses
+## Trucks and Buses
 
 | `vClass` | example | `guiShape` | `length`<br>`width`<br>`height` | `mass` | `minGap` | `accel` | `decel` | `emer`<br>`gency`<br>`Decel` | `maxSpeed` | `desired`<br>`MaxSpeed` | `person`<br>`Capacity` | `emission`<br>`Class` | `speed`<br>`Dev` |
 |--|--|--|--|--|--|--|--|--|--|--|--|--|--|
@@ -73,7 +73,7 @@ All passenger cars share the defaults listed above, the values below are just id
 |bus|<img src="images/Wikicommons_bus_city.jpg" width="180" alt="Citybus" /><br><small>[(C) Iwouldstay](https://commons.wikimedia.org/wiki/File:EVAG_O530_3413_Holthuser_Tal.jpg)<br>[CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)</small>|bus<br><img src="images/bus.PNG" width="80" alt="Citybus" />|12m<sup>(3)</sup><br>2.5m<sup>(3)</sup><br>3.4m<sup>(3)</sup>|12000kg|2.5m|1.2m/s<sup>2(18)</sup>|4m/s<sup>2(27)</sup>|7m/s<sup>2</sup>|85km/h<sup>(3)</sup>|-|85|[HBEFA4/<br>UBus_Std_gt15-18t_Euro-VI_A-C](Models/Emissions/HBEFA4-based.md#city_bus)|0.1|
 |coach|<img src="images/Wikicommons_overland.jpg" width="180" alt="Coach" /><br><small>[(C) Leshe](https://commons.wikimedia.org/wiki/File:Baltic_Shuttle_Bus_in_Estonia.jpg)<br>[CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)</small>|bus/coach<br><img src="images/bus-coach.PNG" width="80" alt="Coach" />|14m<sup>(9)</sup><br>2.6m<sup>(9)</sup><br>4.m<sup>(9)</sup>|25000kg|2.5m|2.0m/s<sup>2(*)</sup>|see above|see above|100km/h<sup>(32)</sup>|-|70<sup>(9)</sup>|[HBEFA4/<br>Coach_3-Axes_gt18t_Euro-VI_A-C](Models/Emissions/HBEFA4-based.md#coaches)|0.05
 
-Please note that according to the HBEFA city busses with three axes are more frequent than the shorter ones but in order to keep the other values like length and mass consistent and have a stronger separation from the coaches it has been decided to use the emission class of a smaller bus.
+Please note that according to the HBEFA city buses with three axes are more frequent than the shorter ones but in order to keep the other values like length and mass consistent and have a stronger separation from the coaches it has been decided to use the emission class of a smaller bus.
 
 ### Recommended subclass settings
 

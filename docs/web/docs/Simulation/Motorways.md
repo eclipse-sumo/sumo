@@ -5,7 +5,7 @@ title: Motorways
 # Motorway Simulation
 
 This page describes simulations of motorways in SUMO. It aims to collect
-best practices when modelling motorway networks and traffic.
+best practices when modeling motorway networks and traffic.
 
 # Building a network for motorway simulation
 
@@ -21,7 +21,7 @@ heuristically](../Networks/Further_Options.md#guessing_on-_and_off-ramps).
 This basically adds acceleration lanes at on-ramps and deceleration lanes at
 off-ramps by increasing the lane count of one or more edges.
 
-Ramps usually merge into the main road via an acceleration lane. This acceleration lane opens up where the ramp enters the motorway and is modelled as a dead-end lane (no outgoing connection). This forces on-ramp vehicles to change lanes in order to continue their route.
+Ramps usually merge into the main road via an acceleration lane. This acceleration lane opens up where the ramp enters the motorway and is modeled as a dead-end lane (no outgoing connection). This forces on-ramp vehicles to change lanes in order to continue their route.
 
 It may be useful to make acceleration lanes in SUMO somewhat longer than in reality.
 This compensates for the cautious default behavior of SUMO drivers: Vehicles on the acceleration lane will decelerate when approaching the end of that lane since they cannot anticipate with certainty whether their lanechange will be successful. In contrast, human drivers are better at predicting the future and may accelerate up to the end of the acceleration lane (and then change into the anticipated gap at the last moment)
@@ -64,12 +64,12 @@ You can can create this kind of connectivity in [netedit connection mode](../Net
 
 In some jurisdictions, certain vehicle classes have specific speed
 limits (i.e. Trucks which may not drive faster than 90km/h on German
-motorways). This should be modelled as described here:
+motorways). This should be modeled as described here:
 [Networks/PlainXML#vehicle-class_specific_speed_limits](../Networks/PlainXML.md#vehicle-class_specific_speed_limits)
 
 ## Lane-changing prohibitions
 
-Lane-changing prohibitions can be modelled using the lane attributes 'changeLeft' and 'changeRight' with a list of vehicle classes that may change.
+Lane-changing prohibitions can be modeled using the lane attributes 'changeLeft' and 'changeRight' with a list of vehicle classes that may change.
 To disable changing right for normal passenger traffic, set 'changeRight="authority"`.
 
 # Defining Motorway Traffic

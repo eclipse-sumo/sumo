@@ -114,6 +114,7 @@ MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset) :
     myCFMAttrs(nullptr),
     myLastParameterised(nullptr),
     myRemoved(0),
+    myMesoEventCounter(-1),
     myFlowIndex(-1),
     myConstrainedSignal(nullptr) {
     myAmLoadingState = true;
@@ -139,6 +140,9 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step, bool usePrefix
     attrs[SUMO_ATTR_VERSION] = VERSION_STRING;
     attrs[SUMO_ATTR_TIME] = time2string(step);
     attrs[SUMO_ATTR_TYPE] = MSGlobals::gUseMesoSim ? "meso" : "micro";
+    if (MSGlobals::gUseMesoSim) {
+        attrs[SUMO_ATTR_COUNT] = toString(MELoop::getEventCounter());
+    }
     if (OptionsCont::getOptions().getBool("save-state.constraints")) {
         attrs[SUMO_ATTR_CONSTRAINTS] = "1";
     }
@@ -210,6 +214,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 // init before loading any vehicles to ensure that driveways are built early
                 MSRailSignalControl::getInstance();
             }
+            myMesoEventCounter = attrs.getOpt<long long int>(SUMO_ATTR_COUNT, nullptr, ok, -1);
             break;
         }
         case SUMO_TAG_RNGSTATE: {
@@ -367,6 +372,9 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 const SUMOTime blockTime = StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME));
                 const SUMOTime entryBlockTime = StringUtils::toLong(attrs.getString(SUMO_ATTR_BLOCKTIME));
                 mySegment->loadState(vehs, blockTime - myOffset, entryBlockTime - myOffset, myQueIndex);
+                if (attrs.hasAttribute(SUMO_ATTR_STATE)) {
+                    mySegment->loadQueueExtraState(myQueIndex, attrs.getString(SUMO_ATTR_STATE), myOffset);
+                }
                 myQueIndex++;
             } else {
                 myCurrentLane->loadState(vehs);
@@ -546,6 +554,9 @@ MSStateHandler::myEndElement(int element) {
                         microVeh->updateBestLanes();
                     }
                 }
+            }
+            if (MSGlobals::gUseMesoSim && myMesoEventCounter >= 0) {
+                MELoop::setEventCounter(myMesoEventCounter);
             }
             MSDevice_Taxi::finalizeLoadState();
             break;

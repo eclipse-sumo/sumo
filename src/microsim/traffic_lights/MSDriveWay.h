@@ -101,6 +101,9 @@ public:
     /// @brief whether any of myFoes is occupied (vehicles that are the target of a join must be ignored)
     bool foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector& occupied) const;
 
+    /// @brief whether insertion on this driveway would cause deadlock in an approached siding
+    bool sidingDeadlock(const SUMOVehicle* veh) const;
+
     /// @brief whether any of my Foes is being approached
     bool foeDriveWayApproached() const;
 
@@ -143,6 +146,10 @@ public:
         myFirstVehicle = vehID;
     }
 
+    const std::string& getFirstVehicle() const {
+        return myFirstVehicle;
+    }
+
     const std::vector<MSDriveWay*>& getFoes() const {
         return myFoes;
     }
@@ -175,6 +182,17 @@ public:
         return myFoundSignal;
     }
 
+    bool isSubDriveWay() const {
+        return myParent != nullptr;
+    }
+
+    const MSDriveWay* getParent() const {
+        return myParent;
+    }
+
+    /// @brief return for how much longer the parent driveway continues after the end of this subdriveway
+    double getParentRemainingLength() const;
+
     static void init();
 
     static bool hasRS(const MSEdge* cur, const MSEdge* next);
@@ -189,6 +207,8 @@ public:
     static std::string getClickableTLLinkID(const MSLink* link);
 
     static const MSDriveWay* getDepartureDriveway(const SUMOVehicle* veh, bool init = false);
+
+    static const std::vector<MSDriveWay*>& getEndingDriveWays(const MSEdge* edge);
 
     static void writeDepatureBlocks(OutputDevice& od, bool writeVehicles);
 
@@ -239,6 +259,7 @@ protected:
     /* @brief the list of bidirectional edges that can enter the forward
      * section and which might contain deadlock-relevant traffic */
     std::vector<const MSLane*> myBidiExtended;
+    std::vector<const MSLane*> myBidiExtendedSorted;
 
     /* @brief the list of edges that merge with the forward section
      * (found via backward search, up to the first element that could give protection) */
@@ -251,10 +272,6 @@ protected:
      * Conflict resolution must be performed if vehicles are approaching the
      * current link and any of the conflict links */
     std::vector<MSLink*> myConflictLinks;
-
-    bool isSubDriveWay() const {
-        return myParent != nullptr;
-    }
 
     /// @brief Whether the approaching vehicle is prevent from driving by another vehicle approaching the given link
     bool hasLinkConflict(const Approaching& closest, const MSLink* foeLink) const;
@@ -288,7 +305,7 @@ protected:
     /* @brief find upstream protection from the given link
      * @param[out] flank: the stored flank lanes
      */
-    void findFlankProtection(MSLink* link, MSLink* origLink, std::vector<const MSLane*>& flank);
+    void findFlankProtection(MSLink* link, MSLink* origLink, const std::vector<const MSLane*>& flank);
 
     /// @brief add all driveWays that start at the given link as foes
     void addFoes(const MSLink* link);
@@ -402,9 +419,13 @@ private:
 
     /// @brief all driveways that end on the given edge
     static std::map<const MSEdge*, std::vector<MSDriveWay*>, ComparatorNumericalIdLess> myEndingDriveways;
+    /// @brief all driveways that use a siding which ends on this edge as pair (dw, foe)
+    static std::map<const MSEdge*, std::vector<std::pair<MSDriveWay*, MSDriveWay*> >, ComparatorNumericalIdLess> mySidingDriveways;
+    static std::vector<const MSEdge*> myCurrentSidingCheck;
 
     /// @brief lookup table for state loading
     static std::map<ConstMSEdgeVector, MSDriveWay*> myDriveWayRouteLookup;
     static std::map<std::string, MSDriveWay*> myDriveWayLookup;
+    static const std::vector<MSDriveWay*> EMPTY_DRIVEWAY_VECTOR;
 
 };

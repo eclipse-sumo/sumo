@@ -1432,8 +1432,35 @@ void
 GNENet::savePlain(const std::string& prefix, const OptionsCont& netconvertOptions) {
     // compute without volatile options
     computeAndUpdate(OptionsCont::getOptions(), false);
-    // save netconvert options
-    NWWriter_XML::writeNetwork(netconvertOptions, prefix, *myNetBuilder);
+    // check if we need to filter netedit options to netconvert
+    if (netconvertOptions.getFullName().find("netedit") != std::string::npos) {
+        OptionsCont* tmp = netconvertOptions.clone();
+        tmp->setApplicationName("netconvert", StringUtils::replace(netconvertOptions.getFullName(), "netedit", "netconvert"));
+        const std::vector<std::string> toReset = {
+            "sumo-net-file", "plain-output-prefix",
+            "additional-files", "route-files", "data-files", "meandata-files",
+            "sumocfg-file", "netecfg-file", "netccfg-file", "gui-settings-file",
+            "selection-file", "test-file", "tls-file", "edgetypes-file",
+            "ignore-missing-inputs", "autosave-netconvert-file",
+            "default.action-step-length", "default.speeddev"
+        };
+        for (const std::string& opt : toReset) {
+            if (tmp->exists(opt)) {
+                tmp->resetDefault(opt);
+                tmp->removeOption(opt);
+            }
+        }
+        tmp->removeSubTopic("Netedit");
+        tmp->removeSubTopic("Visualisation");
+        tmp->removeSubTopic("Visualization");
+        tmp->removeSubTopic("Time");
+        // save netconvert options
+        NWWriter_XML::writeNetwork(*tmp, prefix, *myNetBuilder);
+        delete tmp;
+    } else {
+        // save netconvert options
+        NWWriter_XML::writeNetwork(netconvertOptions, prefix, *myNetBuilder);
+    }
 }
 
 
@@ -1616,9 +1643,11 @@ GNENet::computeJunction(GNEJunction* junction) {
 
 
 void
-GNENet::requireRecompute() {
+GNENet::requireRecompute(const bool requireSaving) {
     myNeedRecompute = true;
-    mySavingStatus->requireSaveNetwork();
+    if (requireSaving) {
+        mySavingStatus->requireSaveNetwork();
+    }
 }
 
 
@@ -3041,6 +3070,8 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
         initJunctionsAndEdges(true);
         // init default vTypes again
         myAttributeCarriers->addDefaultVTypes();
+        // require save network
+        mySavingStatus->requireSaveNetwork();
     } else {
         // insert all junctions of grid again
         for (const auto& junction : myAttributeCarriers->getJunctions()) {

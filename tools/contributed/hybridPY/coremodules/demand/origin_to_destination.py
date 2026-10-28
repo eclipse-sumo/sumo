@@ -29,6 +29,7 @@ import agilepy.lib_base.xmlman as xm
 from coremodules.network.network import SumoIdsConf, MODES
 from coremodules.network import routing
 from agilepy.lib_base.processes import Process, CmlMixin
+import coremodules.network.networkxtools as nxt
 
 from . import demand as dm
 from . import demandbase as db
@@ -233,14 +234,23 @@ class OdTrips(am.ArrayObjman):
         # print '  _init_attributes done',self.ident
 
     def _init_constants(self):
-        # print 'OdTrips._init_constants!!'
-        # self.edgeweights_orig = None
-        # self.edgeweights_dest = None
+        #print 'OdTrips._init_constants!'
         self._mode_to_edgeinfo = {}
+        
+        # these are the edges usable as origin and destination
+        # for each zone and for a specific id_mode
+        # These edges are updated in _make_zoneedges_by_mode_nx
+        # each time the mode changes during the trip generation 
+        self._ids_edge_origin = {}
+        self._ids_edge_destination = {}
+        
+        # outdated, used to identify edges before use of networkx
+        # still used as backup if networkx is not installed
         self._fstars = {}
         self._times = {}
+        
         attrsman = self.get_attrsman()
-        attrsman.do_not_save_attrs(['_mode_to_edgeinfo', '_fstars', '_times'])
+        attrsman.do_not_save_attrs(['_mode_to_edgeinfo','_fstars','_times','_ids_edge_origin','_ids_edge_destination']) 
 
     def _get_fstar(self, id_mode,  is_return_arrays=True, is_ignor_connections=False):
 
@@ -258,37 +268,46 @@ class OdTrips(am.ArrayObjman):
                                                               )
         return self._times[id_mode]
 
-    def get_zone_edgeinfo(self, id_mode, id_zone,
-                          n_edges_min_length, n_edges_max_length,
-                          priority_max, speed_max,
-                          id_mode_fallback=None):
+    def get_zone_edgeinfo(  self, id_mode, id_zone, 
+                            n_edges_min_length, n_edges_max_length, 
+                            priority_max, speed_max,
+                            id_mode_fallback = None,# no effect should be removed
+                            is_origin = True,
+                            ):
         """
         Returns two arrays, edge IDs and the respective edge weights for zone id_zone and mode id_mode 
         """
-        # print 'get_zone_edgeinfo id_zone',id_zone,'id_mode',id_mode
+        #print ('get_zone_edgeinfo id_zone',id_zone,'id_mode',id_mode,'nxt.IS_NX',nxt.IS_NX,'is_origin',is_origin)
         if id_mode not in self._mode_to_edgeinfo:
             self._mode_to_edgeinfo[id_mode] = {}
 
-        if id_zone not in self._mode_to_edgeinfo[id_mode]:
-            zones = self.get_zones()
-            ids_edge = zones.get_zoneedges_by_mode_fast(id_zone, id_mode,
-                                                        weights=self._get_times(id_mode),
-                                                        fstar=self._get_fstar(id_mode),
-                                                        )
+        zones = self.get_zones()
+        #if id_zone not in self._mode_to_edgeinfo[id_mode]:
+        if 1: # TODO: this is all very messy with the nxt mode and the previous methos
+              # in the future remove the previous methethod as NX works perfectly now
+            if nxt.IS_NX:
+                if is_origin:
+                    ids_edge = self._ids_edge_origin[id_zone]
+                    #print('     origin ids_edge',ids_edge)
+                else:
+                    ids_edge = self._ids_edge_destination[id_zone]
+                    #print('     dest ids_edge',ids_edge)
+                
+                
+            else:
+                ids_edge = zones.get_zoneedges_by_mode_fast(id_zone, id_mode, 
+                                                            weights = self._get_times(id_mode), 
+                                                            fstar = self._get_fstar(id_mode),
+                                                            )
             n_edges = len(ids_edge)
             if n_edges > 0:
-                # weights = self._get_edgeweights(ids_edge, n_edges_min_length, n_edges_max_length, priority_max, speed_max)
-                # self._mode_to_edgeinfo[id_mode][id_zone] = (ids_edge, weights / np.sum(weights))
                 # store un-normlized weights
-                self._mode_to_edgeinfo[id_mode][id_zone] = (ids_edge,
-                                                            self._get_edgeweights(
-                                                                ids_edge, n_edges_min_length, n_edges_max_length, priority_max, speed_max),
+                self._mode_to_edgeinfo[id_mode][id_zone] = (ids_edge, 
+                                                            self._get_edgeweights(ids_edge, n_edges_min_length, n_edges_max_length, priority_max, speed_max),
                                                             )
-                # edgeweights = self._get_edgeweights(ids_edge, n_edges_min_length, n_edges_max_length, priority_max, speed_max)
-                # print '  edgeweights',edgeweights
             else:
-                self._mode_to_edgeinfo[id_mode][id_zone] = ([], [])
-
+                self._mode_to_edgeinfo[id_mode][id_zone] = ([],[])
+        
         return self._mode_to_edgeinfo[id_mode][id_zone]
 
     def _get_edgeweights(self, ids_edge, n_edges_min_length, n_edges_max_length, priority_max, speed_max):
@@ -322,18 +341,37 @@ class OdTrips(am.ArrayObjman):
 
             # copy previous
             od_last = self.get_row(self.get_ids()[-1])
-            # id_orig = self.odtab.ids_orig.get(id_last)
-            # id_dest = self.odtab.ids_dest.get(id_last)
-            # id = self.suggest_id()
+
             self.add_row(**od_last)
         else:
             self.add_row(self.suggest_id())
 
+    def _make_zoneedges_by_mode_nx(self, id_mode):
+        """
+        Makes zone edges suitable as departure or arrival for
+        id_zone for  id_mode.
+        If is_origin is True then the returned edges are suitable 
+        for departure, otherwise for arrival.
+        
+        """
+        #print('_make_zoneedges_by_mode_nx for id_mode',id_mode)
+        nxgraph = nxt.NxGraph(self.get_net(), id_mode = id_mode)
+            
+        ids_edge_connected,ids_edge_from,ids_edge_to = nxgraph.get_edges_connected_ascendents_decendents()
+        
+        ids_edge_origin_net = set(ids_edge_connected+ids_edge_from)
+        ids_edge_destination_net = set(ids_edge_connected+ids_edge_to)
+        
+        zones = self.get_zones()
+        ids_zone = zones.get_ids()
+        for id_zone, ids_edge_inside in zip(ids_zone, zones.ids_edges_inside[ids_zone]):
+            self._ids_edge_origin[id_zone] = list(ids_edge_origin_net & set(ids_edge_inside))
+            self._ids_edge_destination[id_zone] = list(ids_edge_destination_net & set(ids_edge_inside))
+            
     def generate_odflows(self, odflowtab,  time_start, time_end, id_mode, **kwargs):
         """
         Insert all od flows in odflowtab.
         """
-        # for id_od in self.get_ids():
         odflowtab.add_flows(time_start,
                             time_end,
                             id_mode,
@@ -345,9 +383,9 @@ class OdTrips(am.ArrayObjman):
                             )
 
     def generate_trips(self, demand, time_start, time_end, id_mode_primary,
-                       id_mode_fallback=-1,
+                       id_mode_fallback = -1,
                        pos_depart_default=db.OPTIONMAP_POS_DEPARTURE['random_free'],
-                       # pos_arrival_default = db.OPTIONMAP_POS_ARRIVAL['max'],
+                       #pos_arrival_default = db.OPTIONMAP_POS_ARRIVAL['max'],
                        pos_arrival_default=db.OPTIONMAP_POS_ARRIVAL['random'],
                        speed_depart_default=0.0,
                        speed_arrival_default=0.0,
@@ -357,124 +395,114 @@ class OdTrips(am.ArrayObjman):
                        ind_lane_arrival_default=db.OPTIONMAP_LANE_ARRIVAL['current'],
                        n_trials_connect=5,
                        is_make_route=True,
-                       priority_max=10,
-                       speed_max=14.0,
-                       n_edges_min_length=1,
-                       n_edges_max_length=500,
+                       priority_max = 10,
+                       speed_max = 14.0,
+                       n_edges_min_length = 1,
+                       n_edges_max_length = 500,
                        ):
         """
         Generates trips in demand.trip table.
-
+        
         Not generated trips are recorded in the tripnumbers_failed attribute
         """
-        print('OdTrips.generate_trips', time_start, time_end, 'id_mode_primary',
-              id_mode_primary, 'id_mode_fallback', id_mode_fallback)
+        print('OdTrips.generate_trips', time_start, time_end, 'id_mode_primary',id_mode_primary,'id_mode_fallback',id_mode_fallback)
         id_mode_ped = MODES['pedestrian']
         zones = self.get_zones()
         edges = self.get_edges()
         # TODO: a bid crazy to pass demand as an argument here
         trips = demand.trips
         self.tripnumbers_failed.reset()
-        # How to deal with fallback mode? calculate both wights separately, normalize commonly and assign separately
-
-        # for id_zone in zones.get_ids():
-        #    print '  calculate edgeprops for id_zone',id_zone
-        #    ids_edge, edgeprobs = self.get_zone_edgeinfo(id_mode_primary, id_zone, n_edges_min_length, n_edges_max_length, priority_max, speed_max)
-        #    for id_edge, edgeprob in zip(ids_edge, edgeprobs):
-        #        print '  id_edge',id_edge,'edgeprob',edgeprob
-
-        # return True
-
-        # OPTIONMAP_POS_DEPARTURE = { -1:"random",-2:"free",-3:"random_free",-4:"base"}
-        # OPTIONMAP_POS_ARRIVAL = { -1:"random",-2:"max"}
-        # OPTIONMAP_SPEED_DEPARTURE = { -1:"random",-2:"max"}
-        # OPTIONMAP_SPEED_ARRIVAL = { -1:"current"}
-        # OPTIONMAP_LANE_DEPART = {-1:"random",-2:"free",-3:"departlane"}
-        # OPTIONMAP_LANE_ARRIVAL = { -1:"current"}
-
+        # TODO:How to deal with fallback mode? calculate both wights separately, normalize commonly and assign separately
+        
         # define primary and secondary mode, if appropriate
-        # in case there is a secondary mode, the secondary mode is chosen
+        # in case there is a secondary mode, the secondary mode is chosen 
         ids_vtype_mode_primary, prob_vtype_mode_primary = demand.vtypes.select_by_mode(
-            id_mode_primary, is_share=True)
-        # print '  ids_vtype_mode_primary', ids_vtype_mode_primary,prob_vtype_mode_primary
+            id_mode_primary, is_share = True)
+        #print '  ids_vtype_mode_primary', ids_vtype_mode_primary,prob_vtype_mode_primary
         n_vtypes_primary = len(ids_vtype_mode_primary)
-
+        
         n_vtypes_fallback = 0
-        if (id_mode_primary == MODES['passenger']) & (id_mode_fallback not in [-1, MODES['passenger']]):
+        if (id_mode_primary == MODES['passenger']) & (id_mode_fallback not in  [-1, MODES['passenger']]):
             ids_vtype_mode_fallback, prob_vtype_mode_fallback = demand.vtypes.select_by_mode(
-                id_mode_fallback, is_share=True)
-            # print '  ids_vtype_mode_fallback', ids_vtype_mode_fallback
+                id_mode_fallback, is_share = True)
+            #print '  ids_vtype_mode_fallback', ids_vtype_mode_fallback
             n_vtypes_fallback = len(ids_vtype_mode_fallback)
             is_fallback = True
         else:
             ids_vtype_mode_fallback = []
             id_mode_fallback = -1
             is_fallback = False
-        # print '  n_vtypes_primary',n_vtypes_primary,'n_vtypes_fallback',n_vtypes_fallback,'is_fallback',is_fallback
+        #print '  n_vtypes_primary',n_vtypes_primary,'n_vtypes_fallback',n_vtypes_fallback,'is_fallback',is_fallback
         if n_vtypes_primary == 0:
-            print('WARNING: no vehicle types for this mode with ID', id_mode_primary)
+            print('WARNING: no vehicle types for this mode with ID',id_mode_primary)
             return False
-
+        
+        
+        
         ids_od = self.get_ids()
         n_trips_generated = 0
+        
+        if nxt.IS_NX:
+            # pre-calculate all valid zone edges for this mode
+            self._make_zoneedges_by_mode_nx(id_mode_primary)
+            
         for id_od, id_orig, id_dest,  tripnumber in \
-            zip(ids_od, self.ids_orig[ids_od], self.ids_dest[ids_od],
-                np.array(self.tripnumbers[ids_od]+random.rand(len(ids_od)), dtype=np.int32),
-                ):
+                                zip(ids_od, self.ids_orig[ids_od], self.ids_dest[ids_od], 
+                                    np.array(self.tripnumbers[ids_od]+random.rand(len(ids_od)), dtype = np.int32),
+                                    ):
 
-            print('  generate', tripnumber, ' trips from id_orig', id_orig,
-                  'to id_dest', id_dest, 'id_mode_primary', id_mode_primary)
-
-            ids_edge_orig, weights_orig = self.get_zone_edgeinfo(
-                id_mode_primary, id_orig, n_edges_min_length, n_edges_max_length, priority_max, speed_max)
-            ids_edge_dest, weights_dest = self.get_zone_edgeinfo(
-                id_mode_primary, id_dest, n_edges_min_length, n_edges_max_length, priority_max, speed_max)
-
+            print('  generate',tripnumber,' trips from id_orig',id_orig,'to id_dest',id_dest, 'id_mode_primary',id_mode_primary)
+            
+            ids_edge_orig, weights_orig = self.get_zone_edgeinfo(id_mode_primary, id_orig, n_edges_min_length, n_edges_max_length, priority_max, speed_max, is_origin = True)
+            ids_edge_dest, weights_dest = self.get_zone_edgeinfo(id_mode_primary, id_dest, n_edges_min_length, n_edges_max_length, priority_max, speed_max, is_origin = False)
+        
+            
             n_edges_orig = len(ids_edge_orig)
             n_edges_dest = len(ids_edge_dest)
-            print('    n_edges_orig', n_edges_orig, len(weights_orig), 'n_edges_dest', n_edges_dest, len(weights_dest))
-
-            # debug
-            if 1:
-                print('-----')
+            print ('    n_edges_orig',n_edges_orig,len(weights_orig),'n_edges_dest',n_edges_dest,len(weights_dest))
+            
+            ## debug
+            if 0:
+                print('      -----')
                 for id_edge_orig, weight_orig in zip(ids_edge_orig, weights_orig):
-                    print('      id_edge_orig', id_edge_orig, 'weight_orig', weight_orig)
-
-                print('-----')
+                    print('      id_edge_orig',id_edge_orig,'weight_orig', weight_orig)
+                
+                print('      -----')
                 for id_edge_dest, weight_dest in zip(ids_edge_dest, weights_dest):
-                    print('      id_edge_dest', id_edge_dest, 'weight_orig', weight_dest)
-
-            ##
-
+                    print('      id_edge_dest',id_edge_dest,'weight_dest', weight_dest)
+                
+            ##    
+                
+            
             if (n_edges_orig > 0) & (n_edges_dest > 0):
                 for i_trip in range(tripnumber):
-
+                    
                     time_depart = random.uniform(time_start, time_end)
-
+                    
                     id_vtype_primary = ids_vtype_mode_primary[np.argmax(
                         random.rand(n_vtypes_primary)*prob_vtype_mode_primary)]
-
-                    id_trip = trips.make_trip(id_vtype=id_vtype_primary,
-                                              time_depart=time_depart,
-                                              id_edge_depart=ids_edge_orig[np.argmax(
-                                                  random.rand(n_edges_orig)*weights_orig)],
-                                              id_edge_arrival=ids_edge_dest[np.argmax(
-                                                  random.rand(n_edges_dest)*weights_dest)],
-                                              ind_lane_depart=ind_lane_depart_default,
-                                              ind_lane_arrival=ind_lane_arrival_default,
-                                              position_depart=pos_depart_default,
-                                              position_arrival=pos_arrival_default,
-                                              speed_depart=speed_depart_default,
-                                              speed_arrival=speed_arrival_default,
-                                              # route=route,
+                    
+                    id_trip = trips.make_trip(id_vtype = id_vtype_primary,
+                                              time_depart = time_depart,
+                                              id_edge_depart = ids_edge_orig[np.argmax(random.rand(n_edges_orig)*weights_orig)],
+                                              id_edge_arrival = ids_edge_dest[np.argmax(random.rand(n_edges_dest)*weights_dest)],
+                                              ind_lane_depart = ind_lane_depart_default,
+                                              ind_lane_arrival = ind_lane_arrival_default,
+                                              position_depart = pos_depart_default,
+                                              position_arrival = pos_arrival_default,
+                                              speed_depart = speed_depart_default,
+                                              speed_arrival = speed_arrival_default,
+                                              #route=route,
                                               )
-
+                                              
                     n_trips_generated += 1
             else:
-                # no suitable edges found for this pair
-                # record failed trips
+                # no suitable edges found for this pair 
+                # record failed trips 
                 self.tripnumbers_failed[id_od] += self.tripnumbers[id_od]
-
+                
+                          
+                    
         print('  -----')
         print('  n_trips_generated', n_trips_generated)
         print('  n_trips_failed', np.sum(self.tripnumbers[ids_od])-n_trips_generated)
@@ -556,6 +584,9 @@ class OdTrips(am.ArrayObjman):
 
     def get_edges(self):
         return self.get_zones().parent.parent.net.edges
+        
+    def get_net(self):
+        return self.get_zones().parent.parent.net
 
 
 class OdModes(am.ArrayObjman):

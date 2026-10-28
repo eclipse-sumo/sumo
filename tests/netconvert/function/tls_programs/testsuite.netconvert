@@ -43,7 +43,7 @@ green.time0
 # main direction (specified via edge priorities) takes a right turn at a 4-way intersection
 main_road_turns_right
 
-# an example for a multimodal tls  from a real-world network 
+# an example for a multimodal tls  from a real-world network
 multimodal_rw
 
 # minimum phase duration for tram phase
@@ -72,3 +72,6 @@ ungroup-signals
 
 # give every link it's own tls index
 ungroup-signals_crossings
+
+# set default parameters for actuated traffic lights
+actuated_defaults

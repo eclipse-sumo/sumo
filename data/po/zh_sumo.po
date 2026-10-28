@@ -2312,9 +2312,8 @@ msgstr "在给定的情况下，用停车开始时间覆盖停车到达时间"
 
 #: src/microsim/MSFrame.cpp:588
 msgid ""
-"Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim', "
-"'remote']"
-msgstr "在行人模式中选择['非互动', '剥离', 'jupedsim', '远程']"
+"Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim']"
+msgstr "在行人模式中选择['nonInteracting', 'striping', 'jupedsim']"
 
 #: src/microsim/MSFrame.cpp:591
 msgid ""

@@ -336,6 +336,9 @@ private:
     /// @brief the edges that were passed before the current stop
     std::vector<const MSEdge*> myPriorEdges;
 
+    /// @brief the cost of the initial route if not set (cannot be stored in the route because it may be shared)
+    double myInitialCost;
+
     OutputDevice_String myStopOut;
 
 private:

@@ -212,6 +212,16 @@ XMLSubSys::transcode(const XMLCh* const data, int length) {
     if (length == 0) {
         return "";
     }
+    // fast path: ASCII is identical in UTF-8
+    std::string ascii;
+    ascii.reserve(length);
+    int i = 0;
+    for (; i < length && data[i] != 0 && data[i] < 0x80; i++) {
+        ascii += (char)data[i];
+    }
+    if (i == length || data[i] == 0) {
+        return ascii;
+    }
 #if _XERCES_VERSION < 30100
     char* t = XERCES_CPP_NAMESPACE::XMLString::transcode(data);
     std::string result(t);

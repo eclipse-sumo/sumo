@@ -7,7 +7,7 @@ title: PHEMlight5
 This page only describes what changed for the new PHEMlight V5 model.
 For details about PHEM and the older PHEMlight see the [PHEMlight page](PHEMlight.md).
 
-PHEMlight5 uses data files that include the parameters of the modelled
+PHEMlight5 uses data files that include the parameters of the modeled
 emission classes. Data sets for two emission classes
 are included in SUMO: PC_EU4_D_MW and PC_EU4_G for the new model),
 resembling passenger vehicles, Euro Norm
@@ -24,7 +24,7 @@ SUMO is looking into <SUMO_HOME\>/data/emissions/PHEMlight5 and in the PHEMlight
 of your working directory.
 
 In addition, your vehicles must be assigned to one of PHEMlight5's
-vehicle emission classes, summarised in the following table. To use the
+vehicle emission classes, summarized in the following table. To use the
 emission classes below prepend the class name with the PHEMlight5 prefix,
 e.g. `emissionClass="PHEMlight5/PC_EU4_G"`.
 

@@ -4,7 +4,7 @@ title: VehiclePermissions
 
 # Introduction
 
-SUMO allows modelling access restrictions via a predefined set of
+SUMO allows modeling access restrictions via a predefined set of
 so-called vehicle classes. Each vehicle has a vehicle class and each
 simulation lane allows a set of vehicle classes. Vehicles may only drive
 on lanes that allows its vehicle class.
@@ -77,7 +77,7 @@ should be used.
 
 # Custom access restrictions
 
-The default vehicle classes (including the values `custom1` and `custom2`) can handle most requirements for modelling network access restrictions.
+The default vehicle classes (including the values `custom1` and `custom2`) can handle most requirements for modeling network access restrictions.
 However, in some domains such as shipping (draught, beam) and railroads (axle weight, grade), it may be necessary to provide for fine grained numerical access models.
 
 For this, [duarouter](../duarouter.md) provides the option **--restriction-params** to set list of edge and vehicle type [generic parameters](GenericParameters.md) names.
@@ -86,7 +86,7 @@ For this, [duarouter](../duarouter.md) provides the option **--restriction-param
 - If a `<vType>` does not define a restriction param its value is initialized to *0*.
 - If an `<edge>` does not define a restriction param its value is initialized to *1e40*.
 
-Restrictions on ship draught could be modelled in the following manner:
+Restrictions on ship draught could be modeled in the following manner:
 
 `duarouter --restriction-params draught -n net.net.xml -r routes.rou.xml`
 

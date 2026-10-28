@@ -1,0 +1,4 @@
+trip_id;block_id;route_id;route_short_name;route_type;stop_id;stop_name;stop_lat;stop_lon;stop_sequence;fare_zone;fare_token;start_char;trip_headsign;arrival_time;departure_time
+54175;30908;423;N68;2;9185001;First;52.375918;13.649118;1.0;;;;S Adlershof;120;120
+54175;30908;423;N68;2;9185501;Second;52.379587;13.642967;2.0;;;;S Adlershof;220;220
+54175;30908;423;N68;2;9185501;Third;52.374442;13.651217;3.0;;;;S Adlershof;320;320

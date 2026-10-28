@@ -423,7 +423,7 @@ multiple times to generated all the traffic for a given scenario:
 
 - to model different vehicle types which differ in their demand levels
 - to model time-varying demand that is heterogeneous between the
-  OD-pairs (and therefore cannot be modelled by applying a time-line)
+  OD-pairs (and therefore cannot be modeled by applying a time-line)
 
 In this case the option **--prefix** {{DT_STR}} must be used with a distinct value for each
 call to [od2trips](../../od2trips.md) in order to make avoid duplicate

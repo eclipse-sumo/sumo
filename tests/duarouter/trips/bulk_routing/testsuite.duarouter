@@ -1,0 +1,20 @@
+# Test with bulk routing 10 vehicles having same origin and destination
+bulkSame
+
+# Test with bulk routing 10 vehicles having same origin and destination
+bulkSame_rail
+
+# Test with multi-threaded bulk routing
+bulk_parallel
+
+# Test with multi-threaded bulk routing warning about different types
+bulk_parallel_warn
+
+# Test with bulk routing 3 vehicles having same origin and different destinations
+bulk
+
+# Test with bulk routing 2 vehicles having same origin and different destinations
+bulk_rail_fromEqualTo
+
+# see #18355
+bulk_reset_after_trivial_trip

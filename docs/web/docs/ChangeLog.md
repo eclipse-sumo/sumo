@@ -5,9 +5,73 @@ title: ChangeLog
 
 ### Bugfixes
 
+- sumo
+  - Fixed deadlock on a short lane when using the sublane model #18379 (regression in 1.24.0)
+  - Fixed lane-changing deadlock with carFollowModel IDM #17483
+  - device.rerouting.threshold.factor and device.rerouting.threshold.constant now apply to insertion rerouting if a complete route was loaded #18354
+  - Fixed railway issues:
+    - Fixed invalid predecessor lane used when inserting long train on short edge #18345
+    - Fixed failure to reverse train near route end #18385
+    - Fixed invalid error "Warning: Invalid approach information to rail signal 'junction ..." #17810
+  - Fixed issues that caused divergence when loading state:
+    - initialization of CCH-router when vTypeDistributions are loaded from state #18365
+    - rerouting device: vehicles that have not departed repeat no longer perform extra rerouting after loading state #18366
+
+
+- netedit
+  - When called from sumo-gui with CTRL+T, traffic demand loading now honors checkbox #18347 (regression in 1.26.0)
+  - Setting no-internal-links=false in the options menu (F10) to add internal lanes to a network takes effect again #18356 (regression in 1.27.0)
+  - Fixed invalid prompt to save network after activating "show connections" in inspect mode #18350 (regression in 1.27.1)
+  - When calling sumo-gui with CLTR+T, traffic demand loading now honors the checkbox #18377
+  - The "save network" button now activates after recomputing a network with volatile options (SHIFT+F5) #18173
+
+- sumo-gui
+  - Fixed invalid error on reloading polygon file if SUMO_HOME is not set #13584
+  - Fixed missing underline in object ids for warnings during network loading #18351
+
+- netconvert
+  - Fixed insufficient geo-precision in parquet output #18390
+
+- meso
+  - Fixed extreme slow-down when running simulation with option **--time-to-teleport.disconnected** (regression in 1.28.0) #18357
+
+- netconvert
+  - Fixed invalid track direction when processing OSM data with option **--railway.topology.repair** #18349
+
+- duarouter
+  - Fixed invalid abort of train routing when running with **--ignore-errors** (also affects sumo) #18335
+  - Fixed crash during railway routing (also affects sumo) #18340
+  - Fixed invalid route output with **--bulk-routing** #18355
+
 ### Enhancements
 
+- sumo
+  - When setting option **--vehroute-output.cost**, the initial route cost is now included #18378
+  - Improved speed of computing safety interlocks when loading new train routes #18387
+  - The JuPedSim coupling has been redone, giving direct access to the JuPedSim Python module #18128
+
+- sumo-gui
+  - Converted some buttons into checkboxes in the locate dialog #9925
+  - Status line icons now indicate whether micro or meso is running and which pedestrian model is active #9228
+
+- meso
+  - vType-specific timeToTeleport now takes effect #18359
+
+- netconvert
+  - Added options for setting default atcuated tls params #10836
+
+- TraCI
+  - Added function `traci.edge.getMaxSpeed` #14489
+
+- tools
+  - gtfs2pt.py: now runs twice as fast due to better caching #18333
+
+
 ### Miscellaneous
+
+- Fixed VISSIM import documentation language #6082
+- Fixed gprof/profiling build so that it generates profiling output again with newer compilers #18386
+- SUMOLibraries should now be downloaded as a released zip instead of doing git clone #18331
 
 
 ## Version 1.28.0 (08.10.2026)
@@ -191,6 +255,7 @@ title: ChangeLog
 - Windows builds (nightly and release) now use Visual Studio 2026
 - Removed stationFinder device parameter `maxChargePower`. It was never in use because the quantity in question is already defined by `device.battery.maximumChargeRate` #18275
 - As a consequence of fixing #18131, meso defaults to running with internal links if they are present in the network (which improves accuracy in route length and positioning but slightly reduces simulation speed).
+- The docker images ghcr.io/eclipse-sumo/sumo:v1_23_0 to v1_26_0 were broken and were republished #18274
 
 
 ## Version 1.27.1 (25.06.2026)

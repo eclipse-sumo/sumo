@@ -146,7 +146,7 @@ It can be turned into a file with detectors with:
 # flow2POI.py
 
 This script converts [detector flow files](../Demand/Routes_from_Observation_Points.md#computing_flows) to [POIs](../Simulation/Shapes.md#poi_point_of_interest_definitions).
-The total traffic count will be written into tye `type` attribute of the poi for streamlined visualization of localized flow values.
+The total traffic count will be written into the `type` attribute of the poi for streamlined visualization of localized flow values.
 Aggregated traffic values (i.e. hourly) will be written as `<param`> elements of the respective POI which makes it easy to show the respective value using gui-setting *Show poi text param*.
 
 ```
@@ -155,8 +155,8 @@ Aggregated traffic values (i.e. hourly) will be written as `<param`> elements of
 
 # flowConservation.py
 
-This script reads a network and an [edgeData file](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md#edge-based_network_states) to find data that violates conservation of flow at each junction where enough data is available to determine this.  The algorithm looks upstream and downstream to estimate missing values (i.e. if only incoming flow is available from traffic light detectors). By setting option **--symmetry-threshold** missing values can estimated from the reverse direction for edges with traffic below the given threshold. 
+This script reads a network and an [edgeData file](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md#edge-based_network_states) to find data that violates conservation of flow at each junction where enough data is available to determine this.  The algorithm looks upstream and downstream to estimate missing values (i.e. if only incoming flow is available from traffic light detectors). By setting option **--symmetry-threshold** missing values can estimated from the reverse direction for edges with traffic below the given threshold.
 
 ```
-<SUMO_HOME>/tools/detector/flowConservation.py -n net.net.xml -e input_edgedata.xml 
+<SUMO_HOME>/tools/detector/flowConservation.py -n net.net.xml -e input_edgedata.xml
 ```

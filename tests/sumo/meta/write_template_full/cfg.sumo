@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-03T22:27:04.084078+01:00 by Eclipse SUMO sumo v1_27_1+0600-3f7ce74d7c5
+<!-- generated on 2026-10-25T07:34:32.187966+01:00 by Eclipse SUMO sumo v1_28_0+0203-956beccee8c8
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -17,7 +17,9 @@
     <input>
         <net-file value="" synonymes="n net" type="FILE" help="Load road network description from FILE"/>
         <route-files value="" synonymes="r routes" type="FILE" help="Load routes descriptions from FILE(s)"/>
+        <ignore.routeelements value="false" type="BOOL" help="Ignore route elements during loading of sumo-configs"/>
         <additional-files value="" synonymes="a additional" type="FILE" help="Load further descriptions from FILE(s)"/>
+        <ignore.additionalelements value="false" type="BOOL" help="Ignore additional elements during loading of sumo-configs"/>
         <weight-files value="" synonymes="w weights" type="FILE" help="Load edge/lane weights for online rerouting from FILE"/>
         <weight-attribute value="traveltime" synonymes="measure x" deprecated="measure" type="STR" help="Name of the xml attribute which gives the edge weight"/>
         <load-state value="" type="FILE" help="Loads a network state from FILE"/>
@@ -207,7 +209,7 @@
         <parking.maneuver value="false" type="BOOL" help="Whether parking simulation includes maneuvering time and associated lane blocking"/>
         <use-stop-ended value="false" type="BOOL" help="Override stop until times with stop ended times when given"/>
         <use-stop-started value="false" type="BOOL" help="Override stop arrival times with stop started times when given"/>
-        <pedestrian.model value="striping" type="STR" help="Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;jupedsim&apos;, &apos;remote&apos;]"/>
+        <pedestrian.model value="striping" type="STR" help="Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;jupedsim&apos;]"/>
         <pedestrian.timegap-crossing value="2" type="FLOAT" help="Minimal acceptable gap (in seconds) between two vehicles before starting to cross"/>
         <pedestrian.striping.stripe-width value="0.64" type="FLOAT" help="Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos;"/>
         <pedestrian.striping.dawdling value="0.2" type="FLOAT" help="Factor for random slow-downs [0,1] for use with model &apos;striping&apos;"/>
@@ -311,7 +313,7 @@
     <emissions>
         <emissions.volumetric-fuel value="false" type="BOOL" help="Return fuel consumption values in (legacy) unit l instead of mg"/>
         <phemlight-path value="./PHEMlight/" type="FILE" help="Determines where to load PHEMlight definitions from"/>
-        <phemlight-year value="0" type="INT" help="Enable fleet age modelling with the given reference year in PHEMlight5"/>
+        <phemlight-year value="0" type="INT" help="Enable fleet age modeling with the given reference year in PHEMlight5"/>
         <phemlight-temperature value="1.79769e+308" type="FLOAT" help="Set ambient temperature to correct NOx emissions in PHEMlight5"/>
         <device.emissions.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;emissions&apos; device"/>
         <device.emissions.explicit value="" synonymes="device.emissions.knownveh" deprecated="device.emissions.knownveh" type="STR[]" help="Assign a &apos;emissions&apos; device to named vehicles"/>
@@ -547,7 +549,7 @@
     </random_number>
 
     <gui_only>
-        <gui-settings-file value="" synonymes="g" type="FILE" help="Load visualisation settings from FILE"/>
+        <gui-settings-file value="" synonymes="g" type="FILE" help="Load visualization settings from FILE"/>
         <quit-on-end value="false" synonymes="Q" type="BOOL" help="Quits the GUI when the simulation stops"/>
         <game value="false" synonymes="G" type="BOOL" help="Start the GUI in gaming mode"/>
         <game.mode value="tls" type="STR" help="Select the game type (&apos;tls&apos;, &apos;drt&apos;)"/>

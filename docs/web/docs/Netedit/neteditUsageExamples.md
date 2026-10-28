@@ -192,7 +192,7 @@ directions. To make a unidirectional track usable in both directions,
 
 ## Define rail signals that only affect one track direction
 
-If a piece of railway track is [modelled for train operations in both directions](#creating_bidirectional_railway_tracks), any rail signal defined on this *bidi*-track will affect both direction of travel by default.
+If a piece of railway track is [modeled for train operations in both directions](#creating_bidirectional_railway_tracks), any rail signal defined on this *bidi*-track will affect both direction of travel by default.
 To change this, the following steps have to be taken:
 
 1. ensure that [edges for both directions of travel are visible](../Simulation/Railways.md#working_with_bidirectional_tracks_in_netedit)
@@ -266,11 +266,11 @@ Prohibiting pedestrians from walking on the road can be accomplished using the '
 
 - edges are created and the 'add Sidwalk' option is active
 - edges are created with a custom 'allow' value (i.e. 'pedestrian' or 'passenger')
-- edge context menu function 'Lane operations/Add restricted Lane/Sidwealk' is applied to an edge or a selection of edges  
+- edge context menu function 'Lane operations/Add restricted Lane/Sidwealk' is applied to an edge or a selection of edges
 
 Crossings can be created with 'crossing mode' by clicking on a junction and then clicking on one or more edges to be crossed and confirming with <kbd>ENTER</kbd>
 !!! note
     Crossings can only be created if the edges to be crossed have lanes that prohibit pedestrian use
-    
+
 Walkingareas are created automatically if the network contains at least one pedestrian crossing or if option **walkingareas** is set in the options screen (<kd>F10</kbd>, in the Pedestrians tab).
 They will be created wherever footpaths or sidewalks are bordered by lanes that prohibit pedestrian use.

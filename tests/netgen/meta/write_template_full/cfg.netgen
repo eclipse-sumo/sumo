@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-28T13:19:24.565252+01:00 by Eclipse SUMO netgenerate v1_27_1+0788-b04dbbe6fbc
+<!-- generated on 2026-10-13T16:01:18.944714+01:00 by Eclipse SUMO netgenerate v1_28_0+0001-b9466dc3ede
 -->
 
 <netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -130,6 +130,12 @@
         <fringe.guess.speed-threshold value="13.8889" type="FLOAT" help="Guess disconnected edges above the given speed as outer fringe"/>
         <lefthand value="false" type="BOOL" help="Assumes left-hand traffic on the network"/>
         <edges.join value="false" type="BOOL" help="Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import)"/>
+        <tls.actuated.jam-threshold value="-1" type="FLOAT" help="Sets default jam-threshold parameter for all actuation detectors"/>
+        <tls.actuated.show-detectors value="false" type="BOOL" help="Sets default show-detectors parameter for all actuation detectors"/>
+        <tls.actuated.passing-time value="-1" type="FLOAT" help="Sets default passing-time parameter for all actuation detectors"/>
+        <tls.actuated.detector-gap value="0" type="FLOAT" help="Sets default detector-gap parameter for all actuation detectors"/>
+        <tls.actuated.detector-length value="-1" type="FLOAT" help="Sets default detector-length parameter for all actuation detectors"/>
+        <tls.actuated.inactive-threshold value="-1" type="FLOAT" help="Sets default inactive-threshold parameter for all actuation detectors"/>
     </processing>
 
     <building_defaults>

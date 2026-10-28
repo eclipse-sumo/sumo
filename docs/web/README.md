@@ -32,7 +32,7 @@ On Windows, make sure that `mkdocs` is recognized in the command line by adding 
 mkdocs serve
 ```
 
-`mkdocs serve` re-builds the entire site everytime it detects a change. If you want to only re-build the pages that have been modified, use `mkdocs serve --dirtyreload` ([read more](https://www.mkdocs.org/about/release-notes/#support-for-dirty-builds-990))
+`mkdocs serve` re-builds the entire site every time it detects a change. If you want to only re-build the pages that have been modified, use `mkdocs serve --dirtyreload` ([read more](https://www.mkdocs.org/about/release-notes/#support-for-dirty-builds-990))
 
 **To preview edition you should run the built-in development server and access the Documentation from the localhost address (which by default is 127.0.0.1:8000).**
 

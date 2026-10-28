@@ -68,6 +68,7 @@ Subscribing to edge.LAST_STEP_OCCUPANCY.
 Subscribing to edge.LAST_STEP_PERSON_ID_LIST.
 Subscribing to edge.LAST_STEP_VEHICLE_ID_LIST.
 Subscribing to edge.LAST_STEP_VEHICLE_NUMBER.
+Subscribing to edge.VAR_MAXSPEED.
 Subscribing to edge.VAR_FRICTION.
 Subscribing to edge.VAR_NOXEMISSION.
 Subscribing to edge.VAR_NOISEEMISSION.
@@ -627,6 +628,7 @@ Could not add subscription. Get Vehicle Type Variable: unsupported variable 0x80
          27: '',
          61: 1.0,
          62: ('3o_0', ''),
+         65: 13.89,
          67: 90.0,
          82: 3,
          88: -1.0,

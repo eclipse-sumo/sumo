@@ -664,6 +664,19 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.doRegister("tls.rebuild", new Option_Bool(false));
     oc.addDescription("tls.rebuild", "TLS Building", TL("rebuild all traffic light plans in the network"));
 
+    oc.doRegister("tls.actuated.jam-threshold", new Option_Float(-1.));
+    oc.addDescription("tls.actuated.jam-threshold", "Processing", TL("Sets default jam-threshold parameter for all actuation detectors"));
+    oc.doRegister("tls.actuated.show-detectors", new Option_Bool(false));
+    oc.addDescription("tls.actuated.show-detectors", "Processing", TL("Sets default show-detectors parameter for all actuation detectors"));
+    oc.doRegister("tls.actuated.passing-time", new Option_Float(-1.));
+    oc.addDescription("tls.actuated.passing-time", "Processing", TL("Sets default passing-time parameter for all actuation detectors"));
+    oc.doRegister("tls.actuated.detector-gap", new Option_Float(0.));
+    oc.addDescription("tls.actuated.detector-gap", "Processing", TL("Sets default detector-gap parameter for all actuation detectors"));
+    oc.doRegister("tls.actuated.detector-length", new Option_Float(-1.));
+    oc.addDescription("tls.actuated.detector-length", "Processing", TL("Sets default detector-length parameter for all actuation detectors"));
+    oc.doRegister("tls.actuated.inactive-threshold", new Option_Float(-1.));
+    oc.addDescription("tls.actuated.inactive-threshold", "Processing", TL("Sets default inactive-threshold parameter for all actuation detectors"));
+
     // edge pruning
     oc.doRegister("keep-edges.min-speed", new Option_Float(-1));
     oc.addSynonyme("keep-edges.min-speed", "edges-min-speed", true);

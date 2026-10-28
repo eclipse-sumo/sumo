@@ -88,3 +88,6 @@ radius_next_stop_ignore_dist
 
 # test reading gzipped input
 mergedCSVgz
+
+# when stopping on an edge that requires reversal, stop before the reversal rather than after it to avoid skipping (for long trains)
+stop_before_reversal

@@ -136,7 +136,7 @@ Starting with SUMO 1.8.0 (for macOS since 1.12.0) the installation is also possi
 
 You can install either the applications: `pip install eclipse-sumo` or only traci (`pip install traci`), libsumo (`pip install libsumo`) or sumolib (`pip install sumolib`).
 
-This should work for Windows, macOS and all Linux versions which are more recent than 2014. Linux wheels are provided in four flavours:
+This should work for Windows, macOS and all Linux versions which are more recent than 2014. Linux wheels are provided in four flavors:
 [manylinux2014 and manylinux_2_28](https://github.com/pypa/manylinux) for x86_64 and aarch64. manylinux2014 is missing some components such as GDAL and JuPedSim but manylinux_2_28 should be feature complete
 (pip usually chooses the newest version compatible with your system, so unless you are still on CentOS 7 or openSUSE 15.x you should be fine).
 
@@ -250,9 +250,9 @@ listed in the table below.
 
 ## Dependencies for developers
 
-For the Windows platform you can retrieve all dependencies by cloning
-this repository: <https://github.com/DLR-TS/SUMOLibraries>, if you want
-to develop with Visual Studio. If you just want to run SUMO, use the
+For the Windows platform you can download the [dependent libraries](https://github.com/DLR-TS/SUMOLibraries/releases).
+Use the latest release if you are developing, if not use the release matching your SUMO version.
+If you just want to run SUMO, use the
 binary downloads above which already contain the runtime dependencies.
 
 ## Scenarios and other Data

@@ -228,6 +228,12 @@ Edge::getMeanFriction(const std::string& edgeID) {
 
 
 double
+Edge::getMaxSpeed(const std::string& edgeID) {
+    return getEdge(edgeID)->getSpeedLimit();
+}
+
+
+double
 Edge::getLastStepOccupancy(const std::string& edgeID) {
     return getEdge(edgeID)->getOccupancy();
 }
@@ -437,6 +443,8 @@ Edge::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapInt(objID, variable, getLastStepVehicleNumber(objID));
         case LAST_STEP_MEAN_SPEED:
             return wrapper->wrapDouble(objID, variable, getLastStepMeanSpeed(objID));
+        case VAR_MAXSPEED:
+            return wrapper->wrapDouble(objID, variable, getMaxSpeed(objID));
         case VAR_FRICTION:
             return wrapper->wrapDouble(objID, variable, getMeanFriction(objID));
         case LAST_STEP_OCCUPANCY:

@@ -33,7 +33,7 @@ The option **--visum.language-file {{DT_FILE}}** can be used to switch to a diff
 - visumFR.txt
 - visumIT.txt
 
-If you wish to import a file in an unsupported language, please [contact](https://eclipse.dev/sumo/contact/) us and provide an example file. 
+If you wish to import a file in an unsupported language, please [contact](https://eclipse.dev/sumo/contact/) us and provide an example file.
 
 # Import Coverage
 
@@ -67,11 +67,11 @@ networks**
 
 
 Well, basically that's all for network import, isn't it? Well, actually
-not. In the following, the basic possibilities and further advices and
-tricks for working with these is described.
+not. In the following, the basic possibilities, further advice and
+tricks for working with these are described.
 
 !!! note
-    "Rang" from "Streckentypen" is used as edge priority information. As streets with a lower "Rang" are normally higher priorised, an edge type's priority is computed as 100-Rang
+    "Rang" from "Streckentypen" is used as edge priority information. As streets with a lower "Rang" are normally higher prioritized, an edge type's priority is computed as 100-Rang
 
 ## Lane Number
 

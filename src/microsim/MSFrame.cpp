@@ -85,9 +85,15 @@ MSFrame::fillOptions() {
     oc.addSynonyme("route-files", "routes");
     oc.addDescription("route-files", "Input", TL("Load routes descriptions from FILE(s)"));
 
+    oc.doRegister("ignore.routeelements", new Option_Bool(false));
+    oc.addDescription("ignore.routeelements", "Input", TL("Ignore route elements during loading of sumo-configs"));
+
     oc.doRegister("additional-files", 'a', new Option_FileName());
     oc.addSynonyme("additional-files", "additional");
     oc.addDescription("additional-files", "Input", TL("Load further descriptions from FILE(s)"));
+
+    oc.doRegister("ignore.additionalelements", new Option_Bool(false));
+    oc.addDescription("ignore.additionalelements", "Input", TL("Ignore additional elements during loading of sumo-configs"));
 
     oc.doRegister("weight-files", 'w', new Option_FileName());
     oc.addSynonyme("weight-files", "weights");
@@ -585,7 +591,7 @@ MSFrame::fillOptions() {
 
     // pedestrian model
     oc.doRegister("pedestrian.model", new Option_String("striping"));
-    oc.addDescription("pedestrian.model", "Processing", TL("Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim', 'remote']"));
+    oc.addDescription("pedestrian.model", "Processing", TL("Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim']"));
 
     oc.doRegister("pedestrian.timegap-crossing", new Option_Float(2.));
     oc.addDescription("pedestrian.timegap-crossing", "Processing", TL("Minimal acceptable gap (in seconds) between two vehicles before starting to cross"));
@@ -624,13 +630,13 @@ MSFrame::fillOptions() {
     oc.doRegister("pedestrian.striping.walkingarea-detail", new Option_Integer(4));
     oc.addDescription("pedestrian.striping.walkingarea-detail", "Processing", TL("Generate INT intermediate points to smooth out lanes within the walkingarea"));
 
-#ifdef HAVE_JUPEDSIM
+#if defined(HAVE_JUPEDSIM_GRPC) || defined(HAVE_JUPEDSIM_LEGACY)
     oc.doRegister("pedestrian.jupedsim.step-length", new Option_String("0.01", "TIME"));
     oc.addDescription("pedestrian.jupedsim.step-length", "Processing", TL("The update interval of the JuPedSim simulation (in seconds)"));
     oc.doRegister("pedestrian.jupedsim.exit-tolerance", new Option_Float(1.));
     oc.addDescription("pedestrian.jupedsim.exit-tolerance", "Processing", TL("The distance to accept the JuPedSim arrival point (in meters)"));
-    oc.doRegister("pedestrian.jupedsim.model", new Option_String("CollisionFreeSpeed"));
-    oc.addDescription("pedestrian.jupedsim.model", "Processing", TL("The submodel to use in JuPedSim ('CollisionFreeSpeed', 'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce', 'SocialForce')"));
+    oc.doRegister("pedestrian.jupedsim.model", new Option_String("CollisionFreeSpeedModel"));
+    oc.addDescription("pedestrian.jupedsim.model", "Processing", TL("The submodel to use in JuPedSim (default: 'CollisionFreeSpeedModel')"));
     oc.doRegister("pedestrian.jupedsim.strength-neighbor-repulsion", new Option_Float(8.));
     oc.addDescription("pedestrian.jupedsim.strength-neighbor-repulsion", "Processing", TL("The neighbor repulsion strength of the JuPedSim model"));
     oc.doRegister("pedestrian.jupedsim.range-neighbor-repulsion", new Option_Float(.1));
@@ -645,6 +651,10 @@ MSFrame::fillOptions() {
     oc.addDescription("pedestrian.jupedsim.wkt.geo", "Output", TL("Whether to output JuPedSim network as WKT using geo-coordinates (lon/lat)"));
     oc.doRegister("pedestrian.jupedsim.py", new Option_FileName());
     oc.addDescription("pedestrian.jupedsim.py", "Output", TL("The filename to output the JuPedSim setup as Python script"));
+#ifdef HAVE_JUPEDSIM_GRPC
+    oc.doRegister("pedestrian.jupedsim.address", new Option_String(""));
+    oc.addDescription("pedestrian.jupedsim.address", "Processing", TL("The address to connect to the JuPedSim gRPC server"));
+#endif
 #endif
 
     oc.doRegister("ride.stop-tolerance", new Option_Float(10.));
@@ -734,7 +744,7 @@ MSFrame::fillOptions() {
     oc.addDescription("phemlight-path", "Emissions", TL("Determines where to load PHEMlight definitions from"));
 
     oc.doRegister("phemlight-year", new Option_Integer(0));
-    oc.addDescription("phemlight-year", "Emissions", TL("Enable fleet age modelling with the given reference year in PHEMlight5"));
+    oc.addDescription("phemlight-year", "Emissions", TL("Enable fleet age modeling with the given reference year in PHEMlight5"));
 
     oc.doRegister("phemlight-temperature", new Option_Float(INVALID_DOUBLE));
     oc.addDescription("phemlight-temperature", "Emissions", TL("Set ambient temperature to correct NOx emissions in PHEMlight5"));
@@ -820,7 +830,7 @@ MSFrame::fillOptions() {
     // the reason that we include them in vanilla sumo as well is to make reusing config files easy
     oc.addOptionSubTopic("GUI Only");
     oc.doRegister("gui-settings-file", 'g', new Option_FileName());
-    oc.addDescription("gui-settings-file", "GUI Only", TL("Load visualisation settings from FILE"));
+    oc.addDescription("gui-settings-file", "GUI Only", TL("Load visualization settings from FILE"));
 
     oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
     oc.addDescription("quit-on-end", "GUI Only", TL("Quits the GUI when the simulation stops"));
@@ -938,6 +948,14 @@ bool
 MSFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     bool ok = true;
+    if (oc.getBool("ignore.routeelements")) {
+        oc.resetWritable("route-files");
+        oc.resetDefault("route-files");
+    }
+    if (oc.getBool("ignore.additionalelements")) {
+        oc.resetWritable("additional-files");
+        oc.resetDefault("additional-files");
+    }
     if (!oc.isSet("net-file") && oc.isDefault("remote-port")) {
         WRITE_ERROR(TL("No network file (-n) specified."));
         ok = false;
@@ -1151,15 +1169,6 @@ MSFrame::checkOptions() {
     if (oc.getBool("mapmatch.junctions") && oc.isDefault("junction-taz")) {
         oc.setDefault("junction-taz", "true");
     }
-
-#ifdef HAVE_JUPEDSIM
-    const std::string pedestrianJPSModel = oc.getString("pedestrian.jupedsim.model");
-    const std::vector<std::string> allowedPedestrianJPSModels = {"CollisionFreeSpeed", "CollisionFreeSpeedV2", "GeneralizedCentrifugalForce", "SocialForce"};
-    if (std::find(allowedPedestrianJPSModels.begin(), allowedPedestrianJPSModels.end(), pedestrianJPSModel) == allowedPedestrianJPSModels.end()) {
-        WRITE_ERRORF(TL("Invalid JuPedSim model '%'. Must be one of 'CollisionFreeSpeed', 'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce' or 'SocialForce'."), pedestrianJPSModel);
-        ok = false;
-    }
-#endif
 
     ok &= MSDevice::checkOptions(oc);
     ok &= SystemFrame::checkOptions(oc);

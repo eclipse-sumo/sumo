@@ -257,13 +257,13 @@ MSLaneChanger::updateLanes(SUMOTime t) {
     // Second: this swap would be faster if vehicle-containers would have
     // been pointers, but then I had to change too much of the MSLane code.
     for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
-        //std::cout << SIMTIME << " updateLanes lane=" << ce->lane->getID() << " myVehicles=" << toString(ce->lane->myVehicles) << " myTmpVehicles=" << toString(ce->lane->myTmpVehicles) << "\n";
         ce->lane->swapAfterLaneChange(t);
         ce->lane->releaseVehicles();
         if (ce->firstBlocked != nullptr) {
             ce->lastBlockedBackPos = ce->firstBlocked->getBackPositionOnLane();
             ce->lastBlockedWaitingTime = ce->firstBlocked->getWaitingTime();
         }
+        //std::cout << SIMTIME << " updateLanes lane=" << ce->lane->getID() << " myVehicles=" << toString(ce->lane->myVehicles) << " myTmpVehicles=" << toString(ce->lane->myTmpVehicles) << " firstBlocked=" << Named::getIDSecure(ce->firstBlocked) << " wt=" << ce->lastBlockedWaitingTime << "\n";
     }
 }
 
@@ -2627,9 +2627,13 @@ MSLaneChanger::getMaxOvertakingSpeed(const MSVehicle* vehicle, double maxSpaceTo
 std::pair<double, SUMOTime>
 MSLaneChanger::getLastBlocked(int index) const {
     assert(index >= 0 && index < (int)myChanger.size());
-    return std::make_pair(
-               myChanger[index].lastBlockedBackPos,
-               myChanger[index].lastBlockedWaitingTime);
+    if (myChanger[index].lane->empty()) {
+        return std::make_pair(-1, -1);
+    } else {
+        return std::make_pair(
+                myChanger[index].lastBlockedBackPos,
+                myChanger[index].lastBlockedWaitingTime);
+    }
 }
 
 /****************************************************************************/

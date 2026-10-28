@@ -54,9 +54,13 @@ FXDEFMAP(GUIDialog_ChooserAbstract) GUIDialog_ChooserAbstractMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER_SUBSTR,  GUIDialog_ChooserAbstract::onCmdFilterSubstr),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,         GUIDialog_ChooserAbstract::onCmdToggleSelection),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SELECT,         GUIDialog_ChooserAbstract::onCmdAddListSelection),
+    FXMAPFUNC(SEL_UPDATE,   MID_CHOOSEN_SELECT,         GUIDialog_ChooserAbstract::onUpdAddListSelection),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,          GUIDialog_ChooserAbstract::onCmdClearListSelection),
+    FXMAPFUNC(SEL_UPDATE,   MID_CHOOSEN_CLEAR,          GUIDialog_ChooserAbstract::onUpdClearListSelection),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_NAME,           GUIDialog_ChooserAbstract::onCmdLocateByName),
     FXMAPFUNC(SEL_COMMAND,  MID_UPDATE,                 GUIDialog_ChooserAbstract::onCmdUpdate),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_CASESENSITIVE,  GUIDialog_ChooserAbstract::onCmdCaseSensitive),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_AUTOCENTER,     GUIDialog_ChooserAbstract::onCmdAutoCenter),
 };
 
 FXIMPLEMENT(GUIDialog_ChooserAbstract, FXMainWindow, GUIDialog_ChooserAbstractMap, ARRAYNUMBER(GUIDialog_ChooserAbstractMap))
@@ -75,8 +79,20 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     GUIPersistentWindowPos(this, "LOCATOR", true, 20, 40, 300, 350),
     myWindowsParent(windowsParent),
     myMessageId(messageId),
-    myLocateByName(false),
-    myHaveFilteredSubstring(false) {
+    myList(nullptr),
+    myCenterButton(nullptr),
+    myTrackButton(nullptr),
+    mySelectAllButton(nullptr),
+    myDeselectAllButton(nullptr),
+    mySelected(nullptr),
+    myTextEntry(nullptr),
+    myNumSelectedItems(0),
+    myHideUnselected(nullptr),
+    myLocateByName(nullptr),
+    myFilterSubstring(nullptr),
+    myCountLabel(nullptr),
+    myCaseSensitive(nullptr),
+    myInstantCenter(nullptr) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
     // build the list
     FXVerticalFrame* layoutLeft = new FXVerticalFrame(hbox, GUIDesignChooserLayoutLeft);
@@ -93,20 +109,27 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
         myTrackButton->hide();
     }
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
-    GUIDesigns::buildFXButton(layoutRight, TL("&Hide Unselected"), "", "", GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSER_FILTER, GUIDesignChooserButtons);
-    GUIDesigns::buildFXButton(layoutRight, TL("By &Name"), TL("Locate item by name"), "", nullptr, this, MID_CHOOSEN_NAME, GUIDesignChooserButtons);
     GUIDesigns::buildFXButton(layoutRight, TL("&Select/deselect"), "", TL("Select/deselect current object"), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
-    GUIDesigns::buildFXButton(layoutRight, TL("&Filter substring"), "", "", nullptr, this, MID_CHOOSER_FILTER_SUBSTR, GUIDesignChooserButtons);
-    GUIDesigns::buildFXButton(layoutRight, TL("Select &all"), "", TL("Select all items in list"), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_SELECT, GUIDesignChooserButtons);
-    GUIDesigns::buildFXButton(layoutRight, TL("&Deselect all"), "", TL("Deselect all items in list"), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
+    mySelectAllButton = GUIDesigns::buildFXButton(layoutRight, TL("Select &all"), "", TL("Select all items in list"), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_SELECT, GUIDesignChooserButtons);
+    myDeselectAllButton = GUIDesigns::buildFXButton(layoutRight, TL("&Deselect all"), "", TL("Deselect all items in list"), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
     GUIDesigns::buildFXButton(layoutRight, TL("&Update"), "", TL("Reload all ids"), GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_UPDATE, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     GUIDesigns::buildFXButton(layoutRight, TL("&Close"), "", "", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
-    myCountLabel = new FXLabel(layoutRight, "placeholder", nullptr, LAYOUT_BOTTOM | LAYOUT_FILL_X | JUSTIFY_LEFT);
-    myCaseSensitive = new FXCheckButton(layoutRight, TL("case-sensitive search"));
+    new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
+    myHideUnselected = new FXCheckButton(layoutRight, TL("&Hide Unselected"), this, MID_CHOOSER_FILTER);
+    myHideUnselected->setTipText(TL("Hide unselected items"));
+    myHideUnselected->setHelpText(TL("Hide unselected items"));
+    myLocateByName = new FXCheckButton(layoutRight, TL("By &Name"), this, MID_CHOOSEN_NAME);
+    myLocateByName->setTipText(TL("Locate item by name"));
+    myLocateByName->setHelpText(TL("Locate item by name"));
+    myFilterSubstring = new FXCheckButton(layoutRight, TL("&Filter substring"), this, MID_CHOOSER_FILTER_SUBSTR);
+    myFilterSubstring->setTipText(TL("Filter list by substring"));
+    myFilterSubstring->setHelpText(TL("Filter list by substring"));
+    myCaseSensitive = new FXCheckButton(layoutRight, TL("case-sensitive search"), this, MID_CHOOSER_CASESENSITIVE);
     myCaseSensitive->setCheck(getApp()->reg().readIntEntry("LOCATOR", "caseSensitive", 0) == 1);
-    myInstantCenter = new FXCheckButton(layoutRight, TL("auto-center"));
+    myInstantCenter = new FXCheckButton(layoutRight, TL("auto-center"), this, MID_CHOOSER_AUTOCENTER);
     myInstantCenter->setCheck(getApp()->reg().readIntEntry("LOCATOR", "autoCenter", 0) == 1);
+    myCountLabel = new FXLabel(layoutRight, "placeholder", nullptr, LAYOUT_BOTTOM | LAYOUT_FILL_X | JUSTIFY_LEFT);
     refreshList(ids);
     // add child in windowsParent
     myWindowsParent->getGUIMainWindowParent()->addChild(this);
@@ -176,27 +199,44 @@ GUIDialog_ChooserAbstract::onCmdClose(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_ChooserAbstract::onChgList(FXObject*, FXSelector, void*) {
-    // mouse-click toggles item selection but changked current item with
+    // mouse-click toggles item selection but changing current item with
     // keyboard does not affect select
-    // Enabling the line blow toggles the behavior (which must be fixed via onChgListSel)
-    myList->selectItem(myList->getCurrentItem());
-    if (myInstantCenter->getCheck()) {
-        onCmdCenter(nullptr, 0, nullptr);
+    // Enabling the line below toggles the behavior (which must be fixed via onChgListSel)
+    int current = myList->getCurrentItem();
+    if (current >= 0 && current < myList->getNumItems()) {
+        myList->selectItem(current);
+        myCenterButton->enable();
+        if (myTrackButton->shown()) {
+            myTrackButton->enable();
+        }
+        if (myInstantCenter != nullptr && myInstantCenter->getCheck() == TRUE) {
+            onCmdCenter(nullptr, 0, nullptr);
+        }
+    } else {
+        myCenterButton->disable();
+        myTrackButton->disable();
     }
     return 1;
 }
 
 long
 GUIDialog_ChooserAbstract::onChgListSel(FXObject*, FXSelector, void*) {
-    myList->selectItem(myList->getCurrentItem());
+    int current = myList->getCurrentItem();
+    if (current >= 0 && current < myList->getNumItems()) {
+        myList->selectItem(current);
+    }
     return 1;
 }
 
 long
 GUIDialog_ChooserAbstract::onChgText(FXObject*, FXSelector, void*) {
-    const bool caseSensitive = myCaseSensitive->getCheck() == TRUE;
+    if (myFilterSubstring != nullptr && myFilterSubstring->getCheck() == TRUE) {
+        applyFilters();
+        return 1;
+    }
+    const bool caseSensitive = (myCaseSensitive != nullptr && myCaseSensitive->getCheck() == TRUE);
     int id = -1;
-    if (myLocateByName || myHaveFilteredSubstring) {
+    if (locateByName()) {
         // findItem does not support substring search
         const int numItems = myList->getNumItems();
         FXString t = myTextEntry->getText();
@@ -230,7 +270,9 @@ GUIDialog_ChooserAbstract::onChgText(FXObject*, FXSelector, void*) {
     myList->selectItem(id);
     myList->setCurrentItem(id, true);
     myCenterButton->enable();
-    myTrackButton->enable();
+    if (myTrackButton->shown()) {
+        myTrackButton->enable();
+    }
     return 1;
 }
 
@@ -238,7 +280,7 @@ GUIDialog_ChooserAbstract::onChgText(FXObject*, FXSelector, void*) {
 long
 GUIDialog_ChooserAbstract::onCmdText(FXObject*, FXSelector, void*) {
     int current = myList->getCurrentItem();
-    if (current >= 0 && myList->isItemSelected(current)) {
+    if (current >= 0 && current < myList->getNumItems() && myList->isItemSelected(current) && myList->getItemData(current) != nullptr) {
         myWindowsParent->setView(*static_cast<GUIGlID*>(myList->getItemData(current)));
     }
     return 1;
@@ -268,74 +310,241 @@ GUIDialog_ChooserAbstract::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
 
 long
 GUIDialog_ChooserAbstract::onCmdFilter(FXObject*, FXSelector, void*) {
-    FXIcon* flag = GUIIconSubSys::getIcon(GUIIcon::FLAG);
-    std::vector<GUIGlID> selectedGlIDs;
-    const int numItems = myList->getNumItems();
-    for (int i = 0; i < numItems; i++) {
-        const GUIGlID glID = *static_cast<GUIGlID*>(myList->getItemData(i));
-        if (myList->getItemIcon(i) == flag) {
-            selectedGlIDs.push_back(glID);
-        }
-    }
-    refreshList(selectedGlIDs);
+    applyFilters();
     return 1;
 }
 
 
 long
 GUIDialog_ChooserAbstract::onCmdFilterSubstr(FXObject*, FXSelector, void*) {
-    const bool caseSensitive = myCaseSensitive->getCheck() == TRUE;
-    std::vector<GUIGlID> selectedGlIDs;
-    const int numItems = myList->getNumItems();
-    FXString t = myTextEntry->getText();
-    if (!caseSensitive) {
-        t = t.lower();
-    }
-    for (int i = 0; i < numItems; i++) {
-        FXString t2 = myList->getItemText(i);
-        if (!caseSensitive) {
-            t2 = t2.lower();
-        }
-        if (t2.find(t) >= 0) {
-            const GUIGlID glID = *static_cast<GUIGlID*>(myList->getItemData(i));
-            selectedGlIDs.push_back(glID);
-        }
-    }
-    refreshList(selectedGlIDs);
-    // filter ACs in netedit
-    filterACs(selectedGlIDs);
-    myHaveFilteredSubstring = true;
-    onChgText(nullptr, 0, nullptr);
+    applyFilters();
     return 1;
+}
+
+
+long
+GUIDialog_ChooserAbstract::onCmdLocateByName(FXObject*, FXSelector, void*) {
+    applyFilters();
+    myTextEntry->setFocus();
+    return 1;
+}
+
+
+long
+GUIDialog_ChooserAbstract::onCmdUpdate(FXObject*, FXSelector, void*) {
+    const std::vector<GUIGlID> ids = myWindowsParent->getObjectIDs(myMessageId);
+    if (!ids.empty()) {
+        refreshList(ids);
+    } else {
+        applyFilters();
+    }
+    return 1;
+}
+
+
+long
+GUIDialog_ChooserAbstract::onCmdCaseSensitive(FXObject*, FXSelector, void*) {
+    if (myFilterSubstring != nullptr && myFilterSubstring->getCheck() == TRUE) {
+        applyFilters();
+    } else {
+        onChgText(nullptr, 0, nullptr);
+    }
+    return 1;
+}
+
+
+long
+GUIDialog_ChooserAbstract::onCmdAutoCenter(FXObject*, FXSelector, void*) {
+    if (myInstantCenter != nullptr && myInstantCenter->getCheck() == TRUE) {
+        onCmdCenter(nullptr, 0, nullptr);
+    }
+    return 1;
+}
+
+
+long
+GUIDialog_ChooserAbstract::onUpdAddListSelection(FXObject* sender, FXSelector, void* ptr) {
+    const int numItems = myList ? myList->getNumItems() : 0;
+    const bool enable = (numItems > 0 && myNumSelectedItems < numItems);
+    sender->handle(this, enable ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), ptr);
+    return 1;
+}
+
+
+long
+GUIDialog_ChooserAbstract::onUpdClearListSelection(FXObject* sender, FXSelector, void* ptr) {
+    const bool enable = (myNumSelectedItems > 0);
+    sender->handle(this, enable ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), ptr);
+    return 1;
+}
+
+
+bool
+GUIDialog_ChooserAbstract::locateByName() const {
+    return myLocateByName != nullptr && myLocateByName->getCheck() == TRUE;
 }
 
 
 std::string
 GUIDialog_ChooserAbstract::getObjectName(GUIGlObject* o) const {
-    if (myLocateByName) {
+    if (locateByName()) {
         return o->getOptionalName();
     } else {
         return o->getMicrosimID();
     }
 }
 
+
 void
 GUIDialog_ChooserAbstract::refreshList(const std::vector<GUIGlID>& ids) {
-    myList->clearItems();
-    for (auto i : ids) {
-        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(i);
+    myAllIDs = ids;
+    myIDs.clear();
+    for (auto id : ids) {
+        myIDs.insert(id);
+    }
+    applyFilters();
+}
+
+
+void
+GUIDialog_ChooserAbstract::applyFilters() {
+    const bool hideUnselected = (myHideUnselected != nullptr && myHideUnselected->getCheck() == TRUE);
+    const bool byName = locateByName();
+    const bool filterSubstring = (myFilterSubstring != nullptr && myFilterSubstring->getCheck() == TRUE);
+    const bool caseSensitive = (myCaseSensitive != nullptr && myCaseSensitive->getCheck() == TRUE);
+
+    FXString searchPattern = myTextEntry ? myTextEntry->getText() : "";
+    if (!caseSensitive) {
+        searchPattern = searchPattern.lower();
+    }
+    const bool haveSearchPattern = filterSubstring && (searchPattern.length() > 0);
+
+    std::vector<std::pair<std::string, GUIGlID>> filteredItems;
+    filteredItems.reserve(myAllIDs.size());
+
+    for (const auto glID : myAllIDs) {
+        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(glID);
         if (o == nullptr) {
             continue;
         }
-        const std::string& name = getObjectName(o);
         const bool selected = myWindowsParent->isSelected(o);
+        if (hideUnselected && !selected) {
+            GUIGlObjectStorage::gIDStorage.unblockObject(glID);
+            continue;
+        }
+        const std::string name = getObjectName(o);
+        if (byName && name.empty()) {
+            GUIGlObjectStorage::gIDStorage.unblockObject(glID);
+            continue;
+        }
+        if (haveSearchPattern) {
+            FXString itemText(name.c_str());
+            if (!caseSensitive) {
+                itemText = itemText.lower();
+            }
+            if (itemText.find(searchPattern) < 0) {
+                GUIGlObjectStorage::gIDStorage.unblockObject(glID);
+                continue;
+            }
+        }
+        filteredItems.push_back(std::make_pair(name, glID));
+        GUIGlObjectStorage::gIDStorage.unblockObject(glID);
+    }
+
+    if (byName) {
+        std::sort(filteredItems.begin(), filteredItems.end());
+    }
+
+    myList->clearItems();
+    std::vector<GUIGlID> displayedGlIDs;
+    displayedGlIDs.reserve(filteredItems.size());
+
+    for (const auto& item : filteredItems) {
+        const std::string& name = item.first;
+        const GUIGlID glID = item.second;
+        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(glID);
+        const bool selected = (o != nullptr) && myWindowsParent->isSelected(o);
+        if (o != nullptr) {
+            GUIGlObjectStorage::gIDStorage.unblockObject(glID);
+        }
         FXIcon* const ico = selected ? GUIIconSubSys::getIcon(GUIIcon::FLAG) : nullptr;
-        myIDs.insert(o->getGlID());
-        myList->appendItem(name.c_str(), ico, (void*) & (*myIDs.find(o->getGlID())));
-        GUIGlObjectStorage::gIDStorage.unblockObject(i);
+        myIDs.insert(glID);
+        myList->appendItem(name.c_str(), ico, (void*)&(*myIDs.find(glID)));
+        displayedGlIDs.push_back(glID);
     }
     myList->update();
-    myCountLabel->setText(TLF("% objects", toString(ids.size())).c_str());
+    if (myCountLabel) {
+        myCountLabel->setText(TLF("% objects", toString(displayedGlIDs.size())).c_str());
+    }
+
+    // notify Netedit to update filtered ACs
+    filterACs(displayedGlIDs);
+
+    // Update item selection
+    if (filterSubstring) {
+        if (myList->getNumItems() > 0) {
+            myList->makeItemVisible(0);
+            myList->selectItem(0);
+            myList->setCurrentItem(0, true);
+            myCenterButton->enable();
+            if (myTrackButton->shown()) {
+                myTrackButton->enable();
+            }
+            if (myInstantCenter != nullptr && myInstantCenter->getCheck() == TRUE) {
+                onCmdCenter(nullptr, 0, nullptr);
+            }
+        } else {
+            myCenterButton->disable();
+            myTrackButton->disable();
+        }
+    } else {
+        if (myTextEntry && myTextEntry->getText().length() > 0) {
+            onChgText(nullptr, 0, nullptr);
+        } else if (myList->getNumItems() > 0) {
+            myList->makeItemVisible(0);
+            myList->selectItem(0);
+            myList->setCurrentItem(0, true);
+            myCenterButton->enable();
+            if (myTrackButton->shown()) {
+                myTrackButton->enable();
+            }
+        } else {
+            myCenterButton->disable();
+            myTrackButton->disable();
+        }
+    }
+    updateSelectionButtons();
+}
+
+
+void
+GUIDialog_ChooserAbstract::updateSelectionButtons() {
+    const int numItems = myList ? myList->getNumItems() : 0;
+    int numSelected = 0;
+    if (myList != nullptr) {
+        for (int i = 0; i < numItems; i++) {
+            if (myList->getItemIcon(i) != nullptr) {
+                numSelected++;
+            }
+        }
+    }
+    myNumSelectedItems = numSelected;
+    const bool enableSelectAll = (numItems > 0 && numSelected < numItems);
+    const bool enableDeselectAll = (numSelected > 0);
+    if (mySelectAllButton != nullptr) {
+        if (enableSelectAll) {
+            mySelectAllButton->enable();
+        } else {
+            mySelectAllButton->disable();
+        }
+    }
+    if (myDeselectAllButton != nullptr) {
+        if (enableDeselectAll) {
+            myDeselectAllButton->enable();
+        } else {
+            myDeselectAllButton->disable();
+        }
+    }
 }
 
 
@@ -343,16 +552,21 @@ long
 GUIDialog_ChooserAbstract::onCmdToggleSelection(FXObject*, FXSelector, void*) {
     FXIcon* flag = GUIIconSubSys::getIcon(GUIIcon::FLAG);
     int i = myList->getCurrentItem();
-    if (i >= 0) {
+    if (i >= 0 && i < myList->getNumItems()) {
         toggleSelection(i);
         if (myList->getItemIcon(i) == flag) {
             myList->setItemIcon(i, nullptr);
+            if (myHideUnselected != nullptr && myHideUnselected->getCheck() == TRUE) {
+                applyFilters();
+                return 1;
+            }
         } else {
             myList->setItemIcon(i, flag);
         }
     }
     myList->update();
     myWindowsParent->getView()->update();
+    updateSelectionButtons();
     return 1;
 }
 
@@ -367,6 +581,7 @@ GUIDialog_ChooserAbstract::onCmdAddListSelection(FXObject*, FXSelector, void*) {
     }
     myList->update();
     myWindowsParent->getView()->update();
+    updateSelectionButtons();
     return 1;
 }
 
@@ -378,43 +593,16 @@ GUIDialog_ChooserAbstract::onCmdClearListSelection(FXObject*, FXSelector, void*)
         deselect(i);
         myList->setItemIcon(i, nullptr);
     }
-    myList->update();
-    myWindowsParent->getView()->update();
-    return 1;
-}
-
-
-long
-GUIDialog_ChooserAbstract::onCmdLocateByName(FXObject*, FXSelector, void*) {
-    std::vector<std::pair<std::string, GUIGlID> > namesAndIDs;
-    myLocateByName = true;
-    const int numItems = myList->getNumItems();
-    for (int i = 0; i < numItems; i++) {
-        GUIGlID glID = *static_cast<GUIGlID*>(myList->getItemData(i));
-        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(glID);
-        if (o != 0) {
-            const std::string& name = getObjectName(o);
-            if (name != "") {
-                namesAndIDs.push_back(std::make_pair(name, glID));
-            }
-        }
-        GUIGlObjectStorage::gIDStorage.unblockObject(glID);
+    if (myHideUnselected != nullptr && myHideUnselected->getCheck() == TRUE) {
+        applyFilters();
+    } else {
+        myList->update();
+        myWindowsParent->getView()->update();
+        updateSelectionButtons();
     }
-    std::sort(namesAndIDs.begin(), namesAndIDs.end());
-    std::vector<GUIGlID> selectedGlIDs;
-    for (const auto& item : namesAndIDs) {
-        selectedGlIDs.push_back(item.second);
-    }
-    refreshList(selectedGlIDs);
-    myTextEntry->setFocus();
     return 1;
 }
 
-long
-GUIDialog_ChooserAbstract::onCmdUpdate(FXObject*, FXSelector, void*) {
-    refreshList(myWindowsParent->getObjectIDs(myMessageId));
-    return 1;
-}
 
 void
 GUIDialog_ChooserAbstract::toggleSelection(int listIndex) {

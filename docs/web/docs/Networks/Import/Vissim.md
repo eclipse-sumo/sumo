@@ -3,7 +3,7 @@ title: Vissim
 ---
 
 Although Vissim is a microscopic simulation as SUMO is, it follows a
-completely different concept of modelling traffic. Due to this, the
+completely different concept of modeling traffic. Due to this, the
 import is quite clumsy, does not work with all networks, and manual work
 on the imported network is necessary. The option which forces
 [netconvert](../../netconvert.md) to read a vissim file is **--vissim-file** {{DT_FILE}} or **--vissim** {{DT_FILE}} for

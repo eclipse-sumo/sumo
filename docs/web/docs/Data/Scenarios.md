@@ -46,7 +46,7 @@ of Bologna", SUMO2014, p 19-26
 - [Repository](https://github.com/SiLab-group/DigitalTwin_GenevaMotorway)
 
 Everyone (after registering at ODPMS) can get access to fine-grained (minute resolution) real-time traffic data from traffic counters and use it as input in DT-GM.
-The details of modelling and results will also be publicly available in two papers, which for the moment we only mentioned in the README file since they are under review process. (if need it we can provide you preprint of the paper "Building a Motorway Digital Twin in SUMO: Real-Time Simulation of Continuous Data Stream from Traffic Counters")
+The details of modeling and results will also be publicly available in two papers, which for the moment we only mentioned in the README file since they are under review process. (if need it we can provide you preprint of the paper "Building a Motorway Digital Twin in SUMO: Real-Time Simulation of Continuous Data Stream from Traffic Counters")
 
 # Ingolstadt traffic scenario
 ## InTAS

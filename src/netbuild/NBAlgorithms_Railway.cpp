@@ -587,12 +587,6 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLi
         EdgeVector inRail, outRail;
         getRailEdges(n, inRail, outRail);
         for (NBEdge* start : outRail) {
-            if (lineEdges.count(start)) {
-                // ptline edges should never be reversed. They are fixed by a different algorithm require their original ids and orientation
-                continue;
-            }
-            EdgeVector tmp;
-            tmp.push_back(start);
             // only reverse edges where the node would be unbroken afterwards
             if (!allBroken(n, start, inRail, outRail)
                     || (inRail.size() == 1 && outRail.size() == 1)) {
@@ -607,6 +601,18 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLi
             bool forward = true;
             EdgeVector seq;
             while (forward) {
+                if (lineEdges.count(start)) {
+                    // ptline edges should never be reversed. They are fixed by a different algorithm which requires their original ids and orientation
+                    break;
+                } else if (start->hasParameter(NBTrafficLightDefinition::OSM_DIRECTION)) {
+                    // do not reverse edges where direction was explicitly set in OSM (including via signal direction)
+#ifdef DEBUG_SEQSTOREVERSE
+                    if (n->getID() == DEBUGNODEID) {
+                        std::cout << " abort at edge=" << start->getID() << " (has OSM_DIRECTION " << start->getParameter(NBTrafficLightDefinition::OSM_DIRECTION) << ")\n";
+                    }
+#endif
+                    break;
+                }
                 seq.push_back(start);
                 //std::cout << " seq=" << toString(seq) << "\n";
                 NBNode* n2 = start->getToNode();

@@ -18,7 +18,7 @@
 """
 multi set with insertion-order iteration
 based on OrderedSet by Raymond Hettinger (c) , MIT-License
-https://code.activestate.com/recipes/576694/
+https://web.archive.org/web/20260227030136/https://code.activestate.com/recipes/576694/
 """
 from __future__ import absolute_import
 

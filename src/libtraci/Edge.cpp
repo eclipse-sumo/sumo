@@ -155,6 +155,12 @@ Edge::getMeanFriction(const std::string& edgeID) {
 
 
 double
+Edge::getMaxSpeed(const std::string& edgeID) {
+    return Dom::getDouble(libsumo::VAR_MAXSPEED, edgeID);
+}
+
+
+double
 Edge::getLastStepOccupancy(const std::string& edgeID) {
     return Dom::getDouble(libsumo::LAST_STEP_OCCUPANCY, edgeID);
 }
@@ -289,7 +295,7 @@ Edge::setMaxSpeed(const std::string& edgeID, double speed) {
 
 void
 Edge::setFriction(const std::string& edgeID, double friction) {
-    Dom::setDouble(libsumo::VAR_MAXSPEED, edgeID, friction);
+    Dom::setDouble(libsumo::VAR_FRICTION, edgeID, friction);
 }
 
 }

@@ -19,7 +19,7 @@ You can find a test case for these implementations at
 
 Different aspects of electric vehicles are modeled separately. This page puts the focus
 on modeling the battery and how it is charged and discharged. The actual energy consumption values themselves
-are part of the emission modelling because SUMO can use different models for that.
+are part of the emission modeling because SUMO can use different models for that.
 
 To track the charging status of a vehicle, it must be equipped with a battery
 device. This may be done using the option **--device.battery.explicit <vehID1,vehID2,...\>** or simply setting **--device.battery.probability 1** to equip
@@ -29,7 +29,7 @@ vehicle parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devi
 Additional properties of the vehicle and its electrical components must
 then be defined via [parameters of the vehicle or its
 type](../Simulation/GenericParameters.md).
-Note, that some parameters are specific to the battery device and thus carry the `device.battery` prefix. These can be defined either in the `<vType>` or the `<vehicle`. 
+Note, that some parameters are specific to the battery device and thus carry the `device.battery` prefix. These can be defined either in the `<vType>` or the `<vehicle`.
 Other parameters are more general and also used by other models (i.e. emission models) and thus carry no prefix. All of the later must be defined in the `<vType>`.
 
 These values have the following meanings (the defaults are from the Kia below):
@@ -122,7 +122,7 @@ the [stationfinder device](../Simulation/Stationfinder.md) can be configured to 
 
 A charging station is a surface defined on a lane in which the vehicles
 equipped with a battery are charged. The basic structure and parameters
-of bus stops were used for the implementation of charging stations. 
+of bus stops were used for the implementation of charging stations.
 A charging station can be converted to a gas station by setting the **chargeType** attribute to `fuel`. Then electric vehicles cannot charge there anymore.
 
 
@@ -381,7 +381,7 @@ To compute the remaining range on departure, the value of `mWh` (meters per Watt
 
 ## Reducing the power of a charging station
 
-If too many consumers connect to the eletrical grid, it may not be able to supply the nominal power of the charging station. A temporary
+If too many consumers connect to the electrical grid, it may not be able to supply the nominal power of the charging station. A temporary
 power drop of 20% can be modeled using the following sample code:
 ```python
 prevPower = traci.chargingstation.getPower(chargingStationID) # remember for restoring the full power later

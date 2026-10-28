@@ -1,0 +1,3 @@
+Warning: Discarding unknown compound 'railway.abandoned' in type 'railway.abandoned|service.yard' (first occurrence for edge '48923439').
+Warning: Discarding unusable type 'railway.abandoned|service.yard' (first occurrence for edge '48923439').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurrence for edge '496500391').
