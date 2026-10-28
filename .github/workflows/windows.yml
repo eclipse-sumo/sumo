@@ -93,12 +93,6 @@ jobs:
     - name: Building TraaS
       run: cmake --build build_msvc --target traas
 
-    - name: Running examples and unit tests
-      # the timeout is redundant to the settings in the CMakeLists but maybe submodules add tests too
-      run: |
-        cmake --build build_msvc --target examples
-        ctest --test-dir build_msvc --output-on-failure --timeout 60
-
     - name: Building installers
       run: |
         cd build_msvc
@@ -111,6 +105,12 @@ jobs:
         path: |
           D:/cpkg/sumo-*
           D:/cpkg/_CPack_Packages/win64/WIX/wix.log
+
+    - name: Running examples and unit tests
+      # the timeout is redundant to the settings in the CMakeLists but maybe submodules add tests too
+      run: |
+        cmake --build build_msvc --target examples
+        ctest --test-dir build_msvc --output-on-failure --timeout 60
 
     # The following tests need to be split because of resource constraints. If they are not in separate steps
     # a failing texttest run will not let the step fail because only the final exit code counts.
