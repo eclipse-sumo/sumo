@@ -139,6 +139,11 @@ public:
         return false;
     }
 
+    /// @brief whether precise lateral positioning when leaving trains is supported
+    virtual bool usingDoors() {
+        return false;
+    }
+
     /// @brief return the number of active objects
     virtual int getActiveNumber() = 0;
 
