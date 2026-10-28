@@ -265,6 +265,7 @@ def precomputeRoutes(options, net, modePreferences, noIntNet, veh2mode, fixedSto
                "-o", routefile, "--alternatives-output", "NUL",
                "-a", addfile,
                "--bulk-routing",
+               "--weights.reversal-penalty", str(options.reversalPenalty),
                "--no-step-log",
                "--no-warnings",
                "--routing-threads", str(options.bulkThreads),
