@@ -59,8 +59,7 @@ except ImportError:
 import sumolib
 from . import lane, edge, netshiftadaptor, node, connection, roundabout  # noqa
 from .connection import Connection
-from sumolib.miscutils import intIfPossible, openz, PRACTICAL_INFINITY
-
+from sumolib.miscutils import intIfPossible, openz, PRACTICAL_INFINITY, benchmark_cumulative
 
 class TLS:
 
@@ -627,6 +626,8 @@ class Net:
                     minPath = viaPath
         return minPath, minInternalCost
 
+    #@benchmark_cumulative
+    #@profile
     def getOptimalPath(self, fromEdge, toEdge, fastest=False, maxCost=PRACTICAL_INFINITY, vClass=None,
                        reversalPenalty=0, includeFromToCost=True, withInternal=False, ignoreDirection=False,
                        fromPos=None, toPos=None, preferences={}, length=None):
@@ -704,6 +705,8 @@ class Net:
         def constructPath(dist):
             # destination was already reached in a previous query
             cost, pred = dist[toEdge]
+            if cost == PRACTICAL_INFINITY:
+                return None, cost
             path = [toEdge]
             while pred is not None:
                 if self.hasInternal and withInternal:
