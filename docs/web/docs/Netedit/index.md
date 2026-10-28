@@ -140,7 +140,7 @@ sumo-gui](../sumo-gui.md#keyboard_shortcuts) are supported.
 
 ## Customizing Visualization
 
-Most of the visualization options that are available in [sumo-gui](../sumo-gui.md#changing_the_appearancevisualisation_of_the_simulation) can also be set in netedit. This includes the facilities for [loading
+Most of the visualization options that are available in [sumo-gui](../sumo-gui.md#changing_the_appearancevisualization_of_the_simulation) can also be set in netedit. This includes the facilities for [loading
 background images](../sumo-gui.md#showing_background_images). It is also possible to load [POIs and Polygons](elementsShape.md) using the menu *File-> Additionals and Shapes-> Load Additionals*.
 
 ### Background Grid

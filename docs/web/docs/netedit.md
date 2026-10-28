@@ -487,12 +487,12 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--meanDataEdge-prefix** {{DT_STR}} | Prefix for meanDataEdge naming; *default:* **ed** |
 | **--meanDataLane-prefix** {{DT_STR}} | Prefix for meanDataLane naming; *default:* **ld** |
 
-### Visualisation
+### Visualization
 | Option | Description |
 |--------|-------------|
 | **--disable-laneIcons** {{DT_BOOL}} | Disable icons of special lanes; *default:* **false** |
 | **-T** {{DT_BOOL}}<br> **--disable-textures** {{DT_BOOL}} | Disable textures; *default:* **false** |
-| **-g** {{DT_FILE}}<br> **--gui-settings-file** {{DT_FILE}} | Load visualisation settings from FILE |
+| **-g** {{DT_FILE}}<br> **--gui-settings-file** {{DT_FILE}} | Load visualization settings from FILE |
 | **--registry-viewport** {{DT_BOOL}} | Load current viewport from registry; *default:* **false** |
 | **--window-size** {{DT_STR_LIST}} | Create initial window with the given x,y size |
 | **--window-pos** {{DT_STR_LIST}} | Create initial window at the given x,y position |
@@ -536,4 +536,3 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 |--------|-------------|
 | **--random** {{DT_BOOL}} | Initialises the random number generator with the current system time; *default:* **false** |
 | **--seed** {{DT_INT}} | Initialises the random number generator with the given value; *default:* **23423** |
-

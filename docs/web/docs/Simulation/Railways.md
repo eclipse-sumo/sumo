@@ -10,7 +10,7 @@ taken in comparison to a plain vehicular simulation.
 
 # Building a network for train simulation
 
-The following section describes network modelling and import for conventional rail operations. [Special consideration for tram simulations are found below](#tram_network_modelling).
+The following section describes network modeling and import for conventional rail operations. [Special consideration for tram simulations are found below](#tram_network_modeling).
 
 ## Railways
 
@@ -95,7 +95,7 @@ Visualization of bidirectional tracks has a distinct [style and dedicated settin
 ### Working with bidirectional tracks in [netedit](../Netedit/index.md)
 
 - To show both edges that constitute a bidirectional track, activate
-  edge visualization option *spread bidirectional railways/roads* (see [visualization settings](../sumo-gui.md#edgelane_visualisation_settings)). Both edges will be
+  edge visualization option *spread bidirectional railways/roads* (see [visualization settings](../sumo-gui.md#edgelane_visualization_settings)). Both edges will be
   drawn narrower and with a side-offset to make them both visible
   without overlap.
    - this is highly recommended when using connection mode to define connections among bidirectional tracks as it's otherwise hard to distinguish the affected edges
@@ -303,7 +303,7 @@ Edges can be configured to take part in a [linear
 referencing scheme](https://en.wikipedia.org/wiki/Linear_referencing) by setting their [`distance`-attribute](Distances.md#defining_and_using_linear_coordinates).
 The linear coordinates of a vehicle can be included in [fcd-output](Output/FCDOutput.md#further_options) using option **--fcd-output.distance**.
 
-# Modelling Trains
+# Modeling Trains
 
 There is a dedicated carFollowMode for trains which can be activated by
 setting `carFollowModel="Rail" trainType="<TYPE>"` in the `<vType>` definition. Allowed values for trainType are
@@ -547,7 +547,7 @@ Constraints can be generated using the tool [generateRailSignalConstraints.py](.
 Operationally, there are many similarities between tram and conventional/heavy rail operations with regard to track networks and signaling at conflict points.
 The main difference is that trams are not separated by blocks when following each other. To reflect this in sumo, rail signals on tram tracks are automatically put into [moving block mode](#moving_block_mode) (This is configured with option **--railsignal.moving-block.default-classes**). Tram rail signals are still needed to regulate bidirectional access to single-track sections and they can be used to guard crossing and merging conflicts. However, fewer rail signals are needed compared to a conventional rail simulation because block length is not a critical efficiency factor in one-directional operations.
 
-## Tram Network modelling
+## Tram Network modeling
 
 In many parts of the world, OSM data does not provide information of signaling infrastructure for tram networks. To achieve smooth operations at conflict points without rail signals, [netconvert](../netconvert.md) sets merging conflicts to junction type 'zipper'. The vehicle classes eligible for this behavior are configured with netconvert option **--railway.signal.permit-unsignalized** (default *tram,cable_car*).
 
@@ -671,7 +671,7 @@ The following Objects provide extra information in their context menu to help un
   - **driveWays blocking DRIVEWAY_ID**: the list of foe driveways which are blocking the requested driveway with DRIVEWAY_ID
 
 !!! note
-    Street coloring mode [*by insertion backlog*](../sumo-gui.md#edgelane_visualisation_settings) helps to identify the tracks on which insertion is currently blocked.
+    Street coloring mode [*by insertion backlog*](../sumo-gui.md#edgelane_visualization_settings) helps to identify the tracks on which insertion is currently blocked.
 
 ## Abstract Networks
 

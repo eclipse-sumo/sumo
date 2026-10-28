@@ -111,7 +111,7 @@ title: Changes in the 2014 releases (versions 0.20.0, 0.21.0 and 0.22.0)
   - Added option **--vehroute-output.intended-depart** {{DT_BOOL}}. This allows to generate vehicle route files which
         reproduce the original behavior when using one shot routing. #1429
   - Added option **--weights.random-factor** {{DT_FLOAT}} to disturb edge weights when routing in the
-        simulation. This allows modelling imperfect information, helps
+        simulation. This allows modeling imperfect information, helps
         to avoid biases when multiple routes have the same length (i.e.
         in grid networks) and may be used to prevent jams on a single
         shortest path.
@@ -250,7 +250,7 @@ title: Changes in the 2014 releases (versions 0.20.0, 0.21.0 and 0.22.0)
   - Fixed crash when drawing persons
   - Patched building under macOS, thanks to Alex Voronov
   - lane coloring by netto occupancy no longer shows brutto
-    occupancy (see [lane coloring](../sumo-gui.md#edgelane_visualisation_settings)).
+    occupancy (see [lane coloring](../sumo-gui.md#edgelane_visualization_settings)).
   - drawing of simple vehicle shapes now always uses a distinct
     color for drawing details.
   - Fixed crash when closing the breakpoint editor
@@ -600,7 +600,7 @@ title: Changes in the 2014 releases (versions 0.20.0, 0.21.0 and 0.22.0)
     turnarounds). This is important when using the option **--fringe-factor** {{DT_FLOAT}} for
     generating plausible through-traffic in small networks.
   - added two [tools for visualising emission behavior](../Tools/Emissions.md)
-  - added some [visualisation tools](../Tools/Visualization.md)
+  - added some [visualization tools](../Tools/Visualization.md)
 
 ### Other
 

@@ -2141,12 +2141,12 @@ GUIDialog_ViewSettings::buildPersonsFrame(FXTabBook* tabbook) {
     myShowPedestrianNetwork = new FXCheckButton(m105, TL("Show JuPedSim pedestrian network"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowPedestrianNetwork->setCheck(mySettings->showPedestrianNetwork);
     myPedestrianNetworkColor = new FXColorWell(m105, MFXUtils::getFXColor(mySettings->pedestrianNetworkColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-#ifdef HAVE_JUPEDSIM
+#if defined(HAVE_JUPEDSIM_GRPC) || defined(HAVE_JUPEDSIM_LEGACY)
     if (mySettings->netedit) {
 #endif
         myShowPedestrianNetwork->disable();
         myPedestrianNetworkColor->disable();
-#ifdef HAVE_JUPEDSIM
+#if defined(HAVE_JUPEDSIM_GRPC) || defined(HAVE_JUPEDSIM_LEGACY)
     }
 #endif
 }
