@@ -1,0 +1,7 @@
+--no-step-log --no-duration-log -n input_net2.net.xml -e 41
+--save-state.times 37,40 --save-state.files state.xml,compare.xml
+:
+--no-step-log --no-duration-log -n input_net2.net.xml -e 41
+--load-state state.xml --save-state.times 40 --save-state.files compare2.xml
+--compare compare
+tests/complex/state/runner.py

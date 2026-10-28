@@ -150,6 +150,18 @@ public:
      */
     void addOptionSubTopic(const std::string& topic);
 
+    /** @brief Removes the given sub-topic
+     *
+     * @param[in] topic The options sub topic to remove
+     */
+    void removeSubTopic(const std::string& topic);
+
+    /** @brief Removes an option from its subtopic
+     *
+     * @param[in] name The option name to remove from subtopics
+     */
+    void removeOption(const std::string& name);
+
     /** @brief Prints the help
      *
      * @param[in] os The stream to write the help into
