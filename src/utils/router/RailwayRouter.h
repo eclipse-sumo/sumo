@@ -237,6 +237,7 @@ private:
 #endif
             if (backLengths.size() > 0) {
                 // skip the virtual back-edges
+                assert(intoSize + backLengths.size() <= into.size());
                 into.erase(into.begin() + intoSize, into.begin() + intoSize + backLengths.size());
                 if (*(into.begin() + intoSize) != from) {
                     if (!avoidUnsafeBackTracking) {
