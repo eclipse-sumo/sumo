@@ -7,7 +7,7 @@ title: ChangeLog
 
 - sumo
   - Fixed deadlock on a short lane when using the sublane model #18379 (regression in 1.24.0)
-  - Fixed lane-changing deadlock with carFollowModel IDM #17483  
+  - Fixed lane-changing deadlock with carFollowModel IDM #17483
   - device.rerouting.threshold.factor and device.rerouting.threshold.constant now apply to insertion rerouting if a complete route was loaded #18354
   - Fixed railway issues:
     - Fixed invalid predecessor lane used when inserting long train on short edge #18345
@@ -16,7 +16,7 @@ title: ChangeLog
   - Fixed issues that caused divergence when loading state:
     - initialization of CCH-router when vTypeDistributions are loaded from state #18365
     - rerouting device: vehicles that have not departed repeat no longer perform extra rerouting after loading state #18366
-    
+
 
 - netedit
   - When called from sumo-gui with CTRL+T, traffic demand loading now honors checkbox #18347 (regression in 1.26.0)
@@ -48,6 +48,7 @@ title: ChangeLog
 - sumo
   - When setting option **--vehroute-output.cost**, the initial route cost is now included #18378
   - Improved speed of computing safety interlocks when loading new train routes #18387
+  - The JuPedSim coupling has been redone, giving direct access to the JuPedSim Python module #18128
 
 - sumo-gui
   - Converted some buttons into checkboxes in the locate dialog #9925
@@ -65,11 +66,13 @@ title: ChangeLog
 - tools
   - gtfs2pt.py: now runs twice as fast due to better caching #18333
 
-  
+
 ### Miscellaneous
 
 - Fixed VISSIM import documentation language #6082
 - Fixed gprof/profiling build so that it generates profiling output again with newer compilers #18386
+- SUMOLibraries should now be downloaded as a released zip instead of doing git clone #18331
+
 
 ## Version 1.28.0 (08.10.2026)
 

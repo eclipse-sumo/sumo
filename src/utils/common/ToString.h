@@ -29,6 +29,7 @@
 #include <list>
 #ifdef HAVE_FMT
 #include <fmt/format.h>
+#include <fmt/ranges.h>
 #endif
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -324,6 +325,15 @@ inline std::string joinToString(const std::vector<T>& v, const T_BETWEEN& betwee
     }
     return oss.str();
 }
+
+
+#ifdef HAVE_FMT
+// without fmt, vectors of strings use the generic version above
+template <typename T_BETWEEN>
+inline std::string joinToString(const std::vector<std::string>& v, const T_BETWEEN& between, std::streamsize accuracy = gPrecision) {
+    return fmt::format("{}", fmt::join(v, toString(between, accuracy)));
+}
+#endif
 
 
 template <typename T, typename T_BETWEEN>
