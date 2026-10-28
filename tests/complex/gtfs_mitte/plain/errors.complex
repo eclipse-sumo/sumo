@@ -1,28 +1,28 @@
-Warning: 22 total messages of type: Ambiguity in turnarounds computation at junction '%'.
+Warning: 20 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 18 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 7 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
-Warning: 4 total messages of type: Connection '%_%->%_%' is only %m short.
+Warning: 3 total messages of type: Connection '%_%->%_%' is only %m short.
 Warning: 2 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 2 total messages of type: Converting invalid rail_crossing to traffic_light at junction '%'.
 Warning: 1 total messages of type: Could not add bidi-edge '%'.
 Warning: 10 total messages of type: Could not assign stop '%' to pt line '%' (closest edge '%', distance %). Ignoring!
 Warning: 5 total messages of type: Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!
-Warning: 9 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle lanes to cross).
+Warning: 8 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle lanes to cross).
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 13 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
 Warning: 6 total messages of type: Edge '%' already has a dedicated lane for %s. Not adding another one.
 Warning: 7 total messages of type: Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges.
 Warning: 6 total messages of type: First stop edge '%' is not part of the route of line '%'.
-Warning: 7 total messages of type: Found sharp turn with radius % at the % of edge '%'.
+Warning: 9 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 1 total messages of type: Ignoring restriction relation '%' with unknown to-way.
 Warning: 2 total messages of type: Ignoring restriction relation '%'.
 Warning: 2 total messages of type: Ignoring track count % for edge '%'.
-Warning: 6 total messages of type: Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).
+Warning: 7 total messages of type: Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).
 Warning: 1 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
 Warning: 9 total messages of type: Last stop edge '%' is not part of the route of line '%'.
 Warning: 2 total messages of type: No connection found between stops on edge '%' and edge '%'.
 Warning: 112 total messages of type: No way found for reference '%' in relation '%'
-Warning: 5 total messages of type: Not joining junctions % (%).
+Warning: 6 total messages of type: Not joining junctions % (%).
 Warning: 6 total messages of type: PT line '%' in relation % has a gap of % stops, only keeping first part.
 Warning: 21 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 15 total messages of type: PT stop '%' has been moved to edge '%'.
@@ -47,20 +47,26 @@ Warning: No connection between edge '199847347#2' and edge '387141734' found.
 Warning: Vehicle '82_subway_U2:1' has no valid route from edge '199847347#2' to stop edge '387141734'.
 Warning: No connection between edge '384294422#1' and edge '391559412' found.
 Warning: Vehicle '81_subway_U2:0' has no valid route from edge '384294422#1' to stop edge '391559412'.
-Warning: Teleporting vehicle '82_subway_U2:1'; waited too long (wrong lane, disconnected), lane='199847347#2_0', time=25774.00.
-Warning: Vehicle '82_subway_U2:1' ends teleporting on edge '387141734', time=25774.00.
-Warning: Teleporting vehicle '81_subway_U2:0'; waited too long (wrong lane, disconnected), lane='384294422#1_0', time=25864.00.
-Warning: Vehicle '81_subway_U2:0' ends teleporting on edge '391559412', time=25864.00.
+Warning: Teleporting vehicle '27_tram_M2:0'; frontal collision with vehicle '87_tram_M2:3', lane='-803941113_0', gap=-1.00, time=25645.00, stage=move.
+Warning: Vehicle '27_tram_M2:0' teleports beyond arrival edge '1051100387#1', time=25645.00.
+Warning: Vehicle '27_tram_M2:0' skips stop on lane '1051100387#1_0' time=25645.00.
+Warning: Teleporting vehicle '87_tram_M2:3'; frontal collision with vehicle '28_tram_M2:1', lane='-1051100387#0_0', gap=-1.00, time=25675.00, stage=move.
+Warning: Vehicle '87_tram_M2:3' ends teleporting on edge '148457212#0', time=25675.00.
+Warning: Vehicle '28_tram_M2:1' ends teleporting on edge '1051100387#1', time=25677.00.
+Warning: Teleporting vehicle '82_subway_U2:1'; waited too long (wrong lane, disconnected), lane='199847347#2_0', time=25775.00.
+Warning: Vehicle '82_subway_U2:1' ends teleporting on edge '387141734', time=25775.00.
+Warning: Teleporting vehicle '81_subway_U2:0'; waited too long (wrong lane, disconnected), lane='384294422#1_0', time=25865.00.
+Warning: Vehicle '81_subway_U2:0' ends teleporting on edge '391559412', time=25865.00.
 Warning: 8 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
 Warning: No stops for flow '31_bus_200:1'
-Warning: 7 total messages of type: Mandatory edge '%' not reachable by vehicle '%'.
-Warning: 7 total messages of type: No connection between edge '%' and edge '%' found.
-Warning: 7 total messages of type: The vehicle '%' has no valid route.
-Warning: 41 total messages of type: Mandatory edge '%' not reachable by vehicle '%'.
-Warning: 41 total messages of type: No connection between edge '%' and edge '%' found.
-Warning: 41 total messages of type: The vehicle '%' has no valid route.
-Warning: 14 total messages of type: No connection between % '%' and % '%' found%.
-Warning: 14 total messages of type: No route for trip in person '%'.
+Warning: 8 total messages of type: Mandatory edge '%' not reachable by vehicle '%'.
+Warning: 8 total messages of type: No connection between edge '%' and edge '%' found.
+Warning: 8 total messages of type: The vehicle '%' has no valid route.
+Warning: 37 total messages of type: Mandatory edge '%' not reachable by vehicle '%'.
+Warning: 37 total messages of type: No connection between edge '%' and edge '%' found.
+Warning: 37 total messages of type: The vehicle '%' has no valid route.
+Warning: 19 total messages of type: No connection between % '%' and % '%' found%.
+Warning: 19 total messages of type: No route for trip in person '%'.
 Warning: 34 total messages of type: Not using public transport line '%' for routing persons. It has less than two usable stops.
 Trip 114193955 (bus): detour (factor inf) to stop index 10, fromPos=3243.37,2646.76 toPos=2977.28,2839.98 (airLine=328.84 path=inf)
 Trip 114193955 (bus): detour (factor inf) to stop index 13, fromPos=1996.18,3185.87 toPos=1505.37,3051.22 (airLine=508.94 path=inf)
@@ -75,18 +81,18 @@ Trip 114234399 (bus): detour (factor inf) to stop index 1, fromPos=525.29,3061.9
 Trip 114234722 (bus): detour (factor inf) to stop index 3, fromPos=1996.18,3185.87 toPos=1505.37,3051.22 (airLine=508.94 path=inf)
 Trip 114234722 (bus): detour (factor inf) to stop index 6, fromPos=1095.54,2796.18 toPos=712.56,3378.38 (airLine=696.87 path=inf)
 Trip 114234788 (bus): detour (factor inf) to stop index 3, fromPos=1996.18,3185.87 toPos=1505.37,3051.22 (airLine=508.94 path=inf)
-Trip 114262209 (bus): detour (factor 6.44) to stop index 1, fromPos=2645.69,2251.39 toPos=2453.10,2287.46 (airLine=195.93 path=1262.71)
-Trip 114262390 (bus): detour (factor 6.89) to stop index 10, fromPos=2629.02,2428.24 toPos=2645.69,2251.39 (airLine=177.63 path=1223.16)
-Trip 114262511.trimmed (bus): detour (factor 6.89) to stop index 3, fromPos=2629.02,2428.24 toPos=2645.69,2251.39 (airLine=177.63 path=1223.16)
-Trip 114272672 (bus): detour (factor 7.32) to stop index 1, fromPos=2715.12,2550.64 toPos=2629.02,2428.24 (airLine=149.65 path=1095.52)
-Trip 114272713 (bus): detour (factor 5.89) to stop index 9, fromPos=2629.02,2428.24 toPos=2715.12,2550.64 (airLine=149.65 path=880.97)
-Trip 114273401 (bus): detour (factor 5.89) to stop index 9, fromPos=2629.02,2428.24 toPos=2715.12,2550.64 (airLine=149.65 path=880.97)
+Trip 114262209 (bus): detour (factor 6.53) to stop index 1, fromPos=2645.69,2251.39 toPos=2453.10,2287.46 (airLine=195.93 path=1278.77)
+Trip 114262390 (bus): detour (factor 6.88) to stop index 10, fromPos=2629.02,2428.24 toPos=2645.69,2251.39 (airLine=177.63 path=1221.76)
+Trip 114262511.trimmed (bus): detour (factor 6.88) to stop index 3, fromPos=2629.02,2428.24 toPos=2645.69,2251.39 (airLine=177.63 path=1221.76)
+Trip 114272672 (bus): detour (factor 7.41) to stop index 1, fromPos=2715.12,2550.64 toPos=2629.02,2428.24 (airLine=149.65 path=1109.21)
+Trip 114272713 (bus): detour (factor 5.84) to stop index 9, fromPos=2629.02,2428.24 toPos=2715.12,2550.64 (airLine=149.65 path=873.99)
+Trip 114273401 (bus): detour (factor 5.84) to stop index 9, fromPos=2629.02,2428.24 toPos=2715.12,2550.64 (airLine=149.65 path=873.99)
 Trip 114273441 (bus): detour (factor inf) to stop index 6, fromPos=1996.18,3185.87 toPos=2130.29,2705.08 (airLine=499.14 path=inf)
 Trip 114273444 (bus): detour (factor inf) to stop index 6, fromPos=1996.18,3185.87 toPos=2130.29,2705.08 (airLine=499.14 path=inf)
-Trip 114273803 (bus): detour (factor 6.47) to stop index 10, fromPos=2880.92,2398.66 toPos=2629.02,2428.24 (airLine=253.64 path=1640.95)
-Trip 114274508 (bus): detour (factor 7.32) to stop index 1, fromPos=2715.12,2550.64 toPos=2629.02,2428.24 (airLine=149.65 path=1095.52)
-Trip 114274766 (bus): detour (factor 5.89) to stop index 8, fromPos=2629.02,2428.24 toPos=2715.12,2550.64 (airLine=149.65 path=880.97)
-Trip 114234999 (bus): detour (factor 6.44) to stop index 1, fromPos=2645.69,2251.39 toPos=2453.10,2287.46 (airLine=195.93 path=1262.71)
+Trip 114273803 (bus): detour (factor 6.46) to stop index 10, fromPos=2880.92,2398.66 toPos=2629.02,2428.24 (airLine=253.64 path=1637.53)
+Trip 114274508 (bus): detour (factor 7.41) to stop index 1, fromPos=2715.12,2550.64 toPos=2629.02,2428.24 (airLine=149.65 path=1109.21)
+Trip 114274766 (bus): detour (factor 5.84) to stop index 8, fromPos=2629.02,2428.24 toPos=2715.12,2550.64 (airLine=149.65 path=873.99)
+Trip 114234999 (bus): detour (factor 6.53) to stop index 1, fromPos=2645.69,2251.39 toPos=2453.10,2287.46 (airLine=195.93 path=1278.77)
 Warning! Disconnected route '114193955' between '295445243' and '-4613300#0', no path found. Keeping longer part.
 Warning! Disconnected route '114193955' between '238682696' and '-169717723#2', no path found. Keeping longer part.
 Warning! Disconnected route '114193956' between '295445243' and '-4613300#0', no path found. Keeping longer part.

@@ -36,3 +36,5 @@ set_target_properties(testlibtraci PROPERTIES OUTPUT_NAME_DEBUG testlibtraci${BI
 set_property(TARGET testlibtraci PROPERTY FOLDER "test_exe")
 target_link_libraries(testlibtraci libtracicpp)
 add_test(NAME libtracitest COMMAND $<TARGET_FILE:testlibtraci> $<TARGET_FILE:sumo> -c ${CMAKE_SOURCE_DIR}/docs/examples/sumo/hokkaido/test.sumocfg)
+
+set_tests_properties(libsumotest libsumostatictest libtracitest PROPERTIES TIMEOUT 60)

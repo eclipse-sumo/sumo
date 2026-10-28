@@ -1,7 +1,7 @@
-Warning: 22 total messages of type: Ambiguity in turnarounds computation at junction '%'.
+Warning: 20 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 18 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 7 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
-Warning: 4 total messages of type: Connection '%_%->%_%' is only %m short.
+Warning: 3 total messages of type: Connection '%_%->%_%' is only %m short.
 Warning: 2 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 2 total messages of type: Converting invalid rail_crossing to traffic_light at junction '%'.
 Warning: 1 total messages of type: Could not add bidi-edge '%'.
@@ -13,16 +13,16 @@ Warning: 13 total messages of type: Discarding unusable type '%' (first occurren
 Warning: 6 total messages of type: Edge '%' already has a dedicated lane for %s. Not adding another one.
 Warning: 7 total messages of type: Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges.
 Warning: 6 total messages of type: First stop edge '%' is not part of the route of line '%'.
-Warning: 7 total messages of type: Found sharp turn with radius % at the % of edge '%'.
+Warning: 9 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 1 total messages of type: Ignoring restriction relation '%' with unknown to-way.
 Warning: 2 total messages of type: Ignoring restriction relation '%'.
 Warning: 2 total messages of type: Ignoring track count % for edge '%'.
-Warning: 6 total messages of type: Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).
+Warning: 7 total messages of type: Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).
 Warning: 1 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
 Warning: 9 total messages of type: Last stop edge '%' is not part of the route of line '%'.
 Warning: 2 total messages of type: No connection found between stops on edge '%' and edge '%'.
 Warning: 112 total messages of type: No way found for reference '%' in relation '%'
-Warning: 5 total messages of type: Not joining junctions % (%).
+Warning: 6 total messages of type: Not joining junctions % (%).
 Warning: 6 total messages of type: PT line '%' in relation % has a gap of % stops, only keeping first part.
 Warning: 21 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 15 total messages of type: PT stop '%' has been moved to edge '%'.
@@ -47,18 +47,23 @@ Warning: No connection between edge '199847347#2' and edge '387141734' found.
 Warning: Vehicle '82_subway_U2:1' has no valid route from edge '199847347#2' to stop edge '387141734'.
 Warning: No connection between edge '384294422#1' and edge '391559412' found.
 Warning: Vehicle '81_subway_U2:0' has no valid route from edge '384294422#1' to stop edge '391559412'.
-Warning: Teleporting vehicle '82_subway_U2:1'; waited too long (wrong lane, disconnected), lane='199847347#2_0', time=25774.00.
-Warning: Vehicle '82_subway_U2:1' ends teleporting on edge '387141734', time=25774.00.
-Warning: Teleporting vehicle '81_subway_U2:0'; waited too long (wrong lane, disconnected), lane='384294422#1_0', time=25864.00.
-Warning: Vehicle '81_subway_U2:0' ends teleporting on edge '391559412', time=25864.00.
+Warning: Teleporting vehicle '27_tram_M2:0'; frontal collision with vehicle '87_tram_M2:3', lane='-803941113_0', gap=-1.00, time=25645.00, stage=move.
+Warning: Vehicle '27_tram_M2:0' teleports beyond arrival edge '1051100387#1', time=25645.00.
+Warning: Vehicle '27_tram_M2:0' skips stop on lane '1051100387#1_0' time=25645.00.
+Warning: Teleporting vehicle '28_tram_M2:1'; frontal collision with vehicle '87_tram_M2:3', lane='1051100387#0_0', gap=-1.00, time=25674.00, stage=move.
+Warning: Vehicle '28_tram_M2:1' ends teleporting on edge '1051100387#1', time=25678.00.
+Warning: Teleporting vehicle '82_subway_U2:1'; waited too long (wrong lane, disconnected), lane='199847347#2_0', time=25780.00.
+Warning: Vehicle '82_subway_U2:1' ends teleporting on edge '387141734', time=25780.00.
+Warning: Teleporting vehicle '81_subway_U2:0'; waited too long (wrong lane, disconnected), lane='384294422#1_0', time=25865.00.
+Warning: Vehicle '81_subway_U2:0' ends teleporting on edge '391559412', time=25865.00.
 Warning: 8 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
 Warning: No stops for flow '31_bus_200:1'
-Warning: 7 total messages of type: Mandatory edge '%' not reachable by vehicle '%'.
-Warning: 7 total messages of type: No connection between edge '%' and edge '%' found.
-Warning: 7 total messages of type: The vehicle '%' has no valid route.
-Warning: 41 total messages of type: Mandatory edge '%' not reachable by vehicle '%'.
-Warning: 41 total messages of type: No connection between edge '%' and edge '%' found.
-Warning: 41 total messages of type: The vehicle '%' has no valid route.
-Warning: 14 total messages of type: No connection between % '%' and % '%' found%.
-Warning: 14 total messages of type: No route for trip in person '%'.
+Warning: 9 total messages of type: Mandatory edge '%' not reachable by vehicle '%'.
+Warning: 9 total messages of type: No connection between edge '%' and edge '%' found.
+Warning: 9 total messages of type: The vehicle '%' has no valid route.
+Warning: 34 total messages of type: Mandatory edge '%' not reachable by vehicle '%'.
+Warning: 34 total messages of type: No connection between edge '%' and edge '%' found.
+Warning: 34 total messages of type: The vehicle '%' has no valid route.
+Warning: 24 total messages of type: No connection between % '%' and % '%' found%.
+Warning: 24 total messages of type: No route for trip in person '%'.
 Warning: 34 total messages of type: Not using public transport line '%' for routing persons. It has less than two usable stops.

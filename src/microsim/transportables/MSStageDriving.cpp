@@ -507,7 +507,7 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
                 if (train != nullptr) {
                     MSTrainHelper trainHelper = MSTrainHelper(train);
                     const MSLane* const lane = myVehicle->getLane();
-                    if (OptionsCont::getOptions().getString("pedestrian.model") != "jupedsim") {
+                    if (!net->getPersonControl().getMovementModel()->usingDoors()) {
                         trainHelper.computeDoorPositions();
                         const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
                         const int randomCarriageIx = RandHelper::rand(trainHelper.getNumCarriages() - trainHelper.getFirstPassengerCarriage()) + trainHelper.getFirstPassengerCarriage();
