@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-28 02:09:04.923006 by Eclipse SUMO gtfs2pt.py v1_28_0+0281-645e02eb1b8
+<!-- generated on 2026-10-28 20:46:21.514571 by Eclipse SUMO gtfs2pt.py v1_28_0+0299-30cbd60de3b
 <configuration>
     <merged-csv value="data.csv"/>
     <modes value="bus"/>
@@ -15,8 +15,8 @@
     <route id="t1" edges="beg middle middle2 end">
         <stop busStop="t1.0" duration="10" until="0"/> <!-- stopname1 -->
         <stop busStop="t1.1" duration="10" until="50"/> <!-- stopname2 -->
-        <stop busStop="t1.2" duration="10" until="3990"/> <!-- stopname2 -->
-        <stop busStop="t1.2" duration="10" until="4050"/> <!-- stopname3 -->
+        <stop busStop="t1.1" duration="10" until="3990" parking="true"/> <!-- stopname2 -->
+        <stop busStop="t1.1" duration="10" until="4050"/> <!-- stopname3 -->
     </route>
     <vehicle id="t1.0" route="t1" type="bus" depart="10" line="t1">
         <param key="gtfs.route_name" value="t1"/>
