@@ -348,6 +348,10 @@ improve build speed.
 
 ## How to build JuPedSim and then build SUMO with JuPedSim
 
+!!! note
+    This section is outdated and refers to the legacy JuPedSim module. For the current SUMO version it suffices to have JuPedSim installed in
+    the active Python environment.
+
 In this section, you will learn how to build the latest version of the pedestrian simulator JuPedSim and how to compile SUMO with this latest version of JuPedSim. First of all, clone the JuPedSim repository:
 
 ``` bash

@@ -250,9 +250,9 @@ listed in the table below.
 
 ## Dependencies for developers
 
-For the Windows platform you can retrieve all dependencies by cloning
-this repository: <https://github.com/DLR-TS/SUMOLibraries>, if you want
-to develop with Visual Studio. If you just want to run SUMO, use the
+For the Windows platform you can download the [dependent libraries](https://github.com/DLR-TS/SUMOLibraries/releases).
+Use the latest release if you are developing, if not use the release matching your SUMO version.
+If you just want to run SUMO, use the
 binary downloads above which already contain the runtime dependencies.
 
 ## Scenarios and other Data

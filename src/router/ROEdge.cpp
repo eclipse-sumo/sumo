@@ -71,6 +71,7 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
     mySpeedRestrictions(nullptr),
     myCombinedPermissions(0),
     myOtherTazConnector(nullptr),
+    myBidiEdge(nullptr),
     myTimePenalty(0) {
     while ((int)myEdges.size() <= index) {
         myEdges.push_back(0);
@@ -102,6 +103,7 @@ ROEdge::ROEdge(const std::string& id, const RONode* from, const RONode* to, SVCP
     myUsingETimeLine(false),
     myCombinedPermissions(p),
     myOtherTazConnector(nullptr),
+    myBidiEdge(nullptr),
     myTimePenalty(0)
 { }
 

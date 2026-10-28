@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-08-25 09:31:57.903166 by Eclipse SUMO gtfs2pt.py v1_27_1+0465-6f889c1943f
+<!-- generated on 2026-10-28 02:31:33.537925 by Eclipse SUMO gtfs2pt.py v1_28_0+0281-645e02eb1b8
 <configuration>
     <gtfs value="data/GTFS_VBB_Mitte_20190713.zip"/>
     <date value="20190713"/>
+    <sbahn-is-light-rail value="True"/>
     <network value="test/osm.net.xml.gz"/>
     <osm-routes value="test/osm_ptlines.xml"/>
 </configuration>
@@ -1345,7 +1346,7 @@
         <access friendlyPos="true" lane="1447255648#1_0" pos="0.20" length="41.91"/>
         <access friendlyPos="true" lane="1447255652#0_0" pos="0.00" length="43.75"/>
     </trainStop>
-    <trainStop id="070301009376_0" lane="144014228#2_0" startPos="0.00" endPos="50.09" name="Berlin, Am Kupfergraben" friendlyPos="true">
+    <trainStop id="070301009376_0" lane="144014228#3_0" startPos="0.00" endPos="49.02" name="Berlin, Am Kupfergraben" friendlyPos="true">
         <access friendlyPos="true" lane="1442311580#2_0" pos="15.57" length="7.27"/>
         <access friendlyPos="true" lane="1450970598_0" pos="0.00" length="7.98"/>
         <access friendlyPos="true" lane="1442311580#3_0" pos="0.00" length="12.66"/>

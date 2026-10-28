@@ -1,9 +1,12 @@
 Success.
 Loading net
-function traceMap called at Fri, 09 Oct 2026 15:16:08 +0000
+function precomputeRoutes called at Wed, 14 Oct 2026 13:05:21 +0000
+precomputing 6 trips from 5 sources
+function precomputeRoutes finished after 0.090602 seconds
+function traceMap called at Wed, 14 Oct 2026 13:05:21 +0000
 mapping tram
 mapping trace with 5 points ...
    Found no candidate edges for -69417.39,4363.13 (index 1)
 1 Points had no candidates. (7 router calls)
 mapped 1 traces to 1 routes (0 cacheHits)
-function traceMap finished after 0.005924 seconds
+function traceMap finished after 0.002752 seconds

@@ -2695,13 +2695,13 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
         mySumoOptions.resetDefault("net-file");
     }
     // additional file (only netedit)
-    if (additional.size() > 0) {
+    if ((additional.size() > 0) && !myNeteditOptions.getBool("ignore.additionalelements")) {
         myNeteditOptions.set("additional-files", additional);
     } else {
         myNeteditOptions.resetDefault("additional-files");
     }
     // demand file (netedit)
-    if (demandFile.size() > 0) {
+    if ((demandFile.size() > 0) && !myNeteditOptions.getBool("ignore.routeelements")) {
         myNeteditOptions.set("route-files", demandFile);
     } else {
         myNeteditOptions.resetDefault("route-files");
