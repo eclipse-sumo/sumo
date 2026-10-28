@@ -1,0 +1,4 @@
+Warning: No connection between edge 'E1' and edge 'E5' found.
+Error: Mandatory edge 'E5' not reachable by vehicle 't_0'.
+Error: The vehicle 't_0' has no valid route.
+Quitting (on error).

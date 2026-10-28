@@ -21,7 +21,12 @@ The movement of the agents is restricted to 2D space which is referred to as *wa
 
 For [route planning](https://www.jupedsim.org/stable/concepts/routing.html) a journey must be defined for each agent. The journey can be a composition of various stages, e.g. exits as a final goal, waypoints that must be passed or waiting positions that are organized as queues or sets. Journeys can be shared by several agents but also multiple journeys can be defined within one simulation scenario.
 
-JuPedSim is provided as a Python package with a C++ core behind and a C-API that is used by SUMO. The *SUMO-JuPedSim* simulation loop starts with *JuPedSim* independently updating pedestrian positions
+## Installation
+
+If you want to use JuPedSim as a pedestrian model make sure you have the python module installed
+using `pip install -r $SUMO_HOME/tools/requirements.txt` and `pip install --no-deps jupedsim`.
+
+There is also a JuPedSim legacy module compiled directly into SUMO which will be removed in a future version.
 
 ## What is it for?
 
