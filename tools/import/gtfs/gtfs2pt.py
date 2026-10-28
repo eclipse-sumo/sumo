@@ -532,6 +532,7 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                                         bestDist = dist
                                         result = (lane.getID(), float(stopObj.startPos), endPos)
                     if result is None and candidate_edges:
+                        candidate_edges = [e for e in candidate_edges if e in route[lastIndex:]]
                         result = gtfsutils.getBestLane(net, s.lon, s.lat, options.radius, stopLength,
                                                        options.center_stops, candidate_edges, OSM2SUMO_MODES[mode],
                                                        (route[lastIndex], lastPos))
