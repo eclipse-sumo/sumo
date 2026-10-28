@@ -74,6 +74,7 @@ std::map<const MSEdge*, std::vector<std::pair<MSDriveWay*, MSDriveWay*> >, Compa
 std::vector<const MSEdge*> MSDriveWay::myCurrentSidingCheck;
 std::map<ConstMSEdgeVector, MSDriveWay*> MSDriveWay::myDriveWayRouteLookup;
 std::map<std::string, MSDriveWay*> MSDriveWay::myDriveWayLookup;
+const std::vector<MSDriveWay*> MSDriveWay::EMPTY_DRIVEWAY_VECTOR;
 
 // ---------------------------------------------------------------------------
 // static initialisation methods
@@ -590,11 +591,34 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
         if (allOccupied) {
 #ifdef DEBUG_SIGNALSTATE
             if (gDebugFlag4 || DEBUG_COND_DW2 || DEBUG_HELPER(ego)) {
-                std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " deadlockCheck " << joinNamedToString(dlFoes, " ") << "\n";
+                std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " deadlockCheck " << joinNamedToString(dlFoes, " ") << " myFoes=" << toString(myFoes) << "\n";
             }
 #endif
             for (const MSDriveWay* dlFoe : dlFoes) {
                 MSRailSignal::blockingDriveWays().push_back(dlFoe);
+            }
+            // for addWaitRelation we need to find the foe that results in the
+            // longest chain (otherwise the deadlock relation is smaller than the original)
+            int start = myForwardEdgeCount;
+            bool foundFoe = false;
+            while (start < (int)myRoute.size() && !foundFoe) {
+                const MSEdge* e = myRoute[start];
+                if (e->getFromJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+                    const MSEdge* p = myRoute[start - 1];
+                    const MSLink* link = p->getLanes().front()->getLinkTo(e->getLanes().front());
+                    if (link != nullptr && link->isTLSControlled()) {
+                        MSRailSignal* rs = const_cast<MSRailSignal*>(dynamic_cast<const MSRailSignal*>(link->getTLLogic()));
+                        const MSDriveWay& cand = rs->getExistingDriveWay(link, myRoute.begin() + start, myRoute.end());
+                        for (const MSDriveWay* dlFoe : dlFoes) {
+                            if (std::find(cand.myFoes.begin(), cand.myFoes.end(), dlFoe) != cand.myFoes.end()) {
+                                foundFoe = true;
+                                const MSRailSignal* rs2 = myOrigin != nullptr ? dynamic_cast<const MSRailSignal*>(myOrigin->getTLLogic()) : nullptr;
+                                MSRailSignalControl::getInstance().addWaitRelation(ego, rs2, *dlFoe->myTrains.begin(), nullptr);
+                            }
+                        }
+                    }
+                }
+                start += 1;
             }
             return true;
         }
@@ -784,7 +808,7 @@ MSDriveWay::sidingDeadlock(const SUMOVehicle* veh) const {
 #endif
                 myCurrentSidingCheck.push_back(end);
                 if (veh->getLength() > end->getLength() && !MSGlobals::gUseMesoSim) {
-                    double backDist =  veh->getLength() - getForwardDistance(myForward.size() - 1);
+                    double backDist =  veh->getLength() - getForwardDistance((int)myForward.size() - 1);
                     const MSLane* lane = myForward.front();
                     const MSLane* prev = lane->getLogicalPredecessorLane();
                     while (backDist > 0 && prev != nullptr) {
@@ -2415,7 +2439,7 @@ MSDriveWay::addDWDeadlock(const std::vector<const MSDriveWay*>& deadlockFoes) {
     }
     if (std::find(myDeadlocks.begin(), myDeadlocks.end(), filtered) == myDeadlocks.end()) {
         myDeadlocks.push_back(filtered);
-        //std::cout << getID() << " deadlockFoes=" << toString(deadlockFoes) << "\n";
+        //std::cout << getID() << " deadlockFoes=" << toString(filtered) << "\n";
     }
 }
 
@@ -2448,6 +2472,17 @@ MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh, bool init) {
     myDepartureDrivewaysEnds[&dw->myForward.back()->getEdge()].push_back(dw);
     dw->setVehicle(veh->getID());
     return dw;
+}
+
+
+const std::vector<MSDriveWay*>&
+MSDriveWay::getEndingDriveWays(const MSEdge* edge) {
+    auto it = myEndingDriveways.find(edge);
+    if (it == myEndingDriveways.end()) {
+        return EMPTY_DRIVEWAY_VECTOR;
+    } else {
+        return it->second;
+    }
 }
 
 
@@ -2586,6 +2621,20 @@ MSDriveWay::retrieveDepartDriveWay(const MSEdge* edge, const std::string& id) {
 bool
 MSDriveWay::hasTrain(SUMOVehicle* veh) const {
     return myTrains.count(veh) != 0;
+}
+
+
+double
+MSDriveWay::getParentRemainingLength() const {
+    double result = 0;
+    if (myParent != nullptr) {
+        auto it = std::find(myParent->myForward.begin(), myParent->myForward.end(), myForward.back());
+        assert(it != myParent->myForward.end());
+        for (; it != myParent->myForward.end(); it++) {
+            result += (*it)->getLength();
+        }
+    }
+    return result;
 }
 
 /****************************************************************************/

@@ -130,11 +130,19 @@ def main(options):
             os.makedirs(os.path.dirname(options.python_script))
         pyBatch = open(options.python_script, 'w')
         pyBatch.write('''#!/usr/bin/env python
-import subprocess, sys, os, multiprocessing
+import subprocess, sys, os, multiprocessing, ctypes
 from os.path import abspath, dirname, join
 THIS_DIR = abspath(dirname(__file__))
 SUMO_HOME = os.environ.get("SUMO_HOME", dirname(dirname(THIS_DIR)))
 os.environ["SUMO_HOME"] = SUMO_HOME
+
+if sys.platform == "win32":
+    # this prevents popup windows which let the tests hang instead of failing
+    SEM_FAILCRITICALERRORS = 0x0001
+    SEM_NOGPFAULTERRORBOX = 0x0002
+    previous = ctypes.windll.kernel32.SetErrorMode(0)
+    ctypes.windll.kernel32.SetErrorMode(previous | SEM_FAILCRITICALERRORS | SEM_NOGPFAULTERRORBOX)
+
 calls = [
 ''')
     for source, target, app in targets:
