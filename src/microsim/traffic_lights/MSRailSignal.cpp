@@ -624,7 +624,7 @@ MSRailSignal::getExistingDriveWay(const MSLink* link, MSRouteIterator firstIt, M
     LinkInfo& li = myLinkInfos[link->getTLIndex()];
     const MSDriveWay& cand = li.getDriveWay(firstIt, endIt, "_tmp_");
     // an existing driveway should be found
-    assert(cand->myFirstVehicle != "_tmp_");
+    assert(cand.getFirstVehicle() != "_tmp_");
     return cand;
 }
 

@@ -22,9 +22,6 @@
 
 #ifdef HAVE_BOOST
 #ifdef _MSC_VER
-#pragma warning(push)
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
 #include <windows.h>
 #endif
 #if __has_include(<boost/process/v1.hpp>)  // Boost 1.86+
@@ -33,9 +30,6 @@ namespace bp = boost::process::v1;
 #else
 #include <boost/process.hpp>
 namespace bp = boost::process;
-#endif
-#ifdef _MSC_VER
-#pragma warning(pop)
 #endif
 #endif
 

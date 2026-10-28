@@ -146,6 +146,10 @@ public:
         myFirstVehicle = vehID;
     }
 
+    const std::string& getFirstVehicle() const {
+        return myFirstVehicle;
+    }
+
     const std::vector<MSDriveWay*>& getFoes() const {
         return myFoes;
     }
@@ -203,6 +207,8 @@ public:
     static std::string getClickableTLLinkID(const MSLink* link);
 
     static const MSDriveWay* getDepartureDriveway(const SUMOVehicle* veh, bool init = false);
+
+    static const std::vector<MSDriveWay*>& getEndingDriveWays(const MSEdge* edge);
 
     static void writeDepatureBlocks(OutputDevice& od, bool writeVehicles);
 
@@ -420,5 +426,6 @@ private:
     /// @brief lookup table for state loading
     static std::map<ConstMSEdgeVector, MSDriveWay*> myDriveWayRouteLookup;
     static std::map<std::string, MSDriveWay*> myDriveWayLookup;
+    static const std::vector<MSDriveWay*> EMPTY_DRIVEWAY_VECTOR;
 
 };

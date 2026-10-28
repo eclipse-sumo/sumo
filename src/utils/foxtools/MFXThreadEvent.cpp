@@ -21,8 +21,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#define NOMINMAX
-#undef NOMINMAX
 #include "fxheader.h"
 #include <utils/common/StdDefs.h>
 /*

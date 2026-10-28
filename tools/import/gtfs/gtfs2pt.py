@@ -38,7 +38,7 @@ sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
              os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')]
 import route2poly  # noqa
 import sumolib  # noqa
-from sumolib.miscutils import euclidean, getBaseName, flattenPath  # noqa
+from sumolib.miscutils import euclidean, getBaseName, flattenPath, PRACTICAL_INFINITY  # noqa
 from sumolib.miscutils import benchmark  # noqa
 
 import gtfs2fcd  # noqa
@@ -48,6 +48,7 @@ from gtfsutils import OSM2SUMO_MODES, GTFS2OSM_MODES  # noqa
 
 
 def get_options(args=None):
+    HALF_CPUS = os.cpu_count() // 2 if os.cpu_count() is not None else 1
     ap = gtfs2fcd.add_options()
     # ----------------------- general options ---------------------------------
     ap.add_argument("-n", "--network", category="input", required=True, type=ap.net_file,
@@ -116,10 +117,16 @@ def get_options(args=None):
                     help="file to write the generated polygon files to")
     ap.add_argument("--poi-output", category="output", type=ap.file, dest="poiOut",
                     help="file to write the input stop coordinates to")
+    ap.add_argument("--bulk-prefix", dest="bulkPrefix", default="bulkprefix",
+                    help="Speed up routing by calling duarouter to precompute candidate routes between stops")
+    ap.add_argument("--bulk-threads", dest="bulkThreads", type=int, default=HALF_CPUS,
+                    help="Speed up routing by calling duarouter to precompute candidate routes between stops")
     ap.add_argument("--parking-threshold", type=float, dest="parkingThreshold",
                     help="If set, trips with consecutive stops in the same spot for more than FLOAT seconds are parked")
     ap.add_argument("--fill-gaps", default=5000, type=float, category="input",
                     help="maximum distance between stops")
+    ap.add_argument("--reversal-penalty", default=1000, type=float, category="input", dest="reversalPenalty",
+                    help="travel time penalty for reversal")
     ap.add_argument("--skip-fcd", action="store_true", default=False,
                     help="skip generating fcd data")
     ap.add_argument("--skip-map", action="store_true", default=False,
@@ -185,7 +192,124 @@ def ensureNoInternal(options):
 
 
 @benchmark
-def traceMap(options, net, veh2mode, fixedStops, stopLookup, radius, geoRoutes):
+def precomputeRoutes(options, net, modePreferences, noIntNet, veh2mode, fixedStops, stopLookup, radius, geoRoutes):
+    tripfile = options.bulkPrefix + ".trips.xml"
+    tripIndex = 0
+    outf = open(tripfile, 'w')
+    sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)
+    nTripSources = 0
+    disconnected = set()
+    for time, mode in enumerate(sorted(geoRoutes.keys())):
+        seen = set()
+        seenSources = set()
+        outf.write('    <vType id="%s" vClass="%s"/>\n' % (mode, OSM2SUMO_MODES[mode]))
+        traceCache = set()
+        vclass = OSM2SUMO_MODES.get(mode)
+        mode_edges = set([e for e in net.getEdges() if e.allows(vclass)])
+        netBox = net.getBBoxXY()
+
+        for tid, stops in geoRoutes[mode].items():
+            trace = tuple(net.convertLonLat2XY(s.lon, s.lat) for s in stops)
+            if trace in traceCache:
+                continue
+            traceCache.add(trace)
+            minX, minY, maxX, maxY = sumolib.geomhelper.addToBoundingBox(trace)
+            if (minX < netBox[1][0] + radius and minY < netBox[1][1] + radius and
+                    maxX > netBox[0][0] - radius and maxY > netBox[0][1] - radius):
+                vias = {}
+                if stopLookup.hasCandidates():
+                    for idx, xy in enumerate(trace):
+                        candidates = stopLookup.getCandidates(xy, options.radius)
+                        if candidates:
+                            all_edges = [net.getEdge(sumolib._laneID2edgeID(stop.lane)) for stop in candidates]
+                            vias[idx] = [e for e in all_edges if e in mode_edges]
+                for idx in range(len(trace)):
+                    fixed = fixedStops.get("%s.%s" % (tid, idx))
+                    if fixed:
+                        vias[idx] = [net.getEdge(sumolib._laneID2edgeID(fixed.lane))]
+                    elif idx not in vias:
+                        x, y = trace[idx]
+                        vias[idx] = [e for e, d in net.getNeighboringEdges(x, y, radius, False) if e.allows(vclass)]
+
+                for idx in range(1, len(trace)):
+                    for src in vias[idx - 1]:
+                        seenSources.add(src)
+                        for dest in vias[idx]:
+                            if src == dest:
+                                continue
+                            if (src, dest) in seen:
+                                continue
+                            seen.add((src, dest))
+                            disconnected.add((src, dest, mode))
+                            outf.write('    <trip id="%s" depart="%s" from="%s" to="%s" type="%s"/>\n' % (
+                                tripIndex, 3600 * time, src.getID(), dest.getID(), mode))
+                            tripIndex += 1
+        nTripSources += len(seenSources)
+    outf.write('</routes>\n')
+    outf.close()
+
+    addfile = options.bulkPrefix + ".add.xml"
+    with open(addfile, 'w') as outf:
+        sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
+        for mode, prefs in modePreferences.items():
+            for routingType, prio in prefs.items():
+                outf.write('    <preference routingType="%s" vTypes="%s" priority="%s"/>\n' % (
+                    routingType, mode, prio))
+        outf.write('</additional>\n')
+
+    if options.verbose:
+        print("precomputing %s trips from %s sources" % (tripIndex, nTripSources))
+
+    routefile = options.bulkPrefix + ".rou.xml"
+    duaCall = [sumolib.checkBinary("duarouter"), "-n", noIntNet, "-r", tripfile,
+               "-o", routefile, "--alternatives-output", "NUL",
+               "-a", addfile,
+               "--bulk-routing",
+               "--no-step-log",
+               "--no-warnings",
+               "--routing-threads", str(options.bulkThreads),
+               "--ignore-errors"]
+    subprocess.call(duaCall, stdout=subprocess.DEVNULL)
+    net.initRoutingCache(nTripSources)
+
+    lastMode = None
+    for vehicle, route in sumolib.xml.parse_fast_nested(routefile, 'vehicle', ['id', 'type'], 'route', ['edges']):
+        if lastMode != vehicle.type:
+            #  cache costs because the vehicles are grouped by mode
+            lastMode = vehicle.type
+            prefs = modePreferences[vehicle.type]
+            for e in net.getEdges():
+                e._costCache = e.getLength() / (prefs.get(e.getRoutingType(), 1.0) * e.getSpeed())
+
+        #print(vehicle.id)
+        vClass = OSM2SUMO_MODES[vehicle.type]
+        edgeIDs = route.edges.split()
+        edges = [net.getEdge(e) for e in edgeIDs]
+        assert(len(edges) >= 2)
+        fromEdge = edges[0]
+        toEdge = edges[-1]
+        disconnected.remove((fromEdge, toEdge, vehicle.type))
+        dist = net._routingCache(fromEdge, True, vClass, False, 1000,
+                                  tuple(modePreferences[vehicle.type].items()))
+        cost = -edges[0]._costCache
+        prev = None
+        for i, edge in enumerate(edges):
+            cost += edge._costCache
+            if prev is not None and prev == edge.getBidi():
+                cost += options.reversalPenalty
+            dist[edge] = cost, prev
+            #print("  ", edge.getID(), "cost=", cost, "prev=", prev.getID() if prev is not None else "None", "len=", edge.getLength(), "speed=", edge.getSpeed(), "cost=", edge._costCache)
+            prev = edge
+
+    for fromEdge, toEdge, mode in disconnected:
+        vClass = OSM2SUMO_MODES[mode]
+        dist = net._routingCache(fromEdge, True, vClass, False, 1000,
+                                  tuple(modePreferences[mode].items()))
+        dist[toEdge] = PRACTICAL_INFINITY, None
+
+
+@benchmark
+def traceMap(options, net, modePreferences, veh2mode, fixedStops, stopLookup, radius, geoRoutes):
     if options.poiOut is not None:
         colorgen = sumolib.miscutils.Colorgen(('random', 1, 1))
         outf = open(options.poiOut, 'w')
@@ -194,6 +318,7 @@ def traceMap(options, net, veh2mode, fixedStops, stopLookup, radius, geoRoutes):
     routes = collections.OrderedDict()
     for mode in sorted(geoRoutes.keys()):
         vclass = OSM2SUMO_MODES.get(mode)
+        preferences = modePreferences[mode]
         if options.verbose:
             print("mapping", mode)
         mode_edges = set([e.getID() for e in net.getEdges() if e.allows(vclass)])
@@ -202,12 +327,6 @@ def traceMap(options, net, veh2mode, fixedStops, stopLookup, radius, geoRoutes):
         numRoutes = 0
         cacheHits = 0
         traceCache = {}
-        preferences = {}
-        if mode in ['train', 'light_rail', 'subway', 'tram'] and options.rpFactor is not None:
-            for i in range(5):
-                alpha = (4 - i) / 4
-                preferences[str(i)] = alpha * 1 / (1 + options.rpFactor) + (1 - alpha)
-
         for tid, stops in geoRoutes[mode].items():
             trace = tuple(net.convertLonLat2XY(s.lon, s.lat) for s in stops)
             if options.poiOut is not None:
@@ -241,7 +360,7 @@ def traceMap(options, net, veh2mode, fixedStops, stopLookup, radius, geoRoutes):
                                                          fillGaps=options.fill_gaps, gapPenalty=5000.,
                                                          vClass=vclass, vias=vias,
                                                          fastest=True,
-                                                         reversalPenalty=1000.,
+                                                         reversalPenalty=options.reversalPenalty,
                                                          resultDetours=detours,
                                                          preferences=preferences,
                                                          distPenalty=options.distPenalty,
@@ -591,7 +710,15 @@ def main(options):
             return
         gtfsutils.write_vtypes(options, sorted(vehicles.keys()))
 
-        routes = traceMap(options, net, veh2mode, fixedStops, stopLookup, options.radius, geoRoutes)
+        modePreferences = collections.defaultdict(dict)
+        if options.rpFactor is not None:
+            for mode in ['train', 'light_rail', 'subway', 'tram']:
+                for i in range(5):
+                    alpha = (4 - i) / 4
+                    modePreferences[mode][str(i)] = alpha * 1 / (1 + options.rpFactor) + (1 - alpha)
+        if options.bulkPrefix:
+            precomputeRoutes(options, net, modePreferences, noIntNet, veh2mode, fixedStops, stopLookup, options.radius, geoRoutes)
+        routes = traceMap(options, net, modePreferences, veh2mode, fixedStops, stopLookup, options.radius, geoRoutes)
 
         if options.poly_output:
             generate_polygons(net, routes, options.poly_output)

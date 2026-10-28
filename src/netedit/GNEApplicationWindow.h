@@ -788,9 +788,6 @@ private:
     /// @brief sumo options container
     OptionsCont mySumoOptions;
 
-    /// @brief netconvert options container
-    OptionsCont myNetconvertOptions;
-
     /// @brief original sumo options container
     OptionsCont myOriginalSumoOptions;
 
@@ -854,6 +851,9 @@ private:
 
     /// @brief allow undo-redo loading (read from registry)
     bool myAllowUndoRedoLoading = true;
+
+    /// @brief flag for checking if netedit was started with a new network
+    bool myStartedWithNewNet = false;
 
     /// @brief The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu = nullptr;
