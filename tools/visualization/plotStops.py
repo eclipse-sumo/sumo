@@ -102,7 +102,6 @@ def main(options):
                 routeStops[route.id] = []
 
     stops = []
-    idelem = 'stopinfo'
     xattr = None
     for veh in sumolib.xml.parse(options.routeFile, ['vehicle', 'trip', 'flow']):
         if veh.id == options.vehID:
@@ -133,6 +132,7 @@ def main(options):
 
     if options.stopinfoFile:
         datafile = options.stopinfoFile
+        idelem = 'stopinfo'
     elif hasNamedRouteStops:
         datafile = options.routeFile + ".expanded.rou.xml"
         idelem = expand(options, datafile, routeStopObjs)
