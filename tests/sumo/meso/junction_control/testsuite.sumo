@@ -49,3 +49,6 @@ tlsPenalty_minorPenalty
 
 # see #17110
 rail_crossing
+
+# an overtaken vehicle is no longer approaching the junction
+overtaking
