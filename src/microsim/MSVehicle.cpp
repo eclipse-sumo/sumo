@@ -5733,6 +5733,7 @@ MSVehicle::computeFurtherLanes(MSLane* enteredLane, double pos, bool collision) 
         MSLane* clane = enteredLane;
         int routeIndex = getRoutePosition();
         while (leftLength > 0) {
+            bool guessed = false;
             if (routeIndex > 0 && clane->getEdge().isNormal()) {
                 // get predecessor lane that corresponds to prior route
                 routeIndex--;
@@ -5746,10 +5747,12 @@ MSVehicle::computeFurtherLanes(MSLane* enteredLane, double pos, bool collision) 
                     }
                 }
             } else {
+                // only the predecessor of a normal lane is a guess
+                guessed = clane->getEdge().isNormal();
                 clane = clane->getLogicalPredecessorLane();
             }
             if (clane == nullptr || clane == myLane || clane == myLane->getBidiLane()
-                    || (clane->isInternal() && (
+                    || (guessed && clane->isInternal() && (
                             clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN
                             || clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN_LEFTHAND))) {
                 break;
