@@ -1,0 +1,10 @@
+--no-step-log --no-duration-log -n net.net.xml
+--mesosim --load-state input_state.xml
+--tripinfo-output tripinfo.xml
+--save-state.times 60 --save-state.files state.xml
+:
+--no-step-log --no-duration-log -n net.net.xml
+--mesosim --load-state state.xml
+--tripinfo-output tripinfo2.xml
+--compare tripinfo
+tests/complex/state/runner.py
