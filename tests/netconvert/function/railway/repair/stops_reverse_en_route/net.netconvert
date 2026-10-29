@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-29 10:36:55 by Eclipse SUMO netconvert Version v1_22_0+1806-33294317c71
+<!-- generated on 2026-10-29T22:13:37.920173+01:00 by Eclipse SUMO netconvert v1_28_0+0330-61755e669a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,19 +31,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="-1.00"/>
-        <rectangular-lane-cut value="0"/>
     </junctions>
-
-    <pedestrian>
-        <walkingareas value="0"/>
-    </pedestrian>
 
     <railway>
         <railway.topology.repair value="true"/>
@@ -78,6 +71,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":11_1" function="internal" bidi=":11_0">
         <lane id=":11_1_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="100.00,-300.00 100.00,-300.00"/>
+    </edge>
+    <edge id=":11_2" function="internal">
+        <lane id=":11_2_0" index="0" allow="rail_urban" speed="0.10" length="0.10" shape="100.00,-300.00 100.00,-300.00"/>
     </edge>
     <edge id=":12_0" function="internal">
         <lane id=":12_0_0" index="0" allow="rail_urban" speed="0.10" length="0.10" shape="100.00,-400.00 100.00,-400.00"/>
@@ -126,9 +122,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="11" type="priority" x="100.00" y="-300.00" incLanes="h_0 -branch_0" intLanes=":11_0_0 :11_1_0" shape="98.40,-300.00 101.60,-300.00 98.40,-300.00">
-        <request index="0" response="00" foes="00" cont="0"/>
-        <request index="1" response="00" foes="00" cont="0"/>
+    <junction id="11" type="priority" x="100.00" y="-300.00" incLanes="h_0 -branch_0" intLanes=":11_0_0 :11_1_0 :11_2_0" shape="98.40,-300.00 101.60,-300.00 98.40,-300.00">
+        <request index="0" response="000" foes="100" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="001" foes="001" cont="0"/>
     </junction>
     <junction id="12" type="priority" x="100.00" y="-400.00" incLanes="branch_0" intLanes=":12_0_0" shape="98.40,-400.00 101.60,-400.00 98.40,-400.00 101.60,-400.00">
         <request index="0" response="0" foes="0" cont="0"/>
@@ -140,6 +137,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="3" type="dead_end" x="300.00" y="-100.00" incLanes="end_0" intLanes="" shape="300.00,-101.60 300.00,-98.40"/>
 
     <connection from="-branch" to="-h" fromLane="0" toLane="0" via=":11_1_0" dir="s" state="M"/>
+    <connection from="-branch" to="branch" fromLane="0" toLane="0" speed="0.10" via=":11_2_0" dir="t" state="M"/>
     <connection from="-h" to="g" fromLane="0" toLane="0" via=":10_0_0" dir="s" state="M"/>
     <connection from="b" to="end" fromLane="0" toLane="0" via=":2_1_0" dir="s" state="M"/>
     <connection from="beg" to="f" fromLane="0" toLane="0" via=":1_0_0" dir="R" state="M"/>
@@ -147,7 +145,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="branch" to="-branch" fromLane="0" toLane="0" speed="0.10" via=":12_0_0" dir="t" state="M"/>
     <connection from="f" to="h" fromLane="0" toLane="0" via=":10_1_0" dir="s" state="M"/>
     <connection from="g" to="end" fromLane="0" toLane="0" via=":2_0_0" dir="s" state="M"/>
-    <connection from="h" to="branch" fromLane="0" toLane="0" via=":11_0_0" dir="s" state="M"/>
+    <connection from="h" to="branch" fromLane="0" toLane="0" keepClear="0" via=":11_0_0" dir="s" state="M"/>
 
     <connection from=":1_0" to="f" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from=":1_1" to="b" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -155,6 +153,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":10_1" to="h" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":11_0" to="branch" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":11_1" to="-h" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":11_2" to="branch" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":12_0" to="-branch" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":2_0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2_1" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
