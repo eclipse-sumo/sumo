@@ -1,0 +1,5 @@
+invalid XML strategy rejected
+TraCI max-min round-trip OK
+TraCI flat round-trip OK
+TraCI proportional round-trip OK
+invalid TraCI strategy rejected
