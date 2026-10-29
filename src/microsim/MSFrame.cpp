@@ -200,7 +200,7 @@ MSFrame::fillOptions() {
 
     oc.doRegister("person-fcd-output", new Option_FileName());
     oc.addSynonyme("person-fcd-output", "person-fcd");
-    oc.addDescription("person-fcd-output", "Persons", TL("Save fcd for persons and container to separate FILE"));
+    oc.addDescription("person-fcd-output", "Output", TL("Save fcd for persons and container to separate FILE"));
 
     oc.doRegister("device.ssm.filter-edges.input-file", new Option_FileName());
     oc.addDescription("device.ssm.filter-edges.input-file", "Output", TL("Restrict SSM device output to the edge selection from the given input file"));
@@ -235,7 +235,7 @@ MSFrame::fillOptions() {
     oc.addDescription("summary-output.period", "Output", TL("Save summary-output with the given period"));
 
     oc.doRegister("person-summary-output", new Option_FileName());
-    oc.addDescription("person-summary-output", "Persons", TL("Save aggregated person counts into FILE"));
+    oc.addDescription("person-summary-output", "Output", TL("Save aggregated person counts into FILE"));
 
     oc.doRegister("tripinfo-output", new Option_FileName());
     oc.addSynonyme("tripinfo-output", "tripinfo");
@@ -249,7 +249,7 @@ MSFrame::fillOptions() {
 
     oc.doRegister("personinfo-output", new Option_FileName());
     oc.addSynonyme("personinfo-output", "personinfo");
-    oc.addDescription("personinfo-output", "Persons", TL("Save personinfo and containerinfo to separate FILE"));
+    oc.addDescription("personinfo-output", "Output", TL("Save personinfo and containerinfo to separate FILE"));
 
     oc.doRegister("vehroute-output", new Option_FileName());
     oc.addSynonyme("vehroute-output", "vehroutes");
@@ -302,7 +302,7 @@ MSFrame::fillOptions() {
 
     oc.doRegister("personroute-output", new Option_FileName());
     oc.addSynonyme("personroute-output", "personroutes");
-    oc.addDescription("personroute-output", "Persons", TL("Save person and container routes to separate FILE"));
+    oc.addDescription("personroute-output", "Output", TL("Save person and container routes to separate FILE"));
 
     oc.doRegister("link-output", new Option_FileName());
     oc.addDescription("link-output", "Output", TL("Save links states into FILE"));
@@ -370,7 +370,7 @@ MSFrame::fillOptions() {
     oc.doRegister("save-state.rng", new Option_Bool(false));
     oc.addDescription("save-state.rng", "Output", TL("Save random number generator states"));
     oc.doRegister("save-state.transportables", new Option_Bool(false));
-    oc.addDescription("save-state.transportables", "Persons", TL("Save person and container states (experimental)"));
+    oc.addDescription("save-state.transportables", "Output", TL("Save person and container states (experimental)"));
     oc.doRegister("save-state.constraints", new Option_Bool(false));
     oc.addDescription("save-state.constraints", "Output", TL("Save rail signal constraints"));
     oc.doRegister("save-state.precision", new Option_Integer(2));
@@ -592,60 +592,60 @@ MSFrame::fillOptions() {
 
     // pedestrian model
     oc.doRegister("pedestrian.model", new Option_String("striping"));
-    oc.addDescription("pedestrian.model", "Processing", TL("Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim']"));
+    oc.addDescription("pedestrian.model", "Persons", TL("Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim']"));
 
     oc.doRegister("pedestrian.timegap-crossing", new Option_Float(2.));
-    oc.addDescription("pedestrian.timegap-crossing", "Processing", TL("Minimal acceptable gap (in seconds) between two vehicles before starting to cross"));
+    oc.addDescription("pedestrian.timegap-crossing", "Persons", TL("Minimal acceptable gap (in seconds) between two vehicles before starting to cross"));
 
     oc.doRegister("pedestrian.striping.stripe-width", new Option_Float(0.64));
-    oc.addDescription("pedestrian.striping.stripe-width", "Processing", TL("Width of parallel stripes for segmenting a sidewalk (meters) for use with model 'striping'"));
+    oc.addDescription("pedestrian.striping.stripe-width", "Persons", TL("Width of parallel stripes for segmenting a sidewalk (meters) for use with model 'striping'"));
 
     oc.doRegister("pedestrian.striping.dawdling", new Option_Float(0.2));
-    oc.addDescription("pedestrian.striping.dawdling", "Processing", TL("Factor for random slow-downs [0,1] for use with model 'striping'"));
+    oc.addDescription("pedestrian.striping.dawdling", "Persons", TL("Factor for random slow-downs [0,1] for use with model 'striping'"));
 
     oc.doRegister("pedestrian.striping.mingap-to-vehicle", new Option_Float(0.25));
-    oc.addDescription("pedestrian.striping.mingap-to-vehicle", "Processing", TL("Minimal gap / safety buffer (in meters) from a pedestrian to another vehicle for use with model 'striping'"));
+    oc.addDescription("pedestrian.striping.mingap-to-vehicle", "Persons", TL("Minimal gap / safety buffer (in meters) from a pedestrian to another vehicle for use with model 'striping'"));
 
     oc.doRegister("pedestrian.striping.jamtime", new Option_String("300", "TIME"));
-    oc.addDescription("pedestrian.striping.jamtime", "Processing", TL("Time in seconds after which pedestrians start squeezing through a jam when using model 'striping' (non-positive values disable squeezing)"));
+    oc.addDescription("pedestrian.striping.jamtime", "Persons", TL("Time in seconds after which pedestrians start squeezing through a jam when using model 'striping' (non-positive values disable squeezing)"));
     oc.doRegister("pedestrian.striping.jamtime.crossing", new Option_String("10", "TIME"));
-    oc.addDescription("pedestrian.striping.jamtime.crossing", "Processing", TL("Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model 'striping' (non-positive values disable squeezing)"));
+    oc.addDescription("pedestrian.striping.jamtime.crossing", "Persons", TL("Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model 'striping' (non-positive values disable squeezing)"));
     oc.doRegister("pedestrian.striping.jamtime.narrow", new Option_String("1", "TIME"));
-    oc.addDescription("pedestrian.striping.jamtime.narrow", "Processing", TL("Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model 'striping'"));
+    oc.addDescription("pedestrian.striping.jamtime.narrow", "Persons", TL("Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model 'striping'"));
 
     oc.doRegister("pedestrian.striping.jamfactor", new Option_Float(0.25));
-    oc.addDescription("pedestrian.striping.jamfactor", "Processing", TL("Factor for reducing speed of pedestrian in jammed state"));
+    oc.addDescription("pedestrian.striping.jamfactor", "Persons", TL("Factor for reducing speed of pedestrian in jammed state"));
 
     oc.doRegister("pedestrian.striping.reserve-oncoming", new Option_Float(0.0));
-    oc.addDescription("pedestrian.striping.reserve-oncoming", "Processing", TL("Fraction of stripes to reserve for oncoming pedestrians"));
+    oc.addDescription("pedestrian.striping.reserve-oncoming", "Persons", TL("Fraction of stripes to reserve for oncoming pedestrians"));
 
     oc.doRegister("pedestrian.striping.reserve-oncoming.junctions", new Option_Float(0.34));
-    oc.addDescription("pedestrian.striping.reserve-oncoming.junctions", "Processing", TL("Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas"));
+    oc.addDescription("pedestrian.striping.reserve-oncoming.junctions", "Persons", TL("Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas"));
 
     oc.doRegister("pedestrian.striping.reserve-oncoming.max", new Option_Float(1.28));
-    oc.addDescription("pedestrian.striping.reserve-oncoming.max", "Processing", TL("Maximum width in m to reserve for oncoming pedestrians"));
+    oc.addDescription("pedestrian.striping.reserve-oncoming.max", "Persons", TL("Maximum width in m to reserve for oncoming pedestrians"));
 
     oc.doRegister("pedestrian.striping.legacy-departposlat", new Option_Bool(false));
-    oc.addDescription("pedestrian.striping.legacy-departposlat", "Processing", TL("Interpret departPosLat for walks in legacy style"));
+    oc.addDescription("pedestrian.striping.legacy-departposlat", "Persons", TL("Interpret departPosLat for walks in legacy style"));
 
     oc.doRegister("pedestrian.striping.walkingarea-detail", new Option_Integer(4));
-    oc.addDescription("pedestrian.striping.walkingarea-detail", "Processing", TL("Generate INT intermediate points to smooth out lanes within the walkingarea"));
+    oc.addDescription("pedestrian.striping.walkingarea-detail", "Persons", TL("Generate INT intermediate points to smooth out lanes within the walkingarea"));
 
 #if defined(HAVE_JUPEDSIM_GRPC) || defined(HAVE_JUPEDSIM_LEGACY)
     oc.doRegister("pedestrian.jupedsim.step-length", new Option_String("0.01", "TIME"));
-    oc.addDescription("pedestrian.jupedsim.step-length", "Processing", TL("The update interval of the JuPedSim simulation (in seconds)"));
+    oc.addDescription("pedestrian.jupedsim.step-length", "Persons", TL("The update interval of the JuPedSim simulation (in seconds)"));
     oc.doRegister("pedestrian.jupedsim.exit-tolerance", new Option_Float(1.));
-    oc.addDescription("pedestrian.jupedsim.exit-tolerance", "Processing", TL("The distance to accept the JuPedSim arrival point (in meters)"));
+    oc.addDescription("pedestrian.jupedsim.exit-tolerance", "Persons", TL("The distance to accept the JuPedSim arrival point (in meters)"));
     oc.doRegister("pedestrian.jupedsim.model", new Option_String("CollisionFreeSpeedModel"));
-    oc.addDescription("pedestrian.jupedsim.model", "Processing", TL("The submodel to use in JuPedSim (default: 'CollisionFreeSpeedModel')"));
+    oc.addDescription("pedestrian.jupedsim.model", "Persons", TL("The submodel to use in JuPedSim (default: 'CollisionFreeSpeedModel')"));
     oc.doRegister("pedestrian.jupedsim.strength-neighbor-repulsion", new Option_Float(8.));
-    oc.addDescription("pedestrian.jupedsim.strength-neighbor-repulsion", "Processing", TL("The neighbor repulsion strength of the JuPedSim model"));
+    oc.addDescription("pedestrian.jupedsim.strength-neighbor-repulsion", "Persons", TL("The neighbor repulsion strength of the JuPedSim model"));
     oc.doRegister("pedestrian.jupedsim.range-neighbor-repulsion", new Option_Float(.1));
-    oc.addDescription("pedestrian.jupedsim.range-neighbor-repulsion", "Processing", TL("The neighbor repulsion range of the JuPedSim model (in meters)"));
+    oc.addDescription("pedestrian.jupedsim.range-neighbor-repulsion", "Persons", TL("The neighbor repulsion range of the JuPedSim model (in meters)"));
     oc.doRegister("pedestrian.jupedsim.strength-geometry-repulsion", new Option_Float(5.));
-    oc.addDescription("pedestrian.jupedsim.strength-geometry-repulsion", "Processing", TL("The geometry repulsion strength of the JuPedSim model"));
+    oc.addDescription("pedestrian.jupedsim.strength-geometry-repulsion", "Persons", TL("The geometry repulsion strength of the JuPedSim model"));
     oc.doRegister("pedestrian.jupedsim.range-geometry-repulsion", new Option_Float(.02));
-    oc.addDescription("pedestrian.jupedsim.range-geometry-repulsion", "Processing", TL("The geometry repulsion range of the JuPedSim model (in meters)"));
+    oc.addDescription("pedestrian.jupedsim.range-geometry-repulsion", "Persons", TL("The geometry repulsion range of the JuPedSim model (in meters)"));
     oc.doRegister("pedestrian.jupedsim.wkt", new Option_FileName());
     oc.addDescription("pedestrian.jupedsim.wkt", "Output", TL("The filename to output the JuPedSim network as WKT"));
     oc.doRegister("pedestrian.jupedsim.wkt.geo", new Option_Bool(false));
@@ -654,12 +654,12 @@ MSFrame::fillOptions() {
     oc.addDescription("pedestrian.jupedsim.py", "Output", TL("The filename to output the JuPedSim setup as Python script"));
 #ifdef HAVE_JUPEDSIM_GRPC
     oc.doRegister("pedestrian.jupedsim.address", new Option_String(""));
-    oc.addDescription("pedestrian.jupedsim.address", "Processing", TL("The address to connect to the JuPedSim gRPC server"));
+    oc.addDescription("pedestrian.jupedsim.address", "Persons", TL("The address to connect to the JuPedSim gRPC server"));
 #endif
 #endif
 
     oc.doRegister("ride.stop-tolerance", new Option_Float(10.));
-    oc.addDescription("ride.stop-tolerance", "Processing", TL("Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops"));
+    oc.addDescription("ride.stop-tolerance", "Persons", TL("Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops"));
 
     oc.doRegister("mapmatch.distance", new Option_Float(100));
     oc.addDescription("mapmatch.distance", "Processing", TL("Maximum distance when mapping input coordinates (fromXY etc.) to the road network"));
@@ -745,7 +745,7 @@ MSFrame::fillOptions() {
     oc.addDescription("phemlight-path", "Emissions", TL("Determines where to load PHEMlight definitions from"));
 
     oc.doRegister("phemlight-year", new Option_Integer(0));
-    oc.addDescription("phemlight-year", "Emissions", TL("Enable fleet age modelling with the given reference year in PHEMlight5"));
+    oc.addDescription("phemlight-year", "Emissions", TL("Enable fleet age modeling with the given reference year in PHEMlight5"));
 
     oc.doRegister("phemlight-temperature", new Option_Float(INVALID_DOUBLE));
     oc.addDescription("phemlight-temperature", "Emissions", TL("Set ambient temperature to correct NOx emissions in PHEMlight5"));
@@ -831,7 +831,7 @@ MSFrame::fillOptions() {
     // the reason that we include them in vanilla sumo as well is to make reusing config files easy
     oc.addOptionSubTopic("GUI Only");
     oc.doRegister("gui-settings-file", 'g', new Option_FileName());
-    oc.addDescription("gui-settings-file", "GUI Only", TL("Load visualisation settings from FILE"));
+    oc.addDescription("gui-settings-file", "GUI Only", TL("Load visualization settings from FILE"));
 
     oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
     oc.addDescription("quit-on-end", "GUI Only", TL("Quits the GUI when the simulation stops"));
