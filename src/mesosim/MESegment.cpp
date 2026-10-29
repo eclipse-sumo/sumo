@@ -204,6 +204,8 @@ MESegment::initSegment(const MesoEdgeType& edgeType, const MSEdge& parent, const
                            parent.hasMinorLink());
     myMinorPenalty = edgeType.minorPenalty;
     myOvertaking = edgeType.overtaking && myCapacity > myLength;
+    // keyed by the edge id because adding or removing edges elsewhere renumbers the numerical ids
+    myOvertakeKey = (long long int)((uint64_t)RandHelper::murmur3_32(parent.getID(), myIndex) << 32);
 
     //std::cout << getID() << " myMinorPenalty=" << myMinorPenalty << " myTLSPenalty=" << myTLSPenalty << " myJunctionControl=" << myJunctionControl << " myOvertaking=" << myOvertaking << "\n";
 
@@ -647,7 +649,7 @@ MESegment::getTauJJ(double nextQueueSize, double nextQueueCapacity, double nextJ
 bool
 MESegment::overtake(const MEVehicle* veh) const {
     // the global RNG would let the number of draws elsewhere decide this vehicle's outcome
-    const long long int key = veh->getRandomSeed() ^ ((long long int)myEdge.getNumericalID() * 1024 + myIndex);
+    const long long int key = veh->getRandomSeed() ^ myOvertakeKey;
     return myOvertaking && RandHelper::randHash(key) > (getBruttoOccupancy() / myCapacity);
 }
 

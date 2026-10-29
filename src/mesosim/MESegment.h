@@ -596,6 +596,9 @@ protected:
 
     /// @brief Whether overtaking is permitted on this segment
     bool myOvertaking;
+
+    /// @brief this segment's part of the overtaking draws (hash of edge id and segment index in the upper 32 bits)
+    long long int myOvertakeKey = 0;
     /// @}
 
     /// @brief Headway parameter for computing gross time headyway from net time headway, length and edge speed
