@@ -56,14 +56,87 @@
     <vehicle id="flow.18" depart="1576800036.00" route="r1" distance="53.5 0" speedFactor="1.0000" state="2240 1576800046000 3 5.10 91000 279.05 1576800329000 0 0 0 1576800053000 1576800053000 1576800053000" pos="6.50 1.50 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 2 0 91000 93000 193000" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
     <vehicle id="flow.19" depart="1576800038.00" route="r1" distance="45 0" speedFactor="1.0000" state="2240 1576800048000 3 5.10 90000 277.59 1576800329000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="7.50 2.50 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 2 0 90000 92000 192000" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
     <vehicleTransfer id="flow.7" depart="1576800337500"/>
+    <lane id=":A0_1_0">
+        <link to=":A0_4_0">
+            <approaching id="flow.4" arrivalTime="1576800328798" arrivalSpeed="4.62" departSpeed="5.64" request="0" arrivalSpeedBraking="0.00" waitingTime="28000" distance="2.90"/>
+            <approaching id="flow.5" arrivalTime="1576800331460" arrivalSpeed="3.82" departSpeed="5.01" request="0" arrivalSpeedBraking="0.00" waitingTime="27000" distance="10.40"/>
+            <approaching id="flow.9" arrivalTime="1576800339042" arrivalSpeed="4.62" departSpeed="5.64" request="0" arrivalSpeedBraking="0.00" waitingTime="98000" distance="50.20"/>
+            <approaching id="flow.12" arrivalTime="1576800332736" arrivalSpeed="4.45" departSpeed="5.51" request="0" arrivalSpeedBraking="0.00" waitingTime="71000" distance="20.20"/>
+        </link>
+    </lane>
+    <lane id=":A0_4_0">
+        <link to="A0toA1_0">
+            <approaching id="flow.4" arrivalTime="1576800329296" arrivalSpeed="4.15" departSpeed="4.15" request="0" arrivalSpeedBraking="0.00" waitingTime="28000" distance="4.92"/>
+            <approaching id="flow.5" arrivalTime="1576800332456" arrivalSpeed="3.24" departSpeed="3.24" request="0" arrivalSpeedBraking="0.00" waitingTime="27000" distance="12.42"/>
+            <approaching id="flow.9" arrivalTime="1576800340680" arrivalSpeed="4.15" departSpeed="4.15" request="0" arrivalSpeedBraking="0.00" waitingTime="98000" distance="52.22"/>
+            <approaching id="flow.12" arrivalTime="1576800333729" arrivalSpeed="3.97" departSpeed="3.97" request="0" arrivalSpeedBraking="0.00" waitingTime="71000" distance="22.22"/>
+        </link>
+    </lane>
+    <lane id=":A1_0_0">
+        <link to="A1toA0_0">
+            <approaching id="flow.9" arrivalTime="1576800342962" arrivalSpeed="2.60" departSpeed="2.60" request="0" arrivalSpeedBraking="0.00" waitingTime="98000" distance="38.90"/>
+            <approaching id="flow.12" arrivalTime="1576800331873" arrivalSpeed="2.30" departSpeed="2.30" request="0" arrivalSpeedBraking="0.00" waitingTime="71000" distance="8.90"/>
+        </link>
+    </lane>
+    <lane id=":B1_0_0">
+        <link to="B1toA1_0">
+            <approaching id="flow.9" arrivalTime="1576800331962" arrivalSpeed="6.37" departSpeed="6.37" request="0" arrivalSpeedBraking="0.00" waitingTime="98000" distance="22.50"/>
+            <approaching id="flow.11" arrivalTime="1576800334317" arrivalSpeed="6.37" departSpeed="6.37" request="0" arrivalSpeedBraking="0.00" waitingTime="96000" distance="37.50"/>
+        </link>
+    </lane>
+    <lane id=":C1_0_0">
+        <link to="C1toB1_0">
+            <approaching id="flow.9" arrivalTime="1576800329607" arrivalSpeed="6.37" departSpeed="6.00" request="0" arrivalSpeedBraking="0.00" waitingTime="98000" distance="7.50"/>
+            <approaching id="flow.11" arrivalTime="1576800331962" arrivalSpeed="6.37" departSpeed="6.37" request="0" arrivalSpeedBraking="0.00" waitingTime="96000" distance="22.50"/>
+            <approaching id="flow.13" arrivalTime="1576800334317" arrivalSpeed="6.37" departSpeed="6.37" request="0" arrivalSpeedBraking="0.00" waitingTime="94000" distance="37.50"/>
+            <approaching id="flow.15" arrivalTime="1576800337689" arrivalSpeed="5.98" departSpeed="5.98" request="0" arrivalSpeedBraking="0.00" waitingTime="93000" distance="53.90"/>
+        </link>
+    </lane>
+    <lane id=":D1_0_0">
+        <link to="D1toC1_0">
+            <approaching id="flow.11" arrivalTime="1576800329607" arrivalSpeed="6.37" departSpeed="6.00" request="0" arrivalSpeedBraking="0.00" waitingTime="96000" distance="7.50"/>
+            <approaching id="flow.13" arrivalTime="1576800331962" arrivalSpeed="6.37" departSpeed="6.37" request="0" arrivalSpeedBraking="0.00" waitingTime="94000" distance="22.50"/>
+            <approaching id="flow.14" arrivalTime="1576800334279" arrivalSpeed="5.81" departSpeed="5.81" request="0" arrivalSpeedBraking="0.00" waitingTime="93000" distance="30.00"/>
+            <approaching id="flow.15" arrivalTime="1576800335181" arrivalSpeed="5.98" departSpeed="5.98" request="0" arrivalSpeedBraking="0.00" waitingTime="93000" distance="38.90"/>
+            <approaching id="flow.17" arrivalTime="1576800337924" arrivalSpeed="5.98" departSpeed="5.98" request="0" arrivalSpeedBraking="0.00" waitingTime="91000" distance="55.30"/>
+        </link>
+    </lane>
     <lane id=":E0_6_0">
         <vehicles value="flow.18"/>
+        <link to="E0toF0_0">
+            <approaching id="flow.18" arrivalTime="1576800328001" arrivalSpeed="2.60" departSpeed="0.00" request="1" arrivalSpeedBraking="2.60" waitingTime="90000" distance="0.00"/>
+            <approaching id="flow.19" arrivalTime="1576800403010" arrivalSpeed="0.00" departSpeed="0.00" request="0" arrivalSpeedBraking="0.00" waitingTime="89000" distance="7.50"/>
+        </link>
+    </lane>
+    <lane id=":E1_0_0">
+        <link to="E1toD1_0">
+            <approaching id="flow.13" arrivalTime="1576800329607" arrivalSpeed="6.37" departSpeed="6.00" request="0" arrivalSpeedBraking="0.00" waitingTime="94000" distance="7.50"/>
+            <approaching id="flow.14" arrivalTime="1576800331698" arrivalSpeed="5.81" departSpeed="5.81" request="0" arrivalSpeedBraking="0.00" waitingTime="93000" distance="15.00"/>
+            <approaching id="flow.15" arrivalTime="1576800332672" arrivalSpeed="5.98" departSpeed="5.98" request="0" arrivalSpeedBraking="0.00" waitingTime="93000" distance="23.90"/>
+            <approaching id="flow.16" arrivalTime="1576800334519" arrivalSpeed="5.81" departSpeed="5.81" request="0" arrivalSpeedBraking="0.00" waitingTime="92000" distance="31.40"/>
+            <approaching id="flow.17" arrivalTime="1576800335415" arrivalSpeed="5.98" departSpeed="5.98" request="0" arrivalSpeedBraking="0.00" waitingTime="91000" distance="40.30"/>
+            <approaching id="flow.19" arrivalTime="1576800338630" arrivalSpeed="5.81" departSpeed="5.81" request="0" arrivalSpeedBraking="0.00" waitingTime="89000" distance="55.30"/>
+        </link>
     </lane>
     <lane id=":F0_2_0">
         <vehicles value="flow.16"/>
+        <link to="F0toF1_0">
+            <approaching id="flow.16" arrivalTime="1576800328001" arrivalSpeed="2.60" departSpeed="0.00" request="1" arrivalSpeedBraking="2.60" waitingTime="92000" distance="0.00"/>
+            <approaching id="flow.17" arrivalTime="1576800334367" arrivalSpeed="1.40" departSpeed="1.40" request="0" arrivalSpeedBraking="0.00" waitingTime="91000" distance="8.90"/>
+            <approaching id="flow.18" arrivalTime="1576800334808" arrivalSpeed="2.60" departSpeed="2.60" request="0" arrivalSpeedBraking="0.00" waitingTime="90000" distance="16.40"/>
+            <approaching id="flow.19" arrivalTime="1576800337693" arrivalSpeed="2.60" departSpeed="2.60" request="0" arrivalSpeedBraking="0.00" waitingTime="89000" distance="23.90"/>
+        </link>
     </lane>
     <lane id=":F1_0_0">
         <vehicles value="flow.14"/>
+        <link to="F1toE1_0">
+            <approaching id="flow.14" arrivalTime="1576800328001" arrivalSpeed="2.60" departSpeed="0.00" request="1" arrivalSpeedBraking="2.60" waitingTime="93000" distance="0.00"/>
+            <approaching id="flow.15" arrivalTime="1576800334367" arrivalSpeed="1.40" departSpeed="1.40" request="0" arrivalSpeedBraking="0.00" waitingTime="93000" distance="8.90"/>
+            <approaching id="flow.16" arrivalTime="1576800334808" arrivalSpeed="2.60" departSpeed="2.60" request="0" arrivalSpeedBraking="0.00" waitingTime="92000" distance="16.40"/>
+            <approaching id="flow.17" arrivalTime="1576800337838" arrivalSpeed="2.60" departSpeed="2.60" request="0" arrivalSpeedBraking="0.00" waitingTime="91000" distance="25.30"/>
+            <approaching id="flow.18" arrivalTime="1576800341116" arrivalSpeed="2.60" departSpeed="2.60" request="0" arrivalSpeedBraking="0.00" waitingTime="90000" distance="32.80"/>
+            <approaching id="flow.19" arrivalTime="1576800344000" arrivalSpeed="2.60" departSpeed="2.60" request="0" arrivalSpeedBraking="0.00" waitingTime="89000" distance="40.30"/>
+        </link>
     </lane>
     <lane id="A0toA1_0">
         <vehicles value="flow.2"/>
