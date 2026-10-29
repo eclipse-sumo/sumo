@@ -1,8 +1,12 @@
 # TraCI API Versions
 
 TraCI clients and servers exchange a protocol version during connection setup
-(`CMD_GETVERSION`). The version is defined in `tools/traci/constants.py`
-(`TRACI_VERSION`) and in `src/libtraci/TraCIConstants.h`.
+(`CMD_GETVERSION`). The authoritative definition is `TRACI_VERSION` in
+`src/libsumo/TraCIConstants.h`. The Python (`tools/traci/constants.py`) and Java
+(`tools/contributed/traas/src/main/java/de/tudresden/sumo/config/Constants.java`)
+constants are generated from it and should not be edited directly. See
+[Control-related commands](Control-related_commands.md#command-0x00-get-version)
+for the version handshake.
 
 The version number is incremented when the protocol changes in a way that breaks
 existing clients: removed or renamed variables and commands, changed units, or
