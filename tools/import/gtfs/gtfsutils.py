@@ -501,12 +501,12 @@ def loadGTFS(options):
             options.joinBlocks = False
     else:
         full_data_merged = get_merged_data(options)
-    if options.mergedCSVOutput:
-        full_data_merged.sort_values(by=['trip_id', 'stop_sequence'], inplace=True)
-        full_data_merged.to_csv(options.mergedCSVOutput, sep=";", index=False)
     if options.joinBlocks and not full_data_merged.empty:
         full_data_merged = joinBlocks(full_data_merged)
     if options.coupling == "remove" and not full_data_merged.empty:
         full_data_merged = coupling.remove_coupled(full_data_merged)
+    if options.mergedCSVOutput:
+        full_data_merged.sort_values(by=['trip_id', 'stop_sequence'], inplace=True)
+        full_data_merged.to_csv(options.mergedCSVOutput, sep=";", index=False)
 
     return full_data_merged
