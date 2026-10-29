@@ -686,6 +686,7 @@ MSRouteHandler::closeVehicle() {
     if (route->getEdges().size() == 1
             && myVehicleParameter->departPosProcedure == DepartPosDefinition::GIVEN
             && myVehicleParameter->arrivalPosProcedure == ArrivalPosDefinition::GIVEN
+            && myVehicleParameter->arrivalPos > 0
             && myVehicleParameter->arrivalPos <= myVehicleParameter->departPos) {
         WRITE_WARNINGF(TL("Vehicle '%' has a single-edge route but arrivalPos % is not greater than departPos %."),
                        myVehicleParameter->id, toString(myVehicleParameter->arrivalPos),
