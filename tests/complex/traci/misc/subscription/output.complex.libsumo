@@ -114,6 +114,7 @@ Subscribing to junction.OUTGOING_EDGES.
 Subscribing to junction.VAR_PARAMETER.
 Subscribing to junction.VAR_PARAMETER_WITH_KEY.
 Subscribing to junction.VAR_SHAPE.
+Subscribing to junction.VAR_SHAPE3D.
 Expecting failure for junction.ADD subscription.
 Unsupported variable 0x80 specified
 Subscribing to lane.LANE_ALLOWED.
@@ -148,6 +149,7 @@ Subscribing to lane.VAR_PARAMETER.
 Subscribing to lane.VAR_PARAMETER_WITH_KEY.
 Subscribing to lane.VAR_PENDING_VEHICLES.
 Subscribing to lane.VAR_SHAPE.
+Subscribing to lane.VAR_SHAPE3D.
 Subscribing to lane.VAR_CURRENT_TRAVELTIME.
 Subscribing to lane.VAR_WAITING_TIME.
 Subscribing to lane.VAR_WIDTH.
@@ -699,6 +701,7 @@ Unsupported variable 0x80 specified
            'm4'),
        1: 19,
        62: ('3o_0', ''),
+       63: <libsumo.libsumo.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x7f0000000000> >,
        78: <libsumo.libsumo.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x7f3fc4359b90> >,
        123: ('1si', '2si', '3si', '4si'),
        124: ('1o', '2o', '3o', '4o'),
@@ -819,6 +822,7 @@ Unsupported variable 0x80 specified
                 'custom2'),
            61: 1.0,
            62: ('3o_0', ''),
+           63: <libsumo.libsumo.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x7f0000000000> >,
            65: 13.89,
            67: 90.0,
            68: 250.0,
