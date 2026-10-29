@@ -18,6 +18,7 @@
 Helper functions for gtfs2pt.py for avoiding duplicate vehicles
 """
 
+import sys
 import pandas as pd
 
 def get_shared_departure_trips(df: pd.DataFrame) -> dict:
