@@ -1,0 +1,8 @@
+# a jammed off-ramp blocks all lane queues upstream of the last segment
+default
+
+# vehicles choose the lane queue by their next edge within 300m of the edge end
+option
+
+# vehicles choose the lane queue by their next edge on the whole edge (set by edge type)
+edge_type

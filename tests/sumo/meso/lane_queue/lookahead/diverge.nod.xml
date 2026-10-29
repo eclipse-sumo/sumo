@@ -1,0 +1,8 @@
+<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <node id="A" x="-1300" y="0" type="priority"/>
+    <node id="B" x="-1000" y="0" type="priority"/>
+    <node id="C" x="0" y="0" type="priority"/>
+    <node id="D" x="500" y="0" type="priority"/>
+    <node id="E" x="100" y="-100" type="priority"/>
+    <node id="F" x="100" y="-300" type="priority"/>
+</nodes>
