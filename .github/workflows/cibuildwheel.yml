@@ -118,14 +118,16 @@ jobs:
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
           CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
 
-      - name: Preparing wheel sumo-data
-        run: python tools/build_config/version.py --pep440plat build_config/pyproject/sumo-data.toml pyproject.toml
-
       - name: Building windows / macos platform wheel sumo-data
         if: ${{ startsWith(matrix.os, 'windows') || startsWith(matrix.os, 'macos') }}
         run: |
           python -m pip install -r tools/req_dev.txt
+          python tools/build_config/version.py --pep440plat build_config/pyproject/sumo-data.toml pyproject.toml
           python -m build --wheel -o wheelhouse
+
+      - name: Preparing wheel sumo-data
+        if: ${{ startsWith(matrix.os, 'ubuntu') }}
+        run: python tools/build_config/version.py --pep440plat build_config/pyproject/sumo-data.toml pyproject.toml
 
       - name: Building linux platform wheel sumo-data
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
@@ -134,6 +136,16 @@ jobs:
           CIBW_ENVIRONMENT_LINUX: CCACHE_DIR=/host/home/runner/work/sumo/sumo/.ccache
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
           CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
+          # sumo-data has no ELF files at this point (the shared libs are only grafted in
+          # later by relocate.py), so auditwheel refuses to repair it ("does not look like
+          # a platform wheel"). Skip repair here and fix up the platform tag by hand below.
+          CIBW_REPAIR_WHEEL_COMMAND_LINUX: ""
+
+      - name: Retagging linux wheel sumo-data
+        if: ${{ startsWith(matrix.os, 'ubuntu') }}
+        run: |
+          python -m pip install wheel
+          python -m wheel tags --remove --platform-tag ${{ matrix.manylinux }}_$(uname -m) wheelhouse/sumo_data*.whl
 
       - name: Preparing wheel libsumo
         run: python tools/build_config/version.py --pep440 build_config/pyproject/libsumo.toml pyproject.toml
