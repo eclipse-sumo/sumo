@@ -1,4 +1,2 @@
 Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurrence for edge '45875891').
 Warning: Discarding unusable type 'railway.platform_edge' (first occurrence for edge '1352313845').
-Warning: Cannot revise pt stop localization for pt line '13058433', which has no route edges. Ignoring!
-Warning: Stop '-6753165050' named 'Oberstaufen' from line '13058433' on edge '-45876296' is not part of the route.

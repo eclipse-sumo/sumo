@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-30T03:28:38.437746+01:00 by Eclipse SUMO netconvert v1_28_0+0333-dd73d3eea1e
+<!-- generated on 2026-10-30T10:39:56.353198+01:00 by Eclipse SUMO netconvert v1_28_0+0335-068513a409f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,6 +40,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
     <ptLine id="13058433" name="RE 70: Lindau =&gt; Kempten =&gt; München" line="RE 70" type="train" vClass="rail" completeness="0.08" missingBefore="4" missingAfter="7">
+        <route edges="-45875891 -45876296 -45876297"/>
         <busStop id="-6753165050" name="Oberstaufen"/>
     </ptLine>
     <ptLine id="1878825" name="RE 70: München =&gt; Kempten =&gt; Lindau" line="RE 70" type="train" vClass="rail" completeness="0.08" missingBefore="7" missingAfter="4">
