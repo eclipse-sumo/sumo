@@ -47,6 +47,7 @@ NETCONVERT = sumolib.checkBinary('netconvert')
 
 
 def get_options():
+    HALF_CPUS = os.cpu_count() // 2 if os.cpu_count() is not None else 1
     ap = ArgumentParser()
     ap.add_argument("-n", "--net-file", category="input", dest="netfile", required=True, type=ap.net_file,
                     help="the network to read lane and edge permissions")
@@ -86,6 +87,8 @@ def get_options():
                     help="If a siding has a stop on the mainline, add signals in case they are missing")
     ap.add_argument("--add-signals", action="store_true", default=False, dest="addSignals",
                     help="Add missing signals regardless of stopping")
+    ap.add_argument("--routing-threads", type=int, default=HALF_CPUS, dest="threads",
+                    help="Perform routing on multiple threads")
     ap.add_argument("-v", "--verbose", action="store_true", default=False,
                     help="tell me what you are doing")
     options = ap.parse_args()
