@@ -39,7 +39,7 @@ Computing traffic light logics ... done (0ms).
  0 traffic light(s) computed.
 Building inner edges ... done (0ms).
 Find accesses for pt rail stops ... done (0ms).
-DijkstraRouter answered 6 queries and explored 3.83 edges on average.
+DijkstraRouter answered 6 queries and explored 4.50 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 -----------------------------------------------------
 Summary:

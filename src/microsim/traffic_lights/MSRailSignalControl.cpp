@@ -198,7 +198,7 @@ MSRailSignalControl::haveDeadlock(const SUMOVehicle* veh) const {
                     int start = item.foe->getRoutePosition();
                     if (!MSGlobals::gUseMesoSim) {
                         const std::vector<MSLane*>& further = dynamic_cast<const MSVehicle*>(item.foe)->getFurtherLanes();
-                        start = MAX2(0.0, start - (MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks() ? ceil(further.size() / 2) : further.size()));
+                        start = MAX2(0, start - (int)(MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks() ? further.size() / 2 : further.size()));
                     }
                     const MSRoute& route = item.foe->getRoute();
                     ConstMSEdgeVector future(route.begin() + start, route.end());

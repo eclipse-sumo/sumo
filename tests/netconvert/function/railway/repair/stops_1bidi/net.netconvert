@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-29 10:36:55 by Eclipse SUMO netconvert Version v1_22_0+1806-33294317c71
+<!-- generated on 2026-10-29T22:13:37.876194+01:00 by Eclipse SUMO netconvert v1_28_0+0330-61755e669a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,19 +31,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="-1.00"/>
-        <rectangular-lane-cut value="0"/>
     </junctions>
-
-    <pedestrian>
-        <walkingareas value="0"/>
-    </pedestrian>
 
     <railway>
         <railway.topology.repair value="true"/>
@@ -73,6 +66,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id=":2_1" function="internal" bidi=":2_0">
         <lane id=":2_1_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="0.00,-100.00 0.00,-100.00"/>
     </edge>
+    <edge id=":2_2" function="internal">
+        <lane id=":2_2_0" index="0" allow="rail_urban" speed="0.10" length="0.10" shape="0.00,-100.00 0.00,-100.00"/>
+    </edge>
     <edge id=":3_0" function="internal">
         <lane id=":3_0_0" index="0" allow="rail_urban" speed="27.78" length="12.16" shape="110.37,-100.00 98.21,-100.00"/>
     </edge>
@@ -86,13 +82,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":8_0_0" index="0" allow="rail_urban" speed="27.78" length="2.64" shape="100.83,-200.00 98.18,-200.00"/>
     </edge>
     <edge id=":8_1" function="internal">
-        <lane id=":8_1_0" index="0" allow="rail_urban" speed="27.78" length="2.60" shape="98.27,-199.59 99.02,-199.78 99.54,-199.91 100.06,-199.98 100.83,-200.00"/>
+        <lane id=":8_1_0" index="0" allow="rail_urban" speed="0.10" length="0.10" shape="100.83,-200.00 100.83,-200.00"/>
+    </edge>
+    <edge id=":8_2" function="internal">
+        <lane id=":8_2_0" index="0" allow="rail_urban" speed="27.78" length="2.60" shape="98.27,-199.59 99.02,-199.78 99.54,-199.91 100.06,-199.98 100.83,-200.00"/>
     </edge>
     <edge id=":9_0" function="internal" bidi=":9_1">
         <lane id=":9_0_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="200.00,-200.00 200.00,-200.00"/>
     </edge>
     <edge id=":9_1" function="internal" bidi=":9_0">
         <lane id=":9_1_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="200.00,-200.00 200.00,-200.00"/>
+    </edge>
+    <edge id=":9_2" function="internal">
+        <lane id=":9_2_0" index="0" allow="rail_urban" speed="0.10" length="0.10" shape="200.00,-200.00 200.00,-200.00"/>
     </edge>
 
     <edge id="-a" from="1" to="2" priority="-1" spreadType="center" bidi="a">
@@ -146,9 +148,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="12" type="dead_end" x="-100.95" y="-176.82" incLanes="" intLanes="" shape="-100.96,-175.22 -100.94,-178.42"/>
-    <junction id="2" type="priority" x="0.00" y="-100.00" incLanes="b_0 -a_0" intLanes=":2_0_0 :2_1_0" shape="0.00,-98.40 0.00,-101.60 0.00,-98.40">
-        <request index="0" response="00" foes="00" cont="0"/>
-        <request index="1" response="00" foes="00" cont="0"/>
+    <junction id="2" type="priority" x="0.00" y="-100.00" incLanes="b_0 -a_0" intLanes=":2_0_0 :2_1_0 :2_2_0" shape="0.00,-98.40 0.00,-101.60 0.00,-98.40">
+        <request index="0" response="000" foes="100" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="001" foes="001" cont="0"/>
     </junction>
     <junction id="3" type="priority" x="100.00" y="-100.00" incLanes="gneE2_0 -b_0" intLanes=":3_0_0 :3_1_0" shape="109.16,-94.88 110.28,-97.88 110.37,-98.40 110.37,-101.60 98.21,-101.60 98.21,-98.40 100.65,-98.28 102.41,-97.93 103.82,-97.39 105.21,-96.68 106.88,-95.84">
         <request index="0" response="00" foes="10" cont="0"/>
@@ -160,24 +163,29 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="7" type="priority" x="0.00" y="-200.00" incLanes="e_0" intLanes=":7_0_0" shape="0.00,-198.40 0.00,-201.60 0.00,-198.40">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="8" type="priority" x="100.00" y="-200.00" incLanes="f_0 g_0" intLanes=":8_0_0 :8_1_0" shape="100.83,-198.40 100.83,-201.60 97.83,-201.60 98.62,-198.03 99.43,-198.24 99.71,-198.31 100.00,-198.36 100.35,-198.39">
-        <request index="0" response="10" foes="10" cont="0"/>
-        <request index="1" response="00" foes="01" cont="0"/>
+    <junction id="8" type="priority" x="100.00" y="-200.00" incLanes="f_0 g_0" intLanes=":8_0_0 :8_1_0 :8_2_0" shape="100.83,-198.40 100.83,-201.60 97.83,-201.60 98.62,-198.03 99.43,-198.24 99.71,-198.31 100.00,-198.36 100.35,-198.39">
+        <request index="0" response="100" foes="100" cont="0"/>
+        <request index="1" response="100" foes="100" cont="0"/>
+        <request index="2" response="000" foes="011" cont="0"/>
     </junction>
-    <junction id="9" type="priority" x="200.00" y="-200.00" incLanes="gneE1_0 -f_0" intLanes=":9_0_0 :9_1_0" shape="200.00,-198.40 200.00,-201.60 200.00,-198.40">
-        <request index="0" response="00" foes="00" cont="0"/>
-        <request index="1" response="00" foes="00" cont="0"/>
+    <junction id="9" type="priority" x="200.00" y="-200.00" incLanes="gneE1_0 -f_0" intLanes=":9_0_0 :9_1_0 :9_2_0" shape="200.00,-198.40 200.00,-201.60 200.00,-198.40">
+        <request index="0" response="000" foes="100" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="001" foes="001" cont="0"/>
     </junction>
 
     <connection from="-a" to="-b" fromLane="0" toLane="0" via=":2_1_0" dir="s" state="M"/>
+    <connection from="-a" to="a" fromLane="0" toLane="0" speed="0.10" via=":2_2_0" dir="t" state="M"/>
     <connection from="-b" to="c" fromLane="0" toLane="0" via=":3_1_0" dir="s" state="M"/>
     <connection from="-f" to="-gneE1" fromLane="0" toLane="0" via=":9_1_0" dir="s" state="M"/>
+    <connection from="-f" to="f" fromLane="0" toLane="0" speed="0.10" via=":9_2_0" dir="t" state="M"/>
     <connection from="a" to="-a" fromLane="0" toLane="0" speed="0.10" via=":1_0_0" dir="t" state="M"/>
-    <connection from="b" to="a" fromLane="0" toLane="0" via=":2_0_0" dir="s" state="M"/>
+    <connection from="b" to="a" fromLane="0" toLane="0" keepClear="0" via=":2_0_0" dir="s" state="M"/>
     <connection from="e" to="d" fromLane="0" toLane="0" via=":7_0_0" dir="s" state="M"/>
     <connection from="f" to="e" fromLane="0" toLane="0" keepClear="0" via=":8_0_0" dir="s" state="M"/>
-    <connection from="g" to="-f" fromLane="0" toLane="0" keepClear="0" via=":8_1_0" dir="s" state="M"/>
-    <connection from="gneE1" to="f" fromLane="0" toLane="0" via=":9_0_0" dir="s" state="M"/>
+    <connection from="f" to="-f" fromLane="0" toLane="0" keepClear="0" speed="0.10" via=":8_1_0" dir="t" state="M"/>
+    <connection from="g" to="-f" fromLane="0" toLane="0" keepClear="0" via=":8_2_0" dir="s" state="M"/>
+    <connection from="gneE1" to="f" fromLane="0" toLane="0" keepClear="0" via=":9_0_0" dir="s" state="M"/>
     <connection from="gneE2" to="b" fromLane="0" toLane="0" via=":3_0_0" dir="s" state="M"/>
     <connection from="h" to="g" fromLane="0" toLane="0" via=":11_0_0" dir="s" state="M"/>
 
@@ -185,12 +193,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":11_0" to="g" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2_0" to="a" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2_1" to="-b" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":2_2" to="a" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":3_0" to="b" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":3_1" to="c" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":7_0" to="d" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":8_0" to="e" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":8_1" to="-f" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":8_1" to="-f" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":8_2" to="-f" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":9_0" to="f" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":9_1" to="-gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":9_2" to="f" fromLane="0" toLane="0" dir="t" state="M"/>
 
 </net>
