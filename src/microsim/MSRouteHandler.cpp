@@ -1537,13 +1537,23 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         const MSEdge* to = nullptr;
         parseFromViaTo(SUMO_TAG_PERSON, attrs);
         myInsertStopEdgesAt = -1;
-        if (attrs.hasAttribute(SUMO_ATTR_FROM) || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION) || attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)
-                || attrs.hasAttribute(SUMO_ATTR_FROMXY) || attrs.hasAttribute(SUMO_ATTR_FROMLONLAT)) {
+        const bool hasExplicitFrom = (attrs.hasAttribute(SUMO_ATTR_FROM) || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION)
+                                      || attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) || attrs.hasAttribute(SUMO_ATTR_FROMXY)
+                                      || attrs.hasAttribute(SUMO_ATTR_FROMLONLAT));
+        if (hasExplicitFrom) {
             from = myActiveRoute.front();
         } else if (myActiveTransportablePlan->empty()) {
             throw ProcessError(TLF("Start edge not defined for person '%'.", myVehicleParameter->id));
         } else {
             from = myActiveTransportablePlan->back()->getDestination();
+        }
+        if (hasExplicitFrom && !myActiveTransportablePlan->empty()) {
+            const MSEdge* const previousDestination = myActiveTransportablePlan->back()->getDestination();
+            if (previousDestination != nullptr && previousDestination != from) {
+                WRITE_WARNINGF(TL("Person '%' starts a personTrip at edge '%' but the previous stage ends at edge '%'. "
+                                  "The person will jump to the new edge."),
+                               id, from != nullptr ? from->getID() : "", previousDestination->getID());
+            }
         }
         if (attrs.hasAttribute(SUMO_ATTR_TO) || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION) || attrs.hasAttribute(SUMO_ATTR_TO_TAZ)
                 || attrs.hasAttribute(SUMO_ATTR_TOXY) || attrs.hasAttribute(SUMO_ATTR_TOLONLAT)) {
