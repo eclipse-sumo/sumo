@@ -37,6 +37,7 @@
 // class declarations
 // ===========================================================================
 class OutputDevice;
+class SUMOSAXAttributes;
 class GUIDetectorWrapper;
 class SUMOTrafficObject;
 class MSTransportable;
@@ -149,6 +150,12 @@ public:
 
     /** @brief Remove all vehicles before quick-loading state */
     virtual void clearState(SUMOTime /*step*/) {};
+
+    /// @brief Saves the state which is needed to continue after loading state
+    virtual void saveState(OutputDevice& /*out*/) const {}
+
+    /// @brief Loads the state, shifting all times by the given offset
+    virtual void loadState(const SUMOSAXAttributes& /*attrs*/, const SUMOTime /*offset*/) {}
 
 protected:
     /// @brief The vehicle types to look for (empty means all)

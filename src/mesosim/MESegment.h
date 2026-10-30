@@ -403,6 +403,16 @@ public:
         return STEPS2TIME(myLastHeadway);
     }
 
+    /// @brief get the last headway time
+    inline SUMOTime getLastHeadway() const {
+        return myLastHeadway;
+    }
+
+    /// @brief restores the last headway time (when loading state)
+    void setLastHeadway(SUMOTime headway) {
+        myLastHeadway = headway;
+    }
+
     /// @brief get the earliest entry time in seconds
     inline double getEntryBlockTimeSeconds() const {
         SUMOTime t = SUMOTime_MAX;
