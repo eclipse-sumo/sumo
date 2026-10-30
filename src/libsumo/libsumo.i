@@ -80,7 +80,23 @@
 %include "POI.h"
 %include "Polygon.h"
 %include "Route.h"
+#ifdef SWIGPYTHON
+// GCC false positive: the "localhost" default temporary is only deleted if SWIG_IsNewObj is set
+%typemap(freearg, noblock=1) const std::string& host {
+%#if defined(__GNUC__)
+%#pragma GCC diagnostic push
+%#pragma GCC diagnostic ignored "-Wfree-nonheap-object"
+%#endif
+if (SWIG_IsNewObj(res$argnum)) delete $1;
+%#if defined(__GNUC__)
+%#pragma GCC diagnostic pop
+%#endif
+}
 %include "Simulation.h"
+%clear const std::string& host;
+#else
+%include "Simulation.h"
+#endif
 %include "TraCIConstants.h"
 %include "TrafficLight.h"
 %include "VehicleType.h"

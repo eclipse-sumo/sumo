@@ -346,13 +346,23 @@ NBPTStopCont::getReverseEdge(NBEdge* edge) {
 
 
 int
-NBPTStopCont::cleanupDeleted(NBEdgeCont& cont) {
+NBPTStopCont::cleanupDeleted(NBEdgeCont& cont, bool reAssign) {
     int numDeleted = 0;
     for (auto i = myPTStops.begin(); i != myPTStops.end();) {
-        if (cont.getByID(i->second->getEdgeId()) == nullptr) {
-            WRITE_WARNINGF(TL("Removing pt stop '%' on non existing edge '%'."), i->first, i->second->getEdgeId());
-            i = myPTStops.erase(i);
-            numDeleted++;
+        auto stop = i->second;
+        if (cont.getByID(stop->getEdgeId()) == nullptr) {
+            NBEdge* reverse = nullptr;
+            if (reAssign) {
+                reverse = cont.getByID("-" + stop->getEdgeId());
+            }
+            if (reverse == nullptr) {
+                WRITE_WARNINGF(TL("Removing pt stop '%' on non existing edge '%'."), i->first, i->second->getEdgeId());
+                i = myPTStops.erase(i);
+                numDeleted++;
+            } else {
+                stop->replaceEdge(stop->getEdgeId(), {reverse});
+                i++;
+            }
         } else {
             i++;
         }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-29 15:44:03.192125 by Eclipse SUMO gtfs2pt.py v1_28_0+0317-2cc06616153
+<configuration>
+    <merged-csv value="data.csv"/>
+    <vtype-output value="vehtypes.xml"/>
+    <coupling value="remove"/>
+    <network value="net.net.xml.gz"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="863573" edges="118686396 32675517 32675520 32675504 32675510 32675481 89982449 892105431 477833122 -390146281 477833121 390146279 32675440 32675431 34547766 34547768 32675457 32675465 32675469 32675471 32675475 32675478 74576877 74576853 28237094 28237095 28758300 28758301 256337251#0 256337251#1 256337261 37449931 37449932 892659970 892659969#0 892659969#1 892659969#2 54182559 149141269 264513777#0 264513777#1 259018097#0 259018097#1 259018097#2 23964582 23970948 28703703#0 28703703#1 1464947027 256267223#0 256267223#1 41134181 695986863 925407495 -41134171 925407496 -140637875#2 -140637875#1 -140637875#0 -1555165464">
+        <stop busStop="863573.0" duration="10" until="0"/> <!-- Selb Stadt -->
+        <stop busStop="863573.1" duration="10" until="120"/> <!-- Selb Nord -->
+        <stop busStop="863573.2" duration="10" until="240"/> <!-- Erkersreuth -->
+        <stop busStop="863573.3" duration="10" until="900"/> <!-- Selb-Plößberg -->
+        <stop busStop="863573.4" duration="10" until="1080"/> <!-- Schönwald(Oberfr) -->
+        <stop busStop="863573.5" duration="10" until="1680"/> <!-- Rehau -->
+        <stop busStop="863573.6" duration="10" until="1920"/> <!-- Wurlitz -->
+        <stop busStop="863573.7" duration="10" until="2220"/> <!-- Oberkotzau -->
+        <stop busStop="863573.8" duration="10" until="2700"/> <!-- Hof Hbf -->
+    </route>
+    <vehicle id="863573.0" route="863573" type="train" depart="65390" line="RB96">
+        <param key="gtfs.route_name" value="RB96"/>
+    </vehicle>
+</routes>

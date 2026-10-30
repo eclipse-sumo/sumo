@@ -13,9 +13,14 @@ title: ChangeLog
     - Fixed invalid predecessor lane used when inserting long train on short edge #18345
     - Fixed failure to reverse train near route end #18385
     - Fixed invalid error "Warning: Invalid approach information to rail signal 'junction ..." #17810
+    - Fixed unsafe entry into occupied single track section #18395
+    - Fixed deadlock due to invalid conflict #18394
+    - Fixed deadlock caused by insertion into a siding #18415
+    - Fixed problems when loading deadlock-output in order to avoid it from re-occuring #18432, #17826, #18422, #17922
   - Fixed issues that caused divergence when loading state:
     - initialization of CCH-router when vTypeDistributions are loaded from state #18365
     - rerouting device: vehicles that have not departed repeat no longer perform extra rerouting after loading state #18366
+    - Fixed initialization of static traffic lights #18410
 
 
 - netedit
@@ -24,6 +29,10 @@ title: ChangeLog
   - Fixed invalid prompt to save network after activating "show connections" in inspect mode #18350 (regression in 1.27.1)
   - When calling sumo-gui with CLTR+T, traffic demand loading now honors the checkbox #18377
   - The "save network" button now activates after recomputing a network with volatile options (SHIFT+F5) #18173
+  - Fixed superfluous empty meanData file in saved sumocfg #17975
+  - Fixed invalid sumocfg when netedit is saving plain-xml #16217
+  - Fixed invalid loading of demand elements on reload when started from within sumo-gui #16137
+  - Reloading now creates a new network when started with option **--new** #14354
 
 - sumo-gui
   - Fixed invalid error on reloading polygon file if SUMO_HOME is not set #13584
@@ -33,15 +42,22 @@ title: ChangeLog
   - Fixed insufficient geo-precision in parquet output #18390
 
 - meso
-  - Fixed extreme slow-down when running simulation with option **--time-to-teleport.disconnected** (regression in 1.28.0) #18357
+  - Fixed extreme slow-down when running simulation with option **--time-to-teleport.disconnected** #18357 (regression in 1.28.0)
+  - state-saving:
+    - multiple issues where state was not properly restored #18362, #18363 (regression in 1.28.0)
+    - meso-ltm specific state is now restored #18364
 
 - netconvert
   - Fixed invalid track direction when processing OSM data with option **--railway.topology.repair** #18349
 
 - duarouter
   - Fixed invalid abort of train routing when running with **--ignore-errors** (also affects sumo) #18335
-  - Fixed crash during railway routing (also affects sumo) #18340
+  - Fixed crash during railway routing (also affects sumo) #18340, #18442
   - Fixed invalid route output with **--bulk-routing** #18355
+
+- traci
+  - Fixed crash in `traci.simulation.loadState` with meso #18389 (regression in 1.28.0)
+  - Fixed invalid event time after adding a stop with default duration in meso #18392
 
 ### Enhancements
 
@@ -60,11 +76,16 @@ title: ChangeLog
 - netconvert
   - Added options for setting default atcuated tls params #10836
 
+- duarouter
+  - Now issues a warning if options **--begin** and **--end** exclude all loaded traffic (also applies to marouter) #12743
+
 - TraCI
   - Added function `traci.edge.getMaxSpeed` #14489
 
 - tools
-  - gtfs2pt.py: now runs twice as fast due to better caching #18333
+  - gtfs2pt.py: now runs much faster due to better caching #18333, #18339
+  - gtfs2pt.py: always use stop before reversal to avoid skipping #18393
+  - sumolib: added helper function `net.getNearestLane` #9004
 
 
 ### Miscellaneous
@@ -72,6 +93,7 @@ title: ChangeLog
 - Fixed VISSIM import documentation language #6082
 - Fixed gprof/profiling build so that it generates profiling output again with newer compilers #18386
 - SUMOLibraries should now be downloaded as a released zip instead of doing git clone #18331
+- Fixed divergent behavior on macOS arm64 vs Linux x86_64 due to inconsistent compiler defaults #18344
 
 
 ## Version 1.28.0 (08.10.2026)

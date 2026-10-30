@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-29 15:51:33.288030 by Eclipse SUMO gtfs2pt.py v1_28_0+0321-e79bed16c72
+<configuration>
+    <merged-csv value="data.csv"/>
+    <vtype-output value="vehtypes.xml"/>
+    <coupling value="remove"/>
+    <network value="net.net.xml.gz"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop id="100250.2" lane="-390146281_0" startPos="27.06" endPos="137.06" friendlyPos="true" name="Selb-Plößberg"/>
+    <trainStop id="100250.3" lane="34547768_0" startPos="0.00" endPos="110.00" friendlyPos="true" name="Schönwald(Oberfr)"/>
+    <trainStop id="100250.4" lane="256337251#1_0" startPos="0.00" endPos="110.00" friendlyPos="true" name="Rehau"/>
+    <trainStop id="100250.5" lane="37449932_0" startPos="791.51" endPos="901.51" friendlyPos="true" name="Wurlitz"/>
+    <trainStop id="100250.6" lane="-1555165464_0" startPos="0.00" endPos="110.00" friendlyPos="true" name="Hof Hbf"/>
+    <trainStop id="863573.0" lane="118686396_0" startPos="0.00" endPos="110.00" friendlyPos="true" name="Selb Stadt"/>
+    <trainStop id="863573.1" lane="32675520_0" startPos="595.09" endPos="705.09" friendlyPos="true" name="Selb Nord"/>
+    <trainStop id="863573.2" lane="32675510_0" startPos="840.70" endPos="950.70" friendlyPos="true" name="Erkersreuth"/>
+    <trainStop id="863573.3" lane="892659970_0" startPos="0.00" endPos="110.00" friendlyPos="true" name="Oberkotzau"/>
+</additional>
