@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-28 22:58:38.526762 by Eclipse SUMO gtfs2pt.py v1_28_0+0307-a13172ac69a
+<configuration>
+    <merged-csv value="data.csv"/>
+    <vtype-output value="vehtypes.xml"/>
+    <human-readable-time value="True"/>
+    <network value="net.net.xml.gz"/>
+    <stops value="input_stops.xml"/>
+    <radius value="500.0"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="1162780" edges="-399334324 -16963309 16949453 183017432 198186800#0 198186800#1">
+        <stop busStop="1162780.0" duration="00:00:10" until="00:00:00"/> <!-- Wernigerode Wernigerode Westerntor Gleis 1 -->
+        <stop busStop="1162780.0" duration="00:00:10" until="00:01:10"/> <!-- Wernigerode Wd_Wdt 004 P4 -->
+        <stop busStop="1162780.2" duration="00:00:10" until="00:01:40"/> <!-- Wernigerode Wd_Wdt 003 P3 -->
+        <stop busStop="1162780.2" duration="00:00:10" until="00:01:59"/> <!-- Wernigerode Wd_Wdt 002 P2 -->
+        <stop busStop="1162780.2" duration="00:00:10" until="00:02:28"/> <!-- Wernigerode Wd_Wdt 001 P1 -->
+        <stop busStop="1162780.2" duration="00:00:10" until="00:03:00"/> <!-- Wernigerode Wernigerode Gleis 31 -->
+    </route>
+    <vehicle id="1162780.0" route="1162780" type="train" depart="17:27:50" line="HSB">
+        <param key="gtfs.route_name" value="HSB"/>
+    </vehicle>
+</routes>

@@ -18,3 +18,6 @@ import_begin72000_end115200
 import_begin72000_end259200
 mapping
 block_id
+
+# handling of coupled trains
+coupling

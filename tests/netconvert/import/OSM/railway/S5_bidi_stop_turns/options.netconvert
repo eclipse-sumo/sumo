@@ -1,0 +1,6 @@
+--osm-files osm.xml.gz
+--ptstop-output additional.xml
+--ptline-output ptlines.xml
+--railway.topology.all-bidi
+--railway.topology.repair.stop-turn
+--no-internal-links

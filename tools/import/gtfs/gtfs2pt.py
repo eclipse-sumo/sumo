@@ -284,16 +284,15 @@ def precomputeRoutes(options, net, modePreferences, noIntNet, veh2mode, fixedSto
             for e in net.getEdges():
                 e._costCache = e.getLength() / (prefs.get(e.getRoutingType(), 1.0) * e.getSpeed())
 
-        #print(vehicle.id)
         vClass = OSM2SUMO_MODES[vehicle.type]
         edgeIDs = route.edges.split()
         edges = [net.getEdge(e) for e in edgeIDs]
-        assert(len(edges) >= 2)
+        assert len(edges) >= 2
         fromEdge = edges[0]
         toEdge = edges[-1]
         disconnected.remove((fromEdge, toEdge, vehicle.type))
-        dist = net._routingCache(fromEdge, True, vClass, False, 1000,
-                                  tuple(modePreferences[vehicle.type].items()))
+        # getOptimalPath computes raw costs from end of origin edge
+        # to end of destination edge (see finalizeCosts)
         cost = -edges[0]._costCache
         prev = None
         for i, edge in enumerate(edges):
@@ -306,6 +305,7 @@ def precomputeRoutes(options, net, modePreferences, noIntNet, veh2mode, fixedSto
     for fromEdge, toEdge, mode in disconnected:
         vClass = OSM2SUMO_MODES[mode]
         net.cacheRoute(fromEdge, toEdge, True, vClass, PRACTICAL_INFINITY, None)
+
 
 @benchmark
 def traceMap(options, net, modePreferences, veh2mode, fixedStops, stopLookup, radius, geoRoutes):
@@ -532,6 +532,7 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                                         bestDist = dist
                                         result = (lane.getID(), float(stopObj.startPos), endPos)
                     if result is None and candidate_edges:
+                        candidate_edges = [e for e in candidate_edges if e in route[lastIndex:]]
                         result = gtfsutils.getBestLane(net, s.lon, s.lat, options.radius, stopLength,
                                                        options.center_stops, candidate_edges, OSM2SUMO_MODES[mode],
                                                        (route[lastIndex], lastPos))
@@ -716,7 +717,8 @@ def main(options):
                     alpha = (4 - i) / 4
                     modePreferences[mode][str(i)] = alpha * 1 / (1 + options.rpFactor) + (1 - alpha)
         if options.bulkPrefix:
-            precomputeRoutes(options, net, modePreferences, noIntNet, veh2mode, fixedStops, stopLookup, options.radius, geoRoutes)
+            precomputeRoutes(options, net, modePreferences, noIntNet, veh2mode,
+                             fixedStops, stopLookup, options.radius, geoRoutes)
         routes = traceMap(options, net, modePreferences, veh2mode, fixedStops, stopLookup, options.radius, geoRoutes)
 
         if options.poly_output:
