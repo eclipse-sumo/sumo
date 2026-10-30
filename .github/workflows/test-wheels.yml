@@ -58,17 +58,16 @@ jobs:
     - name: Preparing Python environment
       shell: bash
       run: |
-        if [[ "${{ matrix.os }}" != "windows-latest" ]]; then SITE_PACKAGES="--system-site-packages"; fi
-        python -m venv testenv $SITE_PACKAGES
+        python -m venv testenv --system-site-packages
         source testenv/*/activate
         python -m pip install --upgrade pip
         python -m pip install wheel  # need to do this separately because the texttest install wants it
         python -m pip install texttest
 
-    # - name: Installing dependencies (windows)
-    #   if: matrix.os == 'windows-latest'
-    #   # texttest has a hard time finding dependencies
-    #   run: python -m pip install -r tools/req_ci.txt
+    - name: Installing dependencies (windows)
+      if: matrix.os == 'windows-latest'
+      # texttest has a hard time finding dependencies
+      run: python -m pip install -r tools/req_ci.txt
 
     - name: Installing sumo wheels (macos / windows)
       if: ${{ !startsWith(matrix.os, 'ubuntu') || inputs.wheel_source != 'python-wheels' }}
