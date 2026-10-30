@@ -67,7 +67,7 @@ public:
      *
      * @param cont
      */
-    int cleanupDeleted(NBEdgeCont& cont);
+    int cleanupDeleted(NBEdgeCont& cont, bool reAssign = false);
 
     void assignLanes(NBEdgeCont& cont);
 
