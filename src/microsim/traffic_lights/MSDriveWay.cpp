@@ -891,7 +891,7 @@ MSDriveWay::crossingConflict(const MSDriveWay& other) const {
                         && &lane->getEdge() != myRoute.back()) {
                     // switch/crossing is also a rail_signal (direct control) at the end of the forward section.
                     // (and the route continues)
-                    // This means the coflict is already guarded
+                    // This means the conflict is already guarded
                     return false;
                 }
                 return true;
