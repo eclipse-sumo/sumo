@@ -41,3 +41,6 @@ siding_crossing_deadlock
 
 # deadlock involving a long train that blocks the outflow of the other side over a diamond crossing. Different order of arrivals
 siding_crossing_deadlock2
+
+# see #18456
+reversal

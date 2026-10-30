@@ -2,7 +2,7 @@ import groovy.json.JsonSlurper
 
 pipeline {
     agent {
-        label 'macos-14'
+        label 'macos-15'
     }
     environment {
         PATH = "${env.PATH}:/opt/homebrew/bin"

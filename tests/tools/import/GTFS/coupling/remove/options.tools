@@ -1,0 +1,3 @@
+--coupling remove -n net.net.xml.gz --merged-csv data.csv --vtype-output vehtypes.xml
+--merged-csv-output out.csv
+tools/import/gtfs/gtfs2pt.py
