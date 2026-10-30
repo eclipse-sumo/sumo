@@ -1,0 +1,1 @@
+--input-file routes.rou.xml --output-file out.rou.xml --random-depart-offset=-5,5 --seed 42 tools/route/route_departOffset.py

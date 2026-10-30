@@ -18,3 +18,9 @@ offset10_arrivalEdges
 
 # Tests for <SUMO_DIST>/tools/route_tools/route_departOffset.py
 offset_move_interval
+
+# random depart offsets may be negative
+offset_random
+
+# negative offsets clamp departures to 0
+offset_negative
