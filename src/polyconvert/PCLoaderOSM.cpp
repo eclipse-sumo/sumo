@@ -47,6 +47,7 @@
 // static members
 // ---------------------------------------------------------------------------
 const std::set<std::string> PCLoaderOSM::MyKeysToInclude(PCLoaderOSM::initMyKeysToInclude());
+bool PCLoaderOSM::myFullType(false);
 
 // ===========================================================================
 // method definitions
@@ -96,6 +97,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
     // load nodes, first
     std::map<long long int, PCOSMNode*> nodes;
     bool withAttributes = oc.getBool("all-attributes");
+    myFullType = oc.getBool("osm.keep-full-type");
     MsgHandler* m = OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
     NodesHandler nodesHandler(nodes, withAttributes, *m);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
@@ -347,7 +349,7 @@ PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const 
         bool fill = def.allowFill == PCTypeMap::Filltype::FORCE || (def.allowFill == PCTypeMap::Filltype::FILL && closedShape);
         SUMOPolygon* poly = new SUMOPolygon(
             StringUtils::escapeXML(id),
-            StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),
+            StringUtils::escapeXML(myFullType ? fullType : def.id),
             def.color, vec, false, fill, 1, def.layer,
             SUMOPolygon::DEFAULT_ANGLE,
             SUMOPolygon::DEFAULT_IMG_FILE,
@@ -375,7 +377,7 @@ PCLoaderOSM::addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap:
         const std::string id = def.prefix + (useName && node->name != "" ? node->name : toString(node->id)) + idSuffix;
         PointOfInterest* poi = new PointOfInterest(
             StringUtils::escapeXML(id),
-            StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),
+            StringUtils::escapeXML(myFullType ? fullType : def.id),
             def.color, pos, false, "", 0, false, 0, def.icon, def.layer);
         if (withAttributes) {
             poi->updateParameters(node->myAttributes);
@@ -394,7 +396,9 @@ PCLoaderOSM::addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap:
 // ---------------------------------------------------------------------------
 PCLoaderOSM::NodesHandler::NodesHandler(std::map<long long int, PCOSMNode*>& toFill,
                                         bool withAttributes, MsgHandler& errorHandler) :
-    SUMOSAXHandler("osm - file"), myWithAttributes(withAttributes), myErrorHandler(errorHandler),
+    SUMOSAXHandler("osm - file"),
+    myWithAttributes(withAttributes),
+    myErrorHandler(errorHandler),
     myToFill(toFill), myLastNodeID(-1) {}
 
 
