@@ -88,5 +88,9 @@ spreadType
 # see #18146
 tram_on_road
 
+# test narrow_gauge
+# see #18447
+brockenbahn
+
 # tests using S42 (Berlin)
 S42
