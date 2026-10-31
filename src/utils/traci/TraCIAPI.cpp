@@ -1676,16 +1676,22 @@ TraCIAPI::TrafficLightScope::getAllProgramLogics(const std::string& tlsID) const
         const int logicNo = myParent.myInput.readInt();
         for (int i = 0; i < logicNo; ++i) {
             myParent.myInput.readUnsignedByte();
-            myParent.myInput.readInt();
+            const int numElements = myParent.myInput.readInt();
             myParent.myInput.readUnsignedByte();
             const std::string programID = myParent.myInput.readString();
             myParent.myInput.readUnsignedByte();
             const int type = myParent.myInput.readInt();
             myParent.myInput.readUnsignedByte();
             const int phaseIndex = myParent.myInput.readInt();
+            double offset = 0.;
+            if (numElements == 6) {
+                myParent.myInput.readUnsignedByte();
+                offset = myParent.myInput.readDouble();
+            }
             myParent.myInput.readUnsignedByte();
             const int phaseNumber = myParent.myInput.readInt();
             libsumo::TraCILogic logic(programID, type, phaseIndex);
+            logic.offset = offset;
             for (int j = 0; j < phaseNumber; j++) {
                 myParent.myInput.readUnsignedByte();
                 myParent.myInput.readInt();
@@ -1837,14 +1843,19 @@ TraCIAPI::TrafficLightScope::setPhaseDuration(const std::string& tlsID, double p
 void
 TraCIAPI::TrafficLightScope::setProgramLogic(const std::string& tlsID, const libsumo::TraCILogic& logic) const {
     tcpip::Storage content;
+    const bool withOffset = logic.offset != 0.;
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(5);
+    content.writeInt(withOffset ? 6 : 5);
     content.writeUnsignedByte(libsumo::TYPE_STRING);
     content.writeString(logic.programID);
     content.writeUnsignedByte(libsumo::TYPE_INTEGER);
     content.writeInt(logic.type);
     content.writeUnsignedByte(libsumo::TYPE_INTEGER);
     content.writeInt(logic.currentPhaseIndex);
+    if (withOffset) {
+        content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+        content.writeDouble(logic.offset);
+    }
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
     content.writeInt((int)logic.phases.size());
     for (const std::shared_ptr<libsumo::TraCIPhase>& p : logic.phases) {

@@ -352,8 +352,9 @@ public class SumoCommand {
         } else if (input.getClass().equals(SumoTLSProgram.class)) {
 
             SumoTLSProgram stl = (SumoTLSProgram) input;
+            boolean withOffset = stl.offset != 0.;
             cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
-            cmd.content().writeInt(5);
+            cmd.content().writeInt(withOffset ? 6 : 5);
 
             cmd.content().writeUnsignedByte(Constants.TYPE_STRING);
             cmd.content().writeStringASCII(stl.subID);
@@ -363,6 +364,11 @@ public class SumoCommand {
 
             cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
             cmd.content().writeInt(stl.currentPhaseIndex);
+
+            if (withOffset) {
+                cmd.content().writeUnsignedByte(Constants.TYPE_DOUBLE);
+                cmd.content().writeDouble(stl.offset);
+            }
 
             cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
             cmd.content().writeInt(stl.phases.size());
