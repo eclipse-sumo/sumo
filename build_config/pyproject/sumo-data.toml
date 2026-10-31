@@ -29,5 +29,8 @@ build-dir = "_skbuild"
 build.targets = ["install_mo", "install_dll"]
 install.components = ["data", "dll", "proj_data"]
 wheel.install-dir = "sumo_data"
-wheel.platlib = false
 wheel.py-api = "py3"
+
+[tool.cibuildwheel]
+before-all = "build_config/install_dependencies.sh"
+build = ["cp312*manylinux_x86_64", "cp312*manylinux_aarch64"]

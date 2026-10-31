@@ -47,8 +47,6 @@ jobs:
           python -m build
           python tools/build_config/version.py --pep440 build_config/pyproject/traci.toml pyproject.toml
           python -m build
-          python tools/build_config/version.py --pep440 build_config/pyproject/sumo-data.toml pyproject.toml
-          python -m build --wheel
 
       - uses: actions/upload-artifact@v7
         with:
@@ -118,12 +116,27 @@ jobs:
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
           CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
 
-      - name: Building windows / macos platform wheel sumo-data
-        if: ${{ startsWith(matrix.os, 'windows') || startsWith(matrix.os, 'macos') }}
+      - name: Preparing wheel sumo-data
         run: |
           python -m pip install -r tools/req_dev.txt
-          python tools/build_config/version.py --pep440plat build_config/pyproject/sumo-data.toml pyproject.toml
-          python -m build --wheel -o wheelhouse
+          python tools/build_config/version.py --pep440 build_config/pyproject/sumo-data.toml pyproject.toml
+
+      - name: Building windows / macos platform wheel sumo-data
+        if: ${{ startsWith(matrix.os, 'windows') || startsWith(matrix.os, 'macos') }}
+        run: python -m build --wheel -o wheelhouse
+
+      - name: Building linux platform wheel sumo-data
+        if: ${{ startsWith(matrix.os, 'ubuntu') }}
+        uses: pypa/cibuildwheel@v4.3.4
+        env:
+          CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
+          CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
+          # sumo-data has no ELF files at this point, so auditwheel refuses to repair it
+          CIBW_REPAIR_WHEEL_COMMAND_LINUX: ""
+
+      - name: Retagging linux wheel sumo-data
+        if: ${{ startsWith(matrix.os, 'ubuntu') }}
+        run: python -m wheel tags --remove --platform-tag ${{ matrix.manylinux }}_$(uname -m) wheelhouse/sumo_data*.whl
 
       - name: Preparing wheel libsumo
         run: python tools/build_config/version.py --pep440 build_config/pyproject/libsumo.toml pyproject.toml
@@ -138,8 +151,8 @@ jobs:
           # CIBW_REPAIR_WHEEL_COMMAND: ""  # disable repair process to inspect the wheel
           # CIBW_BUILD_VERBOSITY: 2
 
-      - name: Relocating libs in macos wheels to sumo-data
-        if: ${{ startsWith(matrix.os, 'macos') }}
+      - name: Relocating libs in macos/linux wheels to sumo-data
+        if: ${{ startsWith(matrix.os, 'macos') || startsWith(matrix.os, 'ubuntu') }}
         run: |
           python tools/build_config/relocate.py wheelhouse
           mv wheelhouse ci_wheelhouse
