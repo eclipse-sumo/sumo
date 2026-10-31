@@ -198,6 +198,15 @@ public:
     /// @brief update entry blockTime for all queues
     virtual void updateEntryBlockTime(SUMOTime /*time*/) {}
 
+    /** @brief Returns the minimum distance between the segment end and the front of a queued vehicle (for position interpolation)
+     *
+     * @param[in] qIdx The queue of the vehicle
+     * @param[in] lengthAhead The total length (with gaps) of the vehicles ahead in the queue
+     * @param[in] time The current time
+     */
+    virtual double getMinDistanceToEnd(int /*qIdx*/, double /*lengthAhead*/, SUMOTime /*time*/) const {
+        return 0.;
+    }
     /// @brief model specific queue state (e.g. the gap times of meso-ltm) for saving / loading
     virtual std::string getQueueExtraState(int /*qIdx*/) const {
         return "";
@@ -552,6 +561,11 @@ protected:
 
     /// @brief check jam-avoidance constraints during insertion
     virtual bool hasSpaceForInsertion(const Queue& q, int qIdx, double newOccupancy, SUMOTime entryTime) const;
+
+    /// @brief whether space vacated by vehicles that left the given queue has not yet reached the upstream end
+    virtual bool hasTravelingGaps(int /*qIdx*/, SUMOTime /*time*/) const {
+        return false;
+    }
 
 protected:
     /// @brief The microsim edge this segment belongs to

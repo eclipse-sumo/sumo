@@ -71,8 +71,10 @@ MELSegment::MELSegment(const std::string& id,
                        const int idx,
                        const bool multiQueue,
                        const MesoEdgeType& edgeType):
-    MESegment(id, parent, next, length, speed, idx, multiQueue, edgeType) {
-    myGapTimes.resize(myQueues.size());
+    MESegment(id, parent, next, length, speed, idx, multiQueue, edgeType),
+    // the gap only has to pass the vehicles that fit into the segment (the remaining length cannot be occupied)
+    myJamLength(MAX2(1., floor(length / DEFAULT_VEH_LENGTH_WITH_GAP)) * DEFAULT_VEH_LENGTH_WITH_GAP) {
+    myGaps.resize(myQueues.size());
 }
 
 
@@ -97,11 +99,17 @@ MELSegment::computeHeadway(Queue& /*q*/, const Queue& /*qNext*/, const MESegment
 
 void
 MELSegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOTime time, const MSMoveReminder::Notification reason) {
-    GapTimes& gapTimes = myGapTimes[veh->getQueIndex()];
+    Gaps& gaps = myGaps[veh->getQueIndex()];
     // record time when the gap vacated by ego will reach the upstream end of the segment
     // gaps travel quickly in free flow (the number of gaps and vehicles stays below the segment capacity)
     // but they travel more slowly when queued (startupDelay)
-    gapTimes.insert(gapTimes.begin(), time + (SUMOTime)(myLength * (double)(veh->getQueuingTimeLoss() > 0 ? myTau_jj : myTau_ff) / DEFAULT_VEH_LENGTH_WITH_GAP));
+    const bool queued = veh->getQueuingTimeLoss() > 0;
+    const SUMOTime waveTime = (SUMOTime)(myJamLength * (double)(queued ? myTau_jj : myTau_ff) / DEFAULT_VEH_LENGTH_WITH_GAP);
+    // the entering vehicle needs this long to drive through the length that cannot be occupied
+    const SUMOTime remainderTime = TIME2STEPS((myLength - myJamLength) / myEdge.getSpeedLimit());
+    myEdge.lock(); // the gui reads the gaps when drawing vehicles
+    gaps.insert(gaps.begin(), {time + MAX2((SUMOTime)0, waveTime - remainderTime), time, queued});
+    myEdge.unlock();
     MESegment::send(veh, next, nextQIdx, time, reason);
 }
 
@@ -110,40 +118,91 @@ void
 MELSegment::updateEntryBlockTime(SUMOTime time) {
     for (int qIdx = 0; qIdx < (int)myQueues.size(); qIdx++) {
         Queue& q = myQueues[qIdx];
-        GapTimes& gapTimes = myGapTimes[qIdx];
-        while (!gapTimes.empty() && gapTimes.back() <= time) {
-            gapTimes.pop_back();
-        }
-        if (!gapTimes.empty() && q.getOccupancy() + (double)gapTimes.size() * DEFAULT_VEH_LENGTH_WITH_GAP > myQueueCapacity) {
+        const int numGaps = numTravelingGaps(qIdx, time);
+        // the entering vehicle needs space in addition to the vehicles and the traveling gaps
+        if (numGaps > 0 && q.getOccupancy() + (double)(numGaps + 1) * DEFAULT_VEH_LENGTH_WITH_GAP > myQueueCapacity) {
             // segment is jammed because the empty spaces have not yet reached the upstream end.
-            q.setEntryBlockTime(MAX2(q.getEntryBlockTime(), gapTimes.back()));
+            q.setEntryBlockTime(MAX2(q.getEntryBlockTime(), myGaps[qIdx].back().arrival));
         }
     }
 }
 
 
 bool
-MELSegment::hasSpaceForInsertion(const Queue& q, int qIdx, double /*newOccupancy*/, SUMOTime entryTime) const {
-    GapTimes& gapTimes = const_cast<GapTimes&>(myGapTimes[qIdx]);
-    while (!gapTimes.empty() && gapTimes.back() <= entryTime) {
-        gapTimes.pop_back();
+MELSegment::hasSpaceForInsertion(const Queue& /*q*/, int qIdx, double newOccupancy, SUMOTime entryTime) const {
+    return newOccupancy + (double)numTravelingGaps(qIdx, entryTime) * DEFAULT_VEH_LENGTH_WITH_GAP <= myQueueCapacity;
+}
+
+
+bool
+MELSegment::hasTravelingGaps(int qIdx, SUMOTime time) const {
+    return numTravelingGaps(qIdx, time) > 0;
+}
+
+
+double
+MELSegment::getMinDistanceToEnd(int qIdx, double lengthAhead, SUMOTime time) const {
+    // a queued vehicle may only move into the space vacated by a departing vehicle once the start wave
+    // has reached the place where it waits (one jam spacing behind the vacated space).
+    // The distance grows with the number of waves that did not yet arrive so we search the smallest consistent distance
+    const double lengthToDist = myLength / myQueueCapacity;
+    double dist = lengthAhead * lengthToDist;
+    int waveNotArrived = 0;
+    while (true) {
+        const double distFraction = MIN2(1., (dist + DEFAULT_VEH_LENGTH_WITH_GAP * lengthToDist) / myJamLength);
+        int count = 0;
+        for (const Gap& gap : myGaps[qIdx]) {
+            if (gap.queued && gap.departure + (SUMOTime)(myJamLength * (double)myTau_jj / DEFAULT_VEH_LENGTH_WITH_GAP * distFraction) > time) {
+                count++;
+            }
+        }
+        if (count <= waveNotArrived) {
+            return dist;
+        }
+        waveNotArrived = count;
+        dist = (lengthAhead + (double)waveNotArrived * DEFAULT_VEH_LENGTH_WITH_GAP) * lengthToDist;
     }
-    return q.getOccupancy() + (double)gapTimes.size() * DEFAULT_VEH_LENGTH_WITH_GAP <= myQueueCapacity;
+}
+
+
+int
+MELSegment::numTravelingGaps(int qIdx, SUMOTime time) const {
+    Gaps& gaps = const_cast<Gaps&>(myGaps[qIdx]);
+    if (!gaps.empty() && gaps.back().arrival <= time) {
+        myEdge.lock(); // the gui reads the gaps when drawing vehicles
+        while (!gaps.empty() && gaps.back().arrival <= time) {
+            gaps.pop_back();
+        }
+        myEdge.unlock();
+    }
+    return (int)gaps.size();
 }
 
 
 std::string
 MELSegment::getQueueExtraState(int qIdx) const {
-    return joinToString(myGapTimes[qIdx], " ");
+    // three values per gap: arrival, departure, queued
+    std::string result;
+    for (const Gap& gap : myGaps[qIdx]) {
+        if (!result.empty()) {
+            result += " ";
+        }
+        result += toString(gap.arrival);
+        result += " ";
+        result += toString(gap.departure);
+        result += gap.queued ? " 1" : " 0";
+    }
+    return result;
 }
 
 
 void
 MELSegment::loadQueueExtraState(int qIdx, const std::string& state, SUMOTime offset) {
-    GapTimes& gapTimes = myGapTimes[qIdx];
-    gapTimes.clear();
-    for (const std::string& t : StringTokenizer(state).getVector()) {
-        gapTimes.push_back(StringUtils::toLong(t) - offset);
+    Gaps& gaps = myGaps[qIdx];
+    gaps.clear();
+    const std::vector<std::string> values = StringTokenizer(state).getVector();
+    for (int i = 0; i + 2 < (int)values.size(); i += 3) {
+        gaps.push_back({StringUtils::toLong(values[i]) - offset, StringUtils::toLong(values[i + 1]) - offset, values[i + 2] == "1"});
     }
 }
 
