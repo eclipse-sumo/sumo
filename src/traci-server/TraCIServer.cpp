@@ -190,17 +190,11 @@ TraCIServer::wrapPosition(const std::string& /* objID */, const int variable, co
 
 
 bool
-TraCIServer::wrapPositionVector(const std::string& /* objID */, const int /* variable */, const libsumo::TraCIPositionVector& shape) {
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_POLYGON);
-    if (shape.value.size() < 256) {
-        myWrapperStorage.writeUnsignedByte((int)shape.value.size());
+TraCIServer::wrapPositionVector(const std::string& /* objID */, const int variable, const libsumo::TraCIPositionVector& shape) {
+    if (variable == libsumo::VAR_SHAPE3D) {
+        StoHelp::writePolygon3D(myWrapperStorage, shape);
     } else {
-        myWrapperStorage.writeUnsignedByte(0);
-        myWrapperStorage.writeInt((int)shape.value.size());
-    }
-    for (const libsumo::TraCIPosition& pos : shape.value) {
-        myWrapperStorage.writeDouble(pos.x);
-        myWrapperStorage.writeDouble(pos.y);
+        StoHelp::writePolygon(myWrapperStorage, shape);
     }
     return true;
 }

@@ -126,6 +126,12 @@ Lane::getShape(const std::string& laneID) {
 }
 
 
+libsumo::TraCIPositionVector
+Lane::getShape3D(const std::string& laneID) {
+    return Dom::getPolygon3D(libsumo::VAR_SHAPE3D, laneID);
+}
+
+
 double
 Lane::getWidth(const std::string& laneID) {
     return Dom::getDouble(libsumo::VAR_WIDTH, laneID);

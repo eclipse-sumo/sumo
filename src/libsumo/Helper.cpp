@@ -350,10 +350,10 @@ Helper::fuseLaneCoverage(std::shared_ptr<LaneCoverageInfo> aggregatedLaneCoverag
 
 
 TraCIPositionVector
-Helper::makeTraCIPositionVector(const PositionVector& positionVector) {
+Helper::makeTraCIPositionVector(const PositionVector& positionVector, const bool includeZ) {
     TraCIPositionVector tp;
     for (int i = 0; i < (int)positionVector.size(); ++i) {
-        tp.value.push_back(makeTraCIPosition(positionVector[i]));
+        tp.value.push_back(makeTraCIPosition(positionVector[i], includeZ));
     }
     return tp;
 }

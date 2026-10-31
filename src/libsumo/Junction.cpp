@@ -71,6 +71,12 @@ Junction::getShape(const std::string& junctionID) {
 }
 
 
+TraCIPositionVector
+Junction::getShape3D(const std::string& junctionID) {
+    return Helper::makeTraCIPositionVector(getJunction(junctionID)->getShape(), true);
+}
+
+
 const std::vector<std::string>
 Junction::getIncomingEdges(const std::string& junctionID) {
     std::vector<std::string> result;
@@ -163,6 +169,8 @@ Junction::handleVariable(const std::string& objID, const int variable, VariableW
             return wrapper->wrapPosition(objID, variable, getPosition(objID, variable == VAR_POSITION3D));
         case VAR_SHAPE:
             return wrapper->wrapPositionVector(objID, variable, getShape(objID));
+        case VAR_SHAPE3D:
+            return wrapper->wrapPositionVector(objID, variable, getShape3D(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

@@ -55,6 +55,7 @@ public:
     static std::vector<std::string> getChangePermissions(const std::string& laneID, const int direction);
     static std::vector<libsumo::TraCIConnection> getLinks(const std::string& laneID);
     static libsumo::TraCIPositionVector getShape(const std::string& laneID);
+    static libsumo::TraCIPositionVector getShape3D(const std::string& laneID);
     static double getWidth(const std::string& laneID);
     static double getCO2Emission(const std::string& laneID);
     static double getCOEmission(const std::string& laneID);

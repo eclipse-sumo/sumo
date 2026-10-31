@@ -209,7 +209,21 @@ public:
             libsumo::TraCIPosition p;
             p.x = ret.readDouble();
             p.y = ret.readDouble();
-            p.z = 0.;
+            p.z = libsumo::INVALID_DOUBLE_VALUE;
+            poly.value.emplace_back(p);
+        }
+    }
+
+    static inline void readPolygon3D(tcpip::Storage& ret, libsumo::TraCIPositionVector& poly) {
+        int size = ret.readUnsignedByte();
+        if (size == 0) {
+            size = ret.readInt();
+        }
+        for (int i = 0; i < size; ++i) {
+            libsumo::TraCIPosition p;
+            p.x = ret.readDouble();
+            p.y = ret.readDouble();
+            p.z = ret.readDouble();
             poly.value.emplace_back(p);
         }
     }
@@ -467,6 +481,21 @@ public:
         for (const libsumo::TraCIPosition& pos : shape.value) {
             content.writeDouble(pos.x);
             content.writeDouble(pos.y);
+        }
+    }
+
+    static inline void writePolygon3D(tcpip::Storage& content, const libsumo::TraCIPositionVector& shape) {
+        content.writeUnsignedByte(libsumo::POLYGON_3D);
+        if (shape.value.size() <= 255) {
+            content.writeUnsignedByte((int)shape.value.size());
+        } else {
+            content.writeUnsignedByte(0);
+            content.writeInt((int)shape.value.size());
+        }
+        for (const libsumo::TraCIPosition& pos : shape.value) {
+            content.writeDouble(pos.x);
+            content.writeDouble(pos.y);
+            content.writeDouble(pos.z);
         }
     }
 
