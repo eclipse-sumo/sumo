@@ -20,6 +20,7 @@ routeID horizontal
 routeIndex 0
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
 lanePos 10.567193502862938
+arrivalPos 250.0
 color (255, 255, 0, 255)
 bestLanes (('2fi_0', 3000.0, 0.0, 0, True, ('2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0')),)
 CO2 4933.089347060936
@@ -112,6 +113,7 @@ routeID horizontal
 routeIndex 0
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
 lanePos 35.95191826062743
+arrivalPos 250.0
 color (255, 0, 0, 255)
 bestLanes (('2fi_0', 3000.0, 0.0, 0, True, ('2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0')),)
 CO2 0.0
@@ -204,6 +206,7 @@ routeID horizontal
 routeIndex -1073741824
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
 lanePos -1073741824.0
+arrivalPos 250.0
 color (255, 255, 0, 255)
 bestLanes ()
 CO2 -1073741824.0
@@ -316,6 +319,7 @@ routeID horizontal
 routeIndex 0
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
 lanePos 12.018344561429695
+arrivalPos 250.0
 color (255, 255, 0, 255)
 bestLanes (('2fi_0', 3000.0, 0.0, 0, True, ('2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0')),)
 CO2 3997.9354783050667
@@ -678,6 +682,7 @@ routeID !movedVeh!var#1
 routeIndex 0
 route ('1si',)
 lanePos 208.19101834282102
+arrivalPos 250.0
 color (255, 255, 0, 255)
 bestLanes (('1si_0', 250.0, 0.0, 0, True, ('1si_0',)), ('1si_1', 250.0, 0.0, 0, True, ('1si_1',)), ('1si_2', 250.0, 0.0, 0, True, ('1si_2',)))
 CO2 46479.824059739105
@@ -824,6 +829,7 @@ routeID horizontal
 routeIndex -1073741824
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
 lanePos -1073741824.0
+arrivalPos 250.0
 color (255, 255, 0, 255)
 bestLanes ()
 CO2 -1073741824.0
@@ -908,6 +914,7 @@ routeID horizontal
 routeIndex -1073741824
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
 lanePos -1073741824.0
+arrivalPos 250.0
 color (255, 255, 0, 255)
 bestLanes ()
 CO2 -1073741824.0
@@ -992,6 +999,7 @@ routeID horizontal
 routeIndex -1073741824
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
 lanePos -1073741824.0
+arrivalPos 250.0
 color (255, 255, 0, 255)
 bestLanes ()
 CO2 -1073741824.0
@@ -1076,6 +1084,7 @@ routeID horizontal
 routeIndex -1073741824
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
 lanePos -1073741824.0
+arrivalPos 250.0
 color (255, 255, 0, 255)
 bestLanes ()
 CO2 -1073741824.0

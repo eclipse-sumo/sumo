@@ -63,6 +63,7 @@ def check(vehID):
     print("routeIndex", traci.vehicle.getRouteIndex(vehID))
     print("route", traci.vehicle.getRoute(vehID))
     print("lanePos", traci.vehicle.getLanePosition(vehID))
+    print("arrivalPos", traci.vehicle.getArrivalPos(vehID))
     print("color", traci.vehicle.getColor(vehID))
     print("bestLanes", traci.vehicle.getBestLanes(vehID))
     print("CO2", traci.vehicle.getCO2Emission(vehID))

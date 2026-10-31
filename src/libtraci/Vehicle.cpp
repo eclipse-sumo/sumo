@@ -172,6 +172,12 @@ Vehicle::getLanePosition(const std::string& vehID) {
     return Dom::getDouble(libsumo::VAR_LANEPOSITION, vehID);
 }
 
+
+double
+Vehicle::getArrivalPos(const std::string& vehID) {
+    return Dom::getDouble(libsumo::VAR_ARRIVALPOS, vehID);
+}
+
 double
 Vehicle::getLateralLanePosition(const std::string& vehID) {
     return Dom::getDouble(libsumo::VAR_LANEPOSITION_LAT, vehID);

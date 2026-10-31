@@ -20,6 +20,7 @@ routeID horizontal
 routeIndex 0
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
 lanePos 0.0
+arrivalPos 250.0
 color (255, 255, 0, 255)
 bestLanes ()
 CO2 2152.1251700847642
@@ -108,6 +109,7 @@ routeID horizontal
 routeIndex 0
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
 lanePos 0.0
+arrivalPos 250.0
 color (255, 0, 0, 255)
 bestLanes ()
 CO2 0.0
@@ -196,6 +198,7 @@ routeID horizontal
 routeIndex -1073741824
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
 lanePos -1073741824.0
+arrivalPos 250.0
 color (255, 255, 0, 255)
 bestLanes ()
 CO2 -1073741824.0
@@ -304,6 +307,7 @@ routeID horizontal
 routeIndex 0
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
 lanePos 0.0
+arrivalPos 250.0
 color (255, 255, 0, 255)
 bestLanes ()
 CO2 2092.3161587719765
@@ -659,6 +663,7 @@ routeID vertical
 routeIndex 0
 route ('3fi', '3si', '4o')
 lanePos 0.0
+arrivalPos 500.0
 color (255, 255, 0, 255)
 bestLanes ()
 CO2 2152.1251700847642
@@ -801,6 +806,7 @@ routeID horizontal
 routeIndex -1073741824
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
 lanePos -1073741824.0
+arrivalPos 250.0
 color (255, 255, 0, 255)
 bestLanes ()
 CO2 -1073741824.0
@@ -881,6 +887,7 @@ routeID horizontal
 routeIndex -1073741824
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
 lanePos -1073741824.0
+arrivalPos 250.0
 color (255, 255, 0, 255)
 bestLanes ()
 CO2 -1073741824.0
@@ -961,6 +968,7 @@ routeID horizontal
 routeIndex -1073741824
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
 lanePos -1073741824.0
+arrivalPos 250.0
 color (255, 255, 0, 255)
 bestLanes ()
 CO2 -1073741824.0
@@ -1041,6 +1049,7 @@ routeID horizontal
 routeIndex -1073741824
 route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
 lanePos -1073741824.0
+arrivalPos 250.0
 color (255, 255, 0, 255)
 bestLanes ()
 CO2 -1073741824.0

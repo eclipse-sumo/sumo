@@ -67,6 +67,7 @@ public:
     static double getDepartDelay(const std::string& vehID);
     static int getRouteIndex(const std::string& vehID);
     static double getLanePosition(const std::string& vehID);
+    static double getArrivalPos(const std::string& vehID);
     static double getLateralLanePosition(const std::string& vehID);
     static double getCO2Emission(const std::string& vehID);
     static double getCOEmission(const std::string& vehID);
