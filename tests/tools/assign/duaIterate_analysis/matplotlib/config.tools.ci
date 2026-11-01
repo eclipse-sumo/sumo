@@ -1,3 +1,2 @@
 [run_dependent_text]
-errors:matplotlib.*: DeprecationWarning: `row_stack` alias is deprecated.{LINES 2}
-errors:matplotlib/backends/backend_svg.*: DeprecationWarning: argument must be 5-item tuple{LINES 2}
+errors:Unable to revert mtime: /usr/share/fonts
