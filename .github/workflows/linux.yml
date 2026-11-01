@@ -46,6 +46,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install libunwind-dev  # to work around https://bugs.launchpad.net/ubuntu/+source/google-glog/+bug/1991919
         sudo apt-get install $(cat sumo/build_config/build_req_deb.txt)
+        sudo apt-get install -y libboost-process-dev || true
 
     - name: Installing Parquet
       if: matrix.build_type == 'full'
