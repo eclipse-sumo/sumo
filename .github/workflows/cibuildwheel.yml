@@ -131,8 +131,6 @@ jobs:
         env:
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
           CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
-          # sumo-data has no ELF files at this point, so auditwheel refuses to repair it
-          CIBW_REPAIR_WHEEL_COMMAND_LINUX: ""
 
       - name: Retagging linux wheel sumo-data
         if: ${{ startsWith(matrix.os, 'ubuntu') }}

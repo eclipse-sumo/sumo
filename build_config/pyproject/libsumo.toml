@@ -42,6 +42,8 @@ build = ["cp*manylinux_x86_64", "cp*manylinux_aarch64", "cp*-win_amd64", "cp*-ma
 
 [tool.cibuildwheel.windows]
 before-all = ""
+# delvewheel would pull in all dlls again, so do nothing here
+repair-wheel-command = ""
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_*"

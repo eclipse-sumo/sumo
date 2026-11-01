@@ -34,3 +34,5 @@ wheel.py-api = "py3"
 [tool.cibuildwheel]
 before-all = "build_config/install_dependencies.sh"
 build = ["cp312*manylinux_x86_64", "cp312*manylinux_aarch64"]
+# sumo-data has no ELF files at this point, so auditwheel refuses to repair it
+repair-wheel-command = ""
