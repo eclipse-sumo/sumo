@@ -31,7 +31,6 @@ option(ENABLE_JUPEDSIM "Enable JuPedSim pedestrian simulation integration" ${CHE
 option(ENABLE_BOOST "Enable Boost for stacktrace support" ${CHECK_OPTIONAL_LIBS})
 option(VERBOSE_SUB "Let sub-commands be more verbose")
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
-set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 set(JUPEDSIM_CUSTOMDIR "" CACHE PATH "Custom install location of jupedsim")
 set(PROJECT_NAME "SUMO" CACHE STRING "Project/Solution name")
 
@@ -116,10 +115,6 @@ set(CMAKE_COLOR_MAKEFILE ON)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/build_config/cmake_modules/")
 
 set(ENABLED_FEATURES "${CMAKE_SYSTEM} ${CMAKE_SYSTEM_PROCESSOR} ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION} ${CMAKE_BUILD_TYPE}")
-
-if (COMPILE_DEFINITIONS)
-    add_compile_definitions(${COMPILE_DEFINITIONS})
-endif ()
 
 # declare flags for compilers
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
