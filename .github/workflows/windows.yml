@@ -25,7 +25,6 @@ jobs:
     env:
       CC: cl
       CXX: cl
-      TEXTTEST_TMP: D:/texttest
 
     steps:
     - name: Cloning SUMO
@@ -156,12 +155,13 @@ jobs:
 
     - name: Compressing test results
       if: failure()
-      run: Compress-Archive -Path D:/texttest -DestinationPath D:/texttest/tt.zip
+      shell: bash
+      run: 7z a -bso0 -bsp0 texttesttmp-${{ matrix.build_type }}.zip ~/.texttest/tmp
 
     - name: Uploading test results
       if: failure()
       uses: actions/upload-artifact@v7
       with:
-        name: texttesttmp-${{ matrix.build_type }}
-        path: D:/texttest/tt.zip
+        path: texttesttmp-${{ matrix.build_type }}.zip
+        archive: false
         if-no-files-found: warn

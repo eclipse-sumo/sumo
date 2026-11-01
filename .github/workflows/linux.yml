@@ -149,14 +149,14 @@ jobs:
 
     - name: Compressing test results
       if: failure()
-      run: zip -r texttesttmp.zip ~/.texttest/tmp
+      run: 7z a -bso0 -bsp0 texttesttmp-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.build_type }}.zip ~/.texttest/tmp
 
     - name: Uploading test results
       if: failure()
       uses: actions/upload-artifact@v7
       with:
-        name: texttesttmp-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.build_type }}
-        path: texttesttmp.zip
+        path: texttesttmp-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.build_type }}.zip
+        archive: false
         if-no-files-found: warn
 
     - name: Uploading artifacts (SUMO binaries)
