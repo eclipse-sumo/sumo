@@ -24,7 +24,7 @@ from .exceptions import TraCIException, deprecated, alias_param
 
 class Logic:
 
-    def __init__(self, programID, type, currentPhaseIndex, phases=None, subParameter=None):
+    def __init__(self, programID, type, currentPhaseIndex, phases=None, subParameter=None, offset=0.0):
         """
         Constructs a new Logic object with the following arguments:
           programID (string) - arbitrary
@@ -36,12 +36,14 @@ class Logic:
           currentPhaseIndex (integer) - must be in range [0, len(phases) - 1]
           phases (list of Phase objects)
           subParameter (dictl) - corresponds to generic <param> objects
+          offset (float) - time offset of the program in seconds
         """
         self.programID = programID
         self.type = type
         self.currentPhaseIndex = currentPhaseIndex
         self.phases = phases if phases is not None else []
         self.subParameter = subParameter if subParameter is not None else {}
+        self.offset = offset
 
     def getPhases(self):
         return self.phases
@@ -58,16 +60,19 @@ class Logic:
     def getParameter(self, key, default=None):
         return self.subParameter.get(key, default)
 
+    def getOffset(self):
+        return self.offset
+
     def __repr__(self):
-        return ("Logic(programID='%s', type=%s, currentPhaseIndex=%s, phases=%s, subParameter=%s)" %
-                (self.programID, self.type, self.currentPhaseIndex, self.phases, self.subParameter))
+        return ("Logic(programID='%s', type=%s, currentPhaseIndex=%s, phases=%s, subParameter=%s, offset=%s)" %
+                (self.programID, self.type, self.currentPhaseIndex, self.phases, self.subParameter, self.offset))
 
 
 def _readLogics(result):
     numLogics = result.readInt()
     logics = []
     for _ in range(numLogics):
-        result.readCompound(5)
+        compoundSize = result.readCompound()
         programID = result.readTypedString()
         type = result.readTypedInt()
         currentPhaseIndex = result.readTypedInt()
@@ -88,6 +93,8 @@ def _readLogics(result):
         for __ in range(numParams):
             key, value = result.readTypedStringList()
             logic.subParameter[key] = value
+        if compoundSize > 5:
+            logic.offset = result.readTypedDouble()
         logics.append(logic)
     return tuple(logics)
 
@@ -422,7 +429,7 @@ class TrafficLightDomain(Domain):
         See getAllProgramLogics which returns a tuple of Logic objects.
         """
         format = "tsiit"
-        values = [5, logic.programID, logic.type, logic.currentPhaseIndex, len(logic.phases)]
+        values = [6, logic.programID, logic.type, logic.currentPhaseIndex, len(logic.phases)]
         for p in logic.phases:
             format += "tdsddt"
             values += [6, p.duration, p.state, p.minDur, p.maxDur, len(p.next)]
@@ -437,6 +444,9 @@ class TrafficLightDomain(Domain):
         for par in logic.subParameter.items():
             format += "l"
             values += [par]
+        # offset
+        format += "d"
+        values += [logic.offset]
         self._setCmd(tc.TL_COMPLETE_PROGRAM_RYG, tlsID, format, *values)
 
     setCompleteRedYellowGreenDefinition = deprecated("setCompleteRedYellowGreenDefinition")(setProgramLogic)

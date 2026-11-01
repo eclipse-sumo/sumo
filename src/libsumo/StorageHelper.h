@@ -276,7 +276,7 @@ public:
     }
 
     static inline void readLogic(tcpip::Storage& inputStorage, libsumo::TraCILogic& logic, const std::string& error = "") {
-        readCompound(inputStorage, 5, error);
+        const int compoundSize = readCompound(inputStorage, -1, error);
         logic.programID = readTypedString(inputStorage);
         logic.type = readTypedInt(inputStorage);
         logic.currentPhaseIndex = readTypedInt(inputStorage);
@@ -299,6 +299,9 @@ public:
         while (numParams-- > 0) {
             const std::vector<std::string> key_value = readTypedStringList(inputStorage);
             logic.subParameter[key_value[0]] = key_value[1];
+        }
+        if (compoundSize > 5) {
+            logic.offset = readTypedDouble(inputStorage);
         }
     }
 

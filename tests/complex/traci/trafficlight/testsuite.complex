@@ -45,3 +45,6 @@ getSpentDuration2
 
 # the function should reset when switching between programs
 getSpentDuration3
+
+# test offset member of traci Logic
+offset_logic

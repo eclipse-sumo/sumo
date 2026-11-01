@@ -1676,7 +1676,7 @@ TraCIAPI::TrafficLightScope::getAllProgramLogics(const std::string& tlsID) const
         const int logicNo = myParent.myInput.readInt();
         for (int i = 0; i < logicNo; ++i) {
             myParent.myInput.readUnsignedByte();
-            myParent.myInput.readInt();
+            const int logicItems = myParent.myInput.readInt();
             myParent.myInput.readUnsignedByte();
             const std::string programID = myParent.myInput.readString();
             myParent.myInput.readUnsignedByte();
@@ -1714,6 +1714,10 @@ TraCIAPI::TrafficLightScope::getAllProgramLogics(const std::string& tlsID) const
                 myParent.myInput.readUnsignedByte();
                 const std::vector<std::string> par = myParent.myInput.readStringList();
                 logic.subParameter[par[0]] = par[1];
+            }
+            if (logicItems > 5) {
+                myParent.myInput.readUnsignedByte();
+                logic.offset = myParent.myInput.readDouble();
             }
             ret.emplace_back(logic);
         }
@@ -1838,7 +1842,7 @@ void
 TraCIAPI::TrafficLightScope::setProgramLogic(const std::string& tlsID, const libsumo::TraCILogic& logic) const {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(5);
+    content.writeInt(6);
     content.writeUnsignedByte(libsumo::TYPE_STRING);
     content.writeString(logic.programID);
     content.writeUnsignedByte(libsumo::TYPE_INTEGER);
@@ -1875,6 +1879,8 @@ TraCIAPI::TrafficLightScope::setProgramLogic(const std::string& tlsID, const lib
         content.writeString(item.first);
         content.writeString(item.second);
     }
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(logic.offset);
     myParent.createCommand(libsumo::CMD_SET_TL_VARIABLE, libsumo::TL_COMPLETE_PROGRAM_RYG, tlsID, &content);
     myParent.processSet(libsumo::CMD_SET_TL_VARIABLE);
 }

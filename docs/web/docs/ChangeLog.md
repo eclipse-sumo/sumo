@@ -81,6 +81,7 @@ title: ChangeLog
 
 - TraCI
   - Added function `traci.edge.getMaxSpeed` #14489
+  - Added member `offset` to `traci.trafficlight.Logic` and `TraCILogic` (libsumo/libtraci). It is returned by `getAllProgramLogics` and applied by `setProgramLogic` when a new program is created #14735
 
 - tools
   - gtfs2pt.py: now runs much faster due to better caching #18333, #18339
