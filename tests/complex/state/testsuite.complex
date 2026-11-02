@@ -192,6 +192,8 @@ routeLoader
 # the CCH router must not change the default random number state when loading state
 cch_vTypeDistribution
 
+# a vehicle that left a turnaround keeps the turnaround lane as further lane when loading state
+turnaround_furtherLane
 # the CCH metric follows edge speeds above the speed limit, so a reloaded state replicates
 cch_speedFactor
 
