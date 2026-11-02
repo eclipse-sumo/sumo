@@ -511,6 +511,84 @@ public:
     bool empty() const {
         return myLiveMetrics.empty();
     }
+
+    /// @brief whether the deadband can keep the metrics behind the efforts
+    /// (then its state and the lagging arcs belong to the simulation state)
+    bool hasDeadband() const {
+        return myUpdateFactor > 1. || myUpdateConstant > 0.;
+    }
+
+    /// @brief the gate effort the edge was last applied with (NaN = never)
+    double getAppliedEffort(const E* e) const {
+        return myAppliedEffort[e->getNumericalID()];
+    }
+
+    /// @brief whether the edge waits for the deadband
+    bool isPending(const E* e) const {
+        return myPendingFlag[e->getNumericalID()] != 0;
+    }
+
+    /// @brief restore the deadband state of an edge (state loading)
+    void loadEdge(const E* e, double appliedEffort, bool pending) {
+        myAppliedEffort[e->getNumericalID()] = appliedEffort;
+        if (pending) {
+            markDirty(e);
+        }
+    }
+
+    /// @brief the type keys with metric state
+    std::vector<const K*> getKeys() const {
+        std::vector<const K*> keys;
+        for (const auto& item : myByKey) {
+            keys.push_back(item.first);
+        }
+        return keys;
+    }
+
+    /// @brief the number of metrics per type
+    int getEnsembleSize() const {
+        return myEnsembleK;
+    }
+
+    /// @brief the arcs of the published metric of a type and ensemble slot
+    /// whose weight differs from a fresh fill at @p now
+    void getLaggingArcs(const K* key, int slot, double now, std::vector<int>& arcs, std::vector<int>& weights) const {
+        const LiveMetric* c = myByKey.find(key)->second[slot];
+        if (c->metric[c->frontIndex] == nullptr) {
+            return;
+        }
+        std::vector<unsigned> fresh;
+        myGraph->fillInputWeights(myFillEffort, c->vClass, c->refVehicle, now, fresh);
+        const std::vector<unsigned>& front = c->weight[c->frontIndex];
+        for (unsigned a = 0; a < (unsigned)fresh.size(); a++) {
+            if (front[a] != fresh[a]) {
+                arcs.push_back((int)a);
+                weights.push_back((int)front[a]);
+            }
+        }
+    }
+
+    /// @brief publish the metric of a type and ensemble slot as a fresh fill
+    /// at @p now with the given arcs overwritten (state loading); the other
+    /// buffer is dropped, so the next customize copies this one
+    void loadMetric(const K* key, int slot, double now, const std::vector<int>& arcs, const std::vector<int>& weights) {
+        seedKey(key);
+        if (slot < 0 || slot >= myEnsembleK) {
+            return;
+        }
+        LiveMetric* c = myByKey[key][slot];
+        myGraph->fillInputWeights(myFillEffort, c->vClass, c->refVehicle, now, c->weight[0]);
+        for (int i = 0; i < (int)arcs.size() && i < (int)weights.size(); i++) {
+            if (arcs[i] >= 0 && arcs[i] < (int)c->weight[0].size()) {
+                c->weight[0][arcs[i]] = (unsigned)weights[i];
+            }
+        }
+        c->metric[0] = std::make_shared<RoutingKit::CustomizableContractionHierarchyMetric>(myGraph->cch(), c->weight[0]);
+        c->metric[0]->customize();
+        c->metric[1].reset();
+        c->frontIndex = 0;
+        c->front.store(c->metric[0].get(), std::memory_order_release);
+    }
     /// @}
 
 private:
