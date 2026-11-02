@@ -313,7 +313,7 @@ void
 MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
     MSRoutingEngine::initEdgeWeights(myHolder.getVClass());
     //check whether the weights did change since the last reroute
-    if (myLastRouting >= MSRoutingEngine::getLastAdaptation() || !myActive) {
+    if (myLastRouting > MSRoutingEngine::getLastAdaptation() || !myActive) {
         return;
     }
     // Invalidation gate: even when the metric changed, skip the (expensive)
