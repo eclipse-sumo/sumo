@@ -1,0 +1,8 @@
+--no-step-log
+--no-duration-log
+--net-file=three_split.net.xml
+-r input_routes.rou.xml
+--vehroute-output vehroutes.xml
+--device.rerouting.period 10
+--device.rerouting.adaptation-interval 10
+--device.rerouting.adaptation-steps 1
