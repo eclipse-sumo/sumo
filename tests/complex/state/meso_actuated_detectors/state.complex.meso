@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-22T12:11:04.365269+01:00 by Eclipse SUMO sumo v1_28_0+0168-6edec047c3b
+<!-- generated on 2026-11-02T20:34:05.228594+01:00 by Eclipse SUMO sumo v1_28_0+0397-c5628bf7102
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -37,7 +37,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_28_0+0168-6edec047c3b" count="581" time="300.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_28_0+0397-c5628bf7102" count="581" time="300.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="212" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -124,7 +124,7 @@
     <vehicle id="WE.70" depart="280.000" route="WE" distance="0 0" speedFactor="0.981900000" state="2208 280000 0 0 2 0 301234 294156 9223372036854774807 0 0 0 575 301234"/>
     <vehicle id="SN.7" depart="280.000" route="SN" distance="0 0" speedFactor="1.007300000" state="2208 280000 0 0 2 0 300697 293798 9223372036854774807 0 0 0 570 300697"/>
     <vehicle id="bSN.4" type="busType" depart="280.000" route="SN" distance="0 0" speedFactor="1.000000000" state="2210 280000 0 0 2 0 302416 295466 9223372036854774807 0 0 0 573 302416">
-        <device id="tripinfo_bSN.4" state="SC_0 12.4833 -0 783 0 0 0 -1 -1000 NONE -1 0 -1"/>
+        <device id="tripinfo_bSN.4" state="SC_0 12.4833 -0 783 0 0 0 -1 -1000 NONE -1 0 -1 1566"/>
         <rem id="tripinfo_bSN.4" time="295466" pos="193.066666667"/>
     </vehicle>
     <vehicle id="WE.71" depart="284.000" route="WE" distance="0 0" speedFactor="1.086900000" state="2208 284000 0 0 2 0 303182 296788 9223372036854774807 0 0 0 571 303182"/>
