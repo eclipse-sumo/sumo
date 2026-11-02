@@ -105,7 +105,7 @@ MELSegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMO
     // but they travel more slowly when queued (startupDelay)
     const SUMOTime waveTime = (SUMOTime)(myJamLength * (double)(veh->getQueuingTimeLoss() > 0 ? myTau_jj : myTau_ff) / DEFAULT_VEH_LENGTH_WITH_GAP);
     // the entering vehicle needs this long to drive through the length that cannot be occupied
-    const SUMOTime remainderTime = TIME2STEPS((myLength - myJamLength) / myEdge.getSpeedLimit());
+    const SUMOTime remainderTime = TIME2STEPS(MAX2(0., myLength - myJamLength) / myEdge.getSpeedLimit());
     gapTimes.insert(gapTimes.begin(), time + MAX2((SUMOTime)0, waveTime - remainderTime));
     MESegment::send(veh, next, nextQIdx, time, reason);
 }
