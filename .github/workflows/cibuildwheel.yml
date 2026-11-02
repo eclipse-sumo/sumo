@@ -109,7 +109,7 @@ jobs:
         #   python tools/build_config/version.py --pep440 build_config/pyproject/eclipse-sumo.toml pyproject.toml
 
       - name: Building wheel eclipse-sumo
-        uses: pypa/cibuildwheel@v4.3.4
+        uses: pypa/cibuildwheel@v4.3.5
         env:
           CIBW_ENVIRONMENT_LINUX: CCACHE_DIR=/host/home/runner/work/sumo/sumo/.ccache
           CIBW_ENVIRONMENT_WINDOWS: CMAKE_GENERATOR=Ninja PATH="D:\\a\\sumo\\sumo\\bin;$PATH"
@@ -127,7 +127,7 @@ jobs:
 
       - name: Building linux platform wheel sumo-data
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
-        uses: pypa/cibuildwheel@v4.3.4
+        uses: pypa/cibuildwheel@v4.3.5
         env:
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
           CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
@@ -140,7 +140,7 @@ jobs:
         run: python tools/build_config/version.py --pep440 build_config/pyproject/libsumo.toml pyproject.toml
 
       - name: Building wheel libsumo
-        uses: pypa/cibuildwheel@v4.3.4
+        uses: pypa/cibuildwheel@v4.3.5
         env:
           CIBW_ENVIRONMENT_LINUX: CCACHE_DIR=/host/home/runner/work/sumo/sumo/.ccache
           CIBW_ENVIRONMENT_WINDOWS: CMAKE_GENERATOR=Ninja PATH="D:\\a\\sumo\\sumo\\bin;$PATH"
