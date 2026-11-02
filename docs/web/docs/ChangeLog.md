@@ -24,10 +24,10 @@ title: ChangeLog
 
 
 - netedit
-  - When called from sumo-gui with CTRL+T, traffic demand loading now honors checkbox #18347 (regression in 1.26.0)
+  - When called from sumo-gui with <kbd>CTRL</kbd> + <kbd>T</kbd>, traffic demand loading now honors checkbox #18347 (regression in 1.26.0)
   - Setting no-internal-links=false in the options menu (F10) to add internal lanes to a network takes effect again #18356 (regression in 1.27.0)
   - Fixed invalid prompt to save network after activating "show connections" in inspect mode #18350 (regression in 1.27.1)
-  - When calling sumo-gui with CLTR+T, traffic demand loading now honors the checkbox #18377
+  - When calling sumo-gui with <kbd>CTRL</kbd> + <kbd>T</kbd>, traffic demand loading now honors the checkbox #18377
   - The "save network" button now activates after recomputing a network with volatile options (SHIFT+F5) #18173
   - Fixed superfluous empty meanData file in saved sumocfg #17975
   - Fixed invalid sumocfg when netedit is saving plain-xml #16217
