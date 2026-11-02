@@ -2447,9 +2447,52 @@
     </vehicle>
     <lane id=":gneJ1_0_0">
         <vehicles value="veh147"/>
+        <link to="gneE4_0">
+            <approaching id="veh147" arrivalTime="500397" arrivalSpeed="4.19" departSpeed="4.19" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="10.04"/>
+            <approaching id="veh148" arrivalTime="501693" arrivalSpeed="6.30" departSpeed="6.30" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="19.30"/>
+            <approaching id="veh149" arrivalTime="505151" arrivalSpeed="4.44" departSpeed="4.44" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="31.75"/>
+            <approaching id="veh150" arrivalTime="506179" arrivalSpeed="5.31" departSpeed="5.31" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="41.11"/>
+            <approaching id="veh151" arrivalTime="507914" arrivalSpeed="5.31" departSpeed="5.31" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="51.64"/>
+            <approaching id="veh152" arrivalTime="511889" arrivalSpeed="4.51" departSpeed="4.51" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="62.24"/>
+            <approaching id="veh153" arrivalTime="516389" arrivalSpeed="3.97" departSpeed="3.97" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="72.87"/>
+            <approaching id="veh154" arrivalTime="517079" arrivalSpeed="4.37" departSpeed="4.37" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="82.20"/>
+            <approaching id="veh155" arrivalTime="516150" arrivalSpeed="5.16" departSpeed="5.16" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="91.68"/>
+            <approaching id="veh156" arrivalTime="522893" arrivalSpeed="4.12" departSpeed="4.12" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="102.22"/>
+        </link>
+    </lane>
+    <lane id=":gneJ3_0_0">
+        <link to="gneE2_0">
+            <approaching id="veh75" arrivalTime="546983" arrivalSpeed="0.00" departSpeed="0.00" request="0" arrivalSpeedBraking="0.00" waitingTime="221000" distance="4.90"/>
+        </link>
     </lane>
     <lane id=":gneJ4_0_0">
         <vehicles value="veh138"/>
+        <link to="gneE3_0">
+            <approaching id="veh138" arrivalTime="498579" arrivalSpeed="6.43" departSpeed="2.55" request="1" arrivalSpeedBraking="6.43" waitingTime="0" distance="3.28"/>
+            <approaching id="veh139" arrivalTime="502252" arrivalSpeed="3.32" departSpeed="3.32" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="14.10"/>
+            <approaching id="veh140" arrivalTime="501638" arrivalSpeed="7.90" departSpeed="7.90" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="27.64"/>
+            <approaching id="veh141" arrivalTime="503909" arrivalSpeed="7.10" departSpeed="7.10" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="41.70"/>
+            <approaching id="veh142" arrivalTime="505119" arrivalSpeed="7.92" departSpeed="7.92" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="54.83"/>
+        </link>
+    </lane>
+    <lane id=":gneJ4_1_0">
+        <link to="gneE3_0">
+            <approaching id="veh68" arrivalTime="574710" arrivalSpeed="0.00" departSpeed="0.00" request="1" arrivalSpeedBraking="0.00" waitingTime="234000" distance="7.67"/>
+            <approaching id="veh69" arrivalTime="504335" arrivalSpeed="2.60" departSpeed="2.60" request="0" arrivalSpeedBraking="0.00" waitingTime="231000" distance="15.17"/>
+            <approaching id="veh70" arrivalTime="507220" arrivalSpeed="2.60" departSpeed="2.60" request="0" arrivalSpeedBraking="0.00" waitingTime="230000" distance="22.67"/>
+            <approaching id="veh71" arrivalTime="510105" arrivalSpeed="2.60" departSpeed="2.60" request="0" arrivalSpeedBraking="0.00" waitingTime="227000" distance="30.17"/>
+            <approaching id="veh72" arrivalTime="512990" arrivalSpeed="2.60" departSpeed="2.60" request="0" arrivalSpeedBraking="0.00" waitingTime="225000" distance="37.68"/>
+            <approaching id="veh73" arrivalTime="515875" arrivalSpeed="2.60" departSpeed="2.60" request="0" arrivalSpeedBraking="0.00" waitingTime="224000" distance="45.18"/>
+            <approaching id="veh74" arrivalTime="518760" arrivalSpeed="2.60" departSpeed="2.60" request="0" arrivalSpeedBraking="0.00" waitingTime="223000" distance="52.68"/>
+        </link>
+    </lane>
+    <lane id=":gneJ6_0_0">
+        <link to="gneE5_0">
+            <approaching id="veh143" arrivalTime="500282" arrivalSpeed="5.82" departSpeed="5.82" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="13.29"/>
+            <approaching id="veh144" arrivalTime="503006" arrivalSpeed="5.04" departSpeed="5.04" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="25.15"/>
+            <approaching id="veh145" arrivalTime="506443" arrivalSpeed="4.29" departSpeed="4.29" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="36.11"/>
+            <approaching id="veh146" arrivalTime="509485" arrivalSpeed="4.09" departSpeed="4.09" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="46.82"/>
+        </link>
     </lane>
     <lane id="gneE0_0">
         <vehicles value="veh156 veh155 veh154 veh153 veh152 veh151 veh150 veh149 veh148"/>

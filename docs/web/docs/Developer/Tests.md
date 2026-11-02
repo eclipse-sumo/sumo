@@ -113,6 +113,21 @@ Note, that input files may be picked up along the folder hierarchy so
 you may have to copy additional files to your test folder manually if
 these inherited input files must be changed as well.
 
+## Test size
+
+Tests should be as small as possible for the given use case. Tests with more than 50kb should only be used if strictly necessary. The following things may be helpful:
+
+- avoid duplicate files by putting shared files into a parent folder in the directory structure
+- sumo
+  - avoid large output files (i.e. **--fcd-output**) by limiting the duration of the test or the output window (**--device.fcd.begin**)
+  - restrict the list of written attributes (many outputs have corresponding options)
+- duarouter
+  - use **--alternatives-output NUL** if that output is not needed
+- netconvert
+  - use **--no-internal-links** if internal links are not relevant for the feature under test
+  - gzip large input files (i.e. osm.xml.gz)
+  - reduce OSM input files if a smaller boundary will do: `osmconvert osm.xml -b=13.596785,52.501895,13.683731,52.534760 --out-osm --complete-ways | gzip > osm.xml.gz`
+
 # Adding an Application Test Suite
 
 To add a test suite for a new application, you have to perform the

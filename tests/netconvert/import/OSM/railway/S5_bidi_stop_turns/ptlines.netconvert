@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-29T18:31:08.695453+01:00 by Eclipse SUMO netconvert v1_28_0+0321-e79bed16c72
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml.gz"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair.stop-turn value="true"/>
+        <railway.topology.all-bidi value="true"/>
+    </railway>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="2015944" name="S5: S Strausberg Nord =&gt; S Westkreuz" line="S5" type="light_rail" vClass="rail_urban" period="600" color="242,87,33" completeness="0.17" missingBefore="6" missingAfter="19">
+        <route edges="-140643608 47973407 4699387 36789617 713891633 36785392 550340844 550340843 1163081915#0 1163081915#1 1163081917 36785394"/>
+        <busStop id="-1117011926" name="Neuenhagen"/>
+        <busStop id="1117011811" name="Hoppegarten (Mark)"/>
+        <busStop id="1117011631" name="Birkenstein"/>
+        <busStop id="1117011628" name="Mahlsdorf"/>
+        <busStop id="1117011702" name="Kaulsdorf"/>
+    </ptLine>
+    <ptLine id="2015959" name="S5: S Westkreuz =&gt; S Strausberg Nord" line="S5" type="light_rail" vClass="rail_urban" period="600" color="242,87,33" completeness="0.17" missingBefore="19" missingAfter="6">
+        <route edges="396007085 1163081914 1163081916#0 1163081916#1 550340846 550340845#0 550340845#1 25375343 1163081918 713891632 713891631 25375344 36789615 36789616#0 36789616#1 140643608"/>
+        <busStop id="1117011604" name="Kaulsdorf"/>
+        <busStop id="1117011882" name="Mahlsdorf"/>
+        <busStop id="1855744014" name="Birkenstein"/>
+        <busStop id="1117011722" name="Hoppegarten (Mark)"/>
+        <busStop id="1117011763" name="Neuenhagen"/>
+    </ptLine>
+</ptLines>

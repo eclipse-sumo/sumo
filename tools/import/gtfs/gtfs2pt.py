@@ -123,6 +123,8 @@ def get_options(args=None):
                     help="Speed up routing by calling duarouter to precompute candidate routes between stops")
     ap.add_argument("--parking-threshold", type=float, dest="parkingThreshold",
                     help="If set, trips with consecutive stops in the same spot for more than FLOAT seconds are parked")
+    ap.add_argument("--parking-length", type=float, dest="parkingLength", default=1000,
+                    help="If parking-threshold is set, stopping locations where vehicles park are artificially enlarged to accept more vehicles")  # noqa
     ap.add_argument("--fill-gaps", default=5000, type=float, category="input",
                     help="maximum distance between stops")
     ap.add_argument("--reversal-penalty", default=1000, type=float, category="input", dest="reversalPenalty",
@@ -284,16 +286,15 @@ def precomputeRoutes(options, net, modePreferences, noIntNet, veh2mode, fixedSto
             for e in net.getEdges():
                 e._costCache = e.getLength() / (prefs.get(e.getRoutingType(), 1.0) * e.getSpeed())
 
-        #print(vehicle.id)
         vClass = OSM2SUMO_MODES[vehicle.type]
         edgeIDs = route.edges.split()
         edges = [net.getEdge(e) for e in edgeIDs]
-        assert(len(edges) >= 2)
+        assert len(edges) >= 2
         fromEdge = edges[0]
         toEdge = edges[-1]
         disconnected.remove((fromEdge, toEdge, vehicle.type))
-        dist = net._routingCache(fromEdge, True, vClass, False, 1000,
-                                  tuple(modePreferences[vehicle.type].items()))
+        # getOptimalPath computes raw costs from end of origin edge
+        # to end of destination edge (see finalizeCosts)
         cost = -edges[0]._costCache
         prev = None
         for i, edge in enumerate(edges):
@@ -306,6 +307,7 @@ def precomputeRoutes(options, net, modePreferences, noIntNet, veh2mode, fixedSto
     for fromEdge, toEdge, mode in disconnected:
         vClass = OSM2SUMO_MODES[mode]
         net.cacheRoute(fromEdge, toEdge, True, vClass, PRACTICAL_INFINITY, None)
+
 
 @benchmark
 def traceMap(options, net, modePreferences, veh2mode, fixedStops, stopLookup, radius, geoRoutes):
@@ -532,6 +534,7 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                                         bestDist = dist
                                         result = (lane.getID(), float(stopObj.startPos), endPos)
                     if result is None and candidate_edges:
+                        candidate_edges = [e for e in candidate_edges if e in route[lastIndex:]]
                         result = gtfsutils.getBestLane(net, s.lon, s.lat, options.radius, stopLength,
                                                        options.center_stops, candidate_edges, OSM2SUMO_MODES[mode],
                                                        (route[lastIndex], lastPos))
@@ -559,6 +562,7 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                     stop += ".reversed"
                 typ = "busStop" if mode in ("bus", "trolleybus") else "trainStop"
                 isParking = options.busParking and mode == "bus"
+                stopItemToPatch = None
                 for stopItem in stopDesc[laneID]:
                     otherStop, otherStart, otherEnd = stopItem[1:4]
                     if start < otherEnd <= end or otherStart < end <= otherEnd:  # stops overlap
@@ -566,13 +570,16 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                             stopItem[0] = typ
                             stopItem[2] = start
                             stopItem[3] = end
+                        stopItemToPatch = stopItem
                         keep = False
                         stop = otherStop
                         break
                 if ((options.parkingThreshold is not None
-                     and lastStop == stop
-                     and s.until - lastUntil >= options.parkingThreshold)):
+                     and ((lastStop == stop and s.until - lastUntil >= options.parkingThreshold)
+                          or s.until - s.arrival >= options.parkingThreshold))):
                     isParking = True
+                    if stopItemToPatch is not None:
+                        stopItemToPatch[-1] = isParking
                 if keep:
                     if stop in stopID2Lane:
                         oldID = stop
@@ -590,15 +597,18 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                         edge = lane.getEdge()
                         if not all([edge.getLane(i).allows("pedestrian") for i in range(idx)]):
                             childs.append(u'        <param key="allowOvertakeRight" value="false"/>\n')
-                    stopDesc[laneID].append([typ, stop, start, end, s.name, childs])
+                    stopDesc[laneID].append([typ, stop, start, end, s.name, childs, isParking])
                     stopID2Lane[stop] = laneID
                 stops[rid].append(MappedStop(stop, s.arrival, s.until, s.name, s.block, isParking))
                 lastUntil = s.until
                 lastStop = stop
     for laneID, stopList in stopDesc.items():
-        for typ, stop, start, end, stopName, childs in stopList:
-            rout.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f" friendlyPos="true" name="%s"%s>\n' %
-                       (typ, stop, laneID, start, end, stopName, "" if childs else "/"))
+        for typ, stop, start, end, stopName, childs, isParking in stopList:
+            parkingLength = ''
+            if isParking and options.parkingLength > 0:
+                parkingLength = ' parkingLength="%s"' % options.parkingLength
+            rout.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f" friendlyPos="true" name="%s"%s%s>\n' %
+                       (typ, stop, laneID, start, end, stopName, parkingLength, "" if childs else "/"))
             for a in sorted(childs):
                 rout.write(a)
             if childs:
@@ -716,7 +726,8 @@ def main(options):
                     alpha = (4 - i) / 4
                     modePreferences[mode][str(i)] = alpha * 1 / (1 + options.rpFactor) + (1 - alpha)
         if options.bulkPrefix:
-            precomputeRoutes(options, net, modePreferences, noIntNet, veh2mode, fixedStops, stopLookup, options.radius, geoRoutes)
+            precomputeRoutes(options, net, modePreferences, noIntNet, veh2mode,
+                             fixedStops, stopLookup, options.radius, geoRoutes)
         routes = traceMap(options, net, modePreferences, veh2mode, fixedStops, stopLookup, options.radius, geoRoutes)
 
         if options.poly_output:

@@ -1431,6 +1431,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "minorPenalty",      SUMO_ATTR_MESO_MINOR_PENALTY },
     { "overtaking",        SUMO_ATTR_MESO_OVERTAKING },
     { "edgeLength",        SUMO_ATTR_MESO_EDGELENGHT },
+    { "lookahead",         SUMO_ATTR_MESO_LOOKAHEAD },
     // @}
 
     // Other

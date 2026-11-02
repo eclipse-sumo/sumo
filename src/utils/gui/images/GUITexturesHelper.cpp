@@ -87,7 +87,8 @@ GUITexturesHelper::drawTexturedBox(int which, double sizeX1, double sizeY1, doub
     glDisable(GL_COLOR_MATERIAL);
     glDisable(GL_TEXTURE_GEN_S);
     glDisable(GL_TEXTURE_GEN_T);
-    glDisable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0);
+    glEnable(GL_ALPHA_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
@@ -103,6 +104,7 @@ GUITexturesHelper::drawTexturedBox(int which, double sizeX1, double sizeY1, doub
     glVertex2d(sizeX2, sizeY2);
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
     glEnable(GL_DEPTH_TEST);
 }
 

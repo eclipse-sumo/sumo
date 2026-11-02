@@ -28,8 +28,15 @@
 #include <algorithm>
 #include <list>
 #ifdef HAVE_FMT
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4868) // mask warning about left-to-right evaluation order
+#endif
 #include <fmt/format.h>
 #include <fmt/ranges.h>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #endif
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/SUMOVehicleClass.h>

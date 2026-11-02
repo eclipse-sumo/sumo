@@ -97,3 +97,15 @@ jobs:
       with:
         name: ${{ matrix.os }}-installer-unsigned
         path: framework-pkg/*.pkg
+
+    - name: Compressing test results
+      if: failure()
+      run: 7z a -bso0 -bsp0 texttesttmp-${{ matrix.os }}.zip ~/.texttest/tmp
+
+    - name: Uploading test results
+      if: failure()
+      uses: actions/upload-artifact@v7
+      with:
+        path: texttesttmp-${{ matrix.os }}.zip
+        archive: false
+        if-no-files-found: warn

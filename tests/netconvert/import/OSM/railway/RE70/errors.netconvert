@@ -1,0 +1,2 @@
+Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurrence for edge '45875891').
+Warning: Discarding unusable type 'railway.platform_edge' (first occurrence for edge '1352313845').

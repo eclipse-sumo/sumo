@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-28T22:16:32.602283+01:00 by Eclipse SUMO netedit v1_28_0+0305-1af951e6c6c
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <trainStop id="-1944084310" name="Wernigerode" lane="-198186800#1_0" startPos="161.44" endPos="361.44" friendlyPos="1" lines="RE 21"/>
+    <trainStop id="-1944084310#1" name="trainStop" lane="-59651536#2_0" startPos="161.18" endPos="361.18" friendlyPos="1" lines="RE 21"/>
+    <trainStop id="-207210665" name="Darlingerode" lane="-23554414#1_0" startPos="1638.01" endPos="1838.01" friendlyPos="1"/>
+    <trainStop id="-617973901" name="Wernigerode Elmowerk" lane="-23554414#1_0" startPos="4547.15" endPos="4747.15" friendlyPos="1"/>
+    <trainStop id="1944084310" name="Wernigerode" lane="198186800#1_0" startPos="53.62" endPos="253.62" friendlyPos="1" lines="RE 21 4"/>
+    <trainStop id="1944084310#1" name="trainStop" lane="59651536#2_0" startPos="52.56" endPos="252.56" friendlyPos="1" lines="RE 21 4"/>
+    <trainStop id="207210665" name="Darlingerode" lane="23554414#1_0" startPos="3072.89" endPos="3272.89" friendlyPos="1" lines="RE 21"/>
+    <trainStop id="617973901" name="Wernigerode Elmowerk" lane="23554414#1_0" startPos="163.74" endPos="363.74" friendlyPos="1" lines="RE 21"/>
+    <!-- Shapes -->
+    <poi id="1162780:0" x="334104.76" y="492459.37" color="168,255,0"/>
+    <poi id="1162780:1" x="334114.55" y="492792.32" color="107,0,255"/>
+    <poi id="1162780:2" x="334241.08" y="492861.06" color="15,0,255"/>
+    <poi id="1162780:3" x="334328.61" y="492889.91" color="255,0,165"/>
+    <poi id="1162780:4" x="334463.80" y="492914.37" color="255,133,0"/>
+    <poi id="1162780:5" x="334582.09" y="493009.62" color="0,255,136"/>
+</additional>

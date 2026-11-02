@@ -1,0 +1,4 @@
+<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="beg" to="exit" fromLane="0" toLane="0"/>
+    <connection from="beg" to="main" fromLane="1" toLane="0"/>
+</connections>

@@ -610,6 +610,7 @@ configuration:
 | **--meso-jam-threshold** {{DT_FLOAT}} | Minimum percentage of occupied space to consider a segment jammed. A negative argument causes thresholds to be computed based on edge speed and tauff (default); *default:* **-1** |
 | **--meso-multi-queue** {{DT_BOOL}} | Enable multiple queues at edge ends; *default:* **true** |
 | **--meso-lane-queue** {{DT_BOOL}} | Enable separate queues for every lane; *default:* **false** |
+| **--meso-lookahead** {{DT_FLOAT}} | Only use the lane queues leading to the next edge on segments that end within FLOAT m of the edge end; *default:* **0** |
 | **--meso-ignore-lanes-by-vclass** {{DT_STR_LIST}} | Do not build queues (or reduce capacity) for lanes allowing only the given vclasses; *default:* **pedestrian,bicycle** |
 | **--meso-junction-control** {{DT_BOOL}} | Enable mesoscopic traffic light and priority junction handling; *default:* **false** |
 | **--meso-junction-control.limited** {{DT_BOOL}} | Enable mesoscopic traffic light and priority junction handling for saturated links. This prevents faulty traffic lights from hindering flow in low-traffic situations; *default:* **false** |

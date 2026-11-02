@@ -373,8 +373,9 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         reconstructLayerElevation(layerElevation, nb);
     }
 
-    // revise pt stops; remove stops on deleted edges
-    nb.getPTStopCont().cleanupDeleted(nb.getEdgeCont());
+    // revise pt stops; remove stops on deleted edges (but assign them to the
+    // opposite direction if possible
+    nb.getPTStopCont().cleanupDeleted(nb.getEdgeCont(), true);
 
     // load relations (after edges are built since we want to apply
     // turn-restrictions directly to NBEdges)

@@ -37,6 +37,7 @@ DUAROUTER = sumolib.checkBinary('duarouter')
 
 
 def get_options(args=None):
+    HALF_CPUS = os.cpu_count() // 2 if os.cpu_count() is not None else 1
     op = sumolib.options.ArgumentParser(description="Generate rerouters with overtakeReroute definitions",
                                         allowed_programs=['duarouter', 'marouter'])
     # input
@@ -66,6 +67,8 @@ def get_options(args=None):
                     type=float, help="Set penalty for reversals, by default sidings with reversals are forbidden")
     op.add_argument("--no-defer", action="store_true", dest="noDefer", default=False,
                     help="Write more overtakingReroute alternatives and do not defer decision")
+    op.add_argument("--routing-threads", type=int, default=HALF_CPUS, dest="threads",
+                    help="Perform routing on multiple threads")
     # attributes
     op.add_argument("--prefix", category="attributes", dest="prefix", default="rr",
                     help="prefix for the rerouter ids")
@@ -207,6 +210,7 @@ def findSidings(options, routes, switches, net, edgeUsage):
                      '--alternatives-output', 'NUL',
                      '--weights.reversal-penalty', str(options.reversalPenalty),
                      '--bulk-routing',
+                     '--routing-threads', str(options.threads),
                      '--ignore-errors',
                      '--no-warnings'],
                     stdout=subprocess.DEVNULL)

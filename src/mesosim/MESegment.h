@@ -67,6 +67,7 @@ public:
         SUMOTime minorPenalty;
         bool overtaking;
         double edgeLength;
+        double lookahead;
     };
 
 

@@ -161,6 +161,16 @@
         </person>
     </transportables>
     <vehicleTransfer id="trip_1" depart="-1" parking="A2B2_1"/>
+    <lane id=":C0_7_0">
+        <link to=":C0_10_0">
+            <approaching id="trip_0" arrivalTime="45858" arrivalSpeed="8.240000000000000" departSpeed="8.240000000000000" request="1" arrivalSpeedBraking="0.000000000000000" waitingTime="0" distance="108.333850901741016"/>
+        </link>
+    </lane>
+    <lane id=":C0_10_0">
+        <link to="C0C1_1">
+            <approaching id="trip_0" arrivalTime="46435" arrivalSpeed="8.240000000000000" departSpeed="8.240000000000000" request="1" arrivalSpeedBraking="0.000000000000000" waitingTime="0" distance="116.593850901741021"/>
+        </link>
+    </lane>
     <lane id="B0C0_1">
         <vehicles value="trip_0"/>
     </lane>

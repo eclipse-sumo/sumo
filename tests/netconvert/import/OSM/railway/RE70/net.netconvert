@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-30T03:21:30.581074+01:00 by Eclipse SUMO netconvert v1_28_0+0332-b3d8ac6d742
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml.gz"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-576539.25,-5266891.43" convBoundary="0.00,0.00,762.68,1109.60" origBoundary="10.017458,47.550841,10.027400,47.560914" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="railway.rail" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
+
+    <edge id="-45875891" from="583914285" to="486091529" priority="20" type="railway.rail" routingType="4" spreadType="center" shape="0.00,1109.60 5.03,1094.83 23.26,1048.11 41.87,1001.41 88.46,878.07 114.03,809.99 130.80,761.94 145.99,728.86 184.66,666.29 202.32,645.06 221.28,624.96 241.71,607.10 258.37,594.76 277.63,581.76 292.35,573.06 308.39,565.25 322.45,558.55 338.80,551.31 367.74,539.46 418.66,519.31 427.00,516.01 445.04,508.04 460.30,500.77 470.84,495.34 483.62,488.12 508.48,470.33 521.31,459.75 535.11,446.05 546.77,433.27 558.61,418.82 566.75,406.37 573.06,397.48 577.09,389.64">
+        <lane id="-45875891_0" index="0" allow="rail" speed="44.44" length="971.57" shape="0.00,1109.60 5.03,1094.83 23.26,1048.11 41.87,1001.41 88.46,878.07 114.03,809.99 130.80,761.94 145.99,728.86 184.66,666.29 202.32,645.06 221.28,624.96 241.71,607.10 258.37,594.76 277.63,581.76 292.35,573.06 308.39,565.25 322.45,558.55 338.80,551.31 367.74,539.46 418.66,519.31 427.00,516.01 445.04,508.04 460.30,500.77 470.84,495.34 483.62,488.12 508.48,470.33 521.31,459.75 535.11,446.05 546.77,433.27 558.61,418.82 566.75,406.37 573.06,397.48 577.09,389.64"/>
+    </edge>
+    <edge id="-45876296" from="486091529" to="583892755" priority="20" type="railway.rail" routingType="4" spreadType="center" shape="577.09,389.64 609.77,326.07 623.86,298.67 644.95,254.28">
+        <lane id="-45876296_0" index="0" allow="rail" speed="44.44" length="151.43" shape="577.09,389.64 609.77,326.07 623.86,298.67 644.89,254.42"/>
+    </edge>
+    <edge id="-45876297" from="583892755" to="583892744" priority="20" type="railway.rail" routingType="4" spreadType="center" shape="644.95,254.28 676.20,188.03 694.27,150.42 721.81,88.41 732.22,64.50 743.92,37.59 762.68,0.00">
+        <lane id="-45876297_0" index="0" allow="rail" speed="44.44" length="280.26" shape="645.01,254.14 676.20,188.03 694.27,150.42 721.81,88.41 732.22,64.50 743.92,37.59 762.68,0.00"/>
+    </edge>
+    <edge id="134375010" from="583892753" to="13707153111" priority="20" type="railway.rail" routingType="4" spreadType="center" shape="650.84,257.73 628.28,311.85 621.15,330.73 605.09,365.15 595.74,381.89 587.45,394.51">
+        <lane id="134375010_0" index="0" allow="rail" speed="19.44" length="151.07" shape="650.78,257.86 628.28,311.85 621.15,330.73 605.09,365.15 595.74,381.89 587.51,394.41"/>
+    </edge>
+    <edge id="134375011" from="13707153111" to="583892732" priority="20" type="railway.rail" routingType="4" spreadType="center" shape="587.45,394.51 583.03,400.72 574.92,411.48 567.04,421.90 560.09,431.02 540.03,451.77 528.84,461.80 518.19,470.73 506.73,478.75 494.90,486.99 466.11,504.05 450.02,511.22 430.89,518.88 420.21,523.44 408.21,528.22 363.22,546.02 344.14,553.85 328.90,560.40 314.80,566.44 290.64,579.39 273.51,589.19 243.07,611.27 230.19,621.90 205.31,647.81 188.23,669.03 150.41,731.14 136.00,763.72 117.74,811.30">
+        <lane id="134375011_0" index="0" allow="rail" speed="19.44" length="652.89" shape="587.38,394.60 583.03,400.72 574.92,411.48 567.04,421.90 560.09,431.02 540.03,451.77 528.84,461.80 518.19,470.73 506.73,478.75 494.90,486.99 466.11,504.05 450.02,511.22 430.89,518.88 420.21,523.44 408.21,528.22 363.22,546.02 344.14,553.85 328.90,560.40 314.80,566.44 290.64,579.39 273.51,589.19 243.07,611.27 230.19,621.90 205.31,647.81 188.23,669.03 150.41,731.14 136.00,763.72 117.74,811.30"/>
+    </edge>
+    <edge id="320417821" from="3269315299" to="583892753" priority="20" type="railway.rail" routingType="4" spreadType="center" shape="726.38,89.94 698.25,152.45 680.83,188.56 650.84,257.73">
+        <lane id="320417821_0" index="0" allow="rail" speed="19.44" length="184.03" shape="726.38,89.94 698.25,152.45 680.83,188.56 650.90,257.60"/>
+    </edge>
+
+    <junction id="13707153111" type="priority" x="587.45" y="394.51" incLanes="134375010_0" intLanes="" shape="588.85,395.29 586.18,393.54 586.08,393.68 588.69,395.53">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="3269315299" type="dead_end" x="726.38" y="89.94" incLanes="" intLanes="" shape="724.92,89.28 727.84,90.60"/>
+    <junction id="486091529" type="priority" x="577.09" y="389.64" incLanes="-45875891_0" intLanes="" shape="578.51,390.37 575.67,388.91 578.51,390.37">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="583892732" type="dead_end" x="117.74" y="811.30" incLanes="134375011_0" intLanes="" shape="119.23,811.87 116.25,810.73"/>
+    <junction id="583892744" type="dead_end" x="762.68" y="0.00" incLanes="-45876297_0" intLanes="" shape="761.25,-0.71 764.11,0.71"/>
+    <junction id="583892753" type="priority" x="650.84" y="257.73" incLanes="320417821_0" intLanes="" shape="652.37,258.23 649.43,256.96 649.31,257.25 652.26,258.48">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="583892755" type="priority" x="644.95" y="254.28" incLanes="-45876296_0" intLanes="" shape="646.46,254.83 643.57,253.46 643.44,253.73 646.33,255.10">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="583914285" type="dead_end" x="0.00" y="1109.60" incLanes="" intLanes="" shape="1.51,1110.12 -1.51,1109.08"/>
+
+    <connection from="-45875891" to="-45876296" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-45876296" to="-45876297" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="134375010" to="134375011" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="320417821" to="134375010" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

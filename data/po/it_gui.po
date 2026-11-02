@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-10-08 14:13+0200\n"
-"PO-Revision-Date: 2026-09-30 13:33+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2026-10-19 19:08+0000\n"
+"Last-Translator: Mirko Barthauer <m-kro@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.10.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: src/gui/GUIApplicationWindow.cpp:330
 #: src/netedit/GNEApplicationWindow.cpp:596
@@ -25,11 +25,13 @@ msgid ""
 "Original coordinate (before coordinate transformation in netconvert). Enter "
 "'lat, lon' or 'lat:... lon:...' to center view"
 msgstr ""
+"Coordinata originale (prima della trasformazione di coordinate in netconvert)"
+". Inserisci 'lat, lon' oppure 'lat:... lon:...' per centrare la veduta"
 
 #: src/gui/GUIApplicationWindow.cpp:331
 #: src/netedit/GNEApplicationWindow.cpp:597
 msgid "Enter 'lat, lon' to center view"
-msgstr ""
+msgstr "Inserisci 'lat, lon' per centrare la veduta"
 
 #: src/gui/GUIApplicationWindow.cpp:333 src/gui/GUIApplicationWindow.cpp:342
 #: src/gui/GUIApplicationWindow.cpp:2412 src/gui/GUIApplicationWindow.cpp:2415
@@ -46,32 +48,32 @@ msgstr "non disponibile"
 #: src/gui/GUIApplicationWindow.cpp:339
 #: src/netedit/GNEApplicationWindow.cpp:605
 msgid "Network coordinate. Enter 'x, y' to center view"
-msgstr ""
+msgstr "Coordinata di rete. Inserisci 'x, y' per centrare la veduta"
 
 #: src/gui/GUIApplicationWindow.cpp:340
 #: src/netedit/GNEApplicationWindow.cpp:606
 msgid "Enter 'x, y' to center view"
-msgstr ""
+msgstr "Inserisci 'x, y' per centrare la veduta"
 
 #: src/gui/GUIApplicationWindow.cpp:345
 msgid "number of running vehicles"
-msgstr ""
+msgstr "numero di veicoli in corsa"
 
 #: src/gui/GUIApplicationWindow.cpp:346
 msgid "number of insertion backlogged vehicles"
-msgstr ""
+msgstr "numero di veicoli in attesa di inserzione"
 
 #: src/gui/GUIApplicationWindow.cpp:347
 msgid "percentage of teleports per departed vehicles"
-msgstr ""
+msgstr "percentuale di teletrasporti per numero di veicoli partiti"
 
 #: src/gui/GUIApplicationWindow.cpp:348
 msgid "number of active persons"
-msgstr ""
+msgstr "numero di persone attive"
 
 #: src/gui/GUIApplicationWindow.cpp:349
 msgid "number of active containers"
-msgstr ""
+msgstr "numero di contenitori attivi"
 
 #: src/gui/GUIApplicationWindow.cpp:381
 #: src/netedit/GNEApplicationWindow.cpp:631

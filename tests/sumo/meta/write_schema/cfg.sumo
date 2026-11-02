@@ -599,6 +599,7 @@
             <xsd:element name="meso-jam-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="meso-multi-queue" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-lane-queue" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="meso-lookahead" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="meso-ignore-lanes-by-vclass" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="meso-junction-control" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-junction-control.limited" type="boolOptionType" minOccurs="0"/>

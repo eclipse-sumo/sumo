@@ -167,3 +167,5 @@ meso_ltm_queue_state
 
 # actuated traffic lights keep the detections of their detectors when loading state
 meso_actuated_detectors
+# tripinfo devices that were added when loading state keep their values and the meso timeLoss when saving and loading again
+meso_tripinfo_state

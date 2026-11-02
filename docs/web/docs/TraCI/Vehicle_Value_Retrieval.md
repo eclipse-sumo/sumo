@@ -95,6 +95,7 @@ next stops (0x73).
 | action step length (0x7d) | double | Returns the current action step length for the vehicle in s. | [getActionStepLength](https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getActionStepLength) |
 | last action time (0x7f) | double | Returns the time of the last action step in s. | [getLastActionTime](https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLastActionTime) |
 | stops (0x74) | complex | Returns the list of the next or last n stops as StopData objects. | [getStops](https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getStops) |
+| arrival position (0x75) | double | Returns the arrival position of the vehicle on the last edge of its route in m. | [getArrivalPos](https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getArrivalPos) |
 | timeLoss (0x8c) | double | Returns the accumulated timeLoss of the vehicle in s | [getTimeLoss](https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getTimeLoss) |
 | loaded list (0x24) | stringList | Returns a list of all loaded vehicle ids that have not yet arrived. This includes vehicles that are meant to depart in the future. | [getLoadedIDList](https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getLoadedIDList) |
 | teleporting list (0x25) | stringList | Returns a list of all vehicles that are currently [teleporting/jumping](../Simulation/Why_Vehicles_are_teleporting.md) | [getTeleportingIDList](https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.getTeleportingIDList) |
