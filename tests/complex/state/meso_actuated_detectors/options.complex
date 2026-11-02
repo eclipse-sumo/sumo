@@ -1,0 +1,9 @@
+--no-step-log --no-duration-log -n net.net.xml -r input_routes.rou.xml -a input_additional.add.xml
+--mesosim -e 311
+--save-state.times 300,310 --save-state.files state.xml,compare.xml --save-state.rng --save-state.precision 9
+:
+--no-step-log --no-duration-log -n net.net.xml -r input_routes.rou.xml -a input_additional.add.xml
+--mesosim -e 311
+--load-state state.xml --save-state.times 310 --save-state.files compare2.xml --save-state.rng --save-state.precision 9
+--compare compare
+tests/complex/state/runner.py

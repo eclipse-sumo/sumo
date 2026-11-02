@@ -253,9 +253,11 @@ public:
      */
     void overrideTimeSinceDetection(double time);
 
-    /* @brief loads the time since detetion (from state)
-     */
-    void loadTimeSinceLastDetection(double time);
+    /// @brief Saves the time of the last detection and the pending meso detections
+    void saveState(OutputDevice& out) const override;
+
+    /// @brief Loads the detection state, shifting all times by the given offset
+    void loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) override;
 
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
@@ -363,6 +365,7 @@ protected:
     /// @brief helper function for managing meso timings
     typedef std::priority_queue<SUMOTime, std::vector<SUMOTime>, std::greater<SUMOTime>> TimeQueue;
     static void discardOldTimes(TimeQueue& tq, SUMOTime now);
+    static std::vector<SUMOTime> getTimes(TimeQueue tq, SUMOTime now);
 
 protected:
     /// @brief detecto name
