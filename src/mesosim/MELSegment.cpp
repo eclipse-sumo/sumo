@@ -106,7 +106,7 @@ MELSegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMO
     const bool queued = veh->getQueuingTimeLoss() > 0;
     const SUMOTime waveTime = (SUMOTime)(myJamLength * (double)(queued ? myTau_jj : myTau_ff) / DEFAULT_VEH_LENGTH_WITH_GAP);
     // the entering vehicle needs this long to drive through the length that cannot be occupied
-    const SUMOTime remainderTime = TIME2STEPS((myLength - myJamLength) / myEdge.getSpeedLimit());
+    const SUMOTime remainderTime = TIME2STEPS(MAX2(0., myLength - myJamLength) / myEdge.getSpeedLimit());
     myEdge.lock(); // the gui reads the gaps when drawing vehicles
     gaps.insert(gaps.begin(), {time + MAX2((SUMOTime)0, waveTime - remainderTime), time, queued});
     myEdge.unlock();
