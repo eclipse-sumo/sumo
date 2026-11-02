@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-02T20:59:05.439583+01:00 by Eclipse SUMO sumo v1_28_0+0397-c5628bf7102
+<!-- generated on 2026-11-02T22:13:29.797454+01:00 by Eclipse SUMO sumo v1_28_0+0399-6a877122b51
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -59,16 +59,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link linkIndex="0" from="-791354358_0" to="-1013846484_0"/>
         <link linkIndex="1" from="1013846484_0" to="791354358_0"/>
     </railSignal>
-    <departJunction id="35503705">
-        <driveWay id="35503705.d0" vehicle="v_0" edges="-778115307 -1013846485 -154782250 -1013846515 -22894426 -1013846514 -22894425 -267180594 -267180596 -60890969">
-            <forward lanes="-778115307_0 -1013846485_0"/>
-            <bidi lanes="778115307_0 1013846485_0 154782250_0"
-                    deadlockCheck="1013846515_0 22894426_0 1013846514_0 22894425_0 267180594_0 267180596_0 60890969_0"/>
-            <flank lanes=""/>
-            <conflictLinks signals=""/>
-            <foes driveWays="35503705.d0 762086614.d0"/>
-        </driveWay>
-    </departJunction>
     <departJunction id="762086614">
         <driveWay id="762086614.d0" vehicle="v_0" edges="60890969 267180596 267180594 22894425 1013846514 22894426 1013846515 154782250 1013846485 778115307 -778115307 -1013846485 -154782250 -1013846515 -22894426 -1013846514 -22894425 -267180594 -267180596 -60890969">
             <forward lanes="60890969_0 267180596_0 267180594_0 22894425_0 1013846514_0 22894426_0 1013846515_0 154782250_0 1013846485_0 778115307_0 -778115307_0 -1013846485_0"/>
@@ -76,7 +66,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="1013846515_0 22894426_0 1013846514_0 22894425_0 267180594_0 267180596_0 60890969_0"/>
             <flank lanes=""/>
             <conflictLinks signals=""/>
-            <foes driveWays="2187329598.0 35503705.d0 762086614.d0"/>
+            <foes driveWays="2187329598.0 762086614.d0"/>
         </driveWay>
         <subDriveWay id="762086614.d0.0" vehicle="" edges="60890969 267180596 267180594 22894425 1013846514 22894426 1013846515 154782250">
             <forward lanes="60890969_0 267180596_0 267180594_0 22894425_0 1013846514_0 22894426_0 1013846515_0 154782250_0"/>
