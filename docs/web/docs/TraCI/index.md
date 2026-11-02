@@ -55,6 +55,9 @@ Please see the [TraCI Protocol Specification](Protocol.md)
 [Messages](Protocol.md#messages), [Data
 Types](Protocol.md#data_types)).
 
+The [TraCI API Versions](API_Versions.md) page lists the protocol versions, the SUMO
+releases that introduced them and the incompatible changes behind each increment.
+
 ### Shutdown
 
 When using TraCI, the **--end** option of [sumo](../sumo.md) is ignored.

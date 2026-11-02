@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-29 10:36:55 by Eclipse SUMO netconvert Version v1_22_0+1806-33294317c71
+<!-- generated on 2026-10-29T22:13:37.930503+01:00 by Eclipse SUMO netconvert v1_28_0+0330-61755e669a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,19 +31,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="-1.00"/>
-        <rectangular-lane-cut value="0"/>
     </junctions>
-
-    <pedestrian>
-        <walkingareas value="0"/>
-    </pedestrian>
 
     <railway>
         <railway.topology.repair value="true"/>
@@ -61,17 +54,23 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <location netOffset="0.00,0.00" convBoundary="-100.00,-200.00,200.00,-200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
-    <edge id=":gneJ45_0" function="internal" bidi=":gneJ45_1">
+    <edge id=":gneJ45_0" function="internal" bidi=":gneJ45_2">
         <lane id=":gneJ45_0_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="0.00,-200.00 0.00,-200.00"/>
     </edge>
-    <edge id=":gneJ45_1" function="internal" bidi=":gneJ45_0">
-        <lane id=":gneJ45_1_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="0.00,-200.00 0.00,-200.00"/>
+    <edge id=":gneJ45_1" function="internal">
+        <lane id=":gneJ45_1_0" index="0" allow="rail_urban" speed="0.10" length="0.10" shape="0.00,-200.00 0.00,-200.00"/>
+    </edge>
+    <edge id=":gneJ45_2" function="internal" bidi=":gneJ45_0">
+        <lane id=":gneJ45_2_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="0.00,-200.00 0.00,-200.00"/>
     </edge>
     <edge id=":gneJ46_0" function="internal" bidi=":gneJ46_1">
         <lane id=":gneJ46_0_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="100.00,-200.00 100.00,-200.00"/>
     </edge>
     <edge id=":gneJ46_1" function="internal" bidi=":gneJ46_0">
         <lane id=":gneJ46_1_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="100.00,-200.00 100.00,-200.00"/>
+    </edge>
+    <edge id=":gneJ46_2" function="internal">
+        <lane id=":gneJ46_2_0" index="0" allow="rail_urban" speed="0.10" length="0.10" shape="100.00,-200.00 100.00,-200.00"/>
     </edge>
 
     <edge id="-a" from="gneJ44" to="gneJ45" priority="-1" spreadType="center" bidi="a">
@@ -94,24 +93,30 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <junction id="gneJ44" type="dead_end" x="-100.00" y="-200.00" incLanes="a_0" intLanes="" shape="-100.00,-198.40 -100.00,-201.60 -100.00,-198.40 -100.00,-201.60"/>
-    <junction id="gneJ45" type="priority" x="0.00" y="-200.00" incLanes="b_0 -a_0" intLanes=":gneJ45_0_0 :gneJ45_1_0" shape="0.00,-198.40 0.00,-201.60 0.00,-198.40">
-        <request index="0" response="00" foes="00" cont="0"/>
-        <request index="1" response="00" foes="00" cont="0"/>
+    <junction id="gneJ45" type="priority" x="0.00" y="-200.00" incLanes="b_0 -a_0" intLanes=":gneJ45_0_0 :gneJ45_1_0 :gneJ45_2_0" shape="0.00,-198.40 0.00,-201.60 0.00,-198.40">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="100" foes="100" cont="0"/>
+        <request index="2" response="000" foes="010" cont="0"/>
     </junction>
-    <junction id="gneJ46" type="priority" x="100.00" y="-200.00" incLanes="c_0 -b_0" intLanes=":gneJ46_0_0 :gneJ46_1_0" shape="100.00,-198.40 100.00,-201.60 100.00,-198.40">
-        <request index="0" response="00" foes="00" cont="0"/>
-        <request index="1" response="00" foes="00" cont="0"/>
+    <junction id="gneJ46" type="priority" x="100.00" y="-200.00" incLanes="c_0 -b_0" intLanes=":gneJ46_0_0 :gneJ46_1_0 :gneJ46_2_0" shape="100.00,-198.40 100.00,-201.60 100.00,-198.40">
+        <request index="0" response="000" foes="100" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="001" foes="001" cont="0"/>
     </junction>
     <junction id="gneJ47" type="dead_end" x="200.00" y="-200.00" incLanes="-c_0" intLanes="" shape="200.00,-201.60 200.00,-198.40 200.00,-201.60 200.00,-198.40"/>
 
-    <connection from="-a" to="-b" fromLane="0" toLane="0" via=":gneJ45_1_0" dir="s" state="M"/>
+    <connection from="-a" to="-b" fromLane="0" toLane="0" keepClear="0" via=":gneJ45_2_0" dir="s" state="M"/>
     <connection from="-b" to="-c" fromLane="0" toLane="0" via=":gneJ46_1_0" dir="s" state="M"/>
+    <connection from="-b" to="b" fromLane="0" toLane="0" speed="0.10" via=":gneJ46_2_0" dir="t" state="M"/>
     <connection from="b" to="a" fromLane="0" toLane="0" via=":gneJ45_0_0" dir="s" state="M"/>
-    <connection from="c" to="b" fromLane="0" toLane="0" via=":gneJ46_0_0" dir="s" state="M"/>
+    <connection from="b" to="-b" fromLane="0" toLane="0" speed="0.10" via=":gneJ45_1_0" dir="t" state="M"/>
+    <connection from="c" to="b" fromLane="0" toLane="0" keepClear="0" via=":gneJ46_0_0" dir="s" state="M"/>
 
     <connection from=":gneJ45_0" to="a" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ45_1" to="-b" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ45_1" to="-b" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":gneJ45_2" to="-b" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ46_0" to="b" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ46_1" to="-c" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ46_2" to="b" fromLane="0" toLane="0" dir="t" state="M"/>
 
 </net>

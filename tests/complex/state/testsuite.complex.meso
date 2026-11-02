@@ -164,3 +164,6 @@ meso_event_order
 
 # meso-ltm keeps the gap times of its queues and the unqueued event times of vehicles when loading state (#18364)
 meso_ltm_queue_state
+
+# tripinfo devices that were added when loading state keep their values and the meso timeLoss when saving and loading again
+meso_tripinfo_state

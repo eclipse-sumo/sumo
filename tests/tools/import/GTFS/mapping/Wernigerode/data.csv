@@ -1,0 +1,7 @@
+trip_id;route_id;route_short_name;route_type;stop_id;stop_name;stop_lat;stop_lon;stop_sequence;fare_zone;fare_token;start_char;trip_headsign;arrival_time;departure_time
+1162780;211;HSB;2;490544;Wernigerode Wernigerode Westerntor Gleis 1;51.83407;10.78028;93.0;;;;;62820;62880
+1162780;211;HSB;2;105799;Wernigerode Wd_Wdt 004 P4;51.83706;10.78054;94.0;;;;;62950;62950
+1162780;211;HSB;2;659343;Wernigerode Wd_Wdt 003 P3;51.83765;10.7824;95.0;;;;;62980;62980
+1162780;211;HSB;2;664878;Wernigerode Wd_Wdt 002 P2;51.83789;10.78368;96.0;;;;;62999;62999
+1162780;211;HSB;2;296471;Wernigerode Wd_Wdt 001 P1;51.83808;10.78565;97.0;;;;;63028;63028
+1162780;211;HSB;2;167582;Wernigerode Wernigerode Gleis 31;51.83891;10.7874;98.0;;;;;63060;63060

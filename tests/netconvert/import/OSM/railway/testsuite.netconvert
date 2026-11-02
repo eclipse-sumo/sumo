@@ -44,6 +44,12 @@ inconsistent_directions2
 # see #14534
 S5
 
+# see #18452
+S5_bidi_stop_turns
+
+# see #18454
+RE70
+
 # keep railway.rail when used for light_rail route but remove it otherwise
 mixed_traffic_filter
 
@@ -81,6 +87,10 @@ spreadType
 
 # see #18146
 tram_on_road
+
+# test narrow_gauge
+# see #18447
+brockenbahn
 
 # tests using S42 (Berlin)
 S42

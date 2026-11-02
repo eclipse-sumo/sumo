@@ -936,6 +936,8 @@ NBEdgeCont::appendRailwayTurnarounds(const NBPTStopCont& sc) {
                                 KEEPCLEAR_UNSPECIFIED,
                                 NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
                                 SUMO_const_haltingSpeed);
+            // finalize connections to prevent removal during recheck
+            edge->declareConnectionsAsLoaded();
         }
     }
 }

@@ -230,6 +230,7 @@ Subscribing to person.VAR_ACCEL.
 Subscribing to person.VAR_ACTIONSTEPLENGTH.
 Subscribing to person.VAR_ANGLE.
 Subscribing to person.VAR_APPARENT_DECEL.
+Subscribing to person.VAR_ARRIVALPOS.
 Subscribing to person.VAR_BOARDING_DURATION.
 Subscribing to person.VAR_COLOR.
 Subscribing to person.VAR_DECEL.
@@ -423,6 +424,7 @@ Subscribing to vehicle.VAR_EDGE_TRAVELTIME.
 Subscribing to vehicle.VAR_ALLOWED_SPEED.
 Subscribing to vehicle.VAR_ANGLE.
 Subscribing to vehicle.VAR_APPARENT_DECEL.
+Subscribing to vehicle.VAR_ARRIVALPOS.
 Subscribing to vehicle.VAR_BEST_LANES.
 Subscribing to vehicle.VAR_BOARDING_DURATION.
 Subscribing to vehicle.VAR_CO2EMISSION.
@@ -889,6 +891,7 @@ Could not add subscription. Get Vehicle Type Variable: unsupported variable 0x80
               93: 0.5,
               94: 1.0,
               95: 0.0,
+              117: 125.0,
               122: 0.0,
               123: 5.0,
               124: 2.0,
@@ -1090,6 +1093,7 @@ Could not add subscription. Get Vehicle Type Variable: unsupported variable 0x80
                113: 0.0,
                114: 1.750652830884792,
                116: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x00000207991BD8C0> >,
+               117: 250.0,
                120: ('', -1.0),
                122: 0.0,
                123: 9.0,

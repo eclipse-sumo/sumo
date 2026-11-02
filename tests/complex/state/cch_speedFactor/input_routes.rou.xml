@@ -1,0 +1,44 @@
+<routes>
+    <!-- the vehicles drive faster than the speed limit, so the CCH metric must follow edge speeds above it -->
+    <vType id="fast" speedFactor="1.2" speedDev="0"/>
+    <trip id="t0" type="fast" depart="0" from="0/0to1/0" to="3/2to4/2"/>
+    <trip id="t1" type="fast" depart="5" from="4/2to3/2" to="1/0to0/0"/>
+    <trip id="t2" type="fast" depart="10" from="0/2to1/2" to="3/0to4/0"/>
+    <trip id="t3" type="fast" depart="15" from="4/0to3/0" to="1/2to0/2"/>
+    <trip id="t4" type="fast" depart="20" from="0/0to1/0" to="3/2to4/2"/>
+    <trip id="t5" type="fast" depart="25" from="4/2to3/2" to="1/0to0/0"/>
+    <trip id="t6" type="fast" depart="30" from="0/2to1/2" to="3/0to4/0"/>
+    <trip id="t7" type="fast" depart="35" from="4/0to3/0" to="1/2to0/2"/>
+    <trip id="t8" type="fast" depart="40" from="0/0to1/0" to="3/2to4/2"/>
+    <trip id="t9" type="fast" depart="45" from="4/2to3/2" to="1/0to0/0"/>
+    <trip id="t10" type="fast" depart="50" from="0/2to1/2" to="3/0to4/0"/>
+    <trip id="t11" type="fast" depart="55" from="4/0to3/0" to="1/2to0/2"/>
+    <trip id="t12" type="fast" depart="60" from="0/0to1/0" to="3/2to4/2"/>
+    <trip id="t13" type="fast" depart="65" from="4/2to3/2" to="1/0to0/0"/>
+    <trip id="t14" type="fast" depart="70" from="0/2to1/2" to="3/0to4/0"/>
+    <trip id="t15" type="fast" depart="75" from="4/0to3/0" to="1/2to0/2"/>
+    <trip id="t16" type="fast" depart="80" from="0/0to1/0" to="3/2to4/2"/>
+    <trip id="t17" type="fast" depart="85" from="4/2to3/2" to="1/0to0/0"/>
+    <trip id="t18" type="fast" depart="90" from="0/2to1/2" to="3/0to4/0"/>
+    <trip id="t19" type="fast" depart="95" from="4/0to3/0" to="1/2to0/2"/>
+    <trip id="t20" type="fast" depart="100" from="0/0to1/0" to="3/2to4/2"/>
+    <trip id="t21" type="fast" depart="105" from="4/2to3/2" to="1/0to0/0"/>
+    <trip id="t22" type="fast" depart="110" from="0/2to1/2" to="3/0to4/0"/>
+    <trip id="t23" type="fast" depart="115" from="4/0to3/0" to="1/2to0/2"/>
+    <trip id="t24" type="fast" depart="120" from="0/0to1/0" to="3/2to4/2"/>
+    <trip id="t25" type="fast" depart="125" from="4/2to3/2" to="1/0to0/0"/>
+    <trip id="t26" type="fast" depart="130" from="0/2to1/2" to="3/0to4/0"/>
+    <trip id="t27" type="fast" depart="135" from="4/0to3/0" to="1/2to0/2"/>
+    <trip id="t28" type="fast" depart="140" from="0/0to1/0" to="3/2to4/2"/>
+    <trip id="t29" type="fast" depart="145" from="4/2to3/2" to="1/0to0/0"/>
+    <trip id="t30" type="fast" depart="150" from="0/2to1/2" to="3/0to4/0"/>
+    <trip id="t31" type="fast" depart="155" from="4/0to3/0" to="1/2to0/2"/>
+    <trip id="t32" type="fast" depart="160" from="0/0to1/0" to="3/2to4/2"/>
+    <trip id="t33" type="fast" depart="165" from="4/2to3/2" to="1/0to0/0"/>
+    <trip id="t34" type="fast" depart="170" from="0/2to1/2" to="3/0to4/0"/>
+    <trip id="t35" type="fast" depart="175" from="4/0to3/0" to="1/2to0/2"/>
+    <trip id="t36" type="fast" depart="180" from="0/0to1/0" to="3/2to4/2"/>
+    <trip id="t37" type="fast" depart="185" from="4/2to3/2" to="1/0to0/0"/>
+    <trip id="t38" type="fast" depart="190" from="0/2to1/2" to="3/0to4/0"/>
+    <trip id="t39" type="fast" depart="195" from="4/0to3/0" to="1/2to0/2"/>
+</routes>

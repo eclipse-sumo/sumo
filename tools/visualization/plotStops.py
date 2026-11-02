@@ -24,11 +24,13 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
+import copy
 
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', 'visualization'))
 import sumolib  # noqa
 from sumolib import openz  # noqa
+from sumolib.miscutils import parseTime  # noqa
 from sumolib.options import ArgumentParser, RawDescriptionHelpFormatter  # noqa
 import plotXMLAttributes  # noqa
 
@@ -84,6 +86,8 @@ def getStopID(stop):
 def main(options):
     stopNames = dict()  # stopID -> stopName
     routeStops = dict()  # routeID -> stopIDs
+    routeStopObjs = dict()  # routeID -> stops
+    hasNamedRouteStops = False
 
     for stop in sumolib.xml.parse(options.stopFile, ['busStop', 'trainStop']):
         stopNames[stop.id] = stop.getAttributeSecure('attr_name', stop.id)
@@ -91,12 +95,13 @@ def main(options):
     for route in sumolib.xml.parse(options.routeFile, 'route'):
         if route.id:
             if route.stop:
+                hasNamedRouteStops = True
                 routeStops[route.id] = [getStopID(stop) for stop in route.stop]
+                routeStopObjs[route.id] = route.stop
             else:
                 routeStops[route.id] = []
 
     stops = []
-    idelem = None
     xattr = None
     for veh in sumolib.xml.parse(options.routeFile, ['vehicle', 'trip', 'flow']):
         if veh.id == options.vehID:
@@ -125,24 +130,47 @@ def main(options):
             if name in stopName2index:
                 slf.write("%.3i:%s:%s\n" % (stopName2index[name], stop, name))
 
-    plot(options, idelem, xattr)
-
-
-def plot(options, idelem, xattr):
-
     if options.stopinfoFile:
-        pxargs = [options.stopinfoFile]
+        datafile = options.stopinfoFile
+        idelem = 'stopinfo'
+    elif hasNamedRouteStops:
+        datafile = options.routeFile + ".expanded.rou.xml"
+        idelem = expand(options, datafile, routeStopObjs)
     else:
-        pxargs = [options.routeFile, '--idelem', idelem]
+        datafile = options.routeFile
 
-    pxargs += ['-x', xattr,
-               '-y', options.timeAttr,
-               '--ytime1',
-               '--invert-yaxis',
-               '--marker', 'o',
-               '--xstr',
-               '--xticks-file', options.stopList,
-               '--xticksorientation', '45']
+    plot(options, datafile, idelem, xattr)
+
+
+def expand(options, datafile, routeStopObjs):
+    # we could call duarouter here but then we would also have to load net,vTypes and stops
+    idelem = None
+    with openz(datafile, 'w') as outf:
+        sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)
+        for veh in sumolib.xml.parse(options.routeFile, ['vehicle', 'trip', 'flow']):
+            idelem = veh.name
+            if not isinstance(veh.route, list):
+                veh.setChildList(copy.deepcopy(routeStopObjs[veh.route]))
+                begin = parseTime(veh.begin if veh.name == 'flow' else veh.depart)
+                for stop in veh.stop:
+                    stop.setAttribute(options.timeAttr, parseTime(stop.getAttribute(options.timeAttr)) + begin)
+            outf.write(veh.toXML(4 * ' '))
+        outf.write('</routes>\n')
+    return idelem
+
+
+def plot(options, datafile, idelem, xattr):
+
+    pxargs = [datafile,
+              '--idelem', idelem,
+              '-x', xattr,
+              '-y', options.timeAttr,
+              '--ytime1',
+              '--invert-yaxis',
+              '--marker', 'o',
+              '--xstr',
+              '--xticks-file', options.stopList,
+              '--xticksorientation', '45']
 
     if options.label:
         pxargs += ['--label', options.label]

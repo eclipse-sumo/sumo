@@ -69,6 +69,8 @@ def add_options():
                     help="Do not distinguish line ids that have distinct stop sequences")
     op.add_argument("--join-blocks", action="store_true", default=False, dest="joinBlocks",
                     help="Do not concatenate trips by block_id")
+    op.add_argument("--coupling",
+                    help="Set procedure for handling coupled trips. Possible values: [remove]")
     op.add_argument("-H", "--human-readable-time", category="output", dest="hrtime", default=False, action="store_true",
                     help="write times as h:m:s")
     op.add_argument("-v", "--verbose", action="store_true", default=False,

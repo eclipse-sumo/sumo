@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-29T18:23:01.665986+01:00 by Eclipse SUMO netconvert v1_28_0+0321-e79bed16c72
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml.gz"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <edge_removal>
+        <keep-edges.in-geo-boundary value="13.596785,52.501895,13.683731,52.534760"/>
+    </edge_removal>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair.stop-turn value="true"/>
+        <railway.topology.all-bidi value="true"/>
+    </railway>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop id="-1117011604" name="Kaulsdorf" lane="-396007085_0" startPos="942.20" endPos="1142.20" friendlyPos="true"/>
+    <trainStop id="-1117011628" name="Mahlsdorf" lane="-550340843_0" startPos="0.00" endPos="164.75" friendlyPos="true"/>
+    <trainStop id="-1117011631" name="Birkenstein" lane="-36789617_0" startPos="1921.88" endPos="2121.88" friendlyPos="true"/>
+    <trainStop id="-1117011702" name="Kaulsdorf" lane="-36785394_0" startPos="182.64" endPos="382.64" friendlyPos="true"/>
+    <trainStop id="-1117011722" name="Hoppegarten (Mark)" lane="-36789616#0_0" startPos="0.00" endPos="200.00" friendlyPos="true"/>
+    <trainStop id="-1117011763" name="Neuenhagen" lane="-140643608_0" startPos="747.28" endPos="947.28" friendlyPos="true"/>
+    <trainStop id="-1117011811" name="Hoppegarten (Mark)" lane="-47973407_0" startPos="0.00" endPos="200.00" friendlyPos="true"/>
+    <trainStop id="-1117011882" name="Mahlsdorf" lane="-550340846_0" startPos="0.00" endPos="167.37" friendlyPos="true"/>
+    <trainStop id="-1117011926" name="Neuenhagen" lane="-140643608_0" startPos="904.28" endPos="1104.28" friendlyPos="true" lines="S5"/>
+    <trainStop id="-1855744014" name="Birkenstein" lane="-25375344_0" startPos="1535.50" endPos="1735.50" friendlyPos="true"/>
+    <trainStop id="1117011604" name="Kaulsdorf" lane="396007085_0" startPos="401.88" endPos="601.88" friendlyPos="true" lines="S5"/>
+    <trainStop id="1117011628" name="Mahlsdorf" lane="550340843_0" startPos="0.00" endPos="164.75" friendlyPos="true" lines="S5"/>
+    <trainStop id="1117011631" name="Birkenstein" lane="36789617_0" startPos="1635.68" endPos="1835.68" friendlyPos="true" lines="S5"/>
+    <trainStop id="1117011702" name="Kaulsdorf" lane="36785394_0" startPos="1059.16" endPos="1259.16" friendlyPos="true" lines="S5"/>
+    <trainStop id="1117011722" name="Hoppegarten (Mark)" lane="36789616#0_0" startPos="3.00" endPos="203.00" friendlyPos="true" lines="S5"/>
+    <trainStop id="1117011763" name="Neuenhagen" lane="140643608_0" startPos="1511.81" endPos="1711.81" friendlyPos="true" lines="S5"/>
+    <trainStop id="1117011811" name="Hoppegarten (Mark)" lane="47973407_0" startPos="223.06" endPos="423.06" friendlyPos="true" lines="S5"/>
+    <trainStop id="1117011882" name="Mahlsdorf" lane="550340846_0" startPos="0.00" endPos="167.37" friendlyPos="true" lines="S5"/>
+    <trainStop id="1117011926" name="Neuenhagen" lane="140643608_0" startPos="1354.81" endPos="1554.81" friendlyPos="true"/>
+    <trainStop id="1855744014" name="Birkenstein" lane="25375344_0" startPos="1971.82" endPos="2171.82" friendlyPos="true" lines="S5"/>
+</additional>
