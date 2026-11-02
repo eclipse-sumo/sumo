@@ -36,8 +36,8 @@ traci.start([sumoBinary,
 
 vehID = "v1"
 for i in range(10):
-    print(traci.simulation.getTime(), traci.vehicle.getParameter(vehID,
-        "laneChangeModel.speedGainProbabilityLeft"))
+    print(traci.simulation.getTime(),
+          traci.vehicle.getParameter(vehID, "laneChangeModel.speedGainProbabilityLeft"))
     traci.simulationStep()
 
 traci.close()
