@@ -202,3 +202,6 @@ cch_speedFactor
 
 # vehicles waiting for insertion do not repeat their pre-insertion reroute after loading state (#18366)
 preinsertion_reroute
+
+# the CCH update threshold state is saved, so a reloaded state replicates
+cch_update_threshold

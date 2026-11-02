@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-03T00:38:00.646419+01:00 by Eclipse SUMO sumo v1_28_0+0402-50fa9442937
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="100,250"/>
+        <save-state.files value="state.xml,compare.xml"/>
+        <save-state.rng value="true"/>
+        <save-state.precision value="16"/>
+    </output>
+
+    <time>
+        <end value="251"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <routing>
+        <routing-algorithm value="CCH"/>
+        <device.rerouting.period value="10"/>
+        <device.rerouting.adaptation-steps value="10"/>
+        <device.rerouting.cch-update-threshold.factor value="1.2"/>
+    </routing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<snapshot type="micro" version="v1_28_0+0402-50fa9442937" time="100.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <rngState default="0" routeHandler="108" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
+        <rngLane index="0" state="0"/>
+        <rngLane index="1" state="243"/>
+        <rngLane index="2" state="0"/>
+        <rngLane index="3" state="0"/>
+        <rngLane index="4" state="0"/>
+        <rngLane index="5" state="0"/>
+        <rngLane index="6" state="171"/>
+        <rngLane index="7" state="0"/>
+        <rngLane index="8" state="30"/>
+        <rngLane index="9" state="22"/>
+        <rngLane index="10" state="0"/>
+        <rngLane index="11" state="0"/>
+        <rngLane index="12" state="0"/>
+        <rngLane index="13" state="2"/>
+        <rngLane index="14" state="0"/>
+        <rngLane index="15" state="50"/>
+        <rngLane index="16" state="22"/>
+        <rngLane index="17" state="0"/>
+        <rngLane index="18" state="0"/>
+        <rngLane index="19" state="0"/>
+        <rngLane index="20" state="0"/>
+        <rngLane index="21" state="0"/>
+        <rngLane index="22" state="0"/>
+        <rngLane index="23" state="0"/>
+        <rngLane index="24" state="0"/>
+        <rngLane index="25" state="0"/>
+        <rngLane index="26" state="0"/>
+        <rngLane index="27" state="0"/>
+        <rngLane index="28" state="54"/>
+        <rngLane index="29" state="0"/>
+        <rngLane index="30" state="3"/>
+        <rngLane index="31" state="0"/>
+        <rngLane index="32" state="0"/>
+        <rngLane index="33" state="0"/>
+        <rngLane index="34" state="2"/>
+        <rngLane index="35" state="41"/>
+        <rngLane index="36" state="0"/>
+        <rngLane index="37" state="163"/>
+        <rngLane index="38" state="0"/>
+        <rngLane index="39" state="0"/>
+        <rngLane index="40" state="0"/>
+        <rngLane index="41" state="0"/>
+        <rngLane index="42" state="227"/>
+        <rngLane index="43" state="0"/>
+        <rngLane index="44" state="0"/>
+        <rngLane index="45" state="0"/>
+        <rngLane index="46" state="0"/>
+        <rngLane index="47" state="0"/>
+        <rngLane index="48" state="0"/>
+        <rngLane index="49" state="0"/>
+        <rngLane index="50" state="0"/>
+        <rngLane index="51" state="0"/>
+        <rngLane index="52" state="0"/>
+        <rngLane index="53" state="0"/>
+        <rngLane index="54" state="0"/>
+        <rngLane index="55" state="0"/>
+        <rngLane index="56" state="0"/>
+        <rngLane index="57" state="0"/>
+        <rngLane index="58" state="0"/>
+        <rngLane index="59" state="0"/>
+        <rngLane index="60" state="0"/>
+        <rngLane index="61" state="0"/>
+        <rngLane index="62" state="0"/>
+        <rngLane index="63" state="0"/>
+    </rngState>
+    <edgeControl lanes="0/0to1/0_0 4/2to3/2_0 0/2to1/2_0 4/0to3/0_0 1/2to1/1_0 3/0to3/1_0 1/0to2/0_0 1/2to2/2_0 3/2to3/1_0 1/0to1/1_0 3/1to2/1_0 1/1to2/1_0 3/2to2/2_0"/>
+    <route id="!t0!var#1" state="0" edges="0/0to1/0 1/0to2/0 2/0to3/0 3/0to3/1 3/1to3/2 3/2to4/2"/>
+    <route id="!t1!var#1" state="0" edges="4/2to3/2 3/2to3/1 3/1to2/1 2/1to1/1 1/1to1/0 1/0to0/0"/>
+    <route id="!t10!var#1" state="0" edges="0/2to1/2 1/2to1/1 1/1to2/1 2/1to3/1 3/1to3/0 3/0to4/0"/>
+    <route id="!t11!var#1" state="0" edges="4/0to3/0 3/0to3/1 3/1to2/1 2/1to1/1 1/1to1/2 1/2to0/2"/>
+    <route id="!t12!var#2" state="0" edges="0/0to1/0 1/0to1/1 1/1to2/1 2/1to3/1 3/1to3/2 3/2to4/2"/>
+    <route id="!t13!var#2" state="0" edges="4/2to3/2 3/2to2/2 2/2to2/1 2/1to1/1 1/1to1/0 1/0to0/0"/>
+    <route id="!t14!var#2" state="0" edges="0/2to1/2 1/2to1/1 1/1to2/1 2/1to3/1 3/1to3/0 3/0to4/0"/>
+    <route id="!t15!var#1" state="0" edges="4/0to3/0 3/0to3/1 3/1to2/1 2/1to1/1 1/1to1/2 1/2to0/2"/>
+    <route id="!t16!var#1" state="0" edges="0/0to1/0 1/0to1/1 1/1to2/1 2/1to3/1 3/1to3/2 3/2to4/2"/>
+    <route id="!t17!var#1" state="0" edges="4/2to3/2 3/2to2/2 2/2to2/1 2/1to1/1 1/1to1/0 1/0to0/0"/>
+    <route id="!t18!var#1" state="0" edges="0/2to1/2 1/2to1/1 1/1to2/1 2/1to3/1 3/1to3/0 3/0to4/0"/>
+    <route id="!t19!var#1" state="0" edges="4/0to3/0 3/0to3/1 3/1to2/1 2/1to1/1 1/1to1/2 1/2to0/2"/>
+    <route id="!t2!var#2" state="0" edges="0/2to1/2 1/2to1/1 1/1to2/1 2/1to3/1 3/1to3/0 3/0to4/0"/>
+    <route id="!t20" state="0" edges="0/0to1/0 3/2to4/2"/>
+    <route id="!t21" state="0" edges="4/2to3/2 1/0to0/0"/>
+    <route id="!t22" state="0" edges="0/2to1/2 3/0to4/0"/>
+    <route id="!t23" state="0" edges="4/0to3/0 1/2to0/2"/>
+    <route id="!t24" state="0" edges="0/0to1/0 3/2to4/2"/>
+    <route id="!t25" state="0" edges="4/2to3/2 1/0to0/0"/>
+    <route id="!t26" state="0" edges="0/2to1/2 3/0to4/0"/>
+    <route id="!t27" state="0" edges="4/0to3/0 1/2to0/2"/>
+    <route id="!t28" state="0" edges="0/0to1/0 3/2to4/2"/>
+    <route id="!t29" state="0" edges="4/2to3/2 1/0to0/0"/>
+    <route id="!t3!var#1" state="0" edges="4/0to3/0 3/0to3/1 3/1to2/1 2/1to1/1 1/1to1/2 1/2to0/2"/>
+    <route id="!t30" state="0" edges="0/2to1/2 3/0to4/0"/>
+    <route id="!t31" state="0" edges="4/0to3/0 1/2to0/2"/>
+    <route id="!t32" state="0" edges="0/0to1/0 3/2to4/2"/>
+    <route id="!t33" state="0" edges="4/2to3/2 1/0to0/0"/>
+    <route id="!t34" state="0" edges="0/2to1/2 3/0to4/0"/>
+    <route id="!t35" state="0" edges="4/0to3/0 1/2to0/2"/>
+    <route id="!t36" state="0" edges="0/0to1/0 3/2to4/2"/>
+    <route id="!t37" state="0" edges="4/2to3/2 1/0to0/0"/>
+    <route id="!t38" state="0" edges="0/2to1/2 3/0to4/0"/>
+    <route id="!t39" state="0" edges="4/0to3/0 1/2to0/2"/>
+    <route id="!t4!var#2" state="0" edges="0/0to1/0 1/0to1/1 1/1to2/1 2/1to3/1 3/1to3/2 3/2to4/2"/>
+    <route id="!t5!var#1" state="0" edges="4/2to3/2 3/2to3/1 3/1to2/1 2/1to1/1 1/1to1/0 1/0to0/0"/>
+    <route id="!t6!var#1" state="0" edges="0/2to1/2 1/2to2/2 2/2to2/1 2/1to3/1 3/1to3/0 3/0to4/0"/>
+    <route id="!t7!var#1" state="0" edges="4/0to3/0 3/0to3/1 3/1to2/1 2/1to1/1 1/1to1/2 1/2to0/2"/>
+    <route id="!t8!var#2" state="0" edges="0/0to1/0 1/0to1/1 1/1to2/1 2/1to3/1 3/1to3/2 3/2to4/2"/>
+    <route id="!t9!var#2" state="0" edges="4/2to3/2 3/2to2/2 2/2to2/1 2/1to1/1 1/1to1/0 1/0to0/0"/>
+    <delay number="20" begin="40" end="0" depart="0.0000000000000000" time="0.0000000000000000" speedFactor="1.1581999999999999" decel="4.5000000000000000"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vehicle id="t0" depart="0.000" route="!t0!var#1" distance="400 1" speedFactor="1.0600000000000001" reroute="1" state="262144 0 1 5.0999999999999996 0 42.0190872095806753 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="209.0976755784448358 204.0976755784448358 9.8599815073888770" speed="9.8599815073888770 9.5403653641464210" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 1 23000 55000" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t0" state="10000 90000"/>
+    </vehicle>
+    <vehicle id="t1" depart="5.000" route="!t1!var#1" distance="400 1" speedFactor="0.9383000000000000" reroute="1" state="262144 5000 1 5.0999999999999996 0 32.0941738933090548 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="185.9623663590812725 180.9623663590812725 9.2448243732256827" speed="9.2448243732256827 8.3584693794995548" angle="180.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 1 23000 45000" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t1" state="10000 95000"/>
+    </vehicle>
+    <vehicle id="t2" depart="10.000" route="!t2!var#2" distance="800 2" speedFactor="1.0104000000000000" reroute="1" state="262144 10000 2 5.0999999999999996 0 7.8666084432283672 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="24.8717882896204898 19.8717882896204898 9.6965285110017270" speed="9.6965285110017270 9.2186950973663464" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t2" state="10000 90000"/>
+    </vehicle>
+    <vehicle id="t3" depart="15.000" route="!t3!var#1" distance="800 1" speedFactor="1.0827000000000000" reroute="1" state="262144 15000 2 5.0999999999999996 0 7.3342032732955094 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="35.1605811600294160 30.1605811600294160 9.9565081777498126" speed="9.9565081777498126 9.8659017065521333" angle="270.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t3" state="10000 95000"/>
+    </vehicle>
+    <vehicle id="t4" depart="20.000" route="!t4!var#2" distance="400 2" speedFactor="1.0303000000000000" reroute="1" state="262144 20000 1 5.0999999999999996 0 22.5554634559610001 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="186.6480600132335610 181.6480600132335610 9.9915389950126414" speed="9.9915389950126414 9.8021957207908859" angle="0.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 1 22000 35000" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t4" state="10000 90000"/>
+    </vehicle>
+    <vehicle id="t5" depart="25.000" route="!t5!var#1" distance="400 1" speedFactor="0.8310000000000000" reroute="1" state="262144 25000 1 5.0999999999999996 0 8.7261552337319905 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="147.5256500076871475 142.5256500076871475 7.3086484146444111" speed="7.3086484146444111 7.5814824891416341" angle="180.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t5" state="10000 95000"/>
+    </vehicle>
+    <vehicle id="t6" depart="30.000" route="!t6!var#1" distance="400 3" speedFactor="1.0458000000000001" reroute="1" state="262144 30000 1 5.0999999999999996 0 11.7810005683100734 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="203.4962960566131756 198.4962960566131756 10.2045520599391306" speed="10.2045520599391306 9.9300109665067868" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 1 23000 25000" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t6" state="10000 90000"/>
+    </vehicle>
+    <vehicle id="t7" depart="35.000" route="!t7!var#1" distance="400 1" speedFactor="0.8860000000000000" reroute="1" state="262144 35000 1 5.0999999999999996 0 6.2366574079925101 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="116.8832153651863166 111.8832153651863166 8.6592715254193173" speed="8.6592715254193173 7.7773876434797415" angle="0.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t7" state="10000 95000"/>
+    </vehicle>
+    <vehicle id="t8" depart="40.000" route="!t8!var#2" distance="400 2" speedFactor="0.9379000000000000" reroute="1" state="262144 40000 1 5.0999999999999996 0 6.1247876226960765 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="101.0166168867333454 96.0166168867333454 8.5798101542247451" speed="8.5798101542247451 8.2636930098719894" angle="0.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t8" state="10000 90000"/>
+    </vehicle>
+    <vehicle id="t9" depart="45.000" route="!t9!var#2" distance="400 2" speedFactor="0.8569000000000000" reroute="1" state="262144 45000 1 5.0999999999999996 0 5.5303112110258876 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="20.4367632327191693 15.4367632327191693 7.3714530028458674" speed="7.3714530028458674 7.5116099300617343" angle="270.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t9" state="10000 95000"/>
+    </vehicle>
+    <vehicle id="t10" depart="50.000" route="!t10!var#1" distance="400 3" speedFactor="1.0907000000000000" reroute="1" state="262144 50000 1 5.0999999999999996 0 5.3526292019218422 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="81.1618732946384966 76.1618732946384966 10.3895808397028588" speed="10.3895808397028588 9.7524369411803775" angle="180.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t10" state="10000 90000"/>
+    </vehicle>
+    <vehicle id="t11" depart="55.000" route="!t11!var#1" distance="400 1" speedFactor="1.0263000000000000" reroute="1" state="262144 55000 1 5.0999999999999996 0 4.6763850741781132 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="8.6782599837099497 3.6782599837099497 9.0991306458245962" speed="9.0991306458245962 9.7850840694848440" angle="0.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t11" state="10000 95000"/>
+    </vehicle>
+    <vehicle id="t12" depart="60.000" route="!t12!var#2" distance="0 2" speedFactor="1.0470999999999999" reroute="1" state="262144 60000 0 5.0999999999999996 0 4.6525376555115390 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="364.7522782091389217 359.7522782091389217 10.4347861814815559" speed="10.4347861814815559 10.0703453627685082" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t12" state="10000 90000"/>
+    </vehicle>
+    <vehicle id="t13" depart="65.000" route="!t13!var#2" distance="0 2" speedFactor="1.1229000000000000" reroute="1" state="262144 65000 0 5.0999999999999996 0 3.6460098501653806 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="345.9449553924930001 340.9449553924930001 11.1970103485938157" speed="11.1970103485938157 10.7102841362785544" angle="270.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t13" state="10000 95000"/>
+    </vehicle>
+    <vehicle id="t14" depart="70.000" route="!t14!var#2" distance="0 2" speedFactor="0.9912000000000000" reroute="1" state="262144 70000 0 5.0999999999999996 0 3.8265794945345761 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="254.6189440501732690 249.6189440501732690 8.6428331175008779" speed="8.6428331175008779 9.6136771807800976" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t14" state="10000 90000"/>
+    </vehicle>
+    <vehicle id="t15" depart="75.000" route="!t15!var#1" distance="0 1" speedFactor="0.9268000000000000" reroute="1" state="262144 75000 0 5.0999999999999996 0 3.0909734320235756 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="198.8848582320054561 193.8848582320054561 8.9361470388313737" speed="8.9361470388313737 8.8010506363883607" angle="270.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t15" state="10000 95000"/>
+    </vehicle>
+    <vehicle id="t16" depart="80.000" route="!t16!var#1" distance="0 1" speedFactor="0.8784000000000000" reroute="1" state="262144 80000 0 5.0999999999999996 0 3.2678209869732830 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="143.2914604504266549 138.2914604504266549 8.0856308519290749" speed="8.0856308519290749 8.4688170252051194" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t16" state="10000 90000"/>
+    </vehicle>
+    <vehicle id="t17" depart="85.000" route="!t17!var#1" distance="0 1" speedFactor="0.9414000000000000" reroute="1" state="262144 85000 0 5.0999999999999996 0 2.2506596824338856 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="115.7082897495673706 110.7082897495673706 9.1100302755702280" speed="9.1100302755702280 9.0032396678682414" angle="270.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t17" state="10000 95000"/>
+    </vehicle>
+    <vehicle id="t18" depart="90.000" route="!t18!var#1" distance="0 1" speedFactor="0.9362000000000000" reroute="1" state="262144 90000 0 5.0999999999999996 0 2.1797406304475651 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="68.9512682177498988 63.9512682177498988 9.1357849021796138" speed="9.1357849021796138 8.5871415807986633" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t18" state="10000 90000"/>
+    </vehicle>
+    <vehicle id="t19" depart="95.000" route="!t19!var#1" distance="0 1" speedFactor="1.1581999999999999" reroute="1" state="262144 95000 0 5.0999999999999996 0 2.1688837869843214 99000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="26.3079879791475832 21.3079879791475832 8.2177796521922577" speed="8.2177796521922577 6.1733735580695797" angle="270.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t19" state="10000 95000"/>
+    </vehicle>
+    <vehicle id="t20" depart="100.000" route="!t20" distance="0 0" speedFactor="1.0181000000000000" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t20" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t21" depart="105.000" route="!t21" distance="0 0" speedFactor="1.0102000000000000" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t21" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t22" depart="110.000" route="!t22" distance="0 0" speedFactor="0.9750000000000000" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t22" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t23" depart="115.000" route="!t23" distance="0 0" speedFactor="0.8895999999999999" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t23" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t24" depart="120.000" route="!t24" distance="0 0" speedFactor="0.8257000000000000" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t24" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t25" depart="125.000" route="!t25" distance="0 0" speedFactor="0.8726000000000000" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t25" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t26" depart="130.000" route="!t26" distance="0 0" speedFactor="0.9172000000000000" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t26" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t27" depart="135.000" route="!t27" distance="0 0" speedFactor="0.9488000000000000" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t27" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t28" depart="140.000" route="!t28" distance="0 0" speedFactor="1.1317999999999999" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t28" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t29" depart="145.000" route="!t29" distance="0 0" speedFactor="0.9313000000000000" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t29" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t30" depart="150.000" route="!t30" distance="0 0" speedFactor="1.1786000000000001" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t30" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t31" depart="155.000" route="!t31" distance="0 0" speedFactor="1.1544000000000001" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t31" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t32" depart="160.000" route="!t32" distance="0 0" speedFactor="1.0052000000000001" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t32" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t33" depart="165.000" route="!t33" distance="0 0" speedFactor="1.1718000000000000" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t33" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t34" depart="170.000" route="!t34" distance="0 0" speedFactor="0.9948000000000000" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t34" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t35" depart="175.000" route="!t35" distance="0 0" speedFactor="1.0197000000000001" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t35" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t36" depart="180.000" route="!t36" distance="0 0" speedFactor="0.9732000000000000" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t36" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t37" depart="185.000" route="!t37" distance="0 0" speedFactor="1.1797000000000000" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t37" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t38" depart="190.000" route="!t38" distance="0 0" speedFactor="1.1023000000000001" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t38" state="10000 -1"/>
+    </vehicle>
+    <vehicle id="t39" depart="195.000" route="!t39" distance="0 0" speedFactor="0.9006000000000000" reroute="1" state="262144 9223372036854774807 0 -1.0000000000000000 0 0.0000000000000000 0 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="0.0000000000000000 0.0000000000000000 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+        <device id="routing_t39" state="10000 -1"/>
+    </vehicle>
+    <lane id="0/0to1/0_0">
+        <vehicles value="t16 t12"/>
+    </lane>
+    <lane id="0/2to1/2_0">
+        <vehicles value="t18 t14"/>
+    </lane>
+    <lane id="1/0to1/1_0">
+        <vehicles value="t8 t4"/>
+    </lane>
+    <lane id="1/0to2/0_0">
+        <vehicles value="t0"/>
+    </lane>
+    <lane id="1/1to2/1_0">
+        <vehicles value="t2"/>
+    </lane>
+    <lane id="1/2to1/1_0">
+        <vehicles value="t10"/>
+    </lane>
+    <lane id="1/2to2/2_0">
+        <vehicles value="t6"/>
+    </lane>
+    <lane id="3/0to3/1_0">
+        <vehicles value="t11 t7"/>
+    </lane>
+    <lane id="3/1to2/1_0">
+        <vehicles value="t3"/>
+    </lane>
+    <lane id="3/2to2/2_0">
+        <vehicles value="t9"/>
+    </lane>
+    <lane id="3/2to3/1_0">
+        <vehicles value="t5 t1"/>
+    </lane>
+    <lane id="4/0to3/0_0">
+        <vehicles value="t19 t15"/>
+    </lane>
+    <lane id="4/2to3/2_0">
+        <vehicles value="t17 t13"/>
+    </lane>
+    <tlLogic id="0/0" programID="0" phase="1" duration="1000" until="102000" cycleTime="32000" active="1"/>
+    <tlLogic id="0/1" programID="0" phase="0" duration="23000" until="108000" cycleTime="23000" active="1"/>
+    <tlLogic id="0/2" programID="0" phase="1" duration="1000" until="102000" cycleTime="32000" active="1"/>
+    <tlLogic id="1/0" programID="0" phase="0" duration="23000" until="108000" cycleTime="23000" active="1"/>
+    <tlLogic id="1/1" programID="0" phase="0" duration="14000" until="117000" cycleTime="14000" active="1"/>
+    <tlLogic id="1/2" programID="0" phase="0" duration="23000" until="108000" cycleTime="23000" active="1"/>
+    <tlLogic id="2/0" programID="0" phase="0" duration="23000" until="108000" cycleTime="23000" active="1"/>
+    <tlLogic id="2/1" programID="0" phase="0" duration="14000" until="117000" cycleTime="14000" active="1"/>
+    <tlLogic id="2/2" programID="0" phase="0" duration="23000" until="108000" cycleTime="23000" active="1"/>
+    <tlLogic id="3/0" programID="0" phase="0" duration="23000" until="108000" cycleTime="23000" active="1"/>
+    <tlLogic id="3/1" programID="0" phase="0" duration="14000" until="117000" cycleTime="14000" active="1"/>
+    <tlLogic id="3/2" programID="0" phase="0" duration="23000" until="108000" cycleTime="23000" active="1"/>
+    <tlLogic id="4/0" programID="0" phase="1" duration="1000" until="102000" cycleTime="32000" active="1"/>
+    <tlLogic id="4/1" programID="0" phase="0" duration="23000" until="108000" cycleTime="23000" active="1"/>
+    <tlLogic id="4/2" programID="0" phase="1" duration="1000" until="102000" cycleTime="32000" active="1"/>
+    <routingEngine last="99000" index="0">
+        <edge id="0/0to1/0" speed="8.9422942655009656" pastSpeed="9.5264763633348046 8.6280957059795025 8.5890506907925008 8.5488447301415711 8.9006313997530384 8.8585311427689142 8.9424988024146295 8.8990241091325881 9.2695811939868129 9.2602085167053154"/>
+        <edge id="0/2to1/2" speed="8.1228858478022854" pastSpeed="6.2603749161682396 7.4085735614740598 6.3509312259326691 7.5644758461569435 9.0604059009640476 8.4602189370668484 9.1224152305517343 9.0117444690787227 9.1004093807893796 8.8893090098402467"/>
+        <edge id="1/0to1/1" speed="9.2044231849247584" pastSpeed="9.5107529001976374 9.2913245868370868 8.9256208256087266 9.7581595498803075 8.6342478016475219 9.3291721194717105 9.4094291990008223 8.8669059266536507 9.0329443653314385 9.2856745746186924"/>
+        <edge id="1/0to2/0" speed="9.7979826079052863" pastSpeed="10.0023351244395613 9.3296166572254169 9.9497496547177455 10.0050805549602977 9.6212258693762145 10.3357725319219771 9.9609963890397939 9.3747024258365865 9.5403653641464210 9.8599815073888770"/>
+        <edge id="1/1to2/1" speed="9.8568987017043863" pastSpeed="10.0000000000000000 10.0000000000000000 10.0000000000000000 10.0000000000000000 10.0000000000000000 10.0000000000000000 10.0000000000000000 9.6537634086757897 9.2186950973663464 9.6965285110017270"/>
+        <edge id="1/2to1/1" speed="9.7488521679894049" pastSpeed="9.6654328284282229 9.1944371696291487 10.0520666269767105 9.7746201433888622 9.4946680885222730 10.1037052400126122 8.9626164516052569 10.0989573504477743 9.7524369411803775 10.3895808397028588"/>
+        <edge id="1/2to2/2" speed="9.7668537408271821" pastSpeed="9.4334645281471321 9.2588401506347591 9.7623857296928769 10.1610088818632072 9.3903889192892240 10.3484467892367391 9.8045369170997301 9.3749024658622222 9.9300109665067868 10.2045520599391306"/>
+        <edge id="3/0to3/1" speed="8.6391873035339959" pastSpeed="9.6828125573406005 9.0619740248019802 9.2916468474841665 9.0906404728596097 8.8646945188469495 7.3872363074689851 8.6147731609083706 7.7415064165275540 7.7773876434797415 8.8792010856219576"/>
+        <edge id="3/1to2/1" speed="9.8239716317765939" pastSpeed="10.0000000000000000 10.0000000000000000 10.0000000000000000 10.0000000000000000 10.0000000000000000 10.0000000000000000 8.5607976144287257 9.8565088190352537 9.8659017065521333 9.9565081777498126"/>
+        <edge id="3/2to2/2" speed="9.2940735286653968" pastSpeed="10.0000000000000000 10.0000000000000000 10.0000000000000000 10.0000000000000000 10.0000000000000000 10.0000000000000000 10.0000000000000000 8.0576723537463693 7.5116099300617343 7.3714530028458674"/>
+        <edge id="3/2to3/1" speed="8.2280469271177417" pastSpeed="8.2231599396825779 8.4880238599176518 8.5691502660545513 7.7216886933459907 8.3869299561283555 8.3376825354443866 7.9898959519490598 8.3172257403992127 7.9699759343205940 8.2767363939350460"/>
+        <edge id="4/0to3/0" speed="8.3353356064492523" pastSpeed="9.1210740600102582 9.1348371410132376 9.6906393385929981 8.9521864506271669 9.4236798818544472 5.8813296844465652 6.5142234929430600 7.8052532481787109 8.2531694213142615 8.5769633455118157"/>
+        <edge id="4/2to3/2" speed="9.2872582951909113" pastSpeed="8.7343616890606146 9.1023949717755119 9.1087594598494466 9.0367535694309833 8.9684301472852610 8.8254890914270643 9.0226928866508729 10.0634189222739074 9.8567619020733979 10.1535203120820228"/>
+    </routingEngine>
+</snapshot>
