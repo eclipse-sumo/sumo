@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- the SN vehicles of overtaking_option plus untracked NS vehicles that overtake on other segments -->
+    <vType id="slow" maxSpeed="3"/>
+    <vType id="slow_untracked" maxSpeed="3">
+        <param key="has.tripinfo.device" value="false"/>
+    </vType>
+    <vType id="untracked">
+        <param key="has.tripinfo.device" value="false"/>
+    </vType>
+    <route id="SN" edges="SC CN"/>
+    <route id="NS" edges="NC CS"/>
+    <flow id="SN_slow" type="slow"           route="SN" begin="0" number="2" period="1"/>
+    <flow id="NS_slow" type="slow_untracked" route="NS" begin="0" number="2" period="1"/>
+    <flow id="NS"      type="untracked"      route="NS" begin="2" number="10" period="1"/>
+    <flow id="SN"                            route="SN" begin="5" number="5" period="1"/>
+</routes>
