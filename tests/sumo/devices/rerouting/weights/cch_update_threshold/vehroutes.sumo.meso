@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-03T00:17:14.347375+01:00 by Eclipse SUMO sumo v1_28_0+0402-50fa9442937
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.write-unfinished value="true"/>
+    </output>
+
+    <time>
+        <end value="260"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <routing>
+        <routing-algorithm value="CCH"/>
+        <device.rerouting.probability value="1"/>
+        <device.rerouting.adaptation-steps value="1"/>
+        <device.rerouting.adaptation-interval value="10"/>
+        <device.rerouting.cch-update-threshold.factor value="1.2"/>
+    </routing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="seed" type="car" depart="0.00" departSpeed="27.80" speedFactor="1.0000" arrival="180.00">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.0" type="car" depart="170.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.1" type="car" depart="172.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.2" type="car" depart="174.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.3" type="car" depart="176.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.4" type="car" depart="178.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.5" type="car" depart="180.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.6" type="car" depart="182.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.7" type="car" depart="184.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.8" type="car" depart="186.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.9" type="car" depart="188.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.10" type="car" depart="190.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.11" type="car" depart="192.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.12" type="car" depart="194.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.13" type="car" depart="196.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.14" type="car" depart="198.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.15" type="car" depart="200.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.16" type="car" depart="202.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.17" type="car" depart="204.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.18" type="car" depart="206.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.19" type="car" depart="208.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.20" type="car" depart="210.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.21" type="car" depart="212.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.22" type="car" depart="214.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.23" type="car" depart="216.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.24" type="car" depart="218.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.25" type="car" depart="220.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.26" type="car" depart="222.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.27" type="car" depart="224.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.28" type="car" depart="226.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.29" type="car" depart="228.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.30" type="car" depart="230.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.31" type="car" depart="232.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.32" type="car" depart="234.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.33" type="car" depart="236.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.34" type="car" depart="238.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.35" type="car" depart="240.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.36" type="car" depart="242.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.37" type="car" depart="244.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.38" type="car" depart="246.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.39" type="car" depart="248.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.40" type="car" depart="250.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2left left left2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.41" type="car" depart="252.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.42" type="car" depart="254.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.43" type="car" depart="256.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+    <vehicle id="probe.44" type="car" depart="258.00" departSpeed="27.80" speedFactor="1.0000">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+
+</routes>
