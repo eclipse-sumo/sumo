@@ -708,6 +708,8 @@ Helper::cleanup() {
     Helper::clearSubscriptions();
     delete myLaneTree;
     myLaneTree = nullptr;
+    myRemoteControlledVehicles.clear();
+    myRemoteControlledPersons.clear();
 }
 
 
