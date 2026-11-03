@@ -213,6 +213,22 @@ GUIOSGView::GUIOSGView(
     myText->setBoundingBoxColor(osg::Vec4(0.0f, 0.0f, 0.2f, 0.5f));
     myText->setBoundingBoxMargin(2.0f);
 
+    myFullScreenTextNode = new osg::Geode();
+    myFullScreenText = new osgText::Text;
+    myFullScreenText->setCharacterSizeMode(osgText::Text::SCREEN_COORDS);
+    myFullScreenText->setShaderTechnique(osgText::NO_TEXT_SHADER);
+    if (font != nullptr) {
+        myFullScreenText->setFont(font);
+    }
+    myFullScreenText->setCharacterSize(16.f);
+    myFullScreenText->setAlignment(osgText::TextBase::AlignmentType::RIGHT_BOTTOM);
+    myFullScreenText->setDrawMode(osgText::TextBase::DrawModeMask::FILLEDBOUNDINGBOX | osgText::TextBase::DrawModeMask::TEXT);
+    myFullScreenText->setBoundingBoxColor(osg::Vec4(0.0f, 0.0f, 0.0f, 0.6f));
+    myFullScreenText->setBoundingBoxMargin(6.0f);
+    myFullScreenText->setText(getFullScreenHintText(), osgText::String::ENCODING_UTF8);
+    myFullScreenTextNode->addDrawable(myFullScreenText);
+    myFullScreenTextNode->setNodeMask(0);
+
     myHUD = new osg::Camera;
     myHUD->setProjectionMatrixAsOrtho2D(0, 800, 0, 800); // default size will be overwritten
     myHUD->setReferenceFrame(osg::Transform::ABSOLUTE_RF);
@@ -222,6 +238,7 @@ GUIOSGView::GUIOSGView(
     myHUD->setAllowEventFocus(false);
     myHUD->setGraphicsContext(myAdapter);
     myHUD->addChild(myTextNode);
+    myHUD->addChild(myFullScreenTextNode);
     myHUD->setViewport(0, 0, w, h);
     myViewer->addSlave(myHUD, false);
     myCameraManipulator->updateHUDText();
@@ -243,6 +260,8 @@ GUIOSGView::~GUIOSGView() {
     myHUD = 0;
     myText = 0;
     myTextNode = 0;
+    myFullScreenText = 0;
+    myFullScreenTextNode = 0;
     myGreenLight = 0;
     myYellowLight = 0;
     myRedLight = 0;
@@ -281,8 +300,8 @@ GUIOSGView::adoptViewSettings() {
         cullMask &= ~(unsigned int)NODESET_TLSMODELS;
     }
     myViewer->getCamera()->setCullMask(cullMask);
-    unsigned int hudCullMask = (myVisualizationSettings->show3DHeadUpDisplay) ? 0xFFFFFFFF : 0;
-    myHUD->setCullMask(hudCullMask);
+    const unsigned int hudNodeMask = (myVisualizationSettings->show3DHeadUpDisplay) ? 0xFFFFFFFF : 0;
+    myTextNode->setNodeMask(hudNodeMask);
 }
 
 
@@ -379,6 +398,8 @@ GUIOSGView::updateHUDPosition(int w, int h) {
     // keep the HUD text in the left top corner
     myHUD->setProjectionMatrixAsOrtho2D(0, w, 0, h);
     myText->setPosition(osg::Vec3d(0., static_cast<double>(height), 0.));
+    // keep the full screen hint in the bottom right corner
+    myFullScreenText->setPosition(osg::Vec3d(static_cast<double>(w) - 12., 12., 0.));
 }
 
 
@@ -585,6 +606,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     }
 
     if (myAdapter->makeCurrent()) {
+        myFullScreenTextNode->setNodeMask(myApp->isFullScreen() ? 0xFFFFFFFF : 0);
         myViewer->frame();
         makeNonCurrent();
     }
