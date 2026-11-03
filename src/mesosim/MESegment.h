@@ -527,7 +527,8 @@ public:
     }
 
 protected:
-    bool overtake();
+    /// @brief whether veh overtakes the queue's last vehicle, drawn from a number specific to vehicle and segment
+    bool overtake(const MEVehicle* veh) const;
 
     void setSpeedForQueue(double newSpeed, SUMOTime currentTime,
                           SUMOTime blockTime, const std::vector<MEVehicle*>& vehs);
