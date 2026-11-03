@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-25T07:34:32.187966+01:00 by Eclipse SUMO sumo v1_28_0+0203-956beccee8c8
+<!-- generated on 2026-11-03T08:48:21.487038+01:00 by Eclipse SUMO sumo v1_28_0+0406-987ab849ff4
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -160,7 +160,6 @@
         <collision.mingap-factor value="-1" type="FLOAT" help="Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used"/>
         <keep-after-arrival value="0" type="TIME" help="After a vehicle arrives, keep it in memory for the given TIME (for TraCI access)"/>
         <max-num-vehicles value="-1" type="INT" help="Delay vehicle insertion to stay within the given maximum number"/>
-        <max-num-persons value="-1" type="INT" help="Delay person insertion to stay within the given maximum number"/>
         <max-num-teleports value="-1" type="INT" help="Abort the simulation if the given maximum number of teleports is exceeded"/>
         <scale value="1" type="FLOAT" help="Scale demand by the given factor (by discarding or duplicating vehicles)"/>
         <scale-suffix value="." type="STR" help="Suffix to be added when creating ids for cloned vehicles"/>
@@ -170,7 +169,6 @@
         <time-to-teleport.disconnected value="-1" type="TIME" help="The waiting time after which vehicles with a disconnected route are teleported. Negative values disable teleporting"/>
         <time-to-teleport.remove value="false" type="BOOL" help="Whether vehicles shall be removed after waiting too long instead of being teleported"/>
         <time-to-teleport.remove-constraint value="false" type="BOOL" help="Whether rail-signal-constraint based deadlocks shall be cleared by removing a constraint"/>
-        <time-to-teleport.ride value="-1" type="TIME" help="The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting"/>
         <time-to-teleport.bidi value="-1" type="TIME" help="The waiting time after which vehicles on bidirectional edges are teleported"/>
         <time-to-teleport.railsignal-deadlock value="-1" type="TIME" help="The waiting time after which vehicles in a rail-signal based deadlock are teleported"/>
         <waiting-time-memory value="100" type="TIME" help="Length of time interval, over which accumulated waiting time is taken into account (default is 100s.)"/>
@@ -209,34 +207,11 @@
         <parking.maneuver value="false" type="BOOL" help="Whether parking simulation includes maneuvering time and associated lane blocking"/>
         <use-stop-ended value="false" type="BOOL" help="Override stop until times with stop ended times when given"/>
         <use-stop-started value="false" type="BOOL" help="Override stop arrival times with stop started times when given"/>
-        <pedestrian.model value="striping" type="STR" help="Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;jupedsim&apos;]"/>
-        <pedestrian.timegap-crossing value="2" type="FLOAT" help="Minimal acceptable gap (in seconds) between two vehicles before starting to cross"/>
-        <pedestrian.striping.stripe-width value="0.64" type="FLOAT" help="Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos;"/>
-        <pedestrian.striping.dawdling value="0.2" type="FLOAT" help="Factor for random slow-downs [0,1] for use with model &apos;striping&apos;"/>
-        <pedestrian.striping.mingap-to-vehicle value="0.25" type="FLOAT" help="Minimal gap / safety buffer (in meters) from a pedestrian to another vehicle for use with model &apos;striping&apos;"/>
-        <pedestrian.striping.jamtime value="300" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
-        <pedestrian.striping.jamtime.crossing value="10" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
-        <pedestrian.striping.jamtime.narrow value="1" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model &apos;striping&apos;"/>
-        <pedestrian.striping.jamfactor value="0.25" type="FLOAT" help="Factor for reducing speed of pedestrian in jammed state"/>
-        <pedestrian.striping.reserve-oncoming value="0" type="FLOAT" help="Fraction of stripes to reserve for oncoming pedestrians"/>
-        <pedestrian.striping.reserve-oncoming.junctions value="0.34" type="FLOAT" help="Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas"/>
-        <pedestrian.striping.reserve-oncoming.max value="1.28" type="FLOAT" help="Maximum width in m to reserve for oncoming pedestrians"/>
-        <pedestrian.striping.legacy-departposlat value="false" type="BOOL" help="Interpret departPosLat for walks in legacy style"/>
-        <pedestrian.striping.walkingarea-detail value="4" type="INT" help="Generate INT intermediate points to smooth out lanes within the walkingarea"/>
-        <pedestrian.jupedsim.step-length value="0.01" type="TIME" help="The update interval of the JuPedSim simulation (in seconds)"/>
-        <pedestrian.jupedsim.exit-tolerance value="1" type="FLOAT" help="The distance to accept the JuPedSim arrival point (in meters)"/>
-        <pedestrian.jupedsim.model value="CollisionFreeSpeed" type="STR" help="The submodel to use in JuPedSim (&apos;CollisionFreeSpeed&apos;, &apos;CollisionFreeSpeedV2&apos;, &apos;GeneralizedCentrifugalForce&apos;, &apos;SocialForce&apos;)"/>
-        <pedestrian.jupedsim.strength-neighbor-repulsion value="8" type="FLOAT" help="The neighbor repulsion strength of the JuPedSim model"/>
-        <pedestrian.jupedsim.range-neighbor-repulsion value="0.1" type="FLOAT" help="The neighbor repulsion range of the JuPedSim model (in meters)"/>
-        <pedestrian.jupedsim.strength-geometry-repulsion value="5" type="FLOAT" help="The geometry repulsion strength of the JuPedSim model"/>
-        <pedestrian.jupedsim.range-geometry-repulsion value="0.02" type="FLOAT" help="The geometry repulsion range of the JuPedSim model (in meters)"/>
-        <ride.stop-tolerance value="10" type="FLOAT" help="Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops"/>
         <mapmatch.distance value="100" type="FLOAT" help="Maximum distance when mapping input coordinates (fromXY etc.) to the road network"/>
         <mapmatch.junctions value="false" type="BOOL" help="Match positions to junctions instead of edges"/>
         <mapmatch.taz value="false" type="BOOL" help="Match positions to taz instead of edges"/>
         <weights.turnaround-penalty value="5" type="FLOAT" help="Apply the given time penalty when computing routing costs for turnaround internal lanes"/>
         <weights.reversal-penalty value="60" type="FLOAT" help="Apply the given time penalty when computing routing costs for train reversal. Negative values disable reversal"/>
-        <persontrip.walk-opposite-factor value="1" type="FLOAT" help="Use FLOAT as a factor on walking speed against vehicle traffic direction"/>
     </processing>
 
     <routing>
@@ -249,13 +224,6 @@
         <weights.separate-turns value="0" type="FLOAT" help="Distinguish travel time by turn direction and shift a fraction of the estimated time loss ahead of the intersection onto the internal edges"/>
         <astar.all-distances value="" type="FILE" help="Initialize lookup table for astar from the given file (generated by marouter --all-pairs-output)"/>
         <astar.landmark-distances value="" type="FILE" help="Initialize lookup table for astar ALT-variant from the given file"/>
-        <persontrip.walkfactor value="0.75" type="FLOAT" help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"/>
-        <persontrip.transfer.car-walk value="parkingAreas" type="STR[]" help="Where are mode changes from car to walking allowed (possible values: &apos;parkingAreas&apos;, &apos;ptStops&apos;, &apos;allJunctions&apos; and combinations)"/>
-        <persontrip.transfer.taxi-walk value="" type="STR[]" help="Where taxis can drop off customers (&apos;allJunctions, &apos;ptStops&apos;, &apos;parkingAreas&apos;)"/>
-        <persontrip.transfer.walk-taxi value="" type="STR[]" help="Where taxis can pick up customers (&apos;allJunctions, &apos;ptStops&apos;, &apos;parkingAreas&apos;)"/>
-        <persontrip.default.group value="" type="STR" help="When set, trips between the same origin and destination will share a taxi by default"/>
-        <persontrip.taxi.waiting-time value="300" type="TIME" help="Estimated time for taxi pickup"/>
-        <persontrip.ride-public-line value="false" type="BOOL" help="Only use the intended public transport line rather than any alternative line that stops at the destination"/>
         <railway.max-train-length value="1000" type="FLOAT" help="Use FLOAT as a maximum train length when initializing the railway router"/>
         <replay-rerouting value="false" type="BOOL" help="Replay exact rerouting sequence from vehroute-output"/>
         <device.rerouting.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;rerouting&apos; device"/>
@@ -287,6 +255,41 @@
         <person-device.rerouting.mode value="0" type="STR" help="Set routing flags (8 ignores temporary blockages)"/>
         <person-device.rerouting.scope value="stage" type="STR" help="Which part of the person plan is to be replaced (stage, sequence, or trip)"/>
     </routing>
+
+    <persons>
+        <max-num-persons value="-1" type="INT" help="Delay person insertion to stay within the given maximum number"/>
+        <time-to-teleport.ride value="-1" type="TIME" help="The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting"/>
+        <pedestrian.model value="striping" type="STR" help="Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;jupedsim&apos;]"/>
+        <pedestrian.timegap-crossing value="2" type="FLOAT" help="Minimal acceptable gap (in seconds) between two vehicles before starting to cross"/>
+        <pedestrian.striping.stripe-width value="0.64" type="FLOAT" help="Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos;"/>
+        <pedestrian.striping.dawdling value="0.2" type="FLOAT" help="Factor for random slow-downs [0,1] for use with model &apos;striping&apos;"/>
+        <pedestrian.striping.mingap-to-vehicle value="0.25" type="FLOAT" help="Minimal gap / safety buffer (in meters) from a pedestrian to another vehicle for use with model &apos;striping&apos;"/>
+        <pedestrian.striping.jamtime value="300" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
+        <pedestrian.striping.jamtime.crossing value="10" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
+        <pedestrian.striping.jamtime.narrow value="1" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model &apos;striping&apos;"/>
+        <pedestrian.striping.jamfactor value="0.25" type="FLOAT" help="Factor for reducing speed of pedestrian in jammed state"/>
+        <pedestrian.striping.reserve-oncoming value="0" type="FLOAT" help="Fraction of stripes to reserve for oncoming pedestrians"/>
+        <pedestrian.striping.reserve-oncoming.junctions value="0.34" type="FLOAT" help="Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas"/>
+        <pedestrian.striping.reserve-oncoming.max value="1.28" type="FLOAT" help="Maximum width in m to reserve for oncoming pedestrians"/>
+        <pedestrian.striping.legacy-departposlat value="false" type="BOOL" help="Interpret departPosLat for walks in legacy style"/>
+        <pedestrian.striping.walkingarea-detail value="4" type="INT" help="Generate INT intermediate points to smooth out lanes within the walkingarea"/>
+        <pedestrian.jupedsim.step-length value="0.01" type="TIME" help="The update interval of the JuPedSim simulation (in seconds)"/>
+        <pedestrian.jupedsim.exit-tolerance value="1" type="FLOAT" help="The distance to accept the JuPedSim arrival point (in meters)"/>
+        <pedestrian.jupedsim.model value="CollisionFreeSpeedModel" type="STR" help="The submodel to use in JuPedSim (default: &apos;CollisionFreeSpeedModel&apos;)"/>
+        <pedestrian.jupedsim.strength-neighbor-repulsion value="8" type="FLOAT" help="The neighbor repulsion strength of the JuPedSim model"/>
+        <pedestrian.jupedsim.range-neighbor-repulsion value="0.1" type="FLOAT" help="The neighbor repulsion range of the JuPedSim model (in meters)"/>
+        <pedestrian.jupedsim.strength-geometry-repulsion value="5" type="FLOAT" help="The geometry repulsion strength of the JuPedSim model"/>
+        <pedestrian.jupedsim.range-geometry-repulsion value="0.02" type="FLOAT" help="The geometry repulsion range of the JuPedSim model (in meters)"/>
+        <ride.stop-tolerance value="10" type="FLOAT" help="Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops"/>
+        <persontrip.walkfactor value="0.75" type="FLOAT" help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"/>
+        <persontrip.walk-opposite-factor value="1" type="FLOAT" help="Use FLOAT as a factor on walking speed against vehicle traffic direction"/>
+        <persontrip.transfer.car-walk value="parkingAreas" type="STR[]" help="Where are mode changes from car to walking allowed (possible values: &apos;parkingAreas&apos;, &apos;ptStops&apos;, &apos;allJunctions&apos; and combinations)"/>
+        <persontrip.transfer.taxi-walk value="" type="STR[]" help="Where taxis can drop off customers (&apos;allJunctions, &apos;ptStops&apos;, &apos;parkingAreas&apos;)"/>
+        <persontrip.transfer.walk-taxi value="" type="STR[]" help="Where taxis can pick up customers (&apos;allJunctions, &apos;ptStops&apos;, &apos;parkingAreas&apos;)"/>
+        <persontrip.default.group value="" type="STR" help="When set, trips between the same origin and destination will share a taxi by default"/>
+        <persontrip.taxi.waiting-time value="300" type="TIME" help="Estimated time for taxi pickup"/>
+        <persontrip.ride-public-line value="false" type="BOOL" help="Only use the intended public transport line rather than any alternative line that stops at the destination"/>
+    </persons>
 
     <report>
         <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
