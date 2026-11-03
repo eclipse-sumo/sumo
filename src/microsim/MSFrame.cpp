@@ -73,6 +73,7 @@ MSFrame::fillOptions() {
     oc.addOptionSubTopic("Time");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Routing");
+    oc.addOptionSubTopic("Persons");
 
     // register configuration options
     //  register input options
@@ -441,7 +442,7 @@ MSFrame::fillOptions() {
     oc.addDescription("max-num-vehicles", "Processing", TL("Delay vehicle insertion to stay within the given maximum number"));
 
     oc.doRegister("max-num-persons", new Option_Integer(-1));
-    oc.addDescription("max-num-persons", "Processing", TL("Delay person insertion to stay within the given maximum number"));
+    oc.addDescription("max-num-persons", "Persons", TL("Delay person insertion to stay within the given maximum number"));
 
     oc.doRegister("max-num-teleports", new Option_Integer(-1));
     oc.addDescription("max-num-teleports", "Processing", TL("Abort the simulation if the given maximum number of teleports is exceeded"));
@@ -471,7 +472,7 @@ MSFrame::fillOptions() {
     oc.addDescription("time-to-teleport.remove-constraint", "Processing", TL("Whether rail-signal-constraint based deadlocks shall be cleared by removing a constraint"));
 
     oc.doRegister("time-to-teleport.ride", new Option_String("-1", "TIME"));
-    oc.addDescription("time-to-teleport.ride", "Processing", TL("The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting"));
+    oc.addDescription("time-to-teleport.ride", "Persons", TL("The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting"));
 
     oc.doRegister("time-to-teleport.bidi", new Option_String("-1", "TIME"));
     oc.addDescription("time-to-teleport.bidi", "Processing", TL("The waiting time after which vehicles on bidirectional edges are teleported"));
@@ -591,60 +592,60 @@ MSFrame::fillOptions() {
 
     // pedestrian model
     oc.doRegister("pedestrian.model", new Option_String("striping"));
-    oc.addDescription("pedestrian.model", "Processing", TL("Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim']"));
+    oc.addDescription("pedestrian.model", "Persons", TL("Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim']"));
 
     oc.doRegister("pedestrian.timegap-crossing", new Option_Float(2.));
-    oc.addDescription("pedestrian.timegap-crossing", "Processing", TL("Minimal acceptable gap (in seconds) between two vehicles before starting to cross"));
+    oc.addDescription("pedestrian.timegap-crossing", "Persons", TL("Minimal acceptable gap (in seconds) between two vehicles before starting to cross"));
 
     oc.doRegister("pedestrian.striping.stripe-width", new Option_Float(0.64));
-    oc.addDescription("pedestrian.striping.stripe-width", "Processing", TL("Width of parallel stripes for segmenting a sidewalk (meters) for use with model 'striping'"));
+    oc.addDescription("pedestrian.striping.stripe-width", "Persons", TL("Width of parallel stripes for segmenting a sidewalk (meters) for use with model 'striping'"));
 
     oc.doRegister("pedestrian.striping.dawdling", new Option_Float(0.2));
-    oc.addDescription("pedestrian.striping.dawdling", "Processing", TL("Factor for random slow-downs [0,1] for use with model 'striping'"));
+    oc.addDescription("pedestrian.striping.dawdling", "Persons", TL("Factor for random slow-downs [0,1] for use with model 'striping'"));
 
     oc.doRegister("pedestrian.striping.mingap-to-vehicle", new Option_Float(0.25));
-    oc.addDescription("pedestrian.striping.mingap-to-vehicle", "Processing", TL("Minimal gap / safety buffer (in meters) from a pedestrian to another vehicle for use with model 'striping'"));
+    oc.addDescription("pedestrian.striping.mingap-to-vehicle", "Persons", TL("Minimal gap / safety buffer (in meters) from a pedestrian to another vehicle for use with model 'striping'"));
 
     oc.doRegister("pedestrian.striping.jamtime", new Option_String("300", "TIME"));
-    oc.addDescription("pedestrian.striping.jamtime", "Processing", TL("Time in seconds after which pedestrians start squeezing through a jam when using model 'striping' (non-positive values disable squeezing)"));
+    oc.addDescription("pedestrian.striping.jamtime", "Persons", TL("Time in seconds after which pedestrians start squeezing through a jam when using model 'striping' (non-positive values disable squeezing)"));
     oc.doRegister("pedestrian.striping.jamtime.crossing", new Option_String("10", "TIME"));
-    oc.addDescription("pedestrian.striping.jamtime.crossing", "Processing", TL("Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model 'striping' (non-positive values disable squeezing)"));
+    oc.addDescription("pedestrian.striping.jamtime.crossing", "Persons", TL("Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model 'striping' (non-positive values disable squeezing)"));
     oc.doRegister("pedestrian.striping.jamtime.narrow", new Option_String("1", "TIME"));
-    oc.addDescription("pedestrian.striping.jamtime.narrow", "Processing", TL("Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model 'striping'"));
+    oc.addDescription("pedestrian.striping.jamtime.narrow", "Persons", TL("Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model 'striping'"));
 
     oc.doRegister("pedestrian.striping.jamfactor", new Option_Float(0.25));
-    oc.addDescription("pedestrian.striping.jamfactor", "Processing", TL("Factor for reducing speed of pedestrian in jammed state"));
+    oc.addDescription("pedestrian.striping.jamfactor", "Persons", TL("Factor for reducing speed of pedestrian in jammed state"));
 
     oc.doRegister("pedestrian.striping.reserve-oncoming", new Option_Float(0.0));
-    oc.addDescription("pedestrian.striping.reserve-oncoming", "Processing", TL("Fraction of stripes to reserve for oncoming pedestrians"));
+    oc.addDescription("pedestrian.striping.reserve-oncoming", "Persons", TL("Fraction of stripes to reserve for oncoming pedestrians"));
 
     oc.doRegister("pedestrian.striping.reserve-oncoming.junctions", new Option_Float(0.34));
-    oc.addDescription("pedestrian.striping.reserve-oncoming.junctions", "Processing", TL("Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas"));
+    oc.addDescription("pedestrian.striping.reserve-oncoming.junctions", "Persons", TL("Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas"));
 
     oc.doRegister("pedestrian.striping.reserve-oncoming.max", new Option_Float(1.28));
-    oc.addDescription("pedestrian.striping.reserve-oncoming.max", "Processing", TL("Maximum width in m to reserve for oncoming pedestrians"));
+    oc.addDescription("pedestrian.striping.reserve-oncoming.max", "Persons", TL("Maximum width in m to reserve for oncoming pedestrians"));
 
     oc.doRegister("pedestrian.striping.legacy-departposlat", new Option_Bool(false));
-    oc.addDescription("pedestrian.striping.legacy-departposlat", "Processing", TL("Interpret departPosLat for walks in legacy style"));
+    oc.addDescription("pedestrian.striping.legacy-departposlat", "Persons", TL("Interpret departPosLat for walks in legacy style"));
 
     oc.doRegister("pedestrian.striping.walkingarea-detail", new Option_Integer(4));
-    oc.addDescription("pedestrian.striping.walkingarea-detail", "Processing", TL("Generate INT intermediate points to smooth out lanes within the walkingarea"));
+    oc.addDescription("pedestrian.striping.walkingarea-detail", "Persons", TL("Generate INT intermediate points to smooth out lanes within the walkingarea"));
 
 #if defined(HAVE_JUPEDSIM_GRPC) || defined(HAVE_JUPEDSIM_LEGACY)
     oc.doRegister("pedestrian.jupedsim.step-length", new Option_String("0.01", "TIME"));
-    oc.addDescription("pedestrian.jupedsim.step-length", "Processing", TL("The update interval of the JuPedSim simulation (in seconds)"));
+    oc.addDescription("pedestrian.jupedsim.step-length", "Persons", TL("The update interval of the JuPedSim simulation (in seconds)"));
     oc.doRegister("pedestrian.jupedsim.exit-tolerance", new Option_Float(1.));
-    oc.addDescription("pedestrian.jupedsim.exit-tolerance", "Processing", TL("The distance to accept the JuPedSim arrival point (in meters)"));
+    oc.addDescription("pedestrian.jupedsim.exit-tolerance", "Persons", TL("The distance to accept the JuPedSim arrival point (in meters)"));
     oc.doRegister("pedestrian.jupedsim.model", new Option_String("CollisionFreeSpeedModel"));
-    oc.addDescription("pedestrian.jupedsim.model", "Processing", TL("The submodel to use in JuPedSim (default: 'CollisionFreeSpeedModel')"));
+    oc.addDescription("pedestrian.jupedsim.model", "Persons", TL("The submodel to use in JuPedSim (default: 'CollisionFreeSpeedModel')"));
     oc.doRegister("pedestrian.jupedsim.strength-neighbor-repulsion", new Option_Float(8.));
-    oc.addDescription("pedestrian.jupedsim.strength-neighbor-repulsion", "Processing", TL("The neighbor repulsion strength of the JuPedSim model"));
+    oc.addDescription("pedestrian.jupedsim.strength-neighbor-repulsion", "Persons", TL("The neighbor repulsion strength of the JuPedSim model"));
     oc.doRegister("pedestrian.jupedsim.range-neighbor-repulsion", new Option_Float(.1));
-    oc.addDescription("pedestrian.jupedsim.range-neighbor-repulsion", "Processing", TL("The neighbor repulsion range of the JuPedSim model (in meters)"));
+    oc.addDescription("pedestrian.jupedsim.range-neighbor-repulsion", "Persons", TL("The neighbor repulsion range of the JuPedSim model (in meters)"));
     oc.doRegister("pedestrian.jupedsim.strength-geometry-repulsion", new Option_Float(5.));
-    oc.addDescription("pedestrian.jupedsim.strength-geometry-repulsion", "Processing", TL("The geometry repulsion strength of the JuPedSim model"));
+    oc.addDescription("pedestrian.jupedsim.strength-geometry-repulsion", "Persons", TL("The geometry repulsion strength of the JuPedSim model"));
     oc.doRegister("pedestrian.jupedsim.range-geometry-repulsion", new Option_Float(.02));
-    oc.addDescription("pedestrian.jupedsim.range-geometry-repulsion", "Processing", TL("The geometry repulsion range of the JuPedSim model (in meters)"));
+    oc.addDescription("pedestrian.jupedsim.range-geometry-repulsion", "Persons", TL("The geometry repulsion range of the JuPedSim model (in meters)"));
     oc.doRegister("pedestrian.jupedsim.wkt", new Option_FileName());
     oc.addDescription("pedestrian.jupedsim.wkt", "Output", TL("The filename to output the JuPedSim network as WKT"));
     oc.doRegister("pedestrian.jupedsim.wkt.geo", new Option_Bool(false));
@@ -653,12 +654,12 @@ MSFrame::fillOptions() {
     oc.addDescription("pedestrian.jupedsim.py", "Output", TL("The filename to output the JuPedSim setup as Python script"));
 #ifdef HAVE_JUPEDSIM_GRPC
     oc.doRegister("pedestrian.jupedsim.address", new Option_String(""));
-    oc.addDescription("pedestrian.jupedsim.address", "Processing", TL("The address to connect to the JuPedSim gRPC server"));
+    oc.addDescription("pedestrian.jupedsim.address", "Persons", TL("The address to connect to the JuPedSim gRPC server"));
 #endif
 #endif
 
     oc.doRegister("ride.stop-tolerance", new Option_Float(10.));
-    oc.addDescription("ride.stop-tolerance", "Processing", TL("Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops"));
+    oc.addDescription("ride.stop-tolerance", "Persons", TL("Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops"));
 
     oc.doRegister("mapmatch.distance", new Option_Float(100));
     oc.addDescription("mapmatch.distance", "Processing", TL("Maximum distance when mapping input coordinates (fromXY etc.) to the road network"));
@@ -705,29 +706,29 @@ MSFrame::fillOptions() {
     oc.addDescription("astar.landmark-distances", "Routing", TL("Initialize lookup table for astar ALT-variant from the given file"));
 
     oc.doRegister("persontrip.walkfactor", new Option_Float(double(0.75)));
-    oc.addDescription("persontrip.walkfactor", "Routing", TL("Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"));
+    oc.addDescription("persontrip.walkfactor", "Persons", TL("Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"));
 
     oc.doRegister("persontrip.walk-opposite-factor", new Option_Float(1.0));
-    oc.addDescription("persontrip.walk-opposite-factor", "Processing", TL("Use FLOAT as a factor on walking speed against vehicle traffic direction"));
+    oc.addDescription("persontrip.walk-opposite-factor", "Persons", TL("Use FLOAT as a factor on walking speed against vehicle traffic direction"));
 
     oc.doRegister("persontrip.transfer.car-walk", new Option_StringVector(StringVector({ "parkingAreas" })));
-    oc.addDescription("persontrip.transfer.car-walk", "Routing",
+    oc.addDescription("persontrip.transfer.car-walk", "Persons",
                       "Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations)");
 
     oc.doRegister("persontrip.transfer.taxi-walk", new Option_StringVector());
-    oc.addDescription("persontrip.transfer.taxi-walk", "Routing", TL("Where taxis can drop off customers ('allJunctions, 'ptStops', 'parkingAreas')"));
+    oc.addDescription("persontrip.transfer.taxi-walk", "Persons", TL("Where taxis can drop off customers ('allJunctions, 'ptStops', 'parkingAreas')"));
 
     oc.doRegister("persontrip.transfer.walk-taxi", new Option_StringVector());
-    oc.addDescription("persontrip.transfer.walk-taxi", "Routing", TL("Where taxis can pick up customers ('allJunctions, 'ptStops', 'parkingAreas')"));
+    oc.addDescription("persontrip.transfer.walk-taxi", "Persons", TL("Where taxis can pick up customers ('allJunctions, 'ptStops', 'parkingAreas')"));
 
     oc.doRegister("persontrip.default.group", new Option_String());
-    oc.addDescription("persontrip.default.group", "Routing", TL("When set, trips between the same origin and destination will share a taxi by default"));
+    oc.addDescription("persontrip.default.group", "Persons", TL("When set, trips between the same origin and destination will share a taxi by default"));
 
     oc.doRegister("persontrip.taxi.waiting-time", new Option_String("300", "TIME"));
-    oc.addDescription("persontrip.taxi.waiting-time", "Routing", TL("Estimated time for taxi pickup"));
+    oc.addDescription("persontrip.taxi.waiting-time", "Persons", TL("Estimated time for taxi pickup"));
 
     oc.doRegister("persontrip.ride-public-line", new Option_Bool(false));
-    oc.addDescription("persontrip.ride-public-line", "Routing", TL("Only use the intended public transport line rather than any alternative line that stops at the destination"));
+    oc.addDescription("persontrip.ride-public-line", "Persons", TL("Only use the intended public transport line rather than any alternative line that stops at the destination"));
 
     oc.doRegister("railway.max-train-length", new Option_Float(1000.0));
     oc.addDescription("railway.max-train-length", "Routing", TL("Use FLOAT as a maximum train length when initializing the railway router"));
