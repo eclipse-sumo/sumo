@@ -35,6 +35,8 @@ wheel.packages = ["tools/libsumo"]
 
 [tool.scikit-build.cmake.define]
 CMAKE_CXX_SCAN_FOR_MODULES = "OFF"
+ENABLE_FFMPEG = "OFF"
+ENABLE_OSG = "OFF"
 
 [tool.cibuildwheel]
 before-all = "build_config/install_dependencies.sh"
