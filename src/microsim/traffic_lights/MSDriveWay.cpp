@@ -2442,6 +2442,8 @@ MSDriveWay::addConflictLink(const MSLink* link) {
 void
 MSDriveWay::addDWDeadlock(const std::vector<const MSDriveWay*>& deadlockFoes) {
     std::set<const MSDriveWay*> filtered;
+    // we do not need to keep any of our own foes. If any of them were occupied then
+    // foeDriveWayOccupied would return True without considering myDeadlocks
     for (const MSDriveWay* foe : deadlockFoes) {
         if (std::find(myFoes.begin(), myFoes.end(), foe) == myFoes.end()) {
             filtered.insert(foe);
