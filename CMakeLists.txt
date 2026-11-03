@@ -48,12 +48,12 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 endif ()
 
 # the part after ... sets all cmake policies to "new" which have been introduced up to that cmake version
-cmake_minimum_required(VERSION 3.5...3.31 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.8...3.31 FATAL_ERROR)
 project("${PROJECT_NAME}" CXX C)
 set(PACKAGE_VERSION "git")
 
 # The command and parameters for rm / remove_directory change in cmake
-if (${CMAKE_VERSION} VERSION_GREATER 3.17.0)
+if (CMAKE_VERSION VERSION_GREATER 3.17.0)
     set(remove_command "rm" "-rf")
 else()
     set(remove_command "remove_directory")
@@ -125,18 +125,11 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" ST
 endif ()
 
 # C++20 is needed by Parquet >= 24.
-# C++17 is needed by std::filesystem and Parquet.
-# C++14 is needed by Google Test >= 1.13, for all the other parts C++11 should be enough.
-# This will silently fall back to C++14 or even C++11, whatever is supported by the compiler.
-if (${CMAKE_VERSION} VERSION_LESS 3.8.0)
-    set(DEFAULT_CXX_STANDARD 14)
+# Brew does not support versioning, so it has only the most recent Arrow / Parquet. Thus we need C++20 on macOS.
+if (APPLE)
+    set(DEFAULT_CXX_STANDARD 20)
 else()
-    # Brew does not support versioning, so it has only the most recent Arrow / Parquet. Thus we need C++20 on macOS.
-    if (APPLE)
-        set(DEFAULT_CXX_STANDARD 20)
-    else()
-        set(DEFAULT_CXX_STANDARD 17)
-    endif()
+    set(DEFAULT_CXX_STANDARD 17)
 endif()
 set(CMAKE_CXX_STANDARD ${DEFAULT_CXX_STANDARD} CACHE STRING "C++ standard")
 if (NOT "cxx_std_17" IN_LIST CMAKE_CXX_COMPILE_FEATURES)
@@ -252,7 +245,7 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 link_libraries(Threads::Threads)
 
-if (${CMAKE_VERSION} VERSION_LESS 3.12.0)
+if (CMAKE_VERSION VERSION_LESS 3.12.0)
     find_package(PythonInterp REQUIRED)
     # define variable for compatibility
     set(Python_EXECUTABLE ${PYTHON_EXECUTABLE} CACHE FILEPATH "Python executable")
@@ -262,7 +255,7 @@ else()
     find_package(Python REQUIRED COMPONENTS Interpreter OPTIONAL_COMPONENTS Development.Module)
     message(STATUS "Found Python: " ${Python_EXECUTABLE})
 endif()
-if (${CMAKE_VERSION} VERSION_LESS 3.18.0 AND (ENABLE_PYTHON_BINDINGS OR ENABLE_JAVA_BINDINGS OR ENABLE_CS_BINDINGS))
+if (CMAKE_VERSION VERSION_LESS 3.18.0 AND (ENABLE_PYTHON_BINDINGS OR ENABLE_JAVA_BINDINGS OR ENABLE_CS_BINDINGS))
     message(WARNING "Language bindings require at least CMake 3.18.")
     set(ENABLE_PYTHON_BINDINGS OFF)
     set(ENABLE_JAVA_BINDINGS OFF)
@@ -802,16 +795,14 @@ install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         PATTERN "*.pyc" EXCLUDE
         PATTERN "*.egg-info" EXCLUDE
         PATTERN ".git" EXCLUDE)
-if (${CMAKE_VERSION} VERSION_GREATER 3.6.0)
-    # this is a hack which works only with a non-isolated build
-    install(DIRECTORY tools/libsumo/ DESTINATION libsumo COMPONENT tools_libsumo EXCLUDE_FROM_ALL
-            PATTERN "__pycache__" EXCLUDE
-            PATTERN "*.pyc" EXCLUDE)
-    if (PROJ_DATA_DIR)
-        install(DIRECTORY ${PROJ_DATA_DIR}/ DESTINATION ${DATA_PATH}data/proj COMPONENT proj_data EXCLUDE_FROM_ALL
-                PATTERN "*.tif" EXCLUDE
-                PATTERN "*.txt" EXCLUDE)
-    endif ()
+# this is a hack which works only with a non-isolated build
+install(DIRECTORY tools/libsumo/ DESTINATION libsumo COMPONENT tools_libsumo EXCLUDE_FROM_ALL
+        PATTERN "__pycache__" EXCLUDE
+        PATTERN "*.pyc" EXCLUDE)
+if (PROJ_DATA_DIR)
+    install(DIRECTORY ${PROJ_DATA_DIR}/ DESTINATION ${DATA_PATH}data/proj COMPONENT proj_data EXCLUDE_FROM_ALL
+            PATTERN "*.tif" EXCLUDE
+            PATTERN "*.txt" EXCLUDE)
 endif ()
 install(CODE "
     execute_process(COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/build_config/version.py --pep440 \$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${DATA_PATH}tools/sumolib/version.py)
@@ -823,7 +814,7 @@ endif ()
 install(EXPORT SUMOConfig DESTINATION ${DATA_PATH}cmake NAMESPACE SUMO:: COMPONENT runtime)
 
 set(SUMO_TOOLS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tools")
-if (${CMAKE_VERSION} VERSION_GREATER 3.6.0 AND NOT ${PYTHON_BUILD_MISSING})
+if (NOT PYTHON_BUILD_MISSING)
     # no isolated build here because we need to be able to do it offline (on open build service, launchpad etc.)
     # furthermore several commands in the same execute_process are not guaranteed to be executed sequentially
     install(CODE "
@@ -895,7 +886,7 @@ set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 set_property(TARGET install_test_dll PROPERTY FOLDER "CMake")
 
 # installing desktop files and other Linux specific stuff
-if (CMAKE_VERSION VERSION_GREATER 3.6.0 AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
+if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     install(DIRECTORY build_config/package/ DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/profile.d
             COMPONENT linux_integration EXCLUDE_FROM_ALL
             FILES_MATCHING PATTERN "*sh" PATTERN "jupedsim" EXCLUDE)
@@ -1010,7 +1001,7 @@ if (HELPMAN_EXECUTABLE)
     set_property(TARGET man PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
     set_property(TARGET man PROPERTY FOLDER "doc")
     set(MAN_TARGET man)
-    if (CMAKE_VERSION VERSION_GREATER 3.6.0 AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
         install(DIRECTORY docs/man/ DESTINATION ${CMAKE_INSTALL_MANDIR}/man1
                 COMPONENT linux_integration EXCLUDE_FROM_ALL)
     endif()

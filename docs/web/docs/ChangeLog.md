@@ -80,6 +80,7 @@ title: ChangeLog
   - When setting option **--vehroute-output.cost**, the initial route cost is now included #18378
   - Improved speed of computing safety interlocks when loading new train routes #18387
   - The JuPedSim coupling has been redone, giving direct access to the JuPedSim Python module #18128
+    - Make sure you have an active python environment with the jupedsim module installed, when runnning the model.
   - Added simulation option category 'persons' #6374
 
 - sumo-gui
@@ -117,6 +118,11 @@ title: ChangeLog
 - Fixed divergent behavior on macOS arm64 vs Linux x86_64 due to inconsistent compiler defaults #18344
 - Added [documentation for TraCI API versions](TraCI/API_Versions.md) #17430
 - gtfs2pt.py: using an optional internal java map-matching library are no longer supported #17937
+- Removed undocumented cmake option COMPILER_DEFINITIONS due to a name clash, use CMAKE_CXX_FLAGS_INIT instead
+- Python wheels for libsumo and eclipse-sumo are now consistently built without support for OSG and ffmpeg and have their libraries in the external sumo-data wheel.
+- SUMO compilation now requires CMake 3.8 and a C++17 enabled compiler
+  - Dropped support for ubuntu 16.04 and Debian 9
+- Wheels for Python 3.15 have been added
 
 
 ## Version 1.28.0 (08.10.2026)
