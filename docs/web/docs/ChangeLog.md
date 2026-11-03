@@ -91,7 +91,7 @@ title: ChangeLog
   - vType-specific timeToTeleport now takes effect #18359
 
 - netconvert
-  - Added options for setting default atcuated tls params #10836
+  - Added options for setting default actuated tls params #10836
   - OSM: default typemap now imports railway=narrow_gauge #18447
 
 - duarouter
@@ -119,8 +119,8 @@ title: ChangeLog
 - Added [documentation for TraCI API versions](TraCI/API_Versions.md) #17430
 - gtfs2pt.py: using an optional internal java map-matching library are no longer supported #17937
 - Removed undocumented cmake option COMPILER_DEFINITIONS due to a name clash, use CMAKE_CXX_FLAGS_INIT instead
-- Python wheels for libsumo and eclipse-sumo are now consistently built without support for OSG and ffmpeg and have their libraries in the external sumo-data wheel.
-- SUMO compilation now requires CMake 3.8 and a C++17 enabled compiler
+- Python wheels for libsumo and eclipse-sumo are now consistently built without support for OSG and ffmpeg and have their libraries in the external sumo-data wheel. #17459
+- SUMO compilation now requires CMake 3.8 and a C++17 enabled compiler #18430
   - Dropped support for ubuntu 16.04 and Debian 9
 - Wheels for Python 3.15 have been added
 
