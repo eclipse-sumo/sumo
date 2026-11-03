@@ -620,6 +620,13 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                 }
                 start += 1;
             }
+            if (!foundFoe) {
+                for (const MSDriveWay* dlFoe : dlFoes) {
+                    const MSRailSignal* rs2 = myOrigin != nullptr ? dynamic_cast<const MSRailSignal*>(myOrigin->getTLLogic()) : nullptr;
+                    MSRailSignalControl::getInstance().addWaitRelation(ego, rs2, *dlFoe->myTrains.begin(), nullptr);
+                    break;
+                }
+            }
             return true;
         }
     }
