@@ -118,7 +118,7 @@ def getStopID(stop):
 
 
 def key(row):
-    return "%s_%s" % (row['tripId'], row['stopID'])
+    return "%s_%s" % (row['tripId'] if row['tripId'] else row['vehID'], row['stopID'])
 
 
 def main(options):
