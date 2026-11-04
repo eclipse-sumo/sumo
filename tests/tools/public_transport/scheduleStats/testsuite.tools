@@ -9,3 +9,6 @@ ended
 traveltime
 xml-output
 histogram
+
+# don't crash when there are no matches
+empty
