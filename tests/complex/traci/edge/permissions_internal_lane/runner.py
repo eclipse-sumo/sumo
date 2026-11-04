@@ -19,7 +19,7 @@ import traci  # noqa
 
 traci.start([sumolib.checkBinary("sumo"),
              "-n", "net.net.xml",
-             "-r", "routes.rou.xml",
+             "-r", "input_routes.rou.xml",
              "--no-step-log", "--begin", "0", "--end", "60",
              "--seed", "1"] + sys.argv[1:])
 
