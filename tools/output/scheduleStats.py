@@ -217,6 +217,9 @@ def main(options):
         # print(dfSim)
         print(df)
 
+    if len(df) == 0:
+        sys.exit()
+
     if options.output:
         outf = open(options.output, 'w')
         sumolib.writeXMLHeader(outf, root="scheduleStats")
