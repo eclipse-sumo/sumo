@@ -1,6 +1,9 @@
 # Tests for <SUMO_DIST>/tools/route_tools/route_departOffset.py
 offset10
 
+# Tests for <SUMO_DIST>/tools/route_tools/route_departOffset.py
+offset10_cumulative
+
 # also modify ids
 offset10_modify_ids
 
