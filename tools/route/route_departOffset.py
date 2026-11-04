@@ -44,6 +44,8 @@ def get_options(args=None):
     op.add_option("--heterogeneous", dest="heterogeneous",
                   action="store_true", default=False, help="whether heterogeneous objects shall be parsed " +
                                                            "(i.e. vehicles with embedded and referenced routes)")
+    op.add_option("--cumulative", action="store_true", default=False,
+                  help="multiply offset by the number of preceeding vehicles")
     op.add_option("--depart-edges", dest="depart_edges",
                   help="only modify departure times of vehicles departing on the given edges")
     op.add_option("--depart-edges.file", dest="depart_edges_file",
@@ -129,6 +131,7 @@ def main(options):
                 routesArrival[route.id] = route.edges.split()[-1]
                 out.write(route.toXML('    ', withComments="inline"))
 
+        factor = 1
         for obj in parse(options.infile, ['vehicle', 'trip', 'flow', 'vType'],
                          heterogeneous=options.heterogeneous, warn=False):
             if obj.name == 'vType':
@@ -186,13 +189,13 @@ def main(options):
                     if options.offset is not None:
                         # shift by offset
                         if obj.name in ['trip', 'vehicle']:
-                            obj.depart = str(intIfPossible(
-                                parseTime(obj.depart) + options.offset))
+                            obj.depart = str(formatter(
+                                parseTime(obj.depart) + options.offset * factor))
                         else:
-                            obj.begin = str(intIfPossible(
-                                parseTime(obj.begin) + options.offset))
-                            obj.end = str(intIfPossible(
-                                parseTime(obj.end) + options.offset))
+                            obj.begin = str(formatter(
+                                parseTime(obj.begin) + options.offset * factor))
+                            obj.end = str(formatter(
+                                parseTime(obj.end) + options.offset * factor))
                     else:
                         # shift by interval
                         if obj.name in ['trip', 'vehicle']:
@@ -200,7 +203,8 @@ def main(options):
                         else:
                             obj.begin = formatter(shiftInterval(obj.begin, options.interval))
                             obj.end = formatter(shiftInterval(obj.end, options.interval))
-
+                    if options.cumulative:
+                        factor += 1
             out.write(obj.toXML('    ', withComments="inline"))
         out.write("</routes>\n")
 
