@@ -44,6 +44,9 @@ parking
 # set long-duration stops to parking 
 parking_threshold
 
+# set long-duration stops to parking  based on estimated time of arrival
+parking_threshold_estimate_arrival
+
 # set stops to parking
 load_stops_add_missing
 
