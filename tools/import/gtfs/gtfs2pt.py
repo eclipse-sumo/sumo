@@ -750,6 +750,7 @@ def main(options):
 def writeRoute(options, rout, vehID, edges, stops):
     ft = options.ft
     rout.write(u'    <route id="%s" edges="%s">\n' % (vehID, " ".join(edges)))
+    # trip arrival/until times are already shift to be zero-based except when the network is too small. For this case we need to shift
     offset = None
     isJoined = False
     lastTripId = None
@@ -764,10 +765,11 @@ def writeRoute(options, rout, vehID, edges, stops):
         if offset is None:
             offset = s.until
         # ensure arrival preceeds until by at least duration
+        until = s.until - offset
         arrival = 'arrival="%s" ' % ft(
-            max(0, min(s.arrival - offset, s.until - options.duration))) if options.writeArrival else ""
+            max(0, min(s.arrival - offset, until - options.duration))) if options.writeArrival else ""
         rout.write(u'        <stop busStop="%s" %sduration="%s" until="%s"%s%s/> <!-- %s -->\n' %
-                   (s.id, arrival, ft(options.duration), ft(s.until - offset), parking, tripId,
+                   (s.id, arrival, ft(options.duration), ft(until), parking, tripId,
                     removeDoubleHypen(s.name)))
     rout.write(u'    </route>\n')
 
