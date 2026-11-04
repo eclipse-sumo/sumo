@@ -25,39 +25,41 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.output import parse  # noqa
-from sumolib.miscutils import intIfPossible  # noqa
+from sumolib.miscutils import intIfPossible, parseTime, humanReadableTime  # noqa
 
 
 def get_options(args=None):
-    optParser = sumolib.options.ArgumentParser()
-    optParser.add_option("-r", "--input-file", dest="infile",
-                         help="the input route file (mandatory)")
-    optParser.add_option("-o", "--output-file", dest="outfile",
-                         help="the output route file (mandatory)")
-    optParser.add_option("-d", "--depart-offset", dest="offset",
-                         type=float, help="the depart offset to apply")
-    optParser.add_option("-i", "--depart-interval", dest="interval",
-                         help="time intervals a,b,c,d where all vehicles departing in the interval" +
-                         "[a,b[ are mapped to the interval [c,d[")
-    optParser.add_option("--modify-ids", dest="modify_ids", action="store_true",
-                         default=False, help="whether ids should be modified as well")
-    optParser.add_option("--heterogeneous", dest="heterogeneous",
-                         action="store_true", default=False, help="whether heterogeneous objects shall be parsed " +
-                                                                  "(i.e. vehicles with embedded and referenced routes)")
-    optParser.add_option("--depart-edges", dest="depart_edges",
-                         help="only modify departure times of vehicles departing on the given edges")
-    optParser.add_option("--depart-edges.file", dest="depart_edges_file",
-                         help="only modify departure times of vehicles departing on edges or lanes in the " +
-                              "given selection file")
-    optParser.add_option("--arrival-edges", dest="arrival_edges",
-                         help="only modify departure times of vehicles arriving on the given edges")
-    optParser.add_option("--arrival-edges.file", dest="arrival_edges_file",
-                         help="only modify departure times of vehicles arriving on edges or lanes in the " +
-                              "given selection file")
+    op = sumolib.options.ArgumentParser()
+    op.add_option("-r", "--input-file", dest="infile",
+                  help="the input route file (mandatory)")
+    op.add_option("-o", "--output-file", dest="outfile",
+                  help="the output route file (mandatory)")
+    op.add_option("-d", "--depart-offset", dest="offset",
+                  type=op.time, help="the depart offset to apply")
+    op.add_option("-i", "--depart-interval", dest="interval",
+                  help="time intervals a,b,c,d where all vehicles departing in the interval" +
+                  "[a,b[ are mapped to the interval [c,d[")
+    op.add_option("--modify-ids", dest="modify_ids", action="store_true",
+                  default=False, help="whether ids should be modified as well")
+    op.add_option("--heterogeneous", dest="heterogeneous",
+                  action="store_true", default=False, help="whether heterogeneous objects shall be parsed " +
+                                                           "(i.e. vehicles with embedded and referenced routes)")
+    op.add_option("--depart-edges", dest="depart_edges",
+                  help="only modify departure times of vehicles departing on the given edges")
+    op.add_option("--depart-edges.file", dest="depart_edges_file",
+                  help="only modify departure times of vehicles departing on edges or lanes in the " +
+                       "given selection file")
+    op.add_option("--arrival-edges", dest="arrival_edges",
+                  help="only modify departure times of vehicles arriving on the given edges")
+    op.add_option("--arrival-edges.file", dest="arrival_edges_file",
+                  help="only modify departure times of vehicles arriving on edges or lanes in the " +
+                       "given selection file")
+    op.add_option("-H", "--human-readable-time", dest="hrTime", default=False, action="store_true", category="output",
+                  help="interpret values as times and write them as h:m:s")
 
-    options = optParser.parse_args(args=args)
+    options = op.parse_args(args=args)
     if options.infile is None or options.outfile is None:
-        optParser.print_help()
+        op.print_help()
         sys.exit()
 
     if ((options.offset is None and options.interval is None) or
@@ -68,7 +70,7 @@ def get_options(args=None):
     if options.offset is not None:
         options.name_suffix = "_%s" % intIfPossible(options.offset)
     else:
-        options.interval = tuple(map(float, options.interval.split(',')))
+        options.interval = tuple(map(parseTime, options.interval.split(',')))
         options.name_suffix = "_%s_%s_%s_%s" % options.interval
 
     if options.depart_edges is not None:
@@ -106,25 +108,26 @@ def get_options(args=None):
 
 
 def shiftInterval(val, interval):
-    val = float(val)
+    val = parseTime(val)
     if interval[0] <= val < interval[1]:
         val = (val - interval[0]) / (interval[1] - interval[0]
                                      ) * (interval[3] - interval[2]) + interval[2]
-    return str(intIfPossible(val))
+    return val
 
 
 def main(options):
     # cache stand-alone routes
     routesDepart = {}  # first edge for each route
     routesArrival = {}  # last edge for each route
+    formatter = humanReadableTime if options.hrTime else intIfPossible
 
     with sumolib.openz(options.outfile, 'w', encoding='utf8') as out:
-        out.write("<routes>\n")
+        sumolib.writeXMLHeader(out, "$Id$", "routes", options=options)
         for route in parse(options.infile, "route"):
             if route.hasAttribute('id') and route.id is not None:
                 routesDepart[route.id] = route.edges.split()[0]
                 routesArrival[route.id] = route.edges.split()[-1]
-                out.write(route.toXML('    '))
+                out.write(route.toXML('    ', withComments="inline"))
 
         for obj in parse(options.infile, ['vehicle', 'trip', 'flow', 'vType'],
                          heterogeneous=options.heterogeneous, warn=False):
@@ -184,23 +187,21 @@ def main(options):
                         # shift by offset
                         if obj.name in ['trip', 'vehicle']:
                             obj.depart = str(intIfPossible(
-                                float(obj.depart) + options.offset))
+                                parseTime(obj.depart) + options.offset))
                         else:
                             obj.begin = str(intIfPossible(
-                                float(obj.begin) + options.offset))
+                                parseTime(obj.begin) + options.offset))
                             obj.end = str(intIfPossible(
-                                float(obj.end) + options.offset))
+                                parseTime(obj.end) + options.offset))
                     else:
                         # shift by interval
                         if obj.name in ['trip', 'vehicle']:
-                            obj.depart = shiftInterval(
-                                obj.depart, options.interval)
+                            obj.depart = formatter(shiftInterval(obj.depart, options.interval))
                         else:
-                            obj.begin = shiftInterval(
-                                obj.begin, options.interval)
-                            obj.end = shiftInterval(obj.end, options.interval)
+                            obj.begin = formatter(shiftInterval(obj.begin, options.interval))
+                            obj.end = formatter(shiftInterval(obj.end, options.interval))
 
-            out.write(obj.toXML('    '))
+            out.write(obj.toXML('    ', withComments="inline"))
         out.write("</routes>\n")
 
 
