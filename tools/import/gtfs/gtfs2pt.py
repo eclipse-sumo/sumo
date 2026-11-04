@@ -44,7 +44,7 @@ from sumolib.miscutils import benchmark  # noqa
 import gtfs2fcd  # noqa
 import gtfs2osm  # noqa
 import gtfsutils  # noqa
-from gtfsutils import OSM2SUMO_MODES, GTFS2OSM_MODES  # noqa
+from gtfsutils import OSM2SUMO_MODES, GTFS2OSM_MODES, SUMO_DECEL  # noqa
 
 
 def get_options(args=None):
@@ -413,6 +413,19 @@ def generate_polygons(net, routes, outfile):
         outf.write('</polygons>\n')
 
 
+def estimateTime(net, decel, time, edges):
+    e = None
+    for i, eID in enumerate(edges):
+        e = net.getEdge(eID)
+        time += e.getLength() / e.getSpeed()
+        if i == 0:
+            # initial acceleration
+            time += e.getSpeed()
+    # final deceleration
+    time += e.getSpeed() / decel
+    return time
+
+
 def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
     MappedStop = namedtuple("MappedStop", ["id", "arrival", "until", "name", "block", "isParking"])
     stops = collections.defaultdict(list)
@@ -421,9 +434,10 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
     rid = None
     for mode in sorted(geoRoutes.keys()):
         vclass = OSM2SUMO_MODES.get(mode)
+        decel = SUMO_DECEL[vclass]
         seen = set()
         fixed = {}
-        lastUntil = None
+        lastUntil = 0
         lastStop = None
         for rid, locations in geoRoutes[mode].items():
             if rid not in routes:
@@ -547,6 +561,7 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                         continue
                     laneID, start, end = result
                 edgeID = laneID.rsplit("_", 1)[0]
+                prevIndex = lastIndex
                 lastIndex = route.index(edgeID, lastIndex)
                 lastPos = end
                 keep = True
@@ -576,7 +591,9 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                         break
                 if ((options.parkingThreshold is not None
                      and ((lastStop == stop and s.until - lastUntil >= options.parkingThreshold)
-                          or s.until - s.arrival >= options.parkingThreshold))):
+                          or s.until - s.arrival >= options.parkingThreshold
+                          or (s.until - estimateTime(net, decel, lastUntil, route[prevIndex:lastIndex + 1])
+                              >= options.parkingThreshold)))):
                     isParking = True
                     if stopItemToPatch is not None:
                         stopItemToPatch[-1] = isParking

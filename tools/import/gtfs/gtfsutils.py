@@ -116,6 +116,17 @@ GTFS2OSM_MODES.update({
     'DPF': 'train',        # tbd
 })
 
+SUMO_DECEL = {
+    'bus': 4.5,
+    'rail': 1.0,
+    'tram': 1.3,
+    'rail_urban': 1.3,
+    'subway': 1.3,
+    'cable_car': 1.3,
+    'ship': 0.15,
+    'taxi': '4.5',
+    'aircraft': '4.5',
+}
 
 def sha256hash(s):
     return hashlib.sha256(s.encode('utf-8')).hexdigest()
