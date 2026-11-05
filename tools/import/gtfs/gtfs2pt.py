@@ -141,7 +141,7 @@ def get_options(args=None):
     ap.add_argument("--dua-repair-output", category="output", type=ap.file,
                     help="file to write the osm routes with errors")
     ap.add_argument("--repair", help="repair osm routes", action='store_true', category="processing")
-    ap.add_argument("--min-stops", default=1, type=int, category="input",
+    ap.add_argument("--min-stops", default=2, type=int, category="input", dest="minStops",
                     help="minimum number of stops a public transport line must have to be imported")
     ap.add_argument("--maxcache", default=1000, type=int,
                     help="Set maximum cache size for route computation")
@@ -641,7 +641,7 @@ def filter_trips(options, routes, stops, outf, begin, end, vehicles):
     for mode in sorted(vehicles.keys()):
         for veh in vehicles[mode]:
             tripID, routeID, orig_depart, line, params = veh
-            if routeID in routes and len(routes[routeID][0]) > 0 and len(stops.get(routeID, [])) > 1:
+            if routeID in routes and len(routes[routeID][0]) > 0 and len(stops.get(routeID, [])) >= options.minStops:
                 until = stops[routeID][0].until
                 for d in range(numDays):
                     depart = max(0, d * 86400 + orig_depart + until - options.duration)
@@ -757,7 +757,10 @@ def main(options):
             sumolib.xml.writeHeader(rout, os.path.basename(__file__), "routes", options=options)
             for vehID, (edges, indices) in routes.items():
                 if edges:
-                    writeRoute(options, rout, vehID, edges, stops)
+                    if len(stops[vehID]) < options.minStops:
+                        print("Warning! Dropping %s with Only %s stops." % (vehID, len(stops[vehID])), file=sys.stderr)
+                    else:
+                        writeRoute(options, rout, vehID, edges, stops)
                 else:
                     print("Warning! Empty route for %s." % vehID, file=sys.stderr)
             filter_trips(options, routes, stops, rout, options.begin, options.end, vehicles)
