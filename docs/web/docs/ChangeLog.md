@@ -66,6 +66,7 @@ title: ChangeLog
   - Fixed invalid route output with **--bulk-routing** #18355
 
 - traci
+  - Fixed missing parameter values in Python context subscriptions.
   - some retrieved laneChangeModel parameters (for querying internal model state) with floating point values are no longer rounded to ints #18463 (regression in 1.27.0)
   - Fixed crash in `traci.simulation.loadState` with meso #18389 (regression in 1.28.0)
   - Fixed invalid event time after adding a stop with default duration in meso #18392
