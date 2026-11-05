@@ -139,7 +139,7 @@ def main(options):
     # cache stand-alone routes
     routesDepart = {}  # first edge for each route
     routesArrival = {}  # last edge for each route
-    formatter = humanReadableTime if options.hrTime else intIfPossible
+    formatter = humanReadableTime if options.hrTime else (lambda x: intIfPossible(x, 2))
     rng = random.Random(options.seed)
 
     with sumolib.openz(options.outfile, 'w', encoding='utf8') as out:
