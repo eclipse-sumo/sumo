@@ -19,6 +19,7 @@
 // C++ TraCI client API implementation
 /****************************************************************************/
 #pragma once
+#include <algorithm>
 #include <vector>
 #include <memory>
 #include <libsumo/Subscription.h>
@@ -60,6 +61,35 @@ public:
                           const int contextDomain = 0, const double range = 0.);
 
     static void handleSubscriptions(const SUMOTime t);
+
+    /// @brief Remove matching subscriptions in one stable pass and restore the active context pointer.
+    template<class Predicate>
+    static void removeSubscriptionsIf(std::vector<Subscription>& subscriptions,
+                                      Subscription*& lastContextSubscription, Predicate remove) {
+        const auto context = lastContextSubscription == nullptr ? subscriptions.end() :
+                             std::find_if(subscriptions.begin(), subscriptions.end(),
+        [lastContextSubscription](const Subscription& subscription) {
+            return &subscription == lastContextSubscription;
+        });
+        const auto contextIndex = context - subscriptions.begin();
+        size_t readIndex = 0;
+        size_t keptCount = 0;
+        size_t keptContext = subscriptions.size();
+        const auto end = std::remove_if(subscriptions.begin(), subscriptions.end(),
+        [&](const Subscription& subscription) {
+            const bool discard = remove(subscription);
+            if (!discard) {
+                if (readIndex == static_cast<size_t>(contextIndex)) {
+                    keptContext = keptCount;
+                }
+                ++keptCount;
+            }
+            ++readIndex;
+            return discard;
+        });
+        subscriptions.erase(end, subscriptions.end());
+        lastContextSubscription = keptContext < subscriptions.size() ? &subscriptions[keptContext] : nullptr;
+    }
 
     static bool needNewSubscription(libsumo::Subscription& s, std::vector<Subscription>& subscriptions, libsumo::Subscription*& modifiedSubscription);
 

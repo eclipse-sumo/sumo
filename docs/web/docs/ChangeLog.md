@@ -99,6 +99,7 @@ title: ChangeLog
 
 - TraCI
   - Added function `traci.edge.getMaxSpeed` #14489
+  - Expired subscription batches are now removed in a single stable pass, preserving context filters and avoiding quadratic cleanup time.
 
 - tools
   - gtfs2pt.py: now runs much faster due to better caching #18333, #18339
