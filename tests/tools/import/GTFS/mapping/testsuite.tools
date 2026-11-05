@@ -53,6 +53,12 @@ load_stops_add_missing
 # import public transport using a network that doesn't cover all stops
 subnet
 
+# import public transport using a network that doesn't cover all stops
+subnet_minStops2
+
+# import public transport using a network that doesn't cover all stops
+subnet_minStops3
+
 # test case from the berlin sbahn network
 sbahn
 
