@@ -1,6 +1,9 @@
 # test setting and getting of params to all objects which support it
 params
 
+# cached results must follow successful simulation reloads
+reload_subscriptions
+
 # test getParameterWithKey().
 paramsWithKey
 

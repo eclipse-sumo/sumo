@@ -355,6 +355,8 @@ class Connection(StepManager):
         if self._traceFile:
             self._traceFile.write("traci.load(%s)\n" % repr(args))
         self._sendCmd(tc.CMD_LOAD, None, None, "l", args)
+        for subscriptionResults in self._subscriptionMapping.values():
+            subscriptionResults.reset()
 
     def simulationStep(self, step=0.):
         """
