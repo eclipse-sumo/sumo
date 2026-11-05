@@ -19,7 +19,7 @@
 // C++ TraCI client API implementation
 /****************************************************************************/
 #pragma once
-#include <algorithm>
+#include <utility>
 #include <vector>
 #include <memory>
 #include <libsumo/Subscription.h>
@@ -66,29 +66,22 @@ public:
     template<class Predicate>
     static void removeSubscriptionsIf(std::vector<Subscription>& subscriptions,
                                       Subscription*& lastContextSubscription, Predicate remove) {
-        const auto context = lastContextSubscription == nullptr ? subscriptions.end() :
-                             std::find_if(subscriptions.begin(), subscriptions.end(),
-        [lastContextSubscription](const Subscription& subscription) {
-            return &subscription == lastContextSubscription;
-        });
-        const auto contextIndex = context - subscriptions.begin();
-        size_t readIndex = 0;
-        size_t keptCount = 0;
-        size_t keptContext = subscriptions.size();
-        const auto end = std::remove_if(subscriptions.begin(), subscriptions.end(),
-        [&](const Subscription& subscription) {
-            const bool discard = remove(subscription);
-            if (!discard) {
-                if (readIndex == static_cast<size_t>(contextIndex)) {
-                    keptContext = keptCount;
-                }
-                ++keptCount;
+        auto destination = subscriptions.begin();
+        Subscription* retainedContext = nullptr;
+        for (auto source = subscriptions.begin(); source != subscriptions.end(); ++source) {
+            if (remove(*source)) {
+                continue;
             }
-            ++readIndex;
-            return discard;
-        });
-        subscriptions.erase(end, subscriptions.end());
-        lastContextSubscription = keptContext < subscriptions.size() ? &subscriptions[keptContext] : nullptr;
+            if (&*source == lastContextSubscription) {
+                retainedContext = &*destination;
+            }
+            if (source != destination) {
+                *destination = std::move(*source);
+            }
+            ++destination;
+        }
+        subscriptions.erase(destination, subscriptions.end());
+        lastContextSubscription = retainedContext;
     }
 
     static bool needNewSubscription(libsumo::Subscription& s, std::vector<Subscription>& subscriptions, libsumo::Subscription*& modifiedSubscription);
