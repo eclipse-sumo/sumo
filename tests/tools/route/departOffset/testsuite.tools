@@ -24,3 +24,9 @@ offset_move_interval
 
 # Tests for <SUMO_DIST>/tools/route_tools/route_departOffset.py
 offset_hrTime
+
+# random depart offsets may be negative
+offset_random
+
+# negative offsets clamp departures to 0
+offset_negative
