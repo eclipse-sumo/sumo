@@ -41,6 +41,7 @@
 #include <utils/distribution/DistributionCont.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/geom/GeoConvHelper.h>
 
 
@@ -75,6 +76,35 @@ fillOptions() {
     NBFrame::fillOptions(oc, false);
     NWFrame::fillOptions(oc, false);
     RandHelper::insertRandOptions(oc);
+    oc.doRegister("plain-input-prefix", 'q', new Option_String());
+    oc.addDescription("plain-input-prefix", "Input",
+                      TL("Read plain XML input files PREFIX.nod.xml, PREFIX.edg.xml, PREFIX.con.xml, "
+                         "PREFIX.tll.xml and PREFIX.typ.xml"));
+}
+
+
+void
+applyPlainInputPrefix() {
+    OptionsCont& oc = OptionsCont::getOptions();
+    if (!oc.isSet("plain-input-prefix")) {
+        return;
+    }
+    const std::string prefix = oc.getString("plain-input-prefix");
+    const std::vector<std::pair<std::string, std::string> > suffixes = {
+        {"nod", "node-files"},
+        {"edg", "edge-files"},
+        {"con", "connection-files"},
+        {"tll", "tllogic-files"},
+        {"typ", "type-files"},
+    };
+    for (const auto& item : suffixes) {
+        const std::string file = prefix + "." + item.first + ".xml";
+        if (FileHelpers::isReadable(file)) {
+            oc.set(item.second, file);
+        } else {
+            WRITE_WARNINGF(TL("Missing plain input file '%'."), file);
+        }
+    }
 }
 
 
@@ -107,6 +137,7 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
+        applyPlainInputPrefix();
         if (oc.isSet("edge-files") && !oc.isSet("type-files") && oc.isDefault("ignore-errors.edge-type")) {
             oc.setDefault("ignore-errors.edge-type", "true");
         }
