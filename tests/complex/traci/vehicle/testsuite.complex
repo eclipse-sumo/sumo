@@ -170,3 +170,6 @@ addTrip_taz
 
 # Tests traci.vehicle.getShadowLaneID() method
 getShadowLaneID
+
+# see #11310
+tripinfoParameters

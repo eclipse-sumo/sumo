@@ -816,6 +816,28 @@ MSDevice_Tripinfo::getParameter(const std::string& key) const {
         return toString(myArrivalPosLat);
     } else if (key == toString(SUMO_ATTR_ARRIVALSPEED)) {
         return toString(myArrivalSpeed);
+    } else if (key == "depart") {
+        return toString(STEPS2TIME(myHolder.hasDeparted() ? myHolder.getDeparture() : myHolder.getParameter().depart));
+    } else if (key == "departLane") {
+        return myDepartLane;
+    } else if (key == "departPos") {
+        return toString(myHolder.getDepartPos());
+    } else if (key == "departSpeed") {
+        return toString(myDepartSpeed);
+    } else if (key == "departDelay") {
+        SUMOTime departDelay = myHolder.getDepartDelay();
+        if (!myHolder.hasDeparted()) {
+            departDelay = SIMSTEP - myHolder.getParameter().depart;
+        }
+        return toString(STEPS2TIME(departDelay));
+    } else if (key == "duration") {
+        if (!myHolder.hasDeparted()) {
+            return "0";
+        }
+        const SUMOTime end = (myArrivalTime != NOT_ARRIVED) ? myArrivalTime : SIMSTEP;
+        return toString(STEPS2TIME(end - myHolder.getDeparture()));
+    } else if (key == "rerouteNo") {
+        return toString(myHolder.getNumberReroutes());
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
