@@ -46,3 +46,6 @@ setSpeedFactor
 # see #15527
 setSpeedFactor2
 getWalkingDistance
+
+# Reject invalid stage replacement indices without changing the plan
+replaceStage_invalid_index
