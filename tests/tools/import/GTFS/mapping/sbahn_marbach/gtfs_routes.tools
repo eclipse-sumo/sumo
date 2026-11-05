@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-04 09:41:28.399813 by Eclipse SUMO gtfs2pt.py v1_27_1+0604-936816a43aa
+<!-- generated on 2026-11-05 09:29:52.424205 by Eclipse SUMO gtfs2pt.py v1_28_0+0447-08e70d9c606
 <configuration>
     <merged-csv value="data.csv"/>
     <vtype-output value="vehtypes.xml"/>
@@ -19,12 +19,6 @@
     <route id="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" edges="247108425#1 195174049#0 195174049#1 273178652 273178654 25015448#0 25015448#1 24217632#0 24217632#1 916048754 560340460 107904689">
         <stop busStop="de:vvs:10004_:.vvs-10-4.44.T0.140.j26.0" duration="00:00:10" until="00:00:00"/> <!-- Marbach (N) -->
         <stop busStop="de:vvs:10004_:.vvs-10-4.44.T0.123.j26.1" duration="00:00:10" until="00:02:00"/> <!-- Benningen (N) -->
-    </route>
-    <route id="de:vvs:10004_:.vvs-10-4.44.T0.6.j26" edges="28387340">
-        <stop busStop="de:vvs:10004_:.vvs-10-4.44.T0.6.j26.0" duration="00:00:10" until="00:00:00"/> <!-- Benningen (N) -->
-    </route>
-    <route id="de:vvs:10004_:.vvs-10-4.44.T0.8.j26" edges="28387340">
-        <stop busStop="de:vvs:10004_:.vvs-10-4.44.T0.6.j26.0" duration="00:00:10" until="00:00:00"/> <!-- Benningen (N) -->
     </route>
     <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.123.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.123.j26" type="train" depart="04:54:50" line="S4">
         <param key="gtfs.route_name" value="S4"/>
