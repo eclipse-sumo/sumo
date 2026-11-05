@@ -6,6 +6,7 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
+  - FCD replay now follows recording timestamps when replaying with a larger simulation step #1922
   - Fixed deadlock on a short lane when using the sublane model #18379 (regression in 1.24.0)
   - Fixed lane-changing deadlock with carFollowModel IDM #17483
   - device.rerouting.threshold.factor and device.rerouting.threshold.constant now apply to insertion rerouting if a complete route was loaded #18354
