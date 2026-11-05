@@ -18,10 +18,12 @@ set logic type=actuated
 93.0  phase=0 nextSwitch=97.0
 98.0  phase=1 nextSwitch=100.0
 set logic type=static
-134.0  phase=1 nextSwitch=136.0
-137.0  phase=2 nextSwitch=169.0
-170.0  phase=3 nextSwitch=172.0
-173.0  phase=0 nextSwitch=205.0
+104.0  phase=3 nextSwitch=106.0
+107.0  phase=0 nextSwitch=139.0
+140.0  phase=1 nextSwitch=142.0
+143.0  phase=2 nextSwitch=175.0
+176.0  phase=3 nextSwitch=178.0
+179.0  phase=0 nextSwitch=211.0
 set logic type=delay_based
 251.0  phase=1 nextSwitch=253.0
 254.0  phase=2 nextSwitch=258.0

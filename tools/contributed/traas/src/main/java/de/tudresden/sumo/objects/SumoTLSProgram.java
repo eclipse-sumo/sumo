@@ -36,6 +36,7 @@ public class SumoTLSProgram implements SumoObject {
     public String subID;
     public int type;
     public int currentPhaseIndex;
+    public double offset;
     public ArrayList<SumoTLSPhase> phases;
     public HashMap<String, String> params;
 
@@ -44,6 +45,7 @@ public class SumoTLSProgram implements SumoObject {
         this.subID = "unknown";
         this.type = SumoTrafficLightType.STATIC.getIndex();
         this.currentPhaseIndex = 0;
+        this.offset = 0.;
         this.phases = new ArrayList<SumoTLSPhase>();
         this.params = new HashMap<String, String>();
     }
@@ -53,9 +55,15 @@ public class SumoTLSProgram implements SumoObject {
         this.subID = subID;
         this.type = type;
         this.currentPhaseIndex = currentPhaseIndex;
+        this.offset = 0.;
         this.phases = new ArrayList<SumoTLSPhase>();
         this.params = new HashMap<String, String>();
 
+    }
+
+    public SumoTLSProgram(String subID, int type, int currentPhaseIndex, double offset) {
+        this(subID, type, currentPhaseIndex);
+        this.offset = offset;
     }
 
     public void add(SumoTLSPhase phase) {
