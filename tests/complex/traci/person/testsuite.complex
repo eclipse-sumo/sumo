@@ -46,3 +46,6 @@ setSpeedFactor
 # see #15527
 setSpeedFactor2
 getWalkingDistance
+
+# see #11206
+disconnectedPersonTrip
