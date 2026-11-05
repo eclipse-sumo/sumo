@@ -2,6 +2,7 @@
 // Copyright (C) 2026 German Aerospace Center (DLR) and others.
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
+#include <algorithm>
 #include <gtest/gtest.h>
 #include <libsumo/Helper.h>
 
