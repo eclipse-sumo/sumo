@@ -326,7 +326,7 @@ SUMOTime
 MESegment::hasSpaceFor(const MEVehicle* const veh, const SUMOTime entryTime, int& qIdx, const bool init) const {
     SUMOTime earliestEntry = SUMOTime_MAX;
     qIdx = 0;
-    if (myNumVehicles == 0 && myQueues.size() == 1) {
+    if (myNumVehicles == 0 && myQueues.size() == 1 && (init || !hasTravelingGaps(0, entryTime))) {
         // we have always space for at least one vehicle
         if (myQueues.front().allows(veh->getVClass())) {
             return entryTime;
