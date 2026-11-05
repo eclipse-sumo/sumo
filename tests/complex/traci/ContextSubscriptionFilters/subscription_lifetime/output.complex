@@ -1,0 +1,7 @@
+Removing an earlier subscription preserves filter ownership
+Removing the final context subscription rejects further filters
+Expired context subscriptions reject further filters
+Expiring an earlier subscription preserves filter ownership
+Loading state removes context filter ownership
+Arrival removes context filter ownership
+Reloading the simulation removes context filter ownership

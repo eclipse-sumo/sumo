@@ -345,6 +345,7 @@ private:
     bool addObjectVariableSubscription(const int commandId, const bool hasContext);
     void initialiseSubscription(libsumo::Subscription& s);
     void removeSubscription(int commandId, const std::string& identity, int domain);
+    std::vector<libsumo::Subscription>::iterator eraseSubscription(std::vector<libsumo::Subscription>::iterator position);
     bool processSingleSubscription(const libsumo::Subscription& s, tcpip::Storage& writeInto,
                                    std::string& errors);
 

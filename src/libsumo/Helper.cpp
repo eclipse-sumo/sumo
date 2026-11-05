@@ -180,7 +180,7 @@ Helper::handleSubscriptions(const SUMOTime t) {
         const bool isArrivedPerson = (s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE || s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT)
                                      && MSNet::getInstance()->getPersonControl().get(s.id) == nullptr;
         if (s.endTime < t || isArrivedVehicle || isArrivedPerson) {
-            i = mySubscriptions.erase(i);
+            i = eraseSubscription(mySubscriptions, i, myLastContextSubscription);
             continue;
         }
         ++i;
@@ -215,6 +215,24 @@ Helper::needNewSubscription(libsumo::Subscription& s, std::vector<Subscription>&
     subscriptions.push_back(s);
     modifiedSubscription = &subscriptions.back();
     return true;
+}
+
+
+std::vector<Subscription>::iterator
+Helper::eraseSubscription(std::vector<Subscription>& subscriptions,
+                          std::vector<Subscription>::iterator position, Subscription*& lastContextSubscription) {
+    const auto removedIndex = position - subscriptions.begin();
+    const auto contextIndex = lastContextSubscription == nullptr
+                              ? -1 : lastContextSubscription - subscriptions.data();
+    if (contextIndex == removedIndex) {
+        lastContextSubscription = nullptr;
+    }
+    auto next = subscriptions.erase(position);
+    if (contextIndex > removedIndex) {
+        // Erasing an earlier entry moves the active context subscription.
+        lastContextSubscription = &subscriptions[contextIndex - 1];
+    }
+    return next;
 }
 
 
