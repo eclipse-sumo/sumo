@@ -119,6 +119,34 @@ def init(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", label="
     return con.getVersion()
 
 
+def _cleanupStartup(process, label):
+    con = connection._connections.get(label)
+    if con is not None and con._process is process:
+        for resource in (con._socket, con._traceFile):
+            if resource is not None:
+                try:
+                    resource.close()
+                except OSError:
+                    pass
+        con._socket = None
+        con.simulation._setConnection(None)
+        for key in ("", label):
+            if connection._connections.get(key) is con:
+                del connection._connections[key]
+    if process.poll() is None:
+        try:
+            process.terminate()
+            process.wait(timeout=1)
+        except subprocess.TimeoutExpired:
+            try:
+                process.kill()
+                process.wait(timeout=1)
+            except (OSError, subprocess.TimeoutExpired):
+                pass
+        except OSError:
+            pass
+
+
 def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", verbose=False,
           traceFile=None, traceGetters=True, stdout=None, doSwitch=True):
     """
@@ -150,7 +178,10 @@ def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", ve
                 connection.get(label)._traceFile.write("traci.start(%s, port=%s, label=%s)\n" % (
                     repr(cmd), repr(port), repr(label)))
             return result
-        except TraCIException as e:
+        except BaseException as e:
+            _cleanupStartup(sumoProcess, label)
+            if not isinstance(e, TraCIException):
+                raise
             if port is not None:
                 break
             warnings.warn(("Could not connect to TraCI server using port %s (%s)." +
