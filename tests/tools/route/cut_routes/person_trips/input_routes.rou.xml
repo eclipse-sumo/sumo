@@ -1,0 +1,23 @@
+<routes>
+    <vType id="carType" maxSpeed="20"/>
+    <vehicle id="car" type="carType" depart="0">
+        <route edges="beg middle end rend"/>
+        <stop lane="end_0" duration="5"/>
+    </vehicle>
+    <person id="walk" depart="1">
+        <walk edges="beg middle end rend"/>
+    </person>
+    <person id="ride" depart="2">
+        <ride from="middle" to="end" lines="car"/>
+    </person>
+    <person id="mixed" depart="3">
+        <param key="label" value="commuter"/>
+        <walk edges="middle"/>
+        <ride from="middle" to="end" lines="car"/>
+        <walk edges="end"/>
+        <stop lane="end_0" duration="10"/>
+    </person>
+    <flow id="flow" type="carType" begin="4" end="5" period="1">
+        <route edges="beg middle end rend"/>
+    </flow>
+</routes>

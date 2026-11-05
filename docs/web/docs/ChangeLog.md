@@ -71,6 +71,7 @@ title: ChangeLog
   - Fixed invalid event time after adding a stop with default duration in meso #18392
 
 - tools
+  - cutRoutes.py: fixed trip output for routes containing persons and flows #12246
   - gtfs2pt.py: fixed crash #18446 (regression in 1.27.1)
   - plotStops.py: fixed invalid timing for named routes #18450
 
