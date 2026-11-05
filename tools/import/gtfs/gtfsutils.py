@@ -128,6 +128,7 @@ SUMO_DECEL = {
     'aircraft': '4.5',
 }
 
+
 def sha256hash(s):
     return hashlib.sha256(s.encode('utf-8')).hexdigest()
 

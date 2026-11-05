@@ -767,7 +767,9 @@ def main(options):
 def writeRoute(options, rout, vehID, edges, stops):
     ft = options.ft
     rout.write(u'    <route id="%s" edges="%s">\n' % (vehID, " ".join(edges)))
-    # trip arrival/until times are already shift to be zero-based except when the network is too small. For this case we need to shift
+    # trip arrival/until times are already shift to be zero-based in groupRoutes().
+    # However, when the network bounding box does not contain the first stop(s)
+    # this isn't enough and we need to shift again.
     offset = None
     isJoined = False
     lastTripId = None
