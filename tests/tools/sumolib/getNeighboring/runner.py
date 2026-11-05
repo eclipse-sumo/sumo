@@ -38,3 +38,7 @@ net = sumolib.net.readNet(sys.argv[1])
 for includeJunctions in [False, True]:
     print("neighboring lanes:", printResult(net.getNeighboringLanes(100, 100, r, includeJunctions)))
     print("neighboring edges:", printResult(net.getNeighboringEdges(100, 100, r, includeJunctions)))
+
+from test_spatial_cache import run_checks  # noqa
+run_checks(sys.argv[1])
+print('spatial cache checks passed')
