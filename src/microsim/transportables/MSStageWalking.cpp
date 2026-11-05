@@ -112,16 +112,16 @@ MSStageWalking::clone() const {
 
 void
 MSStageWalking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous) {
+    MSTransportableControl& pControl = net->getPersonControl();
     myDeparted = now;
     myRouteStep = myRoute.begin();
     myLastEdgeEntryTime = now;
     if (myWalkingTime == 0) {
         if (!person->proceed(net, now)) {
-            MSNet::getInstance()->getPersonControl().erase(person);
+            pControl.erase(person);
         }
         return;
     }
-    MSTransportableControl& pControl = net->getPersonControl();
     if (previous->getEdgePos(now) >= 0 && previous->getEdge() == *myRouteStep) {
         // we need to adapt to the arrival position of the vehicle unless we have an explicit access
         myDepartPos = previous->getEdgePos(now);
