@@ -25,6 +25,9 @@ extreme_elevation_keeproute2
 # tests for mapping vehicles with/without regard to permissions
 permissions
 
+# route mapping must survive routes without a permitted lane
+no_permitted_route_lane
+
 # moved vehicle should block intersections on approach and while on the intersection
 intersection
 
