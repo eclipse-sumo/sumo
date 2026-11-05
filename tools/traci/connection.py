@@ -274,7 +274,7 @@ class Connection(StepManager):
                             "Cannot handle subscription response %02x for %s." % (response, objectID))
         return objectID, response
 
-    def _subscribe(self, cmdID, begin, end, objID, varIDs, parameters):
+    def _subscriptionArgs(self, varIDs, parameters):
         format = "u"
         args = [len(varIDs)]
         for v in varIDs:
@@ -294,6 +294,10 @@ class Connection(StepManager):
                 else:
                     format += "s"
                     args.append(parameters[v])
+        return format, args
+
+    def _subscribe(self, cmdID, begin, end, objID, varIDs, parameters):
+        format, args = self._subscriptionArgs(varIDs, parameters)
         result = self._sendCmd(cmdID, (begin, end), objID, format, *args)
         if varIDs:
             objectID, response = self._readSubscription(result)
@@ -305,8 +309,8 @@ class Connection(StepManager):
         return self._subscriptionMapping[cmdID]
 
     def _subscribeContext(self, cmdID, begin, end, objID, domain, dist, varIDs, parameters=None):
-        result = self._sendCmd(cmdID, (begin, end), objID, "uDu" + (len(varIDs) * "u"),
-                               domain, dist, len(varIDs), *varIDs)
+        format, args = self._subscriptionArgs(varIDs, parameters)
+        result = self._sendCmd(cmdID, (begin, end), objID, "uD" + format, domain, dist, *args)
         if varIDs:
             objectID, response = self._readSubscription(result)
             if response - cmdID != 16 or objectID != objID:
