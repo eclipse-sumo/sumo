@@ -1,1 +1,2 @@
---no-step-log
+{CLEAR}
+tests/complex/traci/ContextSubscriptionFilters/removed_reference_vehicle/runner.py
