@@ -19,6 +19,7 @@
 from __future__ import absolute_import
 from __future__ import print_function
 import os
+import random
 import sys
 
 if 'SUMO_HOME' in os.environ:
@@ -35,7 +36,13 @@ def get_options(args=None):
     op.add_option("-o", "--output-file", dest="outfile",
                   help="the output route file (mandatory)")
     op.add_option("-d", "--depart-offset", dest="offset",
-                  type=op.time, help="the depart offset to apply")
+                  type=op.time, help="the depart offset to apply (negative values are allowed, " +
+                  "departures are clamped to 0)")
+    op.add_option("--random-depart-offset", dest="random_offset",
+                  help="two comma separated values MIN,MAX; shift every departure by a random " +
+                  "value uniformly chosen from [MIN,MAX[ (departures are clamped to 0)")
+    op.add_option("--seed", dest="seed", type=int, default=42,
+                  help="random seed for --random-depart-offset")
     op.add_option("-i", "--depart-interval", dest="interval",
                   help="time intervals a,b,c,d where all vehicles departing in the interval" +
                   "[a,b[ are mapped to the interval [c,d[")
@@ -64,16 +71,27 @@ def get_options(args=None):
         op.print_help()
         sys.exit()
 
-    if ((options.offset is None and options.interval is None) or
-            (options.offset is not None and options.interval is not None)):
-        print("Either one of the options --depart-offset or --depart-interval must be given")
+    given = [options.offset is not None,
+             options.interval is not None,
+             options.random_offset is not None]
+    if sum(given) != 1:
+        print("Exactly one of the options --depart-offset, --depart-interval and " +
+              "--random-depart-offset must be given")
         sys.exit()
 
     if options.offset is not None:
         options.name_suffix = "_%s" % intIfPossible(options.offset)
-    else:
+    elif options.interval is not None:
         options.interval = tuple(map(parseTime, options.interval.split(',')))
         options.name_suffix = "_%s_%s_%s_%s" % options.interval
+    else:
+        options.random_offset = tuple(map(parseTime, options.random_offset.split(',')))
+        if (len(options.random_offset) != 2 or
+                options.random_offset[0] > options.random_offset[1]):
+            print("--random-depart-offset requires two values MIN,MAX with MIN <= MAX")
+            sys.exit()
+        options.name_suffix = "_rand_%s_%s" % tuple(
+            intIfPossible(v) for v in options.random_offset)
 
     if options.depart_edges is not None:
         options.depart_edges = options.depart_edges.split(',')
@@ -122,6 +140,7 @@ def main(options):
     routesDepart = {}  # first edge for each route
     routesArrival = {}  # last edge for each route
     formatter = humanReadableTime if options.hrTime else intIfPossible
+    rng = random.Random(options.seed)
 
     with sumolib.openz(options.outfile, 'w', encoding='utf8') as out:
         sumolib.writeXMLHeader(out, "$Id$", "routes", options=options)
@@ -186,16 +205,27 @@ def main(options):
                 # modify departure time
                 if ((departEdge is None or departEdge in options.depart_edges) and
                         (arrivalEdge is None or arrivalEdge in options.arrival_edges)):
-                    if options.offset is not None:
+                    if options.random_offset is not None:
+                        # shift by random offset
+                        shift = rng.uniform(*options.random_offset)
+                        if obj.name in ['trip', 'vehicle']:
+                            obj.depart = str(formatter(
+                                max(0., parseTime(obj.depart) + shift)))
+                        else:
+                            begin = max(0., parseTime(obj.begin) + shift)
+                            end = max(begin, parseTime(obj.end) + shift)
+                            obj.begin = str(formatter(begin))
+                            obj.end = str(formatter(end))
+                    elif options.offset is not None:
                         # shift by offset
                         if obj.name in ['trip', 'vehicle']:
                             obj.depart = str(formatter(
-                                parseTime(obj.depart) + options.offset * factor))
+                                max(0., parseTime(obj.depart) + options.offset * factor)))
                         else:
-                            obj.begin = str(formatter(
-                                parseTime(obj.begin) + options.offset * factor))
-                            obj.end = str(formatter(
-                                parseTime(obj.end) + options.offset * factor))
+                            begin = max(0., parseTime(obj.begin) + options.offset * factor)
+                            end = max(begin, parseTime(obj.end) + options.offset * factor)
+                            obj.begin = str(formatter(begin))
+                            obj.end = str(formatter(end))
                     else:
                         # shift by interval
                         if obj.name in ['trip', 'vehicle']:
