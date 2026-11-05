@@ -223,6 +223,14 @@ interval \[c,d\[.
 python tools/route/route_departOffset.py --input-file <route-file> --output-file shifted.rou.xml --depart-interval 3600,7200,0,500
 ```
 
+Negative values for **--depart-offset** are allowed and clamp departures to 0. The option
+**--random-depart-offset MIN,MAX** shifts every departure by a uniformly random value from
+\[MIN,MAX\[; use **--seed** to make the sequence reproducible.
+
+```
+python tools/route/route_departOffset.py --input-file <route-file> --output-file shifted.rou.xml --random-depart-offset -1800,900 --seed 42
+```
+
 # route_1htoDay
 Uses "route_departOffset.py" for building 24 route files which describe a whole day assuming the given route files describes an hour.
 
