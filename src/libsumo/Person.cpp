@@ -19,6 +19,8 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cmath>
+
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSEdge.h>
@@ -939,10 +941,11 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
     // angle must be in [0,360] because it will be compared against those returned by naviDegree()
     // angle set to INVALID_DOUBLE_VALUE is ignored in the evaluated and later set to the angle of the matched lane
     if (angle != INVALID_DOUBLE_VALUE) {
-        while (angle >= 360.) {
-            angle -= 360.;
+        if (!std::isfinite(angle)) {
+            throw TraCIException("Angle must be finite.");
         }
-        while (angle < 0.) {
+        angle = std::fmod(angle, 360.);
+        if (angle < 0.) {
             angle += 360.;
         }
     }

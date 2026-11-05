@@ -66,6 +66,7 @@ title: ChangeLog
   - Fixed invalid route output with **--bulk-routing** #18355
 
 - traci
+  - Vehicle and person moveToXY now reject non-finite angles and normalize large finite angles without repeated subtraction.
   - some retrieved laneChangeModel parameters (for querying internal model state) with floating point values are no longer rounded to ints #18463 (regression in 1.27.0)
   - Fixed crash in `traci.simulation.loadState` with meso #18389 (regression in 1.28.0)
   - Fixed invalid event time after adding a stop with default duration in meso #18392

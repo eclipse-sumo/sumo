@@ -76,3 +76,6 @@ ticket18457
 
 # handle moveTo while overtaking through the opposite direction
 opposite_driving
+
+# Validate finite angles and normalize large angles for vehicles and persons
+angle_validation
