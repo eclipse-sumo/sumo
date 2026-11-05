@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-05 15:20:57.226095 by Eclipse SUMO route_departOffset.py v1.28.0-0000000000
+<configuration>
+    <input-file value="routes.rou.xml"/>
+    <output-file value="out.rou.xml"/>
+    <random-depart-offset value="-5,5"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="foo" sigma="0"/>
+    <vehicle id="veh0" depart="2.3942679845788373" color="red" type="foo">
+        <route edges="a b c d"/>
+    </vehicle>
+    <vehicle id="veh1" depart="0" color="blue" type="foo">
+        <route edges="c e f g"/>
+    </vehicle>
+    <trip id="trip0" depart="0.7502931836911926" color="blue" from="h" to="j"/>
+    <flow id="flow0" begin="1.2321073814882277" end="37.23210738148823" color="green" from="k" to="l"/>
+</routes>
