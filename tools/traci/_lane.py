@@ -149,6 +149,13 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.VAR_SHAPE, laneID)
 
+    def getShape3D(self, laneID):
+        """getShape3D(string) -> tuple((double, double, double))
+
+        Tuple of 3D positions (cartesian) describing the geometry.
+        """
+        return self._getUniversal(tc.VAR_SHAPE3D, laneID)
+
     def getEdgeID(self, laneID):
         """getEdgeID(string) -> string
 

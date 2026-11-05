@@ -1,0 +1,7 @@
+junction A shape [(0.0, 0.0), (0.0, -3.2)]
+junction A shape3D [(0.0, 0.0, 0.0), (0.0, -3.2, 0.0)]
+junction B shape3D [(100.0, -3.2, 10.0), (100.0, 0.0, 10.0)]
+junction B position3D (100.0, 0.0, 10.0)
+lane shape [(0.0, -1.6), (100.0, -1.6)]
+lane shape3D [(0.0, -1.6, 0.0), (100.0, -1.6, 10.0)]
+lane subscription3D [(0.0, -1.6, 0.0), (100.0, -1.6, 10.0)]
