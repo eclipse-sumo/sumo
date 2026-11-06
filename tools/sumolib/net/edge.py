@@ -93,6 +93,7 @@ class Edge:
 
     def addLane(self, lane):
         self._lanes.append(lane)
+        self._shape = None
         self._speed = lane.getSpeed()
         self._length = lane.getLength()
 

@@ -309,6 +309,11 @@ class Net:
         if type is not None and node._type is None:
             node._type = type
 
+    def _invalidateSpatialIndices(self):
+        self._rtreeEdges = {True: None, False: None}
+        self._rtreeLanes = {True: None, False: None}
+        self._allLanes = []
+
     def addEdge(self, id, fromID, toID, prio, function, name, edgeType='', routingType=''):
         if id not in self._id2edge:
             fromN = self.addNode(fromID)
@@ -316,6 +321,7 @@ class Net:
             e = edge.Edge(id, fromN, toN, prio, function, name, edgeType, routingType)
             self._edges.append(e)
             self._id2edge[id] = e
+            self._invalidateSpatialIndices()
             if function:
                 self.hasInternal = True
                 if function == "walkingarea":
@@ -323,7 +329,9 @@ class Net:
         return self._id2edge[id]
 
     def addLane(self, edge, speed, length, width, allow=None, disallow=None, acceleration=False):
-        return lane.Lane(edge, speed, length, width, allow, disallow, acceleration)
+        result = lane.Lane(edge, speed, length, width, allow, disallow, acceleration)
+        self._invalidateSpatialIndices()
+        return result
 
     def addRoundabout(self, nodes, edges=None):
         r = roundabout.Roundabout(nodes, edges)
@@ -406,9 +414,9 @@ class Net:
         rtree = self._rtreeLanes[includeJunctions]
         try:
             if rtree is None:
-                for the_edge in self._edges:
-                    self._allLanes += the_edge.getLanes()
-                rtree = self._initRTree(self._allLanes, includeJunctions)
+                allLanes = [lane for edge in self._edges for lane in edge.getLanes()]
+                rtree = self._initRTree(allLanes, includeJunctions)
+                self._allLanes = allLanes
                 self._rtreeLanes[includeJunctions] = rtree
             for i in rtree.intersection((x - r, y - r, x + r, y + r)):
                 the_lane = self._allLanes[i]
@@ -615,6 +623,7 @@ class Net:
             for _lane in e.getLanes():
                 _lane.setShape([(p[0] + dx, p[1] + dy, p[2] + dz) for p in _lane.getShape3D()])
             e.rebuildShape()
+        self._invalidateSpatialIndices()
 
     def getInternalPath(self, conn, fastest=False):
         minInternalCost = PRACTICAL_INFINITY
