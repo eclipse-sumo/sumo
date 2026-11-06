@@ -49,3 +49,6 @@ drt
 
 # generating trigger elements
 trigger
+
+# Python startup cleanup and process ownership
+traci_startup
