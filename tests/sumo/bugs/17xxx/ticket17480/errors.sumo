@@ -3,18 +3,20 @@ Warning: Vehicle 'flowB.83' ignores arrivalPos 1.02 when driving from edge 'Edge
 Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
 Warning: Vehicle 'flowB.84' ignores arrivalPos 10.97 when driving from edge 'Edge2' to edge 'Edge2' with departPos 11.12.
 Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
-Warning: Vehicle 'flowB.85' ignores arrivalPos 26.80 when driving from edge 'Edge2' to edge 'Edge2' with departPos 34.17.
+Warning: Vehicle 'flowB.85' ignores arrivalPos 26.80 when driving from edge 'Edge2' to edge 'Edge2' with departPos 51.45.
 Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
-Warning: Vehicle 'flowB.86' ignores arrivalPos 33.40 when driving from edge 'Edge2' to edge 'Edge2' with departPos 36.84.
+Warning: Vehicle 'flowB.86' ignores arrivalPos 33.40 when driving from edge 'Edge2' to edge 'Edge2' with departPos 53.44.
 Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
-Warning: Vehicle 'flowB.90' ignores arrivalPos 31.97 when driving from edge 'Edge2' to edge 'Edge2' with departPos 38.45.
+Warning: Vehicle 'flowB.88' ignores arrivalPos 30.37 when driving from edge 'Edge2' to edge 'Edge2' with departPos 37.56.
 Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
-Warning: Vehicle 'flowB.91' ignores arrivalPos 4.66 when driving from edge 'Edge2' to edge 'Edge2' with departPos 44.09.
+Warning: Vehicle 'flowB.89' ignores arrivalPos 31.88 when driving from edge 'Edge2' to edge 'Edge2' with departPos 53.85.
 Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
-Warning: Vehicle 'flowB.92' ignores arrivalPos 23.07 when driving from edge 'Edge2' to edge 'Edge2' with departPos 37.25.
+Warning: Vehicle 'flowB.92' ignores arrivalPos 31.97 when driving from edge 'Edge2' to edge 'Edge2' with departPos 52.81.
 Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
-Warning: Vehicle 'flowB.94' ignores arrivalPos 41.90 when driving from edge 'Edge2' to edge 'Edge2' with departPos 52.29.
+Warning: Vehicle 'flowB.94' ignores arrivalPos 38.15 when driving from edge 'Edge2' to edge 'Edge2' with departPos 38.45.
 Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
-Warning: Vehicle 'flowB.97' ignores arrivalPos 46.26 when driving from edge 'Edge2' to edge 'Edge2' with departPos 57.02.
+Warning: Vehicle 'flowB.95' ignores arrivalPos 35.26 when driving from edge 'Edge2' to edge 'Edge2' with departPos 45.72.
 Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
-Warning: Vehicle 'flowB.99' ignores arrivalPos 10.44 when driving from edge 'Edge2' to edge 'Edge2' with departPos 33.22.
+Warning: Vehicle 'flowB.97' ignores arrivalPos 40.13 when driving from edge 'Edge2' to edge 'Edge2' with departPos 49.88.
+Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
+Warning: Vehicle 'flowB.98' ignores arrivalPos 12.12 when driving from edge 'Edge2' to edge 'Edge2' with departPos 49.16.
