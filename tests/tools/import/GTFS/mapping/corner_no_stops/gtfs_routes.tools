@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-06 15:03:21.977356 by Eclipse SUMO gtfs2pt.py v1_28_0+0477-795c5c6b77e
+<configuration>
+    <merged-csv value="data.csv"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="input_net.net.xml.gz"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="800868600" edges="399134509#1 -621319687#0 465797210#1 465797213#1 465797213#3 1025109931 512250031#1 465797215#1 534549105#1 511213262#1 462696739#2 337671935#1 22768013#1 242288220#0">
+        <stop busStop="800868600.0" duration="10" until="0"/> <!-- 3rd Ave &amp; Virginia St -->
+        <stop busStop="800868600.1" duration="10" until="131"/> <!-- Blanchard St &amp; 6th Ave -->
+        <stop busStop="800868600.2" duration="10" until="230"/> <!-- Westlake &amp; 9th-Denny -->
+    </route>
+    <vehicle id="800868600.0" route="800868600" type="bus" depart="28210" line="C_Line">
+        <param key="gtfs.route_name" value="C Line"/>
+        <param key="gtfs.trip_headsign" value="South Lake Union Downtown Seattle"/>
+    </vehicle>
+</routes>
