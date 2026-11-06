@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+Copyright (C) 2026 German Aerospace Center (DLR) and others.
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later -->
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50">
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,1000.00,0.00" origBoundary="0.00,0.00,1000.00,0.00" projParameter="!"/>
+    <edge id="road" from="start" to="end" priority="-1">
+        <lane id="road_0" index="0" speed="13.89" length="1000.00" shape="0.00,-1.60 1000.00,-1.60"/>
+    </edge>
+    <junction id="end" type="dead_end" x="1000.00" y="0.00" incLanes="road_0" intLanes="" shape="1000.00,-3.20 1000.00,0.00"/>
+    <junction id="start" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+</net>
