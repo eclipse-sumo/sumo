@@ -298,7 +298,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     std::set<int> jumps;
 
 
-    double sourcePos = onInit ? 0 : getPositionOnLane();
+    double sourcePos = getPositionOnLane();
 #ifdef DEBUG_REROUTE
     if (DEBUG_COND) {
         std::cout << " curEdge=" << (*myCurrEdge)->getID() << " source=" << source->getID() << " sourcePos=" << sourcePos << " lane=" << Named::getIDSecure(getLane()) << " departPos=" << myParameter->departPos << " oldEdgesRemaining=" << toString(oldEdgesRemaining) << "\n";
@@ -457,7 +457,8 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
                 edges.clear();
                 if (onInit && source == stopEdge && stops.size() == 1 && sourcePos > myArrivalPos) {
                     edges.push_back(stopEdge);
-                    WRITE_WARNING(TLF("Vehicle '%' ignores arrivalPos % when driving from edge '%' to edge '%'.", getID(), myArrivalPos, source->getID(), stopEdge->getID()));
+                    WRITE_WARNING(TLF("Vehicle '%' ignores arrivalPos % when driving from edge '%' to edge '%' with departPos %.",
+                                getID(), myArrivalPos, source->getID(), stopEdge->getID(), sourcePos));
                 }
             } else if (source == stopEdge && stopEdgeInfo.stopPar != nullptr && stopEdgeInfo.stopPar->endPos >= sourcePos) {
                 // special case: no failure on dynamically computed stop position
