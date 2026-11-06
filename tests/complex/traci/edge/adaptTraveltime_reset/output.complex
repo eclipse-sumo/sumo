@@ -1,0 +1,5 @@
+initial -1.0
+set 42.0
+reset -1.0
+interval 7.0
+reset interval -1.0
