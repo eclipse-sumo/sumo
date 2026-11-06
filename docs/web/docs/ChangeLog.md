@@ -6,6 +6,7 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
+  - Fixed invalid routes after delayed departure from a TAZ when using the rerouting device #18408
   - Fixed deadlock on a short lane when using the sublane model #18379 (regression in 1.24.0)
   - Fixed lane-changing deadlock with carFollowModel IDM #17483
   - device.rerouting.threshold.factor and device.rerouting.threshold.constant now apply to insertion rerouting if a complete route was loaded #18354
