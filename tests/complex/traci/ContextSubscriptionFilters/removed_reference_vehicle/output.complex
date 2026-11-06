@@ -1,0 +1,6 @@
+Unsubscribed vehicle removal keeps the simulation running
+Removing an unrelated vehicle preserves the context subscription
+Removing a context reference vehicle cancels its subscriptions
+Removing a context reference vehicle with REMOVE_ARRIVED cancels its subscriptions
+Removing a person cancels its context subscription
+Natural vehicle arrival cancels its context subscription
