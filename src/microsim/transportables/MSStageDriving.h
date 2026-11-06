@@ -108,7 +108,7 @@ public:
     std::string getStageSummary(const bool isPerson) const;
 
     /// proceeds to this stage
-    void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous);
+    bool proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous);
 
     /** @brief Called on writing tripinfo output
      * @param[in] os The stream to write the information into

@@ -110,17 +110,14 @@ MSStageWalking::clone() const {
 }
 
 
-void
+bool
 MSStageWalking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous) {
     MSTransportableControl& pControl = net->getPersonControl();
     myDeparted = now;
     myRouteStep = myRoute.begin();
     myLastEdgeEntryTime = now;
     if (myWalkingTime == 0) {
-        if (!person->proceed(net, now)) {
-            pControl.erase(person);
-        }
-        return;
+        return person->proceed(net, now);
     }
     if (previous->getEdgePos(now) >= 0 && previous->getEdge() == *myRouteStep) {
         // we need to adapt to the arrival position of the vehicle unless we have an explicit access
@@ -134,8 +131,7 @@ MSStageWalking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSSta
     }
     myPState = pControl.getMovementModel()->add(person, this, now);
     if (myPState == nullptr) {
-        pControl.erase(person);
-        return;
+        return false;
     }
     if (previous->getStageType() != MSStageType::WALKING || previous->getEdge() != getEdge()) {
         // we only need new move reminders if we are walking a different edge (else it is probably a rerouting)
@@ -145,6 +141,7 @@ MSStageWalking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSSta
         myExitTimes = new std::vector<SUMOTime>();
     }
     (*myRouteStep)->addTransportable(person);
+    return true;
 }
 
 

@@ -66,7 +66,7 @@ public:
     MSStage* clone() const;
 
     /// proceeds to the next step
-    void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous);
+    bool proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous);
 
     /// @brief get travel distance in this stage
     double getDistance() const;
