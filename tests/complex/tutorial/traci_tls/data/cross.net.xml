@@ -29,17 +29,17 @@ SPDX-License-Identifier: EPL-2.0
 
     <location netOffset="510.00,510.00" convBoundary="0.00,0.00,1020.00,1020.00" origBoundary="-510.00,-510.00,510.00,510.00" projParameter="!"/>
 
-    <edge id=":0_0" function="internal">
-        <lane id=":0_0_0" index="0" speed="15.28" length="9.50" shape="508.35,514.75 508.35,505.25"/>
+    <edge id=":junction_0" function="internal">
+        <lane id=":junction_0_0" index="0" speed="15.28" length="9.50" shape="508.35,514.75 508.35,505.25"/>
     </edge>
-    <edge id=":0_1" function="internal">
-        <lane id=":0_1_0" index="0" speed="15.28" length="9.50" shape="514.75,511.65 505.25,511.65"/>
+    <edge id=":junction_1" function="internal">
+        <lane id=":junction_1_0" index="0" speed="15.28" length="9.50" shape="514.75,511.65 505.25,511.65"/>
     </edge>
-    <edge id=":0_2" function="internal">
-        <lane id=":0_2_0" index="0" speed="15.28" length="9.50" shape="511.65,505.25 511.65,514.75"/>
+    <edge id=":junction_2" function="internal">
+        <lane id=":junction_2_0" index="0" speed="15.28" length="9.50" shape="511.65,505.25 511.65,514.75"/>
     </edge>
-    <edge id=":0_3" function="internal">
-        <lane id=":0_3_0" index="0" speed="15.28" length="9.50" shape="505.25,508.35 514.75,508.35"/>
+    <edge id=":junction_3" function="internal">
+        <lane id=":junction_3_0" index="0" speed="15.28" length="9.50" shape="505.25,508.35 514.75,508.35"/>
     </edge>
     <edge id=":1_0" function="internal">
         <lane id=":1_0_0" index="0" speed="15.28" length="0.10" shape="10.00,511.65 10.00,511.65"/>
@@ -126,28 +126,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":54_0_0" index="0" speed="15.28" length="4.82" shape="511.65,1020.00 510.82,1021.24 510.00,1021.65 509.18,1021.24 508.35,1020.00"/>
     </edge>
 
-    <edge id="1i" from="1" to="0" priority="78">
+    <edge id="1i" from="1" to="junction" priority="78">
         <lane id="1i_0" index="0" speed="19.44" length="495.25" shape="10.00,508.35 505.25,508.35"/>
     </edge>
-    <edge id="1o" from="0" to="1" priority="46">
+    <edge id="1o" from="junction" to="1" priority="46">
         <lane id="1o_0" index="0" speed="11.11" length="495.25" shape="505.25,511.65 10.00,511.65"/>
     </edge>
-    <edge id="2i" from="2" to="0" priority="78">
+    <edge id="2i" from="2" to="junction" priority="78">
         <lane id="2i_0" index="0" speed="19.44" length="495.25" shape="1010.00,511.65 514.75,511.65"/>
     </edge>
-    <edge id="2o" from="0" to="2" priority="46">
+    <edge id="2o" from="junction" to="2" priority="46">
         <lane id="2o_0" index="0" speed="11.11" length="495.25" shape="514.75,508.35 1010.00,508.35"/>
     </edge>
-    <edge id="3i" from="3" to="0" priority="78">
+    <edge id="3i" from="3" to="junction" priority="78">
         <lane id="3i_0" index="0" speed="19.44" length="495.25" shape="511.65,10.00 511.65,505.25"/>
     </edge>
-    <edge id="3o" from="0" to="3" priority="46">
+    <edge id="3o" from="junction" to="3" priority="46">
         <lane id="3o_0" index="0" speed="11.11" length="495.25" shape="508.35,505.25 508.35,10.00"/>
     </edge>
-    <edge id="4i" from="4" to="0" priority="78">
+    <edge id="4i" from="4" to="junction" priority="78">
         <lane id="4i_0" index="0" speed="19.44" length="495.25" shape="508.35,1010.00 508.35,514.75"/>
     </edge>
-    <edge id="4o" from="0" to="4" priority="46">
+    <edge id="4o" from="junction" to="4" priority="46">
         <lane id="4o_0" index="0" speed="11.11" length="495.25" shape="511.65,514.75 511.65,1010.00"/>
     </edge>
     <edge id="51i" from="1" to="51" priority="78">
@@ -175,14 +175,14 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="54o_0" index="0" speed="11.11" length="10.00" shape="508.35,1020.00 508.35,1010.00"/>
     </edge>
 
-    <tlLogic id="0" type="static" programID="0" offset="0">
+    <tlLogic id="junction" type="static" programID="0" offset="0">
         <phase duration="31" state="GrGr"/>
         <phase duration="6" state="yryr"/>
         <phase duration="31" state="rGrG"/>
         <phase duration="6" state="ryry"/>
     </tlLogic>
 
-    <junction id="0" type="traffic_light" x="510.00" y="510.00" incLanes="4i_0 2i_0 3i_0 1i_0" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0" shape="506.75,514.75 513.25,514.75 514.75,513.25 514.75,506.75 513.25,505.25 506.75,505.25 505.25,506.75 505.25,513.25">
+    <junction id="junction" type="traffic_light" x="510.00" y="510.00" incLanes="4i_0 2i_0 3i_0 1i_0" intLanes=":junction_0_0 :junction_1_0 :junction_2_0 :junction_3_0" shape="506.75,514.75 513.25,514.75 514.75,513.25 514.75,506.75 513.25,505.25 506.75,505.25 505.25,506.75 505.25,513.25">
         <request index="0" response="0000" foes="1010" cont="0"/>
         <request index="1" response="0101" foes="0101" cont="0"/>
         <request index="2" response="0000" foes="1010" cont="0"/>
@@ -234,16 +234,16 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":4_4_0" type="internal" x="510.00" y="1008.35" incLanes=":4_1_0 4o_0" intLanes=":4_2_0"/>
     <junction id=":4_5_0" type="internal" x="510.00" y="1011.65" incLanes=":4_3_0 54o_0" intLanes=":4_0_0"/>
 
-    <connection from="1i" to="2o" fromLane="0" toLane="0" via=":0_3_0" tl="0" linkIndex="3" dir="s" state="o"/>
+    <connection from="1i" to="2o" fromLane="0" toLane="0" via=":junction_3_0" tl="junction" linkIndex="3" dir="s" state="o"/>
     <connection from="1o" to="51i" fromLane="0" toLane="0" via=":1_0_0" dir="s" state="M"/>
     <connection from="1o" to="1i" fromLane="0" toLane="0" via=":1_1_0" dir="t" state="m"/>
-    <connection from="2i" to="1o" fromLane="0" toLane="0" via=":0_1_0" tl="0" linkIndex="1" dir="s" state="o"/>
+    <connection from="2i" to="1o" fromLane="0" toLane="0" via=":junction_1_0" tl="junction" linkIndex="1" dir="s" state="o"/>
     <connection from="2o" to="52i" fromLane="0" toLane="0" via=":2_2_0" dir="s" state="M"/>
     <connection from="2o" to="2i" fromLane="0" toLane="0" via=":2_3_0" dir="t" state="m"/>
-    <connection from="3i" to="4o" fromLane="0" toLane="0" via=":0_2_0" tl="0" linkIndex="2" dir="s" state="o"/>
+    <connection from="3i" to="4o" fromLane="0" toLane="0" via=":junction_2_0" tl="junction" linkIndex="2" dir="s" state="o"/>
     <connection from="3o" to="53i" fromLane="0" toLane="0" via=":3_0_0" dir="s" state="M"/>
     <connection from="3o" to="3i" fromLane="0" toLane="0" via=":3_1_0" dir="t" state="m"/>
-    <connection from="4i" to="3o" fromLane="0" toLane="0" via=":0_0_0" tl="0" linkIndex="0" dir="s" state="o"/>
+    <connection from="4i" to="3o" fromLane="0" toLane="0" via=":junction_0_0" tl="junction" linkIndex="0" dir="s" state="o"/>
     <connection from="4o" to="54i" fromLane="0" toLane="0" via=":4_2_0" dir="s" state="M"/>
     <connection from="4o" to="4i" fromLane="0" toLane="0" via=":4_3_0" dir="t" state="m"/>
     <connection from="51i" to="51o" fromLane="0" toLane="0" via=":51_0_0" dir="t" state="M"/>
@@ -259,10 +259,10 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="54o" to="4i" fromLane="0" toLane="0" via=":4_0_0" dir="s" state="M"/>
     <connection from="54o" to="54i" fromLane="0" toLane="0" via=":4_1_0" dir="t" state="m"/>
 
-    <connection from=":0_0" to="3o" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":0_1" to="1o" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":0_2" to="4o" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":0_3" to="2o" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":junction_0" to="3o" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":junction_1" to="1o" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":junction_2" to="4o" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":junction_3" to="2o" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":1_0" to="51i" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":1_1" to="1i" fromLane="0" toLane="0" via=":1_4_0" dir="s" state="m"/>
     <connection from=":1_4" to="1i" fromLane="0" toLane="0" dir="s" state="M"/>
