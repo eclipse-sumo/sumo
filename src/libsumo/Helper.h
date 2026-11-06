@@ -62,6 +62,8 @@ public:
     static void handleSubscriptions(const SUMOTime t);
 
     static bool needNewSubscription(libsumo::Subscription& s, std::vector<Subscription>& subscriptions, libsumo::Subscription*& modifiedSubscription);
+    static std::vector<Subscription>::iterator eraseSubscription(std::vector<Subscription>& subscriptions,
+            std::vector<Subscription>::iterator position, Subscription*& lastContextSubscription);
 
     static void clearSubscriptions();
 
