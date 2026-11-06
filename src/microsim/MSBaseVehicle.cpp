@@ -455,7 +455,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             } else if (stopEdgeInfo.isSink) {
                 //error = TLF("Vehicle '%' has no valid route from edge '%' to destination edge '%'.", getID(), source->getID(), stopEdge->getID());
                 edges.clear();
-                if (onInit && source == stopEdge && stops.size() == 1 && sourcePos > myArrivalPos) {
+                if (source == stopEdge && stops.size() == 1 && sourcePos > myArrivalPos) {
                     edges.push_back(stopEdge);
                     WRITE_WARNING(TLF("Vehicle '%' ignores arrivalPos % when driving from edge '%' to edge '%' with departPos %.",
                                 getID(), myArrivalPos, source->getID(), stopEdge->getID(), sourcePos));
