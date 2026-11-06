@@ -167,7 +167,7 @@ def get_options(args=None):
     if options.detourRemoveFactor > 0 and options.detourRemoveFactor < options.detourWarnFactor:
         options.detourWarnFactor = options.detourRemoveFactor
     if options.distPenalty is None:
-        options.distPenalty = 1 if options.stops else 2
+        options.distPenalty = 1 if options.stops else 1.2
     if options.sbahnLR:
         GTFS2OSM_MODES['109'] = 'light_rail'
 
