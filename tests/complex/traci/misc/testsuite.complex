@@ -50,3 +50,6 @@ subscription
 
 # test subscription with begin and end time
 subscription_time
+
+# verify client command packing without a running simulation
+serialization
