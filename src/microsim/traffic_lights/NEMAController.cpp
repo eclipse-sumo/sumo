@@ -1436,6 +1436,8 @@ NEMAPhase::enter(NEMALogic* controller, NEMAPhase* lastPhase) {
             myExpectedDuration = minDuration;
         }
     } else {
+        // in free mode, the current max green (which may have been changed via TraCI) applies (#18513)
+        maxGreenDynamic = maxDuration;
         myExpectedDuration = minDuration;
     }
     // Implements the maxRecall functionality
