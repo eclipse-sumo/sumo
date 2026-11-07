@@ -91,6 +91,13 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
     // read in the barrier and coordinated phases from the XML
     std::vector<int> barrierPhases = readParaFromString(barriers);
     std::vector<int> coordinatePhases = readParaFromString(coordinates);
+    // both parameters need one phase per ring (#18514)
+    if (barrierPhases.size() != 2) {
+        throw ProcessError(TLF("At NEMA tlLogic '%', barrierPhases needs one phase per ring (2 values), got '%'.", getID(), barriers));
+    }
+    if (coordinatePhases.size() != 2) {
+        throw ProcessError(TLF("At NEMA tlLogic '%', coordinatePhases (or barrier2Phases) needs one phase per ring (2 values), got '%'.", getID(), coordinates));
+    }
 
     // create a {{}, {}} vector of phases
     rings.push_back(readParaFromString(ring1));
