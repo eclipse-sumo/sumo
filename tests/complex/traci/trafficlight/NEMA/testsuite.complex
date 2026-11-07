@@ -12,3 +12,6 @@ maxGreens
 
 # retrieve requested phases
 phaseCalls
+
+# test timing manipulation in free mode (#18513)
+maxGreens_free
