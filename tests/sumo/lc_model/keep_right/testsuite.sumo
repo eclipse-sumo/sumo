@@ -17,3 +17,5 @@ fast_follower_acceptanceTime
 
 # test time for changing to the right when the right lane has a medium amount of traffic
 medium_traffic
+# keepRight must work with lcSpeedGain=0 (#17793)
+speedGain0
