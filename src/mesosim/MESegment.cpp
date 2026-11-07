@@ -268,6 +268,8 @@ MESegment::initSegment(const MesoEdgeType& edgeType, const MSEdge& parent, const
                            parent.hasMinorLink());
     myMinorPenalty = edgeType.minorPenalty;
     myOvertaking = edgeType.overtaking && myCapacity > myLength;
+    // keyed by the edge id because adding or removing edges elsewhere renumbers the numerical ids
+    myOvertakeKey = (long long int)((uint64_t)RandHelper::murmur3_32(parent.getID(), myIndex) << 32);
 
     //std::cout << getID() << " myMinorPenalty=" << myMinorPenalty << " myTLSPenalty=" << myTLSPenalty << " myJunctionControl=" << myJunctionControl << " myOvertaking=" << myOvertaking << "\n";
 
@@ -733,8 +735,10 @@ MESegment::getTauJJ(double nextQueueSize, double nextQueueCapacity, double nextJ
 
 
 bool
-MESegment::overtake() {
-    return myOvertaking && RandHelper::rand() > (getBruttoOccupancy() / myCapacity);
+MESegment::overtake(const MEVehicle* veh) const {
+    // the global RNG would let the number of draws elsewhere decide this vehicle's outcome
+    const long long int key = veh->getRandomSeed() ^ myOvertakeKey;
+    return myOvertaking && RandHelper::randHash(key) > (getBruttoOccupancy() / myCapacity);
 }
 
 
@@ -790,7 +794,7 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
             newLeader = veh;
         } else {
             SUMOTime leaderOut = cars[0]->getEventTime();
-            if (!isDepart && leaderOut > tleave && overtake()) {
+            if (!isDepart && leaderOut > tleave && overtake(veh)) {
                 if (cars.size() == 1) {
                     // the overtaken car is no longer the leader and must not block foes
                     MSLink* const link = getLink(cars[0]);

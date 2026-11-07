@@ -527,7 +527,8 @@ public:
     }
 
 protected:
-    bool overtake();
+    /// @brief whether veh overtakes the queue's last vehicle, drawn from a number specific to vehicle and segment
+    bool overtake(const MEVehicle* veh) const;
 
     void setSpeedForQueue(double newSpeed, SUMOTime currentTime,
                           SUMOTime blockTime, const std::vector<MEVehicle*>& vehs);
@@ -608,6 +609,9 @@ protected:
 
     /// @brief Whether overtaking is permitted on this segment
     bool myOvertaking;
+
+    /// @brief this segment's part of the overtaking draws (hash of edge id and segment index in the upper 32 bits)
+    long long int myOvertakeKey = 0;
     /// @}
 
     /// @brief Headway parameter for computing gross time headyway from net time headway, length and edge speed
