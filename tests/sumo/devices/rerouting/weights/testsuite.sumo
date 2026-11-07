@@ -17,3 +17,6 @@ randomized_weights
 
 # a single slow veh should not dominiate the initial estimate
 init_slow_veh
+
+# both buffers of the CCH metric keep the same update threshold state
+cch_update_threshold
