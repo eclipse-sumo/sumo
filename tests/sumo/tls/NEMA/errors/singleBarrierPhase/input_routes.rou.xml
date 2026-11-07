@@ -1,0 +1,27 @@
+<routes>
+  <vType id="car" accel="1.5" length="4.6"/>
+
+  <flow begin="0" color="1,1,0" end="3600" id="SB_L" probability="0.15" type="car" departLane="best">
+    <route edges="-908 -907 -906 -905 -17276 -17275" />
+  </flow>
+  <flow begin="0" color="1,1,0" end="3600" id="SB_T" probability="0.001" type="car" departLane="best">
+    <route edges="-908 -907 -906 -905 -16037" />
+  </flow>
+  <flow begin="0" color="1,1,0" end="3600" id="SB_R" probability="0.1" type="car" departLane="best">
+    <route edges="-908 -907 -906 -905 16480 16951" />
+  </flow>
+
+  <flow begin="0" color="1,1,0" end="3600" id="EB_T" probability="0.15" type="car" departLane="best">
+    <route edges="-16951 -16480 -17276 -17275" />
+  </flow>
+  <flow begin="0" color="1,1,0" end="3600" id="EB_R" probability="0.1" type="car" departLane="best">
+    <route edges="-16951 -16480 -16037" />
+  </flow>
+
+  <flow begin="0" color="1,1,0" end="3600" id="WB_L" probability="0.1" type="car" departLane="best">
+    <route edges="17275 17276 -16037" />
+  </flow>
+  <flow begin="0" color="1,1,0" end="3600" id="WB_T" probability="0.18" type="car" departLane="best">
+    <route edges="17275 17276 16480 16951" />
+  </flow>
+</routes>
