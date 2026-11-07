@@ -15,3 +15,6 @@ phaseCalls
 
 # reservicePhases: an offset change while the coordinated phases are served again
 reservice_offset
+
+# test timing manipulation in free mode (#18513)
+maxGreens_free
