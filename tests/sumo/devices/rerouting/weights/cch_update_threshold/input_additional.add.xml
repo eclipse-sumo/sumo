@@ -1,0 +1,11 @@
+<additional>
+    <!-- via middle 160 s, via left 145 s, via right 139 s (163 s at 200, 149 s from 210) -->
+    <variableSpeedSign id="vssMiddle" lanes="middle_0">
+        <step time="0" speed="6.25"/>
+    </variableSpeedSign>
+    <variableSpeedSign id="vssRight" lanes="right_0">
+        <step time="130" speed="15"/>
+        <step time="200" speed="11"/>
+        <step time="210" speed="13.04"/>
+    </variableSpeedSign>
+</additional>
