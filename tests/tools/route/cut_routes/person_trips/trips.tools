@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-05 17:47:10.631561 by Eclipse SUMO cutRoutes.py v1_28_0+0457-a861f1934c2
+<configuration>
+    <trips-output value="trips.trips.xml"/>
+    <network value="input_net.net.xml"/>
+    <routeFiles value="input_routes.rou.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="carType" maxSpeed="20"/>
+    <trip depart="0.00" id="car" from="middle" to="end" type="carType" departLane="best" departSpeed="max">
+        <stop lane="end_0" duration="5"/>
+</trip>
+    <person id="walk" depart="1.00">
+        <walk edges="middle end"/>
+    </person>
+    <person id="ride" depart="2.00">
+        <ride from="middle" to="end" lines="car"/>
+    </person>
+    <person id="mixed" depart="3.00">
+        <param key="label" value="commuter"/>
+        <walk edges="middle"/>
+        <ride from="middle" to="end" lines="car"/>
+        <walk edges="end"/>
+        <stop lane="end_0" duration="10"/>
+    </person>
+    <flow id="flow" type="carType" begin="4.00" end="5.00" period="1" departLane="best" departSpeed="max">
+        <route edges="middle end"/>
+    </flow>
+</routes>

@@ -527,11 +527,6 @@ def main(options):
         orig_net = None
     print("Valid area contains %s edges" % len(edges))
 
-    if options.trips:
-        writer = write_trip
-    else:
-        writer = write_route
-
     busStopEdges = {}
     if options.stops_output:
         busStops = io.open(options.stops_output, 'w', encoding="utf8")
@@ -577,12 +572,10 @@ def main(options):
         for _, v in vehicles:
             if options.trips and v.name == "vehicle":
                 numRefs["trip"] += 1
+                write_trip(f, v)
             else:
                 numRefs[v.name] += 1
-            if v.name == "vType":
-                f.write(v.toXML(u'    '))
-            else:
-                writer(f, v)
+                write_route(f, v)
         f.write(u'</routes>\n')
         if numRefs:
             print("Wrote", ", ".join(["%s %ss" % (k[1], k[0]) for k in sorted(numRefs.items())]))
