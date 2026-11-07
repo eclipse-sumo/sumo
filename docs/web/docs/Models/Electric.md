@@ -135,12 +135,21 @@ A charging station can be converted to a gas station by setting the **chargeType
 | **endPos**          | float      | lane.length < x < lane.length (negative values count backwards from the end of the lane) |           | End position in the specified lane                                                                                              |
 | friendlyPos | bool | true or false | false | Whether invalid charging station positions should be corrected automatically |
 | **power**           | float  (W) or (mg/s)  | power \> 0  | 22000  | Charging power *P<sub>chrg</sub>*  (If the battery device being charged  [is configured to track fuel](#tracking_fuel_consumption_for_non-electrical_vehicles), charging power will be interpreted as mg/s)  |
-| totalPower          | float  (W) or (mg/s)  | power >= 0  | 0  | Max. charging power *P<sub>chrg</sub>* sum for all charging vehicles of this station (to be shared at the ratio of requested power). Is only active for values > 0. |
+| totalPower          | float (W) or (mg/s) | power >= 0 | 0 | Maximum aggregate charging power for all vehicles at this station. A value of 0 disables the aggregate limit. When demand exceeds a positive limit, power is allocated according to `chargingStrategy`. |
+| chargingStrategy    | string | {proportional, max-min, flat} | proportional | Rule for allocating a positive `totalPower` limit among charging vehicles. |
 | **efficiency**      | float      | 0 <= efficiency <= 1                                                                       | 0.95   | Charging efficiency *η<sub>chrg</sub>*                                                                                          |
 | **chargeInTransit** | bool       | true or false                                                                              | false  | Enable or disable charge in transit, i.e. vehicle is forced/not forced to stop for charging                                     |
 | **chargeDelay**     | float      | chargeDelay \> 0                                                                           | 0         | Time delay after the vehicles have reached / stopped on the charging station, before the energy transfer (charging) is starting |
 | chargeType | string | {normal, battery-exchange, fuel} | normal | Charging type  |
 | parkingArea         | string     | valid parkingArea id                                                                       |        | id of the parking the charging station should be positioned on (optional) - vehicles will only charge after reaching the parking
+
+When the vehicles request more power than a station's positive `totalPower` limit, the available power is allocated as follows:
+
+- `proportional`: scale every vehicle's requested power by the same factor.
+- `max-min`: share power equally among vehicles with unmet demand, redistributing any unused share from vehicles that request less.
+- `flat`: subtract the same amount from each vehicle's requested power, without reducing any allocation below zero.
+
+If the combined requests do not exceed `totalPower`, each vehicle receives its requested power.
 
 Charging stations are defined in additional using the following format:
 

@@ -496,6 +496,15 @@
         <xsd:attribute name="lines" type="xsd:string" use="optional"/>
         <xsd:attribute name="power" type="floatType" use="optional"/>
         <xsd:attribute name="totalPower" type="floatType" use="optional"/>
+        <xsd:attribute name="chargingStrategy" use="optional" default="proportional">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="proportional"/>
+                    <xsd:enumeration value="max-min"/>
+                    <xsd:enumeration value="flat"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
         <xsd:attribute name="efficiency" type="floatType" use="optional"/>
         <xsd:attribute name="chargeInTransit" type="boolType" use="optional"/>
         <xsd:attribute name="chargeDelay" type="floatType" use="optional"/>

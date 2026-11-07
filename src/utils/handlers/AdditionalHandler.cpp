@@ -324,6 +324,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                                          obj->getStringAttribute(SUMO_ATTR_NAME),
                                          obj->getDoubleAttribute(SUMO_ATTR_CHARGINGPOWER),
                                          obj->getDoubleAttribute(SUMO_ATTR_TOTALPOWER),
+                                         obj->getStringAttribute(SUMO_ATTR_CHARGINGSTRATEGY),
                                          obj->getDoubleAttribute(SUMO_ATTR_EFFICIENCY),
                                          obj->getBoolAttribute(SUMO_ATTR_CHARGEINTRANSIT),
                                          obj->getTimeAttribute(SUMO_ATTR_CHARGEDELAY),
@@ -966,6 +967,8 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
     const std::vector<std::string> lines = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LINES, id.c_str(), parsedOk, std::vector<std::string>());
     const double chargingPower = attrs.getOpt<double>(SUMO_ATTR_CHARGINGPOWER, id.c_str(), parsedOk, 22000);
     const double totalPower = attrs.getOpt<double>(SUMO_ATTR_TOTALPOWER, id.c_str(), parsedOk, 0);
+    const std::string chargingStrategy = attrs.getOpt<std::string>(SUMO_ATTR_CHARGINGSTRATEGY, id.c_str(), parsedOk,
+                                         SUMOXMLDefinitions::ChargingStationStrategies.getString(ChargingStationStrategy::PROPORTIONAL));
     const double efficiency = attrs.getOpt<double>(SUMO_ATTR_EFFICIENCY, id.c_str(), parsedOk, 0.95);
     const bool chargeInTransit = attrs.getOpt<bool>(SUMO_ATTR_CHARGEINTRANSIT, id.c_str(), parsedOk, 0);
     const SUMOTime chargeDelay = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CHARGEDELAY, id.c_str(), parsedOk, 0);
@@ -976,6 +979,10 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
     // check charge type
     if ((chargeType != "normal") && (chargeType != "battery-exchange") && (chargeType != "fuel")) {
         writeError(TLF("Invalid charge type '%' defined in chargingStation '%'.", chargeType, id));
+        parsedOk = false;
+    }
+    if (!SUMOXMLDefinitions::ChargingStationStrategies.hasString(chargingStrategy)) {
+        writeError(TLF("Invalid charging strategy '%' defined in chargingStation '%'.", chargingStrategy, id));
         parsedOk = false;
     }
     // continue if flag is ok
@@ -991,6 +998,7 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LINES, lines);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_CHARGINGPOWER, chargingPower);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_TOTALPOWER, totalPower);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_CHARGINGSTRATEGY, chargingStrategy);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_EFFICIENCY, efficiency);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_CHARGEINTRANSIT, chargeInTransit);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_CHARGEDELAY, chargeDelay);
