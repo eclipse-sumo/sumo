@@ -37,7 +37,7 @@
     <delay number="2" begin="2" end="0" depart="0.000000000" time="0.000000000" speedFactor="1.000000000" decel="4.500000000"/>
     <vType id="car" speedFactor="normc(1.000000000,0.000000000)" lcStrategic="-1" lcSpeedGain="0" lcKeepRight="0" sigma="0"/>
     <vType id="slow" maxSpeed="3.000000000" speedFactor="normc(1.000000000,0.000000000)" lcStrategic="-1" lcSpeedGain="0" lcKeepRight="0" sigma="0"/>
-    <vehicle id="straight" type="slow" depart="46.000" departLane="1" arrivalLane="1" route="!straight" distance="91.95 0" speedFactor="1.000000000" state="4102 46000 0 5.100000000 0 0.133333333 77000 0 0 0 76000 76000 76000" pos="5.750000000 0.750000000 3.000000000" speed="3.000000000 3.000000000" angle="270.000000000" posLat="0.000000000" waitingTime="100000 0" lcStateBase="0.000000000" lcState2="0 0 0 30000000 0"/>
+    <vehicle id="straight" type="slow" depart="46.000" departLane="1" arrivalLane="1" route="!straight" distance="91.95 0" speedFactor="1.000000000" state="4102 46000 0 5.100000000 0 0.133333333 77000 0 0 0 76000 76000 76000" pos="5.750000000 0.750000000 3.000000000" speed="3.000000000 3.000000000" angle="270.000000000" posLat="0.000000000" waitingTime="100000 0" lcStateBase="0.000000000" lcState2="0 0 -124000000 30000000 0"/>
     <vehicle id="left" type="car" depart="64.000" departLane="1" route="!left" distance="91.95 0" speedFactor="1.000000000" state="6 64000 0 5.100000000 3000 6.293088553 77000 0 0 0 73000 9223372036854774807 73000" pos="6.309000000 1.309000000 0.000000000" speed="0.000000000 0.000000000" angle="72.677633152" posLat="0.000000000" waitingTime="100000 1 0 3000" lcStateBase="0.000000000" lcState2="0 0 0 0 0"/>
     <lane id=":C_6_1">
         <vehicles value="straight"/>
