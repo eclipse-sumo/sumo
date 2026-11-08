@@ -4537,6 +4537,10 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         if (!myAllowUndoRedoLoading) {
             myUndoList->clear();
         }
+        // refresh the current frame (e.g. the dataSet list of the data frames)
+        if (myViewNet->getViewParent()->getCurrentShownFrame()) {
+            myViewNet->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
+        }
         update();
     }
     return 1;
@@ -4564,6 +4568,10 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // check if clear undoList
     if (!myAllowUndoRedoLoading) {
         myUndoList->clear();
+    }
+    // refresh the current frame (e.g. the dataSet list of the data frames)
+    if (myViewNet->getViewParent()->getCurrentShownFrame()) {
+        myViewNet->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
     }
     update();
     return 1;
