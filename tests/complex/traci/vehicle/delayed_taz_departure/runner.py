@@ -1,6 +1,7 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2026 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -19,10 +20,9 @@
 
 import os
 import sys
-
 sys.path.insert(0, os.path.join(os.environ["SUMO_HOME"], "tools"))
-import sumolib
-import traci
+import sumolib  # noqa
+import traci  # noqa
 
 
 def check_case(name, change_time, release_time, pre_period, expected_start, expected_end):
