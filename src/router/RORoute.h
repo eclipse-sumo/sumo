@@ -191,15 +191,9 @@ public:
         return myStops;
     }
 
-    /** @brief Adapts the until time of all stops by the given offset
+    /** @brief Adapts the until and arrival time of all stops by the given offset
      */
-    void addStopOffset(const SUMOTime offset) {
-        for (StopParVector::iterator stop = myStops.begin(); stop != myStops.end(); ++stop) {
-            if (stop->until >= 0) {
-                stop->until += offset;
-            }
-        }
-    }
+    void addStopOffset(const SUMOTime offset);
 
     /// @brief return edges that shall be written in the route definition
     ConstROEdgeVector getNormalEdges() const;

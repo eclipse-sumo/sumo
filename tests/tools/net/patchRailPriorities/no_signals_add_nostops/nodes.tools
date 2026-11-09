@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-30 18:33:54.336177 by Eclipse SUMO patchRailPriorities.py v1_28_0+0338-466c28ede88
+<configuration>
+    <net-file value="input_net2.net.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="net.net.xml"/>
+    <patchfile-prefix value="out"/>
+    <exclude-reverse-usage value="1"/>
+    <add-signals value="True"/>
+</configuration>
+-->
+
+<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <node id="J12" type="rail_signal"/>
+    <node id="J13" type="rail_signal"/>
+    <node id="J16" type="rail_signal"/>
+    <node id="J4" type="rail_signal"/>
+    <node id="J7" type="rail_signal"/>
+    <node id="J9" type="rail_signal"/>
+</nodes>

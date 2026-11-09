@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-10-08 14:13+0200\n"
-"PO-Revision-Date: 2026-09-01 18:23+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2026-11-01 09:32+0000\n"
+"Last-Translator: Mirko Barthauer <m-kro@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -4418,13 +4418,15 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:63
 msgid "FCD files to read"
-msgstr ""
+msgstr "zu lesende FCD-Dateien"
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:65
 msgid ""
 "Values to use when replaying ('all' or any combination of 'x', 'y', 'edge', "
 "'lane', 'speed', 'position', 'angle', 'type')"
 msgstr ""
+"In der Wiedergabe zu nutzende Werte ('all' oder jegliche Kombination aus "
+"'x', 'y', 'edge', 'lane', 'speed', 'position', 'angle', 'type')"
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:265
 msgid "Unknown edge '%' in fcd replay file for person '%'."
@@ -11453,6 +11455,8 @@ msgid ""
 "The meandata type 'hbefa' is deprecated. Please use the type 'emissions' "
 "instead."
 msgstr ""
+"Der Meandata-Typ 'hbefa' ist veraltet. Bitte nutze stattdessen den Typ "
+"'emissions'."
 
 #: src/netload/NLEdgeControlBuilder.cpp:214
 msgid "Asymmetrical neigh lane '%' for lane '%'"
@@ -12017,7 +12021,7 @@ msgstr ""
 
 #: src/od2trips_main.cpp:111
 msgid "Writes poisson distributed flow instead of evenly spaced flow"
-msgstr ""
+msgstr "Schreibt einen Poisson-verteilten statt eines gleichverteilten Flusses"
 
 #: src/od2trips_main.cpp:114
 msgid "Writes pedestrians instead of vehicles"
@@ -12695,6 +12699,8 @@ msgid ""
 "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper', "
 "'CCH']"
 msgstr ""
+"Einen Routing-Algorithmus aus ['dijkstra', 'astar', 'CH', 'CHWrapper', "
+"'CCH'] auswählen"
 
 #: src/router/ROFrame.cpp:187
 msgid ""
@@ -12880,19 +12886,21 @@ msgstr ""
 
 #: src/router/ROPerson.cpp:414
 msgid "No route for trip in person '%'."
-msgstr ""
+msgstr "Die Fahrt von Person '%' enthält keine Route."
 
 #: src/router/ROPerson.cpp:469
 msgid "Person '%' has no valid route (traveltime % exceeds max-traveltime)."
 msgstr ""
+"Person '%' verfügt über keine gültige Route (die Reisezeit von % übersteigt "
+"max-traveltime)."
 
 #: src/router/RORouteDef.cpp:104
 msgid "Vehicle '%' is not allowed to depart on edge '%'."
-msgstr ""
+msgstr "Das Fahrzeug '%' darf nicht von Kante '%' abfahren."
 
 #: src/router/RORouteDef.cpp:111
 msgid "Vehicle '%' is not allowed to arrive on edge '%'."
-msgstr ""
+msgstr "Das Fahrzeug '%' darf nicht auf Kante '%' ankommen."
 
 #: src/router/RORouteDef.cpp:121
 msgid "Repaired route of vehicle '%'."
@@ -12900,7 +12908,7 @@ msgstr "Reparierte Route vom Fahrzeug '%'."
 
 #: src/router/RORouteDef.cpp:207
 msgid "Could not find new starting edge for vehicle '%'."
-msgstr ""
+msgstr "Es wurde keine neue Startkante für Fahrzeug '%' gefunden."
 
 #: src/router/RORouteDef.cpp:226
 msgid "Removing invalid edge '%' from route for vehicle '%'."
@@ -12920,11 +12928,13 @@ msgstr "Kante '%' wurde nicht mit Kante '%' für das Fahrzeug '%' verbunden."
 
 #: src/router/RORouteDef.cpp:307
 msgid "Mandatory edge '%' not reachable by vehicle '%'."
-msgstr ""
+msgstr "Die verpflichtende Kante '%' wird vom Fahrzeug '%' nicht erreicht."
 
 #: src/router/RORouteDef.cpp:346
 msgid "Stop edge '%' is inconsistent with via edges for vehicle '%'."
 msgstr ""
+"Die Haltekante '%' stimmt nicht mit den Zwischenkanten von Fahrzeug '%' "
+"überein."
 
 #: src/router/RORouteHandler.cpp:234
 msgid "Triggered departure for person '%' requires starting with a ride."
@@ -12987,7 +12997,7 @@ msgstr "Unbekannter Fahrzeugtyp '%'."
 
 #: src/router/ROVehicle.cpp:75
 msgid "Stop edge '%' does not allow vehicle '%'."
-msgstr ""
+msgstr "Auf der Haltekante '%' ist das Fahrzeug '%' nicht erlaubt."
 
 #: src/router/ROVehicle.cpp:96
 msgid "Jumps are not supported from internal stop edge '%'."
@@ -12995,11 +13005,13 @@ msgstr ""
 
 #: src/router/ROVehicle.cpp:124 src/router/ROVehicle.cpp:137
 msgid "The vehicle '%' has no valid route."
-msgstr ""
+msgstr "Das Fahrzeug '%' verfügt über keine gültige Route."
 
 #: src/router/ROVehicle.cpp:155
 msgid "The vehicle '%' has no valid route (after removing loops)."
 msgstr ""
+"Das Fahrzeug '%' verfügt (nach Entfernen von Schleifenfahrten) über keine "
+"gültige Route."
 
 #: src/router/ROVehicle.cpp:163
 msgid ""

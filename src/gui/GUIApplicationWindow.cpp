@@ -1757,6 +1757,10 @@ GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
         setX(getApp()->reg().readIntEntry("SETTINGS", "x", 150));
         setY(getApp()->reg().readIntEntry("SETTINGS", "y", 150));
     }
+    // show or hide the full screen hint
+    for (GUIGlChildWindow* const window : myGLWindows) {
+        window->getView()->update();
+    }
     return 1;
 }
 

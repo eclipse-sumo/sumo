@@ -150,6 +150,9 @@ calibrator
 # see #11394
 continous_lanechange
 
+# a vehicle that waits on the junction for a foe keeps waiting after loading state
+junction_approach
+
 # vehicle stops twice in the same spot, state is saved before departure
 stops_looped
 
@@ -191,6 +194,11 @@ routeLoader
 
 # the CCH router must not change the default random number state when loading state
 cch_vTypeDistribution
+
+# a vehicle that left a turnaround keeps the turnaround lane as further lane when loading state
+turnaround_furtherLane
+# the CCH metric follows edge speeds above the speed limit, so a reloaded state replicates
+cch_speedFactor
 
 # vehicles waiting for insertion do not repeat their pre-insertion reroute after loading state (#18366)
 preinsertion_reroute

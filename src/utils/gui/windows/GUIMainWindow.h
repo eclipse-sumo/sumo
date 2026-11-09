@@ -76,8 +76,8 @@ public:
 
     void removeViewByID(const std::string& id);
 
-    /// @brief get views
-    const std::vector<GUIGlChildWindow*>& getViews() const;
+    /// @brief get (a copy of the list of) views
+    std::vector<GUIGlChildWindow*> getViews() const;
 
     /// @brief update childrens
     void updateChildren(int msg = MID_SIMSTEP);
@@ -227,6 +227,9 @@ protected:
 
     /// @brief list of GLWindows
     std::vector<GUIGlChildWindow*> myGLWindows;
+
+    /// @brief A lock to make the access to the GLWindows thread safe (they are also accessed by the simulation thread)
+    mutable FXMutex myGLWindowsLock;
 
     /// @brief list of tracker windows
     std::vector<FXMainWindow*> myTrackerWindows;

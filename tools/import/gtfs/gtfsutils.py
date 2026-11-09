@@ -33,7 +33,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.miscutils import benchmark  # noqa
-import coupling
+import coupling  # noqa
 
 # ----------------------- gtfs, osm and sumo modes ----------------------------
 OSM2SUMO_MODES = {
@@ -115,6 +115,18 @@ GTFS2OSM_MODES.update({
     'Str': 'tram',        # tbd
     'DPF': 'train',        # tbd
 })
+
+SUMO_DECEL = {
+    'bus': 4.5,
+    'rail': 1.0,
+    'tram': 1.3,
+    'rail_urban': 1.3,
+    'subway': 1.3,
+    'cable_car': 1.3,
+    'ship': 0.15,
+    'taxi': '4.5',
+    'aircraft': '4.5',
+}
 
 
 def sha256hash(s):

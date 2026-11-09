@@ -47,6 +47,7 @@ NETCONVERT = sumolib.checkBinary('netconvert')
 
 
 def get_options():
+    HALF_CPUS = os.cpu_count() // 2 if os.cpu_count() is not None else 1
     ap = ArgumentParser()
     ap.add_argument("-n", "--net-file", category="input", dest="netfile", required=True, type=ap.net_file,
                     help="the network to read lane and edge permissions")
@@ -84,6 +85,10 @@ def get_options():
                     help="Drive on the left instead of on the right")
     ap.add_argument("--add-stop-signals", action="store_true", default=False, dest="addStopSignals",
                     help="If a siding has a stop on the mainline, add signals in case they are missing")
+    ap.add_argument("--add-signals", action="store_true", default=False, dest="addSignals",
+                    help="Add missing signals regardless of stopping")
+    ap.add_argument("--routing-threads", type=int, default=HALF_CPUS, dest="threads",
+                    help="Perform routing on multiple threads")
     ap.add_argument("-v", "--verbose", action="store_true", default=False,
                     help="tell me what you are doing")
     options = ap.parse_args()
@@ -97,13 +102,13 @@ def get_options():
     return options
 
 
-def filterNoSignalidings(options, net, sidings, noSignal, stops):
+def filterNoSignalidings(options, net, sidings, noSignal, stops, ignoreStops):
     """keep only sidings that have a signal or that have a stop on the main track"""
     sidings2 = {}
     signalNodes = set()
     for main, (rid, fromIndex, siding) in sidings.items():
         hasNoSignal = tuple(main) in noSignal
-        if hasNoSignal and not any([e in stops for e in main]):
+        if hasNoSignal and not ignoreStops and not any([e in stops for e in main]):
             continue
         sidings2[main] = (rid, fromIndex, siding)
 
@@ -292,18 +297,19 @@ def main(options):
     switches = findSwitches(options, routes, net)
     #  print("\n".join(map(str, switches.items())))
     sidings, sidingRoutes = findSidings(options, routes, switches, net, edgeUsage)
-    #  print("\n".join(map(str, sidings.items())))
+    # print("found:\n", "\n".join(map(str, sidings.items())))
 
-    if options.addStopSignals:
+    if options.addStopSignals or options.addSignals:
         noSignal = set()  # tuples of main-edges
 
     sidings = filterSidings(options, net, sidings, noSignal)
-    #  print("\n".join(map(str, sidings.items())))
+    # print("filtered:\n", "\n".join(map(str, sidings.items())))
     sidings = filterBidiSidings(options, net, sidings, edgeUsage)
-    #  print("\n".join(map(str, sidings.items())))
+    # print("filteredBidi:\n", "\n".join(map(str, sidings.items())))
 
-    if options.addStopSignals:
-        sidings, signalNodes = filterNoSignalidings(options, net, sidings, noSignal, stops)
+    if options.addStopSignals or options.addSignals:
+        sidings, signalNodes = filterNoSignalidings(options, net, sidings, noSignal, stops, options.addSignals)
+        # print("filteredNoSignal:\n", "\n".join(map(str, sidings.items())))
         if signalNodes:
             extraArgs += ['-n', options.nodes_file, '-x', options.connections_file]
         #  print("\n".join(map(str, sidings.items())))

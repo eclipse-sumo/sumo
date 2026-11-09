@@ -1,0 +1,16 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vType id="bus" vClass="bus" sigma="0"/>
+    <flow id="through" begin="0" end="900" vehsPerHour="600">
+        <route edges="in beg main"/>
+    </flow>
+    <flow id="exit" begin="0" end="900" vehsPerHour="600">
+        <route edges="in beg exit exit2"/>
+    </flow>
+    <flow id="busthrough" type="bus" begin="0" end="900" vehsPerHour="120">
+        <route edges="in beg main"/>
+    </flow>
+    <flow id="bus" type="bus" begin="0" end="900" vehsPerHour="60">
+        <route edges="in beg exit exit2"/>
+    </flow>
+</routes>

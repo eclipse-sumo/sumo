@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-05 09:26:46.564496 by Eclipse SUMO gtfs2pt.py v1_28_0+0447-08e70d9c606
+<configuration>
+    <merged-csv value="data.csv"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <write-terminals value="True"/>
+    <human-readable-time value="True"/>
+    <network value="net.net.xml"/>
+    <write-arrival value="True"/>
+    <min-stops value="3"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+</routes>

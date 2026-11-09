@@ -380,6 +380,10 @@ The connections at joined junctions depend on the loaded connection definitions 
 !!! note
 Re-guessing loaded connections is useful when joining junctions while merging networks.
 
+### Exporting joins
+
+To document joins (i.e. to facilitate debugging join or to store semantic patches), netconvert provides the option **--junctions.join-output FILENAME**. This will write a file with `<join>` [elements](#specifying_and_excluding_explicit_joins) that are suitable for loading with option **--nodes-file**.
+
 # Edge Descriptions
 
 | Edge Descriptions |   |

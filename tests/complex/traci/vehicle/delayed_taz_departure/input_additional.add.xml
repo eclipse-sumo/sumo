@@ -1,0 +1,4 @@
+<additional>
+    <taz id="origin" edges="a b"/>
+    <taz id="destination" edges="d1 d2"/>
+</additional>

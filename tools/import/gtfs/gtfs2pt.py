@@ -44,7 +44,7 @@ from sumolib.miscutils import benchmark  # noqa
 import gtfs2fcd  # noqa
 import gtfs2osm  # noqa
 import gtfsutils  # noqa
-from gtfsutils import OSM2SUMO_MODES, GTFS2OSM_MODES  # noqa
+from gtfsutils import OSM2SUMO_MODES, GTFS2OSM_MODES, SUMO_DECEL  # noqa
 
 
 def get_options(args=None):
@@ -123,6 +123,8 @@ def get_options(args=None):
                     help="Speed up routing by calling duarouter to precompute candidate routes between stops")
     ap.add_argument("--parking-threshold", type=float, dest="parkingThreshold",
                     help="If set, trips with consecutive stops in the same spot for more than FLOAT seconds are parked")
+    ap.add_argument("--parking-length", type=float, dest="parkingLength", default=1000,
+                    help="If parking-threshold is set, stopping locations where vehicles park are artificially enlarged to accept more vehicles")  # noqa
     ap.add_argument("--fill-gaps", default=5000, type=float, category="input",
                     help="maximum distance between stops")
     ap.add_argument("--reversal-penalty", default=1000, type=float, category="input", dest="reversalPenalty",
@@ -139,7 +141,7 @@ def get_options(args=None):
     ap.add_argument("--dua-repair-output", category="output", type=ap.file,
                     help="file to write the osm routes with errors")
     ap.add_argument("--repair", help="repair osm routes", action='store_true', category="processing")
-    ap.add_argument("--min-stops", default=1, type=int, category="input",
+    ap.add_argument("--min-stops", default=2, type=int, category="input", dest="minStops",
                     help="minimum number of stops a public transport line must have to be imported")
     ap.add_argument("--maxcache", default=1000, type=int,
                     help="Set maximum cache size for route computation")
@@ -165,7 +167,7 @@ def get_options(args=None):
     if options.detourRemoveFactor > 0 and options.detourRemoveFactor < options.detourWarnFactor:
         options.detourWarnFactor = options.detourRemoveFactor
     if options.distPenalty is None:
-        options.distPenalty = 1 if options.stops else 2
+        options.distPenalty = 1 if options.stops else 1.2
     if options.sbahnLR:
         GTFS2OSM_MODES['109'] = 'light_rail'
 
@@ -411,6 +413,19 @@ def generate_polygons(net, routes, outfile):
         outf.write('</polygons>\n')
 
 
+def estimateTime(net, decel, time, edges):
+    e = None
+    for i, eID in enumerate(edges):
+        e = net.getEdge(eID)
+        time += e.getLength() / e.getSpeed()
+        if i == 0:
+            # initial acceleration
+            time += e.getSpeed()
+    # final deceleration
+    time += e.getSpeed() / decel
+    return time
+
+
 def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
     MappedStop = namedtuple("MappedStop", ["id", "arrival", "until", "name", "block", "isParking"])
     stops = collections.defaultdict(list)
@@ -419,9 +434,10 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
     rid = None
     for mode in sorted(geoRoutes.keys()):
         vclass = OSM2SUMO_MODES.get(mode)
+        decel = SUMO_DECEL[vclass]
         seen = set()
         fixed = {}
-        lastUntil = None
+        lastUntil = 0
         lastStop = None
         for rid, locations in geoRoutes[mode].items():
             if rid not in routes:
@@ -545,6 +561,7 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                         continue
                     laneID, start, end = result
                 edgeID = laneID.rsplit("_", 1)[0]
+                prevIndex = lastIndex
                 lastIndex = route.index(edgeID, lastIndex)
                 lastPos = end
                 keep = True
@@ -560,6 +577,7 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                     stop += ".reversed"
                 typ = "busStop" if mode in ("bus", "trolleybus") else "trainStop"
                 isParking = options.busParking and mode == "bus"
+                stopItemToPatch = None
                 for stopItem in stopDesc[laneID]:
                     otherStop, otherStart, otherEnd = stopItem[1:4]
                     if start < otherEnd <= end or otherStart < end <= otherEnd:  # stops overlap
@@ -567,13 +585,18 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                             stopItem[0] = typ
                             stopItem[2] = start
                             stopItem[3] = end
+                        stopItemToPatch = stopItem
                         keep = False
                         stop = otherStop
                         break
                 if ((options.parkingThreshold is not None
-                     and lastStop == stop
-                     and s.until - lastUntil >= options.parkingThreshold)):
+                     and ((lastStop == stop and s.until - lastUntil >= options.parkingThreshold)
+                          or s.until - s.arrival >= options.parkingThreshold
+                          or (s.until - estimateTime(net, decel, lastUntil, route[prevIndex:lastIndex + 1])
+                              >= options.parkingThreshold)))):
                     isParking = True
+                    if stopItemToPatch is not None:
+                        stopItemToPatch[-1] = isParking
                 if keep:
                     if stop in stopID2Lane:
                         oldID = stop
@@ -591,15 +614,18 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                         edge = lane.getEdge()
                         if not all([edge.getLane(i).allows("pedestrian") for i in range(idx)]):
                             childs.append(u'        <param key="allowOvertakeRight" value="false"/>\n')
-                    stopDesc[laneID].append([typ, stop, start, end, s.name, childs])
+                    stopDesc[laneID].append([typ, stop, start, end, s.name, childs, isParking])
                     stopID2Lane[stop] = laneID
                 stops[rid].append(MappedStop(stop, s.arrival, s.until, s.name, s.block, isParking))
                 lastUntil = s.until
                 lastStop = stop
     for laneID, stopList in stopDesc.items():
-        for typ, stop, start, end, stopName, childs in stopList:
-            rout.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f" friendlyPos="true" name="%s"%s>\n' %
-                       (typ, stop, laneID, start, end, stopName, "" if childs else "/"))
+        for typ, stop, start, end, stopName, childs, isParking in stopList:
+            parkingLength = ''
+            if isParking and options.parkingLength > 0:
+                parkingLength = ' parkingLength="%s"' % options.parkingLength
+            rout.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f" friendlyPos="true" name="%s"%s%s>\n' %
+                       (typ, stop, laneID, start, end, stopName, parkingLength, "" if childs else "/"))
             for a in sorted(childs):
                 rout.write(a)
             if childs:
@@ -615,7 +641,7 @@ def filter_trips(options, routes, stops, outf, begin, end, vehicles):
     for mode in sorted(vehicles.keys()):
         for veh in vehicles[mode]:
             tripID, routeID, orig_depart, line, params = veh
-            if routeID in routes and len(routes[routeID][0]) > 0 and len(stops.get(routeID, [])) > 1:
+            if routeID in routes and len(routes[routeID][0]) > 0 and len(stops.get(routeID, [])) >= options.minStops:
                 until = stops[routeID][0].until
                 for d in range(numDays):
                     depart = max(0, d * 86400 + orig_depart + until - options.duration)
@@ -731,7 +757,10 @@ def main(options):
             sumolib.xml.writeHeader(rout, os.path.basename(__file__), "routes", options=options)
             for vehID, (edges, indices) in routes.items():
                 if edges:
-                    writeRoute(options, rout, vehID, edges, stops)
+                    if len(stops[vehID]) < options.minStops:
+                        print("Warning! Dropping %s with Only %s stops." % (vehID, len(stops[vehID])), file=sys.stderr)
+                    else:
+                        writeRoute(options, rout, vehID, edges, stops)
                 else:
                     print("Warning! Empty route for %s." % vehID, file=sys.stderr)
             filter_trips(options, routes, stops, rout, options.begin, options.end, vehicles)
@@ -741,6 +770,9 @@ def main(options):
 def writeRoute(options, rout, vehID, edges, stops):
     ft = options.ft
     rout.write(u'    <route id="%s" edges="%s">\n' % (vehID, " ".join(edges)))
+    # trip arrival/until times are already shift to be zero-based in groupRoutes().
+    # However, when the network bounding box does not contain the first stop(s)
+    # this isn't enough and we need to shift again.
     offset = None
     isJoined = False
     lastTripId = None
@@ -755,10 +787,11 @@ def writeRoute(options, rout, vehID, edges, stops):
         if offset is None:
             offset = s.until
         # ensure arrival preceeds until by at least duration
+        until = s.until - offset
         arrival = 'arrival="%s" ' % ft(
-            max(0, min(s.arrival - offset, s.until - options.duration))) if options.writeArrival else ""
+            max(0, min(s.arrival - offset, until - options.duration))) if options.writeArrival else ""
         rout.write(u'        <stop busStop="%s" %sduration="%s" until="%s"%s%s/> <!-- %s -->\n' %
-                   (s.id, arrival, ft(options.duration), ft(s.until - offset), parking, tripId,
+                   (s.id, arrival, ft(options.duration), ft(until), parking, tripId,
                     removeDoubleHypen(s.name)))
     rout.write(u'    </route>\n')
 

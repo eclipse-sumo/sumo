@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-16T08:34:27.094985+01:00 by Eclipse SUMO sumo v1_28_0+0100-bb553965bae
+<!-- generated on 2026-11-03T08:48:21.523768+01:00 by Eclipse SUMO sumo v1_28_0+0406-987ab849ff4
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -11,6 +11,7 @@
             <xsd:element name="time" type="sumotimeTopicType" minOccurs="0"/>
             <xsd:element name="processing" type="sumoprocessingTopicType" minOccurs="0"/>
             <xsd:element name="routing" type="sumoroutingTopicType" minOccurs="0"/>
+            <xsd:element name="persons" type="sumopersonsTopicType" minOccurs="0"/>
             <xsd:element name="report" type="sumoreportTopicType" minOccurs="0"/>
             <xsd:element name="emissions" type="sumoemissionsTopicType" minOccurs="0"/>
             <xsd:element name="communication" type="sumocommunicationTopicType" minOccurs="0"/>
@@ -188,7 +189,6 @@
             <xsd:element name="collision.mingap-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="keep-after-arrival" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="max-num-vehicles" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="max-num-persons" type="intOptionType" minOccurs="0"/>
             <xsd:element name="max-num-teleports" type="intOptionType" minOccurs="0"/>
             <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="scale-suffix" type="strOptionType" minOccurs="0"/>
@@ -198,7 +198,6 @@
             <xsd:element name="time-to-teleport.disconnected" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.remove" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.remove-constraint" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="time-to-teleport.ride" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.bidi" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.railsignal-deadlock" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="waiting-time-memory" type="timeOptionType" minOccurs="0"/>
@@ -237,34 +236,11 @@
             <xsd:element name="parking.maneuver" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="use-stop-ended" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="use-stop-started" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.model" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.timegap-crossing" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.striping.stripe-width" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.striping.dawdling" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.striping.mingap-to-vehicle" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.striping.jamtime" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.striping.jamtime.crossing" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.striping.jamtime.narrow" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.striping.jamfactor" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.striping.reserve-oncoming" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.striping.reserve-oncoming.junctions" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.striping.reserve-oncoming.max" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.striping.legacy-departposlat" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.striping.walkingarea-detail" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.jupedsim.step-length" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.jupedsim.exit-tolerance" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.jupedsim.model" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.jupedsim.strength-neighbor-repulsion" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.jupedsim.range-neighbor-repulsion" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.jupedsim.strength-geometry-repulsion" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.jupedsim.range-geometry-repulsion" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="ride.stop-tolerance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.junctions" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.turnaround-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weights.reversal-penalty" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="persontrip.walk-opposite-factor" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -279,13 +255,6 @@
             <xsd:element name="weights.separate-turns" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="astar.all-distances" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="astar.landmark-distances" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="persontrip.walkfactor" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="persontrip.transfer.car-walk" type="strArrayOptionType" minOccurs="0"/>
-            <xsd:element name="persontrip.transfer.taxi-walk" type="strArrayOptionType" minOccurs="0"/>
-            <xsd:element name="persontrip.transfer.walk-taxi" type="strArrayOptionType" minOccurs="0"/>
-            <xsd:element name="persontrip.default.group" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="persontrip.taxi.waiting-time" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="persontrip.ride-public-line" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.max-train-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="replay-rerouting" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.probability" type="floatOptionType" minOccurs="0"/>
@@ -316,6 +285,43 @@
             <xsd:element name="person-device.rerouting.period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="person-device.rerouting.mode" type="strOptionType" minOccurs="0"/>
             <xsd:element name="person-device.rerouting.scope" type="strOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="sumopersonsTopicType">
+        <xsd:all>
+            <xsd:element name="max-num-persons" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="time-to-teleport.ride" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.model" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.timegap-crossing" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.stripe-width" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.dawdling" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.mingap-to-vehicle" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.jamtime" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.jamtime.crossing" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.jamtime.narrow" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.jamfactor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.reserve-oncoming" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.reserve-oncoming.junctions" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.reserve-oncoming.max" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.legacy-departposlat" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.walkingarea-detail" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.step-length" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.exit-tolerance" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.model" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.strength-neighbor-repulsion" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.range-neighbor-repulsion" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.strength-geometry-repulsion" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.range-geometry-repulsion" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="ride.stop-tolerance" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.walkfactor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.walk-opposite-factor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.transfer.car-walk" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.transfer.taxi-walk" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.transfer.walk-taxi" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.default.group" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.taxi.waiting-time" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.ride-public-line" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -599,6 +605,7 @@
             <xsd:element name="meso-jam-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="meso-multi-queue" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-lane-queue" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="meso-lookahead" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="meso-ignore-lanes-by-vclass" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="meso-junction-control" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-junction-control.limited" type="boolOptionType" minOccurs="0"/>

@@ -46,6 +46,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install libunwind-dev  # to work around https://bugs.launchpad.net/ubuntu/+source/google-glog/+bug/1991919
         sudo apt-get install $(cat sumo/build_config/build_req_deb.txt)
+        sudo apt-get install -y libboost-process-dev || true
 
     - name: Installing Parquet
       if: matrix.build_type == 'full'
@@ -149,14 +150,14 @@ jobs:
 
     - name: Compressing test results
       if: failure()
-      run: zip -r texttesttmp.zip ~/.texttest/tmp
+      run: 7z a -bso0 -bsp0 texttesttmp-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.build_type }}.zip ~/.texttest/tmp
 
     - name: Uploading test results
       if: failure()
       uses: actions/upload-artifact@v7
       with:
-        name: texttesttmp-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.build_type }}
-        path: texttesttmp.zip
+        path: texttesttmp-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.build_type }}.zip
+        archive: false
         if-no-files-found: warn
 
     - name: Uploading artifacts (SUMO binaries)

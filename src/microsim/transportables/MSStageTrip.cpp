@@ -400,7 +400,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
 }
 
 
-void
+bool
 MSStageTrip::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous) {
     myDepartPos = previous->getArrivalPos();
 #ifndef THREAD_POOL
@@ -410,12 +410,12 @@ MSStageTrip::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, M
         MSRoutingEngine::getIntermodalRouterTT(transportable->getRNGIndex());
         threadPool.add(new TripRoutingTask(*this, transportable, now, previous));
         net->getPersonControl().addPendingRouting(transportable);
-        return;
+        return true;
     }
 #endif
 #endif
     myRoutingError = reroute(now, net->getIntermodalRouter(0), transportable, previous, myOrigin, myDestination, myComputedStages);
-    transportable->proceed(net, now);
+    return transportable->proceed(net, now);
 }
 
 

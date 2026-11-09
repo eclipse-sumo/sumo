@@ -23,6 +23,7 @@
                 <xsd:element name="railSignalConstraintTracker" type="railSignalConstraintTrackerType" minOccurs="0"/>
                 <xsd:element name="railSignalConstraints" type="railSignalConstraintsType" minOccurs="0"/>
                 <xsd:element name="tlLogic" type="tlStateType" minOccurs="0"/>
+                <xsd:element name="inductionLoop" type="inductionLoopStateType" minOccurs="0"/>
                 <xsd:element name="driveWay" type="driveWayStateType" minOccurs="0"/>
                 <xsd:element name="subDriveWay" type="driveWayStateType" minOccurs="0"/>
                 <xsd:element name="routingEngine" type="routingEngineType" minOccurs="0"/>
@@ -268,7 +269,14 @@
         <xsd:attribute name="until" type="xsd:integer" use="required"/>
         <xsd:attribute name="cycleTime" type="xsd:integer" use="required"/>
         <xsd:attribute name="active" type="boolType"/>
-        <xsd:attribute name="state" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="inductionLoopStateType">
+        <xsd:attribute name="id" type="idType" use="required"/>
+        <xsd:attribute name="time" type="xsd:double" use="required"/>
+        <xsd:attribute name="next" type="xsd:string" use="optional"/>
+        <xsd:attribute name="last" type="xsd:string" use="optional"/>
+        <xsd:attribute name="headway" type="xsd:integer" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="driveWayStateType">

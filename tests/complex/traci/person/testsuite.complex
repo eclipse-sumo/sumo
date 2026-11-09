@@ -47,5 +47,8 @@ setSpeedFactor
 setSpeedFactor2
 getWalkingDistance
 
+# a person cannot depart because its sidewalk is closed by a rerouter (crashed libsumo, see #XXXXX)
+depart_closed_sidewalk
+
 # see #11206
 disconnectedPersonTrip
