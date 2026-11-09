@@ -80,18 +80,11 @@ Trip 114234399 (bus): detour (factor inf) to stop index 1, fromPos=525.29,3061.9
 Trip 114234722 (bus): detour (factor inf) to stop index 3, fromPos=1996.18,3185.87 toPos=1505.37,3051.22 (airLine=508.94 path=inf)
 Trip 114234722 (bus): detour (factor inf) to stop index 6, fromPos=1095.54,2796.18 toPos=712.56,3378.38 (airLine=696.87 path=inf)
 Trip 114234788 (bus): detour (factor inf) to stop index 3, fromPos=1996.18,3185.87 toPos=1505.37,3051.22 (airLine=508.94 path=inf)
-Trip 114262209 (bus): detour (factor 6.53) to stop index 1, fromPos=2645.69,2251.39 toPos=2453.10,2287.46 (airLine=195.93 path=1278.77)
 Trip 114262390 (bus): detour (factor 6.88) to stop index 10, fromPos=2629.02,2428.24 toPos=2645.69,2251.39 (airLine=177.63 path=1221.76)
 Trip 114262511.trimmed (bus): detour (factor 6.88) to stop index 3, fromPos=2629.02,2428.24 toPos=2645.69,2251.39 (airLine=177.63 path=1221.76)
-Trip 114272672 (bus): detour (factor 7.41) to stop index 1, fromPos=2715.12,2550.64 toPos=2629.02,2428.24 (airLine=149.65 path=1109.21)
-Trip 114272713 (bus): detour (factor 5.84) to stop index 9, fromPos=2629.02,2428.24 toPos=2715.12,2550.64 (airLine=149.65 path=873.99)
-Trip 114273401 (bus): detour (factor 5.84) to stop index 9, fromPos=2629.02,2428.24 toPos=2715.12,2550.64 (airLine=149.65 path=873.99)
 Trip 114273441 (bus): detour (factor inf) to stop index 6, fromPos=1996.18,3185.87 toPos=2130.29,2705.08 (airLine=499.14 path=inf)
 Trip 114273444 (bus): detour (factor inf) to stop index 6, fromPos=1996.18,3185.87 toPos=2130.29,2705.08 (airLine=499.14 path=inf)
-Trip 114273803 (bus): detour (factor 6.46) to stop index 10, fromPos=2880.92,2398.66 toPos=2629.02,2428.24 (airLine=253.64 path=1637.53)
-Trip 114274508 (bus): detour (factor 7.41) to stop index 1, fromPos=2715.12,2550.64 toPos=2629.02,2428.24 (airLine=149.65 path=1109.21)
 Trip 114274766 (bus): detour (factor 5.84) to stop index 8, fromPos=2629.02,2428.24 toPos=2715.12,2550.64 (airLine=149.65 path=873.99)
-Trip 114234999 (bus): detour (factor 6.53) to stop index 1, fromPos=2645.69,2251.39 toPos=2453.10,2287.46 (airLine=195.93 path=1278.77)
 Warning! Disconnected route '114193955' between '295445243' and '-4613300#0', no path found. Keeping longer part.
 Warning! Disconnected route '114193955' between '238682696' and '-169717723#2', no path found. Keeping longer part.
 Warning! Disconnected route '114193956' between '295445243' and '-4613300#0', no path found. Keeping longer part.
@@ -130,10 +123,10 @@ Warning! Disconnected route '114209125' between '295445243' and '1113401735#1', 
 Warning! Fixed route 114234399 between -1100903090#1 and -169717723#2 (added edges: 19)
 Warning! Fixed route 114234474 between -1100903090#1 and -169717723#2 (added edges: 19)
 Warning! Disconnected route '114234722' between '238682696' and '1451585461', no path found. Keeping longer part.
-Warning! Fixed route 114234722 between 318915602#4 and -1100903090#1 (added edges: 24)
+Warning! Fixed route 114234722 between 1020077809 and -1100903090#1 (added edges: 17)
 Warning! Disconnected route '114234788' between '238682696' and '1451585461', no path found. Keeping longer part.
 Warning! Disconnected route '114234833' between '238682696' and '1451585461', no path found. Keeping longer part.
-Warning! Fixed route 114234833 between 318915602#4 and -1100903090#1 (added edges: 24)
+Warning! Fixed route 114234833 between 1020077809 and -1100903090#1 (added edges: 17)
 Warning! Disconnected route '114273441' between '238682696' and '1113401735#1', no path found. Keeping longer part.
 Warning! Disconnected route '114273444' between '238682696' and '1113401735#1', no path found. Keeping longer part.
 Warning! Dropping 114193955 with Only 0 stops.
