@@ -68,7 +68,7 @@ MSStageTranship::clone() const {
 }
 
 
-void
+bool
 MSStageTranship::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous) {
     myDeparted = now;
     //MSPModel_NonInteracting moves the transportable straight from start to end in
@@ -83,6 +83,7 @@ MSStageTranship::proceed(MSNet* net, MSTransportable* transportable, SUMOTime no
         myPState = net->getContainerControl().getNonInteractingModel()->add(transportable, this, now);
         (*myRouteStep)->addTransportable(transportable);
     }
+    return true;
 }
 
 

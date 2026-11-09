@@ -19,6 +19,7 @@ road 2fi
 lane 
 type pType2@horiz
 lanePos 242.158536585
+arrivalPos 486.54
 color (0, 0, 255, 255)
 length 2.0
 MinGap 2.22
@@ -47,6 +48,7 @@ road 2fi
 lane 
 type pType2@horiz
 lanePos 245.817073171
+arrivalPos 486.54
 color (0, 0, 255, 255)
 length 2.0
 MinGap 2.22

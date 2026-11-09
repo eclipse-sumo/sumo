@@ -41,6 +41,16 @@
         <device id="routing_0.2" state="0 20000"/>
     </vehicle>
     <flowState id="0" begin="00:00:00" end="00:01:40" period="10" next="30.00" route="!0" done="3" index="3" reroute="1"/>
+    <lane id=":C_13_0">
+        <link to=":C_24_0">
+            <approaching id="0.2" arrivalTime="30306" arrivalSpeed="9.36" departSpeed="9.36" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="75.86"/>
+        </link>
+    </lane>
+    <lane id=":C_24_0">
+        <link to="CW_1">
+            <approaching id="0.2" arrivalTime="31498" arrivalSpeed="9.36" departSpeed="9.36" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="88.26"/>
+        </link>
+    </lane>
     <lane id="CW_1">
         <vehicles value="0.1"/>
     </lane>

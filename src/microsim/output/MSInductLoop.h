@@ -89,7 +89,7 @@ public:
 
 
     /// @brief Resets all generated values to allow computation of next interval
-    virtual void reset();
+    virtual void reset() override;
 
     /// @brief get name
     std::string getName() const {
@@ -123,7 +123,7 @@ public:
      * @return True if vehicle enters the induction loop
      * @see Notification
      */
-    bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane = 0);
+    bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane = 0) override;
 
     /** @brief Checks whether the vehicle shall be counted and/or shall still touch this MSMoveReminder
      *
@@ -141,7 +141,7 @@ public:
      * @see enterDetectorByMove
      * @see leaveDetectorByMove
      */
-    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed);
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed) override;
 
 
     /** @brief Dismisses the vehicle if it is on the detector due to a lane change
@@ -158,7 +158,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0) override;
 
 
     //@}
@@ -253,9 +253,11 @@ public:
      */
     void overrideTimeSinceDetection(double time);
 
-    /* @brief loads the time since detetion (from state)
-     */
-    void loadTimeSinceLastDetection(double time);
+    /// @brief Saves the time of the last detection and the pending meso detections
+    void saveState(OutputDevice& out) const override;
+
+    /// @brief Loads the detection state, shifting all times by the given offset
+    void loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) override;
 
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
@@ -268,7 +270,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLOutput
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime);
+    void writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) override;
 
 
     /** @brief Opens the XML-output using "detector" as root element
@@ -277,14 +279,14 @@ public:
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice& dev) const;
+    void writeXMLDetectorProlog(OutputDevice& dev) const override;
 
     /** @brief Updates the detector (computes values)
      * only used when detecting persons
      *
      * @param[in] step The current time step
      */
-    void detectorUpdate(const SUMOTime step);
+    void detectorUpdate(const SUMOTime step) override;
     /// @}
 
 
@@ -340,7 +342,7 @@ public:
     virtual void setVisible(bool /*show*/) {};
 
     /** @brief Remove all vehicles before quick-loading state */
-    virtual void clearState(SUMOTime time);
+    virtual void clearState(SUMOTime time) override;
 
 protected:
     /// @name Function for summing up values
@@ -363,6 +365,7 @@ protected:
     /// @brief helper function for managing meso timings
     typedef std::priority_queue<SUMOTime, std::vector<SUMOTime>, std::greater<SUMOTime>> TimeQueue;
     static void discardOldTimes(TimeQueue& tq, SUMOTime now);
+    static std::vector<SUMOTime> getTimes(TimeQueue tq, SUMOTime now);
 
 protected:
     /// @brief detecto name

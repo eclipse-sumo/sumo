@@ -21,6 +21,7 @@ from __future__ import print_function
 from __future__ import division
 import sys
 import time
+import builtins
 import os
 import math
 import colorsys
@@ -375,9 +376,11 @@ def getFlowNumber(flow):
             return 1
 
 
-def intIfPossible(val):
+def intIfPossible(val, precision=None):
     if int(val) == val:
         return int(val)
+    elif precision is not None:
+        return builtins.round(val, precision)
     else:
         return val
 

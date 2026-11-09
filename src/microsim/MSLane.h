@@ -943,6 +943,9 @@ public:
     void resetPermissions(long long transientID);
     bool hadPermissionChanges() const;
 
+    /** @brief Propagate a permission change of this lane to internal lanes that mirror it */
+    void updateInternalLanePermissions(SVCPermissions oldPermissions);
+
     /** @brief Sets the permissions for changing to the left neighbour lane
      * @param[in] permissions The new permissions
      */

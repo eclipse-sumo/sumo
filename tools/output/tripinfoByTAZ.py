@@ -28,9 +28,10 @@ import os
 import sys
 from collections import defaultdict
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
+import sumolib  # noqa
 from sumolib.output import parse  # noqa
 from sumolib.options import ArgumentParser  # noqa
-from sumolib.miscutils import Statistics, parseTime  # noqa
+from sumolib.miscutils import Statistics, parseTime, PRACTICAL_INFINITY  # noqa
 
 
 def get_options(args=None):
@@ -97,7 +98,13 @@ def writeTraveltimeMatrix(options):
                     sinkEdge2TAZ[e] = taz.id
 
     odpairs = {}
+    firstDepart = PRACTICAL_INFINITY
+    lastArrival = 0
     for trip in parse(options.tripinfoFile, 'tripinfo'):
+        dep = float(trip.depart)
+        if dep >= 0:
+            firstDepart = min(firstDepart, dep)
+        lastArrival = max(lastArrival, float(trip.arrival))
         odpair = id2TAZ.get(trip.id)
         tripID = trip.id
         if odpair is None and '.' in trip.id:
@@ -116,14 +123,17 @@ def writeTraveltimeMatrix(options):
 
     if options.output:
         with open(options.output, 'w') as outf:
-            outf.write('<tripinfosByTAZ attribute="%s">\n' % options.attribute)
+            sumolib.writeXMLHeader(outf, "$Id$", "data", options=options)
+            outf.write(' ' * 4 + '<interval id="%s" begin="%s" end="%s">\n' % (
+                os.path.basename(options.tripinfoFile), firstDepart, lastArrival))
             for (fromTaz, toTaz), stats in sorted(odpairs.items()):
                 q1, median, q3 = stats.quartiles()
-                outf.write('    <odInfo fromTaz="%s" toTaz="%s" count="%s" min="%s" minVeh="%s"' %
+                outf.write(' ' * 8 + '<tazRelation from="%s" to="%s" count="%s" min="%s" minVeh="%s"' %
                            (fromTaz, toTaz, stats.count(), stats.min, stats.min_label))
                 outf.write(' max="%s" maxVeh="%s" mean="%s" Q1="%s" median="%s" Q3="%s"/>\n' %
                            (stats.max, stats.max_label, stats.avg(), q1, median, q3))
-            outf.write('</tripinfosByTAZ>\n')
+            outf.write(' ' * 4 + '</interval>\n')
+            outf.write('</data>\n')
     else:
         for (fromTaz, toTaz), stats in sorted(odpairs.items()):
             print(stats)

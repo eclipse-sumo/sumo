@@ -49,10 +49,17 @@ When vehicles are driving freely (unconstrained by other vehicles) they will acc
 min(maxSpeed, speedFactor * desiredMaxSpeed,  speedFactor * speedLimit)
 ```
 
-!!! note
-    Legacy behavior can be achieved by setting option **--default.speeddev 0**
 
 Since version 0.24.0 it is also possible to define [vClass-specific speed limits for every edge](../Networks/PlainXML.md#vehicle-class_specific_speed_limits).
+
+## Distinction between maxSpeed and desiredMaxSpeed
+
+The value of `maxSpeed` is intended to model the technical limit of a vehicle and therefore sets a hard upper bound (Which can only be exceed downhill by carFollowModel 'KraussPS' and 'Rail').
+On most roads, cars are assumed to be unconstrained by the `maxSpeed` and instead adapt to the road speed limit (with same variation guided by their individual `speedFactor`. To reflect this, `maxSpeed` of passenger cars defaults to 55.55m/s(200km) (though some vClasses have a different default)[../Vehicle_Type_Parameter_Defaults.md].
+For cars, the value of `desiredMaxSpeed` could be used to set an individual upper bound that is lower than the road speed (i.e. on some German motorways where there is no speedLimit).
+By default, the `desiredMaxSpeed` of cars is set to 1e4m/s to ensure that they are controlled only by `speedLimit` and `speedFactor` unless the user explicitly defines something else.
+
+For pedestrians there exists no speed limit and for bicycles it does not apply in all places. In order to obtain an individual variation in maximum peed, the `desiredMaxSpeed` of pedestrians defaults to 1.39m/s (5km/h) and that of bicycles to 5.5km/s (20km/h). To avoid unwanted influence by the fixed `maxSpeed` setting, their maxSpeed are set to high values.
 
 # Car Following Model
 

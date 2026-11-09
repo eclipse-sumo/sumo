@@ -70,7 +70,7 @@ MSPerson::MSPersonStage_Access::clone() const {
     return new MSPersonStage_Access(myDestination, myDestinationStop, myArrivalPos, myArrivalPosLat, myDist, myAmExit, myPath.front(), myPath.back());
 }
 
-void
+bool
 MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous) {
     myDeparted = now;
     if (myDist >= 0) {
@@ -83,6 +83,7 @@ MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUM
     net->getBeginOfTimestepEvents()->addEvent(new ProceedCmd(person, edge), myEstimatedArrival);
     net->getPersonControl().startedAccess();
     edge->addTransportable(person);
+    return true;
 }
 
 

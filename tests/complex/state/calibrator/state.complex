@@ -47,6 +47,9 @@
     </vehicle>
     <lane id=":C_11_0">
         <vehicles value="cali.0.1"/>
+        <link to="CN_0">
+            <approaching id="cali.0.1" arrivalTime="29189" arrivalSpeed="13.55" departSpeed="13.55" request="1" arrivalSpeedBraking="12.67" waitingTime="0" distance="16.10"/>
+        </link>
     </lane>
     <lane id="CN_0">
         <vehicles value="cali.0.0"/>

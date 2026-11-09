@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-04 17:41:12.878974 by Eclipse SUMO gtfs2pt.py v1_28_0+0442-24be9501d5c
+<configuration>
+    <merged-csv value="data.csv"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net.net.xml"/>
+    <write-arrival value="True"/>
+    <stops value="input_stops.xml"/>
+    <parking-threshold value="3600.0"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="t1.0" lane="beg_0" startPos="10.00" endPos="20.00" friendlyPos="true" name="stopname1"/>
+    <busStop id="t1.1" lane="end_0" startPos="80.00" endPos="90.00" friendlyPos="true" name="stopname2" parkingLength="1000"/>
+</additional>

@@ -6,6 +6,7 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
+  - Fixed invalid routes after delayed departure from a TAZ when using the rerouting device #18408
   - Fixed deadlock on a short lane when using the sublane model #18379 (regression in 1.24.0)
   - Fixed lane-changing deadlock with carFollowModel IDM #17483
   - device.rerouting.threshold.factor and device.rerouting.threshold.constant now apply to insertion rerouting if a complete route was loaded #18354
@@ -17,35 +18,45 @@ title: ChangeLog
     - Fixed deadlock due to invalid conflict #18394
     - Fixed deadlock caused by insertion into a siding #18415
     - Fixed problems when loading deadlock-output in order to avoid it from re-occuring #18432, #17826, #18422, #17922
+    - Fixed failure to reach stop before reversal #18466
   - Fixed issues that caused divergence when loading state:
     - initialization of CCH-router when vTypeDistributions are loaded from state #18365
     - rerouting device: vehicles that have not departed repeat no longer perform extra rerouting after loading state #18366
     - Fixed initialization of static traffic lights #18410
-
+    - Fixed corner case with emptry-string departLane #18398
+    - vehicle on turnaround now restores its further lanes when loading state #18404
+    - Now restoring internal link approach state #18406
 
 - netedit
-  - When called from sumo-gui with CTRL+T, traffic demand loading now honors checkbox #18347 (regression in 1.26.0)
+  - When called from sumo-gui with <kbd>CTRL</kbd> + <kbd>T</kbd>, traffic demand loading now honors checkbox #18347 (regression in 1.26.0)
   - Setting no-internal-links=false in the options menu (F10) to add internal lanes to a network takes effect again #18356 (regression in 1.27.0)
   - Fixed invalid prompt to save network after activating "show connections" in inspect mode #18350 (regression in 1.27.1)
-  - When calling sumo-gui with CLTR+T, traffic demand loading now honors the checkbox #18377
+  - When calling sumo-gui with <kbd>CTRL</kbd> + <kbd>T</kbd>, traffic demand loading now honors the checkbox #18377
   - The "save network" button now activates after recomputing a network with volatile options (SHIFT+F5) #18173
   - Fixed superfluous empty meanData file in saved sumocfg #17975
   - Fixed invalid sumocfg when netedit is saving plain-xml #16217
   - Fixed invalid loading of demand elements on reload when started from within sumo-gui #16137
   - Reloading now creates a new network when started with option **--new** #14354
+  - Fixed inconsistent icon transparency #15044
 
 - sumo-gui
   - Fixed invalid error on reloading polygon file if SUMO_HOME is not set #13584
   - Fixed missing underline in object ids for warnings during network loading #18351
+  - Fixed inconsistent image transparency #10380,
 
 - netconvert
   - Fixed insufficient geo-precision in parquet output #18390
+  - Options **--railway.topology.repair.stop-turn** now takes effect during initial network import #18452
+  - OSM: fixed missing public transport stops #18454
 
 - meso
   - Fixed extreme slow-down when running simulation with option **--time-to-teleport.disconnected** #18357 (regression in 1.28.0)
+  - Fixed invalid junction effects by overtaken vehicle #18402
   - state-saving:
     - multiple issues where state was not properly restored #18362, #18363 (regression in 1.28.0)
+    - now restoring tripinfo timeLoss #18398
     - meso-ltm specific state is now restored #18364
+    - Now restoring detector state for actuated traffic lights #18409  
 
 - netconvert
   - Fixed invalid track direction when processing OSM data with option **--railway.topology.repair** #18349
@@ -56,8 +67,14 @@ title: ChangeLog
   - Fixed invalid route output with **--bulk-routing** #18355
 
 - traci
+  - Fixed a crash in `vehicle.moveToXY` when keeping a route whose lanes prohibit the vehicle class.
+  - some retrieved laneChangeModel parameters (for querying internal model state) with floating point values are no longer rounded to ints #18463 (regression in 1.27.0)
   - Fixed crash in `traci.simulation.loadState` with meso #18389 (regression in 1.28.0)
   - Fixed invalid event time after adding a stop with default duration in meso #18392
+
+- tools
+  - gtfs2pt.py: fixed crash #18446 (regression in 1.27.1)
+  - plotStops.py: fixed invalid timing for named routes #18450
 
 ### Enhancements
 
@@ -65,6 +82,8 @@ title: ChangeLog
   - When setting option **--vehroute-output.cost**, the initial route cost is now included #18378
   - Improved speed of computing safety interlocks when loading new train routes #18387
   - The JuPedSim coupling has been redone, giving direct access to the JuPedSim Python module #18128
+    - Make sure you have an active python environment with the jupedsim module installed, when runnning the model.
+  - Added simulation option category 'persons' #6374
 
 - sumo-gui
   - Converted some buttons into checkboxes in the locate dialog #9925
@@ -74,7 +93,8 @@ title: ChangeLog
   - vType-specific timeToTeleport now takes effect #18359
 
 - netconvert
-  - Added options for setting default atcuated tls params #10836
+  - Added options for setting default actuated tls params #10836
+  - OSM: default typemap now imports railway=narrow_gauge #18447
 
 - duarouter
   - Now issues a warning if options **--begin** and **--end** exclude all loaded traffic (also applies to marouter) #12743
@@ -85,6 +105,10 @@ title: ChangeLog
 - tools
   - gtfs2pt.py: now runs much faster due to better caching #18333, #18339
   - gtfs2pt.py: always use stop before reversal to avoid skipping #18393
+  - gtfs2pt.py: The new option **--coupling remove** can be used to avoid duplicate vehicles for trips that travel as a coupled train #18451
+  - gtfs2pt.py: Option **--parking-threshold** now also applies to stop beyond the given duration as computed from known arrival/departure times #18460
+  - patchRailPriorities.py: Added option **--add-signals** which adds signals to all identified sidings that lack them #18458
+  - patchRailPriorities.py: Added option **--routing-threads** to speed up siding search (new option also available for createOvertakingReroutes.py) #18455
   - sumolib: added helper function `net.getNearestLane` #9004
 
 
@@ -94,6 +118,13 @@ title: ChangeLog
 - Fixed gprof/profiling build so that it generates profiling output again with newer compilers #18386
 - SUMOLibraries should now be downloaded as a released zip instead of doing git clone #18331
 - Fixed divergent behavior on macOS arm64 vs Linux x86_64 due to inconsistent compiler defaults #18344
+- Added [documentation for TraCI API versions](TraCI/API_Versions.md) #17430
+- gtfs2pt.py: using an optional internal java map-matching library are no longer supported #17937
+- Removed undocumented cmake option COMPILER_DEFINITIONS due to a name clash, use CMAKE_CXX_FLAGS_INIT instead
+- Python wheels for libsumo and eclipse-sumo are now consistently built without support for OSG and ffmpeg and have their libraries in the external sumo-data wheel. #17459
+- SUMO compilation now requires CMake 3.8 and a C++17 enabled compiler #18430
+  - Dropped support for ubuntu 16.04 and Debian 9
+- Wheels for Python 3.15 have been added
 
 
 ## Version 1.28.0 (08.10.2026)

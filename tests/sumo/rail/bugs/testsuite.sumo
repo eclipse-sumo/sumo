@@ -126,3 +126,6 @@ ticket18196
 
 # invalid back lane when inserting on short edge
 ticket18345
+
+# stop not reached
+ticket18466

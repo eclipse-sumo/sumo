@@ -110,6 +110,9 @@ setEmissionClass
 # test speed response curve on setting speedFactor
 setSpeedFactor_IDM
 setLcContRight
+
+# see #18463
+getParameter
 getFollower
 getLeader
 
@@ -167,6 +170,9 @@ addTrip_taz
 
 # Tests traci.vehicle.getShadowLaneID() method
 getShadowLaneID
+
+# Delayed TAZ departures preserve their occupied edge when rerouting (#18408)
+delayed_taz_departure
 
 # see #11310
 tripinfoParameters

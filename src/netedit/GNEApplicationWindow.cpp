@@ -3801,7 +3801,7 @@ GNEApplicationWindow::onUpdSaveNeteditConfig(FXObject* sender, FXSelector, void*
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myNet->getAttributeCarriers()->getEdges().size() == 0) {
         // a config requires at least ONE edge
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETEDIT_CONFIG)) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (!myNet->getSavingStatus()->isNeteditConfigSaved()) {

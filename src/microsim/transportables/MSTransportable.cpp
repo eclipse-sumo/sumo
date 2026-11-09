@@ -134,16 +134,22 @@ MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
             priorStop->removeTransportable(this);
         }
     }
+    MSTransportableControl& tc = isPerson() ? MSNet::getInstance()->getPersonControl() : MSNet::getInstance()->getContainerControl();
     if (myStep != myPlan->end()) {
         if ((*myStep)->getStageType() == MSStageType::WALKING && (prior->getStageType() != MSStageType::ACCESS || prior->getDestination() != (*myStep)->getFromEdge())) {
             checkAccess(prior, false);
         } else if ((*myStep)->getStageType() == MSStageType::WAITING && prior->getStageType() == MSStageType::WAITING && prior->getDestination() != (*myStep)->getFromEdge()) {
             checkAccess(prior, false);
         }
-        (*myStep)->proceed(net, this, time, prior);
-        return true;
+        if ((*myStep)->proceed(net, this, time, prior)) {
+            return true;
+        } else {
+            // some problem was encountered
+            tc.addArrived();
+            return false;
+        }
     } else {
-        MSNet::getInstance()->getPersonControl().addArrived();
+        tc.addArrived();
         return false;
     }
 }

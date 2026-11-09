@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-08-17 21:52:28.310399 by Eclipse SUMO gtfs2pt.py v1_27_1+0376-d5104a68e08
+<!-- generated on 2026-11-05 10:01:35.854246 by Eclipse SUMO gtfs2pt.py v1_28_0+0455-ff26520e0df
 <configuration>
     <merged-csv value="data/data.csv"/>
+    <sbahn-is-light-rail value="True"/>
     <human-readable-time value="True"/>
     <network value="data/osm.net.xml.gz"/>
     <sort value="True"/>
@@ -15,12 +16,6 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route id="109241" edges="1198308222">
-        <stop busStop="109241.6" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
-    </route>
-    <route id="109242" edges="1198308222">
-        <stop busStop="109242.0" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
-    </route>
     <route id="109244" edges="837291681 240389771 -4045248#0 -124266876#4 -124266876#3 -124266876#2 -124266876#1 -124266876#0 -797340923 1008258219 -785407797 -797340925#1 -797340925#0 -4045247#3 -4045247#2 -4045247#1 -4045247#0 4068154#0 4068154#1 4068154#2 4068154#3 4068154#4 355736431 1453600261 37825300 -355736433 -182599168#2 -1010110067 -240539088 -4463780#2 -4463780#1 -1013489670 1013489665#1">
         <stop busStop="109244.0" duration="00:00:10" until="00:00:00"/> <!-- S Zeuthen -->
         <stop busStop="109244.1" duration="00:00:10" until="00:04:00"/> <!-- Zeuthen, Schillerstr. -->
@@ -84,30 +79,9 @@
         <stop busStop="280370.12" duration="00:00:10" until="00:07:00"/> <!-- Zeuthen, Maxim-Gorki-Str. -->
         <stop busStop="280370.13" duration="00:00:10" until="00:09:00"/> <!-- S Zeuthen -->
     </route>
-    <route id="109251" edges="-27004036#0">
-        <stop busStop="109251.6" duration="00:00:10" until="00:00:00"/> <!-- Miersdorf, See -->
-    </route>
-    <route id="109261" edges="-27004036#0">
-        <stop busStop="109251.6" duration="00:00:10" until="00:00:00"/> <!-- Miersdorf, See -->
-    </route>
-    <route id="282164" edges="-27004036#0">
-        <stop busStop="109251.6" duration="00:00:10" until="00:00:00"/> <!-- Miersdorf, See -->
-    </route>
-    <route id="109264" edges="-27004036#0">
-        <stop busStop="109251.6" duration="00:00:10" until="00:00:00"/> <!-- Miersdorf, See -->
-    </route>
-    <route id="281979" edges="-27004036#0">
-        <stop busStop="109251.6" duration="00:00:10" until="00:00:00"/> <!-- Miersdorf, See -->
-    </route>
-    <route id="284866" edges="-27004036#0">
-        <stop busStop="109251.6" duration="00:00:10" until="00:00:00"/> <!-- Miersdorf, See -->
-    </route>
     <route id="109328" edges="782804639 -927307082 -1419116833 -24275214 -415907064#2">
         <stop busStop="109328.0" duration="00:00:10" until="00:00:00"/> <!-- S Eichwalde -->
         <stop busStop="109328.1" duration="00:00:10" until="00:03:00"/> <!-- Schulzendorf (LDS), K.-Marx-Str. -->
-    </route>
-    <route id="284865" edges="-27004036#0">
-        <stop busStop="109251.6" duration="00:00:10" until="00:00:00"/> <!-- Miersdorf, See -->
     </route>
     <route id="281066" edges="-810189346 -37293019#1 -275267958 -27004371#0 -944187063#1 -944187063#0 1031560365">
         <stop busStop="280370.13" duration="00:00:10" until="00:00:00"/> <!-- S Zeuthen -->
@@ -150,18 +124,12 @@
         <stop busStop="154260.3" duration="00:00:10" until="00:04:00"/> <!-- Zeltplatz (Berlin) -->
         <stop busStop="154260.4" duration="00:00:10" until="00:06:00"/> <!-- Teikyo-University (Berlin) -->
     </route>
-    <route id="236759" edges="1198308222">
-        <stop busStop="109242.0" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
-    </route>
     <route id="236778" edges="1198308222 1013489670 4463780#0 4463780#2 240539088 1010110067 240539089#0 176187579 183254465 240539087 1013501323 1449474913#1 875861324 116171834 1449474922">
         <stop busStop="109242.0" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
         <stop busStop="236778.1" duration="00:00:10" until="00:00:00"/> <!-- Zum Seeblick (Berlin) -->
         <stop busStop="236778.2" duration="00:00:10" until="00:01:00"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
         <stop busStop="236778.3" duration="00:00:10" until="00:02:00"/> <!-- Lübbenauer Weg (Berlin) -->
         <stop busStop="236778.3" duration="00:00:10" until="00:02:00"/> <!-- Schappachstr. (Berlin) -->
-    </route>
-    <route id="250372" edges="25881424 -25881424 25881424">
-        <stop busStop="250372.0" duration="00:00:10" until="00:00:00"/> <!-- Krampenburg (Berlin) -->
     </route>
     <route id="250389" edges="25881424">
         <stop busStop="250389.0" duration="00:00:10" until="00:00:00"/> <!-- Zum Seeblick (Berlin) -->

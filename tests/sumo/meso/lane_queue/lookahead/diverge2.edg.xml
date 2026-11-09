@@ -1,0 +1,8 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="in" from="A" to="B" type="motorway"/>
+    <edge id="beg" from="B" to="C" type="motorway"/>
+    <edge id="mid" from="C" to="M" type="motorway"/>
+    <edge id="main" from="M" to="D" type="motorway" numLanes="1"/>
+    <edge id="exit" from="M" to="E" numLanes="1" speed="13.89"/>
+    <edge id="exit2" from="E" to="F" numLanes="1" speed="1"/>
+</edges>

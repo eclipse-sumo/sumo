@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-05T23:21:01.591386+01:00 by Eclipse SUMO sumo v1_28_0+0457-a861f1934c2
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-ltm value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="blocker" depart="0.00" departLane="end_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="106.00" arrivalLane="end_0" arrivalPos="192.00" arrivalSpeed="36.00" duration="106.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="100.00" rerouteNo="0" devices="tripinfo_blocker" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="backlogged" depart="0.00" departLane="end_0" departPos="0.00" departSpeed="0.93" departDelay="0.00" arrival="107.00" arrivalLane="end_0" arrivalPos="192.00" arrivalSpeed="36.00" duration="107.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="100.67" rerouteNo="0" devices="tripinfo_backlogged" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="unblocked.0" depart="0.00" departLane="end_0" departPos="0.00" departSpeed="0.92" departDelay="0.00" arrival="107.00" arrivalLane="end_0" arrivalPos="192.00" arrivalSpeed="36.00" duration="107.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="101.34" rerouteNo="0" devices="tripinfo_unblocked.0" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="unblocked.1" depart="10.00" departLane="end_0" departPos="0.00" departSpeed="1.01" departDelay="0.00" arrival="108.00" arrivalLane="end_0" arrivalPos="192.00" arrivalSpeed="36.00" duration="98.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="92.01" rerouteNo="0" devices="tripinfo_unblocked.1" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="unblocked.2" depart="20.00" departLane="end_0" departPos="0.00" departSpeed="1.12" departDelay="0.00" arrival="109.00" arrivalLane="end_0" arrivalPos="192.00" arrivalSpeed="36.00" duration="89.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="82.68" rerouteNo="0" devices="tripinfo_unblocked.2" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="unblocked.3" depart="30.00" departLane="end_0" departPos="0.00" departSpeed="1.26" departDelay="0.00" arrival="109.00" arrivalLane="end_0" arrivalPos="192.00" arrivalSpeed="36.00" duration="79.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="73.35" rerouteNo="0" devices="tripinfo_unblocked.3" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="unblocked.4" depart="40.00" departLane="end_0" departPos="0.00" departSpeed="1.44" departDelay="0.00" arrival="110.00" arrivalLane="end_0" arrivalPos="192.00" arrivalSpeed="36.00" duration="70.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="64.01" rerouteNo="0" devices="tripinfo_unblocked.4" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="unblocked.5" depart="50.00" departLane="end_0" departPos="0.00" departSpeed="1.67" departDelay="0.00" arrival="111.00" arrivalLane="end_0" arrivalPos="192.00" arrivalSpeed="36.00" duration="61.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="54.68" rerouteNo="0" devices="tripinfo_unblocked.5" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="unblocked.6" depart="60.00" departLane="end_0" departPos="0.00" departSpeed="2.00" departDelay="0.00" arrival="111.00" arrivalLane="end_0" arrivalPos="192.00" arrivalSpeed="36.00" duration="51.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="45.35" rerouteNo="0" devices="tripinfo_unblocked.6" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="unblocked.7" depart="70.00" departLane="end_0" departPos="0.00" departSpeed="2.48" departDelay="0.00" arrival="112.00" arrivalLane="end_0" arrivalPos="192.00" arrivalSpeed="36.00" duration="42.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="36.02" rerouteNo="0" devices="tripinfo_unblocked.7" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="unblocked.8" depart="80.00" departLane="end_0" departPos="0.00" departSpeed="3.27" departDelay="0.00" arrival="113.00" arrivalLane="end_0" arrivalPos="192.00" arrivalSpeed="36.00" duration="33.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="26.69" rerouteNo="0" devices="tripinfo_unblocked.8" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="unblocked.9" depart="90.00" departLane="end_0" departPos="0.00" departSpeed="4.79" departDelay="0.00" arrival="113.00" arrivalLane="end_0" arrivalPos="192.00" arrivalSpeed="36.00" duration="23.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="17.36" rerouteNo="0" devices="tripinfo_unblocked.9" vType="t0" speedFactor="1.00" vaporized=""/>
+</tripinfos>

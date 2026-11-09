@@ -37,6 +37,11 @@
     <vehicle id="v_0" depart="0.00" route="!v_0!var#1" distance="120.67 1" speedFactor="1.0000" state="0 0 1 5.10 0 6.49 19000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="58.21 53.21 13.38" speed="13.38 12.39" angle="307.23" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0">
         <stop parkingArea="pa_0" index="1" duration="5.00"/>
     </vehicle>
+    <lane id=":J0_0_0">
+        <link to="E0_0">
+            <approaching id="v_0" arrivalTime="24754" arrivalSpeed="3.91" departSpeed="3.91" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="82.75"/>
+        </link>
+    </lane>
     <lane id="-E0_0">
         <vehicles value="v_0"/>
     </lane>
