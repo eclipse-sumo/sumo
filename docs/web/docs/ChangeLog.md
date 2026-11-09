@@ -101,6 +101,7 @@ title: ChangeLog
 
 - TraCI
   - Added function `traci.edge.getMaxSpeed` #14489
+  - Python: improved serialization of large polygons, string lists and double lists without changing the wire format.
 
 - tools
   - gtfs2pt.py: now runs much faster due to better caching #18333, #18339
