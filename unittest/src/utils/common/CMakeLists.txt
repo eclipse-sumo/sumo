@@ -4,6 +4,7 @@ add_executable(testcommon
         RGBColorTest.cpp
         StringTokenizerTest.cpp
         StringUtilsTest.cpp
+        SubscriptionCompactionTest.cpp
         ValueTimeLineTest.cpp
         )
 # the commonlibs get linked anyway, no need to repeat them here

@@ -173,18 +173,13 @@ Helper::handleSubscriptions(const SUMOTime t) {
     for (auto& wrapper : myWrapper) {
         wrapper.second->clear();
     }
-    for (std::vector<libsumo::Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
-        const libsumo::Subscription& s = *i;
+    removeSubscriptionsIf(mySubscriptions, myLastContextSubscription, [t](const libsumo::Subscription& s) {
         const bool isArrivedVehicle = (s.commandId == CMD_SUBSCRIBE_VEHICLE_VARIABLE || s.commandId == CMD_SUBSCRIBE_VEHICLE_CONTEXT)
                                       && (find(getVehicleStateChanges(MSNet::VehicleState::ARRIVED).begin(), getVehicleStateChanges(MSNet::VehicleState::ARRIVED).end(), s.id) != getVehicleStateChanges(MSNet::VehicleState::ARRIVED).end());
         const bool isArrivedPerson = (s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE || s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT)
                                      && MSNet::getInstance()->getPersonControl().get(s.id) == nullptr;
-        if (s.endTime < t || isArrivedVehicle || isArrivedPerson) {
-            i = mySubscriptions.erase(i);
-            continue;
-        }
-        ++i;
-    }
+        return s.endTime < t || isArrivedVehicle || isArrivedPerson;
+    });
     for (const libsumo::Subscription& s : mySubscriptions) {
         if (s.beginTime <= t) {
             handleSingleSubscription(s);
