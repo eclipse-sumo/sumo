@@ -215,7 +215,7 @@ class SimulationManager:
         if self._debug:
             script_file = self._debug
             if self._scripts:
-                file_name = os.path.join(os.path.dirname(self._debug), f"simulation{simulation_id}.py")
+                script_file = os.path.join(os.path.dirname(self._debug), f"simulation{simulation_id}.py")
             script = SimulationScript(script_file)
             self._scripts[simulation_id] = script
             self._write_geometry(script, geometry_id)

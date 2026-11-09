@@ -636,6 +636,9 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                         if (stop->until >= 0) {
                             stop->until += pars->depart - origDepart;
                         }
+                        if (stop->arrival >= 0) {
+                            stop->arrival += pars->depart - origDepart;
+                        }
                     }
                     pars->repetitionsDone++;
                     // try to build the vehicle

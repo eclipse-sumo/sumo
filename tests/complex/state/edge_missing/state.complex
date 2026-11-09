@@ -33,6 +33,11 @@
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
     <vehicle id="0" depart="0.00" departSpeed="10.00" route="!0" distance="0 0" speedFactor="1.0600" state="16 0 0 5.10 0 0.14 3000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="47.15 42.15 14.72" speed="14.72 14.72" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
     <vehicle id="1" depart="0.00" departSpeed="10.00" route="!1" distance="0 0" speedFactor="0.9383" state="16 0 0 5.10 0 0.03 3000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="43.77 38.77 13.03" speed="13.03 13.03" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
+    <lane id=":J1_0_0">
+        <link to="E1_0">
+            <approaching id="0" arrivalTime="6597" arrivalSpeed="14.72" departSpeed="14.72" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="67.68"/>
+        </link>
+    </lane>
     <lane id="E0_0">
         <vehicles value="0"/>
     </lane>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-21T23:53:55.667151+01:00 by Eclipse SUMO sumo v1_28_0+0168-6edec047c3b
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="78,81"/>
+        <save-state.files value="state.xml,compare.xml"/>
+        <save-state.precision value="9"/>
+    </output>
+
+    <time>
+        <end value="82"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<snapshot type="micro" version="v1_28_0+0168-6edec047c3b" time="78.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <route id="!left" state="0" edges="WC CN"/>
+    <route id="!straight" state="0" edges="EC CW"/>
+    <delay number="2" begin="2" end="0" depart="0.000000000" time="0.000000000" speedFactor="1.000000000" decel="4.500000000"/>
+    <vType id="car" speedFactor="normc(1.000000000,0.000000000)" lcStrategic="-1" lcSpeedGain="0" lcKeepRight="0" sigma="0"/>
+    <vType id="slow" maxSpeed="3.000000000" speedFactor="normc(1.000000000,0.000000000)" lcStrategic="-1" lcSpeedGain="0" lcKeepRight="0" sigma="0"/>
+    <vehicle id="straight" type="slow" depart="46.000" departLane="1" arrivalLane="1" route="!straight" distance="91.95 0" speedFactor="1.000000000" state="4102 46000 0 5.100000000 0 0.133333333 77000 0 0 0 76000 76000 76000" pos="5.750000000 0.750000000 3.000000000" speed="3.000000000 3.000000000" angle="270.000000000" posLat="0.000000000" waitingTime="100000 0" lcStateBase="0.000000000" lcState2="0 0 0 30000000 0"/>
+    <vehicle id="left" type="car" depart="64.000" departLane="1" route="!left" distance="91.95 0" speedFactor="1.000000000" state="6 64000 0 5.100000000 3000 6.293088553 77000 0 0 0 73000 9223372036854774807 73000" pos="6.309000000 1.309000000 0.000000000" speed="0.000000000 0.000000000" angle="72.677633152" posLat="0.000000000" waitingTime="100000 1 0 3000" lcStateBase="0.000000000" lcState2="0 0 0 0 0"/>
+    <lane id=":C_6_1">
+        <vehicles value="straight"/>
+        <link to="CW_1">
+            <approaching id="straight" arrivalTime="80450" arrivalSpeed="3.000000000" departSpeed="3.000000000" request="1" arrivalSpeedBraking="0.000000000" waitingTime="0" distance="13.350000000"/>
+        </link>
+    </lane>
+    <lane id=":C_18_0">
+        <vehicles value="left"/>
+        <link to=":C_26_0">
+            <approaching id="left" arrivalTime="76038" arrivalSpeed="2.699110965" departSpeed="0.000000000" request="1" arrivalSpeedBraking="2.699110965" waitingTime="2000" distance="0.101000000"/>
+        </link>
+    </lane>
+    <lane id=":C_26_0">
+        <link to="CN_1">
+            <approaching id="left" arrivalTime="169310" arrivalSpeed="0.000000000" departSpeed="0.000000000" request="1" arrivalSpeedBraking="0.000000000" waitingTime="2000" distance="9.331000000"/>
+        </link>
+    </lane>
+    <tlLogic id="C" programID="0" phase="4" duration="33000" until="78000" cycleTime="78000" active="1"/>
+</snapshot>

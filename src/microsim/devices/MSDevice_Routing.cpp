@@ -209,7 +209,7 @@ bool
 MSDevice_Routing::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         if (myRerouteCommand == nullptr && myPreInsertionPeriod > 0 && myHolder.getDepartDelay() > myPreInsertionPeriod) {
-            // pre-insertion rerouting was disabled. Reroute once if insertion was delayed
+            // pre-insertion rerouting was disabled. Reroute from the departure edge if insertion was delayed
             // this is happening in the run thread (not inbeginOfTimestepEvents) so we cannot safely use the threadPool
             myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), "device.rerouting",
                              MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass()),
@@ -313,7 +313,7 @@ void
 MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
     MSRoutingEngine::initEdgeWeights(myHolder.getVClass());
     //check whether the weights did change since the last reroute
-    if (myLastRouting >= MSRoutingEngine::getLastAdaptation() || !myActive) {
+    if (myLastRouting > MSRoutingEngine::getLastAdaptation() || !myActive) {
         return;
     }
     // Invalidation gate: even when the metric changed, skip the (expensive)

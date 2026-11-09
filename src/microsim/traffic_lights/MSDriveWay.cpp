@@ -620,6 +620,13 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                 }
                 start += 1;
             }
+            if (!foundFoe) {
+                for (const MSDriveWay* dlFoe : dlFoes) {
+                    const MSRailSignal* rs2 = myOrigin != nullptr ? dynamic_cast<const MSRailSignal*>(myOrigin->getTLLogic()) : nullptr;
+                    MSRailSignalControl::getInstance().addWaitRelation(ego, rs2, *dlFoe->myTrains.begin(), nullptr);
+                    break;
+                }
+            }
             return true;
         }
     }
@@ -2297,7 +2304,7 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
     const MSEdge* next = myRoute[i];
 #ifdef DEBUG_BUILD_SIDINGS
     if (gDebugFlag4) {
-        std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " next=" << next->getID() << " foeForwardNormals=" << foeForwardNormals << " frSize=" << foeRoute.size() << " foeSearchBeg=" << (*foeSearchBeg)->getID() << "\n";
+        std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " next=" << next->getID() << " foeForwardNormals=" << foeForwardNormals << " frSize=" << foeRoute.size() << " foeSearchBeg=" << (*foeSearchBeg)->getID() << " addToFoe=" << addToFoe << "\n";
     }
 #endif
     i--;
@@ -2335,6 +2342,11 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
                             if (itLast != foeRoute.end()) {
                                 // @todo are intermediateRS relevant here?
                                 foeSidings.insert(foeSidings.begin(), Siding((int)(itFirst - foeRoute.begin()), (int)(itLast - foeRoute.begin()), length[j], {}));
+#ifdef DEBUG_BUILD_SIDINGS
+                                if (gDebugFlag4) {
+                                    std::cout << "   found endSiding start=" << foeSidings.front().start << " end=" << foeSidings.front().end << " length=" << foeSidings.front().length << "\n";
+                                }
+#endif
                                 if (foeSidings.size() > 2) {
                                     foeSidings.pop_back();  // only need the first 2 sidings
                                 }
@@ -2359,6 +2371,11 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
                     for (int j = 0; j < (int)length.size(); j++) {
                         intermediateRS[j].insert(intermediateRS[j].end(), furtherRS.begin(), furtherRS.end());
                         foeSidings.insert(foeSidings.begin(), Siding(firstIndex, start[j], length[j], intermediateRS[j]));
+#ifdef DEBUG_BUILD_SIDINGS
+                        if (gDebugFlag4) {
+                            std::cout << "   found endSiding start=" << foeSidings.front().start << " end=" << foeSidings.front().end << " length=" << foeSidings.front().length << "\n";
+                        }
+#endif
                         if (foeSidings.size() > 2) {
                             foeSidings.pop_back();  // only need the first 2 sidings
                         }
@@ -2432,6 +2449,8 @@ MSDriveWay::addConflictLink(const MSLink* link) {
 void
 MSDriveWay::addDWDeadlock(const std::vector<const MSDriveWay*>& deadlockFoes) {
     std::set<const MSDriveWay*> filtered;
+    // we do not need to keep any of our own foes. If any of them were occupied then
+    // foeDriveWayOccupied would return True without considering myDeadlocks
     for (const MSDriveWay* foe : deadlockFoes) {
         if (std::find(myFoes.begin(), myFoes.end(), foe) == myFoes.end()) {
             filtered.insert(foe);

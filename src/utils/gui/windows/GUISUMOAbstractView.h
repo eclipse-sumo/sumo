@@ -503,6 +503,12 @@ protected:
     /// @brief Draws frames-per-second indicator
     void drawFPS();
 
+    /// @brief Draws a hint in the bottom right corner explaining how to leave full screen mode
+    void drawFullScreenHint();
+
+    /// @brief Returns the text of the full screen mode hint
+    static std::string getFullScreenHintText();
+
     /// @brief returns the GUILane at cursor position (implementation depends on view)
     virtual GUILane* getLaneUnderCursor();
 

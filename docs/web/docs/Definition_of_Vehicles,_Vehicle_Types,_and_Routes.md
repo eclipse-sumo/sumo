@@ -900,6 +900,12 @@ To select a car following model the following syntax should be used:
 <vType id="idmAlternative" length="5" minGap="2" carFollowModel="IDM" tau="1.0" .../>
 ```
 
+### details on using speedTable
+
+When using any of the values `maxAccelProfile`, `desAccelProfile`, `tractionTable` or `resistanceTable`, then the value `speedTable` must also be defined and the value of all these attributes must be a list of floats of the same length. The in `speedTable` at index *k* will be matched with the value from the other tables at the same index *k* and values for other speeds will be obtained by interpolation.
+
+Example: `<vType id="example" speedTable="0 5.56 13.89 27.78" maxAccelProfile="3 2.6 2 1"/>`  This will progressively reduce the maximum acceleration from 3 to 1 as the speed of the vehicle increases.
+
 ### Default *Krauss* Model Description
 
 The default model is a modification of the model defined by Stefan Krauß

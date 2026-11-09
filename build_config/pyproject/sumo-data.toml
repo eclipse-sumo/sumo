@@ -29,5 +29,14 @@ build-dir = "_skbuild"
 build.targets = ["install_mo", "install_dll"]
 install.components = ["data", "dll", "proj_data"]
 wheel.install-dir = "sumo_data"
-wheel.platlib = false
 wheel.py-api = "py3"
+
+[tool.scikit-build.cmake.define]
+ENABLE_FFMPEG = "OFF"
+ENABLE_OSG = "OFF"
+
+[tool.cibuildwheel]
+before-all = "build_config/install_dependencies.sh"
+build = ["cp312*manylinux_x86_64", "cp312*manylinux_aarch64"]
+# sumo-data has no ELF files at this point, so auditwheel refuses to repair it
+repair-wheel-command = ""

@@ -21,18 +21,18 @@ Helper functions for gtfs2pt.py for avoiding duplicate vehicles
 import sys
 import pandas as pd
 
+
 def get_shared_departure_trips(df: pd.DataFrame) -> dict:
     """
-    For every trip_id, finds all other trips that depart from the same stop 
-    at the exact same time.
+    For every trip_id, finds all other trips that depart from the same stop at the exact same time.
     Returns:
         dict: { trip_id: [(other_trip_id, stop_id, other_stop_sequence), ...] }
     """
     # 1. Self-merge on stop and departure time to find overlaps
     # This pairs every trip with every other trip sharing the exact same stop event
     merged = df.merge(
-        df, 
-        on=["stop_id", "departure_time"], 
+        df,
+        on=["stop_id", "departure_time"],
         suffixes=("", "_other")
     )
 
@@ -61,8 +61,8 @@ def get_trip_sequence_bounds(df: pd.DataFrame) -> pd.DataFrame:
         min_sequence="min",
         max_sequence="max"
     )
-    bounds_dict = {row[0]: (row.min_sequence, row.max_sequence) 
-                   for row in bounds.itertuples() }
+    bounds_dict = {row[0]: (row.min_sequence, row.max_sequence)
+                   for row in bounds.itertuples()}
     return bounds_dict
 
 
@@ -89,7 +89,7 @@ def remove_coupled(df):
                     continue
                 shared_seq = [(seq, seq2) for tid, seq, seq2 in shared if tid == trip_id2]
                 if len(shared_seq) > 1:
-                    # trips have at least one common movement between stops 
+                    # trips have at least one common movement between stops
                     # print(trip_id, trip_id2, shared_seq)
                     min2, max2 = seq_bounds[trip_id2]
                     deleteID = None

@@ -112,6 +112,12 @@ Person::getSlope(const std::string& personID) {
 
 
 double
+Person::getArrivalPos(const std::string& personID) {
+    return getPerson(personID)->getArrivalPos();
+}
+
+
+double
 Person::getSpeed(const std::string& personID) {
     return getPerson(personID)->getSpeed();
 }
@@ -1314,6 +1320,8 @@ Person::handleVariable(const std::string& objID, const int variable, VariableWra
             return wrapper->wrapString(objID, variable, getLaneID(objID));
         case VAR_LANEPOSITION:
             return wrapper->wrapDouble(objID, variable, getLanePosition(objID));
+        case VAR_ARRIVALPOS:
+            return wrapper->wrapDouble(objID, variable, getArrivalPos(objID));
         case VAR_COLOR:
             return wrapper->wrapColor(objID, variable, getColor(objID));
         case VAR_WAITING_TIME:

@@ -1,0 +1,3 @@
+--input-file routes.rou.xml --output-file out.rou.xml --depart-offset 10 
+--cumulative
+tools/route/route_departOffset.py

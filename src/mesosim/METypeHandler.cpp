@@ -94,6 +94,7 @@ METypeHandler::addMesoEdgeType(const SUMOSAXAttributes& attrs) {
     edgeType.minorPenalty = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MESO_MINOR_PENALTY, myCurrentTypeID.c_str(), ok, edgeType.minorPenalty);
     edgeType.overtaking = attrs.getOpt<bool>(SUMO_ATTR_MESO_OVERTAKING, myCurrentTypeID.c_str(), ok, edgeType.overtaking);
     edgeType.edgeLength = attrs.getOpt<double>(SUMO_ATTR_MESO_EDGELENGHT, myCurrentTypeID.c_str(), ok, edgeType.edgeLength);
+    edgeType.lookahead = attrs.getOpt<double>(SUMO_ATTR_MESO_LOOKAHEAD, myCurrentTypeID.c_str(), ok, edgeType.lookahead);
 
     if (ok) {
         myNet.addMesoType(myCurrentTypeID, edgeType);

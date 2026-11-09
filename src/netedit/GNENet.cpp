@@ -3046,7 +3046,13 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
     }
     // Reset Grid
     myGrid.reset();
-    myGrid.add(GeoConvHelper::getFinal().getConvBoundary());
+    if (GeoConvHelper::getFinal().getConvBoundary().isInitialised()) {
+        myGrid.add(GeoConvHelper::getFinal().getConvBoundary());
+    }
+    // make sure myGrid is initialized even for an empty net. This ensures that recentering an empty view uses a zoom of 100
+    if (myAttributeCarriers->getEdges().size() == 0) {
+        myGrid.add(Boundary(-50, -50, 50, 50));
+    }
     // if volatile options are true
     if (volatileOptions) {
         // check that net exist

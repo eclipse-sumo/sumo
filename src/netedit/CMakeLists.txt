@@ -78,7 +78,7 @@ if (MSVC)
         set_target_properties(netedit PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
     endif()
     # Disable DPI Aware if we're using a old CMAKE Version
-    if (CMAKE_VERSION VERSION_LESS "3.16.0")
+    if (CMAKE_VERSION VERSION_LESS 3.16.0)
         message(STATUS "DPI awareness for netedit will be disabled. Please consider using CMake version >= 3.16 to enable it")
     else ()
         set_target_properties(netedit PROPERTIES VS_DPI_AWARE "ON")

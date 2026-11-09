@@ -1,0 +1,4 @@
+trip_id;block_id;route_id;route_short_name;route_type;stop_id;stop_name;stop_lat;stop_lon;stop_sequence;fare_zone;fare_token;start_char;trip_headsign;arrival_time;departure_time
+800868600;8127271;102576;C Line;3;600;3rd Ave & Virginia St;47.6129951;-122.341743;22.0;;;;South Lake Union Downtown Seattle;28220;28220
+800868600;8127271;102576;C Line;3;18440;Blanchard St & 6th Ave;47.6158562;-122.340881;23.0;;;;South Lake Union Downtown Seattle;28351;28351
+800868600;8127271;102576;C Line;3;26690;Westlake & 9th-Denny;47.6182671;-122.338341;24.0;;;;South Lake Union Downtown Seattle;28450;28450

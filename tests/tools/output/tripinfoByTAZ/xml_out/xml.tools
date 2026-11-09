@@ -1,4 +1,16 @@
-<tripinfosByTAZ attribute="duration">
-    <odInfo fromTaz="foo" toTaz="bar" count="50" min="9.0" minVeh="17" max="245.0" maxVeh="22" mean="112.12" Q1="87.0" median="107.0" Q3="127.0"/>
-    <odInfo fromTaz="foo" toTaz="qux" count="50" min="36.0" minVeh="87" max="224.0" maxVeh="77" mean="112.12" Q1="80.0" median="107.0" Q3="149.0"/>
-</tripinfosByTAZ>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-04 11:45:29.254969 by Eclipse SUMO tripinfoByTAZ.py v1_28_0+0415-0a400810ac2
+<configuration>
+    <tripinfo-file value="tripinfos.xml"/>
+    <route-files value="input_trips.trips.xml"/>
+    <output value="out.xml"/>
+</configuration>
+-->
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/data_file.xsd">
+    <interval id="tripinfos.xml" begin="0.0" end="301.0">
+        <tazRelation from="foo" to="bar" count="50" min="9.0" minVeh="17" max="245.0" maxVeh="22" mean="112.12" Q1="87.0" median="107.0" Q3="127.0"/>
+        <tazRelation from="foo" to="qux" count="50" min="36.0" minVeh="87" max="224.0" maxVeh="77" mean="112.12" Q1="80.0" median="107.0" Q3="149.0"/>
+    </interval>
+</data>

@@ -1,0 +1,6 @@
+<routes>
+  <!-- The person starts on AB, whose sidewalk is closed by the rerouter below. -->
+  <person id="p0" depart="5">
+    <walk from="AB" to="BC"/>
+  </person>
+</routes>

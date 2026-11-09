@@ -117,6 +117,7 @@ def check(personID):
     print("lane", traci.person.getLaneID(personID))
     print("type", traci.person.getTypeID(personID))
     print("lanePos", traci.person.getLanePosition(personID))
+    print("arrivalPos", traci.person.getArrivalPos(personID))
     print("color", traci.person.getColor(personID))
     print("length", traci.person.getLength(personID))
     print("MinGap", traci.person.getMinGap(personID))

@@ -1,0 +1,6 @@
+-n net.net.xml --merged-csv data.csv --vtype-output vehtypes.xml --modes bus 
+--write-terminals
+--write-arrival
+--min-stops 3
+-H
+tools/import/gtfs/gtfs2pt.py
