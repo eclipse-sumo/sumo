@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-11-10 19:03+0100\n"
-"PO-Revision-Date: 2026-10-19 19:08+0000\n"
+"PO-Revision-Date: 2026-11-10 18:15+0000\n"
 "Last-Translator: Mirko Barthauer <m-kro@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.11.dev0\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: src/gui/GUIApplicationWindow.cpp:331
 #: src/netedit/GNEApplicationWindow.cpp:595
@@ -4839,7 +4839,7 @@ msgstr "Disattiva texture"
 
 #: src/netedit/GNELoadThread.cpp:520
 msgid "Load visualization settings from FILE"
-msgstr ""
+msgstr "Carica configurazione di visualizzazione da FILE"
 
 #: src/netedit/GNELoadThread.cpp:525
 msgid "Load current viewport from registry"
@@ -9432,11 +9432,11 @@ msgstr ""
 
 #: src/netedit/GNEViewNetHelper.cpp:2838
 msgid "Draw filled walking areas"
-msgstr ""
+msgstr "Disegna le aree pedonali riempite di colore"
 
 #: src/netedit/GNEViewNetHelper.cpp:2838
 msgid "Draw filled walking areas."
-msgstr ""
+msgstr "Disegna le aree pedonali riempite di colore."
 
 #: src/netedit/GNEViewNetHelper.cpp:3076 src/netedit/GNEViewNetHelper.cpp:3347
 msgid "Toggle show shapes (Polygons and POIs)."
@@ -12660,11 +12660,11 @@ msgstr "Rimuovi"
 
 #: src/netedit/elements/network/GNELane.cpp:547
 msgid "Show lane Parameter"
-msgstr ""
+msgstr "Mostra parametro di corsia"
 
 #: src/netedit/elements/network/GNELane.cpp:548
 msgid "Show edge Parameter"
-msgstr ""
+msgstr "Mostra parametro di arco"
 
 #: src/netedit/elements/network/GNELane.cpp:557
 msgid "Reset edge end points"
@@ -14764,15 +14764,15 @@ msgstr "resetta collegamenti in uscita dalle corsie selezionate"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:328
 msgid "Show in inspect mode"
-msgstr ""
+msgstr "Mostra nel modo di ispezione"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:331
 msgid "Hide other sources"
-msgstr ""
+msgstr "Nascondi le altre sorgenti"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:335
 msgid "Inspect connections"
-msgstr ""
+msgstr "Ispeziona collegamenti"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:396
 msgid ""
@@ -15976,15 +15976,15 @@ msgstr "segmento di catenaria"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:375
 msgid "Copy selection to clipboard"
-msgstr ""
+msgstr "Copia selezione negli appunti"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:377
 msgid "Select all text"
-msgstr ""
+msgstr "Seleziona tutto il testo"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:386
 msgid "Clear message window"
-msgstr ""
+msgstr "Svuoti la finestra di messaggi"
 
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:81
 msgid "Value"
@@ -16960,7 +16960,7 @@ msgstr "&Nascondi non selezionati"
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:120
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:121
 msgid "Hide unselected items"
-msgstr ""
+msgstr "Nascondi elementi non selezionati"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:122
 msgid "By &Name"
@@ -17647,7 +17647,7 @@ msgstr "Crea una cattura della veduta."
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:350
 msgid "No projection defined"
-msgstr ""
+msgstr "Nessuna proiezione definita"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:351
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:281
