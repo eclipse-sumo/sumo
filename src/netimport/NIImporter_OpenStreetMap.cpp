@@ -233,7 +233,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     // Mark which nodes are used by traffic lights or are pedestrian crossings
     for (const auto& nodesIt : myOSMNodes) {
-        if (nodesIt.second->tlsControlled || nodesIt.second->railwaySignal || (nodesIt.second->pedestrianCrossing && myImportCrossings) /* || nodesIt->second->railwayCrossing*/) {
+        if (nodesIt.second->tlsControlled || nodesIt.second->railwaySignal != SIGNAL_NONE || (nodesIt.second->pedestrianCrossing && myImportCrossings) /* || nodesIt->second->railwayCrossing*/) {
             // If the key is not found in the map, the value is automatically
             // initialized with 0.
             nodeUsage[nodesIt.first]++;
@@ -440,8 +440,11 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
                     || n->tlsControlled) {
                 node->reinit(pos, SumoXMLNodeType::RAIL_CROSSING);
             }
-        } else if (n->railwaySignal) {
+        } else if (n->railwaySignal != SIGNAL_NONE) {
             node->reinit(pos, SumoXMLNodeType::RAIL_SIGNAL);
+            if (n->railwaySignal == SIGNAL_MOVING_BLOCK) {
+                node->setParameter("moving-block", "true");
+            }
         } else if (n->tlsControlled) {
             // ok, this node is a traffic light node where no other nodes
             //  participate
@@ -459,7 +462,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
             node->setParameter("buffer_stop", "true");
             node->setFringeType(FringeType::INNER);
         }
-        if (n->railwaySignal) {
+        if (n->railwaySignal != SIGNAL_NONE) {
             if (n->myRailDirection == WAY_FORWARD) {
                 node->setParameter(NBTrafficLightDefinition::OSM_SIGNAL_DIRECTION, "forward");
             } else if (n->myRailDirection == WAY_BACKWARD) {
@@ -564,10 +567,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     int nodeDirection = WAY_UNKNOWN;
     const NIOSMNode* fn = myOSMNodes.find(StringUtils::toLong(from->getID()))->second;
     const NIOSMNode* ft = myOSMNodes.find(StringUtils::toLong(to->getID()))->second;
-    if (fn->railwaySignal) {
+    if (fn->railwaySignal != SIGNAL_NONE) {
         nodeDirection |= fn->myRailDirection;
     }
-    if (ft->railwaySignal) {
+    if (ft->railwaySignal != SIGNAL_NONE) {
         nodeDirection |= ft->myRailDirection;
     }
 
@@ -589,7 +592,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 sc.insert(ptStops.back());
             }
         }
-        if (n->railwaySignal) {
+        if (n->railwaySignal != SIGNAL_NONE) {
             nodeDirection |= n->myRailDirection;
         }
         Position pos(n->lon, n->lat, n->ele);
@@ -1695,9 +1698,13 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             } else if (StringUtils::startsWith(key, "railway:signal") || (key == "railway" && value == "signal")) {
                 std::string kv = key + "=" + value;
                 std::string kglob = key + "=";
-                if ((std::find(myRailSignalRules.begin(), myRailSignalRules.end(), kv) != myRailSignalRules.end())
-                        || (std::find(myRailSignalRules.begin(), myRailSignalRules.end(), kglob) != myRailSignalRules.end())) {
-                    myCurrentNode->railwaySignal = true;
+                if (key == "railway:signal:train_protection" && value == "DE-ESO:ne14") {
+                    myCurrentNode->railwaySignal = SIGNAL_MOVING_BLOCK;
+                } else if (myCurrentNode->railwaySignal == SIGNAL_NONE) {
+                    if ((std::find(myRailSignalRules.begin(), myRailSignalRules.end(), kv) != myRailSignalRules.end())
+                            || (std::find(myRailSignalRules.begin(), myRailSignalRules.end(), kglob) != myRailSignalRules.end())) {
+                        myCurrentNode->railwaySignal = SIGNAL_MAIN;
+                    }
                 }
             } else if (StringUtils::startsWith(key, "railway:position") && value.size() > myCurrentNode->position.size()) {
                 // use the entry with the highest precision (more digits)

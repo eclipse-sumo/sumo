@@ -85,6 +85,13 @@ protected:
         WAY_PREFER_BACKWARD = 16,
     };
 
+
+    enum SignalType {
+        SIGNAL_NONE = 0,
+        SIGNAL_MAIN = 1,
+        SIGNAL_MOVING_BLOCK = 2,
+    };
+
     /** @brief An internal representation of an OSM-node
      */
     struct NIOSMNode : public Parameterised {
@@ -94,7 +101,7 @@ protected:
             tlsControlled(false),
             pedestrianCrossing(false),
             railwayCrossing(false),
-            railwaySignal(false),
+            railwaySignal(SIGNAL_NONE),
             railwayBufferStop(false),
             ptStopPosition(false), ptStopLength(0), name(""),
             permissions(SVC_IGNORING),
@@ -117,7 +124,7 @@ protected:
         /// @brief Whether this is a railway crossing
         bool railwayCrossing;
         /// @brief Whether this is a railway (main) signal
-        bool railwaySignal;
+        SignalType railwaySignal;
         /// @brief Whether this is a railway buffer stop
         bool railwayBufferStop;
         /// @brief Whether this is a public transport stop position
