@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-10T09:02:29.118639+01:00 by Eclipse SUMO netconvert v1_28_0+0486-4a6fcdeb35a
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml.gz"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <edge_removal>
+        <keep-edges.by-vclass value="rail"/>
+    </edge_removal>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <formats>
+        <osm.all-attributes value="true"/>
+    </formats>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-535724.47,-5386299.20" convBoundary="0.00,0.00,679.11,42.53" origBoundary="9.462106,48.623238,9.505742,48.630406" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="railway.highspeed" priority="21" numLanes="1" speed="69.44" allow="rail rail_electric rail_fast" oneway="1"/>
+
+    <edge id="-925752032" from="8591396794" to="8591396787" priority="21" type="railway.highspeed" routingType="4" spreadType="center" shape="679.11,4.87 644.78,6.97 547.00,13.37 376.67,22.85 376.31,22.87 166.00,34.99 70.40,38.77 0.00,42.53" distance="-40309.38">
+        <lane id="-925752032_0" index="0" allow="rail rail_electric rail_fast" speed="69.44" length="680.17" shape="679.11,4.87 644.78,6.97 547.00,13.37 376.67,22.85 376.31,22.87 166.00,34.99 70.40,38.77 0.00,42.53"/>
+        <param key="detail" value="track"/>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="loading_gauge" value="TSI_GC"/>
+        <param key="maxspeed" value="250"/>
+        <param key="name" value="Schnellfahrstrecke Wendlingen – Ulm"/>
+        <param key="operator" value="DB InfraGO AG"/>
+        <param key="passenger_lines" value="2"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:ballastless" value="yes"/>
+        <param key="railway:etcs" value="2"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:preferred_direction" value="backward"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="railway:track_class" value="D4"/>
+        <param key="short_name" value="SFS Wendlingen-Ulm"/>
+        <param key="source" value="guesstimate"/>
+        <param key="start_date" value="2022-12-11"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+    </edge>
+    <edge id="925752033" from="8591396786" to="8591396793" priority="21" type="railway.highspeed" routingType="4" spreadType="center" shape="5.83,37.55 70.23,34.12 165.22,29.35 375.74,17.60 376.10,17.58 546.62,8.33 644.81,2.24 678.70,0.00" distance="39456.40">
+        <lane id="925752033_0" index="0" allow="rail rail_electric rail_fast" speed="69.44" length="673.92" shape="5.83,37.55 70.23,34.12 165.22,29.35 375.74,17.60 376.10,17.58 546.62,8.33 644.81,2.24 678.70,0.00"/>
+        <param key="detail" value="track"/>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="loading_gauge" value="TSI_GC"/>
+        <param key="maxspeed" value="250"/>
+        <param key="name" value="Schnellfahrstrecke Wendlingen – Ulm"/>
+        <param key="operator" value="DB InfraGO AG"/>
+        <param key="passenger_lines" value="2"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:ballastless" value="yes"/>
+        <param key="railway:etcs" value="2"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:preferred_direction" value="forward"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="railway:track_class" value="D4"/>
+        <param key="short_name" value="SFS Wendlingen-Ulm"/>
+        <param key="source" value="guesstimate"/>
+        <param key="start_date" value="2022-12-11"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+    </edge>
+
+    <junction id="8591396786" type="dead_end" x="5.83" y="37.55" incLanes="" intLanes="" shape="5.92,39.15 5.74,35.95"/>
+    <junction id="8591396787" type="dead_end" x="0.00" y="42.53" incLanes="-925752032_0" intLanes="" shape="0.09,44.13 -0.09,40.93"/>
+    <junction id="8591396793" type="dead_end" x="678.70" y="0.00" incLanes="925752033_0" intLanes="" shape="678.59,-1.60 678.81,1.60"/>
+    <junction id="8591396794" type="dead_end" x="679.11" y="4.87" incLanes="" intLanes="" shape="679.01,3.27 679.21,6.47"/>
+
+</net>

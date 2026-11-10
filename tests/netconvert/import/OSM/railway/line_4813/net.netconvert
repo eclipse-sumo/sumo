@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-10T09:04:58.072274+01:00 by Eclipse SUMO netconvert v1_28_0+0486-4a6fcdeb35a
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml.gz"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <edge_removal>
+        <keep-edges.by-vclass value="rail"/>
+    </edge_removal>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <formats>
+        <osm.all-attributes value="true"/>
+    </formats>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-527474.53,-5386400.78" convBoundary="0.00,0.00,7142.80,3508.62" origBoundary="9.373109,48.629715,9.469814,48.661633" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="railway.highspeed" priority="21" numLanes="1" speed="69.44" allow="rail rail_electric rail_fast" oneway="1"/>
+
+    <edge id="-1016652937" from="9377091287" to="5047158338" priority="21" type="railway.highspeed" routingType="4" spreadType="center" shape="1681.81,2083.69 1656.54,2101.21 1609.29,2133.98 1582.19,2152.88 1518.15,2198.87 1493.32,2217.13 1441.19,2255.49 1396.14,2288.99 1352.61,2321.36 1334.50,2335.12 1263.96,2388.73 1200.37,2438.12 1176.15,2457.37 1125.56,2497.07 1051.05,2558.05 1022.14,2582.11 1021.26,2582.93 990.90,2608.24 869.83,2711.32 858.56,2721.51 787.46,2784.24 721.63,2843.29 715.55,2848.75 684.36,2877.50 663.73,2896.51 644.86,2913.91 575.21,2979.98 484.91,3066.37" bidi="1016652937" distance="-32430.75">
+        <lane id="-1016652937_0" index="0" allow="rail rail_electric rail_fast" speed="69.44" length="1550.53" shape="1681.69,2083.78 1656.54,2101.21 1609.29,2133.98 1582.19,2152.88 1518.15,2198.87 1493.32,2217.13 1441.19,2255.49 1396.14,2288.99 1352.61,2321.36 1334.50,2335.12 1263.96,2388.73 1200.37,2438.12 1176.15,2457.37 1125.56,2497.07 1051.05,2558.05 1022.14,2582.11 1021.26,2582.93 990.90,2608.24 869.83,2711.32 858.56,2721.51 787.46,2784.24 721.63,2843.29 715.55,2848.75 684.36,2877.50 663.73,2896.51 644.86,2913.91 575.21,2979.98 484.91,3066.37"/>
+        <param key="detail" value="track"/>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="layer" value="-2"/>
+        <param key="loading_gauge" value="TSI_GC"/>
+        <param key="lzb" value="no"/>
+        <param key="maxspeed" value="250"/>
+        <param key="name" value="Schnellfahrstrecke Wendlingen – Ulm"/>
+        <param key="operator" value="DB InfraGO AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:ballastless" value="yes"/>
+        <param key="railway:etcs" value="2"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:preferred_direction" value="backward"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="railway:track_class" value="D4"/>
+        <param key="short_name" value="SFS Wendlingen-Ulm"/>
+        <param key="source" value="guesstimate"/>
+        <param key="source:maxspeed" value="knowledge"/>
+        <param key="start_date" value="2022-12-11"/>
+        <param key="tunnel" value="yes"/>
+        <param key="tunnel:name" value="Albvorlandtunnel"/>
+        <param key="tunnel:wikidata" value="Q2640200"/>
+        <param key="tunnel:wikipedia" value="de:Albvorlandtunnel"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+    </edge>
+    <edge id="-395740590#0" from="9377142242" to="9377091287" priority="21" type="railway.highspeed" routingType="4" spreadType="center" shape="1785.50,2013.03 1764.41,2027.07 1681.81,2083.69" bidi="395740590#0" distance="-32556.42">
+        <lane id="-395740590#0_0" index="0" allow="rail rail_electric rail_fast" speed="69.44" length="125.48" shape="1785.50,2013.03 1764.41,2027.07 1681.93,2083.61"/>
+        <param key="detail" value="track"/>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="layer" value="-2"/>
+        <param key="loading_gauge" value="TSI_GC"/>
+        <param key="maxspeed" value="250"/>
+        <param key="name" value="Schnellfahrstrecke Wendlingen – Ulm"/>
+        <param key="operator" value="DB InfraGO AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:ballastless" value="yes"/>
+        <param key="railway:etcs" value="2"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:preferred_direction" value="backward"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="railway:track_class" value="D4"/>
+        <param key="short_name" value="SFS Wendlingen-Ulm"/>
+        <param key="source" value="guesstimate"/>
+        <param key="source:maxspeed" value="knowledge"/>
+        <param key="start_date" value="2022-12-11"/>
+        <param key="tunnel" value="yes"/>
+        <param key="tunnel:name" value="Albvorlandtunnel"/>
+        <param key="tunnel:wikidata" value="Q2640200"/>
+        <param key="tunnel:wikipedia" value="de:Albvorlandtunnel"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="wikidata" value="Q2640200"/>
+    </edge>
+    <edge id="-395740590#1" from="9367394926" to="9377142242" priority="21" type="railway.highspeed" routingType="4" spreadType="center" shape="7001.58,19.85 6875.46,32.71 6803.59,42.68 6722.07,54.54 6655.53,63.84 6606.09,71.00 6543.04,80.13 6465.80,92.47 6418.95,100.26 6408.06,102.25 6340.76,114.59 6246.60,133.31 6211.71,141.55 6168.76,151.71 6153.81,155.23 6030.55,188.07 6020.58,191.00 5949.01,212.11 5937.50,215.50 5846.66,243.72 5830.02,249.49 5700.16,294.53 5684.34,300.02 5645.68,314.08 5551.25,348.42 5457.80,382.09 5271.29,452.89 5239.65,464.92 5088.03,522.47 4915.46,588.01 4901.26,593.41 4821.82,623.57 4772.83,642.17 4710.75,665.74 4580.68,715.15 4524.11,735.96 4447.27,764.22 4336.71,804.96 4308.56,815.33 4148.62,874.26 3960.72,943.51 3843.08,986.86 3834.14,990.16 3788.62,1007.00 3774.12,1012.30 3699.69,1039.52 3611.41,1072.71 3586.02,1082.58 3507.62,1113.05 3413.23,1150.92 3401.10,1155.79 3389.39,1160.49 3300.60,1197.23 3227.01,1228.93 3216.40,1233.54 3188.63,1245.58 3140.23,1266.57 3096.86,1285.92 3082.73,1292.23 3039.48,1311.94 3033.48,1314.74 2994.35,1333.03 2895.16,1379.30 2854.83,1398.82 2808.75,1421.13 2723.59,1463.04 2674.84,1488.28 2666.85,1492.42 2610.72,1521.06 2583.34,1535.54 2553.91,1551.09 2499.96,1580.68 2470.61,1596.76 2373.23,1650.28 2327.98,1676.41 2290.33,1697.85 2195.12,1753.90 2186.88,1758.84 2157.05,1776.78 2113.42,1803.02 2031.95,1853.25 1987.82,1881.24 1951.40,1904.12 1870.95,1956.39 1821.71,1988.78 1805.09,2000.00 1785.50,2013.03" bidi="395740590#1" distance="-38200.00">
+        <lane id="-395740590#1_0" index="0" allow="rail rail_electric rail_fast" speed="69.44" length="5621.25" shape="7001.58,19.85 6875.46,32.71 6803.59,42.68 6722.07,54.54 6655.53,63.84 6606.09,71.00 6543.04,80.13 6465.80,92.47 6418.95,100.26 6408.06,102.25 6340.76,114.59 6246.60,133.31 6211.71,141.55 6168.76,151.71 6153.81,155.23 6030.55,188.07 6020.58,191.00 5949.01,212.11 5937.50,215.50 5846.66,243.72 5830.02,249.49 5700.16,294.53 5684.34,300.02 5645.68,314.08 5551.25,348.42 5457.80,382.09 5271.29,452.89 5239.65,464.92 5088.03,522.47 4915.46,588.01 4901.26,593.41 4821.82,623.57 4772.83,642.17 4710.75,665.74 4580.68,715.15 4524.11,735.96 4447.27,764.22 4336.71,804.96 4308.56,815.33 4148.62,874.26 3960.72,943.51 3843.08,986.86 3834.14,990.16 3788.62,1007.00 3774.12,1012.30 3699.69,1039.52 3611.41,1072.71 3586.02,1082.58 3507.62,1113.05 3413.23,1150.92 3401.10,1155.79 3389.39,1160.49 3300.60,1197.23 3227.01,1228.93 3216.40,1233.54 3188.63,1245.58 3140.23,1266.57 3096.86,1285.92 3082.73,1292.23 3039.48,1311.94 3033.48,1314.74 2994.35,1333.03 2895.16,1379.30 2854.83,1398.82 2808.75,1421.13 2723.59,1463.04 2674.84,1488.28 2666.85,1492.42 2610.72,1521.06 2583.34,1535.54 2553.91,1551.09 2499.96,1580.68 2470.61,1596.76 2373.23,1650.28 2327.98,1676.41 2290.33,1697.85 2195.12,1753.90 2186.88,1758.84 2157.05,1776.78 2113.42,1803.02 2031.95,1853.25 1987.82,1881.24 1951.40,1904.12 1870.95,1956.39 1821.71,1988.78 1805.09,2000.00 1785.50,2013.03"/>
+        <param key="detail" value="track"/>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="layer" value="-2"/>
+        <param key="loading_gauge" value="TSI_GC"/>
+        <param key="maxspeed" value="250"/>
+        <param key="name" value="Schnellfahrstrecke Wendlingen – Ulm"/>
+        <param key="operator" value="DB InfraGO AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:ballastless" value="yes"/>
+        <param key="railway:etcs" value="2"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:preferred_direction" value="backward"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="railway:track_class" value="D4"/>
+        <param key="short_name" value="SFS Wendlingen-Ulm"/>
+        <param key="source" value="guesstimate"/>
+        <param key="source:maxspeed" value="knowledge"/>
+        <param key="start_date" value="2022-12-11"/>
+        <param key="tunnel" value="yes"/>
+        <param key="tunnel:name" value="Albvorlandtunnel"/>
+        <param key="tunnel:wikidata" value="Q2640200"/>
+        <param key="tunnel:wikipedia" value="de:Albvorlandtunnel"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="wikidata" value="Q2640200"/>
+    </edge>
+    <edge id="1016652937" from="5047158338" to="9377091287" priority="21" type="railway.highspeed" spreadType="center" shape="484.91,3066.37 575.21,2979.98 644.86,2913.91 663.73,2896.51 684.36,2877.50 715.55,2848.75 721.63,2843.29 787.46,2784.24 858.56,2721.51 869.83,2711.32 990.90,2608.24 1021.26,2582.93 1022.14,2582.11 1051.05,2558.05 1125.56,2497.07 1176.15,2457.37 1200.37,2438.12 1263.96,2388.73 1334.50,2335.12 1352.61,2321.36 1396.14,2288.99 1441.19,2255.49 1493.32,2217.13 1518.15,2198.87 1582.19,2152.88 1609.29,2133.98 1656.54,2101.21 1681.81,2083.69" bidi="-1016652937" distance="30875.04">
+        <lane id="1016652937_0" index="0" allow="rail rail_electric rail_fast" speed="69.44" length="1550.53" shape="484.91,3066.37 575.21,2979.98 644.86,2913.91 663.73,2896.51 684.36,2877.50 715.55,2848.75 721.63,2843.29 787.46,2784.24 858.56,2721.51 869.83,2711.32 990.90,2608.24 1021.26,2582.93 1022.14,2582.11 1051.05,2558.05 1125.56,2497.07 1176.15,2457.37 1200.37,2438.12 1263.96,2388.73 1334.50,2335.12 1352.61,2321.36 1396.14,2288.99 1441.19,2255.49 1493.32,2217.13 1518.15,2198.87 1582.19,2152.88 1609.29,2133.98 1656.54,2101.21 1681.69,2083.78"/>
+        <param key="detail" value="track"/>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="layer" value="-2"/>
+        <param key="loading_gauge" value="TSI_GC"/>
+        <param key="lzb" value="no"/>
+        <param key="maxspeed" value="250"/>
+        <param key="name" value="Schnellfahrstrecke Wendlingen – Ulm"/>
+        <param key="operator" value="DB InfraGO AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:ballastless" value="yes"/>
+        <param key="railway:etcs" value="2"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:preferred_direction" value="backward"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="railway:track_class" value="D4"/>
+        <param key="short_name" value="SFS Wendlingen-Ulm"/>
+        <param key="source" value="guesstimate"/>
+        <param key="source:maxspeed" value="knowledge"/>
+        <param key="start_date" value="2022-12-11"/>
+        <param key="tunnel" value="yes"/>
+        <param key="tunnel:name" value="Albvorlandtunnel"/>
+        <param key="tunnel:wikidata" value="Q2640200"/>
+        <param key="tunnel:wikipedia" value="de:Albvorlandtunnel"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+    </edge>
+    <edge id="395740584#0" from="12321104199" to="9377142243" priority="21" type="railway.highspeed" routingType="4" spreadType="center" shape="0.00,3508.62 121.65,3389.73 301.44,3212.96 511.68,3005.48 601.52,2917.01 643.73,2876.76 718.13,2805.81 787.23,2742.43 836.07,2699.34 968.32,2586.20 1001.43,2559.03 1102.19,2476.33 1240.50,2367.53 1368.05,2270.24 1376.87,2263.70 1483.00,2185.08 1546.57,2139.30 1599.16,2102.74 1729.49,2013.28 1767.54,1987.73">
+        <lane id="395740584#0_0" index="0" allow="rail rail_electric rail_fast" speed="69.44" length="2336.71" shape="0.00,3508.62 121.65,3389.73 301.44,3212.96 511.68,3005.48 601.52,2917.01 643.73,2876.76 718.13,2805.81 787.23,2742.43 836.07,2699.34 968.32,2586.20 1001.43,2559.03 1102.19,2476.33 1240.50,2367.53 1368.05,2270.24 1376.87,2263.70 1483.00,2185.08 1546.57,2139.30 1599.16,2102.74 1729.49,2013.28 1767.54,1987.73"/>
+        <param key="construction" value="rail"/>
+        <param key="construction:railway" value="rail"/>
+        <param key="construction:railway:etcs" value="2"/>
+        <param key="construction:railway:gnt" value="no"/>
+        <param key="construction:railway:lzb" value="no"/>
+        <param key="construction:railway:pzb" value="no"/>
+        <param key="detail" value="track"/>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="layer" value="-2"/>
+        <param key="loading_gauge" value="TSI_GC"/>
+        <param key="maxspeed" value="250"/>
+        <param key="name" value="Schnellfahrstrecke Wendlingen – Ulm"/>
+        <param key="opening_date" value="2026-12"/>
+        <param key="operator" value="DB InfraGO AG"/>
+        <param key="railway" value="construction"/>
+        <param key="railway:ballastless" value="yes"/>
+        <param key="railway:preferred_direction" value="forward"/>
+        <param key="railway:track_class" value="D4"/>
+        <param key="short_name" value="NBS Wendlingen-Ulm"/>
+        <param key="source" value="guesstimate"/>
+        <param key="tunnel" value="yes"/>
+        <param key="tunnel:length" value="8174"/>
+        <param key="tunnel:name" value="Albvorlandtunnel"/>
+        <param key="tunnel:wikidata" value="Q2640200"/>
+        <param key="tunnel:wikipedia" value="de:Albvorlandtunnel"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="wikidata" value="Q2640200"/>
+    </edge>
+    <edge id="395740584#1" from="9377142243" to="671847399" priority="21" type="railway.highspeed" routingType="4" spreadType="center" shape="1767.54,1987.73 1795.17,1969.19 1848.55,1933.54 1940.78,1873.78 2034.93,1814.32 2129.86,1756.26 2170.36,1732.11 2226.63,1698.54 2269.78,1673.21 2322.50,1642.91 2377.28,1611.93 2420.25,1588.36 2532.36,1527.14 2568.85,1507.95 2631.73,1474.88 2829.52,1376.07 2981.38,1304.61 3018.81,1286.99 3060.71,1267.29 3133.39,1234.99 3250.02,1184.54 3359.78,1138.38 3401.22,1121.76 3471.68,1093.50 3514.62,1076.54 3560.07,1058.76 3664.55,1019.04 3754.46,985.92 3832.15,957.26 4297.31,785.73 4575.82,683.05 4761.57,612.55 5228.26,435.44 5437.79,355.93 5544.04,317.49 5633.77,284.37 5684.99,265.98 5690.06,264.18 5736.86,247.57 5782.00,231.87 5829.15,216.13 5920.16,187.52 6011.53,160.18 6102.99,135.35 6161.77,120.39 6164.94,119.58 6227.42,105.05 6297.25,90.36 6367.89,77.16 6461.02,61.36 6557.21,47.05 6637.44,37.22 6651.94,35.77 6762.29,24.79 6887.75,15.30 7082.08,4.17 7142.80,0.00">
+        <lane id="395740584#1_0" index="0" allow="rail rail_electric rail_fast" speed="69.44" length="5780.02" shape="1767.54,1987.73 1795.17,1969.19 1848.55,1933.54 1940.78,1873.78 2034.93,1814.32 2129.86,1756.26 2170.36,1732.11 2226.63,1698.54 2269.78,1673.21 2322.50,1642.91 2377.28,1611.93 2420.25,1588.36 2532.36,1527.14 2568.85,1507.95 2631.73,1474.88 2829.52,1376.07 2981.38,1304.61 3018.81,1286.99 3060.71,1267.29 3133.39,1234.99 3250.02,1184.54 3359.78,1138.38 3401.22,1121.76 3471.68,1093.50 3514.62,1076.54 3560.07,1058.76 3664.55,1019.04 3754.46,985.92 3832.15,957.26 4297.31,785.73 4575.82,683.05 4761.57,612.55 5228.26,435.44 5437.79,355.93 5544.04,317.49 5633.77,284.37 5684.99,265.98 5690.06,264.18 5736.86,247.57 5782.00,231.87 5829.15,216.13 5920.16,187.52 6011.53,160.18 6102.99,135.35 6161.77,120.39 6164.94,119.58 6227.42,105.05 6297.25,90.36 6367.89,77.16 6461.02,61.36 6557.21,47.05 6637.44,37.22 6651.94,35.77 6762.29,24.79 6887.75,15.30 7082.08,4.17 7142.80,0.00"/>
+        <param key="construction" value="rail"/>
+        <param key="construction:railway" value="rail"/>
+        <param key="construction:railway:etcs" value="2"/>
+        <param key="construction:railway:gnt" value="no"/>
+        <param key="construction:railway:lzb" value="no"/>
+        <param key="construction:railway:pzb" value="no"/>
+        <param key="detail" value="track"/>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="layer" value="-2"/>
+        <param key="loading_gauge" value="TSI_GC"/>
+        <param key="maxspeed" value="250"/>
+        <param key="name" value="Schnellfahrstrecke Wendlingen – Ulm"/>
+        <param key="opening_date" value="2026-12"/>
+        <param key="operator" value="DB InfraGO AG"/>
+        <param key="railway" value="construction"/>
+        <param key="railway:ballastless" value="yes"/>
+        <param key="railway:preferred_direction" value="forward"/>
+        <param key="railway:track_class" value="D4"/>
+        <param key="short_name" value="NBS Wendlingen-Ulm"/>
+        <param key="source" value="guesstimate"/>
+        <param key="tunnel" value="yes"/>
+        <param key="tunnel:length" value="8174"/>
+        <param key="tunnel:name" value="Albvorlandtunnel"/>
+        <param key="tunnel:wikidata" value="Q2640200"/>
+        <param key="tunnel:wikipedia" value="de:Albvorlandtunnel"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="wikidata" value="Q2640200"/>
+    </edge>
+    <edge id="395740590#0" from="9377091287" to="9377142242" priority="21" type="railway.highspeed" spreadType="center" shape="1681.81,2083.69 1764.41,2027.07 1785.50,2013.03" bidi="-395740590#0" distance="32430.94">
+        <lane id="395740590#0_0" index="0" allow="rail rail_electric rail_fast" speed="69.44" length="125.48" shape="1681.93,2083.61 1764.41,2027.07 1785.50,2013.03"/>
+        <param key="detail" value="track"/>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="layer" value="-2"/>
+        <param key="loading_gauge" value="TSI_GC"/>
+        <param key="maxspeed" value="250"/>
+        <param key="name" value="Schnellfahrstrecke Wendlingen – Ulm"/>
+        <param key="operator" value="DB InfraGO AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:ballastless" value="yes"/>
+        <param key="railway:etcs" value="2"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:preferred_direction" value="backward"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="railway:track_class" value="D4"/>
+        <param key="short_name" value="SFS Wendlingen-Ulm"/>
+        <param key="source" value="guesstimate"/>
+        <param key="source:maxspeed" value="knowledge"/>
+        <param key="start_date" value="2022-12-11"/>
+        <param key="tunnel" value="yes"/>
+        <param key="tunnel:name" value="Albvorlandtunnel"/>
+        <param key="tunnel:wikidata" value="Q2640200"/>
+        <param key="tunnel:wikipedia" value="de:Albvorlandtunnel"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="wikidata" value="Q2640200"/>
+    </edge>
+    <edge id="395740590#1" from="9377142242" to="9367394926" priority="21" type="railway.highspeed" spreadType="center" shape="1785.50,2013.03 1805.09,2000.00 1821.71,1988.78 1870.95,1956.39 1951.40,1904.12 1987.82,1881.24 2031.95,1853.25 2113.42,1803.02 2157.05,1776.78 2186.88,1758.84 2195.12,1753.90 2290.33,1697.85 2327.98,1676.41 2373.23,1650.28 2470.61,1596.76 2499.96,1580.68 2553.91,1551.09 2583.34,1535.54 2610.72,1521.06 2666.85,1492.42 2674.84,1488.28 2723.59,1463.04 2808.75,1421.13 2854.83,1398.82 2895.16,1379.30 2994.35,1333.03 3033.48,1314.74 3039.48,1311.94 3082.73,1292.23 3096.86,1285.92 3140.23,1266.57 3188.63,1245.58 3216.40,1233.54 3227.01,1228.93 3300.60,1197.23 3389.39,1160.49 3401.10,1155.79 3413.23,1150.92 3507.62,1113.05 3586.02,1082.58 3611.41,1072.71 3699.69,1039.52 3774.12,1012.30 3788.62,1007.00 3834.14,990.16 3843.08,986.86 3960.72,943.51 4148.62,874.26 4308.56,815.33 4336.71,804.96 4447.27,764.22 4524.11,735.96 4580.68,715.15 4710.75,665.74 4772.83,642.17 4821.82,623.57 4901.26,593.41 4915.46,588.01 5088.03,522.47 5239.65,464.92 5271.29,452.89 5457.80,382.09 5551.25,348.42 5645.68,314.08 5684.34,300.02 5700.16,294.53 5830.02,249.49 5846.66,243.72 5937.50,215.50 5949.01,212.11 6020.58,191.00 6030.55,188.07 6153.81,155.23 6168.76,151.71 6211.71,141.55 6246.60,133.31 6340.76,114.59 6408.06,102.25 6418.95,100.26 6465.80,92.47 6543.04,80.13 6606.09,71.00 6655.53,63.84 6722.07,54.54 6803.59,42.68 6875.46,32.71 7001.58,19.85" bidi="-395740590#1" distance="32556.42">
+        <lane id="395740590#1_0" index="0" allow="rail rail_electric rail_fast" speed="69.44" length="5621.25" shape="1785.50,2013.03 1805.09,2000.00 1821.71,1988.78 1870.95,1956.39 1951.40,1904.12 1987.82,1881.24 2031.95,1853.25 2113.42,1803.02 2157.05,1776.78 2186.88,1758.84 2195.12,1753.90 2290.33,1697.85 2327.98,1676.41 2373.23,1650.28 2470.61,1596.76 2499.96,1580.68 2553.91,1551.09 2583.34,1535.54 2610.72,1521.06 2666.85,1492.42 2674.84,1488.28 2723.59,1463.04 2808.75,1421.13 2854.83,1398.82 2895.16,1379.30 2994.35,1333.03 3033.48,1314.74 3039.48,1311.94 3082.73,1292.23 3096.86,1285.92 3140.23,1266.57 3188.63,1245.58 3216.40,1233.54 3227.01,1228.93 3300.60,1197.23 3389.39,1160.49 3401.10,1155.79 3413.23,1150.92 3507.62,1113.05 3586.02,1082.58 3611.41,1072.71 3699.69,1039.52 3774.12,1012.30 3788.62,1007.00 3834.14,990.16 3843.08,986.86 3960.72,943.51 4148.62,874.26 4308.56,815.33 4336.71,804.96 4447.27,764.22 4524.11,735.96 4580.68,715.15 4710.75,665.74 4772.83,642.17 4821.82,623.57 4901.26,593.41 4915.46,588.01 5088.03,522.47 5239.65,464.92 5271.29,452.89 5457.80,382.09 5551.25,348.42 5645.68,314.08 5684.34,300.02 5700.16,294.53 5830.02,249.49 5846.66,243.72 5937.50,215.50 5949.01,212.11 6020.58,191.00 6030.55,188.07 6153.81,155.23 6168.76,151.71 6211.71,141.55 6246.60,133.31 6340.76,114.59 6408.06,102.25 6418.95,100.26 6465.80,92.47 6543.04,80.13 6606.09,71.00 6655.53,63.84 6722.07,54.54 6803.59,42.68 6875.46,32.71 7001.58,19.85"/>
+        <param key="detail" value="track"/>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="layer" value="-2"/>
+        <param key="loading_gauge" value="TSI_GC"/>
+        <param key="maxspeed" value="250"/>
+        <param key="name" value="Schnellfahrstrecke Wendlingen – Ulm"/>
+        <param key="operator" value="DB InfraGO AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:ballastless" value="yes"/>
+        <param key="railway:etcs" value="2"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:preferred_direction" value="backward"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="railway:track_class" value="D4"/>
+        <param key="short_name" value="SFS Wendlingen-Ulm"/>
+        <param key="source" value="guesstimate"/>
+        <param key="source:maxspeed" value="knowledge"/>
+        <param key="start_date" value="2022-12-11"/>
+        <param key="tunnel" value="yes"/>
+        <param key="tunnel:name" value="Albvorlandtunnel"/>
+        <param key="tunnel:wikidata" value="Q2640200"/>
+        <param key="tunnel:wikipedia" value="de:Albvorlandtunnel"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="wikidata" value="Q2640200"/>
+    </edge>
+
+    <junction id="12321104199" type="dead_end" x="0.00" y="3508.62" incLanes="" intLanes="" shape="1.12,3509.76 -1.12,3507.48"/>
+    <junction id="5047158338" type="rail_signal" x="484.91" y="3066.37" incLanes="-1016652937_0" intLanes="" shape="486.02,3067.53 483.80,3065.21 486.02,3067.53 483.80,3065.21">
+        <request index="0" response="0" foes="0"/>
+        <param key="description" value="Ks-Mehrabschnittssignal, mit variablem Geschwindigkeitsanzeiger (Zs 3), -voranzeiger (Zs 3v) und ETCS-Halttafel (Ne 14), in nordwestlicher Richtung"/>
+        <param key="note" value="Letzes Signal mit ETCS-Halttafel Richtung Wendlingen =&gt; damit offenbar ETCS-Grenzsignal (ETCS-Ausstieg)"/>
+        <param key="operator" value="DB Netz"/>
+        <param key="railway" value="signal"/>
+        <param key="railway:signal:catenary_mast" value="no"/>
+        <param key="railway:signal:combined" value="DE-ESO:ks"/>
+        <param key="railway:signal:combined:form" value="light"/>
+        <param key="railway:signal:combined:function" value="block"/>
+        <param key="railway:signal:combined:height" value="normal"/>
+        <param key="railway:signal:combined:states" value="DE-ESO:hp0;DE-ESO:ks1;DE-ESO:ks2;off"/>
+        <param key="railway:signal:combined:substitute_signal" value="DE-ESO:db:zs7"/>
+        <param key="railway:signal:direction" value="backward"/>
+        <param key="railway:signal:position" value="left"/>
+        <param key="railway:signal:speed_limit" value="DE-ESO:zs3"/>
+        <param key="railway:signal:speed_limit:form" value="light"/>
+        <param key="railway:signal:speed_limit:height" value="normal"/>
+        <param key="railway:signal:speed_limit:speed" value="100;off"/>
+        <param key="railway:signal:speed_limit_distant" value="DE-ESO:zs3v"/>
+        <param key="railway:signal:speed_limit_distant:form" value="light"/>
+        <param key="railway:signal:speed_limit_distant:height" value="normal"/>
+        <param key="railway:signal:speed_limit_distant:speed" value="60;80;off"/>
+        <param key="railway:signal:train_protection" value="DE-ESO:ne14"/>
+        <param key="railway:signal:train_protection:form" value="sign"/>
+        <param key="railway:signal:train_protection:type" value="block_marker"/>
+        <param key="railway:signal:traversable" value="DE-ESO:mastschild_rot-weiss"/>
+        <param key="railway:signal:traversable:type" value="written_default_speed;dictated_default_speed"/>
+        <param key="source" value="estimate; extrapolate; video"/>
+        <param key="video" value="https://youtu.be/4e40Z_MGnxg?t=1870"/>
+        <param key="video_2" value="https://youtu.be/6knycDu1hVs?t=10326"/>
+    </junction>
+    <junction id="671847399" type="dead_end" x="7142.80" y="0.00" incLanes="395740584#1_0" intLanes="" shape="7142.69,-1.60 7142.91,1.60">
+        <param key="man_made" value="portal"/>
+        <param key="name" value="Albvorlandtunnel"/>
+    </junction>
+    <junction id="9367394926" type="priority" x="7001.58" y="19.85" incLanes="395740590#1_0" intLanes="" shape="7001.42,18.26 7001.74,21.44 7001.42,18.26 7001.74,21.44">
+        <request index="0" response="0" foes="0"/>
+        <param key="note" value="hängt an Tunnelwand, wenige Meter östlich des bergmännischen Vortriebs"/>
+        <param key="operator" value="DB Netz"/>
+        <param key="railway" value="milestone"/>
+        <param key="railway:milestone:catenary_mast" value="no"/>
+        <param key="railway:milestone:emergency_brake_override" value="yes"/>
+        <param key="railway:milestone:emergency_brake_override:direction" value="backward"/>
+        <param key="railway:position" value="38.2"/>
+        <param key="video" value="https://youtu.be/6knycDu1hVs?t=9049"/>
+    </junction>
+    <junction id="9377091287" type="rail_signal" x="1681.81" y="2083.69" incLanes="-395740590#0_0 1016652937_0" intLanes="" shape="1682.84,2084.93 1681.03,2082.29 1680.78,2082.46 1682.60,2085.09">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+        <param key="description" value="Ks-Hauptsignal, mit ETCS-Halttafel (Ne 14), als Blockssignal und Zufahrtssicherungssignal in südöstlicher Richtung"/>
+        <param key="railway" value="signal"/>
+        <param key="railway:signal:catenary_mast" value="no"/>
+        <param key="railway:signal:direction" value="forward"/>
+        <param key="railway:signal:main" value="DE-ESO:ks"/>
+        <param key="railway:signal:main:form" value="light"/>
+        <param key="railway:signal:main:function" value="block"/>
+        <param key="railway:signal:main:height" value="normal"/>
+        <param key="railway:signal:main:states" value="DE-ESO:hp0;off"/>
+        <param key="railway:signal:train_protection" value="DE-ESO:ne14"/>
+        <param key="railway:signal:train_protection:form" value="sign"/>
+        <param key="railway:signal:train_protection:type" value="block_marker"/>
+        <param key="railway:signal:traversable" value="DE-ESO:mastschild_rot-weiss"/>
+        <param key="railway:signal:traversable:type" value="written_default_speed;dictated_default_speed"/>
+        <param key="video" value="https://youtu.be/N7cXSn0aNOY?t=161"/>
+    </junction>
+    <junction id="9377142242" type="priority" x="1785.50" y="2013.03" incLanes="-395740590#1_0 395740590#0_0" intLanes="" shape="1786.39,2014.36 1784.61,2011.70 1786.39,2014.36">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="9377142243" type="priority" x="1767.54" y="1987.73" incLanes="395740584#0_0" intLanes="" shape="1768.43,1989.06 1766.65,1986.40 1768.43,1989.06">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+
+    <connection from="-1016652937" to="1016652937" fromLane="0" toLane="0" speed="0.10" dir="t" state="M"/>
+    <connection from="-395740590#0" to="-1016652937" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-395740590#1" to="-395740590#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1016652937" to="395740590#0" fromLane="0" toLane="0" tl="9377091287" linkIndex="0" dir="s" state="O"/>
+    <connection from="395740584#0" to="395740584#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="395740590#0" to="395740590#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="395740590#1" to="-395740590#1" fromLane="0" toLane="0" speed="0.10" dir="t" state="M"/>
+
+</net>
