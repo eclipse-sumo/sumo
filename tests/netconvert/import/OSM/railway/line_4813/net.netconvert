@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-10T09:04:58.072274+01:00 by Eclipse SUMO netconvert v1_28_0+0486-4a6fcdeb35a
+<!-- generated on 2026-11-10T09:26:01.182694+01:00 by Eclipse SUMO netconvert v1_28_0+0487-93e9efa9a7b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -313,6 +313,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="5047158338" type="rail_signal" x="484.91" y="3066.37" incLanes="-1016652937_0" intLanes="" shape="486.02,3067.53 483.80,3065.21 486.02,3067.53 483.80,3065.21">
         <request index="0" response="0" foes="0"/>
         <param key="description" value="Ks-Mehrabschnittssignal, mit variablem Geschwindigkeitsanzeiger (Zs 3), -voranzeiger (Zs 3v) und ETCS-Halttafel (Ne 14), in nordwestlicher Richtung"/>
+        <param key="moving-block" value="true"/>
         <param key="note" value="Letzes Signal mit ETCS-Halttafel Richtung Wendlingen =&gt; damit offenbar ETCS-Grenzsignal (ETCS-Ausstieg)"/>
         <param key="operator" value="DB Netz"/>
         <param key="railway" value="signal"/>
@@ -361,6 +362,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
         <param key="description" value="Ks-Hauptsignal, mit ETCS-Halttafel (Ne 14), als Blockssignal und Zufahrtssicherungssignal in südöstlicher Richtung"/>
+        <param key="moving-block" value="true"/>
         <param key="railway" value="signal"/>
         <param key="railway:signal:catenary_mast" value="no"/>
         <param key="railway:signal:direction" value="forward"/>
