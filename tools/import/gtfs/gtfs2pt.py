@@ -89,7 +89,7 @@ def get_options(args=None):
                     help="maximum matching radius for candidate edges and stops")
     ap.add_argument("--distance-penalty", default=None, category="input", type=float, dest="distPenalty",
                     help=("Raise the distance between mapped location and input location to FLOAT power and add as penalty when comparing path costs." +  # noqa
-                          "Defaults to '1' when setting option --stops and '2' otherwise."))
+                          "Defaults to '1' when setting option --stops and '1.2' otherwise."))
     ap.add_argument("--warn-detour-factor", default=5, type=float, dest="detourWarnFactor",
                     help="Warn about detours where path distance exceeds airline distance by factor FLOAT")
     ap.add_argument("--remove-detour-factor", default=0, type=float, dest="detourRemoveFactor",
