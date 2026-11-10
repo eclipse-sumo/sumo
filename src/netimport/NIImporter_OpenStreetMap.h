@@ -89,7 +89,7 @@ protected:
     enum SignalType {
         SIGNAL_NONE = 0,
         SIGNAL_MAIN = 1,
-        SIGNAL_MOVING_BLOCK = 2,
+        SIGNAL_ETCS_BLOCK = 2,
     };
 
     /** @brief An internal representation of an OSM-node
@@ -124,7 +124,7 @@ protected:
         /// @brief Whether this is a railway crossing
         bool railwayCrossing;
         /// @brief Whether this is a railway (main) signal
-        SignalType railwaySignal;
+        int railwaySignal;
         /// @brief Whether this is a railway buffer stop
         bool railwayBufferStop;
         /// @brief Whether this is a public transport stop position
@@ -350,6 +350,9 @@ private:
 
     /// @brief whether edges should carry information on the use of typemap defaults
     bool myAnnotateDefaults;
+
+    /// @brief whether ETCS signals default to moving block
+    bool myETCS_movingBlock;
 
     /// @brief number of placement skips due to non-explicit oneway
     int myPlacementSkippedNonExplicitOneWay = 0;

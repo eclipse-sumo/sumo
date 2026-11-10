@@ -238,6 +238,9 @@ NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
     oc.doRegister("osm.annotate-defaults", new Option_Bool(false));
     oc.addDescription("osm.annotate-defaults", "Formats", TL("Whether edges shoulds carry information on the usage of typemap defaults"));
 
+    oc.doRegister("osm.etcs-moving-block", new Option_Bool(false));
+    oc.addDescription("osm.etcs-moving-block", "Formats", TL("Whether ETCS2 track sections should default to moving-block mode"));
+
     // register matsim options
     oc.doRegister("matsim.keep-length", new Option_Bool(false));
     oc.addDescription("matsim.keep-length", "Formats", TL("The edge lengths given in the MATSim-file will be kept"));

@@ -149,6 +149,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     myImportCrossings = oc.getBool("osm.crossings");
     myOnewayDualSidewalk = oc.getBool("osm.oneway-reverse-sidewalk");
     myAnnotateDefaults = oc.getBool("osm.annotate-defaults");
+    myETCS_movingBlock = oc.getBool("osm.etcs-moving-block");
     myPlacementSkippedNonExplicitOneWay = 0;
     myPlacementSkippedAuxOppositeDirection = 0;
 
@@ -442,7 +443,10 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
             }
         } else if (n->railwaySignal != SIGNAL_NONE) {
             node->reinit(pos, SumoXMLNodeType::RAIL_SIGNAL);
-            if (n->railwaySignal == SIGNAL_MOVING_BLOCK) {
+            if ((n->railwaySignal & SIGNAL_MAIN) == 0) {
+                node->setParameter("virtual", "true");
+            }
+            if (myETCS_movingBlock && (n->railwaySignal & SIGNAL_ETCS_BLOCK) != 0) {
                 node->setParameter("moving-block", "true");
             }
         } else if (n->tlsControlled) {
@@ -1699,7 +1703,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 std::string kv = key + "=" + value;
                 std::string kglob = key + "=";
                 if (key == "railway:signal:train_protection" && value == "DE-ESO:ne14") {
-                    myCurrentNode->railwaySignal = SIGNAL_MOVING_BLOCK;
+                    myCurrentNode->railwaySignal |= SIGNAL_ETCS_BLOCK;
                 } else if (myCurrentNode->railwaySignal == SIGNAL_NONE) {
                     if ((std::find(myRailSignalRules.begin(), myRailSignalRules.end(), kv) != myRailSignalRules.end())
                             || (std::find(myRailSignalRules.begin(), myRailSignalRules.end(), kglob) != myRailSignalRules.end())) {
