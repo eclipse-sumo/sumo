@@ -48,6 +48,20 @@ Below is the list of context identifiers currently in use:
 - Simulation
 - Labels
 
+## OSM Web Wizard
+
+The strings of the web interface of the OSM Web Wizard (`tools/webWizard`) end up in the separate
+translation files `data/po/<lang>_osmWebWizard.po`. In `index.html` an element with the attribute `data-i18n` gets its
+(direct) text content translated and the attribute `data-i18n-attrs` lists the attributes to translate
+(e.g. `<input type="button" value="Search" data-i18n-attrs="value"/>`). In the JavaScript code the
+functions `TL` and `TLF` work like their C++ counterparts. Strings of dynamically created elements which are marked
+with `data-i18n` should be wrapped in `N_` (marks the string for translation without translating it).
+The progress messages sent by `osmWebWizard.py` belong to the same files: they are wrapped in `self.TL` / `builder.TL`
+(or `N_`) and translated on the server into the language selected in the web interface.
+The translations are delivered to the browser by `osmWebWizard.py`. The languages offered in the language selection
+of the web interface are listed in `LANGUAGES` in `tools/webWizard/lib.js`, and should match the ones available in sumo-gui / netedit. By default the language of the browser is used
+(if it is in this list). For testing you can use `osmWebWizard.py --language es`.
+
 # Using translations
 
 Translations are enabled by default. The needed gettext tools and
@@ -56,8 +70,9 @@ If not use the equivalent of `sudo apt install gettext` on your system.
 It is also a good idea to do `sudo apt install locales-all` to make sure all the needed locales are on your system.
 For Windows we have everything in the SUMOLibraries.
 
-The translation strings are split into three files for each language residing in `$SUMO_HOME/data/po`,
-one for GUI stuff, one for the command line applications and one for the python tools.
+The translation strings are split into four files for each language residing in `$SUMO_HOME/data/po`,
+one for GUI stuff, one for the command line applications, one for the python tools and one for the
+web interface of the [OSM Web Wizard](../Tutorials/OSMWebWizard.md).
 While it is possible to edit these files directly, it is discouraged to avoid merge conflicts with the
 Weblate translations. These files still need to be compiled to be usable. Currently this is done manually
 by calling `tools/build_config/i18n.py`. This script also does a full scan of the `src` dir and checks for new

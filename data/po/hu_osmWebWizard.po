@@ -1,0 +1,314 @@
+# Hungarian translations for sumo package.
+# Copyright (C) 2026 THE sumo'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the sumo package.
+# Automatically generated, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sumo\n"
+"Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
+"POT-Creation-Date: 2026-11-10 17:56+0100\n"
+"PO-Revision-Date: 2026-11-10 12:31+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: tools/webWizard/index.html:4
+msgid "OSM Web Wizard for SUMO"
+msgstr ""
+
+#: tools/webWizard/index.html:20 tools/webWizard/index.html:21
+#: tools/webWizard/index.html:64
+msgid "Options"
+msgstr ""
+
+#: tools/webWizard/index.html:23 tools/webWizard/index.html:24
+msgid "Vehicles"
+msgstr ""
+
+#: tools/webWizard/index.html:26 tools/webWizard/index.html:27
+msgid "Road-Types"
+msgstr ""
+
+#: tools/webWizard/index.html:29
+msgid "Copyright"
+msgstr ""
+
+#: tools/webWizard/index.html:35
+msgid "Language"
+msgstr ""
+
+#: tools/webWizard/index.html:40
+msgid "Position"
+msgstr ""
+
+#: tools/webWizard/index.html:45
+msgid "Search"
+msgstr ""
+
+#: tools/webWizard/index.html:49
+msgid "Go to"
+msgstr ""
+
+#: tools/webWizard/index.html:52
+msgid "Use current location"
+msgstr ""
+
+#: tools/webWizard/index.html:59
+msgid "Select Area"
+msgstr ""
+
+#: tools/webWizard/index.html:67
+msgid "Duration"
+msgstr ""
+
+#: tools/webWizard/index.html:68
+msgid "Add Polygons"
+msgstr ""
+
+#: tools/webWizard/index.html:69
+msgid "Import Public Transport"
+msgstr ""
+
+#: tools/webWizard/index.html:71 tools/webWizard/script.js:58
+#: tools/osmWebWizard.py:118
+msgid "Bus"
+msgstr ""
+
+#: tools/webWizard/index.html:72
+msgid "Tram"
+msgstr ""
+
+#: tools/webWizard/index.html:73
+msgid "Metro (subway)"
+msgstr ""
+
+#: tools/webWizard/index.html:74
+msgid "Light rail"
+msgstr ""
+
+#: tools/webWizard/index.html:75
+msgid "Train"
+msgstr ""
+
+#: tools/webWizard/index.html:76
+msgid "Trolleybus"
+msgstr ""
+
+#: tools/webWizard/index.html:77
+msgid "Monorail"
+msgstr ""
+
+#: tools/webWizard/index.html:78
+msgid "Minibus"
+msgstr ""
+
+#: tools/webWizard/index.html:79
+msgid "Share taxi"
+msgstr ""
+
+#: tools/webWizard/index.html:80
+msgid "Ferry"
+msgstr ""
+
+#: tools/webWizard/index.html:81
+msgid "Cable car / Aerialway"
+msgstr ""
+
+#: tools/webWizard/index.html:83
+msgid "Car-only Network"
+msgstr ""
+
+#: tools/webWizard/index.html:84
+msgid "Satellite background"
+msgstr ""
+
+#: tools/webWizard/index.html:86
+msgid "Image zoom level"
+msgstr ""
+
+#: tools/webWizard/index.html:98
+msgid "Left Hand Traffic"
+msgstr ""
+
+#: tools/webWizard/index.html:99
+msgid "Verbose"
+msgstr ""
+
+#: tools/webWizard/index.html:110
+msgid "Icon Copyrights"
+msgstr ""
+
+#: tools/webWizard/index.html:120 tools/webWizard/index.html:132
+#: tools/webWizard/index.html:142
+msgid "Icons by"
+msgstr ""
+
+#: tools/webWizard/index.html:121
+msgid "licensed under"
+msgstr ""
+
+#: tools/webWizard/index.html:133
+msgid "Open Domain"
+msgstr ""
+
+#: tools/webWizard/index.html:150 tools/webWizard/index.html:158
+msgid "Icon by"
+msgstr ""
+
+#: tools/webWizard/index.html:164
+msgid "Generate Scenario"
+msgstr ""
+
+#: tools/webWizard/script.js:30
+msgid "Through Traffic Factor"
+msgstr ""
+
+#: tools/webWizard/script.js:35
+msgid "Count"
+msgstr ""
+
+#: tools/webWizard/script.js:35
+msgid "Count per hour per kilometer"
+msgstr ""
+
+#: tools/webWizard/script.js:56 tools/osmWebWizard.py:116
+msgid "Cars"
+msgstr ""
+
+#: tools/webWizard/script.js:57 tools/osmWebWizard.py:117
+msgid "Trucks"
+msgstr ""
+
+#: tools/webWizard/script.js:59 tools/osmWebWizard.py:119
+msgid "Motorcycles"
+msgstr ""
+
+#: tools/webWizard/script.js:60 tools/osmWebWizard.py:120
+msgid "Bicycles"
+msgstr ""
+
+#: tools/webWizard/script.js:61 tools/webWizard/script.js:128
+#: tools/osmWebWizard.py:121
+msgid "Pedestrians"
+msgstr ""
+
+#: tools/webWizard/script.js:62 tools/osmWebWizard.py:122
+msgid "Trams"
+msgstr ""
+
+#: tools/webWizard/script.js:63
+msgid "Urban trains"
+msgstr ""
+
+#: tools/webWizard/script.js:64 tools/osmWebWizard.py:124
+msgid "Trains"
+msgstr ""
+
+#: tools/webWizard/script.js:65 tools/osmWebWizard.py:125
+msgid "Ships"
+msgstr ""
+
+#: tools/webWizard/script.js:127
+msgid "Highway"
+msgstr ""
+
+#: tools/webWizard/script.js:129
+msgid "Railway"
+msgstr ""
+
+#: tools/webWizard/script.js:130
+msgid "Aeroway"
+msgstr ""
+
+#: tools/webWizard/script.js:131
+msgid "Waterway"
+msgstr ""
+
+#: tools/webWizard/script.js:132
+msgid "Aerialway"
+msgstr ""
+
+#: tools/webWizard/script.js:133
+msgid "Route"
+msgstr ""
+
+#: tools/webWizard/script.js:420
+msgid "ÖPNVKarte (public transport facilities)"
+msgstr ""
+
+#: tools/webWizard/script.js:478 tools/webWizard/script.js:485
+#: tools/webWizard/script.js:491
+msgid "Could not locate address: %"
+msgstr ""
+
+#: tools/webWizard/script.js:526
+msgid ""
+"Unable to access your location. Geolocation is either not supported by your "
+"browser or is not enabled."
+msgstr ""
+
+#: tools/webWizard/script.js:562
+msgid ""
+"Server connection failed (%). Please (re-)open the OSM Web Wizard by using "
+"osmWebWizard.py or the link in your start menu."
+msgstr ""
+
+#: tools/osmWebWizard.py:123
+msgid "Urban Trains"
+msgstr ""
+
+#: tools/osmWebWizard.py:209
+msgid "Downloading map data"
+msgstr ""
+
+#: tools/osmWebWizard.py:292
+msgid "Converting map data"
+msgstr ""
+
+#: tools/osmWebWizard.py:298
+msgid "Generating public transport schedule"
+msgstr ""
+
+#: tools/osmWebWizard.py:331
+msgid "Downloading background images"
+msgstr ""
+
+#: tools/osmWebWizard.py:345
+msgid "Success."
+msgstr ""
+
+#: tools/osmWebWizard.py:350
+#, python-format
+msgid "Error while downloading background images: %s"
+msgstr ""
+
+#: tools/osmWebWizard.py:363
+#, python-format
+msgid "Processing %s"
+msgstr ""
+
+#: tools/osmWebWizard.py:446
+msgid "Generating configuration file"
+msgstr ""
+
+#: tools/osmWebWizard.py:509
+msgid "Calling SUMO"
+msgstr ""
+
+#: tools/osmWebWizard.py:518
+msgid "Building zip file"
+msgstr ""
+
+#: tools/osmWebWizard.py:593 tools/osmWebWizard.py:637
+msgid "Error with SSL certificate, try 'pip install -U certifi'."
+msgstr ""
+
+#: tools/osmWebWizard.py:598 tools/osmWebWizard.py:642
+#, python-format
+msgid "%s, recovering."
+msgstr ""

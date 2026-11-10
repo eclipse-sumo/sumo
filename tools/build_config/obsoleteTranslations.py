@@ -61,7 +61,8 @@ def main(args=None):
     pot_file = options.sumo_home + "/data/po/sumo.pot"
     gui_pot_file = options.sumo_home + "/data/po/gui.pot"
     py_pot_file = options.sumo_home + "/data/po/py.pot"
-    potFiles = [pot_file, gui_pot_file, py_pot_file]
+    web_pot_file = options.sumo_home + "/data/po/osmWebWizard.pot"
+    potFiles = [pot_file, gui_pot_file, py_pot_file, web_pot_file]
     if options.output is not None:
         if os.path.exists(options.output):
             os.remove(options.output)  # clear output file
