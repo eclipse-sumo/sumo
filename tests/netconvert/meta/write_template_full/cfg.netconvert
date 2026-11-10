@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-13T16:00:10.254151+01:00 by Eclipse SUMO netconvert v1_28_0+0001-b9466dc3ede
+<!-- generated on 2026-11-10T16:36:56.273209+01:00 by Eclipse SUMO netconvert v1_28_0+0490-0028982655c
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -358,6 +358,7 @@
         <osm.extra-attributes value="all" synonymes="osm.extra-tags" type="STR[]" help="List of additional attributes that shall be imported from OSM via osm.all-attributes (set &apos;all&apos; to import all)"/>
         <osm.speedlimit-none value="39.4444" type="FLOAT" help="The speed limit to be set when there is no actual speed limit in reality"/>
         <osm.annotate-defaults value="false" type="BOOL" help="Whether edges shoulds carry information on the usage of typemap defaults"/>
+        <osm.etcs-moving-block value="false" type="BOOL" help="Whether ETCS2 track sections should default to moving-block mode"/>
         <matsim.keep-length value="false" type="BOOL" help="The edge lengths given in the MATSim-file will be kept"/>
         <matsim.lanes-from-capacity value="false" type="BOOL" help="The lane number will be computed from the capacity"/>
         <shapefile.street-id value="" synonymes="arcview.street-id" deprecated="arcview.street-id" type="STR" help="Read edge ids from column STR"/>

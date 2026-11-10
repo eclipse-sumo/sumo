@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-13T16:00:10.292680+01:00 by Eclipse SUMO netconvert v1_28_0+0001-b9466dc3ede
+<!-- generated on 2026-11-10T16:36:56.303835+01:00 by Eclipse SUMO netconvert v1_28_0+0490-0028982655c
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -977,6 +977,9 @@
 
         <!-- Whether edges shoulds carry information on the usage of typemap defaults -->
         <osm.annotate-defaults value="false" type="BOOL"/>
+
+        <!-- Whether ETCS2 track sections should default to moving-block mode -->
+        <osm.etcs-moving-block value="false" type="BOOL"/>
 
         <!-- The edge lengths given in the MATSim-file will be kept -->
         <matsim.keep-length value="false" type="BOOL"/>

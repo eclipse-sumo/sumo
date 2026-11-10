@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert v1_28_0+0001-b9466dc3ede
+Eclipse SUMO netconvert v1_28_0+0490-0028982655c
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -665,6 +665,8 @@ Formats Options:
                                         no actual speed limit in reality
   --osm.annotate-defaults              Whether edges shoulds carry information
                                         on the usage of typemap defaults
+  --osm.etcs-moving-block              Whether ETCS2 track sections should
+                                        default to moving-block mode
   --matsim.keep-length                 The edge lengths given in the
                                         MATSim-file will be kept
   --matsim.lanes-from-capacity         The lane number will be computed from
