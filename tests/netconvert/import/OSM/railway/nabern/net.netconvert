@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-10T09:26:01.132162+01:00 by Eclipse SUMO netconvert v1_28_0+0487-93e9efa9a7b
+<!-- generated on 2026-11-10T16:37:01.091215+01:00 by Eclipse SUMO netconvert v1_28_0+0490-0028982655c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -219,7 +219,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
         <param key="description" value="ETCS-Halttafel (Ne 14) in westlicher Richtung, an Oberleitungsmast mit Hektometertafel 39,8"/>
-        <param key="moving-block" value="true"/>
         <param key="railway" value="signal"/>
         <param key="railway:signal:catenary_mast" value="yes"/>
         <param key="railway:signal:direction" value="backward"/>
@@ -229,11 +228,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="railway:signal:train_protection:type" value="block_marker"/>
         <param key="ref" value="22 128"/>
         <param key="video" value="https://youtu.be/6knycDu1hVs?t=8776"/>
+        <param key="virtual" value="true"/>
     </junction>
     <junction id="9373575811" type="rail_signal" x="376.67" y="22.85" incLanes="-925752032#1_0" intLanes="" shape="376.76,24.45 376.58,21.25 376.76,24.45">
         <request index="0" response="0" foes="0"/>
         <param key="description" value="ETCS-Halttafel (Ne 14) in westlicher Richtung, an Oberleitungsmast mit Hektometertafel 39,8"/>
-        <param key="moving-block" value="true"/>
         <param key="railway" value="signal"/>
         <param key="railway:signal:catenary_mast" value="yes"/>
         <param key="railway:signal:direction" value="backward"/>
@@ -243,6 +242,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="railway:signal:train_protection:type" value="block_marker"/>
         <param key="ref" value="22 228"/>
         <param key="video" value="https://youtu.be/6knycDu1hVs?t=8776"/>
+        <param key="virtual" value="true"/>
     </junction>
 
     <connection from="-925752032#1" to="-925752032#0" fromLane="0" toLane="0" tl="9373575811" linkIndex="0" dir="s" state="O"/>
