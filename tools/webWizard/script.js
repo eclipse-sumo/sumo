@@ -162,6 +162,11 @@ on("ready", async function(){
 
     let activeTab = null;
 
+    // keep the controls below the button / status bar, even if a (translated) text needs more than one line
+    new ResizeObserver(function(){
+        elem("#side").style.setProperty("--controls-top", Math.max(55, elem("#fixed").offsetHeight + 5) + "px");
+    }).observe(elem("#fixed"));
+
     /**
      * @function
      * @param id: the id of the tab to open
