@@ -150,6 +150,10 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
     myVisualizationSettings->gaming = myApp->isGaming();
     gSchemeStorage.setViewport(this);
     myDecals = gSchemeStorage.getDecals();
+    if (myApp->getCartesianLabel() != nullptr) {
+        myApp->getCartesianLabel()->enable();
+        myApp->getCartesianLabel()->setEditable(true);
+    }
 }
 
 
