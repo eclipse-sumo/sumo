@@ -1,0 +1,8 @@
+<routes>
+    <!-- only the ring-2 lag is called; coordinated phase start C_start = 49 s into the cycle -->
+    <vType id="car" sigma="0"/>
+    <!-- cycle 1 (starts 149): only lag 5 is called; it gaps out and keeps its green until its yellow and red end at phase 6's next start (249) -->
+    <vehicle id="lag5" type="car" depart="139" departLane="1" departPos="245" departSpeed="0">
+        <route edges="2si 3o"/>
+    </vehicle>
+</routes>

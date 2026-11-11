@@ -31,6 +31,8 @@ title: ChangeLog
     - Fixed corner case with empty-string departLane #18398
     - vehicle on turnaround now restores its further lanes when loading state #18404
     - Now restoring internal link approach state #18406
+  - Fixed NEMA lagging left turns never being served in coordinated mode: a coordinated phase followed by another phase on its side of the barrier was treated as a barrier phase. Barrier phases are now taken from the ring order, in free mode too. [documentation](Simulation/NEMA.md#leading_and_lagging_left_turns) #18453
+  - NEMA controller type TS2 now finds the cycle zero (start of the first coordinated phase) in coordinated plans with a lagging left turn #18453
 
 - netedit  
   - When called from sumo-gui with <kbd>Ctrl</kbd> + <kbd>T</kbd>, traffic demand loading now honors checkbox #18347 (regression in 1.26.0)
@@ -99,6 +101,7 @@ title: ChangeLog
   - The JuPedSim coupling has been redone, giving direct access to the JuPedSim Python module #18128
     - Make sure you have an active python environment with the jupedsim module installed, when running the model.
   - Added simulation option category 'persons' #6374
+  - NEMA controller: new parameter *reservicePhases* serves a coordinated phase again in the same cycle when its lagging left turn gaps out. [documentation](Simulation/NEMA.md#leading_and_lagging_left_turns) #18453
 
 - sumo-gui
   - Converted some buttons into checkboxes in the locate dialog #9925

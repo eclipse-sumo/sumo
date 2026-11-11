@@ -1,0 +1,12 @@
+<routes>
+    <!-- the other ring's coordinated phase 6 keeps its green to the barrier instead of going back to its leading phase 5 -->
+    <vType id="car" sigma="0"/>
+    <!-- side-street call too late for cycle 1 (phase 4's force-off 244): served in cycle 2 from 320 -->
+    <vehicle id="side4" type="car" depart="236" departLane="0" departPos="245" departSpeed="0">
+        <route edges="3si 4o"/>
+    </vehicle>
+    <!-- phase 5 called while phase 6 is green before its force-off (313): served after the side street -->
+    <vehicle id="lead5" type="car" depart="282" departLane="1" departPos="245" departSpeed="0">
+        <route edges="2si 3o"/>
+    </vehicle>
+</routes>

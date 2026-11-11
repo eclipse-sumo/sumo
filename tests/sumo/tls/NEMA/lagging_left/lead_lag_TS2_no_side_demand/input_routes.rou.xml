@@ -1,0 +1,8 @@
+<routes>
+    <!-- lag [1] gaps out and the side street is never called; coordinated phase start C_start = 0 s into the cycle -->
+    <vType id="car" sigma="0"/>
+    <!-- cycle 1 (starts 100): lag call while phase 2 is green; phase 1 gaps out and keeps its green until its yellow and red end at phase 2's next start (200) -->
+    <vehicle id="lag1_called" type="car" depart="130" departLane="1" departPos="245" departSpeed="0">
+        <route edges="1si 4o"/>
+    </vehicle>
+</routes>

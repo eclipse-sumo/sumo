@@ -1,0 +1,12 @@
+<routes>
+    <!-- free mode: barrier roles come from the ring order -->
+    <vType id="car" sigma="0"/>
+    <!-- phase 1 call -->
+    <vehicle id="lag1" type="car" depart="90" departLane="1" departPos="245" departSpeed="0">
+        <route edges="1si 4o"/>
+    </vehicle>
+    <!-- phase 4 call -->
+    <vehicle id="side4" type="car" depart="95" departLane="0" departPos="245" departSpeed="0">
+        <route edges="3si 4o"/>
+    </vehicle>
+</routes>

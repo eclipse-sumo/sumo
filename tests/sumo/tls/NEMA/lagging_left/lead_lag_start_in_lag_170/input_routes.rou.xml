@@ -1,0 +1,8 @@
+<routes>
+    <!-- begin 105 s: inside phase 1's window 100-116 -->
+    <vType id="car" sigma="0"/>
+    <!-- Type 170 lag window: coordinated start 49, phase 1 start 49 + 44 + 7 = 100, force-off 49 + 67 = 116; begin at 105, call at begin -->
+    <vehicle id="lag1_at_begin" type="car" depart="105" departLane="1" departPos="245" departSpeed="0">
+        <route edges="1si 4o"/>
+    </vehicle>
+</routes>

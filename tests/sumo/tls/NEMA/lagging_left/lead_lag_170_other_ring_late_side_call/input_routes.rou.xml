@@ -1,0 +1,13 @@
+<routes>
+    <!-- a late side-street call on the other ring's side phase, while lag 1 dwells, waits for the next cycle -->
+    <vType id="car" sigma="0"/>
+    <!-- cycle 1 (starts 149): lag 1 runs from 200 and dwells -->
+    <vehicle id="lag1" type="car" depart="139" departLane="1" departPos="245" departSpeed="0">
+        <route edges="1si 4o"/>
+    </vehicle>
+    <!-- side-street call on the other ring (phase 8) too late for the side street to fit before its force-off (244):
+         served in cycle 2 from 320, and phases 2/6 start on time at 249 -->
+    <vehicle id="side8" type="car" depart="230" departLane="0" departPos="245" departSpeed="0">
+        <route edges="4si 3o"/>
+    </vehicle>
+</routes>

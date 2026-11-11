@@ -292,6 +292,9 @@ public:
      */
     PhasePtr getOtherPhase(PhasePtr p);
 
+    /// @brief whether the controller is in coordinated mode and a coordinated phase is followed by a lagging phase
+    bool hasLaggingPhase() const;
+
     /// @brief whether the controller is in coordinated mode or not
     bool coordinateMode;
 
@@ -657,6 +660,38 @@ public:
     void update(NEMALogic* controller);
 
     /**
+     * @brief whether a coordinated phase that is followed by a lagging phase is past its force off
+     * but has not reached the barrier yet, so it keeps its green when the lagging phase is not served
+     *
+     * @param controller a reference to the controller
+     */
+    bool holdsForLag(NEMALogic* controller);
+
+    /// @brief whether this coordinated phase is being served again in this cycle after its lagging phase gapped out
+    bool isReserviced() const {
+        return myReserviced;
+    }
+
+    /**
+     * @brief for a lagging phase (the barrier phase after a coordinated phase on its side of the barrier): the time left
+     * between its coordinated phase's force off and the point where its own yellow and red end at that phase's next start,
+     * 0 outside that window, and -1 for any other phase (including all phases outside coordinated mode)
+     *
+     * @param controller a reference to the controller
+     */
+    SUMOTime lagWindowLeft(NEMALogic* controller);
+
+    /**
+     * @brief for a coordinated or lagging phase in a plan with a lagging phase: whether this ring may cross the barrier into
+     * toPhase now. It must be inside the other side's window (a lagging phase: its own window; a coordinated phase: between
+     * its force off and toPhase's), and toPhase's minimum green plus my yellow and red must fit before toPhase's force off
+     *
+     * @param controller a reference to the controller
+     * @param toPhase the phase on the other side of the barrier
+     */
+    bool crossFits(NEMALogic* controller, NEMAPhase* toPhase);
+
+    /**
      * @brief handles the transition out of a phase into the next (puts the phase through (G -> Y -> R) transition
      *
      * @param controller a reference to the NEMAController
@@ -716,6 +751,8 @@ public:
     bool minRecall;
     bool maxRecall;
     bool fixForceOff;
+    /// @brief whether this coordinated phase is served again in the same cycle when its lagging phase gaps out (reservicePhases)
+    bool reservice;
     int ringNum;
 
     /// @brief store the last detect check for traci purposes
@@ -804,6 +841,7 @@ public:
     inline void cleanupExit(void) {
         transitionActive = false;
         readyToSwitch = false;
+        myReserviced = false;
         myLightState = LightState::Red;
     }
 
@@ -834,6 +872,9 @@ private:
     SUMOTime myExpectedDuration;
     SUMOTime myLastEnd;
     /// @}
+
+    /// @brief whether this coordinated phase was entered from its lagging phase past its force off (served again in this cycle)
+    bool myReserviced;
 
     /// @name Light String Parameters
     /// @{
