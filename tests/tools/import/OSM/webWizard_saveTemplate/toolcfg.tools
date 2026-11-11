@@ -8,6 +8,7 @@
     <address value="" type="string" help="Address for the web socket or server." category="processing"/>
     <port value="None" type="int" help="Port for the web socket or server. By default a random port is chosen." category="processing"/>
     <verbose value="False" type="bool" help="tell me what you are doing" category="processing"/>
+    <language value="None" type="string" help="Language of the web interface (by default the language of the browser is used)." category="processing"/>
     <begin value="0" type="time" help="Defines the begin time for the scenario." category="processing"/>
     <end value="900" type="time" help="Defines the end time for the scenario." category="processing"/>
     <netconvert-options value="None" type="string" help="additional comma-separated options for netconvert" category="processing"/>
