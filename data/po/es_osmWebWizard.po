@@ -8,18 +8,21 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-11-10 19:04+0100\n"
-"PO-Revision-Date: 2026-11-10 12:31+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-11-11 08:51+0000\n"
+"Last-Translator: Angelo Banse <angelobanse@users.noreply.hosted.weblate.org>"
+"\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
+"osmwebwizard/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: tools/webWizard/index.html:4
 msgid "OSM Web Wizard for SUMO"
-msgstr ""
+msgstr "OSM Web Wizard de SUMO"
 
 #: tools/webWizard/index.html:20 tools/webWizard/index.html:21
 #: tools/webWizard/index.html:64
@@ -85,7 +88,7 @@ msgstr "Tranvía"
 
 #: tools/webWizard/index.html:73
 msgid "Metro (subway)"
-msgstr ""
+msgstr "Metro (subterráneo)"
 
 #: tools/webWizard/index.html:74
 msgid "Light rail"
@@ -97,31 +100,31 @@ msgstr "Tren"
 
 #: tools/webWizard/index.html:76
 msgid "Trolleybus"
-msgstr ""
+msgstr "Trolebús"
 
 #: tools/webWizard/index.html:77
 msgid "Monorail"
-msgstr ""
+msgstr "Monorriel"
 
 #: tools/webWizard/index.html:78
 msgid "Minibus"
-msgstr ""
+msgstr "Minibús"
 
 #: tools/webWizard/index.html:79
 msgid "Share taxi"
-msgstr ""
+msgstr "Taxi colectivo"
 
 #: tools/webWizard/index.html:80
 msgid "Ferry"
-msgstr ""
+msgstr "Ferry"
 
 #: tools/webWizard/index.html:81
 msgid "Cable car / Aerialway"
-msgstr ""
+msgstr "Teleférico / sistema aéreo"
 
 #: tools/webWizard/index.html:83
 msgid "Car-only Network"
-msgstr ""
+msgstr "Red solo para vehículos"
 
 #: tools/webWizard/index.html:84
 msgid "Satellite background"
@@ -129,36 +132,36 @@ msgstr "Imágenes satelitales de fondo"
 
 #: tools/webWizard/index.html:86
 msgid "Image zoom level"
-msgstr ""
+msgstr "Nivel de zoom"
 
 #: tools/webWizard/index.html:98
 msgid "Left Hand Traffic"
-msgstr ""
+msgstr "Circulación por la izquierda"
 
 #: tools/webWizard/index.html:99
 msgid "Verbose"
-msgstr ""
+msgstr "Usar log detallado"
 
 #: tools/webWizard/index.html:110
 msgid "Icon Copyrights"
-msgstr ""
+msgstr "Derechos de autor de los iconos"
 
 #: tools/webWizard/index.html:120 tools/webWizard/index.html:132
 #: tools/webWizard/index.html:142
 msgid "Icons by"
-msgstr ""
+msgstr "Iconos de"
 
 #: tools/webWizard/index.html:121
 msgid "licensed under"
-msgstr ""
+msgstr "bajo licencia"
 
 #: tools/webWizard/index.html:133
 msgid "Open Domain"
-msgstr ""
+msgstr "Dominio abierto"
 
 #: tools/webWizard/index.html:150 tools/webWizard/index.html:158
 msgid "Icon by"
-msgstr ""
+msgstr "Icono de"
 
 #: tools/webWizard/index.html:164
 msgid "Generate Scenario"
@@ -166,85 +169,85 @@ msgstr "Generar escenario"
 
 #: tools/webWizard/script.js:30
 msgid "Through Traffic Factor"
-msgstr ""
+msgstr "Factor de tráfico de paso"
 
 #: tools/webWizard/script.js:35
 msgid "Count"
-msgstr ""
+msgstr "Cantidad"
 
 #: tools/webWizard/script.js:35
 msgid "Count per hour per kilometer"
-msgstr ""
+msgstr "Cantidad por hora y por kilómetro"
 
 #: tools/webWizard/script.js:56 tools/osmWebWizard.py:116
 msgid "Cars"
-msgstr ""
+msgstr "Carros"
 
 #: tools/webWizard/script.js:57 tools/osmWebWizard.py:117
 msgid "Trucks"
-msgstr ""
+msgstr "Camiones"
 
 #: tools/webWizard/script.js:59 tools/osmWebWizard.py:119
 msgid "Motorcycles"
-msgstr ""
+msgstr "Motocicletas"
 
 #: tools/webWizard/script.js:60 tools/osmWebWizard.py:120
 msgid "Bicycles"
-msgstr ""
+msgstr "Bicicletas"
 
 #: tools/webWizard/script.js:61 tools/webWizard/script.js:128
 #: tools/osmWebWizard.py:121
 msgid "Pedestrians"
-msgstr ""
+msgstr "Peatones"
 
 #: tools/webWizard/script.js:62 tools/osmWebWizard.py:122
 msgid "Trams"
-msgstr ""
+msgstr "Tranvías"
 
 #: tools/webWizard/script.js:63
 msgid "Urban trains"
-msgstr ""
+msgstr "Trenes urbanos"
 
 #: tools/webWizard/script.js:64 tools/osmWebWizard.py:124
 msgid "Trains"
-msgstr ""
+msgstr "Trenes"
 
 #: tools/webWizard/script.js:65 tools/osmWebWizard.py:125
 msgid "Ships"
-msgstr ""
+msgstr "Barcos"
 
 #: tools/webWizard/script.js:127
 msgid "Highway"
-msgstr ""
+msgstr "Autopista"
 
 #: tools/webWizard/script.js:129
 msgid "Railway"
-msgstr ""
+msgstr "Vía férrea"
 
 #: tools/webWizard/script.js:130
 msgid "Aeroway"
-msgstr ""
+msgstr "Vía aérea"
 
 #: tools/webWizard/script.js:131
 msgid "Waterway"
-msgstr ""
+msgstr "Vía navegable"
 
 #: tools/webWizard/script.js:132
 msgid "Aerialway"
-msgstr ""
+msgstr "Teleférico"
 
 #: tools/webWizard/script.js:133
 msgid "Route"
-msgstr ""
+msgstr "Ruta"
 
 #: tools/webWizard/script.js:420
 msgid "ÖPNVKarte (public transport facilities)"
-msgstr ""
+msgstr "ÖPNVKarte (Instalaciones de transporte público)"
 
 #: tools/webWizard/script.js:478 tools/webWizard/script.js:485
 #: tools/webWizard/script.js:491
 msgid "Could not locate address: %"
-msgstr ""
+msgstr "No se pudo localizar la dirección: %"
 
 #: tools/webWizard/script.js:526
 msgid ""
