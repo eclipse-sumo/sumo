@@ -1,0 +1,12 @@
+<routes>
+    <!-- a side-street call late in the lag's dwell waits for the next cycle -->
+    <vType id="car" sigma="0"/>
+    <!-- cycle 1: lag 1 gaps out and keeps its green -->
+    <vehicle id="lag1" type="car" depart="130" departLane="1" departPos="245" departSpeed="0">
+        <route edges="1si 4o"/>
+    </vehicle>
+    <!-- cycle 1: side-street call too late for phase 4 to fit before its force-off 195; served in cycle 2 from 271, phases 2/6 green at 200 -->
+    <vehicle id="side4" type="car" depart="188" departLane="0" departPos="245" departSpeed="0">
+        <route edges="3si 4o"/>
+    </vehicle>
+</routes>

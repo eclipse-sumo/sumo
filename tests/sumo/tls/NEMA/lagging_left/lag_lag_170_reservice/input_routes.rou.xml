@@ -1,0 +1,12 @@
+<routes>
+    <!-- reservicePhases applies per ring -->
+    <vType id="car" sigma="0"/>
+    <!-- cycle 1 (starts 149): lag 1 gaps out at 205; phase 2 (listed) is served again from 209 -->
+    <vehicle id="lag1" type="car" depart="139" departLane="1" departPos="245" departSpeed="0">
+        <route edges="1si 4o"/>
+    </vehicle>
+    <!-- cycle 1: lag 5 gaps out at 205; phase 6 (not listed) is not, lag 5 keeps its green to 245 and phase 6 is back at 249 -->
+    <vehicle id="lag5" type="car" depart="139" departLane="1" departPos="245" departSpeed="0">
+        <route edges="2si 3o"/>
+    </vehicle>
+</routes>

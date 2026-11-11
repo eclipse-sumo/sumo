@@ -1,0 +1,29 @@
+<additional>
+    <!-- lag_lag (Type170): ring1 2,1,0,4 | ring2 6,5,0,8 -->
+    <tlLogic id="0" programID="lag" type="NEMA" offset="0">
+        <param key="ring1" value="2,1,0,4"/>
+        <param key="ring2" value="6,5,0,8"/>
+        <param key="barrierPhases" value="4,8"/>
+        <param key="coordinatePhases" value="2,6"/>
+        <param key="coordinate-mode" value="true"/>
+        <param key="total-cycle-length" value="100"/>
+        <param key="controllerType" value="Type170"/>
+        <param key="minRecall" value="2,6"/>
+        <param key="maxRecall" value="4,8"/>
+        <param key="fixForceOff" value="false"/>
+        <param key="1si_1" value="Detector_1"/>
+        <param key="1si_0" value="Detector_6"/>
+        <param key="2si_0" value="Detector_2"/>
+        <param key="2si_1" value="Detector_5"/>
+        <param key="3si_0" value="Detector_4"/>
+        <param key="3si_1" value="Detector_7"/>
+        <param key="4si_0" value="Detector_8"/>
+        <param key="4si_1" value="Detector_3"/>
+        <phase duration="99" minDur="5" maxDur="16" vehext="2" yellow="3" red="1" name="1" state="srrsrrsrrsrG"/>
+        <phase duration="99" minDur="15" maxDur="44" vehext="2" yellow="4" red="3" name="2" state="srrGGrsrrsrr"/>
+        <phase duration="99" minDur="7" maxDur="24" vehext="2" yellow="3.5" red="1.5" name="4" state="srrsrrGGgsrr"/>
+        <phase duration="99" minDur="5" maxDur="16" vehext="2" yellow="3" red="1" name="5" state="srrsrGsrrsrr"/>
+        <phase duration="99" minDur="15" maxDur="44" vehext="2" yellow="4" red="3" name="6" state="srrsrrsrrGGr"/>
+        <phase duration="99" minDur="7" maxDur="24" vehext="2" yellow="3.5" red="1.5" name="8" state="GGgsrrsrrsrr"/>
+    </tlLogic>
+</additional>

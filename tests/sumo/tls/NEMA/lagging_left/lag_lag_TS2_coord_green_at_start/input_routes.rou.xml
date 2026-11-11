@@ -1,0 +1,16 @@
+<routes>
+    <!-- a coordinated phase green across its own start yields to its lag only at its force-off -->
+    <vType id="car" sigma="0"/>
+    <!-- cycle 0: side-street call, so phase 6 comes back early and stays green across its start at 100 -->
+    <vehicle id="side4" type="car" depart="60" departLane="0" departPos="245" departSpeed="0">
+        <route edges="3si 4o"/>
+    </vehicle>
+    <!-- cycle 1: lag 1 gaps out and keeps its green until 196, so phase 6 is not entered again at 100 -->
+    <vehicle id="lag1" type="car" depart="103" departLane="1" departPos="245" departSpeed="0">
+        <route edges="1si 4o"/>
+    </vehicle>
+    <!-- cycle 2: lag 5 call 8 s after the coordinated start; phase 6 holds to its force-off 244 and lag 5 starts at 251 -->
+    <vehicle id="lag5" type="car" depart="208" departLane="1" departPos="245" departSpeed="0">
+        <route edges="2si 3o"/>
+    </vehicle>
+</routes>
