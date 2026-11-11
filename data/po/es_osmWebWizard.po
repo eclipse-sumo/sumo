@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-11-10 19:04+0100\n"
-"PO-Revision-Date: 2026-11-11 08:51+0000\n"
+"PO-Revision-Date: 2026-11-11 09:02+0000\n"
 "Last-Translator: Angelo Banse <angelobanse@users.noreply.hosted.weblate.org>"
 "\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -254,16 +254,20 @@ msgid ""
 "Unable to access your location. Geolocation is either not supported by your "
 "browser or is not enabled."
 msgstr ""
+"No se pudo acceder a la ubicación. El navegador no admite la geolocalización "
+"o esta función está desactivada."
 
 #: tools/webWizard/script.js:562
 msgid ""
 "Server connection failed (%). Please (re-)open the OSM Web Wizard by using "
 "osmWebWizard.py or the link in your start menu."
 msgstr ""
+"Error al conectar con el servidor (%). Vuelva a abrir el OSM Web Wizard "
+"usando el script osmWebWizard.py o el acceso directo del menú de inicio."
 
 #: tools/osmWebWizard.py:123
 msgid "Urban Trains"
-msgstr ""
+msgstr "Trenes urbanos"
 
 #: tools/osmWebWizard.py:209
 msgid "Downloading map data"
@@ -275,43 +279,43 @@ msgstr "Convirtiendo datos del mapa"
 
 #: tools/osmWebWizard.py:298
 msgid "Generating public transport schedule"
-msgstr ""
+msgstr "Generando transporte público"
 
 #: tools/osmWebWizard.py:331
 msgid "Downloading background images"
-msgstr ""
+msgstr "Descargando las imágenes de fondo"
 
 #: tools/osmWebWizard.py:345
 msgid "Success."
-msgstr ""
+msgstr "Listo."
 
 #: tools/osmWebWizard.py:350
 #, python-format
 msgid "Error while downloading background images: %s"
-msgstr ""
+msgstr "Error al descargar las imágenes de fondo: %s"
 
 #: tools/osmWebWizard.py:363
 #, python-format
 msgid "Processing %s"
-msgstr ""
+msgstr "Procesando %s"
 
 #: tools/osmWebWizard.py:446
 msgid "Generating configuration file"
-msgstr ""
+msgstr "Generando el archivo de configuración"
 
 #: tools/osmWebWizard.py:509
 msgid "Calling SUMO"
-msgstr ""
+msgstr "Ejecutando SUMO"
 
 #: tools/osmWebWizard.py:518
 msgid "Building zip file"
-msgstr ""
+msgstr "Creando el archivo ZIP"
 
 #: tools/osmWebWizard.py:593 tools/osmWebWizard.py:637
 msgid "Error with SSL certificate, try 'pip install -U certifi'."
-msgstr ""
+msgstr "Error con el certificado SSL, intente 'pip install -U certifi'."
 
 #: tools/osmWebWizard.py:598 tools/osmWebWizard.py:642
 #, python-format
 msgid "%s, recovering."
-msgstr ""
+msgstr "%s, recuperando."
