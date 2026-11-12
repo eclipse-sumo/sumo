@@ -19,3 +19,6 @@ guess.by-stops2
 
 # see #17779
 guess.by-stops3
+
+# guess rail signals from loaded stops but do not add signals shortly before a terminal turn-around
+guess.by-stops_terminal
