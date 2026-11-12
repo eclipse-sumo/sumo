@@ -276,7 +276,7 @@ msgstr "Abre la red actual en netedit."
 
 #: src/gui/GUIApplicationWindow.cpp:597
 msgid "&Settings"
-msgstr "&Ajustes"
+msgstr "A&justes"
 
 #: src/gui/GUIApplicationWindow.cpp:599
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:53
@@ -428,7 +428,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:646
 msgid "Simulation"
-msgstr "Simulación"
+msgstr "&Simulación"
 
 #: src/gui/GUIApplicationWindow.cpp:648 src/netedit/dialogs/GNEDialog.cpp:477
 #: src/netedit/dialogs/GNEDialog.cpp:494
@@ -603,7 +603,7 @@ msgstr "Limpiar la ventana de mensajes."
 #: src/gui/GUIApplicationWindow.cpp:712
 #: src/netedit/GNEApplicationWindow.cpp:1704
 msgid "&Help"
-msgstr "&Ayuda"
+msgstr "A&yuda"
 
 #: src/gui/GUIApplicationWindow.cpp:714
 msgid "&Online Documentation"
@@ -17676,7 +17676,7 @@ msgstr "la opción window-pos requiere INT,INT"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:531
 msgid "Langua&ge"
-msgstr "Idioma"
+msgstr "&Idioma"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:533
 msgid "Change language to english. (en)"
