@@ -1421,7 +1421,7 @@ MSDriveWay::findFlankProtection(MSLink* link, MSLink* origLink, const std::vecto
         const MSLane* lane = link->getLaneBefore();
         std::vector<MSLink*> predLinks;
         for (auto ili : lane->getIncomingLanes()) {
-            if (!ili.viaLink->isTurnaround()) {
+            if (!ili.viaLink->isTurnaround() || myReversalDriveWays.count(&ili.lane->getEdge()) == 0) {
                 predLinks.push_back(ili.viaLink);
             }
         }
