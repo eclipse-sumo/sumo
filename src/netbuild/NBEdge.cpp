@@ -804,9 +804,9 @@ NBEdge::isRailDeadEnd() const {
         return false;
     }
     for (NBEdge* out : myTo->getOutgoingEdges()) {
-        if (isRailway(out->getPermissions()) &&
+        if (isRailway(out->getPermissions() & getPermissions()) &&
                 out != getTurnDestination(true)) {
-            return true;
+            return false;
         }
     }
     return true;
