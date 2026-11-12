@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-11-10 19:03+0100\n"
-"PO-Revision-Date: 2026-06-24 08:29+0000\n"
-"Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
+"PO-Revision-Date: 2026-11-12 09:21+0000\n"
+"Last-Translator: Angelo Banse <angelobanse@users.noreply.hosted.weblate.org>"
+"\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.7.dev0\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: src/gui/GUIApplicationWindow.cpp:331
 #: src/netedit/GNEApplicationWindow.cpp:595
@@ -25,11 +26,13 @@ msgid ""
 "Original coordinate (before coordinate transformation in netconvert). Enter "
 "'lat, lon' or 'lat:... lon:...' to center view"
 msgstr ""
+"Coordenada original (antes de la transformación de coordenadas en netconvert)"
+". Ingrese 'lat, lon' o 'lat:... lon:...' para centrar la vista"
 
 #: src/gui/GUIApplicationWindow.cpp:332
 #: src/netedit/GNEApplicationWindow.cpp:596
 msgid "Enter 'lat, lon' to center view"
-msgstr ""
+msgstr "Ingrese 'lat, lon' para centrar la vista"
 
 #: src/gui/GUIApplicationWindow.cpp:334 src/gui/GUIApplicationWindow.cpp:343
 #: src/gui/GUIApplicationWindow.cpp:2443 src/gui/GUIApplicationWindow.cpp:2446
@@ -46,32 +49,32 @@ msgstr "N/A"
 #: src/gui/GUIApplicationWindow.cpp:340
 #: src/netedit/GNEApplicationWindow.cpp:604
 msgid "Network coordinate. Enter 'x, y' to center view"
-msgstr ""
+msgstr "Coordenada de red. Ingrese 'x, y' para centrar la vista"
 
 #: src/gui/GUIApplicationWindow.cpp:341
 #: src/netedit/GNEApplicationWindow.cpp:605
 msgid "Enter 'x, y' to center view"
-msgstr ""
+msgstr "Ingrese 'x, y' para centrar la vista"
 
 #: src/gui/GUIApplicationWindow.cpp:346
 msgid "number of running vehicles"
-msgstr ""
+msgstr "número de vehículos en circulación"
 
 #: src/gui/GUIApplicationWindow.cpp:347
 msgid "number of insertion backlogged vehicles"
-msgstr ""
+msgstr "número de vehículos pendientes de inserción"
 
 #: src/gui/GUIApplicationWindow.cpp:348
 msgid "percentage of teleports per departed vehicles"
-msgstr ""
+msgstr "porcentaje de teleports respecto al número de vehículos que han salido"
 
 #: src/gui/GUIApplicationWindow.cpp:349
 msgid "number of active persons"
-msgstr ""
+msgstr "número de personas activas"
 
 #: src/gui/GUIApplicationWindow.cpp:350
 msgid "number of active containers"
-msgstr ""
+msgstr "número de contenedores activos"
 
 #: src/gui/GUIApplicationWindow.cpp:393
 #: src/netedit/GNEApplicationWindow.cpp:630
@@ -222,7 +225,7 @@ msgstr "Abrir ventana para editar puntos de interrupción."
 #: src/gui/GUIApplicationWindow.cpp:578
 #: src/netedit/GNEApplicationWindowHelper.cpp:1326
 msgid "Edit Visualization"
-msgstr ""
+msgstr "Editar visualización"
 
 #: src/gui/GUIApplicationWindow.cpp:578
 #: src/netedit/GNEApplicationWindowHelper.cpp:1326
@@ -2891,7 +2894,7 @@ msgstr "Dejar de destacar todos los elementos"
 
 #: src/netedit/GNEApplicationWindow.cpp:2980
 msgid "Front element (only inspected elements)"
-msgstr ""
+msgstr "Elemento frontal (solo elementos inspeccionados)"
 
 #: src/netedit/GNEApplicationWindow.cpp:3529
 msgid "Force save network"
@@ -3974,7 +3977,7 @@ msgstr "Mostrar burbujas sobre las formas de los cruces"
 #: src/netedit/GNEApplicationWindowHelper.cpp:941
 #: src/netedit/GNEViewNetHelper.cpp:2831
 msgid "Show polygon symbols"
-msgstr ""
+msgstr "Mostrar símbolos de polígonos"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:947
 msgid "Draw filled walkingareas"
@@ -4836,7 +4839,7 @@ msgstr "Desactivar texturas"
 
 #: src/netedit/GNELoadThread.cpp:520
 msgid "Load visualization settings from FILE"
-msgstr ""
+msgstr "Cargar ajustes de visualización desde FILE"
 
 #: src/netedit/GNELoadThread.cpp:525
 msgid "Load current viewport from registry"
@@ -4871,6 +4874,8 @@ msgstr "Guardar los ajustes de la GUI en este archivo de ajustes"
 #: src/netedit/GNELoadThread.cpp:548
 msgid "Quit the app if the initial net/config loading fails"
 msgstr ""
+"Cerrar la aplicación si falla la carga inicial de la red o del archivo de "
+"configuración"
 
 #: src/netedit/GNELoadThread.cpp:555
 msgid "Defines the begin time in seconds; The simulation starts at this time"
