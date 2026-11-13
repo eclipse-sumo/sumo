@@ -859,6 +859,7 @@ MSMeanData::writeXMLOutput(OutputDevice& dev,
 
 void
 MSMeanData::writeXMLDetectorProlog(OutputDevice& dev) const {
+    dev.setExpectedAttributes(0, (myAmEdgeBased || myAggregate != AggregateType::NO) ? 2 : 3);
     dev.writeXMLHeader("meandata", "meandata_file.xsd");
 }
 

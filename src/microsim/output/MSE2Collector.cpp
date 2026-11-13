@@ -1326,6 +1326,7 @@ MSE2Collector::calculateTimeLossAndTimeOnDetector(const SUMOTrafficObject& veh, 
 
 void
 MSE2Collector::writeXMLDetectorProlog(OutputDevice& dev) const {
+    dev.setExpectedAttributes(0, 1);
     dev.writeXMLHeader("detector", "det_e2_file.xsd");
 }
 

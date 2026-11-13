@@ -167,6 +167,7 @@ MSInstantInductLoop::notifyLeave(SUMOTrafficObject& veh, double /* lastPos */, M
 
 void
 MSInstantInductLoop::writeXMLDetectorProlog(OutputDevice& dev) const {
+    dev.setExpectedAttributes(0, 1);
     dev.writeXMLHeader("instantE1", "instant_e1_file.xsd");
 }
 

@@ -701,6 +701,7 @@ MSCalibrator::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime sto
 
 void
 MSCalibrator::writeXMLDetectorProlog(OutputDevice& dev) const {
+    dev.setExpectedAttributes(0, 1);
     dev.writeXMLHeader("calibratorstats", "calibratorstats_file.xsd");
 }
 
