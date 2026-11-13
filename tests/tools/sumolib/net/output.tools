@@ -17,3 +17,4 @@ getNeighboringLanes :S_0_0 CS_0 CS_1 SC_0 SC_1
 getNeighboringNodes only for incoming edges C
 getNeighboringNodes only for outgoing edges C
 getNeighboringNodes E N S W
+foes of SC_0->CN_0: NC_1->CE_1 NC_1->CN_1 EC_0->CN_0 EC_1->CW_1 EC_1->CS_1 WC_1->CE_1 WC_1->CN_1

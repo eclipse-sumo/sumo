@@ -115,29 +115,51 @@ class Node:
         self._prohibits[index] = prohibits
 
     def areFoes(self, link1, link2):
+        if not isinstance(link1, int):
+            link1 = self.getLinkIndex(link1)
+        if not isinstance(link2, int):
+            link2 = self.getLinkIndex(link2)
+        if link1 < 0 or link2 < 0 or link1 not in self._foes:
+            return False
         return self._foes[link1][len(self._foes[link1]) - link2 - 1] == '1'
 
     def hasFoes(self):
         """whether there are any conflicting connections as this node"""
         return any(['1' in foes for foes in self._foes.values()])
 
-    def getLinkIndex(self, conn):
-        ret = 0
+    def _iterIndexedConnections(self):
+        idx = 0
         for lane_id in self._incLanes:
             lastUnderscore = lane_id.rfind("_")
             if lastUnderscore > 0:
                 edge_id = lane_id[:lastUnderscore]
-                index = lane_id[lastUnderscore+1:]
-                edge = [e for e in self._incoming if e.getID() == edge_id][0]
-                for candidate_conn in edge.getLane(int(index)).getOutgoing():
+                index = int(lane_id[lastUnderscore + 1:])
+                edges = [e for e in self._incoming if e.getID() == edge_id]
+                if not edges:
+                    continue
+                for candidate_conn in edges[0].getLane(index).getOutgoing():
                     fromFunction = candidate_conn.getFromLane().getEdge().getFunction()
                     toFunction = candidate_conn.getToLane().getEdge().getFunction()
-                    if toFunction == "walkingarea" or (fromFunction == "walkingarea" and not toFunction == "crossing"):
+                    if toFunction == "walkingarea" or (fromFunction == "walkingarea" and toFunction != "crossing"):
                         continue
-                    if candidate_conn == conn:
-                        return ret
-                    ret += 1
+                    yield idx, candidate_conn
+                    idx += 1
+
+    def getLinkIndex(self, conn):
+        for idx, candidate_conn in self._iterIndexedConnections():
+            if candidate_conn == conn:
+                return idx
         return -1
+
+    def getFoes(self, conn):
+        """Returns all connections at this node that conflict with the given connection (or link index)."""
+        linkIndex = conn if isinstance(conn, int) else self.getLinkIndex(conn)
+        if linkIndex < 0 or linkIndex not in self._foes:
+            return []
+        foeBits = self._foes[linkIndex]
+        numLinks = len(foeBits)
+        return [cand for idx, cand in self._iterIndexedConnections()
+                if idx < numLinks and foeBits[numLinks - idx - 1] == '1']
 
     def forbids(self, possProhibitor, possProhibited):
         possProhibitorIndex = self.getLinkIndex(possProhibitor)
