@@ -21,7 +21,8 @@ import os
 import subprocess
 import sys
 
-sys.path.insert(0, os.path.join(os.environ["SUMO_HOME"], "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib
 import traci
 
@@ -47,40 +48,28 @@ def check_invalid_indices():
 
 
 traci.start([sumolib.checkBinary("sumo"), "-n", "input_net.net.xml", "--no-step-log"])
-con = traci.getConnection()
-try:
-    traci.person.add("person", "edge", 20)
-    traci.person.appendWaitingStage("person", 100)
-    traci.simulationStep()
-    check_invalid_indices()
-    print("Invalid indices preserve a single stage plan")
+traci.person.add("person", "edge", 20)
+traci.person.appendWaitingStage("person", 100)
+traci.simulationStep()
+check_invalid_indices()
+print("Invalid indices preserve a single stage plan")
 
-    traci.person.appendWaitingStage("person", 50, "future")
-    check_invalid_indices()
-    print("Invalid indices preserve a multiple stage plan")
+traci.person.appendWaitingStage("person", 50, "future")
+check_invalid_indices()
+print("Invalid indices preserve a multiple stage plan")
 
-    replacement = traci.person.getStage("person", 1)
-    replacement.description = "future replacement"
-    replacement.travelTime = 40
-    traci.person.replaceStage("person", 1, replacement)
-    assert traci.person.getStage("person", 1).description == "waiting (future replacement)"
-    assert traci.person.getStage("person", 1).travelTime == 40
-    replacement = traci.person.getStage("person", 0)
-    replacement.description = "current replacement"
-    replacement.travelTime = 30
-    traci.person.replaceStage("person", 0, replacement)
-    assert traci.person.getStage("person", 0).description == "waiting (current replacement)"
-    assert traci.person.getRemainingStages("person") == 2
-    traci.simulationStep()
-    print("Valid future and current replacements succeed")
-finally:
-    try:
-        con.close(wait=False)
-    except (traci.FatalTraCIError, OSError):
-        if con._socket is not None:
-            con._socket.close()
-    try:
-        con._process.wait(timeout=5)
-    except subprocess.TimeoutExpired:
-        con._process.kill()
-        con._process.wait(timeout=5)
+replacement = traci.person.getStage("person", 1)
+replacement.description = "future replacement"
+replacement.travelTime = 40
+traci.person.replaceStage("person", 1, replacement)
+assert traci.person.getStage("person", 1).description == "waiting (future replacement)"
+assert traci.person.getStage("person", 1).travelTime == 40
+replacement = traci.person.getStage("person", 0)
+replacement.description = "current replacement"
+replacement.travelTime = 30
+traci.person.replaceStage("person", 0, replacement)
+assert traci.person.getStage("person", 0).description == "waiting (current replacement)"
+assert traci.person.getRemainingStages("person") == 2
+traci.simulationStep()
+print("Valid future and current replacements succeed")
+traci.close()
