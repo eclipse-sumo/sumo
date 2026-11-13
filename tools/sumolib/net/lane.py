@@ -123,6 +123,8 @@ class Lane:
         self._shape3D = None
         self._shapeWithJunctions = None
         self._shapeWithJunctions3D = None
+        self._cumLengths = None
+        self._cumLengthsWithJunctions = None
         self._outgoing = []
         self._params = {}
         self._allowed = get_allowed(allow, disallow)
@@ -156,6 +158,8 @@ class Lane:
         shapeLength = sumolib.geomhelper.polyLength(self.getShape())
         if shapeLength > 0:
             self._lengthGeometryFactor = self.getLength() / shapeLength
+        self._cumLengths = None
+        self._cumLengthsWithJunctions = None
 
     def getShape(self, includeJunctions=False):
         """Returns the shape of the lane in 2d.
@@ -223,6 +227,28 @@ class Lane:
     def getClosestLanePosAndDist(self, point, perpendicular=False):
         shapePos, dist = sumolib.geomhelper.polygonOffsetAndDistanceToPoint(point, self.getShape(), perpendicular)
         return shapePos * self._lengthGeometryFactor, dist
+
+    def getCumulativeLengths(self, includeJunctions=False):
+        """Returns cached cumulative 2D segment lengths for the lane shape."""
+        if includeJunctions and not self._edge.isSpecial():
+            if self._cumLengthsWithJunctions is None:
+                self._cumLengthsWithJunctions = sumolib.geomhelper.cumulativeLengths(self.getShape(True))
+            return self._cumLengthsWithJunctions
+        if self._cumLengths is None and self._shape is not None:
+            self._cumLengths = sumolib.geomhelper.cumulativeLengths(self._shape)
+        return self._cumLengths
+
+    def getPositionAtOffset(self, offset, includeJunctions=False):
+        """Returns the (x, y) position at the given offset along the lane."""
+        shapeOffset = offset / self._lengthGeometryFactor if not includeJunctions and self._lengthGeometryFactor > 0 else offset  # noqa
+        return sumolib.geomhelper.positionAtShapeOffset(
+            self.getShape(includeJunctions), shapeOffset, self.getCumulativeLengths(includeJunctions))
+
+    def getRotationAtOffset(self, offset, includeJunctions=False):
+        """Returns the angle (radians) at the given offset along the lane."""
+        shapeOffset = offset / self._lengthGeometryFactor if not includeJunctions and self._lengthGeometryFactor > 0 else offset  # noqa
+        return sumolib.geomhelper.rotationAtShapeOffset(
+            self.getShape(includeJunctions), shapeOffset, self.getCumulativeLengths(includeJunctions))
 
     def getIndex(self):
         return self._edge._lanes.index(self)

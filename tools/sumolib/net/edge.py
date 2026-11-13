@@ -46,6 +46,8 @@ class Edge:
         self._shapeWithJunctions = None
         self._shape3D = None
         self._shapeWithJunctions3D = None
+        self._cumLengths = None
+        self._cumLengthsWithJunctions = None
         self._rawShape = None
         self._rawShape3D = None
         self._function = function
@@ -242,7 +244,7 @@ class Edge:
         else:
             self._shapeWithJunctions3D = addJunctionPos(self._shape3D,
                                                         self._from.getCoord3D(), self._to.getCoord3D())
-            if self._rawShape3D == []:
+            if not self._rawShape3D:
                 self._rawShape3D = [self._from.getCoord3D(), self._to.getCoord3D()]
 
         # 2d - versions
@@ -252,6 +254,32 @@ class Edge:
         shapeLength = sumolib.geomhelper.polyLength(self.getShape())
         if shapeLength > 0:
             self._lengthGeometryFactor = self.getLength() / shapeLength
+        self._cumLengths = None
+        self._cumLengthsWithJunctions = None
+
+    def getCumulativeLengths(self, includeJunctions=False):
+        """Returns cached cumulative 2D segment lengths for the edge shape."""
+        if self._shape is None:
+            self.rebuildShape()
+        if includeJunctions:
+            if self._cumLengthsWithJunctions is None:
+                self._cumLengthsWithJunctions = sumolib.geomhelper.cumulativeLengths(self._shapeWithJunctions)
+            return self._cumLengthsWithJunctions
+        if self._cumLengths is None:
+            self._cumLengths = sumolib.geomhelper.cumulativeLengths(self._shape)
+        return self._cumLengths
+
+    def getPositionAtOffset(self, offset, includeJunctions=False):
+        """Returns the (x, y) position at the given offset along the edge."""
+        shape = self.getShape(includeJunctions)
+        shapeOffset = offset / self._lengthGeometryFactor if not includeJunctions and self._lengthGeometryFactor > 0 else offset  # noqa
+        return sumolib.geomhelper.positionAtShapeOffset(shape, shapeOffset, self.getCumulativeLengths(includeJunctions))
+
+    def getRotationAtOffset(self, offset, includeJunctions=False):
+        """Returns the angle (radians) at the given offset along the edge."""
+        shape = self.getShape(includeJunctions)
+        shapeOffset = offset / self._lengthGeometryFactor if not includeJunctions and self._lengthGeometryFactor > 0 else offset  # noqa
+        return sumolib.geomhelper.rotationAtShapeOffset(shape, shapeOffset, self.getCumulativeLengths(includeJunctions))
 
     def getLength(self):
         return self._lanes[0].getLength()
