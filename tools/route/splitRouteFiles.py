@@ -26,14 +26,19 @@ import sys
 import re
 import random
 import pickle
-import bisect
 import ctypes
+import gzip
+import tempfile
 
 from xml.sax import make_parser, handler
 from collections import defaultdict
 
-sys.path += [os.path.join(os.environ['SUMO_HOME'], 'tools'),
-             os.path.join(os.environ['SUMO_HOME'], 'tools', 'detector')]
+if 'SUMO_HOME' in os.environ:
+    sys.path += [os.path.join(os.environ['SUMO_HOME'], 'tools'),
+                 os.path.join(os.environ['SUMO_HOME'], 'tools', 'detector')]
+else:
+    _toolsDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    sys.path += [_toolsDir, os.path.join(_toolsDir, 'detector')]
 import sumolib  # noqa
 from detector import DetectorReader, LaneMap  # noqa
 
@@ -165,31 +170,48 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID, saf
         prefix["so"] = routesPrefix.replace("mofr", "so")
     files = []
     sortedDeparts = []
-    pattern = re.compile(u'depart="([^"]+)"')
-    # pattern = re.compile('<vehicle.*depart="([0-9]+(\.[0-9]*)?)"')
+    pattern = re.compile(b'\\bdepart="([^"]+)"|<(?:flow|personFlow|containerFlow)\\b[^>]*\\bbegin="([^"]+)"')
+    # pattern = re.compile('<vehicle.*depart="([0-9]+(\\.[0-9]*)?)"')
     for routesIn in routeFiles:
         if verbose:
             print("Reading routes from", routesIn)
-        f = sumolib.openz(routesIn)
-        while True:
-            pos = f.tell()
-            line = f.readline()
-            if not line:
-                break
-            match = pattern.search(line)
-            if match:
-                entry = (float(match.group(1)), len(files), pos)
-                sortedDeparts.insert(bisect.bisect(sortedDeparts, entry), entry)
-            elif '<vtype' in line:
-                print("Warning. Route files use outdated tag 'vtype'")
-                print(line, file=vtypes)
-            elif '<vType' in line:
-                print(line, file=vtypes)
+        if routesIn.endswith(".gz"):
+            f = tempfile.SpooledTemporaryFile(max_size=64 * 1024 * 1024, mode='w+b')
+            with gzip.open(routesIn, 'rb') as gzIn:
+                for rawLine in gzIn:
+                    pos = f.tell()
+                    f.write(rawLine)
+                    match = pattern.search(rawLine)
+                    if match:
+                        depVal = match.group(1) if match.group(1) is not None else match.group(2)
+                        sortedDeparts.append((float(depVal), len(files), pos))
+                    elif b'<vtype' in rawLine:
+                        print("Warning. Route files use outdated tag 'vtype'")
+                        print(rawLine.decode('utf-8', errors='replace').replace('\r\n', '\n'), file=vtypes)
+                    elif b'<vType' in rawLine:
+                        print(rawLine.decode('utf-8', errors='replace').replace('\r\n', '\n'), file=vtypes)
+        else:
+            f = open(routesIn, 'rb')
+            while True:
+                pos = f.tell()
+                rawLine = f.readline()
+                if not rawLine:
+                    break
+                match = pattern.search(rawLine)
+                if match:
+                    depVal = match.group(1) if match.group(1) is not None else match.group(2)
+                    sortedDeparts.append((float(depVal), len(files), pos))
+                elif b'<vtype' in rawLine:
+                    print("Warning. Route files use outdated tag 'vtype'")
+                    print(rawLine.decode('utf-8', errors='replace').replace('\r\n', '\n'), file=vtypes)
+                elif b'<vType' in rawLine:
+                    print(rawLine.decode('utf-8', errors='replace').replace('\r\n', '\n'), file=vtypes)
         files.append(f)
+    sortedDeparts.sort()
     for depart, idx, pos in sortedDeparts:
         f = files[idx]
         f.seek(pos)
-        line = f.readline().rstrip()
+        line = f.readline().decode('utf-8', errors='replace').rstrip()
         while depart >= currentTime or not out["mofr"]:
             for day in out.keys():
                 if out[day]:
@@ -205,11 +227,18 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID, saf
             currentTime += step
         if modifyID:
             line = re.sub('id="([^"]*)"', 'id="\\1_%s"' % idx, line)
-        nextLine = ""
-        while "</vehicle>" not in nextLine:
-            nextLine = f.readline().rstrip()
-            if nextLine.strip():
-                line += "\n" + nextLine
+        tagMatch = re.search(r'<(\w+)\b', line)
+        tagName = tagMatch.group(1) if tagMatch else "vehicle"
+        closingTag = "</%s>" % tagName
+        if closingTag not in line and not re.search(r'<%s\b[^>]*/>' % re.escape(tagName), line):
+            nextLine = ""
+            while closingTag not in nextLine:
+                rawNext = f.readline()
+                if not rawNext:
+                    break
+                nextLine = rawNext.decode('utf-8', errors='replace').rstrip()
+                if nextLine.strip():
+                    line += "\n" + nextLine
         for day in out.keys():
             if out[day] and random.random() < factor[day]:
                 print(line, file=out[day])
@@ -225,18 +254,20 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID, saf
 
 class DepartChanger(handler.ContentHandler):
     def __init__(self, prefix, beg):
+        inFile = "%s%s.rou.xml" % (prefix, beg)
+        if not os.path.exists(inFile):
+            return
         self._offset = 86400
         self._indent = ""
-        self._ofile = open("%s%s.rou.xml" % (prefix, beg+self._offset), "w")
-        parser = make_parser()
-        parser.setContentHandler(self)
-        parser.parse("%s%s.rou.xml" % (prefix, beg))
-        self._ofile.close()
+        with open("%s%s.rou.xml" % (prefix, beg + self._offset), "w") as self._ofile:
+            parser = make_parser()
+            parser.setContentHandler(self)
+            parser.parse(inFile)
 
     def startElement(self, name, attrs):
         print("%s<%s" % (self._indent, name), end=' ', file=self._ofile)
         for attr in attrs.keys():
-            if attr == "depart":
+            if attr == "depart" or (attr in ("begin", "end") and name in ("flow", "personFlow", "containerFlow")):
                 print('%s="%s"' % (attr, float(attrs[attr])+self._offset), end=' ', file=self._ofile)
             else:
                 print('%s="%s"' % (attr, attrs[attr]), end=' ', file=self._ofile)
@@ -252,7 +283,7 @@ class DepartChanger(handler.ContentHandler):
 
 
 def main(args=None):
-    ap = sumolib.options.ArgumentParser(usage="usage: %prog [options] <routefiles>")
+    ap = sumolib.options.ArgumentParser(usage="%(prog)s [options] <routefiles>")
     ap.add_argument("-f", "--detector-file", dest="detfile", category="input", type=ap.file,
                     help="read detectors from FILE", metavar="FILE")
     ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
