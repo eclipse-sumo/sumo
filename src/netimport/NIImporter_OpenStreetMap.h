@@ -29,6 +29,7 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/Parameterised.h>
+#include <netbuild/NBCont.h>
 #include <netbuild/NBPTPlatform.h>
 
 
@@ -405,8 +406,8 @@ private:
     void reconstructLayerElevation(double layerElevation, NBNetBuilder& nb);
 
     /// @brief collect neighboring nodes with their road distance and maximum between-speed. Search does not continue beyond knownElevation-nodes
-    std::map<NBNode*, std::pair<double, double> >
-    getNeighboringNodes(NBNode* node, double maxDist, const std::set<NBNode*>& knownElevation);
+    std::map<NBNode*, std::pair<double, double>, ComparatorIdLess>
+    getNeighboringNodes(NBNode* node, double maxDist, const NodeSet& knownElevation);
 
     /// @brief check whether the type is known or consists of known type compounds. return empty string otherwise
     std::string usableType(const std::string& type, const std::string& id, NBTypeCont& tc);

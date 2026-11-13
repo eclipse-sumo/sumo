@@ -20,6 +20,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <algorithm>
 #include <cassert>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
@@ -236,15 +237,15 @@ NBRailwayTopologyAnalyzer::getRailEdges(const NBNode* node,
 }
 
 
-std::set<NBNode*>
+NodeSet
 NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBEdgeCont& ec, bool verbose) {
-    std::set<NBNode*> brokenNodes;
+    NodeSet brokenNodes;
     OutputDevice& device = OutputDevice::getDevice(verbose
                            ? OptionsCont::getOptions().getString("railway.topology.output")
                            : "/dev/null");
 
     device.writeXMLHeader("railwayTopology", "");
-    std::set<NBNode*> railNodes = getRailNodes(ec, verbose);
+    NodeSet railNodes = getRailNodes(ec, verbose);
     std::map<std::pair<int, int>, std::set<NBNode*, ComparatorIdLess> > types;
     std::set<NBEdge*, ComparatorIdLess> bidiEdges;
     std::set<NBEdge*, ComparatorIdLess> bufferStops;
@@ -391,9 +392,9 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBEdgeCont& ec, bool verbose) {
 }
 
 
-std::set<NBNode*>
+NodeSet
 NBRailwayTopologyAnalyzer::getRailNodes(NBEdgeCont& ec, bool verbose) {
-    std::set<NBNode*> railNodes;
+    NodeSet railNodes;
     int numRailEdges = 0;
     for (auto it = ec.begin(); it != ec.end(); it++) {
         if (hasRailway(it->second->getPermissions())) {
@@ -575,7 +576,7 @@ NBRailwayTopologyAnalyzer::extendBidiEdges(NBEdgeCont& ec, NBNode* node, NBEdge*
 
 int
 NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLineCont& lc) {
-    std::set<NBNode*> brokenNodes = getBrokenRailNodes(ec);
+    NodeSet brokenNodes = getBrokenRailNodes(ec);
     // find reversible edge sequences between broken nodes
     std::vector<EdgeVector> seqsToReverse;
     EdgeSet lineEdges;
@@ -661,7 +662,10 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLi
     }
     std::sort(seqsToReverse.begin(), seqsToReverse.end(),
     [](const EdgeVector & a, const EdgeVector & b) {
-        return a.size() < b.size();
+        if (a.size() != b.size()) {
+            return a.size() < b.size();
+        }
+        return std::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end(), ComparatorIdLess());
     });
     int numReversed = 0;
     std::set<NBNode*> affectedEndpoints;
@@ -708,8 +712,8 @@ NBRailwayTopologyAnalyzer::reverseEdge(NBEdge* e) {
 
 int
 NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBEdgeCont& ec) {
-    std::set<NBNode*> brokenNodes = getBrokenRailNodes(ec);
-    std::set<NBNode*> railNodes = getRailNodes(ec);
+    NodeSet brokenNodes = getBrokenRailNodes(ec);
+    NodeSet railNodes = getRailNodes(ec);
     // find buffer stops and ensure that they are connect to the network in both directions
     int numBufferStops = 0;
     int numAddedBidiTotal = 0;
@@ -802,7 +806,7 @@ NBRailwayTopologyAnalyzer::isBidiSwitch(const NBNode* n) {
 
 int
 NBRailwayTopologyAnalyzer::addBidiEdgesBetweenSwitches(NBEdgeCont& ec) {
-    std::set<NBNode*> brokenNodes = getBrokenRailNodes(ec);
+    NodeSet brokenNodes = getBrokenRailNodes(ec);
     std::map<int, int> seqLengths;
     int numAdded = 0;
     int numSeqs = 0;
@@ -1130,7 +1134,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
 int
 NBRailwayTopologyAnalyzer::addBidiEdgesForStraightConnectivity(NBEdgeCont& ec, bool geometryLike) {
     int added = 0;
-    std::set<NBNode*> brokenNodes = getBrokenRailNodes(ec);
+    NodeSet brokenNodes = getBrokenRailNodes(ec);
     for (const auto& e : ec) {
         if (!hasRailway(e.second->getPermissions())) {
             continue;
@@ -1538,14 +1542,14 @@ int
 NBRailwayGeometryHelper::straigthenCorrdidor(NBEdgeCont& ec, double maxAngle) {
     int moved = 0;
     int numCorridors = 0;
-    std::set<NBNode*> railNodes = NBRailwayTopologyAnalyzer::getRailNodes(ec);
-    std::set<NBNode*> railGeomNodes;
+    NodeSet railNodes = NBRailwayTopologyAnalyzer::getRailNodes(ec);
+    NodeSet railGeomNodes;
     for (NBNode* n : railNodes) {
         if (n->geometryLike()) {
             railGeomNodes.insert(n);
         }
     }
-    std::set<NBNode*, ComparatorIdLess> kinkNodes;;
+    NodeSet kinkNodes;
     for (NBNode* n : railGeomNodes) {
         NBEdge* in = n->getIncomingEdges().front();
         NBEdge* out = n->getOutgoingEdges().size() == 1 || n->getOutgoingEdges()[1]->isTurningDirectionAt(in) ? n->getOutgoingEdges().front() : n->getOutgoingEdges().back();

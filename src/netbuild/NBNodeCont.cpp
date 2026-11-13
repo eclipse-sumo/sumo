@@ -194,13 +194,13 @@ NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightL
 
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         // count the edges to other nodes outgoing from the current node
-        std::map<NBNode*, EdgeVector> connectionCount;
+        std::map<NBNode*, EdgeVector, ComparatorIdLess> connectionCount;
         const EdgeVector& outgoing = (*i).second->getOutgoingEdges();
         for (EdgeVector::const_iterator j = outgoing.begin(); j != outgoing.end(); j++) {
             connectionCount[(*j)->getToNode()].push_back(*j);
         }
         // check whether more than a single edge connect another node and join them
-        std::map<NBNode*, EdgeVector>::iterator k;
+        std::map<NBNode*, EdgeVector, ComparatorIdLess>::iterator k;
         for (k = connectionCount.begin(); k != connectionCount.end(); k++) {
             // possibly we do not have anything to join...
             if ((*k).second.size() < 2) {
@@ -2239,7 +2239,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             }
         }
         std::set<NBEdge*> seen;
-        std::set<NBEdge*> check;
+        std::set<NBEdge*, ComparatorIdLess> check;
         for (const auto& item : myNodes) {
             for (NBEdge* edge : item.second->getOutgoingEdges()) {
                 if (edge->getSignalPosition() != Position::INVALID) {
@@ -2441,7 +2441,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
 
 void
 NBNodeCont::recheckGuessedTLS(NBTrafficLightLogicCont& tlc) {
-    std::set<NBTrafficLightDefinition*> recompute;
+    std::set<NBTrafficLightDefinition*, ComparatorIdLess> recompute;
     for (NBNode* node : myGuessedTLS) {
         if (!node->hasConflict() || !recheckTLSThreshold(node)) {
             const std::set<NBTrafficLightDefinition*>& tlDefs = node->getControllingTLS();
