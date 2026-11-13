@@ -153,6 +153,24 @@ calls = [
         curDir = source
         if curDir[-1] == os.path.sep:
             curDir = os.path.dirname(curDir)
+        testsRoot = os.path.realpath(join(SUMO_HOME, "tests"))
+        if source == testsRoot or source.startswith(testsRoot + os.sep):
+            stopDir = testsRoot
+        else:
+            # Tests outside SUMO_HOME may still inherit options from their
+            # suite. Walk up to the closest suite directory instead of
+            # running into unrelated siblings such as SUMO_HOME/data.
+            stopDir = source
+            curDir = source
+            while True:
+                if glob.glob(join(curDir, "testsuite.*")):
+                    stopDir = curDir
+                    break
+                parent = os.path.dirname(curDir)
+                if parent == curDir:
+                    break
+                curDir = parent
+        curDir = source
         while True:
             for f in sorted(os.listdir(curDir)):
                 path = join(curDir, f)
@@ -162,7 +180,7 @@ calls = [
                     optionsFiles[f[8:]].append(path)
                 if f.startswith("config."):
                     configFiles[f[7:]].append(path)
-            if curDir == os.path.realpath(join(SUMO_HOME, "tests")) or curDir == os.path.dirname(curDir):
+            if curDir == stopDir or curDir == os.path.dirname(curDir):
                 break
             curDir = os.path.dirname(curDir)
         if not configFiles:
