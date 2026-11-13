@@ -19,3 +19,9 @@ ticket15001
 
 # crash, #17593
 emptyRing
+
+# single barrier phase value (#18514)
+barrierPhases_single
+
+# single coordinate phase value (#18514)
+coordinatePhases_single
