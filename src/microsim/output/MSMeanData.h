@@ -178,8 +178,9 @@ public:
             return mySubData;
         }
 
-        void setSubData(MeanDataValues* subData) {
+        void setSubData(MeanDataValues* subData, bool ownSubData = false) {
             mySubData = subData;
+            myOwnSubData = ownSubData;
         }
 
     protected:
@@ -203,6 +204,9 @@ public:
 
         /// @brief additional data to collect and write
         MeanDataValues* mySubData = nullptr;
+
+        /// @brief whether mySubData is owned by this instance
+        bool myOwnSubData = false;
     };
 
 
