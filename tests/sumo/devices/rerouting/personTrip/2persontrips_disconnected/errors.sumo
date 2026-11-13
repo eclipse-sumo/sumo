@@ -1,0 +1,1 @@
+Warning: Person 'p0' starts a personTrip at edge 'middle' but the previous stage ends at edge 'end'. The person will jump to the new edge.
