@@ -374,28 +374,34 @@ MSMeanData_Net::MSLaneMeanDataValues::getAttributeValue(SumoXMLAttr a,
     /// @todo: remove redundancy in derived values (density, laneDensity)
     switch (a) {
         case SUMO_ATTR_DENSITY:
-            return MIN2(frontSampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
-                        1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
+            return period == 0 ? 0. : MIN2(frontSampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
+                                           1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
         case SUMO_ATTR_LANEDENSITY: {
+            if (period == 0) {
+                return 0.;
+            }
             const double density = MIN2(frontSampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
                                         1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
             return density / numLanes;
         }
         case SUMO_ATTR_OVERLAPDENSITY: {
+            if (period == 0) {
+                return 0.;
+            }
             const double overlapDensity = MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
                                                1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
             return overlapDensity / numLanes;
         }
         case SUMO_ATTR_OCCUPANCY:
-            return occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 1000;
+            return period == 0 ? 0. : occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 1000;
         case SUMO_ATTR_WAITINGTIME:
             return waitSeconds;
         case SUMO_ATTR_TIMELOSS:
             return timeLoss;
         case SUMO_ATTR_SPEED:
-            return travelledDistance / sampleSeconds;
+            return sampleSeconds == 0. ? 0. : travelledDistance / sampleSeconds;
         case SUMO_ATTR_SPEEDREL:
-            return speedLimit == 0. ? 0. : travelledDistance / sampleSeconds / speedLimit;
+            return speedLimit == 0. || sampleSeconds == 0. ? 0. : travelledDistance / sampleSeconds / speedLimit;
         case SUMO_ATTR_DEPARTED:
             return nVehDeparted;
         case SUMO_ATTR_ARRIVED:
@@ -409,6 +415,9 @@ MSMeanData_Net::MSLaneMeanDataValues::getAttributeValue(SumoXMLAttr a,
         case SUMO_ATTR_TELEPORTED:
             return nVehTeleported;
         case SUMO_ATTR_FLOW: {
+            if (period == 0 || frontSampleSeconds == 0.) {
+                return 0.;
+            }
             const double density = MIN2(frontSampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
                                         1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
             const double speed = frontTravelledDistance / frontSampleSeconds;

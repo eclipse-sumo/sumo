@@ -64,6 +64,9 @@ MSMeanData_Emissions::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& va
     v.sampleSeconds += sampleSeconds;
     v.travelledDistance += travelledDistance;
     v.myEmissions.addScaled(myEmissions);
+    if (mySubData != nullptr) {
+        mySubData->addTo(*val.getSubData());
+    }
 }
 
 

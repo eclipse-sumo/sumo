@@ -63,6 +63,9 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& v
     v.sampleSeconds += sampleSeconds;
     v.meanNTemp += meanNTemp;
     v.travelledDistance += travelledDistance;
+    if (mySubData != nullptr) {
+        mySubData->addTo(*val.getSubData());
+    }
 }
 
 

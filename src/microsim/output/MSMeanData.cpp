@@ -68,6 +68,9 @@ MSMeanData::MeanDataValues::MeanDataValues(
 
 
 MSMeanData::MeanDataValues::~MeanDataValues() {
+    if (myOwnSubData) {
+        delete mySubData;
+    }
 }
 
 
@@ -289,7 +292,7 @@ MSMeanData::MeanDataValueTracker::MeanDataValueTracker(MSLane* const lane,
         const double length,
         const MSMeanData* const parent)
     : MSMeanData::MeanDataValues(lane, length, true, parent) {
-    myCurrentData.push_back(std::make_shared<TrackerEntry>(parent->createValuesSubData(lane, length, false)));
+    myCurrentData.push_back(std::make_shared<TrackerEntry>(parent->createValues(lane, length, false)));
 }
 
 
@@ -303,7 +306,7 @@ MSMeanData::MeanDataValueTracker::reset(bool afterWrite) {
             myCurrentData.pop_front();
         }
     } else {
-        myCurrentData.push_back(std::make_shared<TrackerEntry>(myParent->createValuesSubData(myLane, myLaneLength, false)));
+        myCurrentData.push_back(std::make_shared<TrackerEntry>(myParent->createValues(myLane, myLaneLength, false)));
     }
 }
 
@@ -311,6 +314,9 @@ MSMeanData::MeanDataValueTracker::reset(bool afterWrite) {
 void
 MSMeanData::MeanDataValueTracker::addTo(MSMeanData::MeanDataValues& val) const {
     myCurrentData.front()->myValues->addTo(val);
+    if (mySubData != nullptr) {
+        mySubData->addTo(*val.getSubData());
+    }
 }
 
 
@@ -536,7 +542,9 @@ MSMeanData::~MSMeanData() {
 
 void
 MSMeanData::resetOnly(SUMOTime stopTime) {
-    UNUSED_PARAMETER(stopTime);
+    if (mySubData != nullptr) {
+        mySubData->resetOnly(stopTime);
+    }
     if (MSGlobals::gUseMesoSim) {
         MSEdgeVector::iterator edge = myEdges.begin();
         for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i, ++edge) {
@@ -586,7 +594,9 @@ MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stop
         for (MeanDataValues* meanData : edgeValues) {
             meanData->addTo(*sumData);
             if (!MSNet::getInstance()->skipFinalReset()) {
-                meanData->reset();
+                for (MeanDataValues* d = meanData; d != nullptr; d = d->getSubData()) {
+                    d->reset();
+                }
             }
         }
     }
@@ -597,10 +607,14 @@ MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stop
             MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
             while (s != nullptr) {
                 for (MeanDataValues* meanData : edgeValues) {
-                    s->prepareDetectorForWriting(*meanData);
+                    for (MeanDataValues* d = meanData; d != nullptr; d = d->getSubData()) {
+                        s->prepareDetectorForWriting(*d);
+                    }
                     meanData->addTo(*sumData);
                     if (!MSNet::getInstance()->skipFinalReset()) {
-                        meanData->reset();
+                        for (MeanDataValues* d = meanData; d != nullptr; d = d->getSubData()) {
+                            d->reset();
+                        }
                     }
                 }
                 s = s->getNextSegment();
@@ -654,7 +668,9 @@ MSMeanData::writeAggregatedTAZ(OutputDevice& dev, SUMOTime startTime, SUMOTime s
                     MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
                     while (s != nullptr) {
                         for (MeanDataValues* meanData : edgeValues) {
-                            s->prepareDetectorForWriting(*meanData);
+                            for (MeanDataValues* d = meanData; d != nullptr; d = d->getSubData()) {
+                                s->prepareDetectorForWriting(*d);
+                            }
                             meanData->addTo(*sumData);
                         }
                         s = s->getNextSegment();
@@ -681,7 +697,9 @@ MSMeanData::writeAggregatedTAZ(OutputDevice& dev, SUMOTime startTime, SUMOTime s
     if (!MSNet::getInstance()->skipFinalReset()) {
         for (const std::vector<MeanDataValues*>& edgeValues : myMeasures) {
             for (MeanDataValues* meanData : edgeValues) {
-                meanData->reset();
+                for (MeanDataValues* d = meanData; d != nullptr; d = d->getSubData()) {
+                    d->reset();
+                }
             }
         }
     }
@@ -697,7 +715,9 @@ MSMeanData::writeEdge(OutputDevice& dev,
         for (MeanDataValues* const data : edgeValues) {
             MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
             while (s != nullptr) {
-                s->prepareDetectorForWriting(*data, myAmEdgeBased ? -1 : idx);
+                for (MeanDataValues* d = data; d != nullptr; d = d->getSubData()) {
+                    s->prepareDetectorForWriting(*d, myAmEdgeBased ? -1 : idx);
+                }
                 s = s->getNextSegment();
             }
             idx++;
@@ -715,7 +735,9 @@ MSMeanData::writeEdge(OutputDevice& dev,
                 dev.closeTag();
             }
             if (!MSNet::getInstance()->skipFinalReset()) {
-                data->reset(true);
+                for (MeanDataValues* d = data; d != nullptr; d = d->getSubData()) {
+                    d->reset(true);
+                }
             }
             return;
         }
@@ -744,7 +766,9 @@ MSMeanData::writeEdge(OutputDevice& dev,
                 dev.closeTag();
             }
             if (!MSNet::getInstance()->skipFinalReset()) {
-                laneData->reset(true);
+                for (MeanDataValues* d = laneData; d != nullptr; d = d->getSubData()) {
+                    d->reset(true);
+                }
             }
         }
         if (writeCheck) {
@@ -762,7 +786,9 @@ MSMeanData::writeEdge(OutputDevice& dev,
                 dev.closeTag();
             }
             if (!MSNet::getInstance()->skipFinalReset()) {
-                meanData->reset(true);
+                for (MeanDataValues* d = meanData; d != nullptr; d = d->getSubData()) {
+                    d->reset(true);
+                }
             }
         } else {
             MeanDataValues* sumData = createValuesSubData(nullptr, edge->getLength(), false);
@@ -773,7 +799,9 @@ MSMeanData::writeEdge(OutputDevice& dev,
                     writeCheck = true;
                 }
                 if (!MSNet::getInstance()->skipFinalReset()) {
-                    laneData->reset();
+                    for (MeanDataValues* d = laneData; d != nullptr; d = d->getSubData()) {
+                        d->reset();
+                    }
                 }
             }
             if (writeCheck || !sumData->isEmpty()) {
@@ -867,6 +895,8 @@ void
 MSMeanData::detectorUpdate(const SUMOTime step) {
     if (step + DELTA_T == myDumpBegin) {
         init();
+    } else if (mySubData != nullptr) {
+        mySubData->detectorUpdate(step);
     }
 }
 
@@ -922,7 +952,7 @@ MSMeanData::MeanDataValues*
 MSMeanData::createValuesSubData(MSLane* const lane, const double length, const bool doAdd) const {
     MeanDataValues* values = createValues(lane, length, doAdd);
     if (mySubData != nullptr) {
-        values->setSubData(mySubData->createValues(lane, length, doAdd));
+        values->setSubData(mySubData->createValuesSubData(lane, length, doAdd), true);
     }
     return values;
 }
