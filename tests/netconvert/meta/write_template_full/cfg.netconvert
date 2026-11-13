@@ -35,6 +35,7 @@
         <itsumo-files value="" synonymes="itsumo" type="FILE" help="Read ITSUMO-net from FILE"/>
         <heightmap.shapefiles value="" type="FILE" help="Read heightmap from ArcGIS shapefile"/>
         <heightmap.geotiff value="" type="FILE" help="Read heightmap from GeoTIFF"/>
+        <plain-input-prefix value="" synonymes="q" type="STR" help="Read plain XML input files PREFIX.nod.xml, PREFIX.edg.xml, PREFIX.con.xml, PREFIX.tll.xml and PREFIX.typ.xml"/>
     </input>
 
     <output>

@@ -40,6 +40,10 @@ Input Options:
   --itsumo-files FILE                  Read ITSUMO-net from FILE
   --heightmap.shapefiles FILE          Read heightmap from ArcGIS shapefile
   --heightmap.geotiff FILE             Read heightmap from GeoTIFF
+  -q, --plain-input-prefix STR         Read plain XML input files
+                                        PREFIX.nod.xml, PREFIX.edg.xml,
+                                        PREFIX.con.xml, PREFIX.tll.xml and
+                                        PREFIX.typ.xml
 
 Output Options:
   --write-license                      Include license info into every output
