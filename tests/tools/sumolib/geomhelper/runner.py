@@ -104,6 +104,34 @@ class TestGeomhelper(unittest.TestCase):
         self.assertEqual(sumolib.geomhelper.isClosedPolygon(polygon1), True)
         self.assertEqual(sumolib.geomhelper.isClosedPolygon(polygon2), False)
 
+    def testOffsetLookups(self):
+        gh = sumolib.geomhelper
+        shape = [(0.0, 0.0), (0.0, 0.0), (3.0, 4.0), (3.0, 4.0), (13.0, 4.0), (13.0, 14.0)]
+        cum = gh.cumulativeLengths(shape)
+        self.assertEqual(cum, [0.0, 0.0, 5.0, 5.0, 15.0, 25.0])
+        for offset in (-2.0, 0.0, 2.5, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0):
+            self.assertEqual(gh.indexAtShapeOffset(shape, offset, cum), gh.indexAtShapeOffset(shape, offset))
+            self.assertEqual(gh.positionAtShapeOffset(shape, offset, cum), gh.positionAtShapeOffset(shape, offset))
+            self.assertEqual(gh.rotationAtShapeOffset(shape, offset, cum), gh.rotationAtShapeOffset(shape, offset))
+
+        net = sumolib.net.Net()
+        net.addNode('n0', coord=(-5.0, 0.0, 0.0))
+        net.addNode('n1', coord=(105.0, 0.0, 0.0))
+        edge = net.addEdge('e0', 'n0', 'n1', 1, '', '')
+        lane = net.addLane(edge, 13.89, 200.0, 3.2)
+        lane.setShape([(0.0, 0.0, 0.0), (50.0, 0.0, 0.0), (100.0, 0.0, 0.0)])
+        # logical length 200 over 100m geometry -> offset 100 maps to midpoint (50, 0)
+        self.assertEqual(lane.getPositionAtOffset(100.0), (50.0, 0.0))
+        self.assertEqual(edge.getPositionAtOffset(100.0), (50.0, 0.0))
+        self.assertAlmostEqual(lane.getRotationAtOffset(100.0), 0.0)
+        self.assertAlmostEqual(edge.getRotationAtOffset(100.0), 0.0)
+        self.assertEqual(lane.getPositionAtOffset(5.0, includeJunctions=True), (0.0, 0.0))
+        # updating shape invalidates cached cumulative lengths
+        lane.setShape([(0.0, 0.0, 0.0), (0.0, 100.0, 0.0)])
+        edge.rebuildShape()
+        self.assertEqual(lane.getPositionAtOffset(100.0), (0.0, 50.0))
+        self.assertEqual(edge.getPositionAtOffset(100.0), (0.0, 50.0))
+
 
 if __name__ == '__main__':
     unittest.main()

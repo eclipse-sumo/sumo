@@ -18,6 +18,7 @@
 # @date    2013-02-25
 
 from __future__ import absolute_import
+import bisect
 import math
 import sys
 
@@ -39,6 +40,20 @@ def distance(p1, p2):
 
 def polyLength(polygon):
     return sum([distance(a, b) for a, b in zip(polygon[:-1], polygon[1:])])
+
+
+def cumulativeLengths(polygon):
+    """Return a list of cumulative 2D segment lengths starting with 0.0 for each vertex in polygon."""
+    if not polygon:
+        return []
+    result = [0.]
+    seen = 0.
+    curr = polygon[0]
+    for p in polygon[1:]:
+        seen += distance(curr, p)
+        result.append(seen)
+        curr = p
+    return result
 
 
 def addToBoundingBox(coordList, bbox=None):
@@ -152,6 +167,8 @@ def positionAtOffset(p1, p2, offset):
         return p1
 
     dist = distance(p1, p2)
+    if dist == 0.:
+        return p1
 
     if isclose(dist, offset):
         return p2
@@ -162,11 +179,18 @@ def positionAtOffset(p1, p2, offset):
     return (p1[0] + (p2[0] - p1[0]) * (offset / dist), p1[1] + (p2[1] - p1[1]) * (offset / dist))
 
 
-def indexAtShapeOffset(shape, offset):
+def indexAtShapeOffset(shape, offset, cumLengths=None):
     """Returns the index of the shape segment which contains the offset and
        the cumulated length of the shape up to the start point of the segment.
        If the offset is less or equal to 0, it returns (0, 0.) If the offset is
        larger than the shape length it returns (None, length of the shape)"""
+    if cumLengths is not None:
+        if not cumLengths:
+            return None, 0.
+        j = bisect.bisect_right(cumLengths, offset, 1)
+        if j == len(cumLengths):
+            return None, cumLengths[-1]
+        return j - 1, cumLengths[j - 1]
     seenLength = 0.
     curr = shape[0]
     for idx, p in enumerate(shape[1:]):
@@ -178,15 +202,15 @@ def indexAtShapeOffset(shape, offset):
     return None, seenLength
 
 
-def positionAtShapeOffset(shape, offset):
-    idx, seen = indexAtShapeOffset(shape, offset)
+def positionAtShapeOffset(shape, offset, cumLengths=None):
+    idx, seen = indexAtShapeOffset(shape, offset, cumLengths)
     if idx is None:
         return shape[-1]
     return positionAtOffset(shape[idx], shape[idx + 1], offset - seen)
 
 
-def rotationAtShapeOffset(shape, offset):
-    idx, _ = indexAtShapeOffset(shape, offset)
+def rotationAtShapeOffset(shape, offset, cumLengths=None):
+    idx, _ = indexAtShapeOffset(shape, offset, cumLengths)
     if idx is None:
         return None
     return math.atan2(shape[idx + 1][1] - shape[idx][1], shape[idx + 1][0] - shape[idx][0])
