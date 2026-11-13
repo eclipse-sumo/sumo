@@ -42,7 +42,7 @@ while traci.simulation.getTime() < 450:
     if traci.simulation.getTime() == 180:
         traci.trafficlight.setNemaOffset(tlsID, "10")
     traci.simulationStep()
-    if sideStart is None and traci.simulation.getTime() > 200 and traci.trafficlight.getRedYellowGreenState(tlsID)[6] == "G":
+    if sideStart is None and traci.simulation.getTime() > 200 and traci.trafficlight.getRedYellowGreenState(tlsID)[6] == "G":  # noqa
         sideStart = traci.simulation.getTime()
         print("phase 4 green at", sideStart)
 
