@@ -78,3 +78,9 @@ print("getNeighboringNodes only for incoming edges",
 print("getNeighboringNodes only for outgoing edges",
       ' '.join(sorted([n.getID() for n in net.getNode("S").getNeighboringNodes(True, False)])))
 print("getNeighboringNodes", ' '.join(sorted([n.getID() for n in net.getNode("C").getNeighboringNodes()])))
+sc_straight = lane.getOutgoing()[1]
+foes = sc_straight.getFoes()
+assert foes == node.getFoes(sc_straight.getJunctionIndex())
+assert all(node.areFoes(sc_straight, f) and node.areFoes(f, sc_straight) for f in foes)
+print("foes of %s->%s: %s" % (sc_straight.getFromLane().getID(), sc_straight.getToLane().getID(),
+                              ' '.join(["%s->%s" % (f.getFromLane().getID(), f.getToLane().getID()) for f in foes])))
