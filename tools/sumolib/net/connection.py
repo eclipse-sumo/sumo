@@ -106,5 +106,9 @@ class Connection:
     def getJunction(self):
         return self._from.getToNode()
 
+    def getFoes(self):
+        """Returns all connections at the same junction that conflict with this connection."""
+        return self.getJunction().getFoes(self)
+
     def getState(self):
         return self._state
