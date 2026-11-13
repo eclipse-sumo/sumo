@@ -55,12 +55,14 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string& id,
     Named(id),
     SUMOSAXHandler(file),
     myDestLanes(destLanes),
-    myDefaultSpeed(destLanes[0]->getSpeedLimit()),
     myDefaultFriction(destLanes[0]->getFrictionCoefficient()),
     myAmOverriding(false),
     mySpeedOverrideValue(destLanes[0]->getSpeedLimit()),
     myDidInit(false) {
     myInstances[id] = this;
+    for (const MSLane* lane : destLanes) {
+        myDefaultSpeeds.push_back(lane->getSpeedLimit());
+    }
     if (file != "") {
         if (!XMLSubSys::runParser(*this, file)) {
             throw ProcessError();
@@ -114,10 +116,9 @@ MSLaneSpeedTrigger::executeSpeedChange(SUMOTime currentTime) {
 
 SUMOTime
 MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime currentTime) {
-    const double speed = getCurrentSpeed();
-    const bool altered = speed != myDefaultSpeed;
-    for (MSLane* const lane : myDestLanes) {
-        lane->setMaxSpeed(speed, altered);
+    for (int i = 0; i < (int)myDestLanes.size(); i++) {
+        const double speed = getCurrentSpeed(i);
+        myDestLanes[i]->setMaxSpeed(speed, speed != myDefaultSpeeds[i]);
     }
     if (!move2next) {
         // changed from the gui
@@ -167,23 +168,17 @@ MSLaneSpeedTrigger::myStartElement(int element, const SUMOSAXAttributes& attrs) 
         return;
     }
     if (speed < 0 && friction < 0) {
-        speed = myDefaultSpeed;
         friction = myDefaultFriction;
-    }
-    if (speed < 0 && attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-        speed = myDefaultSpeed;
     }
     if (friction < 0 && attrs.hasAttribute(SUMO_ATTR_FRICTION)) {
         friction = myDefaultFriction;
     }
     // set the values for the next step if they are valid
-    if (speed >= 0) {
-        if (myLoadedSpeeds.size() != 0 && myLoadedSpeeds.back().first == next) {
-            WRITE_WARNINGF(TL("Time % was set twice for vss '%'; replacing first entry."), time2string(next), getID());
-            myLoadedSpeeds.back().second = speed;
-        } else {
-            myLoadedSpeeds.push_back(std::make_pair(next, speed));
-        }
+    if (myLoadedSpeeds.size() != 0 && myLoadedSpeeds.back().first == next) {
+        WRITE_WARNINGF(TL("Time % was set twice for vss '%'; replacing first entry."), time2string(next), getID());
+        myLoadedSpeeds.back().second = speed;
+    } else {
+        myLoadedSpeeds.push_back(std::make_pair(next, speed));
     }
     if (friction >= 0) {
         myLoadedFrictions.push_back(std::make_pair(next, friction));
@@ -198,10 +193,9 @@ MSLaneSpeedTrigger::myEndElement(int element) {
     }
 }
 
-
 double
-MSLaneSpeedTrigger::getDefaultSpeed() const {
-    return myDefaultSpeed;
+MSLaneSpeedTrigger::getDefaultSpeed(int i) const {
+    return myDefaultSpeeds[i];
 }
 
 
@@ -222,7 +216,7 @@ MSLaneSpeedTrigger::setOverridingValue(double val) {
 double
 MSLaneSpeedTrigger::getLoadedSpeed() {
     if (myLoadedSpeeds.empty()) {
-        return myDefaultSpeed;
+        return myDefaultSpeeds.front();
     }
     if (myCurrentSpeedEntry != myLoadedSpeeds.begin()) {
         return (*(myCurrentSpeedEntry - 1)).second;
@@ -233,25 +227,31 @@ MSLaneSpeedTrigger::getLoadedSpeed() {
 
 
 double
-MSLaneSpeedTrigger::getCurrentSpeed() const {
+MSLaneSpeedTrigger::getCurrentSpeed(int i) const {
     if (myAmOverriding) {
         return mySpeedOverrideValue;
     } else {
         if (myLoadedSpeeds.empty()) {
-            return myDefaultSpeed;
+            return myDefaultSpeeds[i];
         }
         const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
         // ok, maybe the first shall not yet be the valid one
         if (myCurrentSpeedEntry == myLoadedSpeeds.begin() && myCurrentSpeedEntry->first > now) {
-            return myDefaultSpeed;
+            return myDefaultSpeeds[i];
         }
         // try the loaded
+        double loaded = -1;
         if (myCurrentSpeedEntry != myLoadedSpeeds.end() && myCurrentSpeedEntry->first <= now) {
-            return myCurrentSpeedEntry->second;
+            loaded = myCurrentSpeedEntry->second;
         } else {
             // we have run past the end of the loaded steps or the current step is not yet active:
             // -> use the value of the previous step
-            return (*(myCurrentSpeedEntry - 1)).second;
+            loaded = (*(myCurrentSpeedEntry - 1)).second;
+        }
+        if (loaded < 0) {
+            return myDefaultSpeeds[i];
+        } else {
+            return loaded;
         }
     }
 }

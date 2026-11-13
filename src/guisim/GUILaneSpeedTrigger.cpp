@@ -90,7 +90,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
     int /*xpos*/, int /*ypos*/)
     : GUIManipulator(app, name, 0, 0),
       myParent(&app), myChosenValue(0), myChosenTarget(myChosenValue, nullptr, MID_OPTION),
-      mySpeed(o.getDefaultSpeed()), mySpeedTarget(mySpeed),
+      mySpeed(o.getDefaultSpeed(0)), mySpeedTarget(mySpeed),
       myObject(&o) {
     myChosenTarget.setTarget(this);
     FXVerticalFrame* f1 =
@@ -149,7 +149,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
         //myUserDefinedSpeed->setIncrements(1, 10, 10);
         myUserDefinedSpeed->setIncrement(10);
         myUserDefinedSpeed->setRange(0, 300);
-        myUserDefinedSpeed->setValue(myObject->getDefaultSpeed() * 3.6);
+        myUserDefinedSpeed->setValue(myObject->getDefaultSpeed(0) * 3.6);
     }
     GUIDesigns::buildFXButton(f1, "Close", "", "", nullptr, this, MID_CLOSE,
                               BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
@@ -210,7 +210,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdChangeOption(FXObject*, FXS
     myObject->setOverriding(true);
     switch (myChosenValue) {
         case 0:
-            mySpeed = myObject->getDefaultSpeed();
+            mySpeed = myObject->getDefaultSpeed(0);
             break;
         case 1:
             mySpeed = myObject->getLoadedSpeed();
@@ -280,6 +280,10 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(
 
 GUILaneSpeedTrigger::~GUILaneSpeedTrigger() {}
 
+double
+GUILaneSpeedTrigger::getCurrentSpeed() const {
+    return MSLaneSpeedTrigger::getCurrentSpeed(0);
+}
 
 GUIGLObjectPopupMenu*
 GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
