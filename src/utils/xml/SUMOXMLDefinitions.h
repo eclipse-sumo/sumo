@@ -209,6 +209,8 @@ enum SumoXMLTag {
     SUMO_TAG_EDGECONTROL,
     /// @brief the internal state for MSRoutingEngine
     SUMO_TAG_ROUTINGENGINE,
+    /// @brief the arcs of a CCH metric that lag behind the edge speeds
+    SUMO_TAG_CCH_METRIC,
     /// @brief a relation between two edges
     SUMO_TAG_EDGEREL,
     /// @brief a relation between two TAZs
@@ -1900,6 +1902,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_ENTRYPOS,
     SUMO_ATTR_ROUTELENGTH,
     SUMO_ATTR_HEADWAY,
+    SUMO_ATTR_CCH_EFFORT,
+    SUMO_ATTR_CCH_PENDING,
+    SUMO_ATTR_ARCS,
+    SUMO_ATTR_WEIGHTS,
     // @}
 
     //@name meso edge type attributes
