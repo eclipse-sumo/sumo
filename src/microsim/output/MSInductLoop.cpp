@@ -520,6 +520,7 @@ MSInductLoop::overrideTimeSinceDetection(double time) {
 
 void
 MSInductLoop::writeXMLDetectorProlog(OutputDevice& dev) const {
+    dev.setExpectedAttributes(0, 1);
     dev.writeXMLHeader("detector", "det_e1_file.xsd");
 }
 
