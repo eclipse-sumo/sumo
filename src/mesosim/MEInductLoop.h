@@ -66,6 +66,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
      */
     void writeXMLDetectorProlog(OutputDevice& dev) const {
+        dev.setExpectedAttributes(0, 1);
         dev.writeXMLHeader("detector", "det_e1meso_file.xsd");
     }
 

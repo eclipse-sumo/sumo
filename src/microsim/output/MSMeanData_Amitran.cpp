@@ -160,6 +160,7 @@ MSMeanData_Amitran::~MSMeanData_Amitran() {}
 
 void
 MSMeanData_Amitran::writeXMLDetectorProlog(OutputDevice& dev) const {
+    dev.setExpectedAttributes(0, ((myAmEdgeBased || myAggregate != AggregateType::NO) ? 2 : 3) + (isTyped() ? 1 : 0));
     dev.writeXMLHeader("linkData", "amitran/linkdata.xsd");
 }
 
