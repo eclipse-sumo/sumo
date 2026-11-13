@@ -1,0 +1,2 @@
+Error: At NEMA tlLogic '2881', parameter 'barrier2Phases' or 'coordinatePhases' needs one phase per ring (2 values), got '2'.
+Quitting (on error).
