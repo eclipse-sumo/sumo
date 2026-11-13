@@ -1,0 +1,2 @@
+Error: At NEMA tlLogic '2881', barrierPhases needs one phase per ring (2 values), got '4'.
+Quitting (on error).
