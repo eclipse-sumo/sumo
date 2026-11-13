@@ -97,7 +97,10 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
     if (mayAddOrRemove && oc.exists("keep-edges.components") && oc.getInt("keep-edges.components") > 0) {
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Finding largest components"));
-        const bool hasStops = oc.exists("ptstop-output") && oc.isSet("ptstop-output") && !myPTStopCont.getStops().empty();
+        const bool keepPTStops = oc.isDefault("keep-edges.components.keep-ptstops")
+                                 ? (oc.exists("ptstop-output") && oc.isSet("ptstop-output"))
+                                 : oc.getBool("keep-edges.components.keep-ptstops");
+        const bool hasStops = keepPTStops && !myPTStopCont.getStops().empty();
         numRemovedEdges += myNodeCont.removeComponents(myDistrictCont, myEdgeCont, oc.getInt("keep-edges.components"), hasStops);
         PROGRESS_TIME_MESSAGE(before);
     }

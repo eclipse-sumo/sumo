@@ -720,6 +720,9 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
         oc.doRegister("keep-edges.components", new Option_Integer(0));
         oc.addDescription("keep-edges.components", "Edge Removal", TL("Only keep the INT largest weakly connected components"));
 
+        oc.doRegister("keep-edges.components.keep-ptstops", new Option_Bool(true));
+        oc.addDescription("keep-edges.components.keep-ptstops", "Edge Removal", TL("Keep rail/waterway components that contain public transport stops"));
+
         oc.doRegister("remove-edges.by-type", new Option_StringVector());
         oc.addDescription("remove-edges.by-type", "Edge Removal", TL("Remove edges where type is in STR[]"));
 

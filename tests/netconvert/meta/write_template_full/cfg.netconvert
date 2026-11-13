@@ -243,6 +243,7 @@
         <remove-edges.by-vclass value="" type="STR[]" help="Remove edges which allow only vclasses from STR[]"/>
         <keep-edges.by-type value="" type="STR[]" help="Only keep edges where type is in STR[]"/>
         <keep-edges.components value="0" type="INT" help="Only keep the INT largest weakly connected components"/>
+        <keep-edges.components.keep-ptstops value="true" type="BOOL" help="Keep rail/waterway components that contain public transport stops"/>
         <remove-edges.by-type value="" type="STR[]" help="Remove edges where type is in STR[]"/>
         <remove-edges.isolated value="false" synonymes="remove-isolated" deprecated="remove-isolated" type="BOOL" help="Removes isolated edges"/>
         <keep-lanes.min-width value="0.01" type="FLOAT" help="Only keep lanes with width in meters &gt; FLOAT"/>
