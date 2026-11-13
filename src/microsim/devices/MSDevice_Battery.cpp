@@ -284,8 +284,11 @@ MSDevice_Battery::notifyMoveInternal(const SUMOTrafficObject& tObject,
             // add charge value for output to myActChargingStation
             myActChargingStation->addChargeValueForOutput(myEnergyCharged, this);
         }
-        // else disable charging vehicle
+        // else disable charging vehicle and clear the per-step charging output
         else {
+            myChargingInTransit = false;
+            myChargingStopped = false;
+            myEnergyCharged = 0;
             cs->setChargingVehicle(false);
         }
         // disable charging vehicle from previous (not current) ChargingStation (reason: if there is no gap between two different chargingStations = the vehicle switches from used charging station to other one in a single timestap)

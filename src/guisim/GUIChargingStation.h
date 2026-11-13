@@ -77,7 +77,7 @@ public:
      * @param[in] waitingTime waiting time until start charging
      */
     GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos,
-                       const std::string& name, double chargingPower, double totalPower, double efficiency,
+                       const std::string& name, double chargingPower, double totalPower, ChargingStationStrategy chargingStrategy, double efficiency,
                        bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType,
                        SUMOTime waitingTime);
 
@@ -95,7 +95,7 @@ public:
      * @param[in] waitingTime waiting time until start charging
      */
     GUIChargingStation(const std::string& id, MSParkingArea* parkingArea,
-                       const std::string& name, double chargingPower, double totalPower, double efficiency,
+                       const std::string& name, double chargingPower, double totalPower, ChargingStationStrategy chargingStrategy, double efficiency,
                        bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType,
                        SUMOTime waitingTime);
 

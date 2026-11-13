@@ -140,7 +140,8 @@ public:
      */
     virtual bool buildChargingStation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                       const double startPos, const double endPos, const std::string& name, const double chargingPower,
-                                      const double totalPower, const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const std::string& chargeType,
+                                      const double totalPower, const std::string& chargingStrategy, const double efficiency, const bool chargeInTransit,
+                                      const SUMOTime chargeDelay, const std::string& chargeType,
                                       const SUMOTime waitingTime, const bool friendlyPosition, const std::string& parkingAreaID,
                                       const Parameterised::Map& parameters) = 0;
 
