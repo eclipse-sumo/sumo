@@ -47,5 +47,7 @@ setSpeedFactor
 setSpeedFactor2
 getWalkingDistance
 
+# Reject invalid stage replacement indices without changing the plan
+replaceStage_invalid_index
 # a person cannot depart because its sidewalk is closed by a rerouter (crashed libsumo, see #XXXXX)
 depart_closed_sidewalk

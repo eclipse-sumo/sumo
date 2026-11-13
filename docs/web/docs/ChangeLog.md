@@ -78,7 +78,8 @@ title: ChangeLog
   - stop arrival times in named route are now shifted by vehicle departure #18483
 
 - traci
-  - Fixed a crash in `vehicle.moveToXY` when keeping a route whose lanes prohibit the vehicle class.
+  - Fixed simulation failure when replacing a person stage with a negative index. #18508
+  - Fixed a crash in `vehicle.moveToXY` when keeping a route whose lanes prohibit the vehicle class. #18497
   - some retrieved laneChangeModel parameters (for querying internal model state) with floating point values are no longer rounded to ints #18463 (regression in 1.27.0)
   - Fixed crash in `traci.simulation.loadState` with meso #18389 (regression in 1.28.0)
   - Fixed invalid event time after adding a stop with default duration in meso #18392
