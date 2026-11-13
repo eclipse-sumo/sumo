@@ -98,7 +98,8 @@ CLASS::getAllSubscriptionResults() { \
 } \
 const libsumo::TraCIResults \
 CLASS::getSubscriptionResults(const std::string& objectID) { \
-    return mySubscriptionResults[objectID]; \
+    const auto it = mySubscriptionResults.find(objectID); \
+    return it != mySubscriptionResults.end() ? it->second : libsumo::TraCIResults(); \
 } \
 const libsumo::ContextSubscriptionResults \
 CLASS::getAllContextSubscriptionResults() { \
@@ -106,7 +107,8 @@ CLASS::getAllContextSubscriptionResults() { \
 } \
 const libsumo::SubscriptionResults \
 CLASS::getContextSubscriptionResults(const std::string& objectID) { \
-    return myContextSubscriptionResults[objectID]; \
+    const auto it = myContextSubscriptionResults.find(objectID); \
+    return it != myContextSubscriptionResults.end() ? it->second : libsumo::SubscriptionResults(); \
 } \
 void \
 CLASS::subscribeParameterWithKey(const std::string& objectID, const std::string& key, double beginTime, double endTime) { \
@@ -417,7 +419,7 @@ struct TraCILogic {
 
     std::string getString() const {
         std::ostringstream os;
-        os << "TraCILink(" << programID << "," << type << "," << currentPhaseIndex << ")";
+        os << "TraCILogic(" << programID << "," << type << "," << currentPhaseIndex << ")";
         return os.str();
     }
 
@@ -922,7 +924,8 @@ struct TraCIJunctionFoe {
 
     std::string getString() const {
         std::ostringstream os;
-        os << "TraCIJunctionFoe(foeId=" << foeId << ", egoDist=" << egoDist << ", foeDist=" << foeDist << ", foeDist=" << foeDist << ")";
+        os << "TraCIJunctionFoe(foeId=" << foeId << ", egoDist=" << egoDist << ", foeDist=" << foeDist
+           << ", egoExitDist=" << egoExitDist << ", foeExitDist=" << foeExitDist << ")";
         return os.str();
     }
 };

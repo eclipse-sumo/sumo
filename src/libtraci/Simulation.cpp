@@ -580,9 +580,15 @@ Simulation::subscribe(const std::vector<int>& varIDs, double begin, double end, 
 }
 
 
+void
+Simulation::unsubscribe() {
+    unsubscribe("");
+}
+
+
 const libsumo::TraCIResults
 Simulation::getSubscriptionResults() {
-    return libtraci::Connection::getActive().getAllSubscriptionResults(libsumo::RESPONSE_SUBSCRIBE_SIM_VARIABLE)[""];
+    return getSubscriptionResults("");
 }
 
 
