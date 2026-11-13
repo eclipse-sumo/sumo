@@ -6,9 +6,14 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
+  - Fixed invalid routes after delayed departure from a TAZ when using the rerouting device #18408
   - Fixed deadlock on a short lane when using the sublane model #18379 (regression in 1.24.0)
   - Fixed lane-changing deadlock with carFollowModel IDM #17483
   - device.rerouting.threshold.factor and device.rerouting.threshold.constant now apply to insertion rerouting if a complete route was loaded #18354
+  - No longer skipping rerouting for some vehicles depending on their insertion time #18435
+  - Fixed crash when person departs on a forbidden edge #18511
+  - If the arrivalPos is ignored during rerouting, a warning is given #18512
+  - Vehicles that teleport across an edge no longer count as entered/left in edgeData output #18524
   - Fixed railway issues:
     - Fixed invalid predecessor lane used when inserting long train on short edge #18345
     - Fixed failure to reverse train near route end #18385
@@ -16,32 +21,38 @@ title: ChangeLog
     - Fixed unsafe entry into occupied single track section #18395
     - Fixed deadlock due to invalid conflict #18394
     - Fixed deadlock caused by insertion into a siding #18415
-    - Fixed problems when loading deadlock-output in order to avoid it from re-occuring #18432, #17826, #18422, #17922
+    - Fixed problems when loading deadlock-output in order to avoid it from re-occurring #18432, #17826, #18422, #17922
     - Fixed failure to reach stop before reversal #18466
+    - Fixed failure to detect railSignal deadlock #18467
   - Fixed issues that caused divergence when loading state:
     - initialization of CCH-router when vTypeDistributions are loaded from state #18365
     - rerouting device: vehicles that have not departed repeat no longer perform extra rerouting after loading state #18366
     - Fixed initialization of static traffic lights #18410
-    - Fixed corner case with emptry-string departLane #18398
+    - Fixed corner case with empty-string departLane #18398
     - vehicle on turnaround now restores its further lanes when loading state #18404
     - Now restoring internal link approach state #18406
+  - Fixed NEMA lagging left turns never being served in coordinated mode: a coordinated phase followed by another phase on its side of the barrier was treated as a barrier phase. Barrier phases are now taken from the ring order, in free mode too. [documentation](Simulation/NEMA.md#leading_and_lagging_left_turns) #18453
+  - NEMA controller type TS2 now finds the cycle zero (start of the first coordinated phase) in coordinated plans with a lagging left turn #18453
 
-- netedit
-  - When called from sumo-gui with <kbd>CTRL</kbd> + <kbd>T</kbd>, traffic demand loading now honors checkbox #18347 (regression in 1.26.0)
+- netedit  
+  - When called from sumo-gui with <kbd>Ctrl</kbd> + <kbd>T</kbd>, traffic demand loading now honors checkbox #18347 (regression in 1.26.0)
   - Setting no-internal-links=false in the options menu (F10) to add internal lanes to a network takes effect again #18356 (regression in 1.27.0)
   - Fixed invalid prompt to save network after activating "show connections" in inspect mode #18350 (regression in 1.27.1)
-  - When calling sumo-gui with <kbd>CTRL</kbd> + <kbd>T</kbd>, traffic demand loading now honors the checkbox #18377
+  - Fixed invalid activation of "save individual files" dropdown-button in a brand new network #18484 (regression in 1.28.0)
+  - When calling sumo-gui with <kbd>Ctrl</kbd> + <kbd>T</kbd>, traffic demand loading now honors the checkbox #18377
   - The "save network" button now activates after recomputing a network with volatile options (SHIFT+F5) #18173
   - Fixed superfluous empty meanData file in saved sumocfg #17975
   - Fixed invalid sumocfg when netedit is saving plain-xml #16217
   - Fixed invalid loading of demand elements on reload when started from within sumo-gui #16137
   - Reloading now creates a new network when started with option **--new** #14354
   - Fixed inconsistent icon transparency #15044
+  - Fixed centering the view in a new network #13872
 
 - sumo-gui
   - Fixed invalid error on reloading polygon file if SUMO_HOME is not set #13584
   - Fixed missing underline in object ids for warnings during network loading #18351
-  - Fixed inconsistent image transparency #10380,
+  - Fixed inconsistent image transparency #10380
+  - Fixed crash when attempting to open a new 3D view while simulation is running #6307
 
 - netconvert
   - Fixed insufficient geo-precision in parquet output #18390
@@ -64,16 +75,24 @@ title: ChangeLog
   - Fixed invalid abort of train routing when running with **--ignore-errors** (also affects sumo) #18335
   - Fixed crash during railway routing (also affects sumo) #18340, #18442
   - Fixed invalid route output with **--bulk-routing** #18355
+  - stop arrival times in named route are now shifted by vehicle departure #18483
 
 - traci
-  - Fixed simulation failure when replacing a person stage with a negative index.
+  - Fixed simulation failure when replacing a person stage with a negative index. #18508
+  - Fixed a crash in `vehicle.moveToXY` when keeping a route whose lanes prohibit the vehicle class. #18497
   - some retrieved laneChangeModel parameters (for querying internal model state) with floating point values are no longer rounded to ints #18463 (regression in 1.27.0)
   - Fixed crash in `traci.simulation.loadState` with meso #18389 (regression in 1.28.0)
   - Fixed invalid event time after adding a stop with default duration in meso #18392
+  - Fixed libsumo crash when using `vehicle.moveToXY` and repeatedly restarting the simulation #18457
 
 - tools
   - gtfs2pt.py: fixed crash #18446 (regression in 1.27.1)
+  - gtfs2pt.py: option **--write-arrival** now takes into account minimum stop duration in a sub-net #18491
+  - gtfs2pt.py: option **--min-stops** is now working in all use cases #18494
+  - gtfs2pt.py: Change default of option **--distance-penalty** from 2 to 1.2 to avoid unrealistic detours #18341
   - plotStops.py: fixed invalid timing for named routes #18450
+  - scheduleStats.py: fixed invalid statistics key if tripId is not used #18485
+  - scheduleStats.py: fixed crash when there are no matches #18486
 
 ### Enhancements
 
@@ -81,34 +100,43 @@ title: ChangeLog
   - When setting option **--vehroute-output.cost**, the initial route cost is now included #18378
   - Improved speed of computing safety interlocks when loading new train routes #18387
   - The JuPedSim coupling has been redone, giving direct access to the JuPedSim Python module #18128
-    - Make sure you have an active python environment with the jupedsim module installed, when runnning the model.
+    - Make sure you have an active python environment with the jupedsim module installed, when running the model.
   - Added simulation option category 'persons' #6374
+  - NEMA controller: new parameter *reservicePhases* serves a coordinated phase again in the same cycle when its lagging left turn gaps out. [documentation](Simulation/NEMA.md#leading_and_lagging_left_turns) #18453
 
 - sumo-gui
   - Converted some buttons into checkboxes in the locate dialog #9925
   - Status line icons now indicate whether micro or meso is running and which pedestrian model is active #9228
+  - Added exit help text to Full Screen Mode #7610
 
 - meso
   - vType-specific timeToTeleport now takes effect #18359
+  - Added option **--meso-lookahead** and meso edge type attribute `lookahead` to permit route-specific queue choice when simulating with option **--meso-lane-queue**. This avoids unrealistic jam-propagation if some turns are blocked #18299
 
 - netconvert
   - Added options for setting default actuated tls params #10836
   - OSM: default typemap now imports railway=narrow_gauge #18447
+  - OSM: now importing ETCS2 block signals. When setting option **--osm.etcs-moving-block** the corresponding tracks default to moving-block behavior. #18492
 
 - duarouter
   - Now issues a warning if options **--begin** and **--end** exclude all loaded traffic (also applies to marouter) #12743
 
 - TraCI
   - Added function `traci.edge.getMaxSpeed` #14489
+  - When changing lane permissions, the internal lanes connected to that lane will automatically be updated (also affects rerouters) #18264
 
 - tools
   - gtfs2pt.py: now runs much faster due to better caching #18333, #18339
   - gtfs2pt.py: always use stop before reversal to avoid skipping #18393
   - gtfs2pt.py: The new option **--coupling remove** can be used to avoid duplicate vehicles for trips that travel as a coupled train #18451
-  - gtfs2pt.py: Option **--parking-threshold** now also applies to stop beyond the given duration as computed from known arrival/departure times #18460
+  - gtfs2pt.py: Option **--parking-threshold** now also applies to stop beyond the given duration as computed from known arrival/departure times as well as from estimated arrival times #18460, #18490  
   - patchRailPriorities.py: Added option **--add-signals** which adds signals to all identified sidings that lack them #18458
   - patchRailPriorities.py: Added option **--routing-threads** to speed up siding search (new option also available for createOvertakingReroutes.py) #18455
   - sumolib: added helper function `net.getNearestLane` #9004
+  - tripInfoByTAZ.py: option **--output** now writes `<tazRelation>` elements which can be loaded by other tools instead of `<odInfo>` #18479
+  - route_departOffset.py: now handles human readable times #18481
+  - route_departOffset.py: Added option **--cumulative** to allow shifting by a cumulative offset (i.e. to enforce a minimum spacing between departures) #18487
+  - route_departOffset.py: Now permits negative and random offset #10374
 
 
 ### Miscellaneous
@@ -236,7 +264,7 @@ title: ChangeLog
 - netedit
   - Added visualization toggle switch for showing start and end symbols (S, E) for polygons #17911
   - edgeData / laneData attribute `aggregate` now permits the special value `taz` #17342
-  - data mode: Dragging the mouse will <kbd>CTRL</kbd> is held, now moves the view #17139
+  - data mode: Dragging the mouse will <kbd>Ctrl</kbd> is held, now moves the view #17139
   - Polygons now support attribute "height" #18140
   - allow setting options that are only applied during "compute with volatile" #18174
   - vTypeDistributions now show up in type-combobox in vehicle mode #18149

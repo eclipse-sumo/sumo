@@ -129,3 +129,9 @@ ticket18345
 
 # stop not reached
 ticket18466
+
+# reversal conflict not recognized
+ticket18529
+
+# reversal conflict not recognized (notwork without internal links)
+ticket18529b

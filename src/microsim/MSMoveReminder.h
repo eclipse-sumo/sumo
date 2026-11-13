@@ -115,6 +115,8 @@ public:
         NOTIFICATION_ARRIVED, // arrived and everything after is treated as permanent deletion from the net
         /// @brief The vehicle was teleported out of the net
         NOTIFICATION_TELEPORT_ARRIVED,
+        /// @brief The vehicle entered this edge during teleport and was teleported out of the net
+        NOTIFICATION_TELEPORT_CONTINUATION_ARRIVED,
         /// @brief The vehicle got removed by a calibrator
         NOTIFICATION_VAPORIZED_CALIBRATOR,
         /// @brief The vehicle got removed by a collision

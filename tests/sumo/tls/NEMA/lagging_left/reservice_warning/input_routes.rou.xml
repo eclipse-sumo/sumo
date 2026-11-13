@@ -1,0 +1,8 @@
+<routes>
+    <!-- reservicePhases naming phases that cannot be served again -->
+    <vType id="car" sigma="0"/>
+    <!-- phase 1 call -->
+    <vehicle id="lag1" type="car" depart="90" departLane="1" departPos="245" departSpeed="0">
+        <route edges="1si 4o"/>
+    </vehicle>
+</routes>

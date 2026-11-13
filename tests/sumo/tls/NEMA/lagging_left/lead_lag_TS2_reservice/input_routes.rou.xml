@@ -1,0 +1,12 @@
+<routes>
+    <!-- a coordinated phase listed in reservicePhases is served again when its lag gaps out -->
+    <vType id="car" sigma="0"/>
+    <!-- cycle 1: lag 1 gaps out at 156; phase 2 is served again from 160 (minimum green 15) -->
+    <vehicle id="lag1" type="car" depart="130" departLane="1" departPos="245" departSpeed="0">
+        <route edges="1si 4o"/>
+    </vehicle>
+    <!-- cycle 1: side-street call during phase 2's second green; crossing after its minimum green: 175 + 7 = 182 -->
+    <vehicle id="side4" type="car" depart="165" departLane="0" departPos="245" departSpeed="0">
+        <route edges="3si 4o"/>
+    </vehicle>
+</routes>

@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'f_0.266'; waited too long, from edge 'E1':2, time=658.26.
+Warning: Teleporting vehicle 'f_0.271'; waited too long, from edge 'E1':2, time=678.26.
+Warning: Vehicle 'f_0.266' ends teleporting on edge 'E6':0, time=679.46.
+Warning: Vehicle 'f_0.271' ends teleporting on edge 'E6':0, time=699.46.

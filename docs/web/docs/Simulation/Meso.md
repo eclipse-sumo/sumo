@@ -158,7 +158,7 @@ randomized process depending on vehicle speeds and density.
 When using option **--meso-lane-queue**, every lane is a separate queue and vehicles enter the shortest queue that they may use.
 Only on the last segment of an edge do they restrict their choice to the queues of the lanes that lead to their next edge.
 Thus, a spill-back from a turning lane (e.g. from a jammed off-ramp) blocks all queues on the upstream segments.
-With option **--meso-lookahead** {{DT_FLOAT}}, vehicles choose their queue by their next edge on all segments that end within the given distance (in m) of the edge end.
+With option **--meso-lookahead** {{DT_FLOAT}}, vehicles already restrict their choice to the queues of the lanes that lead along their route on all segments that end within the given distance (in m) of a turn, also when the turn is on one of the following edges.
 
 ## Junction Model
 

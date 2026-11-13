@@ -168,6 +168,7 @@ public:
 private:
     static int guessByStops(NBNodeCont& nc, NBEdgeCont& ec, NBPTStopCont& sc, NBDistrictCont& dc, double minLength, bool split);
     static bool canBeSignal(const NBNode* node);
+    static bool isTerminal(const NBEdge* e, double terminalThreshold, bool forward);
 
 };
 

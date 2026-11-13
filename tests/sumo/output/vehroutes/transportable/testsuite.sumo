@@ -31,3 +31,6 @@ personroutes_sorted
 
 # output of person route
 with_person_sorted_end_early
+
+# see #18511
+forbidden_ignore_sorted_intended

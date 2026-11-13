@@ -103,3 +103,6 @@ mergedCSVgz
 
 # when stopping on an edge that requires reversal, stop before the reversal rather than after it to avoid skipping (for long trains)
 stop_before_reversal
+
+# mapping without --stops should not create large detours for a short increase in placement accuracy (#18341)
+corner_no_stops

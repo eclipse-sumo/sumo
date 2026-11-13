@@ -1,0 +1,4 @@
+<routes>
+    <!-- no vehicles -->
+    <vType id="car" sigma="0"/>
+</routes>

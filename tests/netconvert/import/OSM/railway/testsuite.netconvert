@@ -92,5 +92,14 @@ tram_on_road
 # see #18447
 brockenbahn
 
+# ETCS block signal (#18492)
+nabern
+
+# Wendling - Ulm, ETCS block signal (#18492)
+line_4813
+
+# Wendling - Ulm, ETCS block signal (#18492)
+line_4813_moving_block
+
 # tests using S42 (Berlin)
 S42

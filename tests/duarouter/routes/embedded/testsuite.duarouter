@@ -65,5 +65,8 @@ with_busstops
 # with stops and expected persons
 with_stops_expected
 
+# Copy of repeat_cycletime
+repeat_cycletime
+
 # Tests for false user input
 errors

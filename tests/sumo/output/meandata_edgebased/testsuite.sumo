@@ -77,5 +77,8 @@ internal_empty
 # count teleporting vehicles
 teleporting
 
+# discount vehicles that pass an edge while teleporting
+teleporting_across
+
 # two vehicles sampling at 15s with traffic and emissions
 mixed_attrs

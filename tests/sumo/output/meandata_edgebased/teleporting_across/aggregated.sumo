@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-10T18:07:59.151367+01:00 by Eclipse SUMO sumo v1_28_0+0494-8e2eb73c983
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <edgedata-output value="aggregated.xml"/>
+    </output>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="950.00" id="DEFAULT_EDGEDATA">
+        <edge id="E0" sampledSeconds="1847.00" traveltime="648.76" overlapTraveltime="681.20" density="19.44" overlapDensity="19.44" laneDensity="19.44" occupancy="9.72" waitingTime="1795.00" timeLoss="1826.50" speed="0.15" speedRelative="0.01" departed="3" arrived="0" entered="0" left="3" laneChangedFrom="0" laneChangedTo="0" teleported="3" flow="10.79" distance="284.70"/>
+        <edge id="E3" sampledSeconds="7.50" traveltime="7.49" overlapTraveltime="7.88" density="0.07" overlapDensity="0.08" laneDensity="0.07" occupancy="0.04" waitingTime="0.00" timeLoss="0.30" speed="13.33" speedRelative="0.96" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" flow="3.60" distance="95.00"/>
+    </interval>
+</meandata>

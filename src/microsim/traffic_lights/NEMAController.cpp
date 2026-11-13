@@ -177,8 +177,14 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
                 phase2ControllerLanesMap[p] = laneIDs_vector;
 
                 // Create the Phase Object
-                // find if it is at a barrier
-                bool barrierPhase = vectorContainsPhase(barrierPhases, p) || vectorContainsPhase(coordinatePhases, p);
+                // find if it is at a barrier, i.e. the last phase on its side of the barrier in this ring.
+                // This is taken from the ring order, so that a coordinated phase followed by a lagging phase is not a barrier phase
+                bool barrierPhase = true;
+                for (int i = ringIter + 1; i < (int)r.size() && i / 2 == ringIter / 2; i++) {
+                    if (r[i] != 0) {
+                        barrierPhase = false;
+                    }
+                }
                 // is it a coordinate phase
                 bool coordinatePhase = vectorContainsPhase(coordinatePhases, p) && coordinateMode;
                 // is there a minimum or max recall
@@ -229,6 +235,7 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
     }
 
     //TODO: set the default phases. This could also be set using dual entry in future
+    bool barrierMismatch = false;
     for (int i = 0; i < 2; i++) {
         // create the coordinate phase ptr
         coordinatePhaseObjs[i] = getPhaseObj(coordinatePhases[i], i);
@@ -242,6 +249,27 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
                                std::to_string(b->phaseName) + ", " + std::to_string(coordinatePhaseObjs[i]->barrierNum) +
                                " are located on the same side of a barrier." +
                                " Please check your configuration file");
+        }
+        // the barrier phases must be last on their side of the barrier. In coordinated mode, the coordinated phase may be followed by a lagging phase
+        if (!b->isAtBarrier || (!coordinateMode && !coordinatePhaseObjs[i]->isAtBarrier)) {
+            barrierMismatch = true;
+        }
+    }
+    if (barrierMismatch) {
+        WRITE_WARNINGF(TL("At NEMA tlLogic '%', barrierPhases or barrier2Phases name a phase that is not the last on its side of the barrier. Ring order decides which phase ends at the barrier, while these parameters still choose the default phase entered after a crossing."), getID());
+    }
+
+    // coordinated phases that are served again in the same cycle when their lagging phase gaps out
+    for (int p : readParaFromString(getParameter("reservicePhases", ""))) {
+        bool valid = false;
+        for (auto& phase : myPhaseObjs) {
+            if (phase->phaseName == p && phase->coordinatePhase && !phase->isAtBarrier) {
+                phase->reservice = true;
+                valid = true;
+            }
+        }
+        if (!valid) {
+            WRITE_WARNINGF(TL("At NEMA tlLogic '%', reservicePhases names phase %, which is not a coordinated phase followed by a lagging phase; it is ignored."), getID(), toString(p));
         }
     }
 
@@ -928,8 +956,18 @@ NEMALogic::calculateForceOffsTS2() {
 
     // Switch the Force Off Times to align with TS2 Cycle, which is the *start* of the earliest coordinated phase
     // The coordinate phases will always be the defaultBarrierPhases[i][0]
-    SUMOTime minCoordTime = MIN2(coordinatePhaseObjs[0]->forceOffTime - coordinatePhaseObjs[0]->maxDuration,
-                                 coordinatePhaseObjs[1]->forceOffTime - coordinatePhaseObjs[1]->maxDuration);
+    SUMOTime coordStart[2] = { coordinatePhaseObjs[0]->forceOffTime - coordinatePhaseObjs[0]->maxDuration,
+                               coordinatePhaseObjs[1]->forceOffTime - coordinatePhaseObjs[1]->maxDuration
+                             };
+    // When a coordinated phase is followed by a lagging phase, the coordinated phases do not end together at the 170 "0",
+    // so one of them may start before it. Wrap the starts into the cycle to find the one that comes first.
+    // Without a lagging phase the wrap is a no-op as long as the barriers line up; the condition leaves timings that do not
+    // fit the cycle (e.g. after NEMA.maxGreens via TraCI) with the unwrapped starts, which they rely on
+    if (!coordinatePhaseObjs[0]->isAtBarrier || !coordinatePhaseObjs[1]->isAtBarrier) {
+        coordStart[0] = ModeCycle(coordStart[0], myCycleLength);
+        coordStart[1] = ModeCycle(coordStart[1], myCycleLength);
+    }
+    SUMOTime minCoordTime = MIN2(coordStart[0], coordStart[1]);
 
     // loop through all the phases and subtract this minCoordTime to move the 0 point to the start of the first coordinated phase
     for (auto& p : myPhaseObjs) {
@@ -1058,19 +1096,31 @@ NEMALogic::getPhaseObj(int phaseNum, int ringNum) {
     throw ProcessError("At traffic signal '" + myID + "' program '" + myProgramID + "' phase '" + toString(phaseNum) + "' not found in ring '" + toString(ringNum) + "'.");
 }
 
+bool
+NEMALogic::hasLaggingPhase() const {
+    return coordinateMode && (!coordinatePhaseObjs[0]->isAtBarrier || !coordinatePhaseObjs[1]->isAtBarrier);
+}
+
 PhaseTransitionLogic*
 NEMALogic::getDefaultTransition(PhaseTransitionLogic* t, PhaseTransitionLogic* ot) {
     NEMAPhase* p = t->getFromPhase();
     // if the current phase is not ready to switch or a barrier cross is desired by the other transition
     // and t fromPhase is not ready to switch, the default transition is back to myself
+    // a coordinated phase holding through its unserved lagging phase's split is not pulled across the barrier early either
     if (!p->readyToSwitch ||
-            (p->barrierNum == ot->getToPhase()->barrierNum && p->getCurrentState() >= LightState::Green)) {
+            (p->barrierNum == ot->getToPhase()->barrierNum && p->getCurrentState() >= LightState::Green) ||
+            p->holdsForLag(this)) {
         return p->getTransition(p->phaseName);
     }
     // otherwise the default transition is to the default phase on whatever barrier ot wants to transition to
-    else {
-        return p->getTransition(defaultBarrierPhases[p->ringNum][ot->getToPhase()->barrierNum]->phaseName);
+    NEMAPhase* target = defaultBarrierPhases[p->ringNum][ot->getToPhase()->barrierNum];
+    // with a lagging phase, a coordinated or lagging phase is pulled across the barrier only if the other side fits for its own
+    // yellow and red too (the other ring's fit test does not cover them), and never after the other side's force off
+    if (target->barrierNum != p->barrierNum && hasLaggingPhase() && (p->coordinatePhase || p->lagWindowLeft(this) >= 0)
+            && !p->crossFits(this, target)) {
+        return p->getTransition(p->phaseName);
     }
+    return p->getTransition(target->phaseName);
 }
 
 void
@@ -1259,6 +1309,7 @@ NEMAPhase::NEMAPhase(int phaseName, bool isBarrier, bool isGreenRest, bool isCoo
     myPhaseStringInds(phaseStringInds) {
     // Public
     readyToSwitch = false;
+    reservice = false;
     greenRestTimer = 0;
     forceOffTime = 0;
     lastDetectActive = false;
@@ -1269,6 +1320,7 @@ NEMAPhase::NEMAPhase(int phaseName, bool isBarrier, bool isGreenRest, bool isCoo
     sequentialPriorPhase = nullptr;
     myLightState = LightState::Red;
     transitionActive = false;
+    myReserviced = false;
 
     // Timing Parameters
     maxGreenDynamic = myCorePhase->maxDuration;
@@ -1413,6 +1465,13 @@ NEMAPhase::enter(NEMALogic* controller, NEMAPhase* lastPhase) {
         controller->implementTraciChanges();
     }
 
+    // a coordinated phase with reservice that is entered from its lagging phase between its force off and its next start
+    // is served again in this cycle: it times its minimum green only, so that a later call on the other side of the barrier
+    // can still cross, and it is timed to its force off at its next start (see update)
+    const SUMOTime cycle = controller->getCurrentCycleLength();
+    myReserviced = reservice && lastPhase != this && lastPhase->barrierNum == barrierNum
+                   && controller->ModeCycle(controller->getTimeInCycle() - forceOffTime, cycle) < controller->ModeCycle(-maxDuration, cycle);
+
     // Handle Green Rest Peculiarities
     if (!controller->coordinateMode && isGreenRest) {
         // If the controller is in free mode and the phase is a green rest phase, then it should enter as "green rest"
@@ -1426,8 +1485,15 @@ NEMAPhase::enter(NEMALogic* controller, NEMAPhase* lastPhase) {
 
     // Calculate the Max Green Time & Expected Duration here:
     if (controller->coordinateMode) {
-        if (coordinatePhase) {
+        if (myReserviced) {
+            myExpectedDuration = minDuration;
+        } else if (coordinatePhase) {
             myExpectedDuration = controller->ModeCycle(forceOffTime - controller->getTimeInCycle(), controller->getCurrentCycleLength());
+            // with a lagging phase, the other ring may pull me across the barrier as soon as I am ready to switch: entered
+            // shortly before my force off (e.g. back from a leading phase served late), I still time my minimum green
+            if (controller->hasLaggingPhase()) {
+                myExpectedDuration = MAX2(myExpectedDuration, minDuration);
+            }
         } else {
             maxGreenDynamic = controller->ModeCycle(forceOffTime - controller->getTimeInCycle(), controller->getCurrentCycleLength());
             if (!fixForceOff) {
@@ -1510,7 +1576,8 @@ void NEMAPhase::handleGreenRestOrTransfer(NEMALogic* controller, PhaseTransition
     bool isOtherPhaseReady = nextPhases[!ringNum]->getToPhase() == otherPhase && otherPhase->readyToSwitch;
     bool isOtherPhaseInGreenRest = otherPhase->greenRestTimer >= otherPhase->maxDuration && otherPhase->getCurrentState() == LightState::GreenRest;
 
-    if (isOtherPhaseReady || isOtherPhaseInGreenRest) {
+    // holding through the lagging phase's split is not resting: it ends at the barrier
+    if ((isOtherPhaseReady || isOtherPhaseInGreenRest) && !holdsForLag(controller)) {
         myLightState = LightState::GreenRest;
         myStartTime = controller->getCurrentTime() - minDuration;
         myExpectedDuration = minDuration;
@@ -1519,6 +1586,13 @@ void NEMAPhase::handleGreenRestOrTransfer(NEMALogic* controller, PhaseTransition
         myLightState = LightState::GreenXfer;
         if (isAtBarrier) {
             myExpectedDuration = (otherPhase->myExpectedDuration + otherPhase->myStartTime) - myStartTime;
+            // a lagging phase that keeps its green must still be ready to go back to its coordinated phase in time for that
+            // phase's next start, even if the other ring's phase was timed past it (e.g. a coordinated phase re-entered from
+            // green rest early in a Type 170 cycle)
+            const SUMOTime windowLeft = lagWindowLeft(controller);
+            if (windowLeft > 0) {
+                myExpectedDuration = MIN2(myExpectedDuration, controller->getCurrentTime() - myStartTime + windowLeft);
+            }
         }
     }
 }
@@ -1554,6 +1628,11 @@ NEMAPhase::update(NEMALogic* controller) {
         // return early
         readyToSwitch = true;
         return;
+    }
+
+    // a reserviced coordinated phase that is still green at its next start is timed to its force off from there
+    if (myReserviced && controller->ModeCycle(controller->getTimeInCycle() - (forceOffTime - maxDuration), controller->getCurrentCycleLength()) < DELTA_T) {
+        enter(controller, this);
     }
 
     // Continuation Logic
@@ -1602,7 +1681,9 @@ NEMAPhase::update(NEMALogic* controller) {
         }
 
         // Special Behavior when the Green Rest Circles all the way around in coordinated mode
-        if (coordinatePhase) {
+        // (not for a reserviced phase: this check holds from the cycle's zero up to my start, which in the Type 170 frame is
+        // more than one step, and re-entering early would time me to my next force off. It is retimed above instead)
+        if (coordinatePhase && !myReserviced) {
             // This means that we have green rested until I should "start" again. Just call my entry function again.
             if (controller->getTimeInCycle() <= ((forceOffTime - maxDuration) + DELTA_T / 2)) {
                 enter(controller, this);
@@ -1613,6 +1694,50 @@ NEMAPhase::update(NEMALogic* controller) {
     if (duration >= myExpectedDuration) {
         readyToSwitch = true;
     }
+}
+
+bool
+NEMAPhase::holdsForLag(NEMALogic* controller) {
+    if (!coordinatePhase || isAtBarrier) {
+        return false;
+    }
+    for (auto& p : controller->getPhasesByRing(ringNum)) {
+        if (p->isAtBarrier && p->barrierNum == barrierNum) {
+            // the barrier is where the lagging phase would end its red. My green ends my own yellow + red before it
+            SUMOTime barrierTime = p->forceOffTime + p->getTransitionTimeStateless() - getTransitionTimeStateless();
+            SUMOTime timeTillBarrier = controller->ModeCycle(barrierTime - controller->getTimeInCycle(), controller->getCurrentCycleLength());
+            // hold between my force off and the barrier
+            return timeTillBarrier > 0 && timeTillBarrier <= controller->ModeCycle(barrierTime - forceOffTime, controller->getCurrentCycleLength());
+        }
+    }
+    return false;
+}
+
+bool
+NEMAPhase::crossFits(NEMALogic* controller, NEMAPhase* toPhase) {
+    const SUMOTime cycle = controller->getCurrentCycleLength();
+    const SUMOTime timeTillForceOff = controller->ModeCycle(toPhase->forceOffTime - controller->getTimeInCycle(), cycle);
+    const SUMOTime windowLeft = lagWindowLeft(controller);
+    const bool inWindow = windowLeft >= 0 ? windowLeft > 0
+                          : timeTillForceOff <= controller->ModeCycle(toPhase->forceOffTime - forceOffTime, cycle);
+    return inWindow && toPhase->minDuration + getTransitionTime(controller) <= timeTillForceOff;
+}
+
+SUMOTime
+NEMAPhase::lagWindowLeft(NEMALogic* controller) {
+    if (!isAtBarrier || coordinatePhase) {
+        return -1;
+    }
+    for (auto& p : controller->getPhasesByRing(ringNum)) {
+        if (p->coordinatePhase && !p->isAtBarrier && p->barrierNum == barrierNum) {
+            // from the coordinated phase's force off until my yellow and red would end at its next start
+            const SUMOTime cycle = controller->getCurrentCycleLength();
+            const SUMOTime sinceForceOff = controller->ModeCycle(controller->getTimeInCycle() - p->forceOffTime, cycle);
+            const SUMOTime windowLength = controller->ModeCycle(-p->maxDuration - getTransitionTimeStateless(), cycle);
+            return sinceForceOff < windowLength ? windowLength - sinceForceOff : 0;
+        }
+    }
+    return -1;
 }
 
 PhaseTransitionLogic*
@@ -1758,10 +1883,27 @@ bool
 PhaseTransitionLogic::fromBarrier(NEMALogic* controller) {
     if (freeBase(controller)) {
         if (fromPhase->barrierNum == toPhase->barrierNum) {
+            // a lagging phase that gaps out does not go back to its coordinated phase while that one is past its force off
+            // in this cycle (unless reservicePhases names it): entered there, the coordinated phase would keep its green until
+            // its force off in the next cycle and lock out the other side of the barrier. The lagging phase keeps its green
+            // instead, until the other side is called or its yellow and red end at the coordinated phase's next start. Only a
+            // coordinated phase that is followed by a lagging phase matches, so lead-lead and free mode are not affected
+            if (toPhase->coordinatePhase && !toPhase->isAtBarrier) {
+                // once the window is over, it is the coordinated phase's time: go back even if the other side is called
+                if (fromPhase->lagWindowLeft(controller) == 0) {
+                    return true;
+                }
+                // inside the window, only a coordinated phase with reservice is served again (if the other side is not called)
+                if (!toPhase->reservice) {
+                    return false;
+                }
+            }
             // same barrier side so we are good.
             // Check if green transfer is active. If so, we need to make sure that there are no calls on the other side of the barrier
+            // (in either ring for a reserviced coordinated phase: it would delay a side street call of the other ring too)
             if (fromPhase->getCurrentState() >= LightState::Green) {
-                for (auto& p : controller->getPhasesByRing(fromPhase->ringNum)) {
+                const bool reservice = toPhase->coordinatePhase && !toPhase->isAtBarrier;
+                for (auto& p : reservice ? controller->getPhaseObjs() : controller->getPhasesByRing(fromPhase->ringNum)) {
                     if (p->barrierNum != fromPhase->barrierNum && p->callActive()) {
                         return false;
                     }
@@ -1771,6 +1913,12 @@ PhaseTransitionLogic::fromBarrier(NEMALogic* controller) {
         } else {
             // This is now a barrier cross and we need to make sure that the other phase is also ready to transition
             if (fromPhase->readyToSwitch && controller->getOtherPhase(fromPhase)->readyToSwitch) {
+                // a lagging phase crosses only inside its window, and only if the other side still fits before its force off
+                // (the fit test coordBase applies to the other ring), so that a late call does not delay the coordinated
+                // phase's next start
+                if (fromPhase->lagWindowLeft(controller) >= 0) {
+                    return fromPhase->crossFits(controller, toPhase);
+                }
                 return true;
             }
         }
@@ -1782,6 +1930,50 @@ PhaseTransitionLogic::fromBarrier(NEMALogic* controller) {
 bool
 PhaseTransitionLogic::fromCoord(NEMALogic* controller) {
     if (coordBase(controller)) {
+        // A coordinated phase that is not at the barrier is followed by a lagging phase on its side of the barrier
+        if (!fromPhase->isAtBarrier) {
+            if (fromPhase->barrierNum == toPhase->barrierNum) {
+                // moving on to the lagging phase is a same side transition, so there is no need to wait for the other ring.
+                // The lagging phase runs only between the coordinated phase's force off and its own. coordBase's fit test wraps
+                // around the cycle, so on its own it would also serve the lagging phase as a leading phase while the coordinated
+                // phase is green before its force off, or after the lagging phase's force off (e.g. a coordinated phase entered
+                // late at the start of the simulation), cutting into the other side of the barrier. Such a call waits for the
+                // next cycle. A coordinated phase that is served again after its lagging phase does not yield to it a second time
+                // in the same cycle either
+                if (fromPhase->isReserviced()) {
+                    return false;
+                }
+                const SUMOTime cycle = controller->getCurrentCycleLength();
+                return controller->ModeCycle(toPhase->forceOffTime - controller->getTimeInCycle(), cycle)
+                       <= controller->ModeCycle(toPhase->forceOffTime - fromPhase->forceOffTime, cycle);
+            }
+            // the lagging phase is not served, so the coordinated phase keeps its green until the barrier
+            if (fromPhase->holdsForLag(controller)) {
+                return false;
+            }
+        }
+        // with a lagging phase, the coordinated phases do not end together. One at the barrier goes back to the leading phase on its
+        // side only after its own force off, and only while the other side of the barrier is not called: otherwise the leading
+        // phase would cut its coordinated green short (served while the other ring still holds for or serves its lagging phase)
+        // or delay the other side
+        if (fromPhase->isAtBarrier && fromPhase->barrierNum == toPhase->barrierNum && controller->hasLaggingPhase()) {
+            const SUMOTime tillForceOff = controller->ModeCycle(fromPhase->forceOffTime - controller->getTimeInCycle(), controller->getCurrentCycleLength());
+            if (tillForceOff > 0 && tillForceOff < fromPhase->maxDuration) {
+                return false;
+            }
+            for (auto& p : controller->getPhaseObjs()) {
+                if (p->barrierNum != fromPhase->barrierNum && p->callActive()) {
+                    return false;
+                }
+            }
+        }
+        // with a lagging phase, a coordinated phase crosses only while the other side's force off is still ahead in this cycle
+        // and the other side fits: coordBase's fit test wraps around the cycle and would let a late call cross into the
+        // coordinated phases' time
+        if (fromPhase->barrierNum != toPhase->barrierNum && controller->hasLaggingPhase()
+                && !fromPhase->crossFits(controller, toPhase)) {
+            return false;
+        }
         // Determine if the other phase is also ready to switch
         if (controller->getOtherPhase(fromPhase)->readyToSwitch) {
             // Dr. Wang had the Type-170 code setup in a way that it could transition whenever - meaning that it didn't matter if the prior phase could fit or not

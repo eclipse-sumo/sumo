@@ -605,6 +605,8 @@ GNEApplicationWindow::dependentBuild() {
     myCartesianCoordinate->setTipText(TL("Enter 'x, y' to center view"));
     myCartesianCoordinate->setBackColor(myCartesianFrame->getBackColor());
     myCartesianCoordinate->setText(TL("N/A"));
+    myCartesianCoordinate->disable();
+    myCartesianCoordinate->setEditable(false);
     // build test coordinates label (only if gui-testing is enabled)
     myTestFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
     myTestCoordinate = new FXLabel(myTestFrame, TL("N/A"), nullptr, GUIDesignLabelStatusBar);
@@ -1840,6 +1842,8 @@ GNEApplicationWindow::closeAllWindows(const bool resetFilenames) {
     myGeoCoordinate->disable();
     myGeoCoordinate->setEditable(false);
     myCartesianCoordinate->setText(TL("N/A"));
+    myCartesianCoordinate->disable();
+    myCartesianCoordinate->setEditable(false);
     myTestCoordinate->setText(TL("N/A"));
     myTestFrame->hide();
     myMessageWindow->unregisterMsgHandlers();

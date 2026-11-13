@@ -93,7 +93,7 @@ MSStageWaiting::getAngle(SUMOTime /* now */) const {
 }
 
 
-void
+bool
 MSStageWaiting::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous) {
     myDeparted = now;
     myStopEndTime = MAX3(now, now + myWaitingDuration, myWaitingUntil);
@@ -111,6 +111,7 @@ MSStageWaiting::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
     } else {
         net->getContainerControl().setWaitEnd(myStopEndTime, transportable);
     }
+    return true;
 }
 
 

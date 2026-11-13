@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-05T23:21:10.851154+01:00 by Eclipse SUMO sumo v1_28_0+0457-a861f1934c2
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <max-depart-delay value="1"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-ltm value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
+    <interval begin="0.00" end="900.00" id="beg2_0" sampledSeconds="8202.75" density="94.43" laneDensity="47.22" occupancy="23.61" waitingTime="0.00" timeLoss="2761.06" speed="13.27" speedRelative="0.37" departed="163" arrived="1120" entered="972" left="0" flow="4510.49" distance="108833.80"/>
+    <interval begin="0.00" end="900.00" id="beg2_1" sampledSeconds="8202.75" density="94.43" laneDensity="47.22" occupancy="23.61" waitingTime="0.00" timeLoss="2761.06" speed="13.27" speedRelative="0.37" departed="163" arrived="1120" entered="972" left="0" flow="4510.49" distance="108833.80"/>
+    <interval begin="900.00" end="1244.00" id="beg2_0" sampledSeconds="4976.07" density="149.87" laneDensity="74.94" occupancy="37.47" waitingTime="0.00" timeLoss="2532.40" speed="9.82" speedRelative="0.27" departed="1" arrived="514" entered="498" left="0" flow="5299.30" distance="48873.56"/>
+    <interval begin="900.00" end="1244.00" id="beg2_1" sampledSeconds="4976.07" density="149.87" laneDensity="74.94" occupancy="37.47" waitingTime="0.00" timeLoss="2532.40" speed="9.82" speedRelative="0.27" departed="1" arrived="514" entered="498" left="0" flow="5299.30" distance="48873.56"/>
+</detector>

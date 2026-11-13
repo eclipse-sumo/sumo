@@ -283,7 +283,7 @@ MSDevice_Tripinfo::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
         // @note vehicle may have moved past its arrivalPos during the last step
         // due to non-zero arrivalspeed but we consider it as arrived at the desired position
         // However, vaporization may happen anywhere (via TraCI)
-        if (reason > MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED) {
+        if (reason > MSMoveReminder::NOTIFICATION_TELEPORT_CONTINUATION_ARRIVED) {
             // vaporized
             myArrivalPos = veh.getPositionOnLane();
         } else {
@@ -393,6 +393,7 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
             vaporized = "traci";
             break;
         case MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED:
+        case MSMoveReminder::NOTIFICATION_TELEPORT_CONTINUATION_ARRIVED:
             vaporized = "teleport";
             break;
         default:

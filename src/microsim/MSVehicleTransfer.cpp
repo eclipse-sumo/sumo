@@ -191,7 +191,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                             desc.myProceedTime = time + TIME2STEPS(e->getCurrentTravelTime(TeleportMinSpeed));
                         } else {
                             WRITE_WARNINGF(TL("Vehicle '%' teleports beyond arrival edge '%', time=%."), desc.myVeh->getID(), e->getID(), time2string(time));
-                            desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
+                            desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT_CONTINUATION_ARRIVED);
                             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
                             i = vehInfos.erase(i);
                         }

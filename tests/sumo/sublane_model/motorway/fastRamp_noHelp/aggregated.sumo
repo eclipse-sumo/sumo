@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-01T12:00:35.091810+01:00 by Eclipse SUMO sumo v1_27_1+0583-505f6c31ec2
+<!-- generated on 2026-11-10T18:11:44.121068+01:00 by Eclipse SUMO sumo v1_28_0+0494-8e2eb73c983
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <lane id="main_beg_0" sampledSeconds="1571.59" traveltime="5.67" overlapTraveltime="5.95" density="31.87" overlapDensity="33.40" laneDensity="31.87" occupancy="16.32" waitingTime="0.00" timeLoss="240.71" speed="16.94" speedRelative="0.85" departed="256" arrived="0" entered="0" left="256" laneChangedFrom="0" laneChangedTo="0" flow="1938.78" distance="25337.56"/>
         </edge>
         <edge id="main_end">
-            <lane id="main_end_0" sampledSeconds="3200.51" traveltime="11.01" overlapTraveltime="11.27" density="31.95" overlapDensity="32.59" laneDensity="31.95" occupancy="15.92" waitingTime="0.00" timeLoss="289.21" speed="18.19" speedRelative="0.91" departed="0" arrived="285" entered="286" left="1" laneChangedFrom="0" laneChangedTo="0" teleported="1" flow="2089.61" distance="56999.93"/>
+            <lane id="main_end_0" sampledSeconds="3200.51" traveltime="11.01" overlapTraveltime="11.27" density="31.95" overlapDensity="32.59" laneDensity="31.95" occupancy="15.92" waitingTime="0.00" timeLoss="289.21" speed="18.19" speedRelative="0.91" departed="0" arrived="285" entered="285" left="0" laneChangedFrom="0" laneChangedTo="0" flow="2089.61" distance="56999.93"/>
         </edge>
         <edge id="merge">
             <lane id="merge_0" sampledSeconds="5950.75" traveltime="346.49" overlapTraveltime="362.47" density="111.82" overlapDensity="111.82" laneDensity="111.82" occupancy="54.77" waitingTime="5610.00" timeLoss="5857.67" speed="0.31" speedRelative="0.02" departed="0" arrived="0" entered="30" left="1" laneChangedFrom="29" laneChangedTo="0" teleported="1" flow="125.92" distance="1861.55"/>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2026-10-08 14:13+0200\n"
+"POT-Creation-Date: 2026-11-10 19:03+0100\n"
 "PO-Revision-Date: 2026-02-16 18:56+0200\n"
 "Last-Translator: Arina <hello.arina.s@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -20,191 +20,191 @@ msgstr ""
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Weblate 5.15.1\n"
 
-#: src/gui/GUIApplicationWindow.cpp:330
-#: src/netedit/GNEApplicationWindow.cpp:596
+#: src/gui/GUIApplicationWindow.cpp:331
+#: src/netedit/GNEApplicationWindow.cpp:595
 msgid ""
 "Original coordinate (before coordinate transformation in netconvert). Enter "
 "'lat, lon' or 'lat:... lon:...' to center view"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:331
-#: src/netedit/GNEApplicationWindow.cpp:597
+#: src/gui/GUIApplicationWindow.cpp:332
+#: src/netedit/GNEApplicationWindow.cpp:596
 msgid "Enter 'lat, lon' to center view"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:333 src/gui/GUIApplicationWindow.cpp:342
-#: src/gui/GUIApplicationWindow.cpp:2412 src/gui/GUIApplicationWindow.cpp:2415
-#: src/gui/GUIApplicationWindow.cpp:2417
-#: src/netedit/GNEApplicationWindow.cpp:599
-#: src/netedit/GNEApplicationWindow.cpp:608
-#: src/netedit/GNEApplicationWindow.cpp:611
-#: src/netedit/GNEApplicationWindow.cpp:1759
-#: src/netedit/GNEApplicationWindow.cpp:1762
-#: src/netedit/GNEApplicationWindow.cpp:1763
+#: src/gui/GUIApplicationWindow.cpp:334 src/gui/GUIApplicationWindow.cpp:343
+#: src/gui/GUIApplicationWindow.cpp:2443 src/gui/GUIApplicationWindow.cpp:2446
+#: src/gui/GUIApplicationWindow.cpp:2448
+#: src/netedit/GNEApplicationWindow.cpp:598
+#: src/netedit/GNEApplicationWindow.cpp:607
+#: src/netedit/GNEApplicationWindow.cpp:610
+#: src/netedit/GNEApplicationWindow.cpp:1839
+#: src/netedit/GNEApplicationWindow.cpp:1842
+#: src/netedit/GNEApplicationWindow.cpp:1843
 msgid "N/A"
 msgstr "Недоступно"
 
-#: src/gui/GUIApplicationWindow.cpp:339
-#: src/netedit/GNEApplicationWindow.cpp:605
+#: src/gui/GUIApplicationWindow.cpp:340
+#: src/netedit/GNEApplicationWindow.cpp:604
 msgid "Network coordinate. Enter 'x, y' to center view"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:340
-#: src/netedit/GNEApplicationWindow.cpp:606
+#: src/gui/GUIApplicationWindow.cpp:341
+#: src/netedit/GNEApplicationWindow.cpp:605
 msgid "Enter 'x, y' to center view"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:345
+#: src/gui/GUIApplicationWindow.cpp:346
 msgid "number of running vehicles"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:346
+#: src/gui/GUIApplicationWindow.cpp:347
 msgid "number of insertion backlogged vehicles"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:347
+#: src/gui/GUIApplicationWindow.cpp:348
 msgid "percentage of teleports per departed vehicles"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:348
+#: src/gui/GUIApplicationWindow.cpp:349
 msgid "number of active persons"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:349
+#: src/gui/GUIApplicationWindow.cpp:350
 msgid "number of active containers"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:381
-#: src/netedit/GNEApplicationWindow.cpp:631
+#: src/gui/GUIApplicationWindow.cpp:393
+#: src/netedit/GNEApplicationWindow.cpp:630
 msgid "Ready."
 msgstr "Готово."
 
-#: src/gui/GUIApplicationWindow.cpp:504
-#: src/netedit/GNEApplicationWindow.cpp:1476
+#: src/gui/GUIApplicationWindow.cpp:516
+#: src/netedit/GNEApplicationWindow.cpp:1556
 msgid "&File"
 msgstr "&Файл"
 
-#: src/gui/GUIApplicationWindow.cpp:506
+#: src/gui/GUIApplicationWindow.cpp:518
 #: src/netedit/GNEApplicationWindowHelper.cpp:207
 msgid "New Window"
 msgstr "Новое окно"
 
-#: src/gui/GUIApplicationWindow.cpp:506
+#: src/gui/GUIApplicationWindow.cpp:518
 msgid "Open a new sumo-gui window."
 msgstr "Открыть новое окно sumo-gui."
 
-#: src/gui/GUIApplicationWindow.cpp:510
+#: src/gui/GUIApplicationWindow.cpp:522
 msgid "&Open Simulation..."
 msgstr "&Открыть симуляцию..."
 
-#: src/gui/GUIApplicationWindow.cpp:510
+#: src/gui/GUIApplicationWindow.cpp:522
 msgid "Open a simulation (Configuration file)."
 msgstr "Открыть симуляцию (файл конфигурации)."
 
-#: src/gui/GUIApplicationWindow.cpp:513
+#: src/gui/GUIApplicationWindow.cpp:525
 msgid "Open &Network..."
 msgstr "Открыть &сеть..."
 
-#: src/gui/GUIApplicationWindow.cpp:513
+#: src/gui/GUIApplicationWindow.cpp:525
 msgid "Open a network."
 msgstr "Открыть сеть."
 
-#: src/gui/GUIApplicationWindow.cpp:516
+#: src/gui/GUIApplicationWindow.cpp:528
 msgid "Open Shapes "
 msgstr "Открыть фигуры "
 
-#: src/gui/GUIApplicationWindow.cpp:516
+#: src/gui/GUIApplicationWindow.cpp:528
 msgid "Load POIs and Polygons for visualization."
 msgstr "Загрузить точки интереса и полигоны для визуализации."
 
-#: src/gui/GUIApplicationWindow.cpp:519
+#: src/gui/GUIApplicationWindow.cpp:531
 msgid "Open EdgeData "
 msgstr "Открыть данные рёбер "
 
-#: src/gui/GUIApplicationWindow.cpp:519
+#: src/gui/GUIApplicationWindow.cpp:531
 msgid "Load edge related data for visualization."
 msgstr "Загрузить данные, связанные с рёбрами, для визуализации."
 
-#: src/gui/GUIApplicationWindow.cpp:522
-#: src/netedit/GNEApplicationWindow.cpp:1102
+#: src/gui/GUIApplicationWindow.cpp:534
+#: src/netedit/GNEApplicationWindow.cpp:1153
 msgid "&Reload"
 msgstr "&Перезагрузить"
 
-#: src/gui/GUIApplicationWindow.cpp:522
+#: src/gui/GUIApplicationWindow.cpp:534
 msgid "Reloads the simulation / the network."
 msgstr "Перезагружает симуляцию / сеть."
 
-#: src/gui/GUIApplicationWindow.cpp:525
+#: src/gui/GUIApplicationWindow.cpp:537
 msgid "Quick-Reload"
 msgstr "Быстрая перезагрузка"
 
-#: src/gui/GUIApplicationWindow.cpp:525
+#: src/gui/GUIApplicationWindow.cpp:537
 msgid "Reloads the simulation (but not network)."
 msgstr "Перезагружает симуляцию (без перезагрузки сети)."
 
-#: src/gui/GUIApplicationWindow.cpp:529
+#: src/gui/GUIApplicationWindow.cpp:541
 msgid "Save Configuration"
 msgstr "Сохранить конфигурацию"
 
-#: src/gui/GUIApplicationWindow.cpp:529
+#: src/gui/GUIApplicationWindow.cpp:541
 msgid "Save current options as a configuration file."
 msgstr "Сохранить текущие параметры как файл конфигурации."
 
-#: src/gui/GUIApplicationWindow.cpp:532
+#: src/gui/GUIApplicationWindow.cpp:544
 #: src/netedit/GNEApplicationWindowHelper.cpp:315
 msgid "Close"
 msgstr "Закрыть"
 
-#: src/gui/GUIApplicationWindow.cpp:532
+#: src/gui/GUIApplicationWindow.cpp:544
 msgid "Close the simulation."
 msgstr "Закрыть симуляцию."
 
-#: src/gui/GUIApplicationWindow.cpp:540
-#: src/netedit/GNEApplicationWindow.cpp:1496
+#: src/gui/GUIApplicationWindow.cpp:552
+#: src/netedit/GNEApplicationWindow.cpp:1576
 msgid "&Quit"
 msgstr "В&ыйти"
 
-#: src/gui/GUIApplicationWindow.cpp:540
-#: src/netedit/GNEApplicationWindow.cpp:1496
+#: src/gui/GUIApplicationWindow.cpp:552
+#: src/netedit/GNEApplicationWindow.cpp:1576
 msgid "Quit the Application."
 msgstr "Выйти из приложения."
 
-#: src/gui/GUIApplicationWindow.cpp:549
-#: src/netedit/GNEApplicationWindow.cpp:1511
+#: src/gui/GUIApplicationWindow.cpp:561
+#: src/netedit/GNEApplicationWindow.cpp:1591
 msgid "&Edit"
 msgstr "&Правка"
 
-#: src/gui/GUIApplicationWindow.cpp:551 src/gui/GUIApplicationWindow.cpp:935
+#: src/gui/GUIApplicationWindow.cpp:563 src/gui/GUIApplicationWindow.cpp:947
 msgid "Edit Selected..."
 msgstr "Редактировать выбранные..."
 
-#: src/gui/GUIApplicationWindow.cpp:551
+#: src/gui/GUIApplicationWindow.cpp:563
 msgid "Opens a dialog for editing the list of selected items."
 msgstr "Открывает диалог для редактирования списка выбранных элементов."
 
-#: src/gui/GUIApplicationWindow.cpp:553
+#: src/gui/GUIApplicationWindow.cpp:565
 msgid "Select lanes which allow..."
 msgstr "Выбрать полосы, разрешающие..."
 
-#: src/gui/GUIApplicationWindow.cpp:554
+#: src/gui/GUIApplicationWindow.cpp:566
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
 msgstr ""
 "Открывает меню для выбора класса транспортных средств, по которому "
 "выбираются полосы."
 
-#: src/gui/GUIApplicationWindow.cpp:557
+#: src/gui/GUIApplicationWindow.cpp:569
 msgid "Set Breakpoint"
 msgstr "Установить точку останова"
 
-#: src/gui/GUIApplicationWindow.cpp:557
+#: src/gui/GUIApplicationWindow.cpp:569
 msgid "Sets a breakpoint at the current simulation step"
 msgstr "Устанавливает точку останова на текущем шаге симуляции"
 
-#: src/gui/GUIApplicationWindow.cpp:560
+#: src/gui/GUIApplicationWindow.cpp:572
 msgid "Set Breakpoint with offset"
 msgstr "Установить точку останова со смещением"
 
-#: src/gui/GUIApplicationWindow.cpp:560
+#: src/gui/GUIApplicationWindow.cpp:572
 msgid ""
 "Sets a breakpoint at the current simulation step + offset configured in "
 "application settings"
@@ -212,212 +212,212 @@ msgstr ""
 "Устанавливает точку останова на текущем шаге симуляции + смещение, заданное "
 "в настройках приложения"
 
-#: src/gui/GUIApplicationWindow.cpp:563
+#: src/gui/GUIApplicationWindow.cpp:575
 msgid "Edit Breakpoints"
 msgstr "Редактировать точки останова"
 
-#: src/gui/GUIApplicationWindow.cpp:563
+#: src/gui/GUIApplicationWindow.cpp:575
 msgid "Opens a dialog for editing breakpoints."
 msgstr "Открывает диалог для редактирования точек останова."
 
-#: src/gui/GUIApplicationWindow.cpp:566
+#: src/gui/GUIApplicationWindow.cpp:578
 #: src/netedit/GNEApplicationWindowHelper.cpp:1326
-msgid "Edit Visualisation"
-msgstr "Редактировать визуализацию"
+msgid "Edit Visualization"
+msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:566
+#: src/gui/GUIApplicationWindow.cpp:578
 #: src/netedit/GNEApplicationWindowHelper.cpp:1326
 msgid "Opens a dialog for editing visualization settings."
 msgstr "Открывает диалог для изменения настроек визуализации."
 
-#: src/gui/GUIApplicationWindow.cpp:569
+#: src/gui/GUIApplicationWindow.cpp:581
 #: src/netedit/GNEApplicationWindowHelper.cpp:1329
 msgid "Edit Viewport"
 msgstr "Редактировать область просмотра"
 
-#: src/gui/GUIApplicationWindow.cpp:569
+#: src/gui/GUIApplicationWindow.cpp:581
 #: src/netedit/GNEApplicationWindowHelper.cpp:1329
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
 msgstr ""
 "Открывает диалог для редактирования области просмотра, масштаба и поворота."
 
-#: src/gui/GUIApplicationWindow.cpp:573
+#: src/gui/GUIApplicationWindow.cpp:585
 msgid "Load additionals in netedit"
 msgstr "Загрузить дополнительные элементы в netedit"
 
-#: src/gui/GUIApplicationWindow.cpp:573
+#: src/gui/GUIApplicationWindow.cpp:585
 msgid "Load additionals in netedit."
 msgstr "Загрузить дополнительные элементы в netedit."
 
-#: src/gui/GUIApplicationWindow.cpp:575
+#: src/gui/GUIApplicationWindow.cpp:587
 msgid "Load demand in netedit"
 msgstr "Загрузить спрос в netedit"
 
-#: src/gui/GUIApplicationWindow.cpp:575
+#: src/gui/GUIApplicationWindow.cpp:587
 msgid "Load demand in netedit."
 msgstr "Загрузить спрос в netedit."
 
-#: src/gui/GUIApplicationWindow.cpp:578
+#: src/gui/GUIApplicationWindow.cpp:590
 msgid "Open in netedit"
 msgstr "Открыть в netedit"
 
-#: src/gui/GUIApplicationWindow.cpp:578
+#: src/gui/GUIApplicationWindow.cpp:590
 msgid "Opens current simulation in NETEDIT."
 msgstr "Открывает текущую симуляцию в NETEDIT."
 
-#: src/gui/GUIApplicationWindow.cpp:581 src/gui/GUIApplicationWindow.cpp:1572
+#: src/gui/GUIApplicationWindow.cpp:593 src/gui/GUIApplicationWindow.cpp:1584
 msgid "Open network in netedit"
 msgstr "Открыть сеть в netedit"
 
-#: src/gui/GUIApplicationWindow.cpp:581
+#: src/gui/GUIApplicationWindow.cpp:593
 msgid "Opens current network in NETEDIT."
 msgstr "Открывает текущую сеть в NETEDIT."
 
-#: src/gui/GUIApplicationWindow.cpp:585
+#: src/gui/GUIApplicationWindow.cpp:597
 msgid "&Settings"
 msgstr "&Настройки"
 
-#: src/gui/GUIApplicationWindow.cpp:587
+#: src/gui/GUIApplicationWindow.cpp:599
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:53
 msgid "Application Settings"
 msgstr "Настройки приложения"
 
-#: src/gui/GUIApplicationWindow.cpp:587
+#: src/gui/GUIApplicationWindow.cpp:599
 msgid "Open a Dialog for Application Settings editing."
 msgstr "Открывает диалог для редактирования настроек приложения."
 
-#: src/gui/GUIApplicationWindow.cpp:590
+#: src/gui/GUIApplicationWindow.cpp:602
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
 msgstr "Игровой режим\tCtrl+G\tВключить/выключить игровой режим."
 
-#: src/gui/GUIApplicationWindow.cpp:593
+#: src/gui/GUIApplicationWindow.cpp:605
 msgid "Full Screen Mode"
 msgstr "Полноэкранный режим"
 
-#: src/gui/GUIApplicationWindow.cpp:593
+#: src/gui/GUIApplicationWindow.cpp:605
 msgid "Toggle full screen mode on/off."
 msgstr "Переключить полноэкранный режим."
 
-#: src/gui/GUIApplicationWindow.cpp:597
-#: src/netedit/GNEApplicationWindow.cpp:1547
+#: src/gui/GUIApplicationWindow.cpp:609
+#: src/netedit/GNEApplicationWindow.cpp:1627
 msgid "&Locate"
 msgstr "&Найти"
 
-#: src/gui/GUIApplicationWindow.cpp:599
+#: src/gui/GUIApplicationWindow.cpp:611
 #: src/netedit/GNEApplicationWindowHelper.cpp:1372
 #: src/netedit/GNEApplicationWindowHelper.cpp:2037
 msgid "&Junctions"
 msgstr "&Перекрёстки"
 
-#: src/gui/GUIApplicationWindow.cpp:599
+#: src/gui/GUIApplicationWindow.cpp:611
 #: src/netedit/GNEApplicationWindowHelper.cpp:2037
 msgid "Open a dialog for locating a Junction."
 msgstr "Открывает диалог для поиска перекрёстка."
 
-#: src/gui/GUIApplicationWindow.cpp:602
+#: src/gui/GUIApplicationWindow.cpp:614
 #: src/netedit/GNEApplicationWindowHelper.cpp:1377
 #: src/netedit/GNEApplicationWindowHelper.cpp:2040
 msgid "&Edges"
 msgstr "&Рёбра"
 
-#: src/gui/GUIApplicationWindow.cpp:602
+#: src/gui/GUIApplicationWindow.cpp:614
 #: src/netedit/GNEApplicationWindowHelper.cpp:2040
 msgid "Open a dialog for locating an Edge."
 msgstr "Открывает диалог для поиска ребра."
 
-#: src/gui/GUIApplicationWindow.cpp:605
+#: src/gui/GUIApplicationWindow.cpp:617
 #: src/netedit/GNEApplicationWindowHelper.cpp:1442
 #: src/netedit/GNEApplicationWindowHelper.cpp:2046
 msgid "&Vehicles"
 msgstr "&Транспортные средства"
 
-#: src/gui/GUIApplicationWindow.cpp:605
+#: src/gui/GUIApplicationWindow.cpp:617
 #: src/netedit/GNEApplicationWindowHelper.cpp:2046
 msgid "Open a dialog for locating a Vehicle."
 msgstr "Открывает диалог для поиска транспортного средства."
 
-#: src/gui/GUIApplicationWindow.cpp:608
+#: src/gui/GUIApplicationWindow.cpp:620
 #: src/netedit/GNEApplicationWindowHelper.cpp:1447
 #: src/netedit/GNEApplicationWindowHelper.cpp:2049
 msgid "&Persons"
 msgstr "&Пешеходы"
 
-#: src/gui/GUIApplicationWindow.cpp:608
+#: src/gui/GUIApplicationWindow.cpp:620
 #: src/netedit/GNEApplicationWindowHelper.cpp:2049
 msgid "Open a dialog for locating a Person."
 msgstr "Открывает диалог для поиска пешехода."
 
-#: src/gui/GUIApplicationWindow.cpp:611
+#: src/gui/GUIApplicationWindow.cpp:623
 msgid "&Container"
 msgstr "&Контейнер"
 
-#: src/gui/GUIApplicationWindow.cpp:611
+#: src/gui/GUIApplicationWindow.cpp:623
 #: src/netedit/GNEApplicationWindowHelper.cpp:2052
 msgid "Open a dialog for locating a Container."
 msgstr "Открывает диалог для поиска контейнера."
 
-#: src/gui/GUIApplicationWindow.cpp:614
+#: src/gui/GUIApplicationWindow.cpp:626
 #: src/netedit/GNEApplicationWindowHelper.cpp:2061
 msgid "&TLS"
 msgstr "&Светофоры"
 
-#: src/gui/GUIApplicationWindow.cpp:614
+#: src/gui/GUIApplicationWindow.cpp:626
 #: src/netedit/GNEApplicationWindowHelper.cpp:2061
 msgid "Open a dialog for locating a Traffic Light."
 msgstr "Открывает диалог для поиска светофора."
 
-#: src/gui/GUIApplicationWindow.cpp:617
+#: src/gui/GUIApplicationWindow.cpp:629
 #: src/netedit/GNEApplicationWindowHelper.cpp:637
 #: src/netedit/GNEApplicationWindowHelper.cpp:2064
 msgid "&Additional"
 msgstr "&Дополнительные"
 
-#: src/gui/GUIApplicationWindow.cpp:617
+#: src/gui/GUIApplicationWindow.cpp:629
 #: src/netedit/GNEApplicationWindowHelper.cpp:2064
 msgid "Open a dialog for locating an Additional Structure."
 msgstr "Открывает диалог для поиска дополнительного объекта."
 
-#: src/gui/GUIApplicationWindow.cpp:620
+#: src/gui/GUIApplicationWindow.cpp:632
 #: src/netedit/GNEApplicationWindowHelper.cpp:2067
 msgid "P&oI"
 msgstr "&Точки интереса"
 
-#: src/gui/GUIApplicationWindow.cpp:620
+#: src/gui/GUIApplicationWindow.cpp:632
 #: src/netedit/GNEApplicationWindowHelper.cpp:2067
 msgid "Open a dialog for locating a Point of Interest."
 msgstr "Открывает диалог для поиска точки интереса."
 
-#: src/gui/GUIApplicationWindow.cpp:623
+#: src/gui/GUIApplicationWindow.cpp:635
 #: src/netedit/GNEApplicationWindowHelper.cpp:2070
 msgid "Po&lygon"
 msgstr "&Полигоны"
 
-#: src/gui/GUIApplicationWindow.cpp:623
+#: src/gui/GUIApplicationWindow.cpp:635
 #: src/netedit/GNEApplicationWindowHelper.cpp:2070
 msgid "Open a dialog for locating a Polygon."
 msgstr "Открывает диалог для поиска полигона."
 
-#: src/gui/GUIApplicationWindow.cpp:626
+#: src/gui/GUIApplicationWindow.cpp:638
 msgid "Show Internal Structures"
 msgstr "Показывать внутренние структуры"
 
-#: src/gui/GUIApplicationWindow.cpp:626
+#: src/gui/GUIApplicationWindow.cpp:638
 msgid "Show internal junctions and streets in locator dialog."
 msgstr "Показывать внутренние перекрёстки и улицы в диалоге поиска."
 
-#: src/gui/GUIApplicationWindow.cpp:627
+#: src/gui/GUIApplicationWindow.cpp:639
 msgid "Show Parking Vehicles"
 msgstr "Показывать припаркованные ТС"
 
-#: src/gui/GUIApplicationWindow.cpp:627
+#: src/gui/GUIApplicationWindow.cpp:639
 msgid "Show parking vehicles in locator dialog."
 msgstr "Показывать припаркованные транспортные средства в диалоге поиска."
 
-#: src/gui/GUIApplicationWindow.cpp:629
+#: src/gui/GUIApplicationWindow.cpp:641
 msgid "Show vehicles outside the road network"
 msgstr "Показывать ТС за пределами дорожной сети"
 
-#: src/gui/GUIApplicationWindow.cpp:629
+#: src/gui/GUIApplicationWindow.cpp:641
 msgid ""
 "Show vehicles that are teleporting or driving remote-controlled outside the "
 "road network in locator dialog."
@@ -425,53 +425,53 @@ msgstr ""
 "Показывать транспортные средства, телепортирующиеся или управляемые "
 "дистанционно за пределами дорожной сети, в диалоге поиска."
 
-#: src/gui/GUIApplicationWindow.cpp:634
+#: src/gui/GUIApplicationWindow.cpp:646
 msgid "Simulation"
 msgstr "Симуляция"
 
-#: src/gui/GUIApplicationWindow.cpp:636 src/netedit/dialogs/GNEDialog.cpp:477
+#: src/gui/GUIApplicationWindow.cpp:648 src/netedit/dialogs/GNEDialog.cpp:477
 #: src/netedit/dialogs/GNEDialog.cpp:494
 msgid "Run"
 msgstr "Запустить"
 
-#: src/gui/GUIApplicationWindow.cpp:636
+#: src/gui/GUIApplicationWindow.cpp:648
 msgid "Start/ Resume the simulation."
 msgstr "Запустить / возобновить симуляцию."
 
-#: src/gui/GUIApplicationWindow.cpp:639
+#: src/gui/GUIApplicationWindow.cpp:651
 msgctxt "Simulation"
 msgid "Stop"
 msgstr "Остановить"
 
-#: src/gui/GUIApplicationWindow.cpp:639
+#: src/gui/GUIApplicationWindow.cpp:651
 msgid "Halt the simulation."
 msgstr "Остановить симуляцию."
 
-#: src/gui/GUIApplicationWindow.cpp:642
+#: src/gui/GUIApplicationWindow.cpp:654
 msgid "Step"
 msgstr "Шаг"
 
-#: src/gui/GUIApplicationWindow.cpp:642
+#: src/gui/GUIApplicationWindow.cpp:654
 msgid "Perform one simulation step."
 msgstr "Выполнить один шаг симуляции."
 
-#: src/gui/GUIApplicationWindow.cpp:645
+#: src/gui/GUIApplicationWindow.cpp:657
 msgid "Delay+"
 msgstr "Задержка+"
 
-#: src/gui/GUIApplicationWindow.cpp:645
+#: src/gui/GUIApplicationWindow.cpp:657
 msgid "Increase simulation step delay."
 msgstr "Увеличить задержку шага симуляции."
 
-#: src/gui/GUIApplicationWindow.cpp:647
+#: src/gui/GUIApplicationWindow.cpp:659
 msgid "Delay-"
 msgstr "Задержка-"
 
-#: src/gui/GUIApplicationWindow.cpp:647
+#: src/gui/GUIApplicationWindow.cpp:659
 msgid "Decrease simulation step delay."
 msgstr "Уменьшить задержку шага симуляции."
 
-#: src/gui/GUIApplicationWindow.cpp:649 src/netedit/dialogs/GNEDialog.cpp:421
+#: src/gui/GUIApplicationWindow.cpp:661 src/netedit/dialogs/GNEDialog.cpp:421
 #: src/netedit/dialogs/GNEParametersDialog.cpp:297
 #: src/netedit/frames/common/GNESelectorFrame.cpp:261
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1377
@@ -480,11 +480,11 @@ msgstr "Уменьшить задержку шага симуляции."
 msgid "Save"
 msgstr "Сохранить"
 
-#: src/gui/GUIApplicationWindow.cpp:649
+#: src/gui/GUIApplicationWindow.cpp:661
 msgid "Save the current simulation state to a file."
 msgstr "Сохранить текущее состояние симуляции в файл."
 
-#: src/gui/GUIApplicationWindow.cpp:652
+#: src/gui/GUIApplicationWindow.cpp:664
 #: src/netedit/dialogs/GNEParametersDialog.cpp:296
 #: src/netedit/frames/common/GNESelectorFrame.cpp:263
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2884
@@ -492,195 +492,195 @@ msgstr "Сохранить текущее состояние симуляции 
 msgid "Load"
 msgstr "Загрузить"
 
-#: src/gui/GUIApplicationWindow.cpp:652
+#: src/gui/GUIApplicationWindow.cpp:664
 msgid "Load simulation state for the current network from file."
 msgstr "Загрузить состояние симуляции для текущей сети из файла."
 
-#: src/gui/GUIApplicationWindow.cpp:656
-#: src/netedit/GNEApplicationWindow.cpp:1618
+#: src/gui/GUIApplicationWindow.cpp:668
+#: src/netedit/GNEApplicationWindow.cpp:1698
 msgid "&Window"
 msgstr "&Окно"
 
-#: src/gui/GUIApplicationWindow.cpp:657 src/gui/GUIApplicationWindow.cpp:804
+#: src/gui/GUIApplicationWindow.cpp:669 src/gui/GUIApplicationWindow.cpp:816
 msgid "Open new view"
 msgstr "Открыть новый вид"
 
-#: src/gui/GUIApplicationWindow.cpp:657 src/gui/GUIApplicationWindow.cpp:804
+#: src/gui/GUIApplicationWindow.cpp:669 src/gui/GUIApplicationWindow.cpp:816
 msgid "Open a new microscopic view."
 msgstr "Открыть новый микроскопический вид."
 
-#: src/gui/GUIApplicationWindow.cpp:659 src/gui/GUIApplicationWindow.cpp:807
+#: src/gui/GUIApplicationWindow.cpp:671 src/gui/GUIApplicationWindow.cpp:819
 msgid "Open new 3D view"
 msgstr "Открыть новый 3D-вид"
 
-#: src/gui/GUIApplicationWindow.cpp:659 src/gui/GUIApplicationWindow.cpp:807
+#: src/gui/GUIApplicationWindow.cpp:671 src/gui/GUIApplicationWindow.cpp:819
 msgid "Open a new 3D view."
 msgstr "Открыть новый 3D-вид."
 
-#: src/gui/GUIApplicationWindow.cpp:662
+#: src/gui/GUIApplicationWindow.cpp:674
 msgid "Tile &Horizontally"
 msgstr "Расположить &горизонтально"
 
-#: src/gui/GUIApplicationWindow.cpp:662
+#: src/gui/GUIApplicationWindow.cpp:674
 msgid "Tile the views horizontally."
 msgstr "Расположить окна горизонтально."
 
-#: src/gui/GUIApplicationWindow.cpp:665
+#: src/gui/GUIApplicationWindow.cpp:677
 msgid "Tile &Vertically"
 msgstr "Расположить &вертикально"
 
-#: src/gui/GUIApplicationWindow.cpp:665
+#: src/gui/GUIApplicationWindow.cpp:677
 msgid "Tile the views vertically."
 msgstr "Расположить окна вертикально."
 
-#: src/gui/GUIApplicationWindow.cpp:668
+#: src/gui/GUIApplicationWindow.cpp:680
 msgid "Cascade"
 msgstr "Каскадом"
 
-#: src/gui/GUIApplicationWindow.cpp:668
+#: src/gui/GUIApplicationWindow.cpp:680
 msgid "Cascade the views."
 msgstr "Расположить окна каскадом."
 
-#: src/gui/GUIApplicationWindow.cpp:672
+#: src/gui/GUIApplicationWindow.cpp:684
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:101
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:104
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:117
 msgid "&Close"
 msgstr "&Закрыть"
 
-#: src/gui/GUIApplicationWindow.cpp:672
+#: src/gui/GUIApplicationWindow.cpp:684
 msgid "Close the selected view."
 msgstr "Закрыть выбранный вид."
 
-#: src/gui/GUIApplicationWindow.cpp:682
+#: src/gui/GUIApplicationWindow.cpp:694
 msgid "&Others..."
 msgstr "&Прочее..."
 
-#: src/gui/GUIApplicationWindow.cpp:685
+#: src/gui/GUIApplicationWindow.cpp:697
 #: src/netedit/GNEApplicationWindowHelper.cpp:2164
 msgid "Show Status Line"
 msgstr "Показывать строку состояния"
 
-#: src/gui/GUIApplicationWindow.cpp:685
+#: src/gui/GUIApplicationWindow.cpp:697
 msgid "Toggle the Status Bar on/off."
 msgstr "Показать/скрыть строку состояния."
 
-#: src/gui/GUIApplicationWindow.cpp:686
+#: src/gui/GUIApplicationWindow.cpp:698
 #: src/netedit/GNEApplicationWindowHelper.cpp:2167
 msgid "Show Message Window"
 msgstr "Показывать окно сообщений"
 
-#: src/gui/GUIApplicationWindow.cpp:686
+#: src/gui/GUIApplicationWindow.cpp:698
 #: src/netedit/GNEApplicationWindowHelper.cpp:2167
 msgid "Toggle the Message Window on/off."
 msgstr "Показать/скрыть окно сообщений."
 
-#: src/gui/GUIApplicationWindow.cpp:687
+#: src/gui/GUIApplicationWindow.cpp:699
 msgid "Show Simulation Time"
 msgstr "Показывать время симуляции"
 
-#: src/gui/GUIApplicationWindow.cpp:687
+#: src/gui/GUIApplicationWindow.cpp:699
 msgid "Toggle the Simulation Time on/off."
 msgstr "Показать/скрыть время симуляции."
 
-#: src/gui/GUIApplicationWindow.cpp:688
+#: src/gui/GUIApplicationWindow.cpp:700
 msgid "Show Simulation Delay"
 msgstr "Показывать задержку симуляции"
 
-#: src/gui/GUIApplicationWindow.cpp:688
+#: src/gui/GUIApplicationWindow.cpp:700
 msgid "Toggle the Simulation Delay Entry on/off."
 msgstr "Показать/скрыть поле задержки симуляции."
 
-#: src/gui/GUIApplicationWindow.cpp:693
+#: src/gui/GUIApplicationWindow.cpp:705
 #: src/netedit/GNEApplicationWindowHelper.cpp:2171
 msgid "Clear Message Window"
 msgstr "Очистить окно сообщений"
 
-#: src/gui/GUIApplicationWindow.cpp:693
+#: src/gui/GUIApplicationWindow.cpp:705
 msgid "Clear the message window."
 msgstr "Очистить окно сообщений."
 
-#: src/gui/GUIApplicationWindow.cpp:700
-#: src/netedit/GNEApplicationWindow.cpp:1624
+#: src/gui/GUIApplicationWindow.cpp:712
+#: src/netedit/GNEApplicationWindow.cpp:1704
 msgid "&Help"
 msgstr "&Справка"
 
-#: src/gui/GUIApplicationWindow.cpp:702
+#: src/gui/GUIApplicationWindow.cpp:714
 msgid "&Online Documentation"
 msgstr "&Онлайн-документация"
 
-#: src/gui/GUIApplicationWindow.cpp:702
+#: src/gui/GUIApplicationWindow.cpp:714
 #: src/netedit/GNEApplicationWindowHelper.cpp:2187
 msgid "Open Online documentation."
 msgstr "Открыть онлайн-документацию."
 
-#: src/gui/GUIApplicationWindow.cpp:705
+#: src/gui/GUIApplicationWindow.cpp:717
 msgid "&Changelog"
 msgstr "&Журнал изменений"
 
-#: src/gui/GUIApplicationWindow.cpp:705
+#: src/gui/GUIApplicationWindow.cpp:717
 #: src/netedit/GNEApplicationWindowHelper.cpp:2190
 msgid "Open Changelog."
 msgstr "Открыть журнал изменений."
 
-#: src/gui/GUIApplicationWindow.cpp:707
+#: src/gui/GUIApplicationWindow.cpp:719
 msgid "&Hotkeys"
 msgstr "&Горячие клавиши"
 
-#: src/gui/GUIApplicationWindow.cpp:707
+#: src/gui/GUIApplicationWindow.cpp:719
 #: src/netedit/GNEApplicationWindowHelper.cpp:2192
 msgid "Open Hotkeys."
 msgstr "Открыть список горячих клавиш."
 
-#: src/gui/GUIApplicationWindow.cpp:709
+#: src/gui/GUIApplicationWindow.cpp:721
 msgid "&Tutorial"
 msgstr "&Руководство"
 
-#: src/gui/GUIApplicationWindow.cpp:709
+#: src/gui/GUIApplicationWindow.cpp:721
 #: src/netedit/GNEApplicationWindowHelper.cpp:2194
 msgid "Open Tutorial."
 msgstr "Открыть руководство."
 
-#: src/gui/GUIApplicationWindow.cpp:711
+#: src/gui/GUIApplicationWindow.cpp:723
 msgid "&Feedback"
 msgstr "&Обратная связь"
 
-#: src/gui/GUIApplicationWindow.cpp:711
+#: src/gui/GUIApplicationWindow.cpp:723
 msgid "Open feedback dialog."
 msgstr "Открыть диалог обратной связи."
 
-#: src/gui/GUIApplicationWindow.cpp:714
+#: src/gui/GUIApplicationWindow.cpp:726
 msgid "&About"
 msgstr "&О программе"
 
-#: src/gui/GUIApplicationWindow.cpp:714
+#: src/gui/GUIApplicationWindow.cpp:726
 msgid "About sumo-gui."
 msgstr "О sumo-gui."
 
-#: src/gui/GUIApplicationWindow.cpp:729
+#: src/gui/GUIApplicationWindow.cpp:741
 msgid "\tOpen simulation\tOpen a simulation (Configuration file)."
 msgstr "\tОткрыть симуляцию\tОткрыть симуляцию (файл конфигурации)."
 
-#: src/gui/GUIApplicationWindow.cpp:731
+#: src/gui/GUIApplicationWindow.cpp:743
 msgid "\tOpen network\tOpen a network."
 msgstr "\tОткрыть сеть\tОткрыть сеть."
 
-#: src/gui/GUIApplicationWindow.cpp:733
+#: src/gui/GUIApplicationWindow.cpp:745
 msgid "\tReload\tReloads the simulation / the network."
 msgstr "\tПерезагрузить\tПерезагрузить симуляцию / сеть."
 
-#: src/gui/GUIApplicationWindow.cpp:742
+#: src/gui/GUIApplicationWindow.cpp:754
 msgid "\tRun\tStart/Resume the loaded simulation."
 msgstr "\tЗапустить\tЗапустить/возобновить загруженную симуляцию."
 
-#: src/gui/GUIApplicationWindow.cpp:744
+#: src/gui/GUIApplicationWindow.cpp:756
 msgid "\tStop\tHalt the running simulation."
 msgstr "\tОстановить\tОстановить выполняемую симуляцию."
 
-#: src/gui/GUIApplicationWindow.cpp:746
+#: src/gui/GUIApplicationWindow.cpp:758
 msgid "\tStep\tPerform a single simulation step."
 msgstr "\tШаг\tВыполнить один шаг симуляции."
 
-#: src/gui/GUIApplicationWindow.cpp:754
+#: src/gui/GUIApplicationWindow.cpp:766
 msgid ""
 "Time:\tToggle between time formats\tToggle between seconds and "
 "hour:minute:seconds display."
@@ -688,7 +688,7 @@ msgstr ""
 "Время:\tПереключить формат времени\tПереключить между секундами и форматом "
 "часы:минуты:секунды."
 
-#: src/gui/GUIApplicationWindow.cpp:768
+#: src/gui/GUIApplicationWindow.cpp:780
 msgid ""
 "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click "
 "to toggle between the last two delay values."
@@ -696,11 +696,11 @@ msgstr ""
 "Задержка (мс):\tЗадержка на симулируемую секунду\tЗадержка на симулируемую "
 "секунду. Клик — переключение между последними двумя значениями задержки."
 
-#: src/gui/GUIApplicationWindow.cpp:791
+#: src/gui/GUIApplicationWindow.cpp:803
 msgid "Scale Traffic:"
 msgstr "Масштаб трафика:"
 
-#: src/gui/GUIApplicationWindow.cpp:792
+#: src/gui/GUIApplicationWindow.cpp:804
 msgid ""
 "Scale traffic volume from running flows and from vehicles that are loaded "
 "incrementally from route files."
@@ -708,231 +708,231 @@ msgstr ""
 "Масштабировать объём трафика из текущих потоков и из транспортных средств, "
 "загружаемых постепенно из файлов маршрутов."
 
-#: src/gui/GUIApplicationWindow.cpp:812
+#: src/gui/GUIApplicationWindow.cpp:824
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:140
 msgid "Toggle View Tooltips"
 msgstr "Переключить подсказки вида"
 
-#: src/gui/GUIApplicationWindow.cpp:812
+#: src/gui/GUIApplicationWindow.cpp:824
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:140
 msgid "Toggles whether tooltips in the view shall be shown."
 msgstr "Переключает отображение подсказок в виде."
 
-#: src/gui/GUIApplicationWindow.cpp:818
+#: src/gui/GUIApplicationWindow.cpp:830
 #: src/netedit/dialogs/options/GNEOptionsEditor.cpp:78
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:68
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:146
 msgid "Toggle Menu Tooltips"
 msgstr "Переключить подсказки меню"
 
-#: src/gui/GUIApplicationWindow.cpp:818
+#: src/gui/GUIApplicationWindow.cpp:830
 #: src/netedit/dialogs/options/GNEOptionsEditor.cpp:78
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:68
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:146
 msgid "Toggles whether tooltips in the menu shall be shown."
 msgstr "Переключает отображение подсказок в меню."
 
-#: src/gui/GUIApplicationWindow.cpp:829
+#: src/gui/GUIApplicationWindow.cpp:841
 msgid "Waiting Time:"
 msgstr "Время ожидания:"
 
-#: src/gui/GUIApplicationWindow.cpp:829
+#: src/gui/GUIApplicationWindow.cpp:841
 msgid "Time spent waiting accumulated for all vehicles"
 msgstr "Накопленное время ожидания для всех транспортных средств"
 
-#: src/gui/GUIApplicationWindow.cpp:840
+#: src/gui/GUIApplicationWindow.cpp:852
 msgid "Time Loss:"
 msgstr "Потери времени:"
 
-#: src/gui/GUIApplicationWindow.cpp:840
+#: src/gui/GUIApplicationWindow.cpp:852
 msgid ""
 "Time lost due to being unable to drive with maximum speed for all vehicles"
 msgstr ""
 "Время, потерянное из-за невозможности ехать с максимальной скоростью, для "
 "всех транспортных средств"
 
-#: src/gui/GUIApplicationWindow.cpp:851
+#: src/gui/GUIApplicationWindow.cpp:863
 msgid "Distance (km):"
 msgstr "Расстояние (км):"
 
-#: src/gui/GUIApplicationWindow.cpp:851
+#: src/gui/GUIApplicationWindow.cpp:863
 msgid "Total distance driven by DRT vehicles"
 msgstr "Общее расстояние, пройденное транспортными средствами DRT"
 
-#: src/gui/GUIApplicationWindow.cpp:862
+#: src/gui/GUIApplicationWindow.cpp:874
 msgid "Emergency Vehicle waiting time:"
 msgstr "Время ожидания аварийных ТС:"
 
-#: src/gui/GUIApplicationWindow.cpp:862
+#: src/gui/GUIApplicationWindow.cpp:874
 msgid "Time spent waiting accumulated for emergency vehicles"
 msgstr "Накопленное время ожидания для аварийных транспортных средств"
 
-#: src/gui/GUIApplicationWindow.cpp:887
+#: src/gui/GUIApplicationWindow.cpp:899
 #: src/netedit/GNEApplicationWindowHelper.cpp:157
 msgid "Cl&ear Recent Networks"
 msgstr "О&чистить недавние сети"
 
-#: src/gui/GUIApplicationWindow.cpp:888
+#: src/gui/GUIApplicationWindow.cpp:900
 #: src/netedit/GNEApplicationWindowHelper.cpp:158
 msgid "No Recent Networks"
 msgstr "Нет недавних сетей"
 
-#: src/gui/GUIApplicationWindow.cpp:892
+#: src/gui/GUIApplicationWindow.cpp:904
 #: src/netedit/GNEApplicationWindowHelper.cpp:162
 msgid "Recent Networks"
 msgstr "Недавние сети"
 
-#: src/gui/GUIApplicationWindow.cpp:910
+#: src/gui/GUIApplicationWindow.cpp:922
 #: src/netedit/GNEApplicationWindowHelper.cpp:180
 msgid "Cl&ear Recent Configs"
 msgstr "О&чистить недавние конфигурации"
 
-#: src/gui/GUIApplicationWindow.cpp:911
+#: src/gui/GUIApplicationWindow.cpp:923
 #: src/netedit/GNEApplicationWindowHelper.cpp:181
 msgid "No Recent Configs"
 msgstr "Нет недавних конфигураций"
 
-#: src/gui/GUIApplicationWindow.cpp:915
+#: src/gui/GUIApplicationWindow.cpp:927
 #: src/netedit/GNEApplicationWindowHelper.cpp:185
 msgid "Recent Configs"
 msgstr "Недавние конфигурации"
 
-#: src/gui/GUIApplicationWindow.cpp:1079 src/gui/GUIApplicationWindow.cpp:1105
+#: src/gui/GUIApplicationWindow.cpp:1091 src/gui/GUIApplicationWindow.cpp:1117
 msgid "Running %."
 msgstr "Выполняется %."
 
-#: src/gui/GUIApplicationWindow.cpp:1115
+#: src/gui/GUIApplicationWindow.cpp:1127
 msgid "Open Simulation Configuration"
 msgstr "Открыть конфигурацию симуляции"
 
-#: src/gui/GUIApplicationWindow.cpp:1135
+#: src/gui/GUIApplicationWindow.cpp:1147
 msgid "Open Network"
 msgstr "Открыть сеть"
 
-#: src/gui/GUIApplicationWindow.cpp:1155
+#: src/gui/GUIApplicationWindow.cpp:1167
 msgid "Open Shapes"
 msgstr "Открыть фигуры"
 
-#: src/gui/GUIApplicationWindow.cpp:1169 src/gui/GUIApplicationWindow.cpp:1197
+#: src/gui/GUIApplicationWindow.cpp:1181 src/gui/GUIApplicationWindow.cpp:1209
 msgid "Loading of % failed."
 msgstr "Загрузка % failed."
 
-#: src/gui/GUIApplicationWindow.cpp:1186
+#: src/gui/GUIApplicationWindow.cpp:1198
 msgid "Open EdgeData"
 msgstr "Открыть данные рёбер"
 
-#: src/gui/GUIApplicationWindow.cpp:1221
+#: src/gui/GUIApplicationWindow.cpp:1233
 msgid "Auto-Reloading."
 msgstr "Автоматическая перезагрузка."
 
-#: src/gui/GUIApplicationWindow.cpp:1221
+#: src/gui/GUIApplicationWindow.cpp:1233
 msgid "TraCI-Loading."
 msgstr "Загрузка через TraCI."
 
-#: src/gui/GUIApplicationWindow.cpp:1223
+#: src/gui/GUIApplicationWindow.cpp:1235
 msgid "Reloading."
 msgstr "Перезагрузка."
 
-#: src/gui/GUIApplicationWindow.cpp:1234
+#: src/gui/GUIApplicationWindow.cpp:1246
 msgid "Quick-Reloading."
 msgstr "Быстрая перезагрузка."
 
-#: src/gui/GUIApplicationWindow.cpp:1244
-#: src/netedit/GNEApplicationWindow.cpp:1175
+#: src/gui/GUIApplicationWindow.cpp:1256
+#: src/netedit/GNEApplicationWindow.cpp:1240
 msgid "Already loading!"
 msgstr "Уже выполняется загрузка!"
 
-#: src/gui/GUIApplicationWindow.cpp:1256
+#: src/gui/GUIApplicationWindow.cpp:1268
 msgid "Save SUMO Configuration"
 msgstr "Сохранить конфигурацию SUMO"
 
-#: src/gui/GUIApplicationWindow.cpp:1270
+#: src/gui/GUIApplicationWindow.cpp:1282
 msgid "Configuration saved to %."
 msgstr "Конфигурация сохранена в %."
 
-#: src/gui/GUIApplicationWindow.cpp:1272
+#: src/gui/GUIApplicationWindow.cpp:1284
 msgid "Could not save configuration to %."
 msgstr "Не удалось сохранить конфигурацию в %."
 
-#: src/gui/GUIApplicationWindow.cpp:1328 src/gui/GUIApplicationWindow.cpp:1354
-#: src/gui/GUIApplicationWindow.cpp:2320
+#: src/gui/GUIApplicationWindow.cpp:1340 src/gui/GUIApplicationWindow.cpp:1366
+#: src/gui/GUIApplicationWindow.cpp:2349
 msgid "No simulation loaded!"
 msgstr "Симуляция не загружена!"
 
-#: src/gui/GUIApplicationWindow.cpp:1370
+#: src/gui/GUIApplicationWindow.cpp:1382
 msgid "Save Simulation State"
 msgstr "Сохранить состояние симуляции"
 
-#: src/gui/GUIApplicationWindow.cpp:1382
+#: src/gui/GUIApplicationWindow.cpp:1394
 msgid "Simulation state saved to '%'."
 msgstr "Состояние симуляции сохранено в '%'."
 
-#: src/gui/GUIApplicationWindow.cpp:1390
+#: src/gui/GUIApplicationWindow.cpp:1402
 msgid "Load Simulation State"
 msgstr "Загрузить состояние симуляции"
 
-#: src/gui/GUIApplicationWindow.cpp:1402
+#: src/gui/GUIApplicationWindow.cpp:1414
 msgid "State loaded from '%'."
 msgstr "Состояние загружено из '%'."
 
-#: src/gui/GUIApplicationWindow.cpp:1404
+#: src/gui/GUIApplicationWindow.cpp:1416
 msgid "Failed to load state from '%' (%)."
 msgstr "Не удалось загрузить состояние из '%' (%)."
 
-#: src/gui/GUIApplicationWindow.cpp:1551
+#: src/gui/GUIApplicationWindow.cpp:1563
 msgid "Scale number of vehicles in simulation"
 msgstr "Масштабировать количество транспортных средств в симуляции"
 
-#: src/gui/GUIApplicationWindow.cpp:1568
+#: src/gui/GUIApplicationWindow.cpp:1580
 msgid "Open sumo config in netedit"
 msgstr "Открыть конфигурацию sumo в netedit"
 
-#: src/gui/GUIApplicationWindow.cpp:1925
+#: src/gui/GUIApplicationWindow.cpp:1941
 msgid "Loading of '%' failed!"
 msgstr "Загрузка '%' failed!"
 
-#: src/gui/GUIApplicationWindow.cpp:1939
+#: src/gui/GUIApplicationWindow.cpp:1955
 msgid "'%' loaded."
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:2053
+#: src/gui/GUIApplicationWindow.cpp:2069
 msgid "SUMO Interactive Traffic Light"
 msgstr "Интерактивный светофор SUMO"
 
-#: src/gui/GUIApplicationWindow.cpp:2055
+#: src/gui/GUIApplicationWindow.cpp:2071
 msgid "SUMO Interactive Demand-Responsive-Transport"
 msgstr "Интерактивный транспорт по требованию SUMO"
 
-#: src/gui/GUIApplicationWindow.cpp:2207
+#: src/gui/GUIApplicationWindow.cpp:2236
 msgid "Simulation ended at time: %. (%)"
 msgstr "Симуляция завершена во времени: %. (%)"
 
-#: src/gui/GUIApplicationWindow.cpp:2210
+#: src/gui/GUIApplicationWindow.cpp:2239
 msgid "Simulation ended at time: %."
 msgstr "Симуляция завершена во времени: %."
 
-#: src/gui/GUIApplicationWindow.cpp:2211
+#: src/gui/GUIApplicationWindow.cpp:2240
 msgid "Reason:"
 msgstr "Причина:"
 
-#: src/gui/GUIApplicationWindow.cpp:2212
+#: src/gui/GUIApplicationWindow.cpp:2241
 msgid "Do you want to close all open files and views?"
 msgstr "Закрыть все открытые файлы и окна?"
 
-#: src/gui/GUIApplicationWindow.cpp:2213
+#: src/gui/GUIApplicationWindow.cpp:2242
 msgid "Simulation ended"
 msgstr "Симуляция завершена"
 
-#: src/gui/GUIApplicationWindow.cpp:2311 src/gui/GUILoadThread.cpp:114
+#: src/gui/GUIApplicationWindow.cpp:2340 src/gui/GUILoadThread.cpp:114
 msgid "Loading '%'."
 msgstr "Загрузка '%'."
 
-#: src/gui/GUIApplicationWindow.cpp:2481 src/gui/GUIApplicationWindow.cpp:2483
-#: src/gui/GUIApplicationWindow.cpp:2484 src/gui/GUIApplicationWindow.cpp:2485
+#: src/gui/GUIApplicationWindow.cpp:2512 src/gui/GUIApplicationWindow.cpp:2514
+#: src/gui/GUIApplicationWindow.cpp:2515 src/gui/GUIApplicationWindow.cpp:2516
 msgid "seconds"
 msgstr "секунд"
 
-#: src/gui/GUIApplicationWindow.cpp:2644
+#: src/gui/GUIApplicationWindow.cpp:2675
 msgid "Set breakpoint at %"
 msgstr "Установить точку останова на %"
 
@@ -948,60 +948,60 @@ msgstr "Выход (по ошибке)."
 msgid "Simulation started with time: %."
 msgstr "Симуляция запущена со временем: %."
 
-#: src/gui/GUISUMOViewParent.cpp:142 src/netedit/GNEViewParent.cpp:475
+#: src/gui/GUISUMOViewParent.cpp:143 src/netedit/GNEViewParent.cpp:571
 msgid "Save Snapshot"
 msgstr "Сохранить снимок"
 
-#: src/gui/GUISUMOViewParent.cpp:160 src/netedit/GNEViewParent.cpp:489
+#: src/gui/GUISUMOViewParent.cpp:161 src/netedit/GNEViewParent.cpp:585
 msgid "No file extension was specified - saving Snapshot as PNG."
 msgstr "Расширение файла не указано — снимок сохраняется как PNG."
 
-#: src/gui/GUISUMOViewParent.cpp:166 src/netedit/GNEViewParent.cpp:494
+#: src/gui/GUISUMOViewParent.cpp:167 src/netedit/GNEViewParent.cpp:590
 msgid "Saving failed."
 msgstr "Сохранение не удалось."
 
-#: src/gui/GUISUMOViewParent.cpp:168 src/netedit/GNEViewParent.cpp:496
+#: src/gui/GUISUMOViewParent.cpp:169 src/netedit/GNEViewParent.cpp:592
 msgid "Snapshot successfully saved!"
 msgstr "Снимок успешно сохранён!"
 
-#: src/gui/GUISUMOViewParent.cpp:212 src/gui/GUISUMOViewParent.cpp:261
+#: src/gui/GUISUMOViewParent.cpp:213 src/gui/GUISUMOViewParent.cpp:262
 msgid "Unknown Message ID in onCmdLocate"
 msgstr "Неизвестный ID сообщения в onCmdLocate"
 
-#: src/gui/GUISUMOViewParent.cpp:226 src/netedit/GNEViewParent.cpp:522
+#: src/gui/GUISUMOViewParent.cpp:227 src/netedit/GNEViewParent.cpp:618
 msgid "Junction Chooser"
 msgstr "Выбор перекрёстка"
 
-#: src/gui/GUISUMOViewParent.cpp:230 src/netedit/GNEViewParent.cpp:529
+#: src/gui/GUISUMOViewParent.cpp:231 src/netedit/GNEViewParent.cpp:625
 msgid "Edge Chooser"
 msgstr "Выбор ребра"
 
-#: src/gui/GUISUMOViewParent.cpp:234 src/netedit/GNEViewParent.cpp:543
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:91
+#: src/gui/GUISUMOViewParent.cpp:235 src/netedit/GNEViewParent.cpp:639
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:107
 msgid "Vehicle Chooser"
 msgstr "Выбор транспортного средства"
 
-#: src/gui/GUISUMOViewParent.cpp:238 src/netedit/GNEViewParent.cpp:554
+#: src/gui/GUISUMOViewParent.cpp:239 src/netedit/GNEViewParent.cpp:650
 msgid "Person Chooser"
 msgstr "Выбор пешехода"
 
-#: src/gui/GUISUMOViewParent.cpp:242 src/netedit/GNEViewParent.cpp:564
+#: src/gui/GUISUMOViewParent.cpp:243 src/netedit/GNEViewParent.cpp:660
 msgid "Container Chooser"
 msgstr "Выбор контейнера"
 
-#: src/gui/GUISUMOViewParent.cpp:246
+#: src/gui/GUISUMOViewParent.cpp:247
 msgid "Traffic Lights Chooser"
 msgstr "Выбор светофора"
 
-#: src/gui/GUISUMOViewParent.cpp:250
+#: src/gui/GUISUMOViewParent.cpp:251
 msgid "Additional Objects Chooser"
 msgstr "Выбор дополнительных объектов"
 
-#: src/gui/GUISUMOViewParent.cpp:254 src/netedit/GNEViewParent.cpp:615
+#: src/gui/GUISUMOViewParent.cpp:255 src/netedit/GNEViewParent.cpp:711
 msgid "POI Chooser"
 msgstr "Выбор точки интереса"
 
-#: src/gui/GUISUMOViewParent.cpp:258
+#: src/gui/GUISUMOViewParent.cpp:259
 msgid "Polygon Chooser"
 msgstr "Выбор полигона"
 
@@ -2534,112 +2534,112 @@ msgstr "В системе отсутствует поддержка OpenGL. Вы
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "Микроскопическая мультимодальная симуляция трафика."
 
-#: src/netedit/GNEApplicationWindow.cpp:563
+#: src/netedit/GNEApplicationWindow.cpp:562
 msgid "Close dialog automatically"
 msgstr "Закрывать диалог автоматически"
 
-#: src/netedit/GNEApplicationWindow.cpp:591
+#: src/netedit/GNEApplicationWindow.cpp:590
 msgid "Recomputing"
 msgstr "Пересчёт"
 
-#: src/netedit/GNEApplicationWindow.cpp:592
+#: src/netedit/GNEApplicationWindow.cpp:591
 msgid "Recomputing is needed"
 msgstr "Требуется пересчёт"
 
-#: src/netedit/GNEApplicationWindow.cpp:612
+#: src/netedit/GNEApplicationWindow.cpp:611
 msgid "Test coordinate"
 msgstr "Тестовая координата"
 
-#: src/netedit/GNEApplicationWindow.cpp:778
+#: src/netedit/GNEApplicationWindow.cpp:779
 msgid "netconvert config file"
 msgstr "файл конфигурации netconvert"
 
-#: src/netedit/GNEApplicationWindow.cpp:807
-#: src/netedit/GNEApplicationWindow.cpp:3510
+#: src/netedit/GNEApplicationWindow.cpp:808
+#: src/netedit/GNEApplicationWindow.cpp:3600
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:115
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:375
 msgid "network file"
 msgstr "файл сети"
 
-#: src/netedit/GNEApplicationWindow.cpp:824
+#: src/netedit/GNEApplicationWindow.cpp:825
 msgid "OpenStreetMap file"
 msgstr "файл OpenStreetMap"
 
-#: src/netedit/GNEApplicationWindow.cpp:841
-#: src/netedit/GNEApplicationWindow.cpp:3688
+#: src/netedit/GNEApplicationWindow.cpp:842
+#: src/netedit/GNEApplicationWindow.cpp:3778
 msgid "netedit config file"
 msgstr "файл конфигурации netedit"
 
-#: src/netedit/GNEApplicationWindow.cpp:871
-#: src/netedit/GNEApplicationWindow.cpp:3830
+#: src/netedit/GNEApplicationWindow.cpp:872
+#: src/netedit/GNEApplicationWindow.cpp:3920
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:551
 msgid "sumo config file"
 msgstr "файл конфигурации sumo"
 
-#: src/netedit/GNEApplicationWindow.cpp:974
-#: src/netedit/GNEApplicationWindow.cpp:3967
+#: src/netedit/GNEApplicationWindow.cpp:995
+#: src/netedit/GNEApplicationWindow.cpp:4057
 msgid "Traffic Light definitions file"
 msgstr "файл определений светофоров"
 
-#: src/netedit/GNEApplicationWindow.cpp:1012
-#: src/netedit/GNEApplicationWindow.cpp:3991
+#: src/netedit/GNEApplicationWindow.cpp:1033
+#: src/netedit/GNEApplicationWindow.cpp:4081
 msgid "EdgeTypes file"
 msgstr "файл типов рёбер"
 
-#: src/netedit/GNEApplicationWindow.cpp:1074
+#: src/netedit/GNEApplicationWindow.cpp:1125
 msgid "Reloading netedit config file '%'"
 msgstr "Перезагрузка файла конфигурации netedit '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:1079
+#: src/netedit/GNEApplicationWindow.cpp:1130
 msgid "Reloading sumo config file '%'"
 msgstr "Перезагрузка файла конфигурации sumo '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:1084
-#: src/netedit/GNEApplicationWindow.cpp:1146
+#: src/netedit/GNEApplicationWindow.cpp:1135
+#: src/netedit/GNEApplicationWindow.cpp:1211
 msgid "Reloading network file '%'"
 msgstr "Перезагрузка файла сети '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:1099
+#: src/netedit/GNEApplicationWindow.cpp:1150
 msgid "&Reload Netedit config"
 msgstr "&Перезагрузить конфигурацию netedit"
 
-#: src/netedit/GNEApplicationWindow.cpp:1100
+#: src/netedit/GNEApplicationWindow.cpp:1151
 msgid "&Reload Sumo config"
 msgstr "&Перезагрузить конфигурацию sumo"
 
-#: src/netedit/GNEApplicationWindow.cpp:1101
+#: src/netedit/GNEApplicationWindow.cpp:1152
 msgid "&Reload Network"
 msgstr "&Перезагрузить сеть"
 
-#: src/netedit/GNEApplicationWindow.cpp:1344
+#: src/netedit/GNEApplicationWindow.cpp:1412
 msgid "Loading of netedit config '%' failed"
 msgstr "Загрузка конфигурации netedit '%' failed"
 
-#: src/netedit/GNEApplicationWindow.cpp:1347
+#: src/netedit/GNEApplicationWindow.cpp:1415
 msgid "Loading of sumo config '%' failed"
 msgstr "Загрузка конфигурации sumo '%' failed"
 
-#: src/netedit/GNEApplicationWindow.cpp:1350
+#: src/netedit/GNEApplicationWindow.cpp:1418
 msgid "Loading of netconvert config '%' failed"
 msgstr "Загрузка конфигурации netconvert '%' failed"
 
-#: src/netedit/GNEApplicationWindow.cpp:1353
+#: src/netedit/GNEApplicationWindow.cpp:1421
 msgid "Loading of network '%' failed"
 msgstr "Загрузка сети '%' failed"
 
-#: src/netedit/GNEApplicationWindow.cpp:1356
+#: src/netedit/GNEApplicationWindow.cpp:1424
 msgid "Loading of OSM Network '%' failed"
 msgstr "Загрузка сети OSM '%' failed"
 
-#: src/netedit/GNEApplicationWindow.cpp:1359
+#: src/netedit/GNEApplicationWindow.cpp:1427
 msgid "Invalid Options. Nothing loaded"
 msgstr "Некорректные параметры. Ничего не загружено"
 
-#: src/netedit/GNEApplicationWindow.cpp:1362
+#: src/netedit/GNEApplicationWindow.cpp:1430
 msgid "Could not build projection. Nothing loaded"
 msgstr "Не удалось построить проекцию. Ничего не загружено"
 
-#: src/netedit/GNEApplicationWindow.cpp:1365
+#: src/netedit/GNEApplicationWindow.cpp:1433
 msgid ""
 "Invalid extension for config file. Only .netecfg, .sumocfg or .netccfg are "
 "allowed"
@@ -2647,7 +2647,7 @@ msgstr ""
 "Недопустимое расширение файла конфигурации. Допустимы "
 "только .netecfg, .sumocfg или .netccfg"
 
-#: src/netedit/GNEApplicationWindow.cpp:1368
+#: src/netedit/GNEApplicationWindow.cpp:1436
 msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with --new option"
@@ -2655,597 +2655,597 @@ msgstr ""
 "Некорректный параметр входной сети. Загружайте либо конфигурацию sumo/"
 "netedit/netconvert, либо используйте опцию --new"
 
-#: src/netedit/GNEApplicationWindow.cpp:1385
+#: src/netedit/GNEApplicationWindow.cpp:1454
 msgid "Netedit config '%' loaded"
 msgstr "Конфигурация netedit '%' loaded"
 
-#: src/netedit/GNEApplicationWindow.cpp:1388
+#: src/netedit/GNEApplicationWindow.cpp:1458
 msgid "Sumo config '%' loaded"
 msgstr "Конфигурация sumo '%' loaded"
 
-#: src/netedit/GNEApplicationWindow.cpp:1391
+#: src/netedit/GNEApplicationWindow.cpp:1462
 msgid "Netconvert config '%' loaded"
 msgstr "Конфигурация netconvert '%' loaded"
 
-#: src/netedit/GNEApplicationWindow.cpp:1394
+#: src/netedit/GNEApplicationWindow.cpp:1466
 msgid "Network '%' loaded"
 msgstr "Сеть '%' loaded"
 
-#: src/netedit/GNEApplicationWindow.cpp:1397
+#: src/netedit/GNEApplicationWindow.cpp:1470
 msgid "OSM Network '%' loaded"
 msgstr "Сеть OSM '%' loaded"
 
-#: src/netedit/GNEApplicationWindow.cpp:1400
+#: src/netedit/GNEApplicationWindow.cpp:1474
 msgid "Network '%' loaded through console"
 msgstr "Сеть '%' loaded через консоль"
 
-#: src/netedit/GNEApplicationWindow.cpp:1403
+#: src/netedit/GNEApplicationWindow.cpp:1478
 msgid "New network successfully created"
 msgstr "Новая сеть успешно создана"
 
-#: src/netedit/GNEApplicationWindow.cpp:1500
+#: src/netedit/GNEApplicationWindow.cpp:1580
 msgid "&Modes"
 msgstr "&Режимы"
 
-#: src/netedit/GNEApplicationWindow.cpp:1536
+#: src/netedit/GNEApplicationWindow.cpp:1616
 msgid "L&ock"
 msgstr "&Блокировка"
 
-#: src/netedit/GNEApplicationWindow.cpp:1543
+#: src/netedit/GNEApplicationWindow.cpp:1623
 msgid "&Processing"
 msgstr "&Обработка"
 
-#: src/netedit/GNEApplicationWindow.cpp:1570
+#: src/netedit/GNEApplicationWindow.cpp:1650
 msgid "&Tools"
 msgstr "&Инструменты"
 
-#: src/netedit/GNEApplicationWindow.cpp:1572
+#: src/netedit/GNEApplicationWindow.cpp:1652
 msgid "Assign"
 msgstr "Назначить"
 
-#: src/netedit/GNEApplicationWindow.cpp:1573
+#: src/netedit/GNEApplicationWindow.cpp:1653
 #: src/netedit/GNETagPropertiesDatabase.cpp:427
 #: src/netedit/GNETagPropertiesDatabase.cpp:429
 msgid "Detectors"
 msgstr "Детекторы"
 
-#: src/netedit/GNEApplicationWindow.cpp:1574
+#: src/netedit/GNEApplicationWindow.cpp:1654
 msgid "Districts"
 msgstr "Районы"
 
-#: src/netedit/GNEApplicationWindow.cpp:1575
+#: src/netedit/GNEApplicationWindow.cpp:1655
 msgid "DRT"
 msgstr "DRT"
 
-#: src/netedit/GNEApplicationWindow.cpp:1577
+#: src/netedit/GNEApplicationWindow.cpp:1657
 msgid "CityBrain"
 msgstr "CityBrain"
 
-#: src/netedit/GNEApplicationWindow.cpp:1578
+#: src/netedit/GNEApplicationWindow.cpp:1658
 msgid "GTFS"
 msgstr "GTFS"
 
-#: src/netedit/GNEApplicationWindow.cpp:1579
+#: src/netedit/GNEApplicationWindow.cpp:1659
 msgid "Vissim"
 msgstr "Vissim"
 
-#: src/netedit/GNEApplicationWindow.cpp:1580
+#: src/netedit/GNEApplicationWindow.cpp:1660
 msgid "Visum"
 msgstr "Visum"
 
-#: src/netedit/GNEApplicationWindow.cpp:1581
+#: src/netedit/GNEApplicationWindow.cpp:1661
 msgid "Import"
 msgstr "Импорт"
 
-#: src/netedit/GNEApplicationWindow.cpp:1582
+#: src/netedit/GNEApplicationWindow.cpp:1662
 msgid "Net"
 msgstr "Сеть"
 
-#: src/netedit/GNEApplicationWindow.cpp:1583
+#: src/netedit/GNEApplicationWindow.cpp:1663
 msgid "Output"
 msgstr "Вывод"
 
-#: src/netedit/GNEApplicationWindow.cpp:1584
+#: src/netedit/GNEApplicationWindow.cpp:1664
 #: src/netedit/GNEApplicationWindowHelper.cpp:706
 #: src/netedit/GNETagPropertiesDatabase.cpp:2132
 #: src/netedit/GNETagPropertiesDatabase.cpp:2615
 msgid "Route"
 msgstr "Маршрут"
 
-#: src/netedit/GNEApplicationWindow.cpp:1586
+#: src/netedit/GNEApplicationWindow.cpp:1666
 msgid "TLS"
 msgstr "Светофоры"
 
-#: src/netedit/GNEApplicationWindow.cpp:1587
+#: src/netedit/GNEApplicationWindow.cpp:1667
 msgid "Trigger"
 msgstr "Триггер"
 
-#: src/netedit/GNEApplicationWindow.cpp:1588
+#: src/netedit/GNEApplicationWindow.cpp:1668
 msgid "Turn-defs"
 msgstr "Определения поворотов"
 
-#: src/netedit/GNEApplicationWindow.cpp:1589
+#: src/netedit/GNEApplicationWindow.cpp:1669
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:324
 msgid "Visualization"
 msgstr "Визуализация"
 
-#: src/netedit/GNEApplicationWindow.cpp:1590
+#: src/netedit/GNEApplicationWindow.cpp:1670
 msgid "XML"
 msgstr "XML"
 
-#: src/netedit/GNEApplicationWindow.cpp:1698
+#: src/netedit/GNEApplicationWindow.cpp:1778
 msgid "Network computed"
 msgstr "Сеть пересчитана"
 
-#: src/netedit/GNEApplicationWindow.cpp:1702
+#: src/netedit/GNEApplicationWindow.cpp:1782
 msgid "Press F5"
 msgstr "Нажмите F5"
 
-#: src/netedit/GNEApplicationWindow.cpp:1703
+#: src/netedit/GNEApplicationWindow.cpp:1783
 msgid "Network requires recomputing"
 msgstr "Сеть требует пересчёта"
 
-#: src/netedit/GNEApplicationWindow.cpp:1791
+#: src/netedit/GNEApplicationWindow.cpp:1873
 msgid "Loading console arguments."
 msgstr "Загрузка аргументов консоли."
 
-#: src/netedit/GNEApplicationWindow.cpp:1819
+#: src/netedit/GNEApplicationWindow.cpp:1901
 msgid "Creating new network."
 msgstr "Создание новой сети."
 
-#: src/netedit/GNEApplicationWindow.cpp:1830
+#: src/netedit/GNEApplicationWindow.cpp:1912
 msgid "Trying to load an empty network."
 msgstr "Попытка загрузить пустую сеть."
 
-#: src/netedit/GNEApplicationWindow.cpp:1849
+#: src/netedit/GNEApplicationWindow.cpp:1931
 msgid "Loading network file '%'."
 msgstr "Загрузка файла сети '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:1861
+#: src/netedit/GNEApplicationWindow.cpp:1943
 msgid "Trying to load an empty configuration."
 msgstr "Попытка загрузить пустую конфигурацию."
 
-#: src/netedit/GNEApplicationWindow.cpp:1877
+#: src/netedit/GNEApplicationWindow.cpp:1959
 msgid "Loading configuration file '%'."
 msgstr "Загрузка файла конфигурации '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:1916
+#: src/netedit/GNEApplicationWindow.cpp:1998
 msgid "Loading OSM file '%'."
 msgstr "Загрузка файла OSM '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:1933
+#: src/netedit/GNEApplicationWindow.cpp:2015
 msgid "Recompute with volatile options"
 msgstr "Пересчитать с летучими опциями"
 
-#: src/netedit/GNEApplicationWindow.cpp:1934
+#: src/netedit/GNEApplicationWindow.cpp:2016
 msgid "Changes produced in the net due a recomputing with"
 msgstr "Изменения в сети из-за пересчёта с"
 
-#: src/netedit/GNEApplicationWindow.cpp:1935
+#: src/netedit/GNEApplicationWindow.cpp:2017
 msgid "volatile options cannot be undone. Continue?"
 msgstr "летучими опциями нельзя отменить. Продолжить?"
 
-#: src/netedit/GNEApplicationWindow.cpp:2247
-#: src/netedit/GNEApplicationWindow.cpp:2305
+#: src/netedit/GNEApplicationWindow.cpp:2329
+#: src/netedit/GNEApplicationWindow.cpp:2395
 msgid "Running '%'."
 msgstr "Запуск '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:2268
+#: src/netedit/GNEApplicationWindow.cpp:2351
 msgid "Loading network '%' in SUMO-GUI."
 msgstr "Загрузка сети '%' in SUMO-GUI."
 
-#: src/netedit/GNEApplicationWindow.cpp:2277
+#: src/netedit/GNEApplicationWindow.cpp:2367
 msgid "Loading sumo config '%' in SUMO-GUI."
 msgstr "Загрузка конфигурации sumo '%' in SUMO-GUI."
 
-#: src/netedit/GNEApplicationWindow.cpp:2701
+#: src/netedit/GNEApplicationWindow.cpp:2791
 #: src/netedit/GNEApplicationWindowHelper.cpp:1306
 #: src/netedit/GNEUndoList.cpp:475 src/netedit/GNEViewParent.cpp:109
 #: src/netedit/changes/GNEChangeGroup.cpp:94
 msgid "Undo"
 msgstr "Отменить"
 
-#: src/netedit/GNEApplicationWindow.cpp:2734
+#: src/netedit/GNEApplicationWindow.cpp:2824
 #: src/netedit/GNEApplicationWindowHelper.cpp:1309
 #: src/netedit/GNEUndoList.cpp:526 src/netedit/GNEViewParent.cpp:112
 #: src/netedit/changes/GNEChangeGroup.cpp:100
 msgid "Redo"
 msgstr "Повторить"
 
-#: src/netedit/GNEApplicationWindow.cpp:2878
+#: src/netedit/GNEApplicationWindow.cpp:2968
 #: src/netedit/frames/GNEAttributesEditorType.cpp:410
 msgid "Unfront element"
 msgstr "Убрать на передний план"
 
-#: src/netedit/GNEApplicationWindow.cpp:2879
+#: src/netedit/GNEApplicationWindow.cpp:2969
 #: src/netedit/frames/GNEAttributesEditorType.cpp:411
 msgid "Unfront inspected elements"
 msgstr "Убрать проверяемые элементы на передний план"
 
-#: src/netedit/GNEApplicationWindow.cpp:2881
+#: src/netedit/GNEApplicationWindow.cpp:2971
 #: src/netedit/GNEApplicationWindowHelper.cpp:1338
 #: src/netedit/frames/GNEAttributesEditorType.cpp:82
 #: src/netedit/frames/GNEAttributesEditorType.cpp:413
 msgid "Front element"
 msgstr "На передний план"
 
-#: src/netedit/GNEApplicationWindow.cpp:2882
-#: src/netedit/GNEApplicationWindow.cpp:2891
+#: src/netedit/GNEApplicationWindow.cpp:2972
+#: src/netedit/GNEApplicationWindow.cpp:2981
 #: src/netedit/frames/GNEAttributesEditorType.cpp:83
 #: src/netedit/frames/GNEAttributesEditorType.cpp:414
 msgid "Mark element to be drawn above everything else"
 msgstr "Пометить элемент для отрисовки поверх всего остального"
 
-#: src/netedit/GNEApplicationWindow.cpp:2886
+#: src/netedit/GNEApplicationWindow.cpp:2976
 msgid "Unfront all element"
 msgstr "Убрать все элементы на передний план"
 
-#: src/netedit/GNEApplicationWindow.cpp:2887
+#: src/netedit/GNEApplicationWindow.cpp:2977
 msgid "Unfront all elements"
 msgstr "Убрать все элементы на передний план"
 
-#: src/netedit/GNEApplicationWindow.cpp:2890
+#: src/netedit/GNEApplicationWindow.cpp:2980
 msgid "Front element (only inspected elements)"
 msgstr "На передний план (только проверяемые элементы)"
 
-#: src/netedit/GNEApplicationWindow.cpp:3439
+#: src/netedit/GNEApplicationWindow.cpp:3529
 msgid "Force save network"
 msgstr "Принудительно сохранить сеть"
 
-#: src/netedit/GNEApplicationWindow.cpp:3489
+#: src/netedit/GNEApplicationWindow.cpp:3579
 msgid "Saving network failed"
 msgstr "Сохранение сети не удалось"
 
-#: src/netedit/GNEApplicationWindow.cpp:3493
+#: src/netedit/GNEApplicationWindow.cpp:3583
 msgid "Network saved in '%'."
 msgstr "Сеть сохранена в '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3499
+#: src/netedit/GNEApplicationWindow.cpp:3589
 msgid "Could not save network in '%'."
 msgstr "Не удалось сохранить сеть в '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3549
+#: src/netedit/GNEApplicationWindow.cpp:3639
 msgid "Plain XML saved with prefix '%'."
 msgstr "Plain XML сохранён с префиксом '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3552
+#: src/netedit/GNEApplicationWindow.cpp:3642
 msgid "Saving plain xml failed"
 msgstr "Сохранение plain XML не удалось"
 
-#: src/netedit/GNEApplicationWindow.cpp:3566
+#: src/netedit/GNEApplicationWindow.cpp:3656
 msgid "plain XML file"
 msgstr "файл plain XML"
 
-#: src/netedit/GNEApplicationWindow.cpp:3585
+#: src/netedit/GNEApplicationWindow.cpp:3675
 msgid "joined junctions file"
 msgstr "файл объединённых перекрёстков"
 
-#: src/netedit/GNEApplicationWindow.cpp:3596
+#: src/netedit/GNEApplicationWindow.cpp:3686
 msgid "Joined junctions saved to '%'."
 msgstr "Объединённые перекрёстки сохранены в '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3599
+#: src/netedit/GNEApplicationWindow.cpp:3689
 msgid "Saving joined junctions failed"
 msgstr "Сохранение объединённых перекрёстков не удалось"
 
-#: src/netedit/GNEApplicationWindow.cpp:3621
+#: src/netedit/GNEApplicationWindow.cpp:3711
 msgid "Saving of netedit configuration aborted (due network)."
 msgstr "Сохранение конфигурации netedit прервано (из-за сети)."
 
-#: src/netedit/GNEApplicationWindow.cpp:3625
+#: src/netedit/GNEApplicationWindow.cpp:3715
 msgid "Saving of netedit configuration aborted (due additional file)."
 msgstr ""
 "Сохранение конфигурации netedit прервано (из-за файла дополнительных "
 "элементов)."
 
-#: src/netedit/GNEApplicationWindow.cpp:3629
+#: src/netedit/GNEApplicationWindow.cpp:3719
 msgid "Saving of netedit configuration aborted (due demand file)."
 msgstr "Сохранение конфигурации netedit прервано (из-за файла спроса)."
 
-#: src/netedit/GNEApplicationWindow.cpp:3633
+#: src/netedit/GNEApplicationWindow.cpp:3723
 msgid "Saving of netedit configuration aborted (due data file)."
 msgstr "Сохранение конфигурации netedit прервано (из-за файла данных)."
 
-#: src/netedit/GNEApplicationWindow.cpp:3637
+#: src/netedit/GNEApplicationWindow.cpp:3727
 msgid "Saving of netedit configuration aborted (due meanData file)."
 msgstr "Сохранение конфигурации netedit прервано (из-за файла meanData)."
 
-#: src/netedit/GNEApplicationWindow.cpp:3649
-#: src/netedit/GNEApplicationWindow.cpp:3806
+#: src/netedit/GNEApplicationWindow.cpp:3739
+#: src/netedit/GNEApplicationWindow.cpp:3896
 msgid "Netedit configuration saved in '%'."
 msgstr "Конфигурация netedit сохранена в '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3667
-#: src/netedit/GNEApplicationWindow.cpp:3793
+#: src/netedit/GNEApplicationWindow.cpp:3757
+#: src/netedit/GNEApplicationWindow.cpp:3883
 msgid "SUMO configuration saved in '%'."
 msgstr "Конфигурация SUMO сохранена в '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3677
+#: src/netedit/GNEApplicationWindow.cpp:3767
 msgid "Could not save netedit configuration in '%'."
 msgstr "Не удалось сохранить конфигурацию netedit в '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3762
-#: src/netedit/GNEApplicationWindow.cpp:3766
-#: src/netedit/GNEApplicationWindow.cpp:3770
-#: src/netedit/GNEApplicationWindow.cpp:3774
-#: src/netedit/GNEApplicationWindow.cpp:3778
+#: src/netedit/GNEApplicationWindow.cpp:3852
+#: src/netedit/GNEApplicationWindow.cpp:3856
+#: src/netedit/GNEApplicationWindow.cpp:3860
+#: src/netedit/GNEApplicationWindow.cpp:3864
+#: src/netedit/GNEApplicationWindow.cpp:3868
 msgid "Saving of SUMO configuration aborted"
 msgstr "Сохранение конфигурации SUMO прервано"
 
-#: src/netedit/GNEApplicationWindow.cpp:3819
+#: src/netedit/GNEApplicationWindow.cpp:3909
 msgid "Could not save SUMO configuration in '%'."
 msgstr "Не удалось сохранить конфигурацию SUMO в '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3896
+#: src/netedit/GNEApplicationWindow.cpp:3986
 msgid "TLS Programs saved in '%'."
 msgstr "Программы светофоров сохранены в '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3899
+#: src/netedit/GNEApplicationWindow.cpp:3989
 msgid "Saving TLS Programs failed"
 msgstr "Сохранение программ светофоров не удалось"
 
-#: src/netedit/GNEApplicationWindow.cpp:3940
+#: src/netedit/GNEApplicationWindow.cpp:4030
 msgid "EdgeType saved in '%'."
 msgstr "Тип ребра сохранён в '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3943
+#: src/netedit/GNEApplicationWindow.cpp:4033
 msgid "Saving edgeTypes failed"
 msgstr "Сохранение типов рёбер не удалось"
 
-#: src/netedit/GNEApplicationWindow.cpp:4015
+#: src/netedit/GNEApplicationWindow.cpp:4105
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:419
 msgid "Additional elements file"
 msgstr "Файл дополнительных элементов"
 
-#: src/netedit/GNEApplicationWindow.cpp:4031
+#: src/netedit/GNEApplicationWindow.cpp:4121
 msgid "load additionals from '%'"
 msgstr "загрузить дополнительные элементы из '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4035
+#: src/netedit/GNEApplicationWindow.cpp:4125
 msgid "Loading of additional file '%' failed."
 msgstr "Загрузка файла дополнительных элементов '%' failed."
 
-#: src/netedit/GNEApplicationWindow.cpp:4038
+#: src/netedit/GNEApplicationWindow.cpp:4128
 msgid "Loading of additional file '%' successfully."
 msgstr "Файл дополнительных элементов '%' successfully."
 
-#: src/netedit/GNEApplicationWindow.cpp:4063
+#: src/netedit/GNEApplicationWindow.cpp:4159
 msgid "reloading additionals"
 msgstr "перезагрузка дополнительных элементов"
 
-#: src/netedit/GNEApplicationWindow.cpp:4102
+#: src/netedit/GNEApplicationWindow.cpp:4198
 msgid "Force save additional elements"
 msgstr "Принудительно сохранить дополнительные элементы"
 
-#: src/netedit/GNEApplicationWindow.cpp:4125
+#: src/netedit/GNEApplicationWindow.cpp:4221
 msgid "Additionals saved."
 msgstr "Дополнительные элементы сохранены."
 
-#: src/netedit/GNEApplicationWindow.cpp:4128
+#: src/netedit/GNEApplicationWindow.cpp:4224
 msgid "Saving additional aborted."
 msgstr "Сохранение дополнительных элементов прервано."
 
-#: src/netedit/GNEApplicationWindow.cpp:4133
+#: src/netedit/GNEApplicationWindow.cpp:4229
 msgid "Saving additional elements failed"
 msgstr "Сохранение дополнительных элементов не удалось"
 
-#: src/netedit/GNEApplicationWindow.cpp:4143
+#: src/netedit/GNEApplicationWindow.cpp:4239
 msgid "Additional elements as"
 msgstr "Дополнительные элементы как"
 
-#: src/netedit/GNEApplicationWindow.cpp:4163
+#: src/netedit/GNEApplicationWindow.cpp:4259
 msgid "Additional elements in unified file"
 msgstr "Дополнительные элементы в объединённом файле"
 
-#: src/netedit/GNEApplicationWindow.cpp:4173
+#: src/netedit/GNEApplicationWindow.cpp:4269
 msgid "saving of unified additional elements in '%'"
 msgstr "сохранение объединённых дополнительных элементов в '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4194
+#: src/netedit/GNEApplicationWindow.cpp:4290
 msgid "JuPedSim elements file"
 msgstr "Файл элементов JuPedSim"
 
-#: src/netedit/GNEApplicationWindow.cpp:4208
+#: src/netedit/GNEApplicationWindow.cpp:4304
 msgid "JuPedSim elements saved."
 msgstr "Элементы JuPedSim сохранены."
 
-#: src/netedit/GNEApplicationWindow.cpp:4211
+#: src/netedit/GNEApplicationWindow.cpp:4307
 msgid "Saving JuPedSim elements aborted."
 msgstr "Сохранение элементов JuPedSim прервано."
 
-#: src/netedit/GNEApplicationWindow.cpp:4216
+#: src/netedit/GNEApplicationWindow.cpp:4312
 msgid "Saving JuPedSim elements failed"
 msgstr "Сохранение элементов JuPedSim не удалось"
 
-#: src/netedit/GNEApplicationWindow.cpp:4226
+#: src/netedit/GNEApplicationWindow.cpp:4322
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:463
 msgid "Route elements file"
 msgstr "Файл элементов маршрутов"
 
-#: src/netedit/GNEApplicationWindow.cpp:4242
+#: src/netedit/GNEApplicationWindow.cpp:4338
 msgid "loading demand elements from '%'"
 msgstr "загрузка элементов спроса из '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4246
+#: src/netedit/GNEApplicationWindow.cpp:4342
 msgid "Loading of route file '%' failed."
 msgstr "Загрузка файла маршрутов '%' failed."
 
-#: src/netedit/GNEApplicationWindow.cpp:4249
+#: src/netedit/GNEApplicationWindow.cpp:4345
 msgid "Loading of route file '%' successfully."
 msgstr "Файл маршрутов '%' successfully."
 
-#: src/netedit/GNEApplicationWindow.cpp:4274
+#: src/netedit/GNEApplicationWindow.cpp:4370
 msgid "reloading demand elements"
 msgstr "перезагрузка элементов спроса"
 
-#: src/netedit/GNEApplicationWindow.cpp:4313
+#: src/netedit/GNEApplicationWindow.cpp:4409
 msgid "Force save demand elements"
 msgstr "Принудительно сохранить элементы спроса"
 
-#: src/netedit/GNEApplicationWindow.cpp:4334
+#: src/netedit/GNEApplicationWindow.cpp:4430
 msgid "Demand elements saved."
 msgstr "Элементы спроса сохранены."
 
-#: src/netedit/GNEApplicationWindow.cpp:4337
-#: src/netedit/GNEApplicationWindow.cpp:4519
+#: src/netedit/GNEApplicationWindow.cpp:4433
+#: src/netedit/GNEApplicationWindow.cpp:4615
 msgid "Saving demand elements aborted."
 msgstr "Сохранение элементов спроса прервано."
 
-#: src/netedit/GNEApplicationWindow.cpp:4342
+#: src/netedit/GNEApplicationWindow.cpp:4438
 msgid "Saving demand elements failed"
 msgstr "Сохранение элементов спроса не удалось"
 
-#: src/netedit/GNEApplicationWindow.cpp:4352
+#: src/netedit/GNEApplicationWindow.cpp:4448
 msgid "Route elements"
 msgstr "Элементы маршрутов"
 
-#: src/netedit/GNEApplicationWindow.cpp:4372
+#: src/netedit/GNEApplicationWindow.cpp:4468
 msgid "Route elements file in unified file"
 msgstr "Элементы маршрутов в объединённом файле"
 
-#: src/netedit/GNEApplicationWindow.cpp:4382
+#: src/netedit/GNEApplicationWindow.cpp:4478
 msgid "saving of unified demand elements in '%'."
 msgstr "сохранение объединённых элементов спроса в '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:4403
-#: src/netedit/GNEApplicationWindow.cpp:4534
+#: src/netedit/GNEApplicationWindow.cpp:4499
+#: src/netedit/GNEApplicationWindow.cpp:4630
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:507
 msgid "Data elements file"
 msgstr "Файл элементов данных"
 
-#: src/netedit/GNEApplicationWindow.cpp:4421
+#: src/netedit/GNEApplicationWindow.cpp:4517
 msgid "loading data elements from '%'."
 msgstr "загрузка элементов данных из '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:4425
+#: src/netedit/GNEApplicationWindow.cpp:4521
 msgid "Loading of data file '%' failed."
 msgstr "Загрузка файла данных '%' failed."
 
-#: src/netedit/GNEApplicationWindow.cpp:4428
+#: src/netedit/GNEApplicationWindow.cpp:4524
 msgid "Loading of data file '%' successfully."
 msgstr "Файл данных '%' successfully."
 
-#: src/netedit/GNEApplicationWindow.cpp:4457
+#: src/netedit/GNEApplicationWindow.cpp:4553
 msgid "reloading data elements"
 msgstr "перезагрузка элементов данных"
 
-#: src/netedit/GNEApplicationWindow.cpp:4498
+#: src/netedit/GNEApplicationWindow.cpp:4594
 msgid "Force save data elements"
 msgstr "Принудительно сохранить элементы данных"
 
-#: src/netedit/GNEApplicationWindow.cpp:4516
+#: src/netedit/GNEApplicationWindow.cpp:4612
 msgid "Data elements saved."
 msgstr "Элементы данных сохранены."
 
-#: src/netedit/GNEApplicationWindow.cpp:4524
+#: src/netedit/GNEApplicationWindow.cpp:4620
 msgid "Saving data elements failed"
 msgstr "Сохранение элементов данных не удалось"
 
-#: src/netedit/GNEApplicationWindow.cpp:4554
+#: src/netedit/GNEApplicationWindow.cpp:4650
 msgid "Data elements file in unified file"
 msgstr "Элементы данных в объединённом файле"
 
-#: src/netedit/GNEApplicationWindow.cpp:4564
+#: src/netedit/GNEApplicationWindow.cpp:4660
 msgid "saving of unified data elements in '%'"
 msgstr "сохранение объединённых элементов данных в '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4583
+#: src/netedit/GNEApplicationWindow.cpp:4679
 msgid "MeanData elements file"
 msgstr "Файл элементов MeanData"
 
-#: src/netedit/GNEApplicationWindow.cpp:4599
+#: src/netedit/GNEApplicationWindow.cpp:4695
 msgid "load meanDatas from '%'"
 msgstr "загрузить meanDatas из '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4603
+#: src/netedit/GNEApplicationWindow.cpp:4699
 msgid "Loading of meandata file '%' failed."
 msgstr "Загрузка файла meandata '%' failed."
 
-#: src/netedit/GNEApplicationWindow.cpp:4606
+#: src/netedit/GNEApplicationWindow.cpp:4702
 msgid "Loading of meandata file '%' successfully."
 msgstr "Файл meandata '%' successfully."
 
-#: src/netedit/GNEApplicationWindow.cpp:4631
+#: src/netedit/GNEApplicationWindow.cpp:4727
 msgid "reloading meanDatas"
 msgstr "перезагрузка meanDatas"
 
-#: src/netedit/GNEApplicationWindow.cpp:4670
+#: src/netedit/GNEApplicationWindow.cpp:4766
 msgid "Force save meandata elements"
 msgstr "Принудительно сохранить элементы meandata"
 
-#: src/netedit/GNEApplicationWindow.cpp:4690
+#: src/netedit/GNEApplicationWindow.cpp:4786
 msgid "MeanDatas elements saved"
 msgstr "Элементы MeanDatas сохранены"
 
-#: src/netedit/GNEApplicationWindow.cpp:4693
+#: src/netedit/GNEApplicationWindow.cpp:4789
 msgid "Saving MeanData elements aborted"
 msgstr "Сохранение элементов MeanData прервано"
 
-#: src/netedit/GNEApplicationWindow.cpp:4698
+#: src/netedit/GNEApplicationWindow.cpp:4794
 msgid "Saving demand elements failed!"
 msgstr "Сохранение элементов спроса не удалось!"
 
-#: src/netedit/GNEApplicationWindow.cpp:4708
+#: src/netedit/GNEApplicationWindow.cpp:4804
 msgid "MeanData elements"
 msgstr "Элементы MeanData"
 
-#: src/netedit/GNEApplicationWindow.cpp:4728
+#: src/netedit/GNEApplicationWindow.cpp:4824
 msgid "MeanData elements file in unified file"
 msgstr "Элементы MeanData в объединённом файле"
 
-#: src/netedit/GNEApplicationWindow.cpp:4738
+#: src/netedit/GNEApplicationWindow.cpp:4834
 msgid "saving of unified mean data elements in '%'"
 msgstr "сохранение объединённых элементов mean data в '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4977
+#: src/netedit/GNEApplicationWindow.cpp:5101
 msgid "% additional elements from '%'"
 msgstr "% дополнительных элементов из '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4984
+#: src/netedit/GNEApplicationWindow.cpp:5111
 msgid "% additionals from '%'."
 msgstr "% дополнительных элементов из '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:4995
-#: src/netedit/GNEApplicationWindow.cpp:5044
+#: src/netedit/GNEApplicationWindow.cpp:5123
+#: src/netedit/GNEApplicationWindow.cpp:5192
 msgid "% of '%' failed."
 msgstr "% of '%' failed."
 
-#: src/netedit/GNEApplicationWindow.cpp:5026
+#: src/netedit/GNEApplicationWindow.cpp:5174
 msgid "% demand elements from '%'"
 msgstr "% элементов спроса из '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:5033
+#: src/netedit/GNEApplicationWindow.cpp:5181
 msgid "% demand elements from '%'."
 msgstr "% элементов спроса из '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:5074
+#: src/netedit/GNEApplicationWindow.cpp:5222
 msgid "% data elements from '%'"
 msgstr "% элементов данных из '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:5081
+#: src/netedit/GNEApplicationWindow.cpp:5229
 msgid "% data elements from '%'."
 msgstr "% элементов данных из '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:5092
-#: src/netedit/GNEApplicationWindow.cpp:5140
+#: src/netedit/GNEApplicationWindow.cpp:5240
+#: src/netedit/GNEApplicationWindow.cpp:5292
 msgid "% of % failed."
 msgstr "% of % failed."
 
-#: src/netedit/GNEApplicationWindow.cpp:5122
+#: src/netedit/GNEApplicationWindow.cpp:5270
 msgid "% meanData elements from '%'"
 msgstr "% элементов meanData из '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:5129
+#: src/netedit/GNEApplicationWindow.cpp:5283
 msgid "% meanData elements from '%'."
 msgstr "% элементов meanData из '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:5166
-#: src/netedit/GNEApplicationWindow.cpp:5167
+#: src/netedit/GNEApplicationWindow.cpp:5318
+#: src/netedit/GNEApplicationWindow.cpp:5319
 msgid "% TLS programs from '%'."
 msgstr "% программ светофоров из '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:5200
-#: src/netedit/GNEApplicationWindow.cpp:5201
+#: src/netedit/GNEApplicationWindow.cpp:5352
+#: src/netedit/GNEApplicationWindow.cpp:5353
 msgid "% edge types from '%'."
 msgstr "% типов рёбер из '%'."
 
@@ -4381,11 +4381,11 @@ msgstr "&Данные"
 msgid "Select data mode."
 msgstr "Выбрать режим данных."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2279
+#: src/netedit/GNEApplicationWindowHelper.cpp:2289
 msgid "There are invalid options in sumo configuration '%'."
 msgstr "В конфигурации sumo '%' есть некорректные опции."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2282
+#: src/netedit/GNEApplicationWindowHelper.cpp:2292
 msgid ""
 "Could not load sumo configuration '%':\n"
 " %"
@@ -4393,15 +4393,15 @@ msgstr ""
 "Не удалось загрузить конфигурацию sumo '%' :\n"
 " %"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2294
+#: src/netedit/GNEApplicationWindowHelper.cpp:2304
 msgid "No network defined in sumo configuration '%'."
 msgstr "В конфигурации sumo '%' не определена сеть."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2330
+#: src/netedit/GNEApplicationWindowHelper.cpp:2344
 msgid "There are invalid options in netconvert configuration '%'."
 msgstr "В конфигурации netconvert '%' есть некорректные опции."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2333
+#: src/netedit/GNEApplicationWindowHelper.cpp:2347
 msgid ""
 "Could not load netconvert configuration '%':\n"
 " %"
@@ -4409,11 +4409,11 @@ msgstr ""
 "Не удалось загрузить конфигурацию netconvert '%' :\n"
 " %"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2377
+#: src/netedit/GNEApplicationWindowHelper.cpp:2398
 msgid "There are invalid options in netedit configuration '%'."
 msgstr "В конфигурации netedit '%' есть некорректные опции."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2380
+#: src/netedit/GNEApplicationWindowHelper.cpp:2401
 msgid ""
 "Could not load netedit configuration '%':\n"
 " %"
@@ -4421,7 +4421,7 @@ msgstr ""
 "Не удалось загрузить конфигурацию netedit '%' :\n"
 " %"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2499
+#: src/netedit/GNEApplicationWindowHelper.cpp:2519
 msgid "Element '% cannot be updateAC in bucket '%'"
 msgstr "Элемент '%' нельзя обновить в bucket '%'"
 
@@ -4524,23 +4524,23 @@ msgstr "[0, 360]"
 msgid "Attribute '%' already inserted"
 msgstr "Атрибут '%' already inserted"
 
-#: src/netedit/GNEExternalRunner.cpp:85
+#: src/netedit/GNEExternalRunner.cpp:79
 msgid "cancelled by user\n"
 msgstr "отменено пользователем\n"
 
-#: src/netedit/GNEExternalRunner.cpp:117 src/netedit/GNEExternalRunner.cpp:195
+#: src/netedit/GNEExternalRunner.cpp:111 src/netedit/GNEExternalRunner.cpp:189
 msgid "starting process...\n"
 msgstr "запуск процесса...\n"
 
-#: src/netedit/GNEExternalRunner.cpp:159 src/netedit/GNEExternalRunner.cpp:225
+#: src/netedit/GNEExternalRunner.cpp:153 src/netedit/GNEExternalRunner.cpp:219
 msgid "process finished\n"
 msgstr "процесс завершён\n"
 
-#: src/netedit/GNEExternalRunner.cpp:165
+#: src/netedit/GNEExternalRunner.cpp:159
 msgid "Error running tool using boost::process"
 msgstr "Ошибка запуска инструмента через boost::process"
 
-#: src/netedit/GNEExternalRunner.cpp:211
+#: src/netedit/GNEExternalRunner.cpp:205
 msgid "error processing command\n"
 msgstr "ошибка обработки команды\n"
 
@@ -4815,8 +4815,8 @@ msgid "Disable textures"
 msgstr "Отключить текстуры"
 
 #: src/netedit/GNELoadThread.cpp:520
-msgid "Load visualisation settings from FILE"
-msgstr "Загрузить настройки визуализации из ФАЙЛА"
+msgid "Load visualization settings from FILE"
+msgstr ""
 
 #: src/netedit/GNELoadThread.cpp:525
 msgid "Load current viewport from registry"
@@ -4959,170 +4959,170 @@ msgstr "выделить кольцевую развязку"
 msgid "create roundabout"
 msgstr "создать кольцевую развязку"
 
-#: src/netedit/GNENet.cpp:1473
+#: src/netedit/GNENet.cpp:1500
 msgid "Forced computing junctions with volatile options ..."
 msgstr "Принудительный пересчёт перекрёстков с летучими опциями ..."
 
-#: src/netedit/GNENet.cpp:1475
+#: src/netedit/GNENet.cpp:1502
 msgid "Forced computing junctions ..."
 msgstr "Принудительный пересчёт перекрёстков ..."
 
-#: src/netedit/GNENet.cpp:1482
+#: src/netedit/GNENet.cpp:1509
 msgid "Computing junctions with volatile options ..."
 msgstr "Пересчёт перекрёстков с летучими опциями ..."
 
-#: src/netedit/GNENet.cpp:1484
+#: src/netedit/GNENet.cpp:1511
 msgid "Computing junctions ..."
 msgstr "Пересчёт перекрёстков ..."
 
-#: src/netedit/GNENet.cpp:1506
+#: src/netedit/GNENet.cpp:1533
 msgid "Loading of additional file failed: "
 msgstr "Загрузка файла дополнительных элементов не удалась: "
 
-#: src/netedit/GNENet.cpp:1508
+#: src/netedit/GNENet.cpp:1535
 msgid "Loading of additional file successfully: "
 msgstr "Файл дополнительных элементов успешно загружен: "
 
-#: src/netedit/GNENet.cpp:1521
+#: src/netedit/GNENet.cpp:1548
 msgid "Loading of route file failed: "
 msgstr "Загрузка файла маршрутов не удалась: "
 
-#: src/netedit/GNENet.cpp:1523
+#: src/netedit/GNENet.cpp:1550
 msgid "Loading of route file successfully: "
 msgstr "Файл маршрутов успешно загружен: "
 
-#: src/netedit/GNENet.cpp:1536
+#: src/netedit/GNENet.cpp:1563
 msgid "Loading of data file failed: "
 msgstr "Загрузка файла данных не удалась: "
 
-#: src/netedit/GNENet.cpp:1538
+#: src/netedit/GNENet.cpp:1565
 msgid "Loading of data file successfully: "
 msgstr "Файл данных успешно загружен: "
 
-#: src/netedit/GNENet.cpp:1551
+#: src/netedit/GNENet.cpp:1578
 msgid "Loading of meandata file failed: "
 msgstr "Загрузка файла meandata не удалась: "
 
-#: src/netedit/GNENet.cpp:1553
+#: src/netedit/GNENet.cpp:1580
 msgid "Loading of meandata file successfully: "
 msgstr "Файл meandata успешно загружен: "
 
-#: src/netedit/GNENet.cpp:1563
+#: src/netedit/GNENet.cpp:1590
 msgid "Finished computing junctions."
 msgstr "Пересчёт перекрёстков завершён."
 
-#: src/netedit/GNENet.cpp:1569
+#: src/netedit/GNENet.cpp:1596
 msgid "Computing demand elements ..."
 msgstr "Пересчёт элементов спроса ..."
 
-#: src/netedit/GNENet.cpp:1583
+#: src/netedit/GNENet.cpp:1610
 msgid "Finished computing demand elements."
 msgstr "Пересчёт элементов спроса завершён."
 
-#: src/netedit/GNENet.cpp:1589
+#: src/netedit/GNENet.cpp:1616
 msgid "Computing data elements ..."
 msgstr "Пересчёт элементов данных ..."
 
-#: src/netedit/GNENet.cpp:1596
+#: src/netedit/GNENet.cpp:1623
 msgid "Finished computing data elements."
 msgstr "Пересчёт элементов данных завершён."
 
-#: src/netedit/GNENet.cpp:1662
+#: src/netedit/GNENet.cpp:1691
 msgid "Position of joined junction"
 msgstr "Позиция объединённого перекрёстка"
 
-#: src/netedit/GNENet.cpp:1663
+#: src/netedit/GNENet.cpp:1692
 msgid ""
 "There is another unselected junction in the same position of joined junction."
 msgstr ""
 "Есть другой невыделенный перекрёсток в той же позиции объединённого "
 "перекрёстка."
 
-#: src/netedit/GNENet.cpp:1664
+#: src/netedit/GNENet.cpp:1693
 msgid "It will be joined with the other selected junctions. Continue?"
 msgstr "Он будет объединён с другими выбранными перекрёстками. Продолжить?"
 
-#: src/netedit/GNENet.cpp:1768 src/netedit/GNENet.cpp:1774
+#: src/netedit/GNENet.cpp:1797 src/netedit/GNENet.cpp:1803
 msgid "Clear crossings"
 msgstr "Очистить пешеходные переходы"
 
-#: src/netedit/GNENet.cpp:1769
+#: src/netedit/GNENet.cpp:1798
 msgid "There are no invalid crossings to remove."
 msgstr "Нет некорректных переходов для удаления."
 
-#: src/netedit/GNENet.cpp:1775
+#: src/netedit/GNENet.cpp:1804
 msgid "Crossings will be cleared. Continue?"
 msgstr "Пешеходные переходы будут очищены. Продолжить?"
 
-#: src/netedit/GNENet.cpp:1778
+#: src/netedit/GNENet.cpp:1807
 msgid "clear crossings"
 msgstr "очистить переходы"
 
-#: src/netedit/GNENet.cpp:1793
+#: src/netedit/GNENet.cpp:1822
 msgid "clear junctions"
 msgstr "очистить перекрёстки"
 
-#: src/netedit/GNENet.cpp:1821
+#: src/netedit/GNENet.cpp:1850
 msgid "clear unused routes"
 msgstr "очистить неиспользуемые маршруты"
 
-#: src/netedit/GNENet.cpp:1876
+#: src/netedit/GNENet.cpp:1905
 msgid "merge routes"
 msgstr "объединить маршруты"
 
-#: src/netedit/GNENet.cpp:1930
+#: src/netedit/GNENet.cpp:1959
 msgid "adjust person plans"
 msgstr "подправить планы пешеходов"
 
-#: src/netedit/GNENet.cpp:1970
+#: src/netedit/GNENet.cpp:1999
 msgid "remove invalid demand elements"
 msgstr "удалить некорректные элементы спроса"
 
-#: src/netedit/GNENet.cpp:1985
+#: src/netedit/GNENet.cpp:2014
 msgid "replace junction by geometry"
 msgstr "заменить перекрёсток геометрией"
 
-#: src/netedit/GNENet.cpp:2021
+#: src/netedit/GNENet.cpp:2050
 msgid "Junction isn't removable"
 msgstr "Перекрёсток нельзя удалить"
 
-#: src/netedit/GNENet.cpp:2033
+#: src/netedit/GNENet.cpp:2062
 msgid "split junction"
 msgstr "разделить перекрёсток"
 
-#: src/netedit/GNENet.cpp:2071
+#: src/netedit/GNENet.cpp:2100
 msgid "Could not rename split node to '%'"
 msgstr "Не удалось переименовать разделённый узел в '%'"
 
-#: src/netedit/GNENet.cpp:2113
+#: src/netedit/GNENet.cpp:2142
 msgid "clear junction connections"
 msgstr "очистить соединения перекрёстка"
 
-#: src/netedit/GNENet.cpp:2125
+#: src/netedit/GNENet.cpp:2154
 msgid "reset junction connections"
 msgstr "сбросить соединения перекрёстка"
 
-#: src/netedit/GNENet.cpp:2136
+#: src/netedit/GNENet.cpp:2165
 msgid "clear additional elements"
 msgstr "очистить дополнительные элементы"
 
-#: src/netedit/GNENet.cpp:2149
+#: src/netedit/GNENet.cpp:2178
 msgid "clear demand elements"
 msgstr "очистить элементы спроса"
 
-#: src/netedit/GNENet.cpp:2171
+#: src/netedit/GNENet.cpp:2200
 msgid "clear data elements"
 msgstr "очистить элементы данных"
 
-#: src/netedit/GNENet.cpp:2182
+#: src/netedit/GNENet.cpp:2211
 msgid "clear meanData elements"
 msgstr "очистить элементы meanData"
 
-#: src/netedit/GNENet.cpp:2519 src/netedit/GNENet.cpp:2612
+#: src/netedit/GNENet.cpp:2548 src/netedit/GNENet.cpp:2641
 msgid "Duplicated ID"
 msgstr "Дублированный ID"
 
-#: src/netedit/GNENet.cpp:2953
+#: src/netedit/GNENet.cpp:2982
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr ""
 "Размер сети превышает 1 световой год. Пожалуйста, пересмотрите входные "
@@ -9652,27 +9652,27 @@ msgstr "Вычислить менеджер путей"
 msgid "Compute path manager."
 msgstr "Вычислить менеджер путей."
 
-#: src/netedit/GNEViewParent.cpp:536
+#: src/netedit/GNEViewParent.cpp:632
 msgid "WalkingArea Chooser"
 msgstr "Выбор зоны ходьбы"
 
-#: src/netedit/GNEViewParent.cpp:574
+#: src/netedit/GNEViewParent.cpp:670
 msgid "Route Chooser"
 msgstr "Выбор маршрута"
 
-#: src/netedit/GNEViewParent.cpp:581
+#: src/netedit/GNEViewParent.cpp:677
 msgid "Stop Chooser"
 msgstr "Выбор остановки"
 
-#: src/netedit/GNEViewParent.cpp:592
+#: src/netedit/GNEViewParent.cpp:688
 msgid "TLS Chooser"
 msgstr "Выбор светофора"
 
-#: src/netedit/GNEViewParent.cpp:602
+#: src/netedit/GNEViewParent.cpp:698
 msgid "Additional Chooser"
 msgstr "Выбор дополнительного элемента"
 
-#: src/netedit/GNEViewParent.cpp:625
+#: src/netedit/GNEViewParent.cpp:721
 msgid "Poly Chooser"
 msgstr "Выбор полигона"
 
@@ -9882,11 +9882,11 @@ msgstr "Отменить переключение атрибута % в '%'"
 msgid "Redo toggle % attribute in '%'"
 msgstr "Повторить переключение атрибута % в '%'"
 
-#: src/netedit/dialogs/GNEACChooserDialog.cpp:118
+#: src/netedit/dialogs/GNEACChooserDialog.cpp:125
 msgid "Invalid Junction"
 msgstr "Некорректный перекрёсток"
 
-#: src/netedit/dialogs/GNEACChooserDialog.cpp:124
+#: src/netedit/dialogs/GNEACChooserDialog.cpp:131
 msgid "Invalid number of TLSs"
 msgstr "Некорректное количество светофоров"
 
@@ -9981,7 +9981,7 @@ msgid "Back to tool dialog"
 msgstr "Вернуться к диалогу инструмента"
 
 #: src/netedit/dialogs/GNEDialog.cpp:532
-#: src/utils/gui/div/GUIMessageWindow.cpp:348
+#: src/utils/gui/div/GUIMessageWindow.cpp:375
 msgid "Copy"
 msgstr "Копировать"
 
@@ -10044,7 +10044,7 @@ msgstr "Сортировать"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:295
 #: src/netedit/frames/common/GNESelectorFrame.cpp:257
-#: src/utils/gui/div/GUIMessageWindow.cpp:359
+#: src/utils/gui/div/GUIMessageWindow.cpp:386
 msgid "Clear"
 msgstr "Очистить"
 
@@ -10617,7 +10617,7 @@ msgid "Config directory"
 msgstr "Каталог конфигурации"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:432
-#: src/utils/gui/div/GUIMessageWindow.cpp:350
+#: src/utils/gui/div/GUIMessageWindow.cpp:377
 msgid "Select all"
 msgstr "Выделить все"
 
@@ -11330,24 +11330,24 @@ msgstr "данные"
 msgid "sumo config"
 msgstr "конфигурация sumo"
 
-#: src/netedit/elements/GNEAttributeCarrier.cpp:230
+#: src/netedit/elements/GNEAttributeCarrier.cpp:236
 #: src/netedit/frames/GNEAttributesEditorType.cpp:509
 msgid "reset %"
 msgstr "сбросить %"
 
-#: src/netedit/elements/GNEAttributeCarrier.cpp:260
+#: src/netedit/elements/GNEAttributeCarrier.cpp:266
 msgid "Nothing to enable, implement in Children"
 msgstr "Нечего включать, реализовать в дочерних"
 
-#: src/netedit/elements/GNEAttributeCarrier.cpp:267
+#: src/netedit/elements/GNEAttributeCarrier.cpp:273
 msgid "Nothing to disable, implement in Children"
 msgstr "Нечего отключать, реализовать в дочерних"
 
-#: src/netedit/elements/GNEAttributeCarrier.cpp:853
+#: src/netedit/elements/GNEAttributeCarrier.cpp:859
 msgid "Parent filename"
 msgstr "Имя родительского файла"
 
-#: src/netedit/elements/GNEAttributeCarrier.cpp:968
+#: src/netedit/elements/GNEAttributeCarrier.cpp:974
 msgid "Nothing to toggle, implement in Children"
 msgstr "Нечего переключать, реализовать в дочерних"
 
@@ -12974,7 +12974,7 @@ msgstr "Ребро: %"
 
 #: src/netedit/frames/GNEElementTree.cpp:313
 #: src/utils/gui/globjects/GUIGlObject.cpp:349
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:88
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:104
 msgid "Center"
 msgstr "Центрировать"
 
@@ -15804,15 +15804,15 @@ msgstr "логика светофора"
 msgid "overheadWireSegment"
 msgstr "сегмент контактной сети"
 
-#: src/utils/gui/div/GUIMessageWindow.cpp:348
+#: src/utils/gui/div/GUIMessageWindow.cpp:375
 msgid "Copy selection to clipboard"
 msgstr ""
 
-#: src/utils/gui/div/GUIMessageWindow.cpp:350
+#: src/utils/gui/div/GUIMessageWindow.cpp:377
 msgid "Select all text"
 msgstr ""
 
-#: src/utils/gui/div/GUIMessageWindow.cpp:359
+#: src/utils/gui/div/GUIMessageWindow.cpp:386
 msgid "Clear message window"
 msgstr ""
 
@@ -15986,7 +15986,7 @@ msgstr "Замена POI '%'"
 msgid "Replacing polygon '%'"
 msgstr "Замена полигона '%'"
 
-#: src/utils/gui/images/GUIIconSubSys.cpp:1199
+#: src/utils/gui/images/GUIIconSubSys.cpp:1205
 msgid "Instance was previously created"
 msgstr "Экземпляр уже был создан ранее"
 
@@ -16745,67 +16745,78 @@ msgstr "Мультиграфик"
 msgid "Save Data"
 msgstr "Сохранить данные"
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:89
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:105
 msgid "Track"
 msgstr "Отслеживать"
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:96
-msgid "&Hide Unselected"
-msgstr "&Скрыть невыделенные"
-
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:97
-msgid "By &Name"
-msgstr "По &имени"
-
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:97
-msgid "Locate item by name"
-msgstr "Найти элемент по имени"
-
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:98
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:112
 msgid "&Select/deselect"
 msgstr "&Выбрать/снять выбор"
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:98
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:112
 msgid "Select/deselect current object"
 msgstr "Выбрать/снять выбор с текущего объекта"
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:99
-msgid "&Filter substring"
-msgstr "&Фильтр подстроки"
-
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:100
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:113
 msgid "Select &all"
 msgstr "Выбрать &все"
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:100
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:113
 msgid "Select all items in list"
 msgstr "Выбрать все элементы списка"
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:101
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:114
 msgid "&Deselect all"
 msgstr "&Снять выбор со всех"
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:101
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:114
 msgid "Deselect all items in list"
 msgstr "Снять выбор со всех элементов списка"
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:102
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:115
 msgid "&Update"
 msgstr "&Обновить"
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:102
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:115
 msgid "Reload all ids"
 msgstr "Перезагрузить все ID"
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:106
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:119
+msgid "&Hide Unselected"
+msgstr "&Скрыть невыделенные"
+
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:120
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:121
+msgid "Hide unselected items"
+msgstr ""
+
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:122
+msgid "By &Name"
+msgstr "По &имени"
+
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:123
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:124
+msgid "Locate item by name"
+msgstr "Найти элемент по имени"
+
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:125
+msgid "&Filter substring"
+msgstr "&Фильтр подстроки"
+
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:126
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:127
+msgid "Filter list by substring"
+msgstr ""
+
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:128
 msgid "case-sensitive search"
 msgstr "поиск с учётом регистра"
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:108
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:130
 msgid "auto-center"
 msgstr "автоцентрирование"
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:338
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:477
 msgid "% objects"
 msgstr "% objects"
 
@@ -17419,7 +17430,7 @@ msgid "Recenter view to the simulated area."
 msgstr "Центрировать вид на симулируемой области."
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:124
-#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1632
+#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1681
 msgctxt "Labels"
 msgid "Edit Viewport"
 msgstr "Редактировать вид"
@@ -17464,160 +17475,170 @@ msgstr "Сделать снимок"
 msgid "Makes a snapshot of the view."
 msgstr "Делает снимок текущего вида."
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:353
+#: src/utils/gui/windows/GUIMainWindow.cpp:350
 msgid "No projection defined"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:354
+#: src/utils/gui/windows/GUIMainWindow.cpp:351
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:281
 msgid "(No projection defined)"
 msgstr "(Проекция не определена)"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:368
+#: src/utils/gui/windows/GUIMainWindow.cpp:365
 msgid "Centered view on %. Geo coordinates: lat %, lon %"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:373
+#: src/utils/gui/windows/GUIMainWindow.cpp:370
 msgid "Invalid geo coordinate. Use 'lat, lon' or 'lat:... lon:...'"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:391
+#: src/utils/gui/windows/GUIMainWindow.cpp:388
 msgid "Centered view on x: %, y: %"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:395
+#: src/utils/gui/windows/GUIMainWindow.cpp:392
 msgid "Invalid cartesian coordinate. Use 'x, y' or 'x:... y:...'"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:488
+#: src/utils/gui/windows/GUIMainWindow.cpp:485
 msgid "option window-size requires INT,INT"
 msgstr "опция window-size требует два целых числа: INT,INT"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:505
+#: src/utils/gui/windows/GUIMainWindow.cpp:502
 msgid "option window-pos requires INT,INT"
 msgstr "опция window-pos требует два целых числа: INT,INT"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:534
+#: src/utils/gui/windows/GUIMainWindow.cpp:531
 msgid "Langua&ge"
 msgstr "&Язык"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:536
+#: src/utils/gui/windows/GUIMainWindow.cpp:533
 msgid "Change language to english. (en)"
 msgstr "Изменить язык на английский. (en)"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:538
+#: src/utils/gui/windows/GUIMainWindow.cpp:535
 msgid "Change language to german. (de)"
 msgstr "Изменить язык на немецкий. (de)"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:540
+#: src/utils/gui/windows/GUIMainWindow.cpp:537
 msgid "Change language to spanish. (es)"
 msgstr "Изменить язык на испанский. (es)"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:542
+#: src/utils/gui/windows/GUIMainWindow.cpp:539
 msgid "Change language to portuguese. (pt)"
 msgstr "Изменить язык на португальский. (pt)"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:544
+#: src/utils/gui/windows/GUIMainWindow.cpp:541
 msgid "Change language to french. (fr)"
 msgstr "Изменить язык на французский. (fr)"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:546
+#: src/utils/gui/windows/GUIMainWindow.cpp:543
 msgid "Change language to italian. (it)"
 msgstr "Изменить язык на итальянский. (it)"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:548
+#: src/utils/gui/windows/GUIMainWindow.cpp:545
 msgid "简体中文 (zh)"
 msgstr "Упрощённый китайский (zh)"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:550
+#: src/utils/gui/windows/GUIMainWindow.cpp:547
 msgid "繁體中文 (zh-Hant)"
 msgstr "Традиционный китайский (zh-Hant)"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:552
+#: src/utils/gui/windows/GUIMainWindow.cpp:549
 msgid "Change language to turkish. (tr)"
 msgstr "Изменить язык на турецкий. (tr)"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:554
+#: src/utils/gui/windows/GUIMainWindow.cpp:551
 msgid "Change language to japanese. (ja)"
 msgstr "Изменить язык на японский. (ja)"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:556
+#: src/utils/gui/windows/GUIMainWindow.cpp:553
 msgid "Change language to korean. (ko)"
 msgstr "Изменить язык на корейский. (ko)"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:570
+#: src/utils/gui/windows/GUIMainWindow.cpp:567
 msgid "german"
 msgstr "немецкий"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:574
+#: src/utils/gui/windows/GUIMainWindow.cpp:571
 msgid "spanish"
 msgstr "испанский"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:578
+#: src/utils/gui/windows/GUIMainWindow.cpp:575
 msgid "portuguese"
 msgstr "португальский"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:582
+#: src/utils/gui/windows/GUIMainWindow.cpp:579
 msgid "french"
 msgstr "французский"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:586
+#: src/utils/gui/windows/GUIMainWindow.cpp:583
 msgid "italian"
 msgstr "итальянский"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:590
+#: src/utils/gui/windows/GUIMainWindow.cpp:587
 msgid "simplified chinese"
 msgstr "упрощённый китайский"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:594
+#: src/utils/gui/windows/GUIMainWindow.cpp:591
 msgid "traditional chinese"
 msgstr "традиционный китайский"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:598
+#: src/utils/gui/windows/GUIMainWindow.cpp:595
 msgid "turkish"
 msgstr "турецкий"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:602
+#: src/utils/gui/windows/GUIMainWindow.cpp:599
 msgid "japanese"
 msgstr "японский"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:606
+#: src/utils/gui/windows/GUIMainWindow.cpp:603
 msgid "korean"
 msgstr "корейский"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:610
+#: src/utils/gui/windows/GUIMainWindow.cpp:607
 msgid "english"
 msgstr "английский"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:618
+#: src/utils/gui/windows/GUIMainWindow.cpp:615
 msgid "Language changed to "
 msgstr "Язык изменён на "
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:620
+#: src/utils/gui/windows/GUIMainWindow.cpp:617
 msgid "Restart needed"
 msgstr "Требуется перезапуск"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:621
+#: src/utils/gui/windows/GUIMainWindow.cpp:618
 msgid "Changing display language needs restart to take effect."
 msgstr ""
 "Изменение языка интерфейса требует перезапуска программы для вступления в "
 "силу."
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:624
+#: src/utils/gui/windows/GUIMainWindow.cpp:621
 msgid ""
 "For the Debug build you might also need to set the LANG environment variable."
 msgstr ""
 "Для отладочной сборки может также потребоваться установить переменную "
 "окружения LANG."
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:627
+#: src/utils/gui/windows/GUIMainWindow.cpp:624
 msgid "Under development. You can help to improve the translation at:"
 msgstr "Перевод в разработке. Вы можете помочь улучшить его на:"
 
-#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1813
+#: src/utils/gui/windows/GUISUMOAbstractView.cpp:972
+msgid "Full Screen Mode. Press Ctrl+F to exit."
+msgstr ""
+
+#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1862
 msgid "Could not transform coordinates from WGS84 in decal %, assuming UTM."
 msgstr ""
 "Не удалось преобразовать координаты из WGS84 для декали %, используется UTM."
+
+#~ msgid "Edit Visualisation"
+#~ msgstr "Редактировать визуализацию"
+
+#~ msgid "Load visualisation settings from FILE"
+#~ msgstr "Загрузить настройки визуализации из ФАЙЛА"
 
 #~ msgid "Original coordinate (before coordinate transformation in netconvert)"
 #~ msgstr "Исходная координата (до преобразования координат в netconvert)"
