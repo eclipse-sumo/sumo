@@ -66,6 +66,7 @@ following table:
 | **--connection-files**                                | connections  | connections_file.xsd |
 | **--tllogic-files**                                   | tlLogics     | tllogic_file.xsd     |
 | **--type-files**                                      | types        | types_file.xsd       |
+| **--type-file** (polyconvert)                         | polygonTypes | types_file.xsd       |
 | **--weight-files**                                    | meandata     | meandata_file.xsd    |
 
 !!! note

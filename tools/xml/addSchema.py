@@ -25,18 +25,21 @@ import glob
 
 schema = 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
 
-proc = {
-    "*.rou.xml": '<routes %s xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd"' % schema,
-    "*.edg.xml": '<edges %s xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd"' % schema,
-    "*.nod.xml": '<nodes %s xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd"' % schema,
-    "*.typ.xml": '<types %s xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd"' % schema,
-    "*.con.xml": '<connections %s xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd"' % schema
-}
+proc = [
+    ("*.rou.xml", '<routes %s xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd"' % schema),
+    ("*.edg.xml", '<edges %s xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd"' % schema),
+    ("*.nod.xml", '<nodes %s xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd"' % schema),
+    ("*.typ.xml", '<types %s xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd"' % schema),
+    ("*.typ.xml",
+     '<polygonTypes %s xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd"' % schema),
+    ("*.con.xml",
+     '<connections %s xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd"' % schema),
+]
 
 srcRoot = os.path.join(os.path.dirname(__file__), "..", "..")
 
 for root, dirs, files in os.walk(srcRoot):
-    for pattern, repTo in proc.items():
+    for pattern, repTo in proc:
         for name in glob.glob(os.path.join(root, pattern)):
             repFrom = repTo[:repTo.find(' ')]
             print("Patching '%s'" % name)
