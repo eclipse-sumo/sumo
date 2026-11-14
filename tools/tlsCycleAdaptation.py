@@ -534,8 +534,8 @@ def checkRoutePeriod(routefiles, begin):
 
     # check how to process the flow
     end = begin + 3599.
-    if veh_endtime < end:
-        scale_fac += (end - veh_endtime)/3600.
+    if veh_endtime < end and veh_endtime > begin:
+        scale_fac = 3600. / (veh_endtime - begin)
         print("Warning: The period is less than 1 hour. "
               "The flows will be proportionally scaled up to 1-hour flow with the scaling factor %s." % scale_fac)
     elif checkPeak and veh_endtime > end:
