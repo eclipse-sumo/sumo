@@ -459,11 +459,12 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                     startIndex = 0
                     i = 1
                     for routeEdgeID in route[1:]:
-                        path, _ = net.getShortestPath(net.getEdge(routeFixed[-1]),
-                                                      net.getEdge(routeEdgeID),
-                                                      vClass=vclass)
-                        if path is None or len(path) > options.fill_gaps + 2:
-                            error = "no path found" if path is None else "path too long (%s)" % len(path)
+                        path, cost = net.getShortestPath(net.getEdge(routeFixed[-1]),
+                                                         net.getEdge(routeEdgeID),
+                                                         maxCost=options.fill_gaps,
+                                                         vClass=vclass)
+                        if path is None or cost > options.fill_gaps:
+                            error = "no path found" if path is None else "path too long (%s)" % cost
                             print("Warning! Disconnected route '%s' between '%s' and '%s', %s. Keeping longer part." %
                                   (rid, routeFixed[-1], routeEdgeID, error), file=sys.stderr)
                             if len(routeFixed) > len(route) // 2:
@@ -624,8 +625,9 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
             parkingLength = ''
             if isParking and options.parkingLength > 0:
                 parkingLength = ' parkingLength="%s"' % options.parkingLength
-            rout.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f" friendlyPos="true" name="%s"%s%s>\n' %
-                       (typ, stop, laneID, start, end, stopName, parkingLength, "" if childs else "/"))
+            rout.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f" friendlyPos="true" name=%s%s%s>\n' %
+                       (typ, stop, laneID, start, end, sumolib.xml.quoteattr(str(stopName), True),
+                        parkingLength, "" if childs else "/"))
             for a in sorted(childs):
                 rout.write(a)
             if childs:
@@ -783,6 +785,7 @@ def writeRoute(options, rout, vehID, edges, stops):
         isJoined = len(blocks) > 1
     for s in stops[vehID]:
         tripId = ' tripId="%s"' % s.block if isJoined and lastTripId != s.block else ''
+        lastTripId = s.block
         parking = ' parking="true"' if s.isParking else ""
         if offset is None:
             offset = s.until
