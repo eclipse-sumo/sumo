@@ -99,8 +99,8 @@ The following parameters are used to set the NEMA diagram and controller behavio
 
 | Parameter Key | Value Type                            | Description      |
 | -------------- | ------------------------------------- | ---------------- |
-| **detector-length**  | int    | The length (in meters) of the stop bar detectors for non-left-turn lane. Note that the detectors can be replaced by customized detectors. This parameter is for quick generation of a stop bar detector setting.|
-| **detector-length-leftTurnLane**  | int    | The length (in meters) of the stop bar detectors for left-turn lane. Note that the detectors can be replaced by customized detectors. This parameter is for quick generation of a stop bar detector setting. We have this parameter here because typically the stop bar detectors on the left-turn lanes have different lengths from the through lanes.|
+| **detector-length**  | float    | The length (in meters) of the stop bar detectors for non-left-turn lane. Note that the detectors can be replaced by customized detectors (see [Custom Detectors](#custom_detectors)). This parameter is for quick generation of a stop bar detector setting.|
+| **detector-length-leftTurnLane**  | float    | The length (in meters) of the stop bar detectors for left-turn lane. Note that the detectors can be replaced by customized detectors (see [Custom Detectors](#custom_detectors)). This parameter is for quick generation of a stop bar detector setting. We have this parameter here because typically the stop bar detectors on the left-turn lanes have different lengths from the through lanes.|
 | **total-cycle-length**  | int    | The cycle length in seconds.|
 | **ring1**  | string    | The phase numbers in ring 1 separated by comma (','). Fill *0* if a phase does not exist.|
 | **ring2**  | string    | The phase numbers in ring 2 separated by comma (','). Fill *0* if a phase does not exist. Repeat the ring 1 phases of the side of barrier if that side of barrier does not have any phases.|
@@ -116,6 +116,12 @@ The following parameters are used to set the NEMA diagram and controller behavio
 |**controllerType**  | string (TS2 or Type 170)    | It controls the type of controller used. NEMA TS2 controllers reference the coordinated *offset* to the beginning of the 1st coordinated phase. Type 170 controllers reference the coordinated *offset* to the beginning of yellow on the coordinated phase. TS2 offset has been validated against software-in-the-loop Econolite controllers. default *TS2*.
 |**latchingDetectors**  | string    | Passing a string of phases (like "1,2,3,4") will cause the detector in those phases to remain on until the phase has been served, regardless of whether the vehicle left the detection zone or not. default "".
 |**crossPhaseSwitching:X**  | string    | X is a phase number. For example, key="crossPhaseSwitching:2" value="5" will cause phase 5 detector to report to phase 2 while phase 2 is active. Default is no cross phase switching |
+
+## Custom Detectors
+
+By default, a lane-area (E2) detector ending at the stop line is generated for every incoming lane, with length *detector-length* (or *detector-length-leftTurnLane* for lanes whose only connection is a left turn; both default to 20 m).
+
+To use a custom detector, add `<param key="LANE_ID" value="DETECTOR_ID"/>` where LANE_ID is an incoming lane of the traffic light and DETECTOR_ID is a user-defined **laneAreaDetector** (it may lie on another lane). Unlike for [actuated traffic lights](./Traffic_Lights.md#custom_detectors), inductionLoops are not supported for NEMA and cause an error. Keys that are not incoming lanes of the traffic light are ignored. When using several programs, repeat the parameters in each program.
 
 ## <phase\> Attributes
 
@@ -167,7 +173,9 @@ Certain signal timing parameters can be updated during the simulation through Tr
 - **traci.trafficlight.setNemaSplits(tlsID, splits)**: works like setNemaMaxGreens but subtracts the red- and yellow-times before setting maximum green time for each phase
 - **traci.trafficlight.setNemaCycleLength(tlsID, cycleLength)**: the cycle length may change when you update the splits/max green. You need to set the new cycle length to make the new timing work without problems.
 
-All the updates in the signal timing parameters in the NEMA-phase controller will happen after the current cycle ended.
+The values are given as `NEMA.splits` / `NEMA.maxGreens` (8 space-separated numbers for phases 1–8; a value ≤ 0 leaves that phase's stored value unchanged), `NEMA.cycleLength` and `NEMA.offset` (seconds), which can also be set with `traci.trafficlight.setParameter`. These calls act on the currently active program. Each call only stores the new value. All stored values are applied together when a coordinated phase (*barrier2Phases*) of either ring next turns green, and the force-off points are then recalculated, so the phases after it in the same cycle already use the new timing. The timing checks done at load time are not repeated. The offset is measured from simulation time 0. Only `NEMA.phaseCall` (also via `getNemaPhaseCalls`) can be read back.
+
+The parameter *coordinate-mode* is only read when the program is loaded; changing it with `setParameter` has no effect. One way to switch between coordinated and free operation is to define two programs and switch with `traci.trafficlight.setProgram`. As for other traffic light types, the switch is immediate (no yellow), and the other program has kept running while inactive, so it continues from its own current phase.
 
 # Configuration Errors
 

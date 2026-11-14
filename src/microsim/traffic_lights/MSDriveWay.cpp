@@ -1421,7 +1421,7 @@ MSDriveWay::findFlankProtection(MSLink* link, MSLink* origLink, const std::vecto
         const MSLane* lane = link->getLaneBefore();
         std::vector<MSLink*> predLinks;
         for (auto ili : lane->getIncomingLanes()) {
-            if (!ili.viaLink->isTurnaround() || myReversalDriveWays.count(&ili.lane->getEdge()) == 0) {
+            if (!ili.viaLink->isTurnaround() || myReversalDriveWays.count(&ili.lane->getNormalPredecessorLane()->getEdge()) > 0) {
                 predLinks.push_back(ili.viaLink);
             }
         }
@@ -1438,6 +1438,11 @@ MSDriveWay::findFlankProtection(MSLink* link, MSLink* origLink, const std::vecto
             }
         } else if (predLinks.size() == 1) {
             if (isSwitch(link)) {
+#ifdef DEBUG_ADD_FOES
+                if (gDebugFlag4) {
+                    std::cout << "    single predecessor of " << link->getDescription() << " isSwitch\n";
+                }
+#endif
                 addSwitchFoes(link);
             } else {
                 // continue upstream via single predecessor
@@ -1697,7 +1702,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     }
 #ifdef DEBUG_BUILD_DRIVEWAY
     if (DEBUG_COND_DW(dw)) {
-        std::cout << dw->myID << " mb=" << movingBlock << " finalFoes " << toString(dw->myFoes) << "\n";
+        std::cout << dw->myID << " mb=" << movingBlock << " finalFoes " << toString(dw->myFoes) << "\n\n";
     }
     gDebugFlag4 = false;
 #endif

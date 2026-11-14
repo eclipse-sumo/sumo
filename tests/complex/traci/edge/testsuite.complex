@@ -16,3 +16,6 @@ permissions_cch_reroute
 
 # see #18264
 permissions_internal_lane
+
+# see #5827
+adaptTraveltime_reset
