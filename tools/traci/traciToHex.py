@@ -31,22 +31,19 @@ for root, dirs, files in os.walk(mRoot):
     for file in files:
         if file == "testclient.prog":
             full = os.path.join(root, file)
-            out = open(full + ".hex", 'w')
             change = False
-            for line in open(full):
-                ls = line.split()
-                if ls and ls[0] in ["setvalue", "getvalue", "getvariable", "getvariable_plus"]:
-                    if not ls[1][:2] == "0x":
-                        ls[1] = "0x%x" % int(ls[1])
-                        change = True
-                    if not ls[2][:2] == "0x":
-                        ls[2] = "0x%x" % int(ls[2])
-                        change = True
-                print(" ".join(ls), file=out)
-            out.close()
+            with open(full + ".hex", 'w') as out, open(full) as inp:
+                for line in inp:
+                    ls = line.split()
+                    if ls and ls[0] in ["setvalue", "getvalue", "getvariable", "getvariable_plus"]:
+                        if not ls[1][:2] == "0x":
+                            ls[1] = "0x%x" % int(ls[1])
+                            change = True
+                        if not ls[2][:2] == "0x":
+                            ls[2] = "0x%x" % int(ls[2])
+                            change = True
+                    print(" ".join(ls), file=out)
             if change:
-                if os.name != "posix":
-                    os.remove(full)
-                os.rename(out.name, full)
+                os.replace(out.name, full)
             else:
                 os.remove(out.name)

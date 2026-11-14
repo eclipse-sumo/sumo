@@ -93,7 +93,7 @@ def _readLogics(result):
 
 
 class Constraint:
-    def __init__(self, signalId, tripId, foeId, foeSignal, limit, type, mustWait, active=True, param={}):
+    def __init__(self, signalId, tripId, foeId, foeSignal, limit, type, mustWait, active=True, param=None):
         self.signalId = signalId
         self.tripId = tripId
         self.foeId = foeId
@@ -102,7 +102,7 @@ class Constraint:
         self.type = type
         self.mustWait = mustWait
         self.active = active
-        self.param = param
+        self.param = {} if param is None else param
 
     def getParameters(self):
         return self.param
@@ -195,7 +195,8 @@ class TrafficLightDomain(Domain):
         """
         return self._getUniversal(tc.TL_COMPLETE_DEFINITION_RYG, tlsID)
 
-    getCompleteRedYellowGreenDefinition = deprecated("getCompleteRedYellowGreenDefinition")(getAllProgramLogics)
+    getCompleteRedYellowGreenDefinition = deprecated(
+        "getAllProgramLogics", "getCompleteRedYellowGreenDefinition")(getAllProgramLogics)
 
     def getControlledLanes(self, tlsID):
         """getControlledLanes(string) -> tuple(string)
@@ -310,7 +311,7 @@ class TrafficLightDomain(Domain):
         self._setCmd(tc.TL_RED_YELLOW_GREEN_STATE, tlsID, "s", state)
 
     def setLinkState(self, tlsID, tlsLinkIndex, state):
-        """setLinkState(string, string, int, string) -> None
+        """setLinkState(string, int, string) -> None
         Sets the state for the given tls and link index. The state must be one
         of rRgGyYoOu for red, red-yellow, green, yellow, off, where lower case letters mean that the stream has
         to decelerate.
@@ -318,9 +319,13 @@ class TrafficLightDomain(Domain):
         visualization option.
         """
         fullState = list(self.getRedYellowGreenState(tlsID))
-        if tlsLinkIndex >= len(fullState):
+        if tlsLinkIndex < 0 or tlsLinkIndex >= len(fullState):
             raise TraCIException("Invalid tlsLinkIndex %s for tls '%s' with maximum index %s." % (
                 tlsLinkIndex, tlsID, len(fullState) - 1))
+        elif len(state) != 1:
+            # anything else would change the length of the state and thus shift all following links
+            raise TraCIException("Invalid state '%s' for link %s of tls '%s', a single character is needed." % (
+                state, tlsLinkIndex, tlsID))
         else:
             fullState[tlsLinkIndex] = state
             self.setRedYellowGreenState(tlsID, ''.join(fullState))
@@ -424,9 +429,10 @@ class TrafficLightDomain(Domain):
         format = "tsiit"
         values = [5, logic.programID, logic.type, logic.currentPhaseIndex, len(logic.phases)]
         for p in logic.phases:
+            nextPhases = () if p.next is None else p.next
             format += "tdsddt"
-            values += [6, p.duration, p.state, p.minDur, p.maxDur, len(p.next)]
-            for n in p.next:
+            values += [6, p.duration, p.state, p.minDur, p.maxDur, len(nextPhases)]
+            for n in nextPhases:
                 format += "i"
                 values += [n]
             format += "s"
@@ -439,7 +445,8 @@ class TrafficLightDomain(Domain):
             values += [par]
         self._setCmd(tc.TL_COMPLETE_PROGRAM_RYG, tlsID, format, *values)
 
-    setCompleteRedYellowGreenDefinition = deprecated("setCompleteRedYellowGreenDefinition")(setProgramLogic)
+    setCompleteRedYellowGreenDefinition = deprecated(
+        "setProgramLogic", "setCompleteRedYellowGreenDefinition")(setProgramLogic)
 
     def addConstraint(self, tlsID, tripId, foeSignal, foeId, type=0, limit=0):
         """addConstraint(string, string, string, string, int, int) -> None
