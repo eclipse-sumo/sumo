@@ -266,6 +266,8 @@ FileHelpers::prependToLastPathComponent(const std::string& prefix, const std::st
     const std::string::size_type sep_index = path.find_last_of("\\/");
     if (sep_index == std::string::npos) {
         return prefix + path;
+    } else if (isAbsolute(prefix)) {
+        return prefix + path.substr(sep_index + 1);
     } else {
         return path.substr(0, sep_index + 1) + prefix + path.substr(sep_index + 1);
     }
