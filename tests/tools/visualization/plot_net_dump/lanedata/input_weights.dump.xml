@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<meandata>
+    <interval begin="600.00" end="660.00" id="lanedump_60">
+        <edge id="0/0to0/1">
+            <lane id="0/0to0/1_0" occupancy="80.00" speed="5.00"/>
+        </edge>
+        <edge id="0/0to1/0">
+            <lane id="0/0to1/0_0" occupancy="20.00" speed="15.00"/>
+        </edge>
+        <edge id="0/1to0/0">
+            <lane id="0/1to0/0_0" occupancy="40.00" speed="25.00"/>
+        </edge>
+    </interval>
+</meandata>

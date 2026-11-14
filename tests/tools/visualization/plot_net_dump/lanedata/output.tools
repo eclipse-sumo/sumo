@@ -1,0 +1,6 @@
+Reading network from 'net.net.xml'
+Reading colors from 'input_weights.dump.xml' (attribute:occupancy)
+Reading width attribute from 'input_weights.dump.xml' (attribute:speed)
+Processing interval with a beginning of 600.0
+Color values are between 20.0 and 80.0
+Width values are between 5.0 and 25.0
