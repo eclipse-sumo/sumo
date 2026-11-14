@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-04T19:40:49.329300+08:00 by Eclipse SUMO netconvert 41b9f27
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Users\20946\Desktop\sumo-pr\work\18396\net4.nod.xml"/>
+        <edge-files value="C:\Users\20946\Desktop\sumo-pr\work\18396\net4.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\20946\Desktop\sumo-pr\work\18396\net4.net.xml"/>
+    </output>
+
+    <tls_building>
+        <tls.green.time value="20"/>
+        <tls.yellow.time value="3"/>
+        <tls.red.time value="67"/>
+    </tls_building>
+
+    <report>
+        <no-warnings value="true"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,300.00,100.00" origBoundary="0.00,0.00,300.00,100.00" projParameter="!"/>
+
+    <edge id=":B_0" function="internal">
+        <lane id=":B_0_0" index="0" speed="13.89" length="0.10" shape="100.00,-1.60 100.00,-1.60"/>
+    </edge>
+    <edge id=":E_0" function="internal">
+        <lane id=":E_0_0" index="0" speed="13.89" length="0.10" shape="100.00,98.40 100.00,98.40"/>
+    </edge>
+
+    <edge id="AB" from="A" to="B" priority="1">
+        <lane id="AB_0" index="0" speed="13.89" length="100.00" shape="0.00,-1.60 100.00,-1.60"/>
+    </edge>
+    <edge id="BC" from="B" to="C" priority="1">
+        <lane id="BC_0" index="0" speed="13.89" length="200.00" shape="100.00,-1.60 300.00,-1.60"/>
+    </edge>
+    <edge id="DE" from="D" to="E" priority="1">
+        <lane id="DE_0" index="0" speed="13.89" length="100.00" shape="0.00,98.40 100.00,98.40"/>
+    </edge>
+    <edge id="EF" from="E" to="F" priority="1">
+        <lane id="EF_0" index="0" speed="13.89" length="200.00" shape="100.00,98.40 300.00,98.40"/>
+    </edge>
+
+    <tlLogic id="B" type="static" programID="0" offset="0">
+        <phase duration="20" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="67" state="r"/>
+    </tlLogic>
+    <tlLogic id="E" type="static" programID="0" offset="0">
+        <phase duration="20" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="67" state="r"/>
+    </tlLogic>
+
+    <junction id="A" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="B" type="traffic_light" x="100.00" y="0.00" incLanes="AB_0" intLanes=":B_0_0" shape="100.00,0.00 100.00,-3.20 100.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="C" type="dead_end" x="300.00" y="0.00" incLanes="BC_0" intLanes="" shape="300.00,-3.20 300.00,0.00"/>
+    <junction id="D" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,100.00 0.00,96.80"/>
+    <junction id="E" type="traffic_light" x="100.00" y="100.00" incLanes="DE_0" intLanes=":E_0_0" shape="100.00,100.00 100.00,96.80 100.00,100.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="F" type="dead_end" x="300.00" y="100.00" incLanes="EF_0" intLanes="" shape="300.00,96.80 300.00,100.00"/>
+
+    <connection from="AB" to="BC" fromLane="0" toLane="0" via=":B_0_0" tl="B" linkIndex="0" dir="s" state="O"/>
+    <connection from="DE" to="EF" fromLane="0" toLane="0" via=":E_0_0" tl="E" linkIndex="0" dir="s" state="O"/>
+
+    <connection from=":B_0" to="BC" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":E_0" to="EF" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

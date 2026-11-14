@@ -875,6 +875,13 @@ MSNet::simulationStep(const bool onlyMove) {
 
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->simulate(myStep);
+        if (MSGlobals::gMesoInterpolatePos) {
+            // update the position cache for all edges so that output order and
+            // the set of active outputs cannot influence vehicle positions
+            for (const MSEdge* const edge : myEdges->getEdges()) {
+                edge->getMesoPositions();
+            }
+        }
     } else {
         // assure all lanes with vehicles are 'active'
         myEdges->patchActiveLanes();
