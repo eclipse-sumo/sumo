@@ -86,6 +86,7 @@ title: ChangeLog
   - Fixed libsumo crash when using `vehicle.moveToXY` and repeatedly restarting the simulation #18457
 
 - tools
+  - sumolib: fixed duplicate neighboring lanes, repeated fallback query memory growth, and stale spatial indices after moving or extending a network.
   - gtfs2pt.py: fixed crash #18446 (regression in 1.27.1)
   - gtfs2pt.py: option **--write-arrival** now takes into account minimum stop duration in a sub-net #18491
   - gtfs2pt.py: option **--min-stops** is now working in all use cases #18494

@@ -153,6 +153,8 @@ class Lane:
 
         self._shape3D = shape
         self._shape = [(x, y) for x, y, z in shape]
+        self._shapeWithJunctions = None
+        self._shapeWithJunctions3D = None
         shapeLength = sumolib.geomhelper.polyLength(self.getShape())
         if shapeLength > 0:
             self._lengthGeometryFactor = self.getLength() / shapeLength
