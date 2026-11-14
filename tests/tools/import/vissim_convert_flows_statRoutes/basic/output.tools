@@ -1,0 +1,35 @@
+
+---
+
+* loading VISSIM net:
+	 input_data.xml
+
+---
+
+* loading SUMO net:
+	 input_net.net.xml
++ building edge list...
+	OK.
++ building "Verbinder"("connector") info...
+	OK.
+
+---
+* parsing speeds...
+* parsing vehicle distributions...
+* parsing vehicle types...
+OK.
+---
+* parsing vehicle in-flow definitions...
+* parsing vehicle routes...
++ validating relative flows...
++ setting route branching probabilities...
+OK.
+---
+* output routes generation...
+---
+---
+OK.
+---
+* writing output:
+. data written to:
+	 out.rou.xml

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<network version="100">
+    <simulation simPeriod="2700"/>
+    <links>
+        <link no="1"/>
+        <link no="2"/>
+        <link no="3"/>
+        <link no="10001">
+            <fromLinkEndPt link="1" pos="50.0"/>
+        </link>
+    </links>
+    <maxAccelerationFunctions>
+        <maxAccelerationFunction no="1">
+            <accelerationFunctionDataPoints>
+                <accelerationFunctionDataPoint x="0" y="3.500000"/>
+            </accelerationFunctionDataPoints>
+        </maxAccelerationFunction>
+    </maxAccelerationFunctions>
+    <desSpeedDistributions>
+        <desSpeedDistribution no="10">
+            <speedDistributionDataPoints>
+                <speedDistributionDataPoint x="50.0" fx="0.0"/>
+                <speedDistributionDataPoint x="50.0" fx="1.0"/>
+            </speedDistributionDataPoints>
+        </desSpeedDistribution>
+    </desSpeedDistributions>
+    <models2D3D>
+        <model2D3D no="1">
+            <model2D3DSegments>
+                <model2D3DSegment length="4.50"/>
+            </model2D3DSegments>
+        </model2D3D>
+    </models2D3D>
+    <model2D3DDistributions>
+        <model2D3DDistribution no="1">
+            <model2D3DDistributionElements>
+                <model2D3DDistributionElement model2D3D="1" share="1.0"/>
+            </model2D3DDistributionElements>
+        </model2D3DDistribution>
+    </model2D3DDistributions>
+    <vehicleTypes>
+        <vehicleType no="100" model2D3DDistr="1" maxAccelFunc="1"/>
+    </vehicleTypes>
+    <vehicleCompositions>
+        <vehicleComposition no="1">
+            <vehCompRelFlows>
+                <vehicleCompositionRelativeFlow vehType="100" desSpeedDistr="10" relFlow="1.0"/>
+            </vehCompRelFlows>
+        </vehicleComposition>
+        <vehicleComposition no="2">
+            <vehCompRelFlows>
+                <vehicleCompositionRelativeFlow vehType="100" desSpeedDistr="10" relFlow="0.0"/>
+            </vehCompRelFlows>
+        </vehicleComposition>
+    </vehicleCompositions>
+    <vehicleInputs>
+        <vehicleInput link="1">
+            <timeIntVehVols>
+                <timeIntervalVehVolume timeInt="1 0" volume="300.0" vehComp="1" volType="STOCHASTIC"/>
+                <timeIntervalVehVolume timeInt="1 900000" volume="450.0" vehComp="1" volType="STOCHASTIC"/>
+                <timeIntervalVehVolume timeInt="1 1800000" volume="200.0" vehComp="1" volType="STOCHASTIC"/>
+            </timeIntVehVols>
+        </vehicleInput>
+    </vehicleInputs>
+    <vehicleRoutingDecisionsStatic>
+        <vehicleRoutingDecisionStatic link="1">
+            <vehRoutSta>
+                <vehicleRouteStatic no="1" destLink="2" relFlow="2 0:0.25, 2 1800000:0.0">
+                    <linkSeq>
+                        <intObjectRef key="10001"/>
+                    </linkSeq>
+                </vehicleRouteStatic>
+                <vehicleRouteStatic no="2" destLink="3" relFlow="2 0:0.75, 2 900000, 2 1800000:0.0"/>
+            </vehRoutSta>
+        </vehicleRoutingDecisionStatic>
+    </vehicleRoutingDecisionsStatic>
+</network>
