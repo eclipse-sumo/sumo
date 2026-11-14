@@ -862,7 +862,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
                     self._net.getEdge(edge).detGroup.append(group)
         sources = set()
         sinks = set()
-        for det in sumolib.xml.parse(detFile, ["detectorDefinition", "e1Detector"]):
+        for det in sumolib.xml.parse(detFile, ["detectorDefinition", "e1Detector", "inductionLoop"]):
             if hasattr(det, "type"):
                 if det.type == "source":
                     if options.lanebased:
@@ -899,7 +899,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
                 edgeObj = self._net.getEdge(edge)
                 groups = self._detReader.getEdgeDetGroups(edge)
                 if len(groups) == 0:
-                    self._detReader.addDetector(edge, edgeObj.length / 2, edge)
+                    self._detReader.addDetector(edge, edgeObj.length / 2, edge, None)
                     self._net.getEdge(edge).detGroup.append(self._detReader.getEdgeDetGroups(edge)[0])
                 self._detReader.addFlow(edge, int(float(flow) * factor))
 
