@@ -20,129 +20,92 @@ import os
 import sys
 from collections import OrderedDict
 if "SUMO_HOME" in os.environ:
-    sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools")]
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+else:
+    sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 import sumolib  # noqa
+
+ATTRS = (
+    "energyConsumed",
+    "totalEnergyConsumed",
+    "totalEnergyRegenerated",
+    "energyChargedInTransit",
+    "energyChargedStopped",
+    "timeStopped",
+)
+WRITE_ATTRS = ATTRS + ("aggregateNumber",)
 
 
 def parseTimeSteps(inputFile):
-    # create matrix for result
     result = {}
-    # iterate over timeSteps
     for timeStep in sumolib.xml.parse(inputFile, 'timestep'):
         timestepFloat = float(timeStep.time)
-        # create substructure
         result[timestepFloat] = {}
         for vehicle in timeStep.vehicle or []:
-            # add vehicle
-            result[timestepFloat][vehicle.id] = {}
-            # add vehicle values
-            result[timestepFloat][vehicle.id]["energyConsumed"] = float(vehicle.energyConsumed)
-            result[timestepFloat][vehicle.id]["totalEnergyConsumed"] = float(vehicle.totalEnergyConsumed)
-            result[timestepFloat][vehicle.id]["totalEnergyRegenerated"] = float(vehicle.totalEnergyRegenerated)
-            result[timestepFloat][vehicle.id]["energyChargedInTransit"] = float(vehicle.energyChargedInTransit)
-            result[timestepFloat][vehicle.id]["energyChargedStopped"] = float(vehicle.energyChargedStopped)
-            result[timestepFloat][vehicle.id]["timeStopped"] = float(vehicle.timeStopped)
-    # return result
+            result[timestepFloat][vehicle.id] = {attr: float(getattr(vehicle, attr)) for attr in ATTRS}
     return result
 
 
 def writeTimeSteps(result, outputFile):
-    with open(outputFile, "w") as f:
+    with sumolib.openz(outputFile, "w") as f:
         sumolib.xml.writeHeader(f)
         f.write("<battery-export>\n")
         Step = sumolib.xml.compound_object('timestep', ['interval'])
-        for timeStep in result:
-            # create ET subElement (node) for timeStep
-            step = Step([str(timeStep[0]) + "-" + str(timeStep[1])])
-            # iterate over timeStep's vehicles
-            for vehicleID in timeStep[2]:
-                vehicleAttributes = timeStep[2][vehicleID]
-                attrs = ("energyConsumed", "totalEnergyConsumed", "totalEnergyRegenerated",
-                         "energyChargedInTransit", "energyChargedStopped", "timeStopped", "aggregateNumber")
-                attrValues = OrderedDict([("id", vehicleID)] + [(a, str(vehicleAttributes[a])) for a in attrs])
-                # create ET sub element (node) for vehicle
+        for start, end, vehicles in result:
+            step = Step(["%s-%s" % (start, end)])
+            for vehicleID, vehicleAttributes in vehicles.items():
+                attrValues = OrderedDict(
+                    [("id", vehicleID)] + [(a, str(vehicleAttributes[a])) for a in WRITE_ATTRS]
+                )
                 step.addChild('vehicle', attrValues, sortAttrs=False)
-            # write Output
             f.write(step.toXML("    "))
         f.write("</battery-export>\n")
 
 
 def processMatrix(matrix, timeToSplit):
-    # create matrix for result
+    if not matrix:
+        return []
     result = []
-    # get last
     lastValue = int(list(matrix.keys())[-1])
-    # fill timesteps
-    for timeStep in range(0, lastValue, timeToSplit):
-        # check if this is the last interval
-        if ((timeStep + timeToSplit - 1) > lastValue):
-            result.append([timeStep, lastValue, {}])
-        else:
-            result.append([timeStep, timeStep + timeToSplit - 1, {}])
-    # declare timeStep counter
+    if lastValue == 0:
+        result.append([0, 0, {}])
+    else:
+        for timeStep in range(0, lastValue, timeToSplit):
+            endStep = min(timeStep + timeToSplit - 1, lastValue)
+            result.append([timeStep, endStep, {}])
     timeStepCounter = 0
-    # now copy values from matrix to result
-    for timeStep in matrix:
-        # check if update counter
-        if (result[timeStepCounter][1] < timeStep):
+    for timeStep, stepVehicles in matrix.items():
+        while timeStepCounter < len(result) and result[timeStepCounter][1] < timeStep:
             timeStepCounter += 1
-        # copy vehicle information
-        for vehicleID in matrix[timeStep]:
-            # get vehicle from Matrix
-            vehicleMatrix = matrix[timeStep][vehicleID]
-            # declare flag for find
-            found = False
-            # iterate over all vehicle IDs that there is already in result
-            for vehicleIDResult in result[timeStepCounter][2]:
-                # check if was already inserted and we have only to update
-                if ((vehicleIDResult == vehicleID) and not found):
-                    # get vehicle from Result
-                    vehicleResult = result[timeStepCounter][2][vehicleIDResult]
-                    # declare new vehicle attributes
-                    newVehicleAttributes = {}
-                    # update vehicle attributes
-                    newVehicleAttributes["energyConsumed"] = float(
-                        vehicleResult["energyConsumed"]) + float(vehicleMatrix["energyConsumed"])
-                    newVehicleAttributes["totalEnergyConsumed"] = float(
-                        vehicleResult["totalEnergyConsumed"]) + float(vehicleMatrix["totalEnergyConsumed"])
-                    newVehicleAttributes["totalEnergyRegenerated"] = float(
-                        vehicleResult["totalEnergyRegenerated"]) + float(vehicleMatrix["totalEnergyRegenerated"])
-                    newVehicleAttributes["energyChargedInTransit"] = float(
-                        vehicleResult["energyChargedInTransit"]) + float(vehicleMatrix["energyChargedInTransit"])
-                    newVehicleAttributes["energyChargedStopped"] = float(
-                        vehicleResult["energyChargedStopped"]) + float(vehicleMatrix["energyChargedStopped"])
-                    newVehicleAttributes["timeStopped"] = float(
-                        vehicleResult["timeStopped"]) + float(vehicleMatrix["timeStopped"])
-                    newVehicleAttributes["aggregateNumber"] = float(vehicleResult["aggregateNumber"]) + 1
-                    # add new vehicle attributes in result
-                    result[timeStepCounter][2][vehicleIDResult] = newVehicleAttributes
-                    # update flag
-                    found = True
-            # if vehicle wasn't found add it
-            if not found:
-                # declare new vehicle attributes
-                newVehicleAttributes = {}
-                # add vehicle attributes
-                newVehicleAttributes["energyConsumed"] = float(vehicleMatrix["energyConsumed"])
-                newVehicleAttributes["totalEnergyConsumed"] = float(vehicleMatrix["totalEnergyConsumed"])
-                newVehicleAttributes["totalEnergyRegenerated"] = float(vehicleMatrix["totalEnergyRegenerated"])
-                newVehicleAttributes["energyChargedInTransit"] = float(vehicleMatrix["energyChargedInTransit"])
-                newVehicleAttributes["energyChargedStopped"] = float(vehicleMatrix["energyChargedStopped"])
-                newVehicleAttributes["timeStopped"] = float(vehicleMatrix["timeStopped"])
+        if not stepVehicles:
+            continue
+        if timeStepCounter >= len(result):
+            startStep = result[-1][1] + 1
+            result.append([startStep, max(startStep, int(timeStep)), {}])
+        intervalVehicles = result[timeStepCounter][2]
+        for vehicleID, vehicleMatrix in stepVehicles.items():
+            if vehicleID in intervalVehicles:
+                vehicleResult = intervalVehicles[vehicleID]
+                for attr in ATTRS:
+                    vehicleResult[attr] += vehicleMatrix[attr]
+                vehicleResult["aggregateNumber"] += 1.0
+            else:
+                newVehicleAttributes = {attr: vehicleMatrix[attr] for attr in ATTRS}
                 newVehicleAttributes["aggregateNumber"] = 1.0
-                # add new vehicle attributes in result
-                result[timeStepCounter][2][vehicleID] = newVehicleAttributes
-
-    # return  matrix
+                intervalVehicles[vehicleID] = newVehicleAttributes
     return result
 
 
-def main():
+def get_options(args=None):
     op = sumolib.options.ArgumentParser()
     op.add_argument("-i", "--input", type=op.file, category="input", help="battery input file")
     op.add_argument("-o", "--output", type=op.file, category="output", help="battery merged output file")
     op.add_argument("-t", "--time", type=op.time, help="time to merge")
-    opts = op.parse_args()
+    return op.parse_args(args=args)
+
+
+def main(args=None):
+    opts = get_options(args)
     matrix = parseTimeSteps(opts.input)
     matrix = processMatrix(matrix, int(opts.time))
     writeTimeSteps(matrix, opts.output)
