@@ -287,11 +287,13 @@ def getFreeSocketPort(numTries=10):
 
 
 def getSocketStream(port, mode='rb'):
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind(("localhost", port))
-    s.listen(1)
-    conn, _ = s.accept()
-    return conn.makefile(mode)
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind(("localhost", port))
+        s.listen(1)
+        conn, _ = s.accept()
+    stream = conn.makefile(mode)
+    conn.close()
+    return stream
 
 
 # euclidean distance between two coordinates in the plane
@@ -326,9 +328,12 @@ def parseTime(t, factor=1):
     except ValueError:
         pass
     try:
-        # prepended zero is ignored if the date value already contains days
-        days, hours, minutes, seconds = ([0] + list(map(float, t.split(':'))))[-4:]
-        sign = -1 if t.strip()[0] == '-' else 1
+        t_stripped = t.strip()
+        sign = -1 if t_stripped.startswith('-') else 1
+        if sign == -1:
+            t_stripped = t_stripped[1:]
+        # prepended zeroes are ignored if the date value already contains days/hours
+        days, hours, minutes, seconds = ([0, 0] + list(map(float, t_stripped.split(':'))))[-4:]
         return (3600 * 24 * days + 3600 * hours + 60 * minutes + seconds) * sign * factor
     except ValueError:
         if t in SPECIAL_TIME_STRINGS:
@@ -392,28 +397,35 @@ def openz(fileOrURL, mode="r", **kwargs):
     Also enforces UTF8 on text output / input and should handle BOMs in input.
     Should be compatible with python 2 and 3.
     """
-    encoding = kwargs.get("encoding", "utf8" if "w" in mode else "utf-8-sig")
+    encoding = kwargs.get("encoding", "utf8" if ("w" in mode or "a" in mode) else "utf-8-sig")
+    pathStr = os.fspath(fileOrURL) if isinstance(fileOrURL, os.PathLike) else fileOrURL
     try:
-        if fileOrURL.startswith("http://") or fileOrURL.startswith("https://"):
-            return io.BytesIO(urlopen(fileOrURL).read())
-        if fileOrURL == "stdout":
-            return sys.stdout
-        if fileOrURL == "stderr":
-            return sys.stderr
-        if fileOrURL.endswith(".gz") and "w" in mode:
-            if "b" in mode:
-                return gzip.open(fileOrURL, mode="w")
-            return gzip.open(fileOrURL, mode="wt", encoding=encoding)
-        if kwargs.get("trySocket") and fileOrURL.isdigit():
-            return getSocketStream(int(fileOrURL), mode)
+        if isinstance(pathStr, str):
+            if pathStr.startswith("http://") or pathStr.startswith("https://"):
+                with urlopen(pathStr) as resp:
+                    data = resp.read()
+                if "b" in mode:
+                    return io.BytesIO(data)
+                return io.StringIO(data.decode(encoding))
+            if pathStr == "stdout":
+                return sys.stdout
+            if pathStr == "stderr":
+                return sys.stderr
+            if pathStr.endswith(".gz") and ("w" in mode or "a" in mode):
+                gzMode = "a" if "a" in mode else "w"
+                if "b" in mode:
+                    return gzip.open(pathStr, mode=gzMode + "b")
+                return gzip.open(pathStr, mode=gzMode + "t", encoding=encoding)
+            if kwargs.get("trySocket") and pathStr.isdigit():
+                return getSocketStream(int(pathStr), mode)
         if kwargs.get("tryGZip", True) and "r" in mode:
-            with gzip.open(fileOrURL) as fd:
+            with gzip.open(pathStr) as fd:
                 fd.read(1)
             if "b" in mode:
-                return gzip.open(fileOrURL)
+                return gzip.open(pathStr)
             if sys.version_info[0] < 3:
-                return codecs.getreader('utf-8')(gzip.open(fileOrURL))
-            return gzip.open(fileOrURL, mode="rt", encoding=encoding)
+                return codecs.getreader('utf-8')(gzip.open(pathStr))
+            return gzip.open(pathStr, mode="rt", encoding=encoding)
     except OSError as e:
         if kwargs.get("printErrors"):
             print(e, file=sys.stderr)
@@ -421,8 +433,8 @@ def openz(fileOrURL, mode="r", **kwargs):
         if kwargs.get("printErrors"):
             print(e, file=sys.stderr)
     if "b" in mode:
-        return io.open(fileOrURL, mode=mode)
-    return io.open(fileOrURL, mode=mode, encoding=encoding)
+        return io.open(pathStr, mode=mode)
+    return io.open(pathStr, mode=mode, encoding=encoding)
 
 
 def short_names(filenames, noEmpty):
@@ -433,7 +445,7 @@ def short_names(filenames, noEmpty):
     suffix = os.path.commonprefix(reversedNames)
     prefixLen = len(prefix)
     suffixLen = len(suffix)
-    shortened = [f[prefixLen:-suffixLen] for f in filenames]
+    shortened = [f[prefixLen:len(f) - suffixLen] for f in filenames]
     if noEmpty and any([not f for f in shortened]):
         # make longer to avoid empty file names
         base = os.path.basename(prefix)

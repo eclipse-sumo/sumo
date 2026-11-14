@@ -25,6 +25,7 @@ try:
     from numpy import sqrt, set_printoptions
 except ImportError:
     from math import sqrt
+    set_printoptions = None
 
 
 def round(value):  # to round in Python 3 like in Python 2
@@ -76,7 +77,8 @@ uMin = _ExtremeType(False, "uMin")
 
 def setPrecision(formatstr, precision, isArray=False, preformatted=False):
     if isArray:
-        set_printoptions(precision=2)
+        if set_printoptions is not None:
+            set_printoptions(precision=int(precision))
         return formatstr.replace('%.2f', '%s')
     elif preformatted:
         return formatstr.replace('%.2f', '%s')
@@ -206,7 +208,8 @@ class Statistics:
 
     def rank(self, fraction):
         if len(self.values) > 0:
-            return sorted(self.values)[int(round(len(self.values) * fraction + 0.5))]
+            idx = min(len(self.values) - 1, max(0, int(round(len(self.values) * fraction + 0.5))))
+            return sorted(self.values)[idx]
         else:
             return None
 
@@ -291,13 +294,14 @@ class Statistics:
 
     def normalise_to_range(self, n_min=0, n_max=1):
         """Normalises the stored list of values between n_min and n_max, Default: [0,1]"""
-        ret = []
+        if not self.values:
+            return []
         range_length = n_max - n_min
-        values_diff = max(self.values) - min(self.values)
-        for val in self.values:
-            temp = (((val - min(self.values))*range_length)/values_diff) + n_min
-            ret.append(temp)
-        return ret
+        v_min = min(self.values)
+        values_diff = max(self.values) - v_min
+        if values_diff == 0:
+            return [n_min for _ in self.values]
+        return [((val - v_min) * range_length) / values_diff + n_min for val in self.values]
 
 
 def geh(m, c):
@@ -308,7 +312,7 @@ def geh(m, c):
         return math.sqrt(2 * (m - c) * (m - c) / (m + c))
 
 
-def sqv(self, m, c, scaling_factor=1000):
+def sqv(m, c, scaling_factor=1000):
     """Scaling Quality Value Calculation, Ref: https://journals.sagepub.com/doi/10.1177/0361198119838849
         scaling_factor:
         Number of person trips per day (total, per mode, per purpose) : 1
@@ -317,4 +321,6 @@ def sqv(self, m, c, scaling_factor=1000):
         Traffic volume per hour : 1000
         Traffic volume per day : 10000
     """
-    return 1/(1 + math.sqrt(((m-c)*(m-c))/(scaling_factor*c)))
+    if c == 0 or scaling_factor == 0:
+        return 1.0 if m == c else 0.0
+    return 1 / (1 + math.sqrt(((m - c) * (m - c)) / (scaling_factor * c)))

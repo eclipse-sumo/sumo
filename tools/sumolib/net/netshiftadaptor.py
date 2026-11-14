@@ -39,7 +39,7 @@ class NetShiftAdaptor:
         self._nodes1 = nodes1
         self._nodes2 = nodes2
         if len(nodes1) != 3 or len(nodes2) != 3:
-            raise "Both node lists must contain exactly 3 node ids"
+            raise ValueError("Both node lists must contain exactly 3 node ids")
 
     def reproject(self, verbose=False):
         x11 = self._net1._id2node[self._nodes1[0]]._coord[0]
@@ -61,8 +61,9 @@ class NetShiftAdaptor:
             b1 = ((x22 - x0) * (y23 - y0) - (x23 - x0) * (y22 - y0)) / b0
             b2 = ((x23 - x0) * (y21 - y0) - (x21 - x0) * (y23 - y0)) / b0
             b3 = ((x21 - x0) * (y22 - y0) - (x22 - x0) * (y21 - y0)) / b0
+            z0 = n._coord[2] if len(n._coord) > 2 else 0.
             n._coord = (
-                b1 * x11 + b2 * x12 + b3 * x13, b1 * y11 + b2 * y12 + b3 * y13)
+                b1 * x11 + b2 * x12 + b3 * x13, b1 * y11 + b2 * y12 + b3 * y13, z0)
         for e in self._net2._edges:
             for _lane in e.getLanes():
                 shape = []
