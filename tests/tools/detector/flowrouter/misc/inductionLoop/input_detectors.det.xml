@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<additional>
+    <inductionLoop id="beg" lane="beg_0" pos="5" freq="60" file="NUL" type="source"/>
+    <e1Detector id="end" lane="rend_0" pos="5" freq="60" file="NUL" type="sink"/>
+</additional>

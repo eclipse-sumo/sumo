@@ -10,3 +10,6 @@ source_sink_output
 
 # write pedestrian flows
 pedestrians
+
+# inductionLoop and e1Detector input
+inductionLoop
