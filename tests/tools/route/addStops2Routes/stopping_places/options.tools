@@ -1,0 +1,1 @@
+-o out.rou.xml -n input_net.net.xml -r input_routes.rou.xml --duration 60 --stopping-places input_additional.add.xml --stopping-place-types busStop,parkingArea
