@@ -355,8 +355,6 @@ class Builder(object):
             # be used by sumo-gui
             randomTripsCalls = []
 
-            self.edges = sumolib.net.readNet(os.path.join(self.tmp, self.files["net"])).getEdges()
-
             seed = 42
             for vehicle in sorted(self.data["vehicles"].keys()):
                 options = self.data["vehicles"][vehicle]
@@ -523,20 +521,30 @@ class Builder(object):
             files = ["net", "guisettings", "config", "run.bat"]
 
             if self.data["vehicles"] or self.data["publicTransport"]:
-                files += ["build.bat"]
+                if "build.bat" in self.files:
+                    files += ["build.bat"]
 
-            if self.data["poly"]:
+            if self.data["poly"] and "poly" in self.files:
                 files += ["poly"]
 
             # translate the pseudo file names to real file names
-            files = list(map(lambda name: self.files[name], files))
+            files = [self.files[name] for name in files]
+            files += self.routenames
+            files += self.additionalFiles
 
-            if self.data["vehicles"]:
-                files += self.routenames
-
+            seen = set()
             # add the files to the zip
             for name in files:
-                zipfile.write(name)
+                if name not in seen and os.path.exists(name):
+                    seen.add(name)
+                    zipfile.write(name, arcname=os.path.basename(name))
+
+            bgDir = os.path.join(self.tmp, "background_images")
+            if self.data.get("decal") and not self.decalError and os.path.isdir(bgDir):
+                for bgFile in sorted(os.listdir(bgDir)):
+                    bgPath = os.path.join(bgDir, bgFile)
+                    if os.path.isfile(bgPath):
+                        zipfile.write(bgPath, arcname=os.path.join("background_images", bgFile))
 
         # now open the zip file as raw
         with open(self.files["zip"], "rb") as zipfile:
@@ -631,7 +639,7 @@ class OSMImporterHTTPHandler(SimpleHTTPRequestHandler):
             if self.server.local:
                 builder.openSUMO()
             else:
-                self.server.messages.append(b"zip " + builder.createZip())
+                self.server.messages.append("zip " + builder.createZip().decode("ascii"))
                 builder.finalize()
         except ssl.CertificateError:
             self.report(builder.TL("Error with SSL certificate, try 'pip install -U certifi'."))
