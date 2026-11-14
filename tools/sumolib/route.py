@@ -95,7 +95,7 @@ def _getMinPath(paths, detoursOut=None, indicesOut=None, priorEdges=0):
 
 def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapPenalty=-1,
              debug=False, direction=False, vClass=None, vias=None, reversalPenalty=0.,
-             fastest=False, resultDetours=None, preferences={}, distPenalty=2,
+             fastest=False, resultDetours=None, preferences=None, distPenalty=2,
              resultIndices=None):
     """
     matching a list of 2D positions to consecutive edges in a network.
@@ -106,6 +106,8 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
         resultDetours = []
     if resultIndices is None:
         resultIndices = []
+    if preferences is None:
+        preferences = {}
     paths = {}  # maps a path stub to a tuple (currentCost, posOnLastEdge, detours)
     lastPos = None
     nPathCalls = 0
@@ -122,7 +124,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                     edge = net.getEdge(edgeID)
                     offset = polygonOffsetWithMinimumDistanceToPoint(pos, edge.getShape())
                     offsetPos = positionAtShapeOffset(edge.getShape(), offset)
-                    candidates.append((net.getEdge(edgeID), euclidean(pos, offsetPos)))
+                    candidates.append((edge, euclidean(pos, offsetPos)))
                 else:
                     print("Unknown via edge %s for %s,%s" % (edgeID, x, y))
             if candidates:
@@ -196,7 +198,8 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                                 pathCost = cost
                                 baseDiff = advance - pathCost
                                 extension = extension[1:]
-                                pathLength = sum([e.getLength() for e in extension[:-1]]) - lastBase + base
+                                pathLength = (path[-1].getLength() - lastBase +
+                                              sum([e.getLength() for e in extension[:-1]]) + base)
                             if debug:
                                 print("------- extension cost: %.2f, pathCost: %.2f, pathLength: %.2f n: %s edges: %s" %
                                       (cost, pathCost, pathLength, len(extension),
@@ -212,7 +215,8 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                             bestLength = pathLength
                             if debug:
                                 print("*** new dist: %.2f baseDiff: %.2f minDist: %.2f advance: %.2f pathLength: %.2f detour: %.2f" % (  # noqa
-                                    dist, baseDiff, minDist, advance, bestLength, bestLength / advance))
+                                    dist, baseDiff, minDist, advance, bestLength,
+                                    bestLength / advance if advance > 0 else 0))
                 if minPath:
                     newPaths[minPath] = (minDist, base,
                                          minDetours + [bestLength / advance if advance > 0 else 0],

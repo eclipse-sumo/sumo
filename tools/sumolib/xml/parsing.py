@@ -40,7 +40,7 @@ from .. import miscutils
 
 DEFAULT_ATTR_CONVERSIONS = {
     # shape-like
-    'shape': lambda coords: map(lambda xy: map(float, xy.split(',')), coords.split()),
+    'shape': lambda coords: [list(map(float, xy.split(','))) for xy in coords.split()],
     # float
     'speed': float,
     'length': float,
@@ -234,15 +234,14 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
             if name in self._fields:
                 self.__dict__[name] = value
             else:
+                prefixed = _prefix_keyword(name, warn)
                 if name not in self._original_fields:
                     if isinstance(self._original_fields, tuple):
-                        tempList = list(self._original_fields)
-                        tempList.append(name)
-                        self._original_fields = tuple(tempList)
+                        self._original_fields = self._original_fields + (name,)
                     else:
-                        self._original_fields.append(name)
-                    self._fields.append(_prefix_keyword(name, warn))
-                self.__dict__[_prefix_keyword(name, warn)] = value
+                        self._original_fields = list(self._original_fields) + [name]
+                    self._fields = list(self._fields) + [prefixed]
+                self.__dict__[prefixed] = value
 
         def hasChild(self, name):
             return name in self._child_dict
@@ -286,7 +285,7 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
             return "function Comment" in str(self.name)
 
         def getComments(self):
-            if not supports_comments:
+            if not supports_comments():
                 sys.stderr.write("Comment parsing is only supported with version 3.8 or higher by sumolib.xml\n")
             for name, children in self._child_dict.items():
                 if "function Comment" in str(name):
@@ -324,10 +323,23 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
                     self._child_list.remove(c)
                 del self._child_dict[name]
             else:
-                if name in self.__dict__:
+                idx = None
+                if name in self._original_fields:
+                    idx = list(self._original_fields).index(name)
+                elif name in self._fields:
+                    idx = self._fields.index(name)
+                if idx is not None:
+                    field_name = self._fields[idx]
+                    if field_name in self.__dict__:
+                        del self.__dict__[field_name]
+                    orig = list(self._original_fields)
+                    del orig[idx]
+                    self._original_fields = tuple(orig) if isinstance(self._original_fields, tuple) else orig
+                    self._fields = self._fields[:idx] + self._fields[idx + 1:]
+                elif name in self.__dict__:
                     del self.__dict__[name]
-                self._original_fields.remove(name)
-                self._fields.remove(_prefix_keyword(name, False))
+                else:
+                    raise AttributeError(name)
 
         def __getitem__(self, name):
             return self._child_dict[name]
@@ -495,7 +507,7 @@ def create_document(root_element_name, attrs=None, schema=None):
 def sum(elements, attrname):
     # for the given elements (as returned by method parse) compute the sum for attrname
     # attrname must be the name of a numerical attribute
-    return reduce(lambda x, y: x + y, [float(getattr(e, attrname)) for e in elements])
+    return reduce(lambda x, y: x + y, [float(getattr(e, attrname)) for e in elements], 0.)
 
 
 def average(elements, attrname):
@@ -619,6 +631,7 @@ def parse_fast_nested(xmlfile, element_name, attrnames=None, element_name2=None,
         Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
     if attrnames2 is not None:
         Record2, reprog2 = _createRecordAndPattern(element_name2, attrnames2, warn, optional)
+    finalizer = "</%s>" % element_name
     xmlfile, close_source = _check_file_like(xmlfile)
     try:
         for line in _comment_filter(xmlfile):
@@ -642,7 +655,7 @@ def parse_fast_nested(xmlfile, element_name, attrnames=None, element_name2=None,
                 m = reprog.search(line)
                 if m:
                     record = Record(**m.groupdict())
-                elif element_name in line:
+                elif finalizer in line:
                     record = None
     finally:
         if close_source:

@@ -159,8 +159,10 @@ class VehAttribute:
         self.distribution_params = distribution_params
         self.bounds = bounds
         self.attribute_value = attribute_value
-        if self.attribute_value and self.distribution:
+        if self.attribute_value is not None and self.distribution:
             raise ValueError("Only one of distribution or attribute value should be defined, not both")
+        if self.attribute_value is None and not self.distribution:
+            raise ValueError("Either distribution or attribute_value must be defined")
         self.d_obj = self._dist_helper(distribution, distribution_params, bounds)
 
     def _dist_helper(self, distribution, dist_params, dist_bounds):
@@ -173,8 +175,9 @@ class VehAttribute:
                 raise ValueError("The distribution %s is not known. Please select one of: \n%s " %
                                  (distribution, "\n".join(_DIST_DICT.keys())))
         else:
+            val_str = str(self.attribute_value)
             isNumeric = False if self.name == "emissionClass" else len(
-                re.findall(r'^(-?[0-9]+(\.[0-9]+)?)$', self.attribute_value)) > 0
+                re.findall(r'^(-?[0-9]+(\.[0-9]+)?)$', val_str)) > 0
             d = _FixDistribution((self.attribute_value, ), isNumeric)
         return d
 
@@ -198,7 +201,7 @@ class CreateVehTypeDistribution:
             resampling (int, optional): number of attempts to resample a value until it lies in the specified bounds.
             decimal_places (int, optional): number of decimal places.
         """
-        if seed:
+        if seed is not None:
             random.seed(seed)
 
         self.size = size
