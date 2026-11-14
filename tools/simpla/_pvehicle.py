@@ -79,22 +79,25 @@ class PVehicle(object):
         self._laneChangeModes = dict()
         # original vtype, speedFactor and lanechangemodes
         self._vTypes[PlatoonMode.NONE] = traci.vehicle.getTypeID(ID)
-        self._speedFactors[PlatoonMode.NONE] = traci.vehicle.getSpeedFactor(ID)
-        # This is the default mode
-        self._laneChangeModes[PlatoonMode.NONE] = 0b1001010101
+        self._speedFactors[PlatoonMode.NONE] = (
+            cfg.SPEEDFACTOR[PlatoonMode.NONE]
+            if cfg.SPEEDFACTOR[PlatoonMode.NONE] is not None
+            else traci.vehicle.getSpeedFactor(ID)
+        )
+        # Default / configured original laneChangeMode
+        self._laneChangeModes[PlatoonMode.NONE] = cfg.LC_MODE[PlatoonMode.NONE]
 
         # vTypes, speedFactors and lanechangemodes parametrizing the platoon behaviour
         for mode in [PlatoonMode.LEADER, PlatoonMode.FOLLOWER, PlatoonMode.CATCHUP, PlatoonMode.CATCHUP_FOLLOWER]:
             self._vTypes[mode] = self._determinePlatoonVType(mode)
             self._laneChangeModes[mode] = cfg.LC_MODE[mode]
             self._speedFactors[mode] = cfg.SPEEDFACTOR[mode]
-        self._speedFactors[PlatoonMode.NONE] = traci.vehicletype.getSpeedFactor(self._vTypes[PlatoonMode.NONE])
 
         # Initialize platoon mode to none
         self._currentPlatoonMode = PlatoonMode.NONE
         # the active speed factor is decreased as the waiting time for a mode switch rises
         # (assuming that the main hindrance to switching is too close following)
-        self._activeSpeedFactor = cfg.SPEEDFACTOR[self._currentPlatoonMode]
+        self._activeSpeedFactor = self._speedFactors[self._currentPlatoonMode]
         # The switch impatience factor determines the magnitude of the effect
         # that an increasing waiting time has on the active speed factor:
         # activeSpeedFactor = modeSpecificSpeedFactor/(1+impatienceFactor*waitingTime)
