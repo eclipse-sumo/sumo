@@ -38,17 +38,18 @@
 RORoute::RORoute(const std::string& id, double costs, double prop,
                  const ConstROEdgeVector& route,
                  const RGBColor* const color,
-                 const StopParVector& stops)
+                 const StopParVector& stops,
+                 const int repeat)
     : Named(StringUtils::convertUmlaute(id)), myCosts(costs),
-      myProbability(prop), myRoute(route), myColor(color), myStops(stops) {}
+      myProbability(prop), myRoute(route), myColor(color), myStops(stops), myRepeat(repeat) {}
 
 RORoute::RORoute(const std::string& id, const ConstROEdgeVector& route)
     : Named(StringUtils::convertUmlaute(id)), myCosts(0.0),
-      myProbability(0.0), myRoute(route), myColor(nullptr), myStops() {}
+      myProbability(0.0), myRoute(route), myColor(nullptr), myStops(), myRepeat(0) {}
 
 RORoute::RORoute(const RORoute& src)
     : Named(src.myID), myCosts(src.myCosts),
-      myProbability(src.myProbability), myRoute(src.myRoute), myColor(nullptr) {
+      myProbability(src.myProbability), myRoute(src.myRoute), myColor(nullptr), myStops(src.myStops), myRepeat(src.myRepeat) {
     if (src.myColor != nullptr) {
         myColor = new RGBColor(*src.myColor);
     }

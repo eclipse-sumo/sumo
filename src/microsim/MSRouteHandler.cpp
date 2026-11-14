@@ -449,6 +449,8 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                 }
                 myActiveRouteID = "";
                 myActiveRouteRefID = "";
+                myActiveRouteRepeat = 0;
+                myActiveRoutePeriod = 0;
                 return;
             }
             if (myVehicleParameter != nullptr) {
@@ -476,7 +478,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                         errSuffix = TLF(" for vehicle '%' with vClass %.", myVehicleParameter->id, getVehicleClassNames(vClass));
                     }
                 }
-                if (myActiveRoute.size() > 0 && !myActiveRoute.back()->isConnectedTo(*myActiveRoute.front(), vClass)) {
+                if (!mustReroute && !mayBeDisconnected && myActiveRoute.size() > 0 && !myActiveRoute.back()->isConnectedTo(*myActiveRoute.front(), vClass)) {
                     if (tmpStops.size() == 0 || tmpStops.back().jump < 0) {
                         throw ProcessError(TLF("Disconnected route '%' when repeating. Last edge '%' is not connected to first edge '%'%",
                                                myActiveRouteID, myActiveRoute.back()->getID(), myActiveRoute.front()->getID(), errSuffix));
@@ -486,7 +488,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
             for (int i = 0; i < myActiveRouteRepeat; i++) {
                 myActiveRoute.insert(myActiveRoute.begin(), tmpEdges.begin(), tmpEdges.end());
                 for (SUMOVehicleParameter::Stop stop : tmpStops) {
-                    if (stop.until > 0) {
+                    if (stop.until >= 0) {
                         if (myActiveRoutePeriod <= 0) {
                             const std::string description = myVehicleParameter != nullptr
                                                             ?  "for " + type + " '" + myVehicleParameter->id + "'"
@@ -495,7 +497,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                         }
                         stop.until += myActiveRoutePeriod * (i + 1);
                     }
-                    if (stop.arrival > 0) {
+                    if (stop.arrival >= 0) {
                         if (myActiveRoutePeriod <= 0) {
                             const std::string description = myVehicleParameter != nullptr
                                                             ?  "for " + type + " '" + myVehicleParameter->id + "'"
@@ -543,6 +545,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
         myActiveRouteColor = nullptr;
         myActiveRouteStops.clear();
         myActiveRouteRepeat = 0;
+        myActiveRoutePeriod = 0;
     } catch (ProcessError&) {
         deleteActivePlanAndVehicleParameter();
         throw;
@@ -1469,6 +1472,9 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             myActiveTransportablePlan->push_back(new MSStageWaiting(edge, toStop, stop.duration, stop.until, pos, actType, false, stop.jump));
             result = myActiveTransportablePlan->back();
 
+        } else if (myElementStack.size() >= 2 && myElementStack[myElementStack.size() - 2] == SUMO_TAG_ROUTE) {
+            myActiveRouteStops.push_back(stop);
+            result = &myActiveRouteStops.back();
         } else if (myVehicleParameter != nullptr) {
             myVehicleParameter->stops.push_back(stop);
             result = &myVehicleParameter->stops.back();
