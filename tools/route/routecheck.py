@@ -40,6 +40,9 @@ import os
 import sys
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+else:
+    sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
 try:
     from StringIO import StringIO
@@ -104,12 +107,18 @@ class RouteReader(handler.ContentHandler):
         else:
             self._out = None
         self._fileOut = None
+        self._preRouteOut = None
+        self._routeAttrs = None
+        self._hasEdgesAttr = False
+        self._hasNestedInRoute = False
+        self._invalidRoutes = set()
+        self._hasInvalidRef = False
         self._isRouteValid = True
         self._changed = False
 
     def startDocument(self):
         if self._out:
-            print('<?xml version="1.0"?>', file=self._out)
+            sumolib.xml.writeHeader(self._out, root=None, options=options)
 
     def endDocument(self):
         if self._out:
@@ -137,11 +146,22 @@ class RouteReader(handler.ContentHandler):
             self._out.close()
             self._out = self._fileOut
             self._fileOut = None
+            self._isRouteValid = True
 
     def startElement(self, name, attrs):
-        if name == 'vehicle' and 'route' not in attrs:
+        if name in ('vehicle', 'flow'):
+            if 'route' not in attrs:
+                self.condOutputRedirect()
+                self._vID = attrs['id']
+            elif attrs['route'] in self._invalidRoutes:
+                self.condOutputRedirect()
+                self._vID = attrs['id']
+                self._hasInvalidRef = True
+        elif name == 'person':
             self.condOutputRedirect()
             self._vID = attrs['id']
+        if name == 'walk' and attrs.get('route') in self._invalidRoutes:
+            self._hasInvalidRef = True
         if name == 'route':
             self.condOutputRedirect()
             if 'id' in attrs:
@@ -149,14 +169,23 @@ class RouteReader(handler.ContentHandler):
             else:
                 self._routeID = "for vehicle " + self._vID
             self._routeString = ''
-            if 'edges' in attrs:
+            self._hasEdgesAttr = 'edges' in attrs
+            if self._hasEdgesAttr:
                 self._routeString = attrs['edges']
             else:
                 self._changed = True
                 print("Warning: No edges attribute in route " + self._routeID)
+            self._routeAttrs = dict(attrs)
+            self._hasNestedInRoute = False
+            if self._out:
+                self._preRouteOut = self._out
+                self._out = StringIO()
+            return
         elif self._routeID:
-            print(
-                "Warning: This script does not handle nested '%s' elements properly." % name)
+            self._hasNestedInRoute = True
+            if name not in ("stop", "param"):
+                print(
+                    "Warning: This script does not handle nested '%s' elements properly." % name)
         if self._out:
             if name in camelCase:
                 name = camelCase[name]
@@ -178,31 +207,55 @@ class RouteReader(handler.ContentHandler):
                 if key not in deletedKeys[name]:
                     self._out.write(' %s="%s"' % (key, saxutils.escape(value)))
             if name != 'route':
-                if name in ["ride", "stop", "walk"]:
+                if name in ["ride", "stop", "walk", "param"]:
                     self._out.write('/')
                 self._out.write('>')
 
     def endElement(self, name):
-        if name in ["ride", "stop", "walk"]:
+        if name in ["ride", "stop", "walk", "param"]:
             return
         if name == 'route':
             self._isRouteValid = self.testRoute()
+            if not self._isRouteValid and self._routeAttrs and 'id' in self._routeAttrs:
+                self._invalidRoutes.add(self._routeAttrs['id'])
+            childrenStr = ''
+            if self._preRouteOut is not None:
+                childrenStr = self._out.getvalue()
+                self._out.close()
+                self._out = self._preRouteOut
+                self._preRouteOut = None
             if self._out:
-                self._out.write(' edges="%s"/>' % self._routeString)
+                self._out.write('<route')
+                for key, value in sorted(self._routeAttrs.items()):
+                    if key in camelCase:
+                        key = camelCase[key]
+                        self._changed = True
+                    if key not in deletedKeys['route']:
+                        self._out.write(' %s="%s"' % (key, saxutils.escape(value)))
+                cleanEdges = ' '.join(self._routeString.split())
+                if self._hasNestedInRoute:
+                    self._out.write(' edges="%s">%s</route>' % (cleanEdges, childrenStr))
+                else:
+                    self._out.write(' edges="%s"/>' % cleanEdges)
             self._routeID = ''
             self._routeString = ''
+            self._routeAttrs = None
+            self._hasNestedInRoute = False
             if self._vID == '':
                 self.endOutputRedirect()
-        elif name == 'vehicle' and self._vID != '':
+        elif name in ('vehicle', 'flow', 'person') and self._vID != '':
+            if self._hasInvalidRef:
+                self._isRouteValid = False
+                self._hasInvalidRef = False
             self._vID = ''
             if self._out:
-                self._out.write('</vehicle>')
+                self._out.write('</%s>' % camelCase.get(name, name))
             self.endOutputRedirect()
         elif self._out:
             self._out.write('</%s>' % camelCase.get(name, name))
 
     def characters(self, content):
-        if self._routeID != '':
+        if self._routeID != '' and not self._hasEdgesAttr:
             self._routeString += content
         elif self._out:
             self._out.write(saxutils.escape(content))
@@ -287,4 +340,4 @@ for f in options.routes:
             print("checking " + f)
     parser.parse(f)
     if options.fix and os.path.exists(ffix) and options.inplace:
-        os.rename(ffix, f)
+        os.replace(ffix, f)
