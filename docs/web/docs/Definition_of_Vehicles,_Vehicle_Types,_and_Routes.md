@@ -186,11 +186,11 @@ using [{{SUMO}}/tools/route/sort_routes.py]({{Source}}tools/route/sort_routes.py
     sumo may enter an infinite loop when given an unsorted route file with person definitions.
 
 ### Repeated Routes
-When using attribute 'repeat' to repeat a route. The number of edges will be repeated the given number of times *after* driving them for the first time.
-If route is defined as stand-alone route (defined with its own id outside a vehicle definition), any stops defined within the route will be repeated as well. If the stops use attribute 'until', they will be shifted by attribute 'cycleTime' in each iteration.
+When using attribute 'repeat' to repeat a route, the number of edges will be repeated the given number of times *after* driving them for the first time.
+Any stops defined within the route (whether in a stand-alone `<route>` or in a `<route>` child element of a vehicle or flow) will be repeated as well. If the stops use attribute 'until' or 'arrival', they will be shifted by attribute 'cycleTime' in each iteration.
 
-!!! caution
-    When defining a route as child element of a vehicle, any defined stops will belong to the vehicle rather than the route and will not be repeated.
+!!! note
+    Stops defined directly as child elements of `<vehicle>` or `<flow>` (outside `<route>`) belong to the vehicle rather than the route and are not repeated.
 
 !!! caution
     When a repeated route contains only a single stop, all repeated instances of the stop will be on the first iteration of the route. This can be avoided by adding a second stop slightly after first with `duration="0"`

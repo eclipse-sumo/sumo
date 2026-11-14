@@ -63,7 +63,7 @@ public:
      */
     RORoute(const std::string& id, double costs, double prob,
             const ConstROEdgeVector& route, const RGBColor* const color,
-            const StopParVector& stops);
+            const StopParVector& stops, const int repeat = 0);
 
 
     /** @brief Constructor
@@ -191,6 +191,11 @@ public:
         return myStops;
     }
 
+    /// @brief Returns the number of route repetitions
+    int getRepeat() const {
+        return myRepeat;
+    }
+
     /** @brief Adapts the until and arrival time of all stops by the given offset
      */
     void addStopOffset(const SUMOTime offset);
@@ -213,6 +218,9 @@ private:
 
     /// @brief List of the stops on the parsed route
     StopParVector myStops;
+
+    /// @brief The number of route repetitions
+    int myRepeat;
 
 
 private:
