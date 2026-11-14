@@ -31,6 +31,7 @@ The following special attributes are also supported
   @BOX: one or more box plots of the other value are drawn.
         The --idattr is used for grouping and there will be one box plot per id
   @FILE: the (shortened) input file name is used (useful when plotting one value per file)
+  @KEY:<KEYNAME>: the value of a child <param key="<KEYNAME>" value="..."/> element is used
 
 Individual trajectories can be clicked in interactive mode to print the data Id on the console.
 
@@ -63,6 +64,7 @@ DENS_ATTR = "@DENSITY"
 BOX_ATTR = "@BOX"
 FILE_ATTR = "@FILE"
 NONE_ATTR = "@NONE"
+KEY_ATTR_PREFIX = "@KEY:"
 NONE_ATTR_DEFAULT = 0
 ID_ATTR_DEFAULT = ""  # use filename instead
 
@@ -268,39 +270,52 @@ def getDataStream(options):
     splitX = len(attr2parts[options.xattr]) > 1 and not options.joinx
     splitY = len(attr2parts[options.yattr]) > 1 and not options.joiny
 
-    level = 0
+    def registerAttrElem(optName, attr, reqElem, tag, lv):
+        if reqElem is not None and reqElem != tag:
+            return
+        elem2level[tag] = lv
+        if attr in attr2elem:
+            oldTag = attr2elem[attr]
+            if oldTag != tag:
+                if elem2level[oldTag] < lv:
+                    attr2elem[attr] = tag
+                print("Warning: found %s '%s' in element '%s' (level %s) and "
+                      "element '%s' (level %s). Using '%s'." %
+                      (optName, attr, oldTag, elem2level[oldTag], tag, lv, attr2elem[attr]),
+                      file=sys.stderr)
+        else:
+            attr2elem[attr] = tag
+
     foundAll = False
     dataAttrs = [a for a in allAttrs if a not in NON_DATA_ATTRS]
+    hasKeyAttr = any(a.startswith(KEY_ATTR_PREFIX) for a in allAttrs)
     for fname in options.files:
+        level = 0
+        parentStack = []
         with openz(fname) as xmlf:
             for event, elem in ET.iterparse(xmlf, ("start", "end")):
                 if event == "start":
                     level += 1
+                    paramAttr = None
+                    if elem.tag == "param" and parentStack:
+                        pkey = elem.get("key")
+                        if pkey is not None:
+                            paramAttr = KEY_ATTR_PREFIX + pkey
                     for a, e in zip(attrOptions, options.attrElems):
                         attrOrig = getattr(options, a)
                         for attr in attr2parts[attrOrig]:
                             if attr in elem.keys():
-                                if e is not None and e != elem.tag:
-                                    # print("skipping attribute '%s' in element '%s' (required elem '%s'" %
-                                    #       (attr, elem.tag, e))
-                                    continue
-                                elem2level[elem.tag] = level
-                                if attr in attr2elem:
-                                    oldTag = attr2elem[attr]
-                                    if oldTag != elem.tag:
-                                        if elem2level[oldTag] < level:
-                                            attr2elem[attr] = elem.tag
-                                        print("Warning: found %s '%s' in element '%s' (level %s) and "
-                                              "element '%s' (level %s). Using '%s'." %
-                                              (a, attr, oldTag, elem2level[oldTag], elem.tag, level, attr2elem[attr]),
-                                              file=sys.stderr)
-                                else:
-                                    attr2elem[attr] = elem.tag
+                                registerAttrElem(a, attr, e, elem.tag, level)
+                            elif paramAttr is not None and attr == paramAttr:
+                                pTag, pLevel = parentStack[-1]
+                                registerAttrElem(a, attr, e, pTag, pLevel)
+                    parentStack.append((elem.tag, level))
                     if len(attr2elem) == len(dataAttrs):
                         # all attributes have been seen
                         foundAll = True
                         break
                 elif event == "end":
+                    parentStack.pop()
                     level -= 1
         if foundAll:
             break
@@ -344,14 +359,52 @@ def getDataStream(options):
             mE1 = "<%s " % elems[1]
             attrs0 = [a for a in allAttrs if attr2elem[a] == elems[0]]
             attrs1 = [a for a in allAttrs if attr2elem[a] == elems[1]]
-            mAs0 = [(a, re.compile('%s="([^"]*)"' % a)) for a in attrs0]
-            mAs1 = [(a, re.compile('%s="([^"]*)"' % a)) for a in attrs1]
+            mAs0 = [(a, re.compile('%s="([^"]*)"' % re.escape(a))) for a in attrs0]
+            mAs1 = [(a, re.compile('%s="([^"]*)"' % re.escape(a))) for a in attrs1]
 
             values = {}  # attr -> value
             index = 0
             foundParent = False
             with openz(xmlfile) as xmlf:
-                if options.robustParser:
+                if hasKeyAttr:
+                    stack = []
+                    parentChildren = None
+                    for event, elem in ET.iterparse(xmlf, ("start", "end")):
+                        if event == "start":
+                            if elem.tag == "param" and stack:
+                                pkey = elem.get("key")
+                                pval = elem.get("value")
+                                if pkey is not None and pval is not None:
+                                    stack[-1][2][KEY_ATTR_PREFIX + pkey] = pval
+                            if elem.tag == elems[0]:
+                                parentChildren = []
+                            elif elem.tag == elems[1] and parentChildren is None:
+                                print("Warning: Skipped element '%s' without parent element '%s'" % (
+                                      elems[1], elems[0]), file=sys.stderr)
+                                missingParents += 1
+                            stack.append((elem.tag, dict(elem.attrib), {}))
+                        elif event == "end":
+                            tag, attrib, params = stack.pop()
+                            if tag == elems[1] and parentChildren is not None:
+                                parentChildren.append((attrib, params))
+                            elif tag == elems[0]:
+                                pValues = {}
+                                skipParent = retrieveValues(index, attrib, attrs0, pValues, skippedLines, params)
+                                if not skipParent and parentChildren:
+                                    for cAttrib, cParams in parentChildren:
+                                        values = dict(pValues)
+                                        if INDEX_ATTR in attrs0:
+                                            values[INDEX_ATTR] = index
+                                        skipChild = retrieveValues(
+                                            index, cAttrib, attrs1, values, skippedLines, cParams)
+                                        if not skipChild:
+                                            for toYield in combineValues(
+                                                    attrs, attr2parts, values, splitX, splitY, options.join):
+                                                yield toYield
+                                                index += 1
+                                parentChildren = None
+                            elem.clear()
+                elif options.robustParser:
                     for event, elem in ET.iterparse(xmlf, ("start",)):
                         if elem.tag == elems[0]:
                             foundParent = not retrieveValues(index, elem, attrs0, values, skippedLines)
@@ -399,10 +452,31 @@ def getDataStream(options):
     elif len(allElems) == 1:
         def datastream(xmlfile):
             mE = "<%s " % allElems[0]
-            mAs = [re.compile('%s="([^"]*)"' % a) for a in allAttrs]
+            mAs = [re.compile('%s="([^"]*)"' % re.escape(a)) for a in allAttrs]
             index = 0
             with openz(xmlfile) as xmlf:
-                if options.robustParser:
+                if hasKeyAttr:
+                    stack = []
+                    for event, elem in ET.iterparse(xmlf, ("start", "end")):
+                        if event == "start":
+                            if elem.tag == "param" and stack:
+                                pkey = elem.get("key")
+                                pval = elem.get("value")
+                                if pkey is not None and pval is not None:
+                                    stack[-1][2][KEY_ATTR_PREFIX + pkey] = pval
+                            stack.append((elem.tag, dict(elem.attrib), {}))
+                        elif event == "end":
+                            tag, attrib, params = stack.pop()
+                            if tag == allElems[0]:
+                                values = {}
+                                skip = retrieveValues(index, attrib, allAttrs, values, skippedLines, params)
+                                if not skip:
+                                    for toYield in combineValues(
+                                            attrs, attr2parts, values, splitX, splitY, options.join):
+                                        yield toYield
+                                        index += 1
+                            elem.clear()
+                elif options.robustParser:
                     for event, elem in ET.iterparse(xmlf, ("start",)):
                         if elem.tag == allElems[0]:
                             values = {}  # attr -> value
@@ -425,6 +499,11 @@ def getDataStream(options):
             for attr, count in skippedLines.items():
                 print("Warning: Skipped %s lines because of missing attributes '%s'." % (
                     count, attr), file=sys.stderr)
+
+        if options.splitx:
+            datastream = makeSplitter(True, options.yattr == INDEX_ATTR, datastream)
+        if options.splity:
+            datastream = makeSplitter(False, options.xattr == INDEX_ATTR, datastream)
 
         return datastream
 
@@ -451,10 +530,10 @@ def parseValues(index, line, attributePatterns, values, skippedLines):
     return skip
 
 
-def retrieveValues(index, elem, attrs, values, skippedLines):
+def retrieveValues(index, elem, attrs, values, skippedLines, params=None):
     skip = False
     for a in attrs:
-        v = elem.get(a)
+        v = params.get(a) if (params is not None and a.startswith(KEY_ATTR_PREFIX)) else elem.get(a)
         if v is not None:
             values[a] = v
         elif a == INDEX_ATTR:
@@ -695,7 +774,7 @@ def main(options):
 
     if usableIDs == 0:
         if len(options.files) > 1:
-            print("Found no usable datapoints%s in %s files" % len(options.files))
+            print("Found no usable datapoints in %s files" % len(options.files))
         sys.exit()
 
     minY = uMax
