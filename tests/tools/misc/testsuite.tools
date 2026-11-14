@@ -6,3 +6,4 @@ extractTest
 runSeeds
 distributeChargingStations
 generateLandmarks
+tileGet
