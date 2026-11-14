@@ -146,3 +146,29 @@ To only see the selected TAZ relations you need to further press the button "Red
 The selected TAZ relations after the "Reduce" action and the respective attributes can be easily saved in XML format (see the illustration below).
 
 ![](../images/saveSelected.png)
+
+## MeanData mode
+
+[Edge- and lane-based traffic measure definitions (`<edgeData>` and `<laneData>`)](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) can be created and edited directly inside the **Data** supermode (`F4`) by switching to **MeanData mode** (toolbar button or shortcut `M`). Unlike `edgeData` / `edgeRelation` / `tazRelation` demand elements, MeanData definitions describe simulation output detectors rather than spatial canvas objects and are managed entirely through the left-hand **MeanData** frame:
+
+1. **MeanData Type:** Select either `edgeData` or `laneData` in the combo box.
+2. **MeanData Editor:**
+   - **Create MeanData:** Creates a new `<edgeData>` or `<laneData>` definition with an automatically generated unique `id` and selects it for editing.
+   - **Delete MeanData:** Deletes the currently selected MeanData definition.
+   - **Copy MeanData:** Duplicates the currently selected MeanData definition under a new unique `id`.
+3. **Current MeanData:** Selects an existing `<edgeData>` or `<laneData>` element by `id` so its attributes can be edited below.
+4. **Attributes Editor:** Edits the attributes of the selected MeanData element, including:
+   - `id` and output `file`
+   - `type` (`default` traffic measures, `emissions`, `harmonoise`, or `amitran`)
+   - `period`, `begin`, and `end`
+   - `excludeEmpty`, `withInternal`, `maxTraveltime`, `minSamples`, and `haltingSpeedThreshold`
+   - `vTypes`, `trackVehicles`, `detectPersons`, `writeAttributes`, `edges`, `edgesFile`, and `aggregate` (`false`, `true`, or `taz`)
+
+### Loading and saving MeanData definitions
+
+MeanData definitions are stored as additional files (default suffix `.dat.add.xml`) and can be managed from **File -> MeanData Elements**:
+
+- **Load MeanDatas...**: Load `<edgeData>` / `<laneData>` definitions from an existing XML file.
+- **Save MeanDatas**: Save modified MeanData definitions back to their target file.
+- **Save MeanDatas unified as...** (`Ctrl+Shift+M`): Save all defined MeanData elements into a single chosen additional file.
+- **Reload MeanDatas**: Reload MeanData definitions from disk.
