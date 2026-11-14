@@ -44,7 +44,7 @@ initDefaults()
 
 
 def simTime():
-    return traci.simulation.getTime()
+    return traci.simulation.getTime() if traci.isLoaded() else None
 
 
 def array2String(a):

@@ -193,6 +193,7 @@ def load(filename):
     global PLATOON_SPLIT_TIME, VTYPE_FILE, PLATOON_VTYPES, LC_MODE, SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR
     global EDGE_LOOKAHEAD, DIST_LOOKAHEAD, LC_MINDIST, USE_HEADWAY
 
+    initDefaults()
     configDir = os.path.dirname(filename)
     configElements = ET.parse(filename).getroot()
     parsedTags = []
@@ -394,10 +395,10 @@ def hasAttributes(element):
 
 
 def isValidLCMode(mode):
-    if 0 <= mode <= 1023:
+    if 0 <= mode <= 4095:
         return True
     else:
-        warn("Given lane change mode '%d' lies out of admissible range [0,255]. Using default mode instead." % (
+        warn("Given lane change mode '%d' lies out of admissible range [0,4095]. Using default mode instead." % (
             mode), True)
         return False
 
