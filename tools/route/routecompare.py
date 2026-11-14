@@ -250,7 +250,7 @@ def maxMatching(routeIDs1, routeIDs2, similarityMatrix, match):
     return matchVal
 
 
-ap = ArgumentParser(usage="usage: %prog [options] <routes1> <routes2>")
+ap = ArgumentParser(usage="%(prog)s [options] <routes1> <routes2>")
 ap.add_argument("-d", "--districts-file", dest="districts", category="input", type=ap.file,
                 default="", help="read districts from FILE", metavar="FILE")
 ap.add_argument("-s", "--simple-match", action="store_true", dest="simple",

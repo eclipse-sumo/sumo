@@ -589,12 +589,13 @@ def _run_func(args):
 
 
 def multi_process(cpu_num, interval_list, func, outf, mismatchf, **kwargs):
-    cpu_count = min(cpu_num, multiprocessing.cpu_count()-1, len(interval_list))
-    interval_split = np.array_split(interval_list, cpu_count)
-    # pool = multiprocessing.Pool(processes=cpu_count)
-    with multiprocessing.get_context("spawn").Pool() as pool:
+    avail_cpus = max(1, multiprocessing.cpu_count() - 1)
+    cpu_count = max(1, min(cpu_num, avail_cpus, len(interval_list)))
+    indexed_intervals = [(i, begin, end, scale) for i, (begin, end, scale) in enumerate(interval_list)]
+    k, m = divmod(len(indexed_intervals), cpu_count)
+    interval_split = [indexed_intervals[i * k + min(i, m):(i + 1) * k + min(i + 1, m)] for i in range(cpu_count)]
+    with multiprocessing.get_context("spawn").Pool(processes=cpu_count) as pool:
         results = pool.map(_run_func, [(func, interval, kwargs, i) for i, interval in enumerate(interval_split)])
-        # pool.close()
         results = sorted(results, key=lambda x: x[0])
         for _, result in results:
             outf.write("".join(result[-2]))
@@ -1000,11 +1001,12 @@ def _sample_skewed(sampleSet, rng, probabilityMap):
 def _solveIntervalMP(options, routes, interval, cpuIndex):
     output_list = []
     rng = np.random.RandomState(options.seed + cpuIndex)
-    for i, (begin, end, scale) in enumerate(interval):
+    singleInterval = getattr(options, 'singleInterval', False)
+    for globalIdx, begin, end, scale in interval:
         local_outf = StringIO()
         local_mismatch_outf = StringIO() if options.mismatchOut else None
-        intervalPrefix = "%s_" % int(begin)
-        intervalCount = options.totalCount[i] if options.totalCount else None
+        intervalPrefix = "" if singleInterval else "%s_" % int(begin)
+        intervalCount = options.totalCount[int(globalIdx)] if options.totalCount else None
         uFlow, oFlow, gehOKPerc, ratioPerc, inputCount, usedRoutes, local_outf = solveInterval(
             options, routes, begin, end, intervalPrefix, local_outf, local_mismatch_outf, rng, intervalCount, scale)
 
@@ -1386,9 +1388,9 @@ def writeRoutes(options, rng, outf, routes, routeCounts, begin, end, intervalPre
                                      (flowID, probability))
             else:
                 repeat = 'probability="%.4f"' % probability
-            outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s"%s/>\n' % (
+            outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s%s%s"%s/>\n' % (
                 flowID, fBegin, end, repeat,
-                options.writeRouteDist, options.vehattrs))
+                options.prefix, intervalPrefix, options.writeRouteDist, options.vehattrs))
         else:
             # ensure flows are sorted
             flows = []
