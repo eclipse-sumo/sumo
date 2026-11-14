@@ -153,6 +153,16 @@ calls = [
         curDir = source
         if curDir[-1] == os.path.sep:
             curDir = os.path.dirname(curDir)
+        # the walk ends at the texttest root (the directory above the topmost one containing config files)
+        # and must not depend on the location of SUMO_HOME or the working dir (#18384)
+        rootDir = None
+        ancestor = curDir
+        while True:
+            if glob.glob(join(glob.escape(ancestor), "config.*")):
+                rootDir = os.path.dirname(ancestor)
+            if ancestor == os.path.dirname(ancestor):
+                break
+            ancestor = os.path.dirname(ancestor)
         while True:
             for f in sorted(os.listdir(curDir)):
                 path = join(curDir, f)
@@ -162,7 +172,8 @@ calls = [
                     optionsFiles[f[8:]].append(path)
                 if f.startswith("config."):
                     configFiles[f[7:]].append(path)
-            if curDir == os.path.realpath(join(SUMO_HOME, "tests")) or curDir == os.path.dirname(curDir):
+            if (curDir == rootDir or curDir == os.path.realpath(join(SUMO_HOME, "tests")) or
+                    curDir == os.path.dirname(curDir)):
                 break
             curDir = os.path.dirname(curDir)
         if not configFiles:
