@@ -57,3 +57,4 @@ input_gz
 edgeType
 save_config
 load_config
+ignore_attributes

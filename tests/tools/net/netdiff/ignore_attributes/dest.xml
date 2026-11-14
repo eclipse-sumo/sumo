@@ -1,0 +1,4 @@
+<edges version="1.20">
+    <edge id="e1" from="n0" to="n1" priority="5" shape="0.00,0.00 50.00,0.00" length="50.00"/>
+    <edge id="e2" from="n1" to="n2" priority="1" shape="50.00,0.00 100.00,0.00"/>
+</edges>
