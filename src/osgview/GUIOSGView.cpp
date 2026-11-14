@@ -804,7 +804,16 @@ long GUIOSGView::onConfigure(FXObject* sender, FXSelector sel, void* ptr) {
 
 
 long GUIOSGView::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
-    int key = ((FXEvent*)ptr)->code;
+    const FXEvent* e = (FXEvent*)ptr;
+    const int key = e->code;
+    if (key == FX::KEY_f) {
+        if ((e->state & (CONTROLMASK | ALTMASK)) != 0) {
+            // do not switch the camera mode but leave shortcuts such as Ctrl+F (fullscreen) to the application
+            myCameraModeKeyPressed = false;
+            return FXGLCanvas::onKeyPress(sender, sel, ptr);
+        }
+        myCameraModeKeyPressed = true;
+    }
     myAdapter->getEventQueue()->keyPress(key);
     // leave key handling for some cases to OSG
     if (key == FX::KEY_f || key == FX::KEY_Left || key == FX::KEY_Right || key == FX::KEY_Up || key == FX::KEY_Down) {
@@ -815,7 +824,14 @@ long GUIOSGView::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
 
 
 long GUIOSGView::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr) {
-    int key = ((FXEvent*)ptr)->code;
+    const int key = ((FXEvent*)ptr)->code;
+    if (key == FX::KEY_f) {
+        if (!myCameraModeKeyPressed) {
+            // the matching key press was a shortcut (i.e. Ctrl+F), OSG must not switch the camera mode
+            return FXGLCanvas::onKeyRelease(sender, sel, ptr);
+        }
+        myCameraModeKeyPressed = false;
+    }
     myAdapter->getEventQueue()->keyRelease(key);
     // leave key handling for some cases to OSG
     if (key == FX::KEY_f || key == FX::KEY_Left || key == FX::KEY_Right || key == FX::KEY_Up || key == FX::KEY_Down) {
