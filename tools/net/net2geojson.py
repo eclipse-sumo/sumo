@@ -22,6 +22,7 @@ from __future__ import absolute_import, print_function
 
 import json
 import os
+import re
 import sys
 import warnings
 from collections import defaultdict
@@ -35,10 +36,24 @@ except ImportError:
     warnings.warn("Shapely not available, generated polygons might be invalid.")
     HAVE_SHAPELY = False
 
-if 'SUMO_HOME' in os.environ:
-    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
 import sumolib.geomhelper as gh
+
+_COORD_RE = re.compile(
+    r'\[\n\s+(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?),\n\s+(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)'
+    r'(?:,\n\s+(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?))?\n\s+\]'
+)
+
+
+def dumps_geojson(geojson):
+    text = json.dumps(geojson, sort_keys=True, indent=4, separators=(',', ': '))
+    return _COORD_RE.sub(
+        lambda m: "[%s, %s%s]" % (m.group(1), m.group(2), (", %s" % m.group(3)) if m.group(3) else ""),
+        text
+    )
 
 
 def parse_args():
@@ -211,5 +226,5 @@ if __name__ == "__main__":
     geojson["type"] = "FeatureCollection"
     geojson["features"] = features
     with sumolib.openz(options.output_file, 'w') as outf:
-        json.dump(geojson, outf, sort_keys=True, indent=4, separators=(',', ': '))
+        outf.write(dumps_geojson(geojson))
         print(file=outf)
