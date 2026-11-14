@@ -12,9 +12,9 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <tlLogic id="cluster_1037005497_2683362682" type="static" programID="newProg" offset="0">
-        <phase duration="7" state="GGGGGGrrrrrrrrrrrrGGGGGGrrrrrrrrrrrr"/>
+        <phase duration="14" state="GGGGGGrrrrrrrrrrrrGGGGGGrrrrrrrrrrrr"/>
         <phase duration="4" state="yyyyyyrrrrrrrrrrrryyyyyyrrrrrrrrrrrr"/>
-        <phase duration="6" state="rrrrrrGGrrrrrrrrrrrrrrrrGGrrrrrrrrrr"/>
+        <phase duration="12" state="rrrrrrGGrrrrrrrrrrrrrrrrGGrrrrrrrrrr"/>
         <phase duration="4" state="rrrrrryyrrrrrrrrrrrrrrrryyrrrrrrrrrr"/>
         <phase duration="4" state="rrrrrrrrGGGGGGggggrrrrrrrrGGGGGGgggg"/>
         <phase duration="4" state="rrrrrrrryyyyyyyyyyrrrrrrrryyyyyyyyyy"/>
