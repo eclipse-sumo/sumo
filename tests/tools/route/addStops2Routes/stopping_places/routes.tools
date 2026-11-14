@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-14 18:04:30.276311 by Eclipse SUMO addStops2Routes.py v1_28_0+0544-23f16fc96b7
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="out.rou.xml"/>
+    <duration value="60"/>
+    <stopping-places value="input_additional.add.xml"/>
+    <stopping-place-types value="busStop,parkingArea"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="type1" vClass="bicycle"/>
+    <vehicle id="0_parkingA" type="type1" depart="0" color="1,0,0">
+        <route edges="SC CN"/>
+        <stop busStop="bs_SC" duration="60"/>
+        <stop duration="60" parkingArea="pa_CN"/>
+    </vehicle>
+</routes>
