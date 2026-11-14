@@ -267,5 +267,7 @@ protected:
     // @brief thresholds for changing to the right/left
     long long int myChangeProbThresholdRight;
     long long int myChangeProbThresholdLeft;
+    // @brief threshold for keepRight (must stay finite even if lcSpeedGain <= 0)
+    long long int myKeepRightProbThreshold;
     //@}
 };
