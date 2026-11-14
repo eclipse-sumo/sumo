@@ -204,6 +204,19 @@ Options](Basics/Using_the_Command_Line_Applications.md#reporting_options).
 | **--log.processid** {{DT_BOOL}} | Writes process ID in front of all messages; *default:* **false** |
 | **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 
+# Typemap Files
+
+Type definitions passed via **--type-file** use the root element `<polygonTypes>` with `<polygonType>` child elements and can be validated against [types_file.xsd](https://sumo.dlr.de/xsd/types_file.xsd):
+
+```xml
+<polygonTypes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
+    <polygonType id="natural.water" name="water" color=".71,.82,.82" layer="-4" fill="force"/>
+</polygonTypes>
+```
+
+Each `<polygonType>` supports `id` (required), `name`, `color`, `fill` (`true`, `false`, or `force`), `layer`, `discard`, `prefix`, `icon`, `angle`, and `imgFile`.
+
 # See Also
 
 - [Using additional polygons and POIs within the
