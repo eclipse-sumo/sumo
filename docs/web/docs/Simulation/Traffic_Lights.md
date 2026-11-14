@@ -1014,39 +1014,81 @@ Here, the attributes have the following meaning:
 | -------------- | ----------- | --------------------------------------------------------------------------------------------------------------- |
 | **wautID**     | string id   | The id of the WAUT the tls shall be switched by                                                                 |
 | **junctionID** | string id   | The name of the tls to assign to the WAUT                                                                       |
-| **procedure**  | string enum | The switching algorithm to use ("GSP" or "Stretch"). If not set, the programs will switch immediately (default) |
-| **synchron**   | bool        | Additional information whether the switch shall be done synchron (default: false)                               |
+| **procedure**  | string enum | The switching algorithm to use (`"GSP"` or `"Stretch"`, case-insensitive). If not set, the programs switch immediately (default) |
+| **synchron**   | bool        | Whether the target program shall be adapted to preserve its background cycle alignment (`default: false`)        |
 
 It is possible to assign several tls to a single WAUT. It is also
 possible to assign several WAUTs to a single junction in theory, but
 this is not done in reality.
 
-A complete definition within an {{AdditionalFile}} is shown below. It would trigger
-switching between programs **S1** and **S2** for traffic light logic
-**X** with an initial program called **0**.
+## Switching Procedures (`GSP`, `Stretch`, and `synchron`)
+
+Even while a `tlLogic` program is inactive, SUMO advances its internal cycle clock in the background according to its phase durations and `offset`. How a `<wautSwitch>` transitions from the active program (`from`) to the target program (`to`) depends on `procedure` and `synchron`:
+
+1. **Immediate switch (`procedure` omitted):**
+   At the `wautSwitch` `time`, SUMO switches immediately regardless of the active phase. Because the target program has been running in the background, it resumes at whatever phase and elapsed duration correspond to the current simulation time.
+
+2. **Switching at the Good Switching Point (`procedure="GSP"` or `procedure="Stretch"` with `synchron="false"`):**
+   Each `<tlLogic>` may define its *Good Switching Point* (`GSP`) as a time-in-cycle (in seconds, defaulting to `0`) using a generic parameter:
+   ```xml
+   <param key="GSP" value="15"/>
+   ```
+   Once the `wautSwitch` `time` is reached, SUMO waits until the active program (`from`) reaches `GSP mod cycleTime`.
+   When `synchron="false"` (the default), both `GSP` and `Stretch` immediately set the target program (`to`) to its own `GSP` position in the cycle, shifting its phase timing relative to its background clock.
+
+3. **Synchronized GSP switching (`procedure="GSP"` with `synchron="true"`):**
+   When `from` reaches its `GSP`, SUMO switches to the phase of `to` containing `to`'s `GSP` and prolongs that single phase by `(gspTo - currentPosTo) mod cycleTime`. After this one extended phase completes, `to` is back in lockstep with its original background cycle and `offset` (useful for maintaining green waves across coordinated intersections).
+
+4. **Synchronized Stretch/Cut switching (`procedure="Stretch"` with `synchron="true"`):**
+   Instead of absorbing the entire synchronization offset in a single phase, `Stretch` distributes phase-duration adjustments across up to `StretchUmlaufAnz` cycles using stretch/cut windows (`B1`, `B2`, ...) defined via `<param>` elements on the target `<tlLogic>`:
+
+   | `<tlLogic>` Parameter | Value Type | Description |
+   | --------------------- | ---------- | ----------- |
+   | `GSP`                 | time (s)   | Good Switching Point time-in-cycle (`default: 0`) |
+   | `StretchUmlaufAnz`    | int        | Number of cycles available for cutting or stretching (`default: 0`) |
+   | `B<INDEX>.begin`      | time (s)   | Start time-in-cycle of window `<INDEX>` (`1`-based: `B1.begin`, `B2.begin`, ...) |
+   | `B<INDEX>.end`        | time (s)   | End time-in-cycle of window `<INDEX>` (`>= B<INDEX>.begin`) |
+   | `B<INDEX>.factor`     | float      | Relative weight of window `<INDEX>` when stretching phases |
+
+   Let `deltaToCut = (posAfterSyn - gspTo) mod cycleTime` be the time difference between `to`'s current background cycle position and `to`'s `GSP`:
+   - **Cutting (shortening phases):** If `deltaToCut < cycleTime / 2` and `StretchUmlaufAnz * sum(B<INDEX>.end - B<INDEX>.begin) > deltaToCut`, SUMO shortens phases covering `[B<INDEX>.begin, B<INDEX>.end]` by at most `end - begin` per cycle until `deltaToCut` is compensated.
+   - **Stretching (extending phases):** Otherwise, SUMO stretches phases whose interval `[phaseBegin, phaseEnd]` contains `B<INDEX>.end` by a total of `(cycleTime - deltaToCut) mod cycleTime`, weighted proportionally to `B<INDEX>.factor` across `StretchUmlaufAnz` cycles.
+
+A complete definition within an {{AdditionalFile}} is shown below. It triggers
+synchronized `Stretch` switching between programs **S1** and **S2** for traffic light logic
+**X** with an initial program called **0**:
 
 ```xml
 <additional>
 
   <tlLogic id="X" type="static" programID="S1" offset="0">
+    <param key="GSP" value="10"/>
+    <param key="StretchUmlaufAnz" value="2"/>
+    <param key="B1.begin" value="10"/>
+    <param key="B1.end" value="30"/>
+    <param key="B1.factor" value="1.0"/>
     <phase duration="50" state="Gr"/>
     <phase duration="50" state="rG"/>
   </tlLogic>
 
   <tlLogic id="X" type="static" programID="S2" offset="0">
+    <param key="GSP" value="5"/>
+    <param key="StretchUmlaufAnz" value="2"/>
+    <param key="B1.begin" value="35"/>
+    <param key="B1.end" value="65"/>
+    <param key="B1.factor" value="1.0"/>
     <phase duration="30" state="Gr"/>
     <phase duration="80" state="rG"/>
   </tlLogic>
 
-
   <WAUT startProg="0" refTime="100" id="w1">
-    <wautSwitch to="S1" time="300"></wautSwitch>
-    <wautSwitch to="SS" time="800"></wautSwitch>
+    <wautSwitch to="S1" time="300"/>
+    <wautSwitch to="S2" time="800"/>
   </WAUT>
 
-  <wautJunction junctionID="X" wautID="w1"></wautJunction>
+  <wautJunction junctionID="X" wautID="w1" procedure="Stretch" synchron="true"/>
 
-<additional>
+</additional>
 ```
 
 !!! note

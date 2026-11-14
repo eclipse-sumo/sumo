@@ -396,6 +396,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::WAUTSwitchProcedure_Stretch(
         def.end = string2time(myTo->getParameter("B" + toString(idx) + ".end"));
         def.fac = StringUtils::toDouble(myTo->getParameter("B" + toString(idx) + ".factor"));
         myStretchRanges.emplace_back(def);
+        idx++;
     }
 
 }
@@ -423,7 +424,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::adaptLogic(SUMOTime step) {
         assert(def.end >= def.begin);
         deltaPossible += def.end - def.begin;
     }
-    int stretchUmlaufAnz = (int) StringUtils::toDouble(myTo->getParameter("StretchUmlaufAnz", ""));
+    int stretchUmlaufAnz = (int) StringUtils::toDouble(myTo->getParameter("StretchUmlaufAnz", "0"));
     deltaPossible = stretchUmlaufAnz * deltaPossible;
     if ((deltaPossible > deltaToCut) && (deltaToCut < (cycleTime / 2))) {
         cutLogic(step, gspTo, deltaToCut);
@@ -481,7 +482,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
     SUMOTime durOfPhase = myTo->getPhase(currStep).duration;
     SUMOTime remainingStretchTime = allStretchTime;
     SUMOTime StretchTimeOfPhase = 0;
-    int stretchUmlaufAnz = (int) StringUtils::toDouble(myTo->getParameter("StretchUmlaufAnz", ""));
+    int stretchUmlaufAnz = (int) StringUtils::toDouble(myTo->getParameter("StretchUmlaufAnz", "0"));
     double facSum = 0;
     for (const StretchRange& def : myStretchRanges) {
         facSum += def.fac;
@@ -782,9 +783,10 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand& cmd) {
         MSTrafficLightLogic* from = vars->getActive();
         MSTrafficLightLogic* to = vars->getLogicInstantiatingOff(*this, s.to);
         WAUTSwitchProcedure* proc = nullptr;
-        if ((*i).procedure == "GSP") {
+        const std::string procName = StringUtils::to_lower_case((*i).procedure);
+        if (procName == "gsp") {
             proc = new WAUTSwitchProcedure_GSP(*this, *myWAUTs[wautid], from, to, (*i).synchron);
-        } else if ((*i).procedure == "Stretch") {
+        } else if (procName == "stretch") {
             proc = new WAUTSwitchProcedure_Stretch(*this, *myWAUTs[wautid], from, to, (*i).synchron);
         } else {
             proc = new WAUTSwitchProcedure_JustSwitch(*this, *myWAUTs[wautid], from, to, (*i).synchron);
