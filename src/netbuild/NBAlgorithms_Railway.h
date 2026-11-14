@@ -23,6 +23,7 @@
 
 #include <set>
 #include <vector>
+#include "NBCont.h"
 
 
 // ===========================================================================
@@ -106,10 +107,10 @@ public:
         Track& operator=(const Track&) = delete;
     };
     static double getTravelTimeStatic(const Track* const track, const NBVehicle* const veh, double time);
-    static std::set<NBNode*> getRailNodes(NBEdgeCont& ec, bool verbose = false);
+    static NodeSet getRailNodes(NBEdgeCont& ec, bool verbose = false);
 
 private:
-    static std::set<NBNode*> getBrokenRailNodes(NBEdgeCont& ec, bool verbose = false);
+    static NodeSet getBrokenRailNodes(NBEdgeCont& ec, bool verbose = false);
 
     /// @brief filter out rail edges among all edges of a the given node
     static void getRailEdges(const NBNode* node, EdgeVector& inEdges, EdgeVector& outEdges);

@@ -1082,10 +1082,10 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation,
     // reconstruct elevation from layer info
     // build a map of raising and lowering forces (attractor and distance)
     // for all nodes unknownElevation
-    std::map<NBNode*, std::vector<std::pair<double, double> > > layerForces;
+    std::map<NBNode*, std::vector<std::pair<double, double> >, ComparatorIdLess> layerForces;
 
     // collect all nodes that belong to a way with layer information
-    std::set<NBNode*> knownElevation;
+    NodeSet knownElevation;
     for (auto& myEdge : myEdges) {
         Edge* e = myEdge.second;
         if (e->myLayer != 0) {
@@ -1100,7 +1100,7 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation,
     }
 #ifdef DEBUG_LAYER_ELEVATION
     std::cout << "known elevations:\n";
-    for (std::set<NBNode*>::iterator it = knownElevation.begin(); it != knownElevation.end(); ++it) {
+    for (NodeSet::iterator it = knownElevation.begin(); it != knownElevation.end(); ++it) {
         const std::vector<std::pair<double, double> >& primaryLayers = layerForces[*it];
         std::cout << "  node=" << (*it)->getID() << " ele=";
         for (std::vector<std::pair<double, double> >::const_iterator it_ele = primaryLayers.begin(); it_ele != primaryLayers.end(); ++it_ele) {
@@ -1112,7 +1112,7 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation,
     // layer data only provides a lower bound on elevation since it is used to
     // resolve the relation among overlapping ways.
     // Perform a sanity check for steep inclines and raise the knownElevation if necessary
-    std::map<NBNode*, double> knownEleMax;
+    std::map<NBNode*, double, ComparatorIdLess> knownEleMax;
     for (auto it : knownElevation) {
         double eleMax = -std::numeric_limits<double>::max();
         const std::vector<std::pair<double, double> >& primaryLayers = layerForces[it];
@@ -1126,7 +1126,7 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation,
     while (changed) {
         changed = false;
         for (auto it = knownElevation.begin(); it != knownElevation.end(); ++it) {
-            std::map<NBNode*, std::pair<double, double> > neighbors = getNeighboringNodes(*it,
+            std::map<NBNode*, std::pair<double, double>, ComparatorIdLess> neighbors = getNeighboringNodes(*it,
                     knownEleMax[*it]
                     / gradeThreshold * 3,
                     knownElevation);
@@ -1153,11 +1153,11 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation,
     }
 
     // collect all nodes within a grade-dependent range around knownElevation-nodes and apply knowElevation forces
-    std::set<NBNode*> unknownElevation;
+    NodeSet unknownElevation;
     for (auto it = knownElevation.begin(); it != knownElevation.end(); ++it) {
         const double eleMax = knownEleMax[*it];
         const double maxDist = fabs(eleMax) * 100 / layerElevation;
-        std::map<NBNode*, std::pair<double, double> > neighbors = getNeighboringNodes(*it, maxDist, knownElevation);
+        std::map<NBNode*, std::pair<double, double>, ComparatorIdLess> neighbors = getNeighboringNodes(*it, maxDist, knownElevation);
         for (auto& neighbor : neighbors) {
             if (knownElevation.count(neighbor.first) == 0) {
                 unknownElevation.insert(neighbor.first);
@@ -1174,7 +1174,7 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation,
             eleMax = MAX2(eleMax, primaryLayer.first);
         }
         const double maxDist = fabs(eleMax) * 100 / layerElevation;
-        std::map<NBNode*, std::pair<double, double> > neighbors = getNeighboringNodes(*it, maxDist, knownElevation);
+        std::map<NBNode*, std::pair<double, double>, ComparatorIdLess> neighbors = getNeighboringNodes(*it, maxDist, knownElevation);
         for (auto& neighbor : neighbors) {
             if (knownElevation.count(neighbor.first) == 0 && unknownElevation.count(neighbor.first) == 0) {
                 layerForces[*it].emplace_back(0, neighbor.second.first);
@@ -1185,7 +1185,7 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation,
 #ifdef DEBUG_LAYER_ELEVATION
     std::cout << "summation of forces\n";
 #endif
-    std::map<NBNode*, double> nodeElevation;
+    std::map<NBNode*, double, ComparatorIdLess> nodeElevation;
     for (auto& layerForce : layerForces) {
         const std::vector<std::pair<double, double> >& forces = layerForce.second;
         if (knownElevation.count(layerForce.first) != 0) {
@@ -1258,9 +1258,9 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation,
     }
 }
 
-std::map<NBNode*, std::pair<double, double> >
-NIImporter_OpenStreetMap::getNeighboringNodes(NBNode* node, double maxDist, const std::set<NBNode*>& knownElevation) {
-    std::map<NBNode*, std::pair<double, double> > result;
+std::map<NBNode*, std::pair<double, double>, ComparatorIdLess>
+NIImporter_OpenStreetMap::getNeighboringNodes(NBNode* node, double maxDist, const NodeSet& knownElevation) {
+    std::map<NBNode*, std::pair<double, double>, ComparatorIdLess> result;
     std::set<NBNode*> visited;
     std::vector<NBNode*> open;
     open.push_back(node);
