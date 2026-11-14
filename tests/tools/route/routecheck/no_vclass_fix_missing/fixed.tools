@@ -1,4 +1,14 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-14 09:36:28.145360 by Eclipse SUMO routecheck.py v1_28_0+0544-23f16fc96b7
+<configuration>
+    <verbose value="True"/>
+    <fix value="True"/>
+    <net value="input_net.net.xml"/>
+    <routes value="routes.rou.xml routes2.rou.xml"/>
+</configuration>
+-->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
    <vehicle depart="0" id="0_0" type="0">
       <route edges="absBeg beg2left left left2end end absEnd"/>
