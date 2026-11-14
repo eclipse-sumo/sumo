@@ -1,0 +1,8 @@
+ Retrying in 1 seconds
+phase 4 green from 1.0 for 10.0 s
+set max green of phase 4 to 12 at time 120.0
+phase 4 green from 110.0 for 21.0 s
+phase 4 green from 230.0 for 12.0 s
+phase 4 green from 341.0 for 12.0 s
+phase 4 green from 452.0 for 12.0 s
+phase 4 green from 563.0 for 12.0 s
