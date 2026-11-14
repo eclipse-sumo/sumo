@@ -105,8 +105,8 @@ class LaneDomain(Domain):
     def getChangePermissions(self, laneID, direction):
         """getChangePermissions(string, int) -> tuple(string)
 
-        Returns a tuple of vehicle classesa allowed to change to the neighbor lane indicated by the direction
-        (left=0, right=1).
+        Returns a tuple of vehicle classes allowed to change to the neighbor lane indicated by the direction
+        (left=1, right=-1).
         """
         return self._getUniversal(tc.LANE_CHANGES, laneID, "b", direction)
 
@@ -333,6 +333,8 @@ class LaneDomain(Domain):
         Sets a list of vehicle classes allowed to change to the neighbor lane indicated by direction
         (left=1, right=-1).
         """
+        if isinstance(allowedClasses, str):
+            allowedClasses = [allowedClasses]
         self._setCmd(tc.LANE_CHANGES, laneID, "tlb", 2, allowedClasses, direction)
 
     def setMaxSpeed(self, laneID, speed):
