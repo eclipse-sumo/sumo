@@ -305,6 +305,7 @@ def generate_rerouters_process(parameters):
     """ Compute the rerouters for the given parking areas."""
 
     sumo_net = sumolib.net.readNet(parameters['net_file'], withInternal=True)
+    sumo_net.initRoutingCache(maxsize=None)
     rtree = initRTree(parameters['all_parking_areas'])
     ret_rerouters = dict()
 
