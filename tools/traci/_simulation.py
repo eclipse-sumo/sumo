@@ -31,7 +31,7 @@ class Stage(object):
                  vType="",
                  line="",
                  destStop="",
-                 edges=[],
+                 edges=None,
                  travelTime=tc.INVALID_DOUBLE_VALUE,
                  cost=tc.INVALID_DOUBLE_VALUE,
                  length=tc.INVALID_DOUBLE_VALUE,
@@ -44,7 +44,7 @@ class Stage(object):
         self.vType = vType
         self.line = line
         self.destStop = destStop
-        self.edges = edges
+        self.edges = [] if edges is None else edges
         self.travelTime = travelTime
         self.cost = cost
         self.length = length
@@ -80,15 +80,20 @@ class Stage(object):
             self.__attr_repr__("description"),
         ] if v != ""])
 
-    def toXML(self, firstStage=True, isPerson=True, extra=[]):
+    def toXML(self, firstStage=True, isPerson=True, extra=None):
         """write stage as xml element.
         If firstStage=False, the from-attribute is omitted since sumo derives it from the prior stage.
         If extra is a list of (attrname, value) these will be added to the xml element
         """
+        if extra is None:
+            extra = ()
         if self.type == tc.STAGE_WAITING:
-            to = ' edge="%s" endPos="%.2f"' % (self.edges[-1], self.arrivalPos)
             if self.destStop:
                 to = ' busStop="%s"' % self.destStop
+            elif self.edges:
+                to = ' edge="%s" endPos="%.2f"' % (self.edges[-1], self.arrivalPos)
+            else:
+                to = ''
             other = ''
             if self.travelTime >= 0:
                 other += ' duration="%s"' % self.travelTime
@@ -96,10 +101,13 @@ class Stage(object):
             return '<stop%s%s/>' % (to, other)
 
         elif self.type == tc.STAGE_DRIVING:
-            fro = ' from="%s"' % self.edges[0] if firstStage else ''
-            to = ' to="%s" arrivalPos="%.2f"' % (self.edges[-1], self.arrivalPos)
+            fro = ' from="%s"' % self.edges[0] if firstStage and self.edges else ''
             if self.destStop:
                 to = ' busStop="%s"' % self.destStop
+            elif self.edges:
+                to = ' to="%s" arrivalPos="%.2f"' % (self.edges[-1], self.arrivalPos)
+            else:
+                to = ''
             elem = "ride" if isPerson else "transport"
             other = ''
             if self.line:
@@ -120,10 +128,13 @@ class Stage(object):
             return '<walk%s%s%s/>' % (edges, to, other)
 
         elif self.type == tc.STAGE_TRIP:
-            fro = ' from="%s"' % self.edges[0] if firstStage else ''
-            to = ' to="%s" arrivalPos="%.2f"' % (self.edges[-1], self.arrivalPos)
+            fro = ' from="%s"' % self.edges[0] if firstStage and self.edges else ''
             if self.destStop:
                 to = ' busStop="%s"' % self.destStop
+            elif self.edges:
+                to = ' to="%s" arrivalPos="%.2f"' % (self.edges[-1], self.arrivalPos)
+            else:
+                to = ''
             other = ''
             if self.vType:
                 other += ' vTypes="%s"' % self.vType
@@ -131,10 +142,13 @@ class Stage(object):
             return '<personTrip%s%s%s/>' % (fro, to, other)
 
         elif self.type == tc.STAGE_TRANSHIP:
-            fro = ' from="%s"' % self.edges[0] if firstStage else ''
-            to = ' to="%s" arrivalPos="%.2f"' % (self.edges[-1], self.arrivalPos)
+            fro = ' from="%s"' % self.edges[0] if firstStage and self.edges else ''
             if self.destStop:
                 to = ' busStop="%s"' % self.destStop
+            elif self.edges:
+                to = ' to="%s" arrivalPos="%.2f"' % (self.edges[-1], self.arrivalPos)
+            else:
+                to = ''
             other = ''.join([' %s="%s"' % i for i in extra])
             return '<tranship%s%s%s/>' % (fro, to, other)
 
@@ -674,6 +688,13 @@ class SimulationDomain(Domain):
         Subscribe to one or more simulation values for the given interval.
         """
         Domain.subscribe(self, "", varIDs, begin, end, parameters)
+
+    def unsubscribe(self, objectID=""):
+        """unsubscribe(string) -> None
+
+        Unsubscribe from receiving simulation values.
+        """
+        Domain.unsubscribe(self, objectID)
 
     def getSubscriptionResults(self):
         """getSubscriptionResults() -> dict(integer: <value_type>)
