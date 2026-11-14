@@ -43,6 +43,10 @@ except ImportError:
 
 HAVE_GDAL = shutil.which("gdalwarp") is not None and shutil.which("gdal_translate") is not None
 
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+else:
+    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import sumolib  # noqa
 
 MERCATOR_RANGE = 256
@@ -189,6 +193,7 @@ def worker(options, request, filename):
 def writeSettings(options, net, tile_list, zoom, decals):
     if net is None:
         print("Warning: No network given, will not try reprojection or writing a decal file.", file=sys.stderr)
+        return
     if options.reproject:
         reprojectTiles(options, tile_list, zoom, net, decals)
     else:
@@ -268,25 +273,31 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net, patte
     # opener.addheaders = [('User-agent', 'Mozilla/5.0')]
     # urllib.install_opener(opener)
 
+    pool = None
     if options.parallel_jobs != 0:
         original_sigint_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
         pool = Pool(options.parallel_jobs)
         signal.signal(signal.SIGINT, original_sigint_handler)
 
-    futures = []
-    tile_list = []
-    for x in range(sx, ex + 1):
-        for y in range(sy, ey + 1):
-            request = options.url + pattern.format(z=zoom, y=y, x=x)
-            suffix = ".png" if pattern.endswith(".png") else ".jpeg"
-            filename = os.path.join(options.output_dir, "%s%s_%s%s" % (options.prefix, x, y, suffix))
-            if options.parallel_jobs == 0:
-                worker(options, request, filename)
-            else:
-                futures.append((x, y, pool.apply_async(worker, (options, request, filename))))
-            tile_list.append((x, y, filename))
-    for x, y, future in futures:
-        future.get()
+    try:
+        futures = []
+        tile_list = []
+        for x in range(sx, ex + 1):
+            for y in range(sy, ey + 1):
+                request = options.url + pattern.format(z=zoom, y=y, x=x)
+                suffix = ".png" if pattern.endswith(".png") else ".jpeg"
+                filename = os.path.join(options.output_dir, "%s%s_%s%s" % (options.prefix, x, y, suffix))
+                if pool is None:
+                    worker(options, request, filename)
+                else:
+                    futures.append((x, y, pool.apply_async(worker, (options, request, filename))))
+                tile_list.append((x, y, filename))
+        for x, y, future in futures:
+            future.get()
+    finally:
+        if pool is not None:
+            pool.close()
+            pool.join()
     writeSettings(options, net, tile_list, zoom, decals)
 
 
@@ -388,21 +399,27 @@ def get(args=None):
     net = None
     if options.net:
         net = sumolib.net.readNet(options.net)
-        bboxNet = net.getBBoxXY()
+        if not options.bbox and not options.polygon:
+            bboxNet = net.getBBoxXY()
+            west, south = net.convertXY2LonLat(*bboxNet[0])
+            east, north = net.convertXY2LonLat(*bboxNet[1])
+        else:
+            bboxNet = (net.convertLonLat2XY(west, south), net.convertLonLat2XY(east, north))
         offset = (bboxNet[1][0] - bboxNet[0][0]) / options.tiles
-        west, south = net.convertXY2LonLat(*bboxNet[0])
-        east, north = net.convertXY2LonLat(*bboxNet[1])
 
-    prefix = os.path.join(options.output_dir, options.prefix)
     mapQuest = "mapquest" in options.url
-    with sumolib.openz(os.path.join(options.output_dir, options.decals_file), "w") as decals:
-        sumolib.xml.writeHeader(decals, root="viewsettings", options=options)
+    decals = sumolib.openz(os.path.join(options.output_dir, options.decals_file), "w") if net is not None else None
+    try:
+        if decals is not None:
+            sumolib.xml.writeHeader(decals, root="viewsettings", options=options)
         if "MapServer" in options.url or "berlin" in options.url:
             pattern = "/{z}/{x}/{y}.png" if "berlin" in options.url else "/{z}/{y}/{x}"
             retrieveMapServerTiles(options, west, south, east, north, decals, net, pattern)
         elif "openstreetmap" in options.url or "geofabrik" in options.url or "cartodb" in options.url:
             retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net, options.retina)
         else:
+            if net is None:
+                print("Warning: No network given, will not try reprojection or writing a decal file.", file=sys.stderr)
             b = west
             for i in range(options.tiles):
                 e = b + (east - west) / options.tiles
@@ -415,18 +432,19 @@ def get(args=None):
                     maptype = 'maptype=' + options.maptype
                 request = ("%s?%s&center=%.6f,%.6f&zoom=%s&%s&key=%s" %
                            (options.url, size, c[0], c[1], z, maptype, options.key))
-                # print(request)
-                filename = os.path.join(options.output_dir, "%s%s.png" % (prefix, i))
-                urllib.urlretrieve(request, filename)
-                if os.stat(filename).st_size < options.min_file_size:
-                    raise ValueError("small file")
+                filename = os.path.join(options.output_dir, "%s%s.png" % (options.prefix, i))
+                worker(options, request, filename)
                 if net is not None:
                     print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
                           (os.path.basename(filename),
                            bboxNet[0][0] + (i + 0.5) * offset, (bboxNet[0][1] + bboxNet[1][1]) / 2,
                            offset, bboxNet[1][1] - bboxNet[0][1], options.layer), file=decals)
                 b = e
-        print("</viewsettings>", file=decals)
+        if decals is not None:
+            print("</viewsettings>", file=decals)
+    finally:
+        if decals is not None:
+            decals.close()
 
 
 if __name__ == "__main__":
