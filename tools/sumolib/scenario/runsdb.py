@@ -102,7 +102,7 @@ class RunsDB:
         ret = {}
         for r in runs:
             ret[r] = {}
-            for row in self.cursor.execute("SELECT id FROM run WHERE id=?", (r)):
+            for row in self.cursor.execute("SELECT id, key, value FROM run WHERE id=?", (r,)):
                 ret[r][row[1]] = row[2]
         return ret
 

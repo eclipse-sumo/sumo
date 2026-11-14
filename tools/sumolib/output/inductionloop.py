@@ -51,6 +51,8 @@ class InductLoopReader(handler.ContentHandler):
         return self._values[what]
 
     def _singleJoin(self, what, how):
+        if not self._values[what]:
+            return
         ret = {}
         no = {}
         for i in self._values[what]:
@@ -60,12 +62,11 @@ class InductLoopReader(handler.ContentHandler):
                     no[e] = 0
                 ret[e] = ret[e] + i[e]
                 no[e] = no[e] + 1
-        if how == "sum":
-            return ret
-        elif how == "average":
-            for e in i:
+        if how == "average":
+            for e in ret:
                 ret[e] = ret[e] / float(no[e])
         self._values[what] = [ret]
+        return ret
 
 
 def readInductLoop(file, toCollect):

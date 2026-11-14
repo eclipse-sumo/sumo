@@ -50,5 +50,8 @@ def decodeXML(c):
     }
     knownColor = colorSwitch.get(c)
     if knownColor is None:
+        if c.startswith("#") and len(c) in (7, 9):
+            return RGBAColor(int(c[1:3], 16), int(c[3:5], 16), int(c[5:7], 16),
+                             int(c[7:9], 16) if len(c) == 9 else 255)
         return RGBAColor(*[float(x) for x in c.split(",")])
     return knownColor

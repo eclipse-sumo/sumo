@@ -118,7 +118,7 @@ def assign_prefixed_options(args, allowed_programs):
                 if program in allowed_programs:
                     try:
                         if '=' in arg:
-                            option = arg[separator_index+1:].split('=')
+                            option = arg[separator_index+1:].split('=', 1)
                         else:
                             if '--' in args[arg_index+1]:
                                 raise ValueError()
@@ -307,8 +307,10 @@ class ArgumentParser(argparse.ArgumentParser):
                 required = ''
                 positional = ''
                 listSep = ''
+                matched_action = None
                 for a in self._actions:
                     if a.dest == k:
+                        matched_action = a
                         for s in a.option_strings:
                             if s.startswith("--"):
                                 key = s[2:]
@@ -352,7 +354,7 @@ class ArgumentParser(argparse.ArgumentParser):
                                 listSep = ' listSeparator=" "'
 
                         break
-                if print_template or v != a.default:
+                if print_template or matched_action is None or v != matched_action.default:
                     if isinstance(v, list):
                         v = " ".join(map(str, v))
                     out.write(u'    <%s value="%s"%s%s%s%s%s%s/>\n' % (
@@ -385,7 +387,7 @@ class ArgumentParser(argparse.ArgumentParser):
         # add each config item to the commandline unless it's there already
         config_args = []
         pos_args = []
-        if idx > 0:
+        if 0 < idx < len(args):
             act_map = {}
             pos_map = {}
             multi_value = set()

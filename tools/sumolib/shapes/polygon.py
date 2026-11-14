@@ -79,6 +79,14 @@ class Polygon:
             ret += ' layer="%s"' % self.layer
         if self.fill is not None:
             ret += ' fill="%s"' % self.fill
+        if self.geo is not None:
+            ret += ' geo="%s"' % self.geo
+        if self.angle is not None:
+            ret += ' angle="%s"' % self.angle
+        if self.lineWidth is not None:
+            ret += ' lineWidth="%s"' % self.lineWidth
+        if self.imgFile is not None:
+            ret += ' imgFile="%s"' % self.imgFile
         if self.shape is not None:
             ret += ' shape="%s"' % self.getShapeString()
         if len(self.attributes) == 0:
@@ -126,7 +134,7 @@ class PolygonReader(handler.ContentHandler):
             self._lastPoly.attributes[attrs['key']] = attrs['value']
 
     def endElement(self, name):
-        if name == 'poly':
+        if name == 'poly' or (self._includeTaz and name == 'taz'):
             self._lastPoly = None
 
     def getPolygons(self):
@@ -138,5 +146,6 @@ def read(filenames, includeTaz=False):
     if isinstance(filenames, str):
         filenames = [filenames]
     for fn in filenames:
-        parse(miscutils.openz(fn), pr)
+        with miscutils.openz(fn) as f:
+            parse(f, pr)
     return pr.getPolygons()
