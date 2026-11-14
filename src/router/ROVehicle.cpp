@@ -78,7 +78,7 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, 
     }
     // where to insert the stop
     StopParVector::iterator iter = getParameter().stops.begin();
-    if (stopPar.index == STOP_INDEX_END || stopPar.index >= static_cast<int>(getParameter().stops.size())) {
+    if (stopPar.index == STOP_INDEX_END || stopPar.index >= static_cast<int>(getParameter().stops.size()) || stopPar.index == STOP_INDEX_REPEAT) {
         if (getParameter().stops.size() > 0) {
             iter = getParameter().stops.end();
         }

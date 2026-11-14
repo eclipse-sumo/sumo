@@ -145,6 +145,13 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
             if (edges.back()->isTazConnector()) {
                 edges.pop_back();
             }
+            if (myAlternatives[0]->getRepeat() > 0 && veh.getParameter().stops.empty() && veh.getParameter().via.empty()
+                    && !edges.empty() && edges.back()->isConnectedTo(*edges.front(), veh.getVClass())) {
+                const ConstROEdgeVector lapEdges = edges;
+                for (int i = 0; i < myAlternatives[0]->getRepeat(); i++) {
+                    edges.insert(edges.end(), lapEdges.begin(), lapEdges.end());
+                }
+            }
             // check whether the same route was already used
             int existing = -1;
             for (int i = 0; i < (int)myAlternatives.size(); i++) {
@@ -519,7 +526,7 @@ RORouteDef::copy(const std::string& id, const SUMOTime stopOffset) const {
     RORouteDef* result = new RORouteDef(id, 0, myTryRepair, myMayBeDisconnected);
     for (const std::shared_ptr<const RORoute> route : myAlternatives) {
         RGBColor* col = route->getColor() != nullptr ? new RGBColor(*route->getColor()) : nullptr;
-        std::shared_ptr<RORoute> newRoute = std::make_shared<RORoute>(id, route->getCosts(), route->getProbability(), route->getEdgeVector(), col, route->getStops());
+        std::shared_ptr<RORoute> newRoute = std::make_shared<RORoute>(id, route->getCosts(), route->getProbability(), route->getEdgeVector(), col, route->getStops(), route->getRepeat());
         newRoute->addStopOffset(stopOffset);
         result->addLoadedAlternative(newRoute);
     }
