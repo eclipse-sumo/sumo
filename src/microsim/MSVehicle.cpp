@@ -2331,7 +2331,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #endif
     }
     // all links within dist are taken into account (potentially)
-    const double dist = SPEED2DIST(maxV) + cfModel.brakeGap(maxV);
+    const double maxVisibility = isRail() ? std::numeric_limits<double>::max() : (getVClass() == SVC_SHIP ? 10000.0 : 1000.0);
+    const double dist = MIN2(SPEED2DIST(maxV) + cfModel.brakeGap(maxV), maxVisibility);
 
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
 #ifdef DEBUG_PLAN_MOVE
@@ -6190,7 +6191,10 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     double seenLength = 0;
     bool progress = true;
     // bestLanes must cover the braking distance even when at the very end of the current lane to avoid unecessary slow down
-    const double maxBrakeDist = startLane->getLength() + getCarFollowModel().getHeadwayTime() * getMaxSpeed() + getCarFollowModel().brakeGap(getMaxSpeed()) + getVehicleType().getMinGap();
+    const double maxVisibility = isRail() ? std::numeric_limits<double>::max() : (getVClass() == SVC_SHIP ? 10000.0 : 1000.0);
+    const double maxBrakeDist = startLane->getLength() + MIN2(
+                                    getCarFollowModel().getHeadwayTime() * getMaxSpeed() + getCarFollowModel().brakeGap(getMaxSpeed()) + getVehicleType().getMinGap(),
+                                    maxVisibility);
     const double lookahead = getLaneChangeModel().getStrategicLookahead();
     for (MSRouteIterator ce = myCurrEdge; progress;) {
         std::vector<LaneQ> currentLanes;
@@ -6804,7 +6808,8 @@ MSVehicle::getLeader(double dist, bool considerCrossingFoes) const {
         return std::make_pair(static_cast<const MSVehicle*>(nullptr), -1);
     }
     if (dist == 0) {
-        dist = getCarFollowModel().brakeGap(getSpeed()) + getVehicleType().getMinGap();
+        const double maxVisibility = isRail() ? std::numeric_limits<double>::max() : (getVClass() == SVC_SHIP ? 10000.0 : 1000.0);
+        dist = MIN2(getCarFollowModel().brakeGap(getSpeed()) + getVehicleType().getMinGap(), maxVisibility);
     }
     const MSVehicle* lead = nullptr;
     const MSLane* lane = myLane; // ensure lane does not change between getVehiclesSecure and releaseVehicles;
@@ -7224,7 +7229,8 @@ MSVehicle::unsafeLinkAhead(const MSLane* lane, double zipperDist) const {
     // - zipper links if they are close enough and have approaching vehicles in the relevant time range
     // - unprioritized links if the vehicle is currently approaching a prioritzed link and unable to stop in time
     double seen = myLane->getLength() - getPositionOnLane();
-    const double dist = MAX2(zipperDist, getCarFollowModel().brakeGap(getSpeed(), getCarFollowModel().getMaxDecel(), 0));
+    const double maxVisibility = isRail() ? std::numeric_limits<double>::max() : (getVClass() == SVC_SHIP ? 10000.0 : 1000.0);
+    const double dist = MAX2(zipperDist, MIN2(getCarFollowModel().brakeGap(getSpeed(), getCarFollowModel().getMaxDecel(), 0), maxVisibility));
     if (seen < dist) {
         const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation(lane);
         int view = 1;
