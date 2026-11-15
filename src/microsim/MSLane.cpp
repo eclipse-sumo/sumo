@@ -488,7 +488,8 @@ MSLane::lastInsertion(MSVehicle& veh, double mspeed, double posLat, bool patchSp
         /// look for a leaders on consecutive lanes
         veh.setTentativeLaneAndPosition(this, pos, posLat);
         veh.updateBestLanes(false, this);
-        std::pair<MSVehicle* const, double> leaderInfo = getLeader(&veh, pos, veh.getBestLanesContinuation(), veh.getCarFollowModel().brakeGap(mspeed));
+        const double maxVisibility = veh.isRail() ? std::numeric_limits<double>::max() : (veh.getVClass() == SVC_SHIP ? 10000.0 : 1000.0);
+        std::pair<MSVehicle* const, double> leaderInfo = getLeader(&veh, pos, veh.getBestLanesContinuation(), MIN2(veh.getCarFollowModel().brakeGap(mspeed), maxVisibility));
         leader = leaderInfo.first;
         leaderBack = pos + leaderInfo.second + veh.getVehicleType().getMinGap();
     } else {
@@ -820,7 +821,8 @@ MSLane::checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, con
     if (nspeed < speed) {
         if (patchSpeed) {
             speed = MIN2(nspeed, speed);
-            dist = aVehicle->getCarFollowModel().brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
+            const double maxVisibility = aVehicle->isRail() ? std::numeric_limits<double>::max() : (aVehicle->getVClass() == SVC_SHIP ? 10000.0 : 1000.0);
+            dist = MIN2(aVehicle->getCarFollowModel().brakeGap(speed) + aVehicle->getVehicleType().getMinGap(), maxVisibility);
         } else if (speed > 0) {
             if ((aVehicle->getInsertionChecks() & (int)check) == 0) {
                 return false;
@@ -879,8 +881,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     const std::vector<MSLane*>& bestLaneConts = aVehicle->getBestLanesContinuation(this);
     std::vector<MSLane*>::const_iterator ri = bestLaneConts.begin();
     double seen = getLength() - pos; // == distance from insertion position until the end of the currentLane
-    double dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
     const bool isRail = aVehicle->isRail();
+    const double maxVisibility = isRail ? std::numeric_limits<double>::max() : (aVehicle->getVClass() == SVC_SHIP ? 10000.0 : 1000.0);
+    double dist = MIN2(cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap(), maxVisibility);
     if (isRail && insertionChecks != (int)InsertionCheck::NONE
             && aVehicle->getParameter().departProcedure != DepartDefinition::SPLIT
             && MSRailSignalControl::isSignalized(aVehicle->getVClass())
@@ -1200,7 +1203,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             if (freeSpeed < speed) {
                 if (patchSpeedSpecial) {
                     speed = freeSpeed;
-                    dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
+                    dist = MIN2(cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap(), maxVisibility);
                 } else {
                     if ((insertionChecks & (int)InsertionCheck::SPEED_LIMIT) != 0) {
                         if (!MSGlobals::gCheckRoutes) {
@@ -3025,7 +3028,8 @@ MSLane::getLeader(const MSVehicle* veh, const double vehPos, const std::vector<M
         double seen = getLength() - vehPos;
         double speed = veh->getSpeed();
         if (dist < 0) {
-            dist = veh->getCarFollowModel().brakeGap(speed) + veh->getVehicleType().getMinGap();
+            const double maxVisibility = veh->isRail() ? std::numeric_limits<double>::max() : (veh->getVClass() == SVC_SHIP ? 10000.0 : 1000.0);
+            dist = MIN2(veh->getCarFollowModel().brakeGap(speed) + veh->getVehicleType().getMinGap(), maxVisibility);
         }
 #ifdef DEBUG_CONTEXT
         if (DEBUG_COND2(veh)) {
@@ -3169,7 +3173,7 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
         }
         nextLane->releaseVehicles();
         if (nextLane->getVehicleMaxSpeed(&veh) < speed) {
-            dist = veh.getCarFollowModel().brakeGap(nextLane->getVehicleMaxSpeed(&veh));
+            dist = MIN2(dist, veh.getCarFollowModel().brakeGap(nextLane->getVehicleMaxSpeed(&veh)));
         }
         seen += nextLane->getLength();
         if (!nextInternal) {
@@ -3252,7 +3256,7 @@ MSLane::getCriticalLeader(double dist, double seen, double speed, const MSVehicl
             }
         }
         if (nextLane->getVehicleMaxSpeed(&veh) < speed) {
-            dist = veh.getCarFollowModel().brakeGap(nextLane->getVehicleMaxSpeed(&veh));
+            dist = MIN2(dist, veh.getCarFollowModel().brakeGap(nextLane->getVehicleMaxSpeed(&veh)));
         }
         seen += nextLane->getLength();
         if (seen <= dist) {
@@ -4208,7 +4212,7 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
         }
 
         if (nextLane->getVehicleMaxSpeed(ego) < speed) {
-            dist = ego->getCarFollowModel().brakeGap(nextLane->getVehicleMaxSpeed(ego));
+            dist = MIN2(dist, ego->getCarFollowModel().brakeGap(nextLane->getVehicleMaxSpeed(ego)));
         }
 #ifdef DEBUG_CONTEXT
         if (DEBUG_COND2(ego)) {
@@ -4253,7 +4257,8 @@ MSLane::addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo
         double seen = vehicle->getLane()->getLength() - vehPos;
         double speed = vehicle->getSpeed();
         // leader vehicle could be link leader on the next junction
-        double dist = MAX2(vehicle->getCarFollowModel().brakeGap(speed), 10.0) + vehicle->getVehicleType().getMinGap();
+        const double maxVisibility = vehicle->isRail() ? std::numeric_limits<double>::max() : (vehicle->getVClass() == SVC_SHIP ? 10000.0 : 1000.0);
+        double dist = MIN2(MAX2(vehicle->getCarFollowModel().brakeGap(speed), 10.0) + vehicle->getVehicleType().getMinGap(), maxVisibility);
         if (getBidiLane() != nullptr) {
             dist = MAX2(dist, myMaxSpeed * 20);
         }
