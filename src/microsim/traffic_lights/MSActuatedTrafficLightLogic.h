@@ -26,6 +26,8 @@
 #include <vector>
 #include <bitset>
 #include <map>
+#include <memory>
+#include <unordered_map>
 #include <microsim/MSEventControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -202,6 +204,90 @@ protected:
     bool hasMajor(const std::string& state, const LaneVector& lanes) const;
     /// @}
 
+    enum class ExprOp {
+        LITERAL,
+        CONDITION_REF,
+        STACK_OR_NUM,
+        UNARY_NOT,
+        UNARY_NEG,
+        DET_Z,
+        DET_A,
+        DET_W,
+        DET_D,
+        LINK_GREEN,
+        LINK_RED,
+        LINK_PERSONS,
+        CYCLE_TIME,
+        CUSTOM_FUNC,
+        BIN_POW,
+        BIN_MUL,
+        BIN_DIV,
+        BIN_ADD,
+        BIN_SUB,
+        BIN_MOD,
+        BIN_EQ,
+        BIN_NE,
+        BIN_LT,
+        BIN_GT,
+        BIN_LE,
+        BIN_GE,
+        BIN_AND,
+        BIN_OR
+    };
+
+    struct ExprNode {
+        ExprOp op = ExprOp::LITERAL;
+        int poolIndex = -1;
+        double numVal = 0.;
+        int intArg = -1;
+        bool hasFallbackNum = false;
+        const ExprNode* left = nullptr;
+        const ExprNode* right = nullptr;
+        std::vector<const ExprNode*> callArgs;
+        std::string strArg;
+        std::string contextStr;
+        mutable const MSInductLoop* cachedLoop = nullptr;
+        mutable const MSE2Collector* cachedE2 = nullptr;
+        mutable bool detResolved = false;
+    };
+
+    struct ConditionSlot {
+        std::string id;
+        std::string exprStr;
+        bool listed = false;
+        mutable const ExprNode* compiledExpr = nullptr;
+        mutable double numericVal = 0.;
+        mutable bool isNumericVal = false;
+    };
+
+    struct CompiledAssignment {
+        std::string id;
+        int targetCondIdx = -1;
+        int targetStackSlot = -1;
+        std::string checkStr;
+        std::string valStr;
+        mutable const ExprNode* checkExpr = nullptr;
+        mutable const ExprNode* valExpr = nullptr;
+    };
+
+    struct CompiledFunction {
+        std::string id;
+        int nArgs = -1;
+        std::vector<CompiledAssignment> assignments;
+    };
+
+    struct StackVal {
+        double val = 0.;
+        bool isSet = false;
+    };
+
+    struct PhaseOverrides {
+        int minDurCond = -1;
+        int maxDurCond = -1;
+        int earliestEndCond = -1;
+        int latestEndCond = -1;
+    };
+
     /// @brief select among candidate phases based on detector states
     int decideNextPhase();
 
@@ -210,6 +296,21 @@ protected:
 
     /// @brief evaluate custom switching condition
     double evalExpression(const std::string& condition) const;
+
+    /// @brief compile expression into an AST node (cached by condition string)
+    const ExprNode* getOrCompileExpression(const std::string& condition) const;
+    const ExprNode* compileExpressionImpl(const std::string& condition, const std::string& origCondition) const;
+    const ExprNode* compileAtomicExpression(const std::string& expr) const;
+    ExprNode* allocExprNode(ExprOp op) const;
+    static ExprOp parseBinaryOp(const std::string& o, const std::string& condition);
+
+    /// @brief evaluate compiled AST node, condition slot, function, and assignments
+    double evalNode(const ExprNode* node) const;
+    double evalConditionSlot(const ConditionSlot& slot) const;
+    double evalCompiledFunction(int funcIdx, const std::vector<const ExprNode*>& argNodes) const;
+    void executeCompiledAssignments(const std::vector<CompiledAssignment>& assignments, bool isFunctionScope) const;
+    int getOrCreateStackSlot(const std::string& varName);
+    CompiledAssignment buildCompiledAssignment(const std::tuple<std::string, std::string, std::string>& assignment);
 
     /// @brief evaluate atomic expression
     double evalTernaryExpression(double a, const std::string& o, double b, const std::string& condition) const;
@@ -333,6 +434,20 @@ protected:
     /// @brief The function call stack;
     mutable std::vector<std::map<std::string, double> > myStack;
 
+    /// @brief Pre-indexed condition slots, assignments, functions, AST pool, and flat call stack
+    std::vector<ConditionSlot> myConditionSlots;
+    std::unordered_map<std::string, int> myConditionIndex;
+    std::vector<CompiledAssignment> myCompiledAssignments;
+    std::vector<CompiledFunction> myCompiledFunctions;
+    std::unordered_map<std::string, int> myFunctionIndex;
+    std::unordered_map<std::string, int> myStackVarIndex;
+    int myNumStackVars = 0;
+    mutable std::vector<StackVal> myStackStorage;
+    mutable int myStackFrameOffset = 0;
+    mutable std::vector<std::unique_ptr<ExprNode> > myExprNodes;
+    mutable std::unordered_map<std::string, const ExprNode*> myExprCache;
+    std::vector<PhaseOverrides> myPhaseOverrides;
+
     /// @brief the conditions which shall be listed in GUITLLogicPhasesTrackerWindow
     std::set<std::string> myListedConditions;
 
@@ -341,6 +456,10 @@ protected:
 
     struct SwitchingRules {
         bool enabled = false;
+        bool earlyIsDefault = false;
+        bool finalIsDefault = false;
+        mutable const ExprNode* earlyTargetExpr = nullptr;
+        mutable const ExprNode* finalTargetExpr = nullptr;
     };
 
     std::vector<SwitchingRules> mySwitchingRules;
