@@ -32,7 +32,7 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
 from sumolib.xml import parse  # noqa
-from sumolib.miscutils import parseTime  # noqa
+from sumolib.miscutils import commonprefix, parseTime  # noqa
 DEBUG = False
 
 
@@ -114,7 +114,7 @@ def printFlows(options, edgeFlow, detReader):
         dFlow = []
         for group in detData:
             if group.isValid:
-                groupName = os.path.commonprefix(group.ids)
+                groupName = commonprefix(group.ids)
                 if groupName == "" or options.longnames:
                     groupName = ';'.join(sorted(group.ids))
                 detString.append(groupName)
