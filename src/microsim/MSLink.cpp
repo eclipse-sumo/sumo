@@ -1172,7 +1172,7 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
 #ifdef MSLink_DEBUG_OPENED
         gDebugFlag6 = ((ego == nullptr || ego->isSelected()) && (veh == nullptr || veh->isSelected()));
 #endif
-        const SUMOTime fatb = computeFoeArrivalTimeBraking(arrivalTime, veh, avi.arrivalTime, impatience, avi.dist, foeArrivalSpeedBraking);
+        const SUMOTime fatb = computeFoeArrivalTimeBraking(arrivalTime, veh, avi.arrivalTime, impatience, avi.dist, avi.speed, foeArrivalSpeedBraking);
         foeArrivalTime = (SUMOTime)((1. - impatience) * (double)avi.arrivalTime + impatience * (double)fatb);
 #ifdef MSLink_DEBUG_OPENED
         if (gDebugFlag6) {
@@ -1237,7 +1237,7 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
 
 
 SUMOTime
-MSLink::computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* foe, SUMOTime foeArrivalTime, double impatience, double dist, double& fasb) {
+MSLink::computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* foe, SUMOTime foeArrivalTime, double impatience, double dist, double foeSpeed, double& fasb) {
     // a: distance saved when foe brakes from arrivalTime to foeArrivalTime
     // b: distance driven past foeArrivalTime
     // m: permitted decceleration
@@ -1257,12 +1257,42 @@ MSLink::computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* fo
         arrivalTime = arrivalTime - (arrivalTime % DELTA_T) + DELTA_T;
     }
     //arrivalTime += DELTA_T - arrivalTime % DELTA_T;
-    const double m = foe->getVehicleType().getCarFollowModel().getMaxDecel() * impatience;
+    const MSCFModel& cfModel = foe->getVehicleType().getCarFollowModel();
+    const double m = cfModel.getMaxDecel() * impatience;
+    const double tBeforeBrake = MAX2(0.0, STEPS2TIME(arrivalTime - SIMSTEP));
+    const double tAccel = STEPS2TIME(MAX2(DELTA_T, arrivalTime - SIMSTEP));
+    const double vOrig = dist / STEPS2TIME(foeArrivalTime - SIMSTEP + DELTA_T);
+    const double curSpeed = MAX2(0.0, foeSpeed);
+    const double vMax = curSpeed + tAccel * cfModel.getMaxAccel();
+    if (vMax < vOrig) {
+        const double v = vMax;
+        const double dist2 = MAX2(0.0, dist - (MSGlobals::gSemiImplicitEulerUpdate ? v : 0.5 * (curSpeed + v)) * tBeforeBrake);
+#ifdef MSLink_DEBUG_OPENED
+        if (gDebugFlag6) {
+            std::cout << "   dist=" << dist << " dist2=" << dist2
+                      << " at=" << STEPS2TIME(arrivalTime)
+                      << " fat=" << STEPS2TIME(foeArrivalTime)
+                      << " foeSpeed=" << foeSpeed << " v=" << v << " m=" << m << "\n";
+        }
+#endif
+        if (0.5 * v * v / m <= dist2) {
+#ifdef MSLink_DEBUG_OPENED
+            if (gDebugFlag6) {
+                std::cout << "   canBrakeToStop\n";
+            }
+#endif
+            fasb = 0;
+            return foeArrivalTime + TIME2STEPS(30);
+        }
+        const double tBrake = (v - sqrt(MAX2(0.0, v * v - 2.0 * m * dist2))) / m;
+        fasb = v - tBrake * m;
+        return MAX2(foeArrivalTime, arrivalTime + TIME2STEPS(tBrake));
+    }
     const double dt = STEPS2TIME(foeArrivalTime - arrivalTime);
     const double d = dt * m;
     const double a = dt * d / 2;
-    const double v = dist / STEPS2TIME(foeArrivalTime - SIMSTEP + DELTA_T);
-    const double dist2 = dist - v * STEPS2TIME(arrivalTime - SIMSTEP);
+    const double v = vOrig;
+    const double dist2 = dist - v * tBeforeBrake;
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag6) {
         std::cout << "   dist=" << dist << " dist2=" << dist2
