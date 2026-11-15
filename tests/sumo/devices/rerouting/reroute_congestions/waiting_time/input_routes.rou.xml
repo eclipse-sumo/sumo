@@ -1,0 +1,14 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="t" sigma="0"/>
+    <vehicle id="blocker" type="t" depart="0" departPos="0">
+        <route edges="middle end"/>
+        <stop lane="middle_0" endPos="6" duration="200"/>
+    </vehicle>
+    <vehicle id="ego" type="t" depart="1" departPos="480">
+        <route edges="beg middle end"/>
+    </vehicle>
+    <vehicle id="stopper" type="t" depart="1" departPos="50">
+        <route edges="beg middle end"/>
+        <stop lane="beg_0" endPos="100" duration="25"/>
+    </vehicle>
+</routes>
