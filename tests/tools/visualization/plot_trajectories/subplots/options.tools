@@ -1,0 +1,1 @@
+fcd.xml -t td,ds --size 12,8 --xlim 0,100 -o image.png --csv-output out.csv tools/plot_trajectories.py

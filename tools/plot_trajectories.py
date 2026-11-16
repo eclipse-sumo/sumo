@@ -56,7 +56,8 @@ def getOptions(args=None):
     optParser.add_option("-t", "--trajectory-type", category="processing", dest="ttype", default="ds",
                          help="select two letters from [t, s, d, a, i, x, y, k, g] to plot"
                          + " Time, Speed, Distance, Acceleration, Angle,"
-                         + " x-Position, y-Position, Kilometrage, leaderGap."
+                         + " x-Position, y-Position, Kilometrage, leaderGap,"
+                         + " or a comma-separated list of two-letter pairs for subplots."
                          + " Default 'ds' plots Distance vs. Speed")
     optParser.add_option("--persons", category="processing", action="store_true",
                          default=False, help="plot person trajectories")
@@ -126,24 +127,23 @@ def onpick(event):
 
 
 def main(options):
-    fig = plt.figure(figsize=(14, 9), dpi=100)
+    figsize = (14, 9)
+    if options.size:
+        figsize = tuple(map(float, options.size.split(',')[:2]))
+    dpi = float(options.dpi) if options.dpi is not None else 100
+    fig = plt.figure(figsize=figsize, dpi=dpi)
     fig.canvas.mpl_connect('pick_event', onpick)
 
-    xdata = None
-    ydata = None
     shortFileNames = short_names(options.fcdfiles)
-    xdata = options.ttype[0]
-    ydata = options.ttype[1]
-    if (len(options.ttype) == 2
-            and xdata in KEYS
-            and ydata in KEYS):
-        xLabel = KEYS[xdata]
-        yLabel = KEYS[ydata]
-        plt.xlabel(xLabel)
-        plt.ylabel(yLabel)
-        plt.title(','.join(shortFileNames) if options.label is None else options.label)
-    else:
+    ttypes = [t.strip() for t in options.ttype.split(',') if t.strip()]
+    if not ttypes or any(len(t) != 2 or t[0] not in KEYS or t[1] not in KEYS for t in ttypes):
         sys.exit("unsupported plot type '%s'" % options.ttype)
+    usedKeys = set(''.join(ttypes))
+    if len(ttypes) == 1:
+        xdata, ydata = ttypes[0]
+        plt.xlabel(KEYS[xdata])
+        plt.ylabel(KEYS[ydata])
+        plt.title(','.join(shortFileNames) if options.label is None else options.label)
 
     element = 'vehicle'
     location = 'lane'
@@ -154,11 +154,10 @@ def main(options):
         location = 'edge'
 
     routes = defaultdict(list)  # vehID -> recorded edges
-    # vehID -> (times, speeds, distances, accelerations, angles, xPositions, yPositions, kilometrage)
     attrs = ['id', 'x', 'y', 'angle', 'speed', location]
-    if 'k' in options.ttype:
+    if 'k' in usedKeys:
         attrs.append('distance')
-    if 'g' in options.ttype:
+    if 'g' in usedKeys:
         attrs.append('leaderGap')
     data = defaultdict(lambda: defaultdict(list))
     for fileIndex, fcdfile in enumerate(options.fcdfiles):
@@ -196,9 +195,9 @@ def main(options):
             data[vehID]['i'].append(float(vehicle.angle))
             data[vehID]['x'].append(float(vehicle.x))
             data[vehID]['y'].append(float(vehicle.y))
-            if 'k' in options.ttype:
+            if 'k' in usedKeys:
                 data[vehID]['k'].append(float(vehicle.distance))
-            if 'g' in options.ttype:
+            if 'g' in usedKeys:
                 data[vehID]['g'].append(float(vehicle.leaderGap))
             if prevTime == time:
                 data[vehID]['a'].append(0)
@@ -236,43 +235,74 @@ def main(options):
         #        line.get_label())
         return False, dict()
 
-    minY = uMax
-    maxY = uMin
-    minX = uMax
-    maxX = uMin
-
     addArgs = {"picker": line_picker, "linestyle": options.linestyle}
     if options.marker is not None:
         addArgs["marker"] = options.marker
 
+    filteredData = []
     for vehID, d in data.items():
         if options.filterRoute is not None:
-            skip = False
             route = routes[vehID]
-            for required in options.filterRoute:
-                if required not in route:
-                    skip = True
-                    break
-            if skip:
+            if any(required not in route for required in options.filterRoute):
                 continue
-        if options.invertDistanceAngle is not None:
-            avgAngle = sum(d[4]) / len(d[4])
+        if options.invertDistanceAngle is not None and d['i']:
+            avgAngle = sum(d['i']) / len(d['i'])
             if abs(avgAngle - options.invertDistanceAngle) < 45:
-                maxDist = d[2][-1]
-                for i, v in enumerate(d[2]):
-                    d[2][i] = maxDist - v
+                maxDist = d['d'][-1]
+                for idx, v in enumerate(d['d']):
+                    d['d'][idx] = maxDist - v
+        filteredData.append((vehID, d))
 
-        minY = min(minY, min(d[ydata]))
-        maxY = max(maxY, max(d[ydata]))
-        minX = min(minX, min(d[xdata]))
-        maxX = max(maxX, max(d[xdata]))
-
-        plt.plot(d[xdata], d[ydata], label=vehID, **addArgs)
-    if options.invertYAxis:
-        plt.axis([minX, maxX, maxY, minY])
-    if options.csv_output is not None:
-        write_csv(data, options.csv_output)
-    helpers.closeFigure(fig, fig.axes[0], options)
+    if len(ttypes) == 1:
+        xdata, ydata = ttypes[0]
+        minY, maxY, minX, maxX = uMax, uMin, uMax, uMin
+        for vehID, d in filteredData:
+            minY = min(minY, min(d[ydata]))
+            maxY = max(maxY, max(d[ydata]))
+            minX = min(minX, min(d[xdata]))
+            maxX = max(maxX, max(d[xdata]))
+            plt.plot(d[xdata], d[ydata], label=vehID, **addArgs)
+        if options.invertYAxis and filteredData:
+            plt.axis([minX, maxX, maxY, minY])
+        if options.csv_output is not None:
+            write_csv(data, options.csv_output)
+        helpers.closeFigure(fig, fig.axes[0], options)
+    else:
+        rows = int(math.ceil(math.sqrt(len(ttypes))))
+        cols = int(math.ceil(len(ttypes) / float(rows)))
+        figTitle = options.title if options.title else (
+            ','.join(shortFileNames) if options.label is None else options.label)
+        fig.suptitle(figTitle, size=options.titlesize)
+        for idx, (xdata, ydata) in enumerate(ttypes):
+            ax = fig.add_subplot(rows, cols, idx + 1)
+            plt.sca(ax)
+            plt.xlabel(KEYS[xdata])
+            plt.ylabel(KEYS[ydata])
+            minY, maxY, minX, maxX = uMax, uMin, uMax, uMin
+            for vehID, d in filteredData:
+                minY = min(minY, min(d[ydata]))
+                maxY = max(maxY, max(d[ydata]))
+                minX = min(minX, min(d[xdata]))
+                maxX = max(maxX, max(d[xdata]))
+                ax.plot(d[xdata], d[ydata], label=vehID, **addArgs)
+            if options.invertYAxis and filteredData:
+                ax.axis([minX, maxX, maxY, minY])
+            if filteredData and not options.nolegend and idx == 0:
+                if options.legendposition:
+                    ax.legend(loc=options.legendposition)
+                else:
+                    ax.legend()
+            helpers.applyPlotOptions(fig, ax, options)
+        fig.tight_layout()
+        if options.csv_output is not None:
+            write_csv(data, options.csv_output)
+        savedTitle = options.title
+        savedNoLegend = options.nolegend
+        options.title = None
+        options.nolegend = True
+        helpers.closeFigure(fig, fig.axes[-1], options, haveLabels=False)
+        options.title = savedTitle
+        options.nolegend = savedNoLegend
 
 
 if __name__ == "__main__":
