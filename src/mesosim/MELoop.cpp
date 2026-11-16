@@ -26,6 +26,7 @@
 
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSEdgeControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
@@ -46,6 +47,9 @@ long long int MELoop::LeaderEvent::myEventCounter(0);
 // method definitions
 // ===========================================================================
 MELoop::MELoop(const SUMOTime recheckInterval) : myFullRecheckInterval(recheckInterval), myLinkRecheckInterval(TIME2STEPS(1)) {
+    myInterpolateMesoPos = MSGlobals::gMesoInterpolatePos && (
+            OptionsCont::getOptions().isSet("fcd-output") ||
+            OptionsCont::getOptions().isSet("queue-output"));
 }
 
 MELoop::~MELoop() {
@@ -61,6 +65,13 @@ MELoop::~MELoop() {
 
 void
 MELoop::simulate(SUMOTime tMax) {
+    if (myInterpolateMesoPos) {
+        MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
+        for (const MSEdge* const edge : ec.getEdges()) {
+            // needs to be called every stop because meso position one step t+1 depends on the position computed in step t
+            edge->getMesoPositions();
+        }
+    }
     while (!myLeaderCars.empty()) {
         LeaderEvent e = myLeaderCars.top();
         assert(e.time > tMax - DELTA_T);
