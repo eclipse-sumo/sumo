@@ -141,6 +141,7 @@ MSCFModel_Wiedemann::getSecureGap(const MSVehicle* const veh, const MSVehicle* c
 
 double
 MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap, double predAccel) const {
+    predSpeed = MAX2(0.0, predSpeed);
     const VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     const double dx = gap + myType->getLength(); // wiedemann uses brutto gap
     const double v = veh->getSpeed();
