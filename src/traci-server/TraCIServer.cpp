@@ -1069,6 +1069,7 @@ TraCIServer::processGet(const int commandID, tcpip::Storage& inputStorage, tcpip
 void
 TraCIServer::cleanup() {
     mySubscriptions.clear();
+    myLastContextSubscription = nullptr;
     myTargetTime = string2time(OptionsCont::getOptions().getString("begin"));
     for (myCurrentSocket = mySockets.begin(); myCurrentSocket != mySockets.end(); ++myCurrentSocket) {
         myCurrentSocket->second->targetTime = myTargetTime;
@@ -1340,7 +1341,7 @@ TraCIServer::postProcessSimulationStep() {
 
         bool isArrivedPerson = (s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE || s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT) && MSNet::getInstance()->getPersonControl().get(s.id) == nullptr;
         if ((s.endTime < t) || isArrivedVehicle || isArrivedPerson) {
-            i = mySubscriptions.erase(i);
+            i = eraseSubscription(i);
             continue;
         }
         ++i;
@@ -1375,7 +1376,7 @@ TraCIServer::postProcessSimulationStep() {
         if (ok) {
             ++i;
         } else {
-            i = mySubscriptions.erase(i);
+            i = eraseSubscription(i);
         }
     }
     myOutputStorage.writeStorage(mySubscriptionCache);
@@ -1485,11 +1486,7 @@ TraCIServer::removeSubscription(int commandId, const std::string& id, int domain
     std::vector<libsumo::Subscription>::iterator j;
     for (j = mySubscriptions.begin(); j != mySubscriptions.end();) {
         if (j->id == id && j->commandId == commandId && j->contextDomain == domain) {
-            j = mySubscriptions.erase(j);
-            if (j != mySubscriptions.end() && myLastContextSubscription == &(*j)) {
-                // Remove also reference for filter additions
-                myLastContextSubscription = nullptr;
-            }
+            j = eraseSubscription(j);
             found = true;
             continue;
         }
@@ -1501,6 +1498,12 @@ TraCIServer::removeSubscription(int commandId, const std::string& id, int domain
     } else {
         writeStatusCmd(commandId, libsumo::RTYPE_ERR, "The subscription to remove was not found.");
     }
+}
+
+
+std::vector<libsumo::Subscription>::iterator
+TraCIServer::eraseSubscription(std::vector<libsumo::Subscription>::iterator position) {
+    return libsumo::Helper::eraseSubscription(mySubscriptions, position, myLastContextSubscription);
 }
 
 
@@ -1919,6 +1922,7 @@ TraCIServer::stateLoaded(SUMOTime targetTime) {
         }
     }
     mySubscriptions.clear();
+    myLastContextSubscription = nullptr;
     mySubscriptionCache.reset();
 }
 
