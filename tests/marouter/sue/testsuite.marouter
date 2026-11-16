@@ -11,3 +11,6 @@ warn_CCH
 # iteration (myRouter.reset), otherwise the metric stays stale at its
 # free-flow customization and a congestion-induced detour is never found
 cch_reset_regression
+
+# multi threaded call of SUE assignment
+threading

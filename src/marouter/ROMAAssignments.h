@@ -22,6 +22,12 @@
 #pragma once
 #include <config.h>
 
+#include <atomic>
+#include <map>
+#include <memory>
+#include <unordered_map>
+#include <vector>
+#include <utils/router/RouteCostCalculator.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/common/SUMOTime.h>
 
@@ -30,9 +36,11 @@
 // ===========================================================================
 class RONet;
 class ODMatrix;
+struct ODCell;
 class Distribution_Points;
 class ROEdge;
 class ROMAEdge;
+class RORoute;
 class ROVehicle;
 
 
@@ -126,6 +134,9 @@ private:
 
     const ConstROEdgeVector computePath(ODCell* cell, const SUMOTime time = 0, const double probability = 0., SUMOAbstractRouter<ROEdge, ROVehicle>* router = nullptr, bool setBulkMode = false);
 
+    /// @brief compute shortest paths for all cells grouped by origin using bulk routing
+    bool computeBulkPaths(const std::map<std::string, std::vector<ODCell*> >& cellsByOrigin);
+
     /// @brief get the k shortest paths
     void getKPaths(const int kPaths, const double penalty);
 
@@ -139,7 +150,7 @@ private:
     RONet& myNet;
     ODMatrix& myMatrix;
     SUMOAbstractRouter<ROEdge, ROVehicle>& myRouter;
-    static std::map<const ROEdge* const, double> myPenalties;
+    static thread_local std::unordered_map<const ROEdge*, double> myPenalties;
     ROVehicle* myDefaultVehicle;
     OutputDevice* const myNetloadOutput;
 
@@ -159,6 +170,55 @@ private:
     private:
         /// @brief Invalidated assignment operator.
         RoutingTask& operator=(const RoutingTask&) = delete;
+    };
+
+    class SUEBulkOriginTask : public MFXWorkerThread::Task {
+    public:
+        SUEBulkOriginTask(ROMAAssignments& assign, const std::vector<ODCell*>& cells, std::atomic<bool>& newRoute)
+            : myAssign(assign), myCells(cells), myNewRoute(newRoute) {}
+        void run(MFXWorkerThread* context);
+    private:
+        ROMAAssignments& myAssign;
+        const std::vector<ODCell*>& myCells;
+        std::atomic<bool>& myNewRoute;
+    private:
+        /// @brief Invalidated assignment operator.
+        SUEBulkOriginTask& operator=(const SUEBulkOriginTask&) = delete;
+    };
+
+    class KPathsTask : public MFXWorkerThread::Task {
+    public:
+        KPathsTask(ROMAAssignments& assign, const std::vector<ODCell*>& cells, const std::vector<size_t>& prevSizes,
+                   const int kPaths, const double penalty)
+            : myAssign(assign), myCells(cells), myPrevSizes(prevSizes), myKPaths(kPaths), myPenalty(penalty) {}
+        void run(MFXWorkerThread* context);
+    private:
+        ROMAAssignments& myAssign;
+        const std::vector<ODCell*>& myCells;
+        const std::vector<size_t>& myPrevSizes;
+        const int myKPaths;
+        const double myPenalty;
+    private:
+        /// @brief Invalidated assignment operator.
+        KPathsTask& operator=(const KPathsTask&) = delete;
+    };
+
+    class SUEInnerTask : public MFXWorkerThread::Task {
+    public:
+        SUEInnerTask(ROMAAssignments& assign, const std::vector<ODCell*>& cells,
+                     const size_t beginIdx, const size_t endIdx,
+                     RouteCostCalculator<RORoute, ROEdge, ROVehicle>& calc)
+            : myAssign(assign), myCells(cells), myBeginIdx(beginIdx), myEndIdx(endIdx), myCalc(calc) {}
+        void run(MFXWorkerThread* context);
+    private:
+        ROMAAssignments& myAssign;
+        const std::vector<ODCell*>& myCells;
+        const size_t myBeginIdx;
+        const size_t myEndIdx;
+        RouteCostCalculator<RORoute, ROEdge, ROVehicle>& myCalc;
+    private:
+        /// @brief Invalidated assignment operator.
+        SUEInnerTask& operator=(const SUEInnerTask&) = delete;
     };
 #endif
 
