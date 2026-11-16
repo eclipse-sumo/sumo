@@ -33,7 +33,7 @@ import math
 import matplotlib.pyplot as plt
 
 from sumolib.xml import parse_fast_nested  # noqa
-from sumolib.miscutils import uMin, uMax, parseTime  # noqa
+from sumolib.miscutils import commonprefix, uMin, uMax, parseTime  # noqa
 from sumolib.options import ArgumentParser  # noqa
 from sumolib.visualization import helpers  # noqa
 
@@ -116,8 +116,8 @@ def short_names(filenames):
     if len(filenames) == 1:
         return filenames
     reversedNames = [''.join(reversed(f)) for f in filenames]
-    prefixLen = len(os.path.commonprefix(filenames))
-    suffixLen = len(os.path.commonprefix(reversedNames))
+    prefixLen = len(commonprefix(filenames))
+    suffixLen = len(commonprefix(reversedNames))
     return [f[prefixLen:-suffixLen] for f in filenames]
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:38:01.995389+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-11-16T16:32:53.664632+01:00 by Eclipse SUMO sumo v1_28_0+0575-efd1a5bcdbe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,6 +29,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <processing>
         <time-to-teleport value="1800"/>
         <time-to-teleport.railsignal-deadlock value="200"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -46,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v_0" type="train" depart="0.00" departPos="15000.00" arrival="391.00">
+    <vehicle id="v_0" type="train" depart="0.00" departPos="15000.00" arrival="392.00">
         <route edges="E0 E1 E2 E3 E4 E5 E6 E7 E8c E15c"/>
     </vehicle>
 

@@ -70,11 +70,15 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 libsumo::TrafficLight::setRedYellowGreenState(id, StoHelp::readTypedString(inputStorage, "The phase must be given as a string."));
                 break;
             case libsumo::TL_COMPLETE_PROGRAM_RYG: {
-                StoHelp::readCompound(inputStorage, -1, "A compound object is needed for setting a new program.");
+                const int numElements = StoHelp::readCompound(inputStorage, -1, "A compound object is needed for setting a new program.");
                 libsumo::TraCILogic logic;
                 logic.programID = StoHelp::readTypedString(inputStorage, "set program: 1. parameter (programID) must be a string.");
                 logic.type = StoHelp::readTypedInt(inputStorage, "set program: 2. parameter (type) must be an int.");
                 logic.currentPhaseIndex = StoHelp::readTypedInt(inputStorage, "set program: 3. parameter (index) must be an int.");
+                // clients that predate the offset send five elements (without offset)
+                if (numElements >= 6) {
+                    logic.offset = StoHelp::readTypedDouble(inputStorage, "set program: 4. parameter (offset) must be a double.");
+                }
 
                 const int numPhases = StoHelp::readCompound(inputStorage, -1, "A compound object is needed for the phases.");
                 for (int j = 0; j < numPhases; ++j) {

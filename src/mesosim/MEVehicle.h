@@ -356,9 +356,9 @@ public:
     bool replaceRoute(ConstMSRoutePtr route,  const std::string& info, bool onInit = false, int offset = 0, bool addRouteStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
 
     /** @brief Returns whether the vehicle is allowed to pass the next junction, checks also for triggered stops
-     * @return true iff the vehicle may drive over the next junction
+     * @return MESegment::PROCEED_YES iff the vehicle may drive over the next junction
      */
-    bool mayProceed();
+    int mayProceed();
 
     /** @brief Updates a single vehicle detector if present
      */

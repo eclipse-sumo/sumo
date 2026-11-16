@@ -35,7 +35,7 @@ if 'SUMO_HOME' in os.environ:
     import sumolib  # noqa
     from sumolib.xml import parse, parse_fast_nested  # noqa
     from sumolib.net import readNet  # noqa
-    from sumolib.miscutils import Statistics, euclidean, Colorgen  # noqa
+    from sumolib.miscutils import Statistics, euclidean, Colorgen, commonprefix  # noqa
     from sumolib.options import ArgumentParser
     from route2poly import generate_poly  # noqa
 else:
@@ -194,7 +194,7 @@ def main():
             print(idx, "routes checked")
         calcDistAndLoops(ri, net, options)
 
-    prefix = os.path.commonprefix(options.routeFiles)
+    prefix = commonprefix(options.routeFiles)
     duarouterOutput = prefix + '.rerouted.rou.xml'
     duarouterAltOutput = prefix + '.rerouted.rou.alt.xml'
     if os.path.exists(duarouterAltOutput) and options.reuse_routing:

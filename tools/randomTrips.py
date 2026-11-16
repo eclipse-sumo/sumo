@@ -224,8 +224,6 @@ def get_options(args=None):
             options.edge_permission = options.vehicle_class
         else:
             options.edge_permission = 'pedestrian' if options.persons else 'passenger'
-    if options.validate and options.routefile is None:
-        options.routefile = "routes.rou.xml"
 
     if options.period is None and options.insertionRate is None and options.insertionDensity is None:
         options.period = [1.]
@@ -1038,34 +1036,47 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
                                      option[0], router))
 
     redirect = None if options.verbose else subprocess.DEVNULL
+    useRoutefileForValidation = bool(options.routefile and not options.marouter
+                                     and options.validate and not skipValidation and rerunFactor is None)
 
     if options.routefile and rerunFactor is None:
         args2 = (maargs if options.marouter else duargs)[:]
-        args2 += ['-o', options.routefile, '--no-warnings']
+        args2 += ['-o', options.routefile]
+        if useRoutefileForValidation:
+            if not options.verbose:
+                args2 += ['--aggregate-warnings', '0']
+        else:
+            args2 += ['--no-warnings']
         if options.verbose:
             print("calling", " ".join(args2))
             sys.stdout.flush()
         subprocess.call(args2, stdout=redirect)
         sys.stdout.flush()
         sumolib.xml.insertOptionsHeader(options.routefile, options)
+    elif skipValidation and options.errorlog:
+        open(options.errorlog, 'w').close()
 
     if options.validate and not skipValidation:
-        # write to temporary file because the input is read incrementally
         tmpTrips = options.tripfile + ".tmp"
-        args2 = duargs + ['-o', tmpTrips, '--write-trips']
-        if options.junctionTaz:
-            args2 += ['--write-trips.junctions']
-        if options.verbose:
-            print("calling", " ".join(args2))
-            sys.stdout.flush()
-        elif rerunFactor is None:
-            args2 += ['--aggregate-warnings', '0']
+        if useRoutefileForValidation:
+            routeElem = "vehicle" if getElement(options) == "trip" else getElement(options)
+            validLabels = set([t.id for t in sumolib.xml.parse_fast(options.routefile, routeElem, ['id'])])
         else:
-            args2 += ['--no-warnings']
-        subprocess.call(args2, stdout=redirect)
-        sys.stdout.flush()
+            # write to temporary file because the input is read incrementally
+            args2 = duargs + ['-o', tmpTrips, '--write-trips']
+            if options.junctionTaz:
+                args2 += ['--write-trips.junctions']
+            if options.verbose:
+                print("calling", " ".join(args2))
+                sys.stdout.flush()
+            elif rerunFactor is None:
+                args2 += ['--aggregate-warnings', '0']
+            else:
+                args2 += ['--no-warnings']
+            subprocess.call(args2, stdout=redirect)
+            sys.stdout.flush()
+            validLabels = set([t.id for t in sumolib.xml.parse_fast(tmpTrips, getElement(options), ['id'])])
 
-        validLabels = set([t.id for t in sumolib.xml.parse_fast(tmpTrips, getElement(options), ['id'])])
         validatedTrips = [(o, d, i) for (label, o, d, i) in generatedTrips if label in validLabels]
         replaceWithTmp = False
 
@@ -1081,7 +1092,8 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
                           (nValid, nRequested, getElement(options)), file=sys.stderr)
                     replaceWithTmp = True
                 else:
-                    os.remove(tmpTrips)
+                    if not useRoutefileForValidation:
+                        os.remove(tmpTrips)
                     if options.verbose:
                         print("Only %s out of %s requested %ss passed validation. Sampling again to find more." % (
                             nValid, nRequested, getElement(options)))
@@ -1094,9 +1106,20 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
                     return createTrips(options, trip_generator2, skipValidation=True)
 
         if replaceWithTmp:
+            if useRoutefileForValidation:
+                args2 = [a for i, a in enumerate(duargs)
+                         if a != '--error-log' and (i == 0 or duargs[i - 1] != '--error-log')]
+                args2 += ['-o', tmpTrips, '--write-trips', '--no-warnings']
+                if options.junctionTaz:
+                    args2 += ['--write-trips.junctions']
+                if options.verbose:
+                    print("calling", " ".join(args2))
+                    sys.stdout.flush()
+                subprocess.call(args2, stdout=redirect)
+                sys.stdout.flush()
             os.remove(options.tripfile)
             os.rename(tmpTrips, options.tripfile)
-        else:
+        elif not useRoutefileForValidation:
             os.remove(tmpTrips)
 
     return validatedTrips

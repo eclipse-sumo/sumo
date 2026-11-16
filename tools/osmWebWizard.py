@@ -36,7 +36,9 @@ from zipfile import ZipFile
 import base64
 import ssl
 import collections
+import gettext
 from http.server import HTTPServer, SimpleHTTPRequestHandler
+from urllib.parse import urlsplit, parse_qs
 import time
 
 import osmGet
@@ -104,17 +106,23 @@ vehicleParameters = {
     "persontrips": PP + ["--persontrips", "--trip-attributes", 'modes="public"'],
 }
 
+
+def N_(message):
+    """Marks a string for translation (into the language of the web interface) without translating it."""
+    return message
+
+
 vehicleNames = {
-    "passenger": "Cars",
-    "truck": "Trucks",
-    "bus": "Bus",
-    "motorcycle": "Motorcycles",
-    "bicycle": "Bicycles",
-    "pedestrian": "Pedestrians",
-    "tram": "Trams",
-    "rail_urban": "Urban Trains",
-    "rail": "Trains",
-    "ship": "Ships"
+    "passenger": N_("Cars"),
+    "truck": N_("Trucks"),
+    "bus": N_("Bus"),
+    "motorcycle": N_("Motorcycles"),
+    "bicycle": N_("Bicycles"),
+    "pedestrian": N_("Pedestrians"),
+    "tram": N_("Trams"),
+    "rail_urban": N_("Urban Trains"),
+    "rail": N_("Trains"),
+    "ship": N_("Ships")
 }
 
 
@@ -159,6 +167,11 @@ class Builder(object):
 
         self.origDir = os.getcwd()
         print("Building scenario in '%s'." % self.tmp)
+        # progress messages are shown in the language of the web interface
+        self.translations = getTranslation(data.get("language", "en"))[1]
+
+    def TL(self, message):
+        return self.translations.get(message, message)
 
     def report(self, message):
         pass
@@ -193,7 +206,7 @@ class Builder(object):
             # fixed input testing mode
             self.files["osm"] = self.data['osm']
         else:
-            self.report("Downloading map data")
+            self.report(self.TL("Downloading map data"))
             osmArgs = ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp, "-z"]
             if self.data["poly"]:
                 osmArgs.append("--shapes")
@@ -276,13 +289,13 @@ class Builder(object):
         options += ["--netconvert-options", netconvertOptions]
         options += ["--polyconvert-options", " -v,--osm.keep-full-type,--osm.merge-relations,1"]
 
-        self.report("Converting map data")
+        self.report(self.TL("Converting map data"))
         osmBuild.build(options)
         ptOptions = None
         hasPTFlows = False
         begin = self.data.get("begin", 0)
         if self.data["publicTransport"]:
-            self.report("Generating public transport schedule")
+            self.report(self.TL("Generating public transport schedule"))
             self.filename("pt_stopinfos", "stopinfos.xml", False)
             self.filename("pt_vehroutes", "vehroutes.xml", False)
             self.filename("pt_trips", "trips.trips.xml", False)
@@ -315,7 +328,7 @@ class Builder(object):
                     hasPTFlows = True
 
         if self.data["decal"]:
-            self.report("Downloading background images")
+            self.report(self.TL("Downloading background images"))
             tileOptions = [
                 "-n", self.files["net"],
                 "--zoom", str(self.data["tileZoom"]),
@@ -329,12 +342,12 @@ class Builder(object):
                 os.chdir(self.tmp)
                 os.mkdir("background_images")
                 tileGet.get(tileOptions)
-                self.report("Success.")
+                self.report(self.TL("Success."))
                 self.decalError = False
             except Exception as e:
                 os.chdir(self.tmp)
                 shutil.rmtree("background_images", ignore_errors=True)
-                self.report("Error while downloading background images: %s" % e)
+                self.report(self.TL("Error while downloading background images: %s") % e)
                 self.decalError = True
 
         if self.data["vehicles"] or hasPTFlows:
@@ -347,7 +360,7 @@ class Builder(object):
             seed = 42
             for vehicle in sorted(self.data["vehicles"].keys()):
                 options = self.data["vehicles"][vehicle]
-                self.report("Processing %s" % vehicleNames[vehicle])
+                self.report(self.TL("Processing %s") % self.TL(vehicleNames[vehicle]))
 
                 self.filename("route", ".%s.rou.xml" % vehicle)
                 self.filename("trips", ".%s.trips.xml" % vehicle)
@@ -430,7 +443,7 @@ class Builder(object):
     def makeConfigFile(self):
         "Save the configuration for SUMO in a file"
 
-        self.report("Generating configuration file")
+        self.report(self.TL("Generating configuration file"))
 
         self.filename("guisettings", ".view.xml")
         with open(self.files["guisettings"], 'w') as f:
@@ -493,7 +506,7 @@ class Builder(object):
         os.chmod(self.files["run.bat"], BATCH_MODE)
 
     def openSUMO(self):
-        self.report("Calling SUMO")
+        self.report(self.TL("Calling SUMO"))
 
         sumogui = sumolib.checkBinary("sumo-gui")
 
@@ -502,7 +515,7 @@ class Builder(object):
     def createZip(self):
         "Create a zip file with everything inside which SUMO GUI needs, returns it base64 encoded"
 
-        self.report("Building zip file")
+        self.report(self.TL("Building zip file"))
 
         self.filename("zip", ".zip")
 
@@ -577,12 +590,12 @@ class OSMImporterWebSocket(WebSocket):
 
                 self.sendMessage(b"zip " + data)
         except ssl.CertificateError:
-            self.report("Error with SSL certificate, try 'pip install -U certifi'.")
+            self.report(builder.TL("Error with SSL certificate, try 'pip install -U certifi'."))
         except Exception as e:
             print(traceback.format_exc())
             # reset 'Generate Scenario' button
             while self.steps > 0:
-                self.report(str(e) + ", recovering.")
+                self.report(builder.TL("%s, recovering.") % e)
             if os.path.isdir(builder.tmp) and not os.listdir(builder.tmp):
                 os.rmdir(builder.tmp)
         os.chdir(builder.origDir)
@@ -621,12 +634,12 @@ class OSMImporterHTTPHandler(SimpleHTTPRequestHandler):
                 self.server.messages.append(b"zip " + builder.createZip())
                 builder.finalize()
         except ssl.CertificateError:
-            self.report("Error with SSL certificate, try 'pip install -U certifi'.")
+            self.report(builder.TL("Error with SSL certificate, try 'pip install -U certifi'."))
         except Exception as e:
             print(traceback.format_exc())
             # reset 'Generate Scenario' button
             while self.steps > 0:
-                self.report(str(e) + ", recovering.")
+                self.report(builder.TL("%s, recovering.") % e)
             if os.path.isdir(builder.tmp) and not os.listdir(builder.tmp):
                 os.rmdir(builder.tmp)
         os.chdir(builder.origDir)
@@ -647,7 +660,14 @@ class OSMImporterHTTPHandler(SimpleHTTPRequestHandler):
             self.send_error(404)
 
     def do_GET(self):
-        if self.path == "/progress":
+        url = urlsplit(self.path)
+        if url.path == "/translation":
+            lang, messages = getTranslation(parse_qs(url.query).get("lang", [""])[0])
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"language": lang, "messages": messages}).encode())
+        elif self.path == "/progress":
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
@@ -655,6 +675,30 @@ class OSMImporterHTTPHandler(SimpleHTTPRequestHandler):
             del self.server.messages[:1]
         else:
             super().do_GET()
+
+
+def getTranslation(languages):
+    """Returns the code of the first available language from the comma separated list
+    (as sent by the browser) and the translated strings of the web wizard as a dictionary."""
+    # use the same SUMO tree the web interface is served from
+    localeDir = os.path.join(os.path.dirname(OSMImporterHTTPHandler.web_root), "..", "data", "locale")
+    available = {}
+    if os.path.isdir(localeDir):
+        available = {d.lower(): d for d in os.listdir(localeDir)
+                     if os.path.exists(os.path.join(localeDir, d, "LC_MESSAGES", "osmWebWizard.mo"))}
+    for lang in languages.split(","):
+        parts = lang.split(";")[0].strip().replace("_", "-").lower().split("-")
+        if parts[0] == "en":
+            break
+        if parts[0] == "zh" and len(parts) > 1 and parts[1] in ("tw", "hk", "mo"):
+            parts = ["zh", "hant"]
+        for i in range(len(parts), 0, -1):
+            code = available.get("-".join(parts[:i]))
+            if code is not None:
+                with open(os.path.join(localeDir, code, "LC_MESSAGES", "osmWebWizard.mo"), "rb") as mo:
+                    catalog = gettext.GNUTranslations(mo)._catalog
+                return code, {k: v for k, v in catalog.items() if isinstance(k, str) and k and v}
+    return "en", {}
 
 
 def watchdog(server, timeout=3600):
@@ -684,6 +728,8 @@ def get_options(args=None):
     parser.add_argument("--port", type=int,
                         help="Port for the web socket or server. By default a random port is chosen.")
     parser.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
+    parser.add_argument("--language",
+                        help="Language of the web interface (by default the language of the browser is used).")
     parser.add_argument("-b", "--begin", default=0, type=sumolib.miscutils.parseTime,
                         help="Defines the begin time for the scenario.")
     parser.add_argument("-e", "--end", default=900, type=sumolib.miscutils.parseTime,
@@ -771,7 +817,10 @@ def main(options):
         if options.remote:
             print("Web server listening on http://%s:%s/ in remote mode." % (httpd.server_name, port))
         else:
-            webbrowser.open("http://127.0.0.1:%s/" % port)
+            url = "http://127.0.0.1:%s/" % port
+            if options.language:
+                url += "?lang=%s" % options.language
+            webbrowser.open(url)
             threading.Thread(target=watchdog, args=(httpd,), daemon=True).start()
         httpd.serve_forever()
 

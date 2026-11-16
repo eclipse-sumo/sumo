@@ -1234,7 +1234,7 @@ NBEdgeCont::guessRoundabouts() {
     }
     // step 1: keep only those edges which have no turnarounds and which are not
     // part of a loaded roundabout
-    std::set<NBEdge*> candidates;
+    std::set<NBEdge*, ComparatorIdLess> candidates;
     SVCPermissions valid = SVCAll & ~SVC_PEDESTRIAN;
     for (EdgeCont::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         NBEdge* e = (*i).second;
@@ -1248,7 +1248,7 @@ NBEdgeCont::guessRoundabouts() {
 
     // step 2:
     std::set<NBEdge*> visited;
-    for (std::set<NBEdge*>::const_iterator i = candidates.begin(); i != candidates.end(); ++i) {
+    for (std::set<NBEdge*, ComparatorIdLess>::const_iterator i = candidates.begin(); i != candidates.end(); ++i) {
         EdgeVector loopEdges;
         // start with a random edge (this doesn't have to be a roundabout edge)
         // loop over connected edges (using always the leftmost one)
@@ -1457,46 +1457,63 @@ NBEdgeCont::guessRoundabouts() {
 
 int
 NBEdgeCont::extractRoundabouts() {
-    std::set<NBEdge*> candidateEdges;
+    EdgeVector candidateEdges;
     for (const auto& edge : myEdges) {
         NBEdge* const e = edge.second;
         if (e->getJunctionPriority(e->getToNode()) == NBEdge::JunctionPriority::ROUNDABOUT || e->getJunctionPriority(e->getFromNode()) == NBEdge::JunctionPriority::ROUNDABOUT) {
-            candidateEdges.insert(e);
+            candidateEdges.push_back(e);
         }
     }
     std::set<NBEdge*> visited;
     int extracted = 0;
-    for (const auto& edgeIt : candidateEdges) {
-        EdgeVector loopEdges;
-        NBEdge* e = edgeIt;
-        if (visited.count(e) > 0) {
+    for (NBEdge* const startEdge : candidateEdges) {
+        if (visited.count(startEdge) > 0) {
             // already seen
             continue;
         }
-        loopEdges.push_back(e);
-        bool doLoop = true;
-        //
-        do {
-            if (std::find(visited.begin(), visited.end(), e) != visited.end()) {
-                if (loopEdges.size() > 1) {
-                    addRoundabout(EdgeSet(loopEdges.begin(), loopEdges.end()));
+        EdgeVector loopEdges;
+        NBEdge* e = startEdge;
+        while (true) {
+            const auto loopIt = std::find(loopEdges.begin(), loopEdges.end(), e);
+            if (loopIt != loopEdges.end()) {
+                if (loopEdges.end() - loopIt > 1) {
+                    addRoundabout(EdgeSet(loopIt, loopEdges.end()));
+                    visited.insert(loopIt, loopEdges.end());
                     ++extracted;
+                } else {
+                    visited.insert(e);
                 }
-                doLoop = false;
                 break;
             }
-            visited.insert(e);
+            if (visited.count(e) > 0) {
+                visited.insert(loopEdges.begin(), loopEdges.end());
+                break;
+            }
             loopEdges.push_back(e);
             const EdgeVector& outgoingEdges = e->getToNode()->getOutgoingEdges();
-            EdgeVector::const_iterator me = std::find_if(outgoingEdges.begin(), outgoingEdges.end(), [](const NBEdge * outgoingEdge) {
-                return outgoingEdge->getJunctionPriority(outgoingEdge->getToNode()) == NBEdge::JunctionPriority::ROUNDABOUT;
-            });
-            if (me == outgoingEdges.end()) { // no closed loop
-                doLoop = false;
-            } else {
-                e = *me;
+            NBEdge* next = nullptr;
+            for (NBEdge* const outgoingEdge : outgoingEdges) {
+                if (outgoingEdge->getJunctionPriority(outgoingEdge->getToNode()) == NBEdge::JunctionPriority::ROUNDABOUT
+                        && std::find(loopEdges.begin(), loopEdges.end(), outgoingEdge) != loopEdges.end()) {
+                    next = outgoingEdge;
+                    break;
+                }
             }
-        } while (doLoop);
+            if (next == nullptr) {
+                for (NBEdge* const outgoingEdge : outgoingEdges) {
+                    if (outgoingEdge->getJunctionPriority(outgoingEdge->getToNode()) == NBEdge::JunctionPriority::ROUNDABOUT
+                            && visited.count(outgoingEdge) == 0) {
+                        next = outgoingEdge;
+                        break;
+                    }
+                }
+            }
+            if (next == nullptr) { // no closed loop
+                visited.insert(loopEdges.begin(), loopEdges.end());
+                break;
+            }
+            e = next;
+        }
     }
     return extracted;
 }
@@ -1581,7 +1598,9 @@ NBEdgeCont::removeRoundaboutEdges(const EdgeSet& toRemove, std::set<EdgeSet>& ro
     for (const EdgeSet& r : roundabouts) {
         EdgeSet r2;
         std::set_difference(r.begin(), r.end(), toRemove.begin(), toRemove.end(), std::inserter(r2, r2.end()));
-        rList.push_back(r2);
+        if (!r2.empty()) {
+            rList.push_back(r2);
+        }
     }
     roundabouts.clear();
     roundabouts.insert(rList.begin(), rList.end());

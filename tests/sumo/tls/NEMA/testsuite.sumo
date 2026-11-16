@@ -39,3 +39,6 @@ crossings
 
 # test for #14502
 crossings_stayRed
+
+# lagging left turns in coordinated mode
+lagging_left

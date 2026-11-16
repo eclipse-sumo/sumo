@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-08-01 13:22:20 by Eclipse SUMO netconvert Version v1_24_0+0105-e209ab84cb0
+<!-- generated on 2026-11-10T16:37:01.239317+01:00 by Eclipse SUMO netconvert v1_28_0+0490-0028982655c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -212,14 +212,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="2" response="1000" foes="1000"/>
         <request index="3" response="0000" foes="0110"/>
     </junction>
-    <junction id="4939062820" type="priority" x="5647.33" y="2679.15" incLanes="-305115095_0 326203720_0" intLanes="" shape="5646.54,2680.54 5648.28,2677.86 5648.05,2677.72 5646.45,2680.49">
+    <junction id="4939062820" type="rail_signal" x="5647.33" y="2679.15" incLanes="-305115095_0 326203720_0" intLanes="" shape="5646.54,2680.54 5648.28,2677.86 5648.05,2677.72 5646.45,2680.49">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
+        <param key="railway:signal:direction" value="backward"/>
+        <param key="virtual" value="true"/>
     </junction>
 
     <connection from="-224023986" to="-36388592" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-305115093" to="-305115095" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-305115095" to="-326203720" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-305115095" to="-326203720" fromLane="0" toLane="0" tl="4939062820" linkIndex="0" dir="s" state="O"/>
     <connection from="-326203720" to="-326203722" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-326203720" to="-326203721" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="-326203721" to="-224023986" fromLane="0" toLane="0" dir="s" state="M"/>

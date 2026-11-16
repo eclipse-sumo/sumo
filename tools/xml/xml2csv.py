@@ -35,7 +35,30 @@ except ImportError:
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+else:
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import sumolib  # noqa
+
+FLOAT_XSD_TYPES = {
+    "xsd:float", "xsd:double", "xsd:decimal",
+    "floatType", "positiveFloatType", "nonNegativeFloat",
+    "nonNegativeFloatType", "nonNegativeFloatTypeWithErrorValue",
+    "timeType", "timeTypeWithErrorValue", "signedTimeType",
+    "departType", "personDepartType", "departPosType", "departPosLatType",
+    "departSpeedType", "arrivalPosType", "arrivalPosLatType",
+    "arrivalSpeedType", "accessPosType", "offsetType", "periodType",
+    "latAlignmentType", "nonNegativeDistributionType",
+}
+
+
+def _is_float_value(val):
+    if "." not in val or "_" in val:
+        return False
+    try:
+        float(val)
+        return True
+    except ValueError:
+        return False
 
 
 class CSVWriter(sumolib.xml.NestingHandler):
@@ -87,10 +110,17 @@ class CSVWriter(sumolib.xml.NestingHandler):
                     # print(a, dict(self.attrFinder.tagAttrs[name]))
                     if a in self.attrFinder.tagAttrs[name]:
                         if self.attrFinder.xsdStruc:
-                            enum = self.attrFinder.xsdStruc.getEnumeration(
-                                self.attrFinder.tagAttrs[name][a].type)
+                            attrType = self.attrFinder.tagAttrs[name][a].type
+                            enum = self.attrFinder.xsdStruc.getEnumeration(attrType)
                             if enum:
                                 v = enum.index(v)
+                            elif (self.options.decimal_separator != "."
+                                  and attrType
+                                  and (attrType in FLOAT_XSD_TYPES or "float" in attrType.lower())
+                                  and _is_float_value(v)):
+                                v = v.replace(".", self.options.decimal_separator)
+                        elif self.options.decimal_separator != "." and _is_float_value(v):
+                            v = v.replace(".", self.options.decimal_separator)
                         a2 = self.attrFinder.renamedAttrs.get((name, a), a)
                         self.currentValues[a2] = v
                         self.haveUnsavedValues = True
@@ -125,6 +155,8 @@ def get_options(arglist=None):
     # processing
     optParser.add_argument("-s", "--separator", default=";",
                            help="separating character for fields")
+    optParser.add_argument("-d", "--decimal-separator", dest="decimal_separator", default=".",
+                           help="decimal separator for float values")
     optParser.add_argument("-q", "--quotechar", default='',
                            help="quoting character for fields")
     optParser.add_argument("-x", "--xsd", category="processing",

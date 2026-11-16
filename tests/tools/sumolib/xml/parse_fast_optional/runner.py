@@ -29,6 +29,6 @@ for f in sumolib.xml.parse_fast(sys.argv[1], "edge", ["id", "sampledSeconds", "t
                                                       "density", "laneDensity", "occupancy", "waitingTime",
                                                       "timeLoss", "speed", "speedRelative", "departed"], optional=True):
     print(f)
-print("this does not extract all, because intermediate attributes are missing")
+print("extract subset of optional attributes without listing intermediate attributes")
 for f in sumolib.xml.parse_fast(sys.argv[1], "edge", ["id", "sampledSeconds", "density", "departed"], optional=True):
     print(f)

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-14 12:41:06.993706 by Eclipse SUMO netdiff.py v1_28_0+0544-23f16fc96b7
+<configuration>
+    <source value="source.xml"/>
+    <dest value="dest.xml"/>
+    <outprefix value="diff"/>
+    <direct value="True"/>
+    <ignore-attributes value="shape,edge.length"/>
+</configuration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <!-- Deleted Elements -->
+    <!-- Created Elements -->
+    <!-- Changed Elements -->
+    <edge id="e1" priority="5"/>
+</edges>

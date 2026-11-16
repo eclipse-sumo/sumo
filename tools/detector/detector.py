@@ -27,7 +27,7 @@ from datetime import datetime
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
-from sumolib.miscutils import parseTime  # noqa
+from sumolib.miscutils import commonprefix, parseTime  # noqa
 
 MAX_POS_DEVIATION = 10
 
@@ -164,7 +164,7 @@ class DetectorGroupData:
     def getName(self, longName, firstName, sep='|'):
         if firstName:
             return self.ids[0]
-        name = os.path.commonprefix(self.ids)
+        name = commonprefix(self.ids)
         if name == "" or longName:
             name = sep.join(sorted(self.ids))
         return name

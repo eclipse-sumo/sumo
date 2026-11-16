@@ -31,6 +31,10 @@ The message contents are as following:
 | :-------------------: | :----------------: | :-----------------: | :---------------: | :-----------------: | :-------------: | :-----------------: | :----------------------: |
 | value type *compound* | number of elements (always=3) | value type *double* | begin time (in s) | value type *double* | end time (in s) | value type *double* | travel time value (in s) |
 
+Setting the travel time value to `INVALID_DOUBLE_VALUE` (2^30) removes all stored travel time
+information for the edge. When a whole-range travel time is set (begin 0, end 2^30), previously
+stored values for the edge are replaced.
+
 ### change edge effort information (0x59)
 
 |         byte          |              int              |        byte         |      double       |        byte         |     double   |        byte      |     double          |
