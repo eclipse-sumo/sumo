@@ -704,43 +704,47 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
 
 void
 RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime time, const bool removeLoops) {
-    std::map<const int, std::vector<RORoutable*> > bulkVehs;
+    std::map<const int, std::map<SUMOVehicleClass, std::vector<RORoutable*> > > bulkVehs;
     int numBulked = 0;
+    int numGroups = 0;
     for (RoutablesMap::const_iterator i = myRoutables.begin(); i != myRoutables.end(); ++i) {
         if (i->first >= time) {
             break;
         }
         for (RORoutable* const routable : i->second) {
             const ROEdge* const depEdge = routable->getDepartEdge();
-            bulkVehs[depEdge->getNumericalID()].push_back(routable);
-            RORoutable* const first = bulkVehs[depEdge->getNumericalID()].front();
+            std::vector<RORoutable*>& group = bulkVehs[depEdge->getNumericalID()][routable->getVClass()];
+            if (group.empty()) {
+                numGroups++;
+            }
+            group.push_back(routable);
+            RORoutable* const first = group.front();
             numBulked++;
             if (first->getMaxSpeed() != routable->getMaxSpeed()) {
                 WRITE_WARNINGF(TL("Bulking different maximum speeds ('%' and '%') may lead to suboptimal routes."), first->getID(), routable->getID());
-            }
-            if (first->getVClass() != routable->getVClass()) {
-                WRITE_WARNINGF(TL("Bulking different vehicle classes ('%' and '%') may lead to invalid routes."), first->getID(), routable->getID());
             }
         }
     }
 #ifdef HAVE_FOX
     int workerIndex = 0;
 #endif
-    if ((int)bulkVehs.size() < numBulked) {
+    if (numGroups < numBulked) {
         WRITE_MESSAGE(TLF("Using bulk-mode for % entities from % origins", numBulked, bulkVehs.size()));
     }
-    for (std::map<const int, std::vector<RORoutable*> >::const_iterator i = bulkVehs.begin(); i != bulkVehs.end(); ++i) {
+    for (const auto& i : bulkVehs) {
 #ifdef HAVE_FOX
         if (myThreadPool.size() > 0) {
-            bool bulk = true;
-            for (RORoutable* const r : i->second) {
-                myThreadPool.add(new RoutingTask(r, removeLoops, myErrorHandler), workerIndex);
-                if (bulk) {
-                    myThreadPool.add(new BulkmodeTask(true), workerIndex);
-                    bulk = false;
+            for (const auto& j : i.second) {
+                bool bulk = true;
+                for (RORoutable* const r : j.second) {
+                    myThreadPool.add(new RoutingTask(r, removeLoops, myErrorHandler), workerIndex);
+                    if (bulk) {
+                        myThreadPool.add(new BulkmodeTask(true), workerIndex);
+                        bulk = false;
+                    }
                 }
+                myThreadPool.add(new BulkmodeTask(false), workerIndex);
             }
-            myThreadPool.add(new BulkmodeTask(false), workerIndex);
             workerIndex++;
             if (workerIndex == (int)myThreadPool.size()) {
                 workerIndex = 0;
@@ -748,11 +752,13 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
             continue;
         }
 #endif
-        for (RORoutable* const r : i->second) {
-            r->computeRoute(provider, removeLoops, myErrorHandler);
-            provider.setBulkMode(true);
+        for (const auto& j : i.second) {
+            for (RORoutable* const r : j.second) {
+                r->computeRoute(provider, removeLoops, myErrorHandler);
+                provider.setBulkMode(true);
+            }
+            provider.setBulkMode(false);
         }
-        provider.setBulkMode(false);
     }
 }
 

@@ -1,0 +1,8 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <vType id="car" vClass="passenger"/>
+    <trip id="0" type="bus" depart="0" from="beg" to="end"/>
+    <trip id="1" type="car" depart="0" from="beg" to="end"/>
+    <trip id="2" type="bus" depart="0" from="beg" to="end"/>
+    <trip id="3" type="car" depart="0" from="beg" to="end"/>
+</routes>
