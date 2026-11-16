@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-06T07:22:22.834329+01:00 by Eclipse SUMO netedit v1_28_0+0458-e7fd5e01ae8
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/localdata1/debug/18511/repro/net2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/localdata1/debug/18511/repro/net2.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,0.00" origBoundary="0.00,0.00,200.00,0.00" projParameter="!"/>
+
+    <edge id=":B_0" function="internal">
+        <lane id=":B_0_0" index="0" disallow="pedestrian" speed="13.89" length="0.10" shape="100.00,-1.60 100.00,-1.60"/>
+    </edge>
+
+    <edge id="AB" from="A" to="B" priority="-1">
+        <lane id="AB_0" index="0" allow="bicycle" speed="13.89" length="100.00" width="2.00" shape="0.00,-4.20 100.00,-4.20"/>
+        <lane id="AB_1" index="1" disallow="pedestrian" speed="13.89" length="100.00" shape="0.00,-1.60 100.00,-1.60"/>
+    </edge>
+    <edge id="BC" from="B" to="C" priority="-1">
+        <lane id="BC_0" index="0" allow="pedestrian" speed="13.89" length="100.00" width="2.00" shape="100.00,-4.20 200.00,-4.20"/>
+        <lane id="BC_1" index="1" disallow="pedestrian" speed="13.89" length="100.00" shape="100.00,-1.60 200.00,-1.60"/>
+    </edge>
+
+    <junction id="A" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-5.20"/>
+    <junction id="B" type="priority" x="100.00" y="0.00" incLanes="AB_0 AB_1" intLanes=":B_0_0" shape="100.00,0.00 100.00,-5.20 100.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="C" type="dead_end" x="200.00" y="0.00" incLanes="BC_0 BC_1" intLanes="" shape="200.00,-5.20 200.00,0.00"/>
+
+    <connection from="AB" to="BC" fromLane="1" toLane="1" via=":B_0_0" dir="s" state="M"/>
+
+    <connection from=":B_0" to="BC" fromLane="0" toLane="1" dir="s" state="M"/>
+
+</net>

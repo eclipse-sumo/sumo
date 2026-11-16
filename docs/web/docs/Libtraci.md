@@ -104,7 +104,7 @@ int main(int argc, char* argv[]) {
 ### compiling on Linux (make sure SUMO_HOME is set and sumo has been built)
 
 ```
-g++ -o test -std=c++11 -I$SUMO_HOME/src test.cpp -L$SUMO_HOME/bin -ltracicpp
+g++ -o test -I$SUMO_HOME/src test.cpp -L$SUMO_HOME/bin -ltracicpp
 ```
 
 ### running on Linux

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-08-25T12:40:36.058679+01:00 by Eclipse SUMO sumo v1_27_1+0469-e17aa8a62df
+<!-- generated on 2026-11-10T18:11:44.158565+01:00 by Eclipse SUMO sumo v1_28_0+0494-8e2eb73c983
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -53,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <edge id="1/1to0/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
         <edge id="1/1to1/0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
         <edge id="1/1to1/2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
-        <edge id="1/1to2/1" sampledSeconds="10.00" traveltime="10.71" overlapTraveltime="11.30" density="2.70" overlapDensity="2.70" laneDensity="2.70" occupancy="1.35" waitingTime="2.00" timeLoss="3.92" speed="8.45" speedRelative="0.61" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0" teleported="1" flow="81.98" distance="84.50"/>
+        <edge id="1/1to2/1" sampledSeconds="10.00" traveltime="10.71" overlapTraveltime="11.30" density="2.70" overlapDensity="2.70" laneDensity="2.70" occupancy="1.35" waitingTime="2.00" timeLoss="3.92" speed="8.45" speedRelative="0.61" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0" teleported="1" flow="81.98" distance="84.50"/>
         <edge id="1/2to0/2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
         <edge id="1/2to1/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
         <edge id="1/2to2/2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
@@ -61,7 +61,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <edge id="2/0to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
         <edge id="2/1to1/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
         <edge id="2/1to2/0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
-        <edge id="2/1to2/2" sampledSeconds="7.00" traveltime="7.05" overlapTraveltime="7.44" density="1.77" overlapDensity="1.86" laneDensity="1.77" occupancy="0.91" waitingTime="0.00" timeLoss="0.44" speed="13.03" speedRelative="0.94" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0" flow="83.03" distance="87.00"/>
+        <edge id="2/1to2/2" sampledSeconds="7.00" traveltime="7.05" overlapTraveltime="7.44" density="1.77" overlapDensity="1.86" laneDensity="1.77" occupancy="0.91" waitingTime="0.00" timeLoss="0.44" speed="13.03" speedRelative="0.94" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" flow="83.03" distance="87.00"/>
         <edge id="2/2to1/2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
         <edge id="2/2to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
     </interval>

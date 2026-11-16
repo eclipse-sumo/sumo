@@ -1,4 +1,15 @@
-<routes>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-04 13:04:56.287305 by Eclipse SUMO route_departOffset.py v1_28_0+0421-48f39d18e35
+<configuration>
+    <input-file value="routes.rou.xml"/>
+    <output-file value="out.rou.xml"/>
+    <depart-offset value="10.0"/>
+    <modify-ids value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="foo" sigma="0"/>
     <vehicle id="veh0_10" depart="11" color="red" type="foo">
         <route edges="a b c d"/>

@@ -756,6 +756,9 @@ Person::appendStage(const std::string& personID, const TraCIStage& stage) {
 void
 Person::replaceStage(const std::string& personID, const int stageIndex, const TraCIStage& stage) {
     MSTransportable* p = getPerson(personID);
+    if (stageIndex < 0) {
+        throw TraCIException("The stage index may not be negative.");
+    }
     if (stageIndex >= p->getNumRemainingStages()) {
         throw TraCIException("Specified stage index:  is not valid for person " + personID);
     }

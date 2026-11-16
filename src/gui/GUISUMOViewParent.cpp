@@ -82,7 +82,6 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p, FXMDIMenu* mdimenu,
                                      FXint x, FXint y, FXint w, FXint h) :
     GUIGlChildWindow(p, parentWindow, mdimenu, name, nullptr, ic, opts, x, y, w, h) {
     buildSpeedControlToolbar();
-    myGUIMainWindowParent->addGLChild(this);
 }
 
 
@@ -103,6 +102,8 @@ GUISUMOViewParent::init(FXGLCanvas* share, GUINet& net, GUISUMOViewParent::ViewT
     if (myGUIMainWindowParent->isGaming()) {
         myStaticNavigationToolBar->hide();
     }
+    // register only after the view exists because the simulation thread may access it immediately
+    myGUIMainWindowParent->addGLChild(this);
     return myView;
 }
 

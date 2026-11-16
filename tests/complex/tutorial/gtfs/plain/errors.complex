@@ -21,3 +21,14 @@ Removing trip 280371 (bus): detour (factor inf) to stop index 3, fromPos=1590.74
 Removing trip 281592 (bus): detour (factor inf) to stop index 3, fromPos=1590.74,3128.35 toPos=1178.08,2971.39 (airLine=441.50 path=inf)
 Removing trip 281758 (bus): detour (factor inf) to stop index 2, fromPos=939.91,6706.84 toPos=525.51,7232.36 (airLine=669.24 path=inf)
 Removing trip 154196 (bus): detour (factor inf) to stop index 1, fromPos=4157.82,6984.48 toPos=4615.87,6090.09 (airLine=1004.86 path=inf)
+Warning! Dropping 109241 with Only 1 stops.
+Warning! Dropping 109242 with Only 1 stops.
+Warning! Dropping 109251 with Only 1 stops.
+Warning! Dropping 109261 with Only 1 stops.
+Warning! Dropping 282164 with Only 1 stops.
+Warning! Dropping 109264 with Only 1 stops.
+Warning! Dropping 281979 with Only 1 stops.
+Warning! Dropping 284866 with Only 1 stops.
+Warning! Dropping 284865 with Only 1 stops.
+Warning! Dropping 236759 with Only 1 stops.
+Warning! Dropping 250372 with Only 1 stops.

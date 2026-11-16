@@ -1,0 +1,14 @@
+<routes>
+    <vType id="car" sigma="0"/>
+    <!-- cycle 1 (starts 100): both lags are called, gap out at 156, and phases 2 and 6 are served again from 160 -->
+    <vehicle id="lag1" type="car" depart="90" departLane="1" departPos="245" departSpeed="0">
+        <route edges="1si 4o"/>
+    </vehicle>
+    <vehicle id="lag5" type="car" depart="90" departLane="1" departPos="245" departSpeed="0">
+        <route edges="2si 3o"/>
+    </vehicle>
+    <!-- cycle 2: side-street call; served at the barrier (272 without an offset change) -->
+    <vehicle id="side4" type="car" depart="250" departLane="0" departPos="245" departSpeed="0">
+        <route edges="3si 4o"/>
+    </vehicle>
+</routes>

@@ -1,0 +1,2 @@
+Warning: At NEMA tlLogic '0', reservicePhases names phase 2, which is not a coordinated phase followed by a lagging phase; it is ignored.
+Warning: At NEMA tlLogic '0', reservicePhases names phase 4, which is not a coordinated phase followed by a lagging phase; it is ignored.

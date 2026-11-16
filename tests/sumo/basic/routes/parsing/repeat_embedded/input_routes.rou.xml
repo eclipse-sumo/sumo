@@ -1,5 +1,8 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="0" depart="10">
-        <route edges="CN NC CS SC" repeat="2"/>
+        <route edges="CN NC CS SC" repeat="2">
+            <stop edge="CN" duration="10"/>
+            <stop edge="CS" duration="10"/>
+        </route>
     </vehicle>
 </routes>

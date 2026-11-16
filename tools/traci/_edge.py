@@ -236,7 +236,9 @@ class EdgeDomain(Domain):
         Adapt the travel time value (in s) used for (re-)routing for the given edge.
 
         When setting begin time and end time (in seconds), the changes only
-        apply to that time range. Otherwise they apply all the time
+        apply to that time range. Otherwise they apply all the time.
+        Setting time to INVALID_DOUBLE_VALUE removes all stored travel time
+        information for the edge.
         """
         if begin is None and end is None:
             self._setCmd(tc.VAR_EDGE_TRAVELTIME, edgeID, "td", 1, time)

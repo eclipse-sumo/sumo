@@ -1,0 +1,6 @@
+Warning: Teleporting vehicle 'v_0'; waited too long (wrong lane), lane='E0_0', time=313.00.
+Warning: Vehicle 'v_0' teleports beyond arrival edge 'E1', time=321.00.
+Warning: Teleporting vehicle 'v_1'; waited too long (wrong lane), lane='E0_0', time=619.00.
+Warning: Vehicle 'v_1' teleports beyond arrival edge 'E2', time=635.00.
+Warning: Teleporting vehicle 'v_2'; waited too long (wrong lane), lane='E0_0', time=924.00.
+Warning: Vehicle 'v_2' ends teleporting on edge 'E3', time=941.00.

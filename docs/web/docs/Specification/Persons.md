@@ -300,7 +300,7 @@ Persons defined by personFlow `p0` start within the vehicle defined by trip `v0`
 <personFlow id="p0" begin="triggered" number="2">
     <ride to="gneE1" lines="v0"/>
     <walk to="gneE3"/>
-</person>
+</personFlow>
 ```
 
 

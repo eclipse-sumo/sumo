@@ -60,6 +60,42 @@ GNELane2laneConnection::updateLane2laneConnection() {
             } else {
                 // create a shape using lane shape extremes
                 shape = {myFromLane->getLaneShape().back(), outgoingLane->getLaneShape().front()};
+                if (shape.length() < 3) {
+                    shape.clear();
+                    PositionVector laneShapeFrom = myFromLane->getLaneShape();
+                    PositionVector laneShapeTo = outgoingLane->getLaneShape();
+                    // apply offset to lane shape if we're in lane spread function center
+                    if (NBEdgeFrom->getLaneSpreadFunction() == LaneSpreadFunction::CENTER) {
+                        laneShapeFrom.move2side(0.3);
+                    }
+                    if (NBEdgeTo->getLaneSpreadFunction() == LaneSpreadFunction::CENTER) {
+                        laneShapeTo.move2side(0.3);
+                    }
+                    // check if this connetion is a turn around
+                    const bool turnAround = NBEdgeTo->getToNode() == NBEdgeFrom->getFromNode();
+                    // add from lane shape one step before
+                    if (laneShapeFrom.length() > 1) {
+                        // set length depending of turn arounds
+                        if (turnAround) {
+                            shape.push_back(laneShapeFrom.positionAtOffset(laneShapeFrom.length() - 0.5));
+                        } else {
+                            shape.push_back(laneShapeFrom.positionAtOffset(laneShapeFrom.length() - 1));
+                        }
+                    }
+                    // add from lane shape
+                    shape.push_back(laneShapeFrom.back());
+                    // add to lane shape
+                    shape.push_back(laneShapeTo.front());
+                    // add to lane shape one step after
+                    if (laneShapeTo.length() > 1) {
+                        // set length depending of turn arounds
+                        if (turnAround) {
+                            shape.push_back(laneShapeTo.positionAtOffset(0.5));
+                        } else {
+                            shape.push_back(laneShapeTo.positionAtOffset(1));
+                        }
+                    }
+                }
             }
             // update connection map
             myConnectionsMap[outgoingLane].updateGeometry(shape);

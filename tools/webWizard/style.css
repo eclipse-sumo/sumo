@@ -57,9 +57,9 @@ canvas {
 
 .controls {
     width: 0;
-    height: calc(100% - 55px);
+    height: calc(100% - var(--controls-top, 55px));
     position: absolute;
-    top: 55px;
+    top: var(--controls-top, 55px);
     right: 0;
     overflow-x: hidden;
     overflow-y: auto;
@@ -90,7 +90,9 @@ canvas {
     margin-top: 20px;
 }
 
+/* translated strings may be longer than the original ones, everything should be able to wrap */
 .container, button, #status {
+    overflow-wrap: anywhere;
     background: #2C2CA0;
     border-radius: 4px;
     font-size: 0.8em;
@@ -117,9 +119,29 @@ button:hover {
 
 .container h4 {
     margin: 0;
-    text-align: center;
     font-size: 1.25em;
-    display: inline;
+    display: flex;
+    align-items: center;
+}
+
+.container h4 img {
+    order: -1;
+    flex: none;
+}
+
+/* header with the checkbox on the right, options below */
+#vehicle-controls .container, #road-types .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#vehicle-controls .container > h4, #road-types .container > h4 {
+    flex: 1;
+}
+
+#vehicle-controls .container > div, #road-types .container > div {
+    flex-basis: 100%;
 }
 
 
@@ -161,19 +183,49 @@ button:hover {
     transition: 0.2s max-height;
 }
 
-.container > :checked + .options, .options.open {
+.container > :checked + .options {
     max-height: 600px;
+}
+
+.options.open {
+    max-height: none;
 }
 
 .container > :checked + .options, h4 + .options.open {
     margin-top: 5px;
 }
 
+/* the text of a label may span several lines, the input stays next to it */
 .options label {
-    display: block;
-    overflow: hidden;
-    height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 20px;
     margin: 5px;
+}
+
+.options label input, .options label select {
+    flex: none;
+    margin: 0;
+}
+
+/* number inputs left of the text (except duration), checkboxes and selects on the right */
+.options label input[type=number] {
+    order: -1;
+}
+
+#general-options label input[type=number] {
+    order: 0;
+}
+
+.options label input[type=checkbox], .options label select {
+    order: 1;
+    margin-left: auto;
+}
+
+.controls input[type=button] {
+    max-width: 100%;
+    white-space: normal;
 }
 
 .options input {

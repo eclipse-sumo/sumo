@@ -202,7 +202,10 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOTrafficObject& veh, double
         } else if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
             ++nVehLaneChangeFrom;
         } else if (myParent == nullptr || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
-            ++nVehLeft;
+            if (reason != MSMoveReminder::NOTIFICATION_TELEPORT_CONTINUATION && reason != MSMoveReminder::NOTIFICATION_TELEPORT_CONTINUATION_ARRIVED) {
+                // if the entered this edge via teleport, we do not want to count it
+                ++nVehLeft;
+            }
             if (reason == MSMoveReminder::NOTIFICATION_TELEPORT || reason == MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED) {
                 ++nVehTeleported;
             } else if (reason >= MSMoveReminder::NOTIFICATION_VAPORIZED_CALIBRATOR) {
@@ -234,7 +237,8 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOTrafficObject& veh, MSMove
                 ++nVehDeparted;
             } else if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
                 ++nVehLaneChangeTo;
-            } else if (myParent == nullptr || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
+            } else if (reason != MSMoveReminder::NOTIFICATION_TELEPORT
+                    && (myParent == nullptr || reason != MSMoveReminder::NOTIFICATION_SEGMENT)) {
                 ++nVehEntered;
             }
         }
