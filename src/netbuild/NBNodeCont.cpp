@@ -193,22 +193,32 @@ NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightL
     const double lengthThreshold = 0.10; // don't merge edges with higher relative length-difference
 
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
+        const EdgeVector& outgoing = (*i).second->getOutgoingEdges();
+        if (outgoing.size() < 2) {
+            continue;
+        }
         // count the edges to other nodes outgoing from the current node
         std::map<NBNode*, EdgeVector> connectionCount;
-        const EdgeVector& outgoing = (*i).second->getOutgoingEdges();
         for (EdgeVector::const_iterator j = outgoing.begin(); j != outgoing.end(); j++) {
             connectionCount[(*j)->getToNode()].push_back(*j);
         }
-        // check whether more than a single edge connect another node and join them
-        std::map<NBNode*, EdgeVector>::iterator k;
-        for (k = connectionCount.begin(); k != connectionCount.end(); k++) {
-            // possibly we do not have anything to join...
-            if ((*k).second.size() < 2) {
-                continue;
+        std::vector<NBNode*> joinTargets;
+        for (const auto& item : connectionCount) {
+            if (item.second.size() >= 2) {
+                joinTargets.push_back(item.first);
             }
+        }
+        if (joinTargets.empty()) {
+            continue;
+        }
+        if (joinTargets.size() > 1) {
+            std::sort(joinTargets.begin(), joinTargets.end(), ComparatorIdLess());
+        }
+        // check whether more than a single edge connect another node and join them
+        for (NBNode* target : joinTargets) {
             // for the edges that seem to be a single street,
             //  check whether the geometry is similar
-            const EdgeVector& ev = (*k).second;
+            const EdgeVector& ev = connectionCount[target];
             const NBEdge* const first = ev.front();
             EdgeVector::const_iterator jci; // join candidate iterator
             for (jci = ev.begin() + 1; jci != ev.end(); ++jci) {
@@ -2239,7 +2249,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             }
         }
         std::set<NBEdge*> seen;
-        std::set<NBEdge*> check;
+        std::set<NBEdge*, ComparatorIdLess> check;
         for (const auto& item : myNodes) {
             for (NBEdge* edge : item.second->getOutgoingEdges()) {
                 if (edge->getSignalPosition() != Position::INVALID) {
@@ -2441,7 +2451,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
 
 void
 NBNodeCont::recheckGuessedTLS(NBTrafficLightLogicCont& tlc) {
-    std::set<NBTrafficLightDefinition*> recompute;
+    std::set<NBTrafficLightDefinition*, ComparatorIdLess> recompute;
     for (NBNode* node : myGuessedTLS) {
         if (!node->hasConflict() || !recheckTLSThreshold(node)) {
             const std::set<NBTrafficLightDefinition*>& tlDefs = node->getControllingTLS();

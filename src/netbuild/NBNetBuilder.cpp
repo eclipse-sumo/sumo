@@ -627,7 +627,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         (*i).second->sortOutgoingConnectionsByIndex();
     }
     // FINISHING INNER EDGES
-    std::set<NBTrafficLightDefinition*> largeNodeTLS;
+    std::set<NBTrafficLightDefinition*, ComparatorIdLess> largeNodeTLS;
     if (!oc.getBool("no-internal-links")) {
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Building inner edges"));
         // walking areas shall only be built if crossings are wished as well
