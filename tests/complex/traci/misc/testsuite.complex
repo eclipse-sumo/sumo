@@ -25,6 +25,9 @@ tracing_printGetters
 # test client-side command tracing
 tracing_close_start
 
+# test client-side command tracing across multiple connections
+tracing_multi
+
 # test some output
 verbose
 option_list_append
