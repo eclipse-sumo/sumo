@@ -9,3 +9,5 @@ bs3
 
 # gap in mapping
 unmapped
+csv_header
+csv_xy

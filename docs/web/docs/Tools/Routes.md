@@ -455,7 +455,7 @@ vehicle1:363.66,497.79 2008.64,498.82
 vehicle2:363.66,497.79 1498.46,989.78 2008.64,498.82
 ```
 
-As an alternative input, [fcd-output](../Simulation/Output/FCDOutput.md) files (or similar files that contain attributes `id`, `x` and `y`) are supported.
+As an alternative input, [fcd-output](../Simulation/Output/FCDOutput.md) files (or similar files that contain attributes `id`, `x` and `y`), POI files, and CSV files with one coordinate pair per line (with or without a header, e.g. `track_id,frame_id,x,y` or `x,y`) are supported. For custom CSV layouts, the options **--delimiter**, **--id-column**, **--x-column**, and **--y-column** can be used to select the delimiter and columns by name or 0-based index.
 
 The output is a standard sumo route file
 
