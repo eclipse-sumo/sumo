@@ -15,6 +15,9 @@ simple
 # increment the amount of traffic over time
 ramp_up
 
+# hold incremental scaling constant while teleport ratio exceeds threshold (#1408)
+ramp_up_dynamic
+
 # straight call of the script
 save_config
 
