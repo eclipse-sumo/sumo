@@ -406,8 +406,8 @@ class Net:
         rtree = self._rtreeLanes[includeJunctions]
         try:
             if rtree is None:
-                for the_edge in self._edges:
-                    self._allLanes += the_edge.getLanes()
+                if not self._allLanes:
+                    self._allLanes = [lane for edge in self._edges for lane in edge.getLanes()]
                 rtree = self._initRTree(self._allLanes, includeJunctions)
                 self._rtreeLanes[includeJunctions] = rtree
             for i in rtree.intersection((x - r, y - r, x + r, y + r)):
