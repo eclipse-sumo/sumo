@@ -1,0 +1,3 @@
+GTFS fare tables survive complete FCD conversion with unchanged trip and stop data
+Feeds without fare tables preserve empty fare attributes
+Input archive handles close after successful and failed imports
