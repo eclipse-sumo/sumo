@@ -293,6 +293,11 @@ public:
         return myEdges;
     }
 
+    /// @brief Returns whether the network contains pedestrian edges for the given edge
+    bool hasBothDirections(const E* e) const {
+        return myBidiLookup.count(e) > 0;
+    }
+
     /// @brief Returns the pair of forward and backward edge
     const EdgePair& getBothDirections(const E* e) const {
         typename std::map<const E*, EdgePair>::const_iterator it = myBidiLookup.find(e);

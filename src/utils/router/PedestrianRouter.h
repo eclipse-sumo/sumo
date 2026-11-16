@@ -129,8 +129,12 @@ public:
     void prohibit(const std::map<const E*, RouterProhibition>& toProhibit) {
         typename _InternalRouter::Prohibitions toProhibitPE;
         for (auto item : toProhibit) {
-            toProhibitPE[myPedNet->getBothDirections(item.first).first] = item.second;
-            toProhibitPE[myPedNet->getBothDirections(item.first).second] = item.second;
+            // an edge without pedestrian edges in the network (e.g. closed for pedestrians when the network was built)
+            // cannot be walked on anyway (#18601)
+            if (myPedNet->hasBothDirections(item.first)) {
+                toProhibitPE[myPedNet->getBothDirections(item.first).first] = item.second;
+                toProhibitPE[myPedNet->getBothDirections(item.first).second] = item.second;
+            }
         }
         myInternalRouter->prohibit(toProhibitPE);
     }
