@@ -293,15 +293,57 @@ Output is given as plain text on the command line or in xml format if option **-
 
 ## computeCoordination.py
 
-This tool reads fcd-output and a corridor definition. It computes the fraction of vehicles that passed the corridor without significant slow-down.
+This tool analyses [FCD output](../Simulation/Output/FCDOutput.md) to evaluate green-wave quality along a signalized corridor. It reports:
 
-Example:
-```
-python tools/output/computeCoordination.py --fcd-file fcd.xml --filter-route B,C,D,E --entry C --min-speed 5
-```
-This computes the fraction of vehicles that passed the edges *B,C,D,E* in order (possibly with gaps) and were delayed after passing edge *C* to less then 5m/s.
+- `n`: total number of matching vehicles,
+- `d`: number of delayed vehicles (vehicles whose speed dropped below **--min-speed** inside the monitored section),
+- `coordinationFactor = (n - d) / n`: the fraction of vehicles traversing the monitored section without a significant slow-down.
 
-With option **--full-output** {{DT_FILE}} Each vehicle that passed the corridor is recorded with entry time and the time at which it was delayed (-1 it it was not delayed).
+### Options
+
+| Option | Description |
+|--------|-------------|
+| **-f** {{DT_FILE}}<br>**--fcd-file** {{DT_FILE}} | Input FCD XML file *(mandatory)*. |
+| **-m** {{DT_FLOAT}}<br>**--min-speed** {{DT_FLOAT}} | Minimum speed (in m/s) required to count a vehicle as undelayed (*default: `5`*). |
+| **--filter-route** {{DT_STR}} | Comma-separated list of edge IDs. Only vehicles that traversed all listed edges in order (gaps between listed edges are permitted) are evaluated. |
+| **--entry** {{DT_STR}} | Comma-separated list of corridor entry edge IDs. Speed drops are only recorded starting when a vehicle reaches one of these edges (*defaults to the first edge of `--filter-route` if set, otherwise from first appearance*). |
+| **--exit** {{DT_STR}} | Comma-separated list of corridor exit edge IDs. Speed drops after leaving one of these edges are ignored (*defaults to the last edge of `--filter-route` if set*). |
+| **--full-output** {{DT_FILE}} | Write a space-separated per-vehicle log (`# entryTime delayTime vehID`) sorted by corridor entry time (`delayTime` is `-1` for undelayed vehicles). |
+
+### Corridor Walkthrough Example
+
+A complete runnable example scenario (a 3-intersection east–west arterial `left0A0 -> A0B0 -> B0C0 -> C0right0` with crossing background traffic and sampled FCD output) is included in `tests/tools/output/computeCoordination`:
+
+1. **Generate FCD data** (even a 10% probe sample suffices, e.g. `--fcd-output fcd.xml --device.fcd.probability 0.1 --device.fcd.period 4`).
+2. **Filter to corridor vehicles (`--filter-route`)**: Restrict evaluation to vehicles traveling along the east–west corridor from `left0A0` to `C0right0` (gaps such as intermediate edges `A0B0` and `B0C0` do not need to be listed):
+   ```
+   python tools/output/computeCoordination.py --fcd-file fcd.xml --filter-route left0A0,C0right0
+   ```
+   Output:
+   ```
+   n=7 d=5 coordinationFactor=0.29
+   ```
+   Here, 5 of the 7 arterial vehicles slowed below `5` m/s (including vehicles waiting at the very first entry signal at the end of `left0A0`).
+3. **Measure progression downstream of the first signal (`--entry` and `--full-output`)**: Vehicles entering an arterial at random times naturally encounter red phases at the first signal, whereas downstream signals (`B0`, `C0`) should be coordinated in a green wave once vehicles enter `A0B0`. Setting `--entry A0B0` starts delay detection after the first intersection:
+   ```
+   python tools/output/computeCoordination.py --fcd-file fcd.xml --filter-route left0A0,C0right0 --entry A0B0 --full-output fullstats.dat
+   ```
+   Output:
+   ```
+   n=7 d=1 coordinationFactor=0.86
+   ```
+   And `fullstats.dat` lists each vehicle's corridor entry time and delay timestamp (`-1` if undelayed):
+   ```
+   # entryTime delayTime vehID
+   128.0 -1 we.18
+   204.0 -1 we.30
+   272.0 -1 bg113
+   280.0 -1 we.40
+   368.0 -1 we.57
+   464.0 -1 we.70
+   528.0 556.0 we.77
+   ```
+4. **Combine with signal coordination and trajectory plots**: Use [tlsCoordinator.py](Tls.md#tlscoordinatorpy) to optimize signal offsets along the corridor and [plot_trajectories.py](Visualization.md#plot_trajectoriespy) (`--filter-route left0A0,C0right0 -t td`) to visually inspect time–distance green-wave bands alongside the computed `coordinationFactor`.
 
 ## tripStatistics.py
 
