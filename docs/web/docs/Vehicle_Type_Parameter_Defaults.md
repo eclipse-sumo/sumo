@@ -131,7 +131,7 @@ Please note that according to the HBEFA city buses with three axes are more freq
 - (19): <https://www.colliseum.eu/wiki/images/b/bf/Geschwindigkeiten%2C_Verz%C3%B6gerungen_und_Beschleunigungen_nicht_motorisierter%2C_ungesch%C3%BCtzter_Verkehrsteilnehmer_am_Beispiel_Fahrrad_und_Inlineskates.pdf>
 - (20): <https://tuprints.ulb.tu-darmstadt.de/905/1/Schroeder_Frank_FZD_Diss.pdf>
 - (21): <https://www.unfallrekonstruktion.de/pdf/nickel.pdf>
-- (22): <https://www.trb.org/publications/nchrp/nchrp_rpt_505.pdf> (p48)
+- (22): <https://web.archive.org/web/20250226125258/https://www.trb.org/publications/nchrp/nchrp_rpt_505.pdf> (p48)
 - (23): `https://jml2012.indexcopernicus.com/fulltxt.php?ICID=1022800` (dead link) (pdf p.229-230)
 - (24): <https://de.wikipedia.org/wiki/Kleinkraftrad>
 - (25): <https://de.wikipedia.org/wiki/Vespa_LX>

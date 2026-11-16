@@ -3,8 +3,8 @@ title: AmitranOutput
 ---
 
 The Amitran trajectories output contains information about type, current
-speed and acceleration of each vehicle according to the schema at
-<https://sumo.dlr.de/xsd/amitran/trajectories.xsd>
+speed and acceleration of each vehicle according to the
+[Amitran trajectories schema](https://sumo.dlr.de/xsd/amitran/trajectories.xsd).
 
 ## Instantiating within the Simulation
 
