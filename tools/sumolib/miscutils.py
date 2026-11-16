@@ -21,6 +21,7 @@ from __future__ import print_function
 from __future__ import division
 import sys
 import time
+import builtins
 import os
 import math
 import colorsys
@@ -31,6 +32,7 @@ import codecs
 import io
 import atexit
 from functools import wraps
+from itertools import takewhile
 from pathlib import Path
 from types import ModuleType, FunctionType
 from gc import get_referents
@@ -375,9 +377,11 @@ def getFlowNumber(flow):
             return 1
 
 
-def intIfPossible(val):
+def intIfPossible(val, precision=None):
     if int(val) == val:
         return int(val)
+    elif precision is not None:
+        return builtins.round(val, precision)
     else:
         return val
 
@@ -422,12 +426,20 @@ def openz(fileOrURL, mode="r", **kwargs):
     return io.open(fileOrURL, mode=mode, encoding=encoding)
 
 
+def commonprefix(s):
+    """
+    Return the longest substring all strings in s start with.
+    Reimplementation of os.path.commonprefix which is deprecated.
+    """
+    return ''.join(ch[0] for ch in takewhile(lambda x: all(c == x[0] for c in x), zip(*s)))
+
+
 def short_names(filenames, noEmpty):
     if len(filenames) == 1:
         return filenames
     reversedNames = [''.join(reversed(f)) for f in filenames]
-    prefix = os.path.commonprefix(filenames)
-    suffix = os.path.commonprefix(reversedNames)
+    prefix = commonprefix(filenames)
+    suffix = commonprefix(reversedNames)
     prefixLen = len(prefix)
     suffixLen = len(suffix)
     shortened = [f[prefixLen:-suffixLen] for f in filenames]

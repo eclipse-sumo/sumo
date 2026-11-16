@@ -50,6 +50,8 @@ plugins:
       console_log:
         enabled: true
         log_level: WARNING
+      zip_log:
+        enabled: false
   - redirects:
       redirect_maps:
           "Car-Following-Models.md" : "Car-Following-Models/index.md"

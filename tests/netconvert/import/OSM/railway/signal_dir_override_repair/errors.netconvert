@@ -1,3 +1,4 @@
 Warning: Discarding unknown compound 'railway.abandoned' in type 'railway.abandoned|service.yard' (first occurrence for edge '48923439').
 Warning: Discarding unusable type 'railway.abandoned|service.yard' (first occurrence for edge '48923439').
 Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurrence for edge '496500391').
+Warning: Lane '-321744756_0' is not connected from any incoming edge at junction '550674478'.

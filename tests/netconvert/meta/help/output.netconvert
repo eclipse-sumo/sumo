@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert v1_28_0+0001-b9466dc3ede
+Eclipse SUMO netconvert v1_28_0+0490-0028982655c
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -437,6 +437,8 @@ Edge Removal Options:
   --keep-edges.by-type STR[]           Only keep edges where type is in STR[]
   --keep-edges.components INT          Only keep the INT largest weakly
                                         connected components
+  --keep-edges.components.keep-ptstops  Keep rail/waterway components that
+                                        contain public transport stops
   --remove-edges.by-type STR[]         Remove edges where type is in STR[]
   --remove-edges.isolated              Removes isolated edges
   --keep-lanes.min-width FLOAT         Only keep lanes with width in meters >
@@ -665,6 +667,8 @@ Formats Options:
                                         no actual speed limit in reality
   --osm.annotate-defaults              Whether edges shoulds carry information
                                         on the usage of typemap defaults
+  --osm.etcs-moving-block              Whether ETCS2 track sections should
+                                        default to moving-block mode
   --matsim.keep-length                 The edge lengths given in the
                                         MATSim-file will be kept
   --matsim.lanes-from-capacity         The lane number will be computed from

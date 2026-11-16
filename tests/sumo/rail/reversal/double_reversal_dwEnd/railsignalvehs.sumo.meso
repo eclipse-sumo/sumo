@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-22T11:33:07.994058+01:00 by Eclipse SUMO sumo v1_27_0+0010-ad0de344202
+<!-- generated on 2026-11-16T16:32:54.699497+01:00 by Eclipse SUMO sumo v1_28_0+0575-efd1a5bcdbe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -56,7 +56,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <entry id="v0" time="8.00" reason="junction"/>
                 <exit id="v0" time="22.00" reason="junction"/>
                 <entry id="v1" time="23.00" reason="junction"/>
-                <exit id="v1" time="37.00" reason="junction"/>
+                <exit id="v1" time="38.00" reason="junction"/>
             </driveWay>
         </link>
     </railSignal>
@@ -66,8 +66,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="J3.0">
                 <entry id="v0" time="22.00" reason="junction"/>
                 <exit id="v0" time="29.00" reason="junction"/>
-                <entry id="v1" time="37.00" reason="junction"/>
-                <exit id="v1" time="44.00" reason="junction"/>
+                <entry id="v1" time="38.00" reason="junction"/>
+                <exit id="v1" time="45.00" reason="junction"/>
             </driveWay>
         </link>
     </railSignal>
@@ -78,7 +78,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <entry id="v0" time="244.00" reason="junction"/>
                 <exit id="v0" time="251.00" reason="arrived"/>
                 <entry id="v1" time="252.00" reason="junction"/>
-                <exit id="v1" time="259.00" reason="arrived"/>
+                <exit id="v1" time="260.00" reason="arrived"/>
             </driveWay>
         </link>
     </railSignal>

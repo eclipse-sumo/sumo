@@ -422,10 +422,10 @@ NBNodeCont::removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCon
         stopEdges.insert(item.second->getEdgeId());
     }
     int numRemoved = 0;
-    int numRemovedEdges = 0;
+    EdgeSet toRemove;
     for (auto& component : myRailComponents) {
         bool keep = false;
-        for (std::string edgeID : component) {
+        for (const std::string& edgeID : component) {
             if (stopEdges.count(edgeID) != 0) {
                 keep = true;
                 break;
@@ -433,27 +433,31 @@ NBNodeCont::removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCon
         }
         if (!keep) {
             numRemoved++;
-            numRemovedEdges += (int)component.size();
-            for (std::string edgeID : component) {
+            for (const std::string& edgeID : component) {
                 NBEdge* e = ec.retrieve(edgeID);
                 if (e != nullptr) {
-                    NBNode* const fromNode = e->getFromNode();
-                    NBNode* const toNode = e->getToNode();
-                    ec.erase(dc, e);
-                    if (fromNode->getIncomingEdges().size() == 0 && fromNode->getOutgoingEdges().size() == 0) {
-                        erase(fromNode);
-                    }
-                    if (toNode->getIncomingEdges().size() == 0 && toNode->getOutgoingEdges().size() == 0) {
-                        erase(toNode);
-                    }
+                    toRemove.insert(e);
                 }
             }
         }
     }
-    if (numRemoved > 0) {
-        WRITE_MESSAGEF(TL("Removed % railway components (% edges)."), toString(numRemoved), toString(numRemovedEdges));
+    ec.removeRoundaboutEdges(toRemove);
+    for (NBEdge* e : toRemove) {
+        NBNode* const fromNode = e->getFromNode();
+        NBNode* const toNode = e->getToNode();
+        ec.erase(dc, e);
+        if (fromNode->getIncomingEdges().size() == 0 && fromNode->getOutgoingEdges().size() == 0) {
+            erase(fromNode);
+        }
+        if (toNode->getIncomingEdges().size() == 0 && toNode->getOutgoingEdges().size() == 0) {
+            erase(toNode);
+        }
     }
-    return numRemoved;
+    myRailComponents.clear();
+    if (numRemoved > 0) {
+        WRITE_MESSAGEF(TL("Removed % railway components (% edges)."), toString(numRemoved), toString(toRemove.size()));
+    }
+    return (int)toRemove.size();
 }
 
 

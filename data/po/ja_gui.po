@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2026-10-08 14:13+0200\n"
+"POT-Creation-Date: 2026-11-10 19:03+0100\n"
 "PO-Revision-Date: 2025-02-27 06:33+0000\n"
 "Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -19,189 +19,189 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.10.2-dev\n"
 
-#: src/gui/GUIApplicationWindow.cpp:330
-#: src/netedit/GNEApplicationWindow.cpp:596
+#: src/gui/GUIApplicationWindow.cpp:331
+#: src/netedit/GNEApplicationWindow.cpp:595
 msgid ""
 "Original coordinate (before coordinate transformation in netconvert). Enter "
 "'lat, lon' or 'lat:... lon:...' to center view"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:331
-#: src/netedit/GNEApplicationWindow.cpp:597
+#: src/gui/GUIApplicationWindow.cpp:332
+#: src/netedit/GNEApplicationWindow.cpp:596
 msgid "Enter 'lat, lon' to center view"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:333 src/gui/GUIApplicationWindow.cpp:342
-#: src/gui/GUIApplicationWindow.cpp:2412 src/gui/GUIApplicationWindow.cpp:2415
-#: src/gui/GUIApplicationWindow.cpp:2417
-#: src/netedit/GNEApplicationWindow.cpp:599
-#: src/netedit/GNEApplicationWindow.cpp:608
-#: src/netedit/GNEApplicationWindow.cpp:611
-#: src/netedit/GNEApplicationWindow.cpp:1759
-#: src/netedit/GNEApplicationWindow.cpp:1762
-#: src/netedit/GNEApplicationWindow.cpp:1763
+#: src/gui/GUIApplicationWindow.cpp:334 src/gui/GUIApplicationWindow.cpp:343
+#: src/gui/GUIApplicationWindow.cpp:2443 src/gui/GUIApplicationWindow.cpp:2446
+#: src/gui/GUIApplicationWindow.cpp:2448
+#: src/netedit/GNEApplicationWindow.cpp:598
+#: src/netedit/GNEApplicationWindow.cpp:607
+#: src/netedit/GNEApplicationWindow.cpp:610
+#: src/netedit/GNEApplicationWindow.cpp:1839
+#: src/netedit/GNEApplicationWindow.cpp:1842
+#: src/netedit/GNEApplicationWindow.cpp:1843
 msgid "N/A"
 msgstr "N/A"
 
-#: src/gui/GUIApplicationWindow.cpp:339
-#: src/netedit/GNEApplicationWindow.cpp:605
+#: src/gui/GUIApplicationWindow.cpp:340
+#: src/netedit/GNEApplicationWindow.cpp:604
 msgid "Network coordinate. Enter 'x, y' to center view"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:340
-#: src/netedit/GNEApplicationWindow.cpp:606
+#: src/gui/GUIApplicationWindow.cpp:341
+#: src/netedit/GNEApplicationWindow.cpp:605
 msgid "Enter 'x, y' to center view"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:345
+#: src/gui/GUIApplicationWindow.cpp:346
 msgid "number of running vehicles"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:346
+#: src/gui/GUIApplicationWindow.cpp:347
 msgid "number of insertion backlogged vehicles"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:347
+#: src/gui/GUIApplicationWindow.cpp:348
 msgid "percentage of teleports per departed vehicles"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:348
+#: src/gui/GUIApplicationWindow.cpp:349
 msgid "number of active persons"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:349
+#: src/gui/GUIApplicationWindow.cpp:350
 msgid "number of active containers"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:381
-#: src/netedit/GNEApplicationWindow.cpp:631
+#: src/gui/GUIApplicationWindow.cpp:393
+#: src/netedit/GNEApplicationWindow.cpp:630
 msgid "Ready."
 msgstr "準備完了。"
 
-#: src/gui/GUIApplicationWindow.cpp:504
-#: src/netedit/GNEApplicationWindow.cpp:1476
+#: src/gui/GUIApplicationWindow.cpp:516
+#: src/netedit/GNEApplicationWindow.cpp:1556
 msgid "&File"
 msgstr "&ファイル"
 
-#: src/gui/GUIApplicationWindow.cpp:506
+#: src/gui/GUIApplicationWindow.cpp:518
 #: src/netedit/GNEApplicationWindowHelper.cpp:207
 msgid "New Window"
 msgstr "新しいウィンドウ"
 
-#: src/gui/GUIApplicationWindow.cpp:506
+#: src/gui/GUIApplicationWindow.cpp:518
 msgid "Open a new sumo-gui window."
 msgstr "sumo-guiを新しいウィンドウで開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:510
+#: src/gui/GUIApplicationWindow.cpp:522
 msgid "&Open Simulation..."
 msgstr "&シミュレーションを開く..."
 
-#: src/gui/GUIApplicationWindow.cpp:510
+#: src/gui/GUIApplicationWindow.cpp:522
 msgid "Open a simulation (Configuration file)."
 msgstr "シミュレーション（設定ファイル）を開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:513
+#: src/gui/GUIApplicationWindow.cpp:525
 msgid "Open &Network..."
 msgstr "&ネットワークを開く..."
 
-#: src/gui/GUIApplicationWindow.cpp:513
+#: src/gui/GUIApplicationWindow.cpp:525
 msgid "Open a network."
 msgstr "ネットワークを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:516
+#: src/gui/GUIApplicationWindow.cpp:528
 msgid "Open Shapes "
 msgstr "シェープファイルを開く "
 
-#: src/gui/GUIApplicationWindow.cpp:516
+#: src/gui/GUIApplicationWindow.cpp:528
 msgid "Load POIs and Polygons for visualization."
 msgstr "点とポリゴンをロードして表示します。"
 
-#: src/gui/GUIApplicationWindow.cpp:519
+#: src/gui/GUIApplicationWindow.cpp:531
 msgid "Open EdgeData "
 msgstr "EdgeDataを開く "
 
-#: src/gui/GUIApplicationWindow.cpp:519
+#: src/gui/GUIApplicationWindow.cpp:531
 msgid "Load edge related data for visualization."
 msgstr "リンク関連データをロードして表示します。"
 
-#: src/gui/GUIApplicationWindow.cpp:522
-#: src/netedit/GNEApplicationWindow.cpp:1102
+#: src/gui/GUIApplicationWindow.cpp:534
+#: src/netedit/GNEApplicationWindow.cpp:1153
 msgid "&Reload"
 msgstr "&再読み込み"
 
-#: src/gui/GUIApplicationWindow.cpp:522
+#: src/gui/GUIApplicationWindow.cpp:534
 msgid "Reloads the simulation / the network."
 msgstr "シミュレーションとネットワークを再読み込みします。"
 
-#: src/gui/GUIApplicationWindow.cpp:525
+#: src/gui/GUIApplicationWindow.cpp:537
 msgid "Quick-Reload"
 msgstr "クイックリロード"
 
-#: src/gui/GUIApplicationWindow.cpp:525
+#: src/gui/GUIApplicationWindow.cpp:537
 msgid "Reloads the simulation (but not network)."
 msgstr "シミュレーションを再読み込みします（ネットワークを除く）。"
 
-#: src/gui/GUIApplicationWindow.cpp:529
+#: src/gui/GUIApplicationWindow.cpp:541
 msgid "Save Configuration"
 msgstr "設定を保存"
 
-#: src/gui/GUIApplicationWindow.cpp:529
+#: src/gui/GUIApplicationWindow.cpp:541
 msgid "Save current options as a configuration file."
 msgstr "現在の設定をファイルに保存します。"
 
-#: src/gui/GUIApplicationWindow.cpp:532
+#: src/gui/GUIApplicationWindow.cpp:544
 #: src/netedit/GNEApplicationWindowHelper.cpp:315
 msgid "Close"
 msgstr "閉じる"
 
-#: src/gui/GUIApplicationWindow.cpp:532
+#: src/gui/GUIApplicationWindow.cpp:544
 msgid "Close the simulation."
 msgstr "シミュレーションを閉じます。"
 
-#: src/gui/GUIApplicationWindow.cpp:540
-#: src/netedit/GNEApplicationWindow.cpp:1496
+#: src/gui/GUIApplicationWindow.cpp:552
+#: src/netedit/GNEApplicationWindow.cpp:1576
 msgid "&Quit"
 msgstr "&終了"
 
-#: src/gui/GUIApplicationWindow.cpp:540
-#: src/netedit/GNEApplicationWindow.cpp:1496
+#: src/gui/GUIApplicationWindow.cpp:552
+#: src/netedit/GNEApplicationWindow.cpp:1576
 msgid "Quit the Application."
 msgstr "アプリケーションを終了します。"
 
-#: src/gui/GUIApplicationWindow.cpp:549
-#: src/netedit/GNEApplicationWindow.cpp:1511
+#: src/gui/GUIApplicationWindow.cpp:561
+#: src/netedit/GNEApplicationWindow.cpp:1591
 msgid "&Edit"
 msgstr "&編集"
 
-#: src/gui/GUIApplicationWindow.cpp:551 src/gui/GUIApplicationWindow.cpp:935
+#: src/gui/GUIApplicationWindow.cpp:563 src/gui/GUIApplicationWindow.cpp:947
 msgid "Edit Selected..."
 msgstr "選択した物を編集..."
 
-#: src/gui/GUIApplicationWindow.cpp:551
+#: src/gui/GUIApplicationWindow.cpp:563
 msgid "Opens a dialog for editing the list of selected items."
 msgstr "選択項目のリストを編集するためのダイアログを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:553
+#: src/gui/GUIApplicationWindow.cpp:565
 msgid "Select lanes which allow..."
 msgstr "特定の車線を選択..."
 
-#: src/gui/GUIApplicationWindow.cpp:554
+#: src/gui/GUIApplicationWindow.cpp:566
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
 msgstr "特定の車線を走る車輌を選択するメニューを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:557
+#: src/gui/GUIApplicationWindow.cpp:569
 msgid "Set Breakpoint"
 msgstr "ブレークポイントを設定"
 
-#: src/gui/GUIApplicationWindow.cpp:557
+#: src/gui/GUIApplicationWindow.cpp:569
 msgid "Sets a breakpoint at the current simulation step"
 msgstr "今のシミュレーションステップにブレークポイントを設定します"
 
-#: src/gui/GUIApplicationWindow.cpp:560
+#: src/gui/GUIApplicationWindow.cpp:572
 msgid "Set Breakpoint with offset"
 msgstr "オフセット付きのブレークポイントを設定"
 
-#: src/gui/GUIApplicationWindow.cpp:560
+#: src/gui/GUIApplicationWindow.cpp:572
 msgid ""
 "Sets a breakpoint at the current simulation step + offset configured in "
 "application settings"
@@ -209,211 +209,211 @@ msgstr ""
 "現在のシミュレーションステップからアプリで設定したオフセット分移動したところ"
 "にブレークポイントを設定します"
 
-#: src/gui/GUIApplicationWindow.cpp:563
+#: src/gui/GUIApplicationWindow.cpp:575
 msgid "Edit Breakpoints"
 msgstr "ブレークポイントを編集"
 
-#: src/gui/GUIApplicationWindow.cpp:563
+#: src/gui/GUIApplicationWindow.cpp:575
 msgid "Opens a dialog for editing breakpoints."
 msgstr "ブレークポイントを編集するためのダイアログを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:566
+#: src/gui/GUIApplicationWindow.cpp:578
 #: src/netedit/GNEApplicationWindowHelper.cpp:1326
-msgid "Edit Visualisation"
-msgstr "表示の編集"
+msgid "Edit Visualization"
+msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:566
+#: src/gui/GUIApplicationWindow.cpp:578
 #: src/netedit/GNEApplicationWindowHelper.cpp:1326
 msgid "Opens a dialog for editing visualization settings."
 msgstr "表示設定を編集するためのダイアログを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:569
+#: src/gui/GUIApplicationWindow.cpp:581
 #: src/netedit/GNEApplicationWindowHelper.cpp:1329
 msgid "Edit Viewport"
 msgstr "ビューポートの編集"
 
-#: src/gui/GUIApplicationWindow.cpp:569
+#: src/gui/GUIApplicationWindow.cpp:581
 #: src/netedit/GNEApplicationWindowHelper.cpp:1329
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
 msgstr "表示範囲、ズーム及び回転の編集をするためのダイアログを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:573
+#: src/gui/GUIApplicationWindow.cpp:585
 msgid "Load additionals in netedit"
 msgstr "neteditから構造物を読み込み"
 
-#: src/gui/GUIApplicationWindow.cpp:573
+#: src/gui/GUIApplicationWindow.cpp:585
 msgid "Load additionals in netedit."
 msgstr "neteditから構造物を読み込みます。"
 
-#: src/gui/GUIApplicationWindow.cpp:575
+#: src/gui/GUIApplicationWindow.cpp:587
 msgid "Load demand in netedit"
 msgstr "neteditから交通需要を読み込み"
 
-#: src/gui/GUIApplicationWindow.cpp:575
+#: src/gui/GUIApplicationWindow.cpp:587
 msgid "Load demand in netedit."
 msgstr "neteditから交通需要を読み込みます。"
 
-#: src/gui/GUIApplicationWindow.cpp:578
+#: src/gui/GUIApplicationWindow.cpp:590
 msgid "Open in netedit"
 msgstr "neteditで開く"
 
-#: src/gui/GUIApplicationWindow.cpp:578
+#: src/gui/GUIApplicationWindow.cpp:590
 msgid "Opens current simulation in NETEDIT."
 msgstr "NETEDITで現在のシミュレーションを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:581 src/gui/GUIApplicationWindow.cpp:1572
+#: src/gui/GUIApplicationWindow.cpp:593 src/gui/GUIApplicationWindow.cpp:1584
 msgid "Open network in netedit"
 msgstr "netedit内のネットワークを開く"
 
-#: src/gui/GUIApplicationWindow.cpp:581
+#: src/gui/GUIApplicationWindow.cpp:593
 msgid "Opens current network in NETEDIT."
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:585
+#: src/gui/GUIApplicationWindow.cpp:597
 msgid "&Settings"
 msgstr "&設定"
 
-#: src/gui/GUIApplicationWindow.cpp:587
+#: src/gui/GUIApplicationWindow.cpp:599
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:53
 msgid "Application Settings"
 msgstr "アプリケーション設定"
 
-#: src/gui/GUIApplicationWindow.cpp:587
+#: src/gui/GUIApplicationWindow.cpp:599
 msgid "Open a Dialog for Application Settings editing."
 msgstr "アプリケーション設定を編集するためのダイアログを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:590
+#: src/gui/GUIApplicationWindow.cpp:602
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
 msgstr "ゲームモード\tCtrl+G\tゲームモードのオンオフを切り替えます。"
 
-#: src/gui/GUIApplicationWindow.cpp:593
+#: src/gui/GUIApplicationWindow.cpp:605
 msgid "Full Screen Mode"
 msgstr "全画面モード"
 
-#: src/gui/GUIApplicationWindow.cpp:593
+#: src/gui/GUIApplicationWindow.cpp:605
 msgid "Toggle full screen mode on/off."
 msgstr "全画面モードのオンオフを切り替えます。"
 
-#: src/gui/GUIApplicationWindow.cpp:597
-#: src/netedit/GNEApplicationWindow.cpp:1547
+#: src/gui/GUIApplicationWindow.cpp:609
+#: src/netedit/GNEApplicationWindow.cpp:1627
 msgid "&Locate"
 msgstr "&検索"
 
-#: src/gui/GUIApplicationWindow.cpp:599
+#: src/gui/GUIApplicationWindow.cpp:611
 #: src/netedit/GNEApplicationWindowHelper.cpp:1372
 #: src/netedit/GNEApplicationWindowHelper.cpp:2037
 msgid "&Junctions"
 msgstr "&交差点"
 
-#: src/gui/GUIApplicationWindow.cpp:599
+#: src/gui/GUIApplicationWindow.cpp:611
 #: src/netedit/GNEApplicationWindowHelper.cpp:2037
 msgid "Open a dialog for locating a Junction."
 msgstr "交差点を選択するためのダイアログを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:602
+#: src/gui/GUIApplicationWindow.cpp:614
 #: src/netedit/GNEApplicationWindowHelper.cpp:1377
 #: src/netedit/GNEApplicationWindowHelper.cpp:2040
 msgid "&Edges"
 msgstr "&リンク"
 
-#: src/gui/GUIApplicationWindow.cpp:602
+#: src/gui/GUIApplicationWindow.cpp:614
 #: src/netedit/GNEApplicationWindowHelper.cpp:2040
 msgid "Open a dialog for locating an Edge."
 msgstr "リンクを選択するためのダイアログを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:605
+#: src/gui/GUIApplicationWindow.cpp:617
 #: src/netedit/GNEApplicationWindowHelper.cpp:1442
 #: src/netedit/GNEApplicationWindowHelper.cpp:2046
 msgid "&Vehicles"
 msgstr "&車輌"
 
-#: src/gui/GUIApplicationWindow.cpp:605
+#: src/gui/GUIApplicationWindow.cpp:617
 #: src/netedit/GNEApplicationWindowHelper.cpp:2046
 msgid "Open a dialog for locating a Vehicle."
 msgstr "車輌を選択するためのダイアログを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:608
+#: src/gui/GUIApplicationWindow.cpp:620
 #: src/netedit/GNEApplicationWindowHelper.cpp:1447
 #: src/netedit/GNEApplicationWindowHelper.cpp:2049
 msgid "&Persons"
 msgstr "&人"
 
-#: src/gui/GUIApplicationWindow.cpp:608
+#: src/gui/GUIApplicationWindow.cpp:620
 #: src/netedit/GNEApplicationWindowHelper.cpp:2049
 msgid "Open a dialog for locating a Person."
 msgstr "人を選択するためのダイアログを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:611
+#: src/gui/GUIApplicationWindow.cpp:623
 msgid "&Container"
 msgstr "&コンテナ"
 
-#: src/gui/GUIApplicationWindow.cpp:611
+#: src/gui/GUIApplicationWindow.cpp:623
 #: src/netedit/GNEApplicationWindowHelper.cpp:2052
 msgid "Open a dialog for locating a Container."
 msgstr "コンテナを選択するためのダイアログを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:614
+#: src/gui/GUIApplicationWindow.cpp:626
 #: src/netedit/GNEApplicationWindowHelper.cpp:2061
 msgid "&TLS"
 msgstr "&信号機"
 
-#: src/gui/GUIApplicationWindow.cpp:614
+#: src/gui/GUIApplicationWindow.cpp:626
 #: src/netedit/GNEApplicationWindowHelper.cpp:2061
 msgid "Open a dialog for locating a Traffic Light."
 msgstr "信号機を選択するためのダイアログを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:617
+#: src/gui/GUIApplicationWindow.cpp:629
 #: src/netedit/GNEApplicationWindowHelper.cpp:637
 #: src/netedit/GNEApplicationWindowHelper.cpp:2064
 msgid "&Additional"
 msgstr "&構造物"
 
-#: src/gui/GUIApplicationWindow.cpp:617
+#: src/gui/GUIApplicationWindow.cpp:629
 #: src/netedit/GNEApplicationWindowHelper.cpp:2064
 msgid "Open a dialog for locating an Additional Structure."
 msgstr "構造物を選択するためのダイアログを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:620
+#: src/gui/GUIApplicationWindow.cpp:632
 #: src/netedit/GNEApplicationWindowHelper.cpp:2067
 msgid "P&oI"
 msgstr "&点"
 
-#: src/gui/GUIApplicationWindow.cpp:620
+#: src/gui/GUIApplicationWindow.cpp:632
 #: src/netedit/GNEApplicationWindowHelper.cpp:2067
 msgid "Open a dialog for locating a Point of Interest."
 msgstr "点を選択するためのダイアログを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:623
+#: src/gui/GUIApplicationWindow.cpp:635
 #: src/netedit/GNEApplicationWindowHelper.cpp:2070
 msgid "Po&lygon"
 msgstr "&ポリゴン"
 
-#: src/gui/GUIApplicationWindow.cpp:623
+#: src/gui/GUIApplicationWindow.cpp:635
 #: src/netedit/GNEApplicationWindowHelper.cpp:2070
 msgid "Open a dialog for locating a Polygon."
 msgstr "ポリゴンを選択するためのダイアログを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:626
+#: src/gui/GUIApplicationWindow.cpp:638
 msgid "Show Internal Structures"
 msgstr "内部構造を表示"
 
-#: src/gui/GUIApplicationWindow.cpp:626
+#: src/gui/GUIApplicationWindow.cpp:638
 msgid "Show internal junctions and streets in locator dialog."
 msgstr "locatorダイアログに内部交差点とストリートを表示します。"
 
-#: src/gui/GUIApplicationWindow.cpp:627
+#: src/gui/GUIApplicationWindow.cpp:639
 msgid "Show Parking Vehicles"
 msgstr "駐車中の車輌を表示"
 
-#: src/gui/GUIApplicationWindow.cpp:627
+#: src/gui/GUIApplicationWindow.cpp:639
 msgid "Show parking vehicles in locator dialog."
 msgstr "locatorダイアログに駐車中の車輌を表示します。"
 
-#: src/gui/GUIApplicationWindow.cpp:629
+#: src/gui/GUIApplicationWindow.cpp:641
 msgid "Show vehicles outside the road network"
 msgstr "道路ネットワーク外の車輌を表示"
 
-#: src/gui/GUIApplicationWindow.cpp:629
+#: src/gui/GUIApplicationWindow.cpp:641
 msgid ""
 "Show vehicles that are teleporting or driving remote-controlled outside the "
 "road network in locator dialog."
@@ -421,53 +421,53 @@ msgstr ""
 "locatorダイアログに道路ネットワーク外の車輌（ワープ中もしくは自動運転中）を表"
 "示します。"
 
-#: src/gui/GUIApplicationWindow.cpp:634
+#: src/gui/GUIApplicationWindow.cpp:646
 msgid "Simulation"
 msgstr "シミュレーション"
 
-#: src/gui/GUIApplicationWindow.cpp:636 src/netedit/dialogs/GNEDialog.cpp:477
+#: src/gui/GUIApplicationWindow.cpp:648 src/netedit/dialogs/GNEDialog.cpp:477
 #: src/netedit/dialogs/GNEDialog.cpp:494
 msgid "Run"
 msgstr "実行"
 
-#: src/gui/GUIApplicationWindow.cpp:636
+#: src/gui/GUIApplicationWindow.cpp:648
 msgid "Start/ Resume the simulation."
 msgstr "シミュレーションを開始 / 再開します。"
 
-#: src/gui/GUIApplicationWindow.cpp:639
+#: src/gui/GUIApplicationWindow.cpp:651
 msgctxt "Simulation"
 msgid "Stop"
 msgstr "停止"
 
-#: src/gui/GUIApplicationWindow.cpp:639
+#: src/gui/GUIApplicationWindow.cpp:651
 msgid "Halt the simulation."
 msgstr "シミュレーションを停止します。"
 
-#: src/gui/GUIApplicationWindow.cpp:642
+#: src/gui/GUIApplicationWindow.cpp:654
 msgid "Step"
 msgstr "ステップ"
 
-#: src/gui/GUIApplicationWindow.cpp:642
+#: src/gui/GUIApplicationWindow.cpp:654
 msgid "Perform one simulation step."
 msgstr "シミュレーションを1ステップ実行します。"
 
-#: src/gui/GUIApplicationWindow.cpp:645
+#: src/gui/GUIApplicationWindow.cpp:657
 msgid "Delay+"
 msgstr "間隔+"
 
-#: src/gui/GUIApplicationWindow.cpp:645
+#: src/gui/GUIApplicationWindow.cpp:657
 msgid "Increase simulation step delay."
 msgstr "シミュレーションステップの更新間隔を増やします。"
 
-#: src/gui/GUIApplicationWindow.cpp:647
+#: src/gui/GUIApplicationWindow.cpp:659
 msgid "Delay-"
 msgstr "間隔-"
 
-#: src/gui/GUIApplicationWindow.cpp:647
+#: src/gui/GUIApplicationWindow.cpp:659
 msgid "Decrease simulation step delay."
 msgstr "シミュレーションステップの更新間隔を減らします。"
 
-#: src/gui/GUIApplicationWindow.cpp:649 src/netedit/dialogs/GNEDialog.cpp:421
+#: src/gui/GUIApplicationWindow.cpp:661 src/netedit/dialogs/GNEDialog.cpp:421
 #: src/netedit/dialogs/GNEParametersDialog.cpp:297
 #: src/netedit/frames/common/GNESelectorFrame.cpp:261
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1377
@@ -476,11 +476,11 @@ msgstr "シミュレーションステップの更新間隔を減らします。
 msgid "Save"
 msgstr "保存"
 
-#: src/gui/GUIApplicationWindow.cpp:649
+#: src/gui/GUIApplicationWindow.cpp:661
 msgid "Save the current simulation state to a file."
 msgstr "ファイルに現在のシミュレーションの状態を保存します。"
 
-#: src/gui/GUIApplicationWindow.cpp:652
+#: src/gui/GUIApplicationWindow.cpp:664
 #: src/netedit/dialogs/GNEParametersDialog.cpp:296
 #: src/netedit/frames/common/GNESelectorFrame.cpp:263
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2884
@@ -488,205 +488,205 @@ msgstr "ファイルに現在のシミュレーションの状態を保存しま
 msgid "Load"
 msgstr "読み込み"
 
-#: src/gui/GUIApplicationWindow.cpp:652
+#: src/gui/GUIApplicationWindow.cpp:664
 msgid "Load simulation state for the current network from file."
 msgstr "ファイルから現在のシミュレーションの状態を読み込みます。"
 
-#: src/gui/GUIApplicationWindow.cpp:656
-#: src/netedit/GNEApplicationWindow.cpp:1618
+#: src/gui/GUIApplicationWindow.cpp:668
+#: src/netedit/GNEApplicationWindow.cpp:1698
 msgid "&Window"
 msgstr "&ウィンドウ"
 
-#: src/gui/GUIApplicationWindow.cpp:657 src/gui/GUIApplicationWindow.cpp:804
+#: src/gui/GUIApplicationWindow.cpp:669 src/gui/GUIApplicationWindow.cpp:816
 msgid "Open new view"
 msgstr "新しいビューを開く"
 
-#: src/gui/GUIApplicationWindow.cpp:657 src/gui/GUIApplicationWindow.cpp:804
+#: src/gui/GUIApplicationWindow.cpp:669 src/gui/GUIApplicationWindow.cpp:816
 msgid "Open a new microscopic view."
 msgstr "新しいミクロなビューを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:659 src/gui/GUIApplicationWindow.cpp:807
+#: src/gui/GUIApplicationWindow.cpp:671 src/gui/GUIApplicationWindow.cpp:819
 msgid "Open new 3D view"
 msgstr "新しい3Dビューを開く"
 
-#: src/gui/GUIApplicationWindow.cpp:659 src/gui/GUIApplicationWindow.cpp:807
+#: src/gui/GUIApplicationWindow.cpp:671 src/gui/GUIApplicationWindow.cpp:819
 msgid "Open a new 3D view."
 msgstr "新しい3Dビューを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:662
+#: src/gui/GUIApplicationWindow.cpp:674
 msgid "Tile &Horizontally"
 msgstr "水平方向に整列"
 
-#: src/gui/GUIApplicationWindow.cpp:662
+#: src/gui/GUIApplicationWindow.cpp:674
 msgid "Tile the views horizontally."
 msgstr "ビューを水平方向に並べます。"
 
-#: src/gui/GUIApplicationWindow.cpp:665
+#: src/gui/GUIApplicationWindow.cpp:677
 msgid "Tile &Vertically"
 msgstr "垂直方向に整列"
 
-#: src/gui/GUIApplicationWindow.cpp:665
+#: src/gui/GUIApplicationWindow.cpp:677
 msgid "Tile the views vertically."
 msgstr "ビューを垂直方向に並べます。"
 
-#: src/gui/GUIApplicationWindow.cpp:668
+#: src/gui/GUIApplicationWindow.cpp:680
 msgid "Cascade"
 msgstr "重ねて表示"
 
-#: src/gui/GUIApplicationWindow.cpp:668
+#: src/gui/GUIApplicationWindow.cpp:680
 msgid "Cascade the views."
 msgstr "ビューを重ねて表示します。"
 
-#: src/gui/GUIApplicationWindow.cpp:672
+#: src/gui/GUIApplicationWindow.cpp:684
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:101
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:104
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:117
 msgid "&Close"
 msgstr "&ビューを閉じる"
 
-#: src/gui/GUIApplicationWindow.cpp:672
+#: src/gui/GUIApplicationWindow.cpp:684
 msgid "Close the selected view."
 msgstr "選択したビューを閉じます。"
 
-#: src/gui/GUIApplicationWindow.cpp:682
+#: src/gui/GUIApplicationWindow.cpp:694
 msgid "&Others..."
 msgstr "&その他..."
 
-#: src/gui/GUIApplicationWindow.cpp:685
+#: src/gui/GUIApplicationWindow.cpp:697
 #: src/netedit/GNEApplicationWindowHelper.cpp:2164
 msgid "Show Status Line"
 msgstr "ステータスバーを表示"
 
-#: src/gui/GUIApplicationWindow.cpp:685
+#: src/gui/GUIApplicationWindow.cpp:697
 msgid "Toggle the Status Bar on/off."
 msgstr "ステータスバーのオンオフを切り替えます。"
 
-#: src/gui/GUIApplicationWindow.cpp:686
+#: src/gui/GUIApplicationWindow.cpp:698
 #: src/netedit/GNEApplicationWindowHelper.cpp:2167
 msgid "Show Message Window"
 msgstr "メッセージウィンドウを表示"
 
-#: src/gui/GUIApplicationWindow.cpp:686
+#: src/gui/GUIApplicationWindow.cpp:698
 #: src/netedit/GNEApplicationWindowHelper.cpp:2167
 msgid "Toggle the Message Window on/off."
 msgstr "メッセージウィンドウのオンオフを切り替えます。"
 
-#: src/gui/GUIApplicationWindow.cpp:687
+#: src/gui/GUIApplicationWindow.cpp:699
 msgid "Show Simulation Time"
 msgstr "シミュレーション経過時間の表示"
 
-#: src/gui/GUIApplicationWindow.cpp:687
+#: src/gui/GUIApplicationWindow.cpp:699
 msgid "Toggle the Simulation Time on/off."
 msgstr "シミュレーション経過時間の表示のオンオフを切り替えます。"
 
-#: src/gui/GUIApplicationWindow.cpp:688
+#: src/gui/GUIApplicationWindow.cpp:700
 msgid "Show Simulation Delay"
 msgstr "シミュレーション間隔を表示"
 
-#: src/gui/GUIApplicationWindow.cpp:688
+#: src/gui/GUIApplicationWindow.cpp:700
 msgid "Toggle the Simulation Delay Entry on/off."
 msgstr "シミュレーション間隔の表示のオンオフを切り替えます。"
 
-#: src/gui/GUIApplicationWindow.cpp:693
+#: src/gui/GUIApplicationWindow.cpp:705
 #: src/netedit/GNEApplicationWindowHelper.cpp:2171
 msgid "Clear Message Window"
 msgstr "メッセージウィンドウをクリア"
 
-#: src/gui/GUIApplicationWindow.cpp:693
+#: src/gui/GUIApplicationWindow.cpp:705
 msgid "Clear the message window."
 msgstr "メッセージウィンドウをクリアします。"
 
-#: src/gui/GUIApplicationWindow.cpp:700
-#: src/netedit/GNEApplicationWindow.cpp:1624
+#: src/gui/GUIApplicationWindow.cpp:712
+#: src/netedit/GNEApplicationWindow.cpp:1704
 msgid "&Help"
 msgstr "&ヘルプ"
 
-#: src/gui/GUIApplicationWindow.cpp:702
+#: src/gui/GUIApplicationWindow.cpp:714
 msgid "&Online Documentation"
 msgstr "&オンラインドキュメント"
 
-#: src/gui/GUIApplicationWindow.cpp:702
+#: src/gui/GUIApplicationWindow.cpp:714
 #: src/netedit/GNEApplicationWindowHelper.cpp:2187
 msgid "Open Online documentation."
 msgstr "オンラインドキュメントを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:705
+#: src/gui/GUIApplicationWindow.cpp:717
 msgid "&Changelog"
 msgstr "&更新履歴"
 
-#: src/gui/GUIApplicationWindow.cpp:705
+#: src/gui/GUIApplicationWindow.cpp:717
 #: src/netedit/GNEApplicationWindowHelper.cpp:2190
 msgid "Open Changelog."
 msgstr "更新履歴を開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:707
+#: src/gui/GUIApplicationWindow.cpp:719
 msgid "&Hotkeys"
 msgstr "&ショートカットキー"
 
-#: src/gui/GUIApplicationWindow.cpp:707
+#: src/gui/GUIApplicationWindow.cpp:719
 #: src/netedit/GNEApplicationWindowHelper.cpp:2192
 msgid "Open Hotkeys."
 msgstr "ショートカットキー設定を開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:709
+#: src/gui/GUIApplicationWindow.cpp:721
 msgid "&Tutorial"
 msgstr "&チュートリアル"
 
-#: src/gui/GUIApplicationWindow.cpp:709
+#: src/gui/GUIApplicationWindow.cpp:721
 #: src/netedit/GNEApplicationWindowHelper.cpp:2194
 msgid "Open Tutorial."
 msgstr "チュートリアルを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:711
+#: src/gui/GUIApplicationWindow.cpp:723
 msgid "&Feedback"
 msgstr "&フィードバック"
 
-#: src/gui/GUIApplicationWindow.cpp:711
+#: src/gui/GUIApplicationWindow.cpp:723
 msgid "Open feedback dialog."
 msgstr "フィードバックダイアログを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:714
+#: src/gui/GUIApplicationWindow.cpp:726
 msgid "&About"
 msgstr "&バージョン情報"
 
-#: src/gui/GUIApplicationWindow.cpp:714
+#: src/gui/GUIApplicationWindow.cpp:726
 msgid "About sumo-gui."
 msgstr "sumo-guiについての情報です。"
 
-#: src/gui/GUIApplicationWindow.cpp:729
+#: src/gui/GUIApplicationWindow.cpp:741
 msgid "\tOpen simulation\tOpen a simulation (Configuration file)."
 msgstr ""
 "\tシミュレーションを開く\tシミュレーションファイルを開きます（設定ファイ"
 "ル）。"
 
-#: src/gui/GUIApplicationWindow.cpp:731
+#: src/gui/GUIApplicationWindow.cpp:743
 msgid "\tOpen network\tOpen a network."
 msgstr "\tネットワークを開く\tネットワークファイルを開きます。"
 
-#: src/gui/GUIApplicationWindow.cpp:733
+#: src/gui/GUIApplicationWindow.cpp:745
 msgid "\tReload\tReloads the simulation / the network."
 msgstr ""
 "\t再読み込み\tシミュレーションファイルもしくはネットワークファイルを再読み込"
 "みます。"
 
-#: src/gui/GUIApplicationWindow.cpp:742
+#: src/gui/GUIApplicationWindow.cpp:754
 msgid "\tRun\tStart/Resume the loaded simulation."
 msgstr "\t実行\tロード済みのシミュレーションを開始 / 再開します。"
 
-#: src/gui/GUIApplicationWindow.cpp:744
+#: src/gui/GUIApplicationWindow.cpp:756
 msgid "\tStop\tHalt the running simulation."
 msgstr "\t停止\t実行中のシミュレーションを停止します。"
 
-#: src/gui/GUIApplicationWindow.cpp:746
+#: src/gui/GUIApplicationWindow.cpp:758
 msgid "\tStep\tPerform a single simulation step."
 msgstr "\tステップ\tシミュレーションステップを1回実行します。"
 
-#: src/gui/GUIApplicationWindow.cpp:754
+#: src/gui/GUIApplicationWindow.cpp:766
 msgid ""
 "Time:\tToggle between time formats\tToggle between seconds and "
 "hour:minute:seconds display."
 msgstr "時間:\t時間表示の切り替え\t秒表記と時分秒表記を切り替えます。"
 
-#: src/gui/GUIApplicationWindow.cpp:768
+#: src/gui/GUIApplicationWindow.cpp:780
 msgid ""
 "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click "
 "to toggle between the last two delay values."
@@ -694,11 +694,11 @@ msgstr ""
 "間隔 (ms):\t1シミュレートあたりの間隔\t1シミュレートあたりの間隔を設定しま"
 "す。クリックすると、最後の2つの間隔の間で切り替えます。"
 
-#: src/gui/GUIApplicationWindow.cpp:791
+#: src/gui/GUIApplicationWindow.cpp:803
 msgid "Scale Traffic:"
 msgstr "交通量倍率:"
 
-#: src/gui/GUIApplicationWindow.cpp:792
+#: src/gui/GUIApplicationWindow.cpp:804
 msgid ""
 "Scale traffic volume from running flows and from vehicles that are loaded "
 "incrementally from route files."
@@ -706,229 +706,229 @@ msgstr ""
 "走行中の車輌やルートファイルから段階的に読み込まれる車輌の交通量の倍率を調整"
 "します。"
 
-#: src/gui/GUIApplicationWindow.cpp:812
+#: src/gui/GUIApplicationWindow.cpp:824
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:140
 msgid "Toggle View Tooltips"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:812
+#: src/gui/GUIApplicationWindow.cpp:824
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:140
 msgid "Toggles whether tooltips in the view shall be shown."
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:818
+#: src/gui/GUIApplicationWindow.cpp:830
 #: src/netedit/dialogs/options/GNEOptionsEditor.cpp:78
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:68
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:146
 msgid "Toggle Menu Tooltips"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:818
+#: src/gui/GUIApplicationWindow.cpp:830
 #: src/netedit/dialogs/options/GNEOptionsEditor.cpp:78
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:68
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:146
 msgid "Toggles whether tooltips in the menu shall be shown."
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:829
+#: src/gui/GUIApplicationWindow.cpp:841
 msgid "Waiting Time:"
 msgstr "待ち時間:"
 
-#: src/gui/GUIApplicationWindow.cpp:829
+#: src/gui/GUIApplicationWindow.cpp:841
 msgid "Time spent waiting accumulated for all vehicles"
 msgstr "全ての車両の待ち時間の合計"
 
-#: src/gui/GUIApplicationWindow.cpp:840
+#: src/gui/GUIApplicationWindow.cpp:852
 msgid "Time Loss:"
 msgstr "損失時間:"
 
-#: src/gui/GUIApplicationWindow.cpp:840
+#: src/gui/GUIApplicationWindow.cpp:852
 msgid ""
 "Time lost due to being unable to drive with maximum speed for all vehicles"
 msgstr "全ての車両の最大速度で走行できなかったことによる損失時間の合計です"
 
-#: src/gui/GUIApplicationWindow.cpp:851
+#: src/gui/GUIApplicationWindow.cpp:863
 msgid "Distance (km):"
 msgstr "走行距離(km):"
 
-#: src/gui/GUIApplicationWindow.cpp:851
+#: src/gui/GUIApplicationWindow.cpp:863
 msgid "Total distance driven by DRT vehicles"
 msgstr "デマンド型交通（DRT）の車輌の総走行距離"
 
-#: src/gui/GUIApplicationWindow.cpp:862
+#: src/gui/GUIApplicationWindow.cpp:874
 msgid "Emergency Vehicle waiting time:"
 msgstr "緊急車両待ち時間:"
 
-#: src/gui/GUIApplicationWindow.cpp:862
+#: src/gui/GUIApplicationWindow.cpp:874
 msgid "Time spent waiting accumulated for emergency vehicles"
 msgstr "全ての緊急車両の待ち時間の合計"
 
-#: src/gui/GUIApplicationWindow.cpp:887
+#: src/gui/GUIApplicationWindow.cpp:899
 #: src/netedit/GNEApplicationWindowHelper.cpp:157
 msgid "Cl&ear Recent Networks"
 msgstr "最近開いたネットワークをクリアします"
 
-#: src/gui/GUIApplicationWindow.cpp:888
+#: src/gui/GUIApplicationWindow.cpp:900
 #: src/netedit/GNEApplicationWindowHelper.cpp:158
 msgid "No Recent Networks"
 msgstr "最近開いたネットワークはありません"
 
-#: src/gui/GUIApplicationWindow.cpp:892
+#: src/gui/GUIApplicationWindow.cpp:904
 #: src/netedit/GNEApplicationWindowHelper.cpp:162
 msgid "Recent Networks"
 msgstr "最近開いたネットワーク"
 
-#: src/gui/GUIApplicationWindow.cpp:910
+#: src/gui/GUIApplicationWindow.cpp:922
 #: src/netedit/GNEApplicationWindowHelper.cpp:180
 msgid "Cl&ear Recent Configs"
 msgstr "最近開いたコンフィグをクリア"
 
-#: src/gui/GUIApplicationWindow.cpp:911
+#: src/gui/GUIApplicationWindow.cpp:923
 #: src/netedit/GNEApplicationWindowHelper.cpp:181
 msgid "No Recent Configs"
 msgstr "最近開いたコンフィグはありません"
 
-#: src/gui/GUIApplicationWindow.cpp:915
+#: src/gui/GUIApplicationWindow.cpp:927
 #: src/netedit/GNEApplicationWindowHelper.cpp:185
 msgid "Recent Configs"
 msgstr "最近開いたコンフィグ"
 
-#: src/gui/GUIApplicationWindow.cpp:1079 src/gui/GUIApplicationWindow.cpp:1105
+#: src/gui/GUIApplicationWindow.cpp:1091 src/gui/GUIApplicationWindow.cpp:1117
 msgid "Running %."
 msgstr "実行中%。"
 
-#: src/gui/GUIApplicationWindow.cpp:1115
+#: src/gui/GUIApplicationWindow.cpp:1127
 msgid "Open Simulation Configuration"
 msgstr "シミュレーションの設定を開く"
 
-#: src/gui/GUIApplicationWindow.cpp:1135
+#: src/gui/GUIApplicationWindow.cpp:1147
 msgid "Open Network"
 msgstr "ネットワークを開く"
 
-#: src/gui/GUIApplicationWindow.cpp:1155
+#: src/gui/GUIApplicationWindow.cpp:1167
 msgid "Open Shapes"
 msgstr "シェイプを開く"
 
-#: src/gui/GUIApplicationWindow.cpp:1169 src/gui/GUIApplicationWindow.cpp:1197
+#: src/gui/GUIApplicationWindow.cpp:1181 src/gui/GUIApplicationWindow.cpp:1209
 msgid "Loading of % failed."
 msgstr "%のロードに失敗しました。"
 
-#: src/gui/GUIApplicationWindow.cpp:1186
+#: src/gui/GUIApplicationWindow.cpp:1198
 msgid "Open EdgeData"
 msgstr "EdgeDataを開く"
 
-#: src/gui/GUIApplicationWindow.cpp:1221
+#: src/gui/GUIApplicationWindow.cpp:1233
 msgid "Auto-Reloading."
 msgstr "自動的に再読み込み中。"
 
-#: src/gui/GUIApplicationWindow.cpp:1221
+#: src/gui/GUIApplicationWindow.cpp:1233
 msgid "TraCI-Loading."
 msgstr "TraCIのロード中。"
 
-#: src/gui/GUIApplicationWindow.cpp:1223
+#: src/gui/GUIApplicationWindow.cpp:1235
 msgid "Reloading."
 msgstr "再読み込み中。"
 
-#: src/gui/GUIApplicationWindow.cpp:1234
+#: src/gui/GUIApplicationWindow.cpp:1246
 msgid "Quick-Reloading."
 msgstr "クイックリロード中。"
 
-#: src/gui/GUIApplicationWindow.cpp:1244
-#: src/netedit/GNEApplicationWindow.cpp:1175
+#: src/gui/GUIApplicationWindow.cpp:1256
+#: src/netedit/GNEApplicationWindow.cpp:1240
 msgid "Already loading!"
 msgstr "既にロード済みです！"
 
-#: src/gui/GUIApplicationWindow.cpp:1256
+#: src/gui/GUIApplicationWindow.cpp:1268
 msgid "Save SUMO Configuration"
 msgstr "SUMOの設定を保存"
 
-#: src/gui/GUIApplicationWindow.cpp:1270
+#: src/gui/GUIApplicationWindow.cpp:1282
 msgid "Configuration saved to %."
 msgstr "設定を%に保存しました。"
 
-#: src/gui/GUIApplicationWindow.cpp:1272
+#: src/gui/GUIApplicationWindow.cpp:1284
 msgid "Could not save configuration to %."
 msgstr "設定を%に保存できませんでした。"
 
-#: src/gui/GUIApplicationWindow.cpp:1328 src/gui/GUIApplicationWindow.cpp:1354
-#: src/gui/GUIApplicationWindow.cpp:2320
+#: src/gui/GUIApplicationWindow.cpp:1340 src/gui/GUIApplicationWindow.cpp:1366
+#: src/gui/GUIApplicationWindow.cpp:2349
 msgid "No simulation loaded!"
 msgstr "シミュレーションがロードされていません！"
 
-#: src/gui/GUIApplicationWindow.cpp:1370
+#: src/gui/GUIApplicationWindow.cpp:1382
 msgid "Save Simulation State"
 msgstr "シミュレーション状態を保存"
 
-#: src/gui/GUIApplicationWindow.cpp:1382
+#: src/gui/GUIApplicationWindow.cpp:1394
 msgid "Simulation state saved to '%'."
 msgstr "シミュレーション状態を'%'に保存しました。"
 
-#: src/gui/GUIApplicationWindow.cpp:1390
+#: src/gui/GUIApplicationWindow.cpp:1402
 msgid "Load Simulation State"
 msgstr "シミュレーション状態をロード"
 
-#: src/gui/GUIApplicationWindow.cpp:1402
+#: src/gui/GUIApplicationWindow.cpp:1414
 msgid "State loaded from '%'."
 msgstr "'%'からシミュレーション状態をロードしました。"
 
-#: src/gui/GUIApplicationWindow.cpp:1404
+#: src/gui/GUIApplicationWindow.cpp:1416
 msgid "Failed to load state from '%' (%)."
 msgstr "'%'からのシミュレーション状態のロードに失敗しました(%)。"
 
-#: src/gui/GUIApplicationWindow.cpp:1551
+#: src/gui/GUIApplicationWindow.cpp:1563
 msgid "Scale number of vehicles in simulation"
 msgstr "シミュレーション内の車輌の数の倍率の調整"
 
-#: src/gui/GUIApplicationWindow.cpp:1568
+#: src/gui/GUIApplicationWindow.cpp:1580
 msgid "Open sumo config in netedit"
 msgstr "netedit内のsumo configを開く"
 
-#: src/gui/GUIApplicationWindow.cpp:1925
+#: src/gui/GUIApplicationWindow.cpp:1941
 msgid "Loading of '%' failed!"
 msgstr "'%'のロードに失敗しました！"
 
-#: src/gui/GUIApplicationWindow.cpp:1939
+#: src/gui/GUIApplicationWindow.cpp:1955
 msgid "'%' loaded."
 msgstr "'%'はロードされました。"
 
-#: src/gui/GUIApplicationWindow.cpp:2053
+#: src/gui/GUIApplicationWindow.cpp:2069
 msgid "SUMO Interactive Traffic Light"
 msgstr "SUMO 相互信号機"
 
-#: src/gui/GUIApplicationWindow.cpp:2055
+#: src/gui/GUIApplicationWindow.cpp:2071
 msgid "SUMO Interactive Demand-Responsive-Transport"
 msgstr "SUMO 相互デマンド型交通（DRT）"
 
-#: src/gui/GUIApplicationWindow.cpp:2207
+#: src/gui/GUIApplicationWindow.cpp:2236
 msgid "Simulation ended at time: %. (%)"
 msgstr "シミュレーションは時刻：%に終了しました。(%)"
 
-#: src/gui/GUIApplicationWindow.cpp:2210
+#: src/gui/GUIApplicationWindow.cpp:2239
 msgid "Simulation ended at time: %."
 msgstr "シミュレーションは時刻：%に終了しました。"
 
-#: src/gui/GUIApplicationWindow.cpp:2211
+#: src/gui/GUIApplicationWindow.cpp:2240
 msgid "Reason:"
 msgstr "原因:"
 
-#: src/gui/GUIApplicationWindow.cpp:2212
+#: src/gui/GUIApplicationWindow.cpp:2241
 msgid "Do you want to close all open files and views?"
 msgstr "すべての開いているファイルとビューを閉じますか？"
 
-#: src/gui/GUIApplicationWindow.cpp:2213
+#: src/gui/GUIApplicationWindow.cpp:2242
 msgid "Simulation ended"
 msgstr "シミュレーション終了"
 
-#: src/gui/GUIApplicationWindow.cpp:2311 src/gui/GUILoadThread.cpp:114
+#: src/gui/GUIApplicationWindow.cpp:2340 src/gui/GUILoadThread.cpp:114
 msgid "Loading '%'."
 msgstr "'%'をロードしています。"
 
-#: src/gui/GUIApplicationWindow.cpp:2481 src/gui/GUIApplicationWindow.cpp:2483
-#: src/gui/GUIApplicationWindow.cpp:2484 src/gui/GUIApplicationWindow.cpp:2485
+#: src/gui/GUIApplicationWindow.cpp:2512 src/gui/GUIApplicationWindow.cpp:2514
+#: src/gui/GUIApplicationWindow.cpp:2515 src/gui/GUIApplicationWindow.cpp:2516
 msgid "seconds"
 msgstr "秒"
 
-#: src/gui/GUIApplicationWindow.cpp:2644
+#: src/gui/GUIApplicationWindow.cpp:2675
 msgid "Set breakpoint at %"
 msgstr "%にブレークポイントを設定"
 
@@ -944,61 +944,61 @@ msgstr "終了しています（エラーのため）。"
 msgid "Simulation started with time: %."
 msgstr "シミュレーションは%に開始されます。"
 
-#: src/gui/GUISUMOViewParent.cpp:142 src/netedit/GNEViewParent.cpp:475
+#: src/gui/GUISUMOViewParent.cpp:143 src/netedit/GNEViewParent.cpp:571
 msgid "Save Snapshot"
 msgstr "スナップショットを保存"
 
-#: src/gui/GUISUMOViewParent.cpp:160 src/netedit/GNEViewParent.cpp:489
+#: src/gui/GUISUMOViewParent.cpp:161 src/netedit/GNEViewParent.cpp:585
 msgid "No file extension was specified - saving Snapshot as PNG."
 msgstr ""
 "ファイル拡張子が指定されていません - スナップショットをPNGとして保存します。"
 
-#: src/gui/GUISUMOViewParent.cpp:166 src/netedit/GNEViewParent.cpp:494
+#: src/gui/GUISUMOViewParent.cpp:167 src/netedit/GNEViewParent.cpp:590
 msgid "Saving failed."
 msgstr "保存に失敗しました。"
 
-#: src/gui/GUISUMOViewParent.cpp:168 src/netedit/GNEViewParent.cpp:496
+#: src/gui/GUISUMOViewParent.cpp:169 src/netedit/GNEViewParent.cpp:592
 msgid "Snapshot successfully saved!"
 msgstr "スナップショットは正しく保存されました！"
 
-#: src/gui/GUISUMOViewParent.cpp:212 src/gui/GUISUMOViewParent.cpp:261
+#: src/gui/GUISUMOViewParent.cpp:213 src/gui/GUISUMOViewParent.cpp:262
 msgid "Unknown Message ID in onCmdLocate"
 msgstr "onCmdLocateで不明なメッセージIDを確認"
 
-#: src/gui/GUISUMOViewParent.cpp:226 src/netedit/GNEViewParent.cpp:522
+#: src/gui/GUISUMOViewParent.cpp:227 src/netedit/GNEViewParent.cpp:618
 msgid "Junction Chooser"
 msgstr "交差点の選択"
 
-#: src/gui/GUISUMOViewParent.cpp:230 src/netedit/GNEViewParent.cpp:529
+#: src/gui/GUISUMOViewParent.cpp:231 src/netedit/GNEViewParent.cpp:625
 msgid "Edge Chooser"
 msgstr "リンクの選択"
 
-#: src/gui/GUISUMOViewParent.cpp:234 src/netedit/GNEViewParent.cpp:543
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:91
+#: src/gui/GUISUMOViewParent.cpp:235 src/netedit/GNEViewParent.cpp:639
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:107
 msgid "Vehicle Chooser"
 msgstr "車輌の選択"
 
-#: src/gui/GUISUMOViewParent.cpp:238 src/netedit/GNEViewParent.cpp:554
+#: src/gui/GUISUMOViewParent.cpp:239 src/netedit/GNEViewParent.cpp:650
 msgid "Person Chooser"
 msgstr "人の選択"
 
-#: src/gui/GUISUMOViewParent.cpp:242 src/netedit/GNEViewParent.cpp:564
+#: src/gui/GUISUMOViewParent.cpp:243 src/netedit/GNEViewParent.cpp:660
 msgid "Container Chooser"
 msgstr "コンテナの選択"
 
-#: src/gui/GUISUMOViewParent.cpp:246
+#: src/gui/GUISUMOViewParent.cpp:247
 msgid "Traffic Lights Chooser"
 msgstr "信号機の選択"
 
-#: src/gui/GUISUMOViewParent.cpp:250
+#: src/gui/GUISUMOViewParent.cpp:251
 msgid "Additional Objects Chooser"
 msgstr "構造物の選択"
 
-#: src/gui/GUISUMOViewParent.cpp:254 src/netedit/GNEViewParent.cpp:615
+#: src/gui/GUISUMOViewParent.cpp:255 src/netedit/GNEViewParent.cpp:711
 msgid "POI Chooser"
 msgstr "点の選択"
 
-#: src/gui/GUISUMOViewParent.cpp:258
+#: src/gui/GUISUMOViewParent.cpp:259
 msgid "Polygon Chooser"
 msgstr "ポリゴンの選択"
 
@@ -2525,712 +2525,712 @@ msgstr "このシステムはOpenGLをサポートしていません。終了し
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "ミクロ・多モード交通シミュレーションです。"
 
-#: src/netedit/GNEApplicationWindow.cpp:563
+#: src/netedit/GNEApplicationWindow.cpp:562
 msgid "Close dialog automatically"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:591
+#: src/netedit/GNEApplicationWindow.cpp:590
 msgid "Recomputing"
 msgstr "再計算中"
 
-#: src/netedit/GNEApplicationWindow.cpp:592
+#: src/netedit/GNEApplicationWindow.cpp:591
 msgid "Recomputing is needed"
 msgstr "再計算が必要です"
 
-#: src/netedit/GNEApplicationWindow.cpp:612
+#: src/netedit/GNEApplicationWindow.cpp:611
 msgid "Test coordinate"
 msgstr "テスト座標"
 
-#: src/netedit/GNEApplicationWindow.cpp:778
+#: src/netedit/GNEApplicationWindow.cpp:779
 msgid "netconvert config file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:807
-#: src/netedit/GNEApplicationWindow.cpp:3510
+#: src/netedit/GNEApplicationWindow.cpp:808
+#: src/netedit/GNEApplicationWindow.cpp:3600
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:115
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:375
 msgid "network file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:824
+#: src/netedit/GNEApplicationWindow.cpp:825
 msgid "OpenStreetMap file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:841
-#: src/netedit/GNEApplicationWindow.cpp:3688
+#: src/netedit/GNEApplicationWindow.cpp:842
+#: src/netedit/GNEApplicationWindow.cpp:3778
 msgid "netedit config file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:871
-#: src/netedit/GNEApplicationWindow.cpp:3830
+#: src/netedit/GNEApplicationWindow.cpp:872
+#: src/netedit/GNEApplicationWindow.cpp:3920
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:551
 msgid "sumo config file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:974
-#: src/netedit/GNEApplicationWindow.cpp:3967
+#: src/netedit/GNEApplicationWindow.cpp:995
+#: src/netedit/GNEApplicationWindow.cpp:4057
 msgid "Traffic Light definitions file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1012
-#: src/netedit/GNEApplicationWindow.cpp:3991
+#: src/netedit/GNEApplicationWindow.cpp:1033
+#: src/netedit/GNEApplicationWindow.cpp:4081
 msgid "EdgeTypes file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1074
+#: src/netedit/GNEApplicationWindow.cpp:1125
 msgid "Reloading netedit config file '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1079
+#: src/netedit/GNEApplicationWindow.cpp:1130
 msgid "Reloading sumo config file '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1084
-#: src/netedit/GNEApplicationWindow.cpp:1146
+#: src/netedit/GNEApplicationWindow.cpp:1135
+#: src/netedit/GNEApplicationWindow.cpp:1211
 msgid "Reloading network file '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1099
+#: src/netedit/GNEApplicationWindow.cpp:1150
 msgid "&Reload Netedit config"
 msgstr "&Neteditコンフィグをリロード"
 
-#: src/netedit/GNEApplicationWindow.cpp:1100
+#: src/netedit/GNEApplicationWindow.cpp:1151
 msgid "&Reload Sumo config"
 msgstr "&Sumoコンフィグをリロード"
 
-#: src/netedit/GNEApplicationWindow.cpp:1101
+#: src/netedit/GNEApplicationWindow.cpp:1152
 msgid "&Reload Network"
 msgstr "&ネットワークをリロード"
 
-#: src/netedit/GNEApplicationWindow.cpp:1344
+#: src/netedit/GNEApplicationWindow.cpp:1412
 msgid "Loading of netedit config '%' failed"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1347
+#: src/netedit/GNEApplicationWindow.cpp:1415
 msgid "Loading of sumo config '%' failed"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1350
+#: src/netedit/GNEApplicationWindow.cpp:1418
 msgid "Loading of netconvert config '%' failed"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1353
+#: src/netedit/GNEApplicationWindow.cpp:1421
 msgid "Loading of network '%' failed"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1356
+#: src/netedit/GNEApplicationWindow.cpp:1424
 msgid "Loading of OSM Network '%' failed"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1359
+#: src/netedit/GNEApplicationWindow.cpp:1427
 msgid "Invalid Options. Nothing loaded"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1362
+#: src/netedit/GNEApplicationWindow.cpp:1430
 msgid "Could not build projection. Nothing loaded"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1365
+#: src/netedit/GNEApplicationWindow.cpp:1433
 msgid ""
 "Invalid extension for config file. Only .netecfg, .sumocfg or .netccfg are "
 "allowed"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1368
+#: src/netedit/GNEApplicationWindow.cpp:1436
 msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with --new option"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1385
+#: src/netedit/GNEApplicationWindow.cpp:1454
 msgid "Netedit config '%' loaded"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1388
+#: src/netedit/GNEApplicationWindow.cpp:1458
 msgid "Sumo config '%' loaded"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1391
+#: src/netedit/GNEApplicationWindow.cpp:1462
 msgid "Netconvert config '%' loaded"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1394
+#: src/netedit/GNEApplicationWindow.cpp:1466
 msgid "Network '%' loaded"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1397
+#: src/netedit/GNEApplicationWindow.cpp:1470
 msgid "OSM Network '%' loaded"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1400
+#: src/netedit/GNEApplicationWindow.cpp:1474
 msgid "Network '%' loaded through console"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1403
+#: src/netedit/GNEApplicationWindow.cpp:1478
 msgid "New network successfully created"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1500
+#: src/netedit/GNEApplicationWindow.cpp:1580
 msgid "&Modes"
 msgstr "&モード"
 
-#: src/netedit/GNEApplicationWindow.cpp:1536
+#: src/netedit/GNEApplicationWindow.cpp:1616
 msgid "L&ock"
 msgstr "&ロック"
 
-#: src/netedit/GNEApplicationWindow.cpp:1543
+#: src/netedit/GNEApplicationWindow.cpp:1623
 msgid "&Processing"
 msgstr "&処理中"
 
-#: src/netedit/GNEApplicationWindow.cpp:1570
+#: src/netedit/GNEApplicationWindow.cpp:1650
 msgid "&Tools"
 msgstr "&ツール"
 
-#: src/netedit/GNEApplicationWindow.cpp:1572
+#: src/netedit/GNEApplicationWindow.cpp:1652
 msgid "Assign"
 msgstr "割り当て"
 
-#: src/netedit/GNEApplicationWindow.cpp:1573
+#: src/netedit/GNEApplicationWindow.cpp:1653
 #: src/netedit/GNETagPropertiesDatabase.cpp:427
 #: src/netedit/GNETagPropertiesDatabase.cpp:429
 msgid "Detectors"
 msgstr "車輛検知器"
 
-#: src/netedit/GNEApplicationWindow.cpp:1574
+#: src/netedit/GNEApplicationWindow.cpp:1654
 msgid "Districts"
 msgstr "地区"
 
-#: src/netedit/GNEApplicationWindow.cpp:1575
+#: src/netedit/GNEApplicationWindow.cpp:1655
 msgid "DRT"
 msgstr "デマンド型交通（DRT）"
 
-#: src/netedit/GNEApplicationWindow.cpp:1577
+#: src/netedit/GNEApplicationWindow.cpp:1657
 msgid "CityBrain"
 msgstr "シティブレイン"
 
-#: src/netedit/GNEApplicationWindow.cpp:1578
+#: src/netedit/GNEApplicationWindow.cpp:1658
 msgid "GTFS"
 msgstr "GTFS"
 
-#: src/netedit/GNEApplicationWindow.cpp:1579
+#: src/netedit/GNEApplicationWindow.cpp:1659
 msgid "Vissim"
 msgstr "Vissim"
 
-#: src/netedit/GNEApplicationWindow.cpp:1580
+#: src/netedit/GNEApplicationWindow.cpp:1660
 msgid "Visum"
 msgstr "Visum"
 
-#: src/netedit/GNEApplicationWindow.cpp:1581
+#: src/netedit/GNEApplicationWindow.cpp:1661
 msgid "Import"
 msgstr "インポート"
 
-#: src/netedit/GNEApplicationWindow.cpp:1582
+#: src/netedit/GNEApplicationWindow.cpp:1662
 msgid "Net"
 msgstr "道路網"
 
-#: src/netedit/GNEApplicationWindow.cpp:1583
+#: src/netedit/GNEApplicationWindow.cpp:1663
 msgid "Output"
 msgstr "出力"
 
-#: src/netedit/GNEApplicationWindow.cpp:1584
+#: src/netedit/GNEApplicationWindow.cpp:1664
 #: src/netedit/GNEApplicationWindowHelper.cpp:706
 #: src/netedit/GNETagPropertiesDatabase.cpp:2132
 #: src/netedit/GNETagPropertiesDatabase.cpp:2615
 msgid "Route"
 msgstr "ルート"
 
-#: src/netedit/GNEApplicationWindow.cpp:1586
+#: src/netedit/GNEApplicationWindow.cpp:1666
 msgid "TLS"
 msgstr "信号機"
 
-#: src/netedit/GNEApplicationWindow.cpp:1587
+#: src/netedit/GNEApplicationWindow.cpp:1667
 msgid "Trigger"
 msgstr "トリガー"
 
-#: src/netedit/GNEApplicationWindow.cpp:1588
+#: src/netedit/GNEApplicationWindow.cpp:1668
 msgid "Turn-defs"
 msgstr "右左折の定義"
 
-#: src/netedit/GNEApplicationWindow.cpp:1589
+#: src/netedit/GNEApplicationWindow.cpp:1669
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:324
 msgid "Visualization"
 msgstr "表示"
 
-#: src/netedit/GNEApplicationWindow.cpp:1590
+#: src/netedit/GNEApplicationWindow.cpp:1670
 msgid "XML"
 msgstr "XML"
 
-#: src/netedit/GNEApplicationWindow.cpp:1698
+#: src/netedit/GNEApplicationWindow.cpp:1778
 msgid "Network computed"
 msgstr "ネットワーク計算済み"
 
-#: src/netedit/GNEApplicationWindow.cpp:1702
+#: src/netedit/GNEApplicationWindow.cpp:1782
 msgid "Press F5"
 msgstr "F5キーを押下"
 
-#: src/netedit/GNEApplicationWindow.cpp:1703
+#: src/netedit/GNEApplicationWindow.cpp:1783
 msgid "Network requires recomputing"
 msgstr "ネットワークの再計算が必要"
 
-#: src/netedit/GNEApplicationWindow.cpp:1791
+#: src/netedit/GNEApplicationWindow.cpp:1873
 msgid "Loading console arguments."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1819
+#: src/netedit/GNEApplicationWindow.cpp:1901
 msgid "Creating new network."
 msgstr "新しいネットワークを作成中です。"
 
-#: src/netedit/GNEApplicationWindow.cpp:1830
+#: src/netedit/GNEApplicationWindow.cpp:1912
 msgid "Trying to load an empty network."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1849
+#: src/netedit/GNEApplicationWindow.cpp:1931
 msgid "Loading network file '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1861
+#: src/netedit/GNEApplicationWindow.cpp:1943
 msgid "Trying to load an empty configuration."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1877
+#: src/netedit/GNEApplicationWindow.cpp:1959
 msgid "Loading configuration file '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1916
+#: src/netedit/GNEApplicationWindow.cpp:1998
 msgid "Loading OSM file '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1933
+#: src/netedit/GNEApplicationWindow.cpp:2015
 msgid "Recompute with volatile options"
 msgstr "変更可能なオプションも含めて再計算"
 
-#: src/netedit/GNEApplicationWindow.cpp:1934
+#: src/netedit/GNEApplicationWindow.cpp:2016
 msgid "Changes produced in the net due a recomputing with"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1935
+#: src/netedit/GNEApplicationWindow.cpp:2017
 msgid "volatile options cannot be undone. Continue?"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:2247
-#: src/netedit/GNEApplicationWindow.cpp:2305
+#: src/netedit/GNEApplicationWindow.cpp:2329
+#: src/netedit/GNEApplicationWindow.cpp:2395
 msgid "Running '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:2268
+#: src/netedit/GNEApplicationWindow.cpp:2351
 msgid "Loading network '%' in SUMO-GUI."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:2277
+#: src/netedit/GNEApplicationWindow.cpp:2367
 msgid "Loading sumo config '%' in SUMO-GUI."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:2701
+#: src/netedit/GNEApplicationWindow.cpp:2791
 #: src/netedit/GNEApplicationWindowHelper.cpp:1306
 #: src/netedit/GNEUndoList.cpp:475 src/netedit/GNEViewParent.cpp:109
 #: src/netedit/changes/GNEChangeGroup.cpp:94
 msgid "Undo"
 msgstr "元に戻す"
 
-#: src/netedit/GNEApplicationWindow.cpp:2734
+#: src/netedit/GNEApplicationWindow.cpp:2824
 #: src/netedit/GNEApplicationWindowHelper.cpp:1309
 #: src/netedit/GNEUndoList.cpp:526 src/netedit/GNEViewParent.cpp:112
 #: src/netedit/changes/GNEChangeGroup.cpp:100
 msgid "Redo"
 msgstr "やり直す"
 
-#: src/netedit/GNEApplicationWindow.cpp:2878
+#: src/netedit/GNEApplicationWindow.cpp:2968
 #: src/netedit/frames/GNEAttributesEditorType.cpp:410
 msgid "Unfront element"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:2879
+#: src/netedit/GNEApplicationWindow.cpp:2969
 #: src/netedit/frames/GNEAttributesEditorType.cpp:411
 msgid "Unfront inspected elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:2881
+#: src/netedit/GNEApplicationWindow.cpp:2971
 #: src/netedit/GNEApplicationWindowHelper.cpp:1338
 #: src/netedit/frames/GNEAttributesEditorType.cpp:82
 #: src/netedit/frames/GNEAttributesEditorType.cpp:413
 msgid "Front element"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:2882
-#: src/netedit/GNEApplicationWindow.cpp:2891
+#: src/netedit/GNEApplicationWindow.cpp:2972
+#: src/netedit/GNEApplicationWindow.cpp:2981
 #: src/netedit/frames/GNEAttributesEditorType.cpp:83
 #: src/netedit/frames/GNEAttributesEditorType.cpp:414
 msgid "Mark element to be drawn above everything else"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:2886
+#: src/netedit/GNEApplicationWindow.cpp:2976
 msgid "Unfront all element"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:2887
+#: src/netedit/GNEApplicationWindow.cpp:2977
 msgid "Unfront all elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:2890
+#: src/netedit/GNEApplicationWindow.cpp:2980
 msgid "Front element (only inspected elements)"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3439
+#: src/netedit/GNEApplicationWindow.cpp:3529
 msgid "Force save network"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3489
+#: src/netedit/GNEApplicationWindow.cpp:3579
 msgid "Saving network failed"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3493
+#: src/netedit/GNEApplicationWindow.cpp:3583
 msgid "Network saved in '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3499
+#: src/netedit/GNEApplicationWindow.cpp:3589
 msgid "Could not save network in '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3549
+#: src/netedit/GNEApplicationWindow.cpp:3639
 msgid "Plain XML saved with prefix '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3552
+#: src/netedit/GNEApplicationWindow.cpp:3642
 msgid "Saving plain xml failed"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3566
+#: src/netedit/GNEApplicationWindow.cpp:3656
 msgid "plain XML file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3585
+#: src/netedit/GNEApplicationWindow.cpp:3675
 msgid "joined junctions file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3596
+#: src/netedit/GNEApplicationWindow.cpp:3686
 msgid "Joined junctions saved to '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3599
+#: src/netedit/GNEApplicationWindow.cpp:3689
 msgid "Saving joined junctions failed"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3621
+#: src/netedit/GNEApplicationWindow.cpp:3711
 msgid "Saving of netedit configuration aborted (due network)."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3625
+#: src/netedit/GNEApplicationWindow.cpp:3715
 msgid "Saving of netedit configuration aborted (due additional file)."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3629
+#: src/netedit/GNEApplicationWindow.cpp:3719
 msgid "Saving of netedit configuration aborted (due demand file)."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3633
+#: src/netedit/GNEApplicationWindow.cpp:3723
 msgid "Saving of netedit configuration aborted (due data file)."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3637
+#: src/netedit/GNEApplicationWindow.cpp:3727
 msgid "Saving of netedit configuration aborted (due meanData file)."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3649
-#: src/netedit/GNEApplicationWindow.cpp:3806
+#: src/netedit/GNEApplicationWindow.cpp:3739
+#: src/netedit/GNEApplicationWindow.cpp:3896
 msgid "Netedit configuration saved in '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3667
-#: src/netedit/GNEApplicationWindow.cpp:3793
+#: src/netedit/GNEApplicationWindow.cpp:3757
+#: src/netedit/GNEApplicationWindow.cpp:3883
 msgid "SUMO configuration saved in '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3677
+#: src/netedit/GNEApplicationWindow.cpp:3767
 msgid "Could not save netedit configuration in '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3762
-#: src/netedit/GNEApplicationWindow.cpp:3766
-#: src/netedit/GNEApplicationWindow.cpp:3770
-#: src/netedit/GNEApplicationWindow.cpp:3774
-#: src/netedit/GNEApplicationWindow.cpp:3778
+#: src/netedit/GNEApplicationWindow.cpp:3852
+#: src/netedit/GNEApplicationWindow.cpp:3856
+#: src/netedit/GNEApplicationWindow.cpp:3860
+#: src/netedit/GNEApplicationWindow.cpp:3864
+#: src/netedit/GNEApplicationWindow.cpp:3868
 msgid "Saving of SUMO configuration aborted"
 msgstr "SUMOの構成の保存を中止しました"
 
-#: src/netedit/GNEApplicationWindow.cpp:3819
+#: src/netedit/GNEApplicationWindow.cpp:3909
 msgid "Could not save SUMO configuration in '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3896
+#: src/netedit/GNEApplicationWindow.cpp:3986
 msgid "TLS Programs saved in '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3899
+#: src/netedit/GNEApplicationWindow.cpp:3989
 msgid "Saving TLS Programs failed"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3940
+#: src/netedit/GNEApplicationWindow.cpp:4030
 msgid "EdgeType saved in '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3943
+#: src/netedit/GNEApplicationWindow.cpp:4033
 msgid "Saving edgeTypes failed"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4015
+#: src/netedit/GNEApplicationWindow.cpp:4105
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:419
 msgid "Additional elements file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4031
+#: src/netedit/GNEApplicationWindow.cpp:4121
 msgid "load additionals from '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4035
+#: src/netedit/GNEApplicationWindow.cpp:4125
 msgid "Loading of additional file '%' failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4038
+#: src/netedit/GNEApplicationWindow.cpp:4128
 msgid "Loading of additional file '%' successfully."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4063
+#: src/netedit/GNEApplicationWindow.cpp:4159
 msgid "reloading additionals"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4102
+#: src/netedit/GNEApplicationWindow.cpp:4198
 msgid "Force save additional elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4125
+#: src/netedit/GNEApplicationWindow.cpp:4221
 msgid "Additionals saved."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4128
+#: src/netedit/GNEApplicationWindow.cpp:4224
 msgid "Saving additional aborted."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4133
+#: src/netedit/GNEApplicationWindow.cpp:4229
 msgid "Saving additional elements failed"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4143
+#: src/netedit/GNEApplicationWindow.cpp:4239
 msgid "Additional elements as"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4163
+#: src/netedit/GNEApplicationWindow.cpp:4259
 msgid "Additional elements in unified file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4173
+#: src/netedit/GNEApplicationWindow.cpp:4269
 msgid "saving of unified additional elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4194
+#: src/netedit/GNEApplicationWindow.cpp:4290
 msgid "JuPedSim elements file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4208
+#: src/netedit/GNEApplicationWindow.cpp:4304
 msgid "JuPedSim elements saved."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4211
+#: src/netedit/GNEApplicationWindow.cpp:4307
 msgid "Saving JuPedSim elements aborted."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4216
+#: src/netedit/GNEApplicationWindow.cpp:4312
 msgid "Saving JuPedSim elements failed"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4226
+#: src/netedit/GNEApplicationWindow.cpp:4322
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:463
 msgid "Route elements file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4242
+#: src/netedit/GNEApplicationWindow.cpp:4338
 msgid "loading demand elements from '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4246
+#: src/netedit/GNEApplicationWindow.cpp:4342
 msgid "Loading of route file '%' failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4249
+#: src/netedit/GNEApplicationWindow.cpp:4345
 msgid "Loading of route file '%' successfully."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4274
+#: src/netedit/GNEApplicationWindow.cpp:4370
 msgid "reloading demand elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4313
+#: src/netedit/GNEApplicationWindow.cpp:4409
 msgid "Force save demand elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4334
+#: src/netedit/GNEApplicationWindow.cpp:4430
 msgid "Demand elements saved."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4337
-#: src/netedit/GNEApplicationWindow.cpp:4519
+#: src/netedit/GNEApplicationWindow.cpp:4433
+#: src/netedit/GNEApplicationWindow.cpp:4615
 msgid "Saving demand elements aborted."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4342
+#: src/netedit/GNEApplicationWindow.cpp:4438
 msgid "Saving demand elements failed"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4352
+#: src/netedit/GNEApplicationWindow.cpp:4448
 msgid "Route elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4372
+#: src/netedit/GNEApplicationWindow.cpp:4468
 msgid "Route elements file in unified file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4382
+#: src/netedit/GNEApplicationWindow.cpp:4478
 msgid "saving of unified demand elements in '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4403
-#: src/netedit/GNEApplicationWindow.cpp:4534
+#: src/netedit/GNEApplicationWindow.cpp:4499
+#: src/netedit/GNEApplicationWindow.cpp:4630
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:507
 msgid "Data elements file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4421
+#: src/netedit/GNEApplicationWindow.cpp:4517
 msgid "loading data elements from '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4425
+#: src/netedit/GNEApplicationWindow.cpp:4521
 msgid "Loading of data file '%' failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4428
+#: src/netedit/GNEApplicationWindow.cpp:4524
 msgid "Loading of data file '%' successfully."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4457
+#: src/netedit/GNEApplicationWindow.cpp:4553
 msgid "reloading data elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4498
+#: src/netedit/GNEApplicationWindow.cpp:4594
 msgid "Force save data elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4516
+#: src/netedit/GNEApplicationWindow.cpp:4612
 msgid "Data elements saved."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4524
+#: src/netedit/GNEApplicationWindow.cpp:4620
 msgid "Saving data elements failed"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4554
+#: src/netedit/GNEApplicationWindow.cpp:4650
 msgid "Data elements file in unified file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4564
+#: src/netedit/GNEApplicationWindow.cpp:4660
 msgid "saving of unified data elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4583
+#: src/netedit/GNEApplicationWindow.cpp:4679
 msgid "MeanData elements file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4599
+#: src/netedit/GNEApplicationWindow.cpp:4695
 msgid "load meanDatas from '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4603
+#: src/netedit/GNEApplicationWindow.cpp:4699
 msgid "Loading of meandata file '%' failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4606
+#: src/netedit/GNEApplicationWindow.cpp:4702
 msgid "Loading of meandata file '%' successfully."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4631
+#: src/netedit/GNEApplicationWindow.cpp:4727
 msgid "reloading meanDatas"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4670
+#: src/netedit/GNEApplicationWindow.cpp:4766
 msgid "Force save meandata elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4690
+#: src/netedit/GNEApplicationWindow.cpp:4786
 msgid "MeanDatas elements saved"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4693
+#: src/netedit/GNEApplicationWindow.cpp:4789
 msgid "Saving MeanData elements aborted"
 msgstr "MeanDataエレメントの保存を中止しました"
 
-#: src/netedit/GNEApplicationWindow.cpp:4698
+#: src/netedit/GNEApplicationWindow.cpp:4794
 msgid "Saving demand elements failed!"
 msgstr "交通需要エレメントの保存に失敗しました！"
 
-#: src/netedit/GNEApplicationWindow.cpp:4708
+#: src/netedit/GNEApplicationWindow.cpp:4804
 msgid "MeanData elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4728
+#: src/netedit/GNEApplicationWindow.cpp:4824
 msgid "MeanData elements file in unified file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4738
+#: src/netedit/GNEApplicationWindow.cpp:4834
 msgid "saving of unified mean data elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4977
+#: src/netedit/GNEApplicationWindow.cpp:5101
 msgid "% additional elements from '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4984
+#: src/netedit/GNEApplicationWindow.cpp:5111
 msgid "% additionals from '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4995
-#: src/netedit/GNEApplicationWindow.cpp:5044
+#: src/netedit/GNEApplicationWindow.cpp:5123
+#: src/netedit/GNEApplicationWindow.cpp:5192
 msgid "% of '%' failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:5026
+#: src/netedit/GNEApplicationWindow.cpp:5174
 msgid "% demand elements from '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:5033
+#: src/netedit/GNEApplicationWindow.cpp:5181
 msgid "% demand elements from '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:5074
+#: src/netedit/GNEApplicationWindow.cpp:5222
 msgid "% data elements from '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:5081
+#: src/netedit/GNEApplicationWindow.cpp:5229
 msgid "% data elements from '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:5092
-#: src/netedit/GNEApplicationWindow.cpp:5140
+#: src/netedit/GNEApplicationWindow.cpp:5240
+#: src/netedit/GNEApplicationWindow.cpp:5292
 msgid "% of % failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:5122
+#: src/netedit/GNEApplicationWindow.cpp:5270
 msgid "% meanData elements from '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:5129
+#: src/netedit/GNEApplicationWindow.cpp:5283
 msgid "% meanData elements from '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:5166
-#: src/netedit/GNEApplicationWindow.cpp:5167
+#: src/netedit/GNEApplicationWindow.cpp:5318
+#: src/netedit/GNEApplicationWindow.cpp:5319
 msgid "% TLS programs from '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:5200
-#: src/netedit/GNEApplicationWindow.cpp:5201
+#: src/netedit/GNEApplicationWindow.cpp:5352
+#: src/netedit/GNEApplicationWindow.cpp:5353
 msgid "% edge types from '%'."
 msgstr ""
 
@@ -4361,41 +4361,41 @@ msgstr ""
 msgid "Select data mode."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2279
+#: src/netedit/GNEApplicationWindowHelper.cpp:2289
 msgid "There are invalid options in sumo configuration '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2282
+#: src/netedit/GNEApplicationWindowHelper.cpp:2292
 msgid ""
 "Could not load sumo configuration '%':\n"
 " %"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2294
+#: src/netedit/GNEApplicationWindowHelper.cpp:2304
 msgid "No network defined in sumo configuration '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2330
+#: src/netedit/GNEApplicationWindowHelper.cpp:2344
 msgid "There are invalid options in netconvert configuration '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2333
+#: src/netedit/GNEApplicationWindowHelper.cpp:2347
 msgid ""
 "Could not load netconvert configuration '%':\n"
 " %"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2377
+#: src/netedit/GNEApplicationWindowHelper.cpp:2398
 msgid "There are invalid options in netedit configuration '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2380
+#: src/netedit/GNEApplicationWindowHelper.cpp:2401
 msgid ""
 "Could not load netedit configuration '%':\n"
 " %"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2499
+#: src/netedit/GNEApplicationWindowHelper.cpp:2519
 msgid "Element '% cannot be updateAC in bucket '%'"
 msgstr ""
 
@@ -4498,23 +4498,23 @@ msgstr ""
 msgid "Attribute '%' already inserted"
 msgstr ""
 
-#: src/netedit/GNEExternalRunner.cpp:85
+#: src/netedit/GNEExternalRunner.cpp:79
 msgid "cancelled by user\n"
 msgstr ""
 
-#: src/netedit/GNEExternalRunner.cpp:117 src/netedit/GNEExternalRunner.cpp:195
+#: src/netedit/GNEExternalRunner.cpp:111 src/netedit/GNEExternalRunner.cpp:189
 msgid "starting process...\n"
 msgstr ""
 
-#: src/netedit/GNEExternalRunner.cpp:159 src/netedit/GNEExternalRunner.cpp:225
+#: src/netedit/GNEExternalRunner.cpp:153 src/netedit/GNEExternalRunner.cpp:219
 msgid "process finished\n"
 msgstr ""
 
-#: src/netedit/GNEExternalRunner.cpp:165
+#: src/netedit/GNEExternalRunner.cpp:159
 msgid "Error running tool using boost::process"
 msgstr ""
 
-#: src/netedit/GNEExternalRunner.cpp:211
+#: src/netedit/GNEExternalRunner.cpp:205
 msgid "error processing command\n"
 msgstr ""
 
@@ -4781,7 +4781,7 @@ msgid "Disable textures"
 msgstr ""
 
 #: src/netedit/GNELoadThread.cpp:520
-msgid "Load visualisation settings from FILE"
+msgid "Load visualization settings from FILE"
 msgstr ""
 
 #: src/netedit/GNELoadThread.cpp:525
@@ -4914,168 +4914,168 @@ msgstr ""
 msgid "create roundabout"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1473
+#: src/netedit/GNENet.cpp:1500
 msgid "Forced computing junctions with volatile options ..."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1475
+#: src/netedit/GNENet.cpp:1502
 msgid "Forced computing junctions ..."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1482
+#: src/netedit/GNENet.cpp:1509
 msgid "Computing junctions with volatile options ..."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1484
+#: src/netedit/GNENet.cpp:1511
 msgid "Computing junctions ..."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1506
+#: src/netedit/GNENet.cpp:1533
 msgid "Loading of additional file failed: "
 msgstr "構造物の読み込みに失敗しました: "
 
-#: src/netedit/GNENet.cpp:1508
+#: src/netedit/GNENet.cpp:1535
 msgid "Loading of additional file successfully: "
 msgstr "構造物の読み込みに成功: "
 
-#: src/netedit/GNENet.cpp:1521
+#: src/netedit/GNENet.cpp:1548
 msgid "Loading of route file failed: "
 msgstr "ルートファイルの読み込みに失敗しました: "
 
-#: src/netedit/GNENet.cpp:1523
+#: src/netedit/GNENet.cpp:1550
 msgid "Loading of route file successfully: "
 msgstr "ルートファイルの読み込みが完了しました: "
 
-#: src/netedit/GNENet.cpp:1536
+#: src/netedit/GNENet.cpp:1563
 msgid "Loading of data file failed: "
 msgstr "データファイルの読み込みに失敗しました: "
 
-#: src/netedit/GNENet.cpp:1538
+#: src/netedit/GNENet.cpp:1565
 msgid "Loading of data file successfully: "
 msgstr "データファイルの読み込みが完了しました: "
 
-#: src/netedit/GNENet.cpp:1551
+#: src/netedit/GNENet.cpp:1578
 msgid "Loading of meandata file failed: "
 msgstr "meanDataファイルの読み込みに失敗しました: "
 
-#: src/netedit/GNENet.cpp:1553
+#: src/netedit/GNENet.cpp:1580
 msgid "Loading of meandata file successfully: "
 msgstr "MeanDataファイルの読み込みが完了しました: "
 
-#: src/netedit/GNENet.cpp:1563
+#: src/netedit/GNENet.cpp:1590
 msgid "Finished computing junctions."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1569
+#: src/netedit/GNENet.cpp:1596
 msgid "Computing demand elements ..."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1583
+#: src/netedit/GNENet.cpp:1610
 msgid "Finished computing demand elements."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1589
+#: src/netedit/GNENet.cpp:1616
 msgid "Computing data elements ..."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1596
+#: src/netedit/GNENet.cpp:1623
 msgid "Finished computing data elements."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1662
+#: src/netedit/GNENet.cpp:1691
 msgid "Position of joined junction"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1663
+#: src/netedit/GNENet.cpp:1692
 msgid ""
 "There is another unselected junction in the same position of joined junction."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1664
+#: src/netedit/GNENet.cpp:1693
 msgid "It will be joined with the other selected junctions. Continue?"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1768 src/netedit/GNENet.cpp:1774
+#: src/netedit/GNENet.cpp:1797 src/netedit/GNENet.cpp:1803
 msgid "Clear crossings"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1769
+#: src/netedit/GNENet.cpp:1798
 msgid "There are no invalid crossings to remove."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1775
+#: src/netedit/GNENet.cpp:1804
 msgid "Crossings will be cleared. Continue?"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1778
+#: src/netedit/GNENet.cpp:1807
 msgid "clear crossings"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1793
+#: src/netedit/GNENet.cpp:1822
 msgid "clear junctions"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1821
+#: src/netedit/GNENet.cpp:1850
 msgid "clear unused routes"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1876
+#: src/netedit/GNENet.cpp:1905
 msgid "merge routes"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1930
+#: src/netedit/GNENet.cpp:1959
 msgid "adjust person plans"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1970
+#: src/netedit/GNENet.cpp:1999
 msgid "remove invalid demand elements"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1985
+#: src/netedit/GNENet.cpp:2014
 msgid "replace junction by geometry"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2021
+#: src/netedit/GNENet.cpp:2050
 msgid "Junction isn't removable"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2033
+#: src/netedit/GNENet.cpp:2062
 msgid "split junction"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2071
+#: src/netedit/GNENet.cpp:2100
 msgid "Could not rename split node to '%'"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2113
+#: src/netedit/GNENet.cpp:2142
 msgid "clear junction connections"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2125
+#: src/netedit/GNENet.cpp:2154
 msgid "reset junction connections"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2136
+#: src/netedit/GNENet.cpp:2165
 msgid "clear additional elements"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2149
+#: src/netedit/GNENet.cpp:2178
 msgid "clear demand elements"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2171
+#: src/netedit/GNENet.cpp:2200
 msgid "clear data elements"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2182
+#: src/netedit/GNENet.cpp:2211
 msgid "clear meanData elements"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2519 src/netedit/GNENet.cpp:2612
+#: src/netedit/GNENet.cpp:2548 src/netedit/GNENet.cpp:2641
 msgid "Duplicated ID"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2953
+#: src/netedit/GNENet.cpp:2982
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr ""
 
@@ -9395,27 +9395,27 @@ msgstr ""
 msgid "Compute path manager."
 msgstr ""
 
-#: src/netedit/GNEViewParent.cpp:536
+#: src/netedit/GNEViewParent.cpp:632
 msgid "WalkingArea Chooser"
 msgstr ""
 
-#: src/netedit/GNEViewParent.cpp:574
+#: src/netedit/GNEViewParent.cpp:670
 msgid "Route Chooser"
 msgstr ""
 
-#: src/netedit/GNEViewParent.cpp:581
+#: src/netedit/GNEViewParent.cpp:677
 msgid "Stop Chooser"
 msgstr ""
 
-#: src/netedit/GNEViewParent.cpp:592
+#: src/netedit/GNEViewParent.cpp:688
 msgid "TLS Chooser"
 msgstr ""
 
-#: src/netedit/GNEViewParent.cpp:602
+#: src/netedit/GNEViewParent.cpp:698
 msgid "Additional Chooser"
 msgstr ""
 
-#: src/netedit/GNEViewParent.cpp:625
+#: src/netedit/GNEViewParent.cpp:721
 msgid "Poly Chooser"
 msgstr ""
 
@@ -9625,11 +9625,11 @@ msgstr ""
 msgid "Redo toggle % attribute in '%'"
 msgstr ""
 
-#: src/netedit/dialogs/GNEACChooserDialog.cpp:118
+#: src/netedit/dialogs/GNEACChooserDialog.cpp:125
 msgid "Invalid Junction"
 msgstr ""
 
-#: src/netedit/dialogs/GNEACChooserDialog.cpp:124
+#: src/netedit/dialogs/GNEACChooserDialog.cpp:131
 msgid "Invalid number of TLSs"
 msgstr ""
 
@@ -9724,7 +9724,7 @@ msgid "Back to tool dialog"
 msgstr ""
 
 #: src/netedit/dialogs/GNEDialog.cpp:532
-#: src/utils/gui/div/GUIMessageWindow.cpp:348
+#: src/utils/gui/div/GUIMessageWindow.cpp:375
 msgid "Copy"
 msgstr ""
 
@@ -9787,7 +9787,7 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:295
 #: src/netedit/frames/common/GNESelectorFrame.cpp:257
-#: src/utils/gui/div/GUIMessageWindow.cpp:359
+#: src/utils/gui/div/GUIMessageWindow.cpp:386
 msgid "Clear"
 msgstr ""
 
@@ -10357,7 +10357,7 @@ msgid "Config directory"
 msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:432
-#: src/utils/gui/div/GUIMessageWindow.cpp:350
+#: src/utils/gui/div/GUIMessageWindow.cpp:377
 msgid "Select all"
 msgstr ""
 
@@ -11062,24 +11062,24 @@ msgstr ""
 msgid "sumo config"
 msgstr ""
 
-#: src/netedit/elements/GNEAttributeCarrier.cpp:230
+#: src/netedit/elements/GNEAttributeCarrier.cpp:236
 #: src/netedit/frames/GNEAttributesEditorType.cpp:509
 msgid "reset %"
 msgstr ""
 
-#: src/netedit/elements/GNEAttributeCarrier.cpp:260
+#: src/netedit/elements/GNEAttributeCarrier.cpp:266
 msgid "Nothing to enable, implement in Children"
 msgstr ""
 
-#: src/netedit/elements/GNEAttributeCarrier.cpp:267
+#: src/netedit/elements/GNEAttributeCarrier.cpp:273
 msgid "Nothing to disable, implement in Children"
 msgstr ""
 
-#: src/netedit/elements/GNEAttributeCarrier.cpp:853
+#: src/netedit/elements/GNEAttributeCarrier.cpp:859
 msgid "Parent filename"
 msgstr ""
 
-#: src/netedit/elements/GNEAttributeCarrier.cpp:968
+#: src/netedit/elements/GNEAttributeCarrier.cpp:974
 msgid "Nothing to toggle, implement in Children"
 msgstr ""
 
@@ -12670,7 +12670,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEElementTree.cpp:313
 #: src/utils/gui/globjects/GUIGlObject.cpp:349
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:88
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:104
 msgid "Center"
 msgstr ""
 
@@ -15435,15 +15435,15 @@ msgstr ""
 msgid "overheadWireSegment"
 msgstr ""
 
-#: src/utils/gui/div/GUIMessageWindow.cpp:348
+#: src/utils/gui/div/GUIMessageWindow.cpp:375
 msgid "Copy selection to clipboard"
 msgstr ""
 
-#: src/utils/gui/div/GUIMessageWindow.cpp:350
+#: src/utils/gui/div/GUIMessageWindow.cpp:377
 msgid "Select all text"
 msgstr ""
 
-#: src/utils/gui/div/GUIMessageWindow.cpp:359
+#: src/utils/gui/div/GUIMessageWindow.cpp:386
 msgid "Clear message window"
 msgstr ""
 
@@ -15617,7 +15617,7 @@ msgstr ""
 msgid "Replacing polygon '%'"
 msgstr ""
 
-#: src/utils/gui/images/GUIIconSubSys.cpp:1199
+#: src/utils/gui/images/GUIIconSubSys.cpp:1205
 msgid "Instance was previously created"
 msgstr ""
 
@@ -16374,67 +16374,78 @@ msgstr ""
 msgid "Save Data"
 msgstr ""
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:89
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:105
 msgid "Track"
 msgstr ""
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:96
-msgid "&Hide Unselected"
-msgstr ""
-
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:97
-msgid "By &Name"
-msgstr ""
-
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:97
-msgid "Locate item by name"
-msgstr ""
-
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:98
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:112
 msgid "&Select/deselect"
 msgstr ""
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:98
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:112
 msgid "Select/deselect current object"
 msgstr ""
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:99
-msgid "&Filter substring"
-msgstr ""
-
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:100
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:113
 msgid "Select &all"
 msgstr ""
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:100
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:113
 msgid "Select all items in list"
 msgstr ""
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:101
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:114
 msgid "&Deselect all"
 msgstr ""
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:101
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:114
 msgid "Deselect all items in list"
 msgstr ""
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:102
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:115
 msgid "&Update"
 msgstr ""
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:102
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:115
 msgid "Reload all ids"
 msgstr ""
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:106
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:119
+msgid "&Hide Unselected"
+msgstr ""
+
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:120
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:121
+msgid "Hide unselected items"
+msgstr ""
+
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:122
+msgid "By &Name"
+msgstr ""
+
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:123
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:124
+msgid "Locate item by name"
+msgstr ""
+
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:125
+msgid "&Filter substring"
+msgstr ""
+
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:126
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:127
+msgid "Filter list by substring"
+msgstr ""
+
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:128
 msgid "case-sensitive search"
 msgstr ""
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:108
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:130
 msgid "auto-center"
 msgstr ""
 
-#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:338
+#: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:477
 msgid "% objects"
 msgstr ""
 
@@ -17047,7 +17058,7 @@ msgid "Recenter view to the simulated area."
 msgstr ""
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:124
-#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1632
+#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1681
 msgctxt "Labels"
 msgid "Edit Viewport"
 msgstr ""
@@ -17090,155 +17101,162 @@ msgstr ""
 msgid "Makes a snapshot of the view."
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:353
+#: src/utils/gui/windows/GUIMainWindow.cpp:350
 msgid "No projection defined"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:354
+#: src/utils/gui/windows/GUIMainWindow.cpp:351
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:281
 msgid "(No projection defined)"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:368
+#: src/utils/gui/windows/GUIMainWindow.cpp:365
 msgid "Centered view on %. Geo coordinates: lat %, lon %"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:373
+#: src/utils/gui/windows/GUIMainWindow.cpp:370
 msgid "Invalid geo coordinate. Use 'lat, lon' or 'lat:... lon:...'"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:391
+#: src/utils/gui/windows/GUIMainWindow.cpp:388
 msgid "Centered view on x: %, y: %"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:395
+#: src/utils/gui/windows/GUIMainWindow.cpp:392
 msgid "Invalid cartesian coordinate. Use 'x, y' or 'x:... y:...'"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:488
+#: src/utils/gui/windows/GUIMainWindow.cpp:485
 msgid "option window-size requires INT,INT"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:505
+#: src/utils/gui/windows/GUIMainWindow.cpp:502
 msgid "option window-pos requires INT,INT"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:534
+#: src/utils/gui/windows/GUIMainWindow.cpp:531
 msgid "Langua&ge"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:536
+#: src/utils/gui/windows/GUIMainWindow.cpp:533
 msgid "Change language to english. (en)"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:538
+#: src/utils/gui/windows/GUIMainWindow.cpp:535
 msgid "Change language to german. (de)"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:540
+#: src/utils/gui/windows/GUIMainWindow.cpp:537
 msgid "Change language to spanish. (es)"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:542
+#: src/utils/gui/windows/GUIMainWindow.cpp:539
 msgid "Change language to portuguese. (pt)"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:544
+#: src/utils/gui/windows/GUIMainWindow.cpp:541
 msgid "Change language to french. (fr)"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:546
+#: src/utils/gui/windows/GUIMainWindow.cpp:543
 msgid "Change language to italian. (it)"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:548
+#: src/utils/gui/windows/GUIMainWindow.cpp:545
 msgid "简体中文 (zh)"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:550
+#: src/utils/gui/windows/GUIMainWindow.cpp:547
 msgid "繁體中文 (zh-Hant)"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:552
+#: src/utils/gui/windows/GUIMainWindow.cpp:549
 msgid "Change language to turkish. (tr)"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:554
+#: src/utils/gui/windows/GUIMainWindow.cpp:551
 msgid "Change language to japanese. (ja)"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:556
+#: src/utils/gui/windows/GUIMainWindow.cpp:553
 msgid "Change language to korean. (ko)"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:570
+#: src/utils/gui/windows/GUIMainWindow.cpp:567
 msgid "german"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:574
+#: src/utils/gui/windows/GUIMainWindow.cpp:571
 msgid "spanish"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:578
+#: src/utils/gui/windows/GUIMainWindow.cpp:575
 msgid "portuguese"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:582
+#: src/utils/gui/windows/GUIMainWindow.cpp:579
 msgid "french"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:586
+#: src/utils/gui/windows/GUIMainWindow.cpp:583
 msgid "italian"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:590
+#: src/utils/gui/windows/GUIMainWindow.cpp:587
 msgid "simplified chinese"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:594
+#: src/utils/gui/windows/GUIMainWindow.cpp:591
 msgid "traditional chinese"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:598
+#: src/utils/gui/windows/GUIMainWindow.cpp:595
 msgid "turkish"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:602
+#: src/utils/gui/windows/GUIMainWindow.cpp:599
 msgid "japanese"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:606
+#: src/utils/gui/windows/GUIMainWindow.cpp:603
 msgid "korean"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:610
+#: src/utils/gui/windows/GUIMainWindow.cpp:607
 msgid "english"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:618
+#: src/utils/gui/windows/GUIMainWindow.cpp:615
 msgid "Language changed to "
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:620
+#: src/utils/gui/windows/GUIMainWindow.cpp:617
 msgid "Restart needed"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:621
+#: src/utils/gui/windows/GUIMainWindow.cpp:618
 msgid "Changing display language needs restart to take effect."
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:624
+#: src/utils/gui/windows/GUIMainWindow.cpp:621
 msgid ""
 "For the Debug build you might also need to set the LANG environment variable."
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:627
+#: src/utils/gui/windows/GUIMainWindow.cpp:624
 msgid "Under development. You can help to improve the translation at:"
 msgstr ""
 
-#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1813
+#: src/utils/gui/windows/GUISUMOAbstractView.cpp:972
+msgid "Full Screen Mode. Press Ctrl+F to exit."
+msgstr ""
+
+#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1862
 msgid "Could not transform coordinates from WGS84 in decal %, assuming UTM."
 msgstr ""
+
+#~ msgid "Edit Visualisation"
+#~ msgstr "表示の編集"
 
 #~ msgid "Original coordinate (before coordinate transformation in netconvert)"
 #~ msgstr "元の座標（netconvertでの座標変換前）"

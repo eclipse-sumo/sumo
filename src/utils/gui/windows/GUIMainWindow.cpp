@@ -104,12 +104,14 @@ GUIMainWindow::~GUIMainWindow() {
 
 void
 GUIMainWindow::addGLChild(GUIGlChildWindow* child) {
+    FXMutexLock lock(myGLWindowsLock);
     myGLWindows.push_back(child);
 }
 
 
 void
 GUIMainWindow::removeGLChild(GUIGlChildWindow* child) {
+    FXMutexLock lock(myGLWindowsLock);
     std::vector<GUIGlChildWindow*>::iterator i = std::find(myGLWindows.begin(), myGLWindows.end(), child);
     if (i != myGLWindows.end()) {
         myGLWindows.erase(i);
@@ -143,6 +145,7 @@ GUIMainWindow::getTopDock() {
 std::vector<std::string>
 GUIMainWindow::getViewIDs() const {
     std::vector<std::string> ret;
+    FXMutexLock lock(myGLWindowsLock);
     for (GUIGlChildWindow* const window : myGLWindows) {
         ret.push_back(window->getTitle().text());
     }
@@ -152,6 +155,7 @@ GUIMainWindow::getViewIDs() const {
 
 GUIGlChildWindow*
 GUIMainWindow::getViewByID(const std::string& id) const {
+    FXMutexLock lock(myGLWindowsLock);
     for (GUIGlChildWindow* const window : myGLWindows) {
         if (std::string(window->getTitle().text()) == id) {
             return window;
@@ -163,12 +167,10 @@ GUIMainWindow::getViewByID(const std::string& id) const {
 
 void
 GUIMainWindow::removeViewByID(const std::string& id) {
-    for (GUIGlChildWindow* const window : myGLWindows) {
-        if (std::string(window->getTitle().text()) == id) {
-            window->close();
-            removeGLChild(window);
-            return;
-        }
+    GUIGlChildWindow* const window = getViewByID(id);
+    if (window != nullptr) {
+        window->close();
+        removeGLChild(window);
     }
 }
 
@@ -183,8 +185,9 @@ GUIMainWindow::getFallbackFont() {
     return myFallbackFont;
 }
 
-const std::vector<GUIGlChildWindow*>&
+std::vector<GUIGlChildWindow*>
 GUIMainWindow::getViews() const {
+    FXMutexLock lock(myGLWindowsLock);
     return myGLWindows;
 }
 

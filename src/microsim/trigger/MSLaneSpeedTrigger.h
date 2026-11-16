@@ -79,7 +79,7 @@ public:
 
     SUMOTime processCommand(bool move2next, SUMOTime currentTime);
 
-    double getDefaultSpeed() const;
+    double getDefaultSpeed(int i) const;
 
     void setOverriding(bool val);
 
@@ -88,7 +88,7 @@ public:
     double getLoadedSpeed();
 
     /// Returns the current speed
-    double getCurrentSpeed() const;
+    double getCurrentSpeed(int i) const;
 
     /// Returns the current friction
     double getCurrentFriction() const;
@@ -131,7 +131,7 @@ protected:
     std::vector<MSLane*> myDestLanes;
 
     /// The original speed allowed on the lanes
-    const double myDefaultSpeed;
+    std::vector<double> myDefaultSpeeds;
 
     /// The original friction on the lanes
     const double myDefaultFriction;

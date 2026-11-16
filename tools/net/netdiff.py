@@ -41,7 +41,7 @@ from sumolib.datastructures.OrderedMultiSet import OrderedMultiSet  # noqa
 from sumolib.options import ArgumentParser  # noqa
 
 
-def parse_args():
+def parse_args(args=None):
     optParser = ArgumentParser()
     optParser.add_option("source", category="input", type=optParser.net_file,
                          help="original network")
@@ -60,6 +60,8 @@ def parse_args():
                          " (exports additional connection elements)")
     optParser.add_option("--copy",
                          help="comma-separated list of element names to copy (if they are unchanged)")
+    optParser.add_option("--ignore-attributes", dest="ignore_attributes",
+                         help="comma-separated list of attribute names to ignore")
     optParser.add_option("--path", dest="path", help="Path to binaries")
     optParser.add_option("--remove-plain", action="store_true",
                          help="avoid saving plain xml files of source and destination networks")
@@ -69,7 +71,7 @@ def parse_args():
                          help="Write shape files for created, deleted and changed elements")
     optParser.add_option("-g", "--plain-geo", category="output", action="store_true", default=False,
                          help="Write geo coordinates instead of network coordinates")
-    options = optParser.parse_args()
+    options = optParser.parse_args(args=args)
     if options.use_prefix and options.direct:
         optParser.error(
             "Options --use-prefix and --direct are mutually exclusive")
@@ -172,11 +174,13 @@ IGNORE_TAGS = set([TAG_LOCATION])
 class AttributeStore:
     patchImport = False
 
-    def __init__(self, type, copy_tags, level=1):
+    def __init__(self, type, copy_tags, level=1, ignore_attrs=None):
         # xml type being parsed
         self.type = type
         # tag names to copy even if unchanged
         self.copy_tags = copy_tags
+        # attribute names to ignore
+        self.ignore_attrs = ignore_attrs or set()
         # indent level
         self.level = level
         # dict of names-tuples
@@ -208,10 +212,13 @@ class AttributeStore:
             return None
 
     def getNames(self, xmlnode):
-        idattrs = IDATTRS[xmlnode.localName]
+        tag = xmlnode.localName
+        idattrs = IDATTRS[tag]
         a = xmlnode.attributes
         all = [a.item(i).localName for i in range(a.length)]
-        instance = tuple([n for n in all if n not in idattrs])
+        instance = tuple([n for n in all if n not in idattrs
+                          and n not in self.ignore_attrs
+                          and ("%s.%s" % (tag, n)) not in self.ignore_attrs])
         if instance not in self.attrnames:
             self.attrnames[instance] = instance
         # only store a single instance of this tuple to conserve memory
@@ -223,7 +230,7 @@ class AttributeStore:
         children = None
         if any([c.nodeType == Node.ELEMENT_NODE for c in xmlnode.childNodes]):
             children = AttributeStore(
-                self.type, self.copy_tags, self.level + 1)
+                self.type, self.copy_tags, self.level + 1, self.ignore_attrs)
         tag = xmlnode.localName
         id = tuple([xmlnode.getAttribute(a)
                     for a in IDATTRS[tag] if xmlnode.hasAttribute(a)])
@@ -284,7 +291,7 @@ class AttributeStore:
                     if len(child_strings.getvalue()) > 0 or tag in self.copy_tags:
                         # there are some changes. Go back and store everything
                         children = AttributeStore(
-                            self.type, self.copy_tags, self.level + 1)
+                            self.type, self.copy_tags, self.level + 1, self.ignore_attrs)
                         for child in xmlnode.childNodes:
                             if child.nodeType == Node.ELEMENT_NODE:
                                 children.compare(child)
@@ -566,8 +573,8 @@ def create_plain(netfile, netconvert, plain_geo):
 # (only children of the root element and their attrs are compared)
 def xmldiff(options, source, dest, diff, type, copy_tags, patchImport,
             selectionOutputFiles, shapeOutputFiles,
-            sourceNet=None, destNet=None):
-    attributeStore = AttributeStore(type, copy_tags)
+            sourceNet=None, destNet=None, ignore_attrs=None):
+    attributeStore = AttributeStore(type, copy_tags, ignore_attrs=ignore_attrs)
     root = None
     have_source = os.path.isfile(source)
     have_dest = os.path.isfile(dest)
@@ -669,6 +676,7 @@ def handle_children(xmlfile, handle_parsenode):
 # run
 def main(options):
     copy_tags = options.copy.split(',') if options.copy else []
+    ignore_attrs = set(options.ignore_attributes.split(',')) if options.ignore_attributes else set()
 
     selectionOutputFiles = []
     shapeOutputFiles = []
@@ -693,7 +701,8 @@ def main(options):
                 copy_tags,
                 options.patch_on_import,
                 selectionOutputFiles,
-                shapeOutputFiles)
+                shapeOutputFiles,
+                ignore_attrs=ignore_attrs)
     else:
         sourceNet = None
         destNet = None
@@ -715,7 +724,8 @@ def main(options):
                     options.patch_on_import,
                     selectionOutputFiles,
                     shapeOutputFiles,
-                    sourceNet, destNet)
+                    sourceNet, destNet,
+                    ignore_attrs=ignore_attrs)
             if options.remove_plain:
                 os.remove(options.source + type)
                 os.remove(options.dest + type)

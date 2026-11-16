@@ -97,6 +97,8 @@ public:
 
     GUIManipulator* openManipulator(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    double getCurrentSpeed() const;
+
 public:
     class GUILaneSpeedTriggerPopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUILaneSpeedTriggerPopupMenu)

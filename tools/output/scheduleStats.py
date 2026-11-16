@@ -118,7 +118,7 @@ def getStopID(stop):
 
 
 def key(row):
-    return "%s_%s" % (row['tripId'], row['stopID'])
+    return "%s_%s" % (row['tripId'] if row['tripId'] else row['vehID'], row['stopID'])
 
 
 def main(options):
@@ -216,6 +216,9 @@ def main(options):
         # print(dfSchedule)
         # print(dfSim)
         print(df)
+
+    if len(df) == 0:
+        sys.exit()
 
     if options.output:
         outf = open(options.output, 'w')

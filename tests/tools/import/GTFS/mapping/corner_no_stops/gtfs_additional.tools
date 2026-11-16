@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-06 15:08:01.329128 by Eclipse SUMO gtfs2pt.py v1_28_0+0478-f7d00dcb8a9
+<configuration>
+    <merged-csv value="data.csv"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="input_net.net.xml.gz"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="800868600.0" lane="399134509#1_0" startPos="83.10" endPos="96.10" friendlyPos="true" name="3rd Ave &amp; Virginia St"/>
+    <busStop id="800868600.1" lane="1204077368#1_0" startPos="78.53" endPos="91.53" friendlyPos="true" name="Blanchard St &amp; 6th Ave">
+        <access friendlyPos="true" lane="1025109934#1_1" pos="1.29" length="129.61"/>
+        <access friendlyPos="true" lane="1025109937#1_1" pos="131.71" length="132.16"/>
+    </busStop>
+    <busStop id="800868600.2" lane="242288220#0_0" startPos="5.73" endPos="18.73" friendlyPos="true" name="Westlake &amp; 9th-Denny"/>
+</additional>

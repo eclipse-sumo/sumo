@@ -18,3 +18,6 @@ thresholdConstant_10
 
 # all vehicles have the device due to trip def and reroute every 120s
 thresholdFactor_1.1
+
+# vehicles should not skip every second reroute when rerouting on adaptation steps
+period_adaptation_step

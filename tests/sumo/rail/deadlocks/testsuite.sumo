@@ -44,3 +44,6 @@ siding_crossing_deadlock2
 
 # see #18456
 reversal
+
+# reversal conflict not recognized (see ticket18530)
+reversal_short_driveway
