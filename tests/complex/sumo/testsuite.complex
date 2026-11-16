@@ -70,6 +70,9 @@ options
 max_depart
 overtake
 
+# replay trajectories at different recording and simulation time resolutions
+fcd_replay_timestamps
+
 # test emissions for different tls configurations (old and some config files
 # missing)
 #tls_emissions
