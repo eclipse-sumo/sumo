@@ -418,6 +418,17 @@ inline std::string toString(const std::set<V*, ComparatorNumericalIdLess>& v, st
 }
 
 
+template <typename V>
+inline std::string toString(const std::set<V*, ComparatorIdLess>& v, std::streamsize accuracy = gPrecision) {
+    UNUSED_PARAMETER(accuracy);
+    std::vector<std::string> ids;
+    for (typename std::set<V*, ComparatorIdLess>::const_iterator it = v.begin(); it != v.end(); ++it) {
+        ids.push_back((*it)->getID());
+    }
+    return joinToString(ids, " ");
+}
+
+
 template <>
 inline std::string toString(const std::vector<int>& v, std::streamsize accuracy) {
     return joinToString(v, " ", accuracy);
