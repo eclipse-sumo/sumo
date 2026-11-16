@@ -1550,9 +1550,8 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         if (hasExplicitFrom && !myActiveTransportablePlan->empty()) {
             const MSEdge* const previousDestination = myActiveTransportablePlan->back()->getDestination();
             if (previousDestination != nullptr && previousDestination != from) {
-                WRITE_WARNINGF(TL("Person '%' starts a personTrip at edge '%' but the previous stage ends at edge '%'. "
-                                  "The person will jump to the new edge."),
-                               id, from != nullptr ? from->getID() : "", previousDestination->getID());
+                WRITE_WARNINGF(TL("Person '%' jumps from edge '%' to personTrip origin edge '%'."),
+                               id, previousDestination->getID(), from->getID());
             }
         }
         if (attrs.hasAttribute(SUMO_ATTR_TO) || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION) || attrs.hasAttribute(SUMO_ATTR_TO_TAZ)
