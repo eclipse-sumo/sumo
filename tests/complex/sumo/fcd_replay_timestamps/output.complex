@@ -1,0 +1,16 @@
+aligned step=0.1 passed
+aligned step=0.5 passed
+aligned step=1.0 passed
+offgrid step=0.1 passed
+offgrid step=0.5 passed
+offgrid step=1.0 passed
+future step=0.1 passed
+future step=0.5 passed
+future step=1.0 passed
+single step=0.1 passed
+single step=0.5 passed
+single step=1.0 passed
+duplicate step=0.1 passed
+duplicate step=0.5 passed
+duplicate step=1.0 passed
+default step=1.0 passed
