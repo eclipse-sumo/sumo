@@ -23,6 +23,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <mutex>
 #include <assert.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOTime.h>
@@ -52,19 +53,18 @@ private:
 public:
     /// Constructor
     PedestrianRouter():
-        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouter", true, nullptr, nullptr, false, false), myAmClone(false) {
-        myPedNet = new _IntermodalNetwork(E::getAllEdges(), true);
-        myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true,
-                                               gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic,
-                                               nullptr, false, nullptr, true);
+        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouter", true, nullptr, nullptr, false, false),
+        myAmClone(false), myMaster(nullptr), myInternalRouter(nullptr), myPedNet(nullptr) {
     }
 
     PedestrianRouter(_IntermodalNetwork* net):
-        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouterClone", true, nullptr, nullptr, false, false), myAmClone(true) {
-        myPedNet = net;
-        myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true,
-                                               gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic,
-                                               nullptr, false, nullptr, true);
+        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouterClone", true, nullptr, nullptr, false, false),
+        myAmClone(true), myMaster(nullptr), myInternalRouter(nullptr), myPedNet(net) {
+        if (myPedNet != nullptr) {
+            myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true,
+                                                   gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic,
+                                                   nullptr, false, nullptr, true);
+        }
     }
 
     /// Destructor
@@ -76,7 +76,10 @@ public:
     }
 
     virtual SUMOAbstractRouter<E, _IntermodalTrip>* clone() {
-        return new PedestrianRouter<E, L, N, V>(myPedNet);
+        if (myAmClone && myMaster == nullptr) {
+            return new PedestrianRouter<E, L, N, V>(myPedNet);
+        }
+        return new PedestrianRouter<E, L, N, V>(myMaster == nullptr ? this : myMaster);
     }
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
@@ -91,6 +94,7 @@ public:
             WRITE_WARNINGF(TL("Destination edge '%' does not allow pedestrians."), to->getID());
             return false;
         }
+        createNet();
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, onlyNode, pars);
         std::vector<const _IntermodalEdge*> intoPed;
         const bool silent = allEdges; // no warning is needed when called from MSPModel_Striping
@@ -126,7 +130,18 @@ public:
         throw ProcessError(TL("Do not use this method"));
     }
 
+    inline void setBulkMode(const bool mode) {
+        SUMOAbstractRouter<E, _IntermodalTrip>::setBulkMode(mode);
+        if (myInternalRouter != nullptr) {
+            myInternalRouter->setBulkMode(mode);
+        }
+    }
+
     void prohibit(const std::map<const E*, RouterProhibition>& toProhibit) {
+        if (toProhibit.empty() && myInternalRouter == nullptr) {
+            return;
+        }
+        createNet();
         typename _InternalRouter::Prohibitions toProhibitPE;
         for (auto item : toProhibit) {
             // an edge without pedestrian edges in the network (e.g. closed for pedestrians when the network was built)
@@ -194,9 +209,37 @@ public:
 
 
 private:
+    PedestrianRouter(const PedestrianRouter* master):
+        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouterClone", true, nullptr, nullptr, false, false),
+        myAmClone(true), myMaster(master), myInternalRouter(nullptr), myPedNet(nullptr) {
+        this->myBulkMode = master->myBulkMode;
+    }
+
+    _IntermodalNetwork* ensureNetwork() const {
+        std::lock_guard<std::mutex> lock(myNetMutex);
+        if (myPedNet == nullptr) {
+            myPedNet = new _IntermodalNetwork(E::getAllEdges(), true);
+        }
+        return myPedNet;
+    }
+
+    inline void createNet() const {
+        if (myInternalRouter == nullptr) {
+            if (myPedNet == nullptr) {
+                myPedNet = (myMaster != nullptr ? myMaster->ensureNetwork() : ensureNetwork());
+            }
+            myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true,
+                                                   gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic,
+                                                   nullptr, false, nullptr, true);
+            myInternalRouter->setBulkMode(this->myBulkMode);
+        }
+    }
+
     const bool myAmClone;
-    _InternalRouter* myInternalRouter;
-    _IntermodalNetwork* myPedNet;
+    const PedestrianRouter* const myMaster;
+    mutable _InternalRouter* myInternalRouter;
+    mutable _IntermodalNetwork* myPedNet;
+    mutable std::mutex myNetMutex;
 
     const N* getCommonNode(const E* from, const E* to) const {
         if (from->getToJunction() == to->getFromJunction() || from->getToJunction() == to->getToJunction()) {
