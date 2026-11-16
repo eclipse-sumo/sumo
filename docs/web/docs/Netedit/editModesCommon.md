@@ -125,6 +125,7 @@ Selected elements are painted with a different color
   be selected/deselected.
 - by rectangle-selection via shift+leftClick+drag (When the checkbox *auto-select junctions* is enabled, junctions of selected edges will be selected automatically)
 - by matching object attributes [(see below)](#match_attribute)
+- by selecting or unselecting hierarchical parent/child elements [(see below)](#hierarchy_operations)
 - by loading a saved selection
 - by inverting an existing selection
 
@@ -148,22 +149,29 @@ The modification modes have the following functions
 
 ## Match Attribute
 
-The 'Match Attribute' controls allow to specify a set of objects by matching their attributes against a given expression. When combining this set with the current selection, the *Modification Mode* is also applied.
+The *Match Attribute* controls allow specifying a set of objects by matching their attributes against a given expression. When combining this set with the current selection, the active [Modification Mode](#modification_mode) is applied.
 
-1.  Select an object type from the first input box
-2.  Select an attribute from the second input box
-3.  Enter a 'match expression' in the third input box and press <return\>
+1. Select an element category, subcategory (if applicable), or specific object type from the cascading tag dropdowns at the top of *Match Attribute*:
+   - **Network supermode**: *Network elements*, *Additional elements* (with subcategories *Stopping places* and *Detectors*), *Wire elements*, *Shape elements* (with subcategory *JuPedSim elements*), and *TAZ elements*.
+   - **Demand supermode**: *Vehicles*, *Vehicle flows*, *Vehicle stops*, *Person plans* (*Person trips*, *Person rides*, *Person walks*, *Person stop*), *Container plans* (*Container transports*, *Container tranships*, *Container stops*), routes, persons, and containers.
+   - **Data supermode**: *Datas* (`edgeData`, `edgeRel`, `tazRelation`).
+   - Selecting **`<all>`** at any hierarchy level matches across **all element types belonging to that category or subcategory at once** (for example, choosing *Additional elements* -> *Stopping places* -> `<all>` matches across `busStop`, `trainStop`, `containerStop`, `chargingStation`, and `parkingArea` simultaneously, or choosing `<all>` in the top dropdown matches across all element categories of the current supermode).
+2. *(Optional)* Toggle **Only common**:
+   - When unchecked (default) and `<all>` is selected for a multi-element category or subcategory, the attribute dropdown lists all attributes defined by **any** element type in that group. When applying the expression, only elements in the group that possess the selected attribute are evaluated (for example, selecting *Additional elements* -> `<all>` and matching `chargingPower` with `>0` selects matching `chargingStation` elements without affecting other additionals).
+   - When checked, the attribute dropdown is restricted to attributes shared by **every** element type in the selected group (displaying *No common attributes defined* if no attribute is shared by all types in the group).
+3. Select an attribute from the attribute dropdown.
+4. Enter a match expression in the text field and press <kbd>Enter</kbd> or click **Apply selection**.
 
 ### Matching rules
 
-- The empty expression matches all objects
-- For numerical attributes the match expression must consist of a comparison operator ('<', '\>', '=') and a number.
-- the attribute matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'
-- For string attributes the match expression must consist of a comparison operator ('', '=', '\!', '^') and a string.
-- *(no operator) matches if string is a substring of that object's attribute.*
-  - '=' matches if string is an exact match.
-  - '\!' matches if string is not a substring.
-  - '^' matches if string is not an exact match.
+- The empty expression matches all objects (that possess the selected attribute).
+- For numerical attributes the match expression consists of an optional comparison operator (`<`, `>`, `=`; defaults to `=` when omitted) followed by a number.
+- An object matches if the comparison between its attribute value and the given number evaluates to `true`.
+- For string attributes the match expression consists of a comparison operator (`''`, `=`, `!`, `^`) and a string:
+  - *(no operator)* matches if the string is a substring of that object's attribute.
+  - `=` matches if the string is an exact match.
+  - `!` matches if the string is not a substring.
+  - `^` matches if the string is not an exact match.
 
 ### Special Cases
 
@@ -194,13 +202,21 @@ The 'Match Attribute' controls allow to specify a set of objects by matching the
 
 ## Selection Operations
 
-The following operations can be performed on the whole selection
+The following operations can be performed on the whole selection:
 
-- **Clear** : Clear the whole selection except for "locked" object types (shortcut `<ESC>`)
-- **Invert** : Invert selection status for all object types except "locked". Can be used to delete everything *except* the selected elements
-- **Save**: Save selection to a text file. This can be loaded in sumo-gui and also used by some [netconvert](../netconvert.md) options
-- **Load**: Load selection from text file. This is combined with the current selection according to the active [Modification Mode](#modification_mode).
-- **Delete**: Delete all selected objects including "locked". (shortcut `<DEL>`)
+- **Clear**: Clear the selection in the current supermode (shortcut `<ESC>`). If locked element types are part of the selection, netedit asks whether to apply the operation to locked elements as well.
+- **Invert**: Invert selection status for elements in the current supermode (prompting whether to include locked element types if present). Can be used to delete everything *except* the selected elements.
+- **Save**: Save selection to a text file. This can be loaded in sumo-gui and also used by some [netconvert](../netconvert.md) options.
+- **Load**: Load selection from text file (for elements belonging to the active supermode). This is combined with the current selection according to the active [Modification Mode](#modification_mode).
+- **Delete**: Delete all selected objects (shortcut `<DEL>`).
+- **Reduce**: Reduce the scenario to the current selection. In Network supermode, all unselected edges, unselected shapes, and unselected junctions (except junctions connected to selected edges) are deleted; in Demand and Data supermodes, all unselected elements are inverted and deleted.
+
+## Hierarchy Operations
+
+The *Hierarchy operations* panel allows expanding or shrinking the current selection along parent/child relationships between elements:
+
+- **Select parents**: Choose an element filter (`all`, `junction`, `edge`, `lane`, `connection`, `crossing`, `additionalElements`, `wireElements`, `shapeElements`, `demandElements`, `dataElements`) and click **Select** or **Unselect** to select or deselect the parent elements of all currently selected objects (for example, the parent edge of selected lanes, the incident lanes of selected connections, or the parent lane/edge of selected stopping places).
+- **Select children**: Choose an element filter and click **Select** or **Unselect** to select or deselect the child elements of all currently selected objects (for example, connected edges/connections/crossings of selected junctions, lanes/connections of selected edges, or demand/additional elements referencing the selected objects).
 
 # Move
 
