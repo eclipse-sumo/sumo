@@ -744,6 +744,8 @@ MSRouteHandler::closeVehicle() {
             }
             myVehicleParameter = nullptr;
         } else {
+            // persons and containers that depart triggered by this vehicle are discarded as well (#18596)
+            mySkippedVehicles.insert(myVehicleParameter->id);
             vehControl.deleteVehicle(vehicle, true);
             myVehicleParameter = nullptr;
             vehicle = nullptr;

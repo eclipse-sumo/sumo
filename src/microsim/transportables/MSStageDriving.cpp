@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include <utils/common/StringTokenizer.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/router/PedestrianRouter.h>
@@ -238,8 +239,14 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
             startVeh = net->getInsertionControl().getLastFlowVehicle(vehID);
         }
         if (startVeh == nullptr) {
-            throw ProcessError("Vehicle '" + vehID + "' not found for triggered departure of " +
-                               (isPerson ? "person" : "container") + " '" + transportable->getID() + "'.");
+            // the vehicle may have been removed already, e.g. because it could not depart (#18596)
+            const std::string error = "Vehicle '" + vehID + "' not found for triggered departure of " +
+                                      (isPerson ? "person" : "container") + " '" + transportable->getID() + "'.";
+            if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
+                WRITE_WARNING(error);
+                return false;
+            }
+            throw ProcessError(error);
         }
         if (transportable->isPerson()) {
             const int pCap = startVeh->getVehicleType().getParameter().personCapacity;
