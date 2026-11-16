@@ -18,3 +18,6 @@ bulk_rail_fromEqualTo
 
 # see #18355
 bulk_reset_after_trivial_trip
+
+# Group bulk routing by vehicle class to avoid invalid routes (#17752)
+bulk_vclass
