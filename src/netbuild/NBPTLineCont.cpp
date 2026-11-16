@@ -448,6 +448,9 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont) {
         currentWayEdges.clear();
         currentWayMinusEdges.clear();
     }
+    if (edges.empty() && !currentWayMinusEdges.empty()) {
+        edges = currentWayMinusEdges;
+    }
     pTLine->setEdges(edges);
 }
 

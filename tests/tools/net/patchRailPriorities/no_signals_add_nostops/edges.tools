@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-30 18:33:54.328747 by Eclipse SUMO patchRailPriorities.py v1_28_0+0338-466c28ede88
+<configuration>
+    <net-file value="input_net2.net.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="net.net.xml"/>
+    <patchfile-prefix value="out"/>
+    <exclude-reverse-usage value="1"/>
+    <add-signals value="True"/>
+</configuration>
+-->
+
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <edge id="-E10" priority="4" routingType="4"/>
+    <edge id="-E10b" priority="0" routingType="0"/>
+    <edge id="-E11" priority="4" routingType="4"/>
+    <edge id="-E11b" priority="0" routingType="0"/>
+    <edge id="-E13" priority="4" routingType="4"/>
+    <edge id="-E13b" priority="0" routingType="0"/>
+    <edge id="-E14" priority="4" routingType="4"/>
+    <edge id="-E14b" priority="0" routingType="0"/>
+    <edge id="-E15" priority="4" routingType="4"/>
+    <edge id="-E15b" priority="0" routingType="0"/>
+    <edge id="-E4b" priority="0" routingType="0"/>
+    <edge id="-E5" priority="4" routingType="4"/>
+    <edge id="-E5b" priority="0" routingType="0"/>
+    <edge id="-E6" priority="4" routingType="4"/>
+    <edge id="-E6b" priority="0" routingType="0"/>
+    <edge id="-E7" priority="4" routingType="4"/>
+    <edge id="-E7b" priority="0" routingType="0"/>
+    <edge id="-E8" priority="4" routingType="4"/>
+    <edge id="-E9" priority="4" routingType="4"/>
+    <edge id="-E9b" priority="0" routingType="0"/>
+    <edge id="E10" priority="0" routingType="0"/>
+    <edge id="E10b" priority="4" routingType="4"/>
+    <edge id="E11" priority="0" routingType="0"/>
+    <edge id="E11b" priority="4" routingType="4"/>
+    <edge id="E13" priority="0" routingType="0"/>
+    <edge id="E13b" priority="4" routingType="4"/>
+    <edge id="E14" priority="0" routingType="0"/>
+    <edge id="E14b" priority="4" routingType="4"/>
+    <edge id="E15" priority="0" routingType="0"/>
+    <edge id="E15b" priority="4" routingType="4"/>
+    <edge id="E4b" priority="4" routingType="4"/>
+    <edge id="E5" priority="0" routingType="0"/>
+    <edge id="E5b" priority="4" routingType="4"/>
+    <edge id="E6" priority="0" routingType="0"/>
+    <edge id="E6b" priority="4" routingType="4"/>
+    <edge id="E7" priority="0" routingType="0"/>
+    <edge id="E7b" priority="4" routingType="4"/>
+    <edge id="E8" priority="0" routingType="0"/>
+    <edge id="E9" priority="0" routingType="0"/>
+    <edge id="E9b" priority="4" routingType="4"/>
+</edges>

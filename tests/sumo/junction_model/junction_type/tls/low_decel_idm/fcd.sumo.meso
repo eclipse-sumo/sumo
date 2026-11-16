@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:38:01.173120+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-11-16T16:32:49.105429+01:00 by Eclipse SUMO sumo v1_28_0+0575-efd1a5bcdbe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,6 +30,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </time>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -954,16 +956,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="t0" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
     </timestep>
     <timestep time="90.00">
-        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="t0" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="t0" speed="13.89" pos="0.00" edge=":C_11" slope="0.00"/>
     </timestep>
     <timestep time="90.20">
-        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="t0" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="t0" speed="13.89" pos="0.00" edge=":C_11" slope="0.00"/>
     </timestep>
     <timestep time="90.40">
-        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="t0" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="t0" speed="13.89" pos="0.00" edge=":C_11" slope="0.00"/>
     </timestep>
     <timestep time="90.60">
-        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="t0" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="t0" speed="13.89" pos="0.00" edge=":C_11" slope="0.00"/>
     </timestep>
     <timestep time="90.80">
         <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="t0" speed="13.89" pos="0.00" edge=":C_11" slope="0.00"/>
@@ -972,13 +974,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="t0" speed="13.89" pos="0.00" edge=":C_11" slope="0.00"/>
     </timestep>
     <timestep time="91.20">
-        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="t0" speed="13.89" pos="0.00" edge=":C_11" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="t0" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
     </timestep>
     <timestep time="91.40">
-        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="t0" speed="13.89" pos="0.00" edge=":C_11" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="t0" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
     </timestep>
     <timestep time="91.60">
-        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="t0" speed="13.89" pos="0.00" edge=":C_11" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="t0" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
     </timestep>
     <timestep time="91.80">
         <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="t0" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
@@ -1070,14 +1072,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="97.60">
         <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="t0" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
     </timestep>
-    <timestep time="97.80">
-        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="t0" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
-    </timestep>
-    <timestep time="98.00">
-        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="t0" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
-    </timestep>
-    <timestep time="98.20">
-        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="t0" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
-    </timestep>
-    <timestep time="98.40"/>
+    <timestep time="97.80"/>
 </fcd-export>

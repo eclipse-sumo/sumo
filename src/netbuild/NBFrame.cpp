@@ -720,6 +720,9 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
         oc.doRegister("keep-edges.components", new Option_Integer(0));
         oc.addDescription("keep-edges.components", "Edge Removal", TL("Only keep the INT largest weakly connected components"));
 
+        oc.doRegister("keep-edges.components.keep-ptstops", new Option_Bool(true));
+        oc.addDescription("keep-edges.components.keep-ptstops", "Edge Removal", TL("Keep rail/waterway components that contain public transport stops"));
+
         oc.doRegister("remove-edges.by-type", new Option_StringVector());
         oc.addDescription("remove-edges.by-type", "Edge Removal", TL("Remove edges where type is in STR[]"));
 
@@ -867,7 +870,9 @@ NBFrame::checkOptions(OptionsCont& oc) {
     if (oc.isDefault("railway.topology.all-bidi") && !oc.isDefault("railway.topology.all-bidi.input-file")) {
         oc.setDefault("railway.topology.all-bidi", "true");
     }
-    if (oc.isDefault("railway.topology.repair.stop-turn") && !oc.isDefault("railway.topology.repair")) {
+    if (oc.isDefault("railway.topology.repair.stop-turn") && !oc.isDefault("railway.topology.repair")
+            // restore legacy behavior after making the option effective during general import
+            && oc.exists("sumo-net-file") && oc.isSet("sumo-net-file")) {
         oc.setDefault("railway.topology.repair.stop-turn", "true");
     }
     if (!oc.isDefault("railway.signal.permit-unsignalized")) {

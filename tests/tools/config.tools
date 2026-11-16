@@ -322,10 +322,7 @@ errors:File ".*[\\/]sumo[\\/]tools[\\/]devel[\\/]{REPLACE File "sumo/tools/devel
 errors:.*statistics.py:[0-9]+{REPLACE statistics.py:}
 errors:unknown url type{REPLACE [Errno 2] No such file or directory}
 errors:Matplotlib is building the font cache; this may take a moment.
-errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
-errors:dateutil/tz/tz.py:.*: DeprecationWarning: datetime.datetime.utcfromtimestamp{LINES 2}
 errors:matplotlib/projections/__init__.py:.*: UserWarning: Unable to import Axes3D.{LINES 2}
-errors:site-packages/ortools.*DeprecationWarning:
 errors:remaining_args \.\.\.
 errors:\^\^\^
 errors:something strange happend{REPLACE something strange happened}

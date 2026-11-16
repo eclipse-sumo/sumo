@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-19T17:27:59.554407+01:00 by Eclipse SUMO sumo v1_28_0+0141-b852030622e
+<!-- generated on 2026-10-21T21:28:11.258249+01:00 by Eclipse SUMO sumo v1_28_0+0168-6edec047c3b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -34,7 +34,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_28_0+0141-b852030622e" count="3" time="20.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_28_0+0168-6edec047c3b" count="3" time="20.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="2" begin="2" end="0" depart="4.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="t0" sigma="0"/>
@@ -43,10 +43,10 @@
         <stop lane="middle_0" endPos="60.00" duration="20.00" started="7.00" ended="42.00" parking="0"/>
         <stop lane="middle_0" endPos="150.00" duration="20.00" started="5.00" ended="42.00" parking="0" tripId="testTripID2" line="testLine2"/>
         <stop busStop="busstop" duration="20.00" started="5.00" ended="42.00" parking="1"/>
-        <device id="tripinfo_v0" state="beg_0 1 7 0 0 0 22000 -1 -1000 NONE -1 0 -1"/>
+        <device id="tripinfo_v0" state="beg_0 1 7 0 0 0 22000 -1 -1000 NONE -1 0 -1 0"/>
     </vehicle>
     <vehicle id="v1" type="t0" depart="3.00" route="r0" distance="7 0" speedFactor="1.0000" state="2050 7000 1 0 0 0 37868 15630 9223372036854774807 0 0 0 2 37868">
-        <device id="tripinfo_v1" state="beg_0 0.811124 7 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+        <device id="tripinfo_v1" state="beg_0 0.811124 7 0 0 0 0 -1 -1000 NONE -1 0 -1 1630"/>
     </vehicle>
     <segment id="beg:0">
         <vehicles time="24260" blockTime="-9223372036854775808" value=""/>

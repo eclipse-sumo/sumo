@@ -67,6 +67,7 @@ public:
     static double getDepartDelay(const std::string& vehID);
     static int getRouteIndex(const std::string& vehID);
     static double getLanePosition(const std::string& vehID);
+    static double getArrivalPos(const std::string& vehID);
     static double getLateralLanePosition(const std::string& vehID);
     static double getCO2Emission(const std::string& vehID);
     static double getCOEmission(const std::string& vehID);
@@ -181,7 +182,11 @@ public:
                     const std::string& toTaz = "",
                     const std::string& line = "",
                     int personCapacity = 4,
-                    int personNumber = 0);
+                    int personNumber = 0,
+                    const std::string& departPosLat = "",
+                    const std::string& arrivalPosLat = "",
+                    double speedFactor = -1.,
+                    const std::string& insertionChecks = "");
 
     static void changeTarget(const std::string& vehID, const std::string& edgeID);
     static void changeLane(const std::string& vehID, int laneIndex, double duration);

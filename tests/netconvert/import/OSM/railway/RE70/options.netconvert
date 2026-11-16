@@ -1,0 +1,4 @@
+--osm-files osm.xml.gz
+--ptstop-output additional.xml
+--ptline-output ptlines.xml
+--no-internal-links

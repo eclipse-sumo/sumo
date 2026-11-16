@@ -33,6 +33,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.miscutils import benchmark  # noqa
+import coupling  # noqa
 
 # ----------------------- gtfs, osm and sumo modes ----------------------------
 OSM2SUMO_MODES = {
@@ -114,6 +115,18 @@ GTFS2OSM_MODES.update({
     'Str': 'tram',        # tbd
     'DPF': 'train',        # tbd
 })
+
+SUMO_DECEL = {
+    'bus': 4.5,
+    'rail': 1.0,
+    'tram': 1.3,
+    'rail_urban': 1.3,
+    'subway': 1.3,
+    'cable_car': 1.3,
+    'ship': 0.15,
+    'taxi': '4.5',
+    'aircraft': '4.5',
+}
 
 
 def sha256hash(s):
@@ -500,9 +513,12 @@ def loadGTFS(options):
             options.joinBlocks = False
     else:
         full_data_merged = get_merged_data(options)
+    if options.joinBlocks and not full_data_merged.empty:
+        full_data_merged = joinBlocks(full_data_merged)
+    if options.coupling == "remove" and not full_data_merged.empty:
+        full_data_merged = coupling.remove_coupled(full_data_merged)
     if options.mergedCSVOutput:
         full_data_merged.sort_values(by=['trip_id', 'stop_sequence'], inplace=True)
         full_data_merged.to_csv(options.mergedCSVOutput, sep=";", index=False)
-    if options.joinBlocks and not full_data_merged.empty:
-        full_data_merged = joinBlocks(full_data_merged)
+
     return full_data_merged

@@ -21,3 +21,6 @@ departSpeed_invalid_ignore
 
 # check recording of specified vehicle attributes
 attributes
+
+# check optional arguments of vehicle.add
+optionalArgs

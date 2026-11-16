@@ -51,6 +51,7 @@ public:
     static std::string getLaneID(const std::string& personID);
     static std::string getTypeID(const std::string& personID);
     static double getWaitingTime(const std::string& personID);
+    static double getArrivalPos(const std::string& personID);
     static std::string getNextEdge(const std::string& personID);
     static std::string getVehicle(const std::string& personID);
     static int getRemainingStages(const std::string& personID);

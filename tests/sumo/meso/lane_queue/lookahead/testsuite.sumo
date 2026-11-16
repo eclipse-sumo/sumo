@@ -1,0 +1,14 @@
+# a jammed off-ramp blocks all lane queues upstream of the last segment
+default
+
+# vehicles choose the lane queue by their next edge within 300m of the edge end
+option
+
+# vehicles choose the lane queue by their route on the whole edge and the edge before (set by edge type)
+edge_type
+
+# vehicles choose the lane queue by a turn on the next edge (within 300m)
+two_edges
+
+# a lane chain through a bus lane restricts buses but leaves cars a queue they may use
+bus_chain

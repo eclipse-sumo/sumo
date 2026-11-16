@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_28_0+0203-956beccee8c8
+Eclipse SUMO sumo v1_28_0+0406-987ab849ff4
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -285,8 +285,6 @@ Processing Options:
                                         access)
   --max-num-vehicles INT               Delay vehicle insertion to stay within
                                         the given maximum number
-  --max-num-persons INT                Delay person insertion to stay within
-                                        the given maximum number
   --max-num-teleports INT              Abort the simulation if the given
                                         maximum number of teleports is exceeded
   --scale FLOAT                        Scale demand by the given factor (by
@@ -314,10 +312,6 @@ Processing Options:
   --time-to-teleport.remove-constraint  Whether rail-signal-constraint based
                                         deadlocks shall be cleared by removing a
                                         constraint
-  --time-to-teleport.ride TIME         The waiting time after which persons /
-                                        containers waiting for a pickup are
-                                        teleported. Negative values disable
-                                        teleporting
   --time-to-teleport.bidi TIME         The waiting time after which vehicles on
                                         bidirectional edges are teleported
   --time-to-teleport.railsignal-deadlock TIME  The waiting time after which
@@ -415,67 +409,6 @@ Processing Options:
                                         ended times when given
   --use-stop-started                   Override stop arrival times with stop
                                         started times when given
-  --pedestrian.model STR               Select among pedestrian models
-                                        ['nonInteracting', 'striping',
-                                        'jupedsim']
-  --pedestrian.timegap-crossing FLOAT  Minimal acceptable gap (in seconds)
-                                        between two vehicles before starting to
-                                        cross
-  --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for
-                                        segmenting a sidewalk (meters) for use
-                                        with model 'striping'
-  --pedestrian.striping.dawdling FLOAT  Factor for random slow-downs [0,1] for
-                                        use with model 'striping'
-  --pedestrian.striping.mingap-to-vehicle FLOAT  Minimal gap / safety buffer
-                                        (in meters) from a pedestrian to another
-                                        vehicle for use with model 'striping'
-  --pedestrian.striping.jamtime TIME   Time in seconds after which pedestrians
-                                        start squeezing through a jam when using
-                                        model 'striping' (non-positive values
-                                        disable squeezing)
-  --pedestrian.striping.jamtime.crossing TIME  Time in seconds after which
-                                        pedestrians start squeezing through a
-                                        jam while on a pedestrian crossing when
-                                        using model 'striping' (non-positive
-                                        values disable squeezing)
-  --pedestrian.striping.jamtime.narrow TIME  Time in seconds after which
-                                        pedestrians start squeezing through a
-                                        jam while on a narrow lane when using
-                                        model 'striping'
-  --pedestrian.striping.jamfactor FLOAT  Factor for reducing speed of
-                                        pedestrian in jammed state
-  --pedestrian.striping.reserve-oncoming FLOAT  Fraction of stripes to reserve
-                                        for oncoming pedestrians
-  --pedestrian.striping.reserve-oncoming.junctions FLOAT  Fraction of stripes
-                                        to reserve for oncoming pedestrians on
-                                        crossings and walkingareas
-  --pedestrian.striping.reserve-oncoming.max FLOAT  Maximum width in m to
-                                        reserve for oncoming pedestrians
-  --pedestrian.striping.legacy-departposlat  Interpret departPosLat for walks
-                                        in legacy style
-  --pedestrian.striping.walkingarea-detail INT  Generate INT intermediate
-                                        points to smooth out lanes within the
-                                        walkingarea
-  --pedestrian.jupedsim.step-length TIME  The update interval of the JuPedSim
-                                        simulation (in seconds)
-  --pedestrian.jupedsim.exit-tolerance FLOAT  The distance to accept the
-                                        JuPedSim arrival point (in meters)
-  --pedestrian.jupedsim.model STR      The submodel to use in JuPedSim
-                                        ('CollisionFreeSpeed',
-                                        'CollisionFreeSpeedV2',
-                                        'GeneralizedCentrifugalForce',
-                                        'SocialForce')
-  --pedestrian.jupedsim.strength-neighbor-repulsion FLOAT  The neighbor
-                                        repulsion strength of the JuPedSim model
-  --pedestrian.jupedsim.range-neighbor-repulsion FLOAT  The neighbor repulsion
-                                        range of the JuPedSim model (in meters)
-  --pedestrian.jupedsim.strength-geometry-repulsion FLOAT  The geometry
-                                        repulsion strength of the JuPedSim model
-  --pedestrian.jupedsim.range-geometry-repulsion FLOAT  The geometry repulsion
-                                        range of the JuPedSim model (in meters)
-  --ride.stop-tolerance FLOAT          Tolerance to apply when matching
-                                        pedestrian and vehicle positions on
-                                        boarding at individual stops
   --mapmatch.distance FLOAT            Maximum distance when mapping input
                                         coordinates (fromXY etc.) to the road
                                         network
@@ -489,8 +422,6 @@ Processing Options:
                                         computing routing costs for train
                                         reversal. Negative values disable
                                         reversal
-  --persontrip.walk-opposite-factor FLOAT  Use FLOAT as a factor on walking
-                                        speed against vehicle traffic direction
 
 Routing Options:
   --routing-algorithm STR              Select among routing algorithms
@@ -520,25 +451,6 @@ Routing Options:
                                         --all-pairs-output)
   --astar.landmark-distances FILE      Initialize lookup table for astar
                                         ALT-variant from the given file
-  --persontrip.walkfactor FLOAT        Use FLOAT as a factor on pedestrian
-                                        maximum speed during intermodal routing
-  --persontrip.transfer.car-walk STR[]  Where are mode changes from car to
-                                        walking allowed (possible values:
-                                        'parkingAreas', 'ptStops',
-                                        'allJunctions' and combinations)
-  --persontrip.transfer.taxi-walk STR[]  Where taxis can drop off customers
-                                        ('allJunctions, 'ptStops',
-                                        'parkingAreas')
-  --persontrip.transfer.walk-taxi STR[]  Where taxis can pick up customers
-                                        ('allJunctions, 'ptStops',
-                                        'parkingAreas')
-  --persontrip.default.group STR       When set, trips between the same origin
-                                        and destination will share a taxi by
-                                        default
-  --persontrip.taxi.waiting-time TIME  Estimated time for taxi pickup
-  --persontrip.ride-public-line        Only use the intended public transport
-                                        line rather than any alternative line
-                                        that stops at the destination
   --railway.max-train-length FLOAT     Use FLOAT as a maximum train length when
                                         initializing the railway router
   --replay-rerouting                   Replay exact rerouting sequence from
@@ -606,6 +518,93 @@ Routing Options:
                                         blockages)
   --person-device.rerouting.scope STR  Which part of the person plan is to be
                                         replaced (stage, sequence, or trip)
+
+Persons Options:
+  --max-num-persons INT                Delay person insertion to stay within
+                                        the given maximum number
+  --time-to-teleport.ride TIME         The waiting time after which persons /
+                                        containers waiting for a pickup are
+                                        teleported. Negative values disable
+                                        teleporting
+  --pedestrian.model STR               Select among pedestrian models
+                                        ['nonInteracting', 'striping',
+                                        'jupedsim']
+  --pedestrian.timegap-crossing FLOAT  Minimal acceptable gap (in seconds)
+                                        between two vehicles before starting to
+                                        cross
+  --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for
+                                        segmenting a sidewalk (meters) for use
+                                        with model 'striping'
+  --pedestrian.striping.dawdling FLOAT  Factor for random slow-downs [0,1] for
+                                        use with model 'striping'
+  --pedestrian.striping.mingap-to-vehicle FLOAT  Minimal gap / safety buffer
+                                        (in meters) from a pedestrian to another
+                                        vehicle for use with model 'striping'
+  --pedestrian.striping.jamtime TIME   Time in seconds after which pedestrians
+                                        start squeezing through a jam when using
+                                        model 'striping' (non-positive values
+                                        disable squeezing)
+  --pedestrian.striping.jamtime.crossing TIME  Time in seconds after which
+                                        pedestrians start squeezing through a
+                                        jam while on a pedestrian crossing when
+                                        using model 'striping' (non-positive
+                                        values disable squeezing)
+  --pedestrian.striping.jamtime.narrow TIME  Time in seconds after which
+                                        pedestrians start squeezing through a
+                                        jam while on a narrow lane when using
+                                        model 'striping'
+  --pedestrian.striping.jamfactor FLOAT  Factor for reducing speed of
+                                        pedestrian in jammed state
+  --pedestrian.striping.reserve-oncoming FLOAT  Fraction of stripes to reserve
+                                        for oncoming pedestrians
+  --pedestrian.striping.reserve-oncoming.junctions FLOAT  Fraction of stripes
+                                        to reserve for oncoming pedestrians on
+                                        crossings and walkingareas
+  --pedestrian.striping.reserve-oncoming.max FLOAT  Maximum width in m to
+                                        reserve for oncoming pedestrians
+  --pedestrian.striping.legacy-departposlat  Interpret departPosLat for walks
+                                        in legacy style
+  --pedestrian.striping.walkingarea-detail INT  Generate INT intermediate
+                                        points to smooth out lanes within the
+                                        walkingarea
+  --pedestrian.jupedsim.step-length TIME  The update interval of the JuPedSim
+                                        simulation (in seconds)
+  --pedestrian.jupedsim.exit-tolerance FLOAT  The distance to accept the
+                                        JuPedSim arrival point (in meters)
+  --pedestrian.jupedsim.model STR      The submodel to use in JuPedSim
+                                        (default: 'CollisionFreeSpeedModel')
+  --pedestrian.jupedsim.strength-neighbor-repulsion FLOAT  The neighbor
+                                        repulsion strength of the JuPedSim model
+  --pedestrian.jupedsim.range-neighbor-repulsion FLOAT  The neighbor repulsion
+                                        range of the JuPedSim model (in meters)
+  --pedestrian.jupedsim.strength-geometry-repulsion FLOAT  The geometry
+                                        repulsion strength of the JuPedSim model
+  --pedestrian.jupedsim.range-geometry-repulsion FLOAT  The geometry repulsion
+                                        range of the JuPedSim model (in meters)
+  --ride.stop-tolerance FLOAT          Tolerance to apply when matching
+                                        pedestrian and vehicle positions on
+                                        boarding at individual stops
+  --persontrip.walkfactor FLOAT        Use FLOAT as a factor on pedestrian
+                                        maximum speed during intermodal routing
+  --persontrip.walk-opposite-factor FLOAT  Use FLOAT as a factor on walking
+                                        speed against vehicle traffic direction
+  --persontrip.transfer.car-walk STR[]  Where are mode changes from car to
+                                        walking allowed (possible values:
+                                        'parkingAreas', 'ptStops',
+                                        'allJunctions' and combinations)
+  --persontrip.transfer.taxi-walk STR[]  Where taxis can drop off customers
+                                        ('allJunctions, 'ptStops',
+                                        'parkingAreas')
+  --persontrip.transfer.walk-taxi STR[]  Where taxis can pick up customers
+                                        ('allJunctions, 'ptStops',
+                                        'parkingAreas')
+  --persontrip.default.group STR       When set, trips between the same origin
+                                        and destination will share a taxi by
+                                        default
+  --persontrip.taxi.waiting-time TIME  Estimated time for taxi pickup
+  --persontrip.ride-public-line        Only use the intended public transport
+                                        line rather than any alternative line
+                                        that stops at the destination
 
 Report Options:
   -v, --verbose                        Switches to verbose output
@@ -1050,6 +1049,8 @@ Mesoscopic Options:
                                         (default)
   --meso-multi-queue                   Enable multiple queues at edge ends
   --meso-lane-queue                    Enable separate queues for every lane
+  --meso-lookahead FLOAT               Choose lane queues by the route of the
+                                        vehicle at all turns up to FLOAT m ahead
   --meso-ignore-lanes-by-vclass STR[]  Do not build queues (or reduce capacity)
                                         for lanes allowing only the given
                                         vclasses

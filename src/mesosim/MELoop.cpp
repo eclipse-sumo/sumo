@@ -26,6 +26,7 @@
 
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSEdgeControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
@@ -46,6 +47,9 @@ long long int MELoop::LeaderEvent::myEventCounter(0);
 // method definitions
 // ===========================================================================
 MELoop::MELoop(const SUMOTime recheckInterval) : myFullRecheckInterval(recheckInterval), myLinkRecheckInterval(TIME2STEPS(1)) {
+    myInterpolateMesoPos = MSGlobals::gMesoInterpolatePos && (
+            OptionsCont::getOptions().isSet("fcd-output") ||
+            OptionsCont::getOptions().isSet("queue-output"));
 }
 
 MELoop::~MELoop() {
@@ -61,6 +65,13 @@ MELoop::~MELoop() {
 
 void
 MELoop::simulate(SUMOTime tMax) {
+    if (myInterpolateMesoPos) {
+        MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
+        for (const MSEdge* const edge : ec.getEdges()) {
+            // needs to be called every stop because meso position one step t+1 depends on the position computed in step t
+            edge->getMesoPositions();
+        }
+    }
     while (!myLeaderCars.empty()) {
         LeaderEvent e = myLeaderCars.top();
         assert(e.time > tMax - DELTA_T);
@@ -147,7 +158,15 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
     }
     toSegment->updateEntryBlockTime(leaveTime);
     const SUMOTime entry = toSegment->hasSpaceFor(veh, leaveTime, qIdx);
-    if (entry == leaveTime && (ignoreLink || veh->mayProceed())) {
+    int ps = MESegment::PROCEED_UNKNOWN;
+    if (entry == leaveTime) {
+        if (ignoreLink) {
+            ps = MESegment::PROCEED_YES;
+        } else {
+            ps = veh->mayProceed();
+        }
+    }
+    if (ps == MESegment::PROCEED_YES) {
         if (onSegment != nullptr) {
             if (veh->getQueIndex() == MESegment::PARKING_QUEUE) { // parking or just aborted parking
                 if (veh->isParking()) {
@@ -175,8 +194,14 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
             veh->processStop();
         }
     }
-    if (entry == leaveTime && !ignoreLink) { // this is a long way of saying !veh->mayProceed() (which is a costly call)
-        return entry + MAX2(SUMOTime(1), myLinkRecheckInterval);
+    if ((ps & MESegment::PROCEED_NO) != 0) {
+        if ((ps & MESegment::PROCEED_NO_TLS) != 0) {
+            // recheck on the step grid: link states only change between steps, so keeping the sub-step phase of the
+            // arrival would release the car up to one step before the link opened, depending on that phase alone
+            return entry == SIMSTEP ? SIMSTEP + DELTA_T : SIMSTEP;
+        } else {
+            return entry + myLinkRecheckInterval;
+        }
     }
     return entry;
 }

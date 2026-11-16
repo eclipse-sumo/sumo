@@ -1,0 +1,3 @@
+Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurrence for edge '4699387').
+Warning: Discarding unusable type 'railway.platform_edge' (first occurrence for edge '47973207').
+Warning: PT stop '1117011926' has been moved to edge '-140643608'.

@@ -189,6 +189,8 @@ private:
     /// @brief the interval at which to recheck at blocked junctions (<=0 means asap)
     const SUMOTime myLinkRecheckInterval;
 
+    bool myInterpolateMesoPos;
+
 private:
     /// @brief Invalidated copy constructor.
     MELoop(const MELoop&);

@@ -34,11 +34,13 @@ def file_hash(path, chunk_size=8192):
 
 
 def compare_directories(dir1, dir2):
-    entries = sorted(os.listdir(dir1))
-    if entries != sorted(os.listdir(dir2)):
-        print(entries, sorted(os.listdir(dir2)))
+    entries1 = list(sorted(os.listdir(dir1)))
+    entries2 = list(sorted(os.listdir(dir2)))
+    if entries1 != entries2:
+        for t in zip(entries1 + ["-"], entries2 + ["-"]):
+            print(t)
         return False
-    for name in entries:
+    for name in entries1:
         path1 = os.path.join(dir1, name)
         path2 = os.path.join(dir2, name)
         if (os.path.getsize(path1) != os.path.getsize(path2)
@@ -48,8 +50,14 @@ def compare_directories(dir1, dir2):
     return True
 
 
-def fix_links_and_strip(binaries, lib_dir_prefix):
+def fix_links_and_strip(binaries, lib_dir_prefix, up_levels=1):
+    # up_levels is the number of directories between the binary and the site-packages
+    # root (where the sumo_data package lives as a sibling), e.g. 1 for libsumo/_libsumo.so
+    # but 2 for sumo/bin/<binary> and sumo/lib/<lib>.so
     if sys.platform == "darwin":
+        # delocate already encodes the right number of "../" in the existing @loader_path
+        # entry (relative to the binary's own location), so we only need to swap out the
+        # ".dylibs" suffix, no need to adjust for up_levels here
         for bin in binaries:
             for lib in get_install_names(bin):
                 if lib.startswith(("@loader_path/.dylibs", "@loader_path/../.dylibs")):
@@ -58,9 +66,10 @@ def fix_links_and_strip(binaries, lib_dir_prefix):
         subprocess.check_call(["strip", "-S", "-x"] + binaries + glob.glob(lib_dir + "/*"))
         subprocess.check_call(["codesign", "--force", "--sign", "-"] + binaries + glob.glob(lib_dir + "/*"))
     else:
+        up = "/".join([".."] * up_levels)
         for bin in binaries:
             subprocess.check_call(["patchelf", "--force-rpath", "--add-rpath",
-                                   "$ORIGIN/../sumo_data/.libs", bin])
+                                   "$ORIGIN/" + up + "/sumo_data/.libs", bin])
         lib_dir = lib_dir_prefix + ".libs"
         subprocess.check_call(["strip", "--strip-unneeded"] + binaries + glob.glob(lib_dir + "/*"))
     return lib_dir
@@ -82,8 +91,11 @@ if __name__ == "__main__":
     sumo_dir = os.path.join(root, "-".join(os.path.basename(sumo).split("-")[:2]))
     pack_dirs.append(sumo_dir)
     binaries = glob.glob(sumo_dir + "/sumo/bin/*") + glob.glob(sumo_dir + "/sumo/lib/*")
+    # binaries live two levels below the site-packages root (sumo/bin, sumo/lib),
+    # while sumo_data is installed as a sibling of "sumo" itself
     sumo_libs = fix_links_and_strip(binaries,
-                                    os.path.join(sumo_dir, "sumo" if sys.platform == "darwin" else "eclipse_sumo"))
+                                    os.path.join(sumo_dir, "sumo" if sys.platform == "darwin" else "eclipse_sumo"),
+                                    up_levels=2)
     os.rename(sumo_libs, data_libs)
 
     # relocating libsumo wheels

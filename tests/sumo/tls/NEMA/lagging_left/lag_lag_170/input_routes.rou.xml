@@ -1,0 +1,20 @@
+<routes>
+    <!-- lags [1, 5]; coordinated phase start C_start = 49 s into the cycle; cycle 2 has no lag demand -->
+    <vType id="car" sigma="0"/>
+    <!-- cycle 1 (starts 149): call before the coordinated phase starts: 100 + 49 - 10 -->
+    <vehicle id="lag1_called" type="car" depart="139" departLane="1" departPos="245" departSpeed="0">
+        <route edges="1si 4o"/>
+    </vehicle>
+    <!-- cycle 1 (starts 149): call before the coordinated phase starts: 100 + 49 - 10 -->
+    <vehicle id="lag5_called" type="car" depart="139" departLane="1" departPos="245" departSpeed="0">
+        <route edges="2si 3o"/>
+    </vehicle>
+    <!-- cycle 3 (starts 349): call after the latest lag start (C_start + 62): 300 + 49 + 62 + 1 -->
+    <vehicle id="lag1_late" type="car" depart="412" departLane="1" departPos="245" departSpeed="0">
+        <route edges="1si 4o"/>
+    </vehicle>
+    <!-- cycle 3 (starts 349): call after the latest lag start (C_start + 62): 300 + 49 + 62 + 1 -->
+    <vehicle id="lag5_late" type="car" depart="412" departLane="1" departPos="245" departSpeed="0">
+        <route edges="2si 3o"/>
+    </vehicle>
+</routes>

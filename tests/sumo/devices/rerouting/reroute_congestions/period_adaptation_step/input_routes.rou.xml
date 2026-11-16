@@ -1,0 +1,8 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="slow" maxSpeed="5"/>
+    <trip id="t0" type="slow" depart="0" from="beg" to="end"/>
+    <vehicle id="blocker" depart="15" departPos="100">
+        <route edges="middle end"/>
+        <stop lane="middle_0" endPos="100" duration="100"/>
+    </vehicle>
+</routes>

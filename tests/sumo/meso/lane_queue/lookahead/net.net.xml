@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-18T22:34:24.432428+01:00 by Eclipse SUMO netconvert v1_28_0+0124-2285bbcc69b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="diverge.nod.xml"/>
+        <edge-files value="diverge.edg.xml"/>
+        <connection-files value="diverge.con.xml"/>
+        <type-files value="diverge.typ.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="1300.00,300.00" convBoundary="0.00,0.00,1800.00,300.00" origBoundary="-1300.00,-300.00,500.00,0.00" projParameter="!"/>
+
+    <type id="motorway" priority="13" numLanes="2" speed="27.78" oneway="1"/>
+
+    <edge id="beg" from="B" to="C" priority="13" type="motorway">
+        <lane id="beg_0" index="0" speed="27.78" length="1005.63" shape="300.00,295.20 1300.22,295.20"/>
+        <lane id="beg_1" index="1" speed="27.78" length="1005.63" shape="300.00,298.40 1300.22,298.40"/>
+    </edge>
+    <edge id="exit" from="C" to="E" priority="-1">
+        <lane id="exit_0" index="0" speed="13.89" length="136.35" shape="1304.18,293.56 1397.93,199.81"/>
+    </edge>
+    <edge id="exit2" from="E" to="F" priority="-1">
+        <lane id="exit2_0" index="0" speed="1.00" length="199.82" shape="1398.40,198.67 1398.40,0.00"/>
+    </edge>
+    <edge id="in" from="A" to="B" priority="13" type="motorway">
+        <lane id="in_0" index="0" speed="27.78" length="300.00" shape="0.00,295.20 300.00,295.20"/>
+        <lane id="in_1" index="1" speed="27.78" length="300.00" shape="0.00,298.40 300.00,298.40"/>
+    </edge>
+    <edge id="main" from="C" to="D" priority="13" type="motorway">
+        <lane id="main_0" index="0" speed="27.78" length="500.15" shape="1304.86,298.40 1800.00,298.40"/>
+    </edge>
+
+    <junction id="A" type="dead_end" x="0.00" y="300.00" incLanes="" intLanes="" shape="0.00,300.00 0.00,293.60"/>
+    <junction id="B" type="priority" x="300.00" y="300.00" incLanes="in_0 in_1" intLanes="" shape="300.00,300.00 300.00,293.60 300.00,300.00">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="C" type="priority" x="1300.00" y="300.00" incLanes="beg_0 beg_1" intLanes="" shape="1304.86,300.00 1304.86,296.80 1304.17,296.57 1304.14,296.27 1304.32,295.86 1304.71,295.34 1305.31,294.69 1303.05,292.43 1302.21,293.08 1301.75,293.31 1301.27,293.47 1300.76,293.57 1300.22,293.60 1300.22,300.00">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="D" type="dead_end" x="1800.00" y="300.00" incLanes="main_0" intLanes="" shape="1800.00,296.80 1800.00,300.00"/>
+    <junction id="E" type="priority" x="1400.00" y="200.00" incLanes="exit_0" intLanes="" shape="1400.00,198.67 1396.80,198.67 1399.06,200.94 1399.69,200.24 1399.86,199.94 1399.95,199.61 1399.99,199.21">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="F" type="dead_end" x="1400.00" y="0.00" incLanes="exit2_0" intLanes="" shape="1396.80,0.00 1400.00,0.00"/>
+
+    <connection from="beg" to="exit" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="beg" to="main" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from="exit" to="exit2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="in" to="beg" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="in" to="beg" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>

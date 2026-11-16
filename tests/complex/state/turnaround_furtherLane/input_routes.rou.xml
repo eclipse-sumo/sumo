@@ -1,0 +1,7 @@
+<routes>
+    <!-- the state is saved while the long vehicle leaves the turnaround: its back is still on the turnaround lane -->
+    <vType id="long" length="15" maxSpeed="3" sigma="0" speedDev="0"/>
+    <vehicle id="uturn" type="long" depart="49" departLane="1">
+        <route edges="WC CW"/>
+    </vehicle>
+</routes>

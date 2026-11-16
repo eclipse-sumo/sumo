@@ -26,10 +26,70 @@ import subprocess
 import difflib
 from glob import glob
 from argparse import ArgumentParser
+from html.parser import HTMLParser
 
 
 SUMO_HOME = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SUMO_LIBRARIES = os.environ.get("SUMO_LIBRARIES", os.path.join(os.path.dirname(SUMO_HOME), "SUMOLibraries"))
+WEB_WIZARD_HTML = ["/tools/webWizard/index.html"]
+WEB_WIZARD_JS = ["/tools/webWizard/script.js"]
+WEB_WIZARD_PY = ["/tools/osmWebWizard.py"]
+
+
+class HTMLStringExtractor(HTMLParser):
+    """Collects the translatable strings of an html file.
+    The direct text content of elements with the attribute "data-i18n" is translated
+    as well as all attributes listed (space separated) in the attribute "data-i18n-attrs".
+    """
+    VOID_ELEMENTS = {"area", "base", "br", "col", "embed", "hr", "img", "input",
+                     "link", "meta", "source", "track", "wbr"}
+
+    def __init__(self):
+        HTMLParser.__init__(self, convert_charrefs=True)
+        self.stack = []
+        self.messages = []
+
+    def _add(self, text, line):
+        msgid = " ".join(text.split())
+        if msgid:
+            self.messages.append((msgid, line))
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        for attr in (attrs.get("data-i18n-attrs") or "").split():
+            if attrs.get(attr):
+                self._add(attrs[attr], self.getpos()[0])
+        if tag not in self.VOID_ELEMENTS:
+            self.stack.append((tag, "data-i18n" in attrs))
+
+    def handle_endtag(self, tag):
+        if tag in self.VOID_ELEMENTS:
+            return
+        while self.stack and self.stack.pop()[0] != tag:
+            pass
+
+    def handle_data(self, data):
+        if self.stack and self.stack[-1][1]:
+            stripped = data.lstrip()
+            self._add(data, self.getpos()[0] + data[:len(data) - len(stripped)].count("\n"))
+
+
+def write_html_pot(html_files, pot):
+    """Writes the translatable strings of the given html files as a pot file
+    which can be used as input for xgettext --join-existing."""
+    messages = {}
+    for html_file in html_files:
+        parser = HTMLStringExtractor()
+        with io.open(html_file, encoding="utf-8-sig") as f:
+            parser.feed(f.read())
+        parser.close()
+        for msgid, line in parser.messages:
+            messages.setdefault(msgid, []).append("%s:%s" % (html_file, line))
+    with io.open(pot, "w", encoding="utf-8") as out:
+        out.write('msgid ""\nmsgstr ""\n"Content-Type: text/plain; charset=UTF-8\\n"\n')
+        for msgid, refs in messages.items():
+            out.write('\n#: %s\nmsgid "%s"\nmsgstr ""\n' % (" ".join(refs),
+                                                            msgid.replace("\\", "\\\\").replace('"', '\\"')))
 
 
 def get_args(args=None):
@@ -44,10 +104,14 @@ def get_args(args=None):
     return arg_parser.parse_args(args)
 
 
-def generate_po(sumo_home, path, languages, pot_file, gui_pot_file, py_pot_file, fuzzy):
+def generate_po(sumo_home, path, languages, pot_file, gui_pot_file, py_pot_file, fuzzy, web_pot_file=None):
     pots = {pot_file: open(pot_file + ".txt", "w"),
             gui_pot_file: open(gui_pot_file + ".txt", "w"),
             py_pot_file: open(py_pot_file + ".txt", "w")}
+    if web_pot_file is not None:
+        pots[web_pot_file] = open(web_pot_file + ".txt", "w")
+        for f in WEB_WIZARD_JS:
+            print(sumo_home + f, file=pots[web_pot_file])
     for f in sorted(glob(sumo_home + "/src/*.cpp") +
                     glob(sumo_home + "/src/*/*.cpp") +
                     glob(sumo_home + "/src/*/*/*.cpp") +
@@ -70,7 +134,14 @@ def generate_po(sumo_home, path, languages, pot_file, gui_pot_file, py_pot_file,
                      "--package-name=sumo", "--msgid-bugs-address=sumo-dev@eclipse.org"]
         if pot == py_pot_file:
             arguments.append("--language=Python")
+        if pot == web_pot_file:
+            write_html_pot([sumo_home + f for f in WEB_WIZARD_HTML], pot + ".new")
+            arguments += ["--language=JavaScript", "--join-existing", "--keyword=N_"]
         subprocess.check_call(arguments)
+        if pot == web_pot_file:
+            # the progress messages of the server are shown in the web interface as well
+            subprocess.check_call([a for a in arguments if not a.startswith(("--files-from", "--language"))] +
+                                  ["--language=Python"] + [sumo_home + f for f in WEB_WIZARD_PY])
         os.remove(sources.name)
         with io.open(pot + ".new", encoding="utf-8") as new, io.open(pot + ".fixed", "w", encoding="utf-8") as fixed:
             for s in new.readlines():
@@ -117,8 +188,10 @@ def main(args=None):
     pot_file = options.sumo_home + "/data/po/sumo.pot"
     gui_pot_file = options.sumo_home + "/data/po/gui.pot"
     py_pot_file = options.sumo_home + "/data/po/py.pot"
+    web_pot_file = options.sumo_home + "/data/po/osmWebWizard.pot"
     if not options.mo_only:
-        generate_po(options.sumo_home, path, options.lang, pot_file, gui_pot_file, py_pot_file, options.fuzzy)
+        generate_po(options.sumo_home, path, options.lang, pot_file, gui_pot_file, py_pot_file, options.fuzzy,
+                    web_pot_file)
     for lang in options.lang:
         po_files = ["%s/data/po/%s_%s" % (options.sumo_home, lang, os.path.basename(pot)[:-1])
                     for pot in (pot_file, gui_pot_file, py_pot_file)]
@@ -133,6 +206,10 @@ def main(args=None):
             pass
         subprocess.check_call([path + "msgfmt", merged_po_file, "--output-file=%s/sumo.mo" % d])
         os.remove(merged_po_file)
+        # the web wizard has its own domain because its strings are delivered to the browser separately
+        web_po_file = "%s/data/po/%s_%s" % (options.sumo_home, lang, os.path.basename(web_pot_file)[:-1])
+        if os.path.exists(web_po_file):
+            subprocess.check_call([path + "msgfmt", web_po_file, "--output-file=%s/osmWebWizard.mo" % d])
 
 
 if __name__ == "__main__":

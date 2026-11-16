@@ -115,6 +115,18 @@ RORoute::addProbability(double prob) {
     myProbability += prob;
 }
 
+void
+RORoute::addStopOffset(const SUMOTime offset) {
+    for (StopParVector::iterator stop = myStops.begin(); stop != myStops.end(); ++stop) {
+        if (stop->until >= 0) {
+            stop->until += offset;
+        }
+        if (stop->arrival >= 0) {
+            stop->arrival += offset;
+        }
+    }
+}
+
 
 ConstROEdgeVector
 RORoute::getNormalEdges() const {

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-02T20:59:18.561696+01:00 by Eclipse SUMO sumo v1_28_0+0397-c5628bf7102
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+    </output>
+
+    <processing>
+        <time-to-teleport.railsignal-deadlock value="200"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<railsignal-block-output>
+    <railSignal id="1344662300">
+        <link linkIndex="0" from="-1013846484_0" to="-119768739_0"/>
+    </railSignal>
+    <railSignal id="2187329598">
+        <link linkIndex="0" from="-1013846485_0" to="-154782250_0">
+            <driveWay id="2187329598.0" vehicle="v_0" edges="-154782250 -1013846515 -22894426 -1013846514 -22894425 -267180594 -267180596 -60890969">
+                <forward lanes="-154782250_0 -1013846515_0 -22894426_0 -1013846514_0 -22894425_0 -267180594_0 -267180596_0 -60890969_0"/>
+                <bidi lanes="154782250_0 1013846515_0 22894426_0 1013846514_0 22894425_0 267180594_0 267180596_0 60890969_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals=""/>
+                <foes driveWays="2187329598.0 762086614.d0.0"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="7262046432">
+        <link linkIndex="0" from="-791354358_0" to="-1013846484_0"/>
+        <link linkIndex="1" from="1013846484_0" to="791354358_0"/>
+    </railSignal>
+    <departJunction id="762086614">
+        <driveWay id="762086614.d0" vehicle="v_0" edges="60890969 267180596 267180594 22894425 1013846514 22894426 1013846515 154782250 1013846485 778115307 -778115307 -1013846485 -154782250 -1013846515 -22894426 -1013846514 -22894425 -267180594 -267180596 -60890969">
+            <forward lanes="60890969_0 267180596_0 267180594_0 22894425_0 1013846514_0 22894426_0 1013846515_0 154782250_0 1013846485_0 778115307_0 -778115307_0 -1013846485_0"/>
+            <bidi lanes="-60890969_0 -267180596_0 -267180594_0 -22894425_0 -1013846514_0 -22894426_0 -1013846515_0 -154782250_0 -1013846485_0 -778115307_0 778115307_0 1013846485_0 154782250_0"
+                    deadlockCheck="1013846515_0 22894426_0 1013846514_0 22894425_0 267180594_0 267180596_0 60890969_0"/>
+            <flank lanes=""/>
+            <conflictLinks signals=""/>
+            <foes driveWays="2187329598.0 762086614.d0"/>
+        </driveWay>
+        <subDriveWay id="762086614.d0.0" vehicle="" edges="60890969 267180596 267180594 22894425 1013846514 22894426 1013846515 154782250">
+            <forward lanes="60890969_0 267180596_0 267180594_0 22894425_0 1013846514_0 22894426_0 1013846515_0 154782250_0"/>
+        </subDriveWay>
+    </departJunction>
+</railsignal-block-output>

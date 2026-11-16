@@ -1,13 +1,16 @@
 flake8
 gdal-bin
 python3-autopep8
+python3-deprecated
 python3-ezdxf
 python3-flake8
 python3-git
+python3-grpcio
 python3-lark
 python3-opencv
 python3-pandas
 python3-polib
+python3-protobuf
 python3-psutil
 python3-pulp
 python3-pyperclip

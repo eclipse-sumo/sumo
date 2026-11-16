@@ -1,0 +1,19 @@
+Warning: Discarding unknown compound 'usage.branch' in type 'railway.narrow_gauge|usage.branch' (first occurrence for edge '10513470').
+Warning: Discarding unknown compound 'usage.tourism' in type 'railway.narrow_gauge|usage.tourism' (first occurrence for edge '28698466').
+Warning: Ambiguous railway kilometrage direction for way '28698466' (assuming forward)
+Warning: Discarding unusable type 'railway.abandoned' (first occurrence for edge '113677763').
+Warning: Discarding unknown compound 'usage.tourism' in type 'railway.narrow_gauge|service.siding|usage.tourism' (first occurrence for edge '134118531').
+Warning: Ambiguous railway kilometrage direction for way '134118531' (assuming forward)
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '170649711').
+Warning: Discarding unknown compound 'usage.tourism' in type 'railway.narrow_gauge|service.crossover|usage.tourism' (first occurrence for edge '174355386').
+Warning: Discarding unusable type 'railway.signal_box' (first occurrence for edge '187417944').
+Warning: Ambiguous railway kilometrage direction for way '1238028805' (assuming forward)
+Warning: Discarding unknown compound 'railway.abandoned' in type 'railway.abandoned|service.spur' (first occurrence for edge '1360387266').
+Warning: Discarding unusable type 'railway.abandoned|service.spur' (first occurrence for edge '1360387266').
+Warning: Discarding unusable type 'railway.disused|service.spur' (first occurrence for edge '1360387267').
+Warning: Cannot revise pt stop localization for incomplete pt line '54455'. Ignoring!
+Warning: Cannot revise pt stop localization for incomplete pt line '54455'. Ignoring!
+Warning: Could not determine direction for line '54455' at stop '3326686675'.
+Warning: Stop '255683717' named 'Schierke' from line '54455' on edge '434344039#0' is not part of the route.
+Warning: Stop '3326686675' named 'Drei Annen Hohne' from line '54455' on edge '128845292#2' is not part of the route.
+Warning: 6 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').

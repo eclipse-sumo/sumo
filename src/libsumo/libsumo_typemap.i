@@ -431,10 +431,11 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 
 %pythonprepend SWIG_MODULE::Vehicle::add(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
                                      const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
-                                     const std::string&, const std::string&, const std::string&, int, int) %{
+                                     const std::string&, const std::string&, const std::string&, int, int,
+                                     const std::string&, const std::string&, double, const std::string&) %{
     args = [str(a) for a in args[:13]] + list(args[13:])
     for key, val in kwargs.items():
-        if key not in ("personCapacity", "personNumber"):
+        if key not in ("personCapacity", "personNumber", "speedFactor"):
             kwargs[key] = str(val)
 %}
 

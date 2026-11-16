@@ -512,10 +512,10 @@ def _createRecordAndPattern(element_name, attrnames, warn, optional, extra=None)
         attrnames = [attrnames]
     prefixedAttrnames = [_prefix_keyword(a, warn) for a in attrnames]
     if optional:
-        pattern = ''.join(['<%s' % element_name] +
-                          ['(\\s+%s="(?P<%s>[^"]*?)")?' % a for a in zip(attrnames, prefixedAttrnames)])
+        pattern = ''.join(['<%s(?=[\\s>/])' % element_name] +
+                          ['(?:[^>]*?\\s+%s="(?P<%s>[^"]*?)")?' % a for a in zip(attrnames, prefixedAttrnames)])
     else:
-        pattern = '(|\\s+.*)'.join(['<%s' % element_name] +
+        pattern = '(|\\s+.*)'.join(['<%s(?=[\\s>/])' % element_name] +
                                    ['\\s+%s="(?P<%s>[^"]*?)"' % a for a in zip(attrnames, prefixedAttrnames)])
     if extra is not None:
         prefixedAttrnames += [_prefix_keyword(a, warn) for a in extra]
@@ -572,8 +572,6 @@ def parse_fast(xmlfile, element_name, attrnames=None, warn=False, optional=False
     Parses the given attrnames from all elements with element_name
     @Note: The element must be on its own line and the attributes must appear in
     the given order. If you set "optional=True", missing attributes will be set to None.
-    Make sure that you list all (potential) attributes (even the ones you are not interested in)
-    in this case. You can only leave out attributes at the end.
     If attrnames is None, the attribute list is read from the XSD schema referenced in the
     XML file header (detected while reading); in this case optional is forced to True.
     @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
@@ -609,8 +607,6 @@ def parse_fast_nested(xmlfile, element_name, attrnames=None, element_name2=None,
     Parses the given attrnames from all elements with element_name
     And attrnames2 from element_name2 where element_name2 is a child element of element_name
     If you set "optional=True", missing attributes will be set to None.
-    Make sure that you list all (potential) attributes (even the ones you are not interested in)
-    in this case. You can only leave out attributes at the end.
     If attrnames or attrnames2 is None, the attribute list is read from the XSD schema
     referenced in the XML file header (detected while reading); in this case optional is forced to True.
     @Note: The element must be on its own line and the attributes must appear in
@@ -661,8 +657,6 @@ def parse_fast_structured(xmlfile, element_name, attrnames=None, nested=None,
     returns objects where the child elements can be accessed by name (e.g. timestep.vehicle[0])
     as with the parse method. The returned object is not modifiable though.
     If you set "optional=True", missing attributes will be set to None.
-    Make sure that you list all (potential) attributes (even the ones you are not interested in)
-    in this case. You can only leave out attributes at the end.
     If attrnames or any value in nested is None, the attribute list is read from the XSD schema
     referenced in the XML file header (detected while reading); in this case optional is forced to True.
     @Note: Every element must be on its own line and the attributes must appear in the given order.
