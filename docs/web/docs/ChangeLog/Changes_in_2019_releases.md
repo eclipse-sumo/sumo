@@ -532,7 +532,7 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
   - Person [rides](../Specification/Persons.md#rides) now allow the special value *ANY* for the *lines* attribute. When this is set, persons may enter any vehicle that will stop at the destination *busStop* of the ride.
   - Option **--weights.random-factor** {{DT_FLOAT}} now also applies when routing persons. Issue #1353
   - Added output of harmonic mean speed to induction loops, which approximates the space mean speed. Issue #4919
-  - Added controlability of reaction time (actionStepLength) to DriverState Model. Issue #5355
+  - Added controllability of reaction time (actionStepLength) to DriverState Model. Issue #5355
   - `<edgeData>`-output now supports attribute `detectPersons="walk"` which can be used to record pedestrian traffic instead of vehicular traffic. Issue #5252
   - Railway simulation improvements:
     - When a railSignal is placed on a short edge at the incoming network fringe, the signal will regulate train insertion for all trains longer than the insertion edge. Issue #5135
@@ -638,16 +638,16 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
 
 - TraCI
   - TraCI Version is now 20
-  - Function *trafficlight.setCompleteRedYellowGreeenDefinition* now
+  - Function *trafficlight.setCompleteRedYellowGreenDefinition* now
     expects the 5th component *next* to be a list of integers when
     defining phases. Function
-    '*'trafficlight.getCompleteRedYellowGreeenDefinition* now
+    '*'trafficlight.getCompleteRedYellowGreenDefinition* now
     returns a list of integers as the 5th component (next) when
     defining phases. Custom clients must be patched to handle this.
-  - Function *trafficlight.setCompleteRedYellowGreeenDefinition* now
+  - Function *trafficlight.setCompleteRedYellowGreenDefinition* now
     accepts *name* as an optional 6th component when defining
     phases. Function
-    '*'trafficlight.getCompleteRedYellowGreeenDefinition* now
+    '*'trafficlight.getCompleteRedYellowGreenDefinition* now
     returns *name* as the 6th component when defining phases. Custom
     clients must be patched to handle this.
   - TraaS function *Simulation.findRoute* now returns SumoStage
