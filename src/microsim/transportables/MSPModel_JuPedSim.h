@@ -26,15 +26,6 @@
 #include <vector>
 #include <map>
 #include <geos_c.h>
-#ifdef HAVE_BOOST
-#if __has_include(<boost/process/v1.hpp>)  // Boost 1.86+
-#include <boost/process/v1.hpp>
-namespace bp = boost::process::v1;
-#else
-#include <boost/process.hpp>
-namespace bp = boost::process;
-#endif
-#endif
 #include <utils/common/StopWatch.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
@@ -46,6 +37,15 @@ namespace bp = boost::process;
 //  inline function (4514 4710 4711), reinterpret_cast (4946) in protobuf and
 //  pop/push in different files (5031), missing virtual destructors (5204) in boost
 #pragma warning(disable: 4267 4371 4514 4710 4711 4946 5031 5204)
+#endif
+#ifdef HAVE_BOOST
+#if __has_include(<boost/process/v1.hpp>)  // Boost 1.86+
+#include <boost/process/v1.hpp>
+namespace bp = boost::process::v1;
+#else
+#include <boost/process.hpp>
+namespace bp = boost::process;
+#endif
 #endif
 #pragma push_macro("TS")
 #pragma push_macro("Min")
