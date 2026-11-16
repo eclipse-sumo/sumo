@@ -259,8 +259,6 @@ public:
                         }
                     }
                 }
-#else
-                UNUSED_PARAMETER(reverseRouter);
 #endif
             }
         }
@@ -268,6 +266,12 @@ public:
         threadPool.waitAll(false);
         int taskIndex = 0;
 #endif
+        if (maxNumThreads <= 0) {
+            router->setAutoBulkMode(true);
+            if (reverseRouter != nullptr) {
+                reverseRouter->setAutoBulkMode(true);
+            }
+        }
         for (int i = 0; i < numLandMarks; ++i) {
             if ((int)myFromLandmarkDists[i].size() != (int)edges.size() - myFirstNonInternal) {
                 const E* landmark = landmarks[i];
@@ -301,7 +305,12 @@ public:
                             }
                             // compute to-distance (skip unreachable landmarks)
                             if (landmark->getPredecessors().size() > 0 && edge->getSuccessors().size() > 0) {
-                                if (router->compute(edge, landmark, defaultVehicle, 0, route, true)) {
+                                if (reverseRouter != nullptr) {
+                                    if (reverseRouter->compute(landmark->getReversedRoutingEdge(), edge->getReversedRoutingEdge(), defaultVehicle, 0, reversedRoute, true)) {
+                                        distTo = MAX2(0.0, reverseRouter->recomputeCosts(reversedRoute, defaultVehicle, 0) - sourceDestCost);
+                                        reversedRoute.clear();
+                                    }
+                                } else if (router->compute(edge, landmark, defaultVehicle, 0, route, true)) {
                                     distTo = MAX2(0.0, router->recomputeCosts(route, defaultVehicle, 0) - sourceDestCost);
                                     route.clear();
                                 }
@@ -324,6 +333,10 @@ public:
                                    landmark->getID(), unreachableFrom, unreachableTo, numericID.size());
                 }
             }
+        }
+        router->setAutoBulkMode(false);
+        if (reverseRouter != nullptr) {
+            reverseRouter->setAutoBulkMode(false);
         }
         if (!outfile.empty()) {
             std::ostream* ostrm = nullptr;

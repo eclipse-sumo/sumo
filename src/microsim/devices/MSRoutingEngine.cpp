@@ -605,11 +605,21 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
             const double speedFactor = vehicle->getChosenSpeedFactor();
             // we need an exemplary vehicle with speedFactor 1
             vehicle->setChosenSpeedFactor(1);
-            CHRouterWrapper<MSEdge, SUMOVehicle> chrouter(
-                MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
-                string2time(oc.getString("begin")), string2time(oc.getString("end")), SUMOTime_MAX, hasPermissions, 1);
-            lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &chrouter,
-                     nullptr, vehicle, "", oc.getInt("device.rerouting.threads"), MSNet::getInstance()->getMapMatcher());
+            DijkstraRouter<MSEdge, SUMOVehicle> forward(MSEdge::getAllEdges(), true, &MSNet::getTravelTime);
+            std::vector<ReversedEdge<MSEdge, SUMOVehicle>*> reversed;
+            for (const MSEdge* edge : MSEdge::getAllEdges()) {
+                reversed.push_back(edge->getReversedRoutingEdge());
+                reversed.back()->reset();
+            }
+            for (ReversedEdge<MSEdge, SUMOVehicle>* redge : reversed) {
+                redge->init();
+            }
+            DijkstraRouter<ReversedEdge<MSEdge, SUMOVehicle>, SUMOVehicle> backward(
+                reversed, true, &ReversedEdge<MSEdge, SUMOVehicle>::getTravelTimeStatic);
+            lookup = std::make_shared<const AStar::LMLT>(
+                oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &forward, &backward, vehicle,
+                "",
+                oc.getInt("device.rerouting.threads"), MSNet::getInstance()->getMapMatcher());
             vehicle->setChosenSpeedFactor(speedFactor);
         }
         router = new AStar(MSEdge::getAllEdges(), true, myEffortFunc, lookup, true);
