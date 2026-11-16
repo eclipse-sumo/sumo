@@ -5,3 +5,6 @@ first_edge
 
 # at second edge
 second_edge
+
+# sequential rerouters with mode 8 (#17300)
+sequential_closing

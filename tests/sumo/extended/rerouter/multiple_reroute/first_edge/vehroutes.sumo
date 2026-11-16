@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-18 19:16:26 by Eclipse SUMO sumo Version v1_15_0+0432-5c1fa4aaa0c
+<!-- generated on 2026-11-16T04:08:51.937546+00:00 by Eclipse SUMO sumo v1_28_0+0550-4ee496bf376
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -28,6 +28,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </time>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -37,87 +39,87 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0" depart="0.00" arrival="95.00">
+    <vehicle id="0" depart="0.00" arrival="208.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="0.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" reason="rerouter2" replacedAtTime="0.00" probability="0" edges="beg beg2left left left2end end rend"/>
-            <route edges="beg middle end rend"/>
+            <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="1" depart="20.00" arrival="115.00">
+    <vehicle id="1" depart="20.00" arrival="228.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="20.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" reason="rerouter2" replacedAtTime="20.00" probability="0" edges="beg beg2left left left2end end rend"/>
-            <route edges="beg middle end rend"/>
+            <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="2" depart="40.00" arrival="135.00">
+    <vehicle id="2" depart="40.00" arrival="248.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="40.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" reason="rerouter2" replacedAtTime="40.00" probability="0" edges="beg beg2left left left2end end rend"/>
-            <route edges="beg middle end rend"/>
+            <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="3" depart="60.00" arrival="155.00">
+    <vehicle id="3" depart="60.00" arrival="268.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="60.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" reason="rerouter2" replacedAtTime="60.00" probability="0" edges="beg beg2left left left2end end rend"/>
-            <route edges="beg middle end rend"/>
+            <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="4" depart="80.00" arrival="175.00">
+    <vehicle id="4" depart="80.00" arrival="288.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="80.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" reason="rerouter2" replacedAtTime="80.00" probability="0" edges="beg beg2left left left2end end rend"/>
-            <route edges="beg middle end rend"/>
+            <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="5" depart="100.00" arrival="195.00">
+    <vehicle id="5" depart="100.00" arrival="308.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="100.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" reason="rerouter2" replacedAtTime="100.00" probability="0" edges="beg beg2left left left2end end rend"/>
-            <route edges="beg middle end rend"/>
+            <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="6" depart="120.00" arrival="215.00">
+    <vehicle id="6" depart="120.00" arrival="328.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="120.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" reason="rerouter2" replacedAtTime="120.00" probability="0" edges="beg beg2left left left2end end rend"/>
-            <route edges="beg middle end rend"/>
+            <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="7" depart="140.00" arrival="235.00">
+    <vehicle id="7" depart="140.00" arrival="348.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="140.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" reason="rerouter2" replacedAtTime="140.00" probability="0" edges="beg beg2left left left2end end rend"/>
-            <route edges="beg middle end rend"/>
+            <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="8" depart="160.00" arrival="255.00">
+    <vehicle id="8" depart="160.00" arrival="368.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="160.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" reason="rerouter2" replacedAtTime="160.00" probability="0" edges="beg beg2left left left2end end rend"/>
-            <route edges="beg middle end rend"/>
+            <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="9" depart="180.00" arrival="275.00">
+    <vehicle id="9" depart="180.00" arrival="388.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="180.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" reason="rerouter2" replacedAtTime="180.00" probability="0" edges="beg beg2left left left2end end rend"/>
-            <route edges="beg middle end rend"/>
+            <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 

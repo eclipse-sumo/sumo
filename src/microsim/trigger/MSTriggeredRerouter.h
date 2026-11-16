@@ -337,6 +337,9 @@ protected:
     /// @brief reset router after closing edges
     void resetClosedEdges(bool hasReroutingDevice, const SUMOTrafficObject& o);
 
+    /// @brief return active prohibitions combining the current interval with previously seen notifications
+    static Prohibitions updateProhibitions(const SUMOTrafficObject& obj, SUMOTime now, const RerouteInterval* rerouteDef);
+
     static bool affected(const std::set<SUMOTrafficObject::NumericalID>& edgeIndices, const MSEdgeVector& closed);
 
 protected:
@@ -383,6 +386,17 @@ protected:
     static MSEdge mySpecialDest_terminateRoute;
 
     static std::map<std::string, MSTriggeredRerouter*> myInstances;
+
+    struct SeenProhibition {
+        RouterProhibition prohibition;
+        SUMOTime intervalEnd;
+    };
+
+    /// @brief previously seen closingReroute prohibitions per traffic object
+    static std::map<SUMOTrafficObject::NumericalID, std::map<const MSEdge*, SeenProhibition> > mySeenProhibitions;
+#ifdef HAVE_FOX
+    static FXMutex mySeenProhibitionsMutex;
+#endif
 
 private:
     /// @brief Invalidated copy constructor.

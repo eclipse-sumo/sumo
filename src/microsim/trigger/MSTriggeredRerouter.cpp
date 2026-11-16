@@ -80,6 +80,10 @@ MSEdge MSTriggeredRerouter::mySpecialDest_keepDestination("MSTriggeredRerouter_k
 MSEdge MSTriggeredRerouter::mySpecialDest_terminateRoute("MSTriggeredRerouter_terminateRoute", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", "", -1, 0);
 const double MSTriggeredRerouter::DEFAULT_MAXDELAY(7200);
 std::map<std::string, MSTriggeredRerouter*> MSTriggeredRerouter::myInstances;
+std::map<SUMOTrafficObject::NumericalID, std::map<const MSEdge*, MSTriggeredRerouter::SeenProhibition> > MSTriggeredRerouter::mySeenProhibitions;
+#ifdef HAVE_FOX
+FXMutex MSTriggeredRerouter::mySeenProhibitionsMutex(true);
+#endif
 
 
 // ===========================================================================
@@ -126,6 +130,9 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
 
 MSTriggeredRerouter::~MSTriggeredRerouter() {
     myInstances.erase(getID());
+    if (myInstances.empty()) {
+        mySeenProhibitions.clear();
+    }
 }
 
 
@@ -561,9 +568,10 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                 veh.replaceParameter(newParameter);
             }
 
+            const Prohibitions parkProhibited = updateProhibitions(veh, now, rerouteDef);
             SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
-                    ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), rerouteDef->getClosed())
-                    : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->getClosed());
+                    ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), parkProhibited)
+                    : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), parkProhibited);
             const double routeCost = router.recomputeCosts(newRoute, &veh, MSNet::getInstance()->getCurrentTimeStep());
             ConstMSEdgeVector prevEdges(veh.getCurrentRouteEdge(), veh.getRoute().end());
             resetClosedEdges(hasReroutingDevice, veh);
@@ -647,9 +655,10 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             if (oloc.defer) {
                 return false;
             }
+            const Prohibitions overtakeProhibited = updateProhibitions(veh, now, rerouteDef);
             SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
-                    ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), rerouteDef->getClosed())
-                    : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->getClosed());
+                    ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), overtakeProhibited)
+                    : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), overtakeProhibited);
             ConstMSEdgeVector newEdges(veh.getCurrentRouteEdge(), bestMainStart);
             newEdges.insert(newEdges.end(), oloc.siding.begin(), oloc.siding.end());
             newEdges.insert(newEdges.end(), bestMainStart + oloc.main.size(), oldEdges.end());
@@ -715,6 +724,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
     // we have a new destination, let's replace the route (if it is affected)
     Prohibitions prohibited = rerouteDef->getClosed();
     if (rerouteDef->closed.empty() || destUnreachable || affected(tObject.getUpcomingEdgeIDs(), closed)) {
+        prohibited = updateProhibitions(tObject, now, rerouteDef);
         if (tObject.ignoreTransientPermissions()) {
             // after learning about network changes, the driver must no longer forget them
             if (!myHaveClosingUntil) {
@@ -981,7 +991,8 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         }
     }
     StoppingPlaceParamMap_t addInput = {};
-    return dynamic_cast<MSParkingArea*>(rerouteStoppingPlace(destStoppingPlace, parks, rerouteDef->parkProbs.getProbs(), veh, newDestination, newRoute, addInput, rerouteDef->getClosed()));
+    const Prohibitions parkProhibited = updateProhibitions(veh, MSNet::getInstance()->getCurrentTimeStep(), rerouteDef);
+    return dynamic_cast<MSParkingArea*>(rerouteStoppingPlace(destStoppingPlace, parks, rerouteDef->parkProbs.getProbs(), veh, newDestination, newRoute, addInput, parkProhibited));
 }
 
 
@@ -1339,6 +1350,43 @@ MSTriggeredRerouter::resetClosedEdges(bool hasReroutingDevice, const SUMOTraffic
         ? MSRoutingEngine::getIntermodalRouterTT(o.getRNGIndex())
         : MSNet::getInstance()->getIntermodalRouter(o.getRNGIndex(), 0);
     }
+}
+
+
+MSTriggeredRerouter::Prohibitions
+MSTriggeredRerouter::updateProhibitions(const SUMOTrafficObject& obj, SUMOTime now, const RerouteInterval* rerouteDef) {
+#ifdef HAVE_FOX
+    ScopedLocker<> lock(mySeenProhibitionsMutex, MSGlobals::gNumSimThreads > 1);
+#endif
+    if (rerouteDef->closed.empty() && mySeenProhibitions.empty()) {
+        return Prohibitions();
+    }
+    const Prohibitions current = rerouteDef->getClosed();
+    Prohibitions result = current;
+    const double nowSeconds = STEPS2TIME(now);
+    const auto itObj = mySeenProhibitions.find(obj.getNumericalID());
+    if (itObj != mySeenProhibitions.end()) {
+        for (auto it = itObj->second.begin(); it != itObj->second.end();) {
+            if (it->second.intervalEnd <= now || it->second.prohibition.end <= nowSeconds) {
+                it = itObj->second.erase(it);
+            } else {
+                if (result.count(it->first) == 0) {
+                    result[it->first] = it->second.prohibition;
+                }
+                ++it;
+            }
+        }
+        if (itObj->second.empty() && current.empty()) {
+            mySeenProhibitions.erase(itObj);
+        }
+    }
+    if (!current.empty()) {
+        auto& seen = mySeenProhibitions[obj.getNumericalID()];
+        for (const auto& item : current) {
+            seen[item.first] = SeenProhibition{item.second, rerouteDef->end};
+        }
+    }
+    return result;
 }
 
 /****************************************************************************/
