@@ -1,0 +1,163 @@
+-------------------------------------------------------------------------------
+['/scr1/sumo/bin/duarouter', '-c', '000/iteration_000_input_trips.duarcfg']
+Success.
+-------------------------------------------------------------------------------
+['/scr1/sumo/bin/sumo', '-c', '000/iteration_000.sumocfg']
+Loading net-file from '000/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '000/../edgedata.add.xml' ... done (2ms).
+Loading route-files incrementally from '000/input_trips_000.rou.xml.gz'
+Loading done.
+Simulation version v1_28_0+0599-40744cd137a started with time: 0.00.
+Warning: Teleporting vehicle 't0'; waited too long (yield), lane='bottle_0', time=38.00.
+Warning: Vehicle 't0' ends teleporting on edge 'out', time=38.00.
+Warning: Teleporting vehicle 't6'; waited too long (yield), lane='bottle_0', time=92.00.
+Warning: Vehicle 't6' ends teleporting on edge 'out', time=92.00.
+Warning: Teleporting vehicle 't12'; waited too long (yield), lane='bottle_0', time=152.00.
+Warning: Vehicle 't12' ends teleporting on edge 'out', time=152.00.
+Warning: Teleporting vehicle 't18'; waited too long (yield), lane='bottle_0', time=213.00.
+Warning: Vehicle 't18' ends teleporting on edge 'out', time=213.00.
+Warning: Teleporting vehicle 't24'; waited too long (yield), lane='bottle_0', time=274.00.
+Warning: Vehicle 't24' ends teleporting on edge 'out', time=274.00.
+Warning: Teleporting vehicle 't30'; waited too long (yield), lane='bottle_0', time=334.00.
+Warning: Vehicle 't30' ends teleporting on edge 'out', time=334.00.
+Warning: Teleporting vehicle 't36'; waited too long (yield), lane='bottle_0', time=393.00.
+Warning: Vehicle 't36' ends teleporting on edge 'out', time=393.00.
+Simulation ended at time: 433.00.
+Reason: All vehicles have left the simulation.
+Performance:
+ Duration: 0.03s
+ Real time factor: 16653.8
+ UPS: 164653.846154
+Vehicles:
+ Inserted: 20 (Loaded: 40)
+ Running: 0
+ Waiting: 0
+ Teleports: 7 (Yield: 7)
+-------------------------------------------------------------------------------
+['/scr1/sumo/bin/duarouter', '-c', '001/iteration_001_input_trips_000.duarcfg']
+Success.
+-------------------------------------------------------------------------------
+['/scr1/sumo/bin/sumo', '-c', '001/iteration_001.sumocfg']
+Loading net-file from '001/../input_net.net.xml' ... done (2ms).
+Loading additional-files from '001/../edgedata.add.xml' ... done (1ms).
+Loading route-files incrementally from '001/input_trips_001.rou.xml.gz'
+Loading done.
+Simulation version v1_28_0+0599-40744cd137a started with time: 0.00.
+Warning: Teleporting vehicle 't2'; waited too long (yield), lane='bottle_0', time=40.00.
+Warning: Vehicle 't2' ends teleporting on edge 'out', time=40.00.
+Warning: Teleporting vehicle 't16'; waited too long (yield), lane='bottle_0', time=90.00.
+Warning: Vehicle 't16' ends teleporting on edge 'out', time=90.00.
+Warning: Teleporting vehicle 't20'; waited too long (yield), lane='bottle_0', time=149.00.
+Warning: Vehicle 't20' ends teleporting on edge 'out', time=149.00.
+Warning: Teleporting vehicle 't22'; waited too long (yield), lane='bottle_0', time=178.00.
+Warning: Vehicle 't22' ends teleporting on edge 'out', time=178.00.
+Simulation ended at time: 194.00.
+Reason: All vehicles have left the simulation.
+Performance:
+ Duration: 0.02s
+ Real time factor: 8818.18
+ UPS: 67863.636364
+Vehicles:
+ Inserted: 20 (Loaded: 40)
+ Running: 0
+ Waiting: 0
+ Teleports: 4 (Yield: 4)
+-------------------------------------------------------------------------------
+['/scr1/sumo/bin/duarouter', '-c', '002/iteration_002_input_trips_001.duarcfg']
+Success.
+-------------------------------------------------------------------------------
+['/scr1/sumo/bin/sumo', '-c', '002/iteration_002.sumocfg']
+Loading net-file from '002/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '002/../edgedata.add.xml' ... done (1ms).
+Loading route-files incrementally from '002/input_trips_002.rou.xml.gz'
+Loading done.
+Simulation version v1_28_0+0599-40744cd137a started with time: 0.00.
+Warning: Teleporting vehicle 't2'; waited too long (yield), lane='bottle_0', time=41.00.
+Warning: Vehicle 't2' ends teleporting on edge 'out', time=41.00.
+Warning: Teleporting vehicle 't7'; waited too long (yield), lane='bottle_0', time=89.00.
+Warning: Vehicle 't7' ends teleporting on edge 'out', time=89.00.
+Warning: Teleporting vehicle 't10'; waited too long (yield), lane='bottle_0', time=117.00.
+Warning: Vehicle 't10' ends teleporting on edge 'out', time=117.00.
+Warning: Teleporting vehicle 't18'; waited too long (yield), lane='bottle_0', time=152.00.
+Warning: Vehicle 't18' ends teleporting on edge 'out', time=152.00.
+Warning: Teleporting vehicle 't29'; waited too long (yield), lane='bottle_0', time=212.00.
+Warning: Vehicle 't29' ends teleporting on edge 'out', time=212.00.
+Warning: Teleporting vehicle 't31'; waited too long (yield), lane='bottle_0', time=270.00.
+Warning: Vehicle 't31' ends teleporting on edge 'out', time=270.00.
+Warning: Teleporting vehicle 't33'; waited too long (yield), lane='bottle_0', time=299.00.
+Warning: Vehicle 't33' ends teleporting on edge 'out', time=299.00.
+Warning: Teleporting vehicle 't37'; waited too long (yield), lane='bottle_0', time=332.00.
+Warning: Vehicle 't37' ends teleporting on edge 'out', time=332.00.
+Simulation ended at time: 376.00.
+Reason: All vehicles have left the simulation.
+Performance:
+ Duration: 0.03s
+ Real time factor: 13925.9
+ UPS: 160518.518519
+Vehicles:
+ Inserted: 40
+ Running: 0
+ Waiting: 0
+ Teleports: 8 (Yield: 8)
+-------------------------------------------------------------------------------
+['/scr1/sumo/bin/duarouter', '-c', '003/iteration_003_input_trips_002.duarcfg']
+Success.
+-------------------------------------------------------------------------------
+['/scr1/sumo/bin/sumo', '-c', '003/iteration_003.sumocfg']
+Loading net-file from '003/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '003/../edgedata.add.xml' ... done (0ms).
+Loading route-files incrementally from '003/input_trips_003.rou.xml.gz'
+Loading done.
+Simulation version v1_28_0+0599-40744cd137a started with time: 0.00.
+Warning: Teleporting vehicle 't2'; waited too long (yield), lane='bottle_0', time=41.00.
+Warning: Vehicle 't2' ends teleporting on edge 'out', time=41.00.
+Warning: Teleporting vehicle 't7'; waited too long (yield), lane='bottle_0', time=89.00.
+Warning: Vehicle 't7' ends teleporting on edge 'out', time=89.00.
+Warning: Teleporting vehicle 't15'; waited too long (yield), lane='bottle_0', time=149.00.
+Warning: Vehicle 't15' ends teleporting on edge 'out', time=149.00.
+Warning: Teleporting vehicle 't16'; waited too long (yield), lane='bottle_0', time=178.00.
+Warning: Vehicle 't16' ends teleporting on edge 'out', time=178.00.
+Warning: Teleporting vehicle 't30'; waited too long (yield), lane='bottle_0', time=214.00.
+Warning: Vehicle 't30' ends teleporting on edge 'out', time=214.00.
+Warning: Teleporting vehicle 't38'; waited too long (yield), lane='bottle_0', time=273.00.
+Warning: Vehicle 't38' ends teleporting on edge 'out', time=273.00.
+Simulation ended at time: 313.00.
+Reason: All vehicles have left the simulation.
+Performance:
+ Duration: 0.02s
+ Real time factor: 13041.7
+ UPS: 143750.000000
+Vehicles:
+ Inserted: 40
+ Running: 0
+ Waiting: 0
+ Teleports: 6 (Yield: 6)
+-------------------------------------------------------------------------------
+['/scr1/sumo/bin/duarouter', '-c', '004/iteration_004_input_trips_003.duarcfg']
+Success.
+-------------------------------------------------------------------------------
+['/scr1/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
+Loading net-file from '004/../input_net.net.xml' ... done (2ms).
+Loading additional-files from '004/../edgedata.add.xml' ... done (0ms).
+Loading route-files incrementally from '004/input_trips_004.rou.xml.gz'
+Loading done.
+Simulation version v1_28_0+0599-40744cd137a started with time: 0.00.
+Warning: Teleporting vehicle 't2'; waited too long (yield), lane='bottle_0', time=41.00.
+Warning: Vehicle 't2' ends teleporting on edge 'out', time=41.00.
+Warning: Teleporting vehicle 't16'; waited too long (yield), lane='bottle_0', time=92.00.
+Warning: Vehicle 't16' ends teleporting on edge 'out', time=92.00.
+Warning: Teleporting vehicle 't33'; waited too long (yield), lane='bottle_0', time=153.00.
+Warning: Vehicle 't33' ends teleporting on edge 'out', time=153.00.
+Warning: Teleporting vehicle 't39'; waited too long (yield), lane='bottle_0', time=213.00.
+Warning: Vehicle 't39' ends teleporting on edge 'out', time=213.00.
+Simulation ended at time: 223.00.
+Reason: All vehicles have left the simulation.
+Performance:
+ Duration: 0.03s
+ Real time factor: 8259.26
+ UPS: 98481.481481
+Vehicles:
+ Inserted: 40
+ Running: 0
+ Waiting: 0
+ Teleports: 4 (Yield: 4)

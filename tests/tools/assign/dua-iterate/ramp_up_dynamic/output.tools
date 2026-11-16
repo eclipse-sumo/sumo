@@ -1,0 +1,72 @@
+> Executing step 0
+>> Running router on input_trips.trips.xml
+>>> Begin time: 2026-11-16 22:27:03.793803
+>>> End time: 2026-11-16 22:27:04.028175
+>>> Duration: 0:00:00.234372
+<<
+>> Running simulation
+>>> Begin time: 2026-11-16 22:27:04.028278
+>>> End time: 2026-11-16 22:27:04.384392
+>>> Duration: 0:00:00.356114
+<<
+< Keeping scale at 0.5 (teleport ratio 0.3500 > 0.2000)
+< Step 0 ended (duration: 0:00:00.595921)
+------------------
+
+> Executing step 1
+>> Running router on 000/input_trips_000.rou.alt.xml.gz
+>>> Begin time: 2026-11-16 22:27:04.391545
+>>> End time: 2026-11-16 22:27:04.555985
+>>> Duration: 0:00:00.164440
+<<
+>> Running simulation
+>>> Begin time: 2026-11-16 22:27:04.556046
+>>> End time: 2026-11-16 22:27:04.746640
+>>> Duration: 0:00:00.190594
+<<
+< Step 1 ended (duration: 0:00:00.368981)
+------------------
+
+> Executing step 2
+>> Running router on 001/input_trips_001.rou.alt.xml.gz
+>>> Begin time: 2026-11-16 22:27:04.762507
+>>> End time: 2026-11-16 22:27:04.942953
+>>> Duration: 0:00:00.180446
+<<
+>> Running simulation
+>>> Begin time: 2026-11-16 22:27:04.943011
+>>> End time: 2026-11-16 22:27:05.119433
+>>> Duration: 0:00:00.176422
+<<
+< Step 2 ended (duration: 0:00:00.382306)
+------------------
+
+> Executing step 3
+>> Running router on 002/input_trips_002.rou.alt.xml.gz
+>>> Begin time: 2026-11-16 22:27:05.146805
+>>> End time: 2026-11-16 22:27:05.316548
+>>> Duration: 0:00:00.169743
+<<
+>> Running simulation
+>>> Begin time: 2026-11-16 22:27:05.316605
+>>> End time: 2026-11-16 22:27:05.490148
+>>> Duration: 0:00:00.173543
+<<
+< Step 3 ended (duration: 0:00:00.357635)
+------------------
+
+> Executing step 4
+>> Running router on 003/input_trips_003.rou.alt.xml.gz
+>>> Begin time: 2026-11-16 22:27:05.505737
+>>> End time: 2026-11-16 22:27:05.670545
+>>> Duration: 0:00:00.164808
+<<
+>> Running simulation
+>>> Begin time: 2026-11-16 22:27:05.670604
+>>> End time: 2026-11-16 22:27:05.846188
+>>> Duration: 0:00:00.175584
+<<
+< Step 4 ended (duration: 0:00:00.362578)
+------------------
+
+dua-iterate ended (duration: 0:00:02.076616)

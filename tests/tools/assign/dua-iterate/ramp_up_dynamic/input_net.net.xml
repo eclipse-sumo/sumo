@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-16T22:27:00.505396+00:00 by Eclipse SUMO netconvert v1_28_0+0585-def463f88ae
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Users\Mark\AppData\Local\Temp\tmpnv7l4xqr\nod.xml"/>
+        <edge-files value="C:\Users\Mark\AppData\Local\Temp\tmpnv7l4xqr\edg.xml"/>
+        <tllogic-files value="C:\Users\Mark\AppData\Local\Temp\tmpnv7l4xqr\tll.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\Mark\Desktop\sumo\tests\tools\assign\dua-iterate\ramp_up_dynamic\input_net.net.xml"/>
+    </output>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,350.00,150.00" origBoundary="0.00,0.00,350.00,150.00" projParameter="!"/>
+
+    <edge id=":b1_0" function="internal">
+        <lane id=":b1_0_0" index="0" speed="4.27" length="5.63" shape="148.48,130.27 149.24,131.98 150.00,132.54 150.76,131.98 151.52,130.27"/>
+        <lane id=":b1_0_1" index="1" speed="6.78" length="16.90" shape="145.45,131.28 147.72,136.40 150.00,138.11 152.28,136.40 154.55,131.28"/>
+    </edge>
+    <edge id=":n1_0" function="internal">
+        <lane id=":n1_0_0" index="0" speed="20.00" length="14.40" shape="97.12,-8.00 101.33,-7.00 104.13,-4.80 106.55,-2.60 109.63,-1.60"/>
+    </edge>
+    <edge id=":n1_1" function="internal">
+        <lane id=":n1_1_0" index="0" speed="8.76" length="12.97" shape="97.12,-4.80 100.06,-4.30 102.54,-2.79 104.57,-0.28 106.14,3.24"/>
+        <lane id=":n1_1_1" index="1" speed="7.37" length="8.96" shape="97.12,-1.60 99.00,-1.23 100.63,-0.14 102.00,1.69 103.10,4.25"/>
+    </edge>
+    <edge id=":n2_0" function="internal">
+        <lane id=":n2_0_0" index="0" speed="20.00" length="14.40" shape="190.37,-1.60 193.45,-2.60 195.87,-4.80 198.67,-7.00 202.88,-8.00"/>
+    </edge>
+    <edge id=":n2_1" function="internal">
+        <lane id=":n2_1_0" index="0" speed="8.76" length="12.97" shape="193.86,3.24 195.43,-0.28 197.46,-2.79 199.94,-4.30 202.88,-4.80"/>
+        <lane id=":n2_1_1" index="1" speed="7.37" length="8.96" shape="196.90,4.25 198.00,1.69 199.37,-0.14 201.00,-1.23 202.88,-1.60"/>
+    </edge>
+
+    <edge id="bottle" from="n1" to="n2" priority="-1">
+        <lane id="bottle_0" index="0" speed="20.00" length="80.74" shape="109.63,-1.60 190.37,-1.60"/>
+    </edge>
+    <edge id="byp1" from="n1" to="b1" priority="-1">
+        <lane id="byp1_0" index="0" speed="13.89" length="133.90" shape="106.14,3.24 148.48,130.27"/>
+        <lane id="byp1_1" index="1" speed="13.89" length="133.90" shape="103.10,4.25 145.45,131.28"/>
+    </edge>
+    <edge id="byp2" from="b1" to="n2" priority="-1">
+        <lane id="byp2_0" index="0" speed="13.89" length="133.90" shape="151.52,130.27 193.86,3.24"/>
+        <lane id="byp2_1" index="1" speed="13.89" length="133.90" shape="154.55,131.28 196.90,4.25"/>
+    </edge>
+    <edge id="in" from="n0" to="n1" priority="-1">
+        <lane id="in_0" index="0" speed="20.00" length="97.12" shape="0.00,-8.00 97.12,-8.00"/>
+        <lane id="in_1" index="1" speed="20.00" length="97.12" shape="0.00,-4.80 97.12,-4.80"/>
+        <lane id="in_2" index="2" speed="20.00" length="97.12" shape="0.00,-1.60 97.12,-1.60"/>
+    </edge>
+    <edge id="out" from="n2" to="n3" priority="-1">
+        <lane id="out_0" index="0" speed="20.00" length="147.12" shape="202.88,-8.00 350.00,-8.00"/>
+        <lane id="out_1" index="1" speed="20.00" length="147.12" shape="202.88,-4.80 350.00,-4.80"/>
+        <lane id="out_2" index="2" speed="20.00" length="147.12" shape="202.88,-1.60 350.00,-1.60"/>
+    </edge>
+
+    <tlLogic id="n2" type="static" programID="0" offset="0">
+        <phase duration="4"  state="Grr"/>
+        <phase duration="2"  state="yrr"/>
+        <phase duration="52" state="rGG"/>
+        <phase duration="2"  state="ryy"/>
+    </tlLogic>
+
+    <junction id="b1" type="priority" x="150.00" y="150.00" incLanes="byp1_0 byp1_1" intLanes=":b1_0_0 :b1_0_1" shape="156.07,131.79 150.00,129.76 143.93,131.79 145.95,136.84 147.98,139.88 150.00,140.89 152.02,139.88 154.05,136.84">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="n0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-9.60"/>
+    <junction id="n1" type="priority" x="100.00" y="0.00" incLanes="in_0 in_1 in_2" intLanes=":n1_0_0 :n1_1_0 :n1_1_1" shape="101.59,4.76 107.66,2.74 107.47,1.22 107.69,0.68 108.13,0.30 108.77,0.08 109.63,0.00 109.63,-3.20 106.75,-3.67 104.82,-4.86 101.92,-7.94 100.00,-9.13 97.12,-9.60 97.12,0.00 98.89,0.53 99.68,1.19 100.38,2.12 101.02,3.30">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
+    </junction>
+    <junction id="n2" type="traffic_light" x="200.00" y="0.00" incLanes="bottle_0 byp2_0 byp2_1" intLanes=":n2_0_0 :n2_1_0 :n2_1_1" shape="202.88,0.00 202.88,-9.60 200.00,-9.13 198.08,-7.94 195.18,-4.86 193.25,-3.67 190.37,-3.20 190.37,0.00 191.87,0.30 192.31,0.68 192.53,1.22 192.54,1.90 192.34,2.74 198.41,4.76 199.62,2.12 200.32,1.19 201.11,0.53 201.96,0.13">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
+    </junction>
+    <junction id="n3" type="dead_end" x="350.00" y="0.00" incLanes="out_0 out_1 out_2" intLanes="" shape="350.00,-9.60 350.00,0.00"/>
+
+    <connection from="bottle" to="out" fromLane="0" toLane="0" via=":n2_0_0" tl="n2" linkIndex="0" dir="s" state="O"/>
+    <connection from="byp1" to="byp2" fromLane="0" toLane="0" via=":b1_0_0" dir="r" state="M"/>
+    <connection from="byp1" to="byp2" fromLane="1" toLane="1" via=":b1_0_1" dir="r" state="M"/>
+    <connection from="byp2" to="out" fromLane="0" toLane="1" via=":n2_1_0" tl="n2" linkIndex="1" dir="l" state="O"/>
+    <connection from="byp2" to="out" fromLane="1" toLane="2" via=":n2_1_1" tl="n2" linkIndex="2" dir="l" state="O"/>
+    <connection from="in" to="bottle" fromLane="0" toLane="0" via=":n1_0_0" dir="s" state="M"/>
+    <connection from="in" to="byp1" fromLane="1" toLane="0" via=":n1_1_0" dir="l" state="M"/>
+    <connection from="in" to="byp1" fromLane="2" toLane="1" via=":n1_1_1" dir="l" state="M"/>
+
+    <connection from=":b1_0" to="byp2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":b1_0" to="byp2" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from=":n1_0" to="bottle" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n1_1" to="byp1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":n1_1" to="byp1" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from=":n2_0" to="out" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n2_1" to="out" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":n2_1" to="out" fromLane="1" toLane="2" dir="l" state="M"/>
+
+</net>

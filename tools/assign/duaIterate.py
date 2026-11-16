@@ -132,6 +132,9 @@ def initOptions():
                            type=int, default=1, help="Give the incrementation")
     argParser.add_argument("--time-inc", dest="timeInc",
                            type=int, default=0, help="Give the time incrementation")
+    argParser.add_argument("--max-teleport-ratio", dest="maxTeleportRatio", type=float, default=-1,
+                           help="Hold incremental scaling constant while teleports/inserted exceeds FLOAT "
+                                "(negative values disable dynamic scaling)")
     argParser.add_argument("-f", "--first-step", dest="firstStep",
                            type=int, default=0, help="First DUA step")
     argParser.add_argument("-l", "--last-step", dest="lastStep",
@@ -274,6 +277,17 @@ def get_scale(options, step):
         return options.incMax
 
 
+def get_teleport_ratio(step):
+    summary_file = "%03i/summary_%03i.xml" % (step, step)
+    inserted = 0
+    teleports = 0
+    if os.path.exists(summary_file):
+        for s in sumolib.output.parse_fast(summary_file, 'step', ['inserted', 'teleports']):
+            inserted = int(s.inserted)
+            teleports = int(s.teleports)
+    return (float(teleports) / inserted) if inserted > 0 else 0.0
+
+
 def get_dumpfilename(options, step, prefix, full_path=True):
     # the file to which edge costs (traveltimes) are written
     suffix = ".xml.gz" if getattr(options, "gzip", False) else ".xml"
@@ -292,7 +306,7 @@ def get_weightfilename(options, step, prefix):
     return get_dumpfilename(options, step, prefix)
 
 
-def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
+def writeSUMOConf(sumoBinary, step, options, additional_args, route_files, scale=None):
     cfgfile = "%03i/iteration_%03i.sumocfg" % (step, step)
     add = [EDGEDATA_ADD]
     if options.additional != '':
@@ -339,7 +353,7 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
         sumoCmd += ['--end', options.end]
 
     if hasattr(options, "incBase") and options.incBase > 0:
-        sumoCmd += ['--scale', get_scale(options, step)]
+        sumoCmd += ['--scale', get_scale(options, step) if scale is None else scale]
     if options.mesosim:
         sumoCmd += ['--mesosim',
                     '--meso-recheck', options.meso_recheck]
@@ -555,6 +569,9 @@ def main(args=None):
     log = open(options.dualog, "w+")
     if options.zip:
         print("Warning: Option -7/--zip is deprecated and has no effect.", file=sys.stderr)
+    if options.incBase > 0 and options.maxTeleportRatio >= 0 and options.noSummary:
+        print("Warning: Enabling summary output because --max-teleport-ratio is active.", file=sys.stderr)
+        options.noSummary = False
     starttime = datetime.now()
     if options.trips:
         input_demands = options.trips.split(",")
@@ -569,13 +586,20 @@ def main(args=None):
     if options.gzip:
         routesSuffix += ".gz"
 
-    if options.weightmemory and options.firstStep != 0:
-        # load previous dump files when continuing a run
-        print(">> Reassembling cost-memory from previous iteration steps")
+    scaleStep = 0
+    if options.firstStep != 0:
+        if options.weightmemory:
+            # load previous dump files when continuing a run
+            print(">> Reassembling cost-memory from previous iteration steps")
         for step in range(0, options.firstStep):
-            dumpfile = get_dumpfilename(options, step, "dump")
-            print(">>> Loading %s" % dumpfile)
-            costmemory.load_costs(dumpfile, step, get_scale(options, step))
+            currentScale = get_scale(options, scaleStep)
+            if options.weightmemory:
+                dumpfile = get_dumpfilename(options, step, "dump")
+                print(">>> Loading %s" % dumpfile)
+                costmemory.load_costs(dumpfile, step, currentScale)
+            if (options.incBase <= 0 or options.maxTeleportRatio < 0
+                    or get_teleport_ratio(step) <= options.maxTeleportRatio):
+                scaleStep += 1
 
     # generate edgedata.add.xml
     generateEdgedataAddFile(EDGEDATA_ADD, options)
@@ -583,6 +607,7 @@ def main(args=None):
     avgTT = sumolib.miscutils.Statistics()
     ret = 0
     for step in range(options.firstStep, options.lastStep):
+        currentScale = get_scale(options, scaleStep)
         current_directory = os.getcwd()
         final_directory = os.path.join(current_directory, "%03i" % step)
         if not os.path.exists(final_directory):
@@ -630,7 +655,7 @@ def main(args=None):
         btime = datetime.now()
         print(">>> Begin time: %s" % btime)
         sumocfg = writeSUMOConf(sumoBinary, step, options, sumo_args,
-                                ",".join(simulation_demands))  # todo: change 'grou.xml'
+                                ",".join(simulation_demands), scale=currentScale)  # todo: change 'grou.xml'
         log.flush()
         sys.stdout.flush()
         ret = call([sumoBinary, "-c", sumocfg], log)
@@ -645,13 +670,23 @@ def main(args=None):
 
         if options.weightmemory:
             print(">> Smoothing edge weights")
-            costmemory.load_costs(get_dumpfilename(options, step, "dump"), step, get_scale(options, step))
+            costmemory.load_costs(get_dumpfilename(options, step, "dump"), step, currentScale)
             costmemory.write_costs(get_weightfilename(options, step, "dump"))
             print(">>> Updated %s edges" % costmemory.loaded())
             print(">>> Decayed %s unseen edges" % costmemory.decayed())
             print(">>> Error avg:%.12g mean:%.12g" % (costmemory.avg_error(), costmemory.mean_error()))
             print(">>> Absolute Error avg:%.12g mean:%.12g" %
                   (costmemory.avg_abs_error(), costmemory.mean_abs_error()))
+
+        if options.incBase > 0 and options.maxTeleportRatio >= 0:
+            teleportRatio = get_teleport_ratio(step)
+            if teleportRatio > options.maxTeleportRatio:
+                print("< Keeping scale at %s (teleport ratio %.4f > %.4f)" % (
+                    currentScale, teleportRatio, options.maxTeleportRatio))
+            else:
+                scaleStep += 1
+        else:
+            scaleStep += 1
 
         converged = False
         if options.convDev:
