@@ -288,6 +288,12 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 #endif
             break;
         }
+        case SUMO_TAG_CCH_METRIC: {
+#ifdef HAVE_FOX
+            MSRoutingEngine::loadCCHMetric(attrs);
+#endif
+            break;
+        }
         case SUMO_TAG_DELAY: {
             if (myVCAttrs != nullptr) {
                 delete myVCAttrs;
