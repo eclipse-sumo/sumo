@@ -141,6 +141,8 @@ title: ChangeLog
 
 ### Miscellaneous
 
+- Fixed file output compilation when zlib support is disabled.
+
 - Fixed VISSIM import documentation language #6082
 - Fixed gprof/profiling build so that it generates profiling output again with newer compilers #18386
 - SUMOLibraries should now be downloaded as a released zip instead of doing git clone #18331

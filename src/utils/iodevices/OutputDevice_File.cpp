@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include <iostream>
+#include <fstream>
 #include <cstring>
 #include <cerrno>
 #ifdef HAVE_ZLIB
@@ -64,8 +65,6 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool bin
             throw IOError("Could not build output file '" + fullName + "' (" + e.what() + ").");
         }
     }
-#else
-    UNUSED_PARAMETER(compressed);
 #endif
     if (myFileStream == nullptr) {
         myFileStream = new std::ofstream(localName.c_str(), mode);
