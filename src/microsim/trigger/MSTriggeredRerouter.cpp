@@ -778,30 +778,39 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                 }
 
             }
-        } else {
+        } else if (!rerouteDef->isVia) {
             // person rerouting here
-            MSTransportableRouter& router = hasReroutingDevice
-                                            ? MSRoutingEngine::getIntermodalRouterTT(tObject.getRNGIndex(), prohibited)
-                                            : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, prohibited);
-            const bool success = router.compute(tObject.getEdge(), newEdge, tObject.getPositionOnLane(), "",
-                                                rerouteDef->isVia ? newEdge->getLength() / 2. : tObject.getParameter().arrivalPos, "",
-                                                tObject.getMaxSpeed(), nullptr, tObject.getVTypeParameter(), 0, now, items);
-            if (!rerouteDef->isVia) {
+            // reroute the current walk to its own destination (its last edge, arrival position and stop, which
+            // replaceWalk keeps), replace it once with the complete edge list and keep it as it is when there is no
+            // route. Routing to the destination of the whole plan gives walks that skip the later stages (#18595)
+            MSTransportable& person = static_cast<MSTransportable&>(tObject);
+            const MSStage* const stage = person.getCurrentStage();
+            if (stage != nullptr && stage->getStageType() == MSStageType::WALKING && stage->getDestination() != nullptr) {
+                MSTransportableRouter& router = hasReroutingDevice
+                                                ? MSRoutingEngine::getIntermodalRouterTT(tObject.getRNGIndex(), prohibited)
+                                                : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, prohibited);
+                const bool success = router.compute(tObject.getEdge(), stage->getDestination(), tObject.getPositionOnLane(), "",
+                                                    stage->getArrivalPos(), "",
+                                                    tObject.getMaxSpeed(), nullptr, tObject.getVTypeParameter(), 0, now, items);
                 if (success) {
                     for (const MSTransportableRouter::TripItem& it : items) {
                         if (!it.edges.empty() && !edges.empty() && edges.back() == it.edges.front()) {
                             edges.pop_back();
                         }
-                        edges.insert(edges.end(), std::make_move_iterator(it.edges.begin()), std::make_move_iterator(it.edges.end()));
-                        if (!edges.empty()) {
-                            static_cast<MSPerson&>(tObject).replaceWalk(edges, tObject.getPositionOnLane(), 0, 1);
-                        }
+                        edges.insert(edges.end(), it.edges.begin(), it.edges.end());
                     }
-                } else {
-                    // maybe the pedestrian model still finds a way (JuPedSim)
-                    static_cast<MSPerson&>(tObject).replaceWalk({tObject.getEdge(), newEdge}, tObject.getPositionOnLane(), 0, 1);
+                    if (!edges.empty()) {
+                        static_cast<MSPerson&>(tObject).replaceWalk(edges, tObject.getPositionOnLane(), 0, 1);
+                    }
                 }
             }
+        } else {
+            // person rerouting here
+            MSTransportableRouter& router = hasReroutingDevice
+                                            ? MSRoutingEngine::getIntermodalRouterTT(tObject.getRNGIndex(), prohibited)
+                                            : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, prohibited);
+            router.compute(tObject.getEdge(), newEdge, tObject.getPositionOnLane(), "", newEdge->getLength() / 2., "",
+                           tObject.getMaxSpeed(), nullptr, tObject.getVTypeParameter(), 0, now, items);
         }
         if (!prohibited.empty()) {
             resetClosedEdges(hasReroutingDevice, tObject);
