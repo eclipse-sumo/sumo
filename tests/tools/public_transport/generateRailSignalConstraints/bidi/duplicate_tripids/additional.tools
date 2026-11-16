@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-16 22:39:48.981682 by Eclipse SUMO generateRailSignalConstraints.py v1_28_0+0605-d3e9dcde4dd
+<configuration>
+    <net-file value="net.net.xml"/>
+    <additional-file value="input_additional.add.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+    <output-file value="out.add.xml"/>
+    <bidi-conflicts value="True"/>
+    <comment.all value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <railSignalConstraints id="A">
+        <foeInsertion tripId="t0" tl="A" foes="t0"/>   <!-- busStop=a arrival=00:04:20 foeArrival=00:00:30  -->
+        <bidiPredecessor tripId="t0" tl="J1" foes="t1"/>   <!-- busStop=f busStop2=-a2 priorStop=a priorStop2=-f2 arrival=00:02:05 foeArrival=00:01:24 stopArrival=00:02:20 foeStopArrival=00:01:40 -->
+    </railSignalConstraints>
+</additional>
