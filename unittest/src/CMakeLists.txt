@@ -4,6 +4,7 @@ function(setTestProperties targetname)
     add_dependencies(${targetname} install_dll install_test_dll)
     set_property(TARGET ${targetname} PROPERTY FOLDER "test_exe")
     add_test(${targetname} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${targetname})
+    set_tests_properties(${targetname} PROPERTIES TIMEOUT 60)
     target_link_libraries(${targetname} ${ARGN} ${commonlibs} ${TCMALLOC_LIBRARY} ${GTEST_BOTH_LIBRARIES})
 endfunction()
 

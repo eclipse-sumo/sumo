@@ -20,8 +20,15 @@
 #include <config.h>
 
 #ifdef HAVE_FMT
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4868) // mask warning about left-to-right evaluation order
+#endif
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #endif
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>

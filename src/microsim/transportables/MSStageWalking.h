@@ -68,7 +68,7 @@ public:
     MSStage* clone() const;
 
     /// proceeds to the next step
-    virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous);
+    virtual bool proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous);
 
     /// abort this stage (TraCI)
     void abort(MSTransportable*);

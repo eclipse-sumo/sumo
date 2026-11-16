@@ -28,8 +28,15 @@
 #include <algorithm>
 #include <list>
 #ifdef HAVE_FMT
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4868) // mask warning about left-to-right evaluation order
+#endif
 #include <fmt/format.h>
 #include <fmt/ranges.h>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #endif
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -408,6 +415,17 @@ inline std::string toString(const std::set<V*, ComparatorNumericalIdLess>& v, st
         ids.push_back((*it)->getID());
     }
     return joinToStringSorting(ids, " ");
+}
+
+
+template <typename V>
+inline std::string toString(const std::set<V*, ComparatorIdLess>& v, std::streamsize accuracy = gPrecision) {
+    UNUSED_PARAMETER(accuracy);
+    std::vector<std::string> ids;
+    for (typename std::set<V*, ComparatorIdLess>::const_iterator it = v.begin(); it != v.end(); ++it) {
+        ids.push_back((*it)->getID());
+    }
+    return joinToString(ids, " ");
 }
 
 

@@ -1,0 +1,9 @@
+<routes>
+    <vType id="car" speedDev="0" sigma="0"/>
+    <!-- marks the edges as delayed so that their speeds are adapted -->
+    <vehicle id="seed" type="car" depart="0" departSpeed="max">
+        <route edges="beg beg2right right right2end end"/>
+    </vehicle>
+    <!-- all probes inserted after 200 should take the route via left -->
+    <flow id="probe" type="car" begin="170" end="260" period="2" from="beg" to="end" departSpeed="max"/>
+</routes>

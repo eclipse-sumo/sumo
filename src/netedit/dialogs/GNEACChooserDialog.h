@@ -71,7 +71,7 @@ private:
     GNEViewParent* myViewParent;
 
     /// @brief list of displayed ACs
-    std::vector<GNEAttributeCarrier*> myACs;
+    std::unordered_set<GNEAttributeCarrier*> myACs;
 
     /// @brief list of filtered ACs
     std::vector<GNEAttributeCarrier*> myFilteredACs;

@@ -238,6 +238,7 @@ class Routes:
     def __init__(self, routefiles, keepStops, rng):
         self.rng = rng
         self.all = []
+        self.departs = []
         self.edgeProbs = defaultdict(zero)
         self.edgeIDs = {}
         self.withProb = 0
@@ -246,6 +247,15 @@ class Routes:
         self.namedRoutes = {}  # id -> index in all
         self.namedRouteStops = {}  # id -> stops
         self.vTypes = []
+
+        def addEntry(edges, attrs, depart, prob, stops):
+            self.all.append(edges)
+            self.vehAttrs.append(attrs)
+            self.departs.append(depart)
+            self.edgeProbs[edges] += prob
+            if keepStops and stops:
+                self.routeStops[edges].append(stops)
+
         for routefile in routefiles:
             warned = False
             # not all routes may have specified probability, in this case use their number of occurrences
@@ -253,12 +263,12 @@ class Routes:
                 edges = None
                 stops = []
                 attrs = None
+                depart = None
                 prob = 1
                 if tag.name == 'route':
                     self.namedRoutes[tag.id] = len(self.all)
                     edges = tuple(tag.edges.split())
                     self.edgeIDs[edges] = tag.id
-                    self.namedRoutes[tag.id] = len(self.all)
                     if tag.stop:
                         stops = list(tag.stop)
                         self.namedRouteStops[tag.id] = stops
@@ -270,9 +280,20 @@ class Routes:
                         prob = 0
                 elif tag.name == 'vehicle' or tag.name == 'flow':
                     attrs = tuple(tag.getAttributes())
+                    if tag.hasAttribute('depart'):
+                        try:
+                            depart = parseTime(tag.depart)
+                        except ValueError:
+                            depart = None
+                    elif tag.hasAttribute('begin'):
+                        try:
+                            depart = parseTime(tag.begin)
+                        except ValueError:
+                            depart = None
+                    vehStops = list(tag.stop) if tag.stop else []
                     if tag.hasAttribute('route'):
                         edges = self.all[self.namedRoutes[tag.route]]
-                        stops = self.namedRouteStops[tag.route]
+                        stops = list(self.namedRouteStops.get(tag.route, []))
                     elif tag.hasChild('route'):
                         edges = tuple(tag.route[0].edges.split())
                         if tag.route[0].stop:
@@ -285,26 +306,38 @@ class Routes:
                                   file=sys.stderr)
                             prob = 0
                     elif tag.hasChild('routeDistribution') and tag.routeDistribution[0].hasChild('route'):
-                        for route in tag.routeDistribution[0].route:
-                            edges = tuple(route.edges.split())
-                            if route.stop:
-                                stops = list(route.stop)
+                        distRoutes = tag.routeDistribution[0].route
+                        activeIdx = (int(tag.routeDistribution[0].last)
+                                     if tag.routeDistribution[0].hasAttribute('last')
+                                     else len(distRoutes) - 1)
+                        for rIdx, route in enumerate(distRoutes):
+                            rEdges = tuple(route.edges.split())
+                            rStops = (list(route.stop) if route.stop else []) + vehStops
+                            rProb = 1
                             if route.hasAttribute("probability"):
                                 self.withProb += 1
-                                prob = float(route.probability)
-                            if prob <= 0:
+                                rProb = float(route.probability)
+                            if rProb <= 0:
                                 print("Warning: probability must be positive for route in vehicle '%s'" % tag.id,
                                       file=sys.stderr)
-                                prob = 0
+                                rProb = 0
+                            if rEdges:
+                                addEntry(rEdges, attrs, depart if rIdx == activeIdx else None, rProb, rStops)
+                        continue
                     else:
                         if not warned:
                             print("Warning: Ignoring %s in file '%s' because it does not contain edges." % (
                                 tag.name, routefile), file=sys.stderr)
                             warned = True
                         continue
-                    if tag.stop:
-                        stops += list(tag.stop)
+                    if vehStops:
+                        stops += vehStops
                 elif tag.name == 'person':
+                    if tag.hasAttribute('depart'):
+                        try:
+                            depart = parseTime(tag.depart)
+                        except ValueError:
+                            depart = None
                     if tag.walk:
                         if tag.walk[0].edges is None:
                             if not warned:
@@ -322,11 +355,7 @@ class Routes:
                     self.vTypes.append(tag)
 
                 if edges:
-                    self.all.append(edges)
-                    self.vehAttrs.append(attrs)
-                    self.edgeProbs[edges] += prob
-                    if keepStops and stops:
-                        self.routeStops[edges].append(stops)
+                    addEntry(edges, attrs, depart, prob, stops)
 
         self.unique = sorted(list(self.edgeProbs.keys()))
         self.uniqueSets = [set(edges) for edges in self.unique]
@@ -365,7 +394,7 @@ class Routes:
                 outf.write(stop.toXML(indent + ' ' * 4))
             outf.write('%s</route>\n' % indent)
 
-    def sampleAttrs(self, rng, vehID, depart, uniqueIndex):
+    def sampleAttrs(self, rng, vehID, depart, uniqueIndex, begin=None, end=None, isLast=False):
         if self.unique2all is None:
             # init once
             nUnique = len(self.unique)
@@ -381,8 +410,21 @@ class Routes:
         if not unused:
             unused.update(self.unique2all[uniqueIndex])
 
-        allIndex = rng.choice(tuple(unused))
-        unused.remove(allIndex)
+        if begin is not None:
+            intervalUnused = [idx for idx in unused if self.departs[idx] is not None
+                              and begin <= self.departs[idx]
+                              and (self.departs[idx] < end or (isLast and self.departs[idx] == end))]
+            if intervalUnused:
+                allIndex = rng.choice(tuple(intervalUnused))
+            else:
+                intervalAll = [idx for idx in self.unique2all[uniqueIndex] if self.departs[idx] is not None
+                               and begin <= self.departs[idx]
+                               and (self.departs[idx] < end or (isLast and self.departs[idx] == end))]
+                allIndex = rng.choice(tuple(intervalAll)) if intervalAll else rng.choice(tuple(unused))
+            unused.discard(allIndex)
+        else:
+            allIndex = rng.choice(tuple(unused))
+            unused.remove(allIndex)
         result = []
         duplicate = False
         origDepart = depart
@@ -402,6 +444,8 @@ class Routes:
                 origDepart = parseTime(v)
             else:
                 result.append(' %s="%s"' % (a, v))
+        if begin is not None and not (begin <= origDepart <= end):
+            duplicate = True
         return vehID, depart if duplicate else origDepart, ' '.join(result)
 
 
@@ -1045,20 +1089,25 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     routeCounts = [0] * routes.number  # hold the use-count for each route
     numSampled = 0
     if options.initInput:
-        for e in routes.all:
-            routeCounts[routes.edges2index[e]] += 1
+        isLast = getattr(options, 'totalEnd', end) == end
+        singleInterval = getattr(options, 'singleInterval', True)
+        for e, d in zip(routes.all, routes.departs):
+            if (d is None and singleInterval) or (
+                    d is not None and begin <= d and (d < end or (isLast and d == end))):
+                routeCounts[routes.edges2index[e]] += 1
         resetCounts(routeCounts, routeUsage, countData)
 
         if options.initInputRemove:
             fully_unrestricted = set([r for r, usage in enumerate(routeUsage) if len(usage) == 0])
             negateCounts(countData)
             openRoutes, openCounts = initOpen(options, routes, routeUsage, countData, fully_unrestricted)
-            routeCounts, numSampled = sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
-                                                   None, numSampled, intervalCount, routeCounts, remove=True)
-            if numSampled < 0:
-                print("  Removed %s routes from input to reduce overflow" % -numSampled)
+            routeCounts, removed = sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
+                                                None, 0, None, routeCounts, remove=True)
+            if removed < 0:
+                print("  Removed %s routes from input to reduce overflow" % -removed)
             negateCounts(countData)
 
+        numSampled = sum(routeCounts)
         openRoutes, openCounts = initOpen(options, routes, routeUsage, countData, unrestricted)
 
     if options.optimize != "full" and not options.noSampling:
@@ -1288,7 +1337,12 @@ def writeRoutes(options, rng, outf, routes, routeCounts, begin, end, intervalPre
             depart = departs[i]
             attrs = options.vehattrs
             if options.keepAttrs:
-                vehID, depart, attrs = routes.sampleAttrs(rng, vehID, depart, routeIndex)
+                singleInterval = getattr(options, 'singleInterval', True)
+                isLast = getattr(options, 'totalEnd', end) == end
+                if singleInterval:
+                    vehID, depart, attrs = routes.sampleAttrs(rng, vehID, depart, routeIndex)
+                else:
+                    vehID, depart, attrs = routes.sampleAttrs(rng, vehID, depart, routeIndex, begin, end, isLast)
             objects.append((depart, vehID, attrs, routeID, routeIndex))
         if options.keepAttrs:
             objects.sort()
@@ -1427,6 +1481,8 @@ def main(options):
     # preliminary integrity check for the whole time range
     b = intervals[0][0]
     e = intervals[-1][1]
+    options.singleInterval = len(intervals) == 1
+    options.totalEnd = e
     with Benchmarker(options.verboseTiming, "Loading counts"):
         countData = parseCounts(options, routes, b, e, True, 1.0)
     routeUsage = getRouteUsage(routes, countData)

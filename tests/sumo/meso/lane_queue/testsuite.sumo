@@ -21,3 +21,6 @@ laneData
 
 # two lanes in a simple net with lane queues	
 laneData_different_speeds
+
+# choosing lane queues by the next edge before the last segment
+lookahead

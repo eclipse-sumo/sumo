@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-02T20:56:25.431056+01:00 by Eclipse SUMO netedit v1_28_0+0397-c5628bf7102
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="v_0" type="DEFAULT_RAILTYPE" depart="0.00">
+        <route edges="60890969 267180596 267180594 22894425 1013846514 22894426 1013846515 154782250 1013846485 778115307 -778115307 -1013846485 -154782250 -1013846515 -22894426 -1013846514 -22894425 -267180594 -267180596 -60890969"/>
+        <stop trainStop="3203815215.3.reversed" duration="60.00"/>
+    </vehicle>
+</routes>

@@ -1,0 +1,8 @@
+<routes>
+    <!-- begin 55 s: inside phase 1's window 51-67 -->
+    <vType id="car" sigma="0"/>
+    <!-- TS2 lag window: start 44 + 7 = 51, force-off 67; begin at 55, call at begin -->
+    <vehicle id="lag1_at_begin" type="car" depart="55" departLane="1" departPos="245" departSpeed="0">
+        <route edges="1si 4o"/>
+    </vehicle>
+</routes>

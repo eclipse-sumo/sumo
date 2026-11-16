@@ -150,8 +150,8 @@ public:
     /// @brief return string summary of the current stage
     virtual std::string getStageSummary(const bool isPerson) const = 0;
 
-    /// proceeds to this stage
-    virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous) = 0;
+    /// proceeds to this stage and return True if everything is fine. May return false if the person is unable to proceed in this stage
+    virtual bool proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous) = 0;
 
     /// abort this stage (TraCI)
     virtual void abort(MSTransportable*) {};

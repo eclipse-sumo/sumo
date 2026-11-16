@@ -1,0 +1,1 @@
+Warning: At NEMA tlLogic '0', barrierPhases or barrier2Phases name a phase that is not the last on its side of the barrier. Ring order decides which phase ends at the barrier, while these parameters still choose the default phase entered after a crossing.

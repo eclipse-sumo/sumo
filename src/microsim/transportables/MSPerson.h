@@ -77,7 +77,7 @@ public:
         MSStage* clone() const;
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous);
+        virtual bool proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous);
 
         /// @brief returns the stage description as a string
         std::string getStageDescription(const bool isPerson) const;

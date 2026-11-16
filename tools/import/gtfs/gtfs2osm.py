@@ -381,7 +381,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                               for stop in stop_list.itertuples()
                               if stop.edge_id in edges_list]
 
-                if len(stop_index) < options.min_stops:
+                if len(stop_index) < options.minStops:
                     # Not enough stops mapped
                     continue
 

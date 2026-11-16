@@ -3760,8 +3760,10 @@ MSLane::saveState(OutputDevice& out) {
     const bool toRailJunction = myLinks.size() > 0 && (
                                     myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL
                                     || myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_CROSSING);
+    // foes on the junction are judged by the approach information of the previous step
+    const bool saveApproaching = toRailJunction || isInternal();
     const bool hasVehicles = myVehicles.size() > 0;
-    if (hasVehicles || (toRailJunction && hasApproaching())) {
+    if (hasVehicles || (saveApproaching && hasApproaching())) {
         out.openTag(SUMO_TAG_LANE);
         out.writeAttr(SUMO_ATTR_ID, getID());
         if (hasVehicles) {
@@ -3769,7 +3771,7 @@ MSLane::saveState(OutputDevice& out) {
             out.writeAttr(SUMO_ATTR_VALUE, myVehicles);
             out.closeTag();
         }
-        if (toRailJunction) {
+        if (saveApproaching) {
             for (const MSLink* link : myLinks) {
                 if (link->getApproaching().size() > 0) {
                     out.openTag(SUMO_TAG_LINK);
@@ -4600,9 +4602,11 @@ MSLane::initCollisionOptions(const OptionsCont& oc) {
 
 void
 MSLane::setPermissions(SVCPermissions permissions, long long transientID) {
+    const SVCPermissions oldPermissions = myPermissions;
     if (transientID == CHANGE_PERMISSIONS_PERMANENT) {
         myPermissions = permissions;
         myOriginalPermissions = permissions;
+        updateInternalLanePermissions(oldPermissions);
     } else {
         myPermissionChanges[transientID] = permissions;
         resetPermissions(CHANGE_PERMISSIONS_PERMANENT);
@@ -4612,6 +4616,7 @@ MSLane::setPermissions(SVCPermissions permissions, long long transientID) {
 
 void
 MSLane::resetPermissions(long long transientID) {
+    const SVCPermissions oldPermissions = myPermissions;
     myPermissionChanges.erase(transientID);
     if (myPermissionChanges.empty()) {
         myPermissions = myOriginalPermissions;
@@ -4620,6 +4625,24 @@ MSLane::resetPermissions(long long transientID) {
         myPermissions = SVCAll;
         for (const auto& item : myPermissionChanges) {
             myPermissions &= item.second;
+        }
+    }
+    updateInternalLanePermissions(oldPermissions);
+}
+
+
+void
+MSLane::updateInternalLanePermissions(SVCPermissions oldPermissions) {
+    if (isInternal()) {
+        return;
+    }
+    for (MSLink* const link : getLinkCont()) {
+        MSLane* const internal = link->getViaLane();
+        // only update internal lanes that mirror the permissions of this lane;
+        // lanes with connection-specific permissions are left untouched
+        if (internal != nullptr && internal->getPermissions() == oldPermissions) {
+            internal->setPermissions(myPermissions, CHANGE_PERMISSIONS_PERMANENT);
+            internal->getEdge().rebuildAllowedLanes(false, false);
         }
     }
 }

@@ -172,6 +172,12 @@ Vehicle::getLanePosition(const std::string& vehID) {
     return Dom::getDouble(libsumo::VAR_LANEPOSITION, vehID);
 }
 
+
+double
+Vehicle::getArrivalPos(const std::string& vehID) {
+    return Dom::getDouble(libsumo::VAR_ARRIVALPOS, vehID);
+}
+
 double
 Vehicle::getLateralLanePosition(const std::string& vehID) {
     return Dom::getDouble(libsumo::VAR_LANEPOSITION_LAT, vehID);
@@ -854,9 +860,15 @@ Vehicle::add(const std::string& vehID,
              const std::string& toTaz,
              const std::string& line,
              int personCapacity,
-             int personNumber) {
+             int personNumber,
+             const std::string& departPosLat,
+             const std::string& arrivalPosLat,
+             double speedFactor,
+             const std::string& insertionChecks) {
     tcpip::Storage content;
-    StoHelp::writeCompound(content, 14);
+    const bool withOptional = !departPosLat.empty() || !arrivalPosLat.empty()
+                              || speedFactor != -1. || !insertionChecks.empty();
+    StoHelp::writeCompound(content, withOptional ? 18 : 14);
     StoHelp::writeTypedString(content, routeID);
     StoHelp::writeTypedString(content, typeID);
     StoHelp::writeTypedString(content, depart);
@@ -874,6 +886,13 @@ Vehicle::add(const std::string& vehID,
 
     StoHelp::writeTypedInt(content, personCapacity);
     StoHelp::writeTypedInt(content, personNumber);
+
+    if (withOptional) {
+        StoHelp::writeTypedString(content, departPosLat);
+        StoHelp::writeTypedString(content, arrivalPosLat);
+        StoHelp::writeTypedDouble(content, speedFactor);
+        StoHelp::writeTypedString(content, insertionChecks);
+    }
 
     Dom::set(libsumo::ADD_FULL, vehID, &content);
 }

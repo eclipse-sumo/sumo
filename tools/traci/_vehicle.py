@@ -415,6 +415,13 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_LANEPOSITION, vehID)
 
+    def getArrivalPos(self, vehID):
+        """getArrivalPos(string) -> double
+
+        The position at which the vehicle will arrive on the last edge of its route in m.
+        """
+        return self._getUniversal(tc.VAR_ARRIVALPOS, vehID)
+
     def getCO2Emission(self, vehID):
         """getCO2Emission(string) -> double
 
@@ -1455,7 +1462,8 @@ class VehicleDomain(VTypeDomain):
     def add(self, vehID, routeID, typeID="DEFAULT_VEHTYPE", depart="now",
             departLane="first", departPos="base", departSpeed="0",
             arrivalLane="current", arrivalPos="max", arrivalSpeed="current",
-            fromTaz="", toTaz="", line="", personCapacity=0, personNumber=0):
+            fromTaz="", toTaz="", line="", personCapacity=0, personNumber=0,
+            departPosLat="", arrivalPosLat="", speedFactor=-1, insertionChecks=""):
         """
         Add a new vehicle (new style with all possible parameters)
         If routeID is "", the vehicle will be inserted on a random network edge
@@ -1465,9 +1473,19 @@ class VehicleDomain(VTypeDomain):
         if depart is None:
             # legacy compatibility
             depart = str(self._connection.simulation.getTime())
-        self._setCmd(tc.ADD_FULL, vehID, "t" + (12 * "s") + "ii", 14,
-                     routeID, typeID, depart, departLane, departPos, departSpeed,
-                     arrivalLane, arrivalPos, arrivalSpeed, fromTaz, toTaz, line, personCapacity, personNumber)
+        withOptional = (departPosLat != "" or arrivalPosLat != ""
+                        or speedFactor != -1 or insertionChecks != "")
+        if withOptional:
+            self._setCmd(tc.ADD_FULL, vehID, "t" + (12 * "s") + "ii" + "ss" + "d" + "s", 18,
+                         routeID, typeID, depart, departLane, departPos, departSpeed,
+                         arrivalLane, arrivalPos, arrivalSpeed, fromTaz, toTaz, line,
+                         personCapacity, personNumber, departPosLat, arrivalPosLat,
+                         speedFactor, insertionChecks)
+        else:
+            self._setCmd(tc.ADD_FULL, vehID, "t" + (12 * "s") + "ii", 14,
+                         routeID, typeID, depart, departLane, departPos, departSpeed,
+                         arrivalLane, arrivalPos, arrivalSpeed, fromTaz, toTaz, line,
+                         personCapacity, personNumber)
 
     addFull = add
 

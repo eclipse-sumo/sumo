@@ -2852,12 +2852,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                       << "' is " << laneStopOffset << " (-> stopDist=" << stopDist << ")" << std::endl;
         }
 #endif
-        if (isRail()
-                && !lane->isInternal()) {
+        if (isRail() && !lane->isInternal()) {
             // check for train direction reversal
             if (lane->getBidiLane() != nullptr
                     && (*link)->getLane()->getBidiLane() == lane) {
-                double vMustReverse = getCarFollowModel().stopSpeed(this, getSpeed(), seen - POSITION_EPS);
+                double vMustReverse = getCarFollowModel().stopSpeed(this, getSpeed(), seen - NUMERICAL_EPS);
                 if (seen < 1) {
                     mustSeeBeforeReversal = 2 * seen + getLength();
                 }
@@ -2869,14 +2868,17 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                                 && seen > SPEED2DIST(v));
         }
 
-        bool canReverseEventually = false;
-        const double vReverse = checkReversal(canReverseEventually, laneMaxV, seen);
-        v = MIN2(v, vReverse);
+        if (!planningToStop) {
+            // no need to slow down for reversal if we are alrady slowing down for a stop
+            bool canReverseEventually = false;
+            const double vReverse = checkReversal(canReverseEventually, laneMaxV, seen);
+            v = MIN2(v, vReverse);
 #ifdef DEBUG_PLAN_MOVE
-        if (DEBUG_COND) {
-            std::cout << SIMTIME << " veh=" << getID() << " canReverseEventually=" << canReverseEventually << " v=" << v << "\n";
-        }
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " veh=" << getID() << " canReverseEventually=" << canReverseEventually << " v=" << v << "\n";
+            }
 #endif
+        }
 
         // check whether we need to slow down in order to finish a continuous lane change
         if (myLaneChangeModel->isChangingLanes()) {
@@ -5733,6 +5735,7 @@ MSVehicle::computeFurtherLanes(MSLane* enteredLane, double pos, bool collision) 
         MSLane* clane = enteredLane;
         int routeIndex = getRoutePosition();
         while (leftLength > 0) {
+            bool guessed = false;
             if (routeIndex > 0 && clane->getEdge().isNormal()) {
                 // get predecessor lane that corresponds to prior route
                 routeIndex--;
@@ -5746,10 +5749,12 @@ MSVehicle::computeFurtherLanes(MSLane* enteredLane, double pos, bool collision) 
                     }
                 }
             } else {
+                // only the predecessor of a normal lane is a guess
+                guessed = clane->getEdge().isNormal();
                 clane = clane->getLogicalPredecessorLane();
             }
             if (clane == nullptr || clane == myLane || clane == myLane->getBidiLane()
-                    || (clane->isInternal() && (
+                    || (guessed && clane->isInternal() && (
                             clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN
                             || clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN_LEFTHAND))) {
                 break;

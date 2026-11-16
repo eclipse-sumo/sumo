@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-19T17:27:57.568378+01:00 by Eclipse SUMO sumo v1_28_0+0141-b852030622e
+<!-- generated on 2026-10-21T21:28:08.838855+01:00 by Eclipse SUMO sumo v1_28_0+0168-6edec047c3b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -35,7 +35,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_28_0+0141-b852030622e" count="20" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_28_0+0168-6edec047c3b" count="20" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="0" insertionControl="30" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -109,15 +109,15 @@
     <delay number="3" begin="21" end="3" depart="90.00" time="90.00" speedFactor="1.00" decel="4.50"/>
     <vType id="t0" sigma="0"/>
     <vehicle id="flowNumber.1" type="t0" depart="8.00" route="r0" distance="207 0" speedFactor="1.0000" state="2146 25000 2 0 0 0 54487 47288 9223372036854774807 0 0 0 18 54487">
-        <device id="tripinfo_flowNumber.1" state="beg_0 0.887199 207 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+        <device id="tripinfo_flowNumber.1" state="beg_0 0.887199 207 0 0 0 0 -1 -1000 NONE -1 0 -1 890"/>
     </vehicle>
     <vehicle id="flowFromTo.1" type="t0" depart="10.00" route="!flowFromTo.1!var#1" distance="7 1" speedFactor="1.0000" reroute="1" state="262242 33000 1 0 1 0 55918 48719 9223372036854774807 0 0 0 19 55918">
-        <device id="tripinfo_flowFromTo.1" state="beg_0 0.821596 7 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+        <device id="tripinfo_flowFromTo.1" state="beg_0 0.821596 7 0 0 0 0 -1 -1000 NONE -1 0 -1 1520"/>
         <device id="routing_flowFromTo.1" state="0 16000"/>
         <rem id="tripinfo_flowFromTo.1" time="48719" pos="100.00"/>
     </vehicle>
     <vehicle id="flowPeriod.1" type="t0" depart="10.00" route="r0" distance="0 0" speedFactor="1.0000" state="2146 42000 0 0 0 0 50150 42000 9223372036854774807 0 0 0 17 50150">
-        <device id="tripinfo_flowPeriod.1" state="beg_0 0.858896 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+        <device id="tripinfo_flowPeriod.1" state="beg_0 0.858896 -0 0 0 0 0 -1 -1000 NONE -1 0 -1 0"/>
     </vehicle>
     <vehicle id="flowPeriod.2" type="t0" depart="15.00" route="r0" distance="0 0" speedFactor="1.0000" state="2146 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0 0 -1 -9223372036854775808">
         <device id="tripinfo_flowPeriod.2"/>

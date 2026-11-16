@@ -1,0 +1,6 @@
+--vehroute-output.sorted --no-step-log --no-duration-log
+--net-file=net.net.xml
+--vehroute-output.intended-depart
+--personroute-output personroutes.xml
+--ignore-route-errors
+-r input_routes.rou.xml

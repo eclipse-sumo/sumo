@@ -39,6 +39,7 @@ case "$ID" in
         export DEBIAN_FRONTEND=noninteractive
         apt-get -qq update
         apt-get -y install curl $(cat $SCRIPT_DIR/build_req_deb.txt)
+        apt-get install -y libboost-process-dev || true
         # Adding parquet support libraries
         curl -LOs https://packages.apache.org/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
         apt-get -y install ./apache-arrow-apt-source-latest-*.deb

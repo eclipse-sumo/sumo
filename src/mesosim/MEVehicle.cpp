@@ -465,13 +465,13 @@ MEVehicle::endTriggeredStop() {
 }
 
 
-bool
+int
 MEVehicle::mayProceed() {
     if (mySegment == nullptr) {
-        return true;
+        return MESegment::PROCEED_YES;
     }
     if (!endTriggeredStop()) {
-        return false;
+        return MESegment::PROCEED_NO | MESegment::PROCEED_NO_STOP;
     }
     return mySegment->isOpen(this);
 }

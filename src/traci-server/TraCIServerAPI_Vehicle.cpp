@@ -470,7 +470,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             break;
             case libsumo::ADD_FULL: {
-                StoHelp::readCompound(inputStorage, 14, "Adding a fully specified vehicle needs fourteen parameters.");
+                const int numElements = StoHelp::readCompound(inputStorage, -1, "Adding a fully specified vehicle needs fourteen to eighteen parameters.");
+                if (numElements < 14 || numElements > 18) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Adding a fully specified vehicle needs fourteen to eighteen parameters.", outputStorage);
+                }
                 const std::string routeID = StoHelp::readTypedString(inputStorage, "First parameter (route) requires a string.");
                 const std::string vTypeID = StoHelp::readTypedString(inputStorage, "Second parameter (type) requires a string.");
                 const std::string depart = StoHelp::readTypedString(inputStorage, "Third parameter (depart) requires an string.");
@@ -485,8 +488,25 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 const std::string line = StoHelp::readTypedString(inputStorage, "Twelth parameter (line) requires a string.");
                 const int personCapacity = StoHelp::readTypedInt(inputStorage, "13th parameter (person capacity) requires an int.");
                 const int personNumber = StoHelp::readTypedInt(inputStorage, "14th parameter (person number) requires an int.");
+                std::string departPosLat;
+                std::string arrivalPosLat;
+                double speedFactor = -1.;
+                std::string insertionChecks;
+                if (numElements >= 15) {
+                    departPosLat = StoHelp::readTypedString(inputStorage, "15th parameter (depart position lat) requires a string.");
+                }
+                if (numElements >= 16) {
+                    arrivalPosLat = StoHelp::readTypedString(inputStorage, "16th parameter (arrival position lat) requires a string.");
+                }
+                if (numElements >= 17) {
+                    speedFactor = StoHelp::readTypedDouble(inputStorage, "17th parameter (speed factor) requires a double.");
+                }
+                if (numElements >= 18) {
+                    insertionChecks = StoHelp::readTypedString(inputStorage, "18th parameter (insertion checks) requires a string.");
+                }
                 libsumo::Vehicle::add(id, routeID, vTypeID, depart, departLane, departPos, departSpeed, arrivalLane, arrivalPos, arrivalSpeed,
-                                      fromTaz, toTaz, line, personCapacity, personNumber);
+                                      fromTaz, toTaz, line, personCapacity, personNumber,
+                                      departPosLat, arrivalPosLat, speedFactor, insertionChecks);
             }
             break;
             case libsumo::REMOVE: {

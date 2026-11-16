@@ -1,0 +1,3 @@
+--meso-lane-queue --no-step-log --duration-log.statistics --net-file=net3.net.xml --routes=input_routes3.rou.xml
+--edgedata-output aggregated.xml --end 4000
+--meso-lookahead 1500

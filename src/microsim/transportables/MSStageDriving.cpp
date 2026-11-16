@@ -222,7 +222,7 @@ MSStageDriving::getStageSummary(const bool isPerson) const {
 }
 
 
-void
+bool
 MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous) {
     myOriginStop = (previous->getStageType() == MSStageType::TRIP
                     ? previous->getOriginStop()
@@ -263,7 +263,7 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
         myStopWaitPos = Position::INVALID;
         myWaitingPos = previous->getEdgePos(now);
         myVehicle->addTransportable(transportable);
-        return;
+        return true;
     }
     if (myOriginStop != nullptr) {
         // the arrival stop may have an access point
@@ -296,6 +296,7 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
     } else {
         registerWaiting(transportable, now);
     }
+    return true;
 }
 
 

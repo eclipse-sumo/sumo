@@ -1,2 +1,5 @@
 [run_dependent_text]
 errors:FutureWarning:{LINES 2}
+errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
+errors:dateutil/tz/tz.py:.*: DeprecationWarning: datetime.datetime.utcfromtimestamp{LINES 2}
+errors:site-packages/ortools.*DeprecationWarning:

@@ -382,6 +382,9 @@ protected:
     osg::ref_ptr<osg::Camera> myHUD;
     osg::ref_ptr<osg::Geode> myTextNode;
     osg::ref_ptr<osgText::Text> myText;
+    /// @brief hint shown in the bottom right corner while in full screen mode
+    osg::ref_ptr<osg::Geode> myFullScreenTextNode;
+    osg::ref_ptr<osgText::Text> myFullScreenText;
 
 private:
     GUIVehicle* myTracked;
@@ -399,6 +402,9 @@ private:
     osg::ref_ptr<osg::Node> myRedYellowLight;
     osg::ref_ptr<osg::Node> myPoleBase;
     osg::ref_ptr<osg::Node> myPlaneTransform;
+
+    /// @brief whether the last press of key 'f' was passed to OSG (to switch the camera mode)
+    bool myCameraModeKeyPressed = false;
 };
 
 #endif

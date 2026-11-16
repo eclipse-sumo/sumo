@@ -47,3 +47,6 @@ ticket15751
 
 # problems with tls-penalty and short tls edges
 ticket16014
+
+# too early entry into resolving queue
+ticket18388

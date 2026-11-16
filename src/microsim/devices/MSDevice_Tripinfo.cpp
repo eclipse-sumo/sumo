@@ -36,7 +36,7 @@
 #include "MSDevice_Tripinfo.h"
 
 #define NOT_ARRIVED TIME2STEPS(-1)
-#define STATE_EMPTY_ARRIVALLANE "NONE"
+#define STATE_EMPTY_LANE "NONE"
 
 
 // ===========================================================================
@@ -283,7 +283,7 @@ MSDevice_Tripinfo::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
         // @note vehicle may have moved past its arrivalPos during the last step
         // due to non-zero arrivalspeed but we consider it as arrived at the desired position
         // However, vaporization may happen anywhere (via TraCI)
-        if (reason > MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED) {
+        if (reason > MSMoveReminder::NOTIFICATION_TELEPORT_CONTINUATION_ARRIVED) {
             // vaporized
             myArrivalPos = veh.getPositionOnLane();
         } else {
@@ -393,6 +393,7 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
             vaporized = "traci";
             break;
         case MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED:
+        case MSMoveReminder::NOTIFICATION_TELEPORT_CONTINUATION_ARRIVED:
             vaporized = "teleport";
             break;
         default:
@@ -926,14 +927,18 @@ MSDevice_Tripinfo::saveState(OutputDevice& out) const {
     out.writeAttr(SUMO_ATTR_ID, getID());
     if (myHolder.hasDeparted()) {
         std::ostringstream internals;
-        internals << myDepartLane << " ";
+        // the depart lane is empty if the device was added when loading state
+        internals << (myDepartLane == "" ? STATE_EMPTY_LANE : myDepartLane) << " ";
         if (!MSGlobals::gUseMesoSim) {
             internals << myDepartPosLat << " ";
         }
-        std::string state_arrivalLane = myArrivalLane == "" ? STATE_EMPTY_ARRIVALLANE : myArrivalLane;
+        std::string state_arrivalLane = myArrivalLane == "" ? STATE_EMPTY_LANE : myArrivalLane;
         internals << myDepartSpeed << " " << myRouteLength << " " << myWaitingTime << " " << myAmWaiting << " " << myWaitingCount << " ";
         internals << myStoppingTime << " " << myParkingStarted << " ";
         internals << myArrivalTime << " " << state_arrivalLane << " " << myArrivalPos << " " << myArrivalPosLat << " " << myArrivalSpeed;
+        if (MSGlobals::gUseMesoSim) {
+            internals << " " << myMesoTimeLoss;
+        }
         out.writeAttr(SUMO_ATTR_STATE, internals.str());
     }
     out.closeTag();
@@ -951,7 +956,13 @@ MSDevice_Tripinfo::loadState(const SUMOSAXAttributes& attrs) {
         bis >> myDepartSpeed >> myRouteLength >> myWaitingTime >> myAmWaiting >> myWaitingCount;
         bis >> myStoppingTime >> myParkingStarted;
         bis >> myArrivalTime >> myArrivalLane >> myArrivalPos >> myArrivalPosLat >> myArrivalSpeed;
-        if (myArrivalLane == STATE_EMPTY_ARRIVALLANE) {
+        if (MSGlobals::gUseMesoSim) {
+            bis >> myMesoTimeLoss;
+        }
+        if (myDepartLane == STATE_EMPTY_LANE) {
+            myDepartLane = "";
+        }
+        if (myArrivalLane == STATE_EMPTY_LANE) {
             myArrivalLane = "";
         }
     }

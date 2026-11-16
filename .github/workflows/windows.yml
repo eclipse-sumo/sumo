@@ -25,7 +25,6 @@ jobs:
     env:
       CC: cl
       CXX: cl
-      TEXTTEST_TMP: D:/texttest
 
     steps:
     - name: Cloning SUMO
@@ -50,7 +49,7 @@ jobs:
     - name: ccache
       # do a clean build once a day
       if: github.event_name != 'schedule'
-      uses: hendrikmuhs/ccache-action@v1.2.24
+      uses: hendrikmuhs/ccache-action@v1.2
       with:
         key: ${{ matrix.build_type }}
         variant: sccache
@@ -93,11 +92,6 @@ jobs:
     - name: Building TraaS
       run: cmake --build build_msvc --target traas
 
-    - name: Running examples and unit tests
-      run: |
-        cmake --build build_msvc --target examples
-        ctest --test-dir build_msvc --output-on-failure
-
     - name: Building installers
       run: |
         cd build_msvc
@@ -110,6 +104,12 @@ jobs:
         path: |
           D:/cpkg/sumo-*
           D:/cpkg/_CPack_Packages/win64/WIX/wix.log
+
+    - name: Running examples and unit tests
+      # the timeout is redundant to the settings in the CMakeLists but maybe submodules add tests too
+      run: |
+        cmake --build build_msvc --target examples
+        ctest --test-dir build_msvc --output-on-failure --timeout 60
 
     # The following tests need to be split because of resource constraints. If they are not in separate steps
     # a failing texttest run will not let the step fail because only the final exit code counts.
@@ -155,12 +155,13 @@ jobs:
 
     - name: Compressing test results
       if: failure()
-      run: Compress-Archive -Path D:/texttest -DestinationPath D:/texttest/tt.zip
+      shell: bash
+      run: 7z a -bso0 -bsp0 texttesttmp-${{ matrix.build_type }}.zip ~/.texttest/tmp
 
     - name: Uploading test results
       if: failure()
       uses: actions/upload-artifact@v7
       with:
-        name: texttesttmp-${{ matrix.build_type }}
-        path: D:/texttest/tt.zip
+        path: texttesttmp-${{ matrix.build_type }}.zip
+        archive: false
         if-no-files-found: warn

@@ -1,0 +1,11 @@
+<routes>
+    <!-- fast overtakes slow on NC; while fast leads the queue, slow must not be approaching the junction -->
+    <vType id="slow" maxSpeed="1" sigma="0" speedDev="0"/>
+    <vType id="fast" sigma="0" speedDev="0"/>
+    <vehicle id="slow" type="slow" depart="0">
+        <route edges="NC CW"/>
+    </vehicle>
+    <vehicle id="fast" type="fast" depart="1">
+        <route edges="CN NC CW"/>
+    </vehicle>
+</routes>

@@ -112,6 +112,12 @@ Person::getSlope(const std::string& personID) {
 
 
 double
+Person::getArrivalPos(const std::string& personID) {
+    return getPerson(personID)->getArrivalPos();
+}
+
+
+double
 Person::getSpeed(const std::string& personID) {
     return getPerson(personID)->getSpeed();
 }
@@ -750,6 +756,9 @@ Person::appendStage(const std::string& personID, const TraCIStage& stage) {
 void
 Person::replaceStage(const std::string& personID, const int stageIndex, const TraCIStage& stage) {
     MSTransportable* p = getPerson(personID);
+    if (stageIndex < 0) {
+        throw TraCIException("The stage index may not be negative.");
+    }
     if (stageIndex >= p->getNumRemainingStages()) {
         throw TraCIException("Specified stage index:  is not valid for person " + personID);
     }
@@ -1314,6 +1323,8 @@ Person::handleVariable(const std::string& objID, const int variable, VariableWra
             return wrapper->wrapString(objID, variable, getLaneID(objID));
         case VAR_LANEPOSITION:
             return wrapper->wrapDouble(objID, variable, getLanePosition(objID));
+        case VAR_ARRIVALPOS:
+            return wrapper->wrapDouble(objID, variable, getArrivalPos(objID));
         case VAR_COLOR:
             return wrapper->wrapColor(objID, variable, getColor(objID));
         case VAR_WAITING_TIME:

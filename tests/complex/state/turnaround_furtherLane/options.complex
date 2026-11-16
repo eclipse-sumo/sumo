@@ -1,0 +1,7 @@
+--no-step-log --no-duration-log -n input_net2.net.xml -r input_routes.rou.xml -e 82
+--save-state.times 78,81 --save-state.files state.xml,compare.xml --save-state.precision 9
+:
+--no-step-log --no-duration-log -n input_net2.net.xml -e 82
+--load-state state.xml --save-state.times 81 --save-state.files compare2.xml --save-state.precision 9
+--compare compare
+tests/complex/state/runner.py

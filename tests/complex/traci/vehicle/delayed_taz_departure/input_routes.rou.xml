@@ -1,0 +1,7 @@
+<routes>
+    <vType id="car" sigma="0"/>
+    <vehicle id="blocker" type="car" depart="0" departPos="5">
+        <route edges="a d1"/>
+    </vehicle>
+    <trip id="probe" type="car" depart="1" fromTaz="origin" toTaz="destination" departLane="free"/>
+</routes>

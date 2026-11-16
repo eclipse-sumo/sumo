@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-01T23:59:13.037375+01:00 by Eclipse SUMO sumo v1_28_0+0352-0c3ce91f066
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="39809"/>
+    </traci_server>
+
+</sumoConfiguration>
+-->
+
+<lanechanges>
+    <change id="v1" type="car" time="5.00" from="1si_0" to="1si_1" dir="1" speed="11.85" pos="55.48" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="15.08" origLeaderSecureGap="13.31" origLeaderSpeed="11.11"/>
+</lanechanges>

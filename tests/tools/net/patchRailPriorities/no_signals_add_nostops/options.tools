@@ -1,0 +1,3 @@
+-n input_net2.net.xml 
+-r input_routes.rou.xml
+--add-signals
