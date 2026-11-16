@@ -25,16 +25,46 @@ title: netedit
 
 ## Input
 
-**netedit** is a GUI-Application and inputs are chosen via menus. The following input formats are supported:
+**netedit** is a GUI-Application and inputs can be passed on the command line or chosen via menus. The following input formats are supported:
 
-- SUMO-net files
-- OSM-files
-- [netconvert](../netconvert.md)-configuration files
+- **netedit** configuration files (`*.netecfg`)
+- [sumo](../sumo.md) configuration files (`*.sumocfg`)
+- [netconvert](../netconvert.md) configuration files (`*.netccfg`)
+- SUMO-net files (`*.net.xml`)
+- OSM-files (`*.osm`) and other foreign network formats
+- Additional/shape, demand/route, data, meanData, traffic light, and edge-type XML files
 
 ## Output
 
-- SUMO-net files
+- **netedit** configuration files (`*.netecfg`) and [sumo](../sumo.md) configuration files (`*.sumocfg`)
+- SUMO-net files (`*.net.xml`)
 - plain-xml files
+- Additional/shape, demand/route, data, meanData, traffic light, and edge-type XML files
+
+## Netedit Configurations and Workflow with sumo-gui
+
+### Netedit Configuration Files (`*.netecfg`)
+
+A **netedit configuration** (`*.netecfg`, XML root `<neteditConfiguration>`, schema [neteditConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfiguration.xsd)) stores a complete editing project in a single file — including the road network (`--sumo-net-file`), additional and shape files (`--additional-files`), demand/route files (`--route-files`), data and meanData files (`--data-files`, `--meandata-files`), traffic light and edge-type files, GUI visualization settings, and network processing options:
+
+- **Command line**: Start netedit with `netedit -c myProject.netecfg` (or `netedit --netecfg-file myProject.netecfg`).
+- **Menu / shortcuts**:
+  - *File* -> *Load Netedit config...* (<kbd>Ctrl</kbd> + <kbd>E</kbd>): Open an existing `*.netecfg` file.
+  - *File* -> *Netedit Config* -> *Save Netedit Config* (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd>) or *Save Netedit Config As...*: Save the current scenario and options to a `*.netecfg` file.
+  - *File* -> *Netedit Config* -> *Reload Netedit Config*: Reload the active `*.netecfg` file from disk.
+
+Netedit can also directly load and save [SUMO configuration files](../sumo.md) (`*.sumocfg`) via `netedit --sumocfg-file mySim.sumocfg`, *File* -> *Load Sumo config...* (<kbd>Ctrl</kbd> + <kbd>M</kbd>), and *File* -> *Sumo Config* -> *Save Sumo Config* (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>). Setting `--autosave-netconvert-file` automatically writes a companion `*.netccfg` whenever a netedit configuration is saved.
+
+### Switching Between netedit and sumo-gui (<kbd>Ctrl</kbd> + <kbd>T</kbd>)
+
+**netedit** and [sumo-gui](../sumo-gui.md) support a bidirectional workflow using <kbd>Ctrl</kbd> + <kbd>T</kbd> while preserving the current camera viewport (`--registry-viewport`):
+
+1. **From netedit to sumo-gui** (*Edit* -> *Open in sumo-gui*, <kbd>Ctrl</kbd> + <kbd>T</kbd>):
+   - If only a road network is present (no `*.sumocfg` is defined and either no additionals/demand exist or both *Edit* -> *Load additionals in sumo-gui* and *Edit* -> *Load demand in sumo-gui* are unchecked), **netedit** saves the network and launches **sumo-gui** directly with `-n <network.net.xml>`.
+   - Otherwise, **netedit** saves the scenario's SUMO configuration (`*.sumocfg`, prompting for a filename if not yet defined) and launches **sumo-gui** with `-c <config.sumocfg>`. Unchecking *Edit* -> *Load additionals in sumo-gui* or *Edit* -> *Load demand in sumo-gui* passes `--ignore.additionalelements` or `--ignore.routeelements` to **sumo-gui**.
+2. **From sumo-gui back to netedit**:
+   - *Edit* -> *Open in netedit* (<kbd>Ctrl</kbd> + <kbd>T</kbd>): Opens the active simulation configuration (`--sumocfg-file`) in **netedit** at the current viewport (controlled by *Edit* -> *Load additionals in netedit* and *Edit* -> *Load demand in netedit*).
+   - *Edit* -> *Open network in netedit* (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd>): Opens only the road network in **netedit** at the current viewport.
 
 ## Hotkeys
 
@@ -44,14 +74,16 @@ The entire list of shortcuts can be found [here](shortcuts.md):
 | --------------------------- | ---------------- | ----------------------------------- |
 | New Window                  | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | Open a new netedit window           |
 | New Network                 | <kbd>Ctrl</kbd> + <kbd>N</kbd>         | Create a new network                |
+| Load Netedit config         | <kbd>Ctrl</kbd> + <kbd>E</kbd>         | Load a netedit configuration (`*.netecfg`) |
+| Save Netedit config         | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> | Save netedit configuration (`*.netecfg`) |
+| Load Sumo config            | <kbd>Ctrl</kbd> + <kbd>M</kbd>         | Load a SUMO configuration (`*.sumocfg`) |
+| Save Sumo config            | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> | Save SUMO configuration (`*.sumocfg`) |
 | Open Network                | <kbd>Ctrl</kbd> + <kbd>O</kbd>         | Open an existing network            |
-| Open configuration          | <kbd>Ctrl</kbd> + <kbd>T</kbd>         | Open an existing SUMO configuration |
-| Import foreign network      | <kbd>Ctrl</kbd> + <kbd>F</kbd>         | Import a foreign network            |
+| Open Netconvert config      | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd> | Open a netconvert configuration (`*.netccfg`) |
+| Open in sumo-gui            | <kbd>Ctrl</kbd> + <kbd>T</kbd>         | Open current scenario/network in sumo-gui |
 | Reload                      | <kbd>Ctrl</kbd> + <kbd>R</kbd>         | Reload network                      |
 | Save network                | <kbd>Ctrl</kbd> + <kbd>S</kbd>         | Save network                        |
-| Save network as             | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> | Save network in another file        |
 | Save plain XML              | <kbd>Ctrl</kbd> + <kbd>L</kbd>         | Save network as plain XML           |
-| Save joined junctions       | <kbd>Ctrl</kbd> + <kbd>J</kbd>         | Save joined junctions of network    |
 | Load additionals and shapes | <kbd>Ctrl</kbd> + <kbd>A</kbd>         | Load a file with additionals        |
 | Save additionals and shapes | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>A</kbd> | Save additionals in a file          |
 | Load demand elements        | <kbd>Ctrl</kbd> + <kbd>D</kbd>         | Load a file with shapes             |
