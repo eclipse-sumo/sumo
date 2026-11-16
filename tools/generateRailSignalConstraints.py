@@ -1467,6 +1467,7 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
 
     numConflicts = 0
     numIgnoredConflicts = 0
+    seenConstraints = {}
 
     # bidiSections = findBidiSections(options, uniqueRoutes, net)
     # bidiRoutes = find
@@ -1572,6 +1573,23 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                         if conflict is None:
                             numIgnoredConflicts += 1
                         else:
+                            cKey = (conflict.signal, conflict.tripID, conflict.otherSignal, conflict.otherTripID)
+                            if cKey in seenConstraints:
+                                prev = seenConstraints[cKey]
+                                prevTimes = dict([t.split('=') for t in prev.conflictTime.split()])
+                                curTimes = dict([t.split('=') for t in conflict.conflictTime.split()])
+                                if ((conflict.active and not prev.active)
+                                        or (conflict.active == prev.active
+                                            and parseTime(curTimes['stopArrival']) < parseTime(
+                                                prevTimes['stopArrival']))):
+                                    idx = conflicts[conflict.signal].index(prev)
+                                    conflicts[conflict.signal][idx] = conflict
+                                    seenConstraints[cKey] = conflict
+                                if options.verbose:
+                                    print("Skipping duplicate bidi conflict at signal '%s' between '%s' and '%s'" % (
+                                        conflict.signal, conflict.tripID, conflict.otherTripID), file=sys.stderr)
+                                continue
+                            seenConstraints[cKey] = conflict
                             conflicts[conflict.signal].append(conflict)
                             numConflicts += 1
 
@@ -1696,14 +1714,22 @@ def checkBidiConsistency(conflicts, verbose):
 
     tfcMap = defaultdict(list)  # (tripId, foeId) -> [conflict, ...]
     numRemoved = 0
+    numDuplicates = 0
 
     for signal in sorted(conflicts.keys()):
-        for c in conflicts[signal]:
+        for c in list(conflicts.get(signal, [])):
             busStop2 = c.busStop2[0][1]
             key = (c.tripID, c.otherTripID, c.busStop, busStop2)
             rkey = (c.otherTripID, c.tripID, busStop2, c.busStop)
-            if key in tfcMap and verbose:
-                print("Duplicate conflict between '%s' and '%s' between busStops '%s' and '%s'" % key, file=sys.stderr)
+            if key in tfcMap:
+                if verbose:
+                    print("Duplicate conflict between '%s' and '%s' between busStops '%s' and '%s'" % key,
+                          file=sys.stderr)
+                numDuplicates += 1
+                conflicts[c.signal].remove(c)
+                if not conflicts[c.signal]:
+                    del conflicts[c.signal]
+                continue
             tfcMap[key].append(c)
             if rkey in tfcMap:
                 keyToRemove = None
@@ -1714,20 +1740,20 @@ def checkBidiConsistency(conflicts, verbose):
                 else:
                     keyToRemove = key
 
-                for c in tfcMap[keyToRemove]:
+                for c2 in tfcMap[keyToRemove]:
                     numRemoved += 1
-                    conflicts[c.signal].remove(c)
+                    conflicts[c2.signal].remove(c2)
                     if verbose:
                         print("Found symmetrical bidi conflict (tripId=%s, foeId=%s, busStop=%s busStop2=%s)." %
                               keyToRemove)
-                    if not conflicts[c.signal]:
-                        del conflicts[c.signal]
+                    if not conflicts[c2.signal]:
+                        del conflicts[c2.signal]
                 del tfcMap[keyToRemove]
 
     if numRemoved > 0 and verbose:
         print("Removed %s symmetrical bidi conflicts" % numRemoved)
 
-    return numRemoved
+    return numRemoved + numDuplicates
 
 
 def removeDeadlockingBidiConstraints(conflicts, tl_to_stop, verbose):
@@ -1740,7 +1766,7 @@ def removeDeadlockingBidiConstraints(conflicts, tl_to_stop, verbose):
     numRemoved = 0
 
     for signal in sorted(conflicts.keys()):
-        for c in conflicts[signal]:
+        for c in list(conflicts.get(signal, [])):
             other_stop = tl_to_stop.get(c.otherSignal, None)
             if not other_stop:
                 continue

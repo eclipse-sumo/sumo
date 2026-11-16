@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" length="50.00" vClass="rail"/>
+    <vehicle id="t0" type="train" depart="0.00" departSpeed="max">
+        <route edges="a b c d e f -f -e -d -c -b -a a b c d e f"/>
+        <stop busStop="a" arrival="10.00" duration="20.00" until="30.00"/>
+        <stop busStop="f" arrival="140.00" duration="20.00" until="160.00"/>
+        <stop busStop="a" arrival="240.00" duration="20.00" until="260.00"/>
+        <stop busStop="f" arrival="340.00" duration="20.00" until="360.00"/>
+    </vehicle>
+    <vehicle id="t1" type="train" depart="20.00" departSpeed="max">
+        <route edges="-f2 -e2 -d -c -b2 -a2"/>
+        <stop busStop="-f2" arrival="30.00" duration="20.00" until="50.00"/>
+        <stop busStop="-a2" arrival="100.00" duration="20.00" until="120.00"/>
+    </vehicle>
+</routes>

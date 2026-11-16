@@ -43,3 +43,6 @@ oneSideInsertion2
 
 # multuple conflicts between the same vehicles (due to one vehice having intermediate stops)	
 multiple_conflicts
+
+# deduplicate bidi conflicts between the same tripIds (#12083)
+duplicate_tripids
