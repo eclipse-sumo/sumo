@@ -52,6 +52,9 @@ long_siding_occupied_wait2
 # different insertion order compared to the 'wait2' test
 long_siding_occupied_wait3
 
+# vehicle approaching siding from intermediate driveway can safely exit (#18416)
+long_siding_occupied_wait4
+
 # no deadlock should be found because the sidings accomodate multiple vehicles
 long_siding_occupied_advance
 
