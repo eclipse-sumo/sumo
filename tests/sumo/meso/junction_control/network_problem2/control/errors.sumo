@@ -1,0 +1,6 @@
+Warning: Teleporting vehicle 'ba.54'; waited too long, from edge 'b_in':0, time=724.98.
+Warning: Vehicle 'ba.54' ends teleporting on edge 'a_out':0, time=735.03.
+Warning: Teleporting vehicle 'ba.53'; waited too long, from edge 'bc':0, time=909.72.
+Warning: Vehicle 'ba.53' ends teleporting on edge 'a_out':0, time=914.89.
+Warning: Teleporting vehicle 'ac.68'; waited too long, from edge 'a_in':0, time=915.33.
+Warning: Vehicle 'ac.68' ends teleporting on edge 'c_out2':0, time=930.55.
