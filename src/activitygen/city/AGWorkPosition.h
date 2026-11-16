@@ -27,6 +27,7 @@
 
 #include "AGPosition.h"
 #include <stdexcept>
+#include <vector>
 
 
 // ===========================================================================
@@ -59,9 +60,17 @@ public:
 
     void print() const;
 
+    static AGWorkPosition* randomFreeWorkPosition(std::vector<AGWorkPosition>* wps);
+
 private:
     static int generateOpeningTime(const AGDataAndStatistics& ds);
     static int generateClosingTime(const AGDataAndStatistics& ds);
+    static void updateFreeTree(int treeIndex, int delta);
+
+    static const AGWorkPosition* myIndexedWorkPositionsData;
+    static int myFreeCount;
+    static int myTreeBitMask;
+    static std::vector<int> myFreeTree;
 
 private:
     AGDataAndStatistics* myStatData;
@@ -69,4 +78,5 @@ private:
     AGAdult* myAdult;
     int myOpeningTime;
     int myClosingTime;
+    int myFreeTreeIndex;
 };
