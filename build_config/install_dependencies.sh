@@ -48,19 +48,6 @@ case "$ID" in
         PARQUET_VERSION=$(apt-cache policy libparquet-dev | grep -o '23[0-9.-]*' | head -1)
         apt-get -y install libarrow-dev=$PARQUET_VERSION libparquet-dev=$PARQUET_VERSION
         ;;
-    centos)
-        if [[ "$VERSION_ID" == "7" ]]; then
-            # this is only tested with quay.io/pypa/manylinux2014_x86_64 and will probably not work with vanilla CentOS
-            # GDAL cannot be added because the build fails with dependency problems with sqlite3
-            yum install -y epel-release
-            yum-config-manager --add-repo=https://download.opensuse.org/repositories/science:/dlr/CentOS_7/
-            yum install -y --nogpgcheck ccache libxerces-c-devel proj-devel fox16-devel bzip2-devel gl2ps-devel swig3 eigen3-devel geos-devel
-            yum install -y https://packages.apache.org/artifactory/arrow/centos/7/apache-arrow-release-latest.rpm
-            yum install -y arrow-devel parquet-devel # For Apache Parquet
-        else
-            echo "CentOS version other than 7 detected: $VERSION_ID"
-        fi
-        ;;
     almalinux)
         # this is only tested with quay.io/pypa/manylinux_2_28_x86_64 and will probably not work with vanilla almalinux
         dnf install -y epel-release
