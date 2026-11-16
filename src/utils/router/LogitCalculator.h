@@ -51,6 +51,7 @@ public:
 
     /** @brief calculate the probabilities in the logit model */
     void calculateProbabilities(const std::vector<std::shared_ptr<R> >& alternatives, const V* const veh, const SUMOTime time) {
+        std::map<const R*, double> commonalities;
         const double theta = myTheta >= 0 ? myTheta : getThetaForCLogit(alternatives);
         const double beta = myBeta >= 0 ? myBeta : getBetaForCLogit(alternatives);
         const double t = STEPS2TIME(time);
@@ -75,13 +76,13 @@ public:
                     }
                     overlapSum += pow(overlapLength / sqrt(lengthR * lengthS), myGamma);
                 }
-                myCommonalities[pR.get()] = beta * log(overlapSum);
+                commonalities[pR.get()] = beta * log(overlapSum);
             }
         }
         for (const std::shared_ptr<R>& pR : alternatives) {
             double weightedSum = 0;
             for (const std::shared_ptr<R>& pS : alternatives) {
-                weightedSum += exp(theta * (pR->getCosts() - pS->getCosts() + myCommonalities[pR.get()] - myCommonalities[pS.get()]));
+                weightedSum += exp(theta * (pR->getCosts() - pS->getCosts() + commonalities[pR.get()] - commonalities[pS.get()]));
             }
             pR->setProbability(1. / weightedSum);
         }
@@ -136,11 +137,6 @@ private:
 
     /// @brief logit theta - value
     const double myTheta;
-
-    /// @brief The route commonality factors for c-logit
-    // we do not use a shared pointer here to avoid lifetime extension of the route object
-    // TODO this map needs cleanup if we use it a lot or even better we should somehow store the value directly in the route
-    std::map<const R*, double> myCommonalities;
 
 private:
     /** @brief invalidated assignment operator */

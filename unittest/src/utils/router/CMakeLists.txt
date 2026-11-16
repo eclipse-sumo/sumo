@@ -1,0 +1,2 @@
+add_executable(testrouter LogitCalculatorTest.cpp)
+setTestProperties(testrouter)

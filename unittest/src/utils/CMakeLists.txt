@@ -1,5 +1,6 @@
 add_subdirectory(common)
 add_subdirectory(geom)
+add_subdirectory(router)
 if (FOX_FOUND)
     add_subdirectory(foxtools)
 endif ()
