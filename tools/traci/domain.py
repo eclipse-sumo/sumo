@@ -231,10 +231,11 @@ class Domain:
 
     def subscribeContext(self, objectID, domain, dist, varIDs=None,
                          begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE, parameters=None):
-        """subscribeContext(string, int, double, list(integer), double, double) -> None
+        """subscribeContext(string, int, double, list(integer), double, double, map) -> None
 
         Subscribe to objects of the given domain (specified as domain=traci.constants.CMD_GET_<DOMAIN>_VARIABLE),
         which are closer than dist to the object specified by objectID.
+        The parameters map has the same format as for subscribe().
         """
         if varIDs is None:
             varIDs = DOMAIN_BY_ID.get(domain, self)._subscriptionDefault
