@@ -21,6 +21,8 @@
 #include <config.h>
 
 #include <set>
+#include <tuple>
+#include <unordered_set>
 #include <vector>
 #include <map>
 #include <utils/common/SUMOTime.h>
@@ -39,12 +41,17 @@ public:
         MSDispatch_Greedy(params)
     {}
 
+    virtual void computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi*>& fleet) override;
+
 protected:
     /// @brief trigger taxi dispatch. @note: method exists so subclasses can inject code at this point (ride sharing)
     virtual int dispatch(MSDevice_Taxi* taxi, std::vector<Reservation*>::iterator& resIt, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, std::vector<Reservation*>& reservations);
 
 private:
     typedef std::vector<std::pair<const MSEdge*, double> > EdgePosVector;
+    typedef std::tuple<const MSVehicleType*, double, const Reservation*> RouteSetKey;
+    std::map<RouteSetKey, std::unordered_set<const MSEdge*> > myReservationRouteSets;
+
     void findInsertionPoint(std::vector<const Reservation*>::iterator& resIt, EdgePosVector::iterator& edgeIt,
                             const EdgePosVector::iterator& edgeEnd, ConstMSEdgeVector& route,
                             const MSEdge* newEdge, const double newPos) const;
