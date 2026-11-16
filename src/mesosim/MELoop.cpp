@@ -195,12 +195,13 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
         }
     }
     if ((ps & MESegment::PROCEED_NO) != 0) {
-        return entry + MAX2(SUMOTime(1), myLinkRecheckInterval);
-        //// recheck on the step grid: link states only change between steps, so keeping the sub-step phase of the
-        //// arrival would release the car up to one step before the link opened, depending on that phase alone
-        //const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-        //const SUMOTime recheck = MAX2(entry + MAX2(SUMOTime(1), myLinkRecheckInterval), now + 1);
-        //return now + (recheck - now + DELTA_T - 1) / DELTA_T * DELTA_T;
+        if ((ps & MESegment::PROCEED_NO_TLS) != 0) {
+            // recheck on the step grid: link states only change between steps, so keeping the sub-step phase of the
+            // arrival would release the car up to one step before the link opened, depending on that phase alone
+            return entry == SIMSTEP ? SIMSTEP + DELTA_T : SIMSTEP;
+        } else {
+            return entry + myLinkRecheckInterval;
+        }
     }
     return entry;
 }

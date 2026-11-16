@@ -645,6 +645,9 @@ MESegment::isOpen(const MEVehicle* veh) const {
         return PROCEED_YES;
     } else {
         int status = PROCEED_NO;
+        if (link != nullptr && link->isTLSControlled()) {
+            status |= PROCEED_NO_TLS;
+        }
         return status;
     }
 }
