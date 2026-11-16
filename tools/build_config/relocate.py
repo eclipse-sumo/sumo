@@ -34,10 +34,10 @@ def file_hash(path, chunk_size=8192):
 
 
 def compare_directories(dir1, dir2):
-    entries1 = list(sorted(os.listdir(dir1))) + ["-"]
-    entries2 = list(sorted(os.listdir(dir2))) + ["-"]
+    entries1 = list(sorted(os.listdir(dir1)))
+    entries2 = list(sorted(os.listdir(dir2)))
     if entries1 != entries2:
-        for t in zip(entries1, entries2):
+        for t in zip(entries1 + ["-"], entries2 + ["-"]):
             print(t)
         return False
     for name in entries1:
