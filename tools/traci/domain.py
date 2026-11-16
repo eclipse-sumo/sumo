@@ -23,6 +23,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 import copy
 import warnings
+from functools import wraps
 
 from . import constants as tc
 from .exceptions import FatalTraCIError, alias_param
@@ -129,14 +130,31 @@ class Domain:
         self._deprecatedFor = deprecatedFor
         self._subscriptionDefault = subscriptionDefault
         self._connection = None
+        self._isGlobal = True
         DOMAINS.append(self)
         DOMAIN_BY_ID[cmdGetID] = self
         # alias
         self.DOMAIN_ID = cmdGetID
 
+    def __getattribute__(self, name):
+        attribute = object.__getattribute__(self, name)
+        if not name.startswith("_") and object.__getattribute__(self, "_isGlobal") and callable(attribute):
+            connection = object.__getattribute__(self, "_connection")
+            if connection is not None and connection._traceFile is not None:
+                # Resolve at call time so a saved global method still follows switch().
+                @wraps(attribute)
+                def tracedCall(*args, **kwargs):
+                    selected = object.__getattribute__(self, "_connection")
+                    if selected is None:
+                        return attribute(*args, **kwargs)
+                    return getattr(getattr(selected, object.__getattribute__(self, "_name")), name)(*args, **kwargs)
+                return tracedCall
+        return attribute
+
     def _register(self, connection, mapping):
         dom = copy.copy(self)
         dom._connection = connection
+        dom._isGlobal = False
         subscriptionResults = SubscriptionResults(self._retValFunc)
         mapping[self._subscribeResponseID] = subscriptionResults
         mapping[self._contextResponseID] = subscriptionResults
