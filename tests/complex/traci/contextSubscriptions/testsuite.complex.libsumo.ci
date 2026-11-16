@@ -23,3 +23,6 @@ person_200m
 
 # detect parking vehicles
 parking
+
+# parameterized context subscriptions
+parameters
