@@ -173,3 +173,6 @@ getShadowLaneID
 
 # Delayed TAZ departures preserve their occupied edge when rerouting (#18408)
 delayed_taz_departure
+
+# see #11310
+tripinfoParameters
