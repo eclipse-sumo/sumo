@@ -158,7 +158,15 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
     }
     toSegment->updateEntryBlockTime(leaveTime);
     const SUMOTime entry = toSegment->hasSpaceFor(veh, leaveTime, qIdx);
-    if (entry == leaveTime && (ignoreLink || veh->mayProceed())) {
+    int ps = MESegment::PROCEED_UNKNOWN;
+    if (entry == leaveTime) {
+        if (ignoreLink) {
+            ps = MESegment::PROCEED_YES;
+        } else {
+            ps = veh->mayProceed();
+        }
+    }
+    if (ps == MESegment::PROCEED_YES) {
         if (onSegment != nullptr) {
             if (veh->getQueIndex() == MESegment::PARKING_QUEUE) { // parking or just aborted parking
                 if (veh->isParking()) {
@@ -186,8 +194,13 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
             veh->processStop();
         }
     }
-    if (entry == leaveTime && !ignoreLink) { // this is a long way of saying !veh->mayProceed() (which is a costly call)
+    if ((ps & MESegment::PROCEED_NO) != 0) {
         return entry + MAX2(SUMOTime(1), myLinkRecheckInterval);
+        //// recheck on the step grid: link states only change between steps, so keeping the sub-step phase of the
+        //// arrival would release the car up to one step before the link opened, depending on that phase alone
+        //const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+        //const SUMOTime recheck = MAX2(entry + MAX2(SUMOTime(1), myLinkRecheckInterval), now + 1);
+        //return now + (recheck - now + DELTA_T - 1) / DELTA_T * DELTA_T;
     }
     return entry;
 }

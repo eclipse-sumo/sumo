@@ -602,7 +602,7 @@ MESegment::getLink(const MEVehicle* veh, bool penalty) const {
 }
 
 
-bool
+int
 MESegment::isOpen(const MEVehicle* veh) const {
 #ifdef DEBUG_OPENED
     if (DEBUG_COND || DEBUG_COND2(veh)) {
@@ -631,16 +631,22 @@ MESegment::isOpen(const MEVehicle* veh) const {
 #endif
     if (myTLSPenalty) {
         // XXX should limited control take precedence over tls penalty?
-        return true;
+        return PROCEED_YES;
     }
     const MSLink* link = getLink(veh);
-    return (link == nullptr
+    const bool open = (link == nullptr
             || link->havePriority()
             || limitedControlOverride(link)
             || link->opened(veh->getEventTime(), veh->getSpeed(), veh->estimateLeaveSpeed(link),
-                            veh->getVehicleType().getLengthWithGap(), veh->getImpatience(),
-                            veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime(),
-                            0, nullptr, false, veh));
+                veh->getVehicleType().getLengthWithGap(), veh->getImpatience(),
+                veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime(),
+                0, nullptr, false, veh));
+    if (open) {
+        return PROCEED_YES;
+    } else {
+        int status = PROCEED_NO;
+        return status;
+    }
 }
 
 
