@@ -508,7 +508,7 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
   - Fixed *vehicle.setStop* in TraaS client library. Issue #5105
   - Fixed crash when calling *simulation.getDistance* to compute the driving distance between unconnected parts of the network Issue #5114
   - Fixed invalid driving distance result when calling *simulation.getDistanceRoad* and one of the edges is an internal edges after an internal junction. Issue #5114
-  - TraaS functions *Trafficlight.setPhaseDuraton, Trafficlight.getPhaseDuration, Trafficlight.getNextSwitch, Trafficlight.setCompleteRedYellowGreenDefinition, Vehicle.setAdaptedTraveltime, Vehicle.getAdaptedTraveltime, Lanearea.getLastStepHaltingNumber* and *Lanearea.getLastStepVehicleIDs* are now working (regression due to protocol change in 1.0.0).
+  - TraaS functions *Trafficlight.setPhaseDuration, Trafficlight.getPhaseDuration, Trafficlight.getNextSwitch, Trafficlight.setCompleteRedYellowGreenDefinition, Vehicle.setAdaptedTraveltime, Vehicle.getAdaptedTraveltime, Lanearea.getLastStepHaltingNumber* and *Lanearea.getLastStepVehicleIDs* are now working (regression due to protocol change in 1.0.0).
   - Fixed C++ client function *vehicle.getStopState* (regression due to protocol change in 1.0.0)
   - Fixed estimation of speed and acceleration after using moveToXY. Issue #5250
   - *traci.vehicle.getLaneChangeState* now returns correct information while controlling the vehicle with moveToXY in sublane simulation. Issue #5255
