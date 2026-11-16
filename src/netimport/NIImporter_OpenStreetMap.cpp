@@ -1098,11 +1098,13 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation,
             }
         }
     }
+    std::vector<NBNode*> sortedKnown(knownElevation.begin(), knownElevation.end());
+    std::sort(sortedKnown.begin(), sortedKnown.end(), ComparatorIdLess());
 #ifdef DEBUG_LAYER_ELEVATION
     std::cout << "known elevations:\n";
-    for (std::set<NBNode*>::iterator it = knownElevation.begin(); it != knownElevation.end(); ++it) {
-        const std::vector<std::pair<double, double> >& primaryLayers = layerForces[*it];
-        std::cout << "  node=" << (*it)->getID() << " ele=";
+    for (NBNode* node : sortedKnown) {
+        const std::vector<std::pair<double, double> >& primaryLayers = layerForces[node];
+        std::cout << "  node=" << node->getID() << " ele=";
         for (std::vector<std::pair<double, double> >::const_iterator it_ele = primaryLayers.begin(); it_ele != primaryLayers.end(); ++it_ele) {
             std::cout << it_ele->first << " ";
         }
@@ -1113,40 +1115,52 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation,
     // resolve the relation among overlapping ways.
     // Perform a sanity check for steep inclines and raise the knownElevation if necessary
     std::map<NBNode*, double> knownEleMax;
-    for (auto it : knownElevation) {
+    for (NBNode* node : sortedKnown) {
         double eleMax = -std::numeric_limits<double>::max();
-        const std::vector<std::pair<double, double> >& primaryLayers = layerForces[it];
+        const std::vector<std::pair<double, double> >& primaryLayers = layerForces[node];
         for (const auto& primaryLayer : primaryLayers) {
             eleMax = MAX2(eleMax, primaryLayer.first);
         }
-        knownEleMax[it] = eleMax;
+        knownEleMax[node] = eleMax;
     }
     const double gradeThreshold = OptionsCont::getOptions().getFloat("osm.layer-elevation.max-grade") / 100;
+    std::vector<std::pair<NBNode*, std::pair<double, double> > > knownNeighbors;
     bool changed = true;
     while (changed) {
         changed = false;
-        for (auto it = knownElevation.begin(); it != knownElevation.end(); ++it) {
-            std::map<NBNode*, std::pair<double, double> > neighbors = getNeighboringNodes(*it,
-                    knownEleMax[*it]
+        for (NBNode* node : sortedKnown) {
+            std::map<NBNode*, std::pair<double, double> > neighbors = getNeighboringNodes(node,
+                    knownEleMax[node]
                     / gradeThreshold * 3,
                     knownElevation);
-            for (auto& neighbor : neighbors) {
+            knownNeighbors.clear();
+            for (const auto& neighbor : neighbors) {
                 if (knownElevation.count(neighbor.first) != 0) {
-                    const double grade = fabs(knownEleMax[*it] - knownEleMax[neighbor.first])
-                                         / MAX2(POSITION_EPS, neighbor.second.first);
+                    knownNeighbors.push_back(neighbor);
+                }
+            }
+            if (knownNeighbors.size() > 1) {
+                std::sort(knownNeighbors.begin(), knownNeighbors.end(),
+                [](const std::pair<NBNode*, std::pair<double, double> >& a,
+                   const std::pair<NBNode*, std::pair<double, double> >& b) {
+                    return ComparatorIdLess()(a.first, b.first);
+                });
+            }
+            for (const auto& neighbor : knownNeighbors) {
+                const double grade = fabs(knownEleMax[node] - knownEleMax[neighbor.first])
+                                     / MAX2(POSITION_EPS, neighbor.second.first);
 #ifdef DEBUG_LAYER_ELEVATION
-                    std::cout << "   grade at node=" << (*it)->getID() << " ele=" << knownEleMax[*it] << " neigh=" << it_neigh->first->getID() << " neighEle=" << knownEleMax[it_neigh->first] << " grade=" << grade << " dist=" << it_neigh->second.first << " speed=" << it_neigh->second.second << "\n";
+                std::cout << "   grade at node=" << node->getID() << " ele=" << knownEleMax[node] << " neigh=" << it_neigh->first->getID() << " neighEle=" << knownEleMax[it_neigh->first] << " grade=" << grade << " dist=" << it_neigh->second.first << " speed=" << it_neigh->second.second << "\n";
 #endif
-                    if (grade > gradeThreshold * 50 / 3.6 / neighbor.second.second) {
-                        // raise the lower node to the higher level
-                        const double eleMax = MAX2(knownEleMax[*it], knownEleMax[neighbor.first]);
-                        if (knownEleMax[*it] < eleMax) {
-                            knownEleMax[*it] = eleMax;
-                        } else {
-                            knownEleMax[neighbor.first] = eleMax;
-                        }
-                        changed = true;
+                if (grade > gradeThreshold * 50 / 3.6 / neighbor.second.second) {
+                    // raise the lower node to the higher level
+                    const double eleMax = MAX2(knownEleMax[node], knownEleMax[neighbor.first]);
+                    if (knownEleMax[node] < eleMax) {
+                        knownEleMax[node] = eleMax;
+                    } else {
+                        knownEleMax[neighbor.first] = eleMax;
                     }
+                    changed = true;
                 }
             }
         }
@@ -1154,10 +1168,10 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation,
 
     // collect all nodes within a grade-dependent range around knownElevation-nodes and apply knowElevation forces
     std::set<NBNode*> unknownElevation;
-    for (auto it = knownElevation.begin(); it != knownElevation.end(); ++it) {
-        const double eleMax = knownEleMax[*it];
+    for (NBNode* node : sortedKnown) {
+        const double eleMax = knownEleMax[node];
         const double maxDist = fabs(eleMax) * 100 / layerElevation;
-        std::map<NBNode*, std::pair<double, double> > neighbors = getNeighboringNodes(*it, maxDist, knownElevation);
+        std::map<NBNode*, std::pair<double, double> > neighbors = getNeighboringNodes(node, maxDist, knownElevation);
         for (auto& neighbor : neighbors) {
             if (knownElevation.count(neighbor.first) == 0) {
                 unknownElevation.insert(neighbor.first);
@@ -1167,18 +1181,29 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation,
     }
 
     // apply forces to ground-level nodes (neither in knownElevation nor unknownElevation)
-    for (auto it = unknownElevation.begin(); it != unknownElevation.end(); ++it) {
+    std::vector<NBNode*> sortedUnknown(unknownElevation.begin(), unknownElevation.end());
+    std::sort(sortedUnknown.begin(), sortedUnknown.end(), ComparatorIdLess());
+    std::vector<std::pair<NBNode*, double> > groundNeighbors;
+    for (NBNode* node : sortedUnknown) {
         double eleMax = -std::numeric_limits<double>::max();
-        const std::vector<std::pair<double, double> >& primaryLayers = layerForces[*it];
+        const std::vector<std::pair<double, double> >& primaryLayers = layerForces[node];
         for (const auto& primaryLayer : primaryLayers) {
             eleMax = MAX2(eleMax, primaryLayer.first);
         }
         const double maxDist = fabs(eleMax) * 100 / layerElevation;
-        std::map<NBNode*, std::pair<double, double> > neighbors = getNeighboringNodes(*it, maxDist, knownElevation);
+        std::map<NBNode*, std::pair<double, double> > neighbors = getNeighboringNodes(node, maxDist, knownElevation);
+        groundNeighbors.clear();
         for (auto& neighbor : neighbors) {
             if (knownElevation.count(neighbor.first) == 0 && unknownElevation.count(neighbor.first) == 0) {
-                layerForces[*it].emplace_back(0, neighbor.second.first);
+                groundNeighbors.emplace_back(neighbor.first, neighbor.second.first);
             }
+        }
+        std::sort(groundNeighbors.begin(), groundNeighbors.end(),
+        [](const std::pair<NBNode*, double>& a, const std::pair<NBNode*, double>& b) {
+            return ComparatorIdLess()(a.first, b.first);
+        });
+        for (const auto& gn : groundNeighbors) {
+            layerForces[node].emplace_back(0, gn.second);
         }
     }
     // compute the elevation for each node as the weighted average of all forces
