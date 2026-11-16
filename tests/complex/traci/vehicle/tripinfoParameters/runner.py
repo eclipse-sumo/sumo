@@ -24,7 +24,7 @@ import sumolib  # noqa
 
 traci.start([sumolib.checkBinary("sumo"),
              "-n", "input_net2.net.xml",
-             "-r", "vehicle/tripinfoParameters/input_routes.rou.xml",
+             "-r", "input_routes.rou.xml",
              "--device.tripinfo.probability", "1",
              "--no-step-log",
              "--begin", "0"] + sys.argv[1:])
