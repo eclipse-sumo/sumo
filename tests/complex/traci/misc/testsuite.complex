@@ -51,5 +51,8 @@ subscription
 # test subscription with begin and end time
 subscription_time
 
+# cached results must follow successful simulation reloads
+reload_subscriptions
+
 # verify client command packing without a running simulation
 serialization

@@ -238,6 +238,9 @@ Helper::eraseSubscription(std::vector<Subscription>& subscriptions,
 
 void
 Helper::clearSubscriptions() {
+    for (auto& wrapper : myWrapper) {
+        wrapper.second->clear();
+    }
     mySubscriptions.clear();
     myLastContextSubscription = nullptr;
 }
