@@ -30,6 +30,7 @@
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -268,7 +269,31 @@ MSDevice_Taxi::triggerDispatch(SUMOTime currentTime) {
 
 bool
 MSDevice_Taxi::hasServableReservations() {
-    return myDispatcher != nullptr && myDispatcher->hasServableReservations();
+    if (myDispatcher == nullptr || !myDispatcher->hasServableReservations()) {
+        return false;
+    }
+    MSNet* const net = MSNet::getInstance();
+    if (net->getLoaderTime() != SUMOTime_MAX || net->getInsertionControl().getPendingFlowCount() > 0) {
+        return true;
+    }
+    if (!myDispatcher->getRunningReservations().empty()) {
+        return true;
+    }
+    for (const Reservation* const res : myDispatcher->getReservations()) {
+        if (res->persons.empty()) {
+            continue;
+        }
+        const bool isPerson = (*res->persons.begin())->isPerson();
+        for (MSDevice_Taxi* const taxi : myFleet) {
+            const int cap = isPerson
+                            ? taxi->getHolder().getVehicleType().getPersonCapacity()
+                            : taxi->getHolder().getVehicleType().getContainerCapacity();
+            if (cap >= (int)res->persons.size() && taxi->compatibleLine(res)) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 void
