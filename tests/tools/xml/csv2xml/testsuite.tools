@@ -27,3 +27,5 @@ plain_edges_noroot
 
 # load csv without type or schema
 flat
+flat_custom_tags
+datamode_anyattribute

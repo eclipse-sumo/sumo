@@ -46,6 +46,7 @@ class XmlElement:
         self.type = entity.getAttribute('type')
         self.attributes = []
         self.children = []
+        self.anyAttribute = False
         self.resolved = False
 
     def __repr__(self):
@@ -115,6 +116,8 @@ class XsdStructure():
         for aa in entity.childNodes:
             if aa.nodeName == 'xsd:attribute':
                 eleObj.attributes.append(XmlAttribute(aa))
+            elif aa.nodeName == 'xsd:anyAttribute':
+                eleObj.anyAttribute = True
             elif aa.nodeName == 'xsd:sequence' or aa.nodeName == 'xsd:choice':
                 for aae in aa.getElementsByTagName('xsd:element'):
                     eleObj.children.append(XmlElement(aae))
@@ -126,12 +129,14 @@ class XsdStructure():
                 t = self._namedTypes[ele.type]
                 ele.attributes += t.attributes
                 ele.children += t.children
+                ele.anyAttribute = ele.anyAttribute or t.anyAttribute
                 ele.resolved = True
         for ele in self._namedElements.values():
             if ele.type and ele.type in self._namedTypes and not ele.resolved:
                 t = self._namedTypes[ele.type]
                 ele.attributes += t.attributes
                 ele.children += t.children
+                ele.anyAttribute = ele.anyAttribute or t.anyAttribute
                 ele.resolved = True
         for ele in self._namedElements.values():
             newChildren = []

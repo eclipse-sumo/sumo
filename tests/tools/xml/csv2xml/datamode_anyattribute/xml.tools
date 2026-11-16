@@ -1,0 +1,6 @@
+<data>
+    <interval begin="0" end="3600" id="i0">
+        <edge id="E0" count="12" entered="15" CO_abs="42.5"/>
+        <edge id="E1" count="8" entered="9"/>
+    </interval>
+</data>
