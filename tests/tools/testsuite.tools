@@ -49,3 +49,6 @@ drt
 
 # generating trigger elements
 trigger
+
+# Python TraCI transport and connection recovery
+traci_transport
