@@ -584,7 +584,7 @@ title: Changes in the 2014 releases (versions 0.20.0, 0.21.0 and 0.22.0)
     supported together with option **--oldapi** which has severe size limitations)
   - added option **--gpx-output** {{DT_FILE}} to
     [traceExporter.py](../Tools/TraceExporter.md) which allows
-    exporting vehicle trajactories as [GPX files](https://en.wikipedia.org/wiki/GPS_eXchange_Format)
+    exporting vehicle trajectories as [GPX files](https://en.wikipedia.org/wiki/GPS_eXchange_Format)
   - added option **--poi-output** {{DT_FILE}} to
     [traceExporter.py](../Tools/TraceExporter.md) which allows
     exporting vehicle trajectories as

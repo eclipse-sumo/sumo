@@ -244,8 +244,12 @@ public:
         createNet();
         typename _InternalRouter::Prohibitions toProhibitPE;
         for (auto item : toProhibit) {
-            toProhibitPE[myIntermodalNet->getBothDirections(item.first).first] = item.second;
-            toProhibitPE[myIntermodalNet->getBothDirections(item.first).second] = item.second;
+            // an edge without pedestrian edges in the network (e.g. closed for pedestrians when the network was built)
+            // cannot be walked on anyway (#18601)
+            if (myIntermodalNet->hasBothDirections(item.first)) {
+                toProhibitPE[myIntermodalNet->getBothDirections(item.first).first] = item.second;
+                toProhibitPE[myIntermodalNet->getBothDirections(item.first).second] = item.second;
+            }
             toProhibitPE[myIntermodalNet->getCarEdge(item.first)] = item.second;
         }
         myInternalRouter->prohibit(toProhibitPE);

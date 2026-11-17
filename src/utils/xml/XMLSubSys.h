@@ -124,7 +124,7 @@ public:
      * Uses the reader built on init() which is stored in myReader to parse the given
      *  file.
      *
-     * All exceptions are catched and reported to the error-instance of the MsgHandler.
+     * All exceptions are caught and reported to the error-instance of the MsgHandler.
      *  Also, if the reader could not be built, this is reported.
      *
      * The method returns true if everything went ok. This means, that the reader could be

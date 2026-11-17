@@ -1,0 +1,4 @@
+Warning: Person 'walker' could not find sidewalk on edge 'BC', time=0.00.
+Warning: Person 'walker' could not find sidewalk on edge 'BC', time=159.00.
+Warning: Destination edge 'BC' does not allow pedestrians.
+Warning: Person 'walker' could not find route across junction 'B' from walkingArea ':B_w0' to edge 'BC', time=159.00.

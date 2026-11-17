@@ -7983,7 +7983,7 @@ msgstr ""
 "veículo prioritário. "
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6974
-msgid "Willingess of drivers to impede vehicles with higher priority"
+msgid "Willingness of drivers to impede vehicles with higher priority"
 msgstr "Disposição dos condutores de obstruir veículos com maior prioridade"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6985

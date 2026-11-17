@@ -221,7 +221,7 @@ private:
 
         /// @brief resets remainingExtraTime to the given value
         void resetExtraTime(double value);
-        /// @brief decreases myRemaingExtraTime by given amount in seconds
+        /// @brief decreases remainingExtraTime by given amount in seconds
         void countDownExtraTime(double amount);
         /// @brief returns the remaining extra time
         double getRemainingExtraTime() const;

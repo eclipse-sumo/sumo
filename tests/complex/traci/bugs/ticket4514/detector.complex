@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-01T14:26:38.229524+01:00 by Eclipse SUMO sumo v1_27_1+0850-18f8aa6fd43
+<!-- generated on 2026-11-17T17:16:55.797050+01:00 by Eclipse SUMO sumo v1_28_0+0639-a457e990b42
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -19,13 +19,13 @@
     </report>
 
     <traci_server>
-        <remote-port value="40829"/>
+        <remote-port value="42001"/>
     </traci_server>
 
 </sumoConfiguration>
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
-    <interval begin="0.00" end="375.00" id="4_1" nVehContrib="25" flow="240.00" occupancy="2.68" speed="12.49" harmonicMeanSpeed="12.43" length="5.00" nVehEntered="25"/>
-    <interval begin="0.00" end="375.00" id="4_2" nVehContrib="22" flow="211.20" occupancy="2.67" speed="11.19" harmonicMeanSpeed="10.98" length="5.00" nVehEntered="22"/>
+    <interval begin="0.00" end="374.00" id="4_1" nVehContrib="24" flow="231.02" occupancy="2.68" speed="12.05" harmonicMeanSpeed="11.98" length="5.00" nVehEntered="24"/>
+    <interval begin="0.00" end="374.00" id="4_2" nVehContrib="19" flow="182.89" occupancy="1.95" speed="13.10" harmonicMeanSpeed="13.05" length="5.00" nVehEntered="19"/>
 </detector>
