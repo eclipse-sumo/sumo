@@ -1,0 +1,4 @@
+Error: Invalid transfer option 'invalidCar'. Must be one of 'parkingAreas', 'ptStops' or 'allJunctions'.
+Error: Invalid transfer option 'invalidDrop'. Must be one of 'parkingAreas', 'ptStops' or 'allJunctions'.
+Error: Invalid transfer option 'invalidPick'. Must be one of 'parkingAreas', 'ptStops' or 'allJunctions'.
+Quitting (on error).

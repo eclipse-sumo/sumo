@@ -22,6 +22,7 @@
 
 #include <utils/options/OptionsCont.h>
 #include <utils/common/StringUtils.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/MSVehicleControl.h>
@@ -107,6 +108,8 @@ bool
 MSDevice::checkOptions(OptionsCont& oc) {
     bool ok = true;
     ok &= MSDevice_Routing::checkOptions(oc);
+    ok &= SUMOVehicleParserHelper::checkTransferOption(oc, "persontrip.transfer.taxi-walk");
+    ok &= SUMOVehicleParserHelper::checkTransferOption(oc, "persontrip.transfer.walk-taxi");
     return ok;
 }
 
