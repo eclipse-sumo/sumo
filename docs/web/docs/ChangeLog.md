@@ -16,6 +16,13 @@ title: ChangeLog
   - Vehicles that teleport across an edge no longer count as entered/left in edgeData output #18524
   - Variable Speed Signs now restore all lanes to their original speed on reset even when these are different among the set of affected lanes #18536
   - Fixed invalid CCH routing with **--cch-update-threshold.factor** > 1 #18436
+  - Fixed bug where taxi simulation did not terminate if no suitable taxi line was available #10918
+  - Now warning when arrivalPos is ignored #5928
+  - Fixed crash due to invalid rerouter behavior for person plans with multiple stages #18595
+  - Option **--ignore-route-errors** now lets the simulation continue if departure-triggered persons do not have a valid vehicle #18596
+  - Fixed invalid error when a rerouter closes a foot path #18601
+  - Fixed slow loading of actuated traffic lights with many phases #18606
+  - Fixed bug where wiedemann model blocks during lanechange (affects lane changing for all models) #16507
   - Fixed railway issues:
     - Fixed invalid predecessor lane used when inserting long train on short edge #18345
     - Fixed failure to reverse train near route end #18385
@@ -86,7 +93,8 @@ title: ChangeLog
   - Fixed invalid abort of train routing when running with **--ignore-errors** (also affects sumo) #18335
   - Fixed crash during railway routing (also affects sumo) #18340, #18442
   - Fixed invalid route output with **--bulk-routing** #18355
-  - stop arrival times in named route are now shifted by vehicle departure #18483
+  - Fixed error 'route is not valid' with option **--bulk-routing** #17752
+  - stop arrival times in named route are now shifted by vehicle departure #18483  
 
 - traci
   - functions `trafficlight.setNemaMaxGreens` and `trafficlight.setNemaSplits` now work again in free mode #18513 (regression in 1.13.0)
@@ -106,6 +114,7 @@ title: ChangeLog
   - scheduleStats.py: fixed invalid statistics key if tripId is not used #18485
   - scheduleStats.py: fixed crash when there are no matches #18486
   - routeSampler.py: option **--init-input** now works when loading multiple data intervals #17687
+  - generateRailSignalConstraints.py: Fixed duplicate conflicts #12083
 
 ### Enhancements
 
@@ -125,6 +134,7 @@ title: ChangeLog
 - meso
   - vType-specific timeToTeleport now takes effect #18359
   - Added option **--meso-lookahead** and meso edge type attribute `lookahead` to permit route-specific queue choice when simulating with option **--meso-lane-queue**. This avoids unrealistic jam-propagation if some turns are blocked #18299
+  - Overtaking by one vehicle now longer influences overtaking probability for another vehicle through shared RNG (with option **--meso-overtaking**) #18477
 
 - netconvert
   - Added options for setting default actuated tls params #10836
@@ -141,6 +151,7 @@ title: ChangeLog
   - Calling function `edge.adaptTraveltime(edgeID, INVALID_DOUBLE_VALUE)` now resets stored edge traveltimes #5827
   - When changing lane permissions, the internal lanes connected to that lane will automatically be updated (also affects rerouters) #18264
   - Function `vehicle.getParameter(vehID, 'device.tripinfo.PARAM')` now additionally supports PARAMs `depart,departPos,departSpeed,departDelay,duration,rerouteNo` #11310
+  - Added offset member to `TraCILogic` and `traci.trafficlight.Logic` #14735
 
 - tools
   - osmWebWizard.py: added option **--language** to localize the web UI #13081
@@ -158,6 +169,8 @@ title: ChangeLog
   - route_departOffset.py: Now permits negative and random offset #10374
   - netdiff.py: added option **--ignore-attributes** to limit difference detection #11824
   - xml2csv.py: added option **--decimal-separator** to simplify output that the German version of Excel can read #1497
+  - randomTrips.py: avoid superfluous calls to duarouter to speed up processing #18113
+  - duaIterate.py: Added option **--max-teleport-ratio** which adapts traffic scaling to congestion and avoids gridlook #1408
 
 
 ### Miscellaneous
@@ -175,6 +188,7 @@ title: ChangeLog
 - SUMO compilation now requires CMake 3.8 and a C++17 enabled compiler #18430
   - Dropped support for ubuntu 16.04 and Debian 9
 - Wheels for Python 3.15 have been added
+- TraCI version is now 1.23.0
 
 
 ## Version 1.28.0 (08.10.2026)
