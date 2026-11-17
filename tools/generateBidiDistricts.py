@@ -25,6 +25,8 @@ initial/final turn-around by replacing the attribute names 'from' and 'to' with
 """
 from __future__ import absolute_import
 from functools import reduce
+import heapq
+import math
 
 import sumolib  # noqa
 
@@ -45,9 +47,22 @@ def parse_args():
     return options
 
 
+def sampleShape(shape, maxStep):
+    if maxStep is None or maxStep <= 0 or len(shape) < 2:
+        return list(shape)
+    pts = [shape[0]]
+    for (x1, y1), (x2, y2) in zip(shape[:-1], shape[1:]):
+        dist = math.hypot(x2 - x1, y2 - y1)
+        steps = max(1, int(math.ceil(dist / maxStep)))
+        for k in range(1, steps + 1):
+            frac = float(k) / steps
+            pts.append((x1 + (x2 - x1) * frac, y1 + (y2 - y1) * frac))
+    return pts
+
+
 def getCandidates(edge, net, radius):
     candidates = []
-    for x, y in edge.getShape():
+    for x, y in sampleShape(edge.getShape(), radius):
         nearby = set()
         for edge2, dist in net.getNeighboringEdges(x, y, radius):
             nearby.add(edge2)
@@ -62,29 +77,39 @@ def computeBidiTazAsymByRadius(edge, net, radius):
     if edge not in ASYM_BIDI_CACHE:
         candidates = getCandidates(edge, net, radius)
         opposites = reduce(lambda a, b: a.intersection(b), candidates)
-        opposites.update(set(edge.getToNode().getOutgoing()).intersection(
-            set(edge.getFromNode().getIncoming())))
+        reverse_edges = set(edge.getToNode().getOutgoing()).intersection(
+            set(edge.getFromNode().getIncoming()))
+        max_rev_dist = max(radius, 20.0)
+        sampled = sampleShape(edge.getShape(), max_rev_dist)
+        for rev in reverse_edges:
+            rev_shape = rev.getShape()
+            if all(sumolib.geomhelper.distancePointToPolygon(pt, rev_shape) <= max_rev_dist for pt in sampled):
+                opposites.add(rev)
         ASYM_BIDI_CACHE[edge] = opposites
     return ASYM_BIDI_CACHE[edge]
 
 
 def computeAllBidiTaz(net, radius, travelDist, symmetrical):
+    ASYM_BIDI_CACHE.clear()
     for edge in net.getEdges():
         travelOpposites = set()
         if travelDist is not None:
-            queue = [(edge, -1.)]
-            while not len(queue) == 0:
-                edge2, dist = queue.pop()
-                if edge2 not in travelOpposites and dist < travelDist:
+            bestDist = {edge: -1.}
+            heap = [(-1., edge.getID(), edge)]
+            while heap:
+                dist, _, edge2 = heapq.heappop(heap)
+                if dist > bestDist.get(edge2, float('inf')):
+                    continue
+                if dist < travelDist:
                     travelOpposites.add(edge2)
-                    if dist == -1.:
-                        dist = 0.
-                    else:
-                        dist += edge2.getLength()
-                    toN = edge2.getToNode()
-                    fromN = edge2.getFromNode()
-                    for e in toN.getOutgoing() + toN.getIncoming() + fromN.getOutgoing() + fromN.getIncoming():
-                        queue.append((e, dist))
+                    nextDist = 0. if dist == -1. else dist + edge2.getLength()
+                    if nextDist < travelDist:
+                        toN = edge2.getToNode()
+                        fromN = edge2.getFromNode()
+                        for e in toN.getOutgoing() + toN.getIncoming() + fromN.getOutgoing() + fromN.getIncoming():
+                            if nextDist < bestDist.get(e, float('inf')):
+                                bestDist[e] = nextDist
+                                heapq.heappush(heap, (nextDist, e.getID(), e))
         if radius is not None and radius > 0.:
             opposites = computeBidiTazAsymByRadius(edge, net, radius)
             if symmetrical:

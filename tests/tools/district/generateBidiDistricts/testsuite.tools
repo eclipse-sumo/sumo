@@ -8,3 +8,6 @@ asym
 
 # test symmetrical behavior
 sym
+
+# test long straight edge vs merged detour after --geometry.remove (#16030)
+geometry_remove
