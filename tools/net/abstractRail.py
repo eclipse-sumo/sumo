@@ -48,9 +48,174 @@ INTERSECT_RANGE = 1e5
 COMPRESSION_WEIGHT = 0.01
 STRAIGHT_WEIGHT = 2
 OTHER_WEIGHT = 1
+RAIL_VCLASSES = ("rail", "rail_urban", "rail_electric", "rail_fast", "tram", "subway", "cable_car")
 
 NETCONVERT = sumolib.checkBinary('netconvert')
 STATION_DISTRICTS = os.path.join(SUMO_HOME, 'tools', 'district', 'stationDistricts.py')
+
+
+class CrossingTrackNode:
+    """Virtual node representing a single track passing through a joined rail_crossing junction."""
+
+    def __init__(self, node, index, edgesWithBidi, coord):
+        self._node = node
+        self._id = "%s#%d" % (node.getID(), index)
+        self._edges = edgesWithBidi
+        self._coord = coord
+
+    def getID(self):
+        return self._id
+
+    def getCoord(self):
+        return self._coord
+
+    def getIncoming(self):
+        return [e for e in self._edges if e.getToNode() == self._node]
+
+    def getOutgoing(self):
+        return [e for e in self._edges if e.getFromNode() == self._node]
+
+
+def isRailEdge(edge):
+    return any(edge.allows(vc) for vc in RAIL_VCLASSES)
+
+
+def buildCrossingTracks(net):
+    """Split multi-track rail_crossing junctions into per-track virtual nodes for custom edge endpoints."""
+    crossingTrackMap = dict()
+    crossingSubNodes = dict()
+    for node in net.getNodes():
+        seen = set()
+        allRail = []
+        for e in sorted(list(node.getIncoming()) + list(node.getOutgoing()), key=lambda x: x.getID()):
+            if e.getID() not in seen and isRailEdge(e):
+                seen.add(e.getID())
+                allRail.append(e)
+        canonEdges = filterBidi(allRail)
+        if len(canonEdges) < 2:
+            continue
+        nodeCoord = node.getCoord()
+        hasCustomEndpoints = any(
+            (e.getFromNode() == node and e.getRawShape()[0] != nodeCoord)
+            or (e.getToNode() == node and e.getRawShape()[-1] != nodeCoord)
+            for e in canonEdges
+        )
+        if node.getType() != "rail_crossing" and not hasCustomEndpoints:
+            continue
+
+        adj = defaultdict(set)
+        for i, e1 in enumerate(canonEdges):
+            cands1 = [c for c in (e1, e1.getBidi()) if c is not None]
+            for j in range(i + 1, len(canonEdges)):
+                e2 = canonEdges[j]
+                cands2 = [c for c in (e2, e2.getBidi()) if c is not None]
+                connected = False
+                for c1 in cands1:
+                    for c2 in cands2:
+                        if c2 == c1.getBidi():
+                            continue
+                        if (c1.getToNode() == node and c2.getFromNode() == node and c2 in c1.getOutgoing()):
+                            connected = True
+                            break
+                        if (c2.getToNode() == node and c1.getFromNode() == node and c1 in c2.getOutgoing()):
+                            connected = True
+                            break
+                    if connected:
+                        break
+                if connected:
+                    adj[i].add(j)
+                    adj[j].add(i)
+
+        visited = set()
+        components = []
+        for i in range(len(canonEdges)):
+            if i in visited:
+                continue
+            stack = [i]
+            visited.add(i)
+            comp = []
+            while stack:
+                cur = stack.pop()
+                comp.append(canonEdges[cur])
+                for nxt in adj[cur]:
+                    if nxt not in visited:
+                        visited.add(nxt)
+                        stack.append(nxt)
+            comp.sort(key=lambda x: x.getID())
+            components.append(comp)
+
+        if len(components) < 2:
+            continue
+
+        components.sort(key=lambda comp: comp[0].getID())
+        subNodes = []
+        for idx, comp in enumerate(components):
+            pts = []
+            compWithBidi = []
+            seenComp = set()
+            for e in comp:
+                rawShape = e.getRawShape()
+                if e.getFromNode() == node:
+                    pt = rawShape[0] if rawShape[0] != nodeCoord else e.getShape(False)[0]
+                    pts.append(pt)
+                if e.getToNode() == node:
+                    pt = rawShape[-1] if rawShape[-1] != nodeCoord else e.getShape(False)[-1]
+                    pts.append(pt)
+                for c in (e, e.getBidi()):
+                    if c is not None and c.getID() not in seenComp:
+                        seenComp.add(c.getID())
+                        compWithBidi.append(c)
+            coord = (sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts))
+            vNode = CrossingTrackNode(node, idx, compWithBidi, coord)
+            subNodes.append(vNode)
+            for c in compWithBidi:
+                if c.getFromNode() == node:
+                    crossingTrackMap[(c.getID(), True)] = vNode
+                if c.getToNode() == node:
+                    crossingTrackMap[(c.getID(), False)] = vNode
+        crossingSubNodes[node.getID()] = subNodes
+    return crossingTrackMap, crossingSubNodes
+
+
+def getEffFrom(edge, crossingTrackMap=None):
+    if crossingTrackMap:
+        vn = crossingTrackMap.get((edge.getID(), True))
+        if vn is not None:
+            return vn
+    return edge.getFromNode()
+
+
+def getEffTo(edge, crossingTrackMap=None):
+    if crossingTrackMap:
+        vn = crossingTrackMap.get((edge.getID(), False))
+        if vn is not None:
+            return vn
+    return edge.getToNode()
+
+
+def getEffNodes(edges, crossingTrackMap=None):
+    nodes = set()
+    for edge in edges:
+        nodes.add(getEffFrom(edge, crossingTrackMap))
+        nodes.add(getEffTo(edge, crossingTrackMap))
+    return nodes
+
+
+def updateCrossingCenters(realNodes, effNodes, nodeCoords, crossingSubNodes):
+    if not crossingSubNodes:
+        return
+    for node in realNodes:
+        nodeID = node.getID()
+        if nodeID in crossingSubNodes and node not in effNodes:
+            active = [vn for vn in crossingSubNodes[nodeID] if vn in effNodes]
+            if not active:
+                active = [vn for vn in crossingSubNodes[nodeID] if vn.getID() in nodeCoords]
+            if active:
+                coords = [nodeCoords[vn.getID()] for vn in active]
+                nodeCoords[nodeID] = (
+                    sum(c[0] for c in coords) / len(coords),
+                    sum(c[1] for c in coords) / len(coords),
+                )
 
 
 def get_options():
@@ -135,14 +300,22 @@ def filterBidi(edges):
     return [e for e in edges if e.getBidi() is None or e.getID() < e.getBidi().getID()]
 
 
-def initShapes(edges, nodeCoords, edgeShapes):
-    nodes = getNodes(edges)
+def initShapes(edges, nodeCoords, edgeShapes, crossingTrackMap=None):
+    nodes = getNodes(edges) | getEffNodes(edges, crossingTrackMap)
 
     for node in nodes:
         nodeCoords[node.getID()] = node.getCoord()
 
     for edge in edges:
-        edgeShapes[edge.getID()] = edge.getShape(True)
+        edgeID = edge.getID()
+        if crossingTrackMap and ((edgeID, True) in crossingTrackMap or (edgeID, False) in crossingTrackMap):
+            raw = edge.getRawShape()
+            shape = list(raw) if len(raw) >= 2 else list(edge.getShape(True))
+            shape[0] = nodeCoords[getEffFrom(edge, crossingTrackMap).getID()]
+            shape[-1] = nodeCoords[getEffTo(edge, crossingTrackMap).getID()]
+            edgeShapes[edgeID] = shape
+        else:
+            edgeShapes[edgeID] = edge.getShape(True)
 
 
 def getStops(stopfile, net):
@@ -224,10 +397,10 @@ def getNodes(edges):
 
 
 def rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, reverse,
-                     horizontal=False, multiRegions=False):
+                     horizontal=False, multiRegions=False, crossingTrackMap=None):
     center = mainLine[0]
     angle = gh.angleTo2D(mainLine[0], mainLine[1])
-    nodes = getNodes(edges)
+    nodes = getNodes(edges) | getEffNodes(edges, crossingTrackMap)
 
     if reverse:
         def transform(coord):
@@ -287,7 +460,8 @@ def differentOrderings(edgeIDs, o1, o2):
     return True
 
 
-def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes, region):
+def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes, region,
+                         crossingTrackMap=None, crossingSubNodes=None):
     """
     precondition: network is rotated so that the mainLine is on the horizontal
     for each x-value we imagine a vertical line and find all the edges that intersect
@@ -297,10 +471,13 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes, regio
 
     # step 1: find ordering constraints
     orderings = []
-    nodes = getNodes(edges)
+    nodes = getEffNodes(edges, crossingTrackMap)
     edgeIDs = set([e.getID() for e in edges])
     xyNodes = [(nodeCoords[n.getID()], n) for n in nodes]
-    xyNodes.sort(key=lambda x: x[0][0])
+    if crossingTrackMap:
+        xyNodes.sort(key=lambda x: (x[0][0], x[0][1], x[1].getID()))
+    else:
+        xyNodes.sort(key=lambda x: x[0][0])
 
     prevOrdering = None
     sameOrdering = []
@@ -308,8 +485,20 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes, regio
         node._newX = x
         vertical = [(x, -INTERSECT_RANGE), (x, INTERSECT_RANGE)]
         ordering = []
+        coNodes = []
+        if crossingTrackMap:
+            coNodes = [
+                n2 for (x2, _), n2 in xyNodes
+                if n2 != node and abs(x2 - x) < 1e-6
+                and (isinstance(node, CrossingTrackNode) or isinstance(n2, CrossingTrackNode))
+            ]
+            for n2 in coNodes:
+                ordering.append((nodeCoords[n2.getID()][1], n2))
+        skipNodes = set([node] + coNodes)
         for edge in edges:
-            if edge.getFromNode() == node or edge.getToNode() == node:
+            effFrom = getEffFrom(edge, crossingTrackMap)
+            effTo = getEffTo(edge, crossingTrackMap)
+            if effFrom in skipNodes or effTo in skipNodes:
                 continue
             shape = edgeShapes[edge.getID()]
             intersects = gh.intersectsAtLengths2D(vertical, shape)
@@ -339,8 +528,18 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes, regio
                 if options.verbose2:
                     print("sameOrdering:", prevOrdering, ordering)
 
+    if crossingSubNodes:
+        orderedNodes = set(vn for _, ordList in orderings for vn in ordList)
+        for _, ordList in sameOrdering:
+            orderedNodes.update(ordList)
+        for realID, subNodes in sorted(crossingSubNodes.items()):
+            active = [vn for vn in subNodes if vn in nodes]
+            if len(active) >= 2 and not all(vn in orderedNodes for vn in active):
+                active.sort(key=lambda vn: nodeCoords[vn.getID()][1])
+                orderings.append((realID, active))
+
     # step 3:
-    nodeYValues = optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords, region)
+    nodeYValues = optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords, region, crossingTrackMap)
 
     # step 4: apply yValues to virtual nodes that were skipped
     if nodeYValues:
@@ -354,7 +553,7 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes, regio
     return nodeYValues
 
 
-def optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords, region):
+def optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords, region, crossingTrackMap=None):
     constrainedEdges = set()
     for _, ordering in orderings:
         for vNode in ordering:
@@ -376,15 +575,17 @@ def optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords, region):
     yPrios = []
     ySimilarConstraints = []
     for edge in edges:
-        angle = gh.angleTo2D(nodeCoords[edge.getFromNode().getID()], nodeCoords[edge.getToNode().getID()])
+        effFrom = getEffFrom(edge, crossingTrackMap)
+        effTo = getEffTo(edge, crossingTrackMap)
+        angle = gh.angleTo2D(nodeCoords[effFrom.getID()], nodeCoords[effTo.getID()])
         straight = min(abs(angle), abs(angle - math.pi)) < np.deg2rad(10)
         if edge in constrainedEdges:
             numConstraints = 2
-            ySimilarConstraints.append((nodeIndex[edge.getFromNode()], nodeIndex[edge]))
-            ySimilarConstraints.append((nodeIndex[edge.getToNode()], nodeIndex[edge]))
+            ySimilarConstraints.append((nodeIndex[effFrom], nodeIndex[edge]))
+            ySimilarConstraints.append((nodeIndex[effTo], nodeIndex[edge]))
         else:
             numConstraints = 1
-            ySimilarConstraints.append((nodeIndex[edge.getFromNode()], nodeIndex[edge.getToNode()]))
+            ySimilarConstraints.append((nodeIndex[effFrom], nodeIndex[effTo]))
         yPrios += [2 if straight else 1] * numConstraints
 
     k = len(generalizedNodes)
@@ -470,8 +671,9 @@ def optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords, region):
     return nodeYValues
 
 
-def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues):
-    nodes = getNodes(edges)
+def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues,
+                crossingTrackMap=None, crossingSubNodes=None):
+    nodes = getEffNodes(edges, crossingTrackMap)
 
     # patch node y-values
     edgeYValues = defaultdict(list)
@@ -482,8 +684,8 @@ def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues):
     # compute inner edge shape points (0 or 2 per edge)
     for vNode, y in nodeYValues.items():
         if vNode not in nodes:
-            fromID = vNode.getFromNode().getID()
-            toID = vNode.getToNode().getID()
+            fromID = getEffFrom(vNode, crossingTrackMap).getID()
+            toID = getEffTo(vNode, crossingTrackMap).getID()
             x1, y1 = nodeCoords[fromID]
             x2, y2 = nodeCoords[toID]
             xDelta = x2 - x1
@@ -499,8 +701,8 @@ def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues):
     # set edge shapes
     for edge in edges:
         edgeID = edge.getID()
-        fromCoord = nodeCoords[edge.getFromNode().getID()]
-        toCoord = nodeCoords[edge.getToNode().getID()]
+        fromCoord = nodeCoords[getEffFrom(edge, crossingTrackMap).getID()]
+        toCoord = nodeCoords[getEffTo(edge, crossingTrackMap).getID()]
         shape = [fromCoord, toCoord]
         if edgeID in edgeYValues:
             for coord in edgeYValues[edgeID]:
@@ -510,9 +712,20 @@ def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues):
                 shape = list(reversed(shape))
         edgeShapes[edgeID] = shape
 
+    updateCrossingCenters(getNodes(edges), nodes, nodeCoords, crossingSubNodes)
 
-def patchXValues(options, edges, nodeCoords, edgeShapes):
-    nodes = getNodes(edges)
+
+def patchXValues(options, edges, nodeCoords, edgeShapes,
+                 crossingTrackMap=None, crossingSubNodes=None):
+    effNodes = getEffNodes(edges, crossingTrackMap)
+    realNodes = getNodes(edges)
+    nodes = set(effNodes)
+    if crossingSubNodes:
+        for rn in realNodes:
+            if rn.getID() not in crossingSubNodes:
+                nodes.add(rn)
+    else:
+        nodes = realNodes
     xValues = set()
     for node in nodes:
         xValues.add(nodeCoords[node.getID()][0])
@@ -539,6 +752,8 @@ def patchXValues(options, edges, nodeCoords, edgeShapes):
         shape = edgeShapes[edge.getID()]
         edgeShapes[edge.getID()] = [(xMap[c[0]], c[1]) for c in shape]
 
+    updateCrossingCenters(realNodes, effNodes, nodeCoords, crossingSubNodes)
+
 
 def getIndexOfClosestToZero(values):
     result = None
@@ -550,19 +765,30 @@ def getIndexOfClosestToZero(values):
     return result
 
 
-def cleanShapes(options, net, nodeCoords, edgeShapes, stops):
+def cleanShapes(options, net, nodeCoords, edgeShapes, stops,
+                crossingTrackMap=None, crossingSubNodes=None):
     """Ensure consistent edge shape in case the same edge was part of multiple regions"""
 
     for edgeID, shape in edgeShapes.items():
         edge = net.getEdge(edgeID)
-        fromID = edge.getFromNode().getID()
-        toID = edge.getToNode().getID()
+        fromID = getEffFrom(edge, crossingTrackMap).getID()
+        toID = getEffTo(edge, crossingTrackMap).getID()
         if ((shape[0] != nodeCoords[fromID] or shape[-1] != nodeCoords[toID])
                 and options.horizontal and edgeID in stops and len(shape) == 2):
             shape.insert(0, shape[0])
             shape.append(shape[-1])
         shape[0] = nodeCoords[fromID]
         shape[-1] = nodeCoords[toID]
+    if crossingSubNodes:
+        for nodeID, subNodes in crossingSubNodes.items():
+            if nodeID in nodeCoords:
+                active = [vn for vn in subNodes if vn.getID() in nodeCoords]
+                if active:
+                    coords = [nodeCoords[vn.getID()] for vn in active]
+                    nodeCoords[nodeID] = (
+                        sum(c[0] for c in coords) / len(coords),
+                        sum(c[1] for c in coords) / len(coords),
+                    )
 
 
 def shapeStr(shape):
@@ -623,6 +849,7 @@ def main(options):
         print("Reading net")
     net = sumolib.net.readNet(options.netfile)
     stops = getStops(options.stopfile, net)
+    crossingTrackMap, crossingSubNodes = buildCrossingTracks(net)
 
     regions = loadRegions(options, net)
     multiRegions = len(regions) > 1
@@ -633,23 +860,33 @@ def main(options):
         edges = filterBidi(allEdges)
         if options.verbose:
             print("Processing region '%s' with %s edges" % (name, len(edges)))
-        initShapes(edges, nodeCoords, edgeShapes)
+        initShapes(edges, nodeCoords, edgeShapes, crossingTrackMap)
         mainLine = findMainline(options, name, net, allEdges, stops)
-        rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, False)
+        rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, False,
+                         crossingTrackMap=crossingTrackMap)
         if not options.skipYOpt:
-            nodeYValues = computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes, name)
+            nodeYValues = computeTrackOrdering(
+                options, mainLine, edges, nodeCoords, edgeShapes, name,
+                crossingTrackMap, crossingSubNodes,
+            )
             if nodeYValues:
-                patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues)
+                patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues,
+                            crossingTrackMap, crossingSubNodes)
                 if options.trackLength:
-                    patchXValues(options, edges, nodeCoords, edgeShapes)
-        rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True, options.horizontal, multiRegions)
+                    patchXValues(options, edges, nodeCoords, edgeShapes,
+                                 crossingTrackMap, crossingSubNodes)
+        rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True,
+                         options.horizontal, multiRegions, crossingTrackMap)
 
     if len(regions) > 1:
-        cleanShapes(options, net, nodeCoords, edgeShapes, stops)
+        cleanShapes(options, net, nodeCoords, edgeShapes, stops,
+                    crossingTrackMap, crossingSubNodes)
 
     with open(options.output_nodes, 'w') as outf_nod:
         sumolib.writeXMLHeader(outf_nod, "$Id$", "nodes", options=options)
         for nodeID in sorted(nodeCoords.keys()):
+            if not net.hasNode(nodeID):
+                continue
             coord = nodeCoords[nodeID]
             outf_nod.write('    <node id="%s" x="%.2f" y="%.2f"/>\n' % (
                 nodeID, coord[0], coord[1]))
