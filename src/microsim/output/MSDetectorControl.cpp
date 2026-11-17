@@ -57,8 +57,19 @@ void
 MSDetectorControl::close(SUMOTime step) {
     // flush the last values
     writeOutput(step, true);
+    checkVTypeUsage();
     // [...] files are closed on another place [...]
     myIntervals.clear();
+}
+
+
+void
+MSDetectorControl::checkVTypeUsage() const {
+    for (const auto& type : myDetectors) {
+        for (const auto& detector : type.second) {
+            detector.second->checkVTypeUsage();
+        }
+    }
 }
 
 
