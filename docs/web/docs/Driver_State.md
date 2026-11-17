@@ -110,10 +110,10 @@ Here, the expected quantities are
 
 ## Free flow error
 
-The `freeSpeedErrorCofficient` can be used to model imprecision in the perception of the drivers own speed and thereby induce fluctuations in free flow speed.
+The `freeSpeedErrorCoefficient` can be used to model imprecision in the perception of the drivers own speed and thereby induce fluctuations in free flow speed.
 The error model is:
 
-`pereivedSpeed = speed + myFreeSpeedErrorCoefficient * error(t) * sqrt(speed)`
+`perceivedSpeed = speed + myFreeSpeedErrorCoefficient * error(t) * sqrt(speed)`
 
 # Supported carFollowModels
 

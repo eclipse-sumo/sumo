@@ -665,7 +665,7 @@ Formats Options:
                                         all)
   --osm.speedlimit-none FLOAT          The speed limit to be set when there is
                                         no actual speed limit in reality
-  --osm.annotate-defaults              Whether edges shoulds carry information
+  --osm.annotate-defaults              Whether edges should carry information
                                         on the usage of typemap defaults
   --osm.etcs-moving-block              Whether ETCS2 track sections should
                                         default to moving-block mode
@@ -710,7 +710,7 @@ Formats Options:
   --visum.recompute-lane-number        Computes the number of lanes from the
                                         edges' capacities
   --visum.verbose-warnings             Prints all warnings, some of which are
-                                        due to VISUM misbehaviour
+                                        due to VISUM misbehavior
   --visum.lanes-from-capacity.norm FLOAT  The factor for flow to no. lanes
                                         conversion
   --opendrive.import-all-lanes         Imports all lane types

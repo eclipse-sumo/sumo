@@ -12,6 +12,28 @@ optional
 
 # test for #18330
 closing
+closing_sidewalk
+
+# see #18601
+closing_footpath_ignore
+
+# see #18613
+closing_sidewalk_late
+
+# Copy of closing_sidewalk
+closing_sidewalk_ignore
 
 # test for #18329
 closing_ride
+
+# test for #18595
+closing_walk_ride_walk
+
+# test for #18595
+closing_walk_ride_walk_detour
+
+# see #18614
+closing_detour
+
+# see #18614
+closing_detour_ignoreError

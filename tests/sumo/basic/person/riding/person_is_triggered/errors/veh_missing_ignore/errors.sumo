@@ -1,0 +1,3 @@
+Warning: Vehicle 'bus0' is not allowed to depart on any lane of edge 'AB'.
+Warning: Removing person 'rider.0' at removal of vehicle 'bus0'
+Warning: Vehicle 'bus0' not found for triggered departure of person 'rider.1'.

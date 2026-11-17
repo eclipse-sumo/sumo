@@ -10,7 +10,7 @@ using the end of the last standing vehicle.
 
 The simulation is forced to generate this output using the option **--queue-output** {{DT_FILE}}. {{DT_FILE}} is
 the name of the file the output will be written to. Any other file with
-this name will be overwritten, the destination folder must exist. Using the option **--qeue-output.period** {{DT_TIME}}, the times 
+this name will be overwritten, the destination folder must exist. Using the option **--queue-output.period** {{DT_TIME}}, the times
 the queue lengths will be written can be restricted to the given period. Then, the other time steps will be skipped.
 
 The speed below which a vehicle is counted as queued can be configured with the option **--queue-output.speed-threshold** {{DT_FLOAT}} (default 1.39 m/s, i.e. 5 km/h).

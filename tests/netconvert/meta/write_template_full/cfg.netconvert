@@ -358,7 +358,7 @@
         <osm.all-attributes value="false" synonymes="osm.all-tags" type="BOOL" help="Whether additional attributes shall be imported"/>
         <osm.extra-attributes value="all" synonymes="osm.extra-tags" type="STR[]" help="List of additional attributes that shall be imported from OSM via osm.all-attributes (set &apos;all&apos; to import all)"/>
         <osm.speedlimit-none value="39.4444" type="FLOAT" help="The speed limit to be set when there is no actual speed limit in reality"/>
-        <osm.annotate-defaults value="false" type="BOOL" help="Whether edges shoulds carry information on the usage of typemap defaults"/>
+        <osm.annotate-defaults value="false" type="BOOL" help="Whether edges should carry information on the usage of typemap defaults"/>
         <osm.etcs-moving-block value="false" type="BOOL" help="Whether ETCS2 track sections should default to moving-block mode"/>
         <matsim.keep-length value="false" type="BOOL" help="The edge lengths given in the MATSim-file will be kept"/>
         <matsim.lanes-from-capacity value="false" type="BOOL" help="The lane number will be computed from the capacity"/>
@@ -391,7 +391,7 @@
         <visum.connectors-lane-number value="3" synonymes="visum.connector-laneno" deprecated="visum.connector-laneno" type="INT" help="Sets connector lane number"/>
         <visum.no-connectors value="true" type="BOOL" help="Excludes connectors"/>
         <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" deprecated="visum.recompute-laneno" type="BOOL" help="Computes the number of lanes from the edges&apos; capacities"/>
-        <visum.verbose-warnings value="false" type="BOOL" help="Prints all warnings, some of which are due to VISUM misbehaviour"/>
+        <visum.verbose-warnings value="false" type="BOOL" help="Prints all warnings, some of which are due to VISUM misbehavior"/>
         <visum.lanes-from-capacity.norm value="1800" synonymes="capacity-norm lanes-from-capacity.norm" deprecated="capacity-norm" type="FLOAT" help="The factor for flow to no. lanes conversion"/>
         <opendrive.import-all-lanes value="false" type="BOOL" help="Imports all lane types"/>
         <opendrive.curve-resolution value="2" type="FLOAT" help="The geometry resolution in m when importing curved geometries as line segments."/>

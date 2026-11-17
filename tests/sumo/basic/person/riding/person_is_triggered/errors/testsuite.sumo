@@ -1,0 +1,5 @@
+# the vehicle that is supposed to trigger the person cannot depart but --ignore-route-errors should handle this with a warning
+veh_missing_ignore
+
+# the vehicle that is supposed to is removed by scaling  but --ignore-route-errors should handle this with a warning
+veh_scaled_ignore

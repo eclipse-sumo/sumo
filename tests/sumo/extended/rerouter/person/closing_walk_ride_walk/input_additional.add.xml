@@ -1,0 +1,7 @@
+<additional>
+    <rerouter id="closure" edges="AB">
+        <interval begin="0" end="86400">
+            <closingLaneReroute id="BC_0" disallow="all"/>
+        </interval>
+    </rerouter>
+</additional>

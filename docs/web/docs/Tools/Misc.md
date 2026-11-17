@@ -24,7 +24,7 @@ carFollowModel; Krauss
 ```
 
 In the config file, one line is used per vehicle type attribute. The
-syntax is: \[param; \] <AtrributeOrParameterName\>; <ValueOrDistribution\>
+syntax is: \[param; \] <AttributeOrParameterName\>; <ValueOrDistribution\>
 \[; <limits\>\]
 
 If the prefix *param* is given at the beginning of a line, it is assumed

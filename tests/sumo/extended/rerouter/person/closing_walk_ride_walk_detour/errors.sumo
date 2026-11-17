@@ -1,0 +1,4 @@
+Warning: Person 'p' could not find sidewalk on edge 'BC', time=80.00.
+Warning: No connection between edge 'AB' and edge 'EF' found.
+Warning: Person 'p' walking from edge 'AB' to edge 'EF' has a disconnect, time=80.00.
+Warning: Person 'p' could not find route across junction 'B' from walkingArea ':B_w0' to edge 'EF', time=159.00.

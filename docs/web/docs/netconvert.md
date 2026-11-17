@@ -522,7 +522,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--osm.all-attributes** {{DT_BOOL}} | Whether additional attributes shall be imported; *default:* **false** |
 | **--osm.extra-attributes** {{DT_STR_LIST}} | List of additional attributes that shall be imported from OSM via osm.all-attributes (set 'all' to import all); *default:* **all** |
 | **--osm.speedlimit-none** {{DT_FLOAT}} | The speed limit to be set when there is no actual speed limit in reality; *default:* **39.4444** |
-| **--osm.annotate-defaults** {{DT_BOOL}} | Whether edges shoulds carry information on the usage of typemap defaults; *default:* **false** |
+| **--osm.annotate-defaults** {{DT_BOOL}} | Whether edges should carry information on the usage of typemap defaults; *default:* **false** |
 | **--matsim.keep-length** {{DT_BOOL}} | The edge lengths given in the MATSim-file will be kept; *default:* **false** |
 | **--matsim.lanes-from-capacity** {{DT_BOOL}} | The lane number will be computed from the capacity; *default:* **false** |
 | **--shapefile.street-id** {{DT_STR}} | Read edge ids from column STR |
@@ -554,7 +554,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--visum.connectors-lane-number** {{DT_INT}} | Sets connector lane number; *default:* **3** |
 | **--visum.no-connectors** {{DT_BOOL}} | Excludes connectors; *default:* **true** |
 | **--visum.recompute-lane-number** {{DT_BOOL}} | Computes the number of lanes from the edges' capacities; *default:* **false** |
-| **--visum.verbose-warnings** {{DT_BOOL}} | Prints all warnings, some of which are due to VISUM misbehaviour; *default:* **false** |
+| **--visum.verbose-warnings** {{DT_BOOL}} | Prints all warnings, some of which are due to VISUM misbehavior; *default:* **false** |
 | **--visum.lanes-from-capacity.norm** {{DT_FLOAT}} | The factor for flow to no. lanes conversion; *default:* **1800** |
 | **--opendrive.import-all-lanes** {{DT_BOOL}} | Imports all lane types; *default:* **false** |
 | **--opendrive.curve-resolution** {{DT_FLOAT}} | The geometry resolution in m when importing curved geometries as line segments.; *default:* **2** |

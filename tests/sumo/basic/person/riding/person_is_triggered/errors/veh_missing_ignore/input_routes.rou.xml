@@ -1,0 +1,5 @@
+<routes>
+  <vType id="bus" vClass="bus"/>
+  <vehicle id="bus0" type="bus" depart="10"><route edges="AB BC"/></vehicle>
+  <personFlow id="rider" begin="triggered" number="2" period="1"><ride from="AB" to="BC" lines="bus0"/></personFlow>
+</routes>

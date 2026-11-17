@@ -780,6 +780,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             }
         } else {
             // person rerouting here
+            MSPerson& person = static_cast<MSPerson&>(tObject);
             MSTransportableRouter& router = hasReroutingDevice
                                             ? MSRoutingEngine::getIntermodalRouterTT(tObject.getRNGIndex(), prohibited)
                                             : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, prohibited);
@@ -787,6 +788,9 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                                                 rerouteDef->isVia ? newEdge->getLength() / 2. : tObject.getParameter().arrivalPos, "",
                                                 tObject.getMaxSpeed(), nullptr, tObject.getVTypeParameter(), 0, now, items);
             if (!rerouteDef->isVia) {
+                // current reroute destination is the arrival edge of the whole
+                // plan so we need to replace all remaining stages
+                const int numStages = person.getNumRemainingStages();
                 if (success) {
                     for (const MSTransportableRouter::TripItem& it : items) {
                         if (!it.edges.empty() && !edges.empty() && edges.back() == it.edges.front()) {
@@ -794,12 +798,12 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                         }
                         edges.insert(edges.end(), std::make_move_iterator(it.edges.begin()), std::make_move_iterator(it.edges.end()));
                         if (!edges.empty()) {
-                            static_cast<MSPerson&>(tObject).replaceWalk(edges, tObject.getPositionOnLane(), 0, 1);
+                            person.replaceWalk(edges, tObject.getPositionOnLane(), 0, numStages);
                         }
                     }
                 } else {
                     // maybe the pedestrian model still finds a way (JuPedSim)
-                    static_cast<MSPerson&>(tObject).replaceWalk({tObject.getEdge(), newEdge}, tObject.getPositionOnLane(), 0, 1);
+                    person.replaceWalk({tObject.getEdge(), newEdge}, tObject.getPositionOnLane(), 0, numStages);
                 }
             }
         }

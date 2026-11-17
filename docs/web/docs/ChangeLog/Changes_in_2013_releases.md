@@ -180,7 +180,7 @@ title: Changes in the 2013 releases (versions 0.17.0, 0.17.1, 0.18.0 and 0.19.0)
     ":<junction_id\>_<link_index_of_first_lane\>" and the id of the
     internal lanes is ":<junction_id\>_<link_index\>_<lane_index\>".
     The following relation still holds between link indices of
-    internal lanes and their ids: <interal_edge_id\> +
+    internal lanes and their ids: <internal_edge_id\> +
     <internal_lane_id\> == <link_index\>. The change was done to allow
     lane changing on internal lanes. As a side effect of merging
     internal lanes into a single edge, lane lengths may differ
