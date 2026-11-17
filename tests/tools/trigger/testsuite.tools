@@ -10,3 +10,6 @@ meandata2vss
 
 # generating overtakingReroute definitions for a net and route file
 createOvertakingReroutes
+
+# generating calibrator flow definitions from edgeData (#6610)
+edgedata2calibrators

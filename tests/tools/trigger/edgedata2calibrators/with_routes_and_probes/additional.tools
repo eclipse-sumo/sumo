@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17 23:54:55.957588 by Eclipse SUMO edgedata2calibrators.py v1_28_0+0644-bda840e3afe
+<configuration>
+    <net-file value="net.net.xml"/>
+    <edgedata-file value="input_edgedata.xml"/>
+    <output-file value="out.add.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <pos value="5.0"/>
+    <route-probe value="True"/>
+    <probe-period value="900.0"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <routeDistribution id="cal_e0_dist">
+        <route id="cal_e0_r0" edges="e0 e1" probability="2"/>
+        <route id="cal_e0_r1" edges="e0 e2" probability="1"/>
+    </routeDistribution>
+    <route id="cal_e1_r0" edges="e1"/>
+    <routeProbe id="rp_e0" edge="e0" period="900" file="routeProbe.out.xml"/>
+    <routeProbe id="rp_e1" edge="e1" period="900" file="routeProbe.out.xml"/>
+    <calibrator id="cal_e0" edge="e0" pos="5.00" routeProbe="rp_e0">
+        <flow begin="0" end="900" route="cal_e0_dist" vehsPerHour="180.00" speed="12.50"/>
+        <flow begin="900" end="1800" route="cal_e0_dist" vehsPerHour="240.00" speed="11.80"/>
+    </calibrator>
+    <calibrator id="cal_e1" edge="e1" pos="5.00" routeProbe="rp_e1">
+        <flow begin="0" end="900" route="cal_e1_r0" vehsPerHour="120.00" speed="13.00"/>
+        <flow begin="900" end="1800" route="cal_e1_r0" vehsPerHour="140.00"/>
+    </calibrator>
+</additional>

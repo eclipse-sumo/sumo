@@ -1,0 +1,1 @@
+-n net.net.xml -d input_edgedata.xml -o out.add.xml tools/trigger/edgedata2calibrators.py
