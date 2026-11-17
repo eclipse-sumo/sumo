@@ -16,3 +16,6 @@ stationDistricts
 
 # test generating POIs on TAZ
 tazRel2POI
+
+# generate TAZ definitions around junctions (#12064)
+junctionDistricts
