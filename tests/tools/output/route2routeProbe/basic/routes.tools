@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17 23:58:49.516927 by Eclipse SUMO route2routeProbe.py v1_28_0+0644-bda840e3afe
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="out.rou.xml"/>
+    <begin value="0.0"/>
+    <prefix value="rp_"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <routeDistribution id="rp_e0_0.00">
+        <route id="rp_e0_0.00_0" edges="e0 e1 e2" probability="2.00"/>
+        <route id="rp_e0_0.00_1" edges="e0 e1 e3" probability="1.00"/>
+    </routeDistribution>
+    <routeDistribution id="rp_e1_0.00">
+        <route id="rp_e1_0.00_0" edges="e0 e1 e2" probability="2.00"/>
+        <route id="rp_e1_0.00_1" edges="e0 e1 e3" probability="1.00"/>
+    </routeDistribution>
+    <routeDistribution id="rp_e2_0.00">
+        <route id="rp_e2_0.00_0" edges="e0 e1 e2" probability="2.00"/>
+    </routeDistribution>
+    <routeDistribution id="rp_e3_0.00">
+        <route id="rp_e3_0.00_0" edges="e0 e1 e3" probability="1.00"/>
+    </routeDistribution>
+</routes>
