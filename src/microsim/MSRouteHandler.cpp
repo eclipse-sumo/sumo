@@ -755,7 +755,7 @@ MSRouteHandler::closeVehicle() {
             myVehicleParameter = nullptr;
         } else {
             // persons and containers that depart triggered by this vehicle are discarded as well (#18596)
-            mySkippedVehicles.insert(myVehicleParameter->id);
+            myScaledVehicles.insert(myVehicleParameter->id);
             vehControl.deleteVehicle(vehicle, true);
             myVehicleParameter = nullptr;
             vehicle = nullptr;
@@ -1179,7 +1179,9 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
                 myVehicleParameter->depart = startVeh->depart;
             }
             if (startVeh == nullptr) {
-                if (mySkippedVehicles.count(vehID) == 0) {
+                if (myScaledVehicles.count(vehID) != 0) {
+                    WRITE_WARNINGF(TL("Skipping % '%' with triggered departure because vehicle '%' was removed by scaling."), agent, aid, vehID);
+                } else if (mySkippedVehicles.count(vehID) == 0) {
                     throw ProcessError("Unknown vehicle '" + vehID + "' in triggered departure for " + agent + " '" + aid + "'.");
                 }
                 // we cannot simply throw here because we need to parse the rest of the person (just to discard it)
