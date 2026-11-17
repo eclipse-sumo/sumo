@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17 13:01:12.183758 by Eclipse SUMO generateRailSignalConstraints.py v1_28_0+0629-650f618c216
+<configuration>
+    <net-file value="net.net.xml"/>
+    <additional-file value="input_additional.add.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+    <output-file value="out.add.xml"/>
+    <list-unconstrained value="True"/>
+    <unconstrained-output value="out.xml"/>
+</configuration>
+-->
+
+<unconstrainedConflicts>
+    <conflict type="switch" location="c" tripId="between2" foeTripId="t0" signal="D" foeSignal="A" busStop="stop_g" foeBusStop="stop_c" time="00:01:09" foeTime="00:03:05" reason="noCommonStop"/>
+</unconstrainedConflicts>

@@ -1,0 +1,8 @@
+read 2 busStops on 2 edges
+read 4 routes (3 unique) and 4 stops at 2 busStops
+processed 3 routes across 5 edges with 1 merging switches
+Found 4 stops after merging switches and 3 signals that guard switches
+Found 1 conflicts
+Found 0 insertion conflicts
+Found 1 unconstrained conflicts
+Unconstrained switch conflict at 'c' between 'between2' (signal='D', stop='stop_g', time=00:01:09) and 't0' (signal='A', stop='stop_c', time=00:03:05): noCommonStop
