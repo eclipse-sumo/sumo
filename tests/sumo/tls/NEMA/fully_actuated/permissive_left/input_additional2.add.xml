@@ -1,0 +1,20 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <timedEvent type="SaveTLSSwitchStates" source="0" dest="tls_state_switch.xml"/>
+
+    <tlLogic id="0" programID="01" type="NEMA" offset="0">
+        <param key="ring1" value="0,2,4,8"/>
+        <param key="ring2" value="0,6,4,8"/>
+        <param key="barrierPhases" value="8,8"/>
+        <param key="barrier2Phases" value="2,6"/>
+        <param key="detector-length" value="20"/>
+        <param key="detector-length-leftTurnLane" value="10"/>
+        <param key="minRecall" value="2,6"/>
+        <param key="coordinate-mode" value="false"/>
+        <param key="total-cycle-length" value="80"/>
+
+        <phase duration="90" state="srrGGgsrrsrr" minDur="10" maxDur="35" vehext="2.50" yellow="3" red="2" name="2"/>
+        <phase duration="90" state="srrsrrsrrGGg" minDur="10" maxDur="35" vehext="2.50" yellow="3" red="2" name="6"/>
+        <phase duration="90" state="GGgsrrsrrsrr" minDur="5" maxDur="15" vehext="2.50" yellow="3" red="2" name="4"/>
+        <phase duration="90" state="srrsrrGGgsrr" minDur="5" maxDur="15" vehext="2.50" yellow="3" red="2" name="8"/>
+    </tlLogic>
+</additional>

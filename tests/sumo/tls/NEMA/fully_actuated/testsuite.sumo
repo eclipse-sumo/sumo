@@ -2,3 +2,6 @@ barrier_1_extension
 
 # test initial tls state
 initial_state
+
+# test permissive left-turn detector mapping without protected phase (#14287)
+permissive_left
