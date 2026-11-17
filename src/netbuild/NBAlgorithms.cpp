@@ -412,10 +412,16 @@ NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont& nc) {
             continue;
         }
         // compute the priorities on junction when needed
-        if (node.second->getType() != SumoXMLNodeType::RIGHT_BEFORE_LEFT
-                && node.second->getType() != SumoXMLNodeType::LEFT_BEFORE_RIGHT
-                && node.second->getType() != SumoXMLNodeType::ALLWAY_STOP
-                && node.second->getType() != SumoXMLNodeType::NOJUNCTION) {
+        if (node.second->getType() == SumoXMLNodeType::RAIL_CROSSING) {
+            for (NBEdge* const edge : node.second->myAllEdges) {
+                if (isRailway(edge->getPermissions())) {
+                    edge->setJunctionPriority(node.second, NBEdge::JunctionPriority::PRIORITY_ROAD);
+                }
+            }
+        } else if (node.second->getType() != SumoXMLNodeType::RIGHT_BEFORE_LEFT
+                   && node.second->getType() != SumoXMLNodeType::LEFT_BEFORE_RIGHT
+                   && node.second->getType() != SumoXMLNodeType::ALLWAY_STOP
+                   && node.second->getType() != SumoXMLNodeType::NOJUNCTION) {
             if (node.second->getRightOfWay() == RightOfWay::EDGEPRIORITY) {
                 for (NBEdge* e : node.second->getIncomingEdges()) {
                     e->setJunctionPriority(node.second, e->getPriority());

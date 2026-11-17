@@ -5,3 +5,6 @@ all_plain
 
 # see #16215
 shared_tram_crossing
+
+# see #17518
+edge_priority
