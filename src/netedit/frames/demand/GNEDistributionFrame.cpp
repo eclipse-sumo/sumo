@@ -365,7 +365,7 @@ GNEDistributionFrame::DistributionRow::onCmdSetProbability(FXObject*, FXSelector
     if (myDistributionReference->isValid(SUMO_ATTR_PROB, myProbabilityTextField->getText().text())) {
         myDistributionReference->setAttribute(SUMO_ATTR_PROB, myProbabilityTextField->getText().text(), myDistributionReference->getNet()->getUndoList());
         myDistributionValuesEditorParent->updateSumLabel();
-        // update probablity text field (needed for show the default value)
+        // update probability text field (needed for show the default value)
         myProbabilityTextField->setText(myDistributionReference->getAttribute(SUMO_ATTR_PROB).c_str(), FALSE);
         // set color depending if attribute is computed
         if (myDistributionReference->isAttributeComputed(SUMO_ATTR_PROB)) {

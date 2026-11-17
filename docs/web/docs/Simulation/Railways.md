@@ -554,7 +554,7 @@ In many parts of the world, OSM data does not provide information of signaling i
 For many tram networks (i.e. with single track sections), this type of conflict handling is not sufficient and rail signals must be added. This can be done manually with netedit or with the tool
 [patchRailConflicts.py](../Tools/Railways.md#patchrailconflictspy).
 
-To simplify tram simulations where rail signals have been added selectively and some conflicts are regulared with zipper junctions, sumo option **--railsignal.moving-block.max-dist** (default *200*) can be used. Rail signal in moving block mode will disregard conflicts at junction type `zipper` if they are beyond the configured maximum distance.
+To simplify tram simulations where rail signals have been added selectively and some conflicts are regulated with zipper junctions, sumo option **--railsignal.moving-block.max-dist** (default *200*) can be used. Rail signal in moving block mode will disregard conflicts at junction type `zipper` if they are beyond the configured maximum distance.
 
 # Deadlocks
 

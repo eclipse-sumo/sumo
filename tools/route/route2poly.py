@@ -59,7 +59,7 @@ def parse_args(args):
     ap.add_option("--blur", type=float, default=0,
                   help="maximum random disturbance to route geometry")
     ap.add_option("--scale-width", type=float, dest="scaleWidth",
-                  help=("group similar routes and scale width by group size or route probablity," +
+                  help=("group similar routes and scale width by group size or route probability," +
                         "multiplied with the given factor (in m)"))
     ap.add_option("--filter-count", type=float, dest="filterCount",
                   help="only include routes that occur at least INT times")

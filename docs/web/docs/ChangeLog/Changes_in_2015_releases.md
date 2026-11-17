@@ -635,7 +635,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
     spot when using the *striping* model. #1506
   - fixed crash when vehicles with `vClass="ignoring"` attempt to drive across
     sidewalks and walkingareas.
-  - fixed invalid `departDelay` in **--tripinfo-output** when using flows with attribute `probablity`. #1482
+  - fixed invalid `departDelay` in **--tripinfo-output** when using flows with attribute `probability`. #1482
   - fixed rerouter interval ends which are now exclusive like all
     other intervals
   - fixed bug that caused invalid exit times when vehicles were

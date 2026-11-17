@@ -20,7 +20,7 @@ title: ChangeLog
     - Fixed invalid predecessor lane used when inserting long train on short edge #18345
     - Fixed failure to reverse train near route end #18385
     - Fixed invalid error "Warning: Invalid approach information to rail signal 'junction ..." #17810
-    - Fixed unsafe entry into occupied single track section #18395, #18529    
+    - Fixed unsafe entry into occupied single track section #18395, #18529
     - Fixed deadlock due to invalid conflict #18394
     - Fixed deadlock caused by insertion into a siding #18415
     - Fixed problems when loading deadlock-output in order to avoid it from re-occurring #18432, #17826, #18422, #17922
@@ -38,8 +38,8 @@ title: ChangeLog
     - Fixed NEMA lagging left turns never being served in coordinated mode: a coordinated phase followed by another phase on its side of the barrier was treated as a barrier phase. Barrier phases are now taken from the ring order, in free mode too. [documentation](Simulation/NEMA.md#leading_and_lagging_left_turns) #18453
     - NEMA controller type TS2 now finds the cycle zero (start of the first coordinated phase) in coordinated plans with a lagging left turn #18453
     - Fixed misleading error when loading invalid NEMA input #18514
-    
-- netedit  
+
+- netedit
   - Fixed visibility of short connections in networks without internal links #18532 (regression in 1.23.0)
   - When called from sumo-gui with <kbd>Ctrl</kbd> + <kbd>T</kbd>, traffic demand loading now honors checkbox #18347 (regression in 1.26.0)
   - Setting no-internal-links=false in the options menu (F10) to add internal lanes to a network takes effect again #18356 (regression in 1.27.0)
@@ -77,7 +77,7 @@ title: ChangeLog
     - multiple issues where state was not properly restored #18362, #18363 (regression in 1.28.0)
     - now restoring tripinfo timeLoss #18398
     - meso-ltm specific state is now restored #18364
-    - Now restoring detector state for actuated traffic lights #18409  
+    - Now restoring detector state for actuated traffic lights #18409
 
 - netconvert
   - Fixed invalid track direction when processing OSM data with option **--railway.topology.repair** #18349
@@ -96,7 +96,7 @@ title: ChangeLog
   - Fixed crash in `simulation.loadState` with meso #18389 (regression in 1.28.0)
   - Fixed invalid event time after adding a stop with default duration in meso #18392
   - Fixed libsumo crash when using `vehicle.moveToXY` and repeatedly restarting the simulation #18457
-  
+
 - tools
   - gtfs2pt.py: fixed crash #18446 (regression in 1.27.1)
   - gtfs2pt.py: option **--write-arrival** now takes into account minimum stop duration in a sub-net #18491
@@ -147,7 +147,7 @@ title: ChangeLog
   - gtfs2pt.py: now runs much faster due to better caching #18333, #18339
   - gtfs2pt.py: always use stop before reversal to avoid skipping #18393
   - gtfs2pt.py: The new option **--coupling remove** can be used to avoid duplicate vehicles for trips that travel as a coupled train #18451
-  - gtfs2pt.py: Option **--parking-threshold** now also applies to stop beyond the given duration as computed from known arrival/departure times as well as from estimated arrival times #18460, #18490  
+  - gtfs2pt.py: Option **--parking-threshold** now also applies to stop beyond the given duration as computed from known arrival/departure times as well as from estimated arrival times #18460, #18490
   - patchRailPriorities.py: Added option **--add-signals** which adds signals to all identified sidings that lack them #18458
   - patchRailPriorities.py: Added option **--routing-threads** to speed up siding search (new option also available for createOvertakingReroutes.py) #18455
   - sumolib: added helper function `net.getNearestLane` #9004
@@ -615,7 +615,7 @@ title: ChangeLog
   - remap_additionals.py: fixed crash when object has no position attribute #17711
   - edgeDataDiff.py: fixed crash on empty interval #17715
   - edgeDataDiff.py: fixed invalid output when inputs have different interval times #17716
-  - sumollib.net.getShortestPath: fixed bug where no path was found when a route had to loop back to the starting edge #17759
+  - sumolib.net.getShortestPath: fixed bug where no path was found when a route had to loop back to the starting edge #17759
   - generateStationEdges.py: Fixed invalid output when stops have spaces in their name #17932
   - createScreenshotSequence.py can now handle human-readable time #17964
   - net2geojson.py now writes valid polygons (i.e. w.r.t. orientation) #15295

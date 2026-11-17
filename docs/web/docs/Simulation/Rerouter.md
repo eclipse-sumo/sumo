@@ -193,7 +193,7 @@ Alternatively to changing lane permissions with a rerouter, the traci functions 
 
 !!! caution
     When using rerouters to extend the original permissions of a network (allowing more vehicles than permitted by default) requires explicit handling of [internal edges](Intersections.md#internal_links). For this reason it is easier to allow both lanes in the network and set the initial restriction with a rerouter.
-    
+
 ## Assigning a new Destination
 
 A "destProbReroute" forces the rerouter to assign a new route to
@@ -456,7 +456,7 @@ The attributes used within such definitions are:
 | defer          | bool                    | Whether a slow train may elect to be overtaking at some downstream location (defaults to *true* if more than one `<overtakingReroute>` element is defined within the rerouter)   |
 
 Requirements for the siding:
-- one of the edges of the saiding must have a rail_signal at it's end
+- one of the edges of the siding must have a rail_signal at it's end
 - the siding must be long enough to accommodate the train being overtaken ahead of the rail signal
 
 Definitions for `<overtakingReroute>` can be created with the tool [createOvertakingReroutes.py](../Tools/Railways.md#createovertakingreroutespy).
@@ -577,7 +577,7 @@ When the departure edge for a vehicle is closed, vehicles will ignore this for
 
 ## Skipping stops and optimizing reached stops
 
-When a vehicle reroutes that has one or more remainign stops on it's route, The default behavior is to find a route that reaches all stops. If some stops are unreachable, rerouting fails and the vehicle must wait at the closed edge until the closing ends.
+When a vehicle reroutes that has one or more remaining stops on it's route, The default behavior is to find a route that reaches all stops. If some stops are unreachable, rerouting fails and the vehicle must wait at the closed edge until the closing ends.
 By setting attribute `priority` in the [stop definitions](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints) of the vehicle, an algorithm that optimizes reachable stops is activated:
 
 - stops with priority >= 0 are skipped if they cannot be reached anymore
