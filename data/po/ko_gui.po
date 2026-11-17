@@ -8878,7 +8878,7 @@ msgstr "이 값은 우선 차량 앞을 통과할 때 최소 시간 간격을 �
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6974
 #, fuzzy
-msgid "Willingess of drivers to impede vehicles with higher priority"
+msgid "Willingness of drivers to impede vehicles with higher priority"
 msgstr "더 높은 우선권을 가진 차량을 방해하려는 운전자의 의지"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6985

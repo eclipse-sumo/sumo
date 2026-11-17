@@ -9532,7 +9532,7 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:239
 msgid ""
-"Whether edges shoulds carry information on the usage of typemap defaults"
+"Whether edges should carry information on the usage of typemap defaults"
 msgstr ""
 "Ob Kanten Informationen über die Nutzung von Typenstandardwerten halten "
 "sollen"
@@ -9667,7 +9667,7 @@ msgid "Computes the number of lanes from the edges' capacities"
 msgstr "Berechnet die Anzahl der Fahrstreifen aus den Kapazitäten der Kanten"
 
 #: src/netimport/NIFrame.cpp:355
-msgid "Prints all warnings, some of which are due to VISUM misbehaviour"
+msgid "Prints all warnings, some of which are due to VISUM misbehavior"
 msgstr ""
 "Gibt alle Warnungen aus, von denen einige auf Fehlverhalten von VISUM "
 "zurückzuführen sind"

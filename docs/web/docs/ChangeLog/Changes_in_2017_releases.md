@@ -222,7 +222,7 @@ title: Changes in the 2017 releases (versions 0.29.0, 0.30.0, 0.31.0 and 0.32.0)
     settings tab). If pedestrians are imported as well they may
     elect to use public transport to shorten their walks.
   - added new tool
-    [filterDistrics.py](../Tools/District.md#filterdistrictspy)
+    [filterDistricts.py](../Tools/District.md#filterdistrictspy)
     to generate district (TAZ) files that are valid for a given
     vehicle class
   - [traceExporter.py](../Tools/TraceExporter.md) can now built
@@ -792,7 +792,7 @@ model](../Simulation/SublaneModel.md) is now 0.6m (down from
     files. #738
   - Edge types are now imported from a *.net.xml* file. #2508
   - Added option **--opendrive.curve-resolution** {{DT_FLOAT}} for setting the level of detail when importing
-    road geometries from parmeterized curves. #2686
+    road geometries from parameterized curves. #2686
   - Node shape computation (especially stop line position) can now
     be influenced by setting edge geometries that do not extend to
     the node position.
@@ -803,7 +803,7 @@ model](../Simulation/SublaneModel.md) is now 0.6m (down from
   - Bus stops can now be imported from OpenStreetMap using the new
     option **--ptstop-output** {{DT_FILE}}. #2933
   - Lanes within a network that have no incoming connection and
-    edges that have no outgong connections are now reported. #2997
+    edges that have no outgoing connections are now reported. #2997
   - Specific lanes can now be deleted [via loaded *.edg.xml* files](../Networks/PlainXML.md#deleting_edges_or_lanes)
     (to ensure that connections are kept as intended). #3009
 

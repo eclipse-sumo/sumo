@@ -9316,7 +9316,7 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:239
 msgid ""
-"Whether edges shoulds carry information on the usage of typemap defaults"
+"Whether edges should carry information on the usage of typemap defaults"
 msgstr ""
 "Должны ли рёбра содержать информацию об использовании значений по умолчанию "
 "из typemap"
@@ -9450,7 +9450,7 @@ msgid "Computes the number of lanes from the edges' capacities"
 msgstr "Вычислять количество полос из пропускной способности рёбер"
 
 #: src/netimport/NIFrame.cpp:355
-msgid "Prints all warnings, some of which are due to VISUM misbehaviour"
+msgid "Prints all warnings, some of which are due to VISUM misbehavior"
 msgstr ""
 "Выводить все предупреждения, некоторые из которых вызваны некорректным "
 "поведением VISUM"

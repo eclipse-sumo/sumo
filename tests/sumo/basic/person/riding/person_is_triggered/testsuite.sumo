@@ -9,3 +9,4 @@ person_triggered_from
 
 # person starting in a vehicle but skipped by begin time
 person_triggered_skip
+errors

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17T10:18:12.576021+01:00 by Eclipse SUMO netedit v1_28_0+0618-5b68e57a059
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,80.00,20.00" origBoundary="0.00,0.00,60.00,0.00" projParameter="!"/>
+
+    <edge id="beg" from="a" to="b" priority="-1">
+        <lane id="beg_0" index="0" allow="pedestrian" speed="13.90" length="20.00" width="2.00" shape="0.00,-1.00 20.00,-1.00"/>
+    </edge>
+    <edge id="closed" from="c" to="d" priority="-1">
+        <lane id="closed_0" index="0" allow="pedestrian" speed="13.90" length="13.00" width="2.00" shape="43.50,-1.00 56.50,-1.00"/>
+    </edge>
+    <edge id="detour" from="c" to="d" priority="-1" shape="40.00,0.00 40.00,20.00 60.00,20.00 60.00,0.00">
+        <lane id="detour_0" index="0" allow="pedestrian" speed="13.90" length="53.00" width="2.00" shape="41.00,1.50 41.00,19.00 59.00,19.00 59.00,1.50"/>
+    </edge>
+    <edge id="end" from="d" to="J0" priority="-1">
+        <lane id="end_0" index="0" allow="pedestrian" speed="13.90" length="18.50" width="2.00" shape="61.50,-1.00 80.00,-1.00"/>
+    </edge>
+    <edge id="trigger" from="b" to="c" priority="-1">
+        <lane id="trigger_0" index="0" allow="pedestrian" speed="13.90" length="18.50" width="2.00" shape="20.00,-1.00 38.50,-1.00"/>
+    </edge>
+
+    <junction id="J0" type="dead_end" x="80.00" y="0.00" incLanes="end_0" intLanes="" shape="80.00,-2.00 80.00,0.00"/>
+    <junction id="a" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-2.00"/>
+    <junction id="b" type="dead_end" x="20.00" y="0.00" incLanes="beg_0" intLanes="" shape="20.00,0.00 20.00,-2.00 20.00,0.00"/>
+    <junction id="c" type="dead_end" x="40.00" y="0.00" incLanes="trigger_0" intLanes="" shape="40.00,1.50 42.00,1.50 42.17,0.67 42.38,0.38 42.67,0.17 43.04,0.04 43.50,0.00 43.50,-2.00 38.50,-2.00 38.50,0.00 39.33,0.17 39.62,0.38 39.83,0.67 39.96,1.04"/>
+    <junction id="d" type="dead_end" x="60.00" y="0.00" incLanes="detour_0 closed_0" intLanes="" shape="58.00,1.50 60.00,1.50 60.17,0.67 60.38,0.38 60.67,0.17 61.04,0.04 61.50,0.00 61.50,-2.00 56.50,-2.00 56.50,0.00 57.33,0.17 57.62,0.38 57.83,0.67 57.96,1.04"/>
+
+</net>

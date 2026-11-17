@@ -141,9 +141,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     MSTrafficLightLogic::init(nb);
     initAttributeOverride();
     initSwitchingRules();
-    for (int i = 0; i < (int)myPhases.size(); i++) {
-        initTargets(i);
-    }
+    // myTargets is computed lazily in decideNextPhase(): it is only needed for phases with multiple 'next' entries that
+    // use the default switching algorithm
     if (myLanes.size() == 0) {
         // must be an older network
         WRITE_WARNINGF(TL("Traffic light '%' does not control any links"), getID());
@@ -651,13 +650,15 @@ MSActuatedTrafficLightLogic::initTargets(int step) {
     // next -> target -> transitionTime starting from step
     std::map<int, std::map<int, SUMOTime> > reached;
     const std::vector<int>& next = myPhases[step]->nextPhases;
+    // also marks step as computed if no target is found
+    std::map<int, std::vector<int> >& targets = myTargets[step];
     for (int n : next) {
         findTargets(step, n, 0, reached[n]);
     }
     for (int target = 0; target < (int)myPhases.size(); target++) {
         int bestNext = next[0];
         SUMOTime bestTime = SUMOTime_MAX;
-        for (auto item : reached) {
+        for (const auto& item : reached) {
             auto it = item.second.find(target);
             if (it != item.second.end()) {
                 SUMOTime transitionTime = it->second;
@@ -668,7 +669,7 @@ MSActuatedTrafficLightLogic::initTargets(int step) {
             }
         }
         if (bestTime != SUMOTime_MAX) {
-            myTargets[step][bestNext].push_back(target);
+            targets[bestNext].push_back(target);
             //std::cout << " myTargets step=" << step << " bestNext=" << bestNext << " target=" << target << "\n";
         }
     }
@@ -1007,6 +1008,9 @@ MSActuatedTrafficLightLogic::decideNextPhase() {
             result = myStep;
             maxPrio = currentPrio;
         }
+    }
+    if (myTargets.count(myStep) == 0) {
+        initTargets(myStep);
     }
     for (int step : cands) {
         int prio = 0;

@@ -448,7 +448,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
   - Device [assignment by `<param>`](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)
     can now be used to override device assignment by option **--device.<DEVICENAME\>.probability**.
   - Added new `vType`-attribute `carFollowModel` which can be used instead of a child
-    element when declearing the car following model. #663
+    element when declaring the car following model. #663
   - Vehicles which do not have a route and cannot find one on
     insertion get discarded when **--ignore-route-errors** is given. #1825
   - **--vehroute-output** now includes the route length. #1790
@@ -635,7 +635,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
     spot when using the *striping* model. #1506
   - fixed crash when vehicles with `vClass="ignoring"` attempt to drive across
     sidewalks and walkingareas.
-  - fixed invalid `departDelay` in **--tripinfo-output** when using flows with attribute `probablity`. #1482
+  - fixed invalid `departDelay` in **--tripinfo-output** when using flows with attribute `probability`. #1482
   - fixed rerouter interval ends which are now exclusive like all
     other intervals
   - fixed bug that caused invalid exit times when vehicles were

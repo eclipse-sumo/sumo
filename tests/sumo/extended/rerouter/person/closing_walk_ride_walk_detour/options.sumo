@@ -1,0 +1,7 @@
+--no-step-log --no-duration-log --net-file=net.net.xml --route-files=input_routes.rou.xml
+--additional-files=input_additional.add.xml,input_additional2.add.xml
+--personroute-output vehroutes.xml
+--vehroute-output.write-unfinished
+--personinfo-output tripinfos.xml
+--tripinfo-output.write-unfinished
+--ignore-route-errors

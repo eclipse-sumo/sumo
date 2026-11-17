@@ -96,7 +96,7 @@ title: Changes in the 2024 releases (versions 1.20.0 and 1.21.0)
   - Fixed Crash during undo-redo of stops/waypoints over stoppingPlaces #15249 (regression in 1.19.0)
   - Fixed crash when editing person and container types for a selection #15255 (regression in 1.19.0)
   - Fixed junction highlighting on hovering in edge mode #15413 (regression in 1.19.0)
-  - Fixed invalid "embededRoute" element in view #15492 (regression in 1.19.0)
+  - Fixed invalid "embeddedRoute" element in view #15492 (regression in 1.19.0)
   - Vehicle type attribute dialog: guiShape combobox is now working with default vClass #14859  (regression in 1.19.0)
   - Fixed invalid tls link indices #14949 (regression in 1.20.0)
   - Fixed inspecting and selecting elements in data mode #14999 (regression in 1.20.0)
@@ -533,7 +533,7 @@ title: Changes in the 2024 releases (versions 1.20.0 and 1.21.0)
   - [TocDevice](../ToC_Device.md) openGap parameters can now be set via `vehicle.setParameter` #14582
   - in mesosim, `lane.setMaxSpeed` now only affects a single queue when running with **--meso-lane-queue** #14589
   - Added functions `edge.getFromJunction`, `edge.getToJunction`, `junction.getIncomingEdges`, `junction.getOutgoingEdges` to query the network topology. #14490
-  - The routing mode value `ROUTING_MODE_INGNORE_TRANSIENT_PERMISSIONS` can now be used to ignore temporary permission changes from rerouters. #14205
+  - The routing mode value `ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS` can now be used to ignore temporary permission changes from rerouters. #14205
   - Added function `trafficlight.getSpentDuration` #14400
   - `trafficlight.getParameter(tlsID, "typeName")` now retrieves traffic light type #14737
 

@@ -48,8 +48,8 @@ long long int MELoop::LeaderEvent::myEventCounter(0);
 // ===========================================================================
 MELoop::MELoop(const SUMOTime recheckInterval) : myFullRecheckInterval(recheckInterval), myLinkRecheckInterval(TIME2STEPS(1)) {
     myInterpolateMesoPos = MSGlobals::gMesoInterpolatePos && (
-            OptionsCont::getOptions().isSet("fcd-output") ||
-            OptionsCont::getOptions().isSet("queue-output"));
+                               OptionsCont::getOptions().isSet("fcd-output") ||
+                               OptionsCont::getOptions().isSet("queue-output"));
 }
 
 MELoop::~MELoop() {
@@ -334,8 +334,8 @@ MELoop::addLeaderCar(MEVehicle* veh, MSLink* link, const bool fromState) {
 
 void
 MELoop::clearState() {
-    myLeaderCars = LeaderEventQeue();
-    myInvalidatedLeaderCars = LeaderEventQeue();
+    myLeaderCars = LeaderEventQueue();
+    myInvalidatedLeaderCars = LeaderEventQueue();
 }
 
 

@@ -279,7 +279,7 @@ from the given speed.
 | :-------------------: | :---: | :----: | :----: |:----: |
 | value type *compound* | 3     | stopIndex  | param    | customParam
 
-The stopIndex must be in range [-numberOfPassedStops, numberORemaingStops - 1].
+The stopIndex must be in range [-numberOfPassedStops, numberORemainingStops - 1].
 The customParam is interpreted as a boolean and determines whether an attribute values or a user defined parameter is returned.
 
 

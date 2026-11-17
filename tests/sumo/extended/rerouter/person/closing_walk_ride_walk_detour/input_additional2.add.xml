@@ -1,0 +1,10 @@
+<additional>
+  <vType id="bus" vClass="bus"/>
+  <busStop id="S1" lane="CD_1" startPos="20" endPos="40"/>
+  <busStop id="S2" lane="EF_1" startPos="100" endPos="120"/>
+  <flow id="bus" type="bus" line="L" begin="0" end="1800" period="300">
+    <route edges="E0 AB BC CD DE EF"/>
+    <stop busStop="S1" until="60"/>
+    <stop busStop="S2" until="120"/>
+  </flow>
+</additional>
