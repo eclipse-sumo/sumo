@@ -1,4 +1,6 @@
-on("ready", function(){
+on("ready", async function(){
+    await loadTranslations(getLanguage());
+
     const params = new URLSearchParams(globalThis.location.search);
     const PORT = params.has("port") ? params.get("port") : "8010";
 
@@ -18,19 +20,19 @@ on("ready", function(){
             this.internal = internal;
 
             let node = elem("<div>", {className: "container"});
-            let header = elem("<h4>", {textContent: display});
+            let header = elem("<h4>", {textContent: display, dataset: {i18n: ""}});
             header.append("<img>", {src: "images/" + internal + ".png"});
             node.append(header);
             this.enable = elem("<input>", {type: "checkbox", checked: enabled});
             node.append(this.enable);
 
             let options = elem("<div>", {className: "options"});
-            let label = elem("<label>", {textContent: "Through Traffic Factor"});
+            let label = elem("<label>", {textContent: N_("Through Traffic Factor"), dataset: {i18n: ""}});
             this.fringeFactor = elem("<input>", {type: "number", min: .5, max: 100, step: .1, value: fringeFactor});
             label.append(this.fringeFactor);
             options.append(label);
 
-            label = elem("<label>", {textContent: "Count", title: "Count per hour per kilometer"});
+            label = elem("<label>", {textContent: N_("Count"), title: N_("Count per hour per kilometer"), dataset: {i18n: "", i18nAttrs: "title"}});
             this.count = elem("<input>", {type: "number", min: .2, max: 100, step: .1, value: count});
             label.append(this.count);
             options.append(label);
@@ -51,16 +53,16 @@ on("ready", function(){
     };
 
     const vehicleClasses = [
-        new Settings("Cars", "passenger", 5, 12, true),
-        new Settings("Trucks", "truck", 5, 8),
-        new Settings("Bus", "bus", 5, 4),
-        new Settings("Motorcycles", "motorcycle", 2, 4),
-        new Settings("Bicycles", "bicycle", 2, 6),
-        new Settings("Pedestrians", "pedestrian", 1, 10),
-        new Settings("Trams", "tram", 20, 2),
-        new Settings("Urban trains", "rail_urban", 40, 2),
-        new Settings("Trains", "rail", 40, 2),
-        new Settings("Ships", "ship", 40, 2)
+        new Settings(N_("Cars"), "passenger", 5, 12, true),
+        new Settings(N_("Trucks"), "truck", 5, 8),
+        new Settings(N_("Bus"), "bus", 5, 4),
+        new Settings(N_("Motorcycles"), "motorcycle", 2, 4),
+        new Settings(N_("Bicycles"), "bicycle", 2, 6),
+        new Settings(N_("Pedestrians"), "pedestrian", 1, 10),
+        new Settings(N_("Trams"), "tram", 20, 2),
+        new Settings(N_("Urban trains"), "rail_urban", 40, 2),
+        new Settings(N_("Trains"), "rail", 40, 2),
+        new Settings(N_("Ships"), "ship", 40, 2)
     ];
 
     function RoadTypes(){
@@ -68,12 +70,12 @@ on("ready", function(){
     }
 
     RoadTypes.prototype = {
-        init: function (category, typeList) {
+        init: function (category, typeList, display) {
             this.category = category;
             this.typeList = typeList;
 
             let node = elem("<div>", {className: "container"});
-            let header = elem("<h4>", {textContent: category});
+            let header = elem("<h4>", {textContent: display, dataset: {i18n: ""}});
             let checkbox = elem("<input>",{type: "checkbox", checked:true, className: "checkAll", id: category.toLowerCase()});
             node.append(header);
             node.append(checkbox);
@@ -120,13 +122,50 @@ on("ready", function(){
     categories["Aerialway"] = ["cable_car", "gondola"];
     categories["Route"] = ["ferry"];
 
+    // the category keys are sent to the server, only the headers are translated
+    const categoryNames = {
+        "Highway": N_("Highway"),
+        "Pedestrians": N_("Pedestrians"),
+        "Railway": N_("Railway"),
+        "Aeroway": N_("Aeroway"),
+        "Waterway": N_("Waterway"),
+        "Aerialway": N_("Aerialway"),
+        "Route": N_("Route")
+    };
+
     let roadClasses = [];
 
     for (const [key, value] of Object.entries(categories)) {
-        roadClasses.push(new RoadTypes(key, value));
+        roadClasses.push(new RoadTypes(key, value, categoryNames[key]));
     }
 
+    translatePage(document);
+
+    // language selection, the available languages are defined in lib.js
+    const languageSelect = elem("#language");
+    for (const [code, name] of Object.entries(LANGUAGES)) {
+        languageSelect.append(elem("<option>", {value: code, textContent: name}));
+    }
+    languageSelect.value = currentLanguage;
+    if (globalThis.location.protocol == "file:") {
+        // without the web server no translations are available
+        elem("#language-container").style.display = "none";
+    }
+    languageSelect.on("change", async function(){
+        await loadTranslations(this.value);
+        translatePage(document);
+        // keep the language when reloading the page
+        const urlParams = new URLSearchParams(globalThis.location.search);
+        urlParams.set("lang", this.value);
+        history.replaceState(null, "", "?" + urlParams.toString());
+    });
+
     let activeTab = null;
+
+    // keep the controls below the button / status bar, even if a (translated) text needs more than one line
+    new ResizeObserver(function(){
+        elem("#side").style.setProperty("--controls-top", Math.max(55, elem("#fixed").offsetHeight + 5) + "px");
+    }).observe(elem("#fixed"));
 
     /**
      * @function
@@ -365,6 +404,11 @@ on("ready", function(){
         prefix: false
     }).addTo(map);
 
+    // layer names are inserted as html by Leaflet, translatable names are marked for translatePage
+    function translatableLayerName(name){
+        return '<span data-i18n>' + name + '</span>';
+    }
+
     const tileLayers = {
         "OpenStreetMap": L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
             noWrap: true,
@@ -378,7 +422,7 @@ on("ready", function(){
             noWrap: true,
             attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> | DEM: <a href="http://viewfinderpanoramas.org/" target="_blank">SRTM</a>, <a href="https://sonny.4lima.de/" target="_blank">Sonny</a> | Map style: &copy; <a href="https://opentopomap.org" target="_blank">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">CC-BY-SA</a>)'
         }),
-        "ÖPNVKarte (public transport facilities)": L.tileLayer("https://tile.memomaps.de/tilegen/{z}/{x}/{y}.png", {
+        [translatableLayerName(N_("ÖPNVKarte (public transport facilities)"))]: L.tileLayer("https://tile.memomaps.de/tilegen/{z}/{x}/{y}.png", {
             noWrap: true,
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> | &copy; <a href="https://memomaps.de/" target="_blank">MeMoMaps</a> (<a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC-BY-SA</a>)'
         }),
@@ -386,10 +430,15 @@ on("ready", function(){
 
     tileLayers["OpenStreetMap"].addTo(map);
 
-    L.control.layers(tileLayers, null, {
+    const layersControl = L.control.layers(tileLayers, null, {
         collapsed: true,
         position: "topleft"
     }).addTo(map);
+    translatePage(layersControl.getContainer());
+    // Leaflet may rebuild the layer list
+    map.on("baselayerchange", function(){
+        translatePage(layersControl.getContainer());
+    });
 
     function setPosition(lon, lat){
         if(!lon || !lat){
@@ -431,20 +480,20 @@ on("ready", function(){
         dataType: "json",
             success: function(data) {
                 if (!Array.isArray(data) || data.length === 0) {
-                    globalThis.alert('Could not locate address: ' + query);
+                    globalThis.alert(TLF("Could not locate address: %", query));
                     return;
                 }
                 let result = data[0];
                 let lon = Number.parseFloat(result.lon);
                 let lat = Number.parseFloat(result.lat);
                 if (Number.isNaN(lon) || Number.isNaN(lat)) {
-                    globalThis.alert('Could not locate address: ' + query);
+                    globalThis.alert(TLF("Could not locate address: %", query));
                     return;
                 }
                 setPosition(lon, lat);
             },
             error: function (request, status, err) {
-                globalThis.alert('Could not locate address: ' + err);
+                globalThis.alert(TLF("Could not locate address: %", err));
             }
         });
     }
@@ -479,7 +528,7 @@ on("ready", function(){
      */
     elem("#buttonCurrent").on("click", function(){
         if(!navigator.geolocation) {
-            globalThis.alert("Unable to access your location. Geolocation is either not supported by your browser or is not enabled.");
+            globalThis.alert(TL("Unable to access your location. Geolocation is either not supported by your browser or is not enabled."));
             return;
         }
 
@@ -515,7 +564,7 @@ on("ready", function(){
 
     function errorMessage(error) {
         if (presentedErrorLog == false) {
-            globalThis.alert("Server connection failed (" + error + "). Please (re-)open the OSM Web Wizard by using osmWebWizard.py or the link in your start menu.");
+            globalThis.alert(TLF("Server connection failed (%). Please (re-)open the OSM Web Wizard by using osmWebWizard.py or the link in your start menu.", error));
             presentedErrorLog = true;
         }
     }
@@ -616,6 +665,7 @@ on("ready", function(){
         };
 
         let data = {
+            language: currentLanguage,
             poly: elem("#polygons").checked,
             duration: Number.parseInt(elem("#duration").value),
             publicTransport: elem("#publicTransport").checked,

@@ -402,6 +402,9 @@ private:
     osg::ref_ptr<osg::Node> myRedYellowLight;
     osg::ref_ptr<osg::Node> myPoleBase;
     osg::ref_ptr<osg::Node> myPlaneTransform;
+
+    /// @brief whether the last press of key 'f' was passed to OSG (to switch the camera mode)
+    bool myCameraModeKeyPressed = false;
 };
 
 #endif

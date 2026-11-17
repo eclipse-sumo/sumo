@@ -20,5 +20,8 @@ overtaking_option
 # enable overtaking via edge type
 overtaking
 
+# traffic that overtakes elsewhere does not change the overtaking of other vehicles (see overtaking_option)
+overtaking_decoupled
+
 # change segment length for some edges
 edgelength

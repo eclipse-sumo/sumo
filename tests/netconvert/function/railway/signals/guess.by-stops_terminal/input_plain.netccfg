@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-12T21:48:27.948154+01:00 by Eclipse SUMO netconvert v1_28_0+0517-8de9bd91008
+-->
+
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="/scr1/sumo/tests/netconvert/function/railway/signals/guess.by-stops_terminal/input_plain.nod.xml"/>
+        <edge-files value="/scr1/sumo/tests/netconvert/function/railway/signals/guess.by-stops_terminal/input_plain.edg.xml"/>
+        <connection-files value="/scr1/sumo/tests/netconvert/function/railway/signals/guess.by-stops_terminal/input_plain.con.xml"/>
+        <tllogic-files value="/scr1/sumo/tests/netconvert/function/railway/signals/guess.by-stops_terminal/input_plain.tll.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+</netconvertConfiguration>

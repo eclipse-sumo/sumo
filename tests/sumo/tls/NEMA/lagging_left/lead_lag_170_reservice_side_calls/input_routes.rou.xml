@@ -1,0 +1,20 @@
+<routes>
+    <!-- side-street calls while phase 2 is served again: one that fits crosses at once, a late one waits for the next cycle -->
+    <vType id="car" sigma="0"/>
+    <!-- cycle 1 (starts 149): lag 1 runs 200-205, phase 2 is served again from 209 -->
+    <vehicle id="lag1a" type="car" depart="139" departLane="1" departPos="245" departSpeed="0">
+        <route edges="1si 4o"/>
+    </vehicle>
+    <!-- side-street call after phase 2's minimum green (224), still fitting before phase 4's force-off (244): served at 232 -->
+    <vehicle id="side4a" type="car" depart="224" departLane="0" departPos="245" departSpeed="0">
+        <route edges="3si 4o"/>
+    </vehicle>
+    <!-- cycle 2 (starts 249): lag 1 runs 300-305, phase 2 is served again from 309 -->
+    <vehicle id="lag1b" type="car" depart="239" departLane="1" departPos="245" departSpeed="0">
+        <route edges="1si 4o"/>
+    </vehicle>
+    <!-- side-street call too late for phase 4 to fit before its force-off (344): served in cycle 3 from 420 -->
+    <vehicle id="side4b" type="car" depart="330" departLane="0" departPos="245" departSpeed="0">
+        <route edges="3si 4o"/>
+    </vehicle>
+</routes>

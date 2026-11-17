@@ -1,0 +1,16 @@
+<routes>
+    <!-- lag [1] gaps out with no side-street call; coordinated phase start C_start = 0 s into the cycle -->
+    <vType id="car" sigma="0"/>
+    <!-- cycle 0 (warm-up): side-street call -->
+    <vehicle id="side4_early" type="car" depart="20" departLane="0" departPos="245" departSpeed="0">
+        <route edges="3si 4o"/>
+    </vehicle>
+    <!-- cycle 1 (starts 100): lag call while phase 2 is green; phase 1 gaps out before the barrier -->
+    <vehicle id="lag1_called" type="car" depart="130" departLane="1" departPos="245" departSpeed="0">
+        <route edges="1si 4o"/>
+    </vehicle>
+    <!-- cycle 1: side-street call after phase 1 has gapped out -->
+    <vehicle id="side4_late" type="car" depart="165" departLane="0" departPos="245" departSpeed="0">
+        <route edges="3si 4o"/>
+    </vehicle>
+</routes>

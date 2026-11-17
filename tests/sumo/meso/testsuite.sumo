@@ -31,4 +31,5 @@ lane_queue
 
 # ignoring lanes by vclass
 ignore_lanes
+interpolate
 bugs

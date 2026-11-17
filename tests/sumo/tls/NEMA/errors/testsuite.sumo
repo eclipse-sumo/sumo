@@ -19,3 +19,7 @@ ticket15001
 
 # crash, #17593
 emptyRing
+
+# one value instead of one phase per ring (#18514)
+singleBarrierPhase
+singleCoordinatePhase

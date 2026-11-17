@@ -288,6 +288,7 @@
     <xsd:complexType name="routingEngineType">
         <xsd:sequence>
             <xsd:element name="edge" type="routingEngineEdgeType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="cchMetric" type="cchMetricType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="last" type="xsd:int" use="required"/>
         <xsd:attribute name="index" type="xsd:int" use="required"/>
@@ -305,6 +306,15 @@
         <xsd:attribute name="pastSpeed" type="xsd:string" use="optional"/>
         <xsd:attribute name="bikeSpeed" type="floatType" use="optional"/>
         <xsd:attribute name="pastBikeSpeed" type="xsd:string" use="optional"/>
+        <xsd:attribute name="cchEffort" type="floatType" use="optional"/>
+        <xsd:attribute name="cchPending" type="boolType" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="cchMetricType">
+        <xsd:attribute name="type" type="xsd:string" use="required"/>
+        <xsd:attribute name="index" type="xsd:int" use="required"/>
+        <xsd:attribute name="arcs" type="xsd:string" use="optional"/>
+        <xsd:attribute name="weights" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
 </xsd:schema>

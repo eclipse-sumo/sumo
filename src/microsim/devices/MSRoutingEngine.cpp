@@ -353,14 +353,7 @@ MSRoutingEngine::initCCH() {
     // All types share ONE CCH topology (the union); route files stream, so
     // types appearing later register through the family's wanted list and
     // get their metric at the next customization barrier.
-    ensureCCHGraph();
-    const OptionsCont& oc = OptionsCont::getOptions();
-    myCCHLive = new MSCCHMetricFamily(
-        myCCHGraph, myEffortFunc, &MSRoutingEngine::getEffort,
-        oc.getFloat("device.rerouting.cch-update-threshold.factor"),
-        STEPS2TIME(string2time(oc.getString("device.rerouting.cch-update-threshold.constant"))),
-        &MSRoutingEngine::buildCCHRefVehicle,
-        oc.getInt("device.rerouting.cch-ensemble"));
+    buildCCHLive();
     std::vector<std::string> vtypeIDs;
     MSNet::getInstance()->getVehicleControl().insertVTypeIDs(vtypeIDs);
     for (const std::string& id : vtypeIDs) {
@@ -375,6 +368,31 @@ MSRoutingEngine::initCCH() {
     }
     // publish initial metrics so the first queries succeed
     myCCHLive->customize(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()));
+}
+
+
+void
+MSRoutingEngine::buildCCHLive() {
+    ensureCCHGraph();
+    const OptionsCont& oc = OptionsCont::getOptions();
+    myCCHLive = new MSCCHMetricFamily(
+        myCCHGraph, myEffortFunc, &MSRoutingEngine::getEffort,
+        oc.getFloat("device.rerouting.cch-update-threshold.factor"),
+        STEPS2TIME(string2time(oc.getString("device.rerouting.cch-update-threshold.constant"))),
+        &MSRoutingEngine::buildCCHRefVehicle,
+        oc.getInt("device.rerouting.cch-ensemble"));
+}
+
+
+MSCCHMetricFamily*
+MSRoutingEngine::getLoadedCCH() {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (myCCHLive == nullptr && oc.getString("routing-algorithm") == "CCH") {
+        // restored before the first routing: fill with the effort initRouter will choose
+        myEffortFunc = ((myHaveExtras || oc.getBool("device.rerouting.bike-speeds")) ? &MSRoutingEngine::getEffortExtra : &MSRoutingEngine::getEffort);
+        buildCCHLive();
+    }
+    return myCCHLive;
 }
 
 
@@ -834,6 +852,8 @@ MSRoutingEngine::saveState(OutputDevice& out) {
     if (myEdgeSpeeds.size() == 0) {
         return;
     }
+    // with a deadband the CCH metrics are not a function of the speeds
+    const bool cch = myCCHLive != nullptr && myCCHLive->hasDeadband();
     out.openTag(SUMO_TAG_ROUTINGENGINE);
     out.writeAttr(SUMO_ATTR_LAST, myLastAdaptation);
     out.writeAttr(SUMO_ATTR_INDEX, myAdaptationStepsIndex);
@@ -853,7 +873,37 @@ MSRoutingEngine::saveState(OutputDevice& out) {
                     out.writeAttr(SUMO_ATTR_PASTBIKESPEED, myPastEdgeBikeSpeeds[id]);
                 }
             }
+            if (cch) {
+                const double applied = myCCHLive->getAppliedEffort(e);
+                if (!std::isnan(applied)) {
+                    out.writeAttr(SUMO_ATTR_CCH_EFFORT, applied);
+                }
+                if (myCCHLive->isPending(e)) {
+                    out.writeAttr(SUMO_ATTR_CCH_PENDING, true);
+                }
+            }
             out.closeTag();
+        }
+    }
+    if (cch) {
+        std::vector<const MSVehicleType*> types = myCCHLive->getKeys();
+        std::sort(types.begin(), types.end(), [](const MSVehicleType * a, const MSVehicleType * b) {
+            return a->getID() < b->getID();
+        });
+        for (const MSVehicleType* const type : types) {
+            for (int slot = 0; slot < myCCHLive->getEnsembleSize(); slot++) {
+                std::vector<int> arcs;
+                std::vector<int> weights;
+                myCCHLive->getLaggingArcs(type, slot, SIMTIME, arcs, weights);
+                out.openTag(SUMO_TAG_CCH_METRIC);
+                out.writeAttr(SUMO_ATTR_TYPE, type->getID());
+                out.writeAttr(SUMO_ATTR_INDEX, slot);
+                if (!arcs.empty()) {
+                    out.writeAttr(SUMO_ATTR_ARCS, arcs);
+                    out.writeAttr(SUMO_ATTR_WEIGHTS, weights);
+                }
+                out.closeTag();
+            }
         }
     }
     out.closeTag();
@@ -890,6 +940,22 @@ MSRoutingEngine::loadState(const SUMOSAXAttributes& attrs) {
                 WRITE_WARNING("Number of adaptation speeds in loaded state doesn't match option --device.rerouting.adaptation-steps");
             }
         }
+    }
+    if ((attrs.hasAttribute(SUMO_ATTR_CCH_EFFORT) || attrs.hasAttribute(SUMO_ATTR_CCH_PENDING)) && getLoadedCCH() != nullptr) {
+        myCCHLive->loadEdge(e, attrs.getOpt<double>(SUMO_ATTR_CCH_EFFORT, nullptr, ok, std::numeric_limits<double>::quiet_NaN()),
+                            attrs.getOpt<bool>(SUMO_ATTR_CCH_PENDING, nullptr, ok, false));
+    }
+}
+
+
+void
+MSRoutingEngine::loadCCHMetric(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(attrs.getString(SUMO_ATTR_TYPE), nullptr, true);
+    if (type != nullptr && getLoadedCCH() != nullptr) {
+        myCCHLive->loadMetric(type, attrs.getInt(SUMO_ATTR_INDEX), SIMTIME,
+                              attrs.getOpt<std::vector<int> >(SUMO_ATTR_ARCS, nullptr, ok, std::vector<int>()),
+                              attrs.getOpt<std::vector<int> >(SUMO_ATTR_WEIGHTS, nullptr, ok, std::vector<int>()));
     }
 }
 

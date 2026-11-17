@@ -50,37 +50,38 @@ Please note:
 
 The respond to a **"Command Get Traffic Lights Variable"**.
 
-### Structure of compound object traffic light program (both 0x25 and 0x2b)
+### Structure of compound object traffic light program (0x2b)
 
 If you request a complete traffic light program, the compound object is
 structured as following. Attention, each part is preceded by a byte
 which represents its data type, except "length".
 
-| integer |  type + integer  |  logic  | ... |  logic  |
-| :-----: | :--------------: | :-----: | :-: | :-----: |
-| Length  | Number of logics | logic 1 | ... | logic n |
+The outer compound contains one element for each program.
 
 where **logic** is described by:
 
-| type + string | type + integer | type + compound |   type + integer    |  type + integer  |  phase  | ... |  phase  |
-| :-----------: | :------------: | :-------------: | :-----------------: | :--------------: | :-----: | :-: | :-----: |
-|     SubID     |      Type      |  SubParameter   | Current phase index | Number of phases | Phase 1 | ... | Phase n |
+Each logic is a compound with five elements:
 
-Type and SubParameter aren't currently implemented therefore they are 0.
+| type + string | type + integer | type + integer | type + compound | type + compound |
+| :-----------: | :------------: | :------------: | :-------------: | :-------------: |
+| Program ID | Type | Current phase index | Phases | Parameters |
+
+The offset is not part of the returned program. It is only used when
+[setting a program](Change_Traffic_Lights_State.md) and can be supplied as an
+optional sixth element there.
+
+The parameters compound contains string lists of two entries: key and value.
 
 where **phase** is described by:
 
-|     type + double     |      type + double       |      type + double       |  type + string   |
-| :-------------------: | :----------------------: | :----------------------: | :--------------: |
-| Duration (in seconds) | MinDuration (in seconds) | MaxDuration (in seconds) | Phase definition |
+Each phase is a compound with six elements:
+
+| type + double | type + string | type + double | type + double | type + compound | type + string |
+| :-----------: | :-----------: | :-----------: | :-----------: | :-------------: | :-----------: |
+| Duration (seconds) | State | MinDuration (seconds) | MaxDuration (seconds) | Next phase indices (typed integers) | Name |
 
 MinDuration and MaxDuration are only relevant in the context of actuated
-traffic lights. The phase definition differs for 0x25 and 0x2b. The
-first (0x25) contains the old, deprecated definition which uses three
-strings that describe the tl's state, the first green y/n, the second
-for brake y/n, the third for yellow y/n. The second (0x2b) contains a
-single string representing the lights. Note, that the first (0x25) is
-also reversed.
+traffic lights. The state is a string representing the lights.
 
 ### Structure of compound object controlled links
 

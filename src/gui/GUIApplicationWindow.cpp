@@ -341,6 +341,8 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
         myCartesianCoordinate->setTipText(TL("Enter 'x, y' to center view"));
         myCartesianCoordinate->setBackColor(myCartesianFrame->getBackColor());
         myCartesianCoordinate->setText(TL("N/A"));
+        myCartesianCoordinate->disable();
+        myCartesianCoordinate->setEditable(false);
         // build buttons
         std::vector<std::string> help({
             TL("number of running vehicles"),
@@ -2444,6 +2446,8 @@ GUIApplicationWindow::closeAllWindows() {
     myGeoCoordinate->disable();
     myGeoCoordinate->setEditable(false);
     myCartesianCoordinate->setText(TL("N/A"));
+    myCartesianCoordinate->disable();
+    myCartesianCoordinate->setEditable(false);
     if (myTestCoordinate) {
         myTestCoordinate->setText(TL("N/A"));
     }

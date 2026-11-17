@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>OSM Web Wizard for SUMO</title>
+        <title data-i18n>OSM Web Wizard for SUMO</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="style.css" />
         <link rel="stylesheet" href="leaflet.css" />
@@ -17,67 +17,73 @@
 
         <div id="side">
             <div id="tabs">
-                <div class="tab" title="Options">
-                    <img src="images/generate.png" alt="Options" />
+                <div class="tab" title="Options" data-i18n-attrs="title">
+                    <img src="images/generate.png" alt="Options" data-i18n-attrs="alt" />
                 </div>
-                <div class="tab" title="Vehicles">
-                    <img src="images/passenger.png" alt="Vehicles" />
+                <div class="tab" title="Vehicles" data-i18n-attrs="title">
+                    <img src="images/passenger.png" alt="Vehicles" data-i18n-attrs="alt" />
                 </div>
-                <div class="tab" title="Road-Types">
-                    <img src="images/road.png" alt="Road-Types" />
+                <div class="tab" title="Road-Types" data-i18n-attrs="title">
+                    <img src="images/road.png" alt="Road-Types" data-i18n-attrs="alt" />
                 </div>
-                <div class="tab" title="Copyright">©</div>
+                <div class="tab" title="Copyright" data-i18n-attrs="title">©</div>
             </div>
 
             <div class="controls">
+                <div class="container" id="language-container">
+                    <div class="options open">
+                        <label data-i18n>Language <select id="language" style="float: right; color: #000;"></select></label>
+                    </div>
+                </div>
+
                 <div class="container">
-                    <h4>Position</h4>
+                    <h4 data-i18n>Position</h4>
 
                     <div class="options open">
                       <p>
                         <input id="address" value="Berlin" size="18"/>
-                        <input id="buttonSearch" type="button" value="Search"/> </br>
+                        <input id="buttonSearch" type="button" value="Search" data-i18n-attrs="value"/> </br>
                       </p>
                       <p>
                         <input id="lat_lon" value="52.52 13.4" size="18"/>
-                        <input id="buttonLatLon" type="button" value="Go to"/> </br>
+                        <input id="buttonLatLon" type="button" value="Go to" data-i18n-attrs="value"/> </br>
                       </p>
                       <p>
-                        <input id="buttonCurrent" type="button" value="Use current location"/></br>
+                        <input id="buttonCurrent" type="button" value="Use current location" data-i18n-attrs="value"/></br>
                       </p>
                     </div>
                 </div>
 
                 <div class="container">
                     <div class="options open">
-                        <label>Select Area <input type="checkbox" id="canvas-toggle" /></label>
+                        <label data-i18n>Select Area <input type="checkbox" id="canvas-toggle" /></label>
                     </div>
                 </div>
 
                 <div class="container" style="margin-top: 20px;">
-                    <h4>Options</h4>
+                    <h4 data-i18n>Options</h4>
 
                     <div class="options open" id="general-options">
-                        <label>Duration <input id="duration" type="number" value="3600" min="0" step="1" style="float: none;" /></label>
-                        <label>Add Polygons <input id="polygons" type="checkbox" checked /></label>
-                        <label>Import Public Transport <input id="publicTransport" type="checkbox" /></label>
+                        <label data-i18n>Duration <input id="duration" type="number" value="3600" min="0" step="1" style="float: none;" /></label>
+                        <label data-i18n>Add Polygons <input id="polygons" type="checkbox" checked /></label>
+                        <label data-i18n>Import Public Transport <input id="publicTransport" type="checkbox" /></label>
                         <div id="pt-modes" style="margin-left: 18px; margin-top: 6px;">
-                            <label style="display:block"><input id="pt_bus" type="checkbox" checked /> Bus</label>
-                            <label style="display:block"><input id="pt_tram" type="checkbox" checked /> Tram</label>
-                            <label style="display:block"><input id="pt_subway" type="checkbox" checked /> Metro (subway)</label>
-                            <label style="display:block"><input id="pt_light_rail" type="checkbox" checked /> Light rail</label>
-                            <label style="display:block"><input id="pt_train" type="checkbox" checked /> Train</label>
-                            <label style="display:block"><input id="pt_trolleybus" type="checkbox" checked /> Trolleybus</label>
-                            <label style="display:block"><input id="pt_monorail" type="checkbox" checked /> Monorail</label>
-                            <label style="display:block"><input id="pt_minibus" type="checkbox" checked /> Minibus</label>
-                            <label style="display:block"><input id="pt_share_taxi" type="checkbox" checked /> Share taxi</label>
-                            <label style="display:block"><input id="pt_ferry" type="checkbox" checked/> Ferry</label>
-                            <label style="display:block"><input id="pt_aerialway" type="checkbox" checked /> Cable car / Aerialway</label>
+                            <label data-i18n><input id="pt_bus" type="checkbox" checked /> Bus</label>
+                            <label data-i18n><input id="pt_tram" type="checkbox" checked /> Tram</label>
+                            <label data-i18n><input id="pt_subway" type="checkbox" checked /> Metro (subway)</label>
+                            <label data-i18n><input id="pt_light_rail" type="checkbox" checked /> Light rail</label>
+                            <label data-i18n><input id="pt_train" type="checkbox" checked /> Train</label>
+                            <label data-i18n><input id="pt_trolleybus" type="checkbox" checked /> Trolleybus</label>
+                            <label data-i18n><input id="pt_monorail" type="checkbox" checked /> Monorail</label>
+                            <label data-i18n><input id="pt_minibus" type="checkbox" checked /> Minibus</label>
+                            <label data-i18n><input id="pt_share_taxi" type="checkbox" checked /> Share taxi</label>
+                            <label data-i18n><input id="pt_ferry" type="checkbox" checked/> Ferry</label>
+                            <label data-i18n><input id="pt_aerialway" type="checkbox" checked /> Cable car / Aerialway</label>
                         </div>
-                        <label>Car-only Network <input id="carOnlyNetwork" type="checkbox" /></label>
-                        <label>Satellite background <input id="decal" type="checkbox" /></label>
+                        <label data-i18n>Car-only Network <input id="carOnlyNetwork" type="checkbox" /></label>
+                        <label data-i18n>Satellite background <input id="decal" type="checkbox" /></label>
                         <div id="tileZoomRow" style="display:none; margin-left: 18px;">
-                            <div style="margin-bottom:3px;">Image zoom level</div>
+                            <div style="margin-bottom:3px;" data-i18n>Image zoom level</div>
                             <select id="tileZoom" style="width:100%; box-sizing:border-box; color:#000;">
                                 <option value="12">12 (~38 m/px)</option>
                                 <option value="13">13 (~19 m/px)</option>
@@ -89,8 +95,8 @@
                                 <option value="19">19 (~0.3 m/px)</option>
                             </select>
                         </div>
-                        <label>Left Hand Traffic <input id="leftHand" type="checkbox" /></label>
-                        <label>Verbose <input id="verbose" type="checkbox" /></label>
+                        <label data-i18n>Left Hand Traffic <input id="leftHand" type="checkbox" /></label>
+                        <label data-i18n>Verbose <input id="verbose" type="checkbox" /></label>
                     </div>
                 </div>
             </div>
@@ -101,7 +107,7 @@
 
             <div class="controls">
                 <div class="container">
-                    <h4>Icon Copyrights</h4>
+                    <h4 data-i18n>Icon Copyrights</h4>
 
                     <div class="images">
                         <img src="images/generate.png" alt="" />
@@ -111,8 +117,8 @@
                     </div>
 
                     <p>
-                        Icons by <a href="http://google.com/design/">Google Design</a>,
-                        licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>
+                        <span data-i18n>Icons by</span> <a href="http://google.com/design/">Google Design</a>,
+                        <span data-i18n>licensed under</span> <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>
                     </p>
 
                     <div class="images">
@@ -123,8 +129,8 @@
                     </div>
 
                     <p>
-                        Icons by <a href="http://aiga.org/">AIGA</a>,
-                        Open Domain
+                        <span data-i18n>Icons by</span> <a href="http://aiga.org/">AIGA</a>,
+                        <span data-i18n>Open Domain</span>
                     </p>
 
                     <div class="images">
@@ -133,7 +139,7 @@
                     </div>
 
                     <p>
-                        Icons by <a href="http://www.danilodemarco.com/">Pittogrammi</a>
+                        <span data-i18n>Icons by</span> <a href="http://www.danilodemarco.com/">Pittogrammi</a>
                     </p>
 
                     <div class="images">
@@ -141,7 +147,7 @@
                     </div>
 
                     <p>
-                        Icon by <a href="http://icons8.com/">Icons8</a>
+                        <span data-i18n>Icon by</span> <a href="http://icons8.com/">Icons8</a>
                     </p>
 
                     <div class="images">
@@ -149,13 +155,13 @@
                     </div>
 
                     <p>
-                        Icon by <a href="https://www.flaticon.com/">Flaticon</a>
+                        <span data-i18n>Icon by</span> <a href="https://www.flaticon.com/">Flaticon</a>
                     </p>
                 </div>
             </div>
 
             <div id="fixed">
-                <button id="export-button">Generate Scenario</button>
+                <button id="export-button" data-i18n>Generate Scenario</button>
                 <div id="status">
                     <span></span>
                     <div></div>

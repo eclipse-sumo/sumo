@@ -70,6 +70,19 @@ public:
         double lookahead;
     };
 
+    enum Proceed_Status {
+        /// @brief mayProceed was not called
+        PROCEED_UNKNOWN = 0,
+        /// @brief the vehicle may proceed to the next segment
+        PROCEED_YES = 1,
+        /// @brief the vehicle must stay on the current segment
+        PROCEED_NO = 2,
+        /// @brief vehicle want's to change to right lane
+        PROCEED_NO_TLS = 4,
+        /// @brief vehicle want's to change to right lane
+        PROCEED_NO_STOP = 8,
+    };
+
 
 protected:
     class Queue {
@@ -345,9 +358,9 @@ public:
      * In case of disabled junction control it returns always true.
      *
      * @param[in] veh The vehicle in question
-     * @return Whether it may pass to the next segment
+     * @return bitsset from Proceed_Status indicating whether veh may pass to the next segment
      */
-    bool isOpen(const MEVehicle* veh) const;
+    int isOpen(const MEVehicle* veh) const;
 
     /** @brief Removes the vehicle from the segment, adapting its parameters
      *
@@ -527,7 +540,8 @@ public:
     }
 
 protected:
-    bool overtake();
+    /// @brief whether veh overtakes the queue's last vehicle, drawn from a number specific to vehicle and segment
+    bool overtake(const MEVehicle* veh) const;
 
     void setSpeedForQueue(double newSpeed, SUMOTime currentTime,
                           SUMOTime blockTime, const std::vector<MEVehicle*>& vehs);
@@ -608,6 +622,9 @@ protected:
 
     /// @brief Whether overtaking is permitted on this segment
     bool myOvertaking;
+
+    /// @brief this segment's part of the overtaking draws (hash of edge id and segment index in the upper 32 bits)
+    long long int myOvertakeKey = 0;
     /// @}
 
     /// @brief Headway parameter for computing gross time headyway from net time headway, length and edge speed

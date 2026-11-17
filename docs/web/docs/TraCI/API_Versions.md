@@ -26,6 +26,6 @@ entries are available in the changelog of the respective release.
 | 17 | [0.32.0](../ChangeLog/Changes_in_2017_releases.md#version_0320_19122017) | see release notes |
 | 18 | [1.0.0](../ChangeLog/Changes_in_2018_releases.md#version_100_04092018) | times are consistently represented in seconds as double |
 | 19 | [1.1.0](../ChangeLog/Changes_in_2018_releases.md#version_110_18122018) | see release notes |
-| 20 | [1.2.0](../ChangeLog/Changes_in_2019_releases.md#version_120_16042019) | `trafficlight.setCompleteRedYellowGreeenDefinition` changed |
+| 20 | [1.2.0](../ChangeLog/Changes_in_2019_releases.md#version_120_16042019) | `trafficlight.setCompleteRedYellowGreenDefinition` changed |
 | 21 | [1.19.0](../ChangeLog/Changes_in_2023_releases.md#version_1190_07112023) | unit changes (#7277) |
 | 22 | [1.23.0](../ChangeLog/Changes_in_2025_releases.md#version_1230_06052025) | Python client returns tuples instead of lists; removed `TL_EXTERNAL_STATE`; deprecated `simulation.getBusStop*` |

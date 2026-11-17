@@ -333,6 +333,12 @@ call](../TraCI/GenericParameters.md#get_parameter).
 - device.taxi.occupiedTime
 - device.taxi.occupiedDistance
 - device.taxi.currentCustomers
+- device.tripinfo.depart
+- device.tripinfo.departPos
+- device.tripinfo.departSpeed
+- device.tripinfo.departDelay
+- device.tripinfo.duration
+- device.tripinfo.rerouteNo
 - device.tripinfo.waitingTime (total waiting time)
 - device.tripinfo.waitingCount
 - device.tripinfo.stopTime (total stopping time)

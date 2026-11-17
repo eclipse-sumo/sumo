@@ -34,5 +34,9 @@ public class SumoTLSProgram extends de.tudresden.sumo.objects.SumoTLSProgram {
 	 public SumoTLSProgram(String subID, int type, int currentPhaseIndex) {
 		 super(subID, type, currentPhaseIndex);
 	 }
+
+	 public SumoTLSProgram(String subID, int type, int currentPhaseIndex, double offset) {
+		 super(subID, type, currentPhaseIndex, offset);
+	 }
 	
 }

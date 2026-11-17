@@ -41,4 +41,5 @@ amitran_trajectories_schema
 
 # numeric name of input file
 cross3ltl_1234
+cross3ltl_tripinfo_decimal_separator
 save_template
