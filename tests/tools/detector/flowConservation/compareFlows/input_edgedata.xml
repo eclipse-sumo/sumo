@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="0" begin="0" end="1800">
+        <edge id="w2c" entered="100"/>
+        <edge id="e2c" entered="80"/>
+        <edge id="c2w" entered="70"/>
+        <edge id="c2e" entered="90"/>
+    </interval>
+    <interval id="1" begin="1800" end="3600">
+        <edge id="w2c" entered="120"/>
+        <edge id="e2c" entered="90"/>
+        <edge id="c2w" entered="60"/>
+        <edge id="c2e" entered="70"/>
+    </interval>
+</data>
