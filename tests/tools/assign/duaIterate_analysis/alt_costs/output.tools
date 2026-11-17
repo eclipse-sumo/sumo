@@ -1,0 +1,11 @@
+Parsing data.txt
+  parsed 5 steps
+Teleports: count 5, min 0.00 (0), max 0.00 (0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+most interesting edges: []
+Iteration 0 chosen cost: count 1, min 100.00 (v0), max 100.00 (v0), mean 100.00, Q1 100.00, median 100.00, Q3 100.00
+Iteration 0 alt cost variance: no values
+Iteration 1 chosen cost: count 2, min 80.00 (v1), max 100.00 (v0), mean 90.00, Q1 80.00, median 100.00, Q3 100.00
+Iteration 1 alt cost variance: count 2, min 100.00 (v0), max 100.00 (v0), mean 100.00, Q1 100.00, median 100.00, Q3 100.00
+Iteration 2 chosen cost: count 2, min 90.00 (v1), max 100.00 (v0), mean 95.00, Q1 90.00, median 100.00, Q3 100.00
+Iteration 2 alt cost variance: count 2, min 1.00 (v1), max 4.00 (v0), mean 2.50, Q1 1.00, median 4.00, Q3 4.00
+Variance threshold 5.0 reached at iteration 2 (mean variance=2.50)

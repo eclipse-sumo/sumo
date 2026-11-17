@@ -38,6 +38,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from sumolib.miscutils import Statistics, uMax  # noqa
 from sumolib.output import parse_fast  # noqa
 from sumolib.options import ArgumentParser  # noqa
+import sumolib.xml  # noqa
 
 
 def parse_args():
@@ -54,10 +55,18 @@ def parse_args():
                         help="output prefix for plotting teleport-prone edges")
     parser.add_argument("--mpl", category="output",
                         help="output prefix for matplotlib plots or SHOW for plotting to the display")
+    parser.add_argument("--alt-costs", dest="altCosts", action="store_true", default=False,
+                        help="analyze distribution of route alternative costs from .rou.alt.xml files")
+    parser.add_argument("--alt-dir", dest="altDir", category="input", type=parser.file,
+                        help="directory to search for .rou.alt.xml(.gz) files (defaults to dualog directory)")
+    parser.add_argument("--variance-threshold", dest="varThreshold", type=float,
+                        help="report first iteration where mean alternative cost variance drops below FLOAT")
     parser.add_argument("dualog", category="output", nargs=1, type=parser.file, help="file path to dua log file")
     options = parser.parse_args()
     options.dualog = options.dualog[0]
 
+    if options.varThreshold is not None:
+        options.altCosts = True
     if options.limit is None:
         options.limit = uMax
     return options
@@ -186,7 +195,75 @@ def parse_trip_durations():
     return result
 
 
-def matplot(output):
+def discover_alt_files(alt_dir, limit):
+    iterations = []
+    subdirs = sorted([d for d in os.listdir(alt_dir)
+                      if os.path.isdir(os.path.join(alt_dir, d)) and d.isdigit()],
+                     key=lambda s: int(s))
+    if subdirs:
+        for d in subdirs:
+            step = int(d)
+            if step > limit:
+                break
+            files = sorted(glob.glob(os.path.join(alt_dir, d, "*.rou.alt.xml*")))
+            if files:
+                iterations.append((step, files))
+    else:
+        by_step = defaultdict(list)
+        re_iter = re.compile(r"_(\d+)\.rou\.alt\.xml(?:\.gz)?$")
+        for idx, f in enumerate(sorted(glob.glob(os.path.join(alt_dir, "*.rou.alt.xml*")))):
+            m = re_iter.search(os.path.basename(f))
+            step = int(m.group(1)) if m else idx
+            if step <= limit:
+                by_step[step].append(f)
+        for step in sorted(by_step.keys()):
+            iterations.append((step, by_step[step]))
+    return iterations
+
+
+def parse_alt_costs(alt_dir, limit, var_threshold=None):
+    chosen_distributions = []
+    reached_iter = None
+    for step, files in discover_alt_files(alt_dir, limit):
+        chosen_stats = Statistics("Iteration %s chosen cost" % step)
+        var_stats = Statistics("Iteration %s alt cost variance" % step)
+        step_chosen = []
+        for fpath in files:
+            for veh in sumolib.xml.parse(fpath, 'vehicle'):
+                if not veh.routeDistribution or not veh.routeDistribution[0].route:
+                    continue
+                rd = veh.routeDistribution[0]
+                routes = rd.route
+                costs = [float(r.cost) for r in routes if r.cost is not None]
+                if not costs:
+                    continue
+                last_idx = int(rd.last) if rd.last is not None else 0
+                if 0 <= last_idx < len(costs):
+                    chosen = costs[last_idx]
+                else:
+                    chosen = costs[-1]
+                chosen_stats.add(chosen, veh.id)
+                step_chosen.append(chosen)
+                if len(costs) > 1:
+                    mean_c = sum(costs) / len(costs)
+                    var_c = sum((c - mean_c) ** 2 for c in costs) / len(costs)
+                    var_stats.add(var_c, veh.id)
+        chosen_distributions.append(step_chosen)
+        print(chosen_stats)
+        print(var_stats)
+        if var_threshold is not None and reached_iter is None and var_stats.count() > 0:
+            if var_stats.avg() <= var_threshold:
+                reached_iter = (step, var_stats.avg())
+    if var_threshold is not None:
+        if reached_iter is not None:
+            print("Variance threshold %s reached at iteration %s (mean variance=%.2f)" % (
+                var_threshold, reached_iter[0], reached_iter[1]))
+        else:
+            print("Variance threshold %s not reached" % var_threshold)
+    return chosen_distributions
+
+
+def matplot(output, alt_distributions=None):
     if output is not None:
         # the following patches matplotlib for python 3.14
         from sumolib.visualization import helpers  # noqa
@@ -194,7 +271,8 @@ def matplot(output):
         if output != 'SHOW':
             matplotlib.use('Agg')
         import matplotlib.pyplot as plt
-        plt.boxplot(parse_trip_durations())
+        durations = parse_trip_durations()
+        plt.boxplot(durations if durations or not alt_distributions else alt_distributions)
         if output == 'SHOW':
             plt.show()
         else:
@@ -231,7 +309,11 @@ def main():
 
     gnuplot_vehicle_summary(options.output, xlabel, step_values)
     gnuplot_teleport_edges(options.teleports, step_counts, xlabel)
-    matplot(options.mpl)
+    alt_distributions = None
+    if options.altCosts:
+        alt_dir = options.altDir if options.altDir is not None else (os.path.dirname(options.dualog) or ".")
+        alt_distributions = parse_alt_costs(alt_dir, options.limit, options.varThreshold)
+    matplot(options.mpl, alt_distributions)
 
 
 ##################
