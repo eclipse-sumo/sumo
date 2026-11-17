@@ -34,7 +34,6 @@
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/StringUtils.h>
-#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -748,12 +747,13 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
         result.add(24 * 3600., 0.); // dummy value to finish the last interval
     } else {
         for (int i = 0; i < (int)def.size(); i++) {
-            StringTokenizer st2(def[i], ":");
-            if (st2.size() != 2) {
+            const size_t sep = def[i].rfind(':');
+            if (sep == std::string::npos || sep == 0 || sep + 1 == def[i].size()) {
                 throw ProcessError(TLF("Broken time line definition: missing a value in '%'.", def[i]));
             }
-            const double time = StringUtils::toDouble(st2.next());
-            result.add(time, StringUtils::toDouble(st2.next()));
+            const std::string timeStr = def[i].substr(0, sep);
+            const double time = timeStr.find(':') == std::string::npos ? StringUtils::toDouble(timeStr) : STEPS2TIME(string2time(timeStr));
+            result.add(time, StringUtils::toDouble(def[i].substr(sep + 1)));
         }
     }
     return result;
