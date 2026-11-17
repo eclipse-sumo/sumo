@@ -29,3 +29,4 @@ types
 ignore_connections
 check_right_of_way
 check_short_edges
+check_capacity_reductions

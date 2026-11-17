@@ -1,0 +1,3 @@
+Capacity reduction: direct_in (2 lanes) -> direct_out (2 lanes): only 1 passable lane(s)
+Capacity reduction: hidden_in (2 lanes) -> hidden_out (2 lanes) via hidden_mid: only 1 passable lane(s)
+Found 2 capacity reductions
