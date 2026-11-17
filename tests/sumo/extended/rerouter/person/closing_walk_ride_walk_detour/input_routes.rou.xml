@@ -1,0 +1,7 @@
+<routes>
+  <person id="p" depart="0">
+    <walk edges="E0 AB BC CD" endPos="30"/>
+    <ride busStop="S2" lines="L"/>
+    <walk edges="EF"/>
+  </person>
+</routes>

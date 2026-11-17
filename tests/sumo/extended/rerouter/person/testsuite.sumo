@@ -26,6 +26,9 @@ closing_ride
 # test for #18595
 closing_walk_ride_walk
 
+# test for #18595
+closing_walk_ride_walk_detour
+
 # see #18614
 closing_detour
 
