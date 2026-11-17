@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17 23:37:49.048767 by Eclipse SUMO generateDefaultTurnRatios.py v1_28_0+0644-bda840e3afe
+<configuration>
+    <net-file value="net.net.xml"/>
+    <output-file value="turns.xml"/>
+    <begin value="0.0"/>
+    <end value="86400.0"/>
+    <tls-only value="True"/>
+    <lanes value="True"/>
+</configuration>
+-->
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="generated" begin="0" end="86400">
+        <edgeRelation from="n2c" to="c2s" probability="0.6000"/>
+        <edgeRelation from="n2c" to="c2t" probability="0.3000"/>
+        <edgeRelation from="n2c" to="c2w" probability="0.1000"/>
+        <edgeRelation from="s2c" to="c2n" probability="0.6000"/>
+        <edgeRelation from="s2c" to="c2t" probability="0.1000"/>
+        <edgeRelation from="s2c" to="c2w" probability="0.3000"/>
+        <edgeRelation from="t2c" to="c2n" probability="0.0625"/>
+        <edgeRelation from="t2c" to="c2s" probability="0.1875"/>
+        <edgeRelation from="t2c" to="c2w" probability="0.7500"/>
+        <edgeRelation from="w2c" to="c2n" probability="0.1875"/>
+        <edgeRelation from="w2c" to="c2s" probability="0.0625"/>
+        <edgeRelation from="w2c" to="c2t" probability="0.7500"/>
+    </interval>
+</data>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17 23:37:49.042005 by Eclipse SUMO generateDefaultTurnRatios.py v1_28_0+0644-bda840e3afe
+<configuration>
+    <net-file value="net.net.xml"/>
+    <output-file value="turns.xml"/>
+    <begin value="0.0"/>
+    <end value="86400.0"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="generated" begin="0" end="86400">
+        <edgeRelation from="c2n" to="n2c" probability="1.0000"/>
+        <edgeRelation from="c2s" to="s2c" probability="1.0000"/>
+        <edgeRelation from="c2t" to="t2e" probability="0.6667"/>
+        <edgeRelation from="c2t" to="t2tn" probability="0.3333"/>
+        <edgeRelation from="c2w" to="w2c" probability="1.0000"/>
+        <edgeRelation from="e2t" to="t2c" probability="0.8571"/>
+        <edgeRelation from="e2t" to="t2tn" probability="0.1429"/>
+        <edgeRelation from="n2c" to="c2s" probability="0.6000"/>
+        <edgeRelation from="n2c" to="c2t" probability="0.3000"/>
+        <edgeRelation from="n2c" to="c2w" probability="0.1000"/>
+        <edgeRelation from="s2c" to="c2n" probability="0.6000"/>
+        <edgeRelation from="s2c" to="c2t" probability="0.1000"/>
+        <edgeRelation from="s2c" to="c2w" probability="0.3000"/>
+        <edgeRelation from="t2c" to="c2n" probability="0.1000"/>
+        <edgeRelation from="t2c" to="c2s" probability="0.3000"/>
+        <edgeRelation from="t2c" to="c2w" probability="0.6000"/>
+        <edgeRelation from="t2e" to="e2t" probability="1.0000"/>
+        <edgeRelation from="t2tn" to="tn2t" probability="1.0000"/>
+        <edgeRelation from="tn2t" to="t2c" probability="0.2500"/>
+        <edgeRelation from="tn2t" to="t2e" probability="0.7500"/>
+        <edgeRelation from="w2c" to="c2n" probability="0.3000"/>
+        <edgeRelation from="w2c" to="c2s" probability="0.1000"/>
+        <edgeRelation from="w2c" to="c2t" probability="0.6000"/>
+    </interval>
+</data>

@@ -15,3 +15,6 @@ jtcrouter
 
 # tests for routeSampler.py
 routeSampler
+
+# tests for generateDefaultTurnRatios.py (#13338)
+generateDefaultTurnRatios
