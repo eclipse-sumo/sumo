@@ -112,7 +112,7 @@ def get_options(args=None):
 class PTLine:
     def __init__(self, ref, name, completeness, missingBefore, missingAfter,
                  fromEdge, toEdge, period, color, refOrig,
-                 typeID, depart, stop_ids, vias):
+                 typeID, depart, stop_ids, vias, hasCustomBegin=False, end=None):
         self.ref = ref
         self.name = name
         self.completeness = completeness
@@ -127,6 +127,8 @@ class PTLine:
         self.depart = depart
         self.stop_ids = stop_ids
         self.vias = vias
+        self.hasCustomBegin = hasCustomBegin
+        self.end = end
         # stop indices that need special handling
         self.jumps = {}  # stopIndex -> duration
         self.terminalIndices = []
@@ -290,6 +292,14 @@ def createTrips(options):
         missingBefore = 0 if line.completeness == 1 else line.missingBefore
         missingAfter = 0 if line.completeness == 1 else line.missingAfter
         typeID = options.vtypeprefix + line.type
+        hasCustomBegin = line.hasAttribute("begin")
+        if hasCustomBegin:
+            lineDepart = sumolib.miscutils.parseTime(line.begin)
+            if options.randomBegin:
+                lineDepart += int(random.random() * float(line.period))
+        else:
+            lineDepart = departTimes[trp_nr]
+        lineEnd = sumolib.miscutils.parseTime(line.end) if line.hasAttribute("end") else None
         trpMap[tripID] = PTLine(lineRef, line.attr_name, line.completeness,
                                 missingBefore, missingAfter,
                                 fromEdge, toEdge,
@@ -297,8 +307,8 @@ def createTrips(options):
                                 line.getAttributeSecure("color"),
                                 lineRefOrig,
                                 typeID,
-                                departTimes[trp_nr],
-                                stop_ids, vias)
+                                lineDepart,
+                                stop_ids, vias, hasCustomBegin, lineEnd)
         tripList.append(tripID)
         typeCount[line.type] += 1
         numLines += 1
@@ -347,6 +357,11 @@ def joinTrips(options, tripList, trpMap):
             if join1:
                 # append ptl1 after ptl2
                 tripList.remove(tripIDs[1])
+                if ptl1.hasCustomBegin or ptl2.hasCustomBegin:
+                    ptl1.depart = min(ptl1.depart, ptl2.depart)
+                    ptl1.hasCustomBegin = True
+                if ptl2.end is not None:
+                    ptl1.end = max(ptl1.end, ptl2.end) if ptl1.end is not None else ptl2.end
                 if missingPart1 != 0 or to1.getBidi() != from2.getID():
                     ptl1.jumps[len(ptl1.stop_ids) - 1] = missingPart1 * options.jumpDuration
                 ptl1.terminalIndices.append(len(ptl1.stop_ids) - 1)
@@ -365,6 +380,11 @@ def joinTrips(options, tripList, trpMap):
             elif join2:
                 # only append ptl1 after ptl2
                 tripList.remove(tripIDs[0])
+                if ptl1.hasCustomBegin or ptl2.hasCustomBegin:
+                    ptl2.depart = min(ptl1.depart, ptl2.depart)
+                    ptl2.hasCustomBegin = True
+                if ptl1.end is not None:
+                    ptl2.end = max(ptl1.end, ptl2.end) if ptl2.end is not None else ptl1.end
                 if missingPart2 != 0 or to2.getBidi() != from1.getID():
                     ptl2.jumps[len(ptl2.stop_ids) - 1] = missingPart2 * options.jumpDuration
                 ptl2.terminalIndices.append(len(ptl2.stop_ids) - 1)
@@ -390,13 +410,16 @@ def distCheck(options, refOrig, eID1, eID2):
 
 
 def writeTrips(options, tripList, trpMap):
+    orderedTrips = list(tripList)
+    if any(trpMap[tid].hasCustomBegin for tid in orderedTrips):
+        orderedTrips = [tripList[idx] for _, idx in sorted((trpMap[tid].depart, i) for i, tid in enumerate(tripList))]
     with sumolib.openz(options.trips, 'w') as fouttrips:
         sumolib.writeXMLHeader(
             fouttrips, "$Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $",
             "routes", options=options)
         writeTypes(fouttrips, options.vtypeprefix, options)
 
-        for tripID in tripList:
+        for tripID in orderedTrips:
             ptl = trpMap[tripID]
             via = ' via="%s"' % ' '.join(ptl.vias) if ptl.vias else ""
             fouttrips.write(
@@ -415,12 +438,15 @@ def writeTrips(options, tripList, trpMap):
         fouttrips.write("</routes>\n")
 
 
-def runSimulation(options):
+def runSimulation(options, trpMap=None):
     print("running SUMO to determine actual departure times...")
+    simBegin = options.begin
+    if trpMap:
+        simBegin = min([options.begin] + [ptl.depart for ptl in trpMap.values()])
     subprocess.call([sumolib.checkBinary("sumo"),
                      "-n", options.netfile,
                      "-r", options.trips,
-                     "--begin", str(options.begin),
+                     "--begin", str(simBegin),
                      "--no-step-log",
                      "--ignore-route-errors",
                      "--time-to-teleport.disconnected", "0",
@@ -483,7 +509,9 @@ def createRoutes(options, trpMap):
             lastUntil = stopsUntil.get((id, lastBusStop))
             if lastUntil is not None:
                 cycleTime = lastUntil[-1] - actualDepart[id]
-                numRepeats = math.ceil(flow_duration / cycleTime)
+                line_dur = ((ptline.end if ptline.end is not None else max(actualDepart[id], options.end))
+                            - actualDepart[id]) if (ptline.hasCustomBegin or ptline.end is not None) else flow_duration
+                numRepeats = math.ceil(line_dur / cycleTime)
                 if numRepeats > 1:
                     repeat = ' repeat="%s" cycleTime="%s"' % (numRepeats, ft(cycleTime))
 
@@ -568,7 +596,13 @@ def createRoutes(options, trpMap):
                 foutflows.write('\n')
 
             else:
-                end = ' end="%s"' % ft(begin + flow_duration)
+                if ptline.end is not None:
+                    flowEnd = ptline.end
+                elif ptline.hasCustomBegin:
+                    flowEnd = max(begin, float(options.end))
+                else:
+                    flowEnd = begin + flow_duration
+                end = ' end="%s"' % ft(flowEnd)
                 if len(ptline.terminalIndices) == 2 and number is not None:
                     end = ' number="%s"' % number
                 foutflows.write('    <flow id="%s" type="%s" route="%s" begin="%s"%s period="%s" line="%s" %s>\n' % (
@@ -602,7 +636,7 @@ def main(options):
 
     trpMap = createTrips(options)
     sys.stderr.flush()
-    runSimulation(options)
+    runSimulation(options, trpMap)
     createRoutes(options, trpMap)
 
 
