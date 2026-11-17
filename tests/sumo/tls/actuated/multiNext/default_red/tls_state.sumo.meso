@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-17T08:36:59.638476+01:00 by Eclipse SUMO sumo v1_28_0+0612-d9664f3c3da
+<!-- generated on 2026-11-17T11:51:03.714182+01:00 by Eclipse SUMO sumo v1_28_0+0630-7f30b9d5c9f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,7 +37,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <mesoscopic>
         <mesosim value="true"/>
-        <meso-ltm value="true"/>
         <meso-junction-control value="true"/>
     </mesoscopic>
 
@@ -55,6 +54,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="1.00"  state="G"/>
         <phase duration="3.00"  state="y"/>
         <phase duration="5.00"  state="r"/>
-        <phase duration="2.00"  state="u"/>
+        <phase duration="1.00"  state="u"/>
     </tlLogic>
 </additional>
