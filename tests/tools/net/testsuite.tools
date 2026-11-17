@@ -37,3 +37,4 @@ patchRailConflicts
 # set new priorities in network based on loaded routes
 patchRailPriorities
 generateStationEdges
+addIntermediateIds

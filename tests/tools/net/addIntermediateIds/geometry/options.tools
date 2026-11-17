@@ -1,0 +1,1 @@
+-n input_net.net.xml --raw-net input_net2.net.xml --mode geometry --patch-only -o edges.xml -v
