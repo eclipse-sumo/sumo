@@ -26,7 +26,6 @@ Individual trajectories can be clicked in interactive mode to print the vehicle 
 """
 from __future__ import absolute_import
 from __future__ import print_function
-import os
 import sys
 from collections import defaultdict
 import math
