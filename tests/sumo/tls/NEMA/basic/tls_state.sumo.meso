@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-16T16:32:40.125686+01:00 by Eclipse SUMO sumo v1_28_0+0575-efd1a5bcdbe
+<!-- generated on 2026-11-17T08:36:59.944953+01:00 by Eclipse SUMO sumo v1_28_0+0612-d9664f3c3da
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,6 +37,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <mesoscopic>
         <mesosim value="true"/>
+        <meso-ltm value="true"/>
         <meso-junction-control value="true"/>
     </mesoscopic>
 
@@ -4436,5 +4437,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="4389.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
     <tlsState time="4390.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
     <tlsState time="4391.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4392.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
 </tlsStates>
