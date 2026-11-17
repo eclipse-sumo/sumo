@@ -309,6 +309,8 @@ PATH_MAPPING = {
 
 SOURCE_DEPS = [
     "microsim/MSFrame.cpp", "microsim/devices/*.cpp",
+    "netbuild/NBFrame.cpp", "netimport/NIFrame.cpp", "netwrite/NWFrame.cpp",
+    "netgen/NGFrame.cpp", "netgen/netgen_main.cpp", "netconvert_main.cpp",
     "utils/common/RandHelper.cpp", "utils/common/SystemFrame.cpp",
     "utils/geom/GeoConvHelper.cpp",
 ]
@@ -427,20 +429,31 @@ def main():
         sys.exit("Arguments: <pathToSumo> <pathToNetconvert> <pathToNetgenerate>")
     # get tool dir path (SUMO/tools)
     toolDir = join(dirname(__file__), '..')
-    if not os.path.exists("templates.h") or checkMod(toolDir, "templates.h"):
-        # write templates.h
-        with io.open("templates.h", 'w', encoding='utf8') as templateHeaderFile:
-            buildTemplateToolHeader(templateHeaderFile)
-            is_debug = sys.argv[1].endswith("D") or sys.argv[1].endswith("D.exe")
-            print(u"const std::vector<TemplateTool> templateTools {", file=templateHeaderFile)
-            print(generateToolTemplates(toolDir, TOOLS, is_debug), file=templateHeaderFile)
-            print(u"};\n", file=templateHeaderFile)
-            # generate sumo Template
-            print(generateTemplate("sumo", sys.argv[1]), file=templateHeaderFile)
-            # generate netconvert Template
-            print(generateTemplate("netconvert", sys.argv[2]), file=templateHeaderFile)
-            # generate netgenerate Template
-            print(generateTemplate("netgenerate", sys.argv[3]), file=templateHeaderFile)
+    stampFile = "templates.h.stamp"
+    refFile = stampFile if os.path.exists(stampFile) else "templates.h"
+    if not os.path.exists("templates.h") or checkMod(toolDir, refFile):
+        buf = io.StringIO()
+        buildTemplateToolHeader(buf)
+        is_debug = sys.argv[1].endswith("D") or sys.argv[1].endswith("D.exe")
+        print(u"const std::vector<TemplateTool> templateTools {", file=buf)
+        print(generateToolTemplates(toolDir, TOOLS, is_debug), file=buf)
+        print(u"};\n", file=buf)
+        # generate sumo Template
+        print(generateTemplate("sumo", sys.argv[1]), file=buf)
+        # generate netconvert Template
+        print(generateTemplate("netconvert", sys.argv[2]), file=buf)
+        # generate netgenerate Template
+        print(generateTemplate("netgenerate", sys.argv[3]), file=buf)
+        newContent = buf.getvalue()
+        oldContent = None
+        if os.path.exists("templates.h"):
+            with io.open("templates.h", 'r', encoding='utf8') as oldFile:
+                oldContent = oldFile.read()
+        if newContent != oldContent:
+            with io.open("templates.h", 'w', encoding='utf8') as templateHeaderFile:
+                templateHeaderFile.write(newContent)
+    with io.open(stampFile, 'w', encoding='utf8') as sf:
+        sf.write(u"")
 
 
 if __name__ == "__main__":
