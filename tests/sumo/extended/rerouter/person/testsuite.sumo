@@ -12,6 +12,13 @@ optional
 
 # test for #18330
 closing
+closing_sidewalk
+
+# Copy of closing_sidewalk
+closing_sidewalk_ignore
 
 # test for #18329
 closing_ride
+
+# test for #18595
+closing_walk_ride_walk
