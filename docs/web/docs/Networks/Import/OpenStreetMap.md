@@ -597,7 +597,7 @@ whole of Scotland) but some precautions should be taken:
 
 # Importing Public Transport Data
 
-netconvert and further SUMO tools can be used to import public transpot
+netconvert and further SUMO tools can be used to import public transport
 data from OSM. The easiest way to do this is by using the
 [OSM-Web-Wizard tool](../../Tutorials/OSMWebWizard.md). Performing the
 import without the wizard is explained in
