@@ -222,7 +222,7 @@ title: Changes in the 2017 releases (versions 0.29.0, 0.30.0, 0.31.0 and 0.32.0)
     settings tab). If pedestrians are imported as well they may
     elect to use public transport to shorten their walks.
   - added new tool
-    [filterDistrics.py](../Tools/District.md#filterdistrictspy)
+    [filterDistricts.py](../Tools/District.md#filterdistrictspy)
     to generate district (TAZ) files that are valid for a given
     vehicle class
   - [traceExporter.py](../Tools/TraceExporter.md) can now built

@@ -1362,7 +1362,7 @@ placeholder `<DEVICENAME>` below
 - [tripinfo](Simulation/Output/TripInfo.md): vehicle-based traffic data aggregation
 - [vehroute](Simulation/Output/VehRoutes.md): recording of driven route and route changes
 - [taxi](Simulation/Taxi.md): demand responsive transport
-- [glosa](Simulation/GLOSA.md): green light optiomal speed advisory at traffic lights
+- [glosa](Simulation/GLOSA.md): green light optimal speed advisory at traffic lights
 - [friction](Simulation/Friction.md): whether and road surface specific speed changes
 - [example](Developer/How_To/Device.md): implementation example
 
