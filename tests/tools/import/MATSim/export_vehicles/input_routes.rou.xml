@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bike" vClass="bicycle"/>
+    <route id="r_full" edges="e1 e2 e3"/>
+    <vehicle id="v1" depart="07:30:00" route="r_full"/>
+    <trip id="t1" type="bike" depart="08:15:00" from="e1" to="e3"/>
+    <flow id="f1" begin="09:00:00" end="09:20:00" number="2" route="r_full"/>
+</routes>

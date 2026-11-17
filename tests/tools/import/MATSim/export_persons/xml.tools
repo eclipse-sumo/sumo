@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE population SYSTEM "http://www.matsim.org/files/dtd/population_v6.dtd">
+
+<population>
+    <person id="p1">
+        <attributes>
+            <attribute name="age" class="java.lang.Integer">35</attribute>
+            <attribute name="employed" class="java.lang.Boolean">true</attribute>
+            <attribute name="sex" class="java.lang.String">f</attribute>
+        </attributes>
+        <plan selected="yes">
+            <activity type="home" link="e1" start_time="00:00:00" end_time="08:00:00"/>
+            <leg mode="car" dep_time="08:00:00">
+                <route type="links" start_link="e1" end_link="e3">e1 e2 e3</route>
+            </leg>
+            <activity type="work" link="e3" end_time="17:00:00"/>
+            <leg mode="pt" dep_time="17:00:00"/>
+            <activity type="unspecified" link="e2" max_dur="00:00:00"/>
+            <leg mode="walk">
+                <route type="links" start_link="e2" end_link="e1">e2 e1</route>
+            </leg>
+            <activity type="home" link="e1" end_time="24:00:00"/>
+        </plan>
+    </person>
+</population>
