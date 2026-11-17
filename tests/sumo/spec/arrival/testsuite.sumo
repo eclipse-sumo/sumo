@@ -59,5 +59,8 @@ lane_first
 # checks using arrivalLane=random
 lane_random
 
+# warn about single edge route (arrivalPos will be ignored) #5928
+arrivalPos_unreachable
+
 # Errors on emission
 errors

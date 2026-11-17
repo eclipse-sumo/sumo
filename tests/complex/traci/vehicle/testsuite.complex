@@ -176,6 +176,3 @@ delayed_taz_departure
 
 # see #11310
 tripinfoParameters
-
-# see #5928
-singleEdgeArrivalPos
