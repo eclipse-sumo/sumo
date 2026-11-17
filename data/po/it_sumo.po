@@ -9635,7 +9635,7 @@ msgstr "Il limite di velocità da impostare laddove in realtà non ce n'è uno"
 
 #: src/netimport/NIFrame.cpp:239
 msgid ""
-"Whether edges shoulds carry information on the usage of typemap defaults"
+"Whether edges should carry information on the usage of typemap defaults"
 msgstr ""
 "Se gli archi dovrebbero contenere informazioni sull'uso di valori standard "
 "tratti da tipi di arco"
@@ -9770,7 +9770,7 @@ msgid "Computes the number of lanes from the edges' capacities"
 msgstr "Calcola il numero di corsie dalla capacitè dell'arco"
 
 #: src/netimport/NIFrame.cpp:355
-msgid "Prints all warnings, some of which are due to VISUM misbehaviour"
+msgid "Prints all warnings, some of which are due to VISUM misbehavior"
 msgstr ""
 "Emetti tutti gli avvisi (alcuni di essi sono dovuti a un comportamento "
 "sbagliato di VISUM)"

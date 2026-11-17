@@ -327,7 +327,7 @@ title: Changes in the 2009 releases (versions 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.
   - changed traffic lights computation
   - removed unneeded option **--all-logics**
   - removed "FileErrorReporter" usage
-  - too complicated junctions (\#links\>64) are catched and set to
+  - too complicated junctions (\#links\>64) are caught and set to
     unregulated
   - corrected computation of right-of-way rules
   - solved bug 2392943: netconvert fails when removing edges and guessing ramps

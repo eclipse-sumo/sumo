@@ -8373,7 +8373,7 @@ msgstr "針對現實中沒有實際限速時所設置的限速"
 
 #: src/netimport/NIFrame.cpp:239
 msgid ""
-"Whether edges shoulds carry information on the usage of typemap defaults"
+"Whether edges should carry information on the usage of typemap defaults"
 msgstr ""
 
 #: src/netimport/NIFrame.cpp:243
@@ -8503,7 +8503,7 @@ msgid "Computes the number of lanes from the edges' capacities"
 msgstr "根據路段的容量計算車道數"
 
 #: src/netimport/NIFrame.cpp:355
-msgid "Prints all warnings, some of which are due to VISUM misbehaviour"
+msgid "Prints all warnings, some of which are due to VISUM misbehavior"
 msgstr "列印出所有警告，其中一些是由於 VISUM 不當行為引起的"
 
 #: src/netimport/NIFrame.cpp:360

@@ -978,7 +978,7 @@
         <!-- The speed limit to be set when there is no actual speed limit in reality -->
         <osm.speedlimit-none value="39.4444" type="FLOAT"/>
 
-        <!-- Whether edges shoulds carry information on the usage of typemap defaults -->
+        <!-- Whether edges should carry information on the usage of typemap defaults -->
         <osm.annotate-defaults value="false" type="BOOL"/>
 
         <!-- Whether ETCS2 track sections should default to moving-block mode -->
@@ -1077,7 +1077,7 @@
         <!-- Computes the number of lanes from the edges&apos; capacities -->
         <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" deprecated="visum.recompute-laneno" type="BOOL"/>
 
-        <!-- Prints all warnings, some of which are due to VISUM misbehaviour -->
+        <!-- Prints all warnings, some of which are due to VISUM misbehavior -->
         <visum.verbose-warnings value="false" type="BOOL"/>
 
         <!-- The factor for flow to no. lanes conversion -->

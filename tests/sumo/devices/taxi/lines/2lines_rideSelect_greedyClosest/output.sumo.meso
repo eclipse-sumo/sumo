@@ -30,5 +30,5 @@ Ride Statistics (avg of 2 rides):
  RouteLength: 1904.00
  Duration: 80.00
  Taxi: 2
-DijkstraRouter answered 7 queries and explored 30.00 edges on average.
+DijkstraRouter answered 7 queries and explored 27.71 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).

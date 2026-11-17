@@ -386,7 +386,7 @@ The length of a train has several important effects on a railway simulation:
 
 - **block occupancy**: A longer train takes up more space and takes longer to completely pass a signal block which impacts capacity
 - **speed limits**: The maximum permitted speed for a train is the minimum of all edges that it occupies (Whereas for road vehicles, only the speed at the front edge is considered).
-- **reversal after a swich**: In order to turn a "sharp corner" at a switch, a train must completely pass the switch and the reverse. The route of train must contain enough edges on the facing side (with one entering track) to let the whole length of the train pass the switch before reversal is possible.
+- **reversal after a switch**: In order to turn a "sharp corner" at a switch, a train must completely pass the switch and the reverse. The route of train must contain enough edges on the facing side (with one entering track) to let the whole length of the train pass the switch before reversal is possible.
 - **stopping after reversal**: After reversal, the front and the rear of the train exchange their positions. This may cause the head of the train to skip past a stop edge and cause this stop to be skipped if the route does not go far enough past the stop (it is therefore recommended to always stop *before* the reversal).
 
 ## Train Schedules
@@ -554,7 +554,7 @@ In many parts of the world, OSM data does not provide information of signaling i
 For many tram networks (i.e. with single track sections), this type of conflict handling is not sufficient and rail signals must be added. This can be done manually with netedit or with the tool
 [patchRailConflicts.py](../Tools/Railways.md#patchrailconflictspy).
 
-To simplify tram simulations where rail signals have been added selectively and some conflicts are regulared with zipper junctions, sumo option **--railsignal.moving-block.max-dist** (default *200*) can be used. Rail signal in moving block mode will disregard conflicts at junction type `zipper` if they are beyond the configured maximum distance.
+To simplify tram simulations where rail signals have been added selectively and some conflicts are regulated with zipper junctions, sumo option **--railsignal.moving-block.max-dist** (default *200*) can be used. Rail signal in moving block mode will disregard conflicts at junction type `zipper` if they are beyond the configured maximum distance.
 
 # Deadlocks
 

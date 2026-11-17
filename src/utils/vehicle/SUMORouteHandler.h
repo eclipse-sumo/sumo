@@ -268,6 +268,9 @@ protected:
     /// @brief IDs of skipped vehicles to suppress errors for the triggered transportables within
     std::set<std::string> mySkippedVehicles;
 
+    /// @brief IDs of vehicles that were removed by scaling (to warn for the triggered transportables)
+    std::set<std::string> myScaledVehicles;
+
     /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
     static SumoRNG myParsingRNG;
 

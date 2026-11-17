@@ -236,7 +236,7 @@ NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
     oc.addDescription("osm.speedlimit-none", "Formats", TL("The speed limit to be set when there is no actual speed limit in reality"));
 
     oc.doRegister("osm.annotate-defaults", new Option_Bool(false));
-    oc.addDescription("osm.annotate-defaults", "Formats", TL("Whether edges shoulds carry information on the usage of typemap defaults"));
+    oc.addDescription("osm.annotate-defaults", "Formats", TL("Whether edges should carry information on the usage of typemap defaults"));
 
     oc.doRegister("osm.etcs-moving-block", new Option_Bool(false));
     oc.addDescription("osm.etcs-moving-block", "Formats", TL("Whether ETCS2 track sections should default to moving-block mode"));
@@ -355,7 +355,7 @@ NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
     oc.addDescription("visum.recompute-lane-number", "Formats", TL("Computes the number of lanes from the edges' capacities"));
 
     oc.doRegister("visum.verbose-warnings", new Option_Bool(false));
-    oc.addDescription("visum.verbose-warnings", "Formats", TL("Prints all warnings, some of which are due to VISUM misbehaviour"));
+    oc.addDescription("visum.verbose-warnings", "Formats", TL("Prints all warnings, some of which are due to VISUM misbehavior"));
 
     oc.doRegister("visum.lanes-from-capacity.norm", new Option_Float(1800.));
     oc.addSynonyme("visum.lanes-from-capacity.norm", "capacity-norm", true);

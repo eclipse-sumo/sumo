@@ -93,7 +93,7 @@ sudo apt-get install  python3-wxgtk4.0 python3-wxgtk-webview4.0 python3-wxgtk-me
 
 # Getting started
 
-The GUI of hybridPY can be launched by double clicking on hybridpy or executing the following command on thje command line:
+The GUI of hybridPY can be launched by double clicking on hybridpy or executing the following command on the command line:
 
 ```
 python hybridpy

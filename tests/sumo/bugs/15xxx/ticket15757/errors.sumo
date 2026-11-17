@@ -1,0 +1,12 @@
+Warning: Teleporting vehicle 'f_0.31'; waited too long (wrong lane), lane='E0_1', time=642.00.
+Warning: Vehicle 'f_0.31' teleports beyond arrival edge 'E0', time=642.00.
+Warning: Vehicle 'f_0.31' skips stop on lane 'E0_0' time=642.00.
+Warning: Vehicle 'f_0.31' skips stop on lane 'E0_0' time=642.00.
+Warning: Teleporting vehicle 'f_0.33'; waited too long (wrong lane), lane='E0_1', time=650.00.
+Warning: Vehicle 'f_0.33' teleports beyond arrival edge 'E0', time=650.00.
+Warning: Vehicle 'f_0.33' skips stop on lane 'E0_0' time=650.00.
+Warning: Vehicle 'f_0.33' skips stop on lane 'E0_0' time=650.00.
+Warning: Teleporting vehicle 'f_0.30'; waited too long (jam), lane='E0_0', time=691.00.
+Warning: Vehicle 'f_0.30' teleports beyond arrival edge 'E0', time=691.00.
+Warning: Vehicle 'f_0.30' skips stop on lane 'E0_0' time=691.00.
+Warning: Vehicle 'f_0.30' skips stop on lane 'E0_0' time=691.00.

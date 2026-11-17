@@ -9591,7 +9591,7 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:239
 msgid ""
-"Whether edges shoulds carry information on the usage of typemap defaults"
+"Whether edges should carry information on the usage of typemap defaults"
 msgstr ""
 "Si las aristas deben conservar información sobre el uso de los valores "
 "predeterminados del typemap"
@@ -9726,7 +9726,7 @@ msgstr ""
 "Calcular el número de carriles a partir de las capacidades de las aristas"
 
 #: src/netimport/NIFrame.cpp:355
-msgid "Prints all warnings, some of which are due to VISUM misbehaviour"
+msgid "Prints all warnings, some of which are due to VISUM misbehavior"
 msgstr ""
 "Imprimir todas las advertencias, algunas de las cuales podrán ser debido a "
 "un mal comportamiento de VISUM"

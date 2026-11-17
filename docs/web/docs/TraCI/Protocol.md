@@ -58,8 +58,8 @@ freeing all resources.
 
 **Figure:TraCI: closing a connection to SUMO**
 
-![Image:traciColose_sequence.png](../images/TraciColose_sequence.png
-"Image:traciColose_sequence.png")
+![Image:traciClose_sequence.png](../images/TraciClose_sequence.png
+"Image:traciClose_sequence.png")
 
 ## Messages
 

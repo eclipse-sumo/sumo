@@ -6971,7 +6971,7 @@ GNETagPropertiesDatabase::fillJunctionModelAttributes(GNETagProperties* tagPrope
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_IMPATIENCE,
                                GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                               TL("Willingess of drivers to impede vehicles with higher priority"),
+                               TL("Willingness of drivers to impede vehicles with higher priority"),
                                "0");
 }
 

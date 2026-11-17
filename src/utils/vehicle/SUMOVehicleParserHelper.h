@@ -125,7 +125,7 @@ public:
     /** @brief Parses the vehicle class
      *
      * When given, the vehicle class is parsed using getVehicleClassID.
-     *  Exceptions occuring within this process are catched and reported.
+     *  Exceptions occurring within this process are caught and reported.
      *
      * If no vehicle class is available in the attributes, the default class (SVC_IGNORING)
      *  is returned.
@@ -141,7 +141,7 @@ public:
     /** @brief Parses the vehicle class
      *
      * When given, the vehicle class is parsed using getVehicleShapeID.
-     *  Exceptions occuring within this process are catched and reported.
+     *  Exceptions occurring within this process are caught and reported.
      *
      * If no vehicle class is available in the attributes, the default class (SVS_UNKNOWN)
      *  is returned.

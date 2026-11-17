@@ -9334,7 +9334,7 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:239
 msgid ""
-"Whether edges shoulds carry information on the usage of typemap defaults"
+"Whether edges should carry information on the usage of typemap defaults"
 msgstr "Apakah tepi harus membawa informasi tentang penggunaan default typemap"
 
 #: src/netimport/NIFrame.cpp:243
@@ -9466,7 +9466,7 @@ msgid "Computes the number of lanes from the edges' capacities"
 msgstr "Menghitung jumlah lajur dari kapasitas tepi"
 
 #: src/netimport/NIFrame.cpp:355
-msgid "Prints all warnings, some of which are due to VISUM misbehaviour"
+msgid "Prints all warnings, some of which are due to VISUM misbehavior"
 msgstr ""
 "Mencetak semua peringatan, beberapa di antaranya disebabkan oleh perilaku "
 "VISUM yang tidak tepat"
