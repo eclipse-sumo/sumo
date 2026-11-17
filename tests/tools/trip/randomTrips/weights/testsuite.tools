@@ -37,3 +37,6 @@ edge-types-file
 
 # load extra probability factors from file making use of edge routingType
 routingType
+
+# load interval-dependent source and destination weights
+loaded_weights_intervals

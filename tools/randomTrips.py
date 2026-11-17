@@ -392,17 +392,21 @@ class RandomEdgeGenerator:
         if self.total_weight == 0:
             raise InvalidGenerator()
 
-    def get(self):
+    def get(self, time=None):
         r = random.random() * self.total_weight
         index = bisect.bisect(self.cumulative_weights, r)
         return self.net._edges[index]
 
-    def write_weights(self, fname, interval_id, begin, end):
-        # normalize to [0,100]
+    def _normalized_weights(self):
         normalizer = 100.0 / max(1, max(map(self.weight_fun, self.net._edges)))
         weights = [(self.weight_fun(e) * normalizer, e.getID()) for e in self.net.getEdges()]
         weights.sort(reverse=True)
         total = sum([w for w, e in weights])
+        return weights, total
+
+    def write_weights(self, fname, interval_id, begin, end):
+        # normalize to [0,100]
+        weights, total = self._normalized_weights()
         with openz(fname, 'w+') as f:
             f.write('<edgedata>\n')
             f.write('    <interval id="%s" begin="%s" end="%s" totalWeight="%0.2f">\n' % (
@@ -411,6 +415,46 @@ class RandomEdgeGenerator:
                 f.write('        <edge id="%s" value="%0.2f"/>\n' %
                         (edgeID, weight))
             f.write('    </interval>\n')
+            f.write('</edgedata>\n')
+
+
+class TimeDependentEdgeGenerator:
+
+    def __init__(self, intervals):
+        # sorted list of (begin, end, RandomEdgeGenerator)
+        self.intervals = sorted(intervals, key=lambda x: (x[0], x[1]))
+        if not self.intervals:
+            raise InvalidGenerator()
+
+    def get(self, time=None):
+        if time is None or time < self.intervals[0][0]:
+            return self.intervals[0][2].get()
+        selected = self.intervals[0][2]
+        for beg, end, gen in self.intervals:
+            if beg <= time < end:
+                return gen.get()
+            if beg <= time:
+                selected = gen
+        return selected.get()
+
+    def get_boundaries(self):
+        bounds = set()
+        for beg, end, _ in self.intervals:
+            bounds.add(beg)
+            bounds.add(end)
+        return sorted(bounds)
+
+    def write_weights(self, fname, interval_id, begin, end):
+        with openz(fname, 'w+') as f:
+            f.write('<edgedata>\n')
+            for idx, (beg, iv_end, gen) in enumerate(self.intervals):
+                weights, total = gen._normalized_weights()
+                f.write('    <interval id="%s_%s" begin="%s" end="%s" totalWeight="%0.2f">\n' % (
+                    interval_id, idx, intIfPossible(beg), intIfPossible(iv_end), total))
+                for weight, edgeID in weights:
+                    f.write('        <edge id="%s" value="%0.2f"/>\n' %
+                            (edgeID, weight))
+                f.write('    </interval>\n')
             f.write('</edgedata>\n')
 
 
@@ -430,14 +474,17 @@ class RandomTripGenerator:
                 return edge
         return source_edge
 
-    def get_trip(self, min_distance, max_distance, maxtries=100, junctionTaz=False, min_dist_fringe=None):
+    def get_trip(self, min_distance, max_distance, maxtries=100, junctionTaz=False, min_dist_fringe=None, time=None):
         for min_dist in [min_distance, min_dist_fringe]:
             if min_dist is None:
                 break
             for _ in range(maxtries):
-                source_edge = self.source_generator.get()
-                intermediate = [self.via_generator.get() for __ in range(self.intermediate)]
-                sink_edge = self.get_return_edge(source_edge) if self.return_to_origin else self.sink_generator.get()
+                source_edge = self.source_generator.get(time)
+                intermediate = [self.via_generator.get(time) for __ in range(self.intermediate)]
+                if self.return_to_origin:
+                    sink_edge = self.get_return_edge(source_edge)
+                else:
+                    sink_edge = self.sink_generator.get(time)
                 is_fringe2fringe = source_edge.is_fringe() and sink_edge.is_fringe() and not intermediate
                 if min_dist == min_dist_fringe and not is_fringe2fringe:
                     continue
@@ -463,7 +510,7 @@ class CachedTripGenerator:
         self._cache = cache
         self._nCalled = 0
 
-    def get_trip(self, min_distance, max_distance, maxtries=100, junctionTaz=False, min_dist_fringe=None):
+    def get_trip(self, min_distance, max_distance, maxtries=100, junctionTaz=False, min_dist_fringe=None, time=None):
         result = self._cache[self._nCalled % len(self._cache)]
         self._nCalled += 1
         return result
@@ -556,11 +603,36 @@ class LoadedProps:
 
     def __init__(self, fname):
         self.weights = defaultdict(lambda: 0)
-        for edge in sumolib.xml.parse_fast(fname, 'edge', ['id', 'value']):
-            self.weights[edge.id] = float(edge.value)
+        self.intervals = None
+        parsed_intervals = list(sumolib.xml.parse(fname, 'interval'))
+        if len(parsed_intervals) > 1:
+            self.intervals = []
+            for iv in parsed_intervals:
+                if not iv.edge:
+                    continue
+                w = defaultdict(lambda: 0)
+                for edge in iv.edge:
+                    if edge.value is not None:
+                        w[edge.id] = float(edge.value)
+                beg = parseTime(iv.begin) if iv.begin is not None else 0.0
+                end = parseTime(iv.end) if iv.end is not None else beg
+                self.intervals.append((beg, end, lambda e, wd=w: wd[e.getID()]))
+        else:
+            for edge in sumolib.xml.parse_fast(fname, 'edge', ['id', 'value']):
+                self.weights[edge.id] = float(edge.value)
 
     def __call__(self, edge):
         return self.weights[edge.getID()]
+
+
+def buildEdgeGenerator(net, weight_fun):
+    intervals = getattr(weight_fun, 'intervals', None)
+    if intervals:
+        gen_intervals = []
+        for beg, end, wfun in intervals:
+            gen_intervals.append((beg, end, RandomEdgeGenerator(net, wfun)))
+        return TimeDependentEdgeGenerator(gen_intervals)
+    return RandomEdgeGenerator(net, weight_fun)
 
 
 def buildTripGenerator(net, options):
@@ -579,10 +651,10 @@ def buildTripGenerator(net, options):
             if os.path.isfile(options.weightsprefix + DEST_SUFFIX):
                 sink_weight_fun = LoadedProps(options.weightsprefix + DEST_SUFFIX)
 
-        source_generator = RandomEdgeGenerator(net, source_weight_fun)
+        source_generator = buildEdgeGenerator(net, source_weight_fun)
         sink_generator = None
         if not options.returnToOrigin or options.weights_outprefix:
-            sink_generator = RandomEdgeGenerator(net, sink_weight_fun)
+            sink_generator = buildEdgeGenerator(net, sink_weight_fun)
     except InvalidGenerator:
         print("Error: no valid edges for generating source or destination. Try using option --allow-fringe",
               file=sys.stderr)
@@ -592,7 +664,7 @@ def buildTripGenerator(net, options):
         via_generator = RandomEdgeGenerator(
             net, get_prob_fun(options, None, None, 1))
         if options.weightsprefix and os.path.isfile(options.weightsprefix + VIA_SUFFIX):
-            via_generator = RandomEdgeGenerator(
+            via_generator = buildEdgeGenerator(
                 net, LoadedProps(options.weightsprefix + VIA_SUFFIX))
     except InvalidGenerator:
         if options.intermediate > 0:
@@ -761,10 +833,10 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
     times = [parseTime(options.begin) + i * time_delta for i in range(len(options.period) + 1)]
     times = list(map(intIfPossible, times))
 
-    def generate_origin_destination(trip_generator, options):
+    def generate_origin_destination(trip_generator, options, time=None):
         source_edge, sink_edge, intermediate = trip_generator.get_trip(
             options.min_distance, options.max_distance, options.maxtries,
-            options.junctionTaz, options.min_dist_fringe)
+            options.junctionTaz, options.min_dist_fringe, time)
         return source_edge, sink_edge, intermediate
 
     def generate_attributes(idx, departureTime, arrivalTime, origin, destination, intermediate, options):
@@ -950,7 +1022,8 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
 
                         for time in departures:
                             try:
-                                origin, destination, intermediate = generate_origin_destination(trip_generator, options)
+                                origin, destination, intermediate = generate_origin_destination(
+                                    trip_generator, options, time)
                                 idx = generate_one(idx, time, arrivalTime, period, origin, destination, intermediate)
                             except Exception as exc:
                                 print(exc, file=sys.stderr)
@@ -964,7 +1037,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
                                 if random.random() < prob:
                                     try:
                                         origin, destination, intermediate = generate_origin_destination(
-                                            trip_generator, options)
+                                            trip_generator, options, time)
                                         idx = generate_one(idx, time, arrivalTime, period,
                                                            origin, destination, intermediate)
                                     except Exception as exc:
@@ -973,20 +1046,67 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
             else:
                 # generate flows
                 try:
-                    origins_destinations = [generate_origin_destination(
-                        trip_generator, options) for _ in range(options.flows)]
-                    for i in range(len(times)-1):
-                        for j in range(options.flows):
-                            departureTime = times[i]
-                            arrivalTime = times[i+1]
-                            period = options.period[i]
+                    flow_times = list(times)
+                    flow_periods = list(options.period)
+                    td_bounds = set()
+                    for gen in (getattr(trip_generator, 'source_generator', None),
+                                getattr(trip_generator, 'sink_generator', None),
+                                getattr(trip_generator, 'via_generator', None)):
+                        if isinstance(gen, TimeDependentEdgeGenerator):
+                            td_bounds.update(gen.get_boundaries())
+                    if td_bounds:
+                        beg_t = parseTime(options.begin)
+                        end_t = parseTime(options.end)
+                        split_pts = sorted([b for b in td_bounds if beg_t < b < end_t])
+                        if split_pts:
+                            new_times = [parseTime(flow_times[0])]
+                            new_periods = []
+                            for i in range(len(flow_times) - 1):
+                                t0 = parseTime(flow_times[i])
+                                t1 = parseTime(flow_times[i + 1])
+                                cur = t0
+                                for sp in split_pts:
+                                    if t0 < sp < t1:
+                                        new_times.append(sp)
+                                        new_periods.append(flow_periods[i])
+                                        cur = sp
+                                if cur < t1:
+                                    new_times.append(t1)
+                                    new_periods.append(flow_periods[i])
+                            flow_times = list(map(intIfPossible, new_times))
+                            flow_periods = new_periods
+                    if td_bounds:
+                        for i in range(len(flow_times) - 1):
+                            departureTime = flow_times[i]
+                            arrivalTime = flow_times[i + 1]
+                            period = flow_periods[i]
                             if rerunFactor is not None:
                                 period /= rerunFactor
                             if period == 0.0:
                                 continue
-                            origin, destination, intermediate = origins_destinations[j]
-                            generate_one(j, departureTime, arrivalTime, period, origin, destination, intermediate, i)
-                            idx += 1
+                            for j in range(options.flows):
+                                origin, destination, intermediate = generate_origin_destination(
+                                    trip_generator, options, parseTime(departureTime))
+                                label_j = "%s#%s" % (j, i) if len(flow_times) > 2 and len(options.period) == 1 else j
+                                generate_one(label_j, departureTime, arrivalTime, period,
+                                             origin, destination, intermediate, i)
+                                idx += 1
+                    else:
+                        origins_destinations = [generate_origin_destination(
+                            trip_generator, options) for _ in range(options.flows)]
+                        for i in range(len(times)-1):
+                            for j in range(options.flows):
+                                departureTime = times[i]
+                                arrivalTime = times[i+1]
+                                period = options.period[i]
+                                if rerunFactor is not None:
+                                    period /= rerunFactor
+                                if period == 0.0:
+                                    continue
+                                origin, destination, intermediate = origins_destinations[j]
+                                generate_one(j, departureTime, arrivalTime, period,
+                                             origin, destination, intermediate, i)
+                                idx += 1
                 except Exception as exc:
                     print(exc, file=sys.stderr)
 
