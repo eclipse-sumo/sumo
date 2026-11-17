@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snapshot type="micro" version="v1_28_0" time="1000000.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <delay number="0" begin="0" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="0.00"/>
+</snapshot>

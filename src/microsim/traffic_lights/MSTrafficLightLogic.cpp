@@ -34,6 +34,7 @@
 #include <microsim/MSGlobals.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
+#include "MSSimpleTrafficLightLogic.h"
 #include "MSTLLogicControl.h"
 #include "MSTrafficLightLogic.h"
 
@@ -103,15 +104,63 @@ MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic* tlLogic) {
 
 SUMOTime
 MSTrafficLightLogic::SwitchCommand::shiftTime(SUMOTime currentTime, SUMOTime execTime, SUMOTime newTime) {
-    if (myTLLogic->getDefaultCycleTime() == DELTA_T) {
-        // MSRailSignal
-        return newTime;
-    } else {
-        UNUSED_PARAMETER(currentTime);
-        UNUSED_PARAMETER(execTime);
-        // XXX changeStepAndDuration (computed as in NLJunctionControlBuilder::closeTrafficLightLogic
+    UNUSED_PARAMETER(currentTime);
+    UNUSED_PARAMETER(execTime);
+    if (!myAmValid) {
+        return -1;
+    }
+    const TrafficLightType lt = myTLLogic->getLogicType();
+    if (myTLLogic->getDefaultCycleTime() == DELTA_T
+            || lt == TrafficLightType::OFF
+            || lt == TrafficLightType::RAIL_SIGNAL
+            || lt == TrafficLightType::RAIL_CROSSING
+            || lt == TrafficLightType::NEMA) {
+        myAssumedNextSwitch = newTime;
         return newTime;
     }
+    if (lt == TrafficLightType::SWARM_BASED) {
+        myAssumedNextSwitch = newTime + DELTA_T;
+        return newTime + DELTA_T;
+    }
+    const Phases& phases = myTLLogic->getPhases();
+    const SUMOTime cycleTime = myTLLogic->computeCycleTime(phases);
+    if (cycleTime <= 0) {
+        myAssumedNextSwitch = newTime;
+        return newTime;
+    }
+    const SUMOTime tlOffset = myTLLogic->getOffset();
+    SUMOTime offset;
+    if (tlOffset >= 0) {
+        offset = (newTime + cycleTime - (tlOffset % cycleTime)) % cycleTime;
+    } else {
+        offset = (newTime + ((-tlOffset) % cycleTime)) % cycleTime;
+    }
+    offset = ((offset % cycleTime) + cycleTime) % cycleTime;
+    int step = 0;
+    while (offset >= phases[step]->duration) {
+        offset -= phases[step]->duration;
+        step++;
+    }
+    const SUMOTime lastSwitch = newTime - offset;
+    phases[step]->myLastSwitch = lastSwitch;
+    if (step != myTLLogic->getCurrentPhaseIndex()) {
+        MSSimpleTrafficLightLogic* const simple = dynamic_cast<MSSimpleTrafficLightLogic*>(myTLLogic);
+        if (simple != nullptr) {
+            simple->setStep(step);
+        }
+        if (myTLLogic->isActive()) {
+            myTLLogic->setTrafficLightSignals(lastSwitch);
+            myTLControl.get(myTLLogic->getID()).executeOnSwitchActions();
+        }
+    } else if (myTLLogic->isActive()) {
+        myTLLogic->setTrafficLightSignals(lastSwitch);
+    }
+    SUMOTime nextSwitch = newTime + phases[step]->duration - offset;
+    if (lt == TrafficLightType::ACTUATED || lt == TrafficLightType::DELAYBASED) {
+        nextSwitch = newTime + phases[step]->minDuration;
+    }
+    myAssumedNextSwitch = nextSwitch;
+    return nextSwitch;
 }
 
 /* -------------------------------------------------------------------------

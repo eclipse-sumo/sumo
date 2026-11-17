@@ -183,6 +183,9 @@ public:
     /** @brief Replaces the phases and set the phase index
      */
     void setPhases(const Phases& phases, int index);
+
+    /// @brief Sets the current phase index directly
+    void setStep(int step);
     /// @}
 
     /** @brief Saves the current tls states into the given stream

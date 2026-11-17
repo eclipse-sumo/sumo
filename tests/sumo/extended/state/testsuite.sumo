@@ -88,3 +88,6 @@ save_routeProbe
 # save started and ended times if loaded from input
 save_stopTimes
 save_pastStop_param
+
+# load high-timestamp state without --begin (#7450)
+load_high_time_tls
