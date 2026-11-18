@@ -61,7 +61,8 @@ SUMORouteLoaderControl::loadNext(SUMOTime step) {
     if (myAllLoaded) {
         return;
     }
-    if (myCurrentLoadTime > step) {
+    // vehicles departing within this step must be loaded now (their insertion events may be due)
+    if (STEPFLOOR(myCurrentLoadTime) > step) {
         return;
     }
     const SUMOTime loadMaxTime = myLoadAll ? SUMOTime_MAX : MAX2(myCurrentLoadTime + myInAdvanceStepNo, step);
