@@ -121,3 +121,6 @@ accel_prohibits_change
 
 # two consecutive edges with acceleration lane
 accel_prohibits_change2
+
+# test for #4360 (loading and writing params on plain connections and crossings)
+connection_params
