@@ -232,6 +232,10 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
             // set as to be re-applied after network processing
             myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, mayDefinitelyPass, keepClear, contPos, visibility,
                                                 speed, friction, length, customShape, uncontrolled, false, permissions, indirectLeft, edgeType, changeLeft, changeRight);
+        } else {
+            NBEdge::Connection& con = from->getConnectionRef(fromLane, to, toLane);
+            con.updateParameters(defaultCon.getParametersMap());
+            myLastParameterised = &con;
         }
     } catch (NumberFormatException&) {
         myErrorMsgHandler->inform("At least one of the defined lanes was not numeric");

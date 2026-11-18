@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="w2c" to="c2e" fromLane="1" toLane="1">
+        <param key="connKey" value="connVal"/>
+    </connection>
+    <crossing node="C" edges="w2c c2w" priority="1">
+        <param key="crossKey" value="crossVal"/>
+    </crossing>
+</connections>
