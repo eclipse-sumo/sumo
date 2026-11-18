@@ -496,6 +496,14 @@ NBLoadedSUMOTLDef::reconstructLogic() {
         myReconstructAddedConnections = false;
         // do not rebuild the logic when running netedit and all links are already covered by the program
         if (!myPhasesLoaded && !(netedit && hasValidIndices())) {
+            // reset crossing custom indices before rebuilding logic
+            for (NBNode* n : myControlledNodes) {
+                for (NBNode::Crossing* c : n->getCrossings()) {
+                    c->customTLIndex = NBConnection::InvalidTlIndex;
+                    c->customTLIndex2 = NBConnection::InvalidTlIndex;
+                    c->tlLinkIndex2 = NBConnection::InvalidTlIndex;
+                }
+            }
             // rebuild the logic from scratch
             // XXX if a connection with the same from- and to-edge already exisits, its states could be copied instead
             NBOwnTLDef dummy(DummyID, myControlledNodes, 0, getType());
@@ -515,13 +523,6 @@ NBLoadedSUMOTLDef::reconstructLogic() {
                 newLogic->setType(getType());
                 newLogic->setOffset(getOffset());
                 setTLControllingInformation();
-                // reset crossing custom indices
-                for (NBNode* n : myControlledNodes) {
-                    for (NBNode::Crossing* c : n->getCrossings()) {
-                        c->customTLIndex = NBConnection::InvalidTlIndex;
-                    }
-                }
-
             }
         } else {
             setTLControllingInformation();

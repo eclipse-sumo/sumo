@@ -72,3 +72,6 @@ customShape_shifted
 
 # set custom edgeType for connection
 edgeType
+
+# add connection at traffic light with pedestrian crossings (#18599)
+add_connection_tls_crossings
