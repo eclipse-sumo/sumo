@@ -1,0 +1,7 @@
+<routes>
+    <!-- t2 departs after the first 200 s loaded by default (route-steps) and after t1, which the loader reads ahead;
+         its pre-insertion reroute must happen in the same step as when all routes are loaded at once -->
+    <trip id="t0" depart="0" from="beg" to="end"/>
+    <trip id="t1" depart="200.2" from="beg" to="end"/>
+    <trip id="t2" depart="200.5" from="beg" to="end"/>
+</routes>
