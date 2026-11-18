@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18T04:13:41.172200+00:00 by Eclipse SUMO netconvert v1_28_0+0644-bda840e3afe
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Users\Mark\.gemini\antigravity\brain\ccc3a0cb-b99a-4eef-877f-2d9a12620d69\scratch\tmp_13042\nod.xml"/>
+        <edge-files value="C:\Users\Mark\.gemini\antigravity\brain\ccc3a0cb-b99a-4eef-877f-2d9a12620d69\scratch\tmp_13042\edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="c:\Users\Mark\Desktop\sumo\tests\sumo\output\fcd-output\sublane_leaders\net.net.xml"/>
+    </output>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,0.00" origBoundary="0.00,0.00,200.00,0.00" projParameter="!"/>
+
+    <edge id="E0" from="n0" to="n1" priority="-1">
+        <lane id="E0_0" index="0" speed="20.00" length="200.00" width="6.00" shape="0.00,-3.00 200.00,-3.00"/>
+    </edge>
+
+    <junction id="n0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-6.00"/>
+    <junction id="n1" type="dead_end" x="200.00" y="0.00" incLanes="E0_0" intLanes="" shape="200.00,-6.00 200.00,0.00"/>
+
+</net>

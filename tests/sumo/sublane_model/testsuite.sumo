@@ -93,5 +93,8 @@ lane_discipline
 # use calibrator to change vehicle alignment
 calibrate_alignment
 
+# output sublane vehicle leader information in fcd-output
+fcd_leaders
+
 # tests for various tickets
 bugs
