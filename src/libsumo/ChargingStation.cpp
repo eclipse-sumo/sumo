@@ -127,6 +127,12 @@ ChargingStation::getTotalPower(const std::string& stopID) {
 }
 
 
+double
+ChargingStation::getDischargePower(const std::string& stopID) {
+    return dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->getDischargePower();
+}
+
+
 void
 ChargingStation::setChargingPower(const std::string& stopID, double power) {
     dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargingPower(power);
@@ -154,6 +160,15 @@ ChargingStation::setChargeInTransit(const std::string& stopID, bool inTransit) {
 void
 ChargingStation::setTotalPower(const std::string& stopID, double totalPower) {
     dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setTotalChargingPower(totalPower);
+}
+
+
+void
+ChargingStation::setDischargePower(const std::string& stopID, double dischargePower) {
+    if (dischargePower < 0) {
+        throw TraCIException("Discharge power for chargingStation '" + stopID + "' must not be negative.");
+    }
+    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setDischargePower(dischargePower);
 }
 
 
@@ -215,6 +230,8 @@ ChargingStation::handleVariable(const std::string& objID, const int variable, Va
             return wrapper->wrapInt(objID, variable, getChargeInTransit(objID));
         case VAR_CS_TOTAL_POWER:
             return wrapper->wrapDouble(objID, variable, getTotalPower(objID));
+        case VAR_CS_DISCHARGE_POWER:
+            return wrapper->wrapDouble(objID, variable, getDischargePower(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
