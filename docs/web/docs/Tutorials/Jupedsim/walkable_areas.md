@@ -27,7 +27,7 @@ Start *netedit* and load the sumoconfig file from the crossing tutorial. When yo
 
 ![network and jupedsim shapes](../../images/jps_areas_network_jupedsim_shapes.png)
 
-Select *jupedsim.walkablk_area* and click on *Start drawing*. Draw the walkable area and press *Enter* to close the polygon and finish the drawing.
+Select *jupedsim.walkable_area* and click on *Start drawing*. Draw the walkable area and press *Enter* to close the polygon and finish the drawing.
 
 ![network walkable area](../../images/jps_areas_network_walkable_area.png)
 
@@ -60,7 +60,7 @@ Choose the input file and the name of the output file. Set projection to *none* 
 ![dxf2jupedsim options](../../images/jps_areas_dxf2jupedim_options.png)
 
 
-!!! note 
+!!! note
 	When choosing the dxf file in file finder select the file name ending *All files(\\*)* as only xml files are listed by default.
 
 

@@ -169,7 +169,7 @@ Examples:
 
 # checkReversals.py
 
-This tool counts the number of reversals per vehicle and also the number of reverals that occur per edge.
+This tool counts the number of reversals per vehicle and also the number of reversals that occur per edge.
 
 Example:
 ```
