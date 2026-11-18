@@ -1,0 +1,2 @@
+c:\Users\Mark\Desktop\sumo\tests\..\tests/complex/traci/trafficlight/constraints/replace_program_ongoing_phase/runner.py:44: UserWarning: Call to deprecated function setProgramLogic, use setCompleteRedYellowGreenDefinition instead.
+  traci.trafficlight.setCompleteRedYellowGreenDefinition("C", logic)

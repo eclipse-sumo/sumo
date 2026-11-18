@@ -944,8 +944,13 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
     } else {
         MSSimpleTrafficLightLogic* tlLogic = static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(logic.programID));
         tlLogic->setPhases(phases, logic.currentPhaseIndex);
-        tlLogic->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
-        vars.executeOnSwitchActions();
+        const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+        const SUMOTime remaining = MAX2((SUMOTime)0, phases[logic.currentPhaseIndex]->duration - tlLogic->getSpentDuration());
+        tlLogic->changeStepAndDuration(MSNet::getInstance()->getTLSControl(), now, -1, remaining);
+        if (vars.getActive() == tlLogic) {
+            tlLogic->setTrafficLightSignals(now);
+            vars.executeOnSwitchActions();
+        }
     }
 }
 
