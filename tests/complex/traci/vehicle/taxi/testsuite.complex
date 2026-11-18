@@ -59,3 +59,6 @@ undeparted
 
 # dispatch a taxi to service a single customer
 control_idle
+
+# charging stops survive dispatch, re-dispatch from scratch, the arrival of the last customer and idling
+charging_stops
