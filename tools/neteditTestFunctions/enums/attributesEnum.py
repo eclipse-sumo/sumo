@@ -888,15 +888,16 @@ class attrs:
             chargeType = 14
             waitingTime = 16
             parkingArea = 17
-            parameters = 18
-            parametersButton = 20
-            size = 22
-            forceSize = 23
-            reference = 24
-            additionalFileButton = 26
-            additionalFile = 27
-            helpDialog = 28
-            reset = 29
+            dischargePower = 18
+            parameters = 19
+            parametersButton = 21
+            size = 23
+            forceSize = 24
+            reference = 25
+            additionalFileButton = 27
+            additionalFile = 28
+            helpDialog = 29
+            reset = 30
 
         class inspect:
             id = 2
@@ -915,15 +916,15 @@ class attrs:
             chargeType = 15
             waitingTime = 17
             parkingArea = 18
-            parameters = 20
-            parametersButton = 21
-            frontButton = 23
-            forceSize = 24
-            reference = 25
-            additionalFileButton = 27
-            additionalFile = 28
-            helpDialog = 29
-            reset = 30
+            parameters = 21
+            parametersButton = 22
+            frontButton = 24
+            forceSize = 25
+            reference = 26
+            additionalFileButton = 28
+            additionalFile = 29
+            helpDialog = 30
+            reset = 31
 
         class inspectSelection:
             friendlyPos = 2
@@ -937,15 +938,15 @@ class attrs:
             chargeType = 10
             waitingTime = 11
             parkingArea = 12
-            parameters = 14
-            parametersButton = 15
-            frontButton = 17
-            forceSize = 18
-            reference = 19
-            additionalFileButton = 21
-            additionalFile = 22
-            helpDialog = 23
-            reset = 24
+            parameters = 15
+            parametersButton = 16
+            frontButton = 18
+            forceSize = 19
+            reference = 20
+            additionalFileButton = 22
+            additionalFile = 23
+            helpDialog = 24
+            reset = 25
 
     # access
 
