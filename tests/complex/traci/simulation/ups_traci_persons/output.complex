@@ -1,0 +1,5 @@
+veh_steps > 0 and pers_steps > 0: True
+clockDuration >= 0.25: True
+traciDuration >= 0.20: True
+vehUPS > 5x naive clock UPS: True
+persUPS > 5x naive clock UPS: True
