@@ -4349,7 +4349,7 @@ GNEViewNet::onCmdToggleShowPolygonSymbols(FXObject*, FXSelector sel, void*) {
 
 long
 GNEViewNet::onCmdToggleDrawFilledWalkingAreas(FXObject*, FXSelector sel, void*) {
-    // Toggle menuCheckAutoOppositeEdge
+    // Toggle menuCheckDrawFilledWalkingAreas
     if (myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->amChecked() == TRUE) {
         myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->setChecked(FALSE);
     } else {
@@ -4359,7 +4359,7 @@ GNEViewNet::onCmdToggleDrawFilledWalkingAreas(FXObject*, FXSelector sel, void*) 
     // Only update view
     updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
-    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWPOLYGONSYMBOLS)) {
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_DRAWFILLEDWALKINGAREAS)) {
         myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->setFocus();
     }
     return 1;
