@@ -195,6 +195,10 @@ protected:
     /// @brief last time the simulation took a microsecond break for the fox event loop to catch up (#9028)
     long myLastBreakMillis;
 
+    /// @brief hadle timer resolution on windows
+    long myMinWait;
+    long myAccumulatedWait;
+
     /// @brief whether we are running in libsumo
     bool myAmLibsumo;
 };

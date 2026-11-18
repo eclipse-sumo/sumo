@@ -62,10 +62,19 @@ GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent, double
     myEventThrow(ev),
     myLastEndMillis(-1),
     myLastBreakMillis(0),
+    myMinWait(0),
+    myAccumulatedWait(0),
     myAmLibsumo(false) {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_MESSAGE);
     myWarningRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_WARNING);
+
+#ifdef WIN32
+    // windows default system timer resolution is 16
+    // above value is a compromise to achieve real-time-factor 1000 on 1ms delay
+    myMinWait = 32;
+#endif
+
 }
 
 
@@ -168,7 +177,16 @@ GUIRunThread::tryStep() {
         wait -= (myLastEndMillis - beg);
         if (wait > 0) {
             myLastBreakMillis = myLastEndMillis;
-            sleep(wait);
+            myAccumulatedWait += wait;
+            if (myAccumulatedWait > myMinWait) {
+#ifdef WIN32
+                if (mySimDelay < myMinWait) {
+                    myAccumulatedWait *= 0.5;
+                }
+#endif
+                sleep(myAccumulatedWait);
+                myAccumulatedWait = 0;
+            }
 #ifndef WIN32
         } else if (myLastEndMillis - myLastBreakMillis > 1000) {
             // ensure redraw event is successful at least once per second (#9028)
