@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" sigma="0"/>
+    <vehicle id="v0" type="car" depart="0" departPos="35" departSpeed="max">
+        <route edges="WC CE"/>
+    </vehicle>
+    <person id="p0" depart="0" departPos="-5">
+        <walk edges="SC CN" arrivalPos="5"/>
+    </person>
+</routes>

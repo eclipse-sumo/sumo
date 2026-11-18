@@ -26,6 +26,7 @@
 #include <bitset>
 #include <sstream>
 #include <microsim/MSEventControl.h>
+#include <microsim/MSLane.h>
 #include "MSTrafficLightLogic.h"
 #include "MSOffTrafficLightLogic.h"
 
@@ -76,6 +77,9 @@ MSOffTrafficLightLogic::rebuildPhase() {
                 foundMajor = true;
             } else if (l->getOffState() == LINKSTATE_ALLWAY_STOP) {
                 foundAllwayStop = true;
+            } else if ((l->getLane() != nullptr && l->getLane()->isCrossing())
+                       || (l->getLaneBefore() != nullptr && l->getLaneBefore()->isCrossing())) {
+                foundMinor = true;
             } else {
                 WRITE_WARNINGF(TL("Invalid 'off'-state for link % at junction '%'"), toString(l->getIndex()), l->getJunction()->getID());
             }

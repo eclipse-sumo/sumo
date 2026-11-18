@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <WAUT startProg="0" refTime="0" id="w0">
+        <wautSwitch to="off" time="1"/>
+    </WAUT>
+    <wautJunction junctionID="C" wautID="w0"/>
+</additional>

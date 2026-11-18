@@ -3,3 +3,6 @@ tlIndex2
 
 # avoid pathing around a red crossing
 3arm
+
+# pedestrian crossing yields safely without warning when tls is switched off
+tls_off_crossing
