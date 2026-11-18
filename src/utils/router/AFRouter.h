@@ -545,7 +545,7 @@ public:
         std::cout << "num_visited: " << num_visited << std::endl;
 #endif
         if (!silent) {
-            this->myErrorMsgHandler->informf("No connection between edge '%' and edge '%' found.", from->getID(), to->getID());
+            this->informUnreachable(from, to);
         }
         return false;
     }

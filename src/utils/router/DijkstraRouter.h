@@ -245,7 +245,7 @@ public:
         std::cout << "visited " + toString(num_visited) + " edges (unsuccessful path length: " + toString(into.size()) + ")\n";
 #endif
         if (to != nullptr && !mySilent && !silent) {
-            this->myErrorMsgHandler->informf(TL("No connection between edge '%' and edge '%' found."), from->getID(), to->getID());
+            this->informUnreachable(from, to);
         }
 #ifdef DijkstraRouter_DEBUG_QUERY_VISITED
         DijkstraRouter_DEBUG_QUERY_VISITED_OUT << " </interval>\n</edgeData>\n";
