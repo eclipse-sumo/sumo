@@ -949,6 +949,7 @@ MSDevice_Tripinfo::saveState(OutputDevice& out) const {
     out.writeAttr(SUMO_ATTR_ID, getID());
     if (myHolder.hasDeparted()) {
         std::ostringstream internals;
+        internals << std::fixed << std::setprecision(gPrecision);
         // the depart lane is empty if the device was added when loading state
         internals << (myDepartLane == "" ? STATE_EMPTY_LANE : myDepartLane) << " ";
         if (!MSGlobals::gUseMesoSim) {
