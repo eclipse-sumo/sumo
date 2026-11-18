@@ -3,3 +3,6 @@ CACC
 
 # Tests the vehicle API	
 setParameter
+
+# get and set W99 carFollowModel parameters via TraCI (see #15421)
+parameters_W99
