@@ -114,6 +114,9 @@ public:
         return "vehroute";
     }
 
+    /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
+    std::string getParameter(const std::string& key) const;
+
     void notifyStopEnded();
 
     /** @brief Called on writing vehroutes output
