@@ -1,2 +1,5 @@
 csv
 parquet
+
+# see #17084
+xml_gz

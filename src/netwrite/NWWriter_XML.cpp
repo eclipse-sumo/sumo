@@ -83,24 +83,48 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, const std::string& prefix, NBN
 
 
 void
+NWWriter_XML::getPlainPrefixAndExt(const OptionsCont& oc, const std::string& prefix, std::string& basePrefix, std::string& ext) {
+    basePrefix = prefix;
+    ext = oc.getString("output.format");
+    if (StringUtils::endsWith(basePrefix, ".xml.gz")) {
+        basePrefix = basePrefix.substr(0, basePrefix.size() - 7);
+        if (!StringUtils::endsWith(ext, ".gz")) {
+            ext += ".gz";
+        }
+    } else if (StringUtils::endsWith(basePrefix, ".gz")) {
+        basePrefix = basePrefix.substr(0, basePrefix.size() - 3);
+        const std::string dotExt = "." + ext;
+        if (StringUtils::endsWith(basePrefix, dotExt)) {
+            basePrefix = basePrefix.substr(0, basePrefix.size() - dotExt.size());
+        }
+        if (!StringUtils::endsWith(ext, ".gz")) {
+            ext += ".gz";
+        }
+    }
+}
+
+
+void
 NWWriter_XML::writeConfig(const OptionsCont& oc, const std::string& prefix, bool haveTypes) {
     if (!oc.exists("node-files")) {
         // do not write configuration for netgen
         return;
     }
-    const std::string ext = oc.getString("output.format");
+    std::string basePrefix;
+    std::string ext;
+    getPlainPrefixAndExt(oc, prefix, basePrefix, ext);
     OptionsCont* tmp = oc.clone();
-    tmp->set("node-files", prefix + ".nod." + ext);
-    tmp->set("edge-files", prefix + ".edg." + ext);
-    tmp->set("connection-files", prefix + ".con." + ext);
-    tmp->set("tllogic-files", prefix + ".tll." + ext);
+    tmp->set("node-files", basePrefix + ".nod." + ext);
+    tmp->set("edge-files", basePrefix + ".edg." + ext);
+    tmp->set("connection-files", basePrefix + ".con." + ext);
+    tmp->set("tllogic-files", basePrefix + ".tll." + ext);
     if (haveTypes) {
-        tmp->set("type-files", prefix + ".typ." + ext);
+        tmp->set("type-files", basePrefix + ".typ." + ext);
     }
     tmp->setDefault("sumo-net-file", "");
     tmp->setDefault("plain-output-prefix", "");
 
-    const std::string configPath = prefix + ".netccfg";
+    const std::string configPath = basePrefix + ".netccfg";
     std::ofstream out(configPath.c_str());
     if (!out.good()) {
         delete tmp;
@@ -114,7 +138,9 @@ NWWriter_XML::writeConfig(const OptionsCont& oc, const std::string& prefix, bool
 
 void
 NWWriter_XML::writeNodes(const OptionsCont& oc, const std::string& prefix, NBNodeCont& nc) {
-    const std::string ext = oc.getString("output.format");
+    std::string basePrefix;
+    std::string ext;
+    getPlainPrefixAndExt(oc, prefix, basePrefix, ext);
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     bool useGeo = oc.exists("proj.plain-geo") && oc.getBool("proj.plain-geo");
     if (useGeo && !gch.usingGeoProjection()) {
@@ -123,7 +149,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, const std::string& prefix, NBNod
     }
     const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();
 
-    OutputDevice& device = OutputDevice::getDevice(prefix + ".nod." + ext);
+    OutputDevice& device = OutputDevice::getDevice(basePrefix + ".nod." + ext);
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
     device.writeXMLHeader("nodes", "nodes_file.xsd", attrs);
@@ -184,8 +210,10 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, const std::string& prefix, NBNod
 
 void
 NWWriter_XML::writeTypes(const std::string& prefix, NBEdgeCont& ec, NBTypeCont& tc) {
-    const std::string ext = OptionsCont::getOptions().getString("output.format");
-    OutputDevice& device = OutputDevice::getDevice(prefix + ".typ." + ext);
+    std::string basePrefix;
+    std::string ext;
+    getPlainPrefixAndExt(OptionsCont::getOptions(), prefix, basePrefix, ext);
+    OutputDevice& device = OutputDevice::getDevice(basePrefix + ".typ." + ext);
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
     device.writeXMLHeader(toString(SUMO_TAG_TYPES), "types_file.xsd", attrs);
@@ -197,7 +225,9 @@ NWWriter_XML::writeTypes(const std::string& prefix, NBEdgeCont& ec, NBTypeCont& 
 
 void
 NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string& prefix, NBNodeCont& nc, NBEdgeCont& ec) {
-    const std::string ext = oc.getString("output.format");
+    std::string basePrefix;
+    std::string ext;
+    getPlainPrefixAndExt(oc, prefix, basePrefix, ext);
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     bool useGeo = oc.exists("proj.plain-geo") && oc.getBool("proj.plain-geo");
     const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();
@@ -205,9 +235,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
 
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
-    OutputDevice& edevice = OutputDevice::getDevice(prefix + ".edg." + ext);
+    OutputDevice& edevice = OutputDevice::getDevice(basePrefix + ".edg." + ext);
     edevice.writeXMLHeader("edges", "edges_file.xsd", attrs);
-    OutputDevice& cdevice = OutputDevice::getDevice(prefix + ".con." + ext);
+    OutputDevice& cdevice = OutputDevice::getDevice(basePrefix + ".con." + ext);
     cdevice.writeXMLHeader("connections", "connections_file.xsd", attrs);
     const bool writeNames = oc.getBool("output.street-names");
     const bool writeLanes = oc.getBool("plain-output.lanes");
@@ -348,7 +378,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
     cdevice.close();
 
     if (dlrNavteq) {
-        OutputDevice& cdevice2 = OutputDevice::getDevice(prefix + ".cpr." + ext);
+        OutputDevice& cdevice2 = OutputDevice::getDevice(basePrefix + ".cpr." + ext);
         cdevice2.writeXMLHeader("connections", "connections_file.xsd");
         NWWriter_DlrNavteq::writeProhibitedManoeuvresAttrs(cdevice2, nc);
         cdevice2.close();
@@ -358,10 +388,12 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
 
 void
 NWWriter_XML::writeTrafficLights(const std::string& prefix, NBTrafficLightLogicCont& tc, NBEdgeCont& ec) {
-    const std::string ext = OptionsCont::getOptions().getString("output.format");
+    std::string basePrefix;
+    std::string ext;
+    getPlainPrefixAndExt(OptionsCont::getOptions(), prefix, basePrefix, ext);
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
-    OutputDevice& device = OutputDevice::getDevice(prefix + ".tll." + ext);
+    OutputDevice& device = OutputDevice::getDevice(basePrefix + ".tll." + ext);
     device.writeXMLHeader("tlLogics", "tllogic_file.xsd", attrs);
     const OptionsCont& oc = OptionsCont::getOptions();
     const bool dlrNavteq = oc.exists("dlr-navteq.plain") && oc.getBool("dlr-navteq.plain");

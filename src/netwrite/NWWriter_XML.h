@@ -74,6 +74,9 @@ public:
     static void writeStreetSigns(const OptionsCont& oc, NBEdgeCont& ec);
 
 private:
+    /// @brief Splits plain-output-prefix and output format extension (handling .xml.gz / .gz suffixes)
+    static void getPlainPrefixAndExt(const OptionsCont& oc, const std::string& prefix, std::string& basePrefix, std::string& ext);
+
     /** @brief Writes the configuration file for assempling the network from plain-xml files
      * @param[in] oc The options to use
      * @param[in] prefix The file name prefix
