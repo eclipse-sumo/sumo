@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-18T17:14:50.746973+01:00 by Eclipse SUMO sumo v1_28_0+0656-c9253f0c1d3
+<!-- generated on 2026-11-18T17:20:58.195970+01:00 by Eclipse SUMO sumo v1_28_0+0656-c9253f0c1d3
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -44,8 +44,8 @@
     <route id="!v0" state="0" edges="SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS"/>
     <delay number="1" begin="1" end="0" depart="0.000000" time="0.000000" speedFactor="1.060000" decel="4.500000"/>
     <vType id="t0" sigma="0"/>
-    <vehicle id="v0" type="t0" depart="0.000" route="!v0" distance="10144.2 0" speedFactor="1.060000" state="2 0 99 5.100000 0 781.694486 1473000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="39.237600 34.237600 14.723400" speed="14.723400 14.723400" angle="180.000000" posLat="0.000000" waitingTime="100000 1 34000 78000" lcStateBase="9.000000" lcState2="0 0 0 147234000 0">
-        <device id="tripinfo_v0" state="SC_0 0 0 10139.1 711000 0 16 0 -1 -1000 NONE -1 0 -1"/>
+    <vehicle id="v0" type="t0" depart="0.000" route="!v0" distance="10144.230000 0" speedFactor="1.060000" state="2 0 99 5.100000 0 781.694486 1473000 0 0 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="39.237600 34.237600 14.723400" speed="14.723400 14.723400" angle="180.000000" posLat="0.000000" waitingTime="100000 1 34000 78000" lcStateBase="9.000000" lcState2="0 0 0 147234000 0">
+        <device id="tripinfo_v0" state="SC_0 0.000000 0.000000 10139.130000 711000 0 16 0 -1 -1000 NONE -1.000000 0.000000 -1.000000"/>
     </vehicle>
     <lane id=":S_0_0">
         <link to="SC_1">
