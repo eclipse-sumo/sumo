@@ -619,6 +619,9 @@ MSRouteHandler::closeVehicle() {
         // let's check whether this vehicle had to depart before the simulation starts
         if (!(myAddVehiclesDirectly || checkLastDepart()) || (myVehicleParameter->depart <= MSNet::getInstance()->getStateLoaderTime() && !myAmLoadingState)) {
             mySkippedVehicles.insert(myVehicleParameter->id);
+            if (route != nullptr && route->getID() == embeddedRouteID) {
+                route->checkRemoval();
+            }
             return;
         }
     }
