@@ -81,3 +81,6 @@ addTAZ
 # extract OD matrix from vehicles
 route2OD
 route_1htoDay
+
+# discover network sections used in both directions (#16548)
+checkBidiUsage

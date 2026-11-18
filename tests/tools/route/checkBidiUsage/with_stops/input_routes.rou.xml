@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" vClass="rail"/>
+    <flow id="f_fwd" type="train" begin="0" end="600" number="4">
+        <route edges="t0"/>
+        <stop trainStop="ts_fwd" duration="30"/>
+    </flow>
+    <vehicle id="v_rev1" type="train" depart="100">
+        <route edges="-t0"/>
+        <stop trainStop="ts_rev" duration="30"/>
+    </vehicle>
+    <vehicle id="v_rev2" type="train" depart="300">
+        <route edges="-t0"/>
+    </vehicle>
+</routes>
