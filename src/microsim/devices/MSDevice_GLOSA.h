@@ -206,6 +206,8 @@ private:
     bool mySpeedAdviceActive;
     /// @brief if true the queue in front of the TLS is used for calculation
     bool  myUseQueue;
+    /// @brief externally predicted switch timestamp (or -1 if unset)
+    SUMOTime myOverrideSwitchTime;
 
 
 private:
