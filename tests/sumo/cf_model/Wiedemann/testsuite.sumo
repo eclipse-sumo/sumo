@@ -3,3 +3,6 @@ getSecureGap
 
 # failure to overtake
 ticket16507
+
+# avoid emergency braking right after insertion (#5754)
+insertion_no_emergency
