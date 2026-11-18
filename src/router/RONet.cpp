@@ -578,6 +578,14 @@ RONet::addFlow(SUMOVehicleParameter* flow, const bool randomize) {
 bool
 RONet::addPerson(ROPerson* person) {
     if (myPersonIDs.count(person->getID()) == 0) {
+        const SUMOVTypeParameter* const type = person->getType();
+        if (type != nullptr && type->vehicleClass != SVC_PEDESTRIAN && type->vehicleClass != SVC_WHEELCHAIR) {
+            if (type->wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
+                WRITE_WARNINGF(TL("Person '%' receives type '%' which uses unsuitable vClass '%'."), person->getID(), type->id, toString(type->vehicleClass));
+            } else {
+                WRITE_WARNINGF(TL("Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."), person->getID(), type->id, toString(type->vehicleClass));
+            }
+        }
         myPersonIDs.insert(person->getID());
         myRoutables[person->getDepart()].push_back(person);
         return true;

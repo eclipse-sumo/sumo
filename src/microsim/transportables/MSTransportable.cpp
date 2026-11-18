@@ -55,6 +55,12 @@ MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType
     myNumericalID(myCurrentNumericalIndex++),
     myRandomSeed(RandHelper::murmur3_32(pars->id, RandHelper::getSeed())) {
     myStep = myPlan->begin();
+    if (myAmPerson
+            && vtype->getVehicleClass() != SVC_PEDESTRIAN
+            && vtype->getVehicleClass() != SVC_WHEELCHAIR
+            && vtype->getParameter().wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
+        WRITE_WARNINGF(TL("Person '%' receives type '%' which uses unsuitable vClass '%'."), getID(), vtype->getID(), toString(vtype->getVehicleClass()));
+    }
     // init devices
     MSDevice::buildTransportableDevices(*this, myDevices);
     for (MSStage* const stage : * myPlan) {
@@ -459,8 +465,12 @@ MSTransportable::replaceVehicleType(const MSVehicleType* type) {
     if (isPerson()
             && type->getVehicleClass() != oldVClass
             && type->getVehicleClass() != SVC_PEDESTRIAN
-            && !type->getParameter().wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
-        WRITE_WARNINGF(TL("Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."), getID(), type->getID(), toString(type->getVehicleClass()));
+            && type->getVehicleClass() != SVC_WHEELCHAIR) {
+        if (type->getParameter().wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
+            WRITE_WARNINGF(TL("Person '%' receives type '%' which uses unsuitable vClass '%'."), getID(), type->getID(), toString(type->getVehicleClass()));
+        } else {
+            WRITE_WARNINGF(TL("Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."), getID(), type->getID(), toString(type->getVehicleClass()));
+        }
     }
     myVType = type;
 }

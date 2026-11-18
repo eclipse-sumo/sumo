@@ -1,0 +1,2 @@
+Warning: Person 'p1' receives type 'pedIgnore' which uses unsuitable vClass 'ignoring'.
+Warning: Person 'p2' receives type 'pedCar' which uses unsuitable vClass 'passenger'.
