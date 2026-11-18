@@ -236,6 +236,29 @@ Taxis will stop to pick-up and drop-off customers. The 'actType' attribute of a 
 By default, vehicle stops will have attribute `parking="true"` which means that the taxi will not block a driving lane. This can be changed by setting
 param "device.taxi.parking" to "false".
 
+## Charging Stops
+
+Stops at a [chargingStation](../Models/Electric.md#charging_stations) which neither pick up nor drop off customers
+(i.e. stops defined in the route of the taxi, added with [TraCI](#traci) or planned by the [stationfinder device](Stationfinder.md))
+are kept by the taxi device:
+
+- a dispatch which starts from scratch (the dispatch of an empty taxi or a re-dispatch which mentions all current customers) appends the
+  charging stops that were not reached yet after the new customer stops (in their original order)
+- a re-dispatch which extends the route keeps them in place
+- they are not removed when the last customer leaves the taxi
+- a charging stop at which the taxi currently stands is ended by a new dispatch (like any other current stop)
+- the [idle algorithm](#idle_behavior) only takes over once no charging stop is pending. With the default idle algorithm "stop", the
+  taxi waits at its last charging stop after the stop duration has passed.
+
+To discard these stops like other stops (the behavior before SUMO 1.29), set the vType/vehicle param "device.taxi.keepChargingStops" to "false":
+
+```xml
+    <vType id="taxi" vClass="taxi">
+        <param key="has.taxi.device" value="true"/>
+        <param key="device.taxi.keepChargingStops" value="false"/>
+    </vType>
+```
+
 # TraCI
 To couple an external dispatch algorithm to SUMO, the following [TraCI](../TraCI/index.md) functions are provided:
 
@@ -322,6 +345,10 @@ In order to send an idle taxi to another destination, the following things need 
 2. The current stop must be aborted with `vehicle.resume`
 3. A new stop must be added (i.e. with `vehicle.setStop`.
 
+Alternatively, steps 1 and 3 can be done with `vehicle.insertStop` which also computes the new route.
+[Charging stops](#charging_stops) are not turned into waiting stops before they are reached, so an idle taxi can be sent to
+several charging stations in a row and waits at the last one.
+
 # Outputs
 
 The Taxi device generates output within a tripinfo-output file in the following
@@ -342,3 +369,4 @@ It is also possible to color vehicles in [SUMO-GUI 'by param (numerical)'](../su
 - device.taxi.occupiedDistance: total distance driven in m with customer on board
 - device.taxi.occupiedTime: total time driven in s with customers on board
 - device.taxi.currentCustomers: space-separated list of persons that are to be picked up or already on board
+- device.taxi.keepChargingStops: whether [charging stops](#charging_stops) are kept (can also be set with `traci.vehicle.setParameter`)

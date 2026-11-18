@@ -142,6 +142,7 @@ title: ChangeLog
   - Taxi dispatch algorithm "greedyClosest" now runs much faster #7668
   - Improvement in running time in the junction model (~8% simulation speed) #18776
   - Improvement in parallel running time #18777 (still experimental)
+  - Taxis now keep stops at charging stations that serve no customer (from the route, TraCI or the stationfinder device) when they are dispatched and when the last customer leaves. The idle algorithm waits until these stops are reached. The previous behavior can be restored with vType/vehicle param `device.taxi.keepChargingStops="false"`. [documentation](Simulation/Taxi.md#charging_stops) #15586
 
 - sumo-gui
   - Converted some buttons into checkboxes in the locate dialog #9925
@@ -172,6 +173,7 @@ title: ChangeLog
   - Added offset member to `TraCILogic` and `traci.trafficlight.Logic` #14735
   - command logging (`traceFile`) is now working with multiple connections #18504
   - Can now modify W99 model params #15421
+  - Taxi parameter `device.taxi.keepChargingStops` can be retrieved and set with `vehicle.getParameter` and `vehicle.setParameter` #15586
 
 - tools
   - osmWebWizard.py: added option **--language** to localize the web UI #13081
