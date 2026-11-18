@@ -1,0 +1,5 @@
+Detector;Time;qPKW;qLKW;vPKW;vLKW
+det_beg;0;6;0;5;0
+det_north;0;4;0;5;0
+det_south;0;2;0;5;0
+det_end;0;6;0;5;0

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<detectors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/detectors_file.xsd">
+    <detectorDefinition id="det_beg" lane="beg_0" pos="5.0"/>
+    <detectorDefinition id="det_north" lane="north_0" pos="25.0"/>
+    <detectorDefinition id="det_south" lane="south_0" pos="25.0"/>
+    <detectorDefinition id="det_end" lane="end_0" pos="40.0"/>
+</detectors>
