@@ -162,6 +162,7 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     if (vtype->wasSet(VTYPEPARS_LENGTH_SET)) {
         myTrainParams.length = vtype->getLength();
     }
+    myTrainParams.accelScale = vtype->getParameter().getCFParam(SUMO_ATTR_ACCEL, 1.0);
     myTrainParams.mf = vtype->getParameter().getCFParam(SUMO_ATTR_MASSFACTOR, myTrainParams.mf);
     myTrainParams.decl = vtype->getParameter().getCFParam(SUMO_ATTR_DECEL, myTrainParams.decl);
     setMaxDecel(myTrainParams.decl);
@@ -317,6 +318,9 @@ double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) co
     double a;
     if (speed < targetSpeed) {
         a = (trac - totalRes) / getRotWeight(veh); //kN/t == N/kg
+        if (a > 0.) {
+            a *= myTrainParams.accelScale;
+        }
     } else {
         a = 0.;
         if (totalRes > trac) {

@@ -6,6 +6,9 @@ Freight_heavier
 # use custom traction and resistance curve
 Freight_custom
 ICE3
+
+# scale positive rail acceleration via vType accel attribute (see #13054)
+ICE3_accel_scale
 NGT400_16
 RB628
 ICE1

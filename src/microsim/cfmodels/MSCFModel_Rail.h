@@ -97,6 +97,7 @@ private:
         double length;
         double decl;
         double vmax;
+        double accelScale = 1.0;
         double recovery;
         LinearApproxHelpers::LinearApproxMap traction;  // m/s -> kN
         LinearApproxHelpers::LinearApproxMap resistance;  // m/s -> kN

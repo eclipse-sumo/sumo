@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="half" vClass="rail" carFollowModel="Rail" trainType="ICE3" accel="0.5"/>
+    <vType id="double" vClass="rail" carFollowModel="Rail" trainType="ICE3" accel="2.0"/>
+    <trip id="t_double" depart="0.00" departLane="best" from="e0" to="e2" type="double"/>
+    <trip id="t_half" depart="10.00" departLane="best" from="e0" to="e2" type="half"/>
+</routes>
