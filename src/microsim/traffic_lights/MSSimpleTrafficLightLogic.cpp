@@ -353,6 +353,10 @@ void
 MSSimpleTrafficLightLogic::loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration, SUMOTime nextSwitch, SUMOTime timeInCycle, bool active) {
     MSTrafficLightLogic::loadState(tlcontrol, t, step, spentDuration, nextSwitch, timeInCycle, active);
     myPhases[myStep]->myLastSwitch = t - spentDuration;
+    if (!myCoordinated && myStep != 0) {
+        // the time in cycle counts from the last start of phase 0
+        myPhases[0]->myLastSwitch = t - timeInCycle;
+    }
 }
 
 
