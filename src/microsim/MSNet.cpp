@@ -38,6 +38,7 @@
 #include <cassert>
 #include <vector>
 #include <ctime>
+#include <chrono>
 
 #ifdef HAVE_FOX
 #include <utils/common/ScopedLocker.h>
@@ -293,6 +294,8 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
     // initialise performance computation
     mySimBeginMillis = SysUtils::getCurrentMillis();
     myTraCIMillis = 0;
+    myVehicleMicros = 0;
+    myPersonMicros = 0;
     myHasInternalLinks = hasInternalLinks;
     myJunctionHigherSpeeds = junctionHigherSpeeds;
     myHasElevation = checkElevation();
@@ -529,9 +532,12 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
             msg << " Real time factor: " << (STEPS2TIME(myStep - start) * 1000. / (double)duration) << "\n";
             msg.setf(std::ios::fixed, std::ios::floatfield);     // use decimal format
             msg.setf(std::ios::showpoint);    // print decimal point
-            msg << " UPS: " << ((double)myVehiclesMoved / ((double)duration / 1000)) << "\n";
-            if (myPersonsMoved > 0) {
-                msg << " UPS-Persons: " << ((double)myPersonsMoved / ((double)duration / 1000)) << "\n";
+            const double simDurationSec = MAX2(0., (double)(duration - myTraCIMillis) / 1000.);
+            const double vehSec = myVehicleMicros > 0 ? (double)myVehicleMicros / 1e6 : MAX2(0., simDurationSec - (double)myPersonMicros / 1e6);
+            const double persSec = myPersonMicros > 0 ? (double)myPersonMicros / 1e6 : MAX2(0., simDurationSec - (double)myVehicleMicros / 1e6);
+            msg << " UPS: " << (myVehiclesMoved > 0 && vehSec > 0. ? (double)myVehiclesMoved / vehSec : 0.) << "\n";
+            if (myPersonsMoved > 0 && persSec > 0.) {
+                msg << " UPS-Persons: " << ((double)myPersonsMoved / persSec) << "\n";
             }
         }
         // print vehicle statistics
@@ -654,8 +660,13 @@ MSNet::writeStatistics(const SUMOTime start, const long now) const {
     od.writeAttr("clockDuration", time2string(duration));
     od.writeAttr("traciDuration", time2string(myTraCIMillis));
     od.writeAttr("realTimeFactor", duration != 0 ? (double)(myStep - start) / (double)duration : -1);
-    od.writeAttr("vehicleUpdatesPerSecond", duration != 0 ? (double)myVehiclesMoved / ((double)duration / 1000) : -1);
-    od.writeAttr("personUpdatesPerSecond", duration != 0 ? (double)myPersonsMoved / ((double)duration / 1000) : -1);
+    const double simDurationSec = MAX2(0., (double)(duration - myTraCIMillis) / 1000.);
+    const double vehSec = myVehicleMicros > 0 ? (double)myVehicleMicros / 1e6 : MAX2(0., simDurationSec - (double)myPersonMicros / 1e6);
+    const double persSec = myPersonMicros > 0 ? (double)myPersonMicros / 1e6 : MAX2(0., simDurationSec - (double)myVehicleMicros / 1e6);
+    const double vehUPS = myVehiclesMoved == 0 ? (duration != 0 ? 0. : -1.) : (vehSec > 0. ? (double)myVehiclesMoved / vehSec : -1.);
+    const double persUPS = myPersonsMoved == 0 ? (duration != 0 ? 0. : -1.) : (persSec > 0. ? (double)myPersonsMoved / persSec : -1.);
+    od.writeAttr("vehicleUpdatesPerSecond", vehUPS);
+    od.writeAttr("personUpdatesPerSecond", persUPS);
     od.writeAttr("begin", time2string(start));
     od.writeAttr("end", time2string(myStep));
     od.writeAttr("duration", time2string(myStep - start));
@@ -830,6 +841,8 @@ MSNet::simulationStep(const bool onlyMove) {
 #endif
         if (myLogExecutionTime) {
             myTraCIStepDuration = SysUtils::getCurrentMillis() - myTraCIStepDuration;
+            myTraCIMillis += myTraCIStepDuration;
+            myTraCIStepDuration = 0;
         }
         if (TraCIServer::wasClosed() || !t->getLoadArgs().empty()) {
             return;
@@ -860,7 +873,15 @@ MSNet::simulationStep(const bool onlyMove) {
             myPeriodicStateFiles.erase(myPeriodicStateFiles.begin());
         }
     }
+    const bool timePersonsInEvents = myLogExecutionTime && hasPersons();
+    std::chrono::steady_clock::time_point tStart;
+    if (timePersonsInEvents) {
+        tStart = std::chrono::steady_clock::now();
+    }
     myBeginOfTimestepEvents->execute(myStep);
+    if (timePersonsInEvents) {
+        myPersonMicros += std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - tStart).count();
+    }
     if (MSRailSignalControl::hasInstance()) {
         MSRailSignalControl::getInstance().updateSignals(myStep);
     }
@@ -873,6 +894,9 @@ MSNet::simulationStep(const bool onlyMove) {
     // check whether the tls programs need to be switched
     myLogics->check2Switch(myStep);
 
+    if (myLogExecutionTime) {
+        tStart = std::chrono::steady_clock::now();
+    }
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->simulate(myStep);
     } else {
@@ -901,11 +925,20 @@ MSNet::simulationStep(const bool onlyMove) {
     }
     // flush arrived meso vehicles and micro vehicles that were removed due to collision
     myVehicleControl->removePending();
+    if (myLogExecutionTime) {
+        myVehicleMicros += std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - tStart).count();
+    }
     loadRoutes();
 
     // persons
     if (myPersonControl != nullptr && myPersonControl->hasTransportables()) {
+        if (myLogExecutionTime) {
+            tStart = std::chrono::steady_clock::now();
+        }
         myPersonControl->checkWaiting(this, myStep);
+        if (myLogExecutionTime) {
+            myPersonMicros += std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - tStart).count();
+        }
     }
     // containers
     if (myContainerControl != nullptr && myContainerControl->hasTransportables()) {
@@ -914,7 +947,13 @@ MSNet::simulationStep(const bool onlyMove) {
 #ifdef HAVE_FOX
     MSRoutingEngine::waitForAll();
     if (myPersonControl != nullptr) {
+        if (myLogExecutionTime) {
+            tStart = std::chrono::steady_clock::now();
+        }
         myPersonControl->processPendingRouting(this, myStep);
+        if (myLogExecutionTime) {
+            myPersonMicros += std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - tStart).count();
+        }
     }
     if (myContainerControl != nullptr) {
         myContainerControl->processPendingRouting(this, myStep);
@@ -925,6 +964,9 @@ MSNet::simulationStep(const bool onlyMove) {
         // preserve waitRelation from insertion for the next step
     }
     // insert vehicles
+    if (myLogExecutionTime) {
+        tStart = std::chrono::steady_clock::now();
+    }
     myInserter->determineCandidates(myStep);
     myInsertionEvents->execute(myStep);
 #ifdef HAVE_FOX
@@ -936,12 +978,15 @@ MSNet::simulationStep(const bool onlyMove) {
         myEdges->detectCollisions(myStep, STAGE_INSERTIONS);
     }
     MSVehicleTransfer::getInstance()->checkInsertions(myStep);
+    if (myLogExecutionTime) {
+        myVehicleMicros += std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - tStart).count();
+    }
 
     // execute endOfTimestepEvents
     myEndOfTimestepEvents->execute(myStep);
 
     if (myLogExecutionTime) {
-        myTraCIStepDuration -= SysUtils::getCurrentMillis();
+        myTraCIStepDuration = -SysUtils::getCurrentMillis();
     }
     if (onlyMove) {
         myStepCompletionMissing = true;
