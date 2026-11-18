@@ -1,0 +1,7 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <!-- after more than 10 km the odometer and the route length have more than 6 significant digits -->
+    <vehicle id="v0" type="t0" depart="0">
+        <route edges="SC CN NC CS" repeat="60"/>
+    </vehicle>
+</routes>

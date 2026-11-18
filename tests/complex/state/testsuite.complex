@@ -16,6 +16,9 @@ plain
 # two vehicles saved and reloaded
 precision
 
+# the odometer and the tripinfo device are saved with save-state.precision
+state_precision
+
 # include route and vtype dists
 dists
 
