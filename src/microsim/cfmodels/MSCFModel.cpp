@@ -1104,8 +1104,9 @@ MSCFModel::applyHeadwayAndSpeedDifferencePerceptionErrors(const MSVehicle* const
     }
 
     // Obtain perceived gap and headway from the driver state
-    const double perceivedGap = veh->getDriverState()->getPerceivedHeadway(gap, pred);
-    const double perceivedSpeedDifference = veh->getDriverState()->getPerceivedSpeedDifference(predSpeed - speed, gap, pred);
+    const std::string objID = pred != nullptr ? pred->getID() : "";
+    const double perceivedGap = veh->getDriverState()->getPerceivedHeadway(gap, objID);
+    const double perceivedSpeedDifference = veh->getDriverState()->getPerceivedSpeedDifference(predSpeed - speed, gap, objID);
 
 #ifdef DEBUG_DRIVER_ERRORS
     if (DEBUG_COND) {
