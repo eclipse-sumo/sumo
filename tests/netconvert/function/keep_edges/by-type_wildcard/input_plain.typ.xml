@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
+    <type id="highway.primary" priority="12" numLanes="2" speed="27.78"/>
+    <type id="highway.primary_link" priority="11" numLanes="1" speed="22.22"/>
+    <type id="highway.service|psv" priority="2" numLanes="1" speed="8.33" allow="bus"/>
+    <type id="highway.residential" priority="3" numLanes="1" speed="13.89"/>
+</types>

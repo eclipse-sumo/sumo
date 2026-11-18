@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="e_prim" from="n0" to="n1" type="highway.primary"/>
+    <edge id="e_link" from="n1" to="n2" type="highway.primary_link"/>
+    <edge id="e_psv" from="n1" to="n3" type="highway.service|psv"/>
+    <edge id="e_res" from="n0" to="n3" type="highway.residential"/>
+</edges>

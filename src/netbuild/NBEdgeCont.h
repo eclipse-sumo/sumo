@@ -626,6 +626,12 @@ public:
     int attachRemoved(NBNodeCont& nc, NBDistrictCont& dc, const double maxDist);
 
 private:
+    /// @brief match text against a wildcard pattern supporting '*' and '?'
+    static bool wildcardMatch(const std::string& pattern, const std::string& text);
+
+    /// @brief check whether edgeType matches any exact or wildcard pattern in patterns
+    static bool typeMatches(const std::set<std::string>& patterns, const std::string& edgeType);
+
     /// @brief compute the form factor for a loop of edges
     static double formFactor(const EdgeVector& loopEdges);
 
