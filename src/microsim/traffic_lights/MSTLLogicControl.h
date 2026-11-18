@@ -363,6 +363,9 @@ public:
      */
     void saveState(OutputDevice& out);
 
+    /// @brief Restores a WAUT switch that waited for its switching point when the state was saved
+    void loadWAUTSwitch(const std::string& wautID, const std::string& junctionID, const std::string& to);
+
     /** @brief Clear all tls states before quick-loading state */
     void clearState(SUMOTime time, bool quickReload = false);
 
@@ -535,6 +538,11 @@ protected:
          * @return If a switch shall be done, this method should return true.
          */
         virtual bool trySwitch(SUMOTime step);
+
+        /// @brief Returns the id of the WAUT responsible for switching
+        const std::string& getWAUTID() const {
+            return myWAUT.id;
+        }
 
 
     protected:
@@ -743,6 +751,9 @@ protected:
         WAUTSwitchProcedure* proc;
     };
 
+
+    /// @brief Starts switching a junction of the given WAUT to the given program
+    void initSwitchProcess(WAUT& waut, const WAUTJunction& junction, const std::string& to);
 
     /// @brief A map of ids to corresponding WAUTs
     std::map<std::string, WAUT*> myWAUTs;
