@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18T11:44:52.669719+01:00 by Eclipse SUMO sumo v1_28_0+0650-0f76b5efaf1
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="40,60"/>
+        <save-state.files value="state.xml,compare.xml"/>
+    </output>
+
+    <time>
+        <end value="61"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<snapshot type="micro" version="v1_28_0+0650-0f76b5efaf1" time="40.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <delay number="0" begin="0" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
+    <tlLogic id="C" programID="0" phase="2" duration="4000" until="42000" cycleTime="40000" active="0"/>
+    <tlLogic id="C" programID="a" phase="2" duration="4000" until="42000" cycleTime="40000" active="0"/>
+    <tlLogic id="C" programID="b" phase="4" duration="8000" until="78000" cycleTime="40000" active="1"/>
+</snapshot>
