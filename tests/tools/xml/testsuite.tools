@@ -12,3 +12,6 @@ changeAttribute
 
 # Test for removing elements from file
 filterElements
+
+# Test for cutting infrastructure/additional elements to a subnetwork (#10061)
+cutInfrastructure

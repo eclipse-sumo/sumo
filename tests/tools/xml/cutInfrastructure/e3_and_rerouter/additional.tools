@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18 00:11:13.462640 by Eclipse SUMO cutInfrastructure.py v1_28_0+0644-bda840e3afe
+<configuration>
+    <net-file value="net.net.xml"/>
+    <additional-files value="input_additional.add.xml"/>
+    <output-file value="out.add.xml"/>
+    <keep-partial-e3 value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <entryExitDetector id="e3_partial" period="300" file="e3.xml">
+        <detEntry lane="e1_0" pos="10.0"/>
+        <detExit lane="e2_0" pos="60.0"/>
+    </entryExitDetector>
+    <rerouter id="rr_in" edges="e1">
+        <interval begin="0" end="3600">
+            <destProbReroute id="e2" probability="1.0"/>
+        </interval>
+    </rerouter>
+    <taz id="taz_in" edges="e1"/>
+</additional>
