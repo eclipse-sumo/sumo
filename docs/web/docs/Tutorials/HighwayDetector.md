@@ -15,7 +15,7 @@ calibration and not so much on network tweaking.
 
 Selected edges (blue) are of minor priority and will be discarded
 
-A [video tutorial](https://www.youtube.com/watch?v=ccc2mnGX_Mg) and [example files](https://sumo.dlr.de/daily/sumo2025_tutorial.zip) can also be found amond the [SUMO Conference Tutorials](index.md#sumo_user_conference_tutorials).
+A [video tutorial](https://www.youtube.com/watch?v=ccc2mnGX_Mg) and [example files](https://sumo.dlr.de/daily/sumo2025_tutorial.zip) can also be found among the [SUMO Conference Tutorials](index.md#sumo_user_conference_tutorials).
 
 ## Network
 
@@ -40,15 +40,15 @@ Detector data frequently comes in the form of two distinct pieces of information
 The corresponding commands could look like this:
 
 ```
-python $SUMO_HOME/tools/detector/mapDetectors.py -n motorway.net.xml.gz --detector-file detectors.csv --output-file detectorss.add.xml --id-column detector_name --max-radius 100.0
-python $SUMO_HOME/tools/detector/edgeDataFromFlow.py --detector-file detectorss.add.xml --detector-flow-file detector_data.csv --output-file edgedata.xml --id-column detector_name --time-column time --flow-columns count
+python $SUMO_HOME/tools/detector/mapDetectors.py -n motorway.net.xml.gz --detector-file detectors.csv --output-file detectors.add.xml --id-column detector_name --max-radius 100.0
+python $SUMO_HOME/tools/detector/edgeDataFromFlow.py --detector-file detectors.add.xml --detector-flow-file detector_data.csv --output-file edgedata.xml --id-column detector_name --time-column time --flow-columns count
 ```
 The above command assumes that time stamps are in minutes of the day and data is aggregated per hour.
 
 If the timestamps are absolute dates and in a different aggregation period, the command to obtain hourly counts could like this:
 
 ```
-python $SUMO_HOME/tools/detector/edgeDataFromFlow.py --detector-file detectorss.add.xml --detector-flow-file detector_data.csv --output-file edgedata.xml --id-column detector_name --time-column time --flow-columns count --time-scale 1 --time-format %Y-%m-%dT%H:%M:%SZ --time-offset 2025-11-24T00:00:00Z --end 86400.0 --interval 3600.0
+python $SUMO_HOME/tools/detector/edgeDataFromFlow.py --detector-file detectors.add.xml --detector-flow-file detector_data.csv --output-file edgedata.xml --id-column detector_name --time-column time --flow-columns count --time-scale 1 --time-format %Y-%m-%dT%H:%M:%SZ --time-offset 2025-11-24T00:00:00Z --end 86400.0 --interval 3600.0
 ```
 
 ## Determining the routes
