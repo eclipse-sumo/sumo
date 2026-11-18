@@ -12,3 +12,6 @@ taz
 
 # running with districts (especially for A*)
 taz_weights
+
+# disconnected TAZ error message (ticket #7826)
+disconnected_taz

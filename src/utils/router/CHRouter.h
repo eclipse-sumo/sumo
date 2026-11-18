@@ -333,7 +333,7 @@ public:
             buildPathFromMeeting(meeting, into);
         } else {
             if (!silent) {
-                this->myErrorMsgHandler->informf(TL("No connection between edge '%' and edge '%' found."), from->getID(), to->getID());
+                this->informUnreachable(from, to);
             }
             result = false;
         }
