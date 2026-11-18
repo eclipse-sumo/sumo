@@ -9,3 +9,6 @@ controller_loop
 
 # handle moveTo while overtaking through the opposite direction
 opposite_driving
+
+# read position immediately after moving within the current lane
+position
