@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18T16:36:20.312794+00:00 by Eclipse SUMO sumo v1_28_0+0656-c9253f0c1d3
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <battery-output value="battery.xml"/>
+        <battery-output.precision value="4"/>
+        <chargingstations-output value="chargingstations.xml"/>
+        <chargingstations-output.aggregated value="true"/>
+    </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <battery>
+        <device.battery.probability value="1"/>
+    </battery>
+
+</sumoConfiguration>
+-->
+
+<chargingstations-export>
+    <chargingEvent chargingStationId="CS1" vehicle="v0" type="ElectricVehicle" totalEnergyChargedIntoVehicle="0.26" totalEnergyDischargedFromVehicle="5.74" chargingBegin="13.00" chargingEnd="37.00" actualBatteryCapacity="12950.00" maximumBatteryCapacity="35000.00" minPower="11000.00" maxPower="22000.00" minCharge="0.00" maxCharge="0.01" minEfficiency="0.90" maxEfficiency="0.90"/>
+    <chargingEvent chargingStationId="CS1" vehicle="v1" type="ElectricVehicle" totalEnergyChargedIntoVehicle="0.00" totalEnergyDischargedFromVehicle="10.00" chargingBegin="73.00" chargingEnd="82.00" actualBatteryCapacity="12945.65" maximumBatteryCapacity="35000.00" minPower="11000.00" maxPower="11000.00" minCharge="0.00" maxCharge="0.00" minEfficiency="0.90" maxEfficiency="0.90"/>
+    <chargingEvent chargingStationId="CS1" vehicle="v2" type="ElectricVehicle" totalEnergyChargedIntoVehicle="55.00" totalEnergyDischargedFromVehicle="0.00" chargingBegin="133.00" chargingEnd="142.00" actualBatteryCapacity="13010.65" maximumBatteryCapacity="35000.00" minPower="22000.00" maxPower="22000.00" minCharge="5.50" maxCharge="5.50" minEfficiency="0.90" maxEfficiency="0.90"/>
+    <chargingEvent chargingStationId="CS1" vehicle="v3" type="ElectricVehicle" totalEnergyChargedIntoVehicle="55.00" totalEnergyDischargedFromVehicle="0.00" chargingBegin="193.00" chargingEnd="202.00" actualBatteryCapacity="12010.65" maximumBatteryCapacity="35000.00" minPower="22000.00" maxPower="22000.00" minCharge="5.50" maxCharge="5.50" minEfficiency="0.90" maxEfficiency="0.90"/>
+</chargingstations-export>

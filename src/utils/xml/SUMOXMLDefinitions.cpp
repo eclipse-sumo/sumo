@@ -792,6 +792,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     // Charging Station
     { "power",                  SUMO_ATTR_CHARGINGPOWER },
     { "totalPower",             SUMO_ATTR_TOTALPOWER },
+    { "dischargePower",         SUMO_ATTR_DISCHARGEPOWER },
     { "efficiency",             SUMO_ATTR_EFFICIENCY },
     { "chargeInTransit",        SUMO_ATTR_CHARGEINTRANSIT },
     { "chargeDelay",            SUMO_ATTR_CHARGEDELAY},
@@ -801,6 +802,8 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "chargeLevel",                    SUMO_ATTR_CHARGELEVEL },
     { "maximumBatteryCapacity",         SUMO_ATTR_MAXIMUMBATTERYCAPACITY },
     { "maximumChargeRate",              SUMO_ATTR_MAXIMUMCHARGERATE },
+    { "maximumDischargeRate",           SUMO_ATTR_MAXIMUMDISCHARGERATE },
+    { "minimumChargeLevel",             SUMO_ATTR_MINIMUMCHARGELEVEL },
     { "chargeLevelTable",               SUMO_ATTR_CHARGELEVELTABLE },
     { "chargeCurveTable",               SUMO_ATTR_CHARGECURVETABLE },
     { "maximumPower",                   SUMO_ATTR_MAXIMUMPOWER },
@@ -835,6 +838,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "energyCharged",          SUMO_ATTR_ENERGYCHARGED },
     { "energyChargedInTransit", SUMO_ATTR_ENERGYCHARGEDINTRANSIT },
     { "energyChargedStopped",   SUMO_ATTR_ENERGYCHARGEDSTOPPED },
+    { "energyDischarged",       SUMO_ATTR_ENERGYDISCHARGED },
     { "posOnLane",              SUMO_ATTR_POSONLANE },
     { "timeStopped",            SUMO_ATTR_TIMESTOPPED },
     // MMPEVEM
@@ -851,8 +855,10 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     // ChargingStation output
     { "chargingStatus",                 SUMO_ATTR_CHARGING_STATUS },
     { "totalEnergyCharged",             SUMO_ATTR_TOTALENERGYCHARGED },
+    { "totalEnergyDischarged",          SUMO_ATTR_TOTALENERGYDISCHARGED },
     { "chargingSteps",                  SUMO_ATTR_CHARGINGSTEPS },
     { "totalEnergyChargedIntoVehicle",  SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE },
+    { "totalEnergyDischargedFromVehicle", SUMO_ATTR_TOTALENERGYDISCHARGED_VEHICLE },
     { "chargingBegin",                  SUMO_ATTR_CHARGINGBEGIN },
     { "chargingEnd",                    SUMO_ATTR_CHARGINGEND },
     { "partialCharge",                  SUMO_ATTR_PARTIALCHARGE },

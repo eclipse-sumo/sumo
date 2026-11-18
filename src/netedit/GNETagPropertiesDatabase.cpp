@@ -1351,6 +1351,12 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Parking area the charging station is located"));
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DISCHARGEPOWER,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("Maximum power in W fed into the grid per discharging vehicle (vehicle-to-grid), 0 disables discharging"),
+                                   "0");
     }
     currentTag = SUMO_TAG_PARKING_AREA;
     {
