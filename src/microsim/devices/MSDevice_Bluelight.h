@@ -115,6 +115,11 @@ public:
         return "bluelight";
     }
 
+    /// @brief return whether the blue light and siren are currently active
+    bool isActive() const {
+        return myActive;
+    }
+
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const;
 
@@ -137,7 +142,7 @@ private:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_Bluelight(SUMOVehicle& holder, const std::string& id, const double reactionDist, const double minGapFactor);
+    MSDevice_Bluelight(SUMOVehicle& holder, const std::string& id, const double reactionDist, const double minGapFactor, const bool active = true);
 
     /// @brief restore type of influenced vehicle
     void resetVehicle(MSVehicle* veh2, const std::string& targetTypeID);
@@ -155,6 +160,9 @@ private:
 
     /// @brief min gap reduction of other vehicles
     double myMinGapFactor;
+
+    /// @brief whether the blue light and siren are currently active
+    bool myActive;
 
 private:
     /// @brief Invalidated copy constructor.

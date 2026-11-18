@@ -641,6 +641,10 @@ public:
         return myHaveBlueLight;
     }
 
+    void setBlueLight(const bool active) {
+        myHaveBlueLight = active;
+    }
+
     virtual LatAlignmentDefinition getDesiredAlignment() const {
         return myVehicle.getVehicleType().getPreferredLateralAlignment();
     }
