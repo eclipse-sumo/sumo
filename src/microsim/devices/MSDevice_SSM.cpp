@@ -4285,6 +4285,42 @@ MSDevice_SSM::getParameter(const std::string& key) const {
     if (key == "minPPET" && !myComputePPET) {
         throw InvalidArgument("Measure PPET is not tracked by ssm device");
     }
+    if (key == "maxBR") {
+        if (!myComputeBR) {
+            throw InvalidArgument("Measure BR is not tracked by ssm device");
+        }
+        return myMaxBR.first.first < 0 ? "" : toString(myMaxBR.second);
+    }
+    if (key == "minSGAP") {
+        if (!myComputeSGAP) {
+            throw InvalidArgument("Measure SGAP is not tracked by ssm device");
+        }
+        return myMinSGAP.second.empty() ? "" : toString(myMinSGAP.first.second);
+    }
+    if (key == "minTGAP") {
+        if (!myComputeTGAP) {
+            throw InvalidArgument("Measure TGAP is not tracked by ssm device");
+        }
+        return myMinTGAP.second.empty() ? "" : toString(myMinTGAP.first.second);
+    }
+    if (key == "activeEncounters") {
+        std::vector<std::string> foes;
+        for (const Encounter* e : myActiveEncounters) {
+            foes.push_back(e->foeID);
+        }
+        return joinToString(foes, " ");
+    }
+    if (key == "collisions") {
+        std::vector<std::string> foes;
+        for (const Encounter* e : myActiveEncounters) {
+            if (e->currentType == ENCOUNTER_TYPE_COLLISION
+                    || e->minTTC.type == ENCOUNTER_TYPE_COLLISION
+                    || e->PET.type == ENCOUNTER_TYPE_COLLISION) {
+                foes.push_back(e->foeID);
+            }
+        }
+        return joinToString(foes, " ");
+    }
     if (key == "minTTC" ||
             key == "maxDRAC" ||
             key == "maxMDRAC" ||
