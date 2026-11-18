@@ -5,3 +5,6 @@ many_intervals
 
 # test for #16579
 split_types
+
+# load network to obtain directions
+dirs
