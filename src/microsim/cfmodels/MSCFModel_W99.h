@@ -102,6 +102,9 @@ public:
      */
     MSCFModel* duplicate(const MSVehicleType* vtype) const;
 
+    std::string getParameter(const MSVehicle* veh, const std::string& key) const;
+
+    void setParameter(MSVehicle* veh, const std::string& key, const std::string& value) const;
 
     /// @}
 
@@ -128,15 +131,15 @@ private:
     /// @{
 
     //const double myCC0; // StandStill Distance - (using minGap)
-    const double myCC1;   // Spacing Time - s
-    const double myCC2;   // Following Variation ("max drift") - m
-    const double myCC3;   // Threshold for Entering 'Following' - s
-    const double myCC4;   // Negative 'Following' Threshold - m/s
-    const double myCC5;   // Positive 'Following' Threshold - m/s
-    const double myCC6;   // Speed Dependency of Oscillation - 10^-4 rad/s
-    const double myCC7;   // Oscillation Acceleration - m/s^2
-    const double myCC8;   // Standstill Acceleration - m/s^2
-    const double myCC9;   // Acceleration at 80km/h - m/s^2
+    double myCC1;   // Spacing Time - s
+    double myCC2;   // Following Variation ("max drift") - m
+    double myCC3;   // Threshold for Entering 'Following' - s
+    double myCC4;   // Negative 'Following' Threshold - m/s
+    double myCC5;   // Positive 'Following' Threshold - m/s
+    double myCC6;   // Speed Dependency of Oscillation - 10^-4 rad/s
+    double myCC7;   // Oscillation Acceleration - m/s^2
+    double myCC8;   // Standstill Acceleration - m/s^2
+    double myCC9;   // Acceleration at 80km/h - m/s^2
     /// @}
 
 
