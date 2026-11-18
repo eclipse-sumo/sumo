@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="longSlow" length="12" maxSpeed="4" sigma="0"/>
+    <vehicle id="v_cross" type="longSlow" depart="0" departLane="0" departPos="15" departSpeed="4">
+        <route edges="SC CN"/>
+    </vehicle>
+    <vehicle id="v_early_lc" type="longSlow" depart="8" departLane="0" departPos="15" departSpeed="4">
+        <route edges="SC CN"/>
+    </vehicle>
+</routes>

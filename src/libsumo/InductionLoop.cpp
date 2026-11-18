@@ -242,7 +242,25 @@ InductionLoop::getMEDetector(const std::string& id) {
 
 std::string
 InductionLoop::getParameter(const std::string& loopID, const std::string& param) {
-    return getDetector(loopID)->getParameter(param, "");
+    if (MSGlobals::gUseMesoSim) {
+        MEInductLoop* il = getMEDetector(loopID);
+        if (param == "nVehContrib") {
+            return toString(il->getMeanData().nVehDeparted + il->getMeanData().nVehEntered);
+        }
+        return il->getParameter(param, "");
+    }
+    MSInductLoop* il = getDetector(loopID);
+    if (param == "nVehContrib") {
+        const double stepBegin = STEPS2TIME(SIMSTEP - DELTA_T);
+        int contrib = 0;
+        for (const MSInductLoop::VehicleData& vd : il->collectVehiclesOnDet(SIMSTEP - DELTA_T, false, true)) {
+            if (vd.leaveTimeM > stepBegin) {
+                contrib++;
+            }
+        }
+        return toString(contrib);
+    }
+    return il->getParameter(param, "");
 }
 
 
