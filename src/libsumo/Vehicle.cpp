@@ -2124,6 +2124,7 @@ Vehicle::setLateralLanePosition(const std::string& vehID, double posLat) {
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh != nullptr) {
         veh->setLateralPositionOnLane(posLat);
+        veh->invalidateCachedPosition();
     } else {
         WRITE_ERROR("setLateralLanePosition not applicable for meso");
     }

@@ -179,3 +179,5 @@ tripinfoParameters
 
 # see #19194
 remove_stopped
+# Cartesian getters reflect a lateral position update before the next step
+setLateralLanePosition
