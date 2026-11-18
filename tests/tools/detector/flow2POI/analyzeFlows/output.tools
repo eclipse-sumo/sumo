@@ -1,0 +1,4 @@
+interval counts: count 4, min 20.00 (e1_unknown), max 150.00 (e1_0), mean 80.00, Q1 50.00, median 100.00, Q3 150.00, stdDev 49.50, sum 320.00
+ histogram: [(0.0, 1), (50.0, 1), (100.0, 1), (150.0, 1)]
+Total detector counts: count 3, min 20.00 (e1_unknown), max 250.00 (e1_0), mean 106.67, Q1 20.00, median 50.00, Q3 250.00, stdDev 102.09, sum 320.00
+ histogram: [(0.0, 1), (50.0, 1), (250.0, 1)]

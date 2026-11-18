@@ -1,0 +1,4 @@
+Warning: Missing flow value for detector 'e1_0' in 'input_flows.txt' line 5.
+Warning: Invalid flow value 'bad' for detector 'e1_1' in 'input_flows.txt' line 6.
+Warning: 1 detectors in flow file are not in detector file: e1_unknown
+Warning: 1 detectors in detector file have no flow data: e1_unused

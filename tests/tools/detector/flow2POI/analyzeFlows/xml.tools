@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18 22:32:39.001572 by Eclipse SUMO analyzeFlows.py v1_28_0+0656-c9253f0c1d3
+<configuration>
+    <flowfiles value="input_flows.txt"/>
+    <detector-file value="input_detectors.add.xml"/>
+    <binwidth value="50.0"/>
+    <xml-output value="out.xml"/>
+</configuration>
+-->
+
+<flowStats>
+    <statistic description="interval counts" count="4" min="20.00" minLabel="e1_unknown" max="150.00" maxLabel="e1_0" mean="80.00" Q1="50.00" median="100.00" Q3="150.00" meanAbs="80.00" medianAbs="100.00" stdDev="49.50">
+        <hist key="0.00" value="1"/>
+        <hist key="50.00" value="1"/>
+        <hist key="100.00" value="1"/>
+        <hist key="150.00" value="1"/>
+    </statistic>
+    <statistic description="Total detector counts" count="3" min="20.00" minLabel="e1_unknown" max="250.00" maxLabel="e1_0" mean="106.67" Q1="20.00" median="50.00" Q3="250.00" meanAbs="106.67" medianAbs="50.00" stdDev="102.09">
+        <hist key="0.00" value="1"/>
+        <hist key="50.00" value="1"/>
+        <hist key="250.00" value="1"/>
+    </statistic>
+    <detector ids="e1_unknown" count="20.0"/>
+    <detector ids="e1_1" count="50.0"/>
+    <detector ids="e1_0" count="250.0"/>
+</flowStats>

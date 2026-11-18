@@ -2,3 +2,6 @@ basic
 
 # custom aggregation
 interval_120
+
+# analyzeFlows error checking and XML statistics (#18088)
+analyzeFlows
