@@ -26,6 +26,7 @@
 #include <functional>
 #include <vector>
 #include <set>
+#include <tuple>
 #include <limits>
 #include <algorithm>
 #include <iterator>
@@ -64,14 +65,16 @@ public:
     /** @brief Constructor
      */
     CHRouterWrapper(const std::vector<E*>& edges, const bool ignoreErrors, typename SUMOAbstractRouter<E, V>::Operation operation,
-                    const SUMOTime begin, const SUMOTime end, const SUMOTime weightPeriod, bool havePermissions, const int numThreads) :
-        SUMOAbstractRouter<E, V>("CHRouterWrapper", ignoreErrors, operation, nullptr, havePermissions, false),
+                    const SUMOTime begin, const SUMOTime end, const SUMOTime weightPeriod, bool havePermissions, const int numThreads,
+                    const bool haveRestrictions = false, const bool ignoreVClass = false) :
+        SUMOAbstractRouter<E, V>("CHRouterWrapper", ignoreErrors, operation, nullptr, havePermissions, haveRestrictions),
         myEdges(edges),
         myIgnoreErrors(ignoreErrors),
         myBegin(begin),
         myEnd(end),
         myWeightPeriod(weightPeriod),
-        myMaxNumInstances(numThreads) {
+        myMaxNumInstances(numThreads),
+        myIgnoreVClass(ignoreVClass) {
     }
 
     ~CHRouterWrapper() {
@@ -92,7 +95,8 @@ public:
     }
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        CHRouterWrapper<E, V>* clone = new CHRouterWrapper<E, V>(myEdges, myIgnoreErrors, this->myOperation, myBegin, myEnd, myWeightPeriod, this->myHavePermissions, myMaxNumInstances);
+        CHRouterWrapper<E, V>* clone = new CHRouterWrapper<E, V>(myEdges, myIgnoreErrors, this->myOperation, myBegin, myEnd, myWeightPeriod,
+                this->myHavePermissions, myMaxNumInstances, this->myHaveRestrictions, myIgnoreVClass);
         for (const auto& item : myRouters) {
             clone->myRouters[item.first] = static_cast<CHRouterType*>(item.second->clone());
         }
@@ -110,14 +114,16 @@ public:
 
     bool compute(const E* from, const E* to, const V* const vehicle,
                  SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
-        const std::pair<const SUMOVehicleClass, const double> svc = std::make_pair(vehicle->getVClass(), vehicle->getMaxSpeed());
-        if (myRouters.count(svc) == 0) {
-            // create new router for the given permissions and maximum speed
-            // XXX a new router may also be needed if vehicles differ in speed factor
-            myRouters[svc] = new CHRouterType(myEdges, myIgnoreErrors, this->myOperation, svc.first, myWeightPeriod, false, false);
-            myRouters[svc]->setMsgHandler(this->myErrorMsgHandler);
+        const SUMOVehicleClass vClass = myIgnoreVClass || vehicle == nullptr ? SVC_IGNORING : vehicle->getVClass();
+        const double maxSpeed = vehicle == nullptr ? std::numeric_limits<double>::max() : vehicle->getMaxSpeed();
+        const double speedFactor = vehicle == nullptr ? 1.0 : vehicle->getChosenSpeedFactor();
+        const RouterKey key(vClass, maxSpeed, speedFactor);
+        if (myRouters.count(key) == 0) {
+            // create new router for the given permissions, maximum speed and speed factor
+            myRouters[key] = new CHRouterType(myEdges, myIgnoreErrors, this->myOperation, vClass, myWeightPeriod, false, this->myHaveRestrictions);
+            myRouters[key]->setMsgHandler(this->myErrorMsgHandler);
         }
-        return myRouters[svc]->compute(from, to, vehicle, msTime, into, silent);
+        return myRouters[key]->compute(from, to, vehicle, msTime, into, silent);
     }
 
 
@@ -125,7 +131,8 @@ private:
     typedef CHRouter<E, V> CHRouterType;
 
 private:
-    typedef std::map<std::pair<const SUMOVehicleClass, const double>, CHRouterType*> RouterMap;
+    typedef std::tuple<const SUMOVehicleClass, const double, const double> RouterKey;
+    typedef std::map<RouterKey, CHRouterType*> RouterMap;
 
     RouterMap myRouters;
 
@@ -138,4 +145,5 @@ private:
     const SUMOTime myEnd;
     const SUMOTime myWeightPeriod;
     const int myMaxNumInstances;
+    const bool myIgnoreVClass;
 };

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="slow" maxSpeed="10.0"/>
+    <vType id="fast" maxSpeed="40.0"/>
+    <vType id="sf10" maxSpeed="20.0" speedFactor="1.0"/>
+    <vType id="sf04" maxSpeed="20.0" speedFactor="0.4"/>
+    <trip id="veh_slow" type="slow" depart="0" from="beg" to="end"/>
+    <trip id="veh_fast" type="fast" depart="1" from="beg" to="end"/>
+    <trip id="veh_sf10" type="sf10" depart="2" from="beg" to="end"/>
+    <trip id="veh_sf04" type="sf04" depart="3" from="beg" to="end"/>
+</routes>
