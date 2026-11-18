@@ -46,8 +46,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="100.00" waitingTime="100.00" timeLoss="-0.00" traveltime="100.00">
         <ride waitingTime="100.00" vehicle="NULL" depart="-1" arrival="100.00" arrivalPos="0.00" duration="100.00" routeLength="-1.00" timeLoss="-0.00"/>
     </personinfo>
-    <personinfo id="p2" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="1000.00" waitingTime="1000.00" timeLoss="-0.00" traveltime="1000.00">
-        <ride waitingTime="1000.00" vehicle="NULL" depart="-1" arrival="100.00" arrivalPos="0.00" duration="100.00" routeLength="-1.00" timeLoss="-0.00"/>
+    <personinfo id="p2" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="1000.00" waitingTime="100.00" timeLoss="-0.00" traveltime="1000.00">
+        <ride waitingTime="100.00" vehicle="NULL" depart="-1" arrival="100.00" arrivalPos="0.00" duration="100.00" routeLength="-1.00" timeLoss="-0.00"/>
         <walk depart="100.00" departPos="0.00" arrival="1000.00" arrivalPos="250.00" duration="900.00" routeLength="1250.00" timeLoss="0.00" maxSpeed="1.39" waitingTime="0.00"/>
     </personinfo>
 </tripinfos>
