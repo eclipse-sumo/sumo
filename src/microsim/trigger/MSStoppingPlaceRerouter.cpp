@@ -38,8 +38,8 @@
 ///@brief Constructor
 MSStoppingPlaceRerouter::MSStoppingPlaceRerouter(std::string paramPrefix, bool checkValidity, StoppingPlaceParamMap_t addEvalParams, StoppingPlaceParamSwitchMap_t addInvertParams) :
     myParamPrefix(paramPrefix), myCheckValidity(checkValidity) {
-    myEvalParams = { {"probability", 0.}, {"capacity", 0.}, {"timefrom", 0.}, {"timeto", 0.}, {"distancefrom", 0.}, {"distanceto", 1.}, {"absfreespace", 0.}, {"relfreespace", 0.}, };
-    myInvertParams = { {"probability", false}, { "capacity", true }, { "timefrom", false }, { "timeto", false }, { "distancefrom", false }, { "distanceto", false }, { "absfreespace", true }, { "relfreespace", true } };
+    myEvalParams = { {"probability", 0.}, {"preference", 0.}, {"capacity", 0.}, {"timefrom", 0.}, {"timeto", 0.}, {"distancefrom", 0.}, {"distanceto", 1.}, {"absfreespace", 0.}, {"relfreespace", 0.}, };
+    myInvertParams = { {"probability", false}, {"preference", true}, { "capacity", true }, { "timefrom", false }, { "timeto", false }, { "distancefrom", false }, { "distanceto", false }, { "absfreespace", true }, { "relfreespace", true } };
     for (auto param : addEvalParams) {
         myEvalParams[param.first] = param.second;
         myInvertParams[param.first] = (addInvertParams.count(param.first) > 0) ? addInvertParams[param.first] : false;
@@ -447,6 +447,7 @@ MSStoppingPlaceRerouter::evaluateDestination(SUMOVehicle& veh, double brakeGap, 
         }
         if (edgesFromStop.size() > 0 || newDestination) {
             stoppingPlaceValues["probability"] = prob;
+            stoppingPlaceValues["preference"] = prob;
             if (stoppingPlaceValues["probability"] > maxValues["probability"]) {
                 maxValues["probability"] = stoppingPlaceValues["probability"];
             }
