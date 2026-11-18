@@ -23,8 +23,7 @@ import subprocess
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import sumolib  # noqa
-from sumolib.xml import parse  # noqa
-from sumolib.net import lane2edge, lane2index  # noqa
+from sumolib import geomhelper  # noqa
 
 
 def get_options(args=None):
@@ -44,10 +43,14 @@ def get_options(args=None):
                     help="match objects based on OSM ids (stored in params from --output.original-names)")
     gp.add_argument("--origid", action="store_true", dest="origId", default=False,
                     help="match objects based on origIDs after renaming")
+    ap.add_argument("--radius", type=float, default=20.0,
+                    help="search radius in m for geometrical matching")
+    ap.add_argument("--angle-tolerance", dest="atol", type=float, default=20.0,
+                    help="maximum angle difference in degrees for geometrical matching")
     ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
                     default=False, help="tell me what you are doing")
 
-    options = ap.parse_args()
+    options = ap.parse_args(args=args)
 
     options.attributes = options.attributes.split(',')
     options.edgfile = options.patchPrefix + ".edg.xml"
@@ -59,7 +62,9 @@ class Ambiguous:
 
 
 # override canonical method name if defaults if needed
-RETRIEVERS = {}
+RETRIEVERS = {
+    'numLanes': 'getLaneNumber',
+}
 
 
 def getAttr(edge, a):
@@ -71,6 +76,53 @@ def getAttrs(options, edge):
     return [getAttr(edge, a) for a in options.attributes]
 
 
+def map_point_to_orig(net, net2, pt):
+    if net.hasGeoProj() and net2.hasGeoProj():
+        lon, lat = net2.convertXY2LonLat(pt[0], pt[1])
+        return net.convertLonLat2XY(lon, lat)
+    off1 = net.getLocationOffset()
+    off2 = net2.getLocationOffset()
+    return (pt[0] - off2[0] + off1[0], pt[1] - off2[1] + off1[1])
+
+
+def match_edge_geometrically(net, net2, edge2, radius, atol):
+    shape2 = edge2.getShape()
+    length2 = geomhelper.polyLength(shape2)
+    if length2 <= 0:
+        return []
+    fracs = [0.5] if length2 < 20.0 else [0.25, 0.5, 0.75]
+    matched = []
+    for frac in fracs:
+        off2 = length2 * frac
+        pt2 = geomhelper.positionAtShapeOffset(shape2, off2)
+        rot2 = geomhelper.rotationAtShapeOffset(shape2, min(off2, max(0.0, length2 - 1e-3)))
+        if pt2 is None or rot2 is None:
+            continue
+        deg2 = geomhelper.naviDegree(rot2)
+        pt1 = map_point_to_orig(net, net2, pt2)
+        best = None
+        for cand, _ in net.getNeighboringEdges(pt1[0], pt1[1], radius):
+            cshape = cand.getShape()
+            clen = geomhelper.polyLength(cshape)
+            if clen <= 0:
+                continue
+            coff, cdist = geomhelper.polygonOffsetAndDistanceToPoint(pt1, cshape)
+            if cdist > radius:
+                continue
+            crot = geomhelper.rotationAtShapeOffset(cshape, min(max(0.0, coff), max(0.0, clen - 1e-3)))
+            if crot is None:
+                continue
+            cdeg = geomhelper.naviDegree(crot)
+            if geomhelper.minAngleDegreeDiff(cdeg, deg2) > atol:
+                continue
+            key = (cdist, cand.getID())
+            if best is None or key < best[0]:
+                best = (key, cand.getID())
+        if best is not None and best[1] not in matched:
+            matched.append(best[1])
+    return matched
+
+
 def main(options):
     if options.verbose:
         print("Reading orig-net '%s'" % options.origNet)
@@ -79,12 +131,15 @@ def main(options):
         print("Reading target-net '%s'" % options.targetNet)
     net2 = sumolib.net.readNet(options.targetNet)
 
-    lookup = {}  # origId -> values
+    lookup = {}  # key -> values
     if options.osmOrigId:
         # lookup is based on edge-origIds in orig-net
         for edge in net.getEdges():
             lane = edge.getLanes()[0]
-            origIds = lane.getParam("origId").split()
+            origIds = lane.getParam("origId") or edge.getParam("origId")
+            if origIds is None:
+                continue
+            origIds = origIds.split()
             attrs = getAttrs(options, edge)
             for origId in origIds:
                 attrs2 = lookup.get(origId)
@@ -102,60 +157,62 @@ def main(options):
                                 a, origId, v, v2), file=sys.stderr)
                             attrs3.append(Ambiguous)
                     lookup[origId] = attrs3
-    elif options.origId:
-        # loopup is based on edge ids in orig-net
+    else:
+        # lookup is based on edge ids in orig-net (used by --origid and geometrical matching)
         for edge in net.getEdges():
             attrs = getAttrs(options, edge)
             lookup[edge.getID()] = attrs
-    else:
-        print("Geometrical matching not yet implemented", file=sys.stderr)
-        sys.exit(1)
 
     patchedValues = {}  # edgeID -> new attributes
-    if options.osmOrigId or options.origId:
-        for edge in net2.getEdges():
+    for edge in net2.getEdges():
+        if options.osmOrigId or options.origId:
             lane = edge.getLanes()[0]
-            origIds = lane.getParam("origId")
+            origIds = lane.getParam("origId") or edge.getParam("origId")
             if origIds is None:
                 continue
             origIds = origIds.split()
-            attrs = getAttrs(options, edge)
-            attrs2 = []
-            for i, a in enumerate(options.attributes):
+        else:
+            origIds = match_edge_geometrically(net, net2, edge, options.radius, options.atol)
+            if not origIds:
+                continue
+        attrs = getAttrs(options, edge)
+        attrs2 = []
+        for i, a in enumerate(options.attributes):
+            v = None
+            for origId in origIds:
+                if origId in lookup:
+                    v2 = lookup[origId][i]
+                    if v2 == Ambiguous:
+                        v = None
+                        break
+                    if v is None:
+                        v = v2
+                    elif v2 is not None and v != v2:
+                        print("Ambiguous attribute '%s' for edge '%s' with origIds '%s' (%s != %s)" % (
+                            a, edge.getID(), origIds, v, v2), file=sys.stderr)
+                        v = None
+                        break
+            if v == attrs[i]:
+                # no need to patch if the attribute is already correct
                 v = None
-                for origId in origIds:
-                    if origId in lookup:
-                        v2 = lookup[origId][i]
-                        if v2 == Ambiguous:
-                            v = None
-                            break
-                        if v is None:
-                            v = v2
-                        elif v2 is not None and v != v2:
-                            print("Ambiguous attribute '%s' for edge '%s' with origIds '%s' (%s != %s)" % (
-                                a, edge.getID(), origIds, v, v2), file=sys.stderr)
-                            v = None
-                            break
-                if v == attrs[i]:
-                    # no need to patch if the attribute is already correct
-                    v = None
-                attrs2.append(v)
-            if any([v is not None for v in attrs2]):
-                patchedValues[edge.getID()] = attrs2
+            attrs2.append(v)
+        if any([v is not None for v in attrs2]):
+            patchedValues[edge.getID()] = attrs2
 
     with sumolib.openz(options.edgfile, 'w') as fout:
         sumolib.writeXMLHeader(fout, "$Id$", "edges", schemaPath="edgediff_file.xsd", options=options)
         for edgeID in sorted(patchedValues.keys()):
             validAttrs = [(a, v) for a, v in zip(options.attributes, patchedValues[edgeID]) if v is not None]
             fout.write('    <edge id="%s" %s/>\n' % (
-                edgeID, ' '.join(['%s="%s"' % av for av in validAttrs])))
+                edgeID, ' '.join(['%s=%s' % (a, sumolib.xml.quoteattr(str(v))) for a, v in validAttrs])))
         fout.write('</edges>\n')
 
     NETCONVERT = sumolib.checkBinary('netconvert')
-    subprocess.call([NETCONVERT,
-                     '-s', options.targetNet,
-                     '-e', options.edgfile,
-                     '-o', options.output])
+    if subprocess.call([NETCONVERT,
+                        '-s', options.targetNet,
+                        '-e', options.edgfile,
+                        '-o', options.output]) != 0:
+        sys.exit(1)
 
 
 if __name__ == "__main__":

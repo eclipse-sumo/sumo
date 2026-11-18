@@ -6,3 +6,7 @@ origIds_vehicles
 
 # remap contents of a selection file
 selection
+
+# remap edge attributes via OSM origId and via geometry (#17561)
+remap_attributes_osm_origid
+remap_attributes_geometry
