@@ -123,9 +123,6 @@
         <!-- Recomputes detector types even if given -->
         <revalidate-detectors value="false" type="BOOL"/>
 
-        <!-- Recomputes routes even if given -->
-        <revalidate-routes value="false" type="BOOL"/>
-
         <!-- Keeps routes even if they have exhausted max-search-depth -->
         <keep-unfinished-routes value="false" synonymes="keep-unfound-ends" deprecated="keep-unfound-ends" type="BOOL"/>
 

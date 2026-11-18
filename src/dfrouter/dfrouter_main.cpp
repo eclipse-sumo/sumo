@@ -141,7 +141,7 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
         throw ProcessError(TL("No source detectors found."));
     }
     // compute routes between the detectors (optionally)
-    if (!detectors.detectorsHaveRoutes() || oc.getBool("revalidate-routes") || oc.getBool("guess-empty-flows")) {
+    if (!detectors.detectorsHaveRoutes() || oc.getBool("guess-empty-flows")) {
         PROGRESS_BEGIN_MESSAGE(TL("Computing routes"));
         optNet->buildRoutes(detectors,
                             oc.getBool("keep-unfinished-routes"), oc.getBool("routes-for-all"),

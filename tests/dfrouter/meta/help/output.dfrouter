@@ -75,7 +75,6 @@ Processing Options:
   -h, --highway-mode                   Switches to highway-mode
   --ignore-invalid-detectors           Only warn about unparseable detectors
   --revalidate-detectors               Recomputes detector types even if given
-  --revalidate-routes                  Recomputes routes even if given
   --keep-unfinished-routes             Keeps routes even if they have exhausted
                                         max-search-depth
   --keep-longer-routes                 Keeps routes even if a shorter one

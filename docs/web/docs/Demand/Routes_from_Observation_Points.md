@@ -101,6 +101,7 @@ When wished, if for example other parameters change, the extended
 [dfrouter](../dfrouter.md) instead of the previous <DETECTOR_FILE\>.
 In this case the detector types do not have to be computed again. To
 force [dfrouter](../dfrouter.md) to recompute the types, use **--revalidate-detectors**.
+By default, a detector is classified as a source when no other detector precedes it within **--max-search-depth** upstream edges; setting **--strict-sources** restricts source classification to detectors whose upstream approaches all originate at dead-end boundaries without unmeasured side entries.
 
 ## Computing Routes
 
@@ -112,11 +113,9 @@ shall be written to. The generated file only contains routes, no vehicle
 type definitions and no vehicles.
 
 Normally, only routes starting at source detectors and ending at sink
-detectors are computed. Using the option **--routes-for-all** you can force
+detectors are computed, continuing past the sink detector up to the end of the road. Using the option **--routes-for-all** you can force
 [dfrouter](../dfrouter.md) to also build routes that start at
-in-between detectors. The option **--all-end-follower** will make the routes not end at the
-edge the source detector is placed on, but on all edges that follow this
-edge. **--keep-unfinished-routes** will also keep those routes where a sink detector could not be
+in-between detectors. **--keep-unfinished-routes** will also keep those routes where a sink detector could not be
 found for what may be the case if the network is not completely covered
 with induction loops.
 
@@ -201,7 +200,7 @@ The generated file contains individual vehicles which are assigned
 routes from the [routes-output file](#computing_routes).
 
 !!! note
-    The emitters output also contains a `<routeDistribution>` for each source detector but this distribution is not used by the vehicles. It is generated for information purposes and shows the route distribution aggregated over the whole simulation time (this distribution assumes that source flows data matches sink flow data).
+    The emitters output also contains a `<routeDistribution>` for each source detector. Normally this distribution is generated for information purposes and shows the route distribution aggregated over the whole simulation time, while individual vehicles receive concrete destination routes; when **--emissions-only** is set, per-interval destination distributions are skipped and emitted vehicles reference their source detector's `<routeDistribution>` directly.
 
 ## Further Outputs
 
