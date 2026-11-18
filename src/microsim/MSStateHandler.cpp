@@ -651,6 +651,13 @@ MSStateHandler::closeVehicle() {
             auto it = remDict.find(attrID);
             if (it != remDict.end()) {
                 it->second->loadReminderState(v->getNumericalID(), time, pos);
+            } else {
+                // reminders of vehicle devices (e.g. tripinfo in meso)
+                for (MSVehicleDevice* const dev : v->getDevices()) {
+                    if (dev->getDescription() == attrID) {
+                        dev->loadReminderState(v->getNumericalID(), time, pos);
+                    }
+                }
             }
             delete myReminderAttrs.back();
             myReminderAttrs.pop_back();
