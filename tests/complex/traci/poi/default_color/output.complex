@@ -1,0 +1,4 @@
+p_default color: (255, 0, 0, 255)
+p_default pos: (10.0, 20.0)
+p_typed color: (255, 0, 0, 255)
+p_typed type: shop
