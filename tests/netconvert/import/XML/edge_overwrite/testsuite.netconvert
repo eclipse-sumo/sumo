@@ -51,3 +51,6 @@ type
 
 # overwriting edge type with vclass specific speed restrictions
 type_vclass_speeds
+
+# resetting edge type, name, and routingType to empty defaults (#14726)
+reset_type_and_name
