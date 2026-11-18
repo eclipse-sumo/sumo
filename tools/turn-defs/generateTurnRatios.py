@@ -44,6 +44,8 @@ def get_options(args=None):
     ap = sumolib.options.ArgumentParser()
     ap.add_option("-r", "--route-files", required=True, type=ap.file, dest="routefiles",
                   help="define the route file separated by comma(mandatory)")
+    ap.add_option("-n", "--net-file", type=ap.net_file, dest="netfile",
+                  help="load network for annotation turns with directions")
     ap.add_option("-o", "--output-file", dest="outfile", default="turnRatios.add.xml",
                   help="define the output filename")
     ap.add_option("-p", "--probabilities", dest="prob", action="store_true", default=False,
@@ -116,7 +118,27 @@ def getFlows(options):
             yield edgePairFlowsMap, begin, begin + interval
 
 
+def getDir(net, dirs, fromEdge, toEdge):
+    key = (fromEdge, toEdge)
+    if key not in dirs:
+        cons = net.getEdge(fromEdge).getConnections(net.getEdge(toEdge))
+        if cons:
+            dirs[key] = cons[0].getDirection()
+        else:
+            dirs[key] = '?'
+    return dirs[key]
+
+
 def main(options):
+    dirs = dict()  # (from,to) -> dir
+    if options.netfile:
+        net = sumolib.net.readNet(options.netfile)
+        def dirStr(fromEdge, toEdge):
+            return ' dir="%s"' % getDir(net, dirs, fromEdge, toEdge)
+    else:
+        def dirStr(fromEdge, toEdge):
+            return ''
+
     with open(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "data", "datamode_file.xsd")  # noqa
         # get traffic flows for each edge pair
@@ -139,14 +161,15 @@ def main(options):
                             for veh_type, count in sorted(type_counts.items()):
                                 if total_counts[veh_type] > 0:
                                     prob = count / total_counts[veh_type]
-                                    attrs.append('%s_probability="%.2f"' % (veh_type, prob))
+                                    attrs.append('%s_probability="%.2f"%s' %
+                                            (veh_type, prob, dirStr(from_edge, to_edge)))
                             outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" %s/>\n' % (
                                 from_edge, to_edge, ' '.join(attrs)))
                     else:
                         for to_edge, type_counts in sorted(edgePairFlowsMap[from_edge].items()):
                             attrs = []
                             for veh_type, count in sorted(type_counts.items()):
-                                attrs.append('%s_count="%s"' % (veh_type, count))
+                                attrs.append('%s_count="%s"%s' % (veh_type, count, dirStr(from_edge, to_edge)))
                             outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" %s/>\n' % (
                                 from_edge, to_edge, ' '.join(attrs)))
                 else:
@@ -161,14 +184,14 @@ def main(options):
                             count = sum(type_counts.values())
                             if total_count > 0:
                                 prob = count / total_count
-                                outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" probability="%.2f"/>\n' % (
-                                    from_edge, to_edge, prob))
+                                outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" probability="%.2f"%s/>\n' % (
+                                    from_edge, to_edge, prob, dirStr(from_edge, to_edge)))
                     else:
                         # Write combined counts for each edge pair (summed across all vehicle types)
                         for to_edge, type_counts in sorted(edgePairFlowsMap[from_edge].items()):
                             count = sum(type_counts.values())
-                            outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" count="%s"/>\n' % (
-                                from_edge, to_edge, count))
+                            outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" count="%s"%s/>\n' % (
+                                from_edge, to_edge, count, dirStr(from_edge, to_edge)))
             outf.write('    </interval>\n')
         outf.write('</data>\n')
     outf.close()
