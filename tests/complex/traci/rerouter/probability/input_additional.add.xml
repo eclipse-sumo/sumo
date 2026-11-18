@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <route id="alt" edges="2fi 2si 3o"/>
+    <rerouter id="rerouter_0" edges="2fi" probability="0.5">
+        <interval begin="0" end="86400">
+            <routeProbReroute id="alt"/>
+        </interval>
+    </rerouter>
+</additional>

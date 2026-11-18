@@ -1,0 +1,11 @@
+initial prob: 0.50
+prob after set 0.0: 0.00
+v0 route: ('2fi', '2si', '1o')
+prob after set 1.0: 1.00
+v1 route: ('2fi', '2si', '3o')
+prob after reset: 0.50
+caught invalid value: 1.5
+caught invalid value: -0.1
+caught invalid value: abc
+caught unsupported param
+caught unknown rerouter
