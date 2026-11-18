@@ -171,7 +171,60 @@ LaneArea::getLastIntervalVehicleNumber(const std::string& detID) {
 
 std::string
 LaneArea::getParameter(const std::string& detID, const std::string& param) {
-    return getDetector(detID)->getParameter(param, "");
+    const MSE2Collector* const e2 = getDetector(detID);
+    if (param == "sampledSeconds") {
+        return toString(e2->getIntervalSampledSeconds());
+    } else if (param == "nVehEntered") {
+        return toString(e2->getIntervalEnteredNumber());
+    } else if (param == "nVehLeft") {
+        return toString(e2->getIntervalLeftNumber());
+    } else if (param == "nVehSeen") {
+        return toString(e2->getIntervalVehicleNumber());
+    } else if (param == "meanSpeed") {
+        return toString(e2->getIntervalMeanSpeed());
+    } else if (param == "meanTimeLoss") {
+        return toString(e2->getIntervalMeanTimeLoss());
+    } else if (param == "meanOccupancy") {
+        return toString(e2->getIntervalOccupancy());
+    } else if (param == "maxOccupancy") {
+        return toString(e2->getIntervalMaxOccupancy());
+    } else if (param == "meanMaxJamLengthInVehicles") {
+        return toString(e2->getIntervalMeanMaxJamLengthInVehicles());
+    } else if (param == "meanMaxJamLengthInMeters") {
+        return toString(e2->getIntervalMeanMaxJamLengthInMeters());
+    } else if (param == "maxJamLengthInVehicles") {
+        return toString(e2->getIntervalMaxJamLengthInVehicles());
+    } else if (param == "maxJamLengthInMeters") {
+        return toString(e2->getIntervalMaxJamLengthInMeters());
+    } else if (param == "jamLengthInVehiclesSum") {
+        return toString(e2->getIntervalJamLengthInVehiclesSum());
+    } else if (param == "jamLengthInMetersSum") {
+        return toString(e2->getIntervalJamLengthInMetersSum());
+    } else if (param == "startedHalts") {
+        return toString(e2->getIntervalStartedHalts());
+    } else if (param == "meanVehicleNumber") {
+        return toString(e2->getIntervalMeanVehicleNumber());
+    } else if (param == "maxVehicleNumber") {
+        return toString(e2->getIntervalMaxVehicleNumber());
+    } else if (param == "meanHaltingDuration" || param == "maxHaltingDuration" || param == "haltingDurationSum"
+               || param == "meanIntervalHaltingDuration" || param == "maxIntervalHaltingDuration" || param == "intervalHaltingDurationSum") {
+        double meanH, maxH, sumH, meanIH, maxIH, sumIH;
+        e2->getHaltingDurations(meanH, maxH, sumH, meanIH, maxIH, sumIH);
+        if (param == "meanHaltingDuration") {
+            return toString(meanH);
+        } else if (param == "maxHaltingDuration") {
+            return toString(maxH);
+        } else if (param == "haltingDurationSum") {
+            return toString(sumH);
+        } else if (param == "meanIntervalHaltingDuration") {
+            return toString(meanIH);
+        } else if (param == "maxIntervalHaltingDuration") {
+            return toString(maxIH);
+        } else {
+            return toString(sumIH);
+        }
+    }
+    return e2->getParameter(param, "");
 }
 
 
