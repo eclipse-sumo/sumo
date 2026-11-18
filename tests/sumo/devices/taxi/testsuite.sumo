@@ -25,3 +25,6 @@ prebooking
 # taxi should not disappear on teleport (before service end)
 teleport
 bugs
+
+# stops at charging stations which are kept by the taxi device
+chargingStops
