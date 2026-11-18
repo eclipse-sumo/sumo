@@ -144,6 +144,9 @@ actuated
 # a static traffic light keeps the start of its current phase when loading state
 tls_spentDuration
 
+# a WAUT switch waiting for its GSP is kept when loading state
+waut_gsp
+
 # test saving and load vehicles added by calibrator
 calibrator
 
