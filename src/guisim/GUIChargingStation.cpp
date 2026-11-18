@@ -54,18 +54,18 @@
 // method definitions
 // ===========================================================================
 GUIChargingStation::GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos, const std::string& name,
-                                       double chargingPower, double totalPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
-                                       const std::string& chargeType, SUMOTime waitingTime) :
-    MSChargingStation(id, lane, frompos, topos, name, chargingPower, totalPower, efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime),
+                                       double chargingPower, double totalPower, double dischargePower, double efficiency, bool chargeInTransit,
+                                       SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime) :
+    MSChargingStation(id, lane, frompos, topos, name, chargingPower, totalPower, dischargePower, efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime),
     GUIGlObject_AbstractAdd(GLO_CHARGING_STATION, id, GUIIconSubSys::getIcon(GUIIcon::CHARGINGSTATION)) {
     initAppearance(lane, frompos, topos);
 }
 
 
 GUIChargingStation::GUIChargingStation(const std::string& id, MSParkingArea* parkingArea, const std::string& name,
-                                       double chargingPower, double totalPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
-                                       const std::string& chargeType, SUMOTime waitingTime) :
-    MSChargingStation(id, parkingArea, name, chargingPower, totalPower, efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime),
+                                       double chargingPower, double totalPower, double dischargePower, double efficiency, bool chargeInTransit,
+                                       SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime) :
+    MSChargingStation(id, parkingArea, name, chargingPower, totalPower, dischargePower, efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime),
     GUIGlObject_AbstractAdd(GLO_CHARGING_STATION, id, GUIIconSubSys::getIcon(GUIIcon::CHARGINGSTATION)) {
     initAppearance(const_cast<MSLane&>(parkingArea->getLane()), parkingArea->getBeginLanePosition(), parkingArea->getEndLanePosition());
 }
@@ -87,6 +87,7 @@ GUIChargingStation::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&)
     ret->mkItem(TL("last free pos [m]"), true, new FunctionBinding<GUIChargingStation, double>(this, &MSStoppingPlace::getLastFreePos));
     ret->mkItem(TL("charging power [W]"), false, myNominalChargingPower);
     ret->mkItem(TL("total charging power [W]"), false, myTotalChargingPower);
+    ret->mkItem(TL("discharge power [W]"), false, myNominalDischargePower);
     ret->mkItem(TL("charging efficiency [#]"), false, myEfficiency);
     ret->mkItem(TL("charge in transit [true/false]"), false, myChargeInTransit);
     ret->mkItem(TL("charge delay [s]"), false, STEPS2TIME(myChargeDelay));

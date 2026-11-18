@@ -92,18 +92,23 @@ public:
 
     /// @brief constructor
     MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
-                      const std::string& name, double chargingPower, double totalPower, double efficency, bool chargeInTransit,
-                      SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime);
+                      const std::string& name, double chargingPower, double totalPower, double dischargePower, double efficency,
+                      bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime);
 
     MSChargingStation(const std::string& chargingStationID, const MSParkingArea* parkingArea, const std::string& name, double chargingPower,
-                      double totalPower, double efficency, bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType,
-                      SUMOTime waitingTime);
+                      double totalPower, double dischargePower, double efficency, bool chargeInTransit, SUMOTime chargeDelay,
+                      const std::string& chargeType, SUMOTime waitingTime);
 
     /// @brief destructor
     ~MSChargingStation();
 
     /// @brief Get charging station's charging power
     double getChargingPower(bool usingFuel) const;
+
+    /// @brief Get the maximum power in W fed into the grid per discharging vehicle (vehicle-to-grid, 0 = no discharging)
+    double getDischargePower() const {
+        return myNominalDischargePower;
+    }
 
     /// @brief Get efficiency of the charging station
     double getEfficency() const;
@@ -127,6 +132,9 @@ public:
 
     /// @brief set charging station's charging power
     void setChargingPower(double chargingPower);
+
+    /// @brief set the maximum power in W fed into the grid per discharging vehicle (vehicle-to-grid, 0 = no discharging)
+    void setDischargePower(double dischargePower);
 
     /// @brief set efficiency of the charging station
     void setEfficiency(double efficiency);
@@ -162,8 +170,13 @@ public:
         return myTotalCharge;
     }
 
+    /// @brief total energy (Wh) discharged from vehicle batteries into this charging station
+    double getTotalDischarged() const {
+        return myTotalDischarge;
+    }
+
     /// @brief add charge value for output
-    void addChargeValueForOutput(double WCharged, MSDevice_Battery* battery);
+    void addChargeValueForOutput(double WCharged, MSDevice_Battery* battery, double WDischarged = 0.);
 
     /// @brief write charging station values
     void writeChargingStationOutput(OutputDevice& output);
@@ -178,7 +191,7 @@ protected:
         /// @brief constructor
         Charge(SUMOTime _timeStep, std::string _vehicleID, std::string _vehicleType, std::string _status,
                double _WCharged, double _actualBatteryCapacity, double _maxBatteryCapacity, double _chargingPower,
-               double _chargingEfficiency, double _totalEnergyCharged) :
+               double _chargingEfficiency, double _totalEnergyCharged, double _WDischarged = 0.) :
             timeStep(_timeStep),
             vehicleID(_vehicleID),
             vehicleType(_vehicleType),
@@ -188,7 +201,8 @@ protected:
             maxBatteryCapacity(_maxBatteryCapacity),
             chargingPower(_chargingPower),
             chargingEfficiency(_chargingEfficiency),
-            totalEnergyCharged(_totalEnergyCharged) {}
+            totalEnergyCharged(_totalEnergyCharged),
+            WDischarged(_WDischarged) {}
 
         // @brief vehicle TimeStep
         SUMOTime timeStep;
@@ -210,15 +224,26 @@ protected:
         double chargingEfficiency;
         // @brief current energy charged by charging stations AFTER charging
         double totalEnergyCharged;
+        // @brief W discharged from the battery (vehicle-to-grid)
+        double WDischarged;
     };
 
-    static void writeVehicle(OutputDevice& out, const std::vector<Charge>& chargeSteps, int iStart, int iEnd, double charged);
+    static void writeVehicle(OutputDevice& out, const std::vector<Charge>& chargeSteps, int iStart, int iEnd, double charged,
+                             double discharged, bool writeDischarge);
+
+    /// @brief whether the outputs need to report discharged energy
+    bool writeDischargeOutput() const {
+        return myNominalDischargePower > 0 || myTotalDischarge > 0;
+    }
 
     /// @brief Charging station's nominal charging power per vehicle
     double myNominalChargingPower = 0;
 
     /// @brief The maximal charging power available to serve all charging vehicles (value <= 0 take no effect)
     double myTotalChargingPower = 0;
+
+    /// @brief Maximum power fed into the grid per discharging vehicle (value <= 0 disables discharging)
+    double myNominalDischargePower = 0;
 
     /// @brief Efficiency of the charging station
     double myEfficiency = 0;
@@ -240,6 +265,9 @@ protected:
 
     /// @brief total energy charged by this charging station
     double myTotalCharge = 0;
+
+    /// @brief total energy discharged from vehicle batteries into this charging station
+    double myTotalDischarge = 0;
 
     /// @brief parkingArea the charging station is placed on
     const MSParkingArea* myParkingArea = nullptr;
