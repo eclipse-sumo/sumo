@@ -1743,24 +1743,11 @@ NIImporter_OpenDrive::revisitLaneSections(const NBTypeCont& tc, std::map<std::st
             std::cout << "revisitLaneSections e=" << e.id << "\n";
         }
 #endif
-        // split by speed limits or by access restrictions
-        std::vector<OpenDriveLaneSection> newSections;
-        for (OpenDriveLaneSection& section : e.laneSections) {
-            std::vector<OpenDriveLaneSection> splitSections;
-            const bool splitByAttrChange = section.buildAttributeChanges(tc, splitSections);
-            if (!splitByAttrChange) {
-                newSections.push_back(section);
-            } else {
-                std::copy(splitSections.begin(), splitSections.end(), back_inserter(newSections));
-            }
-        }
-
-        e.laneSections = newSections;
         double lastS = -1.;
-        // check whether the lane sections are in the right order
+        // check whether the loaded lane sections are in the right order before splitting by attribute changes
         bool sorted = true;
         for (const OpenDriveLaneSection& section : e.laneSections) {
-            if (section.s <= lastS) {
+            if (section.s < lastS) {
                 sorted = false;
                 break;
             }
@@ -1770,6 +1757,26 @@ NIImporter_OpenDrive::revisitLaneSections(const NBTypeCont& tc, std::map<std::st
             WRITE_WARNINGF(TL("The sections of edge '%' are not sorted properly."), e.id);
             sort(e.laneSections.begin(), e.laneSections.end(), sections_by_s_sorter());
         }
+
+        const double roadEnd = e.geometries.empty()
+                               ? std::numeric_limits<double>::max()
+                               : e.geometries.back().s + e.geometries.back().length;
+        // split by speed limits or by access restrictions
+        std::vector<OpenDriveLaneSection> newSections;
+        for (int idx = 0; idx < (int)e.laneSections.size(); ++idx) {
+            OpenDriveLaneSection& section = e.laneSections[idx];
+            const double nextS = (idx + 1 < (int)e.laneSections.size()) ? e.laneSections[idx + 1].s : roadEnd;
+            const double maxOffset = nextS - section.s;
+            std::vector<OpenDriveLaneSection> splitSections;
+            const bool splitByAttrChange = section.buildAttributeChanges(tc, splitSections, maxOffset);
+            if (!splitByAttrChange) {
+                newSections.push_back(section);
+            } else {
+                std::copy(splitSections.begin(), splitSections.end(), back_inserter(newSections));
+            }
+        }
+
+        e.laneSections = newSections;
         // check whether duplicate s-values occur
         // but keep all lane sections for connecting roads because they are
         // needed to establish connectivity (laneSectionsConnected)
@@ -2208,24 +2215,28 @@ NIImporter_OpenDrive::OpenDriveLane::computePermission(const NBTypeCont& tc, con
 
 
 bool
-NIImporter_OpenDrive::OpenDriveLaneSection::buildAttributeChanges(const NBTypeCont& tc, std::vector<OpenDriveLaneSection>& newSections) {
+NIImporter_OpenDrive::OpenDriveLaneSection::buildAttributeChanges(const NBTypeCont& tc, std::vector<OpenDriveLaneSection>& newSections, double maxOffset) {
     std::set<double> attributeChangePositions;
     // collect speed change and access restriction positions and apply initial values to the begin
     for (std::vector<OpenDriveLane>::iterator k = lanesByDir[OPENDRIVE_TAG_RIGHT].begin(); k != lanesByDir[OPENDRIVE_TAG_RIGHT].end(); ++k) {
         for (std::vector<std::pair<double, LaneAttributeChange> >::const_iterator l = (*k).attributeChanges.begin(); l != (*k).attributeChanges.end(); ++l) {
-            attributeChangePositions.insert((*l).first);
             if ((*l).first == 0) {
+                attributeChangePositions.insert(0.);
                 (*k).speed = (*l).second.speed;
                 (*k).permission = (*k).computePermission(tc, (*l).second.allowed, (*l).second.denied);
+            } else if ((*l).first > 0 && (*l).first < maxOffset - POSITION_EPS) {
+                attributeChangePositions.insert((*l).first);
             }
         }
     }
     for (std::vector<OpenDriveLane>::iterator k = lanesByDir[OPENDRIVE_TAG_LEFT].begin(); k != lanesByDir[OPENDRIVE_TAG_LEFT].end(); ++k) {
         for (std::vector<std::pair<double, LaneAttributeChange> >::const_iterator l = (*k).attributeChanges.begin(); l != (*k).attributeChanges.end(); ++l) {
-            attributeChangePositions.insert((*l).first);
             if ((*l).first == 0) {
+                attributeChangePositions.insert(0.);
                 (*k).speed = (*l).second.speed;
                 (*k).permission = (*k).computePermission(tc, (*l).second.allowed, (*l).second.denied);
+            } else if ((*l).first > 0 && (*l).first < maxOffset - POSITION_EPS) {
+                attributeChangePositions.insert((*l).first);
             }
         }
     }

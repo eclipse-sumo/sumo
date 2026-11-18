@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<OpenDRIVE>
+    <header revMajor="1" revMinor="5" name="Test6185" version="1" date="Thu Feb 8 14:24:06 2007" north="2000.0" south="-2000.0" east="2000.0" west="-2000.0" />
+    <road name="r1" length="50.0" id="1" junction="-1">
+        <link />
+        <planView>
+            <geometry s="0.0" x="0.0" y="0.0" hdg="0.0" length="50.0">
+                <line />
+            </geometry>
+        </planView>
+        <elevationProfile />
+        <lateralProfile />
+        <lanes>
+            <laneSection s="0.0">
+                <center>
+                    <lane id="0" type="none" level="false">
+                        <width sOffset="0.0" a="0.0" b="0.0" c="0.0" d="0.0" />
+                    </lane>
+                </center>
+                <right>
+                    <lane id="-1" type="driving" level="false">
+                        <width sOffset="0.0" a="3.2" b="0.0" c="0.0" d="0.0" />
+                        <speed sOffset="0.0" max="13.89" />
+                        <speed sOffset="10.0" max="16.67" />
+                        <speed sOffset="25.0" max="22.22" />
+                    </lane>
+                </right>
+            </laneSection>
+            <laneSection s="25.0">
+                <center>
+                    <lane id="0" type="none" level="false">
+                        <width sOffset="0.0" a="0.0" b="0.0" c="0.0" d="0.0" />
+                    </lane>
+                </center>
+                <right>
+                    <lane id="-1" type="driving" level="false">
+                        <width sOffset="0.0" a="3.2" b="0.0" c="0.0" d="0.0" />
+                        <speed sOffset="0.0" max="22.22" />
+                        <speed sOffset="25.0" max="25.00" />
+                    </lane>
+                </right>
+            </laneSection>
+        </lanes>
+        <objects />
+        <signals />
+    </road>
+</OpenDRIVE>

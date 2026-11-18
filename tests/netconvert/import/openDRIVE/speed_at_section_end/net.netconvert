@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18T00:30:06.008810+00:00 by Eclipse SUMO netconvert v1_28_0+0644-bda840e3afe
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <opendrive-files value="opendrive.xodr"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="0.00,0.00,50.00,0.00" projParameter="!"/>
+
+    <type id="driving" priority="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" width="3.65"/>
+
+    <edge id=":1#1_0" function="internal">
+        <lane id=":1#1_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="15.28" length="0.10" width="3.20" shape="10.00,-1.60 10.00,-1.60"/>
+    </edge>
+    <edge id=":1#2_0" function="internal">
+        <lane id=":1#2_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="19.45" length="0.10" width="3.20" shape="25.00,-1.60 25.00,-1.60"/>
+    </edge>
+
+    <edge id="-1#0" from="1.begin" to="1#1" priority="1" type="driving">
+        <lane id="-1#0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="10.00" width="3.20" shape="0.00,-1.60 10.00,-1.60" type="driving"/>
+    </edge>
+    <edge id="-1#1" from="1#1" to="1#2" priority="1" type="driving">
+        <lane id="-1#1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="16.67" length="15.00" width="3.20" shape="10.00,-1.60 25.00,-1.60" type="driving"/>
+    </edge>
+    <edge id="-1#2" from="1#2" to="1.end" priority="1" type="driving">
+        <lane id="-1#2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="22.22" length="25.00" width="3.20" shape="25.00,-1.60 50.00,-1.60" type="driving"/>
+    </edge>
+
+    <junction id="1#1" type="priority" x="10.00" y="0.00" incLanes="-1#0_0" intLanes=":1#1_0_0" shape="10.00,0.00 10.00,-3.20 10.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="1#2" type="priority" x="25.00" y="0.00" incLanes="-1#1_0" intLanes=":1#2_0_0" shape="25.00,0.00 25.00,-3.20 25.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="1.begin" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="1.end" type="dead_end" x="50.00" y="0.00" incLanes="-1#2_0" intLanes="" shape="50.00,-3.20 50.00,0.00"/>
+
+    <connection from="-1#0" to="-1#1" fromLane="0" toLane="0" via=":1#1_0_0" dir="s" state="M"/>
+    <connection from="-1#1" to="-1#2" fromLane="0" toLane="0" via=":1#2_0_0" dir="s" state="M"/>
+
+    <connection from=":1#1_0" to="-1#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1#2_0" to="-1#2" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

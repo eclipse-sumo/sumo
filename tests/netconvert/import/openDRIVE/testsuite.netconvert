@@ -50,3 +50,6 @@ offset
 
 # import stopLine and waitingLine (ticket #16682)
 signal_priority
+
+# speed/access sOffset at boundary of next laneSection (#6185)
+speed_at_section_end
