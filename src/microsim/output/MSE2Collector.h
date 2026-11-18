@@ -532,6 +532,76 @@ public:
     int getIntervalVehicleNumber() const {
         return myNumberOfSeenVehicles;
     }
+    double getIntervalSampledSeconds() const {
+        return myVehicleSamples;
+    }
+    int getIntervalEnteredNumber() const {
+        return myNumberOfEnteredVehicles;
+    }
+    int getIntervalLeftNumber() const {
+        return myNumberOfLeftVehicles;
+    }
+    double getIntervalMaxOccupancy() const {
+        return myMaxOccupancy;
+    }
+    double getIntervalMeanMaxJamLengthInVehicles() const {
+        return myTimeSamples != 0 ? (double)myMeanMaxJamInVehicles / (double)myTimeSamples : 0.;
+    }
+    double getIntervalMeanMaxJamLengthInMeters() const {
+        return myTimeSamples != 0 ? myMeanMaxJamInMeters / (double)myTimeSamples : 0.;
+    }
+    int getIntervalMaxJamLengthInVehicles() const {
+        return myMaxJamInVehicles;
+    }
+    int getIntervalJamLengthInVehiclesSum() const {
+        return myJamLengthInVehiclesSum;
+    }
+    double getIntervalJamLengthInMetersSum() const {
+        return myJamLengthInMetersSum;
+    }
+    int getIntervalStartedHalts() const {
+        return myStartedHalts;
+    }
+    double getIntervalMeanVehicleNumber() const {
+        return myTimeSamples != 0 ? (double)myMeanVehicleNumber / (double)myTimeSamples : 0.;
+    }
+    int getIntervalMaxVehicleNumber() const {
+        return myMaxVehicleNumber;
+    }
+    void getHaltingDurations(double& meanHalting, double& maxHalting, double& haltingSum,
+                             double& meanIntervalHalting, double& maxIntervalHalting, double& intervalHaltingSum) const {
+        SUMOTime sumH = 0, maxH = 0;
+        int countH = 0;
+        for (const SUMOTime d : myPastStandingDurations) {
+            sumH += d;
+            maxH = MAX2(maxH, d);
+            countH++;
+        }
+        for (const auto& item : myHaltingVehicleDurations) {
+            sumH += item.second;
+            maxH = MAX2(maxH, item.second);
+            countH++;
+        }
+        meanHalting = STEPS2TIME(countH != 0 ? sumH / countH : 0);
+        maxHalting = STEPS2TIME(maxH);
+        haltingSum = STEPS2TIME(sumH);
+
+        SUMOTime sumIH = 0, maxIH = 0;
+        int countIH = 0;
+        for (const SUMOTime d : myPastIntervalStandingDurations) {
+            sumIH += d;
+            maxIH = MAX2(maxIH, d);
+            countIH++;
+        }
+        for (const auto& item : myIntervalHaltingVehicleDurations) {
+            sumIH += item.second;
+            maxIH = MAX2(maxIH, item.second);
+            countIH++;
+        }
+        meanIntervalHalting = STEPS2TIME(countIH != 0 ? sumIH / countIH : 0);
+        maxIntervalHalting = STEPS2TIME(maxIH);
+        intervalHaltingSum = STEPS2TIME(sumIH);
+    }
 
     double getLastIntervalOccupancy() const {
         return myPreviousMeanOccupancy;

@@ -1,0 +1,24 @@
+sampledSeconds=15.22
+nVehEntered=2
+nVehLeft=2
+nVehSeen=2
+meanSpeed=4.05
+meanTimeLoss=5.44
+meanOccupancy=6.13
+maxOccupancy=25.00
+meanMaxJamLengthInVehicles=0.17
+meanMaxJamLengthInMeters=0.83
+maxJamLengthInVehicles=1
+maxJamLengthInMeters=5.00
+jamLengthInVehiclesSum=5
+jamLengthInMetersSum=25.00
+meanHaltingDuration=6.00
+maxHaltingDuration=6.00
+haltingDurationSum=6.00
+meanIntervalHaltingDuration=6.00
+maxIntervalHaltingDuration=6.00
+intervalHaltingDurationSum=6.00
+startedHalts=1
+meanVehicleNumber=0.53
+maxVehicleNumber=2
+all 23 XML measures match: True []

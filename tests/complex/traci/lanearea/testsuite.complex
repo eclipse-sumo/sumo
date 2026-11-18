@@ -12,3 +12,6 @@ null
 
 # vehicle override
 override
+
+# retrieve all aggregated E2 XML measures via getParameter (#2139)
+aggregated_measures
