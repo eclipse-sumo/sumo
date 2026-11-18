@@ -32,6 +32,7 @@
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
 #include <mesosim/MEVehicle.h>
+#include <microsim/MSStop.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/cfmodels/MSCFModel.h>
 #include <utils/options/OptionsCont.h>
@@ -176,26 +177,39 @@ MSQueueExport::writeMesoQueue(OutputDevice* of, const MSEdge& edge, const MESegm
     const int queueSize = (int)queue.size();
     // maximum of all vehicle waiting times
     double queueing_time = 0.0;
-    // position of the last slow vehicle counted from the head of the queue
+    // position of the last queued vehicle counted from the head of the queue (without stopped vehicles)
     int queueing_count = 0;
-    // distance from the segment end to the back of the last slow vehicle
+    // distance from the segment end to the back of the last queued vehicle (without stopped vehicles)
     double queueing_length = 0.0;
+    // number and length of the vehicles seen so far which are not stopped
+    int count = 0;
     double occupancy = 0.0;
+    // length of the stopped vehicles seen so far
+    double stoppedOccupancy = 0.0;
     const double segLength = segment.getLength();
     const double segmentEnd = segmentOffset + segLength;
     const double lanesCovered = segment.numQueues() == 1 ? std::round(segment.getCapacity() / segLength) : 1.;
+    // with interpolated positions a vehicle is queued if its position barely changed since the previous step
+    const bool usePositions = MSGlobals::gMesoInterpolatePos;
+    const std::map<const MEVehicle*, std::pair<double, int> >* const mesoPos = usePositions ? &edge.getMesoPositions() : nullptr;
     // positions and earliest exit times are interpolated as in MSEdge::getMesoPositions
     SUMOTime earliestExitTime = segment.getQueueBlockTime(qIdx);
     // conservative exit times use the jam-dependent headway as in MESegment::getMeanSpeed
     SUMOTime conservativeExitTime = earliestExitTime;
     double prevPos = std::numeric_limits<double>::max();
-    bool prevQueued = false;
+    // whether the vehicle ahead is queued or stopped and thus blocks the current vehicle
+    bool prevBlocking = false;
+    // whether the blocking vehicles ahead wait behind a stopped vehicle
+    bool behindStop = false;
+    // the queue is measured from the segment end or from the back of a stopped vehicle at its head
+    double queueFront = segmentEnd;
+    bool haveQueueFront = false;
+    const MSLane* const lane = edge.getLanes()[qIdx];
     const double now = SIMTIME;
     for (int i = 0; i < queueSize; ++i) {
         // vehicles are stored in reverse entry order (the queue head is at the back)
         const MEVehicle* const veh = queue[queueSize - 1 - i];
         const double lengthWithGap = veh->getVehicleType().getLengthWithGap();
-        occupancy += lengthWithGap;
         earliestExitTime = MAX2(earliestExitTime, veh->getEventTime());
         conservativeExitTime = MAX2(conservativeExitTime, veh->getEventTime());
         double maxPos = segmentEnd;
@@ -206,24 +220,68 @@ MSQueueExport::writeMesoQueue(OutputDevice* of, const MSEdge& edge, const MESegm
         }
         const double entry = veh->getLastEntryTimeSeconds();
         const double travelTime = MAX2(STEPS2TIME(earliestExitTime) - entry, TS);
-        const double linearPos = MIN2(segmentEnd, segmentOffset + segLength * (now - entry) / travelTime);
-        // conservative speed of the interpolated position trajectory. Unlike
-        // getSpeed() this accounts for blocked vehicles further ahead in the queue
-        const double interpolatedSpeed = segLength / MAX2(STEPS2TIME(conservativeExitTime) - entry, TS);
-        // a vehicle is queued if it is slow by itself or if it has caught up
-        // with the clamped position behind a queued vehicle ahead
-        const bool queued = MIN2(veh->getSpeed(), interpolatedSpeed) < threshold || (prevQueued && linearPos >= maxPos - POSITION_EPS);
-        if (queued) {
-            queueing_count = i + 1;
-            queueing_time = MAX2(veh->getWaitingSeconds(), queueing_time);
-            if (MSGlobals::gMesoInterpolatePos) {
-                queueing_length = MAX2(0., segmentEnd - (veh->getPositionOnLane() - veh->getVehicleType().getLength()));
-            } else {
-                queueing_length = occupancy / lanesCovered;
+        double pos = MIN2(maxPos, segmentOffset + segLength * (now - entry) / travelTime);
+        bool slow;
+        if (usePositions) {
+            const auto it = mesoPos->find(veh);
+            if (it != mesoPos->end()) {
+                pos = it->second.first;
             }
+            // vehicles without a position in the previous step have just entered the edge and are thus moving
+            const double posSpeed = edge.getMesoPositionSpeed(veh);
+            // the tolerance allows for a threshold of 0 (vehicle did not move at all)
+            slow = posSpeed >= 0 && posSpeed <= threshold + NUMERICAL_EPS;
+        } else {
+            // conservative speed of the interpolated position trajectory. Unlike
+            // getSpeed() this accounts for blocked vehicles further ahead in the queue
+            const double interpolatedSpeed = segLength / MAX2(STEPS2TIME(conservativeExitTime) - entry, TS);
+            slow = MIN2(veh->getSpeed(), interpolatedSpeed) < threshold;
         }
-        prevQueued = queued;
-        prevPos = MIN2(linearPos, maxPos);
+        // the position the vehicle would have reached at free-flow speed (without being blocked)
+        const double freePos = segmentOffset + lane->getVehicleMaxSpeed(veh) * (now - entry);
+        if (veh->isStopped()) {
+            // stopped vehicles are not part of the queue but the vehicles behind them may be
+            const double stopPos = MAX2(segmentOffset, MIN2(segmentEnd, veh->getNextStop().pars.endPos));
+            pos = MIN3(maxPos, freePos, stopPos);
+            if (!haveQueueFront) {
+                // the queue starts behind the stopped vehicle
+                queueFront = pos - veh->getVehicleType().getLength();
+                haveQueueFront = true;
+                count = 0;
+                occupancy = 0.;
+            } else {
+                stoppedOccupancy += lengthWithGap;
+            }
+            prevBlocking = true;
+            behindStop = true;
+        } else {
+            count++;
+            occupancy += lengthWithGap;
+            // the vehicle has caught up with the clamped position behind a blocking vehicle ahead
+            bool queued = slow || (prevBlocking && pos >= maxPos - POSITION_EPS);
+            // The interpolated positions spread the waiting time of a blocked vehicle over its whole travel
+            // time on the segment so that the vehicles at the back of a queue (or behind a stop) keep moving slowly.
+            // Instead they are queued as soon as they would have reached the vehicle ahead at free-flow speed.
+            // Without position interpolation this applies only behind a stopped vehicle.
+            if (prevBlocking && (usePositions || behindStop) && freePos >= maxPos - POSITION_EPS) {
+                queued = true;
+                pos = maxPos;
+            }
+            if (queued) {
+                haveQueueFront = true;
+                queueing_count = count;
+                queueing_time = MAX2(veh->getWaitingSeconds(), queueing_time);
+                if (usePositions) {
+                    queueing_length = MAX2(0., queueFront - (pos - veh->getVehicleType().getLength()) - stoppedOccupancy / lanesCovered);
+                } else {
+                    queueing_length = occupancy / lanesCovered;
+                }
+            } else {
+                behindStop = false;
+            }
+            prevBlocking = queued;
+        }
+        prevPos = pos;
     }
     if (queueing_count == 0) {
         return;

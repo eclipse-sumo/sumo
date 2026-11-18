@@ -65,13 +65,32 @@ This slope is derived from the earliest exit times chained along the
 queue (the same computation used by
 [**--meso-interpolate-pos**](../Meso.md)) and therefore reflects
 blocked vehicles further ahead, whereas the plain vehicle speed in
-mesosim only drops once a vehicle becomes the queue head. The
-generated `lane` elements carry the additional attributes `segment`
+mesosim only drops once a vehicle becomes the queue head.
+
+When **--meso-interpolate-pos** is active, a vehicle instead counts as
+queued if its interpolated position changed by less than the speed
+threshold times the elapsed time since the previous simulation step
+(so a threshold of 0 means the vehicle did not move at all). Since the
+interpolation spreads the waiting time of a blocked vehicle over its
+whole travel time on the segment, vehicles at the back of a queue keep
+moving slowly. Therefore a vehicle behind a queued vehicle also counts
+as queued as soon as it would have reached the back of the queue when
+driving at its maximum speed.
+
+Vehicles at a stop (which are not parking) are not counted as queued
+but the vehicles waiting behind them are (using the same free-flow
+criterion, with or without **--meso-interpolate-pos**). If the queue
+starts behind a stopped vehicle, its length is measured from the back
+of the stopped vehicle. Parking vehicles are never part of a queue.
+
+The generated `lane` elements carry the additional attributes `segment`
 (index of the segment within the edge) and `queueing_count` (queue
-length in vehicles). The attribute `queueing_length` gives the
-distance from the segment end to the back of the last queued vehicle
-when **--meso-interpolate-pos** is active and the summed vehicle
-lengths (including minGap) up to the last queued vehicle otherwise.
+length in vehicles, without stopped vehicles). The attribute
+`queueing_length` gives the distance from the segment end (or the
+stopped vehicle at the queue head) to the back of the last queued
+vehicle (without the length of stopped vehicles in between) when
+**--meso-interpolate-pos** is active and the summed vehicle lengths
+(including minGap) up to the last queued vehicle otherwise.
 
 ## Aggregated Output
 
