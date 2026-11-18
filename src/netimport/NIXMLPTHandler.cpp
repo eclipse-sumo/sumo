@@ -143,7 +143,7 @@ NIXMLPTHandler::myEndElement(int element) {
 
 bool
 NIXMLPTHandler::reportError(const std::string& msg, const std::string& edgeID, const std::string& id) {
-    const bool ignored = myEdgeCont.wasIgnored(edgeID);
+    const bool ignored = myEdgeCont.wasIgnored(edgeID) || myEdgeCont.wasRemoved(edgeID);
     if (!ignored && !myWarnOnly) {
         WRITE_ERRORF(msg, edgeID, id);
         return true;
@@ -329,6 +329,12 @@ NIXMLPTHandler::addPTLineRoute(const SUMOSAXAttributes& attrs) {
     for (const std::string& edgeID : edgeIDs) {
         NBEdge* edge = myEdgeCont.retrieve(edgeID);
         if (edge == nullptr) {
+            edge = myEdgeCont.retrieve(edgeID, true);
+            if (edge != nullptr && myEdgeCont.getSplit(edge) == nullptr) {
+                edge = nullptr;
+            }
+        }
+        if (edge == nullptr) {
             reportError(TL("Edge '%' in route of line '%' not found"), edgeID, myCurrentLine->getLineID());
         } else {
             edges.push_back(edge);
@@ -347,7 +353,13 @@ NIXMLPTHandler::addRoute(const SUMOSAXAttributes& attrs) {
     for (const std::string& edgeID : edgeIDs) {
         NBEdge* edge = myEdgeCont.retrieve(edgeID);
         if (edge == nullptr) {
-            reportError(TL("Edge '%' in route of line '%' not found"), edgeID, myCurrentLine->getLineID());
+            edge = myEdgeCont.retrieve(edgeID, true);
+            if (edge != nullptr && myEdgeCont.getSplit(edge) == nullptr) {
+                edge = nullptr;
+            }
+        }
+        if (edge == nullptr) {
+            reportError(TL("Edge '%' in route '%' not found"), edgeID, myCurrentRouteID);
         } else {
             edges.push_back(edge);
         }

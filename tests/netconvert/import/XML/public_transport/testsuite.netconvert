@@ -37,3 +37,6 @@ split_stop_edge3
 
 # adapt stop edge and position when the stop edge is split multiple times
 split_stop_edge_multiple
+
+# load ptstops and ptlines when an edge is deleted via edg.xml patch (#8528)
+delete_edge_ptline
