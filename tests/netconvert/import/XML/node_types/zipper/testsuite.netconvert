@@ -16,3 +16,6 @@ merge_intersection_difficult_angles
 
 # two edges merging into one
 merge_intersection_difficult_angles_pass
+
+# zipper junctions where no lanes merge
+nothing_to_zip

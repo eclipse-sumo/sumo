@@ -1,1 +1,4 @@
 Warning: Invalid node type 'internal' for junction 'Dn24' in input network
+Warning: Junction 'Z01' of type 'zipper' has nothing to zip.
+Warning: Junction 'Z02' of type 'zipper' has nothing to zip.
+Warning: Junction 'Z04' of type 'zipper' has nothing to zip.
