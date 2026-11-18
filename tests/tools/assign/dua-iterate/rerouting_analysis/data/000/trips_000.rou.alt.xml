@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="v0" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="100.00" probability="1.00000000" edges="E0 E1 E3"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="v1" depart="1.00">
+        <routeDistribution last="0">
+            <route cost="120.00" probability="1.00000000" edges="E0 E1 E3"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="v2" depart="2.00">
+        <routeDistribution last="0">
+            <route cost="80.00" probability="1.00000000" edges="E4 E5"/>
+        </routeDistribution>
+    </vehicle>
+</routes>
