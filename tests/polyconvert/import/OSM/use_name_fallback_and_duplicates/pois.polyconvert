@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18T03:46:39.326844+00:00 by Eclipse SUMO polyconvert v1_28_0+0644-bda840e3afe
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<polyconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+        <osm.use-name value="true"/>
+        <osm.merge-relations value="20"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="pois.poi.xml"/>
+    </output>
+
+    <projection>
+        <proj.scale value="1.00000"/>
+        <proj.utm value="true"/>
+        <proj.plain-geo value="true"/>
+    </projection>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+    </report>
+
+</polyconvertConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poly id="Central Park" type="tourism" color="207,245,201" fill="1" layer="-2.000000" geo="1" shape="13.527275,52.426146 13.527302,52.425832 13.529100,52.426299 13.527275,52.426146"/>
+    <poly id="Nordbruecke" type="unknown" color="51,128,255" fill="0" layer="-1.00" geo="1" shape="13.527302,52.425832 13.526713,52.426404 13.526699,52.426279"/>
+    <poly id="Nordbruecke#1" type="unknown" color="51,128,255" fill="0" layer="-1.00" geo="1" shape="13.526699,52.426279 13.527275,52.426146 13.529100,52.426299"/>
+    <poi id="Parkhaus Ost" type="parking" color="184,184,179" layer="4.00" lon="13.526713" lat="52.426404"/>
+    <poi id="West Garage" type="parking" color="184,184,179" layer="4.00" lon="13.527302" lat="52.425832"/>
+    <poi id="West Garage#1" type="parking" color="184,184,179" layer="4.00" lon="13.526699" lat="52.426279"/>
+</additional>

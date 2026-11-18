@@ -368,11 +368,15 @@ PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const 
         return index;
     } else {
         const bool closedShape = vec.front() == vec.back();
-        const std::string idSuffix = (index == 0 ? "" : "#" + toString(index));
-        const std::string id = def.prefix + (useName && edge->name != "" ? edge->name : toString(edge->id)) + idSuffix;
+        const std::string baseId = StringUtils::escapeXML(def.prefix + (useName && edge->name != "" ? edge->name : toString(edge->id)));
+        int dupIndex = index;
+        std::string id = baseId + (dupIndex == 0 ? "" : "#" + toString(dupIndex));
+        while (toFill.getPolygons().get(id) != nullptr) {
+            id = baseId + "#" + toString(++dupIndex);
+        }
         bool fill = def.allowFill == PCTypeMap::Filltype::FORCE || (def.allowFill == PCTypeMap::Filltype::FILL && closedShape);
         SUMOPolygon* poly = new SUMOPolygon(
-            StringUtils::escapeXML(id),
+            id,
             StringUtils::escapeXML(myFullType ? fullType : def.id),
             def.color, vec, false, fill, 1, def.layer,
             SUMOPolygon::DEFAULT_ANGLE,
@@ -397,10 +401,14 @@ PCLoaderOSM::addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap:
     if (def.discard) {
         return index;
     } else {
-        const std::string idSuffix = (index == 0 ? "" : "#" + toString(index));
-        const std::string id = def.prefix + (useName && node->name != "" ? node->name : toString(node->id)) + idSuffix;
+        const std::string baseId = StringUtils::escapeXML(def.prefix + (useName && node->name != "" ? node->name : toString(node->id)));
+        int dupIndex = index;
+        std::string id = baseId + (dupIndex == 0 ? "" : "#" + toString(dupIndex));
+        while (toFill.getPOIs().get(id) != nullptr) {
+            id = baseId + "#" + toString(++dupIndex);
+        }
         PointOfInterest* poi = new PointOfInterest(
-            StringUtils::escapeXML(id),
+            id,
             StringUtils::escapeXML(myFullType ? fullType : def.id),
             def.color, pos, false, "", 0, false, 0, def.icon, def.layer);
         if (withAttributes) {
@@ -460,6 +468,8 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         std::string key = attrs.getOpt<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok, "", false);
         std::string value = attrs.getOpt<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, "", false);
         if (key == "name") {
+            myToFill[myLastNodeID]->name = value;
+        } else if (StringUtils::startsWith(key, "name:") && myToFill[myLastNodeID]->name.empty()) {
             myToFill[myLastNodeID]->name = value;
         } else if (key == "") {
             myErrorHandler.inform("Empty key in a a tag while parsing node '" + toString(myLastNodeID) + "' occurred.");
@@ -555,6 +565,8 @@ PCLoaderOSM::RelationsHandler::myStartElement(int element, const SUMOSAXAttribut
         }
         if (key == "name") {
             myCurrentRelation->name = value;
+        } else if (StringUtils::startsWith(key, "name:") && myCurrentRelation->name.empty()) {
+            myCurrentRelation->name = value;
         } else if (MyKeysToInclude.count(key) > 0) {
             myCurrentRelation->keep = true;
             for (std::vector<long long int>::iterator it = myCurrentWays.begin(); it != myCurrentWays.end(); ++it) {
@@ -642,6 +654,8 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         }
         if (key == "name") {
             myCurrentEdge->name = value;
+        } else if (StringUtils::startsWith(key, "name:") && myCurrentEdge->name.empty()) {
+            myCurrentEdge->name = value;
         } else if (MyKeysToInclude.count(key) > 0) {
             myKeep = true;
             myCurrentEdge->standalone = true;
@@ -659,6 +673,9 @@ PCLoaderOSM::EdgesHandler::myEndElement(int element) {
             RelationsMap::const_iterator it = myAdditionalWays.find(myCurrentEdge->id);
             if (it != myAdditionalWays.end()) {
                 myCurrentEdge->myAttributes.insert((*it).second->myAttributes.begin(), (*it).second->myAttributes.end());
+                if (myCurrentEdge->name.empty()) {
+                    myCurrentEdge->name = (*it).second->name;
+                }
             }
             myEdgeMap[myCurrentEdge->id] = myCurrentEdge;
         } else {

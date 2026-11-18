@@ -1,6 +1,9 @@
 # whether using the name works
 use_name
 
+# fallback to name:* tags and handling of duplicate names
+use_name_fallback_and_duplicates
+
 # same but without the osm.use-name option
 use_name.plain
 
