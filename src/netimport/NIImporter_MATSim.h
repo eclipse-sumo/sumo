@@ -24,6 +24,7 @@
 #include <string>
 #include <map>
 #include <netbuild/NBCapacity2Lanes.h>
+#include <utils/geom/Boundary.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
 
@@ -31,6 +32,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class GeoConvHelper;
 class NBEdge;
 class NBEdgeCont;
 class NBNetBuilder;
@@ -94,12 +96,23 @@ private:
          * @see GenericSAXHandler::myStartElement
          */
         void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        void myCharacters(int element, const std::string& chars);
+        void myEndElement(int element);
         //@}
 
 
     private:
+        void applyCRS();
+
         /// @brief The nodes container to fill
         NBNodeCont& myNodeCont;
+        bool myInNetworkAttributes;
+        bool myInNodesOrLinks;
+        bool myReadCRS;
+        std::string myCRS;
+        GeoConvHelper* myLoadedProj;
+        Boundary myOrigBoundary;
+        Boundary myConvBoundary;
 
 
     private:
@@ -192,9 +205,12 @@ private:
     enum MatsimXMLTag {
         MATSIM_TAG_NOTHING = 0,
         MATSIM_TAG_NETWORK,
+        MATSIM_TAG_NODES,
         MATSIM_TAG_NODE,
         MATSIM_TAG_LINK,
-        MATSIM_TAG_LINKS
+        MATSIM_TAG_LINKS,
+        MATSIM_TAG_ATTRIBUTES,
+        MATSIM_TAG_ATTRIBUTE
     };
 
 
@@ -206,6 +222,7 @@ private:
     enum MatsimXMLAttr {
         MATSIM_ATTR_NOTHING = 0,
         MATSIM_ATTR_ID,
+        MATSIM_ATTR_NAME,
         MATSIM_ATTR_X,
         MATSIM_ATTR_Y,
         MATSIM_ATTR_FROM,
