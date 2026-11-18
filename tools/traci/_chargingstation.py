@@ -106,6 +106,14 @@ class ChargingStationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_CS_TOTAL_POWER, stopID)
 
+    def getDischargePower(self, stopID):
+        """getDischargePower(string) -> double
+
+        Get the maximum power in W which is fed into the grid per discharging vehicle
+        (vehicle-to-grid, 0 means that vehicles are not discharged at this station).
+        """
+        return self._getUniversal(tc.VAR_CS_DISCHARGE_POWER, stopID)
+
     def setChargingPower(self, stopID, power):
         """setChargingPower(string, double) -> None
 
@@ -140,3 +148,11 @@ class ChargingStationDomain(Domain):
         Sets the total charging power limit for all vehicles in this charging station.
         """
         self._setCmd(tc.VAR_CS_TOTAL_POWER, stopID, "d", totalPower)
+
+    def setDischargePower(self, stopID, dischargePower):
+        """setDischargePower(string, double) -> None
+
+        Sets the maximum power in W which is fed into the grid per discharging vehicle
+        (vehicle-to-grid, 0 disables discharging at this station).
+        """
+        self._setCmd(tc.VAR_CS_DISCHARGE_POWER, stopID, "d", dischargePower)
