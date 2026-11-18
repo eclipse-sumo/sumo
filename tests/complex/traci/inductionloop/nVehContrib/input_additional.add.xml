@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <inductionLoop id="e1_0" lane="SC_0" pos="25" period="1" file="e1.xml"/>
+</additional>
