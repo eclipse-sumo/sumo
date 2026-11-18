@@ -776,27 +776,8 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand& cmd) {
     int& index = cmd.getIndex();
     WAUT* waut = myWAUTs[wautid];
     WAUTSwitch s = waut->switches[index];
-    for (std::vector<WAUTJunction>::iterator i = myWAUTs[wautid]->junctions.begin(); i != myWAUTs[wautid]->junctions.end(); ++i) {
-        // get the current program and the one to instantiate
-        TLSLogicVariants* vars = myLogics.find((*i).junction)->second;
-        MSTrafficLightLogic* from = vars->getActive();
-        MSTrafficLightLogic* to = vars->getLogicInstantiatingOff(*this, s.to);
-        WAUTSwitchProcedure* proc = nullptr;
-        if ((*i).procedure == "GSP") {
-            proc = new WAUTSwitchProcedure_GSP(*this, *myWAUTs[wautid], from, to, (*i).synchron);
-        } else if ((*i).procedure == "Stretch") {
-            proc = new WAUTSwitchProcedure_Stretch(*this, *myWAUTs[wautid], from, to, (*i).synchron);
-        } else {
-            proc = new WAUTSwitchProcedure_JustSwitch(*this, *myWAUTs[wautid], from, to, (*i).synchron);
-        }
-
-        WAUTSwitchProcess p;
-        p.junction = (*i).junction;
-        p.proc = proc;
-        p.from = from;
-        p.to = to;
-
-        myCurrentlySwitched.push_back(p);
+    for (const WAUTJunction& j : waut->junctions) {
+        initSwitchProcess(*waut, j, s.to);
     }
     index++;
     if (index == (int)waut->switches.size()) {
@@ -810,6 +791,25 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand& cmd) {
         }
     }
     return myWAUTs[wautid]->switches[index].when - MSNet::getInstance()->getCurrentTimeStep();
+}
+
+
+void
+MSTLLogicControl::initSwitchProcess(WAUT& waut, const WAUTJunction& junction, const std::string& to) {
+    // get the current program and the one to instantiate
+    TLSLogicVariants* vars = myLogics.find(junction.junction)->second;
+    WAUTSwitchProcess p;
+    p.junction = junction.junction;
+    p.from = vars->getActive();
+    p.to = vars->getLogicInstantiatingOff(*this, to);
+    if (junction.procedure == "GSP") {
+        p.proc = new WAUTSwitchProcedure_GSP(*this, waut, p.from, p.to, junction.synchron);
+    } else if (junction.procedure == "Stretch") {
+        p.proc = new WAUTSwitchProcedure_Stretch(*this, waut, p.from, p.to, junction.synchron);
+    } else {
+        p.proc = new WAUTSwitchProcedure_JustSwitch(*this, waut, p.from, p.to, junction.synchron);
+    }
+    myCurrentlySwitched.push_back(p);
 }
 
 
@@ -857,13 +857,38 @@ MSTLLogicControl::saveState(OutputDevice& out) {
     for (const auto& logic : myLogics) {
         logic.second->saveState(out);
     }
+    for (const WAUTSwitchProcess& p : myCurrentlySwitched) {
+        out.openTag(SUMO_TAG_WAUT_SWITCH);
+        out.writeAttr(SUMO_ATTR_WAUT_ID, p.proc->getWAUTID());
+        out.writeAttr(SUMO_ATTR_JUNCTION_ID, p.junction);
+        out.writeAttr(SUMO_ATTR_TO, p.to->getProgramID());
+        out.closeTag();
+    }
     MSDriveWay::saveState(out);
+}
+
+
+void
+MSTLLogicControl::loadWAUTSwitch(const std::string& wautID, const std::string& junctionID, const std::string& to) {
+    auto it = myWAUTs.find(wautID);
+    if (it == myWAUTs.end()) {
+        throw ProcessError(TLF("Unknown WAUT '%' in loaded state.", wautID));
+    }
+    for (const WAUTJunction& j : it->second->junctions) {
+        if (j.junction == junctionID) {
+            initSwitchProcess(*it->second, j, to);
+        }
+    }
 }
 
 
 void
 MSTLLogicControl::clearState(SUMOTime time, bool quickReload) {
     MSRailSignalConstraint::clearState();
+    for (const WAUTSwitchProcess& p : myCurrentlySwitched) {
+        delete p.proc;
+    }
+    myCurrentlySwitched.clear();
     if (quickReload) {
         for (const auto& variants : myLogics) {
             for (auto& logic : variants.second->getAllLogics()) {

@@ -23,6 +23,7 @@
                 <xsd:element name="railSignalConstraintTracker" type="railSignalConstraintTrackerType" minOccurs="0"/>
                 <xsd:element name="railSignalConstraints" type="railSignalConstraintsType" minOccurs="0"/>
                 <xsd:element name="tlLogic" type="tlStateType" minOccurs="0"/>
+                <xsd:element name="wautSwitch" type="wautSwitchStateType" minOccurs="0"/>
                 <xsd:element name="inductionLoop" type="inductionLoopStateType" minOccurs="0"/>
                 <xsd:element name="driveWay" type="driveWayStateType" minOccurs="0"/>
                 <xsd:element name="subDriveWay" type="driveWayStateType" minOccurs="0"/>
@@ -269,6 +270,12 @@
         <xsd:attribute name="until" type="xsd:integer" use="required"/>
         <xsd:attribute name="cycleTime" type="xsd:integer" use="required"/>
         <xsd:attribute name="active" type="boolType"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="wautSwitchStateType">
+        <xsd:attribute name="wautID" type="idType" use="required"/>
+        <xsd:attribute name="junctionID" type="idType" use="required"/>
+        <xsd:attribute name="to" type="xsd:string" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="inductionLoopStateType">

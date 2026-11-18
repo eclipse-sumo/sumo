@@ -498,6 +498,9 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             tl->loadState(tlc, myTime, phase, spentDuration, nextSwitch, timeInCycle, active);
             break;
         }
+        case SUMO_TAG_WAUT_SWITCH:
+            MSNet::getInstance()->getTLSControl().loadWAUTSwitch(attrs.getString(SUMO_ATTR_WAUT_ID), attrs.getString(SUMO_ATTR_JUNCTION_ID), attrs.getString(SUMO_ATTR_TO));
+            break;
         case SUMO_TAG_INDUCTION_LOOP: {
             MSDetectorFileOutput* const det = MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(attrs.getString(SUMO_ATTR_ID));
             // the detector may belong to an output which is not loaded
