@@ -227,7 +227,7 @@ MSSimpleDriverState::getPerceivedOwnSpeed(double speed) {
 
 
 double
-MSSimpleDriverState::getPerceivedHeadway(const double trueGap, const void* objID) {
+MSSimpleDriverState::getPerceivedHeadway(const double trueGap, const std::string& objID) {
 #ifdef DEBUG_PERCEPTION_ERRORS
     if (DEBUG_COND) {
         if (!debugLocked()) {
@@ -236,6 +236,9 @@ MSSimpleDriverState::getPerceivedHeadway(const double trueGap, const void* objID
         }
     }
 #endif
+    if (myLockedHeadway.count(objID) > 0) {
+        return myAssumedGap[objID];
+    }
 
     const double perceivedGap = trueGap + myHeadwayErrorCoefficient * myError.getState() * trueGap;
     const auto assumedGap = myAssumedGap.find(objID);
@@ -270,7 +273,10 @@ MSSimpleDriverState::getPerceivedHeadway(const double trueGap, const void* objID
 void
 MSSimpleDriverState::updateAssumedGaps() {
     for (auto& p : myAssumedGap) {
-        const void* objID = p.first;
+        const std::string& objID = p.first;
+        if (myLockedHeadway.count(objID) > 0) {
+            continue;
+        }
         const auto speedDiff = myLastPerceivedSpeedDifference.find(objID);
         double assumedSpeedDiff;
         if (speedDiff != myLastPerceivedSpeedDifference.end()) {
@@ -285,7 +291,7 @@ MSSimpleDriverState::updateAssumedGaps() {
 }
 
 double
-MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifference, const double trueGap, const void* objID) {
+MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifference, const double trueGap, const std::string& objID) {
 #ifdef DEBUG_PERCEPTION_ERRORS
     if (DEBUG_COND) {
         if (!debugLocked()) {
@@ -294,6 +300,9 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
         }
     }
 #endif
+    if (myLockedSpeedDifference.count(objID) > 0) {
+        return myLastPerceivedSpeedDifference[objID];
+    }
     const double perceivedSpeedDifference = trueSpeedDifference + mySpeedDifferenceErrorCoefficient * myError.getState() * trueGap;
     const auto lastPerceivedSpeedDifference = myLastPerceivedSpeedDifference.find(objID);
     if (lastPerceivedSpeedDifference == myLastPerceivedSpeedDifference.end()
