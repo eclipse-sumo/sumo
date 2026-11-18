@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="busType" vClass="bus"/>
+    <vType id="carType" vClass="passenger"/>
+    <vType id="pedType" vClass="pedestrian"/>
+    <route id="r_bus" edges="e0 e1 e2"/>
+    <route id="r_car" edges="e0 e2"/>
+    <vehicle id="bus_1" type="busType" line="L1" depart="0" route="r_bus">
+        <stop busStop="bs0" duration="20"/>
+    </vehicle>
+    <vehicle id="car_1" type="carType" depart="15" route="r_car"/>
+    <person id="p_walk" type="pedType" depart="10">
+        <walk edges="e0 e1"/>
+    </person>
+</routes>

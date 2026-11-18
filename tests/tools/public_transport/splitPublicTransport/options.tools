@@ -1,0 +1,1 @@
+-r input_routes.rou.xml --pt-output outA.rou.xml --individual-output outB.rou.xml --persons-output out.rou.xml tools/route/splitPublicTransport.py

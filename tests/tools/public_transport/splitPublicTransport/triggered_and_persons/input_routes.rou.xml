@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="tramType" vClass="tram"/>
+    <vType id="carType" vClass="passenger"/>
+    <vehicle id="tram_0" type="tramType" line="T1" depart="0.00">
+        <route edges="e0 e1 e2"/>
+    </vehicle>
+    <vehicle id="solo_car" type="carType" depart="10.00">
+        <route edges="e2 e1"/>
+    </vehicle>
+    <vehicle id="priv_car1" type="carType" depart="triggered">
+        <route edges="e0 e1"/>
+    </vehicle>
+    <person id="p_pt" depart="5.00">
+        <ride from="e0" to="e2" lines="T1"/>
+    </person>
+    <person id="p_trig" depart="20.00">
+        <ride from="e0" to="e1" lines="priv_car1"/>
+    </person>
+    <person id="p_vehroute" depart="30.00">
+        <walk edges="e0"/>
+        <ride from="e0" to="e2" lines="priv_car2"/>
+    </person>
+    <vehicle id="priv_car2" type="carType" depart="50.00">
+        <route edges="e0 e2"/>
+    </vehicle>
+</routes>
