@@ -13,6 +13,9 @@ save2_mismatch
 # state saving times are not reached
 save2_begin_mismatch
 
+# vehicles skipped because they depart before begin leave no routes in the state
+save_skipped_routes
+
 # save multiple states
 save_at_interval
 

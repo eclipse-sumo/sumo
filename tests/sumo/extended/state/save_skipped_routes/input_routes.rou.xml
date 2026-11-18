@@ -1,0 +1,9 @@
+<routes>
+    <vehicle id="skipped" depart="0">
+        <route edges="beg middle end"/>
+    </vehicle>
+    <trip id="skippedTrip" depart="0" from="beg" to="end"/>
+    <vehicle id="v0" depart="5">
+        <route edges="beg middle end"/>
+    </vehicle>
+</routes>
