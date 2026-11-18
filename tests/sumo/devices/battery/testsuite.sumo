@@ -73,3 +73,15 @@ chargeLevelDist_error
 
 # test effect of person mass on consumption
 load_unload_persons
+
+# vehicles discharging into a bidirectional charging station (vehicle-to-grid), limited by station, vehicle and minimum charge level
+chargingStations_v2g
+
+# no energy transfer while discharging during the charge delay
+chargingStations_v2g_chargeDelay
+
+# vehicles offering to discharge are charged at stations without discharging and when moving
+chargingStations_v2g_unidirectional
+
+# discharged energy in the aggregated charging station output
+chargingStations_v2g_aggregated
