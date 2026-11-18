@@ -1,0 +1,4 @@
+<     <tlLogic id="C" programID="a" phase="0" duration="10000" until="123000" cycleTime="10000" active="0"/>
+>     <tlLogic id="C" programID="a" phase="0" duration="10000" until="123000" cycleTime="10000" active="1"/>
+<     <tlLogic id="C" programID="b" phase="4" duration="8000" until="138000" cycleTime="40000" active="1"/>
+>     <tlLogic id="C" programID="b" phase="0" duration="10000" until="110000" cycleTime="10000" active="0"/>

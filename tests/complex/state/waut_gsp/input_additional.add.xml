@@ -1,0 +1,28 @@
+<additional>
+    <tlLogic id="C" type="static" programID="a" offset="0">
+        <phase duration="33" state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="3" state="yyyggrrrrryyyggrrrrr"/>
+        <phase duration="6" state="rrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="3" state="rrryyrrrrrrrryyrrrrr"/>
+        <phase duration="33" state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="3" state="rrrrryyyggrrrrryyygg"/>
+        <phase duration="6" state="rrrrrrrrGGrrrrrrrrGG"/>
+        <phase duration="3" state="rrrrrrrryyrrrrrrrryy"/>
+        <param key="GSP" value="60"/>
+    </tlLogic>
+    <tlLogic id="C" type="static" programID="b" offset="0">
+        <phase duration="20" state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="3" state="yyyggrrrrryyyggrrrrr"/>
+        <phase duration="6" state="rrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="3" state="rrryyrrrrrrrryyrrrrr"/>
+        <phase duration="46" state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="3" state="rrrrryyyggrrrrryyygg"/>
+        <phase duration="6" state="rrrrrrrrGGrrrrrrrrGG"/>
+        <phase duration="3" state="rrrrrrrryyrrrrrrrryy"/>
+    </tlLogic>
+
+    <WAUT refTime="0" id="w" startProg="a">
+        <wautSwitch time="30" to="b"/>
+    </WAUT>
+    <wautJunction wautID="w" junctionID="C" procedure="GSP"/>
+</additional>
