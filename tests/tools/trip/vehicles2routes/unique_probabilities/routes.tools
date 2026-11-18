@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18 00:08:36.018027 by Eclipse SUMO vehicles2routes.py v1_28_0+0644-bda840e3afe
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="out.rou.xml"/>
+    <unique value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="r_0" edges="e0 e1 e2" probability="0.4000"/>
+    <route id="r_1" edges="e0 e3" probability="0.6000"/>
+</routes>

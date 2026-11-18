@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18 00:08:36.022694 by Eclipse SUMO vehicles2routes.py v1_28_0+0644-bda840e3afe
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="out.rou.xml"/>
+    <keep-stops value="True"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="r_v0" edges="e0 e1 e2"/>
+    <route id="r_v1" edges="e0 e1 e2"/>
+    <route id="r_v2" edges="e0 e3">
+        <stop lane="e3_0" endPos="40.0" duration="15"/>
+    </route>
+    <route id="r_f0" edges="e0 e3"/>
+</routes>
