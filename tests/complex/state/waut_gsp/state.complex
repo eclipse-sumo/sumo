@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-18T11:15:50.942571+01:00 by Eclipse SUMO sumo v1_28_0+0650-0f76b5efaf1
+<!-- generated on 2026-11-18T11:13:38.998117+01:00 by Eclipse SUMO sumo v1_28_0+0650-0f76b5efaf1
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -35,4 +35,5 @@
     <tlLogic id="C" programID="0" phase="2" duration="4000" until="42000" cycleTime="40000" active="0"/>
     <tlLogic id="C" programID="a" phase="2" duration="4000" until="42000" cycleTime="40000" active="1"/>
     <tlLogic id="C" programID="b" phase="4" duration="8000" until="78000" cycleTime="40000" active="0"/>
+    <wautSwitch wautID="w" junctionID="C" to="b"/>
 </snapshot>
