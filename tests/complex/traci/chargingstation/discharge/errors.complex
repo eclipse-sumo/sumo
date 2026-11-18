@@ -1,0 +1,2 @@
+Error: Answered with error to command 0x45: Discharge power for chargingStation 'cs1' must not be negative.
+Error: Answered with error to command 0xc4: Vehicle 'v0' does not support device parameter 'device.battery.maximumDischargeRate' (Setting parameter 'maximumDischargeRate' requires a number for device of type 'battery').

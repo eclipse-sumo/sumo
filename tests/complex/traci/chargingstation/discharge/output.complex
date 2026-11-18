@@ -1,0 +1,57 @@
+dischargePower 0.0
+caught Discharge power for chargingStation 'cs1' must not be negative.
+dischargePower 7200.0
+maximumDischargeRate 0.0
+minimumChargeLevel 0.0
+caught Vehicle 'v0' does not support device parameter 'device.battery.maximumDischargeRate' (Setting parameter 'maximumDischargeRate' requires a number for device of type 'battery').
+maximumDischargeRate 3600.0
+minimumChargeLevel 12980.0
+time=2.0 cs=NULL chargeLevel=12999.1100 energyCharged=0.0000 energyDischarged=0.0000 totalEnergyDischarged=0.0000
+time=3.0 cs=NULL chargeLevel=12994.8700 energyCharged=0.0000 energyDischarged=0.0000 totalEnergyDischarged=0.0000
+time=4.0 cs=NULL chargeLevel=12988.8600 energyCharged=0.0000 energyDischarged=0.0000 totalEnergyDischarged=0.0000
+time=5.0 cs=NULL chargeLevel=12983.6100 energyCharged=0.0000 energyDischarged=0.0000 totalEnergyDischarged=0.0000
+time=6.0 cs=NULL chargeLevel=12975.9200 energyCharged=0.0000 energyDischarged=0.0000 totalEnergyDischarged=0.0000
+time=7.0 cs=NULL chargeLevel=12986.0300 energyCharged=0.0000 energyDischarged=0.0000 totalEnergyDischarged=0.0000
+time=8.0 cs=NULL chargeLevel=12993.2300 energyCharged=0.0000 energyDischarged=0.0000 totalEnergyDischarged=0.0000
+time=9.0 cs=NULL chargeLevel=12996.1200 energyCharged=0.0000 energyDischarged=0.0000 totalEnergyDischarged=0.0000
+time=10.0 cs=NULL chargeLevel=12996.1500 energyCharged=0.0000 energyDischarged=0.0000 totalEnergyDischarged=0.0000
+time=11.0 cs=NULL chargeLevel=12996.1200 energyCharged=0.0000 energyDischarged=0.0000 totalEnergyDischarged=0.0000
+time=12.0 cs=cs1 chargeLevel=12995.1000 energyCharged=0.0000 energyDischarged=1.0000 totalEnergyDischarged=1.0000
+time=13.0 cs=cs1 chargeLevel=12994.0700 energyCharged=0.0000 energyDischarged=1.0000 totalEnergyDischarged=2.0000
+time=14.0 cs=cs1 chargeLevel=12993.0400 energyCharged=0.0000 energyDischarged=1.0000 totalEnergyDischarged=3.0000
+time=15.0 cs=cs1 chargeLevel=12992.0200 energyCharged=0.0000 energyDischarged=1.0000 totalEnergyDischarged=4.0000
+time=16.0 cs=cs1 chargeLevel=12989.7700 energyCharged=0.0000 energyDischarged=2.2200 totalEnergyDischarged=6.2200
+time=17.0 cs=cs1 chargeLevel=12987.5200 energyCharged=0.0000 energyDischarged=2.2200 totalEnergyDischarged=8.4400
+time=18.0 cs=cs1 chargeLevel=12985.2700 energyCharged=0.0000 energyDischarged=2.2200 totalEnergyDischarged=10.6700
+time=19.0 cs=cs1 chargeLevel=12983.0200 energyCharged=0.0000 energyDischarged=2.2200 totalEnergyDischarged=12.8900
+time=20.0 cs=cs1 chargeLevel=12980.7700 energyCharged=0.0000 energyDischarged=2.2200 totalEnergyDischarged=15.1100
+time=21.0 cs=cs1 chargeLevel=12980.0000 energyCharged=0.0000 energyDischarged=0.7400 totalEnergyDischarged=15.8500
+time=22.0 cs=cs1 chargeLevel=12980.0000 energyCharged=0.0300 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=23.0 cs=cs1 chargeLevel=12980.0000 energyCharged=0.0300 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=24.0 cs=cs1 chargeLevel=12980.0000 energyCharged=0.0300 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=25.0 cs=cs1 chargeLevel=12980.0000 energyCharged=0.0300 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=26.0 cs=cs1 chargeLevel=12980.0000 energyCharged=0.0300 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=27.0 cs=cs1 chargeLevel=12980.0000 energyCharged=0.0300 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=28.0 cs=cs1 chargeLevel=12980.0000 energyCharged=0.0300 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=29.0 cs=cs1 chargeLevel=12980.0000 energyCharged=0.0300 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=30.0 cs=cs1 chargeLevel=12980.0000 energyCharged=0.0300 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=31.0 cs=cs1 chargeLevel=12985.4700 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=32.0 cs=cs1 chargeLevel=12990.9400 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=33.0 cs=cs1 chargeLevel=12996.4200 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=34.0 cs=cs1 chargeLevel=13001.8900 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=35.0 cs=cs1 chargeLevel=13007.3600 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=36.0 cs=cs1 chargeLevel=13012.8300 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=37.0 cs=cs1 chargeLevel=13018.3100 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=38.0 cs=cs1 chargeLevel=13023.7800 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=39.0 cs=cs1 chargeLevel=13029.2500 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=40.0 cs=cs1 chargeLevel=13034.7200 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=41.0 cs=cs1 chargeLevel=13040.1900 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=42.0 cs=cs1 chargeLevel=13045.6700 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=43.0 cs=cs1 chargeLevel=13051.1400 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=44.0 cs=cs1 chargeLevel=13056.6100 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=45.0 cs=cs1 chargeLevel=13062.0800 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=46.0 cs=cs1 chargeLevel=13067.5600 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=47.0 cs=cs1 chargeLevel=13073.0300 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=48.0 cs=cs1 chargeLevel=13078.5000 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=49.0 cs=cs1 chargeLevel=13083.9700 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
+time=50.0 cs=cs1 chargeLevel=13089.4400 energyCharged=5.5000 energyDischarged=0.0000 totalEnergyDischarged=15.8500
