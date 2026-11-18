@@ -1,0 +1,11 @@
+custom param: val0
+initial:
+  pa_0 cap=1 occ=0 res=0 ids=''
+  pa_1 cap=2 occ=0 res=0 ids=''
+after all reserved:
+  pa_0 cap=1 occ=0 res=1 ids='v0'
+  pa_1 cap=2 occ=0 res=2 ids='v1 v2'
+aliases: 2 v1 v2
+after v0 parked:
+  pa_0 cap=1 occ=1 res=0 ids=''
+  pa_1 cap=2 occ=1 res=1 ids='v2'

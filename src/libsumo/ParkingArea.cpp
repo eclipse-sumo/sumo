@@ -20,6 +20,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/ToString.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSStoppingPlace.h>
@@ -104,7 +105,22 @@ ParkingArea::setAcceptedBadges(const std::string& stopID, const std::vector<std:
 
 std::string
 ParkingArea::getParameter(const std::string& stopID, const std::string& param) {
-    return getParkingArea(stopID)->getParameter(param, "");
+    const MSParkingArea* pa = dynamic_cast<const MSParkingArea*>(getParkingArea(stopID));
+    if (param == "capacity") {
+        return toString(pa->getCapacity());
+    } else if (param == "occupancy") {
+        return toString(pa->getOccupancy());
+    } else if (param == "reservations" || param == "reservationCount") {
+        return toString(pa->getRemoteReservedVehicles().size());
+    } else if (param == "reservationIDs" || param == "reservedVehicles") {
+        std::vector<std::string> ids;
+        for (const SUMOVehicle* veh : pa->getRemoteReservedVehicles()) {
+            ids.push_back(veh->getID());
+        }
+        std::sort(ids.begin(), ids.end());
+        return toString(ids);
+    }
+    return pa->getParameter(param, "");
 }
 
 
