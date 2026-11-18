@@ -1,15 +1,15 @@
-Loading net-file from 'net.net.xml' ... done (6ms).
+Loading net-file from 'net.net.xml' ... done (5ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading route-files incrementally from 'input_routes2.rou.xml'
 Loading done.
-Simulation version v1_28_0+0111-6cad2727460 started with time: 0.00.
+Simulation version v1_28_0+0650-0f76b5efaf1 started with time: 0.00.
 Simulation ended at time: 1691.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.02s
- Real time factor: 73521.7
- UPS: 147043.478261
- UPS-Persons: 685956.521739
+ Duration: 0.10s
+ Real time factor: 16910
+ UPS: 33820.000000
+ UPS-Persons: 157770.000000
 Vehicles:
  Inserted: 2
  Running: 2
@@ -31,18 +31,18 @@ Ride Statistics (avg of 20 rides):
  Duration: 60.45
  Taxi: 20
 DijkstraRouter answered 92 queries and explored 27.21 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.01ms on average).
-Loading net-file from 'net.net.xml' ... done (9ms).
-Loading state from 'state.xml' ... done (30ms).
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+Loading net-file from 'net.net.xml' ... done (163ms).
+Loading state from 'state.xml' ... done (35ms).
 Loading done.
-Simulation version v1_28_0+0111-6cad2727460 started with time: 40.00.
+Simulation version v1_28_0+0650-0f76b5efaf1 started with time: 40.00.
 Simulation ended at time: 1691.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.07s
- Real time factor: 23927.5
- UPS: 47855.072464
- UPS-Persons: 227202.898551
+ Duration: 0.19s
+ Real time factor: 8689.47
+ UPS: 17378.947368
+ UPS-Persons: 82510.526316
 Vehicles:
  Inserted: 2
  Running: 2
@@ -55,7 +55,7 @@ Statistics (avg of 2):
  Speed: 13.79
  Duration: 1691.00
  WaitingTime: 0.00
- TimeLoss: 210.00
+ TimeLoss: 233.00
  DepartDelay: 0.00
  DepartDelayWaiting: 0.00
 Ride Statistics (avg of 20 rides):
@@ -65,5 +65,3 @@ Ride Statistics (avg of 20 rides):
  Taxi: 20
 DijkstraRouter answered 84 queries and explored 28.04 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
-<     <tripinfo id="trip_1" depart="0.00" departLane="A2B2_1" departPos="0.00" departSpeed="13.46" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="1691.00" routeLength="15543.33" waitingTime="0.00" waitingCount="0" stopTime="550.00" timeLoss="286.00" rerouteNo="19" devices="vehroute_trip_1 tripinfo_trip_1 routing_trip_1 taxi_trip_1 person_trip_1" vType="taxi" speedFactor="0.97" vaporized="">
->     <tripinfo id="trip_1" depart="0.00" departLane="A2B2_1" departPos="0.00" departSpeed="13.46" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="1691.00" routeLength="15543.33" waitingTime="0.00" waitingCount="0" stopTime="550.00" timeLoss="240.00" rerouteNo="19" devices="vehroute_trip_1 tripinfo_trip_1 routing_trip_1 taxi_trip_1 person_trip_1" vType="taxi" speedFactor="0.97" vaporized="">
