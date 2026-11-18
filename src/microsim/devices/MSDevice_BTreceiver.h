@@ -208,6 +208,15 @@ protected:
      */
     MSDevice_BTreceiver() {}
 
+    /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
+    std::string getParameter(const std::string& holderID, const std::string& key) const;
+
+    /// @brief try to set the given parameter for this device. Throw exception for unsupported key
+    void setParameter(const std::string& holderID, const std::string& key, const std::string& value);
+
+    /// @brief Custom per-instance recognition range (negative if using global default)
+    double myCustomRange = -1.;
+
 
     /// @brief Whether the bt-system was already initialised
     static bool myWasInitialised;
@@ -249,7 +258,7 @@ protected:
         }
 
         /// @brief Recognition range of the vehicle
-        const double range;
+        double range;
 
         /// @brief The map of devices seen by the vehicle at removal time
         std::map<std::string, SeenDevice*> currentlySeen;
@@ -402,6 +411,10 @@ public:
         return MSDevice_BTreceiver::notifyLeave(veh, lastPos, reason, enteredLane);
     }
 
+    std::string getParameter(const std::string& key) const override;
+
+    void setParameter(const std::string& key, const std::string& value) override;
+
 
     /** @brief Constructor
      *
@@ -451,6 +464,10 @@ public:
     bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0) {
         return MSDevice_BTreceiver::notifyLeave(veh, lastPos, reason, enteredLane);
     }
+
+    std::string getParameter(const std::string& key) const override;
+
+    void setParameter(const std::string& key, const std::string& value) override;
 
 
 private:
