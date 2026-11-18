@@ -176,3 +176,6 @@ delayed_taz_departure
 
 # see #11310
 tripinfoParameters
+
+# Cartesian getters reflect a lateral position update before the next step
+setLateralLanePosition
