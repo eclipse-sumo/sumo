@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18T04:41:44.784623+00:00 by Eclipse SUMO sumo v1_28_0+0644-bda840e3afe
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="65085"/>
+    </traci_server>
+
+</sumoConfiguration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="8.00" id="peds">
+        <edge id="SC" sampledSeconds="5.00" traveltime="5.00" overlapTraveltime="5.01" density="6.80" overlapDensity="6.80" laneDensity="3.40" occupancy="0.00" waitingTime="0.00" timeLoss="0.00" speed="18.39" speedRelative="1.32" departed="1" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0" vaporized="1" flow="450.00" distance="91.95"/>
+    </interval>
+</meandata>
