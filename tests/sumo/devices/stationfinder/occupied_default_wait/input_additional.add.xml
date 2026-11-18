@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <chargingStation id="CS1" lane="L2_0" startPos="2" endPos="20" power="10000" efficiency="0.95" chargeInTransit="false"/>
+    <chargingStation id="CS2" lane="L2_1" startPos="60" endPos="80" power="10000" efficiency="0.90" chargeInTransit="false"/>
+</additional>

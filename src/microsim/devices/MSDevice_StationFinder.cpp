@@ -203,15 +203,29 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
     }
     const SUMOTime now = SIMSTEP;
     if (myChargingStation != nullptr) {
-        if (myArrivalAtChargingStation > 0 && now - myArrivalAtChargingStation > myWaitForCharge) {
-            // waited for too long, try another charging station
+        const bool customWait = myHolder.getParameter().hasParameter("device.stationfinder.waitForCharge")
+                                || myHolder.getVehicleType().getParameter().hasParameter("device.stationfinder.waitForCharge")
+                                || !OptionsCont::getOptions().isDefault("device.stationfinder.waitForCharge")
+                                || myWaitForCharge != TIME2STEPS(600);
+        const SUMOTime maxWait = (!customWait && MSGlobals::gTimeToGridlock > 0)
+                                 ? MIN2(myWaitForCharge, MAX2(DELTA_T, MSGlobals::gTimeToGridlock / 2))
+                                 : myWaitForCharge;
+        if (myArrivalAtChargingStation >= 0 && now - myArrivalAtChargingStation > maxWait) {
+            // waited for too long, remember blocked station and try another charging station
+            rememberBlockedStoppingPlace(myVeh, myChargingStation, true);
             if (rerouteToChargingStation(true)) {
                 WRITE_MESSAGE(TLF("Rerouted vehicle '%' after waiting too long at the previous charging station at time=%.", veh.getID(), toString(SIMTIME)));
+            } else {
+                myArrivalAtChargingStation = now;
             }
-        } else if (myArrivalAtChargingStation < 0 && myVeh.willStop() && myVeh.getDistanceToPosition(myChargingStation->getBeginLanePosition(), myVeh.getLane()) < DEFAULT_CHARGINGSTATION_VIEW_DIST) {
-            // remember when the vehicle arrived close to the target charging station
-            mySearchState = SEARCHSTATE_WAITING;
-            myArrivalAtChargingStation = now;
+        } else if (myArrivalAtChargingStation < 0 && !myVeh.isStopped() && myVeh.hasStops() && myVeh.getStop(0).chargingStation == myChargingStation) {
+            const double distToStation = myVeh.getDistanceToPosition(myChargingStation->getBeginLanePosition(), &myChargingStation->getLane());
+            if (distToStation < DEFAULT_CHARGINGSTATION_VIEW_DIST
+                    || (myVeh.getWaitingTime() > 0 && distToStation < 100.)) {
+                // remember when the vehicle arrived close to (or queued for) the target charging station
+                mySearchState = SEARCHSTATE_WAITING;
+                myArrivalAtChargingStation = now;
+            }
         }
     }
     const double currentSoC = myBattery->getActualBatteryCapacity() / myBattery->getMaximumBatteryCapacity();

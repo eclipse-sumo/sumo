@@ -13,6 +13,9 @@ breakdown
 # A vehicle has to reroute to another charging station after waiting for the first one to get available
 occupied
 
+# Reroute before jam-teleporting with default waitForCharge when queued upstream of an occupied charging station (see #16622)
+occupied_default_wait
+
 # A vehicle searches for charging stations where there are none nearby
 notFound
 
