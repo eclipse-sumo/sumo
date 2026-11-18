@@ -155,9 +155,9 @@ class SimulationManager:
         geometry_id = self.generate_geometry_id()
         polygon = shapely.Polygon(boundary, holes=obstacles)
         if jps.__version__ >= '2':
-            surface = jps.WalkableSurface()
-            self._region_id = surface.add_region(polygon=polygon)
-            self._geometries[geometry_id] = surface
+            geo_builder = jps.GeometryBuilder()
+            self._region_id = geo_builder.add_region(polygon=polygon, height=0.0)
+            self._geometries[geometry_id] = geo_builder.build()
         else:
             self._geometries[geometry_id] = polygon
         return dict(geometry_id=geometry_id), None
