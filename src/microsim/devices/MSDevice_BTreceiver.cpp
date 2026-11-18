@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/vehicle/SUMOVehicle.h>
@@ -399,7 +400,7 @@ MSDevice_BTreceiver::~MSDevice_BTreceiver() {
 bool
 MSDevice_BTreceiver::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED && sVehicles.find(veh.getID()) == sVehicles.end()) {
-        sVehicles[veh.getID()] = new VehicleInformation(veh.getID(), myRange);
+        sVehicles[veh.getID()] = new VehicleInformation(veh.getID(), myCustomRange >= 0. ? myCustomRange : myRange);
         sVehicles[veh.getID()]->route.push_back(veh.getEdge());
     }
     if (reason == MSMoveReminder::NOTIFICATION_TELEPORT && sVehicles.find(veh.getID()) != sVehicles.end()) {
@@ -445,6 +446,86 @@ MSDevice_BTreceiver::notifyLeave(SUMOTrafficObject& veh, double /* lastPos */, M
         sVehicles[veh.getID()]->haveArrived = true;
     }
     return true;
+}
+
+
+std::string
+MSDevice_BTreceiver::getParameter(const std::string& holderID, const std::string& key) const {
+    const auto it = sVehicles.find(holderID);
+    if (key == "currentlySeen") {
+        if (it == sVehicles.end()) {
+            return "";
+        }
+        std::vector<std::string> ids;
+        ids.reserve(it->second->currentlySeen.size());
+        for (const auto& item : it->second->currentlySeen) {
+            ids.push_back(item.first);
+        }
+        return joinToString(ids, " ");
+    } else if (key == "seen") {
+        if (it == sVehicles.end()) {
+            return "";
+        }
+        std::vector<std::string> ids;
+        ids.reserve(it->second->seen.size());
+        for (const auto& item : it->second->seen) {
+            ids.push_back(item.first);
+        }
+        return joinToString(ids, " ");
+    } else if (key == "range") {
+        if (it != sVehicles.end()) {
+            return toString(it->second->range);
+        }
+        return toString(myCustomRange >= 0. ? myCustomRange : myRange);
+    } else if (key == "offtime") {
+        return toString(myOffTime);
+    }
+    throw InvalidArgument("Parameter '" + key + "' is not supported for device of type 'btreceiver'");
+}
+
+
+void
+MSDevice_BTreceiver::setParameter(const std::string& holderID, const std::string& key, const std::string& value) {
+    if (key == "range") {
+        try {
+            const double val = StringUtils::toDouble(value);
+            myCustomRange = val;
+            const auto it = sVehicles.find(holderID);
+            if (it != sVehicles.end()) {
+                it->second->range = val;
+            }
+        } catch (NumberFormatException&) {
+            throw InvalidArgument("Invalid value '" + value + "' for parameter 'range'");
+        } catch (EmptyData&) {
+            throw InvalidArgument("Invalid value '" + value + "' for parameter 'range'");
+        }
+    } else {
+        throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type 'btreceiver'");
+    }
+}
+
+
+std::string
+MSVehicleDevice_BTreceiver::getParameter(const std::string& key) const {
+    return MSDevice_BTreceiver::getParameter(myHolder.getID(), key);
+}
+
+
+void
+MSVehicleDevice_BTreceiver::setParameter(const std::string& key, const std::string& value) {
+    MSDevice_BTreceiver::setParameter(myHolder.getID(), key, value);
+}
+
+
+std::string
+MSTransportableDevice_BTreceiver::getParameter(const std::string& key) const {
+    return MSDevice_BTreceiver::getParameter(myHolder.getID(), key);
+}
+
+
+void
+MSTransportableDevice_BTreceiver::setParameter(const std::string& key, const std::string& value) {
+    MSDevice_BTreceiver::setParameter(myHolder.getID(), key, value);
 }
 
 
