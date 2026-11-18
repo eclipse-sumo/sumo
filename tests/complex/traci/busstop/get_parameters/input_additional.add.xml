@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="bs0" lane="WC_0" startPos="10" endPos="30" personCapacity="15" parkingLength="25" lines="L1 L2">
+        <param key="customKey" value="customVal"/>
+    </busStop>
+</additional>
