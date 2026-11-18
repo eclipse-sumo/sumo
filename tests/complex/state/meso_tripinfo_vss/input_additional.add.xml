@@ -1,0 +1,6 @@
+<additional>
+    <!-- the speed change updates the tripinfo device of the vehicle on middle before the state is saved -->
+    <variableSpeedSign id="vss" lanes="middle_0">
+        <step time="12" speed="5"/>
+    </variableSpeedSign>
+</additional>

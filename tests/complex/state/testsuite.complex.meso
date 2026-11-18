@@ -169,3 +169,6 @@ meso_ltm_queue_state
 meso_actuated_detectors
 # tripinfo devices that were added when loading state keep their values and the meso timeLoss when saving and loading again
 meso_tripinfo_state
+
+# the tripinfo device's reminder state survives loading state
+meso_tripinfo_vss
