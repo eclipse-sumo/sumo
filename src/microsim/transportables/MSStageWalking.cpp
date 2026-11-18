@@ -146,8 +146,21 @@ MSStageWalking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSSta
 
 
 void
-MSStageWalking::abort(MSTransportable*) {
-    MSNet::getInstance()->getPersonControl().getMovementModel()->remove(myPState);
+MSStageWalking::abort(MSTransportable* person) {
+    if (myPState != nullptr) {
+        const MSLane* lane = getSidewalk<MSEdge, MSLane>(getEdge());
+        const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+        const double leavePos = person->getPositionOnLane();
+        const std::vector<MSMoveReminder*> reminders = myMoveReminders;
+        myMoveReminders.clear();
+        for (MSMoveReminder* rem : reminders) {
+            if (lane != nullptr) {
+                rem->updateDetector(*person, 0.0, lane->getLength(), myLastEdgeEntryTime, now, now, true);
+            }
+            rem->notifyLeave(*person, leavePos, MSMoveReminder::NOTIFICATION_VAPORIZED_TRACI);
+        }
+        MSNet::getInstance()->getPersonControl().getMovementModel()->remove(myPState);
+    }
 }
 
 
@@ -418,7 +431,11 @@ MSStageWalking::activateEntryReminders(MSTransportable* person, const bool isDep
 void
 MSStageWalking::activateMoveReminders(MSTransportable* person, double oldPos, double newPos, double newSpeed) {
     for (std::vector<MSMoveReminder*>::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
-        if ((*rem)->notifyMove(*person, oldPos, newPos, newSpeed)) {
+        const bool keep = (*rem)->notifyMove(*person, oldPos, newPos, newSpeed);
+        if (person->getCurrentStage() != this || myMoveReminders.empty()) {
+            break;
+        }
+        if (keep) {
             ++rem;
         } else {
             rem = myMoveReminders.erase(rem);
