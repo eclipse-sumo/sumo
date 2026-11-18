@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/ToString.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSStoppingPlace.h>
@@ -104,7 +105,15 @@ BusStop::getPersonIDs(const std::string& stopID) {
 
 std::string
 BusStop::getParameter(const std::string& stopID, const std::string& param) {
-    return getBusStop(stopID)->getParameter(param, "");
+    const MSStoppingPlace* s = getBusStop(stopID);
+    if (param == "personCapacity" || param == "capacity") {
+        return toString(s->getWaitingCapacity());
+    } else if (param == "lines") {
+        return toString(s->getLines());
+    } else if (param == "parkingLength") {
+        return toString(s->getParkingLength());
+    }
+    return s->getParameter(param, "");
 }
 
 LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(BusStop)
