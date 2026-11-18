@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18T00:06:36.155220+00:00 by Eclipse SUMO netconvert v1_28_0+0629-650f618c216
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Users\Mark\AppData\Local\Temp\tmpe8o3gpvi\in.nod.xml"/>
+        <edge-files value="C:\Users\Mark\AppData\Local\Temp\tmpe8o3gpvi\in.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="c:\Users\Mark\Desktop\sumo\tests\tools\assign\requestedFlow\net.net.xml"/>
+    </output>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,100.00" convBoundary="0.00,0.00,2000.00,200.00" origBoundary="0.00,-100.00,2000.00,100.00" projParameter="!"/>
+
+    <edge id=":M_0" function="internal">
+        <lane id=":M_0_0" index="0" speed="20.00" length="72.30" shape="964.34,91.61 979.08,93.09 1002.18,95.38 1024.36,97.48 1036.32,98.40"/>
+    </edge>
+    <edge id=":M_1" function="internal">
+        <lane id=":M_1_0" index="0" speed="20.00" length="72.31" shape="964.02,98.77 978.81,98.30 1002.03,98.21 1024.31,98.32 1036.32,98.40"/>
+    </edge>
+
+    <edge id="e_a" from="A" to="M" priority="-1">
+        <lane id="e_a_0" index="0" speed="20.00" length="969.31" shape="-0.48,195.22 964.02,98.77"/>
+        <lane id="e_a_1" index="1" speed="20.00" length="969.31" shape="-0.16,198.41 964.34,101.96"/>
+    </edge>
+    <edge id="e_b" from="B" to="M" priority="-1">
+        <lane id="e_b_0" index="0" speed="20.00" length="968.67" shape="0.48,-4.78 964.34,91.61"/>
+        <lane id="e_b_1" index="1" speed="20.00" length="968.67" shape="0.16,-1.59 964.02,94.79"/>
+    </edge>
+    <edge id="e_bottle" from="M" to="D" priority="-1">
+        <lane id="e_bottle_0" index="0" speed="20.00" length="963.68" shape="1036.32,98.40 2000.00,98.40"/>
+    </edge>
+
+    <junction id="A" type="dead_end" x="0.00" y="200.00" incLanes="" intLanes="" shape="0.00,200.00 -0.64,193.63"/>
+    <junction id="B" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.64,-6.37"/>
+    <junction id="D" type="dead_end" x="2000.00" y="100.00" incLanes="e_bottle_0" intLanes="" shape="2000.00,96.80 2000.00,100.00"/>
+    <junction id="M" type="priority" x="1000.00" y="100.00" incLanes="e_b_0 e_b_1 e_a_0 e_a_1" intLanes=":M_0_0 :M_1_0" shape="1036.32,100.00 1036.32,96.80 1024.05,96.47 1012.12,95.59 1000.36,94.34 988.62,92.88 976.72,91.38 964.50,90.02 963.86,96.39 963.86,97.18 964.50,103.55 976.72,102.42 988.62,101.52 1000.36,100.84 1012.12,100.37 1024.05,100.09">
+        <request index="0" response="00" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="0"/>
+    </junction>
+
+    <connection from="e_a" to="e_bottle" fromLane="0" toLane="0" via=":M_1_0" dir="s" state="m"/>
+    <connection from="e_b" to="e_bottle" fromLane="0" toLane="0" via=":M_0_0" dir="s" state="M"/>
+
+    <connection from=":M_0" to="e_bottle" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":M_1" to="e_bottle" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

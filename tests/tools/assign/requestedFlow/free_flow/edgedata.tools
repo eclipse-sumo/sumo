@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18 00:06:37.080829 by Eclipse SUMO requestedFlow.py v1_28_0+0644-bda840e3afe
+<configuration>
+    <net-file value="net.net.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="edgedata.xml"/>
+    <interval value="900.0"/>
+    <begin value="0.0"/>
+    <end value="900.0"/>
+</configuration>
+-->
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="requestedFlow" begin="0" end="900">
+        <edge id="e_a" requestedCount="300" requestedFlow="1200.00" capacity="3600.00" excessFlow="0.00" vcRatio="0.3333"/>
+        <edge id="e_b" requestedCount="300" requestedFlow="1200.00" capacity="3600.00" excessFlow="0.00" vcRatio="0.3333"/>
+        <edge id="e_bottle" requestedCount="568" requestedFlow="2272.00" capacity="1800.00" excessFlow="472.00" vcRatio="1.2622"/>
+    </interval>
+</data>

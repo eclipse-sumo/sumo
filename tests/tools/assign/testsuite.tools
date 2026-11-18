@@ -10,3 +10,6 @@ costFunctionChecker
 
 # in simulation rerouting tests
 one-shot
+
+# compute unrestricted requested flow and capacity ratio (#16013)
+requestedFlow
