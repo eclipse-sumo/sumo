@@ -58,11 +58,9 @@ def parse_args(args=None):
     optParser.add_option("-i", "--patch-on-import", action="store_true",
                          default=False, help="generate patch that can be applied during initial network import" +
                          " (exports additional connection elements)")
-    optParser.add_option("--copy",
-                         help="comma-separated list of element names to copy (if they are unchanged)")
-    optParser.add_option("--ignore-attributes", dest="ignore_attributes",
-                         help="comma-separated list of attribute names to ignore")
-    optParser.add_option("--path", dest="path", help="Path to binaries")
+    optParser.add_option("--copy", help="comma-separated list of element names to copy (if they are unchanged)")
+    optParser.add_option("--ignore-attributes", help="comma-separated list of attribute names to ignore")
+    optParser.add_option("--path", help="Path to binaries")
     optParser.add_option("--remove-plain", action="store_true",
                          help="avoid saving plain xml files of source and destination networks")
     optParser.add_option("-l", "--write-selections", category="output", action="store_true", default=False,

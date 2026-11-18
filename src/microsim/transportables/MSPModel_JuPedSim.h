@@ -35,8 +35,10 @@
 #pragma warning(push)
 // mask warnings about int conversion (4267), class layout (4371),
 //  inline function (4514 4710 4711), reinterpret_cast (4946) in protobuf and
-//  pop/push in different files (5031), missing virtual destructors (5204) in boost
-#pragma warning(disable: 4267 4371 4514 4710 4711 4946 5031 5204)
+//  pop/push in different files (5031), missing virtual destructors (5204),
+//  overrides (4266), casts (4191), 'this' in initializers (4355) in boost
+//  and deprecations in grpc (4996)
+#pragma warning(disable: 4191 4266 4267 4355 4371 4514 4710 4711 4946 4996 5031 5204)
 #endif
 #ifdef HAVE_BOOST
 #if __has_include(<boost/process/v1.hpp>)  // Boost 1.86+
