@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-07-08T11:09:30.945795+01:00 by Eclipse SUMO polyconvert v1_27_1+0194-8d0b2b6a43c
+<!-- generated on 2026-11-19T13:36:19.985706+01:00 by Eclipse SUMO polyconvert v1_28_0+0659-053e47df819
 -->
 
 <polyconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -81,6 +81,7 @@
         <ignore-errors value="false" type="BOOL" help="Continue on broken input"/>
         <poi-layer-offset value="0" type="FLOAT" help="Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"/>
         <flatten value="false" type="BOOL" help="Remove all z-data"/>
+        <discard-overrides value="highway" type="STR[]" help="Discard polygons if any of the given types are present and the typemape is set to discard it (even if other types match)"/>
     </processing>
 
     <building_defaults>

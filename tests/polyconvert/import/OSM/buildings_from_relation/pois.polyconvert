@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-07-18T10:23:59.965307+01:00 by Eclipse SUMO polyconvert v1_27_1+0315-06c2bc92a15
+<!-- generated on 2026-11-19T13:36:20.041081+01:00 by Eclipse SUMO polyconvert v1_28_0+0659-053e47df819
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,26 +52,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="parking" value="surface"/>
         <param key="wheelchair" value="no"/>
     </poly>
-    <poly id="114207232" type="landuse.grass" color="194,194,130" fill="0" layer="-3.00" geo="1" shape="13.530094,52.427454 13.530206,52.427375">
-        <param key="highway" value="service"/>
-        <param key="landuse" value="grass"/>
-        <param key="type" value="multipolygon"/>
-    </poly>
     <poly id="114697179" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" geo="1" shape="13.529468,52.428966 13.529487,52.428980 13.529546,52.429025 13.529679,52.428935 13.530054,52.428681 13.530022,52.428665 13.529951,52.428623 13.529468,52.428966">
         <param key="access" value="private"/>
         <param key="amenity" value="parking"/>
         <param key="bicycle" value="yes"/>
         <param key="foot" value="yes"/>
         <param key="parking" value="surface"/>
-    </poly>
-    <poly id="114952399" type="landuse.grass" color="194,194,130" fill="0" layer="-3.00" geo="1" shape="13.530236,52.427354 13.530327,52.427289 13.530414,52.427228 13.530503,52.427166 13.530609,52.427091">
-        <param key="bicycle" value="yes"/>
-        <param key="foot" value="yes"/>
-        <param key="highway" value="service"/>
-        <param key="landuse" value="grass"/>
-        <param key="service" value="parking_aisle"/>
-        <param key="type" value="multipolygon"/>
-        <param key="vehicle" value="private"/>
     </poly>
     <poly id="122666824" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" geo="1" shape="13.529186,52.428275 13.529228,52.428298 13.529295,52.428335 13.529456,52.428423 13.529417,52.428447 13.529102,52.428652 13.528934,52.428557 13.528838,52.428501 13.529105,52.428328 13.529186,52.428275">
         <param key="amenity" value="parking"/>
@@ -107,20 +93,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="building:part" value="base"/>
         <param key="name" value="OWZ - Internationales Gründerzentrum"/>
         <param key="type" value="multipolygon"/>
-    </poly>
-    <poly id="147859763" type="landuse.grass" color="194,194,130" fill="0" layer="-3.00" geo="1" shape="13.532561,52.428794 13.532403,52.428708 13.532215,52.428606 13.531541,52.428239 13.531343,52.428132 13.531160,52.428033 13.530844,52.427861 13.530740,52.427805 13.530437,52.427640 13.530207,52.427515 13.530094,52.427454">
-        <param key="highway" value="unclassified"/>
-        <param key="landuse" value="grass"/>
-        <param key="lit" value="yes"/>
-        <param key="maxspeed" value="50"/>
-        <param key="name" value="Albert-Einstein-Straße"/>
-        <param key="parking:lane:both" value="parallel"/>
-        <param key="postal_code" value="12489"/>
-        <param key="sidewalk" value="both"/>
-        <param key="smoothness" value="excellent"/>
-        <param key="surface" value="asphalt"/>
-        <param key="type" value="multipolygon"/>
-        <param key="width" value="6.5"/>
     </poly>
     <poly id="148974739" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.529311,52.428845 13.529262,52.428882 13.529232,52.428906">
         <param key="addr:city" value="Berlin"/>
@@ -374,11 +346,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="building:levels" value="5"/>
         <param key="roof:shape" value="flat"/>
         <param key="wheelchair" value="yes"/>
-    </poly>
-    <poly id="172014857" type="landuse.grass" color="194,194,130" fill="0" layer="-3.00" geo="1" shape="13.530206,52.427375 13.530236,52.427354">
-        <param key="highway" value="service"/>
-        <param key="landuse" value="grass"/>
-        <param key="type" value="multipolygon"/>
     </poly>
     <poly id="172014860" type="landuse.commercial" color="209,209,204" fill="1" layer="-3.00" geo="1" shape="13.530206,52.427375 13.529796,52.427151 13.529301,52.426882 13.529264,52.426863 13.529248,52.426850 13.529239,52.426833 13.529194,52.426571 13.530683,52.426506 13.532103,52.426425 13.533467,52.426359 13.535082,52.426250 13.535949,52.426214 13.535977,52.426384 13.534835,52.427172">
         <param key="landuse" value="commercial"/>

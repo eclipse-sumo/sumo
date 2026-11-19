@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-19T13:05:51.925867+01:00 by Eclipse SUMO polyconvert v1_28_0+0658-d157453069c
+<!-- generated on 2026-11-19T13:36:19.963820+01:00 by Eclipse SUMO polyconvert v1_28_0+0659-053e47df819
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -74,15 +74,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="building:levels" value="4"/>
         <param key="roof:levels" value="1"/>
         <param key="roof:shape" value="gabled"/>
-    </poly>
-    <poly id="545220611" type="traffic_sign.DE:241" color="black" fill="0" layer="0.00" geo="1" shape="10.534959,52.275601 10.534665,52.275579 10.534485,52.275569 10.534199,52.275557 10.534000,52.275563 10.533947,52.275564">
-        <param key="bicycle" value="no"/>
-        <param key="foot" value="designated"/>
-        <param key="highway" value="footway"/>
-        <param key="lit" value="yes"/>
-        <param key="smoothness" value="excellent"/>
-        <param key="surface" value="paving_stones"/>
-        <param key="traffic_sign" value="DE:241"/>
     </poly>
     <poi id="6022079080" type="natural.tree" color="140,196,107" layer="1.00" lon="10.534859" lat="52.275550">
         <param key="leaf_type" value="broadleaved"/>
