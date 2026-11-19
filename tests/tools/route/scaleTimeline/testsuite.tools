@@ -18,3 +18,6 @@ timeline_list
 
 # Tests for <SUMO_DIST>/tools/scaleTimeline.py
 timeline_pair
+
+# Generate Gray-code demand variations (#10758)
+gray_code

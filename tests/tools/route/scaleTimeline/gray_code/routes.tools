@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-19 21:04:00.806244 by Eclipse SUMO generateTrafficVariations.py v1_28_0+0668-388c9872167
+<configuration>
+    <route-file value="input_flows.flows.xml"/>
+    <output-file value="out.rou.xml"/>
+    <levels value="0.5,1.5"/>
+    <step-duration value="600.0"/>
+    <balanced value="True"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" sigma="0"/>
+    <flow id="north_0" type="car" from="N2C" to="C2S" begin="0" end="600" vehsPerHour="200"/>
+    <flow id="south_0" type="car" from="S2C" to="C2N" begin="0" end="600" vehsPerHour="200"/>
+    <flow id="east_0" type="car" from="E2C" to="C2W" begin="0" end="600" vehsPerHour="100"/>
+    <flow id="west_0" type="car" from="W2C" to="C2E" begin="0" end="600" vehsPerHour="100"/>
+    <flow id="north_1" type="car" from="N2C" to="C2S" begin="600" end="1200" vehsPerHour="600"/>
+    <flow id="south_1" type="car" from="S2C" to="C2N" begin="600" end="1200" vehsPerHour="200"/>
+    <flow id="east_1" type="car" from="E2C" to="C2W" begin="600" end="1200" vehsPerHour="100"/>
+    <flow id="west_1" type="car" from="W2C" to="C2E" begin="600" end="1200" vehsPerHour="100"/>
+    <flow id="north_2" type="car" from="N2C" to="C2S" begin="1200" end="1800" vehsPerHour="600"/>
+    <flow id="south_2" type="car" from="S2C" to="C2N" begin="1200" end="1800" vehsPerHour="600"/>
+    <flow id="east_2" type="car" from="E2C" to="C2W" begin="1200" end="1800" vehsPerHour="100"/>
+    <flow id="west_2" type="car" from="W2C" to="C2E" begin="1200" end="1800" vehsPerHour="100"/>
+    <flow id="north_3" type="car" from="N2C" to="C2S" begin="1800" end="2400" vehsPerHour="600"/>
+    <flow id="south_3" type="car" from="S2C" to="C2N" begin="1800" end="2400" vehsPerHour="600"/>
+    <flow id="east_3" type="car" from="E2C" to="C2W" begin="1800" end="2400" vehsPerHour="300"/>
+    <flow id="west_3" type="car" from="W2C" to="C2E" begin="1800" end="2400" vehsPerHour="100"/>
+    <flow id="north_4" type="car" from="N2C" to="C2S" begin="2400" end="3000" vehsPerHour="600"/>
+    <flow id="south_4" type="car" from="S2C" to="C2N" begin="2400" end="3000" vehsPerHour="600"/>
+    <flow id="east_4" type="car" from="E2C" to="C2W" begin="2400" end="3000" vehsPerHour="300"/>
+    <flow id="west_4" type="car" from="W2C" to="C2E" begin="2400" end="3000" vehsPerHour="300"/>
+    <flow id="north_5" type="car" from="N2C" to="C2S" begin="3000" end="3600" vehsPerHour="600"/>
+    <flow id="south_5" type="car" from="S2C" to="C2N" begin="3000" end="3600" vehsPerHour="200"/>
+    <flow id="east_5" type="car" from="E2C" to="C2W" begin="3000" end="3600" vehsPerHour="300"/>
+    <flow id="west_5" type="car" from="W2C" to="C2E" begin="3000" end="3600" vehsPerHour="300"/>
+    <flow id="north_6" type="car" from="N2C" to="C2S" begin="3600" end="4200" vehsPerHour="600"/>
+    <flow id="south_6" type="car" from="S2C" to="C2N" begin="3600" end="4200" vehsPerHour="200"/>
+    <flow id="east_6" type="car" from="E2C" to="C2W" begin="3600" end="4200" vehsPerHour="300"/>
+    <flow id="west_6" type="car" from="W2C" to="C2E" begin="3600" end="4200" vehsPerHour="100"/>
+    <flow id="north_7" type="car" from="N2C" to="C2S" begin="4200" end="4800" vehsPerHour="200"/>
+    <flow id="south_7" type="car" from="S2C" to="C2N" begin="4200" end="4800" vehsPerHour="200"/>
+    <flow id="east_7" type="car" from="E2C" to="C2W" begin="4200" end="4800" vehsPerHour="300"/>
+    <flow id="west_7" type="car" from="W2C" to="C2E" begin="4200" end="4800" vehsPerHour="100"/>
+    <flow id="north_8" type="car" from="N2C" to="C2S" begin="4800" end="5400" vehsPerHour="200"/>
+    <flow id="south_8" type="car" from="S2C" to="C2N" begin="4800" end="5400" vehsPerHour="200"/>
+    <flow id="east_8" type="car" from="E2C" to="C2W" begin="4800" end="5400" vehsPerHour="300"/>
+    <flow id="west_8" type="car" from="W2C" to="C2E" begin="4800" end="5400" vehsPerHour="300"/>
+    <flow id="north_9" type="car" from="N2C" to="C2S" begin="5400" end="6000" vehsPerHour="200"/>
+    <flow id="south_9" type="car" from="S2C" to="C2N" begin="5400" end="6000" vehsPerHour="200"/>
+    <flow id="east_9" type="car" from="E2C" to="C2W" begin="5400" end="6000" vehsPerHour="100"/>
+    <flow id="west_9" type="car" from="W2C" to="C2E" begin="5400" end="6000" vehsPerHour="300"/>
+    <flow id="north_10" type="car" from="N2C" to="C2S" begin="6000" end="6600" vehsPerHour="600"/>
+    <flow id="south_10" type="car" from="S2C" to="C2N" begin="6000" end="6600" vehsPerHour="200"/>
+    <flow id="east_10" type="car" from="E2C" to="C2W" begin="6000" end="6600" vehsPerHour="100"/>
+    <flow id="west_10" type="car" from="W2C" to="C2E" begin="6000" end="6600" vehsPerHour="300"/>
+    <flow id="north_11" type="car" from="N2C" to="C2S" begin="6600" end="7200" vehsPerHour="600"/>
+    <flow id="south_11" type="car" from="S2C" to="C2N" begin="6600" end="7200" vehsPerHour="600"/>
+    <flow id="east_11" type="car" from="E2C" to="C2W" begin="6600" end="7200" vehsPerHour="100"/>
+    <flow id="west_11" type="car" from="W2C" to="C2E" begin="6600" end="7200" vehsPerHour="300"/>
+    <flow id="north_12" type="car" from="N2C" to="C2S" begin="7200" end="7800" vehsPerHour="200"/>
+    <flow id="south_12" type="car" from="S2C" to="C2N" begin="7200" end="7800" vehsPerHour="600"/>
+    <flow id="east_12" type="car" from="E2C" to="C2W" begin="7200" end="7800" vehsPerHour="100"/>
+    <flow id="west_12" type="car" from="W2C" to="C2E" begin="7200" end="7800" vehsPerHour="300"/>
+    <flow id="north_13" type="car" from="N2C" to="C2S" begin="7800" end="8400" vehsPerHour="200"/>
+    <flow id="south_13" type="car" from="S2C" to="C2N" begin="7800" end="8400" vehsPerHour="600"/>
+    <flow id="east_13" type="car" from="E2C" to="C2W" begin="7800" end="8400" vehsPerHour="300"/>
+    <flow id="west_13" type="car" from="W2C" to="C2E" begin="7800" end="8400" vehsPerHour="300"/>
+    <flow id="north_14" type="car" from="N2C" to="C2S" begin="8400" end="9000" vehsPerHour="200"/>
+    <flow id="south_14" type="car" from="S2C" to="C2N" begin="8400" end="9000" vehsPerHour="600"/>
+    <flow id="east_14" type="car" from="E2C" to="C2W" begin="8400" end="9000" vehsPerHour="300"/>
+    <flow id="west_14" type="car" from="W2C" to="C2E" begin="8400" end="9000" vehsPerHour="100"/>
+    <flow id="north_15" type="car" from="N2C" to="C2S" begin="9000" end="9600" vehsPerHour="200"/>
+    <flow id="south_15" type="car" from="S2C" to="C2N" begin="9000" end="9600" vehsPerHour="600"/>
+    <flow id="east_15" type="car" from="E2C" to="C2W" begin="9000" end="9600" vehsPerHour="100"/>
+    <flow id="west_15" type="car" from="W2C" to="C2E" begin="9000" end="9600" vehsPerHour="100"/>
+</routes>

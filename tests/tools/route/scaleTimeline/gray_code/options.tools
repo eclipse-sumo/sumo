@@ -1,0 +1,1 @@
+-r input_flows.flows.xml -o out.rou.xml --levels 0.5,1.5 --step-duration 600 --balanced -v tools/route/generateTrafficVariations.py
