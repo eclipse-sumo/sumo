@@ -29,8 +29,8 @@ The import consists of two stages: importing the OSM data with netconvert and th
 based on network topology to improve rail routing and stop track assignment.
 
 ```
-netconvert --osm-files osm_rail.xml --ptstop-output osm.stops.xml --ptline-output osm_ptlines.xml -o net.net.xml.gz -l osm.log --keep-edges.by-vclass rail,rail_urban --no-internal-links --railway.signal.guess.by-stops --railway.topology.all-bidi --ptline-clean-up --railway.topology.ptline-priority rail,rail_urban --output.street-names
-python $SUMO_HOME/tools/net/patchRailPriorities.py -n net.net.xml.gz -o net2.net.xml.gz -r osm_ptlines.xml -s osm.stops.xml -O osm.stops2.xml --add-stop-signals
+netconvert --osm-files osm_rail.xml --ptstop-output osm.stops.xml --ptline-output osm_ptlines.xml -o net.net.xml.gz -l osm.log --keep-edges.by-vclass rail,rail_urban --no-internal-links --railway.signal.guess.by-stops --railway.topology.all-bidi --railway.topology.ptline-priority rail,rail_urban --output.street-names
+python $SUMO_HOME/tools/net/patchRailPriorities.py -n net.net.xml.gz -o net2.net.xml.gz -r osm_ptlines.xml -s osm.stops.xml -O osm.stops2.xml --add-signals
 ```
 
 The relevant netconvert options are explained in the following
@@ -40,7 +40,6 @@ The relevant netconvert options are explained in the following
 - **--no-internal-links**: speeds up simulation and processing of large networks by removing details that are not needed for rail simulations
 - **--railway.signal.guess.by-stops**: heuristically add signals at stations (unless they already exist). This covers gaps in OSM signal coverage
 - **--railway.topology.all-bidi**: Helps to cover track-direction errors in OSM
-- **--ptline-clean-up**: removes stops that were not used by public transport lines in the OSM data. Avoids bad track assignment
 - **--railway.topology.ptline-priority rail,rail_urban**: Assigns edge priorities according to use by trains and urban rail. This is critical for correct track assignment
 - **--output.street-names**: Assigns track numbers (line ids) in the network
 
@@ -48,7 +47,7 @@ The relevant netconvert options are explained in the following
 # Importing GTFS
 
 ```
-python $SUMO_HOME/tools/import/gtfs/gtfs2pt.py --gtfs GTFS.zip --date 20260622 -H --stops osm.stops2.xml --sort -n net2.net.xml.gz --modes train,light_rail --radius 500 --network-split-vclass --rail-priority-factor 5 --remove-detour-factor 5 --maxcache 2000
+python $SUMO_HOME/tools/import/gtfs/gtfs2pt.py --gtfs GTFS.zip --date 20260622 -H --stops osm.stops2.xml --sort -n net2.net.xml.gz --modes train,light_rail --radius 500 --rail-priority-factor 5 --remove-detour-factor 5 --coupling remove --parking-threshold 1800
 ```
 
 The relevant options are explained in the following
@@ -58,7 +57,8 @@ The relevant options are explained in the following
 - **--radius**: The default radius of 200m is to low for mapping large railway stations
 - **--rail-priority-factor 5**: This helps to match train routes to the correct side of double tracked lines (it relies on priorities assigned in the Network import stage)
 - **--remove-detour-factor 5**: This reports and filters out train routes with implausible detours. Investigating these reports is recommended
-- **--maxxache 2000**: Setting a larger cache can speed up routing in large scenarios. Experiment to find a value that does not exhaust your memory.
+- **--coupling remove**: Avoids duplicate vehicles for coupled trains
+- **--parking-threshold 1800**: compensates for bad track assignments for trains that are stopped longer than 30 minutes
 
 # Running the Scenario
 
