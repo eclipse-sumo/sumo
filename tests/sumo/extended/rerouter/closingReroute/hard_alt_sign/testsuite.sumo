@@ -12,3 +12,6 @@ trip_closedAlready_CH
 
 # use routing algorithm CHWrapper
 trip_closeEnroute_CHWrapper
+
+# use routing algorithm astar with mode 8
+trip_closeEnroute_ignoreMode_astar
