@@ -274,6 +274,12 @@ public:
         inline const ROEdge* getDestination() const {
             return edges.back();
         }
+        inline const ConstROEdgeVector& getEdges() const {
+            return edges;
+        }
+        inline const std::string& getStopDest() const {
+            return destStop;
+        }
         inline double getDestinationPos() const {
             return arr == std::numeric_limits<double>::infinity() ? 0 : arr;
         }
@@ -323,6 +329,9 @@ public:
         }
         std::vector<ROVehicle*>& getVehicles() {
             return myVehicles;
+        }
+        const std::vector<TripItem*>& getTripItems() const {
+            return myTripItems;
         }
         const ROEdge* getOrigin() const {
             return from != 0 ? from : myTripItems.front()->getOrigin();

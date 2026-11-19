@@ -460,6 +460,82 @@ ROPerson::computeRoute(const RORouterProvider& provider,
                     WRITE_WARNINGF("Person '%' is configured to use public transport but no schedules are loaded.", getID());
                 }
             }
+        } else if (!it->isStop()) {
+            const PersonTrip* const trip = static_cast<const PersonTrip*>(it);
+            const SUMOVehicleClass svc = getType() != nullptr ? getType()->vehicleClass : SVC_PEDESTRIAN;
+            for (const TripItem* const tIt : trip->getTripItems()) {
+                const Walk* const walk = dynamic_cast<const Walk*>(tIt);
+                if (walk == nullptr || walk->getEdges().empty()) {
+                    continue;
+                }
+                const ConstROEdgeVector& edges = walk->getEdges();
+                for (const ROEdge* const e : edges) {
+                    if (!e->isTazConnector() && (e->getPermissions() & svc) == 0) {
+                        errorHandler->informf(TL("Person '%' is not allowed to walk on edge '%'."), getID(), e->getID());
+                        myRoutingSuccess = false;
+                    }
+                }
+                if (edges.size() > 1) {
+                    const ROEdge* failPrev = nullptr;
+                    const ROEdge* failNext = nullptr;
+                    auto canWalk = [&](bool startForward) -> bool {
+                        const RONode* junction = startForward ? edges.front()->getToJunction() : edges.front()->getFromJunction();
+                        for (size_t i = 1; i < edges.size(); ++i) {
+                            const ROEdge* const prev = edges[i - 1];
+                            const ROEdge* const cur = edges[i];
+                            if (cur == prev || cur->isTazConnector() || prev->isTazConnector()) {
+                                junction = cur->getToJunction();
+                            } else if (junction != nullptr && cur->getFromJunction() == junction) {
+                                junction = cur->getToJunction();
+                            } else if (junction != nullptr && cur->getToJunction() == junction) {
+                                junction = cur->getFromJunction();
+                            } else {
+                                if (failPrev == nullptr) {
+                                    failPrev = prev;
+                                    failNext = cur;
+                                }
+                                return false;
+                            }
+                        }
+                        return true;
+                    };
+                    if (!canWalk(true) && !canWalk(false)) {
+                        errorHandler->informf(TL("Invalid walk route for person '%' (edge '%' is not connected to edge '%')."),
+                                              getID(), failPrev->getID(), failNext->getID());
+                        myRoutingSuccess = false;
+                    }
+                }
+                if (walk->getStopDest() != "") {
+                    static const SumoXMLTag stopTags[] = {
+                        SUMO_TAG_BUS_STOP, SUMO_TAG_TRAIN_STOP, SUMO_TAG_CONTAINER_STOP,
+                        SUMO_TAG_PARKING_AREA, SUMO_TAG_CHARGING_STATION, SUMO_TAG_OVERHEAD_WIRE_SEGMENT
+                    };
+                    const SUMOVehicleParameter::Stop* sp = nullptr;
+                    for (SumoXMLTag tag : stopTags) {
+                        sp = RONet::getInstance()->getStoppingPlace(walk->getStopDest(), tag);
+                        if (sp != nullptr) {
+                            break;
+                        }
+                    }
+                    if (sp != nullptr) {
+                        const std::string& arrEdgeID = edges.back()->getID();
+                        bool connected = (SUMOXMLDefinitions::getEdgeIDFromLane(sp->lane) == arrEdgeID);
+                        if (!connected) {
+                            for (const auto& acc : sp->accessPos) {
+                                if (SUMOXMLDefinitions::getEdgeIDFromLane(std::get<0>(acc)) == arrEdgeID) {
+                                    connected = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!connected) {
+                            errorHandler->informf(TL("Bus stop '%' is not connected to arrival edge '%' for person '%' walking from edge '%'."),
+                                                  walk->getStopDest(), arrEdgeID, getID(), edges.front()->getID());
+                            myRoutingSuccess = false;
+                        }
+                    }
+                }
+            }
         }
         time += it->getDuration();
     }

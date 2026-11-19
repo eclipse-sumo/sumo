@@ -50,3 +50,6 @@ stoppingPlace_mismatch
 
 # Copy of basic
 scale_3
+
+# validate walks with explicit edges (permissions, connectivity, and stopping-place access) (#18598)
+walk_edges_invalid

@@ -1,0 +1,5 @@
+Warning: Ignoring invalid access from non-pedestrian edge 'BC'.
+Warning: Person 'bad_access' is not allowed to walk on edge 'BC'.
+Warning: Bus stop 'stop' is not connected to arrival edge 'BC' for person 'bad_access' walking from edge 'AB'.
+Warning: Invalid walk route for person 'disconnected' (edge 'AB' is not connected to edge 'CD').
+Warning: Person 'forbidden' is not allowed to walk on edge 'BC_car'.
