@@ -163,8 +163,11 @@ public:
     /// @brief whether the given stop is a charging stop (a stop at a charging station without pickup or drop-off)
     static bool isChargingStop(const MSStop& stop);
 
-    /// @brief whether the taxi keeps a charging stop which it has not yet reached
+    /// @brief whether the taxi keeps a charging stop which it has not yet finished
     bool hasPendingChargingStop() const;
+
+    /// @brief whether the current stop is a charging stop and a drop-off stop for t follows later
+    bool hasUpcomingDropOff(const MSTransportable* t) const;
 
     int getState() const {
         return myState;

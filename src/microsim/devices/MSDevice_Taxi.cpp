@@ -867,10 +867,32 @@ bool
 MSDevice_Taxi::hasPendingChargingStop() const {
     if (myKeepChargingStops) {
         for (const MSStop& stop : myHolder.getStops()) {
-            if (!stop.reached && isChargingStop(stop)) {
+            if ((!stop.reached || (!MSGlobals::gUseMesoSim && stop.duration > myHolder.getVehicleType().getActionStepLength()))
+                    && isChargingStop(stop)) {
                 return true;
             }
         }
+    }
+    return false;
+}
+
+
+bool
+MSDevice_Taxi::hasUpcomingDropOff(const MSTransportable* t) const {
+    if (!myKeepChargingStops || myCustomers.count(t) == 0) {
+        return false;
+    }
+    const std::string needle = "dropOff " + t->getID() + " ";
+    int index = 0;
+    for (const MSStop& stop : myHolder.getStops()) {
+        if (index == 0) {
+            if (!isChargingStop(stop) || stop.pars.actType.find(needle) != std::string::npos) {
+                return false;
+            }
+        } else if (stop.pars.actType.find(needle) != std::string::npos) {
+            return true;
+        }
+        index++;
     }
     return false;
 }
