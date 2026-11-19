@@ -46,10 +46,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="151.00" waitingTime="40.00" timeLoss="6.78" traveltime="111.00">
         <ride waitingTime="40.00" vehicle="taxi" depart="40.00" arrival="151.00" arrivalPos="285.60" duration="111.00" routeLength="580.63" timeLoss="6.78"/>
     </personinfo>
-    <personinfo id="p1" depart="250.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="295.00" waitingTime="185.00" timeLoss="4.91" traveltime="110.00">
-        <ride waitingTime="185.00" vehicle="taxi" depart="435.00" arrival="545.00" arrivalPos="285.60" duration="110.00" routeLength="582.60" timeLoss="4.91"/>
+    <personinfo id="p1" depart="250.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="296.00" waitingTime="186.00" timeLoss="4.91" traveltime="110.00">
+        <ride waitingTime="186.00" vehicle="taxi" depart="436.00" arrival="546.00" arrivalPos="285.60" duration="110.00" routeLength="582.60" timeLoss="4.91"/>
     </personinfo>
-    <tripinfo id="taxi" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="548.00" routeLength="3352.44" waitingTime="6.00" waitingCount="3" stopTime="248.00" timeLoss="36.88" rerouteNo="5" devices="tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
+    <tripinfo id="taxi" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="549.00" routeLength="3352.44" waitingTime="6.00" waitingCount="3" stopTime="248.00" timeLoss="37.40" rerouteNo="5" devices="tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
         <taxi customers="2" occupiedDistance="1163.23" occupiedTime="107.00"/>
     </tripinfo>
 </tripinfos>

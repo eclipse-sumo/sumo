@@ -56,8 +56,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p1" depart="250.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="294.00" waitingTime="184.00" timeLoss="4.91" traveltime="110.00">
         <ride waitingTime="184.00" vehicle="taxi" depart="434.00" arrival="544.00" arrivalPos="285.60" duration="110.00" routeLength="582.60" timeLoss="4.91"/>
     </personinfo>
-    <tripinfo id="taxi" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="547.00" routeLength="4537.56" waitingTime="6.00" waitingCount="3" stopTime="155.00" timeLoss="41.62" rerouteNo="5" devices="tripinfo_taxi routing_taxi stationfinder_taxi battery_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
-        <battery depleted="0" actualBatteryCapacity="6813.28" totalEnergyConsumed="1128.97" totalEnergyRegenerated="768.08"/>
+    <tripinfo id="taxi" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="547.00" routeLength="4537.56" waitingTime="6.00" waitingCount="3" stopTime="154.00" timeLoss="43.96" rerouteNo="5" devices="tripinfo_taxi routing_taxi stationfinder_taxi battery_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
+        <battery depleted="0" actualBatteryCapacity="6807.52" totalEnergyConsumed="1120.50" totalEnergyRegenerated="759.67"/>
         <taxi customers="2" occupiedDistance="1163.22" occupiedTime="107.00"/>
     </tripinfo>
 </tripinfos>
