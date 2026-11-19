@@ -153,7 +153,7 @@ MELSegment::getMinDistanceToEnd(int qIdx, double lengthAhead, SUMOTime time) con
         const double distFraction = MIN2(1., (dist + DEFAULT_VEH_LENGTH_WITH_GAP * lengthToDist) / myJamLength);
         int count = 0;
         for (const Gap& gap : myGaps[qIdx]) {
-            if (gap.queued && gap.departure + (SUMOTime)((double)(gap.arrival - gap.departure) * distFraction) > time) {
+            if (gap.queued && gap.departure + (SUMOTime)(myJamLength * (double)myTau_jj / DEFAULT_VEH_LENGTH_WITH_GAP * distFraction) > time) {
                 count++;
             }
         }
