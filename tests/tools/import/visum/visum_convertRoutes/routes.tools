@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-19 20:55:32.867240 by Eclipse SUMO visum_convertRoutes.py v1_28_0+0668-388c9872167
+<configuration>
+    <net-file value="net.net.xml"/>
+    <visum-routes value="data.txt"/>
+    <output value="out.rou.xml"/>
+    <taz-output value="districts.xml"/>
+    <uniform value="True"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="100_200_1__0" depart="0" fromTaz="100" toTaz="200"><route edges="10 20"/></vehicle>
+    <vehicle id="300_200_1__0" depart="0" fromTaz="300" toTaz="200"><route edges="30 20"/></vehicle>
+    <vehicle id="100_200_1__1" depart="1800" fromTaz="100" toTaz="200"><route edges="10 20"/></vehicle>
+</routes>
