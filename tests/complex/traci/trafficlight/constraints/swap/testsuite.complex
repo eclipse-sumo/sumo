@@ -53,3 +53,6 @@ insertion_tripId
 
 # test handling of params during swap
 bidi
+
+# retrieve list of approached rail signals via getParameter
+activeSignals

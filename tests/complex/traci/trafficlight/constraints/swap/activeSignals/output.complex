@@ -1,0 +1,4 @@
+t=1.0 activeSignals=''
+t=3.0 activeSignals='C D'
+t=13.0 activeSignals='A C D'
+t=139.0 activeSignals='C'

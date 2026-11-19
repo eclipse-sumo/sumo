@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" length="50.00" vClass="rail"/>
+    <trip id="t0" type="train" depart="2.00" from="d" to="g" departSpeed="max"/>
+    <trip id="t1" type="train" depart="12.00" from="a" to="g" departSpeed="max"/>
+</routes>
