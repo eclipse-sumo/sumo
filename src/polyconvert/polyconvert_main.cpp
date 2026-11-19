@@ -208,6 +208,9 @@ fillOptions() {
     oc.doRegister("flatten", new Option_Bool(false));
     oc.addDescription("flatten", "Processing", TL("Remove all z-data"));
 
+    oc.doRegister("discard-overrides", new Option_StringVector({ "highway" }));
+    oc.addDescription("discard-overrides", "Processing", TL("Discard polygons if any of the given types are present and the typemape is set to discard it (even if other types match)"));
+
     // building defaults options
     oc.doRegister("color", new Option_String("0.2,0.5,1."));
     oc.addDescription("color", "Building Defaults", TL("Sets STR as default color"));

@@ -47,6 +47,7 @@
 // static members
 // ---------------------------------------------------------------------------
 const std::set<std::string> PCLoaderOSM::MyKeysToInclude(PCLoaderOSM::initMyKeysToInclude());
+std::set<std::string> PCLoaderOSM::MyDiscardOverrides;
 bool PCLoaderOSM::myFullType(false);
 
 // ===========================================================================
@@ -92,6 +93,9 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
     if (!oc.isSet("osm-files")) {
         return;
     }
+    const auto& overrides = oc.getStringVector("discard-overrides");
+    MyDiscardOverrides.insert(overrides.begin(), overrides.end());
+
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("osm-files");
     // load nodes, first
@@ -244,6 +248,23 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
             vec.push_back_noDoublePos(pos);
         }
         const bool ignorePruning = OptionsCont::getOptions().isInStringVector("prune.keep-list", toString(e->id));
+        // first check whether any discarded key is matching this way
+        std::string toDiscard;
+        for (std::map<std::string, std::string>::iterator it = e->myAttributes.begin(); it != e->myAttributes.end(); ++it) {
+            const std::string& key = it->first;
+            // only ensure discardation (even when other tags match) for configured keys
+            if (MyDiscardOverrides.count(key) != 0) {
+                const std::string& value = it->second;
+                const std::string fullType = key + "." + value;
+                if (tm.has(fullType) && tm.get(fullType).discard) {
+                    toDiscard = fullType;
+                    break;
+                } else if (tm.has(key) && tm.get(key).discard) {
+                    toDiscard = key;
+                    break;
+                }
+            }
+        }
         // add as many polygons as keys match defined types
         int index = 0;
         std::string unknownPolyType = "";
@@ -254,17 +275,17 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
             const std::string fullType = key + "." + value;
             if (tm.has(key + "." + value)) {
                 auto def = tm.get(isInner ? "inner" : fullType);
-                index = addPolygon(e, vec, def, fullType, index, useName, toFill, ignorePruning, withAttributes);
+                index = addPolygon(e, vec, def, fullType, index, useName, toFill, ignorePruning, withAttributes, toDiscard);
             } else if (tm.has(key)) {
                 auto def = tm.get(isInner ? "inner" : key);
-                index = addPolygon(e, vec, def, fullType, index, useName, toFill, ignorePruning, withAttributes);
+                index = addPolygon(e, vec, def, fullType, index, useName, toFill, ignorePruning, withAttributes, toDiscard);
             } else if (MyKeysToInclude.count(key) > 0) {
                 unknownPolyType = fullType;
             }
         }
         const PCTypeMap::TypeDef& def = tm.getDefault();
         if (index == 0 && !def.discard && unknownPolyType != "") {
-            addPolygon(e, vec, def, unknownPolyType, index, useName, toFill, ignorePruning, withAttributes);
+            addPolygon(e, vec, def, unknownPolyType, index, useName, toFill, ignorePruning, withAttributes, toDiscard);
         }
     }
 
@@ -339,8 +360,11 @@ PCLoaderOSM::parseHeight(const std::map<std::string, std::string>& attrs, long l
 
 
 int
-PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const PCTypeMap::TypeDef& def, const std::string& fullType, int index, bool useName, PCPolyContainer& toFill, bool ignorePruning, bool withAttributes) {
+PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const PCTypeMap::TypeDef& def, const std::string& fullType, int index, bool useName, PCPolyContainer& toFill, bool ignorePruning, bool withAttributes, const std::string& toDiscard) {
     if (def.discard) {
+        return index;
+    } else if (toDiscard != "") {
+        WRITE_WARNINGF(TL("Discarding polygon '%' (%) because it was combined with discarded type '%'."), toString(edge->id), fullType, toDiscard);
         return index;
     } else {
         const bool closedShape = vec.front() == vec.back();
