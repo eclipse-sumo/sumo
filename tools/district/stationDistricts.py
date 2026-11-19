@@ -35,7 +35,7 @@ from sumolib.miscutils import Colorgen, openz  # noqa
 import sumolib.geomhelper as gh  # noqa
 
 
-def get_options():
+def get_options(args=None):
     ap = ArgumentParser()
     ap.add_option("-v", "--verbose", action="store_true", default=False,
                   help="tell me what you are doing")
@@ -62,7 +62,7 @@ def get_options():
     ap.add_option("--brightness", default=1, type=str,
                   help="brightness for taz (float from [0,1] or 'random')")
     ap.add_option("--seed", type=int, default=42, help="random seed")
-    options = ap.parse_args()
+    options = ap.parse_args(args=args)
 
     if not options.netfile:
         ap.print_help()
@@ -145,7 +145,8 @@ def findParallel(options, net, stations):
             round(sum([c[1] for c in coords]) / len(coords), 3))
 
         for edge, dist in net.getNeighboringEdges(station.coord[0], station.coord[1], options.parallelRadius):
-            station.edges.add(edge)
+            if allowsAny(edge, options.vclasses):
+                station.edges.add(edge)
 
 
 def findGroup(mergedStations, station):
@@ -243,36 +244,122 @@ def splitStations(options, stations):
         outf.write(u"</edges>\n")
 
 
+def _tangent_deg(shape, offset):
+    plen = gh.polyLength(shape)
+    if plen <= 0:
+        return None
+    rot = gh.rotationAtShapeOffset(shape, min(max(0.0, offset), max(0.0, plen - 1e-3)))
+    return gh.naviDegree(rot) if rot is not None else None
+
+
+def _is_parallel_angle(d1, d2, atol=20.0):
+    if d1 is None or d2 is None:
+        return False
+    diff = gh.minAngleDegreeDiff(d1, d2)
+    return diff <= atol or abs(diff - 180.0) <= atol
+
+
 def assignByDistance(options, net, stations):
-    """assign edges to closest station"""
-    edgeStation = dict()
+    """assign edges to closest station while keeping parallel tracks in the same TAZ"""
+    allowedEdges = [e for e in net.getEdges() if allowsAny(e, options.vclasses)]
+    midInfo = {}
+    for edge in allowedEdges:
+        shape = edge.getShape()
+        plen = gh.polyLength(shape)
+        mid = gh.positionAtShapeOffset(shape, 0.5 * plen)
+        midInfo[edge] = (shape, plen, mid, _tangent_deg(shape, 0.5 * plen))
+
+    lateralRadius = min(30.0, options.parallelRadius) if options.parallelRadius > 0 else 0.0
+    lateralFrom = defaultdict(list)
+    parallelPeers = defaultdict(list)
+    if lateralRadius > 0:
+        for peer in allowedEdges:
+            _, _, midP, degP = midInfo[peer]
+            for cand, _ in net.getNeighboringEdges(midP[0], midP[1], lateralRadius):
+                if cand == peer or cand not in midInfo:
+                    continue
+                shapeC, _, _, _ = midInfo[cand]
+                coff, cdist = gh.polygonOffsetAndDistanceToPoint(midP, shapeC, perpendicular=True)
+                if coff != gh.INVALID_DISTANCE and cdist <= lateralRadius:
+                    if _is_parallel_angle(degP, _tangent_deg(shapeC, coff)):
+                        lateralFrom[cand].append((peer, coff, cdist))
+                        parallelPeers[peer].append((cand, cdist))
+
+    edgeStations = defaultdict(set)
+    seedEdges = set()
     for station in stations.values():
         for edge in station.edges:
-            assert edge not in edgeStation or not options.merge
-            edgeStation[edge] = station.name
+            assert edge not in edgeStations or not options.merge
+            edgeStations[edge].add(station.name)
+            seedEdges.add(edge)
 
-    remaining = set()
-    for edge in net.getEdges():
-        if edge not in edgeStation and allowsAny(edge, options.vclasses):
-            remaining.add(edge)
-
-    seen = set(edgeStation.keys())
+    remaining = {e for e in allowedEdges if e not in seedEdges}
     heap = []
-    for edge, station in edgeStation.items():
-        for neigh in chain(edge.getOutgoing().keys(), edge.getIncoming().keys()):
-            if neigh not in seen:
-                heappush(heap, (neigh.getLength(), neigh.getID(), station))
+    for edge, stNames in edgeStations.items():
+        shapeE = edge.getShape(True)
+        lenE = edge.getLength()
+        for stName in sorted(stNames):
+            stObj = stations[stName]
+            stCoords = [stObj.coord] if stObj.coord is not None else sum(stObj.platforms, [])
+            offs = [gh.polygonOffsetWithMinimumDistanceToPoint(c, shapeE, perpendicular=False) for c in stCoords]
+            dFrom = min(offs) if offs else 0.0
+            dTo = min(max(0.0, lenE - o) for o in offs) if offs else 0.0
+            for neigh in edge.getIncoming().keys():
+                if neigh in remaining:
+                    heappush(heap, (dFrom + 0.5 * neigh.getLength(), neigh.getID(), stName, dFrom, True))
+            for neigh in edge.getOutgoing().keys():
+                if neigh in remaining:
+                    heappush(heap, (dTo + 0.5 * neigh.getLength(), neigh.getID(), stName, dTo, True))
+            if len(stNames) == 1:
+                for peer, coff, _ in lateralFrom[edge]:
+                    if peer in remaining:
+                        latDist = min(abs(coff - o) for o in offs) if offs else 0.0
+                        heappush(heap, (latDist, peer.getID(), stName, latDist, False))
 
+    assigned = {}
     while heap:
-        dist, candID, station = heappop(heap)
+        midDist, candID, stName, entryDist, isTopo = heappop(heap)
         cand = net.getEdge(candID)
-        seen.add(cand)
-        if cand in remaining:
-            stations[station].edges.add(cand)
-            remaining.remove(cand)
+        if cand not in remaining:
+            continue
+        remaining.remove(cand)
+        stations[stName].edges.add(cand)
+        assigned[cand] = (stName, midDist)
+        farDist = (entryDist + cand.getLength()) if isTopo else (midDist + 0.5 * cand.getLength())
         for neigh in chain(cand.getOutgoing().keys(), cand.getIncoming().keys()):
-            if neigh not in seen:
-                heappush(heap, (neigh.getLength() + dist, neigh.getID(), station))
+            if neigh in remaining:
+                heappush(heap, (farDist + 0.5 * neigh.getLength(), neigh.getID(), stName, farDist, True))
+        for peer, _, _ in lateralFrom[cand]:
+            if peer in remaining:
+                heappush(heap, (midDist, peer.getID(), stName, max(0.0, midDist - 0.5 * peer.getLength()), False))
+
+    alignDist = min(20.0, lateralRadius)
+    changed = True
+    while changed and alignDist > 0:
+        changed = False
+        for edge in sorted(assigned.keys(), key=lambda x: (x.getLength(), x.getID())):
+            curSt = assigned[edge][0]
+            group = [edge] + [
+                c for c, d in parallelPeers[edge]
+                if d <= alignDist and (c in assigned or len(edgeStations[c]) == 1)
+            ]
+            if len(group) <= 1:
+                continue
+            def _rank(g):
+                if g in seedEdges and len(edgeStations[g]) == 1:
+                    return (0, 0.0, -g.getLength(), g.getID())
+                return (1, assigned[g][1], -g.getLength(), g.getID())
+
+            canon = min(group, key=_rank)
+            if canon in seedEdges and len(edgeStations[canon]) == 1:
+                targetSt = next(iter(edgeStations[canon]))
+            else:
+                targetSt = assigned[canon][0] if canon in assigned else curSt
+            if targetSt != curSt:
+                stations[curSt].edges.remove(edge)
+                stations[targetSt].edges.add(edge)
+                assigned[edge] = (targetSt, assigned[edge][1])
+                changed = True
 
 
 def main(options):
