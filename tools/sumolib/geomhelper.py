@@ -229,17 +229,22 @@ def minAngleDegreeDiff(d1, d2):
 
 
 def isWithin(pos, shape):
-    """Returns whether the given pos coordinate is inside the polygon shape defined in anticlockwise order."""
-    angle = 0.
-    for i in range(0, len(shape) - 1):
-        p1 = ((shape[i][0] - pos[0]), (shape[i][1] - pos[1]))
-        p2 = ((shape[i + 1][0] - pos[0]), (shape[i + 1][1] - pos[1]))
-        angle = angle + angle2D(p1, p2)
-    i = len(shape) - 1
-    p1 = ((shape[i][0] - pos[0]), (shape[i][1] - pos[1]))
-    p2 = ((shape[0][0] - pos[0]), (shape[0][1] - pos[1]))
-    angle = angle + angle2D(p1, p2)
-    return math.fabs(angle) >= math.pi
+    """Returns whether the given pos coordinate is inside the polygon shape with ray-casting."""
+    x, y = pos
+    inside = False
+    n = len(shape)
+    for i in range(n):
+         x1, y1 = shape[i]
+         x2, y2 = shape[(i + 1) % n]
+
+         if min(x1, x2) <= x <= max(x1, x2) and min(y1, y2) <= y <= max(y1, y2):
+             if abs((x2 - x1) * (y - y1) - (y2 - y1) * (x - x1)) < 1e-12:
+                 return True
+
+         if (y1 > y) != (y2 > y) and x < (x2 - x1) * (y - y1) / (y2 - y1) + x1:
+             inside = not inside
+
+    return inside
 
 
 def sideOffset(fromPos, toPos, amount):
