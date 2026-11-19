@@ -40,6 +40,15 @@ try:
 except ImportError:
     HAVE_CERTIFI = False
 
+DEBUG = False
+if DEBUG:
+    import urllib
+    opener = urllib.request.build_opener(
+        urllib.request.HTTPHandler(debuglevel=1),
+        urllib.request.HTTPSHandler(debuglevel=1)
+    )
+    urllib.request.install_opener(opener)
+
 import sumolib
 
 THIS_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -165,8 +174,10 @@ def readCompressed(options, urls, context, query, roadTypesJSON, getShapes, file
     for idx in range(options.retries + 1):
         url = urls[idx % len(urls)]
         try:
+            if options.verbose:
+                print("querying url:", url)
             req = Request(url, data=finalQuery.encode(), headers=headers)
-            with urlopen(req, context=context) as response:
+            with urlopen(req, context=context, timeout=options.timeout) as response:
                 if options.verbose:
                     print(response.status, response.reason)
                 if response.getheader('Content-Encoding') == 'gzip':
@@ -236,6 +247,8 @@ def get_options(args):
                            help="write configuration to the given FILE and not as comment into the output file")
     optParser.add_argument("--retries", type=int, default=5,
                            help="How many attempts to download if a 504 is encountered")
+    optParser.add_argument("--timeout", type=int, default=250,
+                           help="Set request timeout")
     optParser.add_argument("--retry-delay", type=int, default=3, help="Delay between download attempts")
     optParser.add_argument("-v", "--verbose", action="store_true",
                            default=False, help="tell me what you are doing")
@@ -271,7 +284,9 @@ def get(args=None):
 
     shortcut = {"oapi": "https://overpass-api.de/api/interpreter",
                 "hpi": "https://osm.hpi.de/overpass/api/interpreter",
-                "pcoffee": "https://overpass.private.coffee/api/interpreter"}
+                "pcoffee": "https://overpass.private.coffee/api/interpreter",
+                "vkmaps": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+                "dressel": "https://ovp.dresel.systems/api/interpreter"}
     urls = [shortcut.get(u, u) for u in options.url.split(",")]
     context = ssl.create_default_context(cafile=certifi.where() if HAVE_CERTIFI else None)
     context.minimum_version = ssl.TLSVersion.TLSv1_2
