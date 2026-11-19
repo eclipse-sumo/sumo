@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-19T13:05:51.925867+01:00 by Eclipse SUMO polyconvert v1_28_0+0658-d157453069c
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<polyconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+        <osm.keep-full-type value="true"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="pois.poi.xml"/>
+    </output>
+
+    <projection>
+        <proj.scale value="1.00000"/>
+        <proj.utm value="true"/>
+        <proj.plain-geo value="true"/>
+    </projection>
+
+    <processing>
+        <all-attributes value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+    </report>
+
+</polyconvertConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poly id="39085057" type="building.apartments" color="255,230,230" fill="1" layer="-1.000000" geo="1" shape="10.534100,52.275701 10.534343,52.275705 10.534345,52.275607 10.534102,52.275605 10.534100,52.275701">
+        <param key="addr:city" value="Braunschweig"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="41"/>
+        <param key="addr:postcode" value="38106"/>
+        <param key="addr:street" value="Rebenring"/>
+        <param key="building" value="apartments"/>
+        <param key="building:levels" value="4"/>
+        <param key="roof:levels" value="1"/>
+        <param key="roof:shape" value="gabled"/>
+    </poly>
+    <poly id="39085058" type="building.apartments" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="10.534345,52.275607 10.534343,52.275705 10.534524,52.275711 10.534528,52.275615 10.534345,52.275607">
+        <param key="addr:city" value="Braunschweig"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="42"/>
+        <param key="addr:postcode" value="38106"/>
+        <param key="addr:street" value="Rebenring"/>
+        <param key="building" value="apartments"/>
+        <param key="building:levels" value="4"/>
+        <param key="roof:levels" value="1"/>
+        <param key="roof:shape" value="gabled"/>
+    </poly>
+    <poly id="39085059" type="building.apartments" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="10.534678,52.275717 10.534524,52.275711 10.534528,52.275615 10.534695,52.275621 10.534691,52.275639 10.534678,52.275717">
+        <param key="addr:city" value="Braunschweig"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="43"/>
+        <param key="addr:postcode" value="38106"/>
+        <param key="addr:street" value="Rebenring"/>
+        <param key="building" value="apartments"/>
+        <param key="building:levels" value="4"/>
+        <param key="roof:levels" value="1"/>
+        <param key="roof:shape" value="gabled"/>
+    </poly>
+    <poly id="545220611" type="traffic_sign.DE:241" color="black" fill="0" layer="0.00" geo="1" shape="10.534959,52.275601 10.534665,52.275579 10.534485,52.275569 10.534199,52.275557 10.534000,52.275563 10.533947,52.275564">
+        <param key="bicycle" value="no"/>
+        <param key="foot" value="designated"/>
+        <param key="highway" value="footway"/>
+        <param key="lit" value="yes"/>
+        <param key="smoothness" value="excellent"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="traffic_sign" value="DE:241"/>
+    </poly>
+    <poi id="6022079080" type="natural.tree" color="140,196,107" layer="1.00" lon="10.534859" lat="52.275550">
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="6022079081" type="natural.tree" color="140,196,107" layer="1.00" lon="10.534681" lat="52.275545">
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="6022079082" type="natural.tree" color="140,196,107" layer="1.00" lon="10.534529" lat="52.275521">
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="6022079083" type="natural.tree" color="140,196,107" layer="1.00" lon="10.534260" lat="52.275520">
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+</additional>

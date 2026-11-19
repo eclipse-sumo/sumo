@@ -27,3 +27,7 @@ inner_shape
 
 # should have attribute fill
 water_incomplete
+
+# see #18671
+# 
+highway_traffic_sign

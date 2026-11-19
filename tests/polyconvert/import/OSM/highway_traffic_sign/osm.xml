@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="openstreetmap-cgimap 2.1.1 (226923 spike-06.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="52.2755040" minlon="10.5341720" maxlat="52.2756380" maxlon="10.5348640"/>
+ <node id="467010986" visible="true" version="2" changeset="22044668" timestamp="2014-04-30T14:34:20Z" user="Samoth" uid="2054415" lat="52.2757006" lon="10.5341001"/>
+ <node id="467010987" visible="true" version="2" changeset="22044668" timestamp="2014-04-30T14:34:20Z" user="Samoth" uid="2054415" lat="52.2757054" lon="10.5343434"/>
+ <node id="467010988" visible="true" version="2" changeset="22044668" timestamp="2014-04-30T14:34:20Z" user="Samoth" uid="2054415" lat="52.2756075" lon="10.5343452"/>
+ <node id="467010989" visible="true" version="2" changeset="22044668" timestamp="2014-04-30T14:34:20Z" user="Samoth" uid="2054415" lat="52.2756053" lon="10.5341019"/>
+ <node id="467010994" visible="true" version="2" changeset="22044668" timestamp="2014-04-30T14:34:20Z" user="Samoth" uid="2054415" lat="52.2756145" lon="10.5345283"/>
+ <node id="467010995" visible="true" version="2" changeset="22044668" timestamp="2014-04-30T14:34:20Z" user="Samoth" uid="2054415" lat="52.2757114" lon="10.5345239"/>
+ <node id="467010996" visible="true" version="2" changeset="22044668" timestamp="2014-04-30T14:34:20Z" user="Samoth" uid="2054415" lat="52.2756394" lon="10.5346911"/>
+ <node id="2826599641" visible="true" version="1" changeset="22044668" timestamp="2014-04-30T14:34:15Z" user="Samoth" uid="2054415" lat="52.2756210" lon="10.5346947"/>
+ <node id="2826599642" visible="true" version="1" changeset="22044668" timestamp="2014-04-30T14:34:15Z" user="Samoth" uid="2054415" lat="52.2757169" lon="10.5346783"/>
+ <node id="3312512578" visible="true" version="3" changeset="54427250" timestamp="2017-12-07T10:32:40Z" user="inaktiv" uid="3370944" lat="52.2755356" lon="10.5341987"/>
+ <node id="3312512579" visible="true" version="4" changeset="67731231" timestamp="2019-03-03T08:47:53Z" user="SHuehne" uid="144382" lat="52.2755435" lon="10.5338531">
+  <tag k="crossing" v="uncontrolled"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="3312512580" visible="true" version="3" changeset="54427250" timestamp="2017-12-07T10:32:40Z" user="inaktiv" uid="3370944" lat="52.2755446" lon="10.5344881"/>
+ <node id="3312512582" visible="true" version="2" changeset="53904505" timestamp="2017-11-18T15:51:14Z" user="IdleGandalf" uid="2159168" lat="52.2755659" lon="10.5348092"/>
+ <node id="3312512583" visible="true" version="2" changeset="54427250" timestamp="2017-12-07T10:32:40Z" user="inaktiv" uid="3370944" lat="52.2755791" lon="10.5325101"/>
+ <node id="3312512584" visible="true" version="2" changeset="54427250" timestamp="2017-12-07T10:32:40Z" user="inaktiv" uid="3370944" lat="52.2755953" lon="10.5319554"/>
+ <node id="3312512586" visible="true" version="4" changeset="150964723" timestamp="2024-05-06T13:11:07Z" user="enterprise1995" uid="2550299" lat="52.2756117" lon="10.5352400"/>
+ <node id="3312512587" visible="true" version="2" changeset="54427250" timestamp="2017-12-07T10:32:40Z" user="inaktiv" uid="3370944" lat="52.2756078" lon="10.5314406"/>
+ <node id="3312512590" visible="true" version="5" changeset="66647325" timestamp="2019-01-26T01:12:51Z" user="EvanE" uid="184969" lat="52.2756307" lon="10.5287995"/>
+ <node id="3312512591" visible="true" version="2" changeset="54427250" timestamp="2017-12-07T10:32:40Z" user="inaktiv" uid="3370944" lat="52.2756455" lon="10.5293751"/>
+ <node id="3312512592" visible="true" version="2" changeset="54427250" timestamp="2017-12-07T10:32:40Z" user="inaktiv" uid="3370944" lat="52.2756437" lon="10.5301213"/>
+ <node id="3896969433" visible="true" version="2" changeset="54427250" timestamp="2017-12-07T10:32:40Z" user="inaktiv" uid="3370944" lat="52.2756433" lon="10.5300037"/>
+ <node id="4089724758" visible="true" version="4" changeset="59623116" timestamp="2018-06-07T06:40:46Z" user="inaktiv" uid="3370944" lat="52.2755594" lon="10.5333051"/>
+ <node id="4672426086" visible="true" version="1" changeset="45892937" timestamp="2017-02-07T18:19:32Z" user="rohieb" uid="39567" lat="52.2756190" lon="10.5310700"/>
+ <node id="4702449900" visible="true" version="3" changeset="54427250" timestamp="2017-12-07T10:32:40Z" user="inaktiv" uid="3370944" lat="52.2755641" lon="10.5339471"/>
+ <node id="5234660231" visible="true" version="2" changeset="59623116" timestamp="2018-06-07T06:40:46Z" user="inaktiv" uid="3370944" lat="52.2755550" lon="10.5335421"/>
+ <node id="5269713100" visible="true" version="1" changeset="54427250" timestamp="2017-12-07T10:32:39Z" user="inaktiv" uid="3370944" lat="52.2756482" lon="10.5296427"/>
+ <node id="5269713101" visible="true" version="1" changeset="54427250" timestamp="2017-12-07T10:32:39Z" user="inaktiv" uid="3370944" lat="52.2756071" lon="10.5314984"/>
+ <node id="5269713102" visible="true" version="1" changeset="54427250" timestamp="2017-12-07T10:32:39Z" user="inaktiv" uid="3370944" lat="52.2756055" lon="10.5351913"/>
+ <node id="5269713105" visible="true" version="1" changeset="54427250" timestamp="2017-12-07T10:32:39Z" user="inaktiv" uid="3370944" lat="52.2756006" lon="10.5349590"/>
+ <node id="5269713106" visible="true" version="1" changeset="54427250" timestamp="2017-12-07T10:32:39Z" user="inaktiv" uid="3370944" lat="52.2755794" lon="10.5346652"/>
+ <node id="5269713107" visible="true" version="2" changeset="59623116" timestamp="2018-06-07T06:40:46Z" user="inaktiv" uid="3370944" lat="52.2755687" lon="10.5344853"/>
+ <node id="5671413016" visible="true" version="1" changeset="59623116" timestamp="2018-06-07T06:40:45Z" user="inaktiv" uid="3370944" lat="52.2755575" lon="10.5341995"/>
+ <node id="5929730246" visible="true" version="1" changeset="62924829" timestamp="2018-09-25T19:17:37Z" user="ent8r" uid="3755477" lat="52.2755382" lon="10.5339967"/>
+ <node id="5929730251" visible="true" version="1" changeset="62924829" timestamp="2018-09-25T19:17:37Z" user="ent8r" uid="3755477" lat="52.2755627" lon="10.5339996"/>
+ <node id="5929730253" visible="true" version="1" changeset="62924829" timestamp="2018-09-25T19:17:37Z" user="ent8r" uid="3755477" lat="52.2755466" lon="10.5337685"/>
+ <node id="6022079080" visible="true" version="2" changeset="165242075" timestamp="2025-04-21T14:09:44Z" user="RainerSchwerdtfeger" uid="21855284" lat="52.2755499" lon="10.5348595">
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="6022079081" visible="true" version="2" changeset="165242075" timestamp="2025-04-21T14:09:44Z" user="RainerSchwerdtfeger" uid="21855284" lat="52.2755453" lon="10.5346812">
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="6022079082" visible="true" version="2" changeset="165242075" timestamp="2025-04-21T14:10:19Z" user="RainerSchwerdtfeger" uid="21855284" lat="52.2755209" lon="10.5345295">
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="6022079083" visible="true" version="2" changeset="165242075" timestamp="2025-04-21T14:10:24Z" user="RainerSchwerdtfeger" uid="21855284" lat="52.2755197" lon="10.5342601">
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="14354820359" visible="true" version="1" changeset="191564954" timestamp="2026-11-06T15:47:40Z" user="rohieb" uid="39567" lat="52.2756261" lon="10.5285870"/>
+ <way id="39085057" visible="true" version="6" changeset="89041840" timestamp="2020-08-06T13:29:07Z" user="winniehell" uid="1643224">
+  <nd ref="467010986"/>
+  <nd ref="467010987"/>
+  <nd ref="467010988"/>
+  <nd ref="467010989"/>
+  <nd ref="467010986"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="41"/>
+  <tag k="addr:postcode" v="38106"/>
+  <tag k="addr:street" v="Rebenring"/>
+  <tag k="building" v="apartments"/>
+  <tag k="building:levels" v="4"/>
+  <tag k="roof:levels" v="1"/>
+  <tag k="roof:shape" v="gabled"/>
+ </way>
+ <way id="39085058" visible="true" version="6" changeset="89041840" timestamp="2020-08-06T13:28:55Z" user="winniehell" uid="1643224">
+  <nd ref="467010988"/>
+  <nd ref="467010987"/>
+  <nd ref="467010995"/>
+  <nd ref="467010994"/>
+  <nd ref="467010988"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="42"/>
+  <tag k="addr:postcode" v="38106"/>
+  <tag k="addr:street" v="Rebenring"/>
+  <tag k="building" v="apartments"/>
+  <tag k="building:levels" v="4"/>
+  <tag k="roof:levels" v="1"/>
+  <tag k="roof:shape" v="gabled"/>
+ </way>
+ <way id="39085059" visible="true" version="8" changeset="89041840" timestamp="2020-08-06T13:28:45Z" user="winniehell" uid="1643224">
+  <nd ref="2826599642"/>
+  <nd ref="467010995"/>
+  <nd ref="467010994"/>
+  <nd ref="2826599641"/>
+  <nd ref="467010996"/>
+  <nd ref="2826599642"/>
+  <tag k="addr:city" v="Braunschweig"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="43"/>
+  <tag k="addr:postcode" v="38106"/>
+  <tag k="addr:street" v="Rebenring"/>
+  <tag k="building" v="apartments"/>
+  <tag k="building:levels" v="4"/>
+  <tag k="roof:levels" v="1"/>
+  <tag k="roof:shape" v="gabled"/>
+ </way>
+ <way id="545220611" visible="true" version="7" changeset="128359793" timestamp="2022-11-01T18:54:40Z" user="Drahflow" uid="12652521">
+  <nd ref="5269713105"/>
+  <nd ref="5269713106"/>
+  <nd ref="5269713107"/>
+  <nd ref="5671413016"/>
+  <nd ref="5929730251"/>
+  <nd ref="4702449900"/>
+  <tag k="bicycle" v="no"/>
+  <tag k="foot" v="designated"/>
+  <tag k="highway" v="footway"/>
+  <tag k="lit" v="yes"/>
+  <tag k="smoothness" v="excellent"/>
+  <tag k="surface" v="paving_stones"/>
+  <tag k="traffic_sign" v="DE:241"/>
+ </way>
+ <way id="1576141073" visible="true" version="2" changeset="191564954" timestamp="2026-11-06T15:47:40Z" user="rohieb" uid="39567">
+  <nd ref="3312512586"/>
+  <nd ref="5269713102"/>
+  <nd ref="3312512582"/>
+  <nd ref="3312512580"/>
+  <nd ref="3312512578"/>
+  <nd ref="5929730246"/>
+  <nd ref="3312512579"/>
+  <nd ref="5929730253"/>
+  <nd ref="5234660231"/>
+  <nd ref="4089724758"/>
+  <nd ref="3312512583"/>
+  <nd ref="3312512584"/>
+  <nd ref="5269713101"/>
+  <nd ref="3312512587"/>
+  <nd ref="4672426086"/>
+  <nd ref="3312512592"/>
+  <nd ref="3896969433"/>
+  <nd ref="5269713100"/>
+  <nd ref="3312512591"/>
+  <nd ref="3312512590"/>
+  <nd ref="14354820359"/>
+  <tag k="foot" v="no"/>
+  <tag k="highway" v="cycleway"/>
+  <tag k="lcn" v="yes"/>
+  <tag k="lit" v="yes"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="smoothness" v="excellent"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="wheelchair" v="yes"/>
+ </way>
+</osm>
