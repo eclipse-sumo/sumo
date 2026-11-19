@@ -1,0 +1,2 @@
+Error: Option 'output-prefix' does not support absolute paths ('/tmp/pre_').
+Quitting (on error).
