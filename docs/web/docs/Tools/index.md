@@ -50,6 +50,8 @@ For scripts in other subdirectories of tools you have to replace xml in this exa
 
 Since version 1.17.0, netedit supports calling many tools via configuration dialog by using the 'Tools' menu. For a demonstration, see the [SUMO 2023 Conference tutorial](../Tutorials/index.md#sumo_user_conference_tutorials).
 
+An auto-generated overview of command-line options for all configurable Python tools is available on the [Tools Options Overview](Options.md) page.
+
 # Tools by category
 
 The tools are divided into the following topics:
