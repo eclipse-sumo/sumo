@@ -251,6 +251,8 @@ class Builder(object):
             netconvertOptions += ",--osm.sidewalks"
             typefiles.append(typemaps["urban"])
             typefiles.append(typemaps["pedestrians"])
+            if self.data["carOnlyNetwork"]:
+                netconvertOptions += ",--sidewalks.guess"
         # if ferry PT mode is requested, aslo include ships typemap for netconvert
         if ("ship" in self.data["vehicles"] or
             (self.data.get("publicTransport")
