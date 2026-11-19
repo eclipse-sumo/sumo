@@ -314,6 +314,9 @@ MSRoute::dict_clearState() {
 #ifdef HAVE_FOX
     FXMutexLock f(myDictMutex);
 #endif
+    for (RouteDistDict::iterator i = myDistDict.begin(); i != myDistDict.end(); ++i) {
+        delete i->second.first;
+    }
     myDistDict.clear();
     myDict.clear();
 }
