@@ -11,3 +11,6 @@ shortcut_gawron_marginal
 
 # the forbidden shortcut edge is now open for traffic
 shortcut_gawron_marginal_default
+
+# account for turn-lane queues via internal edge travel times
+turn_lane_queue

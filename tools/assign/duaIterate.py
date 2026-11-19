@@ -186,6 +186,8 @@ def initOptions():
                            help="use marginal cost to perform system optimal traffic assignment")
     argParser.add_argument("--marginal-cost.exp", type=float, default=0, dest="mcExp",
                            help="apply the given exponent on the current traffic count when computing marginal cost")
+    argParser.add_argument("--turn-lane-queues", action="store_true", default=False, dest="turnLaneQueues",
+                           help="account for lane-specific turn queues via internal edge travel times")
     argParser.add_argument("remaining_args", nargs='*')
     return argParser
 
@@ -513,12 +515,20 @@ def generateEdgedataAddFile(EDGEDATA_ADD, options):
     """write detectorfile"""
     with open(EDGEDATA_ADD, 'w') as fd:
         vTypes = ' vTypes="%s"' % ' '.join(options.measureVTypes.split(',')) if options.measureVTypes else ""
+        withInternal = ' withInternal="true"' if getattr(options, "turnLaneQueues", False) else ""
         print("<a>", file=fd)
-        print('    <edgeData id="dump_%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"%s/>' % (
+        print('    <edgeData id="dump_%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"%s%s/>' % (
             options.aggregation,
             options.aggregation,
             get_dumpfilename(options, -1, "dump", False),
+            withInternal,
             vTypes), file=fd)
+        if getattr(options, "turnLaneQueues", False):
+            print('    <laneData id="lanedump_%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"%s/>' % (
+                options.aggregation,
+                options.aggregation,
+                get_dumpfilename(options, -1, "lanedump", False),
+                vTypes), file=fd)
         if options.eco_measure:
             print(('    <edgeData id="eco_%s" type="emissions" freq="%s" file="%s" ' +
                    'excludeEmpty="true" minSamples="1"%s/>') % (
@@ -528,6 +538,129 @@ def generateEdgedataAddFile(EDGEDATA_ADD, options):
                        vTypes), file=fd)
         print("</a>", file=fd)
     fd.close()
+
+
+def postProcessTurnLaneQueues(step, options, net):
+    lane_dump = get_dumpfilename(options, step, "lanedump")
+    edge_dump = get_dumpfilename(options, step, "dump")
+    if not os.path.exists(lane_dump) or not os.path.exists(edge_dump):
+        return
+    with sumolib.openz(lane_dump) as f:
+        lane_tree = ET.parse(f)
+    lane_tt_by_begin = defaultdict(dict)
+    for interval_el in lane_tree.getroot().findall("interval"):
+        beg = interval_el.get("begin")
+        for lane_el in interval_el.iter("lane"):
+            tt = lane_el.get("traveltime")
+            if tt is not None:
+                lane_tt_by_begin[beg][lane_el.get("id")] = float(tt)
+    if not lane_tt_by_begin:
+        return
+
+    with sumolib.openz(edge_dump) as f:
+        edge_tree = ET.parse(f)
+    veh_classes = ("passenger", "truck", "bus", "taxi", "motorcycle")
+    normal_edges = net.getEdges(withInternal=False)
+
+    for interval_el in edge_tree.getroot().findall("interval"):
+        beg = interval_el.get("begin")
+        lane_tt = lane_tt_by_begin.get(beg)
+        if not lane_tt:
+            continue
+        edge_elems = {e.get("id"): e for e in interval_el.findall("edge")}
+        delay = defaultdict(float)
+
+        for e_obj in normal_edges:
+            eid = e_obj.getID()
+            lanes = e_obj.getLanes()
+            sampled_lanes = [lane for lane in lanes if lane.getID() in lane_tt]
+            if not sampled_lanes:
+                continue
+            sampled_targets = {c.getTo() for sl in sampled_lanes for c in sl.getOutgoing()}
+            eff_tt = {sl.getID(): lane_tt[sl.getID()] for sl in sampled_lanes}
+            for lane in lanes:
+                lid = lane.getID()
+                if lid not in eff_tt and lane.getOutgoing():
+                    l_targets = {c.getTo() for c in lane.getOutgoing()}
+                    if l_targets != sampled_targets and any(
+                        lane.allows(vc) and sl.allows(vc) for sl in sampled_lanes for vc in veh_classes
+                    ):
+                        eff_tt[lid] = e_obj.getLength() / lane.getSpeed()
+            base_tt = min(eff_tt.values())
+            if eid in edge_elems and edge_elems[eid].get("traveltime") is not None:
+                old_tt = float(edge_elems[eid].get("traveltime"))
+                edge_elems[eid].set("traveltime", "%.2f" % base_tt)
+                if edge_elems[eid].get("overlapTraveltime") is not None:
+                    old_ov = float(edge_elems[eid].get("overlapTraveltime"))
+                    edge_elems[eid].set(
+                        "overlapTraveltime",
+                        "%.2f" % max(0.0, old_ov - max(0.0, old_tt - base_tt)),
+                    )
+            for lid, ltt in eff_tt.items():
+                if ltt > base_tt + 1e-6:
+                    delay[lid] = ltt - base_tt
+
+        turn_penalty = defaultdict(float)
+        for _ in range(10):
+            moved_any = False
+            next_add = defaultdict(list)
+            for e_obj in normal_edges:
+                lanes = [lane for lane in e_obj.getLanes() if lane.getOutgoing()]
+                if not lanes or not any(delay.get(lane.getID(), 0.0) > 1e-6 for lane in lanes):
+                    continue
+                orig_delay = {lane.getID(): delay.get(lane.getID(), 0.0) for lane in lanes}
+                for lane in lanes:
+                    delay[lane.getID()] = 0.0
+                targets = {}
+                for lane in lanes:
+                    for c in lane.getOutgoing():
+                        targets.setdefault(c.getTo(), []).append((lane, c))
+                for to_edge, lc_list in targets.items():
+                    l_set = list({lane.getID(): lane for lane, _ in lc_list}.values())
+                    common = min(orig_delay[lane.getID()] for lane in l_set)
+                    if common > 1e-6:
+                        turn_penalty[(e_obj.getID(), to_edge.getID())] += common
+                    to_active_lanes = [tl for tl in to_edge.getLanes() if tl.getOutgoing()]
+                    for lane in l_set:
+                        rem = orig_delay[lane.getID()] - common
+                        if rem > 1e-6:
+                            to_lanes = list({
+                                c.getToLane().getID(): c.getToLane()
+                                for src_l, c in lc_list if src_l == lane and c.getToLane().getOutgoing()
+                            }.values())
+                            if to_lanes and len(to_lanes) < len(to_active_lanes):
+                                for tl in to_lanes:
+                                    next_add[tl.getID()].append(rem)
+                                moved_any = True
+            for tl_id, vals in next_add.items():
+                delay[tl_id] += sum(vals) / len(vals)
+            if not moved_any:
+                break
+
+        for (from_id, to_id), pen in sorted(turn_penalty.items()):
+            if pen <= 1e-6:
+                continue
+            from_edge = net.getEdge(from_id)
+            to_edge = net.getEdge(to_id)
+            conns = from_edge.getOutgoing().get(to_edge, [])
+            via_ids = sorted({c.getViaLaneID().rsplit("_", 1)[0] for c in conns if c.getViaLaneID()})
+            for vid in via_ids:
+                if vid in edge_elems and edge_elems[vid].get("traveltime") is not None:
+                    cur_tt = float(edge_elems[vid].get("traveltime"))
+                    edge_elems[vid].set("traveltime", "%.2f" % (cur_tt + pen))
+                    if edge_elems[vid].get("overlapTraveltime") is not None:
+                        cur_ov = float(edge_elems[vid].get("overlapTraveltime"))
+                        edge_elems[vid].set("overlapTraveltime", "%.2f" % (cur_ov + pen))
+                elif net.hasEdge(vid):
+                    via_edge = net.getEdge(vid)
+                    base_via = via_edge.getLength() / via_edge.getSpeed()
+                    el = ET.SubElement(interval_el, "edge")
+                    el.set("id", vid)
+                    el.set("traveltime", "%.2f" % (base_via + pen))
+                    edge_elems[vid] = el
+
+    with sumolib.openz(edge_dump, "wb") as f:
+        edge_tree.write(f, encoding="utf-8", xml_declaration=True)
 
 
 def main(args=None):
@@ -601,6 +734,11 @@ def main(args=None):
                     or get_teleport_ratio(step) <= options.maxTeleportRatio):
                 scaleStep += 1
 
+    if options.turnLaneQueues and options.internallink:
+        print("Warning: --turn-lane-queues has no effect when --nointernal-link is set.", file=sys.stderr)
+        options.turnLaneQueues = False
+    turn_lane_net = sumolib.net.readNet(options.net, withInternal=True) if options.turnLaneQueues else None
+
     # generate edgedata.add.xml
     generateEdgedataAddFile(EDGEDATA_ADD, options)
 
@@ -661,6 +799,8 @@ def main(args=None):
         ret = call([sumoBinary, "-c", sumocfg], log)
         if ret != 0:
             break
+        if options.turnLaneQueues:
+            postProcessTurnLaneQueues(step, options, turn_lane_net)
         if options.tripinfoFilter:
             filterTripinfo(step, options.tripinfoFilter.split(","))
         etime = datetime.now()

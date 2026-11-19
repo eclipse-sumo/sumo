@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="s_0" depart="0">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_0" depart="0">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_1" depart="3">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_1" depart="3">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_2" depart="6">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_2" depart="6">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_3" depart="9">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_3" depart="9">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_4" depart="12">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_4" depart="12">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_5" depart="15">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_5" depart="15">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_6" depart="18">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_6" depart="18">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_7" depart="21">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_7" depart="21">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_8" depart="24">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_8" depart="24">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_9" depart="27">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_9" depart="27">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_10" depart="30">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_10" depart="30">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_11" depart="33">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_11" depart="33">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_12" depart="36">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_12" depart="36">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_13" depart="39">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_13" depart="39">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_14" depart="42">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_14" depart="42">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_15" depart="45">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_15" depart="45">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_16" depart="48">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_16" depart="48">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_17" depart="51">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_17" depart="51">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_18" depart="54">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_18" depart="54">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_19" depart="57">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_19" depart="57">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_20" depart="60">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_20" depart="60">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_21" depart="63">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_21" depart="63">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_22" depart="66">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_22" depart="66">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_23" depart="69">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_23" depart="69">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_24" depart="72">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_24" depart="72">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_25" depart="75">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_25" depart="75">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_26" depart="78">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_26" depart="78">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_27" depart="81">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_27" depart="81">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_28" depart="84">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_28" depart="84">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_29" depart="87">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_29" depart="87">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_30" depart="90">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_30" depart="90">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_31" depart="93">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_31" depart="93">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_32" depart="96">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_32" depart="96">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_33" depart="99">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_33" depart="99">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_34" depart="102">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_34" depart="102">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_35" depart="105">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_35" depart="105">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_36" depart="108">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_36" depart="108">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_37" depart="111">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_37" depart="111">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_38" depart="114">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_38" depart="114">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+    <vehicle id="s_39" depart="117">
+        <route edges="in mid1 mid2 straight_out to_s_sink"/>
+    </vehicle>
+    <vehicle id="l_39" depart="117">
+        <route edges="in mid1 mid2 left_out to_l_sink"/>
+    </vehicle>
+</routes>
