@@ -152,6 +152,7 @@ public:
 #endif
 
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
+        const bool ignoreTransient = vehicle == nullptr ? false : vehicle->ignoreTransientPermissions();
         if (this->myBulkMode && !this->myAmClean) {
             const auto& toInfo = this->myEdgeInfos[to->getNumericalID()];
             if (toInfo.visited) {
@@ -226,7 +227,7 @@ public:
             }
             const double heuristicEffort = minimumInfo->effort + effortDelta + heuristic_remaining;
             // check all ways from the node with the minimal length
-            for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass)) {
+            for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass, ignoreTransient)) {
                 auto& followerInfo = this->myEdgeInfos[follower.first->getNumericalID()];
                 // check whether it can be used
                 if (this->isProhibited(follower.first, vehicle, leaveTime)) {
