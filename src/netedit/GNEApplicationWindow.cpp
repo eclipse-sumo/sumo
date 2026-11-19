@@ -1087,6 +1087,8 @@ GNEApplicationWindow::onCmdSmartReload(FXObject* sender, FXSelector sel, void* p
         if (myStartedWithNewNet) {
             // preserve output file if defined in bucket
             const auto outputFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETWORK);
+            // forget other files (e.g. demand) because they cannot be loaded into an empty network
+            myFileBucketHandler->resetDefaultFilenames();
             // create new network
             createNewNetwork();
             // restore ignore flags
@@ -3597,6 +3599,8 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
             // After saving a net successfully, add it into Recent Nets list.
             myMenuBarFile.myRecentNetworks.appendFile(myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETWORK).c_str());
             myMessageWindow->addSeparator();
+            // the network exists now as file, so reload must load it (and its configs) instead of creating a new one
+            myStartedWithNewNet = false;
         } else {
             PROGRESS_FAILED_MESSAGE();
             WRITE_ERROR(TLF("Could not save network in '%'.", myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETWORK)));
