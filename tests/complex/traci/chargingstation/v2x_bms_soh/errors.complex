@@ -1,0 +1,4 @@
+Warning: Trying to set into the battery device of vehicle 'battery_v0' an invalid minimumSoC (-0.10).
+Warning: Trying to set into the battery device of vehicle 'battery_v0' an invalid maximumSoC (1.50).
+Warning: Trying to set into the battery device of vehicle 'battery_v0' an invalid stateOfHealth (0.00).
+Warning: Trying to set into the battery device of vehicle 'battery_v0' an invalid capacityLossPerCycle (-1.00).

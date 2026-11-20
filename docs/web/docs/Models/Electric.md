@@ -42,6 +42,10 @@ These values have the following meanings (the defaults are from the Kia below):
 | device.battery.chargeCurveTable   | float list |                   | Corresponding maximum charge rates to each state of charge value in `device.battery.chargeLevelTable` |
 | device.battery.maximumDischargeRate | float    | 0 (W)             | Maximum rate at which the battery is discharged into a [charging station that accepts discharging](#vehicle-to-grid). The default 0 disables discharging |
 | device.battery.minimumChargeLevel | float      | 0 (Wh)            | Charge level which is kept when [discharging into a charging station](#vehicle-to-grid) |
+| device.battery.minimumSoC         | float      | 0                 | Lower state of charge (relative to the [usable capacity](#battery_state_of_health)) which is kept when [discharging into a charging station](#vehicle-to-grid), like the *MinimumSOC* of ISO 15118-20. The larger of this and minimumChargeLevel applies |
+| device.battery.maximumSoC         | float      | 1                 | Upper state of charge (relative to the usable capacity) up to which the battery is charged at a charging station |
+| device.battery.stateOfHealth      | float      | 1                 | [State of health](#battery_state_of_health): fraction of capacity which is usable |
+| device.battery.capacityLossPerCycle | float    | 0                 | Loss of state of health per [equivalent full cycle](#battery_state_of_health) |
 | maximumPower                      | float      | 150000 (W)        | Maximum power which the vehicle can reach (unused)      |
 | vehicleMass                       | float      | 1830 (kg)         | Vehicle mass *m<sub>veh</sub>* (deprecated)             |
 | loading                           | float      | 0 (kg)            | Additional mass **(to be defined in the vehicle type)** |
@@ -220,6 +224,20 @@ The energy used for driving (`totalEnergyConsumed`) does not include the dischar
 All these values can be changed at runtime with [TraCI](#controlling_vehicle-to-grid). The discharged energy is reported as `energyDischarged` in the [battery-output](#battery-output),
 in the [charging station output](#charging_station_output) and as `totalEnergyDischarged` in the battery element of the [tripinfo-output](../Simulation/Output/TripInfo.md#battery).
 These attributes are only written for stations and vehicles taking part in vehicle-to-grid.
+
+## Battery state of health
+
+The usable capacity of a battery is capacity · stateOfHealth; the charge level never exceeds it.
+With a positive capacityLossPerCycle, the state of health decreases with the energy throughput of the battery
+(driving consumption, recuperation, charging and [discharging into a charging station](#vehicle-to-grid)):
+
+*SOH* ← max(0.05, *SOH* - capacityLossPerCycle · *E<sub>throughput</sub>* / (2 · capacity))
+
+The equivalent full cycles ((totalEnergyConsumed + totalEnergyRegenerated + totalEnergyCharged + totalEnergyDischarged) / (2 · capacity)),
+stateOfHealth, ffectiveCapacity (Wh) and 	otalEnergyCharged (Wh) can be retrieved with
+	raci.vehicle.getParameter(vehID, "device.battery.<key>"); minimumSoC, maximumSoC, stateOfHealth and
+capacityLossPerCycle can also be set at runtime. With the defaults (stateOfHealth=1, capacityLossPerCycle=0,
+minimumSoC=0, maximumSoC=1) the battery behaves as before.
 
 ## Session power ramps and stop delay
 

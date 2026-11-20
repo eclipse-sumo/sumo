@@ -1,0 +1,29 @@
+<routes>
+    <vType id="ev" emissionClass="Energy">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="36000"/>
+    </vType>
+    <!-- V2G discharging stops at the BMS minimum state of charge (0.4 * 36000 Wh = 14400 Wh), limited by maximumDischargeRate -->
+    <vehicle id="v0" type="ev" depart="0">
+        <route edges="WC CE"/>
+        <param key="device.battery.chargeLevel" value="14500"/>
+        <param key="device.battery.maximumDischargeRate" value="18000"/>
+        <param key="device.battery.minimumSoC" value="0.4"/>
+        <stop chargingStation="cs1" parking="true" duration="40"/>
+    </vehicle>
+    <!-- charging stops at the BMS maximum state of charge (0.5 * 36000 Wh = 18000 Wh) -->
+    <vehicle id="v1" type="ev" depart="60">
+        <route edges="WC CE"/>
+        <param key="device.battery.chargeLevel" value="17900"/>
+        <param key="device.battery.maximumSoC" value="0.5"/>
+        <stop chargingStation="cs1" parking="true" duration="40"/>
+    </vehicle>
+    <!-- degraded battery: usable capacity 0.5 * 36000 Wh, capacity fade of 10 % per equivalent full cycle -->
+    <vehicle id="v2" type="ev" depart="120">
+        <route edges="WC CE"/>
+        <param key="device.battery.chargeLevel" value="17900"/>
+        <param key="device.battery.stateOfHealth" value="0.5"/>
+        <param key="device.battery.capacityLossPerCycle" value="0.1"/>
+        <stop chargingStation="cs1" parking="true" duration="40"/>
+    </vehicle>
+</routes>

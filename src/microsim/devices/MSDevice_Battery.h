@@ -137,10 +137,15 @@ private:
     * @param[in] chargeCurveTable The charge curve state of charge values
     * @param[in] maximumDischargeRate The maximum rate for discharging into a charging station (vehicle-to-grid)
     * @param[in] minimumChargeLevel The charge level which is kept when discharging into a charging station
+    * @param[in] minimumSoC The lower state-of-charge floor in [0, 1] kept when discharging into a charging station
+    * @param[in] maximumSoC The upper state-of-charge ceiling in [0, 1] for charging at a charging station
+    * @param[in] stateOfHealth The battery state of health in (0, 1] scaling maximum capacity
+    * @param[in] capacityLossPerCycle The fractional state-of-health loss per equivalent full cycle
     */
     MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity,
                      const double stoppingThreshold, const double maximumChargeRate, const std::string& chargeLevelTable, const std::string& chargeCurveTable,
-                     const double maximumDischargeRate, const double minimumChargeLevel);
+                     const double maximumDischargeRate, const double minimumChargeLevel,
+                     const double minimumSoC, const double maximumSoC, const double stateOfHealth, const double capacityLossPerCycle);
 
 public:
     /// @brief Get the actual vehicle's Battery Capacity in Wh
@@ -148,6 +153,11 @@ public:
 
     /// @brief Get the total vehicle's Battery Capacity in Wh
     double getMaximumBatteryCapacity() const;
+
+    /// @brief Get the effective vehicle's Battery Capacity in Wh accounting for state of health
+    double getEffectiveBatteryCapacity() const {
+        return myMaximumBatteryCapacity * myStateOfHealth;
+    }
 
     /// @brief Get the maximum power when accelerating
     double getMaximumPower() const;
@@ -183,6 +193,11 @@ public:
     /// @brief Get charged energy
     double getEnergyCharged() const;
 
+    /// @brief Get the total energy in Wh charged from charging stations
+    double getTotalEnergyCharged() const {
+        return myTotalEnergyCharged;
+    }
+
     /// @brief Get the energy in Wh discharged into a charging station in the last step (vehicle-to-grid)
     double getEnergyDischarged() const {
         return myEnergyDischarged;
@@ -202,6 +217,29 @@ public:
     double getMinimumChargeLevel() const {
         return myMinimumChargeLevel;
     }
+
+    /// @brief Get the BMS lower state-of-charge floor in [0, 1] for station V2G discharging
+    double getMinimumSoC() const {
+        return myMinimumSoC;
+    }
+
+    /// @brief Get the BMS upper state-of-charge ceiling in [0, 1] for station charging
+    double getMaximumSoC() const {
+        return myMaximumSoC;
+    }
+
+    /// @brief Get the battery state of health in (0, 1]
+    double getStateOfHealth() const {
+        return myStateOfHealth;
+    }
+
+    /// @brief Get the fractional SOH capacity fade per equivalent full cycle
+    double getCapacityLossPerCycle() const {
+        return myCapacityLossPerCycle;
+    }
+
+    /// @brief Get cumulative equivalent full cycles across driving, regeneration, charging, and V2G discharging
+    double getEquivalentFullCycles() const;
 
     /// @brief Whether the battery exchanges energy bidirectionally with the given charging station (vehicle-to-grid)
     bool allowsDischarge(const MSChargingStation* cs) const;
@@ -239,6 +277,18 @@ public:
     /// @brief Set the charge level in Wh which is kept when discharging (vehicle-to-grid)
     void setMinimumChargeLevel(const double chargeLevel);
 
+    /// @brief Set the BMS lower state-of-charge floor in [0, 1] for station V2G discharging
+    void setMinimumSoC(const double minimumSoC);
+
+    /// @brief Set the BMS upper state-of-charge ceiling in [0, 1] for station charging
+    void setMaximumSoC(const double maximumSoC);
+
+    /// @brief Set the battery state of health in (0, 1]
+    void setStateOfHealth(const double stateOfHealth);
+
+    /// @brief Set the fractional SOH capacity fade per equivalent full cycle
+    void setCapacityLossPerCycle(const double capacityLossPerCycle);
+
     /// @brief Set (temporary) charge limit
     void setChargeLimit(const double limit);
 
@@ -260,6 +310,9 @@ public:
 protected:
     /// @brief Read device parameters from input
     static double readParameterValue(SUMOVehicle& v, const SumoXMLAttr& attr, const std::string& paramName, double defaultVal);
+
+    /// @brief Update battery state of health for cycled energy throughput in Wh
+    void updateStateOfHealth(const double deltaThroughputWh);
 
     /// @brief Parameter, The actual vehicles's Battery Capacity in Wh, [myActualBatteryCapacity <= myMaximumBatteryCapacity]
     double myActualBatteryCapacity;
@@ -309,11 +362,26 @@ protected:
     /// @brief Parameter, Energy charged in each timestep
     double myEnergyCharged;
 
+    /// @brief Total energy charged from charging stations
+    double myTotalEnergyCharged;
+
     /// @brief Parameter, maximum rate in W for discharging into a charging station (vehicle-to-grid, 0 = no discharging)
     double myMaximumDischargeRate;
 
     /// @brief Parameter, charge level in Wh which is kept when discharging into a charging station
     double myMinimumChargeLevel;
+
+    /// @brief Parameter, BMS lower state-of-charge floor in [0, 1] for station V2G discharging
+    double myMinimumSoC;
+
+    /// @brief Parameter, BMS upper state-of-charge ceiling in [0, 1] for station charging
+    double myMaximumSoC;
+
+    /// @brief Parameter, battery state of health in (0, 1]
+    double myStateOfHealth;
+
+    /// @brief Parameter, fractional SOH loss per equivalent full cycle (>= 0)
+    double myCapacityLossPerCycle;
 
     /// @brief Energy discharged into a charging station in each timestep
     double myEnergyDischarged;
