@@ -286,6 +286,9 @@ public:
     /// @brief Determines whether reloading is enabled
     long onUpdReload(FXObject*, FXSelector, void*);
 
+    /// @brief Determines whether quick reload can be executed
+    long onUpdQuickReload(FXObject*, FXSelector, void*);
+
     /// @brief Determines whether opening a recent file is enabled
     long onUpdOpenRecent(FXObject*, FXSelector, void*);
 

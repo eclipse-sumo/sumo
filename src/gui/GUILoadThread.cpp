@@ -102,6 +102,10 @@ GUILoadThread::run() {
             OptionsIO::getOptions();
         } else {
             // triggered at application start
+            if (oc.isSet("configuration-file")) {
+                // remember the file before parsing so it can be reloaded after an error
+                myFile = oc.getString("configuration-file");
+            }
             OptionsIO::loadConfiguration();
             if (oc.isSet("configuration-file")) {
                 myFile = oc.getString("configuration-file");

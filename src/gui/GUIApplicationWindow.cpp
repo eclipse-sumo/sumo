@@ -164,7 +164,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_P_OPENSHAPES,                               GUIApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_U_OPENEDGEDATA,                             GUIApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_R_RELOAD,                                   GUIApplicationWindow::onUpdReload),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_QUICK_RELOAD,                               GUIApplicationWindow::onUpdReload),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_QUICK_RELOAD,                               GUIApplicationWindow::onUpdQuickReload),
     FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                                             GUIApplicationWindow::onUpdOpenRecent),
     FXMAPFUNC(SEL_UPDATE,   MID_NEW_MICROVIEW,                                          GUIApplicationWindow::onUpdAddView),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS,   GUIApplicationWindow::onUpdStart),
@@ -1224,11 +1224,12 @@ GUIApplicationWindow::onCmdOpenEdgeData(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdReload(FXObject* sender, FXSelector sel, void*) {
-    if (!myAmLoading && (sender == nullptr || (myRunThread->networkAvailable() && myLoadThread->getFileName() != "" && TraCIServer::getInstance() == nullptr))) {
+    if (!myAmLoading && (sender == nullptr || (myLoadThread->getFileName() != "" && TraCIServer::getInstance() == nullptr))) {
         storeWindowSizeAndPos();
         getApp()->beginWaitCursor();
         myAmLoading = true;
-        myIsReload = sender != nullptr || sel == 1;
+        // without a loaded simulation (failed load or closed simulation) this behaves like a fresh load
+        myIsReload = (sender != nullptr && myRunThread->networkAvailable()) || sel == 1;
         closeAllWindows();
         myLoadThread->start();
         if (sender == nullptr) {
@@ -1244,7 +1245,7 @@ GUIApplicationWindow::onCmdReload(FXObject* sender, FXSelector sel, void*) {
 
 long
 GUIApplicationWindow::onCmdQuickReload(FXObject*, FXSelector, void*) {
-    if (!myAmLoading) {
+    if (!myAmLoading && myRunThread->networkAvailable()) {
         setStatusBarText(TL("Quick-Reloading."));
         MSNet::getInstance()->quickReload();
     }
@@ -1308,6 +1309,16 @@ GUIApplicationWindow::onUpdOpen(FXObject* sender, FXSelector, void* ptr) {
 
 long
 GUIApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void* ptr) {
+    sender->handle(this,
+                   myAmLoading || myLoadThread->getFileName() == "" || TraCIServer::getInstance() != nullptr
+                   ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
+                   ptr);
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onUpdQuickReload(FXObject* sender, FXSelector, void* ptr) {
     sender->handle(this,
                    myAmLoading || !myRunThread->networkAvailable() || TraCIServer::getInstance() != nullptr
                    ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
