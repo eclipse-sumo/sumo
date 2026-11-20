@@ -5,3 +5,6 @@ twice_same_file
 
 # clearing a single option
 clear_single
+
+# clearing a single option
+walk_beyond_root

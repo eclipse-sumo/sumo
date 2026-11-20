@@ -1,0 +1,10 @@
+The following new files/directories were created:
+<Test Directory>
+----_cf_model_drive_in_circles_small_circle_stop_and_go
+--------input_additional.add.xml
+--------input_additional2.add.xml
+--------input_routes.rou.xml
+--------net.net.xml
+--------test.sumocfg
+--------testballistic.sumocfg
+--------testmeso.sumocfg
