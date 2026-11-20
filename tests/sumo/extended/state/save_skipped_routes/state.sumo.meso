@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-18T17:23:47.715705+01:00 by Eclipse SUMO sumo v1_28_0+0656-c9253f0c1d3
+<!-- generated on 2026-11-20T12:33:20.112971+01:00 by Eclipse SUMO sumo v1_28_0+0694-ec2c0115eb8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,13 +48,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_28_0+0656-c9253f0c1d3" count="1" time="6.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
-    <route id="!skipped" state="0" edges="beg middle end"/>
-    <route id="!skippedTrip" state="0" edges="beg end"/>
+<snapshot type="meso" version="v1_28_0+0694-ec2c0115eb8" count="1" time="6.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!v0" state="0" edges="beg middle end"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE"/>
-    <vehicle id="v0" depart="5.00" route="!v0" distance="0 0" speedFactor="1.0000" state="0 5000 0 0 0 0 12000 5000 9223372036854774807 0 0 0 0 12000"/>
+    <vehicle id="v0" depart="5.00" route="!v0" distance="0.00 0" speedFactor="1.0000" state="0 5000 0 0 0 0 12000 5000 9223372036854774807 0 0 0 0 12000"/>
     <segment id="beg:0">
         <vehicles time="-1" blockTime="-9223372036854775808" value="v0"/>
     </segment>
