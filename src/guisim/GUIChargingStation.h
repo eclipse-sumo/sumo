@@ -80,7 +80,7 @@ public:
     GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos,
                        const std::string& name, double chargingPower, double totalPower, double dischargePower,
                        double efficiency, bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType,
-                       SUMOTime waitingTime);
+                       SUMOTime waitingTime, double chargeRampUp = 0., double chargeRampDown = 0., SUMOTime chargeStopDelay = 0);
 
     /** @brief Constructor
      * @param[in] id The id of the Charging Station
@@ -99,7 +99,7 @@ public:
     GUIChargingStation(const std::string& id, MSParkingArea* parkingArea,
                        const std::string& name, double chargingPower, double totalPower, double dischargePower,
                        double efficiency, bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType,
-                       SUMOTime waitingTime);
+                       SUMOTime waitingTime, double chargeRampUp = 0., double chargeRampDown = 0., SUMOTime chargeStopDelay = 0);
 
     /// @brief Destructor
     ~GUIChargingStation();

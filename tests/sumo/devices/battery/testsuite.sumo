@@ -85,3 +85,6 @@ chargingStations_v2g_unidirectional
 
 # discharged energy in the aggregated charging station output
 chargingStations_v2g_aggregated
+
+# trapezoidal session power ramps and pre-departure stop delay for charging and V2G discharging
+chargingStations_sessionRamps

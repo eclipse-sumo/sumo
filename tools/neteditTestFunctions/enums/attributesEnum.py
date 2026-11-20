@@ -889,15 +889,18 @@ class attrs:
             waitingTime = 16
             parkingArea = 17
             dischargePower = 18
-            parameters = 19
-            parametersButton = 21
-            size = 23
-            forceSize = 24
-            reference = 25
-            additionalFileButton = 27
-            additionalFile = 28
-            helpDialog = 29
-            reset = 30
+            chargeRampUp = 19
+            chargeRampDown = 20
+            chargeStopDelay = 21
+            parameters = 22
+            parametersButton = 24
+            size = 26
+            forceSize = 27
+            reference = 28
+            additionalFileButton = 30
+            additionalFile = 31
+            helpDialog = 32
+            reset = 33
 
         class inspect:
             id = 2
@@ -916,15 +919,15 @@ class attrs:
             chargeType = 15
             waitingTime = 17
             parkingArea = 18
-            parameters = 21
-            parametersButton = 22
-            frontButton = 24
-            forceSize = 25
-            reference = 26
-            additionalFileButton = 28
-            additionalFile = 29
-            helpDialog = 30
-            reset = 31
+            parameters = 24
+            parametersButton = 25
+            frontButton = 27
+            forceSize = 28
+            reference = 29
+            additionalFileButton = 31
+            additionalFile = 32
+            helpDialog = 33
+            reset = 34
 
         class inspectSelection:
             friendlyPos = 2
@@ -938,15 +941,15 @@ class attrs:
             chargeType = 10
             waitingTime = 11
             parkingArea = 12
-            parameters = 15
-            parametersButton = 16
-            frontButton = 18
-            forceSize = 19
-            reference = 20
-            additionalFileButton = 22
-            additionalFile = 23
-            helpDialog = 24
-            reset = 25
+            parameters = 18
+            parametersButton = 19
+            frontButton = 21
+            forceSize = 22
+            reference = 23
+            additionalFileButton = 25
+            additionalFile = 26
+            helpDialog = 27
+            reset = 28
 
     # access
 

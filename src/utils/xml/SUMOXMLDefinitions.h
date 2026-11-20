@@ -1038,6 +1038,12 @@ enum SumoXMLAttr {
     SUMO_ATTR_CHARGEINTRANSIT,
     /// @brief Delay in the charge of charging stations (different of waiting time)
     SUMO_ATTR_CHARGEDELAY,
+    /// @brief Power ramp-up rate in W/s of charging stations
+    SUMO_ATTR_CHARGERAMPUP,
+    /// @brief Power ramp-down rate in W/s of charging stations
+    SUMO_ATTR_CHARGERAMPDOWN,
+    /// @brief Time before planned stop end at which charging/discharging ramps down to zero
+    SUMO_ATTR_CHARGESTOPDELAY,
     /// @brief Charge type (fuel or electric)
     SUMO_ATTR_CHARGETYPE,
     /// @}

@@ -104,10 +104,11 @@ GUITriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
 void
 GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
                                         const std::string& name, double chargingPower, double totalPower, double dischargePower, double efficiency,
-                                        bool chargeInTransit, SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime, MSParkingArea* parkingArea) {
+                                        bool chargeInTransit, SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime, MSParkingArea* parkingArea,
+                                        double chargeRampUp, double chargeRampDown, SUMOTime chargeStopDelay) {
     GUIChargingStation* chargingStation = (parkingArea == nullptr) ? new GUIChargingStation(id, *lane, frompos, topos, name, chargingPower, totalPower, dischargePower,
-                                          efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime) : new GUIChargingStation(id, parkingArea, name, chargingPower,
-                                                  totalPower, dischargePower, efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime);
+                                          efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime, chargeRampUp, chargeRampDown, chargeStopDelay) : new GUIChargingStation(id, parkingArea, name, chargingPower,
+                                                  totalPower, dischargePower, efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime, chargeRampUp, chargeRampDown, chargeStopDelay);
     if (!net.addStoppingPlace(SUMO_TAG_CHARGING_STATION, chargingStation)) {
         delete chargingStation;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");

@@ -143,6 +143,7 @@ title: ChangeLog
   - Improvement in running time in the junction model (~8% simulation speed) #18776
   - Improvement in parallel running time #18777 (still experimental)
   - Charging stations support vehicle-to-grid: with the new attribute `dischargePower`, stopped vehicles with battery parameter `device.battery.maximumDischargeRate` > 0 are discharged down to `device.battery.minimumChargeLevel`. The discharged energy is reported in battery-output, chargingstations-output and tripinfo-output. [documentation](Models/Electric.md#vehicle-to-grid) #18656
+  - Charging stations support trapezoidal session power ramps and pre-departure decoupling via optional attributes `chargeRampUp`, `chargeRampDown` and `chargeStopDelay`. [documentation](Models/Electric.md#session_power_ramps_and_stop_delay)
 
 - sumo-gui
   - Converted some buttons into checkboxes in the locate dialog #9925
@@ -174,6 +175,7 @@ title: ChangeLog
   - command logging (`traceFile`) is now working with multiple connections #18504
   - Can now modify W99 model params #15421
   - Added functions `chargingstation.getDischargePower` and `chargingstation.setDischargePower` and battery device parameters `maximumDischargeRate`, `minimumChargeLevel`, `energyDischarged` and `totalEnergyDischarged` for [vehicle-to-grid](Models/Electric.md#vehicle-to-grid) #18656
+  - `chargingstation.getParameter` and `chargingstation.setParameter` now support `chargeRampUp`, `chargeRampDown`, `chargeStopDelay` and read-only `actualPower` for [session power ramps](Models/Electric.md#session_power_ramps_and_stop_delay)
 
 - tools
   - osmWebWizard.py: added option **--language** to localize the web UI #13081
