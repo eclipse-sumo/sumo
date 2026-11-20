@@ -35,9 +35,8 @@ import shlex
 import subprocess
 from collections import defaultdict
 
-THIS_DIR = os.path.abspath(os.path.dirname(__file__))
-SUMO_HOME = os.path.dirname(THIS_DIR)
-sys.path.append(join(SUMO_HOME, "tools"))
+SUMO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(join(SUMO_ROOT, "tools"))
 
 import sumolib  # noqa
 
@@ -118,7 +117,7 @@ def main(options):
                         line = line.strip()
                         if line and not line.startswith("#"):
                             if target == "" and not options.noSubdir:
-                                target = generateTargetName(os.path.realpath(join(SUMO_HOME, "tests")), source)
+                                target = generateTargetName(os.path.realpath(join(SUMO_ROOT, "tests")), source)
                             newTargets.append((os.path.join(source, line), os.path.join(target, line), app))
             else:
                 newTargets.append((source, target, app))
@@ -154,6 +153,7 @@ calls = [
         if curDir[-1] == os.path.sep:
             curDir = os.path.dirname(curDir)
         while True:
+            testRootReached = curDir == os.path.realpath(join(SUMO_ROOT, "tests"))
             for f in sorted(os.listdir(curDir)):
                 path = join(curDir, f)
                 if f not in potentials or os.path.isdir(path):
@@ -162,13 +162,15 @@ calls = [
                     optionsFiles[f[8:]].append(path)
                 if f.startswith("config."):
                     configFiles[f[7:]].append(path)
-            if curDir == os.path.realpath(join(SUMO_HOME, "tests")) or curDir == os.path.dirname(curDir):
+                if f == "config_all":
+                    testRootReached = True
+            if testRootReached or curDir == os.path.dirname(curDir):
                 break
             curDir = os.path.dirname(curDir)
         if not configFiles:
             print("Config not found for %s." % source, file=sys.stderr)
             continue
-        if len(glob.glob(os.path.join(source, "testsuite.*"))) > 0:
+        if glob.glob(os.path.join(source, "testsuite.*")):
             print("Directory %s seems to contain a test suite." % source, file=sys.stderr)
             continue
         if app == "":
