@@ -1,21 +1,21 @@
-Loading net-file from 'three_split.net.xml' ... done (1ms).
+Loading net-file from 'three_split.net.xml' ... done (0ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_28_0+0457-a861f1934c2 started with time: 0.00.
-Simulation ended at time: 239.00.
+Simulation version v1_28_0+0705-e0fc6c7fe65 started with time: 0.00.
+Simulation ended at time: 240.00.
 Reason: All vehicles have left the simulation.
 Performance:
  Duration: 0.00s
- Real time factor: 239000
- UPS: 5208000.000000
+ Real time factor: 240000
+ UPS: 5221000.000000
 Vehicles:
  Inserted: 25
  Running: 0
  Waiting: 0
 Statistics (avg of 25):
  RouteLength: 2000.00
- Speed: 9.61
- Duration: 208.32
- WaitingTime: 0.22
- TimeLoss: 7.82
- DepartDelay: 5.24
+ Speed: 9.59
+ Duration: 208.84
+ WaitingTime: 0.25
+ TimeLoss: 8.35
+ DepartDelay: 5.28

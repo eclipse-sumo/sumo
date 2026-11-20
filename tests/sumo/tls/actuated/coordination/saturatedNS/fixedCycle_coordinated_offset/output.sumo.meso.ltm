@@ -3,21 +3,21 @@ Loading additional-files from 'input_additional.add.xml' ... done (0ms).
 Loading additional-files from 'input_additional2.add.xml' ... done (0ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_28_0+0612-d9664f3c3da started with time: 0.00.
+Simulation version v1_28_0+0705-e0fc6c7fe65 started with time: 0.00.
 Simulation ended at time: 3636.00.
 Reason: All vehicles have left the simulation.
 Performance:
  Duration: 0.02s
- Real time factor: 165273
- UPS: 2167954.545455
+ Real time factor: 173143
+ UPS: 2273380.952381
 Vehicles:
- Inserted: 1486 (Loaded: 1500)
+ Inserted: 1484 (Loaded: 1500)
  Running: 0
  Waiting: 0
-Statistics (avg of 1486):
+Statistics (avg of 1484):
  RouteLength: 392.80
- Speed: 12.81
- Duration: 32.10
- WaitingTime: 0.35
- TimeLoss: 3.21
- DepartDelay: 2.61
+ Speed: 12.76
+ Duration: 32.17
+ WaitingTime: 0.39
+ TimeLoss: 3.27
+ DepartDelay: 3.35

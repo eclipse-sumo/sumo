@@ -1,6 +1,6 @@
-Warning: Teleporting vehicle 'tram9'; waited too long, from edge 'Tdepot_0':1, time=2021.14.
-Warning: Vehicle 'tram9' teleports beyond arrival edge 'Tdepot_1', time=2024.99.
-Warning: Teleporting vehicle 'tram4'; waited too long, from edge 'Tdepot_0':1, time=2532.27.
-Warning: Vehicle 'tram4' teleports beyond arrival edge 'Tdepot_1', time=2536.12.
-Warning: Teleporting vehicle 'tram2'; waited too long, from edge 'Tdepot_0':1, time=3043.40.
-Warning: Vehicle 'tram2' teleports beyond arrival edge 'Tdepot_1', time=3047.25.
+Warning: Teleporting vehicle 'tram9'; waited too long, from edge 'Tdepot_0':0, time=1902.07.
+Warning: Vehicle 'tram9' teleports beyond arrival edge 'Tdepot_1', time=1905.92.
+Warning: Teleporting vehicle 'tram1'; waited too long, from edge 'Tdepot_0':1, time=2218.49.
+Warning: Vehicle 'tram1' teleports beyond arrival edge 'Tdepot_1', time=2222.34.
+Warning: Teleporting vehicle 'tram6'; waited too long, from edge 'Tdepot_0':1, time=2729.62.
+Warning: Vehicle 'tram6' teleports beyond arrival edge 'Tdepot_1', time=2733.47.
