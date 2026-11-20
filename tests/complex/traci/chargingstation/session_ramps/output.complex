@@ -1,0 +1,44 @@
+chargeRampUp 2500.00
+chargeRampDown 2500.00
+chargeStopDelay 5.00
+actualPower 0.00
+caught Attribute chargeRampUp for chargingStation 'cs1' must not be negative.
+caught Attribute chargeStopDelay for chargingStation 'cs1' must not be negative.
+caught Parameter 'actualPower' is read-only for chargingStation 'cs1'.
+time=1.0 cs=NULL actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=15000.0000
+time=2.0 cs=NULL actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14999.1100
+time=3.0 cs=NULL actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14994.8700
+time=4.0 cs=NULL actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14988.8600
+time=5.0 cs=NULL actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14983.6100
+time=6.0 cs=NULL actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14975.9200
+time=7.0 cs=NULL actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14986.0300
+time=8.0 cs=NULL actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14993.2300
+time=9.0 cs=NULL actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14996.1200
+time=10.0 cs=NULL actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14996.1500
+time=11.0 cs=NULL actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14996.1200
+time=12.0 cs=cs1 actualPower=2500.00 energyCharged=0.2800 energyDischarged=0.0000 chargeLevel=14996.3900
+time=13.0 cs=cs1 actualPower=5000.00 energyCharged=0.8300 energyDischarged=0.0000 chargeLevel=14997.2300
+time=14.0 cs=cs1 actualPower=7500.00 energyCharged=1.3900 energyDischarged=0.0000 chargeLevel=14998.6200
+time=15.0 cs=cs1 actualPower=10000.00 energyCharged=1.9400 energyDischarged=0.0000 chargeLevel=15000.5600
+time=16.0 cs=cs1 actualPower=10000.00 energyCharged=2.2200 energyDischarged=0.0000 chargeLevel=15002.7800
+time=17.0 cs=cs1 actualPower=10000.00 energyCharged=2.2200 energyDischarged=0.0000 chargeLevel=15005.0100
+time=18.0 cs=cs1 actualPower=10000.00 energyCharged=2.2200 energyDischarged=0.0000 chargeLevel=15007.2300
+time=19.0 cs=cs1 actualPower=5000.00 energyCharged=1.6700 energyDischarged=0.0000 chargeLevel=15008.8900
+time=20.0 cs=cs1 actualPower=0.00 energyCharged=0.5600 energyDischarged=0.0000 chargeLevel=15009.4500
+time=21.0 cs=cs1 actualPower=-4000.00 energyCharged=0.0000 energyDischarged=0.6900 chargeLevel=15008.7600
+time=22.0 cs=cs1 actualPower=-8000.00 energyCharged=0.0000 energyDischarged=2.0800 chargeLevel=15006.6700
+time=23.0 cs=cs1 actualPower=-8000.00 energyCharged=0.0000 energyDischarged=2.7800 chargeLevel=15003.8900
+time=24.0 cs=cs1 actualPower=-8000.00 energyCharged=0.0000 energyDischarged=2.7800 chargeLevel=15001.1200
+time=25.0 cs=cs1 actualPower=-8000.00 energyCharged=0.0000 energyDischarged=2.7800 chargeLevel=14998.3400
+time=26.0 cs=cs1 actualPower=-8000.00 energyCharged=0.0000 energyDischarged=2.7800 chargeLevel=14995.5600
+time=27.0 cs=cs1 actualPower=-8000.00 energyCharged=0.0000 energyDischarged=2.7800 chargeLevel=14992.7800
+time=28.0 cs=cs1 actualPower=-3000.00 energyCharged=0.0000 energyDischarged=1.9100 chargeLevel=14990.8700
+time=29.0 cs=cs1 actualPower=0.00 energyCharged=0.0000 energyDischarged=0.3100 chargeLevel=14990.5600
+time=30.0 cs=cs1 actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14990.5600
+time=31.0 cs=cs1 actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14990.5600
+time=32.0 cs=NULL actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14989.9000
+time=33.0 cs=NULL actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14986.7800
+time=34.0 cs=NULL actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14980.4000
+time=35.0 cs=NULL actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14970.3100
+time=36.0 cs=NULL actualPower=0.00 energyCharged=0.0000 energyDischarged=0.0000 chargeLevel=14962.7000
+afterActualPower 0.00

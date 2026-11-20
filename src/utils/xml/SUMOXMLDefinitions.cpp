@@ -796,6 +796,9 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "efficiency",             SUMO_ATTR_EFFICIENCY },
     { "chargeInTransit",        SUMO_ATTR_CHARGEINTRANSIT },
     { "chargeDelay",            SUMO_ATTR_CHARGEDELAY},
+    { "chargeRampUp",           SUMO_ATTR_CHARGERAMPUP },
+    { "chargeRampDown",         SUMO_ATTR_CHARGERAMPDOWN },
+    { "chargeStopDelay",        SUMO_ATTR_CHARGESTOPDELAY },
     { "chargeType",             SUMO_ATTR_CHARGETYPE},
     // MSDevice_Battery
     { "actualBatteryCapacity",          SUMO_ATTR_ACTUALBATTERYCAPACITY },

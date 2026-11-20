@@ -1357,6 +1357,24 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Maximum power in W fed into the grid per discharging vehicle (vehicle-to-grid), 0 disables discharging"),
                                    "0");
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CHARGERAMPUP,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("Power ramp-up rate in W/s, 0 means instantaneous"),
+                                   "0");
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CHARGERAMPDOWN,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("Power ramp-down rate in W/s, 0 means instantaneous"),
+                                   "0");
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CHARGESTOPDELAY,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("Time before planned stop end at which target power becomes zero"),
+                                   "0");
     }
     currentTag = SUMO_TAG_PARKING_AREA;
     {

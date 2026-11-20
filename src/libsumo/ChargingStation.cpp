@@ -174,7 +174,11 @@ ChargingStation::setDischargePower(const std::string& stopID, double dischargePo
 
 std::string
 ChargingStation::getParameter(const std::string& stopID, const std::string& param) {
-    return getChargingStation(stopID)->getParameter(param, "");
+    try {
+        return getChargingStation(stopID)->getParameter(param, "");
+    } catch (ProcessError& e) {
+        throw TraCIException(e.what());
+    }
 }
 
 
@@ -182,7 +186,11 @@ LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(ChargingStation)
 
 void
 ChargingStation::setParameter(const std::string& stopID, const std::string& key, const std::string& value) {
-    getChargingStation(stopID)->setParameter(key, value);
+    try {
+        getChargingStation(stopID)->setParameter(key, value);
+    } catch (ProcessError& e) {
+        throw TraCIException(e.what());
+    }
 }
 
 
