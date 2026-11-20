@@ -56,7 +56,8 @@ public:
     GNEChargingStation(const std::string& id, GNENet* net, FileBucket* fileBucket, GNELane* lane,
                        const double startPos, const double endPos, const std::string& name, const double chargingPower,
                        const double totalPower, const double dischargePower, const double efficiency, const bool chargeInTransit,
-                       const SUMOTime chargeDelay, const std::string& chargeType, const SUMOTime waitingTime, const std::string& parkingAreaID,
+                       const SUMOTime chargeDelay, const double chargeRampUp, const double chargeRampDown, const SUMOTime chargeStopDelay,
+                       const std::string& chargeType, const SUMOTime waitingTime, const std::string& parkingAreaID,
                        const bool friendlyPosition, const Parameterised::Map& parameters);
 
     /// @brief Destructor
@@ -135,6 +136,15 @@ protected:
 
     /// @brief delay in the starting of charge
     SUMOTime myChargeDelay = 0;
+
+    /// @brief power ramp-up rate in W/s
+    double myChargeRampUp = 0;
+
+    /// @brief power ramp-down rate in W/s
+    double myChargeRampDown = 0;
+
+    /// @brief time before planned stop end at which target power becomes zero
+    SUMOTime myChargeStopDelay = 0;
 
     /// @brief charging type
     std::string myChargeType = "normal";

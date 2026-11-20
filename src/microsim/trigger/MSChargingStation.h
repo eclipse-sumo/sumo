@@ -93,11 +93,13 @@ public:
     /// @brief constructor
     MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
                       const std::string& name, double chargingPower, double totalPower, double dischargePower, double efficency,
-                      bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime);
+                      bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime,
+                      double chargeRampUp = 0., double chargeRampDown = 0., SUMOTime chargeStopDelay = 0);
 
     MSChargingStation(const std::string& chargingStationID, const MSParkingArea* parkingArea, const std::string& name, double chargingPower,
                       double totalPower, double dischargePower, double efficency, bool chargeInTransit, SUMOTime chargeDelay,
-                      const std::string& chargeType, SUMOTime waitingTime);
+                      const std::string& chargeType, SUMOTime waitingTime,
+                      double chargeRampUp = 0., double chargeRampDown = 0., SUMOTime chargeStopDelay = 0);
 
     /// @brief destructor
     ~MSChargingStation();
@@ -118,6 +120,26 @@ public:
 
     /// @brief Get Charge Delay
     SUMOTime getChargeDelay() const;
+
+    /// @brief Get power ramp-up rate in W/s (0 = instantaneous)
+    double getChargeRampUp() const {
+        return myChargeRampUp;
+    }
+
+    /// @brief Get power ramp-down rate in W/s (0 = instantaneous)
+    double getChargeRampDown() const {
+        return myChargeRampDown;
+    }
+
+    /// @brief Get stop decoupling delay before planned departure (0 = disabled)
+    SUMOTime getChargeStopDelay() const {
+        return myChargeStopDelay;
+    }
+
+    /// @brief Whether session ramp rates or stop delay are active
+    bool hasSessionDynamics() const {
+        return myChargeRampUp > 0. || myChargeRampDown > 0. || myChargeStopDelay > 0;
+    }
 
     /// @brief Get charge type
     ChargeType getChargeType() const;
@@ -141,6 +163,33 @@ public:
 
     /// @brief set charging delay of the charging station
     void setChargeDelay(SUMOTime delay);
+
+    /// @brief set power ramp-up rate in W/s (0 = instantaneous)
+    void setChargeRampUp(double chargeRampUp);
+
+    /// @brief set power ramp-down rate in W/s (0 = instantaneous)
+    void setChargeRampDown(double chargeRampDown);
+
+    /// @brief set stop decoupling delay before planned departure (0 = disabled)
+    void setChargeStopDelay(SUMOTime chargeStopDelay);
+
+    /// @brief Compute step-average and end-of-step signed grid power (W) over dt (s) for a vehicle
+    std::pair<double, double> stepSessionPower(const std::string& vehID, double targetPower, double dt) const;
+
+    /// @brief Record current signed grid power (W) for a vehicle served in the current simulation step
+    void setVehiclePower(const std::string& vehID, double power);
+
+    /// @brief Clear session power state for a vehicle that disconnected or left the station
+    void resetVehiclePower(const std::string& vehID);
+
+    /// @brief Return sum of current signed station power in W across vehicles currently served on the station
+    double getActualPower() const;
+
+    /// @brief Returns the value for a given parameter key
+    const std::string getParameter(const std::string& key, const std::string defaultValue = "") const override;
+
+    /// @brief Sets the value for a given parameter key
+    void setParameter(const std::string& key, const std::string& value) override;
 
     /// @brief set charging in transit
     void setChargeInTransit(bool value);
@@ -176,7 +225,7 @@ public:
     }
 
     /// @brief add charge value for output
-    void addChargeValueForOutput(double WCharged, MSDevice_Battery* battery, double WDischarged = 0.);
+    void addChargeValueForOutput(double WCharged, MSDevice_Battery* battery, double WDischarged = 0., double deliveredGridPower = INVALID_DOUBLE);
 
     /// @brief write charging station values
     void writeChargingStationOutput(OutputDevice& output);
@@ -253,6 +302,24 @@ protected:
 
     /// @brief Charge Delay
     SUMOTime myChargeDelay = 0;
+
+    /// @brief Power ramp-up rate in W/s (value <= 0 means instantaneous)
+    double myChargeRampUp = 0;
+
+    /// @brief Power ramp-down rate in W/s (value <= 0 means instantaneous)
+    double myChargeRampDown = 0;
+
+    /// @brief Time before planned stop end at which target power becomes zero
+    SUMOTime myChargeStopDelay = 0;
+
+    /// @brief Per-vehicle signed grid power state (W) and simulation step when last updated
+    struct SessionState {
+        double power = 0.;
+        SUMOTime lastStep = -1;
+    };
+
+    /// @brief Active per-vehicle session power states (key = vehicleID)
+    std::map<std::string, SessionState> mySessionState;
 
     /// @brief charge type
     const ChargeType myChargeType;

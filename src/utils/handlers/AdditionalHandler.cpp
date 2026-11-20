@@ -328,6 +328,9 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                                          obj->getDoubleAttribute(SUMO_ATTR_EFFICIENCY),
                                          obj->getBoolAttribute(SUMO_ATTR_CHARGEINTRANSIT),
                                          obj->getTimeAttribute(SUMO_ATTR_CHARGEDELAY),
+                                         obj->getDoubleAttribute(SUMO_ATTR_CHARGERAMPUP),
+                                         obj->getDoubleAttribute(SUMO_ATTR_CHARGERAMPDOWN),
+                                         obj->getTimeAttribute(SUMO_ATTR_CHARGESTOPDELAY),
                                          obj->getStringAttribute(SUMO_ATTR_CHARGETYPE),
                                          obj->getTimeAttribute(SUMO_ATTR_WAITINGTIME),
                                          obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
@@ -971,6 +974,9 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
     const double efficiency = attrs.getOpt<double>(SUMO_ATTR_EFFICIENCY, id.c_str(), parsedOk, 0.95);
     const bool chargeInTransit = attrs.getOpt<bool>(SUMO_ATTR_CHARGEINTRANSIT, id.c_str(), parsedOk, 0);
     const SUMOTime chargeDelay = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CHARGEDELAY, id.c_str(), parsedOk, 0);
+    const double chargeRampUp = attrs.getOpt<double>(SUMO_ATTR_CHARGERAMPUP, id.c_str(), parsedOk, 0);
+    const double chargeRampDown = attrs.getOpt<double>(SUMO_ATTR_CHARGERAMPDOWN, id.c_str(), parsedOk, 0);
+    const SUMOTime chargeStopDelay = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CHARGESTOPDELAY, id.c_str(), parsedOk, 0);
     const std::string chargeType = attrs.getOpt<std::string>(SUMO_ATTR_CHARGETYPE, id.c_str(), parsedOk, SUMOXMLDefinitions::ChargeTypes.getString(ChargeType::NORMAL));
     const SUMOTime waitingTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_WAITINGTIME, id.c_str(), parsedOk, TIME2STEPS(900));
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
@@ -997,6 +1003,9 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_EFFICIENCY, efficiency);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_CHARGEINTRANSIT, chargeInTransit);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_CHARGEDELAY, chargeDelay);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_CHARGERAMPUP, chargeRampUp);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_CHARGERAMPDOWN, chargeRampDown);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_CHARGESTOPDELAY, chargeStopDelay);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_CHARGETYPE, chargeType);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_WAITINGTIME, waitingTime);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);

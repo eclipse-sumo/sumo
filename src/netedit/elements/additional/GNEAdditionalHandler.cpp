@@ -277,6 +277,7 @@ bool
 GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id,
         const std::string& laneID, const double startPos, const double endPos, const std::string& name, const double chargingPower,
         const double totalPower, const double dischargePower, const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay,
+        const double chargeRampUp, const double chargeRampDown, const SUMOTime chargeStopDelay,
         const std::string& chargeType, const SUMOTime waitingTime, const bool friendlyPosition, const std::string& parkingAreaID,
         const Parameterised::Map& parameters) {
     // check conditions
@@ -301,12 +302,18 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
             return false;
         } else if (!checkNegative(SUMO_TAG_CHARGING_STATION, id, SUMO_ATTR_CHARGEDELAY, chargeDelay, true)) {
             return false;
+        } else if (!checkNegative(SUMO_TAG_CHARGING_STATION, id, SUMO_ATTR_CHARGERAMPUP, chargeRampUp, true)) {
+            return false;
+        } else if (!checkNegative(SUMO_TAG_CHARGING_STATION, id, SUMO_ATTR_CHARGERAMPDOWN, chargeRampDown, true)) {
+            return false;
+        } else if (!checkNegative(SUMO_TAG_CHARGING_STATION, id, SUMO_ATTR_CHARGESTOPDELAY, chargeStopDelay, true)) {
+            return false;
         } else if (!SUMOXMLDefinitions::ChargeTypes.hasString(chargeType)) {
             return writeError(TLF("Could not build % with ID '%' in netedit; Invalid charge type '%' .", toString(SUMO_TAG_CHARGING_STATION), id, chargeType));
         } else {
             // build chargingStation
             GNEAdditional* chargingStation = new GNEChargingStation(id, myNet, myFileBucket, lane, startPos, endPos, name, chargingPower, totalPower, dischargePower,
-                    efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime, parkingAreaID, friendlyPosition, parameters);
+                    efficiency, chargeInTransit, chargeDelay, chargeRampUp, chargeRampDown, chargeStopDelay, chargeType, waitingTime, parkingAreaID, friendlyPosition, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getUndoList()->begin(chargingStation, TL("add charging station '") + id + "'");

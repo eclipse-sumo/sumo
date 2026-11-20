@@ -126,6 +126,7 @@ title: ChangeLog
   - Added simulation option category 'persons' #6374
   - NEMA controller: new parameter *reservicePhases* serves a coordinated phase again in the same cycle when its lagging left turn gaps out. [documentation](Simulation/NEMA.md#leading_and_lagging_left_turns) #18453
   - Charging stations support vehicle-to-grid: with the new attribute `dischargePower`, stopped vehicles with battery parameter `device.battery.maximumDischargeRate` > 0 are discharged down to `device.battery.minimumChargeLevel`. The discharged energy is reported in battery-output, chargingstations-output and tripinfo-output. [documentation](Models/Electric.md#vehicle-to-grid) #18656
+  - Charging stations support trapezoidal session power ramps and pre-departure decoupling via optional attributes `chargeRampUp`, `chargeRampDown` and `chargeStopDelay`. [documentation](Models/Electric.md#session_power_ramps_and_stop_delay)
 
 - sumo-gui
   - Converted some buttons into checkboxes in the locate dialog #9925
@@ -154,6 +155,7 @@ title: ChangeLog
   - Function `vehicle.getParameter(vehID, 'device.tripinfo.PARAM')` now additionally supports PARAMs `depart,departPos,departSpeed,departDelay,duration,rerouteNo` #11310
   - Added offset member to `TraCILogic` and `traci.trafficlight.Logic` #14735
   - Added functions `chargingstation.getDischargePower` and `chargingstation.setDischargePower` and battery device parameters `maximumDischargeRate`, `minimumChargeLevel`, `energyDischarged` and `totalEnergyDischarged` for [vehicle-to-grid](Models/Electric.md#vehicle-to-grid) #18656
+  - `chargingstation.getParameter` and `chargingstation.setParameter` now support `chargeRampUp`, `chargeRampDown`, `chargeStopDelay` and read-only `actualPower` for [session power ramps](Models/Electric.md#session_power_ramps_and_stop_delay)
 
 - tools
   - osmWebWizard.py: added option **--language** to localize the web UI #13081

@@ -141,7 +141,10 @@ A charging station can be converted to a gas station by setting the **chargeType
 | dischargePower      | float  (W)  | dischargePower >= 0  | 0  | Max. power *P<sub>dis</sub>* fed back into the grid per discharging vehicle ([vehicle-to-grid](#vehicle-to-grid)). Is only active for values > 0. |
 | **efficiency**      | float      | 0 <= efficiency <= 1                                                                       | 0.95   | Charging efficiency *η<sub>chrg</sub>* (also applies to discharging)                                                           |
 | **chargeInTransit** | bool       | true or false                                                                              | false  | Enable or disable charge in transit, i.e. vehicle is forced/not forced to stop for charging                                     |
-| **chargeDelay**     | float      | chargeDelay \> 0                                                                           | 0         | Time delay after the vehicles have reached / stopped on the charging station, before the energy transfer (charging) is starting |
+| **chargeDelay**     | float      | chargeDelay >= 0                                                                           | 0         | Time delay after the vehicles have reached / stopped on the charging station, before the energy transfer (charging) is starting |
+| chargeRampUp        | float (W/s) | chargeRampUp >= 0                                                                         | 0         | Power ramp-up rate when session power magnitude increases (0 = instantaneous)                                                   |
+| chargeRampDown      | float (W/s) | chargeRampDown >= 0                                                                       | 0         | Power ramp-down rate when session power magnitude decreases (0 = instantaneous)                                                 |
+| chargeStopDelay     | time (s)   | chargeStopDelay >= 0                                                                       | 0         | Time before the planned end of a stop (`duration` / `until`) at which target station power drops to 0 so power ramps down / decouples before departure |
 | chargeType | string | {normal, battery-exchange, fuel} | normal | Charging type  |
 | parkingArea         | string     | valid parkingArea id                                                                       |        | id of the parking the charging station should be positioned on (optional) - vehicles will only charge after reaching the parking
 
@@ -217,6 +220,17 @@ The energy used for driving (`totalEnergyConsumed`) does not include the dischar
 All these values can be changed at runtime with [TraCI](#controlling_vehicle-to-grid). The discharged energy is reported as `energyDischarged` in the [battery-output](#battery-output),
 in the [charging station output](#charging_station_output) and as `totalEnergyDischarged` in the battery element of the [tripinfo-output](../Simulation/Output/TripInfo.md#battery).
 These attributes are only written for stations and vehicles taking part in vehicle-to-grid.
+
+## Session power ramps and stop delay
+
+By default (`chargeRampUp="0"`, `chargeRampDown="0"`, `chargeStopDelay="0"`), charging and [vehicle-to-grid](#vehicle-to-grid) discharging apply rectangular power steps.
+When `chargeRampUp`, `chargeRampDown` or `chargeStopDelay` are positive, each vehicle's signed grid-side session power (*+W* when charging, *-W* when discharging) follows a piecewise-linear trapezoidal trajectory over each simulation step:
+
+- `chargeRampUp` (in W/s) limits how fast session power magnitude increases toward the target charging or discharging power.
+- `chargeRampDown` (in W/s) limits how fast session power magnitude decreases toward a lower target or 0 (crossing 0 cleanly when switching between charging and discharging).
+- `chargeStopDelay` (in s) sets the target power to 0 during the final `chargeStopDelay` seconds of a planned stop (`duration` / `until`), allowing power to ramp down and hold at 0 before departure.
+
+These parameters can also be queried and updated dynamically via `traci.chargingstation.getParameter` and `traci.chargingstation.setParameter` using keys `"chargeRampUp"`, `"chargeRampDown"` and `"chargeStopDelay"`, while `"actualPower"` (read-only) returns the sum of current signed station power in W across vehicles served at the station (`"0.00"` when idle).
 
 ## Charging Station output
 

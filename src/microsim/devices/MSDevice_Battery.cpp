@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include <algorithm>
+#include <cmath>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -32,6 +33,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSStop.h>
 #include <microsim/MSVehicle.h>
 #include "MSDevice_StationFinder.h"
 #include "MSDevice_Emissions.h"
@@ -293,55 +295,138 @@ MSDevice_Battery::notifyMoveInternal(const SUMOTrafficObject& tObject,
                 increaseChargingStartTime();
             }
 
+            double deliveredGridPower = INVALID_DOUBLE;
             // time it takes the vehicle at the station < charging station time delay?
             if (getChargingStartTime() > myActChargingStation->getChargeDelay()) {
                 // Enable charging vehicle
                 myActChargingStation->setChargingVehicle(true);
 
-                if (myChargingStopped && veh.isStopped() && allowsDischarge(myActChargingStation)) {
-                    // vehicle-to-grid (only during a stop): the battery is kept at its minimum charge level,
-                    // i.e. it is discharged down to that level or charged up to that level
-                    const double targetLevel = MIN2(myMinimumChargeLevel, getMaximumBatteryCapacity());
-                    const double actualLevel = getActualBatteryCapacity();
-                    myEnergyCharged = 0;
-                    if (actualLevel > targetLevel) {
-                        // the station limit applies to the grid side, the battery delivers the conversion losses in addition
-                        const double dischargeRate = MIN2(myActChargingStation->getDischargePower() / myActChargingStation->getEfficency(), myMaximumDischargeRate);
-                        myEnergyDischarged = dischargeRate / 3600. * timeOnLane;
-                        if (myEnergyDischarged >= actualLevel - targetLevel) {
-                            myEnergyDischarged = actualLevel - targetLevel;
-                            setActualBatteryCapacity(targetLevel);
-                        } else {
-                            setActualBatteryCapacity(actualLevel - myEnergyDischarged);
+                if (myActChargingStation->hasSessionDynamics() && !myTrackFuel) {
+                    const double eta = myActChargingStation->getEfficency();
+                    bool inStopDelay = false;
+                    if (myActChargingStation->getChargeStopDelay() > 0 && myChargingStopped && veh.isStopped() && !veh.isStoppedTriggered()) {
+                        SUMOTime remDuration = veh.getStopDuration();
+                        if (veh.hasStops() && veh.getNextStop().getUntil() >= 0) {
+                            remDuration = MAX2(remDuration, veh.getNextStop().getUntil() - SIMSTEP);
                         }
-                        myTotalEnergyDischarged += myEnergyDischarged;
-                    } else if (actualLevel < targetLevel) {
-                        myEnergyCharged = MIN2(myActChargingStation->getChargingPower(false) * myActChargingStation->getEfficency(), getMaximumChargeRate() / 3600.) * timeOnLane;
-                        if (myEnergyCharged >= targetLevel - actualLevel) {
-                            myEnergyCharged = targetLevel - actualLevel;
-                            setActualBatteryCapacity(targetLevel);
-                        } else {
-                            setActualBatteryCapacity(actualLevel + myEnergyCharged);
+                        inStopDelay = remDuration <= myActChargingStation->getChargeStopDelay();
+                    }
+                    const bool v2gMode = myChargingStopped && veh.isStopped() && allowsDischarge(myActChargingStation);
+                    const double actualLevel = getActualBatteryCapacity();
+                    const double maxCap = getMaximumBatteryCapacity();
+                    const double v2gTargetLevel = MIN2(myMinimumChargeLevel, maxCap);
+                    double targetGridPower = 0.;
+                    if (!inStopDelay && eta > 0. && timeOnLane > 0.) {
+                        if (v2gMode) {
+                            if (actualLevel > v2gTargetLevel) {
+                                targetGridPower = -MIN2(myActChargingStation->getDischargePower(), myMaximumDischargeRate * eta);
+                            } else if (actualLevel < v2gTargetLevel) {
+                                targetGridPower = MIN2(myActChargingStation->getChargingPower(true), getMaximumChargeRate() / eta);
+                            }
+                        } else if (actualLevel < maxCap) {
+                            targetGridPower = MIN2(myActChargingStation->getChargingPower(true), getMaximumChargeRate() / eta);
                         }
                     }
+                    myEnergyCharged = 0.;
+                    const std::pair<double, double> ramped = myActChargingStation->stepSessionPower(veh.getID(), targetGridPower, timeOnLane);
+                    const double avgGridPower = ramped.first;
+                    double endGridPower = ramped.second;
+                    double actualAvgGridPower = 0.;
+                    if (avgGridPower > 0. && eta > 0.) {
+                        const double chargeCap = (v2gMode && actualLevel < v2gTargetLevel) ? (v2gTargetLevel - actualLevel) : (maxCap - actualLevel);
+                        const double maxFromGridWh = (avgGridPower * eta / 3600.) * timeOnLane;
+                        const double maxFromVehWh = (getMaximumChargeRate() / 3600.) * timeOnLane;
+                        const double reqWh = MIN2(maxFromGridWh, maxFromVehWh);
+                        if (reqWh >= MAX2(0., chargeCap)) {
+                            myEnergyCharged = MAX2(0., chargeCap);
+                            actualAvgGridPower = (timeOnLane > 0.) ? (myEnergyCharged * 3600.) / (eta * timeOnLane) : 0.;
+                            endGridPower = (myEnergyCharged > 0.) ? actualAvgGridPower : 0.;
+                        } else {
+                            myEnergyCharged = reqWh;
+                            actualAvgGridPower = (timeOnLane > 0.) ? (myEnergyCharged * 3600.) / (eta * timeOnLane) : 0.;
+                        }
+                        setActualBatteryCapacity(actualLevel + myEnergyCharged);
+                    } else if (avgGridPower < 0. && eta > 0.) {
+                        const double dischargeCap = v2gMode ? MAX2(0., actualLevel - v2gTargetLevel) : 0.;
+                        const double maxToGridWh = ((-avgGridPower) / eta / 3600.) * timeOnLane;
+                        const double maxFromVehWh = (myMaximumDischargeRate / 3600.) * timeOnLane;
+                        const double reqWh = MIN2(maxToGridWh, maxFromVehWh);
+                        if (reqWh >= dischargeCap) {
+                            myEnergyDischarged = dischargeCap;
+                            actualAvgGridPower = (timeOnLane > 0.) ? -(myEnergyDischarged * 3600. * eta) / timeOnLane : 0.;
+                            endGridPower = (myEnergyDischarged > 0.) ? actualAvgGridPower : 0.;
+                        } else {
+                            myEnergyDischarged = reqWh;
+                            actualAvgGridPower = (timeOnLane > 0.) ? -(myEnergyDischarged * 3600. * eta) / timeOnLane : 0.;
+                        }
+                        setActualBatteryCapacity(actualLevel - myEnergyDischarged);
+                        myTotalEnergyDischarged += myEnergyDischarged;
+                    }
+                    myActChargingStation->setVehiclePower(veh.getID(), endGridPower);
+                    deliveredGridPower = std::fabs(actualAvgGridPower);
                 } else {
-                    // Calulate energy charged
-                    myEnergyCharged = MIN2(MIN2(myActChargingStation->getChargingPower(myTrackFuel) * myActChargingStation->getEfficency(), getMaximumChargeRate() * (myTrackFuel ? 1 : 1. / 3600.)) * timeOnLane, getMaximumBatteryCapacity() - getActualBatteryCapacity());
+                    if (myChargingStopped && veh.isStopped() && allowsDischarge(myActChargingStation)) {
+                        // vehicle-to-grid (only during a stop): the battery is kept at its minimum charge level,
+                        // i.e. it is discharged down to that level or charged up to that level
+                        const double targetLevel = MIN2(myMinimumChargeLevel, getMaximumBatteryCapacity());
+                        const double actualLevel = getActualBatteryCapacity();
+                        myEnergyCharged = 0;
+                        if (actualLevel > targetLevel) {
+                            // the station limit applies to the grid side, the battery delivers the conversion losses in addition
+                            const double dischargeRate = MIN2(myActChargingStation->getDischargePower() / myActChargingStation->getEfficency(), myMaximumDischargeRate);
+                            myEnergyDischarged = dischargeRate / 3600. * timeOnLane;
+                            if (myEnergyDischarged >= actualLevel - targetLevel) {
+                                myEnergyDischarged = actualLevel - targetLevel;
+                                setActualBatteryCapacity(targetLevel);
+                            } else {
+                                setActualBatteryCapacity(actualLevel - myEnergyDischarged);
+                            }
+                            myTotalEnergyDischarged += myEnergyDischarged;
+                        } else if (actualLevel < targetLevel) {
+                            myEnergyCharged = MIN2(myActChargingStation->getChargingPower(false) * myActChargingStation->getEfficency(), getMaximumChargeRate() / 3600.) * timeOnLane;
+                            if (myEnergyCharged >= targetLevel - actualLevel) {
+                                myEnergyCharged = targetLevel - actualLevel;
+                                setActualBatteryCapacity(targetLevel);
+                            } else {
+                                setActualBatteryCapacity(actualLevel + myEnergyCharged);
+                            }
+                        }
+                    } else {
+                        // Calulate energy charged
+                        myEnergyCharged = MIN2(MIN2(myActChargingStation->getChargingPower(myTrackFuel) * myActChargingStation->getEfficency(), getMaximumChargeRate() * (myTrackFuel ? 1 : 1. / 3600.)) * timeOnLane, getMaximumBatteryCapacity() - getActualBatteryCapacity());
 
-                    // Update Battery charge
-                    setActualBatteryCapacity(getActualBatteryCapacity() + myEnergyCharged);
+                        // Update Battery charge
+                        setActualBatteryCapacity(getActualBatteryCapacity() + myEnergyCharged);
+                    }
+                    const double eta = myActChargingStation->getEfficency();
+                    double gridPower = 0.;
+                    if (!myTrackFuel && eta > 0. && timeOnLane > 0.) {
+                        if (myEnergyDischarged > 0.) {
+                            gridPower = -(myEnergyDischarged * 3600. * eta) / timeOnLane;
+                        } else if (myEnergyCharged > 0.) {
+                            gridPower = (myEnergyCharged * 3600.) / (eta * timeOnLane);
+                        }
+                    }
+                    myActChargingStation->setVehiclePower(veh.getID(), gridPower);
                 }
+            } else {
+                myActChargingStation->resetVehiclePower(veh.getID());
             }
             // add charge value for output to myActChargingStation
-            myActChargingStation->addChargeValueForOutput(myEnergyCharged, this, myEnergyDischarged);
+            myActChargingStation->addChargeValueForOutput(myEnergyCharged, this, myEnergyDischarged, deliveredGridPower);
         }
         // else disable charging vehicle
         else {
             cs->setChargingVehicle(false);
+            cs->resetVehiclePower(veh.getID());
+            if (cs->hasSessionDynamics()) {
+                myEnergyCharged = 0.;
+            }
         }
         // disable charging vehicle from previous (not current) ChargingStation (reason: if there is no gap between two different chargingStations = the vehicle switches from used charging station to other one in a single timestap)
         if (myPreviousNeighbouringChargingStation != nullptr && myPreviousNeighbouringChargingStation != cs) {
             myPreviousNeighbouringChargingStation->setChargingVehicle(false);
+            myPreviousNeighbouringChargingStation->resetVehiclePower(veh.getID());
         }
         myPreviousNeighbouringChargingStation = cs;
     }
@@ -354,6 +439,10 @@ MSDevice_Battery::notifyMoveInternal(const SUMOTrafficObject& tObject,
         // Disable charging vehicle
         if (myActChargingStation != nullptr) {
             myActChargingStation->setChargingVehicle(false);
+            myActChargingStation->resetVehiclePower(veh.getID());
+        }
+        if (myPreviousNeighbouringChargingStation != nullptr) {
+            myPreviousNeighbouringChargingStation->resetVehiclePower(veh.getID());
         }
 
         // Set charging station pointer to NULL
