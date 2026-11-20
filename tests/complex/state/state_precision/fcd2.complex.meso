@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18T17:14:52.054238+01:00 by Eclipse SUMO sumo v1_28_0+0656-c9253f0c1d3
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <load-state value="state.xml"/>
+    </input>
+
+    <output>
+        <precision value="6"/>
+        <fcd-output value="fcd2.xml"/>
+        <fcd-output.attributes value="odometer"/>
+        <tripinfo-output value="tripinfo2.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+        <save-state.precision value="6"/>
+    </output>
+
+    <time>
+        <end value="1481"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <fcd_device>
+        <device.fcd.begin value="1475"/>
+    </fcd_device>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="1475.000">
+        <vehicle id="v0" odometer="38986.800000"/>
+    </timestep>
+    <timestep time="1476.000">
+        <vehicle id="v0" odometer="38986.800000"/>
+    </timestep>
+    <timestep time="1477.000">
+        <vehicle id="v0" odometer="38986.800000"/>
+    </timestep>
+    <timestep time="1478.000">
+        <vehicle id="v0" odometer="38986.800000"/>
+    </timestep>
+    <timestep time="1479.000">
+        <vehicle id="v0" odometer="38986.800000"/>
+    </timestep>
+    <timestep time="1480.000">
+        <vehicle id="v0" odometer="38986.800000"/>
+    </timestep>
+</fcd-export>

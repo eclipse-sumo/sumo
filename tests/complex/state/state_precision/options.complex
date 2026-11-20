@@ -1,0 +1,11 @@
+--no-step-log --no-duration-log -n input_net2.net.xml -r input_routes.rou.xml -e 1481 --save-state.precision 6
+--fcd-output fcd.xml --fcd-output.attributes odometer --device.fcd.begin 1475 --precision 6
+--tripinfo-output tripinfo.xml --tripinfo-output.write-unfinished
+--save-state.times 1474 --save-state.files state.xml
+:
+--no-step-log --no-duration-log -n input_net2.net.xml -e 1481 --save-state.precision 6
+--fcd-output fcd2.xml --fcd-output.attributes odometer --device.fcd.begin 1475 --precision 6
+--tripinfo-output tripinfo2.xml --tripinfo-output.write-unfinished
+--load-state state.xml
+--compare fcd,tripinfo
+tests/complex/state/runner.py

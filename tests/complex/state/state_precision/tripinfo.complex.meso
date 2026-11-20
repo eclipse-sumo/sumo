@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18T17:14:51.966207+01:00 by Eclipse SUMO sumo v1_28_0+0656-c9253f0c1d3
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <precision value="6"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="odometer"/>
+        <tripinfo-output value="tripinfo.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+        <save-state.times value="1474"/>
+        <save-state.files value="state.xml"/>
+        <save-state.precision value="6"/>
+    </output>
+
+    <time>
+        <end value="1481"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <fcd_device>
+        <device.fcd.begin value="1475"/>
+    </fcd_device>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="v0" depart="0.000" departLane="SC_0" departPos="0.000000" departSpeed="14.723400" departDelay="0.000" arrival="-1.000" arrivalLane="" arrivalPos="-1.000000" arrivalSpeed="-1.000000" duration="1481.000" routeLength="21710.920000" waitingTime="0.000" waitingCount="0" stopTime="0.000" timeLoss="0.000" rerouteNo="0" devices="tripinfo_v0 fcd_v0" vType="t0" speedFactor="1.060000" vaporized="end"/>
+</tripinfos>
