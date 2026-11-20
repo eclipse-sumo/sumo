@@ -57,6 +57,7 @@ GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent, double
     mySimulationInProgress(false),
     myOk(true),
     myHaveSignaledEnd(false),
+    myEndState(MSNet::SIMSTATE_RUNNING),  // dummy value, not ended
     mySimDelay(simDelay),
     myEventQue(eq),
     myEventThrow(ev),
@@ -232,6 +233,7 @@ GUIRunThread::makeStep() {
                     // MSNet destructor may trigger MsgHandler (via routing device cleanup). Closing output devices here is not safe
                     // OutputDevice::closeAll();
                     myHaveSignaledEnd = true;
+                    myEndState = state;
                 }
                 break;
             default:
@@ -318,7 +320,7 @@ GUIRunThread::deleteSim() {
     //
     mySimulationLock.lock();
     if (myNet != nullptr) {
-        myNet->closeSimulation(mySimStartTime, MSNet::getStateMessage(myNet->simulationState(mySimEndTime)));
+        myNet->closeSimulation(mySimStartTime, MSNet::getStateMessage((MSNet::SimulationState)myEndState));
     }
     while (mySimulationInProgress) {
         sleep(50);

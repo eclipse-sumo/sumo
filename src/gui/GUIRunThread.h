@@ -167,6 +167,9 @@ protected:
     /// @brief whether the simulation already ended
     bool myHaveSignaledEnd;
 
+    /// @brief the simulation state at sim end
+    int myEndState;
+
     /// @brief @brief The instances of message retriever encapsulations
     /// @note Needed to be deleted from the handler later on
     OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
