@@ -133,6 +133,7 @@ def main(options):
     dirs = dict()  # (from,to) -> dir
     if options.netfile:
         net = sumolib.net.readNet(options.netfile)
+
         def dirStr(fromEdge, toEdge):
             return ' dir="%s"' % getDir(net, dirs, fromEdge, toEdge)
     else:
@@ -161,8 +162,8 @@ def main(options):
                             for veh_type, count in sorted(type_counts.items()):
                                 if total_counts[veh_type] > 0:
                                     prob = count / total_counts[veh_type]
-                                    attrs.append('%s_probability="%.2f"%s' %
-                                            (veh_type, prob, dirStr(from_edge, to_edge)))
+                                    attrs.append('%s_probability="%.2f"%s' % (
+                                        veh_type, prob, dirStr(from_edge, to_edge)))
                             outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" %s/>\n' % (
                                 from_edge, to_edge, ' '.join(attrs)))
                     else:

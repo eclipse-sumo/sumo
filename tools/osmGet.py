@@ -39,6 +39,7 @@ try:
     HAVE_CERTIFI = True
 except ImportError:
     HAVE_CERTIFI = False
+import sumolib
 
 DEBUG = False
 if DEBUG:
@@ -49,20 +50,18 @@ if DEBUG:
     )
     urllib.request.install_opener(opener)
 
-import sumolib
-
 THIS_DIR = os.path.abspath(os.path.dirname(__file__))
 TYPEMAP_DIR = os.path.join(THIS_DIR, "..", "data", "typemap")
 
 EUROPE = [
     (-25.0, 66.8),
-    ( 15.0, 71.5),
-    ( 32.0, 70.5),
-    ( 41.0, 60.0),
-    ( 41.0, 43.0),
-    ( 28.0, 34.5),
-    ( 14.5, 35.5),
-    ( -6.0, 35.8),
+    (15.0, 71.5),
+    (32.0, 70.5),
+    (41.0, 60.0),
+    (41.0, 43.0),
+    (28.0, 34.5),
+    (14.5, 35.5),
+    (-6.0, 35.8),
     (-10.5, 36.8),
     (-11.5, 51.5),
     (-25.0, 63.0)]
@@ -84,6 +83,7 @@ NORTH_AMERICA = [
     (-60.0, 62.0),
     (-85.0, 74.0),
     (-140.0, 71.0)]
+
 
 def readCompressed(options, urls, context, query, roadTypesJSON, getShapes, filename):
     # generate query string for each road-type category

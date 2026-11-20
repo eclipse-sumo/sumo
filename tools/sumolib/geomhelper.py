@@ -234,15 +234,15 @@ def isWithin(pos, shape):
     inside = False
     n = len(shape)
     for i in range(n):
-         x1, y1 = shape[i]
-         x2, y2 = shape[(i + 1) % n]
+        x1, y1 = shape[i]
+        x2, y2 = shape[(i + 1) % n]
 
-         if min(x1, x2) <= x <= max(x1, x2) and min(y1, y2) <= y <= max(y1, y2):
-             if abs((x2 - x1) * (y - y1) - (y2 - y1) * (x - x1)) < 1e-12:
-                 return True
+        if min(x1, x2) <= x <= max(x1, x2) and min(y1, y2) <= y <= max(y1, y2):
+            if abs((x2 - x1) * (y - y1) - (y2 - y1) * (x - x1)) < 1e-12:
+                return True
 
-         if (y1 > y) != (y2 > y) and x < (x2 - x1) * (y - y1) / (y2 - y1) + x1:
-             inside = not inside
+        if (y1 > y) != (y2 > y) and x < (x2 - x1) * (y - y1) / (y2 - y1) + x1:
+            inside = not inside
 
     return inside
 
