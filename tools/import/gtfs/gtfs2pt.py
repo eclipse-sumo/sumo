@@ -80,7 +80,7 @@ def get_options(args=None):
     ap.add_argument("--sort", action="store_true", default=False,
                     help="sorting the output-file")
     ap.add_argument("--stops", category="input", type=ap.file_list,
-                    help="files with candidate stops (selected by proxmity)")
+                    help="files with candidate stops (selected by proximity)")
     ap.add_argument("--patched-stops", category="input", dest="patchedStops", type=ap.file,
                     help="file with replacement stops (based on stop ids)")
     ap.add_argument("--rail-priority-factor", type=float, dest="rpFactor",
