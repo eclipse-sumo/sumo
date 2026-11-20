@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-10-08 14:13+0200\n"
-"PO-Revision-Date: 2026-07-02 13:01+0000\n"
-"Last-Translator: Libre <6n0n1m0s@proton.me>\n"
+"PO-Revision-Date: 2026-11-20 13:41+0000\n"
+"Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.7.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1968,22 +1968,29 @@ msgid ""
 "edge for the given period (e.g. a traffic light cycle) instead of per-"
 "timestep data"
 msgstr ""
+"Escribir estadísticas agregadas de la longitud de las colas (máximo, "
+"mediana, percentil 95) por arista para el período indicado (por ejemplo, un "
+"ciclo semafórico), en lugar de datos por cada instante de tiempo"
 
 #: src/microsim/MSFrame.cpp:211
 msgid "Maximum speed for counting a vehicle as queued"
-msgstr ""
+msgstr "Velocidad máxima para considerar que un vehículo está en cola"
 
 #: src/microsim/MSFrame.cpp:213
 msgid ""
 "The percentile (0-100) to report as percentileQueueLength in aggregated "
 "queue output"
 msgstr ""
+"Percentil (0-100) que se debe incluir como percentileQueueLength en la "
+"salida agregada de colas"
 
 #: src/microsim/MSFrame.cpp:215
 msgid ""
 "Do not save data for time steps / intervals which have no queue (required "
 "for column based output formats)"
 msgstr ""
+"No guardar datos de los pasos o intervalos de tiempo en los que no haya "
+"colas (requerido para los formatos de salida basados en columnas)"
 
 #: src/microsim/MSFrame.cpp:218
 msgid ""
@@ -2563,6 +2570,8 @@ msgid ""
 "Compute slope at the vehicle center of mass instead of integrating over "
 "front and back"
 msgstr ""
+"Calcular la pendiente en el centro de masa del vehículo en lugar de "
+"integrarla a lo largo de sus extremos delantero y trasero"
 
 #: src/microsim/MSFrame.cpp:544
 msgid ""
@@ -2976,7 +2985,7 @@ msgstr "Habilita la simulación mesoscópica"
 
 #: src/microsim/MSFrame.cpp:771
 msgid "Enables the meso-LTM (LIFT) model"
-msgstr ""
+msgstr "Habilita el modelo meso-LTM (LIFT)"
 
 #: src/microsim/MSFrame.cpp:773
 msgid "Length of an edge segment in mesoscopic simulation"
@@ -13037,16 +13046,18 @@ msgstr ""
 
 #: src/router/ROVehicle.cpp:124 src/router/ROVehicle.cpp:137
 msgid "The vehicle '%' has no valid route."
-msgstr ""
+msgstr "El vehículo '%' no tiene una ruta válida."
 
 #: src/router/ROVehicle.cpp:155
 msgid "The vehicle '%' has no valid route (after removing loops)."
-msgstr ""
+msgstr "El vehículo '%' no tiene una ruta válida (después de eliminar bucles)."
 
 #: src/router/ROVehicle.cpp:163
 msgid ""
 "The vehicle '%' has no valid route (traveltime % exceeds max-traveltime)."
 msgstr ""
+"El vehículo '%' no tiene una ruta válida (su tiempo de viaje % excede el "
+"valor máximo)."
 
 #: src/sumo_main.cpp:49
 msgid "Another interrupt signal received, hard exit."
@@ -14179,6 +14190,8 @@ msgstr "Error al cerrar los dispositivos de salida."
 #: src/utils/iodevices/OutputDevice.cpp:329
 msgid "Attribute '%' is not supported for filtering written attributes in %."
 msgstr ""
+"El atributo '%' no es compatible con el filtrado de atributos escritos en "
+"'%'."
 
 #: src/utils/iodevices/OutputDevice.cpp:332
 msgid "Unknown attribute '%' to write in %."
@@ -14751,7 +14764,7 @@ msgstr "La velocidad no puede ser negativa en la parada%."
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:525
 msgid "Invalid duration for a stop% (%)."
-msgstr ""
+msgstr "Duración no válida para una parada% (%)."
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:533
 msgid "Invalid duration or end time is given for a stop%."
