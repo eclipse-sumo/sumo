@@ -18,6 +18,7 @@
 // Frame for show hierarchical elements
 /****************************************************************************/
 
+#include <fxkeys.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
@@ -45,7 +46,8 @@ FXDEFMAP(GNEElementTree) HierarchicalElementTreeMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETE,                     GNEElementTree::onCmdDeleteItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEUP,         GNEElementTree::onCmdMoveItemUp),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEDOWN,       GNEElementTree::onCmdMoveItemDown),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_ACHIERARCHY_SHOWCHILDMENU,  GNEElementTree::onCmdShowChildMenu)
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_ACHIERARCHY_SHOWCHILDMENU,  GNEElementTree::onCmdShowChildMenu),
+    FXMAPFUNC(SEL_KEYPRESS,             MID_GNE_ACHIERARCHY_SHOWCHILDMENU,  GNEElementTree::onKeyPressItem)
 };
 
 
@@ -137,6 +139,31 @@ GNEElementTree::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
     // open Pop-up if FXTreeItem has a Attribute Carrier vinculated
     if (item && (myTreeItemsConnections.find(item) == myTreeItemsConnections.end())) {
         createPopUpMenu(e->root_x, e->root_y, myTreeItemToACMap[item]);
+    }
+    return 1;
+}
+
+
+long
+GNEElementTree::onKeyPressItem(FXObject* obj, FXSelector sel, void* eventData) {
+    const FXEvent* e = (FXEvent*)eventData;
+    if ((e->code != KEY_Return) && (e->code != KEY_KP_Enter)) {
+        // let the tree list handle the key (e.g. arrows for navigation)
+        return 0;
+    }
+    FXTreeItem* item = myTreeListDynamic->getCurrentItem();
+    if (item && (myTreeItemsConnections.find(item) == myTreeItemsConnections.end())) {
+        const auto it = myTreeItemToACMap.find(item);
+        if ((it != myTreeItemToACMap.end()) && it->second) {
+            setClickedAC(it->second);
+            if (e->state & CONTROLMASK) {
+                if (canBeCentered(myClickedAC)) {
+                    onCmdCenterItem(obj, sel, eventData);
+                }
+            } else if (isSupermodeValid(myClickedAC)) {
+                onCmdInspectItem(obj, sel, eventData);
+            }
+        }
     }
     return 1;
 }
@@ -279,25 +306,40 @@ GNEElementTree::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
 
 
 void
-GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
+GNEElementTree::setClickedAC(GNEAttributeCarrier* clickedAC) {
     // get attributeCarriers
     const auto& attributeCarriers = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
+    // set current clicked AC
+    myClickedAC = clickedAC;
+    // cast all elements
+    myClickedJunction = attributeCarriers->retrieveJunction(clickedAC->getID(), false);
+    myClickedEdge = attributeCarriers->retrieveEdge(clickedAC->getID(), false);
+    myClickedLane = attributeCarriers->retrieveLane(clickedAC->getGUIGlObject(), false);
+    myClickedCrossing = attributeCarriers->retrieveCrossing(clickedAC->getGUIGlObject(), false);
+    myClickedConnection = attributeCarriers->retrieveConnection(clickedAC->getGUIGlObject(), false);
+    myClickedAdditional = attributeCarriers->retrieveAdditional(clickedAC->getGUIGlObject(), false);
+    myClickedTAZSourceSink = attributeCarriers->retrieveTAZSourceSink(clickedAC, false);
+    myClickedDemandElement = attributeCarriers->retrieveDemandElement(clickedAC->getGUIGlObject(), false);
+    myClickedDataSet = attributeCarriers->retrieveDataSet(clickedAC->getID(), false);
+    myClickedDataInterval = attributeCarriers->retrieveDataInterval(clickedAC, false);
+    myClickedGenericData = attributeCarriers->retrieveGenericData(clickedAC->getGUIGlObject(), false);
+}
+
+
+bool
+GNEElementTree::canBeCentered(const GNEAttributeCarrier* AC) const {
+    // Vehicle Types, distributions, data sets and data intervals cannot be centered
+    return !(AC->getTagProperty()->isType() || AC->getTagProperty()->isDistribution() || AC->getTagProperty()->isDistributionReference() ||
+             (AC->getTagProperty()->getTag() == SUMO_TAG_DATASET) || (AC->getTagProperty()->getTag() == SUMO_TAG_DATAINTERVAL));
+}
+
+
+void
+GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
     // first check that AC exist
     if (clickedAC) {
-        // set current clicked AC
-        myClickedAC = clickedAC;
-        // cast all elements
-        myClickedJunction = attributeCarriers->retrieveJunction(clickedAC->getID(), false);
-        myClickedEdge = attributeCarriers->retrieveEdge(clickedAC->getID(), false);
-        myClickedLane = attributeCarriers->retrieveLane(clickedAC->getGUIGlObject(), false);
-        myClickedCrossing = attributeCarriers->retrieveCrossing(clickedAC->getGUIGlObject(), false);
-        myClickedConnection = attributeCarriers->retrieveConnection(clickedAC->getGUIGlObject(), false);
-        myClickedAdditional = attributeCarriers->retrieveAdditional(clickedAC->getGUIGlObject(), false);
-        myClickedTAZSourceSink = attributeCarriers->retrieveTAZSourceSink(clickedAC, false);
-        myClickedDemandElement = attributeCarriers->retrieveDemandElement(clickedAC->getGUIGlObject(), false);
-        myClickedDataSet = attributeCarriers->retrieveDataSet(clickedAC->getID(), false);
-        myClickedDataInterval = attributeCarriers->retrieveDataInterval(clickedAC, false);
-        myClickedGenericData = attributeCarriers->retrieveGenericData(clickedAC->getGUIGlObject(), false);
+        // set current clicked AC and cast all elements
+        setClickedAC(clickedAC);
         // create FXMenuPane
         FXMenuPane* pane = new FXMenuPane(myTreeListDynamic->getFXWindow());
         // set item name and icon
@@ -310,14 +352,13 @@ GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
         // insert separator
         new FXMenuSeparator(pane);
         // create center menu command
-        FXMenuCommand* centerMenuCommand = GUIDesigns::buildFXMenuCommand(pane, TL("Center"), GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_GNE_CENTER);
+        FXMenuCommand* centerMenuCommand = GUIDesigns::buildFXMenuCommandShortcut(pane, TL("Center"), "Ctrl+Enter", "", GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_GNE_CENTER);
         // disable Centering for Vehicle Types, data sets and data intervals
-        if (myClickedAC->getTagProperty()->isType() || myClickedAC->getTagProperty()->isDistribution() || myClickedAC->getTagProperty()->isDistributionReference() ||
-                (myClickedAC->getTagProperty()->getTag() == SUMO_TAG_DATASET) || (myClickedAC->getTagProperty()->getTag() == SUMO_TAG_DATAINTERVAL)) {
+        if (!canBeCentered(myClickedAC)) {
             centerMenuCommand->disable();
         }
         // create inspect and delete menu commands
-        FXMenuCommand* inspectMenuCommand = GUIDesigns::buildFXMenuCommand(pane, TL("Inspect"), GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), this, MID_GNE_INSPECT);
+        FXMenuCommand* inspectMenuCommand = GUIDesigns::buildFXMenuCommandShortcut(pane, TL("Inspect"), "Enter", "", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), this, MID_GNE_INSPECT);
         FXMenuCommand* deleteMenuCommand = GUIDesigns::buildFXMenuCommand(pane, TL("Delete"), GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE);
         // check if inspect and delete menu commands has to be disabled
         if (!isSupermodeValid(myClickedAC)) {

@@ -90,6 +90,9 @@ public:
     /// @brief Get item
     FXTreeItemDynamic* getItem(FXint index) const;
 
+    /// @brief Get current item (the one with keyboard focus), if any
+    FXTreeItem* getCurrentItem() const;
+
     /// @brief reset selected item
     void resetSelectedItem();
 

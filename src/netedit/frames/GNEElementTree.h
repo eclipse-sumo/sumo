@@ -73,6 +73,9 @@ public:
     /// @brief called when user press right click over an item of list of children
     long onCmdShowChildMenu(FXObject*, FXSelector, void* data);
 
+    /// @brief called when user press a key over the list of children (Enter: inspect, Ctrl+Enter: center)
+    long onKeyPressItem(FXObject*, FXSelector, void* data);
+
     /// @brief called when user click over option "center" of child Menu
     long onCmdCenterItem(FXObject*, FXSelector, void*);
 
@@ -94,6 +97,12 @@ protected:
 
     // @brief create pop-up menu in the positions X-Y for the clicked attribute carrier
     void createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC);
+
+    /// @brief set myClickedAC and cast it to all myClicked* elements
+    void setClickedAC(GNEAttributeCarrier* clickedAC);
+
+    /// @brief check if the given AC can be centered in the view
+    bool canBeCentered(const GNEAttributeCarrier* AC) const;
 
     /// @brief show child of current attributeCarrier
     FXTreeItem* showAttributeCarrierParents();

@@ -178,6 +178,12 @@ MFXTreeListDynamic::getItem(FXint index) const {
 }
 
 
+FXTreeItem*
+MFXTreeListDynamic::getCurrentItem() const {
+    return FXTreeList::getCurrentItem();
+}
+
+
 void
 MFXTreeListDynamic::resetSelectedItem() {
     if (mySelectedItem != -1) {
