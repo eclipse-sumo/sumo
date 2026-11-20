@@ -84,7 +84,7 @@ jobs:
         uses: compnerd/gha-setup-vsdevenv@v7
 
       - name: ccache
-        uses: hendrikmuhs/ccache-action@v1.2
+        uses: hendrikmuhs/ccache-action@v1.2.25
         with:
           key: ${{ matrix.os }}-${{ matrix.manylinux }}
           variant: ${{ startsWith(matrix.os, 'windows') && 'sccache' || 'ccache' }}
