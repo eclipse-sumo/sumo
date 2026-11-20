@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-18T17:14:51.970164+01:00 by Eclipse SUMO sumo v1_28_0+0656-c9253f0c1d3
+<!-- generated on 2026-11-20T12:19:28.243081+01:00 by Eclipse SUMO sumo v1_28_0+0690-13c0e984c23
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -44,12 +44,12 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_28_0+0656-c9253f0c1d3" count="423" time="1474.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_28_0+0690-13c0e984c23" count="423" time="1474.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!v0" state="0" edges="SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS"/>
     <delay number="1" begin="1" end="0" depart="0.000000" time="0.000000" speedFactor="1.060000" decel="4.500000"/>
     <vType id="t0" sigma="0"/>
-    <vehicle id="v0" type="t0" depart="0.000" route="!v0" distance="38802.9 0" speedFactor="1.060000" state="2 0 211 0 0 0 1474133 1467888 9223372036854774807 0 0 0 422 1474133">
-        <device id="tripinfo_v0" state="SC_0 14.7234 21614.2 0 0 0 0 -1 -1000 NONE -1 0 -1 0"/>
+    <vehicle id="v0" type="t0" depart="0.000" route="!v0" distance="38802.900000 0" speedFactor="1.060000" state="2 0 211 0 0 0 1474133 1467888 9223372036854774807 0 0 0 422 1474133">
+        <device id="tripinfo_v0" state="SC_0 14.723400 21614.150000 0 0 0 0 -1 -1000 NONE -1.000000 0.000000 -1.000000 0"/>
     </vehicle>
     <segment id=":C_1:0">
         <vehicles time="1468722" blockTime="1467628" value=""/>

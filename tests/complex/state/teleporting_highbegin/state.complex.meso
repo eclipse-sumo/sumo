@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-19T17:28:02.200397+01:00 by Eclipse SUMO sumo v1_28_0+0141-b852030622e
+<!-- generated on 2026-11-20T12:19:29.540391+01:00 by Eclipse SUMO sumo v1_28_0+0690-13c0e984c23
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -38,99 +38,99 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_28_0+0141-b852030622e" count="78413" time="1576800330.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_28_0+0690-13c0e984c23" count="78011" time="1576800330.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r1" state="1" edges="A0toB0 B0toC0 C0toD0 D0toE0 E0toF0 F0toF1 F1toE1 E1toD1 D1toC1 C1toB1 B1toA1 A1toA0 A0toA1 A1toA0"/>
-    <delay number="12" begin="20" end="8" depart="0.00" time="1573.00" speedFactor="1.00" decel="4.50"/>
+    <delay number="12" begin="20" end="8" depart="0.00" time="1569.00" speedFactor="1.00" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <vehicle id="flow.2" depart="1576800004.00" route="r1" distance="212.5 0" speedFactor="1.0000" state="2240 1576800004000 12 0 0 0 1576800329004 1576800249378 1576800249536 0 0 0 78411 1576800249536"/>
-    <vehicle id="flow.5" depart="1576800010.00" route="r1" distance="204 0" speedFactor="1.0000" state="2240 1576800010000 12 0 0 0 1576800329001 1576800300034 1576800300646 0 0 0 78402 1576800300646"/>
-    <vehicle id="flow.6" depart="1576800012.00" route="r1" distance="195.5 0" speedFactor="1.0000" state="2240 1576800012000 11 0 0 0 1576800329002 1576800301502 1576800301703 0 0 0 78405 1576800301703"/>
-    <vehicle id="flow.8" depart="1576800016.00" route="r1" distance="178.5 0" speedFactor="1.0000" state="2240 1576800016000 10 0 0 0 1576800329004 1576800301504 1576800303172 0 0 0 78410 1576800303172"/>
-    <vehicle id="flow.10" depart="1576800020.00" route="r1" distance="170 0" speedFactor="1.0000" state="2240 1576800020000 10 0 0 0 1576800329001 1576800302031 1576800303173 0 0 0 78401 1576800303173"/>
-    <vehicle id="flow.12" depart="1576800024.00" route="r1" distance="161.5 0" speedFactor="1.0000" state="2240 1576800024000 9 0 0 0 1576800329002 1576800303232 1576800303700 0 0 0 78406 1576800303700"/>
-    <vehicle id="flow.13" depart="1576800026.00" route="r1" distance="153 0" speedFactor="1.0000" state="2240 1576800026000 11 0 0 0 1576800329003 1576800301503 1576800303171 0 0 0 78408 1576800303171"/>
-    <vehicle id="flow.14" depart="1576800028.00" route="r1" distance="153 0" speedFactor="1.0000" state="2240 1576800028000 9 0 0 0 1576800329003 1576800303702 1576800304901 0 0 0 78409 1576800304901"/>
-    <vehicle id="flow.15" depart="1576800030.00" route="r1" distance="144.5 0" speedFactor="1.0000" state="2240 1576800030000 8 0 0 0 1576800329004 1576800304903 1576800305371 0 0 0 78412 1576800305371"/>
-    <vehicle id="flow.16" depart="1576800032.00" route="r1" distance="136 0" speedFactor="1.0000" state="2240 1576800032000 8 0 0 0 1576800329001 1576800305373 1576800306572 0 0 0 78403 1576800306572"/>
-    <vehicle id="flow.17" depart="1576800034.00" route="r1" distance="127.5 0" speedFactor="1.0000" state="2240 1576800034000 7 0 0 0 1576800329002 1576800306574 1576800307042 0 0 0 78404 1576800307042"/>
-    <vehicle id="flow.18" depart="1576800036.00" route="r1" distance="119 0" speedFactor="1.0000" state="2240 1576800036000 7 0 0 0 1576800329003 1576800307044 1576800308243 0 0 0 78407 1576800308243"/>
+    <vehicle id="flow.2" depart="1576800004.00" route="r1" distance="212.50 0" speedFactor="1.0000" state="2240 1576800004000 12 0 0 0 1576800329003 1576800250160 1576800250318 0 0 0 78007 1576800250318"/>
+    <vehicle id="flow.5" depart="1576800010.00" route="r1" distance="204.00 0" speedFactor="1.0000" state="2240 1576800010000 12 0 0 0 1576800329004 1576800300201 1576800300813 0 0 0 78010 1576800300813"/>
+    <vehicle id="flow.6" depart="1576800012.00" route="r1" distance="195.50 0" speedFactor="1.0000" state="2240 1576800012000 11 0 0 0 1576800329001 1576800301669 1576800301870 0 0 0 77999 1576800301870"/>
+    <vehicle id="flow.8" depart="1576800016.00" route="r1" distance="178.50 0" speedFactor="1.0000" state="2240 1576800016000 10 0 0 0 1576800329003 1576800301671 1576800303339 0 0 0 78006 1576800303339"/>
+    <vehicle id="flow.10" depart="1576800020.00" route="r1" distance="170.00 0" speedFactor="1.0000" state="2240 1576800020000 10 0 0 0 1576800329004 1576800302137 1576800303340 0 0 0 78009 1576800303340"/>
+    <vehicle id="flow.12" depart="1576800024.00" route="r1" distance="161.50 0" speedFactor="1.0000" state="2240 1576800024000 9 0 0 0 1576800329001 1576800303338 1576800303806 0 0 0 78000 1576800303806"/>
+    <vehicle id="flow.13" depart="1576800026.00" route="r1" distance="153.00 0" speedFactor="1.0000" state="2240 1576800026000 11 0 0 0 1576800329002 1576800301670 1576800303338 0 0 0 78002 1576800303338"/>
+    <vehicle id="flow.14" depart="1576800028.00" route="r1" distance="153.00 0" speedFactor="1.0000" state="2240 1576800028000 9 0 0 0 1576800329002 1576800303806 1576800305007 0 0 0 78003 1576800305007"/>
+    <vehicle id="flow.15" depart="1576800030.00" route="r1" distance="144.50 0" speedFactor="1.0000" state="2240 1576800030000 8 0 0 0 1576800329003 1576800305007 1576800305475 0 0 0 78005 1576800305475"/>
+    <vehicle id="flow.16" depart="1576800032.00" route="r1" distance="136.00 0" speedFactor="1.0000" state="2240 1576800032000 8 0 0 0 1576800329004 1576800305475 1576800306676 0 0 0 78008 1576800306676"/>
+    <vehicle id="flow.17" depart="1576800034.00" route="r1" distance="127.50 0" speedFactor="1.0000" state="2240 1576800034000 7 0 0 0 1576800329001 1576800306676 1576800307144 0 0 0 78001 1576800307144"/>
+    <vehicle id="flow.18" depart="1576800036.00" route="r1" distance="119.00 0" speedFactor="1.0000" state="2240 1576800036000 7 0 0 0 1576800329002 1576800307144 1576800308345 0 0 0 78004 1576800308345"/>
     <segment id=":A0_1:0">
-        <vehicles time="1576800301703" blockTime="1576800303170" value="flow.6"/>
+        <vehicles time="1576800301870" blockTime="1576800303337" value="flow.6"/>
     </segment>
     <segment id=":A1_0:0">
-        <vehicles time="1576800303172" blockTime="1576800303172" value="flow.8"/>
+        <vehicles time="1576800303339" blockTime="1576800303339" value="flow.8"/>
     </segment>
     <segment id=":A1_3:0">
-        <vehicles time="1576800249377" blockTime="1576800251046" value="flow.2"/>
+        <vehicles time="1576800250159" blockTime="1576800251828" value="flow.2"/>
     </segment>
     <segment id=":B0_6:0">
         <vehicles time="1576800040749" blockTime="1576800040280" value=""/>
     </segment>
     <segment id=":B1_0:0">
-        <vehicles time="1576800303700" blockTime="1576800304900" value="flow.12"/>
+        <vehicles time="1576800303806" blockTime="1576800305006" value="flow.12"/>
     </segment>
     <segment id=":C0_6:0">
         <vehicles time="1576800041829" blockTime="1576800041360" value=""/>
     </segment>
     <segment id=":C1_0:0">
-        <vehicles time="1576800305371" blockTime="1576800306571" value="flow.15"/>
+        <vehicles time="1576800305475" blockTime="1576800306675" value="flow.15"/>
     </segment>
     <segment id=":D0_6:0">
-        <vehicles time="1576800116293" blockTime="1576800042440" value=""/>
+        <vehicles time="1576800115688" blockTime="1576800042440" value=""/>
     </segment>
     <segment id=":D1_0:0">
-        <vehicles time="1576800307042" blockTime="1576800308242" value="flow.17"/>
+        <vehicles time="1576800307144" blockTime="1576800308344" value="flow.17"/>
     </segment>
     <segment id=":E0_6:0">
-        <vehicles time="1576800217961" blockTime="1576800116291" value=""/>
+        <vehicles time="1576800217356" blockTime="1576800115686" value=""/>
     </segment>
     <segment id=":E1_0:0">
-        <vehicles time="1576800308713" blockTime="1576800308244" value=""/>
+        <vehicles time="1576800308813" blockTime="1576800308344" value=""/>
     </segment>
     <segment id=":F0_2:0">
-        <vehicles time="1576800303241" blockTime="1576800301572" value=""/>
+        <vehicles time="1576800303341" blockTime="1576800301672" value=""/>
     </segment>
     <segment id=":F1_0:0">
-        <vehicles time="1576800306577" blockTime="1576800304908" value=""/>
+        <vehicles time="1576800306677" blockTime="1576800305008" value=""/>
     </segment>
     <segment id="A0toA1:0">
-        <vehicles time="1576800251047" blockTime="1576800301702" value="flow.5"/>
+        <vehicles time="1576800251829" blockTime="1576800301869" value="flow.5"/>
     </segment>
     <segment id="A0toB0:0">
         <vehicles time="1576800040281" blockTime="-9223372036854775808" value=""/>
     </segment>
     <segment id="A1toA0:0">
-        <vehicles time="1576800303171" blockTime="1576800303171" value="flow.13"/>
+        <vehicles time="1576800303338" blockTime="1576800303338" value="flow.13"/>
     </segment>
     <segment id="B0toC0:0">
         <vehicles time="1576800041361" blockTime="1576800040748" value=""/>
     </segment>
     <segment id="B1toA1:0">
-        <vehicles time="1576800303173" blockTime="1576800303699" value="flow.10"/>
+        <vehicles time="1576800303340" blockTime="1576800303805" value="flow.10"/>
     </segment>
     <segment id="C0toD0:0">
         <vehicles time="1576800042441" blockTime="1576800041828" value=""/>
     </segment>
     <segment id="C1toB1:0">
-        <vehicles time="1576800304901" blockTime="1576800305370" value="flow.14"/>
+        <vehicles time="1576800305007" blockTime="1576800305474" value="flow.14"/>
     </segment>
     <segment id="D0toE0:0">
-        <vehicles time="1576800216293" blockTime="1576800116292" value=""/>
+        <vehicles time="1576800215688" blockTime="1576800115687" value=""/>
     </segment>
     <segment id="D1toC1:0">
-        <vehicles time="1576800306572" blockTime="1576800307041" value="flow.16"/>
+        <vehicles time="1576800306676" blockTime="1576800307143" value="flow.16"/>
     </segment>
     <segment id="E0toF0:0">
-        <vehicles time="1576800301573" blockTime="1576800217960" value=""/>
+        <vehicles time="1576800301673" blockTime="1576800217355" value=""/>
     </segment>
     <segment id="E1toD1:0">
-        <vehicles time="1576800308243" blockTime="1576800308712" value="flow.18"/>
+        <vehicles time="1576800308345" blockTime="1576800308812" value="flow.18"/>
     </segment>
     <segment id="F0toF1:0">
-        <vehicles time="1576800304909" blockTime="1576800303240" value=""/>
+        <vehicles time="1576800305009" blockTime="1576800303340" value=""/>
     </segment>
     <segment id="F1toE1:0">
-        <vehicles time="1576800308245" blockTime="1576800306576" value=""/>
+        <vehicles time="1576800308345" blockTime="1576800306676" value=""/>
     </segment>
     <tlLogic id="A0" programID="0" phase="0" duration="30000" until="1576800446000" cycleTime="30000" active="1"/>
     <tlLogic id="A1" programID="0" phase="0" duration="30000" until="1576800446000" cycleTime="30000" active="1"/>

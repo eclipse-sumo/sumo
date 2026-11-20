@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-02T20:34:05.228594+01:00 by Eclipse SUMO sumo v1_28_0+0397-c5628bf7102
+<!-- generated on 2026-11-20T12:19:30.102713+01:00 by Eclipse SUMO sumo v1_28_0+0690-13c0e984c23
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -37,7 +37,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_28_0+0397-c5628bf7102" count="581" time="300.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_28_0+0690-13c0e984c23" count="581" time="300.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="212" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -115,22 +115,22 @@
     <vType id="busType" vClass="bus" sigma="0">
         <param key="has.tripinfo.device" value="true"/>
     </vType>
-    <vehicle id="WE.64" depart="256.000" route="WE" distance="579.2 0" speedFactor="0.972900000" state="2208 256000 1 0 2 0 300397 293254 9223372036854774807 0 0 0 572 300397"/>
-    <vehicle id="WE.65" depart="260.000" route="WE" distance="579.2 0" speedFactor="0.940100000" state="2208 260000 1 0 2 0 305951 298558 9223372036854774807 0 0 0 568 305951"/>
-    <vehicle id="WE.66" depart="264.000" route="WE" distance="579.2 0" speedFactor="1.055700000" state="2208 264000 1 0 1 0 299392 292024 9223372036854774807 0 0 0 578 299392"/>
-    <vehicle id="WE.67" depart="268.000" route="WE" distance="579.2 0" speedFactor="0.955100000" state="2208 268000 1 0 1 0 305953 298676 9223372036854774807 0 0 0 565 305953"/>
-    <vehicle id="WE.68" depart="272.000" route="WE" distance="579.2 0" speedFactor="0.984900000" state="2208 272000 1 0 0 0 301744 294688 9223372036854774807 0 0 0 579 301744"/>
-    <vehicle id="WE.69" depart="276.000" route="WE" distance="579.2 0" speedFactor="1.032500000" state="2208 276000 1 0 0 0 304374 297643 9223372036854774807 0 0 0 576 304374"/>
-    <vehicle id="WE.70" depart="280.000" route="WE" distance="0 0" speedFactor="0.981900000" state="2208 280000 0 0 2 0 301234 294156 9223372036854774807 0 0 0 575 301234"/>
-    <vehicle id="SN.7" depart="280.000" route="SN" distance="0 0" speedFactor="1.007300000" state="2208 280000 0 0 2 0 300697 293798 9223372036854774807 0 0 0 570 300697"/>
-    <vehicle id="bSN.4" type="busType" depart="280.000" route="SN" distance="0 0" speedFactor="1.000000000" state="2210 280000 0 0 2 0 302416 295466 9223372036854774807 0 0 0 573 302416">
-        <device id="tripinfo_bSN.4" state="SC_0 12.4833 -0 783 0 0 0 -1 -1000 NONE -1 0 -1 1566"/>
+    <vehicle id="WE.64" depart="256.000" route="WE" distance="579.200000000 0" speedFactor="0.972900000" state="2208 256000 1 0 2 0 300397 293254 9223372036854774807 0 0 0 572 300397"/>
+    <vehicle id="WE.65" depart="260.000" route="WE" distance="579.200000000 0" speedFactor="0.940100000" state="2208 260000 1 0 2 0 305951 298558 9223372036854774807 0 0 0 568 305951"/>
+    <vehicle id="WE.66" depart="264.000" route="WE" distance="579.200000000 0" speedFactor="1.055700000" state="2208 264000 1 0 1 0 299392 292024 9223372036854774807 0 0 0 578 299392"/>
+    <vehicle id="WE.67" depart="268.000" route="WE" distance="579.200000000 0" speedFactor="0.955100000" state="2208 268000 1 0 1 0 305953 298676 9223372036854774807 0 0 0 565 305953"/>
+    <vehicle id="WE.68" depart="272.000" route="WE" distance="579.200000000 0" speedFactor="0.984900000" state="2208 272000 1 0 0 0 301744 294688 9223372036854774807 0 0 0 579 301744"/>
+    <vehicle id="WE.69" depart="276.000" route="WE" distance="579.200000000 0" speedFactor="1.032500000" state="2208 276000 1 0 0 0 304374 297643 9223372036854774807 0 0 0 576 304374"/>
+    <vehicle id="WE.70" depart="280.000" route="WE" distance="0.000000000 0" speedFactor="0.981900000" state="2208 280000 0 0 2 0 301234 294156 9223372036854774807 0 0 0 575 301234"/>
+    <vehicle id="SN.7" depart="280.000" route="SN" distance="0.000000000 0" speedFactor="1.007300000" state="2208 280000 0 0 2 0 300697 293798 9223372036854774807 0 0 0 570 300697"/>
+    <vehicle id="bSN.4" type="busType" depart="280.000" route="SN" distance="0.000000000 0" speedFactor="1.000000000" state="2210 280000 0 0 2 0 302416 295466 9223372036854774807 0 0 0 573 302416">
+        <device id="tripinfo_bSN.4" state="SC_0 12.483296694 -0.000000000 783 0 0 0 -1 -1000 NONE -1.000000000 0.000000000 -1.000000000 1566"/>
         <rem id="tripinfo_bSN.4" time="295466" pos="193.066666667"/>
     </vehicle>
-    <vehicle id="WE.71" depart="284.000" route="WE" distance="0 0" speedFactor="1.086900000" state="2208 284000 0 0 2 0 303182 296788 9223372036854774807 0 0 0 571 303182"/>
-    <vehicle id="WE.72" depart="288.000" route="WE" distance="0 0" speedFactor="1.034500000" state="2208 288000 0 0 1 0 301436 294718 9223372036854774807 0 0 0 577 301436"/>
-    <vehicle id="WE.73" depart="292.000" route="WE" distance="0 0" speedFactor="0.998100000" state="2208 292000 0 0 1 0 305926 298963 9223372036854774807 0 0 0 574 305926"/>
-    <vehicle id="WE.74" depart="296.000" route="WE" distance="0 0" speedFactor="1.016900000" state="2208 296000 0 0 0 0 302834 296000 9223372036854774807 0 0 0 580 302834"/>
+    <vehicle id="WE.71" depart="284.000" route="WE" distance="0.000000000 0" speedFactor="1.086900000" state="2208 284000 0 0 2 0 303182 296788 9223372036854774807 0 0 0 571 303182"/>
+    <vehicle id="WE.72" depart="288.000" route="WE" distance="0.000000000 0" speedFactor="1.034500000" state="2208 288000 0 0 1 0 301436 294718 9223372036854774807 0 0 0 577 301436"/>
+    <vehicle id="WE.73" depart="292.000" route="WE" distance="0.000000000 0" speedFactor="0.998100000" state="2208 292000 0 0 1 0 305926 298963 9223372036854774807 0 0 0 574 305926"/>
+    <vehicle id="WE.74" depart="296.000" route="WE" distance="0.000000000 0" speedFactor="1.016900000" state="2208 296000 0 0 0 0 302834 296000 9223372036854774807 0 0 0 580 302834"/>
     <flowState id="WE" begin="0.000" end="1000.000" period="4" next="300.000000000" route="WE" done="75" index="75"/>
     <flowState id="SN" begin="0.000" end="1000.000" period="40" next="320.000000000" route="SN" done="8" index="8"/>
     <flowState id="bSN" type="busType" begin="0.000" end="1000.000" period="70" next="350.000000000" route="SN" done="5" index="5"/>
