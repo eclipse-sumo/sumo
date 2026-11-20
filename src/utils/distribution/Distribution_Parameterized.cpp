@@ -154,7 +154,7 @@ Distribution_Parameterized::getMin() const {
 void
 Distribution_Parameterized::setParameter(const int index, const double value) {
     if (index >= (int)myParameter.size()) {
-        throw ProcessError(TLF("Attempted to set parameter index % of distribut '%' with % parameters", index, myID, myParameter.size()));
+        throw ProcessError(TLF("Attempted to set parameter index % of distribution '%' with % parameters", index, myID, myParameter.size()));
     }
     myParameter[index] = value;
 }

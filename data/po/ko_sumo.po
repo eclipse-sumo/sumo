@@ -11809,7 +11809,7 @@ msgid "Attempted to sample from dummy distribution"
 msgstr ""
 
 #: src/utils/distribution/Distribution_Parameterized.cpp:157
-msgid "Attempted to set parameter index % of distribut '%' with % parameters"
+msgid "Attempted to set parameter index % of distribution '%' with % parameters"
 msgstr ""
 
 #: src/utils/distribution/Distribution_Parameterized.cpp:184
