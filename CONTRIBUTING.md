@@ -30,6 +30,12 @@ The project maintains the following source code repositories
 We are happily reviewing pull requests against the master of this repository.
 For details see below and https://sumo.dlr.de/docs/FAQ.html#how_do_code_contributions_work.
 
+In order to facilitate PR review please try to structure pull requests that modify application behavior in the following manner:
+
+* one commit that [adds a new test](https://sumo.dlr.de/docs/Developer/Tests.html#adding_a_test_to_an_existing_application)
+* one commit that modifies source code
+* one commit that [updates the results of all affected tests](https://sumo.dlr.de/docs/Developer/Tests.html#running_the_tests)
+
 In order to allow the development of separate external modules for SUMO (which are not
 part of the mainline repository) every source code directory lists the files and
 subdirectories where modifications need to be made available under the EPL and in a

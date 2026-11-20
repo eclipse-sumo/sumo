@@ -97,7 +97,7 @@ git clone https://github.com/yourgithubid/sumo.git
 - From within this directory Commit your changes with
 
 ```
-git add src
+git add src tests
 git commit -m "your change message" -s
 ```
 
@@ -115,6 +115,20 @@ git push
 - (If you wish to keep your fork consider adding a topic branch to your local copy and push it before submitting the pull request.)
 - More info may be found at
   <https://wiki.eclipse.org/Development_Resources/Contributing_via_Git>
+- see the next question for structuring pull requests
+
+### What commits should I put into a pull request?
+
+In order to facilitate PR review please try to structure pull requests that modify application behavior in the following manner:
+
+- one commit that [adds a new test](Developer/Tests.md#adding_a_test_to_an_existing_application)
+- one commit that modifies source code
+- one commit that [updates the results of all affected tests](Developer/Tests.md#running_the_tests)
+
+If you wish to change multiple aspects of an application (i.e. fix two different
+bugs), please do a distinct pull request with the above structure for each individual change.
+
+If those changes are connected to a common topic, [create a new issue](https://github.com/eclipse-sumo/sumo/issues/new) and reference the pull requests along with a description 
 
 ### How do I contribute to the documentation?
 
