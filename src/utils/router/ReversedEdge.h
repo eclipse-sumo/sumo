@@ -51,6 +51,11 @@ public:
         }
     }
 
+    void reset() {
+        myViaSuccessors.clear();
+        myClassesViaSuccessorMap.clear();
+    }
+
     /// @brief Returns the original edge
     const E* getOriginalEdge() const {
         return myOriginal;
@@ -94,7 +99,7 @@ public:
     }
 
     static inline double getTravelTimeStatic(const ReversedEdge<E, V>* const edge, const V* const veh, double time) {
-        return edge->myOriginal->getTravelTime(veh, time);
+        return E::getTravelTimeStatic(edge->myOriginal, veh, time);
     }
 
     const ConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const {
