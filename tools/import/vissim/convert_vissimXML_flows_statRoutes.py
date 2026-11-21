@@ -37,8 +37,9 @@ import sys
 from xml.dom import minidom
 from xml.dom.minidom import Document
 import numpy as np
-if 'SUMO_HOME' in os.environ:
-    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
 
 
@@ -75,7 +76,7 @@ def parse_flows(xmldoc):
                 [float(volume.getAttribute('timeInt').split(" ")[1]) / 1000,
                  float(volume.getAttribute('volume')),
                  float(volume.getAttribute('vehComp'))])        # FIXME: nasty, redundant
-        v_input_d["flow"] = np.array(v_input_d["flow"])
+        v_input_d["flow"] = np.array(v_input_d["flow"]) if v_input_d["flow"] else np.empty((0, 3))
         # here goes a VISSIM linkId as key (& value)
         flw_d[v_input_d["link"]] = v_input_d
     return flw_d
@@ -228,7 +229,7 @@ def parse_routes(xmldoc, edge_id_list, verbinder_d):
     # loop over all routing decisions
     for decision in xmldoc.getElementsByTagName('vehicleRoutingDecisionStatic'):
         start_link = decision.getAttribute('link')
-        rts_by_start_d[start_link] = []
+        rts_by_start_d.setdefault(start_link, [])
         for vehRtStatic in decision.getElementsByTagName('vehicleRouteStatic'):
             route_d = {
                 "start_link": start_link,       # VISSIM id
@@ -243,11 +244,13 @@ def parse_routes(xmldoc, edge_id_list, verbinder_d):
                     continue
                 temp = tIrFlow.split()      # get "id", "tInterval:relFlow"
                 try:
-                    tIrFlow = map(float, temp[1].split(':'))    # grab [tInterval, relFlow]
-                except TypeError:
+                    parts = temp[1].split(':')
+                    tInterval = float(parts[0])
+                    relVal = float(parts[1]) if len(parts) > 1 and parts[1] != '' else 1.0
+                    route_d["rel_flow"].append([tInterval, relVal])
+                except (IndexError, TypeError, ValueError):
                     print('- WARNING - incomplete relative flow definition in inpx\n',
                           decision.toxml())
-                route_d["rel_flow"].append(list(tIrFlow))
             tIrFlow = np.array(route_d["rel_flow"])
             if len(tIrFlow) > 0:
                 tIrFlow[:, 0] /= 1000            # VISSIM time intervals [ms]->[s]
@@ -295,7 +298,9 @@ def calc_route_probability(routes_by_start_d, flow_d):
     for start_link, sl_routes in routes_by_start_d.items():
         if start_link not in flow_d:
             # we got no in-flow data for that route's start link
-            print('- skipping probability calc tfor route without flow def. for VISSIM start link id:', start_link)
+            print('- skipping probability calc for route without flow def. for VISSIM start link id:', start_link)
+            continue
+        if len(sl_routes) == 0 or len(flow_d[start_link]["flow"]) == 0:
             continue
         # set 0 vectors for all time frames
         absolute_flow = flow_d[start_link]["flow"][:, 1]
@@ -341,7 +346,9 @@ def validate_rel_flow(routes_by_start_d, flow_d):
             continue
         # grab all the time window starts from the flows
         #   NOTE: need slice here due to redundant veh_comp col.
-        ref_time_shape = flow_d.get(start_link)["flow"][:, :2]
+        ref_time_shape = flow_d.get(start_link)["flow"][:, :2].copy()
+        if len(ref_time_shape) == 0:
+            continue
         ref_time_shape[:, 1] = 1.        # set to default (VISSIM inp-> inpx BUG)
         for route in sl_routes:
             # check if there is a relative flow def. at all
@@ -372,12 +379,14 @@ def create_vTypeDistribution_elems(veh_comp_d, veh_type_d, speed_d, root):
 
     .. note:: *modifies/extends* XML root element
     """
+    validTypes = set()
     # iterate vehicle compositions
     for c_id, comps in veh_comp_d.items():
         v_type_dist = root.ownerDocument.createElement("vTypeDistribution")
         v_type_dist.setAttribute("id", c_id)
-        root.appendChild(v_type_dist)
         for comp in comps:
+            if float(comp["rel_flow"]) <= 0:
+                continue
             v_type = root.ownerDocument.createElement("vType")
             v_type.setAttribute(
                 "id",
@@ -390,13 +399,18 @@ def create_vTypeDistribution_elems(veh_comp_d, veh_type_d, speed_d, root):
             v_type.setAttribute("probability", comp["rel_flow"])
             v_type.setAttribute("maxSpeed", speed_d[comp["desSpeedDistr"]])
             v_type_dist.appendChild(v_type)
-    # return route_doc
+        if v_type_dist.hasChildNodes():
+            root.appendChild(v_type_dist)
+            validTypes.add(c_id)
+    return validTypes
 
 
-def create_routeDistribution_elems(routes_by_start_d, root):
+def create_routeDistribution_elems(routes_by_start_d, flow_d, root):
     """append the route distribution data into the given dom document
     :param routes_by_start_d:   map by start link id with route dicts as values
     :type routes_by_start_d:    dict
+    :param flow_d:      vissim vehicle in-flow data
+    :type flow_d:       dict
     :param root:   XML root element to append children to
 
     .. note:: *modifies/extends* XML root element
@@ -408,7 +422,7 @@ def create_routeDistribution_elems(routes_by_start_d, root):
             # no flow, no go
             print('- skipping route dist. gen for route without flow def. for VISSIM start link id:', start_link)
             continue
-        if len(routes_by_start_d[start_link]) == 0:
+        if len(routes_by_start_d[start_link]) == 0 or len(flow_d[start_link]["flow"]) == 0:
             continue
         ref_time = flow_d[start_link]["flow"][:, 0]
         for ic, time in enumerate(ref_time):
@@ -417,7 +431,7 @@ def create_routeDistribution_elems(routes_by_start_d, root):
             distID = "_".join([start_link, str(time)])
             route_dist.setAttribute("id", distID)
             for route in routes_by_start_d[start_link]:
-                if np.abs(route["probability"][ic]) != 0:
+                if len(route["links"]) > 0 and np.abs(route["probability"][ic]) != 0:
                     route_node = root.ownerDocument.createElement("route")
                     route_node.setAttribute("id", route["r_id"])
                     route_node.setAttribute("edges",
@@ -432,7 +446,7 @@ def create_routeDistribution_elems(routes_by_start_d, root):
     return validDists
 
 
-def create_flow_elems(routes_by_start_d, flow_d, validDists, root):
+def create_flow_elems(routes_by_start_d, flow_d, validDists, validTypes, sim_end, root):
     """append the flow data to the given dom document
     :param routes_by_start_d:   map by start link id with route dicts as values
     :type routes_by_start_d:    dict
@@ -442,7 +456,6 @@ def create_flow_elems(routes_by_start_d, flow_d, validDists, root):
 
     .. note:: *modifies/extends* XML root element
     """
-    sim_end = inpx_doc.getElementsByTagName("simulation")[0].getAttribute("simPeriod")
     dom_flow_l = []
     for start_link in routes_by_start_d:
         if start_link not in flow_d:
@@ -453,25 +466,30 @@ def create_flow_elems(routes_by_start_d, flow_d, validDists, root):
             print('- found no routes by start link:', start_link)
             continue
         flows = flow_d[start_link]["flow"]
+        if len(flows) == 0:
+            continue
         # iterate over all the time frame starts from the flows
         ref_time = flows[:, 0]
         for index, time in enumerate(ref_time):
             distID = "_".join([start_link, str(time)])
             in_flow = [fl for fl in flow_d[start_link]["flow"] if
                        fl[0] == time][0]
-            if in_flow[1] > 0 and distID in validDists:
+            typeID = str(int(in_flow[2]))
+            if in_flow[1] > 0 and distID in validDists and typeID in validTypes:
+                if index < len(ref_time) - 1:
+                    end_time = str(ref_time[index + 1])
+                else:
+                    end_time = sim_end
+                if float(end_time) <= float(time):
+                    continue
                 flow = root.ownerDocument.createElement("flow")
                 flow.setAttribute("id", "fl{}_st{}".format(start_link,
                                                            time))
                 flow.setAttribute("color", "1,1,0")
                 flow.setAttribute("begin", str(time))
-                if index < len(ref_time) - 1 and len(ref_time) > 1:
-                    flow.setAttribute("end",
-                                      str(time + ref_time[index + 1]))
-                else:
-                    flow.setAttribute("end", sim_end)
+                flow.setAttribute("end", end_time)
                 flow.setAttribute("vehsPerHour", str(in_flow[1]))
-                flow.setAttribute("type", str(int(in_flow[2])))
+                flow.setAttribute("type", typeID)
                 flow.setAttribute('route', distID)
                 dom_flow_l.append(flow)
     dom_flow_l = sorted(dom_flow_l,
@@ -559,11 +577,12 @@ if __name__ == '__main__':
     routes_Elem = result_doc.createElement("routes")
     result_doc.appendChild(routes_Elem)
 
-    create_vTypeDistribution_elems(vehicle_comp_d, vehicle_type_d, speed_d, routes_Elem)
+    sim_end = inpx_doc.getElementsByTagName("simulation")[0].getAttribute("simPeriod")
+    validTypes = create_vTypeDistribution_elems(vehicle_comp_d, vehicle_type_d, speed_d, routes_Elem)
     print('-' * 3)
-    validDists = create_routeDistribution_elems(routes_by_start_d, routes_Elem)
+    validDists = create_routeDistribution_elems(routes_by_start_d, flow_d, routes_Elem)
     print('-' * 3)
-    create_flow_elems(routes_by_start_d, flow_d, validDists, routes_Elem)
+    create_flow_elems(routes_by_start_d, flow_d, validDists, validTypes, sim_end, routes_Elem)
     print('OK.\n---')
 
     print('* writing output:')
@@ -573,5 +592,4 @@ if __name__ == '__main__':
         out_Fn += '.xml'
     with open(out_Fn, "w") as ofh:
         result_doc.writexml(ofh, addindent='    ', newl='\n')
-        ofh.close()
     print('. data written to:\n\t', out_Fn)

@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<routes>
+    <vTypeDistribution id="1">
+        <vType id="t100_D1" accel="3.500000" length="4.5" probability="1.0" maxSpeed="13.88888888888889"/>
+    </vTypeDistribution>
+    <routeDistribution id="1_0.0">
+        <route id="1" edges="1 2" probability="0.25"/>
+        <route id="2" edges="1 3" probability="0.75"/>
+    </routeDistribution>
+    <routeDistribution id="1_900.0">
+        <route id="2" edges="1 3" probability="1.0"/>
+    </routeDistribution>
+    <flow id="fl1_st0.0" color="1,1,0" begin="0.0" end="900.0" vehsPerHour="300.0" type="1" route="1_0.0"/>
+    <flow id="fl1_st900.0" color="1,1,0" begin="900.0" end="1800.0" vehsPerHour="450.0" type="1" route="1_900.0"/>
+</routes>

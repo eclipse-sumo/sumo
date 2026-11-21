@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<net version="1.20">
+    <edge id="1" from="J0" to="J1" priority="1">
+        <lane id="1_0" index="0" speed="13.89" length="50.0" shape="0.0,0.0 50.0,0.0"/>
+    </edge>
+    <edge id="2" from="J1" to="J2" priority="1">
+        <lane id="2_0" index="0" speed="13.89" length="50.0" shape="50.0,0.0 100.0,0.0"/>
+    </edge>
+    <edge id="3" from="J1" to="J3" priority="1">
+        <lane id="3_0" index="0" speed="13.89" length="50.0" shape="50.0,0.0 100.0,50.0"/>
+    </edge>
+</net>
