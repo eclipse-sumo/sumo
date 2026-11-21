@@ -71,7 +71,8 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
         } else {
             MSDevice_Bluelight* device = new MSDevice_Bluelight(v, "bluelight_" + v.getID(),
                     v.getFloatParam("device.bluelight.reactiondist"),
-                    v.getFloatParam("device.bluelight.mingapfactor"));
+                    v.getFloatParam("device.bluelight.mingapfactor"),
+                    v.getBoolParam("device.bluelight.active", false, true));
             into.push_back(device);
         }
     }
@@ -82,16 +83,19 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
 // MSDevice_Bluelight-methods
 // ---------------------------------------------------------------------------
 MSDevice_Bluelight::MSDevice_Bluelight(SUMOVehicle& holder, const std::string& id,
-                                       const double reactionDist, const double minGapFactor) :
+                                       const double reactionDist, const double minGapFactor, const bool active) :
     MSVehicleDevice(holder, id),
     myReactionDist(reactionDist),
-    myMinGapFactor(minGapFactor) {
+    myMinGapFactor(minGapFactor),
+    myActive(active) {
 #ifdef DEBUG_BLUELIGHT
     std::cout << SIMTIME << " initialized device '" << id << "' with myReactionDist=" << myReactionDist << "\n";
 #endif
-    // set only once to permit TraCI override
-    MSVehicle& veh = dynamic_cast<MSVehicle&>(holder);
-    veh.getInfluencer().setSpeedMode(7);
+    if (myActive) {
+        // set only once to permit TraCI override
+        MSVehicle& veh = dynamic_cast<MSVehicle&>(holder);
+        veh.getInfluencer().setSpeedMode(7);
+    }
 }
 
 
@@ -107,6 +111,9 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
 #else
     UNUSED_PARAMETER(newSpeed);
 #endif
+    if (!myActive) {
+        return true;
+    }
     //violate red lights  this only need to be done once so shift it todo
     MSVehicle& ego = dynamic_cast<MSVehicle&>(veh);
     MSVehicle::Influencer& redLight = ego.getInfluencer();
@@ -373,6 +380,10 @@ std::string
 MSDevice_Bluelight::getParameter(const std::string& key) const {
     if (key == "reactiondist") {
         return toString(myReactionDist);
+    } else if (key == "mingapfactor") {
+        return toString(myMinGapFactor);
+    } else if (key == "active") {
+        return toString(myActive);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -380,6 +391,49 @@ MSDevice_Bluelight::getParameter(const std::string& key) const {
 
 void
 MSDevice_Bluelight::setParameter(const std::string& key, const std::string& value) {
+    if (key == "active") {
+        bool active;
+        try {
+            active = StringUtils::toBool(value);
+        } catch (BoolFormatException&) {
+            throw InvalidArgument("Setting parameter '" + key + "' requires a bool for device of type '" + deviceName() + "'");
+        } catch (EmptyData&) {
+            throw InvalidArgument("Setting parameter '" + key + "' requires a bool for device of type '" + deviceName() + "'");
+        }
+        if (active != myActive) {
+            MSVehicle& ego = dynamic_cast<MSVehicle&>(myHolder);
+            ego.getLaneChangeModel().setBlueLight(active);
+            if (active) {
+                ego.getInfluencer().setSpeedMode(7);
+            } else {
+                MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+                for (const std::string& vehID : myInfluencedVehicles) {
+                    Parameterised::Map::iterator it = myInfluencedTypes.find(vehID);
+                    MSVehicle* veh2 = dynamic_cast<MSVehicle*>(vc.getVehicle(vehID));
+                    if (veh2 != nullptr && it != myInfluencedTypes.end()) {
+                        resetVehicle(veh2, it->second);
+                    }
+                }
+                myInfluencedVehicles.clear();
+                myInfluencedTypes.clear();
+                ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_STRATEGIC_PARAM),
+                                                      ego.getVehicleType().getParameter().getLCParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "1"));
+                ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD),
+                                                      ego.getVehicleType().getParameter().getLCParamString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD, "5"));
+                ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME),
+                                                      ego.getVehicleType().getParameter().getLCParamString(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME, "20"));
+                try {
+                    ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_MINGAP_LAT),
+                                                          toString(ego.getVehicleType().getMinGapLat()));
+                } catch (InvalidArgument&) {
+                    // not supported by the current laneChangeModel
+                }
+                ego.getInfluencer().setSpeedMode(31);
+            }
+            myActive = active;
+        }
+        return;
+    }
     double doubleValue;
     try {
         doubleValue = StringUtils::toDouble(value);
@@ -388,6 +442,8 @@ MSDevice_Bluelight::setParameter(const std::string& key, const std::string& valu
     }
     if (key == "reactiondist") {
         myReactionDist = doubleValue;
+    } else if (key == "mingapfactor") {
+        myMinGapFactor = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
