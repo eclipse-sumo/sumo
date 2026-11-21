@@ -36,6 +36,7 @@
 #include <iterator>
 #include <cstdlib>
 #include <cmath>
+#include <limits>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSPModel.h>
@@ -651,7 +652,8 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
         }
         double seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
         double speed = vehicle->getSpeed();
-        double dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
+        const double maxVisibility = vehicle->isRail() ? std::numeric_limits<double>::max() : (vehicle->getVClass() == SVC_SHIP ? 10000.0 : 1000.0);
+        double dist = MIN2(vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap(), maxVisibility);
         if (target->lane->getBidiLane() != nullptr) {
             dist += target->lane->getBidiLane()->getMaximumBrakeDist();
         }
@@ -965,7 +967,8 @@ MSLaneChanger::checkChange(
         // be considered as well
         const double seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
         const double speed = vehicle->getSpeed();
-        const double dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
+        const double maxVisibility = vehicle->isRail() ? std::numeric_limits<double>::max() : (vehicle->getVClass() == SVC_SHIP ? 10000.0 : 1000.0);
+        const double dist = MIN2(vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap(), maxVisibility);
         if (seen < dist || myCandi->lane->isInternal()) {
             std::pair<MSVehicle* const, double> neighLead2 = targetLane->getCriticalLeader(dist, seen, speed, *vehicle);
             if (neighLead2.first != nullptr && neighLead2.first != neighLead.first) {
@@ -1086,7 +1089,8 @@ MSLaneChanger::checkChange(
                 seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
                 nextLane = vehicle->getLane();
                 view = 1;
-                const double dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
+                const double maxVisibility = vehicle->isRail() ? std::numeric_limits<double>::max() : (vehicle->getVClass() == SVC_SHIP ? 10000.0 : 1000.0);
+                const double dist = MIN2(vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap(), maxVisibility);
                 std::vector<MSLink*>::const_iterator nextLink = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
                 while (!nextLane->isLinkEnd(nextLink) && seen <= space2change && seen <= dist) {
                     nextLane = (*nextLink)->getViaLaneOrLane();
