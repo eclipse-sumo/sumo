@@ -38,6 +38,12 @@ The following things currently do not work (or work differently than with the Tr
 
 To avoid the limitations with respect to GUI, multi-clients support, you can also use [libtraci](Libtraci.md). This is a C++ traci client library which is fully API-compatible with libsumo.
 
+# Performance and Concurrency
+
+`libsumo` executes directly inside the host process and eliminates socket serialization overhead. Direct getter calls such as `libsumo.vehicle.getPosition(vehID)` and `libsumo.simulation.convert2D(edgeID, pos, laneIndex, True)` therefore avoid inter-process round trips and outperform single-variable subscriptions in `libsumo`, because subscriptions allocate and wrap intermediate C++ result maps on every step. Subscriptions remain beneficial in socket-based [TraCI](TraCI/Object_Variable_Subscription.md) and [libtraci](Libtraci.md), where batching variables reduces network round trips.
+
+SUMO stores simulation state in a single-process `MSNet` singleton. Consequently, calling `libsumo` concurrently from multiple threads against one running simulation is unsafe and unsupported. Similarly, worker processes spawned with Python's `multiprocessing` module have separate address spaces and cannot query an active `libsumo` instance in the parent process. For fastest state and geolocation retrieval from a single simulation, query vehicles sequentially in one process (`[libsumo.vehicle.getPosition(v) for v in libsumo.vehicle.getIDList()]`). Use `multiprocessing` when running independent simulation instances in parallel.
+
 # Building and Installing it
 
 The binary windows release already contains the readily compiled libsumo
