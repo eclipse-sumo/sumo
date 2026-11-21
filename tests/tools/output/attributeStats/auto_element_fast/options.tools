@@ -1,0 +1,1 @@
+--attribute count --fast input_edgedata.xml tools/output/attributeStats.py

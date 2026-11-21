@@ -24,17 +24,50 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
-from lxml import etree as ET
+try:
+    from lxml import etree as ET
+except ImportError:
+    import xml.etree.ElementTree as ET
 
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(os.path.join(tools))
-    import sumolib
-    from sumolib.xml import parse_fast
-    from sumolib.miscutils import Statistics, humanReadableTime
-    from sumolib.statistics import setPrecision, identity
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+import sumolib  # noqa
+from sumolib.xml import parse_fast  # noqa
+from sumolib.miscutils import Statistics, humanReadableTime  # noqa
+from sumolib.statistics import setPrecision, identity  # noqa
+
+
+def find_elements(datafiles, attributes):
+    attr2elem = {}
+    elem2level = {}
+    for fname in datafiles:
+        level = 0
+        with sumolib.openz(fname, 'rb') as xmlf:
+            for event, elem in ET.iterparse(xmlf, events=("start", "end")):
+                if event == "start":
+                    level += 1
+                    for attr in attributes:
+                        if attr in elem.keys():
+                            elem2level[elem.tag] = level
+                            if attr in attr2elem:
+                                oldTag = attr2elem[attr]
+                                if oldTag != elem.tag:
+                                    if elem2level[oldTag] < level:
+                                        attr2elem[attr] = elem.tag
+                                    print("Warning: found attribute '%s' in element '%s' (level %s) and "
+                                          "element '%s' (level %s). Using '%s'." %
+                                          (attr, oldTag, elem2level[oldTag], elem.tag, level, attr2elem[attr]),
+                                          file=sys.stderr)
+                            else:
+                                attr2elem[attr] = elem.tag
+                    if len(attr2elem) == len(attributes):
+                        return attr2elem
+                elif event == "end":
+                    level -= 1
+                    elem.clear()
+    return attr2elem
 
 
 def get_options():
@@ -73,8 +106,13 @@ def get_options():
 
     if options.attribute:
         options.attribute = options.attribute.split(',')
+    options.attr2elem = None
     if options.element:
         options.element = options.element.split(',')
+    elif options.attribute:
+        options.attr2elem = find_elements(options.datafiles, options.attribute)
+        if options.attr2elem:
+            options.element = sorted(set(options.attr2elem.values()))
 
     if options.fast:
         if options.attribute is None:
@@ -116,6 +154,7 @@ def main():
                 with sumolib.openz(datafile, 'rb') as f:
                     for _, node in ET.iterparse(f):
                         if options.element is not None and node.tag not in options.element:
+                            node.clear()
                             continue
                         elementID = node.get(options.idAttr, defaultID)
                         if options.attribute is None:
@@ -124,7 +163,11 @@ def main():
                                     yield node.tag, k, v, elementID
                         else:
                             for attr in options.attribute:
+                                if (options.attr2elem and attr in options.attr2elem
+                                        and options.attr2elem[attr] != node.tag):
+                                    continue
                                 yield node.tag, attr, node.get(attr), elementID
+                        node.clear()
 
     for tag, attr, stringVal, elementID in elements():
         if stringVal is not None:

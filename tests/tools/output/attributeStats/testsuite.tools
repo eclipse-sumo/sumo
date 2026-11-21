@@ -35,3 +35,7 @@ humanReadableTime
 
 # include statistics on absolute values
 abs
+
+# automatic element detection
+auto_element
+auto_element_fast
