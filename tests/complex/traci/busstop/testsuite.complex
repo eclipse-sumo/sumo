@@ -3,3 +3,4 @@ busstop
 
 # Tests the busstop API when no stops have been loaded
 noStops
+get_parameters

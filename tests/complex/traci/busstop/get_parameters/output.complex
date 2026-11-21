@@ -1,0 +1,6 @@
+personCapacity '15'
+capacity '15'
+lines 'L1 L2'
+parkingLength '25.00'
+customKey 'customVal'
+missingKey ''
