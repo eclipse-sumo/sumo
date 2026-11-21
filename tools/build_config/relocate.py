@@ -22,6 +22,8 @@ import shutil
 import subprocess
 import sys
 if sys.platform == "darwin":
+    from delocate.delocating import filter_system_libs
+    from delocate.libsana import tree_libs_from_directory
     from delocate.tools import get_install_names, set_install_name
 
 
@@ -51,14 +53,16 @@ def compare_directories(dir1, dir2):
 
 
 def relink_macos(binary, data_libs):
-    # the wheel was not delocated, so point every non-system dependency to the shared sumo_data libs
-    for lib in get_install_names(binary):
-        if not lib.startswith(("/usr/lib/", "/System/", "@loader_path/", "@rpath/")):
-            # delocate copies the resolved file, so libproj.25.dylib is stored under its full version name
-            name = os.path.basename(os.path.realpath(lib))
+    # the wheel was not delocated, so point every non-system dependency to the shared sumo_data libs;
+    # delocate's analysis resolves @rpath entries and symlinks to the real library files for us
+    binary = os.path.realpath(binary)
+    deps = tree_libs_from_directory(os.path.dirname(binary), lib_filt_func=lambda path: path == binary)
+    for lib, dependers in deps.items():
+        if binary in dependers and filter_system_libs(lib):
+            name = os.path.basename(lib)
             if not os.path.exists(os.path.join(data_libs, name)):
                 sys.exit("Missing shared lib %s for %s." % (name, binary))
-            set_install_name(binary, lib, "@loader_path/../sumo_data/.libs/" + name)
+            set_install_name(binary, dependers[binary], "@loader_path/../sumo_data/.libs/" + name)
 
 
 def fix_links_and_strip(binaries, lib_dir_prefix, up_levels=1):
