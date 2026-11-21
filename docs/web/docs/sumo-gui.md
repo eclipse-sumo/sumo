@@ -846,7 +846,7 @@ The following attributes are supported
     The contents of a decal-configuration can also be embedded in a view-settings file and thus loaded on startup. see [Configuration Files](#configuration_files)
 
 !!! note
-    When loading an image file with an embedded geo-reference (i.e. [GeoTIFF](https://en.wikipedia.org/wiki/GeoTIFF)) and the simulation network also has a geo-reference, then the image will be positioned automatically.
+    Automatic [GeoTIFF](https://en.wikipedia.org/wiki/GeoTIFF) placement requires a GDAL-enabled SUMO build (included in official Windows releases, Ubuntu packages, and `eclipse-sumo` wheels) and a geo-referenced SUMO network (`<location projParameter="..."/>`). Omit `width` (or keep `width <= 0`) in `<decal>` so `sumo-gui` reads the embedded GeoTIFF affine transform instead of manual dimensions. When the network uses a geo-projection, the GeoTIFF coordinates must be in WGS84 (`EPSG:4326`); reproject projected rasters beforehand with `gdalwarp -t_srs EPSG:4326 input.tif background_wgs84.tif` and load `<viewsettings><decal file="background_wgs84.tif"/></viewsettings>` via `sumo-gui -c run.sumocfg -g view.xml`.
 
 !!! caution
     When loading an image with an associated [world file](https://en.wikipedia.org/wiki/World_file), that file must be encoded in WGS84 (lon,lat).
