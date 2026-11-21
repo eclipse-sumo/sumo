@@ -99,7 +99,7 @@ public:
     bool conflictLaneOccupied(bool store = true, const SUMOVehicle* ego = nullptr) const;
 
     /// @brief whether any of myFoes is occupied (vehicles that are the target of a join must be ignored)
-    bool foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector& occupied) const;
+    bool foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector& occupied, bool storeWaitRelation = true) const;
 
     /// @brief whether insertion on this driveway would cause deadlock in an approached siding
     bool sidingDeadlock(const SUMOVehicle* veh) const;
@@ -333,6 +333,9 @@ protected:
     /// @brief return whether a siding can be used. If a siding exist but is occupied, also return the occupied driveway in the siding
     std::pair<bool, const MSDriveWay*> canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, const MSEdge* recurseSidingEnd = nullptr) const;
 
+    /// @brief return whether a vehicle occupying or approaching a siding can leave it safely independent of foe and ego
+    bool canSafeExit(const SUMOVehicle* sidingVeh, const MSEdge* approachEnd, const MSEdge* sidingEnd, const MSDriveWay* foe) const;
+
     /// @brief return dw if it is a foe or a subDrivway of dw if it is a foe
     const MSDriveWay* getFoeOrSubFoe(const MSDriveWay* dw) const;
 
@@ -422,6 +425,8 @@ private:
     /// @brief all driveways that use a siding which ends on this edge as pair (dw, foe)
     static std::map<const MSEdge*, std::vector<std::pair<MSDriveWay*, MSDriveWay*> >, ComparatorNumericalIdLess> mySidingDriveways;
     static std::vector<const MSEdge*> myCurrentSidingCheck;
+    static const SUMOVehicle* myCurrentSidingCheckVeh;
+    static std::vector<const SUMOVehicle*> myCurrentExitCheck;
 
     /// @brief lookup table for state loading
     static std::map<ConstMSEdgeVector, MSDriveWay*> myDriveWayRouteLookup;
