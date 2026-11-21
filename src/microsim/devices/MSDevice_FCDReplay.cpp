@@ -178,6 +178,12 @@ MSDevice_FCDReplay::move(SUMOTime currentTime) {
         return;
     }
     MSVehicle* v = dynamic_cast<MSVehicle*>(&myHolder);
+    // Apply the latest position due at this simulation step when the recording
+    // has a finer time resolution than the replay.
+    while (myTrajectoryIndex + 1 < (int)myTrajectory->size()
+            && myTrajectory->at(myTrajectoryIndex + 1).time <= currentTime) {
+        myTrajectoryIndex++;
+    }
     const TrajectoryEntry& te = myTrajectory->at(myTrajectoryIndex);
     if (v == nullptr || te.time > currentTime) {
         return;
