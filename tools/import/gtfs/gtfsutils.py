@@ -424,9 +424,13 @@ def joinBlocks(data):
 
 
 def get_merged_data(options):
-    gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False, printErrors=True))
-    routes, trips_on_day, shapes, stops, stop_times = import_gtfs(options, gtfsZip)
-    gtfsZip.fp.close()
+    with sumolib.openz(options.gtfs, mode="rb", tryGZip=False, printErrors=True) as gtfsSource:
+        with zipfile.ZipFile(gtfsSource) as gtfsZip:
+            routes, trips_on_day, shapes, stops, stop_times = import_gtfs(options, gtfsZip)
+            zones = None
+            if 'fare_stops.txt' in gtfsZip.namelist():
+                with gtfsZip.open('fare_stops.txt') as fareSource:
+                    zones = pd.read_csv(fareSource, dtype=str)
 
     if options.bbox:
         stops['stop_lat'] = stops['stop_lat'].astype(float)
@@ -436,8 +440,7 @@ def get_merged_data(options):
     stop_times['arrival_time'] = stop_times['arrival_time'].map(time2sec)
     stop_times['departure_time'] = stop_times['departure_time'].map(time2sec)
 
-    if 'fare_stops.txt' in gtfsZip.namelist():
-        zones = pd.read_csv(gtfsZip.open('fare_stops.txt'), dtype=str)
+    if zones is not None:
         stops_merged = pd.merge(pd.merge(stops, stop_times, on='stop_id'), zones, on='stop_id')
     else:
         stops_merged = pd.merge(stops, stop_times, on='stop_id')
