@@ -38,7 +38,7 @@
 // ===========================================================================
 // static member variables
 // ===========================================================================
-std::map<const ROEdge* const, double> ROMAAssignments::myPenalties;
+thread_local std::unordered_map<const ROEdge*, double> ROMAAssignments::myPenalties;
 
 
 // ===========================================================================
@@ -209,29 +209,97 @@ ROMAAssignments::computePath(ODCell* cell, const SUMOTime time, const double pro
         double minCost = std::numeric_limits<double>::max();
         std::shared_ptr<RORoute> minRoute = nullptr;
         for (const std::shared_ptr<RORoute>& p : cell->pathsVector) {
-            const double cost = router->recomputeCosts(edges, myDefaultVehicle, time);
+            const double cost = router->recomputeCosts(p->getEdgeVector(), myDefaultVehicle, time);
             if (cost < minCost) {
                 minCost = cost;
                 minRoute = p;
             }
         }
-        minRoute->addProbability(probability);
+        if (minRoute != nullptr) {
+            minRoute->addProbability(probability);
+        }
     }
     return ConstROEdgeVector();
 }
 
 
-void
-ROMAAssignments::getKPaths(const int kPaths, const double penalty) {
-    for (ODCell* const c : myMatrix.getCells()) {
-        myPenalties.clear();
-        for (int k = 0; k < kPaths; k++) {
-            for (const ROEdge* const e : computePath(c)) {
-                myPenalties[e] += penalty;
+bool
+ROMAAssignments::computeBulkPaths(const std::map<std::string, std::vector<ODCell*> >& cellsByOrigin) {
+#ifdef HAVE_FOX
+    if (myNet.getThreadPool().size() > 0) {
+        std::atomic<bool> newRoute(false);
+        int workerIndex = 0;
+        for (const auto& item : cellsByOrigin) {
+            myNet.getThreadPool().add(new SUEBulkOriginTask(*this, item.second, newRoute), workerIndex);
+            workerIndex++;
+            if (workerIndex == (int)myNet.getThreadPool().size()) {
+                workerIndex = 0;
             }
         }
+        myNet.getThreadPool().waitAll();
+        return newRoute.load();
+    }
+#endif
+    bool newRoute = false;
+    for (const auto& item : cellsByOrigin) {
+        myRouter.setBulkMode(false);
+        for (ODCell* const c : item.second) {
+            newRoute |= !computePath(c, 0, 0., &myRouter, true).empty();
+        }
+    }
+    myRouter.setBulkMode(false);
+    return newRoute;
+}
+
+
+void
+ROMAAssignments::getKPaths(const int kPaths, const double penalty) {
+    if (kPaths <= 0) {
+        return;
+    }
+    std::map<std::string, std::vector<ODCell*> > cellsByOrigin;
+    std::map<std::string, std::vector<size_t> > prevSizesByOrigin;
+    for (ODCell* const c : myMatrix.getCells()) {
+        cellsByOrigin[c->origin].push_back(c);
+        prevSizesByOrigin[c->origin].push_back(c->pathsVector.size());
     }
     myPenalties.clear();
+    computeBulkPaths(cellsByOrigin);
+    if (kPaths > 1) {
+#ifdef HAVE_FOX
+        if (myNet.getThreadPool().size() > 0) {
+            int workerIndex = 0;
+            for (const auto& item : cellsByOrigin) {
+                myNet.getThreadPool().add(new KPathsTask(*this, item.second, prevSizesByOrigin[item.first], kPaths, penalty), workerIndex);
+                workerIndex++;
+                if (workerIndex == (int)myNet.getThreadPool().size()) {
+                    workerIndex = 0;
+                }
+            }
+            myNet.getThreadPool().waitAll();
+            return;
+        }
+#endif
+        for (const auto& item : cellsByOrigin) {
+            const std::vector<ODCell*>& originCells = item.second;
+            const std::vector<size_t>& prevSizes = prevSizesByOrigin[item.first];
+            for (size_t idx = 0; idx < originCells.size(); idx++) {
+                ODCell* const c = originCells[idx];
+                myPenalties.clear();
+                if (c->pathsVector.size() > prevSizes[idx]) {
+                    for (const ROEdge* const e : c->pathsVector.back()->getEdgeVector()) {
+                        myPenalties[e] += penalty;
+                    }
+                }
+                for (int k = 1; k < kPaths; k++) {
+                    for (const ROEdge* const e : computePath(c, 0, 0., &myRouter, false)) {
+                        myPenalties[e] += penalty;
+                    }
+                }
+            }
+        }
+        myPenalties.clear();
+    }
 }
 
 
@@ -382,50 +450,111 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
 void
 ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, const int kPaths, const double penalty, const double tolerance, const std::string /* routeChoiceMethod */) {
     getKPaths(kPaths, penalty);
+    const std::vector<ODCell*>& cells = myMatrix.getCells();
+    std::map<std::string, std::vector<ODCell*> > cellsByOrigin;
     std::map<const SUMOTime, SUMOTime> intervals;
     if (myAdditiveTraffic) {
         intervals[myBegin] = myEnd;
-    } else {
-        for (const ODCell* const c : myMatrix.getCells()) {
+    }
+    for (ODCell* const c : cells) {
+        cellsByOrigin[c->origin].push_back(c);
+        if (!myAdditiveTraffic) {
             intervals[c->begin] = c->end;
         }
     }
+    const size_t numEdges = ROEdge::getAllEdges().size();
+    std::vector<std::pair<SUMOTime, SUMOTime> > intervalVec(intervals.begin(), intervals.end());
+    std::map<SUMOTime, size_t> intervalToOffset;
+    for (size_t idx = 0; idx < intervalVec.size(); idx++) {
+        intervalToOffset[intervalVec[idx].first] = idx * numEdges;
+    }
+    std::vector<size_t> cellIntervalOffset(cells.size(), 0);
+    for (size_t ci = 0; ci < cells.size(); ci++) {
+        const SUMOTime begin = myAdditiveTraffic ? myBegin : cells[ci]->begin;
+        cellIntervalOffset[ci] = intervalToOffset[begin];
+    }
+    std::vector<double> helpFlows(intervalVec.size() * numEdges, 0.);
+#ifdef HAVE_FOX
+    const int numThreads = (int)myNet.getThreadPool().size();
+    std::vector<std::unique_ptr<LogitCalculator<RORoute, ROEdge, ROVehicle> > > logitCalcs;
+    std::vector<std::unique_ptr<GawronCalculator<RORoute, ROEdge, ROVehicle> > > gawronCalcs;
+    std::vector<RouteCostCalculator<RORoute, ROEdge, ROVehicle>*> workerCalcs;
+    if (numThreads > 0) {
+        OptionsCont& oc = OptionsCont::getOptions();
+        const std::string method = oc.getString("route-choice-method");
+        workerCalcs.reserve(numThreads);
+        if (method == "logit") {
+            logitCalcs.reserve(numThreads);
+            for (int t = 0; t < numThreads; t++) {
+                logitCalcs.emplace_back(new LogitCalculator<RORoute, ROEdge, ROVehicle>(
+                                            oc.getFloat("logit.beta"), oc.getFloat("logit.gamma"), oc.getFloat("logit.theta")));
+                workerCalcs.push_back(logitCalcs.back().get());
+            }
+        } else {
+            gawronCalcs.reserve(numThreads);
+            for (int t = 0; t < numThreads; t++) {
+                gawronCalcs.emplace_back(new GawronCalculator<RORoute, ROEdge, ROVehicle>(
+                                             oc.getFloat("gawron.beta"), oc.getFloat("gawron.a")));
+                workerCalcs.push_back(gawronCalcs.back().get());
+            }
+        }
+    }
+#endif
     for (int outer = 0; outer < maxOuterIteration; outer++) {
         for (int inner = 0; inner < maxInnerIteration; inner++) {
-            for (const ODCell* const c : myMatrix.getCells()) {
-                const SUMOTime begin = myAdditiveTraffic ? myBegin : c->begin;
-                const SUMOTime end = myAdditiveTraffic ? myEnd : c->end;
-                // update path cost
-                for (const std::shared_ptr<RORoute>& r : c->pathsVector) {
-                    r->setCosts(myRouter.recomputeCosts(r->getEdgeVector(), myDefaultVehicle, 0));
-                    //                    std::cout << std::setprecision(20) << r->getID() << ":" << r->getCosts() << std::endl;
+#ifdef HAVE_FOX
+            if (numThreads > 0 && !cells.empty()) {
+                const size_t chunkSize = (cells.size() + numThreads - 1) / numThreads;
+                for (int t = 0; t < numThreads; t++) {
+                    const size_t beginIdx = (size_t)t * chunkSize;
+                    if (beginIdx >= cells.size()) {
+                        break;
+                    }
+                    const size_t endIdx = MIN2(cells.size(), beginIdx + chunkSize);
+                    myNet.getThreadPool().add(new SUEInnerTask(*this, cells, beginIdx, endIdx, *workerCalcs[t]), t);
                 }
-                // calculate route utilities and probabilities
-                RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().calculateProbabilities(c->pathsVector, myDefaultVehicle, 0);
-                // calculate route flows
+                myNet.getThreadPool().waitAll();
+            } else
+#endif
+            {
+                RouteCostCalculator<RORoute, ROEdge, ROVehicle>& calc = RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator();
+                for (const ODCell* const c : cells) {
+                    if (!c->pathsVector.empty()) {
+                        for (const std::shared_ptr<RORoute>& r : c->pathsVector) {
+                            r->setCosts(myRouter.recomputeCosts(r->getEdgeVector(), myDefaultVehicle, 0));
+                        }
+                        calc.calculateProbabilities(c->pathsVector, myDefaultVehicle, 0);
+                    }
+                }
+            }
+            std::fill(helpFlows.begin(), helpFlows.end(), 0.);
+            for (size_t ci = 0; ci < cells.size(); ci++) {
+                const ODCell* const c = cells[ci];
+                const size_t baseOffset = cellIntervalOffset[ci];
                 for (const std::shared_ptr<RORoute>& r : c->pathsVector) {
                     const double pathFlow = r->getProbability() * c->vehicleNumber;
-                    // assign edge flow deltas
-                    for (ConstROEdgeVector::const_iterator e = r->getEdgeVector().begin(); e != r->getEdgeVector().end(); e++) {
-                        ROMAEdge* edge = static_cast<ROMAEdge*>(myNet.getEdge((*e)->getID()));
-                        edge->setHelpFlow(STEPS2TIME(begin), STEPS2TIME(end), edge->getHelpFlow(STEPS2TIME(begin)) + pathFlow);
+                    for (const ROEdge* const e : r->getEdgeVector()) {
+                        helpFlows[baseOffset + e->getNumericalID()] += pathFlow;
                     }
                 }
             }
             // calculate new edge flows and check for stability
             int unstableEdges = 0;
-            for (const auto& it : intervals) {
+            for (size_t idx = 0; idx < intervalVec.size(); idx++) {
+                const auto& it = intervalVec[idx];
                 const double intervalLengthInHours = STEPS2TIME(it.second - it.first) / 3600.;
                 const double intBegin = STEPS2TIME(it.first);
                 const double intEnd = STEPS2TIME(it.second);
+                const size_t baseOffset = idx * numEdges;
                 for (ROEdge* e : ROEdge::getAllEdges()) {
                     ROMAEdge* const edge = static_cast<ROMAEdge*>(e);
+                    const double helpFlow = helpFlows[baseOffset + e->getNumericalID()];
                     const double oldFlow = edge->getFlow(intBegin);
                     double newFlow = oldFlow;
                     if (inner == 0 && outer == 0) {
-                        newFlow += edge->getHelpFlow(intBegin);
+                        newFlow += helpFlow;
                     } else {
-                        newFlow += (edge->getHelpFlow(intBegin) - oldFlow) / (inner + 1);
+                        newFlow += (helpFlow - oldFlow) / (inner + 1);
                     }
                     //                if not lohse:
                     if (newFlow > 0.) {
@@ -443,7 +572,6 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
                     edge->setFlow(intBegin, intEnd, newFlow);
                     const double travelTime = capacityConstraintFunction(edge, newFlow / intervalLengthInHours);
                     edge->addTravelTime(travelTime, intBegin, intEnd);
-                    edge->setHelpFlow(intBegin, intEnd, 0.);
                 }
             }
             // if stable break
@@ -465,25 +593,45 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
         myRouter.reset(myDefaultVehicle);
         // check for a new route, if none available, break
         // several modifications about when a route is new and when to break are in the original script
-        bool newRoute = false;
-        for (ODCell* const c : myMatrix.getCells()) {
-            newRoute |= !computePath(c).empty();
-        }
-        if (!newRoute) {
+        if (!computeBulkPaths(cellsByOrigin)) {
             break;
         }
     }
     // final round of assignment
-    for (const ODCell* const c : myMatrix.getCells()) {
-        // update path cost
-        for (const std::shared_ptr<RORoute>& r : c->pathsVector) {
-            r->setCosts(myRouter.recomputeCosts(r->getEdgeVector(), myDefaultVehicle, 0));
+#ifdef HAVE_FOX
+    if (numThreads > 0 && !cells.empty()) {
+        const size_t chunkSize = (cells.size() + numThreads - 1) / numThreads;
+        for (int t = 0; t < numThreads; t++) {
+            const size_t beginIdx = (size_t)t * chunkSize;
+            if (beginIdx >= cells.size()) {
+                break;
+            }
+            const size_t endIdx = MIN2(cells.size(), beginIdx + chunkSize);
+            myNet.getThreadPool().add(new SUEInnerTask(*this, cells, beginIdx, endIdx, *workerCalcs[t]), t);
         }
-        // calculate route utilities and probabilities
-        RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().calculateProbabilities(c->pathsVector, myDefaultVehicle, 0);
-        // calculate route flows
-        for (const std::shared_ptr<RORoute>& r : c->pathsVector) {
-            r->setProbability(r->getProbability() * c->vehicleNumber);
+        myNet.getThreadPool().waitAll();
+        for (const ODCell* const c : cells) {
+            for (const std::shared_ptr<RORoute>& r : c->pathsVector) {
+                r->setProbability(r->getProbability() * c->vehicleNumber);
+            }
+        }
+    } else
+#endif
+    {
+        RouteCostCalculator<RORoute, ROEdge, ROVehicle>& calc = RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator();
+        for (const ODCell* const c : cells) {
+            if (!c->pathsVector.empty()) {
+                // update path cost
+                for (const std::shared_ptr<RORoute>& r : c->pathsVector) {
+                    r->setCosts(myRouter.recomputeCosts(r->getEdgeVector(), myDefaultVehicle, 0));
+                }
+                // calculate route utilities and probabilities
+                calc.calculateProbabilities(c->pathsVector, myDefaultVehicle, 0);
+                // calculate route flows
+                for (const std::shared_ptr<RORoute>& r : c->pathsVector) {
+                    r->setProbability(r->getProbability() * c->vehicleNumber);
+                }
+            }
         }
     }
     for (const auto& it : intervals) {
@@ -494,14 +642,20 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
 
 double
 ROMAAssignments::getPenalizedEffort(const ROEdge* const e, const ROVehicle* const v, double t) {
-    const std::map<const ROEdge* const, double>::const_iterator i = myPenalties.find(e);
+    if (myPenalties.empty()) {
+        return e->getEffort(v, t);
+    }
+    const auto i = myPenalties.find(e);
     return i == myPenalties.end() ? e->getEffort(v, t) : e->getEffort(v, t) + i->second;
 }
 
 
 double
 ROMAAssignments::getPenalizedTT(const ROEdge* const e, const ROVehicle* const v, double t) {
-    const std::map<const ROEdge* const, double>::const_iterator i = myPenalties.find(e);
+    if (myPenalties.empty()) {
+        return e->getTravelTime(v, t);
+    }
+    const auto i = myPenalties.find(e);
     return i == myPenalties.end() ? e->getTravelTime(v, t) : e->getTravelTime(v, t) + i->second;
 }
 
@@ -519,5 +673,59 @@ ROMAAssignments::getTravelTime(const ROEdge* const e, const ROVehicle* const v, 
 void
 ROMAAssignments::RoutingTask::run(MFXWorkerThread* context) {
     myAssign.computePath(myCell, myBegin, myLinkFlow, &static_cast<RONet::WorkerThread*>(context)->getVehicleRouter(SVC_IGNORING), mySetBulkMode);
+}
+
+
+void
+ROMAAssignments::SUEBulkOriginTask::run(MFXWorkerThread* context) {
+    SUMOAbstractRouter<ROEdge, ROVehicle>& router = static_cast<RONet::WorkerThread*>(context)->getVehicleRouter(SVC_IGNORING);
+    router.setBulkMode(false);
+    bool localNew = false;
+    for (ODCell* const c : myCells) {
+        if (!myAssign.computePath(c, 0, 0., &router, true).empty()) {
+            localNew = true;
+        }
+    }
+    router.setBulkMode(false);
+    if (localNew) {
+        myNewRoute.store(true, std::memory_order_relaxed);
+    }
+}
+
+
+void
+ROMAAssignments::KPathsTask::run(MFXWorkerThread* context) {
+    SUMOAbstractRouter<ROEdge, ROVehicle>& router = static_cast<RONet::WorkerThread*>(context)->getVehicleRouter(SVC_IGNORING);
+    router.setBulkMode(false);
+    for (size_t idx = 0; idx < myCells.size(); idx++) {
+        ODCell* const c = myCells[idx];
+        myPenalties.clear();
+        if (c->pathsVector.size() > myPrevSizes[idx]) {
+            for (const ROEdge* const e : c->pathsVector.back()->getEdgeVector()) {
+                myPenalties[e] += myPenalty;
+            }
+        }
+        for (int k = 1; k < myKPaths; k++) {
+            for (const ROEdge* const e : myAssign.computePath(c, 0, 0., &router, false)) {
+                myPenalties[e] += myPenalty;
+            }
+        }
+    }
+    myPenalties.clear();
+}
+
+
+void
+ROMAAssignments::SUEInnerTask::run(MFXWorkerThread* context) {
+    SUMOAbstractRouter<ROEdge, ROVehicle>& router = static_cast<RONet::WorkerThread*>(context)->getVehicleRouter(SVC_IGNORING);
+    for (size_t ci = myBeginIdx; ci < myEndIdx; ci++) {
+        const ODCell* const c = myCells[ci];
+        if (!c->pathsVector.empty()) {
+            for (const std::shared_ptr<RORoute>& r : c->pathsVector) {
+                r->setCosts(router.recomputeCosts(r->getEdgeVector(), myAssign.myDefaultVehicle, 0));
+            }
+            myCalc.calculateProbabilities(c->pathsVector, myAssign.myDefaultVehicle, 0);
+        }
+    }
 }
 #endif
