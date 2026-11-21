@@ -49,3 +49,6 @@ drt
 
 # generating trigger elements
 trigger
+
+# Python tracing across simultaneous and subsequent connections
+traci_tracing
