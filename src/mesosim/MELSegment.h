@@ -95,6 +95,9 @@ private:
     typedef std::vector<SUMOTime> GapTimes;
     std::vector<GapTimes> myGapTimes;
 
+    /// @brief upstream arrival time of the latest gap left by a queued vehicle (for each queue, -1 if there is none)
+    std::vector<SUMOTime> myJamGapTimes;
+
 private:
     /// @brief Invalidated copy constructor.
     MELSegment(const MELSegment&);
