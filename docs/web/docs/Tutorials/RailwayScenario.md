@@ -7,7 +7,7 @@ title: RailwayScenario
 The following tutorial explains how to build a railways scenario for the combined German states of Berlin and
 Brandenburg based on OSM and GTFS data. The resulting scenario models scheduled passenger traffic for one day of operations.
 
-The OSM data is obtained from [geofabrik](https://download.geofabrik.de/europe/germany/brandenburg-latest.osm.pbf).
+The OSM data is obtained from [geofabrik](https://download.geofabrik.de/europe/germany/brandenburg/brandenburg-latest.osm.pbf).
 The GTFS data is obtained from the
 [VBB](https://unternehmen.vbb.de/fileadmin/user_upload/VBB/Dokumente/API-Datensaetze/gtfs-mastscharf/GTFS.zip).
 
