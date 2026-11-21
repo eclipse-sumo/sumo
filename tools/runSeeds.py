@@ -32,6 +32,8 @@ else:
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+else:
+    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import sumolib  # noqa
 
 
@@ -44,8 +46,10 @@ def get_options(args=None):
                   help="configuration to run or comma-separated list of configurations")
     ap.add_option("-a", "--application", metavar="FILE",
                   help="application to run or comma-separated list of applications")
-    ap.add_option("-p", "--output-prefix",  default="SEED.", dest="prefix",
-                  help="output prefix",)
+    ap.add_option("-p", "--output-prefix", default="SEED.", dest="prefix",
+                  help="output prefix")
+    ap.add_option("-o", "--output-dir", category="output", metavar="FILE", dest="outputDir",
+                  help="directory for storing all simulation outputs")
     ap.add_option("--no-folders", action="store_true", category="output", default=False, dest="noFolders",
                   help=("do not create folders to distinguish multiple configurations or applications" +
                         " but use prefixes instead"))
@@ -83,26 +87,39 @@ def get_options(args=None):
     return options
 
 
-def getUniqueFolder(options, app, cfg, folders):
+def getUniqueFolder(options, app, cfg_prefix, cfg_path, folders):
     key = []
     if len(options.application) > 1:
         key.append(os.path.basename(app))
     if len(options.configuration) > 1:
-        key.append(os.path.basename(cfg))
+        cfg_name = os.path.basename(cfg_prefix.rstrip('/\\'))
+        if not cfg_name:
+            cfg_name = os.path.splitext(os.path.basename(cfg_path))[0]
+        key.append(cfg_name)
     if not key:
+        if options.outputDir and not os.path.exists(options.outputDir):
+            os.makedirs(options.outputDir)
         return ""
 
     folder = '_'.join(key)
-    if folder in folders:
+    base_dir = options.outputDir if options.outputDir else os.path.dirname(cfg_path)
+    folder_key = (base_dir, folder)
+    if folder_key in folders:
         i = 0
         folder = '_'.join(key + [str(i)])
-        while folder in folders:
+        while (base_dir, folder) in folders:
             i += 1
             folder = '_'.join(key + [str(i)])
+        folder_key = (base_dir, folder)
 
-    folders.add(folder)
-    if not options.noFolders and not os.path.exists(folder):
-        os.makedirs(folder)
+    folders.add(folder_key)
+    if options.noFolders:
+        if options.outputDir and not os.path.exists(options.outputDir):
+            os.makedirs(options.outputDir)
+    else:
+        target_dir = os.path.join(base_dir, folder) if base_dir else folder
+        if not os.path.exists(target_dir):
+            os.makedirs(target_dir)
     return folder
 
 
@@ -133,6 +150,8 @@ def main(options):
                     prefix = "%s_%s" % (folder, prefix)
                 else:
                     prefix = os.path.join(folder, prefix)
+            if options.outputDir:
+                prefix = os.path.join(os.path.abspath(options.outputDir), prefix)
             if options.verbose:
                 print("running seed %s" % seed)
             args = [app,
@@ -152,10 +171,12 @@ def main(options):
     cEL = getCommExtensionLength(options.configuration)
     for app in options.application:
         for cfg in options.configuration:
-            folder = getUniqueFolder(options, app, cfg[:-cEL], folders)
+            cfg_prefix = cfg[:-cEL] if cEL else cfg
+            folder = getUniqueFolder(options, app, cfg_prefix, cfg, folders)
             for seed in options.seeds:
                 q.put((app, cfg, seed, folder))
     q.join()
+    return True
 
 
 if __name__ == "__main__":
