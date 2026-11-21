@@ -1471,6 +1471,9 @@ public class Constants {
     // shadow lane (get: vehicle)
     public static final int VAR_SHADOW_LANE_ID = 0x9d;
 
+    // charging station discharge power (vehicle-to-grid)
+    public static final int VAR_CS_DISCHARGE_POWER = 0x9e;
+
     /// @name currently wanted lane-change action
     /// @{
     /// @brief No action desired

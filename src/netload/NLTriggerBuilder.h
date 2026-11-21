@@ -329,6 +329,7 @@ protected:
      * @param[in] topos End position of the charging station on the lane
      * @param[in] chargingPower nominal energy charged in every timeStep per vehicle
      * @param[in] totalPower max energy charged in every timestep by all vehicles together
+     * @param[in] dischargePower max power fed into the grid per discharging vehicle (vehicle-to-grid)
      * @param[in] efficiency efficiency of the charge
      * @param[in] chargeInTransit enable or disable charge in transit
      * @param[in] chargeDelay delay in the charge
@@ -338,8 +339,8 @@ protected:
      * @exception InvalidArgument If the charging station can not be added to the net (is duplicate)
      */
     virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos, const std::string& name,
-                                      double chargingPower, double totalPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
-                                      std::string chargeType, SUMOTime waitingTime, MSParkingArea* parkingArea);
+                                      double chargingPower, double totalPower, double dischargePower, double efficiency, bool chargeInTransit,
+                                      SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime, MSParkingArea* parkingArea);
 
     /** @brief Builds an overhead wire segment
     *

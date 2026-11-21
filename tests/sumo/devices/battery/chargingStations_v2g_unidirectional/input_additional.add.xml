@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+    <!-- charging station without discharging: vehicles offering to discharge are charged as usual -->
+    <chargingStation id="CS1" lane="D2_0" startPos="50" endPos="70" power="22000" efficiency="0.9"/>
+    <!-- bidirectional charging station with charge in transit: moving vehicles are charged but never discharged -->
+    <chargingStation id="CS2" lane="D2_0" startPos="200" endPos="300" power="22000" dischargePower="11000" efficiency="0.9" chargeInTransit="true"/>
+</additional>

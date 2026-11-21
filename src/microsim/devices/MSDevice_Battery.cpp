@@ -67,10 +67,13 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         const double maximumChargeRate = readParameterValue(v, SUMO_ATTR_MAXIMUMCHARGERATE, "battery.maximumChargeRate", 150000.);
         const std::string chargeLevelTable = v.getStringParam("device.battery.chargeLevelTable");
         const std::string chargeCurveTable = v.getStringParam("device.battery.chargeCurveTable");
+        const double maximumDischargeRate = v.getFloatParam("device.battery." + toString(SUMO_ATTR_MAXIMUMDISCHARGERATE), false, 0.);
+        const double minimumChargeLevel = v.getFloatParam("device.battery." + toString(SUMO_ATTR_MINIMUMCHARGELEVEL), false, 0.);
 
         // battery constructor
         MSDevice_Battery* device = new MSDevice_Battery(v, "battery_" + v.getID(),
-                actualBatteryCapacity, maximumBatteryCapacity, stoppingThreshold, maximumChargeRate, chargeLevelTable, chargeCurveTable);
+                actualBatteryCapacity, maximumBatteryCapacity, stoppingThreshold, maximumChargeRate, chargeLevelTable, chargeCurveTable,
+                maximumDischargeRate, minimumChargeLevel);
 
         // Add device to vehicle
         into.push_back(device);
@@ -103,7 +106,8 @@ MSDevice_Battery::readParameterValue(SUMOVehicle& v, const SumoXMLAttr& attr, co
 // MSDevice_Battery-methods
 // ---------------------------------------------------------------------------
 MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity,
-                                   const double stoppingThreshold, const double maximumChargeRate, const std::string& chargeLevelTable, const std::string& chargeCurveTable) :
+                                   const double stoppingThreshold, const double maximumChargeRate, const std::string& chargeLevelTable, const std::string& chargeCurveTable,
+                                   const double maximumDischargeRate, const double minimumChargeLevel) :
     MSVehicleDevice(holder, id),
     myActualBatteryCapacity(0),         // [actualBatteryCapacity <= maximumBatteryCapacity]
     myMaximumBatteryCapacity(0),        // [maximumBatteryCapacity >= 0]
@@ -120,6 +124,10 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     myActChargingStation(nullptr),         // Initially the vehicle isn't over a Charging Station
     myPreviousNeighbouringChargingStation(nullptr),    // Initially the vehicle wasn't over a Charging Station
     myEnergyCharged(0),                 // Initially the energy charged is zero
+    myMaximumDischargeRate(0),          // By default the battery is not discharged at charging stations
+    myMinimumChargeLevel(0),
+    myEnergyDischarged(0),
+    myTotalEnergyDischarged(0),
     myVehicleStopped(0),
     myDepletedCount(0) {
     // Initially the vehicle is stopped and the corresponding variable is 0
@@ -161,6 +169,18 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
         } else {
             myMaximumChargeRate = maximumChargeRate;
         }
+    }
+
+    if (maximumDischargeRate < 0) {
+        WRITE_WARNINGF(TL("Battery builder: Vehicle '%' doesn't have a valid value for parameter % (%)."), getID(), toString(SUMO_ATTR_MAXIMUMDISCHARGERATE), toString(maximumDischargeRate));
+    } else {
+        myMaximumDischargeRate = maximumDischargeRate;
+    }
+
+    if (minimumChargeLevel < 0) {
+        WRITE_WARNINGF(TL("Battery builder: Vehicle '%' doesn't have a valid value for parameter % (%)."), getID(), toString(SUMO_ATTR_MINIMUMCHARGELEVEL), toString(minimumChargeLevel));
+    } else {
+        myMinimumChargeLevel = minimumChargeLevel;
     }
 }
 
@@ -236,6 +256,9 @@ MSDevice_Battery::notifyMoveInternal(const SUMOTrafficObject& tObject,
         myLastAngle = veh.getAngle();
     }
 
+    // energy is only discharged into a charging station if the conditions below are met in this step
+    myEnergyDischarged = 0;
+
     // Check if vehicle has under their position one charge Station
     const std::string chargingStationID = MSNet::getInstance()->getStoppingPlaceID(veh.getLane(), veh.getPositionOnLane(), SUMO_TAG_CHARGING_STATION);
 
@@ -275,14 +298,42 @@ MSDevice_Battery::notifyMoveInternal(const SUMOTrafficObject& tObject,
                 // Enable charging vehicle
                 myActChargingStation->setChargingVehicle(true);
 
-                // Calulate energy charged
-                myEnergyCharged = MIN2(MIN2(myActChargingStation->getChargingPower(myTrackFuel) * myActChargingStation->getEfficency(), getMaximumChargeRate() * (myTrackFuel ? 1 : 1. / 3600.)) * timeOnLane, getMaximumBatteryCapacity() - getActualBatteryCapacity());
+                if (myChargingStopped && veh.isStopped() && allowsDischarge(myActChargingStation)) {
+                    // vehicle-to-grid (only during a stop): the battery is kept at its minimum charge level,
+                    // i.e. it is discharged down to that level or charged up to that level
+                    const double targetLevel = MIN2(myMinimumChargeLevel, getMaximumBatteryCapacity());
+                    const double actualLevel = getActualBatteryCapacity();
+                    myEnergyCharged = 0;
+                    if (actualLevel > targetLevel) {
+                        // the station limit applies to the grid side, the battery delivers the conversion losses in addition
+                        const double dischargeRate = MIN2(myActChargingStation->getDischargePower() / myActChargingStation->getEfficency(), myMaximumDischargeRate);
+                        myEnergyDischarged = dischargeRate / 3600. * timeOnLane;
+                        if (myEnergyDischarged >= actualLevel - targetLevel) {
+                            myEnergyDischarged = actualLevel - targetLevel;
+                            setActualBatteryCapacity(targetLevel);
+                        } else {
+                            setActualBatteryCapacity(actualLevel - myEnergyDischarged);
+                        }
+                        myTotalEnergyDischarged += myEnergyDischarged;
+                    } else if (actualLevel < targetLevel) {
+                        myEnergyCharged = MIN2(myActChargingStation->getChargingPower(false) * myActChargingStation->getEfficency(), getMaximumChargeRate() / 3600.) * timeOnLane;
+                        if (myEnergyCharged >= targetLevel - actualLevel) {
+                            myEnergyCharged = targetLevel - actualLevel;
+                            setActualBatteryCapacity(targetLevel);
+                        } else {
+                            setActualBatteryCapacity(actualLevel + myEnergyCharged);
+                        }
+                    }
+                } else {
+                    // Calulate energy charged
+                    myEnergyCharged = MIN2(MIN2(myActChargingStation->getChargingPower(myTrackFuel) * myActChargingStation->getEfficency(), getMaximumChargeRate() * (myTrackFuel ? 1 : 1. / 3600.)) * timeOnLane, getMaximumBatteryCapacity() - getActualBatteryCapacity());
 
-                // Update Battery charge
-                setActualBatteryCapacity(getActualBatteryCapacity() + myEnergyCharged);
+                    // Update Battery charge
+                    setActualBatteryCapacity(getActualBatteryCapacity() + myEnergyCharged);
+                }
             }
             // add charge value for output to myActChargingStation
-            myActChargingStation->addChargeValueForOutput(myEnergyCharged, this);
+            myActChargingStation->addChargeValueForOutput(myEnergyCharged, this, myEnergyDischarged);
         }
         // else disable charging vehicle
         else {
@@ -335,6 +386,13 @@ MSDevice_Battery::saveState(OutputDevice& out) const {
     std::string prevChargingID = (myPreviousNeighbouringChargingStation == nullptr) ? "NULL" : myPreviousNeighbouringChargingStation->getID();
     internals.push_back(prevChargingID);
     internals.push_back(toString(myMaximumChargeRate));
+    if (myMaximumDischargeRate > 0 || myMinimumChargeLevel > 0 || myTotalEnergyDischarged > 0) {
+        // only saved for vehicles taking part in vehicle-to-grid to keep the state of all other vehicles unchanged
+        internals.push_back(toString(myMaximumDischargeRate));
+        internals.push_back(toString(myMinimumChargeLevel));
+        internals.push_back(toString(myEnergyDischarged));
+        internals.push_back(toString(myTotalEnergyDischarged));
+    }
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     out.closeTag();
 }
@@ -363,6 +421,13 @@ MSDevice_Battery::loadState(const SUMOSAXAttributes& attrs) {
         myPreviousNeighbouringChargingStation = dynamic_cast<MSChargingStation*>(MSNet::getInstance()->getStoppingPlace(prevChargingID, SUMO_TAG_CHARGING_STATION));
     }
     bis >> myMaximumChargeRate;
+    double maximumDischargeRate;
+    if (bis >> maximumDischargeRate) {
+        myMaximumDischargeRate = maximumDischargeRate;
+        bis >> myMinimumChargeLevel;
+        bis >> myEnergyDischarged;
+        bis >> myTotalEnergyDischarged;
+    }
 }
 
 
@@ -405,6 +470,33 @@ MSDevice_Battery::setMaximumChargeRate(const double chargeRate) {
     } else {
         myMaximumChargeRate = chargeRate;
     }
+}
+
+
+void
+MSDevice_Battery::setMaximumDischargeRate(const double dischargeRate) {
+    if (dischargeRate < 0) {
+        WRITE_WARNINGF(TL("Trying to set into the battery device of vehicle '%' an invalid % (%)."), getID(), toString(SUMO_ATTR_MAXIMUMDISCHARGERATE), toString(dischargeRate));
+    } else {
+        myMaximumDischargeRate = dischargeRate;
+    }
+}
+
+
+void
+MSDevice_Battery::setMinimumChargeLevel(const double chargeLevel) {
+    if (chargeLevel < 0) {
+        WRITE_WARNINGF(TL("Trying to set into the battery device of vehicle '%' an invalid % (%)."), getID(), toString(SUMO_ATTR_MINIMUMCHARGELEVEL), toString(chargeLevel));
+    } else {
+        myMinimumChargeLevel = chargeLevel;
+    }
+}
+
+
+bool
+MSDevice_Battery::allowsDischarge(const MSChargingStation* cs) const {
+    return (myMaximumDischargeRate > 0 && !myTrackFuel && cs->getChargeType() == MSChargingStation::CHARGETYPE_NORMAL
+            && cs->getDischargePower() > 0 && cs->getEfficency() > 0);
 }
 
 
@@ -567,6 +659,14 @@ MSDevice_Battery::getParameter(const std::string& key) const {
         return toString(getMaximumBatteryCapacity());
     } else if (key == toString(SUMO_ATTR_MAXIMUMCHARGERATE)) {
         return toString(getMaximumChargeRate());
+    } else if (key == toString(SUMO_ATTR_MAXIMUMDISCHARGERATE)) {
+        return toString(getMaximumDischargeRate());
+    } else if (key == toString(SUMO_ATTR_MINIMUMCHARGELEVEL)) {
+        return toString(getMinimumChargeLevel());
+    } else if (key == toString(SUMO_ATTR_ENERGYDISCHARGED)) {
+        return toString(getEnergyDischarged());
+    } else if (key == toString(SUMO_ATTR_TOTALENERGYDISCHARGED)) {
+        return toString(getTotalEnergyDischarged());
     } else if (key == toString(SUMO_ATTR_CHARGINGSTATIONID)) {
         return getChargingStationID();
     }
@@ -588,6 +688,10 @@ MSDevice_Battery::setParameter(const std::string& key, const std::string& value)
         setMaximumBatteryCapacity(doubleValue);
     } else if (key == toString(SUMO_ATTR_MAXIMUMCHARGERATE)) {
         setMaximumChargeRate(doubleValue);
+    } else if (key == toString(SUMO_ATTR_MAXIMUMDISCHARGERATE)) {
+        setMaximumDischargeRate(doubleValue);
+    } else if (key == toString(SUMO_ATTR_MINIMUMCHARGELEVEL)) {
+        setMinimumChargeLevel(doubleValue);
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
@@ -610,6 +714,9 @@ MSDevice_Battery::generateOutput(OutputDevice* tripinfoOut) const {
         tripinfoOut->writeAttr("actualBatteryCapacity", toString(myActualBatteryCapacity));
         tripinfoOut->writeAttr("totalEnergyConsumed", toString(myTotalConsumption));
         tripinfoOut->writeAttr("totalEnergyRegenerated", toString(myTotalRegenerated));
+        if (myMaximumDischargeRate > 0 || myTotalEnergyDischarged > 0) {
+            tripinfoOut->writeAttr("totalEnergyDischarged", toString(myTotalEnergyDischarged));
+        }
         tripinfoOut->closeTag();
     }
 }
