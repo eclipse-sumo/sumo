@@ -32,3 +32,6 @@ parking
 
 # subscriptions in a network with height
 elevated
+
+# parameterized context subscriptions on the Python protocol boundary
+parameters
