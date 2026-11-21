@@ -136,9 +136,8 @@ Starting with SUMO 1.8.0 (for macOS since 1.12.0) the installation is also possi
 
 You can install either the applications: `pip install eclipse-sumo` or only traci (`pip install traci`), libsumo (`pip install libsumo`) or sumolib (`pip install sumolib`).
 
-This should work for Windows, macOS and all Linux versions which are more recent than 2014. Linux wheels are provided in four flavors:
-[manylinux2014 and manylinux_2_28](https://github.com/pypa/manylinux) for x86_64 and aarch64. manylinux2014 is missing some components such as GDAL and JuPedSim but manylinux_2_28 should be feature complete
-(pip usually chooses the newest version compatible with your system, so unless you are still on CentOS 7 or openSUSE 15.x you should be fine).
+This should work for Windows, macOS and Linux distributions with `glibc >= 2.28` (e.g. Ubuntu 20.04+, Debian 10+, AlmaLinux/RHEL 8+, Fedora 29+). Linux wheels are provided as
+[manylinux_2_28](https://github.com/pypa/manylinux) packages for `x86_64` and `aarch64` with full feature support (including GDAL, Parquet, Eigen, and JuPedSim).
 
 The applications are available for Python 2 and Python 3, libsumo only for Python 3.9 and above. This gives an easy way to test
 a new SUMO version via [virtual environments](https://docs.python.org/3/library/venv.html) or a nightly build using the following commands (on Linux):
