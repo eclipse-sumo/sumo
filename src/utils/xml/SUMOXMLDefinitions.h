@@ -1030,12 +1030,20 @@ enum SumoXMLAttr {
     SUMO_ATTR_CHARGINGPOWER,
     /// @brief total charge in W/s of the Charging Stations
     SUMO_ATTR_TOTALPOWER,
+    /// @brief maximum power in W fed back into the grid per discharging vehicle (vehicle-to-grid)
+    SUMO_ATTR_DISCHARGEPOWER,
     /// @brief Eficiency of the charge in Charging Stations
     SUMO_ATTR_EFFICIENCY,
     /// @brief Allow/disallow charge in transit in Charging Stations
     SUMO_ATTR_CHARGEINTRANSIT,
     /// @brief Delay in the charge of charging stations (different of waiting time)
     SUMO_ATTR_CHARGEDELAY,
+    /// @brief Power ramp-up rate in W/s of charging stations
+    SUMO_ATTR_CHARGERAMPUP,
+    /// @brief Power ramp-down rate in W/s of charging stations
+    SUMO_ATTR_CHARGERAMPDOWN,
+    /// @brief Time before planned stop end at which charging/discharging ramps down to zero
+    SUMO_ATTR_CHARGESTOPDELAY,
     /// @brief Charge type (fuel or electric)
     SUMO_ATTR_CHARGETYPE,
     /// @}
@@ -1049,6 +1057,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_MAXIMUMBATTERYCAPACITY, // deprecated
     /// @brief Maximum Power
     SUMO_ATTR_MAXIMUMCHARGERATE,
+    /// @brief Maximum discharge rate (vehicle-to-grid)
+    SUMO_ATTR_MAXIMUMDISCHARGERATE,
+    /// @brief Minimum charge level kept when discharging (vehicle-to-grid)
+    SUMO_ATTR_MINIMUMCHARGELEVEL,
     /// @brief Charge curve axis values
     SUMO_ATTR_CHARGELEVELTABLE,
     /// @brief Charge curve
@@ -1121,6 +1133,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_ENERGYCHARGEDINTRANSIT,
     /// @brief Energy charged stopped
     SUMO_ATTR_ENERGYCHARGEDSTOPPED,
+    /// @brief Energy discharged into a charging station (vehicle-to-grid)
+    SUMO_ATTR_ENERGYDISCHARGED,
     /// @brief Position on lane
     SUMO_ATTR_POSONLANE,
     /// @brief Time stopped
@@ -1155,10 +1169,14 @@ enum SumoXMLAttr {
     /// @{
     /// @brief total energy charged by charging station
     SUMO_ATTR_TOTALENERGYCHARGED,
+    /// @brief total energy discharged into charging station (vehicle-to-grid)
+    SUMO_ATTR_TOTALENERGYDISCHARGED,
     /// @brief number of steps that a vehicle is charging
     SUMO_ATTR_CHARGINGSTEPS,
     /// @brief total energy charged into a single vehicle
     SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE,
+    /// @brief total energy discharged from a single vehicle (vehicle-to-grid)
+    SUMO_ATTR_TOTALENERGYDISCHARGED_VEHICLE,
     /// @brief timestep in which charging begins
     SUMO_ATTR_CHARGINGBEGIN,
     /// @brief timesteps in which charging ends

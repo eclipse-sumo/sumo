@@ -42,6 +42,8 @@ public:
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] name Name of busStop
      * @param[in] chargingPower charging power of the charging station
+     * @param[in] totalPower charging power of the charging station across all charging vehicles
+     * @param[in] dischargePower max. power fed into the grid per discharging vehicle (vehicle-to-grid)
      * @param[in] efficiency efficiency of the charge [0,1]
      * @param[in] chargeInTransit enable or disable charge in transit
      * @param[in] chargeDelay delay in timeSteps in the charge
@@ -53,7 +55,8 @@ public:
      */
     GNEChargingStation(const std::string& id, GNENet* net, FileBucket* fileBucket, GNELane* lane,
                        const double startPos, const double endPos, const std::string& name, const double chargingPower,
-                       const double totalPower, const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay,
+                       const double totalPower, const double dischargePower, const double efficiency, const bool chargeInTransit,
+                       const SUMOTime chargeDelay, const double chargeRampUp, const double chargeRampDown, const SUMOTime chargeStopDelay,
                        const std::string& chargeType, const SUMOTime waitingTime, const std::string& parkingAreaID,
                        const bool friendlyPosition, const Parameterised::Map& parameters);
 
@@ -122,6 +125,9 @@ protected:
     /// @brief Charging power pro timestep across all charging vehicles
     double myTotalPower = 0;
 
+    /// @brief maximum power fed into the grid per discharging vehicle (vehicle-to-grid)
+    double myDischargePower = 0;
+
     /// @brief efficiency of the charge
     double myEfficiency = 0;
 
@@ -130,6 +136,15 @@ protected:
 
     /// @brief delay in the starting of charge
     SUMOTime myChargeDelay = 0;
+
+    /// @brief power ramp-up rate in W/s
+    double myChargeRampUp = 0;
+
+    /// @brief power ramp-down rate in W/s
+    double myChargeRampDown = 0;
+
+    /// @brief time before planned stop end at which target power becomes zero
+    SUMOTime myChargeStopDelay = 0;
 
     /// @brief charging type
     std::string myChargeType = "normal";
