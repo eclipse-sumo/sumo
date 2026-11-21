@@ -163,6 +163,23 @@ and may be packaged on Linux in the sumo or a separate sumo-tools package. To ta
 you need several additional python modules. The easiest way to install them is to use `pip install -r $SUMO_HOME/tools/requirements.txt`.
 If you want to use JuPedSim as a pedestrian model you also need to `pip install --no-deps jupedsim`.
 
+# via Python (`pipx` / `pip`)
+
+Prebuilt cross-platform wheels are published on PyPI as `eclipse-sumo` for Windows, Linux, and macOS. They bundle all SUMO command-line and GUI binaries (`sumo`, `sumo-gui`, `netedit`, `netconvert`, `duarouter`, and the remaining routers) together with `data/` and `tools/`.
+
+To make all SUMO executables available globally on your `PATH` inside an isolated environment (avoiding PEP 668 `externally-managed-environment` errors on Linux and macOS), install `eclipse-sumo` with [pipx](https://pipx.pypa.io/):
+
+```bash
+pipx install eclipse-sumo
+```
+
+When writing Python scripts that import `traci`, `sumolib`, or `libsumo`, install the packages inside a project virtual environment with `pip`:
+
+```bash
+python -m venv .venv
+pip install eclipse-sumo traci sumolib libsumo
+```
+
 # via Docker
 
 Building and installing SUMO from source is not an easy task for beginner users.
