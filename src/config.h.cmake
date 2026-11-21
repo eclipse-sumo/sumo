@@ -189,6 +189,9 @@
 /* defined if FOX is available */
 #cmakedefine HAVE_FOX
 
+/* defined if libcurl is available */
+#cmakedefine HAVE_CURL
+
 /* defined if GDAL is available */
 #cmakedefine HAVE_GDAL
 

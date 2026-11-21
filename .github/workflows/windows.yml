@@ -13,7 +13,9 @@ on:
       - 'docs/**'
   workflow_dispatch:
   schedule:
-    - cron:  '25 1 * * *'
+    - cron:  '25 1 * * 1-6'
+    # weekly clean build (no cache restore)
+    - cron:  '25 1 * * 0'
 
 jobs:
   build:
@@ -47,12 +49,12 @@ jobs:
         Add-Content -Path $PROFILE.CurrentUserAllHosts -Value '$ErrorActionPreference = "Stop"'
 
     - name: ccache
-      # do a clean build once a day
-      if: github.event_name != 'schedule'
       uses: hendrikmuhs/ccache-action@v1.2.25
       with:
+        restore: ${{ github.event.schedule != '25 1 * * 0' }}
         key: ${{ matrix.build_type }}
         variant: sccache
+        save: ${{ github.ref == 'refs/heads/main' }}
 
     # required for CMake to find Ninja
     - name: "Set up MSVC Developer Command Prompt"
