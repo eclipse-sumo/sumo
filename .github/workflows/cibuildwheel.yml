@@ -100,6 +100,8 @@ jobs:
           python-version: '3.12'
 
       - name: Set up Java
+        # on Linux the build runs inside the manylinux container, so the host has neither use for Java nor a ~/.m2 to cache
+        if: ${{ !startsWith(matrix.os, 'ubuntu') }}
         uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
