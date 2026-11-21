@@ -269,14 +269,14 @@ MSInductLoop::notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder
 
 double
 MSInductLoop::getSpeed(const int offset) const {
-    const std::vector<VehicleData>& d = collectVehiclesOnDet(SIMSTEP - offset);
+    const std::vector<VehicleData>& d = collectVehiclesLeftDet(SIMSTEP - offset);
     return d.empty() ? -1. : std::accumulate(d.begin(), d.end(), 0.0, speedSum) / (double) d.size();
 }
 
 
 double
 MSInductLoop::getVehicleLength(const int offset) const {
-    const std::vector<VehicleData>& d = collectVehiclesOnDet(SIMSTEP - offset);
+    const std::vector<VehicleData>& d = collectVehiclesLeftDet(SIMSTEP - offset);
     return d.empty() ? -1. : std::accumulate(d.begin(), d.end(), 0.0, lengthSum) / (double)d.size();
 }
 
@@ -289,7 +289,7 @@ MSInductLoop::getOccupancy() const {
     const SUMOTime tbeg = SIMSTEP - DELTA_T;
     double occupancy = 0;
     const double csecond = SIMTIME;
-    for (const VehicleData& i : collectVehiclesOnDet(tbeg, false, false, true)) {
+    for (const VehicleData& i : collectVehiclesOnDet(tbeg, true, false, true)) {
         const double leaveTime = i.leaveTimeM == HAS_NOT_LEFT_DETECTOR ? csecond : MIN2(i.leaveTimeM, csecond);
         const double entryTime = MAX2(i.entryTimeM, STEPS2TIME(tbeg));
         occupancy += MIN2(leaveTime - entryTime, TS);
@@ -606,16 +606,18 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool includeEarly, bool leaveTi
 #endif
     const double t = STEPS2TIME(tMS);
     std::vector<VehicleData> ret;
+    // vehicles which left the detector after t occupied it after t as well
+    const bool checkLeave = leaveTime || forOccupancy;
     for (const VehicleData& i : myVehicleDataCont) {
         if ((includeEarly || !i.leftEarlyM) && (!lastInterval || i.entryTimeM < t)) {
-            if (i.entryTimeM >= t || (leaveTime && i.leaveTimeM >= t)) {
+            if (i.entryTimeM >= t || (checkLeave && i.leaveTimeM >= t)) {
                 ret.push_back(i);
             }
         }
     }
     for (const VehicleData& i : myLastVehicleDataCont) {
         if (includeEarly || !i.leftEarlyM) {
-            if ((!lastInterval && (i.entryTimeM >= t || (leaveTime && i.leaveTimeM >= t)))
+            if ((!lastInterval && (i.entryTimeM >= t || (checkLeave && i.leaveTimeM >= t)))
                     || (lastInterval && i.leaveTimeM <= t + STEPS2TIME(myLastIntervalEnd - myLastIntervalBegin))) { // TODO: check duration of last interval
                 ret.push_back(i);
             }
@@ -628,6 +630,26 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool includeEarly, bool leaveTi
             VehicleData d(*v, i.second, HAS_NOT_LEFT_DETECTOR, false);
             d.speedM = v->getSpeed();
             ret.push_back(d);
+        }
+    }
+    return ret;
+}
+
+
+std::vector<MSInductLoop::VehicleData>
+MSInductLoop::collectVehiclesLeftDet(SUMOTime tMS) const {
+#ifdef HAVE_FOX
+    ScopedLocker<> lock(myNotificationMutex, myNeedLock);
+#endif
+    const double t = STEPS2TIME(tMS);
+    const double tEnd = t + TS;
+    std::vector<VehicleData> ret;
+    // the previous interval container is needed if the interval ended within the step
+    for (const VehicleDataCont* cont : {&myLastVehicleDataCont, &myVehicleDataCont}) {
+        for (const VehicleData& i : *cont) {
+            if (!i.leftEarlyM && i.leaveTimeM >= t && i.leaveTimeM < tEnd) {
+                ret.push_back(i);
+            }
         }
     }
     return ret;
