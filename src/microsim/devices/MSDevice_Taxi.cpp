@@ -384,6 +384,7 @@ MSDevice_Taxi::MSDevice_Taxi(SUMOVehicle& holder, const std::string& id) :
         throw ProcessError("Idle algorithm '" + algo + "' is not known for vehicle '" + myHolder.getID() + "'");
     }
     myServiceEnd = string2time(holder.getStringParam("device.taxi.end", false, defaultServiceEnd));
+    myKeepChargingStops = holder.getBoolParam("device.taxi.keepChargingStops", false, true);
     myRoutingDevice = static_cast<MSDevice_Routing*>(myHolder.getDevice(typeid(MSDevice_Routing)));
 }
 
@@ -427,6 +428,8 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
     myLastDispatch = reservations;
     ConstMSEdgeVector tmpEdges;
     StopParVector stops;
+    // charging stops which are removed below and appended again after the customer stops
+    std::vector<std::pair<const MSEdge*, SUMOVehicleParameter::Stop> > chargingStops;
     double lastPos = myHolder.getPositionOnLane();
     const MSEdge* rerouteOrigin = *myHolder.getRerouteOrigin();
     if (isEmpty()) {
@@ -444,14 +447,10 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
             }
             // prevent unauthorized/premature entry
             const_cast<SUMOVehicleParameter::Stop&>(stop.pars).permitted.insert("");
-            while (myHolder.getStops().size() > 1) {
-                myHolder.abortNextStop(1);
-            }
+            abortStops(1, chargingStops);
         } else {
-            while (myHolder.hasStops()) {
-                // in meso there might be more than 1 stop at this point
-                myHolder.abortNextStop();
-            }
+            // in meso there might be more than 1 stop at this point
+            abortStops(0, chargingStops);
             assert(!myHolder.hasStops());
         }
         tmpEdges.push_back(myHolder.getEdge());
@@ -534,9 +533,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                     }
                 }
             }
-            while (myHolder.hasStops()) {
-                myHolder.abortNextStop();
-            }
+            abortStops(0, chargingStops);
             tmpEdges.push_back(myHolder.getEdge());
             if (myHolder.getEdge() != rerouteOrigin) {
                 tmpEdges.push_back(rerouteOrigin);
@@ -593,6 +590,16 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
             stops.back().duration = TIME2STEPS(myHolder.getFloatParam("device.taxi.dropOffDuration", false, 60)); // pay and collect bags
         }
         stops.back().parametersSet |= STOP_DURATION_SET | STOP_PARKING_SET;
+    }
+    // keep the charging stops which were not reached yet (in their original order)
+    for (auto& item : chargingStops) {
+        SUMOVehicleParameter::Stop& stop = item.second;
+        if (item.first != tmpEdges.back() || stop.endPos < lastPos) {
+            tmpEdges.push_back(item.first);
+        }
+        lastPos = stop.endPos;
+        stop.index = STOP_INDEX_END;
+        stops.push_back(stop);
     }
 #ifdef DEBUG_DISPATCH
     if (DEBUG_COND) {
@@ -850,6 +857,65 @@ MSDevice_Taxi::isEmpty() {
 
 
 bool
+MSDevice_Taxi::isChargingStop(const MSStop& stop) {
+    return (stop.chargingStation != nullptr && stop.pars.permitted.empty()
+            && stop.pars.awaitedPersons.empty() && stop.pars.awaitedContainers.empty());
+}
+
+
+bool
+MSDevice_Taxi::hasPendingChargingStop() const {
+    if (myKeepChargingStops) {
+        for (const MSStop& stop : myHolder.getStops()) {
+            if ((!stop.reached || (!MSGlobals::gUseMesoSim && stop.duration > myHolder.getVehicleType().getActionStepLength()))
+                    && isChargingStop(stop)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+bool
+MSDevice_Taxi::hasUpcomingDropOff(const MSTransportable* t) const {
+    if (!myKeepChargingStops || myCustomers.count(t) == 0) {
+        return false;
+    }
+    const std::string needle = "dropOff " + t->getID() + " ";
+    int index = 0;
+    for (const MSStop& stop : myHolder.getStops()) {
+        if (index == 0) {
+            if (!isChargingStop(stop) || stop.pars.actType.find(needle) != std::string::npos) {
+                return false;
+            }
+        } else if (stop.pars.actType.find(needle) != std::string::npos) {
+            return true;
+        }
+        index++;
+    }
+    return false;
+}
+
+
+void
+MSDevice_Taxi::abortStops(int firstIndex, std::vector<std::pair<const MSEdge*, SUMOVehicleParameter::Stop> >& chargingStops) {
+    if (myKeepChargingStops) {
+        int index = 0;
+        for (const MSStop& stop : myHolder.getStops()) {
+            if (index >= firstIndex && !stop.reached && isChargingStop(stop)) {
+                chargingStops.push_back(std::make_pair(*stop.edge, stop.pars));
+            }
+            index++;
+        }
+    }
+    while ((int)myHolder.getStops().size() > firstIndex) {
+        myHolder.abortNextStop(firstIndex);
+    }
+}
+
+
+bool
 MSDevice_Taxi::allowsBoarding(const MSTransportable* t) const {
     return myCustomers.count(t) != 0;
 }
@@ -863,7 +929,9 @@ MSDevice_Taxi::updateMove(const SUMOTime traveltime, const double travelledDist)
     }
     if (isEmpty()) {
         if (MSNet::getInstance()->getCurrentTimeStep() < myServiceEnd) {
-            myIdleAlgorithm->idle(this);
+            if (!hasPendingChargingStop()) {
+                myIdleAlgorithm->idle(this);
+            }
             if (myRoutingDevice != nullptr) {
                 // prevent rerouting during idling (#11079)
                 myRoutingDevice->setActive(false);
@@ -911,7 +979,7 @@ MSDevice_Taxi::notifyMoveInternal(const SUMOTrafficObject& /* veh */,
 
 bool
 MSDevice_Taxi::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notification /*reason*/, const MSLane* /* enteredLane */) {
-    if (isEmpty() && MSNet::getInstance()->getCurrentTimeStep() < myServiceEnd) {
+    if (isEmpty() && MSNet::getInstance()->getCurrentTimeStep() < myServiceEnd && !hasPendingChargingStop()) {
         myIdleAlgorithm->idle(this);
     }
     return true; // keep the device
@@ -942,10 +1010,21 @@ MSDevice_Taxi::customerArrived(const MSTransportable* person) {
     if (myHolder.getPersonNumber() == 0 && myHolder.getContainerNumber() == 0) {
         myState &= ~OCCUPIED;
         if (myHolder.getStops().size() > 1 && (myState & PICKUP) == 0) {
-            WRITE_WARNINGF(TL("All customers left vehicle '%' at time=% but there are % remaining stops"),
-                           myHolder.getID(), time2string(SIMSTEP), myHolder.getStops().size() - 1);
-            while (myHolder.getStops().size() > 1) {
-                myHolder.abortNextStop(1);
+            // abort the remaining stops except for charging stops
+            std::vector<int> toAbort;
+            int index = 0;
+            for (const MSStop& stop : myHolder.getStops()) {
+                if (index > 0 && !(myKeepChargingStops && isChargingStop(stop))) {
+                    toAbort.push_back(index);
+                }
+                index++;
+            }
+            if (!toAbort.empty()) {
+                WRITE_WARNINGF(TL("All customers left vehicle '%' at time=% but there are % remaining stops"),
+                               myHolder.getID(), time2string(SIMSTEP), toAbort.size());
+                for (auto it = toAbort.rbegin(); it != toAbort.rend(); ++it) {
+                    myHolder.abortNextStop(*it);
+                }
             }
         }
     }
@@ -957,7 +1036,7 @@ MSDevice_Taxi::customerArrived(const MSTransportable* person) {
         myCurrentReservations.clear();
         checkTaskSwap();
         if (isEmpty()) {
-            if (MSGlobals::gUseMesoSim && MSNet::getInstance()->getCurrentTimeStep() < myServiceEnd) {
+            if (MSGlobals::gUseMesoSim && MSNet::getInstance()->getCurrentTimeStep() < myServiceEnd && !hasPendingChargingStop()) {
                 myIdleAlgorithm->idle(this);
             }
         }
@@ -1075,6 +1154,8 @@ MSDevice_Taxi::getParameter(const std::string& key) const {
         return myHolder.getStringParam("device.taxi.pickUpDuration", false, "0");
     } else if (key == "dropOffDuration") {
         return myHolder.getStringParam("device.taxi.dropOffDuration", false, "60");
+    } else if (key == "keepChargingStops") {
+        return myKeepChargingStops ? "true" : "false";
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -1082,6 +1163,14 @@ MSDevice_Taxi::getParameter(const std::string& key) const {
 
 void
 MSDevice_Taxi::setParameter(const std::string& key, const std::string& value) {
+    if (key == "keepChargingStops") {
+        try {
+            myKeepChargingStops = StringUtils::toBool(value);
+        } catch (BoolFormatException&) {
+            throw InvalidArgument("Setting parameter '" + key + "' requires a boolean for device of type '" + deviceName() + "'");
+        }
+        return;
+    }
     double doubleValue;
     try {
         doubleValue = StringUtils::toDouble(value);

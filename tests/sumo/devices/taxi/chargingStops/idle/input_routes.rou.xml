@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="taxi" vClass="taxi">
+        <param key="has.taxi.device" value="true"/>
+    </vType>
+
+    <!-- an idle taxi serves both charging stops and waits at the last one -->
+    <trip id="taxi" type="taxi" depart="0.00" from="A0B0" to="E1F1">
+        <stop chargingStation="cs0" duration="20"/>
+        <stop chargingStation="cs1" duration="20"/>
+    </trip>
+</routes>

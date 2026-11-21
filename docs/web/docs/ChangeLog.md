@@ -125,6 +125,7 @@ title: ChangeLog
     - Make sure you have an active python environment with the jupedsim module installed, when running the model.
   - Added simulation option category 'persons' #6374
   - NEMA controller: new parameter *reservicePhases* serves a coordinated phase again in the same cycle when its lagging left turn gaps out. [documentation](Simulation/NEMA.md#leading_and_lagging_left_turns) #18453
+  - Taxis now keep stops at charging stations that serve no customer (from the route, TraCI or the stationfinder device) when they are dispatched and when the last customer leaves. The idle algorithm waits until these stops are reached. The previous behavior can be restored with vType/vehicle param `device.taxi.keepChargingStops="false"`. [documentation](Simulation/Taxi.md#charging_stops) #15586
 
 - sumo-gui
   - Converted some buttons into checkboxes in the locate dialog #9925
@@ -152,6 +153,7 @@ title: ChangeLog
   - When changing lane permissions, the internal lanes connected to that lane will automatically be updated (also affects rerouters) #18264
   - Function `vehicle.getParameter(vehID, 'device.tripinfo.PARAM')` now additionally supports PARAMs `depart,departPos,departSpeed,departDelay,duration,rerouteNo` #11310
   - Added offset member to `TraCILogic` and `traci.trafficlight.Logic` #14735
+  - Taxi parameter `device.taxi.keepChargingStops` can be retrieved and set with `vehicle.getParameter` and `vehicle.setParameter` #15586
 
 - tools
   - osmWebWizard.py: added option **--language** to localize the web UI #13081
