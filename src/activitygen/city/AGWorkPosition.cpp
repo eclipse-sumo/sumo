@@ -35,6 +35,15 @@
 
 
 // ===========================================================================
+// static member definitions
+// ===========================================================================
+const AGWorkPosition* AGWorkPosition::myIndexedWorkPositionsData = nullptr;
+int AGWorkPosition::myFreeCount = 0;
+int AGWorkPosition::myTreeBitMask = 0;
+std::vector<int> AGWorkPosition::myFreeTree;
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 AGWorkPosition::AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet) :
@@ -42,7 +51,8 @@ AGWorkPosition::AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet
     myLocation(inStreet),
     myAdult(nullptr),
     myOpeningTime(generateOpeningTime(*ds)),
-    myClosingTime(generateClosingTime(*ds)) {
+    myClosingTime(generateClosingTime(*ds)),
+    myFreeTreeIndex(-1) {
     ds->workPositions++;
 }
 
@@ -52,12 +62,18 @@ AGWorkPosition::AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet
     myLocation(inStreet, pos),
     myAdult(nullptr),
     myOpeningTime(generateOpeningTime(*ds)),
-    myClosingTime(generateClosingTime(*ds)) {
+    myClosingTime(generateClosingTime(*ds)),
+    myFreeTreeIndex(-1) {
     ds->workPositions++;
 }
 
 AGWorkPosition::~AGWorkPosition() {
-//    let();
+    if (this == myIndexedWorkPositionsData) {
+        myIndexedWorkPositionsData = nullptr;
+        myFreeCount = 0;
+        myTreeBitMask = 0;
+        myFreeTree.clear();
+    }
 }
 
 
@@ -114,6 +130,9 @@ AGWorkPosition::let() {
         myStatData->workPositions++;
         myAdult->lostWorkPosition();
         myAdult = nullptr;
+        if (myFreeTreeIndex > 0) {
+            updateFreeTree(myFreeTreeIndex, 1);
+        }
     }
 }
 
@@ -123,9 +142,65 @@ AGWorkPosition::take(AGAdult* worker) {
     if (myAdult == nullptr) {
         myStatData->workPositions--;
         myAdult = worker;
+        if (myFreeTreeIndex > 0) {
+            updateFreeTree(myFreeTreeIndex, -1);
+        }
     } else {
         throw ProcessError(TL("Work position already occupied. Cannot give it to another adult."));
     }
+}
+
+
+void
+AGWorkPosition::updateFreeTree(int treeIndex, int delta) {
+    if (treeIndex > 0 && treeIndex < (int)myFreeTree.size()) {
+        myFreeCount += delta;
+        for (int idx = treeIndex; idx < (int)myFreeTree.size(); idx += idx & -idx) {
+            myFreeTree[idx] += delta;
+        }
+    }
+}
+
+
+AGWorkPosition*
+AGWorkPosition::randomFreeWorkPosition(std::vector<AGWorkPosition>* wps) {
+    if (wps == nullptr || wps->empty()) {
+        return nullptr;
+    }
+    const int n = (int)wps->size();
+    if (myIndexedWorkPositionsData != wps->data() || (int)myFreeTree.size() != n + 1) {
+        myIndexedWorkPositionsData = wps->data();
+        myFreeTree.assign(n + 1, 0);
+        myFreeCount = 0;
+        for (int i = 0; i < n; ++i) {
+            (*wps)[i].myFreeTreeIndex = i + 1;
+            if (!(*wps)[i].isTaken()) {
+                myFreeTree[i + 1] += 1;
+                myFreeCount++;
+            }
+            const int parent = (i + 1) + ((i + 1) & -(i + 1));
+            if (parent <= n) {
+                myFreeTree[parent] += myFreeTree[i + 1];
+            }
+        }
+        myTreeBitMask = 1;
+        while ((myTreeBitMask << 1) <= n) {
+            myTreeBitMask <<= 1;
+        }
+    }
+    if (myFreeCount <= 0) {
+        return nullptr;
+    }
+    int target = RandHelper::rand(myFreeCount);
+    int pos = 0;
+    for (int bit = myTreeBitMask; bit > 0; bit >>= 1) {
+        const int next = pos + bit;
+        if (next <= n && myFreeTree[next] <= target) {
+            target -= myFreeTree[next];
+            pos = next;
+        }
+    }
+    return &(*wps)[pos];
 }
 
 
