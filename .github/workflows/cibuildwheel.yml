@@ -103,6 +103,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
           cache: 'maven'
+          cache-jdk: false
 
       - name: Preparing wheel eclipse-sumo
         run: python tools/build_config/version.py --pep440 build_config/pyproject/eclipse-sumo.toml pyproject.toml

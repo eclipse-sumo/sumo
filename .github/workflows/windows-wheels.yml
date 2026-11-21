@@ -18,6 +18,11 @@ on:
   schedule:
     - cron:  '5 1 * * *'
 
+concurrency:
+  # a push to a branch with a pull request is cancelled by the pull request run
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.head_ref || (github.event_name == 'push' && github.ref_type == 'branch' && github.ref_name != 'main' && github.ref_name) || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   call-cibuildwheel:
     uses: ./.github/workflows/cibuildwheel.yml
