@@ -175,11 +175,15 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentType = myCurrentEdge == nullptr ? myOptions.getString("default.type") : myCurrentEdge->getTypeID();
     // check whether a type's values shall be used
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
-        myCurrentType = attrs.get<std::string>(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok);
-        if (!ok) {
-            return;
+        if (myCurrentEdge != nullptr || !myOptions.isDefault("default.type")) {
+            myCurrentType = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
+        } else {
+            myCurrentType = attrs.get<std::string>(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok);
+            if (!ok) {
+                return;
+            }
         }
-        if (!myTypeCont.knows(myCurrentType) && !myOptions.getBool("ignore-errors.edge-type")) {
+        if (myCurrentType != "" && !myTypeCont.knows(myCurrentType) && !myOptions.getBool("ignore-errors.edge-type")) {
             WRITE_ERRORF("Type '%' used by edge '%' was not defined (ignore with option --ignore-errors.edge-type).", myCurrentType, myCurrentID);
             return;
         }
@@ -273,7 +277,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     }
     // try to get the street name
     if (attrs.hasAttribute(SUMO_ATTR_NAME)) {
-        myCurrentStreetName = attrs.get<std::string>(SUMO_ATTR_NAME, myCurrentID.c_str(), ok);
+        myCurrentStreetName = attrs.getStringSecure(SUMO_ATTR_NAME, "");
         if (myCurrentStreetName != "" && myOptions.isDefault("output.street-names")) {
             myOptions.set("output.street-names", "true");
         }
@@ -366,7 +370,9 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     }
     // try to get the kilometrage/mileage
     myCurrentEdge->setDistance(attrs.getOpt<double>(SUMO_ATTR_DISTANCE, myCurrentID.c_str(), ok, myCurrentEdge->getDistance()));
-    myCurrentEdge->setRoutingType(attrs.getOpt<std::string>(SUMO_ATTR_ROUTINGTYPE, myCurrentID.c_str(), ok, myCurrentEdge->getRoutingType()));
+    if (attrs.hasAttribute(SUMO_ATTR_ROUTINGTYPE)) {
+        myCurrentEdge->setRoutingType(attrs.getStringSecure(SUMO_ATTR_ROUTINGTYPE, ""));
+    }
     // preserve bidi edge (only as bool, the actual edge will be recomputed)
     const std::string bidi = attrs.getOpt<std::string>(SUMO_ATTR_BIDI, myCurrentID.c_str(), ok, "");
     myCurrentEdge->setBidi(myCurrentEdge->getBidiEdge() != nullptr || myCurrentEdge->isBidi() || bidi != "");
