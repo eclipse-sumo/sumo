@@ -388,18 +388,11 @@ RORouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? new RGBColor(attrs.get<RGBColor>(SUMO_ATTR_COLOR, myActiveRouteID.c_str(), ok)) : nullptr;
     ok = true;
     myActiveRouteRepeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, myActiveRouteID.c_str(), ok, 0);
-    myActiveRoutePeriod = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, myActiveRouteID.c_str(), ok, 0);
-    if (myActiveRouteRepeat > 0) {
-        SUMOVehicleClass vClass = SVC_IGNORING;
-        if (myVehicleParameter != nullptr) {
-            SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
-            if (type != nullptr) {
-                vClass = type->vehicleClass;
-            }
-        }
-        if (myActiveRoute.size() > 0 && !myActiveRoute.back()->isConnectedTo(*myActiveRoute.front(), vClass)) {
-            myErrorOutput->inform("Disconnected route " + rid + " when repeating.");
-        }
+    myActiveRoutePeriod = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, myActiveRouteID.c_str(), ok,
+                          // handle obsolete attribute name
+                          attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, myActiveRouteID.c_str(), ok, 0));
+    if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
+        WRITE_WARNING(TL("Attribute 'period' is deprecated for route. Use 'cycleTime' instead."));
     }
     myCurrentCosts = attrs.getOpt<double>(SUMO_ATTR_COST, myActiveRouteID.c_str(), ok, -1);
     if (ok && myCurrentCosts != -1 && myCurrentCosts < 0) {
@@ -437,10 +430,14 @@ RORouteHandler::closeRoute(const bool mayBeDisconnected) {
         }
     }
     if (myActiveRoute.size() == 0) {
+        delete myActiveRouteColor;
+        myActiveRouteColor = nullptr;
         if (myActiveRouteRefID != "" && myCurrentAlternatives != nullptr) {
             myCurrentAlternatives->addAlternativeDef(myNet.getRouteDef(myActiveRouteRefID));
             myActiveRouteID = "";
             myActiveRouteRefID = "";
+            myActiveRouteRepeat = 0;
+            myActiveRoutePeriod = 0;
             return;
         }
         if (myVehicleParameter != nullptr) {
@@ -450,12 +447,18 @@ RORouteHandler::closeRoute(const bool mayBeDisconnected) {
         }
         myActiveRouteID = "";
         myActiveRouteStops.clear();
+        myActiveRouteRepeat = 0;
+        myActiveRoutePeriod = 0;
         return;
     }
     if (myActiveRoute.size() == 1 && myActiveRoute.front()->isTazConnector()) {
         myErrorOutput->inform("The routing information for vehicle '" + myVehicleParameter->id + "' is insufficient.");
+        delete myActiveRouteColor;
+        myActiveRouteColor = nullptr;
         myActiveRouteID = "";
         myActiveRouteStops.clear();
+        myActiveRouteRepeat = 0;
+        myActiveRoutePeriod = 0;
         return;
     }
     if (!mayBeDisconnected && OptionsCont::getOptions().exists("no-internal-links") && !OptionsCont::getOptions().getBool("no-internal-links")) {
@@ -475,14 +478,31 @@ RORouteHandler::closeRoute(const bool mayBeDisconnected) {
         }
         myActiveRoute = fullRoute;
     }
+    const int routeRepeat = myActiveRouteRepeat;
     if (myActiveRouteRepeat > 0) {
         // duplicate route
         ConstROEdgeVector tmpEdges = myActiveRoute;
         auto tmpStops = myActiveRouteStops;
+        if (!mustReroute && !mayBeDisconnected && myActiveRoute.size() > 0) {
+            SUMOVehicleClass vClass = SVC_IGNORING;
+            if (myVehicleParameter != nullptr) {
+                SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
+                if (type != nullptr) {
+                    vClass = type->vehicleClass;
+                }
+            }
+            if (!myActiveRoute.back()->isConnectedTo(*myActiveRoute.front(), vClass)
+                    && (tmpStops.size() == 0 || tmpStops.back().jump < 0)) {
+                const std::string rid = myVehicleParameter != nullptr
+                                        ? "for vehicle '" + myVehicleParameter->id + "'"
+                                        : "'" + myActiveRouteID + "'";
+                myErrorOutput->inform("Disconnected route " + rid + " when repeating.");
+            }
+        }
         for (int i = 0; i < myActiveRouteRepeat; i++) {
             myActiveRoute.insert(myActiveRoute.begin(), tmpEdges.begin(), tmpEdges.end());
             for (SUMOVehicleParameter::Stop stop : tmpStops) {
-                if (stop.until > 0) {
+                if (stop.until >= 0) {
                     if (myActiveRoutePeriod <= 0) {
                         const std::string description = myVehicleParameter != nullptr
                                                         ?  "for vehicle '" + myVehicleParameter->id + "'"
@@ -490,14 +510,28 @@ RORouteHandler::closeRoute(const bool mayBeDisconnected) {
                         throw ProcessError(TLF("Cannot repeat stops with 'until' in route % because no cycleTime is defined.", description));
                     }
                     stop.until += myActiveRoutePeriod * (i + 1);
+                }
+                if (stop.arrival >= 0) {
+                    if (myActiveRoutePeriod <= 0) {
+                        const std::string description = myVehicleParameter != nullptr
+                                                        ?  "for vehicle '" + myVehicleParameter->id + "'"
+                                                        :  "'" + myActiveRouteID + "'";
+                        throw ProcessError(TLF("Cannot repeat stops with 'arrival' in route % because no cycleTime is defined.", description));
+                    }
                     stop.arrival += myActiveRoutePeriod * (i + 1);
                 }
+                stop.index = STOP_INDEX_REPEAT;
                 myActiveRouteStops.push_back(stop);
             }
         }
+        if (myActiveRouteStops.size() > 0) {
+            // never jump on the last stop of a repeating route
+            myActiveRouteStops.back().jump = -1;
+        }
     }
     std::shared_ptr<RORoute> route = std::make_shared<RORoute>(myActiveRouteID, myCurrentCosts, myActiveRouteProbability, myActiveRoute,
-                                     myActiveRouteColor, myActiveRouteStops);
+                                     myActiveRouteColor, myActiveRouteStops, routeRepeat);
+    myActiveRouteColor = nullptr;
     myActiveRoute.clear();
     if (myCurrentAlternatives == nullptr) {
         if (myNet.getRouteDef(myActiveRouteID) != nullptr) {
@@ -508,6 +542,8 @@ RORouteHandler::closeRoute(const bool mayBeDisconnected) {
             }
             myActiveRouteID = "";
             myActiveRouteStops.clear();
+            myActiveRouteRepeat = 0;
+            myActiveRoutePeriod = 0;
             return;
         } else {
             myCurrentAlternatives = new RORouteDef(myActiveRouteID, 0, mayBeDisconnected || myTryRepair, mayBeDisconnected);
@@ -520,6 +556,8 @@ RORouteHandler::closeRoute(const bool mayBeDisconnected) {
     }
     myActiveRouteID = "";
     myActiveRouteStops.clear();
+    myActiveRouteRepeat = 0;
+    myActiveRoutePeriod = 0;
 }
 
 
@@ -1022,6 +1060,9 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     if (myActivePlan != nullptr) {
         ROPerson::addStop(*myActivePlan, stop, edge);
         result = myActivePlan->back()->getStopParameters();
+    } else if (myElementStack.size() >= 2 && myElementStack[myElementStack.size() - 2] == SUMO_TAG_ROUTE) {
+        myActiveRouteStops.push_back(stop);
+        result = &myActiveRouteStops.back();
     } else if (myVehicleParameter != nullptr) {
         myVehicleParameter->stops.push_back(stop);
         result = &myVehicleParameter->stops.back();
