@@ -28,6 +28,7 @@
 #include <algorithm>
 #include <cassert>
 #include <iterator>
+#include <unordered_map>
 #include <utils/router/IntermodalRouter.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSRoutingEngine.h>
@@ -123,6 +124,98 @@ MSInsertionControl::updateScale(const std::string vtypeid) {
 }
 
 
+namespace {
+
+struct FailedInsertionKey {
+    const MSRoute* route;
+    const MSEdge* secondEdge;
+    const MSVehicleType* vtype;
+    double speedKey;
+    double departPos;
+    int departLane;
+    int arrivalLane;
+    DepartLaneDefinition departLaneProc;
+    DepartPosDefinition departPosProc;
+    ArrivalLaneDefinition arrivalLaneProc;
+    bool checkFullRoute;
+
+    bool matches(const FailedInsertionKey& o) const {
+        if (vtype != o.vtype || departLaneProc != o.departLaneProc
+                || departPosProc != o.departPosProc || arrivalLaneProc != o.arrivalLaneProc
+                || departLane != o.departLane || arrivalLane != o.arrivalLane
+                || departPos != o.departPos || speedKey != o.speedKey
+                || secondEdge != o.secondEdge) {
+            return false;
+        }
+        if (!checkFullRoute) {
+            return true;
+        }
+        return route == o.route || route->getEdges() == o.route->getEdges();
+    }
+};
+
+struct EdgeFailureEntry {
+    bool checkedLaneParams = false;
+    bool allowCache = false;
+    std::vector<FailedInsertionKey> keys;
+};
+
+bool hasNoLaneParameters(const MSEdge& edge) {
+    for (const MSLane* lane : edge.getLanes()) {
+        if (!lane->getParametersMap().empty()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool canMemoizeFailedInsertion(const MSEdge& edge, SUMOVehicle* veh, bool forceCheck) {
+    if (MSGlobals::gUseMesoSim || forceCheck || edge.isVaporizing()
+            || edge.isTazConnector() || edge.hasTransientPermissions()
+            || veh->getRouteValidity(false) != MSBaseVehicle::ROUTE_VALID
+            || veh->hasStops()) {
+        return false;
+    }
+    const SUMOVehicleParameter& pars = veh->getParameter();
+    return pars.departLaneProcedure != DepartLaneDefinition::RANDOM
+           && pars.departSpeedProcedure != DepartSpeedDefinition::GIVEN;
+}
+
+FailedInsertionKey makeFailedInsertionKey(const MSEdge& edge, const SUMOVehicle* veh) {
+    const SUMOVehicleParameter& pars = veh->getParameter();
+    const MSRoute& route = veh->getRoute();
+    const DepartLaneDefinition dld = pars.departLaneProcedure;
+    const bool needsRoute = (dld == DepartLaneDefinition::BEST_FREE
+                             || dld == DepartLaneDefinition::BEST_PROB
+                             || dld == DepartLaneDefinition::DEFAULT);
+    const MSEdge* nextEdge = nullptr;
+    if ((dld == DepartLaneDefinition::ALLOWED_FREE || needsRoute) && route.size() > 1) {
+        nextEdge = *(route.begin() + 1);
+    }
+    double speedKey = 0.;
+    if (dld == DepartLaneDefinition::BEST_FREE) {
+        speedKey = veh->getMaxSpeed();
+    } else if (dld == DepartLaneDefinition::BEST_PROB || dld == DepartLaneDefinition::DEFAULT) {
+        speedKey = edge.getVehicleMaxSpeed(veh);
+    }
+    return FailedInsertionKey{
+        needsRoute ? &route : nullptr,
+        nextEdge,
+        &veh->getVehicleType(),
+        speedKey,
+        pars.departPos,
+        pars.departLane,
+        pars.arrivalLane,
+        dld,
+        pars.departPosProcedure,
+        pars.arrivalLaneProcedure,
+        needsRoute
+    };
+}
+
+} // namespace
+
+
 int
 MSInsertionControl::emitVehicles(SUMOTime time) {
     // check whether any vehicles shall be emitted within this time step
@@ -136,15 +229,61 @@ MSInsertionControl::emitVehicles(SUMOTime time) {
     //  will be used to append those vehicles that will not be able to depart in this
     //  time step
     MSVehicleContainer::VehicleVector refusedEmits;
+    std::unordered_map<const MSEdge*, EdgeFailureEntry> edgeFailures;
 
     // go through the list of previously refused vehicles, first
     MSNet::getInstance()->lockPendingEmits();
     MSVehicleContainer::VehicleVector::const_iterator veh;
     for (veh = myPendingEmits.begin(); veh != myPendingEmits.end(); veh++) {
-        if (havePreChecked && (myEmitCandidates.count(*veh) == 0)) {
-            refusedEmits.push_back(*veh);
+        SUMOVehicle* const v = *veh;
+        if (havePreChecked && (myEmitCandidates.count(v) == 0)) {
+            refusedEmits.push_back(v);
         } else {
-            numEmitted += tryInsert(time, *veh, refusedEmits);
+            const MSEdge& edge = *v->getEdge();
+            const bool forceCheck = myEagerInsertionCheck || v->getParameter().departProcedure == DepartDefinition::SPLIT;
+            bool fastSkipped = false;
+            if (!v->isOnRoad() && !edgeFailures.empty()) {
+                auto failIt = edgeFailures.find(&edge);
+                if (failIt != edgeFailures.end() && failIt->second.allowCache
+                        && canMemoizeFailedInsertion(edge, v, forceCheck)) {
+                    const FailedInsertionKey key = makeFailedInsertionKey(edge, v);
+                    for (const FailedInsertionKey& prev : failIt->second.keys) {
+                        if (prev.matches(key)) {
+                            fastSkipped = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (fastSkipped) {
+                if (myMaxDepartDelay >= 0 && time - v->getParameter().depart > myMaxDepartDelay) {
+                    myVehicleControl.deleteVehicle(v, true);
+                } else if (myAbortedEmits.count(v) > 0) {
+                    myAbortedEmits.erase(v);
+                    myVehicleControl.deleteVehicle(v, true);
+                } else {
+                    refusedEmits.push_back(v);
+                }
+                edge.setLastFailedInsertionTime(time);
+            } else {
+                const size_t prevRefused = refusedEmits.size();
+                const int emitted = tryInsert(time, v, refusedEmits);
+                if (emitted > 0) {
+                    numEmitted += emitted;
+                    if (!edgeFailures.empty()) {
+                        edgeFailures.erase(&edge);
+                    }
+                } else if (refusedEmits.size() > prevRefused && canMemoizeFailedInsertion(edge, v, forceCheck)) {
+                    EdgeFailureEntry& entry = edgeFailures[&edge];
+                    if (!entry.checkedLaneParams) {
+                        entry.checkedLaneParams = true;
+                        entry.allowCache = hasNoLaneParameters(edge);
+                    }
+                    if (entry.allowCache && entry.keys.size() < 64) {
+                        entry.keys.push_back(makeFailedInsertionKey(edge, v));
+                    }
+                }
+            }
         }
     }
     myEmitCandidates.clear();
