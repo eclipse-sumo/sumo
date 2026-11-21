@@ -523,6 +523,9 @@ protected:
     /// @brief Information whether the output shall be edge-based (not lane-based)
     const bool myAmEdgeBased;
 
+    /// @brief whether the data for all edges shall be aggregated
+    const AggregateType myAggregate;
+
 private:
     /// @brief The first and the last time step to write information (-1 indicates always)
     const SUMOTime myDumpBegin, myDumpEnd;
@@ -556,8 +559,6 @@ private:
     /// @brief bit mask for checking attributes to be written
     const SumoXMLAttrMask myWrittenAttributes;
 
-    /// @brief whether the data for all edges shall be aggregated
-    const AggregateType myAggregate;
 
     /// @brief more data collectors which write to the same output
     MSMeanData* mySubData = nullptr;
