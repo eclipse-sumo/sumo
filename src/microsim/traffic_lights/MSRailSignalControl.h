@@ -158,6 +158,10 @@ private:
     std::vector<std::pair<MSLink*, int> > mySwitchedGreenFlanks;
     std::map<std::pair<int, int>, bool> myDriveWayCompatibility;
     std::set<MSRailSignal*, ComparatorNumericalIdLess> myActiveSignals;
+#ifdef HAVE_FOX
+    /// @brief lock for myActiveSignals when vehicles register in parallel
+    FXMutex myActiveSignalsMutex;
+#endif
     double myMaxTrainLength;
 
     /// @brief signalized classes

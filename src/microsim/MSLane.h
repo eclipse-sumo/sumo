@@ -1315,6 +1315,16 @@ public:
         mySimulationTask.init(&MSLane::changeLanes, time);
         return &mySimulationTask;
     }
+
+    MFXWorkerThread::Task* getJunctionApproachTask(const SUMOTime time) {
+        mySimulationTask.init(&MSLane::setJunctionApproachesTask, time);
+        return &mySimulationTask;
+    }
+
+    /// @brief setJunctionApproaches with the signature of a simulation task
+    void setJunctionApproachesTask(const SUMOTime /* t */) {
+        setJunctionApproaches();
+    }
 #endif
 
     std::vector<StopWatch<std::chrono::nanoseconds> >& getStopWatch() {
