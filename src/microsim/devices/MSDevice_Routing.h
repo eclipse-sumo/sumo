@@ -114,6 +114,9 @@ public:
      */
     bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
+    /// @brief Checks whether waiting time exceeds the rerouting threshold
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed);
+
     /// @brief called to do the rerouting we missed whuile stopping
     void notifyStopEnded();
 
@@ -183,7 +186,7 @@ private:
      * @param[in] period The period with which a new route shall be searched
      * @param[in] preInsertionPeriod The route search period before insertion
      */
-    MSDevice_Routing(SUMOVehicle& holder, const std::string& id, SUMOTime period, SUMOTime preInsertionPeriod);
+    MSDevice_Routing(SUMOVehicle& holder, const std::string& id, SUMOTime period, SUMOTime preInsertionPeriod, SUMOTime waitingTimeThreshold);
 
     /** @brief Performs rerouting before insertion into the network
      *
@@ -214,6 +217,9 @@ private:
      */
     SUMOTime wrappedRerouteCommandExecute(SUMOTime currentTime);
 
+    /// @brief Performs one-shot rerouting triggered by exceeding the waiting-time threshold
+    SUMOTime wrappedWaitingRerouteCommandExecute(SUMOTime currentTime);
+
     /// @brief rebuild reroute command according to period
     void rebuildRerouteCommand(SUMOTime start);
 
@@ -224,14 +230,23 @@ private:
     /// @brief The period with which a vehicle shall be rerouted before insertion
     SUMOTime myPreInsertionPeriod;
 
+    /// @brief The waiting time threshold which triggers rerouting (negative values disable)
+    SUMOTime myWaitingTimeThreshold;
+
     /// @brief The last time a routing took place
     SUMOTime myLastRouting;
+
+    /// @brief The last time a waiting-time triggered routing check took place
+    SUMOTime myLastWaitingReroute;
 
     /// @brief The time for which routing may be skipped because we cannot be inserted
     SUMOTime mySkipRouting;
 
     /// @brief The (optional) command responsible for rerouting
     WrappingCommand< MSDevice_Routing >* myRerouteCommand;
+
+    /// @brief The (optional) one-shot command responsible for waiting-time triggered rerouting
+    WrappingCommand< MSDevice_Routing >* myWaitingRerouteCommand;
 
     /// @brief Whether the equipped vehicle may receive dispatch information at a rail signal
     bool myRerouteRailSignal;

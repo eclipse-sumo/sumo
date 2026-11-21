@@ -24,6 +24,7 @@
 #include <config.h>
 
 #include <microsim/MSNet.h>
+#include <microsim/MSBaseVehicle.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
@@ -55,6 +56,10 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.rerouting.pre-period", new Option_String("60", "TIME"));
     oc.addSynonyme("device.rerouting.pre-period", "device.routing.pre-period", true);
     oc.addDescription("device.rerouting.pre-period", "Routing", TL("The rerouting period before depart"));
+
+    oc.doRegister("device.rerouting.waiting-time", new Option_String("-1", "TIME"));
+    oc.addSynonyme("device.rerouting.waiting-time", "device.routing.waiting-time", true);
+    oc.addDescription("device.rerouting.waiting-time", "Routing", TL("The waiting time threshold which triggers rerouting (negative values disable)"));
 
     oc.doRegister("device.rerouting.adaptation-weight", new Option_Float(0));
     oc.addSynonyme("device.rerouting.adaptation-weight", "device.routing.adaptation-weight", true);
@@ -156,14 +161,15 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         // for implicitly equipped vehicles (trips, flows), option probability
         // can still be used to disable periodic rerouting after insertion for
         // parts of the fleet
-        const SUMOTime period = (equip || (
-                                     oc.isDefault("device.rerouting.probability") &&
-                                     v.getFloatParam("device.rerouting.probability") == oc.getFloat("device.rerouting.probability"))
-                                 ? v.getTimeParam("device.rerouting.period") : 0);
+        const bool rerouteAfterDepart = equip || (
+                                            oc.isDefault("device.rerouting.probability") &&
+                                            v.getFloatParam("device.rerouting.probability") == oc.getFloat("device.rerouting.probability"));
+        const SUMOTime period = rerouteAfterDepart ? v.getTimeParam("device.rerouting.period") : 0;
         const SUMOTime prePeriod = MAX2((SUMOTime)0, v.getTimeParam("device.rerouting.pre-period"));
+        const SUMOTime waitingTimeThreshold = rerouteAfterDepart ? v.getTimeParam("device.rerouting.waiting-time") : -1;
         MSRoutingEngine::initWeightUpdate();
         // build the device
-        into.push_back(new MSDevice_Routing(v, "routing_" + v.getID(), period, prePeriod));
+        into.push_back(new MSDevice_Routing(v, "routing_" + v.getID(), period, prePeriod, waitingTimeThreshold));
     }
 }
 
@@ -172,13 +178,16 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
 // MSDevice_Routing-methods
 // ---------------------------------------------------------------------------
 MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
-                                   SUMOTime period, SUMOTime preInsertionPeriod) :
+                                   SUMOTime period, SUMOTime preInsertionPeriod, SUMOTime waitingTimeThreshold) :
     MSVehicleDevice(holder, id),
     myPeriod(period),
     myPreInsertionPeriod(preInsertionPeriod),
+    myWaitingTimeThreshold(waitingTimeThreshold),
     myLastRouting(-1),
+    myLastWaitingReroute(-1),
     mySkipRouting(-1),
     myRerouteCommand(nullptr),
+    myWaitingRerouteCommand(nullptr),
     myRerouteRailSignal(holder.getBoolParam("device.rerouting.railsignal", true)),
     myLastLaneEntryTime(-1),
     myRerouteAfterStop(false),
@@ -201,6 +210,9 @@ MSDevice_Routing::~MSDevice_Routing() {
     // make the rerouting command invalid if there is one
     if (myRerouteCommand != nullptr) {
         myRerouteCommand->deschedule();
+    }
+    if (myWaitingRerouteCommand != nullptr) {
+        myWaitingRerouteCommand->deschedule();
     }
 }
 
@@ -229,8 +241,25 @@ MSDevice_Routing::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifi
         }
         return true;
     } else {
-        return false;
+        return myWaitingTimeThreshold >= 0;
     }
+}
+
+
+bool
+MSDevice_Routing::notifyMove(SUMOTrafficObject& /*veh*/, double /*oldPos*/, double /*newPos*/, double /*newSpeed*/) {
+    if (myWaitingTimeThreshold >= 0 && myActive && !myHolder.isStopped()) {
+        const SUMOTime waitingTime = myHolder.getWaitingTime();
+        if (waitingTime == 0) {
+            myLastWaitingReroute = -1;
+        } else if (waitingTime >= myWaitingTimeThreshold && myWaitingRerouteCommand == nullptr
+                   && (myLastWaitingReroute < 0 || SIMSTEP - myLastWaitingReroute >= MAX2(DELTA_T, myWaitingTimeThreshold))) {
+            myWaitingRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::wrappedWaitingRerouteCommandExecute);
+            myWaitingRerouteCommand->priority = (int)myHolder.getNumericalID();
+            MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myWaitingRerouteCommand, SIMSTEP + DELTA_T);
+        }
+    }
+    return MSGlobals::gWeightsSeparateTurns > 0 || myWaitingTimeThreshold >= 0;
 }
 
 
@@ -309,6 +338,17 @@ MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) {
 }
 
 
+SUMOTime
+MSDevice_Routing::wrappedWaitingRerouteCommandExecute(SUMOTime currentTime) {
+    myWaitingRerouteCommand = nullptr;
+    myLastWaitingReroute = currentTime;
+    if (!myHolder.isStopped() && myHolder.isOnRoad()) {
+        reroute(currentTime);
+    }
+    return 0;
+}
+
+
 void
 MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
     MSRoutingEngine::initEdgeWeights(myHolder.getVClass());
@@ -365,6 +405,8 @@ MSDevice_Routing::getParameter(const std::string& key) const {
         return toString(MSRoutingEngine::getEffort(edge, &myHolder, 0));
     } else if (key == "period") {
         return time2string(myPeriod);
+    } else if (key == "waiting-time") {
+        return time2string(myWaitingTimeThreshold);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -389,6 +431,19 @@ MSDevice_Routing::setParameter(const std::string& key, const std::string& value)
         myPeriod = TIME2STEPS(doubleValue);
         // re-schedule routing command
         rebuildRerouteCommand(SIMSTEP + myPeriod);
+    } else if (key == "waiting-time") {
+        const bool wasDisabled = myWaitingTimeThreshold < 0;
+        myWaitingTimeThreshold = TIME2STEPS(doubleValue);
+        if (myWaitingTimeThreshold < 0 && myWaitingRerouteCommand != nullptr) {
+            myWaitingRerouteCommand->deschedule();
+            myWaitingRerouteCommand = nullptr;
+        } else if (wasDisabled && myWaitingTimeThreshold >= 0 && myHolder.hasDeparted()) {
+            MSBaseVehicle* bv = dynamic_cast<MSBaseVehicle*>(&myHolder);
+            if (bv != nullptr) {
+                bv->removeReminder(this);
+                bv->addReminder(this);
+            }
+        }
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
