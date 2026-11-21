@@ -508,6 +508,9 @@ MSMeanData::init() {
                 myTAZ.push_back(e);
             }
         }
+        if (myTAZ.empty()) {
+            WRITE_WARNINGF(TL("No TAZ found for meandata '%'."), getID());
+        }
     }
     if (mySubData != nullptr) {
         mySubData->init();
@@ -628,16 +631,39 @@ MSMeanData::writeAggregatedTAZ(OutputDevice& dev, SUMOTime startTime, SUMOTime s
     }
 
     for (const MSEdge* taz : myTAZ) {
+        const MSEdge* const otherTaz = taz->getOtherTazConnector();
+        const auto getTazEdges = [](const MSEdge* tazEdge) {
+            std::set<const MSEdge*> result;
+            for (const MSEdge* edge : tazEdge->getSuccessors()) {
+                result.insert(edge);
+            }
+            for (const MSEdge* edge : tazEdge->getPredecessors()) {
+                result.insert(edge);
+            }
+            return result;
+        };
+        const std::set<const MSEdge*> tazEdges = getTazEdges(taz);
+        const bool mergeTaz = otherTaz != nullptr && tazEdges == getTazEdges(otherTaz);
+        // only merge source and sink when they represent the same set of edges
+        if (mergeTaz && otherTaz->getID() < taz->getID()) {
+            continue;
+        }
         double edgeLengthSum = 0;
         int laneNumber = 0;
         double speedSum = 0;
         double totalTT = 0;
         std::set<const MSEdge*> connected;
-        for (const MSEdge* edge : taz->getSuccessors()) {
-            connected.insert(edge);
+        std::vector<const MSEdge*> tazEdgesToProcess = {taz};
+        if (mergeTaz) {
+            tazEdgesToProcess.push_back(otherTaz);
         }
-        for (const MSEdge* edge : taz->getPredecessors()) {
-            connected.insert(edge);
+        for (const MSEdge* tazEdge : tazEdgesToProcess) {
+            for (const MSEdge* edge : tazEdge->getSuccessors()) {
+                connected.insert(edge);
+            }
+            for (const MSEdge* edge : tazEdge->getPredecessors()) {
+                connected.insert(edge);
+            }
         }
         for (const MSEdge* edge : connected) {
             edgeLengthSum += edge->getLength();
@@ -666,8 +692,18 @@ MSMeanData::writeAggregatedTAZ(OutputDevice& dev, SUMOTime startTime, SUMOTime s
                 }
             }
         }
+        std::string tazID = taz->getID();
+        if (mergeTaz) {
+            for (const std::string& suffix : {"-source", "-sink"}) {
+                if (tazID.size() > suffix.size()
+                        && tazID.compare(tazID.size() - suffix.size(), suffix.size(), suffix) == 0) {
+                    tazID.resize(tazID.size() - suffix.size());
+                    break;
+                }
+            }
+        }
         if (myDumpEmpty || !sumData->isEmpty()) {
-            writePrefix(dev, *sumData, SUMO_TAG_EDGE, taz->getID());
+            writePrefix(dev, *sumData, SUMO_TAG_EDGE, tazID);
             dev.writeAttr(SUMO_ATTR_NUMEDGES, connected.size());
             for (MeanDataValues* data = sumData; data != nullptr; data = data->getSubData()) {
                 data->write(dev, myWrittenAttributes, stopTime - startTime, laneNumber, speedSum / (double)connected.size(),
