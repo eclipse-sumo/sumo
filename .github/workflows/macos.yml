@@ -23,13 +23,13 @@ concurrency:
 
 jobs:
   build:
-    # pull requests only build on macos-26
-    if: github.event_name != 'pull_request' || matrix.os == 'macos-26'
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-15, macos-26]
+        # pull requests only build on macos-26
+        os: ${{ fromJSON(github.event_name == 'pull_request' && '["macos-26"]' || '["macos-15","macos-26"]') }}
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 150
     env:
       CCACHE_COMPILERTYPE: clang
 

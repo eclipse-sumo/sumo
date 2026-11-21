@@ -35,6 +35,7 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJSON(needs.generate-matrix.outputs.test_matrix) }}
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 75
     env:
       WHEEL_SOURCE: ${{ inputs.wheel_source || 'https://sumo.dlr.de/daily/ciwheels' }}
 

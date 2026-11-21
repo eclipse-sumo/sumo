@@ -30,6 +30,7 @@ jobs:
   ###################
   pure-python-wheels:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Cloning SUMO
         uses: actions/checkout@v7
@@ -62,6 +63,7 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJSON(needs.generate-matrix.outputs.build_matrix) }}
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 150
     env:
       MACOSX_DEPLOYMENT_TARGET: '15.0'
 

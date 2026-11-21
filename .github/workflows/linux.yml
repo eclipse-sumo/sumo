@@ -22,21 +22,25 @@ concurrency:
 
 jobs:
   build:
-    # pull requests only build full+gcc and minimal+clang
-    if: github.event_name != 'pull_request' || (matrix.build_type == 'full' && matrix.compiler == 'gcc') || (matrix.build_type == 'minimal' && matrix.compiler == 'clang')
     runs-on: ${{ matrix.os }}
+    # the nightly Sonar build takes up to 150 min, everything else less than 70 min
+    timeout-minutes: ${{ (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && 180 || 100 }}
     strategy:
       # Allow all other matrix-jobs to continue running, even if one of the jobs fails
       fail-fast: false
-      matrix:
-        os: [ubuntu-latest, ubuntu-24.04-arm]
-        build_type: [full, minimal]
-        compiler: [gcc, clang]
-        jps_version: ['rls-1.4']
-        # include:
-        #   - build_type: full
-        #     jps_version: master
-        #     compiler: gcc
+      # pull requests only build full+gcc and minimal+clang
+      matrix: >-
+        ${{ fromJSON(github.event_name == 'pull_request' &&
+        '{"include": [
+          {"os": "ubuntu-latest", "build_type": "full", "compiler": "gcc", "jps_version": "rls-1.4"},
+          {"os": "ubuntu-24.04-arm", "build_type": "full", "compiler": "gcc", "jps_version": "rls-1.4"},
+          {"os": "ubuntu-latest", "build_type": "minimal", "compiler": "clang", "jps_version": "rls-1.4"},
+          {"os": "ubuntu-24.04-arm", "build_type": "minimal", "compiler": "clang", "jps_version": "rls-1.4"}
+        ]}' ||
+        '{"os": ["ubuntu-latest", "ubuntu-24.04-arm"],
+          "build_type": ["full", "minimal"],
+          "compiler": ["gcc", "clang"],
+          "jps_version": ["rls-1.4"]}') }}
 
     steps:
     - name: Cloning SUMO
