@@ -95,13 +95,15 @@ case "$ID" in
         ;;
 esac
 
-# building jupedsim from source
-curl -LOs --proto =https https://github.com/PedestrianDynamics/jupedsim/archive/refs/tags/v$JUPEDSIM_VERSION.tar.gz
-tar xf v$JUPEDSIM_VERSION.tar.gz
-cmake -B jupedsim-build -DCMAKE_BUILD_TYPE=Release jupedsim-$JUPEDSIM_VERSION
-cmake --build jupedsim-build -j2
-$SUDO cmake --install jupedsim-build
-rm -rf v$JUPEDSIM_VERSION.tar.gz jupedsim-$JUPEDSIM_VERSION jupedsim-build
+# building jupedsim from source (can be skipped by setting SKIP_JUPEDSIM, e.g. if it is already installed)
+if [[ -z "$SKIP_JUPEDSIM" ]]; then
+    curl -LOs --proto =https https://github.com/PedestrianDynamics/jupedsim/archive/refs/tags/v$JUPEDSIM_VERSION.tar.gz
+    tar xf v$JUPEDSIM_VERSION.tar.gz
+    cmake -B jupedsim-build -DCMAKE_BUILD_TYPE=Release jupedsim-$JUPEDSIM_VERSION
+    cmake --build jupedsim-build -j2
+    $SUDO cmake --install jupedsim-build
+    rm -rf v$JUPEDSIM_VERSION.tar.gz jupedsim-$JUPEDSIM_VERSION jupedsim-build
+fi
 
 if [[ "$ID" != "macOS" ]]; then
     # see https://github.com/pypa/manylinux/issues/1421

@@ -32,15 +32,14 @@ jobs:
       matrix: >-
         ${{ fromJSON(github.event_name == 'pull_request' &&
         '{"include": [
-          {"os": "ubuntu-latest", "build_type": "full", "compiler": "gcc", "jps_version": "rls-1.4"},
-          {"os": "ubuntu-24.04-arm", "build_type": "full", "compiler": "gcc", "jps_version": "rls-1.4"},
-          {"os": "ubuntu-latest", "build_type": "minimal", "compiler": "clang", "jps_version": "rls-1.4"},
-          {"os": "ubuntu-24.04-arm", "build_type": "minimal", "compiler": "clang", "jps_version": "rls-1.4"}
+          {"os": "ubuntu-latest", "build_type": "full", "compiler": "gcc"},
+          {"os": "ubuntu-24.04-arm", "build_type": "full", "compiler": "gcc"},
+          {"os": "ubuntu-latest", "build_type": "minimal", "compiler": "clang"},
+          {"os": "ubuntu-24.04-arm", "build_type": "minimal", "compiler": "clang"}
         ]}' ||
         '{"os": ["ubuntu-latest", "ubuntu-24.04-arm"],
           "build_type": ["full", "minimal"],
-          "compiler": ["gcc", "clang"],
-          "jps_version": ["rls-1.4"]}') }}
+          "compiler": ["gcc", "clang"]}') }}
 
     steps:
     - name: Cloning SUMO
@@ -52,29 +51,13 @@ jobs:
         # fetching the ref on tag runs to work around actions/checkout#1467
         ref: ${{ github.ref }}
 
-    - name: Preparing Build System
+    - name: Installing dependencies
       run: |
         sudo apt-get update
         sudo apt-get install libunwind-dev  # to work around https://bugs.launchpad.net/ubuntu/+source/google-glog/+bug/1991919
-        sudo apt-get install $(cat sumo/build_config/build_req_deb.txt)
-        sudo apt-get install -y libboost-process-dev || true
-
-    - name: Installing Parquet
-      if: matrix.build_type == 'full'
-      run: |
-        wget https://packages.apache.org/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
-        sudo apt install -y -V ./apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
-        sudo apt update
-        PARQUET_VERSION=$(apt-cache policy libparquet-dev | grep -o '23[0-9.-]*' | head -1)
-        sudo apt install -y -V libarrow-dev=$PARQUET_VERSION libparquet-dev=$PARQUET_VERSION
-
-    - name: Cloning jupedsim
-      if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
-      uses: actions/checkout@v7
-      with:
-        repository: PedestrianDynamics/jupedsim
-        ref: ${{ matrix.jps_version }}
-        path: jupedsim
+        touch jupedsim.marker
+        # the script also builds and installs jupedsim (to /usr/local)
+        sudo sumo/build_config/install_dependencies.sh
 
     - name: ccache
       # the SonarQube build wrapper needs an uncached build
@@ -84,13 +67,6 @@ jobs:
         key: ${{ matrix.os }}-${{ matrix.build_type }}-${{ matrix.compiler }}
         save: ${{ github.ref == 'refs/heads/main' }}
         evict-old-files: job
-
-    - name: Building libjupedsim
-      if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
-      run: |
-        cmake -B jupedsim-build -D CMAKE_INSTALL_PREFIX=jupedsim-install -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache jupedsim
-        cmake --build jupedsim-build -j4 --config Release
-        cmake --install jupedsim-build --config Release
 
     - name: Configuring SUMO
       run: |
@@ -147,34 +123,90 @@ jobs:
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
-    - name: Plain tests
+    - name: Packaging build for test jobs
       if: matrix.build_type == 'full'
       run: |
-        source testenv/bin/activate
-        if [[ "${{ matrix.os }}" == "ubuntu-24.04-arm" ]]; then TEXTTEST_FILTER="-finverse $PWD/sumo/tests/filter_files/linux_arm_failures.txt"; fi
-        sumo/tests/runTests.sh -b ci -v ci $TEXTTEST_FILTER
+        # jupedsim was installed into /usr/local by the dependency script
+        sudo find /usr/local \( -type f -o -type l \) -newer jupedsim.marker > jupedsim-files.txt
+        sudo tar -cPf jupedsim.tar -T jupedsim-files.txt
+        tar -I zstd -cf ${{ matrix.os }}-${{ matrix.compiler }}-build.tar.zst --exclude=sumo/.git --exclude=sumo/cmake-build sumo jupedsim.tar
 
-    - name: Extra tests
-      if: matrix.os == 'ubuntu-latest' && matrix.build_type == 'full' && matrix.compiler == 'gcc'
+    - name: Uploading build for test jobs
+      if: matrix.build_type == 'full'
+      uses: actions/upload-artifact@v7
+      with:
+        path: ${{ matrix.os }}-${{ matrix.compiler }}-build.tar.zst
+        archive: false
+
+  test:
+    needs: build
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 100
+    strategy:
+      fail-fast: false
+      # texttest applications are split into shards, the extra tests need the gcc build on x64
+      # pull requests only test the full+gcc builds
+      matrix: >-
+        ${{ fromJSON(github.event_name == 'pull_request' &&
+        '{"os": ["ubuntu-latest", "ubuntu-24.04-arm"],
+          "compiler": ["gcc"],
+          "shard": ["complex", "tools-traci", "other"],
+          "include": [{"os": "ubuntu-latest", "compiler": "gcc", "shard": "extra"}]}' ||
+        '{"os": ["ubuntu-latest", "ubuntu-24.04-arm"],
+          "compiler": ["gcc", "clang"],
+          "shard": ["complex", "tools-traci", "other"],
+          "include": [{"os": "ubuntu-latest", "compiler": "gcc", "shard": "extra"}]}') }}
+
+    steps:
+    - name: Downloading build
+      uses: actions/download-artifact@v8
+      with:
+        name: ${{ matrix.os }}-${{ matrix.compiler }}-build.tar.zst
+        skip-decompress: true
+
+    - name: Unpacking build
+      run: |
+        tar -I zstd -xf ${{ matrix.os }}-${{ matrix.compiler }}-build.tar.zst
+        sudo tar -xPf jupedsim.tar
+        sudo ldconfig
+
+    - name: Installing dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install libunwind-dev
+        # jupedsim comes from the build artifact
+        sudo SKIP_JUPEDSIM=1 sumo/build_config/install_dependencies.sh
+        sudo apt-get install $(cat sumo/build_config/tools_req_deb.txt)
+        python3 -m venv testenv --system-site-packages
+        source testenv/bin/activate
+        python3 -m pip install -r sumo/tools/req_ci.txt texttest pipdeptree
+        python3 -m pip install -U --no-deps jupedsim
+
+    - name: Tests
       run: |
         source testenv/bin/activate
-        sumo/tests/runTests.sh -b ci -a sumo.meso.ci,sumo.extra.ci
-        sumo/tests/runTests.sh -b ci -a netconvert.gdal.ci,polyconvert.gdal.ci
+        nproc; lscpu | grep -E 'Model name|MHz|Thread|Hypervisor'; uptime
+        if [[ "${{ matrix.shard }}" == "extra" ]]; then
+          sumo/tests/runTests.sh -b ci -a sumo.meso.ci,sumo.extra.ci
+          sumo/tests/runTests.sh -b ci -a netconvert.gdal.ci,polyconvert.gdal.ci
+          exit 0
+        fi
+        case "${{ matrix.shard }}" in
+          complex) APPS=complex ;;
+          tools-traci) APPS=tools,traci ;;
+          other) APPS=sumo,netconvert,duarouter,dfrouter,jtrrouter,marouter,od2trips,netgen,polyconvert,activitygen,netedit,neteditoutput ;;
+        esac
+        if [[ "${{ matrix.os }}" == "ubuntu-24.04-arm" ]]; then TEXTTEST_FILTER="-finverse $PWD/sumo/tests/filter_files/linux_arm_failures.txt"; fi
+        sumo/tests/runTests.sh -b ci -v ci -a $APPS $TEXTTEST_FILTER
 
     - name: Compressing test results
       if: failure()
-      run: 7z a -bso0 -bsp0 texttesttmp-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.build_type }}.zip ~/.texttest/tmp
+      run: 7z a -bso0 -bsp0 texttesttmp-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.shard }}.zip ~/.texttest/tmp
 
     - name: Uploading test results
       if: failure()
       uses: actions/upload-artifact@v7
       with:
-        path: texttesttmp-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.build_type }}.zip
+        path: texttesttmp-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.shard }}.zip
         archive: false
         if-no-files-found: warn
-
-    - name: Uploading artifacts (SUMO binaries)
-      uses: actions/upload-artifact@v7
-      with:
-        name: ${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.build_type }}-binaries
-        path: sumo/bin
