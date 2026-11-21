@@ -98,7 +98,7 @@ GNERoute::GNERoute(const std::string& id, const GNEDemandElement* originalRoute)
     GNEDemandElement(id, originalRoute->getNet(), originalRoute->getTagProperty()->getTag(), originalRoute->getFileBucket()),
     Parameterised(originalRoute->getParameters()->getParametersMap()),
     myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-    myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_CYCLETIME))),
     myVClass(originalRoute->getVClass()) {
     // set parents
     setParents<GNEEdge*>(originalRoute->getParentEdges());
@@ -110,7 +110,7 @@ GNERoute::GNERoute(GNEVehicle* vehicleParent, const GNEDemandElement* originalRo
     GNEDemandElement(vehicleParent, originalRoute->getTagProperty()->getTag()),
     Parameterised(originalRoute->getParameters()->getParametersMap()),
     myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-    myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_CYCLETIME))),
     myVClass(originalRoute->getVClass()) {
     // set parents
     setParents<GNEEdge*>(originalRoute->getParentEdges());
