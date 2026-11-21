@@ -792,6 +792,10 @@ private:
 
     ApproachInfos myApproachingVehicles;
     PersonApproachInfos* myApproachingPersons;
+#ifdef HAVE_FOX
+    /// @brief lock for myApproachingVehicles when vehicles register in parallel
+    FXMutex myApproachingVehiclesMutex;
+#endif
 
     /// @brief The position within this respond
     int myIndex;

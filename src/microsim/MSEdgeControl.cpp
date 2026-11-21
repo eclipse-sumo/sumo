@@ -187,6 +187,31 @@ MSEdgeControl::planMovements(SUMOTime t) {
 
 void
 MSEdgeControl::setJunctionApproaches() {
+    // each vehicle only touches its own entries in the (locked) link maps, so the order does not matter
+#ifdef THREAD_POOL
+    if (MSGlobals::gNumSimThreads > 1) {
+        std::vector<std::future<void>> results;
+        for (MSLane* const lane : myActiveLanes) {
+            results.push_back(myThreadPool.executeAsync([lane](int) {
+                lane->setJunctionApproaches();
+            }, lane->getRNGIndex() % MSGlobals::gNumSimThreads));
+        }
+        for (auto& r : results) {
+            r.wait();
+        }
+        return;
+    }
+#else
+#ifdef HAVE_FOX
+    if (MSGlobals::gNumSimThreads > 1) {
+        for (MSLane* const lane : myActiveLanes) {
+            myThreadPool.add(lane->getJunctionApproachTask(0), lane->getRNGIndex() % myThreadPool.size());
+        }
+        myThreadPool.waitAll(false);
+        return;
+    }
+#endif
+#endif
     for (MSLane* const lane : myActiveLanes) {
         lane->setJunctionApproaches();
     }

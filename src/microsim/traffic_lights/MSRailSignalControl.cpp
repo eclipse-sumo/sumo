@@ -27,6 +27,10 @@
 #include <microsim/MSRoute.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSGlobals.h>
+#ifdef HAVE_FOX
+#include <utils/common/ScopedLocker.h>
+#endif
 #include "MSRailSignal.h"
 #include "MSRailSignalConstraint.h"
 #include "MSDriveWay.h"
@@ -385,6 +389,9 @@ void
 MSRailSignalControl::notifyApproach(const MSLink* link) {
     const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
     assert(rs != nullptr);
+#ifdef HAVE_FOX
+    ScopedLocker<> lock(myActiveSignalsMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     myActiveSignals.insert(const_cast<MSRailSignal*>(rs));
 }
 
