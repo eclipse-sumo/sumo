@@ -54,7 +54,8 @@ def relink_macos(binary, data_libs):
     # the wheel was not delocated, so point every non-system dependency to the shared sumo_data libs
     for lib in get_install_names(binary):
         if not lib.startswith(("/usr/lib/", "/System/", "@loader_path/", "@rpath/")):
-            name = os.path.basename(lib)
+            # delocate copies the resolved file, so libproj.25.dylib is stored under its full version name
+            name = os.path.basename(os.path.realpath(lib))
             if not os.path.exists(os.path.join(data_libs, name)):
                 sys.exit("Missing shared lib %s for %s." % (name, binary))
             set_install_name(binary, lib, "@loader_path/../sumo_data/.libs/" + name)
