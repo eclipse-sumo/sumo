@@ -402,8 +402,10 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             source = stopEdge;
             continue;
         }
+        // a stop on the current edge whose dynamically computed position lies behind the vehicle is no failure (see below)
+        const bool dynamicStopPos = source == stopEdge && stopEdgeInfo.stopPar != nullptr && stopEdgeInfo.stopPar->endPos >= sourcePos;
         // !!! need to adapt t here
-        router.compute(source, sourcePos, stopEdge, stopEdgeInfo.pos, this, t, into, silent || priority >= 0);
+        router.compute(source, sourcePos, stopEdge, stopEdgeInfo.pos, this, t, into, silent || priority >= 0 || dynamicStopPos);
 #ifdef DEBUG_REROUTE
         if (DEBUG_COND) {
             std::cout << SIMTIME << " reroute veh=" << getID() << " source=" << source->getID() << " sourcePos=" << sourcePos << " target=" << stopEdgeInfo.edge->getID() << " targetPos=" << stopEdgeInfo.pos << " edges=" << toString(into) << "\n";
@@ -460,9 +462,17 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
                     WRITE_WARNING(TLF("Vehicle '%' ignores arrivalPos % when driving from edge '%' to edge '%' with departPos %.",
                                 getID(), myArrivalPos, source->getID(), stopEdge->getID(), sourcePos));
                 }
-            } else if (source == stopEdge && stopEdgeInfo.stopPar != nullptr && stopEdgeInfo.stopPar->endPos >= sourcePos) {
+            } else if (dynamicStopPos) {
                 // special case: no failure on dynamically computed stop position
-                edges.clear();
+                // (the stopping place is occupied and its free position lies behind the vehicle).
+                // The stop is served on the current edge, so keep the edges found so far and continue
+                // with the next stop; clearing them broke the edges.pop_back() above (#18698)
+                if (edges.empty()) {
+                    edges.push_back(source);
+                } else {
+                    edges.back() = source;
+                }
+                stopEdgeInfo.routeIndex = (int)edges.size() - 1;
             } else {
                 std::string error = TLF("Vehicle '%' has no valid route from edge '%' to stop edge '%'.", getID(), source->getID(), stopEdge->getID());
                 if (MSGlobals::gCheckRoutes || silent) {
