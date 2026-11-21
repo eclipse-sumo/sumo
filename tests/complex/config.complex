@@ -43,6 +43,7 @@ copy_test_path:ARTEMIS_road_Gear3.csv
 copy_test_path:ARTEMIS_urban_Gear3.csv
 copy_test_path:cadc_full.csv
 copy_test_path:runner.py
+copy_test_path:generateRoutes.py
 copy_test_path:runnerlib.py
 copy_test_path:validate.py
 copy_test_path:slope.csv
