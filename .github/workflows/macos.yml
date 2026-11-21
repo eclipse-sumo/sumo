@@ -91,8 +91,8 @@ jobs:
     - name: Packaging build for test jobs
       run: |
         # everything installed to /usr/local (jupedsim and SUMO)
-        sudo find /usr/local \( -type f -o -type l \) -newer install.marker > install-files.txt
-        sudo tar -cPf install.tar -T install-files.txt
+        find /usr/local \( -type f -o -type l \) -newer install.marker > install-files.txt
+        tar -cPf install.tar -T install-files.txt
         tar --zstd -cf ${{ matrix.os }}-build.tar.zst --exclude=sumo/.git --exclude=sumo/cmake-build sumo install.tar
 
     - name: Uploading build for test jobs
@@ -100,12 +100,6 @@ jobs:
       with:
         path: ${{ matrix.os }}-build.tar.zst
         archive: false
-
-    - name: Uploading artifacts (SUMO binaries and FMU)
-      uses: actions/upload-artifact@v7
-      with:
-        name: ${{ matrix.os }}-binaries
-        path: sumo/bin
 
     - name: Creating macOS installer pkg
       run: |
