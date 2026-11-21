@@ -68,3 +68,7 @@ stationary_noRoutes
 
 # tests for adding stops with a given length
 length
+
+# add stops at stopping places along the route
+stopping_places
+stopping_places_probability

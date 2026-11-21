@@ -29,6 +29,8 @@ from collections import defaultdict
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import sumolib  # noqa
 
+STOPPING_PLACE_TYPES = ("busStop", "trainStop", "containerStop", "chargingStation", "parkingArea")
+
 
 def get_options(args=None):
     op = sumolib.options.ArgumentParser()
@@ -66,6 +68,11 @@ def get_options(args=None):
                   help="add stop with the given probability ]0, 1]")
     op.add_option("--parking-areas", default=False, type=op.additional_file,
                   help="load parkingarea definitions and stop at parkingarea on the arrival edge if possible")
+    op.add_option("--stopping-places", default=False, type=op.additional_file,
+                  help="load stopping place definitions and stop at matching edges along the route")
+    op.add_option("--stopping-place-types", dest="stoppingPlaceTypes",
+                  default=",".join(STOPPING_PLACE_TYPES),
+                  help="comma-separated list of stopping place element types to consider with --stopping-places")
     op.add_option("--start-at-stop", action="store_true",
                   default=False, help="shorten route so it starts at stop")
     op.add_option("--rel-occupancy", type=float,
@@ -88,6 +95,14 @@ def get_options(args=None):
         options.edges = options.edges.split(",")
     if options.parking_areas:
         options.parking_areas = options.parking_areas.split(",")
+    if options.stopping_places:
+        options.stopping_places = options.stopping_places.split(",")
+    if options.stoppingPlaceTypes:
+        options.stoppingPlaceTypes = [t.strip() for t in options.stoppingPlaceTypes.split(",") if t.strip()]
+        invalidTypes = [t for t in options.stoppingPlaceTypes if t not in STOPPING_PLACE_TYPES]
+        if invalidTypes:
+            sys.exit("Invalid --stopping-place-types '%s' (allowed: %s)" % (
+                ",".join(invalidTypes), ",".join(STOPPING_PLACE_TYPES)))
 
     if not options.routefiles:
         if options.parking_areas:
@@ -176,7 +191,7 @@ def interpretDuration(duration):
         return duration
 
 
-def loadRouteFiles(options, routefile, edge2parking, outf):
+def loadRouteFiles(options, routefile, edge2parking, outf, edge2stoppingPlaces=None):
     net = sumolib.net.readNet(options.netfile)
     vtypes = readTypes(options)
     numSkipped = defaultdict(lambda: 0)
@@ -190,6 +205,52 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
                 outf.write(obj.toXML(' '*4))
                 continue
             edgeIDs = getEdgeIDs(obj)
+            if options.stopping_places and edge2stoppingPlaces is not None and obj.name != 'person':
+                candidates = []
+                for e in edgeIDs:
+                    for _, spType, spID in edge2stoppingPlaces.get(e, []):
+                        candidates.append((e, spType, spID))
+                if not candidates:
+                    numSkipped[obj.name] += 1
+                    outf.write(obj.toXML(' '*4))
+                    continue
+                addedAny = False
+                firstStopEdge = None
+                for e, spType, spID in candidates:
+                    if options.probability < 1 and random.random() > options.probability:
+                        continue
+                    try:
+                        net.getEdge(e)
+                    except Exception:
+                        numSkipped[obj.name] += 1
+                        print("Warning: edge '%s' not found in net for %s '%s'; no stop added" % (
+                            e, obj.name, obj.id), file=sys.stderr)
+                        continue
+                    stopAttrs = {spType: spID}
+                    if options.parking:
+                        stopAttrs["parking"] = "true"
+                    if options.duration:
+                        stopAttrs["duration"] = interpretDuration(options.duration)
+                    if options.speed:
+                        stopAttrs["speed"] = interpretDuration(options.speed)
+                    if options.until:
+                        stopAttrs["until"] = interpretDuration(options.until)
+                    obj.addChild("stop", attrs=stopAttrs)
+                    if firstStopEdge is None:
+                        firstStopEdge = e
+                    addedAny = True
+                if addedAny:
+                    if options.start_at_stop and firstStopEdge is not None:
+                        obj.setAttribute("departPos", "stop")
+                        if obj.route:
+                            idx = edgeIDs.index(firstStopEdge)
+                            obj.route[0].setAttribute("edges", " ".join(edgeIDs[idx:]))
+                        elif obj.attr_from:
+                            obj.attr_from = firstStopEdge
+                    if options.color:
+                        obj.setAttribute("color", options.color)
+                outf.write(obj.toXML(' '*4))
+                continue
             stopEdgeID = None
             if edgeIDs:
                 if options.viaIndex is not None:
@@ -348,12 +409,22 @@ def main(options):
                 edge = '_'.join(pa.lane.split('_')[:-1])
                 edge2parking[edge] = pa.id
 
+    edge2stoppingPlaces = defaultdict(list)
+    if options.stopping_places:
+        for spfile in options.stopping_places:
+            for sp in sumolib.xml.parse(spfile, options.stoppingPlaceTypes):
+                edge = '_'.join(sp.lane.split('_')[:-1])
+                startPos = float(sp.getAttributeSecure("startPos", 0))
+                edge2stoppingPlaces[edge].append((startPos, sp.name, sp.id))
+        for edge in edge2stoppingPlaces:
+            edge2stoppingPlaces[edge].sort(key=lambda x: x[0])
+
     # with io.open(options.outfile, 'w', encoding="utf8") as outf:
     # with open(options.outfile, 'w', encoding="utf8") as outf:
     with open(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
         if options.routefiles:
-            loadRouteFiles(options, options.routefiles, edge2parking, outf)
+            loadRouteFiles(options, options.routefiles, edge2parking, outf, edge2stoppingPlaces)
         else:
             generateStationary(options, edge2parking, outf)
         outf.write('</routes>\n')
