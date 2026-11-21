@@ -1,0 +1,6 @@
+default timeToSwitch: 32.00
+initial speedFactor: 1.06
+override timeToSwitch: 12.00
+next step override timeToSwitch: 11.00
+adapted speedFactor: 1.06
+reset timeToSwitch: 31.00

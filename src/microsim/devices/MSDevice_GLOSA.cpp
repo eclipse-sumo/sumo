@@ -107,7 +107,8 @@ MSDevice_GLOSA::MSDevice_GLOSA(SUMOVehicle& holder, const std::string& id, doubl
     myOverrideSafety(overrideSafety),
     myIgnoreCFModel(ignoreCFModel),
     mySpeedAdviceActive(false),
-    myUseQueue(useQueue)
+    myUseQueue(useQueue),
+    myOverrideSwitchTime(-1)
 
 {
     myOriginalSpeedFactor = myVeh.getChosenSpeedFactor();
@@ -128,6 +129,11 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
         int countOld = 0;
         // calculate "first" next phase, all coming Phases are calculated via "getTimeToNextSwitch"
         double timeToSwitch = getTimeToSwitch(myNextTLSLink, countOld);
+        if (myOverrideSwitchTime >= SIMSTEP) {
+            timeToSwitch = STEPS2TIME(myOverrideSwitchTime - SIMSTEP);
+        } else {
+            myOverrideSwitchTime = -1;
+        }
         bool currentPhaseGreen = false;
         bool currentPhaseStop = false;
         bool solved = false;
@@ -338,8 +344,10 @@ MSDevice_GLOSA::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifica
         // moved pass tls
         myVeh.setChosenSpeedFactor(myOriginalSpeedFactor);
         mySpeedAdviceActive = false;
+        myOverrideSwitchTime = -1;
     } else if (myNextTLSLink != nullptr && prevLink != myNextTLSLink) {
         // approaching new tls
+        myOverrideSwitchTime = -1;
         double tlsRange = 1e10;
         const std::string val = myNextTLSLink->getTLLogic()->getParameter("device.glosa.range", "1e10");
         try {
@@ -623,6 +631,14 @@ std::string
 MSDevice_GLOSA::getParameter(const std::string& key) const {
     if (key == "minSpeed") {
         return toString(myMinSpeed);
+    } else if (key == "timeToSwitch") {
+        if (myOverrideSwitchTime >= SIMSTEP) {
+            return toString(STEPS2TIME(myOverrideSwitchTime - SIMSTEP));
+        } else if (myNextTLSLink != nullptr) {
+            int dummy = 0;
+            return toString(getTimeToSwitch(myNextTLSLink, dummy));
+        }
+        return "-1";
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -630,6 +646,10 @@ MSDevice_GLOSA::getParameter(const std::string& key) const {
 
 void
 MSDevice_GLOSA::setParameter(const std::string& key, const std::string& value) {
+    if (key == "timeToSwitch" && value.empty()) {
+        myOverrideSwitchTime = -1;
+        return;
+    }
     double doubleValue;
     try {
         doubleValue = StringUtils::toDouble(value);
@@ -638,6 +658,8 @@ MSDevice_GLOSA::setParameter(const std::string& key, const std::string& value) {
     }
     if (key == "minSpeed") {
         myMinSpeed = doubleValue;
+    } else if (key == "timeToSwitch") {
+        myOverrideSwitchTime = doubleValue < 0 ? -1 : SIMSTEP + TIME2STEPS(doubleValue);
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
