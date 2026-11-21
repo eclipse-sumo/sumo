@@ -19,6 +19,8 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/StringUtils.h>
+#include <utils/common/ToString.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
@@ -55,7 +57,10 @@ Rerouter::getIDCount() {
 
 
 std::string
-Rerouter::getParameter(const std::string& /* rerouterID */, const std::string& /* param */) {
+Rerouter::getParameter(const std::string& rerouterID, const std::string& param) {
+    if (param == "probability") {
+        return toString(getRerouter(rerouterID)->getProbability());
+    }
     return "";
 }
 
@@ -64,9 +69,27 @@ LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Rerouter)
 
 
 void
-Rerouter::setParameter(const std::string& /* rerouterID */, const std::string& /* key */, const std::string& /* value */) {
-    //MSRerouter* r = const_cast<MSRerouter*>(getRerouter(rerouterID));
-    //r->setParameter(key, value);
+Rerouter::setParameter(const std::string& rerouterID, const std::string& key, const std::string& value) {
+    MSTriggeredRerouter* r = getRerouter(rerouterID);
+    if (key == "probability") {
+        if (value.empty()) {
+            r->setUserMode(false);
+        } else {
+            double prob;
+            try {
+                prob = StringUtils::toDouble(value);
+            } catch (NumberFormatException&) {
+                throw TraCIException("Invalid value '" + value + "' for parameter '" + key + "' for rerouter '" + rerouterID + "'");
+            }
+            if (prob < 0. || prob > 1.) {
+                throw TraCIException("Invalid value '" + value + "' for parameter '" + key + "' for rerouter '" + rerouterID + "'");
+            }
+            r->setUserUsageProbability(prob);
+            r->setUserMode(true);
+        }
+    } else {
+        throw TraCIException("Rerouter '" + rerouterID + "' does not support parameter '" + key + "'");
+    }
 }
 
 
@@ -75,11 +98,13 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Rerouter, REROUTER)
 
 MSTriggeredRerouter*
 Rerouter::getRerouter(const std::string& id) {
-    MSTriggeredRerouter* s = nullptr;
-    if (s == nullptr) {
+    MSNet::getInstance(); // just to check that we actually have a network
+    const auto& instances = MSTriggeredRerouter::getInstances();
+    const auto it = instances.find(id);
+    if (it == instances.end()) {
         throw TraCIException("Rerouter '" + id + "' is not known");
     }
-    return s;
+    return it->second;
 }
 
 
