@@ -27,3 +27,6 @@ turn
 
 # Tests whether lanes filter in combination with up-/down-stream distance filters work correctly
 lanesUpDownDistance
+
+# Remove subscriptions when their reference vehicle is explicitly removed
+removed_reference_vehicle
