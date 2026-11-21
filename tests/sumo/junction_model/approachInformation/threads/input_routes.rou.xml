@@ -1,0 +1,9 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <flow id="WE" begin="0" end="50" period="2" from="WC" to="CE" departLane="free" departSpeed="max"/>
+    <flow id="EW" begin="0" end="50" period="2" from="EC" to="CW" departLane="free" departSpeed="max"/>
+    <flow id="NS" begin="0" end="50" period="2" from="NC" to="CS" departLane="free" departSpeed="max"/>
+    <flow id="SN" begin="0" end="50" period="2" from="SC" to="CN" departLane="free" departSpeed="max"/>
+    <flow id="WN" begin="1" end="50" period="4" from="WC" to="CN" departLane="free" departSpeed="max"/>
+    <flow id="ES" begin="1" end="50" period="4" from="EC" to="CS" departLane="free" departSpeed="max"/>
+</routes>
