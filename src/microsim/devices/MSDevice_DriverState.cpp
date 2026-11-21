@@ -203,6 +203,18 @@ MSDevice_DriverState::getParameter(const std::string& key) const {
         return toString(myDriverState->getOriginalReactionTime());
     } else if (key == "actionStepLength") {
         return toString(myDriverState->getActionStepLength());
+    } else if (StringUtils::startsWith(key, "perceivedHeadway.")) {
+        const std::string objID = key.substr(17);
+        if (objID.empty()) {
+            throw InvalidArgument("Parameter '" + key + "' is missing leader ID for device of type '" + deviceName() + "'");
+        }
+        return myDriverState->hasAssumedGap(objID) ? toString(myDriverState->getAssumedGap(objID)) : "";
+    } else if (StringUtils::startsWith(key, "perceivedSpeedDifference.")) {
+        const std::string objID = key.substr(25);
+        if (objID.empty()) {
+            throw InvalidArgument("Parameter '" + key + "' is missing leader ID for device of type '" + deviceName() + "'");
+        }
+        return myDriverState->hasLastPerceivedSpeedDifference(objID) ? toString(myDriverState->getLastPerceivedSpeedDifference(objID)) : "";
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -243,6 +255,34 @@ MSDevice_DriverState::setParameter(const std::string& key, const std::string& va
         myDriverState->setMaximalReactionTime(StringUtils::toDouble(value));
     } else if (key == "originalReactionTime") {
         myDriverState->setOriginalReactionTime(StringUtils::toDouble(value));
+    } else if (StringUtils::startsWith(key, "perceivedHeadway.")) {
+        const std::string objID = key.substr(17);
+        if (objID.empty()) {
+            throw InvalidArgument("Parameter '" + key + "' is missing leader ID for device of type '" + deviceName() + "'");
+        }
+        if (value.empty()) {
+            myDriverState->unsetAssumedGap(objID);
+        } else {
+            try {
+                myDriverState->setAssumedGap(objID, StringUtils::toDouble(value));
+            } catch (NumberFormatException&) {
+                throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
+            }
+        }
+    } else if (StringUtils::startsWith(key, "perceivedSpeedDifference.")) {
+        const std::string objID = key.substr(25);
+        if (objID.empty()) {
+            throw InvalidArgument("Parameter '" + key + "' is missing leader ID for device of type '" + deviceName() + "'");
+        }
+        if (value.empty()) {
+            myDriverState->unsetLastPerceivedSpeedDifference(objID);
+        } else {
+            try {
+                myDriverState->setLastPerceivedSpeedDifference(objID, StringUtils::toDouble(value));
+            } catch (NumberFormatException&) {
+                throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
+            }
+        }
     } else {
         throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }

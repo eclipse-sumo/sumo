@@ -3,3 +3,6 @@ spec
 
 # Test whether driver state device and ToC device coexist peacefully.
 combined_with_ToC
+
+# Test getting and setting perceivedHeadway and perceivedSpeedDifference for a leader via TraCI
+perceived_leader

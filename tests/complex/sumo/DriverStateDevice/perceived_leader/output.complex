@@ -1,0 +1,9 @@
+unknown leader headway: ''
+model headway: '30.10'
+model speedDiff: '-2.40'
+ego speed before override: 17.20
+override headway: 2.00
+override speedDiff: -10.00
+ego speed with close perceived leader: 8.20 (braked=True)
+restored headway: 37.70
+ego speed after release: 10.80
