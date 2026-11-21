@@ -58,7 +58,9 @@ const libsumo::SubscriptionResults CLASS::getAllSubscriptionResults() { \
 } \
 \
 const libsumo::TraCIResults CLASS::getSubscriptionResults(const std::string& objectID) { \
-    return libtraci::Connection::getActive().getAllSubscriptionResults(libsumo::RESPONSE_SUBSCRIBE_##DOMAIN##_VARIABLE)[objectID]; \
+    const auto& all = libtraci::Connection::getActive().getAllSubscriptionResults(libsumo::RESPONSE_SUBSCRIBE_##DOMAIN##_VARIABLE); \
+    const auto it = all.find(objectID); \
+    return it != all.end() ? it->second : libsumo::TraCIResults(); \
 } \
 \
 const libsumo::ContextSubscriptionResults CLASS::getAllContextSubscriptionResults() { \
@@ -66,7 +68,9 @@ const libsumo::ContextSubscriptionResults CLASS::getAllContextSubscriptionResult
 } \
 \
 const libsumo::SubscriptionResults CLASS::getContextSubscriptionResults(const std::string& objectID) { \
-    return libtraci::Connection::getActive().getAllContextSubscriptionResults(libsumo::RESPONSE_SUBSCRIBE_##DOMAIN##_CONTEXT)[objectID]; \
+    const auto& all = libtraci::Connection::getActive().getAllContextSubscriptionResults(libsumo::RESPONSE_SUBSCRIBE_##DOMAIN##_CONTEXT); \
+    const auto it = all.find(objectID); \
+    return it != all.end() ? it->second : libsumo::SubscriptionResults(); \
 } \
 \
 void CLASS::subscribeParameterWithKey(const std::string& objectID, const std::string& key, double beginTime, double endTime) { \

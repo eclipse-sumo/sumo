@@ -215,9 +215,15 @@ Simulation::subscribe(const std::vector<int>& varIDs, double begin, double end, 
 }
 
 
+void
+Simulation::unsubscribe() {
+    unsubscribe("");
+}
+
+
 const TraCIResults
 Simulation::getSubscriptionResults() {
-    return mySubscriptionResults[""];
+    return getSubscriptionResults("");
 }
 
 
