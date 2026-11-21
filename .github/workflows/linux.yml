@@ -22,6 +22,8 @@ concurrency:
 
 jobs:
   build:
+    # pull requests only build full+gcc and minimal+clang
+    if: github.event_name != 'pull_request' || (matrix.build_type == 'full' && matrix.compiler == 'gcc') || (matrix.build_type == 'minimal' && matrix.compiler == 'clang')
     runs-on: ${{ matrix.os }}
     strategy:
       # Allow all other matrix-jobs to continue running, even if one of the jobs fails

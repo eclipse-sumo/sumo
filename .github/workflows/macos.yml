@@ -23,6 +23,8 @@ concurrency:
 
 jobs:
   build:
+    # pull requests only build on macos-26
+    if: github.event_name != 'pull_request' || matrix.os == 'macos-26'
     strategy:
       fail-fast: false
       matrix:
