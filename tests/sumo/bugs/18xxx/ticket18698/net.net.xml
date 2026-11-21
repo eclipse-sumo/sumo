@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-21T12:04:11.630326+00:00 by Eclipse SUMO netconvert 1.28.0
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="net.nod.xml"/>
+        <edge-files value="net.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,2000.00,0.00" origBoundary="0.00,0.00,2000.00,0.00" projParameter="!"/>
+
+    <edge id=":n1_0" function="internal">
+        <lane id=":n1_0_0" index="0" allow="subway" speed="20.00" length="0.10" shape="1000.00,-1.60 1000.00,-1.60"/>
+    </edge>
+
+    <edge id="E0" from="n0" to="n1" priority="-1">
+        <lane id="E0_0" index="0" allow="subway" speed="20.00" length="1000.00" shape="0.00,-1.60 1000.00,-1.60"/>
+    </edge>
+    <edge id="E1" from="n1" to="n2" priority="-1">
+        <lane id="E1_0" index="0" allow="subway" speed="20.00" length="1000.00" shape="1000.00,-1.60 2000.00,-1.60"/>
+    </edge>
+
+    <junction id="n0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="n1" type="priority" x="1000.00" y="0.00" incLanes="E0_0" intLanes=":n1_0_0" shape="1000.00,0.00 1000.00,-3.20 1000.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="n2" type="dead_end" x="2000.00" y="0.00" incLanes="E1_0" intLanes="" shape="2000.00,-3.20 2000.00,0.00"/>
+
+    <connection from="E0" to="E1" fromLane="0" toLane="0" via=":n1_0_0" dir="s" state="M"/>
+
+    <connection from=":n1_0" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
