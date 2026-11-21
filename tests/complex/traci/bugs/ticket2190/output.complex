@@ -1,0 +1,8 @@
+initial range: 50.00
+offtime: 0.64
+t=1 currentlySeen: ''
+t=1 seen: ''
+entered range: currentlySeen='sender' seen=''
+left range: currentlySeen='' seen='sender'
+updated range: 300.00
+re-entered after range increase: 'sender'
