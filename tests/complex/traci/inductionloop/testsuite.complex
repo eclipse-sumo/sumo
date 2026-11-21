@@ -15,3 +15,6 @@ persons_walk_wrongType
 
 # Tests the inductionloop API, detector for persons is on walkingArea
 persons_internalDet
+
+# Retrieve nVehContrib via getParameter (#9029)
+nVehContrib
