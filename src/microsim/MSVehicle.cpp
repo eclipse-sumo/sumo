@@ -5498,14 +5498,35 @@ MSVehicle::setApproachingForAllLinks() {
     if (!myActionStep) {
         return;
     }
-    removeApproachingInformation(myLFLinkLanesPrev);
-    for (DriveProcessItem& dpi : myLFLinkLanes) {
+    // links approached in both steps are updated in place, the others are removed
+    auto approaches = [](const DriveItemVector & items, DriveItemVector::const_iterator end, const MSLink * link) {
+        for (DriveItemVector::const_iterator it = items.begin(); it != end; ++it) {
+            if (it->myLink == link) {
+                return true;
+            }
+        }
+        return false;
+    };
+    for (const DriveProcessItem& dpi : myLFLinkLanesPrev) {
+        if (dpi.myLink != nullptr && !approaches(myLFLinkLanes, myLFLinkLanes.end(), dpi.myLink)) {
+            dpi.myLink->removeApproaching(this);
+        }
+    }
+    myLaneChangeModel->removeShadowApproachingInformation();
+    for (DriveItemVector::iterator it = myLFLinkLanes.begin(); it != myLFLinkLanes.end(); ++it) {
+        DriveProcessItem& dpi = *it;
         if (dpi.myLink != nullptr) {
             if (dpi.myLink->getState() == LINKSTATE_ALLWAY_STOP) {
                 dpi.myArrivalTime += (SUMOTime)RandHelper::rand((int)2, getRNG()); // tie braker
             }
-            dpi.myLink->setApproaching(this, dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
-                                       dpi.mySetRequest, dpi.myArrivalSpeedBraking, getWaitingTimeFor(dpi.myLink), dpi.myDistance, getLateralPositionOnLane());
+            // only the first registration counts on looped routes (emplace keeps it)
+            if (approaches(myLFLinkLanesPrev, myLFLinkLanesPrev.end(), dpi.myLink) && !approaches(myLFLinkLanes, it, dpi.myLink)) {
+                dpi.myLink->updateApproaching(this, dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
+                                              dpi.mySetRequest, dpi.myArrivalSpeedBraking, getWaitingTimeFor(dpi.myLink), dpi.myDistance, getLateralPositionOnLane());
+            } else {
+                dpi.myLink->setApproaching(this, dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
+                                           dpi.mySetRequest, dpi.myArrivalSpeedBraking, getWaitingTimeFor(dpi.myLink), dpi.myDistance, getLateralPositionOnLane());
+            }
         }
     }
     if (isRail()) {

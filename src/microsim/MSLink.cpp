@@ -752,6 +752,20 @@ MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTim
 
 
 void
+MSLink::updateApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime, const double arrivalSpeed, const double leaveSpeed,
+                          const bool setRequest, const double arrivalSpeedBraking, const SUMOTime waitingTime, double dist, double latOffset) {
+    auto it = myApproachingVehicles.find(approaching);
+    if (it == myApproachingVehicles.end()) {
+        setApproaching(approaching, arrivalTime, arrivalSpeed, leaveSpeed, setRequest, arrivalSpeedBraking, waitingTime, dist, latOffset);
+    } else {
+        const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, approaching->getVehicleType().getLength());
+        it->second = ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest,
+                     arrivalSpeedBraking, waitingTime, dist, approaching->getSpeed(), latOffset);
+    }
+}
+
+
+void
 MSLink::setApproaching(const SUMOVehicle* approaching, ApproachingVehicleInformation ai) {
 #ifdef DEBUG_APPROACHING
     if (DEBUG_COND2(approaching)) {
