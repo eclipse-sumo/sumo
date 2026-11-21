@@ -1,0 +1,1 @@
+tools/extractTest.py root/tests/duarouter/dummy -s -p run.py --sim-test

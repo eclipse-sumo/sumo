@@ -1,0 +1,6 @@
+The following new files/directories were created:
+<Test Directory>
+----_dummy
+--------input_net.net.xml
+--------input_trips.trips.xml
+----run.py

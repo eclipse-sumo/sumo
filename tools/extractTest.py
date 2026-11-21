@@ -63,11 +63,43 @@ def get_options(args=None):
                          default=False, help="store test files directly in the output directory")
     optParser.add_option("--depth", category="processing", type=int, default=1,
                          help="maximum depth when descending into testsuites")
+    optParser.add_option("--sim-test", dest="simTest", category="processing", action="store_true",
+                         default=False, help="generate an additional sumo simulation call for router tests")
     optParser.add_option("test_dir", nargs="*", category="input", help="read list of source and target dirs from")
     options = optParser.parse_args(args)
     if not options.file and not options.test_dir:
         optParser.error("Please specify either an input file or a test directory")
     return options
+
+
+ROUTER_APPS = ("dfrouter", "duarouter", "jtrrouter", "marouter", "od2trips")
+
+
+def build_sim_options(appOptions, net):
+    out_route = None
+    add_files = None
+    i = 0
+    while i < len(appOptions):
+        opt = appOptions[i]
+        if opt in ("-o", "--output-file", "--output") and i + 1 < len(appOptions):
+            out_route = appOptions[i + 1]
+            i += 2
+            continue
+        if opt.startswith(("--output-file=", "--output=")):
+            out_route = opt.split("=", 1)[1]
+        elif opt in ("-a", "--additional-files") and i + 1 < len(appOptions):
+            add_files = appOptions[i + 1]
+            i += 2
+            continue
+        elif opt.startswith("--additional-files="):
+            add_files = opt.split("=", 1)[1]
+        i += 1
+    if not net or not out_route:
+        return None
+    sim_opts = ["-n", net, "-r", out_route, "--no-step-log"]
+    if add_files:
+        sim_opts += ["-a", add_files]
+    return sim_opts
 
 
 def copy_merge(srcDir, dstDir, merge, exclude):
@@ -125,7 +157,7 @@ def main(options):
         depth -= 1
 
     if options.python_script:
-        if not os.path.exists(os.path.dirname(options.python_script)):
+        if os.path.dirname(options.python_script) and not os.path.exists(os.path.dirname(options.python_script)):
             os.makedirs(os.path.dirname(options.python_script))
         pyBatch = open(options.python_script, 'w')
         pyBatch.write('''#!/usr/bin/env python
@@ -292,6 +324,12 @@ calls = [
                 up = os.path.abspath(pyBatch.name)[len(prefix):].count(os.sep) * "../"
                 pyBatch.write('    (r"%s", [%s], r"%s%s"),\n' %
                               (testPath[len(prefix):], ', '.join(call), up, testPath[len(prefix):]))
+                if options.simTest and app in ROUTER_APPS:
+                    simOpts = build_sim_options(appOptions, net)
+                    if simOpts:
+                        simCall = ['join(SUMO_HOME, "bin", "sumo")'] + ['"%s"' % a for a in simOpts]
+                        pyBatch.write('    (r"%s", [%s], r"%s%s"),\n' %
+                                      (testPath[len(prefix):], ', '.join(simCall), up, testPath[len(prefix):]))
             if options.skip_configuration:
                 continue
             oldWorkDir = os.getcwd()
@@ -349,6 +387,30 @@ calls = [
                 cmd = [o.replace("$SUMO_HOME", "%SUMO_HOME%") if " " not in o else '"%s"' % o for o in appOptions]
                 with open(nameBase + ".bat", "w") as bat:
                     bat.write(" ".join(cmd))
+            if options.simTest and app in ROUTER_APPS:
+                simOpts = build_sim_options(appOptions, net)
+                if simOpts:
+                    haveSimCfg = False
+                    try:
+                        haveSimCfg = subprocess.call(
+                            [sumolib.checkBinary("sumo")] + simOpts + ["--save-configuration", "%s.sumocfg" % nameBase]
+                        ) == 0
+                    except OSError:
+                        pass
+                    if not haveSimCfg:
+                        simCmd = ['"$SUMO_HOME/bin/sumo"'] + [ao if " " not in ao else "'%s'" % ao for ao in simOpts]
+                        with open(nameBase + ".sh", "a") as sh:
+                            if os.path.getsize(sh.name) == 0:
+                                sh.write("#!/bin/bash\n")
+                            else:
+                                sh.write("\n")
+                            sh.write(" ".join(simCmd))
+                        os.chmod(sh.name, os.stat(sh.name).st_mode | stat.S_IXUSR)
+                        batCmd = ['"%SUMO_HOME%/bin/sumo"'] + [ao if " " not in ao else '"%s"' % ao for ao in simOpts]
+                        with open(nameBase + ".bat", "a") as bat:
+                            if os.path.getsize(bat.name) > 0:
+                                bat.write("\n")
+                            bat.write(" ".join(batCmd))
             os.chdir(oldWorkDir)
         if not haveVariant:
             print("No suitable variant found for %s." % source, file=sys.stderr)
@@ -362,6 +424,9 @@ def check():
             sys.exit(1)
 
 for dir, call, wd in calls:
+    if any(d == dir for d, _ in procs):
+        check()
+        procs = []
     procs.append((dir, subprocess.Popen(call, cwd=join(THIS_DIR, wd))))
     if len(procs) == multiprocessing.cpu_count():
         check()
