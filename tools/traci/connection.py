@@ -104,20 +104,20 @@ class Connection(StepManager):
 
     def _recvExact(self):
         try:
-            result = bytes()
+            result = bytearray()
             while len(result) < 4:
                 t = self._socket.recv(4 - len(result))
                 if not t:
                     return None
-                result += t
+                result.extend(t)
             length = struct.unpack("!i", result)[0] - 4
-            result = bytes()
+            result = bytearray()
             while len(result) < length:
                 t = self._socket.recv(length - len(result))
                 if not t:
                     return None
-                result += t
-            return Storage(result)
+                result.extend(t)
+            return Storage(bytes(result))
         except socket.error:
             return None
 
@@ -127,7 +127,7 @@ class Connection(StepManager):
         length = struct.pack("!i", len(self._string) + 4)
         if _DEBUG:
             print("sending", Storage(length + self._string).getDebugString())
-        self._socket.send(length + self._string)
+        self._socket.sendall(length + self._string)
         result = self._recvExact()
         if _DEBUG:
             print("receiving", result.getDebugString())
@@ -209,7 +209,6 @@ class Connection(StepManager):
 
     def _sendCmd(self, cmdID, varID, objID, format="", *values):
         with self._lock:
-            self._queue.append(cmdID)
             packed = self._pack(format, *values)
             objID = str(objID).encode("utf8")
             length = len(packed) + 1 + 1  # length and command
@@ -219,16 +218,17 @@ class Connection(StepManager):
                 else:
                     length += 1 + 4 + len(objID)
             if length <= 255:
-                self._string += struct.pack("!BB", length, cmdID)
+                command = struct.pack("!BB", length, cmdID)
             else:
-                self._string += struct.pack("!BiB", 0, length + 4, cmdID)
+                command = struct.pack("!BiB", 0, length + 4, cmdID)
             if varID is not None:
                 if isinstance(varID, tuple):
-                    self._string += struct.pack("!dd", *varID)
+                    command += struct.pack("!dd", *varID)
                 else:
-                    self._string += struct.pack("!B", varID)
-                self._string += struct.pack("!i", len(objID)) + objID
-            self._string += packed
+                    command += struct.pack("!B", varID)
+                command += struct.pack("!i", len(objID)) + objID
+            self._queue.append(cmdID)
+            self._string += command + packed
             return self._sendExact()
 
     def _readSubscription(self, result):
@@ -391,17 +391,21 @@ class Connection(StepManager):
         self._sendCmd(tc.CMD_SETORDER, None, None, "I", order)
 
     def close(self, wait=True):
-        StepManager.close(self, True)
-        for listenerID in list(self._stepListeners.keys()):
-            self.removeStepListener(listenerID)
-        if self._socket is not None:
-            self._sendCmd(tc.CMD_CLOSE, None, None)
-            self._socket.close()
+        try:
+            StepManager.close(self, True)
+            for listenerID in list(self._stepListeners.keys()):
+                self.removeStepListener(listenerID)
+            if self._socket is not None:
+                self._sendCmd(tc.CMD_CLOSE, None, None)
+        finally:
+            if self._socket is not None:
+                self._socket.close()
             self._socket = None
+            self.simulation._setConnection(None)
+            if self._label is not None:
+                if _connections.get("") is self:
+                    del _connections[""]
+                if _connections.get(self._label) is self:
+                    del _connections[self._label]
         if wait and self._process is not None:
             self._process.wait()
-        self.simulation._setConnection(None)
-        if self._label is not None:
-            if _connections.get("") == self:
-                del _connections[""]
-            del _connections[self._label]
