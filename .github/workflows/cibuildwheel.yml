@@ -137,6 +137,8 @@ jobs:
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
         uses: pypa/cibuildwheel@v4.3.5
         env:
+          # sumo-data only contains data files, so there is no need to build JuPedSim
+          CIBW_ENVIRONMENT_LINUX: SKIP_JUPEDSIM=1
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
           CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
 
