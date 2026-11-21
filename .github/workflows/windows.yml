@@ -119,26 +119,6 @@ jobs:
         cmake --build build_msvc --target examples
         ctest --test-dir build_msvc --output-on-failure --timeout 60
 
-    # The following tests need to be split because of resource constraints. If they are not in separate steps
-    # a failing texttest run will not let the step fail because only the final exit code counts.
-    - name: activitygen and router tests
-      if: matrix.build_type == 'plain'
-      run: |
-        $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter,marouter"
-        tests\runCiTests.bat texttest.exe
-
-    - name: network building, od2trips and polyconvert tests
-      if: matrix.build_type == 'plain'
-      run: |
-        $env:TEXTTEST_CI_APPS = "-a netgen,od2trips,polyconvert,netconvert"
-        tests\runCiTests.bat texttest.exe
-
-    - name: sumo tests
-      if: matrix.build_type == 'plain'
-      run: |
-        $env:TEXTTEST_CI_APPS = "-a sumo"
-        tests\runCiTests.bat texttest.exe
-
     - name: Running dependency checker
       if: matrix.build_type == 'extra'
       run: |
@@ -148,28 +128,71 @@ jobs:
           dir tools\libsumo
           Dependencies\Dependencies.exe -modules -depth 2 tools\libsumo\_libsumo.pyd
 
-    - name: complex, traci and tools tests
-      if: matrix.build_type == 'extra'
+    - name: Packaging build for test jobs
+      shell: bash
+      run: 7z a -bso0 -bsp0 -mx=1 D:/windows-${{ matrix.build_type }}-build.7z . -xr'!.git' -xr'!build_msvc' -xr'!build_msvc_debug' -xr'!SUMOLibraries*' -xr'!Dependencies'
+
+    - name: Uploading build for test jobs
+      uses: actions/upload-artifact@v7
+      with:
+        path: D:/windows-${{ matrix.build_type }}-build.7z
+        archive: false
+
+  test:
+    needs: build
+    runs-on: windows-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        # the tests are split into shards because of resource constraints
+        include:
+          - {build_type: plain, shard: routers, apps: "activitygen,dfrouter,duarouter,jtrrouter,marouter"}
+          - {build_type: plain, shard: netbuild, apps: "netgen,od2trips,polyconvert,netconvert"}
+          - {build_type: plain, shard: sumo, apps: "sumo"}
+          - {build_type: extra, shard: complex-traci-tools, apps: "complex,traci,tools"}
+          - {build_type: extra, shard: meso-extra-gdal, apps: "sumo.meso,sumo.extra,netconvert.gdal,polyconvert.gdal"}
+
+    steps:
+    - name: Downloading build
+      uses: actions/download-artifact@v8
+      with:
+        name: windows-${{ matrix.build_type }}-build.7z
+        skip-decompress: true
+
+    - name: Unpacking build
+      shell: bash
+      run: 7z x -bso0 -bsp0 -y windows-${{ matrix.build_type }}-build.7z
+
+    - name: Fetching SUMO Libraries
+      # this also sets $SUMO_LIBRARIES
+      uses: ./.github/actions/fetch-sumo-libraries
+
+    - name: Set up Python
+      uses: actions/setup-python@v7
+      with:
+        python-version: '3.12'
+
+    - name: Setup Python dependencies
+      run: |
+        python -m pip install -r tools/req_ci.txt texttest
+        python -m pip install -U --no-deps jupedsim
+
+    - name: Tests
       run: |
         $env:PATH += ";$pwd\bin"
-        $env:TEXTTEST_CI_APPS = "-a complex,traci,tools"
-        tests\runCiTests.bat texttest.exe
-
-    - name: meso, extra and gdal tests
-      if: matrix.build_type == 'extra'
-      run: |
-        $env:TEXTTEST_CI_APPS = "-a sumo.meso,sumo.extra,netconvert.gdal,polyconvert.gdal"
+        $env:TEXTTEST_CI_APPS = "-a ${{ matrix.apps }}"
         tests\runCiTests.bat texttest.exe
 
     - name: Compressing test results
       if: failure()
       shell: bash
-      run: 7z a -bso0 -bsp0 texttesttmp-${{ matrix.build_type }}.zip ~/.texttest/tmp
+      run: 7z a -bso0 -bsp0 texttesttmp-${{ matrix.build_type }}-${{ matrix.shard }}.zip ~/.texttest/tmp
 
     - name: Uploading test results
       if: failure()
       uses: actions/upload-artifact@v7
       with:
-        path: texttesttmp-${{ matrix.build_type }}.zip
+        path: texttesttmp-${{ matrix.build_type }}-${{ matrix.shard }}.zip
         archive: false
         if-no-files-found: warn
