@@ -1,0 +1,1 @@
+{CLEAR} -n data/roadnet.json -f data/flow.json -p out -o out.rou.xml tools/import/citybrain/cityflow2sumo.py
