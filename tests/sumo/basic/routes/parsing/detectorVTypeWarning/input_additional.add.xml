@@ -1,0 +1,4 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <e1Detector id="d_missing" lane="AB_0" pos="50" freq="10000" file="detector_missing.xml" vTypes="missing"/>
+    <e1Detector id="d_D" lane="AB_0" pos="50" freq="10000" file="detector_D.xml" vTypes="D"/>
+</additional>

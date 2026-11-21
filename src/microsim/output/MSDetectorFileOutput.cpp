@@ -61,17 +61,24 @@ MSDetectorFileOutput::vehicleApplies(const SUMOTrafficObject& veh) const {
     if (veh.isVehicle() == detectsPersons()) {
         return false;
     }
-    if (!myVehicleTypes.empty() && myVehicleTypes.count(veh.getVehicleType().getOriginalID()) == 0) {
-        std::set<std::string> vTypeDists = MSNet::getInstance()->getVehicleControl().getVTypeDistributionMembership(veh.getVehicleType().getOriginalID());
-        bool typeMatches = false;
-        for (auto vTypeDist : vTypeDists) {
-            if (myVehicleTypes.count(vTypeDist) > 0) {
-                typeMatches = true;
-                break;
+    if (!myVehicleTypes.empty()) {
+        const std::string& originalID = veh.getVehicleType().getOriginalID();
+        if (myVehicleTypes.count(originalID) > 0 || myMatchedVehicleTypes.count(originalID) > 0) {
+            mySeenVehicleTypes.insert(originalID);
+        } else {
+            std::set<std::string> vTypeDists = MSNet::getInstance()->getVehicleControl().getVTypeDistributionMembership(originalID);
+            bool typeMatches = false;
+            for (const auto& vTypeDist : vTypeDists) {
+                if (myVehicleTypes.count(vTypeDist) > 0) {
+                    mySeenVehicleTypes.insert(vTypeDist);
+                    myMatchedVehicleTypes.insert(originalID);
+                    typeMatches = true;
+                    break;
+                }
             }
-        }
-        if (!typeMatches) {
-            return false;
+            if (!typeMatches) {
+                return false;
+            }
         }
     }
     if (!myNextEdges.empty()) {
@@ -134,3 +141,14 @@ MSDetectorFileOutput::personApplies(const MSTransportable& p, int dir) const {
 
 
 /****************************************************************************/
+
+
+void
+MSDetectorFileOutput::checkVTypeUsage() const {
+    for (const std::string& vType : myVehicleTypes) {
+        if (mySeenVehicleTypes.count(vType) == 0) {
+            WRITE_WARNINGF(TL("Detector '%' is configured for vehicle type '%' which never showed up in the simulation."),
+                           getID(), vType);
+        }
+    }
+}

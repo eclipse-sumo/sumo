@@ -70,6 +70,9 @@ public:
      */
     void close(SUMOTime step);
 
+    /** @brief Warn about detector vType filters that never matched */
+    void checkVTypeUsage() const;
+
 
     /** @brief Adds a detector/output combination into the containers
      *
