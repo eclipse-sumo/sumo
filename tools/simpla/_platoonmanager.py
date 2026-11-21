@@ -132,32 +132,38 @@ class PlatoonManager(traci.StepListener):
         # fill global lookup table for vType parameters (used below in safetycheck)
         knownVTypes = {typeID: traci.vehicletype.getVehicleClass(typeID) for typeID in traci.vehicletype.getIDList()}
         vTypesToCheck = set()
-        if cfg.VEH_SELECTORS[0] == '':
-            vTypesToCheck.update([typeID for typeID, vClass in knownVTypes.items()
-                                  if vClass not in ('bicycle', 'pedestrian')])
+        for selector in cfg.VEH_SELECTORS:
+            for typeID, vClass in knownVTypes.items():
+                if vClass not in ('bicycle', 'pedestrian') and (selector == '' or selector in typeID):
+                    vTypesToCheck.add(typeID)
 
         for origType, mappings in cfg.PLATOON_VTYPES.items():
-            if origType not in knownVTypes:
+            isDefaultKey = (origType == "default" and origType not in knownVTypes)
+            if not isDefaultKey and origType not in knownVTypes:
                 raise SimplaException(
                     "vType '%s' is unknown to sumo! Note: Platooning vTypes must be defined at startup." % origType)
-            origLength = traci.vehicletype.getLength(origType)
-            origEmergencyDecel = traci.vehicletype.getEmergencyDecel(origType)
-            for typeID in list(mappings.values()) + [origType]:
+            origLength = None if isDefaultKey else traci.vehicletype.getLength(origType)
+            origEmergencyDecel = None if isDefaultKey else traci.vehicletype.getEmergencyDecel(origType)
+            typesList = [t for t in mappings.values() if t and not (isDefaultKey and t == "default")]
+            if not isDefaultKey:
+                typesList.append(origType)
+            for typeID in typesList:
                 if typeID not in knownVTypes:
                     raise SimplaException(
                         "vType '%s' is unknown to sumo! Note: Platooning vTypes must be defined at startup." % typeID)
-                mappedLength = traci.vehicletype.getLength(typeID)
-                mappedEmergencyDecel = traci.vehicletype.getEmergencyDecel(typeID)
-                if origLength != mappedLength:
-                    if rp.VERBOSITY >= 1:
-                        warn(("length of mapped vType '%s' (%sm.) does not equal length of original vType " +
-                              "'%s' (%sm.)\nThis will probably lead to collisions.") % (
-                            typeID, mappedLength, origType, origLength), True)
-                if origEmergencyDecel != mappedEmergencyDecel:
-                    if rp.VERBOSITY >= 1:
-                        warn(("emergencyDecel of mapped vType '%s' (%gm.) does not equal emergencyDecel of original " +
-                              "vType '%s' (%gm.)") % (
-                             typeID, mappedEmergencyDecel, origType, origEmergencyDecel), True)
+                if not isDefaultKey:
+                    mappedLength = traci.vehicletype.getLength(typeID)
+                    mappedEmergencyDecel = traci.vehicletype.getEmergencyDecel(typeID)
+                    if origLength != mappedLength:
+                        if rp.VERBOSITY >= 1:
+                            warn(("length of mapped vType '%s' (%sm.) does not equal length of original vType " +
+                                  "'%s' (%sm.)\nThis will probably lead to collisions.") % (
+                                typeID, mappedLength, origType, origLength), True)
+                    if origEmergencyDecel != mappedEmergencyDecel:
+                        if rp.VERBOSITY >= 1:
+                            warn(("emergencyDecel of mapped vType '%s' (%gm.) does not equal emergencyDecel of " +
+                                  "original vType '%s' (%gm.)") % (
+                                 typeID, mappedEmergencyDecel, origType, origEmergencyDecel), True)
                 vTypesToCheck.add(typeID)
         for typeID in vTypesToCheck:
             simpla._pvehicle.vTypeParameters[typeID][tc.VAR_TAU] = traci.vehicletype.getTau(typeID)
@@ -280,9 +286,8 @@ class PlatoonManager(traci.StepListener):
         self._subscriptionResults = traci.vehicle.getAllSubscriptionResults()
         for veh in self._connectedVehicles.values():
             if (veh.getID() not in self._subscriptionResults):
-                # FIXME: For some reason, this is in rare occasions called with vehicles,
-                #        which have no subscription results.
-                return
+                # Vehicle may temporarily lack subscription results (e.g. parking or teleporting)
+                continue
             veh.state.speed = self._subscriptionResults[veh.getID()][tc.VAR_SPEED]
             veh.state.edgeID = self._subscriptionResults[veh.getID()][tc.VAR_ROAD_ID]
             veh.state.laneID = self._subscriptionResults[veh.getID()][tc.VAR_LANE_ID]
@@ -307,8 +312,11 @@ class PlatoonManager(traci.StepListener):
                     egoRoute = traci.vehicle.getRoute(veh.getID())
                     leaderRoute = traci.vehicle.getRoute(leaderID)
                     idxLeader = traci.vehicle.getRouteIndex(leaderID)
-                    leaderEdgeID = leaderRoute[idxLeader]
-                    if leaderEdgeID in egoRoute:
+                    if 0 <= idxLeader < len(leaderRoute):
+                        leaderEdgeID = leaderRoute[idxLeader]
+                    else:
+                        leaderEdgeID = None
+                    if leaderEdgeID is not None and leaderEdgeID in egoRoute:
                         idxEgo = egoRoute.index(leaderEdgeID)
                         idxDelta = min(idxEgo+self._edgenumberLookahead, len(egoRoute))-idxEgo
                         idxDelta = min(idxDelta, len(leaderRoute)-idxLeader)
@@ -552,7 +560,7 @@ class PlatoonManager(traci.StepListener):
             pltnLeaderRoute = traci.vehicle.getRoute(pltnLeader.getID())
             pltnLeaderRouteIx = traci.vehicle.getRouteIndex(pltnLeader.getID())
             leaderEdge = leader.state.edgeID
-            if leaderEdge not in pltnLeaderRoute[pltnLeaderRouteIx:]:
+            if pltnLeaderRouteIx < 0 or leaderEdge not in pltnLeaderRoute[pltnLeaderRouteIx:]:
                 continue
 
             if leader.getPlatoon() == pltn:
