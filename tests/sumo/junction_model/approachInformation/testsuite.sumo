@@ -33,3 +33,6 @@ adaptLeaveSpeed_subsecond
 
 # a vehicle circling a small roundabout approaches the same link twice within its look-ahead. Only the first arrival is registered
 looped_route
+
+# vehicles at a busy crossing register their link approaches in parallel (--threads 4). The result is the same as without threads
+threads
