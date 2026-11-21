@@ -49,5 +49,5 @@ repair-wheel-command = ""
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_*"
-inherit.repair-wheel-command = "append"
-repair-wheel-command = '''find {dest_dir} \( -name "*.dylib" -o -name "*.so" \) -exec strip -x -S {} \;'''
+# delocate would copy all dylibs again, they are shared via sumo-data, see tools/build_config/relocate.py
+repair-wheel-command = ""

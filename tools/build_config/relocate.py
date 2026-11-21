@@ -50,6 +50,16 @@ def compare_directories(dir1, dir2):
     return True
 
 
+def relink_macos(binary, data_libs):
+    # the wheel was not delocated, so point every non-system dependency to the shared sumo_data libs
+    for lib in get_install_names(binary):
+        if not lib.startswith(("/usr/lib/", "/System/", "@loader_path/", "@rpath/")):
+            name = os.path.basename(lib)
+            if not os.path.exists(os.path.join(data_libs, name)):
+                sys.exit("Missing shared lib %s for %s." % (name, binary))
+            set_install_name(binary, lib, "@loader_path/../sumo_data/.libs/" + name)
+
+
 def fix_links_and_strip(binaries, lib_dir_prefix, up_levels=1):
     # up_levels is the number of directories between the binary and the site-packages
     # root (where the sumo_data package lives as a sibling), e.g. 1 for libsumo/_libsumo.so
@@ -104,6 +114,11 @@ if __name__ == "__main__":
         libsumo_dir = os.path.join(f[:-4], "-".join(os.path.basename(f).split("-")[:2]))
         pack_dirs.append(libsumo_dir)
         libsumo_so = os.path.join(libsumo_dir, "libsumo", "_libsumo.so")
+        if sys.platform == "darwin":
+            relink_macos(libsumo_so, data_libs)
+            subprocess.check_call(["strip", "-S", "-x", libsumo_so])
+            subprocess.check_call(["codesign", "--force", "--sign", "-", libsumo_so])
+            continue
         libsumo_libs = fix_links_and_strip([libsumo_so], os.path.join(libsumo_dir, "libsumo"))
         if compare_directories(data_libs, libsumo_libs):
             shutil.rmtree(libsumo_libs)
