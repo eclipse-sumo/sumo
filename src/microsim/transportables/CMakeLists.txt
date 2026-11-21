@@ -66,8 +66,8 @@ if (HAVE_JUPEDSIM_GRPC)
     foreach (jps_gen ${jps_cpp_generated} ${jps_grpc_generated})
         set_source_files_properties(${jps_gen} PROPERTIES GENERATED TRUE)
         if (MSVC)
-            # disabling warnings about class layout
-            set_source_files_properties(${jps_gen} PROPERTIES COMPILE_OPTIONS /wd4371)
+            # disabling warnings about class layout, implicit constructor / assignment operator deletion, ...
+            set_source_files_properties(${jps_gen} PROPERTIES COMPILE_OPTIONS /wd4100 /wd4267 /wd4371 /wd4625 /wd4626 /wd4820 /wd4946 /wd5026 /wd5027)
         endif ()
         target_sources(microsim_transportables PRIVATE "$<${jps_grpc_enabled}:${jps_gen}>")
     endforeach ()
