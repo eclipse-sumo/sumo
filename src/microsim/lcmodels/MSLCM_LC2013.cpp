@@ -148,6 +148,9 @@ MSLCM_LC2013::initDerivedParameters() {
         myChangeProbThresholdRight = (long long int)((0.2 / mySpeedGainRight) / mySpeedGainParam * HYST_PRECISION);
         myChangeProbThresholdLeft = (long long int)(0.2 / mySpeedGainParam * HYST_PRECISION);
     }
+    // the keepRight threshold scales the probability increment as well, so its value only serves as a reference.
+    // It must not become infinite when speedGain is disabled because this would disable keepRight as well (#17793)
+    myKeepRightProbThreshold = (long long int)((0.2 / mySpeedGainRight) / (mySpeedGainParam <= 0 ? 1. : mySpeedGainParam) * HYST_PRECISION);
 }
 
 
@@ -1777,8 +1780,7 @@ MSLCM_LC2013::_wantsChange(
                 fullSpeedDrivingSeconds = MIN2(fullSpeedDrivingSeconds, fullSpeedGap / (vMax - leader.first->getSpeed()));
             }
 
-            const double deltaProb = (myChangeProbThresholdRight == std::numeric_limits<long long int>::max()) ? 0 :
-                                     ((double)myChangeProbThresholdRight * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
+            const double deltaProb = (double)myKeepRightProbThreshold * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME;
             myKeepRightProbability -= (long long int)(myVehicle.getActionStepLengthSecs() * deltaProb);
 
             //std::cout << STEPS2TIME(currentTime)
@@ -1807,7 +1809,7 @@ MSLCM_LC2013::_wantsChange(
                           << "\n";
             }
 #endif
-            if ((long long int)((double)myKeepRightProbability * myKeepRightParam) < -myChangeProbThresholdRight) {
+            if ((long long int)((double)myKeepRightProbability * myKeepRightParam) < -myKeepRightProbThreshold) {
                 req = ret | lca | LCA_KEEPRIGHT;
                 if (!cancelRequest(req, laneOffset)) {
                     return ret | req;
@@ -2188,7 +2190,7 @@ MSLCM_LC2013::getParameter(const std::string& key) const {
     } else if (key == "speedGainLP") {
         return toString(mySpeedGainProbabilityLeft / myChangeProbThresholdLeft);
     } else if (key == "keepRightP") {
-        return toString((double)myKeepRightProbability * myKeepRightParam / -(double)myChangeProbThresholdRight);
+        return toString((double)myKeepRightProbability * myKeepRightParam / -(double)myKeepRightProbThreshold);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
