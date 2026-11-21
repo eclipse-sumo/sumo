@@ -85,6 +85,8 @@ def remap_lanes(options, obj, laneIDs, pos=None, size=None):
 
 def remap_edges(options, obj, edgeIDs, pos=None, size=None):
     edgeIDs_positions2 = [remap_edge(options, obj, edgeID, pos, size) for edgeID in edgeIDs.split()]
+    if any(e is None for e, _ in edgeIDs_positions2):
+        return None, None
     edgeIDs2 = [e for e, pos in edgeIDs_positions2]
     pos2 = edgeIDs_positions2[0][1]
     return ' '.join(edgeIDs2), pos2
@@ -94,7 +96,7 @@ def remap_lane(options, obj, laneID, pos=None, size=None):
     lane = options.net.getLane(laneID)
     lane2 = None
     edge = lane.getEdge()
-    edge2, pos2 = remap_edge(options, obj, edge.getID(), pos, size)
+    edge2, pos2 = remap_edge(options, obj, edge.getID(), pos, size, returnEdge=True)
     if edge2:
         cands = [c for c in edge.getLanes() if c.getPermissions() == lane.getPermissions()]
         candIndex = cands.index(lane)
@@ -114,7 +116,7 @@ def remap_lane(options, obj, laneID, pos=None, size=None):
     return lane2, pos2
 
 
-def remap_edge(options, obj, edgeID, pos=None, size=None):
+def remap_edge(options, obj, edgeID, pos=None, size=None, returnEdge=False):
     edge = options.net.getEdge(edgeID)
     permissions = set(edge.getPermissions())
     shape = edge.getShape()
@@ -163,10 +165,15 @@ def remap_edge(options, obj, edgeID, pos=None, size=None):
         if degrees(fabs(origAngle - angle)) < options.atol:
             cands.append(e)
     edges = cands
+    if not edges:
+        print("No edges with angle %.2f found near %.2f,%.2f (origEdge %s)" % (
+            degrees(origAngle), x2, y2, edgeID), file=sys.stderr)
+        return None, None
+
     cands2 = [e for e in edges if permissions.issubset(e.getPermissions())]
     if not cands2:
         # relax permission requirements a minimum
-        for svc in ["passenger", "bus", "bicycle" "tram", "rail", "pedestrian"]:
+        for svc in ["passenger", "bus", "bicycle", "tram", "rail", "pedestrian"]:
             if svc in permissions:
                 permissions = set([svc])
                 break
@@ -177,10 +184,9 @@ def remap_edge(options, obj, edgeID, pos=None, size=None):
             return None, None
     edges = cands2
 
-    if not edges:
-        print("No edges with angle %.2f found near %.2f,%.2f (origEdge %s)" % (
-            degrees(origAngle), x2, y2, edgeID), file=sys.stderr)
-        return None, None
+    cands3 = [e for e in edges if e.getRoutingType() == edge.getRoutingType()]
+    if cands3:
+        edges = cands3
 
     shape2 = list(map(options.remap_xy, shape))
     edge2 = None
@@ -201,7 +207,7 @@ def remap_edge(options, obj, edgeID, pos=None, size=None):
     else:
         pos2 = None
 
-    return edge2, pos2
+    return (edge2 if returnEdge else edge2.getID()), pos2
 
 
 POSITIONS = ['startPos', 'endPos', 'pos']
