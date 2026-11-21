@@ -25,19 +25,22 @@ import functools
 import warnings
 
 
-def deprecated(new_name=None):
+def deprecated(new_name=None, old_name=None):
     """This is a decorator which can be used to mark functions
     as deprecated. It will result in a warning being emitted
     when the function is used."""
     def Inner(func):
         @functools.wraps(func)
         def new_func(*args, **kwargs):
+            fname = old_name if old_name is not None else func.__name__
             if new_name is None:
-                msg = "Call to deprecated function %s." % (func.__name__)
+                msg = "Call to deprecated function %s." % fname
             else:
-                msg = "Call to deprecated function %s, use %s instead." % (func.__name__, new_name)
+                msg = "Call to deprecated function %s, use %s instead." % (fname, new_name)
             warnings.warn(msg, stacklevel=2)
             return func(*args, **kwargs)
+        if old_name is not None:
+            new_func.__name__ = old_name
         return new_func
     return Inner
 
