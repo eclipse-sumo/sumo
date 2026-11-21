@@ -6934,6 +6934,7 @@ MSVehicle::setTentativeLaneAndPosition(MSLane* lane, double pos, double posLat) 
     myState.myPos = pos;
     myState.myPosLat = posLat;
     myState.myBackPos = pos - getVehicleType().getLength();
+    invalidateCachedPosition();
 }
 
 
