@@ -147,10 +147,11 @@ jobs:
       matrix:
         # the tests are split into shards because of resource constraints
         include:
-          - {build_type: plain, shard: routers, apps: "activitygen,dfrouter,duarouter,jtrrouter,marouter"}
-          - {build_type: plain, shard: netbuild, apps: "netgen,od2trips,polyconvert,netconvert"}
           - {build_type: plain, shard: sumo, apps: "sumo"}
-          - {build_type: extra, shard: complex-traci-tools, apps: "complex,traci,tools"}
+          - {build_type: plain, shard: routers-netbuild, apps: "activitygen,dfrouter,duarouter,jtrrouter,marouter,netgen,od2trips,polyconvert,netconvert"}
+          - {build_type: extra, shard: complex, apps: "complex"}
+          - {build_type: extra, shard: traci, apps: "traci"}
+          - {build_type: extra, shard: tools, apps: "tools"}
           - {build_type: extra, shard: meso-extra-gdal, apps: "sumo.meso,sumo.extra,netconvert.gdal,polyconvert.gdal"}
 
     steps:
