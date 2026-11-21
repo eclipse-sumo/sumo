@@ -1,4 +1,4 @@
-<polygonTypes>
+<polygonTypes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
     <!-- typemap for investigation geometry of OSM ways -->
     <polygonType id="waterway"                name="water"       color=".71,.82,.82" layer="-4" discard="true"/>
     <polygonType id="natural"                 name="natural"     color=".55,.77,.42" layer="-4" discard="true"/>
