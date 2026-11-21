@@ -27,3 +27,5 @@ turn
 
 # Tests whether lanes filter in combination with up-/down-stream distance filters work correctly
 lanesUpDownDistance
+# stable expiry compaction and subsequent context filters
+subscription_compaction
