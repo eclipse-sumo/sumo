@@ -483,6 +483,8 @@ TRACI_CONST int POSITION_ROADMAP = 0x04;
 // ****************************************
 // DATA TYPES
 // ****************************************
+// 3D polygon (3*n doubles)
+TRACI_CONST int POLYGON_3D = 0x05;
 // Polygon (2*n doubles)
 TRACI_CONST int TYPE_POLYGON = 0x06;
 // unsigned byte
@@ -1018,6 +1020,9 @@ TRACI_CONST int VAR_WIDTH = 0x4d;
 
 // shape (get: polygons)
 TRACI_CONST int VAR_SHAPE = 0x4e;
+
+// 3D shape (get: lanes, junctions)
+TRACI_CONST int VAR_SHAPE3D = 0x3f;
 
 // type id (get: vehicles, polygons, pois)
 TRACI_CONST int VAR_TYPE = 0x4f;

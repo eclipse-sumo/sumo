@@ -61,6 +61,12 @@ Junction::getShape(const std::string& junctionID) {
 }
 
 
+libsumo::TraCIPositionVector
+Junction::getShape3D(const std::string& junctionID) {
+    return Dom::getPolygon3D(libsumo::VAR_SHAPE3D, junctionID);
+}
+
+
 const std::vector<std::string>
 Junction::getIncomingEdges(const std::string& junctionID) {
     return Dom::getStringVector(libsumo::INCOMING_EDGES, junctionID);
