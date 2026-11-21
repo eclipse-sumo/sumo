@@ -27,3 +27,13 @@ value is also shown in the table.
 | efficiency                               | double          | The charging efficiency | [getEfficiency](https://sumo.dlr.de/pydoc/traci/_chargingstation.html#ChargingStationDomain.getEfficiency) |
 | charge in transit                        | integer         | Whether the vehicle is forced/not forced to stop for charging | [getChargeInTransit](https://sumo.dlr.de/pydoc/traci/_chargingstation.html#ChargingStationDomain.getChargeInTransit) |
 | charge delay                             | double          | The time delay before starting charging in s | [getChargeDelay](https://sumo.dlr.de/pydoc/traci/_chargingstation.html#ChargingStationDomain.getChargeDelay) |
+| discharge power                          | double          | The maximum power in W fed into the grid per [discharging vehicle](../Models/Electric.md#vehicle-to-grid) | [getDischargePower](https://sumo.dlr.de/pydoc/traci/_chargingstation.html#ChargingStationDomain.getDischargePower) |
+
+## Parameter Retrieval
+
+ChargingStations support retrieval of [generic parameters](../TraCI/GenericParameters.md#get_parameter) as well as the following [session dynamics parameters](../Models/Electric.md#session_power_ramps_and_stop_delay) via `chargingstation.getParameter(stationID, key)`:
+
+- `chargeRampUp` (power ramp-up rate in W/s)
+- `chargeRampDown` (power ramp-down rate in W/s)
+- `chargeStopDelay` (stop decoupling delay in s before planned departure)
+- `actualPower` (current signed station power in W summed across served vehicles; `+W` charging, `-W` discharging, `"0.00"` when idle)

@@ -40,6 +40,12 @@ These values have the following meanings (the defaults are from the Kia below):
 | device.battery.maximumChargeRate  | float      | 150000 (W)        | Maximum charging rate of the battery                    |
 | device.battery.chargeLevelTable   | float list |                   | Ordered list of state of charge values (from 0 to 1) for which maximum charge rates are defined in `device.battery.chargeCurveTable` |
 | device.battery.chargeCurveTable   | float list |                   | Corresponding maximum charge rates to each state of charge value in `device.battery.chargeLevelTable` |
+| device.battery.maximumDischargeRate | float    | 0 (W)             | Maximum rate at which the battery is discharged into a [charging station that accepts discharging](#vehicle-to-grid). The default 0 disables discharging |
+| device.battery.minimumChargeLevel | float      | 0 (Wh)            | Charge level which is kept when [discharging into a charging station](#vehicle-to-grid) |
+| device.battery.minimumSoC         | float      | 0                 | Lower state of charge (relative to the [usable capacity](#battery_state_of_health)) which is kept when [discharging into a charging station](#vehicle-to-grid), like the *MinimumSOC* of ISO 15118-20. The larger of this and minimumChargeLevel applies |
+| device.battery.maximumSoC         | float      | 1                 | Upper state of charge (relative to the usable capacity) up to which the battery is charged at a charging station |
+| device.battery.stateOfHealth      | float      | 1                 | [State of health](#battery_state_of_health): fraction of capacity which is usable |
+| device.battery.capacityLossPerCycle | float    | 0                 | Loss of state of health per [equivalent full cycle](#battery_state_of_health) |
 | maximumPower                      | float      | 150000 (W)        | Maximum power which the vehicle can reach (unused)      |
 | vehicleMass                       | float      | 1830 (kg)         | Vehicle mass *m<sub>veh</sub>* (deprecated)             |
 | loading                           | float      | 0 (kg)            | Additional mass **(to be defined in the vehicle type)** |
@@ -136,9 +142,13 @@ A charging station can be converted to a gas station by setting the **chargeType
 | friendlyPos | bool | true or false | false | Whether invalid charging station positions should be corrected automatically |
 | **power**           | float  (W) or (mg/s)  | power \> 0  | 22000  | Charging power *P<sub>chrg</sub>*  (If the battery device being charged  [is configured to track fuel](#tracking_fuel_consumption_for_non-electrical_vehicles), charging power will be interpreted as mg/s)  |
 | totalPower          | float  (W) or (mg/s)  | power >= 0  | 0  | Max. charging power *P<sub>chrg</sub>* sum for all charging vehicles of this station (to be shared at the ratio of requested power). Is only active for values > 0. |
-| **efficiency**      | float      | 0 <= efficiency <= 1                                                                       | 0.95   | Charging efficiency *η<sub>chrg</sub>*                                                                                          |
+| dischargePower      | float  (W)  | dischargePower >= 0  | 0  | Max. power *P<sub>dis</sub>* fed back into the grid per discharging vehicle ([vehicle-to-grid](#vehicle-to-grid)). Is only active for values > 0. |
+| **efficiency**      | float      | 0 <= efficiency <= 1                                                                       | 0.95   | Charging efficiency *η<sub>chrg</sub>* (also applies to discharging)                                                           |
 | **chargeInTransit** | bool       | true or false                                                                              | false  | Enable or disable charge in transit, i.e. vehicle is forced/not forced to stop for charging                                     |
-| **chargeDelay**     | float      | chargeDelay \> 0                                                                           | 0         | Time delay after the vehicles have reached / stopped on the charging station, before the energy transfer (charging) is starting |
+| **chargeDelay**     | float      | chargeDelay >= 0                                                                           | 0         | Time delay after the vehicles have reached / stopped on the charging station, before the energy transfer (charging) is starting |
+| chargeRampUp        | float (W/s) | chargeRampUp >= 0                                                                         | 0         | Power ramp-up rate when session power magnitude increases (0 = instantaneous)                                                   |
+| chargeRampDown      | float (W/s) | chargeRampDown >= 0                                                                       | 0         | Power ramp-down rate when session power magnitude decreases (0 = instantaneous)                                                 |
+| chargeStopDelay     | time (s)   | chargeStopDelay >= 0                                                                       | 0         | Time before the planned end of a stop (`duration` / `until`) at which target station power drops to 0 so power ramps down / decouples before departure |
 | chargeType | string | {normal, battery-exchange, fuel} | normal | Charging type  |
 | parkingArea         | string     | valid parkingArea id                                                                       |        | id of the parking the charging station should be positioned on (optional) - vehicles will only charge after reaching the parking
 
@@ -175,6 +185,70 @@ chargingStation as defined below:
     </vehicle>
 </routes>
 ```
+
+## Vehicle-to-grid
+
+A charging station with `dischargePower` > 0 also accepts energy from the vehicles stopping there (bidirectional charging, vehicle-to-grid).
+A vehicle takes part if its battery parameter `device.battery.maximumDischargeRate` is positive.
+While such a vehicle is [stopping](#stopping_at_a_charging_station) at such a station (a vehicle which is only slowed down, e.g. in a jam, does not count) and the `chargeDelay` has passed, its battery is kept at the level `device.battery.minimumChargeLevel`:
+
+- above this level, the battery is discharged into the station until the level is reached
+- below this level, the battery is charged with the normal charging power of the station until the level is reached
+- at this level, no energy is exchanged
+
+Like `power`, the `dischargePower` of the station applies to the grid side.
+The energy taken from the battery in a simulation step of length *Δt* is therefore
+
+*E<sub>dis</sub>* = min(*P<sub>dis</sub>* / *η<sub>chrg</sub>*, `maximumDischargeRate`) · *Δt*, but at most `chargeLevel` - `minimumChargeLevel`
+
+and the grid receives *E<sub>dis</sub>* · *η<sub>chrg</sub>*.
+Vehicles which are not stopping (e.g. moving across a station with `chargeInTransit="true"`) are charged as usual and are never discharged.
+Vehicles [tracking fuel](#tracking_fuel_consumption_for_non-electrical_vehicles) and stations with a `chargeType` other than `normal` never discharge.
+Discharging vehicles do not count towards the `totalPower` of a station.
+The energy used for driving (`totalEnergyConsumed`) does not include the discharged energy.
+
+```xml
+<additional>
+    <chargingStation id="cs0" lane="E0_0" startPos="10" endPos="30" power="11000" dischargePower="11000" efficiency="0.9"/>
+</additional>
+<routes>
+    <vehicle id="v0" route="route0" depart="0">
+        <param key="device.battery.chargeLevel" value="40000"/>
+        <param key="device.battery.maximumDischargeRate" value="11000"/>
+        <param key="device.battery.minimumChargeLevel" value="20000"/>
+        <stop chargingStation="cs0" duration="3600"/>
+    </vehicle>
+</routes>
+```
+
+All these values can be changed at runtime with [TraCI](#controlling_vehicle-to-grid). The discharged energy is reported as `energyDischarged` in the [battery-output](#battery-output),
+in the [charging station output](#charging_station_output) and as `totalEnergyDischarged` in the battery element of the [tripinfo-output](../Simulation/Output/TripInfo.md#battery).
+These attributes are only written for stations and vehicles taking part in vehicle-to-grid.
+
+## Battery state of health
+
+The usable capacity of a battery is capacity · stateOfHealth; the charge level never exceeds it.
+With a positive capacityLossPerCycle, the state of health decreases with the energy throughput of the battery
+(driving consumption, recuperation, charging and [discharging into a charging station](#vehicle-to-grid)):
+
+*SOH* ← max(0.05, *SOH* - capacityLossPerCycle · *E<sub>throughput</sub>* / (2 · capacity))
+
+The equivalent full cycles ((totalEnergyConsumed + totalEnergyRegenerated + totalEnergyCharged + totalEnergyDischarged) / (2 · capacity)),
+stateOfHealth, ffectiveCapacity (Wh) and 	otalEnergyCharged (Wh) can be retrieved with
+	raci.vehicle.getParameter(vehID, "device.battery.<key>"); minimumSoC, maximumSoC, stateOfHealth and
+capacityLossPerCycle can also be set at runtime. With the defaults (stateOfHealth=1, capacityLossPerCycle=0,
+minimumSoC=0, maximumSoC=1) the battery behaves as before.
+
+## Session power ramps and stop delay
+
+By default (`chargeRampUp="0"`, `chargeRampDown="0"`, `chargeStopDelay="0"`), charging and [vehicle-to-grid](#vehicle-to-grid) discharging apply rectangular power steps.
+When `chargeRampUp`, `chargeRampDown` or `chargeStopDelay` are positive, each vehicle's signed grid-side session power (*+W* when charging, *-W* when discharging) follows a piecewise-linear trapezoidal trajectory over each simulation step:
+
+- `chargeRampUp` (in W/s) limits how fast session power magnitude increases toward the target charging or discharging power.
+- `chargeRampDown` (in W/s) limits how fast session power magnitude decreases toward a lower target or 0 (crossing 0 cleanly when switching between charging and discharging).
+- `chargeStopDelay` (in s) sets the target power to 0 during the final `chargeStopDelay` seconds of a planned stop (`duration` / `until`), allowing power to ramp down and hold at 0 before departure.
+
+These parameters can also be queried and updated dynamically via `traci.chargingstation.getParameter` and `traci.chargingstation.setParameter` using keys `"chargeRampUp"`, `"chargeRampDown"` and `"chargeStopDelay"`, while `"actualPower"` (read-only) returns the sum of current signed station power in W across vehicles served at the station (`"0.00"` when idle).
 
 ## Charging Station output
 
@@ -221,6 +295,7 @@ For the entire ChargingStation:
 | ------------------ | ------ | ----------------------------------------------------------- |
 | id                 | string | ChargingStation ID                                          |
 | totalEnergyCharged | float  | Total energy charged in Wh during the entire simulation      |
+| totalEnergyDischarged | float  | Total energy in Wh taken from vehicle batteries by [discharging](#vehicle-to-grid) during the entire simulation (only for stations with `dischargePower` > 0) |
 | chargingSteps      | int    | Number of steps in which chargingStation was charging energy |
 
 For the current charging vehicle
@@ -230,6 +305,7 @@ For the current charging vehicle
 | id                            | string | ID of vehicle that is charging in these charging stop         |
 | type                          | string | type of vehicle                                               |
 | totalEnergyChargedIntoVehicle | double | Energy charged (in Wh) during these charging stop                     |
+| totalEnergyDischargedFromVehicle | double | Energy (in Wh) taken from the battery by [discharging](#vehicle-to-grid) during these charging stop (only for stations with `dischargePower` > 0) |
 | chargingBegin                 | float  | TimeStep in which vehicle starts with the charge (in seconds) |
 | chargingEnd                   | float  | TimeStep in which vehicle ends with the charge (in seconds)   |
 
@@ -238,10 +314,11 @@ For every charging timeStep:
 | Name                   | Type   | Description                                                                 |
 | ---------------------- | ------ | --------------------------------------------------------------------------- |
 | time                   | float  | Current timestep (s)                                                        |
-| chargingStatus         | string | Current charging status (Charging, waiting to charge o not charging)        |
+| chargingStatus         | string | Current charging status (Charging, discharging, waiting to charge o not charging) |
 | energyCharged          | float  | Energy charged in current timeStep                                          |
+| energyDischarged       | float  | Energy taken from the battery by [discharging](#vehicle-to-grid) in current timeStep (only for stations with `dischargePower` > 0) |
 | partialCharge          | float  | Energy charged by ChargingStation from begin of simulation to this timeStep |
-| power                  | float  | Current power of ChargingStation                                            |
+| power                  | float  | Current power of ChargingStation (`dischargePower` when discharging)        |
 | efficiency             | float  | Current efficiency of ChargingStation                                       |
 | actualBatteryCapacity  | string | Current battery capacity of vehicle                                         |
 | maximumBatteryCapacity | string | Current maximum battery capacity of vehicle                                 |
@@ -330,6 +407,7 @@ The battery-output generates a file with this structure:
 | energyCharged          | double | Charge received in the current time step from a charging station (Only \!= 0 if vehicle is exactly at a charging station) |
 | energyChargedInTransit | double | Charge that a vehicle in transit received in the current time step from a charging station                                |
 | energyChargedStopped   | double | Charge that a stopped vehicle received in the current time step from a charging station                                   |
+| energyDischarged       | double | Energy taken from the battery in the current time step by [discharging](#vehicle-to-grid) into a charging station (only for vehicles with `device.battery.maximumDischargeRate` > 0) |
 | speed                  | double | Speed of vehicle in this timestep                                                                                         |
 | acceleration           | double | Acceleration of vehicle in this timestep                                                                                  |
 | x                      | double | absolute position x of vehicle in the map                                                                                 |
@@ -378,6 +456,22 @@ mWh = traci.vehicle.getDistance(vehID) / float(traci.vehicle.getParameter(vehID,
 remainingRange = float(traci.vehicle.getParameter(vehID, "device.battery.chargeLevel")) * mWh
 ```
 To compute the remaining range on departure, the value of `mWh` (meters per Watt-hour) should be calibrated from a prior simulation.
+
+## Controlling vehicle-to-grid
+
+The parameters for [discharging](#vehicle-to-grid) can be changed while the vehicle is stopped at a charging station.
+The following code discharges a vehicle with at most 7.2 kW until 25 kWh are left in its battery, stops the discharging later on
+and finally disables discharging at the station:
+```python
+traci.vehicle.setParameter(vehID, "device.battery.maximumDischargeRate", "7200")
+traci.vehicle.setParameter(vehID, "device.battery.minimumChargeLevel", "25000")
+...
+discharged = float(traci.vehicle.getParameter(vehID, "device.battery.energyDischarged"))  # Wh in the last step
+total = float(traci.vehicle.getParameter(vehID, "device.battery.totalEnergyDischarged"))
+...
+traci.vehicle.setParameter(vehID, "device.battery.maximumDischargeRate", "0")  # charge again
+traci.chargingstation.setDischargePower(chargingStationID, 0)
+```
 
 ## Reducing the power of a charging station
 

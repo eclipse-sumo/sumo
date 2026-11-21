@@ -3,3 +3,9 @@ basic
 chargingPower
 
 efficiency
+
+discharge
+
+session_ramps
+
+v2x_bms_soh
