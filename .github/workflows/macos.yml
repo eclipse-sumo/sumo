@@ -130,7 +130,6 @@ jobs:
       uses: actions/download-artifact@v8
       with:
         name: ${{ matrix.os }}-build.tar.zst
-        skip-decompress: true
 
     - name: Unpacking build
       run: |
