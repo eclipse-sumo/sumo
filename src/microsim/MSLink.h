@@ -141,25 +141,25 @@ public:
         }
 
         /// @brief The time the vehicle's front arrives at the link
-        const SUMOTime arrivalTime;
+        SUMOTime arrivalTime;
         /// @brief The estimated time at which the vehicle leaves the link
-        const SUMOTime leavingTime;
+        SUMOTime leavingTime;
         /// @brief The estimated speed with which the vehicle arrives at the link (for headway computation)
-        const double arrivalSpeed;
+        double arrivalSpeed;
         /// @brief The estimated speed with which the vehicle leaves the link (for headway computation)
-        const double leaveSpeed;
+        double leaveSpeed;
         /// @brief Whether the vehicle wants to pass the link (@todo: check semantics)
-        const bool willPass;
+        bool willPass;
         /// @brief The estimated speed with which the vehicle arrives at the link if it starts braking(for headway computation)
-        const double arrivalSpeedBraking;
+        double arrivalSpeedBraking;
         /// @brief The waiting duration at the current link
-        const SUMOTime waitingTime;
+        SUMOTime waitingTime;
         /// @brief The distance up to the current link
-        const double dist;
+        double dist;
         /// @brief The current speed
-        const double speed;
+        double speed;
         /// @brief The lateral offset from the center of the entering lane
-        const double latOffset;
+        double latOffset;
 
     };
 
@@ -180,7 +180,7 @@ public:
         const SUMOTime leavingTime;
     };
 
-    typedef std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess> ApproachInfos;
+    typedef std::map<const SUMOVehicle*, ApproachingVehicleInformation, ComparatorNumericalIdLess> ApproachInfos;
     typedef std::vector<const SUMOTrafficObject*> BlockingFoes;
     typedef std::map<const MSPerson*, ApproachingPersonInformation> PersonApproachInfos;
 
@@ -297,6 +297,12 @@ public:
                         const double arrivalSpeed, const double leaveSpeed, const bool setRequest,
                         const double arrivalSpeedBraking,
                         const SUMOTime waitingTime, double dist, double latOffset);
+
+    /// @brief like setApproaching but overwrites an existing entry in place (no erase and insert)
+    void updateApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime,
+                           const double arrivalSpeed, const double leaveSpeed, const bool setRequest,
+                           const double arrivalSpeedBraking,
+                           const SUMOTime waitingTime, double dist, double latOffset);
 
     /** @brief Sets the information about an approaching vehicle */
     void setApproaching(const SUMOVehicle* approaching, ApproachingVehicleInformation ai);
