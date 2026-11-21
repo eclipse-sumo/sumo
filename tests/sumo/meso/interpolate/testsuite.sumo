@@ -3,3 +3,9 @@ fcd-geo
 
 # small jam to have a valid queue in front of a tls
 queue_small_jam
+
+# queue behind a red light spilling back over several segments with meso-ltm
+queue_spillback_ltm
+
+# vehicles queueing behind a stopped vehicle
+queue_stop
