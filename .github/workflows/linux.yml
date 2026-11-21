@@ -66,13 +66,11 @@ jobs:
         path: jupedsim
 
     - name: ccache
-      # the SonarQube build wrapper needs an uncached build
-      if: ${{ !(matrix.os == 'ubuntu-latest' && matrix.build_type == 'full' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && matrix.compiler == 'gcc') }}
+      # do a clean build once a day
+      if: github.event_name != 'schedule'
       uses: hendrikmuhs/ccache-action@v1.2.25
       with:
         key: ${{ matrix.os }}-${{ matrix.build_type }}-${{ matrix.compiler }}
-        save: ${{ github.ref == 'refs/heads/main' }}
-        evict-old-files: job
 
     - name: Building libjupedsim
       if: matrix.build_type == 'full' && matrix.compiler == 'gcc'

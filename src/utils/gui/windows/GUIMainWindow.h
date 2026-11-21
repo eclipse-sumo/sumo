@@ -39,7 +39,6 @@ class GUIGlChildWindow;
 class GUISUMOAbstractView;
 class MFXStaticToolTip;
 class MFXCheckableButton;
-class GUINewsFeed;
 
 
 // ===========================================================================
@@ -151,9 +150,6 @@ public:
 
     /// @brief return whether to list teleporting vehicles
     bool listTeleporting() const;
-
-    /// @brief fetch the release news feed in the background if it was not accessed recently
-    void checkNews();
 
     /// @brief get instance
     static GUIMainWindow* getInstance();
@@ -298,9 +294,6 @@ protected:
     bool myListTeleporting;
 
     /// @brief online mapping services for the context menu
-    /// @brief fetcher for the release news
-    GUINewsFeed* myNewsFeed = nullptr;
-
     std::map<std::string, std::string> myOnlineMaps;
 
     /// @brief the singleton window instance

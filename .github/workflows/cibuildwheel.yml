@@ -88,9 +88,6 @@ jobs:
         with:
           key: ${{ matrix.os }}-${{ matrix.manylinux }}
           variant: ${{ startsWith(matrix.os, 'windows') && 'sccache' || 'ccache' }}
-          save: ${{ github.ref == 'refs/heads/main' }}
-          # ccache only, sccache has no eviction option
-          evict-old-files: ${{ startsWith(matrix.os, 'windows') && '' || 'job' }}
 
       - name: Set up Python
         uses: actions/setup-python@v7

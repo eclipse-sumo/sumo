@@ -10,8 +10,6 @@ set(utils_gui_windows_STAT_SRCS
    GUIGlChildWindow.h
    GUIMainWindow.cpp
    GUIMainWindow.h
-   GUINewsFeed.cpp
-   GUINewsFeed.h
    GUIPerspectiveChanger.cpp
    GUIPerspectiveChanger.h
    GUISUMOAbstractView.cpp

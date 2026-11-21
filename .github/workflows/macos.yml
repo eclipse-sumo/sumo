@@ -12,9 +12,7 @@ on:
     paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
   schedule:
-    - cron:  '5 2 * * 1-6'
-    # weekly clean build (no cache restore)
-    - cron:  '5 2 * * 0'
+    - cron:  '5 2 * * *'
 
 jobs:
   build:
@@ -37,12 +35,10 @@ jobs:
         ref: ${{ github.ref }}
 
     - name: ccache
+      if: github.event_name != 'schedule'
       uses: hendrikmuhs/ccache-action@v1.2.25
       with:
-        restore: ${{ github.event.schedule != '5 2 * * 0' }}
         key: ${{ matrix.os }}
-        save: ${{ github.ref == 'refs/heads/main' }}
-        evict-old-files: job
 
     - name: Configuring Python
       uses: actions/setup-python@v7

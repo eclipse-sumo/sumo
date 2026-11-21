@@ -452,7 +452,6 @@ GUIApplicationWindow::create() {
         myOnlineMaps["OSM"] = "https://www.openstreetmap.org/?mlat=%lat&mlon=%lon&zoom=18&layers=M";
     }
     updateTimeLCDTooltip();
-    checkNews();
 }
 
 

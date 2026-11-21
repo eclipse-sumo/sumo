@@ -669,7 +669,6 @@ GNEApplicationWindow::create() {
             maximize();
         }
     }
-    checkNews();
 }
 
 
