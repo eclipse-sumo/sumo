@@ -71,6 +71,9 @@ public:
     double followSpeed(const MSVehicle* const veh, double speed, double gap2pred,
                        double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0, const CalcReason usage = CalcReason::CURRENT) const;
 
+    double insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred,
+                                double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const override;
+
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
      * @param[in] veh The vehicle (EGO)
@@ -147,7 +150,7 @@ private:
     /* @brief the main enty point for the speed computation
      * @param[in] gap The netto gap (front bumper of ego to back bumper of leader)
      */
-    double _v(const MSVehicle* veh, double predSpeed, double gap, double predAccel) const;
+    double _v(const MSVehicle* veh, double speed, double predSpeed, double gap, double predAccel) const;
 
     /// @name acceleration based on the 'driving regime'
     /// @{
