@@ -26,8 +26,15 @@
 #include <bitset>
 #include <utils/common/StringUtils.h>
 #include <microsim/MSEventControl.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSLink.h>
+#include <microsim/MSStop.h>
+#include <microsim/MSVehicleType.h>
+#include <mesosim/MELoop.h>
+#include <mesosim/MESegment.h>
+#include <mesosim/MEVehicle.h>
 #include "MSTrafficLightLogic.h"
 #include "MSRailCrossing.h"
 #include <microsim/MSLane.h>
@@ -136,6 +143,86 @@ MSRailCrossing::updateCurrentPhase() {
         if (link->getViaLane() != nullptr && link->getViaLane()->getVehicleNumberWithPartials() > 0) {
             // do not open if there is still a train on the crossing
             stayRedUntil = MAX2(stayRedUntil, now + DELTA_T + myOpeningDelay);
+        }
+        if (MSGlobals::gUseMesoSim && MSGlobals::gMesoNet != nullptr && link->getLaneBefore() != nullptr && link->getLane() != nullptr) {
+            const MSEdge& railEdge = link->getLaneBefore()->getEdge();
+            const MSEdge& targetEdge = link->getLane()->getEdge();
+            const double maxLookbackDist = MAX2(mySpaceGap, STEPS2TIME(myTimeGap + myYellowTime) * MAX2(1.0, railEdge.getSpeedLimit()) * 2.0);
+            std::vector<std::pair<const MSEdge*, double>> stack;
+            std::set<const MSEdge*> visited;
+            stack.push_back(std::make_pair(&railEdge, 0.));
+            visited.insert(&railEdge);
+            while (!stack.empty()) {
+                const MSEdge* currEdge = stack.back().first;
+                const double downstreamEdgesDist = stack.back().second;
+                stack.pop_back();
+                std::vector<MESegment*> segs;
+                for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*currEdge); s != nullptr; s = s->getNextSegment()) {
+                    segs.push_back(s);
+                }
+                double remOnEdge = 0.;
+                for (int sIdx = (int)segs.size() - 1; sIdx >= 0; --sIdx) {
+                    MESegment* s = segs[sIdx];
+                    for (int qIdx = 0; qIdx < s->numQueues(); ++qIdx) {
+                        for (const MEVehicle* veh : s->getQueue(qIdx)) {
+                            if (link->getApproaching().count(veh) > 0) {
+                                continue;
+                            }
+                            const MSRouteIterator curRouteIt = veh->getCurrentRouteEdge();
+                            const MSRouteIterator routeEnd = veh->getRoute().end();
+                            MSRouteIterator railEdgeIt = routeEnd;
+                            for (MSRouteIterator it = curRouteIt; it != routeEnd; ++it) {
+                                if (*it == &railEdge && (it + 1) != routeEnd && *(it + 1) == &targetEdge) {
+                                    railEdgeIt = it;
+                                    break;
+                                }
+                            }
+                            if (railEdgeIt == routeEnd) {
+                                continue;
+                            }
+                            SUMOTime estArrival = MAX2(now, veh->getEventTime());
+                            const double vCurr = MAX2(0.1, currEdge->getVehicleMaxSpeed(veh));
+                            estArrival += TIME2STEPS(remOnEdge / vCurr);
+                            double routeDownstreamDist = remOnEdge;
+                            for (MSRouteIterator it = curRouteIt + 1; it <= railEdgeIt; ++it) {
+                                const double vEdge = MAX2(0.1, (*it)->getVehicleMaxSpeed(veh));
+                                estArrival += TIME2STEPS((*it)->getLength() / vEdge);
+                                routeDownstreamDist += (*it)->getLength();
+                            }
+                            for (const MSStop& stop : veh->getStops()) {
+                                if (!stop.reached && stop.edge <= railEdgeIt
+                                        && (stop.edge > curRouteIt || (stop.edge == curRouteIt && stop.segment != nullptr && stop.segment->getIndex() > s->getIndex()))) {
+                                    if (stop.duration > 0) {
+                                        estArrival += stop.duration;
+                                    }
+                                    if (stop.pars.until >= 0) {
+                                        estArrival = MAX2(estArrival, stop.pars.until);
+                                    }
+                                }
+                            }
+                            const double distToCrossing = s->getLength() + routeDownstreamDist;
+                            const double arrSpeed = railEdge.getVehicleMaxSpeed(veh);
+                            const double leaveSpeed = link->getViaLaneOrLane()->getVehicleMaxSpeed(veh);
+                            const SUMOTime estLeaving = link->getLeaveTime(estArrival, arrSpeed, leaveSpeed, veh->getVehicleType().getLength());
+                            if (estArrival - myYellowTime - now < myTimeGap) {
+                                stayRedUntil = MAX2(stayRedUntil, estLeaving + myOpeningDelay);
+                            }
+                            if (mySpaceGap >= 0 && distToCrossing < mySpaceGap) {
+                                stayRedUntil = MAX2(stayRedUntil, estLeaving + myOpeningDelay);
+                            }
+                        }
+                    }
+                    remOnEdge += s->getLength();
+                }
+                const double nextDownstreamDist = downstreamEdgesDist + currEdge->getLength();
+                if (nextDownstreamDist <= maxLookbackDist) {
+                    for (const MSEdge* pred : currEdge->getPredecessors()) {
+                        if ((pred->getPermissions() & SVC_RAIL_CLASSES) != 0 && visited.insert(pred).second) {
+                            stack.push_back(std::make_pair(pred, nextDownstreamDist));
+                        }
+                    }
+                }
+            }
         }
     }
     //if (getID() == "cluster_1088529493_1260626727") std::cout << SIMTIME << " stayRedUntil=" << stayRedUntil;
