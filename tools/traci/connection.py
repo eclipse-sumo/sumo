@@ -152,7 +152,8 @@ class Connection(StepManager):
         return result
 
     def _pack(self, format, *values):
-        packed = bytes()
+        # Grow list payloads without repeatedly copying the encoded prefix.
+        packed = bytearray()
         for f, v in zip(format, values):
             if f == "i":
                 packed += struct.pack("!Bi", tc.TYPE_INTEGER, int(v))
@@ -205,7 +206,7 @@ class Connection(StepManager):
                 s = str(v[0]).encode("utf8")
                 packed += struct.pack("!Bi", tc.POSITION_ROADMAP, len(s)) + s
                 packed += struct.pack("!dB", v[1], v[2])
-        return packed
+        return bytes(packed)
 
     def _sendCmd(self, cmdID, varID, objID, format="", *values):
         with self._lock:
