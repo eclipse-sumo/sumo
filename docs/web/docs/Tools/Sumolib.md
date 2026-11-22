@@ -99,12 +99,15 @@ For larger networks [rtree](https://pypi.org/project/Rtree/) is also strongly re
 net = sumolib.net.readNet('myNet.net.xml')
 radius = 0.1
 x, y = net.convertLonLat2XY(lon, lat)
-edges = net.getNeighboringEdges(x, y, radius)
+edges = net.getNeighboringEdges(x, y, radius, includeJunctions=False)
 # pick the closest edge
 if len(edges) > 0:
     distancesAndEdges = sorted([(dist, edge) for edge, dist in edges], key=lambda x:x[0])
     dist, closestEdge = distancesAndEdges[0]
 ```
+
+!!! caution
+    Both `net.getNeighboringEdges(x, y, r=0.1, includeJunctions=True)` and `net.getNeighboringLanes(x, y, r=0.1, includeJunctions=True)` default to `includeJunctions=True`. That flag appends straight line segments from each edge or lane endpoint to its `fromNode` and `toNode` center coordinates (`Edge.getShape(True)` and `Lane.getShape(True)`). Inside large junctions, those synthetic node-center segments can lie closer to a query point than the actual approach or internal lane geometry. Pass `includeJunctions=False` (or call `net.getNearestLane`) to match against physical lane shapes, and pass `withInternal=True` to `sumolib.net.readNet` when internal junction lanes (`:J_0`) should be included.
 
 ## locate the nearest lane
 
