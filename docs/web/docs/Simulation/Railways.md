@@ -633,6 +633,8 @@ These parameters control the appearance of trains in [sumo-gui](../sumo-gui.md) 
 By default, the front of the train will be indicated by a darker carriage color and a front windscreen. This can be disabled by setting `locomotiveLength="0"`.
 The parameter `carriageImages` accepts a comma-separated list of image file names to enable distinct images when using vehicle style 'raster images'.
 
+SUMO simulates each train as a single vehicle object, so `traci.vehicle.getPosition(vehID)` returns the 2D coordinate of the front bumper and TraCI does not expose individual carriage objects. During rendering, `sumo-gui` projects the locomotive (`locomotiveLength`) and subsequent carriages (`carriageLength`, separated by `carriageGap`, default `1.0` m) backward along the polylines of the occupied lanes. Client scripts can reconstruct individual carriage front and rear coordinates by walking backward from `(traci.vehicle.getLaneID(vehID), traci.vehicle.getLanePosition(vehID))` along the geometry (`traci.lane.getShape`) of the current lane and preceding edges in `traci.vehicle.getRoute(vehID)`.
+
 ## Network
 
 By default, railway tracks are shown in [sumo-gui](../sumo-gui.md) in a distinct style:
