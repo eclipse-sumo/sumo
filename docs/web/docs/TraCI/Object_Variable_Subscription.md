@@ -85,11 +85,45 @@ the error message.
 
 - In the [python
   library](../TraCI/Interfacing_TraCI_from_Python.md#subscriptions),
-  all domains support the methods [*subscribe* and
-  *unsubscribe*](https://sumo.dlr.de/pydoc/traci/domain.html#Domain)
-- In the [C++ library](../TraCI/C++TraCIAPI.md), the method
-  *simulation.subscribe* takes an additional argument that encodes the
-  domain
+  all 24 TraCI domains (`inductionloop`, `lanearea`, `multientryexit`, `trafficlight`, `lane`, `vehicle`, `vehicletype`, `route`, `poi`, `polygon`, `junction`, `edge`, `simulation`, `gui`, `person`, `busstop`, `parkingarea`, `chargingstation`, `calibrator`, `rerouter`, `routeprobe`, `overheadwire`, `variablespeedsign`, and `meandata`) support [*subscribe*, *getSubscriptionResults*, *getAllSubscriptionResults*, and *unsubscribe*](https://sumo.dlr.de/pydoc/traci/domain.html#Domain).
+- In [Libsumo](../Libsumo.md) and [Libtraci](../Libtraci.md), each domain class (`Vehicle`, `Simulation`, `Edge`, and the remaining domains) provides static `subscribe`, `getSubscriptionResults`, `getAllSubscriptionResults`, and `unsubscribe` methods.
+- In the legacy [C++ socket library](../TraCI/C++TraCIAPI.md), *simulation.subscribe* takes an additional command-ID argument that encodes the domain.
+
+# Symbolic Constants and Subscribable Variables
+
+Pass symbolic constants from `traci.constants` in Python (`import traci.constants as tc`) or `<libsumo/TraCIConstants.h>` in C++ and Java (`org.eclipse.sumo.libtraci.Constants`) when subscribing:
+
+```python
+import traci
+import traci.constants as tc
+
+traci.vehicle.subscribe(vehID, [tc.VAR_SPEED, tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION, tc.VAR_WAITING_TIME])
+```
+
+Each domain's value-retrieval page lists the hexadecimal variable IDs alongside their getters, and the matching `VAR_*` constant names are defined in [`tools/traci/constants.py`](https://sumo.dlr.de/pydoc/traci/constants.html) (plus `tc.TRACI_ID_LIST` for `getIDList()` and `tc.ID_COUNT` for `getIDCount()`).
+
+## Variables Excluded from Subscriptions
+
+Almost all read-only state variables across the value-retrieval pages are subscribable. The following commands and variables cannot be subscribed:
+
+- **Stateless coordinate, distance, and routing queries**: `POSITION_CONVERSION` (`0x82`), `DISTANCE_REQUEST` (`0x83`), `FIND_ROUTE` (`0x86`), and `FIND_INTERMODAL_ROUTE` (`0x87`) in `simulation`.
+- **State-modifying queries**: `TL_CONSTRAINT_SWAP` (`0x32`) in `trafficlight` and `SPLIT_TAXI_RESERVATIONS` (`0x01` flag) in `person`.
+- **Domain ID list on `simulation`**: `TRACI_ID_LIST` (`0x00`) and `ID_COUNT` (`0x01`) are unsupported on `traci.simulation.subscribe` (use `VAR_LOADED_VEHICLES_IDS`, `VAR_DEPARTED_VEHICLES_IDS`, or `VAR_MIN_EXPECTED_NUMBER` on `simulation`, or `TRACI_ID_LIST` on an entity domain with an arbitrary object ID).
+- **Libsumo and Libtraci specifics**: [Libsumo](../Libsumo.md) does not support subscribing to `simulation` `VAR_COLLISIONS` (`0x23`), `simulation` `VAR_NET_BOUNDING_BOX` (`0x7c`), or `meandata` `VAR_MEANDATA_LANE` (`0x16`); call their direct getters (`Simulation::getCollisions()`, `Simulation::getNetBoundary()`) instead. [Libtraci](../Libtraci.md) supports parameterized subscriptions via `Vehicle::subscribeLeader` (`VAR_LEADER`) and `subscribeParameterWithKey` (`VAR_PARAMETER_WITH_KEY`), whereas multi-parameter subscriptions require the pure Python `traci` client.
+
+## Variables Requiring Subscription Parameters
+
+Any variable whose getter accepts arguments beyond `objectID` requires passing `parameters={varID: argument}` to `subscribe(...)` (or calling a dedicated helper where provided):
+
+| Domain | Symbolic Constant | Extra Parameter Type |
+| --- | --- | --- |
+| Any domain | `tc.VAR_PARAMETER` (`0x7e`), `tc.VAR_PARAMETER_WITH_KEY` (`0x3e`) | `string` parameter key (or `subscribeParameterWithKey`) |
+| `vehicle` | `tc.VAR_LEADER` (`0x68`) | `double` lookahead distance in m (or `traci.vehicle.subscribeLeader`) |
+| `vehicle` | `tc.VAR_NEIGHBORS` (`0xbf`) | `ubyte` bitset mode |
+| `vehicle` | `tc.VAR_NEXT_STOPS` (`0x73`) | `int` selection mode |
+| `vehicle` | `tc.VAR_FOES` (`0x37`) | `double` distance |
+| `vehicle`, `edge` | `tc.VAR_EDGE_TRAVELTIME` (`0x58`), `tc.VAR_EDGE_EFFORT` (`0x59`) | `double` time (on `edge`) or compound `(time, edgeID)` (on `vehicle`) |
+| `vehicle` | `tc.VAR_FOLLOW_SPEED` (`0x1c`), `tc.VAR_SECURE_GAP` (`0x1d`), `tc.VAR_STOP_SPEED` (`0x1e`) | Compound tuple of speed, gap, and leader parameters |
 
 # Special Cases
 
