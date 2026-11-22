@@ -104,15 +104,23 @@ to compute these probabilities:
 
 #### Updates of Travel Time
 
-The update rule is explained with the following example. Driver d chooses Route r in Iteration i. The travel time Tau_d(r, i+1) is calculated according to the aggregated and averaged link travel times per defined interval (default: 900 s) in Iteration i. The travel time for Driver d's Route r in Iteration i+1 equals to Tau_d(r, i) as indicated in Formula (1). The travel times of the other routes in Driver d's route set are then updated with Formula (2) respectively, where Tau_d(s, i) is the travel time needed to travel on Route s in Iteration i and calculated with the same way used for calculating Tau_d(r, i) an T_d(s, i-1). The parameter beta is to prevent travellers from strongly "remembering" the latest trave time of each route in their route sets. The current default value for beta is 0.3.
+The update rule is explained with the following example. Driver `d` chooses route `r` in iteration `i`. The simulated travel time `Tau_d(r, i)` is calculated by summing the aggregated, interval-averaged link travel times (default interval: `900` s) along route `r` in iteration `i`. For iteration `i+1`, the remembered cost of the chosen route `r` is set directly to `Tau_d(r, i)` in Formula (1), while each unchosen route `s` in driver `d`'s route set is smoothed with its prior remembered cost `T_d(s, i)` using parameter `beta` (**--gawron.beta**, `duaIterate.py` **--gBeta**, default `0.9`) in Formula (2):
 
-T_d(r, i+1) = Tau_d(r, i) ------------------------------------(1)
+```text
+T_d(r, i+1) = Tau_d(r, i)                                    (1)
+T_d(s, i+1) = beta * Tau_d(s, i) + (1-beta) * T_d(s, i)      (2)
+```
 
-T_d(s, i+1) = beta * Tau_d(s, i) + (1 - beta) * T_d(s, i-1) ---(2)
+Using edge-averaged link travel times can underestimate turn-specific delays when congestion affects only one movement at an intersection.
 
-, where s is one of the routes, which are not selected to use in Iteration i, in Driver d's route set.
+#### Differences from Gawron (1998)
 
-The aforementioned update rules also apply when other travel cost units are used. The way to use simulated link costs for calculating route costs may result in cost underestimation especially when significant congestion only on one of traffic movements (e.g. left-turn or right-turn) exists. The existing ticket #2566 deals with this issue. In Formula (1), it is also possible to use Driver d's actual travel cost in Iteration i as Tau_d(r, i).
+SUMO's implementation in [duarouter](../duarouter.md) (`GawronCalculator`) differs from Gawron's original dissertation formulation in four respects:
+
+1. **Link-aggregated cost for the chosen route**: Gawron (1998) updates the chosen route cost `T_d(r, i+1)` from the individual driver's experienced end-to-end trip duration, whereas `duarouter` evaluates `Tau_d(r, i)` from interval-averaged edge travel times in the dump file.
+2. **Bounded route set with probability pruning**: Each vehicle retains at most **--max-alternatives** routes (default `5`); whenever adding a newly found shortest path exceeds that limit, the route with the smallest choice probability is dropped.
+3. **Default parameter values**: SUMO defaults to **--gawron.beta 0.9** (`duaIterate.py` **--gBeta 0.9**) for cost smoothing and **--gawron.a 0.5** (`duaIterate.py` **--gA 0.5**) for the probability-shift sensitivity.
+4. **Sequential pairwise updates and numerical safeguards**: Route probabilities are updated sequentially across all pairs `(r, s)` in the candidate set, clamping intermediate probabilities to `[0, 1]` and assigning `(p_r + p_s) / 2` whenever equal route costs produce an indeterminate `0 / 0` (`NaN`) ratio.
 
 ### Logit
 
