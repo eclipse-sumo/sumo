@@ -43,8 +43,11 @@ retry() {
 SCRIPT_DIR=$(dirname $0)
 case "$ID" in
     macOS)
-        retry brew update
-        retry brew bundle --file=$SCRIPT_DIR/Brewfile --no-upgrade
+        # with SKIP_BREW_UPDATE homebrew is only updated if the installation fails without it
+        if [[ -z "$SKIP_BREW_UPDATE" ]] || ! brew bundle --file=$SCRIPT_DIR/Brewfile --no-upgrade; then
+            retry brew update
+            retry brew bundle --file=$SCRIPT_DIR/Brewfile --no-upgrade
+        fi
         SUDO=sudo
         ;;
     ubuntu|debian)
