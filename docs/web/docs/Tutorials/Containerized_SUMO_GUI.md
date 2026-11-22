@@ -86,6 +86,25 @@ docker run \
 You will then have a shell, where you can start the GUI applications.
 E.g. by typing `netedit` or `sumo-gui`.
 
+### macOS
+
+Install [XQuartz](https://www.xquartz.org/) (`2.8.6` or newer on macOS Tahoe `26.6+`), enable *Allow connections from network clients* under *XQuartz -> Settings -> Security*, restart XQuartz, and authorize local container connections from a macOS terminal:
+
+```shell
+xhost +localhost
+mkdir -p ~/sumo-projs
+docker run \
+    -e DISPLAY=host.docker.internal:0 \
+    -e GALLIUM_DRIVER=llvmpipe \
+    -v ~/sumo-projs:/sumo-projs \
+    --workdir /sumo-projs \
+    -it \
+    ghcr.io/eclipse-sumo/sumo:latest bash
+```
+
+!!! note
+    Native `sumo-gui` and `netedit` builds on macOS Tahoe (`26.x`) require macOS `26.6` or newer together with XQuartz `2.8.6` or newer to avoid `GLXBadContext` startup failures. When Homebrew Mesa `26.x` shifts the OpenGL viewport or hides the bottom message log pane in native builds, export `GALLIUM_DRIVER=llvmpipe` in your terminal before launching `sumo-gui` or `netedit` so Mesa uses its CPU software rasterizer.
+
 ## Creating and Running the Simulation
 
 Follow the steps from [Hello SUMO](Hello_SUMO.md) using this GUI and save the resulting files in `/sumo-projs`, so they are saved in a persistent location.
