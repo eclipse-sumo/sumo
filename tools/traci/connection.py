@@ -104,6 +104,7 @@ class Connection(StepManager):
 
     def _recvExact(self):
         try:
+            # Accumulate chunks in a bytearray for speedup over repeated bytes concatenation.
             result = bytearray()
             while len(result) < 4:
                 t = self._socket.recv(4 - len(result))
@@ -127,6 +128,7 @@ class Connection(StepManager):
         length = struct.pack("!i", len(self._string) + 4)
         if _DEBUG:
             print("sending", Storage(length + self._string).getDebugString())
+        # sendall makes sure that the complete framed message is sent across partial writes.
         self._socket.sendall(length + self._string)
         result = self._recvExact()
         if _DEBUG:
