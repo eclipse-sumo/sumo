@@ -18,6 +18,9 @@ Elevation data can be imported from the following sources
 - by shifting geometry points and junctions along the z-axis in [netedit move mode](../Netedit/editModesCommon.md#changing_elevation).
 - by generating an abstract network with z-level noise using [netgenerate](../netgenerate.md) option **--perturb-z**
 
+!!! caution
+    [sumo](../sumo.md) and [sumo-gui](../sumo-gui.md) never modify `.net.xml` files, whereas [netconvert](../netconvert.md) and [netedit](../Netedit/index.md) recompute lane, junction, and internal connection 3D shapes from node and edge geometries whenever saving or rebuilding the network (overwriting manual edits to `.net.xml`; see the [FAQ](../FAQ.md#i_made_changes_to_the_netxml-file_but_it_did_not_work_as_expected_why)). Define persistent 3D slopes via node `z` coordinates, 3D `shape` attributes in `.edg.xml` patch files, or `netedit` Move and Inspect modes.
+
 # Related Topics
 
 ## Retrieving Elevation data via [TraCI](../TraCI/index.md)
