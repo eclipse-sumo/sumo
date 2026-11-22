@@ -1,0 +1,7 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" sigma="0" lcSigma="0.5"/>
+    <flow id="w" from="1fi" to="2o" begin="0" end="20" period="2"/>
+    <flow id="e" from="2fi" to="1o" begin="0" end="20" period="2"/>
+    <flow id="s" from="3fi" to="4o" begin="0" end="20" period="2"/>
+    <flow id="n" from="4fi" to="3o" begin="0" end="20" period="2"/>
+</routes>
