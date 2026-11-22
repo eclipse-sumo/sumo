@@ -795,8 +795,7 @@ install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         PATTERN "*.pyc" EXCLUDE
         PATTERN "*.egg-info" EXCLUDE
         PATTERN ".git" EXCLUDE)
-# this is a hack which works only with a non-isolated build
-install(DIRECTORY tools/libsumo/ DESTINATION libsumo COMPONENT tools_libsumo EXCLUDE_FROM_ALL
+install(DIRECTORY ${CMAKE_BINARY_DIR}/tools/libsumo/ DESTINATION libsumo COMPONENT tools_libsumo EXCLUDE_FROM_ALL
         PATTERN "__pycache__" EXCLUDE
         PATTERN "*.pyc" EXCLUDE)
 if (PROJ_DATA_DIR)
