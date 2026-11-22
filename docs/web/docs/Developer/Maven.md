@@ -52,3 +52,10 @@ You are then able to reference `libsumo` or `libtraci` as a dependency in our `p
    ...
 </dependencies>
 ```
+
+## Suppressing the Console Window on Windows
+
+On Windows, `org.eclipse.sumo.libtraci.Simulation.start(...)` delegates process creation to C++ `_popen`, which opens a `cmd.exe` console window even when the host Java application runs under `javaw`. Use either of two approaches to run headless simulations without a console window:
+
+1. **Run in-process with `libsumo`**: Switch to `org.eclipse.sumo.libsumo.Simulation` under `javaw`, which executes SUMO inside the JVM process without spawning a child process.
+2. **Spawn `sumo` via Java `ProcessBuilder` and attach `libtraci`**: Launch `sumo --remote-port <PORT>` from Java (`new ProcessBuilder("sumo", "-c", "run.sumocfg", "--remote-port", "8813").redirectErrorStream(true).start()`) under `javaw` and connect with `org.eclipse.sumo.libtraci.Simulation.init(8813)`.
