@@ -23,7 +23,8 @@ import os
 import sys
 import tempfile
 
-sys.path.insert(0, os.path.join(os.environ["SUMO_HOME"], "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa: E402
 import traci  # noqa: E402
 from traci import constants as tc  # noqa: E402
@@ -40,7 +41,7 @@ def expect_no_context():
 def check_live_context():
     traci.vehicle.addSubscriptionFilterVType(["missing_type"])
     traci.simulationStep()
-    assert traci.vehicle.getContextSubscriptionResults("ego") == {}
+    assert not traci.vehicle.getContextSubscriptionResults("ego")
     traci.vehicle.addSubscriptionFilterVType(["DEFAULT_VEHTYPE"])
     traci.simulationStep()
     assert set(traci.vehicle.getContextSubscriptionResults("ego")) == {"ego"}
@@ -56,9 +57,6 @@ try:
     traci.vehicle.subscribe("ego", [tc.VAR_SPEED])
     traci.vehicle.subscribeContext("ego", tc.CMD_GET_VEHICLE_VARIABLE, 100, [tc.VAR_SPEED])
     traci.vehicle.unsubscribe("ego")
-    if traci.isLibsumo():
-        # libsumo clears the filter target on every explicit unsubscribe.
-        traci.vehicle.subscribeContext("ego", tc.CMD_GET_VEHICLE_VARIABLE, 100, [tc.VAR_SPEED])
     check_live_context()
     print("Removing an earlier subscription preserves filter ownership")
 

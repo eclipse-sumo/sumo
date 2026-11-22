@@ -109,17 +109,17 @@ void
 Helper::subscribe(const int commandId, const std::string& id, const std::vector<int>& variables,
                   const double beginTime, const double endTime, const libsumo::TraCIResults& params,
                   const int contextDomain, const double range) {
-    myLastContextSubscription = nullptr;
     if (variables.empty()) {
         for (std::vector<libsumo::Subscription>::iterator j = mySubscriptions.begin(); j != mySubscriptions.end();) {
             if (j->id == id && j->commandId == commandId && j->contextDomain == contextDomain) {
-                j = mySubscriptions.erase(j);
+                j = eraseSubscription(mySubscriptions, j, myLastContextSubscription);
             } else {
                 ++j;
             }
         }
         return;
     }
+    myLastContextSubscription = nullptr;
     std::vector<std::shared_ptr<tcpip::Storage> > parameters;
     for (const int var : variables) {
         const auto& p = params.find(var);
