@@ -49,3 +49,10 @@ communication simulators ns3, JiST/SWANS and OMNeT++, the application
 simulator VSimRTI_App, and several visualization and analysis tools are
 prepared for MOSAIC. For more information see [MOSAIC
 Homepage](https://www.dcaiti.tu-berlin.de/research/simulation/).
+
+## Coupling External Ego Vehicles and OpenSCENARIO Test Cases
+
+SUMO does not parse ASAM OpenSCENARIO story files natively. External scenario runners (such as OpenSCENARIO engines or driving simulators) must insert the ego vehicle into the SUMO simulation so surrounding background traffic reacts to it and obeys right-of-way rules:
+
+- **Predefined ego trajectory**: Export the ego trajectory as an [FCD file](../Simulation/Output/FCDOutput.md) and load it alongside background demand using [FCDReplay](../Simulation/FCDReplay.md) (**--device.fcd-replay.files**).
+- **Closed-loop ego synchronization**: Add an ego vehicle in SUMO and update its pose on every simulation step via [TraCI `moveToXY`](../TraCI/Change_Vehicle_State.md#move_to_xy_0xb4) (`traci.vehicle.moveToXY` or `libsumo.vehicle.moveToXY`), while translating catalog infrastructure and story actions into additional files and TraCI commands.
