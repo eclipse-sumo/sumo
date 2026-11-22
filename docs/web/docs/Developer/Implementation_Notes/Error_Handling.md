@@ -137,6 +137,14 @@ Are currently caught by the later catch-block. Probably, the easiest
 method to handle those would be to give a list of possible failures and
 try to handle them in catch-blocks as it is done with **ProcessErrors**.
 
+#### Soft assertions (`SOFT_ASSERT`)
+
+Recoverable invariant violations in `src/` use the `SOFT_ASSERT(expr)` macro defined in `src/utils/common/UtilExceptions.h`:
+
+- **Standard debug builds (`_DEBUG` without `MSVC_TEST_SERVER`)**: Expands to `assert(expr)` so interactive debugging halts immediately at the failing statement.
+- **Windows debug test server (`_DEBUG` with `MSVC_TEST_SERVER`)**: Throws `ProcessError("should not happen")` when `expr` is false, aborting the run cleanly with an error message and preventing modal MSVC assertion dialogs from blocking automated test suites.
+- **Release builds (without `_DEBUG`)**: Compiles to a no-op so recoverable states do not abort end-user simulations.
+
 ## GUI applications
 
 ### Philosophy for gui applications
