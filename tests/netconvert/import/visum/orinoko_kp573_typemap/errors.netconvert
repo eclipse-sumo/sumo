@@ -6,3 +6,9 @@ Warning: Ignoring stopping place '1562' without edge id
 Warning: Ignoring stopping place '1563' without edge id
 Warning: 17 total messages of type: Ignoring stopping place '%' without edge id
 Warning: Embedding TAZ-data inside the network is deprecated. Use option --taz-output instead
+Warning: TAZ '1058279536' has no sources and no sinks.
+Warning: TAZ '1058280150' has no sources and no sinks.
+Warning: TAZ '956400300' has no sources and no sinks.
+Warning: TAZ '956400332' has no sources and no sinks.
+Warning: TAZ '956400333' has no sources and no sinks.
+Warning: 21 total messages of type: TAZ '%' has no sources and no sinks.

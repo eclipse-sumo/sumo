@@ -937,6 +937,9 @@ NWWriter_SUMO::writeRoundabout(OutputDevice& into, const std::vector<std::string
 
 void
 NWWriter_SUMO::writeDistrict(OutputDevice& into, const NBDistrict& d) {
+    if (d.getSourceEdges().empty() && d.getSinkEdges().empty()) {
+        WRITE_WARNINGF(TL("TAZ '%' has no sources and no sinks."), d.getID());
+    }
     std::vector<double> sourceW = d.getSourceWeights();
     VectorHelper<double>::normaliseSum(sourceW, 1.0);
     std::vector<double> sinkW = d.getSinkWeights();

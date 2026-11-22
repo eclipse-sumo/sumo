@@ -12,3 +12,9 @@ Warning: Ignoring stopping place '1556' without edge id
 Warning: Ignoring stopping place '1558' without edge id
 Warning: 8 total messages of type: Encountered unknown vehicle category '%' in type '%' (guessed '%' based on description '%')
 Warning: 30 total messages of type: Ignoring stopping place '%' without edge id
+Warning: TAZ '1058279604' has no sources and no sinks.
+Warning: TAZ '1058279935' has no sources and no sinks.
+Warning: TAZ '1058279993' has no sources and no sinks.
+Warning: TAZ '1058280068' has no sources and no sinks.
+Warning: TAZ '1058286622' has no sources and no sinks.
+Warning: 29 total messages of type: TAZ '%' has no sources and no sinks.
