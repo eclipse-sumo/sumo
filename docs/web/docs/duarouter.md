@@ -53,6 +53,12 @@ Such a *routeDistribution* is used during [dynamic user assignment
 (DUA)](Demand/Dynamic_User_Assignment.md) but can also be loaded
 directly into [sumo](sumo.md).
 
+Passing **--write-trips** writes `<trip>` elements containing origin and destination attributes (`from` and `to`) in place of full edge lists, and skips generating the `.rou.alt.xml` file. Add **--write-trips.geo** to export `fromLonLat` and `toLonLat` coordinates or **--write-trips.junctions** to export `fromJunction` and `toJunction` attributes. This workflow converts complete `<vehicle>` or expanded `<flow>` routes produced by observation-based calibration tools such as [routeSampler.py](Tools/Turns.md#routesamplerpy), [flowrouter.py](Tools/Detector.md#flowrouterpy), or [dfrouter](dfrouter.md) back into origin-destination `<trip>` files:
+
+```bash
+duarouter -n net.net.xml -r calibrated.rou.xml --write-trips -o calibrated.trips.xml
+```
+
 ## Options
 
 You may use a XML schema definition file for setting up a duarouter
