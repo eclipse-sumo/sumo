@@ -1334,23 +1334,20 @@ TraCIServer::postProcessSimulationStep() {
 #endif
     writeStatusCmd(libsumo::CMD_SIMSTEP, libsumo::RTYPE_OK, "");
     int noActive = 0;
-    for (std::vector<libsumo::Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
-        const libsumo::Subscription& s = *i;
-        bool isArrivedVehicle = (s.commandId == libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE || s.commandId == libsumo::CMD_SUBSCRIBE_VEHICLE_CONTEXT)
-                                && (MSNet::getInstance()->getVehicleControl().getVehicle(s.id) == nullptr
-                                    || find(myVehicleStateChanges[MSNet::VehicleState::ARRIVED].begin(), myVehicleStateChanges[MSNet::VehicleState::ARRIVED].end(), s.id) != myVehicleStateChanges[MSNet::VehicleState::ARRIVED].end());
+    myLastContextSubscription = libsumo::Helper::removeSubscriptionsIf(mySubscriptions, myLastContextSubscription,
+    [this, t, &noActive](const libsumo::Subscription& s) {
+        const bool isArrivedVehicle = (s.commandId == libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE || s.commandId == libsumo::CMD_SUBSCRIBE_VEHICLE_CONTEXT)
+                                      && (MSNet::getInstance()->getVehicleControl().getVehicle(s.id) == nullptr
+                                          || find(myVehicleStateChanges[MSNet::VehicleState::ARRIVED].begin(), myVehicleStateChanges[MSNet::VehicleState::ARRIVED].end(), s.id) != myVehicleStateChanges[MSNet::VehicleState::ARRIVED].end());
 
-        bool isArrivedPerson = (s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE || s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT) && MSNet::getInstance()->getPersonControl().get(s.id) == nullptr;
-        if ((s.endTime < t) || isArrivedVehicle || isArrivedPerson) {
-            i = eraseSubscription(i);
-            continue;
+        const bool isArrivedPerson = (s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE || s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT)
+                                     && MSNet::getInstance()->getPersonControl().get(s.id) == nullptr;
+        const bool discard = s.endTime < t || isArrivedVehicle || isArrivedPerson;
+        if (!discard && s.beginTime <= t) {
+            ++noActive;
         }
-        ++i;
-        if (s.beginTime > t) {
-            continue;
-        }
-        ++noActive;
-    }
+        return discard;
+    });
     mySubscriptionCache.reset();
 #ifdef DEBUG_SUBSCRIPTIONS
     std::cout << "   Initial size of mySubscriptionCache is " << mySubscriptionCache.size()
