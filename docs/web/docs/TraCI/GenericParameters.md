@@ -23,6 +23,9 @@ set with the following commands:
 | person        | 0xae        | 0xce        |
 | simulation    | 0xab        | 0xcb        |
 
+!!! note
+    In the `person` domain (`0xae` / `0xce`), `getParameter` and `setParameter` access `<param>` elements defined directly inside the `<person>` tag. Generic `<param>` elements nested inside movement stage child tags (`<walk>`, `<ride>`, `<stop>`) are written to simulation XML outputs and can be parsed offline with `sumolib.xml.parse`, without runtime access via TraCI.
+
 ## get parameter
 
 |          byte          |         byte          |  string   |        byte         |  string   |
