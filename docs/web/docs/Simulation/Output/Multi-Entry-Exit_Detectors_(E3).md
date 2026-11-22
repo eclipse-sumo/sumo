@@ -121,8 +121,7 @@ Output can be represented using [plotXMLAttributes](../../Tools/Visualization.md
 - Simulated multi-entry-exit detectors can be accessed using
   [TraCI](../../TraCI/Multi-Entry-Exit_Detectors_Value_Retrieval.md). If no XML output is
   needed, the attribute `file="NUL"` may be used.
-- You can generate detector definitions automatically. See [output
-  tools](../../Tools/Output.md) for more information.
+- You can generate E3 detector definitions automatically around signalized or arbitrary intersections with [generateTLSE3Detectors.py](../../Tools/Output.md#generatetlse3detectorspy) (pass `--junction-ids` for non-signalized nodes, `--joined` for one aggregated node-level record per junction, or `--interior` to include the junction area) to obtain interval-aggregated node throughput (`vehicleSum`), delay (`meanTimeLoss`), and stops (`meanHaltsPerVehicle`) without per-timestep post-processing. Combine with [E2 detectors](Lanearea_Detectors_(E2).md) (`generateTLSE2Detectors.py`) or [`--queue-output.aggregation`](QueueOutput.md#aggregated_output) for interval-aggregated queue lengths.
 - The simulation does not check whether the area defined by the
   detector entries and exits is really closed, so if you keep getting
   warnings about vehicles leaving the area which did not enter (or
