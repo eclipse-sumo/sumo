@@ -42,7 +42,7 @@ Each vehicle can be [assigned an individual speed multiplier (speedFactor)](../D
 which then lets it exceed this limit. Since version 1.0.0, vehicles will
 have a random speedFactor with a deviation of 0.1 and mean of 1.0 which
 means there will be different desired speeds in the vehicle population
-by default.
+by default. For passenger cars, the default truncated normal distribution `normc(1, 0.1, 0.2, 2)` assigns `speedFactor < 0.8` to roughly `2.28%` of vehicles; on long single-lane roads without overtaking opportunities, those slow vehicles form moving bottlenecks, so tightening the `<vType>` cutoffs (for example `speedFactor="normc(1, 0.1, 0.8, 1.2)"`) prevents platooning behind extreme slow outliers.
 
 When vehicles are driving freely (unconstrained by other vehicles) they will accelerate until reaching the speed
 ```
