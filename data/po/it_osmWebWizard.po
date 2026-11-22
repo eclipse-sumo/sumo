@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-11-10 19:04+0100\n"
-"PO-Revision-Date: 2026-11-21 18:30+0000\n"
+"PO-Revision-Date: 2026-11-22 15:38+0000\n"
 "Last-Translator: Mirko Barthauer <m-kro@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "osmwebwizard/it/>\n"
@@ -111,7 +111,7 @@ msgstr "Minibus"
 
 #: tools/webWizard/index.html:79
 msgid "Share taxi"
-msgstr ""
+msgstr "Taxi collettivo"
 
 #: tools/webWizard/index.html:80
 msgid "Ferry"
@@ -156,7 +156,7 @@ msgstr "sotto licenza"
 
 #: tools/webWizard/index.html:133
 msgid "Open Domain"
-msgstr ""
+msgstr "Dominio pubblico"
 
 #: tools/webWizard/index.html:150 tools/webWizard/index.html:158
 msgid "Icon by"
@@ -225,7 +225,7 @@ msgstr "Ferrovia"
 
 #: tools/webWizard/script.js:130
 msgid "Aeroway"
-msgstr ""
+msgstr "Aerovia"
 
 #: tools/webWizard/script.js:131
 msgid "Waterway"
@@ -241,18 +241,20 @@ msgstr "Itinerario"
 
 #: tools/webWizard/script.js:420
 msgid "ÖPNVKarte (public transport facilities)"
-msgstr ""
+msgstr "ÖPNVKarte (impianti di trasporto pubblico)"
 
 #: tools/webWizard/script.js:478 tools/webWizard/script.js:485
 #: tools/webWizard/script.js:491
 msgid "Could not locate address: %"
-msgstr ""
+msgstr "Non ho potuto localizzare l'indirizzo: %"
 
 #: tools/webWizard/script.js:526
 msgid ""
 "Unable to access your location. Geolocation is either not supported by your "
 "browser or is not enabled."
 msgstr ""
+"Non è stato possibile accedere alla tua ubicazione. Il browser non permette "
+"la geolocalizzazione oppure la funzione non è stata attivata."
 
 #: tools/webWizard/script.js:562
 msgid ""
@@ -266,23 +268,23 @@ msgstr "Treni urbani"
 
 #: tools/osmWebWizard.py:209
 msgid "Downloading map data"
-msgstr ""
+msgstr "Scaricamento dei dati della mappa"
 
 #: tools/osmWebWizard.py:292
 msgid "Converting map data"
-msgstr ""
+msgstr "Conversione dei dati della mappa"
 
 #: tools/osmWebWizard.py:298
 msgid "Generating public transport schedule"
-msgstr ""
+msgstr "Creazione degli orari del trasporto pubblico"
 
 #: tools/osmWebWizard.py:331
 msgid "Downloading background images"
-msgstr ""
+msgstr "Scaricamento delle immagini di sfondo"
 
 #: tools/osmWebWizard.py:345
 msgid "Success."
-msgstr ""
+msgstr "Completato con successo."
 
 #: tools/osmWebWizard.py:350
 #, python-format
