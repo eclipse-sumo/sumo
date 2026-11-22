@@ -782,7 +782,6 @@ endif ()
 install(DIRECTORY data/ DESTINATION ${DATA_PATH}data COMPONENT data)
 install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         USE_SOURCE_PERMISSIONS COMPONENT tools
-        PATTERN "build_config/sumo" EXCLUDE  # needed for the scikit build
         PATTERN "calibration" EXCLUDE
         PATTERN "lisum-core" EXCLUDE
         PATTERN "lisum-gui" EXCLUDE
@@ -1068,7 +1067,7 @@ if (GIT_FOUND)
         COMMAND find tools/contributed/saga/ tools/contributed/traci4matlab -type f | grep -v .git | xargs cp --parents --target-dir sumo-${PACKAGE_VERSION}
         COMMAND ${Python_EXECUTABLE} tools/build_config/version.py --pep440 sumo-${PACKAGE_VERSION}/tools/sumolib/version.py
         COMMAND ${Python_EXECUTABLE} tools/build_config/version.py --pep440 sumo-${PACKAGE_VERSION}/tools/traci/__init__.py
-        COMMAND ${Python_EXECUTABLE} tools/build_config/version.py --pep440 sumo-${PACKAGE_VERSION}/tools/libsumo/__init__.py
+        COMMAND ${Python_EXECUTABLE} tools/build_config/version.py --pep440 sumo-${PACKAGE_VERSION}/pysrc/libsumo/__init__.py
         COMMAND mkdir sumo-${PACKAGE_VERSION}/include
         COMMAND cp ${CMAKE_BINARY_DIR}/src/version.h sumo-${PACKAGE_VERSION}/include
         COMMAND zip -rq sumo-src-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
