@@ -106,6 +106,12 @@ For example, setting the option **--device.vehroute.probability 0.25** will equi
 - **--vehroute-output.speedfactor**:   Include information vehicle specific speedFactor in output (defaults to 'true' if the vehicle had its departSpeed set)
 - **--vehroute-output.internal**:   Include internal edges in the output. Note, that such routes are not suitable for being loaded by sumo or duarouter!
 
+## Computing Exact Edge Travel Times
+
+Enabling **--vehroute-output FILE --vehroute-output.exit-times** writes a space-separated `exitTimes` attribute aligned with the `edges` list of each vehicle's `<route>`. The exact traversal time on the first edge equals `exitTimes[0]` minus `depart`, and the exact traversal time on each subsequent edge `i` equals `exitTimes[i]` minus `exitTimes[i-1]`.
+
+The `vehroute` device does not expose edge exit times via [TraCI](../../TraCI/index.md) at runtime. To measure exact per-vehicle edge traversal times online via TraCI, place induction loop detectors (`<inductionLoop>`) at the start and end of each monitored lane and compute timestamp differences from [`traci.inductionloop.getVehicleData`](../../TraCI/Induction_Loop_Value_Retrieval.md), or aggregate entry and exit travel times with a [multi-entry-exit detector](../../TraCI/Multi-Entry-Exit_Detectors_Value_Retrieval.md).
+
 ## Visualization example
 
 ### departure times versus arrival times
