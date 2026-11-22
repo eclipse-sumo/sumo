@@ -2,6 +2,17 @@
 title: Fun
 ---
 
+# Interactive Traffic Light Game
+
+SUMO includes an interactive traffic light control game in `tools/game/` where players click junctions in [sumo-gui](sumo-gui.md) to switch signal phases and minimize waiting times and emissions:
+
+```bash
+python tools/game/runner.py
+```
+
+!!! note
+    The 3D game configurations `bs3d` (*3D Junction Virtual World*) and `cross3d` reference external OpenSceneGraph `.ive` environment and vehicle models (such as `bs_141125_small_1/master.ive` and `Trian_ROD_GTA_Landmarks_Baeumen_Lampen/master.ive`) whose third-party licenses do not permit redistribution in SUMO packages. Use `bs3Dosm` (*3D Junction OpenStreetMap*) or the 2D scenarios when those proprietary `.ive` assets are unavailable locally.
+
 # SUMO Song (German)
 
 **Aber bitte mit SUMO**; slightly censored and unfortunately with no
