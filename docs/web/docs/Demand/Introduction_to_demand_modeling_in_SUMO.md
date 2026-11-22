@@ -62,6 +62,33 @@ choice depends on your available input data:
   Induction loops and similar devices are commonly used by authorities
   to measure traffic. See [Demand/Routes_from_Observation_Points](../Demand/Routes_from_Observation_Points.md).
 
+  Both [dfrouter](../dfrouter.md) and [flowrouter.py](../Tools/Detector.md#flowrouterpy) accept the same `<detectors>` definition file (`detectors.det.xml`) and semicolon-separated count file (`flows.csv`, with `Time` in minutes):
+
+```xml
+<detectors>
+    <detectorDefinition id="det_in" lane="E0_0" pos="10"/>
+    <detectorDefinition id="det_out" lane="E3_0" pos="-10"/>
+</detectors>
+```
+
+```
+Detector;Time;qPKW;vPKW
+det_in;0;300;80
+det_out;0;300;80
+```
+
+  On fully instrumented motorway corridors where all entry and exit ramps have detectors, run `dfrouter`:
+
+```
+dfrouter -n net.net.xml -d detectors.det.xml -f flows.csv --routes-output df_routes.rou.xml --emitters-output df_vehicles.rou.xml
+```
+
+  On networks with unmeasured ramps or meshed urban streets, run `flowrouter.py` with an aggregation interval (`-i`, in minutes) to compute routes that maximize total network flow within the measured counts:
+
+```
+python tools/detector/flowrouter.py -n net.net.xml -d detectors.det.xml -f flows.csv -i 60 -o fr_routes.rou.xml -e fr_flows.add.xml
+```
+
 ## By hand
 
   You can of course generate route XML-files by hand. See
