@@ -1043,8 +1043,8 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
 
 
 void
-MSLCM_LC2013::prepareStep() {
-    MSAbstractLaneChangeModel::prepareStep();
+MSLCM_LC2013::prepareStep(SumoRNG* rng) {
+    MSAbstractLaneChangeModel::prepareStep(rng);
     // keep information about strategic change direction
     if (!isChangingLanes()) {
         myOwnState = (myOwnState & LCA_STRATEGIC) ? (myOwnState & LCA_WANTS_LANECHANGE) : 0;
@@ -1070,7 +1070,7 @@ MSLCM_LC2013::prepareStep() {
             // random drift
             double deltaPosLat = OUProcess::step(oldPosLat,
                                                  myVehicle.getActionStepLengthSecs(),
-                                                 MAX2(NUMERICAL_EPS, (1 - mySigma) * 100), mySigma) - oldPosLat;
+                                                 MAX2(NUMERICAL_EPS, (1 - mySigma) * 100), mySigma, rng) - oldPosLat;
             deltaPosLat = MAX2(MIN2(deltaPosLat, maxDist), -maxDist);
             scaledDelta = deltaPosLat * myVehicle.getSpeed() / myVehicle.getLane()->getSpeedLimit();
         }

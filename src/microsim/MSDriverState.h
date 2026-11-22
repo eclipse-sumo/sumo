@@ -45,7 +45,7 @@ public:
     /// @brief evolve for a time step of length dt.
     void step(double dt);
     /// @brief static version of the step()
-    static double step(double state, double dt, double timeScale, double noiseIntensity);
+    static double step(double state, double dt, double timeScale, double noiseIntensity, SumoRNG* rng);
 
     /// @brief set the process' timescale to a new value
     void setTimeScale(double timeScale) {

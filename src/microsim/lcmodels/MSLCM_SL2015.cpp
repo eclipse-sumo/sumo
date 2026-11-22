@@ -888,8 +888,8 @@ MSLCM_SL2015::informFollowers(int blocked, int dir,
 
 
 void
-MSLCM_SL2015::prepareStep() {
-    MSAbstractLaneChangeModel::prepareStep();
+MSLCM_SL2015::prepareStep(SumoRNG* rng) {
+    MSAbstractLaneChangeModel::prepareStep(rng);
     // keep information about strategic change direction
     myOwnState = (myOwnState & (LCA_STRATEGIC | LCA_COOPERATIVE)) ? (myOwnState & LCA_WANTS_LANECHANGE) : 0;
 #ifdef DEBUG_INFORM
@@ -963,16 +963,16 @@ MSLCM_SL2015::prepareStep() {
     }
     assert(myExpectedSublaneSpeeds.size() == myVehicle.getLane()->getEdge().getSubLaneSides().size());
     if (mySigma > 0) {
-        mySigmaState += getLateralDrift();
+        mySigmaState += getLateralDrift(rng);
     }
 }
 
 double
-MSLCM_SL2015::getLateralDrift() {
+MSLCM_SL2015::getLateralDrift(SumoRNG* rng) {
     //OUProcess::step(double state, double dt, double timeScale, double noiseIntensity)
     const double deltaState = OUProcess::step(mySigmaState,
                               myVehicle.getActionStepLengthSecs(),
-                              MAX2(NUMERICAL_EPS, (1 - mySigma) * 100), mySigma) - mySigmaState;
+                              MAX2(NUMERICAL_EPS, (1 - mySigma) * 100), mySigma, rng) - mySigmaState;
     const double scaledDelta = deltaState * myVehicle.getSpeed() / myVehicle.getLane()->getSpeedLimit();
     return scaledDelta;
 }
