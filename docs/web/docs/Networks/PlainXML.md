@@ -576,6 +576,8 @@ The definition of a lane contains the following optional attributes:
 See "Vehicle Classes" for further information about [allowed vehicle classes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class)
 and their usage.
 
+When importing [OpenStreetMap](Import/OpenStreetMap.md) networks, [netconvert](../netconvert.md) parses directional `maxspeed:forward` and `maxspeed:backward` tags; per-lane OSM `maxspeed:lanes` tags on lanes in the same direction are not imported automatically and can be applied by loading a `.edg.xml` patch file with `<lane index="..." speed="..."/>` elements (or in km/h together with **--speed-in-kmh**) or editing lane speeds in [netedit](../Netedit/index.md).
+
 ### lane change restrictions
 When defining lane change restrictions with `changeLeft` and `changeRight`, the vehicle class "emergency" should typically be allowed since emergency vehicles can ignore non-physical restrictions in most cases.
 
