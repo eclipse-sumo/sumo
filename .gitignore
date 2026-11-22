@@ -127,10 +127,8 @@ __pycache__
 /tools/contributed/traas/release
 /tools/contributed/traas/target
 /tools/jupedsim_grpc/*_pb2*.py
-/tools/libsumo/_libsumo.*
-/tools/libsumo/libsumo.py
-/tools/libtraci/_libtraci.*
-/tools/libtraci/libtraci.py
+/tools/libsumo
+/tools/libtraci
 /tools/neteditTestFunctions/.vs
 /tools/setup.py
 # extracted tests
