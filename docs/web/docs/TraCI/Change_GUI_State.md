@@ -63,6 +63,9 @@ The message contents are as following:
 | :-----------------: | :-----------------: |
 | value type *string* | Screenshot filename |
 
+!!! note
+    `screenshot` (`traci.gui.screenshot`) queues image capture for the rendering pass of the next `simulationStep` call. Calling `traci.gui.screenshot` immediately before `traci.close()` without a subsequent `traci.simulationStep()` writes no file. To capture an image sequence across the simulation (including the final step), call `traci.gui.screenshot(viewID, f"frame_{step:05d}.png")` before each `traci.simulationStep()`.
+
 ### track vehicle (0xa6)
 
 |        ubyte        |      string       |
