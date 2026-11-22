@@ -102,7 +102,7 @@ public:
 
     double getOppositeSafetyFactor() const override;
 
-    void prepareStep() override;
+    void prepareStep(SumoRNG* rng) override;
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const override;

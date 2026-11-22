@@ -77,7 +77,7 @@ public:
 
     virtual void changed();
 
-    virtual void prepareStep();
+    virtual void prepareStep(SumoRNG* rng);
 
 
 protected:

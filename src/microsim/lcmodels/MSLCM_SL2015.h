@@ -111,7 +111,7 @@ public:
 
     double getOppositeSafetyFactor() const override;
 
-    void prepareStep() override;
+    void prepareStep(SumoRNG* rng) override;
 
     /// @brief whether the current vehicles shall be debugged
     bool debugVehicle() const override;
@@ -357,7 +357,7 @@ protected:
     double getPosLat();
 
     /// @brief get lateral drift for the current step
-    double getLateralDrift();
+    double getLateralDrift(SumoRNG* rng);
 
     /// @brief return current edge width optionally extended by opposite direction lane width
     double getLeftBorder(bool checkOpposite = true) const;

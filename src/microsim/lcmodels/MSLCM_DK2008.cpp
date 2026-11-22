@@ -630,8 +630,8 @@ MSLCM_DK2008::informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
 
 
 void
-MSLCM_DK2008::prepareStep() {
-    MSAbstractLaneChangeModel::prepareStep();
+MSLCM_DK2008::prepareStep(SumoRNG* rng) {
+    MSAbstractLaneChangeModel::prepareStep(rng);
     myOwnState = 0;
     myLeadingBlockerLength = 0;
     myLeftSpace = 0;

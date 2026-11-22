@@ -113,9 +113,9 @@ OUProcess::step(double dt) {
 }
 
 double
-OUProcess::step(double state, double dt, double timeScale, double noiseIntensity) {
+OUProcess::step(double state, double dt, double timeScale, double noiseIntensity, SumoRNG* rng) {
     /// see above
-    return exp(-dt / timeScale) * state + noiseIntensity * sqrt(2 * dt / timeScale) * RandHelper::randNorm(0, 1, &myRNG);
+    return exp(-dt / timeScale) * state + noiseIntensity * sqrt(2 * dt / timeScale) * RandHelper::randNorm(0, 1, rng);
 }
 
 double

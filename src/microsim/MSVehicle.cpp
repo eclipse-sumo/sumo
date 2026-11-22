@@ -4838,7 +4838,7 @@ MSVehicle::executeMove() {
         // State needs to be reset for all vehicles before the next call to MSEdgeControl::changeLanes
         if (myActionStep) {
             // check (#2681): Can this be skipped?
-            myLaneChangeModel->prepareStep();
+            myLaneChangeModel->prepareStep(oldLaneMaybeOpposite->getRNG());
         } else {
             myLaneChangeModel->resetSpeedLat();
 #ifdef DEBUG_ACTIONSTEPS

@@ -275,7 +275,8 @@ public:
     void setLeaderGaps(const MSLeaderDistanceInfo& vehicles);
     void setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicles);
 
-    virtual void prepareStep();
+    /// @brief rng belongs to the lane that moves the vehicle (not the lane it just entered)
+    virtual void prepareStep(SumoRNG* rng);
 
     /** @brief Called to examine whether the vehicle wants to change
      * using the given laneOffset.

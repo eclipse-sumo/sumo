@@ -991,7 +991,8 @@ MSAbstractLaneChangeModel::setOrigLeaderGaps(CLeaderDist leader, double secGap) 
 }
 
 void
-MSAbstractLaneChangeModel::prepareStep() {
+MSAbstractLaneChangeModel::prepareStep(SumoRNG* rng) {
+    UNUSED_PARAMETER(rng);
     getCanceledState(-1) = LCA_NONE;
     getCanceledState(0) = LCA_NONE;
     getCanceledState(1) = LCA_NONE;
