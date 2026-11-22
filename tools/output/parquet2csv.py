@@ -18,9 +18,14 @@
 """
 This script reads a parquet file and converts it to csv.
 """
+import faulthandler
 import sys
 
-import pandas as pd
+# texttest does not time out collate scripts and this one has been seen to hang in CI,
+# so dump the stack and exit instead of blocking forever
+faulthandler.dump_traceback_later(120, exit=True)
+
+import pandas as pd  # noqa: E402
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding='utf-8')
