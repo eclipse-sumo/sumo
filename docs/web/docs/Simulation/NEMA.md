@@ -177,12 +177,19 @@ The values are given as `NEMA.splits` / `NEMA.maxGreens` (8 space-separated numb
 
 The parameter *coordinate-mode* is only read when the program is loaded; changing it with `setParameter` has no effect. One way to switch between coordinated and free operation is to define two programs and switch with `traci.trafficlight.setProgram`. As for other traffic light types, the switch is immediate (no yellow), and the other program has kept running while inactive, so it continues from its own current phase.
 
+# Free Mode, Phase Ordering, and Single-Ring Operation
+
+- **Uncoordinated (free) mode (`coordinate-mode="false"`)**: No fixed cycle length or force-off schedule applies (`total-cycle-length` and `offset` are unused). Whenever an active phase gaps out (after `minDur`) or reaches `maxDur`, the controller transitions immediately through `yellow` and `red` to the next called phase, so the realized cycle time varies dynamically with traffic demand. If at most one phase on a ring has a recall, that phase rests in green until a conflicting call arrives.
+- **`<phase>` element order**: `<phase>` children inside `<tlLogic>` are matched by their integer `name` attribute (`1` through `8`), so XML element order does not affect signal operation. Phase sequencing and barrier membership are defined solely by `ring1` and `ring2`.
+- **Cycle reference for TraCI updates**: Pending updates from `setNemaSplits`, `setNemaMaxGreens`, `setNemaCycleLength`, and `setNemaOffset` take effect together at the instant a coordinated phase (`barrier2Phases`) on either ring next turns green.
+- **Single-ring operation**: Setting `ring2` to `"0,0,0,0"` raises an error because neither ring may contain only zeros, whereas duplicating multi-phase `ring1` slots in `ring2` runs conflicting phases concurrently. For a 3-phase single-ring sequence (such as phases `1`, `2`, and `4`), place the sequence in `ring1="1,2,0,4"`, put `0` in `ring2` for single-ring lead/lag slots while repeating the barrier-ending phase on each barrier side (`ring2="0,2,0,4"`), and repeat that phase in `barrier2Phases="2,2"` and `barrierPhases="4,4"` (as in the ramp example above). When eastbound/westbound left turns (`1+5`) and throughs (`2+6`) run concurrently, model them as dual rings (`ring1="1,2,0,4"`, `ring2="5,6,0,8"`, `barrier2Phases="2,6"`, `barrierPhases="4,8"`).
+
 # Configuration Errors
 
 The following errors may be raised:
 
-- **the phases before barrier X from both rings do not add up**: EXPLANATION FORTHCOMING
-- **Ring X does not add to cycle length**: EXPLANATION FORTHCOMING
+- **the phases before barrier X from both rings do not add up**: On each side of the barrier (`1` for slots 1 and 2; `2` for slots 3 and 4), the sum of `maxDur + yellow + red` across active phases in `ring1` must equal the corresponding sum in `ring2` (raised as an error when `coordinate-mode="true"` and as a warning when `coordinate-mode="false"`).
+- **Ring X does not add to cycle length**: When `coordinate-mode="true"`, the sum of `maxDur + yellow + red` over all non-zero phases in each ring must equal `total-cycle-length`.
 
 To simulate misconfigured controllers, both errors may be ignored by setting `<param key="ignore-errors" value="true"/>`.
 
