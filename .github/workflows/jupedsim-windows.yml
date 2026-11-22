@@ -73,6 +73,7 @@ jobs:
       with:
         key: ${{ matrix.build_config }}-${{ matrix.jps_version }}
         variant: sccache
+        save: ${{ github.ref == 'refs/heads/main' }}
 
     - name: Building jupedsim C API
       run: |
@@ -93,10 +94,14 @@ jobs:
         name: jupedsim-${{ matrix.jps_version }}-${{ matrix.build_config }}
         path: jupedsim-install-${{ matrix.build_config }}
 
+    # compiler launchers (sccache) are ignored by the Visual Studio generators, so use Ninja like windows.yml
+    - name: "Set up MSVC Developer Command Prompt"
+      uses: compnerd/gha-setup-vsdevenv@v7
+
     - name: Configuring and building SUMO
       run: |
-        cmake -B sumo/build-${{ matrix.build_config }} -DJUPEDSIM_CUSTOMDIR=jupedsim-install-${{ matrix.build_config }} sumo
-        cmake --build sumo/build-${{ matrix.build_config }} -j4 --config ${{ matrix.build_config }} --target sumo
+        cmake -B sumo/build-${{ matrix.build_config }} -GNinja -DCMAKE_BUILD_TYPE=${{ matrix.build_config }} -DJUPEDSIM_CUSTOMDIR=jupedsim-install-${{ matrix.build_config }} sumo
+        cmake --build sumo/build-${{ matrix.build_config }} --target sumo
 
     - name: Running sumo.extra tests
       # Tests in Debug hit a timeout
