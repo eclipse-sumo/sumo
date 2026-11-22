@@ -1,0 +1,2 @@
+--no-step-log --no-duration-log -n net.net.xml -r input_routes.rou.xml --fcd-output fcd.xml --fcd-output.attributes posLat --device.fcd.period 5 -e 40
+--threads 4
