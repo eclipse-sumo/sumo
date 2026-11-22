@@ -21,6 +21,14 @@ Coverage information based on running the nightly tests is generated as
 well. The status can be found at [the sumo web
 space](https://sumo.dlr.de/daily/lcov/html/).
 
+## Build and Test Logs
+
+Nightly compilation logs, acceptance test logs, and summary status files are published directly under <https://sumo.dlr.de/daily/>:
+
+- **Interactive TextTest report**: [batchreport](https://sumo.dlr.de/daily/batchreport/) summarizes nightly acceptance test results across platforms.
+- **Windows MSVC logs (`dailyBuildMSVC.py`)**: [msvcstatus.log](https://sumo.dlr.de/daily/msvcstatus.log), [msvcRelease.log](https://sumo.dlr.de/daily/msvcRelease.log), [msvcDebug.log](https://sumo.dlr.de/daily/msvcDebug.log), [msvcTest.log](https://sumo.dlr.de/daily/msvcTest.log), and [msvcDTest.log](https://sumo.dlr.de/daily/msvcDTest.log) (plus `msvcextra*` equivalents for the extra variant). Windows logs rotate nightly at midnight via `TimedRotatingFileHandler` and retain five dated backups (`*.log.YYYY-MM-DD`) on the server for inspecting prior runs.
+- **Linux GCC and Clang logs (`dailyUpdateMakeGCC.sh`)**: [gccstatus.log](https://sumo.dlr.de/daily/gccstatus.log), [gccmake.log](https://sumo.dlr.de/daily/gccmake.log), [gccmakealloptions.log](https://sumo.dlr.de/daily/gccmakealloptions.log), and [gcctest.log](https://sumo.dlr.de/daily/gcctest.log), alongside `clangstatus.log`, `clangmake.log`, and `clangtest.log`.
+
 There is also a local copy in the Sumo/daily directory (including
 the most recent game scenarios) the DLR internal tsall NAS. The windows
 script uses the sumo-all package from the local dir to build the binary
