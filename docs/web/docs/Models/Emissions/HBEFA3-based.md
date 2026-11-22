@@ -89,3 +89,5 @@ Not all combinations of emissionClass and pollutant give meaningful
 results. The following combinations are known to be faulty as of SUMO
 0.21.0: LDV + NOx, LDV_G_EU0 + NOx, LDV_G_East + NOx, LDV_G_East +
 PMx, PC_G_EU0 + NOx
+
+`HBEFA3` passenger car classes such as `HBEFA3/PC_G_EU4` also overestimate idling fuel consumption at roughly `4` L/h (`1.13` ml/s at zero speed and zero acceleration). Use [HBEFA4](HBEFA4-based.md) (for example `HBEFA4/PC_petrol_Euro-4`, approximately `2.5` L/h, the default since SUMO 1.23.0) or [PHEMlight V5](PHEMlight5.md) (approximately `1.1` L/h) when accurate idling fuel rates are required.
