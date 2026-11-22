@@ -62,8 +62,10 @@ If a vehicle has the [generic parameter](../GenericParameters.md) "lcReason", th
 
 ### Continuous Lane Changes
 
+By default, SUMO executes lane changes as instantaneous discrete transitions between adjacent lanes in a single simulation step. Smooth lateral trajectories can be enabled with two simulation modes: setting **--lanechange.duration** {{DT_FLOAT}} interpolates each lane change at constant lateral speed over the specified duration (see [Simple Continuous lane-change model](../../Simulation/SublaneModel.md#simple_continuous_lane-change_model)), whereas setting **--lateral-resolution** {{DT_FLOAT}} activates the [sublane-model](../../Simulation/SublaneModel.md) where lateral speed and acceleration are governed per `vType` by `maxSpeedLat`, `lcMaxSpeedLatStanding`, and `lcMaxSpeedLatFactor`.
+
 If the simulation is performed with the
-[sublane-model](../../Simulation/SublaneModel.md), the options **--lanechange-output.ended** and **--lanechange-output.started**
+[sublane-model](../../Simulation/SublaneModel.md) (or **--lanechange.duration**), the options **--lanechange-output.ended** and **--lanechange-output.started**
 can be used to obtain additional output elements:
 
 ```xml
