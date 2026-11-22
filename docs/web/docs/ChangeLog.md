@@ -94,9 +94,9 @@ title: ChangeLog
   - Fixed crash during railway routing (also affects sumo) #18340, #18442
   - Fixed invalid route output with **--bulk-routing** #18355
   - Fixed error 'route is not valid' with option **--bulk-routing** #17752
-  - stop arrival times in named route are now shifted by vehicle departure #18483  
+  - stop arrival times in named route are now shifted by vehicle departure #18483
 
-- traci
+- traci / libsumo
   - functions `trafficlight.setNemaMaxGreens` and `trafficlight.setNemaSplits` now work again in free mode #18513 (regression in 1.13.0)
   - Fixed simulation failure when replacing a person stage with a negative index. #18508
   - Fixed a crash in `vehicle.moveToXY` when keeping a route whose lanes prohibit the vehicle class. #18497
@@ -104,6 +104,7 @@ title: ChangeLog
   - Fixed crash in `simulation.loadState` with meso #18389 (regression in 1.28.0)
   - Fixed invalid event time after adding a stop with default duration in meso #18392
   - Fixed libsumo crash when using `vehicle.moveToXY` and repeatedly restarting the simulation #18457
+  - the python parts of libsumo and libtraci live now in pysrc intead of tools avoiding conflicts in the search path #18523
 
 - tools
   - gtfs2pt.py: fixed crash #18446 (regression in 1.27.1)
@@ -115,6 +116,7 @@ title: ChangeLog
   - scheduleStats.py: fixed crash when there are no matches #18486
   - routeSampler.py: option **--init-input** now works when loading multiple data intervals #17687
   - generateRailSignalConstraints.py: Fixed duplicate conflicts #12083
+  - sumolib: keep spatial caches for lanes coherent across queries #18502
 
 ### Enhancements
 
@@ -188,7 +190,7 @@ title: ChangeLog
 - SUMO compilation now requires CMake 3.8 and a C++17 enabled compiler #18430
   - Dropped support for ubuntu 16.04 and Debian 9
 - Wheels for Python 3.15 have been added
-- TraCI version is now 1.23.0
+- CI builds on GitHub only run a reduced set of platforms and python versions for PRs now #18694
 
 
 ## Version 1.28.0 (08.10.2026)
