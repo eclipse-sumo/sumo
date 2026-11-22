@@ -1,0 +1,7 @@
+POSITION_CONVERSION -> Could not add subscription. Position conversion requires parameters and cannot be subscribed without arguments.
+DISTANCE_REQUEST -> Could not add subscription. Retrieval of distance requires parameters and cannot be subscribed without arguments.
+FIND_ROUTE -> Could not add subscription. Retrieval of a route requires parameters and cannot be subscribed without arguments.
+FIND_INTERMODAL_ROUTE -> Could not add subscription. Retrieval of an intermodal route requires parameters and cannot be subscribed without arguments.
+VAR_BUS_STOP_WAITING -> Could not add subscription. Variable 0x67 requires a busStop ID (use the busstop domain instead).
+VAR_BUS_STOP_WAITING_IDS -> Could not add subscription. Variable 0xef requires a busStop ID (use the busstop domain instead).
+VAR_OPTION -> Could not add subscription. Subscribing to simulation option requires an option name as object ID.

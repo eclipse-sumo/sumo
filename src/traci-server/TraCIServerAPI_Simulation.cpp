@@ -172,6 +172,9 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             break;
         }
         case libsumo::POSITION_CONVERSION: {
+            if (!inputStorage.valid_pos()) {
+                throw libsumo::TraCIException("Position conversion requires parameters and cannot be subscribed without arguments.");
+            }
             if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                 throw libsumo::TraCIException("Position conversion requires a compound object.");
             }
@@ -183,6 +186,9 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             break;
         }
         case libsumo::DISTANCE_REQUEST:
+            if (!inputStorage.valid_pos()) {
+                throw libsumo::TraCIException("Retrieval of distance requires parameters and cannot be subscribed without arguments.");
+            }
             if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                 throw libsumo::TraCIException("Retrieval of distance requires a compound object.");
             }
@@ -192,6 +198,9 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             commandDistanceRequest(inputStorage, server.getWrapperStorage());
             break;
         case libsumo::FIND_ROUTE: {
+            if (!inputStorage.valid_pos()) {
+                throw libsumo::TraCIException("Retrieval of a route requires parameters and cannot be subscribed without arguments.");
+            }
             const int parameterCount = StoHelp::readCompound(inputStorage, -1, "Retrieval of a route requires a compound object.");
             if (parameterCount < 5 || parameterCount > 7) {
                 throw libsumo::TraCIException("Retrieval of a route requires between five to seven parameters.");
@@ -213,6 +222,9 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             break;
         }
         case libsumo::FIND_INTERMODAL_ROUTE: {
+            if (!inputStorage.valid_pos()) {
+                throw libsumo::TraCIException("Retrieval of an intermodal route requires parameters and cannot be subscribed without arguments.");
+            }
             StoHelp::readCompound(inputStorage, 13, "Retrieval of an intermodal route requires thirteen parameters.");
             const std::string from = StoHelp::readTypedString(inputStorage, "Retrieval of a route requires a string as first parameter.");
             const std::string to = StoHelp::readTypedString(inputStorage, "Retrieval of a route requires a string as second parameter.");
@@ -236,6 +248,15 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             break;
         }
         default:
+            if ((variable == libsumo::VAR_PARAMETER || variable == libsumo::VAR_PARAMETER_WITH_KEY) && !inputStorage.valid_pos()) {
+                throw libsumo::TraCIException("Subscribing to generic parameter requires a parameter key.");
+            }
+            if ((variable == libsumo::VAR_BUS_STOP_WAITING || variable == libsumo::VAR_BUS_STOP_WAITING_IDS) && objID.empty()) {
+                throw libsumo::TraCIException("Variable " + toHex(variable, 2) + " requires a busStop ID (use the busstop domain instead).");
+            }
+            if (variable == libsumo::VAR_OPTION && objID.empty()) {
+                throw libsumo::TraCIException("Subscribing to simulation option requires an option name as object ID.");
+            }
             if (!libsumo::Simulation::handleVariable(objID, variable, &server, &inputStorage)) {
                 throw libsumo::TraCIException("Get Simulation Variable: unsupported variable " + toHex(variable, 2) + " specified");
             }
