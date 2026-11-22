@@ -69,6 +69,8 @@ A depart time value of -3 is interpreted as immediate departure
 | :-------------------: | :-------------: | :--------------: | :------------: | :-----------------: | :-----------------: | :-----------------: | :----: | :-----------------: | :-------------------: |
 | value type *compound* | item number (4) | value type *int* | stage type (3) | value type *string* | destination edge ID | value type *string* | lines  | value type *string* | stopID (may be empty) |
 
+When `lines` is set to `"taxi"`, `appendDrivingStage` (and `appendStage` with a driving `TraCIStage`) creates a taxi reservation whose `group` defaults to the individual `personID`. Shared taxi rides for multiple dynamically routed passengers can still be dispatched by passing a sequence of reservation IDs (for example `[res_id1, res_id2]`) to `traci.vehicle.dispatchTaxi(vehID, reservations)` (see [Simulation/Taxi](../Simulation/Taxi.md#traci)).
+
 ### replace stage (0xcd)
 
 | byte                | int             | byte           | int               | byte                | int              | byte           | int        | byte              | string               | byte              | string              | byte              | string                  | byte                  | stringList | byte              | double     | byte              | double | byte              | double | byte              | string                  | byte              | double | byte              | double    | byte              | double     | byte              | string                     |
