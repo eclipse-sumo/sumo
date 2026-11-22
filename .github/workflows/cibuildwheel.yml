@@ -88,7 +88,7 @@ jobs:
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2.25
         with:
-          key: ${{ matrix.os }}-${{ matrix.manylinux }}
+          key: wheel-${{ matrix.os }}-${{ matrix.manylinux }}
           variant: ${{ startsWith(matrix.os, 'windows') && 'sccache' || 'ccache' }}
           save: ${{ github.ref == 'refs/heads/main' }}
           # ccache only, sccache has no eviction option

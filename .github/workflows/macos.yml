@@ -47,7 +47,7 @@ jobs:
       uses: hendrikmuhs/ccache-action@v1.2.25
       with:
         restore: ${{ github.event.schedule != '5 2 * * 0' }}
-        key: ${{ matrix.os }}
+        key: ${{ matrix.os }}-build
         save: ${{ github.ref == 'refs/heads/main' }}
         evict-old-files: job
 
