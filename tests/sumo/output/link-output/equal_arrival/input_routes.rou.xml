@@ -1,0 +1,6 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus" maxSpeed="10" sigma="0"/>
+    <route id="r0" edges="beg exit exit2"/>
+    <vehicle id="b" type="bus" route="r0" depart="0" departLane="1" departPos="900" departSpeed="10"/>
+    <vehicle id="a" type="bus" route="r0" depart="0" departLane="0" departPos="900" departSpeed="10"/>
+</routes>

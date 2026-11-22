@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-22T11:08:12.051591+01:00 by Eclipse SUMO sumo v1_28_0+0708-67efd97d02b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <link-output value="linkstate.xml"/>
+    </output>
+
+    <time>
+        <end value="5"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<link-output>
+    <timestep id="0.00"/>
+    <timestep id="1.00">
+        <link from="beg_0" via="" to="exit_0">
+            <approaching id="a" impatience="0.00" arrivalTime="10.88" leaveTime="12.69" arrivalSpeed="10.00" arrivalSpeedBraking="0.00" leaveSpeed="10.00" willPass="1"/>
+        </link>
+        <link from="beg_1" via="" to="exit_0">
+            <approaching id="b" impatience="0.00" arrivalTime="10.90" leaveTime="12.99" arrivalSpeed="8.88" arrivalSpeedBraking="0.00" leaveSpeed="9.85" willPass="1"/>
+        </link>
+        <link from="exit_0" via="" to="exit2_0">
+            <approaching id="b" impatience="0.00" arrivalTime="24.25" leaveTime="26.66" arrivalSpeed="10.00" arrivalSpeedBraking="0.00" leaveSpeed="1.00" willPass="0"/>
+            <approaching id="a" impatience="0.00" arrivalTime="24.25" leaveTime="26.66" arrivalSpeed="10.00" arrivalSpeedBraking="0.00" leaveSpeed="1.00" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="2.00">
+        <link from="beg_0" via="" to="exit_0">
+            <approaching id="a" impatience="0.00" arrivalTime="10.88" leaveTime="12.69" arrivalSpeed="10.00" arrivalSpeedBraking="0.00" leaveSpeed="10.00" willPass="1"/>
+        </link>
+        <link from="beg_1" via="" to="exit_0">
+            <approaching id="b" impatience="0.00" arrivalTime="10.90" leaveTime="12.99" arrivalSpeed="8.88" arrivalSpeedBraking="0.00" leaveSpeed="9.85" willPass="1"/>
+        </link>
+        <link from="exit_0" via="" to="exit2_0">
+            <approaching id="b" impatience="0.00" arrivalTime="24.25" leaveTime="26.66" arrivalSpeed="10.00" arrivalSpeedBraking="0.00" leaveSpeed="1.00" willPass="0"/>
+            <approaching id="a" impatience="0.00" arrivalTime="24.25" leaveTime="26.66" arrivalSpeed="10.00" arrivalSpeedBraking="0.00" leaveSpeed="1.00" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="3.00">
+        <link from="beg_0" via="" to="exit_0">
+            <approaching id="a" impatience="0.00" arrivalTime="10.88" leaveTime="12.69" arrivalSpeed="10.00" arrivalSpeedBraking="0.00" leaveSpeed="10.00" willPass="1"/>
+        </link>
+        <link from="beg_1" via="" to="exit_0">
+            <approaching id="b" impatience="0.00" arrivalTime="11.81" leaveTime="13.90" arrivalSpeed="8.88" arrivalSpeedBraking="0.00" leaveSpeed="9.85" willPass="1"/>
+        </link>
+        <link from="exit_0" via="" to="exit2_0">
+            <approaching id="a" impatience="0.00" arrivalTime="24.25" leaveTime="26.66" arrivalSpeed="10.00" arrivalSpeedBraking="0.00" leaveSpeed="1.00" willPass="1"/>
+            <approaching id="b" impatience="0.00" arrivalTime="24.47" leaveTime="26.88" arrivalSpeed="10.00" arrivalSpeedBraking="0.00" leaveSpeed="1.00" willPass="0"/>
+        </link>
+    </timestep>
+    <timestep id="4.00">
+        <link from="beg_0" via="" to="exit_0">
+            <approaching id="a" impatience="0.00" arrivalTime="10.88" leaveTime="12.69" arrivalSpeed="10.00" arrivalSpeedBraking="0.00" leaveSpeed="10.00" willPass="1"/>
+        </link>
+        <link from="beg_1" via="" to="exit_0">
+            <approaching id="b" impatience="0.00" arrivalTime="12.65" leaveTime="14.74" arrivalSpeed="8.88" arrivalSpeedBraking="0.00" leaveSpeed="9.85" willPass="1"/>
+        </link>
+        <link from="exit_0" via="" to="exit2_0">
+            <approaching id="a" impatience="0.00" arrivalTime="24.25" leaveTime="26.66" arrivalSpeed="10.00" arrivalSpeedBraking="0.00" leaveSpeed="1.00" willPass="1"/>
+            <approaching id="b" impatience="0.00" arrivalTime="25.14" leaveTime="27.54" arrivalSpeed="10.00" arrivalSpeedBraking="0.00" leaveSpeed="1.00" willPass="0"/>
+        </link>
+    </timestep>
+</link-output>
