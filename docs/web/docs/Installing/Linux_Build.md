@@ -289,6 +289,22 @@ You have to adjust your SUMO_HOME variable to the install dir (usually
 export SUMO_HOME=/usr/local/share/sumo
 ```
 
+## Using SUMO Libraries in External CMake Projects
+
+SUMO generates `SUMOConfig.cmake` in the CMake build directory (`<build_dir>/SUMOConfig.cmake`) and installs it to `<prefix>/share/sumo/cmake/SUMOConfig.cmake` during `cmake --install`. Downstream C++ projects link [Libsumo](../Libsumo.md) or [Libtraci](../Libtraci.md) through the `SUMO` package configuration and the exported shared-library targets `SUMO::libsumocpp` and `SUMO::libtracicpp`:
+
+```cmake
+cmake_minimum_required(VERSION 3.16)
+project(my_sumo_app CXX)
+set(CMAKE_CXX_STANDARD 17)
+
+find_package(SUMO CONFIG REQUIRED)
+add_executable(my_sumo_app main.cpp)
+target_link_libraries(my_sumo_app PRIVATE SUMO::libsumocpp)
+```
+
+Point CMake to `SUMOConfig.cmake` with `-DSUMO_DIR=/usr/local/share/sumo/cmake` for an installed build or `-DSUMO_DIR=/path/to/sumo/build` (plus `-DCMAKE_INCLUDE_PATH=/path/to/sumo/src`) for an uninstalled source build. Static internal archives such as `libsumostatic` do not provide standalone CMake package files.
+
 ## Uninstalling
 
 CMake provides no `make uninstall` so if you ever want to uninstall, run
