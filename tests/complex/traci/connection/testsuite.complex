@@ -27,3 +27,6 @@ close_instance
 
 # test client-side command tracing when calling commands via the connection
 tracing
+
+# Python TraCI socket framing, partial I/O, and connection close recovery
+transport_recovery

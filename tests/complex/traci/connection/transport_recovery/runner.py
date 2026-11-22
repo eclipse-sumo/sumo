@@ -23,7 +23,10 @@ import sys
 import unittest
 from unittest.mock import Mock, patch
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'tools'))
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+else:
+    sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', '..', '..', 'tools'))
 
 import traci  # noqa
 from traci import connection, constants as tc  # noqa
