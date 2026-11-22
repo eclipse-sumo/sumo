@@ -229,11 +229,15 @@ exists but the person is not positioned between the start and end
 position of the vehicle's stop, the person will still enter if the
 vehicle is triggered by the person and the distance between person and
 vehicle is at most 10 meters. It does not check whether the vehicle has
-the aspired destination on the current route. The first time the vehicle
-stops (on a well defined stop) at the destination edge, the ride is
-finished and the person proceeds with the next step in the plan.
+the aspired destination on the current route.
 
-If option **--time-to-teleport.ride** is set, persons will be teleported to their ride destination after the specified time rather than waiting until the end of the simulation (or until all active vehicles have left the simulation).
+A `<ride>` ends on its destination `to` edge only when the carrying vehicle either reaches the end of its own route on that edge or executes an explicit `<stop>` (`busStop`, `parkingArea`, or lane stop) on that edge:
+
+- Passing `arrivalPos` at speed without a vehicle stop does not trigger disembarkation. When the vehicle's route ends on the `to` edge without an intermediate stop, the person alights at the vehicle's `arrivalPos` (the end of the edge by default).
+- When the vehicle executes a `<stop>` on the `to` edge and `arrivalPos` is set on `<ride>`, the stop interval `[startPos, endPos]` must lie within `vehicleLength + stopTolerance` of `arrivalPos` for the person to alight at that stop.
+- Set `arrivalPos="X"` on the vehicle (when `to` is its final edge) or add `<stop lane="..." endPos="X" duration="..."/>` to the vehicle route so the person alights at position `X`.
+
+If option **--time-to-teleport.ride** is set, persons will be teleported to their ride destination after the specified time instead of waiting until the end of the simulation (or until all active vehicles have left the simulation).
 
 ## Walking
 
