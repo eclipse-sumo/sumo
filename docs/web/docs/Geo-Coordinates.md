@@ -80,3 +80,6 @@ This is typically accomplished in a 2-step process of first converting lon,lat t
 - [traci.moveToXY](TraCI/Change_Vehicle_State.md#move_to_xy_0xb4) moves a vehicle to an appropriate network position
 - [convert geo-coordinates to edge with sumolib](Tools/Sumolib.md#locate_nearby_edges_based_on_the_geo-coordinate)
 - [TraCI](TraCI/Simulation_Value_Retrieval.md#command_0x82_position_conversion) converts between coordinates (x,y or lon,lat) and edges
+
+!!! caution
+    `traci.simulation.convertRoad(lon, lat, True)` searches all network lanes, including [internal junction edges](Networks/SUMO_Road_Networks.md#internal_edges) whose IDs start with a colon (such as `:3203749849_0`). Internal edges represent connectors inside intersections, are excluded from normal edge searches in [netedit](Netedit/index.md), and cannot host stopping places such as `<busStop>`. Load the network with [sumolib](Tools/Sumolib.md#locate_the_nearest_lane) (`net = sumolib.net.readNet("myNet.net.xml")`, which sets `withInternal=False` by default) and call `lane, pos, dist = net.getNearestLane(lon, lat, r=100, vClass="bus", isGeo=True)` to obtain a regular non-internal lane ID and longitudinal offset.
