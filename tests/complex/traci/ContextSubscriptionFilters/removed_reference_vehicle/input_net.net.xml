@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<net version="1.20">
+    <edge id="edge" from="start" to="end" priority="1">
+        <lane id="edge_0" index="0" speed="13.89" length="100.00" shape="0.00,0.00 100.00,0.00"/>
+    </edge>
+    <junction id="start" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-1.60 0.00,1.60"/>
+    <junction id="end" type="dead_end" x="100.00" y="0.00" incLanes="edge_0" intLanes="" shape="100.00,-1.60 100.00,1.60"/>
+</net>
