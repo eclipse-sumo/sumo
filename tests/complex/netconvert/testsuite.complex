@@ -21,3 +21,4 @@ opendrive_roundtrip
 osm_sidewalk_access
 
 plain_roundtrip
+vclass_speed_restrictions
