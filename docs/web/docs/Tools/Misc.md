@@ -438,3 +438,6 @@ python tools/runSeeds.py -k test.sumocfg --seeds 7,11,13
 - option **--output-prefix** (**-p**) can be used to define a prefix for all written output files. The string "SEED" is replaced by the current seed. (default prefix is "SEED.")
 - option **--threads INT** can be used to perform application runs in parallel
 - any additional options are forwarded to the application
+
+!!! tip
+    When executing hundreds or thousands of simulations, keep the default headless **--application sumo** (`runSeeds.py -k test.sumocfg --seeds 0:1000 --threads 8`) to avoid repeated `sumo-gui` OpenGL context and window initialization. For TraCI control loops, connect to `sumo`, call `traci.load([...])` between episodes to reuse a single process, or import [libsumo](../Libsumo.md) (`import libsumo as traci`) for in-process execution. Store networks and route files on a local ASCII directory path outside cloud-synced folders (such as OneDrive) to prevent file-locking and path-encoding delays on Windows.
