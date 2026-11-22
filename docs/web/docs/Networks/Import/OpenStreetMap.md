@@ -253,17 +253,17 @@ osmBuild.py --oldapi-prefix <NAME --tiles <INT> [--vehicle-classes (all|road|pas
 Incorporating z-coordinates in networks is still experimental so please
 report anything odd.
 
-## SRTM
+## Digital Elevation Models (GeoTIFF / SRTM) and OSM `ele` Tags
 
-When using option **--osm.elevation**, z-data is imported from [tags with `key="ele"`
-](https://wiki.openstreetmap.org/wiki/Key:ele) in OSM nodes. Since this
-tag is not yet in wide use, tools exist to overlay OSM data with
-elevation data sources
-(https://wiki.openstreetmap.org/wiki/Srtm_to_Nodes). When using the
-osmosis-srtm plugin the option **tagName=ele** must be used since only the ['ele'
-tag](https://wiki.openstreetmap.org/wiki/Key:ele) is evaluated and the
-plugin would use the ['height'
-tag](https://wiki.openstreetmap.org/wiki/Key:height) by default.
+[netconvert](../../netconvert.md) overlays Digital Elevation Model (DEM) rasters (such as SRTM, NASADEM, Copernicus DEM, and ASTER GDEM) directly onto imported OSM networks via **--heightmap.geotiff** {{DT_FILE}}, without external OSM preprocessing plugins:
+
+```bash
+netconvert --osm-files map.osm.xml --heightmap.geotiff dem.tif -o net.net.xml
+```
+
+When SUMO is built with GDAL (enabled in official releases), `netconvert` transforms coordinates between WGS84 and the GeoTIFF coordinate reference system automatically. Contour shapefiles can likewise be applied via **--heightmap.shapefiles** {{DT_FILE}}; see the [Elevation Data](../../Networks/Elevation.md) guide for public DEM download portals and raster preparation.
+
+Pass **--osm.elevation** to read node elevations directly from [OSM `ele` tags](https://wiki.openstreetmap.org/wiki/Key:ele) where mapped. The legacy `osmosis-srtm` `Srtm_to_Nodes` plugin previously used to inject `ele` tags into `.osm` files is discontinued.
 
 ## Layer Information
 
