@@ -104,3 +104,4 @@ collected for the vehicles correspond to
 - Induction loops are created automatically when defining [actuated traffic lights](../Traffic_Lights.md#type_actuated)
 - You can generate detector definitions automatically. See [output
   tools](../../Tools/Output.md) for more information.
+- `<inductionLoop>` (along with E2 and E3 detectors) does not accept per-detector `begin` or `end` attributes and always starts recording at the simulation start time (**--begin**, default `0`) in intervals of `period` seconds. Use [`<laneData>` or `<edgeData>`](Lane-_or_Edge-based_Traffic_Measures.md) when explicit `begin` and `end` recording windows are needed, or post-filter warm-up intervals from detector XML files with [filterElements.py](../../Tools/Xml.md#filterelementspy).
