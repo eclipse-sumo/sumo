@@ -56,7 +56,16 @@ Setting the routing mode (to ignore blockage) can be accomplished in the followi
 
 - `traci.vehicle.setRoutingMode(vehID, traci.constants.ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS)`
 - sumo option **--device.rerouting.mode 8**
-- defining `<param key="device.rerouting.mode value="8">` in the `vType` or a single `<vehicle>, <trip>` or `<flow>`.
+- defining `<param key="device.rerouting.mode" value="8"/>` in the `vType` or a single `<vehicle>`, `<trip>`, or `<flow>`.
+
+## Edges with Zero Speed
+
+Setting the maximum speed of an edge or all of its lanes to `0` (for example via `traci.edge.setMaxSpeed(edgeID, 0)`, `traci.lane.setMaxSpeed(laneID, 0)`, or a [variable speed sign](Variable_Speed_Signs.md)) sets the minimum travel time `length / allowedSpeed` to infinity. Consequently, SUMO routers treat `0`-speed edges as impassable and exclude them from all newly computed routes even when every alternative path to the destination is blocked. The `ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS` (`8`) flag overrides transient permission closures (`<closingReroute>` and `<closingLaneReroute>`) exclusively; `0`-speed edges remain excluded.
+
+Use one of two configurations to model temporary blockages without causing routing failures when no detour exists:
+
+- Close the road with a [`<closingReroute>`](Rerouter.md#closing_a_street) and enable `ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS` (`8`) on vehicles that have no detour.
+- Assign a small positive speed (such as `0.01` m/s) via TraCI so routers avoid the disrupted edge whenever a faster detour exists while still permitting fallback routes across it when no alternative path is available.
 
 # Travel-time values for routing
 
