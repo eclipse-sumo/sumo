@@ -110,6 +110,9 @@ destination lists are normalized after loading.
   [edgesInDistricts.py](../../Tools/District.md#edgesindistrictspy)
   for converting polygons to TAZ.
 
+!!! caution
+    [od2trips](../../od2trips.md) samples origin and destination edges from `<taz>` definitions without loading the road network `.net.xml` and therefore cannot check whether a route exists between a sampled edge pair. Filter TAZ edges to a mutually connected network component for the target `vClass` (for example using [netcheck.py](../../Tools/Net.md#netcheckpy) and `--vclass` in `edgesInDistricts.py`) so all generated trips are routable in [duarouter](../../duarouter.md) and [sumo](../../sumo.md).
+
 ## Further Usage for TAZ
 
 - TAZ can be used with [route input for
