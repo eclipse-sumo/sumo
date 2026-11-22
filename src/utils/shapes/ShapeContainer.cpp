@@ -229,6 +229,19 @@ ShapeContainer::add(PointOfInterest* poi, bool /* ignorePruning */) {
 
 void
 ShapeContainer::clearState() {
+    while (!myHighlightedObjects.empty()) {
+        const std::string polyID = myHighlightedObjects.begin()->first;
+        myHighlightedObjects.erase(myHighlightedObjects.begin());
+        removePolygon(polyID);
+    }
+    myHighlightPolygons.clear();
+    while (!myPolygonDynamics.empty()) {
+        if (!removePolygonDynamics(myPolygonDynamics.begin()->first)) {
+            delete myPolygonDynamics.begin()->second;
+            myPolygonDynamics.erase(myPolygonDynamics.begin());
+        }
+    }
+    myTrackingPolygons.clear();
     for (auto& item : myPolygonUpdateCommands) {
         item.second->deschedule();
     }
