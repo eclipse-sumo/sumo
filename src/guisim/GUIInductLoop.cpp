@@ -148,13 +148,13 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     }
     // values
     ret->mkItem(TL("entered vehicles [-]"), true,
-                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getEnteredNumber, 0));
+                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getEnteredNumber, (int)DELTA_T));
     ret->mkItem(TL("speed [m/s]"), true,
-                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getSpeed, 0));
+                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getSpeed, (int)DELTA_T));
     ret->mkItem(TL("occupancy [%]"), true,
                 new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getOccupancy));
     ret->mkItem(TL("vehicle length [m]"), true,
-                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getVehicleLength, 0));
+                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getVehicleLength, (int)DELTA_T));
     ret->mkItem(TL("empty time [s]"), true,
                 new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getTimeSinceLastDetection));
     ret->mkItem(TL("occupied time [s]"), true,
