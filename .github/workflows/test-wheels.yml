@@ -102,13 +102,14 @@ jobs:
         TEXTTEST_CALL="tests/runTests.sh -b ci -v ci.fast -finverse $PWD/tests/filter_files/${OS}_failures.txt"
         python -m pip install -r tools/req_ci.txt
         # the applications only depend on the binaries, which are the same for all Python versions,
-        # so they are tested with the reference version only
-        if [[ "${{ matrix.python_version }}" == "3.12" ]]; then
+        # so they are tested with the reference version only (see the shards in generate-matrix.yml)
+        if [[ "${{ matrix.shard }}" == "binaries" ]]; then
           $TEXTTEST_CALL -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert
           $TEXTTEST_CALL -a netconvert,netgen
           $TEXTTEST_CALL -a sumo,traci
+        else
+          $TEXTTEST_CALL -a complex,tools
         fi
-        $TEXTTEST_CALL -a complex,tools
 
     - name: Cleaning up test environment
       shell: bash
@@ -117,6 +118,7 @@ jobs:
         echo 'SUMO_HOME=' >> $GITHUB_ENV
 
     - name: Preparing Python environment for libsumo
+      if: ${{ matrix.shard == 'python' }}
       shell: bash
       run: |
         python -m venv libsumo_testenv --system-site-packages
@@ -126,14 +128,14 @@ jobs:
         python -m pip install texttest
 
     - name: Installing libsumo wheels (macos / windows)
-      if: ${{ !startsWith(matrix.os, 'ubuntu') || inputs.wheel_source != 'python-wheels' }}
+      if: ${{ matrix.shard == 'python' && (!startsWith(matrix.os, 'ubuntu') || inputs.wheel_source != 'python-wheels') }}
       shell: bash
       run: |
         if [[ "${{ matrix.os }}" != "windows-latest" ]]; then source libsumo_testenv/*/activate; fi
         python -m pip install --no-index -f $WHEEL_SOURCE libsumo
 
     - name: Installing libsumo wheels (linux)
-      if: ${{ startsWith(matrix.os, 'ubuntu') && inputs.wheel_source == 'python-wheels' }}
+      if: ${{ matrix.shard == 'python' && (startsWith(matrix.os, 'ubuntu') && inputs.wheel_source == 'python-wheels') }}
       shell: bash
       run: |
         source libsumo_testenv/*/activate
@@ -144,7 +146,7 @@ jobs:
         python -m pip install $WHEEL $DATA_WHEEL
 
     - name: Verify wheel binary signatures
-      if: runner.os == 'macOS'
+      if: ${{ matrix.shard == 'python' && (runner.os == 'macOS') }}
       shell: bash
       run: |
         for f in $(find "libsumo_testenv" -name "*.so" -o -name "*.dylib"); do
@@ -153,6 +155,7 @@ jobs:
         done
 
     - name: Running libsumo tests
+      if: ${{ matrix.shard == 'python' }}
       shell: bash
       run: |
         source libsumo_testenv/*/activate
@@ -161,12 +164,12 @@ jobs:
     - name: Compressing test results
       if: failure()
       shell: bash
-      run: 7z a -bso0 -bsp0 texttesttmp-${{ matrix.os }}-${{ matrix.manylinux }}-${{ matrix.python_version }}.zip ~/.texttest/tmp
+      run: 7z a -bso0 -bsp0 texttesttmp-${{ matrix.os }}-${{ matrix.manylinux }}-${{ matrix.python_version }}-${{ matrix.shard }}.zip ~/.texttest/tmp
 
     - name: Uploading test results
       if: failure()
       uses: actions/upload-artifact@v7
       with:
-        path: texttesttmp-${{ matrix.os }}-${{ matrix.manylinux }}-${{ matrix.python_version }}.zip
+        path: texttesttmp-${{ matrix.os }}-${{ matrix.manylinux }}-${{ matrix.python_version }}-${{ matrix.shard }}.zip
         archive: false
         if-no-files-found: warn

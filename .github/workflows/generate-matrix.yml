@@ -47,7 +47,10 @@ jobs:
                   if pr and osys == "macos-15" and "macos-26" in osl:
                       continue
                   for py in python_versions:
-                      include_test.append({"os": osys, "manylinux": ml, "python_version": py})
+                      include_test.append({"os": osys, "manylinux": ml, "python_version": py, "shard": "python"})
+                      if py == "3.12":
+                          # the binaries do not depend on the Python version, so they are tested once, in a parallel job
+                          include_test.append({"os": osys, "manylinux": ml, "python_version": py, "shard": "binaries"})
 
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
               print(f"build_matrix={json.dumps({'include': include_build})}", file=f)
