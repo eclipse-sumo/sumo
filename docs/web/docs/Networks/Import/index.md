@@ -42,3 +42,21 @@ output format of [netconvert](../../netconvert.md) and which is
 enriched with heuristically derived data such as right-of-way rules and
 junction geometry. Both formats can be converted into each other without
 data loss.
+
+# Supported Standards and Versions
+
+The table below summarizes external infrastructure, demand, output, and co-simulation standards supported across SUMO:
+
+| Standard / Format | Import | Export | Supported Versions & Notes |
+| --- | --- | --- |
+| [ASAM OpenDRIVE](OpenDRIVE.md) | `--opendrive-files` | [`--opendrive-output`](../Further_Outputs.md#opendrive_road_networks) | Full 1.4 support; partial 1.5 and 1.6 import (`<junction type="virtual">` unsupported); export writes OpenDRIVE 1.4 (`revMajor="1" revMinor="4"`). |
+| [OpenStreetMap XML](OpenStreetMap.md) | `--osm-files` | No | OSM API v0.6 XML (`.osm`, `.osm.xml`, `.osm.xml.gz`). |
+| [MATSim Network](MATsim.md) | `--matsim-files` | [`--matsim-output`](../Further_Outputs.md#matsim_road_networks) | `network_v1.dtd` XML. |
+| [ESRI Shapefile / OGR](ArcView.md) | `--shapefile-prefix` | No | Vector road networks via GDAL/OGR. |
+| [GeoTIFF DEM](../Elevation.md) | `--heightmap.geotiff` | No | Elevation rasters (SRTM, NASADEM, Copernicus DEM, ASTER) via GDAL; also supported as [sumo-gui](../../sumo-gui.md) backgrounds. |
+| [PTV VISUM](VISUM.md) / [PTV VISSIM](Vissim.md) | `--visum-file`, `--vissim-file` | No | Legacy `.inp` and VISSIM `.inpx` XML network import (partial coverage on newer VISSIM releases). |
+| [DLR NavTeq](DlrNavteq.md) | `--dlr-navteq-prefix` | [`--dlr-navteq-output`](../Further_Outputs.md#dlrnavteq_road_networks) | Version 6.5 export by default (`--dlr-navteq.version`). |
+| [GTFS](../../Tutorials/GTFS.md) | `gtfs2pt.py` | No | Static GTFS public transport schedules and shapes mapped onto SUMO networks. |
+| [Amitran](../../Simulation/Output/AmitranOutput.md) | `od2trips --amitran-files` | `--amitran-output`, `<edgeData>` | Amitran OD matrices, vehicle trajectories, and link traffic measures. |
+| [FMI](../../Developer/FMI.md) | Co-simulation | `sumo-fmi` shared library | Functional Mock-up Interface (FMI) 2.0 for Co-Simulation (`fmi2Functions`); FMI 3.0 is not yet implemented. |
+| ASAM OpenSCENARIO / CityGML | Unsupported | Unsupported | No native importer or exporter in SUMO; scenario coupling relies on external co-simulation runners via [TraCI](../../TraCI/index.md) or OpenDRIVE export. |
