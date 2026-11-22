@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-11-10 19:04+0100\n"
-"PO-Revision-Date: 2026-11-22 15:38+0000\n"
+"PO-Revision-Date: 2026-11-22 18:18+0000\n"
 "Last-Translator: Mirko Barthauer <m-kro@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "osmwebwizard/it/>\n"
@@ -261,6 +261,8 @@ msgid ""
 "Server connection failed (%). Please (re-)open the OSM Web Wizard by using "
 "osmWebWizard.py or the link in your start menu."
 msgstr ""
+"La connessione col server è fallita (%). Per favore (ri)apri il OSM Web "
+"Wizard tramite osmWebWizard.py oppure usando il link del tuo menu avvio."
 
 #: tools/osmWebWizard.py:123
 msgid "Urban Trains"
@@ -289,24 +291,24 @@ msgstr "Completato con successo."
 #: tools/osmWebWizard.py:350
 #, python-format
 msgid "Error while downloading background images: %s"
-msgstr ""
+msgstr "Errore durante lo scaricamento delle immagini di sfondo: %s"
 
 #: tools/osmWebWizard.py:363
 #, python-format
 msgid "Processing %s"
-msgstr ""
+msgstr "Processando %s"
 
 #: tools/osmWebWizard.py:446
 msgid "Generating configuration file"
-msgstr ""
+msgstr "Creazione del file di configurazione"
 
 #: tools/osmWebWizard.py:509
 msgid "Calling SUMO"
-msgstr ""
+msgstr "Esecuzione di SUMO"
 
 #: tools/osmWebWizard.py:518
 msgid "Building zip file"
-msgstr ""
+msgstr "Creazione del file archivio zip"
 
 #: tools/osmWebWizard.py:593 tools/osmWebWizard.py:637
 msgid "Error with SSL certificate, try 'pip install -U certifi'."
