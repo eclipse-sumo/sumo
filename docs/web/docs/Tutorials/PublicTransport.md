@@ -165,3 +165,20 @@ A good starting point would be the tutorials provided:
 
 * [TraCI4Traffic Lights](TraCI4Traffic_Lights.md)
 * [TraCIPedCrossing](TraCIPedCrossing.md)
+
+## Retrieving Junctions Along a Bus Route
+
+Static intersection IDs and coordinates traversed by each route in a `.rou.xml` file can be extracted offline with [sumolib](../Tools/Sumolib.md). Specifically, each edge in `route.edges` exposes `getFromNode()` and `getToNode()`, and each node provides `getID()` and `getCoord()`:
+
+```python
+import sumolib
+
+net = sumolib.net.readNet("net.net.xml")
+for route in sumolib.xml.parse_fast("pt.rou.xml", "route", ["id", "edges"]):
+    edge_ids = route.edges.split()
+    nodes = [net.getEdge(edge_ids[0]).getFromNode()]
+    nodes.extend(net.getEdge(e).getToNode() for e in edge_ids)
+    for node in nodes:
+        x, y = node.getCoord()
+        print(route.id, node.getID(), x, y)
+```
