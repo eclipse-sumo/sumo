@@ -48,7 +48,7 @@ catch-up follower mode will use the follower mode if no separate
 catch-up follower mode is specified.
 
 !!! note
-    Simpla currently does not support lane-changing to join a platoon. Vehicles that are already in a platoon will try to change their lane if the platoon leader changes its lane though.
+    `simpla` forms platoons from vehicles that already share a lane and does not issue lane changes to join a platoon. Once vehicles form a platoon, `simpla` calls `traci.vehicle.changeLane` on every follower whenever the platoon leader occupies a different lane and is farther than **lcMinDist** from the next junction. Because `traci.vehicle.changeLane` is an external TraCI command (`LCA_TRACI`), it overrides autonomous `<vType>` motivation weights (`lcStrategic="0"`, `lcSpeedGain="0"`, `lcKeepRight="0"`) as well as `laneChangeMode` values such as `256` or `514` (which disable autonomous SUMO lane changes while still honoring safe TraCI requests). In addition, `simpla` overwrites each managed vehicle's `laneChangeMode` with the configured `<lcMode .../>` value on mode transitions. Exclude specific vehicles via **vehicleSelectors** or configure `<lcMode follower="0" catchupFollower="0"/>` (clearing TraCI lane-change bits `8` and `9`) if followers must stay on their original lane when the leader changes lanes.
 
 # Configuration
 
