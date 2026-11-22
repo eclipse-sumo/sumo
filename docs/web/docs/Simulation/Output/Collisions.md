@@ -43,7 +43,7 @@ The following output attributes are generated:
 ## Collision Types
 The following collision types are written
 
-- collision: rear collision (leader vehicle is the victim)
+- collision: rear collision (leader vehicle is the victim). By default, SUMO registers a rear collision whenever the gap drops below the follower's `minGap`. In platooning plugins such as [Simpla](../../Simpla.md), splitting a queued platoon reverts followers to a standalone `vType` with a larger `minGap`, which records a `collision` event without physical contact unless **--collision.mingap-factor 0** (and optionally **--collision.action warn** or **none**) is set.
 - frontal: collision will driving through the opposite direction lane (the vehicle using the opposite direction lane is the collider)
 - side: collision that happens as a direct result of lane-changing 
 - junction: collision between vehicles on a junction. Vehicle with right of way is assigned as victim
