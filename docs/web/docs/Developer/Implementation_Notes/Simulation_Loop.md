@@ -72,6 +72,9 @@ end
 @enduml
 ```
 
+!!! caution
+    Standard periodic outputs flush sequentially inside `MSNet::writeOutput` at the end of each step, whereas event-driven move reminders such as `<instantInductionLoop>` (`MSInstantInductLoop::notifyMove`) write XML records directly inside `MSEdgeControl::executeMovements`. When **--threads** is greater than `1`, concurrent `executeMovements` worker threads interleave unbuffered writes if multiple `<instantInductionLoop>` detectors share one `file` attribute. Omit **--threads** (which currently provides limited simulation speedup) or configure a distinct output `file` per `<instantInductionLoop>`.
+
 # Pedestrian Lifecycle and update Loop
 
 Persons in SUMO are modeled by the distinct [stages](../../Specification/Persons.md#simulation_behavior) *walk*, *ride*, *stop* and *access*.
