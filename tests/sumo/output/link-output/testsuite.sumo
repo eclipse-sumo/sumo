@@ -3,3 +3,6 @@
 
 # vehicles passes an intersection via an internal junction
 internal_junction
+
+# two vehicles with the same arrival time at a link are written in id order
+equal_arrival
