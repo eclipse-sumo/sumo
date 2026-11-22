@@ -315,6 +315,8 @@ Please note, that the x/y-positions of the junction describe the given,
 not the computed center of the junction. It is allowed for two nodes to
 have the same position.
 
+In [sumolib](../Tools/Sumolib.md), `node.getIncoming()` returns incoming edges in the order they are defined in `.net.xml`, whereas `<junction incLanes="...">` and connection `linkIndex` values are sorted clockwise starting at North (`0` degrees). To obtain incoming edges in clockwise order starting from North in Python, sort the node's connections by `connection.getJunctionIndex()` and collect each connection's `getFrom()` edge while preserving first occurrence.
+
 !!! caution
     The maximum number of connections (links) per junction is limited to 256 since version 0.25.0. In earlier versions of sumo the limit was 64.
 
