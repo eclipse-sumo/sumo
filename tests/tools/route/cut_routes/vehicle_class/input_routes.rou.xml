@@ -1,0 +1,11 @@
+<routes>
+    <vehicle id="clipped" depart="0">
+        <route edges="a b c" exitTimes="35 45 55"/>
+    </vehicle>
+    <vehicle id="closed-only" depart="10">
+        <route edges="a"/>
+    </vehicle>
+    <vehicle id="already-open" depart="20">
+        <route edges="b c"/>
+    </vehicle>
+</routes>

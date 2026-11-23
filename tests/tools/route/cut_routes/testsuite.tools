@@ -8,6 +8,7 @@ keep_disconnected
 # Using keep_disconnected with original net, tests correct departure offsets for different route parts.
 keep_disconnected_with_original_net
 exitTimes
+vehicle_class
 
 # test extrapolating new departure times using the original network
 origNet
