@@ -1,0 +1,1 @@
+--shapefile-prefix data/shape --shapefile.id-column TEST_ID -o pois.poi.xml
