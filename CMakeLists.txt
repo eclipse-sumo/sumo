@@ -811,7 +811,9 @@ if (NOT WIN32)
     install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${DATA_PATH}bin)" COMPONENT runtime)
 endif ()
 
-install(EXPORT SUMOConfig DESTINATION ${DATA_PATH}cmake NAMESPACE SUMO:: COMPONENT runtime)
+# Older CMake counts a leading "./" when computing the exported import prefix.
+string(REGEX REPLACE "^\\./" "" SUMO_CONFIG_DIR "${DATA_PATH}cmake")
+install(EXPORT SUMOConfig DESTINATION "${SUMO_CONFIG_DIR}" NAMESPACE SUMO:: COMPONENT runtime)
 
 set(SUMO_TOOLS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tools")
 if (NOT PYTHON_BUILD_MISSING)
@@ -1036,6 +1038,22 @@ enable_testing()
 add_subdirectory(src)
 if (GTEST_FOUND)
     add_subdirectory(unittest)
+endif ()
+if (NOT CMAKE_CROSSCOMPILING AND CMAKE_VERSION VERSION_GREATER_EQUAL 3.20)
+    add_test(NAME libsumo_out_of_tree
+        COMMAND "${CMAKE_COMMAND}"
+            "-DSUMO_BUILD_DIR=${CMAKE_BINARY_DIR}"
+            "-DSUMO_CMAKE_DIR=${SUMO_CONFIG_DIR}"
+            "-DSUMO_CONFIG=$<CONFIG>"
+            "-DSUMO_INSTALL_DLLS=${MSVC}"
+            "-DSUMO_GENERATOR=${CMAKE_GENERATOR}"
+            "-DSUMO_GENERATOR_PLATFORM=${CMAKE_GENERATOR_PLATFORM}"
+            "-DSUMO_GENERATOR_TOOLSET=${CMAKE_GENERATOR_TOOLSET}"
+            "-DSUMO_MAKE_PROGRAM=${CMAKE_MAKE_PROGRAM}"
+            "-DSUMO_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
+            "-DSUMO_CTEST_COMMAND=${CMAKE_CTEST_COMMAND}"
+            -P "${CMAKE_SOURCE_DIR}/tests/libsumo_external/run.cmake")
+    set_tests_properties(libsumo_out_of_tree PROPERTIES TIMEOUT 180)
 endif ()
 
 # example and dist targets
