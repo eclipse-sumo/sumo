@@ -90,7 +90,7 @@ columns:
 - optional: slope (in \[°\]); if given, one has to enable it using the
   option **--have-slope**
 
-The tool generates a `;`-separated `.csv` file which contains the
+Use **--output-file** to write a `;`-separated `.csv` file. It contains the
 following columns by default (configurable via **--output.attributes**):
 
 - time (in \[s\])

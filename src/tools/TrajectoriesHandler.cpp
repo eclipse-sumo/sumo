@@ -68,7 +68,9 @@ TrajectoriesHandler::myStartElement(int element,
                 double v = attrs.getFloat(SUMO_ATTR_SPEED);
                 double a = INVALID_VALUE;
                 double s = INVALID_VALUE;
-                writeEmissions(std::cout, attrs.getString(SUMO_ATTR_ID), myDefaultClass, myParams, myAttributes, STEPS2TIME(myCurrentTime), v, a, s);
+                // Preserve the existing netstate text output when detailed output was requested.
+                std::ostream* out = myStdOut != nullptr || myXMLOut != nullptr ? &std::cout : nullptr;
+                writeEmissions(out, attrs.getString(SUMO_ATTR_ID), myDefaultClass, myParams, myAttributes, STEPS2TIME(myCurrentTime), v, a, s);
             } else {
                 const std::string acId = attrs.getString(SUMO_ATTR_ACTORCONFIG);
                 const std::string id = attrs.getString(SUMO_ATTR_ID);
@@ -102,8 +104,8 @@ TrajectoriesHandler::myStartElement(int element,
             if (myXMLOut != nullptr) {
                 writeXMLEmissions(id, c, nullptr, time, v, a, s);
             }
-            if (myStdOut != nullptr) {
-                writeEmissions(*myStdOut, id, c, nullptr, myAttributes, STEPS2TIME(time), v, a, s);
+            if (myStdOut != nullptr || myXMLOut == nullptr) {
+                writeEmissions(myStdOut, id, c, nullptr, myAttributes, STEPS2TIME(time), v, a, s);
             }
             break;
         }
@@ -156,7 +158,7 @@ TrajectoriesHandler::writeOptional(std::ostream& o, long long int attributes, co
 
 
 bool
-TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
+TrajectoriesHandler::writeEmissions(std::ostream* out, const std::string id,
                                     const SUMOEmissionClass c,
                                     EnergyParams* params,
                                     long long int attributes,
@@ -174,6 +176,10 @@ TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
         myLastSlope[id] = nextS;
     }
     const PollutantsInterface::Emissions e = computeEmissions(id, c, params, v, a, s);
+    if (out == nullptr) {
+        return true;
+    }
+    std::ostream& o = *out;
     o << t;
     writeOptional(o, attributes, SUMO_ATTR_SPEED, v);
     writeOptional(o, attributes, SUMO_ATTR_ACCELERATION, a);

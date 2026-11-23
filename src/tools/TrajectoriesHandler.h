@@ -57,7 +57,8 @@ public:
             const SUMOEmissionClass c, EnergyParams* params, double& v,
             double& a, double& s);
 
-    bool writeEmissions(std::ostream& o, const std::string id,
+    // A null stream accumulates totals without writing a row.
+    bool writeEmissions(std::ostream* out, const std::string id,
                         const SUMOEmissionClass c,
                         EnergyParams* params, long long int attributes,
                         double t, double& v,
