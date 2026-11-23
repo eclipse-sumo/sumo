@@ -2298,6 +2298,7 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
     std::vector<int> start;
     std::vector<double> length;
     std::vector<std::vector<int> > intermediateRS;
+    std::vector<Siding> candidates;
     for (i = 0; i < (int)myRoute.size(); i++) {
         if (myRoute[i] == foeEndBidi) {
             break;
@@ -2336,7 +2337,6 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
 #endif
                 const int firstIndex = i + 1;
                 if (addToFoe) {
-                    auto& foeSidings = foe->mySidings[this];
                     // indices must be mapped onto foe route;
                     const MSEdge* first = myRoute[firstIndex];
                     auto itFirst = std::find(foeRoute.begin(), foeRoute.end(), first);
@@ -2346,15 +2346,13 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
                             auto itLast = std::find(itFirst, foeRoute.end(), last);
                             if (itLast != foeRoute.end()) {
                                 // @todo are intermediateRS relevant here?
-                                foeSidings.insert(foeSidings.begin(), Siding((int)(itFirst - foeRoute.begin()), (int)(itLast - foeRoute.begin()), length[j], {}));
+                                candidates.emplace_back((int)(itFirst - foeRoute.begin()), (int)(itLast - foeRoute.begin()),
+                                                         length[j], std::vector<int>());
 #ifdef DEBUG_BUILD_SIDINGS
                                 if (gDebugFlag4) {
-                                    std::cout << "   found endSiding start=" << foeSidings.front().start << " end=" << foeSidings.front().end << " length=" << foeSidings.front().length << "\n";
+                                    std::cout << "   found endSiding start=" << candidates.back().start << " end=" << candidates.back().end << " length=" << candidates.back().length << "\n";
                                 }
 #endif
-                                if (foeSidings.size() > 2) {
-                                    foeSidings.pop_back();  // only need the first 2 sidings
-                                }
                             }
                         }
                     }
@@ -2372,18 +2370,15 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
                         }
                         next2 = cur2;
                     }
-                    auto& foeSidings = mySidings[foe];
                     for (int j = 0; j < (int)length.size(); j++) {
                         intermediateRS[j].insert(intermediateRS[j].end(), furtherRS.begin(), furtherRS.end());
-                        foeSidings.insert(foeSidings.begin(), Siding(firstIndex, start[j], length[j], intermediateRS[j]));
+                        candidates.emplace_back(firstIndex, start[j], length[j], std::vector<int>());
+                        candidates.back().intermediateEnds = std::move(intermediateRS[j]);
 #ifdef DEBUG_BUILD_SIDINGS
                         if (gDebugFlag4) {
-                            std::cout << "   found endSiding start=" << foeSidings.front().start << " end=" << foeSidings.front().end << " length=" << foeSidings.front().length << "\n";
+                            std::cout << "   found endSiding start=" << candidates.back().start << " end=" << candidates.back().end << " length=" << candidates.back().length << "\n";
                         }
 #endif
-                        if (foeSidings.size() > 2) {
-                            foeSidings.pop_back();  // only need the first 2 sidings
-                        }
                     }
                 }
                 start.clear();
@@ -2401,9 +2396,29 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
         }
         next = cur;
     }
-    // register in mySidingDriveways
     MSDriveWay* dw = addToFoe ? foe : this;
     MSDriveWay* dwFoe = addToFoe ? this : foe;
+    if (!candidates.empty()) {
+        auto& sidings = dw->mySidings[dwFoe];
+        std::vector<Siding> retained;
+        double longest = 0;
+        const auto retain = [&retained, &longest](Siding& siding) {
+            // Keep the first two for the recursive reservation check. Further
+            // candidates only help a train that is too long for all earlier ones.
+            if (retained.size() < 2 || siding.length > longest) {
+                longest = MAX2(longest, siding.length);
+                retained.push_back(std::move(siding));
+            }
+        };
+        for (auto candidate = candidates.rbegin(); candidate != candidates.rend(); ++candidate) {
+            retain(*candidate);
+        }
+        for (Siding& siding : sidings) {
+            retain(siding);
+        }
+        sidings = std::move(retained);
+    }
+    // register in mySidingDriveways
     auto it = dw->mySidings.find(dwFoe);
     if (it != dw->mySidings.end()) {
         for (const auto& siding : it->second) {
