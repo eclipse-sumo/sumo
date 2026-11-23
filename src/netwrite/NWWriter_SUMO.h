@@ -107,6 +107,8 @@ public:
      */
     static void writeDistrict(OutputDevice& into, const NBDistrict& d);
 
+    static void writeCurvature(OutputDevice& out, const NBEdge& edge);
+
     static void writeShape(OutputDevice& out, const GeoConvHelper& gch, PositionVector shape, SumoXMLAttr attr, bool useGeo, bool geoAccuracy, bool needsWrite);
 
 private:

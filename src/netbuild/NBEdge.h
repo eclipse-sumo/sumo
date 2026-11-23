@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include <map>
+#include <optional>
 #include <vector>
 #include <string>
 #include <set>
@@ -1450,7 +1451,16 @@ public:
         myRoutingType = routingType;
     }
 
-    /// @brief return whether this edge should be a bidi edge
+    /// @brief Sets explicit curvature in inverse metres.
+    void setCurvature(std::optional<double> curvature) {
+        myCurvature = curvature;
+    }
+
+    std::optional<double> getCurvature() const {
+        return myCurvature;
+    }
+
+    /// @brief Returns the routing type of the edge.
     const std::string& getRoutingType() const {
         return myRoutingType;
     }
@@ -1874,6 +1884,9 @@ private:
 
     /// @brief The routing type of the edge
     std::string myRoutingType;
+
+    /// @brief Explicit curvature (1/m), if defined.
+    std::optional<double> myCurvature;
 
     /// @brief the index of the edge in the list of all edges. Set by NBEdgeCont and requires re-set whenever the list of edges changes
     int myIndex;

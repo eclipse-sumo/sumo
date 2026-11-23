@@ -357,6 +357,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
     if (tpl->myLoadedLength > 0 && to == tpl->getFromNode() && from == tpl->getToNode() && geom == tpl->getGeometry().reverse()) {
         myLoadedLength = tpl->myLoadedLength;
     }
+    myCurvature = tpl->myCurvature;
     updateParameters(tpl->getParametersMap());
 }
 
@@ -4030,6 +4031,10 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
         break;
         default:
             break;
+    }
+    if (myCurvature != possContinuation->myCurvature) {
+        reason = "curvature";
+        return false;
     }
     const double minLength = OptionsCont::getOptions().getFloat("geometry.remove.min-length");
     if (minLength > 0 && (possContinuation->getLoadedLength() < minLength || getLoadedLength() < minLength)) {

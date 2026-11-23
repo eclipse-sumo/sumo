@@ -24,6 +24,8 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cmath>
+#include <optional>
 #include <string>
 #include "NLHandler.h"
 #include "NLEdgeControlBuilder.h"
@@ -487,6 +489,14 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     const std::string bidi = attrs.getOpt<std::string>(SUMO_ATTR_BIDI, id.c_str(), ok, "");
     // get the kilometrage/mileage (for visualization and output)
     const double distance = attrs.getOpt<double>(SUMO_ATTR_DISTANCE, id.c_str(), ok, 0);
+    std::optional<double> curvature;
+    if (attrs.hasAttribute(SUMO_ATTR_CURVATURE)) {
+        curvature = attrs.get<double>(SUMO_ATTR_CURVATURE, id.c_str(), ok);
+        if (ok && !std::isfinite(*curvature)) {
+            WRITE_ERRORF(TL("Curvature for edge '%' must be finite."), id);
+            ok = false;
+        }
+    }
 
     if (!ok) {
         myCurrentIsBroken = true;
@@ -494,7 +504,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     }
     //
     try {
-        myEdgeControlBuilder.beginEdgeParsing(id, func, streetName, edgeType, routingType, priority, bidi, distance);
+        myEdgeControlBuilder.beginEdgeParsing(id, func, streetName, edgeType, routingType, priority, bidi, distance, curvature);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
         myCurrentIsBroken = true;

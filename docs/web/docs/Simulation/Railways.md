@@ -364,6 +364,8 @@ The formula is computed from vType attributes as follows:
 For a curve radius below attribute `roeckl_sharp_radius`, the values `roeckl_numerator_sharp` and `roeckl_offset_sharp` are used instead.
 All defaults are given below. They are tailored to mainline rail on a gauge of 1,435mmm
 
+An edge can specify `curvature` in inverse metres for curve resistance. For example, `curvature="0.0005"` sets a radius of 2000 m. The absolute value determines resistance, and an explicit zero gives zero curve resistance. SUMO takes the override from the edge beneath the front of the train. When the current edge has no override, SUMO estimates curvature from geometry.
+
 By default, curvature will be integrated over at least *100m*. If the geometry data of the network is very sparse it may be necessary to set a larger value using vType attribute `curveIntegration`.
 
 !!! caution

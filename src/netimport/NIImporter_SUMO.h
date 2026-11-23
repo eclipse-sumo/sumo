@@ -21,6 +21,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+#include <optional>
 
 #include <string>
 #include <map>
@@ -266,6 +267,8 @@ private:
         std::string type;
         /// @brief This edge's routing type
         std::string routingType;
+        /// @brief Explicit curvature (1/m), if defined.
+        std::optional<double> curvature;
         /// @brief This edge's function
         SumoXMLEdgeFunc func;
         /// @brief The node this edge starts at
