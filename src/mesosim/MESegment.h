@@ -536,6 +536,7 @@ public:
     /// @brief whether the traffic light should use normal junction control despite penalty options
     void overrideTLSPenalty() {
         myTLSPenalty = false;
+        myJunctionControl = true;
     }
 
     /// @brief convert net time gap (leader back to follower front) to gross time gap (leader front to follower front)
