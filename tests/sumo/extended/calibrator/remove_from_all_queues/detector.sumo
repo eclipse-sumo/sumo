@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-04 10:24:03 by Eclipse SUMO sumo Version v1_15_0+0749-de9f6f8
+<!-- generated on 2026-11-23T14:13:41.160068+01:00 by Eclipse SUMO sumo v1_28_0+0708-67efd97d02b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -25,6 +25,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -38,9 +40,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <meso-multi-queue value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <calibratorstats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/calibratorstats_file.xsd">
-    <interval begin="0.00" end="100.00" id="calibtest" nVehContrib="50" removed="0" inserted="38" cleared="0" flow="1800.00" aspiredFlow="1800.00" speed="22.83" aspiredSpeed="-1.00"/>
+    <interval begin="0.00" end="100.00" id="calibtest" nVehContrib="50" removed="0" inserted="38" cleared="0" flow="1800.00" aspiredFlow="1800.00" speed="22.88" aspiredSpeed="-1.00"/>
 </calibratorstats>
