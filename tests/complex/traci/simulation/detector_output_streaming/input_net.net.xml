@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,0.00" origBoundary="0.00,0.00,200.00,0.00" projParameter="!"/>
+
+    <edge id="end" from="b" to="c" priority="-1">
+        <lane id="end_0" index="0" speed="10.00" length="100.00" shape="100.00,-1.60 200.00,-1.60"/>
+    </edge>
+    <edge id="start" from="a" to="b" priority="-1">
+        <lane id="start_0" index="0" speed="10.00" length="100.00" shape="0.00,-1.60 100.00,-1.60"/>
+    </edge>
+
+    <junction id="a" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="b" type="priority" x="100.00" y="0.00" incLanes="start_0" intLanes="" shape="100.00,0.00 100.00,-3.20 100.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="c" type="dead_end" x="200.00" y="0.00" incLanes="end_0" intLanes="" shape="200.00,-3.20 200.00,0.00"/>
+
+    <connection from="start" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

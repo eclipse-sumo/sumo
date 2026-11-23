@@ -17,3 +17,6 @@ convertRoad
 
 # Tests the simulation API
 findRoute
+
+# Verify periodic CSV output and sparse detector metrics
+detector_output_streaming

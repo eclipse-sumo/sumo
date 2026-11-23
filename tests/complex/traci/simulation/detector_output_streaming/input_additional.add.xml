@@ -1,0 +1,7 @@
+<additional>
+    <edgeData id="traffic" period="10" excludeEmpty="false" file="traffic.csv"/>
+    <edgeData id="emissions" type="emissions" period="10" excludeEmpty="false" file="emissions.csv"/>
+    <edgeData id="noise" type="harmonoise" period="10" excludeEmpty="false" file="noise.csv"/>
+    <inductionLoop id="periodic" lane="start_0" pos="20" period="10" file="periodic.csv"/>
+    <instantInductionLoop id="instant" lane="start_0" pos="20" file="instant.csv"/>
+</additional>
