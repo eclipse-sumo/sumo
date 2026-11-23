@@ -795,6 +795,13 @@ on("ready", async function(){
                       "decal", "tileZoom", "leftHand", "verbose"]) {
         scenarioControls.set(id, document.getElementById(id));
     }
+    const optionalScenarioControls = new Set();
+    for (const control of elems("#general-options > label > input[type=checkbox]")) {
+        if (!scenarioControls.has(control.id)) {
+            scenarioControls.set(control.id, control);
+            optionalScenarioControls.add(control.id);
+        }
+    }
     for (const control of elems("#pt-modes input[type=checkbox], #road-types input[type=checkbox]")) {
         scenarioControls.set(control.id, control);
     }
@@ -824,8 +831,12 @@ on("ready", async function(){
             zoom < map.getMinZoom() || zoom > map.getMaxZoom()) {
             return false;
         }
+        const values = new Map();
         for (const [id, control] of scenarioControls) {
-            if (!validSetting(control, settings.values[id])) return false;
+            const value = settings.values[id] === undefined && optionalScenarioControls.has(id)
+                ? control.defaultChecked : settings.values[id];
+            if (!validSetting(control, value)) return false;
+            values.set(control, value);
         }
 
         map.setView([lat, lon], zoom, {animate: false});
@@ -833,9 +844,9 @@ on("ready", async function(){
         if (!map.getBounds().contains(savedBounds)) {
             map.fitBounds(savedBounds, {animate: false});
         }
-        for (const [id, control] of scenarioControls) {
-            if (control.type === "checkbox") control.checked = settings.values[id];
-            else control.value = settings.values[id];
+        for (const [control, value] of values) {
+            if (control.type === "checkbox") control.checked = value;
+            else control.value = value;
         }
         importedArea = settings.area;
         toggleCanvas();
