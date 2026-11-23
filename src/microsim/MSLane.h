@@ -1012,7 +1012,8 @@ public:
 
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
     MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
-            bool allSublanes, double searchDist = -1, MinorLinkMode mLinkMode = FOLLOW_ALWAYS, bool maxSearchDist = false) const;
+            bool allSublanes, double searchDist = -1, MinorLinkMode mLinkMode = FOLLOW_ALWAYS,
+            bool maxSearchDist = false, bool includeReservations = false) const;
 
     /// @brief return by how much further the leader must be inserted to avoid rear end collisions
     double getMissingRearGap(const MSVehicle* leader, double backOffset, double leaderSpeed) const;
