@@ -480,7 +480,7 @@ MSLane::incorporateVehicle(MSVehicle* veh, double pos, double speed, double posL
 
 bool
 MSLane::lastInsertion(MSVehicle& veh, double mspeed, double posLat, bool patchSpeed) {
-    double pos = getLength() - POSITION_EPS;
+    double pos = MAX2(0., getLength() - getVehicleStopOffset(&veh) - POSITION_EPS);
     MSVehicle* leader = getLastAnyVehicle();
     // back position of leader relative to this lane
     double leaderBack;
@@ -496,7 +496,7 @@ MSLane::lastInsertion(MSVehicle& veh, double mspeed, double posLat, bool patchSp
         //std::cout << " leaderPos=" << leader->getPositionOnLane(this) << " leaderBack=" << leader->getBackPositionOnLane(this) << " leaderLane=" << leader->getLane()->getID() << "\n";
     }
     if (leader == nullptr) {
-        // insert at the end of this lane
+        // insert at the furthest permitted position
         return isInsertionSuccess(&veh, mspeed, pos, posLat, patchSpeed, MSMoveReminder::NOTIFICATION_DEPARTED);
     } else {
         // try to insert behind the leader

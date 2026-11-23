@@ -315,7 +315,8 @@ vehicle if the first try fails
 back be at the beginning of the lane (vehicle's front
 position=vehicle length)
 - `"last"`: the vehicle is inserted with the given speed as close as possible behind the last vehicle on the lane. If the lane is empty it is
-inserted at the end of the lane instead. When departSpeed="max" is set, vehicle speed will not be adapted.
+inserted near the end of the lane. An applicable [stop offset](Networks/PlainXML.md#stop-offsets) limits the insertion position.
+When departSpeed="max" is set, vehicle speed will not be adapted.
 - `"stop"`: if the vehicle has a stop defined, it will depart at the endPos of the stop. If no stop is defined, the behavior defaults to `"base"`
 - `"splitFront"`: if the vehicle uses attribute [`depart="split"`](Simulation/Railways.md#splitting_a_train), it will be inserted at the front of the vehicle from which it is split instead of the rear
 
