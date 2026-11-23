@@ -630,7 +630,8 @@ class SimulationDomain(Domain):
         The routing mode may be ROUTING_MODE_DEFAULT (loaded or
         default speeds) and ROUTING_MODE_AGGREGATED (averaged historical speeds)
         pType defines the pedestrian type (for walking speed) and defaults to
-        DEFAULT_PEDTYPE.
+        DEFAULT_PEDTYPE. If speed is omitted, walking speed is derived from
+        the type's desiredMaxSpeed and mean speedFactor, capped by maxSpeed.
         walkFactor is a multiplier for the walking speed to
         account for delays due to intersections and other traffic when
         determining the feasibility of using a particular public transport

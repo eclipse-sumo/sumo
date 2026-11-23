@@ -729,7 +729,9 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
         departStep = MSNet::getInstance()->getCurrentTimeStep();
     }
     if (speed < 0) {
-        speed =  MIN2(pedType->getMaxSpeed(), pedType->getDesiredMaxSpeed());
+        // Use the mean speed factor for deterministic routing queries.
+        const double speedFactor = pedType->getSpeedFactor().getParameter(0);
+        speed = MIN2(pedType->getMaxSpeed(), pedType->getDesiredMaxSpeed() * speedFactor);
     }
     if (walkFactor < 0) {
         walkFactor = OptionsCont::getOptions().getFloat("persontrip.walkfactor");
