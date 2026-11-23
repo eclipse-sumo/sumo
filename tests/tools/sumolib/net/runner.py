@@ -62,6 +62,9 @@ assert internal_lane.getEdge().isSpecial()
 assert internal_edge.getFromNode().getID() == "C"
 assert internal_edge.getToNode().getID() == "C"
 assert node.getTLSID() == "C"
+assert node.getName() == "Main & Central"
+assert net.getNode("N").getName() is None
+assert sumolib.net.node.Node("new", "priority", (0, 0), [], name="New Junction").getName() == "New Junction"
 
 # params
 print("edgeParams",     printSorted(net.getEdge("CE").getParams()))
