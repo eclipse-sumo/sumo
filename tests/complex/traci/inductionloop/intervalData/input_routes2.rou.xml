@@ -1,0 +1,6 @@
+<routes>
+    <vType id="slow" accel="0.1" decel="2" sigma="0" maxSpeed="1" speedFactor="1" length="5"/>
+    <vehicle id="slowCar" type="slow" depart="0" departPos="0" departSpeed="1">
+        <route edges="2fi"/>
+    </vehicle>
+</routes>
