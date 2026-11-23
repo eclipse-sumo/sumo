@@ -189,7 +189,11 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
         }
     } else {
         if (getParentLanes().size() > 0) {
-            device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+            if (!edge.empty() && lane.empty()) {
+                device.writeAttr(SUMO_ATTR_EDGE, getParentLanes().front()->getParentEdge()->getID());
+            } else {
+                device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+            }
         }
         if (startPos != INVALID_DOUBLE) {
             device.writeAttr(SUMO_ATTR_STARTPOS, startPos);
@@ -858,6 +862,8 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 bool
 GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
+        case SUMO_ATTR_LANE:
+            return edge.empty() || !lane.empty();
         // Currently stops parents cannot be edited
         case SUMO_ATTR_BUS_STOP:
         case SUMO_ATTR_TRAIN_STOP:

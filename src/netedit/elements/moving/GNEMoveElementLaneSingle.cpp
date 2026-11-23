@@ -55,7 +55,8 @@ GNEMoveElementLaneSingle::~GNEMoveElementLaneSingle() {}
 GNEMoveOperation*
 GNEMoveElementLaneSingle::getMoveOperation() {
     // check if allow change lane is enabled
-    const bool allowChangeLane = myMovedElement->getNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
+    const bool allowChangeLane = myMovedElement->isAttributeEnabled(SUMO_ATTR_LANE)
+                                 && myMovedElement->getNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
     // continue depending if we're moving the start or the end position
     if (myPositionType == PositionType::ENDPOS) {
         return new GNEMoveOperation(this, myMovedElement->getHierarchicalElement()->getParentLanes().front(), INVALID_DOUBLE,

@@ -1259,11 +1259,14 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 lane = myNet->getAttributeCarriers()->retrieveLane(stopParameters.lane, false);
                 stopTagType = waypoint ? GNE_TAG_WAYPOINT_LANE : GNE_TAG_STOP_LANE;
             } else if (stopParameters.edge.size() > 0) {
-                edge = myNet->getAttributeCarriers()->retrieveEdge(stopParameters.edge, false);
-                // check vehicles
-                if (stopParent->getTagProperty()->isVehicle()) {
-                    return writeError(TL("vehicles don't support stops at edges"));
+                const auto* stopEdge = myNet->getAttributeCarriers()->retrieveEdge(stopParameters.edge, false);
+                if (stopEdge == nullptr) {
+                    return writeError(TLF("Unknown edge '%' for a stop in % '%'.",
+                                          stopParameters.edge, toString(objParent->getTag()), stopParent->getID()));
                 }
+                // Use a representative lane for editing without changing the edge-level stop.
+                lane = stopEdge->getLaneByAllowedVClass(stopParent->getVClass());
+                stopTagType = waypoint ? GNE_TAG_WAYPOINT_LANE : GNE_TAG_STOP_LANE;
             }
             // overwrite lane with edge parent if we're handling a personStop
             if (lane && (stopParent->getTagProperty()->isPerson() || stopParent->getTagProperty()->isContainer())) {
