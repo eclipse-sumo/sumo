@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="geometry" depart="0" type="train" departPos="0" departSpeed="0">
+        <route edges="geometry" />
+    </vehicle>
+    <vehicle id="geometryControl" depart="0" type="noResistance" departPos="0" departSpeed="0">
+        <route edges="geometryControl" />
+    </vehicle>
+    <vehicle id="geometryZero" depart="0" type="train" departPos="0" departSpeed="0">
+        <route edges="geometryZero" />
+    </vehicle>
+    <vehicle id="negative" depart="0" type="train" departPos="0" departSpeed="0">
+        <route edges="negativeEntry negativeOverride negativeExit" />
+    </vehicle>
+    <vehicle id="positive" depart="0" type="train" departPos="0" departSpeed="0">
+        <route edges="positiveEntry positiveOverride positiveExit" />
+    </vehicle>
+    <vehicle id="straight" depart="0" type="train" departPos="0" departSpeed="0">
+        <route edges="straightEntry straightOverride straightExit" />
+    </vehicle>
+</routes>

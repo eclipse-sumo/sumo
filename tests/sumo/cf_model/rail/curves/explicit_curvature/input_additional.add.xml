@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="train" carFollowModel="Rail" trainType="RB425" vClass="rail" curveResistance="10" speedFactor="1" speedDev="0" />
+    <vType id="noResistance" carFollowModel="Rail" trainType="RB425" vClass="rail" speedFactor="1" speedDev="0" />
+</additional>
