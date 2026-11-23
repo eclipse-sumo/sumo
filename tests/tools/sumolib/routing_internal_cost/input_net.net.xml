@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="20.00,0.00" convBoundary="0.00,0.00,220.00,200.00" origBoundary="-20.00,0.00,200.00,200.00" projParameter="!"/>
+
+    <edge id=":n1_0" function="internal">
+        <lane id=":n1_0_0" index="0" speed="3.90" length="2.58" shape="120.00,-1.60 120.70,-1.50 121.20,-1.20 121.50,-0.70 121.60,0.00"/>
+    </edge>
+    <edge id=":n2_0" function="internal">
+        <lane id=":n2_0_0" index="0" speed="6.61" length="9.34" shape="121.60,92.42 121.95,95.04 123.00,96.91 124.75,98.03 127.20,98.40"/>
+    </edge>
+    <edge id=":n2_1" function="internal">
+        <lane id=":n2_1_0" index="0" speed="10.50" length="11.81" shape="115.71,100.36 118.69,99.11 121.26,98.54 123.92,98.39 127.20,98.40"/>
+    </edge>
+    <edge id=":n3_0" function="internal">
+        <lane id=":n3_0_0" index="0" speed="3.90" length="2.58" shape="220.00,98.40 220.70,98.50 221.20,98.80 221.50,99.30 221.60,100.00"/>
+    </edge>
+
+    <edge id="a" from="n0" to="n1" priority="-1">
+        <lane id="a_0" index="0" speed="10.00" length="100.00" shape="20.00,-1.60 120.00,-1.60"/>
+    </edge>
+    <edge id="b" from="n1" to="n2" priority="-1">
+        <lane id="b_0" index="0" speed="20.00" length="92.42" shape="121.60,0.00 121.60,92.42"/>
+    </edge>
+    <edge id="c" from="n2" to="n3" priority="-1">
+        <lane id="c_0" index="0" speed="8.00" length="92.80" shape="127.20,98.40 220.00,98.40"/>
+    </edge>
+    <edge id="d" from="n3" to="n4" priority="-1">
+        <lane id="d_0" index="0" speed="6.00" length="100.00" shape="221.60,100.00 221.60,200.00"/>
+    </edge>
+    <edge id="f" from="n5" to="n2" priority="-1">
+        <lane id="f_0" index="0" speed="13.00" length="130.16" shape="-0.72,158.57 115.71,100.36"/>
+    </edge>
+
+    <junction id="n0" type="dead_end" x="20.00" y="0.00" incLanes="" intLanes="" shape="20.00,0.00 20.00,-3.20"/>
+    <junction id="n1" type="priority" x="120.00" y="0.00" incLanes="a_0" intLanes=":n1_0_0" shape="120.00,0.00 123.20,0.00 122.84,-1.78 122.40,-2.40 121.78,-2.84 120.98,-3.11 120.00,-3.20">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="n2" type="priority" x="120.00" y="100.00" incLanes="b_0 f_0" intLanes=":n2_0_0 :n2_1_0" shape="127.20,100.00 127.20,96.80 124.98,96.31 124.20,95.71 123.64,94.85 123.31,93.76 123.20,92.42 120.00,92.42 119.44,94.92 118.75,96.05 117.77,97.09 116.52,98.05 114.99,98.93 116.42,101.79 118.54,100.81 120.17,100.24 121.59,99.98 123.06,99.92 124.84,99.96">
+        <request index="0" response="00" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="0"/>
+    </junction>
+    <junction id="n3" type="priority" x="220.00" y="100.00" incLanes="c_0" intLanes=":n3_0_0" shape="220.00,100.00 223.20,100.00 222.84,98.22 222.40,97.60 221.78,97.16 220.98,96.89 220.00,96.80">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="n4" type="dead_end" x="220.00" y="200.00" incLanes="d_0" intLanes="" shape="223.20,200.00 220.00,200.00"/>
+    <junction id="n5" type="dead_end" x="0.00" y="160.00" incLanes="" intLanes="" shape="0.00,160.00 -1.43,157.14"/>
+
+    <connection from="a" to="b" fromLane="0" toLane="0" via=":n1_0_0" dir="l" state="M"/>
+    <connection from="b" to="c" fromLane="0" toLane="0" via=":n2_0_0" dir="r" state="M"/>
+    <connection from="c" to="d" fromLane="0" toLane="0" via=":n3_0_0" dir="l" state="M"/>
+    <connection from="f" to="c" fromLane="0" toLane="0" via=":n2_1_0" dir="s" state="m"/>
+
+    <connection from=":n1_0" to="b" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":n2_0" to="c" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":n2_1" to="c" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n3_0" to="d" fromLane="0" toLane="0" dir="l" state="M"/>
+
+</net>
