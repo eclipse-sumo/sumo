@@ -21,3 +21,6 @@ opendrive_roundtrip
 osm_sidewalk_access
 
 plain_roundtrip
+
+# Allow geometry removal at unsignalized pedestrian crossings, refs #11432
+geometry_remove_ignore_crossings
