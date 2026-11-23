@@ -211,6 +211,9 @@ public:
     /// Sets the edge permission if there are any defined in the closingEdge
     SUMOTime setPermissions(const SUMOTime currentTime);
 
+    /// Reroute meso vehicles already on the trigger edge when a new interval starts.
+    SUMOTime rerouteMesoVehicles(SUMOTime currentTime);
+
     /// Returns the rerouting definition valid for the given time, 0 if none
     const RerouteInterval* getCurrentReroute(SUMOTime time) const;
 
