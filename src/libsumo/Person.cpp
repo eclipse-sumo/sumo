@@ -1031,7 +1031,8 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
     if (found || mayLeaveNetwork) {
         // compute lateral offset
         if (found) {
-            const double perpDist = lane->getShape().distance2D(pos, false);
+            // A walking area uses paths that do not follow its lane shape.
+            const double perpDist = lane->getShape().distance2D(pos, !lane->isWalkingArea());
             if (perpDist != GeomHelper::INVALID_OFFSET) {
                 lanePosLat = perpDist;
                 if (!mayLeaveNetwork) {
