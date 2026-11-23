@@ -35,7 +35,7 @@ pipeline {
                 python -m pip install --quiet -r sumo/tools/requirements.txt -r sumo/tools/req_dev.txt
 
                 # Building SUMO & TraaS
-                cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=sumo-install -B sumo-build sumo
+                cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=sumo-install -DENABLE_MAVEN_PACKAGING=ON -B sumo-build sumo
                 cmake --build sumo-build -j16
                 cmake --build sumo-build --target traas
               '''

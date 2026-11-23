@@ -69,7 +69,7 @@ jobs:
 
     - name: Building SUMO
       run: |
-        cmake -B sumo/cmake-build sumo
+        cmake -DENABLE_MAVEN_PACKAGING=ON -B sumo/cmake-build sumo
         cmake --build sumo/cmake-build -j4
 
     - name: Building Traas

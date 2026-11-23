@@ -75,7 +75,7 @@ spec:
             # Building libsumo and libtraci
             export SUMO_HOME=\${WORKSPACE}
             cmake -D JUPEDSIM_CUSTOMDIR=/opt/sumo/jupedsim-build -D CMAKE_BUILD_TYPE=Release -B sumo-build .
-            cmake --build sumo-build -j2 --target libsumojni libtracijni
+            cmake --build sumo-build -j2 --target libtraci-jar
           '''
         }
       }

@@ -6,6 +6,16 @@ The Eclipse SUMO project provides the jar files for `libsumo` and `libtraci` in 
 The Nexus instance is available [here](https://repo.eclipse.org). They can be used in `maven` builds.
 More information on the repository hosted by the Eclipse Foundation can be found [here](https://wiki.eclipse.org/Services/Nexus).
 
+## Building Java bindings
+
+The default CMake build compiles the native JNI libraries when it finds the Java development tools. To package the Java bindings, install Maven and build the JAR targets explicitly.
+
+```sh
+cmake --build build --target libsumo-jar libtraci-jar
+```
+
+Configure with `-DENABLE_MAVEN_PACKAGING=ON` to include the JARs in the default build.
+
 ## Pulling Artifacts
 
 You can decide, if you want to use *release* or *snapshot* builds of `libsumo` or `libtraci`.
