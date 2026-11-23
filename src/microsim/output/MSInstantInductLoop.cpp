@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include "MSInstantInductLoop.h"
+#include <algorithm>
 #include <cassert>
 #include <numeric>
 #include <utility>
@@ -67,6 +68,9 @@ MSInstantInductLoop::notifyEnter(SUMOTrafficObject& veh, Notification reason, co
     if (!vehicleApplies(veh)) {
         return false;
     }
+#ifdef HAVE_FOX
+    ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     if (reason != NOTIFICATION_JUNCTION) { // the junction case is handled in notifyMove
         if (veh.getBackPositionOnLane(myLane) >= myPosition) {
             return false;
@@ -136,16 +140,30 @@ MSInstantInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
 void
 MSInstantInductLoop::write(const char* state, double t, SUMOTrafficObject& veh, double speed, const char* add, double addValue) {
     if (!myOutputDevice.isNull()) {
+        // with threads, detectors sharing a file must not write while vehicles move
+        myEvents.push_back({t, veh.getNumericalID(), state, veh.getID(), speed, veh.getVehicleType().getLength(), veh.getVehicleType().getID(), add, addValue});
+    }
+}
+
+
+void
+MSInstantInductLoop::detectorUpdate(const SUMOTime /* step */) {
+    // vehicles of different lanes may report in any order
+    std::stable_sort(myEvents.begin(), myEvents.end(), [](const Event & a, const Event & b) {
+        return a.time < b.time || (a.time == b.time && a.numericalID < b.numericalID);
+    });
+    for (const Event& e : myEvents) {
         myOutputDevice.openTag("instantOut").writeAttr(
-            "id", getID()).writeAttr("time", toString(t)).writeAttr("state", state).writeAttr(
-                "vehID", veh.getID()).writeAttr("speed", toString(speed)).writeAttr(
-                    "length", toString(veh.getVehicleType().getLength())).writeAttr(
-                        "type", veh.getVehicleType().getID());
-        if (add != nullptr) {
-            myOutputDevice.writeAttr(add, toString(addValue));
+            "id", getID()).writeAttr("time", toString(e.time)).writeAttr("state", e.state).writeAttr(
+                "vehID", e.vehID).writeAttr("speed", toString(e.speed)).writeAttr(
+                    "length", toString(e.length)).writeAttr(
+                        "type", e.typeID);
+        if (e.add != nullptr) {
+            myOutputDevice.writeAttr(e.add, toString(e.addValue));
         }
         myOutputDevice.closeTag();
     }
+    myEvents.clear();
 }
 
 
@@ -156,6 +174,9 @@ MSInstantInductLoop::notifyLeave(SUMOTrafficObject& veh, double /* lastPos */, M
         // one more notifyMove to register it
         return true;
     }
+#ifdef HAVE_FOX
+    ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     std::map<SUMOTrafficObject*, double>::iterator i = myEntryTimes.find(&veh);
     if (i != myEntryTimes.end()) {
         write("leave", SIMTIME, veh, veh.getSpeed());

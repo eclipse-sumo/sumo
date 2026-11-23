@@ -25,6 +25,7 @@
 #include <deque>
 #include <map>
 #include <functional>
+#include <vector>
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorFileOutput.h>
 
@@ -153,6 +154,10 @@ public:
     void writeXMLDetectorProlog(OutputDevice& dev) const;
 
 
+    /// @brief writes the events of this step (detectors are updated serially in a fixed order)
+    void detectorUpdate(const SUMOTime step);
+
+
 protected:
     /** @brief Writes an event line
      * @param[in] state The current state to report
@@ -180,6 +185,22 @@ protected:
 
     /// @brief The last exit time
     std::map<SUMOTrafficObject*, double> myEntryTimes;
+
+    /// @brief an event of this step, written in detectorUpdate
+    struct Event {
+        double time;
+        long long int numericalID;
+        const char* state;
+        std::string vehID;
+        double speed;
+        double length;
+        std::string typeID;
+        const char* add;
+        double addValue;
+    };
+
+    /// @brief the events of this step
+    std::vector<Event> myEvents;
 
 private:
     /// @brief Invalidated copy constructor.
