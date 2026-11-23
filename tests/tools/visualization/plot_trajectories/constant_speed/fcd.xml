@@ -1,0 +1,45 @@
+<fcd-export>
+    <timestep time="0">
+        <vehicle id="drive" x="0" y="0" angle="90" speed="6" lane="a_0"/>
+        <vehicle id="cruise" x="0" y="0" angle="90" speed="5" lane="b_0"/>
+        <vehicle id="parked" x="0" y="0" angle="90" speed="0" lane="c_0"/>
+        <vehicle id="crossing" x="0" y="0" angle="90" speed="0" lane="d_0"/>
+    </timestep>
+    <timestep time="1">
+        <vehicle id="drive" x="0" y="0" angle="90" speed="0" lane="a_0"/>
+        <vehicle id="cruise" x="5" y="0" angle="90" speed="5" lane="b_0"/>
+        <vehicle id="parked" x="0" y="0" angle="90" speed="0" lane="c_0"/>
+    </timestep>
+    <timestep time="2">
+        <vehicle id="drive" x="0" y="0" angle="90" speed="0" lane="a_0"/>
+        <vehicle id="cruise" x="10" y="0" angle="90" speed="5" lane="b_0"/>
+        <vehicle id="parked" x="0" y="0" angle="90" speed="0" lane="c_0"/>
+        <vehicle id="crossing" x="10" y="0" angle="90" speed="5" lane="e_0"/>
+    </timestep>
+    <timestep time="3">
+        <vehicle id="drive" x="0" y="0" angle="90" speed="0" lane="a_0"/>
+        <vehicle id="cruise" x="17" y="0" angle="90" speed="7" lane="b_0"/>
+    </timestep>
+    <timestep time="4">
+        <vehicle id="drive" x="5" y="0" angle="90" speed="5" lane="a_0"/>
+        <vehicle id="crossing" x="20" y="0" angle="90" speed="0" lane="f_0"/>
+    </timestep>
+    <timestep time="5">
+        <vehicle id="drive" x="5" y="0" angle="90" speed="0" lane="a_0"/>
+    </timestep>
+    <timestep time="6">
+        <vehicle id="drive" x="5" y="0" angle="90" speed="0" lane="a_0"/>
+    </timestep>
+    <timestep time="7">
+        <vehicle id="drive" x="10" y="0" angle="90" speed="5" lane="a_0"/>
+    </timestep>
+    <timestep time="8">
+        <vehicle id="drive" x="10" y="0" angle="90" speed="0" lane="a_0"/>
+    </timestep>
+    <timestep time="9">
+        <vehicle id="drive" x="10" y="0" angle="90" speed="0" lane="a_0"/>
+    </timestep>
+    <timestep time="10">
+        <vehicle id="drive" x="10" y="0" angle="90" speed="0" lane="a_0"/>
+    </timestep>
+</fcd-export>
