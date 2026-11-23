@@ -85,12 +85,13 @@ def setConnectHook(hookFunc):
 
 
 def connect(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", proc=None, waitBetweenRetries=1,
-            traceFile=None, traceGetters=True, label=None):
+            traceFile=None, traceGetters=True, label=None, quiet=False):
     """
     Establish a connection to a TraCI-Server and return the
     connection object. If label is not set, the connection is not saved in the pool and not
     accessible via traci.switch. It should be safe to use different
     connections established by this method in different threads.
+    Set quiet=True to suppress the retry messages.
     """
     for retry in range(1, numRetries + 2):
         try:
@@ -98,29 +99,30 @@ def connect(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", proc
         except socket.error as e:
             if proc is not None and proc.poll() is not None:
                 raise TraCIException("TraCI server already finished")
-            if retry > 1:
+            if retry > 1 and not quiet:
                 print("Could not connect to TraCI server at %s:%s" % (host, port), e)
             if retry < numRetries + 1:
-                print(" Retrying in %s seconds" % waitBetweenRetries)
+                if not quiet:
+                    print(" Retrying in %s seconds" % waitBetweenRetries)
                 time.sleep(waitBetweenRetries)
     raise FatalTraCIError("Could not connect in %s tries" % (numRetries + 1))
 
 
 def init(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", label="default", proc=None, doSwitch=True,
-         traceFile=None, traceGetters=True):
+         traceFile=None, traceGetters=True, quiet=False):
     """
     Establish a connection to a TraCI-Server and store it under the given
     label. This method is not thread-safe. It accesses the connection
-    pool concurrently.
+    pool concurrently. Set quiet=True to suppress the retry messages.
     """
-    con = connect(port, numRetries, host, proc, 1, traceFile, traceGetters, label)
+    con = connect(port, numRetries, host, proc, 1, traceFile, traceGetters, label, quiet=quiet)
     if doSwitch:
         switch(label)
     return con.getVersion()
 
 
 def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", verbose=False,
-          traceFile=None, traceGetters=True, stdout=None, doSwitch=True):
+          traceFile=None, traceGetters=True, stdout=None, doSwitch=True, quiet=False):
     """
     Start a sumo server using cmd, establish a connection to it and
     store it under the given label. This method is not thread-safe.
@@ -134,17 +136,21 @@ def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", ve
     - traceFile (string): write all traci commands to FILE for debugging
     - traceGetters (bool): whether to include get-commands in traceFile
     - stdout (iostream): where to pipe sumo process stdout
+    - quiet (bool): suppress startup and retry messages and discard SUMO stdout unless stdout is provided
     """
     if connection.has(label):
         raise TraCIException("Connection '%s' is already active." % label)
+    if quiet and stdout is None:
+        stdout = subprocess.DEVNULL
     while numRetries >= 0 and not connection.has(label):
         sumoPort = getFreeSocketPort() if port is None else port
         cmd2 = cmd + ["--remote-port", str(sumoPort)]
-        if verbose:
+        if verbose and not quiet:
             print("Calling " + ' '.join(cmd2))
         sumoProcess = subprocess.Popen(cmd2, stdout=stdout)
         try:
-            result = init(sumoPort, numRetries, "localhost", label, sumoProcess, doSwitch, traceFile, traceGetters)
+            result = init(sumoPort, numRetries, "localhost", label, sumoProcess, doSwitch, traceFile, traceGetters,
+                          quiet=quiet)
             if traceFile is not None:
                 connection.get(label)._traceFile.write("import traci\n")
                 connection.get(label)._traceFile.write("traci.start(%s, port=%s, label=%s)\n" % (
@@ -153,8 +159,9 @@ def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", ve
         except TraCIException as e:
             if port is not None:
                 break
-            warnings.warn(("Could not connect to TraCI server using port %s (%s)." +
-                           " Retrying with different port.") % (sumoPort, e))
+            if not quiet:
+                warnings.warn(("Could not connect to TraCI server using port %s (%s)." +
+                               " Retrying with different port.") % (sumoPort, e))
             numRetries -= 1
     raise FatalTraCIError("Could not connect.")
 

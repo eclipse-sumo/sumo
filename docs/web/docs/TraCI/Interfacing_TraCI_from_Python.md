@@ -74,6 +74,8 @@ while step < 1000:
 traci.close()
 ```
 
+Use `traci.start(sumoCmd, quiet=True)` to suppress startup and retry messages. SUMO's standard output is discarded unless you pass an explicit `stdout` destination. SUMO's standard error and TraCI exceptions remain available. `traci.connect()` and `traci.init()` also accept `quiet=True` to suppress retry messages.
+
 After connecting to the simulation, you can emit various commands and
 execute simulation steps until you want to finish by closing the
 connection. By default, the close command will wait until the sumo

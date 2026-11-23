@@ -12,6 +12,8 @@
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
+# @author  Josh
+# @date    2026-11-26
 
 from contextlib import redirect_stdout
 import io
