@@ -105,7 +105,7 @@ If you cannot use SUMOLibraries or want to build from source (maybe for differen
 or because you want to anble or disable certain features in the libraries),
 you can also try to build against vcpkg.
 The setup follows those basic steps.
-```
+```bash
 git clone https://github.com/Microsoft/vcpkg.git
 cd vcpkg
 ./bootstrap-vcpkg.sh
@@ -127,7 +127,7 @@ cannot build any GUI applications by using only vcpkg.
 For using the SUMO Python tools from the command line or in netedit it is recommended to install a list of python packages.
 From your SUMO directory you can install them using pip:
 
-```
+```plaintext
 pip install -r tools\requirements.txt
 ```
 
@@ -222,7 +222,7 @@ If you did install Python correctly, double check that it passes
 arguments](https://stackoverflow.com/questions/2640971/windows-is-not-passing-command-line-arguments-to-python-programs-executed-from-t).
 For a quick fix, you can also execute the following commands manually:
 
-```
+```plaintext
 tools\build\version.py
 tools\build\typemap.py
 ```
