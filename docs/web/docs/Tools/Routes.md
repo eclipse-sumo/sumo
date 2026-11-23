@@ -120,6 +120,8 @@ python tools/route/cutRoutes.py reduced.net.xml orig.rou.xml
   --routes-output output.rou.xml --orig-net orig.net.xml
 ```
 
+Person flows retain their generation parameters. If a cut shifts the begin time of a person flow, the same offset applies to its explicit end time.
+
 Filtering stopping places is also supported by setting the options **--additional-input** and **--stops-output**.
 
 # cutTrips.py
