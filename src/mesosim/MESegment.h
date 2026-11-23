@@ -322,6 +322,9 @@ public:
      */
     double getMeanSpeed(bool useCache) const;
 
+    /// @brief Maximum vehicle speed for the given queue, accounting for internal junction segments.
+    double getVehicleMaxSpeed(const MEVehicle& veh, int queueIndex) const;
+
     /// @brief reset myLastMeanSpeedUpdate
     void resetCachedSpeeds();
 
