@@ -1,0 +1,2 @@
+-n input_taz.taz.xml --tazrelation-files input_od.xml --begin 300 --end 2100
+--tazrelation-output demand.tazrel.xml --tazrelation-output.period 600

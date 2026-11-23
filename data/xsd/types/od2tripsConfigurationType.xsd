@@ -43,6 +43,8 @@
             <xsd:element name="flow-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="flow-output.probability" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="flow-output.poisson" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="tazrelation-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="tazrelation-output.period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="pedestrians" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="persontrips" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="persontrips.modes" type="strArrayOptionType" minOccurs="0"/>

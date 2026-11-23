@@ -110,6 +110,12 @@ fillOptions() {
     oc.doRegister("flow-output.poisson", new Option_Bool(false));
     oc.addDescription("flow-output.poisson", "Output", TL("Writes poisson distributed flow instead of evenly spaced flow"));
 
+    oc.doRegister("tazrelation-output", new Option_FileName());
+    oc.addDescription("tazrelation-output", "Output", TL("Writes the O/D matrix in tazRelation format into FILE"));
+
+    oc.doRegister("tazrelation-output.period", new Option_String("3600", "TIME"));
+    oc.addDescription("tazrelation-output.period", "Output", TL("Interval length for tazRelation output"));
+
     oc.doRegister("pedestrians", new Option_Bool(false));
     oc.addDescription("pedestrians", "Output", TL("Writes pedestrians instead of vehicles"));
 
@@ -200,8 +206,12 @@ checkOptions() {
         WRITE_ERROR(TL("No input specified."));
         ok = false;
     }
-    if (!oc.isSet("output-file") && !oc.isSet("flow-output")) {
-        WRITE_ERROR(TL("No trip table output file (-o) or flow-output is specified."));
+    if (!oc.isSet("output-file") && !oc.isSet("flow-output") && !oc.isSet("tazrelation-output")) {
+        WRITE_ERROR(TL("No trip, flow, or TAZ relation output file is specified."));
+        ok = false;
+    }
+    if (oc.isSet("tazrelation-output") && string2time(oc.getString("tazrelation-output.period")) <= 0) {
+        WRITE_ERROR(TL("The 'tazrelation-output.period' option must be positive."));
         ok = false;
     }
     if (oc.getBool("flow-output.probability") && oc.getBool("flow-output.poisson")) {
@@ -298,33 +308,41 @@ main(int argc, char** argv) {
         }
         const std::string modes = toString(oc.getStringVector("persontrips.modes"));
         // write
-        bool haveOutput = false;
+        bool haveRouteOutput = false;
+        const SUMOTime begin = string2time(oc.getString("begin"));
         const SUMOTime end = oc.isDefault("end") ? SUMOTime_MAX : string2time(oc.getString("end"));
+        const bool haveMatrixOutput = OutputDevice::createDeviceByOption("tazrelation-output", "data", "datamode_file.xsd");
+        if (haveMatrixOutput) {
+            matrix.writeTazRelations(begin, end, string2time(oc.getString("tazrelation-output.period")),
+                                     OutputDevice::getDeviceByOption("tazrelation-output"));
+        }
         if (OutputDevice::createDeviceByOption("output-file", "routes", "routes_file.xsd")) {
-            matrix.write(string2time(oc.getString("begin")), end,
+            matrix.write(begin, end,
                          OutputDevice::getDeviceByOption("output-file"),
                          oc.getBool("spread.uniform"), oc.getBool("different-source-sink"),
                          oc.getBool("ignore-vehicle-type"),
                          oc.getString("prefix"), !oc.getBool("no-step-log"),
                          oc.getBool("pedestrians"),
                          oc.getBool("persontrips"), modes);
-            haveOutput = true;
+            haveRouteOutput = true;
         }
         if (OutputDevice::createDeviceByOption("flow-output", "routes", "routes_file.xsd")) {
-            matrix.writeFlows(string2time(oc.getString("begin")), end,
+            matrix.writeFlows(begin, end,
                               OutputDevice::getDeviceByOption("flow-output"),
                               oc.getBool("ignore-vehicle-type"), oc.getString("prefix"),
                               oc.getBool("flow-output.probability"),
                               oc.getBool("flow-output.poisson"),
                               oc.getBool("pedestrians"),
                               oc.getBool("persontrips"), modes);
-            haveOutput = true;
+            haveRouteOutput = true;
         }
-        if (!haveOutput) {
+        if (!haveRouteOutput && !haveMatrixOutput) {
             throw ProcessError(TL("No output file given."));
         }
         WRITE_MESSAGE(toString(matrix.getNumDiscarded()) + " vehicles discarded.");
-        WRITE_MESSAGE(toString(matrix.getNumWritten()) + " vehicles written.");
+        if (haveRouteOutput) {
+            WRITE_MESSAGE(toString(matrix.getNumWritten()) + " vehicles written.");
+        }
     } catch (const ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());

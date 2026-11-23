@@ -38,6 +38,8 @@
         <flow-output value="" type="FILE" help="Writes flow definitions into FILE"/>
         <flow-output.probability value="false" type="BOOL" help="Writes probabilistic flow instead of evenly spaced flow"/>
         <flow-output.poisson value="false" type="BOOL" help="Writes poisson distributed flow instead of evenly spaced flow"/>
+        <tazrelation-output value="" type="FILE" help="Writes the O/D matrix in tazRelation format into FILE"/>
+        <tazrelation-output.period value="3600" type="TIME" help="Interval length for tazRelation output"/>
         <pedestrians value="false" type="BOOL" help="Writes pedestrians instead of vehicles"/>
         <persontrips value="false" type="BOOL" help="Writes persontrips instead of vehicles"/>
         <persontrips.modes value="" type="STR[]" help="Add modes attribute to personTrips"/>

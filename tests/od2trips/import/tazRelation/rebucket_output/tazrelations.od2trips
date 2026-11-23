@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="od2trips" begin="300.00" end="900.00">
+        <tazRelation from="1" to="2" count="12.00"/>
+    </interval>
+    <interval id="od2trips" begin="900.00" end="1500.00">
+        <tazRelation from="1" to="2" count="12.00"/>
+        <tazRelation from="2" to="1" count="9.00"/>
+    </interval>
+    <interval id="od2trips" begin="1500.00" end="2100.00">
+        <tazRelation from="1" to="2" count="3.00"/>
+        <tazRelation from="2" to="1" count="7.50"/>
+    </interval>
+</data>

@@ -90,6 +90,12 @@
         <!-- Writes poisson distributed flow instead of evenly spaced flow -->
         <flow-output.poisson value="false" type="BOOL"/>
 
+        <!-- Writes the O/D matrix in tazRelation format into FILE -->
+        <tazrelation-output value="" type="FILE"/>
+
+        <!-- Interval length for tazRelation output -->
+        <tazrelation-output.period value="3600" type="TIME"/>
+
         <!-- Writes pedestrians instead of vehicles -->
         <pedestrians value="false" type="BOOL"/>
 

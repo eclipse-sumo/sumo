@@ -9,3 +9,9 @@
 
 # Spreads half of 100 vehicles over a day
 100vehs_day_scale
+
+# Export overlapping demand in fixed intervals
+rebucket_output
+
+# Reject an empty output interval
+invalid_output_period

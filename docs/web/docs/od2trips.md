@@ -12,7 +12,7 @@ trips.
 - **Input (mandatory):**
   - A) O/D-Matrix
   - B) a set of districts
-- **Output:** A list of vehicle trip definitions
+- **Output:** Vehicle trips, flows, or a TAZ relation matrix
 - **Programming Language:** C++
 
 # Usage Description
@@ -20,6 +20,8 @@ trips.
 od2trips maps traffic that is defined via origin and destination zones
 onto the edges of a network. For details, see
 [Demand/Importing_O/D_Matrices](Demand/Importing_O/D_Matrices.md).
+
+Use **--tazrelation-output** to export the O/D matrix for editing in [Netedit Data mode](Netedit/editModesData.md). Set **--tazrelation-output.period** to change the interval length. Intervals start at **--begin** and stop at **--end** when it is set. Each interval gets a share of the demand proportional to its overlap with the source interval. The output sums counts for each TAZ pair across vehicle types. Use **--precision 3** for millisecond time values.
 
 ## Options
 
@@ -72,6 +74,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--flow-output** {{DT_FILE}} | Writes flow definitions into FILE |
 | **--flow-output.probability** {{DT_BOOL}} | Writes probabilistic flow instead of evenly spaced flow; *default:* **false** |
 | **--flow-output.poisson** {{DT_BOOL}} | Writes poisson distributed flow instead of evenly spaced flow; *default:* **false** |
+| **--tazrelation-output** {{DT_FILE}} | Writes the O/D matrix in tazRelation format into FILE |
+| **--tazrelation-output.period** {{DT_TIME}} | Interval length for tazRelation output; *default:* **3600** |
 | **--pedestrians** {{DT_BOOL}} | Writes pedestrians instead of vehicles; *default:* **false** |
 | **--persontrips** {{DT_BOOL}} | Writes persontrips instead of vehicles; *default:* **false** |
 | **--persontrips.modes** {{DT_STR_LIST}} | Add modes attribute to personTrips |

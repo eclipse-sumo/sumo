@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="source" begin="0" end="1200">
+        <tazRelation from="1" to="2" count="24"/>
+    </interval>
+    <interval id="source" begin="900" end="1800">
+        <tazRelation from="1" to="2" count="9"/>
+        <tazRelation from="2" to="1" count="13.5"/>
+    </interval>
+    <interval id="source" begin="1800" end="2700">
+        <tazRelation from="2" to="1" count="9"/>
+    </interval>
+</data>
