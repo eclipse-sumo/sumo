@@ -117,6 +117,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--prefix** {{DT_STR}} | Defines a prefix for edge and junction IDs |
 | **--prefix.junction** {{DT_STR}} | Defines a prefix for junction IDs |
 | **--prefix.edge** {{DT_STR}} | Defines a prefix for edge IDs |
+| **--prefix.edge.signed** {{DT_BOOL}} | Keep leading minus signs before the edge prefix and sign unique reverse pairs; *default:* **false** |
 | **--amitran-output** {{DT_FILE}} | The generated net will be written to FILE using Amitran format |
 | **--matsim-output** {{DT_FILE}} | The generated net will be written to FILE using MATSim format |
 | **--opendrive-output** {{DT_FILE}} | The generated net will be written to FILE using OpenDRIVE format |

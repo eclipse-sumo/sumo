@@ -189,6 +189,9 @@
         <!-- Defines a prefix for edge IDs -->
         <prefix.edge value="" type="STR"/>
 
+        <!-- Keep leading minus signs before the edge prefix and sign unique reverse pairs -->
+        <prefix.edge.signed value="false" type="BOOL"/>
+
         <!-- The generated net will be written to FILE using Amitran format -->
         <amitran-output value="" type="FILE"/>
 

@@ -77,6 +77,7 @@
         <prefix value="" type="STR" help="Defines a prefix for edge and junction IDs"/>
         <prefix.junction value="" type="STR" help="Defines a prefix for junction IDs"/>
         <prefix.edge value="" type="STR" help="Defines a prefix for edge IDs"/>
+        <prefix.edge.signed value="false" type="BOOL" help="Keep leading minus signs before the edge prefix and sign unique reverse pairs"/>
         <amitran-output value="" type="FILE" help="The generated net will be written to FILE using Amitran format"/>
         <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATSim format"/>
         <opendrive-output value="" type="FILE" help="The generated net will be written to FILE using OpenDRIVE format"/>

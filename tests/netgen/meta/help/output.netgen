@@ -126,6 +126,8 @@ Output Options:
                                         IDs
   --prefix.junction STR                Defines a prefix for junction IDs
   --prefix.edge STR                    Defines a prefix for edge IDs
+  --prefix.edge.signed                 Keep leading minus signs before the edge
+                                        prefix and sign unique reverse pairs
   --amitran-output FILE                The generated net will be written to
                                         FILE using Amitran format
   --matsim-output FILE                 The generated net will be written to

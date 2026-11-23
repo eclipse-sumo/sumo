@@ -1810,7 +1810,7 @@ NBEdgeCont::addPrefix(const std::string& prefix) {
 
 
 int
-NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, bool keptIDs, const std::string& prefix, NBPTStopCont& sc) {
+NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, bool keptIDs, const std::string& prefix, bool signedPrefix, NBPTStopCont& sc) {
     bool startGiven = !OptionsCont::getOptions().isDefault("numerical-ids.edge-start");
     if (!numericaIDs && !reservedIDs && prefix == "" && !startGiven) {
         return 0;
@@ -1856,9 +1856,10 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, bool keptIDs, const std
         }
     }
 
-    std::map<std::string, std::vector<std::shared_ptr<NBPTStop> > > stopsOnEdge;
+    const bool useSignedPrefix = signedPrefix && !prefix.empty();
+    std::map<NBEdge*, std::vector<std::shared_ptr<NBPTStop> > > stopsOnEdge;
     for (const auto& item : sc.getStops()) {
-        stopsOnEdge[item.second->getEdgeId()].push_back(item.second);
+        stopsOnEdge[retrieve(item.second->getEdgeId(), false)].push_back(item.second);
     }
 
     const bool origNames = OptionsCont::getOptions().getBool("output.original-names");
@@ -1872,8 +1873,8 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, bool keptIDs, const std
         }
         edge->setID(idSupplier.getNext());
         myEdges[edge->getID()] = edge;
-        for (std::shared_ptr<NBPTStop> stop : stopsOnEdge[origID]) {
-            stop->setEdgeId(prefix + edge->getID(), *this);
+        for (const auto& stop : stopsOnEdge[edge]) {
+            stop->setEdgeId((useSignedPrefix ? "" : prefix) + edge->getID(), *this);
         }
     }
     if (prefix.empty()) {
@@ -1881,10 +1882,50 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, bool keptIDs, const std
     } else {
         int renamed = 0;
         // make a copy because we will modify the map
-        auto oldEdges = myEdges;
-        for (auto item : oldEdges) {
-            if (!StringUtils::startsWith(item.first, prefix) && keep.count(item.first) == 0) {
-                rename(item.second, prefix + item.first);
+        const auto oldEdges = myEdges;
+        using NodePair = std::pair<std::string, std::string>;
+        std::map<NodePair, std::string> singleEdges;
+        if (useSignedPrefix) {
+            for (const auto& item : oldEdges) {
+                const NBEdge* edge = item.second;
+                const NodePair nodes(edge->getFromNode()->getID(), edge->getToNode()->getID());
+                const auto result = singleEdges.emplace(nodes, item.first);
+                if (!result.second) {
+                    result.first->second.clear();
+                }
+            }
+        }
+        const auto prefixed = [&prefix, useSignedPrefix](const std::string& id) {
+            const bool negative = useSignedPrefix && id.front() == '-';
+            const std::string base = negative ? id.substr(1) : id;
+            if (StringUtils::startsWith(id, prefix) || StringUtils::startsWith(base, prefix)) {
+                return id;
+            }
+            return (negative ? "-" : "") + prefix + base;
+        };
+        for (const auto& item : oldEdges) {
+            if (keep.count(item.first) != 0) {
+                continue;
+            }
+            NBEdge* edge = item.second;
+            std::string name = prefixed(item.first);
+            if (useSignedPrefix && item.first.front() != '-') {
+                const NodePair nodes(edge->getFromNode()->getID(), edge->getToNode()->getID());
+                const auto reverse = singleEdges.find({nodes.second, nodes.first});
+                // The smaller unsigned ID supplies the name for a unique pair.
+                if (!singleEdges.at(nodes).empty() && reverse != singleEdges.end() && !reverse->second.empty()
+                        && reverse->second.front() != '-' && item.first > reverse->second && keep.count(reverse->second) == 0) {
+                    name = "-" + prefixed(reverse->second);
+                }
+            }
+            if (name != item.first) {
+                rename(edge, name);
+                const auto stops = stopsOnEdge.find(edge);
+                if (useSignedPrefix && stops != stopsOnEdge.end()) {
+                    for (const auto& stop : stops->second) {
+                        stop->setEdgeId(name, *this);
+                    }
+                }
                 renamed++;
             }
         }
