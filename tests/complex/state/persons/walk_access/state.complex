@@ -34,9 +34,10 @@
     <delay number="0" begin="0" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <transportables type="person" state="1 1 0 0 0 0 0 0 0">
-        <person id="p0" type="DEFAULT_PEDTYPE" depart="0.00" departPos="390.00" speedFactor="1.0600" state="8 1.5 8000 193266">
+        <person id="p0" type="DEFAULT_PEDTYPE" depart="0.00" departPos="390.00" speedFactor="1.0600" state="8 2 8000 193266">
             <walk edges="beg" trainStop="ts_0" started="0.00" ended="8.00"/>
             <walk edges="left"/>
+            <access index="2" edge="train" id="ts_0" type="trainStop" arrivalPos="250.00" arrivalPosLat="0.00" distance="272.75" dir="0" shape="398.84,-4.95 500.00,248.35" depart="8.000" until="193.266"/>
         </person>
     </transportables>
 </snapshot>
