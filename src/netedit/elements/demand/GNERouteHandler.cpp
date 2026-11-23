@@ -1185,24 +1185,15 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         return buildContainerStop(sumoBaseObject, planParameters, stopParameters.endPos,
                                   stopParameters.duration, stopParameters.until, stopParameters.actType, stopParameters.friendlyPos, stopParameters.parametersSet);
     } else {
-        // get vehicle tag
-        SumoXMLTag vehicleTag = objParent->getTag();
-        if (vehicleTag == SUMO_TAG_VEHICLE) {
-            // check if vehicle is placed over route or with embedded route
-            if (!objParent->hasStringAttribute(SUMO_ATTR_ROUTE)) {
-                vehicleTag = GNE_TAG_VEHICLE_WITHROUTE;
-            }
-        } else if (vehicleTag == SUMO_TAG_FLOW) {
-            if (objParent->hasStringAttribute(SUMO_ATTR_ROUTE)) {
-                vehicleTag = GNE_TAG_FLOW_ROUTE;
-            } else if (objParent->hasStringAttribute(SUMO_ATTR_FROM) && objParent->hasStringAttribute(SUMO_ATTR_TO)) {
-                vehicleTag = SUMO_TAG_FLOW;
-            } else {
-                vehicleTag = GNE_TAG_FLOW_WITHROUTE;
-            }
+        const SumoXMLTag parentTag = objParent->getTag();
+        const std::string parentID = objParent->getStringAttribute(SUMO_ATTR_ID);
+        // A parsed trip or flow can have a different internal tag, depending on its endpoints.
+        GNEDemandElement* stopParent;
+        if (parentTag == SUMO_TAG_VEHICLE || parentTag == SUMO_TAG_TRIP || parentTag == SUMO_TAG_FLOW) {
+            stopParent = retrieveDemandElement(NamespaceIDs::vehicles, parentID);
+        } else {
+            stopParent = myNet->getAttributeCarriers()->retrieveDemandElement(parentTag, parentID, false);
         }
-        // get stop parent
-        GNEDemandElement* stopParent = myNet->getAttributeCarriers()->retrieveDemandElement(vehicleTag, objParent->getStringAttribute(SUMO_ATTR_ID), false);
         // check if stopParent exist
         if (stopParent) {
             // flag for waypoint (is like a stop, but with extra attribute speed)
