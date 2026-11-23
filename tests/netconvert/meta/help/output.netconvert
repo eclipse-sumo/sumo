@@ -305,6 +305,8 @@ TLS Building Options:
   --tls.unset STR[]                    Interprets STR[] as list of junctions to
                                         be not controlled by TLS
   --tls.guess                          Turns on TLS guessing
+  --tls.guess-phase-names              Name generated green and transition
+                                        phases of traffic light programs
   --tls.guess.threshold FLOAT          Sets minimum value for the sum of all
                                         incoming lane speeds when guessing TLS
   --tls.taz-nodes                      Sets district nodes as tls-controlled
