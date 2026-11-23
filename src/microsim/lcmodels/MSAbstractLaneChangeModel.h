@@ -156,6 +156,8 @@ public:
     /// @brief keep the state seen by vehicles on other edges while deciding
     virtual void saveDecisionState() {
         myDecisionState = myOwnState;
+        myDecisionStateRight = mySavedStateRight.second;
+        myDecisionStateLeft = mySavedStateLeft.second;
     }
 
     /// @brief the state before deciding
@@ -692,9 +694,6 @@ public:
 
     virtual bool avoidOvertakeRight(const MSVehicle* const neighLeader, const bool allowProb=false) const;
 
-    /// @brief the RNG for draws while deciding (the RNG of the deciding edge's first lane, which also selects the thread)
-    SumoRNG* getDecisionRNG() const;
-
 protected:
     virtual bool congested(const MSVehicle* const neighLeader);
 
@@ -729,6 +728,8 @@ protected:
 
     /// @brief the state before deciding (seen by vehicles on other edges)
     int myDecisionState;
+    int myDecisionStateRight;
+    int myDecisionStateLeft;
 
     std::pair<int, int> mySavedStateRight;
     std::pair<int, int> mySavedStateCenter;

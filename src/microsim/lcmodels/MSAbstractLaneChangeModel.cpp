@@ -133,6 +133,8 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myPreviousState(0),
     myPreviousState2(0),
     myDecisionState(0),
+    myDecisionStateRight(0),
+    myDecisionStateLeft(0),
     myCanceledStateRight(LCA_NONE),
     myCanceledStateCenter(LCA_NONE),
     myCanceledStateLeft(LCA_NONE),
@@ -314,17 +316,11 @@ MSAbstractLaneChangeModel::avoidOvertakeRight(const MSVehicle* const neighLeader
     return (!myAllowOvertakingRight  // the highway case
             && !myVehicle.congested()
             && myVehicle.getVehicleType().getVehicleClass() != SVC_EMERGENCY
-            && (!allowProb || myOvertakeRightParam == 0 || myOvertakeRightParam < RandHelper::rand(getDecisionRNG()))) ||
+            && (!allowProb || myOvertakeRightParam == 0 || myOvertakeRightParam < RandHelper::rand(myVehicle.getRNG()))) ||
            (neighLeader != nullptr && neighLeader->isStopped()  // the bus stop case
             && neighLeader->getStops().front().busstop != nullptr
             && !StringUtils::toBool(neighLeader->getStops().front().busstop->getParameter("allowOvertakeRight", "true")));
 }
-
-SumoRNG*
-MSAbstractLaneChangeModel::getDecisionRNG() const {
-    return myDecidingEdge != nullptr ? myDecidingEdge->getLanes()[0]->getRNG() : myVehicle.getRNG();
-}
-
 
 bool
 MSAbstractLaneChangeModel::predInteraction(const std::pair<MSVehicle*, double>& leader) {
@@ -1106,14 +1102,16 @@ MSAbstractLaneChangeModel::setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicle
 
 bool
 MSAbstractLaneChangeModel::isStrategicBlocked() const {
-    const int stateRight = mySavedStateRight.second;
+    // a vehicle on another edge is seen as it was before deciding
+    const bool otherEdge = onOtherEdge(&myVehicle);
+    const int stateRight = otherEdge ? myDecisionStateRight : mySavedStateRight.second;
     if (
         (stateRight & LCA_STRATEGIC) != 0
         && (stateRight & LCA_RIGHT) != 0
         && (stateRight & LCA_BLOCKED) != 0) {
         return true;
     }
-    const int stateLeft = mySavedStateLeft.second;
+    const int stateLeft = otherEdge ? myDecisionStateLeft : mySavedStateLeft.second;
     if (
         (stateLeft & LCA_STRATEGIC) != 0
         && (stateLeft & LCA_LEFT) != 0
