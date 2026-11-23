@@ -813,7 +813,10 @@ endif ()
 
 # Older CMake counts a leading "./" when computing the exported import prefix.
 string(REGEX REPLACE "^\\./" "" SUMO_CONFIG_DIR "${DATA_PATH}cmake")
-install(EXPORT SUMOConfig DESTINATION "${SUMO_CONFIG_DIR}" NAMESPACE SUMO:: COMPONENT runtime)
+set(SUMO_PACKAGE_CONFIG "${CMAKE_CURRENT_SOURCE_DIR}/build_config/SUMOConfig.cmake")
+configure_file("${SUMO_PACKAGE_CONFIG}" "${CMAKE_BINARY_DIR}/SUMOConfig.cmake" COPYONLY)
+install(FILES "${SUMO_PACKAGE_CONFIG}" DESTINATION "${SUMO_CONFIG_DIR}" COMPONENT runtime)
+install(EXPORT SUMOConfig FILE SUMOTargets.cmake DESTINATION "${SUMO_CONFIG_DIR}" NAMESPACE SUMO:: COMPONENT runtime)
 
 set(SUMO_TOOLS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tools")
 if (NOT PYTHON_BUILD_MISSING)
