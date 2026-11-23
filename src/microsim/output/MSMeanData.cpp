@@ -257,8 +257,8 @@ MSMeanData::MeanDataValues::notifyMove(SUMOTrafficObject& veh, double oldPos, do
 
 
 bool
-MSMeanData::MeanDataValues::notifyLeave(SUMOTrafficObject& /*veh*/, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
-    if (MSGlobals::gUseMesoSim) {
+MSMeanData::MeanDataValues::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+    if (MSGlobals::gUseMesoSim && veh.isVehicle()) {
         return false; // reminder is re-added on every segment (@recheck for performance)
     }
     return reason == MSMoveReminder::NOTIFICATION_JUNCTION;
@@ -453,7 +453,8 @@ MSMeanData::init() {
         myMeasures.push_back(std::vector<MeanDataValues*>());
         myEdgeIndex[edge] = index++;
         const std::vector<MSLane*>& lanes = edge->getLanes();
-        if (MSGlobals::gUseMesoSim) {
+        // Persons use lane move reminders in both vehicle simulation models.
+        if (MSGlobals::gUseMesoSim && !detectsPersons()) {
             MeanDataValues* data;
             if (!myAmEdgeBased) {
                 for (MSLane* const lane : lanes) {
@@ -537,7 +538,7 @@ MSMeanData::~MSMeanData() {
 void
 MSMeanData::resetOnly(SUMOTime stopTime) {
     UNUSED_PARAMETER(stopTime);
-    if (MSGlobals::gUseMesoSim) {
+    if (MSGlobals::gUseMesoSim && !detectsPersons()) {
         MSEdgeVector::iterator edge = myEdges.begin();
         for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i, ++edge) {
             MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(**edge);
@@ -590,7 +591,7 @@ MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stop
             }
         }
     }
-    if (MSGlobals::gUseMesoSim) {
+    if (MSGlobals::gUseMesoSim && !detectsPersons()) {
         for (int i = 0; i < (int)myEdges.size(); i++) {
             MSEdge* edge = myEdges[i];
             std::vector<MeanDataValues*>& edgeValues = myMeasures[i];
@@ -650,7 +651,7 @@ MSMeanData::writeAggregatedTAZ(OutputDevice& dev, SUMOTime startTime, SUMOTime s
             MSEdge* edge = myEdges[i];
             if (connected.count(edge) != 0) {
                 std::vector<MeanDataValues*>& edgeValues = myMeasures[i];
-                if (MSGlobals::gUseMesoSim) {
+                if (MSGlobals::gUseMesoSim && !detectsPersons()) {
                     MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
                     while (s != nullptr) {
                         for (MeanDataValues* meanData : edgeValues) {
@@ -692,7 +693,7 @@ void
 MSMeanData::writeEdge(OutputDevice& dev,
                       const std::vector<MeanDataValues*>& edgeValues,
                       const MSEdge* const edge, SUMOTime startTime, SUMOTime stopTime) {
-    if (MSGlobals::gUseMesoSim) {
+    if (MSGlobals::gUseMesoSim && !detectsPersons()) {
         int idx = 0;
         for (MeanDataValues* const data : edgeValues) {
             MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
