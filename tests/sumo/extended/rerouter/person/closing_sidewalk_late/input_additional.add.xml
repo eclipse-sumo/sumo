@@ -1,6 +1,6 @@
 <additional>
     <rerouter id="closure" edges="entry">
-        <interval begin="10" end="1000">
+        <interval begin="10" end="30">
             <closingLaneReroute id="trigger_0" disallow="all"/>
     </interval></rerouter>
 </additional>
