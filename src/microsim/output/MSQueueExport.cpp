@@ -184,7 +184,7 @@ MSQueueExport::writeMesoQueue(OutputDevice* of, const MSEdge& edge, const MESegm
     const double segLength = segment.getLength();
     const double segmentEnd = segmentOffset + segLength;
     const double lanesCovered = segment.numQueues() == 1 ? std::round(segment.getCapacity() / segLength) : 1.;
-    // positions and earliest exit times are interpolated as in MSEdge::getMesoPositions
+    // positions and earliest exit times are interpolated as in MEVehicle::getPositionOnLane
     SUMOTime earliestExitTime = segment.getQueueBlockTime(qIdx);
     // conservative exit times use the jam-dependent headway as in MESegment::getMeanSpeed
     SUMOTime conservativeExitTime = earliestExitTime;

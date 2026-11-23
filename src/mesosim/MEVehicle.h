@@ -22,7 +22,6 @@
 
 #include <iostream>
 #include <cassert>
-#include <map>
 #include <vector>
 #include <microsim/MSBaseVehicle.h>
 #include <microsim/MSEdge.h>
@@ -248,8 +247,12 @@ public:
      * @param[in] q The current que
      */
     inline virtual void setSegment(MESegment* s, int idx = 0) {
+        if (s == nullptr || mySegment == nullptr || &s->getEdge() != &mySegment->getEdge()) {
+            myMesoPosition = 0.;
+        }
         mySegment = s;
         myQueIndex = idx;
+        invalidateMesoPosition();
     }
 
 
@@ -267,6 +270,16 @@ public:
      */
     inline int getQueIndex() const {
         return myQueIndex;
+    }
+
+    /// @brief Returns the lateral offset used to visualize overlapping mesoscopic vehicles
+    int getMesoPositionOverlap() const {
+        return myMesoPositionOverlap;
+    }
+
+    /// @brief Invalidates the cached interpolated position
+    void invalidateMesoPosition() {
+        myMesoPositionUpdateTime = SUMOTime_MIN;
     }
 
     /** @brief Get the vehicle's lateral position on the edge of the given lane
@@ -427,7 +440,19 @@ protected:
     /// @brief Whether this vehicle was jammed on it's previous normal segment
     bool myWasJammed;
 
+    /// @brief The interpolated mesoscopic position on the current edge
+    double myMesoPosition = 0.;
+
+    /// @brief The lateral offset used to visualize overlapping mesoscopic vehicles
+    int myMesoPositionOverlap = 0;
+
+    /// @brief The time step of the last interpolated position update
+    SUMOTime myMesoPositionUpdateTime = SUMOTime_MIN;
+
     /// @brief An instance of a velocity/lane influencing instance; built in "getInfluencer"
     BaseInfluencer* myInfluencer;
+
+    /// @brief Update interpolated positions for all vehicles in the current queue
+    void updateMesoPositions() const;
 
 };

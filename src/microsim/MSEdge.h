@@ -893,12 +893,6 @@ public:
         return myRailwayRoutingEdge;
     }
 
-    const std::map<const MEVehicle*, std::pair<double, int> >& getMesoPositions() const;
-
-    inline void invalidateMesoCache() const {
-        myLastCacheUpdate = -1;
-    }
-
 protected:
     /** @class by_id_sorter
      * @brief Sorts edges by their ids
@@ -1081,12 +1075,6 @@ protected:
 
     /// @brief List of waiting vehicles
     mutable std::vector<SUMOVehicle*> myWaiting;
-
-    /// @brief Mesoscopic vehicle positions
-    mutable std::map<const MEVehicle*, std::pair<double, int> > myCachedMesoPos;
-
-    /// @brief time stamp of mesoscopic vehicle positions
-    mutable SUMOTime myLastCacheUpdate = -1;
 
 #ifdef HAVE_FOX
     /// @brief Mutex for accessing waiting vehicles
