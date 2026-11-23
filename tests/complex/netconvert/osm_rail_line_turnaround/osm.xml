@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='utf-8'?>
+<osm version="0.6" generator="SUMO test">
+  <node id="1" lat="48" lon="9.997" />
+  <node id="2" lat="48" lon="10.0" />
+  <node id="3" lat="48" lon="10.002">
+    <tag k="public_transport" v="stop_position" />
+    <tag k="railway" v="stop" />
+    <tag k="train" v="yes" />
+    <tag k="name" v="Platform 3" />
+  </node>
+  <node id="4" lat="48" lon="10.004" />
+  <node id="5" lat="47.9993" lon="9.9972" />
+  <node id="6" lat="48" lon="9.9982">
+    <tag k="public_transport" v="stop_position" />
+    <tag k="railway" v="stop" />
+    <tag k="train" v="yes" />
+    <tag k="name" v="Platform 6" />
+  </node>
+  <node id="7" lat="48" lon="10.001" />
+  <way id="10">
+    <nd ref="1" />
+    <nd ref="6" />
+    <nd ref="2" />
+    <tag k="railway" v="rail" />
+    <tag k="railway:bidirectional" v="regular" />
+  </way>
+  <way id="20">
+    <nd ref="2" />
+    <nd ref="7" />
+    <nd ref="3" />
+    <tag k="railway" v="rail" />
+    <tag k="railway:bidirectional" v="regular" />
+  </way>
+  <way id="30">
+    <nd ref="3" />
+    <nd ref="4" />
+    <tag k="railway" v="rail" />
+    <tag k="railway:bidirectional" v="regular" />
+  </way>
+  <way id="40">
+    <nd ref="2" />
+    <nd ref="5" />
+    <tag k="railway" v="rail" />
+    <tag k="railway:bidirectional" v="regular" />
+  </way>
+  <relation id="100">
+    <member type="node" ref="6" role="stop" />
+    <member type="node" ref="3" role="stop" />
+    <member type="way" ref="10" role="" />
+    <member type="way" ref="20" role="" />
+    <member type="way" ref="20" role="" />
+    <member type="way" ref="40" role="" />
+    <tag k="type" v="route" />
+    <tag k="route" v="train" />
+    <tag k="ref" v="100" />
+  </relation>
+  <relation id="200">
+    <member type="node" ref="6" role="stop" />
+    <member type="node" ref="3" role="stop" />
+    <member type="way" ref="10" role="" />
+    <member type="way" ref="20" role="" />
+    <member type="way" ref="20" role="" />
+    <member type="way" ref="30" role="" />
+    <tag k="type" v="route" />
+    <tag k="route" v="train" />
+    <tag k="ref" v="200" />
+  </relation>
+</osm>

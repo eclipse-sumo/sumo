@@ -8,6 +8,9 @@ left_turn_noblocking_double_intersection
 # then import the constructed sumo net and check for idempotency
 osm_roundtrip
 
+# Preserve the route and infer only the reversal made by the OSM rail line, refs #18489
+osm_rail_line_turnaround
+
 # export sumo.net.xml as dlr-navteq then reimport and check for consistency with the original net.xml
 dlr-navteq_roundtrip
 
