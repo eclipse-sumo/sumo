@@ -28,14 +28,12 @@ jobs:
     strategy:
       # Allow all other matrix-jobs to continue running, even if one of the jobs fails
       fail-fast: false
-      # pull requests only build full+gcc and minimal+clang
+      # pull requests only build full+gcc and minimal+clang on x64
       matrix: >-
         ${{ fromJSON(github.event_name == 'pull_request' &&
         '{"include": [
           {"os": "ubuntu-latest", "build_type": "full", "compiler": "gcc"},
-          {"os": "ubuntu-24.04-arm", "build_type": "full", "compiler": "gcc"},
-          {"os": "ubuntu-latest", "build_type": "minimal", "compiler": "clang"},
-          {"os": "ubuntu-24.04-arm", "build_type": "minimal", "compiler": "clang"}
+          {"os": "ubuntu-latest", "build_type": "minimal", "compiler": "clang"}
         ]}' ||
         '{"os": ["ubuntu-latest", "ubuntu-24.04-arm"],
           "build_type": ["full", "minimal"],
@@ -134,10 +132,10 @@ jobs:
     strategy:
       fail-fast: false
       # texttest applications are split into shards, the extra tests need the gcc build on x64
-      # pull requests only test the full+gcc builds
+      # pull requests only test the x64 full+gcc build
       matrix: >-
         ${{ fromJSON(github.event_name == 'pull_request' &&
-        '{"os": ["ubuntu-latest", "ubuntu-24.04-arm"],
+        '{"os": ["ubuntu-latest"],
           "compiler": ["gcc"],
           "shard": ["complex", "tools-traci", "other"],
           "include": [{"os": "ubuntu-latest", "compiler": "gcc", "shard": "extra"}]}' ||
