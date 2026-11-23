@@ -50,3 +50,6 @@ ticket16014
 
 # too early entry into resolving queue
 ticket18388
+
+# crash on invalid queue index
+ticket18683

@@ -1,0 +1,15 @@
+<routes>
+    <vType id="car" maxSpeed="13.89" sigma="0"/>
+    <route id="od5" edges="ENT_bottom_2_2 h2_1_b h2_0_b EXT_bottom_2_0"/>
+    <route id="od7" edges="ENT_top_0_1 v0_1_f v1_1_f h2_0_b EXT_bottom_2_0"/>
+    <route id="od8" edges="ENT_top_0_1 h0_1_f EXT_top_0_2"/>
+    <route id="od9" edges="ENT_bottom_2_1 v1_1_b v0_1_b h0_0_b EXT_top_0_0"/>
+    <route id="od10" edges="ENT_bottom_2_2 h2_1_b EXT_bottom_2_1"/>
+    <vehicle id="v1" type="car" route="od5" depart="1.00" departPos="0"/>
+    <vehicle id="v2" type="car" route="od7" depart="1.00" departPos="0"/>
+    <vehicle id="v3" type="car" route="od8" depart="1.00" departPos="0"/>
+    <vehicle id="v4" type="car" route="od9" depart="1.00" departPos="0"/>
+    <vehicle id="v5" type="car" route="od10" depart="1.00" departPos="0"/>
+    <vehicle id="v6" type="car" route="od7" depart="1.05" departPos="0"/>
+    <vehicle id="v7" type="car" route="od7" depart="1.10" departPos="0"/>
+</routes>
