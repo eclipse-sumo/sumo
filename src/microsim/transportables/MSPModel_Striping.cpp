@@ -502,10 +502,12 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                               << "\n";
                 }
                 // check if a direct connection exists (moving onto the walkingarea was the wrong choice)
-                if (ped.getDirection() == FORWARD) {
-                    link = prevLane->getLinkTo(nextRouteLane);
-                } else {
-                    link = nextRouteLane->getLinkTo(prevLane);
+                if (prevLane != nullptr) {
+                    if (ped.getDirection() == FORWARD) {
+                        link = prevLane->getLinkTo(nextRouteLane);
+                    } else {
+                        link = nextRouteLane->getLinkTo(prevLane);
+                    }
                 }
                 if (link != nullptr) {
                     // leave direction as UNDEFINED_DIRECTION to signal that currentLane must be changed
