@@ -1,0 +1,4 @@
+<routes>
+    <trip id="coordinates" depart="0" fromXY="498,-1.65" toXY="1502,-1.65"/>
+    <trip id="explicitEdges" depart="0" from="beg" to="end"/>
+</routes>
