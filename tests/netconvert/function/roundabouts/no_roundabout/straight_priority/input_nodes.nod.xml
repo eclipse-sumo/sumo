@@ -1,0 +1,14 @@
+<nodes>
+    <node id="n0" x="40.0" y="0.0" />
+    <node id="n1" x="28.28" y="28.28" />
+    <node id="n2" x="0.0" y="40.0" />
+    <node id="n3" x="-28.28" y="28.28" />
+    <node id="n4" x="-40.0" y="0.0" />
+    <node id="n5" x="-28.28" y="-28.28" />
+    <node id="n6" x="-0.0" y="-40.0" />
+    <node id="n7" x="28.28" y="-28.28" />
+    <node id="mainStart" x="75.16" y="-84.84" />
+    <node id="out2" x="0.0" y="80.0" />
+    <node id="out4" x="-80.0" y="0.0" />
+    <node id="out6" x="-0.0" y="-80.0" />
+</nodes>

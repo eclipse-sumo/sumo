@@ -1,0 +1,14 @@
+<edges>
+    <edge from="n0" to="n1" priority="3" id="ring0" />
+    <edge from="n1" to="n2" priority="3" id="ring1" />
+    <edge from="n2" to="n3" priority="3" id="ring2" />
+    <edge from="n3" to="n4" priority="3" id="ring3" />
+    <edge from="n4" to="n5" priority="3" id="ring4" />
+    <edge from="n5" to="n6" priority="3" id="ring5" />
+    <edge from="n6" to="n7" priority="3" id="ring6" />
+    <edge from="n7" to="n0" priority="3" id="ring7" />
+    <edge from="mainStart" to="n0" priority="6" id="mainIn" />
+    <edge from="n2" to="out2" priority="3" id="exit2" />
+    <edge from="n4" to="out4" priority="3" id="exit4" />
+    <edge from="n6" to="out6" priority="3" id="exit6" />
+</edges>
