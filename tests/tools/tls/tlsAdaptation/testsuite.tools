@@ -7,6 +7,9 @@ multiMajorGreens
 # one route file and only one traffic light with traffic volumes
 basic
 
+# Compute hourly flows from explicit intervals shorter and longer than an hour.
+explicit_interval
+
 # one route file and only one traffic light with traffic volumes, set the cycle length for all tls to the same value (longest webster cycle)
 unified_flows
 
