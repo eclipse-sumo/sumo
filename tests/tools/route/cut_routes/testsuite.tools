@@ -48,6 +48,7 @@ vehroutes
 
 # Use vehicle attributes departEdge and arrivalEdge
 departEdge
+triggered_departures
 
 # keeping params but removing emtpy plans
 param
