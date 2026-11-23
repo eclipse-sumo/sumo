@@ -124,6 +124,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_J_TOGGLEDRAWJUNCTIONSHAPE,      GUIApplicationWindow::onCmdToggleDrawJunctionShape),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,              GUIApplicationWindow::onCmdToggleSecondaryShape),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_F_FULSCREENMODE,                GUIApplicationWindow::onCmdFullScreen),
+    FXMAPFUNC(SEL_CHORE,    MID_HOTKEY_CTRL_F_FULSCREENMODE,                GUIApplicationWindow::onChoreLeaveFullScreen),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTINTERNAL,                               GUIApplicationWindow::onCmdListInternal),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTPARKING,                                GUIApplicationWindow::onCmdListParking),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTTELEPORTING,                            GUIApplicationWindow::onCmdListTeleporting),
@@ -1644,11 +1645,14 @@ GUIApplicationWindow::onCmdAppSettings(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
-    if (myGLWindows.empty()) {
+    // without a view, the gaming mode can only be left
+    if (myGLWindows.empty() && !myAmGaming) {
         return 1;
     }
     myAmGaming = !myAmGaming;
-    myGLWindows[0]->getView()->editVisualisationSettings()->gaming = myAmGaming;
+    if (!myGLWindows.empty()) {
+        myGLWindows[0]->getView()->editVisualisationSettings()->gaming = myAmGaming;
+    }
     if (myAmGaming) {
         myGamingModeCheckbox->setCheck(TRUE);
         myMenuBar->hide();
@@ -1728,7 +1732,7 @@ GUIApplicationWindow::onCmdToggleSecondaryShape(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
-    if (myGLWindows.empty()) {
+    if (myGLWindows.empty() && !myAmFullScreen) {
         return 1;
     }
     myAmFullScreen = !myAmFullScreen;
@@ -1763,7 +1767,8 @@ GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
         setDecorations(DECOR_ALL);
         restore();
         myToolBar3->show();
-        myAmGaming = !myAmGaming;
+        // re-apply the gaming mode (it is left if no view remains)
+        myAmGaming = myGLWindows.empty() || !myAmGaming;
         onCmdGaming(nullptr, 0, nullptr);
         setWidth(getApp()->reg().readIntEntry("SETTINGS", "width", 600));
         setHeight(getApp()->reg().readIntEntry("SETTINGS", "height", 400));
@@ -1773,6 +1778,16 @@ GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
     // show or hide the full screen hint
     for (GUIGlChildWindow* const window : myGLWindows) {
         window->getView()->update();
+    }
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onChoreLeaveFullScreen(FXObject*, FXSelector, void*) {
+    // a (re)load opens a new view, so the full screen mode is kept
+    if (myAmFullScreen && myGLWindows.empty() && !myAmLoading) {
+        onCmdFullScreen(nullptr, 0, nullptr);
     }
     return 1;
 }

@@ -116,6 +116,10 @@ GUIMainWindow::removeGLChild(GUIGlChildWindow* child) {
     if (i != myGLWindows.end()) {
         myGLWindows.erase(i);
     }
+    if (myGLWindows.empty() && myAmFullScreen) {
+        // the full screen mode cannot be left without a view
+        getApp()->addChore(this, MID_HOTKEY_CTRL_F_FULSCREENMODE);
+    }
 }
 
 

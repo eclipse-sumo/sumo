@@ -208,6 +208,9 @@ public:
     /// @brief Toggle full screen mode
     long onCmdFullScreen(FXObject*, FXSelector, void*);
 
+    /// @brief Leave full screen mode after the last view was closed
+    long onChoreLeaveFullScreen(FXObject*, FXSelector, void*);
+
     /// @brief Toggle listing of internal structures
     long onCmdListInternal(FXObject*, FXSelector, void*);
 
