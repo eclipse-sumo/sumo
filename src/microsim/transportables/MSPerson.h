@@ -47,6 +47,7 @@ class SUMOVehicle;
 class MSVehicleType;
 class MSPModel;
 class MSMoveReminder;
+class SUMOSAXAttributes;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
@@ -105,6 +106,12 @@ public:
 
         /// @brief Called on writing vehroute output. Currently does nothing.
         void routeOutput(const bool /*isPerson*/, OutputDevice& /*os*/, const bool /*withRouteLength*/, const MSStage* const /*previous*/, const bool /*withTiming*/, const bool /*saveState*/ = false) const {};
+
+        /// @brief Save this access stage and its position in the restored plan.
+        void savePlanState(OutputDevice& out, int index) const;
+
+        /// @brief Recreate the saved stage without scheduling a simulation event.
+        static MSPersonStage_Access* loadPlanState(const SUMOSAXAttributes& attrs);
 
         /** @brief Saves the current state into the given stream
         */

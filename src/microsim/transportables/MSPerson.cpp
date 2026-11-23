@@ -29,6 +29,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/router/IntermodalNetwork.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -131,6 +132,63 @@ MSPerson::MSPersonStage_Access::tripInfoOutput(OutputDevice& os, const MSTranspo
     os.writeAttr("duration", myArrived > 0 ? time2string(getDuration()) : "-1");
     os.writeAttr("routeLength", myDist);
     os.closeTag();
+}
+
+
+void
+MSPerson::MSPersonStage_Access::savePlanState(OutputDevice& out, int index) const {
+    out.openTag(SUMO_TAG_ACCESS).writeAttr(SUMO_ATTR_INDEX, index);
+    out.writeAttr(SUMO_ATTR_EDGE, myDestination->getID());
+    if (myDestinationStop != nullptr) {
+        out.writeAttr(SUMO_ATTR_ID, myDestinationStop->getID());
+        out.writeAttr(SUMO_ATTR_TYPE, toString(myDestinationStop->getElement()));
+    }
+    out.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPos);
+    out.writeAttr(SUMO_ATTR_ARRIVALPOS_LAT, myArrivalPosLat);
+    out.writeAttr(SUMO_ATTR_DISTANCE, myDist);
+    out.writeAttr(SUMO_ATTR_DIR, myAmExit);
+    out.writeAttr(SUMO_ATTR_SHAPE, myPath);
+    const int timePrecision = MAX2(3, gPrecision);
+    out.writeAttr(SUMO_ATTR_DEPART, toString(STEPS2TIME(myDeparted), timePrecision));
+    if (myArrived >= 0) {
+        out.writeAttr(SUMO_ATTR_ARRIVAL, toString(STEPS2TIME(myArrived), timePrecision));
+    }
+    out.writeAttr(SUMO_ATTR_UNTIL, toString(STEPS2TIME(myEstimatedArrival), timePrecision));
+    out.closeTag();
+}
+
+
+MSPerson::MSPersonStage_Access*
+MSPerson::MSPersonStage_Access::loadPlanState(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, nullptr, ok);
+    const MSEdge* edge = MSEdge::dictionary(edgeID);
+    MSStoppingPlace* stop = nullptr;
+    if (attrs.hasAttribute(SUMO_ATTR_ID)) {
+        const std::string stopID = attrs.getString(SUMO_ATTR_ID);
+        const std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, stopID.c_str(), ok);
+        const auto category = static_cast<SumoXMLTag>(SUMOXMLDefinitions::Tags.get(type));
+        stop = MSNet::getInstance()->getStoppingPlace(stopID, category == SUMO_TAG_TRAIN_STOP ? SUMO_TAG_BUS_STOP : category);
+        if (stop == nullptr) {
+            throw ProcessError(TLF("Unknown stopping place '%' in saved access stage.", stopID));
+        }
+    }
+    const double arrivalPos = attrs.get<double>(SUMO_ATTR_ARRIVALPOS, nullptr, ok);
+    const double arrivalPosLat = attrs.get<double>(SUMO_ATTR_ARRIVALPOS_LAT, nullptr, ok);
+    const double distance = attrs.get<double>(SUMO_ATTR_DISTANCE, nullptr, ok);
+    const bool isExit = attrs.get<bool>(SUMO_ATTR_DIR, nullptr, ok);
+    const PositionVector path = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok);
+    const SUMOTime departed = attrs.getSUMOTimeReporting(SUMO_ATTR_DEPART, nullptr, ok);
+    const SUMOTime arrived = attrs.getOptSUMOTimeReporting(SUMO_ATTR_ARRIVAL, nullptr, ok, -1);
+    const SUMOTime estimatedArrival = attrs.getSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok);
+    if (!ok || edge == nullptr || path.size() != 2) {
+        throw ProcessError(TL("Invalid saved access stage."));
+    }
+    auto* stage = new MSPersonStage_Access(edge, stop, arrivalPos, arrivalPosLat, distance, isExit, path.front(), path.back());
+    stage->myDeparted = departed;
+    stage->myArrived = arrived;
+    stage->myEstimatedArrival = estimatedArrival;
+    return stage;
 }
 
 
