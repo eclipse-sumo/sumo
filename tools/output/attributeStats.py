@@ -21,6 +21,7 @@ compute statistics for a specific xml attribute (e.g. timeLoss in tripinfo-outpu
 from __future__ import absolute_import
 from __future__ import print_function
 
+import math
 import os
 import sys
 from collections import defaultdict
@@ -49,8 +50,11 @@ def get_options():
                     help="attribute to analyze")
     op.add_argument("-i", "--id-attribute", dest="idAttr", default="id", category="input",
                     help="attribute to identify data elements")
-    op.add_argument("-b", "--binwidth", type=float, default=50, category="processing",
-                    help="binning width of result histogram")
+    binning = op.add_mutually_exclusive_group()
+    binning.add_argument("-b", "--binwidth", type=float, default=50, category="processing",
+                         help="binning width of result histogram")
+    binning.add_argument("--bins", type=int, category="processing",
+                         help="number of histogram bins per element and attribute")
     op.add_argument("--hist-output", category="output",
                     help="output file for histogram (gnuplot compatible)")
     op.add_argument("-o", "--full-output", category="output",
@@ -70,6 +74,8 @@ def get_options():
     op.add_argument("-H", "--human-readable-time", dest="hrTime", default=False, action="store_true", category="output",
                     help="interpret values as times and write them as h:m:s")
     options = op.parse_args()
+    if options.bins is not None and options.bins < 1:
+        op.error("--bins must be a positive integer")
 
     if options.attribute:
         options.attribute = options.attribute.split(',')
@@ -133,12 +139,15 @@ def main():
                     # float() accepts '_' but this doesn't play nice with lane ids
                     raise Exception
                 val = sumolib.miscutils.parseTime(stringVal)
+                if options.bins is not None and not math.isfinite(val):
+                    raise ValueError
                 vals[elementID][attr].append(val)
                 key = (tag, attr)
                 if key not in allStats:
                     allStats[key] = Statistics("%s %s" % (tag, attr),
                                                histogram=options.binwidth > 0, scale=options.binwidth,
-                                               printDev=True, abs=options.abs, printSum=options.sum)
+                                               printDev=True, abs=options.abs, printSum=options.sum,
+                                               binCount=options.bins)
 
                 stats = allStats[key]
                 stats.add(val, elementID)

@@ -20,6 +20,7 @@ from __future__ import print_function
 from __future__ import division
 import math
 import warnings
+from bisect import bisect_right
 from collections import defaultdict
 try:
     from numpy import sqrt, set_printoptions
@@ -86,7 +87,8 @@ def setPrecision(formatstr, precision, isArray=False, preformatted=False):
 
 class Statistics:
 
-    def __init__(self, label=None, abs=False, histogram=False, printMin=True, scale=1, printDev=False, printSum=False):
+    def __init__(self, label=None, abs=False, histogram=False, printMin=True, scale=1, printDev=False, printSum=False,
+                 binCount=None):
         self.label = label
         self.min = uMax
         self.min_label = None
@@ -99,7 +101,8 @@ class Statistics:
         self.printDev = printDev
         self.printSum = printSum
         self.isArray = False
-        if histogram:
+        self.binCount = binCount
+        if histogram and binCount is None:
             self.counts = defaultdict(int)
         else:
             self.counts = None
@@ -211,6 +214,24 @@ class Statistics:
             return None
 
     def histogram(self):
+        if self.binCount is not None:
+            if not self.values:
+                return []
+            if self.min == self.max:
+                return [(self.min, len(self.values))]
+
+            span = self.max - self.min
+
+            def at(fraction):
+                if math.isfinite(span):
+                    return self.min + fraction * span
+                return (1 - fraction) * self.min + fraction * self.max
+
+            edges = [at(i / self.binCount) for i in range(1, self.binCount)]
+            counts = [0] * self.binCount
+            for v in self.values:
+                counts[bisect_right(edges, v)] += 1
+            return [(at((i + 0.5) / self.binCount), count) for i, count in enumerate(counts)]
         if self.counts is not None:
             return [(k * self.scale, self.counts[k]) for k in sorted(self.counts.keys())]
         else:
@@ -243,14 +264,15 @@ class Statistics:
                 result += (setPrecision(', stdDev %.2f', precision, self.isArray) % (self.meanAndStdDev()[1]))
             if self.printSum:
                 result += (setPrecision(', sum %.2f', precision, self.isArray) % sum(self.values))
-            if self.counts is not None:
+            if self.counts is not None or self.binCount is not None:
                 if histStyle == 1:
                     result += '\n histogram: %s' % self.histogram()
                 elif histStyle == 2:
-                    keylen = len("%.0f" % (self.scale * max(self.counts.keys())))
+                    bins = self.histogram()
+                    keylen = len("%.0f" % bins[-1][0])
                     formatStr = "%%%i.0f: %%s" % keylen
                     result = 'histogram of %s:\n%s\n%s' % (self.label,
-                                                           '\n'.join([formatStr % x for x in self.histogram()]),
+                                                           '\n'.join([formatStr % x for x in bins]),
                                                            result)
             return result
         else:
@@ -277,7 +299,7 @@ class Statistics:
             if self.printDev:
                 result += (setPrecision(' stdDev="%.2f"', precision, self.isArray) %
                            (self.meanAndStdDev()[1]))
-        if self.counts is not None:
+        if self.counts is not None or self.binCount is not None:
             result += '>\n'
             for kv in self.histogram():
                 result += setPrecision(8 * ' ' + '<hist key="%.2f" value="%i"/>\n', precision, self.isArray) % kv
