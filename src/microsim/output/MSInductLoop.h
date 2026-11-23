@@ -409,7 +409,8 @@ protected:
     std::map<SUMOTrafficObject*, double> myVehiclesOnDet;
 
     SUMOTime myLastIntervalEnd;
-    SUMOTime myLastIntervalBegin;
+    /// @brief Occupancy recorded at the end of the last complete output interval
+    double myLastIntervalOccupancy = 0;
 
     /// @brief current segment (for actuated tls in meso)
     MESegment* mySegment;
