@@ -6,10 +6,6 @@ Traceback (most recent call last):
     return self._getUniversal(tc.VAR_MIN_EXPECTED_VEHICLES)
   File "/scr1/sumo/tools/traci/domain.py", line 168, in _getUniversal
     return _parse(self._retValFunc, varID, self._getCmd(varID, objectID, format, *values))
-  File "/scr1/sumo/tools/traci/domain.py", line 173, in _getCmd
-    r = self._connection._sendCmd(self._cmdGetID, varID, objID, format, *values)
-  File "/scr1/sumo/tools/traci/connection.py", line 180, in _sendCmd
-    return self._sendExact()
-  File "/scr1/sumo/tools/traci/connection.py", line 82, in _sendExact
-    raise FatalTraCIError("Connection already closed.")
-traci.exceptions.FatalTraCIError: Connection already closed.
+  File "/scr1/sumo/tools/traci/domain.py", line 172, in _getCmd
+    raise FatalTraCIError("Not connected.")
+traci.exceptions.FatalTraCIError: Not connected.

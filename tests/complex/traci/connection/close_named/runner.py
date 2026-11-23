@@ -28,16 +28,34 @@ sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import traci  # noqa
 import sumolib  # noqa
 
+
+def checkDisconnected():
+    for call in (traci.simulationStep, traci.simulation.getTime, traci.vehicle.getIDList):
+        try:
+            call()
+        except traci.FatalTraCIError as error:
+            assert str(error) == "Not connected.", error
+        else:
+            raise AssertionError("%s succeeded without a connection" % call.__name__)
+
+
 try:
+    checkDisconnected()
     sumoBinary = sumolib.checkBinary('sumo')
     traci.start([sumoBinary, "-c", "sumo.sumocfg"] + sys.argv[1:])
     conn = traci.getConnection('default')
+    traci.start([sumoBinary, "-c", "sumo.sumocfg"] + sys.argv[1:], label="inactive", doSwitch=False)
+    traci.getConnection("inactive").close()
+    assert traci.simulation.getTime() == 0
     conn.simulationStep()
     conn.close()
+    checkDisconnected()
     traci.start([sumoBinary, "-c", "sumo.sumocfg"] + sys.argv[1:])
     traci.close()
+    checkDisconnected()
     traci.start([sumoBinary, "-c", "sumo.sumocfg"] + sys.argv[1:], label="2nd")
     traci.close()
     traci.start([sumoBinary, "-c", "sumo.sumocfg"] + sys.argv[1:], label="2nd")
 finally:
-    traci.close()
+    if traci.connection.has(""):
+        traci.close()
