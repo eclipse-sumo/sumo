@@ -21,6 +21,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cstdlib>
 #include <cstdint>
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/util/TransService.hpp>
@@ -84,10 +85,27 @@ XMLSubSys::warnLocalScheme(const std::string& newScheme, const bool haveSUMO_HOM
 }
 
 
+std::string
+XMLSubSys::getLocalSchemaPath(const std::string& filename) {
+    const char* sumoPath = std::getenv("SUMO_HOME");
+    if (sumoPath == nullptr) {
+        return "";
+    }
+    const std::string schema = "/data/xsd/" + filename;
+    const std::string direct = sumoPath + schema;
+    if (!FileHelpers::isReadable(direct)) {
+        const std::string installed = sumoPath + std::string("/share/sumo") + schema;
+        if (FileHelpers::isReadable(installed)) {
+            return installed;
+        }
+    }
+    return direct;
+}
+
+
 void
 XMLSubSys::setValidation(const std::string& validationScheme, const std::string& netValidationScheme, const std::string& routeValidationScheme) {
-    const char* sumoPath = std::getenv("SUMO_HOME");
-    const bool haveSUMO_HOME = sumoPath != nullptr && FileHelpers::isReadable(sumoPath + std::string("/data/xsd/net_file.xsd"));
+    const bool haveSUMO_HOME = FileHelpers::isReadable(getLocalSchemaPath("net_file.xsd"));
     myValidationScheme = warnLocalScheme(validationScheme, haveSUMO_HOME);
     myNetValidationScheme = warnLocalScheme(netValidationScheme, haveSUMO_HOME);
     myRouteValidationScheme = warnLocalScheme(routeValidationScheme, haveSUMO_HOME);
@@ -110,7 +128,7 @@ XMLSubSys::setValidation(const std::string& validationScheme, const std::string&
         for (const char* const& filetype : {
                     "additional", "routes", "net"
                 }) {
-            const std::string file = sumoPath + std::string("/data/xsd/") + filetype + "_file.xsd";
+            const std::string file = getLocalSchemaPath(std::string(filetype) + "_file.xsd");
             if (!parser->loadGrammar(file.c_str(), XERCES_CPP_NAMESPACE::Grammar::SchemaGrammarType, true)) {
                 WRITE_WARNINGF(TL("Cannot read local schema '%'."), file);
             }
