@@ -458,7 +458,7 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
 
 
 bool
-MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::string& info, bool& isInsertionOrder) {
+MSRailSignal::hasInsertionConstraint(const MSLink* link, const SUMOVehicle* veh, std::string& info, bool& isInsertionOrder) {
     if (link->getJunction() != nullptr && link->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
         const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
         if (rs != nullptr && rs->myConstraints.size() > 0) {

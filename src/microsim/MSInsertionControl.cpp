@@ -167,6 +167,10 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
         // Successful insertion
         return 1;
     }
+    // An explicit meso insertion order may require another vehicle on the same edge to depart first.
+    if (!MSGlobals::gUseMesoSim || !edge.getLanes()[0]->hasParameter("insertionOrder:" + veh->getID())) {
+        edge.setLastFailedInsertionTime(time);
+    }
     if (myMaxDepartDelay >= 0 && time - veh->getParameter().depart > myMaxDepartDelay) {
         // remove vehicles waiting too long for departure
         myVehicleControl.deleteVehicle(veh, true);
@@ -185,7 +189,6 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
         // let the vehicle wait one step, we'll retry then
         refusedEmits.push_back(veh);
     }
-    edge.setLastFailedInsertionTime(time);
     return 0;
 }
 

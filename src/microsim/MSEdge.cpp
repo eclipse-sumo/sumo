@@ -877,6 +877,9 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
             default:
                 break;
         }
+        if (!checkOnly && v.isRail()) {
+            getLanes()[0]->unsetParameter("insertionOrder:" + v.getID());
+        }
         bool result = false;
         MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this, pos);
         MEVehicle* veh = static_cast<MEVehicle*>(&v);
