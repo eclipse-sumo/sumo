@@ -399,7 +399,7 @@ MSPModel_Striping::getWalkingAreaPath(const MSEdge* walkingArea, const MSLane* b
 
 
 MSPModel_Striping::NextLaneInfo
-MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, const MSLane* prevLane) {
+MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, const MSLane* prevLane, std::string* deferredError) {
     const MSEdge* currentEdge = &currentLane->getEdge();
     const MSJunction* junction = ped.getDirection() == FORWARD ? currentEdge->getToJunction() : currentEdge->getFromJunction();
     const MSEdge* nextRouteEdge = ped.getStage()->getNextRouteEdge();
@@ -418,6 +418,9 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
         if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
             WRITE_WARNING(error);
             nextRouteLane = nextRouteEdge->getLanes().front();
+        } else if (deferredError != nullptr) {
+            *deferredError = error;
+            return NextLaneInfo();
         } else {
             throw ProcessError(error);
         }
@@ -1027,11 +1030,22 @@ MSPModel_Striping::arriveAndAdvance(Pedestrians& pedestrians, SUMOTime currentTi
             // walks) so erase must be called first
             pedestrians.erase(pedestrians.begin() + i);
             i--;
-            p->moveToNextLane(currentTime);
+            std::string deferredError;
+            p->moveToNextLane(currentTime, deferredError);
             if (p->getLane() != nullptr) {
                 changedLane.insert(p->getPerson());
                 myActiveLanes[p->getLane()].push_back(p);
-                p->getStage()->activateEntryReminders(p->getPerson());
+                MSStageMoving* const stage = p->getStage();
+                MSPerson* const person = p->getPerson();
+                const std::string personID = deferredError.empty() ? "" : person->getID();
+                stage->activateEntryReminders(person);
+                if (!deferredError.empty()) {
+                    // Rerouting may replace the walk and destroy its pedestrian state.
+                    const MSTransportable* remaining = MSNet::getInstance()->getPersonControl().get(personID);
+                    if (remaining != nullptr && remaining->getCurrentStage() == stage) {
+                        throw ProcessError(deferredError);
+                    }
+                }
             } else {
                 // end walking stage and destroy PState
                 p->getStage()->moveToNextEdge(p->getPerson(), currentTime, dir);
@@ -1774,7 +1788,7 @@ MSPModel_Striping::PState::distToLaneEnd() const {
 
 
 bool
-MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
+MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime, std::string& deferredError) {
     double dist = distToLaneEnd();
     if (DEBUGCOND(*this)) {
         std::cout << SIMTIME << " ped=" << myPerson->getID() << " myEdgePos=" << myEdgePos << " dist=" << dist << "\n";
@@ -1812,7 +1826,9 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
             UNUSED_PARAMETER(arrived);
             assert(!arrived);
             assert(myDir != UNDEFINED_DIRECTION);
-            myNLI = getNextLane(*this, myLane, oldLane);
+            // A rerouter on the entered edge can recover from a missing sidewalk ahead.
+            const bool allowReroute = myLane->getEdge().getFunction() == SumoXMLEdgeFunc::NORMAL;
+            myNLI = getNextLane(*this, myLane, oldLane, allowReroute ? &deferredError : nullptr);
             assert(myNLI.lane != oldLane); // do not turn around
             if DEBUGCOND(*this) {
                 std::cout << "    nextLane=" << (myNLI.lane == nullptr ? "NULL" : myNLI.lane->getID()) << "\n";
