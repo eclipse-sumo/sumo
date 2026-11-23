@@ -856,6 +856,17 @@ MSDevice_Taxi::allowsBoarding(const MSTransportable* t) const {
 
 
 void
+MSDevice_Taxi::prepareInitialMesoStop() {
+    if (isEmpty() && SIMSTEP < myServiceEnd) {
+        MSIdling_Stop* const stop = dynamic_cast<MSIdling_Stop*>(myIdleAlgorithm);
+        if (stop != nullptr) {
+            stop->idle(this, true);
+        }
+    }
+}
+
+
+void
 MSDevice_Taxi::updateMove(const SUMOTime traveltime, const double travelledDist) {
     if (myHolder.getPersonNumber() > 0 || myHolder.getContainerNumber() > 0) {
         myOccupiedDistance += travelledDist;

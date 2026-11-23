@@ -249,6 +249,13 @@ MEVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info,  bool
 
 SUMOTime
 MEVehicle::checkStop(SUMOTime time) {
+    if (!hasDeparted() && !hasStops() && myCurrEdge + 1 == myRoute->end() && mySegment->getNextSegment() == nullptr) {
+        MSDevice_Taxi* const taxi = static_cast<MSDevice_Taxi*>(getDevice(typeid(MSDevice_Taxi)));
+        if (taxi != nullptr) {
+            // Prepare the stop before the last available segment checks for it.
+            taxi->prepareInitialMesoStop();
+        }
+    }
     const SUMOTime initialTime = time;
     bool hadStop = false;
     bool reachedStop = false;

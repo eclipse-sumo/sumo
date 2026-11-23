@@ -45,6 +45,12 @@
 
 void
 MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
+    idle(taxi, false);
+}
+
+
+void
+MSIdling_Stop::idle(MSDevice_Taxi* taxi, bool beforeStopCheck) {
     if (!taxi->getHolder().hasStops()) {
 #ifdef DEBUG_IDLING
         if (DEBUG_COND(taxi)) {
@@ -55,11 +61,11 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
         double brakeGap = 0;
         std::pair<const MSLane*, double> stopPos;
         if (MSGlobals::gUseMesoSim) {
-            // stops are only checked in MESegment::receive so we need to put this onto the next segment
+            // After the current segment has checked its stops, use the next segment.
             MSBaseVehicle& veh = dynamic_cast<MSBaseVehicle&>(taxi->getHolder());
             MSRouteIterator ri = veh.getCurrentRouteEdge();
             MESegment* curSeg = MSGlobals::gMesoNet->getSegmentForEdge(**ri, veh.getPositionOnLane());
-            MESegment* stopSeg = curSeg->getNextSegment();
+            MESegment* stopSeg = beforeStopCheck ? static_cast<MEVehicle&>(veh).getSegment() : curSeg->getNextSegment();
             if (stopSeg == nullptr) {
                 if ((ri + 1) != veh.getRoute().end()) {
                     stopSeg = MSGlobals::gMesoNet->getSegmentForEdge(**(ri + 1), 0);
@@ -75,6 +81,12 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
             while (seg != stopSeg) {
                 stopOffset += seg->getLength();
                 seg = seg->getNextSegment();
+            }
+            if (beforeStopCheck && veh.getParameter().departPosProcedure == DepartPosDefinition::GIVEN) {
+                const double departPos = veh.getParameter().departPos;
+                // End at or after an explicit departure position within this segment.
+                const double normalized = departPos < 0 ? stopEdge.getLength() + departPos : departPos;
+                stopOffset = MAX2(stopOffset, MIN2(normalized, stopEdge.getLength()) - POSITION_EPS);
             }
             stopPos = std::make_pair(stopEdge.getLanes()[0], stopOffset);
         } else {
@@ -92,7 +104,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
             stop.startPos = MAX2(0.0, stopPos.second - POSITION_EPS);
             stop.endPos = stopPos.second;
             if (MSGlobals::gUseMesoSim) {
-                // meso needs the stop to be on the next segment
+                // Place the stop just inside the target segment.
                 stop.startPos += POSITION_EPS;
                 stop.endPos += POSITION_EPS;
             }
