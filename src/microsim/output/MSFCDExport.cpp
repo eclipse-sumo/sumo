@@ -241,6 +241,7 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep, const SumoXMLTag t
                 }, mask);
                 of.writeOptionalAttr(SUMO_ATTR_PERSON_NUMBER, veh->getPersonNumber(), mask);
                 of.writeOptionalAttr(SUMO_ATTR_CONTAINER_NUMBER, veh->getContainerNumber(), mask);
+                of.writeOptionalAttr(SUMO_ATTR_ONROAD, veh->isOnRoad(), mask);
                 MSEmissionExport::writeEmissions(of, static_cast<const MSBaseVehicle*>(veh), false, mask);
                 of.closeTag();
             }

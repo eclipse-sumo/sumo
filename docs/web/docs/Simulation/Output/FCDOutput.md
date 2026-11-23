@@ -59,6 +59,7 @@ The values without a tick in the "On" column need to be [enabled explicitly](#fu
 | lane     | id                    | (x)|     | The id of the current lane (only available in microsimulation).                                             |
 | edge     | id                    | (x)|  x  | The id of the current edge (only available in meso).                                                        |
 | slope    | degree                |  x |  x  | The slope of the vehicle in degrees (equals the slope of the road at the current position)                  |
+| onRoad   | boolean               |    |  x  | Whether the vehicle is on the road. Off-road parked vehicles and vehicles moved off-road through TraCI have a value of false. |
 | signals  | bitset                |    |     | The [signal state information](../../TraCI/Vehicle_Signaling.md) (blinkers, etc)                            |
 | acceleration  | m/s<sup>2</sup>   |    |     | The longitudinal acceleration                                                                               |
 | accelerationLat | m/s<sup>2</sup> |    |     | The lateral acceleration (only with enabled sublane model)                                                  |
