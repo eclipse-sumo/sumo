@@ -28,6 +28,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 import sys
 from collections import defaultdict
+from itertools import groupby
 import math
 import matplotlib.pyplot as plt
 
@@ -73,6 +74,10 @@ def getOptions(args=None):
                          help="only consider data for the given list of edges")
     optParser.add_option("--filter-ids", category="processing", dest="filterIDs",
                          help="only consider data for the given list of vehicle (or person) ids")
+    optParser.add_option("--exclude-speed", category="processing", dest="excludeSpeed", type=float,
+                         help="exclude long runs of samples at this speed in m/s (default 0 when enabled)")
+    optParser.add_option("--exclude-speed-duration", category="processing", dest="excludeSpeedDuration", type=float,
+                         help="exclude runs that last longer than this duration in seconds (default 1 when enabled)")
     optParser.add_option("-p", "--pick-distance", category="processing", dest="pickDist", type=float, default=1,
                          help="pick lines within the given distance in interactive plot mode")
     optParser.add_option("-i", "--invert-distance-angle", category="processing", dest="invertDistanceAngle", type=float,
@@ -99,7 +104,47 @@ def getOptions(args=None):
         options.filterEdges = set(options.filterEdges.split(','))
     if options.filterIDs is not None:
         options.filterIDs = set(options.filterIDs.split(','))
+    if options.excludeSpeed is not None or options.excludeSpeedDuration is not None:
+        if options.excludeSpeed is None:
+            options.excludeSpeed = 0.
+        if options.excludeSpeedDuration is None:
+            options.excludeSpeedDuration = 1.
+        if not all(0 <= value < float('inf') for value in (options.excludeSpeed, options.excludeSpeedDuration)):
+            optParser.error("The excluded speed and duration must be finite and nonnegative.")
     return options
+
+
+def _filter_constant_speed(data, speed, duration):
+    filtered = {}
+    breaks = {}
+    for vehicle, values in data.items():
+        times, speeds = values['t'], values['s']
+        sourceIndices = values.get('sourceIndex', range(len(times)))
+        retained = []
+        # A run cannot span observations removed by the edge filter.
+        for (matches, _), indices in groupby(range(len(times)),
+                                             key=lambda i: (speeds[i] == speed, sourceIndices[i] - i)):
+            if matches:
+                run = list(indices)
+                if times[run[-1]] - times[run[0]] <= duration:
+                    retained.extend(run)
+            else:
+                retained.extend(indices)
+        if retained:
+            filtered[vehicle] = {key: [series[i] for i in retained] for key, series in values.items()}
+            breaks[vehicle] = {i for i in range(1, len(retained)) if retained[i] > retained[i - 1] + 1}
+    return filtered, breaks
+
+
+def _with_plot_breaks(values, breaks):
+    if not breaks:
+        return values
+    result = []
+    for i, value in enumerate(values):
+        if i in breaks:
+            result.append(math.nan)
+        result.append(value)
+    return result
 
 
 def write_csv(data, fname):
@@ -161,6 +206,7 @@ def main(options):
     if 'g' in options.ttype:
         attrs.append('leaderGap')
     data = defaultdict(lambda: defaultdict(list))
+    sourceCounts = defaultdict(int) if options.excludeSpeed is not None and options.filterEdges else None
     for fileIndex, fcdfile in enumerate(options.fcdfiles):
         totalVehs = 0
         filteredVehs = 0
@@ -180,6 +226,8 @@ def main(options):
                 edge = vehicle.lane[0:vehicle.lane.rfind('_')]
             if len(routes[vehID]) == 0 or routes[vehID][-1] != edge:
                 routes[vehID].append(edge)
+            if sourceCounts is not None:
+                sourceCounts[vehID] += 1
             if options.filterEdges and edge not in options.filterEdges:
                 continue
             time = parseTime(timestep.time)
@@ -193,6 +241,8 @@ def main(options):
                 prevDist = data[vehID]['d'][-1]
             data[vehID]['t'].append(time)
             data[vehID]['s'].append(speed)
+            if sourceCounts is not None:
+                data[vehID]['sourceIndex'].append(sourceCounts[vehID])
             data[vehID]['i'].append(float(vehicle.angle))
             data[vehID]['x'].append(float(vehicle.x))
             data[vehID]['y'].append(float(vehicle.y))
@@ -217,6 +267,10 @@ def main(options):
 
     if filteredVehs == 0:
         sys.exit()
+
+    breaks = {}
+    if options.excludeSpeed is not None:
+        data, breaks = _filter_constant_speed(data, options.excludeSpeed, options.excludeSpeedDuration)
 
     def line_picker(line, mouseevent):
         if mouseevent.xdata is None:
@@ -267,8 +321,9 @@ def main(options):
         minX = min(minX, min(d[xdata]))
         maxX = max(maxX, max(d[xdata]))
 
-        plt.plot(d[xdata], d[ydata], label=vehID, **addArgs)
-    if options.invertYAxis:
+        gaps = breaks.get(vehID)
+        plt.plot(_with_plot_breaks(d[xdata], gaps), _with_plot_breaks(d[ydata], gaps), label=vehID, **addArgs)
+    if options.invertYAxis and minX is not uMax:
         plt.axis([minX, maxX, maxY, minY])
     if options.csv_output is not None:
         write_csv(data, options.csv_output)
