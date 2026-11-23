@@ -392,6 +392,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--keep-edges.postload** {{DT_BOOL}} | Remove edges after loading, patching and joining; *default:* **false** |
 | **--keep-edges.in-boundary** {{DT_STR_LIST}} | Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>) |
 | **--keep-edges.in-geo-boundary** {{DT_STR_LIST}} | Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon <lon0,lat0,lon1,lat1,...>) |
+| **--keep-edges.in-geo-boundary-file** {{DT_FILE}} | Keep edges within the longitude/latitude boundary from a file containing one `<poly>` element. The `shape` attribute must contain at least three coordinate pairs. |
 | **--keep-edges.by-vclass** {{DT_STR_LIST}} | Only keep edges which allow one of the vclasses in STR[] |
 | **--remove-edges.by-vclass** {{DT_STR_LIST}} | Remove edges which allow only vclasses from STR[] |
 | **--keep-edges.by-type** {{DT_STR_LIST}} | Only keep edges where type is in STR[] |

@@ -40,6 +40,8 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/XMLSubSys.h>
 #include "NBNetBuilder.h"
 #include "NBEdgeCont.h"
 #include "NBNodeCont.h"
@@ -72,6 +74,32 @@ NBEdgeCont::NBEdgeCont(NBTypeCont& tc) :
 NBEdgeCont::~NBEdgeCont() {
     clear();
 }
+
+
+namespace {
+
+class BoundaryPolygonHandler : public SUMOSAXHandler {
+public:
+    explicit BoundaryPolygonHandler(const std::string& file) : SUMOSAXHandler(file) {}
+
+    PositionVector shape;
+
+protected:
+    void myStartElement(int element, const SUMOSAXAttributes& attrs) override {
+        if (element == SUMO_TAG_POLY) {
+            if (!shape.empty()) {
+                throw ProcessError(TL("The geographic boundary file must contain exactly one polygon."));
+            }
+            bool ok = true;
+            shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok);
+            if (!ok || shape.size() < 3) {
+                throw ProcessError(TL("The geographic boundary polygon needs at least three coordinates."));
+            }
+        }
+    }
+};
+
+}  // namespace
 
 
 void
@@ -109,7 +137,18 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
         myTypes2Remove.insert(types.begin(), types.end());
     }
 
-    if (oc.isSet("keep-edges.in-boundary") || oc.isSet("keep-edges.in-geo-boundary")) {
+    if (oc.isSet("keep-edges.in-geo-boundary-file")) {
+        const std::string file = oc.getString("keep-edges.in-geo-boundary-file");
+        BoundaryPolygonHandler handler(file);
+        if (!XMLSubSys::runParser(handler, file)) {
+            throw ProcessError();
+        }
+        if (handler.shape.empty()) {
+            throw ProcessError(TL("The geographic boundary file must contain exactly one polygon."));
+        }
+        myPruningBoundary = handler.shape;
+        myNeedGeoTransformedPruningBoundary = true;
+    } else if (oc.isSet("keep-edges.in-boundary") || oc.isSet("keep-edges.in-geo-boundary")) {
 
         std::string polyPlainString = oc.getValueString(oc.isSet("keep-edges.in-boundary") ?
                                       "keep-edges.in-boundary" : "keep-edges.in-geo-boundary");
