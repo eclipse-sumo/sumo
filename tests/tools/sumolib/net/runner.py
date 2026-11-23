@@ -56,6 +56,32 @@ print("lanes to %s: %s" % (internal_lane.getID(),
 
 node = net.getNode("C")
 
+toLane = net.getLane("CE_0")
+connection = lane.getConnection(toLane)
+assert connection.getFrom() is lane.getEdge()
+assert connection.getTo() is toLane.getEdge()
+assert connection in connection.getTo().getIncoming()[connection.getFrom()]
+assert connection.getJunction() is node and connection.getJunctionIndex() == 9
+viaLane = net.getLane(connection.getViaLaneID())
+viaConnection = viaLane.getIncomingConnections()[0]
+assert viaLane.getID() == ":C_9_0"
+assert viaConnection.getFromLane() is lane and viaConnection.getToLane() is viaLane
+assert viaConnection.getFrom() is lane.getEdge() and viaConnection.getTo() is viaLane.getEdge()
+assert viaConnection.getViaLaneID() == ""
+
+withoutInternal = sumolib.net.readNet(sys.argv[1])
+plain = withoutInternal.getLane("SC_0").getConnection(withoutInternal.getLane("CE_0"))
+assert plain.getFrom().getID() == "SC" and plain.getTo().getID() == "CE"
+assert plain.getViaLaneID() == ":C_9_0" and plain.getJunctionIndex() == 9
+
+legacy = sumolib.net.connection.Connection(
+    fromEdge=connection.getFrom(), toEdge=connection.getTo(),
+    fromLane=lane, toLane=toLane, direction=connection.getDirection(),
+    tls="C", tllink=9, tllink2=-1, allow=None, disallow=None, state=connection.getState(),
+    viaLaneID=viaLane.getID())
+assert str(legacy) == str(connection)
+assert {"_from", "_to"}.isdisjoint(vars(legacy))
+
 assert internal_edge.getFunction() == 'internal'
 assert internal_edge.isSpecial()
 assert internal_lane.getEdge().isSpecial()
