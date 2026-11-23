@@ -4,19 +4,34 @@ title: elementsShape
 
 # Shape elements
 
-There are three different types of shape elements: Polygons, POI's (Points-of-interest) and POI Lanes. Shapes can be inserted while in *Network supermode* (F2) and selecting *POI-Poly mode* ![](../images/icon_modeshape.png) (P). Previously created shapes may also be imported, selecting `File` -> `Additionals and Shapes` -> `Load Additionals...` (or via the <kbd>Ctrl</kbd> + <kbd>A</kbd> Shortcut).
+Use **Network** supermode (<kbd>F2</kbd>) and **Polygon** mode ![](../images/icon_modeshape.png) (<kbd>P</kbd>) to add polygons and points of interest (POIs). Select a shape type in the **Shapes** panel and set its attributes before placing it. Use [Inspect mode](editModesCommon.md#inspect) to change attributes after creation.
 
-<img src="../images/GNEShapes.png" width="700">
+<img src="../images/GNEShapes.png" alt="Shape creation controls in NETEDIT" width="700">
 
 ## Polygon
 
-To create a polygon, select `poly` in the *Shape elements* drop-down list. Before drawing the polygon, you may change some of its attributes such as the **id**, **color**, select whether you want a **filled** polygon or just the contour, among many other options. Note that some attributes can be modified later, in *Inspect mode* ![](../images/icon_modeinspect.png).
+Select `poly`. Set the color and choose whether to fill the polygon. Use the close-shape option to join the last vertex to the first.
 
-![](../images/GNEdrawpolygon.gif)
-To start drawing the polygon, click on `Start drawing` or press <kbd>ENTER</kbd>. To finish the shape creation, either click on `Stop drawing` or press <kbd>ENTER</kbd>.
+1. Click **Start drawing** or press <kbd>Enter</kbd>.
+2. Click the map once for each vertex. Hold <kbd>Shift</kbd> and click to remove the last vertex.
+3. Click **Stop drawing** or press <kbd>Enter</kbd> to finish. Click **Abort drawing** or press <kbd>Esc</kbd> to discard the unfinished shape.
 
-<kbd>SHIFT</kbd> + <kbd>click</kbd> (anywhere) removes the last inserted point, and selecting `Abort drawing` or simply pressing <kbd>ESC</kbd> aborts the shape creation.
+![Drawing a polygon in NETEDIT](../images/GNEdrawpolygon.gif)
+
+Use [Move mode](editModesCommon.md#move) to adjust vertices. The polygon's context menu offers operations such as opening, closing, and simplifying the shape.
 
 ## POI
 
+Select `poi` and click the map to place a marker in network coordinates. Set the color for a plain marker or specify an image with `imgFile`. The image settings include width, height, and angle.
+
+For a location in geographic coordinates, select `poiGeo` in a network with a geographic projection. Click the map or use **GEO POI Creator** to enter the coordinates directly. Choose the coordinate order that matches your input, then click **Create GEO POI**.
+
 ## POI Lane
+
+Select `poiLane` and click the target lane. NETEDIT records the lane ID and the distance from the start of the lane. You can set `posLat` for a lateral offset from the lane center.
+
+To move an existing marker onto a lane, right-click it and choose **Attach to nearest lane**. For a lane-based marker, **Release from lane** keeps the marker at its current location in network coordinates.
+
+## Loading and saving shapes
+
+Choose **File → Additionals and Shapes → Load Additionals...** (<kbd>Ctrl</kbd>+<kbd>A</kbd>) to import shapes. Choose **Save Additionals** (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>) from the same submenu to save them. See [shape XML definitions and simulation options](../Simulation/Shapes.md).
