@@ -1,8 +1,8 @@
 Warning: Vehicle 'NE.3' collision with person 'pedSN.2', lane=':C_7_0', time=43.00, stage=move.
-Warning: Vehicle 'NE.4' collision with person 'pedSN.6', lane=':C_7_0', time=92.00, stage=move.
-Warning: Vehicle 'NE.5' collision with person 'pedSN.8', lane=':C_7_0', time=126.00, stage=move.
-Warning: Vehicle 'WE.7' collision with person 'pedSN.12', lane=':C_5_0', time=164.00, stage=move.
-Warning: 1 total messages of type: Person '%' is jammed on edge '%', time=%.
-Warning: 4 total messages of type: Teleporting vehicle '%' after earlier collision, lane='%', time=%.
-Warning: 4 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
-Warning: 1 total messages of type: Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset=%), time=%.
+Warning: Vehicle 'WE.2' collision with person 'pedNS.4', lane=':C_5_0', time=81.00, stage=move.
+Warning: Vehicle 'NE.4' collision with person 'pedSN.8', lane=':C_7_0', time=117.00, stage=move.
+Warning: Vehicle 'NE.5' collision with person 'pedSN.11', lane=':C_7_0', time=152.00, stage=move.
+Warning: Vehicle 'WE.4' collision with person 'pedNS.14', lane=':C_5_0', time=187.00, stage=move.
+Warning: Vehicle 'WE.3' collision with person 'pedSN.13', lane=':C_5_0', time=187.00, stage=move.
+Warning: 3 total messages of type: Person '%' is jammed on edge '%', time=%.
+Warning: 2 total messages of type: Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset=%), time=%.
