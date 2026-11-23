@@ -17,14 +17,32 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+from io import StringIO
 import os
 import sys
+from xml.etree import ElementTree
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(tools)
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 import sumolib.xml  # noqa
+
+def parse_shape(value):
+    return [tuple(map(int, pair.split(","))) for pair in value.split()]
+
+
+def format_shape(points):
+    return " ".join(",".join(map(str, point)) for point in points)
+
+
+sample = '<edge from="a&amp;b" shape="0,1 2,3"><lane shape="4,5 6,7"/></edge>'
+parsed = next(sumolib.xml.parse(StringIO(sample), outputLevel=0, attr_conversions={"shape": parse_shape}))
+rendered = ElementTree.fromstring(parsed.toXML(attr_conversions={"shape": format_shape, "from": str.upper}))
+assert rendered.attrib == {"from": "A&B", "shape": "0,1 2,3"}
+assert rendered.find("lane").get("shape") == "4,5 6,7"
+assert parsed.shape == [(0, 1), (2, 3)]
+
 
 infile, outfile = sys.argv[1:]
 
