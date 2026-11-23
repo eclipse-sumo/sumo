@@ -121,14 +121,34 @@ void
 MELSegment::updateEntryBlockTime(SUMOTime time) {
     for (int qIdx = 0; qIdx < (int)myQueues.size(); qIdx++) {
         Queue& q = myQueues[qIdx];
-        const int numGaps = numTravelingGaps(qIdx, time);
-        // While a jam discharges, the entering vehicle needs space in addition to the vehicles and the traveling gaps.
-        // In free flow this would leave no slack at capacity (the free-flow headway equals the gap travel time
-        // per vehicle) and small disturbances would cause phantom jams (#18684)
-        const int entering = myJamGapTimes[qIdx] > time ? 1 : 0;
-        if (numGaps > 0 && q.getOccupancy() + (double)(numGaps + entering) * DEFAULT_VEH_LENGTH_WITH_GAP > myQueueCapacity) {
+        int numGaps = numTravelingGaps(qIdx, time);
+        if (numGaps == 0) {
+            continue;
+        }
+        // gap times are sorted in descending order, the gap which reaches the upstream end first is at the back
+        const GapTimes& gapTimes = myGapTimes[qIdx];
+        SUMOTime unblockTime = gapTimes.back();
+        if (myJamGapTimes[qIdx] > time) {
+            // While a jam discharges, the entering vehicle needs space in addition to the vehicles and the traveling gaps.
+            numGaps++;
+        } else {
+            // In free flow the constraint is exactly binding at capacity (the free-flow headway equals the gap travel
+            // time per vehicle). Since a gap only frees space once it has reached the upstream end, rounding would block
+            // vehicles and cause phantom jams (#18684). The next vehicle cannot follow the entering vehicle before tau_ff
+            // so gaps that arrive within this time are counted as arrived
+            auto it = gapTimes.rbegin();
+            while (it != gapTimes.rend() && *it <= time + myTau_ff) {
+                ++it;
+                numGaps--;
+            }
+            if (it == gapTimes.rend()) {
+                continue;
+            }
+            unblockTime = *it - myTau_ff;
+        }
+        if (q.getOccupancy() + (double)numGaps * DEFAULT_VEH_LENGTH_WITH_GAP > myQueueCapacity) {
             // segment is jammed because the empty spaces have not yet reached the upstream end.
-            q.setEntryBlockTime(MAX2(q.getEntryBlockTime(), myGapTimes[qIdx].back()));
+            q.setEntryBlockTime(MAX2(q.getEntryBlockTime(), unblockTime));
         }
     }
 }
