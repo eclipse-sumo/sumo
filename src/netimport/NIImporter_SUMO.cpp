@@ -120,6 +120,8 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     const std::vector<std::string> discardableParams = oc.getStringVector("discard-params");
     myDiscardableParams.insert(discardableParams.begin(), discardableParams.end());
     // parse file(s)
+    // Stop importing immediately when validation rejects a network document.
+    const bool catchParserExceptions = oc.getString("xml-validation.net") == "never";
     const std::vector<std::string> files = oc.getStringVector("sumo-net-file");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::isReadable(*file)) {
@@ -128,7 +130,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         }
         setFileName(*file);
         const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing sumo-net from '" + *file + "'");
-        XMLSubSys::runParser(*this, *file, true);
+        XMLSubSys::runParser(*this, *file, true, false, false, catchParserExceptions);
         PROGRESS_TIME_MESSAGE(before);
     }
     // build edges
