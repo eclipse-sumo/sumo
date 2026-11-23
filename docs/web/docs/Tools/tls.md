@@ -49,6 +49,8 @@ The signalization parameters, such as minimal green time, lost time, yellow time
     The begin time is not mandatory. However, the begin time will be the earliest departure time in the given route file, if it is not given. The flows within 1 hour from the begin time on are considered. If the whole period in the given route file is less than 1 hour, the flows will be proportionally scaled up to 1-hour flows. If the period is longer than 1 hour and no begin time is given, the 1-hour
   peak-flows will be used.
 
+Use **--begin** and **--end** together to select an explicit optimization interval in seconds. The calculation includes departures at the begin time and excludes departures at the end time. It converts traffic demand in the selected interval to an average hourly flow.
+
 ## Remarks
 
 The calculation in this script are based on static hourly traffic flows. Therefore, the flow pattern (e.g. vehicles arriving only in the first 10 minutes) within a hourly flow cannot be reflected in the Webster's equation. Accordingly, the suggested signal timing plans may not correspond to the traffic situation in the microscopic simulation. Several parameters in the options may need to be adjusted according to the given use case. Some remarks for helping to get proper results are listed below.

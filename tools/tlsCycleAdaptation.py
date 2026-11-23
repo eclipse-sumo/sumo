@@ -44,9 +44,8 @@
 
 - Traffic lights without traffic flows will not be optimized.
 
-- Flows are considered only for one hour, corresponding to
-  the Webster's equation. Using the option --begin to define the
-  start time of the investigated one hour.
+- The default observation window is one hour. Use --begin and --end to
+  select another interval. The resulting flows are expressed per hour.
 
 - PCE is used instead of the number of vehicles.
 
@@ -98,7 +97,9 @@ def get_options(args=None):
     optParser.add_option("-r", "--route-files", category="input", dest="routefiles", required=True,
                          help="define the route file separated by comma (mandatory)")
     optParser.add_option("-b", "--begin", category="time", dest="begin", type=float,
-                         help="begin time of the optimization period with unit second (mandatory)")
+                         help="begin time of the optimization period in seconds")
+    optParser.add_option("--end", category="time", type=float,
+                         help="end time of the optimization period in seconds (requires --begin)")
     optParser.add_option("-y", "--yellow-time", category="processing", dest="yellowtime", type=int,
                          default=4, help="yellow time")
     optParser.add_option("-a", "--all-red", category="processing", dest="allred", type=int,
@@ -131,7 +132,13 @@ def get_options(args=None):
                          default='', help="the tls ids, which are skipped and seperated by comma")
     optParser.add_option("-v", "--verbose", category="processing", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
-    return optParser.parse_args(args=args)
+    options = optParser.parse_args(args=args)
+    if options.end is not None:
+        if options.begin is None:
+            optParser.error("--end requires --begin")
+        if not 0 <= options.begin < options.end < float('inf'):
+            optParser.error("expected finite values with 0 <= --begin < --end")
+    return options
 
 
 def getEdges(veh, net, routes):
@@ -150,9 +157,10 @@ def getRoutes(files):
     return route_dict
 
 
-def getFlows(net, routeFiles, tlsList, begin, scale_fac, verbose, isSorted=False):
+def getFlows(net, routeFiles, tlsList, begin, scale_fac, verbose, isSorted=False, end=None):
     tlsFlowsMap = {}
-    end = begin + 3600
+    if end is None:
+        end = begin + 3600
     for tls in tlsList:
         tlsFlowsMap[tls._id] = collections.defaultdict(lambda: collections.defaultdict(int))
     route_dict = getRoutes(routeFiles.split(','))
@@ -164,11 +172,12 @@ def getFlows(net, routeFiles, tlsList, begin, scale_fac, verbose, isSorted=False
             if veh.depart == "triggered":
                 triggered += 1
                 continue
-            if sumolib.miscutils.parseTime(veh.depart) >= end:
+            depart = sumolib.miscutils.parseTime(veh.depart)
+            if depart >= end:
                 if isSorted:
                     break
                 continue
-            if sumolib.miscutils.parseTime(veh.depart) >= begin:
+            if depart >= begin:
                 edgeList = getEdges(veh, net, route_dict)
                 for idx, edge in enumerate(edgeList):
                     tls = None if edge.getToNode().getType() in ("rail_crossing", "rail_signal") else edge.getTLS()
@@ -586,8 +595,12 @@ def main(options):
         print("Error: Either both the net file and the route file or one of them are/is missing.", file=sys.stderr)
         sys.exit(1)
 
-    # check the period of the given route files, and find the peak-flow period if necessary
-    begin, scale_fac = checkRoutePeriod(options.routefiles, options.begin)
+    if options.end is None:
+        # Check the inferred period and find the peak-flow period if necessary.
+        begin, scale_fac = checkRoutePeriod(options.routefiles, options.begin)
+    else:
+        begin = options.begin
+        scale_fac = 3600. / (options.end - begin)
 
     net = sumolib.net.readNet(options.netfile, withPrograms=True, withPedestrianConnections=True)
     tlsList = net.getTrafficLights()
@@ -599,7 +612,8 @@ def main(options):
 
     print("Begin time:%s" % begin)
     # get traffic flows for each connection at each TL
-    connFlowsMap = getFlows(net, options.routefiles, tlsList, begin, scale_fac, options.verbose, options.sorted)
+    connFlowsMap = getFlows(net, options.routefiles, tlsList, begin, scale_fac, options.verbose, options.sorted,
+                            end=options.end)
 
     # remove the tls where no traffic volumes exist and which should be skipped
     effectiveTlsList = getEffectiveTlsList(tlsList, connFlowsMap, skipList, options.verbose)
