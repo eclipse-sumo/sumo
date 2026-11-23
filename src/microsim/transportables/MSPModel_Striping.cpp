@@ -26,6 +26,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/router/PedestrianRouter.h>
+#include <libsumo/TraCIConstants.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEventControl.h>
@@ -2153,6 +2154,13 @@ MSPModel_Striping::PState::walk(const Obstacles& obs) {
                 std::cout << "\n";
             }
         }
+    }
+    // The next lane may have closed since it was selected.
+    const SUMOVehicleClass vClass = myPerson->getVClass();
+    if (MSGlobals::gCheckRoutes && myNLI.lane != nullptr && !myNLI.lane->allowsVehicleClass(vClass)
+            && myNLI.lane->allowsVehicleClass(vClass, libsumo::ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS)) {
+        const double distanceToClosure = MAX2(0., distToLaneEnd() - POSITION_EPS);
+        xSpeed = MIN2(xSpeed, DIST2SPEED(distanceToClosure));
     }
     myEdgePos += SPEED2DIST(xSpeed * myDir);
     myPosLat += SPEED2DIST(ySpeed);
