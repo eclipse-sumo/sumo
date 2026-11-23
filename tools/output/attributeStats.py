@@ -51,9 +51,9 @@ def get_options():
     op.add_argument("-i", "--id-attribute", dest="idAttr", default="id", category="input",
                     help="attribute to identify data elements")
     binning = op.add_mutually_exclusive_group()
-    binning.add_argument("-b", "--binwidth", type=float, default=50, category="processing",
+    binning.add_argument("-b", "--binwidth", type=float, default=50, category="processing", fix_path=False,
                          help="binning width of result histogram")
-    binning.add_argument("--bins", type=int, category="processing",
+    binning.add_argument("--bins", type=int, category="processing", fix_path=False,
                          help="number of histogram bins per element and attribute")
     op.add_argument("--hist-output", category="output",
                     help="output file for histogram (gnuplot compatible)")
