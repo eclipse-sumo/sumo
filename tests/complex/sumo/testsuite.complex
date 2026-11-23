@@ -43,6 +43,9 @@ speedMap
 # Tests scheduling of Takeover-of-Control events via the ToC-Device (MSDevice_ToC).
 ToCDevice
 
+# Measure both crossings when a recurrent conflict begins with the ego already inside
+ssm_recurrent_pet
+
 # Tests traci interaction with driver state via MSDevice_DriverState
 DriverStateDevice
 
