@@ -1,0 +1,2 @@
+Signed prefixes preserve explicit signs and pair unique reverse edges.
+Parallel edges, protected IDs, stop lanes and repeated imports follow the signed mapping.
