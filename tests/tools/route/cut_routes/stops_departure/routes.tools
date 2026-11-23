@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23 09:36:34.828258 by Eclipse SUMO cutRoutes.py v1_28_0+0759-22f87a6fede
+<configuration>
+    <routes-output value="out.rou.xml"/>
+    <stops-output value="out.add.xml"/>
+    <additional-input value="input_additional.add.xml"/>
+    <disconnected-action value="keep"/>
+    <network value="input_net.net.xml"/>
+    <routeFiles value="input_routes.rou.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="shared" edges="middle end">
+    </route>
+    <vehicle id="split_part0" depart="10.00" departLane="best" departSpeed="max">
+        <route edges="beg2left">
+            <stop lane="beg2left_0" endPos="180" duration="5"/>
+        </route>
+    </vehicle>
+    <vehicle id="split_part1" depart="40.00" departLane="best" departSpeed="max">
+        <route edges="left2end end">
+            <stop lane="left2end_0" endPos="180" duration="5"/>
+        </route>
+    </vehicle>
+    <vehicle id="downstream-stop-only" depart="70.00" departLane="best" departSpeed="max">
+        <route edges="middle end"/>
+    </vehicle>
+    <vehicle id="route-stop-only" route="shared" depart="80.00"/>
+    <vehicle id="inline" depart="90.00" departLane="best" departSpeed="max">
+        <route edges="middle end">
+            <stop busStop="retained" until="200"/>
+        </route>
+    </vehicle>
+    <vehicle id="first-reference" route="shared" depart="130.00">
+    </vehicle>
+    <vehicle id="second-reference" route="shared" depart="175.00">
+    </vehicle>
+    <flow id="inline-flow" begin="240.00" end="340.00" number="1" departLane="best" departSpeed="max">
+        <route edges="middle end">
+            <stop busStop="retained" until="360"/>
+        </route>
+    </flow>
+    <flow id="flow" route="shared" begin="250.00" end="350.00" number="1">
+    </flow>
+</routes>
