@@ -1,0 +1,18 @@
+<routes>
+    <flow id="f0" type="car" begin="10" end="500" vehsPerHour="100" from="a" to="b"/>
+    <person id="p0" depart="30">
+        <walk from="a" to="b"/>
+    </person>
+    <trip id="t0" depart="50" from="a" to="b"/>
+    <trip id="t1" type="car" depart="120"
+          from="a" to="b"/>
+    <container id="c0" depart="200">
+        <tranship from="a" to="b"/>
+    </container>
+    <personFlow id="pf0" begin="300" end="600" number="5">
+        <walk from="a" to="b"/>
+    </personFlow>
+    <vehicle id="v0" type="car" depart="400">
+        <route edges="a b"/>
+    </vehicle>
+</routes>

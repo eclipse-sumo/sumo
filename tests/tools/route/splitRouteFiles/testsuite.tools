@@ -5,3 +5,6 @@ gz
 
 # addditional detector input
 detector
+
+# Splitting trips, persons, containers, and flows
+trips_flows

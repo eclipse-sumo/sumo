@@ -1,0 +1,40 @@
+<routes >
+
+        <flow id="f0" type="car" begin="86410.0" end="86900.0" vehsPerHour="100" from="a" to="b" >
+    </flow>
+
+        <person id="p0" depart="86430.0" >
+
+                <walk from="a" to="b" >
+        </walk>
+
+        </person>
+
+        <trip id="t0" depart="86450.0" from="a" to="b" >
+    </trip>
+
+        <trip id="t1" type="car" depart="86520.0" from="a" to="b" >
+    </trip>
+
+        <container id="c0" depart="86600.0" >
+
+                <tranship from="a" to="b" >
+        </tranship>
+
+        </container>
+
+        <personFlow id="pf0" begin="86700.0" end="87000.0" number="5" >
+
+                <walk from="a" to="b" >
+        </walk>
+
+        </personFlow>
+
+        <vehicle id="v0" type="car" depart="86800.0" >
+
+                <route edges="a b" >
+        </route>
+
+        </vehicle>
+
+</routes>
