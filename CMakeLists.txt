@@ -466,8 +466,9 @@ if (SUMO_LIBRARIES AND WIN32)
         file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-*")
         message(STATUS "Found Google test: " ${GTEST_ROOT})
         include_directories("${GTEST_ROOT}/include")
-        # set both google test library
-        set(GTEST_BOTH_LIBRARIES "${GTEST_ROOT}/lib/gtest.lib" "${GTEST_ROOT}/lib/gtest_main.lib")
+        set(GTEST_BOTH_LIBRARIES
+            optimized "${GTEST_ROOT}/lib/gtest.lib" optimized "${GTEST_ROOT}/lib/gtest_main.lib"
+            debug "${GTEST_ROOT}/lib/gtestd.lib" debug "${GTEST_ROOT}/lib/gtest_maind.lib")
         # set google test DLLs
         file(GLOB GTEST_DLL "${GTEST_ROOT}/bin/gtest*.dll" "${SUMO_LIBRARIES}/dependencies/google/abseil-*/bin/*.dll" "${SUMO_LIBRARIES}/dependencies/google/re2-*/bin/*.dll")
         set(GTEST_FOUND true)
