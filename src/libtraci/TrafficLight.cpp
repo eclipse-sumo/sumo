@@ -333,6 +333,11 @@ TrafficLight::setNemaMaxGreens(const std::string& tlsID, const std::vector<doubl
 }
 
 void
+TrafficLight::setNemaMinGreens(const std::string& tlsID, const std::vector<double>& minGreens) {
+    setParameter(tlsID, "NEMA.minGreens", to_string(minGreens));
+}
+
+void
 TrafficLight::setNemaCycleLength(const std::string& tlsID, double cycleLength) {
     setParameter(tlsID, "NEMA.cycleLength", std::to_string(cycleLength));
 }

@@ -174,6 +174,8 @@ public:
      */
     void setNewMaxGreens(std::vector<double> newMaxGreens);
 
+    void setNewMinGreens(const std::vector<double>& newMinGreens);
+
     /**
      * @brief Set the new splits of all phases
      *
@@ -834,6 +836,7 @@ public:
     SUMOTime minDuration;
     SUMOTime maxDuration;
     SUMOTime nextMaxDuration;
+    SUMOTime nextMinDuration;
     SUMOTime vehExt;
     /// @}
 

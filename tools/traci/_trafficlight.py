@@ -388,6 +388,17 @@ class TrafficLightDomain(Domain):
             maxGreens = ' '.join(map(str, maxGreens))
         self.setParameter(tlsID, "NEMA.maxGreens", maxGreens)
 
+    def setNemaMinGreens(self, tlsID, minGreens):
+        """setNemaMinGreens(string, list(float)) -> None
+        Queue minimum greens for a NEMA controller. The controller applies them
+        when it next enters a coordinated phase. Supply eight durations in
+        seconds for phases 1 to 8. Use zero to leave a duration unchanged or
+        for an unused phase.
+        """
+        if isinstance(minGreens, list):
+            minGreens = ' '.join(map(str, minGreens))
+        self.setParameter(tlsID, "NEMA.minGreens", minGreens)
+
     def setNemaCycleLength(self, tlsID, cycleLength):
         """setNemaCycleLength(string, double) -> None
         Set a new cycle length to the given NEMA-controller.
