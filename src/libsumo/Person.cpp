@@ -37,6 +37,7 @@
 #include <microsim/devices/MSDispatch_TraCI.h>
 #include <libsumo/TraCIConstants.h>
 #include <utils/geom/GeomHelper.h>
+#include <utils/common/RandHelper.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/emissions/PollutantsInterface.h>
@@ -556,6 +557,26 @@ Person::setType(const std::string& personID, const std::string& typeID) {
 
 void
 Person::add(const std::string& personID, const std::string& edgeID, double pos, double departInSecs, const std::string typeID) {
+    addWithPosition(personID, edgeID, pos, departInSecs, typeID, false);
+}
+
+
+void
+Person::add(const std::string& personID, const std::string& edgeID, const std::string& pos, double departInSecs, const std::string typeID) {
+    double value;
+    DepartPosDefinition procedure;
+    std::string error;
+    if (!SUMOVehicleParameter::parseDepartPos(pos, "person", personID, value, procedure, error)
+            || (procedure != DepartPosDefinition::GIVEN && procedure != DepartPosDefinition::RANDOM)) {
+        throw TraCIException("Person departure position must be a number in metres or 'random'.");
+    }
+    addWithPosition(personID, edgeID, value, departInSecs, typeID, procedure == DepartPosDefinition::RANDOM);
+}
+
+
+void
+Person::addWithPosition(const std::string& personID, const std::string& edgeID, double pos, double departInSecs,
+                        const std::string& typeID, bool randomPosition) {
     MSTransportable* p;
     try {
         p = getPerson(personID);
@@ -596,6 +617,9 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
         vehicleParams.depart = depart;
     }
 
+    if (randomPosition) {
+        pos = RandHelper::rand(edge->getLength());
+    }
     vehicleParams.departPosProcedure = DepartPosDefinition::GIVEN;
     if (fabs(pos) > edge->getLength()) {
         throw TraCIException("Invalid departure position.");

@@ -70,6 +70,7 @@ public:
     LIBSUMO_VEHICLE_TYPE_GETTER
 
     static void add(const std::string& personID, const std::string& edgeID, double pos, double depart = libsumo::DEPARTFLAG_NOW, const std::string typeID = "DEFAULT_PEDTYPE");
+    static void add(const std::string& personID, const std::string& edgeID, const std::string& pos, double depart = libsumo::DEPARTFLAG_NOW, const std::string typeID = "DEFAULT_PEDTYPE");
     static void appendStage(const std::string& personID, const libsumo::TraCIStage& stage);
     static void replaceStage(const std::string& personID, const int stageIndex, const libsumo::TraCIStage& stage);
     static void appendWaitingStage(const std::string& personID, double duration, const std::string& description = "waiting", const std::string& stopID = "");
@@ -100,6 +101,8 @@ public:
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
+    static void addWithPosition(const std::string& personID, const std::string& edgeID, double pos, double depart,
+                                const std::string& typeID, bool randomPosition);
     static MSPerson* getPerson(const std::string& id);
     static MSStage* convertTraCIStage(const TraCIStage& stage, const std::string personID);
     static bool filterReservation(int stateFilter, const Reservation* res, std::vector<libsumo::TraCIReservation>& reservations);

@@ -4,6 +4,7 @@ moveTo
 
 # Tests the person API
 person
+add_random_position
 
 # retrieve prior stage information (stop after riding)
 priorStage

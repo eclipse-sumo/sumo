@@ -100,8 +100,14 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 const std::string vTypeID = StoHelp::readTypedString(inputStorage, "First parameter (type) requires a string.");
                 const std::string edgeID = StoHelp::readTypedString(inputStorage, "Second parameter (edge) requires a string.");
                 const double depart = StoHelp::readTypedDouble(inputStorage, "Third parameter (depart) requires a double.");
-                const double pos = StoHelp::readTypedDouble(inputStorage, "Fourth parameter (position) requires a double.");
-                libsumo::Person::add(id, edgeID, pos, depart, vTypeID);
+                const int positionType = inputStorage.readUnsignedByte();
+                if (positionType == libsumo::TYPE_DOUBLE) {
+                    libsumo::Person::add(id, edgeID, inputStorage.readDouble(), depart, vTypeID);
+                } else if (positionType == libsumo::TYPE_STRING) {
+                    libsumo::Person::add(id, edgeID, inputStorage.readString(), depart, vTypeID);
+                } else {
+                    throw libsumo::TraCIException("Fourth parameter (position) requires a double or string.");
+                }
             }
             break;
             case libsumo::REMOVE: {
