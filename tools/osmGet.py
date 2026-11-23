@@ -217,6 +217,8 @@ def readCompressed(options, urls, context, query, roadTypesJSON, getShapes, file
                 # validate before injecting SUMO header
                 if b"<osm" not in lines[:1000]:
                     raise ValueError("Server %s returned non-OSM content" % url)
+                if b"<remark" in lines:
+                    raise ValueError("Overpass returned incomplete map data. Select a smaller area and retry.")
                 declClose = lines.find(b'>') + 1
                 lines = (lines[:declClose]
                          + b"\n"
@@ -243,7 +245,7 @@ def readCompressed(options, urls, context, query, roadTypesJSON, getShapes, file
             raise
         except (ValueError, URLError):
             urls = [u for u in urls if u != url]
-            if urls:
+            if urls and idx < options.retries:
                 print("Removing %s from list of valid servers." % url)
                 continue
             raise
@@ -293,7 +295,9 @@ def get_options(args):
 
 
 def get(args=None):
+    """Download OSM data and return the output file names in download order."""
     options = get_options(args)
+    outputs = []
     if options.polygon:
         west = 1e400
         south = 1e400
@@ -341,24 +345,26 @@ def get(args=None):
     if options.area:
         if options.area < 3600000000:
             options.area += 3600000000
+        path = options.prefix + "_city" + suffix
         readCompressed(options, urls, context, '<area-query ref="%s"/>' %
-                       options.area, roadTypesJSON, options.shapes, options.prefix + "_city" + suffix)
+                       options.area, roadTypesJSON, options.shapes, path)
+        outputs.append(path)
     if options.bbox or options.polygon:
-        if options.tiles == 1:
-            readCompressed(options, urls, context,
-                           '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' % (north, south, west, east),
-                           roadTypesJSON, options.shapes, options.prefix + "_bbox" + suffix)
-        else:
-            num = options.tiles
-            b = west
-            for i in range(num):
+        num = options.tiles
+        b = west
+        for i in range(num):
+            if num == 1:
+                path = options.prefix + "_bbox" + suffix
+            else:
+                path = "%s%s_%s%s" % (options.prefix, i, num, suffix)
                 if options.verbose:
                     print("Getting tile %d of %d." % (i + 1, num))
-                e = b + (east - west) / float(num)
-                readCompressed(options, urls, context,
-                               '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' % (north, south, b, e),
-                               roadTypesJSON, options.shapes, "%s%s_%s%s" % (options.prefix, i, num, suffix))
-                b = e
+            e = east if i + 1 == num else west + (east - west) * (i + 1) / num
+            readCompressed(options, urls, context,
+                           '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' % (north, south, b, e),
+                           roadTypesJSON, options.shapes, path)
+            outputs.append(path)
+            b = e
 
     # extract the wiki data according to the wikidata-value in the extracted osm file
     if options.wikidata:
@@ -394,6 +400,8 @@ def get(args=None):
                 print(type(content))
             outf.write(content + b"\n")
         outf.close()
+
+    return outputs
 
 
 if __name__ == "__main__":
