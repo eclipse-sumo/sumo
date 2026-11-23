@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23 09:12:21.571785 by Eclipse SUMO attributeStats.py v0.0.0
+  options: -e sample -a small,large,constant <doubleminus>bins 3 <doubleminus>xml-output stats.xml input_data.xml
+-->
+
+<attributeStats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/attributeStats_file.xsd">
+    <sample>
+        <constant count="4" min="7.00" minLabel="first" max="7.00" maxLabel="first" mean="7.00" Q1="7.00" median="7.00" Q3="7.00" meanAbs="7.00" medianAbs="7.00" stdDev="0.00">
+        <hist key="7.00" value="4"/>
+        </constant>
+        <large count="4" min="0.00" minLabel="first" max="90.00" maxLabel="third" mean="45.00" Q1="0.00" median="90.00" Q3="90.00" meanAbs="45.00" medianAbs="90.00" stdDev="45.00">
+        <hist key="15.00" value="2"/>
+        <hist key="45.00" value="0"/>
+        <hist key="75.00" value="2"/>
+        </large>
+        <small count="4" min="-9.00" minLabel="first" max="9.00" maxLabel="last" mean="-0.75" Q1="-3.00" median="0.00" Q3="9.00" meanAbs="5.25" medianAbs="9.00" stdDev="6.50">
+        <hist key="-6.00" value="1"/>
+        <hist key="0.00" value="2"/>
+        <hist key="6.00" value="1"/>
+        </small>
+    </sample>
+</attributeStats>

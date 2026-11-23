@@ -1,0 +1,6 @@
+<data>
+    <sample id="first" small="-9" large="0" constant="7"/>
+    <sample id="second" small="-3" large="0" constant="7"/>
+    <sample id="third" small="0" large="90" constant="7"/>
+    <sample id="last" small="9" large="90" constant="7"/>
+</data>
