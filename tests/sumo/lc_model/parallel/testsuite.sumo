@@ -1,0 +1,5 @@
+# lane changes decided in parallel give the same result as with one thread
+threads
+
+# a decided change is rejected if an earlier change took the gap
+recheck
