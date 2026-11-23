@@ -55,7 +55,7 @@ jobs:
         Add-Content -Path $PROFILE.CurrentUserAllHosts -Value '$ErrorActionPreference = "Stop"'
 
     - name: ccache
-      uses: hendrikmuhs/ccache-action@v1.2.25
+      uses: hendrikmuhs/ccache-action@v1.2.26
       with:
         restore: ${{ github.event.schedule != '25 1 * * 0' }}
         key: ${{ matrix.build_type }}
