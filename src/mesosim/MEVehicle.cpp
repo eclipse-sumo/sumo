@@ -151,7 +151,7 @@ MEVehicle::getAverageSpeed() const {
         return 0;
     } else {
         return MIN2(s->getLength() / STEPS2TIME(myEventTime - myLastEntryTime),
-                    getEdge()->getLanes()[myQueIndex]->getVehicleMaxSpeed(this));
+                    s->getVehicleMaxSpeed(*this, myQueIndex));
     }
 }
 

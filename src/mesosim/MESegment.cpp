@@ -759,6 +759,16 @@ MESegment::addReminders(MEVehicle* veh) const {
 }
 
 
+double
+MESegment::getVehicleMaxSpeed(const MEVehicle& veh, int queueIndex) const {
+    const auto& routeLanes = veh.getEdge()->getLanes();
+    // The route edge is still the incoming edge until the vehicle leaves the junction.
+    const MSLane* const lane = queueIndex < (int)routeLanes.size()
+            ? routeLanes[queueIndex] : myEdge.getLanes()[queueIndex];
+    return lane->getVehicleMaxSpeed(&veh);
+}
+
+
 void
 MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isDepart, const bool isTeleport, const bool newEdge) {
     const double speed = isDepart ? -1 : MAX2(veh->getSpeed(), MESO_MIN_SPEED); // on the previous segment
@@ -782,7 +792,7 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
     assert(veh->getEdge() == &getEdge() || getEdge().isInternal());
     // route continues
     Queue& q = myQueues[qIdx];
-    const double maxSpeedOnEdge = veh->getEdge()->getLanes()[qIdx]->getVehicleMaxSpeed(veh);
+    const double maxSpeedOnEdge = getVehicleMaxSpeed(*veh, qIdx);
     const double uspeed = MAX2(maxSpeedOnEdge, MESO_MIN_SPEED);
     std::vector<MEVehicle*>& cars = q.getModifiableVehicles();
     MEVehicle* newLeader = nullptr; // first vehicle in the current queue
