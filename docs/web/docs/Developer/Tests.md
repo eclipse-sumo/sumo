@@ -104,6 +104,8 @@ starts TextTest for testing all applications located in the folder,
 `runDuarouterTests.bat`(Windows) only those for duarouter etc. For Linux and macOS you can do this via the
 command line using e.g. `runTests.sh -a duarouter`.
 
+The main test runners can use a virtual environment under `tests/` named `testenv` or `.venv`. Install TextTest and the test dependencies in that environment. If a virtual environment is already active, the runners use it.
+
 # Adding a Test to an existing Application
 
 The easiest method is probably to copy an existing test using the

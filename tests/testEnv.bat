@@ -9,6 +9,14 @@ REM Public License 2.0 are satisfied: GNU General Public License, version 2
 REM or later which is available at
 REM https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 REM SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+IF NOT DEFINED VIRTUAL_ENV (
+    FOR /D %%D IN ("%~dp0*env") DO (
+        IF /I NOT "%%~nxD"==".venv" IF NOT DEFINED VIRTUAL_ENV (
+            IF EXIST "%%~D\Scripts\activate.bat" CALL "%%~D\Scripts\activate.bat"
+        )
+    )
+    IF NOT DEFINED VIRTUAL_ENV IF EXIST "%~dp0.venv\Scripts\activate.bat" CALL "%~dp0.venv\Scripts\activate.bat"
+)
 SET TEXTTEST_HOME=%~dp0
 IF "%SUMO_HOME%"=="" SET SUMO_HOME=%~dp0\..
 SET ACTIVITYGEN_BINARY=%SUMO_HOME%\bin\activitygen%1.exe
