@@ -266,6 +266,8 @@ protected:
         bool myCurrentIsRoad;
         /// @brief Information whether this road is part of a roundabout
         bool myAmInRoundabout;
+        /// @brief Way metadata that rules out an inferred roundabout.
+        bool myRoundaboutGuessExcluded = false;
         /// @brief Additionally tagged information
         std::map<std::string, std::string> myExtraTags;
         /// @brief turning direction (arrows printed on the road)

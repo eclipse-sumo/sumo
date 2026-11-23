@@ -1024,9 +1024,15 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
         NBEdge* newEdge = new NBEdge(id, from, to, "", speed, NBEdge::UNSPECIFIED_FRICTION, nolanes, priority,
                                      NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                      tpledge->myLaneSpreadFunction, tpledge->getStreetName());
+        newEdge->setRoundaboutGuessExcluded(std::any_of(edges.begin(), edges.end(), [](const NBEdge* edge) {
+            return edge->isRoundaboutGuessExcluded();
+        }));
         // copy lane attributes
         int laneIndex = 0;
         for (i = edges.begin(); i != edges.end(); ++i) {
+            if ((*i)->getParameter("osm.junction") == "circular") {
+                newEdge->setParameter("osm.junction", "circular");
+            }
             const std::vector<NBEdge::Lane>& lanes = (*i)->getLanes();
             for (int j = 0; j < (int)lanes.size(); ++j) {
                 newEdge->setPermissions(lanes[j].permissions, laneIndex);
@@ -1451,8 +1457,25 @@ NBEdgeCont::guessRoundabouts() {
                 const bool loaded = std::any_of(loopEdges.begin(), loopEdges.end(), [&loadedRoundaboutEdges](NBEdge* edge) {
                     return loadedRoundaboutEdges.count(edge) != 0;
                 });
-                if (!loaded && hasStraightPriorityApproach(loopEdges)) {
-                    continue;
+                if (!loaded) {
+                    const bool excluded = std::any_of(loopEdges.begin(), loopEdges.end(), [](const NBEdge* edge) {
+                        // Netconvert can also load previously converted OSM networks.
+                        if (edge->isRoundaboutGuessExcluded() || edge->getParameter("osm.junction") == "circular") {
+                            return true;
+                        }
+                        const auto types = StringTokenizer(edge->getTypeID(), "|").getVector();
+                        return std::any_of(types.begin(), types.end(), [](const std::string& type) {
+                            return type == "highway.service"
+                                   || (StringUtils::startsWith(type, "highway.") && StringUtils::endsWith(type, "_link"));
+                        });
+                    });
+                    const bool allSignals = std::all_of(loopEdges.begin(), loopEdges.end(), [](const NBEdge* edge) {
+                        const NBNode* node = edge->getToNode();
+                        return node->isTrafficLight() || node->isTLControlled();
+                    });
+                    if (excluded || allSignals || hasStraightPriorityApproach(loopEdges)) {
+                        continue;
+                    }
                 }
                 // collected edges are marked in markRoundabouts
                 EdgeSet guessed(loopEdges.begin(), loopEdges.end());
