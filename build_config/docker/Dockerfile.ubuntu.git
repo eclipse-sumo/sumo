@@ -53,6 +53,7 @@ COPY --from=build /usr/local/lib/libjupedsim.so /usr/lib/libjupedsim.so
 COPY --from=build /opt/sumo/build_config/build_req_deb.txt /tmp/build_req_deb.txt
 COPY --from=build /opt/sumo/build_config/tools_req_deb.txt /tmp/tools_req_deb.txt
 COPY --from=build /opt/sumo/tools/requirements.txt /tmp/requirements.txt
+COPY --from=build /opt/sumo/tools/req_tools_common.txt /tmp/req_tools_common.txt
 COPY --from=build /opt/sumo/tools/req_ci.txt /tmp/req_ci.txt
 
 # Installing runtime dependencies (for simplicity we use the build dependencies. Possibility for optimization in the future)
