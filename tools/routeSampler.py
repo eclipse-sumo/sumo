@@ -807,7 +807,7 @@ def optimize(options, countData, routes, priorRouteCounts, routeUsage, intervalC
         u = int(options.optimize)
         if u == 0:
             print("Optimization skipped")
-            return
+            return priorRouteCounts, False
         # limited optimization: change prior routeCounts by at most u per route
         bounds = [(max(0, p - u), p + u) for p in priorRelevantRouteCounts] + [(0, None)] * m
 
@@ -878,12 +878,12 @@ def optimize(options, countData, routes, priorRouteCounts, routeUsage, intervalC
         #    sum(map(round, routeCounts)),
         #    routeCounts))
         # print("slack (n=%s, sum=%s) %s" % (len(slack), sum(slack), slack))
-        return routeCountsRounded
+        return routeCountsRounded, any(abs(count - round(count)) > 1e-9 for count in routeCountsR)
         # print("#usedRoutes=%s" % len(usedRoutes))
         # update countData
     else:
         print("Optimization failed")
-        return priorRouteCounts
+        return priorRouteCounts, False
 
 
 def zero():
@@ -1121,9 +1121,21 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
             print("Starting optimization for interval [%s, %s] (mismatch %s)" % (
                 begin, end, totalMismatch))
             sys.stdout.flush()
-        routeCounts = optimize(options, countData, routes, routeCounts, routeUsage, intervalCount, rng)
+        priorRouteCounts = routeCounts
+        routeCounts, rounded = optimize(options, countData, routes, priorRouteCounts, routeUsage, intervalCount, rng)
         resetCounts(routeCounts, routeUsage, countData)
         numSampled = sum(routeCounts)
+        if rounded and not options.noSampling:
+            # Recover capacity lost by rounding the fractional optimizer result.
+            routeLimits = None
+            if options.optimize != "full":
+                routeLimits = [prior + options.optimize for prior in priorRouteCounts]
+            excluded = unrestricted if routeLimits is None else unrestricted.union(
+                r for r, maximum in enumerate(routeLimits) if routeCounts[r] >= maximum)
+            openRoutes, openCounts = initOpen(options, routes, routeUsage, countData, excluded)
+            routeCounts, numSampled = sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
+                                                   ratioIndices, numSampled, intervalCount, routeCounts,
+                                                   routeLimits=routeLimits)
 
     if intervalCount is not None and numSampled < intervalCount:
         if unrestricted:
@@ -1230,7 +1242,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
 
 
 def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
-                 ratioIndices, numSampled, intervalCount, routeCounts, remove=False):
+                 ratioIndices, numSampled, intervalCount, routeCounts, remove=False, routeLimits=None):
     """pick a random counting location and select a new route that passes it until
        all counts are satisfied or no routes can be used anymore """
     while openCounts:
@@ -1264,7 +1276,10 @@ def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCo
         for dataIndex in routeUsage[routeIndex]:
             countData[dataIndex].use(1)
 
+        atLimit = routeLimits is not None and routeCounts[routeIndex] >= routeLimits[routeIndex]
         if ratioIndices:
+            if atLimit:
+                openRoutes.remove(routeIndex)
             for dataIndex in routeUsage[routeIndex]:
                 countData[dataIndex].updateTurnRatioCounts(openRoutes, openCounts, True)
 
@@ -1282,7 +1297,7 @@ def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCo
                     for r in cd.routeSet:
                         closedRoutes.add(r)
 
-            if remove and routeCounts[routeIndex] == 0:
+            if atLimit or (remove and routeCounts[routeIndex] == 0):
                 closedRoutes.add(routeIndex)
 
             if closedRoutes:
