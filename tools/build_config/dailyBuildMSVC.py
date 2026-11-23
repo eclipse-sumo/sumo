@@ -31,6 +31,7 @@ import glob
 import zipfile
 import shutil
 import sys
+import tempfile
 
 import buildWindowsSUMOWheel
 import status
@@ -128,6 +129,28 @@ def copyResults(files, dirs, dest):
         shutil.copytree(d, os.path.join(dest, os.path.basename(d)), dirs_exist_ok=True)
 
 
+def createReleasePackages(buildDir, binaryZip, licenseFile, remoteDir):
+    # Keep WiX staging paths short and isolate this invocation from earlier builds.
+    packageRoot = "C:/temp"
+    os.makedirs(packageRoot, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="sumo-", dir=packageRoot) as packageDir:
+        archiveName = os.path.basename(binaryZip)
+        command = ["cpack", "-G", "WIX;ZIP", "-C", "Release", "-B", packageDir,
+                   "-D", "CPACK_PACKAGE_FILE_NAME=" + archiveName,
+                   "-D", "CPACK_RESOURCE_FILE_LICENSE=" + licenseFile]
+        result = status.log_subprocess(command, cwd=buildDir)
+        if result != 0:
+            raise RuntimeError("CPack exited with status %s" % result)
+        extensions = (".zip", ".msi")
+        packages = [os.path.join(packageDir, archiveName + ext) for ext in extensions]
+        if not all(os.path.isfile(package) for package in packages):
+            raise RuntimeError("CPack did not produce both the ZIP and MSI packages")
+        for package, ext in zip(packages, extensions):
+            shutil.move(package, binaryZip + ext)
+        for ext in extensions:
+            shutil.copy(binaryZip + ext, remoteDir)
+
+
 def main(options, platform="x64"):
     env["FILEPREFIX"] = "msvc" + options.suffix
     prefix = os.path.join(options.rootDir, env["FILEPREFIX"])
@@ -157,31 +180,24 @@ def main(options, platform="x64"):
         cpack_license_rtf = os.path.join(SUMO_HOME, "build_config", "wix", "gpl-2.0.rtf")
     else:
         cpack_license_rtf = os.path.join(SUMO_HOME, "build_config", "wix", "License.rtf")
-    status.log_subprocess(["cmake", "--install", "."], cwd=buildDir)
+    installResult = status.log_subprocess(["cmake", "--install", ".", "--config", "Release"], cwd=buildDir)
     plat = platform.lower().replace("x", "win")
     if options.msvc_version != MSVC_DEFAULT:
         plat += options.msvc_version
+    installDir = os.path.join(buildDir, "sumo-git")
     for d in glob.glob(os.path.join(buildDir, "sumo-*")):
         if os.path.isdir(d):
             installDir = d
     installBase = os.path.basename(installDir)
     binaryZip = os.path.join(buildDir, "sumo-%s%s-%s" % (plat, options.suffix, installBase[5:]))
-    if ret == 0:
+    if ret == 0 and installResult == 0:
         try:
             # The libsumo / libtraci python folders are still required for the standard
             # cmake --install layout but should not be shipped in the binary packages.
             for lib in ("libsumo", "libtraci"):
                 shutil.rmtree(os.path.join(installDir, "tools", lib), ignore_errors=True)
             status.printLog("Creating sumo.zip and sumo.msi via CPack.")
-            cpack_cmd = ["cpack", "-G", "WIX;ZIP", "-C", "Release", "-B", "C:/temp",
-                         "-D", "CPACK_PACKAGE_FILE_NAME=" + os.path.basename(binaryZip),
-                         "-D", "CPACK_RESOURCE_FILE_LICENSE=" + cpack_license_rtf]
-            status.log_subprocess(cpack_cmd, cwd=buildDir)
-            for ext in (".zip", ".msi"):
-                produced = "C:/temp/" + os.path.basename(binaryZip) + ext
-                if os.path.exists(produced):
-                    shutil.copy(produced, options.remoteDir)
-                    os.rename(produced, binaryZip + ext)
+            createReleasePackages(buildDir, binaryZip, cpack_license_rtf, options.remoteDir)
         except Exception as ziperr:
             status.printLog("Warning: Could not create installer for %s (%s)!" % (binaryZip, ziperr))
 
