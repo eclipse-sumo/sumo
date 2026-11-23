@@ -2118,7 +2118,8 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
     if (victim->getLaneChangeModel().isOpposite() && !collider->getLaneChangeModel().isOpposite()) {
         std::swap(collider, victim);
     }
-    std::string prefix = TLF("Vehicle '%'; % with vehicle '%", collider->getID(), collisionText, victim->getID());
+    std::string prefix = TL("Vehicle '%'; % with vehicle '%");
+    bool removalWarning = false;
     if (myCollisionStopTime > 0) {
         if (collider->collisionStopTime() >= 0 && victim->collisionStopTime() >= 0) {
             return;
@@ -2175,12 +2176,13 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
             case COLLISION_ACTION_WARN:
                 break;
             case COLLISION_ACTION_TELEPORT:
-                prefix = TLF("Teleporting vehicle '%'; % with vehicle '%", collider->getID(), collisionText, victim->getID());
+                prefix = TL("Teleporting vehicle '%'; % with vehicle '%");
                 toRemove.insert(collider);
                 toTeleport.insert(collider);
                 break;
             case COLLISION_ACTION_REMOVE: {
-                prefix = TLF("Removing % participants: vehicle '%', vehicle '%", collisionText, collider->getID(), victim->getID());
+                removalWarning = true;
+                prefix = TL("Removing % participants: vehicle '%', vehicle '%");
                 bool removeCollider = true;
                 bool removeVictim = true;
                 removeVictim = !(victim->hasInfluencer() && victim->getInfluencer()->isRemoteAffected(timestep));
@@ -2193,12 +2195,12 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
                 }
                 if (!removeVictim) {
                     if (!removeCollider) {
-                        prefix = TLF("Keeping remote-controlled % participants: vehicle '%', vehicle '%", collisionText, collider->getID(), victim->getID());
+                        prefix = TL("Keeping remote-controlled % participants: vehicle '%', vehicle '%");
                     } else {
-                        prefix = TLF("Removing % participant: vehicle '%', keeping remote-controlled vehicle '%", collisionText, collider->getID(), victim->getID());
+                        prefix = TL("Removing % participant: vehicle '%', keeping remote-controlled vehicle '%");
                     }
                 } else if (!removeCollider) {
-                    prefix = TLF("Keeping remote-controlled % participant: vehicle '%', removing vehicle '%", collisionText, collider->getID(), victim->getID());
+                    prefix = TL("Keeping remote-controlled % participant: vehicle '%', removing vehicle '%");
                 }
                 break;
             }
@@ -2209,7 +2211,9 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
     const bool newCollision = MSNet::getInstance()->registerCollision(collider, victim, collisionType, this, collider->getPositionOnLane(this));
     if (newCollision) {
         WRITE_WARNINGF(prefix + "', lane='%', gap=%%, time=%, stage=%.",
-                       getID(), toString(gap), (MSGlobals::gSublane ? TL(", latGap=") + toString(latGap) : ""),
+                       removalWarning ? collisionText : collider->getID(),
+                       removalWarning ? collider->getID() : collisionText,
+                       victim->getID(), getID(), toString(gap), (MSGlobals::gSublane ? TL(", latGap=") + toString(latGap) : ""),
                        time2string(timestep), stage);
         MSNet::getInstance()->informVehicleStateListener(victim, MSNet::VehicleState::COLLISION);
         MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VehicleState::COLLISION);

@@ -1,1 +1,1 @@
-Warning: 2 total messages of type: Vehicle 'c'; collision with vehicle 'v', lane='%', gap=%%, time=%, stage=%.
+Warning: 2 total messages of type: Vehicle '%'; % with vehicle '%', lane='%', gap=%%, time=%, stage=%.
