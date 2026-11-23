@@ -83,7 +83,15 @@ All scenarios should be fixed by now.
   - update the version doi in [CITATION.cff]({{Source}}CITATION.cff) and in the [README]({{Source}}README.md) badge to this new reserved one
 - update the [ChangeLog](../ChangeLog.md) again if necessary
 - check the correct email address and list of current ubuntu releases in `tools/build_config/ubuntu_release.sh`
-- patch the version information using `tools/build_config/updateReleaseInfo.py {{Version}}` and double check changes
+- Update the version information and generate a release README with the release date and a short summary. Use the actual date and summary in this example.
+
+    ```sh
+    python tools/build_config/updateReleaseInfo.py {{Version}} YYYY-MM-DD \
+        --release-readme /s/Releases/{{Version}}/README.md \
+        --summary "Summarize the most important changes in this release."
+    ```
+
+    Create the release directory first. The generated README links to `https://sumo.dlr.de/docs/ChangeLog/{{Version}}.html`. The documentation build keeps this URL valid when the changelog entry moves to an annual page. Check the updated metadata and README before publishing.
   - in src/config.h.cmake, also the HAVE_VERSION_H macro should be disabled
   - in CMakeLists.txt
   - [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) in the **extra:** section at the end
@@ -127,7 +135,7 @@ following things need to be in the S:\daily directory:
 
 If everything is fine:
 
-- make a new folder in S:\Releases
+- Place the release packages and the generated `README.md` in the version folder in `S:\Releases`.
 - make new sumo.dlr.de-release
   - copy the folder from S:\Releases to the releases dir `scp -r /s/Releases/{{Version}} delphi@ts-sim-front-ba.intra.dlr.de:docs/releases`
 - update the eclipse.dev/sumo website

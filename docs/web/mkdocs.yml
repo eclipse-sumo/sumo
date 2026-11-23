@@ -7,6 +7,8 @@ use_directory_urls: false
 dev_addr: 127.0.0.1:8000
 #docs_dir: docs
 #site_dir: site
+hooks:
+  - changelog_redirects.py
 copyright: "Copyright &copy; 2001-2026 German Aerospace Center (DLR) and others."
 
 nav:

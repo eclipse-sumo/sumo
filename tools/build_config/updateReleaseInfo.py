@@ -18,26 +18,45 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
-import os
-import sys
-import fileinput
+import argparse
 import datetime
+import fileinput
+import os
+import re
+from pathlib import Path
 
 import version
 
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+
+parser = argparse.ArgumentParser(description="Update the release metadata.")
+parser.add_argument("version", help="release version, e.g. 1.28.0")
+parser.add_argument("date", nargs="?", help="release date in YYYY-MM-DD format (default: tomorrow)")
+parser.add_argument("--release-readme", type=Path, help="write a release README to this path")
+parser.add_argument("--summary", help="short release description for the README")
+args = parser.parse_args()
+if args.release_readme is not None:
+    if not args.summary or not args.summary.strip():
+        parser.error("--release-readme requires a non-empty --summary")
+    if not re.fullmatch(r"[0-9]+(?:\.[0-9]+)+", args.version):
+        parser.error("--release-readme requires a dotted numeric version")
+    if not args.release_readme.parent.is_dir() or args.release_readme.is_dir():
+        parser.error("--release-readme must name a file in an existing directory")
+elif args.summary is not None:
+    parser.error("--summary requires --release-readme")
+try:
+    date = (datetime.datetime.strptime(args.date, "%Y-%m-%d") if args.date else
+            datetime.datetime.now() + datetime.timedelta(days=1))
+except ValueError as error:
+    parser.error(str(error))
 
 last_release = version.get_version()
 if "+" in last_release:
     last_release = last_release[:last_release.index("+")]
 dot_release = last_release.replace("_", ".")[1:]
 
-version = sys.argv[1]
+version = args.version
 next_release = version.replace(".", "_")
-if len(sys.argv) > 2:
-    date = datetime.datetime.strptime(sys.argv[2], "%Y-%m-%d")
-else:
-    date = datetime.datetime.now() + datetime.timedelta(days=1)
 print("updating", dot_release, "to", version, "release date", date)
 author_names = []
 with open(os.path.join(SUMO_HOME, "AUTHORS")) as authors:
@@ -120,3 +139,12 @@ with fileinput.FileInput(os.path.join(SUMO_HOME, "build_config", "package", "org
         if not have_next and last_release in line:
             print('        <release version="v%s" date="%s"/>' % (next_release, date.strftime("%Y-%m-%d")))
         print(line, end='')
+
+
+if args.release_readme is not None:
+    changelog = "https://sumo.dlr.de/docs/ChangeLog/%s.html" % version
+    args.release_readme.write_text(
+        "# SUMO %s\n\nReleased on %s.\n\n%s\n\n[Changelog for SUMO %s](%s)\n"
+        % (version, date.strftime("%Y-%m-%d"), args.summary.strip(), version, changelog),
+        encoding="utf-8",
+    )
