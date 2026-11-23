@@ -10,3 +10,6 @@ source_sink_output
 
 # write pedestrian flows
 pedestrians
+
+# warn when a generated route revisits a road edge
+route_loop

@@ -1,0 +1,1 @@
+-n net.net.xml -d input_detectors.det.xml -f input_flows.txt --interval 60 -o out.rou.xml
