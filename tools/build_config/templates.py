@@ -30,6 +30,7 @@ import re
 import subprocess
 import io
 from os.path import dirname, join
+from xml.etree import ElementTree as ET
 
 # list of folders and tools
 TOOLS = [
@@ -352,6 +353,23 @@ def generateTemplate(app, appBin):
     return u'\n\nconst std::string %sTemplate = std::string(R"xml~(%s)xml~");' % (app, template)
 
 
+def adaptNetDiffTemplate(template):
+    # Keep the option names used by Netedit while accepting Python configurations.
+    root = ET.fromstring(template)
+    names = {"source": "original-net", "dest": "modified-net"}
+    for option in root:
+        if option.tag in names:
+            option.set("synonymes", option.tag)
+            option.tag = names[option.tag]
+        if option.get("category") == "processing":
+            option.set("category", "Processing")
+        description = option.get("help", "")
+        option.set("help", description[:1].upper() + description[1:])
+        if option.tag == "outprefix":
+            option.set("help", "Output prefix network")
+    return ET.tostring(root, encoding="unicode")
+
+
 def _collectOutput(procs, toolPaths, failed, verbose, testFailure):
     result = u""
     for p, toolPath in zip(procs, toolPaths):
@@ -366,7 +384,8 @@ def _collectOutput(procs, toolPaths, failed, verbose, testFailure):
         else:
             # replace all current directory values (src/netedit)
             stdout = re.sub("(?<=value)(.*)(?=netedit)", "", stdout)
-            result += stdout.replace('netedit', '="')
+            stdout = stdout.replace('netedit', '="')
+            result += adaptNetDiffTemplate(stdout) if toolPath == "net/netdiff.py" else stdout
         result += ')xml~"),\n'
     return result
 
