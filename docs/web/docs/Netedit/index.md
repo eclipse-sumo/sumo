@@ -23,6 +23,32 @@ title: netedit
 - [network/TAZ related data](editModesData.md)
 - [shape data](elementsShape.md)
 
+## Editing a network from the command line
+
+Use [netconvert](../netconvert.md) with [PlainXML patch files](../Networks/PlainXML.md) to automate network edits. Patch files can change [junction types](../Networks/PlainXML.md#node_types), add [edges](../Networks/PlainXML.md#edge_descriptions), and [split edges](../Networks/PlainXML.md#road_segment_refining).
+
+For example, to set the lane count of an existing edge named `approach` to two, save the following as `lanes.edg.xml`.
+
+```xml
+<edges>
+    <edge id="approach" numLanes="2"/>
+</edges>
+```
+
+When patching an existing network, netconvert preserves its connections by default. To [recalculate connections](../Networks/PlainXML.md#patching_connections_and_guessing_again) from the modified edge, save the following as `reset.con.xml`. This replaces all outgoing lane connections from `approach`, including manually specified connections.
+
+```xml
+<connections>
+    <connection from="approach" reset="true"/>
+</connections>
+```
+
+Run the following command to apply both patches.
+
+```bash
+netconvert --sumo-net-file base.net.xml --edge-files lanes.edg.xml --connection-files reset.con.xml --output-file updated.net.xml
+```
+
 ## Input
 
 **netedit** is a GUI-Application and inputs are chosen via menus. The following input formats are supported:
