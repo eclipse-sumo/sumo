@@ -1,0 +1,35 @@
+name: Nightly pull request CI
+
+on:
+  schedule:
+    - cron: '37 2 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: nightly-pr-ci
+
+jobs:
+  queue:
+    if: >-
+      github.repository == 'eclipse-sumo/sumo' && github.ref == 'refs/heads/main'
+      && (github.event_name == 'workflow_dispatch' || vars.NIGHTLY_PR_CI_QUEUE != '')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+      contents: read
+      pull-requests: read
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: false
+    - name: Process reviewed pull request runs
+      env:
+        GH_TOKEN: ${{ github.token }}
+        NIGHTLY_PR_CI_QUEUE: ${{ vars.NIGHTLY_PR_CI_QUEUE }}
+      run: |
+        if [ "$GITHUB_EVENT_NAME" = schedule ]; then
+          python3 tools/build_config/approveNightlyPR.py --approve
+        else
+          python3 tools/build_config/approveNightlyPR.py
+        fi

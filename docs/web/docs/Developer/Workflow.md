@@ -30,6 +30,19 @@ break the build. We have support for [pre-commit hooks](GitStuff.md#git_commit_h
 Every developer is free to use feature branches but it is mainly a "backup" tool
 and rarely used for working together.
 
+## Overnight pull request CI
+
+Maintainers can queue Linux, macOS, and Windows workflow runs that are awaiting GitHub approval. Review the fork changes first. Add each pull request number and workflow run ID to the repository Actions variable `NIGHTLY_PR_CI_QUEUE`. Use one pair per line, in approval order. The run ID is the number at the end of the URL for the workflow run.
+
+```text
+1234 56789012345
+1245 56789012346
+```
+
+**Nightly pull request CI** starts at 02:37 UTC. It approves up to two eligible runs per night and accepts each entry only while the pull request remains open and its current head matches the run. Clean up entries after approval or after the head changes. [GitHub Actions variables](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-variables)
+
+Run **Nightly pull request CI** manually on `main` to preview the queue. For immediate testing, use GitHub's **Approve and run** control on the pull request. [GitHub fork workflow approval](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/approve-runs-from-forks)
+
 # Issue Workflow
 
 We are using GitHub issues for a lot of different things. It is a storage for ideas
