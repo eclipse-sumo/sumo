@@ -67,6 +67,10 @@ void
 NIXMLNodesHandler::myStartElement(int element,
                                   const SUMOSAXAttributes& attrs) {
     switch (element) {
+        case SUMO_TAG_NET:
+            WRITE_ERRORF(TL("Load the SUMO network file '%' with --sumo-net-file (-s). "
+                            "--node-files (-n) expects PlainXML nodes."), getFileName());
+            break;
         case SUMO_TAG_LOCATION:
             delete myLocation;
             myLocation = NIImporter_SUMO::loadLocation(attrs);
