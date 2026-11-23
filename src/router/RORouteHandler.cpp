@@ -140,16 +140,14 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
                 myVehicleParameter->parametersSet |= VEHPARS_FROM_TAZ_SET;
             }
         }
-    } else if (attrs.hasAttribute(SUMO_ATTR_FROMXY)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMXY, myVehicleParameter->id.c_str(), ok), false, vClass, myActiveRoute, rid, true, ok);
-        if (myMapMatchTAZ && ok) {
-            myVehicleParameter->fromTaz = myActiveRoute.back()->getID();
-            myVehicleParameter->parametersSet |= VEHPARS_FROM_TAZ_SET;
-        }
-    } else if (attrs.hasAttribute(SUMO_ATTR_FROMLONLAT)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMLONLAT, myVehicleParameter->id.c_str(), ok), true, vClass, myActiveRoute, rid, true, ok);
-        if (myMapMatchTAZ && ok) {
-            myVehicleParameter->fromTaz = myActiveRoute.back()->getID();
+    } else if (attrs.hasAttribute(SUMO_ATTR_FROMXY) || attrs.hasAttribute(SUMO_ATTR_FROMLONLAT)) {
+        const bool geo = !attrs.hasAttribute(SUMO_ATTR_FROMXY);
+        parseGeoEdges(attrs.get<PositionVector>(geo ? SUMO_ATTR_FROMLONLAT : SUMO_ATTR_FROMXY, myVehicleParameter->id.c_str(), ok),
+                      geo, vClass, myActiveRoute, rid, true, ok);
+        if (ok && tag != SUMO_TAG_PERSON && !myWriteJunctions && !myActiveRoute.empty() && myActiveRoute.front()->isTazConnector()) {
+            const std::string& connectorID = myActiveRoute.front()->getID();
+            // The TAZ ID excludes the synthetic connector suffix.
+            myVehicleParameter->fromTaz = connectorID.substr(0, connectorID.rfind('-'));
             myVehicleParameter->parametersSet |= VEHPARS_FROM_TAZ_SET;
         }
     } else {
@@ -204,16 +202,14 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
                 myVehicleParameter->parametersSet |= VEHPARS_TO_TAZ_SET;
             }
         }
-    } else if (attrs.hasAttribute(SUMO_ATTR_TOXY)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOXY, myVehicleParameter->id.c_str(), ok, true), false, vClass, myActiveRoute, rid, false, ok);
-        if (myMapMatchTAZ && ok) {
-            myVehicleParameter->toTaz = myActiveRoute.back()->getID();
-            myVehicleParameter->parametersSet |= VEHPARS_TO_TAZ_SET;
-        }
-    } else if (attrs.hasAttribute(SUMO_ATTR_TOLONLAT)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOLONLAT, myVehicleParameter->id.c_str(), ok, true), true, vClass, myActiveRoute, rid, false, ok);
-        if (myMapMatchTAZ && ok) {
-            myVehicleParameter->toTaz = myActiveRoute.back()->getID();
+    } else if (attrs.hasAttribute(SUMO_ATTR_TOXY) || attrs.hasAttribute(SUMO_ATTR_TOLONLAT)) {
+        const bool geo = !attrs.hasAttribute(SUMO_ATTR_TOXY);
+        const size_t oldSize = myActiveRoute.size();
+        parseGeoEdges(attrs.get<PositionVector>(geo ? SUMO_ATTR_TOLONLAT : SUMO_ATTR_TOXY, myVehicleParameter->id.c_str(), ok, true),
+                      geo, vClass, myActiveRoute, rid, false, ok);
+        if (ok && tag != SUMO_TAG_PERSON && !myWriteJunctions && myActiveRoute.size() > oldSize && myActiveRoute.back()->isTazConnector()) {
+            const std::string& connectorID = myActiveRoute.back()->getID();
+            myVehicleParameter->toTaz = connectorID.substr(0, connectorID.rfind('-'));
             myVehicleParameter->parametersSet |= VEHPARS_TO_TAZ_SET;
         }
     } else {
@@ -579,15 +575,27 @@ RORouteHandler::closeRouteDistribution() {
             delete myCurrentAlternatives;
         } else {
             if (myVehicleParameter != nullptr
-                    && (myUseTaz || OptionsCont::getOptions().getBool("junction-taz"))
+                    && (myUseTaz || myMapMatchTAZ || OptionsCont::getOptions().getBool("junction-taz"))
                     && (myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) ||
                         myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET))) {
                 // we are loading a rou.alt.xml, permit rerouting between taz
                 bool ok = true;
                 ConstROEdgeVector edges;
+                auto getConnector = [this](std::string& tazID, const std::string& suffix) {
+                    const ROEdge* connector = myNet.getEdge(tazID + suffix);
+                    if (connector == nullptr && myMapMatchTAZ && StringUtils::endsWith(tazID, suffix)) {
+                        // Older map matching output wrote the connector ID as the TAZ ID.
+                        const ROEdge* legacyConnector = myNet.getEdge(tazID);
+                        if (legacyConnector != nullptr && legacyConnector->isTazConnector()) {
+                            tazID.erase(tazID.size() - suffix.size());
+                            connector = legacyConnector;
+                        }
+                    }
+                    return connector;
+                };
                 if (myVehicleParameter->fromTaz != "") {
-                    const std::string tazID = myVehicleParameter->fromTaz;
-                    const ROEdge* fromTaz = myNet.getEdge(tazID + "-source");
+                    std::string& tazID = myVehicleParameter->fromTaz;
+                    const ROEdge* fromTaz = getConnector(tazID, "-source");
                     if (fromTaz == nullptr) {
                         myErrorOutput->inform("Source taz '" + tazID + "' not known for vehicle '" + myVehicleParameter->id + "'!");
                         ok = false;
@@ -601,8 +609,8 @@ RORouteHandler::closeRouteDistribution() {
                     edges.push_back(myCurrentAlternatives->getOrigin());
                 }
                 if (myVehicleParameter->toTaz != "") {
-                    const std::string tazID = myVehicleParameter->toTaz;
-                    const ROEdge* toTaz = myNet.getEdge(tazID + "-sink");
+                    std::string& tazID = myVehicleParameter->toTaz;
+                    const ROEdge* toTaz = getConnector(tazID, "-sink");
                     if (toTaz == nullptr) {
                         myErrorOutput->inform("Sink taz '" + tazID + "' not known for vehicle '" + myVehicleParameter->id + "'!");
                         ok = false;
