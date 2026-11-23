@@ -107,8 +107,9 @@ public:
          *
          * @return True if vehicle hasn't passed the reminder completely.
          */
-        bool notifyMove(SUMOTrafficObject& veh, double oldPos,
-                        double newPos, double newSpeed);
+        bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed) override;
+
+        bool notifyMoveFraction(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed, double duration) override;
 
 
         /** @brief Called if the vehicle leaves the reminder's lane
@@ -181,6 +182,9 @@ public:
         void setSubData(MeanDataValues* subData) {
             mySubData = subData;
         }
+
+    private:
+        bool notifyMoveTimed(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed, double duration, bool fractional);
 
     protected:
         /// @brief The meandata parent

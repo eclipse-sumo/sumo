@@ -179,6 +179,12 @@ public:
         return true;
     }
 
+    /// @brief Notify a movement whose duration is shorter than or equal to a regular step.
+    virtual bool notifyMoveFraction(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed, double duration) {
+        UNUSED_PARAMETER(duration);
+        return notifyMove(veh, oldPos, newPos, newSpeed);
+    }
+
     /** @brief Computes idling emission values and adds them to the emission sums
     *
     * Idling implied by zero velocity, acceleration and slope

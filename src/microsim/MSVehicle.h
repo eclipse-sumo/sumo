@@ -275,7 +275,7 @@ public:
      * @param[in] newSpeed The vehicle's speed within this move
      * @see MSMoveReminder
      */
-    void workOnMoveReminders(double oldPos, double newPos, double newSpeed);
+    void workOnMoveReminders(double oldPos, double newPos, double newSpeed, double fractionalDuration = 0.);
     //@}
 
     /** @brief cycle through vehicle devices invoking notifyIdle
