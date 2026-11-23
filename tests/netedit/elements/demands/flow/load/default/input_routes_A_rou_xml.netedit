@@ -15,5 +15,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="flow_0" begin="20.00" end="500.00" number="100" from="Edge0" to="Edge2"/>
+    <flow id="flow_0" begin="20.00" end="500.00" number="100" fromTaz="origin" toTaz="destination" from="Edge0" to="Edge2"/>
 </routes>
