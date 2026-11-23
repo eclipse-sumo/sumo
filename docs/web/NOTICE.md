@@ -69,3 +69,9 @@ This Documentation leverages the following third party content:
 * License: CC BY 4.0 license
 * Project: https://fontawesome.com/
 * Source: https://github.com/FortAwesome/Font-Awesome
+
+### Tablesort 5.7.1
+* Author: Tristen Brown
+* License: MIT License
+* Project: https://github.com/tristen/tablesort
+* Source: https://github.com/tristen/tablesort/tree/5.7.1

@@ -5,6 +5,10 @@ edit_uri: edit/main/docs/web/docs/
 site_description: SUMO Documentation
 use_directory_urls: false
 dev_addr: 127.0.0.1:8000
+extra_javascript:
+  - js/tablesort-5.7.1.min.js
+  - js/sortable-tables.js
+
 #docs_dir: docs
 #site_dir: site
 copyright: "Copyright &copy; 2001-2026 German Aerospace Center (DLR) and others."

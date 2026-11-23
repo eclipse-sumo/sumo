@@ -74,8 +74,12 @@ double
 HelpersHBEFA4::myFunctionParameter[%s][7][7] = {""" % len(coeffs), file=cpp_out)
         for vc, s in share.items():
             print("##", vc, file=wiki_out)
-            print("| SUMO emission class | HBEFA subsegment | HBEFA subsegment ID | fleet share 2022 | "
-                  "error CO2 | error CO | error HC | error FC | error NOx | error PM | error FC_MJ |", file=wiki_out)
+            print(file=wiki_out)
+            columns = ["SUMO emission class {.sortable}", "HBEFA subsegment"]
+            numericColumns = ("HBEFA subsegment ID", "fleet share 2022", "error CO2", "error CO", "error HC",
+                              "error FC", "error NOx", "error PM", "error FC_MJ")
+            columns.extend(column + ' {data-sort-method="numeric"}' for column in numericColumns)
+            print("| " + " | ".join(columns) + " |", file=wiki_out)
             print("| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |""", file=wiki_out)
             for segment, val in s:
                 print("    {", file=cpp_out)
