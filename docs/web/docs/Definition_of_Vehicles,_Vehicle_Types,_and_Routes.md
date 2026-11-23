@@ -254,6 +254,12 @@ traffic assignment zone.
 !!! caution
     When using TAZ with [sumo](sumo.md) and [duarouter](duarouter.md), their edges will be selected to minimize travel time. This is different from TAZ usage in [od2trips](od2trips.md) where edges are selected according to a probability distribution.
 
+Use `viaTaz` on a trip or flow to pass through intermediate traffic assignment zones. Give the zone IDs in travel order, separated by spaces. Each leg is routed to an incoming edge of the next zone before the router computes the following leg.
+
+```xml
+<trip id="example" depart="0" fromTaz="origin" viaTaz="districtA districtB" toTaz="destination"/>
+```
+
 ### Routing between Junctions
 Trips and flows may use the attributes `fromJunction`, `toJunction`, and `viaJunctions` to describe origin, destination and intermediate locations. This is a special form of TAZ-routing and it must be enabled by either setting the SUMO option **--junction-taz** or by loading TAZ-definitions that use the respective junction IDs. When using option **--junction-taz**, all edges outgoing from a junction may be used at the origin and all edges incoming to a junction may be used to reach the intermediate and final junctions.
 

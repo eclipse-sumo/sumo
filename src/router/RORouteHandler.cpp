@@ -155,7 +155,8 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
     } else {
         parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok), myActiveRoute, rid, ok);
     }
-    if (!attrs.hasAttribute(SUMO_ATTR_VIA) && !attrs.hasAttribute(SUMO_ATTR_VIALONLAT) && !attrs.hasAttribute(SUMO_ATTR_VIAXY)) {
+    if (!attrs.hasAttribute(SUMO_ATTR_VIA) && !attrs.hasAttribute(SUMO_ATTR_VIA_TAZ)
+            && !attrs.hasAttribute(SUMO_ATTR_VIALONLAT) && !attrs.hasAttribute(SUMO_ATTR_VIAXY)) {
         myInsertStopEdgesAt = (int)myActiveRoute.size();
     }
 
@@ -165,11 +166,17 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIAXY, myVehicleParameter->id.c_str(), ok), false, vClass, viaEdges, rid, false, ok);
     } else if (attrs.hasAttribute(SUMO_ATTR_VIALONLAT)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIALONLAT, myVehicleParameter->id.c_str(), ok), true, vClass, viaEdges, rid, false, ok);
-    } else if (attrs.hasAttribute(SUMO_ATTR_VIAJUNCTIONS)) {
-        for (std::string junctionID : attrs.get<std::vector<std::string> >(SUMO_ATTR_VIAJUNCTIONS, myVehicleParameter->id.c_str(), ok)) {
-            const ROEdge* viaSink = myNet.getEdge(junctionID + "-sink");
-            if (viaSink == nullptr) {
-                myErrorOutput->inform("Junction-taz '" + junctionID + "' not found." + JUNCTION_TAZ_MISSING_HELP);
+    } else if (attrs.hasAttribute(SUMO_ATTR_VIAJUNCTIONS) || attrs.hasAttribute(SUMO_ATTR_VIA_TAZ)) {
+        const bool useJunction = attrs.hasAttribute(SUMO_ATTR_VIAJUNCTIONS);
+        const SumoXMLAttr viaAttr = useJunction ? SUMO_ATTR_VIAJUNCTIONS : SUMO_ATTR_VIA_TAZ;
+        for (const std::string& tazID : attrs.get<std::vector<std::string> >(viaAttr, myVehicleParameter->id.c_str(), ok)) {
+            const ROEdge* viaSink = myNet.getEdge(tazID + "-sink");
+            if (viaSink == nullptr || (!useJunction && !viaSink->isTazConnector())) {
+                myErrorOutput->inform(useJunction ? "Junction-taz '" + tazID + "' not found." + JUNCTION_TAZ_MISSING_HELP
+                                      : TLF("Unknown intermediate TAZ '%' %.", tazID, rid));
+                ok = false;
+            } else if (!useJunction && viaSink->getNumPredecessors() == 0) {
+                myErrorOutput->informf(TL("Intermediate TAZ '%' has no incoming edges %."), tazID, rid);
                 ok = false;
             } else {
                 viaEdges.push_back(viaSink);

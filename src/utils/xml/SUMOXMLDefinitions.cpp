@@ -1027,6 +1027,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "cycleTime",              SUMO_ATTR_CYCLETIME },
     { "fromTaz",                SUMO_ATTR_FROM_TAZ },
     { "toTaz",                  SUMO_ATTR_TO_TAZ },
+    { "viaTaz",                 SUMO_ATTR_VIA_TAZ },
     { "reroute",                SUMO_ATTR_REROUTE },
     { "personCapacity",         SUMO_ATTR_PERSON_CAPACITY },
     { "containerCapacity",      SUMO_ATTR_CONTAINER_CAPACITY },
