@@ -37,9 +37,10 @@ routeRef
 # filter taz
 taz
 
-# cutting person plans
+# cutting person plans and person flows
 person
 person_trips
+personFlows
 flows
 heterogeneous
 

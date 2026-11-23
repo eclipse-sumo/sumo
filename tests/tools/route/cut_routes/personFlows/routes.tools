@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23 15:20:25.611443 by Eclipse SUMO cutRoutes.py v1_28_0+0777-e24dbd79b89
+<configuration>
+    <routes-output value="out.rou.xml"/>
+    <orig-net value="three_split.net.xml"/>
+    <big value="True"/>
+    <network value="input_net.net.xml"/>
+    <routeFiles value="input_routes.rou.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="ped" vClass="pedestrian" maxSpeed="2.0"/>
+    <personFlow id="earliest" period="10" number="2">
+        <walk edges="middle end"/>
+    </personFlow>
+    <personFlow id="regular" type="ped" begin="27.815" end="43.815" personsPerHour="900">
+        <param key="purpose" value="commute"/>
+        <walk edges="middle end"/>
+    </personFlow>
+    <vehicle id="shuttle" type="DEFAULT_VEHTYPE" depart="77.81" departLane="best" departSpeed="max">
+        <route edges="middle end"/>
+    </vehicle>
+    <personFlow id="aboard" begin="triggered" number="2">
+        <ride to="end" lines="shuttle"/>
+    </personFlow>
+    <personFlow id="random" begin="97.815" end="112.815" probability="0.25">
+        <walk edges="middle end"/>
+    </personFlow>
+    <person id="late" depart="137.81">
+        <walk edges="middle end"/>
+    </person>
+</routes>

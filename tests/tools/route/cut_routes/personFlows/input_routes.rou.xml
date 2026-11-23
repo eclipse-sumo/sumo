@@ -1,0 +1,25 @@
+<routes>
+    <vType id="ped" vClass="pedestrian" maxSpeed="2.0"/>
+    <vehicle id="shuttle" type="DEFAULT_VEHTYPE" depart="60">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <personFlow id="aboard" begin="triggered" number="2">
+        <ride to="end" lines="shuttle"/>
+    </personFlow>
+    <person id="late" depart="120">
+        <walk edges="beg middle end rend"/>
+    </person>
+    <personFlow id="earliest" period="10" number="2">
+        <walk edges="middle end"/>
+    </personFlow>
+    <personFlow id="regular" type="ped" begin="00:00:10" end="00:00:26" personsPerHour="900">
+        <walk edges="beg middle end rend"/>
+        <param key="purpose" value="commute"/>
+    </personFlow>
+    <personFlow id="outside" begin="15" number="2" period="2">
+        <walk edges="right"/>
+    </personFlow>
+    <personFlow id="random" begin="80" end="95" probability="0.25">
+        <walk edges="beg middle end rend"/>
+    </personFlow>
+</routes>
