@@ -96,7 +96,7 @@ Editing signal states can be accomplished in either of the following ways:
 - right-clicking on any of the incoming lanes to change all controlled connections from that edge
 - If the lane is currently selected, all connections from selected lanes incoming to the traffic light will be changed as well
 - If the edge is currently selected, all connections from selected edges incoming to the traffic light will be changed as well
-- If the check-box *apply change to all phases* is activated, all phases of the current plan will be affected
+- Enable **Apply state to all phases** in the toolbar to apply state changes to every phase of the current plan.
 
 You can also change the state by editing the phase table directly.
 

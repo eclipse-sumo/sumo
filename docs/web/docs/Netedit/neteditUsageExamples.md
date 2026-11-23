@@ -7,12 +7,12 @@ title: neteditUsageExamples
 ## Reducing the extent of the network
 
 1.  switch to [selection mode](editModesCommon.md#select)
-2.  enable the *auto-select junctions* checkbox in the top menu bar (enabled by default since version 1.9.0)
+2.  Check that **Automatic select junctions** is enabled in the toolbar. It is on by default.
 3.  select the portion of the network you wish to keep (i.e. by holding *<SHIFT\>* and performing a rectangle-selection)
 4.  press the *Reduce* button
 
 !!! caution
-    If the checkbox *auto-select junctions* is not set, and connections are not visible during the rectangle selection, all connections will be removed during the *invert+delete* steps.
+    If **Automatic select junctions** and **Show connections over junctions** are both off during rectangle selection, inverting and deleting the selection removes all connections.
 
 ### Adapting additional objects to a reduced network
 
@@ -187,8 +187,8 @@ directions. To make a unidirectional track usable in both directions,
 3.  set edge attribute *spreadType* to *center*
 4.  set the new edge as [Edge template](editModesCommon.md#edge_template)
 5.  make the edge bidirectional as explained above in [Make an existing track bidirectional](#make_an_existing_track_bidirectional)
-6.  in [Create Edges](editModesNetwork.md#create_edges), set the checkbox to *Two-way* and optionally to *Chain*
-7.  continue to create edges - each click will create bidirectional track
+6.  In [Create Edges](editModesNetwork.md#create_edges), enable **Edge opposite direction** in the toolbar. Enable **Edge chain mode** to create consecutive edges.
+7.  Create edges to extend the bidirectional track.
 
 ## Define rail signals that only affect one track direction
 
@@ -231,7 +231,7 @@ To clean up the states:
 
 There are several solutions. The first one is as follows:
 
-1. toggle selection to work on lanes by default rather than edges (press Alt+5 when in select mode)
+1. Enable **Clicks target lanes** in the Select mode toolbar.
 2. select the desired lanes
 3. apply duplication by right clicking and going into lane operations
 

@@ -16,15 +16,15 @@ Example of different junctions
 In the SUMO-context, [edges](../Networks/PlainXML.md#edge_descriptions) represent roads or streets. Note that edges are unidirectional. It's equivalent to a edge in a graph theory.
 
 ![](../images/GNEEdge.png)
-Example of edge. Note that the box "select edge" is **checked**
+An edge in the Inspector
 
 ## Lanes
 
 Each SUMO edge is composed of a set of [lanes](../Networks/PlainXML.md#lane-specific_definitions) (At least one).
-To inspect and edit lane attributes, either SHIFT+click on a lane or toggle the corresponding menu bar button ton control whether inspect clicks should target edges (default) or lanes (shortcut ALT+5).
+Use [Inspect mode](editModesCommon.md#inspecting_lanes) to edit lane attributes.
 
 ![](../images/GNELane.png)
-Example of lane. Note that the box "select edge" is **unchecked**
+A lane in the Inspector
 
 ## Connections
 
