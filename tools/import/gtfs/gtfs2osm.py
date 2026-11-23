@@ -175,18 +175,13 @@ def import_osm(options, net):
     return osm_routes
 
 
-def _addToDataFrame(gtfs_data, row, shapes_dict, stop, edge):
-    shape_list = [sec_shape for sec_shape, main_shape in shapes_dict.items() if main_shape == row.shape_id]
-    gtfs_data.loc[(gtfs_data["stop_id"] == row.stop_id) &
-                  (gtfs_data["shape_id"].isin(shape_list)),
-                  "stop_item_id"] = stop
-    gtfs_data.loc[(gtfs_data["stop_id"] == row.stop_id) &
-                  (gtfs_data["shape_id"].isin(shape_list)),
-                  "edge_id"] = edge
+def _addToDataFrame(gtfs_data, row, stop, edge):
+    rows = (gtfs_data["stop_id"] == row.stop_id) & (gtfs_data["shape_id"] == row.shape_id)
+    gtfs_data.loc[rows, ["stop_item_id", "edge_id"]] = stop, edge
 
 
 @benchmark
-def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filtered_stops):
+def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, filtered_stops):
     """
     Maps the routes from gtfs with the sumo routes imported from osm and maps
     the gtfs stops with the lane and position in sumo.
@@ -287,7 +282,7 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
                 stop_edge = lane_id.rsplit("_", 1)[0]
                 gtfs_data.loc[gtfs_data["stop_item_id"] == stop, "edge_id"] = stop_edge
             # add to data frame
-            _addToDataFrame(gtfs_data, row, shapes_dict, stop, stop_edge)
+            _addToDataFrame(gtfs_data, row, stop, stop_edge)
             stop_mapped = True
             break
 
@@ -303,7 +298,7 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
                 stop_items[row.stop_id].append(stop_item_id)
                 map_stops[stop_item_id] = [sumolib.xml.quoteattr(row.stop_name[0], True),
                                            lane_id, start, end, access, pt_type, edge_inter]
-                _addToDataFrame(gtfs_data, row, shapes_dict, stop_item_id, lane_id.split("_")[0])
+                _addToDataFrame(gtfs_data, row, stop_item_id, lane_id.split("_")[0])
                 stop_mapped = True
 
         # if stop not mapped, add to missing stops
@@ -313,6 +308,19 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
 #    pprint(map_routes)
 #    pprint(map_stops)
     return map_routes, map_stops, missing_stops, missing_lines
+
+
+def _routeAliases(gtfs_data, map_routes):
+    # Share a route definition only after mapping complete and identical edge lists.
+    counts = gtfs_data.groupby(["route_id", "direction_id", "shape_id"]).size()
+    route_ids = {}
+    aliases = {}
+    for key in counts.sort_values(ascending=False, kind="stable").index:
+        route_id, direction_id, shape_id = key
+        if shape_id in map_routes:
+            edges = tuple(map_routes[shape_id][1])
+            aliases[key] = route_ids.setdefault((route_id, direction_id, edges), shape_id)
+    return aliases
 
 
 def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missing_lines,
@@ -347,6 +355,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
         numDays = int(options.end) // 86401
         start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
         shapes_written = set()
+        aliases = _routeAliases(gtfs_data, map_routes)
 
         for day in range(numDays+1):
             if day == numDays and options.end % 86400 > 0:
@@ -385,9 +394,10 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                     # Not enough stops mapped
                     continue
 
-                if main_shape not in shapes_written:
-                    output_file.write(u'    <route id="%s" edges="%s"/>\n' % (main_shape, " ".join(edges_list)))
-                    shapes_written.add(main_shape)
+                route_id = aliases.get((row.route_id, row.direction_id, row.shape_id), main_shape)
+                if route_id not in shapes_written:
+                    output_file.write(u'    <route id="%s" edges="%s"/>\n' % (route_id, " ".join(edges_list)))
+                    shapes_written.add(route_id)
 
                 stopSeq = tuple([stop.stop_item_id for stop in stop_list.itertuples()])
                 if stopSeq not in seqs:
@@ -402,7 +412,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                         break
 
                 veh_attr = (row.trip_id, day,
-                            main_shape, row.route_id, seqs[stopSeq], depart,
+                            route_id, row.route_id, seqs[stopSeq], depart,
                             min(stop_index), max(stop_index), pt_type, pt_color)
                 output_file.write(u'    <vehicle id="%s.%s" route="%s" line="%s_%s" depart="%s" departEdge="%s" arrivalEdge="%s" type="%s"%s>\n' % veh_attr)  # noqa
                 params = [("gtfs.route_name", row.route_short_name)]
@@ -487,8 +497,7 @@ def process(options, net):
     osm_routes = import_osm(options, net)
 
     (mapped_routes, mapped_stops,
-        missing_stops, missing_lines) = map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes,
-                                                     shapes_dict, filtered_stops)
+        missing_stops, missing_lines) = map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, filtered_stops)
 
     write_gtfs_osm_outputs(options, mapped_routes, mapped_stops,
                            missing_stops, missing_lines,
