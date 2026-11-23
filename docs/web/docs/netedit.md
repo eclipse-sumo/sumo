@@ -211,6 +211,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--tls.set** {{DT_STR_LIST}} | Interprets STR[] as list of junctions to be controlled by TLS |
 | **--tls.unset** {{DT_STR_LIST}} | Interprets STR[] as list of junctions to be not controlled by TLS |
 | **--tls.guess** {{DT_BOOL}} | Turns on TLS guessing; *default:* **false** |
+| **--tls.guess-phase-names** {{DT_BOOL}} | Name generated green phases `P1`, `P2`, and so on. Clearance phases between two greens share a transition name such as `P1-P2`. *Default:* **false** |
 | **--tls.guess.threshold** {{DT_FLOAT}} | Sets minimum value for the sum of all incoming lane speeds when guessing TLS; *default:* **69.4444** |
 | **--tls.taz-nodes** {{DT_BOOL}} | Sets district nodes as tls-controlled; *default:* **false** |
 | **--tls.guess.joining** {{DT_BOOL}} | Includes node clusters into guess; *default:* **false** |

@@ -216,6 +216,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--tls.set** {{DT_STR_LIST}} | Interprets STR[] as list of junctions to be controlled by TLS |
 | **--tls.unset** {{DT_STR_LIST}} | Interprets STR[] as list of junctions to be not controlled by TLS |
 | **--tls.guess** {{DT_BOOL}} | Turns on TLS guessing; *default:* **false** |
+| **--tls.guess-phase-names** {{DT_BOOL}} | Name generated green phases `P1`, `P2`, and so on. Clearance phases between two greens share a transition name such as `P1-P2`. *Default:* **false** |
 | **--tls.guess.threshold** {{DT_FLOAT}} | Sets minimum value for the sum of all incoming lane speeds when guessing TLS; *default:* **69.4444** |
 | **--tls.guess.joining** {{DT_BOOL}} | Includes node clusters into guess; *default:* **false** |
 | **--tls.join** {{DT_BOOL}} | Tries to cluster tls-controlled nodes; *default:* **false** |

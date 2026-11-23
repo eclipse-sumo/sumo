@@ -275,7 +275,29 @@ NBOwnTLDef::myCompute(int brakingTimeSeconds) {
         // reset insideTLS info
         collectEdges();
     }
-    return computeLogicAndConts(brakingTimeSeconds);
+    NBTrafficLightLogic* logic = computeLogicAndConts(brakingTimeSeconds);
+    if (logic != nullptr && myType != TrafficLightType::NEMA && OptionsCont::getOptions().getBool("tls.guess-phase-names")) {
+        const auto& phases = logic->getPhases();
+        const int count = (int)phases.size();
+        std::vector<int> greenPhases;
+        for (int i = 0; i < count; ++i) {
+            const std::string& state = phases[i].state;
+            if (state.find_first_of("Gg") != std::string::npos && state.find_first_of("yY") == std::string::npos) {
+                greenPhases.push_back(i);
+                logic->setPhaseName(i, "P" + toString(greenPhases.size()));
+            }
+        }
+        // Give all clearance phases between two greens the same transition name.
+        for (int i = 0; i < (int)greenPhases.size(); ++i) {
+            const int start = greenPhases[i];
+            const int end = greenPhases[(i + 1) % greenPhases.size()];
+            const std::string name = phases[start].name + "-" + phases[end].name;
+            for (int j = (start + 1) % count; j != end; j = (j + 1) % count) {
+                logic->setPhaseName(j, name);
+            }
+        }
+    }
+    return logic;
 }
 
 
