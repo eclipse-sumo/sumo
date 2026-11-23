@@ -1,0 +1,13 @@
+<routes>
+    <route id="shared" edges="middle end"/>
+    <vehicle id="vehicle" depart="0" fromTaz="oldOrigin" toTaz="oldDestination">
+        <route edges="beg middle end"/>
+    </vehicle>
+    <flow id="inline" begin="10" end="20" number="1" fromTaz="oldOrigin" toTaz="oldDestination">
+        <route edges="middle end rend"/>
+    </flow>
+    <flow id="referenced" begin="20" end="30" number="1" route="shared" toTaz="oldDestination"/>
+    <vehicle id="untagged" depart="30">
+        <route edges="middle end"/>
+    </vehicle>
+</routes>

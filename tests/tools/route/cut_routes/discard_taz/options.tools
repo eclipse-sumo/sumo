@@ -1,0 +1,1 @@
+three_split.net.xml input_routes.rou.xml --routes-output out.rou.xml --discard-taz tools/route/cutRoutes.py
