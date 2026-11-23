@@ -14,6 +14,12 @@
 # @author  Michael Behrisch
 # @date    2020-10-08
 
+"""Control a separate Eclipse SUMO process through the compiled TraCI client.
+
+Import libtraci in place of traci to use Python TraCI methods with the C++ client.
+See https://sumo.dlr.de/docs/Libtraci.html for installation and usage.
+"""
+
 import os
 if hasattr(os, "add_dll_directory"):
     # since Python 3.8 the DLL search path has to be set explicitly see https://bugs.python.org/issue43173
