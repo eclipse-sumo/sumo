@@ -1,0 +1,15 @@
+<routes>
+    <vType id="train" length="50" vClass="rail"/>
+    <vehicle id="park" type="train" depart="0" departSpeed="max">
+        <route edges="a b c"/>
+        <stop busStop="stop_b" arrival="100" until="260" duration="160" parking="true" tripId="park-after"/>
+        <stop busStop="stop_c" arrival="330" until="340" duration="10"/>
+        <param key="tripId" value="park-before"/>
+    </vehicle>
+    <vehicle id="pass" type="train" depart="120" departSpeed="max">
+        <route edges="a b c"/>
+        <stop busStop="stop_b" arrival="180" until="210" duration="30"/>
+        <stop busStop="stop_c" arrival="280" until="290" duration="10"/>
+        <param key="tripId" value="pass-trip"/>
+    </vehicle>
+</routes>

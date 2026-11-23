@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23 17:01:33.509749 by Eclipse SUMO generateRailSignalConstraints.py v0.0.0
+<configuration>
+    <net-file value="net.net.xml"/>
+    <additional-file value="input_additional.add.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+    <output-file value="out.add.xml"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <railSignalConstraints id="B">
+        <insertionPredecessor tripId="park-after" tl="B" foes="pass-trip"/>   <!-- (parking)  -->
+    </railSignalConstraints>
+</additional>
