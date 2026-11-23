@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23 15:31:57.557476 by Eclipse SUMO routeSampler.py v1_28_0+0777-e24dbd79b89
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <time-dependent-routes value="True"/>
+    <weighted value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="60.0" -->
+    <vehicle id="0_0" depart="57.04">
+        <route edges="entry early"/>
+    </vehicle>
+<!-- begin="60.0" end="120.0" -->
+    <vehicle id="60_0" depart="66.00">
+        <route edges="entry late"/>
+    </vehicle>
+    <vehicle id="60_1" depart="86.75">
+        <route edges="entry late"/>
+    </vehicle>
+<!-- begin="180.0" end="240.0" -->
+    <vehicle id="180_0" depart="200.02">
+        <route edges="entry final"/>
+    </vehicle>
+</routes>

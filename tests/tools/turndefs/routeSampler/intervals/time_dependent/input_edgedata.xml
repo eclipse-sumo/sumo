@@ -1,0 +1,14 @@
+<data>
+    <interval id="counts" begin="0" end="60">
+        <edge id="entry" entered="1"/>
+    </interval>
+    <interval id="counts" begin="60" end="120">
+        <edge id="entry" entered="2"/>
+    </interval>
+    <interval id="counts" begin="120" end="180">
+        <edge id="entry" entered="1"/>
+    </interval>
+    <interval id="counts" begin="180" end="240">
+        <edge id="entry" entered="1"/>
+    </interval>
+</data>
