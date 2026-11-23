@@ -21,3 +21,6 @@ control_tlsPenalty_flowPenalty
 
 # both penalties applied by default but excluded by param
 control_tlsPenalty_flowPenalty_exception
+
+# control only the traffic light with meso.tls.control=true
+selective_control
