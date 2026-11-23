@@ -570,6 +570,9 @@ protected:
      */
     void recomputeJamThreshold(double jamThresh);
 
+    /// @brief Update capacity and headways for a shared queue.
+    void setSharedQueueCapacity(const MesoEdgeType& edgeType, double capacity);
+
     /// @brief compute jam threshold for the given speed and jam-threshold option
     double jamThresholdForSpeed(double speed, double jamThresh) const;
 
