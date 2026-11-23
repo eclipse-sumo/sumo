@@ -37,8 +37,6 @@ jobs:
         with:
           fetch-depth: 0
           filter: tree:0
-          # to work around actions/checkout#1467
-          ref: ${{ github.ref }}
 
       - name: Building sumolib and traci wheels
         run: |
@@ -73,8 +71,6 @@ jobs:
         with:
           fetch-depth: 0
           filter: tree:0
-          # to work around actions/checkout#1467
-          ref: ${{ github.ref }}
 
       - name: Fetching SUMO Libraries
         if: ${{ startsWith(matrix.os, 'windows') }}
