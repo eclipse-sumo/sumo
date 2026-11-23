@@ -20,6 +20,9 @@ sumolib3d
 # unit tests for functions in init
 init
 
+# option categories in Python tool help
+options_categories
+
 # unit tests for functions from the miscutils module
 miscutils
 geomhelper
