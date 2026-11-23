@@ -1,0 +1,10 @@
+Explicit default only: other/daily=delay_based road/commute=static road/detectors=actuated
+  Same phases, offsets and parameters: True. Special junctions: rail_crossing rail_signal.
+Reset to implicit static: other/daily=static road/commute=static road/detectors=static
+  Same phases, offsets and parameters: True. Special junctions: rail_crossing rail_signal.
+Reset to actuated: other/daily=actuated road/commute=actuated road/detectors=actuated
+  Same phases, offsets and parameters: True. Special junctions: rail_crossing rail_signal.
+Reset and rebuild to implicit static: other/daily=static road/commute=static road/detectors=static
+  Same phases, offsets and parameters: False. Special junctions: rail_crossing rail_signal.
+Rejected railway type railSignal
+Rejected railway type railCrossing
