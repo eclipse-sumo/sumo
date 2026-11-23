@@ -160,6 +160,9 @@ MSTriggeredRerouter::myStartElement(int element,
             } else {
                 throw ProcessError(TLF("rerouter '%': Destination edge '%' is not known.", getID(), dest));
             }
+        } else if (dest == "keepDestination" || dest == "terminateRoute") {
+            WRITE_WARNINGF(TL("Destination '%' in rerouter '%' matches an edge ID and a special destination value. Using the edge."),
+                           dest, getID());
         }
         // get the probability to reroute
         bool ok = true;
