@@ -478,6 +478,21 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_BUS_STOP_WAITING_IDS, stopID)
 
+    def getReroutedVehicleNumber(self):
+        """getReroutedVehicleNumber() -> integer
+
+        Returns the number of vehicle reroute events since the last step began.
+        A vehicle can be counted more than once if its route changes repeatedly.
+        """
+        return self._getUniversal(tc.VAR_REROUTED_VEHICLES_NUMBER)
+
+    def getReroutedVehicleIDList(self):
+        """getReroutedVehicleIDList() -> tuple(string)
+
+        Returns the vehicle ID for each reroute event since the last step began.
+        """
+        return self._getUniversal(tc.VAR_REROUTED_VEHICLES_IDS)
+
     def getStartingTeleportNumber(self):
         """getStartingTeleportNumber() -> integer
 

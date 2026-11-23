@@ -108,6 +108,8 @@ public:
     static std::vector<std::string> getCollidingVehiclesIDList();
     static int getEmergencyStoppingVehiclesNumber();
     static std::vector<std::string> getEmergencyStoppingVehiclesIDList();
+    static int getReroutedVehicleNumber();
+    static std::vector<std::string> getReroutedVehicleIDList();
     static int getStartingTeleportNumber();
     static std::vector<std::string> getStartingTeleportIDList();
     static int getEndingTeleportNumber();

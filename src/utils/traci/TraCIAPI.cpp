@@ -1412,6 +1412,16 @@ TraCIAPI::SimulationScope::getArrivedIDList() const {
 }
 
 int
+TraCIAPI::SimulationScope::getReroutedVehicleNumber() const {
+    return getInt(libsumo::VAR_REROUTED_VEHICLES_NUMBER, "");
+}
+
+std::vector<std::string>
+TraCIAPI::SimulationScope::getReroutedVehicleIDList() const {
+    return getStringVector(libsumo::VAR_REROUTED_VEHICLES_IDS, "");
+}
+
+int
 TraCIAPI::SimulationScope::getStartingTeleportNumber() const {
     return (int) getInt(libsumo::VAR_TELEPORT_STARTING_VEHICLES_NUMBER, "");
 }

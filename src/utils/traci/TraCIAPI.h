@@ -432,6 +432,8 @@ public:
         std::vector<std::string> getDepartedIDList() const;
         int getArrivedNumber() const;
         std::vector<std::string> getArrivedIDList() const;
+        int getReroutedVehicleNumber() const;
+        std::vector<std::string> getReroutedVehicleIDList() const;
         int getStartingTeleportNumber() const;
         std::vector<std::string> getStartingTeleportIDList() const;
         int getEndingTeleportNumber() const;
