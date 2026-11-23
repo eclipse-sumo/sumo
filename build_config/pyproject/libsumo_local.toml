@@ -13,3 +13,7 @@ description = "The python version of the libsumo API to communicate with the tra
 
 [tool.hatch.build.targets.wheel]
 packages = ["tools/libsumo"]
+ignore-vcs = true
+
+[tool.hatch.build.targets.wheel.hooks.custom]
+path = "libsumo_local.py"
