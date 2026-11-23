@@ -40,6 +40,9 @@ nefz_energy_vtype
 # Battery model, load additional params from vTyperef
 nefz_energy_vtype_ref
 
+# Select the emission class from the loaded vType, refs #14281
+vtype_emission_class
+
 # output coasting decel
 coasting
 
