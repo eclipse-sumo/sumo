@@ -230,6 +230,7 @@
             <xsd:element name="remove-edges.input-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.in-boundary" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.in-geo-boundary" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="keep-edges.in-geo-boundary-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="keep-lanes.min-width" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
