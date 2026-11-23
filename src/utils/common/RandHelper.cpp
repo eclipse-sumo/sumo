@@ -20,12 +20,74 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <array>
+#include <cstdint>
 #include <ctime>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/SysUtils.h>
 #include "StdDefs.h"
 #include "Translation.h"
+#include "UtilExceptions.h"
 #include "RandHelper.h"
+
+
+namespace {
+using MTWord = std::uint32_t;
+constexpr std::size_t MT_SIZE = std::mt19937::state_size;
+constexpr MTWord MT_LOW_MASK = (MTWord{1} << std::mt19937::mask_bits) - 1;
+
+
+MTWord
+undoMTTwist(MTWord mixed) {
+    // The top bit of the twist result determines whether the xor mask was used.
+    const MTWord lowBit = mixed >> (std::mt19937::word_size - 1);
+    return ((mixed ^ (lowBit * static_cast<MTWord>(std::mt19937::xor_mask))) << 1) | lowBit;
+}
+
+
+void
+writePortableMTState(std::istream& input, std::ostream& output) {
+    std::array<MTWord, MT_SIZE> words;
+    for (MTWord& word : words) {
+        if (!(input >> word)) {
+            throw ProcessError(TL("Invalid random number generator state."));
+        }
+    }
+    // MSVC and libc++ already write the last MT_SIZE words in chronological order.
+    // libstdc++ writes a buffer and a cursor counting the consumed words in that buffer.
+    std::size_t cursor = MT_SIZE;
+    input >> std::ws;
+    if (!input.eof()) {
+        if (!(input >> cursor) || cursor > MT_SIZE || !(input >> std::ws).eof()) {
+            throw ProcessError(TL("Invalid random number generator state."));
+        }
+    }
+    if (cursor < MT_SIZE) {
+        // Recover the previous block's tail from the unused suffix of the current block.
+        // Reverse order keeps the recurrence's source words available in place.
+        for (std::size_t i = MT_SIZE; i-- > cursor;) {
+            const MTWord pair = undoMTTwist(words[i] ^ words[(i + std::mt19937::shift_size) % MT_SIZE]);
+            words[i] = pair & ~MT_LOW_MASK;
+            if (i + 1 < MT_SIZE) {
+                words[i + 1] |= pair & MT_LOW_MASK;
+            }
+        }
+        // The oldest word's low bits do not affect future draws. Recover them when possible
+        // so equivalent states written by different libraries have the same text.
+        if (cursor > 0) {
+            const std::size_t i = cursor - 1;
+            words[cursor] |= undoMTTwist(words[i] ^ words[(i + std::mt19937::shift_size) % MT_SIZE]) & MT_LOW_MASK;
+        }
+        std::rotate(words.begin(), words.begin() + cursor, words.end());
+    }
+    for (const MTWord word : words) {
+        output << word << ' ';
+    }
+    // A cursor at the end of the block makes libstdc++ start at the next twist.
+    // Readers of the chronological representation consume just the preceding words.
+    output << MT_SIZE;
+}
+}
 
 
 // debug vehicle movement randomness (dawdling in finalizeSpeed)
@@ -55,6 +117,48 @@ std::map<std::string, int> lastThreadIndex; // by rng
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
+std::string
+RandHelper::saveState(SumoRNG* rng) {
+    if (rng == nullptr) {
+        rng = &myRandomNumberGenerator;
+    }
+    std::ostringstream output;
+    output << rng->count;
+    if (rng->count >= SAVE_ONLY_COUNT) {
+        std::stringstream nativeState;
+        nativeState << *rng;
+        output << ' ';
+        writePortableMTState(nativeState, output);
+    }
+    return output.str();
+}
+
+
+void
+RandHelper::loadState(const std::string& state, SumoRNG* rng) {
+    if (rng == nullptr) {
+        rng = &myRandomNumberGenerator;
+    }
+    std::istringstream input(state);
+    unsigned long long count;
+    if (!(input >> count)) {
+        throw ProcessError(TL("Invalid random number generator state."));
+    }
+    if (count < SAVE_ONLY_COUNT) {
+        rng->discard(count);
+    } else {
+        std::stringstream portableState;
+        writePortableMTState(input, portableState);
+        std::mt19937 restored;
+        if (!(portableState >> restored)) {
+            throw ProcessError(TL("Invalid random number generator state."));
+        }
+        static_cast<std::mt19937&>(*rng) = restored;
+    }
+    rng->count = count;
+}
+
 
 void
 RandHelper::insertRandOptions(OptionsCont& oc) {

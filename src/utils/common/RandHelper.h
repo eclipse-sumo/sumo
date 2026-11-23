@@ -227,32 +227,11 @@ public:
         return v[rand((int)v.size(), rng)];
     }
 
-    /// @brief save rng state to string
-    static std::string saveState(SumoRNG* rng = nullptr) {
-        if (rng == nullptr) {
-            rng = &myRandomNumberGenerator;
-        }
-        std::ostringstream oss;
-        oss << rng->count;
-        if (rng->count >= SAVE_ONLY_COUNT) {
-            oss << " " << (*rng);
-        }
-        return oss.str();
-    }
+    /// @brief Save the RNG state in a format that can be loaded across platforms.
+    static std::string saveState(SumoRNG* rng = nullptr);
 
-    /// @brief load rng state from string
-    static void loadState(const std::string& state, SumoRNG* rng = nullptr) {
-        if (rng == nullptr) {
-            rng = &myRandomNumberGenerator;
-        }
-        std::istringstream iss(state);
-        iss >> rng->count;
-        if (rng->count < SAVE_ONLY_COUNT) {
-            rng->discard(rng->count);
-        } else {
-            iss >> (*rng);
-        }
-    }
+    /// @brief Restore a portable or legacy RNG state.
+    static void loadState(const std::string& state, SumoRNG* rng = nullptr);
 
     template<class T>
     static void shuffle(std::vector<T>& v, SumoRNG* rng = nullptr) {
