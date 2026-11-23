@@ -31,7 +31,7 @@ By default, clicking on an edge will inspect the edge object. To inspect individ
 
 After opening the network, junctions must be recomputed at least once (F5). Computation happens automatically when switching to connection mode or traffic light mode. After network computation, either of the following can be used to inspect and edit connection attributes while in inspect mode:
 
-- activate 'show connections' toggle button in the button bar (shortcut Alt + 5) and the left-click on a connection
+- Enable **Show connections over junctions** in the toolbar or the **Edit** menu, then click a connection. The **Edit** menu shows the shortcut for the current mode.
 - inspect an edge and then right-click a connection in the hierarchy view (lane->outgoing->connections) and select 'inspect'
 
 ## Inspecting Selections

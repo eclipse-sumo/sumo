@@ -89,7 +89,7 @@ The reverse operation to *Setting a custom geometry endpoint* as explained above
 ## Setting connection attributes
 
 1.  after opening the network press F5 to compute connection objects
-2.  in inspect-mode enable the *Show Connections* checkbox in the menu bar. (Alternatively, use the corresponding item in the *Edit menu* or press Alt+6)
+2.  In Inspect mode, [enable **Show connections over junctions**](editModesCommon.md#inspecting_connections).
 3.  click on a connection to inspect it and edit its attributes
 
 ## Converting an intersection into a roundabout
@@ -202,7 +202,7 @@ To change this, the following steps have to be taken:
 
 1. use inspect mode to set junction type to 'zipper'.
 2. use connection mode to add 2 connections which enter the zipper junction with the same target lane. The second connection must be created with <kbd>Ctrl</kbd> + <kbd>click</kbd> to override conflict protection.
-3. optionally: use inspect mode and enable 'show connections' (<kbd>Alt</kbd> + <kbd>5</kbd>). Click on the zipper connections (brown) and customize 'visibilityDistance' to set the range where vehicles start zipper merging.
+3. Optionally, in Inspect mode, [enable **Show connections over junctions**](editModesCommon.md#inspecting_connections). Click the zipper connections (brown) and set `visibilityDistance` to specify the range where vehicles start zipper merging.
 
 ![](../images/neteditZipper.png)
 
