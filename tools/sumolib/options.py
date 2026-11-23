@@ -273,6 +273,35 @@ class ArgumentParser(argparse.ArgumentParser):
         group.add_argument = handleCategoryWrapper(self, group.add_argument)
         return group
 
+    def format_help(self):
+        formatter = self._get_formatter()
+        formatter.add_usage(self.usage, self._actions, self._mutually_exclusive_groups)
+        formatter.add_text(self.description)
+
+        categories = {}
+        sections = []
+        for group in self._action_groups:
+            actions = group._group_actions
+            if group in (self._positionals, self._optionals):
+                uncategorized = []
+                for action in actions:
+                    category = getattr(action, "category", None)
+                    if category:
+                        categories.setdefault(str(category), []).append(action)
+                    else:
+                        uncategorized.append(action)
+                actions = uncategorized
+            sections.append((group.title, group.description, actions))
+        sections.extend((title, None, actions) for title, actions in categories.items())
+
+        for title, description, actions in sections:
+            formatter.start_section(title)
+            formatter.add_text(description)
+            formatter.add_arguments(actions)
+            formatter.end_section()
+        formatter.add_text(self.epilog)
+        return formatter.format_help()
+
     def _write_config_file(self, namespace, toString=False):
         if namespace.save_configuration:
             with openz(namespace.save_configuration, "w") as out:
