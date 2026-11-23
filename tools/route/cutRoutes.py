@@ -90,6 +90,8 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
     optParser.add_option("--default.departSpeed", default="max", dest="defaultDepartSpeed",
                          help="default departure speed for cut routes")
     optParser.add_option("--orig-net", help="complete network for retrieving edge lengths")
+    optParser.add_option("--vclass", choices=sorted(sumolib.net.lane.SUMO_VEHICLE_CLASSES), metavar="CLASS",
+                         help="treat edges that do not allow CLASS as outside the subnetwork")
     optParser.add_option("-b", "--big", action="store_true", default=False,
                          help="Perform out-of-memory sort using module sort_routes (slower but more memory efficient)")
     optParser.add_option("-d", "--disconnected-action", default='discard',
@@ -518,7 +520,7 @@ def main(options):
     if options.verbose:
         print("Reading reduced network from", options.network)
     net = readNet(options.network)
-    edges = set([e.getID() for e in net.getEdges()])
+    edges = {e.getID() for e in net.getEdges() if options.vclass is None or e.allows(options.vclass)}
     if options.orig_net is not None:
         if options.verbose:
             print("Reading original network from", options.orig_net)
