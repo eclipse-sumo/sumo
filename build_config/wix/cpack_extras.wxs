@@ -7,9 +7,7 @@
       * the `Sumo.Document` ProgId with the .sumocfg file association
         and "Set Program Access and Defaults" capability keys
 
-    All elements are pulled into the package via the
-    `SumoExtras` ComponentGroup which is added to the root feature
-    by `cpack_patch.xml`.
+    The installer features in `cpack_patch.xml` include these components.
 -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
@@ -263,6 +261,25 @@
                             Value="[INSTALL_ROOT]bin\netedit.exe,0" Type="string" />
                 <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\SumoNetedit.Document\shell\open\command"
                             Value="&quot;[INSTALL_ROOT]bin\netedit.exe&quot; -c &quot;%1&quot;" Type="string" />
+            </Component>
+        </ComponentGroup>
+
+        <ComponentGroup Id="SumoContextMenuEntries" Directory="INSTALL_ROOT">
+            <Component Id="SumoContextMenuVerbs" Guid="EED7ADFD-617D-4FD7-8CDB-E287B90A5EE0">
+                <RegistryKey Root="HKMU" Key="Software\Classes\SystemFileAssociations\.sumocfg\shell">
+                    <RegistryKey Key="Sumo.OpenWithGui">
+                        <RegistryValue Type="string" Value="Open with SUMO GUI" KeyPath="yes" />
+                        <RegistryValue Name="Icon" Type="string" Value="[INSTALL_ROOT]bin\sumo-gui.exe,0" />
+                        <RegistryValue Key="command" Type="string"
+                                       Value="&quot;[INSTALL_ROOT]bin\sumo-gui.exe&quot; -c &quot;%1&quot;" />
+                    </RegistryKey>
+                    <RegistryKey Key="Sumo.OpenWithNetedit">
+                        <RegistryValue Type="string" Value="Open with Netedit" />
+                        <RegistryValue Name="Icon" Type="string" Value="[INSTALL_ROOT]bin\netedit.exe,0" />
+                        <RegistryValue Key="command" Type="string"
+                                       Value="&quot;[INSTALL_ROOT]bin\netedit.exe&quot; -c &quot;%1&quot;" />
+                    </RegistryKey>
+                </RegistryKey>
             </Component>
         </ComponentGroup>
 
