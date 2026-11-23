@@ -1,0 +1,13 @@
+<additional>
+    <rerouter id="rr" edges="start">
+        <interval begin="0" end="10">
+            <destProbReroute id="keepDestination"/>
+        </interval>
+        <interval begin="10" end="20">
+            <destProbReroute id="terminateRoute"/>
+        </interval>
+        <interval begin="20" end="30">
+            <destProbReroute id="original"/>
+        </interval>
+    </rerouter>
+</additional>

@@ -1,0 +1,6 @@
+<routes>
+    <route id="originalRoute" edges="start original"/>
+    <vehicle id="keep" route="originalRoute" depart="0"/>
+    <vehicle id="terminate" route="originalRoute" depart="10"/>
+    <vehicle id="ordinary" route="originalRoute" depart="20"/>
+</routes>

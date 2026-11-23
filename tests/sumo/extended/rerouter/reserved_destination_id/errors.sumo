@@ -1,0 +1,2 @@
+Warning: Destination 'keepDestination' in rerouter 'rr' matches an edge ID and a special destination value. Using the edge.
+Warning: Destination 'terminateRoute' in rerouter 'rr' matches an edge ID and a special destination value. Using the edge.
