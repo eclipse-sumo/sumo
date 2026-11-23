@@ -297,9 +297,9 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
         # Shapes of the same route and direction can follow separate paths.
         shapes_dict = {shape: shape for shape in gtfs_data['shape_id'].unique()}
         filtered_stops = gtfs_data[['route_id', 'shape_id', 'stop_id',
-                                        'route_short_name', 'route_type',
-                                         'trip_headsign', 'direction_id',
-                                         'stop_name', 'stop_lat', 'stop_lon']].drop_duplicates()
+                                    'route_short_name', 'route_type',
+                                    'trip_headsign', 'direction_id',
+                                    'stop_name', 'stop_lat', 'stop_lon']].drop_duplicates()
     else:
         # If not using shapes, searches for the most common sequence of stops in a route.
         # Only the paths and stops of these main sequences are mapped. Creates 'shapes' with
