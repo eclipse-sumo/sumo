@@ -1,0 +1,3 @@
+Warning: Ignoring invalid access from non-pedestrian lane 'BC_0' in busStop 'stop'.
+Warning: Bus stop 'stop' is not connected to arrival edge 'BC' for person 'badWalk' walking from edge 'AB'. Skipping this plan.
+Warning: Bus stop 'stop' is not connected to arrival edge 'BC' for person 'badFlow' walking from edge 'AB'. Skipping this plan.

@@ -9,3 +9,6 @@ ticket18246
 
 # crash
 ticket18368
+
+# invalid pedestrian stop access with and without --ignore-route-errors
+ticket18623
