@@ -561,6 +561,9 @@
         <!-- Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;) -->
         <keep-edges.in-geo-boundary value="" type="STR[]"/>
 
+        <!-- Only keep edges within the longitude/latitude polygon in FILE. The file must contain one poly element. -->
+        <keep-edges.in-geo-boundary-file value="" type="FILE"/>
+
         <!-- Only keep lanes with width in meters &gt; FLOAT -->
         <keep-lanes.min-width value="0.01" type="FLOAT"/>
 
