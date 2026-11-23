@@ -121,6 +121,8 @@ def get_options(args=None):
                     help="random seed")
     op.add_argument("--weighted", dest="weighted", action="store_true", default=False,
                     help="Sample routes according to their probability (or count)")
+    op.add_argument("--allow-overflow", dest="allowOverflow", action="store_true", default=False,
+                    help="Allow exceeding measured edge and turn counts when this reduces total absolute count error")
     op.add_argument("--optimize",
                     help="set optimization method level (full, INT boundary)")
     op.add_argument("--optimize-input", dest="optimizeInput", action="store_true", default=False,
@@ -548,10 +550,9 @@ class CountData:
 
     def updateTurnRatioCounts(self, openRoutes, openCounts, updateSiblings=False):
         if self.isRatio:
-            total = self.getSiblingCount()
-            permitted = total * self.origCount + self.options.turnRatioAbsTolerance
-            if permitted > self.assignedCount:
-                self.count = permitted - self.assignedCount
+            remaining = self.remainingRatioCapacity()
+            if remaining > 0:
+                self.count = remaining
                 for rI in self.routeSet:
                     if rI not in openRoutes:
                         openRoutes.append(rI)
@@ -561,6 +562,9 @@ class CountData:
                 for cd2 in self.ratioSiblings:
                     if cd2 != self:
                         cd2.updateTurnRatioCounts(openRoutes, openCounts)
+
+    def remainingRatioCapacity(self):
+        return self.getSiblingCount() * self.origCount + self.options.turnRatioAbsTolerance - self.assignedCount
 
     def getSiblingCount(self):
         if not self.isRatio:
@@ -1051,11 +1055,16 @@ def hasODCount(cdIndices, countData):
     return False
 
 
+def getEligibleRoutes(options, candidateRoutes, routeUsage, countData, unrestricted):
+    eligible = [r for r in candidateRoutes if r not in unrestricted]
+    if options.odFiles and not options.extraOD:
+        eligible = [r for r in eligible if hasODCount(routeUsage[r], countData)]
+    return eligible
+
+
 def initOpen(options, routes, routeUsage, countData, unrestricted):
     openRoutes = updateOpenRoutes(range(0, routes.number), routeUsage, countData)
-    openRoutes = [r for r in openRoutes if r not in unrestricted]
-    if options.odFiles and not options.extraOD:
-        openRoutes = [r for r in openRoutes if hasODCount(routeUsage[r], countData)]
+    openRoutes = getEligibleRoutes(options, openRoutes, routeUsage, countData, unrestricted)
     openCounts = updateOpenCounts(range(0, len(countData)), countData, openRoutes)
     return openRoutes, openCounts
 
@@ -1124,6 +1133,10 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         routeCounts = optimize(options, countData, routes, routeCounts, routeUsage, intervalCount, rng)
         resetCounts(routeCounts, routeUsage, countData)
         numSampled = sum(routeCounts)
+
+    if options.allowOverflow and options.optimize != "full" and not options.noSampling:
+        numSampled = sampleOverflowRoutes(options, rng, routes, countData, routeUsage,
+                                          unrestricted, numSampled, intervalCount, routeCounts)
 
     if intervalCount is not None and numSampled < intervalCount:
         if unrestricted:
@@ -1300,6 +1313,43 @@ def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCo
                     openCounts = [c for c in openCounts if c not in closedCounts]
 
     return routeCounts, numSampled
+
+
+def sampleOverflowRoutes(options, rng, routes, countData, routeUsage,
+                         unrestricted, numSampled, intervalCount, routeCounts):
+    """Sample additional routes that strictly reduce the sum of absolute count errors."""
+    candidates = set()
+    for cd in countData:
+        if not cd.isRatio and cd.count > 0:
+            candidates.update(cd.routeSet)
+    eligible = getEligibleRoutes(options, sorted(candidates), routeUsage, countData, unrestricted)
+    if options.weighted:
+        eligible = [r for r in eligible if routes.probabilities[r] > 0]
+
+    fixedCounts = [cd for cd in countData if cd.isOrigin or cd.isDest or cd.isTaz]
+    ratioCounts = [cd for cd in countData if cd.isRatio]
+    localCounts = [cd for cd in countData if not (cd.isOrigin or cd.isDest or cd.isTaz or cd.isRatio)]
+    while eligible and (intervalCount is None or numSampled < intervalCount):
+        overflow = {cd.index for cd in localCounts if cd.count <= 0}
+        if not overflow:
+            break
+        closedCounts = {cd.index for cd in fixedCounts if cd.count <= 0}
+        closedCounts.update(cd.index for cd in ratioCounts if cd.remainingRatioCapacity() <= 0)
+        # A non-ratio count is integral, so one more route reduces its error by one
+        # below the target and increases its error by one at or above the target.
+        gains = [0 if cd.isRatio else (1 if cd.count > 0 else -1) for cd in countData]
+        improving = [r for r in eligible if overflow.intersection(routeUsage[r])
+                     and not closedCounts.intersection(routeUsage[r])
+                     and sum(gains[i] for i in routeUsage[r]) > 0]
+        if not improving:
+            break
+        routeIndex = (_sample_skewed(improving, rng, routes.probabilities) if options.weighted
+                      else rng.choice(improving))
+        routeCounts[routeIndex] += 1
+        numSampled += 1
+        for i in routeUsage[routeIndex]:
+            countData[i].use()
+    return numSampled
 
 
 def writeRoutes(options, rng, outf, routes, routeCounts, begin, end, intervalPrefix):

@@ -272,6 +272,10 @@ By setting the option **--weighted**. The sampling algorithm is changed. For eac
 
 until all counting locations have reached their measured count or there are no viable routes (routes which have all their passed counting locations below the input count)
 
+### Allowing Overflow
+
+With **--allow-overflow**, routeSampler runs an additional sampling pass after ordinary sampling and any bounded optimization. It may exceed a measured edge or turn count when adding a route reduces the sum of absolute count errors. Total, origin-destination, departure, arrival, and turn-ratio restrictions still apply. **--weighted** also applies to this pass.
+
 ## Optimization
 By default, routes will be sampled from the input route set until no further routes can be added without exceeding one of the counts. This may still leave some counts below their target values.
 
@@ -322,7 +326,7 @@ There is a range of reasons that could lead to a deviation between the routeSamp
 ### Textual quality metrics
 
 - underflow locations: Statistics on all counting locations with less traffic than defined in the input
-- overflow locations: Statistics on all counting locations with more traffic than defined in the input (only happens due to rounding of fractional counts after optimization)
+- overflow locations: Statistics on all counting locations with more traffic than defined in the input. Overflow can result from **--allow-overflow** or from rounding fractional counts after optimization.
 - [GEH](https://en.wikipedia.org/wiki/GEH_statistic) statistics: Statistics on locations that reach a defined GEH threshold (configurable with option **--geh-ok**, default *5*)
 - total number and percentage of matched counts (note that this is distinct from the number of vehicles since each vehicle may be counted multiple times)
 
