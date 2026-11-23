@@ -958,6 +958,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         }
         nbe->updateParameters(e->getParametersMap());
         nbe->setDistance(distanceStart);
+        nbe->setRoundaboutGuessExcluded(e->myRoundaboutGuessExcluded);
         if (e->myAmInRoundabout) {
             // ensure roundabout edges have the precedence
             nbe->setJunctionPriority(to, NBEdge::JunctionPriority::ROUNDABOUT);
@@ -1017,6 +1018,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         }
         nbe->updateParameters(e->getParametersMap());
         nbe->setDistance(distanceEnd);
+        nbe->setRoundaboutGuessExcluded(e->myRoundaboutGuessExcluded);
         if (e->myAmInRoundabout) {
             // ensure roundabout edges have the precedence
             nbe->setJunctionPriority(from, NBEdge::JunctionPriority::ROUNDABOUT);
@@ -1973,6 +1975,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
         if (key == "highway" || key == "railway" || key == "waterway" || StringUtils::startsWith(key, "cycleway")
                 || key == "busway" || key == "route" || StringUtils::startsWith(key, "sidewalk") || key == "highspeed"
                 || key == "aeroway" || key == "aerialway" || key == "usage" || key == "service") {
+            if (key == "highway" && (value == "service" || StringUtils::endsWith(value, "_link"))) {
+                myCurrentEdge->myRoundaboutGuessExcluded = true;
+            }
             // build type id
             if (key != "highway" || myTypeCont.knows(key + "." + value)) {
                 myCurrentEdge->myCurrentIsRoad = true;
@@ -2237,6 +2242,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             }
             if (value == "roundabout") {
                 myCurrentEdge->myAmInRoundabout = true;
+            } else if (value == "circular") {
+                myCurrentEdge->myRoundaboutGuessExcluded = true;
+                myCurrentEdge->setParameter("osm.junction", value);
             }
         } else if (key == "oneway") {
             myCurrentEdge->myIsOneWay = value;

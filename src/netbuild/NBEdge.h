@@ -1436,6 +1436,14 @@ public:
         return myIsBidi;
     }
 
+    void setRoundaboutGuessExcluded(bool excluded) {
+        myRoundaboutGuessExcluded = excluded;
+    }
+
+    bool isRoundaboutGuessExcluded() const {
+        return myRoundaboutGuessExcluded;
+    }
+
 
     /// @brief set the routingType for this edge
     void setRoutingType(const std::string& routingType) {
@@ -1860,6 +1868,9 @@ private:
 
     /// @brief whether this edge is part of a non-rail bidi edge pair
     bool myIsBidi;
+
+    /// @brief True when way metadata excludes this edge from inferred roundabouts.
+    bool myRoundaboutGuessExcluded = false;
 
     /// @brief The routing type of the edge
     std::string myRoutingType;
