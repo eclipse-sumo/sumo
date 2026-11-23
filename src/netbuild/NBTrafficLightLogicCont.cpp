@@ -170,6 +170,14 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
         delete *it;
     }
     myComputed.clear();
+    if (oc.getBool("tls.reset-type")) {
+        const TrafficLightType defaultType = SUMOXMLDefinitions::TrafficLightTypes.get(oc.getString("tls.default-type"));
+        for (NBTrafficLightDefinition* def : getDefinitions()) {
+            if (def->getType() != TrafficLightType::RAIL_SIGNAL && def->getType() != TrafficLightType::RAIL_CROSSING) {
+                def->setType(defaultType);
+            }
+        }
+    }
     if (oc.getBool("tls.rebuild")) {
         for (NBTrafficLightDefinition* def : getDefinitions()) {
             NBLoadedSUMOTLDef* lDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);

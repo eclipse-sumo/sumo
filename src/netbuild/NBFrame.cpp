@@ -642,6 +642,8 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     // tls type
     oc.doRegister("tls.default-type", new Option_String("static"));
     oc.addDescription("tls.default-type", "TLS Building", TL("TLSs with unspecified type will use STR as their algorithm"));
+    oc.doRegister("tls.reset-type", new Option_Bool(false));
+    oc.addDescription("tls.reset-type", "TLS Building", TL("Set existing road traffic light programs to the type given by --tls.default-type"));
 
     oc.doRegister("tls.layout", new Option_String("opposites"));
     oc.addDescription("tls.layout", "TLS Building", TL("Set phase layout four grouping opposite directions or grouping all movements for one incoming edge ['opposites', 'incoming']"));
@@ -792,9 +794,16 @@ bool
 NBFrame::checkOptions(OptionsCont& oc) {
     bool ok = true;
     //
-    if (!SUMOXMLDefinitions::TrafficLightTypes.hasString(oc.getString("tls.default-type"))) {
-        WRITE_ERRORF(TL("unsupported value '%' for option '--tls.default-type'"), oc.getString("tls.default-type"));
+    const std::string defaultTLType = oc.getString("tls.default-type");
+    if (!SUMOXMLDefinitions::TrafficLightTypes.hasString(defaultTLType)) {
+        WRITE_ERRORF(TL("unsupported value '%' for option '--tls.default-type'"), defaultTLType);
         ok = false;
+    } else if (oc.getBool("tls.reset-type")) {
+        const TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(defaultTLType);
+        if (type == TrafficLightType::RAIL_SIGNAL || type == TrafficLightType::RAIL_CROSSING) {
+            WRITE_ERRORF(TL("Option '--tls.reset-type' requires a road traffic light type. '%' is a railway type."), defaultTLType);
+            ok = false;
+        }
     }
     if (oc.isSet("keep-edges.in-boundary") && oc.isSet("keep-edges.in-geo-boundary")) {
         WRITE_ERROR(TL("only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-boundary' may be given"));

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2008-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
@@ -7,10 +6,14 @@
 # https://www.eclipse.org/legal/epl-2.0/
 # This Source Code may also be made available under the following Secondary
 # Licenses when the conditions for such availability set forth in the Eclipse
-# Public License 2.0 are satisfied. GNU General Public License, version 2
+# Public License 2.0 are satisfied: GNU General Public License, version 2
 # or later which is available at
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+
+# @file    runner.py
+# @author  Josh
+# @date    2026-11-26
 
 import subprocess
 from xml.etree import ElementTree as ET
@@ -26,8 +29,8 @@ programs = ET.Element("tlLogics")
 for index, name in enumerate(("road", "other")):
     x = 500 * index
     for node, dx, y, node_type in (("center", 0, 0, "traffic_light"),
-                                  ("west", -100, 0, "priority"), ("east", 100, 0, "priority"),
-                                  ("south", 0, -100, "priority"), ("north", 0, 100, "priority")):
+                                   ("west", -100, 0, "priority"), ("east", 100, 0, "priority"),
+                                   ("south", 0, -100, "priority"), ("north", 0, 100, "priority")):
         ET.SubElement(nodes, "node", id=name if node == "center" else name + node,
                       x=str(x + dx), y=str(y), type=node_type)
     for direction, incoming, outgoing in (("horizontal", "west", "east"), ("vertical", "south", "north")):

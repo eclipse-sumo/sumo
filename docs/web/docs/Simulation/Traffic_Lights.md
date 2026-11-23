@@ -138,6 +138,8 @@ perform the following call:
 netconvert -s orig.net.xml --o new.net.xml --tls.rebuild --tls.default-type actuated
 ```
 
+Use **--tls.reset-type** to change the type of existing road traffic light programs and reuse their phase sequences, durations and offsets. The option uses **--tls.default-type**, which defaults to `static`. The selected controller must support the loaded phases and parameters. Add **--tls.rebuild** to generate new phase plans for that controller.
+
 ### Adapting fixed timings (green split) to known traffic
 
 [tlsCycleAdaptation.py](../Tools/tls.md#tlscycleadaptationpy)
