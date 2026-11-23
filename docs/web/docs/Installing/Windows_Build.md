@@ -102,7 +102,7 @@ You might not to edit your `CMakeCache.txt` to use the selfmade libraries.
 ## vcpkg support
 
 If you cannot use SUMOLibraries or want to build from source (maybe for different platforms
-or because you want to anble or disable certain features in the libraries),
+or because you want to enable or disable certain features in the libraries),
 you can also try to build against vcpkg.
 The setup follows those basic steps.
 ```bash
