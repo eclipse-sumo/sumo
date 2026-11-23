@@ -22,6 +22,7 @@
 #pragma once
 #include <config.h>
 
+#include <optional>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/distribution/RandomDistributor.h>
 
@@ -41,6 +42,14 @@ class Position;
  */
 class GUISettingsHandler : public SUMOSAXHandler {
 public:
+    struct WindowSettings {
+        std::optional<bool> showStatusLine;
+        std::optional<bool> showMessageWindow;
+        std::optional<bool> showSimulationTime;
+        std::optional<bool> showSimulationDelay;
+        int messageWindowHeight = 0;
+    };
+
     /** @brief Constructor
      * @param[in] file the file to parse
      */
@@ -129,6 +138,10 @@ public:
         return myViewType;
     }
 
+    const WindowSettings& getWindowSettings() const {
+        return myWindowSettings;
+    }
+
     RandomDistributor<std::string> getEventDistribution(const std::string& id);
     double getJamSoundTime() {
         return myJamSoundTime;
@@ -143,6 +156,8 @@ public:
     }
 
 private:
+    WindowSettings myWindowSettings;
+
     /// @brief pointer to App
     FXApp* myApp;
 

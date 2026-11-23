@@ -2010,8 +2010,23 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             }
             if (ec->mySettingsFiles.size() > 0 && (!myIsReload || myGuiSettingsFileMTime < mTime || ec->mySettingsFiles.size() > 1)) {
                 // open a view for each file and apply settings
+                const auto applyVisibility = [](FXWindow* window, const std::optional<bool>& show) {
+                    if (show == true) {
+                        window->show();
+                    } else if (show == false) {
+                        window->hide();
+                    }
+                };
                 for (std::string fname : ec->mySettingsFiles) {
                     GUISettingsHandler settings(getApp(), fname);
+                    const auto& windowSettings = settings.getWindowSettings();
+                    applyVisibility(myStatusbar, windowSettings.showStatusLine);
+                    applyVisibility(myMessageWindow, windowSettings.showMessageWindow);
+                    applyVisibility(myToolBar3, windowSettings.showSimulationTime);
+                    applyVisibility(myToolBar4, windowSettings.showSimulationDelay);
+                    if (windowSettings.messageWindowHeight > 0) {
+                        myMainSplitter->setSplit(1, windowSettings.messageWindowHeight);
+                    }
                     GUISUMOViewParent::ViewType vt = defaultType;
                     if (settings.getViewType() == "osg" || settings.getViewType() == "3d") {
                         vt = GUISUMOViewParent::VIEW_3D_OSG;

@@ -14,6 +14,11 @@
                 <xsd:element name="light" type="lightType" minOccurs="0"/>
             </xsd:choice>
             <xsd:attribute name="type" type="xsd:string" use="optional"/>
+            <xsd:attribute name="showStatusLine" type="boolType" use="optional"/>
+            <xsd:attribute name="showMessageWindow" type="boolType" use="optional"/>
+            <xsd:attribute name="showSimulationTime" type="boolType" use="optional"/>
+            <xsd:attribute name="showSimulationDelay" type="boolType" use="optional"/>
+            <xsd:attribute name="messageWindowHeight" type="xsd:positiveInteger" use="optional"/>
         </xsd:complexType>
     </xsd:element>
 
