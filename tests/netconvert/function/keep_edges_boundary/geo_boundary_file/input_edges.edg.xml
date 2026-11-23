@@ -1,0 +1,4 @@
+<edges>
+    <edge id="inside" from="A" to="B"/>
+    <edge id="outside" from="C" to="D"/>
+</edges>

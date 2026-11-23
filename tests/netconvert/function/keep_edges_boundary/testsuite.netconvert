@@ -27,6 +27,7 @@ geo_boundary
 
 # test with sumo net as input
 geo_boundary2
+geo_boundary_file
 
 # keep edges in a triangular boundary
 polygon

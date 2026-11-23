@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23T14:05:18.051336+00:00 by Eclipse SUMO netconvert v1_28_0+0759-22f87a6fede
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <edge_removal>
+        <keep-edges.in-geo-boundary-file value="input_shapes.add.xml"/>
+    </edge_removal>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-400871.00,-5816527.97" convBoundary="0.00,0.00,678.93,13.68" origBoundary="13.540000,52.490000,13.570000,52.490000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="inside" from="A" to="B" priority="-1">
+        <lane id="inside_0" index="0" speed="13.89" length="679.07" shape="-0.03,12.08 678.90,-1.60"/>
+    </edge>
+
+    <junction id="A" type="dead_end" x="0.00" y="13.68" incLanes="" intLanes="" shape="0.00,13.68 -0.06,10.48"/>
+    <junction id="B" type="dead_end" x="678.93" y="0.00" incLanes="inside_0" intLanes="" shape="678.87,-3.20 678.93,0.00"/>
+
+</net>
