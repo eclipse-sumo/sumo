@@ -43,26 +43,42 @@ SUMOTime DELTA_T = 1000;
 // method definitions
 // ===========================================================================
 
-SUMOTime
-string2time(const std::string& r) {
+static SUMOTime
+parseTime(const std::string& r, bool* rounded) {
     if (r.find(":") == std::string::npos) {
         const double time = StringUtils::toDouble(r);
         if (time > STEPS2TIME(SUMOTime_MAX)) {
             throw TimeFormatException("Input string '" + r + "' exceeds the time value range.");
         }
-        return TIME2STEPS(time);
+        const SUMOTime result = TIME2STEPS(time);
+        if (rounded != nullptr && STEPS2TIME(result) != time) {
+            *rounded = true;
+        }
+        return result;
     } else {
         // try to parse dd:hh:mm:ss.s
         std::vector<std::string> hrt = StringTokenizer(r, ":").getVector();
         if (hrt.size() == 3) {
-            //std::cout << "parsed '" << r << "' as " << (3600 * string2time(hrt[0]) + 60 * string2time(hrt[1]) + string2time(hrt[2])) << "\n";
-            return 3600 * string2time(hrt[0]) + 60 * string2time(hrt[1]) + string2time(hrt[2]);
+            return 3600 * parseTime(hrt[0], rounded) + 60 * parseTime(hrt[1], rounded) + parseTime(hrt[2], rounded);
         } else if (hrt.size() == 4) {
-            //std::cout << "parsed '" << r << "' as " << (24 * 3600 * string2time(hrt[0]) + 3600 * string2time(hrt[1]) + 60 * string2time(hrt[2]) + string2time(hrt[3])) << "\n";
-            return 24 * 3600 * string2time(hrt[0]) + 3600 * string2time(hrt[1]) + 60 * string2time(hrt[2]) + string2time(hrt[3]);
+            return 24 * 3600 * parseTime(hrt[0], rounded) + 3600 * parseTime(hrt[1], rounded)
+                   + 60 * parseTime(hrt[2], rounded) + parseTime(hrt[3], rounded);
         }
         throw TimeFormatException("Input string '" + r + "' is not a valid time format (jj:HH:MM:SS.S).");
     }
+}
+
+
+SUMOTime
+string2time(const std::string& r) {
+    return parseTime(r, nullptr);
+}
+
+
+SUMOTime
+string2time(const std::string& r, bool& rounded) {
+    rounded = false;
+    return parseTime(r, &rounded);
 }
 
 
