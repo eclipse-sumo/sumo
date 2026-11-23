@@ -362,7 +362,7 @@ class Builder(object):
             seed = 42
             for vehicle in sorted(self.data["vehicles"].keys()):
                 options = self.data["vehicles"][vehicle]
-                self.report(self.TL("Processing %s") % self.TL(vehicleNames[vehicle]))
+                vehicleName = self.TL(vehicleNames[vehicle])
 
                 self.filename("route", ".%s.rou.xml" % vehicle)
                 self.filename("trips", ".%s.trips.xml" % vehicle)
@@ -370,6 +370,7 @@ class Builder(object):
                 try:
                     options = self.parseTripOpts(vehicle, options, self.data["publicTransport"])
                 except ZeroDivisionError:
+                    self.report(self.TL("Processing %s") % vehicleName)
                     continue
 
                 if vehicle == "pedestrian" and self.data["publicTransport"]:
@@ -383,12 +384,18 @@ class Builder(object):
                 options += ["--seed", str(seed)]
                 seed += 1
 
+                failure = None
                 try:
-                    randomTrips.main(randomTrips.get_options(options))
-                except ValueError:
+                    if not randomTrips.main(randomTrips.get_options(options)):
+                        failure = self.TL("Trips could not be generated as requested.")
+                except ValueError as error:
+                    failure = str(error)
+                if failure is not None:
                     print("Could not generate %s traffic" % vehicle, file=sys.stderr)
+                    self.report(self.TL("Could not generate %s traffic: %s") % (vehicleName, failure))
                     continue
 
+                self.report(self.TL("Processing %s") % vehicleName)
                 randomTripsCalls.append(options)
 
                 # --validate is not called for pedestrians
