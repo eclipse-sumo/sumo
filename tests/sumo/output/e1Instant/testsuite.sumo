@@ -24,3 +24,6 @@ persons
 
 # filter detector vehicles by their oupcoming route
 nextEdges
+
+# detectors on several lanes write to one file with --threads (#17003)
+threads
