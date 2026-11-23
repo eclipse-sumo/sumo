@@ -1,0 +1,10 @@
+<meandata>
+    <interval begin="0" end="5">
+        <edge id="start" traveltime="10"/>
+        <edge id="end" traveltime="100"/>
+    </interval>
+    <interval begin="5" end="100">
+        <edge id="start" traveltime="10"/>
+        <edge id="end" traveltime="10"/>
+    </interval>
+</meandata>
