@@ -122,6 +122,8 @@ python tools/route/cutRoutes.py reduced.net.xml orig.rou.xml
 
 Filtering stopping places is also supported by setting the options **--additional-input** and **--stops-output**.
 
+Use **--disconnected-action jump** with **--routes-output** to preserve a vehicle or flow when its route leaves the reduced network and re-enters it. The tool inserts a jump stop before each omitted section. It estimates the jump duration from edge exit times or the original network when available. Otherwise it uses a duration of zero. Disconnected pedestrian plans are discarded.
+
 # cutTrips.py
 
 This script cuts down trips from a large scenario to a sub-scenario.
