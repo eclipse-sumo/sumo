@@ -1,0 +1,15 @@
+<routes>
+    <person id="badWalk" depart="0">
+        <walk edges="AB" arrivalPos="5"/>
+        <walk edges="AB BC" busStop="stop">
+            <param key="stage" value="invalid"/>
+        </walk>
+        <walk edges="CD"/>
+    </person>
+    <personFlow id="badFlow" begin="1" end="2" number="1">
+        <personTrip from="AB" to="BC" busStop="stop"/>
+    </personFlow>
+    <person id="goodWalk" depart="3">
+        <walk edges="AB" arrivalPos="15"/>
+    </person>
+</routes>
