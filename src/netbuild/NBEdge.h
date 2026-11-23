@@ -1041,6 +1041,9 @@ public:
      */
     bool isConnectedTo(const NBEdge* e, const bool ignoreTurnaround = false) const;
 
+    /// @brief Whether a loaded connection deletion still has to be applied.
+    bool hasPendingConnectionRemoval(const NBEdge* to) const;
+
     /** @brief Returns the connections
      * @return This edge's connections to following edges
      */

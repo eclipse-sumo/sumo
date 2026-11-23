@@ -244,7 +244,7 @@ For each public transport stop, at most two signals will be added:
 
 By also setting option **--railway.signal.guess.by-stops.split** the edges will be split in order create suitable rail_signal nodes near the stop location. This also ensures that switches remain uncontrolled.
 
-The minimum distance of 200m between the two signals can be customized with option **--osm.stop-outout.length.train**.
+The minimum distance of 200m between the two signals can be customized with option **--osm.stop-output.length.train**. This distance also limits the search for a nearby signal on the same track as a proposed signal. If an existing signal already guards the continuation away from the stop, the proposed signal is omitted. The search stops at switches and rail crossings, and retains the proposed signal when the existing signal leaves a relevant direction uncontrolled.
 
 ### Placement
 
