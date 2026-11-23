@@ -128,7 +128,7 @@ public:
     Position getPositionInView() const;
 
     /// @brief write data set
-    void writeDataSet(OutputDevice& device) const;
+    void writeDataSet(OutputDevice& device, const FileBucket* bucket) const;
 
     /// @name Function related with contour drawing
     /// @{

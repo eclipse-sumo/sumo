@@ -26,6 +26,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
@@ -41,14 +42,27 @@ GNEEdgeData::GNEEdgeData(GNENet* net) :
 }
 
 
-GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edge, const Parameterised::Map& parameters) :
-    GNEGenericData(GNE_TAG_EDGEREL_SINGLE, dataIntervalParent, parameters) {
+GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edge, const Parameterised::Map& parameters, FileBucket* fileOverride) :
+    GNEGenericData(GNE_TAG_EDGEREL_SINGLE, dataIntervalParent, parameters),
+    myFileOverride(fileOverride) {
     // set parents
     setParent<GNEEdge*>(edge);
 }
 
 
 GNEEdgeData::~GNEEdgeData() {}
+
+
+FileBucket*
+GNEEdgeData::getFileBucket() const {
+    return myFileOverride ? myFileOverride : GNEGenericData::getFileBucket();
+}
+
+
+FileBucket*
+GNEEdgeData::getFileOverride() const {
+    return myFileOverride;
+}
 
 
 RGBColor
@@ -273,6 +287,8 @@ GNEEdgeData::getAttribute(SumoXMLAttr key) const {
             return getPartialID() + getParentEdges().front()->getID();
         case GNE_ATTR_DATASET:
             return myDataIntervalParent->getDataSetParent()->getID();
+        case GNE_ATTR_SAVEFILE:
+            return myFileOverride ? myFileOverride->getFilename() : "";
         case SUMO_ATTR_BEGIN:
             return myDataIntervalParent->getAttribute(SUMO_ATTR_BEGIN);
         case SUMO_ATTR_END:
@@ -328,7 +344,20 @@ GNEEdgeData::getHierarchyName() const {
 
 void
 GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value) {
-    setCommonAttribute(key, value);
+    if (key == GNE_ATTR_SAVEFILE) {
+        auto* files = myNet->getGNEApplicationWindow()->getFileBucketHandler();
+        auto* bucket = value.empty() ? nullptr : files->getBucket(FileBucket::Type::DATA, value, true, false);
+        if (myFileOverride) {
+            myFileOverride->removeElement(isTemplate());
+        }
+        myFileOverride = bucket;
+        if (myFileOverride) {
+            myFileOverride->addElement(isTemplate());
+        }
+        files->updateOptions();
+    } else {
+        setCommonAttribute(key, value);
+    }
     if (!isTemplate()) {
         myDataIntervalParent->getDataSetParent()->updateAttributeColors();
     }

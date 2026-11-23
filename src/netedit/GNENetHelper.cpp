@@ -2177,6 +2177,14 @@ GNENetHelper::AttributeCarriers::insertGenericData(GNEGenericData* genericData) 
         throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' already exist");
     } else {
         myGenericDatas.at(genericData->getTagProperty()->getTag()).insert(std::make_pair(genericData->getGUIGlObject(), genericData));
+        if (auto* edgeData = dynamic_cast<GNEEdgeData*>(genericData)) {
+            if (auto* bucket = edgeData->getFileOverride()) {
+                bucket->addElement(false);
+                if (bucket->getNumElements() == 1) {
+                    myNet->getGNEApplicationWindow()->getFileBucketHandler()->updateOptions();
+                }
+            }
+        }
     }
     // mark interval toolbar for update
     myNet->getViewNet()->getIntervalBar().markForUpdate();
@@ -2190,6 +2198,14 @@ GNENetHelper::AttributeCarriers::deleteGenericData(GNEGenericData* genericData) 
         throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' wasn't previously inserted");
     } else {
         myGenericDatas.at(genericData->getTagProperty()->getTag()).erase(finder);
+        if (auto* edgeData = dynamic_cast<GNEEdgeData*>(genericData)) {
+            if (auto* bucket = edgeData->getFileOverride()) {
+                bucket->removeElement(false);
+                if (bucket->getNumElements() == 0) {
+                    myNet->getGNEApplicationWindow()->getFileBucketHandler()->updateOptions();
+                }
+            }
+        }
     }
     // remove it from inspected elements and GNEElementTree
     myNet->getViewNet()->getInspectedElements().uninspectAC(genericData);

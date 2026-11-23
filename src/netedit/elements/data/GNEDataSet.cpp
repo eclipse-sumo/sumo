@@ -208,9 +208,15 @@ GNEDataSet::getPositionInView() const {
 
 
 void
-GNEDataSet::writeDataSet(OutputDevice& device) const {
-    // iterate over intervals
+GNEDataSet::writeDataSet(OutputDevice& device, const FileBucket* bucket) const {
     for (const auto& interval : myDataIntervalChildren) {
+        const auto& records = interval.second->getGenericDataChildren();
+        if (!(records.empty() && bucket == getFileBucket())
+                && std::none_of(records.begin(), records.end(), [bucket](const GNEGenericData* record) {
+                    return record->getFileBucket() == bucket;
+                })) {
+            continue;
+        }
         // open device
         device.openTag(SUMO_TAG_INTERVAL);
         // write ID
@@ -220,9 +226,10 @@ GNEDataSet::writeDataSet(OutputDevice& device) const {
         // write end
         device.writeAttr(SUMO_ATTR_END, interval.second->getAttribute(SUMO_ATTR_END));
         // iterate over interval generic datas
-        for (const auto& genericData : interval.second->getGenericDataChildren()) {
-            // write generic data
-            genericData->writeGenericData(device);
+        for (const auto* genericData : records) {
+            if (genericData->getFileBucket() == bucket) {
+                genericData->writeGenericData(device);
+            }
         }
         // close device
         device.closeTag();

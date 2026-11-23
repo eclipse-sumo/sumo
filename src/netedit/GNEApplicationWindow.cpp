@@ -4695,6 +4695,9 @@ GNEApplicationWindow::onCmdSaveDataElementsUnified(FXObject* sender, FXSelector 
         for (const auto& dataSet : myNet->getAttributeCarriers()->getDataSets()) {
             dataSet.second->setAttribute(GNE_ATTR_SAVEFILE, dataFileDialog.getFilename(), myUndoList);
         }
+        for (const auto& edgeData : myNet->getAttributeCarriers()->getGenericDatas().at(GNE_TAG_EDGEREL_SINGLE)) {
+            edgeData.second->setAttribute(GNE_ATTR_SAVEFILE, "", myUndoList);
+        }
         // end undoList operation
         myUndoList->end();
         // save data elements

@@ -40,7 +40,13 @@ public:
      * @param[in] edge pointer to Edge parent
      * @param[in] parameters parameters map
      */
-    GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edge, const Parameterised::Map& parameters);
+    GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edge, const Parameterised::Map& parameters, FileBucket* fileOverride);
+
+    /// @brief return the assigned file or the data set file
+    FileBucket* getFileBucket() const override;
+
+    /// @brief return an explicit file assignment, if present
+    FileBucket* getFileOverride() const;
 
     /// @brief Destructor
     ~GNEEdgeData();
@@ -158,6 +164,8 @@ public:
     /// @}
 
 private:
+    FileBucket* myFileOverride = nullptr;
+
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value) override;
 

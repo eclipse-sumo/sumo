@@ -2575,7 +2575,7 @@ GNEApplicationWindowHelper::FileBucketHandler::getDefaultBucket(const FileBucket
 
 
 FileBucket*
-GNEApplicationWindowHelper::FileBucketHandler::getBucket(const FileBucket::Type type, const std::string& filename, const bool create) {
+GNEApplicationWindowHelper::FileBucketHandler::getBucket(const FileBucket::Type type, const std::string& filename, const bool create, const bool useDefault) {
     // iterate over all buckets to check if the given filename already exist
     for (auto& bucketMap : myBuckets) {
         for (auto& bucket : bucketMap.second) {
@@ -2587,7 +2587,7 @@ GNEApplicationWindowHelper::FileBucketHandler::getBucket(const FileBucket::Type 
     // on this point, we need to check if create a new bucket
     if (create) {
         // if the default bucket is empty, but not the filename, update the default bucket
-        if (getDefaultFilename(type).empty() && (filename.size() > 0)) {
+        if (useDefault && getDefaultFilename(type).empty() && !filename.empty()) {
             setDefaultFilenameFile(type, filename);
             return getDefaultBucket(type);
         } else {
