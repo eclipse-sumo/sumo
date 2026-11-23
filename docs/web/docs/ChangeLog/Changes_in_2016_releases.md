@@ -119,7 +119,7 @@ title: Changes in the 2016 releases (versions 0.26.0, 0.27.0, 0.27.1 and 0.28.0)
   - Added new option **--window-size** {{DT_INT}},{{DT_INT}} for specifying the initial window size. #2514
   - Added new visualization setting for drawing right-of-way rules
     (colored bars).
-  - [Background images (decals)](../sumo-gui.md#showing_background_images) now
+  - [Background images (decals)](../View_Settings.md#showing_background_images) now
     support the new Boolean attribute *screenRelative*. When set to
     *true*, position and size are relative to the drawing window
     instead of being relative to the network. #2438
