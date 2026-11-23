@@ -1,0 +1,10 @@
+<additional>
+    <route id="r" edges="beg"/>
+    <calibrator id="c" edge="beg" pos="0" freq="1">
+        <flow begin="20" end="25" route="r" vehsPerHour="1440"/>
+        <flow begin="100" end="105" route="r" vehsPerHour="1440"/>
+        <flow begin="140" end="150" speed="8"/>
+        <flow begin="160" end="170" route="r" vehsPerHour="0"/>
+        <flow begin="180" end="190" route="r" vehsPerHour="1"/>
+    </calibrator>
+</additional>

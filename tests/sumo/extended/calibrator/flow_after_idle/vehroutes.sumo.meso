@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="c.20.0" depart="21.00" arrival="39.00">
+        <route edges="beg"/>
+    </vehicle>
+
+    <vehicle id="c.20.1" depart="23.00" arrival="41.00">
+        <route edges="beg"/>
+    </vehicle>
+
+    <vehicle id="c.100.0" depart="101.00" arrival="119.00">
+        <route edges="beg"/>
+    </vehicle>
+
+    <vehicle id="c.100.1" depart="103.00" arrival="121.00">
+        <route edges="beg"/>
+    </vehicle>
+
+</routes>
