@@ -1,0 +1,14 @@
+<routes>
+    <vType id="bus" vClass="bus"/>
+    <route id="shared" edges="start end"/>
+    <route id="plain" edges="start end"/>
+    <vehicle id="named" type="bus" route="shared" depart="0">
+        <stop busStop="existing" duration="4"/>
+    </vehicle>
+    <vehicle id="namedWithoutStops" type="bus" route="shared" depart="50"/>
+    <vehicle id="simple" type="bus" route="plain" depart="100"/>
+    <vehicle id="inline" type="bus" depart="150">
+        <route edges="start end"/>
+        <stop busStop="existing" duration="6"/>
+    </vehicle>
+</routes>

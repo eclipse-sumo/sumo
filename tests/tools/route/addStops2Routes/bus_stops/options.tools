@@ -1,0 +1,1 @@
+-n input_net.net.xml -r input_routes.rou.xml --bus-stops input_additional.add.xml --duration 10 -o out.rou.xml
