@@ -1,0 +1,2 @@
+Error: Load the SUMO network file 'input_net.net.xml' with --sumo-net-file (-s). --node-files (-n) expects PlainXML nodes.
+Quitting (on error).
