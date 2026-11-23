@@ -40,6 +40,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSVehicleControl.h>
+#include <utils/foxtools/MFXComboBoxIcon.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/Helper.h>
 #include <libsumo/GUI.h>
@@ -153,7 +154,14 @@ GUI::setOffset(const std::string& viewID, double x, double y) {
 
 void
 GUI::setSchema(const std::string& viewID, const std::string& schemeName) {
-    getView(viewID)->setColorScheme(schemeName);
+    GUISUMOAbstractView* const view = getView(viewID);
+    if (view->setColorScheme(schemeName)) {
+        MFXComboBoxIcon* const schemes = view->getColoringSchemesCombo();
+        const int index = schemes->findItem(schemeName.c_str());
+        if (index >= 0) {
+            schemes->setCurrentItem(index);
+        }
+    }
 }
 
 
