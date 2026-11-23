@@ -652,12 +652,17 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
     }
     ConstMSEdgeVector edges;
     const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : TIME2STEPS(depart);
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = routingMode == ROUTING_MODE_AGGREGATED ? MSRoutingEngine::getRouterTT(0, vehicle->getVClass()) : MSNet::getInstance()->getRouterTT(0);
+    MSNet* const net = MSNet::getInstance();
+    const bool byEffort = routingMode == ROUTING_MODE_EFFORT;
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& travelTimeRouter = routingMode == ROUTING_MODE_AGGREGATED
+            ? MSRoutingEngine::getRouterTT(0, vehicle->getVClass()) : net->getRouterTT(0);
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = byEffort ? net->getRouterEffort(0) : travelTimeRouter;
     router.compute(fromEdge, departPos, toEdge, arrivalPos, vehicle, dep, edges);
     for (const MSEdge* e : edges) {
         result.edges.push_back(e->getID());
     }
-    result.travelTime = result.cost = router.recomputeCostsPos(edges, vehicle, departPos, arrivalPos, dep, &result.length);
+    result.cost = router.recomputeCostsPos(edges, vehicle, departPos, arrivalPos, dep, &result.length);
+    result.travelTime = byEffort ? travelTimeRouter.recomputeCostsPos(edges, vehicle, departPos, arrivalPos, dep) : result.cost;
     result.arrivalPos = arrivalPos;
     result.departPos = departPos;
     if (vehicle != nullptr) {

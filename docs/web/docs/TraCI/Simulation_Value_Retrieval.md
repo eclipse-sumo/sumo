@@ -71,7 +71,7 @@ Some further messages require additional parameters.
 | ----------------------------- | ---------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | position conversion (0x82)    | compound, see below    | Position, as wished  | Reads a position information and returns it converted into the given representation.                                                                                 | [convert2D](https://sumo.dlr.de/pydoc/traci/_simulation.html#SimulationDomain.convert2D) [convert3D](https://sumo.dlr.de/pydoc/traci/_simulation.html#SimulationDomain.convert3D) [convertGeo](https://sumo.dlr.de/pydoc/traci/_simulation.html#SimulationDomain.convertGeo) [convertRoad](https://sumo.dlr.de/pydoc/traci/_simulation.html#SimulationDomain.convertRoad) |
 | distance request (0x83)       | compound, see below    | double               | Reads two positions and an indicator whether the air or the driving distance shall be computed. Returns the according distance.                                       | [getDistanceRoad](https://sumo.dlr.de/pydoc/traci/_simulation.html#SimulationDomain.getDistanceRoad) [getDistance2D](https://sumo.dlr.de/pydoc/traci/_simulation.html#SimulationDomain.getDistance2D)                                                       |
-| find route (0x86)             | compound, see below    | compound, see below  | Reads origin and destination edge together with some vehicle parameters and computes the currently fastest driving route for the vehicle (for pedestrians / passengers use find intermodal route). | [findRoute](https://sumo.dlr.de/pydoc/traci/_simulation.html#SimulationDomain.findRoute)                                                                                                                                                    |
+| find route (0x86)             | compound, see below    | compound, see below  | Reads origin and destination edge together with some vehicle parameters and computes a driving route for the vehicle. For pedestrians or passengers, use find intermodal route. | [findRoute](https://sumo.dlr.de/pydoc/traci/_simulation.html#SimulationDomain.findRoute)                                                                                                                                                    |
 | find intermodal route (0x87)  | compound, see below    | compound, see below  | Reads origin and destination position together with usable modes and other person parameters and computes the currently fastest route for the person using the available modes. | [findIntermodalRoute](https://sumo.dlr.de/pydoc/traci/_simulation.html#SimulationDomain.findIntermodalRoute)                                                                                                                                  |
 | get collisions (0x23)         | -                      | compound, see below  | Retrieves details on all collision events in the last time step. Collision detection is disabled by default (**--collision.action none**).                            | [getCollisions](https://sumo.dlr.de/pydoc/traci/_simulation.html#SimulationDomain.getCollisions)                                                                                                                                                            |
 
@@ -129,13 +129,13 @@ The following response is returned:
 
 |      type + string      |  type + string   | type + stringList |  type + double  |  type + double  |
 | :---------------------: | :--------------: | :---------------: | :-------------: | :-------------: |
-| type (always "driving") | line (always "") |       edges       | travel time (s) | travel time (s) |
+| type (always "driving") | line (always "") |       edges       | travel time (s) | route cost      |
 
 !!! note
     The python and C++ client return a namedtuple / struct with field names *stageType, line, destStop, edges, travelTime, cost*.
 
 !!! note
-    The seemingly unused/redundant fields are reserved for route-by-cost and intermodal routing (see below).
+    Intermodal routing uses the other stage fields (see below).
 
 ### Command 0x87: Find Intermodal Route
 
