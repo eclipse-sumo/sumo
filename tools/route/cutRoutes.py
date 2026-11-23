@@ -502,6 +502,12 @@ def write_trip(file, vehicle):
 
 
 def write_route(file, vehicle):
+    elements = [vehicle]
+    if isinstance(vehicle.route, list):
+        elements.extend(vehicle.route)
+    for element in elements:
+        if element.hasAttribute("routeLength"):
+            element.routeLength = None
     file.write(vehicle.toXML(u'    '))
 
 
@@ -591,7 +597,7 @@ def main(options):
         with io.open(options.pt_output if options.pt_output else options.pt_input + ".cut", 'w', encoding="utf8") as f:
             writeHeader(f, os.path.basename(__file__), 'routes', options=options)
             for _, v in cut_routes(edges, orig_net, options, busStopEdges, None, oldPTRoutes, True):
-                f.write(v.toXML(u'    '))
+                write_route(f, v)
                 if v.name == "route":
                     ptExternalRoutes[v.id] = v.edges.split()
                 elif isinstance(v.route, list):

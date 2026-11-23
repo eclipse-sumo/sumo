@@ -122,6 +122,8 @@ python tools/route/cutRoutes.py reduced.net.xml orig.rou.xml
 
 Filtering stopping places is also supported by setting the options **--additional-input** and **--stops-output**.
 
+The route output omits `routeLength` measurements from the input because they describe the original routes.
+
 # cutTrips.py
 
 This script cuts down trips from a large scenario to a sub-scenario.
