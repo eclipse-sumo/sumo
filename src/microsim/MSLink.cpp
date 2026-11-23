@@ -1424,7 +1424,9 @@ MSLink::writeApproaching(OutputDevice& od, const std::string fromLaneID) const {
         for (auto it : myApproachingVehicles) {
             toSort.push_back(std::make_pair(it.second.arrivalTime, it.first));
         }
-        std::sort(toSort.begin(), toSort.end());
+        std::sort(toSort.begin(), toSort.end(), [](const std::pair<SUMOTime, const SUMOVehicle*>& a, const std::pair<SUMOTime, const SUMOVehicle*>& b) {
+            return a.first < b.first || (a.first == b.first && a.second->getNumericalID() < b.second->getNumericalID());
+        });
         for (std::vector<std::pair<SUMOTime, const SUMOVehicle*> >::const_iterator it = toSort.begin(); it != toSort.end(); ++it) {
             od.openTag("approaching");
             const ApproachingVehicleInformation& avi = myApproachingVehicles.find(it->second)->second;
