@@ -55,9 +55,11 @@ try:
     traci.vehicle.setSpeed("ego", 0)
 
     traci.vehicle.subscribe("ego", [tc.VAR_SPEED])
+    assert tc.VAR_SPEED in traci.vehicle.getAllSubscriptionResults()["ego"]
     traci.vehicle.subscribeContext("ego", tc.CMD_GET_VEHICLE_VARIABLE, 100, [tc.VAR_SPEED])
     traci.vehicle.unsubscribe("ego")
     check_live_context()
+    assert "ego" not in traci.vehicle.getAllSubscriptionResults()
     print("Removing an earlier subscription preserves filter ownership")
 
     traci.vehicle.unsubscribeContext("ego", tc.CMD_GET_VEHICLE_VARIABLE, 100)
