@@ -250,7 +250,9 @@ MSLCHelper::updateBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int l
                   << "\n";
     }
 #endif
-    if (blocker != nullptr && (blocker->getLaneChangeModel().getOwnState() & lcaCounter) != 0) {
+    // a blocker on another edge is seen as it was before deciding
+    const bool otherEdge = blocker != nullptr && MSAbstractLaneChangeModel::onOtherEdge(blocker);
+    if (blocker != nullptr && ((otherEdge ? blocker->getLaneChangeModel().getDecisionState() : blocker->getLaneChangeModel().getOwnState()) & lcaCounter) != 0) {
         // is there enough space in front of us for the blocker?
         const double required = blocker->getVehicleType().getLengthWithGap() + veh.getVehicleType().getMinGap();
         const double potential = leftSpace - veh.getCarFollowModel().brakeGap(
@@ -274,7 +276,9 @@ MSLCHelper::updateBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int l
             // space for ego instead
             const double required2 = veh.getVehicleType().getLengthWithGap() + blocker->getVehicleType().getMinGap();
             const double foeLeftSpace = leftSpace - veh.getPositionOnLane() + blocker->getPositionOnLane() - POSITION_EPS;
-            const bool canReserve = blocker->getLaneChangeModel().saveBlockerLength(required2, foeLeftSpace);
+            const bool canReserve = (otherEdge
+                                     ? blocker->getLaneChangeModel().saveBlockerLengthLater(required2, foeLeftSpace)
+                                     : blocker->getLaneChangeModel().saveBlockerLength(required2, foeLeftSpace));
             //reliefConnection ? std::numeric_limits<double>::max() : leftSpace);
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
             if (DEBUG_COND) {
@@ -291,7 +295,7 @@ MSLCHelper::updateBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int l
             }
 #endif
             if (!canReserve && !reliefConnection) {
-                const int blockerState = blocker->getLaneChangeModel().getOwnState();
+                const int blockerState = otherEdge ? blocker->getLaneChangeModel().getDecisionState() : blocker->getLaneChangeModel().getOwnState();
                 if ((blockerState & LCA_STRATEGIC) != 0
                         && (blockerState & LCA_URGENT) != 0) {
                     // reserve anyway and try to avoid deadlock with emergency deceleration

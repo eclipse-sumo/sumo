@@ -966,6 +966,22 @@ MSEdge::changeLanes(SUMOTime t) const {
 }
 
 
+void
+MSEdge::decideLaneChanges() const {
+    if (myLaneChanger != nullptr) {
+        myLaneChanger->decideLaneChanges();
+    }
+}
+
+
+void
+MSEdge::applyDeferredLaneChangeWrites() const {
+    if (myLaneChanger != nullptr) {
+        myLaneChanger->applyDeferredWrites();
+    }
+}
+
+
 const MSEdge*
 MSEdge::getInternalFollowingEdge(const MSEdge* followerAfterInternal, SUMOVehicleClass vClass) const {
     //@todo to be optimized

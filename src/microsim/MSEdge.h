@@ -619,6 +619,12 @@ public:
     /** @brief Performs lane changing on this edge */
     void changeLanes(SUMOTime t) const;
 
+    /// @brief decide the lane changes on this edge without executing them (see MSLaneChanger)
+    void decideLaneChanges() const;
+
+    /// @brief apply the writes to vehicles on other edges from decideLaneChanges
+    void applyDeferredLaneChangeWrites() const;
+
 
     /// @todo extension: inner junctions are not filled
     const MSEdge* getInternalFollowingEdge(const MSEdge* followerAfterInternal, SUMOVehicleClass vClass) const;

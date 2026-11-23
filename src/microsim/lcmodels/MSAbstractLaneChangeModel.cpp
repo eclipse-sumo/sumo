@@ -79,6 +79,28 @@ MSAbstractLaneChangeModel::initGlobalOptions(const OptionsCont& oc) {
 }
 
 
+thread_local const MSEdge* MSAbstractLaneChangeModel::myDecidingEdge = nullptr;
+thread_local std::vector<std::function<void()> >* MSAbstractLaneChangeModel::myDeferredWrites = nullptr;
+
+
+bool
+MSAbstractLaneChangeModel::onOtherEdge(const MSVehicle* veh) {
+    return myDecidingEdge != nullptr && &veh->getLane()->getEdge() != myDecidingEdge;
+}
+
+
+void*
+MSAbstractLaneChangeModel::deliver(MSVehicle* receiver, void* info, MSVehicle* sender) {
+    if (onOtherEdge(receiver)) {
+        myDeferredWrites->push_back([receiver, info, sender]() {
+            receiver->getLaneChangeModel().inform(info, sender);
+        });
+        return (void*) true;
+    }
+    return receiver->getLaneChangeModel().inform(info, sender);
+}
+
+
 MSAbstractLaneChangeModel*
 MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
     if (MSGlobals::gLateralResolution > 0 && lcm != LaneChangeModel::SL2015 && lcm != LaneChangeModel::DEFAULT) {
@@ -110,6 +132,7 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myOwnState(0),
     myPreviousState(0),
     myPreviousState2(0),
+    myDecisionState(0),
     myCanceledStateRight(LCA_NONE),
     myCanceledStateCenter(LCA_NONE),
     myCanceledStateLeft(LCA_NONE),
@@ -291,11 +314,17 @@ MSAbstractLaneChangeModel::avoidOvertakeRight(const MSVehicle* const neighLeader
     return (!myAllowOvertakingRight  // the highway case
             && !myVehicle.congested()
             && myVehicle.getVehicleType().getVehicleClass() != SVC_EMERGENCY
-            && (!allowProb || myOvertakeRightParam == 0 || myOvertakeRightParam < RandHelper::rand(myVehicle.getRNG()))) ||
+            && (!allowProb || myOvertakeRightParam == 0 || myOvertakeRightParam < RandHelper::rand(getDecisionRNG()))) ||
            (neighLeader != nullptr && neighLeader->isStopped()  // the bus stop case
             && neighLeader->getStops().front().busstop != nullptr
             && !StringUtils::toBool(neighLeader->getStops().front().busstop->getParameter("allowOvertakeRight", "true")));
 }
+
+SumoRNG*
+MSAbstractLaneChangeModel::getDecisionRNG() const {
+    return myDecidingEdge != nullptr ? myDecidingEdge->getLanes()[0]->getRNG() : myVehicle.getRNG();
+}
+
 
 bool
 MSAbstractLaneChangeModel::predInteraction(const std::pair<MSVehicle*, double>& leader) {

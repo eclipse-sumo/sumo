@@ -4847,6 +4847,8 @@ MSVehicle::executeMove() {
             }
 #endif
         }
+        // vehicles deciding on other edges see this state (MSLaneChanger::decideLaneChanges)
+        myLaneChangeModel->saveDecisionState();
         myLaneChangeModel->setPreviousAngleOffset(myLaneChangeModel->getAngleOffset());
         myAngle = computeAngle();
     }
