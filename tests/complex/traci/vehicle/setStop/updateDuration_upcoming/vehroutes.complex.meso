@@ -35,9 +35,9 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="ego" depart="0.00" arrival="96.00">
+    <vehicle id="ego" depart="0.00" arrival="98.00">
         <route edges="SC CN"/>
-        <stop busStop="bs" duration="30.00"/>
+        <stop busStop="bs" duration="60.00"/>
     </vehicle>
 
 </routes>
