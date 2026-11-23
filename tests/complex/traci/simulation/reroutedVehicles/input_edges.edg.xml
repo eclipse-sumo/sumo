@@ -1,0 +1,8 @@
+<edges>
+    <edge id="start" from="a" to="b"/>
+    <edge id="upper" from="b" to="upper"/>
+    <edge id="lower" from="b" to="lower"/>
+    <edge id="upperEnd" from="upper" to="c"/>
+    <edge id="lowerEnd" from="lower" to="c"/>
+    <edge id="end" from="c" to="d"/>
+</edges>
