@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23 09:13:08.836943 by Eclipse SUMO cutRoutes.py v1_28_0+0760-e6c47fc05b8
+<configuration>
+    <routes-output value="out.rou.xml"/>
+    <orig-net value="net2.net.xml"/>
+    <disconnected-action value="jump"/>
+    <network value="input_net.net.xml"/>
+    <routeFiles value="input_routes.rou.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="inline" depart="0.00">
+        <route edges="a c e"/>
+        <stop lane="a_0" endPos="50" duration="2"/>
+        <stop duration="0" edge="a" jump="11.00"/>
+        <stop duration="0" edge="c" jump="13.00"/>
+        <stop edge="e" endPos="20" duration="2"/>
+    </vehicle>
+    <vehicle id="reference" depart="60.00">
+        <route edges="a c e"/>
+        <stop duration="0" edge="a" jump="10.00"/>
+        <stop lane="c_0" endPos="40" duration="2"/>
+        <stop duration="0" edge="c" jump="10.00"/>
+        <stop edge="e" endPos="70" duration="3"/>
+    </vehicle>
+    <flow id="flow" begin="120.00" end="180.00" number="1">
+        <route edges="a c e"/>
+        <stop duration="0" edge="a" jump="10.00"/>
+        <stop lane="c_0" endPos="40" duration="2"/>
+        <stop duration="0" edge="c" jump="10.00"/>
+    </flow>
+    <vehicle id="connected" depart="160.00">
+        <route edges="e"/>
+    </vehicle>
+</routes>

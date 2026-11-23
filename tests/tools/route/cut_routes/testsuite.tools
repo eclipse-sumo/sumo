@@ -7,6 +7,9 @@ keep_disconnected
 
 # Using keep_disconnected with original net, tests correct departure offsets for different route parts.
 keep_disconnected_with_original_net
+
+# Join separated route sections using jump stops.
+jump
 exitTimes
 
 # test extrapolating new departure times using the original network
