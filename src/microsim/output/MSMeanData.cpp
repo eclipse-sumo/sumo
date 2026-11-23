@@ -498,7 +498,9 @@ MSMeanData::init() {
                     myMeasures.back().push_back(new MeanDataValueTracker(lane, lane->getLength(), this));
                 }
             } else {
-                myMeasures.back().push_back(createValues(lane, lane->getLength(), true));
+                MeanDataValues* const data = createValues(lane, lane->getLength(), true);
+                lane->addReminderToPartialVehicles(data);
+                myMeasures.back().push_back(data);
             }
         }
     }
