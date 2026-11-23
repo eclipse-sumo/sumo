@@ -24,3 +24,6 @@ changeCurrent
 
 # force changing to a lane that does not continue the route
 lane_deadend
+
+# A pending maneuver must keep the following gap clear for insertion
+insertion_reservation
