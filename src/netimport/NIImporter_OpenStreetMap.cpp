@@ -532,7 +532,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     if ((extraDis & SVC_BUS) && (extra & SVC_BUS)) {
         extra = extra & ~SVC_BUS;
     }
-    SVCPermissions permissions = (defaultPermissions & ~extraDis) | extra;
+    // A mode-specific allowance can override a general motor vehicle restriction.
+    constexpr SVCPermissions motorVehicleClasses = SVC_ROAD_MOTOR_CLASSES | SVC_PRIVATE | SVC_EMERGENCY
+            | SVC_AUTHORITY | SVC_ARMY | SVC_VIP;
+    const SVCPermissions motorVehicleDisallowed = e->myMotorVehicleProhibited ? motorVehicleClasses : 0;
+    SVCPermissions permissions = (defaultPermissions & ~(extraDis | motorVehicleDisallowed)) | extra;
     if (!myImportBikeAccess && permissions == (SVC_PEDESTRIAN | SVC_BICYCLE)
             && (e->myExtraDisallowed & SVC_BICYCLE) != 0
             && (e->myExtraAllowed & SVC_BICYCLE) == 0) {
@@ -1948,6 +1952,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "railway:track_ref"
                 && key != "usage"
                 && key != "access"
+                && key != "motor_vehicle"
                 && key != "emergency"
                 && key != "service"
                 && key != "electrified"
@@ -2136,6 +2141,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             } catch (const BoolFormatException&) {
                 myCurrentEdge->myExtraAllowed |= SVC_AUTHORITY | SVC_EMERGENCY;
             }
+        } else if (key == "motor_vehicle") {
+            myCurrentEdge->myMotorVehicleProhibited = value == "no";
         } else if (key == "access") {
             if (value == "no") {
                 myCurrentEdge->myExtraDisallowed |= ~(SVC_PUBLIC_CLASSES | SVC_EMERGENCY | SVC_AUTHORITY);
