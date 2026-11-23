@@ -79,6 +79,8 @@ protected:
      */
     virtual void myStartElement(int element,
                                 const SUMOSAXAttributes& attrs) override;
+
+    void myEndElement(int element) override;
     //@}
 
     /** @brief Called for parsing from and to and the corresponding taz attributes
@@ -240,6 +242,9 @@ protected:
     bool myStartTriggeredInFlow;
 
 private:
+    /// @brief Stack depth of a discarded transportable, or zero during normal parsing.
+    std::size_t myDiscardedTransportableDepth = 0;
+
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
     void deleteActivePlanAndVehicleParameter();
 
