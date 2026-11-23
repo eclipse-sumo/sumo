@@ -78,6 +78,7 @@ the following formats:
 - multiple sumo networks (.net.xml) may be merged by giving a list of files: **--sumo-net-file FILE1,FILE2**. The offsets will be handled automatically for geo-referenced network data
 - To merge nodes and edges which occupy the same location but have different ids, the options **--junctions.join-same FLOAT --edges.join** can be set. It may be useful to combine this with option **--geometry.split** to create additional attachment points (or see below for an alternative). When using **--geometry.split** it is recommended to call netconvert a second time with **--geometry.remove** afterwards.
 - If a network was processed with option **--geometry.remove**, this may have removed intermediate junctions that would be needed when merging networks (i.e. when later adding roads with a lower road class). If the network provides edge param `removedNodeIds` (which is accomplished by combining **--geometry.remove** with **--output.removed-nodes**), then option **--junctions.attach-removed FLOAT** can be used to split edges as need and re-attach the merged roads.
+- Add **--geometry.remove.ignore-crossings** to discard pedestrian crossings at nodes removed by **--geometry.remove**. Signal-controlled junctions and crossings at retained nodes keep their usual protection.
 
 ## Export
 
@@ -254,6 +255,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--dismiss-vclasses** {{DT_BOOL}} | Removes vehicle class restrictions from imported edges; *default:* **false** |
 | **--geometry.split** {{DT_BOOL}} | Splits edges across geometry nodes; *default:* **false** |
 | **-R** {{DT_BOOL}}<br> **--geometry.remove** {{DT_BOOL}} | Replace nodes which only define edge geometry by geometry points (joins edges); *default:* **false** |
+| **--geometry.remove.ignore-crossings** {{DT_BOOL}} | Allow --geometry.remove to discard pedestrian crossings at otherwise removable nodes; *default:* **false** |
 | **--geometry.remove.keep-edges.explicit** {{DT_STR_LIST}} | Ensure that the given list of edges is not modified |
 | **--geometry.remove.keep-edges.input-file** {{DT_FILE}} | Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported) |
 | **--geometry.remove.keep-ptstops** {{DT_BOOL}} | Ensure that edges with public transport stops are not modified; *default:* **false** |

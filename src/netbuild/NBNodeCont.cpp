@@ -468,6 +468,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
                                 NBParkingCont& pc,
                                 bool removeGeometryNodes) {
     const OptionsCont& oc = OptionsCont::getOptions();
+    const bool ignoreCrossings = removeGeometryNodes && oc.getBool("geometry.remove.ignore-crossings");
     // load edges that shall not be modified
     std::set<std::string> edges2keep;
     if (removeGeometryNodes) {
@@ -500,7 +501,8 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
         NBNode* const current = i.second;
         bool remove = false;
         // check for completely empty nodes and check for nodes which are only geometry nodes and ask the node whether to join
-        if (current->getEdges().empty() || (removeGeometryNodes && mySplit.count(current) == 0 && current->checkIsRemovable())) {
+        if (current->getEdges().empty() || (removeGeometryNodes && mySplit.count(current) == 0
+                                          && current->checkIsRemovable(ignoreCrossings))) {
             remove = true;
             // check whether any of the edges must be kept
             for (NBEdge* const it_edge : current->getEdges()) {
@@ -514,11 +516,21 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
         if (!remove) {
             continue;
         }
+        if (ignoreCrossings) {
+            current->discardAllCrossings(false);
+        }
         for (const std::pair<NBEdge*, NBEdge*>& j : current->getEdgesToJoin()) {
             NBEdge* const begin = j.first;
             NBEdge* const continuation = j.second;
             begin->append(continuation);
-            continuation->getToNode()->replaceIncoming(continuation, begin, 0);
+            NBNode* const destination = continuation->getToNode();
+            destination->replaceIncoming(continuation, begin, 0);
+            if (ignoreCrossings) {
+                // Retain crossings at the far end of the removed edge.
+                for (const auto& crossing : destination->getCrossingsIncludingInvalid()) {
+                    std::replace(crossing->edges.begin(), crossing->edges.end(), continuation, begin);
+                }
+            }
             auto itTL = tlsLookup.find(continuation);
             if (itTL != tlsLookup.end()) {
                 for (NBTrafficLightDefinition* tls : itTL->second) {

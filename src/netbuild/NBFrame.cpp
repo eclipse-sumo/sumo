@@ -173,6 +173,8 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.doRegister("geometry.remove", 'R', new Option_Bool(false));
     oc.addSynonyme("geometry.remove", "remove-geometry", true);
     oc.addDescription("geometry.remove", "Processing", TL("Replace nodes which only define edge geometry by geometry points (joins edges)"));
+    oc.doRegister("geometry.remove.ignore-crossings", new Option_Bool(false));
+    oc.addDescription("geometry.remove.ignore-crossings", "Processing", TL("Allow --geometry.remove to discard pedestrian crossings at otherwise removable nodes"));
 
     oc.doRegister("geometry.remove.keep-edges.explicit", new Option_StringVector());
     oc.addDescription("geometry.remove.keep-edges.explicit", "Processing", TL("Ensure that the given list of edges is not modified"));

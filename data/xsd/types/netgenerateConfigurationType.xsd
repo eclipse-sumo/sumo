@@ -129,6 +129,7 @@
             <xsd:element name="kept-ids" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="geometry.split" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="geometry.remove" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.remove.ignore-crossings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="geometry.remove.keep-edges.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="geometry.remove.keep-edges.input-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="geometry.remove.min-length" type="floatOptionType" minOccurs="0"/>

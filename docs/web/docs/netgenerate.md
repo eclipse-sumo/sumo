@@ -159,6 +159,7 @@ the offsets given).
 | **--kept-ids** {{DT_FILE}} | Ensures that objects with typed IDs from FILE (sumo-gui selection file format) are not renamed |
 | **--geometry.split** {{DT_BOOL}} | Splits edges across geometry nodes; *default:* **false** |
 | **-R** {{DT_BOOL}}<br> **--geometry.remove** {{DT_BOOL}} | Replace nodes which only define edge geometry by geometry points (joins edges); *default:* **false** |
+| **--geometry.remove.ignore-crossings** {{DT_BOOL}} | Allow --geometry.remove to discard pedestrian crossings at otherwise removable nodes; *default:* **false** |
 | **--geometry.remove.keep-edges.explicit** {{DT_STR_LIST}} | Ensure that the given list of edges is not modified |
 | **--geometry.remove.keep-edges.input-file** {{DT_FILE}} | Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported) |
 | **--geometry.remove.min-length** {{DT_FLOAT}} | Allow merging edges with differing attributes when their length is below min-length; *default:* **0** |
