@@ -104,7 +104,7 @@ PCLoaderArcView::toShape(OGRLineString* geom, const std::string& tid) {
     PositionVector shape;
 #if GDAL_VERSION_MAJOR < 3
     for (int j = 0; j < geom->getNumPoints(); j++) {
-        Position pos(geom->getX(j), geom->getY(j));
+        Position pos(geom->getX(j), geom->getY(j), geom->getZ(j));
 #else
     for (const OGRPoint& p : *geom) {
         Position pos(p.getX(), p.getY(), p.Is3D() ? p.getZ() : 0.0);
@@ -238,7 +238,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
             case wkbPoint:
             case wkbPoint25D: {
                 OGRPoint* cgeom = (OGRPoint*) poGeometry;
-                Position pos(cgeom->getX(), cgeom->getY());
+                Position pos(cgeom->getX(), cgeom->getY(), cgeom->getZ());
                 if (!geoConvHelper.x2cartesian(pos)) {
                     WRITE_ERRORF(TL("Unable to project coordinates for POI '%'."), id);
                 }
@@ -272,7 +272,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 OGRMultiPoint* cgeom = (OGRMultiPoint*) poGeometry;
                 for (int i = 0; i < cgeom->getNumGeometries(); ++i) {
                     OGRPoint* cgeom2 = (OGRPoint*) cgeom->getGeometryRef(i);
-                    Position pos(cgeom2->getX(), cgeom2->getY());
+                    Position pos(cgeom2->getX(), cgeom2->getY(), cgeom2->getZ());
                     const std::string tid = id + "#" + toString(i);
                     if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_ERRORF(TL("Unable to project coordinates for POI '%'."), tid);
