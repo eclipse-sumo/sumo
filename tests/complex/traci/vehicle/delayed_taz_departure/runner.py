@@ -26,9 +26,10 @@ import sumolib  # noqa
 import traci  # noqa
 
 
-def check_case(name, change_time, release_time, pre_period, expected_start, expected_end):
+def check_case(name, change_time, release_time, pre_period, expected_start, expected_end,
+               route_file="input_routes.rou.xml"):
     traci.start([sumolib.checkBinary("sumo"), "-n", "input_net.net.xml",
-                 "-r", "input_routes.rou.xml", "-a", "input_additional.add.xml",
+                 "-r", route_file, "-a", "input_additional.add.xml",
                  "--device.rerouting.probability", "1", "--device.rerouting.period", "0",
                  "--device.rerouting.pre-period", str(pre_period), "--device.rerouting.with-taz", "true",
                  "--device.rerouting.adaptation-interval", "1", "--time-to-teleport", "-1",
@@ -70,3 +71,4 @@ def check_case(name, change_time, release_time, pre_period, expected_start, expe
 check_case("delayed departure", 20, 30, 10, "a", "d2")
 check_case("pre-insertion origin selection", 5, 30, 10, "b", "d2")
 check_case("disabled pre-insertion rerouting", 20, 30, 0, "a", "d1")
+check_case("fixed destination edge", 20, 30, 10, "a", "d1", "input_routes2.rou.xml")

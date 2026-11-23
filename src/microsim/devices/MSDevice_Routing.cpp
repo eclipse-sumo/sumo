@@ -209,11 +209,14 @@ bool
 MSDevice_Routing::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         if (myRerouteCommand == nullptr && myPreInsertionPeriod > 0 && myHolder.getDepartDelay() > myPreInsertionPeriod) {
-            // pre-insertion rerouting was disabled. Reroute from the departure edge if insertion was delayed
+            // Insertion has already chosen a lane. Keep the route origin and allow a new destination TAZ edge.
+            const MSEdge* const sink = MSRoutingEngine::withTaz()
+                                      ? MSEdge::dictionary(myHolder.getParameter().toTaz + "-sink")
+                                      : nullptr;
             // this is happening in the run thread (not inbeginOfTimestepEvents) so we cannot safely use the threadPool
             myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), "device.rerouting",
                              MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass()),
-                             true, MSRoutingEngine::withTaz(), false);
+                             true, false, false, sink);
         }
         // build repetition trigger if routing shall be done more often
         rebuildRerouteCommand(SIMSTEP + myPeriod);
