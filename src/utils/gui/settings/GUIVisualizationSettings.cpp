@@ -663,6 +663,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(FXApp* app, const std::string
     diffuse3DLight(OSG_color_DIFFUSE),
     skyColor(OSG_color_SKY),
     showSizeLegend(true),
+    legendFontSize(DEFAULT_LEGEND_FONT_SIZE),
     showColorLegend(false),
     showVehicleColorLegend(false),
     gaming(false),
@@ -2319,6 +2320,9 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     // legend
     dev.openTag(SUMO_TAG_VIEWSETTINGS_LEGEND);
     dev.writeAttr("showSizeLegend", showSizeLegend);
+    if (legendFontSize != DEFAULT_LEGEND_FONT_SIZE) {
+        dev.writeAttr("legendFontSize", legendFontSize);
+    }
     dev.writeAttr("showColorLegend", showColorLegend);
     dev.writeAttr("showVehicleColorLegend", showVehicleColorLegend);
     dev.closeTag();
@@ -2680,7 +2684,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
 
-    if (showSizeLegend != v2.showSizeLegend) {
+    if (showSizeLegend != v2.showSizeLegend || legendFontSize != v2.legendFontSize) {
         return false;
     }
     if (showColorLegend != v2.showColorLegend) {

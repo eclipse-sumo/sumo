@@ -915,6 +915,8 @@ Note, that the gui-settings-file obtained this way only contain
 information about the viewport (zoom and offset), delay, breakpoints and
 decals if the corresponding check-boxes are activated before saving.
 
+In the **Legend** tab, **Legend font size** sets the scale bar text size in screen pixels. The edge and vehicle color legends use twice that size. The labels can shrink to fit the view. Saved schemes store the setting as the `legendFontSize` attribute on `<legend>`. The default is 15.
+
 
 *viewsettings.xml*
 

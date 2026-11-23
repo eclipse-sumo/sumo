@@ -23,6 +23,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cmath>
 #include <vector>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
@@ -416,11 +417,16 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.relDataScaleAttr = attrs.getStringSecure("relDataScaleAttr", mySettings.relDataScaleAttr);
             myCurrentColorer = element;
             break;
-        case SUMO_TAG_VIEWSETTINGS_LEGEND:
+        case SUMO_TAG_VIEWSETTINGS_LEGEND: {
+            const double fontSize = StringUtils::toDouble(attrs.getStringSecure("legendFontSize", toString(mySettings.legendFontSize)));
+            if (fontSize > 0 && std::isfinite(fontSize)) {
+                mySettings.legendFontSize = fontSize;
+            }
             mySettings.showSizeLegend = StringUtils::toBool(attrs.getStringSecure("showSizeLegend", toString(mySettings.showSizeLegend)));
             mySettings.showColorLegend = StringUtils::toBool(attrs.getStringSecure("showColorLegend", toString(mySettings.showColorLegend)));
             mySettings.showVehicleColorLegend = StringUtils::toBool(attrs.getStringSecure("showVehicleColorLegend", toString(mySettings.showVehicleColorLegend)));
             break;
+        }
         case SUMO_TAG_VIEWSETTINGS_DECAL: {
             GUISUMOAbstractView::Decal d;
             if (attrs.hasAttribute(SUMO_ATTR_FILE)) {
