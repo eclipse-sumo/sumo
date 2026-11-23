@@ -489,6 +489,9 @@ public:
         /// @brief Whether this stop was triggered by a collision
         bool collision = false;
 
+        /// @brief Whether the collision involved a vehicle and a person
+        bool intermodalCollision = false;
+
         /// @brief Whether this stop was triggered by a car failure / mechanical problem / lack of energy
         bool breakDown = false;
 

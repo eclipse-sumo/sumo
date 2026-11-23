@@ -2252,6 +2252,7 @@ MSLane::handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& s
         // double colliderOrigSpeed = collider->getSpeed();
         if (collider->collisionStopTime() < 0) {
             stop.collision = true;
+            stop.intermodalCollision = true;
             stop.lane = collider->getLane()->getID();
             stop.startPos = MIN2(collider->getPositionOnLane() + collider->getCarFollowModel().brakeGap(colliderSpeed, collider->getCarFollowModel().getEmergencyDecel(), 0),
                                  MAX3(0.0, victimStopPos - 0.75 * victim->getVehicleType().getLength(),
@@ -2386,14 +2387,16 @@ MSLane::executeMovements(const SUMOTime t) {
             MSNet::getInstance()->getVehicleControl().countCollision(true);
             MSVehicleTransfer::getInstance()->add(t, veh);
 
-        } else if (veh->collisionStopTime() == 0) {
+        } else if (veh->hasStops() && veh->getNextStop().pars.collision && veh->collisionStopTime() == 0) {
+            const CollisionAction action = veh->getNextStop().pars.intermodalCollision
+                                           ? getIntermodalCollisionAction() : getCollisionAction();
             veh->resumeFromStopping();
-            if (getCollisionAction() == COLLISION_ACTION_REMOVE) {
+            if (action == COLLISION_ACTION_REMOVE) {
                 WRITE_WARNINGF(TL("Removing vehicle '%' after earlier collision, lane='%', time=%."),
                                veh->getID(), veh->getLane()->getID(), time2string(t));
                 veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED_COLLISION);
                 MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
-            } else if (getCollisionAction() == COLLISION_ACTION_TELEPORT) {
+            } else if (action == COLLISION_ACTION_TELEPORT) {
                 WRITE_WARNINGF(TL("Teleporting vehicle '%' after earlier collision, lane='%', time=%."),
                                veh->getID(), veh->getLane()->getID(), time2string(t));
                 MSVehicleTransfer::getInstance()->add(t, veh);

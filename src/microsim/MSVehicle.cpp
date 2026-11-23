@@ -7527,8 +7527,12 @@ MSVehicle::resumeFromStopping() {
         for (const auto& rem : myMoveReminders) {
             rem.first->notifyStopEnded();
         }
-        if (stop.pars.collision && MSLane::getCollisionAction() == MSLane::COLLISION_ACTION_WARN) {
-            myCollisionImmunity = TIME2STEPS(5); // leave the conflict area
+        if (stop.pars.collision) {
+            const MSLane::CollisionAction action = stop.pars.intermodalCollision
+                                                   ? MSLane::getIntermodalCollisionAction() : MSLane::getCollisionAction();
+            if (action == MSLane::COLLISION_ACTION_WARN) {
+                myCollisionImmunity = TIME2STEPS(5); // leave the conflict area
+            }
         }
         if (stop.pars.posLat != INVALID_DOUBLE && MSGlobals::gLateralResolution <= 0) {
             // reset lateral position to default
