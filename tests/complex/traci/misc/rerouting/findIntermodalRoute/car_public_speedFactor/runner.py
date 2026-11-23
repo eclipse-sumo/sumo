@@ -19,6 +19,7 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+import math
 import os
 import sys
 sys.path.append(os.path.join(
@@ -78,4 +79,20 @@ for modes in ["public"]:
     print()
     print()
 
-traci.close()
+
+def walk_time(pedestrian_type, **kwargs):
+    stage, = traci.simulation.findIntermodalRoute(
+        "A0B0", "A1B1", pType=pedestrian_type, departPos=100, arrivalPos=200, walkFactor=1, **kwargs)
+    assert stage.type == traci.constants.STAGE_WALKING
+    assert stage.travelTime > 0
+    return stage.travelTime
+
+
+try:
+    assert math.isclose(walk_time("slowPedFactor"), 2 * walk_time("defaultPed"))
+    explicit_speed_time = walk_time("defaultPed", speed=1)
+    assert math.isclose(walk_time("slowPedFactor", speed=1), explicit_speed_time)
+    traci.vehicletype.setMaxSpeed("fastPedFactor", 1)
+    assert math.isclose(walk_time("fastPedFactor"), explicit_speed_time)
+finally:
+    traci.close()
