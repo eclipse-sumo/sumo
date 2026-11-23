@@ -1133,7 +1133,12 @@ TraCIServer::dispatchCommand() {
     } else if ((commandId >= libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE && commandId <= libsumo::CMD_GET_BUSSTOP_VARIABLE)
                || (commandId >= libsumo::CMD_GET_PARKINGAREA_VARIABLE && commandId <= libsumo::CMD_GET_OVERHEADWIRE_VARIABLE)) {
         if (commandId == libsumo::CMD_GET_GUI_VARIABLE) {
-            writeStatusCmd(commandId, libsumo::RTYPE_NOTIMPLEMENTED, "GUI is not running, command not implemented in command line sumo");
+            // TraCI clients query the GUI ID list to check whether SUMO has a GUI.
+            const bool probingGUI = myInputStorage.valid_pos()
+                                    && (int)myInputStorage.position() < commandStart + commandLength
+                                    && myInputStorage.readUnsignedByte() == libsumo::TRACI_ID_LIST;
+            writeStatusCmd(commandId, libsumo::RTYPE_NOTIMPLEMENTED,
+                           "GUI is not running, command not implemented in command line sumo", myOutputStorage, !probingGUI);
         } else {
             success = processGet(commandId, myInputStorage, myOutputStorage);
         }
@@ -1415,10 +1420,11 @@ TraCIServer::writeStatusCmd(int commandId, int status, const std::string& descri
 
 
 void
-TraCIServer::writeStatusCmd(int commandId, int status, const std::string& description, tcpip::Storage& outputStorage) {
-    if (status == libsumo::RTYPE_ERR) {
+TraCIServer::writeStatusCmd(int commandId, int status, const std::string& description, tcpip::Storage& outputStorage,
+                           bool logError) {
+    if (logError && status == libsumo::RTYPE_ERR) {
         WRITE_ERROR("Answered with error to command " + toHex(commandId, 2) + ": " + description);
-    } else if (status == libsumo::RTYPE_NOTIMPLEMENTED) {
+    } else if (logError && status == libsumo::RTYPE_NOTIMPLEMENTED) {
         WRITE_ERROR("Requested command not implemented (" + toHex(commandId, 2) + "): " + description);
     }
     outputStorage.writeUnsignedByte(1 + 1 + 1 + 4 + static_cast<int>(description.length())); // command length
