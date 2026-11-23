@@ -218,14 +218,19 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                 isDiscoBefore = True
                 isDiscoAfter = False
                 params = []
+                previousEdge = None
                 for planItem in moving.getChildList():
                     if planItem.name == "param":
                         params.append(planItem)
                         continue
+                    stop = planItem.trainStop or planItem.busStop
+                    toEdge = busStopEdges.get(stop) if stop else planItem.to
                     if planItem.name == "walk":
+                        originalWalkEdges = planItem.edges.split()
+                        previousEdge = originalWalkEdges[-1] if originalWalkEdges else toEdge
                         disco = "keep" if options.disconnected_action == "keep.walk" else options.disconnected_action
                         routeParts = _cutEdgeList(areaEdges, oldDepart, None,
-                                                  planItem.edges.split(), orig_net, options, stats, disco)
+                                                  originalWalkEdges, orig_net, options, stats, disco)
                         if routeParts is None:
                             # the walk itself is disconnected and the disconnected_action says not to keep the person
                             newPlan = []
@@ -236,11 +241,11 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                                 newDepart = depart
                             walkEdges += edges
                         if walkEdges:
-                            if walkEdges[-1] != planItem.edges.split()[-1]:
+                            if walkEdges[-1] != originalWalkEdges[-1]:
                                 planItem.busStop = None
                                 planItem.trainStop = None
                                 isDiscoAfter = True
-                            if walkEdges[0] != planItem.edges.split()[0]:
+                            if walkEdges[0] != originalWalkEdges[0]:
                                 isDiscoBefore = True
                             remaining.update(walkEdges)
                             planItem.edges = " ".join(walkEdges)
@@ -253,10 +258,9 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                         else:
                             planItem = None
                     elif planItem.name == "ride":
-                        # "busStop" / "trainStop" overrides "to"
-                        toEdge = busStopEdges.get(planItem.busStop) if planItem.busStop else planItem.to
-                        if planItem.trainStop:
-                            toEdge = busStopEdges.get(planItem.trainStop)
+                        # An omitted from edge uses the original end of the preceding stage.
+                        fromEdge = planItem.attr_from or previousEdge
+                        previousEdge = toEdge
                         try:
                             if toEdge not in areaEdges:
                                 if planItem.lines in ptRoutes:
@@ -273,12 +277,12 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                                 else:
                                     planItem = None
                             if planItem is not None:
-                                if planItem.attr_from and planItem.attr_from not in areaEdges:
+                                if fromEdge is not None and fromEdge not in areaEdges:
                                     if planItem.lines in ptRoutes:
                                         ptRoute = ptRoutes[planItem.lines]
                                         oldPTRoute = oldPTRoutes[planItem.lines]
                                         # test whether ride starts after new network
-                                        if oldPTRoute.index(planItem.attr_from) > oldPTRoute.index(ptRoute[-1]):
+                                        if oldPTRoute.index(fromEdge) > oldPTRoute.index(ptRoute[-1]):
                                             planItem = None
                                         else:
                                             planItem.setAttribute("from", ptRoute[0])
@@ -287,8 +291,10 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                                             isDiscoBefore = True
                                     else:
                                         planItem = None
-                                elif planItem.attr_from is None and len(newPlan) == 0:
-                                    if planItem.lines in ptRoutes:
+                                elif planItem.attr_from is None and not newPlan:
+                                    if fromEdge in areaEdges:
+                                        planItem.setAttribute("from", fromEdge)
+                                    elif planItem.lines in ptRoutes:
                                         planItem.setAttribute("from", ptRoutes[planItem.lines][0])
                                     else:
                                         planItem = None
@@ -297,6 +303,11 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                             planItem = None
                         if planItem is not None and newDepart is None and planItem.depart is not None:
                             newDepart = parseTime(planItem.depart)
+                    elif planItem.name == "stop":
+                        stopEdge = sumolib._laneID2edgeID(planItem.lane) if planItem.lane else planItem.edge
+                        previousEdge = toEdge or stopEdge or previousEdge
+                    else:
+                        previousEdge = toEdge
                     if planItem is None:
                         isDiscoAfter = True
                     else:
