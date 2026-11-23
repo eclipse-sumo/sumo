@@ -261,6 +261,11 @@ MEVehicle::checkStop(SUMOTime time) {
         if (stop.edge != myCurrEdge || stop.segment != mySegment) {
             break;
         }
+        if (!stop.reached && stop.pars.onDemand && !stop.triggered && !stop.containerTriggered
+                && !hasStopDemand(stop)) {
+            stop.skipOnDemand = true;
+            stop.duration = 0;
+        }
         const SUMOTime cur = time;
         if (stop.duration > 0) { // it might be a triggered stop with duration -1
             if (stop.duration >= SUMOTime_MAX / 2) {
@@ -381,10 +386,10 @@ MEVehicle::processStop() {
             stop.reached = true;
             MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
         }
-        if (net->hasPersons()) {
+        if (!stop.skipOnDemand && net->hasPersons()) {
             net->getPersonControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
         }
-        if (net->hasContainers()) {
+        if (!stop.skipOnDemand && net->hasContainers()) {
             net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
         }
         resumeFromStopping();

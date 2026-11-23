@@ -43,6 +43,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSStop.h>
 #include <microsim/MSStoppingPlace.h>
 
 
@@ -308,13 +309,15 @@ MSTransportableControl::addWaiting(const MSEdge* const edge, MSTransportable* tr
 
 
 bool
-MSTransportableControl::hasAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle) const {
-    const auto wait = myWaiting4Vehicle.find(edge);
+MSTransportableControl::hasAnyWaiting(const MSStop& stop, SUMOVehicle* vehicle) const {
+    const auto wait = myWaiting4Vehicle.find(stop.getEdge());
     if (wait != myWaiting4Vehicle.end()) {
         for (const MSTransportable* t : wait->second) {
+            const double pos = t->getEdgePos();
             if (t->isWaitingFor(vehicle)
                     && vehicle->allowsBoarding(t)
-                    && vehicle->isStoppedInRange(t->getEdgePos(), MSGlobals::gStopTolerance, true)) {
+                    && stop.pars.startPos - MSGlobals::gStopTolerance <= pos
+                    && pos <= stop.pars.endPos + MSGlobals::gStopTolerance) {
                 return true;
             }
         }

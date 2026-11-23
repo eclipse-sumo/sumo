@@ -1824,18 +1824,12 @@ MSVehicle::processNextStop(double currentVelocity) {
         }
 #endif
         //std::cout << SIMTIME <<  " myStopDist=" << myStopDist << " bGap=" << getBrakeGap(myLane->getVehicleMaxSpeed(this)) << "\n";
-        if (stop.pars.onDemand && !stop.skipOnDemand && myStopDist <= getCarFollowModel().brakeGap(myLane->getVehicleMaxSpeed(this))) {
-            MSNet* const net = MSNet::getInstance();
-            const bool noExits = ((myPersonDevice == nullptr || !myPersonDevice->anyLeavingAtStop(stop))
-                                  && (myContainerDevice == nullptr || !myContainerDevice->anyLeavingAtStop(stop)));
-            const bool noEntries = ((!net->hasPersons() || !net->getPersonControl().hasAnyWaiting(stop.getEdge(), this))
-                                    && (!net->hasContainers() || !net->getContainerControl().hasAnyWaiting(stop.getEdge(), this)));
-            if (noExits && noEntries) {
-                //std::cout << " skipOnDemand\n";
-                stop.skipOnDemand = true;
-                // bestLanes must be extended past this stop
-                updateBestLanes(true);
-            }
+        if (stop.pars.onDemand && !stop.skipOnDemand
+                && myStopDist <= getCarFollowModel().brakeGap(myLane->getVehicleMaxSpeed(this))
+                && !hasStopDemand(stop)) {
+            stop.skipOnDemand = true;
+            // bestLanes must be extended past this stop
+            updateBestLanes(true);
         }
         // is the next stop on the current lane?
         if (stop.edge == myCurrEdge) {

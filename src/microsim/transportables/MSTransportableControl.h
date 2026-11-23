@@ -34,6 +34,7 @@
 // class declarations
 // ===========================================================================
 class MSNet;
+class MSStop;
 class MSPModel;
 
 
@@ -109,7 +110,7 @@ public:
     void forceDeparture();
 
     /// @brief check whether any transportables are waiting for the given vehicle
-    bool hasAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle) const;
+    bool hasAnyWaiting(const MSStop& stop, SUMOVehicle* vehicle) const;
 
     /** @brief load any applicable transportables
     * Loads any person / container that is waiting on that edge for the given vehicle and removes them from myWaiting

@@ -677,6 +677,9 @@ public:
      */
     bool isStoppedTriggered() const;
 
+    /// @brief Whether a person or container needs to board or alight at the given stop.
+    bool hasStopDemand(const MSStop& stop);
+
     /** @brief Returns whether the vehicle is on a parking stop
      * @return whether the vehicle is on a parking stop
      */
