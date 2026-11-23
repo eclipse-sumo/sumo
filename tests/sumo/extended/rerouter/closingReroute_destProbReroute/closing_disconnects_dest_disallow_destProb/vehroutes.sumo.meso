@@ -49,9 +49,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="beforeRerouterEdgeAtClose" depart="40.00" arrival="66.00">
+    <vehicle id="onRerouterEdgeAtClose" depart="0.00" arrival="55.00">
         <routeDistribution>
-            <route replacedOnEdge="beg2left" replacedOnIndex="1" reason="rerouter" replacedAtTime="58.00" probability="0" edges="beg beg2left left left2end end rend"/>
+            <route replacedOnEdge="beg2left" replacedOnIndex="1" reason="rerouter" replacedAtTime="50.00" probability="0" edges="beg beg2left left left2end end rend"/>
+            <route edges="beg beg2left"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="insertedWhileClosed.0" depart="60.00" arrival="86.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg2left" replacedOnIndex="1" reason="rerouter" replacedAtTime="78.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg beg2left"/>
         </routeDistribution>
     </vehicle>
@@ -63,16 +70,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="insertedWhileClosed.2" depart="64.00" arrival="90.00">
+    <vehicle id="insertedWhileClosed.4" depart="68.00" arrival="94.00">
         <routeDistribution>
-            <route replacedOnEdge="beg2left" replacedOnIndex="1" reason="rerouter" replacedAtTime="82.00" probability="0" edges="beg beg2left left left2end end rend"/>
+            <route replacedOnEdge="beg2left" replacedOnIndex="1" reason="rerouter" replacedAtTime="86.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg beg2left"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="insertedWhileClosed.5" depart="70.00" arrival="96.00">
+    <vehicle id="insertedWhileClosed.7" depart="74.00" arrival="100.00">
         <routeDistribution>
-            <route replacedOnEdge="beg2left" replacedOnIndex="1" reason="rerouter" replacedAtTime="88.00" probability="0" edges="beg beg2left left left2end end rend"/>
+            <route replacedOnEdge="beg2left" replacedOnIndex="1" reason="rerouter" replacedAtTime="92.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg beg2left"/>
         </routeDistribution>
     </vehicle>
@@ -84,26 +91,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="insertedWhileClosed.9" depart="78.00" arrival="104.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg2left" replacedOnIndex="1" reason="rerouter" replacedAtTime="96.00" probability="0" edges="beg beg2left left left2end end rend"/>
-            <route edges="beg beg2left"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="onRerouterEdgeAtClose" depart="0.00" arrival="463.00">
+    <vehicle id="beforeRerouterEdgeAtClose" depart="40.00" arrival="503.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="insertedWhileClosed.0" depart="60.00" arrival="763.00">
+    <vehicle id="insertedWhileClosed.2" depart="64.00" arrival="803.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="insertedWhileClosed.3" depart="66.00" arrival="1063.00">
+    <vehicle id="insertedWhileClosed.3" depart="66.00" arrival="1103.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="insertedWhileClosed.4" depart="68.00" arrival="1144.00">
+    <vehicle id="insertedWhileClosed.5" depart="70.00" arrival="1144.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
@@ -111,7 +111,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="insertedWhileClosed.7" depart="74.00" arrival="1147.00">
+    <vehicle id="insertedWhileClosed.9" depart="78.00" arrival="1147.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 

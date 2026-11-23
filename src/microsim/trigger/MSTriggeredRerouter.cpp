@@ -507,7 +507,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const {
 
 bool
 MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
-    if (myAmOptional || myRadius != std::numeric_limits<double>::max()) {
+    if (reason == NOTIFICATION_SEGMENT || myAmOptional || myRadius != std::numeric_limits<double>::max()) {
         return true;
     }
     return triggerRouting(tObject, reason);

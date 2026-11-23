@@ -51,8 +51,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop edge="end" endPos="50.00" duration="5.00"/>
     </vehicle>
 
-    <vehicle id="flow_detour.1" depart="10.00" arrival="87.00">
-        <route edges="beg middle end"/>
+    <vehicle id="flow_detour.1" depart="10.00" arrival="195.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="20.00" probability="0" edges="beg middle end"/>
+            <route edges="beg beg2right right right2end end"/>
+        </routeDistribution>
         <stop edge="end" endPos="50.00" duration="5.00"/>
     </vehicle>
 
