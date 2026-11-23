@@ -59,6 +59,19 @@ def get_options(args=None):
     return options
 
 
+def csvInput(inputf):
+    # Python 2's csv reader expects bytes even when the input stream is Unicode.
+    if sys.version_info[0] < 3:
+        return (line if isinstance(line, bytes) else line.encode("utf-8") for line in inputf)
+    return inputf
+
+
+def csvText(values):
+    if sys.version_info[0] < 3:
+        return [value.decode("utf-8") if isinstance(value, bytes) else value for value in values]
+    return values
+
+
 def row2xml(row, tag, close="/>\n", depth=1):
     attrString = ' '.join(['%s="%s"' % (a[len(tag) + 1:], v)
                            for a, v in row.items() if v != "" and a.startswith(tag + "_")])
@@ -79,9 +92,10 @@ def write_xml(toptag, tag, options, printer=row2xml):
     with sumolib.openz(options.output, 'w') as outputf:
         outputf.write(u'<%s>\n' % toptag)
         inputf = sumolib.openz(options.source, trySocket=True)
-        reader = csv.DictReader(inputf, delimiter=options.delimiter)
+        reader = csv.DictReader(csvInput(inputf), delimiter=options.delimiter)
         for row in reader:
-            orderedRow = OrderedDict([(key, row[key]) for key in reader.fieldnames])
+            fields = reader.fieldnames
+            orderedRow = OrderedDict(zip(csvText(fields), csvText([row[key] for key in fields])))
             outputf.write(printer(orderedRow, tag))
         outputf.write(u'</%s>\n' % toptag)
         inputf.close()
@@ -197,7 +211,8 @@ def writeHierarchicalXml(struct, options):
         fields = None
         enums = {}
         first = True
-        for raw in csv.reader(inputf, delimiter=options.delimiter):
+        for values in csv.reader(csvInput(inputf), delimiter=options.delimiter):
+            raw = csvText(values)
             if not fields:
                 fields = raw
                 for f in fields:
@@ -228,15 +243,16 @@ def writeHierarchicalXml(struct, options):
 def writeFlatXml(options):
     with contextlib.closing(sumolib.openz(options.output, "w", trySocket=True)) as outputf:
         inputf = sumolib.openz(options.source, trySocket=True)
-        outputf.write('<data>\n')
+        outputf.write(u'<data>\n')
         fields = None
-        for raw in csv.reader(inputf, delimiter=options.delimiter):
+        for values in csv.reader(csvInput(inputf), delimiter=options.delimiter):
+            raw = csvText(values)
             if not fields:
                 fields = raw
             else:
-                outputf.write('    <record %s/>\n' % (
+                outputf.write(u'    <record %s/>\n' % (
                     ' '.join(['%s="%s"' % av for av in zip(fields, raw)])))
-        outputf.write('</data>\n')
+        outputf.write(u'</data>\n')
         inputf.close()
 
 
