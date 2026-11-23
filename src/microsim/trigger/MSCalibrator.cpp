@@ -298,14 +298,34 @@ MSCalibrator::isCurrentStateActive(SUMOTime time) {
 }
 
 
+double
+MSCalibrator::getTargetVehicleCount(const AspiredState& interval) {
+    const double totalHourFraction = STEPS2TIME(interval.end - interval.begin) / 3600.;
+    return std::floor(interval.q * totalHourFraction + 0.5);
+}
+
+
 int
 MSCalibrator::totalWished() const {
-    if (myCurrentStateInterval != myIntervals.end()) {
-        const double totalHourFraction = STEPS2TIME(myCurrentStateInterval->end - myCurrentStateInterval->begin) / (double) 3600.;
-        return (int)std::floor(myCurrentStateInterval->q * totalHourFraction + 0.5); // round to closest int
-    } else {
-        return -1;
+    return myCurrentStateInterval != myIntervals.end() ? (int)getTargetVehicleCount(*myCurrentStateInterval) : -1;
+}
+
+
+bool
+MSCalibrator::hasPendingInsertions(SUMOTime time) {
+    for (const auto& entry : myInstances) {
+        const MSCalibrator& calibrator = *entry.second;
+        for (auto interval = calibrator.myCurrentStateInterval; interval != calibrator.myIntervals.cend(); ++interval) {
+            if (interval->end > time && interval->end != SUMOTime_MAX && interval->q > 0) {
+                const int adapted = interval == calibrator.myCurrentStateInterval && interval->begin < time
+                                    ? calibrator.passed() + calibrator.myClearedInJam : 0;
+                if (getTargetVehicleCount(*interval) > MAX2(0, adapted)) {
+                    return true;
+                }
+            }
+        }
     }
+    return false;
 }
 
 

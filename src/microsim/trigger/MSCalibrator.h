@@ -106,6 +106,9 @@ public:
 
     AspiredState getCurrentStateInterval() const;
 
+    /// @brief Whether any calibrator has a remaining vehicle target in a finite interval.
+    static bool hasPendingInsertions(SUMOTime time);
+
     const MSEdge* getEdge() const {
         return myEdge;
     }
@@ -247,6 +250,9 @@ protected:
 
     /// @brief number of vehicles expected to pass this interval
     int totalWished() const;
+
+    /// @brief Rounded number of vehicles to pass the calibrator over the given interval.
+    static double getTargetVehicleCount(const AspiredState& interval);
 
     /// @brief flow in the current interval in veh/h
     double currentFlow() const;

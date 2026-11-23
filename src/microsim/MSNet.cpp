@@ -996,7 +996,8 @@ MSNet::simulationState(SUMOTime stopTime) const {
                 && (myInserter->getPendingFlowCount() == 0)
                 && (myPersonControl == nullptr || !myPersonControl->hasNonWaiting())
                 && (myContainerControl == nullptr || !myContainerControl->hasNonWaiting())
-                && !MSDevice_Taxi::hasServableReservations()) {
+                && !MSDevice_Taxi::hasServableReservations()
+                && !MSCalibrator::hasPendingInsertions(myStep)) {
             return SIMSTATE_NO_FURTHER_VEHICLES;
         }
     }
