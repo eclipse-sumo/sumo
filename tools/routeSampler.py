@@ -29,6 +29,7 @@ from math import ceil, modf
 # multiprocessing imports
 import multiprocessing
 import numpy as np
+from xml.etree import ElementTree as ET
 
 try:
     from StringIO import StringIO
@@ -127,6 +128,8 @@ def get_options(args=None):
                     help="Skip resampling and run optimize directly on the input routes")
     op.add_argument("--keep-attributes", dest="keepAttrs", action="store_true", default=False,
                     help="use loaded vehicle attributes when writing used routes")
+    op.add_argument("--keep-demand", dest="keepDemand", action="store_true", default=False,
+                    help="copy sampled vehicles and persons with their full definitions")
     op.add_argument("--init-input", dest="initInput", action="store_true", default=False,
                     help="use loaded routes as initialization for the used routes")
     op.add_argument("--init-input.remove-overflow", dest="initInputRemove", action="store_true", default=False,
@@ -169,6 +172,8 @@ def get_options(args=None):
     if options.writeFlows not in [None, "number", "probability", "poisson"]:
         sys.stderr.write("Options --write-flows only accepts arguments 'number', 'probability' and 'poisson'\n")
         sys.exit()
+    if options.keepDemand and (options.writeFlows or options.writeRouteIDs or options.writeRouteDist):
+        op.error("--keep-demand requires individual demand output without shared route IDs or distributions")
 
     for attr in ["edgeDataAttr", "arrivalAttr", "departAttr", "turnAttr", "turnRatioAttr"]:
         if getattr(options, attr) not in [None, "None"]:
@@ -235,7 +240,7 @@ def get_options(args=None):
 
 
 class Routes:
-    def __init__(self, routefiles, keepStops, rng):
+    def __init__(self, routefiles, keepStops, rng, keepDemand=False):
         self.rng = rng
         self.all = []
         self.departs = []
@@ -245,16 +250,20 @@ class Routes:
         self.routeStops = defaultdict(list)  # list of list of stops for the given edges
         self.vehAttrs = []
         self.namedRoutes = {}  # id -> index in all
-        self.namedRouteStops = {}  # id -> stops
+        namedRouteStops = {}  # id -> stops
         self.vTypes = []
+        self.originalDemand = [] if keepDemand else None
+        self.demandDefinitions = []
 
-        def addEntry(edges, attrs, depart, prob, stops):
+        def addEntry(edges, attrs, depart, prob, stops, demand=None):
             self.all.append(edges)
             self.vehAttrs.append(attrs)
             self.departs.append(depart)
             self.edgeProbs[edges] += prob
             if keepStops and stops:
-                self.routeStops[edges].append(stops)
+                self.routeStops[edges].append([stop.toXML() for stop in stops])
+            if self.originalDemand is not None:
+                self.originalDemand.append(demand)
 
         for routefile in routefiles:
             warned = False
@@ -265,13 +274,16 @@ class Routes:
                 attrs = None
                 depart = None
                 prob = 1
+                demand = tag.toXML(u'    ') if keepDemand and tag.name in ('vehicle', 'person') else None
+                if keepDemand and tag.name in ('vType', 'vTypeDistribution', 'route', 'routeDistribution'):
+                    self.demandDefinitions.append(tag.toXML(u'    '))
                 if tag.name == 'route':
                     self.namedRoutes[tag.id] = len(self.all)
                     edges = tuple(tag.edges.split())
                     self.edgeIDs[edges] = tag.id
                     if tag.stop:
                         stops = list(tag.stop)
-                        self.namedRouteStops[tag.id] = stops
+                        namedRouteStops[tag.id] = stops
                     if tag.hasAttribute("probability"):
                         self.withProb += 1
                         prob = float(tag.probability)
@@ -293,7 +305,7 @@ class Routes:
                     vehStops = list(tag.stop) if tag.stop else []
                     if tag.hasAttribute('route'):
                         edges = self.all[self.namedRoutes[tag.route]]
-                        stops = list(self.namedRouteStops.get(tag.route, []))
+                        stops = list(namedRouteStops.get(tag.route, []))
                     elif tag.hasChild('route'):
                         edges = tuple(tag.route[0].edges.split())
                         if tag.route[0].stop:
@@ -322,7 +334,17 @@ class Routes:
                                       file=sys.stderr)
                                 rProb = 0
                             if rEdges:
-                                addEntry(rEdges, attrs, depart if rIdx == activeIdx else None, rProb, rStops)
+                                routeDemand = demand
+                                if demand is not None:
+                                    vehicle = ET.fromstring(demand)
+                                    distribution = vehicle.find('routeDistribution')
+                                    index = list(vehicle).index(distribution)
+                                    routeElement = ET.fromstring(route.toXML())
+                                    routeElement.tail = distribution.tail
+                                    vehicle.remove(distribution)
+                                    vehicle.insert(index, routeElement)
+                                    routeDemand = ET.tostring(vehicle, encoding="unicode")
+                                addEntry(rEdges, attrs, depart if rIdx == activeIdx else None, rProb, rStops, routeDemand)
                         continue
                     else:
                         if not warned:
@@ -333,29 +355,35 @@ class Routes:
                     if vehStops:
                         stops += vehStops
                 elif tag.name == 'person':
+                    if keepDemand:
+                        attrs = tuple(tag.getAttributes())
                     if tag.hasAttribute('depart'):
                         try:
                             depart = parseTime(tag.depart)
                         except ValueError:
                             depart = None
                     if tag.walk:
-                        if tag.walk[0].edges is None:
+                        walk = tag.walk[0]
+                        if keepDemand and walk.edges is None and walk.route in self.namedRoutes:
+                            edges = self.all[self.namedRoutes[walk.route]]
+                        elif walk.edges is None:
                             if not warned:
                                 print("Warning: Ignoring walk for person %s in file '%s' "
                                       "because it does not contain edges." % (tag.id, routefile), file=sys.stderr)
                                 warned = True
                             continue
-                        edges = tuple(tag.walk[0].edges.split())
+                        else:
+                            edges = tuple(walk.edges.split())
                         if len(tag.walk) > 1:
                             if not warned:
                                 print("Warning: Ignoring walks beyond the first for person %s in file '%s'." % (
                                     tag.id, routefile), file=sys.stderr)
                                 warned = True
                 elif tag.name == 'vType':
-                    self.vTypes.append(tag)
+                    self.vTypes.append(tag.toXML(' ' * 4))
 
                 if edges:
-                    addEntry(edges, attrs, depart, prob, stops)
+                    addEntry(edges, attrs, depart, prob, stops, demand)
 
         self.unique = sorted(list(self.edgeProbs.keys()))
         self.uniqueSets = [set(edges) for edges in self.unique]
@@ -391,17 +419,22 @@ class Routes:
         outf.write('%s<route%s edges="%s"%s%s>%s\n' % (indent, ID, ' '.join(edges), probability, close, comment))
         if stops:
             for stop in stops:
-                outf.write(stop.toXML(indent + ' ' * 4))
+                outf.writelines(indent + ' ' * 4 + line for line in stop.splitlines(True))
             outf.write('%s</route>\n' % indent)
 
-    def sampleAttrs(self, rng, vehID, depart, uniqueIndex, begin=None, end=None, isLast=False):
+    def sampleOccurrence(self, rng, uniqueIndex, begin=None, end=None, isLast=False):
         if self.unique2all is None:
             # init once
             nUnique = len(self.unique)
             self.usedIDs = set()
             self.unique2all = [set() for i in range(nUnique)]
             self.unique2allUsed = [set() for i in range(nUnique)]
+            templateRoutes = set()
+            if self.originalDemand is not None:
+                templateRoutes = {edges for edges, template in zip(self.all, self.originalDemand) if template}
             for i, edges in enumerate(self.all):
+                if edges in templateRoutes and self.originalDemand[i] is None:
+                    continue
                 i2 = self.edges2index[edges]
                 self.unique2all[i2].add(i)
                 self.unique2allUsed[i2].add(i)
@@ -425,6 +458,9 @@ class Routes:
         else:
             allIndex = rng.choice(tuple(unused))
             unused.remove(allIndex)
+        return allIndex
+
+    def sampleAttrs(self, allIndex, vehID, depart, begin=None, end=None):
         result = []
         duplicate = False
         origDepart = depart
@@ -444,6 +480,8 @@ class Routes:
                 origDepart = parseTime(v)
             else:
                 result.append(' %s="%s"' % (a, v))
+        if self.originalDemand is not None and origDepart is None:
+            origDepart = depart
         if begin is not None and not (begin <= origDepart <= end):
             duplicate = True
         return vehID, depart if duplicate else origDepart, ' '.join(result)
@@ -1336,18 +1374,26 @@ def writeRoutes(options, rng, outf, routes, routeCounts, begin, end, intervalPre
             vehID = options.prefix + intervalPrefix + str(i)
             depart = departs[i]
             attrs = options.vehattrs
-            if options.keepAttrs:
+            demand = None
+            if options.keepAttrs or options.keepDemand:
                 singleInterval = getattr(options, 'singleInterval', True)
                 isLast = getattr(options, 'totalEnd', end) == end
-                if singleInterval:
-                    vehID, depart, attrs = routes.sampleAttrs(rng, vehID, depart, routeIndex)
-                else:
-                    vehID, depart, attrs = routes.sampleAttrs(rng, vehID, depart, routeIndex, begin, end, isLast)
-            objects.append((depart, vehID, attrs, routeID, routeIndex))
+                sampleBegin = None if singleInterval else begin
+                allIndex = routes.sampleOccurrence(rng, routeIndex, sampleBegin, end, isLast)
+                if options.keepDemand:
+                    demand = routes.originalDemand[allIndex]
+                if options.keepAttrs:
+                    vehID, depart, attrs = routes.sampleAttrs(allIndex, vehID, depart, sampleBegin, end)
+            objects.append((depart, vehID, attrs, routeID, routeIndex, demand))
         if options.keepAttrs:
             objects.sort()
-        for depart, vehID, attrs, routeID, routeIndex in objects:
-            if routeID is not None:
+        for depart, vehID, attrs, routeID, routeIndex, demand in objects:
+            if demand is not None:
+                original = ET.fromstring(demand)
+                original.set('id', vehID)
+                original.set('depart', '%.2f' % depart)
+                outf.write(u'    %s\n' % ET.tostring(original, encoding="unicode"))
+            elif routeID is not None:
                 fullRouteID = "%s%s%s" % (options.prefix, intervalPrefix, routeID)
                 if options.pedestrians:
                     outf.write('    <person id="%s" depart="%.2f"%s>\n' % (
@@ -1471,7 +1517,7 @@ def main(options):
     rng = np.random.RandomState(options.seed)
 
     with Benchmarker(options.verboseTiming, "Loading routes"):
-        routes = Routes(options.routeFiles, options.keepStops, rng)
+        routes = Routes(options.routeFiles, options.keepStops, rng, keepDemand=options.keepDemand)
 
     intervals = getIntervals(options)
     if len(intervals) == 0:
@@ -1533,9 +1579,12 @@ def main(options):
 
     with open(options.out, 'w') as outf, Benchmarker(options.verboseTiming, "Sampling all intervals"):
         sumolib.writeXMLHeader(outf, root="routes", options=options)
-        if options.keepAttrs:
+        if options.keepDemand:
+            for definition in routes.demandDefinitions:
+                outf.write(definition)
+        elif options.keepAttrs:
             for vType in routes.vTypes:
-                outf.write(vType.toXML(' ' * 4))
+                outf.write(vType)
         if options.threads > 1:
             # call the multiprocessing function
             results = multi_process(options.threads, intervals,
