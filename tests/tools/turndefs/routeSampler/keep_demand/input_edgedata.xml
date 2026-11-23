@@ -1,0 +1,10 @@
+<data>
+    <interval id="sample" begin="0" end="60">
+        <edge id="carStart" entered="1"/>
+        <edge id="walkStart" entered="1"/>
+    </interval>
+    <interval id="sample" begin="60" end="120">
+        <edge id="carStart" entered="1"/>
+        <edge id="walkStart" entered="1"/>
+    </interval>
+</data>

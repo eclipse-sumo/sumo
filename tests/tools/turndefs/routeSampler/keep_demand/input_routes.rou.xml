@@ -1,0 +1,15 @@
+<routes>
+    <vType id="car" vClass="passenger"/>
+    <route id="commute" edges="carStart carEnd">
+        <stop lane="carEnd_0" endPos="50" duration="12"/>
+    </route>
+    <vehicle id="original" depart="10" route="commute" type="car" departLane="best">
+        <param key="purpose" value="visit"/>
+    </vehicle>
+    <person id="rider" depart="30" color="0,1,0" departPos="4">
+        <walk edges="walkStart walkEnd"/>
+        <ride from="walkEnd" to="activity" lines="bus"/>
+        <stop lane="activity_0" endPos="20" duration="9"/>
+        <param key="ticket" value="child &amp; guardian"/>
+    </person>
+</routes>
