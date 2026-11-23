@@ -120,24 +120,17 @@ Here are some expressions that need an escape character:
 <br><br>
 # **Images**
 
-All images must be saved in the [images directory]({{Source}}docs/web/docs/images).
-To insert an image, just use the usual Markdown syntax:
+Save images in the [images directory]({{Source}}docs/web/docs/images). Add images using Markdown. Describe informative images in the alternative text and leave it empty for decorative images. You can add an optional title after the image path.
 
-```
-![<alt>](images/Wikicommons_rail_fast.jpg "<title>")
-```
-replace `<alt>` with the alternate text and `<title>` with the title to show on Mouseover.
-
-!!! note
-    The `<alt>` and `<title>` attributes are not necessary required, as you can see in the example.
+To set the display width in pixels, append `{ width="320" }` immediately after the image. Set only the width to preserve the aspect ratio. The theme limits the image to the width of the content column.
 
 ## Example
-```
-![](images/Wikicommons_rail_fast.jpg)
-```
-***will display:***
 
-![](images/Wikicommons_rail_fast.jpg)
+```markdown
+![High-speed train passing through farmland](images/Wikicommons_rail_fast.jpg){ width="320" }
+```
+
+![High-speed train passing through farmland](images/Wikicommons_rail_fast.jpg){ width="320" }
 
 
 
