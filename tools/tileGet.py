@@ -277,7 +277,7 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net, patte
     tile_list = []
     for x in range(sx, ex + 1):
         for y in range(sy, ey + 1):
-            request = options.url + pattern.format(z=zoom, y=y, x=x)
+            request = options.url.rstrip("/") + pattern.format(z=zoom, y=y, x=x)
             suffix = ".png" if pattern.endswith(".png") else ".jpeg"
             filename = os.path.join(options.output_dir, "%s%s_%s%s" % (options.prefix, x, y, suffix))
             if options.parallel_jobs == 0:

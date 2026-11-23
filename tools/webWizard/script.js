@@ -688,6 +688,7 @@ on("ready", async function(){
             },
             leftHand: elem("#leftHand").checked,
             decal: elem("#decal").checked,
+            tileSource: elem("#tileSource").value,
             tileZoom: elem("#decal").checked ? Number.parseInt(elem("#tileZoom").value) : null,
             carOnlyNetwork: elem("#carOnlyNetwork").checked,
             verbose: elem("#verbose").checked,

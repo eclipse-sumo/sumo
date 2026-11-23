@@ -83,8 +83,13 @@
                         <label data-i18n>Car-only Network <input id="carOnlyNetwork" type="checkbox" /></label>
                         <label data-i18n>Satellite background <input id="decal" type="checkbox" /></label>
                         <div id="tileZoomRow" style="display:none; margin-left: 18px;">
+                            <label for="tileSource" data-i18n>Image source</label>
+                            <select id="tileSource">
+                                <option value="arcgis" data-i18n>Esri World Imagery</option>
+                                <option value="berlin" data-i18n>Berlin aerial imagery</option>
+                            </select>
                             <div style="margin-bottom:3px;" data-i18n>Image zoom level</div>
-                            <select id="tileZoom" style="width:100%; box-sizing:border-box; color:#000;">
+                            <select id="tileZoom">
                                 <option value="12">12 (~38 m/px)</option>
                                 <option value="13">13 (~19 m/px)</option>
                                 <option value="14">14 (~10 m/px)</option>
