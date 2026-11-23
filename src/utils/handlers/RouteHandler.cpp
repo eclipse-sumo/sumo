@@ -704,11 +704,14 @@ RouteHandler::parseTrip(const SUMOSAXAttributes& attrs) {
     // parse vehicle
     SUMOVehicleParameter* tripParameter = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_TRIP, attrs, myHardFail);
     if (tripParameter) {
-        // check from/to edge/junction
-        if ((attrs.hasAttribute(SUMO_ATTR_FROM) + attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION) + attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)) > 1) {
+        // Explicit edges determine the model. The parser retains TAZ metadata in the vehicle parameters.
+        const bool edgeEndpoints = attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO);
+        if ((!edgeEndpoints || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION))
+                && ((attrs.hasAttribute(SUMO_ATTR_FROM) + attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION) + attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)) > 1)) {
             writeError(TL("Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"));
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
-        } else if ((attrs.hasAttribute(SUMO_ATTR_TO) + attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION) + attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) > 1) {
+        } else if ((!edgeEndpoints || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION))
+                && ((attrs.hasAttribute(SUMO_ATTR_TO) + attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION) + attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) > 1)) {
             writeError(TL("Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"));
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
         } else if (attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION) && attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION)) {
@@ -726,7 +729,7 @@ RouteHandler::parseTrip(const SUMOSAXAttributes& attrs) {
             } else {
                 myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
             }
-        } else if (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) && attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
+        } else if (!edgeEndpoints && attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) && attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
             // from-to attributes
             const std::string fromJunction = attrs.get<std::string>(SUMO_ATTR_FROM_TAZ, tripParameter->id.c_str(), parsedOk);
             const std::string toJunction = attrs.get<std::string>(SUMO_ATTR_TO_TAZ, tripParameter->id.c_str(), parsedOk);
@@ -794,14 +797,17 @@ RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
     if (flowParameter) {
         // set vehicle parameters
         myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(flowParameter);
-        // check from/to edge/junction
-        if ((attrs.hasAttribute(SUMO_ATTR_FROM) + attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION) + attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)) > 1) {
+        // Explicit edges determine the model. The parser retains TAZ metadata in the vehicle parameters.
+        const bool edgeEndpoints = attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO);
+        if ((!edgeEndpoints || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION))
+                && ((attrs.hasAttribute(SUMO_ATTR_FROM) + attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION) + attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)) > 1)) {
             writeError(TL("Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"));
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
-        } else if ((attrs.hasAttribute(SUMO_ATTR_TO) + attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION) + attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) > 1) {
+        } else if ((!edgeEndpoints || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION))
+                && ((attrs.hasAttribute(SUMO_ATTR_TO) + attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION) + attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) > 1)) {
             writeError(TL("Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"));
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
-        } else if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
+        } else if (edgeEndpoints) {
             // from-to attributes
             const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, flowParameter->id.c_str(), parsedOk);
             const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, flowParameter->id.c_str(), parsedOk);
