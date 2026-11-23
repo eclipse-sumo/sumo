@@ -567,6 +567,11 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
             && myPTStopCont.getStops().size() > 0) {
         // allow direction reversal at all bidi-edges with stops
         myEdgeCont.appendRailwayTurnarounds(myPTStopCont);
+    } else if (!oc.getBool("no-turnarounds")
+               && !oc.getBool("no-turnarounds.except-deadend")
+               && !oc.getBool("no-turnarounds.except-turnlane")) {
+        myPTLineCont.appendRailwayTurnarounds(myEdgeCont, oc.getBool("no-turnarounds.tls"),
+                                             oc.getBool("no-turnarounds.fringe"));
     }
     PROGRESS_TIME_MESSAGE(before);
     //

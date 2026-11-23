@@ -118,13 +118,9 @@ NBPTLine::write(OutputDevice& device) {
 
 
 void
-NBPTLine::addWayNode(long long int way, long long int node) {
-    std::string wayStr = toString(way);
-    if (wayStr != myCurrentWay) {
-        myCurrentWay = wayStr;
-        myWays.push_back(wayStr);
-    }
-    myWayNodes[wayStr].push_back(node);
+NBPTLine::addWay(long long int way, const std::vector<long long int>& nodes) {
+    myWays.push_back(toString(way));
+    myWayNodes.try_emplace(myWays.back(), nodes);
 }
 
 

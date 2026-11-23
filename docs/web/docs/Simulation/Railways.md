@@ -425,6 +425,8 @@ met:
   the reverse direction edge
 
 !!! note
+    With the default turn-around settings, netconvert adds a turn-around connection when an imported OSM rail route doubles back along a bidirectional track at a stop. The connection follows the direction used by the route. The track must already be bidirectional or become bidirectional through railway topology repair.
+
     When netconvert has loaded public transport stops (either during OSM import or from option **--ptstop-files**) then option **--railway.topology.repair.stop-turn** can be used to add a turn-around connection at every rail public transport stop and thus make it possible for trains to reverse at each stop.
 
 !!! caution

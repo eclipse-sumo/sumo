@@ -46,6 +46,9 @@ public:
 
     void process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly = false);
 
+    /// @brief Allow reversals that an OSM rail line makes at a stop.
+    void appendRailwayTurnarounds(const NBEdgeCont& ec, bool noTLSControlled, bool noFringe) const;
+
     /// @brief replace the edge with the given edge list in all lines
     void replaceEdge(const std::string& edgeID, const EdgeVector& replacement);
 
