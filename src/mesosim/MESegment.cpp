@@ -313,7 +313,7 @@ MESegment::recomputeJamThreshold(double jamThresh) {
         myJamThreshold = jamThresholdForSpeed(myEdge.getSpeedLimit(), jamThresh);
     } else {
         // compute based on specified percentage
-        myJamThreshold = jamThresh * myCapacity;
+        myJamThreshold = jamThresh * myQueueCapacity;
     }
 }
 

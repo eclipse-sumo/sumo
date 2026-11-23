@@ -310,12 +310,11 @@ public:
         return getBruttoOccupancy() / myCapacity;
     }
 
-    /** @brief Returns the relative occupany of the segment (percentage of road used))
-     * at which the segment is considered jammed
+    /** @brief Returns the relative occupancy at which a queue is considered jammed.
      * @return the jam threshold of the segment in percent
      */
     inline double getRelativeJamThreshold() const {
-        return myJamThreshold / myCapacity;
+        return myJamThreshold / myQueueCapacity;
     }
 
     /** @brief Returns the average speed of vehicles on the segment in meters per second.
