@@ -423,6 +423,11 @@ public:
         return myLastStateChange;
     }
 
+    /// @brief Whether this link switched directly from major to minor green at the given step.
+    bool justLostGreenPriority(SUMOTime t) const {
+        return myLostGreenPriority && myLastStateChange == t;
+    }
+
 
     /** @brief Returns the direction the vehicle passing this link take
      *
@@ -842,6 +847,9 @@ private:
 
     // @brief whether vehicles must keep the intersection clear if there is a downstream jam
     bool myKeepClear;
+
+    /// @brief Whether the last signal change switched directly from major to minor green
+    bool myLostGreenPriority = false;
 
     /// @brief The following junction-internal lane if used
     MSLane* const myInternalLane;
