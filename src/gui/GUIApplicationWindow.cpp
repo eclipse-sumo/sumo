@@ -601,9 +601,9 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(mySettingsMenu,
                                            TL("Application Settings"), "Ctrl+H", TL("Open a Dialog for Application Settings editing."),
                                            nullptr, this, MID_HOTKEY_CTRL_H_APPSETTINGS_OPENEDGETYPES);
-    myGamingModeCheckbox = new FXMenuCheck(mySettingsMenu,
-                                           TL("Gaming Mode\tCtrl+G\tToggle gaming mode on/off."),
-                                           this, MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID);
+    GUIDesigns::buildFXMenuCommandShortcut(mySettingsMenu,
+                                           TL("Gaming Mode"), "Ctrl+G", TL("Toggle gaming mode on/off."),
+                                           nullptr, this, MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID);
     GUIDesigns::buildFXMenuCommandShortcut(mySettingsMenu,
                                            TL("Full Screen Mode"), "Ctrl+F", TL("Toggle full screen mode on/off."),
                                            GUIIconSubSys::getIcon(GUIIcon::FULL_SCREEN), this, MID_HOTKEY_CTRL_F_FULSCREENMODE);
@@ -1654,7 +1654,6 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         myGLWindows[0]->getView()->editVisualisationSettings()->gaming = myAmGaming;
     }
     if (myAmGaming) {
-        myGamingModeCheckbox->setCheck(TRUE);
         myMenuBar->hide();
         myStatusbar->hide();
         myToolBar1->hide();
@@ -1676,7 +1675,6 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         myEmergencyVehicleLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
         myTotalDistanceLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
     } else {
-        myGamingModeCheckbox->setCheck(FALSE);
         myMenuBar->show();
         myStatusbar->show();
         myToolBar1->show();

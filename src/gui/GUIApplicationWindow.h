@@ -86,7 +86,7 @@ public:
     /// @brief get run thread
     GUIRunThread* getRunner();
 
-    /// @brief build dependt
+    /// @brief build dependent
     void dependentBuild(const bool isLibsumo);
 
     /// @brief set status bar text
@@ -113,19 +113,19 @@ public:
     /// @name Inter-thread event handling
     /// @{
 
-    /// @brief a certain event ocurred
+    /// @brief a certain event occurred
     virtual void eventOccurred();
 
-    /// @brief called when event "simulation loaded" ocurred
+    /// @brief called when event "simulation loaded" occurred
     void handleEvent_SimulationLoaded(GUIEvent* e);
 
-    /// @brief called when event "simulation step" ocurred
+    /// @brief called when event "simulation step" occurred
     void handleEvent_SimulationStep(GUIEvent* e);
 
-    /// @brief called when event "message" ocurred
+    /// @brief called when event "message" occurred
     void handleEvent_Message(GUIEvent* e);
 
-    /// @brief called when event "simulation ended" ocurred
+    /// @brief called when event "simulation ended" occurred
     void handleEvent_SimulationEnded(GUIEvent* e);
 
     /// @}
@@ -536,9 +536,6 @@ protected:
 
     /// @brief the semaphore when waiting for event completion
     FXCondition myEventCondition;
-
-    /// @brief menu checkbox to activate game mode
-    FXMenuCheck* myGamingModeCheckbox;
 
     /// @name game related things
     /// {
