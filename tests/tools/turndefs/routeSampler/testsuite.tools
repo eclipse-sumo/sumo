@@ -16,6 +16,9 @@ intervals
 # sample routes by probabilites or counts
 weighted
 
+# permit overflow on one edge to reduce the total mismatch
+overflow
+
 # make use of turn-ratios in addition to counts
 ratios
 

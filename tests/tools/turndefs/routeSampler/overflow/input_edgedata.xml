@@ -1,0 +1,7 @@
+<data>
+    <interval id="test" begin="0" end="3600">
+        <edge id="A" entered="1"/>
+        <edge id="B" entered="3"/>
+        <edge id="C" entered="3"/>
+    </interval>
+</data>
