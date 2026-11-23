@@ -28,6 +28,7 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 import sumolib.xml  # noqa
 
+
 def parse_shape(value):
     return [tuple(map(int, pair.split(","))) for pair in value.split()]
 
