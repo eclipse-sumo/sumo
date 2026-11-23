@@ -753,7 +753,7 @@ MSLaneChangerSublane::checkChangeSublane(
 
     // let TraCI influence the wish to change lanes and the security to take
     const int oldstate = state;
-    state = vehicle->influenceChangeDecision(state);
+    state = vehicle->influenceChangeDecision(state, laneOffset, maneuverDist);
 #ifdef DEBUG_STATE
     if (DEBUG_COND && state != oldstate) {
         std::cout << SIMTIME << " veh=" << vehicle->getID() << " stateAfterTraCI=" << toString((LaneChangeAction)state) << " original=" << toString((LaneChangeAction)oldstate) << "\n";
