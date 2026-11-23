@@ -464,6 +464,10 @@ class SimulationDomain(Domain):
     def getBusStopIDList(self):
         return self._getUniversal(tc.VAR_BUS_STOP_ID_LIST)
 
+    def getContainerStopIDList(self):
+        """Return the IDs of the container stops in the loaded simulation."""
+        return self._getUniversal(tc.VAR_CONTAINER_STOP_ID_LIST)
+
     @deprecated("busstop.getPersonCount")
     def getBusStopWaiting(self, stopID):
         """getBusStopWaiting() -> integer

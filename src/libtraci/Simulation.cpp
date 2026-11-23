@@ -338,6 +338,12 @@ Simulation::getBusStopIDList() {
     return Dom::getStringVector(libsumo::VAR_BUS_STOP_ID_LIST, "");
 }
 
+std::vector<std::string>
+Simulation::getContainerStopIDList() {
+    return Dom::getStringVector(libsumo::VAR_CONTAINER_STOP_ID_LIST, "");
+}
+
+
 int
 Simulation::getBusStopWaiting(const std::string& stopID) {
     return Dom::getInt(libsumo::VAR_BUS_STOP_WAITING, stopID);

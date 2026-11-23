@@ -1190,6 +1190,9 @@ TRACI_CONST int VAR_IMPATIENCE = 0x26;
 
 TRACI_CONST int VAR_BUS_STOP_ID_LIST = 0x9f;
 
+// ids of loaded container stops (get: simulation)
+TRACI_CONST int VAR_CONTAINER_STOP_ID_LIST = 0xf0;
+
 // number of persons waiting at a defined bus stop (get: simulation)
 TRACI_CONST int VAR_BUS_STOP_WAITING = 0x67;
 
