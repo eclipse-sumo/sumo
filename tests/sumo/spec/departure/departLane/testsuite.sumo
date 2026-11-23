@@ -50,6 +50,9 @@ lane_given1
 # checks using a random lane
 lane_random
 
+# Preserve lane selection when a queued vehicle cannot enter a jammed lane.
+random_jammed
+
 # use the best and most probable lane (based on speedFactor)
 lane_best_prob
 

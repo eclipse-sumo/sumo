@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="blocker"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="blocker"/>
+        <vehicle id="car0"/>
+        <vehicle id="car1"/>
+        <vehicle id="car2"/>
+        <vehicle id="car3"/>
+        <vehicle id="car4"/>
+        <vehicle id="car5"/>
+        <vehicle id="car6"/>
+        <vehicle id="car7"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="blocker"/>
+        <vehicle id="car0"/>
+        <vehicle id="car1"/>
+        <vehicle id="car2"/>
+        <vehicle id="car3"/>
+        <vehicle id="car4"/>
+        <vehicle id="car5"/>
+        <vehicle id="car6"/>
+        <vehicle id="car7"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="blocker"/>
+        <vehicle id="car0"/>
+        <vehicle id="car1"/>
+        <vehicle id="car2"/>
+        <vehicle id="car3"/>
+        <vehicle id="car4"/>
+        <vehicle id="car5"/>
+        <vehicle id="car6"/>
+        <vehicle id="car7"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="blocker"/>
+        <vehicle id="car0"/>
+        <vehicle id="car1"/>
+        <vehicle id="car2"/>
+        <vehicle id="car3"/>
+        <vehicle id="car4"/>
+        <vehicle id="car5"/>
+        <vehicle id="car6"/>
+        <vehicle id="car7"/>
+    </timestep>
+</fcd-export>

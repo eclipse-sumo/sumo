@@ -31,6 +31,7 @@
 #include <unordered_map>
 #include <utils/router/IntermodalRouter.h>
 #include <microsim/devices/MSDevice_Routing.h>
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSRoutingEngine.h>
 #include "MSGlobals.h"
 #include "MSVehicle.h"
@@ -130,10 +131,14 @@ struct FailedInsertionKey {
     const MSRoute* route;
     const MSEdge* secondEdge;
     const MSVehicleType* vtype;
-    double speedKey;
+    double lanePreferenceSpeed;
+    double bestLaneSpeed;
+    double strategicLookahead;
     double departPos;
+    double arrivalPos;
     int departLane;
     int arrivalLane;
+    int routePosition;
     DepartLaneDefinition departLaneProc;
     DepartPosDefinition departPosProc;
     ArrivalLaneDefinition arrivalLaneProc;
@@ -143,7 +148,9 @@ struct FailedInsertionKey {
         if (vtype != o.vtype || departLaneProc != o.departLaneProc
                 || departPosProc != o.departPosProc || arrivalLaneProc != o.arrivalLaneProc
                 || departLane != o.departLane || arrivalLane != o.arrivalLane
-                || departPos != o.departPos || speedKey != o.speedKey
+                || departPos != o.departPos || arrivalPos != o.arrivalPos
+                || lanePreferenceSpeed != o.lanePreferenceSpeed || bestLaneSpeed != o.bestLaneSpeed
+                || strategicLookahead != o.strategicLookahead || routePosition != o.routePosition
                 || secondEdge != o.secondEdge) {
             return false;
         }
@@ -177,11 +184,13 @@ bool canMemoizeFailedInsertion(const MSEdge& edge, SUMOVehicle* veh, bool forceC
         return false;
     }
     const SUMOVehicleParameter& pars = veh->getParameter();
-    return pars.departLaneProcedure != DepartLaneDefinition::RANDOM
+    const DepartLaneDefinition departLane = pars.departLaneProcedure == DepartLaneDefinition::DEFAULT
+            ? MSEdge::getDefaultDepartLaneDefinition() : pars.departLaneProcedure;
+    return departLane != DepartLaneDefinition::RANDOM
            && pars.departSpeedProcedure != DepartSpeedDefinition::GIVEN;
 }
 
-FailedInsertionKey makeFailedInsertionKey(const MSEdge& edge, const SUMOVehicle* veh) {
+FailedInsertionKey makeFailedInsertionKey(const MSEdge& edge, const MSVehicle* veh) {
     const SUMOVehicleParameter& pars = veh->getParameter();
     const MSRoute& route = veh->getRoute();
     const DepartLaneDefinition dld = pars.departLaneProcedure;
@@ -192,20 +201,20 @@ FailedInsertionKey makeFailedInsertionKey(const MSEdge& edge, const SUMOVehicle*
     if ((dld == DepartLaneDefinition::ALLOWED_FREE || needsRoute) && route.size() > 1) {
         nextEdge = *(route.begin() + 1);
     }
-    double speedKey = 0.;
-    if (dld == DepartLaneDefinition::BEST_FREE) {
-        speedKey = veh->getMaxSpeed();
-    } else if (dld == DepartLaneDefinition::BEST_PROB || dld == DepartLaneDefinition::DEFAULT) {
-        speedKey = edge.getVehicleMaxSpeed(veh);
-    }
+    const bool usesLanePreferenceSpeed = dld == DepartLaneDefinition::BEST_PROB || dld == DepartLaneDefinition::DEFAULT;
+    // Best lanes also depend on the current route offset and the effective arrival target.
     return FailedInsertionKey{
         needsRoute ? &route : nullptr,
         nextEdge,
         &veh->getVehicleType(),
-        speedKey,
+        usesLanePreferenceSpeed ? edge.getVehicleMaxSpeed(veh) : 0.,
+        needsRoute ? veh->getMaxSpeed() : 0.,
+        needsRoute ? veh->getLaneChangeModel().getStrategicLookahead() : 0.,
         pars.departPos,
+        needsRoute ? veh->getArrivalPos() : 0.,
         pars.departLane,
-        pars.arrivalLane,
+        needsRoute ? veh->getArrivalLane() : pars.arrivalLane,
+        needsRoute ? veh->getRoutePosition() : 0,
         dld,
         pars.departPosProcedure,
         pars.arrivalLaneProcedure,
@@ -246,7 +255,7 @@ MSInsertionControl::emitVehicles(SUMOTime time) {
                 auto failIt = edgeFailures.find(&edge);
                 if (failIt != edgeFailures.end() && failIt->second.allowCache
                         && canMemoizeFailedInsertion(edge, v, forceCheck)) {
-                    const FailedInsertionKey key = makeFailedInsertionKey(edge, v);
+                    const FailedInsertionKey key = makeFailedInsertionKey(edge, static_cast<const MSVehicle*>(v));
                     for (const FailedInsertionKey& prev : failIt->second.keys) {
                         if (prev.matches(key)) {
                             fastSkipped = true;
@@ -280,7 +289,7 @@ MSInsertionControl::emitVehicles(SUMOTime time) {
                         entry.allowCache = hasNoLaneParameters(edge);
                     }
                     if (entry.allowCache && entry.keys.size() < 64) {
-                        entry.keys.push_back(makeFailedInsertionKey(edge, v));
+                        entry.keys.push_back(makeFailedInsertionKey(edge, static_cast<const MSVehicle*>(v)));
                     }
                 }
             }

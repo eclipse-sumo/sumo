@@ -1,0 +1,15 @@
+<routes>
+    <vType id="car" sigma="0" speedDev="0"/>
+    <route id="r" edges="edge"/>
+    <vehicle id="blocker" type="car" route="r" depart="0" departLane="0" departPos="5">
+        <stop lane="edge_0" endPos="5" duration="100"/>
+    </vehicle>
+    <vehicle id="car0" type="car" route="r" depart="1" departLane="best" arrivalLane="random"/>
+    <vehicle id="car1" type="car" route="r" depart="1" departLane="best" arrivalLane="random"/>
+    <vehicle id="car2" type="car" route="r" depart="1" departLane="best" arrivalLane="random"/>
+    <vehicle id="car3" type="car" route="r" depart="1" departLane="best" arrivalLane="random"/>
+    <vehicle id="car4" type="car" route="r" depart="1" departLane="best" arrivalLane="random"/>
+    <vehicle id="car5" type="car" route="r" depart="1" departLane="best" arrivalLane="random"/>
+    <vehicle id="car6" type="car" route="r" depart="1" departLane="best" arrivalLane="random"/>
+    <vehicle id="car7" type="car" route="r" depart="1" departLane="best" arrivalLane="random"/>
+</routes>
