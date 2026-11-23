@@ -161,6 +161,9 @@ def readOptions(filename):
 class ArgumentParser(argparse.ArgumentParser):
     """Drop-in replacement for argparse.ArgumentParser that adds support for
     sumo-style config files.
+
+    File options in an XML configuration are relative to that file by default.
+    Pass fix_path=False when registering a file option to keep its value as given.
     Inspired by https://github.com/bw2/ConfigArgParse
     """
 
@@ -236,7 +239,9 @@ class ArgumentParser(argparse.ArgumentParser):
     def add_argument(self, *args, **kwargs):
         # due argparse only accept certain values (action, choices, type, help...),
         #  we need to extract extra parameters before call add_argument
-        fix_path = kwargs.pop("fix_path", False)
+        type_name = getattr(kwargs.get("type"), "__name__", "")
+        is_file_option = type_name in ("file", "file_list") or type_name.endswith(("_file", "_file_list"))
+        fix_path = kwargs.pop("fix_path", is_file_option)
         category = kwargs.pop("category", None)
         catch_all = kwargs.pop("catch_all", False)
         # get action
@@ -389,6 +394,7 @@ class ArgumentParser(argparse.ArgumentParser):
             act_map = {}
             pos_map = {}
             multi_value = set()
+            file_lists = set()
             pos_idx = 0
             for a in self._actions:
                 for s in a.option_strings:
@@ -396,6 +402,8 @@ class ArgumentParser(argparse.ArgumentParser):
                         act_map[s[2:]] = a.option_strings
                         if a.nargs:
                             multi_value.add(s[2:])
+                        if getattr(a.type, '__name__', '').endswith('file_list'):
+                            file_lists.add(s[2:])
                 if len(a.option_strings) == 0:
                     pos_map[a.dest] = pos_idx
                     pos_args.append(None)
@@ -408,8 +416,10 @@ class ArgumentParser(argparse.ArgumentParser):
                             is_set = True
                             break
                     value = option.value
-                    if option.name in self._fix_path_args and not value.startswith("http"):
-                        value = os.path.join(os.path.dirname(cfg_file), value)
+                    if option.name in self._fix_path_args:
+                        paths = value.split(",") if option.name in file_lists else [value]
+                        value = ",".join(path if not path or path.startswith("http") else os.path.join(
+                            os.path.dirname(cfg_file), path) for path in paths)
                     if option.name in pos_map and option.name != 'remaining_args':
                         if ',' in value:
                             value = value.split(',')
