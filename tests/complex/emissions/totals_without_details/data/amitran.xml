@@ -1,0 +1,6 @@
+<trajectories timeStepSize="1000">
+    <actorConfig id="0" vehicleClass="Passenger" fuel="Gasoline" emissionClass="Euro4" weight="150"/>
+    <vehicle id="0" actorConfig="0"/>
+    <motionState vehicle="0" time="0" speed="500" acceleration="0"/>
+    <motionState vehicle="0" time="1000" speed="700" acceleration="1000"/>
+</trajectories>

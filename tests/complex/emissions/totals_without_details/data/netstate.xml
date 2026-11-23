@@ -1,0 +1,8 @@
+<netstate>
+    <timestep time="0">
+        <edge id="e"><lane id="e_0"><vehicle id="veh" pos="5" speed="5"/></lane></edge>
+    </timestep>
+    <timestep time="1">
+        <edge id="e"><lane id="e_0"><vehicle id="veh" pos="12" speed="7"/></lane></edge>
+    </timestep>
+</netstate>
