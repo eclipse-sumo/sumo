@@ -138,12 +138,16 @@ jobs:
         else
           FIND_LINKS="$WHEEL_SOURCE"
         fi
+        # Bootstrap pipx's shared pip before restricting the SUMO install to its wheel source.
+        python -m pipx upgrade-shared
         python -m pipx install --pip-args="--no-index --find-links=$FIND_LINKS" eclipse-sumo
         export PATH="$PWD/pipx_bin:$PATH"
         python -m pipx list
-        SUMO_BIN="$(command -v sumo)"
-        echo "Resolved sumo: $SUMO_BIN"
-        [[ "$SUMO_BIN" == *pipx_bin* ]]
+        for app in sumo netconvert netgenerate; do
+          APP_BIN="$(command -v "$app")"
+          echo "Resolved $app: $APP_BIN"
+          [[ "$APP_BIN" == "$PWD/pipx_bin/"* ]]
+        done
         sumo --version
         netconvert --version
         mkdir -p pipx_sim
