@@ -131,7 +131,7 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
     int qIdx = 0;
     MESegment* const onSegment = veh->getSegment();
     if (MESegment::isInvalid(toSegment)) {
-        if (veh->isStoppedTriggered()) {
+        if (veh->isStoppedTriggered() && !veh->endTriggeredStop()) {
             return leaveTime + MAX2(SUMOTime(1), myLinkRecheckInterval);
         }
         if (onSegment != nullptr) {
