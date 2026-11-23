@@ -23,3 +23,9 @@ unknown_vclass
 
 # aggregate some error messages
 aggregate
+
+# Report the inaccessible network file as the cause of the failure
+missing_network
+
+# Report an empty network if loading it reported no errors
+empty_network
