@@ -301,7 +301,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                         except ValueError as e:
                             print("Error handling ride in '%s'" % moving.id, e)
                             planItem = None
-                        if not isPersonFlow and planItem is not None and newDepart is None and planItem.depart is not None:
+                        if (not isPersonFlow and planItem is not None
+                                and newDepart is None and planItem.depart is not None):
                             newDepart = parseTime(planItem.depart)
                     if planItem is None:
                         isDiscoAfter = True
