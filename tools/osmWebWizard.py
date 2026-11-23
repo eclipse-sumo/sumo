@@ -176,6 +176,9 @@ class Builder(object):
     def report(self, message):
         pass
 
+    def warn(self, message):
+        print(message, file=sys.stderr)
+
     def filename(self, use, name, usePrefix=True):
         prefix = self.prefix if usePrefix else ''
         self.files_relative[use] = prefix + name
@@ -496,6 +499,27 @@ class Builder(object):
 
         subprocess.call(opts, cwd=self.tmp)
 
+        if self.data.get("neteditConfig"):
+            self.makeNeteditConfig()
+
+    def makeNeteditConfig(self):
+        config = self.prefix + ".netecfg"
+        opts = [sumolib.checkBinary("netedit"), "--sumo-net-file", self.files_relative["net"],
+                "--gui-settings-file", self.files_relative["guisettings"], "--save-configuration", config]
+        if self.routenames:
+            opts += ["--route-files", ",".join(self.getRelative(self.routenames))]
+        if self.additionalFiles:
+            opts += ["--additional-files", ",".join(self.getRelative(self.additionalFiles))]
+        try:
+            subprocess.run(opts, cwd=self.tmp, check=True)
+        except FileNotFoundError:
+            self.warn(self.TL("Netedit is unavailable. The scenario still includes a SUMO configuration."))
+        except (OSError, subprocess.CalledProcessError):
+            self.warn(self.TL(
+                "Could not save the Netedit configuration. The scenario still includes a SUMO configuration."))
+        else:
+            self.filename("neteditConfig", ".netecfg")
+
     def createBatch(self):
         "Create a batch / bash file "
 
@@ -536,9 +560,16 @@ class Builder(object):
             if self.data["vehicles"]:
                 files += self.routenames
 
-            # add the files to the zip
-            for name in files:
-                zipfile.write(name)
+            if "neteditConfig" in self.files:
+                files += [self.files["neteditConfig"]] + self.routenames + self.additionalFiles
+                if self.data["decal"] and not self.decalError:
+                    for directory, _, names in os.walk(os.path.join(self.tmp, "background_images")):
+                        files += [os.path.join(directory, name) for name in names]
+                for name in dict.fromkeys(files):
+                    zipfile.write(name, os.path.relpath(name, self.tmp))
+            else:
+                for name in files:
+                    zipfile.write(name)
 
         # now open the zip file as raw
         with open(self.files["zip"], "rb") as zipfile:
@@ -570,11 +601,16 @@ class OSMImporterWebSocket(WebSocket):
         thread = threading.Thread(target=self.build, args=(data,))
         thread.start()
 
+    def warn(self, message):
+        print(message, file=sys.stderr)
+        self.sendMessage(u"warning " + message)
+
     def build(self, data):
         if self.outputDir is not None:
             data['outputDir'] = self.outputDir
         builder = Builder(data, self.local)
         builder.report = self.report
+        builder.warn = self.warn
 
         self.steps = len(data["vehicles"]) + 4
         self.sendMessage(u"steps %s" % self.steps)
@@ -616,11 +652,16 @@ class OSMImporterHTTPHandler(SimpleHTTPRequestHandler):
         self.server.last_seen = time.time()
         self.steps -= 1
 
+    def warn(self, message):
+        print(message, file=sys.stderr)
+        self.server.messages.append(u"warning " + message)
+
     def build(self, data):
         if self.server.output is not None:
             data['outputDir'] = self.server.output
         builder = Builder(data, self.server.local)
         builder.report = self.report
+        builder.warn = self.warn
 
         self.steps = len(data["vehicles"]) + 4
         self.server.messages.append(u"steps %s" % self.steps)

@@ -622,6 +622,10 @@ on("ready", async function(){
 
         if(type === "zip"){
             showZip(message);
+        } else if(type === "warning"){
+            const warning = elem("#build-warning");
+            warning.textContent = message;
+            warning.hidden = false;
         } else if(type === "report"){
             currentStep++;
             elem("#status > span").textContent = message;
@@ -690,6 +694,7 @@ on("ready", async function(){
             decal: elem("#decal").checked,
             tileZoom: elem("#decal").checked ? Number.parseInt(elem("#tileZoom").value) : null,
             carOnlyNetwork: elem("#carOnlyNetwork").checked,
+            neteditConfig: elem("#neteditConfig").checked,
             verbose: elem("#verbose").checked,
             vehicles: {},
             roadTypes:{} // sab-inf
@@ -748,6 +753,7 @@ on("ready", async function(){
         }
 
         elem("#status").style.display = "block";
+        elem("#build-warning").hidden = true;
         elem("#export-button").style.display = "none";
     }
 
