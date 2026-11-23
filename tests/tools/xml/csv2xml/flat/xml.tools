@@ -1,5 +1,5 @@
 <data>
-    <record edges_version="1.1" edge_from="C" edge_id="CE" edge_numLanes="2" edge_priority="2" edge_speed="13.89" edge_to="E"/>
+    <record edges_version="1.1" edge_from="C" edge_id="CÉ" edge_numLanes="2" edge_priority="2" edge_speed="13.89" edge_to="E"/>
     <record edges_version="1.1" edge_from="C" edge_id="CN" edge_numLanes="2" edge_priority="2" edge_speed="13.89" edge_to="N"/>
     <record edges_version="1.1" edge_from="C" edge_id="CS" edge_numLanes="2" edge_priority="2" edge_speed="13.89" edge_to="S"/>
     <record edges_version="1.1" edge_from="C" edge_id="CW" edge_numLanes="2" edge_priority="2" edge_speed="13.89" edge_to="W"/>
