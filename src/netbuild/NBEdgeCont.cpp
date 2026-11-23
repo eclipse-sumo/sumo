@@ -1225,6 +1225,29 @@ NBEdgeCont::getGeneratedFrom(const std::string& id) const {
 }
 
 
+static bool
+hasStraightPriorityApproach(const EdgeVector& loop) {
+    for (size_t i = 0; i < loop.size(); ++i) {
+        const NBEdge* ringIn = loop[i];
+        const NBEdge* ringOut = loop[(i + 1) % loop.size()];
+        const NBNode* node = ringIn->getToNode();
+        const double outAngle = ringOut->getAngleAtNode(node);
+        const double ringTurn = std::abs(NBHelpers::relAngle(ringIn->getAngleAtNode(node), outAngle));
+        if (ringTurn <= 30.) {
+            continue;
+        }
+        for (const NBEdge* approach : node->getIncomingEdges()) {
+            if (approach->getPriority() > ringIn->getPriority()
+                    && (approach->getPermissions() & ringOut->getPermissions() & ~SVC_PEDESTRIAN) != 0
+                    && std::abs(NBHelpers::relAngle(approach->getAngleAtNode(node), outAngle)) <= 15.) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
 int
 NBEdgeCont::guessRoundabouts() {
     myGuessedRoundabouts.clear();
@@ -1424,6 +1447,13 @@ NBEdgeCont::guessRoundabouts() {
             }
             if (formFactor(loopEdges) > 0.6
                     && loopLength < OptionsCont::getOptions().getFloat("roundabouts.guess.max-length")) {
+                // Preserve explicitly loaded roundabouts.
+                const bool loaded = std::any_of(loopEdges.begin(), loopEdges.end(), [&loadedRoundaboutEdges](NBEdge* edge) {
+                    return loadedRoundaboutEdges.count(edge) != 0;
+                });
+                if (!loaded && hasStraightPriorityApproach(loopEdges)) {
+                    continue;
+                }
                 // collected edges are marked in markRoundabouts
                 EdgeSet guessed(loopEdges.begin(), loopEdges.end());
                 if (loadedRoundaboutEdges.count(loopEdges.front()) != 0) {
