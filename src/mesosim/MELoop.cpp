@@ -69,7 +69,15 @@ MELoop::simulate(SUMOTime tMax) {
         MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
         for (const MSEdge* const edge : ec.getEdges()) {
             // needs to be called every stop because meso position one step t+1 depends on the position computed in step t
-            edge->getMesoPositions();
+            for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
+                    segment != nullptr; segment = segment->getNextSegment()) {
+                for (int q = 0; q < segment->numQueues(); ++q) {
+                    const std::vector<MEVehicle*>& queue = segment->getQueue(q);
+                    if (!queue.empty()) {
+                        queue.front()->getPositionOnLane();
+                    }
+                }
+            }
         }
     }
     while (!myLeaderCars.empty()) {

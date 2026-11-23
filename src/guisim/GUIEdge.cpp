@@ -409,13 +409,19 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
     if (vehicleControl != nullptr) {
         vehicleControl->secureVehicles();
         FXMutexLock locker(myLock);
-        for (const auto& item : getMesoPositions()) {
-            const GUIMEVehicle* const veh = static_cast<const GUIMEVehicle*>(item.first);
-            const GUILane* const lane = static_cast<GUILane*>((*myLanes)[veh->getQueIndex()]);
-            assert(this == &veh->getSegment()->getEdge());
-            const Position p = lane->geometryPositionAtOffset(item.second.first, (double)item.second.second * 0.5);
-            const double angle = lane->getShape(s.secondaryShape).rotationAtOffset(lane->interpolateLanePosToGeometryPos(item.second.first));
-            veh->drawOnPos(s, p, angle);
+        for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
+                segment != nullptr; segment = segment->getNextSegment()) {
+            for (int q = 0; q < segment->numQueues(); ++q) {
+                for (const MEVehicle* mesoVeh : segment->getQueue(q)) {
+                    const GUIMEVehicle* const veh = static_cast<const GUIMEVehicle*>(mesoVeh);
+                    const GUILane* const lane = static_cast<GUILane*>((*myLanes)[veh->getQueIndex()]);
+                    assert(this == &veh->getSegment()->getEdge());
+                    const double pos = veh->getPositionOnLane();
+                    const Position p = lane->geometryPositionAtOffset(pos, (double)veh->getMesoPositionOverlap() * 0.5);
+                    const double angle = lane->getShape(s.secondaryShape).rotationAtOffset(lane->interpolateLanePosToGeometryPos(pos));
+                    veh->drawOnPos(s, p, angle);
+                }
+            }
         }
         vehicleControl->releaseVehicles();
     }
