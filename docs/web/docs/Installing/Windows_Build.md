@@ -127,7 +127,7 @@ cannot build any GUI applications by using only vcpkg.
 For using the SUMO Python tools from the command line or in netedit it is recommended to install a list of python packages.
 From your SUMO directory you can install them using pip:
 
-```plaintext
+```bash
 pip install -r tools\requirements.txt
 ```
 
