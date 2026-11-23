@@ -318,9 +318,11 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                     moving.depart = "%.2f" % newDepart
                 yield newDepart, moving
             else:
+                triggered = moving.name == 'vehicle' and moving.depart == "triggered"
                 if moving.name == 'vehicle':
                     stats.num_vehicles += 1
-                    oldDepart = parseTime(moving.depart)
+                    # A shared route still needs a numeric offset for timed vehicles.
+                    oldDepart = 0 if triggered else parseTime(moving.depart)
                 else:
                     stats.num_flows += 1
                     oldDepart = parseTime(moving.begin)
@@ -338,7 +340,9 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                         continue
                     elif newDepart is not None:
                         # route was already treated
-                        if moving.name == 'vehicle':
+                        if triggered:
+                            newDepart = -1
+                        elif moving.name == 'vehicle':
                             newDepart += oldDepart
                             moving.depart = "%.2f" % newDepart
                         else:
@@ -383,7 +387,10 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                             moving.setAttribute("departSpeed", options.defaultDepartSpeed)
                         newDepart = max(newDepart, departShift)
                         old_route.edges = " ".join(remaining)
-                    if moving.name == 'vehicle':
+                    if triggered:
+                        # Write triggered vehicles before timed demand.
+                        newDepart = -1
+                    elif moving.name == 'vehicle':
                         moving.depart = "%.2f" % newDepart
                     else:
                         moving.begin = "%.2f" % newDepart
