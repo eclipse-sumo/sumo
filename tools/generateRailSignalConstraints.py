@@ -64,6 +64,10 @@ In the case where an intermediateStop (see above) is also a parking stop, an
 insertionPredecessor constraint is added if the parking vehicle is scheduled to
 go second.
 
+When a train is scheduled to park across the preceding non-parking train's
+departure from the same stop, the parking train must wait for that train to
+pass the shared exit signal before reinserting.
+
 3. <foeInsertion>
 Whenever a vehicle A departs at a stop (assumed to coincide with the "until"
 attribute of its first stop), the latter train B that enters this stop is
@@ -824,6 +828,7 @@ def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
                                                                None,  # switch
                                                                stop.busStop,
                                                                "parking"))
+                            stop.setAttribute("parkingInsertionConstraint", True)
                             numConflicts += 1
 
                         else:
@@ -1231,6 +1236,10 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
         # only use 'until' for sorting and keep the result stable otherwise
         untils.sort(key=itemgetter(0))
         prevPassing = None
+        parkingReinsertions = not options.skipParking and any(
+            parseBool(stop.getAttributeSecure("parking", "false")) and not stop.hasAttribute("ended")
+            for _, _, stop in untils)
+        prevDeparture = {}
         for i, (nUntil, nEdges, nStop) in enumerate(untils):
             nIsBidiStop = nStop.busStop != busStop
             nVehStops = vehicleStopRoutes[nStop.vehID]
@@ -1238,6 +1247,32 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
             nIsPassing = nIndex < len(nVehStops) - 1
             nIsDepart = len(nEdges) == 1 and nIndex == 0
             nInvalid = nStop.getAttributeSecure("invalid", False)
+            if parkingReinsertions and nIsPassing and not nIsBidiStop:
+                nSignal = getDownstreamSignal(net, stopEdges, nVehStops, nIndex)
+                if nSignal is not None:
+                    nParking = parseBool(nStop.getAttributeSecure("parking", "false"))
+                    predecessor = prevDeparture.get(nSignal)
+                    if (nParking and not nIsDepart and not nStop.hasAttribute("ended")
+                            and not nStop.getAttributeSecure("parkingInsertionConstraint", False)
+                            and predecessor is not None):
+                        pUntil, pStop, pCanPrecede = predecessor
+                        active = not (nInvalid or pStop.getAttributeSecure("invalid", False))
+                        if (pCanPrecede and active != writeInactive and nStop.vehID != pStop.vehID
+                                and getArrivalSecure(nStop) < pUntil < nUntil):
+                            # Reinsertion and signal passage both use the trip ID after the stop.
+                            nTripId = nStop.getAttributeSecure("tripId", nStop.prevTripId)
+                            pTripId = pStop.getAttributeSecure("tripId", pStop.prevTripId)
+                            times = "until=%s foeUntil=%s " % (humanReadableTime(nUntil), humanReadableTime(pUntil))
+                            conflicts[nSignal].append(Conflict(nTripId, nSignal, pTripId, 1,
+                                                               nStop.getAttributeSecure("line", nStop.prevLine),
+                                                               pStop.getAttributeSecure("line", pStop.prevLine),
+                                                               nStop.vehID, pStop.vehID, times, None, busStop,
+                                                               "parking", active))
+                            numConflicts += 1
+                    if not nInvalid or writeInactive:
+                        # A tie gives no unique predecessor at this signal.
+                        uniqueDeparture = predecessor is None or predecessor[0] < nUntil
+                        prevDeparture[nSignal] = (nUntil, nStop, not nParking and uniqueDeparture)
             if options.verbose and busStop == options.debugStop:
                 print("%s n: %s %s %s %s %s passing: %s depart: %s%s%s" %
                       (i, humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops),
@@ -1948,6 +1983,7 @@ def main(options):
                          + list(foeInsertionConflicts.keys())
                          + list(foeParkingInsertionConflicts.keys())
                          + list(insertionConflicts.keys())
+                         + list(inactiveInsertionConflicts.keys())
                          + list(parkingConflicts.keys())
                          + list(intermediateParkingConflicts.keys())
                          + list(bidiConflicts.keys())))
