@@ -82,6 +82,9 @@ precision
 # filter written attributes
 attributes
 
+# distinguish vehicles on the road from vehicles stopped off the road
+on_road
+
 # see #17767
 delay
 

@@ -1,0 +1,7 @@
+<routes>
+    <vType id="car" sigma="0" speedFactor="1"/>
+    <vehicle id="veh0" type="car" depart="0" departPos="5">
+        <route edges="4/1to3/1 3/1to2/1"/>
+        <stop lane="4/1to3/1_0" endPos="13" duration="4" parking="true"/>
+    </vehicle>
+</routes>
