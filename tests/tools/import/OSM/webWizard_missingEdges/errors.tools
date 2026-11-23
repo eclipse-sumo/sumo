@@ -1,3 +1,5 @@
+Warning: Discarding polygon '24279256' (man_made.pier) because it was combined with discarded type 'highway'.
+Warning: Discarding polygon '194080016' (man_made.pier) because it was combined with discarded type 'highway'.
 Warning: 2 total messages of type: Mandatory edge '%' not reachable by vehicle '%'.
 Warning: 2 total messages of type: No connection between edge '%' and edge '%' found.
 Warning: 2 total messages of type: The vehicle '%' has no valid route.

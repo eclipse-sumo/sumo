@@ -97,7 +97,13 @@ Warning: Could not import polygon from relation '957719' (name:Molkenmarkt reaso
 Warning: Could not import polygon from relation '2678660' (name: reason: found gap of 109.98m).
 Warning: Could not import polygon from relation '4065109' (missing ways)
 Warning: Could not import polygon from relation '8178851' (missing ways)
+Warning: Discarding polygon '3573535' (tourism.attraction) because it was combined with discarded type 'highway'.
+Warning: Discarding polygon '4613293' (traffic_sign.DE:244.1) because it was combined with discarded type 'highway'.
+Warning: Discarding polygon '6137529' (tourism.attraction) because it was combined with discarded type 'highway'.
+Warning: Discarding polygon '16603261' (highway.pedestrian) because it was combined with discarded type 'highway'.
+Warning: Discarding polygon '16603261' (landuse.grass) because it was combined with discarded type 'highway'.
 Warning: 7 total messages of type: Could not import polygon from relation '%' (missing ways)
+Warning: 201 total messages of type: Discarding polygon '%' (%) because it was combined with discarded type '%'.
 Warning: At actuated tlLogic 'GS_cluster_21487285_29207836', linkIndex 16 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_1673527224_1673527227_21487161_303436603_#9more', linkIndex 20,33,34,35 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_1827996421_1827996431_1827996455_2121324874_#10more', linkIndex 16 has no controlling detector.
