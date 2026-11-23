@@ -1,1 +1,2 @@
 Warning: Person 'p0' is jammed on edge ':gneJ0_c0', time=12.00.
+Warning: Person 'waiting' could not find route across junction 'gneJ0' from walkingArea ':gneJ0_w1' to edge ':gneJ0_c0', time=4.00.
