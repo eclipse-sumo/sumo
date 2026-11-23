@@ -50,7 +50,11 @@ std::pair<int, std::string>
 Simulation::start(const std::vector<std::string>& cmd, int port, int numRetries, const std::string& label, const bool verbose,
                   const std::string& /* traceFile */, bool /* traceGetters */, void* /* _stdout */) {
     if (port == -1) {
-        port = tcpip::Socket::getFreeSocketPort();
+        try {
+            port = tcpip::Socket::getFreeSocketPort();
+        } catch (const tcpip::SocketException& e) {
+            throw libsumo::FatalTraCIError(std::string("Could not find a free TraCI port. ") + e.what());
+        }
     }
     std::ostringstream oss;
     for (const std::string& s : cmd) {
