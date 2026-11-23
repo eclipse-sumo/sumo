@@ -1,0 +1,10 @@
+<routes>
+    <vType id="eastbound" vClass="rail" length="350"/>
+    <vType id="westbound" vClass="rail" length="100"/>
+    <vehicle id="east" type="eastbound" depart="0" departSpeed="max">
+        <route edges="E1 a b c d e f g"/>
+    </vehicle>
+    <vehicle id="west" type="westbound" depart="0" departSpeed="max">
+        <route edges="-g -f -e2 -d2.0 -d2 -d20 -c2 -b -a -E1"/>
+    </vehicle>
+</routes>
