@@ -30,6 +30,7 @@ envVarSubstitution
 
 # test several command line options with and without SUMO_HOME
 xmlValidation
+xmlValidationInstalled
 
 # testing 'extended' sumo features
 extended
