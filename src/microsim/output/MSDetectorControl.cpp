@@ -25,6 +25,7 @@
 #include <config.h>
 
 #include <iostream>
+#include <set>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/common/MsgHandler.h>
@@ -136,10 +137,18 @@ MSDetectorControl::writeOutput(SUMOTime step, bool closing) {
         if (myLastCalls[interval] + interval.first <= step || (closing && myLastCalls[interval] < step)) {
             DetectorFileVec dfVec = (*i).second;
             SUMOTime startTime = myLastCalls[interval];
+            std::set<OutputDevice*> tabularOutputs;
             // check whether at the end the output was already generated
             for (DetectorFileVec::iterator it = dfVec.begin(); it != dfVec.end(); ++it) {
                 MSDetectorFileOutput* det = it->first;
-                det->writeXMLOutput(*(it->second), startTime, step);
+                OutputDevice* device = it->second;
+                det->writeXMLOutput(*device, startTime, step);
+                if (!device->isXML()) {
+                    tabularOutputs.insert(device);
+                }
+            }
+            for (OutputDevice* device : tabularOutputs) {
+                device->flush();
             }
             myLastCalls[interval] = step;
         }

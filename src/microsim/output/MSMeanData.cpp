@@ -859,8 +859,18 @@ MSMeanData::writeXMLOutput(OutputDevice& dev,
 
 void
 MSMeanData::writeXMLDetectorProlog(OutputDevice& dev) const {
-    dev.setExpectedAttributes(0, (myAmEdgeBased || myAggregate != AggregateType::NO) ? 2 : 3);
+    configureColumnOutput(dev);
     dev.writeXMLHeader("meandata", "meandata_file.xsd");
+}
+
+
+void
+MSMeanData::configureColumnOutput(OutputDevice& dev, int extraDepth) const {
+    // Combined collectors may introduce attributes after the first row.
+    if (mySubData == nullptr) {
+        const int depth = myAmEdgeBased || myAggregate != AggregateType::NO ? 2 : 3;
+        dev.setExpectedAttributes(0, depth + extraDepth);
+    }
 }
 
 
