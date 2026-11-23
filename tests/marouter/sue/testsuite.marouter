@@ -14,3 +14,6 @@ cch_reset_regression
 
 # multi threaded call of SUE assignment
 threading
+
+# Unsupported route choice methods fail before threaded assignment.
+unsupported_lohse

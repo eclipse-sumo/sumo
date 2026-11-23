@@ -235,12 +235,18 @@ ROMAFrame::addAssignmentOptions() {
 bool
 ROMAFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.isSet("assignment-method") && oc.getString("assignment-method") != "incremental" && oc.getString("assignment-method") != "UE" && oc.getString("assignment-method") != "SUE") {
-        WRITE_ERRORF(TL("Invalid assignment method '%'."), oc.getString("assignment-method"));
+    const std::string assignmentMethod = oc.getString("assignment-method");
+    if (oc.isSet("assignment-method") && assignmentMethod != "incremental" && assignmentMethod != "UE" && assignmentMethod != "SUE") {
+        WRITE_ERRORF(TL("Invalid assignment method '%'."), assignmentMethod);
         return false;
     }
-    if (oc.getString("route-choice-method") != "gawron" && oc.getString("route-choice-method") != "logit" && oc.getString("route-choice-method") != "lohse") {
-        WRITE_ERRORF(TL("Invalid route choice method '%'."), oc.getString("route-choice-method"));
+    const std::string routeChoiceMethod = oc.getString("route-choice-method");
+    if (routeChoiceMethod != "gawron" && routeChoiceMethod != "logit" && routeChoiceMethod != "lohse") {
+        WRITE_ERRORF(TL("Invalid route choice method '%'."), routeChoiceMethod);
+        return false;
+    }
+    if (routeChoiceMethod == "lohse" && (assignmentMethod == "SUE" || assignmentMethod == "UE")) {
+        WRITE_ERROR(TL("Route choice method 'lohse' is not implemented for SUE and UE assignments."));
         return false;
     }
     if (oc.getInt("paths") > 1 && (oc.getString("routing-algorithm") == "CH" || oc.getString("routing-algorithm") == "CHWrapper" || oc.getString("routing-algorithm") == "CCH")) {
