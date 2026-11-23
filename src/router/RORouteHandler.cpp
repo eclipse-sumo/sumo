@@ -264,8 +264,11 @@ RORouteHandler::myStartElement(int element,
                 myActiveContainerPlanSize++;
                 break;
             case SUMO_TAG_FLOW:
-                myActiveRouteProbability = DEFAULT_VEH_PROB;
-                parseFromViaTo((SumoXMLTag)element, attrs, ok);
+                // The base handler skips calibrator flows.
+                if (myVehicleParameter != nullptr) {
+                    myActiveRouteProbability = DEFAULT_VEH_PROB;
+                    parseFromViaTo((SumoXMLTag)element, attrs, ok);
+                }
                 break;
             case SUMO_TAG_TRIP:
                 myActiveRouteProbability = DEFAULT_VEH_PROB;
