@@ -34,10 +34,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="f0.10" depart="50.00" departLane="beg_1" departPos="6.60" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="159.00" arrivalLane="end_0" arrivalPos="200.00" arrivalPosLat="1.40" arrivalSpeed="10.94" duration="109.00" routeLength="993.40" waitingTime="8.00" waitingCount="2" stopTime="0.00" timeLoss="25.14" rerouteNo="0" devices="tripinfo_f0.10 bluelight_f0.10" vType="emg" speedFactor="0.85" vaporized="">
-        <bluelight/>
-    </tripinfo>
-    <tripinfo id="f0.16" depart="80.00" departLane="beg_0" departPos="6.60" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="199.00" arrivalLane="end_0" arrivalPos="200.00" arrivalPosLat="1.40" arrivalSpeed="9.55" duration="119.00" routeLength="993.40" waitingTime="7.00" waitingCount="2" stopTime="0.00" timeLoss="26.02" rerouteNo="0" devices="tripinfo_f0.16 bluelight_f0.16" vType="emg" speedFactor="0.78" vaporized="">
-        <bluelight/>
-    </tripinfo>
+    <tripinfo id="f0.10" depart="50.00" departLane="beg_1" departPos="6.60" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="159.00" arrivalLane="end_0" arrivalPos="200.00" arrivalPosLat="1.40" arrivalSpeed="10.94" duration="109.00" routeLength="993.40" waitingTime="8.00" waitingCount="2" stopTime="0.00" timeLoss="25.14" rerouteNo="0" devices="tripinfo_f0.10 bluelight_f0.10" vType="emg" speedFactor="0.85" vaporized=""/>
+    <tripinfo id="f0.16" depart="80.00" departLane="beg_0" departPos="6.60" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="199.00" arrivalLane="end_0" arrivalPos="200.00" arrivalPosLat="1.40" arrivalSpeed="9.55" duration="119.00" routeLength="993.40" waitingTime="7.00" waitingCount="2" stopTime="0.00" timeLoss="26.02" rerouteNo="0" devices="tripinfo_f0.16 bluelight_f0.16" vType="emg" speedFactor="0.78" vaporized=""/>
 </tripinfos>
