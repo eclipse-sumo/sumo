@@ -1776,6 +1776,43 @@ Vehicle::add(const std::string& vehID,
 }
 
 
+static Position
+findHeadingProjection(const PositionVector& shape, const Position& pos, double angle, double maxDistance) {
+    Position best = Position::INVALID;
+    double bestAngleDiff = std::numeric_limits<double>::infinity();
+    double shapeOffset = 0;
+    int candidateCount = 0;
+    for (int i = 0; i + 1 < (int)shape.size(); ++i) {
+        const Position& start = shape[i];
+        const Position& end = shape[i + 1];
+        const double length = start.distanceTo(end);
+        const double segmentStart = shapeOffset;
+        shapeOffset += length;
+        const double length2D = start.distanceTo2D(end);
+        if (length2D == 0) {
+            continue;
+        }
+        const double offset = GeomHelper::nearest_offset_on_line_to_point2D(start, end, pos, true);
+        if (offset == GeomHelper::INVALID_OFFSET) {
+            continue;
+        }
+        const double distance = pos.distanceTo2D(PositionVector::positionAtOffset2D(start, end, offset));
+        if (distance >= maxDistance) {
+            continue;
+        }
+        ++candidateCount;
+        const double heading = GeomHelper::naviDegree(start.angleTo2D(end));
+        const double angleDiff = GeomHelper::getMinAngleDiff(angle, heading);
+        if (angleDiff < bestAngleDiff || (angleDiff == bestAngleDiff && distance < std::abs(best.y()))) {
+            bestAngleDiff = angleDiff;
+            const double signedDistance = shape.isLeft(start, end, pos) >= 0 ? distance : -distance;
+            best = Position(segmentStart + offset * length / length2D, signedDistance);
+        }
+    }
+    return candidateCount > 1 ? best : Position::INVALID;
+}
+
+
 void
 Vehicle::moveToXY(const std::string& vehID, const std::string& edgeID, const int laneIndex,
                   const double x, const double y, double angle, const int keepRoute, double matchThreshold) {
@@ -1861,6 +1898,16 @@ Vehicle::moveToXY(const std::string& vehID, const std::string& edgeID, const int
                 //std::cout << " lane=" << lane->getID() << " posLat=" << lanePosLat << " shape=" << lane->getShape() << " tmp=" << tmp << " tmpDist=" << tmp.distance2D(pos) << "\n";
                 if (tmp.distance2D(pos) > perpDist) {
                     lanePosLat = -lanePosLat;
+                }
+            }
+            // An explicit heading disambiguates overlapping segments of the selected lane.
+            if (mayLeaveNetwork && angle != INVALID_DOUBLE_VALUE && lane->getShape().size() > 2) {
+                const double maxDistance = MIN2(maxRouteDistance, 0.5 * (lane->getWidth() + veh->getVehicleType().getWidth()));
+                const Position projection = findHeadingProjection(lane->getShape(), pos, angle, maxDistance);
+                if (projection != Position::INVALID) {
+                    lanePos = MAX2(0., MIN2(lane->getLength() - NUMERICAL_EPS,
+                                            lane->interpolateGeometryPosToLanePos(projection.x())));
+                    lanePosLat = projection.y();
                 }
             }
             pos.setz(lane->geometryPositionAtOffset(lanePos).z());

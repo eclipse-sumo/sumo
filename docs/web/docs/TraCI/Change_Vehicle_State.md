@@ -202,8 +202,9 @@ mapping as follows:
 
 The angle value is assumed to be in navigational degrees (between 0 and
 360 with 0 at the top, going clockwise). The angle is used when scoring
-candidate mapping lanes to resolve ambiguities. Upon mapping the vehicle
-is angle set to the given value for purposes of drawing and all outputs.
+candidate mapping lanes to resolve ambiguities.
+When bit1 is set, the angle can also resolve ambiguities between overlapping geometry segments of the selected lane.
+Upon mapping the vehicle, its angle is set to the given value for drawing and all outputs.
 If the angle is set to the special TraCI constant
 INVALID_DOUBLE_VALUE, the angle will not be used for scoring and the
 vehicle will assume the angle of the best found lane. When mapping the
