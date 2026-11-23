@@ -1,0 +1,2 @@
+--net-file net.net.xml --route-files input_routes.rou.xml --end 3 --fcd-output fcd.xml
+--fcd-output.attributes id,speed,pos,lane --no-step-log
