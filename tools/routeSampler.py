@@ -344,7 +344,8 @@ class Routes:
                                     vehicle.remove(distribution)
                                     vehicle.insert(index, routeElement)
                                     routeDemand = ET.tostring(vehicle, encoding="unicode")
-                                addEntry(rEdges, attrs, depart if rIdx == activeIdx else None, rProb, rStops, routeDemand)
+                                rDepart = depart if rIdx == activeIdx else None
+                                addEntry(rEdges, attrs, rDepart, rProb, rStops, routeDemand)
                         continue
                     else:
                         if not warned:
