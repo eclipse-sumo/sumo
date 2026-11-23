@@ -592,8 +592,9 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
         return false;
     }
 
+    const int replacementOffset = (int)edges.size() - oldSize;
     std::string msg;
-    if (check && !hasValidRoute(msg, constRoute)) {
+    if (check && !hasValidRoute(msg, constRoute->begin(), constRoute->end(), false, replacementOffset)) {
         WRITE_WARNINGF(TL("Invalid route replacement for vehicle '%'. %"), getID(), msg);
         if (MSGlobals::gCheckRoutes) {
             if (msgReturn != nullptr) {
@@ -602,7 +603,7 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
             return false;
         }
     }
-    if (!replaceRoute(constRoute, info, onInit, (int)edges.size() - oldSize, false, removeStops, msgReturn)) {
+    if (!replaceRoute(constRoute, info, onInit, replacementOffset, false, removeStops, msgReturn)) {
         return false;
     }
     return true;
@@ -954,7 +955,7 @@ MSBaseVehicle::hasValidRoute(std::string& msg, ConstMSRoutePtr route) const {
 
 
 bool
-MSBaseVehicle::hasValidRoute(std::string& msg, MSRouteIterator start, MSRouteIterator last, bool checkJumps) const {
+MSBaseVehicle::hasValidRoute(std::string& msg, MSRouteIterator start, MSRouteIterator last, bool checkJumps, int replacementOffset) const {
     MSRouteIterator lastValid = last - 1;
     // check connectivity, first
     for (MSRouteIterator e = start; e != lastValid; ++e) {
@@ -963,7 +964,11 @@ MSBaseVehicle::hasValidRoute(std::string& msg, MSRouteIterator start, MSRouteIte
             if (!checkJumps || !hasJump(e)) {
                 if (!ignoreTransientPermissions()
                         || (!next.hasTransientPermissions() && !(*e)->hasTransientPermissions())) {
-                    msg = TLF("No connection between edge '%' and edge '%'.", (*e)->getID(), (*(e + 1))->getID());
+                    if (e + 1 == start + replacementOffset && &next != *myCurrEdge) {
+                        msg = TLF("Replacement route starts on edge '%' instead of the current edge '%'.", next.getID(), (*myCurrEdge)->getID());
+                    } else {
+                        msg = TLF("No connection between edge '%' and edge '%'.", (*e)->getID(), next.getID());
+                    }
                     return false;
                 }
             }
