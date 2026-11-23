@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23 16:20:55.162676 by Eclipse SUMO gtfs2pt.py v0.0.0
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20250115"/>
+    <modes value="bus"/>
+    <bbox value="-1,-1,1,1"/>
+    <network value="input_net.net.xml"/>
+    <osm-routes value="ptlines.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="e1_0" lane="east_0" startPos="183.33" endPos="196.33" name="e1" friendlyPos="true"/>
+    <busStop id="e2_0" lane="eastend_0" startPos="187.00" endPos="200.00" name="e2" friendlyPos="true"/>
+    <busStop id="e3_0" lane="eastend_0" startPos="287.00" endPos="300.00" name="e3" friendlyPos="true"/>
+    <busStop id="n2_0" lane="northend_0" startPos="287.00" endPos="300.00" name="n2" friendlyPos="true"/>
+    <busStop id="shared_0" lane="start_0" startPos="88.01" endPos="101.01" name="shared" friendlyPos="true"/>
+</additional>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23 16:20:55.218895 by Eclipse SUMO gtfs2pt.py v0.0.0
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20250115"/>
+    <modes value="bus"/>
+    <bbox value="-1,-1,1,1"/>
+    <network value="input_net.net.xml"/>
+    <osm-routes value="ptlines.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="east" edges="start east eastend"/>
+    <vehicle id="east.0" route="east" line="line_east" depart="21600" departEdge="0" arrivalEdge="2" type="bus">
+        <param key="gtfs.route_name" value="T"/>
+        <param key="gtfs.trip_headsign" value="Branch east"/>
+        <stop busStop="shared_0" arrival="21600" duration="10" until="21600"/><!--stopSequence="1.0/3.0" "shared"-->
+        <stop busStop="e1_0" arrival="21900" duration="10" until="21900"/><!--stopSequence="2.0/3.0" "e1"-->
+        <stop busStop="e2_0" arrival="22200" duration="10" until="22200"/><!--stopSequence="3.0/3.0" "e2"-->
+    </vehicle>
+    <route id="north" edges="start north northend"/>
+    <vehicle id="north.0" route="north" line="line_north" depart="25200" departEdge="0" arrivalEdge="2" type="bus">
+        <param key="gtfs.route_name" value="T"/>
+        <param key="gtfs.trip_headsign" value="Branch north"/>
+        <stop busStop="shared_0" arrival="25200" duration="10" until="25200"/><!--stopSequence="1.0/2.0" "shared"-->
+        <stop busStop="n2_0" arrival="25500" duration="10" until="25500"/><!--stopSequence="2.0/2.0" "n2"-->
+    </vehicle>
+    <vehicle id="eastshort.0" route="east" line="line_eastshort" depart="28800" departEdge="0" arrivalEdge="2" type="bus">
+        <param key="gtfs.route_name" value="T"/>
+        <param key="gtfs.trip_headsign" value="Branch eastshort"/>
+        <stop busStop="shared_0" arrival="28800" duration="10" until="28800"/><!--stopSequence="1.0/2.0" "shared"-->
+        <stop busStop="e3_0" arrival="29100" duration="10" until="29100"/><!--stopSequence="2.0/2.0" "e3"-->
+    </vehicle>
+</routes>

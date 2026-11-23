@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23 16:20:55.191098 by Eclipse SUMO gtfs2pt.py v0.0.0
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20250115"/>
+    <modes value="bus"/>
+    <bbox value="-1,-1,1,1"/>
+    <network value="input_net.net.xml"/>
+    <osm-routes value="ptlines.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="bus" vClass="bus"/>
+</additional>

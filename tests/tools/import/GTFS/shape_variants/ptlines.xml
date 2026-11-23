@@ -1,0 +1,8 @@
+<additional>
+    <ptLine id="east" name="East" line="T" type="bus">
+        <route edges="start east eastend"/>
+    </ptLine>
+    <ptLine id="north" name="North" line="T" type="bus">
+        <route edges="start north northend"/>
+    </ptLine>
+</additional>
