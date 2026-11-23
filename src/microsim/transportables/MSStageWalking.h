@@ -119,7 +119,7 @@ public:
 
     void activateMoveReminders(MSTransportable* person, double oldPos, double newPos, double newSpeed);
 
-    void activateLeaveReminders(MSTransportable* person, const MSLane* lane, double lastPos, SUMOTime t, bool arrived);
+    void activateLeaveReminders(MSTransportable* person, double distance, double lastPos, SUMOTime t, bool arrived);
 
     /// @brief accessors to be used by MSPModel
     //@{

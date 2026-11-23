@@ -1,0 +1,4 @@
+<routes>
+    <person id="forward" depart="0" departPos="20"><walk edges="e" arrivalPos="35" speed="1"/></person>
+    <person id="reverse" depart="40" departPos="80"><walk edges="e" arrivalPos="60" speed="1"/></person>
+</routes>

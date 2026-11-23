@@ -22,6 +22,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cmath>
 #include <string>
 #include <vector>
 #include <utils/iodevices/OutputDevice.h>
@@ -357,7 +358,15 @@ MSStageWalking::moveToNextEdge(MSTransportable* person, SUMOTime currentTime, in
                                    ? getArrivalPos() + tl
                                    : getArrivalPos() - tl)
                                 : person->getPositionOnLane());
-        activateLeaveReminders(person, lane, lastPos, currentTime, arrived);
+        const double laneLength = lane->getLength();
+        double distance = laneLength;
+        if (myCurrentInternalEdge == nullptr) {
+            const bool forward = prevDir == MSPModel::FORWARD;
+            const double entryPos = myRouteStep == myRoute.begin() ? myDepartPos : (forward ? 0. : laneLength);
+            const double leavePos = arrived ? myArrivalPos : (forward ? laneLength : 0.);
+            distance = std::abs(leavePos - entryPos);
+        }
+        activateLeaveReminders(person, distance, lastPos, currentTime, arrived);
     }
     if (myExitTimes != nullptr && nextInternal == nullptr) {
         myExitTimes->push_back(currentTime);
@@ -445,10 +454,10 @@ MSStageWalking::activateMoveReminders(MSTransportable* person, double oldPos, do
 
 
 void
-MSStageWalking::activateLeaveReminders(MSTransportable* person, const MSLane* lane, double lastPos, SUMOTime t, bool arrived) {
+MSStageWalking::activateLeaveReminders(MSTransportable* person, double distance, double lastPos, SUMOTime t, bool arrived) {
     MSMoveReminder::Notification notification = arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION;
     for (std::vector<MSMoveReminder*>::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
-        (*rem)->updateDetector(*person, 0.0, lane->getLength(), myLastEdgeEntryTime, t, t, true);
+        (*rem)->updateDetector(*person, 0.0, distance, myLastEdgeEntryTime, t, t, true);
         if ((*rem)->notifyLeave(*person, lastPos, notification)) {
             ++rem;
         } else {
