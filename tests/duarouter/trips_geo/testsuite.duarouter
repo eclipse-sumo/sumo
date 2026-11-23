@@ -28,6 +28,9 @@ dense
 # test mapmatching trips with geo-coordinates to taz
 geoTrips_taz
 
+# reload alternatives containing legacy connector IDs and canonical TAZ IDs
+geoTrips_taz_reload
+
 # test mapmatching trips with geo-coordinates to taz, edge is part of multiple taz
 geoTrips_taz_multi
 
