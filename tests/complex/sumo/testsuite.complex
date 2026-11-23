@@ -65,6 +65,9 @@ insertionCapacity_3lane
 # Then re-run the simulation with the saved vehroutes as input
 vehroute-roundtrip
 
+# route the same car/taxi mode combination under different access permissions
+car_taxi_access
+
 # testing option parsing
 options
 max_depart

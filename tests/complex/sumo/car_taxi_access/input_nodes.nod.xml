@@ -1,0 +1,10 @@
+<nodes>
+    <node id="c0" x="0" y="0"/>
+    <node id="c1" x="400" y="0"/>
+    <node id="c2" x="1400" y="0"/>
+    <node id="t0" x="0" y="100"/>
+    <node id="t1" x="100" y="100"/>
+    <node id="t2" x="500" y="100"/>
+    <node id="t3" x="1500" y="100"/>
+    <node id="depot" x="-400" y="100"/>
+</nodes>

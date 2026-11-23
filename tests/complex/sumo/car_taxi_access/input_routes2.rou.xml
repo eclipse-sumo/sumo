@@ -1,0 +1,9 @@
+<routes>
+    <vType id="cab" vClass="taxi">
+        <param key="has.taxi.device" value="true"/>
+    </vType>
+    <vehicle id="cab0" type="cab" depart="0">
+        <route edges="taxi_depot taxi_pickup taxi_finish"/>
+        <stop lane="taxi_depot_0" endPos="20" triggered="person"/>
+    </vehicle>
+</routes>
