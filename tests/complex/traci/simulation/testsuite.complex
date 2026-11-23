@@ -3,6 +3,9 @@ loadState
 # Tests the simulation API
 simulation
 
+# Retrieve container stop IDs from the loaded simulation
+container_stops
+
 # test collision retrieval
 collisions
 

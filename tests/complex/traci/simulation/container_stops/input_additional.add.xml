@@ -1,0 +1,5 @@
+<additional>
+    <containerStop id="freight_b" lane="e_0" startPos="20" endPos="30"/>
+    <busStop id="passenger" lane="e_0" startPos="40" endPos="50"/>
+    <containerStop id="freight_a" lane="e_0" startPos="60" endPos="70"/>
+</additional>
