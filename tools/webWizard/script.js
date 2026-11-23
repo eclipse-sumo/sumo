@@ -210,6 +210,7 @@ on("ready", async function(){
     let canvas = elem("canvas");
     let canvasActive = false;
     let canvasRect = [.1, .1, .75, .9];
+    let importedArea = null;
     let ctx = canvas.getContext("2d");
 
     /**
@@ -293,6 +294,7 @@ on("ready", async function(){
         mouse.x = evt.clientX;
         mouse.y = evt.clientY;
         if(mouse.area !== null){
+            if (mouse.area[1] || mouse.area[2]) importedArea = null;
             if(mouse.area[1] == "n"){
                 if((canvasRect[1] + dy)<=canvasRect[3]){
                     canvasRect[1] += dy;
@@ -358,7 +360,10 @@ on("ready", async function(){
 
     const canvasToggle = elem("#canvas-toggle");
 
-    canvasToggle.on("click", toggleCanvas);
+    canvasToggle.on("click", function(){
+        importedArea = null;
+        toggleCanvas();
+    });
     toggleCanvas();
 
     // Enable/disable pt mode checkboxes depending on the main publicTransport checkbox
@@ -660,14 +665,6 @@ on("ready", async function(){
      * generate and send the data to the websocket
      */
     function startBuild(){
-        let bounds = map.getBounds();
-        let cor = {
-            left: bounds.getWest(),
-            bottom: bounds.getSouth(),
-            right: bounds.getEast(),
-            top: bounds.getNorth()
-        };
-
         let data = {
             language: currentLanguage,
             poly: elem("#polygons").checked,
@@ -696,17 +693,7 @@ on("ready", async function(){
         };
 
         // calculates the coordinates of the rectangle if area-picking is active
-        if(canvasActive){
-            let width = cor.right - cor.left;
-            let height = cor.bottom - cor.top;
-            data.coords = [
-                cor.left + width * canvasRect[0],
-                cor.top + height * canvasRect[3],
-                cor.left + width * canvasRect[2],
-                cor.top + height * canvasRect[1]
-            ];
-        } else
-            data.coords = [cor.left, cor.bottom, cor.right, cor.top];
+        data.coords = getScenarioArea();
 
         vehicleClasses.forEach(function(vehicleClass){
             let result = vehicleClass.toJSON();
@@ -760,14 +747,130 @@ on("ready", async function(){
         elem("#tileZoom").value = z;
     }
 
-    elem("#decal").addEventListener("change", function() {
+    function updateDecalControls() {
         const row = elem("#tileZoomRow");
-        row.style.display = this.checked ? "block" : "none";
+        row.style.display = elem("#decal").checked ? "block" : "none";
+    }
+
+    elem("#decal").addEventListener("change", function() {
+        updateDecalControls();
         if (this.checked) syncTileZoomToMap();
     });
 
     map.on("zoomend", function() {
         if (elem("#decal").checked) syncTileZoomToMap();
+    });
+
+    function getScenarioArea() {
+        if (importedArea !== null) return importedArea;
+        const bounds = map.getBounds();
+        const west = bounds.getWest();
+        const north = bounds.getNorth();
+        if (!canvasActive) {
+            return [west, bounds.getSouth(), bounds.getEast(), north];
+        }
+        const width = bounds.getEast() - west;
+        const height = bounds.getSouth() - north;
+        return [west + width * canvasRect[0], north + height * canvasRect[3],
+                west + width * canvasRect[2], north + height * canvasRect[1]];
+    }
+
+    function drawImportedArea() {
+        if (importedArea === null || !canvasActive) return;
+        const bounds = map.getBounds();
+        const west = bounds.getWest();
+        const north = bounds.getNorth();
+        const width = bounds.getEast() - west;
+        const height = north - bounds.getSouth();
+        canvasRect = [(importedArea[0] - west) / width, (north - importedArea[3]) / height,
+                      (importedArea[2] - west) / width, (north - importedArea[1]) / height];
+        draw();
+    }
+
+    map.on("movestart", function() { importedArea = null; });
+    map.on("resize", drawImportedArea);
+
+    const scenarioControls = new Map();
+    for (const id of ["canvas-toggle", "duration", "polygons", "publicTransport", "carOnlyNetwork",
+                      "decal", "tileZoom", "leftHand", "verbose"]) {
+        scenarioControls.set(id, document.getElementById(id));
+    }
+    for (const control of elems("#pt-modes input[type=checkbox], #road-types input[type=checkbox]")) {
+        scenarioControls.set(control.id, control);
+    }
+    for (const vehicle of vehicleClasses) {
+        scenarioControls.set(vehicle.internal + ".enabled", vehicle.enable);
+        scenarioControls.set(vehicle.internal + ".fringeFactor", vehicle.fringeFactor);
+        scenarioControls.set(vehicle.internal + ".count", vehicle.count);
+    }
+
+    function validSetting(control, value) {
+        if (control.type === "checkbox") return typeof value === "boolean";
+        if (typeof value !== "string" || value === "") return false;
+        const candidate = control.cloneNode(true);
+        candidate.value = value;
+        return candidate.value !== "" && candidate.validity.valid;
+    }
+
+    function applyScenarioSettings(settings) {
+        if (!settings || settings.version !== 1 || !settings.values ||
+            !Array.isArray(settings.area) || settings.area.length !== 4 || !settings.area.every(Number.isFinite) ||
+            !Array.isArray(settings.view) || settings.view.length !== 3 || !settings.view.every(Number.isFinite)) {
+            return false;
+        }
+        const [west, south, east, north] = settings.area;
+        const [lat, lon, zoom] = settings.view;
+        if (west >= east || south >= north || south < -90 || north > 90 || Math.abs(lat) > 90 ||
+            zoom < map.getMinZoom() || zoom > map.getMaxZoom()) {
+            return false;
+        }
+        for (const [id, control] of scenarioControls) {
+            if (!validSetting(control, settings.values[id])) return false;
+        }
+
+        map.setView([lat, lon], zoom, {animate: false});
+        const savedBounds = L.latLngBounds([south, west], [north, east]);
+        if (!map.getBounds().contains(savedBounds)) {
+            map.fitBounds(savedBounds, {animate: false});
+        }
+        for (const [id, control] of scenarioControls) {
+            if (control.type === "checkbox") control.checked = settings.values[id];
+            else control.value = settings.values[id];
+        }
+        importedArea = settings.area;
+        toggleCanvas();
+        drawImportedArea();
+        updatePtModesState();
+        updateDecalControls();
+        return true;
+    }
+
+    const settingsFile = elem("#settings-file");
+    const settingsStatus = elem("#settings-status");
+    elem("#save-settings").on("click", function(){
+        const values = Object.fromEntries(Array.from(scenarioControls, ([id, control]) =>
+            [id, control.type === "checkbox" ? control.checked : control.value]));
+        const center = map.getCenter();
+        const settings = {version: 1, area: getScenarioArea(), view: [center.lat, center.lng, map.getZoom()], values};
+        const url = URL.createObjectURL(new Blob([JSON.stringify(settings, null, 2)], {type: "application/json"}));
+        const link = elem("<a>", {href: url, download: "osm-wizard-settings.json"});
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 0);
+    });
+    elem("#load-settings").on("click", () => settingsFile.click());
+    settingsFile.on("change", async function(){
+        const file = settingsFile.files[0];
+        settingsFile.value = "";
+        if (!file) return;
+        let loaded = false;
+        try {
+            loaded = applyScenarioSettings(JSON.parse(await file.text()));
+        } catch (e) {
+            // Treat unreadable files and invalid JSON like unsupported settings.
+        }
+        settingsStatus.textContent = loaded ? TL("Settings loaded.") : TL("Could not load scenario settings.");
     });
 
     /**
