@@ -210,6 +210,7 @@ on("ready", async function(){
     let canvas = elem("canvas");
     let canvasActive = false;
     let canvasRect = [.1, .1, .75, .9];
+    let exactArea = null;
     let ctx = canvas.getContext("2d");
 
     /**
@@ -347,11 +348,14 @@ on("ready", async function(){
      * checks if the checkbox is checked and displays the canvas in this case, else not
      **/
     function toggleCanvas(){
-        if(canvasToggle.checked){
-            canvasActive = true;
+        canvasActive = canvasToggle.checked;
+        if (!canvasActive && exactArea) {
+            exactArea.remove();
+            exactArea = null;
+        }
+        if (canvasActive && !exactArea) {
             canvas.style.removeProperty("display");
         } else {
-            canvasActive = false;
             canvas.style.display = "none";
         }
     }
@@ -397,6 +401,32 @@ on("ready", async function(){
         minZoom: 3,
         maxZoom: 17, // the highest zoom level available for the OpenTopoMap tile layer
         attributionControl: false
+    });
+
+    elem("#exact-bounds-form").on("submit", function(event) {
+        event.preventDefault();
+        const fields = elem("#exact-bounds").value.split(",");
+        const coords = fields.map(Number);
+        const [west, south, east, north] = coords;
+        const error = elem("#bounds-error");
+        error.hidden = false;
+        if (fields.length !== 4 || fields.some(field => !field.trim()) || !coords.every(Number.isFinite)
+                || west >= east || south >= north) {
+            return;
+        }
+        const bounds = L.latLngBounds([south, west], [north, east]);
+        if (!worldBounds.contains(bounds)) {
+            return;
+        }
+        error.hidden = true;
+        if (exactArea) {
+            exactArea.setBounds(bounds);
+        } else {
+            exactArea = L.rectangle(bounds, {interactive: false}).addTo(map);
+        }
+        canvasToggle.checked = true;
+        toggleCanvas();
+        map.fitBounds(bounds, {animate: false, padding: [20, 20]});
     });
 
     L.control.attribution({
@@ -660,7 +690,7 @@ on("ready", async function(){
      * generate and send the data to the websocket
      */
     function startBuild(){
-        let bounds = map.getBounds();
+        let bounds = exactArea ? exactArea.getBounds() : map.getBounds();
         let cor = {
             left: bounds.getWest(),
             bottom: bounds.getSouth(),
@@ -696,7 +726,7 @@ on("ready", async function(){
         };
 
         // calculates the coordinates of the rectangle if area-picking is active
-        if(canvasActive){
+        if (canvasActive && !exactArea) {
             let width = cor.right - cor.left;
             let height = cor.bottom - cor.top;
             data.coords = [

@@ -51,6 +51,8 @@ the mouse pointer at the boundary between the grayed and non-grayed
 area. Once you are satisfied with the area selection, you can proceed to
 the next step.
 
+To reuse a bounding box, open **Exact bounds** and enter four comma-separated coordinates in degrees. Use west longitude, south latitude, east longitude, and north latitude in that order. Choose **Use bounds** to preview the area. The scenario uses those coordinates even if you pan or zoom the map afterward. Clear **Select Area** to return to the visible map area.
+
 # Network Generation
 
 The infrastructure import from OSM into the SUMO simulation are affected by different Wizard options

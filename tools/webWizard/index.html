@@ -57,6 +57,15 @@
                 <div class="container">
                     <div class="options open">
                         <label data-i18n>Select Area <input type="checkbox" id="canvas-toggle" /></label>
+                        <details>
+                            <summary data-i18n>Exact bounds</summary>
+                            <form id="exact-bounds-form">
+                                <label for="exact-bounds" data-i18n>West, south, east, north</label>
+                                <input id="exact-bounds" type="text" />
+                                <button type="submit" data-i18n>Use bounds</button>
+                                <p id="bounds-error" role="alert" hidden data-i18n>Enter four coordinates in west, south, east, north order.</p>
+                            </form>
+                        </details>
                     </div>
                 </div>
 
