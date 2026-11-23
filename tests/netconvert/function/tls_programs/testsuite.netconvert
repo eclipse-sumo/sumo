@@ -75,3 +75,4 @@ ungroup-signals_crossings
 
 # set default parameters for actuated traffic lights
 actuated_defaults
+phase_names

@@ -1,0 +1,1 @@
+--node-files input_nodes.nod.xml --edge-files input_edges.edg.xml --tls.allred.time 2 --tls.left-green.time 0 --no-turnarounds --no-internal-links --tls.guess-phase-names
