@@ -84,3 +84,6 @@ ticket16899
 
 # load 1-point walkingarea shape
 ticket17689
+
+# ignore calibrator flows in additional files
+ticket18597

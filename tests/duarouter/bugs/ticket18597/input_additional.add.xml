@@ -1,0 +1,5 @@
+<additional>
+    <calibrator id="calibrator" edge="beg" pos="0">
+        <flow begin="0" end="100" vehsPerHour="100"/>
+    </calibrator>
+</additional>
