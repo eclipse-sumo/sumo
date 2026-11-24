@@ -240,6 +240,8 @@ protected:
         WayType mySidewalkType;
         /// @brief Information about the direction(s) of railway usage
         int myRailDirection;
+        /// @brief Whether this way carries two separate tracks on a common centerline
+        bool myDoubleTrack = false;
         /// @brief Information about road-side parking
         int myParkingType;
         /// @brief Information about change prohibitions (forward direction
@@ -312,6 +314,9 @@ private:
     static const std::string compoundTypeSeparator;
 
     class CompareEdges;
+
+    /// @brief Resolve tracks=2 tags before creating directional edges.
+    void resolveDoubleTracks(const NBTypeCont& tc);
 
     /** @brief the map from OSM node ids to actual nodes
      * @note: NIOSMNodes may appear multiple times due to substition

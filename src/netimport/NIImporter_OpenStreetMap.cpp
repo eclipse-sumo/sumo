@@ -27,12 +27,14 @@
 #include <algorithm>
 #include <set>
 #include <functional>
+#include <memory>
 #include <sstream>
 #include <limits>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/NamedRTree.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/FileHelpers.h>
@@ -220,6 +222,8 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         }
         PROGRESS_DONE_MESSAGE();
     }
+
+    resolveDoubleTracks(nb.getTypeCont());
 
     /* Mark which nodes are used (by edges or traffic lights).
      * This is necessary to detect which OpenStreetMap nodes are for
@@ -479,6 +483,116 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
 }
 
 
+namespace {
+
+constexpr double PARALLEL_TRACK_DISTANCE = 10.0;
+constexpr double PARALLEL_TRACK_SAMPLE = 10.0;
+
+bool sharesRailCorridor(const PositionVector& way, const PositionVector& other) {
+    const double length = way.length2D();
+    const double span = MIN2(PARALLEL_TRACK_SAMPLE, length);
+    if (span < POSITION_EPS) {
+        return false;
+    }
+    for (double start = 0.; start + span <= length; start += span / 2) {
+        const Position first = way.positionAtOffset2D(start);
+        const Position middle = way.positionAtOffset2D(start + span / 2);
+        const Position last = way.positionAtOffset2D(start + span);
+        const double firstOffset = other.nearest_offset_to_point2D(first, true);
+        const double lastOffset = other.nearest_offset_to_point2D(last, true);
+        if (firstOffset != GeomHelper::INVALID_OFFSET && lastOffset != GeomHelper::INVALID_OFFSET
+                && std::abs(lastOffset - firstOffset) >= 0.9 * span
+                && first.distanceTo2D(other.positionAtOffset2D(firstOffset)) <= PARALLEL_TRACK_DISTANCE
+                && last.distanceTo2D(other.positionAtOffset2D(lastOffset)) <= PARALLEL_TRACK_DISTANCE
+                && other.distance2D(middle) <= PARALLEL_TRACK_DISTANCE) {
+            return true;
+        }
+    }
+    return false;
+}
+
+}
+
+
+void
+NIImporter_OpenStreetMap::resolveDoubleTracks(const NBTypeCont& tc) {
+    std::vector<Edge*> tagged;
+    for (const auto& item : myEdges) {
+        if (item.second->myDoubleTrack) {
+            tagged.push_back(item.second);
+        }
+    }
+    if (tagged.empty()) {
+        return;
+    }
+
+    struct RailWay : Named {
+        explicit RailWay(const Edge& edge) : Named(toString(edge.id)), osmEdge(edge) {}
+        const Edge& osmEdge;
+        PositionVector shape;
+    };
+
+    // Use local metric coordinates for comparison without initializing the network's projection.
+    const GeoConvHelper projection("-", Position(), Boundary(), Boundary());
+    std::map<const Edge*, std::unique_ptr<RailWay>> rails;
+    NamedRTree railTree;
+    for (const auto& item : myEdges) {
+        const Edge& edge = *item.second;
+        if (!tc.knows(edge.myHighWayType) || !isRailway(tc.getEdgeTypePermissions(edge.myHighWayType))) {
+            continue;
+        }
+        auto rail = std::make_unique<RailWay>(edge);
+        for (const long long int id : edge.myCurrentNodes) {
+            const NIOSMNode* node = myOSMNodes.at(id);
+            Position position(node->lon, node->lat);
+            if (projection.x2cartesian_const(position)) {
+                rail->shape.push_back(position);
+            }
+        }
+        if (rail->shape.size() >= 2) {
+            const Boundary bounds = rail->shape.getBoxBoundary();
+            const float lower[2] = {(float)bounds.xmin(), (float)bounds.ymin()};
+            const float upper[2] = {(float)bounds.xmax(), (float)bounds.ymax()};
+            railTree.Insert(lower, upper, rail.get());
+            rails.emplace(&edge, std::move(rail));
+        }
+    }
+
+    for (Edge* edge : tagged) {
+        const auto rail = rails.find(edge);
+        const std::string& direction = edge->myIsOneWay;
+        const bool allowsBoth = direction.empty() || (StringUtils::isBool(direction) && !StringUtils::toBool(direction));
+        edge->myDoubleTrack = rail != rails.end() && edge->myRailDirection == WAY_UNKNOWN && allowsBoth
+                              && edge->myNoLanes <= 0 && edge->myNoLanesForward == 0
+                              && !edge->hasParameter("railway:track_ref")
+                              && tc.getEdgeTypeNumLanes(edge->myHighWayType) == 1
+                              && tc.getEdgeTypeSpreadType(edge->myHighWayType) == LaneSpreadFunction::SPREAD_UNKNOWN;
+        if (edge->myDoubleTrack) {
+            const PositionVector& shape = rail->second->shape;
+            Boundary bounds = shape.getBoxBoundary();
+            bounds.grow(PARALLEL_TRACK_DISTANCE);
+            const float lower[2] = {(float)bounds.xmin(), (float)bounds.ymin()};
+            const float upper[2] = {(float)bounds.xmax(), (float)bounds.ymax()};
+            std::set<const Named*> nearby;
+            Named::StoringVisitor visitor(nearby);
+            railTree.Search(lower, upper, visitor);
+            for (const Named* candidate : nearby) {
+                const auto& other = static_cast<const RailWay&>(*candidate);
+                if (&other.osmEdge != edge && other.osmEdge.myLayer == edge->myLayer
+                        && tc.getEdgeTypePermissions(other.osmEdge.myHighWayType) == tc.getEdgeTypePermissions(edge->myHighWayType)
+                        && (sharesRailCorridor(other.shape, shape) || sharesRailCorridor(shape, other.shape))) {
+                    edge->myDoubleTrack = false;
+                    break;
+                }
+            }
+        }
+        if (!edge->myDoubleTrack) {
+            WRITE_WARNINGF(TL("Ignoring track count % for edge '%'."), "2", edge->id);
+        }
+    }
+}
+
+
 int
 NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
                                      const std::vector<long long int>& passed, NBNetBuilder& nb,
@@ -655,15 +769,17 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         bikeLaneWidth = OptionsCont::getOptions().getFloat("default.bikelane-width");
     }
     // check directions
+    const bool doubleTrack = e->myDoubleTrack && isRailway(permissions);
     bool addForward = true;
     bool addBackward = true;
     const bool explicitOneWay = StringUtils::isBool(e->myIsOneWay) && StringUtils::toBool(e->myIsOneWay);
     const bool explicitTwoWay = StringUtils::isBool(e->myIsOneWay) && !StringUtils::toBool(e->myIsOneWay);
-    if ((explicitOneWay || (defaultsToOneWay && (!explicitTwoWay || isRailway(permissions)))) && (e->myRailDirection & WAY_BACKWARD) == 0) {
+    if (!doubleTrack && (explicitOneWay || (defaultsToOneWay && (!explicitTwoWay || isRailway(permissions))))
+            && (e->myRailDirection & WAY_BACKWARD) == 0) {
         addBackward = false;
     }
-    if (e->myIsOneWay == "-1" || e->myIsOneWay == "reverse"
-            || ((e->myRailDirection & WAY_BACKWARD) != 0 && (e->myRailDirection & WAY_FORWARD) == 0)) {
+    if (!doubleTrack && (e->myIsOneWay == "-1" || e->myIsOneWay == "reverse"
+                         || ((e->myRailDirection & WAY_BACKWARD) != 0 && (e->myRailDirection & WAY_FORWARD) == 0))) {
         // one-way in reversed direction of way
         addForward = false;
         addBackward = true;
@@ -901,10 +1017,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? toString(e->id) : "";
     const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     const int offsetFactor = lefthand ? -1 : 1;
-    LaneSpreadFunction lsf = ((addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
+    LaneSpreadFunction lsf = doubleTrack ? LaneSpreadFunction::RIGHT
+            : ((addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
             ((!isRailway(permissions) || (permissions == SVC_CABLE_CAR && e->myRailDirection == WAY_UNKNOWN)))
             ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER);
-    if (addBackward && lsf == LaneSpreadFunction::RIGHT && OptionsCont::getOptions().getString("default.spreadtype") == toString(LaneSpreadFunction::ROADCENTER)) {
+    if (!doubleTrack && addBackward && lsf == LaneSpreadFunction::RIGHT && OptionsCont::getOptions().getString("default.spreadtype") == toString(LaneSpreadFunction::ROADCENTER)) {
         lsf = LaneSpreadFunction::ROADCENTER;
     }
     if (addForward && addBackward && lsf == LaneSpreadFunction::RIGHT && explicitOneWay) {
@@ -2265,8 +2382,11 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             }
         } else if (key == "tracks") {
             try {
-                if (StringUtils::toInt(value) == 1) {
+                const int tracks = StringUtils::toInt(value);
+                if (tracks == 1) {
                     myCurrentEdge->myIsOneWay = "true";
+                } else if (tracks == 2) {
+                    myCurrentEdge->myDoubleTrack = true;
                 } else {
                     WRITE_WARNINGF(TL("Ignoring track count % for edge '%'."), value, myCurrentEdge->id);
                 }

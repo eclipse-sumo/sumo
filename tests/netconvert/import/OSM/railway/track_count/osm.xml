@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<osm version="0.6">
+  <node id="1" lon="10.5" lat="52.0" />
+  <node id="2" lon="10.501" lat="52.0" />
+  <node id="3" lon="10.5" lat="52.01" />
+  <node id="4" lon="10.501" lat="52.01" />
+  <node id="5" lon="10.501" lat="52.010035" />
+  <node id="6" lon="10.5005" lat="52.010035" />
+  <node id="7" lon="10.5" lat="52.010035" />
+  <way id="100">
+    <nd ref="1" />
+    <nd ref="2" />
+    <tag k="railway" v="rail" />
+    <tag k="tracks" v="2" />
+  </way>
+  <way id="200">
+    <nd ref="3" />
+    <nd ref="4" />
+    <tag k="railway" v="rail" />
+    <tag k="tracks" v="2" />
+  </way>
+  <way id="300">
+    <nd ref="5" />
+    <nd ref="6" />
+    <tag k="railway" v="rail" />
+  </way>
+  <way id="400">
+    <nd ref="6" />
+    <nd ref="7" />
+    <tag k="railway" v="rail" />
+  </way>
+</osm>
