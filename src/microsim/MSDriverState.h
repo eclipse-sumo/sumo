@@ -43,7 +43,7 @@ public:
     ~OUProcess();
 
     /// @brief evolve for a time step of length dt.
-    void step(double dt);
+    void step(double dt, SumoRNG* rng);
     /// @brief static version of the step()
     static double step(double state, double dt, double timeScale, double noiseIntensity, SumoRNG* rng);
 

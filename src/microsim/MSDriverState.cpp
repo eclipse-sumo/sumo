@@ -102,11 +102,11 @@ OUProcess::~OUProcess() {}
 
 
 void
-OUProcess::step(double dt) {
+OUProcess::step(double dt, SumoRNG* rng) {
 #ifdef DEBUG_OUPROCESS
     const double oldstate = myState;
 #endif
-    myState = exp(-dt / myTimeScale) * myState + myNoiseIntensity * sqrt(2 * dt / myTimeScale) * RandHelper::randNorm(0, 1, &myRNG);
+    myState = exp(-dt / myTimeScale) * myState + myNoiseIntensity * sqrt(2 * dt / myTimeScale) * RandHelper::randNorm(0, 1, rng);
 #ifdef DEBUG_OUPROCESS
     std::cout << "  OU-step (" << dt << " s.): " << oldstate << "->" << myState << std::endl;
 #endif
@@ -185,7 +185,7 @@ MSSimpleDriverState::updateError() {
     } else {
         myError.setTimeScale(myErrorTimeScaleCoefficient * myAwareness);
         myError.setNoiseIntensity(myErrorNoiseIntensityCoefficient * (1. - myAwareness));
-        myError.step(myStepDuration);
+        myError.step(myStepDuration, myVehicle->getRNG());
     }
 }
 
