@@ -177,9 +177,9 @@ catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
             "WARNING: Parameter catchupDist must be positive. Ignoring given value: -1.0 (Config)",
             "WARNING: Parameter switchImpatienceFactor must be non-negative. Ignoring given value: -1.0 (Config)",
             "WARNING: Parameter platoonSplitTime must be non-negative. Ignoring given value: -1.0 (Config)",
-            "WARNING: Given lane change mode '100000' lies out of admissible range [0,255]. " +
+            "WARNING: Given lane change mode '100000' lies out of admissible range [0,4095]. " +
             "Using default mode instead. (Config)",
-            "WARNING: Given lane change mode '-1' lies out of admissible range [0,255]. " +
+            "WARNING: Given lane change mode '-1' lies out of admissible range [0,4095]. " +
             "Using default mode instead. (Config)",
             "WARNING: vTypeMap must specify original type. Ignoring malformed vTypeMap element. (Config)",
             "WARNING: Given speedFactor 0.0 is invalid. Using default value. (Config)",
