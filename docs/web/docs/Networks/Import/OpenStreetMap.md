@@ -648,7 +648,7 @@ This ensures good sidewalk coverage but may lead to double-sidewalks if OSM mode
 
 ## Sidewalks from OSM
 
-By setting option **--osm.sidewalks**, all sidewalk data from OSM will be loaded. When combined with a typemap such as {{SUMO_HOME}}/data/osmNetconvertPedestrians.typ.xml, the typemap will only be used to configure sidewalk widths but no extra sidewalks will be added.
+Set **--osm.sidewalks** to import sidewalk data from OSM. A typemap such as {{SUMO_HOME}}/data/typemap/osmNetconvertPedestrians.typ.xml supplies sidewalk widths. If OSM supplies neither sidewalk information nor explicit pedestrian access for a way, the typemap can also add sidewalks for its road type.
 
 When **--osm.sidewalks** is set, by setting option **--osm.crossings** the "highway=crossing" tags will be loaded and crossings will be generated.
 

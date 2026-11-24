@@ -634,11 +634,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     double sidewalkWidth = tc.getEdgeTypeSidewalkWidth(type);
     bool addSidewalk = sidewalkWidth != NBEdge::UNSPECIFIED_WIDTH;
     if (myImportSidewalks) {
-        if (addSidewalk) {
-            // only use sidewalk width from typemap but don't add sidewalks
-            // unless OSM specifies them
-            addSidewalk = false;
-        } else {
+        // Use the typemap where OSM does not specify sidewalks or pedestrian access.
+        addSidewalk = addSidewalk && e->mySidewalkType == WAY_UNKNOWN
+            && ((e->myExtraAllowed | e->myExtraDisallowed) & SVC_PEDESTRIAN) == 0;
+        if (sidewalkWidth == NBEdge::UNSPECIFIED_WIDTH) {
             sidewalkWidth = OptionsCont::getOptions().getFloat("default.sidewalk-width");
         }
     }
