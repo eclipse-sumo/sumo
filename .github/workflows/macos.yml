@@ -104,6 +104,7 @@ jobs:
         archive: false
 
     - name: Creating macOS installer pkg
+      if: github.ref == 'refs/heads/main'
       run: |
         python3 -m venv dmgenv
         dmgenv/bin/python3 -m pip install dmgbuild delocate
@@ -111,6 +112,7 @@ jobs:
         dmgenv/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-framework-pkg
 
     - name: Uploading macOS installer pkg
+      if: github.ref == 'refs/heads/main'
       uses: actions/upload-artifact@v7
       with:
         name: ${{ matrix.os }}-installer-unsigned
