@@ -599,7 +599,7 @@ Could not add subscription. Get Vehicle Type Variable: unsupported variable 0x80
                        153: 0,
                        154: 0.0,
                        156: -1.0,
-                       158: 0.0}}
+                       241: 0.0}}
 {'1si': {0: ('1fi',
              '1o',
              '1si',
