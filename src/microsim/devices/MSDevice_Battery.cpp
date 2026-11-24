@@ -532,7 +532,7 @@ MSDevice_Battery::saveState(OutputDevice& out) const {
     std::string prevChargingID = (myPreviousNeighbouringChargingStation == nullptr) ? "NULL" : myPreviousNeighbouringChargingStation->getID();
     internals.push_back(prevChargingID);
     internals.push_back(toString(myMaximumChargeRate));
-    const bool hasV2GState = myMaximumDischargeRate > 0 || myMinimumChargeLevel > 0 || myTotalEnergyDischarged > 0;
+    const bool hasV2GState = mySaveV2GState || myMaximumDischargeRate > 0 || myMinimumChargeLevel > 0 || myTotalEnergyDischarged > 0;
     const bool hasBMSSOHState = myMinimumSoC > 0. || myMaximumSoC < 1. || myStateOfHealth < 1. || myCapacityLossPerCycle > 0.;
     if (hasV2GState || hasBMSSOHState) {
         // only saved for vehicles taking part in vehicle-to-grid or non-default BMS/SOH/charging state
@@ -557,7 +557,11 @@ void
 MSDevice_Battery::loadState(const SUMOSAXAttributes& attrs) {
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
     bis >> myActualBatteryCapacity;
-    bis >> myLastAngle;
+    std::string lastAngle;
+    if (bis >> lastAngle) {
+        // Before the first movement, the saved angle is an infinity sentinel.
+        myLastAngle = StringUtils::toDouble(lastAngle);
+    }
     bis >> myChargingStopped;
     bis >> myChargingInTransit;
     bis >> myChargingStartTime;
@@ -578,6 +582,7 @@ MSDevice_Battery::loadState(const SUMOSAXAttributes& attrs) {
     bis >> myMaximumChargeRate;
     double maximumDischargeRate;
     if (bis >> maximumDischargeRate) {
+        mySaveV2GState = true;
         myMaximumDischargeRate = maximumDischargeRate;
         bis >> myMinimumChargeLevel;
         bis >> myEnergyDischarged;
@@ -656,6 +661,7 @@ MSDevice_Battery::setMaximumDischargeRate(const double dischargeRate) {
     if (dischargeRate < 0) {
         WRITE_WARNINGF(TL("Trying to set into the battery device of vehicle '%' an invalid % (%)."), getID(), toString(SUMO_ATTR_MAXIMUMDISCHARGERATE), toString(dischargeRate));
     } else {
+        mySaveV2GState = true;
         myMaximumDischargeRate = dischargeRate;
     }
 }
@@ -666,6 +672,7 @@ MSDevice_Battery::setMinimumChargeLevel(const double chargeLevel) {
     if (chargeLevel < 0) {
         WRITE_WARNINGF(TL("Trying to set into the battery device of vehicle '%' an invalid % (%)."), getID(), toString(SUMO_ATTR_MINIMUMCHARGELEVEL), toString(chargeLevel));
     } else {
+        mySaveV2GState = true;
         myMinimumChargeLevel = chargeLevel;
     }
 }

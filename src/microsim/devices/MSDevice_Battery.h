@@ -389,6 +389,9 @@ protected:
     /// @brief Total energy discharged into charging stations
     double myTotalEnergyDischarged;
 
+    /// @brief Preserve V2G parameters explicitly set at runtime or restored from state.
+    bool mySaveV2GState = false;
+
     /// @brief Parameter, How many timestep the vehicle is stopped
     int myVehicleStopped;
 

@@ -9,3 +9,5 @@ discharge
 session_ramps
 
 v2x_bms_soh
+
+discharge_state
