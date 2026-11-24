@@ -47,9 +47,9 @@ pipeline {
                 sh '''
                     . sumo_build_env/bin/activate
                     # Creating the EclipseSUMO framework directory
-                    export DYLD_LIBRARY_PATH="${WORKSPACE}/jupedsim-install/lib"
                     python sumo/tools/build_config/buildMacOSInstaller.py --create-framework-dir \
                             --build-dir sumo-build \
+                            --library-path "${WORKSPACE}/jupedsim-install/lib" \
                             --framework-dir framework
                     zip -q -r --symlinks framework-unsigned.zip framework
 
