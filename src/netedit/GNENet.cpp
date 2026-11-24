@@ -2259,6 +2259,12 @@ GNENet::saveAdditionals() {
     // iterate over additionals and obtain invalids
     for (const auto& additionalPair : myAttributeCarriers->getAdditionals()) {
         for (const auto& addditional : additionalPair.second) {
+            if (additionalPair.first == SUMO_TAG_LANE_AREA_DETECTOR || additionalPair.first == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
+                const std::string tlsID = addditional.second->getAttribute(SUMO_ATTR_TLID);
+                if (!tlsID.empty() && getTLLogicCont().getPrograms(tlsID).empty()) {
+                    throw IOError(TLF("Lane area detector '%' refers to unknown traffic light '%'.", addditional.second->getID(), tlsID));
+                }
+            }
             // check if has to be fixed
             if (!addditional.second->isAdditionalValid()) {
                 invalidAdditionals.push_back(addditional.second);
