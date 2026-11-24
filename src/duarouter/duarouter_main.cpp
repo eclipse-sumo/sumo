@@ -239,6 +239,10 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         router = new DijkstraRouter<ROEdge, ROVehicle>(
             ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, ttFunction, false, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
     }
+    if (net.hasProhibitions() && !router->supportsProhibitions()) {
+        WRITE_WARNINGF(TL("Routing algorithm '%' does not support dynamic edge or lane closures. Use 'dijkstra', 'astar' or 'CCH'."),
+                       routingAlgorithm);
+    }
     const int carWalk = SUMOVehicleParserHelper::parseCarWalkTransfer(oc, true);
     double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
 
