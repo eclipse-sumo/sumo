@@ -605,7 +605,7 @@ GUIApplicationWindow::fillMenuBar() {
                                            TL("Gaming Mode"), "Ctrl+G", TL("Toggle gaming mode on/off."),
                                            nullptr, this, MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID);
     GUIDesigns::buildFXMenuCommandShortcut(mySettingsMenu,
-                                           TL("Full Screen Mode"), "Ctrl+F", TL("Toggle full screen mode on/off."),
+                                           TL("Full Screen Mode"), "Ctrl+F or F11", TL("Toggle full screen mode on/off."),
                                            GUIIconSubSys::getIcon(GUIIcon::FULL_SCREEN), this, MID_HOTKEY_CTRL_F_FULSCREENMODE);
     // build Locate menu
     myLocatorMenu = new FXMenuPane(this);
@@ -648,10 +648,10 @@ GUIApplicationWindow::fillMenuBar() {
     myControlMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, TL("Simulation"), nullptr, myControlMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
-                                           TL("Run"), "A,space", TL("Start/ Resume the simulation."),
+                                           TL("Run"), "A or Spacebar", TL("Start/ Resume the simulation."),
                                            GUIIconSubSys::getIcon(GUIIcon::START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
-                                           TLC("Simulation", "Stop"), "S,space", TL("Halt the simulation."),
+                                           TLC("Simulation", "Stop"), "S or Spacebar", TL("Halt the simulation."),
                                            GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
                                            TL("Step"), "D", TL("Perform one simulation step."),
