@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-24T19:07:11.702461+00:00 by Eclipse SUMO dfrouter v1.28.0-0000000000
+<dfrouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_tri.net.xml"/>
+        <detector-files value="input_tri.det.xml"/>
+        <measure-files value="input_tri_flows.txt"/>
+    </input>
+
+    <output>
+        <routes-output value="routes.rou.xml"/>
+        <emitters-output value="emitters.add.xml"/>
+        <vtype value="true"/>
+    </output>
+
+    <processing>
+        <guess-empty-flows value="true"/>
+        <keep-longer-routes value="true"/>
+    </processing>
+
+    <time>
+        <begin value="120"/>
+        <end value="240"/>
+    </time>
+
+</dfrouterConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="PKW" vClass="passenger"/>
+    <vType id="LKW" vClass="truck"/>
+    <routeDistribution id="MQ_beg">
+        <route refId="beg_to_end" probability="0.25"/>
+        <route refId="beg_to_end_1" probability="0.50"/>
+        <route refId="beg_to_end_2" probability="0.25"/>
+    </routeDistribution>
+    <vehicle id="MQ_beg.0" type="PKW" depart="120.00" departLane="0" departPos="5.00" departSpeed="12.50" route="beg_to_end_2"/>
+    <vehicle id="MQ_beg.1" type="PKW" depart="135.00" departLane="0" departPos="5.00" departSpeed="12.50" route="beg_to_end_1"/>
+    <vehicle id="MQ_beg.2" type="PKW" depart="150.00" departLane="0" departPos="5.00" departSpeed="12.50" route="beg_to_end"/>
+    <vehicle id="MQ_beg.3" type="PKW" depart="165.00" departLane="0" departPos="5.00" departSpeed="12.50" route="beg_to_end_1"/>
+    <vehicle id="MQ_beg.4" type="LKW" depart="180.00" departLane="0" departPos="5.00" departSpeed="12.50" route="beg_to_end_1"/>
+    <vehicle id="MQ_beg.5" type="LKW" depart="195.00" departLane="0" departPos="5.00" departSpeed="12.50" route="beg_to_end"/>
+    <vehicle id="MQ_beg.6" type="LKW" depart="210.00" departLane="0" departPos="5.00" departSpeed="12.50" route="beg_to_end_1"/>
+    <vehicle id="MQ_beg.7" type="LKW" depart="225.00" departLane="0" departPos="5.00" departSpeed="12.50" route="beg_to_end"/>
+</additional>

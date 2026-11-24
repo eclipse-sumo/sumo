@@ -1,0 +1,9 @@
+Detector;Time;qPKW;qLKW;vPKW;vLKW
+MQ_1toR;2;2;0;54;0
+MQ_1toL;2;1;0;36;0
+MQ_middle;2;1;0;36;0
+MQ_end;2;4;0;45;0
+MQ_1toR;3;0;2;0;36
+MQ_1toL;3;0;1;0;54
+MQ_middle;3;0;1;0;54
+MQ_end;3;0;4;0;45
