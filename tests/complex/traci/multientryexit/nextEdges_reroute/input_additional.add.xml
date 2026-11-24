@@ -1,0 +1,8 @@
+<additional>
+    <entryExitDetector id="filtered" period="10" file="filtered.xml" nextEdges="CN">
+        <detEntry lane="SC_0" pos="10"/><detExit lane="SC_0" pos="48"/>
+    </entryExitDetector>
+    <entryExitDetector id="all" period="10" file="all.xml">
+        <detEntry lane="SC_0" pos="10"/><detExit lane="SC_0" pos="48"/>
+    </entryExitDetector>
+</additional>

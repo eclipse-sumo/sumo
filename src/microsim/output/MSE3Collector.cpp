@@ -113,6 +113,10 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOTrafficObject& veh, double oldP
 #ifdef HAVE_FOX
     ScopedLocker<> lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
 #endif
+    // Keep the reminder until exit or arrival so filtered entries can be cleared.
+    if (myCollector.myFilteredEntries.count(&veh) != 0) {
+        return true;
+    }
     if ((myCollector.myEnteredContainer.find(&veh) == myCollector.myEnteredContainer.end() ||
             (veh.isPerson() && dynamic_cast<const MSTransportable&>(veh).getDirection() != MSPModel::FORWARD))
             && newPos > myPosition) {
@@ -164,6 +168,7 @@ MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOTrafficObject& veh, double, MS
 #ifdef HAVE_FOX
         ScopedLocker<> lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
 #endif
+        myCollector.myFilteredEntries.erase(&veh);
         if (myCollector.myEnteredContainer.erase(&veh) > 0) {
             if (!myCollector.myExpectArrival) {
                 WRITE_WARNINGF("% '%' arrived inside % '%', time=%.", veh.getCategory(), veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID(), time2string(SIMSTEP));
@@ -291,11 +296,13 @@ MSE3Collector::MSE3LeaveReminder::notifyLeave(SUMOTrafficObject&  veh, double /*
     ScopedLocker<> lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     if (reason == MSMoveReminder::NOTIFICATION_TELEPORT) {
+        myCollector.myFilteredEntries.erase(&veh);
         WRITE_WARNINGF("% '%' teleported from % '%'.", veh.getCategory(), veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID());
         myCollector.myEnteredContainer.erase(&veh);
         return false;
     }
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
+        myCollector.myFilteredEntries.erase(&veh);
         if (myCollector.myEnteredContainer.erase(&veh) > 0) {
             if (!myCollector.myExpectArrival) {
                 WRITE_WARNINGF("% '%' arrived inside % '%', time=%.", veh.getCategory(), veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID(), time2string(SIMSTEP));
@@ -364,6 +371,9 @@ MSE3Collector::enter(const SUMOTrafficObject& veh, const double entryTimestep, c
         return;
     }
     if (!vehicleApplies(veh)) {
+        if (veh.isVehicle() && !myNextEdges.empty()) {
+            myFilteredEntries.insert(&veh);
+        }
         return;
     }
     if (veh.isPerson() && !isBackward && dynamic_cast<const MSTransportable&>(veh).getDirection() != MSPModel::FORWARD) {
@@ -414,7 +424,8 @@ MSE3Collector::leaveFront(const SUMOTrafficObject& veh, const double leaveTimest
         }
         return;
     }
-    if (!vehicleApplies(veh)) {
+    if (myFilteredEntries.count(&veh) != 0
+            || ((myNextEdges.empty() || veh.isPerson() || myEnteredContainer.count(&veh) == 0) && !vehicleApplies(veh))) {
         return;
     }
     if (myEnteredContainer.find(&veh) == myEnteredContainer.end()) {
@@ -436,7 +447,8 @@ MSE3Collector::leave(const SUMOTrafficObject& veh, const double leaveTimestep, c
         }
         return;
     }
-    if (!vehicleApplies(veh)) {
+    if (myFilteredEntries.erase(&veh) != 0
+            || ((myNextEdges.empty() || veh.isPerson() || myEnteredContainer.count(&veh) == 0) && !vehicleApplies(veh))) {
         return;
     }
     if (veh.isPerson() && !isBackward && dynamic_cast<const MSTransportable&>(veh).getDirection() != MSPModel::FORWARD) {
@@ -693,6 +705,7 @@ MSE3Collector::getCurrentVehicleIDs() const {
 
 void
 MSE3Collector::clearState(SUMOTime /* step */) {
+    myFilteredEntries.clear();
     myEnteredContainer.clear();
     myLeftContainer.clear();
 }

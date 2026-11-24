@@ -92,7 +92,9 @@ MSInstantInductLoop::notifyEnter(SUMOTrafficObject& veh, Notification reason, co
 bool
 MSInstantInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
                                 double newPos, double newSpeed) {
-    if (!vehicleApplies(veh)) {
+    // On the detector lane, recheck the route in case it has changed.
+    // Otherwise, the route position may already be beyond the detector.
+    if (veh.getLane() == myLane && !vehicleApplies(veh)) {
         return false;
     }
     if (newPos < myPosition) {

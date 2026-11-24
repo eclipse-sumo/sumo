@@ -15,3 +15,9 @@ walkingArea_nextCrossing
 
 # detect person on walkingarea depending on their next crossing (some are walking in negative direction)
 walkingArea_nextCrossing2
+
+# keep tracking vehicles across detector lanes after reaching the filtered internal edge
+internal_multilane
+
+# keep tracking vehicles after a reroute changes their remaining edges
+reroute_multilane

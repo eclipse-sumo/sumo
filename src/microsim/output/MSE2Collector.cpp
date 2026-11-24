@@ -749,11 +749,6 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification 
     assert(std::find(myLanes.begin(), myLanes.end(), enteredLane->getID()) != myLanes.end());
     assert(veh.getLane() == enteredLane || !veh.isVehicle());
 
-    // vehicles must be kept if the "inductionloop" wants to detect passeengers
-    if (!vehicleApplies(veh) && (veh.isPerson() || myDetectPersons <= (int)PersonMode::WALK)) {
-        // That's not my type...
-        return false;
-    }
     if (myDetectPersons > (int)PersonMode::WALK && !veh.isPerson()) {
         bool keep = false;
         MSBaseVehicle& v = dynamic_cast<MSBaseVehicle&>(veh);
@@ -761,6 +756,16 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification 
             keep = notifyEnter(*p, reason, enteredLane);
         }
         return keep;
+    }
+
+#ifdef HAVE_FOX
+    ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
+    const std::string& vehID = veh.getID();
+    VehicleInfoMap::iterator vi = myVehicleInfos.find(vehID);
+    // Keep tracking a vehicle across detector lanes even if its remaining route no longer matches.
+    if ((myNextEdges.empty() || vi == myVehicleInfos.end() || veh.isPerson()) && !vehicleApplies(veh)) {
+        return false;
     }
 
     // determine whether the vehicle entered the lane behind the detector end
@@ -790,11 +795,6 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification 
     }
 #endif
 
-#ifdef HAVE_FOX
-    ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
-#endif
-    const std::string& vehID = veh.getID();
-    VehicleInfoMap::iterator vi = myVehicleInfos.find(vehID);
     if (vi != myVehicleInfos.end()) {
         // Register move current offset to the next lane
         if (vi->second->currentLane != enteredLane) {

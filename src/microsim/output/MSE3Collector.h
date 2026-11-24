@@ -23,6 +23,7 @@
 #pragma once
 #include <config.h>
 
+#include <set>
 #include <string>
 #include <vector>
 #include <limits>
@@ -439,6 +440,9 @@ protected:
 
     /// @brief Container for vehicles that have entered the area
     std::map<const SUMOTrafficObject*, E3Values> myEnteredContainer;
+
+    /// @brief Vehicles excluded by the filters when crossing an entry.
+    std::set<const SUMOTrafficObject*> myFilteredEntries;
 
     /// @brief Container for vehicles that have left the area
     std::vector<E3Values> myLeftContainer;

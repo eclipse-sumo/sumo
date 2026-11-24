@@ -1,0 +1,6 @@
+<routes>
+    <vType id="test" length="5" maxSpeed="5" speedFactor="1" sigma="0"/>
+    <vehicle id="test" type="test" depart="0" departPos="80" departSpeed="5">
+        <route edges="SC CN NC CW WC"/>
+    </vehicle>
+</routes>
