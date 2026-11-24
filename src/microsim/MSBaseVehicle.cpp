@@ -127,6 +127,10 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
     , myTraceMoveReminders(myShallTraceMoveReminders.count(pars->id) > 0)
 #endif
 {
+    if (pars->departSpeedProcedure == DepartSpeedDefinition::GIVEN && pars->departSpeed > type->getMaxSpeed()
+            && OptionsCont::getOptions().getBool("depart-speed.clamp")) {
+        pars->departSpeed = type->getMaxSpeed();
+    }
     if ((*myRoute->begin())->isTazConnector() || myRoute->getLastEdge()->isTazConnector()) {
         pars->parametersSet |= VEHPARS_FORCE_REROUTE;
     }
