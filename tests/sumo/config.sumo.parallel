@@ -3,5 +3,5 @@ errors:Warning: Teleporting vehicle
 
 [run_dependent_text]
 errors:Warning: The option --threads has known problems
-output:DijkstraRouter answered
-output:DijkstraRouter spent
+output:Router answered
+output:Router spent
