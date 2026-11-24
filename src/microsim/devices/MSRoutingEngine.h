@@ -102,7 +102,7 @@ public:
 
     /// @brief apply cost modifications from randomness, priorityFactor and preferences
     static inline void applyExtras(const MSEdge* const e, const SUMOVehicle* const v, SUMOTime step, double& effort) {
-        if (gWeightsRandomFactor != 1.) {
+        if (gWeightsRandomFactor != 1. && v != nullptr) {
             long long int key = v->getRandomSeed() ^ e->getNumericalID();
             if (myDynamicRandomness) {
                 key ^= step;
@@ -115,7 +115,7 @@ public:
             const double relativeInversePrio = 1 - ((e->getPriority() - myMinEdgePriority) / myEdgePriorityRange);
             effort *= 1 + relativeInversePrio * myPriorityFactor;
         }
-        if (gRoutingPreferences) {
+        if (gRoutingPreferences && v != nullptr) {
             effort /= MSNet::getInstance()->getPreference(e->getRoutingType(), v->getVTypeParameter());
         }
     }
