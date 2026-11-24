@@ -112,6 +112,7 @@ tostmannplatz
 
 # import key junction=circular
 junction_circular
+roundabout_guess_tags
 
 # one incoming arm doesn't have a tls but the central junction should still be considered as controlled
 guess-signals.slack

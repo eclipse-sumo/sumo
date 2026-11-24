@@ -1,0 +1,765 @@
+<?xml version='1.0' encoding='utf-8'?>
+<osm version="0.6">
+    <node id="1000" lat="52.00000000" lon="13.01162427" />
+    <node id="1020" lat="52.00000000" lon="13.01406067" />
+    <node id="1001" lat="52.00070711" lon="13.01114853" />
+    <node id="1021" lat="52.00176777" lon="13.01287133" />
+    <node id="1002" lat="52.00100000" lon="13.01000000" />
+    <node id="1022" lat="52.00250000" lon="13.01000000" />
+    <node id="1003" lat="52.00070711" lon="13.00885147" />
+    <node id="1023" lat="52.00176777" lon="13.00712867" />
+    <node id="1004" lat="52.00000000" lon="13.00837573" />
+    <node id="1024" lat="52.00000000" lon="13.00593933" />
+    <node id="1005" lat="51.99929289" lon="13.00885147" />
+    <node id="1025" lat="51.99823223" lon="13.00712867" />
+    <node id="1006" lat="51.99900000" lon="13.01000000" />
+    <node id="1026" lat="51.99750000" lon="13.01000000" />
+    <node id="1007" lat="51.99929289" lon="13.01114853" />
+    <node id="1027" lat="51.99823223" lon="13.01287133" />
+    <node id="2000" lat="52.00000000" lon="13.02162427" />
+    <node id="2020" lat="52.00000000" lon="13.02406067" />
+    <node id="2001" lat="52.00070711" lon="13.02114853" />
+    <node id="2021" lat="52.00176777" lon="13.02287133" />
+    <node id="2002" lat="52.00100000" lon="13.02000000" />
+    <node id="2022" lat="52.00250000" lon="13.02000000" />
+    <node id="2003" lat="52.00070711" lon="13.01885147" />
+    <node id="2023" lat="52.00176777" lon="13.01712867" />
+    <node id="2004" lat="52.00000000" lon="13.01837573" />
+    <node id="2024" lat="52.00000000" lon="13.01593933" />
+    <node id="2005" lat="51.99929289" lon="13.01885147" />
+    <node id="2025" lat="51.99823223" lon="13.01712867" />
+    <node id="2006" lat="51.99900000" lon="13.02000000" />
+    <node id="2026" lat="51.99750000" lon="13.02000000" />
+    <node id="2007" lat="51.99929289" lon="13.02114853" />
+    <node id="2027" lat="51.99823223" lon="13.02287133" />
+    <node id="3000" lat="52.00000000" lon="13.03162427" />
+    <node id="3020" lat="52.00000000" lon="13.03406067" />
+    <node id="3001" lat="52.00070711" lon="13.03114853" />
+    <node id="3021" lat="52.00176777" lon="13.03287133" />
+    <node id="3002" lat="52.00100000" lon="13.03000000" />
+    <node id="3022" lat="52.00250000" lon="13.03000000" />
+    <node id="3003" lat="52.00070711" lon="13.02885147" />
+    <node id="3023" lat="52.00176777" lon="13.02712867" />
+    <node id="3004" lat="52.00000000" lon="13.02837573" />
+    <node id="3024" lat="52.00000000" lon="13.02593933" />
+    <node id="3005" lat="51.99929289" lon="13.02885147" />
+    <node id="3025" lat="51.99823223" lon="13.02712867" />
+    <node id="3006" lat="51.99900000" lon="13.03000000" />
+    <node id="3026" lat="51.99750000" lon="13.03000000" />
+    <node id="3007" lat="51.99929289" lon="13.03114853" />
+    <node id="3027" lat="51.99823223" lon="13.03287133" />
+    <node id="4000" lat="52.00000000" lon="13.04162427" />
+    <node id="4020" lat="52.00000000" lon="13.04406067" />
+    <node id="4001" lat="52.00070711" lon="13.04114853" />
+    <node id="4021" lat="52.00176777" lon="13.04287133" />
+    <node id="4002" lat="52.00100000" lon="13.04000000" />
+    <node id="4022" lat="52.00250000" lon="13.04000000" />
+    <node id="4003" lat="52.00070711" lon="13.03885147" />
+    <node id="4023" lat="52.00176777" lon="13.03712867" />
+    <node id="4004" lat="52.00000000" lon="13.03837573" />
+    <node id="4024" lat="52.00000000" lon="13.03593933" />
+    <node id="4005" lat="51.99929289" lon="13.03885147" />
+    <node id="4025" lat="51.99823223" lon="13.03712867" />
+    <node id="4006" lat="51.99900000" lon="13.04000000" />
+    <node id="4026" lat="51.99750000" lon="13.04000000" />
+    <node id="4007" lat="51.99929289" lon="13.04114853" />
+    <node id="4027" lat="51.99823223" lon="13.04287133" />
+    <node id="5000" lat="52.00000000" lon="13.05162427">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="5020" lat="52.00000000" lon="13.05406067" />
+    <node id="5001" lat="52.00070711" lon="13.05114853">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="5021" lat="52.00176777" lon="13.05287133" />
+    <node id="5002" lat="52.00100000" lon="13.05000000">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="5022" lat="52.00250000" lon="13.05000000" />
+    <node id="5003" lat="52.00070711" lon="13.04885147">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="5023" lat="52.00176777" lon="13.04712867" />
+    <node id="5004" lat="52.00000000" lon="13.04837573">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="5024" lat="52.00000000" lon="13.04593933" />
+    <node id="5005" lat="51.99929289" lon="13.04885147">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="5025" lat="51.99823223" lon="13.04712867" />
+    <node id="5006" lat="51.99900000" lon="13.05000000">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="5026" lat="51.99750000" lon="13.05000000" />
+    <node id="5007" lat="51.99929289" lon="13.05114853">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="5027" lat="51.99823223" lon="13.05287133" />
+    <node id="6000" lat="52.00000000" lon="13.06162427">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="6020" lat="52.00000000" lon="13.06406067" />
+    <node id="6001" lat="52.00070711" lon="13.06114853" />
+    <node id="6021" lat="52.00176777" lon="13.06287133" />
+    <node id="6002" lat="52.00100000" lon="13.06000000" />
+    <node id="6022" lat="52.00250000" lon="13.06000000" />
+    <node id="6003" lat="52.00070711" lon="13.05885147" />
+    <node id="6023" lat="52.00176777" lon="13.05712867" />
+    <node id="6004" lat="52.00000000" lon="13.05837573" />
+    <node id="6024" lat="52.00000000" lon="13.05593933" />
+    <node id="6005" lat="51.99929289" lon="13.05885147" />
+    <node id="6025" lat="51.99823223" lon="13.05712867" />
+    <node id="6006" lat="51.99900000" lon="13.06000000" />
+    <node id="6026" lat="51.99750000" lon="13.06000000" />
+    <node id="6007" lat="51.99929289" lon="13.06114853" />
+    <node id="6027" lat="51.99823223" lon="13.06287133" />
+    <node id="7000" lat="52.00000000" lon="13.07162427">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="7020" lat="52.00000000" lon="13.07406067" />
+    <node id="7001" lat="52.00070711" lon="13.07114853">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="7021" lat="52.00176777" lon="13.07287133" />
+    <node id="7002" lat="52.00100000" lon="13.07000000">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="7022" lat="52.00250000" lon="13.07000000" />
+    <node id="7003" lat="52.00070711" lon="13.06885147">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="7023" lat="52.00176777" lon="13.06712867" />
+    <node id="7004" lat="52.00000000" lon="13.06837573">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="7024" lat="52.00000000" lon="13.06593933" />
+    <node id="7005" lat="51.99929289" lon="13.06885147">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="7025" lat="51.99823223" lon="13.06712867" />
+    <node id="7006" lat="51.99900000" lon="13.07000000">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="7026" lat="51.99750000" lon="13.07000000" />
+    <node id="7007" lat="51.99929289" lon="13.07114853">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="7027" lat="51.99823223" lon="13.07287133" />
+    <way id="1100">
+        <nd ref="1000" />
+        <nd ref="1001" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="1120">
+        <nd ref="1020" />
+        <nd ref="1000" />
+        <tag k="highway" v="service" />
+    </way>
+    <way id="1101">
+        <nd ref="1001" />
+        <nd ref="1002" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="1121">
+        <nd ref="1021" />
+        <nd ref="1001" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="1102">
+        <nd ref="1002" />
+        <nd ref="1003" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="1122">
+        <nd ref="1022" />
+        <nd ref="1002" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="1103">
+        <nd ref="1003" />
+        <nd ref="1004" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="1123">
+        <nd ref="1023" />
+        <nd ref="1003" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="1104">
+        <nd ref="1004" />
+        <nd ref="1005" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="1124">
+        <nd ref="1024" />
+        <nd ref="1004" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="1105">
+        <nd ref="1005" />
+        <nd ref="1006" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="1125">
+        <nd ref="1025" />
+        <nd ref="1005" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="1106">
+        <nd ref="1006" />
+        <nd ref="1007" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="1126">
+        <nd ref="1026" />
+        <nd ref="1006" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="1107">
+        <nd ref="1007" />
+        <nd ref="1000" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="1127">
+        <nd ref="1027" />
+        <nd ref="1007" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="2100">
+        <nd ref="2000" />
+        <nd ref="2001" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="2120">
+        <nd ref="2020" />
+        <nd ref="2000" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="2101">
+        <nd ref="2001" />
+        <nd ref="2002" />
+        <tag k="highway" v="residential" />
+        <tag k="junction" v="circular" />
+    </way>
+    <way id="2121">
+        <nd ref="2021" />
+        <nd ref="2001" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="2102">
+        <nd ref="2002" />
+        <nd ref="2003" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="2122">
+        <nd ref="2022" />
+        <nd ref="2002" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="2103">
+        <nd ref="2003" />
+        <nd ref="2004" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="2123">
+        <nd ref="2023" />
+        <nd ref="2003" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="2104">
+        <nd ref="2004" />
+        <nd ref="2005" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="2124">
+        <nd ref="2024" />
+        <nd ref="2004" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="2105">
+        <nd ref="2005" />
+        <nd ref="2006" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="2125">
+        <nd ref="2025" />
+        <nd ref="2005" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="2106">
+        <nd ref="2006" />
+        <nd ref="2007" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="2126">
+        <nd ref="2026" />
+        <nd ref="2006" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="2107">
+        <nd ref="2007" />
+        <nd ref="2000" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="2127">
+        <nd ref="2027" />
+        <nd ref="2007" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="3100">
+        <nd ref="3000" />
+        <nd ref="3001" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="3120">
+        <nd ref="3020" />
+        <nd ref="3000" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="3101">
+        <nd ref="3001" />
+        <nd ref="3002" />
+        <tag k="highway" v="primary_link" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="3121">
+        <nd ref="3021" />
+        <nd ref="3001" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="3102">
+        <nd ref="3002" />
+        <nd ref="3003" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="3122">
+        <nd ref="3022" />
+        <nd ref="3002" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="3103">
+        <nd ref="3003" />
+        <nd ref="3004" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="3123">
+        <nd ref="3023" />
+        <nd ref="3003" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="3104">
+        <nd ref="3004" />
+        <nd ref="3005" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="3124">
+        <nd ref="3024" />
+        <nd ref="3004" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="3105">
+        <nd ref="3005" />
+        <nd ref="3006" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="3125">
+        <nd ref="3025" />
+        <nd ref="3005" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="3106">
+        <nd ref="3006" />
+        <nd ref="3007" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="3126">
+        <nd ref="3026" />
+        <nd ref="3006" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="3107">
+        <nd ref="3007" />
+        <nd ref="3000" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="3127">
+        <nd ref="3027" />
+        <nd ref="3007" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="4100">
+        <nd ref="4000" />
+        <nd ref="4001" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="4120">
+        <nd ref="4020" />
+        <nd ref="4000" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="4101">
+        <nd ref="4001" />
+        <nd ref="4002" />
+        <tag k="highway" v="service" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="4121">
+        <nd ref="4021" />
+        <nd ref="4001" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="4102">
+        <nd ref="4002" />
+        <nd ref="4003" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="4122">
+        <nd ref="4022" />
+        <nd ref="4002" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="4103">
+        <nd ref="4003" />
+        <nd ref="4004" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="4123">
+        <nd ref="4023" />
+        <nd ref="4003" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="4104">
+        <nd ref="4004" />
+        <nd ref="4005" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="4124">
+        <nd ref="4024" />
+        <nd ref="4004" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="4105">
+        <nd ref="4005" />
+        <nd ref="4006" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="4125">
+        <nd ref="4025" />
+        <nd ref="4005" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="4106">
+        <nd ref="4006" />
+        <nd ref="4007" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="4126">
+        <nd ref="4026" />
+        <nd ref="4006" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="4107">
+        <nd ref="4007" />
+        <nd ref="4000" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="4127">
+        <nd ref="4027" />
+        <nd ref="4007" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="5100">
+        <nd ref="5000" />
+        <nd ref="5001" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="5120">
+        <nd ref="5020" />
+        <nd ref="5000" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="5101">
+        <nd ref="5001" />
+        <nd ref="5002" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="5121">
+        <nd ref="5021" />
+        <nd ref="5001" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="5102">
+        <nd ref="5002" />
+        <nd ref="5003" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="5122">
+        <nd ref="5022" />
+        <nd ref="5002" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="5103">
+        <nd ref="5003" />
+        <nd ref="5004" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="5123">
+        <nd ref="5023" />
+        <nd ref="5003" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="5104">
+        <nd ref="5004" />
+        <nd ref="5005" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="5124">
+        <nd ref="5024" />
+        <nd ref="5004" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="5105">
+        <nd ref="5005" />
+        <nd ref="5006" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="5125">
+        <nd ref="5025" />
+        <nd ref="5005" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="5106">
+        <nd ref="5006" />
+        <nd ref="5007" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="5126">
+        <nd ref="5026" />
+        <nd ref="5006" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="5107">
+        <nd ref="5007" />
+        <nd ref="5000" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="5127">
+        <nd ref="5027" />
+        <nd ref="5007" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="6100">
+        <nd ref="6000" />
+        <nd ref="6001" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="6120">
+        <nd ref="6020" />
+        <nd ref="6000" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="6101">
+        <nd ref="6001" />
+        <nd ref="6002" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="6121">
+        <nd ref="6021" />
+        <nd ref="6001" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="6102">
+        <nd ref="6002" />
+        <nd ref="6003" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="6122">
+        <nd ref="6022" />
+        <nd ref="6002" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="6103">
+        <nd ref="6003" />
+        <nd ref="6004" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="6123">
+        <nd ref="6023" />
+        <nd ref="6003" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="6104">
+        <nd ref="6004" />
+        <nd ref="6005" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="6124">
+        <nd ref="6024" />
+        <nd ref="6004" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="6105">
+        <nd ref="6005" />
+        <nd ref="6006" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="6125">
+        <nd ref="6025" />
+        <nd ref="6005" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="6106">
+        <nd ref="6006" />
+        <nd ref="6007" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="6126">
+        <nd ref="6026" />
+        <nd ref="6006" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="6107">
+        <nd ref="6007" />
+        <nd ref="6000" />
+        <tag k="highway" v="residential" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="6127">
+        <nd ref="6027" />
+        <nd ref="6007" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="7100">
+        <nd ref="7000" />
+        <nd ref="7001" />
+        <tag k="highway" v="residential" />
+        <tag k="junction" v="roundabout" />
+    </way>
+    <way id="7120">
+        <nd ref="7020" />
+        <nd ref="7000" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="7101">
+        <nd ref="7001" />
+        <nd ref="7002" />
+        <tag k="highway" v="primary_link" />
+        <tag k="junction" v="roundabout" />
+    </way>
+    <way id="7121">
+        <nd ref="7021" />
+        <nd ref="7001" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="7102">
+        <nd ref="7002" />
+        <nd ref="7003" />
+        <tag k="highway" v="residential" />
+        <tag k="junction" v="roundabout" />
+    </way>
+    <way id="7122">
+        <nd ref="7022" />
+        <nd ref="7002" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="7103">
+        <nd ref="7003" />
+        <nd ref="7004" />
+        <tag k="highway" v="residential" />
+        <tag k="junction" v="roundabout" />
+    </way>
+    <way id="7123">
+        <nd ref="7023" />
+        <nd ref="7003" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="7104">
+        <nd ref="7004" />
+        <nd ref="7005" />
+        <tag k="highway" v="residential" />
+        <tag k="junction" v="roundabout" />
+    </way>
+    <way id="7124">
+        <nd ref="7024" />
+        <nd ref="7004" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="7105">
+        <nd ref="7005" />
+        <nd ref="7006" />
+        <tag k="highway" v="residential" />
+        <tag k="junction" v="roundabout" />
+    </way>
+    <way id="7125">
+        <nd ref="7025" />
+        <nd ref="7005" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="7106">
+        <nd ref="7006" />
+        <nd ref="7007" />
+        <tag k="highway" v="residential" />
+        <tag k="junction" v="roundabout" />
+    </way>
+    <way id="7126">
+        <nd ref="7026" />
+        <nd ref="7006" />
+        <tag k="highway" v="residential" />
+    </way>
+    <way id="7107">
+        <nd ref="7007" />
+        <nd ref="7000" />
+        <tag k="highway" v="residential" />
+        <tag k="junction" v="roundabout" />
+    </way>
+    <way id="7127">
+        <nd ref="7027" />
+        <nd ref="7007" />
+        <tag k="highway" v="residential" />
+    </way>
+</osm>

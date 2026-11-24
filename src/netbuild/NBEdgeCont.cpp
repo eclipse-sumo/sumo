@@ -1030,9 +1030,6 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
         // copy lane attributes
         int laneIndex = 0;
         for (i = edges.begin(); i != edges.end(); ++i) {
-            if ((*i)->getParameter("osm.junction") == "circular") {
-                newEdge->setParameter("osm.junction", "circular");
-            }
             const std::vector<NBEdge::Lane>& lanes = (*i)->getLanes();
             for (int j = 0; j < (int)lanes.size(); ++j) {
                 newEdge->setPermissions(lanes[j].permissions, laneIndex);
@@ -1460,7 +1457,7 @@ NBEdgeCont::guessRoundabouts() {
                 if (!loaded) {
                     const bool excluded = std::any_of(loopEdges.begin(), loopEdges.end(), [](const NBEdge* edge) {
                         // Netconvert can also load previously converted OSM networks.
-                        if (edge->isRoundaboutGuessExcluded() || edge->getParameter("osm.junction") == "circular") {
+                        if (edge->isRoundaboutGuessExcluded()) {
                             return true;
                         }
                         const auto types = StringTokenizer(edge->getTypeID(), "|").getVector();

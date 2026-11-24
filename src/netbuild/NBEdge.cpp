@@ -4096,9 +4096,6 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
 void
 NBEdge::append(NBEdge* e) {
     myRoundaboutGuessExcluded |= e->myRoundaboutGuessExcluded;
-    if (e->getParameter("osm.junction") == "circular") {
-        setParameter("osm.junction", "circular");
-    }
     // append geometry
     myGeom.append(e->myGeom);
     for (int i = 0; i < (int)myLanes.size(); i++) {

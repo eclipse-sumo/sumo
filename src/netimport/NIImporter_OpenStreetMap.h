@@ -266,6 +266,8 @@ protected:
         bool myCurrentIsRoad;
         /// @brief Information whether this road is part of a roundabout
         bool myAmInRoundabout;
+        /// @brief Whether OSM explicitly classifies the way as a circular junction.
+        bool myIsCircularJunction = false;
         /// @brief Way metadata that rules out an inferred roundabout.
         bool myRoundaboutGuessExcluded = false;
         /// @brief Additionally tagged information
