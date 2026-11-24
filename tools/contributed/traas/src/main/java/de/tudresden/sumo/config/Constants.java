@@ -1472,7 +1472,7 @@ public class Constants {
     public static final int VAR_SHADOW_LANE_ID = 0x9d;
 
     // charging station discharge power (vehicle-to-grid)
-    public static final int VAR_CS_DISCHARGE_POWER = 0x9e;
+    public static final int VAR_CS_DISCHARGE_POWER = 0xf1;
 
     /// @name currently wanted lane-change action
     /// @{
