@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-22T16:52:17.520237+01:00 by Eclipse SUMO sumo v1_28_0+0176-952bfc577d1
+<!-- generated on 2026-10-22T16:52:22.195989+01:00 by Eclipse SUMO sumo v1_28_0+0176-952bfc577d1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,3 +45,151 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </mesoscopic>
 
 </sumoConfiguration>
+-->
+
+<weights xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval id="device.rerouting" begin="0.00" end="10.00">
+        <edge id="E0" traveltime="7.22"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.20"/>
+        <edge id="E3" traveltime="21.60"/>
+    </interval>
+    <interval id="device.rerouting" begin="10.00" end="20.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.20"/>
+        <edge id="E3" traveltime="21.60"/>
+    </interval>
+    <interval id="device.rerouting" begin="20.00" end="30.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.20"/>
+        <edge id="E3" traveltime="21.67"/>
+    </interval>
+    <interval id="device.rerouting" begin="30.00" end="40.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.20"/>
+        <edge id="E3" traveltime="21.74"/>
+    </interval>
+    <interval id="device.rerouting" begin="40.00" end="50.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.20"/>
+        <edge id="E3" traveltime="21.82"/>
+    </interval>
+    <interval id="device.rerouting" begin="50.00" end="60.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.20"/>
+        <edge id="E3" traveltime="21.89"/>
+    </interval>
+    <interval id="device.rerouting" begin="60.00" end="70.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.20"/>
+        <edge id="E3" traveltime="21.96"/>
+    </interval>
+    <interval id="device.rerouting" begin="70.00" end="80.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.20"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+    <interval id="device.rerouting" begin="80.00" end="90.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.22"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+    <interval id="device.rerouting" begin="90.00" end="100.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.22"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+    <interval id="device.rerouting" begin="100.00" end="110.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.22"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+    <interval id="device.rerouting" begin="110.00" end="120.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.22"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+    <interval id="device.rerouting" begin="120.00" end="130.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.22"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+    <interval id="device.rerouting" begin="130.00" end="140.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.22"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+    <interval id="device.rerouting" begin="140.00" end="150.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.22"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+    <interval id="device.rerouting" begin="150.00" end="160.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.22"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+    <interval id="device.rerouting" begin="160.00" end="170.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.22"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+    <interval id="device.rerouting" begin="170.00" end="180.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.22"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+    <interval id="device.rerouting" begin="180.00" end="190.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.22"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+    <interval id="device.rerouting" begin="190.00" end="200.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.22"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+    <interval id="device.rerouting" begin="200.00" end="210.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.22"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+    <interval id="device.rerouting" begin="210.00" end="220.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.22"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+    <interval id="device.rerouting" begin="220.00" end="230.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.22"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+    <interval id="device.rerouting" begin="230.00" end="240.00">
+        <edge id="E0" traveltime="7.25"/>
+        <edge id="E1" traveltime="7.20"/>
+        <edge id="E2" traveltime="7.22"/>
+        <edge id="E3" traveltime="22.04"/>
+    </interval>
+</weights>
