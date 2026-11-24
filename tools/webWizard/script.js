@@ -412,6 +412,7 @@ on("ready", async function(){
     const tileLayers = {
         "OpenStreetMap": L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
             noWrap: true,
+            referrerPolicy: "strict-origin-when-cross-origin",
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a>'
         }),
         "OpenStreetMap Deutschland": L.tileLayer("https://tile.openstreetmap.de/{z}/{x}/{y}.png", {
