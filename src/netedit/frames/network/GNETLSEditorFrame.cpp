@@ -1559,6 +1559,7 @@ GNETLSEditorFrame::TLSPrograms::discardChanges(const bool editJunctionAgain) {
     auto currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     if (currentJunction != nullptr) {
         myTLSEditorParent->getViewNet()->getUndoList()->abortAllChangeGroups();
+        myHaveModifications = false;
         myTLSEditorParent->cleanup();
         myTLSEditorParent->getViewNet()->updateViewNet();
         // edit junction again
