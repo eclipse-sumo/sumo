@@ -3,8 +3,8 @@
     <simulation simPeriod="2700"/>
     <links>
         <link no="1"/>
-        <link no="2"/>
-        <link no="3"/>
+        <link no="9"/>
+        <link no="8"/>
         <link no="10001">
             <fromLinkEndPt link="1" pos="50.0"/>
         </link>
@@ -65,12 +65,12 @@
     <vehicleRoutingDecisionsStatic>
         <vehicleRoutingDecisionStatic link="1">
             <vehRoutSta>
-                <vehicleRouteStatic no="1" destLink="2" relFlow="2 0:0.25, 2 1800000:0.0">
+                <vehicleRouteStatic no="1" destLink="9" relFlow="2 0:0.25, 2 1800000:0.0">
                     <linkSeq>
                         <intObjectRef key="10001"/>
                     </linkSeq>
                 </vehicleRouteStatic>
-                <vehicleRouteStatic no="2" destLink="3" relFlow="2 0:0.75, 2 900000, 2 1800000:0.0"/>
+                <vehicleRouteStatic no="2" destLink="8" relFlow="2 0:0.75, 2 900000, 2 1800000:0.0"/>
             </vehRoutSta>
         </vehicleRoutingDecisionStatic>
     </vehicleRoutingDecisionsStatic>

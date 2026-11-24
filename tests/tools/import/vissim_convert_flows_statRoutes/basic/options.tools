@@ -1,1 +1,1 @@
--V input_data.xml -n input_net.net.xml -o out.rou.xml tools/import/vissim/convert_vissimXML_flows_statRoutes.py
+-V input_data.xml -n "$SUMO_HOME/tests/tools/net/remap_renamed/net2.net.xml" -o out.rou.xml tools/import/vissim/convert_vissimXML_flows_statRoutes.py

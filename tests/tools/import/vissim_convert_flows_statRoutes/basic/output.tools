@@ -7,7 +7,7 @@
 ---
 
 * loading SUMO net:
-	 input_net.net.xml
+	 tests/tools/net/remap_renamed/net2.net.xml
 + building edge list...
 	OK.
 + building "Verbinder"("connector") info...
