@@ -18,6 +18,8 @@ on:
       - 'pysrc/**'
       - 'src/libsumo/**'
       - 'src/libtraci/**'
+      - 'tools/traci/**'
+      - 'tools/sumolib/**'
       - '.github/workflows/*wheels.yml'
       - '.github/workflows/generate-matrix.yml'
   workflow_dispatch:
