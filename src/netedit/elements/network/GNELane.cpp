@@ -1741,7 +1741,7 @@ GNELane::drawDirectionIndicators(const GUIVisualizationSettings& s) const {
             glColor3d(0.3, 0.3, 0.3);
         }
         // get width and sideOffset
-        const double width = MAX2(NUMERICAL_EPS, (myDrawingConstants->getDrawingWidth() * 2 * myDrawingConstants->getExaggeration()));
+        const double width = MAX2(NUMERICAL_EPS, myDrawingConstants->getDrawingWidth() * 2);
         // push direction indicator matrix
         GLHelper::pushMatrix();
         // move to front
