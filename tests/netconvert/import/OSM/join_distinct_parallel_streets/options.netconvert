@@ -1,0 +1,1 @@
+--osm-files osm.xml -o discard.net.xml --junctions.join --junctions.join-output joined.nod.xml --no-internal-links

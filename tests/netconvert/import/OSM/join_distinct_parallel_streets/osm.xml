@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version="0.6" generator="SUMO test">
+    <node id="1" lat="37.0000000" lon="-122.0011236" />
+    <node id="2" lat="37.0000000" lon="-122.0005618" />
+    <node id="3" lat="37.0000000" lon="-122.0000000" />
+    <node id="4" lat="37.0000000" lon="-121.9994382" />
+    <node id="5" lat="37.0000000" lon="-121.9988764" />
+    <node id="6" lat="36.9999459" lon="-122.0005056" />
+    <node id="7" lat="36.9999459" lon="-122.0000000" />
+    <node id="8" lat="36.9999459" lon="-121.9994944" />
+    <node id="9" lat="36.9994595" lon="-122.0000000" />
+    <node id="10" lat="37.0005405" lon="-122.0000000" />
+    <node id="11" lat="37.0000541" lon="-122.0005056" />
+    <node id="12" lat="37.0000541" lon="-122.0000000" />
+    <node id="13" lat="37.0000541" lon="-121.9994944" />
+    <way id="100">
+        <nd ref="1" />
+        <nd ref="2" />
+        <nd ref="3" />
+        <nd ref="4" />
+        <nd ref="5" />
+        <tag k="highway" v="tertiary" />
+        <tag k="name" v="Main Street" />
+        <tag k="lanes" v="2" />
+    </way>
+    <way id="101">
+        <nd ref="6" />
+        <nd ref="7" />
+        <nd ref="8" />
+        <tag k="highway" v="tertiary" />
+        <tag k="name" v="Main Street" />
+        <tag k="lanes" v="1" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="102">
+        <nd ref="13" />
+        <nd ref="12" />
+        <nd ref="11" />
+        <tag k="highway" v="tertiary" />
+        <tag k="name" v="Main Street" />
+        <tag k="lanes" v="1" />
+        <tag k="oneway" v="yes" />
+    </way>
+    <way id="103">
+        <nd ref="9" />
+        <nd ref="7" />
+        <nd ref="3" />
+        <nd ref="12" />
+        <nd ref="10" />
+        <tag k="highway" v="secondary" />
+        <tag k="name" v="Cross Street" />
+        <tag k="lanes" v="2" />
+    </way>
+</osm>

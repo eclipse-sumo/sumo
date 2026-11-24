@@ -1465,6 +1465,59 @@ NBNodeCont::maybeSlipLaneEnd(const NBNode* n, EdgeVector& incoming, double& outA
     return false;
 }
 
+// Follow one unambiguous continuation along a named carriageway.
+// Limit the search to a local split or merge.
+static std::set<const NBNode*>
+traceStreetBranch(const NBEdge* edge, bool backward) {
+    const double MAX_STREET_BRANCH_LENGTH = 100;
+    std::set<const NBNode*> nodes;
+    double length = 0;
+    while (edge != nullptr && length < MAX_STREET_BRANCH_LENGTH) {
+        const NBNode* node = backward ? edge->getFromNode() : edge->getToNode();
+        const NBNode* previous = backward ? edge->getToNode() : edge->getFromNode();
+        length += edge->getGeometry().length2D();
+        if (length > MAX_STREET_BRANCH_LENGTH || !nodes.insert(node).second) {
+            break;
+        }
+        const NBEdge* continuation = nullptr;
+        const EdgeVector& candidates = backward ? node->getIncomingEdges() : node->getOutgoingEdges();
+        for (const NBEdge* candidate : candidates) {
+            if ((backward ? candidate->getFromNode() : candidate->getToNode()) != previous
+                    && (candidate->getPermissions() & SVC_PASSENGER) != 0
+                    && candidate->getStreetName() == edge->getStreetName()
+                    && candidate->getTypeID() == edge->getTypeID()
+                    && std::abs(NBHelpers::relAngle(edge->getAngleAtNode(node), candidate->getAngleAtNode(node))) < 45) {
+                if (continuation != nullptr) {
+                    return nodes;
+                }
+                continuation = candidate;
+            }
+        }
+        edge = continuation;
+    }
+    return nodes;
+}
+
+
+static bool
+areSplitStreetBranches(const NBEdge* first, const NBEdge* second) {
+    if (first->getStreetName().empty() || first->getStreetName() != second->getStreetName()
+            || first->getTypeID() != second->getTypeID()) {
+        return false;
+    }
+    for (const bool backward : {true, false}) {
+        const auto firstNodes = traceStreetBranch(first, backward);
+        const auto secondNodes = traceStreetBranch(second, backward);
+        if (std::any_of(firstNodes.begin(), firstNodes.end(), [&secondNodes](const NBNode* node) {
+            return secondNodes.count(node) != 0;
+        })) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 bool
 NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*, std::vector<NBNode*> >& ptStopEnds,
                             double maxDist, std::string& reason, NBNode*& tryRemove) const {
@@ -1499,13 +1552,24 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
         }
     }
 #endif
-    if (finalIncomingAngles.size() > 5) {
-        reason = toString(finalIncomingAngles.size()) + " incoming edges";
-        return false;
-    }
-    // check for incoming parallel edges
     const double PARALLEL_THRESHOLD_DIFF_NODE = OptionsCont::getOptions().getFloat("junctions.join.parallel-threshold");
     const double PARALLEL_THRESHOLD_SAME_NODE = PARALLEL_THRESHOLD_DIFF_NODE / 3;
+    if (finalIncomingAngles.size() > 5) {
+        // Each split approach contributes one direction to the complexity check.
+        int numApproaches = 0;
+        for (auto j = finalIncomingAngles.begin(); j != finalIncomingAngles.end(); ++j) {
+            const bool splitBranch = std::any_of(finalIncomingAngles.begin(), j, [&](const auto& previous) {
+                return std::abs(j->second - previous.second) < PARALLEL_THRESHOLD_SAME_NODE
+                       && j->first->getLaneShape(0).back().distanceTo2D(previous.first->getLaneShape(0).back()) < maxDist
+                       && areSplitStreetBranches(previous.first, j->first);
+            });
+            if (!splitBranch && ++numApproaches > 5) {
+                reason = toString(finalIncomingAngles.size()) + " incoming edges";
+                return false;
+            }
+        }
+    }
+    // check for incoming parallel edges
     bool foundParallel = false;
     for (auto j = finalIncomingAngles.begin(); j != finalIncomingAngles.end() && !foundParallel; ++j) {
         auto k = j;
@@ -1524,6 +1588,9 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
                 if (angleDiff >= PARALLEL_THRESHOLD_SAME_NODE && (
                             (e1->getToNode() == e2->getToNode()
                              || (edgeDist  < maxDist)))) {
+                    continue;
+                }
+                if (edgeDist < maxDist && areSplitStreetBranches(e1, e2)) {
                     continue;
                 }
                 reason = "parallel incoming " + e1->getID() + "," + e2->getID();
@@ -1558,6 +1625,9 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
                 if (angleDiff >= PARALLEL_THRESHOLD_SAME_NODE && (
                             (e1->getFromNode() == e2->getFromNode()
                              || (edgeDist < maxDist)))) {
+                    continue;
+                }
+                if (edgeDist < maxDist && areSplitStreetBranches(e1, e2)) {
                     continue;
                 }
                 reason = "parallel outgoing " + e1->getID() + "," + e2->getID();
