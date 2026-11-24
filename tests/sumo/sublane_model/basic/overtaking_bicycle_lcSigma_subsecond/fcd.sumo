@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-22T13:51:02.049823+01:00 by Eclipse SUMO sumo v1_28_0+0708-67efd97d02b
+<!-- generated on 2026-11-24T23:41:03.518205+01:00 by Eclipse SUMO sumo v1_28_0+0824-dcae2a50ffe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -235,372 +235,372 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="4.20">
         <vehicle id="bike" speed="3.91" pos="28.57" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="8.68" pos="19.14" lane="beg_0" posLat="0.38" speedLat="-0.17"/>
+        <vehicle id="car" speed="8.68" pos="19.14" lane="beg_0" posLat="0.39" speedLat="-0.09"/>
         <vehicle id="car2" speed="3.42" pos="3.03" lane="beg_0" posLat="-0.49" speedLat="0.60"/>
     </timestep>
     <timestep time="4.30">
         <vehicle id="bike" speed="4.01" pos="28.97" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="8.92" pos="20.03" lane="beg_0" posLat="0.37" speedLat="-0.07"/>
+        <vehicle id="car" speed="8.92" pos="20.03" lane="beg_0" posLat="0.38" speedLat="-0.05"/>
         <vehicle id="car2" speed="3.65" pos="3.39" lane="beg_0" posLat="-0.42" speedLat="0.70"/>
     </timestep>
     <timestep time="4.40">
         <vehicle id="bike" speed="4.08" pos="29.38" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="9.11" pos="20.94" lane="beg_0" posLat="0.37" speedLat="-0.07"/>
+        <vehicle id="car" speed="9.11" pos="20.94" lane="beg_0" posLat="0.37" speedLat="-0.15"/>
         <vehicle id="car2" speed="3.86" pos="3.78" lane="beg_0" posLat="-0.34" speedLat="0.80"/>
     </timestep>
     <timestep time="4.50">
         <vehicle id="bike" speed="4.15" pos="29.79" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="9.27" pos="21.87" lane="beg_0" posLat="0.35" speedLat="-0.17"/>
+        <vehicle id="car" speed="9.27" pos="21.87" lane="beg_0" posLat="0.35" speedLat="-0.15"/>
         <vehicle id="car2" speed="4.12" pos="4.19" lane="beg_0" posLat="-0.26" speedLat="0.80"/>
     </timestep>
     <timestep time="4.60">
         <vehicle id="bike" speed="4.23" pos="30.21" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="9.41" pos="22.81" lane="beg_0" posLat="0.33" speedLat="-0.17"/>
+        <vehicle id="car" speed="9.41" pos="22.81" lane="beg_0" posLat="0.34" speedLat="-0.15"/>
         <vehicle id="car2" speed="4.26" pos="4.61" lane="beg_0" posLat="-0.19" speedLat="0.70"/>
     </timestep>
     <timestep time="4.70">
         <vehicle id="bike" speed="4.29" pos="30.64" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="9.63" pos="23.77" lane="beg_0" posLat="0.31" speedLat="-0.17"/>
+        <vehicle id="car" speed="9.63" pos="23.77" lane="beg_0" posLat="0.32" speedLat="-0.15"/>
         <vehicle id="car2" speed="4.44" pos="5.06" lane="beg_0" posLat="-0.12" speedLat="0.70"/>
     </timestep>
     <timestep time="4.80">
         <vehicle id="bike" speed="4.39" pos="31.08" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="9.84" pos="24.75" lane="beg_0" posLat="0.30" speedLat="-0.17"/>
+        <vehicle id="car" speed="9.84" pos="24.75" lane="beg_0" posLat="0.30" speedLat="-0.15"/>
         <vehicle id="car2" speed="4.70" pos="5.53" lane="beg_0" posLat="-0.06" speedLat="0.60"/>
     </timestep>
     <timestep time="4.90">
         <vehicle id="bike" speed="4.50" pos="31.53" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="10.10" pos="25.76" lane="beg_0" posLat="0.29" speedLat="-0.07"/>
+        <vehicle id="car" speed="10.10" pos="25.76" lane="beg_0" posLat="0.30" speedLat="-0.05"/>
         <vehicle id="car2" speed="4.83" pos="6.01" lane="beg_0" posLat="-0.01" speedLat="0.50"/>
     </timestep>
     <timestep time="5.00">
         <vehicle id="bike" speed="4.61" pos="31.99" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="10.34" pos="26.80" lane="beg_0" posLat="0.28" speedLat="-0.07"/>
+        <vehicle id="car" speed="10.34" pos="26.80" lane="beg_0" posLat="0.28" speedLat="-0.15"/>
         <vehicle id="car2" speed="5.03" pos="6.51" lane="beg_0" posLat="0.03" speedLat="0.40"/>
     </timestep>
     <timestep time="5.10">
         <vehicle id="bike" speed="4.68" pos="32.46" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="10.48" pos="27.85" lane="beg_0" posLat="0.27" speedLat="-0.17"/>
+        <vehicle id="car" speed="10.48" pos="27.85" lane="beg_0" posLat="0.27" speedLat="-0.15"/>
         <vehicle id="car2" speed="5.18" pos="7.03" lane="beg_0" posLat="0.06" speedLat="0.30"/>
     </timestep>
     <timestep time="5.20">
         <vehicle id="bike" speed="4.77" pos="32.94" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="10.64" pos="28.91" lane="beg_0" posLat="0.26" speedLat="-0.07"/>
+        <vehicle id="car" speed="10.64" pos="28.91" lane="beg_0" posLat="0.26" speedLat="-0.05"/>
         <vehicle id="car2" speed="5.42" pos="7.57" lane="beg_0" posLat="0.08" speedLat="0.20"/>
     </timestep>
     <timestep time="5.30">
         <vehicle id="bike" speed="4.86" pos="33.42" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="10.87" pos="30.00" lane="beg_0" posLat="0.26" speedLat="0.03"/>
+        <vehicle id="car" speed="10.87" pos="30.00" lane="beg_0" posLat="0.27" speedLat="0.05"/>
         <vehicle id="car2" speed="5.57" pos="8.13" lane="beg_0" posLat="0.09" speedLat="0.10"/>
     </timestep>
     <timestep time="5.40">
         <vehicle id="bike" speed="4.96" pos="33.92" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="11.11" pos="31.11" lane="beg_0" posLat="0.27" speedLat="0.13"/>
+        <vehicle id="car" speed="11.11" pos="31.11" lane="beg_0" posLat="0.28" speedLat="0.15"/>
         <vehicle id="car2" speed="5.76" pos="8.71" lane="beg_0" posLat="0.09" speedLat="0.00"/>
     </timestep>
     <timestep time="5.50">
         <vehicle id="bike" speed="5.08" pos="34.43" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="11.36" pos="32.24" lane="beg_0" posLat="0.30" speedLat="0.23"/>
+        <vehicle id="car" speed="11.36" pos="32.24" lane="beg_0" posLat="0.31" speedLat="0.25"/>
         <vehicle id="car2" speed="5.90" pos="9.30" lane="beg_0" posLat="0.10" speedLat="0.08"/>
     </timestep>
     <timestep time="5.60">
         <vehicle id="bike" speed="5.18" pos="34.95" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="11.51" pos="33.39" lane="beg_0" posLat="0.33" speedLat="0.33"/>
+        <vehicle id="car" speed="11.51" pos="33.39" lane="beg_0" posLat="0.34" speedLat="0.35"/>
         <vehicle id="car2" speed="6.10" pos="9.91" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="5.70">
         <vehicle id="bike" speed="5.29" pos="35.47" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="11.68" pos="34.56" lane="beg_0" posLat="0.37" speedLat="0.43"/>
+        <vehicle id="car" speed="11.68" pos="34.56" lane="beg_0" posLat="0.39" speedLat="0.45"/>
         <vehicle id="car2" speed="6.25" pos="10.53" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="5.80">
         <vehicle id="bike" speed="5.35" pos="36.01" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="11.86" pos="35.75" lane="beg_0" posLat="0.43" speedLat="0.53"/>
+        <vehicle id="car" speed="11.86" pos="35.75" lane="beg_0" posLat="0.44" speedLat="0.55"/>
         <vehicle id="car2" speed="6.47" pos="11.18" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="5.90">
         <vehicle id="bike" speed="5.45" pos="36.55" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="12.05" pos="36.95" lane="beg_0" posLat="0.49" speedLat="0.63"/>
+        <vehicle id="car" speed="12.05" pos="36.95" lane="beg_0" posLat="0.50" speedLat="0.65"/>
         <vehicle id="car2" speed="6.64" pos="11.84" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="6.00">
         <vehicle id="bike" speed="5.55" pos="37.11" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="12.22" pos="38.18" lane="beg_0" posLat="0.54" speedLat="0.53"/>
+        <vehicle id="car" speed="12.22" pos="38.18" lane="beg_0" posLat="0.56" speedLat="0.55"/>
         <vehicle id="car2" speed="6.87" pos="12.53" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="6.10">
         <vehicle id="bike" speed="5.53" pos="37.66" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="12.47" pos="39.42" lane="beg_0" posLat="0.58" speedLat="0.43"/>
+        <vehicle id="car" speed="12.47" pos="39.42" lane="beg_0" posLat="0.60" speedLat="0.45"/>
         <vehicle id="car2" speed="7.04" pos="13.23" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="6.20">
         <vehicle id="bike" speed="5.55" pos="38.22" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="12.62" pos="40.68" lane="beg_0" posLat="0.63" speedLat="0.43"/>
+        <vehicle id="car" speed="12.62" pos="40.68" lane="beg_0" posLat="0.64" speedLat="0.35"/>
         <vehicle id="car2" speed="7.19" pos="13.95" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="6.30">
         <vehicle id="bike" speed="5.52" pos="38.77" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="12.88" pos="41.97" lane="beg_0" posLat="0.66" speedLat="0.33"/>
+        <vehicle id="car" speed="12.88" pos="41.97" lane="beg_0" posLat="0.66" speedLat="0.25"/>
         <vehicle id="car2" speed="7.35" pos="14.69" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="6.40">
         <vehicle id="bike" speed="5.55" pos="39.33" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.09" pos="43.28" lane="beg_0" posLat="0.68" speedLat="0.23"/>
+        <vehicle id="car" speed="13.09" pos="43.28" lane="beg_0" posLat="0.68" speedLat="0.15"/>
         <vehicle id="car2" speed="7.51" pos="15.44" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="6.50">
         <vehicle id="bike" speed="5.50" pos="39.88" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.34" pos="44.62" lane="beg_0" posLat="0.70" speedLat="0.13"/>
+        <vehicle id="car" speed="13.34" pos="44.62" lane="beg_0" posLat="0.68" speedLat="0.05"/>
         <vehicle id="car2" speed="7.70" pos="16.21" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="6.60">
         <vehicle id="bike" speed="5.53" pos="40.43" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.53" pos="45.97" lane="beg_0" posLat="0.70" speedLat="0.03"/>
+        <vehicle id="car" speed="13.53" pos="45.97" lane="beg_0" posLat="0.68" speedLat="-0.05"/>
         <vehicle id="car2" speed="7.85" pos="16.99" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="6.70">
         <vehicle id="bike" speed="5.53" pos="40.98" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.75" pos="47.34" lane="beg_0" posLat="0.69" speedLat="-0.07"/>
+        <vehicle id="car" speed="13.75" pos="47.34" lane="beg_0" posLat="0.66" speedLat="-0.15"/>
         <vehicle id="car2" speed="8.09" pos="17.80" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="6.80">
         <vehicle id="bike" speed="5.51" pos="41.53" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.83" pos="48.73" lane="beg_0" posLat="0.67" speedLat="-0.17"/>
+        <vehicle id="car" speed="13.83" pos="48.73" lane="beg_0" posLat="0.64" speedLat="-0.25"/>
         <vehicle id="car2" speed="8.26" pos="18.63" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="6.90">
         <vehicle id="bike" speed="5.54" pos="42.09" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.81" pos="50.11" lane="beg_0" posLat="0.65" speedLat="-0.27"/>
+        <vehicle id="car" speed="13.81" pos="50.11" lane="beg_0" posLat="0.60" speedLat="-0.35"/>
         <vehicle id="car2" speed="8.46" pos="19.48" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="7.00">
         <vehicle id="bike" speed="5.52" pos="42.64" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.86" pos="51.49" lane="beg_0" posLat="0.61" speedLat="-0.37"/>
+        <vehicle id="car" speed="13.86" pos="51.49" lane="beg_0" posLat="0.55" speedLat="-0.45"/>
         <vehicle id="car2" speed="8.66" pos="20.34" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="7.10">
         <vehicle id="bike" speed="5.50" pos="43.19" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.86" pos="52.88" lane="beg_0" posLat="0.57" speedLat="-0.37"/>
+        <vehicle id="car" speed="13.86" pos="52.88" lane="beg_0" posLat="0.52" speedLat="-0.35"/>
         <vehicle id="car2" speed="8.91" pos="21.23" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="7.20">
         <vehicle id="bike" speed="5.52" pos="43.74" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.84" pos="54.26" lane="beg_0" posLat="0.53" speedLat="-0.47"/>
+        <vehicle id="car" speed="13.84" pos="54.26" lane="beg_0" posLat="0.47" speedLat="-0.45"/>
         <vehicle id="car2" speed="9.15" pos="22.15" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="7.30">
         <vehicle id="bike" speed="5.55" pos="44.30" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.78" pos="55.64" lane="beg_0" posLat="0.48" speedLat="-0.47"/>
+        <vehicle id="car" speed="13.78" pos="55.64" lane="beg_0" posLat="0.43" speedLat="-0.45"/>
         <vehicle id="car2" speed="9.32" pos="23.08" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="7.40">
         <vehicle id="bike" speed="5.55" pos="44.85" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.84" pos="57.03" lane="beg_0" posLat="0.43" speedLat="-0.47"/>
+        <vehicle id="car" speed="13.84" pos="57.03" lane="beg_0" posLat="0.38" speedLat="-0.45"/>
         <vehicle id="car2" speed="9.45" pos="24.02" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="7.50">
         <vehicle id="bike" speed="5.54" pos="45.41" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.86" pos="58.41" lane="beg_0" posLat="0.38" speedLat="-0.47"/>
+        <vehicle id="car" speed="13.86" pos="58.41" lane="beg_0" posLat="0.34" speedLat="-0.45"/>
         <vehicle id="car2" speed="9.66" pos="24.99" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="7.60">
         <vehicle id="bike" speed="5.51" pos="45.96" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.82" pos="59.79" lane="beg_0" posLat="0.35" speedLat="-0.37"/>
+        <vehicle id="car" speed="13.82" pos="59.79" lane="beg_0" posLat="0.30" speedLat="-0.35"/>
         <vehicle id="car2" speed="9.80" pos="25.97" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="7.70">
         <vehicle id="bike" speed="5.53" pos="46.51" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.77" pos="61.17" lane="beg_0" posLat="0.30" speedLat="-0.47"/>
+        <vehicle id="car" speed="13.77" pos="61.17" lane="beg_0" posLat="0.26" speedLat="-0.45"/>
         <vehicle id="car2" speed="9.93" pos="26.96" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="7.80">
         <vehicle id="bike" speed="5.55" pos="47.07" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.80" pos="62.55" lane="beg_0" posLat="0.25" speedLat="-0.47"/>
+        <vehicle id="car" speed="13.80" pos="62.55" lane="beg_0" posLat="0.26" speedLat="0.00"/>
         <vehicle id="car2" speed="10.07" pos="27.97" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="7.90">
         <vehicle id="bike" speed="5.50" pos="47.62" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.87" pos="63.94" lane="beg_0" posLat="0.25" speedLat="0.00"/>
+        <vehicle id="car" speed="13.87" pos="63.94" lane="beg_0" posLat="0.26" speedLat="0.00"/>
         <vehicle id="car2" speed="10.22" pos="28.99" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="8.00">
         <vehicle id="bike" speed="5.54" pos="48.17" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.83" pos="65.32" lane="beg_0" posLat="0.25" speedLat="0.00"/>
+        <vehicle id="car" speed="13.83" pos="65.32" lane="beg_0" posLat="0.26" speedLat="0.00"/>
         <vehicle id="car2" speed="10.41" pos="30.03" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="8.10">
         <vehicle id="bike" speed="5.54" pos="48.72" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.76" pos="66.70" lane="beg_0" posLat="0.25" speedLat="0.00"/>
+        <vehicle id="car" speed="13.76" pos="66.70" lane="beg_0" posLat="0.26" speedLat="0.00"/>
         <vehicle id="car2" speed="10.64" pos="31.10" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="8.20">
         <vehicle id="bike" speed="5.55" pos="49.28" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.77" pos="68.07" lane="beg_0" posLat="0.25" speedLat="0.00"/>
+        <vehicle id="car" speed="13.77" pos="68.07" lane="beg_0" posLat="0.26" speedLat="0.00"/>
         <vehicle id="car2" speed="10.84" pos="32.18" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="8.30">
         <vehicle id="bike" speed="5.53" pos="49.83" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.79" pos="69.45" lane="beg_0" posLat="0.25" speedLat="0.00"/>
+        <vehicle id="car" speed="13.79" pos="69.45" lane="beg_0" posLat="0.26" speedLat="0.00"/>
         <vehicle id="car2" speed="10.99" pos="33.28" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="8.40">
         <vehicle id="bike" speed="5.52" pos="50.38" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.82" pos="70.84" lane="beg_0" posLat="0.25" speedLat="0.00"/>
+        <vehicle id="car" speed="13.82" pos="70.84" lane="beg_0" posLat="0.26" speedLat="0.00"/>
         <vehicle id="car2" speed="11.22" pos="34.40" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="8.50">
         <vehicle id="bike" speed="5.55" pos="50.94" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.89" pos="72.22" lane="beg_0" posLat="0.25" speedLat="0.00"/>
+        <vehicle id="car" speed="13.89" pos="72.22" lane="beg_0" posLat="0.26" speedLat="0.00"/>
         <vehicle id="car2" speed="11.35" pos="35.54" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="8.60">
         <vehicle id="bike" speed="5.53" pos="51.49" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.80" pos="73.60" lane="beg_0" posLat="0.25" speedLat="0.00"/>
+        <vehicle id="car" speed="13.80" pos="73.60" lane="beg_0" posLat="0.26" speedLat="0.00"/>
         <vehicle id="car2" speed="11.51" pos="36.69" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="8.70">
         <vehicle id="bike" speed="5.53" pos="52.04" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.79" pos="74.98" lane="beg_0" posLat="0.25" speedLat="0.00"/>
+        <vehicle id="car" speed="13.79" pos="74.98" lane="beg_0" posLat="0.26" speedLat="0.00"/>
         <vehicle id="car2" speed="11.72" pos="37.86" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="8.80">
         <vehicle id="bike" speed="5.52" pos="52.60" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.78" pos="76.36" lane="beg_0" posLat="0.25" speedLat="0.00"/>
+        <vehicle id="car" speed="13.78" pos="76.36" lane="beg_0" posLat="0.26" speedLat="0.00"/>
         <vehicle id="car2" speed="11.90" pos="39.05" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="8.90">
         <vehicle id="bike" speed="5.53" pos="53.15" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.83" pos="77.74" lane="beg_0" posLat="0.25" speedLat="0.00"/>
+        <vehicle id="car" speed="13.83" pos="77.74" lane="beg_0" posLat="0.26" speedLat="0.00"/>
         <vehicle id="car2" speed="12.07" pos="40.26" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="9.00">
         <vehicle id="bike" speed="5.53" pos="53.70" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.76" pos="79.12" lane="beg_0" posLat="0.25" speedLat="0.00"/>
+        <vehicle id="car" speed="13.76" pos="79.12" lane="beg_0" posLat="0.26" speedLat="0.00"/>
         <vehicle id="car2" speed="12.32" pos="41.49" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="9.10">
         <vehicle id="bike" speed="5.55" pos="54.26" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.77" pos="80.50" lane="beg_0" posLat="0.25" speedLat="0.00"/>
+        <vehicle id="car" speed="13.77" pos="80.50" lane="beg_0" posLat="0.26" speedLat="0.00"/>
         <vehicle id="car2" speed="12.50" pos="42.74" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="9.20">
         <vehicle id="bike" speed="5.50" pos="54.81" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.88" pos="81.89" lane="beg_0" posLat="0.25" speedLat="0.00"/>
+        <vehicle id="car" speed="13.88" pos="81.89" lane="beg_0" posLat="0.26" speedLat="0.00"/>
         <vehicle id="car2" speed="12.75" pos="44.01" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="9.30">
         <vehicle id="bike" speed="5.51" pos="55.36" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.87" pos="83.27" lane="beg_0" posLat="0.25" speedLat="0.00"/>
+        <vehicle id="car" speed="13.87" pos="83.27" lane="beg_0" posLat="0.26" speedLat="0.00"/>
         <vehicle id="car2" speed="12.88" pos="45.30" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="9.40">
         <vehicle id="bike" speed="5.50" pos="55.91" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.79" pos="84.65" lane="beg_0" posLat="0.24" speedLat="-0.10"/>
+        <vehicle id="car" speed="13.79" pos="84.65" lane="beg_0" posLat="0.25" speedLat="-0.10"/>
         <vehicle id="car2" speed="13.05" pos="46.61" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="9.50">
         <vehicle id="bike" speed="5.50" pos="56.46" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.87" pos="86.04" lane="beg_0" posLat="0.22" speedLat="-0.20"/>
+        <vehicle id="car" speed="13.87" pos="86.04" lane="beg_0" posLat="0.23" speedLat="-0.20"/>
         <vehicle id="car2" speed="13.28" pos="47.93" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="9.60">
         <vehicle id="bike" speed="5.50" pos="57.01" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.81" pos="87.42" lane="beg_0" posLat="0.19" speedLat="-0.30"/>
+        <vehicle id="car" speed="13.81" pos="87.42" lane="beg_0" posLat="0.20" speedLat="-0.30"/>
         <vehicle id="car2" speed="13.47" pos="49.28" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="9.70">
         <vehicle id="bike" speed="5.50" pos="57.56" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.77" pos="88.80" lane="beg_0" posLat="0.15" speedLat="-0.40"/>
+        <vehicle id="car" speed="13.77" pos="88.80" lane="beg_0" posLat="0.16" speedLat="-0.40"/>
         <vehicle id="car2" speed="13.67" pos="50.65" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="9.80">
         <vehicle id="bike" speed="5.55" pos="58.11" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.83" pos="90.18" lane="beg_0" posLat="0.10" speedLat="-0.50"/>
+        <vehicle id="car" speed="13.83" pos="90.18" lane="beg_0" posLat="0.11" speedLat="-0.50"/>
         <vehicle id="car2" speed="13.85" pos="52.03" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="9.90">
         <vehicle id="bike" speed="5.52" pos="58.67" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.78" pos="91.56" lane="beg_0" posLat="0.04" speedLat="-0.60"/>
+        <vehicle id="car" speed="13.78" pos="91.56" lane="beg_0" posLat="0.05" speedLat="-0.60"/>
         <vehicle id="car2" speed="13.83" pos="53.42" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="10.00">
         <vehicle id="bike" speed="5.55" pos="59.22" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.83" pos="92.94" lane="beg_0" posLat="-0.02" speedLat="-0.60"/>
+        <vehicle id="car" speed="13.83" pos="92.94" lane="beg_0" posLat="-0.01" speedLat="-0.60"/>
         <vehicle id="car2" speed="13.86" pos="54.80" lane="beg_0" posLat="0.10" speedLat="0.00"/>
     </timestep>
     <timestep time="10.10">
         <vehicle id="bike" speed="5.55" pos="59.78" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.82" pos="94.32" lane="beg_0" posLat="-0.09" speedLat="-0.70"/>
+        <vehicle id="car" speed="13.82" pos="94.32" lane="beg_0" posLat="-0.08" speedLat="-0.70"/>
         <vehicle id="car2" speed="13.77" pos="56.18" lane="beg_0" posLat="0.11" speedLat="0.10"/>
     </timestep>
     <timestep time="10.20">
         <vehicle id="bike" speed="5.54" pos="60.33" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.84" pos="95.71" lane="beg_0" posLat="-0.16" speedLat="-0.70"/>
+        <vehicle id="car" speed="13.84" pos="95.71" lane="beg_0" posLat="-0.15" speedLat="-0.70"/>
         <vehicle id="car2" speed="13.84" pos="57.56" lane="beg_0" posLat="0.13" speedLat="0.20"/>
     </timestep>
     <timestep time="10.30">
         <vehicle id="bike" speed="5.55" pos="60.89" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.87" pos="97.09" lane="beg_0" posLat="-0.23" speedLat="-0.70"/>
+        <vehicle id="car" speed="13.87" pos="97.09" lane="beg_0" posLat="-0.22" speedLat="-0.70"/>
         <vehicle id="car2" speed="13.78" pos="58.94" lane="beg_0" posLat="0.16" speedLat="0.30"/>
     </timestep>
     <timestep time="10.40">
         <vehicle id="bike" speed="5.54" pos="61.44" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.83" pos="98.48" lane="beg_0" posLat="-0.31" speedLat="-0.80"/>
+        <vehicle id="car" speed="13.83" pos="98.48" lane="beg_0" posLat="-0.30" speedLat="-0.80"/>
         <vehicle id="car2" speed="13.83" pos="60.32" lane="beg_0" posLat="0.20" speedLat="0.40"/>
     </timestep>
     <timestep time="10.50">
         <vehicle id="bike" speed="5.55" pos="62.00" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.88" pos="99.87" lane="beg_0" posLat="-0.38" speedLat="-0.70"/>
+        <vehicle id="car" speed="13.88" pos="99.87" lane="beg_0" posLat="-0.37" speedLat="-0.70"/>
         <vehicle id="car2" speed="13.83" pos="61.71" lane="beg_0" posLat="0.25" speedLat="0.50"/>
     </timestep>
     <timestep time="10.60">
         <vehicle id="bike" speed="5.52" pos="62.55" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.87" pos="101.25" lane="beg_0" posLat="-0.45" speedLat="-0.70"/>
+        <vehicle id="car" speed="13.87" pos="101.25" lane="beg_0" posLat="-0.44" speedLat="-0.70"/>
         <vehicle id="car2" speed="13.87" pos="63.09" lane="beg_0" posLat="0.31" speedLat="0.60"/>
     </timestep>
     <timestep time="10.70">
         <vehicle id="bike" speed="5.51" pos="63.10" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.81" pos="102.63" lane="beg_0" posLat="-0.51" speedLat="-0.60"/>
+        <vehicle id="car" speed="13.81" pos="102.63" lane="beg_0" posLat="-0.50" speedLat="-0.60"/>
         <vehicle id="car2" speed="13.84" pos="64.48" lane="beg_0" posLat="0.38" speedLat="0.70"/>
     </timestep>
     <timestep time="10.80">
         <vehicle id="bike" speed="5.51" pos="63.65" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.77" pos="104.01" lane="beg_0" posLat="-0.56" speedLat="-0.50"/>
+        <vehicle id="car" speed="13.77" pos="104.01" lane="beg_0" posLat="-0.55" speedLat="-0.50"/>
         <vehicle id="car2" speed="13.87" pos="65.87" lane="beg_0" posLat="0.45" speedLat="0.70"/>
     </timestep>
     <timestep time="10.90">
         <vehicle id="bike" speed="5.54" pos="64.20" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.80" pos="105.39" lane="beg_0" posLat="-0.60" speedLat="-0.40"/>
+        <vehicle id="car" speed="13.80" pos="105.39" lane="beg_0" posLat="-0.59" speedLat="-0.40"/>
         <vehicle id="car2" speed="13.83" pos="67.25" lane="beg_0" posLat="0.51" speedLat="0.60"/>
     </timestep>
     <timestep time="11.00">
         <vehicle id="bike" speed="5.53" pos="64.76" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.81" pos="106.77" lane="beg_0" posLat="-0.64" speedLat="-0.40"/>
+        <vehicle id="car" speed="13.81" pos="106.77" lane="beg_0" posLat="-0.63" speedLat="-0.40"/>
         <vehicle id="car2" speed="13.85" pos="68.63" lane="beg_0" posLat="0.51" speedLat="0.00"/>
     </timestep>
     <timestep time="11.10">
         <vehicle id="bike" speed="5.52" pos="65.31" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.85" pos="108.16" lane="beg_0" posLat="-0.67" speedLat="-0.30"/>
+        <vehicle id="car" speed="13.85" pos="108.16" lane="beg_0" posLat="-0.66" speedLat="-0.30"/>
         <vehicle id="car2" speed="13.83" pos="70.02" lane="beg_0" posLat="0.51" speedLat="0.00"/>
     </timestep>
     <timestep time="11.20">
         <vehicle id="bike" speed="5.53" pos="65.86" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.78" pos="109.53" lane="beg_0" posLat="-0.69" speedLat="-0.20"/>
+        <vehicle id="car" speed="13.78" pos="109.53" lane="beg_0" posLat="-0.68" speedLat="-0.20"/>
         <vehicle id="car2" speed="13.80" pos="71.40" lane="beg_0" posLat="0.51" speedLat="0.00"/>
     </timestep>
     <timestep time="11.30">
         <vehicle id="bike" speed="5.55" pos="66.42" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.89" pos="110.92" lane="beg_0" posLat="-0.70" speedLat="-0.10"/>
+        <vehicle id="car" speed="13.89" pos="110.92" lane="beg_0" posLat="-0.69" speedLat="-0.10"/>
         <vehicle id="car2" speed="13.77" pos="72.77" lane="beg_0" posLat="0.51" speedLat="0.00"/>
     </timestep>
     <timestep time="11.40">
         <vehicle id="bike" speed="5.51" pos="66.97" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.79" pos="112.30" lane="beg_0" posLat="-0.70" speedLat="-0.00"/>
+        <vehicle id="car" speed="13.79" pos="112.30" lane="beg_0" posLat="-0.69" speedLat="-0.00"/>
         <vehicle id="car2" speed="13.77" pos="74.15" lane="beg_0" posLat="0.51" speedLat="0.00"/>
     </timestep>
     <timestep time="11.50">
         <vehicle id="bike" speed="5.52" pos="67.52" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
-        <vehicle id="car" speed="13.78" pos="113.68" lane="beg_0" posLat="-0.70" speedLat="-0.03"/>
+        <vehicle id="car" speed="13.78" pos="113.68" lane="beg_0" posLat="-0.70" speedLat="-0.05"/>
         <vehicle id="car2" speed="13.81" pos="75.53" lane="beg_0" posLat="0.51" speedLat="0.00"/>
     </timestep>
     <timestep time="11.60">
@@ -1071,112 +1071,112 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="20.90">
         <vehicle id="bike" speed="5.52" pos="119.48" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.83" pos="243.67" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.84" pos="205.50" lane="beg_0" posLat="-0.34" speedLat="-0.12"/>
+        <vehicle id="car2" speed="13.84" pos="205.50" lane="beg_0" posLat="-0.34" speedLat="-0.10"/>
     </timestep>
     <timestep time="21.00">
         <vehicle id="bike" speed="5.54" pos="120.04" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.87" pos="245.06" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.78" pos="206.87" lane="beg_0" posLat="-0.34" speedLat="-0.02"/>
+        <vehicle id="car2" speed="13.78" pos="206.87" lane="beg_0" posLat="-0.34" speedLat="0.00"/>
     </timestep>
     <timestep time="21.10">
         <vehicle id="bike" speed="5.55" pos="120.59" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.86" pos="246.45" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.80" pos="208.25" lane="beg_0" posLat="-0.34" speedLat="0.08"/>
+        <vehicle id="car2" speed="13.80" pos="208.25" lane="beg_0" posLat="-0.33" speedLat="0.10"/>
     </timestep>
     <timestep time="21.20">
         <vehicle id="bike" speed="5.52" pos="121.14" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.83" pos="247.83" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.81" pos="209.63" lane="beg_0" posLat="-0.32" speedLat="0.18"/>
+        <vehicle id="car2" speed="13.81" pos="209.63" lane="beg_0" posLat="-0.31" speedLat="0.20"/>
     </timestep>
     <timestep time="21.30">
         <vehicle id="bike" speed="5.51" pos="121.70" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.81" pos="249.21" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.82" pos="211.02" lane="beg_0" posLat="-0.29" speedLat="0.28"/>
+        <vehicle id="car2" speed="13.82" pos="211.02" lane="beg_0" posLat="-0.28" speedLat="0.30"/>
     </timestep>
     <timestep time="21.40">
         <vehicle id="bike" speed="5.53" pos="122.25" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.86" pos="250.60" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.79" pos="212.39" lane="beg_0" posLat="-0.26" speedLat="0.28"/>
+        <vehicle id="car2" speed="13.79" pos="212.39" lane="beg_0" posLat="-0.25" speedLat="0.30"/>
     </timestep>
     <timestep time="21.50">
         <vehicle id="bike" speed="5.50" pos="122.80" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.78" pos="251.97" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.88" pos="213.78" lane="beg_0" posLat="-0.25" speedLat="0.18"/>
+        <vehicle id="car2" speed="13.88" pos="213.78" lane="beg_0" posLat="-0.23" speedLat="0.20"/>
     </timestep>
     <timestep time="21.60">
         <vehicle id="bike" speed="5.50" pos="123.35" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.77" pos="253.35" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.83" pos="215.17" lane="beg_0" posLat="-0.24" speedLat="0.08"/>
+        <vehicle id="car2" speed="13.83" pos="215.17" lane="beg_0" posLat="-0.22" speedLat="0.10"/>
     </timestep>
     <timestep time="21.70">
         <vehicle id="bike" speed="5.55" pos="123.90" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.89" pos="254.74" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.78" pos="216.54" lane="beg_0" posLat="-0.24" speedLat="-0.02"/>
+        <vehicle id="car2" speed="13.78" pos="216.54" lane="beg_0" posLat="-0.22" speedLat="0.00"/>
     </timestep>
     <timestep time="21.80">
         <vehicle id="bike" speed="5.54" pos="124.46" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.78" pos="256.12" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.85" pos="217.93" lane="beg_0" posLat="-0.25" speedLat="-0.12"/>
+        <vehicle id="car2" speed="13.85" pos="217.93" lane="beg_0" posLat="-0.23" speedLat="-0.10"/>
     </timestep>
     <timestep time="21.90">
         <vehicle id="bike" speed="5.54" pos="125.01" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.83" pos="257.50" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.77" pos="219.31" lane="beg_0" posLat="-0.26" speedLat="-0.02"/>
+        <vehicle id="car2" speed="13.77" pos="219.31" lane="beg_0" posLat="-0.23" speedLat="0.00"/>
     </timestep>
     <timestep time="22.00">
         <vehicle id="bike" speed="5.50" pos="125.56" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.77" pos="258.88" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.81" pos="220.69" lane="beg_0" posLat="-0.25" speedLat="0.08"/>
+        <vehicle id="car2" speed="13.81" pos="220.69" lane="beg_0" posLat="-0.22" speedLat="0.07"/>
     </timestep>
     <timestep time="22.10">
         <vehicle id="bike" speed="5.53" pos="126.12" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.79" pos="260.26" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.85" pos="222.07" lane="beg_0" posLat="-0.23" speedLat="0.18"/>
+        <vehicle id="car2" speed="13.85" pos="222.07" lane="beg_0" posLat="-0.21" speedLat="0.17"/>
     </timestep>
     <timestep time="22.20">
         <vehicle id="bike" speed="5.55" pos="126.67" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.81" pos="261.64" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.83" pos="223.46" lane="beg_0" posLat="-0.20" speedLat="0.28"/>
+        <vehicle id="car2" speed="13.83" pos="223.46" lane="beg_0" posLat="-0.19" speedLat="0.17"/>
     </timestep>
     <timestep time="22.30">
         <vehicle id="bike" speed="5.51" pos="127.22" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.80" pos="263.02" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.86" pos="224.84" lane="beg_0" posLat="-0.19" speedLat="0.18"/>
+        <vehicle id="car2" speed="13.86" pos="224.84" lane="beg_0" posLat="-0.18" speedLat="0.07"/>
     </timestep>
     <timestep time="22.40">
         <vehicle id="bike" speed="5.51" pos="127.77" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.81" pos="264.40" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.87" pos="226.23" lane="beg_0" posLat="-0.18" speedLat="0.08"/>
+        <vehicle id="car2" speed="13.87" pos="226.23" lane="beg_0" posLat="-0.19" speedLat="-0.03"/>
     </timestep>
     <timestep time="22.50">
         <vehicle id="bike" speed="5.53" pos="128.33" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.78" pos="265.78" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.85" pos="227.61" lane="beg_0" posLat="-0.18" speedLat="-0.02"/>
+        <vehicle id="car2" speed="13.85" pos="227.61" lane="beg_0" posLat="-0.20" speedLat="-0.13"/>
     </timestep>
     <timestep time="22.60">
         <vehicle id="bike" speed="5.51" pos="128.88" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.77" pos="267.15" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.86" pos="229.00" lane="beg_0" posLat="-0.19" speedLat="-0.12"/>
+        <vehicle id="car2" speed="13.86" pos="229.00" lane="beg_0" posLat="-0.21" speedLat="-0.13"/>
     </timestep>
     <timestep time="22.70">
         <vehicle id="bike" speed="5.54" pos="129.43" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.83" pos="268.53" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.85" pos="230.38" lane="beg_0" posLat="-0.20" speedLat="-0.02"/>
+        <vehicle id="car2" speed="13.85" pos="230.38" lane="beg_0" posLat="-0.22" speedLat="-0.03"/>
     </timestep>
     <timestep time="22.80">
         <vehicle id="bike" speed="5.54" pos="129.99" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.78" pos="269.91" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.85" pos="231.77" lane="beg_0" posLat="-0.19" speedLat="0.08"/>
+        <vehicle id="car2" speed="13.85" pos="231.77" lane="beg_0" posLat="-0.21" speedLat="0.07"/>
     </timestep>
     <timestep time="22.90">
         <vehicle id="bike" speed="5.54" pos="130.54" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.78" pos="271.29" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.83" pos="233.15" lane="beg_0" posLat="-0.18" speedLat="0.06"/>
+        <vehicle id="car2" speed="13.83" pos="233.15" lane="beg_0" posLat="-0.19" speedLat="0.17"/>
     </timestep>
     <timestep time="23.00">
         <vehicle id="bike" speed="5.51" pos="131.09" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.77" pos="272.67" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.78" pos="234.53" lane="beg_0" posLat="-0.19" speedLat="-0.04"/>
+        <vehicle id="car2" speed="13.78" pos="234.53" lane="beg_0" posLat="-0.19" speedLat="0.07"/>
     </timestep>
     <timestep time="23.10">
         <vehicle id="bike" speed="5.50" pos="131.64" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
@@ -1191,227 +1191,227 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="23.30">
         <vehicle id="bike" speed="5.54" pos="132.75" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.81" pos="276.81" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.77" pos="238.67" lane="beg_0" posLat="-0.18" speedLat="0.00"/>
+        <vehicle id="car2" speed="13.77" pos="238.67" lane="beg_0" posLat="-0.18" speedLat="0.01"/>
     </timestep>
     <timestep time="23.40">
         <vehicle id="bike" speed="5.52" pos="133.30" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.87" pos="278.20" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.76" pos="240.05" lane="beg_0" posLat="-0.19" speedLat="-0.10"/>
+        <vehicle id="car2" speed="13.76" pos="240.05" lane="beg_0" posLat="-0.19" speedLat="-0.09"/>
     </timestep>
     <timestep time="23.50">
         <vehicle id="bike" speed="5.53" pos="133.85" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.87" pos="279.59" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.78" pos="241.43" lane="beg_0" posLat="-0.21" speedLat="-0.20"/>
+        <vehicle id="car2" speed="13.78" pos="241.43" lane="beg_0" posLat="-0.21" speedLat="-0.19"/>
     </timestep>
     <timestep time="23.60">
         <vehicle id="bike" speed="5.55" pos="134.41" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.88" pos="280.97" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.82" pos="242.81" lane="beg_0" posLat="-0.24" speedLat="-0.30"/>
+        <vehicle id="car2" speed="13.82" pos="242.81" lane="beg_0" posLat="-0.24" speedLat="-0.29"/>
     </timestep>
     <timestep time="23.70">
         <vehicle id="bike" speed="5.55" pos="134.96" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.84" pos="282.36" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.88" pos="244.20" lane="beg_0" posLat="-0.27" speedLat="-0.30"/>
+        <vehicle id="car2" speed="13.88" pos="244.20" lane="beg_0" posLat="-0.27" speedLat="-0.29"/>
     </timestep>
     <timestep time="23.80">
         <vehicle id="bike" speed="5.54" pos="135.52" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.81" pos="283.74" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.80" pos="245.58" lane="beg_0" posLat="-0.29" speedLat="-0.20"/>
+        <vehicle id="car2" speed="13.80" pos="245.58" lane="beg_0" posLat="-0.29" speedLat="-0.19"/>
     </timestep>
     <timestep time="23.90">
         <vehicle id="bike" speed="5.52" pos="136.07" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.87" pos="285.13" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.78" pos="246.95" lane="beg_0" posLat="-0.31" speedLat="-0.20"/>
+        <vehicle id="car2" speed="13.78" pos="246.95" lane="beg_0" posLat="-0.31" speedLat="-0.19"/>
     </timestep>
     <timestep time="24.00">
         <vehicle id="bike" speed="5.51" pos="136.62" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.87" pos="286.51" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.87" pos="248.34" lane="beg_0" posLat="-0.32" speedLat="-0.10"/>
+        <vehicle id="car2" speed="13.87" pos="248.34" lane="beg_0" posLat="-0.32" speedLat="-0.09"/>
     </timestep>
     <timestep time="24.10">
         <vehicle id="bike" speed="5.53" pos="137.17" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.80" pos="287.89" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.87" pos="249.73" lane="beg_0" posLat="-0.32" speedLat="0.00"/>
+        <vehicle id="car2" speed="13.87" pos="249.73" lane="beg_0" posLat="-0.32" speedLat="0.01"/>
     </timestep>
     <timestep time="24.20">
         <vehicle id="bike" speed="5.53" pos="137.73" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.85" pos="289.28" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.83" pos="251.11" lane="beg_0" posLat="-0.31" speedLat="0.10"/>
+        <vehicle id="car2" speed="13.83" pos="251.11" lane="beg_0" posLat="-0.30" speedLat="0.11"/>
     </timestep>
     <timestep time="24.30">
         <vehicle id="bike" speed="5.51" pos="138.28" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.80" pos="290.66" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.87" pos="252.50" lane="beg_0" posLat="-0.29" speedLat="0.20"/>
+        <vehicle id="car2" speed="13.87" pos="252.50" lane="beg_0" posLat="-0.28" speedLat="0.21"/>
     </timestep>
     <timestep time="24.40">
         <vehicle id="bike" speed="5.51" pos="138.83" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.80" pos="292.04" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.86" pos="253.88" lane="beg_0" posLat="-0.26" speedLat="0.30"/>
+        <vehicle id="car2" speed="13.86" pos="253.88" lane="beg_0" posLat="-0.25" speedLat="0.31"/>
     </timestep>
     <timestep time="24.50">
         <vehicle id="bike" speed="5.51" pos="139.38" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.85" pos="293.42" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.85" pos="255.27" lane="beg_0" posLat="-0.22" speedLat="0.40"/>
+        <vehicle id="car2" speed="13.85" pos="255.27" lane="beg_0" posLat="-0.21" speedLat="0.41"/>
     </timestep>
     <timestep time="24.60">
         <vehicle id="bike" speed="5.55" pos="139.93" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.78" pos="294.80" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.83" pos="256.65" lane="beg_0" posLat="-0.18" speedLat="0.40"/>
+        <vehicle id="car2" speed="13.83" pos="256.65" lane="beg_0" posLat="-0.17" speedLat="0.41"/>
     </timestep>
     <timestep time="24.70">
         <vehicle id="bike" speed="5.51" pos="140.48" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.86" pos="296.19" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.89" pos="258.04" lane="beg_0" posLat="-0.13" speedLat="0.50"/>
+        <vehicle id="car2" speed="13.89" pos="258.04" lane="beg_0" posLat="-0.13" speedLat="0.41"/>
     </timestep>
     <timestep time="24.80">
         <vehicle id="bike" speed="5.55" pos="141.04" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.85" pos="297.57" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.82" pos="259.42" lane="beg_0" posLat="-0.09" speedLat="0.40"/>
+        <vehicle id="car2" speed="13.82" pos="259.42" lane="beg_0" posLat="-0.10" speedLat="0.31"/>
     </timestep>
     <timestep time="24.90">
         <vehicle id="bike" speed="5.52" pos="141.59" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.78" pos="298.95" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.84" pos="260.81" lane="beg_0" posLat="-0.06" speedLat="0.30"/>
+        <vehicle id="car2" speed="13.84" pos="260.81" lane="beg_0" posLat="-0.08" speedLat="0.21"/>
     </timestep>
     <timestep time="25.00">
         <vehicle id="bike" speed="5.54" pos="142.15" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.81" pos="300.33" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.81" pos="262.19" lane="beg_0" posLat="-0.04" speedLat="0.20"/>
+        <vehicle id="car2" speed="13.81" pos="262.19" lane="beg_0" posLat="-0.07" speedLat="0.11"/>
     </timestep>
     <timestep time="25.10">
         <vehicle id="bike" speed="5.53" pos="142.70" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.84" pos="301.72" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.82" pos="263.57" lane="beg_0" posLat="-0.02" speedLat="0.10"/>
+        <vehicle id="car2" speed="13.82" pos="263.57" lane="beg_0" posLat="-0.07" speedLat="0.01"/>
     </timestep>
     <timestep time="25.20">
         <vehicle id="bike" speed="5.55" pos="143.25" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.88" pos="303.10" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.80" pos="264.95" lane="beg_0" posLat="-0.02" speedLat="0.00"/>
+        <vehicle id="car2" speed="13.80" pos="264.95" lane="beg_0" posLat="-0.06" speedLat="0.11"/>
     </timestep>
     <timestep time="25.30">
         <vehicle id="bike" speed="5.50" pos="143.80" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.83" pos="304.49" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.88" pos="266.34" lane="beg_0" posLat="-0.01" speedLat="0.10"/>
+        <vehicle id="car2" speed="13.88" pos="266.34" lane="beg_0" posLat="-0.04" speedLat="0.21"/>
     </timestep>
     <timestep time="25.40">
         <vehicle id="bike" speed="5.52" pos="144.36" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.85" pos="305.87" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.79" pos="267.72" lane="beg_0" posLat="-0.00" speedLat="0.10"/>
+        <vehicle id="car2" speed="13.79" pos="267.72" lane="beg_0" posLat="-0.01" speedLat="0.21"/>
     </timestep>
     <timestep time="25.50">
         <vehicle id="bike" speed="5.54" pos="144.91" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.77" pos="307.25" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.78" pos="269.10" lane="beg_0" posLat="0.02" speedLat="0.20"/>
+        <vehicle id="car2" speed="13.78" pos="269.10" lane="beg_0" posLat="0.01" speedLat="0.21"/>
     </timestep>
     <timestep time="25.60">
         <vehicle id="bike" speed="5.50" pos="145.46" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.80" pos="308.63" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.88" pos="270.48" lane="beg_0" posLat="0.03" speedLat="0.10"/>
+        <vehicle id="car2" speed="13.88" pos="270.48" lane="beg_0" posLat="0.02" speedLat="0.11"/>
     </timestep>
     <timestep time="25.70">
         <vehicle id="bike" speed="5.54" pos="146.01" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.88" pos="310.02" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.81" pos="271.87" lane="beg_0" posLat="0.03" speedLat="0.00"/>
+        <vehicle id="car2" speed="13.81" pos="271.87" lane="beg_0" posLat="0.02" speedLat="0.01"/>
     </timestep>
     <timestep time="25.80">
         <vehicle id="bike" speed="5.52" pos="146.56" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.85" pos="311.40" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.84" pos="273.25" lane="beg_0" posLat="0.02" speedLat="-0.10"/>
+        <vehicle id="car2" speed="13.84" pos="273.25" lane="beg_0" posLat="0.01" speedLat="-0.09"/>
     </timestep>
     <timestep time="25.90">
         <vehicle id="bike" speed="5.52" pos="147.12" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.80" pos="312.78" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.88" pos="274.64" lane="beg_0" posLat="-0.00" speedLat="-0.20"/>
+        <vehicle id="car2" speed="13.88" pos="274.64" lane="beg_0" posLat="-0.01" speedLat="-0.19"/>
     </timestep>
     <timestep time="26.00">
         <vehicle id="bike" speed="5.52" pos="147.67" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.80" pos="314.16" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.76" pos="276.01" lane="beg_0" posLat="-0.03" speedLat="-0.30"/>
+        <vehicle id="car2" speed="13.76" pos="276.01" lane="beg_0" posLat="-0.04" speedLat="-0.29"/>
     </timestep>
     <timestep time="26.10">
         <vehicle id="bike" speed="5.56" pos="148.22" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.89" pos="315.55" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.89" pos="277.40" lane="beg_0" posLat="-0.06" speedLat="-0.30"/>
+        <vehicle id="car2" speed="13.89" pos="277.40" lane="beg_0" posLat="-0.07" speedLat="-0.29"/>
     </timestep>
     <timestep time="26.20">
         <vehicle id="bike" speed="5.51" pos="148.77" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.88" pos="316.94" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.88" pos="278.79" lane="beg_0" posLat="-0.10" speedLat="-0.40"/>
+        <vehicle id="car2" speed="13.88" pos="278.79" lane="beg_0" posLat="-0.11" speedLat="-0.39"/>
     </timestep>
     <timestep time="26.30">
         <vehicle id="bike" speed="5.51" pos="149.33" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.81" pos="318.32" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.82" pos="280.17" lane="beg_0" posLat="-0.13" speedLat="-0.30"/>
+        <vehicle id="car2" speed="13.82" pos="280.17" lane="beg_0" posLat="-0.14" speedLat="-0.29"/>
     </timestep>
     <timestep time="26.40">
         <vehicle id="bike" speed="5.51" pos="149.88" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.83" pos="319.70" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.77" pos="281.55" lane="beg_0" posLat="-0.16" speedLat="-0.30"/>
+        <vehicle id="car2" speed="13.77" pos="281.55" lane="beg_0" posLat="-0.17" speedLat="-0.29"/>
     </timestep>
     <timestep time="26.50">
         <vehicle id="bike" speed="5.51" pos="150.43" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.88" pos="321.09" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.87" pos="282.94" lane="beg_0" posLat="-0.18" speedLat="-0.20"/>
+        <vehicle id="car2" speed="13.87" pos="282.94" lane="beg_0" posLat="-0.19" speedLat="-0.19"/>
     </timestep>
     <timestep time="26.60">
         <vehicle id="bike" speed="5.53" pos="150.98" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.77" pos="322.47" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.84" pos="284.32" lane="beg_0" posLat="-0.19" speedLat="-0.10"/>
+        <vehicle id="car2" speed="13.84" pos="284.32" lane="beg_0" posLat="-0.20" speedLat="-0.09"/>
     </timestep>
     <timestep time="26.70">
         <vehicle id="bike" speed="5.54" pos="151.53" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.77" pos="323.84" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.79" pos="285.70" lane="beg_0" posLat="-0.19" speedLat="0.00"/>
+        <vehicle id="car2" speed="13.79" pos="285.70" lane="beg_0" posLat="-0.19" speedLat="0.01"/>
     </timestep>
     <timestep time="26.80">
         <vehicle id="bike" speed="5.51" pos="152.08" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.78" pos="325.22" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.85" pos="287.09" lane="beg_0" posLat="-0.18" speedLat="0.10"/>
+        <vehicle id="car2" speed="13.85" pos="287.09" lane="beg_0" posLat="-0.18" speedLat="0.11"/>
     </timestep>
     <timestep time="26.90">
         <vehicle id="bike" speed="5.50" pos="152.63" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.77" pos="326.60" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.83" pos="288.47" lane="beg_0" posLat="-0.17" speedLat="0.10"/>
+        <vehicle id="car2" speed="13.83" pos="288.47" lane="beg_0" posLat="-0.16" speedLat="0.21"/>
     </timestep>
     <timestep time="27.00">
         <vehicle id="bike" speed="5.54" pos="153.19" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.83" pos="327.98" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.80" pos="289.85" lane="beg_0" posLat="-0.17" speedLat="0.00"/>
+        <vehicle id="car2" speed="13.80" pos="289.85" lane="beg_0" posLat="-0.15" speedLat="0.11"/>
     </timestep>
     <timestep time="27.10">
         <vehicle id="bike" speed="5.55" pos="153.74" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.76" pos="329.36" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.79" pos="291.23" lane="beg_0" posLat="-0.17" speedLat="-0.07"/>
+        <vehicle id="car2" speed="13.79" pos="291.23" lane="beg_0" posLat="-0.15" speedLat="0.01"/>
     </timestep>
     <timestep time="27.20">
         <vehicle id="bike" speed="5.53" pos="154.30" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.79" pos="330.74" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.79" pos="292.61" lane="beg_0" posLat="-0.19" speedLat="-0.12"/>
+        <vehicle id="car2" speed="13.79" pos="292.61" lane="beg_0" posLat="-0.16" speedLat="-0.09"/>
     </timestep>
     <timestep time="27.30">
         <vehicle id="bike" speed="5.54" pos="154.85" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.88" pos="332.12" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.84" pos="293.99" lane="beg_0" posLat="-0.19" speedLat="-0.02"/>
+        <vehicle id="car2" speed="13.84" pos="293.99" lane="beg_0" posLat="-0.17" speedLat="-0.08"/>
     </timestep>
     <timestep time="27.40">
         <vehicle id="bike" speed="5.52" pos="155.40" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.77" pos="333.50" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.83" pos="295.37" lane="beg_0" posLat="-0.18" speedLat="0.08"/>
+        <vehicle id="car2" speed="13.83" pos="295.37" lane="beg_0" posLat="-0.17" speedLat="0.02"/>
     </timestep>
     <timestep time="27.50">
         <vehicle id="bike" speed="5.50" pos="155.95" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.81" pos="334.88" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.83" pos="296.76" lane="beg_0" posLat="-0.17" speedLat="0.08"/>
+        <vehicle id="car2" speed="13.83" pos="296.76" lane="beg_0" posLat="-0.16" speedLat="0.08"/>
     </timestep>
     <timestep time="27.60">
         <vehicle id="bike" speed="5.55" pos="156.51" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.77" pos="336.26" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.88" pos="298.14" lane="beg_0" posLat="-0.16" speedLat="0.08"/>
+        <vehicle id="car2" speed="13.88" pos="298.14" lane="beg_0" posLat="-0.16" speedLat="-0.02"/>
     </timestep>
     <timestep time="27.70">
         <vehicle id="bike" speed="5.50" pos="157.06" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.85" pos="337.64" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.81" pos="299.53" lane="beg_0" posLat="-0.17" speedLat="-0.02"/>
+        <vehicle id="car2" speed="13.81" pos="299.53" lane="beg_0" posLat="-0.17" speedLat="-0.12"/>
     </timestep>
     <timestep time="27.80">
         <vehicle id="bike" speed="5.52" pos="157.61" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
@@ -1426,12 +1426,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="28.00">
         <vehicle id="bike" speed="5.54" pos="158.72" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.78" pos="341.78" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.81" pos="303.67" lane="beg_0" posLat="-0.19" speedLat="-0.12"/>
+        <vehicle id="car2" speed="13.81" pos="303.67" lane="beg_0" posLat="-0.20" speedLat="-0.12"/>
     </timestep>
     <timestep time="28.10">
         <vehicle id="bike" speed="5.55" pos="159.27" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.78" pos="343.16" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.86" pos="305.05" lane="beg_0" posLat="-0.19" speedLat="-0.02"/>
+        <vehicle id="car2" speed="13.86" pos="305.05" lane="beg_0" posLat="-0.20" speedLat="-0.02"/>
     </timestep>
     <timestep time="28.20">
         <vehicle id="bike" speed="5.54" pos="159.83" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
@@ -1456,7 +1456,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="28.60">
         <vehicle id="bike" speed="5.52" pos="162.04" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.84" pos="350.08" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.82" pos="311.97" lane="beg_0" posLat="-0.30" speedLat="-0.32"/>
+        <vehicle id="car2" speed="13.82" pos="311.97" lane="beg_0" posLat="-0.31" speedLat="-0.32"/>
     </timestep>
     <timestep time="28.70">
         <vehicle id="bike" speed="5.53" pos="162.59" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
@@ -1486,7 +1486,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="29.20">
         <vehicle id="bike" speed="5.51" pos="165.34" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.78" pos="358.38" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.87" pos="320.27" lane="beg_0" posLat="-0.43" speedLat="-0.12"/>
+        <vehicle id="car2" speed="13.87" pos="320.27" lane="beg_0" posLat="-0.44" speedLat="-0.12"/>
     </timestep>
     <timestep time="29.30">
         <vehicle id="bike" speed="5.54" pos="165.90" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
@@ -1546,27 +1546,27 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="30.40">
         <vehicle id="bike" speed="5.54" pos="171.98" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.80" pos="374.96" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.85" pos="336.84" lane="beg_0" posLat="-0.62" speedLat="-0.12"/>
+        <vehicle id="car2" speed="13.85" pos="336.84" lane="beg_0" posLat="-0.63" speedLat="-0.22"/>
     </timestep>
     <timestep time="30.50">
         <vehicle id="bike" speed="5.50" pos="172.53" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.78" pos="376.33" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.76" pos="338.22" lane="beg_0" posLat="-0.64" speedLat="-0.22"/>
+        <vehicle id="car2" speed="13.76" pos="338.22" lane="beg_0" posLat="-0.65" speedLat="-0.22"/>
     </timestep>
     <timestep time="30.60">
         <vehicle id="bike" speed="5.53" pos="173.08" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.79" pos="377.71" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.78" pos="339.60" lane="beg_0" posLat="-0.66" speedLat="-0.22"/>
+        <vehicle id="car2" speed="13.78" pos="339.60" lane="beg_0" posLat="-0.67" speedLat="-0.22"/>
     </timestep>
     <timestep time="30.70">
         <vehicle id="bike" speed="5.50" pos="173.63" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.84" pos="379.10" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.79" pos="340.97" lane="beg_0" posLat="-0.67" speedLat="-0.12"/>
+        <vehicle id="car2" speed="13.79" pos="340.97" lane="beg_0" posLat="-0.68" speedLat="-0.12"/>
     </timestep>
     <timestep time="30.80">
         <vehicle id="bike" speed="5.54" pos="174.19" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.80" pos="380.48" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.87" pos="342.36" lane="beg_0" posLat="-0.67" speedLat="-0.02"/>
+        <vehicle id="car2" speed="13.87" pos="342.36" lane="beg_0" posLat="-0.68" speedLat="-0.02"/>
     </timestep>
     <timestep time="30.90">
         <vehicle id="bike" speed="5.52" pos="174.74" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
@@ -1576,52 +1576,52 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="31.00">
         <vehicle id="bike" speed="5.51" pos="175.29" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.88" pos="383.25" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.80" pos="345.12" lane="beg_0" posLat="-0.67" speedLat="-0.02"/>
+        <vehicle id="car2" speed="13.80" pos="345.12" lane="beg_0" posLat="-0.68" speedLat="-0.02"/>
     </timestep>
     <timestep time="31.10">
         <vehicle id="bike" speed="5.52" pos="175.84" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.76" pos="384.63" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.84" pos="346.50" lane="beg_0" posLat="-0.67" speedLat="-0.02"/>
+        <vehicle id="car2" speed="13.84" pos="346.50" lane="beg_0" posLat="-0.67" speedLat="0.06"/>
     </timestep>
     <timestep time="31.20">
         <vehicle id="bike" speed="5.52" pos="176.39" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.82" pos="386.01" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.87" pos="347.89" lane="beg_0" posLat="-0.68" speedLat="-0.12"/>
+        <vehicle id="car2" speed="13.87" pos="347.89" lane="beg_0" posLat="-0.67" speedLat="-0.04"/>
     </timestep>
     <timestep time="31.30">
         <vehicle id="bike" speed="5.55" pos="176.95" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.80" pos="387.39" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.85" pos="349.28" lane="beg_0" posLat="-0.69" speedLat="-0.12"/>
+        <vehicle id="car2" speed="13.85" pos="349.28" lane="beg_0" posLat="-0.69" speedLat="-0.14"/>
     </timestep>
     <timestep time="31.40">
         <vehicle id="bike" speed="5.52" pos="177.50" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.81" pos="388.77" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.77" pos="350.65" lane="beg_0" posLat="-0.69" speedLat="-0.02"/>
+        <vehicle id="car2" speed="13.77" pos="350.65" lane="beg_0" posLat="-0.69" speedLat="-0.04"/>
     </timestep>
     <timestep time="31.50">
         <vehicle id="bike" speed="5.53" pos="178.05" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.81" pos="390.15" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.87" pos="352.04" lane="beg_0" posLat="-0.69" speedLat="0.08"/>
+        <vehicle id="car2" speed="13.87" pos="352.04" lane="beg_0" posLat="-0.69" speedLat="0.06"/>
     </timestep>
     <timestep time="31.60">
         <vehicle id="bike" speed="5.53" pos="178.61" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.76" pos="391.52" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.85" pos="353.42" lane="beg_0" posLat="-0.67" speedLat="0.18"/>
+        <vehicle id="car2" speed="13.85" pos="353.42" lane="beg_0" posLat="-0.67" speedLat="0.16"/>
     </timestep>
     <timestep time="31.70">
         <vehicle id="bike" speed="5.50" pos="179.16" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.84" pos="392.91" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.81" pos="354.81" lane="beg_0" posLat="-0.66" speedLat="0.08"/>
+        <vehicle id="car2" speed="13.81" pos="354.81" lane="beg_0" posLat="-0.66" speedLat="0.06"/>
     </timestep>
     <timestep time="31.80">
         <vehicle id="bike" speed="5.55" pos="179.71" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.81" pos="394.29" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.77" pos="356.18" lane="beg_0" posLat="-0.66" speedLat="-0.02"/>
+        <vehicle id="car2" speed="13.77" pos="356.18" lane="beg_0" posLat="-0.66" speedLat="0.01"/>
     </timestep>
     <timestep time="31.90">
         <vehicle id="bike" speed="5.52" pos="180.26" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.86" pos="395.68" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.78" pos="357.56" lane="beg_0" posLat="-0.66" speedLat="0.04"/>
+        <vehicle id="car2" speed="13.78" pos="357.56" lane="beg_0" posLat="-0.66" speedLat="0.07"/>
     </timestep>
     <timestep time="32.00">
         <vehicle id="bike" speed="5.54" pos="180.82" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
@@ -1691,47 +1691,47 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="33.30">
         <vehicle id="bike" speed="5.52" pos="187.99" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.82" pos="415.04" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.82" pos="376.90" lane="beg_0" posLat="-0.64" speedLat="0.15"/>
+        <vehicle id="car2" speed="13.82" pos="376.90" lane="beg_0" posLat="-0.65" speedLat="0.06"/>
     </timestep>
     <timestep time="33.40">
         <vehicle id="bike" speed="5.51" pos="188.54" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.83" pos="416.42" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.85" pos="378.29" lane="beg_0" posLat="-0.64" speedLat="0.05"/>
+        <vehicle id="car2" speed="13.85" pos="378.29" lane="beg_0" posLat="-0.65" speedLat="-0.04"/>
     </timestep>
     <timestep time="33.50">
         <vehicle id="bike" speed="5.50" pos="189.09" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.88" pos="417.81" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.82" pos="379.67" lane="beg_0" posLat="-0.62" speedLat="0.14"/>
+        <vehicle id="car2" speed="13.82" pos="379.67" lane="beg_0" posLat="-0.65" speedLat="0.06"/>
     </timestep>
     <timestep time="33.60">
         <vehicle id="bike" speed="5.55" pos="189.65" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.87" pos="419.20" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.82" pos="381.05" lane="beg_0" posLat="-0.61" speedLat="0.14"/>
+        <vehicle id="car2" speed="13.82" pos="381.05" lane="beg_0" posLat="-0.63" speedLat="0.16"/>
     </timestep>
     <timestep time="33.70">
         <vehicle id="bike" speed="5.52" pos="190.20" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.86" pos="420.58" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.83" pos="382.43" lane="beg_0" posLat="-0.60" speedLat="0.04"/>
+        <vehicle id="car2" speed="13.83" pos="382.43" lane="beg_0" posLat="-0.63" speedLat="0.06"/>
     </timestep>
     <timestep time="33.80">
         <vehicle id="bike" speed="5.55" pos="190.76" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.85" pos="421.97" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.88" pos="383.82" lane="beg_0" posLat="-0.61" speedLat="-0.06"/>
+        <vehicle id="car2" speed="13.88" pos="383.82" lane="beg_0" posLat="-0.63" speedLat="-0.02"/>
     </timestep>
     <timestep time="33.90">
         <vehicle id="bike" speed="5.50" pos="191.31" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.84" pos="423.35" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.77" pos="385.20" lane="beg_0" posLat="-0.61" speedLat="-0.06"/>
+        <vehicle id="car2" speed="13.77" pos="385.20" lane="beg_0" posLat="-0.63" speedLat="0.00"/>
     </timestep>
     <timestep time="34.00">
         <vehicle id="bike" speed="5.52" pos="191.86" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.85" pos="424.74" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.82" pos="386.58" lane="beg_0" posLat="-0.63" speedLat="-0.13"/>
+        <vehicle id="car2" speed="13.82" pos="386.58" lane="beg_0" posLat="-0.63" speedLat="0.01"/>
     </timestep>
     <timestep time="34.10">
         <vehicle id="bike" speed="5.51" pos="192.41" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.79" pos="426.12" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.88" pos="387.97" lane="beg_0" posLat="-0.63" speedLat="-0.03"/>
+        <vehicle id="car2" speed="13.88" pos="387.97" lane="beg_0" posLat="-0.63" speedLat="-0.02"/>
     </timestep>
     <timestep time="34.20">
         <vehicle id="bike" speed="5.50" pos="192.96" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
@@ -1796,7 +1796,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="35.40">
         <vehicle id="bike" speed="5.55" pos="199.60" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.87" pos="444.09" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.88" pos="405.94" lane="beg_0" posLat="-0.50" speedLat="0.23"/>
+        <vehicle id="car2" speed="13.88" pos="405.94" lane="beg_0" posLat="-0.51" speedLat="0.23"/>
     </timestep>
     <timestep time="35.50">
         <vehicle id="bike" speed="5.54" pos="200.16" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
@@ -1811,7 +1811,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="35.70">
         <vehicle id="bike" speed="5.52" pos="201.26" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.80" pos="448.24" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.88" pos="410.09" lane="beg_0" posLat="-0.49" speedLat="-0.07"/>
+        <vehicle id="car2" speed="13.88" pos="410.09" lane="beg_0" posLat="-0.50" speedLat="-0.07"/>
     </timestep>
     <timestep time="35.80">
         <vehicle id="bike" speed="5.50" pos="201.81" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
@@ -1826,82 +1826,82 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="36.00">
         <vehicle id="bike" speed="5.54" pos="202.92" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.80" pos="452.38" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.86" pos="414.24" lane="beg_0" posLat="-0.54" speedLat="-0.17"/>
+        <vehicle id="car2" speed="13.86" pos="414.24" lane="beg_0" posLat="-0.54" speedLat="-0.07"/>
     </timestep>
     <timestep time="36.10">
         <vehicle id="bike" speed="5.50" pos="203.47" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.87" pos="453.77" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.76" pos="415.61" lane="beg_0" posLat="-0.55" speedLat="-0.07"/>
+        <vehicle id="car2" speed="13.76" pos="415.61" lane="beg_0" posLat="-0.53" speedLat="0.03"/>
     </timestep>
     <timestep time="36.20">
         <vehicle id="bike" speed="5.50" pos="204.02" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.82" pos="455.15" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.87" pos="417.00" lane="beg_0" posLat="-0.55" speedLat="0.03"/>
+        <vehicle id="car2" speed="13.87" pos="417.00" lane="beg_0" posLat="-0.53" speedLat="0.03"/>
     </timestep>
     <timestep time="36.30">
         <vehicle id="bike" speed="5.53" pos="204.57" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.83" pos="456.54" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.85" pos="418.39" lane="beg_0" posLat="-0.55" speedLat="-0.07"/>
+        <vehicle id="car2" speed="13.85" pos="418.39" lane="beg_0" posLat="-0.54" speedLat="-0.07"/>
     </timestep>
     <timestep time="36.40">
         <vehicle id="bike" speed="5.52" pos="205.12" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.82" pos="457.92" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.87" pos="419.77" lane="beg_0" posLat="-0.57" speedLat="-0.17"/>
+        <vehicle id="car2" speed="13.87" pos="419.77" lane="beg_0" posLat="-0.55" speedLat="-0.17"/>
     </timestep>
     <timestep time="36.50">
         <vehicle id="bike" speed="5.52" pos="205.68" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.84" pos="459.30" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.86" pos="421.16" lane="beg_0" posLat="-0.58" speedLat="-0.07"/>
+        <vehicle id="car2" speed="13.86" pos="421.16" lane="beg_0" posLat="-0.57" speedLat="-0.17"/>
     </timestep>
     <timestep time="36.60">
         <vehicle id="bike" speed="5.55" pos="206.23" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.81" pos="460.68" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.80" pos="422.54" lane="beg_0" posLat="-0.57" speedLat="0.03"/>
+        <vehicle id="car2" speed="13.80" pos="422.54" lane="beg_0" posLat="-0.58" speedLat="-0.07"/>
     </timestep>
     <timestep time="36.70">
         <vehicle id="bike" speed="5.51" pos="206.78" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.89" pos="462.07" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.82" pos="423.92" lane="beg_0" posLat="-0.57" speedLat="0.02"/>
+        <vehicle id="car2" speed="13.82" pos="423.92" lane="beg_0" posLat="-0.57" speedLat="0.03"/>
     </timestep>
     <timestep time="36.80">
         <vehicle id="bike" speed="5.51" pos="207.33" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.82" pos="463.45" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.86" pos="425.31" lane="beg_0" posLat="-0.58" speedLat="-0.08"/>
+        <vehicle id="car2" speed="13.86" pos="425.31" lane="beg_0" posLat="-0.58" speedLat="-0.07"/>
     </timestep>
     <timestep time="36.90">
         <vehicle id="bike" speed="5.50" pos="207.88" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.83" pos="464.84" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.83" pos="426.69" lane="beg_0" posLat="-0.60" speedLat="-0.18"/>
+        <vehicle id="car2" speed="13.83" pos="426.69" lane="beg_0" posLat="-0.60" speedLat="-0.17"/>
     </timestep>
     <timestep time="37.00">
         <vehicle id="bike" speed="5.54" pos="208.43" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.79" pos="466.22" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.85" pos="428.07" lane="beg_0" posLat="-0.62" speedLat="-0.28"/>
+        <vehicle id="car2" speed="13.85" pos="428.07" lane="beg_0" posLat="-0.62" speedLat="-0.27"/>
     </timestep>
     <timestep time="37.10">
         <vehicle id="bike" speed="5.50" pos="208.99" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.87" pos="467.60" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.80" pos="429.45" lane="beg_0" posLat="-0.65" speedLat="-0.28"/>
+        <vehicle id="car2" speed="13.80" pos="429.45" lane="beg_0" posLat="-0.65" speedLat="-0.27"/>
     </timestep>
     <timestep time="37.20">
         <vehicle id="bike" speed="5.53" pos="209.54" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.85" pos="468.99" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.78" pos="430.83" lane="beg_0" posLat="-0.67" speedLat="-0.18"/>
+        <vehicle id="car2" speed="13.78" pos="430.83" lane="beg_0" posLat="-0.67" speedLat="-0.27"/>
     </timestep>
     <timestep time="37.30">
         <vehicle id="bike" speed="5.53" pos="210.09" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.86" pos="470.37" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.89" pos="432.22" lane="beg_0" posLat="-0.69" speedLat="-0.18"/>
+        <vehicle id="car2" speed="13.89" pos="432.22" lane="beg_0" posLat="-0.69" speedLat="-0.17"/>
     </timestep>
     <timestep time="37.40">
         <vehicle id="bike" speed="5.55" pos="210.65" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.81" pos="471.76" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.78" pos="433.60" lane="beg_0" posLat="-0.69" speedLat="-0.08"/>
+        <vehicle id="car2" speed="13.78" pos="433.60" lane="beg_0" posLat="-0.70" speedLat="-0.07"/>
     </timestep>
     <timestep time="37.50">
         <vehicle id="bike" speed="5.54" pos="211.20" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
         <vehicle id="car" speed="13.76" pos="473.13" lane="beg_0" posLat="-0.70" speedLat="0.00"/>
-        <vehicle id="car2" speed="13.84" pos="434.98" lane="beg_0" posLat="-0.70" speedLat="-0.06"/>
+        <vehicle id="car2" speed="13.84" pos="434.98" lane="beg_0" posLat="-0.70" speedLat="-0.01"/>
     </timestep>
     <timestep time="37.60">
         <vehicle id="bike" speed="5.55" pos="211.75" lane="beg_0" posLat="-1.27" speedLat="0.00"/>
@@ -2656,40 +2656,40 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike" speed="5.53" pos="337.77" lane="beg_0" posLat="-1.12" speedLat="-0.09"/>
     </timestep>
     <timestep time="60.50">
-        <vehicle id="bike" speed="5.52" pos="338.33" lane="beg_0" posLat="-1.14" speedLat="-0.12"/>
+        <vehicle id="bike" speed="5.52" pos="338.33" lane="beg_0" posLat="-1.13" speedLat="-0.09"/>
     </timestep>
     <timestep time="60.60">
-        <vehicle id="bike" speed="5.52" pos="338.88" lane="beg_0" posLat="-1.15" speedLat="-0.12"/>
+        <vehicle id="bike" speed="5.52" pos="338.88" lane="beg_0" posLat="-1.14" speedLat="-0.09"/>
     </timestep>
     <timestep time="60.70">
-        <vehicle id="bike" speed="5.53" pos="339.43" lane="beg_0" posLat="-1.16" speedLat="-0.12"/>
+        <vehicle id="bike" speed="5.53" pos="339.43" lane="beg_0" posLat="-1.16" speedLat="-0.19"/>
     </timestep>
     <timestep time="60.80">
-        <vehicle id="bike" speed="5.52" pos="339.98" lane="beg_0" posLat="-1.16" speedLat="-0.02"/>
+        <vehicle id="bike" speed="5.52" pos="339.98" lane="beg_0" posLat="-1.17" speedLat="-0.09"/>
     </timestep>
     <timestep time="60.90">
-        <vehicle id="bike" speed="5.52" pos="340.53" lane="beg_0" posLat="-1.16" speedLat="0.07"/>
+        <vehicle id="bike" speed="5.52" pos="340.53" lane="beg_0" posLat="-1.17" speedLat="0.01"/>
     </timestep>
     <timestep time="61.00">
-        <vehicle id="bike" speed="5.53" pos="341.09" lane="beg_0" posLat="-1.16" speedLat="0.00"/>
+        <vehicle id="bike" speed="5.53" pos="341.09" lane="beg_0" posLat="-1.16" speedLat="0.11"/>
     </timestep>
     <timestep time="61.10">
-        <vehicle id="bike" speed="5.55" pos="341.64" lane="beg_0" posLat="-1.15" speedLat="0.10"/>
+        <vehicle id="bike" speed="5.55" pos="341.64" lane="beg_0" posLat="-1.15" speedLat="0.11"/>
     </timestep>
     <timestep time="61.20">
-        <vehicle id="bike" speed="5.54" pos="342.20" lane="beg_0" posLat="-1.15" speedLat="0.00"/>
+        <vehicle id="bike" speed="5.54" pos="342.20" lane="beg_0" posLat="-1.14" speedLat="0.11"/>
     </timestep>
     <timestep time="61.30">
-        <vehicle id="bike" speed="5.51" pos="342.75" lane="beg_0" posLat="-1.14" speedLat="0.10"/>
+        <vehicle id="bike" speed="5.51" pos="342.75" lane="beg_0" posLat="-1.14" speedLat="0.01"/>
     </timestep>
     <timestep time="61.40">
-        <vehicle id="bike" speed="5.54" pos="343.30" lane="beg_0" posLat="-1.13" speedLat="0.10"/>
+        <vehicle id="bike" speed="5.54" pos="343.30" lane="beg_0" posLat="-1.13" speedLat="0.11"/>
     </timestep>
     <timestep time="61.50">
-        <vehicle id="bike" speed="5.53" pos="343.85" lane="beg_0" posLat="-1.13" speedLat="0.00"/>
+        <vehicle id="bike" speed="5.53" pos="343.85" lane="beg_0" posLat="-1.13" speedLat="0.01"/>
     </timestep>
     <timestep time="61.60">
-        <vehicle id="bike" speed="5.55" pos="344.41" lane="beg_0" posLat="-1.14" speedLat="-0.10"/>
+        <vehicle id="bike" speed="5.55" pos="344.41" lane="beg_0" posLat="-1.14" speedLat="-0.09"/>
     </timestep>
     <timestep time="61.70">
         <vehicle id="bike" speed="5.53" pos="344.96" lane="beg_0" posLat="-1.14" speedLat="-0.07"/>
@@ -2704,121 +2704,121 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike" speed="5.55" pos="346.62" lane="beg_0" posLat="-1.13" speedLat="-0.01"/>
     </timestep>
     <timestep time="62.10">
-        <vehicle id="bike" speed="5.52" pos="347.17" lane="beg_0" posLat="-1.12" speedLat="0.07"/>
+        <vehicle id="bike" speed="5.52" pos="347.17" lane="beg_0" posLat="-1.12" speedLat="0.08"/>
     </timestep>
     <timestep time="62.20">
-        <vehicle id="bike" speed="5.52" pos="347.72" lane="beg_0" posLat="-1.11" speedLat="0.14"/>
+        <vehicle id="bike" speed="5.52" pos="347.72" lane="beg_0" posLat="-1.12" speedLat="0.08"/>
     </timestep>
     <timestep time="62.30">
-        <vehicle id="bike" speed="5.52" pos="348.27" lane="beg_0" posLat="-1.11" speedLat="0.04"/>
+        <vehicle id="bike" speed="5.52" pos="348.27" lane="beg_0" posLat="-1.12" speedLat="-0.02"/>
     </timestep>
     <timestep time="62.40">
-        <vehicle id="bike" speed="5.55" pos="348.83" lane="beg_0" posLat="-1.11" speedLat="-0.06"/>
+        <vehicle id="bike" speed="5.55" pos="348.83" lane="beg_0" posLat="-1.13" speedLat="-0.10"/>
     </timestep>
     <timestep time="62.50">
-        <vehicle id="bike" speed="5.54" pos="349.38" lane="beg_0" posLat="-1.13" speedLat="-0.16"/>
+        <vehicle id="bike" speed="5.54" pos="349.38" lane="beg_0" posLat="-1.13" speedLat="-0.06"/>
     </timestep>
     <timestep time="62.60">
-        <vehicle id="bike" speed="5.50" pos="349.93" lane="beg_0" posLat="-1.14" speedLat="-0.06"/>
+        <vehicle id="bike" speed="5.50" pos="349.93" lane="beg_0" posLat="-1.14" speedLat="-0.03"/>
     </timestep>
     <timestep time="62.70">
-        <vehicle id="bike" speed="5.52" pos="350.49" lane="beg_0" posLat="-1.13" speedLat="0.04"/>
+        <vehicle id="bike" speed="5.52" pos="350.49" lane="beg_0" posLat="-1.13" speedLat="0.07"/>
     </timestep>
     <timestep time="62.80">
-        <vehicle id="bike" speed="5.55" pos="351.04" lane="beg_0" posLat="-1.12" speedLat="0.14"/>
+        <vehicle id="bike" speed="5.55" pos="351.04" lane="beg_0" posLat="-1.12" speedLat="0.07"/>
     </timestep>
     <timestep time="62.90">
-        <vehicle id="bike" speed="5.53" pos="351.59" lane="beg_0" posLat="-1.11" speedLat="0.04"/>
+        <vehicle id="bike" speed="5.53" pos="351.59" lane="beg_0" posLat="-1.12" speedLat="0.06"/>
     </timestep>
     <timestep time="63.00">
-        <vehicle id="bike" speed="5.51" pos="352.14" lane="beg_0" posLat="-1.12" speedLat="-0.05"/>
+        <vehicle id="bike" speed="5.51" pos="352.14" lane="beg_0" posLat="-1.12" speedLat="-0.03"/>
     </timestep>
     <timestep time="63.10">
-        <vehicle id="bike" speed="5.55" pos="352.70" lane="beg_0" posLat="-1.13" speedLat="-0.12"/>
+        <vehicle id="bike" speed="5.55" pos="352.70" lane="beg_0" posLat="-1.12" speedLat="-0.03"/>
     </timestep>
     <timestep time="63.20">
-        <vehicle id="bike" speed="5.54" pos="353.25" lane="beg_0" posLat="-1.14" speedLat="-0.12"/>
+        <vehicle id="bike" speed="5.54" pos="353.25" lane="beg_0" posLat="-1.13" speedLat="-0.13"/>
     </timestep>
     <timestep time="63.30">
-        <vehicle id="bike" speed="5.51" pos="353.80" lane="beg_0" posLat="-1.15" speedLat="-0.12"/>
+        <vehicle id="bike" speed="5.51" pos="353.80" lane="beg_0" posLat="-1.15" speedLat="-0.13"/>
     </timestep>
     <timestep time="63.40">
-        <vehicle id="bike" speed="5.50" pos="354.35" lane="beg_0" posLat="-1.16" speedLat="-0.02"/>
+        <vehicle id="bike" speed="5.50" pos="354.35" lane="beg_0" posLat="-1.16" speedLat="-0.13"/>
     </timestep>
     <timestep time="63.50">
-        <vehicle id="bike" speed="5.55" pos="354.91" lane="beg_0" posLat="-1.16" speedLat="-0.08"/>
+        <vehicle id="bike" speed="5.55" pos="354.91" lane="beg_0" posLat="-1.16" speedLat="-0.03"/>
     </timestep>
     <timestep time="63.60">
-        <vehicle id="bike" speed="5.54" pos="355.46" lane="beg_0" posLat="-1.17" speedLat="-0.08"/>
+        <vehicle id="bike" speed="5.54" pos="355.46" lane="beg_0" posLat="-1.17" speedLat="-0.09"/>
     </timestep>
     <timestep time="63.70">
-        <vehicle id="bike" speed="5.51" pos="356.01" lane="beg_0" posLat="-1.17" speedLat="0.02"/>
+        <vehicle id="bike" speed="5.51" pos="356.01" lane="beg_0" posLat="-1.17" speedLat="0.01"/>
     </timestep>
     <timestep time="63.80">
-        <vehicle id="bike" speed="5.50" pos="356.56" lane="beg_0" posLat="-1.17" speedLat="0.02"/>
+        <vehicle id="bike" speed="5.50" pos="356.56" lane="beg_0" posLat="-1.16" speedLat="0.11"/>
     </timestep>
     <timestep time="63.90">
-        <vehicle id="bike" speed="5.53" pos="357.12" lane="beg_0" posLat="-1.17" speedLat="-0.00"/>
+        <vehicle id="bike" speed="5.53" pos="357.12" lane="beg_0" posLat="-1.16" speedLat="0.01"/>
     </timestep>
     <timestep time="64.00">
-        <vehicle id="bike" speed="5.55" pos="357.67" lane="beg_0" posLat="-1.18" speedLat="-0.10"/>
+        <vehicle id="bike" speed="5.55" pos="357.67" lane="beg_0" posLat="-1.17" speedLat="-0.09"/>
     </timestep>
     <timestep time="64.10">
-        <vehicle id="bike" speed="5.54" pos="358.23" lane="beg_0" posLat="-1.19" speedLat="-0.10"/>
+        <vehicle id="bike" speed="5.54" pos="358.23" lane="beg_0" posLat="-1.19" speedLat="-0.19"/>
     </timestep>
     <timestep time="64.20">
-        <vehicle id="bike" speed="5.55" pos="358.78" lane="beg_0" posLat="-1.20" speedLat="-0.10"/>
+        <vehicle id="bike" speed="5.55" pos="358.78" lane="beg_0" posLat="-1.20" speedLat="-0.09"/>
     </timestep>
     <timestep time="64.30">
-        <vehicle id="bike" speed="5.54" pos="359.33" lane="beg_0" posLat="-1.20" speedLat="-0.00"/>
+        <vehicle id="bike" speed="5.54" pos="359.33" lane="beg_0" posLat="-1.20" speedLat="0.00"/>
     </timestep>
     <timestep time="64.40">
-        <vehicle id="bike" speed="5.53" pos="359.89" lane="beg_0" posLat="-1.20" speedLat="0.02"/>
+        <vehicle id="bike" speed="5.53" pos="359.89" lane="beg_0" posLat="-1.20" speedLat="-0.02"/>
     </timestep>
     <timestep time="64.50">
-        <vehicle id="bike" speed="5.51" pos="360.44" lane="beg_0" posLat="-1.19" speedLat="0.11"/>
+        <vehicle id="bike" speed="5.51" pos="360.44" lane="beg_0" posLat="-1.19" speedLat="0.08"/>
     </timestep>
     <timestep time="64.60">
-        <vehicle id="bike" speed="5.55" pos="360.99" lane="beg_0" posLat="-1.18" speedLat="0.11"/>
+        <vehicle id="bike" speed="5.55" pos="360.99" lane="beg_0" posLat="-1.18" speedLat="0.08"/>
     </timestep>
     <timestep time="64.70">
-        <vehicle id="bike" speed="5.53" pos="361.55" lane="beg_0" posLat="-1.17" speedLat="0.01"/>
+        <vehicle id="bike" speed="5.53" pos="361.55" lane="beg_0" posLat="-1.17" speedLat="0.09"/>
     </timestep>
     <timestep time="64.80">
-        <vehicle id="bike" speed="5.51" pos="362.10" lane="beg_0" posLat="-1.18" speedLat="-0.05"/>
+        <vehicle id="bike" speed="5.51" pos="362.10" lane="beg_0" posLat="-1.17" speedLat="-0.01"/>
     </timestep>
     <timestep time="64.90">
-        <vehicle id="bike" speed="5.50" pos="362.65" lane="beg_0" posLat="-1.17" speedLat="0.05"/>
+        <vehicle id="bike" speed="5.50" pos="362.65" lane="beg_0" posLat="-1.17" speedLat="0.00"/>
     </timestep>
     <timestep time="65.00">
-        <vehicle id="bike" speed="5.55" pos="363.20" lane="beg_0" posLat="-1.17" speedLat="0.05"/>
+        <vehicle id="bike" speed="5.55" pos="363.20" lane="beg_0" posLat="-1.16" speedLat="0.10"/>
     </timestep>
     <timestep time="65.10">
-        <vehicle id="bike" speed="5.52" pos="363.76" lane="beg_0" posLat="-1.16" speedLat="0.08"/>
+        <vehicle id="bike" speed="5.52" pos="363.76" lane="beg_0" posLat="-1.16" speedLat="0.00"/>
     </timestep>
     <timestep time="65.20">
-        <vehicle id="bike" speed="5.51" pos="364.31" lane="beg_0" posLat="-1.14" speedLat="0.17"/>
+        <vehicle id="bike" speed="5.51" pos="364.31" lane="beg_0" posLat="-1.15" speedLat="0.10"/>
     </timestep>
     <timestep time="65.30">
-        <vehicle id="bike" speed="5.54" pos="364.86" lane="beg_0" posLat="-1.14" speedLat="0.07"/>
+        <vehicle id="bike" speed="5.54" pos="364.86" lane="beg_0" posLat="-1.14" speedLat="0.10"/>
     </timestep>
     <timestep time="65.40">
-        <vehicle id="bike" speed="5.51" pos="365.41" lane="beg_0" posLat="-1.14" speedLat="-0.03"/>
+        <vehicle id="bike" speed="5.51" pos="365.41" lane="beg_0" posLat="-1.14" speedLat="0.00"/>
     </timestep>
     <timestep time="65.50">
-        <vehicle id="bike" speed="5.54" pos="365.97" lane="beg_0" posLat="-1.13" speedLat="0.07"/>
+        <vehicle id="bike" speed="5.54" pos="365.97" lane="beg_0" posLat="-1.13" speedLat="0.10"/>
     </timestep>
     <timestep time="65.60">
-        <vehicle id="bike" speed="5.56" pos="366.52" lane="beg_0" posLat="-1.12" speedLat="0.14"/>
+        <vehicle id="bike" speed="5.56" pos="366.52" lane="beg_0" posLat="-1.12" speedLat="0.10"/>
     </timestep>
     <timestep time="65.70">
-        <vehicle id="bike" speed="5.50" pos="367.07" lane="beg_0" posLat="-1.12" speedLat="0.04"/>
+        <vehicle id="bike" speed="5.50" pos="367.07" lane="beg_0" posLat="-1.11" speedLat="0.10"/>
     </timestep>
     <timestep time="65.80">
-        <vehicle id="bike" speed="5.53" pos="367.62" lane="beg_0" posLat="-1.11" speedLat="0.04"/>
+        <vehicle id="bike" speed="5.53" pos="367.62" lane="beg_0" posLat="-1.11" speedLat="0.00"/>
     </timestep>
     <timestep time="65.90">
-        <vehicle id="bike" speed="5.54" pos="368.18" lane="beg_0" posLat="-1.11" speedLat="-0.00"/>
+        <vehicle id="bike" speed="5.54" pos="368.18" lane="beg_0" posLat="-1.11" speedLat="-0.03"/>
     </timestep>
     <timestep time="66.00">
         <vehicle id="bike" speed="5.52" pos="368.73" lane="beg_0" posLat="-1.11" speedLat="0.05"/>
@@ -2896,16 +2896,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike" speed="5.50" pos="381.99" lane="beg_0" posLat="-1.16" speedLat="0.08"/>
     </timestep>
     <timestep time="68.50">
-        <vehicle id="bike" speed="5.54" pos="382.54" lane="beg_0" posLat="-1.14" speedLat="0.17"/>
+        <vehicle id="bike" speed="5.54" pos="382.54" lane="beg_0" posLat="-1.15" speedLat="0.08"/>
     </timestep>
     <timestep time="68.60">
-        <vehicle id="bike" speed="5.51" pos="383.09" lane="beg_0" posLat="-1.13" speedLat="0.07"/>
+        <vehicle id="bike" speed="5.51" pos="383.09" lane="beg_0" posLat="-1.14" speedLat="0.05"/>
     </timestep>
     <timestep time="68.70">
-        <vehicle id="bike" speed="5.54" pos="383.65" lane="beg_0" posLat="-1.13" speedLat="0.03"/>
+        <vehicle id="bike" speed="5.54" pos="383.65" lane="beg_0" posLat="-1.14" speedLat="0.05"/>
     </timestep>
     <timestep time="68.80">
-        <vehicle id="bike" speed="5.50" pos="384.20" lane="beg_0" posLat="-1.13" speedLat="0.00"/>
+        <vehicle id="bike" speed="5.50" pos="384.20" lane="beg_0" posLat="-1.13" speedLat="0.09"/>
     </timestep>
     <timestep time="68.90">
         <vehicle id="bike" speed="5.52" pos="384.75" lane="beg_0" posLat="-1.13" speedLat="0.01"/>
@@ -2935,28 +2935,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike" speed="5.50" pos="389.17" lane="beg_0" posLat="-1.08" speedLat="0.06"/>
     </timestep>
     <timestep time="69.80">
-        <vehicle id="bike" speed="5.52" pos="389.72" lane="beg_0" posLat="-1.07" speedLat="0.12"/>
+        <vehicle id="bike" speed="5.52" pos="389.72" lane="beg_0" posLat="-1.07" speedLat="0.06"/>
     </timestep>
     <timestep time="69.90">
-        <vehicle id="bike" speed="5.51" pos="390.27" lane="beg_0" posLat="-1.06" speedLat="0.12"/>
+        <vehicle id="bike" speed="5.51" pos="390.27" lane="beg_0" posLat="-1.07" speedLat="0.06"/>
     </timestep>
     <timestep time="70.00">
-        <vehicle id="bike" speed="5.50" pos="390.82" lane="beg_0" posLat="-1.05" speedLat="0.02"/>
+        <vehicle id="bike" speed="5.50" pos="390.82" lane="beg_0" posLat="-1.07" speedLat="-0.04"/>
     </timestep>
     <timestep time="70.10">
-        <vehicle id="bike" speed="5.55" pos="391.37" lane="beg_0" posLat="-1.06" speedLat="-0.08"/>
+        <vehicle id="bike" speed="5.55" pos="391.37" lane="beg_0" posLat="-1.09" speedLat="-0.14"/>
     </timestep>
     <timestep time="70.20">
-        <vehicle id="bike" speed="5.51" pos="391.92" lane="beg_0" posLat="-1.08" speedLat="-0.18"/>
+        <vehicle id="bike" speed="5.51" pos="391.92" lane="beg_0" posLat="-1.10" speedLat="-0.14"/>
     </timestep>
     <timestep time="70.30">
-        <vehicle id="bike" speed="5.53" pos="392.48" lane="beg_0" posLat="-1.10" speedLat="-0.18"/>
+        <vehicle id="bike" speed="5.53" pos="392.48" lane="beg_0" posLat="-1.10" speedLat="-0.04"/>
     </timestep>
     <timestep time="70.40">
-        <vehicle id="bike" speed="5.54" pos="393.03" lane="beg_0" posLat="-1.11" speedLat="-0.08"/>
+        <vehicle id="bike" speed="5.54" pos="393.03" lane="beg_0" posLat="-1.11" speedLat="-0.04"/>
     </timestep>
     <timestep time="70.50">
-        <vehicle id="bike" speed="5.55" pos="393.59" lane="beg_0" posLat="-1.11" speedLat="-0.08"/>
+        <vehicle id="bike" speed="5.55" pos="393.59" lane="beg_0" posLat="-1.11" speedLat="-0.07"/>
     </timestep>
     <timestep time="70.60">
         <vehicle id="bike" speed="5.54" pos="394.14" lane="beg_0" posLat="-1.12" speedLat="-0.07"/>
@@ -2983,28 +2983,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike" speed="5.53" pos="398.01" lane="beg_0" posLat="-1.14" speedLat="0.10"/>
     </timestep>
     <timestep time="71.40">
-        <vehicle id="bike" speed="5.53" pos="398.56" lane="beg_0" posLat="-1.13" speedLat="0.15"/>
+        <vehicle id="bike" speed="5.53" pos="398.56" lane="beg_0" posLat="-1.13" speedLat="0.10"/>
     </timestep>
     <timestep time="71.50">
-        <vehicle id="bike" speed="5.50" pos="399.11" lane="beg_0" posLat="-1.12" speedLat="0.05"/>
+        <vehicle id="bike" speed="5.50" pos="399.11" lane="beg_0" posLat="-1.12" speedLat="0.10"/>
     </timestep>
     <timestep time="71.60">
-        <vehicle id="bike" speed="5.50" pos="399.66" lane="beg_0" posLat="-1.12" speedLat="0.05"/>
+        <vehicle id="bike" speed="5.50" pos="399.66" lane="beg_0" posLat="-1.11" speedLat="0.10"/>
     </timestep>
     <timestep time="71.70">
-        <vehicle id="bike" speed="5.50" pos="400.21" lane="beg_0" posLat="-1.11" speedLat="0.05"/>
+        <vehicle id="bike" speed="5.50" pos="400.21" lane="beg_0" posLat="-1.11" speedLat="0.10"/>
     </timestep>
     <timestep time="71.80">
-        <vehicle id="bike" speed="5.50" pos="400.76" lane="beg_0" posLat="-1.11" speedLat="0.03"/>
+        <vehicle id="bike" speed="5.50" pos="400.76" lane="beg_0" posLat="-1.11" speedLat="-0.00"/>
     </timestep>
     <timestep time="71.90">
-        <vehicle id="bike" speed="5.52" pos="401.31" lane="beg_0" posLat="-1.12" speedLat="-0.07"/>
+        <vehicle id="bike" speed="5.52" pos="401.31" lane="beg_0" posLat="-1.12" speedLat="-0.10"/>
     </timestep>
     <timestep time="72.00">
-        <vehicle id="bike" speed="5.51" pos="401.87" lane="beg_0" posLat="-1.11" speedLat="0.03"/>
+        <vehicle id="bike" speed="5.51" pos="401.87" lane="beg_0" posLat="-1.12" speedLat="-0.00"/>
     </timestep>
     <timestep time="72.10">
-        <vehicle id="bike" speed="5.53" pos="402.42" lane="beg_0" posLat="-1.11" speedLat="0.03"/>
+        <vehicle id="bike" speed="5.53" pos="402.42" lane="beg_0" posLat="-1.11" speedLat="0.04"/>
     </timestep>
     <timestep time="72.20">
         <vehicle id="bike" speed="5.53" pos="402.97" lane="beg_0" posLat="-1.11" speedLat="-0.00"/>
@@ -3076,37 +3076,37 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike" speed="5.52" pos="415.11" lane="beg_0" posLat="-1.05" speedLat="-0.03"/>
     </timestep>
     <timestep time="74.50">
-        <vehicle id="bike" speed="5.50" pos="415.66" lane="beg_0" posLat="-1.07" speedLat="-0.13"/>
+        <vehicle id="bike" speed="5.50" pos="415.66" lane="beg_0" posLat="-1.06" speedLat="-0.03"/>
     </timestep>
     <timestep time="74.60">
-        <vehicle id="bike" speed="5.51" pos="416.21" lane="beg_0" posLat="-1.08" speedLat="-0.13"/>
+        <vehicle id="bike" speed="5.51" pos="416.21" lane="beg_0" posLat="-1.07" speedLat="-0.13"/>
     </timestep>
     <timestep time="74.70">
-        <vehicle id="bike" speed="5.50" pos="416.76" lane="beg_0" posLat="-1.09" speedLat="-0.13"/>
+        <vehicle id="bike" speed="5.50" pos="416.76" lane="beg_0" posLat="-1.08" speedLat="-0.13"/>
     </timestep>
     <timestep time="74.80">
         <vehicle id="bike" speed="5.55" pos="417.32" lane="beg_0" posLat="-1.09" speedLat="-0.03"/>
     </timestep>
     <timestep time="74.90">
-        <vehicle id="bike" speed="5.54" pos="417.87" lane="beg_0" posLat="-1.10" speedLat="-0.08"/>
+        <vehicle id="bike" speed="5.54" pos="417.87" lane="beg_0" posLat="-1.09" speedLat="-0.03"/>
     </timestep>
     <timestep time="75.00">
-        <vehicle id="bike" speed="5.50" pos="418.42" lane="beg_0" posLat="-1.12" speedLat="-0.13"/>
+        <vehicle id="bike" speed="5.50" pos="418.42" lane="beg_0" posLat="-1.10" speedLat="-0.13"/>
     </timestep>
     <timestep time="75.10">
-        <vehicle id="bike" speed="5.52" pos="418.97" lane="beg_0" posLat="-1.12" speedLat="-0.03"/>
+        <vehicle id="bike" speed="5.52" pos="418.97" lane="beg_0" posLat="-1.11" speedLat="-0.03"/>
     </timestep>
     <timestep time="75.20">
-        <vehicle id="bike" speed="5.50" pos="419.52" lane="beg_0" posLat="-1.11" speedLat="0.07"/>
+        <vehicle id="bike" speed="5.50" pos="419.52" lane="beg_0" posLat="-1.10" speedLat="0.04"/>
     </timestep>
     <timestep time="75.30">
-        <vehicle id="bike" speed="5.55" pos="420.08" lane="beg_0" posLat="-1.10" speedLat="0.17"/>
+        <vehicle id="bike" speed="5.55" pos="420.08" lane="beg_0" posLat="-1.09" speedLat="0.14"/>
     </timestep>
     <timestep time="75.40">
-        <vehicle id="bike" speed="5.54" pos="420.63" lane="beg_0" posLat="-1.09" speedLat="0.07"/>
+        <vehicle id="bike" speed="5.54" pos="420.63" lane="beg_0" posLat="-1.09" speedLat="0.04"/>
     </timestep>
     <timestep time="75.50">
-        <vehicle id="bike" speed="5.52" pos="421.18" lane="beg_0" posLat="-1.09" speedLat="-0.01"/>
+        <vehicle id="bike" speed="5.52" pos="421.18" lane="beg_0" posLat="-1.09" speedLat="-0.02"/>
     </timestep>
     <timestep time="75.60">
         <vehicle id="bike" speed="5.52" pos="421.74" lane="beg_0" posLat="-1.09" speedLat="-0.02"/>
@@ -3136,19 +3136,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike" speed="5.52" pos="426.15" lane="beg_0" posLat="-1.11" speedLat="0.03"/>
     </timestep>
     <timestep time="76.50">
-        <vehicle id="bike" speed="5.51" pos="426.70" lane="beg_0" posLat="-1.10" speedLat="0.13"/>
+        <vehicle id="bike" speed="5.51" pos="426.70" lane="beg_0" posLat="-1.11" speedLat="0.03"/>
     </timestep>
     <timestep time="76.60">
-        <vehicle id="bike" speed="5.54" pos="427.26" lane="beg_0" posLat="-1.09" speedLat="0.03"/>
+        <vehicle id="bike" speed="5.54" pos="427.26" lane="beg_0" posLat="-1.09" speedLat="0.13"/>
     </timestep>
     <timestep time="76.70">
-        <vehicle id="bike" speed="5.55" pos="427.81" lane="beg_0" posLat="-1.09" speedLat="0.06"/>
+        <vehicle id="bike" speed="5.55" pos="427.81" lane="beg_0" posLat="-1.09" speedLat="0.03"/>
     </timestep>
     <timestep time="76.80">
-        <vehicle id="bike" speed="5.54" pos="428.37" lane="beg_0" posLat="-1.09" speedLat="-0.04"/>
+        <vehicle id="bike" speed="5.54" pos="428.37" lane="beg_0" posLat="-1.10" speedLat="-0.07"/>
     </timestep>
     <timestep time="76.90">
-        <vehicle id="bike" speed="5.54" pos="428.92" lane="beg_0" posLat="-1.10" speedLat="-0.04"/>
+        <vehicle id="bike" speed="5.54" pos="428.92" lane="beg_0" posLat="-1.10" speedLat="0.01"/>
     </timestep>
     <timestep time="77.00">
         <vehicle id="bike" speed="5.54" pos="429.47" lane="beg_0" posLat="-1.10" speedLat="-0.08"/>
@@ -3298,16 +3298,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike" speed="5.55" pos="455.99" lane="beg_0" posLat="-1.10" speedLat="0.06"/>
     </timestep>
     <timestep time="81.90">
-        <vehicle id="bike" speed="5.54" pos="456.55" lane="beg_0" posLat="-1.08" speedLat="0.15"/>
+        <vehicle id="bike" speed="5.54" pos="456.55" lane="beg_0" posLat="-1.09" speedLat="0.06"/>
     </timestep>
     <timestep time="82.00">
-        <vehicle id="bike" speed="5.53" pos="457.10" lane="beg_0" posLat="-1.07" speedLat="0.15"/>
+        <vehicle id="bike" speed="5.53" pos="457.10" lane="beg_0" posLat="-1.08" speedLat="0.16"/>
     </timestep>
     <timestep time="82.10">
-        <vehicle id="bike" speed="5.50" pos="457.65" lane="beg_0" posLat="-1.06" speedLat="0.05"/>
+        <vehicle id="bike" speed="5.50" pos="457.65" lane="beg_0" posLat="-1.07" speedLat="0.06"/>
     </timestep>
     <timestep time="82.20">
-        <vehicle id="bike" speed="5.54" pos="458.20" lane="beg_0" posLat="-1.07" speedLat="-0.01"/>
+        <vehicle id="bike" speed="5.54" pos="458.20" lane="beg_0" posLat="-1.07" speedLat="0.05"/>
     </timestep>
     <timestep time="82.30">
         <vehicle id="bike" speed="5.54" pos="458.76" lane="beg_0" posLat="-1.06" speedLat="0.09"/>
@@ -3322,28 +3322,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike" speed="5.53" pos="460.42" lane="beg_0" posLat="-1.07" speedLat="-0.01"/>
     </timestep>
     <timestep time="82.70">
-        <vehicle id="bike" speed="5.54" pos="460.97" lane="beg_0" posLat="-1.07" speedLat="-0.02"/>
+        <vehicle id="bike" speed="5.54" pos="460.97" lane="beg_0" posLat="-1.07" speedLat="-0.06"/>
     </timestep>
     <timestep time="82.80">
-        <vehicle id="bike" speed="5.50" pos="461.52" lane="beg_0" posLat="-1.09" speedLat="-0.12"/>
+        <vehicle id="bike" speed="5.50" pos="461.52" lane="beg_0" posLat="-1.08" speedLat="-0.06"/>
     </timestep>
     <timestep time="82.90">
-        <vehicle id="bike" speed="5.53" pos="462.07" lane="beg_0" posLat="-1.09" speedLat="-0.02"/>
+        <vehicle id="bike" speed="5.53" pos="462.07" lane="beg_0" posLat="-1.08" speedLat="0.01"/>
     </timestep>
     <timestep time="83.00">
-        <vehicle id="bike" speed="5.52" pos="462.63" lane="beg_0" posLat="-1.08" speedLat="0.08"/>
+        <vehicle id="bike" speed="5.52" pos="462.63" lane="beg_0" posLat="-1.07" speedLat="0.06"/>
     </timestep>
     <timestep time="83.10">
-        <vehicle id="bike" speed="5.54" pos="463.18" lane="beg_0" posLat="-1.07" speedLat="0.12"/>
+        <vehicle id="bike" speed="5.54" pos="463.18" lane="beg_0" posLat="-1.07" speedLat="0.04"/>
     </timestep>
     <timestep time="83.20">
-        <vehicle id="bike" speed="5.51" pos="463.73" lane="beg_0" posLat="-1.07" speedLat="0.02"/>
+        <vehicle id="bike" speed="5.51" pos="463.73" lane="beg_0" posLat="-1.07" speedLat="-0.06"/>
     </timestep>
     <timestep time="83.30">
-        <vehicle id="bike" speed="5.50" pos="464.28" lane="beg_0" posLat="-1.07" speedLat="-0.08"/>
+        <vehicle id="bike" speed="5.50" pos="464.28" lane="beg_0" posLat="-1.08" speedLat="-0.02"/>
     </timestep>
     <timestep time="83.40">
-        <vehicle id="bike" speed="5.54" pos="464.83" lane="beg_0" posLat="-1.08" speedLat="-0.06"/>
+        <vehicle id="bike" speed="5.54" pos="464.83" lane="beg_0" posLat="-1.08" speedLat="-0.04"/>
     </timestep>
     <timestep time="83.50">
         <vehicle id="bike" speed="5.53" pos="465.39" lane="beg_0" posLat="-1.08" speedLat="-0.01"/>
@@ -3391,115 +3391,115 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike" speed="5.55" pos="473.12" lane="beg_0" posLat="-1.12" speedLat="-0.07"/>
     </timestep>
     <timestep time="85.00">
-        <vehicle id="bike" speed="5.50" pos="473.67" lane="beg_0" posLat="-1.14" speedLat="-0.16"/>
+        <vehicle id="bike" speed="5.50" pos="473.67" lane="beg_0" posLat="-1.13" speedLat="-0.07"/>
     </timestep>
     <timestep time="85.10">
-        <vehicle id="bike" speed="5.55" pos="474.23" lane="beg_0" posLat="-1.15" speedLat="-0.06"/>
+        <vehicle id="bike" speed="5.55" pos="474.23" lane="beg_0" posLat="-1.14" speedLat="-0.08"/>
     </timestep>
     <timestep time="85.20">
-        <vehicle id="bike" speed="5.54" pos="474.78" lane="beg_0" posLat="-1.16" speedLat="-0.09"/>
+        <vehicle id="bike" speed="5.54" pos="474.78" lane="beg_0" posLat="-1.15" speedLat="-0.08"/>
     </timestep>
     <timestep time="85.30">
-        <vehicle id="bike" speed="5.50" pos="475.33" lane="beg_0" posLat="-1.17" speedLat="-0.16"/>
+        <vehicle id="bike" speed="5.50" pos="475.33" lane="beg_0" posLat="-1.17" speedLat="-0.18"/>
     </timestep>
     <timestep time="85.40">
-        <vehicle id="bike" speed="5.55" pos="475.88" lane="beg_0" posLat="-1.18" speedLat="-0.06"/>
+        <vehicle id="bike" speed="5.55" pos="475.88" lane="beg_0" posLat="-1.17" speedLat="-0.08"/>
     </timestep>
     <timestep time="85.50">
-        <vehicle id="bike" speed="5.50" pos="476.43" lane="beg_0" posLat="-1.17" speedLat="0.04"/>
+        <vehicle id="bike" speed="5.50" pos="476.43" lane="beg_0" posLat="-1.17" speedLat="0.02"/>
     </timestep>
     <timestep time="85.60">
-        <vehicle id="bike" speed="5.52" pos="476.99" lane="beg_0" posLat="-1.16" speedLat="0.14"/>
+        <vehicle id="bike" speed="5.52" pos="476.99" lane="beg_0" posLat="-1.17" speedLat="0.02"/>
     </timestep>
     <timestep time="85.70">
-        <vehicle id="bike" speed="5.53" pos="477.54" lane="beg_0" posLat="-1.16" speedLat="0.04"/>
+        <vehicle id="bike" speed="5.53" pos="477.54" lane="beg_0" posLat="-1.16" speedLat="0.12"/>
     </timestep>
     <timestep time="85.80">
-        <vehicle id="bike" speed="5.55" pos="478.10" lane="beg_0" posLat="-1.14" speedLat="0.14"/>
+        <vehicle id="bike" speed="5.55" pos="478.10" lane="beg_0" posLat="-1.14" speedLat="0.12"/>
     </timestep>
     <timestep time="85.90">
-        <vehicle id="bike" speed="5.52" pos="478.65" lane="beg_0" posLat="-1.14" speedLat="0.04"/>
+        <vehicle id="bike" speed="5.52" pos="478.65" lane="beg_0" posLat="-1.13" speedLat="0.12"/>
     </timestep>
     <timestep time="86.00">
-        <vehicle id="bike" speed="5.55" pos="479.20" lane="beg_0" posLat="-1.14" speedLat="0.02"/>
+        <vehicle id="bike" speed="5.55" pos="479.20" lane="beg_0" posLat="-1.13" speedLat="0.02"/>
     </timestep>
     <timestep time="86.10">
-        <vehicle id="bike" speed="5.55" pos="479.76" lane="beg_0" posLat="-1.13" speedLat="0.03"/>
+        <vehicle id="bike" speed="5.55" pos="479.76" lane="beg_0" posLat="-1.13" speedLat="-0.04"/>
     </timestep>
     <timestep time="86.20">
-        <vehicle id="bike" speed="5.52" pos="480.31" lane="beg_0" posLat="-1.14" speedLat="-0.07"/>
+        <vehicle id="bike" speed="5.52" pos="480.31" lane="beg_0" posLat="-1.14" speedLat="-0.10"/>
     </timestep>
     <timestep time="86.30">
-        <vehicle id="bike" speed="5.55" pos="480.86" lane="beg_0" posLat="-1.15" speedLat="-0.06"/>
+        <vehicle id="bike" speed="5.55" pos="480.86" lane="beg_0" posLat="-1.15" speedLat="-0.00"/>
     </timestep>
     <timestep time="86.40">
-        <vehicle id="bike" speed="5.54" pos="481.42" lane="beg_0" posLat="-1.15" speedLat="-0.01"/>
+        <vehicle id="bike" speed="5.54" pos="481.42" lane="beg_0" posLat="-1.15" speedLat="-0.04"/>
     </timestep>
     <timestep time="86.50">
-        <vehicle id="bike" speed="5.51" pos="481.97" lane="beg_0" posLat="-1.14" speedLat="0.09"/>
+        <vehicle id="bike" speed="5.51" pos="481.97" lane="beg_0" posLat="-1.14" speedLat="0.06"/>
     </timestep>
     <timestep time="86.60">
-        <vehicle id="bike" speed="5.52" pos="482.52" lane="beg_0" posLat="-1.14" speedLat="-0.01"/>
+        <vehicle id="bike" speed="5.52" pos="482.52" lane="beg_0" posLat="-1.15" speedLat="-0.03"/>
     </timestep>
     <timestep time="86.70">
-        <vehicle id="bike" speed="5.51" pos="483.07" lane="beg_0" posLat="-1.13" speedLat="0.09"/>
+        <vehicle id="bike" speed="5.51" pos="483.07" lane="beg_0" posLat="-1.14" speedLat="0.07"/>
     </timestep>
     <timestep time="86.80">
-        <vehicle id="bike" speed="5.55" pos="483.63" lane="beg_0" posLat="-1.13" speedLat="-0.01"/>
+        <vehicle id="bike" speed="5.55" pos="483.63" lane="beg_0" posLat="-1.14" speedLat="-0.03"/>
     </timestep>
     <timestep time="86.90">
-        <vehicle id="bike" speed="5.51" pos="484.18" lane="beg_0" posLat="-1.15" speedLat="-0.11"/>
+        <vehicle id="bike" speed="5.51" pos="484.18" lane="beg_0" posLat="-1.15" speedLat="-0.08"/>
     </timestep>
     <timestep time="87.00">
-        <vehicle id="bike" speed="5.51" pos="484.73" lane="beg_0" posLat="-1.15" speedLat="-0.01"/>
+        <vehicle id="bike" speed="5.51" pos="484.73" lane="beg_0" posLat="-1.15" speedLat="0.02"/>
     </timestep>
     <timestep time="87.10">
-        <vehicle id="bike" speed="5.54" pos="485.28" lane="beg_0" posLat="-1.14" speedLat="0.09"/>
+        <vehicle id="bike" speed="5.54" pos="485.28" lane="beg_0" posLat="-1.14" speedLat="0.12"/>
     </timestep>
     <timestep time="87.20">
-        <vehicle id="bike" speed="5.52" pos="485.83" lane="beg_0" posLat="-1.13" speedLat="0.09"/>
+        <vehicle id="bike" speed="5.52" pos="485.83" lane="beg_0" posLat="-1.13" speedLat="0.12"/>
     </timestep>
     <timestep time="87.30">
-        <vehicle id="bike" speed="5.55" pos="486.39" lane="beg_0" posLat="-1.12" speedLat="0.11"/>
+        <vehicle id="bike" speed="5.55" pos="486.39" lane="beg_0" posLat="-1.12" speedLat="0.02"/>
     </timestep>
     <timestep time="87.40">
-        <vehicle id="bike" speed="5.51" pos="486.94" lane="beg_0" posLat="-1.12" speedLat="0.01"/>
+        <vehicle id="bike" speed="5.51" pos="486.94" lane="beg_0" posLat="-1.13" speedLat="-0.08"/>
     </timestep>
     <timestep time="87.50">
-        <vehicle id="bike" speed="5.51" pos="487.49" lane="beg_0" posLat="-1.13" speedLat="-0.09"/>
+        <vehicle id="bike" speed="5.51" pos="487.49" lane="beg_0" posLat="-1.14" speedLat="-0.11"/>
     </timestep>
     <timestep time="87.60">
-        <vehicle id="bike" speed="5.54" pos="488.04" lane="beg_0" posLat="-1.13" speedLat="-0.09"/>
+        <vehicle id="bike" speed="5.54" pos="488.04" lane="beg_0" posLat="-1.14" speedLat="-0.01"/>
     </timestep>
     <timestep time="87.70">
-        <vehicle id="bike" speed="5.51" pos="488.59" lane="beg_0" posLat="-1.14" speedLat="-0.09"/>
+        <vehicle id="bike" speed="5.51" pos="488.59" lane="beg_0" posLat="-1.15" speedLat="-0.11"/>
     </timestep>
     <timestep time="87.80">
-        <vehicle id="bike" speed="5.55" pos="489.15" lane="beg_0" posLat="-1.16" speedLat="-0.12"/>
+        <vehicle id="bike" speed="5.55" pos="489.15" lane="beg_0" posLat="-1.16" speedLat="-0.01"/>
     </timestep>
     <timestep time="87.90">
-        <vehicle id="bike" speed="5.50" pos="489.70" lane="beg_0" posLat="-1.16" speedLat="-0.02"/>
+        <vehicle id="bike" speed="5.50" pos="489.70" lane="beg_0" posLat="-1.15" speedLat="0.08"/>
     </timestep>
     <timestep time="88.00">
-        <vehicle id="bike" speed="5.54" pos="490.25" lane="beg_0" posLat="-1.15" speedLat="0.08"/>
+        <vehicle id="bike" speed="5.54" pos="490.25" lane="beg_0" posLat="-1.13" speedLat="0.18"/>
     </timestep>
     <timestep time="88.10">
-        <vehicle id="bike" speed="5.52" pos="490.81" lane="beg_0" posLat="-1.13" speedLat="0.18"/>
+        <vehicle id="bike" speed="5.52" pos="490.81" lane="beg_0" posLat="-1.12" speedLat="0.08"/>
     </timestep>
     <timestep time="88.20">
-        <vehicle id="bike" speed="5.54" pos="491.36" lane="beg_0" posLat="-1.12" speedLat="0.08"/>
+        <vehicle id="bike" speed="5.54" pos="491.36" lane="beg_0" posLat="-1.12" speedLat="-0.02"/>
     </timestep>
     <timestep time="88.30">
-        <vehicle id="bike" speed="5.51" pos="491.91" lane="beg_0" posLat="-1.11" speedLat="0.13"/>
+        <vehicle id="bike" speed="5.51" pos="491.91" lane="beg_0" posLat="-1.11" speedLat="0.08"/>
     </timestep>
     <timestep time="88.40">
-        <vehicle id="bike" speed="5.53" pos="492.46" lane="beg_0" posLat="-1.11" speedLat="0.03"/>
+        <vehicle id="bike" speed="5.53" pos="492.46" lane="beg_0" posLat="-1.12" speedLat="-0.02"/>
     </timestep>
     <timestep time="88.50">
-        <vehicle id="bike" speed="5.55" pos="493.02" lane="beg_0" posLat="-1.11" speedLat="-0.07"/>
+        <vehicle id="bike" speed="5.55" pos="493.02" lane="beg_0" posLat="-1.12" speedLat="-0.04"/>
     </timestep>
     <timestep time="88.60">
-        <vehicle id="bike" speed="5.50" pos="493.57" lane="beg_0" posLat="-1.12" speedLat="-0.03"/>
+        <vehicle id="bike" speed="5.50" pos="493.57" lane="beg_0" posLat="-1.12" speedLat="0.04"/>
     </timestep>
     <timestep time="88.70">
         <vehicle id="bike" speed="5.52" pos="494.12" lane="beg_0" posLat="-1.12" speedLat="-0.01"/>
