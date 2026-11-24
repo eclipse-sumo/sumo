@@ -268,6 +268,7 @@ configuration:
 | **--pedestrian.striping.reserve-oncoming** {{DT_FLOAT}} | Fraction of stripes to reserve for oncoming pedestrians; *default:* **0** |
 | **--pedestrian.striping.reserve-oncoming.junctions** {{DT_FLOAT}} | Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas; *default:* **0.34** |
 | **--pedestrian.striping.reserve-oncoming.max** {{DT_FLOAT}} | Maximum width in m to reserve for oncoming pedestrians; *default:* **1.28** |
+| **--pedestrian.striping.bidi-keep-side** {{DT_BOOL}} | Prefer the driving side when walking on clear bidirectional lanes shared with vehicles; *default:* **true** |
 | **--pedestrian.striping.legacy-departposlat** {{DT_BOOL}} | Interpret departPosLat for walks in legacy style; *default:* **false** |
 | **--pedestrian.striping.walkingarea-detail** {{DT_INT}} | Generate INT intermediate points to smooth out lanes within the walkingarea; *default:* **4** |
 | **--pedestrian.jupedsim.step-length** {{DT_TIME}} | The update interval of the JuPedSim simulation (in seconds); *default:* **0.01** |

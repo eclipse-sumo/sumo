@@ -91,6 +91,7 @@ SUMOTime MSPModel_Striping::jamTimeCrossing;
 SUMOTime MSPModel_Striping::jamTimeNarrow;
 double MSPModel_Striping::jamFactor;
 bool MSPModel_Striping::myLegacyPosLat;
+bool MSPModel_Striping::myBidiKeepSide;
 const double MSPModel_Striping::LOOKAHEAD_SAMEDIR(4.0); // seconds
 const double MSPModel_Striping::LOOKAHEAD_ONCOMING(10.0); // seconds
 const double MSPModel_Striping::LOOKAHEAD_ONCOMING_DIST(10.0); // m
@@ -130,6 +131,7 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) {
     RESERVE_FOR_ONCOMING_FACTOR = oc.getFloat("pedestrian.striping.reserve-oncoming");
     RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS = oc.getFloat("pedestrian.striping.reserve-oncoming.junctions");
     RESERVE_FOR_ONCOMING_MAX = oc.getFloat("pedestrian.striping.reserve-oncoming.max");
+    myBidiKeepSide = oc.getBool("pedestrian.striping.bidi-keep-side");
     // beginning with 1.20.0, sensible default speeds were set for crossings and walkingareas
     USE_NET_SPEEDS = net->getNetworkVersion() >= MMVersion(1, 20);
 
@@ -1925,6 +1927,12 @@ MSPModel_Striping::PState::walk(const Obstacles& obs) {
     // ultimate goal is to choose the preferred stripe (chosen)
     const int current = stripe();
     const int other = otherStripe();
+    const bool sharedLane = myLane->getPermissions() != SVC_PEDESTRIAN;
+    const bool keepSide = myBidiKeepSide && sharedLane && myLane->isNormal()
+                          && myLane->getBidiLane() != nullptr
+                          && (myStage->getRouteStep() != myStage->getRoute().begin()
+                              || myStage->getDepartPosLat() == UNSPECIFIED_POS_LAT);
+    const bool preferHighStripe = (myDir == FORWARD) != (keepSide && MSGlobals::gLefthand);
     // compute distances
     std::vector<double> distance(stripes);
     for (int i = 0; i < stripes; ++i) {
@@ -1955,7 +1963,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs) {
     // may still deadlock in heavy pedestrian traffic
     const bool onJunction = myLane->isWalkingArea() || myLane->isCrossing();
     const int reserved = getReserved(stripes, (onJunction ? RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS : RESERVE_FOR_ONCOMING_FACTOR));
-    if (myDir == FORWARD) {
+    if (preferHighStripe) {
         for (int i = 0; i < reserved; ++i) {
             utility[i] += INAPPROPRIATE_PENALTY * (i == current ? 0.5 : 1);
         }
@@ -1993,12 +2001,23 @@ MSPModel_Striping::PState::walk(const Obstacles& obs) {
     }
     // penalize lateral movement (if the current stripe permits walking)
     if (distance[current] > 0 && myWaitingTime == 0) {
+        int preferred = current;
+        if (keepSide) {
+            // Shift toward the driving side through stripes with clear passage.
+            const int side = preferHighStripe ? sMax : 0;
+            const int step = preferHighStripe ? 1 : -1;
+            const double clearUtility = vMax * LOOKAHEAD_SAMEDIR;
+            while (preferred != side && utility[preferred] >= clearUtility
+                    && utility[preferred + step] >= clearUtility) {
+                preferred += step;
+            }
+        }
         for (int i = 0; i < stripes; ++i) {
-            utility[i] += abs(i - current) * LATERAL_PENALTY;
+            utility[i] += abs(i - preferred) * LATERAL_PENALTY;
         }
     }
     // walk on the right side on shared space
-    if (myLane->getPermissions() != SVC_PEDESTRIAN && myDir == BACKWARD) {
+    if (sharedLane && !keepSide && myDir == BACKWARD) {
         for (int i = 0; i < stripes; ++i) {
             if (i <= current) {
                 utility[i] += (sMax - i + 1) * LATERAL_PENALTY;
