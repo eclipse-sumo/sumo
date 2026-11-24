@@ -577,7 +577,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             // slow down smoothly to follow leader
             // account for minor decelerations by the leader (dawdling)
             double targetSpeed = MAX3(myVehicle.getCarFollowModel().minNextSpeed(myVehicle.getSpeed(), &myVehicle),
-                                      getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighNextGap, neighNextSpeed, nv->getCarFollowModel().getMaxDecel()),
+                                      getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighNextGap, MAX2(0., neighNextSpeed), nv->getCarFollowModel().getMaxDecel()),
                                       // avoid changing on intersection
                                       (myVehicle.getLane()->isNormal() || myVehicle.getCurrentEdge()->isRoundabout()) ? 0 : ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxAccel()));
             if (targetSpeed < myVehicle.getSpeed()) {
@@ -655,7 +655,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         // we are not blocked now. make sure we stay far enough from the leader
         const double targetSpeed = MAX2(
                                        myVehicle.getCarFollowModel().minNextSpeed(myVehicle.getSpeed(), &myVehicle),
-                                       getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighNextGap, neighNextSpeed, nv->getCarFollowModel().getMaxDecel()));
+                                       getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighNextGap, MAX2(0., neighNextSpeed), nv->getCarFollowModel().getMaxDecel()));
         addLCSpeedAdvice(targetSpeed, dir);
 #ifdef DEBUG_INFORMER
         if (DEBUG_COND) {
