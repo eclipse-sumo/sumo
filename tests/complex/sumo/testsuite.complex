@@ -52,6 +52,9 @@ meso
 # parallelization tests
 parallel
 
+# Verify connection permissions with and without internal links.
+connection_permissions
+
 # test insertion capacity for different options and departure attributes
 insertionCapacity
 

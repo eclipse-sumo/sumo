@@ -252,7 +252,8 @@ public:
            bool keepClear,
            MSTrafficLightLogic* logic,
            int tlLinkIdx,
-           bool indirect);
+           bool indirect,
+           SVCPermissions connectionPermissions);
 
 
     /// @brief Destructor
@@ -703,6 +704,11 @@ public:
         return myPermissions;
     }
 
+    /// @brief Static restrictions specified on the connection without a via lane
+    SVCPermissions getConnectionPermissions() const {
+        return myConnectionPermissions;
+    }
+
     void updatePermissions();
 
     /// @brief initialize parallel links (to be called after all links are loaded)
@@ -910,6 +916,8 @@ private:
 
     /// @brief the turning radius for this link or doublemax for straight links
     double myRadius;
+
+    const SVCPermissions myConnectionPermissions;
 
     /// @brief who may drive on this link
     SVCPermissions myPermissions;
