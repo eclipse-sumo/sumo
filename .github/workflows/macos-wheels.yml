@@ -11,9 +11,15 @@ on:
       - '**'
     tags:
       - '*'
-  pull_request:    # run on pull requests
-    paths-ignore:  # but ignore everything in the docs subfolder
-      - 'docs/**'
+  pull_request:    # run on pull requests, but only if something relevant for the wheels changed
+    paths:
+      - 'CMakeLists.txt'
+      - 'build_config/**'
+      - 'pysrc/**'
+      - 'src/libsumo/**'
+      - 'src/libtraci/**'
+      - '.github/workflows/*wheels.yml'
+      - '.github/workflows/generate-matrix.yml'
   workflow_dispatch:
 
 concurrency:

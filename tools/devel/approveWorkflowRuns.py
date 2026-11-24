@@ -32,6 +32,9 @@ import urllib.request
 
 API = "https://api.github.com"
 
+# maximum number of parallel macOS jobs of a pull request run (one build followed by the test shards)
+MACOS_JOBS = {"macos": 3, "macos-wheels": 4}
+
 
 def parse_args():
     ap = argparse.ArgumentParser(description=__doc__.strip().split("\n")[0])
@@ -47,8 +50,6 @@ def parse_args():
     ap.add_argument("--threshold", type=float, default=0.8,
                     help="stop approving if running and queued jobs (including the estimate for the "
                          "approved runs) exceed this fraction of a limit")
-    ap.add_argument("--macos-jobs", type=int, default=4,
-                    help="estimated number of macOS jobs of a macos* workflow run")
     ap.add_argument("--default-jobs", type=int, default=10,
                     help="job count to assume for a workflow without a successful pull request run")
     ap.add_argument("-w", "--whitelist", default="",
@@ -186,8 +187,9 @@ def main():
                 if not runs:
                     continue
         # always allow the first pull request, otherwise a large one could be starved
-        mac_runs = sum(1 for run in runs if run["name"].startswith("macos"))
-        estimate = {"macos": mac_runs * options.macos_jobs, "other": 2 * (len(runs) - mac_runs)}
+        mac_jobs = sum(MACOS_JOBS.get(run["name"], 0) for run in runs)
+        mac_runs = sum(1 for run in runs if run["name"] in MACOS_JOBS)
+        estimate = {"macos": mac_jobs, "other": 2 * (len(runs) - mac_runs)}
         if approved and any(active[pool] + estimate[pool] > limits[pool] for pool in active):
             if options.verbose:
                 print("Stopping: PR #%s would add about %s jobs (%s on macOS) to the %s active ones (%s on macOS)." %
