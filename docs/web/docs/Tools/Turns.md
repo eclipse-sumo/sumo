@@ -28,7 +28,10 @@ Only the edge attribute 'id' and another attribute for the traffic count are nee
 </data>
 ```
 
-The attributes for reading the counts from edge-data file can be set with option **--edgedata-attribute** (default 'entered')
+The attributes for reading the counts from edge-data file can be set with option **--edgedata-attribute** (default 'entered').
+
+Use **--edgedata-speed-threshold** to treat low-speed edge flow measurements as minimum demand. The threshold uses metres per second with the default speed attribute. Use **--edgedata-speed-attribute** to select a different attribute such as `speedRelative` and supply a threshold in that attribute's units. A measurement below the threshold can be exceeded to satisfy other counts or **--total-count**. Measurements at or above the threshold and measurements with missing or invalid speeds retain their exact-count behavior. When measurements are summed, their total becomes a minimum if any contributing measurement falls below the threshold. Arrival, departure, turn, and origin-destination counts retain their usual constraints. The mismatch report marks lower bounds with `minimum="true"` and records the actual demand in `assignedCount`. Satisfying the minimum produces zero deficit and GEH.
+
 You can put any number of counting attributes in the same `<edge>` element if you intend to call **routeSamper.py** [multiple times for different vehicle types](#multiple_vehicle_types).
 
 !!! note

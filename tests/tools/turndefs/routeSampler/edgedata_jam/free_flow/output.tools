@@ -1,0 +1,2 @@
+Wrote 3 routes (1 distinct) achieving total count 6 (60.00%) at 2 locations. GEH<5 for 50.00%
+Warning: underflow locations: count 1, min 4.00 (('BC',)), max 4.00 (('BC',)), mean 4.00, Q1 4.00, median 4.00, Q3 4.00 (total 4)
