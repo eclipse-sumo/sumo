@@ -246,6 +246,14 @@ public:
         return myQueues[index].getVehicles();
     }
 
+    /// @brief Update interpolated positions for all vehicles on this segment
+    void updateMesoPositions() const;
+
+    /// @brief Invalidate the cached interpolated positions
+    void invalidateMesoPositions() const {
+        myMesoPositionUpdateTime = SUMOTime_MIN;
+    }
+
     inline SUMOTime getQueueBlockTime(int index) const {
         assert(index < (int)myQueues.size());
         return myQueues[index].getBlockTime();
@@ -674,6 +682,9 @@ protected:
 
     /// @brief the time at which myMeanSpeed was last updated
     mutable SUMOTime myLastMeanSpeedUpdate;
+
+    /// @brief The time step of the last interpolated position update
+    mutable SUMOTime myMesoPositionUpdateTime = SUMOTime_MIN;
 
 private:
     /// @brief Invalidated copy constructor.

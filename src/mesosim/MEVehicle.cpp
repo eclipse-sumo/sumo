@@ -77,56 +77,12 @@ double
 MEVehicle::getPositionOnLane() const {
     if (MSGlobals::gMesoInterpolatePos && mySegment != nullptr
             && !MESegment::isInvalid(mySegment) && myQueIndex >= 0 && myQueIndex < mySegment->numQueues()) {
-        if (myMesoPositionUpdateTime != SIMSTEP) {
-            updateMesoPositions();
-        }
-        if (myMesoPositionUpdateTime == SIMSTEP) {
+        mySegment->updateMesoPositions();
+        if (myMesoPositionValid) {
             return myMesoPosition;
         }
     }
     return mySegment == nullptr ? 0. : (double)mySegment->getIndex() * mySegment->getLength();
-}
-
-
-void
-MEVehicle::updateMesoPositions() const {
-    const std::vector<MEVehicle*> queue = mySegment->getQueue(myQueIndex);
-    const int queueSize = (int)queue.size();
-    double segmentOffset = 0;
-    for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(mySegment->getEdge());
-            segment != mySegment; segment = segment->getNextSegment()) {
-        segmentOffset += segment->getLength();
-    }
-    const double segLength = mySegment->getLength();
-    const double lanesCovered = mySegment->numQueues() == 1
-                                ? std::round(mySegment->getCapacity() / segLength) : 1.;
-    const double now = SIMTIME;
-    SUMOTime earliestExitTime = mySegment->getQueueBlockTime(myQueIndex);
-    int overlap = 0;
-    double prevPos = std::numeric_limits<double>::max();
-    for (int i = 0; i < queueSize; ++i) {
-        MEVehicle* const veh = queue[queueSize - i - 1];
-        earliestExitTime = MAX2(earliestExitTime, veh->getEventTime());
-        const double vehLength = veh->getVehicleType().getLengthWithGap();
-        double maxPos = segmentOffset + segLength;
-        const double oldPos = veh->myMesoPosition;
-        if (i > 0) {
-            earliestExitTime += mySegment->getMinTauWithVehLength(vehLength, veh->getVehicleType().getCarFollowModel().getHeadwayTime());
-            maxPos = MIN2(maxPos, prevPos - vehLength / lanesCovered);
-        }
-        const double entry = veh->getLastEntryTimeSeconds();
-        assert(STEPS2TIME(earliestExitTime) > entry);
-        const double pos = MAX2(MIN2(segmentOffset + segLength * (now - entry) / (STEPS2TIME(earliestExitTime) - entry), maxPos), oldPos);
-        if (overlap == 0 && prevPos - pos < vehLength) {
-            overlap = lanesCovered > 1. ? -3 : -1;
-        } else {
-            overlap = 0;
-        }
-        veh->myMesoPosition = pos;
-        veh->myMesoPositionOverlap = overlap;
-        veh->myMesoPositionUpdateTime = SIMSTEP;
-        prevPos = pos;
-    }
 }
 
 

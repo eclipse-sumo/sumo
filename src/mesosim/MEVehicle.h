@@ -39,6 +39,8 @@ class MSLink;
  * @brief A vehicle from the mesoscopic point of view
  */
 class MEVehicle : public MSBaseVehicle {
+    friend class MESegment;
+
 public:
     /** @brief Constructor
      * @param[in] pars The vehicle description
@@ -250,9 +252,15 @@ public:
         if (s == nullptr || mySegment == nullptr || &s->getEdge() != &mySegment->getEdge()) {
             myMesoPosition = 0.;
         }
+        if (!MESegment::isInvalid(mySegment)) {
+            mySegment->invalidateMesoPositions();
+        }
+        myMesoPositionValid = false;
         mySegment = s;
         myQueIndex = idx;
-        invalidateMesoPosition();
+        if (!MESegment::isInvalid(mySegment)) {
+            mySegment->invalidateMesoPositions();
+        }
     }
 
 
@@ -279,7 +287,7 @@ public:
 
     /// @brief Invalidates the cached interpolated position
     void invalidateMesoPosition() {
-        myMesoPositionUpdateTime = SUMOTime_MIN;
+        myMesoPositionValid = false;
     }
 
     /** @brief Get the vehicle's lateral position on the edge of the given lane
@@ -446,13 +454,10 @@ protected:
     /// @brief The lateral offset used to visualize overlapping mesoscopic vehicles
     int myMesoPositionOverlap = 0;
 
-    /// @brief The time step of the last interpolated position update
-    SUMOTime myMesoPositionUpdateTime = SUMOTime_MIN;
+    /// @brief Whether an interpolated position has been computed for this vehicle
+    bool myMesoPositionValid = false;
 
     /// @brief An instance of a velocity/lane influencing instance; built in "getInfluencer"
     BaseInfluencer* myInfluencer;
-
-    /// @brief Update interpolated positions for all vehicles in the current queue
-    void updateMesoPositions() const;
 
 };
