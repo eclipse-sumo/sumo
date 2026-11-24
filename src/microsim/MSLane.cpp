@@ -4750,12 +4750,12 @@ void
 MSLane::initRNGs(const OptionsCont& oc) {
     myRNGs.clear();
     const int numRNGs = oc.getInt("thread-rngs");
-    const bool random = oc.getBool("random");
     int seed = oc.getInt("seed");
     myRNGs.reserve(numRNGs); // this is needed for stable pointers on debugging
     for (int i = 0; i < numRNGs; i++) {
         myRNGs.push_back(SumoRNG("lanes_" + toString(i)));
-        RandHelper::initRand(&myRNGs.back(), random, seed++);
+        RandHelper::initRand(&myRNGs.back(), false, seed);
+        seed = seed == std::numeric_limits<int>::max() ? std::numeric_limits<int>::min() : seed + 1;
     }
 }
 

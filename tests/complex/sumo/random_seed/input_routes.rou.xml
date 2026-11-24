@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <vType id="sample" sigma="0.5" speedFactor="normc(1,0.1,0.5,1.5)"/>
+    <route id="eastbound" edges="E0"/>
+    <flow id="traffic" type="sample" route="eastbound" begin="0" end="130"
+          probability="0.6" departLane="random" departSpeed="random"/>
+</routes>
