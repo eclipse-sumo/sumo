@@ -25,6 +25,7 @@
 // undefine to use summary report only
 #define WORKLOAD_INTERVAL 100
 
+#include <exception>
 #include <list>
 #include <vector>
 #include "fxheader.h"
@@ -171,10 +172,10 @@ public:
             myMutex.unlock();
         }
 
-        void setException(ProcessError& e) {
+        void setException(std::exception_ptr error) {
             myMutex.lock();
             if (myException == nullptr) {
-                myException = new ProcessError(e);
+                myException = error;
             }
             myMutex.unlock();
         }
@@ -213,15 +214,13 @@ public:
                     delete task;
                 }
             }
-            ProcessError* toRaise = myException;
+            const std::exception_ptr toRaise = myException;
             myException = nullptr;
             myFinishedTasks.clear();
             myRunningIndex = 0;
             myMutex.unlock();
             if (toRaise != nullptr) {
-                ProcessError err = *toRaise;
-                delete toRaise;
-                throw err;
+                std::rethrow_exception(toRaise);
             }
         }
 
@@ -271,7 +270,7 @@ public:
         /// @brief the running index for the next task
         int myRunningIndex;
         /// @brief the exception from a child thread
-        ProcessError* myException;
+        std::exception_ptr myException;
 #ifdef WORKLOAD_PROFILING
         /// @brief the number of finished batch runs
         int myNumBatches;
@@ -332,7 +331,7 @@ public:
      * @return always 0
      */
     FXint run() {
-        while (!myStopped) {
+        while (true) {
             myMutex.lock();
             while (!myStopped && myTasks.empty()) {
                 myCondition.wait(myMutex);
@@ -355,8 +354,8 @@ public:
                     myCounter++;
 #endif
                 }
-            } catch (ProcessError& e) {
-                myPool.setException(e);
+            } catch (...) {
+                myPool.setException(std::current_exception());
             }
             myPool.addFinished(myCurrentTasks);
         }
