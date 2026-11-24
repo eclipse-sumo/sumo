@@ -84,8 +84,10 @@ void OptionsLoader::setValue(const std::string& key, const std::string& value) {
     if (value.length() > 0) {
         // try to add value in option container
         try {
-            if (!setSecure(myOptions, key, value)) {
+            if (!myOptions.isWriteable(key)) {
                 WRITE_ERRORF(TL("Could not set option '%' (probably defined twice)."), key);
+                myError = true;
+            } else if (!myOptions.set(key, value)) {
                 myError = true;
             }
         } catch (ProcessError& e) {
@@ -98,16 +100,6 @@ void OptionsLoader::setValue(const std::string& key, const std::string& value) {
 
 void OptionsLoader::characters(const XMLCh* const chars, const XERCES3_SIZE_t length) {
     myValue = myValue + XMLSubSys::transcode(chars, (int) length);
-}
-
-
-bool
-OptionsLoader::setSecure(OptionsCont& options, const std::string& name, const std::string& value) const {
-    if (options.isWriteable(name)) {
-        options.set(name, value);
-        return true;
-    }
-    return false;
 }
 
 

@@ -25,6 +25,7 @@
 #include <string>
 #include <vector>
 #include <exception>
+#include <memory>
 #include <utils/common/UtilExceptions.h>
 
 // ===========================================================================
@@ -497,6 +498,24 @@ protected:
     /// @brief the value, valid only when the base-classes "myAmSet"-member is true
     std::string myValue;
 };
+
+/// @brief String option constrained by a full-match ECMAScript regular expression.
+class Option_StringPattern : public Option_String {
+public:
+    explicit Option_StringPattern(const std::string& pattern);
+    Option_StringPattern(const std::string& value, const std::string& pattern);
+
+    bool set(const std::string& v, const std::string& orig, const bool append) override;
+
+    CLONEABLE(Option_StringPattern)
+
+private:
+    void checkValue(const std::string& value) const;
+
+    struct Constraint;
+    std::shared_ptr<const Constraint> myConstraint;
+};
+
 
 // -------------------------------------------------------------------------
 // Option_Float

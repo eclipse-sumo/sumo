@@ -79,16 +79,17 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.doRegister("version", 'V', new Option_Bool(false));
     oc.addDescription("version", "Report", TL("Prints the current version"));
 
-    oc.doRegister("xml-validation", 'X', new Option_String("local"));
+    const std::string validationPattern = "never|local|auto|always";
+    oc.doRegister("xml-validation", 'X', new Option_StringPattern("local", validationPattern));
     oc.addDescription("xml-validation", "Report", "Set schema validation scheme of XML inputs (\"never\", \"local\", \"auto\" or \"always\")");
 
     if (oc.exists("net-file")) {
-        oc.doRegister("xml-validation.net", new Option_String("never"));
+        oc.doRegister("xml-validation.net", new Option_StringPattern("never", validationPattern));
         oc.addDescription("xml-validation.net", "Report", "Set schema validation scheme of SUMO network inputs (\"never\", \"local\", \"auto\" or \"always\")");
     }
 
     if (oc.exists("route-files")) {
-        oc.doRegister("xml-validation.routes", new Option_String("local"));
+        oc.doRegister("xml-validation.routes", new Option_StringPattern("local", validationPattern));
         oc.addDescription("xml-validation.routes", "Report", "Set schema validation scheme of SUMO route inputs (\"never\", \"local\", \"auto\" or \"always\")");
     }
 

@@ -23,6 +23,7 @@
 
 #include <string>
 #include <exception>
+#include <regex>
 #include <sstream>
 #include "Option.h"
 #include <utils/common/StringUtils.h>
@@ -337,6 +338,43 @@ Option_String::set(const std::string& v, const std::string& orig, const bool /* 
     myValue = v;
     return markSet(orig);
 }
+
+// -------------------------------------------------------------------------
+// Option_StringPattern - methods
+// -------------------------------------------------------------------------
+
+struct Option_StringPattern::Constraint {
+    explicit Constraint(const std::string& pattern) : expression(pattern), regex(pattern) {}
+
+    const std::string expression;
+    const std::regex regex;
+};
+
+
+Option_StringPattern::Option_StringPattern(const std::string& pattern) :
+    myConstraint(std::make_shared<const Constraint>(pattern)) {}
+
+
+Option_StringPattern::Option_StringPattern(const std::string& value, const std::string& pattern) :
+    Option_String(value), myConstraint(std::make_shared<const Constraint>(pattern)) {
+    checkValue(value);
+}
+
+
+bool
+Option_StringPattern::set(const std::string& v, const std::string& orig, const bool append) {
+    checkValue(v);
+    return Option_String::set(v, orig, append);
+}
+
+
+void
+Option_StringPattern::checkValue(const std::string& value) const {
+    if (!std::regex_match(value, myConstraint->regex)) {
+        throw ProcessError(TLF("Value '%' must match pattern '%'.", value, myConstraint->expression));
+    }
+}
+
 
 // -------------------------------------------------------------------------
 // Option_Float - methods
