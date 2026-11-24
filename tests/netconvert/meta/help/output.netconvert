@@ -637,11 +637,11 @@ Formats Options:
                                         according to road speed.
   --osm.oneway-spread-right            Whether one-way roads should be spread
                                         to the side instead of centered
+  --osm.lane-access                    Import lane-specific access restrictions
   --osm.parking-lane-width FLOAT       Width in meters of imported OSM street
                                         parking lanes (0 disables import)
   --osm.parking-lane-allow STR         Allowed vehicle classes for imported OSM
                                         parking lanes (empty for green verges)
-  --osm.lane-access                    Import lane-specific access restrictions
   --osm.bike-access                    Import bike lanes and fix directions and
                                         permissions on bike paths
   --osm.sidewalks                      Import sidewalks

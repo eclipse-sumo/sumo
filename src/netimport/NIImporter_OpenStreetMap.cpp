@@ -759,22 +759,6 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         WRITE_WARNINGF(TL("Skipping edge '%' because it has speed %."), id, speed);
         return newIndex;
     }
-    if (e->myNoLanes == 1 && addForward && addBackward) {
-        // narrow road which now receives a total of 2 lanes but has less capacity than implied
-        if (e->myWidth < 0 && e->myWidthLanesForward.size() == 0 && e->myWidthLanesBackward.size() == 0) {
-            if (forwardWidth == NBEdge::UNSPECIFIED_WIDTH) {
-                forwardWidth = SUMO_const_laneWidth;
-            }
-            if (backwardWidth == NBEdge::UNSPECIFIED_WIDTH) {
-                backwardWidth = SUMO_const_laneWidth;
-            }
-            forwardWidth /= 2;
-            backwardWidth /= 2;
-        }
-        if (e->myWidth < 5) {
-            routingType = "narrow";
-        }
-    }
     const OptionsCont& oc = OptionsCont::getOptions();
     const bool lefthand = oc.getBool("lefthand");
     const double parkingLaneWidth = oc.getFloat("osm.parking-lane-width");
@@ -840,6 +824,22 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         edge->setGeometry(edge->getGeometry());
     };
 
+    if (e->myNoLanes == 1 && addForward && addBackward) {
+        // narrow road which now receives a total of 2 lanes but has less capacity than implied
+        if (e->myWidth < 0 && e->myWidthLanesForward.size() == 0 && e->myWidthLanesBackward.size() == 0) {
+            if (forwardWidth == NBEdge::UNSPECIFIED_WIDTH) {
+                forwardWidth = SUMO_const_laneWidth;
+            }
+            if (backwardWidth == NBEdge::UNSPECIFIED_WIDTH) {
+                backwardWidth = SUMO_const_laneWidth;
+            }
+            forwardWidth /= 2;
+            backwardWidth /= 2;
+        }
+        if (e->myWidth < 5) {
+            routingType = "narrow";
+        }
+    }
     // deal with cycleways that run in the opposite direction of a one-way street
     WayType cyclewayType = e->myCyclewayType; // make a copy because we do some temporary modifications
     if (addBikeLane) {

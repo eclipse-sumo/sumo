@@ -507,12 +507,6 @@ per-edge information whether the edge is a one-way edge is read
 (key="*junction*" and value="*roundabout*"), it is also set as being a
 one-way edge.
 
-### Street parking lanes
-
-Set **--osm.parking-lane-width** to a positive width in meters to model parking lanes within the measured road width. The importer recognizes `parking:left=lane`, `parking:right=lane` and `parking:both=lane`. Legacy `parking:lane:*` tags require an explicit `on_street` position. The importer subtracts the parking width from the travel lanes in the corresponding direction. It skips parking lane creation on roads without a measured width, roads with individual lane width tags, and roads where the parking lanes would leave no width for travel lanes.
-
-Parking lanes are green verges by default. Set **--osm.parking-lane-allow** to a space-separated list of vehicle classes to permit traffic on them.
-
 ## Dismissing unwanted traffic modes
 
 In most cases, tracks and edges which not may be crossed by motorised
@@ -534,6 +528,12 @@ must be extended by:
 ```
 --remove-edges.by-vclass rail_slow,rail_fast,bicycle,pedestrian
 ```
+
+## Street parking lanes
+
+Set **--osm.parking-lane-width** to a positive width in meters to model parking lanes within the measured road width. The importer recognizes `parking:left=lane`, `parking:right=lane` and `parking:both=lane`. Legacy `parking:lane:*` tags require an explicit `on_street` position. The importer subtracts the parking width from the travel lanes in the corresponding direction. It skips parking lane creation on roads without a measured width, roads with individual lane width tags, and roads where the parking lanes would leave no width for travel lanes.
+
+Parking lanes are green verges by default. Set **--osm.parking-lane-allow** to a space-separated list of vehicle classes to permit traffic on them.
 
 ## Relationship between OSM ids and SUMO-ids
 

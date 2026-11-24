@@ -123,8 +123,8 @@ restrictionException_no
 
 # example network from Zuerich
 oerlikon
-width_lane
 parking_lanes
+width_lane
 crossings
 
 # see #14786
