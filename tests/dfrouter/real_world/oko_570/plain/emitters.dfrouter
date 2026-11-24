@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="DEFAULT_VEHTYPE" speedFactor="2.00"/>
     <routeDistribution id="LI">
         <route refId="11_21_to_20_10" probability="0.42"/>
@@ -41,40 +41,40 @@ SPDX-License-Identifier: EPL-2.0
         <route refId="11_21_to_a4_a5" probability="0.17"/>
         <route refId="11_21_to_a3_b1" probability="1.00"/>
     </routeDistribution>
-    <vehicle id="LI.0" depart="0.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_a3_b1"/>
-    <vehicle id="LI.1" depart="6.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_a3_b1"/>
-    <vehicle id="LI.2" depart="12.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_20_10"/>
-    <vehicle id="LI.3" depart="18.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_a4_a5"/>
-    <vehicle id="LI.4" depart="24.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_a3_b1"/>
-    <vehicle id="LI.5" depart="30.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_20_10"/>
-    <vehicle id="LI.6" depart="36.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_a3_b1"/>
-    <vehicle id="LI.7" depart="42.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_51_61"/>
-    <vehicle id="LI.8" depart="48.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_a3_b1"/>
-    <vehicle id="LI.9" depart="54.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_a3_b1"/>
     <routeDistribution id="RI">
         <route refId="60_50_to_51_61" probability="0.42"/>
         <route refId="60_50_to_20_10" probability="0.42"/>
         <route refId="60_50_to_a4_a5" probability="0.17"/>
         <route refId="60_50_to_a3_b1" probability="1.00"/>
     </routeDistribution>
-    <vehicle id="RI.0" depart="0.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_51_61"/>
-    <vehicle id="RI.1" depart="6.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_a3_b1"/>
-    <vehicle id="RI.2" depart="12.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_a4_a5"/>
-    <vehicle id="RI.3" depart="18.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_a4_a5"/>
-    <vehicle id="RI.4" depart="24.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_a3_b1"/>
-    <vehicle id="RI.5" depart="30.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_20_10"/>
-    <vehicle id="RI.6" depart="36.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_51_61"/>
-    <vehicle id="RI.7" depart="42.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_a3_b1"/>
-    <vehicle id="RI.8" depart="48.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_20_10"/>
-    <vehicle id="RI.9" depart="54.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_a3_b1"/>
     <routeDistribution id="BI">
         <route refId="a5_a4_to_a3_b1" probability="1.00"/>
         <route refId="a5_a4_to_20_10" probability="0.42"/>
         <route refId="a5_a4_to_51_61" probability="0.42"/>
         <route refId="a5_a4_to_a4_a5" probability="0.17"/>
     </routeDistribution>
+    <vehicle id="LI.0" depart="0.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_a3_b1"/>
+    <vehicle id="RI.0" depart="0.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_51_61"/>
     <vehicle id="BI.0" depart="0.00" departLane="0" departPos="50.00" departSpeed="27.78" route="a5_a4_to_a3_b1"/>
+    <vehicle id="LI.1" depart="6.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_a3_b1"/>
+    <vehicle id="RI.1" depart="6.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_a3_b1"/>
+    <vehicle id="LI.2" depart="12.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_20_10"/>
+    <vehicle id="RI.2" depart="12.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_a4_a5"/>
     <vehicle id="BI.1" depart="15.00" departLane="0" departPos="50.00" departSpeed="27.78" route="a5_a4_to_20_10"/>
+    <vehicle id="LI.3" depart="18.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_a4_a5"/>
+    <vehicle id="RI.3" depart="18.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_a4_a5"/>
+    <vehicle id="LI.4" depart="24.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_a3_b1"/>
+    <vehicle id="RI.4" depart="24.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_a3_b1"/>
+    <vehicle id="LI.5" depart="30.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_20_10"/>
+    <vehicle id="RI.5" depart="30.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_20_10"/>
     <vehicle id="BI.2" depart="30.00" departLane="0" departPos="50.00" departSpeed="27.78" route="a5_a4_to_a3_b1"/>
+    <vehicle id="LI.6" depart="36.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_a3_b1"/>
+    <vehicle id="RI.6" depart="36.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_51_61"/>
+    <vehicle id="LI.7" depart="42.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_51_61"/>
+    <vehicle id="RI.7" depart="42.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_a3_b1"/>
     <vehicle id="BI.3" depart="45.00" departLane="0" departPos="50.00" departSpeed="27.78" route="a5_a4_to_20_10"/>
-</additional>
+    <vehicle id="LI.8" depart="48.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_a3_b1"/>
+    <vehicle id="RI.8" depart="48.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_20_10"/>
+    <vehicle id="LI.9" depart="54.00" departLane="0" departPos="100.00" departSpeed="27.78" route="11_21_to_a3_b1"/>
+    <vehicle id="RI.9" depart="54.00" departLane="0" departPos="100.00" departSpeed="27.78" route="60_50_to_a3_b1"/>
+</routes>

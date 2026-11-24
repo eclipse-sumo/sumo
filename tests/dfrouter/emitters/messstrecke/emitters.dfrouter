@@ -25,7 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <routeDistribution id="MQ11Fs1">
         <route refId="ErnstRuska2O_to_HavestadtN" probability="1.00"/>
         <route refId="ErnstRuska2O_to_VolmerN" probability="1.00"/>
@@ -94,4 +94,4 @@ SPDX-License-Identifier: EPL-2.0
         <route refId="AltglienickerBreitN_to_EinsteinN" probability="1.00"/>
         <route refId="AltglienickerBreitN_to_ErnstRuskaSink1W" probability="1.00"/>
     </routeDistribution>
-</additional>
+</routes>

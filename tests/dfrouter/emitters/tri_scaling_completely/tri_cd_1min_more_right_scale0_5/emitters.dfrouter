@@ -37,7 +37,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="DEFAULT_VEHTYPE" speedFactor="1.43"/>
     <routeDistribution id="MQ_beg">
         <route refId="beg_to_end" probability="0.25"/>
@@ -64,4 +64,4 @@ SPDX-License-Identifier: EPL-2.0
     <vehicle id="MQ_beg.17" depart="51.00" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end_2"/>
     <vehicle id="MQ_beg.18" depart="54.00" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end_1"/>
     <vehicle id="MQ_beg.19" depart="57.00" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end_1"/>
-</additional>
+</routes>

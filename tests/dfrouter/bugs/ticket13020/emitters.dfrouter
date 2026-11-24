@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="DEFAULT_VEHTYPE" speedFactor="2.00"/>
     <routeDistribution id="e1_2">
         <route refId="C0D0_to_D0bottom3" probability="1.00"/>
@@ -41,4 +41,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </routeDistribution>
     <vehicle id="e1_2.0" depart="0.00" departLane="0" departPos="50.00" departSpeed="27.78" route="C0D0_to_D0top3"/>
     <vehicle id="e1_2.1" depart="30.00" departLane="0" departPos="50.00" departSpeed="27.78" route="C0D0_to_D0top3"/>
-</additional>
+</routes>
