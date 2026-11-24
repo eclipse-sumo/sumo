@@ -1,0 +1,7 @@
+<nodes>
+    <node id="center" x="0" y="0"/>
+    <node id="w" x="-100" y="0"/>
+    <node id="s" x="0" y="-100"/>
+    <node id="e" x="100" y="0"/>
+    <node id="n" x="0" y="100"/>
+</nodes>

@@ -1,0 +1,4 @@
+<connections>
+    <delete from="west"/>
+    <delete from="south" fromLane="0"/>
+</connections>

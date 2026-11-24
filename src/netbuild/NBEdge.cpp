@@ -1488,7 +1488,9 @@ NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool try
                 }
             }
             i = myConnections.erase(i);
-            tryLater = false;
+            if (toEdge != nullptr) {
+                tryLater = false;
+            }
         } else {
             if (fromLaneRemoved >= 0 && c.fromLane > fromLaneRemoved) {
                 if (myTo->isTLControlled()) {
@@ -1513,17 +1515,17 @@ NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool try
         }
     }
     // check whether it was the turn destination
-    if (myTurnDestination == toEdge && fromLane < 0) {
+    if ((toEdge == nullptr || myTurnDestination == toEdge) && fromLane < 0) {
         myTurnDestination = nullptr;
     }
-    if (myPossibleTurnDestination == toEdge && fromLane < 0 && !keepPossibleTurns) {
+    if ((toEdge == nullptr || myPossibleTurnDestination == toEdge) && fromLane < 0 && !keepPossibleTurns) {
         myPossibleTurnDestination = nullptr;
     }
     if (tryLater) {
         myConnectionsToDelete.push_back(Connection(fromLane, toEdge, toLane));
 #ifdef DEBUG_CONNECTION_GUESSING
         if (DEBUGCOND) {
-            std::cout << "removeFromConnections " << getID() << "_" << fromLane << "->" << toEdge->getID() << "_" << toLane << "\n";
+            std::cout << "removeFromConnections " << getID() << "_" << fromLane << "->" << Named::getIDSecure(toEdge) << "_" << toLane << "\n";
             for (Connection& c : myConnections) {
                 std::cout << "  conn " << c.getDescription(this) << "\n";
             }
@@ -2968,8 +2970,10 @@ NBEdge::recheckLanes() {
     }
 #endif
     // check delayed removals
-    for (std::vector<Connection>::iterator it = myConnectionsToDelete.begin(); it != myConnectionsToDelete.end(); ++it) {
-        removeFromConnections(it->toEdge, it->fromLane, it->toLane, false, false, true);
+    for (const Connection& deletion : myConnectionsToDelete) {
+        if (deletion.toEdge != nullptr) {
+            removeFromConnections(deletion.toEdge, deletion.fromLane, deletion.toLane, false, false, true);
+        }
     }
     std::vector<int> connNumbersPerLane(myLanes.size(), 0);
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
@@ -3119,6 +3123,13 @@ NBEdge::recheckLanes() {
                 }
             }
             removeInvalidConnections();
+        }
+    }
+    // A wildcard deletion deliberately leaves an edge or lane disconnected.
+    // Apply it after lane repair so that it cannot create replacement connections.
+    for (const Connection& deletion : myConnectionsToDelete) {
+        if (deletion.toEdge == nullptr) {
+            removeFromConnections(nullptr, deletion.fromLane, deletion.toLane);
         }
     }
     // check involuntary dead end at "real" junctions

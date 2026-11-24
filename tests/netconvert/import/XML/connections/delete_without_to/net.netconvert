@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-24T18:29:29.177279+00:00 by Eclipse SUMO netconvert v1.28.0-0000000000
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+        <connection-files value="input_connections.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-100.00,-100.00,100.00,100.00" projParameter="!"/>
+
+    <edge id="east" from="center" to="e" priority="-1">
+        <lane id="east_0" index="0" speed="10.00" length="100.00" shape="110.40,95.20 200.00,95.20"/>
+        <lane id="east_1" index="1" speed="10.00" length="100.00" shape="110.40,98.40 200.00,98.40"/>
+    </edge>
+    <edge id="north" from="center" to="n" priority="-1">
+        <lane id="north_0" index="0" speed="10.00" length="100.00" shape="104.80,104.00 104.80,200.00"/>
+        <lane id="north_1" index="1" speed="10.00" length="100.00" shape="101.60,104.00 101.60,200.00"/>
+    </edge>
+    <edge id="south" from="s" to="center" priority="-1">
+        <lane id="south_0" index="0" speed="10.00" length="100.00" shape="104.80,0.00 104.80,89.60"/>
+        <lane id="south_1" index="1" speed="10.00" length="100.00" shape="101.60,0.00 101.60,89.60"/>
+    </edge>
+    <edge id="west" from="w" to="center" priority="-1">
+        <lane id="west_0" index="0" speed="10.00" length="100.00" shape="0.00,95.20 96.00,95.20"/>
+        <lane id="west_1" index="1" speed="10.00" length="100.00" shape="0.00,98.40 96.00,98.40"/>
+    </edge>
+
+    <junction id="center" type="right_before_left" x="100.00" y="100.00" incLanes="south_0 south_1 west_0 west_1" intLanes="" shape="100.00,104.00 106.40,104.00 106.84,101.78 107.40,101.00 108.18,100.44 109.18,100.11 110.40,100.00 110.40,93.60 108.18,93.16 107.40,92.60 106.84,91.82 106.51,90.82 106.40,89.60 100.00,89.60 99.56,91.82 99.00,92.60 98.22,93.16 97.22,93.49 96.00,93.60 96.00,100.00 98.22,100.44 99.00,101.00 99.56,101.78 99.89,102.78">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="e" type="dead_end" x="200.00" y="100.00" incLanes="east_0 east_1" intLanes="" shape="200.00,93.60 200.00,100.00"/>
+    <junction id="n" type="dead_end" x="100.00" y="200.00" incLanes="north_0 north_1" intLanes="" shape="106.40,200.00 100.00,200.00"/>
+    <junction id="s" type="dead_end" x="100.00" y="0.00" incLanes="" intLanes="" shape="100.00,0.00 106.40,0.00"/>
+    <junction id="w" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,100.00 0.00,93.60"/>
+
+    <connection from="south" to="north" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>
