@@ -15,6 +15,7 @@
 # @author  Mark Colley
 # @date    2026-11-05
 
+from contextlib import redirect_stdout
 import io
 import os
 import socket
@@ -52,7 +53,7 @@ def response(command_id, payload=b''):
 class ProtocolSocket:
     """A bounded socket peer that accepts framed requests and supplies wire replies."""
 
-    def __init__(self, responses, max_write=65536, max_read=65536, send_error=None):
+    def __init__(self, responses, max_write=65536, max_read=65536, send_error=None, local_port=50000):
         self.responses = list(responses)
         self.max_write = max_write
         self.max_read = max_read
@@ -61,12 +62,20 @@ class ProtocolSocket:
         self.incoming = bytearray()
         self.requests = []
         self.closed = False
+        self.local_port = local_port
+        self.peer_address = None
 
     def setsockopt(self, *args):
         pass
 
     def connect(self, address):
-        pass
+        self.peer_address = address
+
+    def getsockname(self):
+        return ('127.0.0.1', self.local_port)
+
+    def getpeername(self):
+        return self.peer_address
 
     def send(self, data):
         if self.send_error is not None:
@@ -107,6 +116,18 @@ class TransportTest(unittest.TestCase):
             self.addCleanup(connection._connections.pop, label, None)
             self.addCleanup(connection._connections.pop, '', None)
         return con
+
+    def test_connect_retries_after_socket_self_connection(self):
+        label = 'transport-self-connection'
+        self.addCleanup(connection._connections.pop, label, None)
+        self_connected = ProtocolSocket([], local_port=8813)
+        server = ProtocolSocket([response(tc.CMD_CLOSE)])
+        with patch.object(connection.socket, 'socket', side_effect=[self_connected, server]), \
+                redirect_stdout(io.StringIO()):
+            con = traci.connect(host='127.0.0.1', numRetries=1, waitBetweenRetries=0, label=label)
+        self.assertTrue(self_connected.closed)
+        con.close()
+        self.assertTrue(server.closed)
 
     def test_partial_write_sends_complete_frame(self):
         peer = ProtocolSocket([response(tc.CMD_SETORDER)], max_write=2)
