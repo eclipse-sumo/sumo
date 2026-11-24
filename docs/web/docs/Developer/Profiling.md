@@ -10,6 +10,12 @@ only been tried on Linux.
 
 For python the tool to use is cProfile.
 
+## Regular simulation measurements
+
+The nightly Linux and Windows builds run the Quick Start, Public Transport, and SUMOlympics tutorial scenarios three times each. Their Actions artifacts contain each run's wall time, simulation duration, vehicle and person update rates, and demand counts. Each report also identifies the SUMO revision and the runner platform.
+
+Run the same scenarios locally with `python tools/build_config/performance.py --binary sumo --repeat 3 --report performance.json`. Supply configuration paths to use different scenarios. Compare reports from matching build and runner configurations.
+
 # Profiling C++
 
 This is mostly a summary of https://stackoverflow.com/questions/375913/how-do-i-profile-c-code-running-on-linux/60265409#60265409
