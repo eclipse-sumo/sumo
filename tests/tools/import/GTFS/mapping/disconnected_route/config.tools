@@ -1,0 +1,1 @@
+copy_test_path:$SUMO_HOME/tests/tools/public_transport/ptlines2flows/extendFringe_split/net.net.xml.gz

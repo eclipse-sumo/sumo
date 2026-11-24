@@ -1,0 +1,4 @@
+Trip service (bus): detour (factor inf) to stop index 2, fromPos=257.63,1329.22 toPos=2028.18,1087.45 (airLine=1786.99 path=inf)
+Trip service (bus): detour (factor inf) to stop index 6, fromPos=268.47,1331.14 toPos=2703.19,851.28 (airLine=2481.56 path=inf)
+Warning! Disconnected route 'service' between '-1367366713' and '1311804740', no path found. Keeping longer part.
+Warning! Disconnected route 'service' between '1303663953' and '175925600#0', no path found. Keeping longer part.

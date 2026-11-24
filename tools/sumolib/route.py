@@ -229,11 +229,15 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                 print("*** no newPaths ***")
             # no mapping for the current pos, the route may be disconnected or the radius is too small
             if paths:
-                minPath = _getMinPath(paths, resultDetours, resultIndices)
-                if len(result) > 0 and minPath[0] in result:
-                    cropIndex = max([i for i in range(len(minPath)) if minPath[i] in result])
-                    minPath = minPath[cropIndex+1:]
-                result += minPath
+                minIndices = []
+                minPath = _getMinPath(paths, resultDetours, minIndices)
+                crop = 0
+                if result and minPath[0] in result:
+                    crop = max(i for i, edge in enumerate(minPath) if edge in result) + 1
+                offset = len(result) - crop
+                aligned = offset >= 0 and result[offset:] == minPath[:crop]
+                resultIndices.extend(offset + i if i >= crop or aligned else None for i in minIndices)
+                result += minPath[crop:]
                 # signal disconnect
                 resultDetours.append(PRACTICAL_INFINITY)
             else:

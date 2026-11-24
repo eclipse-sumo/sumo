@@ -351,8 +351,6 @@ def traceMap(options, net, modePreferences, veh2mode, fixedStops, stopLookup, ra
                         vias[idx] = [sumolib._laneID2edgeID(fixed.lane)]
                 if trace in traceCache:
                     mappedRoute, indices = traceCache[trace]
-                    # use an indepedent copy in case the route gets repaired and indices updated later in map_stops
-                    indices = indices[:]
                     cacheHits += 1
                 else:
                     detours = []
@@ -426,6 +424,35 @@ def estimateTime(net, decel, time, edges):
     return time
 
 
+def repair_route(net, route_id, route, indices, vclass, fill_gaps):
+    segments = []
+    start = 0
+    repaired = [route[0]]
+    positions = [0]
+    for i, edge_id in enumerate(route[1:], start=1):
+        previous = repaired[-1]
+        path, _ = net.getShortestPath(net.getEdge(previous), net.getEdge(edge_id), vClass=vclass)
+        if path is None or len(path) > fill_gaps + 2:
+            error = "no path found" if path is None else "path too long (%s)" % len(path)
+            print("Warning! Disconnected route '%s' between '%s' and '%s', %s. Keeping longer part." %
+                  (route_id, previous, edge_id, error), file=sys.stderr)
+            segments.append((start, repaired, positions))
+            start, repaired, positions = i, [edge_id], []
+        else:
+            if len(path) > 2:
+                print("Warning! Fixed route %s between %s and %s (added edges: %s)" %
+                      (route_id, previous, edge_id, len(path)), file=sys.stderr)
+            repaired.extend(edge.getID() for edge in path[1:])
+        positions.append(len(repaired) - 1)
+    segments.append((start, repaired, positions))
+
+    # Count mapped edges before filling gaps. Translate each stop through its original edge index.
+    start, repaired, positions = max(segments, key=lambda segment: len(segment[2]))
+    indices = [positions[index - start] if index is not None and start <= index < start + len(positions) else None
+               for index in indices]
+    return repaired, indices
+
+
 def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
     MappedStop = namedtuple("MappedStop", ["id", "arrival", "until", "name", "block", "isParking"])
     stops = collections.defaultdict(list)
@@ -436,7 +463,6 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
         vclass = OSM2SUMO_MODES.get(mode)
         decel = SUMO_DECEL[vclass]
         seen = set()
-        fixed = {}
         lastUntil = 0
         lastStop = None
         for rid, locations in geoRoutes[mode].items():
@@ -445,6 +471,9 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                     print("Warning! Not mapped", rid, file=sys.stderr)
                     seen.add(rid)
                 continue
+            route, indices = routes[rid]
+            route, indices = repair_route(net, rid, route, indices, vclass, options.fill_gaps)
+            routes[rid] = route, indices
             lastIndex = 0
             lastPos = -1
             for stopIndex, s in enumerate(locations):
@@ -453,46 +482,6 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                     childs += ['        <param key="fareZone" value="%s"/>\n' % s.fareZone,
                                '        <param key="fareSymbol" value="%s"/>\n' % s.fareSymbol,
                                '        <param key="startFare" value="%s"/>\n' % s.startFare]
-                if rid not in fixed:
-                    route, indices = routes[rid]
-                    routeFixed = [route[0]]
-                    startIndex = 0
-                    i = 1
-                    for routeEdgeID in route[1:]:
-                        path, _ = net.getShortestPath(net.getEdge(routeFixed[-1]),
-                                                      net.getEdge(routeEdgeID),
-                                                      vClass=vclass)
-                        if path is None or len(path) > options.fill_gaps + 2:
-                            error = "no path found" if path is None else "path too long (%s)" % len(path)
-                            print("Warning! Disconnected route '%s' between '%s' and '%s', %s. Keeping longer part." %
-                                  (rid, routeFixed[-1], routeEdgeID, error), file=sys.stderr)
-                            if len(routeFixed) > len(route) // 2:
-                                break
-                            routeFixed = [routeEdgeID]
-                            startIndex = i
-                        else:
-                            added = len(path) - 2
-                            if len(path) > 2:
-                                print("Warning! Fixed route %s between %s and %s (added edges: %s)" % (
-                                    rid, routeFixed[-1], routeEdgeID, len(path)),
-                                    file=sys.stderr)
-                                if added > 0:
-                                    for j, index in enumerate(indices):
-                                        if index is not None and index >= i:
-                                            indices[j] += added
-                                    i += added
-                            routeFixed += [e.getID() for e in path[1:]]
-                        i += 1
-                    for j, index in enumerate(indices):
-                        if index is not None:
-                            newIndex = index - startIndex
-                            if 0 <= newIndex < len(routeFixed):
-                                indices[j] = newIndex
-                            else:
-                                indices[j] = None
-                    routes[rid] = routeFixed, indices
-                    fixed[rid] = routeFixed, indices
-                route, indices = fixed[rid]
                 if mode in ("bus", "trolleybus"):
                     stopLength = options.bus_stop_length
                 elif mode == "tram":
@@ -562,7 +551,12 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                     laneID, start, end = result
                 edgeID = laneID.rsplit("_", 1)[0]
                 prevIndex = lastIndex
-                lastIndex = route.index(edgeID, lastIndex)
+                try:
+                    lastIndex = route.index(edgeID, lastIndex)
+                except ValueError:
+                    if options.warn_unmapped:
+                        print("Warning! No stop at index %s for %s %s." % (stopIndex, rid, s), file=sys.stderr)
+                    continue
                 lastPos = end
                 keep = True
                 if (lastIndex > 0

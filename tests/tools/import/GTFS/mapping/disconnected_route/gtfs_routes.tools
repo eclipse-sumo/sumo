@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="service" edges="1311804740 1309105169#1 1303663953">
+        <stop busStop="service.3" duration="10" until="0"/> <!-- b0 -->
+        <stop busStop="service.4" duration="10" until="60"/> <!-- b1 -->
+        <stop busStop="service.5" duration="10" until="120"/> <!-- b2 -->
+    </route>
+    <vehicle id="service.0" route="service" type="bus" depart="28970" line="42">
+        <param key="gtfs.route_name" value="42"/>
+        <param key="gtfs.trip_headsign" value="Terminal"/>
+    </vehicle>
+</routes>
