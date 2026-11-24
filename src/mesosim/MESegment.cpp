@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <algorithm>
+#include <cmath>
 #include <limits>
 #include <utils/common/StdDefs.h>
 #include <microsim/MSGlobals.h>
@@ -534,6 +535,55 @@ MESegment::resetCachedSpeeds() {
     myLastMeanSpeedUpdate = SUMOTime_MIN;
 }
 
+
+void
+MESegment::updateMesoPositions() const {
+    if (myMesoPositionUpdateTime == SIMSTEP) {
+        return;
+    }
+    double segmentOffset = 0;
+    for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(myEdge);
+            segment != this; segment = segment->getNextSegment()) {
+        segmentOffset += segment->getLength();
+    }
+    const double segLength = getLength();
+    const double lanesCovered = numQueues() == 1
+                                ? std::round(getCapacity() / segLength) : 1.;
+    const double now = SIMTIME;
+    for (int qIdx = 0; qIdx < numQueues(); ++qIdx) {
+        const std::vector<MEVehicle*> queue = getQueue(qIdx);
+        const int queueSize = (int)queue.size();
+        SUMOTime earliestExitTime = getQueueBlockTime(qIdx);
+        int overlap = 0;
+        double prevPos = std::numeric_limits<double>::max();
+        for (int i = 0; i < queueSize; ++i) {
+            MEVehicle* const veh = queue[queueSize - i - 1];
+            earliestExitTime = MAX2(earliestExitTime, veh->getEventTime());
+            const double vehLength = veh->getVehicleType().getLengthWithGap();
+            double maxPos = segmentOffset + segLength;
+            const double oldPos = veh->myMesoPosition;
+            if (i > 0) {
+                earliestExitTime += getMinTauWithVehLength(vehLength, veh->getVehicleType().getCarFollowModel().getHeadwayTime());
+                maxPos = MIN2(maxPos, prevPos - vehLength / lanesCovered);
+            }
+            const double entry = veh->getLastEntryTimeSeconds();
+            assert(STEPS2TIME(earliestExitTime) > entry);
+            const double pos = MAX2(MIN2(segmentOffset + segLength * (now - entry) / (STEPS2TIME(earliestExitTime) - entry), maxPos), oldPos);
+            if (overlap == 0 && prevPos - pos < vehLength) {
+                overlap = lanesCovered > 1. ? -3 : -1;
+            } else {
+                overlap = 0;
+            }
+            veh->myMesoPosition = pos;
+            veh->myMesoPositionOverlap = overlap;
+            veh->myMesoPositionValid = true;
+            prevPos = pos;
+        }
+    }
+    myMesoPositionUpdateTime = SIMSTEP;
+}
+
+
 void
 MESegment::writeVehicles(OutputDevice& of) const {
     for (const Queue& q : myQueues) {
@@ -556,9 +606,7 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, const MSMoveReminder::Not
     myEdge.lock();
     MEVehicle* nextLeader = q.remove(v);
     v->invalidateMesoPosition();
-    for (MEVehicle* veh : q.getVehicles()) {
-        veh->invalidateMesoPosition();
-    }
+    invalidateMesoPositions();
     myEdge.unlock();
     return nextLeader;
 }
@@ -835,9 +883,7 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
                 cars.insert(cars.begin(), veh);
             }
         }
-        for (MEVehicle* car : cars) {
-            car->invalidateMesoPosition();
-        }
+        invalidateMesoPositions();
         myEdge.unlock();
         myNumVehicles++;
         if (!isDepart && !isTeleport) {
@@ -981,13 +1027,18 @@ MESegment::saveState(OutputDevice& out) const {
 
 void
 MESegment::clearState() {
+    invalidateMesoPositions();
     for (Queue& q : myQueues) {
+        for (MEVehicle* veh : q.getModifiableVehicles()) {
+            veh->invalidateMesoPosition();
+        }
         q.getModifiableVehicles().clear();
     }
 }
 
 void
 MESegment::loadState(const std::vector<SUMOVehicle*>& vehs, const SUMOTime blockTime, const SUMOTime entryBlockTime, const int queIdx) {
+    invalidateMesoPositions();
     Queue& q = myQueues[queIdx];
     for (SUMOVehicle* veh : vehs) {
         MEVehicle* v = static_cast<MEVehicle*>(veh);
