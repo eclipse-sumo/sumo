@@ -111,6 +111,9 @@ public:
     /// @brief Called if the cursor geo-position shall be copied to clipboard
     long onCmdCopyCursorGeoPosition(FXObject*, FXSelector, void*);
 
+    /// @brief Copy the cursor position before applying the network offset.
+    long onCmdCopyCursorUnshiftedPosition(FXObject*, FXSelector, void*);
+
     /// @brief Called if the current geo-boundary shall be copied to clipboard
     long onCmdCopyViewGeoBoundary(FXObject*, FXSelector, void*);
 

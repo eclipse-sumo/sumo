@@ -261,6 +261,10 @@ The following additional functions are available via right-click:
 - Switch programs (traffic lights)
 - [Visualize Signal Plans](Simulation/Traffic_Lights.md#signal_plan_visualization) (traffic lights)
 
+## Copying coordinates
+
+Right-click the network view and choose **Copy unshifted cursor position to clipboard** to get the original Cartesian coordinates. This command removes the offset recorded in the network and is available when the network has an offset or a geographic projection. For a UTM network, the copied x and y values are the easting and northing.
+
 ## Plotting object properties
 
 All objects support the *Show Parameter* item in their context menu.
