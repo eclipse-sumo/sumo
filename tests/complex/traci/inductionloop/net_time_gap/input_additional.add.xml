@@ -1,0 +1,4 @@
+<additional>
+    <inductionLoop id="point" lane="2fi_0" pos="33.60" period="1" file="NUL"/>
+    <inductionLoop id="overlap" lane="2fi_0" pos="20" length="55" period="1" file="NUL"/>
+</additional>

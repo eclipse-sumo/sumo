@@ -95,6 +95,12 @@ InductionLoop::getTimeSinceDetection(const std::string& loopID) {
 }
 
 
+double
+InductionLoop::getLastNetTimeGap(const std::string& loopID) {
+    return Dom::getDouble(libsumo::LAST_NET_TIME_GAP, loopID);
+}
+
+
 std::vector<libsumo::TraCIVehicleData>
 InductionLoop::getVehicleData(const std::string& loopID) {
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };

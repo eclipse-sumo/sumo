@@ -1418,6 +1418,8 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "entryPos",          SUMO_ATTR_ENTRYPOS },
     { "routeLength",       SUMO_ATTR_ROUTELENGTH },
     { "headway",           SUMO_ATTR_HEADWAY },
+    { "lastLeaveComplete", SUMO_ATTR_LAST_LEAVE_COMPLETE },
+    { "netTimeGap",        SUMO_ATTR_NET_TIME_GAP },
     { "cchEffort",         SUMO_ATTR_CCH_EFFORT },
     { "cchPending",        SUMO_ATTR_CCH_PENDING },
     { "arcs",              SUMO_ATTR_ARCS },

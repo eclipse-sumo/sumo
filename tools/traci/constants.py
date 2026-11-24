@@ -755,6 +755,9 @@ VAR_LAST_INTERVAL_NUMBER = 0x29
 #  get aggregated vehicle ids of last written interval (get: inductionloop)
 VAR_LAST_INTERVAL_IDS = 0x2a
 
+#  most recent net time gap (get: inductionloop)
+LAST_NET_TIME_GAP = 0x2b
+
 #  last step jam length in vehicles (get: e2)
 JAM_LENGTH_VEHICLE = 0x18
 

@@ -103,6 +103,16 @@ class InductionLoopDomain(Domain):
         """
         return self._getUniversal(tc.LAST_STEP_TIME_SINCE_DETECTION, loopID)
 
+    def getLastNetTimeGap(self, loopID):
+        """getLastNetTimeGap(string) -> double
+
+        Returns the latest measured net time gap in seconds for a microscopic loop.
+        The gap runs from the previous rear exit to the following front entry.
+        Overlapping detections have a gap of zero. The return value is -1 before
+        the loop measures its first gap.
+        """
+        return self._getUniversal(tc.LAST_NET_TIME_GAP, loopID)
+
     def getVehicleData(self, loopID):
         """getVehicleData(string) -> tuple((veh_id, veh_length, entry_time, exit_time, vType), ...)
 
