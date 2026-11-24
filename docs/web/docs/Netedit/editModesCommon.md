@@ -167,6 +167,8 @@ The 'Match Attribute' controls allow to specify a set of objects by matching the
 
 ### Special Cases
 
+- Width comparisons use each lane's effective width, including inherited and default values. An edge matches when every lane on it meets the comparison. Select lanes to match their widths individually.
+
 - For attributes *allow* and *disallow*, the attribute value **all** is shown in [Inspect](#inspect)-mode when all classes are allowed (or disallowed). In this case an edge (or lane) will also be selected when using any vClass as match string (and edge with attribute `disallow="all"` will also match when filtering for disallow with string **passenger**). However, for technical reasons the match
   string **=all** will not match this edge (**all** is expanded to **all private emergency passenger bus ... custom1 custom2**).
 

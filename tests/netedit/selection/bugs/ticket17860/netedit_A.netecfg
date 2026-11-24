@@ -1,0 +1,13 @@
+<neteditConfiguration>
+    <input>
+        <sumo-net-file value="input_net_A.net.xml"/>
+    </input>
+    <visualisation>
+        <gui-testing value="true"/>
+        <window-size value="1050,760"/>
+    </visualisation>
+    <report>
+        <gui-testing-debug value="true"/>
+        <xml-validation value="never"/>
+    </report>
+</neteditConfiguration>
