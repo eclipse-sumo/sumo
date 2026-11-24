@@ -25,6 +25,8 @@ if "SUMO_HOME" in os.environ:
 import sumolib  # noqa
 import traci  # noqa
 
+network = Path(os.environ["SUMO_HOME"]) / "tests/complex/traci/bugs/ticket1010/input_net.net.xml"
+
 
 def check_sparse_values(filename, columns):
     with open(filename, newline="", encoding="utf-8") as stream:
@@ -35,7 +37,7 @@ def check_sparse_values(filename, columns):
 
 
 traci.start([sumolib.checkBinary("sumo"),
-             "-n", "input_net.net.xml",
+             "-n", str(network),
              "-r", "input_routes.rou.xml",
              "-a", "input_additional.add.xml",
              "--no-step-log", "--no-warnings", "--output.column-header", "full"] + sys.argv[1:])
