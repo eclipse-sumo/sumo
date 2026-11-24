@@ -33,8 +33,8 @@
 // member method definitions
 // ===========================================================================
 
-GNENetDiffTool::GNENetDiffTool(GNEApplicationWindow* applicationWindow, const std::string& toolPath, FXMenuPane* menu) :
-    GNEPythonTool(applicationWindow, toolPath, "", menu) {
+GNENetDiffTool::GNENetDiffTool(GNEApplicationWindow* applicationWindow, const std::string& toolPath, FXMenuPane* menu, bool hasGeneratedTemplate) :
+    GNEPythonTool(applicationWindow, toolPath, "", menu, hasGeneratedTemplate) {
     // fill options
     fillNetDiffOptions(myPythonToolsOptions);
     fillNetDiffOptions(myPythonToolsOptionsOriginal);

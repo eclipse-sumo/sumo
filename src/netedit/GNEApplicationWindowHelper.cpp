@@ -2096,7 +2096,7 @@ GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* toolsMenu,
     for (const auto& templateTool : templateTools) {
         if (templateTool.name == "netdiff") {
             myPythonTools.push_back(new GNENetDiffTool(myApplicationWindow, templateTool.pythonPath,
-                                    menuPaneToolMaps.at(templateTool.subfolder)));
+                                    menuPaneToolMaps.at(templateTool.subfolder), !templateTool.templateStr.empty()));
         } else if (menuPaneToolMaps.count(templateTool.subfolder) > 0) {
             myPythonTools.push_back(new GNEPythonTool(myApplicationWindow, templateTool.pythonPath,
                                     templateTool.templateStr, menuPaneToolMaps.at(templateTool.subfolder)));
@@ -2113,7 +2113,22 @@ GNEApplicationWindowHelper::ToolsMenuCommands::showTool(FXObject* menuCommand) {
     // iterate over all tools and find menu command
     for (const auto& tool : myPythonTools) {
         if (tool->getMenuCommand() == menuCommand) {
-            GNEPythonToolDialog(myApplicationWindow, tool);
+            if (tool->isAvailable()) {
+                GNEPythonToolDialog(myApplicationWindow, tool);
+            }
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
+long
+GNEApplicationWindowHelper::ToolsMenuCommands::updateTool(FXObject* menuCommand) const {
+    for (const auto& tool : myPythonTools) {
+        if (tool->getMenuCommand() == menuCommand) {
+            menuCommand->handle(myApplicationWindow, tool->isAvailable() ? FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE) :
+                                FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
             return 1;
         }
     }
@@ -2189,6 +2204,8 @@ GNEApplicationWindowHelper::HelpMenuCommands::buildHelpMenuCommands(FXMenuPane* 
     // build windows menu commands
     GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("Online Documentation"), "F1", TL("Open Online documentation."),
                                            nullptr, myApplicationWindow, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
+    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("Python Tool Support"), "", TL("Open Python tool documentation."),
+                                           nullptr, myApplicationWindow, MID_GNE_PYTHON_TOOL_HELP);
     new FXMenuSeparator(helpMenu);
     GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("Changelog"), "", TL("Open Changelog."),
                                            nullptr, myApplicationWindow, MID_CHANGELOG);

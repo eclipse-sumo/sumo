@@ -17,6 +17,12 @@ traffic objects and traffic data.
 
 For an overview of features see [netedit usage documentation](Netedit/index.md).
 
+## Python Tools
+
+The **Tools** menu runs Python scripts from the SUMO installation. Netedit disables a tool when its option template could not be generated during the build or its script is unavailable under `SUMO_HOME`.
+
+Set `SUMO_HOME` to the SUMO installation directory that contains `tools`. Netedit runs `python` by default and uses the `PYTHON` environment variable when set. A tool can fail during execution if the interpreter or a required Python package is missing. See [Using Python tools from the command line](Basics/Using_the_Command_Line_Applications.md#using_python_tools_from_the_command_line) for setup and troubleshooting.
+
 ## Options
 
 You may use a XML schema definition file for setting up a netedit

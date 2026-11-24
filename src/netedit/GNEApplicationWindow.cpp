@@ -420,6 +420,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_W_TOGGLEMESSAGEWINDOW, GNEApplicationWindow::onCmdToggleMessageWindow),
     // toolbar help
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,  GNEApplicationWindow::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PYTHON_TOOL_HELP,           GNEApplicationWindow::onCmdPythonToolHelp),
     FXMAPFUNC(SEL_COMMAND,  MID_CHANGELOG,                      GNEApplicationWindow::onCmdChangelog),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEYS,                        GNEApplicationWindow::onCmdHotkeys),
     FXMAPFUNC(SEL_COMMAND,  MID_TUTORIAL,                       GNEApplicationWindow::onCmdTutorial),
@@ -1323,9 +1324,8 @@ GNEApplicationWindow::onCmdPostProcessingPythonTool(FXObject* obj, FXSelector, v
 
 
 long
-GNEApplicationWindow::onUpdPythonTool(FXObject*, FXSelector, void*) {
-    // currently always enabled
-    return 1;
+GNEApplicationWindow::onUpdPythonTool(FXObject* sender, FXSelector, void*) {
+    return myToolsMenuCommands.updateTool(sender);
 }
 
 
@@ -2668,6 +2668,13 @@ GNEApplicationWindow::onCmdToggleEditOptions(FXObject* sender, FXSelector sel, v
 long
 GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
     MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/netedit.html");
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdPythonToolHelp(FXObject*, FXSelector, void*) {
+    MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/netedit.html#python_tools");
     return 1;
 }
 

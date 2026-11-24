@@ -38,7 +38,7 @@ class GNEPythonTool {
 public:
     /// @brief Constructor
     GNEPythonTool(GNEApplicationWindow* applicationWindow, const std::string& toolPath,
-                  const std::string& templateStr, FXMenuPane* menu);
+                  const std::string& templateStr, FXMenuPane* menu, bool hasManualOptions = false);
 
     /// @brief destructor
     virtual ~GNEPythonTool();
@@ -51,6 +51,9 @@ public:
 
     /// @brief get menu command
     FXMenuCommand* getMenuCommand() const;
+
+    /// @brief Whether the tool is configured at build time and installed at runtime.
+    bool isAvailable() const;
 
     /// @brief set current values (used for set values like current folder and similar)
     virtual void setCurrentValues();
@@ -93,6 +96,11 @@ protected:
     std::string getCommandPath() const;
 
 private:
+    /// @brief Resolve the installed script path without shell quoting.
+    std::string getScriptPath() const;
+
+    bool myOptionsAvailable;
+
     /// @brief Invalidated copy constructor.
     GNEPythonTool(const GNEPythonTool&) = delete;
 

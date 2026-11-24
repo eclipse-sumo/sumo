@@ -31,7 +31,7 @@ class GNENetDiffTool : public GNEPythonTool {
 public:
     /// @brief Constructor
     GNENetDiffTool(GNEApplicationWindow* applicationWindow, const std::string& toolPath,
-                   FXMenuPane* menu);
+                   FXMenuPane* menu, bool hasGeneratedTemplate);
 
     /// @brief destructor
     ~GNENetDiffTool();
