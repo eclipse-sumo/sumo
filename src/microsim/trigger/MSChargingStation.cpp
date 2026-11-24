@@ -171,7 +171,7 @@ MSChargingStation::setChargeDelay(SUMOTime delay) {
 void
 MSChargingStation::setChargeInTransit(bool value) {
     myChargeInTransit = value;
-    if (myTotalChargingPower > 0 && myChargeInTransit && myTotalPowerCheckEvent == nullptr) {
+    if (hasTotalPowerLimit() && myChargeInTransit && myTotalPowerCheckEvent == nullptr) {
         myTotalPowerCheckEvent = new WrappingCommand<MSChargingStation>(this, &MSChargingStation::checkTotalPower);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myTotalPowerCheckEvent);
     }
@@ -181,7 +181,7 @@ MSChargingStation::setChargeInTransit(bool value) {
 void
 MSChargingStation::setChargingVehicle(bool value) {
     myChargingVehicle = value;
-    if (myTotalChargingPower > 0 && myChargingVehicle && myTotalPowerCheckEvent == nullptr) {
+    if (hasTotalPowerLimit() && myChargingVehicle && myTotalPowerCheckEvent == nullptr) {
         myTotalPowerCheckEvent = new WrappingCommand<MSChargingStation>(this, &MSChargingStation::checkTotalPower);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myTotalPowerCheckEvent);
     }
@@ -190,12 +190,11 @@ MSChargingStation::setChargingVehicle(bool value) {
 
 void
 MSChargingStation::setTotalChargingPower(double totalPower) {
-    const bool hadLimit = myTotalChargingPower > 0;
+    const bool hadLimit = hasTotalPowerLimit();
     myTotalChargingPower = totalPower <= 0.0 ? 0.0 : totalPower;
-    if (myTotalChargingPower == 0.0) {
+    if (!hasTotalPowerLimit()) {
         myLastChargeStep.clear();
-    }
-    if (!hadLimit && myTotalChargingPower > 0 && (myChargeInTransit || myChargingVehicle) && myTotalPowerCheckEvent == nullptr) {
+    } else if (!hadLimit && (myChargeInTransit || myChargingVehicle) && myTotalPowerCheckEvent == nullptr) {
         myTotalPowerCheckEvent = new WrappingCommand<MSChargingStation>(this, &MSChargingStation::checkTotalPower);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myTotalPowerCheckEvent);
     }
@@ -204,7 +203,7 @@ MSChargingStation::setTotalChargingPower(double totalPower) {
 
 SUMOTime
 MSChargingStation::checkTotalPower(SUMOTime currentTime) {
-    if (myTotalChargingPower <= 0.0) {
+    if (!hasTotalPowerLimit()) {
         myTotalPowerCheckEvent = nullptr;
         myLastChargeStep.clear();
         return 0;
@@ -451,7 +450,7 @@ MSChargingStation::isCharging() const {
 void
 MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* battery) {
     const std::string vehID = battery->getHolder().getID();
-    if (myTotalChargingPower > 0.0 && WCharged > 0.0) {
+    if (hasTotalPowerLimit() && WCharged > 0.0) {
         const SUMOTime timeStep = MSNet::getInstance()->getCurrentTimeStep();
         myLastChargeStep[vehID] = {timeStep, WCharged};
     }

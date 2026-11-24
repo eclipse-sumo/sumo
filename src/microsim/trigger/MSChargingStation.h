@@ -271,6 +271,11 @@ protected:
 
 
 private:
+    /// @brief Whether to enforce an aggregate electrical power limit
+    bool hasTotalPowerLimit() const {
+        return myChargeType == CHARGETYPE_NORMAL && myTotalChargingPower > 0.0;
+    }
+
     /// @brief Compute delivered energy for all requests according to the configured strategy
     std::vector<double> computeAllocation(const std::vector<double>& requests, double capacity) const;
 

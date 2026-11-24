@@ -27,6 +27,7 @@ emission
 
 # in SUMO configuration files, it is now possible to add enviromment variables with the syntax ${VAR_NAME} and have it replaced with values from the environment. This test checks the proper behavior
 envVarSubstitution
+fuel_station_total_power
 
 # test several command line options with and without SUMO_HOME
 xmlValidation
