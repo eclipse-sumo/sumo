@@ -48,34 +48,34 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="15.00" id="dump_15">
-        <edge id="beg" speed="27.80" CO2_abs="48744.57"/>
+        <edge id="beg" speed="27.80" CO2_abs="63416.42"/>
     </interval>
     <interval begin="15.00" end="30.00" id="dump_15">
-        <edge id="beg" speed="27.80" CO2_abs="81240.96"/>
-        <edge id="middle" speed="13.90" CO2_abs="14677.35"/>
+        <edge id="beg" speed="27.80" CO2_abs="17824.54"/>
+        <edge id="middle" speed="13.90" CO2_abs="22331.16"/>
     </interval>
     <interval begin="30.00" end="45.00" id="dump_15">
-        <edge id="middle" speed="13.90" CO2_abs="44032.05"/>
+        <edge id="middle" speed="13.90" CO2_abs="30895.35"/>
     </interval>
     <interval begin="45.00" end="60.00" id="dump_15">
-        <edge id="middle" speed="13.90" CO2_abs="73386.75"/>
+        <edge id="middle" speed="13.90" CO2_abs="30895.35"/>
     </interval>
     <interval begin="60.00" end="75.00" id="dump_15">
-        <edge id="middle" speed="13.90" CO2_abs="102741.46"/>
+        <edge id="middle" speed="13.90" CO2_abs="30895.35"/>
     </interval>
     <interval begin="75.00" end="90.00" id="dump_15">
-        <edge id="middle" speed="13.90" CO2_abs="132096.16"/>
+        <edge id="middle" speed="13.90" CO2_abs="30895.35"/>
     </interval>
     <interval begin="90.00" end="105.00" id="dump_15">
-        <edge id="end" speed="27.80" CO2_abs="48744.57"/>
-        <edge id="middle" speed="13.90" CO2_abs="146773.51"/>
+        <edge id="end" speed="27.80" CO2_abs="64032.46"/>
+        <edge id="middle" speed="13.90" CO2_abs="860.95"/>
     </interval>
     <interval begin="105.00" end="120.00" id="dump_15">
-        <edge id="end" speed="27.80" CO2_abs="81240.96"/>
-        <edge id="rend" speed="27.80" CO2_abs="48891.06"/>
+        <edge id="end" speed="27.80" CO2_abs="17208.50"/>
+        <edge id="rend" speed="27.80" CO2_abs="50730.53"/>
     </interval>
     <interval begin="120.00" end="135.00" id="dump_15">
-        <edge id="rend" speed="27.80" CO2_abs="81485.09"/>
+        <edge id="rend" speed="27.80" CO2_abs="30754.56"/>
     </interval>
     <interval begin="135.00" end="150.00" id="dump_15"/>
 </meandata>

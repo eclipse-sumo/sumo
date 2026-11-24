@@ -47,33 +47,33 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <edge id="beg" speed="18.16" CO2_abs="145167.64"/>
     </interval>
     <interval begin="15.00" end="30.00" id="dump_15">
-        <edge id="beg" speed="25.36" CO2_abs="174003.46"/>
+        <edge id="beg" speed="25.36" CO2_abs="28835.81"/>
         <edge id="middle" speed="13.90" CO2_abs="10298.53"/>
     </interval>
     <interval begin="30.00" end="45.00" id="dump_15">
-        <edge id="middle" speed="13.90" CO2_abs="41194.13"/>
+        <edge id="middle" speed="13.90" CO2_abs="30895.60"/>
     </interval>
     <interval begin="45.00" end="60.00" id="dump_15">
-        <edge id="middle" speed="13.90" CO2_abs="72089.74"/>
+        <edge id="middle" speed="13.90" CO2_abs="30895.60"/>
     </interval>
     <interval begin="60.00" end="75.00" id="dump_15">
-        <edge id="middle" speed="13.90" CO2_abs="102985.34"/>
+        <edge id="middle" speed="13.90" CO2_abs="30895.60"/>
     </interval>
     <interval begin="75.00" end="90.00" id="dump_15">
-        <edge id="middle" speed="13.90" CO2_abs="133880.94"/>
+        <edge id="middle" speed="13.90" CO2_abs="30895.60"/>
     </interval>
     <interval begin="90.00" end="105.00" id="dump_15">
         <edge id="end" speed="17.42" CO2_abs="95127.41"/>
-        <edge id="middle" speed="11.40" CO2_abs="142287.97"/>
+        <edge id="middle" speed="11.40" CO2_abs="8407.03"/>
     </interval>
     <interval begin="105.00" end="120.00" id="dump_15">
-        <edge id="end" speed="27.80" CO2_abs="173148.68"/>
+        <edge id="end" speed="27.80" CO2_abs="78021.27"/>
         <edge id="rend" speed="27.80" CO2_abs="6886.89"/>
     </interval>
     <interval begin="120.00" end="135.00" id="dump_15">
-        <edge id="rend" speed="27.80" CO2_abs="74843.61"/>
+        <edge id="rend" speed="27.80" CO2_abs="67956.72"/>
     </interval>
     <interval begin="135.00" end="150.00" id="dump_15">
-        <edge id="rend" speed="27.80" CO2_abs="81482.87"/>
+        <edge id="rend" speed="27.80" CO2_abs="6639.27"/>
     </interval>
 </meandata>
