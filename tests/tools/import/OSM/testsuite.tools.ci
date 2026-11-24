@@ -6,3 +6,5 @@ build_passenger
 
 # test extraction of taxi stands as chargingStations
 taxiStop
+
+mapReview

@@ -10,3 +10,6 @@ webWizard_saveTemplate
 
 # test extraction of taxi stands as chargingStations
 taxiStop
+
+# review a simulation diagnostic against the source map
+mapReview
