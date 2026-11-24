@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+    <node id="11" lat="50.000" lon="10.000"/>
+    <node id="12" lat="50.000" lon="10.002"/>
+    <node id="21" lat="50.001" lon="10.000"/>
+    <node id="22" lat="50.001" lon="10.002"/>
+    <node id="31" lat="50.002" lon="10.000"/>
+    <node id="32" lat="50.002" lon="10.002"/>
+    <node id="41" lat="50.003" lon="10.000"/>
+    <node id="42" lat="50.003" lon="10.002"/>
+    <node id="51" lat="50.004" lon="10.000"/>
+    <node id="52" lat="50.004" lon="10.002"/>
+    <node id="61" lat="50.005" lon="10.000"/>
+    <node id="62" lat="50.005" lon="10.002"/>
+    <node id="71" lat="50.006" lon="10.000"/>
+    <node id="72" lat="50.006" lon="10.002"/>
+    <node id="81" lat="50.007" lon="10.000"/>
+    <node id="82" lat="50.007" lon="10.002"/>
+    <node id="91" lat="50.008" lon="10.000"/>
+    <node id="92" lat="50.008" lon="10.002"/>
+    <node id="101" lat="50.009" lon="10.000"/>
+    <node id="102" lat="50.009" lon="10.002"/>
+    <node id="111" lat="50.010" lon="10.000"/>
+    <node id="112" lat="50.010" lon="10.002"/>
+    <node id="121" lat="50.011" lon="10.000"/>
+    <node id="122" lat="50.011" lon="10.002"/>
+    <node id="131" lat="50.012" lon="10.000"/>
+    <node id="132" lat="50.012" lon="10.002"/>
+    <way id="10">
+        <nd ref="11"/>
+        <nd ref="12"/>
+        <tag k="highway" v="residential"/>
+        <tag k="width" v="10"/>
+        <tag k="parking:both" v="lane"/>
+    </way>
+    <way id="20">
+        <nd ref="21"/>
+        <nd ref="22"/>
+        <tag k="highway" v="residential"/>
+        <tag k="width" v="10"/>
+        <tag k="parking:right" v="lane"/>
+    </way>
+    <way id="30">
+        <nd ref="31"/>
+        <nd ref="32"/>
+        <tag k="highway" v="residential"/>
+        <tag k="width" v="8"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="parking:both" v="lane"/>
+        <tag k="sidewalk:right" v="yes"/>
+        <tag k="cycleway:right" v="yes"/>
+        <tag k="placement" v="middle_of:1"/>
+    </way>
+    <way id="40">
+        <nd ref="41"/>
+        <nd ref="42"/>
+        <tag k="highway" v="residential"/>
+        <tag k="width" v="6"/>
+        <tag k="oneway" v="-1"/>
+        <tag k="parking:left" v="lane"/>
+    </way>
+    <way id="50">
+        <nd ref="51"/>
+        <nd ref="52"/>
+        <tag k="highway" v="residential"/>
+        <tag k="width" v="4"/>
+        <tag k="parking:both" v="lane"/>
+    </way>
+    <way id="60">
+        <nd ref="61"/>
+        <nd ref="62"/>
+        <tag k="highway" v="residential"/>
+        <tag k="width" v="10"/>
+        <tag k="parking:both" v="lane"/>
+        <tag k="parking:right" v="street_side"/>
+    </way>
+    <way id="70">
+        <nd ref="71"/>
+        <nd ref="72"/>
+        <tag k="highway" v="residential"/>
+        <tag k="width" v="10"/>
+        <tag k="parking:lane:right" v="parallel"/>
+        <tag k="parking:lane:right:parallel" v="on_street"/>
+    </way>
+    <way id="80">
+        <nd ref="81"/>
+        <nd ref="82"/>
+        <tag k="highway" v="residential"/>
+        <tag k="width" v="10"/>
+        <tag k="parking:lane:left" v="parallel"/>
+        <tag k="parking:lane:left:parallel" v="street_side"/>
+    </way>
+    <way id="90">
+        <nd ref="91"/>
+        <nd ref="92"/>
+        <tag k="highway" v="residential"/>
+        <tag k="parking:both" v="lane"/>
+    </way>
+    <way id="100">
+        <nd ref="101"/>
+        <nd ref="102"/>
+        <tag k="highway" v="residential"/>
+        <tag k="width" v="10"/>
+        <tag k="parking:both" v="lane"/>
+        <tag k="width:lanes:forward" v="3"/>
+        <tag k="width:lanes:backward" v="3"/>
+    </way>
+    <way id="110">
+        <nd ref="111"/>
+        <nd ref="112"/>
+        <tag k="highway" v="residential"/>
+        <tag k="width" v="6"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="parking:right" v="lane"/>
+        <tag k="placement" v="middle_of:1"/>
+    </way>
+    <way id="120">
+        <nd ref="121"/>
+        <nd ref="122"/>
+        <tag k="highway" v="residential"/>
+        <tag k="width" v="6"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="parking:left" v="lane"/>
+        <tag k="placement" v="middle_of:1"/>
+    </way>
+    <way id="130">
+        <nd ref="131"/>
+        <nd ref="132"/>
+        <tag k="highway" v="residential"/>
+        <tag k="width" v="5"/>
+        <tag k="parking:both" v="lane"/>
+    </way>
+</osm>

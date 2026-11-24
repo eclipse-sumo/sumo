@@ -936,6 +936,12 @@
         <!-- Whether one-way roads should be spread to the side instead of centered -->
         <osm.oneway-spread-right value="false" type="BOOL"/>
 
+        <!-- Width in meters of imported OSM street parking lanes (0 disables import) -->
+        <osm.parking-lane-width value="0" type="FLOAT"/>
+
+        <!-- Allowed vehicle classes for imported OSM parking lanes (empty for green verges) -->
+        <osm.parking-lane-allow value="" type="STR"/>
+
         <!-- Import lane-specific access restrictions -->
         <osm.lane-access value="false" type="BOOL"/>
 

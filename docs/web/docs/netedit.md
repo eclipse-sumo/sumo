@@ -382,6 +382,8 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--osm.layer-elevation** {{DT_FLOAT}} | Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m; *default:* **0** |
 | **--osm.layer-elevation.max-grade** {{DT_FLOAT}} | Maximum grade threshold in % at 50km/h when reconstructing elevation based on layer data. The value is scaled according to road speed.; *default:* **10** |
 | **--osm.oneway-spread-right** {{DT_BOOL}} | Whether one-way roads should be spread to the side instead of centered; *default:* **false** |
+| **--osm.parking-lane-width** {{DT_FLOAT}} | Width in meters of imported OSM street parking lanes (0 disables import); *default:* **0** |
+| **--osm.parking-lane-allow** {{DT_STR}} | Allowed vehicle classes for imported OSM parking lanes (empty for green verges) |
 | **--osm.lane-access** {{DT_BOOL}} | Import lane-specific access restrictions; *default:* **false** |
 | **--osm.bike-access** {{DT_BOOL}} | Import bike lanes and fix directions and permissions on bike paths; *default:* **false** |
 | **--osm.sidewalks** {{DT_BOOL}} | Import sidewalks; *default:* **false** |

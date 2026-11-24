@@ -25,6 +25,7 @@
 /****************************************************************************/
 #include <config.h>
 #include <algorithm>
+#include <cmath>
 #include <set>
 #include <functional>
 #include <sstream>
@@ -774,6 +775,71 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             routingType = "narrow";
         }
     }
+    const OptionsCont& oc = OptionsCont::getOptions();
+    const bool lefthand = oc.getBool("lefthand");
+    const double parkingLaneWidth = oc.getFloat("osm.parking-lane-width");
+    bool forwardParkingOutside = false;
+    bool forwardParkingInside = false;
+    bool backwardParkingOutside = false;
+    bool backwardParkingInside = false;
+    if (!e->myParkingLaneTags.empty() && e->myWidth > 0 && std::isfinite(e->myWidth)
+            && e->myWidthLanesForward.empty() && e->myWidthLanesBackward.empty()
+            && !oc.getBool("ignore-widths") && (permissions & SVC_ROAD_MOTOR_CLASSES) != 0
+            && taggedLanes > 0 && taggedLanes == (addForward ? numLanesForward : 0) + (addBackward ? numLanesBackward : 0)) {
+        const bool parkingForwardSide = e->hasParkingLane(lefthand ? "left" : "right");
+        const bool parkingBackwardSide = e->hasParkingLane(lefthand ? "right" : "left");
+        const int forwardParkingCount = addForward ? parkingForwardSide + (!addBackward && parkingBackwardSide) : 0;
+        const int backwardParkingCount = addBackward ? parkingBackwardSide + (!addForward && parkingForwardSide) : 0;
+        if (forwardParkingCount + backwardParkingCount > 0) {
+            // Keep the measured share of the carriageway assigned to each direction.
+            const double minWidth = oc.exists("osm.min-lane-width") ? oc.getFloat("osm.min-lane-width") : 0.;
+            const double measuredLaneWidth = e->myWidth / taggedLanes;
+            const double newForwardWidth = addForward ? measuredLaneWidth - forwardParkingCount * parkingLaneWidth / numLanesForward : 0;
+            const double newBackwardWidth = addBackward ? measuredLaneWidth - backwardParkingCount * parkingLaneWidth / numLanesBackward : 0;
+            if ((!addForward || (newForwardWidth > 0 && newForwardWidth >= minWidth))
+                    && (!addBackward || (newBackwardWidth > 0 && newBackwardWidth >= minWidth))) {
+                if (addForward) {
+                    forwardWidth = newForwardWidth;
+                    forwardParkingOutside = parkingForwardSide;
+                    forwardParkingInside = !addBackward && parkingBackwardSide;
+                }
+                if (addBackward) {
+                    backwardWidth = newBackwardWidth;
+                    backwardParkingOutside = parkingBackwardSide;
+                    backwardParkingInside = !addForward && parkingForwardSide;
+                }
+            } else if (index <= 0) {
+                WRITE_WARNINGF(TL("Skipping parking lanes on OSM way '%' because its width leaves insufficient space for travel lanes."), e->id);
+            }
+        }
+    }
+
+    const auto addParkingLanes = [&](NBEdge* edge, bool outside, bool inside) {
+        if (!outside && !inside) {
+            return;
+        }
+        const SVCPermissions parkingPermissions = parseVehicleClasses(oc.getString("osm.parking-lane-allow"));
+        const auto addLane = [&](int laneIndex) {
+            edge->addLane(laneIndex, false, false, true);
+            edge->setLaneWidth(laneIndex, parkingLaneWidth);
+            edge->setPermissions(parkingPermissions, laneIndex);
+            edge->setPreferredVehicleClass(SVC_IGNORING, laneIndex);
+        };
+        if (outside) {
+            // Put street parking between the travel lanes and the added sidewalk or cycle lane.
+            int laneIndex = 0;
+            while (laneIndex < edge->getNumLanes()
+                    && (edge->getPermissions(laneIndex) == SVC_PEDESTRIAN || edge->getPermissions(laneIndex) == SVC_BICYCLE)) {
+                ++laneIndex;
+            }
+            addLane(laneIndex);
+        }
+        if (inside) {
+            addLane(edge->getNumLanes());
+        }
+        edge->setGeometry(edge->getGeometry());
+    };
+
     // deal with cycleways that run in the opposite direction of a one-way street
     WayType cyclewayType = e->myCyclewayType; // make a copy because we do some temporary modifications
     if (addBikeLane) {
@@ -883,6 +949,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                     totalWidth += laneWidth;
                 }
                 placementOffset = totalWidth / 2. - placementRefOffset;
+                // Keep the mapped position on its travel lane after placing parking to either side.
+                const int parkingRight = lefthand ? forwardParkingInside : forwardParkingOutside;
+                const int parkingLeft = lefthand ? forwardParkingOutside : forwardParkingInside;
+                placementOffset += (parkingRight - parkingLeft) * parkingLaneWidth / 2.;
                 applyPlacement = true;
             }
         }
@@ -899,7 +969,6 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     }
 
     const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? toString(e->id) : "";
-    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     const int offsetFactor = lefthand ? -1 : 1;
     LaneSpreadFunction lsf = ((addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
             ((!isRailway(permissions) || (permissions == SVC_CABLE_CAR && e->myRailDirection == WAY_UNKNOWN)))
@@ -989,6 +1058,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             nbe->setRoutingType(routingType);
         }
 
+        addParkingLanes(nbe, forwardParkingOutside, forwardParkingInside);
         if (!ec.insert(nbe)) {
             delete nbe;
             throw ProcessError(TLF("Could not add edge '%'.", id));
@@ -1048,6 +1118,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             nbe->setRoutingType(routingType);
         }
 
+        addParkingLanes(nbe, backwardParkingOutside, backwardParkingInside);
         if (!ec.insert(nbe)) {
             delete nbe;
             throw ProcessError(TLF("Could not add edge '-%'.", id));
@@ -1078,6 +1149,26 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         }
     }
     return newIndex;
+}
+
+
+bool
+NIImporter_OpenStreetMap::Edge::hasParkingLane(const std::string& side) const {
+    for (const std::string& suffix : {side, std::string("both")}) {
+        const auto tag = myParkingLaneTags.find("parking:" + suffix);
+        if (tag != myParkingLaneTags.end()) {
+            return tag->second == "lane";
+        }
+    }
+    for (const std::string& suffix : {side, std::string("both")}) {
+        const std::string key = "parking:lane:" + suffix;
+        const auto orientation = myParkingLaneTags.find(key);
+        if (orientation != myParkingLaneTags.end()) {
+            const auto position = myParkingLaneTags.find(key + ":" + orientation->second);
+            return position != myParkingLaneTags.end() && position->second == "on_street";
+        }
+    }
+    return false;
 }
 
 
@@ -2293,12 +2384,19 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             myCurrentEdge->setParameter(key, value);
         } else if (key == "public_transport" && value == "platform") {
             myCurrentEdge->myExtraTags["platform"] = "yes";
-        } else if ((key == "parking:both" || key == "parking:lane:both") && !StringUtils::startsWith(value, "no")) {
-            myCurrentEdge->myParkingType |= PARKING_BOTH;
-        } else if ((key == "parking:left" || key == "parking:lane:left") && !StringUtils::startsWith(value, "no")) {
-            myCurrentEdge->myParkingType |= PARKING_LEFT;
-        } else if ((key == "parking:right" || key == "parking:lane:right") && !StringUtils::startsWith(value, "no")) {
-            myCurrentEdge->myParkingType |= PARKING_RIGHT;
+        } else if (StringUtils::startsWith(key, "parking:")) {
+            if (!StringUtils::startsWith(value, "no")) {
+                if (key == "parking:both" || key == "parking:lane:both") {
+                    myCurrentEdge->myParkingType |= PARKING_BOTH;
+                } else if (key == "parking:left" || key == "parking:lane:left") {
+                    myCurrentEdge->myParkingType |= PARKING_LEFT;
+                } else if (key == "parking:right" || key == "parking:lane:right") {
+                    myCurrentEdge->myParkingType |= PARKING_RIGHT;
+                }
+            }
+            if (OptionsCont::getOptions().getFloat("osm.parking-lane-width") > 0) {
+                myCurrentEdge->myParkingLaneTags[key] = value;
+            }
         } else if (key == "change" || key == "change:lanes") {
             myCurrentEdge->myChangeForward = myCurrentEdge->myChangeBackward = interpretChangeType(value);
         } else if (key == "change:forward" || key == "change:lanes:forward") {

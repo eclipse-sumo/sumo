@@ -242,6 +242,11 @@ protected:
         int myRailDirection;
         /// @brief Information about road-side parking
         int myParkingType;
+        /// @brief Tags used to identify parking within the measured carriageway
+        std::map<std::string, std::string> myParkingLaneTags;
+
+        /// @brief Whether parking is tagged as part of the carriageway on this side
+        bool hasParkingLane(const std::string& side) const;
         /// @brief Information about change prohibitions (forward direction
         int myChangeForward;
         /// @brief Information about change prohibitions (backward direction

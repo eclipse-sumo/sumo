@@ -25,6 +25,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <cmath>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
@@ -192,6 +194,12 @@ NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
 
     oc.doRegister("osm.oneway-spread-right", new Option_Bool(false));
     oc.addDescription("osm.oneway-spread-right", "Formats", TL("Whether one-way roads should be spread to the side instead of centered"));
+
+    oc.doRegister("osm.parking-lane-width", new Option_Float(0));
+    oc.addDescription("osm.parking-lane-width", "Formats", TL("Width in meters of imported OSM street parking lanes (0 disables import)"));
+
+    oc.doRegister("osm.parking-lane-allow", new Option_String(""));
+    oc.addDescription("osm.parking-lane-allow", "Formats", TL("Allowed vehicle classes for imported OSM parking lanes (empty for green verges)"));
 
     oc.doRegister("osm.lane-access", new Option_Bool(false));
     oc.addDescription("osm.lane-access", "Formats", TL("Import lane-specific access restrictions"));
@@ -473,6 +481,15 @@ NIFrame::checkOptions(OptionsCont& oc) {
     }
     if (!oc.isDefault("osm.extra-attributes") && oc.isDefault("osm.all-attributes")) {
         oc.setDefault("osm.all-attributes", "true");
+    }
+    const double parkingLaneWidth = oc.getFloat("osm.parking-lane-width");
+    if (!std::isfinite(parkingLaneWidth) || parkingLaneWidth < 0) {
+        WRITE_ERROR(TL("Option osm.parking-lane-width must be a finite, non-negative number."));
+        ok = false;
+    }
+    if (!canParseVehicleClasses(oc.getString("osm.parking-lane-allow"))) {
+        WRITE_ERROR(TL("Option osm.parking-lane-allow contains an unknown vehicle class."));
+        ok = false;
     }
     if (oc.getBool("osm.crossings") && !oc.getBool("osm.sidewalks")) {
         WRITE_WARNING(TL("It is recommended to use option osm.crossings with osm.sidewalks"));
