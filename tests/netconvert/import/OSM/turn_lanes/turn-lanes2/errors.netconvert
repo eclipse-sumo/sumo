@@ -13,8 +13,10 @@ Warning: Removing pt stop '4881705882' on non existing edge '373189610#6'.
 Warning: Removing pt stop '4881705883' on non existing edge '373189611#0'.
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '4881705882' (Schaufelbergerstrasse). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '4881705883' (Schaufelbergerstrasse). Thus, it will be removed!
+Warning: Not joining junctions 100951493,2185198017,2185198035 (not compact (maxEdge=208193950#1 length=5.23)).
 Warning: Cannot apply turn sign information for edge '24660415' because there are 2 signed directions and 3 targets (after target pruning)
 Warning: Cannot apply turn sign information for edge '706159402' because there are 2 signed directions but only 1 targets
 Warning: Cannot apply turn sign information for edge '81234792' because there are 2 signed directions but only 1 targets
+Warning: Speed of straight connection '10210692#0_0->32928688#0_1' reduced by 5.41 due to turning radius of 13.09 (length=11.34, angle=67.88).
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 8 total messages of type: Removing pt stop '%' on non existing edge '%'.
