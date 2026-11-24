@@ -201,7 +201,7 @@ To change this, the following steps have to be taken:
 ## Creating a zipper merge
 
 1. use inspect mode to set junction type to 'zipper'.
-2. use connection mode to add 2 connections which enter the zipper junction with the same target lane. The second connection must be created with <kbd>Ctrl</kbd> + <kbd>click</kbd> to override conflict protection.
+2. Use connection mode to add two connections that enter the zipper junction and share a target lane. Click to create each connection when its lanes share an allowed vehicle class.
 3. optionally: use inspect mode and enable 'show connections' (<kbd>Alt</kbd> + <kbd>5</kbd>). Click on the zipper connections (brown) and customize 'visibilityDistance' to set the range where vehicles start zipper merging.
 
 ![](../images/neteditZipper.png)
