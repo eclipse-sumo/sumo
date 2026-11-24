@@ -45,3 +45,6 @@ getSpentDuration2
 
 # the function should reset when switching between programs
 getSpentDuration3
+
+# A partial occupator of a continuation lane can clear a perpendicular crossing.
+cleared_continuation_leader

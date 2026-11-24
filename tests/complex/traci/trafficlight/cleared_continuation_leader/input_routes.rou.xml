@@ -1,0 +1,11 @@
+<routes>
+    <vType id="long" length="14" sigma="0" speedFactor="1"/>
+    <vType id="short" length="5" sigma="0" speedFactor="1"/>
+    <vehicle id="crossing" type="long" depart="0" departSpeed="max">
+        <route edges="south north"/>
+        <stop lane="north_0" endPos="1" duration="300"/>
+    </vehicle>
+    <vehicle id="waiting" type="short" depart="3" departSpeed="max">
+        <route edges="west east"/>
+    </vehicle>
+</routes>

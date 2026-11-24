@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="150.00,150.00" convBoundary="0.00,0.00,300.00,300.00" origBoundary="-150.00,-150.00,150.00,150.00" projParameter="!"/>
+
+    <edge id=":j_0" function="internal">
+        <lane id=":j_0_0" index="0" speed="13.00" length="30.00" shape="151.60,128.80 151.60,158.80"/>
+    </edge>
+    <edge id=":j_2" function="internal">
+        <lane id=":j_2_0" index="0" speed="13.00" length="9.20" shape="151.60,158.80 151.60,168.00"/>
+    </edge>
+    <edge id=":j_1" function="internal">
+        <lane id=":j_1_0" index="0" speed="13.00" length="39.20" shape="132.00,148.40 171.20,148.40"/>
+    </edge>
+
+    <edge id="east" from="j" to="e" priority="-1">
+        <lane id="east_0" index="0" speed="13.00" length="128.80" shape="171.20,148.40 300.00,148.40"/>
+    </edge>
+    <edge id="north" from="j" to="n" priority="-1">
+        <lane id="north_0" index="0" speed="13.00" length="132.00" shape="151.60,168.00 151.60,300.00"/>
+    </edge>
+    <edge id="south" from="s" to="j" priority="-1">
+        <lane id="south_0" index="0" speed="13.00" length="128.80" shape="151.60,0.00 151.60,128.80"/>
+    </edge>
+    <edge id="west" from="w" to="j" priority="-1">
+        <lane id="west_0" index="0" speed="13.00" length="132.00" shape="0.00,148.40 132.00,148.40"/>
+    </edge>
+
+    <tlLogic id="j" type="static" programID="0" offset="0">
+        <phase duration="41" state="Gr"/>
+        <phase duration="3"  state="yr"/>
+        <phase duration="1"  state="rr"/>
+        <phase duration="41" state="rG"/>
+        <phase duration="3"  state="ry"/>
+        <phase duration="1"  state="rr"/>
+    </tlLogic>
+
+    <junction id="e" type="dead_end" x="300.00" y="150.00" incLanes="east_0" intLanes="" shape="300.00,146.80 300.00,150.00"/>
+    <junction id="j" type="traffic_light" x="150.00" y="150.00" incLanes="south_0 west_0" intLanes=":j_2_0 :j_1_0" shape="150.00,168.00 153.20,168.00 153.70,162.50 155.20,158.00 157.70,154.50 161.20,152.00 165.70,150.50 171.20,150.00 171.20,146.80 165.70,146.30 161.20,144.80 157.70,142.30 155.20,138.80 153.70,134.30 153.20,128.80 150.00,128.80 149.50,134.30 148.00,138.80 145.50,142.30 142.00,144.80 137.50,146.30 132.00,146.80 132.00,150.00 137.50,150.50 142.00,152.00 145.50,154.50 148.00,158.00 149.50,162.50" radius="18.00">
+        <request index="0" response="00" foes="10" cont="1"/>
+        <request index="1" response="01" foes="01" cont="0"/>
+    </junction>
+    <junction id="n" type="dead_end" x="150.00" y="300.00" incLanes="north_0" intLanes="" shape="153.20,300.00 150.00,300.00"/>
+    <junction id="s" type="dead_end" x="150.00" y="0.00" incLanes="" intLanes="" shape="150.00,0.00 153.20,0.00"/>
+    <junction id="w" type="dead_end" x="0.00" y="150.00" incLanes="" intLanes="" shape="0.00,150.00 0.00,146.80"/>
+
+    <junction id=":j_2_0" type="internal" x="151.60" y="158.80" incLanes=":j_0_0" intLanes=":j_1_0"/>
+
+    <connection from="south" to="north" fromLane="0" toLane="0" keepClear="0" contPos="30.00" via=":j_0_0" tl="j" linkIndex="0" dir="s" state="O"/>
+    <connection from="west" to="east" fromLane="0" toLane="0" keepClear="0" via=":j_1_0" tl="j" linkIndex="1" dir="s" state="o"/>
+
+    <connection from=":j_0" to="north" fromLane="0" toLane="0" via=":j_2_0" dir="s" state="m"/>
+    <connection from=":j_2" to="north" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":j_1" to="east" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
