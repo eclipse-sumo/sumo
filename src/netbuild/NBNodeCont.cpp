@@ -612,11 +612,27 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                 }
                 const bool bothCrossing = n->getType() == SumoXMLNodeType::RAIL_CROSSING && s->getType() == SumoXMLNodeType::RAIL_CROSSING;
                 const bool joinPedCrossings = bothCrossing && e->getPermissions() == SVC_PEDESTRIAN;
+                const auto nearbyRoadSignal = [n, maxDist](const NBEdge* road) {
+                    const NBNode* neighbor = road->getFromNode() == n ? road->getToNode() : road->getFromNode();
+                    return (road->getPermissions() & SVC_PASSENGER) != 0
+                           && (n->isTLControlled()
+                               || (neighbor->isTLControlled()
+                                   && n->getPosition().distanceTo2D(neighbor->getPosition()) < maxDist));
+                };
+                // Attach a short, dedicated cycle approach to a nearby road signal.
+                // Only expand outwards from the road to avoid joining roads via a cycleway.
+                const bool crossingCycleApproach = e->getPermissions() == SVC_BICYCLE
+                        && length < SUMO_const_laneWidth
+                        && n->getPosition().distanceTo2D(s->getPosition()) < maxDist
+                        && std::any_of(n->getEdges().begin(), n->getEdges().end(), nearbyRoadSignal)
+                        && std::all_of(s->getEdges().begin(), s->getEdges().end(), [](const NBEdge* edge) {
+                            return edge->getPermissions() == SVC_BICYCLE;
+                        });
                 if ( // never join pedestrian stuff (unless at a rail crossing
                     !joinPedCrossings && (
                         e->getPermissions() == SVC_PEDESTRIAN
                         // only join edges for regular passenger traffic or edges that are extremely short
-                        || (length > 3 * POSITION_EPS
+                        || (!crossingCycleApproach && length > 3 * POSITION_EPS
                             && (e->getPermissions() & (SVC_PASSENGER | SVC_TRAM)) == 0
                             && n->getPosition().distanceTo2D(s->getPosition()) > SUMO_const_laneWidth))) {
 #ifdef DEBUG_JOINJUNCTIONS
@@ -649,7 +665,7 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                 if (visited.find(s) != visited.end()) {
                     continue;
                 }
-                if (length + dist < maxDist) {
+                if (length + dist < maxDist || crossingCycleApproach) {
                     // don't add long "boring" appendages but always join the whole rail crossing or tls
                     const bool trueGeomLike = s->geometryLike();
                     if (trueGeomLike || geometryLikeForClass(s, SVC_VULNERABLE | SVC_DELIVERY)) {

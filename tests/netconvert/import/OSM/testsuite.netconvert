@@ -44,6 +44,7 @@ xerces_bug_1947
 
 # import dedicated bicycle lanes
 bicycle_lanes
+join_bicycle_approaches
 bus_lanes
 intersection_with_crossings
 max_segment_length

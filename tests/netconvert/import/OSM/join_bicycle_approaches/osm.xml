@@ -1,0 +1,262 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version="0.6" generator="SUMO issue reproduction" attribution="https://www.openstreetmap.org/copyright" license="https://opendatacommons.org/licenses/odbl/1-0/" copyright="OpenStreetMap and contributors">
+    <node id="28142770" lat="52.2754773" lon="10.5357529" />
+    <node id="104171179" lat="52.2754614" lon="10.5355678" />
+    <node id="1335061486" lat="52.2760688" lon="10.5352305" />
+    <node id="1356130769" lat="52.2749229" lon="10.5358705" />
+    <node id="2128899410" lat="52.2761928" lon="10.5351687" />
+    <node id="3252754773" lat="52.2762993" lon="10.5351191" />
+    <node id="3252759626" lat="52.2753464" lon="10.5356350">
+        <tag k="crossing" v="traffic_signals" />
+        <tag k="highway" v="crossing" />
+    </node>
+    <node id="3252759628" lat="52.2754445" lon="10.5353175">
+        <tag k="crossing" v="traffic_signals" />
+        <tag k="highway" v="crossing" />
+    </node>
+    <node id="3252759630" lat="52.2755441" lon="10.5352659">
+        <tag k="crossing" v="traffic_signals" />
+        <tag k="highway" v="crossing" />
+    </node>
+    <node id="3252759631" lat="52.2756860" lon="10.5354330" />
+    <node id="3312512557" lat="52.2753397" lon="10.5353690" />
+    <node id="3312512578" lat="52.2755356" lon="10.5341987" />
+    <node id="3312512579" lat="52.2755435" lon="10.5338531">
+        <tag k="crossing" v="uncontrolled" />
+        <tag k="highway" v="crossing" />
+    </node>
+    <node id="3312512580" lat="52.2755446" lon="10.5344881" />
+    <node id="3312512582" lat="52.2755659" lon="10.5348092" />
+    <node id="3312512583" lat="52.2755791" lon="10.5325101" />
+    <node id="3312512584" lat="52.2755953" lon="10.5319554" />
+    <node id="3312512586" lat="52.2756117" lon="10.5352400" />
+    <node id="3312512587" lat="52.2756078" lon="10.5314406" />
+    <node id="3312512590" lat="52.2756307" lon="10.5287995" />
+    <node id="3312512591" lat="52.2756455" lon="10.5293751" />
+    <node id="3312512592" lat="52.2756437" lon="10.5301213" />
+    <node id="3896969433" lat="52.2756433" lon="10.5300037" />
+    <node id="4089724758" lat="52.2755594" lon="10.5333051" />
+    <node id="4672426086" lat="52.2756190" lon="10.5310700" />
+    <node id="5111696590" lat="52.2754414" lon="10.5352715">
+        <tag k="crossing" v="traffic_signals" />
+        <tag k="highway" v="crossing" />
+    </node>
+    <node id="5111696593" lat="52.2757293" lon="10.5354084">
+        <tag k="crossing" v="traffic_signals" />
+        <tag k="highway" v="crossing" />
+    </node>
+    <node id="5234660231" lat="52.2755550" lon="10.5335421" />
+    <node id="5269713100" lat="52.2756482" lon="10.5296427" />
+    <node id="5269713101" lat="52.2756071" lon="10.5314984" />
+    <node id="5269713102" lat="52.2756055" lon="10.5351913" />
+    <node id="5269713103" lat="52.2753383" lon="10.5353222" />
+    <node id="5448336392" lat="52.2755735" lon="10.5355003" />
+    <node id="5529974134" lat="52.2755404" lon="10.5352248">
+        <tag k="crossing" v="traffic_signals" />
+        <tag k="highway" v="crossing" />
+    </node>
+    <node id="5529974137" lat="52.2753131" lon="10.5356535">
+        <tag k="crossing" v="traffic_signals" />
+        <tag k="highway" v="crossing" />
+    </node>
+    <node id="5671413017" lat="52.2754844" lon="10.5344547" />
+    <node id="5929730246" lat="52.2755382" lon="10.5339967" />
+    <node id="5929730253" lat="52.2755466" lon="10.5337685" />
+    <node id="7700307344" lat="52.2759070" lon="10.5353112" />
+    <node id="7717839024" lat="52.2755187" lon="10.5349675" />
+    <node id="7937426347" lat="52.2757680" lon="10.5353873">
+        <tag k="highway" v="traffic_signals" />
+    </node>
+    <node id="11883663365" lat="52.2755976" lon="10.5352403">
+        <tag k="highway" v="traffic_signals" />
+        <tag k="traffic_signals:direction" v="forward" />
+    </node>
+    <node id="14354820359" lat="52.2756261" lon="10.5285870" />
+    <way id="23207360">
+        <nd ref="5448336392" />
+        <nd ref="104171179" />
+        <tag k="bicycle" v="use_sidepath" />
+        <tag k="destination:lanes" v="Berlin;Wolfsburg;Gliesmarode|Kassel;Bad Harzburg;Zentrum;Hauptbahnhof|Kassel;Bad Harzburg;Zentrum;Hauptbahnhof" />
+        <tag k="destination:symbol:lanes" v="motorway;;;airport|motorway;motorway;;train_station|motorway;motorway;;train_station" />
+        <tag k="foot" v="use_sidepath" />
+        <tag k="highway" v="primary_link" />
+        <tag k="lanes" v="3" />
+        <tag k="lit" v="yes" />
+        <tag k="maxspeed" v="50" />
+        <tag k="name" v="Hagenring" />
+        <tag k="oneway" v="yes" />
+        <tag k="ref" v="L 295" />
+        <tag k="sidewalk:left" v="no" />
+        <tag k="sidewalk:right" v="separate" />
+        <tag k="smoothness" v="good" />
+        <tag k="surface" v="asphalt" />
+        <tag k="turn:lanes" v="left|through|through" />
+        <tag k="zone:maxspeed" v="DE:urban" />
+        <tag k="zone:traffic" v="DE:urban" />
+    </way>
+    <way id="29136057">
+        <nd ref="104171179" />
+        <nd ref="28142770" />
+        <tag k="bicycle" v="use_sidepath" />
+        <tag k="destination:lanes" v="Kralenriede|Berlin;Wolfsburg;Gliesmarode|Berlin;Wolfsburg;Gliesmarode" />
+        <tag k="destination:symbol:lanes" v="|motorway;;;airport|motorway;;;airport" />
+        <tag k="foot" v="use_sidepath" />
+        <tag k="highway" v="primary_link" />
+        <tag k="lanes" v="3" />
+        <tag k="lit" v="yes" />
+        <tag k="maxspeed" v="50" />
+        <tag k="name" v="Rebenring" />
+        <tag k="oneway" v="yes" />
+        <tag k="postal_code" v="38106" />
+        <tag k="ref" v="L 295" />
+        <tag k="sidewalk:left" v="no" />
+        <tag k="sidewalk:right" v="separate" />
+        <tag k="smoothness" v="good" />
+        <tag k="surface" v="asphalt" />
+        <tag k="turn:lanes" v="left|through|through" />
+    </way>
+    <way id="29136063">
+        <nd ref="104171179" />
+        <nd ref="3252759626" />
+        <nd ref="5529974137" />
+        <nd ref="1356130769" />
+        <tag k="bicycle" v="use_sidepath" />
+        <tag k="destination" v="Kassel;Bad Harzburg;Hauptbahnhof" />
+        <tag k="destination:symbol" v="motorway;motorway;train_station" />
+        <tag k="est_width" v="6.5" />
+        <tag k="foot" v="use_sidepath" />
+        <tag k="highway" v="primary" />
+        <tag k="lanes" v="2" />
+        <tag k="lit" v="yes" />
+        <tag k="maxspeed" v="50" />
+        <tag k="name" v="Hagenring" />
+        <tag k="oneway" v="yes" />
+        <tag k="ref" v="L 295" />
+        <tag k="sidewalk:left" v="no" />
+        <tag k="sidewalk:right" v="separate" />
+        <tag k="smoothness" v="excellent" />
+        <tag k="source:width" v="bing" />
+        <tag k="surface" v="asphalt" />
+        <tag k="zone:maxspeed" v="DE:urban" />
+        <tag k="zone:traffic" v="DE:urban" />
+    </way>
+    <way id="318881710">
+        <nd ref="3252754773" />
+        <nd ref="2128899410" />
+        <nd ref="1335061486" />
+        <nd ref="7700307344" />
+        <nd ref="7937426347" />
+        <nd ref="5111696593" />
+        <nd ref="3252759631" />
+        <nd ref="5448336392" />
+        <tag k="bicycle" v="use_sidepath" />
+        <tag k="foot" v="use_sidepath" />
+        <tag k="highway" v="secondary" />
+        <tag k="lanes" v="3" />
+        <tag k="lit" v="yes" />
+        <tag k="maxspeed" v="50" />
+        <tag k="name" v="Brucknerstraße" />
+        <tag k="name:etymology:wikidata" v="Q81752" />
+        <tag k="oneway" v="yes" />
+        <tag k="postal_code" v="38106" />
+        <tag k="ref" v="K 5" />
+        <tag k="sidewalk:left" v="no" />
+        <tag k="sidewalk:right" v="separate" />
+        <tag k="source:width" v="bing" />
+        <tag k="surface" v="asphalt" />
+        <tag k="turn:lanes" v="left|through|through;right" />
+        <tag k="width" v="9.1" />
+        <tag k="zone:maxspeed" v="DE:urban" />
+        <tag k="zone:traffic" v="DE:urban" />
+    </way>
+    <way id="447787390">
+        <nd ref="5448336392" />
+        <nd ref="3252759630" />
+        <nd ref="5529974134" />
+        <nd ref="7717839024" />
+        <nd ref="5671413017" />
+        <tag k="bicycle" v="use_sidepath" />
+        <tag k="destination" v="Hannover;Hildesheim;Celle;Lüneburg" />
+        <tag k="destination:symbol" v="motorway;;;" />
+        <tag k="foot" v="use_sidepath" />
+        <tag k="highway" v="primary" />
+        <tag k="lanes" v="2" />
+        <tag k="lit" v="yes" />
+        <tag k="maxspeed" v="50" />
+        <tag k="name" v="Rebenring" />
+        <tag k="oneway" v="yes" />
+        <tag k="psv" v="yes" />
+        <tag k="ref" v="K 11" />
+        <tag k="sidewalk:left" v="no" />
+        <tag k="sidewalk:right" v="separate" />
+        <tag k="smoothness" v="excellent" />
+        <tag k="source:width" v="bing" />
+        <tag k="surface" v="asphalt" />
+        <tag k="width" v="6.4" />
+        <tag k="zone:maxspeed" v="DE:urban" />
+        <tag k="zone:traffic" v="DE:urban" />
+    </way>
+    <way id="496521318">
+        <nd ref="3312512586" />
+        <nd ref="11883663365" />
+        <nd ref="3252759630" />
+        <nd ref="3252759628" />
+        <nd ref="3312512557" />
+        <tag k="crossing" v="traffic_signals" />
+        <tag k="cycleway" v="crossing" />
+        <tag k="foot" v="no" />
+        <tag k="highway" v="cycleway" />
+        <tag k="lcn" v="yes" />
+        <tag k="lit" v="yes" />
+        <tag k="smoothness" v="good" />
+        <tag k="surface" v="asphalt" />
+        <tag k="wheelchair" v="yes" />
+    </way>
+    <way id="545220607">
+        <nd ref="5269713102" />
+        <nd ref="5529974134" />
+        <nd ref="5111696590" />
+        <nd ref="5269713103" />
+        <tag k="bicycle" v="no" />
+        <tag k="crossing" v="traffic_signals" />
+        <tag k="foot" v="designated" />
+        <tag k="footway" v="crossing" />
+        <tag k="highway" v="footway" />
+        <tag k="kerb" v="lowered" />
+        <tag k="lit" v="yes" />
+        <tag k="smoothness" v="good" />
+        <tag k="surface" v="asphalt" />
+        <tag k="traffic_sign" v="DE:241" />
+    </way>
+    <way id="1576141073">
+        <nd ref="3312512586" />
+        <nd ref="5269713102" />
+        <nd ref="3312512582" />
+        <nd ref="3312512580" />
+        <nd ref="3312512578" />
+        <nd ref="5929730246" />
+        <nd ref="3312512579" />
+        <nd ref="5929730253" />
+        <nd ref="5234660231" />
+        <nd ref="4089724758" />
+        <nd ref="3312512583" />
+        <nd ref="3312512584" />
+        <nd ref="5269713101" />
+        <nd ref="3312512587" />
+        <nd ref="4672426086" />
+        <nd ref="3312512592" />
+        <nd ref="3896969433" />
+        <nd ref="5269713100" />
+        <nd ref="3312512591" />
+        <nd ref="3312512590" />
+        <nd ref="14354820359" />
+        <tag k="foot" v="no" />
+        <tag k="highway" v="cycleway" />
+        <tag k="lcn" v="yes" />
+        <tag k="lit" v="yes" />
+        <tag k="oneway" v="yes" />
+        <tag k="smoothness" v="excellent" />
+        <tag k="surface" v="asphalt" />
+        <tag k="wheelchair" v="yes" />
+    </way>
+</osm>
