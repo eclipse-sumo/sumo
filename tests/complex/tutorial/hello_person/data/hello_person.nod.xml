@@ -1,0 +1,9 @@
+<nodes>
+    <node id="railWest" x="0" y="0"/>
+    <node id="railMid" x="180" y="0"/>
+    <node id="railEast" x="360" y="0"/>
+    <node id="home" x="-15" y="-8"/>
+    <node id="westEntrance" x="60" y="-8"/>
+    <node id="eastEntrance" x="300" y="-8"/>
+    <node id="destination" x="375" y="-8"/>
+</nodes>

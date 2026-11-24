@@ -1,0 +1,6 @@
+<edges>
+    <edge id="westTrack" from="railWest" to="railMid" allow="rail" speed="18"/>
+    <edge id="eastTrack" from="railMid" to="railEast" allow="rail" speed="18"/>
+    <edge id="approach" from="home" to="westEntrance" allow="pedestrian" width="2.5"/>
+    <edge id="exit" from="eastEntrance" to="destination" allow="pedestrian" width="2.5"/>
+</edges>

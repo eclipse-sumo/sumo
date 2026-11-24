@@ -57,6 +57,7 @@ complex/tutorial/circles;../docs/tutorial/circles
 complex/tutorial/city_mobil/simple;../docs/tutorial/city_mobil
 #complex/tutorial/gtfs/plain;../docs/tutorial/gtfs
 complex/tutorial/hello;../docs/tutorial/hello
+complex/tutorial/hello_person;../docs/examples/sumo/hello_person
 complex/tutorial/manhattan;../docs/tutorial/manhattan
 complex/tutorial/output_parsing;../docs/tutorial/output_parsing
 complex/tutorial/quickstart;../docs/tutorial/quickstart

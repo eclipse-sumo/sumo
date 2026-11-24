@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-15.00,-8.00,375.00,0.00" origBoundary="-15.00,-8.00,375.00,0.00" projParameter="!"/>
+
+    <edge id=":railMid_0" function="internal">
+        <lane id=":railMid_0_0" index="0" allow="rail" speed="18.00" length="0.10" shape="180.00,-1.60 180.00,-1.60"/>
+    </edge>
+
+    <edge id="approach" from="home" to="westEntrance" priority="-1">
+        <lane id="approach_0" index="0" allow="pedestrian" speed="13.89" length="75.00" width="2.50" shape="-15.00,-9.25 60.00,-9.25"/>
+    </edge>
+    <edge id="eastTrack" from="railMid" to="railEast" priority="-1">
+        <lane id="eastTrack_0" index="0" allow="rail" speed="18.00" length="180.00" shape="180.00,-1.60 360.00,-1.60"/>
+    </edge>
+    <edge id="exit" from="eastEntrance" to="destination" priority="-1">
+        <lane id="exit_0" index="0" allow="pedestrian" speed="13.89" length="75.00" width="2.50" shape="300.00,-9.25 375.00,-9.25"/>
+    </edge>
+    <edge id="westTrack" from="railWest" to="railMid" priority="-1">
+        <lane id="westTrack_0" index="0" allow="rail" speed="18.00" length="180.00" shape="0.00,-1.60 180.00,-1.60"/>
+    </edge>
+
+    <junction id="destination" type="dead_end" x="375.00" y="-8.00" incLanes="exit_0" intLanes="" shape="375.00,-10.50 375.00,-8.00"/>
+    <junction id="eastEntrance" type="dead_end" x="300.00" y="-8.00" incLanes="" intLanes="" shape="300.00,-8.00 300.00,-10.50"/>
+    <junction id="home" type="dead_end" x="-15.00" y="-8.00" incLanes="" intLanes="" shape="-15.00,-8.00 -15.00,-10.50"/>
+    <junction id="railEast" type="dead_end" x="360.00" y="0.00" incLanes="eastTrack_0" intLanes="" shape="360.00,-3.20 360.00,0.00"/>
+    <junction id="railMid" type="priority" x="180.00" y="0.00" incLanes="westTrack_0" intLanes=":railMid_0_0" shape="180.00,0.00 180.00,-3.20 180.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="railWest" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="westEntrance" type="dead_end" x="60.00" y="-8.00" incLanes="approach_0" intLanes="" shape="60.00,-10.50 60.00,-8.00"/>
+
+    <connection from="westTrack" to="eastTrack" fromLane="0" toLane="0" via=":railMid_0_0" dir="s" state="M"/>
+
+    <connection from=":railMid_0" to="eastTrack" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

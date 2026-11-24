@@ -1,0 +1,17 @@
+<sumoConfiguration>
+    <input>
+        <net-file value="hello_person.net.xml"/>
+        <route-files value="hello_person.rou.xml"/>
+        <additional-files value="hello_person.add.xml"/>
+    </input>
+    <time>
+        <end value="200"/>
+    </time>
+    <report>
+        <no-step-log value="true"/>
+        <duration-log.disable value="true"/>
+    </report>
+    <gui_only>
+        <gui-settings-file value="hello_person.settings.xml"/>
+    </gui_only>
+</sumoConfiguration>
