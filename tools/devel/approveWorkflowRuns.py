@@ -128,7 +128,8 @@ def rebase(options, pr, runs):
         # e.g. conflicts or no permission to push
         print("  could not rebase PR #%s, not approving: %s" % (pr["number"], e), file=sys.stderr)
         return []
-    print("  rebased PR #%s, waiting for the new runs." % pr["number"])
+    if options.verbose:
+        print("  rebased PR #%s, waiting for the new runs." % pr["number"])
     for _ in range(options.rebase_wait // 5):
         time.sleep(5)
         new_sha = request(options, "/repos/%s/pulls/%s" % (options.repo, pr["number"]))["head"]["sha"]
@@ -154,12 +155,14 @@ def main():
     counts = count_active_jobs(options)
     active = {pool: counts[pool, "in_progress"] + counts[pool, "queued"] for pool in ("macos", "other")}
     limits = {"macos": options.threshold * options.max_macos_jobs, "other": options.threshold * options.max_jobs}
-    print("%s jobs are running and %s are queued (limit %s)." %
-          (counts["other", "in_progress"], counts["other", "queued"], options.max_jobs))
-    print("%s macOS jobs are running and %s are queued (limit %s)." %
-          (counts["macos", "in_progress"], counts["macos", "queued"], options.max_macos_jobs))
+    if options.verbose:
+        print("%s jobs are running and %s are queued (limit %s)." %
+              (counts["other", "in_progress"], counts["other", "queued"], options.max_jobs))
+        print("%s macOS jobs are running and %s are queued (limit %s)." %
+              (counts["macos", "in_progress"], counts["macos", "queued"], options.max_macos_jobs))
     if any(active[pool] >= limits[pool] for pool in active):
-        print("Stopping: more than %d%% of a limit is in use." % (100 * options.threshold))
+        if options.verbose:
+            print("Stopping: more than %d%% of a limit is in use." % (100 * options.threshold))
         return 0
     # the runs endpoint only returns the 1000 newest runs of a filtered query, so start from the open pull
     # requests (oldest first, only whitelisted authors) and ask for the runs of their current head commit
@@ -186,18 +189,19 @@ def main():
         mac_runs = sum(1 for run in runs if run["name"].startswith("macos"))
         estimate = {"macos": mac_runs * options.macos_jobs, "other": 2 * (len(runs) - mac_runs)}
         if approved and any(active[pool] + estimate[pool] > limits[pool] for pool in active):
-            print("Stopping: PR #%s would add about %s jobs (%s on macOS) to the %s active ones (%s on macOS)." %
-                  (pr["number"], sum(estimate.values()), estimate["macos"], sum(active.values()), active["macos"]))
+            if options.verbose:
+                print("Stopping: PR #%s would add about %s jobs (%s on macOS) to the %s active ones (%s on macOS)." %
+                      (pr["number"], sum(estimate.values()), estimate["macos"], sum(active.values()), active["macos"]))
             return 0
-        print("Approving PR #%s by %s (%s workflow runs, about %s jobs, opened %s)." %
-              (pr["number"], author, len(runs), sum(estimate.values()), pr["created_at"]))
+        if options.verbose:
+            print("Approving PR #%s by %s (%s workflow runs, about %s jobs, opened %s)." %
+                  (pr["number"], author, len(runs), sum(estimate.values()), pr["created_at"]))
         for run in runs:
             if options.dry_run:
                 print("  would approve %s (%s)" % (run["name"], run["html_url"]))
                 continue
             try:
                 request(options, "/repos/%s/actions/runs/%s/approve" % (options.repo, run["id"]), method="POST")
-                print("  approved %s" % run["name"])
             except urllib.error.HTTPError as e:
                 # e.g. the run has already been approved or cancelled in the meantime
                 print("  could not approve %s: %s" % (run["name"], e), file=sys.stderr)
@@ -206,7 +210,7 @@ def main():
             active[pool] += estimate[pool]
         if any(active[pool] >= limits[pool] for pool in active):
             return 0
-    if not approved:
+    if not approved and options.verbose:
         print("No whitelisted pull request is waiting for approval.")
     return 0
 
