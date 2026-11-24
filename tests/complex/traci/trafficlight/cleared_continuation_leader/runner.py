@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2026 German Aerospace Center (DLR) and others.
+# Copyright (C) 2026-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -17,6 +16,7 @@
 # @date    2026-11-24
 
 import os
+import subprocess
 import sys
 
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
@@ -25,7 +25,7 @@ import traci  # noqa
 
 
 def check_crossing(route_file, overlap):
-    traci.start([sumolib.checkBinary("sumo"), "-n", "input_net.net.xml", "-r", route_file,
+    traci.start([sumolib.checkBinary("sumo"), "-n", "generated.net.xml", "-r", route_file,
                  "--no-step-log", "--time-to-teleport", "-1"])
     try:
         traci.trafficlight.setRedYellowGreenState("j", "Gr")
@@ -56,6 +56,11 @@ def check_crossing(route_file, overlap):
         traci.close()
 
 
+# Split the south-to-north link beyond the crossing so a stopped rear can occupy its continuation.
+subprocess.run([sumolib.checkBinary("netconvert"), "-n", "input_nodes.nod.xml",
+                "-e", "input_edges.edg.xml", "-x", "input_connections.con.xml",
+                "--no-turnarounds", "-o", "generated.net.xml"],
+               check=True, stdout=subprocess.DEVNULL)
 check_crossing("input_routes.rou.xml", overlap=False)
 print("The waiting vehicle crossed while the other vehicle remained stopped.")
 check_crossing("input_routes2.rou.xml", overlap=True)
