@@ -110,7 +110,7 @@ certain meaning and value range:
 | keepClear       | bool                                                                                                                                                                                                                      | Whether the [junction-blocking-heuristic](../Simulation/Intersections.md#junction_blocking) should be activated at this node *(default true)* |
 | rightOfWay      | string                                                                                                                                                                                                                    | Set algorithm for computing [\#Right-of-way](#right-of-way). Allowed values are *default*, *edgePriority*, *mixedPriority*, and *allwayStop*   |
 | fringe      | string                                                                                                                                                                                                                    | Clarify whether this junction is on the [network fringe](#fringe). Allowed values are *default*, *outer* and *inner*      |
-| roundabout  | string                                                                                                                                                                                                                    | Clarify whether this junction may be part of a roundabout. Allowed values are *default*, *1* and *0*      |
+| roundabout  | string                                                                                                                                                                                                                    | Clarify whether this junction may be part of a roundabout. Allowed values are *default*, *1* and *0* (This attribute only affects the behavior of option **--roundabouts.guess** and does enforce a [roundabout](#roundabouts))  |
 | controlledInner | list of edge ids                                                                                                                                                                                                          | Edges which shall be controlled by a joined TLS despite being incoming as well as outgoing to the jointly controlled nodes                         |
 
 !!! note
@@ -711,7 +711,8 @@ Manual specification of roundabouts is a useful supplement for the
 existing roundabout heuristic (activated via option **--roundabouts.guess**). Guessed
 roundabouts are written as part of the *plain-xml* output (option **--plain-output-prefix**).
 This output can then be customized by the user and fed back into
-[netconvert](../netconvert.md).
+[netconvert](../netconvert.md). 
+Node attribute `roundabout="0"` can be used to prevent guessing of roundabouts involving a particular node.
 
 ## Neighboring opposite-direction Lanes
 
