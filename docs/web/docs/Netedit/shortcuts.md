@@ -68,6 +68,7 @@ In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui
 | <kbd>Ctrl</kbd> + <kbd>J</kbd> | <span style="color:orange">Show junction shape |
 | <kbd>Ctrl</kbd> + <kbd>K</kbd> | <span style="color:orange">Load traffic lights |
 | <kbd>Ctrl</kbd> + <kbd>L</kbd> | <span style="color:orange">Save plain XML |
+| <kbd>Ctrl</kbd> + <kbd>M</kbd> | <span style="color:orange">Load SUMO config |
 | <kbd>Ctrl</kbd> + <kbd>N</kbd> | <span style="color:orange">New network |
 | <kbd>Ctrl</kbd> + <kbd>Q</kbd> | <span style="color:orange">Close SUMO/NETEDIT |
 | <kbd>Ctrl</kbd> + <kbd>R</kbd> | <span style="color:orange">Reload network |
