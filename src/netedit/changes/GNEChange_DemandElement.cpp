@@ -93,10 +93,12 @@ GNEChange_DemandElement::undo() {
     }
     // update stack labels also for route elements
     if (myDemandElement->getTagProperty()->vehicleRoute()) {
-        const auto firstRouteEdge = myParents.get<GNEDemandElement*>().at(1)->getParentEdges().front();
-        firstRouteEdge->updateVehicleStackLabels();
-        firstRouteEdge->updatePersonStackLabels();
-        firstRouteEdge->updateContainerStackLabels();
+        const auto& routeEdges = myParents.get<GNEDemandElement*>().at(1)->getParentEdges();
+        if (!routeEdges.empty()) {
+            routeEdges.front()->updateVehicleStackLabels();
+            routeEdges.front()->updatePersonStackLabels();
+            routeEdges.front()->updateContainerStackLabels();
+        }
     }
     // require always save elements
     myDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();
@@ -137,10 +139,12 @@ GNEChange_DemandElement::redo() {
     }
     // update stack labels also for route elements
     if (myDemandElement->getTagProperty()->vehicleRoute()) {
-        const auto firstRouteEdge = myParents.get<GNEDemandElement*>().at(1)->getParentEdges().front();
-        firstRouteEdge->updateVehicleStackLabels();
-        firstRouteEdge->updatePersonStackLabels();
-        firstRouteEdge->updateContainerStackLabels();
+        const auto& routeEdges = myParents.get<GNEDemandElement*>().at(1)->getParentEdges();
+        if (!routeEdges.empty()) {
+            routeEdges.front()->updateVehicleStackLabels();
+            routeEdges.front()->updatePersonStackLabels();
+            routeEdges.front()->updateContainerStackLabels();
+        }
     }
     // require always save elements
     myDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();

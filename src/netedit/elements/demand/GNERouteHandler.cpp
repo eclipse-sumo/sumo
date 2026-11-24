@@ -214,8 +214,8 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
                 const auto& routeDistributionID = sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
                 distributionParent = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, routeDistributionID, false);
                 if (distributionParent) {
-                    // create route reference without probability
-                    routeRef = new GNERouteRef(distributionParent, route);
+                    // Preserve the inline route's weight when writing it as a reference.
+                    routeRef = new GNERouteRef(distributionParent, route, probability);
                 } else {
                     WRITE_WARNING(TLF("Route '%' with probability % cannot be referenced with distribution '%'", id, toString(probability), routeDistributionID));
                 }
@@ -233,8 +233,10 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
                     edge->addChildElement(route);
                 }
                 if (routeRef) {
+                    myNet->getAttributeCarriers()->insertDemandElement(routeRef);
                     distributionParent->addChildElement(routeRef);
                     route->addChildElement(routeRef);
+                    routeRef->incRef("buildRouteRef");
                 }
                 route->incRef("buildRoute");
             }
@@ -313,7 +315,7 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
             return writeErrorInvalidParent(SUMO_TAG_VEHICLE, vehicleParameters.id, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION}, vehicleParameters.vtypeid);
         } else if (route == nullptr) {
             return writeErrorInvalidParent(SUMO_TAG_VEHICLE, vehicleParameters.id, {SUMO_TAG_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION}, vehicleParameters.routeid);
-        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN) && ((int)route->getParentEdges().front()->getChildLanes().size() < vehicleParameters.departLane)) {
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN) && !route->getParentEdges().empty() && ((int)route->getParentEdges().front()->getChildLanes().size() < vehicleParameters.departLane)) {
             return writeError(TLF("Invalid % used in % '%'. % is greater than number of lanes", toString(SUMO_ATTR_DEPARTLANE), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departLane)));
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (type->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
             return writeError(TLF("Invalid % used in % '%'. % is greater than type %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
@@ -408,7 +410,7 @@ GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*
             return writeErrorInvalidParent(SUMO_TAG_VEHICLE, vehicleParameters.id, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION}, vehicleParameters.vtypeid);
         } else if (route == nullptr) {
             return writeErrorInvalidParent(SUMO_TAG_VEHICLE, vehicleParameters.id, {SUMO_TAG_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION}, vehicleParameters.routeid);
-        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN) && ((int)route->getParentEdges().front()->getChildLanes().size() < vehicleParameters.departLane)) {
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN) && !route->getParentEdges().empty() && ((int)route->getParentEdges().front()->getChildLanes().size() < vehicleParameters.departLane)) {
             return writeError(TLF("Invalid % used in % '%'. % is greater than number of lanes", toString(SUMO_ATTR_DEPARTLANE), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departLane)));
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (type->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
             return writeError(TLF("Invalid % used in % '%'. % is greater than type %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
