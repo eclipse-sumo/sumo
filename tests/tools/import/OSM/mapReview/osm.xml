@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+    <node id="1" version="1" lat="49.00100" lon="8.00000"/>
+    <node id="2" version="7" lat="49.00100" lon="8.00100"/>
+    <node id="3" version="8" lat="49.00100" lon="8.00113"/>
+    <node id="4" version="1" lat="49.00100" lon="8.00200"/>
+    <node id="5" version="1" lat="49.00200" lon="8.00100"/>
+    <node id="6" version="1" lat="49.00000" lon="8.00113"/>
+    <node id="7" version="1" lat="49.00400" lon="8.00000"/>
+    <node id="8" version="2" lat="49.00400" lon="8.00100"/>
+    <node id="9" version="1" lat="49.00400" lon="8.00200"/>
+    <way id="100" version="9">
+        <nd ref="1"/>
+        <nd ref="2"/>
+        <nd ref="3"/>
+        <nd ref="4"/>
+        <tag k="highway" v="residential"/>
+    </way>
+    <way id="200" version="2">
+        <nd ref="2"/>
+        <nd ref="5"/>
+        <tag k="highway" v="residential"/>
+    </way>
+    <way id="300" version="3">
+        <nd ref="3"/>
+        <nd ref="6"/>
+        <tag k="highway" v="residential"/>
+    </way>
+    <way id="400" version="4">
+        <nd ref="7"/>
+        <nd ref="8"/>
+        <tag k="highway" v="residential"/>
+    </way>
+    <way id="401" version="5">
+        <nd ref="8"/>
+        <nd ref="9"/>
+        <tag k="highway" v="residential"/>
+    </way>
+</osm>

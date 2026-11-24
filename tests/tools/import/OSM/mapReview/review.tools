@@ -1,0 +1,38 @@
+# OpenStreetMap review
+
+Review category is **unclassified**.
+
+Check the map, the imported network and the simulation configuration.
+
+## SUMO diagnostic (log line 1)
+
+    Error: Check lane '400_0' near junction 'cluster_2_3'.
+
+## SUMO network elements
+
+    lane 400_0
+    junction cluster_2_3
+
+## Source map features
+
+- [node 2](https://www.openstreetmap.org/node/2), extract version 7 (SUMO origId).
+- [node 3](https://www.openstreetmap.org/node/3), extract version 8 (SUMO origId).
+- [way 400](https://www.openstreetmap.org/way/400), extract version 4 (SUMO origId).
+- [way 401](https://www.openstreetmap.org/way/401), extract version 5 (SUMO origId).
+
+## Observation
+
+    Verify the connection at the selected junction.
+
+## Independent evidence
+
+Record what you verified and how.
+
+## Review on OpenStreetMap
+
+[Inspect 49.001000, 8.001000 and nearby notes](https://www.openstreetmap.org/?mlat=49.001000&mlon=8.001000#map=19/49.001000/8.001000&layers=N).
+The pin uses the supplied coordinates.
+
+Check for duplicate notes. If current evidence confirms a map issue, make a manual correction or write a concise note for a mapper.
+
+Source map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright).
