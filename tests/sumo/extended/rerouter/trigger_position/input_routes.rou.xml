@@ -1,0 +1,6 @@
+<routes>
+    <vType id="car" maxSpeed="20" speedDev="0" sigma="0"/>
+    <vehicle id="arrives-during-closure" type="car" route="r0" depart="0" departSpeed="20"/>
+    <vehicle id="closure-starts-after-passing" type="car" route="r0" depart="20" departSpeed="20"/>
+    <vehicle id="starts-beyond-trigger" type="car" route="r0" depart="70" departSpeed="20" departPos="200"/>
+</routes>

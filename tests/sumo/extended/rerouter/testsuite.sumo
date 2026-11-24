@@ -17,6 +17,9 @@ optimizeStops
 closingLaneReroute
 routeProb
 
+# evaluate the active interval when the vehicle reaches the configured position
+trigger_position
+
 # test viaProbReroute
 viaProb
 

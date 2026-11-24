@@ -1,0 +1,20 @@
+<additional>
+    <route id="r0" edges="beg middle end"/>
+    <route id="r1" edges="beg beg2left left left2end end"/>
+    <route id="r2" edges="beg beg2right right right2end end"/>
+    <rerouter id="rerouter" edges="beg">
+        <param key="rerouter.triggerPos" value="155"/>
+        <interval begin="0" end="4">
+            <routeProbReroute id="r2"/>
+        </interval>
+        <interval begin="4" end="12">
+            <routeProbReroute id="r1"/>
+        </interval>
+        <interval begin="32" end="50">
+            <routeProbReroute id="r2"/>
+        </interval>
+        <interval begin="70" end="73">
+            <routeProbReroute id="r2"/>
+        </interval>
+    </rerouter>
+</additional>
