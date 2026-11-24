@@ -84,29 +84,27 @@ public:
                 || loop.myLeaderCars.top().time != first.time) {
             return false;
         }
-        EdgeGroup* const firstGroup = workerGroup(first.veh);
-        if (firstGroup == nullptr) {
+        const Footprint firstEdges = workerFootprint(loop, first.veh);
+        if (firstEdges.origin == nullptr) {
             return false;
         }
         ++myBatchIndex;
-        firstGroup->batch = myBatchIndex;
         myBatch.clear();
-        myBatch.push_back({first.veh, firstGroup->group});
-        // Retain a prefix of the serial order. Each move reads and writes only its
-        // own edge, and a new same-time event is queued after this existing prefix.
+        claim(first.veh, firstEdges);
+        // Retain a prefix of the serial order. Every move has exclusive access
+        // to both edges it can touch. New same-time events follow this prefix.
         while (myBatch.size() < MAX_PARALLEL_BATCH && !loop.myLeaderCars.empty() && loop.myLeaderCars.top().time == first.time) {
             const LeaderEvent next = loop.myLeaderCars.top();
             if (loop.skipInvalidated(next)) {
                 loop.myLeaderCars.pop();
                 continue;
             }
-            EdgeGroup* const group = workerGroup(next.veh);
-            if (group == nullptr || group->batch == myBatchIndex) {
+            const Footprint edges = workerFootprint(loop, next.veh);
+            if (edges.origin == nullptr || edges.origin->batch == myBatchIndex || edges.destination->batch == myBatchIndex) {
                 break;
             }
             loop.myLeaderCars.pop();
-            group->batch = myBatchIndex;
-            myBatch.push_back({next.veh, group->group});
+            claim(next.veh, edges);
         }
         if (myBatch.size() < MIN_PARALLEL_BATCH || !runWorkers(loop)) {
             for (const Event& event : myBatch) {
@@ -136,6 +134,17 @@ private:
         int group;
         size_t batch = 0;
     };
+
+    struct Footprint {
+        EdgeGroup* origin = nullptr;
+        EdgeGroup* destination = nullptr;
+    };
+
+    void claim(MEVehicle* veh, const Footprint& edges) {
+        edges.origin->batch = myBatchIndex;
+        edges.destination->batch = myBatchIndex;
+        myBatch.push_back({veh, edges.origin->group});
+    }
 
     struct Event {
         MEVehicle* veh;
@@ -245,7 +254,7 @@ private:
         }
     }
 
-    EdgeGroup* workerGroup(const MEVehicle* veh) {
+    Footprint workerFootprint(MELoop& loop, MEVehicle* veh) {
         const MESegment* const on = veh->getSegment();
         if (on == nullptr || veh->getEdge() != &on->getEdge() || !on->getEdge().isNormal() || veh->getQueIndex() == MESegment::PARKING_QUEUE
                 || veh->hasStops() || veh->getPersonNumber() != 0 || veh->getContainerNumber() != 0
@@ -253,21 +262,39 @@ private:
                 || veh->succEdge(1) == nullptr
                 || (veh->getParameter().arrivalEdge >= 0 && veh->getRoutePosition() >= veh->getParameter().arrivalEdge)
                 || !veh->hasOnlyLocalMoveReminders()) {
-            return nullptr;
+            return {};
         }
-        // Both segments must be on the same edge and lack junction approaching data.
-        const MESegment* const to = on->getNextSegment();
-        if (to == nullptr || to->getNextSegment() == nullptr || to->hasDetectors()) {
-            return nullptr;
+        // Eligibility must cover all effects of checkCar, including a failed entry attempt.
+        const MESegment* to = on->getNextSegment();
+        if (to == nullptr) {
+            const int arrivalEdge = veh->getParameter().arrivalEdge;
+            if (on->usesJunctionLinks() || veh->succEdge(2) == nullptr
+                    || (arrivalEdge >= 0 && veh->getRoutePosition() + 1 >= arrivalEdge)) {
+                return {};
+            }
+            to = loop.nextSegment(veh->getSegment(), veh);
+            // Internal links, disconnected routes and vaporization have other side effects.
+            if (to == nullptr || &to->getEdge() != veh->succEdge(1) || &to->getEdge() == &on->getEdge()
+                    || !to->getEdge().isNormal() || to->getEdge().isVaporizing()
+                    || on->getEdge().getToJunction() != to->getEdge().getFromJunction()) {
+                return {};
+            }
+        }
+        if (to->getNextSegment() == nullptr || to->hasDetectors()) {
+            return {};
         }
         const SUMOTime waiting = veh->getWaitingTime();
         const SUMOTime teleport = veh->getVehicleType().getParameter().getTimeToTeleport(MSGlobals::gTimeToGridlock);
         if ((teleport > 0 && waiting > teleport)
                 || (MSGlobals::gTimeToTeleportDisconnected >= 0 && waiting > MSGlobals::gTimeToTeleportDisconnected)) {
-            return nullptr;
+            return {};
         }
-        const auto group = myComponents.find(&on->getEdge());
-        return group == myComponents.end() ? nullptr : &group->second;
+        const auto origin = myComponents.find(&on->getEdge());
+        const auto destination = myComponents.find(&to->getEdge());
+        if (origin == myComponents.end() || destination == myComponents.end()) {
+            return {};
+        }
+        return {&origin->second, &destination->second};
     }
 
     const int myThreads;

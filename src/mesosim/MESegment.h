@@ -376,6 +376,11 @@ public:
      */
     MSLink* getLink(const MEVehicle* veh, bool tlsPenalty = false) const;
 
+    /// @brief Whether a departure from this segment can use junction links.
+    bool usesJunctionLinks() const {
+        return myJunctionControl || myTLSPenalty || myCheckMinorPenalty;
+    }
+
     /** @brief Returns whether the vehicle may use the next link
      *
      * In case of disabled junction control it returns always true.

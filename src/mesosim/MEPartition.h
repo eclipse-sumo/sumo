@@ -12,7 +12,10 @@
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MEPartition.h
-/// @brief   Load edge groups for mesoscopic simulation
+/// @author  Josh
+/// @date    2026-11-26
+///
+// Load edge groups for mesoscopic simulation
 /****************************************************************************/
 #pragma once
 

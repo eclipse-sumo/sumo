@@ -151,9 +151,9 @@ The following parameters are used by the model:
 
 ### Parallel meso-LTM events
 
-Set **--meso-threads** {{DT_INT}} to at least 2 to process independent meso-LTM events on worker threads. The simulation batches events at the same time when vehicles move between nonterminal segments on distinct edges in disconnected parts of the network. Smaller batches use the serial loop. Junction crossings and events involving stops, teleports, or shared detectors use the serial loop. The option defaults to 0.
+Set **--meso-threads** {{DT_INT}} to at least 2 to process independent meso-LTM events on worker threads. The simulation batches events at the same time when their moves have exclusive access to the affected edges. It also supports crossings without mesoscopic junction control or penalties when both edges have assigned groups and the receiving segment precedes the final segment. Smaller batches and events involving stops, teleports, or shared detectors use the serial loop. The option defaults to 0.
 
-Use **--meso-threads.partition-file** {{DT_FILE}} with at least two mesoscopic threads to supply groups on a connected network. The file defines edge memberships with [traffic assignment zones](../Demand/Importing_O/D_Matrices.md#describing_the_taz). SUMO accepts edges listed in the `edges` attribute and in `tazSource` or `tazSink` elements. Listed edges can use workers for moves between nonterminal segments. Unlisted edges and moves into or out of a junction's final segment use the serial loop.
+Use **--meso-threads.partition-file** {{DT_FILE}} with at least two mesoscopic threads to supply groups on a connected network. The file defines edge memberships with [traffic assignment zones](../Demand/Importing_O/D_Matrices.md#describing_the_taz). SUMO accepts edges listed in the `edges` attribute and in `tazSource` or `tazSink` elements. Unlisted edges, internal links and moves with junction control or penalties use the serial loop. Competing events for the same edge are processed in order.
 
 ## Lateral Model
 

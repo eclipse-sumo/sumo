@@ -42,3 +42,6 @@ ltm_partition_connected
 
 # simultaneous independent events in a dense meso-LTM batch
 ltm_partition_dense
+
+# equal-time crossings that contend for the same receiving edge
+ltm_cross_partition

@@ -1,0 +1,1 @@
+-n net.net.xml.gz -r input_routes.rou.xml --meso-ltm --meso-edgelength 30 --meso-recheck 0.1 --tripinfo-output tripinfos.xml --seed 947 --no-step-log --duration-log.disable --meso-threads 4 --meso-threads.partition-file input_districts.taz.xml
