@@ -32,6 +32,7 @@ import collections
 import rtree
 import pandas as pd
 from collections import namedtuple
+from xml.sax.saxutils import unescape
 pd.options.mode.chained_assignment = None  # default='warn'
 
 sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
@@ -462,6 +463,7 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
                         path, cost = net.getShortestPath(net.getEdge(routeFixed[-1]),
                                                          net.getEdge(routeEdgeID),
                                                          maxCost=options.fill_gaps,
+                                                         includeFromToCost=False,
                                                          vClass=vclass)
                         if path is None or cost > options.fill_gaps:
                             error = "no path found" if path is None else "path too long (%s)" % cost
@@ -625,8 +627,10 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
             parkingLength = ''
             if isParking and options.parkingLength > 0:
                 parkingLength = ' parkingLength="%s"' % options.parkingLength
+            # groupRoutes has already escaped XML markup in the stop name.
+            name = sumolib.xml.quoteattr(unescape(stopName), True)
             rout.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f" friendlyPos="true" name=%s%s%s>\n' %
-                       (typ, stop, laneID, start, end, sumolib.xml.quoteattr(str(stopName), True),
+                       (typ, stop, laneID, start, end, name,
                         parkingLength, "" if childs else "/"))
             for a in sorted(childs):
                 rout.write(a)
