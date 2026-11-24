@@ -89,7 +89,7 @@ Vehicle::isVisible(const SUMOVehicle* veh) {
 bool
 Vehicle::isOnInit(const std::string& vehID) {
     SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(vehID);
-    return sumoVehicle == nullptr || sumoVehicle->getLane() == nullptr;
+    return sumoVehicle == nullptr || (MSGlobals::gUseMesoSim ? !sumoVehicle->isOnRoad() : sumoVehicle->getLane() == nullptr);
 }
 
 
