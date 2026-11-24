@@ -1491,7 +1491,7 @@ TRACI_CONST int VAR_CS_TOTAL_POWER = 0x9c;
 TRACI_CONST int VAR_SHADOW_LANE_ID = 0x9d;
 
 // charging station discharge power (vehicle-to-grid)
-TRACI_CONST int VAR_CS_DISCHARGE_POWER = 0x9e;
+TRACI_CONST int VAR_CS_DISCHARGE_POWER = 0xf1;
 
 } // namespace libsumo
 
