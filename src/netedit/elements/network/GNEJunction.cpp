@@ -19,6 +19,7 @@
 // GUIJunctionWrapper)
 /****************************************************************************/
 
+#include <memory>
 #include <netbuild/NBAlgorithms.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netbuild/NBNetBuilder.h>
@@ -913,6 +914,15 @@ GNEJunction::removeConnectionsFrom(GNEEdge* edge, GNEUndoList* undoList, bool up
     NBEdge* turnEdge = srcNBE->getTurnDestination();
     // Make a copy of connections
     std::vector<NBEdge::Connection> connections = srcNBE->getConnections();
+    if (updateTLS) {
+        std::vector<NBConnection> removed;
+        for (const auto& connection : connections) {
+            if (lane < 0 || connection.fromLane == lane) {
+                removed.emplace_back(srcNBE, connection.fromLane, connection.toEdge, connection.toLane);
+            }
+        }
+        removeTLSConnections(removed, undoList);
+    }
     // delete in reverse so that undoing will add connections in the original order
     for (std::vector<NBEdge::Connection>::reverse_iterator con_it = connections.rbegin(); con_it != connections.rend(); con_it++) {
         if (lane >= 0 && (*con_it).fromLane != lane) {
@@ -926,20 +936,23 @@ GNEJunction::removeConnectionsFrom(GNEEdge* edge, GNEUndoList* undoList, bool up
             myNet->addExplicitTurnaround(srcNBE->getID());
         }
     }
-    if (updateTLS) {
-        std::vector<NBConnection> removeConnections;
-        for (NBEdge::Connection con : connections) {
-            removeConnections.push_back(NBConnection(srcNBE, con.fromLane, con.toEdge, con.toLane));
-        }
-        removeTLSConnections(removeConnections, undoList);
-    }
 }
 
 
 void
 GNEJunction::removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS, int lane) {
     NBEdge* destNBE = edge->getNBEdge();
-    std::vector<NBConnection> removeConnections;
+    if (updateTLS) {
+        std::vector<NBConnection> removed;
+        for (auto* source : myNBNode->getIncomingEdges()) {
+            for (const auto& connection : source->getConnections()) {
+                if (connection.toEdge == destNBE && (lane < 0 || connection.toLane == lane)) {
+                    removed.emplace_back(source, connection.fromLane, destNBE, connection.toLane);
+                }
+            }
+        }
+        removeTLSConnections(removed, undoList);
+    }
     for (NBEdge* srcNBE : myNBNode->getIncomingEdges()) {
         GNEEdge* srcEdge = myNet->getAttributeCarriers()->retrieveEdge(srcNBE->getID());
         std::vector<NBEdge::Connection> connections = srcNBE->getConnections();
@@ -955,40 +968,59 @@ GNEJunction::removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList, bool upda
                 if (hasTurn) {
                     myNet->addExplicitTurnaround(srcNBE->getID());
                 }
-                removeConnections.push_back(NBConnection(srcNBE, (*con_it).fromLane, destNBE, (*con_it).toLane));
             }
         }
-    }
-    if (updateTLS) {
-        removeTLSConnections(removeConnections, undoList);
     }
 }
 
 
 void
 GNEJunction::removeTLSConnections(std::vector<NBConnection>& connections, GNEUndoList* undoList) {
-    if (connections.size() > 0) {
-        const std::set<NBTrafficLightDefinition*> coypOfTls = myNBNode->getControllingTLS(); // make a copy!
-        for (const auto& TLS : coypOfTls) {
-            NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(TLS);
-            // guessed TLS (NBOwnTLDef) do not need to be updated
-            if (tlDef != nullptr) {
-                std::string newID = tlDef->getID();
-                // create replacement before deleting the original because deletion will mess up saving original nodes
-                NBLoadedSUMOTLDef* replacementDef = new NBLoadedSUMOTLDef(*tlDef, *tlDef->getLogic());
-                for (NBConnection& con : connections) {
-                    replacementDef->removeConnection(con);
-                }
-                undoList->add(new GNEChange_TLS(this, tlDef, false), true);
-                undoList->add(new GNEChange_TLS(this, replacementDef, true, false, newID), true);
-                // the removed traffic light may have controlled more than one junction. These too have become invalid now
-                const std::vector<NBNode*> copyOfNodes = tlDef->getNodes(); // make a copy!
-                for (const auto& node : copyOfNodes) {
-                    GNEJunction* sharing = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
-                    undoList->add(new GNEChange_TLS(sharing, tlDef, false), true);
-                    undoList->add(new GNEChange_TLS(sharing, replacementDef, true, false, newID), true);
+    if (connections.empty()) {
+        return;
+    }
+    const auto definitions = myNBNode->getControllingTLS();
+    std::set<std::string> loadedIDs;
+    for (const auto* definition : definitions) {
+        if (dynamic_cast<const NBLoadedSUMOTLDef*>(definition) != nullptr) {
+            loadedIDs.insert(definition->getID());
+        }
+    }
+    if (!loadedIDs.empty() && myGNECrossings.empty() && !myNBNode->getCrossings().empty()) {
+        myNet->getNetBuilder()->setHaveNetworkCrossings(true);
+        rebuildGNECrossings();
+        for (const auto* definition : definitions) {
+            for (const auto* node : definition->getNodes()) {
+                auto* junction = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
+                if (junction != this && junction->myGNECrossings.empty()) {
+                    junction->rebuildGNECrossings();
                 }
             }
+        }
+    }
+    for (auto* definition : definitions) {
+        auto* loaded = dynamic_cast<NBLoadedSUMOTLDef*>(definition);
+        std::unique_ptr<NBTrafficLightLogic> computed;
+        if (loaded == nullptr && loadedIDs.count(definition->getID()) != 0) {
+            // Capture the same link indices as the other programs before a connection disappears.
+            definition->setParticipantsInformation();
+            if (!definition->getControlledLinks().empty()) {
+                computed.reset(definition->compute(OptionsCont::getOptions()));
+            }
+        }
+        const auto* logic = loaded != nullptr ? loaded->getLogic() : computed.get();
+        if (logic == nullptr) {
+            continue;
+        }
+        auto* replacement = new NBLoadedSUMOTLDef(*definition, *logic);
+        for (const auto& removed : connections) {
+            replacement->removeConnection(removed);
+        }
+        const auto nodes = definition->getNodes();
+        for (auto* node : nodes) {
+            auto* junction = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
+            undoList->add(new GNEChange_TLS(junction, definition, false), true);
+            undoList->add(new GNEChange_TLS(junction, replacement, true), true);
         }
     }
 }
@@ -1043,6 +1075,11 @@ GNEJunction::markAsModified(GNEUndoList* undoList) {
 void
 GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedConnection, const NBConnection& addedConnection) {
     assert(undoList->hasCommandGroup());
+    if (deletedConnection != NBConnection::InvalidConnection) {
+        std::vector<NBConnection> removed{deletedConnection};
+        removeTLSConnections(removed, undoList);
+        return;
+    }
     // NBLoadedSUMOTLDef becomes invalid, replace with NBOwnTLDef which will be dynamically recomputed
     const std::set<NBTrafficLightDefinition*> coypOfTls = myNBNode->getControllingTLS(); // make a copy!
     for (const auto& TLS : coypOfTls) {
@@ -1063,12 +1100,7 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
             }
             NBTrafficLightDefinition* replacementDef = nullptr;
             std::string newID = tlDef->getID(); // + "_reguessed"; // changes due to reguessing will be visible in diff
-            if (deletedConnection != NBConnection::InvalidConnection) {
-                // create replacement before deleting the original because deletion will mess up saving original nodes
-                NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(*tlDef, *tlDef->getLogic());
-                repl->removeConnection(deletedConnection);
-                replacementDef = repl;
-            } else if (addedConnection != NBConnection::InvalidConnection) {
+            if (addedConnection != NBConnection::InvalidConnection) {
                 if (addedConnection.getTLIndex() == NBConnection::InvalidTlIndex) {
                     // custom tl indices of crossings might become invalid upon recomputation so we must save them
                     // however, they could remain valid so we register a change but keep them at their old value
@@ -1100,7 +1132,7 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
             for (const auto& node : copyOfNodes) {
                 GNEJunction* sharing = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
                 if (sharing != this) {
-                    if (deletedConnection == NBConnection::InvalidConnection && addedConnection == NBConnection::InvalidConnection) {
+                    if (addedConnection == NBConnection::InvalidConnection) {
                         // recompute crossing indices for shared
                         // (they won't do this on subsequent call to invalidateTLS if they received an NBOwnTLDef)
                         for (const auto& crossing : sharing->getGNECrossings()) {
