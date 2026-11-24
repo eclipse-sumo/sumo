@@ -2724,11 +2724,25 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisual
 
 void
 GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
-    // draw the name and/or the street name
-    const bool drawStreetName = s.streetName.show(this) && (myNBEdge->getStreetName() != "");
+    const GUIGlObject* selection = this;
+    const auto filtersSelection = [](const GUIVisualizationTextSettings& text) {
+        return text.showText && text.onlySelected;
+    };
+    if (!isAttributeCarrierSelected() && (filtersSelection(s.edgeName) || filtersSelection(s.streetName) || filtersSelection(s.edgeValue))) {
+        const auto& lanes = getChildLanes();
+        const auto selectedLane = std::find_if(lanes.begin(), lanes.end(), [](const GNELane* lane) {
+            return lane->isAttributeCarrierSelected();
+        });
+        if (selectedLane != lanes.end()) {
+            selection = *selectedLane;
+        }
+    }
+    const bool drawID = s.edgeName.show(selection);
+    const bool drawStreetName = s.streetName.show(selection) && !myNBEdge->getStreetName().empty();
+    const bool drawValue = s.edgeValue.show(selection);
     const bool spreadSuperposed = s.spreadSuperposed && myNBEdge->getBidiEdge() != nullptr;
     // check conditions
-    if (s.edgeName.show(this) || drawStreetName || s.edgeValue.show(this)) {
+    if (drawID || drawStreetName || drawValue) {
         // get first and last lanes
         const GNELane* firstLane = getChildLanes()[0];
         const GNELane* lastLane = getChildLanes()[getChildLanes().size() - 1];
@@ -2751,15 +2765,15 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
             drawAngle -= 180;
         }
         // draw edge name
-        if (s.edgeName.show(this)) {
-            drawName(drawPosition, s.scale, s.edgeName, drawAngle);
+        if (drawID) {
+            drawName(drawPosition, s.scale, s.edgeName, drawAngle, true);
         }
         // draw street name
         if (drawStreetName) {
             GLHelper::drawTextSettings(s.streetName, myNBEdge->getStreetName(), drawPosition, s.scale, drawAngle);
         }
         // draw edge values
-        if (s.edgeValue.show(this)) {
+        if (drawValue) {
             // get current scheme
             const int activeScheme = s.laneColorer.getActive();
             // calculate value depending of active scheme
