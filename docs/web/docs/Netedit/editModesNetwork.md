@@ -139,6 +139,8 @@ Click over junction's edges to select the edges of crossing.
 ![](../images/GNECrossingFrame3.png)
 After click over "Create crossing" and recomputing (F5) the new crossing is visible.
 
+Select a junction and click **Guess crossings** to add crossings at that junction using the network's crossing-guessing settings. Existing crossings stay in place. Undo removes the guessed crossings together.
+
 ![](../images/GNECrossingFrame4.png)
 Crossing can be inspected as other elements.
 

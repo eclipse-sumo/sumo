@@ -679,12 +679,19 @@ public:
     /// @brief guess pedestrian crossings and return how many were guessed
     int guessCrossings();
 
+    /// @brief Return guessed crossing edge groups without changing the junction.
+    std::vector<EdgeVector> getCrossingGuesses();
+
+    /// @brief Return the priority used for guessed pedestrian crossings.
+    bool getGuessedCrossingPriority() const;
+
     /* @brief check whether a crossing should be build for the candiate edges and build 0 to n crossings
      * @param[in] candidates The candidate vector of edges to be crossed
      * @param[in] checkOnly Whether only checking (of user supplied) crossings shall be performed
+     * @param[out] guesses Collect edge groups here instead of creating crossings when provided
      * @return The number of crossings built
      * */
-    int checkCrossing(EdgeVector candidates, bool checkOnly = false);
+    int checkCrossing(EdgeVector candidates, bool checkOnly = false, std::vector<EdgeVector>* guesses = nullptr);
 
     /// @brief return true if there already exist a crossing with the same edges as the input
     bool checkCrossingDuplicated(EdgeVector edges);
