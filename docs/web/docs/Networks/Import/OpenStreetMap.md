@@ -565,7 +565,11 @@ sumo -c scenario.sumocfg --log simulation.log
 python tools/osmMapReview.py --osm-file region.osm.xml --net-file region.net.xml --log-file simulation.log --log-line 23 -o review.md
 ```
 
-Repeat **--osm-file** for a network built from several extracts. Choose the relevant log line with **--log-line**, or select SUMO objects with **--edge**, **--lane** or **--junction**. Use **--way** or **--node** to identify a source feature directly. Add the mapped fact and its independent source with **--observation** and **--evidence**.
+For example, a failed route may report `No connection between edge '400' and edge '200'.` The tool copies that diagnostic into the report and links the source OSM ways for both edges. Start with the log alone and open those links to inspect the location. The report leaves the observation and evidence sections as prompts.
+
+You can then edit the report or rerun the command with your own text. For this example, **--observation "Check whether the turn between these roads is permitted."** records what you want to verify. An observation comes from the person investigating the diagnostic. After checking the site, you could use **--evidence "A no-left-turn sign is posted at the junction (local survey, YYYY-MM-DD)."** to record what you found and how you verified it.
+
+Repeat **--osm-file** for a network built from several extracts. Choose the relevant log line with **--log-line** when there are several diagnostics. You can also select SUMO objects with **--edge**, **--lane** or **--junction**. Use **--way** or **--node** to identify a source feature directly.
 
 The report lists each matching feature and its highest version in the supplied extracts. Joining can produce multiple source IDs. Generated or removed elements and networks built without original names can leave incomplete provenance. The map pin uses network geometry when available and can fall back to an approximate position on a source way. Supply **--latitude** and **--longitude** together to set the location yourself.
 

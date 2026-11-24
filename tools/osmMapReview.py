@@ -253,8 +253,8 @@ def main():
     parser.add_argument("--category", choices=CATEGORIES, default="unclassified", help="Reviewer's preliminary classification")
     parser.add_argument("--latitude", type=float, help="Latitude for the review pin")
     parser.add_argument("--longitude", type=float, help="Longitude for the review pin")
-    parser.add_argument("--observation", help="Mapped fact to verify")
-    parser.add_argument("--evidence", help="Independent evidence and its source")
+    parser.add_argument("--observation", help="Your description of the map detail to verify (optional)")
+    parser.add_argument("--evidence", help="What you verified and the source you used (optional)")
     parser.add_argument("-o", "--output-file", type=Path, required=True, help="Write the local Markdown report to this file")
     options = parser.parse_args()
     if (options.latitude is None) != (options.longitude is None) or (
