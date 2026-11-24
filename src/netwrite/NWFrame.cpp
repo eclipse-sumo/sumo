@@ -102,6 +102,9 @@ NWFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.doRegister("dlr-navteq.plain", new Option_Bool(false));
     oc.addDescription("dlr-navteq.plain", "Output", TL("Write extra attributes into plain output"));
 
+    oc.doRegister("output.boundary-as-positions", new Option_Bool(false));
+    oc.addDescription("output.boundary-as-positions", "Output", TL("Write network bounds as two corner positions, including elevation when available"));
+
     oc.doRegister("output.street-names", new Option_Bool(false));
     oc.addDescription("output.street-names", "Output", TL("Street names will be included in the output (if available)"));
 

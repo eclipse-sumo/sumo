@@ -103,6 +103,7 @@
             <xsd:element name="dlr-navteq.version" type="strOptionType" minOccurs="0"/>
             <xsd:element name="dlr-navteq.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="dlr-navteq.plain" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="output.boundary-as-positions" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output.street-names" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output.original-names" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output.removed-nodes" type="boolOptionType" minOccurs="0"/>

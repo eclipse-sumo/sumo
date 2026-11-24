@@ -591,7 +591,14 @@ class Net:
 
     def getBoundary(self):
         """ return xmin,ymin,xmax,ymax network coordinates"""
-        return list(map(float, self._location["convBoundary"].split(",")))
+        boundary = self._location["convBoundary"]
+        corners = boundary.split()
+        if len(corners) == 2 and not corners[0].endswith(",") and not corners[1].startswith(","):
+            positions = [list(map(float, corner.split(","))) for corner in corners]
+            if any(len(position) not in (2, 3) for position in positions):
+                raise ValueError("Expected two boundary corner positions")
+            return [coord for position in positions for coord in position[:2]]
+        return list(map(float, boundary.split(",")))
 
     def convertLonLat2XY(self, lon, lat, rawUTM=False):
         x, y = self.getGeoProj()(lon, lat)

@@ -145,6 +145,13 @@
         </xsd:restriction>
     </xsd:simpleType>
 
+    <xsd:simpleType name="boundaryType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="&FloatPattern;,&FloatPattern;,&FloatPattern;,&FloatPattern;"/>
+            <xsd:pattern value="&FloatPattern;,&FloatPattern;(,&FloatPattern;)?\s+&FloatPattern;,&FloatPattern;(,&FloatPattern;)?"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
     <xsd:complexType name="locationType">
         <xsd:attribute name="netOffset">
             <xsd:simpleType>
@@ -153,20 +160,8 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="convBoundary">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="&FloatPattern;,&FloatPattern;,&FloatPattern;,&FloatPattern;"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
-        <xsd:attribute name="origBoundary">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="&FloatPattern;,&FloatPattern;,&FloatPattern;,&FloatPattern;"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="convBoundary" type="boundaryType"/>
+        <xsd:attribute name="origBoundary" type="boundaryType"/>
         <xsd:attribute name="projParameter" type="xsd:string" use="required"/>
     </xsd:complexType>
 

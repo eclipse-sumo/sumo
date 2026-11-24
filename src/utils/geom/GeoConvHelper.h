@@ -159,7 +159,7 @@ public:
     void resolveAbstractProjection();
 
     /// @brief @brief writes the location element
-    static void writeLocation(OutputDevice& into);
+    static void writeLocation(OutputDevice& into, bool boundaryAsPositions = false);
 
     bool operator==(const GeoConvHelper& o) const;
 

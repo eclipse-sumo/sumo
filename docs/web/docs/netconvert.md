@@ -210,6 +210,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--dlr-navteq.version** {{DT_STR}} | The dlr-navteq output format version to write; *default:* **6.5** |
 | **--dlr-navteq.precision** {{DT_INT}} | The network coordinates are written with the specified level of output precision; *default:* **2** |
 | **--dlr-navteq.plain** {{DT_BOOL}} | Write extra attributes into plain output; *default:* **false** |
+| **--output.boundary-as-positions** {{DT_BOOL}} | Write network bounds as two corner positions, including elevation when available; *default:* **false** |
 | **--output.street-names** {{DT_BOOL}} | Street names will be included in the output (if available); *default:* **false** |
 | **--output.original-names** {{DT_BOOL}} | Writes original names, if given, as parameter; *default:* **false** |
 | **--output.removed-nodes** {{DT_BOOL}} | Writes IDs of nodes remove with --geometry.remove into edge param; *default:* **false** |

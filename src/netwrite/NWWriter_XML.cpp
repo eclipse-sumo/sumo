@@ -130,7 +130,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, const std::string& prefix, NBNod
 
     // write network offsets and projection to allow reconstruction of original coordinates
     if (!useGeo) {
-        GeoConvHelper::writeLocation(device);
+        GeoConvHelper::writeLocation(device, oc.getBool("output.boundary-as-positions"));
     }
 
     // write nodes
@@ -214,7 +214,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
 
     // write network offsets and projection to allow reconstruction of original coordinates at least for geo-referenced networks
     if (!useGeo && gch.usingGeoProjection()) {
-        GeoConvHelper::writeLocation(edevice);
+        GeoConvHelper::writeLocation(edevice, oc.getBool("output.boundary-as-positions"));
     }
     LaneSpreadFunction defaultSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(oc.getString("default.spreadtype"));
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {

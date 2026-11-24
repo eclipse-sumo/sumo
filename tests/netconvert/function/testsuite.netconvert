@@ -109,3 +109,6 @@ flipY_lefthand
 # build networks with higher junction speed when incoming and outgoing edge have different speeds
 junctions.higherSpeed
 tls_extended_attributes
+
+# write network bounds as two positions with elevations
+boundary_as_positions

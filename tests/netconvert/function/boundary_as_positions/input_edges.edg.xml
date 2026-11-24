@@ -1,0 +1,3 @@
+<edges>
+    <edge id="road" from="start" to="end"/>
+</edges>

@@ -210,6 +210,9 @@
         <!-- Write extra attributes into plain output -->
         <dlr-navteq.plain value="false" type="BOOL"/>
 
+        <!-- Write network bounds as two corner positions, including elevation when available -->
+        <output.boundary-as-positions value="false" type="BOOL"/>
+
         <!-- Street names will be included in the output (if available) -->
         <output.street-names value="false" type="BOOL"/>
 
