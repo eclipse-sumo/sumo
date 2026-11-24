@@ -7,3 +7,6 @@ routingType_overrides
 
 # if routingType is set, it overrules edgeType
 routingType_overrides2
+
+# using option --device.rerouting.output with preferences and weights.random-factor
+weight_output
