@@ -245,7 +245,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_NETWORKELEMENTS), myApplicationWindow, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           TL("Save Network As..."), "", TL("Save the network to another file."),
+                                           TL("Save Network As..."), "Ctrl+Shift+Alt+S", TL("Save the network to another file."),
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_NETWORKELEMENTS), myApplicationWindow, MID_GNE_TOOLBARFILE_SAVENETWORK_AS);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
@@ -456,7 +456,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildAdditionalSection(FXMenuPane*
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_ADDITIONALELEMENTS), myApplicationWindow, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-                                           TL("Save Additionals unified as..."), "", TL("Save all additional elements to the chosen file."),
+                                           TL("Save Additionals unified as..."), "Ctrl+Shift+Alt+A", TL("Save all additional elements to the chosen file."),
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_ADDITIONALELEMENTS), myApplicationWindow, MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_UNIFIED);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
@@ -484,7 +484,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildDemandSection(FXMenuPane* men
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_DEMANDELEMENTS), myApplicationWindow, MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-                                           TL("Save Demand Elements unified as..."), "", TL("Save all demand elements to the chosen file"),
+                                           TL("Save Demand Elements unified as..."), "Ctrl+Shift+Alt+D", TL("Save all demand elements to the chosen file"),
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_DEMANDELEMENTS), myApplicationWindow, MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_UNIFIED);
 
     new FXMenuSeparator(menuPane);

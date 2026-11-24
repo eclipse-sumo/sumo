@@ -3621,6 +3621,9 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
 
 long
 GNEApplicationWindow::onCmdSaveNetworkAs(FXObject* sender, FXSelector sel, void* ptr) {
+    if (myNet == nullptr) {
+        return 0;
+    }
     // get network file file
     const GNEFileDialog networkFileDialog(this, TL("network file"),
                                           SUMOXMLDefinitions::NetFileExtensions.getStrings(),
@@ -4280,6 +4283,9 @@ GNEApplicationWindow::onCmdSaveAdditionalElementsAs(FXObject* sender, FXSelector
 
 long
 GNEApplicationWindow::onCmdSaveAdditionalElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
+    if (myNet == nullptr) {
+        return 0;
+    }
     // get additional file
     const GNEFileDialog additionalFileDialog(this, TL("Additional elements in unified file"),
             SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(),
@@ -4489,6 +4495,9 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject* sender, FXSelector sel
 
 long
 GNEApplicationWindow::onCmdSaveDemandElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
+    if (myNet == nullptr) {
+        return 0;
+    }
     // get route file
     const GNEFileDialog routeFileDialog(this, TL("Route elements file in unified file"),
                                         SUMOXMLDefinitions::RouteFileExtensions.getStrings(),

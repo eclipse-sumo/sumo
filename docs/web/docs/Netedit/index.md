@@ -49,13 +49,15 @@ The entire list of shortcuts can be found [here](shortcuts.md):
 | Import foreign network      | <kbd>Ctrl</kbd> + <kbd>F</kbd>         | Import a foreign network            |
 | Reload                      | <kbd>Ctrl</kbd> + <kbd>R</kbd>         | Reload network                      |
 | Save network                | <kbd>Ctrl</kbd> + <kbd>S</kbd>         | Save network                        |
-| Save network as             | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> | Save network in another file        |
+| Save network as             | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>S</kbd> | Save network in another file        |
 | Save plain XML              | <kbd>Ctrl</kbd> + <kbd>L</kbd>         | Save network as plain XML           |
 | Save joined junctions       | <kbd>Ctrl</kbd> + <kbd>J</kbd>         | Save joined junctions of network    |
 | Load additionals and shapes | <kbd>Ctrl</kbd> + <kbd>A</kbd>         | Load a file with additionals        |
 | Save additionals and shapes | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>A</kbd> | Save additionals in a file          |
+| Save additionals unified as | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>A</kbd> | Save all additionals to a chosen file |
 | Load demand elements        | <kbd>Ctrl</kbd> + <kbd>D</kbd>         | Load a file with shapes             |
 | Save demand elements        | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> | Save demand elements in a file      |
+| Save demand unified as      | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>D</kbd> | Save all demand elements to a chosen file |
 | Load TLS Programs           | <kbd>Ctrl</kbd> + <kbd>K</kbd>         | Load a file with shapes             |
 | Save TLS Programs           | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd> | Save Point Of Interest in a file    |
 | Close                       | <kbd>Ctrl</kbd> + <kbd>W</kbd>         | Close network                       |
