@@ -1,1 +1,1 @@
--n net.net.xml -a input_additional.add.xml -r input_routes.rou.xml -o out.add.xml -v
+-n "$TEXTTEST_HOME/tools/public_transport/generateRailSignalConstraints/parkingInsertion/basic/net.net.xml" -a input_additional.add.xml -r input_routes.rou.xml -o out.add.xml -v
