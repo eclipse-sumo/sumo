@@ -22,6 +22,16 @@ import sumolib  # noqa
 import traci  # noqa
 
 
+SIGNAL = "10713172896"
+
+
+def set_visibility(source, target, distance):
+    net = ET.parse(source)
+    connection = net.find(f"./connection[@tl='{SIGNAL}'][@from='248740648#4.1425'][@to='441932172#1']")
+    connection.set("visibility", str(distance))
+    net.write(target)
+
+
 def approach(net="input_net.net.xml", routes="input_routes.rou.xml", pzb=False,
              configure=False, release=True, release_at_stop=False):
     args = [sumolib.checkBinary("sumo"), "-n", net, "-r", routes, "--no-step-log",
@@ -34,15 +44,15 @@ def approach(net="input_net.net.xml", routes="input_routes.rou.xml", pzb=False,
     released = False
     try:
         if pzb:
-            traci.trafficlight.setParameter("signal", "pzb", "true")
+            traci.trafficlight.setParameter(SIGNAL, "pzb", "true")
         if pzb or configure:
-            assert traci.trafficlight.getParameter("signal", "pzb") == "true"
+            assert traci.trafficlight.getParameter(SIGNAL, "pzb") == "true"
         for _ in range(160):
             traci.simulationStep()
             if "follower" not in traci.vehicle.getIDList():
                 continue
             tls = traci.vehicle.getNextTLS("follower")
-            if not tls or tls[0][0] != "signal":
+            if not tls or tls[0][0] != SIGNAL:
                 crossed = True
                 break
             _, _, distance, aspect = tls[0]
@@ -58,6 +68,7 @@ def approach(net="input_net.net.xml", routes="input_routes.rou.xml", pzb=False,
     return result, crossed
 
 
+set_visibility(sys.argv[1], "input_net.net.xml", 80)
 default, default_crossed = approach()
 pzb, pzb_crossed = approach(pzb=True)
 configured, configured_crossed = approach(configure=True)
@@ -86,9 +97,7 @@ print("A steady green signal is also subject to PZB visibility.")
 routes = ET.parse("input_routes.rou.xml")
 routes.find("vType").set("jmStoplineGap", "25")
 routes.write("offset.rou.xml")
-net = ET.parse("input_net.net.xml")
-net.find("./connection[@tl='signal']").set("visibility", "0")
-net.write("narrow.net.xml")
+set_visibility(sys.argv[1], "narrow.net.xml", 0)
 stopped, stopped_crossed = approach(net="narrow.net.xml", routes="offset.rou.xml", pzb=True, release_at_stop=True)
 assert stopped_crossed
 assert any(distance >= 25 and speed == 0 and aspect == "r" for distance, speed, aspect in stopped)
