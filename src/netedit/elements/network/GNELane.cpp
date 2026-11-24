@@ -702,9 +702,9 @@ GNELane::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_DISALLOW:
             return getVehicleClassNames(invertPermissions(edge->getPermissions(myIndex)));
         case SUMO_ATTR_CHANGE_LEFT:
-            return getVehicleClassNames(edge->getLaneStruct(myIndex).changeLeft);
+            return getLaneChangeClassNames(edge->getLaneStruct(myIndex).changeLeft);
         case SUMO_ATTR_CHANGE_RIGHT:
-            return getVehicleClassNames(edge->getLaneStruct(myIndex).changeRight);
+            return getLaneChangeClassNames(edge->getLaneStruct(myIndex).changeRight);
         case SUMO_ATTR_WIDTH:
             if (edge->getLaneStruct(myIndex).width == NBEdge::UNSPECIFIED_WIDTH) {
                 return "default";

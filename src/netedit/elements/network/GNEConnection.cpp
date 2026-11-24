@@ -516,13 +516,13 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             if (nbCon.changeLeft == SVC_UNSPECIFIED) {
                 return "all";
             } else {
-                return getVehicleClassNames(nbCon.changeLeft);
+                return getLaneChangeClassNames(nbCon.changeLeft);
             }
         case SUMO_ATTR_CHANGE_RIGHT:
             if (nbCon.changeRight == SVC_UNSPECIFIED) {
                 return "all";
             } else {
-                return getVehicleClassNames(nbCon.changeRight);
+                return getLaneChangeClassNames(nbCon.changeRight);
             }
         case SUMO_ATTR_SPEED:
             if (nbCon.speed == NBEdge::UNSPECIFIED_SPEED) {

@@ -328,6 +328,11 @@ private:
  */
 extern const std::string& getVehicleClassNames(SVCPermissions permissions, bool expand = false);
 
+/// @brief Format lane change permissions, including the explicit restriction for all ordinary classes.
+inline const std::string& getLaneChangeClassNames(SVCPermissions permissions) {
+    return permissions == SVC_IGNORING ? SumoVehicleClassStrings.getString(SVC_IGNORING) : getVehicleClassNames(permissions);
+}
+
 /** @brief Returns the ids of the given classes, divided using a ' '
  * @param[in] the permissions to encode
  * @return The string representation of these classes as a vector

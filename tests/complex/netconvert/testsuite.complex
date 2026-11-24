@@ -21,3 +21,6 @@ opendrive_roundtrip
 osm_sidewalk_access
 
 plain_roundtrip
+
+# preserve lane-change restrictions for all ordinary vehicle classes
+lane_change_permissions

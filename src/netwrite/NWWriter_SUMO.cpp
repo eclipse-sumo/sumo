@@ -588,11 +588,11 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     if (type != "") {
         into.writeAttr(SUMO_ATTR_TYPE, type);
     }
-    if (changeLeft != SVC_UNSPECIFIED && changeLeft != SVCAll && changeLeft != SVC_IGNORING) {
-        into.writeAttr(SUMO_ATTR_CHANGE_LEFT, getVehicleClassNames(changeLeft));
+    if (changeLeft != SVC_UNSPECIFIED && changeLeft != SVCAll) {
+        into.writeAttr(SUMO_ATTR_CHANGE_LEFT, getLaneChangeClassNames(changeLeft));
     }
-    if (changeRight != SVC_UNSPECIFIED && changeRight != SVCAll && changeRight != SVC_IGNORING) {
-        into.writeAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(changeRight));
+    if (changeRight != SVC_UNSPECIFIED && changeRight != SVCAll) {
+        into.writeAttr(SUMO_ATTR_CHANGE_RIGHT, getLaneChangeClassNames(changeRight));
     }
     if (stopOffset.isDefined()) {
         writeStopOffsets(into, stopOffset);
@@ -765,10 +765,10 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
         into.writeOptionalAttr<bool>(SUMO_ATTR_KEEP_CLEAR, false, c.keepClear != KEEPCLEAR_FALSE);
         into.writeOptionalAttr(SUMO_ATTR_CONTPOS, c.contPos, c.contPos == NBEdge::UNSPECIFIED_CONTPOS);
         writePermissions(into, c.permissions);
-        const bool changeLeft = (c.changeLeft != SVC_UNSPECIFIED && c.changeLeft != SVCAll && c.changeLeft != SVC_IGNORING);
-        into.writeOptionalAttr(SUMO_ATTR_CHANGE_LEFT, getVehicleClassNames(c.changeLeft), !changeLeft);
-        const bool changeRight = (c.changeRight != SVC_UNSPECIFIED && c.changeRight != SVCAll && c.changeRight != SVC_IGNORING);
-        into.writeOptionalAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(c.changeRight), !changeRight);
+        const bool changeLeft = (c.changeLeft != SVC_UNSPECIFIED && c.changeLeft != SVCAll);
+        into.writeOptionalAttr(SUMO_ATTR_CHANGE_LEFT, getLaneChangeClassNames(c.changeLeft), !changeLeft);
+        const bool changeRight = (c.changeRight != SVC_UNSPECIFIED && c.changeRight != SVCAll);
+        into.writeOptionalAttr(SUMO_ATTR_CHANGE_RIGHT, getLaneChangeClassNames(c.changeRight), !changeRight);
         into.writeOptionalAttr(SUMO_ATTR_SPEED, c.speed, c.speed == NBEdge::UNSPECIFIED_SPEED);
         into.writeOptionalAttr(SUMO_ATTR_LENGTH, c.customLength, c.customLength == NBEdge::UNSPECIFIED_LOADED_LENGTH);
         writeShape(into, GeoConvHelper::getFinal(), c.customShape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy, c.customShape.size() != 0);
