@@ -26,6 +26,7 @@ import argparse
 import json
 import os
 import sys
+import time
 import urllib.error
 import urllib.request
 
@@ -40,6 +41,9 @@ def parse_args():
     ap.add_argument("-m", "--max-jobs", type=int, default=500,
                     help="concurrent job limit of the plan (all runners except macOS)")
     ap.add_argument("--max-macos-jobs", type=int, default=50, help="concurrent job limit for macOS runners")
+    ap.add_argument("--no-rebase", action="store_true", help="do not rebase the pull request before approving")
+    ap.add_argument("--rebase-wait", type=int, default=60,
+                    help="seconds to wait for the new runs after rebasing")
     ap.add_argument("--threshold", type=float, default=0.8,
                     help="stop approving if running and queued jobs (including the estimate for the "
                          "approved runs) exceed this fraction of a limit")
@@ -66,11 +70,12 @@ def parse_args():
     return options
 
 
-def request(options, path, method="GET", params=None):
+def request(options, path, method="GET", params=None, body=None):
     url = path if path.startswith("http") else API + path
     if params:
         url += ("&" if "?" in url else "?") + "&".join("%s=%s" % kv for kv in params.items())
-    req = urllib.request.Request(url, method=method, headers={
+    data = json.dumps(body).encode() if body else None
+    req = urllib.request.Request(url, data=data, method=method, headers={
         "Authorization": "Bearer " + options.token,
         "Accept": "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28"})
@@ -105,6 +110,45 @@ def count_active_jobs(options):
     return counts
 
 
+def waiting_runs(options, sha):
+    return list(paginate(options, "/repos/%s/actions/runs" % options.repo, "workflow_runs",
+                         {"status": "action_required", "head_sha": sha}))
+
+
+def rebase(options, pr, runs):
+    """rebases the pull request if it is behind its base branch, returns the runs waiting for approval on the new head"""
+    sha = pr["head"]["sha"]
+    cmp = request(options, "/repos/%s/compare/%s...%s" % (options.repo, pr["base"]["ref"], pr["head"]["label"]))
+    if cmp["behind_by"] == 0:
+        return runs
+    try:
+        request(options, "/repos/%s/pulls/%s/update-branch" % (options.repo, pr["number"]), method="PUT",
+                body={"expected_head_sha": sha, "update_method": "rebase"})
+    except urllib.error.HTTPError as e:
+        # e.g. conflicts or no permission to push
+        print("  could not rebase PR #%s, not approving: %s" % (pr["number"], e), file=sys.stderr)
+        return []
+    print("  rebased PR #%s, waiting for the new runs." % pr["number"])
+    for _ in range(options.rebase_wait // 5):
+        time.sleep(5)
+        new_sha = request(options, "/repos/%s/pulls/%s" % (options.repo, pr["number"]))["head"]["sha"]
+        if new_sha != sha:
+            # the runs are created one by one, so wait until there are as many as before
+            new_runs = []
+            for _ in range(options.rebase_wait // 5):
+                new_runs = waiting_runs(options, new_sha)
+                if len(new_runs) >= len(runs):
+                    break
+                time.sleep(5)
+            if new_runs:
+                if len(new_runs) < len(runs):
+                    print("  only %s of %s runs appeared." % (len(new_runs), len(runs)), file=sys.stderr)
+                return new_runs
+            break
+    print("  no runs waiting for the rebased PR #%s." % pr["number"], file=sys.stderr)
+    return []
+
+
 def main():
     options = parse_args()
     counts = count_active_jobs(options)
@@ -126,12 +170,18 @@ def main():
         author = pr["user"]["login"]
         if author.lower() not in options.allowed:
             continue
-        runs = list(paginate(options, "/repos/%s/actions/runs" % options.repo, "workflow_runs",
-                             {"status": "action_required", "head_sha": pr["head"]["sha"]}))
+        runs = waiting_runs(options, pr["head"]["sha"])
         if options.verbose:
             print("PR #%s by %s: %s workflow runs waiting." % (pr["number"], author, len(runs)))
         if not runs:
             continue
+        if not options.no_rebase:
+            if options.dry_run:
+                print("PR #%s: would rebase if behind before approving." % pr["number"])
+            else:
+                runs = rebase(options, pr, runs)
+                if not runs:
+                    continue
         # always allow the first pull request, otherwise a large one could be starved
         mac_runs = sum(1 for run in runs if run["name"].startswith("macos"))
         estimate = {"macos": mac_runs * options.macos_jobs, "other": 2 * (len(runs) - mac_runs)}
