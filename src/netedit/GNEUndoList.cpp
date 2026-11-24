@@ -18,10 +18,12 @@
 ///
 /****************************************************************************/
 
+#include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/gui/div/GUIGlobalViewUpdater.h>
@@ -153,6 +155,7 @@ GNEUndoList::undo() {
         change->next = redoList;
         redoList = change;
         myWorking = false;
+        flushVehicleStackLabelUpdates();
         // update view net (is called only if gViewUpdater.allowUpdate() is enable)
         myGNEApplicationWindowParent->getViewNet()->updateViewNet(false);
     }
@@ -177,6 +180,7 @@ GNEUndoList::redo() {
         change->next = undoList;
         undoList = change;
         myWorking = false;
+        flushVehicleStackLabelUpdates();
         // update view net (is called only if gViewUpdater.allowUpdate() is enable)
         myGNEApplicationWindowParent->getViewNet()->updateViewNet(false);
     }
@@ -246,6 +250,9 @@ GNEUndoList::begin(Supermode supermode, GUIIcon icon, const std::string& descrip
 void
 GNEUndoList::end() {
     myChangeGroups.pop();
+    if (myChangeGroups.empty()) {
+        flushVehicleStackLabelUpdates();
+    }
     // enable update
     gViewUpdater.enableUpdate();
     // update view without ignoring viewUpdater (used to avoid slowdows during massive edits)
@@ -373,6 +380,38 @@ GNEUndoList::add(GNEChange* change, bool doit, bool merge) {
         changeGroup->undoList = change;
     }
     myWorking = false;
+    if (myChangeGroups.empty()) {
+        flushVehicleStackLabelUpdates();
+    }
+}
+
+
+void
+GNEUndoList::scheduleVehicleStackLabelUpdate(const GNEEdge* edge) {
+    myVehicleStackLabelUpdates.insert(edge->getGlID());
+    if (!myWorking && myChangeGroups.empty()) {
+        flushVehicleStackLabelUpdates();
+    }
+}
+
+
+void
+GNEUndoList::flushVehicleStackLabelUpdates() {
+    if (myVehicleStackLabelUpdates.empty()) {
+        return;
+    }
+    const auto viewNet = myGNEApplicationWindowParent->getViewNet();
+    if (viewNet != nullptr) {
+        const auto carriers = viewNet->getNet()->getAttributeCarriers();
+        for (const auto id : myVehicleStackLabelUpdates) {
+            const auto edge = dynamic_cast<GNEEdge*>(carriers->retrieveAttributeCarrier(id, false));
+            // An edge removed during the change can still be held by the undo history.
+            if (edge != nullptr && carriers->retrieveEdge(edge->getID(), false) == edge) {
+                edge->updateVehicleStackLabels();
+            }
+        }
+    }
+    myVehicleStackLabelUpdates.clear();
 }
 
 
@@ -564,6 +603,9 @@ GNEUndoList::abortCurrentSubGroup() {
     delete changeGroup->group;
     // New end of chain
     changeGroup->group = nullptr;
+    if (myChangeGroups.empty()) {
+        flushVehicleStackLabelUpdates();
+    }
 }
 
 

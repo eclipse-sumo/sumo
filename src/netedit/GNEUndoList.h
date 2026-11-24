@@ -20,10 +20,12 @@
 #pragma once
 #include <config.h>
 
+#include <set>
 #include <stack>
 #include <string>
 
 #include <netedit/changes/GNEChangeGroup.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 
 
 // ===========================================================================
@@ -32,6 +34,7 @@
 class GNEChange;
 class GNEChange_Attribute;
 class GNEApplicationWindow;
+class GNEEdge;
 
 // ===========================================================================
 // class definitions
@@ -163,6 +166,9 @@ public:
      */
     void add(GNEChange* command, bool doit = false, bool merge = true);
 
+    /// @brief Refresh vehicle stacks on this edge when the current change finishes.
+    void scheduleVehicleStackLabelUpdate(const GNEEdge* edge);
+
     /* @brief clears the undo list (implies abort)
      * All undo and redo information will be destroyed.
      */
@@ -226,6 +232,12 @@ protected:
     bool canRedo() const;
 
 private:
+    /// @brief Recalculate vehicle geometry and stack labels once per changed edge.
+    void flushVehicleStackLabelUpdates();
+
+    /// @brief Edges with pending stack updates, identified by their GL IDs.
+    std::set<GUIGlID> myVehicleStackLabelUpdates;
+
     /// @brief  Currently busy with undo or redo
     bool myWorking;
 

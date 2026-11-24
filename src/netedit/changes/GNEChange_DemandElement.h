@@ -58,6 +58,8 @@ public:
     /// @}
 
 private:
+    /// @brief Refresh stack labels for starting edges affected by this change.
+    void updateStackLabels() const;
     /**@brief full information regarding the demand element element that is to be created/deleted
      * @note we assume shared responsibility for the pointer (via reference counting)
      */

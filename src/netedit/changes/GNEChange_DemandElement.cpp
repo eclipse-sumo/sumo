@@ -20,6 +20,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
@@ -84,20 +85,7 @@ GNEChange_DemandElement::undo() {
     if ((myDemandElement->getTagProperty()->getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewParent()->getTypeFrame()->shown()) {
         myDemandElement->getNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
     }
-    // update stack labels for parent edges
-    const auto parentEdges = myParents.get<GNEEdge*>();
-    if (parentEdges.size() > 0) {
-        parentEdges.front()->updateVehicleStackLabels();
-        parentEdges.front()->updatePersonStackLabels();
-        parentEdges.front()->updateContainerStackLabels();
-    }
-    // update stack labels also for route elements
-    if (myDemandElement->getTagProperty()->vehicleRoute()) {
-        const auto firstRouteEdge = myParents.get<GNEDemandElement*>().at(1)->getParentEdges().front();
-        firstRouteEdge->updateVehicleStackLabels();
-        firstRouteEdge->updatePersonStackLabels();
-        firstRouteEdge->updateContainerStackLabels();
-    }
+    updateStackLabels();
     // require always save elements
     myDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();
 }
@@ -128,22 +116,28 @@ GNEChange_DemandElement::redo() {
     if ((myDemandElement->getTagProperty()->getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewParent()->getTypeFrame()->shown()) {
         myDemandElement->getNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
     }
-    // update stack labels for parent edges
-    const auto parentEdges = myParents.get<GNEEdge*>();
-    if (parentEdges.size() > 0) {
-        parentEdges.front()->updateVehicleStackLabels();
-        parentEdges.front()->updatePersonStackLabels();
-        parentEdges.front()->updateContainerStackLabels();
-    }
-    // update stack labels also for route elements
-    if (myDemandElement->getTagProperty()->vehicleRoute()) {
-        const auto firstRouteEdge = myParents.get<GNEDemandElement*>().at(1)->getParentEdges().front();
-        firstRouteEdge->updateVehicleStackLabels();
-        firstRouteEdge->updatePersonStackLabels();
-        firstRouteEdge->updateContainerStackLabels();
-    }
+    updateStackLabels();
     // require always save elements
     myDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();
+}
+
+
+void
+GNEChange_DemandElement::updateStackLabels() const {
+    const auto undoList = myDemandElement->getNet()->getUndoList();
+    const auto updateEdge = [undoList](GNEEdge* edge) {
+        undoList->scheduleVehicleStackLabelUpdate(edge);
+        edge->updatePersonStackLabels();
+        edge->updateContainerStackLabels();
+    };
+    const auto parentEdges = myParents.get<GNEEdge*>();
+    if (!parentEdges.empty()) {
+        updateEdge(parentEdges.front());
+    }
+    if (myDemandElement->getTagProperty()->vehicleRoute()) {
+        const auto route = myParents.get<GNEDemandElement*>().at(1);
+        updateEdge(route->getParentEdges().front());
+    }
 }
 
 
