@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-10T07:26:32.023467+01:00 by Eclipse SUMO netconvert v1_26_0+0486-49ec0de4dff
+<!-- generated on 2026-11-24T08:54:29.273646+00:00 by Eclipse SUMO netconvert v1.28.0-0000000000
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -188,7 +188,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="202755224#0" from="cluster_1281294877_17660736_17660738_644926918" to="cluster_1280853195_17660703_644926923" priority="13" type="highway.trunk" spreadType="center" shape="190.12,167.33 221.97,183.97">
         <lane id="202755224#0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.94" length="15.90" shape="207.14,178.02 221.23,185.39"/>
         <lane id="202755224#0_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.94" length="15.90" shape="208.62,175.19 222.71,182.55"/>
-        <param key="osm.junction" value="circular"/>
         <param key="ref" value="A38"/>
     </edge>
     <edge id="203022643" from="1247839593" to="1247839596" priority="13" type="highway.trunk" spreadType="center" shape="273.20,161.13 290.03,146.68 298.29,141.98 306.91,139.09">
@@ -225,19 +224,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="37283065#0" from="cluster_1280853175_17660715_644926958" to="cluster_1382252934_17660726" priority="13" type="highway.trunk" spreadType="center" shape="254.92,127.17 251.63,121.54 216.93,104.24">
         <lane id="37283065#0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.94" length="37.86" shape="253.71,121.93 252.77,120.32 219.70,103.83"/>
         <lane id="37283065#0_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.94" length="37.86" shape="250.95,123.55 250.49,122.76 218.27,106.70"/>
-        <param key="osm.junction" value="circular"/>
         <param key="ref" value="A38"/>
     </edge>
     <edge id="37283067#0" from="17660734" to="cluster_1281294877_17660736_17660738_644926918" priority="13" type="highway.trunk" spreadType="center" shape="173.46,129.74 173.95,143.44 176.74,152.67">
         <lane id="37283067#0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.94" length="11.41" shape="172.29,141.73 172.36,143.70 175.21,153.13"/>
         <lane id="37283067#0_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.94" length="11.41" shape="175.49,141.62 175.54,143.18 178.27,152.21"/>
-        <param key="osm.junction" value="circular"/>
         <param key="ref" value="A38"/>
     </edge>
     <edge id="37354482#0" from="cluster_1382252934_17660726" to="cluster_17660730_19999048_5065034050" priority="13" type="highway.trunk" spreadType="center" shape="216.93,104.24 205.13,104.56 198.75,105.81 192.78,107.60">
         <lane id="37354482#0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.94" length="16.73" shape="209.08,102.85 204.95,102.96 198.37,104.25 192.32,106.07"/>
         <lane id="37354482#0_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.94" length="16.73" shape="209.17,106.05 205.31,106.16 199.13,107.37 193.24,109.13"/>
-        <param key="osm.junction" value="circular"/>
         <param key="ref" value="A38"/>
     </edge>
     <edge id="382889005" from="3696173720" to="cluster_1280853195_17660703_644926923" priority="12" type="highway.primary" spreadType="center" shape="226.96,195.65 235.18,184.38">
@@ -248,13 +244,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="38696932" from="cluster_17660730_19999048_5065034050" to="17660734" priority="13" type="highway.trunk" spreadType="center" shape="180.31,114.21 175.59,121.80 173.46,129.74">
         <lane id="38696932_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.94" length="12.68" shape="178.95,113.37 174.11,121.16 173.08,125.00"/>
         <lane id="38696932_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.94" length="12.68" shape="181.67,115.05 177.07,122.44 176.17,125.83"/>
-        <param key="osm.junction" value="circular"/>
         <param key="ref" value="A38"/>
     </edge>
     <edge id="38696934#0" from="cluster_1280853195_17660703_644926923" to="cluster_1280853175_17660715_644926958" priority="13" type="highway.trunk" spreadType="center" shape="243.15,181.43 252.76,171.31 259.26,160.71 261.19,155.64 261.59,146.51 259.87,137.30">
         <lane id="38696934#0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.94" length="26.36" shape="259.01,164.18 260.70,161.42 262.78,155.97 263.20,146.40 261.50,137.33"/>
         <lane id="38696934#0_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.94" length="26.36" shape="256.63,161.93 257.82,160.00 259.60,155.31 259.98,146.62 258.36,137.92"/>
-        <param key="osm.junction" value="circular"/>
         <param key="ref" value="A38"/>
     </edge>
     <edge id="3894321#0" from="19999050" to="cluster_17660730_19999048_5065034050" priority="12" type="highway.primary" spreadType="center" shape="118.82,0.00 125.69,8.67 156.34,57.37 173.21,81.19 178.78,92.68 180.13,99.95">
@@ -367,7 +361,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0000" foes="0001" cont="0"/>
     </junction>
-    <junction id="17660734" type="priority" x="173.46" y="129.74" incLanes="38696932_0 38696932_1" intLanes=":17660734_0_0 :17660734_1_0 :17660734_1_1" shape="171.53,124.58 177.71,126.24 176.96,129.42 176.61,131.80 176.55,133.80 176.68,135.83 176.90,138.28 177.08,141.56 170.69,141.79 168.51,141.23 165.75,139.60 167.46,136.62 168.61,134.36 169.40,132.41 170.02,130.39">
+    <junction id="17660734" type="priority" x="173.46" y="129.74" incLanes="38696932_0 38696932_1" intLanes=":17660734_0_0 :17660734_1_0 :17660734_1_1" shape="171.53,124.58 177.71,126.24 176.96,129.42 176.61,131.80 176.55,133.80 176.68,135.83 176.90,138.28 177.08,141.56 170.69,141.79 168.51,141.23 165.75,139.60 167.46,136.62 168.61,134.36 169.40,132.41 170.02,130.39" roundabout="0">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>

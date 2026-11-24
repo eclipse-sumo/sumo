@@ -924,6 +924,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
     id = StringUtils::escapeXML(id);
     const std::string reverseID = "-" + id;
+    if (e->myIsCircularJunction && (addForward || addBackward)) {
+        from->setRoundaboutType(RoundaboutType::NO);
+        to->setRoundaboutType(RoundaboutType::NO);
+    }
     const bool markOSMDirection =  from->getType() == SumoXMLNodeType::RAIL_SIGNAL || to->getType() == SumoXMLNodeType::RAIL_SIGNAL;
     if (addForward) {
         assert(numLanesForward > 0);
@@ -2244,7 +2248,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 myCurrentEdge->myAmInRoundabout = true;
             } else if (value == "circular") {
                 myCurrentEdge->myRoundaboutGuessExcluded = true;
-                myCurrentEdge->setParameter("osm.junction", value);
+                myCurrentEdge->myIsCircularJunction = true;
             }
         } else if (key == "oneway") {
             myCurrentEdge->myIsOneWay = value;
