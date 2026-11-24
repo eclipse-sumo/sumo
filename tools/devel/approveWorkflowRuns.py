@@ -161,23 +161,30 @@ def main():
               (counts["other", "in_progress"], counts["other", "queued"], options.max_jobs))
         print("%s macOS jobs are running and %s are queued (limit %s)." %
               (counts["macos", "in_progress"], counts["macos", "queued"], options.max_macos_jobs))
-    if any(active[pool] >= limits[pool] for pool in active):
-        if options.verbose:
-            print("Stopping: more than %d%% of a limit is in use." % (100 * options.threshold))
-        return 0
+    stopped = any(active[pool] >= limits[pool] for pool in active)
+    if stopped and options.verbose:
+        print("Stopping: more than %d%% of a limit is in use." % (100 * options.threshold))
     # the runs endpoint only returns the 1000 newest runs of a filtered query, so start from the open pull
     # requests (oldest first, only whitelisted authors) and ask for the runs of their current head commit
     pulls = paginate(options, "/repos/%s/pulls" % options.repo, None,
                      {"state": "open", "sort": "created", "direction": "asc"})
     approved = 0
+    waiting = 0
+    waiting_allowed = 0
     for pr in pulls:
+        if stopped and not options.verbose:
+            break
         author = pr["user"]["login"]
-        if author.lower() not in options.allowed:
-            continue
         runs = waiting_runs(options, pr["head"]["sha"])
-        if options.verbose:
+        if options.verbose and not stopped:
             print("PR #%s by %s: %s workflow runs waiting." % (pr["number"], author, len(runs)))
         if not runs:
+            continue
+        waiting += 1
+        if author.lower() not in options.allowed:
+            continue
+        waiting_allowed += 1
+        if stopped:
             continue
         if not options.no_rebase:
             if options.dry_run:
@@ -194,7 +201,8 @@ def main():
             if options.verbose:
                 print("Stopping: PR #%s would add about %s jobs (%s on macOS) to the %s active ones (%s on macOS)." %
                       (pr["number"], sum(estimate.values()), estimate["macos"], sum(active.values()), active["macos"]))
-            return 0
+            stopped = True
+            continue
         if options.verbose:
             print("Approving PR #%s by %s (%s workflow runs, about %s jobs, opened %s)." %
                   (pr["number"], author, len(runs), sum(estimate.values()), pr["created_at"]))
@@ -211,9 +219,11 @@ def main():
         for pool in active:
             active[pool] += estimate[pool]
         if any(active[pool] >= limits[pool] for pool in active):
-            return 0
-    if not approved and options.verbose:
-        print("No whitelisted pull request is waiting for approval.")
+            stopped = True
+    if options.verbose:
+        print("%s pull requests approved." % approved)
+        print("%s pull requests are still waiting for approval (%s of them from whitelisted authors)." %
+              (waiting - approved, waiting_allowed - approved))
     return 0
 
 
