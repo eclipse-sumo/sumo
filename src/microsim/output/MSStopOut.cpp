@@ -19,6 +19,11 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <algorithm>
+#include <tuple>
+#include <utility>
+#include <utils/common/ScopedLocker.h>
+
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
@@ -57,6 +62,7 @@ MSStopOut::cleanup() {
 // method definitions
 // ===========================================================================
 MSStopOut::MSStopOut(OutputDevice& dev) :
+    myParallel(MSGlobals::gNumSimThreads > 1 && !MSGlobals::gUseMesoSim),
     myDevice(dev) {
 }
 
@@ -65,6 +71,7 @@ MSStopOut::~MSStopOut() {}
 
 void
 MSStopOut::stopBlocked(const SUMOVehicle* veh, SUMOTime time) {
+    ScopedLocker<std::mutex> lock(myMutex, myParallel);
     assert(veh != nullptr);
     if (myStopped.count(veh) == 0) {
         myStopped.emplace(veh, StopInfo(-time, -1, -1));
@@ -74,6 +81,7 @@ MSStopOut::stopBlocked(const SUMOVehicle* veh, SUMOTime time) {
 
 void
 MSStopOut::stopNotStarted(const SUMOVehicle* veh) {
+    ScopedLocker<std::mutex> lock(myMutex, myParallel);
     assert(veh != nullptr);
     myStopped.erase(veh);
 }
@@ -81,6 +89,7 @@ MSStopOut::stopNotStarted(const SUMOVehicle* veh) {
 
 void
 MSStopOut::stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers, SUMOTime time) {
+    ScopedLocker<std::mutex> lock(myMutex, myParallel);
     assert(veh != nullptr);
     if (myStopped.count(veh) == 0) {
         myStopped.emplace(veh, StopInfo(0, numPersons, numContainers));
@@ -95,6 +104,7 @@ MSStopOut::stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers
 
 void
 MSStopOut::loadedPersons(const SUMOVehicle* veh, int n) {
+    ScopedLocker<std::mutex> lock(myMutex, myParallel);
     // ignore triggered vehicles
     if (veh->hasDeparted()) {
         if (myStopped.count(veh) == 0) {
@@ -109,6 +119,7 @@ MSStopOut::loadedPersons(const SUMOVehicle* veh, int n) {
 
 void
 MSStopOut::unloadedPersons(const SUMOVehicle* veh, int n) {
+    ScopedLocker<std::mutex> lock(myMutex, myParallel);
     if (myStopped.count(veh) == 0) {
         WRITE_WARNINGF(TL("Vehicle '%' unloads persons on edge '%', time=% without starting the stop."),
                        veh->getID(), veh->getEdge()->getID(), time2string(SIMSTEP));
@@ -120,6 +131,7 @@ MSStopOut::unloadedPersons(const SUMOVehicle* veh, int n) {
 
 void
 MSStopOut::loadedContainers(const SUMOVehicle* veh, int n) {
+    ScopedLocker<std::mutex> lock(myMutex, myParallel);
     // ignore triggered vehicles
     if (veh->hasDeparted()) {
         if (myStopped.count(veh) == 0) {
@@ -134,6 +146,7 @@ MSStopOut::loadedContainers(const SUMOVehicle* veh, int n) {
 
 void
 MSStopOut::unloadedContainers(const SUMOVehicle* veh, int n) {
+    ScopedLocker<std::mutex> lock(myMutex, myParallel);
     if (myStopped.count(veh) == 0) {
         WRITE_WARNINGF(TL("Vehicle '%' unloads container on edge '%', time=% without starting the stop."),
                        veh->getID(), veh->getEdge()->getID(), time2string(SIMSTEP));
@@ -146,33 +159,62 @@ MSStopOut::unloadedContainers(const SUMOVehicle* veh, int n) {
 void
 MSStopOut::stopEnded(const SUMOVehicle* veh, const MSStop& stop, bool simEnd) {
     assert(veh != nullptr);
-    if (myStopped.count(veh) == 0) {
+    ScopedLocker<std::mutex> lock(myMutex, myParallel);
+    const auto stopped = myStopped.find(veh);
+    if (stopped == myStopped.end()) {
         WRITE_WARNINGF(TL("Vehicle '%' ends stop on edge '%', time=% without entering the stop."),
                        veh->getID(), veh->getEdge()->getID(), time2string(SIMSTEP));
         return;
     }
-    const SUMOVehicleParameter::Stop& pars = stop.pars;
-    const StopInfo& si = myStopped.find(veh)->second;
+    StopRecord record{veh->getID(), veh->getVehicleType().getID(),
+                      MSGlobals::gUseMesoSim ? veh->getEdge()->getID() : stop.lane->getID(),
+                      veh->getPositionOnLane(), stop.pars, stopped->second, SIMSTEP, simEnd,
+                      stop.waypointWithStop, stop.skipOnDemand};
+    if (myParallel) {
+        myPending.push_back(std::move(record));
+    } else {
+        writeStop(record);
+    }
+    myStopped.erase(stopped);
+}
+
+
+void
+MSStopOut::writePending() {
+    if (!myParallel) {
+        return;
+    }
+    const std::lock_guard<std::mutex> lock(myMutex);
+    std::stable_sort(myPending.begin(), myPending.end(), [](const StopRecord& first, const StopRecord& second) {
+        return std::tie(first.time, first.id) < std::tie(second.time, second.id);
+    });
+    for (const StopRecord& record : myPending) {
+        writeStop(record);
+    }
+    myPending.clear();
+}
+
+
+void
+MSStopOut::writeStop(const StopRecord& record) {
+    const SUMOVehicleParameter::Stop& pars = record.parameters;
+    const StopInfo& si = record.info;
     double delay = -1;
     double arrivalDelay = -1;
-    if (pars.until >= 0 && !simEnd) {
-        delay = STEPS2TIME(SIMSTEP - pars.until);
+    if (pars.until >= 0 && !record.simulationEnded) {
+        delay = STEPS2TIME(record.time - pars.until);
     }
     if (pars.arrival >= 0) {
         arrivalDelay = STEPS2TIME(pars.started - pars.arrival);
     }
     myDevice.openTag("stopinfo");
-    myDevice.writeAttr(SUMO_ATTR_ID, veh->getID());
-    myDevice.writeAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID());
-    if (MSGlobals::gUseMesoSim) {
-        myDevice.writeAttr(SUMO_ATTR_EDGE, veh->getEdge()->getID());
-    } else {
-        myDevice.writeAttr(SUMO_ATTR_LANE, stop.lane->getID());
-    }
-    myDevice.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());
+    myDevice.writeAttr(SUMO_ATTR_ID, record.id);
+    myDevice.writeAttr(SUMO_ATTR_TYPE, record.vehicleType);
+    myDevice.writeAttr(MSGlobals::gUseMesoSim ? SUMO_ATTR_EDGE : SUMO_ATTR_LANE, record.location);
+    myDevice.writeAttr(SUMO_ATTR_POSITION, record.position);
     myDevice.writeAttr(SUMO_ATTR_PARKING, pars.parking);
     myDevice.writeAttr(SUMO_ATTR_STARTED, time2string(pars.started));
-    myDevice.writeAttr(SUMO_ATTR_ENDED, simEnd ? "-1" : time2string(SIMSTEP));
+    myDevice.writeAttr(SUMO_ATTR_ENDED, record.simulationEnded ? "-1" : time2string(record.time));
     if (pars.until >= 0) {
         myDevice.writeAttr("delay", delay);
     }
@@ -217,18 +259,17 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const MSStop& stop, bool simEnd) {
     if (pars.actType != "") {
         myDevice.writeAttr(SUMO_ATTR_ACTTYPE, pars.actType);
     }
-    if (stop.pars.speed > 0) {
-        if (stop.waypointWithStop) {
+    if (pars.speed > 0) {
+        if (record.waypointWithStop) {
             myDevice.writeAttr(SUMO_ATTR_STATE, "waypointStopped");
         } else {
             myDevice.writeAttr(SUMO_ATTR_STATE, "waypoint");
         }
-    } else if (stop.skipOnDemand) {
+    } else if (record.skipOnDemand) {
         myDevice.writeAttr(SUMO_ATTR_STATE, "skippedOnDemand");
     }
 
     myDevice.closeTag();
-    myStopped.erase(veh);
 }
 
 

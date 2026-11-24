@@ -772,8 +772,11 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     if (OptionsCont::getOptions().isSet("queue-output")) {
         MSQueueExport::finish(OutputDevice::getDeviceByOption("queue-output"), myStep);
     }
-    if (MSStopOut::active() && OptionsCont::getOptions().getBool("stop-output.write-unfinished")) {
-        MSStopOut::getInstance()->generateOutputForUnfinished();
+    if (MSStopOut::active()) {
+        if (OptionsCont::getOptions().getBool("stop-output.write-unfinished")) {
+            MSStopOut::getInstance()->generateOutputForUnfinished();
+        }
+        MSStopOut::getInstance()->writePending();
     }
     MSDevice_Vehroutes::writePendingOutput(OptionsCont::getOptions().getBool("vehroute-output.write-unfinished"));
     if (OptionsCont::getOptions().getBool("tripinfo-output.write-unfinished")) {
@@ -1162,6 +1165,9 @@ MSNet::setLoaderTime(SUMOTime time) {
 
 void
 MSNet::writeOutput() {
+    if (MSStopOut::active()) {
+        MSStopOut::getInstance()->writePending();
+    }
     // update detector values
     myDetectorControl->updateDetectors(myStep);
     const OptionsCont& oc = OptionsCont::getOptions();
