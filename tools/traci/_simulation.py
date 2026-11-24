@@ -689,13 +689,6 @@ class SimulationDomain(Domain):
         """
         Domain.subscribe(self, "", varIDs, begin, end, parameters)
 
-    def unsubscribe(self, objectID=""):
-        """unsubscribe(string) -> None
-
-        Unsubscribe from receiving simulation values.
-        """
-        Domain.unsubscribe(self, objectID)
-
     def getSubscriptionResults(self):
         """getSubscriptionResults() -> dict(integer: <value_type>)
 

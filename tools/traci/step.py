@@ -128,12 +128,10 @@ class StepManager:
         self._traceFile.write("%s\n" % line)
 
     def close(self, write=False):
-        if self._traceFile is not None:
-            if not self._traceFile.closed:
-                if write:
-                    self.write("close")
-                self._traceFile.close()
-            self._traceFile = None
+        if self._traceFile is not None and not self._traceFile.closed:
+            if write:
+                self.write("close")
+            self._traceFile.close()
 
 
 class StepListener(abc.ABC):
