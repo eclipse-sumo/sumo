@@ -3697,7 +3697,7 @@ GNEViewNetHelper::IntervalBar::getBegin() const {
     if (!myIntervalCheckBox->isEnabled() || (myIntervalCheckBox->getCheck() == FALSE)) {
         return INVALID_DOUBLE;
     } else {
-        return GNEAttributeCarrier::parse<double>(myBeginTextField->getText().text());
+        return GNEDataInterval::parseIntervalTime(myBeginTextField->getText().text());
     }
 }
 
@@ -3707,7 +3707,7 @@ GNEViewNetHelper::IntervalBar::getEnd() const {
     if (!myIntervalCheckBox->isEnabled() || (myIntervalCheckBox->getCheck() == FALSE)) {
         return INVALID_DOUBLE;
     } else {
-        return GNEAttributeCarrier::parse<double>(myEndTextField->getText().text());
+        return GNEDataInterval::parseIntervalTime(myEndTextField->getText().text());
     }
 }
 
@@ -3772,7 +3772,7 @@ GNEViewNetHelper::IntervalBar::setBegin() {
     if (myBeginTextField->getText().empty()) {
         myBeginTextField->setText(toString(myViewNet->getNet()->getDataSetIntervalMinimumBegin()).c_str());
         myBeginTextField->setTextColor(GUIDesignTextColorBlack);
-    } else if (GNEAttributeCarrier::canParse<double>(myBeginTextField->getText().text())) {
+    } else if (GNEDataInterval::canParseIntervalTime(myBeginTextField->getText().text())) {
         myBeginTextField->setTextColor(GUIDesignTextColorBlack);
     } else {
         myBeginTextField->setTextColor(GUIDesignTextColorRed);
@@ -3787,7 +3787,7 @@ GNEViewNetHelper::IntervalBar::setEnd() {
     if (myEndTextField->getText().empty()) {
         myEndTextField->setText(toString(myViewNet->getNet()->getDataSetIntervalMaximumEnd()).c_str());
         myEndTextField->setTextColor(GUIDesignTextColorBlack);
-    } else if (GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text())) {
+    } else if (GNEDataInterval::canParseIntervalTime(myEndTextField->getText().text())) {
         myEndTextField->setTextColor(GUIDesignTextColorBlack);
     } else {
         myEndTextField->setTextColor(GUIDesignTextColorRed);

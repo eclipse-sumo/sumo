@@ -12,6 +12,8 @@ Data mode overview
 
 Edge datas are defined within a general set (DataSet), and within a certain time interval
 
+Enter interval boundaries and time filters as seconds or as `hours:minutes:seconds`. Add a day field when needed, as in `1:02:00:00` for one day and two hours.
+
 ![](../images/DataMode2.png)Defining a new data set
 
 ![](../images/DataMode3.png)Defining a data interval
