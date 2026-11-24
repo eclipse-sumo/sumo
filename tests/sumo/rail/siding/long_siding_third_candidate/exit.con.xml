@@ -1,0 +1,5 @@
+<connections>
+    <connection from="-f" to="-e2" fromLane="0" toLane="0" uncontrolled="true"/>
+    <connection from="-f" to="-e" fromLane="0" toLane="0" uncontrolled="true"/>
+    <connection from="e2" to="f" fromLane="0" toLane="0" uncontrolled="true"/>
+</connections>

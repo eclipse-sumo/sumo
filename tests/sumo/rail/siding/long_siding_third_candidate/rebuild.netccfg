@@ -1,0 +1,19 @@
+<configuration>
+    <input>
+        <sumo-net-file value="../long_siding_occupied_wait2/net.net.xml"/>
+        <node-files value="exit.nod.xml"/>
+        <connection-files value="exit.con.xml"/>
+    </input>
+    <output>
+        <output-file value="net.net.xml"/>
+        <write-metadata value="false"/>
+    </output>
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+    </processing>
+</configuration>
