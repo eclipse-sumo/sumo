@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-09 09:34:12 by Eclipse SUMO sumo Version v1_20_0+1108-c96756d91d1
+<!-- generated on 2026-11-24T19:38:40.484298+01:00 by Eclipse SUMO sumo v1_28_0+0827-f1e8dcb403f
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -14,6 +14,8 @@
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -22,7 +24,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="42249"/>
+        <remote-port value="64062"/>
     </traci_server>
 
 </sumoConfiguration>
@@ -36,9 +38,9 @@
     <ToCup id="ToC_veh" t="302.00" lane="4/1to5/1_0" lanePos="360.71" x="803.25" y="2814.45"/>
     <TOR id="ToC_veh" t="302.00" lane="4/1to5/1_0" lanePos="360.71" x="803.25" y="2814.45"/>
     <ToCdown id="ToC_veh" t="325.00" lane="4/1to5/1_0" lanePos="360.71" x="803.25" y="2814.45"/>
-    <MRM id="ToC_veh" t="332.00" lane="4/1to5/1_0" lanePos="409.11" x="764.09" y="2786.00"/>
-    <ToCup id="ToC_veh" t="402.00" lane="4/1to5/1_0" lanePos="475.48" x="710.40" y="2746.99"/>
-    <TOR id="ToC_veh" t="402.00" lane="4/1to5/1_0" lanePos="475.48" x="710.40" y="2746.99"/>
-    <ToCdown id="ToC_veh" t="425.00" lane="4/1to5/1_0" lanePos="475.48" x="710.40" y="2746.99"/>
-    <MRM id="ToC_veh" t="452.00" lane="4/1to5/1_0" lanePos="790.68" x="455.40" y="2561.72"/>
+    <MRM id="ToC_veh" t="332.00" lane="4/1to5/1_0" lanePos="411.18" x="762.42" y="2784.79"/>
+    <ToCup id="ToC_veh" t="402.00" lane="4/1to5/1_0" lanePos="490.30" x="698.41" y="2738.28"/>
+    <TOR id="ToC_veh" t="402.00" lane="4/1to5/1_0" lanePos="490.30" x="698.41" y="2738.28"/>
+    <ToCdown id="ToC_veh" t="425.00" lane="4/1to5/1_0" lanePos="490.30" x="698.41" y="2738.28"/>
+    <MRM id="ToC_veh" t="452.00" lane="4/1to5/1_0" lanePos="861.26" x="398.30" y="2520.24"/>
 </ToCDeviceLog>

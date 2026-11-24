@@ -57,6 +57,6 @@ Dynamic parameters:
   awareness = 0.77
   errorNoiseIntensity = 0.05
   errorTimeScale = 0.08
-  errorState = -0.42
+  errorState = -0.07
   actionStepLength(dev) = 5.00
   actionStepLength(veh) = 5.0

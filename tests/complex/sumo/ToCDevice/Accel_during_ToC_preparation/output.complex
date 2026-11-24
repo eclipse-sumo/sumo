@@ -211,71 +211,71 @@ ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 10.299999999999992
   state = PREPARING_TOC
-Acceleration = 2.3744028148939833
+Acceleration = 1.4773301463806998
 Accel = 2.6
 time 30.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.25
-  currentSpeed = 12.674402814893975
+  currentSpeed = 11.777330146380692
   state = RECOVERING
-Acceleration = -0.7544475937309922
+Acceleration = 1.03512397431291
 Accel = 2.6
 time 31.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.35
-  currentSpeed = 11.919955221162983
+  currentSpeed = 12.812454120693602
   state = RECOVERING
-Acceleration = 0.012585925217717175
+Acceleration = -0.560643020528369
 Accel = 2.6
 time 32.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.45
-  currentSpeed = 11.9325411463807
+  currentSpeed = 12.251811100165233
   state = RECOVERING
-Acceleration = 0.08102874557953399
+Acceleration = -0.2771989644272246
 Accel = 2.6
 time 33.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.55
-  currentSpeed = 12.013569891960234
+  currentSpeed = 11.974612135738008
   state = RECOVERING
-Acceleration = 0.6278616898227476
+Acceleration = -0.2098518677754324
 Accel = 2.6
 time 34.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.65
-  currentSpeed = 12.641431581782982
+  currentSpeed = 11.764760267962576
   state = RECOVERING
-Acceleration = 0.17102253891061991
+Acceleration = 0.10458469339646292
 Accel = 2.6
 time 35.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.75
-  currentSpeed = 12.812454120693602
+  currentSpeed = 11.869344961359038
   state = RECOVERING
-Acceleration = -0.10740986189339274
+Acceleration = 0.3089539421023808
 Accel = 2.6
 time 36.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.85
-  currentSpeed = 12.705044258800209
+  currentSpeed = 12.17829890346142
   state = RECOVERING
-Acceleration = -0.5805363755440336
+Acceleration = 0.08057862131390614
 Accel = 2.6
 time 37.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.95
-  currentSpeed = 12.124507883256175
+  currentSpeed = 12.258877524775325
   state = RECOVERING
 Time 38.0: veh 'ToC_veh' changed lanes. Current: 1
-Acceleration = 0.12730321690905733
+Acceleration = 0.5776176904793839
 Accel = 2.6
 time 38.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 12.251811100165233
+  currentSpeed = 12.83649521525471
   state = MANUAL
-Acceleration = -0.36275032125413453
+Acceleration = -0.9474344363436114
 Accel = 2.6
 time 39.0
 ToC device infos for vehicle 'ToC_veh'

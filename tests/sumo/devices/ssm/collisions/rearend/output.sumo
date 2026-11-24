@@ -1,7 +1,7 @@
 Loading net-file from 'net.net.xml' ... done (1ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_22_0+1514-e107bfa9820 started with time: 0.00.
+Simulation version v1_28_0+0766-599a608b8ce started with time: 0.00.
 Vehicle 'vertical.0' does not supply vehicle parameter 'device.ssm.thresholds'. Using default of ''.
 Vehicle 'vertical.0' does not supply vehicle parameter 'device.ssm.trajectories'. Using default of '0'.
 Vehicle 'vertical.0' does not supply vehicle parameter 'device.ssm.range'. Using default of '50.00'.
@@ -13,12 +13,12 @@ Vehicle 'vertical.0' does not supply vehicle parameter 'device.ssm.exclude-confl
 Simulation ended at time: 400.00.
 Reason: The final simulation step has been reached.
 Performance:
- Duration: 0.09s
- Real time factor: 4597.7
- UPS: 218436.781609
+ Duration: 0.14s
+ Real time factor: 2836.88
+ UPS: 135843.971631
 Vehicles:
  Inserted: 126
  Running: 29
  Waiting: 0
- Teleports: 0 (Collisions: 5)
- Emergency Stops: 5
+ Teleports: 0 (Collisions: 4)
+ Emergency Stops: 3
