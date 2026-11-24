@@ -558,6 +558,9 @@ protected:
     /// @brief flag for enable TLS gameMode
     bool myTLSGame = false;
 
+    /// @brief whether the window was maximized before entering the full screen mode
+    bool myWasMaximizedBeforeFullScreen = false;
+
     /// @brief waiting time label
     MFXLCDLabel* myWaitingTimeLabel = nullptr;
 

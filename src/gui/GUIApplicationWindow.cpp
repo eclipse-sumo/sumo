@@ -1735,6 +1735,7 @@ GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
     }
     myAmFullScreen = !myAmFullScreen;
     if (myAmFullScreen) {
+        myWasMaximizedBeforeFullScreen = isMaximized();
         getApp()->reg().writeIntEntry("SETTINGS", "x", getX());
         getApp()->reg().writeIntEntry("SETTINGS", "y", getY());
         getApp()->reg().writeIntEntry("SETTINGS", "width", getWidth());
@@ -1761,17 +1762,18 @@ GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
         }
         update();
     } else {
-        place(PLACEMENT_VISIBLE);
         setDecorations(DECOR_ALL);
-        restore();
         myToolBar3->show();
         // re-apply the gaming mode (it is left if no view remains)
         myAmGaming = myGLWindows.empty() || !myAmGaming;
         onCmdGaming(nullptr, 0, nullptr);
-        setWidth(getApp()->reg().readIntEntry("SETTINGS", "width", 600));
-        setHeight(getApp()->reg().readIntEntry("SETTINGS", "height", 400));
-        setX(getApp()->reg().readIntEntry("SETTINGS", "x", 150));
-        setY(getApp()->reg().readIntEntry("SETTINGS", "y", 150));
+        if (!myWasMaximizedBeforeFullScreen) {
+            restore();
+            position(getApp()->reg().readIntEntry("SETTINGS", "x", 150),
+                     getApp()->reg().readIntEntry("SETTINGS", "y", 150),
+                     getApp()->reg().readIntEntry("SETTINGS", "width", 600),
+                     getApp()->reg().readIntEntry("SETTINGS", "height", 400));
+        }
     }
     // show or hide the full screen hint
     for (GUIGlChildWindow* const window : myGLWindows) {
