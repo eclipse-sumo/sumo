@@ -6633,6 +6633,21 @@ GNETagPropertiesDatabase::fillCommonFlowAttributes(GNETagProperties* tagProperti
 void
 GNETagPropertiesDatabase::fillCarFollowingModelAttributes(GNETagProperties* tagProperties) {
     // fill CFM attributes
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_SPEED_TABLE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                               TL("Speeds for the acceleration profiles [m/s]"));
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_MAXACCEL_PROFILE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                               TL("Maximum acceleration at each speed in speedTable [m/s^2]"));
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_DESACCEL_PROFILE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                               TL("Desired acceleration at each speed in speedTable [m/s^2]"));
+
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ACCEL,
                                GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,

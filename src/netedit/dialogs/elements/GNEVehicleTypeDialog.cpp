@@ -22,6 +22,7 @@
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/dialogs/GNEColorDialog.h>
 #include <netedit/dialogs/GNEParametersDialog.h>
+#include <netedit/elements/demand/GNEVType.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
@@ -1508,6 +1509,10 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
     myMaxVehPreviewRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW);
     myRows.push_back(myMaxVehPreviewRow);
 
+    mySpeedTableRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_SPEED_TABLE);
+    myMaxAccelProfileRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_MAXACCEL_PROFILE);
+    myDesAccelProfileRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_DESACCEL_PROFILE);
+
     // create myLabelIncompleteAttribute
     myLabelIncompleteAttribute = new FXLabel(myVerticalFrameRows, "Some attributes wasn't\nimplemented yet", nullptr, GUIDesignLabelAboutInfoCenter);
     myLabelIncompleteAttribute->hide();
@@ -1751,6 +1756,50 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::updateValues() {
     for (const auto& row : myRows) {
         row->updateValue();
     }
+    mySpeedTableRow->updateValue();
+    myMaxAccelProfileRow->updateValue();
+    myDesAccelProfileRow->updateValue();
+}
+
+
+SumoXMLAttr
+GNEVehicleTypeDialog::CarFollowingModelParameters::getInvalidProfileAttribute() const {
+    auto* element = myVehicleTypeDialog->myElement;
+    const auto speeds = mySpeedTableRow->getValue();
+    if (!element->isValid(SUMO_ATTR_SPEED_TABLE, speeds)) {
+        return SUMO_ATTR_SPEED_TABLE;
+    }
+    const auto speedCount = StringTokenizer(speeds).getVector().size();
+    for (const auto* row : {myMaxAccelProfileRow, myDesAccelProfileRow}) {
+        const auto values = row->getValue();
+        if (!values.empty()) {
+            if (speedCount == 0) {
+                return SUMO_ATTR_SPEED_TABLE;
+            }
+            if (!element->isValid(row->getAttribute(), values) || StringTokenizer(values).getVector().size() != speedCount) {
+                return row->getAttribute();
+            }
+        }
+    }
+    // Railway traction and resistance curves use the same speed table.
+    const auto* vType = dynamic_cast<const GNEVType*>(element);
+    if (vType != nullptr) {
+        for (const auto attr : {SUMO_ATTR_TRACTION_TABLE, SUMO_ATTR_RESISTANCE_TABLE}) {
+            const auto values = vType->getCFParamString(attr, "");
+            if (!values.empty() && StringTokenizer(values).getVector().size() != speedCount) {
+                return SUMO_ATTR_SPEED_TABLE;
+            }
+        }
+    }
+    return SUMO_ATTR_NOTHING;
+}
+
+
+void
+GNEVehicleTypeDialog::CarFollowingModelParameters::saveProfiles() {
+    mySpeedTableRow->setVariable();
+    myMaxAccelProfileRow->setVariable();
+    myDesAccelProfileRow->setVariable();
 }
 
 
@@ -1811,14 +1860,17 @@ GNEVehicleTypeDialog::runInternalTest(const InternalTestStep::DialogArgument* /*
 
 long
 GNEVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    if (!myVehicleTypeValid) {
+    const auto invalidProfileAttr = myCarFollowingModelParameters->getInvalidProfileAttribute();
+    if (!myVehicleTypeValid || invalidProfileAttr != SUMO_ATTR_NOTHING) {
+        const auto invalidAttr = myVehicleTypeValid ? invalidProfileAttr : myInvalidAttr;
         // show warning dialogbox about experimental state (only once)
         GNEWarningBasicDialog(myElement->getNet()->getGNEApplicationWindow(),
                               TLF("Error editing %", myElement->getTagStr()),
                               TLF("The % cannot be updated because attribute % is invalid.",
-                                  myElement->getTagStr(), toString(myInvalidAttr)));
+                                  myElement->getTagStr(), toString(invalidAttr)));
         return 1;
     } else {
+        myCarFollowingModelParameters->saveProfiles();
         // close dialog accepting changes
         return acceptElementDialog();
     }
@@ -1871,6 +1923,18 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::setVari
         myCarFollowingModelParametersParent->myVehicleTypeDialog->myVehicleTypeValid = false;
         myCarFollowingModelParametersParent->myVehicleTypeDialog->myInvalidAttr = myAttr;
     }
+}
+
+
+SumoXMLAttr
+GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::getAttribute() const {
+    return myAttr;
+}
+
+
+std::string
+GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::getValue() const {
+    return myTextField->getText().text();
 }
 
 
