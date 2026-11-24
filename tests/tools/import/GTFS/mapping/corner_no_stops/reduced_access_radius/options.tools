@@ -1,0 +1,2 @@
+-n input_net.net.xml.gz --merged-csv data.csv --vtype-output vehtypes.xml --modes bus --access-radius 30
+tools/import/gtfs/gtfs2pt.py
