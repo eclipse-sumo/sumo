@@ -242,3 +242,29 @@ double HelpersMMPEVEM::compute(const SUMOEmissionClass c,
         return std::nan("");
     }
 }
+
+
+double
+HelpersMMPEVEM::limitNextSpeed(SUMOEmissionClass c, double speed, double requestedSpeed,
+                               double slope, const EnergyParams* params) {
+    const auto isAttainable = [&](double nextSpeed) {
+        const double acceleration = SPEED2ACCEL(nextSpeed - speed);
+        return std::isfinite(PollutantsInterface::compute(c, PollutantsInterface::ELEC,
+                             nextSpeed, acceleration, slope, params));
+    };
+    if (isAttainable(requestedSpeed) || !isAttainable(speed)) {
+        return requestedSpeed;
+    }
+    // Preserve a valid lower bound. Emissions use the candidate speed at the end of the step.
+    double lower = speed;
+    double upper = requestedSpeed;
+    for (int i = 0; i < 16 && upper - lower > 0.001; ++i) {
+        const double candidate = 0.5 * (lower + upper);
+        if (isAttainable(candidate)) {
+            lower = candidate;
+        } else {
+            upper = candidate;
+        }
+    }
+    return lower;
+}

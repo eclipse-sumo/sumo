@@ -157,11 +157,7 @@ Please note that this value is only provided by MMPEVEM if and only if the
 
 
 MMPEVEM is a backward-facing model, meaning that it expects a velocity,
-acceleration, slope, and time step size to calculate the energy demand. This
-also means that it has no way to stop the vehicle from running into invalid
-operating points. The latter can be caused by implausible accelerations (for
-instance due to teleportations), wrong vehicle parameters, etc. Another reason is the use of the "default" acceleration when driving at high speed.
-This can be mitigated by providing an [`maxAccelProfile` or `desAccelProfile`](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#car-following_model_parameters)
+acceleration, slope, and time step size to calculate the energy demand. When a microscopic vehicle has neither acceleration profile configured, SUMO checks the requested positive acceleration against the powertrain at the vehicle's current road slope. If maintaining its speed is feasible, SUMO can reduce the acceleration to a feasible operating point. The [car-following model parameters](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#car-following_model_parameters) describe the `maxAccelProfile` and `desAccelProfile` options. Inconsistent vehicle parameters and externally forced accelerations can still produce invalid operating points.
 
 !!! caution
     If the model finds itself in an invalid state, it returns `nan` as energy consumption

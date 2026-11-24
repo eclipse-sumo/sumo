@@ -73,3 +73,6 @@ overtake
 # test emissions for different tls configurations (old and some config files
 # missing)
 #tls_emissions
+
+# Default MMPEVEM acceleration must respect the powertrain.
+mmpevem_default_acceleration

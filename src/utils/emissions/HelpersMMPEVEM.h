@@ -51,6 +51,15 @@ public:
      */
     HelpersMMPEVEM();
 
+    /// @brief Whether the emission class uses the MMPEVEM powertrain.
+    static bool matches(SUMOEmissionClass c) {
+        return (c >> 16) == (MMPEVEM_BASE >> 16);
+    }
+
+    /// @brief Limit an unprofiled speed increase to an attainable operating point.
+    static double limitNextSpeed(SUMOEmissionClass c, double speed, double requestedSpeed,
+                                 double slope, const EnergyParams* params);
+
     /** @brief Returns the fuel type described by this emission class as described in the Amitran interface (Gasoline, Diesel, ...)
      * @param[in] c the emission class
      * @return always "Electricity"
