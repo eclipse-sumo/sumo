@@ -3012,6 +3012,8 @@ GNENet::initGNEConnections() {
 
 void
 GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
+    myNeedRecompute = true;
+    myDemandPathManager->getPathCalculator()->invalidateWalkingPathCalculator();
     // make sure we only add turn arounds to edges which currently exist within the network
     std::set<std::string> liveExplicitTurnarounds;
     for (const auto& explicitTurnarounds : myExplicitTurnarounds) {

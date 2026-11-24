@@ -69,6 +69,8 @@ public:
      */
     static void writeNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
+    /// @brief Write a network snapshot to a caller-owned device.
+    static void writeNetworkSnapshot(OutputDevice& device, const OptionsCont& oc, NBNetBuilder& nb);
 
     /** @brief Writes connections outgoing from the given edge (also used in NWWriter_XML)
      * @param[in] into The device to write the edge into
@@ -110,6 +112,9 @@ public:
     static void writeShape(OutputDevice& out, const GeoConvHelper& gch, PositionVector shape, SumoXMLAttr attr, bool useGeo, bool geoAccuracy, bool needsWrite);
 
 private:
+    /// @brief Write the network XML. The caller owns the output device.
+    static void writeNetwork(OutputDevice& device, const OptionsCont& oc, NBNetBuilder& nb, bool lefthand, bool snapshot);
+
     /// @name Methods for writing network parts
     /// @{
 
@@ -118,7 +123,7 @@ private:
      * @param[in] n The node to write the edges of
      * @return Whether an internal edge was written
      */
-    static bool writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, const NBNode& n);
+    static bool writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, const NBNode& n, bool snapshot);
 
 
     /// @brief retrieve bidi edge id for internal corresponding to the given connection

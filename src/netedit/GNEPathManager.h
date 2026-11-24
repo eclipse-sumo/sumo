@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <memory>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBVehicle.h>
 #include <netedit/elements/GNEContour.h>
@@ -38,6 +39,7 @@ class GNELane;
 class GNEJunction;
 class GNEAdditional;
 class GNEPathElement;
+class GNEWalkingPathCalculator;
 class GNESegment;
 class GUIGlObject;
 
@@ -51,6 +53,13 @@ class GNEPathManager {
     friend class GNESegment;
 
 public:
+
+    /// @brief Route geometry anchored to an editable lane or junction.
+    struct WalkingSegment {
+        const GNELane* lane;
+        const GNEJunction* junction;
+        PositionVector shape;
+    };
 
     /// @brief class used to calculate paths in nets
     class PathCalculator {
@@ -85,6 +94,10 @@ public:
         /// @brief calculate reachability for given edge
         void calculateReachability(const SUMOVehicleClass vClass, GNEEdge* originEdge);
 
+        /// @brief Calculate an implicit walk between two road edges.
+        std::vector<WalkingSegment> calculateWalkingPath(const GNEEdge* from, const GNEEdge* to,
+                                                       double departPos, double arrivalPos) const;
+
         /// @brief check if exist a path between the two given consecutive edges for the given VClass
         bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
 
@@ -93,6 +106,12 @@ public:
 
         /// @brief check if pathCalculator is updated
         bool isPathCalculatorUpdated() const;
+
+        /// @brief Whether the walking snapshot can be built from the current junction geometry.
+        bool hasWalkingGraph() const;
+
+        /// @brief Discard walking geometry after a topology or junction rebuild.
+        void invalidateWalkingPathCalculator();
 
         /// @brief invalidate pathCalculator
         void invalidatePathCalculator();
@@ -106,6 +125,9 @@ public:
 
         /// @brief SUMO Abstract myDijkstraRouter
         SUMOAbstractRouter<NBRouterEdge, NBVehicle>* myDijkstraRouter;
+
+        /// @brief Lazily built pedestrian snapshot, valid until the road graph changes.
+        mutable std::unique_ptr<GNEWalkingPathCalculator> myWalkingPathCalculator;
 
         /// @brief optimize junction path
         std::vector<GNEEdge*> optimizeJunctionPath(const std::vector<GNEEdge*>& edges) const;
@@ -183,6 +205,10 @@ public:
 
     /// @brief calculate consecutive path lanes
     void calculateConsecutivePathLanes(GNEPathElement* pathElement, const std::vector<GNELane*>& lanes);
+
+    /// @brief Register oriented walking geometry for the saved plan.
+    bool calculateWalkingPath(GNEPathElement* pathElement, const GNEEdge* from, const GNEEdge* to,
+                              double departPos, double arrivalPos);
 
     /// @brief remove path
     void removePath(GNEPathElement* pathElement);

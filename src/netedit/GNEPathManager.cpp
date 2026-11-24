@@ -25,8 +25,10 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <utils/router/DijkstraRouter.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEPathManager.h"
+#include "GNEWalkingPathCalculator.h"
 
 // ===========================================================================
 // member method definitions
@@ -54,6 +56,7 @@ GNEPathManager::PathCalculator::~PathCalculator() {
 
 void
 GNEPathManager::PathCalculator::updatePathCalculator() {
+    invalidateWalkingPathCalculator();
     // simply delete and create myDijkstraRouter again
     if (myDijkstraRouter) {
         delete myDijkstraRouter;
@@ -321,6 +324,75 @@ GNEPathManager::PathCalculator::isPathCalculatorUpdated() const {
 void
 GNEPathManager::PathCalculator::invalidatePathCalculator() {
     myPathCalculatorUpdated = false;
+    invalidateWalkingPathCalculator();
+}
+
+
+void
+GNEPathManager::PathCalculator::invalidateWalkingPathCalculator() {
+    myWalkingPathCalculator.reset();
+}
+
+
+bool
+GNEPathManager::PathCalculator::hasWalkingGraph() const {
+    if (!myPathCalculatorUpdated || !myNet->isNetRecomputed()) {
+        return false;
+    }
+    if (!myWalkingPathCalculator) {
+        myWalkingPathCalculator = std::make_unique<GNEWalkingPathCalculator>(*myNet->getNetBuilder(), OptionsCont::getOptions());
+    }
+    return myWalkingPathCalculator->isAvailable();
+}
+
+
+std::vector<GNEPathManager::WalkingSegment>
+GNEPathManager::PathCalculator::calculateWalkingPath(const GNEEdge* from, const GNEEdge* to,
+                                                     double departPos, double arrivalPos) const {
+    if (!hasWalkingGraph()) {
+        return {};
+    }
+    const double fromLength = from->getNBEdge()->getFinalLength();
+    const double toLength = to->getNBEdge()->getFinalLength();
+    departPos = departPos == INVALID_DOUBLE ? fromLength :
+                MIN2(fromLength, MAX2(0., departPos < 0 ? fromLength + departPos : departPos));
+    arrivalPos = arrivalPos == -1 ? toLength / 2 :
+                 MIN2(toLength, MAX2(0., arrivalPos < 0 ? toLength + arrivalPos : arrivalPos));
+    auto path = myWalkingPathCalculator->compute(from->getID(), to->getID(), departPos, arrivalPos);
+    std::vector<WalkingSegment> result;
+    PositionVector linkShape;
+    const auto carriers = myNet->getAttributeCarriers();
+    for (auto& step : path) {
+        if (step.shape.empty()) {
+            continue;
+        }
+        const auto lane = carriers->retrieveLane(step.laneID, false);
+        if (lane == nullptr) {
+            for (const auto& pos : step.shape) {
+                linkShape.push_back_noDoublePos(pos);
+            }
+            continue;
+        }
+        if (!result.empty()) {
+            const auto& previous = result.back();
+            const auto edge = previous.lane->getParentEdge();
+            // The start or end junction can be next when the route walks against traffic.
+            const auto& laneShape = previous.lane->getLaneShape();
+            const auto& previousEnd = previous.shape.back();
+            const auto junction = previousEnd.distanceTo2D(laneShape.front()) < previousEnd.distanceTo2D(laneShape.back()) ?
+                                  edge->getFromJunction() : edge->getToJunction();
+            PositionVector connector;
+            connector.push_back(previousEnd);
+            for (const auto& pos : linkShape) {
+                connector.push_back_noDoublePos(pos);
+            }
+            connector.push_back_noDoublePos(step.shape.front());
+            result.push_back({nullptr, junction, std::move(connector)});
+            linkShape.clear();
+        }
+        result.push_back({lane, nullptr, std::move(step.shape)});
+    }
+    return result;
 }
 
 
@@ -615,6 +687,28 @@ GNEPathManager::calculateConsecutivePathLanes(GNEPathElement* pathElement, const
         // add segments in paths
         myPaths[pathElement] = segments;
     }
+}
+
+bool
+GNEPathManager::calculateWalkingPath(GNEPathElement* pathElement, const GNEEdge* from, const GNEEdge* to,
+                                     double departPos, double arrivalPos) {
+    auto path = myPathCalculator->calculateWalkingPath(from, to, departPos, arrivalPos);
+    if (path.empty()) {
+        buildPath(pathElement, SVC_PEDESTRIAN, {}, from->getLaneByAllowedVClass(SVC_PEDESTRIAN), nullptr,
+                  to->getLaneByAllowedVClass(SVC_PEDESTRIAN), nullptr);
+        return false;
+    }
+    removePath(pathElement);
+    std::vector<GNESegment*> segments;
+    segments.reserve(path.size());
+    for (auto& step : path) {
+        auto segment = step.lane != nullptr ? new GNESegment(this, pathElement, step.lane, segments) :
+                       new GNESegment(this, pathElement, step.junction, segments);
+        segment->setWalkingShape(std::move(step.shape));
+    }
+    markLabelSegment(segments);
+    myPaths[pathElement] = std::move(segments);
+    return true;
 }
 
 

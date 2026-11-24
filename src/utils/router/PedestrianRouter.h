@@ -50,6 +50,13 @@ private:
     typedef DijkstraRouter<_IntermodalEdge, _IntermodalTrip> _InternalRouter;
 
 public:
+    /// @brief A traversed sidewalk, crossing or walking area with its oriented offsets.
+    struct PathSegment {
+        const E* edge;
+        double startPos;
+        double endPos;
+    };
+
     /// Constructor
     PedestrianRouter():
         SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouter", true, nullptr, nullptr, false, false), myAmClone(false) {
@@ -82,7 +89,8 @@ public:
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     double compute(const E* from, const E* to, double departPos, double arrivalPos, double speed,
-                   SUMOTime msTime, const N* onlyNode, const SUMOVTypeParameter& pars, std::vector<const E*>& into, bool allEdges = false) const {
+                   SUMOTime msTime, const N* onlyNode, const SUMOVTypeParameter& pars, std::vector<const E*>& into, bool allEdges = false,
+                   std::vector<PathSegment>* segments = nullptr) const {
         if (getSidewalk<E, L>(from) == 0) {
             WRITE_WARNINGF(TL("Departure edge '%' does not allow pedestrians."), from->getID());
             return false;
@@ -93,17 +101,27 @@ public:
         }
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, onlyNode, pars);
         std::vector<const _IntermodalEdge*> intoPed;
-        const bool silent = allEdges; // no warning is needed when called from MSPModel_Striping
+        const bool silent = allEdges || segments != nullptr;
         const bool success = myInternalRouter->compute(myPedNet->getDepartConnector(from),
                              myPedNet->getArrivalConnector(to),
                              &trip, msTime, intoPed, silent);
         double time = 0.;
         if (success) {
+            const size_t begin = segments == nullptr ? 0 : segments->size();
             for (const _IntermodalEdge* pedEdge : intoPed) {
                 if (pedEdge->includeInRoute(allEdges)) {
                     into.push_back(pedEdge->getEdge());
                 }
+                if (segments != nullptr && pedEdge->includeInRoute(true)) {
+                    segments->push_back({pedEdge->getEdge(), pedEdge->getStartPos(), pedEdge->getEndPos()});
+                }
                 time += myInternalRouter->getEffort(pedEdge, &trip, time);
+            }
+            if (segments != nullptr && segments->size() > begin) {
+                auto& first = (*segments)[begin];
+                auto& last = segments->back();
+                first.startPos = trip.departPos;
+                last.endPos = trip.arrivalPos;
             }
         }
 #ifdef PedestrianRouter_DEBUG_ROUTES

@@ -61,7 +61,7 @@ RONet::getInstance(void) {
 }
 
 
-RONet::RONet() :
+RONet::RONet(bool registerGlobal) :
     myVehicleTypes(), myDefaultVTypeMayBeDeleted(true),
     myDefaultPedTypeMayBeDeleted(true),
     myDefaultBikeTypeMayBeDeleted(true),
@@ -83,7 +83,7 @@ RONet::RONet() :
                 && OptionsCont::getOptions().getBool("keep-flows")),
     myHasBidiEdges(false),
     myMaxTraveltime(OptionsCont::getOptions().exists("max-traveltime") ? STEPS2TIME(string2time(OptionsCont::getOptions().getString("max-traveltime"))) : -1) {
-    if (myInstance != nullptr) {
+    if (registerGlobal && myInstance != nullptr) {
         throw ProcessError(TL("A network was already constructed."));
     }
     SUMOVTypeParameter* type = new SUMOVTypeParameter(DEFAULT_VTYPE_ID, SVC_PASSENGER);
@@ -110,7 +110,9 @@ RONet::RONet() :
     defRailType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVehicleTypes.add(defRailType->id, defRailType);
 
-    myInstance = this;
+    if (registerGlobal) {
+        myInstance = this;
+    }
 }
 
 

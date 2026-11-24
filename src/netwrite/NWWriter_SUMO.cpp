@@ -59,14 +59,29 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         return;
     }
     OutputDevice& device = OutputDevice::getDevice(oc.getString("output-file"));
-    std::map<SumoXMLAttr, std::string> attrs;
-    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
-    if (oc.getBool("lefthand") != oc.getBool("flip-y-axis")) {
-        attrs[SUMO_ATTR_LEFTHAND] = "true";
-    } else if (oc.getBool("lefthand")) {
+    const bool lefthand = oc.getBool("lefthand") != oc.getBool("flip-y-axis");
+    if (!lefthand && oc.getBool("lefthand")) {
         // network was flipped, correct written link directions
         OptionsCont::getOptions().resetWritable();
         OptionsCont::getOptions().set("lefthand", "false");
+    }
+    writeNetwork(device, oc, nb, lefthand, false);
+    device.close();
+}
+
+
+void
+NWWriter_SUMO::writeNetworkSnapshot(OutputDevice& device, const OptionsCont& oc, NBNetBuilder& nb) {
+    writeNetwork(device, oc, nb, oc.getBool("lefthand"), true);
+}
+
+
+void
+NWWriter_SUMO::writeNetwork(OutputDevice& device, const OptionsCont& oc, NBNetBuilder& nb, bool lefthand, bool snapshot) {
+    std::map<SumoXMLAttr, std::string> attrs;
+    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
+    if (lefthand) {
+        attrs[SUMO_ATTR_LEFTHAND] = "true";
     }
     LaneSpreadFunction defaultSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(oc.getString("default.spreadtype"));
     const int cornerDetail = oc.getInt("junctions.corner-detail");
@@ -130,7 +145,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (!oc.getBool("no-internal-links")) {
         bool hadAny = false;
         for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-            hadAny |= writeInternalEdges(device, ec, *(*i).second);
+            hadAny |= writeInternalEdges(device, ec, *(*i).second, snapshot);
         }
         if (hadAny) {
             device.lf();
@@ -237,13 +252,15 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
     // write the districts
     if (dc.size() != 0 && oc.isDefault("taz-output")) {
-        WRITE_WARNING(TL("Embedding TAZ-data inside the network is deprecated. Use option --taz-output instead"));
+        if (!snapshot) {
+            WRITE_WARNING(TL("Embedding TAZ-data inside the network is deprecated. Use option --taz-output instead"));
+        }
         for (std::map<std::string, NBDistrict*>::const_iterator i = dc.begin(); i != dc.end(); i++) {
             writeDistrict(device, *(*i).second);
         }
         device.lf();
     }
-    device.close();
+    device.closeTag();
 }
 
 
@@ -301,7 +318,7 @@ NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, c
 
 
 bool
-NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, const NBNode& n) {
+NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, const NBNode& n, bool snapshot) {
     bool ret = false;
     const EdgeVector& incoming = n.getIncomingEdges();
     // first pass: determine opposite internal edges and average their length
@@ -317,7 +334,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
             }
         }
     }
-    if (oppositeLengths.size() > 0) {
+    if (!snapshot && oppositeLengths.size() > 0) {
         for (NBEdge* e : incoming) {
             for (NBEdge::Connection& c : e->getConnections()) {
                 if (oppositeLengths.count(c.id) > 0) {
@@ -369,7 +386,9 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                 SVCPermissions changeLeft = k.changeLeft != SVC_UNSPECIFIED ? k.changeLeft : SVCAll;
                 SVCPermissions changeRight = k.changeRight != SVC_UNSPECIFIED ? k.changeRight : SVCAll;
                 const double width = e->getInternalLaneWidth(n, k, successor, false);
-                const double length = bidiLength > 0 ? bidiLength : k.length;
+                const auto opposite = oppositeLengths.find(k.id);
+                const double length = bidiLength > 0 ? bidiLength :
+                    (snapshot && opposite != oppositeLengths.end() ? (k.length + opposite->second) / 2 : k.length);
                 writeLane(into, k.getInternalLaneID(), k.vmax, k.friction,
                           permissions, successor.preferred,
                           changeLeft, changeRight,
