@@ -68,7 +68,7 @@ GNEOptionsEditor::GNEOptionsEditor(GNEDialog* dialog, const std::string& titleNa
     FXVerticalFrame(dialog->getContentFrame(), GUIDesignAuxiliarFrame),
     myDialog(dialog),
     myOptionsContainer(optionsContainer),
-    myCopyOfOptionsContainer(optionsContainer.clone()),
+    myCopyOfOptionsContainer(optionsContainer.clone(false)),
     myOriginalOptionsContainer(originalOptionsContainer) {
     // get staticTooltipMenu
     auto staticTooltipMenu = dialog->getApplicationWindow()->getStaticTooltipMenu();
@@ -187,6 +187,7 @@ GNEOptionsEditor::requireSaveNetwork() const {
 
 void
 GNEOptionsEditor::resetAllOptions() {
+    myOptionsContainer.restoreOptions(*myCopyOfOptionsContainer);
     for (const auto& entry : myOptionRowEntries) {
         entry->onCmdResetOption(nullptr, 0, nullptr);
     }

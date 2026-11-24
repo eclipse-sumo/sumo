@@ -43,6 +43,9 @@ GNENeteditOptionsDialog::GNENeteditOptionsDialog(GNEApplicationWindow* applicati
     myOptionsEditor = new GNEOptionsEditor(this, "Netedit", optionsContainer, originalOptionsContainer);
     // open modal dialog
     openDialog();
+    if (getResult() == Result::ABORT) {
+        myOptionsEditor->resetAllOptions();
+    }
 }
 
 

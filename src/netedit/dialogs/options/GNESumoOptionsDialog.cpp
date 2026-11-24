@@ -43,6 +43,9 @@ GNESumoOptionsDialog::GNESumoOptionsDialog(GNEApplicationWindow* applicationWind
     myOptionsEditor = new GNEOptionsEditor(this, "SUMO", optionsContainer, originalOptionsContainer);
     // open modal dialog
     openDialog();
+    if (getResult() == Result::ABORT) {
+        myOptionsEditor->resetAllOptions();
+    }
 }
 
 

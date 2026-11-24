@@ -80,6 +80,32 @@ TEST(OptionsContClone, ClonesCanBeClonedIndependently) {
     EXPECT_EQ(12, second->getInt("v"));
 }
 
+TEST(OptionsContClone, RestoresOriginalValuesAndFlagsRepeatedly) {
+    OptionsCont options;
+    options.doRegister("file", 'f', new Option_FileName({"original.xml"}));
+    options.doRegister("end", new Option_Integer(100));
+    options.doRegister("output", new Option_String());
+    ASSERT_TRUE(options.set("f", "loaded.xml"));
+    ASSERT_FALSE(options.isWriteable("file"));
+    ASSERT_FALSE(options.isSet("output"));
+    std::unique_ptr<OptionsCont> snapshot(options.clone(false));
+
+    for (const std::string value : {"first.xml", "second.xml"}) {
+        options.resetWritable();
+        ASSERT_TRUE(options.setDefault("f", value));
+        ASSERT_TRUE(options.set("end", "60"));
+        ASSERT_TRUE(options.set("output", "tripinfo.xml"));
+        options.restoreOptions(*snapshot);
+        EXPECT_EQ("loaded.xml", options.getString("file"));
+        EXPECT_EQ("loaded.xml", options.getString("f"));
+        EXPECT_FALSE(options.isDefault("file"));
+        EXPECT_FALSE(options.isWriteable("file"));
+        EXPECT_EQ(100, options.getInt("end"));
+        EXPECT_TRUE(options.isDefault("end"));
+        EXPECT_FALSE(options.isSet("output"));
+    }
+}
+
 TEST(OptionsContClone, OutlivesSource) {
     std::unique_ptr<OptionsCont> clone;
     {

@@ -44,6 +44,9 @@ GNENetgenerateOptionsDialog::GNENetgenerateOptionsDialog(GNEApplicationWindow* a
     myOptionsEditor = new GNEOptionsEditor(this, "Netgenerate", optionsContainer, originalOptionsContainer);
     // open modal dialog
     openDialog();
+    if (getResult() == Result::ABORT) {
+        myOptionsEditor->resetAllOptions();
+    }
 }
 
 
