@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-13T15:58:36.321794+01:00 by Eclipse SUMO sumo v1_26_0+1609-f998d592298
+<!-- generated on 2026-11-24T23:41:23.978899+01:00 by Eclipse SUMO sumo v1_28_0+0824-dcae2a50ffe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,5 +49,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <changeStarted id="ego" type="DEFAULT_VEHTYPE" time="93.00" from="beg_0" to="beg_0" dir="0" speed="24.92" pos="2480.71" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None" maneuverDistance="2.50"/>
     <changeStarted id="ego" type="DEFAULT_VEHTYPE" time="94.50" from="beg_0" to="beg_0" dir="0" speed="24.26" pos="2518.56" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None" maneuverDistance="2.25"/>
     <change id="ego" type="DEFAULT_VEHTYPE" time="96.00" from="beg_0" to="beg_1" dir="1" speed="23.90" pos="2553.17" reason="strategic|urgent" leaderGap="29.94" leaderSecureGap="18.07" leaderSpeed="25.04" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
-    <changeEnded id="ego" type="DEFAULT_VEHTYPE" time="97.50" from="beg_1" to="beg_1" dir="0" speed="25.07" pos="2590.43" reason="strategic|sublane" leaderGap="30.02" leaderSecureGap="24.34" leaderSpeed="25.20" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="30.02" origLeaderSecureGap="24.34" origLeaderSpeed="25.20" latGap="None"/>
+    <changeEnded id="ego" type="DEFAULT_VEHTYPE" time="98.00" from="beg_1" to="beg_1" dir="0" speed="25.42" pos="2603.14" reason="strategic|sublane" leaderGap="29.83" leaderSecureGap="27.51" leaderSpeed="25.05" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="29.83" origLeaderSecureGap="27.51" origLeaderSpeed="25.05" latGap="None"/>
 </lanechanges>
