@@ -5,11 +5,22 @@ on:
   schedule:
     - cron:  '25 6 * * *'
 
+permissions:
+  contents: read
+
 jobs:
   test-installer:
     runs-on: windows-latest
+    timeout-minutes: 15
 
     steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            tests/complex/tutorial/quickstart/data
+            tools/build_config
+
       - name: Download MSI
         run: Invoke-WebRequest -Uri https://sumo.dlr.de/daily/sumo-win64-ci.msi -OutFile sumo-win64.msi
 
@@ -34,6 +45,12 @@ jobs:
           $sumoHome = [System.Environment]::GetEnvironmentVariable("SUMO_HOME", "Machine")
           if (-not $sumoHome) { throw "SUMO_HOME not set" }
           Write-Host "SUMO_HOME=$sumoHome"
+
+      - name: Run quickstart simulation (per-machine)
+        shell: pwsh
+        run: |
+          $env:SUMO_HOME = [System.Environment]::GetEnvironmentVariable("SUMO_HOME", "Machine")
+          python tools/build_config/checkInstaller.py "$env:SUMO_HOME/bin/sumo.exe"
 
       - name: Uninstall
         shell: pwsh
@@ -73,6 +90,12 @@ jobs:
           if (-not $sumoHome) { throw "SUMO_HOME not set in HKCU" }
           Write-Host "SUMO_HOME=$sumoHome"
         shell: pwsh
+
+      - name: Run quickstart simulation (per-user)
+        shell: pwsh
+        run: |
+          $env:SUMO_HOME = (Get-ItemProperty -Path 'HKCU:\Environment' -Name 'SUMO_HOME').SUMO_HOME
+          python tools/build_config/checkInstaller.py "$env:SUMO_HOME/bin/sumo.exe"
 
       - name: Uninstall (per-user)
         shell: pwsh
