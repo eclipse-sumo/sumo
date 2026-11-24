@@ -555,6 +555,10 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* app, const GNETagPropertiesDat
     TemplateHandler::parseTemplate(myOriginalSumoOptions, sumoTemplate);
     TemplateHandler::parseTemplate(myNetgenerateOptions, netgenerateTemplate);
     TemplateHandler::parseTemplate(myOriginalNetgenerateOptions, netgenerateTemplate);
+    myNetgenerateOptions.resetWritable();
+    myNetgenerateOptions.setDefault("spider.omit-center", "true");
+    myOriginalNetgenerateOptions.resetWritable();
+    myOriginalNetgenerateOptions.setDefault("spider.omit-center", "true");
     // make certain sumo options non editable
     mySumoOptions.setOptionEditable("configuration-file", false);
     mySumoOptions.setOptionEditable("net-file", false);

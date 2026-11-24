@@ -83,7 +83,9 @@ GNERunNetgenerateDialog::getRunCommand() const {
         if (topic != "Configuration") {
             const std::vector<std::string> entries = myNetgenerateOptions->getSubTopicsEntries(topic);
             for (const auto& entry : entries) {
-                if (!myNetgenerateOptions->isDefault(entry) && (entry != "close-dialog-automatic")) {
+                // Netedit's Spider default differs from the netgenerate CLI default.
+                const bool sendSpiderDefault = entry == "spider.omit-center" && myNetgenerateOptions->getBool("spider");
+                if ((sendSpiderDefault || !myNetgenerateOptions->isDefault(entry)) && entry != "close-dialog-automatic") {
                     runCommand += " --" + entry + " \"" + StringUtils::escapeShell(myNetgenerateOptions->getValueString(entry)) + "\" ";
                 }
             }
