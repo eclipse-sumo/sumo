@@ -1,0 +1,5 @@
+<additional>
+    <tlLogic id="signal" programID="0">
+        <param key="pzb" value="true"/>
+    </tlLogic>
+</additional>

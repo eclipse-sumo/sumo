@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,3600.00,0.00" origBoundary="0.00,0.00,3600.00,0.00" projParameter="!"/>
+
+    <edge id=":exitSignal_0" function="internal">
+        <lane id=":exitSignal_0_0" index="0" allow="rail" speed="40.00" length="0.10" shape="2040.00,-1.60 2040.00,-1.60"/>
+    </edge>
+    <edge id=":signal_0" function="internal">
+        <lane id=":signal_0_0" index="0" allow="rail" speed="40.00" length="0.10" shape="1800.00,-1.60 1800.00,-1.60"/>
+    </edge>
+
+    <edge id="approach" from="origin" to="signal" priority="-1">
+        <lane id="approach_0" index="0" allow="rail" speed="40.00" length="1800.00" shape="0.00,-1.60 1800.00,-1.60"/>
+    </edge>
+    <edge id="block" from="signal" to="exitSignal" priority="-1">
+        <lane id="block_0" index="0" allow="rail" speed="40.00" length="240.00" shape="1800.00,-1.60 2040.00,-1.60"/>
+    </edge>
+    <edge id="exit" from="exitSignal" to="destination" priority="-1">
+        <lane id="exit_0" index="0" allow="rail" speed="40.00" length="1560.00" shape="2040.00,-1.60 3600.00,-1.60"/>
+    </edge>
+
+    <junction id="destination" type="dead_end" x="3600.00" y="0.00" incLanes="exit_0" intLanes="" shape="3600.00,-3.20 3600.00,0.00"/>
+    <junction id="exitSignal" type="rail_signal" x="2040.00" y="0.00" incLanes="block_0" intLanes=":exitSignal_0_0" shape="2040.00,0.00 2040.00,-3.20 2040.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="origin" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="signal" type="rail_signal" x="1800.00" y="0.00" incLanes="approach_0" intLanes=":signal_0_0" shape="1800.00,0.00 1800.00,-3.20 1800.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="approach" to="block" fromLane="0" toLane="0" via=":signal_0_0" tl="signal" linkIndex="0" dir="s" state="O" visibility="80.00"/>
+    <connection from="block" to="exit" fromLane="0" toLane="0" via=":exitSignal_0_0" tl="exitSignal" linkIndex="0" dir="s" state="O"/>
+
+    <connection from=":exitSignal_0" to="exit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":signal_0" to="block" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

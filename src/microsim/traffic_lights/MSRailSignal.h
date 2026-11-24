@@ -285,6 +285,10 @@ public:
         return myMovingBlock;
     }
 
+    bool isPZB() const {
+        return myPZB;
+    }
+
     /// @brief get the unique junction controlled by this signal
     const MSJunction* getJunction() const;
 
@@ -372,6 +376,9 @@ protected:
 
     /// @brief whether the signal is in moving block mode (only protects from oncoming and flanking trains)
     bool myMovingBlock;
+
+    /// @brief Whether green is only recognized within sight of the signal.
+    bool myPZB;
 
     /// @brief map from tripId to constraint list
     std::map<std::string, std::vector<MSRailSignalConstraint*> > myConstraints;

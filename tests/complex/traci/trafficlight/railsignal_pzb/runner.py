@@ -1,0 +1,96 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2026 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+
+import os
+import sys
+import xml.etree.ElementTree as ET
+
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+import sumolib  # noqa
+import traci  # noqa
+
+
+def approach(net="input_net.net.xml", routes="input_routes.rou.xml", pzb=False,
+             configure=False, release=True, release_at_stop=False):
+    args = [sumolib.checkBinary("sumo"), "-n", net, "-r", routes, "--no-step-log",
+            "--xml-validation", "never", "--time-to-teleport", "-1"]
+    if configure:
+        args += ["-a", "input_additional.add.xml"]
+    traci.start(args)
+    result = []
+    crossed = False
+    released = False
+    try:
+        if pzb:
+            traci.trafficlight.setParameter("signal", "pzb", "true")
+        if pzb or configure:
+            assert traci.trafficlight.getParameter("signal", "pzb") == "true"
+        for _ in range(160):
+            traci.simulationStep()
+            if "follower" not in traci.vehicle.getIDList():
+                continue
+            tls = traci.vehicle.getNextTLS("follower")
+            if not tls or tls[0][0] != "signal":
+                crossed = True
+                break
+            _, _, distance, aspect = tls[0]
+            speed = traci.vehicle.getSpeed("follower")
+            result.append((distance, speed, aspect))
+            if release and not released and "blocker" in traci.vehicle.getIDList():
+                ready = speed < 0.01 and distance < 100 if release_at_stop else distance < 625
+                if ready and traci.vehicle.isStopped("blocker"):
+                    traci.vehicle.resume("blocker")
+                    released = True
+    finally:
+        traci.close()
+    return result, crossed
+
+
+default, default_crossed = approach()
+pzb, pzb_crossed = approach(pzb=True)
+configured, configured_crossed = approach(configure=True)
+held_red, red_crossed = approach(release=False)
+assert default_crossed and pzb_crossed and configured_crossed and not red_crossed
+assert pzb == configured
+first_green = next(i for i, row in enumerate(pzb) if row[2] == "G")
+assert pzb[:first_green] == default[:first_green]
+assert pzb[0][2] == "r" and pzb[first_green][0] > 200
+print("Red limits both approaches before the signal clears.")
+first_visible = next(i for i, row in enumerate(pzb) if row[0] <= 81)
+assert first_green < first_visible
+assert [r[:2] for r in pzb[:first_visible + 1]] == [r[:2] for r in held_red[:first_visible + 1]]
+assert pzb[first_visible + 1][1] > pzb[first_visible][1]
+assert default[first_green][1] > pzb[first_green][1]
+print("PZB delays acceleration after a clear signal until it is visible.")
+
+routes = ET.parse("input_routes.rou.xml")
+routes.getroot().remove(routes.find("./vehicle[@id='blocker']"))
+routes.write("steady.rou.xml")
+steady, steady_crossed = approach(routes="steady.rou.xml", pzb=True)
+assert steady_crossed and all(row[2] == "G" for row in steady)
+assert [r[:2] for r in steady[:first_visible + 1]] == [r[:2] for r in held_red[:first_visible + 1]]
+print("A steady green signal is also subject to PZB visibility.")
+
+routes = ET.parse("input_routes.rou.xml")
+routes.find("vType").set("jmStoplineGap", "25")
+routes.write("offset.rou.xml")
+net = ET.parse("input_net.net.xml")
+net.find("./connection[@tl='signal']").set("visibility", "0")
+net.write("narrow.net.xml")
+stopped, stopped_crossed = approach(net="narrow.net.xml", routes="offset.rou.xml", pzb=True, release_at_stop=True)
+assert stopped_crossed
+assert any(distance >= 25 and speed == 0 and aspect == "r" for distance, speed, aspect in stopped)
+assert any(distance < 25 and speed > 0 and aspect == "G" for distance, speed, aspect in stopped)
+print("A train stopped at its configured gap can start when green.")

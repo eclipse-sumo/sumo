@@ -64,6 +64,7 @@
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSOverheadWire.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/transportables/MSTransportableControl.h>
@@ -2800,12 +2801,18 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // - major links: stopping point is irrelevant
         double laneStopOffset;
         const double majorStopOffset = MAX2(getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_GAP, DIST_TO_STOPLINE_EXPECT_PRIORITY), lane->getVehicleStopOffset(this));
+        const MSRailSignal* railSignal = isRail() && (*link)->getState() == LINKSTATE_TL_GREEN_MAJOR
+                ? dynamic_cast<const MSRailSignal*>((*link)->getTLLogic()) : nullptr;
+        // Measure sight from the normal stopping point so a stopped train can always see green.
+        const bool hiddenRailGreen = railSignal != nullptr && railSignal->isPZB()
+                && seen - majorStopOffset > MAX2(POSITION_EPS, (*link)->getFoeVisibilityDistance());
+        const bool expectStop = yellowOrRed || hiddenRailGreen;
         // override low desired decel at yellow and red
         const double stopDecel = yellowOrRed && !isRail() ? MAX2(MIN2(MSGlobals::gTLSYellowMinDecel, cfModel.getEmergencyDecel()), cfModel.getMaxDecel()) : cfModel.getMaxDecel();
         const double brakeDist = cfModel.brakeGap(myState.mySpeed, stopDecel, 0);
         const bool canBrakeBeforeLaneEnd = seen >= brakeDist;
         const bool canBrakeBeforeStopLine = seen - lane->getVehicleStopOffset(this) >= brakeDist;
-        if (yellowOrRed) {
+        if (expectStop) {
             // Wait at red traffic light with full distance if possible
             laneStopOffset = majorStopOffset;
         } else if ((*link)->havePriority()) {
@@ -2934,7 +2941,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 #endif
 
-        if (yellowOrRed && canBrakeBeforeStopLine && !ignoreRed(*link, canBrakeBeforeStopLine) && seen >= mustSeeBeforeReversal) {
+        if (expectStop && canBrakeBeforeStopLine && !ignoreRed(*link, canBrakeBeforeStopLine) && seen >= mustSeeBeforeReversal) {
             if (lane->isInternal()) {
                 checkLinkLeaderCurrentAndParallel(*link, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
             }

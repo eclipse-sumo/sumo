@@ -83,6 +83,7 @@ MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
     myNumericalID(myRSIndex++),
     myCurrentPhase(DELTA_T, std::string(SUMO_MAX_CONNECTIONS, 'X')), // dummy phase
     myPhaseIndex(0),
+    myPZB(StringUtils::toBool(getParameter("pzb", "false"))),
     myDriveWayIndex(0) {
     myDefaultCycleTime = DELTA_T;
     myMovingBlock = OptionsCont::getOptions().getBool("railsignal-moving-block");
@@ -850,6 +851,8 @@ MSRailSignal::setParameter(const std::string& key, const std::string& value) {
             updateCurrentPhase();
             setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
         }
+    } else if (key == "pzb") {
+        myPZB = StringUtils::toBool(value);
     }
     Parameterised::setParameter(key, value);
 }
