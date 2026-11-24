@@ -1,32 +1,32 @@
-Warning: Vehicle 'flow.8' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=60.00.
-Warning: Vehicle 'flow.9' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=61.00.
-Warning: Vehicle 'flow.11' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=64.00.
-Warning: Vehicle 'flow.0' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=66.00.
-Warning: Vehicle 'flow.1' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=67.00.
-Warning: Vehicle 'flow.10' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=77.00.
-Warning: Vehicle 'flow.11' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=79.00.
-Warning: Vehicle 'flow.14' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=84.00.
-Warning: Vehicle 'flow.15' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=85.00.
-Warning: Vehicle 'flow.16' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=87.00.
-Warning: Teleporting vehicle 'flow.11'; collision with vehicle 'flow.10', lane='0_0', gap=-0.11, time=88.00, stage=move.
-Warning: Vehicle 'flow.11' teleports beyond arrival edge '0', time=88.00.
-Warning: Vehicle 'flow.26' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=102.00.
-Warning: Teleporting vehicle 'flow.17'; collision with vehicle 'flow.16', lane='0_0', gap=-0.01, time=103.00, stage=move.
-Warning: Vehicle 'flow.17' teleports beyond arrival edge '0', time=103.00.
-Warning: Teleporting vehicle 'flow.25'; collision with vehicle 'flow.24', lane='0_0', gap=-0.00, time=121.00, stage=move.
-Warning: Vehicle 'flow.25' teleports beyond arrival edge '0', time=121.00.
-Warning: Vehicle 'flow.8' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=198.00.
-Warning: Teleporting vehicle 'flow.0'; collision with vehicle 'first', lane='0_0', gap=-0.49, time=206.00, stage=move.
-Warning: Vehicle 'flow.0' teleports beyond arrival edge '0', time=206.00.
-Warning: Vehicle 'flow.5' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=210.00.
-Warning: Vehicle 'flow.9' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=215.00.
-Warning: Vehicle 'flow.28' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=366.00.
-Warning: Vehicle 'flow.21' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=476.00.
-Warning: Vehicle 'flow.22' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=478.00.
-Warning: Vehicle 'flow.12' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=486.00.
-Warning: Vehicle 'flow.13' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=487.00.
-Warning: Vehicle 'flow.14' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=488.00.
-Warning: Vehicle 'flow.23' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=498.00.
-Warning: Vehicle 'flow.12' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=579.00.
-Warning: Teleporting vehicle 'flow.20'; collision with vehicle 'flow.19', lane='0_0', gap=-0.01, time=619.00, stage=move.
-Warning: Vehicle 'flow.20' teleports beyond arrival edge '0', time=619.00.
+Warning: Teleporting vehicle 'flow.10'; collision with vehicle 'flow.9', lane='0_0', gap=-0.01, time=91.00, stage=move.
+Warning: Vehicle 'flow.10' teleports beyond arrival edge '0', time=91.00.
+Warning: Teleporting vehicle 'flow.11'; collision with vehicle 'flow.9', lane='0_0', gap=-0.83, time=94.00, stage=move.
+Warning: Vehicle 'flow.11' teleports beyond arrival edge '0', time=94.00.
+Warning: Teleporting vehicle 'flow.8'; collision with vehicle 'flow.7', lane='0_0', gap=-0.49, time=221.00, stage=move.
+Warning: Vehicle 'flow.8' teleports beyond arrival edge '0', time=221.00.
+Warning: Teleporting vehicle 'flow.7'; collision with vehicle 'flow.6', lane='0_0', gap=-0.00, time=222.00, stage=move.
+Warning: Vehicle 'flow.7' teleports beyond arrival edge '0', time=222.00.
+Warning: Vehicle 'flow.19' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=229.00.
+Warning: Vehicle 'flow.3' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=344.00.
+Warning: Vehicle 'flow.4' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=345.00.
+Warning: Vehicle 'flow.13' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=466.00.
+Warning: Vehicle 'flow.19' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=488.00.
+Warning: Teleporting vehicle 'flow.14'; collision with vehicle 'flow.13', lane='0_0', gap=-0.05, time=499.00, stage=move.
+Warning: Vehicle 'flow.14' teleports beyond arrival edge '0', time=499.00.
+Warning: Teleporting vehicle 'flow.17'; collision with vehicle 'flow.16', lane='0_0', gap=-0.13, time=504.00, stage=move.
+Warning: Vehicle 'flow.17' teleports beyond arrival edge '0', time=504.00.
+Warning: Teleporting vehicle 'flow.22'; collision with vehicle 'flow.21', lane='0_0', gap=-0.03, time=514.00, stage=move.
+Warning: Vehicle 'flow.22' teleports beyond arrival edge '0', time=514.00.
+Warning: Teleporting vehicle 'flow.23'; collision with vehicle 'flow.21', lane='0_0', gap=-0.21, time=517.00, stage=move.
+Warning: Vehicle 'flow.23' teleports beyond arrival edge '0', time=517.00.
+Warning: Teleporting vehicle 'flow.0'; collision with vehicle 'first', lane='0_0', gap=-0.04, time=583.00, stage=move.
+Warning: Vehicle 'flow.0' teleports beyond arrival edge '0', time=583.00.
+Warning: Vehicle 'flow.15' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=595.00.
+Warning: Teleporting vehicle 'flow.13'; collision with vehicle 'flow.12', lane='0_0', gap=-0.01, time=600.00, stage=move.
+Warning: Vehicle 'flow.13' teleports beyond arrival edge '0', time=600.00.
+Warning: Vehicle 'flow.24' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=604.00.
+Warning: Teleporting vehicle 'flow.15'; collision with vehicle 'flow.12', lane='0_0', gap=-0.03, time=604.00, stage=move.
+Warning: Vehicle 'flow.15' teleports beyond arrival edge '0', time=604.00.
+Warning: Vehicle 'flow.25' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=605.00.
+Warning: Vehicle 'flow.28' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=609.00.
+Warning: Vehicle 'flow.29' performs emergency braking on lane '0_0' with decel=8.00, wished=4.50, severity=1.00, time=610.00.
