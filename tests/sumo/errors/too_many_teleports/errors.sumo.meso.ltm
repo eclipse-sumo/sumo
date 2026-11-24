@@ -2,10 +2,10 @@ Warning: Teleporting vehicle 'always_right.20'; waited too long, from edge '4o':
 Warning: Vehicle 'always_right.20' ends teleporting on edge '4si':0, time=721.51.
 Warning: Teleporting vehicle 'always_right.21'; waited too long, from edge '4o':3, time=978.09.
 Warning: Vehicle 'always_right.21' ends teleporting on edge '4si':0, time=1023.09.
-Warning: Teleporting vehicle 'always_right.42'; waited too long, from edge '4o':3, time=1693.73.
-Warning: Vehicle 'always_right.42' ends teleporting on edge '4si':0, time=1738.74.
-Warning: Teleporting vehicle 'always_right.43'; waited too long, from edge '4o':3, time=1993.74.
-Warning: Vehicle 'always_right.43' ends teleporting on edge '4si':0, time=2038.74.
-Warning: Teleporting vehicle 'always_right.64'; waited too long, from edge '4o':3, time=2720.36.
-Warning: Vehicle 'always_right.64' ends teleporting on edge '4si':0, time=2765.37.
-Warning: Teleporting vehicle 'always_right.65'; waited too long, from edge '4o':3, time=3020.36.
+Warning: Teleporting vehicle 'always_right.42'; waited too long, from edge '4o':3, time=1691.02.
+Warning: Vehicle 'always_right.42' ends teleporting on edge '4si':0, time=1736.03.
+Warning: Teleporting vehicle 'always_right.43'; waited too long, from edge '4o':3, time=1991.03.
+Warning: Vehicle 'always_right.43' ends teleporting on edge '4si':0, time=2036.03.
+Warning: Teleporting vehicle 'always_right.64'; waited too long, from edge '4o':3, time=2713.36.
+Warning: Vehicle 'always_right.64' ends teleporting on edge '4si':0, time=2758.37.
+Warning: Teleporting vehicle 'always_right.65'; waited too long, from edge '4o':3, time=3013.36.

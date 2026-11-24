@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-20T13:06:09.913160+01:00 by Eclipse SUMO sumo v1_28_0+0705-e0fc6c7fe65
+<!-- generated on 2026-11-24T07:59:43.966251+01:00 by Eclipse SUMO sumo v1_28_0+0782-18a99cddeeb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -104,11 +104,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </vehicle>
 
     <vehicle id="2.5" depart="17.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="1118.00">
-        <route edges="2/0to2/1 2/1to1/1" exitTimes="129.00 1118.00"/>
+        <route edges="2/0to2/1 2/1to1/1" exitTimes="118.00 1118.00"/>
     </vehicle>
 
     <vehicle id="2.6" depart="21.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="1121.00">
-        <route edges="2/0to2/1 2/1to1/1" exitTimes="133.00 1121.00"/>
+        <route edges="2/0to2/1 2/1to1/1" exitTimes="122.00 1121.00"/>
     </vehicle>
 
     <vehicle id="0.19" depart="67.00" departPos="0.00" departSpeed="9.63" speedFactor="1.0000" arrival="1121.00">
@@ -116,15 +116,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </vehicle>
 
     <vehicle id="2.7" depart="25.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="1125.00">
-        <route edges="2/0to2/1 2/1to1/1" exitTimes="136.00 1125.00"/>
+        <route edges="2/0to2/1 2/1to1/1" exitTimes="129.00 1125.00"/>
     </vehicle>
 
     <vehicle id="2.8" depart="28.00" departPos="0.00" departSpeed="9.63" speedFactor="1.0000" arrival="1128.00">
-        <route edges="2/0to2/1 2/1to1/1" exitTimes="140.00 1128.00"/>
+        <route edges="2/0to2/1 2/1to1/1" exitTimes="133.00 1128.00"/>
     </vehicle>
 
     <vehicle id="2.9" depart="32.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="1132.00">
-        <route edges="2/0to2/1 2/1to1/1" exitTimes="143.00 1132.00"/>
+        <route edges="2/0to2/1 2/1to1/1" exitTimes="136.00 1132.00"/>
     </vehicle>
 
     <vehicle id="2.10" depart="35.00" departPos="0.00" departSpeed="9.63" speedFactor="1.0000" arrival="1138.00">
@@ -263,23 +263,23 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="2/0to2/1 2/1to1/1" exitTimes="1200.00 2208.00"/>
     </vehicle>
 
-    <vehicle id="2.17" depart="119.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="2208.00">
+    <vehicle id="2.17" depart="108.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="2208.00">
         <route edges="2/0to2/1 2/1to1/1" exitTimes="1208.00 2208.00"/>
     </vehicle>
 
-    <vehicle id="2.18" depart="126.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="2211.00">
+    <vehicle id="2.18" depart="119.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="2211.00">
         <route edges="2/0to2/1 2/1to1/1" exitTimes="1211.00 2211.00"/>
     </vehicle>
 
-    <vehicle id="2.19" depart="137.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="2214.00">
+    <vehicle id="2.19" depart="123.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="2214.00">
         <route edges="2/0to2/1 2/1to1/1" exitTimes="1215.00 2214.00"/>
     </vehicle>
 
-    <vehicle id="2.20" depart="141.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="2218.00">
+    <vehicle id="2.20" depart="126.00" departPos="0.00" departSpeed="9.63" speedFactor="1.0000" arrival="2218.00">
         <route edges="2/0to2/1 2/1to1/1" exitTimes="1218.00 2218.00"/>
     </vehicle>
 
-    <vehicle id="2.21" depart="144.00" departPos="0.00" departSpeed="9.63" speedFactor="1.0000" arrival="2221.00">
+    <vehicle id="2.21" depart="137.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="2221.00">
         <route edges="2/0to2/1 2/1to1/1" exitTimes="1221.00 2221.00"/>
     </vehicle>
 
@@ -287,19 +287,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="2101.00 2141.00 2181.00 2221.00"/>
     </vehicle>
 
-    <vehicle id="2.22" depart="155.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="2225.00">
+    <vehicle id="2.22" depart="141.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="2225.00">
         <route edges="2/0to2/1 2/1to1/1" exitTimes="1228.00 2225.00"/>
     </vehicle>
 
-    <vehicle id="2.23" depart="159.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="2228.00">
+    <vehicle id="2.23" depart="144.00" departPos="0.00" departSpeed="9.63" speedFactor="1.0000" arrival="2228.00">
         <route edges="2/0to2/1 2/1to1/1" exitTimes="1232.00 2228.00"/>
     </vehicle>
 
-    <vehicle id="2.24" depart="162.00" departPos="0.00" departSpeed="9.63" speedFactor="1.0000" arrival="2232.00">
+    <vehicle id="2.24" depart="155.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="2232.00">
         <route edges="2/0to2/1 2/1to1/1" exitTimes="1236.00 2232.00"/>
     </vehicle>
 
-    <vehicle id="2.25" depart="177.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="2238.00">
+    <vehicle id="2.25" depart="162.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="2238.00">
         <route edges="2/0to2/1 2/1to1/1" exitTimes="1519.00 2238.00"/>
     </vehicle>
 
@@ -348,7 +348,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </vehicle>
 
     <vehicle id="1.13" depart="46.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="2261.00">
-        <route edges="3/0to3/1 3/1to2/1" exitTimes="1219.00 2261.00"/>
+        <route edges="3/0to3/1 3/1to2/1" exitTimes="1218.00 2261.00"/>
     </vehicle>
 
     <vehicle id="1.14" depart="50.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="2264.00">

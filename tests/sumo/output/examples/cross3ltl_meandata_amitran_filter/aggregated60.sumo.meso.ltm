@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-20T13:06:12.509024+01:00 by Eclipse SUMO sumo v1_28_0+0705-e0fc6c7fe65
+<!-- generated on 2026-11-24T07:59:46.445811+01:00 by Eclipse SUMO sumo v1_28_0+0782-18a99cddeeb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -129,7 +129,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="24" averageSpeed="1084"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="28" averageSpeed="1071"/>
+        <link id="38" amount="28" averageSpeed="1070"/>
         <link id="39" amount="18" averageSpeed="1110"/>
         <link id="40" amount="17" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
@@ -143,7 +143,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="24" averageSpeed="1085"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="30" averageSpeed="1066"/>
+        <link id="38" amount="30" averageSpeed="1061"/>
         <link id="39" amount="18" averageSpeed="1110"/>
         <link id="40" amount="18" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
@@ -157,7 +157,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="24" averageSpeed="1086"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="30" averageSpeed="1063"/>
+        <link id="38" amount="30" averageSpeed="1056"/>
         <link id="39" amount="18" averageSpeed="1110"/>
         <link id="40" amount="18" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
@@ -171,7 +171,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="24" averageSpeed="1087"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="30" averageSpeed="1061"/>
+        <link id="38" amount="30" averageSpeed="1053"/>
         <link id="39" amount="18" averageSpeed="1110"/>
         <link id="40" amount="18" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
@@ -185,7 +185,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="24" averageSpeed="1088"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="30" averageSpeed="1060"/>
+        <link id="38" amount="30" averageSpeed="1050"/>
         <link id="39" amount="18" averageSpeed="1110"/>
         <link id="40" amount="18" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
@@ -199,7 +199,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="24" averageSpeed="1088"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="30" averageSpeed="1059"/>
+        <link id="38" amount="30" averageSpeed="1048"/>
         <link id="39" amount="18" averageSpeed="1110"/>
         <link id="40" amount="18" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
@@ -213,7 +213,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="24" averageSpeed="1088"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="30" averageSpeed="1058"/>
+        <link id="38" amount="30" averageSpeed="1047"/>
         <link id="39" amount="18" averageSpeed="1110"/>
         <link id="40" amount="18" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
@@ -227,7 +227,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="24" averageSpeed="1089"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="30" averageSpeed="1057"/>
+        <link id="38" amount="30" averageSpeed="1045"/>
         <link id="39" amount="18" averageSpeed="1110"/>
         <link id="40" amount="18" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
@@ -241,7 +241,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="24" averageSpeed="1089"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="30" averageSpeed="1056"/>
+        <link id="38" amount="30" averageSpeed="1044"/>
         <link id="39" amount="18" averageSpeed="1110"/>
         <link id="40" amount="18" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
@@ -255,7 +255,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="16" averageSpeed="1089"/>
         <link id="36" amount="12" averageSpeed="1110"/>
         <link id="37" amount="12" averageSpeed="1388"/>
-        <link id="38" amount="20" averageSpeed="1056"/>
+        <link id="38" amount="20" averageSpeed="1043"/>
         <link id="39" amount="12" averageSpeed="1110"/>
         <link id="40" amount="12" averageSpeed="1388"/>
         <link id="41" amount="12" averageSpeed="1110"/>

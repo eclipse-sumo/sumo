@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-20T13:06:12.521303+01:00 by Eclipse SUMO sumo v1_28_0+0705-e0fc6c7fe65
+<!-- generated on 2026-11-24T07:59:46.449058+01:00 by Eclipse SUMO sumo v1_28_0+0782-18a99cddeeb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -106,8 +106,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="37" amount="90" averageSpeed="1388">
             <actorConfig id="0" amount="90" averageSpeed="1388"/>
         </link>
-        <link id="38" amount="131" averageSpeed="1063">
-            <actorConfig id="0" amount="131" averageSpeed="1062"/>
+        <link id="38" amount="131" averageSpeed="1056">
+            <actorConfig id="0" amount="131" averageSpeed="1053"/>
         </link>
         <link id="39" amount="80" averageSpeed="1110">
             <actorConfig id="0" amount="80" averageSpeed="1110"/>
@@ -144,8 +144,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="37" amount="90" averageSpeed="1388">
             <actorConfig id="0" amount="90" averageSpeed="1388"/>
         </link>
-        <link id="38" amount="150" averageSpeed="1057">
-            <actorConfig id="0" amount="150" averageSpeed="1050"/>
+        <link id="38" amount="150" averageSpeed="1045">
+            <actorConfig id="0" amount="150" averageSpeed="1033"/>
         </link>
         <link id="39" amount="90" averageSpeed="1110">
             <actorConfig id="0" amount="90" averageSpeed="1110"/>
@@ -182,11 +182,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="37" amount="30" averageSpeed="1388">
             <actorConfig id="0" amount="30" averageSpeed="1387"/>
         </link>
-        <link id="38" amount="50" averageSpeed="1056">
-            <actorConfig id="0" amount="50" averageSpeed="1048"/>
+        <link id="38" amount="50" averageSpeed="1043">
+            <actorConfig id="0" amount="50" averageSpeed="1032"/>
         </link>
         <link id="39" amount="30" averageSpeed="1110">
-            <actorConfig id="0" amount="30" averageSpeed="1109"/>
+            <actorConfig id="0" amount="30" averageSpeed="1110"/>
         </link>
         <link id="40" amount="30" averageSpeed="1388">
             <actorConfig id="0" amount="30" averageSpeed="1388"/>

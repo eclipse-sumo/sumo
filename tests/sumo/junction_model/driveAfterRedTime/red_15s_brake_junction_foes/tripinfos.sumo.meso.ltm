@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-20T13:06:14.038636+01:00 by Eclipse SUMO sumo v1_28_0+0705-e0fc6c7fe65
+<!-- generated on 2026-11-24T07:59:48.959757+01:00 by Eclipse SUMO sumo v1_28_0+0782-18a99cddeeb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -57,5 +57,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tripinfo id="foe.1" depart="26.00" departLane="EC_0" departPos="0.00" departSpeed="2.78" departDelay="0.00" arrival="98.00" arrivalLane="CW_0" arrivalPos="50.00" arrivalSpeed="2.78" duration="72.00" routeLength="158.05" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_foe.1" vType="foeType" speedFactor="0.20" vaporized=""/>
     <tripinfo id="foe.2" depart="27.00" departLane="EC_0" departPos="0.00" departSpeed="2.78" departDelay="0.00" arrival="99.00" arrivalLane="CW_0" arrivalPos="50.00" arrivalSpeed="2.78" duration="72.00" routeLength="158.05" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_foe.2" vType="foeType" speedFactor="0.20" vaporized=""/>
     <tripinfo id="foe.3" depart="28.00" departLane="EC_0" departPos="0.00" departSpeed="2.78" departDelay="0.00" arrival="100.00" arrivalLane="CW_0" arrivalPos="50.00" arrivalSpeed="2.78" duration="72.00" routeLength="158.05" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_foe.3" vType="foeType" speedFactor="0.20" vaporized=""/>
-    <tripinfo id="foe.4" depart="29.00" departLane="EC_0" departPos="0.00" departSpeed="2.78" departDelay="0.00" arrival="104.00" arrivalLane="CW_0" arrivalPos="50.00" arrivalSpeed="2.78" duration="75.00" routeLength="158.05" waitingTime="2.85" waitingCount="1" stopTime="0.00" timeLoss="2.85" rerouteNo="0" devices="tripinfo_foe.4" vType="foeType" speedFactor="0.20" vaporized=""/>
+    <tripinfo id="foe.4" depart="29.00" departLane="EC_0" departPos="0.00" departSpeed="2.78" departDelay="0.00" arrival="103.00" arrivalLane="CW_0" arrivalPos="50.00" arrivalSpeed="2.78" duration="74.00" routeLength="158.05" waitingTime="1.80" waitingCount="1" stopTime="0.00" timeLoss="1.80" rerouteNo="0" devices="tripinfo_foe.4" vType="foeType" speedFactor="0.20" vaporized=""/>
 </tripinfos>
