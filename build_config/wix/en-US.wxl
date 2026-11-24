@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later -->
+<WixLocalization Culture="en-US" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+    <String Id="SumoOptionsDialog">SUMO Setup Options</String>
+    <String Id="SumoOptionsTitle">Setup Options</String>
+    <String Id="SumoOptionsDescription">Configure optional checks and environment settings</String>
+    <String Id="SumoHomeOption">Set SUMO_HOME environment variable.</String>
+    <String Id="SumoPathOption">Add SUMO to PATH and PYTHONPATH.</String>
+    <String Id="SumoPythonMissing">Python was not found!</String>
+    <String Id="SumoPythonDownload">It is strongly recommended to &lt;a href="https://www.python.org/downloads/"&gt;install it&lt;/a&gt;.</String>
+    <String Id="SumoCheckPython">Check for recommended Python packages during installation.</String>
+    <String Id="SumoInstallDependencies">Install the tool dependencies into the active Python.</String>
+    <String Id="SumoInstallLibsumo">Install libsumo for Python into the active Python.</String>
+    <String Id="SumoLibsumoRemark">Be aware that the installation of the dependencies (by checking the boxes above) might take some minutes and will add packages to your system python even if you cancel the SUMO installation or uninstall it later. If you want to do it manually call 'pip install libsumo -r %SUMO_HOME%/tools/requirements.txt'.</String>
+    <String Id="SumoWingetTip">Tip: Use 'winget install SUMO --scope user' to install for the current user only (no admin rights).</String>
+    <String Id="SumoJpsMissing">Python package ''jupedsim'' not found. Please install via pip.</String>
+    <String Id="SumoSetup">SUMO Setup</String>
+    <String Id="SumoSimulationDescription">Simulation of Urban Mobility</String>
+    <String Id="SumoConfigFile">SUMO Configuration File</String>
+    <String Id="SumoNeteditDescription">SUMO Network Editor</String>
+    <String Id="SumoNeteditConfigFile">Sumo Netedit Configuration File</String>
+    <String Id="SumoCommandLine">SUMO (Command Line Environment)</String>
+    <String Id="SumoRuntimeTitle">Main program</String>
+    <String Id="SumoRuntimeDescription">SUMO binaries and libsumo / libtraci C++ dlls.</String>
+    <String Id="SumoDllTitle">Runtime libraries</String>
+    <String Id="SumoDllDescription">Required Windows DLLs.</String>
+    <String Id="SumoDataTitle">Data</String>
+    <String Id="SumoDataDescription">Additional data like XML schemata and edge type maps.</String>
+    <String Id="SumoDocsTitle">Documentation</String>
+    <String Id="SumoDocsDescription">User, Python and Java documentation, tutorials and examples.</String>
+    <String Id="SumoIncludeTitle">Includes</String>
+    <String Id="SumoIncludeDescription">C++ header files for libsumo / libtraci.</String>
+    <String Id="SumoToolsTitle">Tools</String>
+    <String Id="SumoToolsDescription">Additional Python tooling.</String>
+    <String Id="SumoProductDescription">Simulation of Urban MObility</String>
+    <String Id="SumoDowngrade">A later version of [ProductName] is already installed. Setup will now exit.</String>
+    <String Id="SumoProductLanguage">1033</String>
+</WixLocalization>
