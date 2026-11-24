@@ -23,6 +23,7 @@
 #include <vector>
 #include <queue>
 #include <map>
+#include <set>
 #include <utils/common/SUMOTime.h>
 #include <microsim/MSMoveReminder.h>
 
@@ -185,6 +186,9 @@ private:
 
     /// @brief the interval at which to recheck at full segments (<=0 means asap)
     const SUMOTime myFullRecheckInterval;
+
+    /// @brief Edges where a full-segment recheck delay has been reported
+    std::set<int> myWarnedRecheckEdges;
 
     /// @brief the interval at which to recheck at blocked junctions (<=0 means asap)
     const SUMOTime myLinkRecheckInterval;

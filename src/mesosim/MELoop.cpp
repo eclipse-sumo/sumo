@@ -241,7 +241,8 @@ MELoop::checkCar(MEVehicle* veh) {
     }
     if (nextEntry == SUMOTime_MAX) {
         // all usable queues on the next segment are full
-        SUMOTime newEventTime = MAX3(toSegment->getEventTime() + 1, leaveTime + 1, leaveTime + myFullRecheckInterval);
+        const SUMOTime nextExitCheck = toSegment->getEventTime() + 1;
+        SUMOTime newEventTime = MAX3(nextExitCheck, leaveTime + 1, leaveTime + myFullRecheckInterval);
         if (ttt) {
             // if teleporting is enabled, make sure we look at the vehicle when the gridlock-time is up
             const SUMOTime recheck = veh->getBlockTime() + 1 + ttt;
@@ -253,6 +254,20 @@ MELoop::checkCar(MEVehicle* veh) {
             const SUMOTime recheck = veh->getBlockTime() + 1 + MSGlobals::gTimeToTeleportDisconnected;
             if (recheck > leaveTime && veh->getEdge()->allowedLanes(*veh->succEdge(1), veh->getVClass()) == nullptr) {
                 newEventTime = MIN2(newEventTime, recheck);
+            }
+        }
+        if (myFullRecheckInterval > 1 && newEventTime > MAX2(nextExitCheck, leaveTime + 1)
+                && toSegment->getEdge().isNormal() && toSegment->getIndex() == 0
+                && toSegment->getNextSegment() == nullptr && toSegment->numQueues() == 1) {
+            const std::vector<MEVehicle*>& vehicles = toSegment->getQueue(0);
+            if (vehicles.size() == 1) {
+                const MEVehicle& leader = *vehicles.front();
+                const double combinedLength = leader.getVehicleType().getLengthWithGap() + veh->getVehicleType().getLengthWithGap();
+                if (!leader.isStopped() && leader.getBlockTime() == SUMOTime_MAX && combinedLength > toSegment->getCapacity()
+                        && myWarnedRecheckEdges.insert(toSegment->getEdge().getNumericalID()).second) {
+                    WRITE_WARNINGF(TL("Option --meso-recheck delays checking entry to short edge '%' by %s after its vehicle's scheduled exit."),
+                                   toSegment->getEdge().getID(), time2string(newEventTime - MAX2(nextExitCheck, leaveTime + 1)));
+                }
             }
         }
         veh->setEventTime(newEventTime);
