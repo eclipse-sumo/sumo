@@ -189,6 +189,9 @@ public:
         /// @brief mark Program as modified
         void markAsModified();
 
+        /// @brief Queue removal of unused states from all programs until the edits are saved
+        void queueStateCleanup();
+
         /// @brief get current definition
         NBTrafficLightDefinition* getCurrentTLSPrograms() const;
 
@@ -245,6 +248,12 @@ public:
 
         /// @brief whether the current tls was modified
         bool myHaveModifications = false;
+
+        /// @brief Remove unused state columns from all programs on save
+        bool myCleanupAllPrograms = false;
+
+        /// @brief Apply one shared index mapping to all programs in the current edit
+        bool applyStateCleanup(GNEUndoList* undoList);
 
         /// @brief button for create new TLS program
         FXButton* myCreateButton = nullptr;
