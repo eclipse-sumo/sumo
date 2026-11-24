@@ -1,0 +1,4 @@
+--no-step-log --net-file=net.net.xml
+-a input_additional.add.xml
+-r input_routes.rou.xml
+--device.rerouting.output weights.xml --device.rerouting.adaptation-interval 10 --weights.random-factor 1.5
