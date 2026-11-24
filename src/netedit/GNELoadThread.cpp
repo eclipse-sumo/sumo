@@ -124,6 +124,7 @@ GNELoadThread::run() {
         // load information through console
         type = GNEEvent_FileLoaded::Type::CONSOLE;
     }
+    const std::string outputFile = neteditOptions.isDefault("output-file") ? "" : neteditOptions.getString("output-file");
     // run handlers
     if (type == GNEEvent_FileLoaded::Type::SUMOCFG) {
         // declare parser for sumo config file
@@ -146,6 +147,10 @@ GNELoadThread::run() {
         if (!confighandler.loadNeteditConfig()) {
             return submitEndAndCleanup(type, nullptr, loadedFile);
         }
+    }
+    // Preserve a command-line output path after the configuration has been loaded and relocated.
+    if (!outputFile.empty() && (type == GNEEvent_FileLoaded::Type::NETCCFG || type == GNEEvent_FileLoaded::Type::NETECFG)) {
+        neteditOptions.set("output-file", outputFile);
     }
     // check input
     if (type == GNEEvent_FileLoaded::Type::INVALID_TYPE) {

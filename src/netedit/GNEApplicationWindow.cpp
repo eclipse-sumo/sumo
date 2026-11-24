@@ -3000,11 +3000,17 @@ GNEApplicationWindow::onUpdNeedsFrontElement(FXObject* sender, FXSelector, void*
 }
 
 
+static std::string
+getRequestedNetworkOutput(const OptionsCont& options) {
+    return options.isDefault("output-file") ? std::string() : options.getString("output-file");
+}
+
+
 long
 GNEApplicationWindow::onUpdSaveNetwork(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myNet->getSavingStatus()->isNetworkSaved()) {
+    } else if (myNet->getSavingStatus()->isNetworkSaved() && getRequestedNetworkOutput(OptionsCont::getOptions()).empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -3546,24 +3552,24 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* sender, FXSelector sel, vo
 long
 GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* ptr) {
     auto& neteditOptions = OptionsCont::getOptions();
-    // check if we're forcing to saving additionals
+    const auto outputFile = getRequestedNetworkOutput(neteditOptions);
+    // check if we're forcing to save the network
     if (myNet->getSavingStatus()->isNetworkSaved() &&
             neteditOptions.getBool("force-saving")) {
         WRITE_MESSAGE(TL("Force save network"));
-    } else if (myNet->getSavingStatus()->isNetworkSaved()) {
+    } else if (myNet->getSavingStatus()->isNetworkSaved() && outputFile.empty()) {
         // nothing to save
         return 1;
     }
-    // first check if we have to set the output filename
-    if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETWORK)) {
+    if (outputFile.empty() && !myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETWORK)) {
         myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, myFileBucketHandler->getConfigFilePrefix(".net.xml"));
     }
-    // function onCmdSaveNetworkAs must be executed if this is the first save
-    if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETWORK)) {
+    if (outputFile.empty() && !myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETWORK)) {
         return onCmdSaveNetworkAs(sender, sel, ptr);
     } else {
         // always recompute before saving
         myNet->computeNetwork(this);
+        const auto previousFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETWORK);
         bool saved = false;
         try {
             // obtain invalid networkElements (currently only edges or crossings
@@ -3583,25 +3589,26 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
             if (invalidNetworkElements.size() > 0) {
                 // create fix network elements dialog
                 const GNEFixNetworkElements fixNetworkElementsDialog(this, invalidNetworkElements);
-                // continue depending of result
-                if (fixNetworkElementsDialog.getResult() == GNEDialog::Result::ACCEPT) {
-                    // Save network
-                    myNet->saveNetwork();
-                    saved = true;
-                } else {
-                    // stop
+                if (fixNetworkElementsDialog.getResult() != GNEDialog::Result::ACCEPT) {
                     return 0;
                 }
-            } else {
-                // Save network
-                myNet->saveNetwork();
-                saved = true;
             }
+            if (!outputFile.empty()) {
+                myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, outputFile);
+            }
+            myNet->saveNetwork();
+            saved = true;
         } catch (IOError& e) {
+            if (!outputFile.empty()) {
+                myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, previousFile);
+            }
             // open error message box
             GNEErrorBasicDialog(this, TL("Saving network failed"), e.what());
         }
         if (saved) {
+            if (!outputFile.empty()) {
+                setTitle(MFXUtils::getTitleText(myTitlePrefix, outputFile.c_str()));
+            }
             // write info
             WRITE_MESSAGE(TLF("Network saved in '%'.", myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETWORK)));
             // After saving a net successfully, add it into Recent Nets list.
@@ -3631,6 +3638,7 @@ GNEApplicationWindow::onCmdSaveNetworkAs(FXObject* sender, FXSelector sel, void*
     if (networkFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // update default network file
         myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, networkFileDialog.getFilename());
+        OptionsCont::getOptions().resetDefault("output-file");
         // update netedit title with the network name
         setTitle(MFXUtils::getTitleText(myTitlePrefix, networkFileDialog.getFilename().c_str()));
         // enable save network
