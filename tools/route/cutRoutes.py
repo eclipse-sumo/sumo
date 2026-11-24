@@ -496,7 +496,7 @@ def write_trip(file, vehicle):
         file.write(u'>\n')
         for stop in vehicle.stop:
             file.write(stop.toXML(u'        '))
-        file.write(u'</trip>\n')
+        file.write(u'    </trip>\n')
     else:
         file.write(u'/>\n')
 
