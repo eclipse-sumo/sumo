@@ -11,6 +11,10 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
+# @file    runner.py
+# @author  Josh
+# @date    2026-11-26
+
 from pathlib import Path
 import os
 import subprocess
@@ -37,7 +41,7 @@ def simulate(network, edges, vclass, *options):
     )
 
 
-fixtures = home / "tests/duarouter/bugs"
+fixtures = Path(__file__).resolve().parents[3] / "duarouter/bugs"
 for directory, edge, options in (
     ("ticket15922", "E1", ()),
     ("ticket15883", "E5", ("--no-internal-links",)),
