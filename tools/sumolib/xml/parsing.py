@@ -631,7 +631,6 @@ def parse_fast_nested(xmlfile, element_name, attrnames=None, element_name2=None,
         Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
     if attrnames2 is not None:
         Record2, reprog2 = _createRecordAndPattern(element_name2, attrnames2, warn, optional)
-    finalizer = "</%s>" % element_name
     xmlfile, close_source = _check_file_like(xmlfile)
     try:
         for line in _comment_filter(xmlfile):
@@ -655,7 +654,7 @@ def parse_fast_nested(xmlfile, element_name, attrnames=None, element_name2=None,
                 m = reprog.search(line)
                 if m:
                     record = Record(**m.groupdict())
-                elif finalizer in line:
+                elif element_name in line:
                     record = None
     finally:
         if close_source:
