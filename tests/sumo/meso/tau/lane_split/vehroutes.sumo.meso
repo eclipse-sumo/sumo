@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="v0" type="car" depart="0.00" arrival="30.40">
+        <route edges="approach left" exitTimes="25.00 30.40"/>
+    </vehicle>
+
+    <vehicle id="v1" type="car" depart="0.00" arrival="30.70">
+        <route edges="approach right" exitTimes="25.50 30.70"/>
+    </vehicle>
+
+    <vehicle id="v2" type="car" depart="0.00" arrival="31.30">
+        <route edges="approach left" exitTimes="25.90 31.30"/>
+    </vehicle>
+
+    <vehicle id="v3" type="car" depart="0.00" arrival="31.60">
+        <route edges="approach right" exitTimes="26.40 31.60"/>
+    </vehicle>
+
+    <vehicle id="v4" type="car" depart="0.00" arrival="32.20">
+        <route edges="approach left" exitTimes="26.80 32.20"/>
+    </vehicle>
+
+    <vehicle id="v5" type="car" depart="0.00" arrival="32.50">
+        <route edges="approach right" exitTimes="27.30 32.50"/>
+    </vehicle>
+
+    <vehicle id="v6" type="car" depart="0.00" arrival="33.10">
+        <route edges="approach left" exitTimes="27.70 33.10"/>
+    </vehicle>
+
+    <vehicle id="v7" type="car" depart="0.00" arrival="33.40">
+        <route edges="approach right" exitTimes="28.20 33.40"/>
+    </vehicle>
+
+</routes>

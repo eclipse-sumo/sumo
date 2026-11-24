@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,30.00" convBoundary="0.00,0.00,200.00,60.00" origBoundary="0.00,-30.00,200.00,30.00" projParameter="!"/>
+
+    <edge id=":b_0" function="internal">
+        <lane id=":b_0_0" index="0" speed="20.00" length="13.34" shape="98.50,18.80 102.35,19.51 104.95,20.92 107.50,21.98 111.19,21.63"/>
+        <lane id=":b_0_1" index="1" speed="20.00" length="14.21" shape="98.50,22.00 102.62,22.70 105.42,24.10 108.16,25.12 112.11,24.70"/>
+    </edge>
+    <edge id=":b_2" function="internal">
+        <lane id=":b_2_0" index="0" speed="20.00" length="13.69" shape="98.50,25.20 102.64,25.45 105.42,26.16 108.14,27.24 112.11,28.62"/>
+        <lane id=":b_2_1" index="1" speed="20.00" length="13.69" shape="98.50,28.40 102.37,28.65 104.95,29.34 107.48,30.38 111.19,31.69"/>
+    </edge>
+
+    <edge id="approach" from="a" to="b" priority="-1">
+        <lane id="approach_0" index="0" speed="20.00" length="98.50" shape="0.00,18.80 98.50,18.80"/>
+        <lane id="approach_1" index="1" speed="20.00" length="98.50" shape="0.00,22.00 98.50,22.00"/>
+        <lane id="approach_2" index="2" speed="20.00" length="98.50" shape="0.00,25.20 98.50,25.20"/>
+        <lane id="approach_3" index="3" speed="20.00" length="98.50" shape="0.00,28.40 98.50,28.40"/>
+    </edge>
+    <edge id="left" from="b" to="d" priority="-1">
+        <lane id="left_0" index="0" speed="20.00" length="93.20" shape="112.11,28.62 201.38,55.40"/>
+        <lane id="left_1" index="1" speed="20.00" length="93.20" shape="111.19,31.69 200.46,58.47"/>
+    </edge>
+    <edge id="right" from="b" to="c" priority="-1">
+        <lane id="right_0" index="0" speed="20.00" length="91.28" shape="111.19,21.63 198.62,-4.60"/>
+        <lane id="right_1" index="1" speed="20.00" length="91.28" shape="112.11,24.70 199.54,-1.53"/>
+    </edge>
+
+    <tlLogic id="b" type="static" programID="0" offset="0">
+        <phase duration="25" state="rrrr"/>
+        <phase duration="97" state="GGGG"/>
+        <phase duration="3" state="yyyy"/>
+    </tlLogic>
+
+    <junction id="a" type="dead_end" x="0.00" y="30.00" incLanes="" intLanes="" shape="0.00,30.00 0.00,17.20"/>
+    <junction id="b" type="traffic_light" x="100.00" y="30.00" incLanes="approach_0 approach_1 approach_2 approach_3" intLanes=":b_0_0 :b_0_1 :b_2_0 :b_2_1" shape="110.73,33.22 112.57,27.09 112.57,26.23 110.73,20.10 108.17,20.51 106.28,20.15 104.72,19.33 103.13,18.35 101.17,17.54 98.50,17.20 98.50,30.00 101.18,30.11 103.14,30.43 104.72,30.93 106.28,31.58 108.16,32.35">
+        <request index="0" response="0000" foes="0000" cont="0"/>
+        <request index="1" response="0000" foes="0000" cont="0"/>
+        <request index="2" response="0000" foes="0000" cont="0"/>
+        <request index="3" response="0000" foes="0000" cont="0"/>
+    </junction>
+    <junction id="c" type="dead_end" x="200.00" y="0.00" incLanes="right_0 right_1" intLanes="" shape="198.16,-6.13 200.00,-0.00"/>
+    <junction id="d" type="dead_end" x="200.00" y="60.00" incLanes="left_0 left_1" intLanes="" shape="201.84,53.87 200.00,60.00"/>
+
+    <connection from="approach" to="right" fromLane="0" toLane="0" via=":b_0_0" tl="b" linkIndex="0" dir="R" state="O"/>
+    <connection from="approach" to="right" fromLane="1" toLane="1" via=":b_0_1" tl="b" linkIndex="1" dir="R" state="O"/>
+    <connection from="approach" to="left" fromLane="2" toLane="0" via=":b_2_0" tl="b" linkIndex="2" dir="s" state="O"/>
+    <connection from="approach" to="left" fromLane="3" toLane="1" via=":b_2_1" tl="b" linkIndex="3" dir="s" state="O"/>
+
+    <connection from=":b_0" to="right" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":b_0" to="right" fromLane="1" toLane="1" dir="R" state="M"/>
+    <connection from=":b_2" to="left" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":b_2" to="left" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>
