@@ -107,6 +107,16 @@ set_target_properties(od2trips PROPERTIES OUTPUT_NAME_DEBUG od2trips${BINARY_SUF
 target_link_libraries(od2trips od router ${commonvehiclelibs} ${TCMALLOC_LIBRARY})
 add_dependencies(od2trips generate-version-h install_dll)
 
+if (MSVC)
+    foreach(sumo_executable IN ITEMS activitygen dfrouter duarouter emissionsDrivingCycle emissionsMap
+            jtrrouter marouter netconvert netedit netgenerate od2trips polyconvert sumo sumo-gui)
+        if (TARGET ${sumo_executable})
+            target_sources(${sumo_executable} PRIVATE
+                "$<$<CONFIG:Release>:${CMAKE_CURRENT_SOURCE_DIR}/WindowsErrorMode.cpp>")
+        endif()
+    endforeach()
+endif()
+
 install(TARGETS sumo netconvert od2trips RUNTIME DESTINATION bin COMPONENT runtime)
 install(DIRECTORY libsumo DESTINATION include COMPONENT runtime
         FILES_MATCHING PATTERN "*.h"
