@@ -30,7 +30,7 @@ Use [TextTest](docs/web/docs/Developer/Tests.md) for application regressions and
 texttest -a sumo -ts basic/routes/simtime_fractional -con
 ```
 
-Place regression fixtures in the affected application suite. Reuse shared input files where possible and generate network fixtures with netconvert or netgenerate. Check the relevant simulation or routing variants when a change affects shared behavior. Inspect differences before updating expected output.
+Place regression fixtures in the affected application suite. Reuse an existing test network when it covers the case. Check related open pull requests for suitable fixtures. If no existing network covers the case, generate the network with netconvert or netgenerate and record the generator inputs and command. Check the relevant simulation or routing variants when a change affects shared behavior. Inspect differences before updating expected output.
 
 ## Keep interfaces and documentation aligned
 
