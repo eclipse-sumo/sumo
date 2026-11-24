@@ -744,9 +744,9 @@ failVeh pos=0.0 edges=('3fi', 'disconnected')
 step 133.0
 {80: '1fi', 86: 166.66666666666666}
 step 134.0
-pav edge=2fi pos=0.0 stopState=0
+pav edge=2fi pos=0.0 stopState=131
 step 135.0
-pav edge=2fi pos=0.0 stopState=0
+pav edge=2fi pos=0.0 stopState=131
 step 136.0
 pav edge=2fi pos=0.0 stopState=0
 step 137.0

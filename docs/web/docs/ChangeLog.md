@@ -117,6 +117,7 @@ title: ChangeLog
   - Fixed handling of invalid moveToXY angles #18500
   - Fixed inefficiency when sending commands #18503
   - Fixed transport failures and connection recovery #18495
+  - Fixed `vehicle.getStopState` returning 0 with a warning in meso
 
 - tools
   - gtfs2pt.py: fixed crash #18446 (regression in 1.27.1)
