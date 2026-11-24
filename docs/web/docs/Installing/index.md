@@ -59,6 +59,15 @@ and then again
 sudo apt-get install sumo sumo-tools sumo-doc
 ```
 
+The Debian and Ubuntu packages install SUMO's shared files under `/usr/share/sumo`. This directory contains the `data` directory with the XML schemas and the `tools` directory from the `sumo-tools` package.
+
+The `sumo` package provides a profile script that sets `SUMO_HOME` for new login shells. In an existing terminal or a script that starts without this setting, run:
+
+```sh
+export SUMO_HOME=/usr/share/sumo
+test -r "$SUMO_HOME/data/xsd/net_file.xsd"
+```
+
 Precompiled binaries for different distributions like openSUSE and
 Fedora can be found at these [repositories for binary Linux versions](https://download.opensuse.org/repositories/home:/behrisch/).
 These repositories contain nightly builds as well. In the case your
