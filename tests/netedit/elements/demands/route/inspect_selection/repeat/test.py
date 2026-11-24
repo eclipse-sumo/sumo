@@ -41,16 +41,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change parameter repeat with a non valid value (empty)
-netedit.modifyAttributeOverlapped(netedit.attrs.route.inspectSelection.repeat, "")
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.repeat, "")
 
 # Change parameter repeat with a non valid value (dummy)
-netedit.modifyAttributeOverlapped(netedit.attrs.route.inspectSelection.repeat, "dummyRepeat")
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.repeat, "dummyRepeat")
 
 # Change parameter repeat with a valid value
-netedit.modifyAttributeOverlapped(netedit.attrs.route.inspectSelection.repeat, "-13.1")
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.repeat, "-13.1")
 
 # Change parameter repeat with a valid value
-netedit.modifyAttributeOverlapped(netedit.attrs.route.inspectSelection.repeat, "14")
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.repeat, "14")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -18,6 +18,8 @@
 // Frame for overlapped elements
 /****************************************************************************/
 
+#include <algorithm>
+
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
@@ -134,10 +136,17 @@ GNEOverlappedInspection::refreshOverlappedInspection() {
         }
         // select current item
         myOverlappedElementList->getItem(myItemIndex)->setSelected(TRUE);
-        // show modul
-        show();
-        // call selectedOverlappedElement
         myFrameParent->selectedOverlappedElement(myOverlappedACs.at(myItemIndex));
+        const auto& inspected = myFrameParent->getViewNet()->getInspectedElements();
+        const bool allOverlapsInspected = !myOnlyJunctions &&
+            std::all_of(myOverlappedACs.begin(), myOverlappedACs.end(), [&](const GNEAttributeCarrier* ac) {
+                return inspected.isACInspected(ac);
+            });
+        if (allOverlapsInspected) {
+            hide();
+        } else {
+            show();
+        }
     } else {
         if (myOverlappedACs.size() > 0) {
             myFrameParent->selectedOverlappedElement(myOverlappedACs.front());
