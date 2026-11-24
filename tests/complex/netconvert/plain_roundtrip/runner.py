@@ -27,6 +27,7 @@ import sys
 import os
 import subprocess
 import difflib
+import xml.etree.ElementTree as ET
 
 import pandas as pd
 
@@ -44,6 +45,9 @@ subprocess.call([netconvert,
 subprocess.call([netconvert,
                  '--sumo-net-file', 'input_net.net.xml.gz',
                  '--plain-output', 'plain', '--output.format', format])
+assert not ET.parse("plain.tll.xml").findall("connection")
+assert any(connection.get("linkIndex") is not None
+           for connection in ET.parse("plain.con.xml").findall("connection"))
 xsd_dir = os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "data", "xsd")
 schemata = {
     "plain.con." + format: "connections_file.xsd",

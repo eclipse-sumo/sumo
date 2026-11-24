@@ -55,5 +55,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="5"  state="r"/>
     </tlLogic>
 
-    <connection from="WC" to="CW" fromLane="1" toLane="1" tl="C" linkIndex="0"/>
 </tlLogics>

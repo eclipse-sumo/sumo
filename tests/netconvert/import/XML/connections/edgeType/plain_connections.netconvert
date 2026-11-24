@@ -41,36 +41,36 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <connection from="CW" to="WC" fromLane="2" toLane="2"/>
 
-    <connection from="EC" to="CN" fromLane="0" toLane="0"/>
-    <connection from="EC" to="CW" fromLane="0" toLane="0"/>
-    <connection from="EC" to="CS" fromLane="0" toLane="0" type="customType"/>
-    <connection from="EC" to="CN" fromLane="1" toLane="1"/>
-    <connection from="EC" to="CW" fromLane="1" toLane="1"/>
-    <connection from="EC" to="CW" fromLane="2" toLane="2"/>
-    <connection from="EC" to="CS" fromLane="2" toLane="2"/>
+    <connection from="EC" to="CN" fromLane="0" toLane="0" linkIndex="7"/>
+    <connection from="EC" to="CW" fromLane="0" toLane="0" linkIndex="8"/>
+    <connection from="EC" to="CS" fromLane="0" toLane="0" type="customType" linkIndex="9"/>
+    <connection from="EC" to="CN" fromLane="1" toLane="1" linkIndex="10"/>
+    <connection from="EC" to="CW" fromLane="1" toLane="1" linkIndex="11"/>
+    <connection from="EC" to="CW" fromLane="2" toLane="2" linkIndex="12"/>
+    <connection from="EC" to="CS" fromLane="2" toLane="2" linkIndex="13"/>
 
-    <connection from="NC" to="CW" fromLane="0" toLane="0"/>
-    <connection from="NC" to="CS" fromLane="0" toLane="0"/>
-    <connection from="NC" to="CE" fromLane="0" toLane="0" type="customType2"/>
-    <connection from="NC" to="CW" fromLane="1" toLane="1"/>
-    <connection from="NC" to="CS" fromLane="1" toLane="1"/>
-    <connection from="NC" to="CS" fromLane="2" toLane="2"/>
-    <connection from="NC" to="CE" fromLane="2" toLane="2"/>
+    <connection from="NC" to="CW" fromLane="0" toLane="0" linkIndex="0"/>
+    <connection from="NC" to="CS" fromLane="0" toLane="0" linkIndex="1"/>
+    <connection from="NC" to="CE" fromLane="0" toLane="0" type="customType2" linkIndex="2"/>
+    <connection from="NC" to="CW" fromLane="1" toLane="1" linkIndex="3"/>
+    <connection from="NC" to="CS" fromLane="1" toLane="1" linkIndex="4"/>
+    <connection from="NC" to="CS" fromLane="2" toLane="2" linkIndex="5"/>
+    <connection from="NC" to="CE" fromLane="2" toLane="2" linkIndex="6"/>
 
-    <connection from="SC" to="CE" fromLane="0" toLane="0"/>
-    <connection from="SC" to="CN" fromLane="0" toLane="0"/>
-    <connection from="SC" to="CW" fromLane="0" toLane="0"/>
-    <connection from="SC" to="CE" fromLane="1" toLane="1"/>
-    <connection from="SC" to="CN" fromLane="1" toLane="1"/>
-    <connection from="SC" to="CN" fromLane="2" toLane="2"/>
-    <connection from="SC" to="CW" fromLane="2" toLane="2"/>
+    <connection from="SC" to="CE" fromLane="0" toLane="0" linkIndex="14"/>
+    <connection from="SC" to="CN" fromLane="0" toLane="0" linkIndex="15"/>
+    <connection from="SC" to="CW" fromLane="0" toLane="0" linkIndex="16"/>
+    <connection from="SC" to="CE" fromLane="1" toLane="1" linkIndex="17"/>
+    <connection from="SC" to="CN" fromLane="1" toLane="1" linkIndex="18"/>
+    <connection from="SC" to="CN" fromLane="2" toLane="2" linkIndex="19"/>
+    <connection from="SC" to="CW" fromLane="2" toLane="2" linkIndex="20"/>
 
-    <connection from="WC" to="CS" fromLane="0" toLane="0"/>
-    <connection from="WC" to="CE" fromLane="0" toLane="0"/>
-    <connection from="WC" to="CN" fromLane="0" toLane="0"/>
-    <connection from="WC" to="CS" fromLane="1" toLane="1"/>
-    <connection from="WC" to="CE" fromLane="1" toLane="1"/>
-    <connection from="WC" to="CE" fromLane="2" toLane="2"/>
-    <connection from="WC" to="CN" fromLane="2" toLane="2"/>
+    <connection from="WC" to="CS" fromLane="0" toLane="0" linkIndex="21"/>
+    <connection from="WC" to="CE" fromLane="0" toLane="0" linkIndex="22"/>
+    <connection from="WC" to="CN" fromLane="0" toLane="0" linkIndex="23"/>
+    <connection from="WC" to="CS" fromLane="1" toLane="1" linkIndex="24"/>
+    <connection from="WC" to="CE" fromLane="1" toLane="1" linkIndex="25"/>
+    <connection from="WC" to="CE" fromLane="2" toLane="2" linkIndex="26"/>
+    <connection from="WC" to="CN" fromLane="2" toLane="2" linkIndex="27"/>
 
 </connections>

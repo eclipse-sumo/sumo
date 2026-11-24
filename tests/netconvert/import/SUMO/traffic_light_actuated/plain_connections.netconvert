@@ -49,31 +49,31 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
-    <connection from="1fi" to="3o" fromLane="0" toLane="0"/>
-    <connection from="1fi" to="2o" fromLane="0" toLane="0"/>
-    <connection from="1fi" to="4o" fromLane="1" toLane="0"/>
-    <connection from="1fi" to="1o" fromLane="1" toLane="0"/>
+    <connection from="1fi" to="3o" fromLane="0" toLane="0" linkIndex="12"/>
+    <connection from="1fi" to="2o" fromLane="0" toLane="0" linkIndex="13"/>
+    <connection from="1fi" to="4o" fromLane="1" toLane="0" linkIndex="14"/>
+    <connection from="1fi" to="1o" fromLane="1" toLane="0" linkIndex="15"/>
 
     <connection from="1o" to="1fi" fromLane="0" toLane="1"/>
 
-    <connection from="2fi" to="4o" fromLane="0" toLane="0"/>
-    <connection from="2fi" to="1o" fromLane="0" toLane="0"/>
-    <connection from="2fi" to="3o" fromLane="1" toLane="0"/>
-    <connection from="2fi" to="2o" fromLane="1" toLane="0"/>
+    <connection from="2fi" to="4o" fromLane="0" toLane="0" linkIndex="4"/>
+    <connection from="2fi" to="1o" fromLane="0" toLane="0" linkIndex="5"/>
+    <connection from="2fi" to="3o" fromLane="1" toLane="0" linkIndex="6"/>
+    <connection from="2fi" to="2o" fromLane="1" toLane="0" linkIndex="7"/>
 
     <connection from="2o" to="2fi" fromLane="0" toLane="1"/>
 
-    <connection from="3fi" to="2o" fromLane="0" toLane="0"/>
-    <connection from="3fi" to="4o" fromLane="0" toLane="0"/>
-    <connection from="3fi" to="1o" fromLane="1" toLane="0"/>
-    <connection from="3fi" to="3o" fromLane="1" toLane="0"/>
+    <connection from="3fi" to="2o" fromLane="0" toLane="0" linkIndex="8"/>
+    <connection from="3fi" to="4o" fromLane="0" toLane="0" linkIndex="9"/>
+    <connection from="3fi" to="1o" fromLane="1" toLane="0" linkIndex="10"/>
+    <connection from="3fi" to="3o" fromLane="1" toLane="0" linkIndex="11"/>
 
     <connection from="3o" to="3fi" fromLane="0" toLane="1"/>
 
-    <connection from="4fi" to="1o" fromLane="0" toLane="0"/>
-    <connection from="4fi" to="3o" fromLane="0" toLane="0"/>
-    <connection from="4fi" to="2o" fromLane="1" toLane="0"/>
-    <connection from="4fi" to="4o" fromLane="1" toLane="0"/>
+    <connection from="4fi" to="1o" fromLane="0" toLane="0" linkIndex="0"/>
+    <connection from="4fi" to="3o" fromLane="0" toLane="0" linkIndex="1"/>
+    <connection from="4fi" to="2o" fromLane="1" toLane="0" linkIndex="2"/>
+    <connection from="4fi" to="4o" fromLane="1" toLane="0" linkIndex="3"/>
 
     <connection from="4o" to="4fi" fromLane="0" toLane="1"/>
 

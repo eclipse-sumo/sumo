@@ -72,39 +72,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="2.70"  state="rrrGrOrrrryyrrrOrrrrrrrrrOrrrrrrrrr"/>
     </tlLogic>
 
-    <connection from="gneE111" to="gneE119" fromLane="0" toLane="0" tl="K0001" linkIndex="20"/>
-    <connection from="gneE111" to="gneE133.0" fromLane="1" toLane="0" tl="K0001" linkIndex="21"/>
-    <connection from="gneE111" to="gneE133.0" fromLane="1" toLane="1" tl="K0001" linkIndex="22"/>
-    <connection from="gneE111" to="gneE125" fromLane="2" toLane="0" tl="K0001" linkIndex="23"/>
-    <connection from="gneE113" to="gneE133.0" fromLane="0" toLane="0" tl="K0001" linkIndex="10"/>
-    <connection from="gneE113" to="gneE133.0" fromLane="0" toLane="1" tl="K0001" linkIndex="11"/>
-    <connection from="gneE113" to="gneE125" fromLane="1" toLane="0" tl="K0001" linkIndex="12"/>
-    <connection from="gneE113" to="gneE135" fromLane="1" toLane="0" tl="K0001" linkIndex="13"/>
-    <connection from="gneE123" to="gneE135" fromLane="0" toLane="0" tl="K0001" linkIndex="30"/>
-    <connection from="gneE123" to="gneE119" fromLane="1" toLane="0" tl="K0001" linkIndex="31"/>
-    <connection from="gneE123" to="gneE133.0" fromLane="1" toLane="1" tl="K0001" linkIndex="32"/>
-    <connection from="gneE129.48" to="gneE125" fromLane="1" toLane="0" tl="K0001" linkIndex="1"/>
-    <connection from="gneE129.48" to="gneE135" fromLane="1" toLane="0" tl="K0001" linkIndex="2"/>
-    <connection from="gneE129.48" to="gneE119" fromLane="2" toLane="0" tl="K0001" linkIndex="3"/>
-    <connection from="gneE158" to="gneE159" fromLane="0" toLane="0" tl="K0001" linkIndex="17"/>
-    <connection from="gneE161" to="gneE162" fromLane="0" toLane="0" tl="K0001" linkIndex="14"/>
-    <connection from="gneE169" to="gneE170" fromLane="0" toLane="0" tl="K0001" linkIndex="9"/>
-    <connection from="gneE172" to="gneE173" fromLane="0" toLane="0" tl="K0001" linkIndex="16"/>
-    <connection from="gneE175" to="gneE176" fromLane="0" toLane="0" tl="K0001" linkIndex="18"/>
-    <connection from="gneE178" to="gneE179" fromLane="0" toLane="0" tl="K0001" linkIndex="15"/>
-    <connection from="gneE186" to="gneE187" fromLane="0" toLane="0" tl="K0001" linkIndex="28"/>
-    <connection from="gneE189" to="gneE190" fromLane="0" toLane="0" tl="K0001" linkIndex="25"/>
-    <connection from="gneE203" to="gneE204" fromLane="0" toLane="0" tl="K0001" linkIndex="27"/>
-    <connection from="gneE206" to="gneE207" fromLane="0" toLane="0" tl="K0001" linkIndex="24"/>
-    <connection from="gneE208" to="gneE209" fromLane="0" toLane="0" tl="K0001" linkIndex="19"/>
-    <connection from="gneE211" to="gneE212" fromLane="0" toLane="0" tl="K0001" linkIndex="26"/>
-    <connection from="gneE218" to="gneE220" fromLane="0" toLane="0" tl="K0001" linkIndex="34"/>
-    <connection from="gneE222" to="gneE224" fromLane="0" toLane="0" tl="K0001" linkIndex="33"/>
-    <connection from="gneE225" to="gneE227" fromLane="0" toLane="0" tl="K0001" linkIndex="29"/>
-    <connection from="gneE242" to="gneE243" fromLane="0" toLane="0" tl="K0001" linkIndex="8"/>
-    <connection from="gneE245" to="gneE246" fromLane="0" toLane="0" tl="K0001" linkIndex="5"/>
-    <connection from="gneE250" to="gneE251" fromLane="0" toLane="0" tl="K0001" linkIndex="0"/>
-    <connection from="gneE253" to="gneE254" fromLane="0" toLane="0" tl="K0001" linkIndex="6"/>
-    <connection from="gneE255" to="gneE256" fromLane="0" toLane="0" tl="K0001" linkIndex="7"/>
-    <connection from="gneE258" to="gneE259" fromLane="0" toLane="0" tl="K0001" linkIndex="4"/>
 </tlLogics>

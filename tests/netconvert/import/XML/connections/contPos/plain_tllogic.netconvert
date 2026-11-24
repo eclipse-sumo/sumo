@@ -45,12 +45,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="3"  state="rrrrryrrrr"/>
     </tlLogic>
 
-    <connection from="-51812052" to="-51811895a" fromLane="1" toLane="1" tl="K048" linkIndex="6"/>
-    <connection from="-51812052" to="786367652" fromLane="2" toLane="2" tl="K048" linkIndex="7"/>
-    <connection from="-786367651" to="51812052" fromLane="1" toLane="1" tl="K048" linkIndex="0"/>
-    <connection from="-786367651" to="-51811895a" fromLane="1" toLane="1" tl="K048" linkIndex="1"/>
-    <connection from="-786367651" to="-51811895a" fromLane="2" toLane="2" tl="K048" linkIndex="2"/>
-    <connection from="51811895a" to="51812052" fromLane="0" toLane="1" tl="K048" linkIndex="5"/>
-    <connection from="51811895b" to="786367652" fromLane="1" toLane="1" tl="K048" linkIndex="3"/>
-    <connection from="51811895b" to="786367652" fromLane="2" toLane="2" tl="K048" linkIndex="4"/>
 </tlLogics>

@@ -58,7 +58,7 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, const std::string& prefix, NBN
             writeTypes(prefix, nb.getEdgeCont(), nb.getTypeCont());
         }
         writeEdgesAndConnections(oc, prefix, nb.getNodeCont(), nb.getEdgeCont());
-        writeTrafficLights(prefix, nb.getTLLogicCont(), nb.getEdgeCont());
+        writeTrafficLights(prefix, nb.getTLLogicCont());
         writeConfig(oc, prefix, haveTypes);
     }
     if (oc.isSet("junctions.join-output") && (oc.getString("junctions.join-output").size() > 0)) {
@@ -357,7 +357,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
 
 
 void
-NWWriter_XML::writeTrafficLights(const std::string& prefix, NBTrafficLightLogicCont& tc, NBEdgeCont& ec) {
+NWWriter_XML::writeTrafficLights(const std::string& prefix, NBTrafficLightLogicCont& tc) {
     const std::string ext = OptionsCont::getOptions().getString("output.format");
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
@@ -366,18 +366,6 @@ NWWriter_XML::writeTrafficLights(const std::string& prefix, NBTrafficLightLogicC
     const OptionsCont& oc = OptionsCont::getOptions();
     const bool dlrNavteq = oc.exists("dlr-navteq.plain") && oc.getBool("dlr-navteq.plain");
     NWWriter_SUMO::writeTrafficLights(device, tc, dlrNavteq ? NWWriter_SUMO::PLAIN_NAVTEQ : NWWriter_SUMO::PLAIN);
-    // we also need to remember the associations between tlLogics and connections
-    // since the information in con.xml is insufficient
-    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
-        NBEdge* e = (*i).second;
-        // write this edge's tl-controlled connections
-        const std::vector<NBEdge::Connection> connections = e->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator c = connections.begin(); c != connections.end(); ++c) {
-            if (c->tlID != "") {
-                NWWriter_SUMO::writeConnection(device, *e, *c, false, NWWriter_SUMO::TLL);
-            }
-        }
-    }
     device.close();
 }
 
