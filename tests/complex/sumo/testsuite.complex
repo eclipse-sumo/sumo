@@ -61,6 +61,9 @@ insertionCapacity_2lane
 # test insertion capacity for different options and departure attributes on a 3-lane road
 insertionCapacity_3lane
 
+# Compare serial and threaded link registration with mixed action-step lengths.
+parallel_non_action_steps
+
 # run a simulation with rerouting and write vehroute-output.
 # Then re-run the simulation with the saved vehroutes as input
 vehroute-roundtrip

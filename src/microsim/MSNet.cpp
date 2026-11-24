@@ -880,7 +880,6 @@ MSNet::simulationStep(const bool onlyMove) {
         myEdges->patchActiveLanes();
 
         // compute safe velocities for all vehicles for the next few lanes
-        // also register ApproachingVehicleInformation for all links
         myEdges->planMovements(myStep);
 
         // register junction approaches based on planned velocities as basis for right-of-way decision

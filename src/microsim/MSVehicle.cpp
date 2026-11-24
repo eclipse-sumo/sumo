@@ -2187,9 +2187,6 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
             std::cout << STEPS2TIME(t) << " vehicle '" << getID() << "' skips action." << std::endl;
         }
 #endif
-        // During non-action passed drive items still need to be removed
-        // @todo rather work with updating myCurrentDriveItem (refs #3714)
-        removePassedDriveItems();
         return;
     } else {
 #ifdef DEBUG_ACTIONSTEPS
@@ -5496,6 +5493,9 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
 void
 MSVehicle::setApproachingForAllLinks() {
     if (!myActionStep) {
+        // Remove passed approaches after all vehicles have planned their movements.
+        // @todo rather work with updating myCurrentDriveItem (refs #3714)
+        removePassedDriveItems();
         return;
     }
     // links approached in both steps are updated in place, the others are removed
