@@ -34,6 +34,7 @@ Could not add subscription. Get Calibrator Variable: unsupported variable 0x80 s
 Subscribing to chargingstation.VAR_CS_CHARGE_DELAY.
 Subscribing to chargingstation.VAR_CS_CHARGE_IN_TRANSIT.
 Subscribing to chargingstation.VAR_CS_POWER.
+Subscribing to chargingstation.VAR_CS_CHARGING_STRATEGY.
 Subscribing to chargingstation.VAR_CS_EFFICIENCY.
 Subscribing to chargingstation.VAR_LANEPOSITION.
 Subscribing to chargingstation.ID_COUNT.
@@ -591,7 +592,8 @@ Could not add subscription. Get Vehicle Type Variable: unsupported variable 0x80
                        152: 0.95,
                        153: 0,
                        154: 0.0,
-                       156: -1.0}}
+                       156: -1.0,
+                       158: 'proportional'}}
 {'1si': {0: ('1fi',
              '1o',
              '1si',
