@@ -561,8 +561,10 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* app, const GNETagPropertiesDat
     mySumoOptions.setOptionEditable("route-files", false);
     mySumoOptions.setOptionEditable("additional-files", false);
     // add extra option for automatic closing
-    myNetgenerateOptions.doRegister("close-dialog-automatic", new Option_Bool(true));
-    myNetgenerateOptions.addDescription("close-dialog-automatic", "report", TL("Close dialog automatically"));
+    for (OptionsCont* netgenerateOptions : {&myNetgenerateOptions, &myOriginalNetgenerateOptions}) {
+        netgenerateOptions->doRegister("close-dialog-automatic", new Option_Bool(true));
+        netgenerateOptions->addDescription("close-dialog-automatic", "report", TL("Close dialog automatically"));
+    }
 }
 #ifdef _MSC_VER
 #pragma warning(pop)
