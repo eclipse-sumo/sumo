@@ -23,6 +23,12 @@
 #include <vector>
 #include <map>
 #include <cmath>
+#include <algorithm>
+#include <unordered_map>
+#include <unordered_set>
+
+#include <utils/threadpool/WorkStealingThreadPool.h>
+#include <microsim/MSVehicleType.h>
 
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
@@ -37,22 +43,264 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/RandHelper.h>
 #include "MELoop.h"
+#include "MEPartition.h"
 #include "MESegment.h"
 #include "MELSegment.h"
 #include "MEVehicle.h"
 
 long long int MELoop::LeaderEvent::myEventCounter(0);
 
+class MELoop::ParallelEvents {
+public:
+    ParallelEvents(int threads, const std::string& partitionFile) :
+        myThreads(threads), myPartitionFile(partitionFile) {}
+
+    void loadPartition() {
+        if (myPartitionFile.empty() || !myComponents.empty()) {
+            return;
+        }
+        const auto edges = MEPartition::load(myPartitionFile);
+        if (edges.empty()) {
+            throw ProcessError(TLF("Mesoscopic partition file '%' does not assign any edges.", myPartitionFile));
+        }
+        std::unordered_map<std::string, int> ids;
+        myComponents.reserve(edges.size());
+        for (const auto& edge : edges) {
+            const int group = ids.emplace(edge.second, (int)ids.size()).first->second;
+            myComponents.emplace(edge.first, EdgeGroup{group});
+        }
+        myComponentCount = (int)ids.size();
+    }
+
+    bool runBatch(MELoop& loop, const LeaderEvent& first) {
+        if (myComponents.empty()) {
+            if (myPartitionFile.empty()) {
+                buildComponents();
+            } else {
+                loadPartition();
+            }
+        }
+        if (myComponentCount < 2 || loop.myLeaderCars.size() < MIN_PARALLEL_BATCH - 1
+                || loop.myLeaderCars.top().time != first.time) {
+            return false;
+        }
+        EdgeGroup* const firstGroup = workerGroup(first.veh);
+        if (firstGroup == nullptr) {
+            return false;
+        }
+        ++myBatchIndex;
+        firstGroup->batch = myBatchIndex;
+        myBatch.clear();
+        myBatch.push_back({first.veh, firstGroup->group});
+        // Retain a prefix of the serial order. Each move reads and writes only its
+        // own edge, and a new same-time event is queued after this existing prefix.
+        while (myBatch.size() < MAX_PARALLEL_BATCH && !loop.myLeaderCars.empty() && loop.myLeaderCars.top().time == first.time) {
+            const LeaderEvent next = loop.myLeaderCars.top();
+            if (loop.skipInvalidated(next)) {
+                loop.myLeaderCars.pop();
+                continue;
+            }
+            EdgeGroup* const group = workerGroup(next.veh);
+            if (group == nullptr || group->batch == myBatchIndex) {
+                break;
+            }
+            loop.myLeaderCars.pop();
+            group->batch = myBatchIndex;
+            myBatch.push_back({next.veh, group->group});
+        }
+        if (myBatch.size() < MIN_PARALLEL_BATCH || !runWorkers(loop)) {
+            for (const Event& event : myBatch) {
+                loop.checkCar(event.veh);
+            }
+        }
+        assert(loop.myLeaderCars.empty() || loop.myLeaderCars.top().time >= first.time);
+        return true;
+    }
+
+    static bool defer(MEVehicle* veh, MSLink* link, bool add) {
+        if (myChanges == nullptr) {
+            return false;
+        }
+        myChanges->push_back({veh, link, add});
+        return true;
+    }
+
+private:
+    struct QueueChange {
+        MEVehicle* veh;
+        MSLink* link;
+        bool add;
+    };
+
+    struct EdgeGroup {
+        int group;
+        size_t batch = 0;
+    };
+
+    struct Event {
+        MEVehicle* veh;
+        int group;
+    };
+
+    struct WorkerAssignment {
+        int worker = 0;
+        size_t batch = 0;
+    };
+
+    static constexpr size_t MIN_PARALLEL_BATCH = 32;
+    static constexpr size_t MAX_PARALLEL_BATCH = 1024;
+
+    bool runWorkers(MELoop& loop) {
+        const int workers = MIN2(myThreads, myComponentCount);
+        myAssignments.resize(myComponentCount);
+        myWorkerEvents.resize(workers);
+        for (auto& events : myWorkerEvents) {
+            events.clear();
+        }
+        int groups = 0;
+        for (size_t index = 0; index < myBatch.size(); ++index) {
+            WorkerAssignment& assignment = myAssignments[myBatch[index].group];
+            if (assignment.batch != myBatchIndex) {
+                assignment.batch = myBatchIndex;
+                assignment.worker = groups++ % workers;
+            }
+            myWorkerEvents[assignment.worker].push_back(index);
+        }
+        if (groups < 2) {
+            return false;
+        }
+        if (myPool == nullptr) {
+            myPool = std::make_unique<WorkStealingThreadPool<>>(false, std::vector<int>(workers, 0));
+        }
+        myWorkerChanges.resize(MAX2(myWorkerChanges.size(), myBatch.size()));
+        std::vector<std::future<void>> completed;
+        completed.reserve(MIN2(groups, workers));
+        for (int worker = 0; worker < MIN2(groups, workers); ++worker) {
+            completed.push_back(myPool->executeAsync([this, &loop, worker](int) {
+                for (const size_t index : myWorkerEvents[worker]) {
+                    checkCar(loop, myBatch[index].veh, myWorkerChanges[index]);
+                }
+            }, worker));
+        }
+        for (auto& result : completed) {
+            result.wait();
+        }
+        for (auto& result : completed) {
+            result.get();
+        }
+        // Preserve serial event indices and approach registration order.
+        for (size_t index = 0; index < myBatch.size(); ++index) {
+            for (const QueueChange& change : myWorkerChanges[index]) {
+                if (change.add) {
+                    loop.addLeaderCar(change.veh, change.link);
+                } else {
+                    loop.removeLeaderCar(change.veh);
+                }
+            }
+        }
+        return true;
+    }
+
+    static void checkCar(MELoop& loop, MEVehicle* veh, std::vector<QueueChange>& changes) {
+        changes.clear();
+        myChanges = &changes;
+        try {
+            loop.checkCar(veh);
+        } catch (...) {
+            myChanges = nullptr;
+            throw;
+        }
+        myChanges = nullptr;
+    }
+
+    void buildComponents() {
+        const auto& edges = MSNet::getInstance()->getEdgeControl().getEdges();
+        std::unordered_map<const MSJunction*, std::vector<const MSEdge*>> incident;
+        for (const MSEdge* const edge : edges) {
+            incident[edge->getFromJunction()].push_back(edge);
+            incident[edge->getToJunction()].push_back(edge);
+        }
+        myComponents.reserve(edges.size());
+        std::unordered_set<const MSJunction*> visited;
+        for (const MSEdge* const edge : edges) {
+            if (!myComponents.emplace(edge, EdgeGroup{myComponentCount}).second) {
+                continue;
+            }
+            std::vector<const MSEdge*> pending{edge};
+            while (!pending.empty()) {
+                const MSEdge* current = pending.back();
+                pending.pop_back();
+                for (const MSJunction* const junction : {current->getFromJunction(), current->getToJunction()}) {
+                    if (junction == nullptr || !visited.insert(junction).second) {
+                        continue;
+                    }
+                    for (const MSEdge* const neighbor : incident.at(junction)) {
+                        if (myComponents.emplace(neighbor, EdgeGroup{myComponentCount}).second) {
+                            pending.push_back(neighbor);
+                        }
+                    }
+                }
+            }
+            ++myComponentCount;
+        }
+    }
+
+    EdgeGroup* workerGroup(const MEVehicle* veh) {
+        const MESegment* const on = veh->getSegment();
+        if (on == nullptr || veh->getEdge() != &on->getEdge() || !on->getEdge().isNormal() || veh->getQueIndex() == MESegment::PARKING_QUEUE
+                || veh->hasStops() || veh->getPersonNumber() != 0 || veh->getContainerNumber() != 0
+                || (veh->getVClass() & SVC_RAIL_CLASSES) != 0
+                || veh->succEdge(1) == nullptr
+                || (veh->getParameter().arrivalEdge >= 0 && veh->getRoutePosition() >= veh->getParameter().arrivalEdge)
+                || !veh->hasOnlyLocalMoveReminders()) {
+            return nullptr;
+        }
+        // Both segments must be on the same edge and lack junction approaching data.
+        const MESegment* const to = on->getNextSegment();
+        if (to == nullptr || to->getNextSegment() == nullptr || to->hasDetectors()) {
+            return nullptr;
+        }
+        const SUMOTime waiting = veh->getWaitingTime();
+        const SUMOTime teleport = veh->getVehicleType().getParameter().getTimeToTeleport(MSGlobals::gTimeToGridlock);
+        if ((teleport > 0 && waiting > teleport)
+                || (MSGlobals::gTimeToTeleportDisconnected >= 0 && waiting > MSGlobals::gTimeToTeleportDisconnected)) {
+            return nullptr;
+        }
+        const auto group = myComponents.find(&on->getEdge());
+        return group == myComponents.end() ? nullptr : &group->second;
+    }
+
+    const int myThreads;
+    const std::string myPartitionFile;
+    int myComponentCount = 0;
+    std::unordered_map<const MSEdge*, EdgeGroup> myComponents;
+    size_t myBatchIndex = 0;
+    std::vector<Event> myBatch;
+    std::vector<WorkerAssignment> myAssignments;
+    std::vector<std::vector<size_t>> myWorkerEvents;
+    std::vector<std::vector<QueueChange>> myWorkerChanges;
+    std::unique_ptr<WorkStealingThreadPool<>> myPool;
+    static thread_local std::vector<QueueChange>* myChanges;
+};
+
+thread_local std::vector<MELoop::ParallelEvents::QueueChange>* MELoop::ParallelEvents::myChanges = nullptr;
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
 MELoop::MELoop(const SUMOTime recheckInterval) : myFullRecheckInterval(recheckInterval), myLinkRecheckInterval(TIME2STEPS(1)) {
+    const auto& options = OptionsCont::getOptions();
+    const int mesoThreads = options.getInt("meso-threads");
+    if (mesoThreads > 1) {
+        myParallelEvents = std::make_unique<ParallelEvents>(mesoThreads,
+                           options.isSet("meso-threads.partition-file") ? options.getString("meso-threads.partition-file") : "");
+    }
     myInterpolateMesoPos = MSGlobals::gMesoInterpolatePos && (
-                               OptionsCont::getOptions().isSet("fcd-output") ||
-                               OptionsCont::getOptions().isSet("queue-output"));
+                               options.isSet("fcd-output") || options.isSet("queue-output"));
 }
 
 MELoop::~MELoop() {
+    myParallelEvents.reset();
     for (std::vector<MESegment*>::const_iterator j = myEdges2FirstSegments.begin(); j != myEdges2FirstSegments.end(); ++j) {
         for (MESegment* s = *j; s != nullptr;) {
             MESegment* n = s->getNextSegment();
@@ -84,18 +332,25 @@ MELoop::simulate(SUMOTime tMax) {
             return;
         }
         myLeaderCars.pop();
-        while (!myInvalidatedLeaderCars.empty() && e.time > myInvalidatedLeaderCars.top().time) {
-            myInvalidatedLeaderCars.pop();
+        if (skipInvalidated(e)) {
+            continue;
         }
-        if (!myInvalidatedLeaderCars.empty()) {
-            if (wasInvalidated(e)) {
-                continue;
-            }
+        if (myParallelEvents != nullptr && myParallelEvents->runBatch(*this, e)) {
+            continue;
         }
         //std::cout << SIMTIME << " checkChar " << e.veh->getID() << " on=" << e.veh->getSegment()->getID() << " t=" << e.time << " nid=" << e.veh->getNumericalID() << "\n";
         checkCar(e.veh);
         assert(myLeaderCars.empty() || myLeaderCars.top().time >= e.time);
     }
+}
+
+
+bool
+MELoop::skipInvalidated(const LeaderEvent& e) {
+    while (!myInvalidatedLeaderCars.empty() && e.time > myInvalidatedLeaderCars.top().time) {
+        myInvalidatedLeaderCars.pop();
+    }
+    return !myInvalidatedLeaderCars.empty() && wasInvalidated(e);
 }
 
 
@@ -329,6 +584,9 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment, bool disconn
 
 void
 MELoop::addLeaderCar(MEVehicle* veh, MSLink* link, const bool fromState) {
+    if (myParallelEvents != nullptr && !fromState && ParallelEvents::defer(veh, link, true)) {
+        return;
+    }
     if (!fromState) {
         veh->setEventIndex(LeaderEvent::myEventCounter++);
     }
@@ -346,6 +604,9 @@ MELoop::clearState() {
 
 void
 MELoop::removeLeaderCar(MEVehicle* v) {
+    if (myParallelEvents != nullptr && ParallelEvents::defer(v, nullptr, false)) {
+        return;
+    }
     myInvalidatedLeaderCars.push(LeaderEvent(v));
 }
 
@@ -396,6 +657,9 @@ MELoop::numSegmentsFor(const double length, const double sLength) {
 
 void
 MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
+    if (myParallelEvents != nullptr) {
+        myParallelEvents->loadPartition();
+    }
     const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(e.getEdgeType());
     const double length = e.getLength();
     const int numSegments = numSegmentsFor(length, edgeType.edgeLength);

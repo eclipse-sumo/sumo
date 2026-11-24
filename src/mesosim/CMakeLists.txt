@@ -6,6 +6,8 @@ SET(mesosim_STAT_SRCS
    MEInductLoop.h
    MELoop.cpp
    MELoop.h
+   MEPartition.cpp
+   MEPartition.h
    MESegment.cpp
    MESegment.h
    MELSegment.cpp

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<routes>
+  <route id="A.upper" edges="A.upper A.merge A.out" />
+  <route id="A.lower" edges="A.lower A.merge A.out" />
+  <route id="B.upper" edges="B.upper B.merge B.out" />
+  <route id="B.lower" edges="B.lower B.merge B.out" />
+  <route id="cross" edges="A.upper A.merge A.out bridge B.upper B.merge B.out" />
+  <vehicle id="A.upper.00" route="cross" depart="0" />
+  <vehicle id="A.lower.00" route="A.lower" depart="0" />
+  <vehicle id="B.upper.00" route="B.upper" depart="0" />
+  <vehicle id="B.lower.00" route="B.lower" depart="0" />
+  <vehicle id="A.upper.01" route="A.upper" depart="2" />
+  <vehicle id="A.lower.01" route="A.lower" depart="2" />
+  <vehicle id="B.upper.01" route="B.upper" depart="2" />
+  <vehicle id="B.lower.01" route="B.lower" depart="2" />
+  <vehicle id="A.upper.04" route="A.upper" depart="8" />
+  <vehicle id="A.lower.04" route="A.lower" depart="8">
+    <stop lane="A.merge_0" endPos="90" duration="8" />
+  </vehicle>
+  <vehicle id="B.upper.04" route="B.upper" depart="8" />
+  <vehicle id="B.lower.04" route="B.lower" depart="8">
+    <stop lane="B.merge_0" endPos="90" duration="8" />
+  </vehicle>
+</routes>
