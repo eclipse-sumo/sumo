@@ -183,6 +183,9 @@ public:
                                         SUMOVehicleClass svc,
                                         const Prohibitions& prohibited = {});
 
+    /// @brief return the intermodal router used to initialize the shared network
+    static MSTransportableRouter& getDefaultIntermodalRouter();
+
     /// @brief return the person router instance
     static MSTransportableRouter& getIntermodalRouterTT(const int rngIndex,
             const Prohibitions& prohibited = {});

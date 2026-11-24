@@ -23,6 +23,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <memory>
 #include <mutex>
 #include <assert.h>
 #include <utils/common/MsgHandler.h>
@@ -54,32 +55,25 @@ public:
     /// Constructor
     PedestrianRouter():
         SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouter", true, nullptr, nullptr, false, false),
-        myAmClone(false), myMaster(nullptr), myInternalRouter(nullptr), myPedNet(nullptr) {
+        mySharedNetwork(std::make_shared<SharedNetwork>()), myInternalRouter(nullptr), myPedNet(nullptr) {
     }
 
     PedestrianRouter(_IntermodalNetwork* net):
         SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouterClone", true, nullptr, nullptr, false, false),
-        myAmClone(true), myMaster(nullptr), myInternalRouter(nullptr), myPedNet(net) {
-        if (myPedNet != nullptr) {
-            myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true,
-                                                   gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic,
-                                                   nullptr, false, nullptr, true);
+        mySharedNetwork(std::make_shared<SharedNetwork>()), myInternalRouter(nullptr), myPedNet(nullptr) {
+        if (net != nullptr) {
+            mySharedNetwork->network = std::shared_ptr<_IntermodalNetwork>(net, [](_IntermodalNetwork*) {});
+            createNet();
         }
     }
 
     /// Destructor
     virtual ~PedestrianRouter() {
         delete myInternalRouter;
-        if (!myAmClone) {
-            delete myPedNet;
-        }
     }
 
     virtual SUMOAbstractRouter<E, _IntermodalTrip>* clone() {
-        if (myAmClone && myMaster == nullptr) {
-            return new PedestrianRouter<E, L, N, V>(myPedNet);
-        }
-        return new PedestrianRouter<E, L, N, V>(myMaster == nullptr ? this : myMaster);
+        return new PedestrianRouter<E, L, N, V>(*this);
     }
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
@@ -209,25 +203,23 @@ public:
 
 
 private:
-    PedestrianRouter(const PedestrianRouter* master):
+    PedestrianRouter(const PedestrianRouter& original):
         SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouterClone", true, nullptr, nullptr, false, false),
-        myAmClone(true), myMaster(master), myInternalRouter(nullptr), myPedNet(nullptr) {
-        this->myBulkMode = master->myBulkMode;
+        mySharedNetwork(original.mySharedNetwork), myInternalRouter(nullptr), myPedNet(nullptr) {
+        this->myBulkMode = original.myBulkMode;
     }
 
     _IntermodalNetwork* ensureNetwork() const {
-        std::lock_guard<std::mutex> lock(myNetMutex);
-        if (myPedNet == nullptr) {
-            myPedNet = new _IntermodalNetwork(E::getAllEdges(), true);
+        std::lock_guard<std::mutex> lock(mySharedNetwork->mutex);
+        if (mySharedNetwork->network == nullptr) {
+            mySharedNetwork->network = std::make_shared<_IntermodalNetwork>(E::getAllEdges(), true);
         }
-        return myPedNet;
+        return mySharedNetwork->network.get();
     }
 
     inline void createNet() const {
         if (myInternalRouter == nullptr) {
-            if (myPedNet == nullptr) {
-                myPedNet = (myMaster != nullptr ? myMaster->ensureNetwork() : ensureNetwork());
-            }
+            myPedNet = ensureNetwork();
             myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true,
                                                    gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic,
                                                    nullptr, false, nullptr, true);
@@ -235,11 +227,14 @@ private:
         }
     }
 
-    const bool myAmClone;
-    const PedestrianRouter* const myMaster;
+    struct SharedNetwork {
+        std::mutex mutex;
+        std::shared_ptr<_IntermodalNetwork> network;
+    };
+
+    const std::shared_ptr<SharedNetwork> mySharedNetwork;
     mutable _InternalRouter* myInternalRouter;
     mutable _IntermodalNetwork* myPedNet;
-    mutable std::mutex myNetMutex;
 
     const N* getCommonNode(const E* from, const E* to) const {
         if (from->getToJunction() == to->getFromJunction() || from->getToJunction() == to->getToJunction()) {

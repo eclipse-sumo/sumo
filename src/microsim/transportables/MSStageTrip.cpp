@@ -407,7 +407,8 @@ MSStageTrip::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, M
 #ifdef HAVE_FOX
     MFXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
     if (threadPool.size() > 0) {
-        MSRoutingEngine::getIntermodalRouterTT(transportable->getRNGIndex());
+        // Snapshot stops and schedules before any worker starts routing.
+        MSRoutingEngine::getDefaultIntermodalRouter().getNetwork();
         threadPool.add(new TripRoutingTask(*this, transportable, now, previous));
         net->getPersonControl().addPendingRouting(transportable);
         return true;
@@ -498,6 +499,7 @@ MSStageTrip::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bool /
 void
 MSStageTrip::TripRoutingTask::run(MFXWorkerThread* context) {
     MSTransportableRouter& router = static_cast<MSEdgeControl::WorkerThread*>(context)->getIntermodalRouter();
+    router.prohibit({});
     myStage.myRoutingError = myStage.reroute(myTime, router, myTransportable, myPrevious, myStage.myOrigin, myStage.myDestination, myStage.myComputedStages);
 }
 #endif

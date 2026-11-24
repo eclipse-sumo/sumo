@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <memory>
 #include <mutex>
 #include <assert.h>
 #include <utils/common/MsgHandler.h>
@@ -88,7 +89,7 @@ public:
     IntermodalRouter(CreateNetCallback callback, const int carWalkTransfer, double taxiWait, const std::string& routingAlgorithm,
                      const int routingMode = 0, EffortCalculator* calc = nullptr) :
         SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouter", true, nullptr, nullptr, false, false),
-        myAmClone(false), myMaster(nullptr), myInternalRouter(nullptr), myIntermodalNet(nullptr),
+        mySharedNetwork(std::make_shared<SharedNetwork>()), myInternalRouter(nullptr), myIntermodalNet(nullptr),
         myCallback(callback), myCarWalkTransfer(carWalkTransfer), myTaxiWait(taxiWait),
         myRoutingAlgorithm(routingAlgorithm),
         myRoutingMode(routingMode), myExternalEffort(calc) {
@@ -97,13 +98,10 @@ public:
     /// Destructor
     virtual ~IntermodalRouter() {
         delete myInternalRouter;
-        if (!myAmClone) {
-            delete myIntermodalNet;
-        }
     }
 
     SUMOAbstractRouter<E, _IntermodalTrip>* clone() {
-        return new IntermodalRouter<E, L, N, V>(myMaster == nullptr ? this : myMaster);
+        return new IntermodalRouter<E, L, N, V>(*this);
     }
 
     int getCarWalkTransfer() const {
@@ -285,14 +283,7 @@ public:
     }
 
     Network* getNetwork() const {
-        if (myIntermodalNet != nullptr && myMaster == nullptr) {
-            std::lock_guard<std::recursive_mutex> lock(myNetMutex);
-            return myIntermodalNet;
-        }
-        if (myIntermodalNet != nullptr) {
-            return myIntermodalNet;
-        }
-        return myMaster != nullptr ? myMaster->ensureNetwork() : ensureNetwork();
+        return ensureNetwork();
     }
 
     EffortCalculator* getExternalEffort() const {
@@ -300,16 +291,16 @@ public:
     }
 
 private:
-    IntermodalRouter(IntermodalRouter* master) :
+    IntermodalRouter(const IntermodalRouter& original) :
         SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouterClone", true, nullptr, nullptr, false, false),
-        myAmClone(true), myMaster(master), myInternalRouter(nullptr), myIntermodalNet(nullptr),
-        myCallback(master->myCallback),
-        myCarWalkTransfer(master->myCarWalkTransfer),
-        myTaxiWait(master->myTaxiWait),
-        myRoutingAlgorithm(master->myRoutingAlgorithm),
-        myRoutingMode(master->myRoutingMode),
-        myExternalEffort(master->myExternalEffort) {
-        this->myBulkMode = master->myBulkMode;
+        mySharedNetwork(original.mySharedNetwork), myInternalRouter(nullptr), myIntermodalNet(nullptr),
+        myCallback(original.myCallback),
+        myCarWalkTransfer(original.myCarWalkTransfer),
+        myTaxiWait(original.myTaxiWait),
+        myRoutingAlgorithm(original.myRoutingAlgorithm),
+        myRoutingMode(original.myRoutingMode),
+        myExternalEffort(original.myExternalEffort) {
+        this->myBulkMode = original.myBulkMode;
     }
 
     static inline double getCombined(const _IntermodalEdge* const edge, const _IntermodalTrip* const trip, double time) {
@@ -317,25 +308,32 @@ private:
     }
 
     Network* ensureNetwork() const {
-        std::lock_guard<std::recursive_mutex> lock(myNetMutex);
-        if (myIntermodalNet == nullptr) {
-            myIntermodalNet = new Network(E::getAllEdges(), false, myCarWalkTransfer);
-            myIntermodalNet->addCarEdges(E::getAllEdges(), myTaxiWait);
-            myCallback(*const_cast<IntermodalRouter*>(this));
-            if (myRoutingMode == 3 && myExternalEffort != nullptr) {
-                std::vector<std::string> edgeLines;
-                for (const auto e : myIntermodalNet->getAllEdges()) {
-                    edgeLines.push_back(e->getLine());
+        // The adapter can call getNetwork() while adding stops to this graph.
+        std::lock_guard<std::recursive_mutex> lock(mySharedNetwork->mutex);
+        auto& network = mySharedNetwork->network;
+        if (network == nullptr) {
+            network = std::make_unique<Network>(E::getAllEdges(), false, myCarWalkTransfer);
+            try {
+                network->addCarEdges(E::getAllEdges(), myTaxiWait);
+                myCallback(*const_cast<IntermodalRouter*>(this));
+                if (myRoutingMode == 3 && myExternalEffort != nullptr) {
+                    std::vector<std::string> edgeLines;
+                    for (const auto e : network->getAllEdges()) {
+                        edgeLines.push_back(e->getLine());
+                    }
+                    myExternalEffort->init(edgeLines);
                 }
-                myExternalEffort->init(edgeLines);
+            } catch (...) {
+                network.reset();
+                throw;
             }
         }
-        return myIntermodalNet;
+        return network.get();
     }
 
     inline void createNet() {
         if (myInternalRouter == nullptr) {
-            myIntermodalNet = (myMaster != nullptr ? myMaster->ensureNetwork() : ensureNetwork());
+            myIntermodalNet = ensureNetwork();
             switch (myRoutingMode) {
                 case 0:
                     if (myRoutingAlgorithm == "astar") {
@@ -377,11 +375,14 @@ private:
     }
 
 private:
-    const bool myAmClone;
-    IntermodalRouter* const myMaster;
+    struct SharedNetwork {
+        std::recursive_mutex mutex;
+        std::unique_ptr<Network> network;
+    };
+
+    const std::shared_ptr<SharedNetwork> mySharedNetwork;
     _InternalRouter* myInternalRouter;
-    mutable Network* myIntermodalNet;
-    mutable std::recursive_mutex myNetMutex;
+    Network* myIntermodalNet;
     CreateNetCallback myCallback;
     const int myCarWalkTransfer;
     const double myTaxiWait;
