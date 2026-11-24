@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2008-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
@@ -13,6 +12,7 @@
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
+# @author  Josh
 # @date    2026-11-23
 
 import csv
@@ -25,7 +25,7 @@ if "SUMO_HOME" in os.environ:
 import sumolib  # noqa
 import traci  # noqa
 
-network = Path(os.environ["SUMO_HOME"]) / "tests/complex/traci/bugs/ticket1010/input_net.net.xml"
+network = Path(__file__).resolve().parents[3] / "traci/bugs/ticket1010/input_net.net.xml"
 
 
 def check_sparse_values(filename, columns):
