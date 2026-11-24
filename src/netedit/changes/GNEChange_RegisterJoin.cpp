@@ -36,8 +36,9 @@ FXIMPLEMENT_ABSTRACT(GNEChange_RegisterJoin, GNEChange, nullptr, 0)
 // ===========================================================================
 
 void
-GNEChange_RegisterJoin::registerJoin(const std::set<NBNode*, ComparatorIdLess>& cluster, NBNodeCont& nc, GNEUndoList* undoList) {
-    auto change = new GNEChange_RegisterJoin(cluster, nc);
+GNEChange_RegisterJoin::registerJoin(const std::set<NBNode*, ComparatorIdLess>& cluster, const std::string& id,
+                                     NBNodeCont& nc, GNEUndoList* undoList) {
+    auto change = new GNEChange_RegisterJoin(cluster, id, nc);
     undoList->begin(GUIIcon::UNDO, TLF("Register joined junctions '%'", joinNamedToString(cluster, ",")));
     undoList->add(change, true);
     undoList->end();
@@ -50,13 +51,13 @@ GNEChange_RegisterJoin::~GNEChange_RegisterJoin() {
 
 void
 GNEChange_RegisterJoin::undo() {
-    myNC.unregisterJoinedCluster(myNodeIDs);
+    myNC.unregisterJoinedCluster(myNodeIDs, myJoinedID);
 }
 
 
 void
 GNEChange_RegisterJoin::redo() {
-    myNC.registerJoinedCluster(myNodeIDs);
+    myNC.registerJoinedCluster(myNodeIDs, myJoinedID);
 }
 
 
@@ -72,8 +73,9 @@ GNEChange_RegisterJoin::redoName() const {
 }
 
 
-GNEChange_RegisterJoin::GNEChange_RegisterJoin(const std::set<NBNode*, ComparatorIdLess>& cluster, NBNodeCont& nc) :
+GNEChange_RegisterJoin::GNEChange_RegisterJoin(const std::set<NBNode*, ComparatorIdLess>& cluster, const std::string& id, NBNodeCont& nc) :
     GNEChange(Supermode::NETWORK, true, false),
+    myJoinedID(id),
     myNC(nc) {
     for (NBNode* n : cluster) {
         myNodeIDs.insert(n->getID());

@@ -37,10 +37,9 @@ class GNEChange_RegisterJoin : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_RegisterJoin)
 
 public:
-    /**@brief change attribute
-     * @param[in] undoList The undoList
-     */
-    static void registerJoin(const std::set<NBNode*, ComparatorIdLess>& cluster, NBNodeCont& nc, GNEUndoList* undoList);
+    /// @brief record cluster membership and the resulting junction ID in the undo list
+    static void registerJoin(const std::set<NBNode*, ComparatorIdLess>& cluster, const std::string& id,
+                             NBNodeCont& nc, GNEUndoList* undoList);
 
     /// @brief Destructor
     ~GNEChange_RegisterJoin();
@@ -64,12 +63,9 @@ public:
 
 private:
     std::set<std::string> myNodeIDs;
+    const std::string myJoinedID;
     NBNodeCont& myNC;
 
-    /**@brief constructor
-     * @param[in] ac The attribute-carrier to be modified
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     */
-    GNEChange_RegisterJoin(const std::set<NBNode*, ComparatorIdLess>& cluster, NBNodeCont& nc);
+    /// @brief constructor
+    GNEChange_RegisterJoin(const std::set<NBNode*, ComparatorIdLess>& cluster, const std::string& id, NBNodeCont& nc);
 };

@@ -1715,7 +1715,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     if (setTL) {
         joined->setAttribute(SUMO_ATTR_TLTYPE, toString(type), undoList);
     }
-    GNEChange_RegisterJoin::registerJoin(cluster, myNetBuilder->getNodeCont(), undoList);
+    GNEChange_RegisterJoin::registerJoin(cluster, joined->getID(), myNetBuilder->getNodeCont(), undoList);
     // first remove all crossing of the involved junctions and edges
     // (otherwise edge removal will trigger discarding)
     std::vector<NBNode::Crossing> oldCrossings;
