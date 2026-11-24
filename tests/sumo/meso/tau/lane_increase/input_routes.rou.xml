@@ -1,0 +1,11 @@
+<routes>
+    <vType id="fast" maxSpeed="20" speedFactor="1"/>
+    <vType id="slow" maxSpeed="5" speedFactor="1"/>
+    <route id="r" edges="approach exit"/>
+    <vehicle id="pack0" type="fast" route="r" depart="0"/>
+    <vehicle id="pack1" type="fast" route="r" depart="0"/>
+    <vehicle id="pack2" type="fast" route="r" depart="0"/>
+    <vehicle id="leader" type="slow" route="r" depart="125"/>
+    <vehicle id="follower0" type="fast" route="r" depart="126"/>
+    <vehicle id="follower1" type="fast" route="r" depart="127"/>
+</routes>
