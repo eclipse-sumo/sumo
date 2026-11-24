@@ -124,6 +124,7 @@ restrictionException_no
 # example network from Zuerich
 oerlikon
 width_lane
+min_lane_width
 crossings
 
 # see #14786

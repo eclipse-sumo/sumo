@@ -1,0 +1,1 @@
+--osm-files osm.xml --simple-projection --osm.min-lane-width 1.2 --osm.sidewalks --default.sidewalk-width 0.7

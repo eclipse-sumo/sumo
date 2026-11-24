@@ -507,6 +507,8 @@ per-edge information whether the edge is a one-way edge is read
 (key="*junction*" and value="*roundabout*"), it is also set as being a
 one-way edge.
 
+Set **--osm.min-lane-width** to widen lanes whose specified width is below the given minimum in meters. The importer applies the minimum after dividing a way's width among its lanes. Separate sidewalks and bicycle lanes added along a road use their configured widths. The default of 0 preserves imported widths.
+
 ## Dismissing unwanted traffic modes
 
 In most cases, tracks and edges which not may be crossed by motorised

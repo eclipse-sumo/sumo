@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-24T12:52:31.195345+00:00 by Eclipse SUMO netconvert v1.28.0-0000000000
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <projection>
+        <simple-projection value="true"/>
+    </projection>
+
+    <building_defaults>
+        <default.sidewalk-width value="0.7"/>
+    </building_defaults>
+
+    <formats>
+        <osm.min-lane-width value="1.2"/>
+        <osm.sidewalks value="true"/>
+    </formats>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-715536.28,-5556800.00" convBoundary="0.00,0.00,229.55,111.41" origBoundary="10.000000,50.000000,10.003000,50.001000" projParameter="-"/>
+
+    <type id="highway.path" priority="1" numLanes="1" speed="5.56" allow="pedestrian bicycle" oneway="0" width="2.00"/>
+    <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" oneway="0"/>
+
+    <edge id=":1_0" function="internal">
+        <lane id=":1_0_0" index="0" allow="pedestrian bicycle" speed="2.24" length="1.75" width="1.20" shape="14.29,-0.08 14.64,-0.49 14.96,-0.59 15.24,-0.41 15.47,0.08"/>
+    </edge>
+    <edge id=":2_0" function="internal">
+        <lane id=":2_0_0" index="0" allow="pedestrian bicycle" speed="2.24" length="1.75" width="1.20" shape="0.59,111.22 0.24,111.63 -0.08,111.73 -0.36,111.55 -0.59,111.06"/>
+    </edge>
+    <edge id=":3_0" function="internal">
+        <lane id=":3_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="3.16" length="3.07" width="1.20" shape="84.95,-0.20 85.58,-0.91 86.13,-1.10 86.62,-0.77 87.03,0.08"/>
+    </edge>
+    <edge id=":4_0" function="internal">
+        <lane id=":4_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="2.74" length="3.07" width="3.00" shape="72.14,111.22 71.52,111.93 70.96,112.12 70.48,111.79 70.06,110.94"/>
+    </edge>
+    <edge id=":7_0" function="internal">
+        <lane id=":7_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="2.24" length="1.75" width="1.20" shape="228.96,-0.08 229.31,-0.49 229.63,-0.59 229.91,-0.41 230.14,0.08"/>
+    </edge>
+    <edge id=":8_0" function="internal">
+        <lane id=":8_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="2.24" length="1.75" width="1.20" shape="215.25,111.22 214.90,111.63 214.58,111.73 214.30,111.55 214.07,111.06"/>
+    </edge>
+
+    <edge id="-10" from="2" to="1" priority="1" type="highway.path">
+        <lane id="-10_0" index="0" allow="pedestrian bicycle" speed="5.56" length="112.13" width="1.20" shape="-0.59,111.06 14.29,-0.08"/>
+    </edge>
+    <edge id="-20" from="4" to="3" priority="3" type="highway.residential">
+        <lane id="-20_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="112.13" width="1.20" shape="67.98,110.66 82.87,-0.48"/>
+        <lane id="-20_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="112.13" width="3.00" shape="70.06,110.94 84.95,-0.20"/>
+    </edge>
+    <edge id="-40" from="8" to="7" priority="3" type="highway.residential">
+        <lane id="-40_0" index="0" allow="pedestrian" speed="13.89" length="112.13" width="0.70" shape="213.12,110.93 228.01,-0.21"/>
+        <lane id="-40_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="112.13" width="1.20" shape="214.07,111.06 228.96,-0.08"/>
+    </edge>
+    <edge id="10" from="1" to="2" priority="1" type="highway.path">
+        <lane id="10_0" index="0" allow="pedestrian bicycle" speed="5.56" length="112.13" width="1.20" shape="15.47,0.08 0.59,111.22"/>
+    </edge>
+    <edge id="20" from="3" to="4" priority="3" type="highway.residential">
+        <lane id="20_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="112.13" width="3.00" shape="89.12,0.36 74.23,111.50"/>
+        <lane id="20_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="112.13" width="1.20" shape="87.03,0.08 72.14,111.22"/>
+    </edge>
+    <edge id="30" from="5" to="6" priority="3" type="highway.residential" spreadType="center" shape="160.08,0.28 145.19,111.41">
+        <lane id="30_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="112.13" width="3.00" shape="160.67,0.36 145.78,111.50"/>
+        <lane id="30_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="112.13" width="1.20" shape="158.59,0.08 143.70,111.22"/>
+    </edge>
+    <edge id="40" from="7" to="8" priority="3" type="highway.residential">
+        <lane id="40_0" index="0" allow="pedestrian" speed="13.89" length="112.13" width="0.70" shape="231.09,0.21 216.20,111.35"/>
+        <lane id="40_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="112.13" width="1.20" shape="230.14,0.08 215.25,111.22"/>
+    </edge>
+
+    <junction id="1" type="priority" x="14.88" y="0.00" incLanes="-10_0" intLanes=":1_0_0" shape="14.88,0.00 13.69,-0.16 14.88,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="2" type="priority" x="0.00" y="111.14" incLanes="10_0" intLanes=":2_0_0" shape="0.00,111.14 1.19,111.30 0.00,111.14">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="3" type="priority" x="86.44" y="0.00" incLanes="-20_0 -20_1" intLanes=":3_0_0" shape="86.44,0.00 82.28,-0.56 86.44,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="4" type="priority" x="71.55" y="111.14" incLanes="20_0 20_1" intLanes=":4_0_0" shape="71.55,111.14 75.71,111.70 71.55,111.14">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="5" type="dead_end" x="157.99" y="0.00" incLanes="" intLanes="" shape="158.00,0.00 162.16,0.56"/>
+    <junction id="6" type="dead_end" x="143.11" y="111.14" incLanes="30_0 30_1" intLanes="" shape="147.27,111.70 143.11,111.14"/>
+    <junction id="7" type="priority" x="229.55" y="0.00" incLanes="-40_0 -40_1" intLanes=":7_0_0" shape="229.55,0.00 227.67,-0.25 229.55,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="8" type="priority" x="214.66" y="111.14" incLanes="40_0 40_1" intLanes=":8_0_0" shape="214.66,111.14 216.54,111.39 214.66,111.14">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="-10" to="10" fromLane="0" toLane="0" via=":1_0_0" dir="t" state="M"/>
+    <connection from="-20" to="20" fromLane="1" toLane="1" via=":3_0_0" dir="t" state="M"/>
+    <connection from="-40" to="40" fromLane="1" toLane="1" via=":7_0_0" dir="t" state="M"/>
+    <connection from="10" to="-10" fromLane="0" toLane="0" via=":2_0_0" dir="t" state="M"/>
+    <connection from="20" to="-20" fromLane="1" toLane="1" via=":4_0_0" dir="t" state="M"/>
+    <connection from="40" to="-40" fromLane="1" toLane="1" via=":8_0_0" dir="t" state="M"/>
+
+    <connection from=":1_0" to="10" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":2_0" to="-10" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":3_0" to="20" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":4_0" to="-20" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":7_0" to="40" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":8_0" to="-40" fromLane="0" toLane="1" dir="t" state="M"/>
+
+</net>

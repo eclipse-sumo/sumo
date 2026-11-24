@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+    <node id="1" lat="50.000" lon="10.000"/>
+    <node id="2" lat="50.001" lon="10.000"/>
+    <node id="3" lat="50.000" lon="10.001"/>
+    <node id="4" lat="50.001" lon="10.001"/>
+    <node id="5" lat="50.000" lon="10.002"/>
+    <node id="6" lat="50.001" lon="10.002"/>
+    <node id="7" lat="50.000" lon="10.003"/>
+    <node id="8" lat="50.001" lon="10.003"/>
+    <way id="10">
+        <nd ref="1"/>
+        <nd ref="2"/>
+        <tag k="highway" v="path"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="width" v="0.5"/>
+    </way>
+    <way id="20">
+        <nd ref="3"/>
+        <nd ref="4"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lanes" v="4"/>
+        <tag k="lanes:forward" v="2"/>
+        <tag k="lanes:backward" v="2"/>
+        <tag k="width:lanes:forward" v="0.6|3"/>
+        <tag k="width:lanes:backward" v="3|0.8"/>
+    </way>
+    <way id="30">
+        <nd ref="5"/>
+        <nd ref="6"/>
+        <tag k="highway" v="residential"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="lanes" v="2"/>
+        <tag k="placement" v="left_of:1"/>
+        <tag k="width:lanes" v="0.6|3"/>
+    </way>
+    <way id="40">
+        <nd ref="7"/>
+        <nd ref="8"/>
+        <tag k="highway" v="residential"/>
+        <tag k="width" v="1.8"/>
+        <tag k="sidewalk" v="both"/>
+    </way>
+</osm>

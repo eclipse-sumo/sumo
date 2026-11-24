@@ -774,6 +774,14 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             routingType = "narrow";
         }
     }
+    // Apply the minimum after dividing the way width among the travel lanes.
+    const double minLaneWidth = OptionsCont::getOptions().getFloat("osm.min-lane-width");
+    const auto clampWidth = [minLaneWidth](double width) {
+        return width > 0 ? std::max(width, minLaneWidth) : width;
+    };
+    forwardWidth = clampWidth(forwardWidth);
+    backwardWidth = clampWidth(backwardWidth);
+
     // deal with cycleways that run in the opposite direction of a one-way street
     WayType cyclewayType = e->myCyclewayType; // make a copy because we do some temporary modifications
     if (addBikeLane) {
@@ -858,7 +866,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                     && (int)e->myWidthLanesForward.size() == numLanesForward) {
                 for (int i = 0; i < numLanesForward; ++i) {
                     laneWidths[(size_t)i] = e->myWidthLanesForward[(size_t)i] > 0
-                                            ? e->myWidthLanesForward[(size_t)i] : defaultPlacementWidth;
+                                            ? clampWidth(e->myWidthLanesForward[(size_t)i]) : defaultPlacementWidth;
                 }
             }
             if (e->myPlacementLane < 1 || e->myPlacementLane > numLanesForward) {
@@ -977,7 +985,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                                id, nbe->getLanes().size(), numForwardLanesFromWidthKey);
             } else {
                 for (int i = 0; i < numForwardLanesFromWidthKey; i++) {
-                    const double actualWidth = e->myWidthLanesForward[i] <= 0 ? forwardWidth : e->myWidthLanesForward[i];
+                    const double actualWidth = e->myWidthLanesForward[i] <= 0 ? forwardWidth : clampWidth(e->myWidthLanesForward[i]);
                     const int laneIndex = lefthand ? i : numForwardLanesFromWidthKey - i - 1;
                     nbe->setLaneWidth(laneIndex, actualWidth);
                 }
@@ -1036,7 +1044,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                                id, nbe->getLanes().size(), numBackwardLanesFromWidthKey);
             } else {
                 for (int i = 0; i < numBackwardLanesFromWidthKey; i++) {
-                    const double actualWidth = e->myWidthLanesBackward[i] <= 0 ? backwardWidth : e->myWidthLanesBackward[i];
+                    const double actualWidth = e->myWidthLanesBackward[i] <= 0 ? backwardWidth : clampWidth(e->myWidthLanesBackward[i]);
                     const int laneIndex = lefthand ? i : numBackwardLanesFromWidthKey - i - 1;
                     nbe->setLaneWidth(laneIndex, actualWidth);
                 }

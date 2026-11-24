@@ -508,6 +508,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--osm.layer-elevation** {{DT_FLOAT}} | Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m; *default:* **0** |
 | **--osm.layer-elevation.max-grade** {{DT_FLOAT}} | Maximum grade threshold in % at 50km/h when reconstructing elevation based on layer data. The value is scaled according to road speed.; *default:* **10** |
 | **--osm.oneway-spread-right** {{DT_BOOL}} | Whether one-way roads should be spread to the side instead of centered; *default:* **false** |
+| **--osm.min-lane-width** {{DT_FLOAT}} | Minimum width in meters for OSM travel lanes with a specified width; *default:* **0** |
 | **--osm.lane-access** {{DT_BOOL}} | Import lane-specific access restrictions; *default:* **false** |
 | **--osm.bike-access** {{DT_BOOL}} | Import bike lanes and fix directions and permissions on bike paths; *default:* **false** |
 | **--osm.sidewalks** {{DT_BOOL}} | Import sidewalks; *default:* **false** |
