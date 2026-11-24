@@ -1,0 +1,1 @@
+--osm-files osm.xml --simple-projection --osm.sidewalks --sidewalks.guess

@@ -118,6 +118,8 @@ type map mentioned above.
 By default only footpaths (osm ways dedicated for pedestrian use) are imported.
 To import all sidewalk related information, the option **--osm.sidewalks** can be set. Alternatively, sidewalks can be added heuristically via typemaps (see above) or [guessing-options](../../Simulation/Pedestrians.md#generating_a_network_with_sidewalks)
 
+Combine **--osm.sidewalks** with **--sidewalks.guess** to infer sidewalks where OSM lacks sidewalk and pedestrian access information. The guess preserves explicit sidewalk absence, separately mapped sidewalks, and pedestrian access tags.
+
 ### Lane-To-Lane Connections
 
 By default, lane-to-lane connections are guessed by [netconvert](../../netconvert.md) and only turning restrictions are loaded from OSM to influence connection generation. When setting option **--osm.turn-lanes**, the turn direction road markings from OSM are evaluated to guide connection generation.

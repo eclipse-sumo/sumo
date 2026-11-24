@@ -1351,6 +1351,15 @@ public:
     /// @brief add a pedestrian sidewalk of the given width and shift existing connections
     void addSidewalk(double width);
 
+    /// @brief Preserve imported sidewalk and pedestrian access information during guessing.
+    void excludeFromSidewalkGuessing() {
+        myExcludeFromSidewalkGuessing = true;
+    }
+
+    bool isExcludedFromSidewalkGuessing() const {
+        return myExcludeFromSidewalkGuessing;
+    }
+
     /// @brief restore an previously added sidewalk
     void restoreSidewalk(std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections);
 
@@ -1871,6 +1880,9 @@ private:
 
     /// @brief True when way metadata excludes this edge from inferred roundabouts.
     bool myRoundaboutGuessExcluded = false;
+
+    /// @brief Whether the source explicitly specifies pedestrian access or sidewalks.
+    bool myExcludeFromSidewalkGuessing = false;
 
     /// @brief The routing type of the edge
     std::string myRoutingType;

@@ -9,3 +9,6 @@ divided_road
 
 # divided roads should not get sidewalks within (unless option overrides)
 divided_road_reverseSidewalk
+
+# only guess when OSM lacks sidewalk and pedestrian access tags
+guess_only_missing
