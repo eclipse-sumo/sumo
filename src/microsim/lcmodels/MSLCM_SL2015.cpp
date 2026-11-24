@@ -3669,7 +3669,9 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist, bool urgent)
     if (speedDecel * speedAccel <= 0 && (
                 // speedAccel and speedDecel bracket speed 0. This means we can end the maneuver
                 (latDist >= 0 && speedAccel >= speedBound && speedBound >= speedDecel)
-                || (latDist <= 0 && speedAccel <= speedBound && speedBound <= speedDecel))) {
+                || (latDist <= 0 && speedAccel <= speedBound && speedBound <= speedDecel))
+            // and (unless urgent) still stop within the safe maneuver distance
+            && (urgent || SPEED2DIST(fabs(speedBound)) + MSCFModel::brakeGapEuler(fabs(speedBound), accelLat, 0) <= fabs(fullLatDist) + NUMERICAL_EPS)) {
         // we can reach the desired value in this step
 #ifdef DEBUG_MANEUVER
         if (debugVehicle()) {
