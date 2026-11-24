@@ -1,0 +1,6 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="we" begin="0" end="60" period="2" departSpeed="max"><route edges="WC CE"/></flow>
+    <flow id="ns" begin="0" end="60" period="2" departSpeed="max"><route edges="NC CS"/></flow>
+    <flow id="ew" begin="0" end="60" period="2" departSpeed="max"><route edges="EC CW"/></flow>
+    <flow id="sn" begin="0" end="60" period="2" departSpeed="max"><route edges="SC CN"/></flow>
+</routes>
