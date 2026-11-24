@@ -105,6 +105,7 @@ title: ChangeLog
   - Now validating walks with edges #18598
 
 - traci / libsumo
+  - `vehicle.getParameter` with key `laneChangeModel.<ATTR>` no longer fails in meso if the vType defines the attribute (error: 'Mesoscopic vehicle does not support laneChangeModel parameters')
   - functions `trafficlight.setNemaMaxGreens` and `trafficlight.setNemaSplits` now work again in free mode #18513 (regression in 1.13.0)
   - Fixed simulation failure when replacing a person stage with a negative index. #18508
   - Fixed a crash in `vehicle.moveToXY` when keeping a route whose lanes prohibit the vehicle class. #18497

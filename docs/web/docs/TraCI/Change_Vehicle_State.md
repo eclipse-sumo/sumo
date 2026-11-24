@@ -610,6 +610,8 @@ call](../TraCI/GenericParameters.md#set_parameter).
   laneChangeModel](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#lane-changing_models)
   of the vehicle. i.e. *lcStrategic*)
 
+In meso ([--mesosim](../Simulation/Meso.md)) vehicles have no lane change model and setting these parameters raises an error.
+
 ## Supported carFollowModel Parameters
 
 Some carFollowModels permit access to further vehicle-specific parameters.

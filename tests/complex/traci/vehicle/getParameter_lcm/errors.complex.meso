@@ -1,0 +1,2 @@
+Error: Answered with error to command 0xa4: Mesoscopic vehicle 'v0' has no lane change model and its vType does not define laneChangeModel parameter 'lcCooperative'.
+Error: Answered with error to command 0xc4: Meso Vehicle 'v0' does not support laneChangeModel parameters.
