@@ -126,7 +126,9 @@ GNETAZ::writeAdditional(OutputDevice& device) const {
     if (myFill) {
         device.writeAttr(SUMO_ATTR_FILL, true);
     }
-    device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
+    if (getShapeColor().isValid()) {
+        device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
+    }
     // sort all Source/Sinks by ID
     std::map<std::pair<std::string, SumoXMLTag>, GNETAZSourceSink*> sortedSourceSinks;
     for (const auto& sourceSink : getChildTAZSourceSinks()) {
@@ -400,7 +402,7 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
                 return toString(myMoveElementShape->getMovingAttributePosition(SUMO_ATTR_CENTER));
             }
         case SUMO_ATTR_COLOR:
-            return toString(getShapeColor());
+            return getShapeColor().isValid() ? toString(getShapeColor()) : "";
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_FILL:
@@ -549,7 +551,7 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<Position>(value);
             }
         case SUMO_ATTR_COLOR:
-            return canParse<RGBColor>(value);
+            return value.empty() || canParse<RGBColor>(value);
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_FILL:
@@ -679,9 +681,12 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
                 updateCenteringBoundary(true);
             }
             break;
-        case SUMO_ATTR_COLOR:
-            setShapeColor(parse<RGBColor>(value));
+        case SUMO_ATTR_COLOR: {
+            RGBColor color = value.empty() ? RGBColor::RED : parse<RGBColor>(value);
+            color.setValid(!value.empty());
+            setShapeColor(color);
             break;
+        }
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
             break;
