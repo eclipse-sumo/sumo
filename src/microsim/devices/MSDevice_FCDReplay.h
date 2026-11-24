@@ -70,7 +70,8 @@ public:
     /// @brief Destructor.
     ~MSDevice_FCDReplay();
 
-    void move(SUMOTime currentTime);
+    /// @brief Returns true when a replay-created vehicle has finished its recording.
+    bool move(SUMOTime currentTime);
 
     /// @brief return the name for this type of device
     const std::string deviceName() const override {
@@ -88,12 +89,16 @@ public:
 
     typedef std::vector<TrajectoryEntry> Trajectory;
 
-    void setTrajectory(const Trajectory* const t) {
+private:
+    class FCDHandler;
+
+    void setTrajectory(const Trajectory* t, const FCDHandler* source, bool replayCreated) {
         myTrajectory = t;
         myTrajectoryIndex = 1;
+        myTrajectorySource = source;
+        myReplayCreated = replayCreated;
     }
 
-private:
     /** @brief Constructor
      *
      * @param[in] holder The vehicle that holds this device
@@ -116,6 +121,14 @@ private:
             return myTime;
         }
         void updateTrafficObjects(const SUMOTime intervalStart);
+
+        void setFinished() {
+            myFinished = true;
+        }
+
+        bool isFinished() const {
+            return myFinished;
+        }
 
         const std::map<std::string, Trajectory>& getTrajectories() {
             return myTrajectories;
@@ -151,6 +164,7 @@ private:
         ConstMSEdgeVector checkRoute(const ConstMSEdgeVector& edges, const SUMOVehicle* const vehicle);
 
         SUMOTime myTime = 0;
+        bool myFinished = false;
         std::map<std::string, Trajectory> myTrajectories;
         std::map<std::string, std::tuple<SUMOTime, std::string, bool, ConstMSEdgeVector, std::vector<StageStart> > > myRoutes;
         std::map<const Position, std::string> myPositions;
@@ -162,6 +176,8 @@ private:
     /// @brief bit mask for checking attributes to be used
     static SumoXMLAttrMask myUsedAttributes;
     const Trajectory* myTrajectory = nullptr;
+    const FCDHandler* myTrajectorySource = nullptr;
+    bool myReplayCreated = false;
     int myTrajectoryIndex = 0;
 
 private:

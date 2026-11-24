@@ -23,6 +23,9 @@ import xml.etree.ElementTree as ET
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 
+NETWORK = os.path.join(os.environ['SUMO_HOME'], 'tests', 'complex', 'sumo',
+                       'insertionCapacity', 'input_net.net.xml')
+
 
 def run_case(label, times, step):
     recording = ET.Element('fcd-export')
@@ -31,29 +34,28 @@ def run_case(label, times, step):
         # Discrete position changes and zero speed make future-entry waiting
         # and the final position observable without ongoing vehicle motion.
         ET.SubElement(timestep, 'vehicle', id='v', x=str(10 + index), y='-1.6',
-                      pos=str(10 + index), lane='road_0', speed='0', angle='90')
+                      pos=str(10 + index), lane='E0_0', speed='0', angle='90')
     ET.ElementTree(recording).write('input_state.xml')
-    subprocess.check_call([sumolib.checkBinary('sumo'), '-n', 'input_net.net.xml',
+    subprocess.check_call([sumolib.checkBinary('sumo'), '-n', NETWORK,
                            '--device.fcd-replay.file', 'input_state.xml',
                            '--default.departspeed', '0',
                            '--step-length', str(step / 1000), '--end', str((times[-1] + 2 * step + 1000) / 1000),
                            '--fcd-output', 'replayed.xml', '--no-step-log', '--no-duration-log',
                            '--no-warnings', '--xml-validation', 'never'])
-    observed = 0
+    final_step = (times[-1] + step - 1) // step * step
+    observed = []
     for timestep in ET.parse('replayed.xml').getroot():
         time = round(float(timestep.attrib['time']) * 1000)
         vehicle = timestep.find('vehicle')
+        if time > final_step:
+            assert vehicle is None, (label, step, time, 'vehicle remained after final sample')
+            continue
         assert vehicle is not None, (label, step, time, 'missing vehicle')
         latest = max(index for index, recorded in enumerate(times) if recorded <= time)
         actual = float(vehicle.attrib['pos'])
-        if label == 'single' and time > 0:
-            # A single entry only initializes departure. The vehicle retains its
-            # normal movement and removal behavior after that entry.
-            assert actual >= 10, (label, step, time, actual)
-        else:
-            assert abs(actual - (10 + latest)) < 0.01, (label, step, time, actual, 10 + latest)
-        observed += 1
-    assert observed > 1, (label, step, 'no replay steps')
+        assert abs(actual - (10 + latest)) < 0.01, (label, step, time, actual, 10 + latest)
+        observed.append(time)
+    assert observed == list(range(0, final_step + step, step)), (label, step, observed)
     print(f'{label} step={step / 1000} passed')
 
 
