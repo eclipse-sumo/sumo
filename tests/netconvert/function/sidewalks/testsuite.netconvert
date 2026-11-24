@@ -17,3 +17,6 @@ addFromPlainXML
 # guess from speed
 guess
 guess.from-permissions
+
+# Connection indices precede insertion of automatic sidewalks.
+authored_connections

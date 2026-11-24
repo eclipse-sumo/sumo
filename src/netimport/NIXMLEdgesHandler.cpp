@@ -653,13 +653,20 @@ NIXMLEdgesHandler::myEndElement(int element) {
     }
     if (element == SUMO_TAG_EDGE) {
         myLastParameterised.pop_back();
+        if (!myIsUpdate) {
+            myCurrentEdge->markAsPlainXMLEdge();
+        }
         // add bike lane, wait until lanes are loaded to avoid building if it already exists
         if (myBikeLaneWidth != NBEdge::UNSPECIFIED_WIDTH) {
             myCurrentEdge->addBikeLane(myBikeLaneWidth);
         }
         // add sidewalk, wait until lanes are loaded to avoid building if it already exists
         if (mySidewalkWidth != NBEdge::UNSPECIFIED_WIDTH) {
+            const int lanesBeforeSidewalk = myCurrentEdge->getNumLanes();
             myCurrentEdge->addSidewalk(mySidewalkWidth);
+            if (myCurrentEdge->isPlainXMLEdge() && myCurrentEdge->getNumLanes() > lanesBeforeSidewalk) {
+                myCurrentEdge->getLaneStruct(0).generatedPlainXMLSidewalk = true;
+            }
         }
         // apply default stopOffsets of edge to all lanes without specified stopOffset.
         const StopOffset stopOffsets = myCurrentEdge->getEdgeStopOffset();

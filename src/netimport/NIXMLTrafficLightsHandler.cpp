@@ -45,13 +45,14 @@
 // method definitions
 // ===========================================================================
 NIXMLTrafficLightsHandler::NIXMLTrafficLightsHandler(
-    NBTrafficLightLogicCont& tlCont, NBEdgeCont& ec, bool ignoreUnknown) :
+    NBTrafficLightLogicCont& tlCont, NBEdgeCont& ec, bool ignoreUnknown, bool translateLaneIndices) :
     SUMOSAXHandler("xml-tllogics"),
     myTLLCont(tlCont),
     myEdgeCont(ec),
     myCurrentTL(nullptr),
     myResetPhases(false),
-    myIgnoreUnknown(ignoreUnknown)
+    myIgnoreUnknown(ignoreUnknown),
+    myTranslateLaneIndices(translateLaneIndices)
 { }
 
 
@@ -328,6 +329,9 @@ int
 NIXMLTrafficLightsHandler::retrieveLaneIndex(
     const SUMOSAXAttributes& attrs, SumoXMLAttr attr, NBEdge* edge, bool& ok, bool isDelete) {
     int laneIndex = attrs.get<int>(attr, nullptr, ok);
+    if (myTranslateLaneIndices) {
+        laneIndex = edge->getLaneIndexFromPlainXML(laneIndex);
+    }
     if (edge->getNumLanes() <= laneIndex) {
         if (!isDelete) {
             WRITE_ERRORF(TL("Invalid lane index '%' for edge '%'."), toString(laneIndex), edge->getID());

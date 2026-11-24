@@ -910,6 +910,8 @@ To declare connections fully (and avoid any kind of guessing), use the following
 
 Here, a connection from the edge's "*<FROM_EDGE_ID\>*" lane with the number *<INT_1\>* is build to the lane *<INT_2\>* of the edge "*<TO_EDGE_ID\>*". Lanes are counted from the right (outer) to the left (inner) side of the road beginning with 0. This style must be used when further connection attributes (such as permissions) shall be declared.
 
+For an edge created from plain edge files with `sidewalkWidth`, number lanes in connection and traffic-light files before the generated sidewalk is inserted. An explicit pedestrian lane is counted like any other lane. When adding a sidewalk to an edge loaded from a SUMO network, use the updated lane indices in additional connection and traffic-light files. If a connection previously compensated for the generated sidewalk on a new edge, subtract one from the affected lane index.
+
 | Attribute Name | Value Type                             | Default | Description      |
 | -------------- | -------------------------------------- | ------- | ----------------------------------------------------------------------- |
 | **from**       | referenced edge id                                                                                                  |         | The name of the edge the vehicles leave                                                                                                                                                                                                                                                                                                                                      |

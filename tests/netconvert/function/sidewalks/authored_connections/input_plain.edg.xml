@@ -1,0 +1,7 @@
+<edges>
+    <edge id="in" from="a" to="b" numLanes="2" sidewalkWidth="2"/>
+    <edge id="out" from="b" to="c" numLanes="2">
+        <lane index="0" allow="pedestrian" width="2"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+</edges>
