@@ -15,8 +15,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
     <interval id="set1" begin="0.00" end="3600.00">
-        <edgeRelation from="-E0" to="E1"/>
-        <edge id="E10"/>
+        <edgeRelation from="-E0" to="E1" value="changed"/>
+        <edge id="E10" value="changed"/>
         <edge id="E11"/>
         <edgeRelation from="E0" to="-E1"/>
         <edge id="-E10"/>
@@ -25,14 +25,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <interval id="set2" begin="0.00" end="3600.00">
         <edgeRelation from="-E0" to="E1"/>
         <edge id="E10"/>
-        <edge id="E11"/>
+        <edge id="E11" value="changed"/>
         <edgeRelation from="E0" to="-E1"/>
         <edge id="-E10"/>
         <edge id="-E11"/>
     </interval>
     <interval id="set3" begin="0.00" end="3600.00">
         <edgeRelation from="-E0" to="E1"/>
-        <edge id="E10"/>
+        <edge id="E10" value="changed"/>
         <edge id="E11"/>
         <edgeRelation from="E0" to="-E1"/>
         <edge id="-E10"/>

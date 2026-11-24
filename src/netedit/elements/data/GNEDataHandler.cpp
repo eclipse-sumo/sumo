@@ -53,6 +53,21 @@ GNEDataHandler::~GNEDataHandler() {
 
 
 bool
+GNEDataHandler::parse() {
+    myLoadingFile = true;
+    const bool result = DataHandler::parse();
+    myLoadingFile = false;
+    return result;
+}
+
+
+bool
+GNEDataHandler::hasMergedData() const {
+    return myMergedData;
+}
+
+
+bool
 GNEDataHandler::buildDataSet(const std::string& id) {
     // first check if dataSet exist
     if (!checkValidAdditionalID(SUMO_TAG_DATASET, id)) {
@@ -100,6 +115,10 @@ GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* s
         }
         return true;
     } else if (dataSet->retrieveInterval(begin, end) == nullptr) {
+        if (dataSet->getDataIntervalChildren().count(begin) != 0) {
+            return writeError(TLF("Data set '%' already defines an interval starting at %.", dataSetID, begin));
+        }
+        myMergedData |= dataSet->getFileBucket() != myFileBucket;
         GNEDataInterval* dataInterval = new GNEDataInterval(dataSet, begin, end);
         if (myAllowUndoRedo) {
             myNet->getUndoList()->begin(dataInterval, TL("add data interval"));
@@ -132,10 +151,15 @@ GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBase
             GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
             if (edge == nullptr) {
                 return writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, {SUMO_TAG_EDGE});
-            } else if (dataInterval->edgeRelSingleExists(edge)) {
-                return writeError(TLF("There is already a edgeRel defined in edge '%'.", edge));
+            } else if (auto* existing = dataInterval->findEdgeData(edge)) {
+                if (!mayOverwrite(existing)) {
+                    return false;
+                }
+                overwrite(existing, parameters);
+                return true;
             } else {
                 // create edge data
+                myMergedData |= dataSet->getFileBucket() != myFileBucket;
                 GNEGenericData* edgeData = new GNEEdgeData(dataInterval, edge, parameters);
                 if (myAllowUndoRedo) {
                     myNet->getUndoList()->begin(edgeData, TL("add edge rel"));
@@ -175,9 +199,14 @@ GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* 
                 return writeErrorInvalidParent(SUMO_TAG_EDGEREL, {SUMO_TAG_EDGE}, fromEdgeID);
             } else if (toEdge == nullptr) {
                 return writeErrorInvalidParent(SUMO_TAG_EDGEREL, {SUMO_TAG_EDGE}, toEdgeID);
-            } else if (dataInterval->edgeRelExists(fromEdge, toEdge)) {
-                return writeError(TLF("There is already a edgeRel defined between '%' and '%'.", fromEdgeID, toEdgeID));
+            } else if (auto* existing = dataInterval->findEdgeRelationData(fromEdge, toEdge)) {
+                if (!mayOverwrite(existing)) {
+                    return false;
+                }
+                overwrite(existing, parameters);
+                return true;
             } else {
+                myMergedData |= dataSet->getFileBucket() != myFileBucket;
                 GNEGenericData* edgeData = new GNEEdgeRelData(dataInterval, fromEdge, toEdge, parameters);
                 if (myAllowUndoRedo) {
                     myNet->getUndoList()->begin(edgeData, TL("add edge rel"));
@@ -218,11 +247,15 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
                 return writeErrorInvalidParent(SUMO_TAG_TAZREL, {SUMO_TAG_TAZ}, fromTAZID);
             } else if (toTAZ == nullptr) {
                 return writeErrorInvalidParent(SUMO_TAG_TAZREL, {SUMO_TAG_TAZ}, toTAZID);
-            } else if ((fromTAZ != toTAZ) && dataInterval->TAZRelExists(fromTAZ, toTAZ)) {
-                return writeError(TLF("There is already a TAZ rel defined between '%' and '%'.", fromTAZID, toTAZID));
-            } else if ((fromTAZ == toTAZ) && dataInterval->TAZRelExists(fromTAZ)) {
-                return writeError(TLF("There is already a TAZ rel defined in '%'.", toTAZID));
+            } else if (auto* existing = fromTAZ == toTAZ ? dataInterval->findTAZRelationData(fromTAZ)
+                       : dataInterval->findTAZRelationData(fromTAZ, toTAZ)) {
+                if (!mayOverwrite(existing)) {
+                    return false;
+                }
+                overwrite(existing, parameters);
+                return true;
             } else if (fromTAZ == toTAZ) {
+                myMergedData |= dataSet->getFileBucket() != myFileBucket;
                 GNEGenericData* edgeData = new GNETAZRelData(dataInterval, fromTAZ, parameters);
                 if (myAllowUndoRedo) {
                     myNet->getUndoList()->begin(edgeData, TL("add TAZ rel"));
@@ -235,6 +268,7 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
                 }
                 return true;
             } else {
+                myMergedData |= dataSet->getFileBucket() != myFileBucket;
                 GNEGenericData* edgeData = new GNETAZRelData(dataInterval, fromTAZ, toTAZ, parameters);
                 if (myAllowUndoRedo) {
                     myNet->getUndoList()->begin(edgeData, TL("add TAZ rel"));
@@ -253,6 +287,95 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
         }
     } else {
         return writeErrorInvalidParent(SUMO_TAG_TAZREL, {SUMO_TAG_DATASET});
+    }
+}
+
+
+bool
+GNEDataHandler::mayOverwrite(const GNEGenericData* existing) {
+    const auto tag = existing->getTagProperty()->getTag();
+    if (!myLoadingFile) {
+        return writeError(TLF("There is already a % with ID '%'.", existing->getTagStr(), existing->getID()));
+    }
+    if (myOverwriteElements) {
+        return true;
+    }
+    if (myRemainElements || !myAllowUndoRedo) {
+        return writeWarningDuplicated(tag, existing->getID(), tag);
+    }
+    const GNEOverwriteElement dialog(this, existing);
+    if (dialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
+        return true;
+    }
+    if (dialog.getResult() == GNEOverwriteElement::Result::CANCEL) {
+        return writeWarningDuplicated(tag, existing->getID(), tag);
+    }
+    return false;
+}
+
+
+namespace {
+
+void
+applyDataValues(GNEGenericData* data, const Parameterised& parameters) {
+    data->setParameters(parameters);
+    data->getDataIntervalParent()->getDataSetParent()->updateAttributeColors();
+    data->getNet()->getViewNet()->getIntervalBar().markForUpdate();
+    data->getNet()->getSavingStatus()->requireSaveDataElements();
+}
+
+class GNEChange_DataValues final : public GNEChange {
+public:
+    GNEChange_DataValues(GNEGenericData* data, const Parameterised::Map& parameters) :
+        GNEChange(Supermode::DATA, true, data->isAttributeCarrierSelected()),
+        myData(data),
+        myBefore(data->getParametersMap()),
+        myAfter(parameters) {
+        myData->incRef("GNEChange_DataValues");
+    }
+
+    ~GNEChange_DataValues() override {
+        myData->decRef("GNEChange_DataValues");
+        if (myData->unreferenced()) {
+            delete myData;
+        }
+    }
+
+    void undo() override {
+        applyDataValues(myData, myBefore);
+    }
+
+    void redo() override {
+        applyDataValues(myData, myAfter);
+    }
+
+    std::string undoName() const override {
+        return TL("Undo overwrite data values");
+    }
+
+    std::string redoName() const override {
+        return TL("Redo overwrite data values");
+    }
+
+private:
+    GNEGenericData* const myData;
+    const Parameterised myBefore;
+    const Parameterised myAfter;
+};
+
+} // namespace
+
+
+void
+GNEDataHandler::overwrite(GNEGenericData* existing, const Parameterised::Map& parameters) {
+    if (existing->getParametersMap() == parameters) {
+        return;
+    }
+    myMergedData |= existing->getFileBucket() != myFileBucket;
+    if (myAllowUndoRedo) {
+        myNet->getUndoList()->add(new GNEChange_DataValues(existing, parameters), true);
+    } else {
+        applyDataValues(existing, Parameterised(parameters));
     }
 }
 

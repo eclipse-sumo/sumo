@@ -149,16 +149,16 @@ public:
     const std::vector<GNEGenericData*>& getGenericDataChildren() const;
 
     /// @brief check if there is already a edgeRel single defined in the given edge
-    bool edgeRelSingleExists(const GNEEdge* edge) const;
+    GNEGenericData* findEdgeData(const GNEEdge* edge) const;
 
     /// @brief check if there is already a edgeRel defined between two edges
-    bool edgeRelExists(const GNEEdge* fromEdge, const GNEEdge* toEdge) const;
+    GNEGenericData* findEdgeRelationData(const GNEEdge* fromEdge, const GNEEdge* toEdge) const;
 
     /// @brief check if there is already a TAZRel defined in one TAZ
-    bool TAZRelExists(const GNEAdditional* TAZ) const;
+    GNEGenericData* findTAZRelationData(const GNEAdditional* TAZ) const;
 
     /// @brief check if there is already a TAZRel defined between two TAZs
-    bool TAZRelExists(const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ) const;
+    GNEGenericData* findTAZRelationData(const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ) const;
 
     /// @}
 

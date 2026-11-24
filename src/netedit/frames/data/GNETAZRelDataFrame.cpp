@@ -177,9 +177,9 @@ GNETAZRelDataFrame::buildTAZRelationData() {
             WRITE_WARNINGF(TL("A % must be defined within a dataSet."), toString(SUMO_TAG_TAZREL));
         } else if (!myIntervalSelector->getDataInterval()) {
             WRITE_WARNINGF(TL("A % must be defined within an interval."), toString(SUMO_TAG_TAZREL));
-        } else if ((myFirstTAZ == mySecondTAZ) && myIntervalSelector->getDataInterval()->TAZRelExists(myFirstTAZ)) {
+        } else if ((myFirstTAZ == mySecondTAZ) && myIntervalSelector->getDataInterval()->findTAZRelationData(myFirstTAZ)) {
             WRITE_WARNINGF(TL("There is already a % defined in TAZ'%'."), toString(SUMO_TAG_TAZREL), myFirstTAZ->getID());
-        } else if ((myFirstTAZ != mySecondTAZ) && myIntervalSelector->getDataInterval()->TAZRelExists(myFirstTAZ, mySecondTAZ)) {
+        } else if ((myFirstTAZ != mySecondTAZ) && myIntervalSelector->getDataInterval()->findTAZRelationData(myFirstTAZ, mySecondTAZ)) {
             WRITE_WARNINGF(TL("There is already a % defined between TAZ'%' and '%'."), toString(SUMO_TAG_TAZREL), myFirstTAZ->getID(), mySecondTAZ->getID());
         } else if (myGenericDataAttributesEditor->checkAttributes(true)) {
             // declare data handler

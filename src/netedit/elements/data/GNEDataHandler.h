@@ -27,6 +27,7 @@
 // class declarations
 // ===========================================================================
 class GNENet;
+class GNEGenericData;
 
 // ===========================================================================
 // class definitions
@@ -44,6 +45,12 @@ public:
 
     /// @brief Destructor
     ~GNEDataHandler();
+
+    /// @brief Read the data file and resolve conflicts between matching records
+    bool parse();
+
+    /// @brief Whether the load changed a dataset saved to a different file
+    bool hasMergedData() const;
 
     /// @name build functions
     /// @{
@@ -99,6 +106,17 @@ protected:
     bool checkDuplicatedDataSet(const std::string& id);
 
 private:
+    /// @brief Apply the existing overwrite, keep or abort policy to a matching record
+    bool mayOverwrite(const GNEGenericData* existing);
+
+    /// @brief Apply parameters without dropping the interval or its dataset
+    void overwrite(GNEGenericData* existing, const Parameterised::Map& parameters);
+
+    /// @brief Direct creation in the data editor reports duplicate records as errors
+    bool myLoadingFile = false;
+
+    bool myMergedData = false;
+
     /// @brief invalidate default constructor
     GNEDataHandler() = delete;
 
