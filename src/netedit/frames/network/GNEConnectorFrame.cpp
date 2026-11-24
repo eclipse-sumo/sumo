@@ -18,6 +18,7 @@
 // The Widget for modifying lane-to-lane connections
 /****************************************************************************/
 
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/elements/network/GNEConnection.h>
@@ -177,7 +178,7 @@ GNEConnectorFrame::ConnectionOperations::ConnectionOperations(GNEConnectorFrame*
     myClearSelectedButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Clear Selected"), "", TL("Clears all connections of all selected objects"),
                             0, this, MID_CHOOSEN_CLEAR, GUIDesignButton);
     // Create "Reset Selected" button
-    myResetSelectedButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Reset Selected"), "", TL("Recomputes connections at all selected junctions"),
+    myResetSelectedButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Reset Selected"), "", TL("Recomputes connections at selected junctions and from the edges of selected lanes"),
                             0, this, MID_CHOOSEN_RESET, GUIDesignButton);
 }
 
@@ -301,18 +302,40 @@ GNEConnectorFrame::ConnectionOperations::onCmdClearSelectedConnections(FXObject*
 long
 GNEConnectorFrame::ConnectionOperations::onCmdResetSelectedConnections(FXObject*, FXSelector, void*) {
     myConnectorFrameParent->myConnectionModifications->onCmdCancelModifications(0, 0, 0);
-    myConnectorFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::CONNECTION, TL("reset connections from selected lanes"));
-    const auto selectedJunctions = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedJunctions();
-    for (const auto& junction : selectedJunctions) {
-        junction->setLogicValid(false, myConnectorFrameParent->getViewNet()->getUndoList());
+    const auto viewNet = myConnectorFrameParent->getViewNet();
+    const auto net = viewNet->getNet();
+    const auto undoList = viewNet->getUndoList();
+    const auto carriers = net->getAttributeCarriers();
+    const auto selectedJunctions = carriers->getSelectedJunctions();
+    std::map<std::string, GNEEdge*> edges;
+    for (const auto* lane : carriers->getSelectedLanes()) {
+        auto* edge = lane->getParentEdge();
+        if (!edge->getToJunction()->isAttributeCarrierSelected()) {
+            edges.emplace(edge->getID(), edge);
+        }
     }
-    myConnectorFrameParent->getViewNet()->getUndoList()->end();
-    if (selectedJunctions.size() > 0) {
-        auto viewNet = myConnectorFrameParent->getViewNet();
-        viewNet->getNet()->requireRecompute();
-        viewNet->getNet()->computeNetwork(viewNet->getViewParent()->getGNEAppWindows());
+    if (!selectedJunctions.empty() || !edges.empty()) {
+        undoList->begin(GUIIcon::CONNECTION, TL("reset selected connections"));
+        for (auto* junction : selectedJunctions) {
+            junction->setLogicValid(false, undoList);
+        }
+        for (const auto& entry : edges) {
+            auto* edge = entry.second;
+            edge->getToJunction()->removeConnectionsFrom(edge, undoList, true);
+            GNEChange_Attribute::changeAttribute(edge, GNE_ATTR_MODIFICATION_STATUS, GNEAttributeCarrier::FEATURE_GUESSED, undoList, true);
+        }
+        net->requireRecompute();
+        net->computeNetwork(viewNet->getViewParent()->getGNEAppWindows());
+        // Include newly guessed edge connections so undo restores the previous edge state.
+        for (const auto& entry : edges) {
+            auto* edge = entry.second;
+            for (const auto& connection : edge->getNBEdge()->getConnections()) {
+                undoList->add(new GNEChange_Connection(edge, connection, false, true), false);
+            }
+        }
+        undoList->end();
     }
-    myConnectorFrameParent->getViewNet()->updateViewNet();
+    viewNet->updateViewNet();
     return 1;
 }
 
