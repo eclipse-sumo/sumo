@@ -1,0 +1,5 @@
+<detectorDefinitions>
+    <detectorDefinition id="start" lane="start_0" pos="10" type="source"/>
+    <detectorDefinition id="detour" lane="longA_0" pos="10" type="between"/>
+    <detectorDefinition id="end" lane="end_0" pos="10" type="sink"/>
+</detectorDefinitions>

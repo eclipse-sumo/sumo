@@ -31,9 +31,10 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <route id="beg_to_end" edges="beg middle end"/>
+
     <route id="middle_to_end" edges="middle end"/>
 
 </routes>

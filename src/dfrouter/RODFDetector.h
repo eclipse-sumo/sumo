@@ -224,7 +224,7 @@ public:
     const std::vector<RODFDetector*>& getDetectors() const;
     void save(const std::string& file) const;
     void saveAsPOIs(const std::string& file) const;
-    void saveRoutes(const std::string& file) const;
+    void saveRoutes(const std::string& file, bool includeInBetween) const;
 
     const RODFDetector& getDetector(const std::string& id) const;
     RODFDetector& getModifiableDetector(const std::string& id) const;

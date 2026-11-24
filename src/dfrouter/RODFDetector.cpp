@@ -581,21 +581,20 @@ RODFDetectorCon::saveAsPOIs(const std::string& file) const {
 
 
 void
-RODFDetectorCon::saveRoutes(const std::string& file) const {
+RODFDetectorCon::saveRoutes(const std::string& file, bool includeInBetween) const {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("routes", "routes_file.xsd");
     std::vector<std::string> saved;
-    // write for source detectors
     bool lastWasSaved = true;
-    for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
-        if ((*i)->getType() != SOURCE_DETECTOR) {
-            // do not build routes for other than sources
+    for (auto* detector : myDetectors) {
+        const RODFDetectorType type = detector->getType();
+        if (type != SOURCE_DETECTOR && !(includeInBetween && type == BETWEEN_DETECTOR)) {
             continue;
         }
         if (lastWasSaved) {
             out << "\n";
         }
-        lastWasSaved = (*i)->writeRoutes(saved, out);
+        lastWasSaved = detector->writeRoutes(saved, out);
     }
     out << "\n";
     out.close();

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,400.00,100.00" origBoundary="0.00,0.00,400.00,100.00" projParameter="!"/>
+
+    <edge id="end" from="n4" to="n5" priority="-1">
+        <lane id="end_0" index="0" speed="13.89" length="100.00" shape="301.66,-1.60 400.00,-1.60"/>
+    </edge>
+    <edge id="longA" from="n1" to="n3" priority="-1">
+        <lane id="longA_0" index="0" speed="13.89" length="140.71" shape="104.57,2.30 198.87,96.61"/>
+    </edge>
+    <edge id="longB" from="n3" to="n4" priority="-1">
+        <lane id="longB_0" index="0" speed="13.89" length="140.28" shape="201.13,96.61 295.43,2.30"/>
+    </edge>
+    <edge id="shortA" from="n1" to="n2" priority="-1">
+        <lane id="shortA_0" index="0" speed="13.89" length="100.00" shape="106.18,-1.60 200.00,-1.60"/>
+    </edge>
+    <edge id="shortB" from="n2" to="n4" priority="-1">
+        <lane id="shortB_0" index="0" speed="13.89" length="100.00" shape="200.00,-1.60 293.82,-1.60"/>
+    </edge>
+    <edge id="start" from="n0" to="n1" priority="-1">
+        <lane id="start_0" index="0" speed="13.89" length="100.00" shape="0.00,-1.60 98.34,-1.60"/>
+    </edge>
+
+    <junction id="n0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="n1" type="priority" x="100.00" y="0.00" incLanes="start_0" intLanes="" shape="103.43,3.43 105.70,1.17 105.23,0.52 105.23,0.29 105.39,0.13 105.71,0.03 106.18,0.00 106.18,-3.20 98.34,-3.20 98.34,0.00 100.55,0.41 101.23,0.90 101.83,1.58 102.52,2.43">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="n2" type="priority" x="200.00" y="0.00" incLanes="shortA_0" intLanes="" shape="200.00,0.00 200.00,-3.20 200.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="n3" type="priority" x="200.00" y="100.00" incLanes="longA_0" intLanes="" shape="202.26,97.74 200.00,95.47 197.74,97.74 199.25,98.74 200.00,98.87 200.75,98.74 201.51,98.37">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="n4" type="priority" x="300.00" y="0.00" incLanes="shortB_0 longB_0" intLanes="" shape="301.66,0.00 301.66,-3.20 293.82,-3.20 293.82,0.00 294.61,0.13 294.77,0.29 294.77,0.52 294.61,0.81 294.30,1.17 296.57,3.43 298.17,1.58 298.77,0.90 299.45,0.41 300.36,0.10">
+        <request index="0" response="00" foes="10"/>
+        <request index="1" response="01" foes="01"/>
+    </junction>
+    <junction id="n5" type="dead_end" x="400.00" y="0.00" incLanes="end_0" intLanes="" shape="400.00,-3.20 400.00,0.00"/>
+
+    <connection from="longA" to="longB" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="longB" to="end" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="shortA" to="shortB" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="shortB" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="start" to="shortA" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="start" to="longA" fromLane="0" toLane="0" dir="l" state="M"/>
+
+</net>

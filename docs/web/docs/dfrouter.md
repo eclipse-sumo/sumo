@@ -72,7 +72,7 @@ Applications\#Configuration Files](Basics/Using_the_Command_Line_Applications.md
 | **--output.column-header** {{DT_STR}} | How to derive column headers from attribute names ('none', 'tag', 'auto', 'plain', 'full'); *default:* **auto** |
 | **--output.column-separator** {{DT_STR}} | Separator in CSV output; *default:* **;** |
 | **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rather than seconds; *default:* **false** |
-| **-o** {{DT_FILE}}<br> **--routes-output** {{DT_FILE}} | Saves computed routes to FILE |
+| **-o** {{DT_FILE}}<br> **--routes-output** {{DT_FILE}} | Saves computed routes from source detectors to FILE. With **--routes-for-all**, this includes routes from in-between detectors. |
 | **--routes-for-all** {{DT_BOOL}} | Forces dfrouter to compute routes for in-between detectors; *default:* **false** |
 | **--detector-output** {{DT_FILE}} | Saves typed detectors to FILE |
 | **--detectors-poi-output** {{DT_FILE}} | Saves detector positions as pois to FILE |
