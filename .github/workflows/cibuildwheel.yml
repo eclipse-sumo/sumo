@@ -43,7 +43,8 @@ jobs:
       - name: Building sumolib and traci wheels
         run: |
           sudo apt-get update
-          sudo apt-get install $(cat build_config/build_req_deb.txt)
+          dependency_packages=$(build_config/list_debian_dependencies.sh build)
+          sudo apt-get install $dependency_packages
           python tools/build_config/version.py --pep440 build_config/pyproject/sumolib.toml pyproject.toml
           python -m build
           python tools/build_config/version.py --pep440 build_config/pyproject/traci.toml pyproject.toml
