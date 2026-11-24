@@ -19,6 +19,8 @@
 // Functions from main window of netedit
 /****************************************************************************/
 
+#include <filesystem>
+
 #include <gui/dialogs/GUIDialog_Feedback.h>
 #include <netbuild/NBFrame.h>
 #include <netedit/changes/GNEChange_EdgeType.h>
@@ -5095,6 +5097,13 @@ GNEApplicationWindow::getNetgenerateOptions() {
 bool
 GNEApplicationWindow::checkMeanDataFileBucket(const std::string& file, FileBucket* bucket, const GNEGeneralHandler& generalHandler) {
     if (generalHandler.isMeanDataFile() && !generalHandler.isAdditionalFile()) {
+        // Keep ownership in the additional bucket if Save Additionals would select the same file.
+        const auto additionalFilename = myFileBucketHandler->getConfigFilePrefix(".add.xml");
+        std::error_code error;
+        if (!additionalFilename.empty() && std::filesystem::equivalent(
+                    std::filesystem::u8path(file), std::filesystem::u8path(additionalFilename), error)) {
+            return false;
+        }
         auto meanDataBucket = myFileBucketHandler->getBucket(FileBucket::Type::MEANDATA, file, true);
         for (const auto& meanDataTag : myNet->getAttributeCarriers()->getMeanDatas()) {
             for (const auto& meanDataPair : meanDataTag.second) {
