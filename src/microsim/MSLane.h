@@ -1817,11 +1817,7 @@ private:
             myTime = time;
         }
         void run(MFXWorkerThread* /*context*/) {
-            try {
-                (myLane.*(myOperation))(myTime);
-            } catch (ProcessError& e) {
-                WRITE_ERROR(e.what());
-            }
+            (myLane.*(myOperation))(myTime);
         }
     private:
         Operation myOperation = nullptr;
