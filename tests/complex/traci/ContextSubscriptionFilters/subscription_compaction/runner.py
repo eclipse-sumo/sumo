@@ -26,11 +26,14 @@ import sumolib  # noqa
 import traci  # noqa
 from traci import constants as tc  # noqa
 
+network = os.path.join(os.environ["SUMO_HOME"], "tests", "complex", "sumo",
+                       "insertionCapacity", "input_net.net.xml")
+
 for keep_context in (True, False):
     for position in (0, 2, 4):
         with contextlib.redirect_stdout(io.StringIO()):
-            traci.start([sumolib.checkBinary('sumo'), '-n', 'input_net.net.xml', '--no-step-log', '--no-warnings'])
-        traci.route.add('route', ['road'])
+            traci.start([sumolib.checkBinary('sumo'), '-n', network, '--no-step-log', '--no-warnings'])
+        traci.route.add('route', ['E0'])
         traci.vehicletype.copy('DEFAULT_VEHTYPE', 'other')
         for index in range(32):
             traci.vehicle.add('v%s' % index, 'route', typeID='other' if index % 2 == 0 else 'DEFAULT_VEHTYPE',
