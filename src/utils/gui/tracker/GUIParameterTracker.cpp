@@ -21,6 +21,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cmath>
 #include <string>
 #include <fstream>
 #include <utils/common/MsgHandler.h>
@@ -51,6 +52,7 @@ FXDEFMAP(GUIParameterTracker) GUIParameterTrackerMap[] = {
     FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_MULTIPLOT,           GUIParameterTracker::onMultiPlot),
     FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_AGGREGATIONINTERVAL, GUIParameterTracker::onCmdChangeAggregation),
     FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_SAVE,                GUIParameterTracker::onCmdSave),
+    FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_SAVE_PLOT,           GUIParameterTracker::onCmdSavePlot),
 
 };
 
@@ -115,6 +117,9 @@ GUIParameterTracker::buildToolBar() {
     // save button
     GUIDesigns::buildFXButton(myToolBar, "", "", + TL("Save the data..."),
                               GUIIconSubSys::getIcon(GUIIcon::SAVE), this, GUIParameterTracker::MID_SAVE, GUIDesignButtonToolbar);
+
+    GUIDesigns::buildFXButton(myToolBar, "SVG", "", TL("Save the plot as SVG..."),
+                             GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_SAVE_PLOT, GUIDesignButtonToolbar);
 
     // aggregation interval combo
     myAggregationInterval = new MFXComboBoxIcon(myToolBar, nullptr, false, GUIDesignComboBoxVisibleItems,
@@ -258,6 +263,114 @@ GUIParameterTracker::onCmdSave(FXObject*, FXSelector, void*) {
         FXMessageBox::error(this, MBOX_OK, TL("Storing failed!"), "%s", e.what());
     }
     return 1;
+}
+
+
+long
+GUIParameterTracker::onCmdSavePlot(FXObject*, FXSelector, void*) {
+    const FXString file = MFXUtils::getFilename2Write(this, TL("Save Plot"),
+                          TL("SVG files (*.svg)"), GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
+    if (file != "") {
+        try {
+            writePlotSVG(file.text());
+        } catch (const IOError& e) {
+            FXMessageBox::error(this, MBOX_OK, TL("Storing failed!"), "%s", e.what());
+        }
+    }
+    return 1;
+}
+
+
+void
+GUIParameterTracker::writePlotSVG(const std::string& filename) const {
+    constexpr int canvasWidth = 800;
+    constexpr int left = 70;
+    constexpr int top = 45;
+    constexpr int plotWidth = 680;
+    constexpr int plotHeight = 300;
+    constexpr int bottom = top + plotHeight;
+    constexpr int legendStart = 390;
+    constexpr int legendRow = 22;
+    const int canvasHeight = legendStart + legendRow * (int)myTracked.size();
+
+    auto& out = OutputDevice::getDevice(filename);
+    out << "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 " << canvasWidth << ' ' << canvasHeight
+        << "\" width=\"" << canvasWidth << "\" height=\"" << canvasHeight << "\">\n";
+    out << "<rect width=\"100%\" height=\"100%\" fill=\"white\"/>\n";
+    out << "<g font-family=\"sans-serif\" font-size=\"13\">\n";
+    const auto text = [&](double x, double y, const std::string& label, const char* anchor = "start") {
+        out << "<text x=\"" << x << "\" y=\"" << y << "\" text-anchor=\"" << anchor
+            << "\">" << StringUtils::escapeXML(label) << "</text>\n";
+    };
+    text(left, 25, getTitle().text());
+    for (int tick = 0; tick <= 6; ++tick) {
+        const int y = top + tick * plotHeight / 6;
+        out << "<path d=\"M " << left << ' ' << y << " h " << plotWidth << "\" fill=\"none\" stroke=\""
+            << (tick == 0 || tick == 6 ? "#888" : "#ddd") << "\"/>\n";
+    }
+
+    for (size_t index = 0; index < myTracked.size(); ++index) {
+        const auto* desc = myTracked[index];
+        const auto snapshot = desc->getPlotSnapshot();
+        const auto& values = snapshot.values;
+        const auto& color = myColors[index % myColors.size()];
+        const std::string stroke = "rgb(" + toString((int)color.red()) + ","
+                                   + toString((int)color.green()) + "," + toString((int)color.blue()) + ")";
+        const int legendY = legendStart + (int)index * legendRow;
+        out << "<path d=\"M " << left << ' ' << legendY - 4 << " h 12\" stroke=\"" << stroke << "\"/>\n";
+
+        double minimum = snapshot.minimum;
+        double maximum = snapshot.maximum;
+        if (!std::isfinite(minimum) || !std::isfinite(maximum)) {
+            minimum = std::numeric_limits<double>::infinity();
+            maximum = -minimum;
+            for (const double value : values) {
+                if (std::isfinite(value)) {
+                    minimum = MIN2(minimum, value);
+                    maximum = MAX2(maximum, value);
+                }
+            }
+        }
+        if (values.empty() || minimum > maximum) {
+            text(left + 18, legendY, desc->getName() + " (" + TL("no samples") + ")");
+            continue;
+        }
+        const std::string startTime = time2string(snapshot.begin);
+        const std::string endTime = time2string(snapshot.begin + (SUMOTime)values.size() * snapshot.interval);
+        if (myTracked.size() == 1) {
+            text(left - 6, top + 4, toString(maximum), "end");
+            text(left - 6, bottom + 4, toString(minimum), "end");
+            text(left, bottom + 20, startTime);
+            text(left + plotWidth, bottom + 20, endTime, "end");
+            text(left + 18, legendY, desc->getName());
+        } else {
+            text(left + 18, legendY, desc->getName() + " [" + toString(minimum) + ", " + toString(maximum)
+                 + "], " + startTime + " - " + endTime);
+        }
+        const auto ordinate = [&](double value) {
+            const double range = maximum - minimum;
+            return range > 0 ? bottom - plotHeight * (value - minimum) / range : top + plotHeight / 2.0;
+        };
+        if (values.size() == 1 && std::isfinite(values.front())) {
+            out << "<circle cx=\"" << left << "\" cy=\"" << ordinate(values.front())
+                << "\" r=\"2\" fill=\"" << stroke << "\"/>\n";
+        } else {
+            out << "<path d=\"";
+            bool connected = false;
+            for (size_t i = 0; i < values.size(); ++i) {
+                if (std::isfinite(values[i])) {
+                    const double x = left + plotWidth * (double)i / (double)values.size();
+                    out << (connected ? " L " : " M ") << x << ' ' << ordinate(values[i]);
+                    connected = true;
+                } else {
+                    connected = false;
+                }
+            }
+            out << "\" fill=\"none\" stroke=\"" << stroke << "\" stroke-width=\"1.5\"/>\n";
+        }
+    }
+    out << "</g>\n</svg>\n";
+    out.close();
 }
 
 

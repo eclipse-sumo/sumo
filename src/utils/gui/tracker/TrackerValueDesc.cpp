@@ -54,6 +54,7 @@ TrackerValueDesc::~TrackerValueDesc() {
 
 void
 TrackerValueDesc::addValue(double value) {
+    FXMutexLock locker(myLock);
     if (myValues.size() == 0) {
         myMin = value;
         myMax = value;
@@ -61,7 +62,6 @@ TrackerValueDesc::addValue(double value) {
         myMin = value < myMin ? value : myMin;
         myMax = value > myMax ? value : myMax;
     }
-    FXMutexLock locker(myLock);
     myValues.push_back(value);
     if (value != myInvalidValue) {
         myTmpLastAggValue += value;
@@ -121,6 +121,13 @@ const std::vector<double>&
 TrackerValueDesc::getAggregatedValues() {
     myLock.lock();
     return myAggregatedValues;
+}
+
+
+TrackerValueDesc::PlotSnapshot
+TrackerValueDesc::getPlotSnapshot() const {
+    FXMutexLock locker(myLock);
+    return {myAggregatedValues, myMin, myMax, myRecordingBegin, getAggregationSpan()};
 }
 
 

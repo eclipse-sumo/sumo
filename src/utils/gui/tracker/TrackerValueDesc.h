@@ -74,6 +74,18 @@ public:
         the method "unlockValues" will be called */
     const std::vector<double>& getAggregatedValues();
 
+    /// @brief A consistent snapshot of the series displayed by the plot.
+    struct PlotSnapshot {
+        std::vector<double> values;
+        double minimum;
+        double maximum;
+        SUMOTime begin;
+        SUMOTime interval;
+    };
+
+    /// @brief Copy the aggregated values and their axes.
+    PlotSnapshot getPlotSnapshot() const;
+
     /// Returns the name of the value
     const std::string& getName() const;
 
@@ -113,7 +125,7 @@ private:
     double myMin, myMax;
 
     // Mutex to avoid parallel drawing and insertion of new items
-    FXMutex myLock;
+    mutable FXMutex myLock;
 
     /// The aggregation interval in simulation steps
     int myAggregationInterval;
