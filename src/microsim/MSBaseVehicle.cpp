@@ -1794,12 +1794,10 @@ MSBaseVehicle::activateRemindersOnReroute(SUMOTime /*currentTime*/) {
 
 void
 MSBaseVehicle::addStops(const bool ignoreStopErrors, MSRouteIterator* searchStart, bool addRouteStops) {
-    const SUMOTime untilOffset = myParameter->repetitionOffset > 0 ? myParameter->repetitionsDone * myParameter->repetitionOffset : 0;
     if (addRouteStops) {
-        const SUMOTime routeUntilOffset = myRoute->getID()[0] == '!' ? untilOffset : myParameter->depart;
         for (const SUMOVehicleParameter::Stop& stop : myRoute->getStops()) {
             std::string errorMsg;
-            if (!addStop(stop, errorMsg, routeUntilOffset, searchStart) && !ignoreStopErrors) {
+            if (!addStop(stop, errorMsg, myParameter->depart, searchStart) && !ignoreStopErrors) {
                 throw ProcessError(errorMsg);
             }
             if (errorMsg != "") {
@@ -1807,6 +1805,7 @@ MSBaseVehicle::addStops(const bool ignoreStopErrors, MSRouteIterator* searchStar
             }
         }
     }
+    const SUMOTime untilOffset = myParameter->repetitionOffset > 0 ? myParameter->repetitionsDone * myParameter->repetitionOffset : 0;
     for (const SUMOVehicleParameter::Stop& stop : myParameter->stops) {
         std::string errorMsg;
         if (!addStop(stop, errorMsg, untilOffset, searchStart) && !ignoreStopErrors) {

@@ -514,6 +514,12 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                 // never jump on the last stop of a repeating route
                 myActiveRouteStops.back().jump = -1;
             }
+            if (myVehicleParameter != nullptr && myCurrentRouteDistribution == nullptr) {
+                // Keep expanded embedded stops with the vehicle's other stops.
+                auto& stops = myVehicleParameter->stops;
+                stops.insert(stops.end(), myActiveRouteStops.begin(), myActiveRouteStops.end());
+                myActiveRouteStops.clear();
+            }
         }
         MSRoute* const route = new MSRoute(myActiveRouteID, myActiveRoute,
                                            myAmLoadingState ? myActiveRoutePermanent : myVehicleParameter == nullptr,
@@ -1472,7 +1478,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             myActiveTransportablePlan->push_back(new MSStageWaiting(edge, toStop, stop.duration, stop.until, pos, actType, false, stop.jump));
             result = myActiveTransportablePlan->back();
 
-        } else if (myElementStack.size() >= 2 && myElementStack[myElementStack.size() - 2] == SUMO_TAG_ROUTE) {
+        } else if (myActiveRouteRepeat > 0 && myCurrentRouteDistribution == nullptr
+                   && myElementStack.size() >= 2 && myElementStack[myElementStack.size() - 2] == SUMO_TAG_ROUTE) {
             myActiveRouteStops.push_back(stop);
             result = &myActiveRouteStops.back();
         } else if (myVehicleParameter != nullptr) {
