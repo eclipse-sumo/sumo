@@ -92,6 +92,27 @@ public:
     /// @brief check if this bucket is empty
     bool isEmpty() const;
 
+    /// @brief whether demand elements in this additional file have changed
+    bool hasUnsavedDemandElements() const;
+
+    /// @brief set the save status of demand elements in this additional file
+    void setUnsavedDemandElements(bool unsaved);
+
+    /// @brief whether undo history may still refer to demand in this bucket
+    bool hasTrackedDemandElements() const;
+
+    /// @brief whether the filename was explicitly attached by a file import
+    bool isImportAttached() const;
+
+    /// @brief attach an imported file, or clear its filename when undo detaches it
+    void setImportedFilename(const std::string& filename);
+
+    /// @brief whether the last additional-file load was incomplete
+    bool hasIncompleteLoad() const;
+
+    /// @brief record the result of loading the whole file before a demand save
+    void setIncompleteLoad(bool incomplete);
+
     /// @}
 
     /// @brief vector with all types managed in this get bucket handler
@@ -118,6 +139,11 @@ private:
 
     /// @brief flag to indicate if this is a default bucket (it cannot be removed)
     const bool myDefaultBucket;
+
+    bool myUnsavedDemandElements = false;
+    bool myTrackedDemandElements = false;
+    bool myImportAttached = false;
+    bool myIncompleteLoad = false;
 
     /// @brief Invalidated default constructor.
     FileBucket() = delete;

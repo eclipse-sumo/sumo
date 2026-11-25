@@ -109,6 +109,7 @@ GNEDemandElement::getFileBucket() const {
 
 void
 GNEDemandElement::changeFileBucket(FileBucket* fileBucket) {
+    myNet->getSavingStatus()->requireSaveDemandElements(myFileBucket);
     myFileBucket->removeElement(false);
     myFileBucket = fileBucket;
     myFileBucket->addElement(false);
@@ -116,7 +117,7 @@ GNEDemandElement::changeFileBucket(FileBucket* fileBucket) {
     myNet->getGNEApplicationWindow()->getFileBucketHandler()->updateOptions();
     // mark demand elements to save
     myNet->getSavingStatus()->requireSaveAdditionals();
-    myNet->getSavingStatus()->requireSaveDemandElements();
+    myNet->getSavingStatus()->requireSaveDemandElements(myFileBucket);
 }
 
 

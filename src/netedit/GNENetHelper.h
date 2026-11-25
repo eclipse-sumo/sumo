@@ -1042,11 +1042,20 @@ struct GNENetHelper {
         /// @brief inform that demand elements has to be saved
         void requireSaveDemandElements();
 
+        /// @brief track the file that contains the demand element
+        void requireSaveDemandElements(FileBucket* bucket);
+
         /// @brief mark demand elements as saved
         void demandElementsSaved();
 
         /// @brief check if demand elements are saved
         bool isDemandElementsSaved() const;
+
+        /// @brief check if the separate route files are saved
+        bool areRouteFilesSaved() const;
+
+        /// @brief check if additional files have unsaved demand elements
+        bool hasUnsavedDemandInAdditionals() const;
 
         /// @}
 

@@ -2253,15 +2253,23 @@ GNENet::removeExplicitTurnaround(std::string id) {
 
 
 bool
-GNENet::saveAdditionals() {
+GNENet::saveAdditionals(bool demandOnly) {
+    const auto& buckets = myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL);
+    for (const auto& bucket : buckets) {
+        if (bucket->hasUnsavedDemandElements() && bucket->hasIncompleteLoad()) {
+            WRITE_ERROR(TLF("Demand elements could not be saved to partially loaded additional file '%'.", bucket->getFilename()));
+            return false;
+        }
+    }
     // obtain invalid additionals depending of number of their parent lanes
     std::vector<GNEAdditional*> invalidAdditionals;
     // iterate over additionals and obtain invalids
     for (const auto& additionalPair : myAttributeCarriers->getAdditionals()) {
-        for (const auto& addditional : additionalPair.second) {
-            // check if has to be fixed
-            if (!addditional.second->isAdditionalValid()) {
-                invalidAdditionals.push_back(addditional.second);
+        for (const auto& additional : additionalPair.second) {
+            const auto bucket = additional.second->getFileBucket();
+            if ((!demandOnly || (bucket != nullptr && bucket->hasUnsavedDemandElements())) &&
+                    !additional.second->isAdditionalValid()) {
+                invalidAdditionals.push_back(additional.second);
             }
         }
     }
@@ -2276,9 +2284,10 @@ GNENet::saveAdditionals() {
     // Start saving additionals
     myApplicationWindow->getApp()->beginWaitCursor();
     // iterate over all elements and save files
-    for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL)) {
-        // only write buckets with elements
-        if ((bucket->getNumElements() > 0) || (bucket->isDefaultBucket() && (bucket->getFilename().size() > 0))) {
+    for (const auto& bucket : buckets) {
+        const bool hasUnsavedDemand = !bucket->getFilename().empty() && bucket->hasUnsavedDemandElements();
+        if (hasUnsavedDemand || (!demandOnly && (bucket->getNumElements() > 0 ||
+                                (bucket->isDefaultBucket() && !bucket->getFilename().empty())))) {
             // open file
             OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
             // open header
@@ -2287,10 +2296,13 @@ GNENet::saveAdditionals() {
             writeAdditionalFileElements(device, bucket);
             // close device
             device.close();
+            bucket->setUnsavedDemandElements(false);
+            bucket->setIncompleteLoad(false);
         }
     }
-    // mark additionals as saved
-    mySavingStatus->additionalsSaved();
+    if (!demandOnly) {
+        mySavingStatus->additionalsSaved();
+    }
     // end saving additionals
     myApplicationWindow->getApp()->endWaitCursor();
     return true;
@@ -2315,7 +2327,7 @@ GNENet::saveJuPedSimElements(const std::string& filename) {
 
 
 bool
-GNENet::saveDemandElements() {
+GNENet::saveDemandElements(bool saveRouteFiles) {
     // first recompute demand elements
     computeDemandElements(myApplicationWindow);
     // obtain invalid demandElements depending of number of their parent lanes
@@ -2339,12 +2351,17 @@ GNENet::saveDemandElements() {
             return false;
         }
     }
-    // Start saving additionals
+    if (mySavingStatus->hasUnsavedDemandInAdditionals() && !saveAdditionals(true)) {
+        return false;
+    }
+    if (!saveRouteFiles) {
+        return true;
+    }
     myApplicationWindow->getApp()->beginWaitCursor();
     // iterate over all elements and save files
     for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::DEMAND)) {
-        // only write buckets with elements
-        if ((bucket->getNumElements() > 0) || (bucket->isDefaultBucket() && (bucket->getFilename().size() > 0))) {
+        if (!bucket->getFilename().empty() &&
+                (bucket->getNumElements() > 0 || bucket->isDefaultBucket() || bucket->hasUnsavedDemandElements())) {
             // open file
             OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
             // open header

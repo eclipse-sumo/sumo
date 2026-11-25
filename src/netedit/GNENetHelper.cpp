@@ -2734,7 +2734,7 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
         // update demand elements frames
         updateDemandElementFrames(demandElement->getTagProperty());
         // demandElements has to be saved
-        myNet->getSavingStatus()->requireSaveDemandElements();
+        myNet->getSavingStatus()->requireSaveDemandElements(demandElement->getFileBucket());
     }
 }
 
@@ -2790,7 +2790,7 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
             }
         }
         // demandElements has to be saved
-        myNet->getSavingStatus()->requireSaveDemandElements();
+        myNet->getSavingStatus()->requireSaveDemandElements(demandElement->getFileBucket());
     }
 }
 
@@ -3466,7 +3466,19 @@ GNENetHelper::SavingStatus::isAdditionalsSaved() const {
 
 void
 GNENetHelper::SavingStatus::requireSaveDemandElements() {
-    myDemandElementSaved = false;
+    requireSaveDemandElements(nullptr);
+}
+
+
+void
+GNENetHelper::SavingStatus::requireSaveDemandElements(FileBucket* bucket) {
+    const auto type = bucket != nullptr ? bucket->getType() : FileBucket::Type::NOTHING;
+    if (type == FileBucket::Type::ADDITIONAL || type == FileBucket::Type::DEMAND) {
+        bucket->setUnsavedDemandElements(true);
+    }
+    if (type != FileBucket::Type::ADDITIONAL) {
+        myDemandElementSaved = false;
+    }
     // implies require save netedit config and sumo config
     myNeteditConfigSaved = false;
     mySumoConfigSaved = false;
@@ -3476,12 +3488,30 @@ GNENetHelper::SavingStatus::requireSaveDemandElements() {
 void
 GNENetHelper::SavingStatus::demandElementsSaved() {
     myDemandElementSaved = true;
+    for (const auto& bucket : myNet->getGNEApplicationWindow()->getFileBucketHandler()->getFileBuckets(FileBucket::Type::DEMAND)) {
+        bucket->setUnsavedDemandElements(false);
+    }
 }
 
 
 bool
 GNENetHelper::SavingStatus::isDemandElementsSaved() const {
+    return myDemandElementSaved && !hasUnsavedDemandInAdditionals();
+}
+
+
+bool
+GNENetHelper::SavingStatus::areRouteFilesSaved() const {
     return myDemandElementSaved;
+}
+
+
+bool
+GNENetHelper::SavingStatus::hasUnsavedDemandInAdditionals() const {
+    const auto& buckets = myNet->getGNEApplicationWindow()->getFileBucketHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL);
+    return std::any_of(buckets.begin(), buckets.end(), [](const FileBucket* bucket) {
+        return !bucket->getFilename().empty() && bucket->hasUnsavedDemandElements();
+    });
 }
 
 

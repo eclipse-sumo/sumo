@@ -436,13 +436,13 @@ public:
     void removeExplicitTurnaround(std::string id);
 
     /// @brief save additional elements
-    bool saveAdditionals();
+    bool saveAdditionals(bool demandOnly = false);
 
     /// @brief save JuPedSim elements
     bool saveJuPedSimElements(const std::string& filename);
 
     /// @brief save demand element elements of the network
-    bool saveDemandElements();
+    bool saveDemandElements(bool saveRouteFiles);
 
     /// @brief save data set elements of the network
     bool saveDataElements();

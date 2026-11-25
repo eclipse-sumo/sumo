@@ -98,8 +98,6 @@ GNEChange_DemandElement::undo() {
         firstRouteEdge->updatePersonStackLabels();
         firstRouteEdge->updateContainerStackLabels();
     }
-    // require always save elements
-    myDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();
 }
 
 
@@ -142,8 +140,6 @@ GNEChange_DemandElement::redo() {
         firstRouteEdge->updatePersonStackLabels();
         firstRouteEdge->updateContainerStackLabels();
     }
-    // require always save elements
-    myDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();
 }
 
 
