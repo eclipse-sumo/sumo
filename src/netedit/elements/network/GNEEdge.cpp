@@ -1271,48 +1271,10 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             undoList->end();
             break;
         }
-        case SUMO_ATTR_FROM: {
-            if (value != getAttribute(key)) {
-                undoList->begin(this, "change  " + getTagStr() + "  attribute");
-                // Remove edge from crossings of junction source
-                removeEdgeFromCrossings(getFromJunction(), undoList);
-                // continue changing from junction
-                GNEJunction* originalFirstParentJunction = getFromJunction();
-                getFromJunction()->setLogicValid(false, undoList);
-                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-                getFromJunction()->setLogicValid(false, undoList);
-                myNet->getAttributeCarriers()->retrieveJunction(value)->setLogicValid(false, undoList);
-                setAttribute(GNE_ATTR_SHAPE_START, toString(getFromJunction()->getNBNode()->getPosition()), undoList);
-                getFromJunction()->invalidateShape();
-                undoList->end();
-                // update geometries of all implicated junctions
-                originalFirstParentJunction->updateGeometry();
-                getFromJunction()->updateGeometry();
-                getToJunction()->updateGeometry();
-            }
+        case SUMO_ATTR_FROM:
+        case SUMO_ATTR_TO:
+            setEndpoint(key, value, undoList, true);
             break;
-        }
-        case SUMO_ATTR_TO: {
-            if (value != getAttribute(key)) {
-                undoList->begin(this, "change  " + getTagStr() + "  attribute");
-                // Remove edge from crossings of junction destination
-                removeEdgeFromCrossings(getToJunction(), undoList);
-                // continue changing destination junction
-                GNEJunction* originalSecondParentJunction = getToJunction();
-                getToJunction()->setLogicValid(false, undoList);
-                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-                getToJunction()->setLogicValid(false, undoList);
-                myNet->getAttributeCarriers()->retrieveJunction(value)->setLogicValid(false, undoList);
-                setAttribute(GNE_ATTR_SHAPE_END, toString(getToJunction()->getNBNode()->getPosition()), undoList);
-                getToJunction()->invalidateShape();
-                undoList->end();
-                // update geometries of all implicated junctions
-                originalSecondParentJunction->updateGeometry();
-                getToJunction()->updateGeometry();
-                getFromJunction()->updateGeometry();
-            }
-            break;
-        }
         case SUMO_ATTR_ID:
         case SUMO_ATTR_PRIORITY:
         case SUMO_ATTR_LENGTH:
@@ -2007,12 +1969,45 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
+GNEEdge::setEndpoint(SumoXMLAttr key, const std::string& id, GNEUndoList* undoList, bool recomputeConnections) {
+    if (id == getAttribute(key)) {
+        return;
+    }
+    const bool changeFrom = key == SUMO_ATTR_FROM;
+    auto* originalJunction = changeFrom ? getFromJunction() : getToJunction();
+    undoList->begin(this, "change  " + getTagStr() + "  attribute");
+    removeEdgeFromCrossings(originalJunction, undoList);
+    if (recomputeConnections) {
+        originalJunction->setLogicValid(false, undoList);
+    }
+    GNEChange_Attribute::changeAttribute(this, key, id, undoList);
+    auto* newJunction = changeFrom ? getFromJunction() : getToJunction();
+    if (recomputeConnections) {
+        newJunction->setLogicValid(false, undoList);
+        newJunction->setLogicValid(false, undoList);
+    }
+    setAttribute(changeFrom ? GNE_ATTR_SHAPE_START : GNE_ATTR_SHAPE_END,
+                 toString(newJunction->getNBNode()->getPosition()), undoList);
+    newJunction->invalidateShape();
+    undoList->end();
+    originalJunction->updateGeometry();
+    newJunction->updateGeometry();
+    (changeFrom ? getToJunction() : getFromJunction())->updateGeometry();
+}
+
+
+void
 GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     // begin undo list
     undoList->begin(this, "change number of " + toString(SUMO_TAG_LANE) +  "s");
-    // invalidate logic of source/destination edges
-    getFromJunction()->setLogicValid(false, undoList);
-    getToJunction()->setLogicValid(false, undoList);
+    const bool recomputeConnections = !myNet->getViewNet()->getLockManager().isObjectLocked(GLO_CONNECTION, false);
+    if (recomputeConnections) {
+        getFromJunction()->setLogicValid(false, undoList);
+        getToJunction()->setLogicValid(false, undoList);
+    } else {
+        getFromJunction()->markAsModified(undoList);
+        getToJunction()->markAsModified(undoList);
+    }
     // disable update geometry (see #6336)
     myUpdateGeometry = false;
     // remove edge from grid
@@ -2027,7 +2022,7 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     }
     for (int i = oldNumLanes; i < numLanes; i++) {
         // since the GNELane does not exist yet, it cannot have yet been referenced so we only pass a zero-pointer
-        undoList->add(new GNEChange_Lane(this, myNBEdge->getLaneStruct(oldNumLanes - 1)), true);
+        undoList->add(new GNEChange_Lane(this, myNBEdge->getLaneStruct(oldNumLanes - 1), recomputeConnections), true);
     }
     for (int i = (oldNumLanes - 1); i > (numLanes - 1); i--) {
         myNet->deleteLane(getChildLanes().at(i), undoList, false);

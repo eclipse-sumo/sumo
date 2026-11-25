@@ -246,6 +246,9 @@ public:
      */
     void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) override;
 
+    /// @brief Change an endpoint, retaining connections when both ends of each movement are moved together.
+    void setEndpoint(SumoXMLAttr key, const std::string& id, GNEUndoList* undoList, bool recomputeConnections);
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value

@@ -382,10 +382,14 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
     // add edge using undo list
     undoList->begin(edge, TL("create edge"));
     undoList->add(new GNEChange_Edge(edge, true), true);
-    // recompute connection
     if (recomputeConnections) {
-        src->setLogicValid(false, undoList);
-        dest->setLogicValid(false, undoList);
+        if (getViewNet()->getLockManager().isObjectLocked(GLO_CONNECTION, false)) {
+            src->markAsModified(undoList);
+            dest->markAsModified(undoList);
+        } else {
+            src->setLogicValid(false, undoList);
+            dest->setLogicValid(false, undoList);
+        }
     }
     requireRecompute();
     undoList->end();
@@ -1194,6 +1198,18 @@ GNENet::addReversedEdge(GNEEdge* edge, const bool disconnected, GNEUndoList* und
 void
 GNENet::mergeJunctions(GNEJunction* moved, const GNEJunction* target, GNEUndoList* undoList) {
     undoList->begin(moved, TL("merge junctions"));
+    const bool preserveConnections = getViewNet()->getLockManager().isObjectLocked(GLO_CONNECTION, false);
+    if (preserveConnections) {
+        // Remove bridges before relocating any endpoints so their connections are still at the original junctions.
+        const auto connectingEdges = moved->getNBNode()->getEdges();
+        for (const auto* nbEdge : connectingEdges) {
+            if (nbEdge->getFromNode() == target->getNBNode() || nbEdge->getToNode() == target->getNBNode()) {
+                deleteEdge(myAttributeCarriers->retrieveEdge(nbEdge->getID()), undoList, false);
+            }
+        }
+        // Let undo restore the moved junction's loaded signal program.
+        moved->invalidateTLS(undoList);
+    }
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     const EdgeVector incomingNBEdges = moved->getNBNode()->getIncomingEdges();
     for (const auto& incomingNBEdge : incomingNBEdges) {
@@ -1202,7 +1218,7 @@ GNENet::mergeJunctions(GNEJunction* moved, const GNEJunction* target, GNEUndoLis
         if (edge->getFromJunction() == target) {
             deleteEdge(edge, undoList, false);
         } else {
-            edge->setAttribute(SUMO_ATTR_TO, target->getID(), undoList);
+            edge->setEndpoint(SUMO_ATTR_TO, target->getID(), undoList, !preserveConnections);
         }
     }
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
@@ -1213,8 +1229,11 @@ GNENet::mergeJunctions(GNEJunction* moved, const GNEJunction* target, GNEUndoLis
         if (edge->getToJunction() == target) {
             deleteEdge(edge, undoList, false);
         } else {
-            edge->setAttribute(SUMO_ATTR_FROM, target->getID(), undoList);
+            edge->setEndpoint(SUMO_ATTR_FROM, target->getID(), undoList, !preserveConnections);
         }
+    }
+    if (preserveConnections) {
+        myAttributeCarriers->retrieveJunction(target->getID())->markAsModified(undoList);
     }
     // deleted moved junction
     deleteJunction(moved, undoList);
@@ -3014,9 +3033,11 @@ void
 GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
     // make sure we only add turn arounds to edges which currently exist within the network
     std::set<std::string> liveExplicitTurnarounds;
-    for (const auto& explicitTurnarounds : myExplicitTurnarounds) {
-        if (myAttributeCarriers->getEdges().count(explicitTurnarounds) > 0) {
-            liveExplicitTurnarounds.insert(explicitTurnarounds);
+    for (const auto& id : myExplicitTurnarounds) {
+        const auto* edge = myAttributeCarriers->retrieveEdge(id, false);
+        // A connection-preserving edit may remove the lane or edge of a former turnaround.
+        if (edge && edge->getAttribute(GNE_ATTR_MODIFICATION_STATUS) != GNEAttributeCarrier::FEATURE_MODIFIED) {
+            liveExplicitTurnarounds.insert(id);
         }
     }
     // removes all junctions of grid

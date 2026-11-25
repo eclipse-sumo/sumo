@@ -37,7 +37,7 @@ public:
      * @param[in] edge The edge on which to apply changes
      * @param[in] laneAttrs The attributes of the lane to be created/
      */
-    GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs);
+    GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs, bool recomputeConnections = true);
 
     /**@brief Constructor for deleting a lane
      * @param[in] edge The edge on which to apply changes

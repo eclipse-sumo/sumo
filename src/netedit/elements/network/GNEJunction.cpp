@@ -928,8 +928,10 @@ GNEJunction::removeConnectionsFrom(GNEEdge* edge, GNEUndoList* undoList, bool up
     }
     if (updateTLS) {
         std::vector<NBConnection> removeConnections;
-        for (NBEdge::Connection con : connections) {
-            removeConnections.push_back(NBConnection(srcNBE, con.fromLane, con.toEdge, con.toLane));
+        for (const auto& con : connections) {
+            if (lane < 0 || con.fromLane == lane) {
+                removeConnections.emplace_back(srcNBE, con.fromLane, con.toEdge, con.toLane);
+            }
         }
         removeTLSConnections(removeConnections, undoList);
     }
