@@ -181,7 +181,7 @@ jobs:
         case "${{ matrix.shard }}" in
           complex) APPS=complex ;;
           tools-traci) APPS=tools,traci ;;
-          other) APPS=sumo,netconvert,duarouter,dfrouter,jtrrouter,marouter,od2trips,netgen,polyconvert,activitygen,netedit,neteditoutput ;;
+          other) APPS=sumo,netconvert,duarouter,dfrouter,jtrrouter,marouter,od2trips,netgen,polyconvert,activitygen,netedit,neteditoutput,sumo.gui,netedit.internal ;;
         esac
         if [[ "${{ matrix.os }}" == "ubuntu-24.04-arm" ]]; then TEXTTEST_FILTER="-finverse $PWD/sumo/tests/filter_files/linux_arm_failures.txt"; fi
         sumo/tests/runTests.sh -b ci -v ci -a $APPS $TEXTTEST_FILTER
