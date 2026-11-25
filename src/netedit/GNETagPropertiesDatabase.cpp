@@ -2374,6 +2374,13 @@ GNETagPropertiesDatabase::fillTAZElements() {
                 TL("Use the edges within the shape"),
                 GNEAttributeCarrier::TRUE_STR);
         edgesWithin->setAlternativeName(TL("edges within"));
+
+        auto drawFilter = new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_DRAW_FILTER_TAZ_RELATIONS,
+                GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
+                TL("Filter TAZ relation drawing to this TAZ and other TAZs with this option enabled"),
+                GNEAttributeCarrier::FALSE_STR);
+        drawFilter->setAlternativeName(TL("Filter relations"));
     }
     currentTag = SUMO_TAG_TAZSOURCE;
     {

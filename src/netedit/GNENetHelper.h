@@ -21,6 +21,8 @@
 #pragma once
 #include <config.h>
 
+#include <set>
+
 #include <foreign/rtree/SUMORTree.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
@@ -404,6 +406,12 @@ struct GNENetHelper {
 
         /// @brief get number of additionals
         int getNumberOfAdditionals() const;
+
+        /// @brief get the TAZs included in the relation drawing filter
+        const std::set<const GNEAdditional*>& getTAZRelationFilters() const;
+
+        /// @brief include or exclude a TAZ from the relation drawing filter
+        void setTAZRelationFilter(const GNEAdditional* taz, bool enabled);
 
         /// @brief clear additionals
         void clearAdditionals();
@@ -858,6 +866,9 @@ struct GNENetHelper {
 
         /// @brief map with the tag and pointer to additional elements of net
         std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEAdditional*>, std::hash<int> > myAdditionals;
+
+        /// @brief TAZs whose relations are displayed when filtering in Data inspect mode
+        std::set<const GNEAdditional*> myTAZRelationFilters;
 
         /// @brief map with the tag and pointer to TAZSourceSinks elements of net
         std::unordered_map<SumoXMLTag, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*>, std::hash<int> > myTAZSourceSinks;

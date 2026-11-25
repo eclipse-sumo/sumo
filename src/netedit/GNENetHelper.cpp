@@ -1134,8 +1134,25 @@ GNENetHelper::AttributeCarriers::getNumberOfAdditionals() const {
 }
 
 
+const std::set<const GNEAdditional*>&
+GNENetHelper::AttributeCarriers::getTAZRelationFilters() const {
+    return myTAZRelationFilters;
+}
+
+
+void
+GNENetHelper::AttributeCarriers::setTAZRelationFilter(const GNEAdditional* taz, bool enabled) {
+    if (enabled) {
+        myTAZRelationFilters.insert(taz);
+    } else {
+        myTAZRelationFilters.erase(taz);
+    }
+}
+
+
 void
 GNENetHelper::AttributeCarriers::clearAdditionals() {
+    myTAZRelationFilters.clear();
     // clear elements in grid
     for (const auto& additionalsTags : myAdditionals) {
         for (const auto& additional : additionalsTags.second) {
@@ -2646,6 +2663,9 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
     } else {
         // remove from both container
         myAdditionals.at(tag).erase(itFind);
+        if (tag == SUMO_TAG_TAZ) {
+            myTAZRelationFilters.erase(additional);
+        }
         if (additional->getTagProperty()->hasAttribute(SUMO_ATTR_ID)) {
             myAdditionalIDs.at(tag).erase(myAdditionalIDs.at(tag).find(additional->getID()));
         }

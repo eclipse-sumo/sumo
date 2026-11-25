@@ -1379,6 +1379,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "isRoundabout",                       GNE_ATTR_IS_ROUNDABOUT },
     { "frontElement",                       GNE_ATTR_FRONTELEMENT },
     { "edgesWithin",                        GNE_ATTR_EDGES_WITHIN },
+    { "drawFilterTazRelations",             GNE_ATTR_DRAW_FILTER_TAZ_RELATIONS },
     { "noCommonAttributes",                 GNE_ATTR_NOCOMMON },
     // 'all' is a reserved keyword when configuring attribute filters and must not occur as an attribute name
 

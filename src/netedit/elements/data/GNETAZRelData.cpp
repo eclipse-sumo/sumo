@@ -479,9 +479,9 @@ GNETAZRelData::getHierarchyName() const {
 
 bool
 GNETAZRelData::drawTAZRel() const {
-    const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
+    const auto viewNet = myNet->getViewNet();
     // first check supermode
-    if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+    if (!viewNet->getEditModes().isCurrentSupermodeData()) {
         return false;
     }
     // check TAZRelFrame
@@ -497,24 +497,22 @@ GNETAZRelData::drawTAZRel() const {
             return false;
         }
     }
-    // check if both draw TAZRel checkBox are disabled
-    if (!myNet->getViewNet()->getDataViewOptions().TAZRelOnlyFrom() && !myNet->getViewNet()->getDataViewOptions().TAZRelOnlyTo()) {
+    const bool showFrom = viewNet->getDataViewOptions().TAZRelOnlyFrom();
+    const bool showTo = viewNet->getDataViewOptions().TAZRelOnlyTo();
+    if (!showFrom && !showTo) {
         return false;
     }
-    // check if we're inspecting a TAZ
-    if ((myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) &&
-            inspectedElements.isInspectingSingleElement() && (inspectedElements.getFirstAC()->getTagProperty()->getTag() == SUMO_TAG_TAZ)) {
-        // ignore TAZRels with one TAZParent
-        if (getParentAdditionals().size() == 2) {
-            if ((getParentAdditionals().front() == inspectedElements.getFirstAC())  &&
-                    myNet->getViewNet()->getDataViewOptions().TAZRelOnlyFrom()) {
-                return true;
-            } else if ((getParentAdditionals().back() == inspectedElements.getFirstAC())  &&
-                       myNet->getViewNet()->getDataViewOptions().TAZRelOnlyTo()) {
-                return true;
-            } else {
-                return false;
-            }
+    if (viewNet->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) {
+        const auto& filters = myNet->getAttributeCarriers()->getTAZRelationFilters();
+        if (!filters.empty()) {
+            return (showFrom && filters.count(getParentAdditionals().front()) > 0) ||
+                   (showTo && filters.count(getParentAdditionals().back()) > 0);
+        }
+        const auto& inspected = viewNet->getInspectedElements();
+        if (getParentAdditionals().size() == 2 && inspected.isInspectingSingleElement() &&
+                inspected.getFirstAC()->getTagProperty()->getTag() == SUMO_TAG_TAZ) {
+            return (showFrom && getParentAdditionals().front() == inspected.getFirstAC()) ||
+                   (showTo && getParentAdditionals().back() == inspected.getFirstAC());
         }
     }
     return true;
