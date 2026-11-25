@@ -47,8 +47,8 @@ with tempfile.TemporaryDirectory() as temporary:
     assert converted == {name: values for name, values in entries.items() if name != 'lane'}, converted
     print('Lane conversion retains complete edge identifiers and merges explicit edge selections')
 
-    net = sumolib.net.readNet(str(root / 'tests/tools/sumolib/net_intermodal/input_net.net.xml'),
-                              withInternal=True, withPedestrianConnections=True)
+    network = Path(__file__).resolve().parents[1] / 'net_intermodal' / 'input_net.net.xml'
+    net = sumolib.net.readNet(str(network), withInternal=True, withPedestrianConnections=True)
     internal = [edge for edge in net.getEdges(withInternal=True) if edge.isSpecial()]
     assert internal and all(edge.getID().startswith(':') for edge in internal)
     chosen = internal[:5]
