@@ -33,7 +33,7 @@
 #endif
 GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement(net, tag),
-    GNEDemandElementPlan(this, -1, -1) {
+    GNEDemandElementPlan(this, -1, INVALID_DOUBLE) {
 }
 
 

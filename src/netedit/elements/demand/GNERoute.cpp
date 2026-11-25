@@ -426,7 +426,7 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment*
         // calculate startPos
         const double geometryDepartPos = embedded ? (getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_DEPARTPOS) + getParentDemandElements().at(0)->getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH)) : -1;
         // get endPos
-        const double geometryEndPos = embedded ? getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_ARRIVALPOS) : -1;
+        const double geometryEndPos = embedded ? getParentDemandElements().at(0)->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS) : -1;
         // declare path geometry
         GUIGeometry routeGeometry;
         // update pathGeometry depending of first and last segment

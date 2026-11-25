@@ -103,7 +103,7 @@ GNEDemandElementPlan::writeLocationAttributes(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_DEPARTPOS, myDepartPosition);
     }
     // check if write arrival position
-    if (tagProperty->hasAttribute(SUMO_ATTR_ARRIVALPOS) && (myArrivalPosition > 0)) {
+    if (tagProperty->hasAttribute(SUMO_ATTR_ARRIVALPOS) && (myArrivalPosition != INVALID_DOUBLE)) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
     // check if write end position
@@ -429,8 +429,9 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(myDepartPosition);
             }
-        case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_ARRIVALPOS:
+            return myArrivalPosition == INVALID_DOUBLE ? "" : toString(myArrivalPosition);
+        case SUMO_ATTR_ENDPOS:
             if (myArrivalPosition < 0) {
                 return "";
             } else {
@@ -542,8 +543,8 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
                     // if next plan is an stop over stoppingPlaces, use ends of stoppingPlace
                     return nextPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
                 } else {
-                    // use arrival position
-                    return myArrivalPosition;
+                    const auto lastLane = myPlanElement->getLastPathLane();
+                    return myArrivalPosition == INVALID_DOUBLE || lastLane == nullptr ? -1 : getArrivalOffset(lastLane);
                 }
             }
         case SUMO_ATTR_DEPARTPOS:
@@ -554,6 +555,16 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have a doubleattribute of type '" + toString(key) + "'");
     }
+}
+
+
+double
+GNEDemandElementPlan::getArrivalOffset(const GNELane* lane) const {
+    const double shapeLength = lane->getLaneShape().length2D();
+    if (myArrivalPosition < 0) {
+        return std::max(0., shapeLength + myArrivalPosition * lane->getLengthGeometryFactor());
+    }
+    return std::min(myArrivalPosition, shapeLength);
 }
 
 
@@ -648,12 +659,10 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 // continue depending of arrival position
                 if (nextPlan && nextPlan->getTagProperty()->isPlanStop()) {
                     return nextPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-                } else if (myArrivalPosition == 0) {
-                    return laneShape.front();
-                } else if ((myArrivalPosition == -1) || (myArrivalPosition >= laneShape.length2D())) {
+                } else if (myArrivalPosition == INVALID_DOUBLE) {
                     return laneShape.back();
                 } else {
-                    return laneShape.positionAtOffset2D(myArrivalPosition);
+                    return laneShape.positionAtOffset2D(getArrivalOffset(lastLane));
                 }
             } else {
                 return Position::INVALID;
@@ -690,8 +699,9 @@ GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value) {
         // common attributes
         case GNE_ATTR_PARENT:
             return false;
-        case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_ARRIVALPOS:
+            return value.empty() || GNEAttributeCarrier::canParse<double>(value);
+        case SUMO_ATTR_DEPARTPOS:
             if (value.empty()) {
                 return true;
             } else if (GNEAttributeCarrier::canParse<double>(value)) {
@@ -771,7 +781,7 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_ARRIVALPOS:
             if (value.empty()) {
-                myArrivalPosition = -1;
+                myArrivalPosition = key == SUMO_ATTR_ARRIVALPOS ? INVALID_DOUBLE : -1;
             } else {
                 myArrivalPosition = GNEAttributeCarrier::parse<double>(value);
             }

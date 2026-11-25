@@ -1082,7 +1082,7 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegmen
         // calculate startPos
         const double geometryDepartPos = (getParentJunctions().size() > 0) ? 0 : getAttributeDouble(SUMO_ATTR_DEPARTPOS) + getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
         // get endPos
-        const double geometryEndPos = (getParentJunctions().size() > 0) ? segment->getLane()->getLaneGeometry().getShape().length2D() : getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+        const double geometryEndPos = (getParentJunctions().size() > 0) ? segment->getLane()->getLaneGeometry().getShape().length2D() : getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
         // declare path geometry
         GUIGeometry vehicleGeometry;
         // update pathGeometry depending of first and last segment
@@ -1507,12 +1507,18 @@ GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
                 return -1;
             }
         case SUMO_ATTR_ARRIVALPOS:
-            // only return departPos it if is given
-            if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
-                return arrivalPos;
-            } else {
+            return arrivalPosProcedure == ArrivalPosDefinition::GIVEN ? arrivalPos : INVALID_DOUBLE;
+        case GNE_ATTR_PLAN_GEOMETRY_ENDPOS: {
+            const auto lastLane = getLastPathLane();
+            if (arrivalPosProcedure != ArrivalPosDefinition::GIVEN || lastLane == nullptr) {
                 return -1;
             }
+            const double shapeLength = lastLane->getLaneShape().length2D();
+            if (arrivalPos < 0) {
+                return std::max(0., shapeLength + arrivalPos * lastLane->getLengthGeometryFactor());
+            }
+            return std::min(arrivalPos, shapeLength);
+        }
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_MINGAP:
@@ -1552,20 +1558,13 @@ GNEVehicle::getAttributePosition(SumoXMLAttr key) const {
             if (getParentJunctions().size() > 0) {
                 return getParentJunctions().back()->getPositionInView();
             } else {
-                // get last path lane shape
-                const PositionVector& laneShape = getLastPathLane()->getLaneShape();
-                // check arrivalPosProcedure
-                if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
-                    if (arrivalPos < 0) {
-                        return laneShape.front();
-                    } else if (arrivalPos > laneShape.length2D()) {
-                        return laneShape.back();
-                    } else {
-                        return laneShape.positionAtOffset2D(arrivalPos);
-                    }
-                } else {
-                    return laneShape.back();
+                const auto lastLane = getLastPathLane();
+                if (lastLane == nullptr) {
+                    return Position::INVALID;
                 }
+                const auto& laneShape = lastLane->getLaneShape();
+                const double offset = getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+                return offset == -1 ? laneShape.back() : laneShape.positionAtOffset2D(offset);
             }
         }
         default:
