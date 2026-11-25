@@ -265,6 +265,17 @@ MSVehicleType::setActionStepLength(const SUMOTime actionStepLength, bool resetAc
 
 
 void
+MSVehicleType::setActionStepSkipProb(const double actionStepSkipProb) {
+    if (myOriginalType != nullptr && actionStepSkipProb < 0) {
+        myParameter.actionStepSkipProb = myOriginalType->getActionStepSkipProb();
+    } else {
+        myParameter.actionStepSkipProb = actionStepSkipProb;
+    }
+    myParameter.parametersSet |= VTYPEPARS_ACTIONSTEPSKIPPROB_SET;
+}
+
+
+void
 MSVehicleType::setEmissionClass(SUMOEmissionClass eclass) {
     myParameter.emissionClass = eclass;
     myParameter.parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;

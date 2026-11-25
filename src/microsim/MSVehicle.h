@@ -286,7 +286,7 @@ public:
     void workOnIdleReminders();
 
     /** @brief Returns whether the vehicle is supposed to take action in the current simulation step
-     *         Updates myActionStep and myLastActionTime in case that the current simstep is an action step
+     *         Updates myActionStep and myLastActionTime in case that the current simstep is an unskipped action step
      *
      *  @param[in] t
      */

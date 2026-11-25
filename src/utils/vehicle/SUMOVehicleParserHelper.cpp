@@ -867,6 +867,18 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 vType->parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
             }
         }
+        if (attrs.hasAttribute(SUMO_ATTR_ACTIONSTEPSKIPPROB)) {
+            bool ok = true;
+            const double actionStepSkipProb = attrs.get<double>(SUMO_ATTR_ACTIONSTEPSKIPPROB, vType->id.c_str(), ok);
+            if (!ok) {
+                return handleVehicleTypeError(hardFail, vType);
+            } else if (actionStepSkipProb < 0 || actionStepSkipProb > 1) {
+                return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_ACTIONSTEPSKIPPROB) + " must be between 0 and 1");
+            } else {
+                vType->actionStepSkipProb = actionStepSkipProb;
+                vType->parametersSet |= VTYPEPARS_ACTIONSTEPSKIPPROB_SET;
+            }
+        }
         if (attrs.hasAttribute(SUMO_ATTR_EMISSIONCLASS)) {
             bool ok = true;
             const std::string parsedEmissionClass = attrs.getOpt<std::string>(SUMO_ATTR_EMISSIONCLASS, id.c_str(), ok, "");

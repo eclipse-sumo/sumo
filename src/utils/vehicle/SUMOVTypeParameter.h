@@ -80,6 +80,7 @@ const long long int VTYPEPARS_SEATING_WIDTH_SET = (long long int)1 << 35;
 const long long int VTYPEPARS_SPEEDFACTOR_PREMATURE_SET = (long long int)1 << 36;
 const long long int VTYPEPARS_PARKING_BADGES_SET = (long long int)1 << 37;
 const long long int VTYPEPARS_BOARDING_FACTOR_SET = (long long int)1 << 38;
+const long long int VTYPEPARS_ACTIONSTEPSKIPPROB_SET = (long long int)1 << 39;
 
 
 const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT = -1;
@@ -291,6 +292,9 @@ public:
     /// @brief The vehicle type's default actionStepLength [ms], i.e. the interval between two control actions.
     ///        The default value of 0ms. induces the value to be traced from MSGlobals::gActionStepLength
     SUMOTime actionStepLength;
+
+    /// @brief Probability for skipping an action step and continuing with the prior acceleration
+    double actionStepSkipProb;
 
     /// @brief The probability when being added to a distribution without an explicit probability
     double defaultProbability;
