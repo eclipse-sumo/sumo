@@ -108,7 +108,7 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
             if (repetitionOffset >= 0 && !wasSet(VEHPARS_POISSON_SET)) {
                 dev.writeAttr(SUMO_ATTR_PERIOD, StringUtils::adjustDecimalValue(STEPS2TIME(repetitionOffset), 20));
             } else {
-                dev.writeAttr(SUMO_ATTR_PERIOD, "exp(" + StringUtils::adjustDecimalValue(poissonRate, 20) + ")");
+                dev.writeAttr(SUMO_ATTR_PERIOD, "exp(" + StringUtils::adjustDecimalValue(poissonRate, 10) + ")");
             }
         }
         if (wasSet(VEHPARS_PROB_SET) && repetitionProbability > 0) {
