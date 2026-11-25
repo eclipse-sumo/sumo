@@ -93,9 +93,6 @@ public:
         FOX_CONSTRUCTOR(GNESelectedPersonsPopupMenu)
 
     private:
-        /// @brief tag of clicked person
-        SumoXMLTag myPersonTag;
-
         /// @brief current selected persons
         std::vector<GNEPerson*> mySelectedPersons;
 

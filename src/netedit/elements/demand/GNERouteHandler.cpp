@@ -2182,6 +2182,7 @@ GNERouteHandler::transformToPerson(GNEPerson* originalPerson) {
     GNENet* net = originalPerson->getNet();
     // check if transform after creation
     const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalPerson);
+    const bool selected = originalPerson->isAttributeCarrierSelected();
     // declare route handler
     GNERouteHandler routeHandler(net, originalPerson->getFileBucket(), net->getGNEApplicationWindow()->isUndoRedoAllowed(), false);
     // obtain person parameters
@@ -2203,6 +2204,9 @@ GNERouteHandler::transformToPerson(GNEPerson* originalPerson) {
     net->deleteDemandElement(originalPerson, net->getViewNet()->getUndoList());
     // restore ID of new person plan
     newPerson->setAttribute(SUMO_ATTR_ID, ID, net->getViewNet()->getUndoList());
+    if (selected) {
+        newPerson->setAttribute(GNE_ATTR_SELECTED, "true", net->getUndoList());
+    }
     // finish undoList
     net->getViewNet()->getUndoList()->end();
     // check if inspect
@@ -2218,6 +2222,7 @@ GNERouteHandler::transformToPersonFlow(GNEPerson* originalPerson) {
     GNENet* net = originalPerson->getNet();
     // check if transform after creation
     const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalPerson);
+    const bool selected = originalPerson->isAttributeCarrierSelected();
     // declare route handler
     GNERouteHandler routeHandler(net, originalPerson->getFileBucket(), net->getGNEApplicationWindow()->isUndoRedoAllowed(), false);
     // obtain person parameters
@@ -2244,6 +2249,9 @@ GNERouteHandler::transformToPersonFlow(GNEPerson* originalPerson) {
     // enable attributes
     newPerson->enableAttribute(SUMO_ATTR_END, net->getViewNet()->getUndoList());
     newPerson->enableAttribute(SUMO_ATTR_PERSONSPERHOUR, net->getViewNet()->getUndoList());
+    if (selected) {
+        newPerson->setAttribute(GNE_ATTR_SELECTED, "true", net->getUndoList());
+    }
     // finish undoList
     net->getViewNet()->getUndoList()->end();
     // check if inspect
