@@ -1298,9 +1298,8 @@ MSBaseVehicle::isStopped() const {
 
 bool
 MSBaseVehicle::isParking() const {
-    return (isStopped() && (myStops.begin()->pars.parking == ParkingType::OFFROAD)
-            && (myStops.begin()->parkingarea == nullptr || !myStops.begin()->parkingarea->parkOnRoad())
-            && (myStops.begin()->getSpeed() == 0 || getSpeed() < SUMO_const_haltingSpeed));
+    return (isStoppedParking() && (myStops.begin()->pars.parking == ParkingType::OFFROAD)
+            && (myStops.begin()->parkingarea == nullptr || !myStops.begin()->parkingarea->parkOnRoad()));
 }
 
 
@@ -1318,7 +1317,8 @@ MSBaseVehicle::isStoppedTriggered() const {
 
 bool
 MSBaseVehicle::isStoppedParking() const {
-    return isStopped() && (myStops.begin()->pars.parking == ParkingType::OFFROAD);
+    return (isStopped() && (myStops.begin()->pars.parking == ParkingType::OFFROAD || myStops.begin()->parkingarea != nullptr)
+            && (myStops.begin()->getSpeed() == 0 || getSpeed() < SUMO_const_haltingSpeed));
 }
 
 
@@ -2432,6 +2432,9 @@ MSBaseVehicle::getEmissionParameters() const {
             }
         }
         myEnergyParams->setTransportableMass(tMass);
+        if (!MSGlobals::gUseMesoSim && hasDeparted() && getSpeed() < SUMO_const_haltingSpeed) {
+            myEnergyParams->setDynamicValues(isStopped() ? MAX2((SUMOTime)0, getNextStop().duration) : -1, isStoppedParking(), getWaitingTime(), 0.);
+        }
     }
     return myEnergyParams;
 }

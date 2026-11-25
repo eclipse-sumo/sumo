@@ -111,8 +111,8 @@ void
 EnergyParams::setDynamicValues(const SUMOTime stopDuration, const bool parking, const SUMOTime waitingTime, const double angleDiff) {
     if ((stopDuration >= 0 && myStopDurationSeconds < 0.) || (stopDuration < 0 && myStopDurationSeconds >= 0.)) {
         myStopDurationSeconds = STEPS2TIME(stopDuration);
-        myAmParking = parking;
     }
+    myAmParking = parking;
     myWaitingTimeSeconds = STEPS2TIME(waitingTime);
     myAngleDiff = angleDiff;
 }
@@ -195,14 +195,16 @@ EnergyParams::getCharacteristicMap(SumoXMLAttr attr) const {
 
 bool
 EnergyParams::isEngineOff() const {
-    return myStopDurationSeconds > getDoubleOptional(SUMO_ATTR_SHUT_OFF_STOP, DEFAULT_VEH_SHUT_OFF_STOP) ||
+    return myAmParking ||
+           myStopDurationSeconds > getDoubleOptional(SUMO_ATTR_SHUT_OFF_STOP, DEFAULT_VEH_SHUT_OFF_STOP) ||
            myWaitingTimeSeconds > getDoubleOptional(SUMO_ATTR_SHUT_OFF_AUTO, std::numeric_limits<double>::max());
 }
 
 
 bool
 EnergyParams::isOff() const {
-    return myStopDurationSeconds > getDoubleOptional(SUMO_ATTR_SHUT_OFF_STOP, DEFAULT_VEH_SHUT_OFF_STOP);
+    return myAmParking ||
+           myStopDurationSeconds > getDoubleOptional(SUMO_ATTR_SHUT_OFF_STOP, DEFAULT_VEH_SHUT_OFF_STOP);
 }
 
 
