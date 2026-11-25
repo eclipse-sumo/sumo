@@ -432,28 +432,9 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
     if (isEmpty()) {
         // start fresh from the current edge
         if (myHolder.isStoppedParking()) {
-            // parking stop must be ended normally
-            MSStop& stop = myHolder.getNextStopMutable();
-            stop.duration = 0;
-            lastPos = stop.pars.endPos;
-            if (myHolder.isStoppedTriggered()) {
-                stop.triggered = false;
-                stop.containerTriggered = false;
-                stop.joinTriggered = false;
-                myHolder.unregisterWaiting();
-            }
-            // prevent unauthorized/premature entry
-            const_cast<SUMOVehicleParameter::Stop&>(stop.pars).permitted.insert("");
-            while (myHolder.getStops().size() > 1) {
-                myHolder.abortNextStop(1);
-            }
-        } else {
-            while (myHolder.hasStops()) {
-                // in meso there might be more than 1 stop at this point
-                myHolder.abortNextStop();
-            }
-            assert(!myHolder.hasStops());
+            lastPos = myHolder.getNextStop().pars.endPos;
         }
+        clearDispatchStops();
         tmpEdges.push_back(myHolder.getEdge());
         if (myHolder.getEdge() != rerouteOrigin) {
             tmpEdges.push_back(rerouteOrigin);
@@ -569,30 +550,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 hasPickup = true;
             }
         }
-        if (isPickup) {
-            prepareStop(tmpEdges, stops, lastPos, res->from, res->fromPos, res->fromStop, "pickup " + toString(res->persons) + " (" + res->id + ")", res, isPickup);
-            for (const MSTransportable* const transportable : res->persons) {
-                if (transportable->isPerson()) {
-                    stops.back().triggered = true;
-                } else {
-                    stops.back().containerTriggered = true;
-                }
-                stops.back().permitted.insert(transportable->getID());
-                stops.back().parametersSet |= STOP_PERMITTED_SET | STOP_TRIGGER_SET;
-            }
-            for (const MSTransportable* t : res->persons) {
-                stops.back().awaitedPersons.insert(t->getID());
-            }
-
-            if (stops.back().duration == -1) {
-                // keep dropOffDuration if the stop is dropOff and pickUp
-                stops.back().duration = TIME2STEPS(myHolder.getFloatParam("device.taxi.pickUpDuration", false, 0));
-            }
-        } else {
-            prepareStop(tmpEdges, stops, lastPos, res->to, res->toPos, res->toStop, "dropOff " + toString(res->persons) + " (" + res->id + ")", res, isPickup);
-            stops.back().duration = TIME2STEPS(myHolder.getFloatParam("device.taxi.dropOffDuration", false, 60)); // pay and collect bags
-        }
-        stops.back().parametersSet |= STOP_DURATION_SET | STOP_PARKING_SET;
+        appendDispatchStop(tmpEdges, stops, lastPos, res, isPickup);
     }
 #ifdef DEBUG_DISPATCH
     if (DEBUG_COND) {
@@ -624,6 +582,173 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
 #endif
     if (hasPickup) {
         myState |= PICKUP;
+    }
+}
+
+
+void
+MSDevice_Taxi::clearDispatchStops(const bool replace) {
+    int first = 0;
+    if (myHolder.isStoppedParking()) {
+        // End the active parking stop normally and prevent boarding at that stop.
+        MSStop& stop = myHolder.getNextStopMutable();
+        stop.duration = 0;
+        if (myHolder.isStoppedTriggered()) {
+            stop.triggered = false;
+            stop.containerTriggered = false;
+            stop.joinTriggered = false;
+            myHolder.unregisterWaiting();
+        }
+        auto& permitted = const_cast<SUMOVehicleParameter::Stop&>(stop.pars).permitted;
+        if (replace) {
+            permitted.clear();
+        }
+        permitted.insert("");
+        first = 1;
+    }
+    while (myHolder.getStops().size() > (size_t)first) {
+        myHolder.abortNextStop(first);
+    }
+}
+
+
+void
+MSDevice_Taxi::appendDispatchStop(ConstMSEdgeVector& edges, StopParVector& stops, double& lastPos,
+                                 const Reservation* res, const bool isPickup,
+                                 const std::set<const MSTransportable*>& onBoard) {
+    if (isPickup) {
+        prepareStop(edges, stops, lastPos, res->from, res->fromPos, res->fromStop, "pickup " + toString(res->persons) + " (" + res->id + ")", res, isPickup);
+        for (const MSTransportable* const transportable : res->persons) {
+            if (onBoard.count(transportable) != 0) {
+                continue;
+            }
+            if (transportable->isPerson()) {
+                stops.back().triggered = true;
+            } else {
+                stops.back().containerTriggered = true;
+            }
+            stops.back().permitted.insert(transportable->getID());
+            stops.back().parametersSet |= STOP_PERMITTED_SET | STOP_TRIGGER_SET;
+        }
+        for (const MSTransportable* t : res->persons) {
+            if (onBoard.count(t) == 0) {
+                stops.back().awaitedPersons.insert(t->getID());
+            }
+        }
+
+        if (stops.back().duration == -1) {
+            // keep dropOffDuration if the stop is dropOff and pickUp
+            stops.back().duration = TIME2STEPS(myHolder.getFloatParam("device.taxi.pickUpDuration", false, 0));
+        }
+    } else {
+        prepareStop(edges, stops, lastPos, res->to, res->toPos, res->toStop, "dropOff " + toString(res->persons) + " (" + res->id + ")", res, isPickup);
+        stops.back().duration = TIME2STEPS(myHolder.getFloatParam("device.taxi.dropOffDuration", false, 60)); // pay and collect bags
+    }
+    stops.back().parametersSet |= STOP_DURATION_SET | STOP_PARKING_SET;
+}
+
+
+void
+MSDevice_Taxi::replaceDispatch(const std::vector<const Reservation*>& reservations) {
+    if (reservations.empty() && myCurrentReservations.empty()) {
+        return;
+    }
+    std::set<const MSTransportable*> onBoard;
+    onBoard.insert(myHolder.getPersons().begin(), myHolder.getPersons().end());
+    onBoard.insert(myHolder.getContainers().begin(), myHolder.getContainers().end());
+    std::map<const Reservation*, int, ComparatorIdLess> occurrences;
+    for (const Reservation* res : reservations) {
+        occurrences[res]++;
+    }
+    std::vector<const Reservation*> released;
+    for (const Reservation* res : myCurrentReservations) {
+        if (occurrences.count(res) == 0) {
+            if (res->state != Reservation::ASSIGNED || std::any_of(res->persons.begin(), res->persons.end(),
+                    [&onBoard](const MSTransportable* person) { return onBoard.count(person) != 0; })) {
+                throw ProcessError(TLF("Cannot omit onboard reservation '%' from taxi '%'.", res->id, getID()));
+            }
+            released.push_back(res);
+        }
+    }
+
+    ConstMSEdgeVector stopsEdges{myHolder.getEdge()};
+    const MSEdge* origin = *myHolder.getRerouteOrigin();
+    if (stopsEdges.back() != origin) {
+        stopsEdges.push_back(origin);
+    }
+    const double initialPos = myHolder.isStoppedParking() ? myHolder.getNextStop().pars.endPos : myHolder.getPositionOnLane();
+    double lastPos = initialPos;
+    StopParVector stops;
+    std::vector<const Reservation*> plannedDispatch;
+    std::set<const MSTransportable*> customers = onBoard;
+    std::set<const Reservation*, ComparatorIdLess> seen;
+    bool hasPickup = false;
+    for (const Reservation* res : reservations) {
+        const bool waiting = std::any_of(res->persons.begin(), res->persons.end(),
+                                        [&onBoard](const MSTransportable* person) { return onBoard.count(person) == 0; });
+        const int count = occurrences.at(res);
+        if (count > 2 || (waiting && count != 2)) {
+            throw ProcessError(TLF("Replacement dispatch has an invalid pickup and drop-off sequence for reservation '%'.", res->id));
+        }
+        const bool first = seen.insert(res).second;
+        if (first && !waiting && count == 2) {
+            continue; // This reservation is already onboard.
+        }
+        const bool pickup = first && waiting;
+        appendDispatchStop(stopsEdges, stops, lastPos, res, pickup, onBoard);
+        plannedDispatch.push_back(res);
+        customers.insert(res->persons.begin(), res->persons.end());
+        hasPickup |= pickup;
+    }
+
+    // Plan a connected route before changing stops or releasing reservations.
+    const SUMOTime t = SIMSTEP;
+    MSBaseVehicle& vehicle = dynamic_cast<MSBaseVehicle&>(myHolder);
+    ConstMSEdgeVector route;
+    std::list<MSStop> prepared;
+    if (!stops.empty()) {
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
+        route.push_back(myHolder.getEdge());
+        if (route.back() != origin) {
+            route.push_back(origin);
+        }
+        double fromPos = origin == myHolder.getEdge()
+                         ? MIN2(origin->getLength(), initialPos + myHolder.getBrakeGap()) : 0.;
+        const MSEdge* from = origin;
+        for (const auto& stop : stops) {
+            const MSEdge* to = &MSLane::dictionary(stop.lane)->getEdge();
+            ConstMSEdgeVector leg;
+            if (!router.compute(from, fromPos, to, stop.endPos, &myHolder, t, leg, true) || leg.empty()) {
+                throw ProcessError(TLF("Taxi '%' cannot reach stop edge '%' from edge '%'.", getID(), to->getID(), from->getID()));
+            }
+            route.insert(route.end(), leg.begin() + 1, leg.end());
+            from = to;
+            fromPos = stop.endPos;
+        }
+        std::string error;
+        if (!vehicle.prepareStops(route, stops, prepared, error)) {
+            throw ProcessError(TLF("Could not add replacement stop for taxi '%': %", getID(), error));
+        }
+        // Rerouting prepends the driven route. Keep the staged stop iterators valid.
+        ConstMSEdgeVector replacementRoute = route;
+        if (!vehicle.replaceRouteEdges(replacementRoute, -1, 0, "taxi:replace_dispatch", false, false, true)) {
+            throw ProcessError(TLF("Could not replace route for taxi '%'.", getID()));
+        }
+    }
+    clearDispatchStops(true);
+    vehicle.appendPreparedStops(prepared, route.begin());
+    for (const Reservation* res : released) {
+        myDispatcher->reopenReservation(res, this);
+    }
+    myCustomers = std::move(customers);
+    myCurrentReservations.clear();
+    for (const auto& item : occurrences) {
+        myCurrentReservations.insert(item.first);
+    }
+    myLastDispatch = std::move(plannedDispatch);
+    myState = (onBoard.empty() ? EMPTY : OCCUPIED) | (hasPickup ? PICKUP : EMPTY);
+    if (isEmpty() && t < myServiceEnd) {
+        myIdleAlgorithm->idle(this);
     }
 }
 

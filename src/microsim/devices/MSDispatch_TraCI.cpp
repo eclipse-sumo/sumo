@@ -78,17 +78,32 @@ MSDispatch_TraCI::fulfilledReservation(const Reservation* res) {
 }
 
 void
-MSDispatch_TraCI::interpretDispatch(MSDevice_Taxi* taxi, const std::vector<std::string>& reservationsIDs) {
+MSDispatch_TraCI::interpretDispatch(MSDevice_Taxi* taxi, const std::vector<std::string>& reservationsIDs, const bool replace) {
     std::vector<const Reservation*> reservations;
     for (std::string resID : reservationsIDs) {
         if (myReservationLookup.hasString(resID)) {
-            reservations.push_back(myReservationLookup.get(resID));
+            const Reservation* reservation = myReservationLookup.get(resID);
+            if (replace) {
+                const auto group = myRunningReservations.find(reservation->group);
+                if (group != myRunningReservations.end()) {
+                    const auto assigned = group->second.find(reservation);
+                    if (assigned != group->second.end() && assigned->second != taxi) {
+                        throw InvalidArgument("Reservation '" + resID + "' is assigned to a different taxi");
+                    }
+                }
+            }
+            reservations.push_back(reservation);
         } else {
             throw InvalidArgument("Reservation id '" + resID + "' is not known");
         }
     }
     try {
-        if (reservations.size() == 1) {
+        if (replace) {
+            if (reservations.size() == 1) {
+                reservations.push_back(reservations.front());
+            }
+            taxi->replaceDispatch(reservations);
+        } else if (reservations.size() == 1) {
             taxi->dispatch(*reservations.front());
         } else {
             taxi->dispatchShared(reservations);

@@ -214,6 +214,9 @@ public:
 
     void servedReservation(const Reservation* res, MSDevice_Taxi* taxi);
 
+    /// @brief Return a waiting reservation to the pool of unassigned reservations.
+    void reopenReservation(const Reservation* res, MSDevice_Taxi* taxi);
+
 protected:
 
     /// @brief whether the given taxi has sufficient capacity to serve the reservation

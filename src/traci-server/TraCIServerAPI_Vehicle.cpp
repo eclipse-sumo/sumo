@@ -583,7 +583,19 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             break;
             case libsumo::CMD_TAXI_DISPATCH: {
-                libsumo::Vehicle::dispatchTaxi(id, StoHelp::readTypedStringList(inputStorage, "A dispatch command  must be defined as a list of reservation ids."));
+                const int inputType = inputStorage.readUnsignedByte();
+                if (inputType == libsumo::TYPE_STRINGLIST) {
+                    libsumo::Vehicle::dispatchTaxi(id, inputStorage.readStringList());
+                } else if (inputType == libsumo::TYPE_COMPOUND && inputStorage.readInt() == 2) {
+                    const auto reservations = StoHelp::readTypedStringList(inputStorage, "Expected a list of reservation IDs.");
+                    const int replace = StoHelp::readTypedUnsignedByte(inputStorage, "Expected a replacement flag.");
+                    if (replace > 1) {
+                        throw libsumo::TraCIException("The replacement flag must be 0 or 1.");
+                    }
+                    libsumo::Vehicle::dispatchTaxi(id, reservations, replace != 0);
+                } else {
+                    throw libsumo::TraCIException("Expected a list of reservation IDs or a list and a replacement flag.");
+                }
             }
             break;
             case libsumo::VAR_ACTIONSTEPLENGTH: {

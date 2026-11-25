@@ -1,0 +1,3 @@
+<additional>
+    <parkingArea id="restricted" lane="C1D1_0" startPos="40" endPos="55" roadsideCapacity="1" acceptedBadges="permit"/>
+</additional>
