@@ -2661,808 +2661,808 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.372" type="car" depart="478.00" departLane="2" arrival="496.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="478.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.373" type="car" depart="481.00" departLane="2" arrival="497.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="481.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.375" type="car" depart="470.00" departLane="0" arrival="497.00">
+    <vehicle id="v.375" type="car" depart="470.00" departLane="0" arrival="494.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="470.00" probability="0" edges="SC CN"/>
             <route edges="SC CW"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.376" type="car" depart="476.00" departLane="1" arrival="499.00">
+    <vehicle id="v.376" type="car" depart="476.00" departLane="1" arrival="495.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="476.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.388" type="car" depart="483.00" departLane="2" arrival="500.00">
+    <vehicle id="v.377" type="car" depart="479.00" departLane="1" arrival="496.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="479.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.372" type="car" depart="478.00" departLane="2" arrival="497.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="478.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.378" type="car" depart="481.00" departLane="0" arrival="497.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="481.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.380" type="car" depart="481.00" departLane="1" arrival="499.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="481.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.382" type="car" depart="482.00" departLane="2" arrival="500.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="482.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.373" type="car" depart="483.00" departLane="0" arrival="501.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="483.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.377" type="car" depart="484.00" departLane="1" arrival="505.00">
+    <vehicle id="v.387" type="car" depart="484.00" departLane="2" arrival="502.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="484.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.378" type="car" depart="479.00" departLane="0" arrival="505.00">
+    <vehicle id="v.383" type="car" depart="484.00" departLane="1" arrival="503.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="479.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="484.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.386" type="car" depart="488.00" departLane="0" arrival="505.00">
+    <vehicle id="v.384" type="car" depart="487.00" departLane="2" arrival="505.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="488.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="487.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.380" type="car" depart="486.00" departLane="2" arrival="507.00">
+    <vehicle id="v.385" type="car" depart="489.00" departLane="0" arrival="507.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="486.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="489.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.381" type="car" depart="491.00" departLane="1" arrival="509.00">
+    <vehicle id="v.391" type="car" depart="491.00" departLane="0" arrival="509.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="491.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.390" type="car" depart="493.00" departLane="2" arrival="510.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="493.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.395" type="car" depart="490.00" departLane="1" arrival="510.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="490.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.382" type="car" depart="493.00" departLane="0" arrival="512.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="493.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.385" type="car" depart="496.00" departLane="0" arrival="512.00">
+    <vehicle id="v.389" type="car" depart="489.00" departLane="2" arrival="510.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="496.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="489.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.384" type="car" depart="495.00" departLane="2" arrival="513.00">
+    <vehicle id="v.401" type="car" depart="495.00" departLane="2" arrival="513.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="495.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.387" type="car" depart="498.00" departLane="2" arrival="514.00">
+    <vehicle id="v.392" type="car" depart="497.00" departLane="0" arrival="514.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="497.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.386" type="car" depart="494.00" departLane="0" arrival="515.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="494.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.393" type="car" depart="498.00" departLane="2" arrival="516.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="498.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
+            <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.389" type="car" depart="499.00" departLane="0" arrival="516.00">
+    <vehicle id="v.398" type="car" depart="499.00" departLane="0" arrival="517.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="499.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
+            <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.383" type="car" depart="495.00" departLane="1" arrival="517.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="495.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.393" type="car" depart="501.00" departLane="0" arrival="517.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="501.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.392" type="car" depart="500.00" departLane="2" arrival="519.00">
+    <vehicle id="v.388" type="car" depart="500.00" departLane="2" arrival="519.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="500.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.398" type="car" depart="502.00" departLane="2" arrival="521.00">
+    <vehicle id="v.395" type="car" depart="503.00" departLane="2" arrival="523.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="503.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.396" type="car" depart="502.00" departLane="0" arrival="523.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="502.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.394" type="car" depart="504.00" departLane="2" arrival="522.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="504.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.397" type="car" depart="506.00" departLane="0" arrival="525.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="506.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.400" type="car" depart="504.00" departLane="0" arrival="526.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="504.00" probability="0" edges="SC CN"/>
             <route edges="SC CW"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.408" type="car" depart="510.00" departLane="0" arrival="527.00">
+    <vehicle id="v.390" type="car" depart="505.00" departLane="2" arrival="524.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="510.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="505.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.381" type="car" depart="487.00" departLane="0" arrival="526.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="487.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.391" type="car" depart="504.00" departLane="1" arrival="528.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="504.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.403" type="car" depart="507.00" departLane="2" arrival="528.00">
+    <vehicle id="v.399" type="car" depart="507.00" departLane="0" arrival="526.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="507.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.404" type="car" depart="509.00" departLane="2" arrival="528.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="509.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.402" type="car" depart="505.00" departLane="0" arrival="529.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="505.00" probability="0" edges="SC CN"/>
             <route edges="SC CW"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.402" type="car" depart="510.00" departLane="2" arrival="529.00">
+    <vehicle id="v.397" type="car" depart="510.00" departLane="0" arrival="531.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="510.00" probability="0" edges="SC CN"/>
             <route edges="SC CW"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.399" type="car" depart="512.00" departLane="0" arrival="531.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="512.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.409" type="car" depart="513.00" departLane="2" arrival="531.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="513.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.401" type="car" depart="515.00" departLane="2" arrival="532.00">
+    <vehicle id="v.408" type="car" depart="515.00" departLane="0" arrival="531.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="515.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.406" type="car" depart="516.00" departLane="0" arrival="536.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="516.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.407" type="car" depart="518.00" departLane="1" arrival="536.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="518.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.404" type="car" depart="513.00" departLane="1" arrival="537.00">
+    <vehicle id="v.394" type="car" depart="498.00" departLane="1" arrival="532.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="498.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.400" type="car" depart="513.00" departLane="0" arrival="533.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="513.00" probability="0" edges="SC CN"/>
             <route edges="SC CW"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.405" type="car" depart="520.00" departLane="2" arrival="539.00">
+    <vehicle id="v.403" type="car" depart="511.00" departLane="2" arrival="534.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="520.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="511.00" probability="0" edges="SC CN"/>
             <route edges="SC CW"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.415" type="car" depart="518.00" departLane="0" arrival="539.00">
+    <vehicle id="v.407" type="car" depart="516.00" departLane="1" arrival="534.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="516.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.411" type="car" depart="518.00" departLane="2" arrival="535.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="518.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.405" type="car" depart="513.00" departLane="1" arrival="536.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="513.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.415" type="car" depart="518.00" departLane="0" arrival="537.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="518.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.411" type="car" depart="524.00" departLane="0" arrival="541.00">
+    <vehicle id="v.412" type="car" depart="522.00" departLane="0" arrival="538.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="522.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.406" type="car" depart="519.00" departLane="1" arrival="541.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="519.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.409" type="car" depart="521.00" departLane="2" arrival="543.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="521.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.410" type="car" depart="524.00" departLane="1" arrival="544.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="524.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.414" type="car" depart="522.00" departLane="2" arrival="541.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="522.00" probability="0" edges="SC CN"/>
             <route edges="SC CW"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.396" type="car" depart="522.00" departLane="1" arrival="543.00">
+    <vehicle id="v.416" type="car" depart="526.00" departLane="2" arrival="545.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="522.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.413" type="car" depart="525.00" departLane="1" arrival="544.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="525.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.417" type="car" depart="527.00" departLane="0" arrival="547.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="527.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="526.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.410" type="car" depart="527.00" departLane="1" arrival="548.00">
+    <vehicle id="v.426" type="car" depart="528.00" departLane="2" arrival="546.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="527.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="528.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.416" type="car" depart="532.00" departLane="2" arrival="549.00">
+    <vehicle id="v.417" type="car" depart="530.00" departLane="2" arrival="548.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="530.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.422" type="car" depart="532.00" departLane="0" arrival="548.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="532.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.412" type="car" depart="527.00" departLane="2" arrival="551.00">
+    <vehicle id="v.413" type="car" depart="530.00" departLane="0" arrival="549.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="527.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.419" type="car" depart="534.00" departLane="0" arrival="552.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="534.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="530.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.421" type="car" depart="534.00" departLane="2" arrival="554.00">
+    <vehicle id="v.418" type="car" depart="533.00" departLane="2" arrival="550.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="534.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="533.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.422" type="car" depart="538.00" departLane="2" arrival="555.00">
+    <vehicle id="v.414" type="car" depart="524.00" departLane="0" arrival="553.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="524.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.424" type="car" depart="540.00" departLane="0" arrival="556.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="540.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.427" type="car" depart="538.00" departLane="2" arrival="556.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="538.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.421" type="car" depart="535.00" departLane="0" arrival="557.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="535.00" probability="0" edges="SC CN"/>
             <route edges="SC CW"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.420" type="car" depart="536.00" departLane="0" arrival="557.00">
+    <vehicle id="v.420" type="car" depart="537.00" departLane="1" arrival="558.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="537.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.432" type="car" depart="536.00" departLane="2" arrival="558.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="536.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.424" type="car" depart="542.00" departLane="0" arrival="558.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="542.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.418" type="car" depart="540.00" departLane="0" arrival="559.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="540.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.423" type="car" depart="544.00" departLane="0" arrival="560.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="544.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.426" type="car" depart="544.00" departLane="1" arrival="561.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="544.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.427" type="car" depart="546.00" departLane="1" arrival="562.00">
+    <vehicle id="v.428" type="car" depart="543.00" departLane="0" arrival="562.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="546.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.425" type="car" depart="540.00" departLane="2" arrival="563.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="540.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="543.00" probability="0" edges="SC CN"/>
             <route edges="SC CW"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.429" type="car" depart="548.00" departLane="2" arrival="564.00">
+    <vehicle id="v.429" type="car" depart="545.00" departLane="2" arrival="563.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="548.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="545.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.428" type="car" depart="546.00" departLane="2" arrival="565.00">
+    <vehicle id="v.425" type="car" depart="541.00" departLane="1" arrival="564.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="546.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="541.00" probability="0" edges="SC CN"/>
             <route edges="SC CW"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.433" type="car" depart="549.00" departLane="0" arrival="569.00">
+    <vehicle id="v.419" type="car" depart="543.00" departLane="1" arrival="566.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="543.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.423" type="car" depart="549.00" departLane="0" arrival="566.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="549.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
+            <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.431" type="car" depart="547.00" departLane="0" arrival="570.00">
+    <vehicle id="v.435" type="car" depart="551.00" departLane="0" arrival="568.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="551.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.436" type="car" depart="547.00" departLane="2" arrival="568.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="547.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.440" type="car" depart="551.00" departLane="0" arrival="571.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="551.00" probability="0" edges="SC CN"/>
             <route edges="SC CW"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.438" type="car" depart="553.00" departLane="2" arrival="572.00">
+    <vehicle id="v.430" type="car" depart="549.00" departLane="2" arrival="570.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="553.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="549.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.440" type="car" depart="554.00" departLane="2" arrival="572.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="554.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.441" type="car" depart="556.00" departLane="0" arrival="572.00">
+    <vehicle id="v.433" type="car" depart="556.00" departLane="0" arrival="575.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="556.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
+            <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.434" type="car" depart="551.00" departLane="2" arrival="573.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="551.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.430" type="car" depart="558.00" departLane="0" arrival="574.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="558.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.437" type="car" depart="554.00" departLane="0" arrival="576.00">
+    <vehicle id="v.438" type="car" depart="554.00" departLane="0" arrival="575.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="554.00" probability="0" edges="SC CN"/>
             <route edges="SC CW"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.439" type="car" depart="557.00" departLane="2" arrival="576.00">
+    <vehicle id="v.439" type="car" depart="557.00" departLane="2" arrival="577.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="557.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.432" type="car" depart="561.00" departLane="0" arrival="578.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="561.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.435" type="car" depart="559.00" departLane="1" arrival="579.00">
+    <vehicle id="v.434" type="car" depart="559.00" departLane="2" arrival="578.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="559.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.445" type="car" depart="562.00" departLane="2" arrival="579.00">
+    <vehicle id="v.462" type="car" depart="562.00" departLane="2" arrival="580.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="562.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.436" type="car" depart="563.00" departLane="0" arrival="582.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="563.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.443" type="car" depart="564.00" departLane="2" arrival="583.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="564.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.446" type="car" depart="567.00" departLane="2" arrival="584.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="567.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.444" type="car" depart="567.00" departLane="0" arrival="585.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="567.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.448" type="car" depart="570.00" departLane="0" arrival="587.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="570.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.447" type="car" depart="569.00" departLane="2" arrival="588.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="569.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.442" type="car" depart="565.00" departLane="1" arrival="590.00">
+    <vehicle id="v.441" type="car" depart="562.00" departLane="1" arrival="581.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="562.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.450" type="car" depart="559.00" departLane="1" arrival="583.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="559.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.448" type="car" depart="565.00" departLane="1" arrival="584.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="565.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.453" type="car" depart="572.00" departLane="2" arrival="590.00">
+    <vehicle id="v.437" type="car" depart="559.00" departLane="0" arrival="586.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="572.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.449" type="car" depart="572.00" departLane="0" arrival="592.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="572.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="559.00" probability="0" edges="SC CN"/>
             <route edges="SC CW"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.455" type="car" depart="577.00" departLane="0" arrival="593.00">
+    <vehicle id="v.447" type="car" depart="567.00" departLane="2" arrival="586.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="577.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="567.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.445" type="car" depart="570.00" departLane="0" arrival="588.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="570.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.443" type="car" depart="570.00" departLane="2" arrival="590.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="570.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.431" type="car" depart="545.00" departLane="0" arrival="593.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="545.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.442" type="car" depart="573.00" departLane="2" arrival="593.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="573.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.451" type="car" depart="575.00" departLane="2" arrival="596.00">
+    <vehicle id="v.451" type="car" depart="572.00" departLane="0" arrival="594.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="575.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="572.00" probability="0" edges="SC CN"/>
             <route edges="SC CW"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.456" type="car" depart="575.00" departLane="0" arrival="598.00">
+    <vehicle id="v.452" type="car" depart="578.00" departLane="2" arrival="595.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="575.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.450" type="car" depart="577.00" departLane="2" arrival="599.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="577.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="578.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.452" type="car" depart="579.00" departLane="0" arrival="599.00">
+    <vehicle id="v.453" type="car" depart="578.00" departLane="0" arrival="598.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="579.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.454" type="car" depart="581.00" departLane="0" arrival="601.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="581.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="578.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.459" type="car" depart="585.00" departLane="2" arrival="602.00">
+    <vehicle id="v.444" type="car" depart="576.00" departLane="0" arrival="599.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="585.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="576.00" probability="0" edges="SC CN"/>
             <route edges="SC CW"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.460" type="car" depart="585.00" departLane="0" arrival="603.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="585.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.465" type="car" depart="587.00" departLane="2" arrival="604.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="587.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.457" type="car" depart="588.00" departLane="0" arrival="608.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="588.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.458" type="car" depart="583.00" departLane="1" arrival="608.00">
+    <vehicle id="v.455" type="car" depart="583.00" departLane="0" arrival="599.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="583.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.446" type="car" depart="566.00" departLane="1" arrival="600.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="566.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.464" type="car" depart="592.00" departLane="2" arrival="609.00">
+    <vehicle id="v.449" type="car" depart="581.00" departLane="2" arrival="601.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="581.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.460" type="car" depart="584.00" departLane="2" arrival="602.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="584.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.454" type="car" depart="586.00" departLane="0" arrival="604.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="586.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.463" type="car" depart="588.00" departLane="0" arrival="604.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="588.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.466" type="car" depart="585.00" departLane="1" arrival="604.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="585.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.457" type="car" depart="586.00" departLane="2" arrival="606.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="586.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.471" type="car" depart="592.00" departLane="2" arrival="608.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="592.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.461" type="car" depart="590.00" departLane="2" arrival="610.00">
+    <vehicle id="v.461" type="car" depart="590.00" departLane="0" arrival="610.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="590.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.463" type="car" depart="596.00" departLane="0" arrival="612.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="596.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.467" type="car" depart="591.00" departLane="0" arrival="612.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="591.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.468" type="car" depart="592.00" departLane="1" arrival="613.00">
+    <vehicle id="v.456" type="car" depart="594.00" departLane="0" arrival="612.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="592.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.466" type="car" depart="595.00" departLane="2" arrival="614.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="595.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.470" type="car" depart="598.00" departLane="2" arrival="615.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="598.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.469" type="car" depart="598.00" departLane="1" arrival="617.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="598.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.471" type="car" depart="600.00" departLane="2" arrival="619.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="600.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.462" type="car" depart="598.00" departLane="0" arrival="621.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="598.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="594.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.486" type="car" depart="602.00" departLane="1" arrival="622.00">
+    <vehicle id="v.459" type="car" depart="594.00" departLane="2" arrival="613.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="602.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="594.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.479" type="car" depart="606.00" departLane="1" arrival="624.00">
+    <vehicle id="v.458" type="car" depart="590.00" departLane="2" arrival="615.00">
         <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="606.00" probability="0" edges="SC CN"/>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="590.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.476" type="car" depart="604.00" departLane="2" arrival="626.00">
+    <vehicle id="v.465" type="car" depart="597.00" departLane="0" arrival="615.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="597.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.464" type="car" depart="597.00" departLane="2" arrival="617.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="597.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.470" type="car" depart="599.00" departLane="0" arrival="618.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="599.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.472" type="car" depart="597.00" departLane="1" arrival="620.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="597.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.478" type="car" depart="604.00" departLane="2" arrival="621.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="604.00" probability="0" edges="SC CN"/>
             <route edges="SC CE"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.474" type="car" depart="610.00" departLane="2" arrival="627.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="610.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.473" type="car" depart="608.00" departLane="0" arrival="631.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="608.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.475" type="car" depart="612.00" departLane="2" arrival="631.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="612.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.482" type="car" depart="615.00" departLane="2" arrival="633.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="615.00" probability="0" edges="SC CN"/>
-            <route edges="SC CN"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.481" type="car" depart="618.00" departLane="2" arrival="634.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="618.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.472" type="car" depart="606.00" departLane="2" arrival="635.00">
+    <vehicle id="v.474" type="car" depart="606.00" departLane="2" arrival="624.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="606.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.484" type="car" depart="618.00" departLane="1" arrival="639.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="618.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.487" type="car" depart="624.00" departLane="0" arrival="640.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="624.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.480" type="car" depart="613.00" departLane="0" arrival="641.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="613.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.477" type="car" depart="620.00" departLane="1" arrival="642.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="620.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.488" type="car" depart="627.00" departLane="0" arrival="643.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="627.00" probability="0" edges="SC CN"/>
-            <route edges="SC CE"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.485" type="car" depart="623.00" departLane="1" arrival="644.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="623.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.483" type="car" depart="627.00" departLane="1" arrival="645.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="627.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.478" type="car" depart="625.00" departLane="2" arrival="646.00">
+    <vehicle id="v.473" type="car" depart="602.00" departLane="0" arrival="625.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="602.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.469" type="car" depart="609.00" departLane="2" arrival="628.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="609.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.476" type="car" depart="611.00" departLane="2" arrival="628.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="611.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.467" type="car" depart="611.00" departLane="0" arrival="630.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="611.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.482" type="car" depart="607.00" departLane="0" arrival="630.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="607.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.468" type="car" depart="602.00" departLane="2" arrival="631.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="602.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.475" type="car" depart="614.00" departLane="2" arrival="632.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="614.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.479" type="car" depart="613.00" departLane="1" arrival="634.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="613.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.485" type="car" depart="614.00" departLane="1" arrival="635.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="614.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.483" type="car" depart="619.00" departLane="2" arrival="636.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="619.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.488" type="car" depart="619.00" departLane="1" arrival="636.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="619.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.477" type="car" depart="618.00" departLane="0" arrival="637.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="618.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.481" type="car" depart="622.00" departLane="0" arrival="638.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="622.00" probability="0" edges="SC CN"/>
+            <route edges="SC CE"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.484" type="car" depart="621.00" departLane="2" arrival="638.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="621.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.480" type="car" depart="622.00" departLane="1" arrival="642.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="622.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.486" type="car" depart="625.00" departLane="1" arrival="644.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="625.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="v.487" type="car" depart="625.00" departLane="0" arrival="644.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="625.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
         </routeDistribution>
     </vehicle>
 
