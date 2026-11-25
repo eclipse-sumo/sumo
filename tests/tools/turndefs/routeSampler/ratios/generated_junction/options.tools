@@ -1,0 +1,7 @@
+-r input_routes.rou.xml -n net.net.xml
+--turn-ratio-junctions 2 --turn-ratio-edges 3.180.00
+--turn-ratio-weights 50,20,20,10
+--turn-ratio-files input_turns.xml
+--total-count 90
+--mismatch-output edgedata.xml
+-f number -o out.rou.xml

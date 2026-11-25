@@ -15,3 +15,9 @@ partial_counts
 
 # count on one 1 edge and ratios for all outflows
 mismatch
+
+# generate targets from the passenger connections of an incoming edge
+generated_edge
+
+# generate targets for a junction and use explicit ratios at a selected approach
+generated_junction

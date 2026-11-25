@@ -1,0 +1,7 @@
+<data>
+    <interval id="measured" begin="0" end="3600">
+        <edgeRelation from="3.180.00" to="27" probability="0.5"/>
+        <edgeRelation from="3.180.00" to="-71" probability="0.4"/>
+        <edgeRelation from="3.180.00" to="-3" probability="0.1"/>
+    </interval>
+</data>

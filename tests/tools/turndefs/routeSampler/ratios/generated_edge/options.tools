@@ -1,0 +1,5 @@
+-r input_routes.rou.xml -n net.net.xml
+--turn-ratio-edges 3.180.00
+--begin 0 --end 3600 --total-count 90
+--mismatch-output edgedata.xml
+-f number -o out.rou.xml
