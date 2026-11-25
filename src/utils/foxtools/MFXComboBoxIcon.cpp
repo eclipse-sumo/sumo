@@ -175,11 +175,23 @@ MFXComboBoxIcon::layout() {
     const FXint textWidth = width - buttonWidth - (border << 1);
     myTextFieldIcon->position(border, border, textWidth, itemHeight);
     myButton->position(border + textWidth, border, buttonWidth, itemHeight);
-    if (myTextFieldSearch) {
-        myTextFieldSearch->resize(width, height);
-        myNoItemsLabel->resize(width, height);
+    FXint popupWidth = width;
+    if (options & FIT_POPUP_TO_CONTENTS) {
+        FXint itemWidth = 0;
+        const FXint itemCount = myList->getNumItems();
+        for (FXint i = 0; i < itemCount; ++i) {
+            itemWidth = FXMAX(itemWidth, myList->getItem(i)->getWidth(myList));
+        }
+        if (itemCount > myList->getNumVisible()) {
+            itemWidth += myList->verticalScrollBar()->getDefaultWidth();
+        }
+        popupWidth = FXMIN(getRoot()->getWidth(), FXMAX(width, itemWidth + 2 * myPane->getBorderWidth()));
     }
-    myPane->resize(width, myPane->getDefaultHeight());
+    if (myTextFieldSearch) {
+        myTextFieldSearch->resize(popupWidth, height);
+        myNoItemsLabel->resize(popupWidth, height);
+    }
+    myPane->resize(popupWidth, myPane->getDefaultHeight());
     flags &= ~(FXuint)FLAG_DIRTY;
 }
 
@@ -389,7 +401,7 @@ MFXComboBoxIcon::onUpdFmText(FXObject*, FXSelector, void*) {
 long
 MFXComboBoxIcon::onCmdFilter(FXObject*, FXSelector, void* ptr) {
     myList->setFilter(myTextFieldSearch->getText(), myNoItemsLabel);
-    myPane->resize(width, myPane->getDefaultHeight());
+    myPane->resize((options & FIT_POPUP_TO_CONTENTS) ? myPane->getWidth() : width, myPane->getDefaultHeight());
     myPane->recalc();
     myPane->onPaint(0, 0, ptr);
     return 1;

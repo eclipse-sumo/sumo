@@ -41,6 +41,9 @@ class MFXComboBoxIcon : public FXPacker {
     FXDECLARE(MFXComboBoxIcon)
 
 public:
+    /// @brief Allow the popup to grow wider than the input field to fit list items.
+    static constexpr FXuint FIT_POPUP_TO_CONTENTS = 0x00200000;
+
     /// @brief enum for ID
     enum {
         ID_LIST = FXPacker::ID_LAST,
