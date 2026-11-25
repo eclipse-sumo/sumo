@@ -45,7 +45,6 @@ set(netedit_SRCS
    GNEViewParent.cpp
    GNEViewParent.h
    netedit_main.cpp
-   templates.h
 )
 
 # create netedit executable using the main netedit source code files defined previously in netedit_SRCS
@@ -93,23 +92,29 @@ add_dependencies(netedit generate-templates-h generate-version-h install_dll)
 # finally, define output folder (in our case, SUMO/bin)
 install(TARGETS netedit RUNTIME DESTINATION bin COMPONENT runtime)
 
-# now we're going to define the templates.h dependency.
-# First we define a custom target for templates.h
-add_custom_target(generate-templates-h DEPENDS templates.h)
+# templates.h is generated from the --help output of sumo, netconvert and netgenerate and from the python tools.
+# Source files which define options or are used when running the tools
+file(GLOB_RECURSE SUMO_TEMPLATE_DEPS "${SUMO_TOOLS_DIR}/*.py"
+     "${CMAKE_SOURCE_DIR}/src/microsim/devices/*.cpp"
+     "${CMAKE_SOURCE_DIR}/src/net*/*Frame.cpp")
+list(APPEND SUMO_TEMPLATE_DEPS
+     ${CMAKE_SOURCE_DIR}/src/microsim/MSFrame.cpp
+     ${CMAKE_SOURCE_DIR}/src/utils/common/RandHelper.cpp
+     ${CMAKE_SOURCE_DIR}/src/utils/common/SystemFrame.cpp
+     ${CMAKE_SOURCE_DIR}/src/utils/geom/GeoConvHelper.cpp)
+
+# The stamp file lets the generator run whenever its inputs change while templates.h is only touched
+# (and netedit only recompiled) if the generated content really differs.
+add_custom_target(generate-templates-h DEPENDS templates.h.stamp)
+add_dependencies(generate-templates-h sumo netconvert netgenerate)
 
 # place custom target in tree folder CMake (in Visual studio)
 set_property(TARGET generate-templates-h PROPERTY FOLDER "CMake")
 
-# for generating dependences we need a SUMO binary compiled, then add sumo as dependency of generate-templates-h.
-# this will compile SUMO BEFORE generate templates.h
-add_dependencies(generate-templates-h sumo netconvert netgenerate)
-
-# create CMake custom command that generates templates.h file (OUTPUT) giving as argument python executable (Python_EXECUTABLE),
-# the python script <SUMO>/tools/build_config/templates.py (<SUMO/src/netedit>/../../tools/build_config/templates.py) and the sumo binary
-add_custom_command(OUTPUT templates.h
-                   COMMAND ${Python_EXECUTABLE} ${SUMO_TOOLS_DIR}/build_config/templates.py $<TARGET_FILE:sumo> $<TARGET_FILE:netconvert> $<TARGET_FILE:netgenerate>
-                   DEPENDS sumo netconvert netgenerate
+add_custom_command(OUTPUT templates.h.stamp
+                   BYPRODUCTS ${CMAKE_CURRENT_BINARY_DIR}/templates.h
+                   COMMAND ${Python_EXECUTABLE} ${SUMO_TOOLS_DIR}/build_config/templates.py templates.h.tmp $<TARGET_FILE:sumo> $<TARGET_FILE:netconvert> $<TARGET_FILE:netgenerate>
+                   COMMAND ${CMAKE_COMMAND} -E copy_if_different templates.h.tmp templates.h
+                   COMMAND ${CMAKE_COMMAND} -E touch templates.h.stamp
+                   DEPENDS sumo netconvert netgenerate ${SUMO_TEMPLATE_DEPS}
                    )
-
-# Finally mark the generated templates.h as a generated file
-set_source_files_properties(${CMAKE_BINARY_DIR}/src/netedit/templates.h PROPERTIES GENERATED TRUE)
