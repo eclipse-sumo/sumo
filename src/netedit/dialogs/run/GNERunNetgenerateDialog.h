@@ -59,6 +59,9 @@ public:
     /// @}
 
 protected:
+    /// @brief Bring the log forward and describe the completion action.
+    void showCompletedRun() override;
+
     /// @brief netgenerate options
     const OptionsCont* myNetgenerateOptions = nullptr;
 

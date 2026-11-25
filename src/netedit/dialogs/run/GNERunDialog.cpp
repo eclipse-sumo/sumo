@@ -182,6 +182,7 @@ GNERunDialog::onThreadEvent(FXObject*, FXSelector, void*) {
         if (myCloseIfSucess && !myWarning && !myError) {
             return onCmdAccept(nullptr, 0, nullptr);
         }
+        showCompletedRun();
     }
     updateDialogButtons();
     return 1;

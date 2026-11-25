@@ -93,6 +93,15 @@ GNERunNetgenerateDialog::getRunCommand() const {
 }
 
 
+void
+GNERunNetgenerateDialog::showCompletedRun() {
+    myAcceptButton->setText(myError ? TL("Close") : TL("Open network"));
+    myAcceptButton->setTipText(myError ? TL("Close the log") : TL("Close the log and open the generated network"));
+    setFocus();
+    raise();
+}
+
+
 long
 GNERunNetgenerateDialog::onCmdBack(FXObject*, FXSelector, void*) {
     // close run dialog and open tool dialog
