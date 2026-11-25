@@ -18,6 +18,8 @@
 // Dialog used to fix demand elements during saving
 /****************************************************************************/
 
+#include <set>
+
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
@@ -499,8 +501,18 @@ GNEFixDemandElementsDialog::GNEFixDemandElementsDialog(GNEApplicationWindow* mai
     myFixPlanOptions = new FixPlanOptions(this);
     // split invalidDemandElements in four groups
     std::vector<ConflictElement> invalidRoutes, invalidVehicles, invalidStops, invalidPlans;
+    // Resolve invalid embedded routes through the Routes options only.
+    std::set<const GNEDemandElement*> ownersOfInvalidRoutes;
+    for (const auto* invalidDemandElement : elements) {
+        if (invalidDemandElement->getTagProperty()->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+            ownersOfInvalidRoutes.insert(invalidDemandElement->getParentDemandElements().front());
+        }
+    }
     // fill groups
     for (const auto& invalidDemandElement : elements) {
+        if (ownersOfInvalidRoutes.count(invalidDemandElement) != 0) {
+            continue;
+        }
         // create conflict element
         auto fixElement = ConflictElement(invalidDemandElement,
                                           invalidDemandElement->getID(),
