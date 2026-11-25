@@ -1478,6 +1478,10 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                     const Position newStart = edge->getNBEdge()->getGeometry().front() + delta;
                     GNEChange_Attribute::changeAttribute(edge, GNE_ATTR_SHAPE_START, toString(newStart), undoList, true);
                 }
+                if (!moveOnlyCenter && myNBNode->hasCustomShape()) {
+                    const PositionVector movedShape = myNBNode->getShape().added(delta);
+                    GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_SHAPE, toString(movedShape), undoList, true);
+                }
                 undoList->end();
             }
             break;

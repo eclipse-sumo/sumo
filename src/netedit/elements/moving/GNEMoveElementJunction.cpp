@@ -138,10 +138,14 @@ GNEMoveElementJunction::setMoveShape(const GNEMoveResult& moveResult) {
     } else if (moveResult.shapeToUpdate.size() > 0) {
         // obtain NBNode position
         const Position orig = myJunction->getNBNode()->getPosition();
-        // move geometry
-        myJunction->moveJunctionGeometry(moveResult.shapeToUpdate.front(), false);
         // check if move only center
         const bool onlyMoveCenter = myJunction->getNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveOnlyJunctionCenter();
+        const Position newPosition = moveResult.shapeToUpdate.front();
+        if (!onlyMoveCenter && myJunction->getNBNode()->hasCustomShape()) {
+            myJunction->getNBNode()->setCustomShape(myJunction->getNBNode()->getShape().added(newPosition - orig));
+        }
+        // move geometry
+        myJunction->moveJunctionGeometry(newPosition, false);
         // set new position of adjacent edges depending if we're moving a selection
         for (const auto& NBEdge : myJunction->getNBNode()->getEdges()) {
             myJunction->getNet()->getAttributeCarriers()->retrieveEdge(NBEdge->getID())->updateJunctionPosition(myJunction, onlyMoveCenter ? myJunction->getNBNode()->getPosition() : orig);
@@ -160,15 +164,6 @@ GNEMoveElementJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndo
             // commit new shape
             undoList->begin(myJunction, TLF("moving shape of %", myJunction->getTagStr()));
             myJunction->setAttribute(SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate), undoList);
-            undoList->end();
-        } else if (myJunction->getNBNode()->hasCustomShape()) {
-            // commit new shape
-            undoList->begin(myJunction, TLF("moving custom shape of %", myJunction->getTagStr()));
-            myJunction->setAttribute(SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
-            // calculate offset and apply to custom shape
-            const auto customShapeOffset = moveResult.shapeToUpdate.front() - myJunction->getNBNode()->getCenter();
-            const auto customShapeMoved = myJunction->getNBNode()->getShape().added(customShapeOffset);
-            myJunction->setAttribute(SUMO_ATTR_SHAPE, toString(customShapeMoved), undoList);
             undoList->end();
         } else {
             myJunction->setAttribute(SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
