@@ -198,6 +198,7 @@
         <tls.yellow.time value="-1" synonymes="traffic-light-yellow" deprecated="traffic-light-yellow" type="INT" help="Set INT as fixed time for yellow phase durations"/>
         <tls.red.time value="5" type="INT" help="Set INT as fixed time for red phase duration at traffic lights that do not have a conflicting flow"/>
         <tls.allred.time value="0" type="INT" help="Set INT as fixed time for intermediate red phase after every switch"/>
+        <tls.redyellow.time value="0" type="INT" help="Set INT as fixed time for intermediate red-yellow phase before every green phase"/>
         <tls.minor-left.max-speed value="19.44" type="FLOAT" help="Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles"/>
         <tls.left-green.time value="6" type="INT" help="Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases"/>
         <tls.nema.vehExt value="2" type="INT" help="Set INT as fixed time for intermediate vehext phase after every switch"/>

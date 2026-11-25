@@ -343,6 +343,9 @@ TLS Building Options:
                                         have a conflicting flow
   --tls.allred.time INT                Set INT as fixed time for intermediate
                                         red phase after every switch
+  --tls.redyellow.time INT             Set INT as fixed time for intermediate
+                                        red-yellow phase before every green
+                                        phase
   --tls.minor-left.max-speed FLOAT     Use FLOAT as threshold for allowing
                                         left-turning vehicles to move in the
                                         same phase as oncoming straight-going
