@@ -78,11 +78,20 @@ public:
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) override;
 
+    /// @brief remove the clicked point and coincident points on other selected edges
+    void removeSelectedGeometryPoints(const Position clickedPosition, GNEUndoList* undoList);
+
 protected:
     /// @brief pointer to edge
     GNEEdge* myEdge = nullptr;
 
 private:
+    /// @brief find a removable point by click radius or matching its position
+    int getRemovableGeometryPointIndex(const Position& position, const bool clicked) const;
+
+    /// @brief remove the geometry point at the given index
+    void removeGeometryPoint(const int index, GNEUndoList* undoList);
+
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult) override;
 
