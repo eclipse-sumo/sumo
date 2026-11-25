@@ -46,6 +46,8 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSJunctionControl.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
+#include <microsim/output/MSOutputMissingValues.h>
+
 #include "MSDevice_SSM.h"
 
 // ===========================================================================
@@ -3092,13 +3094,21 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
         myOutputFile->openTag("conflictPoint").writeAttr("values", makeStringWithNAs(e->conflictPointSpan)).closeTag();
     }
 
+    const auto writeMissingMeasure = [&](const std::string& tag) {
+        myOutputFile->openTag(tag);
+        for (const std::string attr : {"time", "position", "type", "value", "speed"}) {
+            MSOutputMissingValues::write(*myOutputFile, attr, "NA", true);
+        }
+        myOutputFile->closeTag();
+    };
+
     if (myComputeTTC) {
         if (mySaveTrajectories) {
             myOutputFile->openTag("TTCSpan").writeAttr("values", makeStringWithNAs(e->TTCspan, INVALID_DOUBLE)).closeTag();
         }
         if (e->minTTC.time == INVALID_DOUBLE) {
             if (myWriteNA) {
-                myOutputFile->openTag("minTTC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+                writeMissingMeasure("minTTC");
             }
         } else {
             std::string time = ::toString(e->minTTC.time);
@@ -3109,7 +3119,9 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
                 toGeo(e->minTTC.pos);
             }
             std::string position = makeStringWithNAs(e->minTTC.pos);
-            myOutputFile->openTag("minTTC").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).writeAttr("speed", speed).closeTag();
+            myOutputFile->openTag("minTTC").writeAttr("time", time);
+            MSOutputMissingValues::write(*myOutputFile, "position", position, position == "NA");
+            myOutputFile->writeAttr("type", type).writeAttr("value", value).writeAttr("speed", speed).closeTag();
         }
     }
     if (myComputeDRAC) {
@@ -3118,7 +3130,7 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
         }
         if (e->maxDRAC.time == INVALID_DOUBLE) {
             if (myWriteNA) {
-                myOutputFile->openTag("maxDRAC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+                writeMissingMeasure("maxDRAC");
             }
         } else {
             std::string time = ::toString(e->maxDRAC.time);
@@ -3129,13 +3141,15 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
                 toGeo(e->maxDRAC.pos);
             }
             std::string position = makeStringWithNAs(e->maxDRAC.pos);
-            myOutputFile->openTag("maxDRAC").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).writeAttr("speed", speed).closeTag();
+            myOutputFile->openTag("maxDRAC").writeAttr("time", time);
+            MSOutputMissingValues::write(*myOutputFile, "position", position, position == "NA");
+            myOutputFile->writeAttr("type", type).writeAttr("value", value).writeAttr("speed", speed).closeTag();
         }
     }
     if (myComputePET) {
         if (e->PET.time == INVALID_DOUBLE) {
             if (myWriteNA) {
-                myOutputFile->openTag("PET").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+                writeMissingMeasure("PET");
             }
         } else {
             std::string time = ::toString(e->PET.time);
@@ -3155,7 +3169,7 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
         }
         if (e->minPPET.time == INVALID_DOUBLE) {
             if (myWriteNA) {
-                myOutputFile->openTag("minPPET").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+                writeMissingMeasure("minPPET");
             }
         } else {
             std::string time = ::toString(e->minPPET.time);
@@ -3166,7 +3180,9 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
                 toGeo(e->minPPET.pos);
             }
             std::string position = makeStringWithNAs(e->minPPET.pos);
-            myOutputFile->openTag("minPPET").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).writeAttr("speed", speed).closeTag();
+            myOutputFile->openTag("minPPET").writeAttr("time", time);
+            MSOutputMissingValues::write(*myOutputFile, "position", position, position == "NA");
+            myOutputFile->writeAttr("type", type).writeAttr("value", value).writeAttr("speed", speed).closeTag();
         }
     }
     if (myComputeMDRAC) {
@@ -3175,7 +3191,7 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
         }
         if (e->maxMDRAC.time == INVALID_DOUBLE) {
             if (myWriteNA) {
-                myOutputFile->openTag("maxMDRAC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+                writeMissingMeasure("maxMDRAC");
             }
         } else {
             std::string time = ::toString(e->maxMDRAC.time);
@@ -3186,7 +3202,9 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
                 toGeo(e->maxMDRAC.pos);
             }
             std::string position = makeStringWithNAs(e->maxMDRAC.pos);
-            myOutputFile->openTag("maxMDRAC").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).writeAttr("speed", speed).closeTag();
+            myOutputFile->openTag("maxMDRAC").writeAttr("time", time);
+            MSOutputMissingValues::write(*myOutputFile, "position", position, position == "NA");
+            myOutputFile->writeAttr("type", type).writeAttr("value", value).writeAttr("speed", speed).closeTag();
         }
     }
     myOutputFile->closeTag();

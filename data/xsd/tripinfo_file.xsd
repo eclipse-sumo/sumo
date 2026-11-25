@@ -3,6 +3,24 @@
 
     <xsd:include schemaLocation="types/base.xsd"/>
 
+    <xsd:simpleType name="emptyTripinfoValueType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value=""/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="nullableTimeTypeWithErrorValue">
+        <xsd:union memberTypes="timeTypeWithErrorValue emptyTripinfoValueType"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="nullableNonNegativeFloatTypeWithErrorValue">
+        <xsd:union memberTypes="nonNegativeFloatTypeWithErrorValue emptyTripinfoValueType"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="nullableFloatType">
+        <xsd:union memberTypes="floatType emptyTripinfoValueType"/>
+    </xsd:simpleType>
+
     <xsd:element name="tripinfos">
         <xsd:complexType>
             <xsd:choice maxOccurs="unbounded">
@@ -29,11 +47,11 @@
             <xsd:attribute name="departPosLat" use="optional" type="floatType"/>
             <xsd:attribute name="departSpeed" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="departDelay" use="required" type="timeTypeWithErrorValue"/>
-            <xsd:attribute name="arrival" use="required" type="timeTypeWithErrorValue"/>
-            <xsd:attribute name="arrivalLane" use="required" type="xsd:string"/>
-            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
-            <xsd:attribute name="arrivalPosLat" use="optional" type="floatType"/>
-            <xsd:attribute name="arrivalSpeed" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="arrival" use="optional" type="nullableTimeTypeWithErrorValue"/>
+            <xsd:attribute name="arrivalLane" use="optional" type="xsd:string"/>
+            <xsd:attribute name="arrivalPos" use="optional" type="nullableNonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="arrivalPosLat" use="optional" type="nullableFloatType"/>
+            <xsd:attribute name="arrivalSpeed" use="optional" type="nullableNonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="duration" use="required" type="timeType"/>
             <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="waitingTime" use="required" type="timeType"/>

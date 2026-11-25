@@ -34,6 +34,7 @@
 #include <mesosim/MEVehicle.h>
 #include <microsim/MSVehicleControl.h>
 #include "MSEmissionExport.h"
+#include "MSOutputMissingValues.h"
 
 
 // ===========================================================================
@@ -92,6 +93,12 @@ MSEmissionExport::writeEmissions(OutputDevice& of, const MSBaseVehicle* const ve
     of.writeFuncAttr(SUMO_ATTR_ECLASS, [ = ]() {
         return  PollutantsInterface::getName(veh->getVehicleType().getEmissionClass());
     }, mask);
+    const auto writeEmission = [&](SumoXMLAttr attr, double value) {
+        if (mask.none() || mask.test(attr)) {
+            // FCD shares this writer but retains its existing output schema.
+            MSOutputMissingValues::write(of, attr, value, includeType && std::isnan(value));
+        }
+    };
     if (mask.test(SUMO_ATTR_CO2) || mask.test(SUMO_ATTR_CO) || mask.test(SUMO_ATTR_HC) || mask.test(SUMO_ATTR_NOX) || mask.test(SUMO_ATTR_PMX)
             || mask.test(SUMO_ATTR_FUEL) || mask.test(SUMO_ATTR_ELECTRICITY)) {
         PollutantsInterface::Emissions emiss = PollutantsInterface::computeAll(
@@ -102,13 +109,13 @@ MSEmissionExport::writeEmissions(OutputDevice& of, const MSBaseVehicle* const ve
             emiss.addScaled(emiss, TS - 1.);
         }
         of.setPrecision(gPrecisionEmissions);
-        of.writeOptionalAttr(SUMO_ATTR_CO2, emiss.CO2, mask);
-        of.writeOptionalAttr(SUMO_ATTR_CO, emiss.CO, mask);
-        of.writeOptionalAttr(SUMO_ATTR_HC, emiss.HC, mask);
-        of.writeOptionalAttr(SUMO_ATTR_NOX, emiss.NOx, mask);
-        of.writeOptionalAttr(SUMO_ATTR_PMX, emiss.PMx, mask);
-        of.writeOptionalAttr(SUMO_ATTR_FUEL, emiss.fuel, mask);
-        of.writeOptionalAttr(SUMO_ATTR_ELECTRICITY, emiss.electricity, mask);
+        writeEmission(SUMO_ATTR_CO2, emiss.CO2);
+        writeEmission(SUMO_ATTR_CO, emiss.CO);
+        writeEmission(SUMO_ATTR_HC, emiss.HC);
+        writeEmission(SUMO_ATTR_NOX, emiss.NOx);
+        writeEmission(SUMO_ATTR_PMX, emiss.PMx);
+        writeEmission(SUMO_ATTR_FUEL, emiss.fuel);
+        writeEmission(SUMO_ATTR_ELECTRICITY, emiss.electricity);
         of.setPrecision(gPrecision);
     }
     of.writeFuncAttr(SUMO_ATTR_NOISE, [ = ]() {

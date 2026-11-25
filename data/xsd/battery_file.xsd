@@ -27,7 +27,7 @@
             <xsd:attribute name="actualBatteryCapacity" use="required" type="floatType"/>
             <xsd:attribute name="maximumBatteryCapacity" use="required" type="floatType"/>
 
-            <xsd:attribute name="chargingStationId" use="required" type="xsd:string"/>
+            <xsd:attribute name="chargingStationId" use="optional" type="xsd:string"/>
             <xsd:attribute name="energyCharged" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="energyChargedInTransit" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="energyChargedStopped" use="required" type="nonNegativeFloatType"/>

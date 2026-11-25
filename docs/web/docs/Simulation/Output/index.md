@@ -310,3 +310,7 @@ When setting this option and using [sumo-gui](../../sumo-gui.md), the
 network parameter dialog will also show a running average for these
 traffic measures (The dialog is accessible by right-clicking on the
 network background).
+
+## Missing XML output values
+
+Use `--output.xml-missing-values empty` to write missing scalar values as empty XML attributes in tripinfo, lane-change, battery, emission and SSM output. Use `omit` to omit those attributes. The default `legacy` keeps each output’s established representation. CSV and Parquet keep their existing encoding. SSM trajectory lists retain `NA` entries to keep each sample aligned with its timestamp. The SSM `write-na` setting still determines whether to write measures with no data.

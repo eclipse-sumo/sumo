@@ -3,6 +3,23 @@
 
     <xsd:include schemaLocation="types/base.xsd"/>
 
+    <xsd:simpleType name="missingEmissionValueType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value=""/>
+            <xsd:enumeration value="nan"/>
+            <xsd:enumeration value="-nan"/>
+            <xsd:enumeration value="NaN"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="nullableNonNegativeFloatType">
+        <xsd:union memberTypes="nonNegativeFloatType missingEmissionValueType"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="nullableFloatType">
+        <xsd:union memberTypes="floatType missingEmissionValueType"/>
+    </xsd:simpleType>
+
     <xsd:element name="emission-export">
         <xsd:complexType>
             <xsd:sequence>
@@ -22,13 +39,13 @@
         <xsd:complexType>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="eclass" use="required" type="xsd:string"/>
-            <xsd:attribute name="CO" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="CO2" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="HC" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="PMx" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="NOx" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="fuel" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="electricity" use="required" type="floatType"/>
+            <xsd:attribute name="CO" use="optional" type="nullableNonNegativeFloatType"/>
+            <xsd:attribute name="CO2" use="optional" type="nullableNonNegativeFloatType"/>
+            <xsd:attribute name="HC" use="optional" type="nullableNonNegativeFloatType"/>
+            <xsd:attribute name="PMx" use="optional" type="nullableNonNegativeFloatType"/>
+            <xsd:attribute name="NOx" use="optional" type="nullableNonNegativeFloatType"/>
+            <xsd:attribute name="fuel" use="optional" type="nullableNonNegativeFloatType"/>
+            <xsd:attribute name="electricity" use="optional" type="nullableFloatType"/>
             <xsd:attribute name="noise" use="required" type="nonNegativeFloatType"/>
 
             <xsd:attribute name="route" use="required" type="xsd:string"/>

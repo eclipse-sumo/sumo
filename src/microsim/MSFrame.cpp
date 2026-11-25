@@ -133,6 +133,9 @@ MSFrame::fillOptions() {
     oc.addSynonyme("netstate-dump.precision", "dump-precision", true);
     oc.addDescription("netstate-dump.precision", "Output", TL("Write positions and speeds with the given precision (default 2)"));
 
+    oc.doRegister("output.xml-missing-values", new Option_String("legacy"));
+    oc.addDescription("output.xml-missing-values", "Output", TL("Represent missing scalar XML output values as legacy markers, empty strings or omitted attributes (legacy, empty, omit)"));
+
     oc.doRegister("emission-output", new Option_FileName());
     oc.addDescription("emission-output", "Output", TL("Save the emission values of each vehicle"));
     oc.doRegister("emission-output.precision", new Option_Integer(2));
@@ -1171,6 +1174,12 @@ MSFrame::checkOptions() {
     }
     if (oc.getBool("mapmatch.junctions") && oc.isDefault("junction-taz")) {
         oc.setDefault("junction-taz", "true");
+    }
+
+    const auto& missingValues = oc.getString("output.xml-missing-values");
+    if (missingValues != "legacy" && missingValues != "empty" && missingValues != "omit") {
+        WRITE_ERROR(TL("The XML missing-value mode must be legacy, empty or omit."));
+        ok = false;
     }
 
     ok &= MSDevice::checkOptions(oc);

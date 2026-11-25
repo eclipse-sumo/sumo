@@ -68,6 +68,7 @@
             <xsd:element name="netstate-dump" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="netstate-dump.empty-edges" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="netstate-dump.precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="output.xml-missing-values" type="strOptionType" minOccurs="0"/>
             <xsd:element name="emission-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="emission-output.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="emission-output.geo" type="boolOptionType" minOccurs="0"/>
