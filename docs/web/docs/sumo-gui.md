@@ -261,6 +261,10 @@ The following additional functions are available via right-click:
 - Switch programs (traffic lights)
 - [Visualize Signal Plans](Simulation/Traffic_Lights.md#signal_plan_visualization) (traffic lights)
 
+## Network location
+
+Right-click an empty area of the network view and select *Show Parameter*. The network parameter table shows the converted boundary in meters, the original geographic boundary when available, and the projection definition. Boundaries list the minimum x and y followed by the maximum x and y. For geographic coordinates, x is longitude and y is latitude.
+
 ## Plotting object properties
 
 All objects support the *Show Parameter* item in their context menu.

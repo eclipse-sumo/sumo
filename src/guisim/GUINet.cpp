@@ -486,6 +486,7 @@ GUIParameterTableWindow*
 GUINet::getParameterWindow(GUIMainWindow& app,
                            GUISUMOAbstractView& parent) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
+    ret->addNetworkLocation(getBoundary());
     // add items
     ret->mkItem(TL("loaded vehicles [#]"), true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getLoadedVehicleNo));

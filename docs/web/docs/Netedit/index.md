@@ -216,6 +216,8 @@ A short description of all [element attributes](attribute_help.md) is available.
 
 # [Popup-Menu functions](neteditPopupFunctions.md)
 
+Right-click an empty area of the network view and select *Show Parameter* to see the [network bounds and projection](../sumo-gui.md#network_location).
+
 Right clicking over an element will open a popup-menu with functions and operations relevant to set element. You can right click on:
 
 - [Edge and Lane](neteditPopupFunctions.md#edge_and_lane)
