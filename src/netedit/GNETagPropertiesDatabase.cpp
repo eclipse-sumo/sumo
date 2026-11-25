@@ -6441,24 +6441,21 @@ GNETagPropertiesDatabase::fillCommonVTypeAttributes(GNETagProperties* tagPropert
                                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
                                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("3D model file for this class"));
-    /*
-            Waiting for #16343
-            new GNEAttributeProperties(tagProperties, SUMO_ATTR_CARRIAGE_LENGTH,
-                                        GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE,
-                                        GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                        TL("Carriage lengths"));
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_CARRIAGE_LENGTH,
+                                GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE,
+                                GNEAttributeProperties::Edit::DIALOGEDITOR,
+                                TL("Carriage lengths"));
 
-            new GNEAttributeProperties(tagProperties, SUMO_ATTR_LOCOMOTIVE_LENGTH,
-                                        GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE,
-                                        GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                        TL("Locomotive lengths"));
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_LOCOMOTIVE_LENGTH,
+                                GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE,
+                                GNEAttributeProperties::Edit::DIALOGEDITOR,
+                                TL("Locomotive lengths"));
 
-            new GNEAttributeProperties(tagProperties, SUMO_ATTR_CARRIAGE_GAP,
-                                        GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                        GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                        TL("Gap between carriages"),
-                                        "1");
-    */
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_CARRIAGE_GAP,
+                                GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                GNEAttributeProperties::Edit::DIALOGEDITOR,
+                                TL("Gap between carriages"),
+                                "1");
     // fill VType Car Following Model Values (implemented in a separated function to improve code legibility)
     fillCarFollowingModelAttributes(tagProperties);
 

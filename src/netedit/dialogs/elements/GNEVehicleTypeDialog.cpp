@@ -56,6 +56,25 @@ FXIMPLEMENT(GNEVehicleTypeDialog::CarFollowingModelParameters,  FXGroupBox,     
 // member method definitions
 // ===========================================================================
 
+namespace {
+
+const SumoXMLAttr trainVisualizationParameters[] = {
+    SUMO_ATTR_CARRIAGE_LENGTH,
+    SUMO_ATTR_LOCOMOTIVE_LENGTH,
+    SUMO_ATTR_CARRIAGE_GAP
+};
+
+Parameterised::Map
+getGenericParameters(const Parameterised& parameters) {
+    auto result = parameters.getParametersMap();
+    for (const auto attr : trainVisualizationParameters) {
+        result.erase(toString(attr));
+    }
+    return result;
+}
+
+}
+
 // ---------------------------------------------------------------------------
 // GNEVehicleTypeDialog::VClassRow - methods
 // ---------------------------------------------------------------------------
@@ -127,19 +146,12 @@ GNEVehicleTypeDialog::VTypeAttributes::VClassRow::setVariable() {
             if (!myVTypeAttributesParent->myVehicleTypeDialog->myElement->isAttributeEnabled(SUMO_ATTR_CONTAINER_CAPACITY)) {
                 myVTypeAttributesParent->myContainerCapacity->updateValue(toString(defaultVTypeParameters.containerCapacity));
             }
-            /*
-                        Waiting for #16343
-                        if (!myVTypeAttributesParent->myVehicleTypeDialog->myElement->isAttributeEnabled(SUMO_ATTR_CARRIAGE_LENGTH)) {
-                            myVTypeAttributesParent->myCarriageLength->updateValue(toString(defaultVTypeParameters.containerCapacity));
-                        }
-                        if (!myVTypeAttributesParent->myVehicleTypeDialog->myElement->isAttributeEnabled(SUMO_ATTR_LOCOMOTIVE_LENGTH)) {
-                            myVTypeAttributesParent->myLocomotiveLength->updateValue(toString(defaultVTypeParameters.locomotiveLength));
-                        }
-                        // update GUIShape
-                        if (SumoVehicleClassStrings.hasString(myComboBoxVClass->getText().text())) {
-                            myVTypeAttributesParent->myVShapeRow->updateValue(SumoVehicleClassStrings.get(myComboBoxVClass->getText().text()));
-                        }
-            */
+            if (!myVTypeAttributesParent->myVehicleTypeDialog->myElement->isAttributeEnabled(SUMO_ATTR_CARRIAGE_LENGTH)) {
+                myVTypeAttributesParent->myCarriageLength->updateValue(toString(defaultVTypeParameters.carriageLength));
+            }
+            if (!myVTypeAttributesParent->myVehicleTypeDialog->myElement->isAttributeEnabled(SUMO_ATTR_LOCOMOTIVE_LENGTH)) {
+                myVTypeAttributesParent->myLocomotiveLength->updateValue(toString(defaultVTypeParameters.locomotiveLength));
+            }
         }
     } else {
         myComboBoxVClass->setTextColor(GUIDesignTextColorRed);
@@ -521,6 +533,30 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::setVariable() {
             myVTypeAttributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
             myVTypeAttributesParent->myVehicleTypeDialog->myInvalidAttr = myAttr;
         }
+    } else if (myRowAttrType == ROWTYPE_PARAMETERS) {
+        auto dialog = myVTypeAttributesParent->myVehicleTypeDialog;
+        auto vType = dialog->myElement;
+        const std::string value = myTextField->getText().text();
+        if (vType->isValid(myAttr, value)) {
+            Parameterised parameters;
+            parameters.setParametersStr(value);
+            bool containsTrainParameter = false;
+            for (const auto attr : trainVisualizationParameters) {
+                const auto key = toString(attr);
+                containsTrainParameter |= parameters.hasParameter(key);
+                if (vType->getParameters()->hasParameter(key)) {
+                    parameters.setParameter(key, vType->getParameters()->getParameter(key));
+                }
+            }
+            if (!containsTrainParameter) {
+                vType->setAttribute(myAttr, parameters.getParametersStr(), vType->getNet()->getUndoList());
+                updateValue();
+                return;
+            }
+        }
+        myTextField->setTextColor(GUIDesignTextColorRed);
+        dialog->myVehicleTypeValid = false;
+        dialog->myInvalidAttr = myAttr;
     } else if (myRowAttrType == ROWTYPE_COLOR) {
         // set color of myTextFieldColor, depending if current value is valid or not
         if (myVTypeAttributesParent->myVehicleTypeDialog->myElement->isValid(SUMO_ATTR_COLOR, myTextField->getText().text())) {
@@ -612,24 +648,9 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::updateValue() {
             myTextField->setTextColor(FXRGB(195, 195, 195));
         }
     } else if (myAttr == GNE_ATTR_PARAMETERS) {
-        // get parameters
-        const std::string& parametersStr = myVTypeAttributesParent->myVehicleTypeDialog->myElement->getAttribute(myAttr);
-        // set text of myTextField using current value of VType
-        myTextField->setText(parametersStr.c_str());
-        // set text color
+        myParameters = getGenericParameters(*myVTypeAttributesParent->myVehicleTypeDialog->myElement->getParameters());
+        myTextField->setText(Parameterised(myParameters).getParametersStr().c_str());
         myTextField->setTextColor(GUIDesignTextColorBlack);
-        // clear parameters
-        myParameters.clear();
-        // separate value in a vector of string using | as separator
-        StringTokenizer parameters(parametersStr, "|", true);
-        // iterate over all values
-        while (parameters.hasNext()) {
-            // obtain key and value and save it in myParameters
-            const std::vector<std::string> keyValue = StringTokenizer(parameters.next(), "=", true).getVector();
-            if (keyValue.size() == 2) {
-                myParameters[keyValue.front()] = keyValue.back();
-            }
-        }
     } else {
         // set text of myTextField using current value of VType
         myTextField->setText(myVTypeAttributesParent->myVehicleTypeDialog->myElement->getAttribute(myAttr).c_str());
@@ -980,17 +1001,14 @@ GNEVehicleTypeDialog::VTypeAttributes::buildAttributesB(FXVerticalFrame* column)
 
     // 10 create VTypeAttributeRow and Label for ActionStepLength
     myActionStepLength = new VTypeAttributeRow(this, column, SUMO_ATTR_ACTIONSTEPLENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
-    /*
-        Waiting for #16343
-        // 11 create FXTextField and Label for Carriage length
-        myCarriageLength = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_LENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
+    // 11 create FXTextField and Label for Carriage length
+    myCarriageLength = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_LENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-        // 12 create FXTextField and Label for Locomotive length
-        myLocomotiveLength = new VTypeAttributeRow(this, column, SUMO_ATTR_LOCOMOTIVE_LENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
+    // 12 create FXTextField and Label for Locomotive length
+    myLocomotiveLength = new VTypeAttributeRow(this, column, SUMO_ATTR_LOCOMOTIVE_LENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-        // 13 create FXTextField and Label for carriage GAP
-        myCarriageGap = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_GAP, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
-    */
+    // 13 create FXTextField and Label for carriage GAP
+    myCarriageGap = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_GAP, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
     // 14 create FXTextField and Label for parameters
     myParameters = new VTypeAttributeRow(this, column, GNE_ATTR_PARAMETERS, VTypeAttributeRow::RowAttrType::ROWTYPE_PARAMETERS);
 }
@@ -1124,12 +1142,9 @@ GNEVehicleTypeDialog::VTypeAttributes::updateValues() {
     myOSGFile->updateValue(toString(defaultVTypeParameters.osgFile));
     myPersonCapacity->updateValue(toString(defaultVTypeParameters.personCapacity));
     myContainerCapacity->updateValue(toString(defaultVTypeParameters.containerCapacity));
-    /*
-        Waiting for #16343
-        myCarriageLength->updateValue(toString(defaultVTypeParameters.carriageLength));
-        myLocomotiveLength->updateValue(toString(defaultVTypeParameters.locomotiveLength));
-        myCarriageGap->updateValue();
-    */
+    myCarriageLength->updateValue(toString(defaultVTypeParameters.carriageLength));
+    myLocomotiveLength->updateValue(toString(defaultVTypeParameters.locomotiveLength));
+    myCarriageGap->updateValue();
     myBoardingDuration->updateValue();
     myLoadingDuration->updateValue();
     myMinGapLat->updateValue();
@@ -1220,12 +1235,9 @@ GNEVehicleTypeDialog::VTypeAttributes::onCmdSetAttribute(FXObject*, FXSelector, 
     myOSGFile->setVariable(toString(defaultVTypeParameters.osgFile));
     myPersonCapacity->setVariable(toString(defaultVTypeParameters.personCapacity));
     myContainerCapacity->setVariable(toString(defaultVTypeParameters.containerCapacity));
-    /*
-        Waiting for #16343
-        myCarriageLength->setVariable(toString(defaultVTypeParameters.carriageLength));
-        myLocomotiveLength->setVariable(toString(defaultVTypeParameters.locomotiveLength));
-        myCarriageGap->setVariable();
-    */
+    myCarriageLength->setVariable(toString(defaultVTypeParameters.carriageLength));
+    myLocomotiveLength->setVariable(toString(defaultVTypeParameters.locomotiveLength));
+    myCarriageGap->setVariable();
     myBoardingDuration->setVariable();
     myLoadingDuration->setVariable();
     myMinGapLat->setVariable();
@@ -1289,11 +1301,11 @@ GNEVehicleTypeDialog::VTypeAttributes::onCmdOpenParametersEditor(FXObject*, FXSe
     auto viewNet = myVehicleTypeDialog->getElement()->getNet()->getViewNet();
     // create parameters dialog
     const GNEParametersDialog singleParametersDialog(viewNet->getViewParent()->getGNEAppWindows(), myVehicleTypeDialog,
-            myVehicleTypeDialog->getElement()->getParameters()->getParametersMap());
+            getGenericParameters(*myVehicleTypeDialog->getElement()->getParameters()));
     // continue depending of result
     if (singleParametersDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        // set values edited in Parameter dialog in Edited AC
-        myVehicleTypeDialog->getElement()->setAttribute(GNE_ATTR_PARAMETERS, myParameters->getParametersStr(), viewNet->getUndoList());
+        myParameters->setParameters(singleParametersDialog.getEditedParameters());
+        onCmdSetAttribute(nullptr, 0, nullptr);
     }
     return 1;
 }

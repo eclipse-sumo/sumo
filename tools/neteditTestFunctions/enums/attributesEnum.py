@@ -2144,9 +2144,9 @@ class attrs:
             minGapLat = 30
             maxSpeedLat = 31
             actionStepLength = 32
-            # carriageLength = 33
-            # locomotiveLength = 34
-            # carriageGap = 35
+            carriageLength = 33
+            locomotiveLength = 34
+            carriageGap = 35
             parametersButton = 36
             parameters = 37
 

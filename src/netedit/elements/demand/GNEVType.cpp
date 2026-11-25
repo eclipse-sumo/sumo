@@ -123,12 +123,19 @@ GNEVType::getParameters() const {
 void
 GNEVType::writeDemandElement(OutputDevice& device) const {
     // only write default vehicle types if it was modified
-    if (myDefaultVehicleType) {
-        if (myDefaultVehicleTypeModified) {
-            write(device);
+    if (!myDefaultVehicleType || myDefaultVehicleTypeModified) {
+        // The typed visualization values are already emitted as parameters by write().
+        SUMOVTypeParameter output(*this);
+        if (wasSet(VTYPEPARS_CARRIAGE_LENGTH_SET)) {
+            output.unsetParameter(toString(SUMO_ATTR_CARRIAGE_LENGTH));
         }
-    } else {
-        write(device);
+        if (wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET)) {
+            output.unsetParameter(toString(SUMO_ATTR_LOCOMOTIVE_LENGTH));
+        }
+        if (wasSet(VTYPEPARS_CARRIAGE_GAP_SET)) {
+            output.unsetParameter(toString(SUMO_ATTR_CARRIAGE_GAP));
+        }
+        output.write(device);
     }
 }
 
@@ -910,9 +917,9 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CARRIAGE_LENGTH:
             return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_LOCOMOTIVE_LENGTH:
-            return canParse<double>(value) && (parse<double>(value) >= -1);
+            return value.empty() || (canParse<double>(value) && (parse<double>(value) >= -1));
         case SUMO_ATTR_CARRIAGE_GAP:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return value.empty() || (canParse<double>(value) && (parse<double>(value) >= 0));
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             if (myDefaultVehicleType) {
                 return canParse<bool>(value);
