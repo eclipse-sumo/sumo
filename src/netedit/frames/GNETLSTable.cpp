@@ -18,6 +18,8 @@
 // Table used in GNETLSFrame for editing TLS programs
 /****************************************************************************/
 
+#include <algorithm>
+
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -90,6 +92,7 @@ GNETLSTable::GNETLSTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent) :
 
 
 GNETLSTable::~GNETLSTable() {
+    deleteTableWidgets();
     // delete fonts
     delete myProgramFont;
     delete myIndexFont;
@@ -176,35 +179,61 @@ GNETLSTable::recalcTableWidth() {
 
 void
 GNETLSTable::clearTable() {
-    // clear rows (always before columns, because delete row delete also all cells)
-    for (const auto& row : myRows) {
+    hide();
+    myCurrentSelectedRow = -1;
+    const auto previousSpareRows = mySpareRows.size();
+    // Store rows in reverse order to restore their original column positions.
+    mySpareRows.insert(mySpareRows.end(), myRows.rbegin(), myRows.rend());
+    myRows.clear();
+    for (auto index = previousSpareRows; index < mySpareRows.size(); ++index) {
+        mySpareRows[index]->hide();
+    }
+}
+
+
+void
+GNETLSTable::deleteTableWidgets() {
+    // Cells are children of their column frames. Delete the rows first.
+    for (const auto row : myRows) {
         delete row;
     }
-    // clear columns
-    for (const auto& column : myColumns) {
+    for (const auto row : mySpareRows) {
+        delete row;
+    }
+    for (const auto column : myColumns) {
         delete column;
     }
-    // drop rows and columns
     myRows.clear();
+    mySpareRows.clear();
     myColumns.clear();
 }
 
 
 void
 GNETLSTable::setTableSize(const std::string& columnsType, const int numberRow) {
-    // first clear table
     clearTable();
-    // create columns
-    for (int i = 0; i < (FXint)columnsType.size(); i++) {
-        myColumns.push_back(new Column(this, i, columnsType.at(i)));
+    const bool sameColumns = std::equal(myColumns.begin(), myColumns.end(),
+                                       columnsType.begin(), columnsType.end(),
+    [](const Column* column, char type) {
+        return column->getType() == type;
+    });
+    if (!sameColumns) {
+        deleteTableWidgets();
+        for (int i = 0; i < (int)columnsType.size(); ++i) {
+            myColumns.push_back(new Column(this, i, columnsType.at(i)));
+        }
     }
-    // create rows
-    for (int i = 0; i < numberRow; i++) {
-        myRows.push_back(new Row(this));
+    for (int i = 0; i < numberRow; ++i) {
+        if (mySpareRows.empty()) {
+            myRows.push_back(new Row(this));
+        } else {
+            myRows.push_back(mySpareRows.back());
+            mySpareRows.pop_back();
+            myRows.back()->show();
+        }
     }
-    // if we have only a row, disable remove and move buttons
-    if (myRows.size() == 1) {
-        myRows.front()->disableButtons();
+    for (const auto row : myRows) {
+        row->setButtonsEnabled(numberRow > 1);
     }
 }
 
@@ -1064,10 +1093,46 @@ GNETLSTable::Cell::hideMenuButtonPopup() {
 
 
 void
-GNETLSTable::Cell::disableButton() {
+GNETLSTable::Cell::setButtonEnabled(bool enabled) {
     if (myButton) {
-        myButton->disable();
-        myDisableButton = true;
+        myDisableButton = !enabled;
+        if (enabled && myTLSTable->isEnabled()) {
+            myButton->enable();
+        } else {
+            myButton->disable();
+        }
+    }
+}
+
+
+void
+GNETLSTable::Cell::hide() {
+    if (myTextField) {
+        myTextField->hide();
+        myTextField->setText("");
+        myTextField->setTextColor(GUIDesignTextColorBlack);
+    } else if (myIndexLabel) {
+        myIndexLabel->hide();
+        myIndexLabelBold->hide();
+    } else if (myButton) {
+        myButton->hide();
+    } else if (myAddButton) {
+        hideMenuButtonPopup();
+        myAddButton->hide();
+    }
+}
+
+
+void
+GNETLSTable::Cell::show() {
+    if (myTextField) {
+        myTextField->show();
+    } else if (myIndexLabel) {
+        myIndexLabel->show();
+    } else if (myButton) {
+        myButton->show();
+    } else if (myAddButton) {
+        myAddButton->show();
     }
 }
 
@@ -1344,12 +1409,25 @@ GNETLSTable::Row::getCells() const {
 
 
 void
-GNETLSTable::Row::disableButtons() {
-    // search move up button and disable it
-    for (const auto& cell : myCells) {
-        if ((cell->getType() == 'd') || (cell->getType() == 'b') || (cell->getType() == 't')) {
-            cell->disableButton();
-        }
+GNETLSTable::Row::setButtonsEnabled(bool enabled) {
+    for (const auto cell : myCells) {
+        cell->setButtonEnabled(enabled);
+    }
+}
+
+
+void
+GNETLSTable::Row::hide() {
+    for (const auto cell : myCells) {
+        cell->hide();
+    }
+}
+
+
+void
+GNETLSTable::Row::show() {
+    for (const auto cell : myCells) {
+        cell->show();
     }
 }
 

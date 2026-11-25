@@ -60,7 +60,7 @@ public:
     /// @brief recalc width (call when all labels and contents are fill)
     void recalcTableWidth();
 
-    /// @brief clear table
+    /// @brief Hide the table and retain compatible rows for reuse
     void clearTable();
 
     /// @brief Modify cell text
@@ -84,7 +84,7 @@ public:
     /// @brief Change column bottom text
     void setColumnLabelBot(const int column, const std::string& text);
 
-    /**@brief Set the table size to nr rows and nc columns; all existing items will be removed. Format:
+    /**@brief Set the table size and reuse rows with matching column types. Format:
      * s -> select row (radio button)
      * u -> duration (float, textField)
      * f -> float (float, textField)
@@ -234,8 +234,14 @@ protected:
         /// @brief hide menuButton popup
         void hideMenuButtonPopup();
 
-        /// @brief disable button (used for delete, move up and move down)
-        void disableButton();
+        /// @brief Set whether a delete or move button is available
+        void setButtonEnabled(bool enabled);
+
+        /// @brief Hide and reset the cell for reuse
+        void hide();
+
+        /// @brief Show the cell again
+        void show();
 
     private:
         /// @brief pointer to TLSTable parent
@@ -369,8 +375,14 @@ protected:
         /// @brief get cells
         const std::vector<Cell*>& getCells() const;
 
-        /// @brief disable row buttons
-        void disableButtons();
+        /// @brief Set whether the row's delete and move buttons are available
+        void setButtonsEnabled(bool enabled);
+
+        /// @brief Hide and reset the row's cells
+        void hide();
+
+        /// @brief Show the row's cells
+        void show();
 
     protected:
         /// @brief poiner to table parent
@@ -383,6 +395,9 @@ protected:
         /// @brief default constructor
         Row();
     };
+
+    /// @brief Release all rows and columns
+    void deleteTableWidgets();
 
     /// @brief update index labels
     void updateIndexLabel();
@@ -408,8 +423,11 @@ protected:
     /// @brief columns
     std::vector<Column*> myColumns;
 
-    /// @brief rows
+    /// @brief Active rows in display order
     std::vector<Row*> myRows;
+
+    /// @brief Hidden rows in reverse display order
+    std::vector<Row*> mySpareRows;
 
     /// @brief current selected row
     int myCurrentSelectedRow = -1;
