@@ -33,10 +33,12 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Connection, GNEChange, nullptr, 0)
 // ===========================================================================
 
 
-GNEChange_Connection::GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool selected, bool forward) :
+GNEChange_Connection::GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool selected, bool forward,
+        bool preserveTurnaround) :
     GNEChange(Supermode::NETWORK, forward, selected),
     myEdge(edge),
-    myNBEdgeConnection(nbCon) {
+    myNBEdgeConnection(nbCon),
+    myPreserveTurnaround(preserveTurnaround) {
 }
 
 
@@ -66,6 +68,9 @@ GNEChange_Connection::redo() {
     } else {
         // remove connection from edge
         myEdge->removeConnection(myNBEdgeConnection);
+        if (myPreserveTurnaround) {
+            myEdge->getNet()->addExplicitTurnaround(myEdge->getID());
+        }
     }
     // enable save networkElements
     myEdge->getNet()->requireRecompute();

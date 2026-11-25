@@ -997,7 +997,8 @@ GNENet::removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge* edge, GNEUndoList
 
 
 std::pair<GNEJunction*, GNEEdge*>
-GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction) {
+GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction,
+                  bool allowDuplicateGeometry) {
     // begin undo list
     undoList->begin(edge, TL("split edge"));
     // check if we have to create a new edge
@@ -1036,7 +1037,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     baseName += '.';
     // create a new edge from the new junction to the previous destination
     GNEEdge* secondPart = createEdge(newJunction, edge->getToJunction(), edge,
-                                     undoList, baseName + toString(posBase + (int)edgeSplitPosition), true, false, false);
+                                     undoList, baseName + toString(posBase + (int)edgeSplitPosition), true, allowDuplicateGeometry, false);
     // fix connections from the split edge (must happen before changing SUMO_ATTR_TO)
     edge->getToJunction()->replaceIncomingConnections(edge, secondPart, undoList);
     // remove affected crossings from junction (must happen before changing SUMO_ATTR_TO)
@@ -1114,13 +1115,28 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
 
 
 void
-GNENet::splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos, GNEUndoList* undoList) {
-    GNEJunction* newJunction = nullptr;
+GNENet::splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos, GNEUndoList* undoList,
+                       GNEJunction* junction) {
     undoList->begin(edge, TL("split edges"));
-    // split edge and save created junction
-    auto newStuff = splitEdge(edge, pos, undoList, newJunction);
-    newJunction = newStuff.first;
-    // split second edge
+    if (junction != nullptr) {
+        // Keep existing opposite-lane pairs on other edges of the junction intact.
+        auto lane = edge->getChildLanes().back();
+        auto oppositeLane = oppositeEdge->getChildLanes().back();
+        const bool pairedLanes = lane->getAttribute(GNE_ATTR_OPPOSITE) == oppositeLane->getID();
+        if (pairedLanes) {
+            lane->setAttribute(GNE_ATTR_OPPOSITE, "", undoList);
+        }
+        const auto secondPart = splitEdge(edge, pos, undoList, junction, true).second;
+        const auto oppositeSecondPart = splitEdge(oppositeEdge, pos, undoList, junction, true).second;
+        if (pairedLanes) {
+            lane->setAttribute(GNE_ATTR_OPPOSITE, oppositeSecondPart->getChildLanes().back()->getID(), undoList);
+            oppositeLane->setAttribute(GNE_ATTR_OPPOSITE, secondPart->getChildLanes().back()->getID(), undoList);
+        }
+        undoList->end();
+        return;
+    }
+    // Split both directions at the new junction.
+    auto newJunction = splitEdge(edge, pos, undoList).first;
     splitEdge(oppositeEdge, pos, undoList, newJunction);
     if (edge->getChildLanes().back()->getAttribute(GNE_ATTR_OPPOSITE) != "") {
         // restore opposite lane information

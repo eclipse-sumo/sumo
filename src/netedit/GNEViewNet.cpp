@@ -5951,6 +5951,75 @@ GNEViewNet::drawTestsCircle() const {
 
 
 void
+GNEViewNet::splitEdgeAtJunction(GNEJunction* junction) {
+    const Position& pos = junction->getPositionInView();
+    const auto canSplit = [junction, &pos](const GNEEdge* edge) {
+        if (edge->getFromJunction() == junction || edge->getToJunction() == junction) {
+            return false;
+        }
+        const auto& geom = edge->getNBEdge()->getGeometry();
+        const double offset = geom.nearest_offset_to_point2D(pos, false);
+        return offset > POSITION_EPS && offset < geom.length2D() - POSITION_EPS;
+    };
+    const auto firstSplittableEdge = [this, &canSplit]() -> GNEEdge* {
+        const auto& edges = myViewObjectsSelector.getEdges();
+        const auto found = std::find_if(edges.begin(), edges.end(), canSplit);
+        return found != edges.end() ? *found : nullptr;
+    };
+    auto edge = firstSplittableEdge();
+    if (edge == nullptr && makeCurrent()) {
+        // A lane can overlap the junction without passing directly under the pointer.
+        const auto footprint = junction->getDrawingFootprint(*myVisualizationSettings);
+        if (footprint.size() >= 3 && footprint.area() > POSITION_EPS) {
+            updateObjectsInShape(footprint);
+            edge = firstSplittableEdge();
+            updateObjectsInPosition(getPositionInformation());
+        }
+        makeNonCurrent();
+    }
+    if (edge == nullptr) {
+        return;
+    }
+    GNEEdge* reverse = nullptr;
+    if (!myMouseButtonKeyPressed.altKeyPressed()) {
+        const auto nbEdge = edge->getNBEdge();
+        const double distance = nbEdge->getGeometry().distance2D(pos);
+        const auto oppositeID = edge->getChildLanes().back()->getAttribute(GNE_ATTR_OPPOSITE);
+        double bestDistance = std::numeric_limits<double>::max();
+        for (auto opposite : edge->getOppositeEdges()) {
+            if (!canSplit(opposite)) {
+                continue;
+            }
+            const auto nbOpposite = opposite->getNBEdge();
+            if (nbEdge->getBidiEdge() == nbOpposite || opposite->getChildLanes().back()->getID() == oppositeID) {
+                reverse = opposite;
+                break;
+            }
+            const double oppositeDistance = nbOpposite->getGeometry().distance2D(pos);
+            const double combinedHalfWidth = (nbEdge->getTotalWidth() + nbOpposite->getTotalWidth()) / 2;
+            if (oppositeDistance <= distance + combinedHalfWidth && oppositeDistance < bestDistance) {
+                reverse = opposite;
+                bestDistance = oppositeDistance;
+            }
+        }
+    }
+    myUndoList->begin(junction, TL("split road at junction"));
+    if (reverse != nullptr) {
+        myNet->splitEdgesBidi(edge, reverse, pos, myUndoList, junction);
+    } else {
+        // Splitting one direction breaks the former opposite-lane pair.
+        auto lane = edge->getChildLanes().back();
+        if (!lane->getAttribute(GNE_ATTR_OPPOSITE).empty()) {
+            lane->setAttribute(GNE_ATTR_OPPOSITE, "", myUndoList);
+        }
+        myNet->splitEdge(edge, pos, myUndoList, junction, true);
+    }
+    junction->setLogicValid(false, myUndoList);
+    myUndoList->end();
+}
+
+
+void
 GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
     // reset moving selected edge
     myMoveMultipleElements.resetMovingSelectedEdge();
@@ -6033,9 +6102,9 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_CREATE_EDGE: {
             // check what buttons are pressed
             if (myMouseButtonKeyPressed.shiftKeyPressed()) {
-                // get edge under cursor
-                GNEEdge* edge = myViewObjectsSelector.getEdgeFront();
-                if (edge) {
+                if (auto junction = myViewObjectsSelector.getJunctionFront()) {
+                    splitEdgeAtJunction(junction);
+                } else if (auto edge = myViewObjectsSelector.getEdgeFront()) {
                     // obtain reverse edge
                     const auto oppositeEdges = edge->getOppositeEdges();
                     // check if we're split one or both edges

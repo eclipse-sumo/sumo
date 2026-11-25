@@ -39,8 +39,10 @@ public:
      * @param[in] nbCon The data of the connection
      * @param[in] check if in the moment of change connection was selected
      * @param[in] forward Whether to create/delete (true/false)
+     * @param[in] preserveTurnaround Retain an existing turnaround when rebuilding connections
      */
-    GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool selected, bool forward);
+    GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool selected, bool forward,
+                         bool preserveTurnaround = false);
 
     /// @brief Destructor
     ~GNEChange_Connection();
@@ -67,4 +69,7 @@ private:
 
     /// @brief the data which must be copied because the original reference does not persist
     NBEdge::Connection myNBEdgeConnection;
+
+    /// @brief whether to retain a turnaround when rebuilding connections
+    bool myPreserveTurnaround;
 };

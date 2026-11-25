@@ -83,6 +83,9 @@ public:
     /// @brief get junction shape
     const PositionVector& getJunctionShape() const;
 
+    /// @brief get the shape or bubble currently drawn for the junction
+    PositionVector getDrawingFootprint(const GUIVisualizationSettings& s) const;
+
     /// @brief update pre-computed geometry information (including crossings)
     void updateGeometry() override;
 

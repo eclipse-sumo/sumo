@@ -285,14 +285,17 @@ public:
      * @param[in] pos The position on which to insert the new junction
      * @return The new junction and the new edge
      */
-    std::pair<GNEJunction*, GNEEdge*> splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction = 0);
+    std::pair<GNEJunction*, GNEEdge*> splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList,
+                                              GNEJunction* newJunction = nullptr, bool allowDuplicateGeometry = false);
 
-    /**@brief split all edges at position by inserting one new junction
+    /**@brief split both directions at a new or existing junction
      * @param[in] edge The edge to be split
-     * @param[in] oppositeEdge The oppositeEdge to be split
-     * @param[in] pos The position on which to insert the new junction
+     * @param[in] oppositeEdge The opposite edge to be split
+     * @param[in] pos The split position
+     * @param[in] junction An existing junction to use, or nullptr for a new one
      */
-    void splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos, GNEUndoList* undoList);
+    void splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos, GNEUndoList* undoList,
+                        GNEJunction* junction = nullptr);
 
     /**@brief reverse edge
      * @param[in] edge The edge to be reversed

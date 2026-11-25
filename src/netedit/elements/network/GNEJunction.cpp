@@ -42,6 +42,7 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -131,6 +132,21 @@ GNEJunction::getParameters() const {
 const PositionVector&
 GNEJunction::getJunctionShape() const {
     return myNBNode->getShape();
+}
+
+
+PositionVector
+GNEJunction::getDrawingFootprint(const GUIVisualizationSettings& s) const {
+    auto shape = getJunctionShape();
+    const double exaggeration = getExaggeration(s);
+    if (drawAsBubble(s, shape.area())) {
+        return GeomHelper::makeCircle(s.neteditSizeSettings.junctionBubbleRadius * exaggeration,
+                                      getPositionInView(), 16);
+    }
+    if (exaggeration != 1) {
+        shape.scaleRelative(exaggeration);
+    }
+    return shape;
 }
 
 
@@ -918,13 +934,8 @@ GNEJunction::removeConnectionsFrom(GNEEdge* edge, GNEUndoList* undoList, bool up
         if (lane >= 0 && (*con_it).fromLane != lane) {
             continue;
         }
-        bool hasTurn = con_it->toEdge == turnEdge;
-        undoList->add(new GNEChange_Connection(edge, *con_it, false, false), true);
-        // needs to come after GNEChange_Connection
-        // XXX bug: this code path will not be used on a redo!
-        if (hasTurn) {
-            myNet->addExplicitTurnaround(srcNBE->getID());
-        }
+        const bool hasTurn = con_it->toEdge == turnEdge;
+        undoList->add(new GNEChange_Connection(edge, *con_it, false, false, hasTurn), true);
     }
     if (updateTLS) {
         std::vector<NBConnection> removeConnections;
@@ -948,13 +959,8 @@ GNEJunction::removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList, bool upda
                 if (lane >= 0 && (*con_it).toLane != lane) {
                     continue;
                 }
-                bool hasTurn = srcNBE->getTurnDestination() == destNBE;
-                undoList->add(new GNEChange_Connection(srcEdge, *con_it, false, false), true);
-                // needs to come after GNEChange_Connection
-                // XXX bug: this code path will not be used on a redo!
-                if (hasTurn) {
-                    myNet->addExplicitTurnaround(srcNBE->getID());
-                }
+                const bool hasTurn = srcNBE->getTurnDestination() == destNBE;
+                undoList->add(new GNEChange_Connection(srcEdge, *con_it, false, false, hasTurn), true);
                 removeConnections.push_back(NBConnection(srcNBE, (*con_it).fromLane, destNBE, (*con_it).toLane));
             }
         }
