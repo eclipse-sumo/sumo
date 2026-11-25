@@ -572,7 +572,7 @@ public:
     /// @brief set last created route
     void setLastCreatedRoute(GNEDemandElement* lastCreatedRoute);
 
-    /// @brief set statusBar text
+    /// @brief show temporary feedback for a view action, or clear the status bar
     void setStatusBarText(const std::string& text);
 
     /// @brief whether to autoselect nodes or to lanes

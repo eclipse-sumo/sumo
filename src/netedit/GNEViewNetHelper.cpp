@@ -1989,7 +1989,7 @@ GNEViewNetHelper::SelectingArea::moveRectangleSelection() {
     // only update selection corner 2
     selectionCorner2 = myViewNet->getPositionInformation();
     // update status bar
-    myViewNet->setStatusBarText(TL("Selection width:") + toString(fabs(selectionCorner1.x() - selectionCorner2.x()))
+    myViewNet->getNet()->getGNEApplicationWindow()->setStatusBarText(TL("Selection width:") + toString(fabs(selectionCorner1.x() - selectionCorner2.x()))
                                 + TL(" height:") + toString(fabs(selectionCorner1.y() - selectionCorner2.y()))
                                 + TL(" diagonal:") + toString(selectionCorner1.distanceTo2D(selectionCorner2)));
 }
@@ -2531,7 +2531,7 @@ GNEViewNetHelper::EditModes::setNetworkEditMode(NetworkEditMode mode, const bool
             myViewNet->myCurrentFrame->focusUpperElement();
         }
     } else if (networkEditMode == NetworkEditMode::NETWORK_TLS && !myViewNet->myViewParent->getTLSEditorFrame()->isTLSSaved()) {
-        myViewNet->setStatusBarText(TL("Save modifications in TLS before change mode"));
+        myViewNet->getNet()->getGNEApplicationWindow()->setStatusBarText(TL("Save modifications in TLS before change mode"));
         myViewNet->myCurrentFrame->focusUpperElement();
     } else {
         myViewNet->setStatusBarText("");

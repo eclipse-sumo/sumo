@@ -79,6 +79,12 @@ public:
     /// @brief set text of the statusBar
     void setStatusBarText(const std::string& statusBarText);
 
+    /// @brief display a temporary status message
+    void setTemporaryStatusBarText(const std::string& statusBarText);
+
+    /// @brief clear expired status text
+    long onClearStatusBarText(FXObject*, FXSelector, void*);
+
     /// @brief called if the user selects Processing->compute junctions with volatile options
     long computeJunctionWithVolatileOptions(FXObject* sender, FXSelector sel, void* ptr);
 

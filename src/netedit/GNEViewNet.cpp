@@ -898,7 +898,11 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
 
 void
 GNEViewNet::setStatusBarText(const std::string& text) {
-    myApp->setStatusBarText(text);
+    if (text.empty()) {
+        myApp->setStatusBarText(text);
+    } else {
+        myNet->getGNEApplicationWindow()->setTemporaryStatusBarText(text);
+    }
 }
 
 

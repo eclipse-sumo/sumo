@@ -87,6 +87,10 @@
 // FOX-declarations
 // ===========================================================================
 
+namespace {
+constexpr FXushort ID_CLEAR_STATUS_TEXT = MID_LAST;
+}
+
 FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     // quit calls
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Q_CLOSE,    GNEApplicationWindow::onCmdQuit),
@@ -97,6 +101,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK,   GNEApplicationWindow::onCmdNewNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK,   GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,          GNEApplicationWindow::onCmdNewWindow),
+    FXMAPFUNC(SEL_TIMEOUT, ID_CLEAR_STATUS_TEXT, GNEApplicationWindow::onClearStatusBarText),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE,                        GNEApplicationWindow::onCmdOpenNetgenerateDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATEOPTIONS,                 GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                             GNEApplicationWindow::onCmdOpenRecent),
@@ -674,6 +679,7 @@ GNEApplicationWindow::create() {
 
 
 GNEApplicationWindow::~GNEApplicationWindow() {
+    getApp()->removeTimeout(this, ID_CLEAR_STATUS_TEXT);
     closeAllWindows(true);
     // Close icons
     GUIIconSubSys::close();
@@ -1452,7 +1458,7 @@ GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
         }
         // write info
         WRITE_ERROR(failureMessage);
-        setStatusBarText(failureMessage);
+        setTemporaryStatusBarText(failureMessage);
         if (OptionsCont::getOptions().getBool("quit-on-fail")) {
             closeAllWindows(true);
             getApp()->exit(1);
@@ -2018,7 +2024,22 @@ GNEApplicationWindow::loadOSM(const std::string& OSMFile) {
 }
 
 void
+GNEApplicationWindow::setTemporaryStatusBarText(const std::string& statusBarText) {
+    setStatusBarText(statusBarText);
+    getApp()->addTimeout(this, ID_CLEAR_STATUS_TEXT, 5000);
+}
+
+
+long
+GNEApplicationWindow::onClearStatusBarText(FXObject*, FXSelector, void*) {
+    setStatusBarText(TL("Ready."));
+    return 1;
+}
+
+
+void
 GNEApplicationWindow::setStatusBarText(const std::string& statusBarText) {
+    getApp()->removeTimeout(this, ID_CLEAR_STATUS_TEXT);
     myStatusbar->getStatusLine()->setText(statusBarText.c_str());
     myStatusbar->getStatusLine()->setNormalText(statusBarText.c_str());
 }
