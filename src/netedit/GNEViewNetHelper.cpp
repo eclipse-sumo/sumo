@@ -1759,8 +1759,20 @@ void
 GNEViewNetHelper::MoveMultipleElementModul::beginMoveSelection() {
     // save clicked position (to calculate offset)
     myClickedPosition = myViewNet->getPositionInformation();
-    // continue depending of clicked element
-    if (myViewNet->myViewObjectsSelector.getJunctionFront()) {
+    // Start a whole-shape drag when the selected polygon or TAZ is clicked.
+    const auto* clicked = myViewNet->myViewObjectsSelector.getAttributeCarrierFront();
+    const auto clickedType = clicked == nullptr ? GLO_NETWORK : clicked->getGUIGlObject()->getType();
+    if (clickedType == GLO_POLYGON || clickedType == GLO_TAZ) {
+        for (auto* additional : myViewNet->getNet()->getAttributeCarriers()->getSelectedAdditionals()) {
+            const auto type = additional->getType();
+            if ((type == GLO_POLYGON || type == GLO_TAZ) && !myViewNet->getLockManager().isObjectLocked(type, true)) {
+                const auto* polygon = dynamic_cast<const TesselatedPolygon*>(additional);
+                if (polygon != nullptr && !polygon->getShape().empty()) {
+                    myMoveOperations.push_back(new GNEMoveOperation(additional->getMoveElement(), polygon->getShape()));
+                }
+            }
+        }
+    } else if (myViewNet->myViewObjectsSelector.getJunctionFront()) {
         calculateJunctionSelection();
     } else if (myViewNet->myViewObjectsSelector.getEdgeFront()) {
         calculateEdgeSelection(myViewNet->myViewObjectsSelector.getEdgeFront());
