@@ -152,6 +152,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_DELAY_TOGGLE,                                           GUIApplicationWindow::onCmdDelayToggle),
     FXMAPFUNC(SEL_COMMAND,  MID_DEMAND_SCALE,                                           GUIApplicationWindow::onCmdDemandScale),
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,                                     GUIApplicationWindow::onCmdClearMsgWindow),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_W_TOGGLEMESSAGEWINDOW,                GUIApplicationWindow::onCmdToggleMessageWindow),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_B_BREAKPOINT,                                    GUIApplicationWindow::onCmdBreakpoint),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_B_BREAKPOINT_EARLY,                          GUIApplicationWindow::onCmdBreakpointEarly),
     // Stats
@@ -699,6 +700,8 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuSeparator(myWindowMenu);
     GUIDesigns::buildFXMenuCheckbox(myWindowMenu, TL("Show Status Line"), TL("Toggle the Status Bar on/off."), myStatusbar, FXWindow::ID_TOGGLESHOWN);
     GUIDesigns::buildFXMenuCheckbox(myWindowMenu, TL("Show Message Window"), TL("Toggle the Message Window on/off."), myMessageWindow, FXWindow::ID_TOGGLESHOWN);
+    GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu, TL("Toggle Message Window and Status Line"), "Ctrl+Shift+W", TL("Show or hide both the Message Window and the Status Line."),
+                                           nullptr, this, MID_HOTKEY_CTRL_SHIFT_W_TOGGLEMESSAGEWINDOW);
     GUIDesigns::buildFXMenuCheckbox(myWindowMenu, TL("Show Simulation Time"), TL("Toggle the Simulation Time on/off."), myToolBar3, FXWindow::ID_TOGGLESHOWN);
     GUIDesigns::buildFXMenuCheckbox(myWindowMenu, TL("Show Simulation Delay"), TL("Toggle the Simulation Delay Entry on/off."), myToolBar4, FXWindow::ID_TOGGLESHOWN);
     addToWindowsMenu(myWindowMenu);
@@ -1505,6 +1508,13 @@ GUIApplicationWindow::onCmdDemandScale(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdClearMsgWindow(FXObject*, FXSelector, void*) {
     myMessageWindow->clear();
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdToggleMessageWindow(FXObject*, FXSelector, void*) {
+    toggleMessageWindowAndStatusBar(myMessageWindow);
     return 1;
 }
 

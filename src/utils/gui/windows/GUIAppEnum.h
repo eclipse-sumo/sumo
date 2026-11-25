@@ -222,6 +222,8 @@ enum {
     MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG,
     /// @brief load only the network in sumo-gui/netedit
     MID_HOTKEY_CTRL_SHIFT_T_OPEN_NET,
+    /// @brief toggle the message window and the status line (based on the status of the message window)
+    MID_HOTKEY_CTRL_SHIFT_W_TOGGLEMESSAGEWINDOW,
 
     /// @}
 

@@ -411,6 +411,9 @@ public:
     /// @brief called when the command/FXCall clear message windows is executed
     long onCmdClearMsgWindow(FXObject*, FXSelector, void*);
 
+    /// @brief called when the message window and the status line shall be shown or hidden together
+    long onCmdToggleMessageWindow(FXObject*, FXSelector, void*);
+
     /// @brief called when user toggle windows checkbox "load additionals"
     long onCmdLoadAdditionalsInSUMOGUI(FXObject*, FXSelector, void*);
 

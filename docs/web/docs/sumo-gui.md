@@ -122,8 +122,8 @@ methods:
 ## Keyboard Shortcuts
 
 Various menu items are accessible via keyboard shortcuts. These are
-documented directly in the menu. (i.e. <kbd>Ctrl</kbd> + <kbd>l</kbd>, <kbd>Ctrl</kbd> + <kbd>e</kbd> opens the edge
-locator, <kbd>Ctrl</kbd> + <kbd>d</kbd> performs a single simulation step). Additional shortcuts
+documented directly in the menu. (i.e. <kbd>Shift</kbd> + <kbd>E</kbd> opens the edge
+locator, <kbd>D</kbd> performs a single simulation step). Additional shortcuts
 are listed below:
 
 - <kbd>Ctrl</kbd> + <kbd>LeftClick</kbd>: toggle selection status of object under cursor
@@ -140,6 +140,8 @@ are listed below:
 - Double-LeftClick: stop tracking
 - <kbd>Ctrl</kbd> + <kbd>J</kbd>: toggle 'show junction shapes'
 - <kbd>Ctrl</kbd> + <kbd>K</kbd>: toggle 'show secondary edge shape' (loaded with option **--alternative-net-file**)
+- <kbd>Ctrl</kbd> + <kbd>F</kbd> or <kbd>F11</kbd>: toggle full screen mode
+- <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd>: toggle message window and status line
 
 ## Object Properties / Right-Click-Functions
 

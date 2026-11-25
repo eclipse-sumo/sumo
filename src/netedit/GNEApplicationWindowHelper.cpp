@@ -2166,6 +2166,9 @@ GNEApplicationWindowHelper::WindowsMenuCommands::buildWindowsMenuCommands(FXMenu
     GUIDesigns::buildFXMenuCheckbox(windowsMenu,
                                     TL("Show Message Window"), TL("Toggle the Message Window on/off."),
                                     messageWindow, FXWindow::ID_TOGGLESHOWN);
+    GUIDesigns::buildFXMenuCommandShortcut(windowsMenu,
+                                           TL("Toggle Message Window and Status Line"), "Ctrl+Shift+W", TL("Show or hide both the Message Window and the Status Line."),
+                                           nullptr, myApplicationWindow, MID_HOTKEY_CTRL_SHIFT_W_TOGGLEMESSAGEWINDOW);
     new FXMenuSeparator(windowsMenu);
     GUIDesigns::buildFXMenuCommandShortcut(windowsMenu,
                                            TL("Clear Message Window"), "", TL("Clear the Message Window."),

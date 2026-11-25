@@ -222,6 +222,9 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GUIMainWindow)
 
+    /// @brief hide the message window and the status bar if the message window is shown, otherwise show both
+    void toggleMessageWindowAndStatusBar(FXWindow* messageWindow);
+
     /// @brief whether to show the window in full screen mode
     bool myAmFullScreen;
 

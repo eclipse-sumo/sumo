@@ -530,6 +530,22 @@ GUIMainWindow::storeWindowSizeAndPos() {
 
 
 void
+GUIMainWindow::toggleMessageWindowAndStatusBar(FXWindow* messageWindow) {
+    if (messageWindow == nullptr || myStatusbar == nullptr) {
+        return;
+    }
+    if (messageWindow->shown()) {
+        messageWindow->hide();
+        myStatusbar->hide();
+    } else {
+        messageWindow->show();
+        myStatusbar->show();
+    }
+    recalc();
+}
+
+
+void
 GUIMainWindow::buildLanguageMenu(FXMenuBar* menuBar) {
     myLanguageMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(menuBar, TL("Langua&ge"), nullptr, myLanguageMenu);

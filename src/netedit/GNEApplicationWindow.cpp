@@ -417,6 +417,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POSTPROCESSINGPYTHONTOOL,    GNEApplicationWindow::onCmdPostProcessingPythonTool),
     // toolbar windows
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW, GNEApplicationWindow::onCmdClearMsgWindow),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_W_TOGGLEMESSAGEWINDOW, GNEApplicationWindow::onCmdToggleMessageWindow),
     // toolbar help
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,  GNEApplicationWindow::onCmdHelp),
     FXMAPFUNC(SEL_COMMAND,  MID_CHANGELOG,                      GNEApplicationWindow::onCmdChangelog),
@@ -1338,6 +1339,13 @@ GNEApplicationWindow::onUpdOpen(FXObject* sender, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdClearMsgWindow(FXObject*, FXSelector, void*) {
     myMessageWindow->clear();
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdToggleMessageWindow(FXObject*, FXSelector, void*) {
+    toggleMessageWindowAndStatusBar(myMessageWindow);
     return 1;
 }
 

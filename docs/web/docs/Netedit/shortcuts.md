@@ -3,7 +3,7 @@ title: Shortcuts
 ---
 
 
-## NETEDIT view shortcuts
+## netedit view shortcuts
 
 In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui.md#keyboard_shortcuts) there is a large number of netedit-specific shortcuts.
 
@@ -13,7 +13,7 @@ In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui
 | <kbd>Ctrl</kbd> + <kbd>PgUp</kbd> | <span style="color:orange">Increase grid size |
 | <kbd>Ctrl</kbd> + <kbd>PgDown</kbd> | <span style="color:orange">Shrink grid size |
 
-## NETEDIT mode shortcuts
+## netedit mode shortcuts
 
 | Shortcut | Network mode | Demand Mode | Data Mode |
 |:---:|:---:|:-:|:---:|
@@ -39,7 +39,7 @@ In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui
 | <kbd>F7</kbd> | <span style="color:orange">Join selected junctions | <span style="color:orange">Join Routes | <span style="color:orange">Join Data |
 | <kbd>F8</kbd> | <span style="color:orange">Clear invalid crossings | <span style="color:orange">Clear invalid demand elements | <span style="color:orange">clear invalid data elements |
 
-## NETEDIT basic shortcuts
+## netedit basic shortcuts
 
 | Shortcut | |
 |:---:|:---:|
@@ -55,7 +55,7 @@ In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui
 | <kbd>F11</kbd> | <span style="color:orange">Set / Clear front element |
 | <kbd>F12</kbd> | <span style="color:orange">About dialog |
 
-## NETEDIT control shortcuts
+## netedit control shortcuts
 
 | Shortcut | |
 |:---:|:---:|
@@ -70,10 +70,10 @@ In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui
 | <kbd>Ctrl</kbd> + <kbd>L</kbd> | <span style="color:orange">Save plain XML |
 | <kbd>Ctrl</kbd> + <kbd>M</kbd> | <span style="color:orange">Load SUMO config |
 | <kbd>Ctrl</kbd> + <kbd>N</kbd> | <span style="color:orange">New network |
-| <kbd>Ctrl</kbd> + <kbd>Q</kbd> | <span style="color:orange">Close SUMO/NETEDIT |
+| <kbd>Ctrl</kbd> + <kbd>Q</kbd> | <span style="color:orange">Close SUMO/netedit |
 | <kbd>Ctrl</kbd> + <kbd>R</kbd> | <span style="color:orange">Reload network |
 | <kbd>Ctrl</kbd> + <kbd>S</kbd> | <span style="color:orange">Save network |
-| <kbd>Ctrl</kbd> + <kbd>T</kbd> | <span style="color:orange">Toggle between SUMO/NETEDIT |
+| <kbd>Ctrl</kbd> + <kbd>T</kbd> | <span style="color:orange">Toggle between SUMO/netedit |
 | <kbd>Ctrl</kbd> + <kbd>V</kbd> | <span style="color:orange">Paste |
 | <kbd>Ctrl</kbd> + <kbd>W</kbd> | <span style="color:orange">Close Net |
 | <kbd>Ctrl</kbd> + <kbd>X</kbd> | <span style="color:orange">Cut |
@@ -82,7 +82,7 @@ In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui
 | <kbd>Ctrl</kbd> + <kbd>F5</kbd> | <span style="color:orange">Volatile recomputing |
 | <kbd>Ctrl</kbd> + <kbd>F7</kbd> | <span style="color:orange">Adjust person plans|
 
-## NETEDIT locate shortcuts
+## netedit locate shortcuts
 
 | Shortcut | |
 |:---:|:---:|
@@ -96,7 +96,7 @@ In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui
 | <kbd>Shift</kbd> + <kbd>T</kbd> | <span style="color:orange">Locate TLS |
 | <kbd>Shift</kbd> + <kbd>V</kbd> | <span style="color:orange">Locate Vehicles |
 
-## NETEDIT save elements shortcuts
+## netedit save elements shortcuts
 
 | Shortcut |  |
 |:---:|:---:|
@@ -113,7 +113,7 @@ In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>U</kbd> | <span style="color:orange">Force Save Data elements (Flag) |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F12</kbd> | <span style="color:orange">Save Geometry for testing |
 
-## NETEDIT miscellaneous shortcuts
+## netedit miscellaneous shortcuts
 
 | Shortcut | |
 |:---:|:---:|
@@ -125,3 +125,4 @@ In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui
 | <kbd>Shift</kbd> + <kbd>F5</kbd> | <span style="color:orange">Compute Junction (volatile) |
 | <kbd>Shift</kbd> + <kbd>F7</kbd> | <span style="color:orange">Adjust Person Plan |
 | <kbd>Shift</kbd> + <kbd>F12</kbd> | <span style="color:orange">Focus upper element |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd> | <span style="color:orange">Toggle message window and status line |
