@@ -719,6 +719,7 @@ The following shapes are known:
 
 - "pedestrian"
 - "bicycle"
+- "bicycle/cargo" (front-loading cargo bicycle)
 - "moped"
 - "motorcycle"
 - "passenger"

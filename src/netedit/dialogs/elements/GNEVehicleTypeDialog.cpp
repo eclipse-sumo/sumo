@@ -363,6 +363,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VShapeRow::setVShapeLabelImage() {
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_PEDESTRIAN));
             break;
         case SUMOVehicleShape::BICYCLE:
+        case SUMOVehicleShape::BICYCLE_CARGO:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_BICYCLE));
             break;
         case SUMOVehicleShape::MOPED:

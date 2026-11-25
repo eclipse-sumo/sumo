@@ -109,7 +109,9 @@ enum class SUMOVehicleShape {
     /// @brief render as a scooter
     SCOOTER,
     /// @brief render as aircraft
-    AIRCRAFT
+    AIRCRAFT,
+    /// @brief render as a front-loading cargo bicycle
+    BICYCLE_CARGO
 };
 
 

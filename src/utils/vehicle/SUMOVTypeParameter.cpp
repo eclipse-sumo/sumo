@@ -869,6 +869,7 @@ SUMOVTypeParameter::initRailVisualizationParameters(const std::string fileName) 
                 frontSeatPos = 1.2;
                 break;
             case SUMOVehicleShape::BICYCLE:
+            case SUMOVehicleShape::BICYCLE_CARGO:
                 frontSeatPos = 0.6;
                 break;
             case SUMOVehicleShape::MOPED:
