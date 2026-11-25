@@ -21,6 +21,8 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <memory>
+
 #include <iostream>
 #include <utils/foxtools/fxheader.h>
 #include <utils/foxtools/MFXImageHelper.h>
@@ -35,7 +37,7 @@
 // ===========================================================================
 // definition of static variables
 // ===========================================================================
-std::map<std::string, int> GUITexturesHelper::myTextures;
+std::map<std::pair<std::string, bool>, int> GUITexturesHelper::myTextures;
 bool GUITexturesHelper::myAllowTextures = true;
 
 
@@ -44,7 +46,7 @@ bool GUITexturesHelper::myAllowTextures = true;
 // ===========================================================================
 int
 GUITexturesHelper::getMaxTextureSize() {
-    int max;
+    int max = 0;
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &max);
     return max;
 }
@@ -52,7 +54,7 @@ GUITexturesHelper::getMaxTextureSize() {
 
 GUIGlID
 GUITexturesHelper::add(FXImage* i) {
-    GUIGlID id;
+    GUIGlID id = 0;
     glGenTextures(1, &id);
     glBindTexture(GL_TEXTURE_2D, id);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
@@ -109,27 +111,51 @@ GUITexturesHelper::drawTexturedBox(int which, double sizeX1, double sizeY1, doub
 }
 
 
+namespace {
+std::unique_ptr<FXImage>
+loadTextureImage(const std::string& filename) {
+    try {
+        return std::unique_ptr<FXImage>(MFXImageHelper::loadImage(GUIMainWindow::getInstance()->getApp(), filename));
+    } catch (const InvalidArgument& e) {
+        WRITE_ERROR("Could not load '" + filename + "'.\n" + e.what());
+        return nullptr;
+    }
+}
+}
+
+
+bool
+GUITexturesHelper::canLoadTexture(const std::string& filename) {
+    return loadTextureImage(filename) != nullptr;
+}
+
+
 int
 GUITexturesHelper::getTextureID(const std::string& filename, const bool mirrorX) {
-    if (myTextures.count(filename) == 0) {
-        try {
-            // load image
-            FXImage* i = MFXImageHelper::loadImage(GUIMainWindow::getInstance()->getApp(), filename);
-            if (mirrorX) {
-                i->mirror(false, true);
-            }
-            MFXImageHelper::scalePower2(i, getMaxTextureSize());
-            // Create GL structure using texture
-            GUIGlID id = add(i);
-            // delete texture after creating GL Structure
-            delete i;
-            myTextures[filename] = (int)id;
-        } catch (InvalidArgument& e) {
-            WRITE_ERROR("Could not load '" + filename + "'.\n" + e.what());
-            myTextures[filename] = -1;
-        }
+    const auto key = std::make_pair(filename, mirrorX);
+    const auto cached = myTextures.find(key);
+    if (cached != myTextures.end()) {
+        return cached->second;
     }
-    return myTextures[filename];
+    const int maxSize = getMaxTextureSize();
+    if (maxSize <= 0) {
+        return -1;
+    }
+    const auto image = loadTextureImage(filename);
+    if (image == nullptr) {
+        myTextures.emplace(key, -1);
+        return -1;
+    }
+    if (mirrorX) {
+        image->mirror(false, true);
+    }
+    MFXImageHelper::scalePower2(image.get(), maxSize);
+    const auto id = add(image.get());
+    if (id == 0) {
+        return -1;
+    }
+    myTextures.emplace(key, (int)id);
+    return (int)id;
 }
 
 

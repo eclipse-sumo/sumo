@@ -59,7 +59,7 @@ GNEPoly::GNEPoly(const std::string& id, GNENet* net, FileBucket* fileBucket, con
     myMoveElementShape(new GNEMoveElementShape(this, myShape, false)),
     myClosedShape(shape.isClosed()) {
     // check if imgFile is valid
-    if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
+    if (!imgFile.empty() && !GUITexturesHelper::canLoadTexture(imgFile)) {
         setShapeImgFile("");
     }
     // set GEO shape
@@ -679,7 +679,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else {
                 // check that image can be loaded
-                return GUITexturesHelper::getTextureID(value) != -1;
+                return GUITexturesHelper::canLoadTexture(value);
             }
         case SUMO_ATTR_ANGLE:
             return canParse<double>(value);

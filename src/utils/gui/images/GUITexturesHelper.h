@@ -22,6 +22,10 @@
 #pragma once
 #include <config.h>
 
+#include <map>
+#include <string>
+#include <utility>
+
 #include <utils/foxtools/fxheader.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 
@@ -52,6 +56,9 @@ public:
      */
     static int getTextureID(const std::string& filename, const bool mirrorX = false);
 
+    /// @brief Check whether the image can be loaded without an OpenGL context.
+    static bool canLoadTexture(const std::string& filename);
+
     /// @brief clears loaded textures
     static void clearTextures();
 
@@ -66,8 +73,8 @@ public:
     }
 
 private:
-    /// @brief mapping from image paths to decals (initialization on first use)
-    static std::map<std::string, int> myTextures;
+    /// @brief Texture IDs by image path and orientation
+    static std::map<std::pair<std::string, bool>, int> myTextures;
 
     /// @brief whether textures are drawn
     static bool myAllowTextures;
