@@ -142,6 +142,12 @@ netedit.contextualMenu.junction.splitJunction.subMenuBPosition 0
 netedit.contextualMenu.junction.splitJunctionAndReconnect.mainMenuPosition 17
 netedit.contextualMenu.junction.splitJunctionAndReconnect.subMenuAPosition 0
 netedit.contextualMenu.junction.splitJunctionAndReconnect.subMenuBPosition 0
+netedit.contextualMenu.plans.addToSelected.mainMenuPosition 5
+netedit.contextualMenu.plans.addToSelected.subMenuAPosition 0
+netedit.contextualMenu.plans.addToSelected.subMenuBPosition 0
+netedit.contextualMenu.plans.centerParent.mainMenuPosition 4
+netedit.contextualMenu.plans.centerParent.subMenuAPosition 0
+netedit.contextualMenu.plans.centerParent.subMenuBPosition 0
 netedit.contextualMenu.routes.reverse.add.mainMenuPosition 15
 netedit.contextualMenu.routes.reverse.add.subMenuAPosition 2
 netedit.contextualMenu.routes.reverse.add.subMenuBPosition 0

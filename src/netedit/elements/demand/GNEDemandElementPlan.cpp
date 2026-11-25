@@ -21,8 +21,13 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNESegment.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEDemandElementPlan.h"
@@ -140,11 +145,33 @@ GNEDemandElementPlan::writeOriginStop(OutputDevice& device) const {
 
 GUIGLObjectPopupMenu*
 GNEDemandElementPlan::getPlanPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    // get plan parent
+    const auto planParent = myPlanElement->getParentDemandElements().front();
+    // relate plan with their parent
+    myPlanElement->setGLObjectParent(planParent);
     // create popup
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, myPlanElement);
-    // build common options
-    myPlanElement->buildPopUpMenuCommonOptions(ret, app, myPlanElement->myNet->getViewNet(), myPlanElement->getTagProperty()->getTag(),
-            myPlanElement->isAttributeCarrierSelected(), myPlanElement->myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand(), true);
+    // build header
+    myPlanElement->buildPopupHeader(ret, app);
+    // build menu commands for centering
+    myPlanElement->buildCenterPopupEntry(ret, false);
+    GUIDesigns::buildFXMenuCommand(ret, TLF("Center %", planParent->getTagStr()), GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), ret, MID_CENTER_PARENT);
+    new FXMenuSeparator(ret);
+    // add select/unselect
+    if (myPlanElement->isAttributeCarrierSelected()) {
+        GUIDesigns::buildFXMenuCommand(ret, TL("Remove from Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), myPlanElement->myNet->getViewNet(), MID_REMOVESELECT);
+    } else {
+        GUIDesigns::buildFXMenuCommand(ret, TL("Add to Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), myPlanElement->myNet->getViewNet(), MID_ADDSELECT);
+    }
+    new FXMenuSeparator(ret);
+    // add delete
+    if (myPlanElement->myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+        GUIDesigns::buildFXMenuCommand(ret, TL("Delete"), GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myPlanElement->myNet->getViewNet(), MID_DELETE);
+        new FXMenuSeparator(ret);
+    }
+    // show parameters and copy cursor position
+    myPlanElement->buildShowParamsPopupEntry(ret, true);
+    myPlanElement->buildPositionCopyEntry(ret, app, true);
     GUIDesigns::buildFXMenuCommand(ret, ("Cursor position in view: " + toString(getPlanPositionInView().x()) + "," + toString(getPlanPositionInView().y())).c_str(), nullptr, nullptr, 0);
     return ret;
 }
