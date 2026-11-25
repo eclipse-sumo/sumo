@@ -25,6 +25,7 @@
 #include <config.h>
 
 #include <cmath>
+#include <utils/geom/GeomHelper.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSVehicle.h>
@@ -321,8 +322,9 @@ MSCFModel::interactionGap(const MSVehicle* const veh, double vL) const {
 
 
 double
-MSCFModel::maxNextSpeed(double speed, const MSVehicle* const /*veh*/) const {
-    return MIN2(speed + (double) ACCEL2SPEED(getCurrentAccel(speed)), myType->getMaxSpeed());
+MSCFModel::maxNextSpeed(double speed, const MSVehicle* const veh) const {
+    const double slope = veh == nullptr ? 0. : veh->getSlope();
+    return MAX2(0., MIN2(speed + (double) ACCEL2SPEED(getCurrentAccel(speed, slope)), myType->getMaxSpeed()));
 }
 
 
@@ -1164,14 +1166,14 @@ MSCFModel::applyHeadwayPerceptionError(const MSVehicle* const veh, double speed,
 
 
 double
-MSCFModel::getCurrentAccel(const double speed) const {
+MSCFModel::getCurrentAccel(const double speed, const double slope) const {
     double result = myAccel;
     if (!myDesAccelProfile.empty()) {
         result = MIN2(result, LinearApproxHelpers::getInterpolatedValue(myDesAccelProfile, speed));
     }
     if (!myMaxAccelProfile.empty()) {
-        // @todo maxAccel should interact with slope
-        result = MIN2(result, LinearApproxHelpers::getInterpolatedValue(myMaxAccelProfile, speed));
+        const double maxA = LinearApproxHelpers::getInterpolatedValue(myMaxAccelProfile, speed) - GRAVITY * sin(DEG2RAD(slope));
+        result = MIN2(result, slope == 0. ? maxA : MAX2(-myDecel, maxA));
     }
     return result;
 }
