@@ -102,7 +102,7 @@ certain meaning and value range:
 | **y**           | float                                                                                                                                                                                                                     | The y-position of the node on the plane in meters                                                                                                  |
 | z               | float                                                                                                                                                                                                                     | The z-position of the node on the plane in meters                                                                                                  |
 | type            | enum ( "priority", "traffic_light", "right_before_left", "left_before_right", "unregulated", "priority_stop", "traffic_light_unregulated", "allway_stop", "rail_signal", "zipper", "traffic_light_right_on_red", "rail_crossing") | An optional type for the node                                                                                                                      |
-| tlType          | enum ( **"static"**, "actuated", "delay_based")                                                                                                                                                                                              | An optional type for the [traffic light algorithm](../Simulation/Traffic_Lights.md#type_actuated)
+| tlType          | enum ( **"static"**, "actuated", "delay_based")                                                                                                                                                                                              | The default [traffic light algorithm](../Simulation/Traffic_Lights.md#type_actuated) for new programs
 | tlLayout        | enum (  **"opposites"**, "incoming", "alternateOneWay")                                                                                                                                                                                              | An optional layout for the traffic light plan (see below)
 | tl              | id (string)                                                                                                                                                                                                               | An optional id for the traffic light program. Nodes with the same tl-value will be joined into a single program                                    |
 | radius          | positive float                                                                                                                                                                                                           | optional turning radius (for all corners) for that node in meters *(default 1.5)*                                                                  |
@@ -153,8 +153,13 @@ default traffic light program. The simulation can [load additional programs](../
 instead.
 
 ### tlType
-If you leave out the tlType of the node, it is set to *static*. This
-default may be changed using the option **--tls.default-type** {{DT_STR}}.
+`tlType` sets the default type for new programs. If you omit it, the
+default comes from **--tls.default-type** {{DT_STR}} (*static* by default).
+An existing program retains its type when you update a junction default.
+A `<tlLogic>` can specify its own `type`.
+In Netedit, edit `tlType` in the junction inspector to set the default.
+Use **New program** in traffic light mode to create a program with that default.
+Use **Program type** to edit the selected program.
 
 - `static`: Each phase of the traffic light
   will last for a fixed duration

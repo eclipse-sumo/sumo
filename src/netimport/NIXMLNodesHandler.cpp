@@ -196,6 +196,14 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
         }
         node->reinit(position, type, updateEdgeGeometries);
     }
+    if (attrs.hasAttribute(SUMO_ATTR_TLTYPE)) {
+        const std::string tlType = attrs.get<std::string>(SUMO_ATTR_TLTYPE, nodeID.c_str(), ok);
+        if (SUMOXMLDefinitions::TrafficLightTypes.hasString(tlType)) {
+            node->setDefaultTrafficLightType(SUMOXMLDefinitions::TrafficLightTypes.get(tlType));
+        } else {
+            WRITE_ERRORF(TL("Unknown traffic light type '%' for node '%'."), tlType, nodeID);
+        }
+    }
     // process traffic light definition
     if (NBNode::isTrafficLight(type)) {
         processTrafficLightDefinitions(attrs, node, tlc);
@@ -307,33 +315,23 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
     std::set<NBTrafficLightDefinition*> tlDefs;
     bool ok = true;
 
-    std::string oldTlID = "";
-    std::string oldTypeS = OptionsCont::getOptions().getString("tls.default-type");
-
+    std::string oldTlID;
     if (currentNode->isTLControlled()) {
-        NBTrafficLightDefinition* oldDef = *(currentNode->getControllingTLS().begin());
-        oldTlID = oldDef->getID();
-        oldTypeS = toString(oldDef->getType());
+        oldTlID = (*currentNode->getControllingTLS().begin())->getID();
     }
     std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, nullptr, ok, oldTlID);
-    std::string typeS = attrs.getOpt<std::string>(SUMO_ATTR_TLTYPE, nullptr, ok, oldTypeS);
-    if (tlID != oldTlID || typeS != oldTypeS) {
+    if (tlID != oldTlID) {
         currentNode->removeTrafficLights();
     }
-    TrafficLightType type;
-    if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
-        type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
-    } else {
-        WRITE_ERRORF(TL("Unknown traffic light type '%' for node '%'."), typeS, currentNode->getID());
-        return;
-    }
+    const TrafficLightType type = currentNode->getDefaultTrafficLightType(
+        SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type")));
     TrafficLightLayout layout = TrafficLightLayout::DEFAULT;
     if (attrs.hasAttribute(SUMO_ATTR_TLLAYOUT)) {
         std::string layoutS = attrs.get<std::string>(SUMO_ATTR_TLLAYOUT, nullptr, ok);
         if (SUMOXMLDefinitions::TrafficLightLayouts.hasString(layoutS)) {
             layout = SUMOXMLDefinitions::TrafficLightLayouts.get(layoutS);
         } else {
-            WRITE_ERRORF(TL("Unknown traffic light layout '%' for node '%'."), typeS, currentNode->getID());
+            WRITE_ERRORF(TL("Unknown traffic light layout '%' for node '%'."), layoutS, currentNode->getID());
             return;
         }
     }
@@ -343,13 +341,6 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
             NBTrafficLightDefinition* def = item.second;
             tlDefs.insert(def);
             def->addNode(currentNode);
-            if (def->getType() != type && attrs.hasAttribute(SUMO_ATTR_TLTYPE)) {
-                WRITE_WARNINGF(TL("Changing traffic light type '%' to '%' for tl '%'."), toString(def->getType()), typeS, tlID);
-                def->setType(type);
-                if (type != TrafficLightType::STATIC && dynamic_cast<NBLoadedSUMOTLDef*>(def) != nullptr) {
-                    dynamic_cast<NBLoadedSUMOTLDef*>(def)->guessMinMaxDuration();
-                }
-            }
             if (layout != TrafficLightLayout::DEFAULT && dynamic_cast<NBOwnTLDef*>(def) != nullptr) {
                 dynamic_cast<NBOwnTLDef*>(def)->setLayout(layout);
             }

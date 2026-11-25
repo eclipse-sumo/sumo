@@ -1338,8 +1338,8 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_TLTYPE:
             if (isAttributeEnabled(SUMO_ATTR_TLTYPE)) {
-                // @todo this causes problems if the node were to have multiple programs of different type (plausible)
-                return toString((*myNBNode->getControllingTLS().begin())->getType());
+                return toString(myNBNode->getDefaultTrafficLightType(
+                    SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"))));
             } else {
                 return "No TLS";
             }
@@ -1498,32 +1498,9 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             break;
         }
         case SUMO_ATTR_TLTYPE: {
-            undoList->begin(this, "change " + getTagStr() + " tl-type");
-            // make a copy because we will modify the original
-            const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
-            for (const auto& TLS : copyOfTls) {
-                NBLoadedSUMOTLDef* oldLoaded = dynamic_cast<NBLoadedSUMOTLDef*>(TLS);
-                if (oldLoaded != nullptr) {
-                    NBTrafficLightDefinition* newDef = nullptr;
-                    if (value == toString(TrafficLightType::NEMA) || oldLoaded->getType() == TrafficLightType::NEMA) {
-                        // rebuild the program because the old and new ones are incompatible
-                        newDef = new NBOwnTLDef(oldLoaded->getID(), oldLoaded->getOffset(), TrafficLightType::NEMA);
-                        newDef->setProgramID(oldLoaded->getProgramID());
-                    } else {
-                        NBLoadedSUMOTLDef* newLDef = new NBLoadedSUMOTLDef(*oldLoaded, *oldLoaded->getLogic());
-                        newLDef->guessMinMaxDuration(); // minDur and maxDur are never written for a static tls
-                        newDef = newLDef;
-                    }
-                    std::vector<NBNode*> nodes = TLS->getNodes();
-                    for (const auto& node : nodes) {
-                        GNEJunction* junction = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
-                        undoList->add(new GNEChange_TLS(junction, TLS, false), true);
-                        undoList->add(new GNEChange_TLS(junction, newDef, true), true);
-                    }
-                }
-            }
-            GNEChange_Attribute::changeAttribute(this, key, value, undoList, true);
-            undoList->end();
+            const auto oldType = myNBNode->getDefaultTrafficLightType();
+            GNEChange_Attribute::changeAttribute(this, key, value,
+                oldType == TrafficLightType::INVALID ? "" : toString(oldType), undoList);
             break;
         }
         case SUMO_ATTR_TLLAYOUT: {
@@ -2012,14 +1989,9 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         }
-        case SUMO_ATTR_TLTYPE: {
-            // we need to make a copy of controlling TLS (because original will be updated)
-            const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
-            for (const auto& TLS : copyOfTls) {
-                TLS->setType(SUMOXMLDefinitions::TrafficLightTypes.get(value));
-            }
+        case SUMO_ATTR_TLTYPE:
+            myNBNode->setDefaultTrafficLightType(value.empty() ? TrafficLightType::INVALID : SUMOXMLDefinitions::TrafficLightTypes.get(value));
             break;
-        }
         case SUMO_ATTR_TLLAYOUT:
             // should not be triggered (handled via GNEChange_TLS)
             break;

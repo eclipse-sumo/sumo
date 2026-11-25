@@ -620,6 +620,10 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
     // write the attributes
     into.openTag(SUMO_TAG_JUNCTION).writeAttr(SUMO_ATTR_ID, n.getID());
     into.writeAttr(SUMO_ATTR_TYPE, n.getType());
+    const TrafficLightType tlType = n.getDefaultTrafficLightType();
+    if (tlType != TrafficLightType::INVALID) {
+        into.writeAttr(SUMO_ATTR_TLTYPE, tlType);
+    }
     NWFrame::writePositionLong(n.getPosition(), into);
     // write the incoming lanes
     std::vector<std::string> incLanes;

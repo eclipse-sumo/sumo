@@ -1710,11 +1710,11 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     undoList->begin(GUIIcon::JUNCTION, "Join selected " + toString(SUMO_TAG_JUNCTION) + "s");
     GNEJunction* joined = createJunction(pos, undoList);
     joined->setAttribute(SUMO_ATTR_ID, id, undoList);
-    // id must be set before type because it is used when creating a new tls
-    joined->setAttribute(SUMO_ATTR_TYPE, toString(nodeType), undoList); // i.e. rail crossing
-    if (setTL) {
+    if (setTL && toString(type) != OptionsCont::getOptions().getString("tls.default-type")) {
         joined->setAttribute(SUMO_ATTR_TLTYPE, toString(type), undoList);
     }
+    // id and default TLS type must be set before creating the traffic light
+    joined->setAttribute(SUMO_ATTR_TYPE, toString(nodeType), undoList); // i.e. rail crossing
     GNEChange_RegisterJoin::registerJoin(cluster, myNetBuilder->getNodeCont(), undoList);
     // first remove all crossing of the involved junctions and edges
     // (otherwise edge removal will trigger discarding)

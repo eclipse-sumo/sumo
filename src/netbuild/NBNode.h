@@ -348,6 +348,16 @@ public:
         return myTrafficLights;
     }
 
+    /// @brief return the default for newly created programs
+    TrafficLightType getDefaultTrafficLightType(TrafficLightType fallback = TrafficLightType::INVALID) const {
+        return myDefaultTrafficLightType == TrafficLightType::INVALID ? fallback : myDefaultTrafficLightType;
+    }
+
+    /// @brief set the default without changing existing traffic light programs
+    void setDefaultTrafficLightType(TrafficLightType type) {
+        myDefaultTrafficLightType = type;
+    }
+
     /// @brief causes the traffic light to be computed anew
     void invalidateTLS(NBTrafficLightLogicCont& tlCont, bool addedConnections, bool removedConnections);
 
@@ -981,6 +991,9 @@ private:
 
     /// @brief traffic lights of node
     std::set<NBTrafficLightDefinition*> myTrafficLights;
+
+    /// @brief default type for new programs, if explicitly set
+    TrafficLightType myDefaultTrafficLightType = TrafficLightType::INVALID;
 
     /// @brief the turning radius (for all corners) at this node in m.
     double myRadius;

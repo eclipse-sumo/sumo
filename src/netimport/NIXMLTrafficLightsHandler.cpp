@@ -118,14 +118,14 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     std::string programID = attrs.getOpt<std::string>(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "UNKNOWN_PROGRAM");
     const SUMOTime offset = attrs.getOptOffsetReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
-    std::string typeS = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, nullptr, ok,
-                        OptionsCont::getOptions().getString("tls.default-type"));
-    TrafficLightType type;
-    if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
+    TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
+    if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
+        const std::string typeS = attrs.get<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok);
+        if (!SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
+            WRITE_ERRORF(TL("Unknown traffic light type '%' for tlLogic '%'."), typeS, id);
+            return nullptr;
+        }
         type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
-    } else {
-        WRITE_ERRORF(TL("Unknown traffic light type '%' for tlLogic '%'."), typeS, id);
-        return nullptr;
     }
     // there are three scenarios to consider
     // 1) the tll.xml is loaded to update traffic lights defined in a net.xml:
@@ -144,6 +144,15 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
     const std::string existingProgram = programs.begin()->first; // arbitrary for our purpose
     NBLoadedSUMOTLDef* loadedDef = dynamic_cast<NBLoadedSUMOTLDef*>(myTLLCont.getDefinition(id, programID));
     if (loadedDef == nullptr) {
+        if (!attrs.hasAttribute(SUMO_ATTR_TYPE)) {
+            const auto& nodes = programs.begin()->second->getNodes();
+            for (const NBNode* node : nodes) {
+                if (node->getDefaultTrafficLightType() != TrafficLightType::INVALID) {
+                    type = node->getDefaultTrafficLightType();
+                    break;
+                }
+            }
+        }
         NBLoadedSUMOTLDef* oldDef = dynamic_cast<NBLoadedSUMOTLDef*>(myTLLCont.getDefinition(id, existingProgram));
         if (oldDef == nullptr) {
             // case 2

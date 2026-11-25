@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include <algorithm>
+#include <memory>
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <netbuild/NBTrafficLightLogic.h>
@@ -63,6 +64,7 @@ FXDEFMAP(GNETLSEditorFrame::TLSJunction) TLSJunctionMap[] = {
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSPrograms) TLSProgramsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_NEWPROGRAM,     GNETLSEditorFrame::TLSPrograms::onCmdCreate),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_CREATE,         GNETLSEditorFrame::TLSPrograms::onCmdCreate),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_DELETE,         GNETLSEditorFrame::TLSPrograms::onCmdDelete),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT,   GNETLSEditorFrame::TLSPrograms::onCmdResetCurrentProgram),
@@ -98,6 +100,83 @@ FXIMPLEMENT(GNETLSEditorFrame::TLSAttributes,   GNEGroupBoxModule,  TLSAttribute
 FXIMPLEMENT(GNETLSEditorFrame::TLSPhases,       GNEGroupBoxModule,  TLSPhasesMap,       ARRAYNUMBER(TLSPhasesMap))
 FXIMPLEMENT(GNETLSEditorFrame::TLSFile,         GNEGroupBoxModule,  TLSFileMap,         ARRAYNUMBER(TLSFileMap))
 
+
+namespace {
+
+// Generated programs need the same signal indices as every other program of the controller.
+std::unique_ptr<NBLoadedSUMOTLDef>
+createProgramWithType(NBTrafficLightDefinition& source, NBTrafficLightLogic& logic, TrafficLightType type) {
+    if (source.getType() == type || (source.getType() != TrafficLightType::NEMA && type != TrafficLightType::NEMA)) {
+        auto result = std::make_unique<NBLoadedSUMOTLDef>(source, logic);
+        result->setType(type);
+        if (source.getType() != type && type != TrafficLightType::STATIC) {
+            result->guessMinMaxDuration();
+        }
+        result->addControlledInnerEdges(source.getControlledInnerEdges());
+        return result;
+    }
+
+    struct CrossingIndices {
+        NBNode::Crossing* crossing;
+        int linkIndex;
+        int linkIndex2;
+        std::string tlID;
+    };
+    std::vector<CrossingIndices> crossings;
+    std::map<NBEdge*, bool> insideTLS;
+    const auto nodes = source.getNodes();
+    for (const NBNode* node : nodes) {
+        for (auto* crossing : node->getCrossings()) {
+            crossings.push_back({crossing, crossing->tlLinkIndex, crossing->tlLinkIndex2, crossing->tlID});
+        }
+        for (auto* edge : node->getIncomingEdges()) {
+            insideTLS.emplace(edge, edge->isInsideTLS());
+        }
+    }
+    auto restore = [&](NBOwnTLDef* temporary) {
+        for (NBNode* node : nodes) {
+            node->removeTrafficLight(temporary);
+        }
+        for (const auto& saved : crossings) {
+            saved.crossing->tlLinkIndex = saved.linkIndex;
+            saved.crossing->tlLinkIndex2 = saved.linkIndex2;
+            saved.crossing->tlID = saved.tlID;
+        }
+        for (const auto& entry : insideTLS) {
+            entry.first->setInsideTLS(entry.second);
+        }
+        delete temporary;
+    };
+    std::unique_ptr<NBOwnTLDef, decltype(restore)> generated(new NBOwnTLDef(source.getID(), nodes, source.getOffset(), type), restore);
+    generated->setProgramID(source.getProgramID());
+    generated->setLayout(source.getLayout());
+    generated->addControlledInnerEdges(source.getControlledInnerEdges());
+    generated->setParticipantsInformation();
+    std::unique_ptr<NBTrafficLightLogic> generatedLogic(generated->compute(OptionsCont::getOptions()));
+    if (generatedLogic == nullptr || generatedLogic->getNumLinks() != logic.getNumLinks()) {
+        return nullptr;
+    }
+    const auto& originalLinks = source.getControlledLinks();
+    const auto& generatedLinks = generated->getControlledLinks();
+    if (!std::is_permutation(originalLinks.begin(), originalLinks.end(), generatedLinks.begin(), generatedLinks.end(),
+    [](const NBConnection& a, const NBConnection& b) {
+        return a.getFrom() == b.getFrom() && a.getTo() == b.getTo() &&
+               a.getFromLane() == b.getFromLane() && a.getToLane() == b.getToLane() &&
+               a.getTLIndex() == b.getTLIndex() && a.getTLIndex2() == b.getTLIndex2();
+    })) {
+        return nullptr;
+    }
+    for (const auto& saved : crossings) {
+        if (saved.crossing->tlLinkIndex != saved.linkIndex || saved.crossing->tlLinkIndex2 != saved.linkIndex2) {
+            return nullptr;
+        }
+    }
+    auto result = std::make_unique<NBLoadedSUMOTLDef>(*generated, *generatedLogic);
+    result->addControlledInnerEdges(source.getControlledInnerEdges());
+    return result;
+}
+
+}
 
 // ===========================================================================
 // method definitions
@@ -902,7 +981,7 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     myTLSIDTextField = new MFXTextFieldIcon(TLSIDFrame, staticTooltip, GUIIcon::EMPTY, this, MID_GNE_TLSFRAME_TLSJUNCTION_ID, GUIDesignTextField);
     // create frame, label and textfield for type
     FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
+    new FXLabel(typeFrame, TL("Program type"), nullptr, GUIDesignLabelThickedFixed(100));
     myTLSTypeComboBox = new MFXComboBoxIcon(typeFrame, staticTooltip, false, GUIDesignComboBoxVisibleItems,
                                             this, MID_GNE_TLSFRAME_TLSJUNCTION_TYPE, GUIDesignComboBoxAttribute);
     // fill comboBox (only certain TL types)
@@ -954,9 +1033,13 @@ GNETLSEditorFrame::TLSJunction::updateTLSJunction() {
         // get first controled TLS
         const auto TLS = (*myCurrentJunction->getNBNode()->getControllingTLS().begin());
         // set TLS type in comboBox
-        const int index = myTLSTypeComboBox->findItem(myCurrentJunction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
-        if (index != -1) {
-            myTLSTypeComboBox->setCurrentItem(index, FALSE);
+        const auto edited = myTLSEditorParent->myEditedDef;
+        if (edited != nullptr) {
+            const int index = myTLSTypeComboBox->findItem(toString(edited->getType()).c_str());
+            if (index != -1) {
+                myTLSTypeComboBox->setCurrentItem(index, FALSE);
+                myTLSTypeComboBox->setTextColor(GUIDesignTextColorBlack);
+            }
         }
         // set text field IDs
         myJunctionIDTextField->setText(myCurrentJunction->getID().c_str());
@@ -1098,60 +1181,27 @@ GNETLSEditorFrame::TLSJunction::onCmdRenameTLS(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
-    // get IDs
-    const std::string currentTLType = toString((*myCurrentJunction->getNBNode()->getControllingTLS().begin())->getType());
-    const std::string newTLType = myTLSTypeComboBox->getText().text();
-    // check if ID is valid
-    if (newTLType.empty() || (newTLType == currentTLType)) {
-        // same ID or empty, don't change
-        myTLSTypeComboBox->setTextColor(GUIDesignTextColorBlack);
-        // set value
-        const int index = myTLSTypeComboBox->findItem(currentTLType.c_str());
-        if (index == -1) {
-            myTLSTypeComboBox->disable();
-        } else {
-            myTLSTypeComboBox->setCurrentItem(index);
-            myTLSTypeComboBox->enable();
-        }
-        myTLSTypeComboBox->killFocus();
-        myTLSEditorParent->update();
-        // show all moduls
-        myTLSEditorParent->myTLSPrograms->showTLSPrograms();
-        myTLSEditorParent->myTLSAttributes->showTLSAttributes();
-        myTLSEditorParent->myTLSPhases->showTLSPhases();
-        myTLSEditorParent->myTLSFile->showTLSFile();
-    } else if (!SUMOXMLDefinitions::TrafficLightTypes.hasString(newTLType)) {
-        // set invalid color
+    const auto edited = myTLSEditorParent->myEditedDef;
+    if (edited == nullptr) {
+        return 1;
+    }
+    const std::string newType = myTLSTypeComboBox->getText().text();
+    if (newType.empty()) {
+        myTLSEditorParent->updateModules();
+        return 1;
+    }
+    if (myTLSTypeComboBox->findItem(newType.c_str()) == -1) {
         myTLSTypeComboBox->setTextColor(GUIDesignTextColorRed);
-        // hide moduls
-        myTLSEditorParent->myTLSPrograms->hideTLSPrograms();
-        myTLSEditorParent->myTLSAttributes->hideTLSAttributes();
-        myTLSEditorParent->myTLSPhases->hideTLSPhases();
-        myTLSEditorParent->myTLSFile->hideTLSFile();
-    } else {
-        // reset color
-        myTLSTypeComboBox->setTextColor(GUIDesignTextColorBlack);
-        myTLSTypeComboBox->killFocus();
-        myTLSEditorParent->update();
-        // make a copy of myCurrentJunction (because will be reset after calling discardChanges)
-        auto junction = myCurrentJunction;
-        // discard previous changes
-        myTLSEditorParent->myTLSPrograms->discardChanges(false);
-        // change name using undo-List
-        myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, TL("change TLS type"));
-        junction->setAttribute(SUMO_ATTR_TLTYPE, newTLType, myTLSEditorParent->getViewNet()->getUndoList());
-        myTLSEditorParent->getViewNet()->getUndoList()->end();
-        // show all moduls
-        myTLSEditorParent->myTLSPrograms->showTLSPrograms();
-        myTLSEditorParent->myTLSAttributes->showTLSAttributes();
-        myTLSEditorParent->myTLSPhases->showTLSPhases();
-        myTLSEditorParent->myTLSFile->showTLSFile();
-        // edit junction again
-        myTLSEditorParent->editJunction(junction);
+        return 1;
+    }
+    myTLSTypeComboBox->setTextColor(GUIDesignTextColorBlack);
+    myTLSTypeComboBox->killFocus();
+    const auto type = SUMOXMLDefinitions::TrafficLightTypes.get(newType);
+    if (type != edited->getType()) {
+        myTLSEditorParent->myTLSPrograms->changeProgramType(type);
     }
     myTLSEditorParent->updateModules();
     return 1;
-
 }
 
 
@@ -1235,7 +1285,6 @@ GNETLSEditorFrame::TLSJunction::onCmdDisjoinTLS(FXObject*, FXSelector, void*) {
     }
     // save TL types
     const auto type = resetTLJunctions.front()->getAttribute(SUMO_ATTR_TYPE);
-    const auto tlType = resetTLJunctions.front()->getAttribute(SUMO_ATTR_TLTYPE);
     // discard changes
     myTLSEditorParent->myTLSPrograms->discardChanges(false);
     // begin undo list
@@ -1256,7 +1305,6 @@ GNETLSEditorFrame::TLSJunction::onCmdDisjoinTLS(FXObject*, FXSelector, void*) {
     for (const auto& resetTLJunction : resetTLJunctions) {
         resetTLJunction->setAttribute(SUMO_ATTR_TYPE, "priority", myTLSEditorParent->getViewNet()->getUndoList());
         resetTLJunction->setAttribute(SUMO_ATTR_TYPE, type, myTLSEditorParent->getViewNet()->getUndoList());
-        resetTLJunction->setAttribute(SUMO_ATTR_TLTYPE, tlType, myTLSEditorParent->getViewNet()->getUndoList());
     }
     // end undo list
     myTLSEditorParent->getViewNet()->getUndoList()->end();
@@ -1324,11 +1372,6 @@ GNETLSEditorFrame::TLSJunction::refreshTLSJunction() {
                 if (TLS->getNodes().size() > 1) {
                     myJunctionIDLabel->setText(TL("Junction IDs"));
                 }
-                // set TLS type in comboBox
-                const int index = myTLSTypeComboBox->findItem(myCurrentJunction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
-                if (index != -1) {
-                    myTLSTypeComboBox->setCurrentItem(index, FALSE);
-                }
             }
         } else {
             // update junction ID text field
@@ -1381,6 +1424,8 @@ GNETLSEditorFrame::TLSPrograms::TLSPrograms(GNETLSEditorFrame* TLSEditorParent) 
     myCancelButon = GUIDesigns::buildFXButton(verticalFrameAuxB, TL("Cancel"), "", TL("Discard program modifications. (Esc)"),
                     GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_TLSFRAME_DEFINITION_DISCARD, GUIDesignButton);
     myCancelButon->disable();
+    myNewProgramButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("New program"), "", TL("Create a program with the junction's default type."),
+                         GUIIconSubSys::getIcon(GUIIcon::MODETLS), this, MID_GNE_TLSFRAME_DEFINITION_NEWPROGRAM, GUIDesignButton);
     // show GroupBox
     show();
 }
@@ -1449,6 +1494,16 @@ GNETLSEditorFrame::TLSPrograms::updateTLSPrograms() {
     }
     // get current junction
     const auto currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
+    if (currentJunction != nullptr && getNumberOfPrograms() > 0) {
+        myNewProgramButton->show();
+    } else {
+        myNewProgramButton->hide();
+    }
+    if (myCreateButton->isEnabled()) {
+        myNewProgramButton->enable();
+    } else {
+        myNewProgramButton->disable();
+    }
     // update button text
     if (currentJunction == nullptr) {
         myCreateButton->setText(TL("Create"));
@@ -1554,6 +1609,25 @@ GNETLSEditorFrame::TLSPrograms::getCurrentTLSProgramID() const {
 
 
 void
+GNETLSEditorFrame::TLSPrograms::changeProgramType(TrafficLightType type) {
+    auto* edited = myTLSEditorParent->myEditedDef;
+    if (getNumberOfPrograms() == 1 &&
+            (type == TrafficLightType::NEMA || edited->getType() == TrafficLightType::NEMA)) {
+        resetCurrentProgram(type);
+        return;
+    }
+    auto converted = createProgramWithType(*edited, *edited->getLogic(), type);
+    if (converted == nullptr) {
+        myTLSEditorParent->getViewNet()->setStatusBarText(TL("This program type would change the shared traffic light indices."));
+        return;
+    }
+    delete myTLSEditorParent->myEditedDef;
+    myTLSEditorParent->myEditedDef = converted.release();
+    onCmdSaveChanges(nullptr, 0, nullptr);
+}
+
+
+void
 GNETLSEditorFrame::TLSPrograms::discardChanges(const bool editJunctionAgain) {
     // get junction copy
     auto currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
@@ -1571,7 +1645,9 @@ GNETLSEditorFrame::TLSPrograms::discardChanges(const bool editJunctionAgain) {
 
 
 long
-GNETLSEditorFrame::TLSPrograms::onCmdCreate(FXObject*, FXSelector, void*) {
+GNETLSEditorFrame::TLSPrograms::onCmdCreate(FXObject* sender, FXSelector, void*) {
+    const bool useDefaultType = sender == myNewProgramButton;
+    const std::string templateID = getCurrentTLSProgramID();
     auto GNEApp = myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows();
     // get current edited junction (needed because onCmdDiscardChanges clear junction)
     GNEJunction* currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
@@ -1614,11 +1690,12 @@ GNETLSEditorFrame::TLSPrograms::onCmdCreate(FXObject*, FXSelector, void*) {
         return 1;
     }
     // all checks ok, then create TLS in junction
-    createTLS(currentJunction);
-    // edit junction
+    const std::string programID = createTLS(currentJunction, templateID, useDefaultType);
     myTLSEditorParent->editJunction(currentJunction);
-    // switch to the last program
-    myProgramComboBox->setCurrentItem(myProgramComboBox->getNumItems() - 1, TRUE);
+    const int index = myProgramComboBox->findItem(programID.c_str());
+    if (index != -1) {
+        myProgramComboBox->setCurrentItem(index, TRUE);
+    }
     myTLSEditorParent->updateModules();
     return 1;
 }
@@ -1650,6 +1727,13 @@ GNETLSEditorFrame::TLSPrograms::onCmdDelete(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::TLSPrograms::onCmdResetCurrentProgram(FXObject*, FXSelector, void*) {
+    resetCurrentProgram(getCurrentTLSPrograms()->getType());
+    return 1;
+}
+
+
+void
+GNETLSEditorFrame::TLSPrograms::resetCurrentProgram(TrafficLightType type) {
     // obtain junction and old definitions
     GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     NBTrafficLightDefinition* oldDef = myTLSEditorParent->myTLSPrograms->getCurrentTLSPrograms();
@@ -1658,13 +1742,16 @@ GNETLSEditorFrame::TLSPrograms::onCmdResetCurrentProgram(FXObject*, FXSelector, 
     discardChanges(false);
     // begin undo
     myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, TL("reset current program"));
-    // remove old definition
-    myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, oldDef, false), true);
-    // create new definition, and add it
-    NBOwnTLDef* newDef = new NBOwnTLDef(oldDef->getID(), oldDef->getNodes(), oldDef->getOffset(), oldDef->getType());
+    const auto nodes = oldDef->getNodes();
+    NBOwnTLDef* newDef = new NBOwnTLDef(oldDef->getID(), oldDef->getOffset(), type);
     newDef->setProgramID(programID);
-    myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, newDef, true, true), true);
-    // set old index
+    newDef->setLayout(oldDef->getLayout());
+    newDef->addControlledInnerEdges(oldDef->getControlledInnerEdges());
+    for (NBNode* node : nodes) {
+        auto* controlled = myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(node->getID());
+        myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(controlled, oldDef, false), true);
+        myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(controlled, newDef, true), true);
+    }
     // end undo
     myTLSEditorParent->getViewNet()->getUndoList()->end();
     // inspect junction again
@@ -1680,7 +1767,6 @@ GNETLSEditorFrame::TLSPrograms::onCmdResetCurrentProgram(FXObject*, FXSelector, 
         myProgramComboBox->setCurrentItem(index, TRUE);
     }
     myTLSEditorParent->updateModules();
-    return 1;
 }
 
 
@@ -1734,6 +1820,7 @@ GNETLSEditorFrame::TLSPrograms::onCmdDefSwitchTLSProgram(FXObject*, FXSelector, 
         myProgramComboBox->setText(myTLSPrograms.front()->getProgramID().c_str());
     }
     switchProgram();
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -1793,10 +1880,8 @@ GNETLSEditorFrame::TLSPrograms::onCmdDiscardChanges(FXObject*, FXSelector, void*
 }
 
 
-void
-GNETLSEditorFrame::TLSPrograms::createTLS(GNEJunction* junction) {
-    // get current TLS program id
-    const auto currentTLS = getCurrentTLSProgramID();
+std::string
+GNETLSEditorFrame::TLSPrograms::createTLS(GNEJunction* junction, const std::string& templateID, bool useDefaultType) {
     // check conditions
     if (junction == nullptr) {
         throw ProcessError("junction cannot be null");
@@ -1807,7 +1892,7 @@ GNETLSEditorFrame::TLSPrograms::createTLS(GNEJunction* junction) {
         // use existing traffic light as template for type, signal groups, controlled nodes etc
         NBTrafficLightDefinition* tpl = nullptr;
         for (const auto& TLS : junction->getNBNode()->getControllingTLS()) {
-            if (TLS->getProgramID() == currentTLS) {
+            if (TLS->getProgramID() == templateID) {
                 tpl = TLS;
             }
         }
@@ -1816,25 +1901,36 @@ GNETLSEditorFrame::TLSPrograms::createTLS(GNEJunction* junction) {
             tpl = *junction->getNBNode()->getControllingTLS().begin();
         }
         // create new logic
-        NBTrafficLightLogic* newLogic = tpl->compute(OptionsCont::getOptions());
-        // create new TLDef
-        NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(*tpl, *newLogic);
+        const auto& options = OptionsCont::getOptions();
+        std::unique_ptr<NBTrafficLightLogic> newLogic(tpl->compute(options));
+        if (newLogic == nullptr) {
+            return "";
+        }
+        const auto type = useDefaultType ? junction->getNBNode()->getDefaultTrafficLightType(
+            SUMOXMLDefinitions::TrafficLightTypes.get(options.getString("tls.default-type"))) : tpl->getType();
+        auto newDef = createProgramWithType(*tpl, *newLogic, type);
+        if (newDef == nullptr) {
+            myTLSEditorParent->getViewNet()->setStatusBarText(TL("This program type would change the shared traffic light indices."));
+            return "";
+        }
         NBTrafficLightLogicCont& tllCont = myTLSEditorParent->getViewNet()->getNet()->getTLLogicCont();
-        newDef->setProgramID(tllCont.getNextProgramID(newDef->getID()));
-        // remove new logic
-        delete newLogic;
+        const std::string programID = tllCont.getNextProgramID(newDef->getID());
+        newDef->setProgramID(programID);
+        auto* definition = newDef.release();
         // add it using GNEChange_TLS
         myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, TLF("duplicate program '%' of traffic light '%'", tpl->getProgramID(), tpl->getID()));
-        for (NBNode* node : newDef->getNodes()) {
+        for (NBNode* node : definition->getNodes()) {
             GNEJunction* j = myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(node->getID());
             // not forcing insertion because we already ensured a new id and multiple junctions will attempt insertion
-            myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(j, newDef, true, false), true);
+            myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(j, definition, true, false), true);
         }
         myTLSEditorParent->getViewNet()->getUndoList()->end();
+        return programID;
     } else {
         // for some reason the traffic light was not built, try again
         myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, nullptr, true, true), true);
     }
+    return NBTrafficLightDefinition::DefaultProgramID;
 }
 
 

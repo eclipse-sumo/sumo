@@ -140,15 +140,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <junction id="J0" type="dead_end" x="0.00" y="188.21" incLanes="" intLanes="" shape="1.43,191.07 -1.43,185.35"/>
     <junction id="J1" type="dead_end" x="14.30" y="217.89" incLanes="E6_0 E6_1" intLanes="" shape="15.73,220.75 12.87,215.03"/>
-    <junction id="J10" type="traffic_light" x="255.48" y="62.73" incLanes="E18_0 E18_1" intLanes="" shape="257.06,65.51 254.11,59.84 254.01,59.89 256.74,65.67">
+    <junction id="J10" type="traffic_light" tlType="actuated" x="255.48" y="62.73" incLanes="E18_0 E18_1" intLanes="" shape="257.06,65.51 254.11,59.84 254.01,59.89 256.74,65.67">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="J11" type="traffic_light" x="293.62" y="79.00" incLanes="E15_0 E15_1" intLanes="" shape="295.20,81.79 292.28,76.09 292.11,76.17 294.88,81.94">
+    <junction id="J11" type="traffic_light" tlType="actuated" x="293.62" y="79.00" incLanes="E15_0 E15_1" intLanes="" shape="295.20,81.79 292.28,76.09 292.11,76.17 294.88,81.94">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="J12" type="traffic_light" x="296.49" y="86.23" incLanes="E11_0" intLanes="" shape="297.34,87.59 295.90,84.74 295.66,84.86 297.06,87.73">
+    <junction id="J12" type="traffic_light" tlType="actuated" x="296.49" y="86.23" incLanes="E11_0" intLanes="" shape="297.34,87.59 295.90,84.74 295.66,84.86 297.06,87.73">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="J13" type="dead_end" x="393.71" y="5.17" incLanes="E10_0 E10_1" intLanes="" shape="392.24,2.33 395.18,8.01"/>
@@ -193,10 +193,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="J8" type="traffic_light" x="271.35" y="110.03" incLanes="E1_0" intLanes="" shape="270.06,110.99 272.77,109.28 272.67,109.11 269.91,110.73">
+    <junction id="J8" type="traffic_light" tlType="actuated" x="271.35" y="110.03" incLanes="E1_0" intLanes="" shape="270.06,110.99 272.77,109.28 272.67,109.11 269.91,110.73">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="J9" type="traffic_light" x="239.68" y="82.51" incLanes="E16_0 E16_1" intLanes="" shape="241.21,85.33 238.41,79.57 238.20,79.67 240.90,85.47">
+    <junction id="J9" type="traffic_light" tlType="actuated" x="239.68" y="82.51" incLanes="E16_0 E16_1" intLanes="" shape="241.21,85.33 238.41,79.57 238.20,79.67 240.90,85.47">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>

@@ -630,7 +630,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
         auto tlType = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TLTYPE,
                 GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
                 GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                TL("An optional type for the traffic light algorithm"));
+                TL("Default traffic light type for new programs"));
         tlType->setDiscreteValues(TLTypes);
 
         auto tlLayout = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TLLAYOUT,
