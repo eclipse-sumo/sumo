@@ -1016,8 +1016,11 @@ struct GNEApplicationWindowHelper {
         long postProcessing(FXObject* menuCommand) const;
 
     private:
-        /// @brief map with python tools
+        /// @brief vector with python tools
         std::vector<GNEPythonTool*> myPythonTools;
+
+        /// @brief map with python tool dialogs
+        std::map<GNEPythonTool*, GNEPythonToolDialog*> myPythonToolDialogs;
 
         /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myApplicationWindow;
