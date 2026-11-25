@@ -1376,6 +1376,10 @@ InternalTestStep::saveExistentFile() {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS;
         } else if (savingType == "sumoConfig") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG;
+        } else if (savingType == "trafficLights") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_K_SAVETLS;
+        } else if (savingType == "edgeTypes") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES;
         } else if (savingType == "neteditConfig") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG;
         } else {

@@ -76,8 +76,8 @@ GNEChange_EdgeType::undo() {
     if (myEdgeType->getNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
         myEdgeType->getNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
-    // enable save networkElements
     myEdgeType->getNet()->requireRecompute();
+    myEdgeType->getNet()->getSavingStatus()->requireSaveEdgeType();
 }
 
 
@@ -94,8 +94,8 @@ GNEChange_EdgeType::redo() {
     if (myEdgeType->getNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
         myEdgeType->getNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
-    // enable save networkElements
     myEdgeType->getNet()->requireRecompute();
+    myEdgeType->getNet()->getSavingStatus()->requireSaveEdgeType();
 }
 
 

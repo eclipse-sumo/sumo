@@ -334,6 +334,9 @@ GNELaneType::setAttribute(SumoXMLAttr key, const std::string& value) {
             setCommonAttribute(key, value);
             break;
     }
+    if (myNet->getAttributeCarriers()->retrieveEdgeType(myEdgeTypeParent->getID(), false) == myEdgeTypeParent) {
+        myNet->getSavingStatus()->requireSaveEdgeType();
+    }
     // update edge selector
     if (myNet->getViewNet() && myNet->getViewParent()->getCreateEdgeFrame()->shown()) {
         myNet->getViewParent()->getCreateEdgeFrame()->getLaneTypeAttributes()->refreshAttributesEditor();
