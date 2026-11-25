@@ -18,7 +18,40 @@ $(document).ready(function() {
 
     let search_term = getSearchTerm(),
         $search_modal = $('#mkdocs_search_modal'),
-        $keyboard_modal = $('#mkdocs_keyboard_modal');
+        $keyboard_modal = $('#mkdocs_keyboard_modal'),
+        cse_loaded = false;
+
+    function loadGoogleCSE() {
+        if (cse_loaded) {
+            return;
+        }
+        cse_loaded = true;
+        $search_modal.find('.gcse-search').empty();
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://cse.google.com/cse.js?cx=004302551366764109984:1kpgtzrm6kv';
+        script.onload = function () {
+            const focusTimer = setInterval(function () {
+                const $input = $search_modal.find('#gsc-i-id1');
+                if ($input.length) {
+                    if ($search_modal.hasClass('show')) {
+                        $input.focus();
+                    }
+                    clearInterval(focusTimer);
+                }
+            }, 10);
+            setTimeout(function () {
+                clearInterval(focusTimer);
+            }, 5000);
+        };
+        script.onerror = function () {
+            cse_loaded = false;
+            $search_modal.find('.gcse-search').text('Online search could not be loaded (no internet connection).');
+        };
+        document.head.appendChild(script);
+    }
+
+    $search_modal.on('show.bs.modal', loadGoogleCSE);
 
     if(search_term){
         $search_modal.modal();
