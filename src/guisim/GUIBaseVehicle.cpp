@@ -540,6 +540,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             switch (getVType().getGuiShape()) {
                 case SUMOVehicleShape::PEDESTRIAN:
                 case SUMOVehicleShape::BICYCLE:
+                case SUMOVehicleShape::BICYCLE_CARGO:
                 case SUMOVehicleShape::SCOOTER:
                 case SUMOVehicleShape::ANT:
                 case SUMOVehicleShape::SHIP:

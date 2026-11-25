@@ -76,6 +76,13 @@ static const double vehiclePoly_ShipDeck[] =  { 0.5, 0,  0.25, 0.4,  0.95, 0.4, 
 static const double vehiclePoly_ShipSuperStructure[] =  { 0.8, 0,  0.5, 0.3,  0.85, 0.3,  0.85, -0.3, 0.5, -0.3,  0.5, 0.3,  -10000 };
 
 static const double vehiclePoly_Cyclist[] =  { 0.5, 0,  0.25, 0.45,  0.25, 0.5, 0.8, 0.15,     0.8, -0.15, 0.25, -0.5, 0.25, -0.45,     -10000 };
+static const double vehiclePoly_CargoCyclist[] =  { 0.7, 0,  0.47, 0.45,  0.47, 0.5, 0.92, 0.15,     0.92, -0.15, 0.47, -0.5, 0.47, -0.45,     -10000 };
+static const double vehiclePoly_CargoBicycleBox[] = {
+    .265, 0,  .09, -.27,  .44, -.40,  .44, .40,  .09, .27,  .09, -.27, -10000
+};
+static const double vehiclePoly_CargoBicycleBoxInterior[] = {
+    .265, 0,  .12, -.22,  .41, -.32,  .41, .32,  .12, .22,  .12, -.22, -10000
+};
 static const double vehiclePoly_BicycleSeat[] = { 0.565, 0,  0.570, 0.03,  0.575, 0.05,  0.585, 0.06,  0.645, 0.06,  0.665, 0.07,  0.685, 0.10,  0.695, 0.13,  0.715, 0.16,  0.735, 0.18,  0.742, 0.17,  0.745, 0.16,  0.755, 0.13,  0.76, 0.11,  0.765, 0,  0.76, -0.11,  0.755, -0.13,  0.745, -0.16,  0.742, -0.17,  0.735, -0.18,  0.715, -0.16,  0.695, -0.13,  0.685, -0.10,  0.665, -0.07,  0.645, -0.06,  0.585, -0.06,  0.575, -0.05,  0.57, -0.03,     -10000 };
 static const double vehiclePoly_MotorcycleSeat[] = { 0.5, 0,  0.503, 0.072,  0.506, 0.097,  0.518, 0.135,  0.539, 0.162,  0.567, 0.183,  0.641, 0.194,  0.698, 0.202,  0.706, 0.194,  0.713, 0.189,  0.721, 0.162,  0.729, 0.132,  0.732, 0.097,  0.734, 0.051,  0.735, 0,  0.734, -0.051,  0.732, -0.097,  0.729, -0.132,  0.721, -0.162,  0.713, -0.189,  0.706, -0.194,  0.698, -0.202,  0.641, -0.194,  0.567, -0.183,  0.539, -0.162,  0.518, -0.135,  0.506, -0.097,  0.503, -0.072,     -10000 };
 
@@ -209,27 +216,41 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             glTranslated(0, 0, -.04);
             break;
         case SUMOVehicleShape::BICYCLE:
+        case SUMOVehicleShape::BICYCLE_CARGO:
         case SUMOVehicleShape::MOPED:
         case SUMOVehicleShape::MOTORCYCLE: {
             darker = current.changedBrightness(-50);
+            // the cargo bicycle carries its load in front, so the rider sits further back
+            const bool cargo = shape == SUMOVehicleShape::BICYCLE_CARGO;
+            const double riderOffset = cargo ? 0.2 : 0.;
+            const double seatOffset = cargo ? 0.1 : 0.;
             if (!isStopped) {
                 // body
-                drawPoly(vehiclePoly_Cyclist, 4);
+                drawPoly(cargo ? vehiclePoly_CargoCyclist : vehiclePoly_Cyclist, 4);
                 // head
                 GLHelper::pushMatrix();
-                glTranslated(0.4, 0, .5);
+                glTranslated(0.4 + riderOffset, 0, .5);
                 glScaled(0.1, 0.2, 1);
                 GLHelper::setColor(darker);
                 GLHelper::drawFilledCircle(1);
                 GLHelper::popMatrix();
-            } else if (shape == SUMOVehicleShape::BICYCLE) {
+            } else if ((shape == SUMOVehicleShape::BICYCLE) || cargo) {
                 // seat
                 GLHelper::setColor(darker);
+                GLHelper::pushMatrix();
+                glTranslated(seatOffset, 0, 0);
                 drawPoly(vehiclePoly_BicycleSeat, 4);
+                GLHelper::popMatrix();
             } else {
                 // seat
                 GLHelper::setColor(darker);
                 drawPoly(vehiclePoly_MotorcycleSeat, 4);
+            }
+            if (cargo) {
+                GLHelper::setColor(current);
+                drawPoly(vehiclePoly_CargoBicycleBox, 5);
+                GLHelper::setColor(darker);
+                drawPoly(vehiclePoly_CargoBicycleBoxInterior, 5.1);
             }
             // bike frame
             GLHelper::setColor(RGBColor::GREY);
@@ -240,7 +261,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             GLHelper::popMatrix();
             // handle bar
             GLHelper::pushMatrix();
-            glTranslated(0.25, 0, .3);
+            glTranslated(cargo ? 0.47 : 0.25, 0, .3);
             glScaled(0.02, 0.5, 1);
             GLHelper::drawFilledCircle(1);
             GLHelper::popMatrix();
@@ -593,6 +614,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
         case SUMOVehicleShape::PEDESTRIAN:
             break;
         case SUMOVehicleShape::BICYCLE:
+        case SUMOVehicleShape::BICYCLE_CARGO:
             //glScaled(length, 1, 1.);
             glBegin(GL_TRIANGLE_FAN);
             glVertex2d(1 / 2., 0);
