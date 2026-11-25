@@ -24,28 +24,33 @@ import traci.constants as tc  # noqa
 import sumolib  # noqa
 
 traci.start([sumolib.checkBinary("sumo"),
-             "-n", "input_net3d.net.xml",
+             "-n", "input_net.net.xml",
              "--no-step-log",
              "--begin", "0",
              "--end", "1"])
 
 
-def shape2D(shape):
-    return [(round(p[0], 2), round(p[1], 2)) for p in shape]
+def roundShape(shape):
+    return [tuple(round(value, 2) for value in point) for point in shape]
 
 
-def shape3D(shape):
-    return [(round(p[0], 2), round(p[1], 2), round(p[2], 2)) for p in shape]
-
-
-print("junction A shape", shape2D(traci.junction.getShape("A")))
-print("junction A shape3D", shape3D(traci.junction.getShape3D("A")))
-print("junction B shape3D", shape3D(traci.junction.getShape3D("B")))
-print("junction B position3D", tuple(round(v, 2) for v in traci.junction.getPosition3D("B")))
-print("lane shape", shape2D(traci.lane.getShape("E_0")))
-print("lane shape3D", shape3D(traci.lane.getShape3D("E_0")))
+print("junction A shape", roundShape(traci.junction.getShape("A")))
+print("junction A shape3D", roundShape(traci.junction.getShape3D("A")))
+print("junction B shape3D", roundShape(traci.junction.getShape3D("B")))
+print("junction C shape3D", roundShape(traci.junction.getShape3D("C")))
+position = traci.junction.getPosition("B", True)
+if not (traci.isLibsumo() or traci.isLibtraci()):
+    assert traci.junction.getPosition3D("B") == position
+print("junction B position3D", tuple(round(v, 2) for v in position))
+print("lane shape", roundShape(traci.lane.getShape("E_0")))
+print("lane shape3D", roundShape(traci.lane.getShape3D("E_0")))
 traci.lane.subscribe("E_0", [tc.VAR_SHAPE3D])
+traci.junction.subscribe("B", [tc.VAR_SHAPE3D])
+traci.junction.subscribe("C", [tc.VAR_SHAPE3D])
 traci.simulationStep()
-print("lane subscription3D", shape3D(traci.lane.getSubscriptionResults("E_0")[tc.VAR_SHAPE3D]))
+print("lane subscription3D", roundShape(traci.lane.getSubscriptionResults("E_0")[tc.VAR_SHAPE3D]))
+for junction in ("B", "C"):
+    print("junction %s subscription3D" % junction,
+          roundShape(traci.junction.getSubscriptionResults(junction)[tc.VAR_SHAPE3D]))
 
 traci.close()
