@@ -78,6 +78,9 @@ public:
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) override;
 
+    /// @brief Index of the removable geometry point at the given position, or -1.
+    int getRemovableGeometryPoint(const Position& position) const;
+
 protected:
     /// @brief center position
     Position myCenterPosition = Position::INVALID;

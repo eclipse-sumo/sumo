@@ -124,39 +124,30 @@ GNEMoveElementEdge::setMovingAttribute(SumoXMLAttr key, const std::string& value
 }
 
 
+int
+GNEMoveElementEdge::getRemovableGeometryPoint(const Position& position) const {
+    const auto& geometry = myEdge->getNBEdge()->getGeometry();
+    const int index = geometry.indexOfClosest(position, true);
+    const double radius = myEdge->getGeometryPointRadius();
+    if ((index < 0) || (geometry[index].distanceSquaredTo2D(position) > radius * radius)) {
+        return -1;
+    }
+    if ((index == 0) && (geometry.front().distanceSquaredTo2D(myEdge->getFromJunction()->getNBNode()->getPosition()) <= ENDPOINT_TOLERANCE)) {
+        return -1;
+    }
+    if ((index == (int)geometry.size() - 1) && (geometry.back().distanceSquaredTo2D(myEdge->getToJunction()->getNBNode()->getPosition()) <= ENDPOINT_TOLERANCE)) {
+        return -1;
+    }
+    return index;
+}
+
+
 void
 GNEMoveElementEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-    // get geometry point radius
-    const double geometryPointRadius = myEdge->getGeometryPointRadius();
-    // declare shape to move
-    PositionVector shape = myEdge->getNBEdge()->getGeometry();
-    // obtain flags for start and end positions
-    const bool customStartPosition = (myEdge->getNBEdge()->getGeometry().front().distanceSquaredTo2D(myEdge->getFromJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE);
-    const bool customEndPosition = (myEdge->getNBEdge()->getGeometry().back().distanceSquaredTo2D(myEdge->getToJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE);
-    // get variable for last index
-    const int lastIndex = (int)myEdge->getNBEdge()->getGeometry().size() - 1;
-    // flag to enable/disable remove geometry point
-    bool removeGeometryPoint = true;
-    // obtain index
-    const int index = myEdge->getNBEdge()->getGeometry().indexOfClosest(clickedPosition, true);
-    // check index
-    if (index == -1) {
-        removeGeometryPoint = false;
-    }
-    // check distance
-    if (shape[index].distanceSquaredTo2D(clickedPosition) > (geometryPointRadius * geometryPointRadius)) {
-        removeGeometryPoint = false;
-    }
-    // check custom start position
-    if (!customStartPosition && (index == 0)) {
-        removeGeometryPoint = false;
-    }
-    // check custom end position
-    if (!customEndPosition && (index == lastIndex)) {
-        removeGeometryPoint = false;
-    }
-    // check if we can remove geometry point
-    if (removeGeometryPoint) {
+    const int index = getRemovableGeometryPoint(clickedPosition);
+    if (index >= 0) {
+        PositionVector shape = myEdge->getNBEdge()->getGeometry();
+        const int lastIndex = (int)shape.size() - 1;
         // check if we're removing first geometry proint
         if (index == 0) {
             // commit new geometry start
@@ -175,6 +166,7 @@ GNEMoveElementEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoL
             shape.pop_front();
             shape.pop_back();
             // remove double points
+            const double geometryPointRadius = myEdge->getGeometryPointRadius();
             shape.removeDoublePoints((geometryPointRadius * geometryPointRadius));
             // commit new shape
             undoList->begin(myEdge, TLF("remove geometry point of %", myEdge->getTagStr()));
