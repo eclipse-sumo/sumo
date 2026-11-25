@@ -177,6 +177,10 @@ public:
     /// @brief calculate path lanes between list of edges (using dijkstra, require path calculator updated)
     void calculatePath(GNEPathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges);
 
+    /// @brief calculate a path through waypoint edges with explicit endpoint lanes
+    void calculatePath(GNEPathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
+                       GNELane* fromLane, GNELane* toLane);
+
     /// @brief calculate consecutive path edges
     void calculateConsecutivePathEdges(GNEPathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
                                        const int firstLaneIndex = -1, const int lastLaneIndex = -1);

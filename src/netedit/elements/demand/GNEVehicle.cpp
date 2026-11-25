@@ -1049,7 +1049,7 @@ GNEVehicle::computePathElement() {
             // add last lane
             edgePath.push_back(lastLane->getParentEdge());
             // calculate path
-            myNet->getDemandPathManager()->calculatePath(this, getVClass(), edgePath);
+            myNet->getDemandPathManager()->calculatePath(this, getVClass(), edgePath, firstLane, lastLane);
         }
     }
     // update geometry
@@ -1970,6 +1970,10 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTLANE_SET;
             }
+            if (myTagProperty->vehicleEdges() && !getID().empty()) {
+                computePathElement();
+                updateSpreadStackGeometry = true;
+            }
             break;
         case SUMO_ATTR_DEPARTPOS:
             if (value == toString(INVALID_DOUBLE)) {
@@ -2013,6 +2017,9 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parseArrivalLane(myTagProperty->getDefaultStringValue(key), myTagProperty->getTagStr(), id, arrivalLane, arrivalLaneProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_ARRIVALLANE_SET;
+            }
+            if (myTagProperty->vehicleEdges() && !getID().empty()) {
+                computePathElement();
             }
             break;
         case SUMO_ATTR_ARRIVALPOS:
