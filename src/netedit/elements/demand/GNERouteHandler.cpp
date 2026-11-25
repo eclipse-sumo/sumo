@@ -863,9 +863,10 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
     } else if (personTripTag == SUMO_TAG_NOTHING) {
         return false;
     } else if (planParents.checkIntegrity(personTripTag, personParent, planParameters)) {
-        // build person trip
+        const std::string departPosLat = sumoBaseObject->hasStringAttribute(SUMO_ATTR_DEPARTPOS_LAT)
+                                         ? sumoBaseObject->getStringAttribute(SUMO_ATTR_DEPARTPOS_LAT) : "";
         GNEDemandElement* personTrip = new GNEPersonTrip(personTripTag, personParent, planParents,
-                arrivalPos, types, modes, lines, walkFactor, group);
+                arrivalPos, types, modes, lines, walkFactor, group, departPosLat);
         // continue depending of undo.redo
         if (myAllowUndoRedo) {
             myNet->getUndoList()->begin(personTrip, TLF("add % in '%'", personTrip->getTagStr(), personParent->getID()));
@@ -902,8 +903,9 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     } else if (!checkNegative(SUMO_TAG_WALK, personParent->getID(), SUMO_ATTR_DURATION, duration, true)) {
         return false;
     } else if (planParents.checkIntegrity(walkTag, personParent, planParameters)) {
-        // build person trip
-        GNEDemandElement* walk = new GNEWalk(walkTag, personParent, planParents, arrivalPos, speed, duration);
+        const std::string departPosLat = sumoBaseObject->hasStringAttribute(SUMO_ATTR_DEPARTPOS_LAT)
+                                         ? sumoBaseObject->getStringAttribute(SUMO_ATTR_DEPARTPOS_LAT) : "";
+        GNEDemandElement* walk = new GNEWalk(walkTag, personParent, planParents, arrivalPos, speed, duration, departPosLat);
         // continue depending of undo.redo
         if (myAllowUndoRedo) {
             myNet->getUndoList()->begin(walk, TLF("add % in '%'", walk->getTagStr(), personParent->getID()));

@@ -6172,6 +6172,12 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
                 TL("Generic parameters (Format: key1=value1|key2=value2|..."));
         commonAttribute->setAlternativeName(TL("parameters"));
     }
+    if (tagProperties->isPlanWalk() || tagProperties->isPlanPersonTrip()) {
+        new GNEAttributeProperties(tagProperties, SUMO_ATTR_DEPARTPOS_LAT,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                TL("The lateral position on the departure lane for this walking stage"));
+    }
 }
 
 

@@ -49,9 +49,11 @@ public:
      * @param[in] arrivalPosition arrival position
      * @param[in] speed speed (not together with duration)
      * @param[in] duration duration (not together with speed)
+     * @param[in] departPosLat lateral position at the start of this stage
      */
     GNEWalk(SumoXMLTag tag, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
-            const double arrivalPosition, const double speed, const SUMOTime duration);
+            const double arrivalPosition, const double speed, const SUMOTime duration,
+            const std::string& departPosLat);
 
     /// @brief destructor
     ~GNEWalk();
@@ -218,6 +220,9 @@ protected:
     SUMOTime myDuration = 0;
 
 private:
+    /// @brief lateral departure position or an empty string for the simulator default
+    std::string myDepartPosLat;
+
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value) override;
 
