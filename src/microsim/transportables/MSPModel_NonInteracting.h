@@ -114,9 +114,7 @@ private:
         int getDirection() const;
         virtual Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
         virtual double getAngle(const MSStageMoving& stage, SUMOTime now) const;
-        SUMOTime getWaitingTime() const {
-            return 0;
-        }
+        SUMOTime getWaitingTime() const;
         double getSpeed(const MSStageMoving& stage) const;
         const MSEdge* getNextEdge(const MSStageMoving& stage) const;
         /// @}
@@ -128,8 +126,11 @@ private:
         }
 
         SUMOTime getEventTime() const {
-            return myLastEntryTime + myCurrentDuration;
+            return myPermissionCheckTime >= 0 ? myPermissionCheckTime : myLastEntryTime + myCurrentDuration;
         }
+
+        /// @brief Record a blocked transition and schedule another check.
+        void waitForPermission(SUMOTime now);
 
         /** @brief Saves the current state into the given stream
          */
@@ -138,6 +139,8 @@ private:
     protected:
         SUMOTime myLastEntryTime;
         SUMOTime myCurrentDuration;
+        SUMOTime myWaitingSince = -1;
+        SUMOTime myPermissionCheckTime = -1;
         double myCurrentBeginPos;
         double myCurrentEndPos;
         MoveToNextEdge* myCommand;

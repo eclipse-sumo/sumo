@@ -25,6 +25,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/router/IntermodalNetwork.h>
+#include <libsumo/TraCIConstants.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
@@ -94,13 +95,21 @@ MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
     if (myTransportable == nullptr) {
         return 0; // descheduled
     }
+    PState* const state = static_cast<PState*>(myParent.getPState());
+    const MSEdge* next = myParent.getNextRouteEdge();
+    if (myTransportable->isPerson() && MSGlobals::gCheckRoutes && next != nullptr
+            && next->getFirstAllowed(SVC_PEDESTRIAN) == nullptr
+            && next->getFirstAllowed(SVC_PEDESTRIAN, false, libsumo::ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS) != nullptr) {
+        state->waitForPermission(currentTime);
+        return DELTA_T;
+    }
     const MSEdge* old = myParent.getEdge();
-    const bool arrived = myParent.moveToNextEdge(myTransportable, currentTime, myParent.getPState()->getDirection());
+    const bool arrived = myParent.moveToNextEdge(myTransportable, currentTime, state->getDirection());
     if (arrived) {
         myModel->registerArrived();
         return 0;
     }
-    SUMOTime nextDuration = static_cast<PState*>(myParent.getPState())->computeDuration(old, myParent, currentTime);
+    const SUMOTime nextDuration = state->computeDuration(old, myParent, currentTime);
     // first compute position on the new edge
     myParent.activateEntryReminders(myTransportable);
     if (myTransportable == nullptr) {
@@ -116,6 +125,11 @@ MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
 MSPModel_NonInteracting::PState::PState(MoveToNextEdge* cmd, std::istringstream* in) : myCommand(cmd) {
     if (in != nullptr) {
         (*in) >> myLastEntryTime >> myCurrentDuration;
+        SUMOTime waitingSince;
+        if ((*in) >> waitingSince) {
+            myWaitingSince = waitingSince;
+            (*in) >> myPermissionCheckTime >> myCurrentBeginPos >> myCurrentEndPos;
+        }
     }
 }
 
@@ -123,6 +137,8 @@ MSPModel_NonInteracting::PState::PState(MoveToNextEdge* cmd, std::istringstream*
 SUMOTime
 MSPModel_NonInteracting::PState::computeDuration(const MSEdge* prev, const MSStageMoving& stage, SUMOTime currentTime) {
     myLastEntryTime = currentTime;
+    myWaitingSince = -1;
+    myPermissionCheckTime = -1;
     const MSEdge* edge = stage.getEdge();
     const MSEdge* next = stage.getNextRouteEdge();
     int dir = UNDEFINED_DIRECTION;
@@ -156,6 +172,9 @@ MSPModel_NonInteracting::PState::computeDuration(const MSEdge* prev, const MSSta
 
 double
 MSPModel_NonInteracting::PState::getEdgePos(SUMOTime now) const {
+    if (myWaitingSince >= 0) {
+        return myCurrentEndPos;
+    }
     //std::cout << SIMTIME << " lastEntryTime=" << myLastEntryTime << " pos=" << (myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime)) << "\n";
     return myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / (double)myCurrentDuration * (double)(now - myLastEntryTime);
 }
@@ -200,7 +219,7 @@ MSPModel_NonInteracting::PState::getAngle(const MSStageMoving& stage, SUMOTime n
 
 double
 MSPModel_NonInteracting::PState::getSpeed(const MSStageMoving& stage) const {
-    return stage.getMaxSpeed(myCommand->getTransportable());
+    return myWaitingSince >= 0 ? 0 : stage.getMaxSpeed(myCommand->getTransportable());
 }
 
 
@@ -210,9 +229,28 @@ MSPModel_NonInteracting::PState::getNextEdge(const MSStageMoving& stage) const {
 }
 
 
+SUMOTime
+MSPModel_NonInteracting::PState::getWaitingTime() const {
+    return myWaitingSince >= 0 ? MSNet::getInstance()->getCurrentTimeStep() - myWaitingSince : 0;
+}
+
+
+void
+MSPModel_NonInteracting::PState::waitForPermission(SUMOTime now) {
+    if (myWaitingSince < 0) {
+        myWaitingSince = now;
+    }
+    myPermissionCheckTime = now + DELTA_T;
+}
+
+
 void
 MSPModel_NonInteracting::PState::saveState(std::ostringstream& out) {
     out << " " << myLastEntryTime << " " << myCurrentDuration;
+    if (myWaitingSince >= 0) {
+        out << " " << myWaitingSince << " " << myPermissionCheckTime
+            << " " << myCurrentBeginPos << " " << myCurrentEndPos;
+    }
 }
 
 
