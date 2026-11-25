@@ -4129,15 +4129,18 @@ GNEApplicationWindow::onCmdOpenAdditionalElements(FXObject*, FXSelector, void*) 
     // get file
     const GNEFileDialog additionalFileDialog(this, TL("Additional elements file"),
             SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(),
-            GNEFileDialog::OpenMode::LOAD_SINGLE,
+            GNEFileDialog::OpenMode::LOAD_MULTIPLE,
             GNEFileDialog::ConfigType::NETEDIT,
             myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
-    if (additionalFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+    if (additionalFileDialog.getResult() != GNEDialog::Result::ACCEPT) {
+        return 1;
+    }
+    for (const auto& filename : additionalFileDialog.getFilenames()) {
         // flag for save current saving status
         const auto previouslySaved = myNet->getSavingStatus()->isAdditionalsSaved();
         // get (or create) bucket for this new file
-        auto bucket = myFileBucketHandler->getBucket(FileBucket::Type::ADDITIONAL, additionalFileDialog.getFilename(), true);
+        auto bucket = myFileBucketHandler->getBucket(FileBucket::Type::ADDITIONAL, filename, true);
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
@@ -4152,7 +4155,7 @@ GNEApplicationWindow::onCmdOpenAdditionalElements(FXObject*, FXSelector, void*) 
             // write info
             WRITE_MESSAGE(TLF("Loading of additional file '%' successfully.", bucket->getFilename()));
             // check if file is meanData
-            const bool isMeanData = checkMeanDataFileBucket(additionalFileDialog.getFilename(), bucket, generalHandler);
+            const bool isMeanData = checkMeanDataFileBucket(filename, bucket, generalHandler);
             // enable save if there is errors loading additionals
             if (!generalHandler.isErrorCreatingElement()) {
                 if (isMeanData) {
@@ -4170,8 +4173,8 @@ GNEApplicationWindow::onCmdOpenAdditionalElements(FXObject*, FXSelector, void*) 
         if (!myAllowUndoRedoLoading) {
             myUndoList->clear();
         }
-        update();
     }
+    update();
     return 1;
 }
 
@@ -4346,17 +4349,20 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
     // get file
     const GNEFileDialog routeFileDialog(this, TL("Route elements file"),
                                         SUMOXMLDefinitions::RouteFileExtensions.getStrings(),
-                                        GNEFileDialog::OpenMode::LOAD_SINGLE,
+                                        GNEFileDialog::OpenMode::LOAD_MULTIPLE,
                                         GNEFileDialog::ConfigType::NETEDIT,
                                         myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
-    if (routeFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+    if (routeFileDialog.getResult() != GNEDialog::Result::ACCEPT) {
+        return 1;
+    }
+    for (const auto& filename : routeFileDialog.getFilenames()) {
         // save previous demand element status saving
         const auto previouslySaved = myNet->getSavingStatus()->isDemandElementsSaved();
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // get (or create) bucket for this new file
-        auto bucket = myFileBucketHandler->getBucket(FileBucket::Type::DEMAND, routeFileDialog.getFilename(), true);
+        auto bucket = myFileBucketHandler->getBucket(FileBucket::Type::DEMAND, filename, true);
         // Create generic handler
         GNEGeneralHandler handler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // begin undoList operation
@@ -4381,8 +4387,8 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         if (!myAllowUndoRedoLoading) {
             myUndoList->clear();
         }
-        update();
     }
+    update();
     return 1;
 }
 
@@ -4711,15 +4717,18 @@ GNEApplicationWindow::onCmdOpenMeanDataElements(FXObject*, FXSelector, void*) {
     // get file
     const GNEFileDialog meanDataFileDialog(this, TL("MeanData elements file"),
                                            SUMOXMLDefinitions::MeanDataFileExtensions.getStrings(),
-                                           GNEFileDialog::OpenMode::LOAD_SINGLE,
+                                           GNEFileDialog::OpenMode::LOAD_MULTIPLE,
                                            GNEFileDialog::ConfigType::NETEDIT,
                                            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
-    if (meanDataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+    if (meanDataFileDialog.getResult() != GNEDialog::Result::ACCEPT) {
+        return 1;
+    }
+    for (const auto& filename : meanDataFileDialog.getFilenames()) {
         // save previous demand element status saving
         const auto previouslySaved = myNet->getSavingStatus()->isMeanDatasSaved();
         // get (or create) bucket for this new file
-        auto bucket = myFileBucketHandler->getBucket(FileBucket::Type::MEANDATA, meanDataFileDialog.getFilename(), true);
+        auto bucket = myFileBucketHandler->getBucket(FileBucket::Type::MEANDATA, filename, true);
         // disable validation for meanDatas
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create meanData handler
@@ -4746,8 +4755,8 @@ GNEApplicationWindow::onCmdOpenMeanDataElements(FXObject*, FXSelector, void*) {
         if (!myAllowUndoRedoLoading) {
             myUndoList->clear();
         }
-        update();
     }
+    update();
     return 1;
 }
 
