@@ -470,6 +470,7 @@ GNECreateEdgeFrame::LaneTypeSelector::LaneTypeSelector(GNECreateEdgeFrame* creat
     // create delete lane type button
     myDeleteLaneTypeButton = GUIDesigns::buildFXButton(horizontalFrameButtons, TL("Delete"), "", TL("Delete lane type"), GUIIconSubSys::getIcon(GUIIcon::REMOVE),
                              this, MID_GNE_CREATEEDGEFRAME_DELETE, GUIDesignButton);
+    onCmdCollapseButton(nullptr, 0, nullptr);
 }
 
 
