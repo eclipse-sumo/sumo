@@ -270,7 +270,7 @@ public:
         }
     }
 
-    inline void updateViaCost(const E* const prev, const E* const e, const V* const v, double& time, double& effort, double& length) const {
+    inline void updateViaCost(const E* const prev, const E* const e, const V* const v, double& time, double& effort, double& length, double* lastEntryTimep = nullptr) const {
         if (prev != nullptr) {
             for (const std::pair<const E*, const E*>& follower : prev->getViaSuccessors()) {
                 if (follower.first == e) {
@@ -278,6 +278,9 @@ public:
                     break;
                 }
             }
+        }
+        if (lastEntryTimep != nullptr && e->getLength() > 0) {
+            *lastEntryTimep = time;
         }
         const double effortDelta = this->getEffort(e, v, time);
         effort += effortDelta;
@@ -294,8 +297,11 @@ public:
         return true;
     }
 
-    virtual double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime, double* lengthp = nullptr) const {
+    virtual double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime, double* lengthp = nullptr, double* timep = nullptr, double* lastEntryTimep = nullptr) const {
         double time = STEPS2TIME(msTime);
+        if (lastEntryTimep != nullptr) {
+            *lastEntryTimep = time;
+        }
         double effort = 0.;
         double length = 0.;
         if (lengthp == nullptr) {
@@ -305,15 +311,19 @@ public:
         }
         const E* prev = nullptr;
         for (const E* const e : edges) {
-            updateViaCost(prev, e, v, time, effort, *lengthp);
+            updateViaCost(prev, e, v, time, effort, *lengthp, lastEntryTimep);
             prev = e;
+        }
+        if (timep != nullptr) {
+            *timep = time - STEPS2TIME(msTime);
         }
         return effort;
     }
 
 
-    inline double recomputeCostsPos(const std::vector<const E*>& edges, const V* const v, double fromPos, double toPos, SUMOTime msTime, double* lengthp = nullptr) const {
-        double effort = recomputeCosts(edges, v, msTime, lengthp);
+    inline double recomputeCostsPos(const std::vector<const E*>& edges, const V* const v, double fromPos, double toPos, SUMOTime msTime, double* lengthp = nullptr, double* timep = nullptr) const {
+        double lastEntryTime = STEPS2TIME(msTime);
+        double effort = recomputeCosts(edges, v, msTime, lengthp, timep, &lastEntryTime);
         if (!edges.empty()) {
             const E* first = edges.front();
             if (first->getLength() == 0) {
@@ -333,12 +343,19 @@ public:
             }
             assert(first->getLength() > 0);
             assert(last->getLength() > 0);
-            double firstEffort = this->getEffort(first, v, STEPS2TIME(msTime));
-            double lastEffort = this->getEffort(last, v, STEPS2TIME(msTime));
-            effort -= firstEffort * fromPos / first->getLength();
-            effort -= lastEffort * (last->getLength() - toPos) / last->getLength();
+            const double firstFrac = fromPos / first->getLength();
+            const double lastFrac = (last->getLength() - toPos) / last->getLength();
+            const double firstEffort = this->getEffort(first, v, STEPS2TIME(msTime));
+            const double lastEffort = this->getEffort(last, v, lastEntryTime);
+            effort -= firstEffort * firstFrac;
+            effort -= lastEffort * lastFrac;
             if (lengthp != nullptr) {
                 (*lengthp) -= fromPos + last->getLength() - toPos;
+            }
+            if (timep != nullptr) {
+                const double firstTT = getTravelTime(first, v, STEPS2TIME(msTime), firstEffort);
+                const double lastTT = getTravelTime(last, v, lastEntryTime, lastEffort);
+                *timep = MAX2(0.0, *timep - firstTT * firstFrac - lastTT * lastFrac);
             }
         }
         return effort;

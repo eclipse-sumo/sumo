@@ -21,6 +21,7 @@
 #include <queue>
 #include "MSLane.h"
 #include "MSEdge.h"
+#include "MSStop.h"
 #include "MSStoppingPlace.h"
 #include "MSStopOptimizer.h"
 
@@ -49,6 +50,7 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
     prev->stopIndex = -1;
     prev->routeIndex = 0;
     prev->cost = bestCost;
+    prev->time = myT + (myVehicle->isStopped() ? MAX2((SUMOTime)0, myVehicle->getStopDuration()) : 0);
     prev->checked = true;
     //std::cout << " i=-1 e=" << prev->edge->getID() << " sp=" << prev->skippedPrio << " rp=" << prev->reachedPrio << "\n";
     queue.push(prev);
@@ -74,6 +76,9 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
             ConstMSEdgeVector subEdges(edges.begin(), edges.begin() + stop.routeIndex);
             ptr->cost = myRouter.recomputeCostsPos(subEdges, myVehicle, sourcePos, 0, myT);
             ptr->edges.insert(ptr->edges.begin(), edges.begin() + prev->routeIndex, edges.begin() + stop.routeIndex + 1);
+            if (ptr->time < 0) {
+                ptr->time = prev->time;
+            }
             prev = ptr;
             bestNode = ptr;
             queue.push(ptr);
@@ -204,7 +209,8 @@ MSStopOptimizer::StopPathNode::getSuccessor(const std::vector<StopEdgeInfo>& sto
         checked = true;
         // @todo caching, bulk-routing
         double newCost = 0;
-        if (!so.reachableInTime(prev->edge, prev->pos, edge, pos, arrival, edges, newCost)) {
+        SUMOTime arrTime = prev->time;
+        if (!so.reachableInTime(prev->edge, prev->pos, prev->time, edge, pos, arrival, edges, newCost, arrTime)) {
 #ifdef DEBUG_OPTIMIZE_SKIPPED
             std::cout << "    prevIndex=" << prev->stopIndex << " prevEdge=" << prev->edge->getID() << " i=" << stopIndex << " edge=" << edge->getID() << " unreachable\n";
 #endif
@@ -216,6 +222,25 @@ MSStopOptimizer::StopPathNode::getSuccessor(const std::vector<StopEdgeInfo>& sto
             std::cout << "    prevIndex=" << prev->stopIndex << " prevEdge=" << prev->edge->getID() << " i=" << stopIndex << " edge=" << edge->getID() << " reached with edges=" << toString(edges) << " cost=" << cost << " newCost=" << newCost << "\n";
 #endif
         }
+        double curPos = pos;
+        for (const MSStop* s : this->stops) {
+            if (origEdge == nullptr) {
+                const double sPos = s->lane->isInternal() ? (*s->edge)->getLength() : s->getEndPos(*so.myVehicle);
+                if (sPos > curPos) {
+                    double sameEdgeTT = 0.;
+                    so.myRouter.recomputeCostsPos({edge}, so.myVehicle, curPos, sPos, arrTime, nullptr, &sameEdgeTT);
+                    arrTime += TIME2STEPS(sameEdgeTT);
+                    curPos = sPos;
+                }
+            }
+            if (s->getSpeed() > 0) {
+                arrTime += MAX2((SUMOTime)0, s->getUntil() - arrTime);
+            } else {
+                arrTime += MAX2((SUMOTime)0, s->getMinDuration(arrTime));
+            }
+        }
+        pos = curPos;
+        time = arrTime;
         reachedPrio += MAX2(0.0, priority);
         cost += newCost;
         if (priority < 0) {
@@ -290,15 +315,18 @@ MSStopOptimizer::StopPathNode::getSuccessor(const std::vector<StopEdgeInfo>& sto
 
 
 bool
-MSStopOptimizer::reachableInTime(const MSEdge* from, double fromPos,
+MSStopOptimizer::reachableInTime(const MSEdge* from, double fromPos, SUMOTime fromTime,
                                  const MSEdge* to, double toPos,
                                  SUMOTime arrival,
-                                 ConstMSEdgeVector& into, double& cost) const {
-    myRouter.compute(from, fromPos, to, toPos, myVehicle, myT, into, true);
+                                 ConstMSEdgeVector& into, double& cost, SUMOTime& arrTime) const {
+    myRouter.compute(from, fromPos, to, toPos, myVehicle, fromTime, into, true);
     if (into.size() > 0) {
-        cost = myRouter.recomputeCostsPos(into, myVehicle, fromPos, toPos, myT);
-        //std::cout << " from=" << from->getID() << " fromPos=" << fromPos << " to=" << to->getID() << " toPos=" << toPos << " t=" << myT << " cost=" << cost << " arrival=" << arrival << " maxDelay=" << myMaxDelay << "\n";
-        if (myT + TIME2STEPS(cost) <= arrival + myMaxDelay) {
+        const double targetPos = (toPos < 0 && into.size() > 1) ? into[into.size() - 2]->getLength() : MAX2(0.0, toPos);
+        double segTT = 0.;
+        cost = myRouter.recomputeCostsPos(into, myVehicle, MAX2(0.0, fromPos), targetPos, fromTime, nullptr, &segTT);
+        arrTime = fromTime + TIME2STEPS(segTT);
+        //std::cout << " from=" << from->getID() << " fromPos=" << fromPos << " to=" << to->getID() << " toPos=" << toPos << " t=" << fromTime << " cost=" << cost << " arrival=" << arrival << " maxDelay=" << myMaxDelay << "\n";
+        if (arrival < 0 || arrTime <= arrival + myMaxDelay) {
             return true;
         }
     }

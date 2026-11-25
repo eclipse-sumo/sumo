@@ -126,8 +126,8 @@ public:
     }
 
 
-    double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime, double* lengthp = nullptr) const {
-        double effort = SUMOAbstractRouter<E, V>::recomputeCosts(edges, v, msTime, lengthp);
+    double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime, double* lengthp = nullptr, double* timep = nullptr, double* lastEntryTimep = nullptr) const {
+        double effort = SUMOAbstractRouter<E, V>::recomputeCosts(edges, v, msTime, lengthp, timep, lastEntryTimep);
         const E* prev = nullptr;
         // reversal corrections
         double timeCorrection = STEPS2TIME(msTime);
@@ -139,14 +139,23 @@ public:
                     const double savingsFactor = 1 - v->getLength() / e->getLength();
                     double effortCorrection = 0;
                     double lengthCorrection = 0.;
-                    effortCorrection += this->getEffort(prev, v, timeCorrection);
+                    const double prevEffort = this->getEffort(prev, v, timeCorrection);
+                    effortCorrection += prevEffort;
+                    const double prevTT = this->getTravelTime(prev, v, timeCorrection, prevEffort);
+                    const double timeBefore = timeCorrection;
                     this->updateViaCost(prev, e, v, timeCorrection, effortCorrection, lengthCorrection);
                     effort -= savingsFactor * effortCorrection;
                     if (lengthp != nullptr) {
                         *lengthp -= savingsFactor * lengthCorrection;
                     }
+                    if (timep != nullptr) {
+                        *timep -= savingsFactor * (prevTT + (timeCorrection - timeBefore));
+                    }
                 }
                 effort += myReversalPenalty;
+                if (timep != nullptr) {
+                    *timep += myReversalPenalty;
+                }
             }
             prev = e;
         }

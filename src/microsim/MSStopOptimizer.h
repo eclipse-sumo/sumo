@@ -75,11 +75,13 @@ private:
     /// @brief information used during skip/alternative optimization
     struct StopPathNode : public StopEdgeInfo, std::enable_shared_from_this<StopPathNode> {
         StopPathNode(const MSStopOptimizer& _so, const StopEdgeInfo& o):
-            StopEdgeInfo(o.edge, o.priority, o.arrival, o.pos),
+            StopEdgeInfo(o.edge, o.priority, o.arrival, o.pos, o.isSink),
             so(_so) {
             nameTag = o.nameTag;
             delay = o.delay;
             routeIndex = o.routeIndex;
+            stops = o.stops;
+            time = o.time;
         }
 
         // ordering criterion (minimize in order)
@@ -133,8 +135,8 @@ private:
         }
     };
 
-    bool reachableInTime(const MSEdge* from, double fromPos,
+    bool reachableInTime(const MSEdge* from, double fromPos, SUMOTime fromTime,
                          const MSEdge* to, double toPos,
-                         SUMOTime arrival, ConstMSEdgeVector& into, double& cost) const;
+                         SUMOTime arrival, ConstMSEdgeVector& into, double& cost, SUMOTime& arrTime) const;
 
 };

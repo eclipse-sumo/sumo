@@ -153,7 +153,7 @@ public:
 
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
         const bool ignoreTransient = vehicle == nullptr ? false : vehicle->ignoreTransientPermissions();
-        if (this->myBulkMode && !this->myAmClean) {
+        if (this->myBulkMode && from == myLastFrom && !this->myAmClean) {
             const auto& toInfo = this->myEdgeInfos[to->getNumericalID()];
             if (toInfo.visited) {
                 this->buildPathFrom(&toInfo, into);
@@ -164,6 +164,7 @@ public:
             this->init(from->getNumericalID(), msTime);
             this->myAmClean = false;
         }
+        myLastFrom = from;
         // loop
         int num_visited = 0;
         const bool mayRevisit = myLookupTable != nullptr && !myLookupTable->consistent();
@@ -288,4 +289,7 @@ protected:
 
     /// @brief maximum speed in the network
     double myMaxSpeed;
+
+    /// @brief last source edge for bulk mode validation
+    const E* myLastFrom = nullptr;
 };

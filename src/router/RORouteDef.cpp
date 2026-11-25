@@ -235,8 +235,9 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         }
         ConstROEdgeVector targets;
         bool checkPositions = false;
-        if (mandatory.size() >= oldEdges.size()) {
-            for (auto m : mandatory) {
+        const bool useMandatory = mandatory.size() >= oldEdges.size();
+        if (useMandatory) {
+            for (const auto& m : mandatory) {
                 targets.push_back(m.edge);
                 checkPositions |= m.pos >= 0;
             }
@@ -244,6 +245,9 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             targets = oldEdges;
         }
         newEdges.push_back(targets.front());
+        SUMOTime currentTime = begin;
+        double curPos = MAX2(0.0, mandatory.front().pos);
+        mandatory.front().advanceStopTime(targets.front(), veh, router, curPos, currentTime);
         auto nextMandatory = mandatory.begin() + 1;
         while (nextMandatory != mandatory.end()
                 && targets.front() == nextMandatory->edge
@@ -251,15 +255,35 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     || nextMandatory->pos >= (nextMandatory - 1)->pos
                     // ignore invalid via stop pos
                     || nextMandatory->pos < 0)) {
+            if (!useMandatory) {
+                if (nextMandatory->pos > curPos) {
+                    double segTT = 0.;
+                    router.recomputeCostsPos({targets.front()}, &veh, curPos, nextMandatory->pos, currentTime, nullptr, &segTT);
+                    currentTime += TIME2STEPS(segTT);
+                    curPos = nextMandatory->pos;
+                }
+                nextMandatory->advanceStopTime(targets.front(), veh, router, curPos, currentTime);
+            }
             nextMandatory++;
         }
         int lastMandatory = 0;
+        SUMOTime lastMandatoryTime = currentTime;
+        double lastMandatoryPos = curPos;
         for (ConstROEdgeVector::const_iterator i = targets.begin() + 1;
                 i != targets.end() && nextMandatory != mandatory.end(); ++i) {
             const ROEdge* prev = *(i - 1);
             const ROEdge* cur = *i;
+            const int mIdx = (int)(i - targets.begin());
             if (prev->isConnectedTo(*cur, veh.getVClass()) && (!isRailway(veh.getVClass()) || prev->getBidiEdge() != cur)) {
                 newEdges.push_back(cur);
+                const double targetPos = (useMandatory && mandatory[mIdx].pos >= 0) ? mandatory[mIdx].pos : 0.;
+                double segTT = 0.;
+                router.recomputeCostsPos({prev, cur}, &veh, curPos, targetPos, currentTime, nullptr, &segTT);
+                currentTime += TIME2STEPS(segTT);
+                curPos = targetPos;
+                if (useMandatory) {
+                    mandatory[mIdx].advanceStopTime(cur, veh, router, curPos, currentTime);
+                }
             } else {
                 if (initialSize > 2) {
                     // only inform if the input is (probably) not a trip
@@ -273,40 +297,55 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     newEdges.pop_back();
                 }
                 if (veh.hasJumps() && (nextMandatory - 1)->isJump) {
+                    const ROVehicle::Mandatory& jumpM = *(nextMandatory - 1);
                     while (*i != nextMandatory->edge) {
                         ++i;
                     }
                     newEdges.push_back(last);
                     newEdges.push_back(*i);
+                    currentTime = MAX2(currentTime + MAX2((SUMOTime)0, jumpM.jump), jumpM.jumpUntil);
+                    curPos = 0.;
+                    if (useMandatory) {
+                        const ROVehicle::Mandatory& destM = mandatory[i - targets.begin()];
+                        if (destM.pos > curPos) {
+                            double segTT = 0.;
+                            router.recomputeCostsPos({*i}, &veh, curPos, destM.pos, currentTime, nullptr, &segTT);
+                            currentTime += TIME2STEPS(segTT);
+                            curPos = destM.pos;
+                        }
+                        destM.advanceStopTime(*i, veh, router, curPos, currentTime);
+                    }
                     //std::cout << " skipJump mIndex=" << (nextMandatory - 1 - mandatory.begin()) << " last=" << last->getID() << " next=" << (*i)->getID() << " newEdges=" << toString(newEdges) << "\n";
                 } else {
                     int numEdgesBefore = (int)newEdges.size();
-                    //                router.setHint(targets.begin(), i, &veh, begin);
+                    //                router.setHint(targets.begin(), i, &veh, currentTime);
                     if (myTryRepair && lastMandatory < (int)newEdges.size() && last != newEdges[lastMandatory]) {
                         router.setMsgHandler(MsgHandler::getWarningInstance());
                     }
                     bool ok;
                     if (checkPositions
-                            && mandatory[i - targets.begin() - 1].pos >= 0
-                            && mandatory[i - targets.begin()].pos >= 0) {
+                            && mandatory[mIdx - 1].pos >= 0
+                            && mandatory[mIdx].pos >= 0) {
                         ok = router.compute(
-                                 last, mandatory[i - targets.begin() - 1].pos,
-                                 *i, mandatory[i - targets.begin()].pos,
-                                 &veh, begin, newEdges);
+                                 last, mandatory[mIdx - 1].pos,
+                                 *i, mandatory[mIdx].pos,
+                                 &veh, currentTime, newEdges);
                     } else {
-                        ok = router.compute(last, *i, &veh, begin, newEdges);
+                        ok = router.compute(last, *i, &veh, currentTime, newEdges);
                     }
                     router.setMsgHandler(mh);
+                    bool backtracked = false;
                     if (!ok) {
                         // backtrack: try to route from last mandatory edge to next mandatory edge
                         // XXX add option for backtracking in smaller increments
                         // (i.e. previous edge to edge after *i)
                         // we would then need to decide whether we have found a good
                         // tradeoff between faithfulness to the input data and detour-length
-                        if (lastMandatory >= (int)newEdges.size() || last == newEdges[lastMandatory] || !backTrack(router, i, lastMandatory, nextMandatory->edge, newEdges, veh, begin)) {
+                        if (lastMandatory >= (int)newEdges.size() || last == newEdges[lastMandatory] || !backTrack(router, i, lastMandatory, nextMandatory->edge, newEdges, veh, lastMandatoryTime)) {
                             mh->informf(TL("Mandatory edge '%' not reachable by vehicle '%'."), (*i)->getID(), veh.getID());
                             return false;
                         }
+                        backtracked = true;
                     } else if (!myMayBeDisconnected && !isTrip && last != (*i)) {
                         double airDist = last->getToJunction()->getPosition().distanceTo(
                                              (*i)->getFromJunction()->getPosition());
@@ -319,10 +358,28 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                         const double maxDetourFactor = OptionsCont::getOptions().getFloat("repair.max-detour-factor");
                         if (detourFactor > maxDetourFactor) {
                             WRITE_MESSAGEF("    Backtracking to avoid detour of %m for gap of %m)", detour, airDist);
-                            backTrack(router, i, lastMandatory, nextMandatory->edge, newEdges, veh, begin);
+                            if (backTrack(router, i, lastMandatory, nextMandatory->edge, newEdges, veh, lastMandatoryTime)) {
+                                backtracked = true;
+                            }
                         } else if (detourFactor > 1.1) {
                             WRITE_MESSAGEF("    Taking detour of %m to avoid gap of %m)", detour, airDist);
                         }
+                    }
+                    const int curMIdx = (int)(i - targets.begin());
+                    const double targetPos = (useMandatory && mandatory[curMIdx].pos >= 0) ? mandatory[curMIdx].pos : 0.;
+                    double segTT = 0.;
+                    if (backtracked) {
+                        ConstROEdgeVector seg(newEdges.begin() + lastMandatory, newEdges.end());
+                        router.recomputeCostsPos(seg, &veh, lastMandatoryPos, targetPos, lastMandatoryTime, nullptr, &segTT);
+                        currentTime = lastMandatoryTime + TIME2STEPS(segTT);
+                    } else {
+                        ConstROEdgeVector seg(newEdges.begin() + numEdgesBefore, newEdges.end());
+                        router.recomputeCostsPos(seg, &veh, curPos, targetPos, currentTime, nullptr, &segTT);
+                        currentTime += TIME2STEPS(segTT);
+                    }
+                    curPos = targetPos;
+                    if (useMandatory) {
+                        mandatory[curMIdx].advanceStopTime(*i, veh, router, curPos, currentTime);
                     }
                 }
             }
@@ -332,8 +389,19 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                         || nextMandatory->pos >= (nextMandatory - 1)->pos
                         // ignore invalid via stop pos
                         || nextMandatory->pos < 0)) {
+                if (!useMandatory) {
+                    if (nextMandatory->pos > curPos) {
+                        double segTT = 0.;
+                        router.recomputeCostsPos({*i}, &veh, curPos, nextMandatory->pos, currentTime, nullptr, &segTT);
+                        currentTime += TIME2STEPS(segTT);
+                        curPos = nextMandatory->pos;
+                    }
+                    nextMandatory->advanceStopTime(*i, veh, router, curPos, currentTime);
+                }
                 nextMandatory++;
                 lastMandatory = (int)newEdges.size() - 1;
+                lastMandatoryTime = currentTime;
+                lastMandatoryPos = curPos;
             }
         }
         if (veh.getParameter().via.size() > 0 && veh.getParameter().stops.size() > 0) {
