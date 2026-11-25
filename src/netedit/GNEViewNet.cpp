@@ -716,7 +716,7 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
             }
             filteredGLObjects.erase(itDuplicated, filteredGLObjects.end());
             // open object dialog
-            openObjectDialog(filteredGLObjects);
+            openObjectDialog(GNEViewNetHelper::filterElementsByLayer(filteredGLObjects), false);
         }
     }
 }
