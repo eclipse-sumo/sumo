@@ -5265,6 +5265,7 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
         };
 #endif
         bool foundStopped = false;
+        const DriveProcessItem* junctionEntry = nullptr;
         // compute available space until a stopped vehicle is found
         // this is the sum of non-interal lane length minus in-between vehicle lengths
         for (int i = 0; i < (int)lfLinks.size(); ++i) {
@@ -5291,6 +5292,9 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
             // get the next lane, determine whether it is an internal lane
             const MSLane* approachedLane = item.myLink->getViaLane();
             if (approachedLane != nullptr) {
+                if (MSGlobals::gSublane && item.myLink->isEntryLink()) {
+                    junctionEntry = &item;
+                }
                 if (keepClear(item.myLink)) {
                     seenSpace = seenSpace - approachedLane->getBruttoVehLenSum();
                     if (approachedLane == myLane) {
@@ -5333,8 +5337,12 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                     if (oncomingVeh) {
                         const double oncomingGap = approachedLane->getLength() - oncomingVeh->getPositionOnLane();
                         const double oncomingBGap = oncomingVeh->getBrakeGap(true);
-                        // oncoming movement until ego enters the junction
-                        const double oncomingMove = STEPS2TIME(item.myArrivalTime - SIMSTEP) * oncomingVeh->getSpeed();
+                        // Use the junction entry time for the sublane keep-clear decision. The exit
+                        // estimate can be much later when the approach has already slowed to a crawl.
+                        const SUMOTime arrivalTime = junctionEntry != nullptr && junctionEntry->myLink->getLane() == approachedLane
+                                                     ? MAX2(SIMSTEP, junctionEntry->myArrivalTime)
+                                                     : item.myArrivalTime;
+                        const double oncomingMove = STEPS2TIME(arrivalTime - SIMSTEP) * oncomingVeh->getSpeed();
                         const double spaceTillOncoming = oncomingGap - oncomingBGap - oncomingMove;
                         spaceTillLastStanding = MIN2(spaceTillLastStanding, spaceTillOncoming);
                         if (spaceTillOncoming <= getVehicleType().getLengthWithGap()) {
