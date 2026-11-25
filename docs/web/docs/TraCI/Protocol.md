@@ -212,10 +212,12 @@ number of (x,y) points that make up the polygon.
 #### 3D Polygon (*ubyte* identifier: 0x05)
 
 A sequence of 3D points, representing a polygon shape with elevation.
-*Length* is the number of (x,y,z) points that make up the polygon.
+*Length* is the number of (x,y,z) points that make up the polygon. Lengths from
+1 to 255 fit in one unsigned byte. For an empty shape or a shape with more
+than 255 points, a zero byte is followed by a 4-byte integer length.
 
-| ubyte (identifier bits) | ubyte | double | double | double | ... |
-|:-----------------------:|:-----:|:------:|:------:|:------:|:---:|
+| ubyte (identifier bits) | ubyte or ubyte + int | double | double | double | ... |
+|:-----------------------:|:--------------------:|:------:|:------:|:------:|:---:|
 | 0 0 0 0 0 1 0 1 | Length | X | Y | Z | ... |
 
 #### Traffic Light Phase List (*ubyte* identifier: 0x0D)

@@ -406,6 +406,12 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                     into[objectID][variableID] = po;
                     break;
                 }
+                case libsumo::POLYGON_3D: {
+                    auto po = std::make_shared<libsumo::TraCIPositionVector>();
+                    StoHelp::readPolygon3D(inMsg, *po);
+                    into[objectID][variableID] = po;
+                    break;
+                }
                 case libsumo::TYPE_DOUBLELIST: {
                     auto po = std::make_shared<libsumo::TraCIDoubleList>();
                     po->value = inMsg.readDoubleList();

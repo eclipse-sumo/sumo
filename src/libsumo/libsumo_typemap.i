@@ -268,6 +268,17 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
                 pyVal = parseConnectionList(theConnectionList->value);
             }
         }
+        if (pyVal == nullptr && iter->first == libsumo::VAR_SHAPE3D) {
+            const auto* shape = dynamic_cast<const libsumo::TraCIPositionVector*>(traciVal);
+            if (shape != nullptr) {
+                const Py_ssize_t size = shape->value.size();
+                pyVal = PyTuple_New(size);
+                for (Py_ssize_t i = 0; i < size; i++) {
+                    const auto& pos = shape->value[i];
+                    PyTuple_SetItem(pyVal, i, Py_BuildValue("(ddd)", pos.x, pos.y, pos.z));
+                }
+            }
+        }
         if (pyVal == nullptr) {
             pyVal = SWIG_NewPointerObj(SWIG_as_voidptr(traciVal), SWIGTYPE_p_libsumo__TraCIResult, 0);
         }

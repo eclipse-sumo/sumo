@@ -490,7 +490,7 @@ public:
 
     static inline void writePolygon3D(tcpip::Storage& content, const libsumo::TraCIPositionVector& shape) {
         content.writeUnsignedByte(libsumo::POLYGON_3D);
-        if (shape.value.size() <= 255) {
+        if (!shape.value.empty() && shape.value.size() <= 255) {
             content.writeUnsignedByte((int)shape.value.size());
         } else {
             content.writeUnsignedByte(0);
