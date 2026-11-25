@@ -19,6 +19,8 @@
 // A view on the network being edited (adapted from GUIViewTraffic)
 /****************************************************************************/
 
+#include <map>
+
 #include <netbuild/NBEdgeCont.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_TLS.h>
@@ -1092,30 +1094,33 @@ GNEViewNet::addRestrictedLane(GNELane* lane, SUMOVehicleClass vclass, const bool
     const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
     // get selected lanes
     const auto selectedLanes = myNet->getAttributeCarriers()->getSelectedLanes();
-    // Declare set of edges
-    std::set<GNEEdge*> setOfEdges;
-    // Fill set of edges with vector of edges
+    // A selected edge uses its outside lane. A lane selection uses its outermost selected lane.
+    const bool addVerge = vclass == SVC_IGNORING;
+    std::map<GNEEdge*, int> insertionIndices;
     for (const auto& edge : selectedEdges) {
-        setOfEdges.insert(edge);
+        insertionIndices.emplace(edge, insertAtFront ? (int)edge->getChildLanes().size() : 0);
     }
-    // iterate over selected lanes
     for (const auto& selectedLane : selectedLanes) {
-        // Insert pointer to edge into set of edges (To avoid duplicates)
-        setOfEdges.insert(myNet->getAttributeCarriers()->retrieveEdge(selectedLane->getParentEdge()->getID()));
+        auto* edge = selectedLane->getParentEdge();
+        if (!edge->isAttributeCarrierSelected()) {
+            const int index = selectedLane->getIndex() + (insertAtFront ? 1 : 0);
+            const auto [it, inserted] = insertionIndices.emplace(edge, index);
+            if (!inserted) {
+                it->second = insertAtFront ? MAX2(it->second, index) : MIN2(it->second, index);
+            }
+        }
     }
-    // If we handeln a set of edges
     if (lane->isAttributeCarrierSelected() || lane->getParentEdge()->isAttributeCarrierSelected()) {
-        // declare counter for number of restrictions
         int counter = 0;
-        // iterate over set of edges
-        for (const auto& edge : setOfEdges) {
-            // update counter if edge has already a restricted lane of type "vclass"
-            if (edge->hasRestrictedLane(vclass)) {
-                counter++;
+        if (!addVerge) {
+            for (const auto& [edge, index] : insertionIndices) {
+                if (edge->hasRestrictedLane(vclass)) {
+                    counter++;
+                }
             }
         }
         // if all lanes own a Sidewalk, stop function
-        if (counter == (int)setOfEdges.size()) {
+        if (counter == (int)insertionIndices.size()) {
             const std::string header = TLF("Add vclass % to selected lanes", toString(vclass));
             const std::string body = TLF("All lanes own already another lane in the same edge with a restriction to %.", toString(vclass));
             // show information dialog
@@ -1124,7 +1129,7 @@ GNEViewNet::addRestrictedLane(GNELane* lane, SUMOVehicleClass vclass, const bool
         } else {
             // Ask confirmation to user
             const std::string header = TLF("Add vclass % to selected lanes", toString(vclass));
-            const std::string body = TLF("% restrictions to % will be added. Continue?", toString(setOfEdges.size() - counter), toString(vclass));
+            const std::string body = TLF("% restrictions to % will be added. Continue?", toString(insertionIndices.size() - counter), toString(vclass));
             // show question dialog
             const GNEQuestionBasicDialog questionDialog(GNEApp, GNEDialog::Buttons::YES_NO, header, body);
             // continue depending of result
@@ -1134,10 +1139,12 @@ GNEViewNet::addRestrictedLane(GNELane* lane, SUMOVehicleClass vclass, const bool
         }
         // begin undo operation
         myUndoList->begin(lane, TL("add restrictions for ") + toString(vclass));
-        // iterate over set of edges
-        for (const auto& edge : setOfEdges) {
-            // add restricted lane (guess target)
-            myNet->addRestrictedLane(vclass, edge, -1, myUndoList);
+        for (const auto& [edge, index] : insertionIndices) {
+            if (addVerge) {
+                myNet->addGreenVergeLane(edge, index, myUndoList);
+            } else {
+                myNet->addRestrictedLane(vclass, edge, -1, myUndoList);
+            }
         }
         // end undo operation
         myUndoList->end();
