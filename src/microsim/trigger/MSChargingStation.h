@@ -344,8 +344,17 @@ protected:
     /// @brief order vehicles by time of first charge
     std::vector<std::string> myChargedVehicles;
 
-    /// @brief map with the Batteries charged by this charging station (key = vehicleID)
-    std::map<std::string, MSDevice_Battery*> myChargedBatteries;
+    struct ChargeRequest {
+        SUMOTime timeStep;
+        double requestedWh;
+    };
+
+    /// @brief Charging requests for the current step, including when output is disabled.
+    std::map<std::string, ChargeRequest> myChargeRequests;
+
+    bool hasTotalPowerLimit() const {
+        return myChargeType == CHARGETYPE_NORMAL && myTotalChargingPower > 0;
+    }
 
     /// @brief Event for checking at every time-step if myTotalPower has been exceeded
     Command* myTotalPowerCheckEvent;

@@ -351,7 +351,7 @@ MSChargingStation::setParameter(const std::string& key, const std::string& value
 void
 MSChargingStation::setChargeInTransit(bool value) {
     myChargeInTransit = value;
-    if (myTotalChargingPower > 0 && myChargeInTransit && myTotalPowerCheckEvent == nullptr) {
+    if (hasTotalPowerLimit() && myChargeInTransit && myTotalPowerCheckEvent == nullptr) {
         myTotalPowerCheckEvent = new WrappingCommand<MSChargingStation>(this, &MSChargingStation::checkTotalPower);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myTotalPowerCheckEvent);
     }
@@ -361,7 +361,7 @@ MSChargingStation::setChargeInTransit(bool value) {
 void
 MSChargingStation::setChargingVehicle(bool value) {
     myChargingVehicle = value;
-    if (myTotalChargingPower > 0 && myChargingVehicle && myTotalPowerCheckEvent == nullptr) {
+    if (hasTotalPowerLimit() && myChargingVehicle && myTotalPowerCheckEvent == nullptr) {
         myTotalPowerCheckEvent = new WrappingCommand<MSChargingStation>(this, &MSChargingStation::checkTotalPower);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myTotalPowerCheckEvent);
     }
@@ -373,9 +373,9 @@ MSChargingStation::setTotalChargingPower(double totalPower) {
     if (totalPower <= 0) {
         return;
     }
-    const bool hadLimit = myTotalChargingPower > 0;
+    const bool hadLimit = hasTotalPowerLimit();
     myTotalChargingPower = totalPower;
-    if (!hadLimit && (myChargeInTransit || myChargingVehicle) && myTotalPowerCheckEvent == nullptr) {
+    if (!hadLimit && hasTotalPowerLimit() && (myChargeInTransit || myChargingVehicle) && myTotalPowerCheckEvent == nullptr) {
         myTotalPowerCheckEvent = new WrappingCommand<MSChargingStation>(this, &MSChargingStation::checkTotalPower);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myTotalPowerCheckEvent);
     }
@@ -384,26 +384,31 @@ MSChargingStation::setTotalChargingPower(double totalPower) {
 
 SUMOTime
 MSChargingStation::checkTotalPower(SUMOTime currentTime) {
-    if (!myChargeInTransit && !myChargingVehicle) {
+    if (!hasTotalPowerLimit() || (myChargeRequests.empty() && !myChargeInTransit && !myChargingVehicle)) {
         myTotalPowerCheckEvent = nullptr;
-        myChargedBatteries.clear();
+        myChargeRequests.clear();
         return 0;
     }
+
+    struct StepRequest {
+        const std::string& vehicleID;
+        MSDevice_Battery* battery;
+        double requestedWh;
+    };
     double sumReqWh = 0;
-    std::vector<Charge*> thisStepCharges;
-    for (auto& kv : myChargeValues) {
-        if (MSNet::getInstance()->getVehicleControl().getVehicle(kv.first) == nullptr) {
+    std::vector<StepRequest> requests;
+    requests.reserve(myChargeRequests.size());
+    auto& vehicleControl = MSNet::getInstance()->getVehicleControl();
+    for (const auto& item : myChargeRequests) {
+        if (item.second.timeStep != currentTime) {
             continue;
         }
-        Charge& lastcharge = kv.second.back();
-        // discharging vehicles do not draw from the total charging power
-        if (lastcharge.timeStep == currentTime && lastcharge.WDischarged == 0) {
-            sumReqWh += lastcharge.WCharged;
-            thisStepCharges.push_back(&lastcharge);
+        auto* vehicle = vehicleControl.getVehicle(item.first);
+        auto* battery = vehicle == nullptr ? nullptr : static_cast<MSDevice_Battery*>(vehicle->getDevice(typeid(MSDevice_Battery)));
+        if (battery != nullptr && battery->getChargingStation() == this) {
+            requests.push_back({item.first, battery, item.second.requestedWh});
+            sumReqWh += item.second.requestedWh;
         }
-    }
-    if (thisStepCharges.size() < 2) {
-        return DELTA_T;
     }
     const double capWh = myTotalChargingPower * myEfficiency /*W*/ * TS /*s*/ / 3600.0; // convert to Wh
 #ifdef DEBUG_SIMSTEP
@@ -416,31 +421,32 @@ MSChargingStation::checkTotalPower(SUMOTime currentTime) {
 #endif
     if (sumReqWh > capWh && sumReqWh > 0) {
         const double ratio = capWh / sumReqWh;
-        for (auto* charge : thisStepCharges) {
-            const double deliveredWh = charge->WCharged * ratio;
-            const double excessWh = charge->WCharged - deliveredWh;
+        for (const StepRequest& request : requests) {
+            const double deliveredWh = request.requestedWh * ratio;
+            const double excessWh = request.requestedWh - deliveredWh;
             if (excessWh == 0.) {
                 continue;
             }
-            MSDevice_Battery* battery = myChargedBatteries[charge->vehicleID];
-            charge->WCharged = deliveredWh;
-            if (charge->chargingEfficiency > 0 && TS > 0) {
-                // derive power [W] from energy [Wh]: Power = (Energy [Wh] * 3600) [Ws] / (efficiency * TS [s])
-                // ergo we are doing [Ws/s -> W]
-                charge->chargingPower = (deliveredWh * 3600.0) / (charge->chargingEfficiency * TS);
+            request.battery->setEnergyCharged(deliveredWh);
+            const auto chargeValues = myChargeValues.find(request.vehicleID);
+            if (chargeValues != myChargeValues.end() && chargeValues->second.back().timeStep == currentTime) {
+                Charge& charge = chargeValues->second.back();
+                charge.WCharged = deliveredWh;
+                if (charge.chargingEfficiency > 0 && TS > 0) {
+                    charge.chargingPower = (deliveredWh * 3600.0) / (charge.chargingEfficiency * TS);
+                }
+                charge.actualBatteryCapacity = request.battery->getActualBatteryCapacity();
+                charge.totalEnergyCharged -= excessWh;
+                myTotalCharge -= excessWh;
             }
-            battery->setEnergyCharged(deliveredWh);
-            charge->actualBatteryCapacity = battery->getActualBatteryCapacity();
-            charge->totalEnergyCharged -= excessWh;
-            myTotalCharge -= excessWh;
-            auto sIt = mySessionState.find(charge->vehicleID);
+            auto sIt = mySessionState.find(request.vehicleID);
             if (sIt != mySessionState.end() && sIt->second.lastStep == currentTime && sIt->second.power > 0.) {
                 sIt->second.power *= ratio;
             }
 
 #ifdef DEBUG_SIMSTEP
             std::cout << "time=" << time2string(currentTime)
-                      << " vehID=" << charge->vehicleID
+                      << " vehID=" << request.vehicleID
                       << " requestedWh=" << (deliveredWh + excessWh)
                       << " deliveredWh=" << deliveredWh
                       << " deliveredW="  << charge->chargingPower
@@ -451,6 +457,7 @@ MSChargingStation::checkTotalPower(SUMOTime currentTime) {
         std::cout << "===============\n\n";
 #endif
     }
+    myChargeRequests.clear();
     return DELTA_T;
 }
 
@@ -473,6 +480,10 @@ MSChargingStation::isCharging() const {
 
 void
 MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* battery, double WDischarged, double deliveredGridPower) {
+    const std::string& vehID = battery->getHolder().getID();
+    if (hasTotalPowerLimit() && WCharged > 0 && WDischarged == 0) {
+        myChargeRequests[vehID] = {MSNet::getInstance()->getCurrentTimeStep(), WCharged};
+    }
     if (!OptionsCont::getOptions().isSet("chargingstations-output")) {
         return;
     }
@@ -500,11 +511,9 @@ MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* ba
     myTotalCharge += WCharged;
     myTotalDischarge += WDischarged;
     // create charge row and insert it in myChargeValues
-    const std::string vehID = battery->getHolder().getID();
     if (myChargeValues.count(vehID) == 0) {
         myChargedVehicles.push_back(vehID);
     }
-    myChargedBatteries[vehID] = battery;
     const double reportedPower = (deliveredGridPower != INVALID_DOUBLE) ? deliveredGridPower : (WDischarged > 0 ? myNominalDischargePower : myNominalChargingPower);
     Charge C(MSNet::getInstance()->getCurrentTimeStep(), vehID, battery->getHolder().getVehicleType().getID(),
              status, WCharged, battery->getActualBatteryCapacity(), battery->getMaximumBatteryCapacity(),
