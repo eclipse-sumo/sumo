@@ -31,6 +31,17 @@ also a start-commandline.bat which sets up the whole environment for
 you. If you feel unsure about the command line, please read
 [Running Programs from the Command Line](../Basics/Basic_Computer_Skills.md#running_programs_from_the_command_line).
 
+The MSI accepts an explicit install scope. To request a current-user
+installation, run the following in Command Prompt with the downloaded
+installer filename:
+
+```bat
+msiexec /i "sumo-win64.msi" ALLUSERS=2 MSIINSTALLPERUSER=1
+```
+
+The installer defaults to the all-users scope. That scope uses the
+64-bit Program Files folder and requires administrator rights.
+
 If you want a bleeding edge nightly build or need tests or source files,
 you can download them from the [Download](../Downloads.md) page.
 
