@@ -112,9 +112,6 @@ public:
         void refreshTAZEdges();
 
     protected:
-        /// @brief add source sink
-        void addSourceSink(GNETAZSourceSink* additional);
-
     private:
         /// @brief pointer to TAZ Frame
         GNETAZFrame* myTAZFrameParent;
