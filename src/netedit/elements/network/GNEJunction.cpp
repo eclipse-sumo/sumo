@@ -326,8 +326,9 @@ GNEJunction::checkDrawOverContour() const {
         return false;
     } else {
         if (modes.isCurrentSupermodeNetwork()) {
-            if (modes.networkEditMode == NetworkEditMode::NETWORK_CROSSING) {
-                return (viewObjectsSelector.getJunctionFront() == this);
+            if (modes.networkEditMode == NetworkEditMode::NETWORK_CROSSING ||
+                    modes.networkEditMode == NetworkEditMode::NETWORK_TLS) {
+                return true;
             }
         } else if (modes.isCurrentSupermodeDemand()) {
             // get current plan selector
