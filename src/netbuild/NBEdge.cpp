@@ -2601,6 +2601,59 @@ NBEdge::needsLaneSpecificOutput() const {
 
 
 bool
+NBEdge::suppressParallelCyclewayConnection(const NBEdge* out) const {
+    const auto isCycleway = [](const NBEdge* edge) {
+        return edge->getPermissions() == SVC_BICYCLE;
+    };
+    const auto isRoad = [](const NBEdge* edge) {
+        return (edge->getPermissions() & SVC_PASSENGER) != 0;
+    };
+    const bool fromCycleway = isCycleway(this);
+    const bool betweenRoadAndCycleway = fromCycleway ? isRoad(out) : isRoad(this) && isCycleway(out);
+    if (!betweenRoadAndCycleway) {
+        return false;
+    }
+
+    // Pair edges by their travel direction on each arm of the junction.
+    const auto parallel = [&](const NBEdge* edge, const EdgeVector& edges, const auto& matches) {
+        const NBEdge* closest = nullptr;
+        double smallestAngle = 20.;
+        for (const NBEdge* peer : edges) {
+            if (peer != edge && matches(peer)) {
+                const double angle = std::abs(NBHelpers::relAngle(edge->getAngleAtNode(myTo), peer->getAngleAtNode(myTo)));
+                if (angle < smallestAngle) {
+                    closest = peer;
+                    smallestAngle = angle;
+                }
+            }
+        }
+        return closest;
+    };
+    const auto& outgoing = myTo->getOutgoingEdges();
+    const auto& incoming = myTo->getIncomingEdges();
+    // Preserve access to paths that begin or end at this junction.
+    if (parallel(this, outgoing, isCycleway) == nullptr || parallel(this, outgoing, isRoad) == nullptr) {
+        return false;
+    }
+    if (fromCycleway) {
+        const NBEdge* road = parallel(this, incoming, isRoad);
+        // Bicycles need turning access from the cycleway when the parallel road forbids them.
+        if (road == nullptr || (road->getPermissions() & SVC_BICYCLE) == 0) {
+            return false;
+        }
+        const LinkDirection direction = myTo->getDirection(this, out);
+        return parallel(out, outgoing, isCycleway) != nullptr
+               || direction == LinkDirection::LEFT || direction == LinkDirection::PARTLEFT;
+    }
+    const NBEdge* incomingCycleway = parallel(this, incoming, isCycleway);
+    const NBEdge* outgoingRoad = parallel(out, outgoing, isRoad);
+    // Keep access from the shared lane when neither parallel lane offers the turn.
+    return incomingCycleway != nullptr && outgoingRoad != nullptr
+           && ((outgoingRoad->getPermissions() & SVC_BICYCLE) != 0 || incomingCycleway->getTurnDestination() != out);
+}
+
+
+bool
 NBEdge::computeEdge2Edges(bool noLeftMovers) {
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND) {
@@ -2647,6 +2700,9 @@ NBEdge::computeEdge2Edges(bool noLeftMovers) {
         }
         if ((getPermissions() & out->getPermissions() & ~SVC_PEDESTRIAN) == 0) {
             // no common permissions
+            continue;
+        }
+        if (suppressParallelCyclewayConnection(out)) {
             continue;
         }
         myConnections.push_back(Connection(-1, out, -1));

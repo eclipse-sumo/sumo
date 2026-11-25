@@ -1230,6 +1230,9 @@ public:
     /// @brief computes the edge (step1: computation of approached edges)
     bool computeEdge2Edges(bool noLeftMovers);
 
+    /// @brief Whether a computed connection leaves a parallel bicycle corridor.
+    bool suppressParallelCyclewayConnection(const NBEdge* out) const;
+
     /// @brief computes the edge, step2: computation of which lanes approach the edges)
     bool computeLanes2Edges();
 
