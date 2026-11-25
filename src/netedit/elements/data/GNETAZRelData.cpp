@@ -18,6 +18,8 @@
 // class for TAZ relation data
 /****************************************************************************/
 
+#include <cmath>
+
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
@@ -278,6 +280,8 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
     if (drawTAZRel()) {
         // fixed detail level because tazRelations need high detail when zoomed out
         const auto d = GUIVisualizationSettings::Detail::Level1;
+        const GUIGeometry& geom = myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()
+                                  ? myTAZRelGeometryCenter : myTAZRelGeometry;
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForViewObjectsHandler) {
             const auto& color = setColor(s);
@@ -295,19 +299,8 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
             if (width != myLastWidth) {
                 myLastWidth = width;
             }
-            // draw geometry
-            if (onlyDrawContour) {
-                // draw depending of TAZRelDrawing
-                if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
-                    GUIGeometry::drawGeometry(d, myTAZRelGeometryCenter, width);
-                } else {
-                    GUIGeometry::drawGeometry(d, myTAZRelGeometry, width);
-                }
-            } else {
-                // draw depending of TAZRelDrawing
-                const GUIGeometry& geom = (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()
-                                           ? myTAZRelGeometryCenter : myTAZRelGeometry);
-                GUIGeometry::drawGeometry(d, geom, width);
+            GUIGeometry::drawGeometry(d, geom, width);
+            if (!onlyDrawContour) {
                 GLHelper::drawTriangleAtEnd(
                     *(geom.getShape().end() - 2),
                     *(geom.getShape().end() - 1),
@@ -315,18 +308,19 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop matrix
             GLHelper::popMatrix();
+            if (!onlyDrawContour && s.dataValue.show(this) &&
+                    s.dataColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
+                const double value = getColorValue(s, s.dataColorer.getActive());
+                if (std::isfinite(value) && value != GUIVisualizationSettings::MISSING_DATA) {
+                    GLHelper::drawTextSettings(s.dataValue, toString(value), geom.getShape().getLineCenter(),
+                                               s.scale, s.angle, GLO_MAX - 1);
+                }
+            }
             // draw dotted contour
             myTAZRelDataContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
-        if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
-            // calculate contour and draw dotted geometry
-            myTAZRelDataContour.calculateContourExtrudedShape(s, d, this, myTAZRelGeometryCenter.getShape(), getType(),
-                    0.5, 1, true, true, 0, nullptr, nullptr);
-        } else {
-            // calculate contour and draw dotted geometry
-            myTAZRelDataContour.calculateContourExtrudedShape(s, d, this, myTAZRelGeometry.getShape(), getType(),
-                    0.5, 1, true, true, 0, nullptr, nullptr);
-        }
+        myTAZRelDataContour.calculateContourExtrudedShape(s, d, this, geom.getShape(), getType(),
+                0.5, 1, true, true, 0, nullptr, nullptr);
     }
 }
 
