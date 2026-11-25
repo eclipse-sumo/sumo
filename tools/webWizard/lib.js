@@ -68,7 +68,7 @@ const LANGUAGES = {
     "es": "Español",
 //    "pt": "Português",
 //    "fr": "Français",
-//    "it": "Italiano",
+    "it": "Italiano",
 //    "zh": "简体中文",
 //    "zh-Hant": "繁體中文",
 //    "tr": "Türkçe",
