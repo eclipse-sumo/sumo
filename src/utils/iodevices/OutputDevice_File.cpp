@@ -25,12 +25,14 @@
 #include <fstream>
 #include <cstring>
 #include <cerrno>
+#include <filesystem>
 #ifdef HAVE_ZLIB
 #include <foreign/zstr/zstr.hpp>
 #endif
 #include <utils/common/StringUtils.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/options/OptionsCont.h>
 #include "OutputDevice_File.h"
 
 
@@ -51,6 +53,17 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool bin
 #endif
     }
     const std::string& localName = XMLSubSys::transcodeToLocal(fullName);
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (!myAmNull && oc.exists("create-folders") && oc.getBool("create-folders")) {
+        const auto parent = std::filesystem::path(localName).parent_path();
+        if (!parent.empty()) {
+            std::error_code error;
+            std::filesystem::create_directories(parent, error);
+            if (error) {
+                throw IOError(TLF("Could not create output directory for '%' (%).", fullName, error.message()));
+            }
+        }
+    }
     std::ios_base::openmode mode = std::ios_base::out;
     if (binary) {
         mode |= std::ios_base::binary;
