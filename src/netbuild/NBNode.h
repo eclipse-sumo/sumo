@@ -479,9 +479,10 @@ public:
      * @param[in] fromLane The lane the connection start at
      * @param[in] toLane The lane the connection ends at
      * @param[in] includePedCrossings Whether braking due to a pedestrian crossing counts
+     * @param[in] includeBidi Whether braking due to a bidirectional target edge counts
      * @return Whether the described connection must brake (has higher priorised foes)
      */
-    bool mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, int toLane, bool includePedCrossings) const;
+    bool mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, int toLane, bool includePedCrossings, bool includeBidi = true) const;
 
     /**@brief Returns the information whether the described flow must brake for the given crossing
      * @param[in] from The connection's start edge

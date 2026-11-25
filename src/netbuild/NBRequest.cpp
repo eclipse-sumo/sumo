@@ -1052,7 +1052,7 @@ operator<<(std::ostream& os, const NBRequest& r) {
 
 
 bool
-NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, int toLane, bool includePedCrossings) const {
+NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, int toLane, bool includePedCrossings, bool includeBidi) const {
     NBEdge::Connection con(fromLane, const_cast<NBEdge*>(to), toLane);
     const int linkIndex = myJunction->getConnectionIndex(from, con);
     if (linkIndex >= 0 && (int)myResponse.size() > linkIndex) {
@@ -1062,11 +1062,11 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
         }
         if (response.find_first_of("1") == std::string::npos) {
             return false;
-        } else if (!myJunction->isTLControlled()) {
+        } else if (!myJunction->isTLControlled() && (includeBidi || !to->isBidiEdge())) {
             return true;
         }
-        // if the link must respond it could also be due to a tlsConflict. This
-        // must not carry over the off-state response so we continue with
+        // if the link must respond it could also be due to a tlsConflict or bidiConflict. This
+        // must not carry over the off-state / non-bidi response so we continue with
         // the regular check
     }
     // get the indices
