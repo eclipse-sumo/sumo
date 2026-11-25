@@ -2,3 +2,4 @@ Red limits both approaches before the signal clears.
 PZB delays acceleration after a clear signal until it is visible.
 A steady green signal is also subject to PZB visibility.
 A train stopped at its configured gap can start when green.
+A red aspect takes effect immediately after visible green.

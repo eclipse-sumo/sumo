@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2008-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
@@ -11,6 +10,10 @@
 # or later which is available at
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+
+# @file    runner.py
+# @author  Josh
+# @date    2026-11-26
 
 import os
 import sys
@@ -103,3 +106,44 @@ assert stopped_crossed
 assert any(distance >= 25 and speed == 0 and aspect == "r" for distance, speed, aspect in stopped)
 assert any(distance < 25 and speed > 0 and aspect == "G" for distance, speed, aspect in stopped)
 print("A train stopped at its configured gap can start when green.")
+
+
+def revoke_visible_green():
+    downstream_signal = "10713172887"
+    traci.start([sumolib.checkBinary("sumo"), "-n", "input_net.net.xml", "-r", "steady.rou.xml",
+                 "--no-step-log", "--xml-validation", "never", "--time-to-teleport", "-1"])
+    slowed = False
+    revoked_at = None
+    stopped = False
+    try:
+        traci.trafficlight.setParameter(SIGNAL, "pzb", "true")
+        for step in range(300):
+            traci.simulationStep()
+            if "follower" not in traci.vehicle.getIDList():
+                continue
+            tls = traci.vehicle.getNextTLS("follower")
+            if not tls or tls[0][0] != SIGNAL:
+                assert stopped
+                return
+            _, _, distance, aspect = tls[0]
+            speed = traci.vehicle.getSpeed("follower")
+            if not slowed and distance < 300:
+                # Keep a brakeable approach when imposing the new red aspect.
+                traci.vehicle.setMaxSpeed("follower", 5)
+                slowed = True
+            if revoked_at is None and distance <= 30 and aspect == "G":
+                traci.trafficlight.addConstraint(SIGNAL, "follower", downstream_signal, "absent", limit=1)
+                revoked_at = step
+            elif revoked_at is not None and not stopped:
+                assert aspect == "r"
+                if speed == 0:
+                    assert distance > 0
+                    traci.trafficlight.removeConstraints(SIGNAL, "follower", downstream_signal, "absent")
+                    stopped = True
+        raise AssertionError("Train did not cross after the signal cleared again")
+    finally:
+        traci.close()
+
+
+revoke_visible_green()
+print("A red aspect takes effect immediately after visible green.")
