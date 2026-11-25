@@ -464,6 +464,9 @@ Routing Options:
   --device.rerouting.period TIME       The period with which the vehicle shall
                                         be rerouted
   --device.rerouting.pre-period TIME   The rerouting period before depart
+  --device.rerouting.waiting-time TIME  The waiting time threshold which
+                                        triggers rerouting (negative values
+                                        disable)
   --device.rerouting.adaptation-weight FLOAT  The weight of prior edge weights
                                         for exponential moving average
   --device.rerouting.adaptation-steps INT  The number of steps for moving

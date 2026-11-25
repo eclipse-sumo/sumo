@@ -312,6 +312,7 @@ configuration:
 | **--device.rerouting.deterministic** {{DT_BOOL}} | The 'rerouting' devices are set deterministic using a fraction of 1000; *default:* **false** |
 | **--device.rerouting.period** {{DT_TIME}} | The period with which the vehicle shall be rerouted; *default:* **0** |
 | **--device.rerouting.pre-period** {{DT_TIME}} | The rerouting period before depart; *default:* **60** |
+| **--device.rerouting.waiting-time** {{DT_TIME}} | The waiting time threshold that triggers rerouting. Negative values disable rerouting by waiting time. *Default* **-1**. |
 | **--device.rerouting.adaptation-weight** {{DT_FLOAT}} | The weight of prior edge weights for exponential moving average; *default:* **0** |
 | **--device.rerouting.adaptation-steps** {{DT_INT}} | The number of steps for moving average weight of prior edge weights; *default:* **180** |
 | **--device.rerouting.adaptation-interval** {{DT_TIME}} | The interval for updating the edge weights; *default:* **1** |
