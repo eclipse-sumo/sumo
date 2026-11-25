@@ -4677,6 +4677,46 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* sender, FXSelector sel, 
 }
 
 
+namespace {
+
+class GNEChange_DataDefaultFilename : public GNEChange {
+public:
+    GNEChange_DataDefaultFilename(GNENet* net, const std::string& previous, const std::string& filename) :
+        GNEChange(Supermode::DATA, true, false),
+        myNet(net),
+        myPrevious(previous),
+        myFilename(filename) {}
+
+    void undo() override {
+        setFilename(myPrevious);
+    }
+
+    void redo() override {
+        setFilename(myFilename);
+    }
+
+    std::string undoName() const override {
+        return TL("Undo change default data file");
+    }
+
+    std::string redoName() const override {
+        return TL("Redo change default data file");
+    }
+
+private:
+    void setFilename(const std::string& filename) {
+        myNet->getGNEApplicationWindow()->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::DATA, filename);
+        myNet->getSavingStatus()->requireSaveDataElements();
+    }
+
+    GNENet* const myNet;
+    const std::string myPrevious;
+    const std::string myFilename;
+};
+
+}
+
+
 long
 GNEApplicationWindow::onCmdSaveDataElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
     // get data file
@@ -4687,16 +4727,23 @@ GNEApplicationWindow::onCmdSaveDataElementsUnified(FXObject* sender, FXSelector 
                                        myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (dataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        // use the file as default file
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::DATA, dataFileDialog.getFilename());
+        const auto previousFilename = myFileBucketHandler->getDefaultFilename(FileBucket::Type::DATA);
         // begin undoList operation
         myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TLF("saving of unified data elements in '%'", dataFileDialog.getFilename()));
-        // iterate over all demand elementes and change file
+        // Move all data into the default bucket before renaming it.
         for (const auto& dataSet : myNet->getAttributeCarriers()->getDataSets()) {
-            dataSet.second->setAttribute(GNE_ATTR_SAVEFILE, dataFileDialog.getFilename(), myUndoList);
+            dataSet.second->setAttribute(GNE_ATTR_SAVEFILE, previousFilename, myUndoList);
         }
         for (const auto& edgeData : myNet->getAttributeCarriers()->getGenericDatas().at(GNE_TAG_EDGEREL_SINGLE)) {
             edgeData.second->setAttribute(GNE_ATTR_SAVEFILE, "", myUndoList);
+        }
+        // Rename last so undo restores the original bucket name before restoring other assignments.
+        if (previousFilename != dataFileDialog.getFilename()) {
+            if (isUndoRedoAllowed()) {
+                myUndoList->add(new GNEChange_DataDefaultFilename(myNet, previousFilename, dataFileDialog.getFilename()), true);
+            } else {
+                myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::DATA, dataFileDialog.getFilename());
+            }
         }
         // end undoList operation
         myUndoList->end();
