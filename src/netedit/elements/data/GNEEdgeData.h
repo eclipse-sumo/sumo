@@ -158,6 +158,15 @@ public:
     /// @}
 
 private:
+    enum class Visibility {
+        HIDDEN,
+        OUTLINE,
+        FULL
+    };
+
+    /// @brief get visibility for the current data mode and filters
+    Visibility getVisibility() const;
+
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value) override;
 
