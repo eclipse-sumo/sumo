@@ -27,6 +27,8 @@
 // class definitions
 // ===========================================================================
 
+class GNEAngleSnap;
+
 class GNEMoveFrame : public GNEFrame {
 
 public:
@@ -87,6 +89,9 @@ public:
         /// @brief check if option "move only junction center" is enabled
         bool getMoveOnlyJunctionCenter() const;
 
+        /// @brief angle constraint for planar network movement
+        const GNEAngleSnap* getAngleSnap() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called after change option
@@ -110,6 +115,8 @@ public:
 
         /// @brief checkbox for move only juntion center
         FXCheckButton* myMoveOnlyJunctionCenter = nullptr;
+
+        GNEAngleSnap* myAngleSnap = nullptr;
     };
 
     // ===========================================================================

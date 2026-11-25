@@ -28,6 +28,7 @@
 #include <netedit/elements/network/GNELaneTemplate.h>
 #include <netedit/elements/network/GNELaneType.h>
 #include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/common/GNEAngleSnap.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -670,6 +671,7 @@ GNECreateEdgeFrame::Legend::~Legend() {}
 GNECreateEdgeFrame::GNECreateEdgeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Create Edge")),
     myJunctionSource(nullptr) {
+    myAngleSnap = new GNEAngleSnap(getContentFrame());
     // create custom edge selector
     myEdgeTypeSelector = new EdgeTypeSelector(this);
     // Create edgeType parameters
@@ -702,20 +704,34 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
         }
         // obtain junction depending of gridEnabled
         GNEJunction* junction = viewObjects.getJunctionFront();
+        const Position newPosition = getNewJunctionPosition(clickedPosition);
+        if (junction == nullptr && myJunctionSource && myAngleSnap->isEnabled()) {
+            if (newPosition.distanceSquaredTo2D(myJunctionSource->getPositionInView()) < POSITION_EPS * POSITION_EPS) {
+                myViewNet->setStatusBarText(TL("Start- and endpoint for an edge must be distinct!"));
+                return;
+            }
+            myViewNet->updateObjectsInPosition(newPosition);
+            GNEJunction* projectedJunction = viewObjects.getJunctionFront();
+            if (projectedJunction && projectedJunction->getPositionInView().distanceSquaredTo2D(newPosition) < POSITION_EPS * POSITION_EPS) {
+                junction = projectedJunction;
+            }
+        }
         // begin undo list
         if (!myViewNet->getUndoList()->hasCommandGroup()) {
             myViewNet->getUndoList()->begin(GUIIcon::EDGE, TL("create new edge"));
         }
         // if we didn't clicked over another junction, then create a new
         if (junction == nullptr) {
-            junction = myViewNet->getNet()->createJunction(myViewNet->snapToActiveGrid(clickedPosition), myViewNet->getUndoList());
+            junction = myViewNet->getNet()->createJunction(newPosition, myViewNet->getUndoList());
         }
         // now check if we have to create a new edge
         if (myJunctionSource == nullptr) {
             // check if create edge type short
             if (myEdgeTypeSelector->useDefaultEdgeTypeShort()) {
                 // create new junction
-                auto newJunction = myViewNet->getNet()->createJunction(myViewNet->snapToActiveGrid(clickedPosition) + Position(5, 0), myViewNet->getUndoList());
+                auto newJunction = myViewNet->getNet()->createJunction(myAngleSnap->isEnabled() ?
+                                    junction->getPositionInView() + myAngleSnap->shortEdgeOffset(5) :
+                                    newPosition + Position(5, 0), myViewNet->getUndoList());
                 // create new small edge
                 GNEEdge* newEdge = myViewNet->getNet()->createEdge(junction, newJunction, nullptr, myViewNet->getUndoList());
                 // set parameters
@@ -820,6 +836,18 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
             update();
         }
     }
+}
+
+
+Position
+GNECreateEdgeFrame::getNewJunctionPosition(const Position& clickedPosition, const GNEJunction* junction) const {
+    const auto snappedPosition = myViewNet->snapToActiveGrid(clickedPosition);
+    if (myAngleSnap->isEnabled() && junction) {
+        return junction->getPositionInView();
+    } else if (myJunctionSource) {
+        return myAngleSnap->project(myJunctionSource->getPositionInView(), snappedPosition);
+    }
+    return snappedPosition;
 }
 
 

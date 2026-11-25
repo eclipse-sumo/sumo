@@ -5645,7 +5645,9 @@ GNEViewNet::drawTemporalJunction() const {
             !myMouseButtonKeyPressed.shiftKeyPressed() &&
             !myMouseButtonKeyPressed.altKeyPressed()) {
         // get mouse position
-        const Position mousePosition = snapToActiveGrid(getPositionInformation());
+        const auto createEdgeFrame = myViewParent->getCreateEdgeFrame();
+        const auto junctionUnderCursor = myViewObjectsSelector.getJunctionFront();
+        const Position mousePosition = createEdgeFrame->getNewJunctionPosition(getPositionInformation(), junctionUnderCursor);
         // get junction exaggeration
         const double junctionExaggeration = myVisualizationSettings->junctionSize.getExaggeration(*myVisualizationSettings, nullptr, 4);
         // get bubble color

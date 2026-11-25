@@ -1,4 +1,6 @@
 set(netedit_frames_common_SRCS
+   GNEAngleSnap.h
+   GNEAngleSnap.cpp
    GNEComboBoxAttrProperty.h
    GNEComboBoxAttrProperty.cpp
    GNEComboBoxTagProperty.h

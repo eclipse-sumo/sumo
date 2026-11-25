@@ -8,6 +8,8 @@ title: editModesNetwork
 
 This mode creates edges (lanes) and implicitly junctions. The edge attributes will be taken from the current [Edge template](editModesCommon.md#edge_template). If no template is set, default options such as **default.lanenumber** will be used.
 
+Use **Angle snap** to place new destinations horizontally, vertically, or along a custom angle through the source junction. A custom angle is measured counterclockwise from east and applies in both directions. Netedit applies the grid to the cursor position before calculating the angle. Clicking an existing junction uses its current position.
+
 ![](../images/CreateEdge1.png)
 In "Create Edge" mode, click over a empty area of the view to create the junction
 
