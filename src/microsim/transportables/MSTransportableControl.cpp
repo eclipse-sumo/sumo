@@ -140,6 +140,29 @@ MSTransportableControl::fixLoadCount(const MSTransportable* transportable) {
 }
 
 
+void
+MSTransportableControl::discountStateRemoved(int n) {
+    myDiscardedNumber += n;
+    myEndedNumber += n;
+    myRunningNumber = 0;
+    myWaitingForDepartureNumber = 0;
+    for (const auto& it : myTransportables) {
+        if (it.second->hasDeparted()) {
+            myRunningNumber++;
+        } else {
+            myWaitingForDepartureNumber++;
+        }
+    }
+    myWaitingForVehicleNumber = 0;
+    for (const auto& it : myWaiting4Vehicle) {
+        myWaitingForVehicleNumber += (int)it.second.size();
+    }
+    if (myWaitingForVehicleNumber == 0) {
+        myHaveNewWaiting = false;
+    }
+}
+
+
 MSTransportable*
 MSTransportableControl::get(const std::string& id) const {
     std::map<std::string, MSTransportable*>::const_iterator i = myTransportables.find(id);

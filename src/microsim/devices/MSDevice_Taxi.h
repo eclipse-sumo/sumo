@@ -200,7 +200,8 @@ public:
     void loadState(const SUMOSAXAttributes& attrs);
 
     /// @brief call during state loading after all transportables are loaded
-    static void finalizeLoadState();
+    static void finalizeLoadState(const std::set<std::string>* removedPersons = nullptr,
+                                  const std::set<std::string>* removedContainers = nullptr);
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const;

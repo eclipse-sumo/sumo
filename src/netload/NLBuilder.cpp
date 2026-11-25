@@ -176,8 +176,11 @@ NLBuilder::build() {
         }
         if (defaultBegin) {
             myOptions.set("begin", time2string(stateTime));
-            // if vehicles are deliberately removed from the state, we must allow them to be reloaded from a route file at state time
-            SUMOTime allowReloadOffset = myOptions.isDefault("load-state.remove-vehicles") ? 0 : 1;
+            // if vehicles or transportables are deliberately removed from the state, we must allow them to be reloaded from a route file at state time
+            const bool allowReload = (!myOptions.isDefault("load-state.remove-vehicles")
+                                      || !myOptions.isDefault("load-state.remove-persons")
+                                      || !myOptions.isDefault("load-state.remove-containers"));
+            const SUMOTime allowReloadOffset = allowReload ? 1 : 0;
             myNet.setLoaderTime(stateTime - allowReloadOffset);
             if (TraCIServer::getInstance() != nullptr) {
                 TraCIServer::getInstance()->stateLoaded(stateTime);

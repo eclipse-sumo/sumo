@@ -109,6 +109,10 @@ MSFrame::fillOptions() {
     oc.addDescription("load-state.offset", "Input", TL("Shifts all times loaded from a saved state by the given offset"));
     oc.doRegister("load-state.remove-vehicles", new Option_StringVector(StringVector({})));
     oc.addDescription("load-state.remove-vehicles", "Input", TL("Removes vehicles with the given IDs from the loaded state"));
+    oc.doRegister("load-state.remove-persons", new Option_StringVector(StringVector({})));
+    oc.addDescription("load-state.remove-persons", "Input", TL("Removes persons with the given IDs from the loaded state"));
+    oc.doRegister("load-state.remove-containers", new Option_StringVector(StringVector({})));
+    oc.addDescription("load-state.remove-containers", "Input", TL("Removes containers with the given IDs from the loaded state"));
 
     oc.doRegister("junction-taz", new Option_Bool(false));
     oc.addDescription("junction-taz", "Input", TL("Initialize a TAZ for every junction to use attributes toJunction and fromJunction"));

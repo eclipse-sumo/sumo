@@ -1140,7 +1140,32 @@ MSDevice_Taxi::loadState(const SUMOSAXAttributes& attrs) {
 
 
 void
-MSDevice_Taxi::finalizeLoadState() {
+MSDevice_Taxi::finalizeLoadState(const std::set<std::string>* removedPersons,
+                                 const std::set<std::string>* removedContainers) {
+    std::set<MSDevice_Taxi*> taxisWithRemovedCustomers;
+    std::set<std::string> removedResIDs;
+    const auto isRemoved = [&](const std::string& id) {
+        return ((removedPersons != nullptr && removedPersons->count(id) > 0)
+                || (removedContainers != nullptr && removedContainers->count(id) > 0));
+    };
+    if (myDispatcher != nullptr) {
+        if (removedPersons != nullptr) {
+            for (const std::string& id : *removedPersons) {
+                const std::string resID = myDispatcher->removeLoadedReservation(id);
+                if (!resID.empty()) {
+                    removedResIDs.insert(resID);
+                }
+            }
+        }
+        if (removedContainers != nullptr) {
+            for (const std::string& id : *removedContainers) {
+                const std::string resID = myDispatcher->removeLoadedReservation(id);
+                if (!resID.empty()) {
+                    removedResIDs.insert(resID);
+                }
+            }
+        }
+    }
     if (myStateLoadedCustomers.size() > 0) {
         MSNet* net = MSNet::getInstance();
         MSTransportableControl* pc = net->hasPersons() ? &net->getPersonControl() : nullptr;
@@ -1154,7 +1179,11 @@ MSDevice_Taxi::finalizeLoadState() {
                 t = cc->get(item.first);
             }
             if (t == nullptr) {
-                WRITE_ERRORF("Could not find taxi customer '%'. Ensure state contains transportables", item.first);
+                if (isRemoved(item.first)) {
+                    taxisWithRemovedCustomers.insert(item.second);
+                } else {
+                    WRITE_ERRORF("Could not find taxi customer '%'. Ensure state contains transportables", item.first);
+                }
             } else {
                 item.second->myCustomers.insert(t);
             }
@@ -1172,11 +1201,96 @@ MSDevice_Taxi::finalizeLoadState() {
         for (auto item : myStateLoadedReservations) {
             auto it = resLookup.find(item.first);
             if (it == resLookup.end()) {
-                WRITE_ERRORF("Could not find taxi reservation '%'.", item.first);
+                if (removedResIDs.count(item.first) == 0) {
+                    WRITE_ERRORF("Could not find taxi reservation '%'.", item.first);
+                }
             } else {
                 item.second->myCurrentReservations.insert(it->second);
             }
         }
+    }
+    for (MSDevice_Taxi* taxi : taxisWithRemovedCustomers) {
+        SUMOVehicle& holder = taxi->getHolder();
+        MSBaseVehicle& veh = dynamic_cast<MSBaseVehicle&>(holder);
+        if (taxi->myCustomers.empty()) {
+            taxi->myCurrentReservations.clear();
+            taxi->myState = EMPTY;
+            if (holder.isStoppedParking()) {
+                MSStop& stop = holder.getNextStopMutable();
+                stop.duration = 0;
+                if (holder.isStoppedTriggered()) {
+                    stop.triggered = false;
+                    stop.containerTriggered = false;
+                    stop.joinTriggered = false;
+                    holder.unregisterWaiting();
+                }
+                const_cast<SUMOVehicleParameter::Stop&>(stop.pars).permitted.insert("");
+                while (holder.getStops().size() > 1) {
+                    holder.abortNextStop(1);
+                }
+            } else {
+                while (holder.hasStops()) {
+                    holder.abortNextStop();
+                }
+            }
+        } else {
+            if (holder.getPersonNumber() == 0 && holder.getContainerNumber() == 0) {
+                taxi->myState &= ~OCCUPIED;
+            }
+            int stopIdx = 0;
+            while (stopIdx < (int)holder.getStops().size()) {
+                MSStop& stop = veh.getStop(stopIdx);
+                SUMOVehicleParameter::Stop& pars = const_cast<SUMOVehicleParameter::Stop&>(stop.pars);
+                if (!pars.permitted.empty()) {
+                    for (auto it = pars.permitted.begin(); it != pars.permitted.end();) {
+                        if (isRemoved(*it)) {
+                            it = pars.permitted.erase(it);
+                        } else {
+                            ++it;
+                        }
+                    }
+                    if (pars.permitted.empty()) {
+                        if (stopIdx == 0 && holder.isStoppedParking()) {
+                            stop.duration = 0;
+                            if (holder.isStoppedTriggered()) {
+                                stop.triggered = false;
+                                stop.containerTriggered = false;
+                                stop.joinTriggered = false;
+                                holder.unregisterWaiting();
+                            }
+                            pars.permitted.insert("");
+                            stopIdx++;
+                            continue;
+                        } else {
+                            holder.abortNextStop(stopIdx);
+                            continue;
+                        }
+                    }
+                }
+                stopIdx++;
+            }
+            if (!taxi->hasFuturePickup()) {
+                bool pickupAtCurrentStop = false;
+                if (holder.hasStops() && holder.getNextStop().reached) {
+                    for (const std::string& id : holder.getNextStop().pars.permitted) {
+                        if (!id.empty()) {
+                            for (const MSTransportable* c : taxi->myCustomers) {
+                                if (c->getID() == id && c->getVehicle() != &holder) {
+                                    pickupAtCurrentStop = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (!pickupAtCurrentStop) {
+                    taxi->myState &= ~PICKUP;
+                }
+            }
+        }
+    }
+    if (myDispatcher != nullptr) {
+        myDispatcher->clearLoadedReservations();
     }
     myStateLoadedCustomers.clear();
     myStateLoadedReservations.clear();

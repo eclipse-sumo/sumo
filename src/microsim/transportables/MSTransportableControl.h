@@ -197,6 +197,9 @@ public:
     /// @brief decrement counter to avoid double counting transportables loaded from state
     void fixLoadCount(const MSTransportable* transportable);
 
+    /// @brief discount transportables that were removed during state loading
+    void discountStateRemoved(int n);
+
     /// @name Retrieval of transportable statistics (always accessible)
     /// @{
 

@@ -114,12 +114,20 @@ MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset) :
     myCFMAttrs(nullptr),
     myLastParameterised(nullptr),
     myRemoved(0),
+    myRemovedPersons(0),
+    myRemovedContainers(0),
+    mySkipTransportable(false),
     myMesoEventCounter(-1),
     myFlowIndex(-1),
     myConstrainedSignal(nullptr) {
     myAmLoadingState = true;
-    const std::vector<std::string> vehIDs = OptionsCont::getOptions().getStringVector("load-state.remove-vehicles");
+    const OptionsCont& oc = OptionsCont::getOptions();
+    const std::vector<std::string>& vehIDs = oc.getStringVector("load-state.remove-vehicles");
     myVehiclesToRemove.insert(vehIDs.begin(), vehIDs.end());
+    const std::vector<std::string>& personIDs = oc.getStringVector("load-state.remove-persons");
+    myPersonsToRemove.insert(personIDs.begin(), personIDs.end());
+    const std::vector<std::string>& containerIDs = oc.getStringVector("load-state.remove-containers");
+    myContainersToRemove.insert(containerIDs.begin(), containerIDs.end());
     myAllowInternalRoutes = true;
 }
 
@@ -198,6 +206,19 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step, bool usePrefix
 
 void
 MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    if (mySkipTransportable) {
+        return;
+    }
+    if (element == SUMO_TAG_PERSON && myPersonsToRemove.count(attrs.getString(SUMO_ATTR_ID)) > 0) {
+        mySkipTransportable = true;
+        myRemovedPersons++;
+        return;
+    }
+    if (element == SUMO_TAG_CONTAINER && myContainersToRemove.count(attrs.getString(SUMO_ATTR_ID)) > 0) {
+        mySkipTransportable = true;
+        myRemovedContainers++;
+        return;
+    }
     MSRouteHandler::myStartElement(element, attrs);
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     switch (element) {
@@ -299,7 +320,11 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 delete myVCAttrs;
             }
             bool ok;
-            MSNet::getInstance()->setLoaderTime(attrs.getOpt<SUMOTime>(SUMO_ATTR_LOADERTIME, nullptr, ok, 0));
+            SUMOTime loaderTime = attrs.getOpt<SUMOTime>(SUMO_ATTR_LOADERTIME, nullptr, ok, 0);
+            if (loaderTime == myTime && (!myVehiclesToRemove.empty() || !myPersonsToRemove.empty() || !myContainersToRemove.empty())) {
+                loaderTime -= 1;
+            }
+            MSNet::getInstance()->setLoaderTime(loaderTime);
             myVCAttrs = attrs.clone();
             break;
         }
@@ -319,6 +344,28 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         case SUMO_TAG_VEHICLE: {
             myLastParameterised = myVehicleParameter;
             myAttrs = attrs.clone();
+            break;
+        }
+        case SUMO_TAG_STOP: {
+            if (myActiveTransportablePlan == nullptr && myVehicleParameter != nullptr && !myVehicleParameter->stops.empty()) {
+                SUMOVehicleParameter::Stop& stop = myVehicleParameter->stops.back();
+                if (!stop.awaitedPersons.empty() && !myPersonsToRemove.empty()) {
+                    for (const std::string& id : myPersonsToRemove) {
+                        stop.awaitedPersons.erase(id);
+                    }
+                    if (stop.awaitedPersons.empty()) {
+                        stop.triggered = false;
+                    }
+                }
+                if (!stop.awaitedContainers.empty() && !myContainersToRemove.empty()) {
+                    for (const std::string& id : myContainersToRemove) {
+                        stop.awaitedContainers.erase(id);
+                    }
+                    if (stop.awaitedContainers.empty()) {
+                        stop.containerTriggered = false;
+                    }
+                }
+            }
             break;
         }
         case SUMO_TAG_DEVICE: {
@@ -524,6 +571,12 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 
 void
 MSStateHandler::myEndElement(int element) {
+    if (mySkipTransportable) {
+        if (element == SUMO_TAG_PERSON || element == SUMO_TAG_CONTAINER) {
+            mySkipTransportable = false;
+        }
+        return;
+    }
     MSRouteHandler::myEndElement(element);
     switch (element) {
         case SUMO_TAG_PERSON:
@@ -557,6 +610,14 @@ MSStateHandler::myEndElement(int element) {
                 WRITE_MESSAGEF(TL("Removed % vehicles while loading state."), toString(myRemoved));
                 vc.discountStateRemoved(myRemoved);
             }
+            if (myRemovedPersons > 0) {
+                WRITE_MESSAGEF(TL("Removed % persons while loading state."), toString(myRemovedPersons));
+                MSNet::getInstance()->getPersonControl().discountStateRemoved(myRemovedPersons);
+            }
+            if (myRemovedContainers > 0) {
+                WRITE_MESSAGEF(TL("Removed % containers while loading state."), toString(myRemovedContainers));
+                MSNet::getInstance()->getContainerControl().discountStateRemoved(myRemovedContainers);
+            }
             for (SUMOVehicle* v : myArrived) {
                 // state was created with active option --keep-after-arrival
                 vc.deleteKeptVehicle(v);
@@ -573,7 +634,7 @@ MSStateHandler::myEndElement(int element) {
             if (MSGlobals::gUseMesoSim && myMesoEventCounter >= 0) {
                 MELoop::setEventCounter(myMesoEventCounter);
             }
-            MSDevice_Taxi::finalizeLoadState();
+            MSDevice_Taxi::finalizeLoadState(&myPersonsToRemove, &myContainersToRemove);
             break;
         }
         default:
