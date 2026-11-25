@@ -1660,6 +1660,50 @@ MSLCM_LC2013::_wantsChange(
     }
     // --------
 
+    if (neighLane.getEdge().getPersons().size() > 0) {
+        // react to pedestrians
+        adaptSpeedToPedestrians(myVehicle.getLane(), thisLaneVSafe);
+        adaptSpeedToPedestrians(&neighLane, neighLaneVSafe);
+    }
+
+    const double relativeGain = (neighLaneVSafe - thisLaneVSafe) / MAX2(neighLaneVSafe,
+                                RELGAIN_NORMALIZATION_MIN_SPEED);
+
+#ifdef DEBUG_WANTS_CHANGE
+    if (DEBUG_COND) {
+        std::cout << STEPS2TIME(currentTime)
+                  << " veh=" << myVehicle.getID()
+                  << " currentDist=" << currentDist
+                  << " neighDist=" << neighDist
+                  << " thisVSafe=" << thisLaneVSafe
+                  << " neighVSafe=" << neighLaneVSafe
+                  << " relGain=" << toString(relativeGain, 8)
+                  << "\n";
+    }
+#endif
+
+    if (right) {
+        // ONLY FOR CHANGING TO THE RIGHT
+        if (thisLaneVSafe - 5 / 3.6 > neighLaneVSafe) {
+            // ok, the current lane is faster than the right one...
+            mySpeedGainProbabilityRight = (long long int)((double)mySpeedGainProbabilityRight * pow(0.5, myVehicle.getActionStepLengthSecs()));
+            //myKeepRightProbability /= 2.0;
+        } else {
+            // ok, the current lane is not (much) faster than the right one
+            mySpeedGainProbabilityRight += (long long int)(myVehicle.getActionStepLengthSecs() * relativeGain * HYST_PRECISION);
+        }
+    } else {
+        // ONLY FOR CHANGING TO THE LEFT
+        if (thisLaneVSafe > neighLaneVSafe) {
+            // this lane is better
+            mySpeedGainProbabilityLeft = (long long int)((double)mySpeedGainProbabilityLeft * pow(0.5, myVehicle.getActionStepLengthSecs()));
+        } else if (thisLaneVSafe == neighLaneVSafe) {
+            mySpeedGainProbabilityLeft = (long long int)((double)mySpeedGainProbabilityLeft * pow(0.8, myVehicle.getActionStepLengthSecs()));
+        } else {
+            mySpeedGainProbabilityLeft += (long long int)(myVehicle.getActionStepLengthSecs() * relativeGain * HYST_PRECISION);
+        }
+    }
+
     // -------- make place on current lane if blocking follower
     //if (amBlockingFollowerPlusNB()) {
     //    std::cout << myVehicle.getID() << ", " << currentDistAllows(neighDist, bestLaneOffset, laDist)
@@ -1713,38 +1757,9 @@ MSLCM_LC2013::_wantsChange(
     //    return ret;
     //}
 
-    if (neighLane.getEdge().getPersons().size() > 0) {
-        // react to pedestrians
-        adaptSpeedToPedestrians(myVehicle.getLane(), thisLaneVSafe);
-        adaptSpeedToPedestrians(&neighLane, neighLaneVSafe);
-    }
-
-    const double relativeGain = (neighLaneVSafe - thisLaneVSafe) / MAX2(neighLaneVSafe,
-                                RELGAIN_NORMALIZATION_MIN_SPEED);
-
-#ifdef DEBUG_WANTS_CHANGE
-    if (DEBUG_COND) {
-        std::cout << STEPS2TIME(currentTime)
-                  << " veh=" << myVehicle.getID()
-                  << " currentDist=" << currentDist
-                  << " neighDist=" << neighDist
-                  << " thisVSafe=" << thisLaneVSafe
-                  << " neighVSafe=" << neighLaneVSafe
-                  << " relGain=" << toString(relativeGain, 8)
-                  << "\n";
-    }
-#endif
-
     if (right) {
         // ONLY FOR CHANGING TO THE RIGHT
-        if (thisLaneVSafe - 5 / 3.6 > neighLaneVSafe) {
-            // ok, the current lane is faster than the right one...
-            mySpeedGainProbabilityRight = (long long int)((double)mySpeedGainProbabilityRight * pow(0.5, myVehicle.getActionStepLengthSecs()));
-            //myKeepRightProbability /= 2.0;
-        } else {
-            // ok, the current lane is not (much) faster than the right one
-            mySpeedGainProbabilityRight += (long long int)(myVehicle.getActionStepLengthSecs() * relativeGain * HYST_PRECISION);
-
+        if (thisLaneVSafe - 5 / 3.6 <= neighLaneVSafe) {
             // honor the obligation to keep right (Rechtsfahrgebot)
             const double roadSpeedFactor = vMax / myVehicle.getLane()->getSpeedLimit(); // differse from speedFactor if vMax < speedLimit
             double acceptanceTime;
@@ -1844,14 +1859,6 @@ MSLCM_LC2013::_wantsChange(
         }
     } else {
         // ONLY FOR CHANGING TO THE LEFT
-        if (thisLaneVSafe > neighLaneVSafe) {
-            // this lane is better
-            mySpeedGainProbabilityLeft = (long long int)((double)mySpeedGainProbabilityLeft * pow(0.5, myVehicle.getActionStepLengthSecs()));
-        } else if (thisLaneVSafe == neighLaneVSafe) {
-            mySpeedGainProbabilityLeft = (long long int)((double)mySpeedGainProbabilityLeft * pow(0.8, myVehicle.getActionStepLengthSecs()));
-        } else {
-            mySpeedGainProbabilityLeft += (long long int)(myVehicle.getActionStepLengthSecs() * relativeGain * HYST_PRECISION);
-        }
         // VARIANT_19 (stayRight)
         //if (neighFollow.first != 0) {
         //    MSVehicle* nv = neighFollow.first;
