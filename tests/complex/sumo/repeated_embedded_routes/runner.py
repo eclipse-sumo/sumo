@@ -11,7 +11,10 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-from pathlib import Path
+# @file    runner.py
+# @author  Josh
+# @date    2026-11-26
+
 import os
 import subprocess
 import sys
@@ -34,8 +37,8 @@ for mode, options in (("micro", []), ("meso", ["--mesosim"])):
     args = [sumolib.checkBinary("sumo"), "-n", sys.argv[1], "-r", "input_routes.rou.xml",
             "--no-step-log", "--no-duration-log", "--default.speeddev", "0"] + options
     subprocess.check_call(args + ["--stop-output", "actual-stops.xml", "--vehroute-output", "schedule.xml",
-                                 "--save-state.times", "15", "--save-state.files", "checkpoint.xml",
-                                 "--save-state.rng"])
+                                  "--save-state.times", "15", "--save-state.files", "checkpoint.xml",
+                                  "--save-state.rng"])
     stopped = read_stops("actual-stops.xml")
     expected_edges = {"flow.0": ["CS"] * 3, "flow.1": ["CS"] * 3,
                       "one": ["CN", "CS"] * 3 + ["SC"]}
