@@ -52,6 +52,8 @@ enum class SUMOVehicleShape {
     PEDESTRIAN,
     /// @brief render as a bicycle
     BICYCLE,
+    /// @brief render as a front-loading cargo bicycle
+    BICYCLE_CARGO,
     /// @brief render as a moped
     MOPED,
     /// @brief render as a motorcycle
@@ -109,9 +111,7 @@ enum class SUMOVehicleShape {
     /// @brief render as a scooter
     SCOOTER,
     /// @brief render as aircraft
-    AIRCRAFT,
-    /// @brief render as a front-loading cargo bicycle
-    BICYCLE_CARGO
+    AIRCRAFT
 };
 
 
@@ -136,7 +136,7 @@ enum class SUMOVehicleShape {
  * @arg [8] Bicycle
  * @arg [9] Pedestrian
  *
- * enum type decleration to work around visual studio non-compliance
+ * enum type declaration to work around visual studio non-compliance
  * see https://gist.github.com/NTimmons/a7229b1dacf8280be2292ebd6b2b8b5d#file-enum-h
  */
 enum SUMOVehicleClass : int64_t {
