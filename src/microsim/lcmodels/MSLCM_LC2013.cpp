@@ -510,14 +510,24 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         // not overtaking
         return plannedSpeed;
     }
-    const double neighNextSpeed = MIN2(nv->getSpeed() - ACCEL2SPEED(MAX2(1.0, -nv->getAcceleration())),
-                                       // assume that we know when a neighboring vehicle intends to stop
-                                       nv->nextStopDist() <= nv->getLane()->getLength() ? nv->getCarFollowModel().minNextSpeed(nv->getSpeed(), nv) : nv->getSpeed());
+    const double unboundedLeaderSpeed = MIN2(nv->getSpeed() - ACCEL2SPEED(MAX2(1.0, -nv->getAcceleration())),
+                                            // assume that we know when a neighboring vehicle intends to stop
+                                            nv->nextStopDist() <= nv->getLane()->getLength() ? nv->getCarFollowModel().minNextSpeed(nv->getSpeed(), nv) : nv->getSpeed());
+    const double neighNextSpeed = MAX2(0., unboundedLeaderSpeed);
     double neighNextGap;
     if (MSGlobals::gSemiImplicitEulerUpdate) {
-        neighNextGap = neighLead.second + SPEED2DIST(neighNextSpeed - plannedSpeed);
+        // An early stop needs clearance during merging even when the leader no longer advances.
+        // Bound this clearance by the neighbor's emergency braking in one step.
+        const double clearanceRate = MIN2(MAX2(0., -unboundedLeaderSpeed), ACCEL2SPEED(nv->getCarFollowModel().getEmergencyDecel()));
+        neighNextGap = neighLead.second + SPEED2DIST(neighNextSpeed - clearanceRate - plannedSpeed);
     } else {
-        neighNextGap = neighLead.second + SPEED2DIST((nv->getSpeed() + neighNextSpeed) / 2) - SPEED2DIST((myVehicle.getSpeed() + plannedSpeed) / 2);
+        const double leaderTravel = unboundedLeaderSpeed < 0.
+                                    ? nv->getDeltaPos(SPEED2ACCEL(unboundedLeaderSpeed - nv->getSpeed()))
+                                    : SPEED2DIST((nv->getSpeed() + neighNextSpeed) / 2);
+        const double egoTravel = plannedSpeed < 0.
+                                 ? myVehicle.getDeltaPos(SPEED2ACCEL(plannedSpeed - myVehicle.getSpeed()))
+                                 : SPEED2DIST((myVehicle.getSpeed() + plannedSpeed) / 2);
+        neighNextGap = neighLead.second + leaderTravel - egoTravel;
     }
     if ((blocked & LCA_BLOCKED_BY_LEADER) != 0) {
         if (MSLCHelper::divergentRoute(myVehicle, *nv)) {
@@ -577,7 +587,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             // slow down smoothly to follow leader
             // account for minor decelerations by the leader (dawdling)
             double targetSpeed = MAX3(myVehicle.getCarFollowModel().minNextSpeed(myVehicle.getSpeed(), &myVehicle),
-                                      getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighNextGap, MAX2(0., neighNextSpeed), nv->getCarFollowModel().getMaxDecel()),
+                                      getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighNextGap, neighNextSpeed, nv->getCarFollowModel().getMaxDecel()),
                                       // avoid changing on intersection
                                       (myVehicle.getLane()->isNormal() || myVehicle.getCurrentEdge()->isRoundabout()) ? 0 : ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxAccel()));
             if (targetSpeed < myVehicle.getSpeed()) {
@@ -655,7 +665,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         // we are not blocked now. make sure we stay far enough from the leader
         const double targetSpeed = MAX2(
                                        myVehicle.getCarFollowModel().minNextSpeed(myVehicle.getSpeed(), &myVehicle),
-                                       getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighNextGap, MAX2(0., neighNextSpeed), nv->getCarFollowModel().getMaxDecel()));
+                                       getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighNextGap, neighNextSpeed, nv->getCarFollowModel().getMaxDecel()));
         addLCSpeedAdvice(targetSpeed, dir);
 #ifdef DEBUG_INFORMER
         if (DEBUG_COND) {
