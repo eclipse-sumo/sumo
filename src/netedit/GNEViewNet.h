@@ -775,6 +775,9 @@ private:
     /// @brief delete data attribute carriers
     void deleteDataAttributeCarrier(const GNEAttributeCarrier* AC);
 
+    /// @brief Retrieve the attribute carrier targeted by the popup menu.
+    GNEAttributeCarrier* getAttributeCarrierAtPopupPosition();
+
     /// @brief try to retrieve an edge at popup position
     GNEEdge* getEdgeAtPopupPosition();
 
