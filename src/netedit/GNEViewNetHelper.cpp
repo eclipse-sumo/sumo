@@ -40,6 +40,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 #include <utils/gui/images/GUITextureSubSys.h>
+#include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEApplicationWindow.h"
@@ -2677,6 +2678,10 @@ GNEViewNetHelper::EditModes::setView(FXSelector sel) {
         fileMenuCommands.setDefaultView();
         // hide short edges in create edge frame
         myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->showDefaultShortEdgeCheckBox(false);
+        // restore default junction size exaggeration
+        if (myViewNet->editVisualisationSettings()->junctionSize.exaggeration == 0.2) {
+            myViewNet->editVisualisationSettings()->junctionSize.exaggeration = 1;
+        }
     } else if (sel == MID_GNE_VIEW_JUPEDSIM) {
         myNeteditViewsButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::VIEWJUPEDSIM));
         gripSupermodes->setWidth(250);
@@ -2684,7 +2689,17 @@ GNEViewNetHelper::EditModes::setView(FXSelector sel) {
         fileMenuCommands.setJuPedSimView();
         // show short edges in create edge frame
         myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->showDefaultShortEdgeCheckBox(true);
+        // reduce junction bubble size to allow creating short edges at any angle
+        if (myViewNet->editVisualisationSettings()->junctionSize.exaggeration == 1) {
+            myViewNet->editVisualisationSettings()->junctionSize.exaggeration = 0.2;
+        }
     }
+    if (myViewNet->myGUIDialogViewSettings != nullptr) {
+        myViewNet->myGUIDialogViewSettings->setCurrent(myViewNet->editVisualisationSettings());
+    }
+    // unpost views popup
+    myNeteditViewsButton->handle(myViewNet, FXSEL(SEL_COMMAND, FXWindow::ID_UNPOST), nullptr);
+    myNeteditViewsButton->killFocus();
     // update viewNet
     myViewNet->viewUpdated();
 }
