@@ -16,4 +16,5 @@ set(utils_vehicle_STAT_SRCS
    SUMOVTypeParameter.h)
 
 add_library(utils_vehicle STATIC ${utils_vehicle_STAT_SRCS})
+target_link_libraries(utils_vehicle PRIVATE utils_xml)
 set_property(TARGET utils_vehicle PROPERTY PROJECT_LABEL "z_utils_vehicle")

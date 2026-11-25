@@ -26,7 +26,6 @@
 #include <xercesc/sax2/Attributes.hpp>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StringUtils.h>
-#include <utils/xml/CommonXMLStructure.h>
 #include "SUMOSAXAttributes.h"
 
 
