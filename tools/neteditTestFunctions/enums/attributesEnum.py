@@ -916,6 +916,7 @@ class attrs:
             chargeType = 15
             waitingTime = 17
             parkingArea = 18
+            dischargePower = 19
             parameters = 21
             parametersButton = 22
             frontButton = 24
@@ -938,6 +939,7 @@ class attrs:
             chargeType = 10
             waitingTime = 11
             parkingArea = 12
+            dischargePower = 13
             parameters = 15
             parametersButton = 16
             frontButton = 18

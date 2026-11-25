@@ -49,6 +49,10 @@ netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspect.totalPow
 # Change parameter Power with a valid value
 netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspect.totalPower, "500.5")
 
+# Reject a negative limit and commit a positive one.
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspect.dischargePower, "-100")
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspect.dischargePower, "7200.5")
+
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)
 

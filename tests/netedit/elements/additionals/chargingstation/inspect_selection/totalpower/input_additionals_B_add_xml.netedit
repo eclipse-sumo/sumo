@@ -15,7 +15,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <chargingStation id="chargingStationB" name="chargingStationNameB" lane="EdgeCenter0_1" startPos="26.71" endPos="36.71" friendlyPos="1" power="13000.00" totalPower="11000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2.00" chargeType="fuel" waitingTime="500.00">
+    <chargingStation id="chargingStationB" name="chargingStationNameB" lane="EdgeCenter0_1" startPos="26.71" endPos="36.71" friendlyPos="1" power="13000.00" totalPower="11000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2.00" chargeType="fuel" waitingTime="500.00" dischargePower="4800.00">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

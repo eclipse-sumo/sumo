@@ -46,6 +46,9 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 # set valid power
 netedit.modifyAttribute(netedit.attrs.chargingStation.create.totalPower, "2500.5")
 
+# Set the vehicle-to-grid limit before creating the station.
+netedit.modifyAttribute(netedit.attrs.chargingStation.create.dischargePower, "3600")
+
 # create chargingStation in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 

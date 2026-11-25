@@ -46,6 +46,9 @@ netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspectSelection
 # Set Power
 netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspectSelection.totalPower, "11000")
 
+# Set the vehicle-to-grid limit on both selected stations.
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspectSelection.dischargePower, "4800")
+
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
 
