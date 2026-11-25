@@ -52,6 +52,10 @@ netedit.modifyAttributeOverlapped(netedit.attrs.E2.inspect.pos, "400")
 # Change parameter pos with a valid value
 netedit.modifyAttributeOverlapped(netedit.attrs.E2.inspect.pos, "20")
 
+# Preserve the detector length when saving a position measured from lane end.
+netedit.modifyBoolAttributeOverlapped(netedit.attrs.E2.inspect.friendlyPos)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2.inspect.pos, "-5")
+
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)
 
