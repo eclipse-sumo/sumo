@@ -1233,6 +1233,9 @@ struct GNEApplicationWindowHelper {
         /// @brief check if at least we have an additional file defined
         bool isFilenameDefined(const FileBucket::Type type) const;
 
+        /// @brief Preserve additional inputs skipped when loading a SUMO configuration.
+        void setSkippedSumoAdditionals(const StringVector& files);
+
         /// brief set default files for all buckets
         void resetDefaultFilenames();
 
@@ -1259,6 +1262,9 @@ struct GNEApplicationWindowHelper {
 
         /// @brief reference to sumo options
         OptionsCont& mySumoOptions;
+
+        /// @brief Saved SUMO additional inputs without an editable bucket.
+        StringVector mySkippedSumoAdditionals;
 
         /// @brief map with the buckets
         std::map<FileBucket::Type, std::vector<FileBucket*> > myBuckets;
