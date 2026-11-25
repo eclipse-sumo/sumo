@@ -27,6 +27,8 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/NamespaceIDs.h>
 
+#include <netedit/elements/network/GNELane.h>
+
 #include "GNECalibratorFlow.h"
 
 // ===========================================================================
@@ -131,15 +133,42 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
 }
 
 
+namespace {
+
+const GNEEdge*
+getCalibratorEdge(const GNEAdditional& calibrator) {
+    if (!calibrator.getParentEdges().empty()) {
+        return calibrator.getParentEdges().front();
+    }
+    return calibrator.getParentLanes().empty() ? nullptr : calibrator.getParentLanes().front()->getParentEdge();
+}
+
+}
+
+
+bool
+GNECalibratorFlow::routeFitsCalibrator(const GNEAdditional& calibrator, const GNEDemandElement& route) {
+    const auto edge = getCalibratorEdge(calibrator);
+    const auto& routeEdges = route.getParentEdges();
+    return edge && std::find(routeEdges.begin(), routeEdges.end(), edge) != routeEdges.end();
+}
+
+
 bool
 GNECalibratorFlow::isAdditionalValid() const {
-    return true;
+    return isTemplate() || routeFitsCalibrator(*getParentAdditionals().front(), *getParentDemandElements().at(1));
 }
 
 
 std::string
 GNECalibratorFlow::getAdditionalProblem() const {
-    return "";
+    const auto calibrator = getParentAdditionals().front();
+    const auto edge = getCalibratorEdge(*calibrator);
+    if (edge == nullptr) {
+        return TLF("Calibrator '%' has no edge.", calibrator->getID());
+    }
+    return TLF("Route '%' does not contain edge '%'.",
+               getParentDemandElements().at(1)->getID(), edge->getID());
 }
 
 
@@ -399,8 +428,10 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidAdditionalID(value);
         case SUMO_ATTR_TYPE:
             return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, value, false) == nullptr);
-        case SUMO_ATTR_ROUTE:
-            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::routes, value, false) == nullptr);
+        case SUMO_ATTR_ROUTE: {
+            const auto route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, value, false);
+            return route && (isTemplate() || routeFitsCalibrator(*getParentAdditionals().front(), *route));
+        }
         case SUMO_ATTR_ROUTEPROBE:
             if (value.empty()) {
                 return true;

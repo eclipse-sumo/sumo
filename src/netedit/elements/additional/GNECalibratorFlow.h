@@ -77,6 +77,9 @@ public:
     /// @brief check if current additional is valid to be written into XML (must be reimplemented in all detector children)
     bool isAdditionalValid() const override;
 
+    /// @brief check whether a route visits the calibrator's edge
+    static bool routeFitsCalibrator(const GNEAdditional& calibrator, const GNEDemandElement& route);
+
     /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
     std::string getAdditionalProblem() const override;
 

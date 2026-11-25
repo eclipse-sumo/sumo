@@ -37,7 +37,12 @@ FXDEFMAP(GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions) ConsecutiveLane
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::onCmdSelectOption)
 };
 
+FXDEFMAP(GNEFixAdditionalElementsDialog::CalibratorFlowOptions) CalibratorFlowOptionsMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_CHOOSEN_OPERATION, GNEFixAdditionalElementsDialog::CalibratorFlowOptions::onCmdSelectOption)
+};
+
 // Object abstract implementation
+FXIMPLEMENT(GNEFixAdditionalElementsDialog::CalibratorFlowOptions, GNEGroupBoxModule, CalibratorFlowOptionsMap, ARRAYNUMBER(CalibratorFlowOptionsMap))
 FXIMPLEMENT(GNEFixAdditionalElementsDialog::PositionOptions,        GNEGroupBoxModule, PositionOptionsMap,          ARRAYNUMBER(PositionOptionsMap))
 FXIMPLEMENT(GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions, GNEGroupBoxModule, ConsecutiveLaneOptionsMap,   ARRAYNUMBER(ConsecutiveLaneOptionsMap))
 
@@ -277,6 +282,54 @@ GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::onCmdSelectOption(FXObje
 // GNEFixAdditionalElementsDialog - methods
 // ---------------------------------------------------------------------------
 
+GNEFixAdditionalElementsDialog::CalibratorFlowOptions::CalibratorFlowOptions(GNEFixAdditionalElementsDialog* dialog) :
+    GNEFixElementsDialog<GNEAdditional*>::FixOptions(dialog, dialog->myRightFrame, TL("Calibrator flow routes")) {
+    myKeepFlows = GUIDesigns::buildFXRadioButton(myLeftFrameOptions, TL("Save invalid flows"), "",
+                  TL("Keep the calibrator flows with incompatible routes"),
+                  this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    myRemoveFlows = GUIDesigns::buildFXRadioButton(myRightFrameOptions, TL("Remove invalid flows"), "",
+                    TL("Remove only the listed flows and keep their routes"),
+                    this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    registerOption(myKeepFlows);
+    registerOption(myRemoveFlows);
+    myKeepFlows->setCheck(true);
+}
+
+
+long
+GNEFixAdditionalElementsDialog::CalibratorFlowOptions::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
+    myKeepFlows->setCheck(obj == myKeepFlows);
+    myRemoveFlows->setCheck(obj == myRemoveFlows);
+    return 1;
+}
+
+
+void
+GNEFixAdditionalElementsDialog::CalibratorFlowOptions::selectInternalTestSolution(const std::string& solution) {
+    if (solution == "saveInvalidCalibratorFlows") {
+        onCmdSelectOption(myKeepFlows, 0, nullptr);
+    } else if (solution == "removeInvalidCalibratorFlows") {
+        onCmdSelectOption(myRemoveFlows, 0, nullptr);
+    }
+}
+
+
+bool
+GNEFixAdditionalElementsDialog::CalibratorFlowOptions::applyFixOption() {
+    if (myRemoveFlows->getCheck()) {
+        auto net = myConflictedElements.front().getElement()->getNet();
+        auto undoList = net->getUndoList();
+        undoList->begin(GUIIcon::FLOW, TL("remove invalid calibrator flows"));
+        for (const auto& conflict : myConflictedElements) {
+            net->deleteAdditional(conflict.getElement(), undoList);
+        }
+        undoList->end();
+        return true;
+    }
+    return myKeepFlows->getCheck();
+}
+
+
 GNEFixAdditionalElementsDialog::GNEFixAdditionalElementsDialog(GNEApplicationWindow* mainWindow,
         const std::vector<GNEAdditional*>& elements) :
     GNEFixElementsDialog(mainWindow, TL("Fix additional problems"), GUIIcon::MODEADDITIONAL,
@@ -286,7 +339,7 @@ GNEFixAdditionalElementsDialog::GNEFixAdditionalElementsDialog(GNEApplicationWin
     // create consecutive lane options
     myConsecutiveLaneOptions = new ConsecutiveLaneOptions(this);
     // split invalidDemandElements in four groups
-    std::vector<ConflictElement> invalidSingleLanes, invalidMultiLanes;
+    std::vector<ConflictElement> invalidSingleLanes, invalidMultiLanes, invalidCalibratorFlows;
     // fill groups
     for (const auto& invalidAdditionalElement : elements) {
         // create conflict element
@@ -295,7 +348,12 @@ GNEFixAdditionalElementsDialog::GNEFixAdditionalElementsDialog(GNEApplicationWin
                                           invalidAdditionalElement->getACIcon(),
                                           invalidAdditionalElement->getAdditionalProblem());
         // add depending of element type
-        if (invalidAdditionalElement->getTagProperty()->hasAttribute(SUMO_ATTR_LANE)) {
+        if (invalidAdditionalElement->getTagProperty()->getTag() == GNE_TAG_CALIBRATOR_FLOW) {
+            invalidCalibratorFlows.emplace_back(invalidAdditionalElement,
+                                               invalidAdditionalElement->getParentAdditionals().front()->getID(),
+                                               invalidAdditionalElement->getACIcon(),
+                                               invalidAdditionalElement->getAdditionalProblem());
+        } else if (invalidAdditionalElement->getTagProperty()->hasAttribute(SUMO_ATTR_LANE)) {
             invalidSingleLanes.push_back(fixElement);
         } else if (invalidAdditionalElement->getTagProperty()->hasAttribute(SUMO_ATTR_LANES)) {
             invalidMultiLanes.push_back(fixElement);
@@ -304,6 +362,10 @@ GNEFixAdditionalElementsDialog::GNEFixAdditionalElementsDialog(GNEApplicationWin
     // fill options
     myPositionOptions->setInvalidElements(invalidSingleLanes);
     myConsecutiveLaneOptions->setInvalidElements(invalidMultiLanes);
+    if (!invalidCalibratorFlows.empty()) {
+        auto calibratorFlowOptions = new CalibratorFlowOptions(this);
+        calibratorFlowOptions->setInvalidElements(invalidCalibratorFlows);
+    }
     // open modal dialog
     openDialog();
 }
