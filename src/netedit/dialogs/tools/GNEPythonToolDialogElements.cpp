@@ -169,6 +169,14 @@ GNEPythonToolDialogElements::Argument::getArgument() const {
 
 
 bool
+GNEPythonToolDialogElements::Argument::validateOutput(const std::string& directory) const {
+    const auto value = getValue();
+    return myToolDialogParent->getPythonTool()->isWritableOutput(getParameterLabel()->getText().text(),
+           *myOption, value.empty() ? myDefaultValue : value, directory);
+}
+
+
+bool
 GNEPythonToolDialogElements::Argument::requiredAttributeSet() const {
     if (myOption->isRequired()) {
         return getValue() != myDefaultValue;
@@ -205,6 +213,17 @@ GNEPythonToolDialogElements::Argument::Argument() {}
 GNEPythonToolDialogElements::FileNameArgument::FileNameArgument(GNEPythonToolDialog* toolDialogParent, const GNEPythonTool* pythonTool,
         GNEApplicationWindow* applicationWindow, FXVerticalFrame* argumentFrame, const std::string name, Option* option) :
     FileNameArgument(toolDialogParent, pythonTool, applicationWindow, argumentFrame, name, option, "") {
+}
+
+
+bool
+GNEPythonToolDialogElements::FileNameArgument::validateOutput(const std::string& directory) const {
+    if (myOption->getSubTopic() != "output") {
+        return true;
+    }
+    const bool valid = Argument::validateOutput(directory);
+    myFilenameTextField->setTextColor(valid ? GUIDesignTextColorBlack : GUIDesignTextColorRed);
+    return valid;
 }
 
 
@@ -383,7 +402,7 @@ GNEPythonToolDialogElements::NetworkArgument::onCmdOpenFilename(FXObject*, FXSel
 
 long
 GNEPythonToolDialogElements::NetworkArgument::onCmdUseCurrentNetworkFile(FXObject*, FXSelector, void*) {
-    myFilenameTextField->setText(OptionsCont::getOptions().getString("sumo-net-file").c_str(), TRUE);
+    myFilenameTextField->setText(FXPath::absolute(OptionsCont::getOptions().getString("sumo-net-file").c_str()), TRUE);
     return 1;
 }
 
@@ -628,6 +647,17 @@ GNEPythonToolDialogElements::StringArgument::StringArgument(GNEPythonToolDialog*
     myStringTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // set value
     myStringTextField->setText(option->getValueString().c_str());
+}
+
+
+bool
+GNEPythonToolDialogElements::StringArgument::validateOutput(const std::string& directory) const {
+    if (myOption->getSubTopic() != "output") {
+        return true;
+    }
+    const bool valid = Argument::validateOutput(directory);
+    myStringTextField->setTextColor(valid ? GUIDesignTextColorBlack : GUIDesignTextColorRed);
+    return valid;
 }
 
 

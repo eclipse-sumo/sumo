@@ -61,6 +61,28 @@ public:
     /// @brief get command (python + script + arguments)
     virtual std::string getCommand() const;
 
+    /// @brief get the command that runs the tool in its selected directory
+    std::string getRunCommand() const;
+
+    /// @brief use the explicit working directory, or a writable default
+    std::string getWorkingDirectory() const;
+
+    /// @brief remember a working directory for this tool; empty selects the default
+    void setWorkingDirectory(const std::string& directory);
+
+    /// @brief choose a writable tool directory using the current network filename
+    static std::string getDefaultWorkingDirectory(const std::string& network);
+
+    /// @brief check whether a directory can accommodate new output files
+    static bool isWritableDirectory(const std::string& directory);
+
+    /// @brief validate the destinations of a declared output file option
+    bool isWritableOutput(const std::string& name, const Option& option,
+                                 const std::string& value, const std::string& directory) const;
+
+    /// @brief resolve a relative tool output where the child writes it
+    std::string resolveOutput(const std::string& path) const;
+
     /// @brief get default value of the given parameter
     const std::string getDefaultValue(const std::string& name) const;
 
@@ -93,6 +115,9 @@ protected:
     std::string getCommandPath() const;
 
 private:
+    /// @brief editable per-tool directory override
+    std::string myWorkingDirectory;
+
     /// @brief Invalidated copy constructor.
     GNEPythonTool(const GNEPythonTool&) = delete;
 

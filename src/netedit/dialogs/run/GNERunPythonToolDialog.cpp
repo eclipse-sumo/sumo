@@ -49,7 +49,7 @@ GNERunPythonToolDialog::runInternalTest(const InternalTestStep::DialogArgument* 
 
 std::string
 GNERunPythonToolDialog::getRunCommand() const {
-    return myPythonTool->getCommand();
+    return myPythonTool->getRunCommand();
 }
 
 

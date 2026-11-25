@@ -107,7 +107,7 @@ def get_options(args=None):
                     help="mapping library to use (obsolete)")
     ap.add_argument("--map-output", category="output",
                     help="directory to write the generated mapping files to")
-    ap.add_argument("--map-output-config", default="conf/output_configuration_template.xml", category="output",
+    ap.add_argument("--map-output-config", default="conf/output_configuration_template.xml", category="input",
                     type=ap.file, help="output configuration template for the mapper library")
     ap.add_argument("--map-input-config", default="conf/input_configuration_template.xml", category="input",
                     type=ap.file, help="input configuration template for the mapper library")

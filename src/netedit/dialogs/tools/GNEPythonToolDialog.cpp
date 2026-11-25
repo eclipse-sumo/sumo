@@ -47,7 +47,7 @@ FXDEFMAP(GNEPythonToolDialog) GNEPythonToolDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,       GNEPythonToolDialog::onCmdLoad),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEPythonToolDialog::onCmdSetVisualization),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,     GNEPythonToolDialog::onCmdRun),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_RUN,     GNEPythonToolDialog::onUpdRequiredAttributes),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_RUN,     GNEPythonToolDialog::onUpdCanRun),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEPythonToolDialog::onCmdReset)
 };
 
@@ -75,6 +75,11 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* applicationWindow
     loadFile->setTipText(TL("Load file with tool configuration"));
     mySortedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Sorted by name"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myGroupedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Grouped by categories"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    auto directoryFrame = new FXHorizontalFrame(myContentFrame, GUIDesignHorizontalFrameNoPadding);
+    new FXLabel(directoryFrame, TL("Working directory"), nullptr, GUIDesignLabel(JUSTIFY_NORMAL));
+    myWorkingDirectory = new FXTextField(directoryFrame, GUIDesignTextFieldNCol, nullptr, 0, GUIDesignTextField);
+    myWorkingDirectory->setTipText(TL("Relative tool paths are resolved in this directory."));
+
     // add separators
     new FXSeparator(myContentFrame);
     // Create scroll frame for content rows
@@ -93,6 +98,8 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* applicationWindow
     myShowToolTipsMenu->setChecked(getApp()->reg().readIntEntry("gui", "menuToolTips", 0) != 1);
     // set current values in options (like current folders and similar)
     myPythonTool->setCurrentValues();
+    myInitialWorkingDirectory = myPythonTool->getWorkingDirectory();
+    myWorkingDirectory->setText(myInitialWorkingDirectory.c_str());
     // build arguments
     buildArguments(false, true);
     // get maximum height
@@ -180,6 +187,13 @@ GNEPythonToolDialog::onCmdSetVisualization(FXObject*, FXSelector, void*) {
 
 long
 GNEPythonToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
+    if (!canRun()) {
+        return 1;
+    }
+    const std::string directory = myWorkingDirectory->getText().text();
+    if (directory != myInitialWorkingDirectory) {
+        myPythonTool->setWorkingDirectory(directory);
+    }
     // hide dialog
     closeDialogAccepting();
     // run tool
@@ -193,7 +207,30 @@ GNEPythonToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
     for (const auto& argument : myArguments) {
         argument->reset();
     }
+    myPythonTool->setWorkingDirectory("");
+    myInitialWorkingDirectory = myPythonTool->getWorkingDirectory();
+    myWorkingDirectory->setText(myInitialWorkingDirectory.c_str());
     return 1;
+}
+
+
+long
+GNEPythonToolDialog::onUpdCanRun(FXObject* sender, FXSelector, void*) {
+    return sender->handle(this, FXSEL(SEL_COMMAND, canRun() ? ID_ENABLE : ID_DISABLE), nullptr);
+}
+
+
+bool
+GNEPythonToolDialog::canRun() const {
+    const std::string directory = myWorkingDirectory->getText().text();
+    const bool directoryValid = GNEPythonTool::isWritableDirectory(directory);
+    myWorkingDirectory->setTextColor(directoryValid ? GUIDesignTextColorBlack : GUIDesignTextColorRed);
+    bool valid = directoryValid;
+    for (const auto* argument : myArguments) {
+        const bool outputValid = argument->validateOutput(directory);
+        valid = valid && outputValid && argument->requiredAttributeSet();
+    }
+    return valid;
 }
 
 

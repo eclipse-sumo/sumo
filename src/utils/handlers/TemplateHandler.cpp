@@ -206,7 +206,7 @@ TemplateHandler::addOption(std::string value, const std::string& synonymes, cons
         if (option) {
             // set value
             if (!option->isSet()) {
-                option->set(value, "", false);
+                option->set(value, option->isFileName() ? value : "", false);
             }
             myOptions.doRegister(myOptionName, option);
             // check if add synonyme
