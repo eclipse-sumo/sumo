@@ -49,6 +49,16 @@
 
 #include "GNETLSEditorFrame.h"
 
+namespace {
+bool
+hasNEMATrafficLight(const GNEJunction* junction) {
+    const auto& controllers = junction->getNBNode()->getControllingTLS();
+    return std::any_of(controllers.begin(), controllers.end(), [](const NBTrafficLightDefinition* definition) {
+        return definition->getType() == TrafficLightType::NEMA;
+    });
+}
+}
+
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -984,7 +994,11 @@ GNETLSEditorFrame::TLSJunction::updateTLSJunction() {
             // enable
             myTLSIDTextField->enable();
             myTLSTypeComboBox->enable();
-            myJoinTLSToggleButton->enable();
+            if (hasNEMATrafficLight(myCurrentJunction)) {
+                myJoinTLSToggleButton->disable();
+            } else {
+                myJoinTLSToggleButton->enable();
+            }
             // disjoint button only if we have more than one TLS controlled
             if (TLS->getNodes().size() == 1) {
                 myDisjoinTLSButton->disable();
@@ -1030,7 +1044,11 @@ GNETLSEditorFrame::TLSJunction::toggleJunctionSelected(const GNEJunction* juncti
         auto it = std::find(mySelectedJunctionIDs.begin(), mySelectedJunctionIDs.end(), junction->getID());
         // check if add or remove
         if (it == mySelectedJunctionIDs.end()) {
-            mySelectedJunctionIDs.push_back(junction->getID());
+            if (hasNEMATrafficLight(junction)) {
+                myTLSEditorParent->getViewNet()->setStatusBarText(TL("NEMA traffic lights cannot be joined."));
+            } else {
+                mySelectedJunctionIDs.push_back(junction->getID());
+            }
         } else {
             mySelectedJunctionIDs.erase(it);
         }
@@ -1158,6 +1176,10 @@ GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
 long
 GNETLSEditorFrame::TLSJunction::onCmdToggleJoinTLS(FXObject*, FXSelector, void*) {
     if (myJoinTLSToggleButton->getState()) {
+        if (myCurrentJunction == nullptr || hasNEMATrafficLight(myCurrentJunction)) {
+            myJoinTLSToggleButton->setState(FALSE);
+            return 1;
+        }
         // set special color
         myJoinTLSToggleButton->setBackColor(FXRGBA(253, 255, 206, 255));
         // clear and fill mySelectedJunctionIDs
