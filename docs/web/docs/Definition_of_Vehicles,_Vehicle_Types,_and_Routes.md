@@ -189,6 +189,8 @@ using [{{SUMO}}/tools/route/sort_routes.py]({{Source}}tools/route/sort_routes.py
 When using attribute 'repeat' to repeat a route, the number of edges will be repeated the given number of times *after* driving them for the first time.
 Any stops defined within the route (whether in a stand-alone `<route>` or in a `<route>` child element of a vehicle or flow) will be repeated as well. If the stops use attribute 'until' or 'arrival', they will be shifted by attribute 'cycleTime' in each iteration.
 
+Only the selected alternative of an embedded `<routeDistribution>` contributes its stops. Stop times defined in those alternatives are absolute for vehicles and offset for each flow instance.
+
 !!! note
     Stops defined directly as child elements of `<vehicle>` or `<flow>` (outside `<route>`) belong to the vehicle rather than the route and are not repeated.
 

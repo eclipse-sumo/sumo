@@ -1,0 +1,25 @@
+<routes>
+    <vType id="stable" sigma="0"/>
+    <flow id="flow" type="stable" begin="10" end="110" period="60">
+        <routeDistribution>
+            <route edges="CN NC CS SC" repeat="2" cycleTime="120" probability="1">
+                <stop edge="CS" duration="3" arrival="0" until="30"/>
+            </route>
+            <route edges="CN NC CS SC" probability="0">
+                <stop edge="NC" duration="3"/>
+            </route>
+        </routeDistribution>
+    </flow>
+    <vehicle id="one" type="stable" depart="400">
+        <routeDistribution>
+            <route edges="CN NC CS SC" repeat="2" cycleTime="100" probability="1">
+                <stop edge="CN" duration="3" arrival="400" until="420"/>
+                <stop edge="CS" duration="3" until="440"/>
+            </route>
+            <route edges="CN NC CS SC" probability="0">
+                <stop edge="NC" duration="3" until="1100"/>
+            </route>
+        </routeDistribution>
+        <stop edge="SC" index="end" duration="7"/>
+    </vehicle>
+</routes>

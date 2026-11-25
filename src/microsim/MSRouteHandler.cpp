@@ -63,6 +63,7 @@ MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly
     myActiveRouteRepeat(0),
     myActiveRoutePeriod(0),
     myActiveRoutePermanent(false),
+    myActiveRouteStopTimesAbsolute(false),
     myActiveType(ObjectTypeEnum::UNDEFINED),
     myHaveVia(false),
     myActiveTransportablePlan(nullptr),
@@ -392,6 +393,9 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
                           // handle obsolete attribute name
                           attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, myActiveRouteID.c_str(), ok, 0));
     myActiveRoutePermanent = attrs.getOpt<bool>(SUMO_ATTR_STATE, myActiveRouteID.c_str(), ok, false);
+    myActiveRouteStopTimesAbsolute = (myVehicleParameter != nullptr && myCurrentRouteDistribution != nullptr)
+                                     || (myAmLoadingState && StringUtils::toBool(
+                                             attrs.getStringSecure(MSRoute::STOP_TIMES_ABSOLUTE, "false")));
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         WRITE_WARNING(TL("Attribute 'period' is deprecated for route. Use 'cycleTime' instead."));
     }
@@ -524,7 +528,8 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
         MSRoute* const route = new MSRoute(myActiveRouteID, myActiveRoute,
                                            myAmLoadingState ? myActiveRoutePermanent : myVehicleParameter == nullptr,
                                            myActiveRouteColor, myActiveRouteStops,
-                                           myActiveRouteReplacedAtTime, myActiveRouteReplacedIndex);
+                                           myActiveRouteReplacedAtTime, myActiveRouteReplacedIndex,
+                                           myActiveRouteStopTimesAbsolute && !myActiveRouteStops.empty());
         route->setPeriod(myActiveRoutePeriod);
         route->setCosts(myCurrentCosts);
         route->setReroute(mustReroute);
@@ -844,7 +849,8 @@ MSRouteHandler::addVehicleStopsToImplicitRoute(ConstMSRoutePtr route, bool isPer
         }
     }
     ConstMSRoutePtr newRoute = std::make_shared<MSRoute>("!" + myVehicleParameter->id, edges,
-                               isPermanent, new RGBColor(route->getColor()), route->getStops());
+                               isPermanent, new RGBColor(route->getColor()), route->getStops(),
+                               -1, 0, route->hasAbsoluteStopTimes());
     if (!MSRoute::dictionary(newRoute->getID(), newRoute)) {
         throw ProcessError("Could not adapt implicit route for " + std::string(isPermanent ? "flow" : "vehicle") + "  '" + myVehicleParameter->id + "'");
     }
@@ -1314,7 +1320,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             errorSuffix = " in route '" + myActiveRouteID + "'";
         }
         SUMOVehicleParameter::Stop stop;
-        bool ok = parseStop(stop, attrs, errorSuffix, MsgHandler::getErrorInstance());
+        bool ok = parseStop(stop, attrs, errorSuffix, MsgHandler::getErrorInstance(), myAmLoadingState);
         if (!ok) {
             if (MSGlobals::gCheckRoutes) {
                 throw ProcessError();
@@ -1478,7 +1484,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             myActiveTransportablePlan->push_back(new MSStageWaiting(edge, toStop, stop.duration, stop.until, pos, actType, false, stop.jump));
             result = myActiveTransportablePlan->back();
 
-        } else if (myActiveRouteRepeat > 0 && myCurrentRouteDistribution == nullptr
+        } else if ((myActiveRouteRepeat > 0 || myCurrentRouteDistribution != nullptr)
                    && myElementStack.size() >= 2 && myElementStack[myElementStack.size() - 2] == SUMO_TAG_ROUTE) {
             myActiveRouteStops.push_back(stop);
             result = &myActiveRouteStops.back();

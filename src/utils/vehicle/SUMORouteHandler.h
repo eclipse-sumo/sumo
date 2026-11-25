@@ -202,7 +202,8 @@ protected:
     void addParam(const SUMOSAXAttributes& attrs);
 
     /// @brief parses attributes common to all stops
-    bool parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs, std::string errorSuffix, MsgHandler* const errorOutput);
+    bool parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs, std::string errorSuffix,
+                   MsgHandler* const errorOutput, bool loadState = false);
 
 protected:
     virtual const SUMOVTypeParameter* getVTypeParameter(const std::string& refid) = 0;

@@ -51,7 +51,8 @@ MSRoute::MSRoute(const std::string& id,
                  const bool isPermanent, const RGBColor* const c,
                  const StopParVector& stops,
                  SUMOTime replacedTime,
-                 int replacedIndex) :
+                 int replacedIndex,
+                 bool stopTimesAbsolute) :
     Named(id), myEdges(edges), myAmPermanent(isPermanent),
     myColor(c),
     myPeriod(0),
@@ -59,6 +60,7 @@ MSRoute::MSRoute(const std::string& id,
     mySavings(0),
     myReroute(false),
     myStops(stops),
+    myStopTimesAbsolute(stopTimesAbsolute),
     myReplacedTime(replacedTime),
     myReplacedIndex(replacedIndex)
 {}
@@ -280,11 +282,14 @@ MSRoute::dict_saveState(OutputDevice& out) {
         out.writeAttr(SUMO_ATTR_ID, r->getID());
         out.writeAttr(SUMO_ATTR_STATE, r->myAmPermanent);
         out.writeAttr(SUMO_ATTR_EDGES, r->myEdges);
+        if (r->hasAbsoluteStopTimes()) {
+            out.writeAttr(STOP_TIMES_ABSOLUTE, true);
+        }
         if (r->myColor != nullptr) {
             out.writeAttr(SUMO_ATTR_COLOR, *r->myColor);
         }
         for (auto stop : r->getStops()) {
-            stop.write(out);
+            stop.write(out, true, true, true);
         }
         out.closeTag();
     }
@@ -415,6 +420,15 @@ MSRoute::getColor() const {
 const StopParVector&
 MSRoute::getStops() const {
     return myStops;
+}
+
+
+SUMOTime
+MSRoute::getStopTimeOffset(const SUMOVehicleParameter& vehicle) const {
+    if (myStopTimesAbsolute) {
+        return vehicle.repetitionOffset > 0 ? vehicle.repetitionsDone * vehicle.repetitionOffset : 0;
+    }
+    return vehicle.depart;
 }
 
 

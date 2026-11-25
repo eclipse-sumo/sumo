@@ -360,7 +360,8 @@ public:
          * @param[in, out] dev The device to write into
          * @exception IOError not yet implemented
          */
-        void write(OutputDevice& dev, const bool close = true, const bool writeTagAndParents = true) const;
+        void write(OutputDevice& dev, const bool close = true, const bool writeTagAndParents = true,
+                   const bool saveState = false) const;
 
         /// @brief return list of stopping place ids
         std::vector<std::string> getStoppingPlaceIDs() const;

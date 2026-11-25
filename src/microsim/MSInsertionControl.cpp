@@ -412,7 +412,7 @@ MSInsertionControl::saveState(OutputDevice& out) {
             out.writeAttr(SUMO_ATTR_REROUTE, true);
         }
         for (const SUMOVehicleParameter::Stop& stop : flow.pars->stops) {
-            stop.write(out);
+            stop.write(out, true, true, true);
         }
         out.closeTag();
     }
