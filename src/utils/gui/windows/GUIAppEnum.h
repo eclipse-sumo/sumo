@@ -1236,6 +1236,7 @@ enum {
     /// @brief replace program with a newly guessed program
     MID_GNE_TLSFRAME_ATTRIBUTES_GUESSPROGRAM,
     /// @brief TLS offset
+    MID_GNE_TLSFRAME_ATTRIBUTES_PROGRAMID,
     MID_GNE_TLSFRAME_ATTRIBUTES_OFFSET,
     /// @brief TLS parameters
     MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS,

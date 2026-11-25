@@ -73,6 +73,7 @@ FXDEFMAP(GNETLSEditorFrame::TLSPrograms) TLSProgramsMap[] = {
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSAttributes) TLSAttributesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_ATTRIBUTES_PROGRAMID,          GNETLSEditorFrame::TLSAttributes::onCmdSetProgramID),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_ATTRIBUTES_OFFSET,             GNETLSEditorFrame::TLSAttributes::onCmdSetOffset),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS,         GNETLSEditorFrame::TLSAttributes::onCmdSetParameters),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG,   GNETLSEditorFrame::TLSAttributes::onCmdParametersDialog),
@@ -210,8 +211,7 @@ GNETLSEditorFrame::isTLSSaved() {
         // continue depending of result
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             // save modifications
-            myTLSPrograms->onCmdSaveChanges(nullptr, 0, nullptr);
-            return true;
+            return myTLSPrograms->onCmdSaveChanges(nullptr, 0, nullptr) != 0;
         } else if (questionDialog.getResult() == GNEDialog::Result::CANCEL) {
             // cancel modifications
             myTLSPrograms->onCmdDiscardChanges(nullptr, 0, nullptr);
@@ -574,6 +574,11 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
     myParametersTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS, GUIDesignTextField);
     myButtonEditParameters->disable();
     myParametersTextField->disable();
+    horizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(horizontalFrame, toString(SUMO_ATTR_PROGRAMID).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
+    myProgramIDTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this,
+                                         MID_GNE_TLSFRAME_ATTRIBUTES_PROGRAMID, GUIDesignTextField);
+    myProgramIDTextField->disable();
     // create set detectors button (By default disabled)
     mySetDetectorsToggleButton = new MFXToggleButtonTooltip(getCollapsableFrame(),
             TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
@@ -590,6 +595,13 @@ GNETLSEditorFrame::TLSAttributes::~TLSAttributes() {}
 
 void
 GNETLSEditorFrame::TLSAttributes::updateTLSAttributes() {
+    if (myTLSEditorParent->myEditedDef != nullptr
+            && !myTLSEditorParent->myTLSJunction->isJoiningJunctions()
+            && !isSetDetectorsToggleButtonEnabled()) {
+        myProgramIDTextField->enable();
+    } else {
+        myProgramIDTextField->disable();
+    }
     if (myTLSEditorParent->myTLSPrograms->getNumberOfPrograms() == 0) {
         // no TLS programs, disable elements
         myOffsetTextField->disable();
@@ -676,6 +688,8 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes() {
 
 void
 GNETLSEditorFrame::TLSAttributes::clearTLSAttributes() {
+    setProgramID("");
+    myProgramIDTextField->disable();
     // clear and disable Offset TextField
     myOffsetTextField->setText("");
     myOffsetTextField->disable();
@@ -685,6 +699,35 @@ GNETLSEditorFrame::TLSAttributes::clearTLSAttributes() {
     myParametersTextField->setText("");
     myParametersTextField->disable();
     myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
+}
+
+
+std::string
+GNETLSEditorFrame::TLSAttributes::getProgramID() const {
+    return myProgramIDTextField->getText().text();
+}
+
+
+void
+GNETLSEditorFrame::TLSAttributes::setProgramID(const std::string& programID) {
+    myProgramIDTextField->setText(programID.c_str());
+    myProgramIDTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
+}
+
+
+bool
+GNETLSEditorFrame::TLSAttributes::isValidProgramID() {
+    const auto program = myTLSEditorParent->myTLSPrograms->getCurrentTLSPrograms();
+    const auto programID = getProgramID();
+    const auto& logicCont = myTLSEditorParent->getViewNet()->getNet()->getTLLogicCont();
+    const bool valid = programID == program->getProgramID()
+                       || (SUMOXMLDefinitions::isValidNetID(programID) && programID != "off"
+                           && logicCont.getDefinition(program->getID(), programID) == nullptr);
+    myProgramIDTextField->setTextColor(MFXUtils::getFXColor(valid ? RGBColor::BLACK : RGBColor::RED));
+    if (!valid) {
+        myTLSEditorParent->getViewNet()->setStatusBarText(TL("Enter a valid, unused TLS program ID."));
+    }
+    return valid;
 }
 
 
@@ -794,6 +837,18 @@ GNETLSEditorFrame::TLSAttributes::getE1Detectors() const {
 void
 GNETLSEditorFrame::TLSAttributes::disableE1DetectorMode() {
     mySetDetectorsToggleButton->setState(FALSE, TRUE);
+}
+
+
+long
+GNETLSEditorFrame::TLSAttributes::onCmdSetProgramID(FXObject*, FXSelector, void*) {
+    if (myTLSEditorParent->myEditedDef != nullptr && isValidProgramID()) {
+        if (getProgramID() != myTLSEditorParent->myEditedDef->getProgramID()) {
+            myTLSEditorParent->myTLSPrograms->markAsModified();
+        }
+        myProgramIDTextField->killFocus();
+    }
+    return 1;
 }
 
 
@@ -1742,11 +1797,15 @@ long
 GNETLSEditorFrame::TLSPrograms::onCmdSaveChanges(FXObject*, FXSelector, void*) {
     // get junction copy
     const auto currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
-    // get current program
-    const auto currentProgram = myProgramComboBox->getCurrentItem();
     // check that junction is valid
-    if (currentJunction != nullptr) {
+    if (currentJunction != nullptr && myTLSEditorParent->myEditedDef != nullptr) {
+        if (!myTLSEditorParent->myTLSAttributes->isValidProgramID()) {
+            return 0;
+        }
+        const auto programID = myTLSEditorParent->myTLSAttributes->getProgramID();
         const auto oldDefinition = getCurrentTLSPrograms();
+        // Keep the original definition and its container key intact for undo.
+        myTLSEditorParent->myEditedDef->setProgramID(programID);
         std::vector<NBNode*> nodes = oldDefinition->getNodes();
         GNEUndoList* undoList = myTLSEditorParent->getViewNet()->getUndoList();
         for (const auto& node : nodes) {
@@ -1774,8 +1833,11 @@ GNETLSEditorFrame::TLSPrograms::onCmdSaveChanges(FXObject*, FXSelector, void*) {
         myTLSEditorParent->getViewNet()->updateViewNet();
         // edit junction again
         myTLSEditorParent->editJunction(currentJunction);
-        // change program
-        myProgramComboBox->setCurrentItem(currentProgram, TRUE);
+        // Renaming may have changed the program's position in the list.
+        const int newIndex = myProgramComboBox->findItem(programID.c_str());
+        if (newIndex >= 0) {
+            myProgramComboBox->setCurrentItem(newIndex, TRUE);
+        }
     } else {
         // discard changes inspecting junction again
         discardChanges(true);
@@ -1861,6 +1923,7 @@ GNETLSEditorFrame::TLSPrograms::switchProgram() {
             delete myTLSEditorParent->myEditedDef;
             myTLSEditorParent->myEditedDef = new NBLoadedSUMOTLDef(*tlDef, *tllogic);
             // set values
+            myTLSEditorParent->myTLSAttributes->setProgramID(tlDef->getProgramID());
             myTLSEditorParent->myTLSAttributes->setOffset(myTLSEditorParent->myEditedDef->getLogic()->getOffset());
             myTLSEditorParent->myTLSAttributes->setParameters(myTLSEditorParent->myEditedDef->getLogic()->getParametersStr());
             // init phaseTable with the new TLS
@@ -2992,6 +3055,9 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
+    if (!myTLSEditorParent->myTLSAttributes->isValidProgramID()) {
+        return 1;
+    }
     FXString file = MFXUtils::getFilename2Write(this, TL("Save TLS Program as"),
                     SUMOXMLDefinitions::XMLFileExtensions.getMultilineString().c_str(),
                     GUIIconSubSys::getIcon(GUIIcon::MODETLS), gCurrentFolder);
@@ -3002,7 +3068,9 @@ GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
         OutputDevice& device = OutputDevice::getDevice(file.text());
         // save program
         device.writeXMLHeader("additional", "additional_file.xsd");
-        NWWriter_SUMO::writeTrafficLight(device, myTLSEditorParent->myEditedDef->getLogic(), myTLSEditorParent->myEditedDef);
+        NBTrafficLightLogic logic(*myTLSEditorParent->myEditedDef->getLogic());
+        logic.setProgramID(myTLSEditorParent->myTLSAttributes->getProgramID());
+        NWWriter_SUMO::writeTrafficLight(device, &logic, myTLSEditorParent->myEditedDef);
         device.close();
     }
     myTLSEditorParent->updateModules();

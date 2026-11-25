@@ -344,10 +344,14 @@ netedit.attrs.TLS.attributesJoined.TLID 2
 netedit.attrs.TLS.attributesJoined.TLType 3
 netedit.attrs.TLS.attributesJoined.offset 13
 netedit.attrs.TLS.attributesJoined.parameters 15
+netedit.attrs.TLS.attributesJoined.programID 17
+netedit.attrs.TLS.attributesJoinedMultiplePrograms.offset 15
+netedit.attrs.TLS.attributesJoinedMultiplePrograms.programID 18
 netedit.attrs.TLS.attributesSingle.TLID 2
 netedit.attrs.TLS.attributesSingle.TLType 3
 netedit.attrs.TLS.attributesSingle.offset 13
 netedit.attrs.TLS.attributesSingle.parameters 15
+netedit.attrs.TLS.attributesSingle.programID 16
 netedit.attrs.TLS.copyJoined 10
 netedit.attrs.TLS.copySingle 9
 netedit.attrs.TLS.create 3
