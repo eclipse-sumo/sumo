@@ -179,6 +179,8 @@ Creating a TAZ
 !!! note
     If the checkbox 'Edges within' was checked during TAZ creation, all edges within the shape are automatically added as sources and sinks.
 
+When editing a TAZ, use **Select all edges within** to apply the current Membership mode to the edges inside its shape. Toggle adds missing sources and sinks. Keep selects the existing sources and sinks for editing.
+
 A single click over a TAZ open the editing fields for
 TAZEdges in side menu. If the checkbox *Membership* is enabled (Toggle) box, a click over an edge will add it to the list of edges linked to the TAZ, (Or will be removed from the list if it was previously selected). Edge will will be added to the list with the input/output values given in the *New source*/*New sink* text fields. (note: A TAZ Edge always has a Source and a Sink).
 

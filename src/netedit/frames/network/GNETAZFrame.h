@@ -265,6 +265,9 @@ public:
         /// @brief Called when the user press "use selected edges" button
         long onCmdUseSelectedEdges(FXObject* obj, FXSelector, void*);
 
+        /// @brief Select edges inside the current TAZ shape
+        long onCmdSelectEdgesWithin(FXObject*, FXSelector, void*);
+
         /// @brief Called when the user press "zero fringe probabilities" button
         long onCmdSetZeroFringeProbabilities(FXObject* obj, FXSelector, void*);
         /// @}
@@ -297,6 +300,9 @@ public:
 
         /// @brief button for use selected edges
         FXButton* myUseSelectedEdges;
+
+        /// @brief button for selecting edges inside the current TAZ shape
+        FXButton* mySelectEdgesWithin;
 
         /// @brief button for setting zero fringe probabilities
         FXButton* myZeroFringeProbabilities;
