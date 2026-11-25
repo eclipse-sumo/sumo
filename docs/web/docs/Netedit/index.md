@@ -45,7 +45,7 @@ The entire list of shortcuts can be found [here](shortcuts.md):
 | New Window                  | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | Open a new netedit window           |
 | New Network                 | <kbd>Ctrl</kbd> + <kbd>N</kbd>         | Create a new network                |
 | Open Network                | <kbd>Ctrl</kbd> + <kbd>O</kbd>         | Open an existing network            |
-| Open configuration          | <kbd>Ctrl</kbd> + <kbd>T</kbd>         | Open an existing SUMO configuration |
+| Open in sumo-gui            | <kbd>Ctrl</kbd> + <kbd>T</kbd>         | Open the current network in sumo-gui |
 | Import foreign network      | <kbd>Ctrl</kbd> + <kbd>F</kbd>         | Import a foreign network            |
 | Reload                      | <kbd>Ctrl</kbd> + <kbd>R</kbd>         | Reload network                      |
 | Save network                | <kbd>Ctrl</kbd> + <kbd>S</kbd>         | Save network                        |
@@ -213,6 +213,10 @@ Netedit is used to create and edit a variety of different objects. Each object m
 - [Demand elements](elementsDemand.md)
 
 A short description of all [element attributes](attribute_help.md) is available.
+
+## Open in sumo-gui
+
+Press <kbd>Ctrl</kbd> + <kbd>T</kbd> or choose **Edit → Open in sumo-gui**. Netedit opens a SUMO configuration that you loaded or saved. Clear **Load SUMO configuration in sumo-gui** in the **Edit** menu to launch the network with default simulation settings. The additionals and demand checkboxes control which files to load.
 
 # [Popup-Menu functions](neteditPopupFunctions.md)
 

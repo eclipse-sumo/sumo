@@ -327,6 +327,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_TOOLBAREDIT_LOADADDITIONALS,            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onCmdLoadDemandInSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_TOOLBAREDIT_LOADSUMOCONFIG,             GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,     GNEApplicationWindow::onCmdOpenSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,     GNEApplicationWindow::onUpdNeedsNetworkElement),
     /* Prepared for #6042
@@ -2351,36 +2352,59 @@ GNEApplicationWindow::onCmdNewWindow(FXObject*, FXSelector sel, void* /*ptr*/) {
 
 long
 GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject* obj, FXSelector sel, void* ptr) {
-    // input parameters
-    std::string inputParameters;
-    // if we have only a network and no SumoConfig defined, then load directly without creating a SumoConfig
-    if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::SUMO_CONFIG) &&
-            ((myNet->getAttributeCarriers()->getNumberOfAdditionals() == 0 && myNet->getAttributeCarriers()->getNumberOfDemandElements() == 0) ||
-             ((myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == FALSE) && (myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == FALSE)))) {
-        // force save network
-        if (onCmdSaveNetwork(obj, sel, ptr) == 0) {
-            // network wasn't saved, then stop
-            return 0;
-        }
-        inputParameters = " --registry-viewport -n \"" + myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETWORK) + "\"";
-        // write info
-        WRITE_MESSAGE(TLF("Loading network '%' in SUMO-GUI.", myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETWORK)));
-    } else {
-        // force save SumoConfig
+    if (myNet == nullptr || myViewNet == nullptr) {
+        return 0;
+    }
+    const bool loadAdditionals = myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == TRUE;
+    const bool loadDemand = myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == TRUE;
+    const auto* carriers = myNet->getAttributeCarriers();
+    const bool hasAdditionals = loadAdditionals &&
+                                (carriers->getNumberOfAdditionals() > 0 || carriers->getNumberOfMeanDatas() > 0);
+    const bool hasDemand = loadDemand && carriers->getNumberOfDemandElements() > 0;
+    const bool useConfig = myEditMenuCommands.loadSumoConfigInSUMOGUI->getCheck() == TRUE &&
+                           (myFileBucketHandler->isFilenameDefined(FileBucket::Type::SUMO_CONFIG) || hasAdditionals || hasDemand);
+    std::string inputParameters = " --registry-viewport";
+    if (useConfig) {
         if (onCmdSaveSumoConfig(obj, sel, ptr) == 0) {
-            // SumoConfig wasn't saved, then stop
             return 0;
         }
-        inputParameters = " --registry-viewport -c \"" + myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG) + "\"";
-        // check if ignore additional or demand elements
-        if (myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == FALSE) {
+        const std::string config = myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG);
+        inputParameters += " -c \"" + StringUtils::escapeShell(config) + "\"";
+        if (!loadAdditionals) {
             inputParameters += " --ignore.additionalelements";
         }
-        if (myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == FALSE) {
+        if (!loadDemand) {
             inputParameters += " --ignore.routeelements";
         }
-        // write info
-        WRITE_MESSAGE(TLF("Loading sumo config '%' in SUMO-GUI.", myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG)));
+        WRITE_MESSAGE(TLF("Loading sumo config '%' in SUMO-GUI.", config));
+    } else {
+        if (onCmdSaveNetwork(obj, sel, ptr) == 0) {
+            return 0;
+        }
+        const std::string network = myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETWORK);
+        inputParameters += " -n \"" + StringUtils::escapeShell(network) + "\"";
+        if (hasAdditionals) {
+            if (onCmdSaveAdditionalElements(obj, sel, ptr) == 0 || onCmdSaveMeanDataElements(obj, sel, ptr) == 0) {
+                return 0;
+            }
+            const std::string additionals = myFileBucketHandler->parseFilenames({FileBucket::Type::ADDITIONAL, FileBucket::Type::MEANDATA});
+            if (!additionals.empty()) {
+                inputParameters += " -a \"" + StringUtils::escapeShell(additionals) + "\"";
+            }
+        }
+        if (hasDemand) {
+            if (onCmdSaveDemandElements(obj, sel, ptr) == 0) {
+                return 0;
+            }
+            const std::string demand = myFileBucketHandler->parseFilenames({FileBucket::Type::DEMAND});
+            if (!demand.empty()) {
+                inputParameters += " -r \"" + StringUtils::escapeShell(demand) + "\"";
+                if (carriers->requireJunctionTazOption()) {
+                    inputParameters += " --junction-taz";
+                }
+            }
+        }
+        WRITE_MESSAGE(TLF("Loading network '%' in SUMO-GUI.", network));
     }
     // save current viewport in registry
     FXRegistry reg("SUMO GUI", "sumo-gui");
