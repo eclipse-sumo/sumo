@@ -21,6 +21,8 @@
 #pragma once
 #include <config.h>
 
+#include <map>
+
 #include "GNEGroupBoxModule.h"
 
 // ===========================================================================
@@ -76,6 +78,9 @@ public:
     /// @brief Called when the user toggle the only common checkbox
     long onCmdToggleOnlyCommon(FXObject*, FXSelector, void*);
 
+    /// @brief Store the match expression when its text changes
+    long onCmdMatchValueChanged(FXObject*, FXSelector, void*);
+
     /// @brief Called when the user enters a new selection expression
     long onCmdProcessString(FXObject*, FXSelector, void*);
 
@@ -91,7 +96,7 @@ protected:
     /**@brief return ACs of the given type with matching attrs
      * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
      */
-    std::vector<GNEAttributeCarrier*> getMatches(const char compOp, const double val, const std::string& expr);
+    std::vector<GNEAttributeCarrier*> getMatches(const GNEAttributeProperties* attribute, const char compOp, const double val, const std::string& expr);
 
     /**@brief return GenericDatas of the given type with matching attrs
      * @param[in] genericDatas list of filter generic datas
@@ -121,51 +126,37 @@ private:
         /// @brief get tag property (depending of supermode)
         const GNETagProperties* getTagProperties() const;
 
-        /// @brief get attribute property (depending of supermode)
-        const GNEAttributeProperties* getAttributeProperties() const;
+        /// @brief get the last chosen attribute for the current tag
+        const GNEAttributeProperties* getPreferredAttribute() const;
 
-        /// @brief get match value (depending of supermode)
-        const std::string& getMatchValue() const;
+        /// @brief get the match expression for an attribute of the current tag
+        std::string getMatchValue(const GNEAttributeProperties* attribute) const;
 
         /// @brief set tag property (depending of supermode)
         void setTagProperties(const GNETagProperties* tagProperty);
 
-        /// @brief set attribute property (depending of supermode)
-        void setAttributeProperties(const GNEAttributeProperties* attrProperty);
+        /// @brief remember the chosen attribute for the current tag
+        void setPreferredAttribute(const GNEAttributeProperties* attribute);
 
-        /// @brief set match value (depending of supermode)
-        void setMatchValue(const std::string value);
+        /// @brief remember the match expression for an attribute of the current tag
+        void setMatchValue(const GNEAttributeProperties* attribute, const std::string& value);
 
     private:
         /// @brief pointer to match attribute parent
         const GNEMatchAttribute* myMatchAttributeParent;
 
-        /// @brief current network tag properties
-        std::vector<const GNETagProperties*> myNetworkTagProperties;
+        /// @brief current tags for each supermode
+        const GNETagProperties* myNetworkTagProperties = nullptr;
+        const GNETagProperties* myDemandTagProperties = nullptr;
+        const GNETagProperties* myDataTagProperties = nullptr;
 
-        /// @brief current network attribute properties
-        const GNEAttributeProperties* myNetworkAttributeProperties;
+        struct MatchHistory {
+            const GNEAttributeProperties* preferredAttribute = nullptr;
+            std::map<const GNEAttributeProperties*, std::string> values;
+        };
 
-        /// @brief current network match value
-        std::string myNetworkMatchValue;
-
-        /// @brief current demand tag properties
-        std::vector<const GNETagProperties*> myDemandTagProperties;
-
-        /// @brief current demand attribute properties
-        const GNEAttributeProperties* myDemandAttributeProperties;
-
-        /// @brief current demand match value
-        std::string myDemandMatchValue;
-
-        /// @brief current data tag properties
-        std::vector<const GNETagProperties*> myDataTagProperties;
-
-        /// @brief current data attribute properties
-        const GNEAttributeProperties* myDataAttributeProperties;
-
-        /// @brief current data match value
-        std::string myDataMatchValue;
+        /// @brief match settings for each tag, including hierarchy categories
+        std::map<const GNETagProperties*, MatchHistory> myMatchHistory;
 
         /// @brief tag properties <all>
         GNETagProperties* myTagPropertiesAllAttributes = nullptr;

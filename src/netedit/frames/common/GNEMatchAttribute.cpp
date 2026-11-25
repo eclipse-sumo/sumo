@@ -42,6 +42,7 @@ FXDEFMAP(GNEMatchAttribute) GNEMatchAttributeMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTTAG,        GNEMatchAttribute::onCmdTagSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTATTRIBUTE,  GNEMatchAttribute::onCmdAttributeSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_TOGGLECOMMON,     GNEMatchAttribute::onCmdToggleOnlyCommon),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_SELECTORFRAME_PROCESSSTRING,    GNEMatchAttribute::onCmdMatchValueChanged),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_PROCESSSTRING,    GNEMatchAttribute::onCmdProcessString),
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNEMatchAttribute::onCmdHelp)
 };
@@ -195,24 +196,22 @@ GNEMatchAttribute::refreshMatchAttribute() {
     for (const auto& attribute : attributes) {
         myAttributeComboBox->appendAttrItem(attribute.second);
     }
-    // update tag
-    if (myAttributeComboBox->getNumItems() == 0) {
+    // Restore the preferred attribute when the current filter allows it.
+    myMatchString->setTextColor(GUIDesignTextColorBlack);
+    if (attributes.empty()) {
         myAttributeComboBox->appendAttrItem(myCurrentEditedProperties->getAttributePropertiesNoCommon());
         myAttributeComboBox->disable();
-        // set match string
         myMatchString->setText("", FALSE);
         myMatchString->disable();
+        myMatchStringButton->disable();
     } else {
+        const auto preferred = myCurrentEditedProperties->getPreferredAttribute();
+        const auto attribute = myAttributeComboBox->hasAttrProperty(preferred) ? preferred : attributes.begin()->second;
+        myAttributeComboBox->setCurrentItem(attribute, FALSE);
         myAttributeComboBox->enable();
-        if (myAttributeComboBox->hasAttrProperty(myCurrentEditedProperties->getAttributeProperties())) {
-            myAttributeComboBox->setCurrentItem(myCurrentEditedProperties->getAttributeProperties(), FALSE);
-        } else {
-            myAttributeComboBox->setCurrentItem(attributes.begin()->second, FALSE);
-            myCurrentEditedProperties->setAttributeProperties(myAttributeComboBox->getCurrentAttrProperty());
-        }
-        // set match string
-        myMatchString->setText(myCurrentEditedProperties->getMatchValue().c_str(), FALSE);
+        myMatchString->setText(myCurrentEditedProperties->getMatchValue(attribute).c_str(), FALSE);
         myMatchString->enable();
+        myMatchStringButton->enable();
     }
 }
 
@@ -243,7 +242,10 @@ GNEMatchAttribute::onCmdTagSelected(FXObject* obj, FXSelector, void*) {
 
 long
 GNEMatchAttribute::onCmdAttributeSelected(FXObject*, FXSelector, void*) {
-    myCurrentEditedProperties->setAttributeProperties(myAttributeComboBox->getCurrentAttrProperty());
+    const auto attribute = myAttributeComboBox->getCurrentAttrProperty();
+    if (attribute && attribute != myCurrentEditedProperties->getAttributePropertiesNoCommon()) {
+        myCurrentEditedProperties->setPreferredAttribute(attribute);
+    }
     refreshMatchAttribute();
     return 1;
 }
@@ -258,15 +260,29 @@ GNEMatchAttribute::onCmdToggleOnlyCommon(FXObject*, FXSelector, void*) {
 
 
 long
+GNEMatchAttribute::onCmdMatchValueChanged(FXObject*, FXSelector, void*) {
+    const auto attribute = myAttributeComboBox->getCurrentAttrProperty();
+    if (attribute && attribute != myCurrentEditedProperties->getAttributePropertiesNoCommon()) {
+        myCurrentEditedProperties->setMatchValue(attribute, myMatchString->getText().text());
+    }
+    return 1;
+}
+
+
+long
 GNEMatchAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
+    const auto attribute = myAttributeComboBox->getCurrentAttrProperty();
+    if (!attribute || attribute == myCurrentEditedProperties->getAttributePropertiesNoCommon()) {
+        return 0;
+    }
     std::vector<GNEAttributeCarrier*> matches;
     // obtain expresion
     std::string expr = myMatchString->getText().text();
     bool valid = true;
     if (expr == "") {
         // the empty expression matches all objects
-        matches = getMatches('@', 0, expr);
-    } else if (myCurrentEditedProperties->getAttributeProperties()->isNumerical()) {
+        matches = getMatches(attribute, '@', 0, expr);
+    } else if (attribute->isNumerical()) {
         // The expression must have the form
         //  <val matches if attr < val
         //  >val matches if attr > val
@@ -280,7 +296,7 @@ GNEMatchAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
         }
         // check if value can be parsed to double
         if (GNEAttributeCarrier::canParse<double>(expr.c_str())) {
-            matches = getMatches(compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr);
+            matches = getMatches(attribute, compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr);
         } else {
             valid = false;
         }
@@ -297,7 +313,7 @@ GNEMatchAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
         } else {
             compOp = '@';
         }
-        matches = getMatches(compOp, 0, expr);
+        matches = getMatches(attribute, compOp, 0, expr);
     }
     if (valid) {
         mySelectorFrameParent->handleIDs(matches);
@@ -344,19 +360,19 @@ GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
 
 
 std::vector<GNEAttributeCarrier*>
-GNEMatchAttribute::getMatches(const char compOp, const double val, const std::string& expr) {
+GNEMatchAttribute::getMatches(const GNEAttributeProperties* attribute, const char compOp, const double val, const std::string& expr) {
     std::vector<GNEAttributeCarrier*> result;
     // first retrieve all ACs using ACTag
     const auto allACbyTag = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveAttributeCarriers(myCurrentEditedProperties->getTagProperties()->getTag());
     // iterate over all ACs
     for (const auto& AC : allACbyTag) {
         // first check if the attribute exist in the given tag
-        if (AC->getTagProperty()->hasAttribute(myCurrentEditedProperties->getAttributeProperties()->getAttr())) {
+        if (AC->getTagProperty()->hasAttribute(attribute->getAttr())) {
             if (expr == "" && compOp == '@') {
                 result.push_back(AC);
-            } else if (myCurrentEditedProperties->getAttributeProperties()->isNumerical()) {
+            } else if (attribute->isNumerical()) {
                 double acVal;
-                std::istringstream buf(AC->getAttribute(myCurrentEditedProperties->getAttributeProperties()->getAttr()));
+                std::istringstream buf(AC->getAttribute(attribute->getAttr()));
                 buf >> acVal;
                 switch (compOp) {
                     case '<':
@@ -379,7 +395,7 @@ GNEMatchAttribute::getMatches(const char compOp, const double val, const std::st
                 }
             } else {
                 // string match
-                std::string acVal = AC->getAttributeForSelection(myCurrentEditedProperties->getAttributeProperties()->getAttr());
+                std::string acVal = AC->getAttributeForSelection(attribute->getAttr());
                 switch (compOp) {
                     case '@':
                         if (acVal.find(expr) != std::string::npos) {
@@ -489,14 +505,14 @@ GNEMatchAttribute::CurrentEditedProperties::CurrentEditedProperties(const GNEMat
     myAttributePropertiesNoCommon = new GNEAttributeProperties(myTagPropertiesAllAttributes,
             GNE_ATTR_NOCOMMON,
             TL("No common attributes defined"));
-    // set default tag and attribute for every property
     const auto database = myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase();
-    setTagProperties(database->getTagProperty(SUMO_TAG_EDGE, true));
-    setAttributeProperties(myNetworkTagProperties.back()->getAttributeProperties(SUMO_ATTR_SPEED));
-    myNetworkMatchValue = ">10";
-    setTagProperties(database->getTagProperty(SUMO_TAG_VEHICLE, true));
-    setAttributeProperties(myDemandTagProperties.back()->getAttributeProperties(SUMO_ATTR_ID));
-    setTagProperties(database->getTagProperty(GNE_TAG_DATAS, true));
+    myNetworkTagProperties = database->getTagProperty(SUMO_TAG_EDGE, true);
+    myDemandTagProperties = database->getTagProperty(SUMO_TAG_VEHICLE, true);
+    myDataTagProperties = database->getTagProperty(GNE_TAG_DATAS, true);
+    const auto speed = myNetworkTagProperties->getAttributeProperties(SUMO_ATTR_SPEED);
+    myMatchHistory[myNetworkTagProperties].preferredAttribute = speed;
+    myMatchHistory[myNetworkTagProperties].values[speed] = ">10";
+    myMatchHistory[myDemandTagProperties].preferredAttribute = myDemandTagProperties->getAttributeProperties(SUMO_ATTR_ID);
 }
 
 
@@ -520,11 +536,11 @@ GNEMatchAttribute::CurrentEditedProperties::getAttributePropertiesNoCommon() con
 const GNETagProperties*
 GNEMatchAttribute::CurrentEditedProperties::getTagProperties() const {
     if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        return myNetworkTagProperties.back();
+        return myNetworkTagProperties;
     } else if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
-        return myDemandTagProperties.back();
+        return myDemandTagProperties;
     } else if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        return myDataTagProperties.back();
+        return myDataTagProperties;
     } else {
         throw ProcessError("Invalid supermode");
     }
@@ -532,66 +548,46 @@ GNEMatchAttribute::CurrentEditedProperties::getTagProperties() const {
 
 
 const GNEAttributeProperties*
-GNEMatchAttribute::CurrentEditedProperties::getAttributeProperties() const {
-    if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        return myNetworkAttributeProperties;
-    } else if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
-        return myDemandAttributeProperties;
-    } else if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        return myDataAttributeProperties;
-    } else {
-        throw ProcessError("Invalid supermode");
-    }
+GNEMatchAttribute::CurrentEditedProperties::getPreferredAttribute() const {
+    const auto history = myMatchHistory.find(getTagProperties());
+    return history == myMatchHistory.end() ? nullptr : history->second.preferredAttribute;
 }
 
 
-const std::string&
-GNEMatchAttribute::CurrentEditedProperties::getMatchValue() const {
-    if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        return myNetworkMatchValue;
-    } else if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
-        return myDemandMatchValue;
-    } else if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        return myDataMatchValue;
-    } else {
-        throw ProcessError("Invalid supermode");
+std::string
+GNEMatchAttribute::CurrentEditedProperties::getMatchValue(const GNEAttributeProperties* attribute) const {
+    const auto history = myMatchHistory.find(getTagProperties());
+    if (history != myMatchHistory.end()) {
+        const auto value = history->second.values.find(attribute);
+        if (value != history->second.values.end()) {
+            return value->second;
+        }
     }
+    return "";
 }
 
 
 void
 GNEMatchAttribute::CurrentEditedProperties::setTagProperties(const GNETagProperties* tagProperty) {
     if (tagProperty->getSupermode() == Supermode::NETWORK) {
-        myNetworkTagProperties = tagProperty->getHierarchicalParentsRecuersively();
+        myNetworkTagProperties = tagProperty;
     } else if (tagProperty->getSupermode() == Supermode::DEMAND) {
-        myDemandTagProperties = tagProperty->getHierarchicalParentsRecuersively();
+        myDemandTagProperties = tagProperty;
     } else if (tagProperty->getSupermode() == Supermode::DATA) {
-        myDataTagProperties = tagProperty->getHierarchicalParentsRecuersively();
+        myDataTagProperties = tagProperty;
     }
 }
 
 
 void
-GNEMatchAttribute::CurrentEditedProperties::setAttributeProperties(const GNEAttributeProperties* attrProperty) {
-    if (attrProperty->getTagPropertyParent()->getSupermode() == Supermode::NETWORK) {
-        myNetworkAttributeProperties = attrProperty;
-    } else if (attrProperty->getTagPropertyParent()->getSupermode() == Supermode::DEMAND) {
-        myDemandAttributeProperties = attrProperty;
-    } else if (attrProperty->getTagPropertyParent()->getSupermode() == Supermode::DATA) {
-        myDataAttributeProperties = attrProperty;
-    }
+GNEMatchAttribute::CurrentEditedProperties::setPreferredAttribute(const GNEAttributeProperties* attribute) {
+    myMatchHistory[getTagProperties()].preferredAttribute = attribute;
 }
 
 
 void
-GNEMatchAttribute::CurrentEditedProperties::setMatchValue(const std::string value) {
-    if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        myNetworkMatchValue = value;
-    } else if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
-        myDemandMatchValue = value;
-    } else if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        myDataMatchValue = value;
-    }
+GNEMatchAttribute::CurrentEditedProperties::setMatchValue(const GNEAttributeProperties* attribute, const std::string& value) {
+    myMatchHistory[getTagProperties()].values[attribute] = value;
 }
 
 
