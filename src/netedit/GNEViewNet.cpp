@@ -227,6 +227,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_OPEN,                    GNEViewNet::onCmdOpenPolygon),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SELECT,                  GNEViewNet::onCmdSelectPolygonElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_TRIANGULATE,             GNEViewNet::onCmdTriangulatePolygon),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_TRANSFORM_TAZ,          GNEViewNet::onCmdTransformPolygonToTAZ),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SET_FIRST_POINT,         GNEViewNet::onCmdSetFirstGeometryPoint),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,   GNEViewNet::onCmdDeleteGeometryPoint),
     // edit custom shapes
@@ -2874,6 +2875,38 @@ GNEViewNet::onCmdTriangulatePolygon(FXObject*, FXSelector, void*) {
         // end undo-list
         myNet->getUndoList()->end();
     }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdTransformPolygonToTAZ(FXObject*, FXSelector, void*) {
+    auto* polygon = getPolygonAtPopupPosition();
+    if (polygon == nullptr || polygon->getTagProperty()->getTag() != SUMO_TAG_POLY) {
+        return 1;
+    }
+    auto shape = polygon->getShape();
+    if (shape.size() < (shape.isClosed() ? 4 : 3)) {
+        return 1;
+    }
+    const std::string id = polygon->getID();
+    if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, id, false) != nullptr) {
+        WRITE_WARNINGF(TL("Cannot transform polygon '%' because a TAZ with that ID already exists."), id);
+        return 1;
+    }
+    shape.closePolygon();
+    updateObjectsInShape(shape);
+    std::vector<std::string> edgeIDs;
+    for (const auto* edge : myViewObjectsSelector.getEdges()) {
+        edgeIDs.push_back(edge->getID());
+    }
+    GNEAdditionalHandler handler(myNet, polygon->getFileBucket(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
+    myUndoList->begin(polygon, TL("transform polygon to TAZ"));
+    if (handler.buildTAZ(nullptr, id, shape, Position::INVALID, polygon->getFill(), polygon->getShapeColor(),
+                         edgeIDs, polygon->getAttribute(SUMO_ATTR_NAME), polygon->getParameters()->getParametersMap())) {
+        myNet->deleteAdditional(polygon, myUndoList);
+    }
+    myUndoList->end();
     return 1;
 }
 

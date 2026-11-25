@@ -1797,6 +1797,9 @@ enum {
 
     /// @{
 
+    /// @brief transform a polygon to a TAZ
+    MID_GNE_POLYGON_TRANSFORM_TAZ,
+
     /// @brief last element of enum (not used)
     MID_LAST
 };

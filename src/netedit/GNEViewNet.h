@@ -247,6 +247,9 @@ public:
     /// @brief triangulate polygon
     long onCmdTriangulatePolygon(FXObject*, FXSelector, void*);
 
+    /// @brief transform a polygon into a TAZ
+    long onCmdTransformPolygonToTAZ(FXObject*, FXSelector, void*);
+
     /// @brief set as first geometry point the closes geometry point
     long onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*);
 
