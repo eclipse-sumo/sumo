@@ -73,5 +73,8 @@ percent
 # Tests relative paths
 rel_path
 
+# Tests creating parent directories for outputs relative to the configuration
+create_folders
+
 # Tests configuration loading vebosity
 verbose

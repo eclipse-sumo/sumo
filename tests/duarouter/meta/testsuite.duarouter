@@ -21,3 +21,6 @@ with_log
 
 # Tests configuration writing
 null_output
+
+# Create missing directories for routing outputs
+create_folders

@@ -1,0 +1,4 @@
+[collate_file]
+summary:data/nested/summary/summary.xml
+queue:data/nested/queue.xml
+stopinfos:data/nested/stopinfos.xml
