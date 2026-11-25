@@ -243,6 +243,9 @@
         <!-- Aggregate warnings of the same type whenever more than INT occur -->
         <aggregate-warnings value="-1" type="INT"/>
 
+        <!-- Create missing output directories -->
+        <create-folders value="false" type="BOOL"/>
+
         <!-- Writes all messages to FILE (implies verbose) -->
         <log value="" synonymes="l log-file" type="FILE"/>
 
