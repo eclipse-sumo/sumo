@@ -154,6 +154,10 @@ The 'Match Attribute' controls allow to specify a set of objects by matching the
 2.  Select an attribute from the second input box
 3.  Enter a 'match expression' in the third input box and press <return\>
 
+In Data mode, the attribute list includes built-in fields and loaded data parameters. Blue rows with the `(parameter)` suffix identify data parameters. Parameter values use numerical comparisons when every value for that key is numerical. A parameter filter matches records that contain the key. **Only common** displays parameter keys that all records of the selected data type contain.
+
+To select TAZ relations by both endpoints, apply an exact `from` match in **replace** mode. Then apply an exact `to` match in **keep** mode to retain only the matching destinations.
+
 ### Matching rules
 
 - The empty expression matches all objects
