@@ -519,6 +519,7 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
     double tlsPenalty = MSGlobals::gTLSPenalty;
     const double durationSeconds = STEPS2TIME(duration);
     std::set<const MSJunction*> controlledJunctions;
+    std::set<MSEdge*> controlledViaEdges;
     std::set<const MSEdge*> shortEdges;;
     const bool overridePenalty = StringUtils::toBool(getParameter(MESegment::OVERRIDE_TLS_PENALTIES, "0"));
     for (int j = 0; j < numLinks; ++j) {
@@ -549,6 +550,9 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
             }
             link->setMesoTLSPenalty(TIME2STEPS(tlsPenalty * penalty[j] / durationSeconds));
             controlledJunctions.insert(link->getLane()->getEdge().getFromJunction()); // MSLink::myJunction is not yet initialized
+            if (link->getViaLane() != nullptr) {
+                controlledViaEdges.insert(&link->getViaLane()->getEdge());
+            }
             //std::cout << " tls=" << getID() << " i=" << j << " link=" << link->getDescription() << " p=" << penalty[j] << " fr=" << firstRedDuration[j] << " r=" << redDuration[j] << " tr=" << totalRedDuration[j] << " durSecs=" << durationSeconds << " tlsPen=" << STEPS2TIME(link->getMesoTLSPenalty()) << " gF=" << myLinks[j][k]->getGreenFraction() << "\n";
         }
     }
@@ -558,7 +562,11 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
         const ConstMSEdgeVector incoming = (*it)->getIncoming();
         for (ConstMSEdgeVector::const_iterator it_e = incoming.begin(); it_e != incoming.end(); ++it_e) {
             const_cast<MSEdge*>(*it_e)->recalcCache();
+            controlledViaEdges.erase(const_cast<MSEdge*>(*it_e));
         }
+    }
+    for (MSEdge* edge : controlledViaEdges) {
+        edge->recalcCache();
     }
 
 }
