@@ -20,5 +20,5 @@ Statistics (avg of 1000):
  WaitingTime: 18.46
  TimeLoss: 25.89
  DepartDelay: 0.40
-DijkstraRouter answered 1000 queries and explored 6.98 edges on average.
+DijkstraRouter answered 1000 queries and explored 6.99 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).

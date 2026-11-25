@@ -44,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="v0" depart="0.00" arrival="56.00">
-        <route cost="32.39" savings="0.00" edges="CS SC CN"/>
+        <route cost="37.39" savings="0.00" edges="CS SC CN"/>
     </vehicle>
 
     <person id="pBwd" depart="0.00" arrival="96.00">
