@@ -7150,12 +7150,17 @@ GNETagPropertiesDatabase::fillCommonContainerAttributes(GNETagProperties* tagPro
 void
 GNETagPropertiesDatabase::fillCommonStopAttributes(GNETagProperties* tagProperties, const bool waypoint) {
     // fill common stop attributes
+    const bool chargingStop = tagProperties->getTag() == GNE_TAG_STOP_CHARGINGSTATION;
+    const auto durationMode = chargingStop ? GNEAttributeProperties::Property::ALWAYSENABLED
+                              : GNEAttributeProperties::Property::ACTIVATABLE;
     auto duration = new GNEAttributeProperties(tagProperties, SUMO_ATTR_DURATION,
-            GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ACTIVATABLE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::POSITIVE | durationMode | GNEAttributeProperties::Property::DEFAULTVALUE,
             GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
             TL("Minimum duration for stopping"),
             "60");
-    duration->setDefaultActivated(true);
+    if (!chargingStop) {
+        duration->setDefaultActivated(true);
+    }
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_UNTIL,
                                GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ACTIVATABLE | GNEAttributeProperties::Property::DEFAULTVALUE,
@@ -7175,7 +7180,11 @@ GNETagPropertiesDatabase::fillCommonStopAttributes(GNETagProperties* tagProperti
                 GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                 TL("Whether a person or container or both may end the stop"),
                 "false");
-        triggered->setDiscreteValues({"false", "person", "container", "join"});
+        if (chargingStop) {
+            triggered->setDiscreteValues({"false", "container", "join"});
+        } else {
+            triggered->setDiscreteValues({"false", "person", "container", "join"});
+        }
 
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_EXPECTED,
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,

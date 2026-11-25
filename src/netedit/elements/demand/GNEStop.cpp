@@ -722,6 +722,9 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_TRIGGERED: {
+            if (myTagProperty->getTag() == GNE_TAG_STOP_CHARGINGSTATION && triggered && value == "person") {
+                return true; // Preserve the current value of a legacy stop.
+            }
             const auto expectedValues = myTagProperty->getAttributeProperties(key)->getDiscreteValues();
             const auto triggeredValues = parse<std::vector<std::string> >(value);
             for (const auto& triggeredValue : triggeredValues) {

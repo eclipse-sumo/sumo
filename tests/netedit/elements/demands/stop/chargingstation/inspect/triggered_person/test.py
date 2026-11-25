@@ -49,9 +49,6 @@ netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.triggered, "du
 # change value
 netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.triggered, "person")
 
-# change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.expected, "personA personB")
-
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
 

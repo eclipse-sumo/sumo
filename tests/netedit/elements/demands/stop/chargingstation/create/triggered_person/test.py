@@ -40,23 +40,9 @@ netedit.modifyAttribute(netedit.attrs.stopChargingStation.create.triggered, "per
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
-# set invalid value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.create.expected, ";;;;;;;;;;")
-
-# try to create stop
-netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
-
-# set invalid value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.create.expected, "")
-
-# try to create stop
-netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
-
-# set valid value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.create.expected, "personID1 personID2 personID3")
-
-# create stop
-netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
+# Use the ordinary trigger setting to create a charging stop with its required duration.
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.create.triggered, "false")
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
