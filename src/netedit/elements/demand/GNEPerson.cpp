@@ -360,31 +360,31 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop matrix
             GLHelper::popMatrix();
-            // draw stack label
-            if (myStackedLabelNumber > 0) {
-                drawStackLabel(myStackedLabelNumber, "person", Position(personPosition.x() - 2.5, personPosition.y()), -90, 1.3, 5, getExaggeration(s));
-            } else if ((getChildDemandElements().front()->getTagProperty()->getTag() == GNE_TAG_STOPPERSON_BUSSTOP) ||
-                       (getChildDemandElements().front()->getTagProperty()->getTag() == GNE_TAG_STOPPERSON_TRAINSTOP)) {
-                // declare counter for stacked persons over stops
+            // Person plans that begin at stops use the stop stack, including plans with later edge stages.
+            if ((getChildDemandElements().front()->getTagProperty()->getTag() == GNE_TAG_STOPPERSON_BUSSTOP) ||
+                    (getChildDemandElements().front()->getTagProperty()->getTag() == GNE_TAG_STOPPERSON_TRAINSTOP)) {
                 int stackedCounter = 0;
-                // get stoppingPlace
                 const auto stoppingPlace = getChildDemandElements().front()->getParentAdditionals().front();
-                // get stacked persons
                 for (const auto& stopPerson : stoppingPlace->getChildDemandElements()) {
-                    if ((stopPerson->getTagProperty()->getTag() == GNE_TAG_STOPPERSON_BUSSTOP) ||
-                            (stopPerson->getTagProperty()->getTag() == GNE_TAG_STOPPERSON_TRAINSTOP)) {
-                        // get person parent
-                        const auto personParent = stopPerson->getParentDemandElements().front();
-                        // check if the stop if the first person plan parent
-                        if (stopPerson->getPreviousChildDemandElement(personParent) == nullptr) {
+                    if (stopPerson->getTagProperty()->getTag() == GNE_TAG_STOPPERSON_BUSSTOP ||
+                            stopPerson->getTagProperty()->getTag() == GNE_TAG_STOPPERSON_TRAINSTOP) {
+                        const auto person = stopPerson->getParentDemandElements().front();
+                        if (person->getChildDemandElements().front() == stopPerson &&
+                                myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(person) &&
+                                s.checkDrawPerson(s.getDetailLevel(person->getExaggeration(s) + 10), person->isAttributeCarrierSelected())) {
+                            // The first visible person draws the label for this stop.
+                            if (stackedCounter == 0 && person != this) {
+                                break;
+                            }
                             stackedCounter++;
                         }
                     }
                 }
-                // if we have more than two stacked elements, draw label
                 if (stackedCounter > 1) {
                     drawStackLabel(stackedCounter, "person", Position(personPosition.x() - 2.5, personPosition.y()), -90, 1.3, 5, getExaggeration(s));
                 }
+            } else if (myStackedLabelNumber > 0) {
+                drawStackLabel(myStackedLabelNumber, "person", Position(personPosition.x() - 2.5, personPosition.y()), -90, 1.3, 5, getExaggeration(s));
             }
             // draw flow label
             if (myTagProperty->isFlow()) {

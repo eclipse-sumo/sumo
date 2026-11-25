@@ -2490,7 +2490,12 @@ GNEEdge::getPersonsOverEdgeMap() const {
     // first obtain all persons of this edge
     for (const auto& edgeChild : getChildDemandElements()) {
         if (edgeChild->getTagProperty()->isPlanPerson() && (edgeChild->getParentDemandElements().size() > 0)) {
-            persons.insert(std::make_pair(edgeChild->getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS), edgeChild->getParentDemandElements().front()));
+            const auto person = edgeChild->getParentDemandElements().front();
+            const auto firstPlanTag = person->getChildDemandElements().front()->getTagProperty()->getTag();
+            // Persons starting at a stop are stacked at their stopping place.
+            if (firstPlanTag != GNE_TAG_STOPPERSON_BUSSTOP && firstPlanTag != GNE_TAG_STOPPERSON_TRAINSTOP) {
+                persons.emplace(person->getAttributeDouble(SUMO_ATTR_DEPARTPOS), person);
+            }
         }
     }
     // reserve
