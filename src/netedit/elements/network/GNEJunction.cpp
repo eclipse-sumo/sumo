@@ -1922,6 +1922,7 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
     for (const auto& demandElement : getChildDemandElements()) {
         demandElement->drawGL(s);
     }
+    GNEDemandElement::drawEndpointStackLabels(s, this, getChildDemandElements(), myNBNode->getPosition());
     // draw path additional elements
     myNet->getNetworkPathManager()->drawJunctionPathElements(s, this);
     myNet->getDemandPathManager()->drawJunctionPathElements(s, this);

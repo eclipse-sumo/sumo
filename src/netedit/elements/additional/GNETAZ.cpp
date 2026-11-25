@@ -374,6 +374,9 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw demand element children
         drawDemandElementChildren(s);
+        const Position center = myMoveElementShape->getMovingAttributePosition(SUMO_ATTR_CENTER);
+        GNEDemandElement::drawEndpointStackLabels(s, this, getChildDemandElements(),
+                center == Position::INVALID ? getPositionInView() : center);
         // calculate contour
         if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
             calculateContourPolygons(s, d, getShapeLayer(), TAZExaggeration, true);
