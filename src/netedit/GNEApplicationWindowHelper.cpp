@@ -1234,6 +1234,12 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::buildDataViewOpti
                                   TL("Only draw TAZRel to"), "Alt+7", "",
                                   GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYTO),
                                   myApplicationWindow, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO);
+
+    menuCheckFocusTAZRelations = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+                                 TL("Focus TAZ relations on inspection"), "",
+                                 TL("Show relations of the inspected TAZ. Press Esc to show all relations."),
+                                 GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELDRAWING),
+                                 myApplicationWindow, MID_GNE_DATAVIEWOPTIONS_FOCUSTAZRELATIONS);
     // build separator
     separator = new FXMenuSeparator(editMenu);
 }
@@ -1249,6 +1255,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::hideDataViewOptio
     menuCheckToggleTAZDrawFill->hide();
     menuCheckToggleTAZRelOnlyFrom->hide();
     menuCheckToggleTAZRelOnlyTo->hide();
+    menuCheckFocusTAZRelations->hide();
     separator->hide();
 }
 

@@ -339,6 +339,7 @@ GNEInspectorFrame::inspectElement(GNEAttributeCarrier* AC, GNEAttributeCarrier* 
 void
 GNEInspectorFrame::inspectElements(const std::vector<GNEAttributeCarrier*>& ACs, GNEAttributeCarrier* previousInspectedAC) {
     myViewNet->getInspectedElements().inspectACs(ACs);
+    myViewNet->updateTAZRelationFocus(ACs);
     myPreviousInspectedAC = previousInspectedAC;
     refreshInspection();
 }

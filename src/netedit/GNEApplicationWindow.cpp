@@ -312,6 +312,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM,              GNEApplicationWindow::onUpdToggleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO,                GNEApplicationWindow::onCmdToggleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO,                GNEApplicationWindow::onUpdToggleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_FOCUSTAZRELATIONS,         GNEApplicationWindow::onCmdToggleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_DATAVIEWOPTIONS_FOCUSTAZRELATIONS,         GNEApplicationWindow::onUpdToggleViewOption),
     // view
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F9_EDIT_VIEWSCHEME,              GNEApplicationWindow::onCmdEditViewScheme),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F9_EDIT_VIEWSCHEME,              GNEApplicationWindow::onUpdNeedsNetwork),
@@ -3243,6 +3245,9 @@ GNEApplicationWindow::onCmdToggleViewOption(FXObject* sender, FXSelector sel, vo
                 return myViewNet->onCmdToggleTAZRelOnlyFrom(sender, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO:
                 return myViewNet->onCmdToggleTAZRelOnlyTo(sender, sel, ptr);
+            case MID_GNE_DATAVIEWOPTIONS_FOCUSTAZRELATIONS:
+                myViewNet->toggleTAZRelationFocus();
+                return 1;
             default:
                 return 0;
         }
@@ -3534,6 +3539,9 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* sender, FXSelector sel, vo
                 } else {
                     menuCheck->setCheck(FALSE);
                 }
+                break;
+            case MID_GNE_DATAVIEWOPTIONS_FOCUSTAZRELATIONS:
+                menuCheck->setCheck(myViewNet->isTAZRelationFocusEnabled());
                 break;
             default:
                 break;

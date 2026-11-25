@@ -1795,6 +1795,9 @@ enum {
     /// @brief run tests
     MID_RUNTESTS,
 
+    /// @brief Focus relations of a TAZ during Data mode inspection.
+    MID_GNE_DATAVIEWOPTIONS_FOCUSTAZRELATIONS,
+
     /// @{
 
     /// @brief last element of enum (not used)
