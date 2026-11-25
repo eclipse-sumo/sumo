@@ -39,7 +39,7 @@ $(document).ready(function() {
                     }
                     clearInterval(focusTimer);
                 }
-            }, 50);
+            }, 10);
             setTimeout(function () {
                 clearInterval(focusTimer);
             }, 5000);
