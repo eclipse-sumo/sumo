@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-19T20:23:05.336348+00:00 by Eclipse SUMO netconvert v1_28_0+0656-c9253f0c1d3
+<!-- generated on 2026-11-25T06:11:05.175715+00:00 by Eclipse SUMO netconvert v1.28.0-0000000000
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="C:\Users\Mark\AppData\Local\Temp\tmp4wqq2msu\n.nod.xml"/>
-        <edge-files value="C:\Users\Mark\AppData\Local\Temp\tmp4wqq2msu\e.edg.xml"/>
+        <node-files value="parallel.nod.xml"/>
+        <edge-files value="parallel.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\Mark\AppData\Local\Temp\tmp4wqq2msu\net.net.xml"/>
+        <output-file value="input_net.net.xml"/>
     </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
 
 </netconvertConfiguration>
 -->

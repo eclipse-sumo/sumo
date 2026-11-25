@@ -345,6 +345,7 @@ def assignByDistance(options, net, stations):
             ]
             if len(group) <= 1:
                 continue
+
             def _rank(g):
                 if g in seedEdges and len(edgeStations[g]) == 1:
                     return (0, 0.0, -g.getLength(), g.getID())
