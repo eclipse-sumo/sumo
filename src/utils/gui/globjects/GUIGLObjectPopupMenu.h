@@ -54,7 +54,8 @@ public:
         PROPERTIES,
         SELECT_ELEMENT,
         DELETE_ELEMENT,
-        FRONT_ELEMENT
+        FRONT_ELEMENT,
+        CHOOSE_ELEMENT
     };
 
     /** @brief Constructor

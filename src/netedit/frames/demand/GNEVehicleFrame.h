@@ -94,6 +94,12 @@ public:
      */
     bool addVehicle(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
+    /// @brief whether the current vehicle can be created on an existing route
+    bool canAddVehicleOverRoute() const;
+
+    /// @brief add a vehicle or flow to the chosen route
+    bool addVehicleOverRoute(GNEDemandElement* route);
+
     /// @brief get vehicle tag selector (needed for transform vehicles)
     GNETagSelector* getVehicleTagSelector() const;
 

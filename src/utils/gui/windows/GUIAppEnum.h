@@ -1797,6 +1797,9 @@ enum {
 
     /// @{
 
+    /// @brief choose an object in the cursor dialog
+    MID_CURSORDIALOG_CHOOSEELEMENT,
+
     /// @brief last element of enum (not used)
     MID_LAST
 };

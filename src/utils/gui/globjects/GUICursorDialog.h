@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <functional>
+
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 
@@ -43,6 +45,10 @@ public:
     /// @brief constructor used for Pop-up dialogs
     GUICursorDialog(GUIGLObjectPopupMenu::PopupType type, GUISUMOAbstractView* view, const std::vector<GUIGlObject*>& objects);
 
+    /// @brief constructor for choosing one of the objects
+    GUICursorDialog(GUISUMOAbstractView* view, const std::vector<GUIGlObject*>& objects,
+                    const FXString& text, GUIIcon icon, std::function<void(GUIGlObject*)> onChoose);
+
     /// @brief destructor
     ~GUICursorDialog();
 
@@ -60,6 +66,9 @@ public:
 
     /// @brief open properties popUp
     long onCmdOpenPropertiesPopUp(FXObject*, FXSelector, void*);
+
+    /// @brief invoke the action for the chosen object
+    long onCmdChooseElement(FXObject*, FXSelector, void*);
 
     /// @brief move list up
     long onCmdMoveListUp(FXObject*, FXSelector, void*);
@@ -107,6 +116,9 @@ private:
     /// @brief build dialog elements
     void buildDialogElements(GUISUMOAbstractView* view, const FXString text, GUIIcon icon,
                              FXSelector sel, const std::vector<GUIGlObject*>& objects);
+
+    /// @brief action for choosing an object
+    std::function<void(GUIGlObject*)> myOnChoose;
 
     /// @brief Invalidated copy constructor.
     GUICursorDialog(const GUICursorDialog&) = delete;
