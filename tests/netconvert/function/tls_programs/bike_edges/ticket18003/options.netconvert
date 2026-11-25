@@ -1,0 +1,3 @@
+-n input_plain.nod.xml -e input_plain.edg.xml -x input_plain.con.xml -t input_plain.typ.xml -o net.net.xml
+--geometry.min-radius.fix.railways false --geometry.avoid-overlap false --geometry.max-grade.fix false
+--offset.disable-normalization true --no-turnarounds true --walkingareas true --output.street-names true

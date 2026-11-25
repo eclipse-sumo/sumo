@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-398816.96,-5809707.61" convBoundary="3093.57,597.20,3271.46,752.12" origBoundary="13.51,52.43,13.57,52.45" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="2377301195" x="3259.87" y="731.33" type="dead_end"/>
+    <node id="4106215215" x="3106.54" y="605.20" type="dead_end"/>
+    <node id="4106215221" x="3099.96" y="613.84" type="dead_end"/>
+    <node id="5551188769" x="3096.07" y="618.93" type="dead_end"/>
+    <node id="5551188942" x="3109.98" y="600.70" type="dead_end"/>
+    <node id="5551188948" x="3269.56" y="718.26" type="dead_end"/>
+    <node id="5551955598" x="3093.57" y="622.20" type="dead_end"/>
+    <node id="5551955599" x="3112.65" y="597.20" type="dead_end"/>
+    <node id="5552329051" x="3271.46" y="715.69" type="dead_end"/>
+    <node id="8252378118" x="3235.88" y="727.77" type="dead_end"/>
+    <node id="8252378239" x="3238.74" y="724.40" type="dead_end"/>
+    <node id="9356157310" x="3265.57" y="723.72" type="dead_end"/>
+    <node id="cluster12063669135_12063675781_5551966382_5552326664_#10more" x="3172.63" y="664.89" type="traffic_light" tl="cluster12063669135_12063675781_5551966382_5552326664_#10more"/>
+    <node id="cluster12063669136_12063669137_12063675780_12063675786_#1more" x="3108.23" y="752.12" type="dead_end"/>
+</nodes>

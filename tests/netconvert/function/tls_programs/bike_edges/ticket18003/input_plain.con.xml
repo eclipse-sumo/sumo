@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-35554225#4"/>
+
+    <connection from="1453392362#1" to="190928927#3" fromLane="0" toLane="0"/>
+    <connection from="1453392362#1" to="190928927#3" fromLane="1" toLane="1"/>
+    <connection from="1453392362#1" to="-35554225#4" fromLane="1" toLane="0"/>
+
+    <connection from="1476504214#1" to="-35554225#4" fromLane="0" toLane="0"/>
+    <connection from="1476504214#1" to="1476504212#3" fromLane="0" toLane="0"/>
+    <connection from="1476504214#1" to="1476504212#3" fromLane="1" toLane="1"/>
+
+    <connection from="35554225#3" to="887593800#5" fromLane="0" toLane="0"/>
+    <connection from="35554225#3" to="1476504212#3" fromLane="0" toLane="0"/>
+    <connection from="35554225#3" to="887637452#17" fromLane="0" toLane="0"/>
+    <connection from="35554225#3" to="190928927#3" fromLane="0" toLane="1"/>
+
+    <connection from="887593800#2" to="-35554225#4" fromLane="0" toLane="0"/>
+    <connection from="887593800#2" to="887593800#5" fromLane="0" toLane="0"/>
+
+    <connection from="887637452#13" to="887637452#17" fromLane="0" toLane="0"/>
+    <connection from="887637452#13" to="-35554225#4" fromLane="0" toLane="0"/>
+
+    <crossing node="cluster12063669135_12063675781_5551966382_5552326664_#10more" edges="887637452#17 190928927#3 1476504214#1 887593800#2" priority="1" width="4.00" linkIndex="22" outlineShape="3193.19,660.96 3180.16,679.29 3177.99,678.09 3176.37,677.71 3189.87,658.72 3193.13,661.04"/>
+    <crossing node="cluster12063669135_12063675781_5551966382_5552326664_#10more" edges="887593800#5 1476504212#3 1453392362#1 887637452#13" priority="1" width="4.00" linkIndex="23" outlineShape="3155.57,661.08 3168.76,643.15 3171.98,645.52 3158.63,663.67"/>
+    <crossing node="cluster12063669135_12063675781_5551966382_5552326664_#10more" edges="-35554225#4 35554225#3" priority="1" width="4.00" linkIndex="24" outlineShape="3167.38,682.88 3160.93,677.99 3162.52,675.22 3162.71,674.32 3170.14,679.94 3169.49,680.46"/>
+</connections>
