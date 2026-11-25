@@ -409,7 +409,7 @@ def main():
     toolDir = join(dirname(__file__), '..')
     with io.open(sys.argv[1], 'w', encoding='utf8') as templateHeaderFile:
         buildTemplateToolHeader(templateHeaderFile)
-        is_debug = sys.argv[2].endswith("D") or sys.argv[1].endswith("D.exe")
+        is_debug = sys.argv[2].endswith("D") or sys.argv[2].endswith("D.exe")
         print(u"const std::vector<TemplateTool> templateTools {", file=templateHeaderFile)
         print(generateToolTemplates(toolDir, TOOLS, is_debug), file=templateHeaderFile)
         print(u"};\n", file=templateHeaderFile)
