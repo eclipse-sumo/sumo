@@ -304,7 +304,7 @@ public:
     /// @brief Increase myVehicleStopped
     void increaseVehicleStoppedTimer();
 
-    /// @brief Set Energy Charged in Wh
+    /// @brief Adjust this step's provisional charge to the station's delivered energy in Wh.
     void setEnergyCharged(const double energyCharged);
 
 protected:
@@ -364,6 +364,10 @@ protected:
 
     /// @brief Total energy charged from charging stations
     double myTotalEnergyCharged;
+
+    /// @brief Charge and state of health before applying provisional fade on this step.
+    double myChargeBeforeFade = 0.;
+    double myStateOfHealthBeforeCharge = 1.;
 
     /// @brief Parameter, maximum rate in W for discharging into a charging station (vehicle-to-grid, 0 = no discharging)
     double myMaximumDischargeRate;

@@ -460,6 +460,8 @@ MSDevice_Battery::notifyMoveInternal(const SUMOTrafficObject& tObject,
                     myActChargingStation->setVehiclePower(veh.getID(), gridPower);
                 }
                 if (myEnergyCharged > 0.) {
+                    myChargeBeforeFade = myActualBatteryCapacity;
+                    myStateOfHealthBeforeCharge = myStateOfHealth;
                     myTotalEnergyCharged += myEnergyCharged;
                     updateStateOfHealth(myEnergyCharged);
                 }
@@ -760,15 +762,16 @@ MSDevice_Battery::increaseVehicleStoppedTimer() {
 
 void
 MSDevice_Battery::setEnergyCharged(const double energyCharged) {
-    // the charging station may scale down the energy already accounted for this step (total power limit)
     const double delta = energyCharged - myEnergyCharged;
     myEnergyCharged = energyCharged;
     myTotalEnergyCharged = MAX2(0., myTotalEnergyCharged + delta);
     if (myCapacityLossPerCycle > 0. && myMaximumBatteryCapacity > 0. && delta != 0.) {
-        myStateOfHealth = MIN2(1., MAX2(0.05, myStateOfHealth - myCapacityLossPerCycle * (delta / (2. * myMaximumBatteryCapacity))));
-        if (myActualBatteryCapacity > getEffectiveBatteryCapacity()) {
-            myActualBatteryCapacity = getEffectiveBatteryCapacity();
-        }
+        // Recompute from before the provisional fade, which may have clipped the charge or the state of health.
+        myStateOfHealth = myStateOfHealthBeforeCharge;
+        setActualBatteryCapacity(myChargeBeforeFade + delta);
+        updateStateOfHealth(energyCharged);
+    } else {
+        setActualBatteryCapacity(myActualBatteryCapacity + delta);
     }
 
 }

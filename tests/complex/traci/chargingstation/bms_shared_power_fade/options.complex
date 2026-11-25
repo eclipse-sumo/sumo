@@ -1,0 +1,1 @@
+tests/complex/traci/chargingstation/bms_shared_power_fade/runner.py --net-file "$TEXTTEST_HOME/sumo/devices/battery/net.net.xml"

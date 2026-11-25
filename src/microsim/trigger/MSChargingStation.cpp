@@ -417,23 +417,21 @@ MSChargingStation::checkTotalPower(SUMOTime currentTime) {
     if (sumReqWh > capWh && sumReqWh > 0) {
         const double ratio = capWh / sumReqWh;
         for (auto* charge : thisStepCharges) {
-            MSDevice_Battery* battery = myChargedBatteries[charge->vehicleID];
-            double abc = battery->getActualBatteryCapacity();
-
             const double deliveredWh = charge->WCharged * ratio;
             const double excessWh = charge->WCharged - deliveredWh;
+            if (excessWh == 0.) {
+                continue;
+            }
+            MSDevice_Battery* battery = myChargedBatteries[charge->vehicleID];
             charge->WCharged = deliveredWh;
             if (charge->chargingEfficiency > 0 && TS > 0) {
                 // derive power [W] from energy [Wh]: Power = (Energy [Wh] * 3600) [Ws] / (efficiency * TS [s])
                 // ergo we are doing [Ws/s -> W]
                 charge->chargingPower = (deliveredWh * 3600.0) / (charge->chargingEfficiency * TS);
             }
-            charge->actualBatteryCapacity = abc - excessWh;
-            charge->totalEnergyCharged -= excessWh;
-
-            //  inform also battery device
-            battery->setActualBatteryCapacity(abc - excessWh);
             battery->setEnergyCharged(deliveredWh);
+            charge->actualBatteryCapacity = battery->getActualBatteryCapacity();
+            charge->totalEnergyCharged -= excessWh;
             myTotalCharge -= excessWh;
             auto sIt = mySessionState.find(charge->vehicleID);
             if (sIt != mySessionState.end() && sIt->second.lastStep == currentTime && sIt->second.power > 0.) {
