@@ -48,6 +48,8 @@
             <xsd:element name="load-state" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="load-state.offset" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="load-state.remove-vehicles" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="load-state.remove-persons" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="load-state.remove-containers" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="junction-taz" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>

@@ -57,6 +57,12 @@
         <!-- Removes vehicles with the given IDs from the loaded state -->
         <load-state.remove-vehicles value="" type="STR[]"/>
 
+        <!-- Removes persons with the given IDs from the loaded state -->
+        <load-state.remove-persons value="" type="STR[]"/>
+
+        <!-- Removes containers with the given IDs from the loaded state -->
+        <load-state.remove-containers value="" type="STR[]"/>
+
         <!-- Initialize a TAZ for every junction to use attributes toJunction and fromJunction -->
         <junction-taz value="false" type="BOOL"/>
 
