@@ -198,6 +198,7 @@
             <xsd:element name="tls.yellow.time" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.red.time" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.allred.time" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="tls.redyellow.time" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.minor-left.max-speed" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.left-green.time" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.nema.vehExt" type="intOptionType" minOccurs="0"/>
