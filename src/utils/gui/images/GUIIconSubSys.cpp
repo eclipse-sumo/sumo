@@ -507,6 +507,7 @@
 
 #include "icons/vshapes/vshape_pedestrian.xpm"
 #include "icons/vshapes/vshape_bicycle.xpm"
+#include "icons/vshapes/vshape_bicycle_cargo.xpm"
 #include "icons/vshapes/vshape_moped.xpm"
 #include "icons/vshapes/vshape_motorcycle.xpm"
 #include "icons/vshapes/vshape_passenger.xpm"
@@ -1091,6 +1092,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
     myIcons[GUIIcon::VSHAPE_PEDESTRIAN] = new FXXPMIcon(a, vshape_pedestrian_xpm);
     myIcons[GUIIcon::VSHAPE_BICYCLE] = new FXXPMIcon(a, vshape_bicycle_xpm);
+    myIcons[GUIIcon::VSHAPE_BICYCLE_CARGO] = new FXXPMIcon(a, vshape_bicycle_cargo_xpm);
     myIcons[GUIIcon::VSHAPE_MOPED] = new FXXPMIcon(a, vshape_moped_xpm);
     myIcons[GUIIcon::VSHAPE_MOTORCYCLE] = new FXXPMIcon(a, vshape_motorcycle_xpm);
     myIcons[GUIIcon::VSHAPE_PASSENGER] = new FXXPMIcon(a, vshape_passenger_xpm);
