@@ -360,8 +360,8 @@ GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject*
                 myNet->getUndoList()->add(new GNEChange_Additional(parkingArea, true), true);
                 myNet->getUndoList()->end();
             } else {
-                myNet->getAttributeCarriers()->insertAdditional(parkingArea);
                 lane->addChildElement(parkingArea);
+                myNet->getAttributeCarriers()->insertAdditional(parkingArea);
                 parkingArea->incRef("buildParkingArea");
             }
             return true;
