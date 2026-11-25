@@ -124,6 +124,9 @@ GNEAttributesEditorRow::showAttributeRow(GNEAttributesEditorType* attributeTable
     const bool computedAttribute = multipleEditedACs ? false : firstEditedAC->isAttributeComputed(attribute);
     // get string value depending if attribute is enabled
     const std::string value = getAttributeValue(attributeEnabled);
+    // Match the default after formatting numeric and boolean values for display.
+    const FXColor textColor = computedAttribute ? GUIDesignTextColorBlue :
+                              (attributeEnabled && isDefaultValue(value) ? FXRGB(115, 115, 115) : GUIDesignTextColorBlack);
     // get parent if we're editing single vTypes
     GNEAttributeCarrier* ACParent = nullptr;
     if (!multipleEditedACs && attrProperty->isVType()) {
@@ -182,11 +185,11 @@ GNEAttributesEditorRow::showAttributeRow(GNEAttributesEditorType* attributeTable
     }
     // continue depending of type of attribute
     if (attrProperty->isBool()) {
-        showValueCheckButton(value, attributeEnabled, computedAttribute);
+        showValueCheckButton(value, attributeEnabled, textColor);
     } else if (attrProperty->isDiscrete() || attrProperty->isVType()) {
-        showValueComboBox(attrProperty, value, attributeEnabled, computedAttribute);
+        showValueComboBox(attrProperty, value, attributeEnabled, textColor);
     } else {
-        showValueString(value, attributeEnabled, computedAttribute);
+        showValueString(value, attributeEnabled, textColor);
     }
     // check if show move lane buttons
     if (!multipleEditedACs && !tagPropertyParent->isNetworkElement() && (attribute == SUMO_ATTR_LANE)) {
@@ -749,9 +752,38 @@ GNEAttributesEditorRow::hideAllAttributeElements() {
 }
 
 
+bool
+GNEAttributesEditorRow::isDefaultValue(const std::string& value) const {
+    if (!myAttrProperty->hasDefaultValue()) {
+        return false;
+    }
+    const auto& defaultValue = myAttrProperty->getDefaultStringValue();
+    if ((value == defaultValue) || myAttrProperty->isList()) {
+        return value == defaultValue;
+    }
+    if (myAttrProperty->isSUMOTime()) {
+        return GNEAttributeCarrier::canParse<SUMOTime>(value) && GNEAttributeCarrier::canParse<SUMOTime>(defaultValue) &&
+               GNEAttributeCarrier::parse<SUMOTime>(value) == GNEAttributeCarrier::parse<SUMOTime>(defaultValue);
+    }
+    if (myAttrProperty->isInt()) {
+        return GNEAttributeCarrier::canParse<int>(value) && GNEAttributeCarrier::canParse<int>(defaultValue) &&
+               GNEAttributeCarrier::parse<int>(value) == GNEAttributeCarrier::parse<int>(defaultValue);
+    }
+    if (myAttrProperty->isFloat()) {
+        return GNEAttributeCarrier::canParse<double>(value) && GNEAttributeCarrier::canParse<double>(defaultValue) &&
+               GNEAttributeCarrier::parse<double>(value) == GNEAttributeCarrier::parse<double>(defaultValue);
+    }
+    if (myAttrProperty->isBool()) {
+        return GNEAttributeCarrier::canParse<bool>(value) && GNEAttributeCarrier::canParse<bool>(defaultValue) &&
+               GNEAttributeCarrier::parse<bool>(value) == GNEAttributeCarrier::parse<bool>(defaultValue);
+    }
+    return false;
+}
+
+
 void
 GNEAttributesEditorRow::showValueCheckButton(const std::string& value,
-        const bool enabled, const bool computed) {
+        const bool enabled, const FXColor textColor) {
     // first we need to check if all boolean values are equal
     bool allValuesEqual = true;
     // declare  boolean vector
@@ -782,6 +814,7 @@ GNEAttributesEditorRow::showValueCheckButton(const std::string& value,
             myValueCheckButton->setText("false");
         }
         // show check button
+        myValueCheckButton->setTextColor(textColor);
         myValueCheckButton->show();
         // hide other value elements
         myValueTextField->hide();
@@ -790,14 +823,14 @@ GNEAttributesEditorRow::showValueCheckButton(const std::string& value,
         myValueLaneDownButton->hide();
     } else {
         // show value as string
-        showValueString(value, enabled, computed);
+        showValueString(value, enabled, textColor);
     }
 }
 
 
 void
 GNEAttributesEditorRow::showValueComboBox(const GNEAttributeProperties* attrProperty, const std::string& value,
-        const bool enabled, const bool computed) {
+        const bool enabled, const FXColor textColor) {
     // first we need to check if all boolean values are equal
     bool allValuesEqual = true;
     // declare  boolean vector
@@ -879,6 +912,7 @@ GNEAttributesEditorRow::showValueComboBox(const GNEAttributeProperties* attrProp
             myValueComboBox->setCurrentItem(index);
         }
         // show comboBox button
+        myValueComboBox->setFieldTextColor(textColor);
         myValueComboBox->show();
         // hide other value elements
         myValueTextField->hide();
@@ -887,20 +921,16 @@ GNEAttributesEditorRow::showValueComboBox(const GNEAttributeProperties* attrProp
         myValueLaneDownButton->hide();
     } else {
         // show value as string
-        showValueString(value, enabled, computed);
+        showValueString(value, enabled, textColor);
     }
 }
 
 
 void
-GNEAttributesEditorRow::showValueString(const std::string& value, const bool enabled, const bool computed) {
+GNEAttributesEditorRow::showValueString(const std::string& value, const bool enabled, const FXColor textColor) {
     // clear and enable comboBox
     myValueTextField->setText(value.c_str());
-    if (computed) {
-        myValueTextField->setTextColor(GUIDesignTextColorBlue);
-    } else {
-        myValueTextField->setTextColor(GUIDesignTextColorBlack);
-    }
+    myValueTextField->setTextColor(textColor);
     if (enabled) {
         myValueTextField->enable();
     } else {
