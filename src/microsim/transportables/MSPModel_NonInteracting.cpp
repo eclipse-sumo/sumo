@@ -70,7 +70,11 @@ MSTransportableStateAdapter*
 MSPModel_NonInteracting::loadState(MSTransportable* transportable, MSStageMoving* stage, std::istringstream& in) {
     myNumActivePedestrians++;
     MoveToNextEdge* const cmd = new MoveToNextEdge(transportable, *stage, this);
-    PState* const state = transportable->isPerson() ? new PState(cmd, &in) : new CState(cmd, &in);
+    const bool isPerson = transportable->isPerson();
+    PState* const state = isPerson ? new PState(cmd, &in) : new CState(cmd, &in);
+    if (isPerson) {
+        state->restoreEdgePositions(*stage);
+    }
     myNet->getBeginOfTimestepEvents()->addEvent(cmd, state->getEventTime());
     return state;
 }
@@ -139,6 +143,29 @@ MSPModel_NonInteracting::PState::computeDuration(const MSEdge* prev, const MSSta
     myLastEntryTime = currentTime;
     myWaitingSince = -1;
     myPermissionCheckTime = -1;
+    computeEdgePositions(prev, stage);
+    // Ensure that a zero-length walk still schedules a movement event.
+    myCurrentDuration = MAX2((SUMOTime)1, TIME2STEPS(fabs(myCurrentEndPos - myCurrentBeginPos) / stage.getMaxSpeed(myCommand->getTransportable())));
+    // Round to the next timestep to avoid systematic higher walking speed.
+    if ((myCurrentDuration % DELTA_T) > 0) {
+        myCurrentDuration += DELTA_T;
+    }
+    return myCurrentDuration;
+}
+
+
+void
+MSPModel_NonInteracting::PState::restoreEdgePositions(const MSStageMoving& stage) {
+    if (myWaitingSince < 0) {
+        // Active walks save only their event times. Recover their positions from the loaded route.
+        const auto current = stage.getRouteStep();
+        computeEdgePositions(current == stage.getRoute().begin() ? nullptr : *(current - 1), stage);
+    }
+}
+
+
+void
+MSPModel_NonInteracting::PState::computeEdgePositions(const MSEdge* prev, const MSStageMoving& stage) {
     const MSEdge* edge = stage.getEdge();
     const MSEdge* next = stage.getNextRouteEdge();
     int dir = UNDEFINED_DIRECTION;
@@ -158,15 +185,6 @@ MSPModel_NonInteracting::PState::computeDuration(const MSEdge* prev, const MSSta
         }
         myCurrentEndPos = dir == FORWARD ? edge->getLength() : 0;
     }
-    // ensure that a result > 0 is returned even if the walk ends immediately
-    // adding 0.5ms is done to ensure proper rounding
-    myCurrentDuration = MAX2((SUMOTime)1, TIME2STEPS(fabs(myCurrentEndPos - myCurrentBeginPos) / stage.getMaxSpeed(myCommand->getTransportable())));
-    //std::cout << std::setprecision(8) << SIMTIME << " curBeg=" << myCurrentBeginPos << " curEnd=" << myCurrentEndPos << " speed=" << stage.getMaxSpeed(myCommand->getTransportable()) << " dur=" << myCurrentDuration << "\n";
-    // round to the next timestep to avoid systematic higher walking speed
-    if ((myCurrentDuration % DELTA_T) > 0) {
-        myCurrentDuration += DELTA_T;
-    }
-    return myCurrentDuration;
 }
 
 

@@ -129,6 +129,9 @@ private:
             return myPermissionCheckTime >= 0 ? myPermissionCheckTime : myLastEntryTime + myCurrentDuration;
         }
 
+        /// @brief Recover positions for a state loaded during an active walk.
+        void restoreEdgePositions(const MSStageMoving& stage);
+
         /// @brief Record a blocked transition and schedule another check.
         void waitForPermission(SUMOTime now);
 
@@ -137,6 +140,8 @@ private:
         void saveState(std::ostringstream& out);
 
     protected:
+        void computeEdgePositions(const MSEdge* prev, const MSStageMoving& stage);
+
         SUMOTime myLastEntryTime;
         SUMOTime myCurrentDuration;
         SUMOTime myWaitingSince = -1;

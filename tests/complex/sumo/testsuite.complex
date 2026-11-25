@@ -73,3 +73,6 @@ overtake
 # test emissions for different tls configurations (old and some config files
 # missing)
 #tls_emissions
+
+# Reload an approaching walk before its next sidewalk closes.
+walk_closure_reload
