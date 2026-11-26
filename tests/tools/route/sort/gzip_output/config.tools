@@ -1,0 +1,8 @@
+[collate_file]
+gzroutes:out.rou.xml.gz
+
+[collate_script]
+gzroutes:$SUMO_HOME/tests/unzip.py
+
+[run_dependent_text]
+gzroutes:<!-- generated on{[->]}-->

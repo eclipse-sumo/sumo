@@ -96,13 +96,15 @@ Attention\! The routes are not sorted in time\!
 
 This script sorts the vehicles in the given route file by their depart
 time. If the option **--big** is supplied, a slow but memory efficient algorithm
-is used.
+is used. Give the output filename a `.gz` suffix to write gzip-compressed XML.
 
 ```
 python tools/route/sort_routes.py input.rou.xml -o output.rou.xml
 ```
 
 # cutRoutes.py
+
+Use a `.gz` suffix to compress route, trip, stopping-place, or public transport output. Compression is available with both sorting modes.
 
 This script cuts down routes from a large scenario to a sub-scenario.
 This assumes the existence of a big scenario (*orig.net.xml* and

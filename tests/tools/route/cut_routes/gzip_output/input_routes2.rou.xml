@@ -1,0 +1,5 @@
+<routes>
+    <vehicle id="bus" line="100" depart="0">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+</routes>
