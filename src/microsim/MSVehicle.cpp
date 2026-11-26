@@ -3926,7 +3926,11 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
             if (myLane->isInternal() && myJunctionEntryTime == SUMOTime_MAX) {
                 // request was renewed, restoring entry time
                 // @note: using myJunctionEntryTimeNeverYield could lead to inconsistencies with other vehicles already on the junction
-                myJunctionEntryTime = SIMSTEP;;
+                myJunctionEntryTime = SIMSTEP;
+                if (!myLane->getLinkCont().empty() && !myLane->getLinkCont().front()->isInternalJunctionLink()
+                        && myLane->getEntryLink() != nullptr && myLane->getEntryLink()->isTLSControlled()) {
+                    myJunctionConflictEntryTime = SIMSTEP;
+                }
             }
         } else {
             if (link != nullptr && link->getInternalLaneBefore() != nullptr && myLane->isInternal() && link->getJunction() == myLane->getEdge().getToJunction()) {

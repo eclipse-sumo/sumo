@@ -678,6 +678,11 @@ public:
     SUMOTime getWaitingTimeFor(const MSLink* link) const;
 
 
+    /// @brief Returns the time at which the current junction was entered
+    inline SUMOTime getJunctionEntryTimeNeverYield() const {
+        return myJunctionEntryTimeNeverYield;
+    }
+
     /** @brief Returns the SUMOTime spent driving since startup (speed was larger than 0.1m/s)
      *
      * The value is reset if the vehicle halts (moves slower than 0.1m/s)
