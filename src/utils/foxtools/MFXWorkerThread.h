@@ -195,6 +195,16 @@ public:
         /// @brief how long a thread polls before it waits on its condition variable
         static const int SPIN_MICROS = 100;
 
+        /// @brief lets the threads of this pool poll before they wait (only the pools of the parallel mesoscopic loop do)
+        void setSpin(const bool spin) {
+            mySpin.store(spin, std::memory_order_relaxed);
+        }
+
+        /// @brief whether the threads of this pool poll before they wait
+        bool spins() const {
+            return mySpin.load(std::memory_order_relaxed);
+        }
+
         void setException(ProcessError& e) {
             myMutex.lock();
             if (myException == nullptr) {
@@ -205,10 +215,12 @@ public:
 
         /// @brief waits for all tasks to be finished
         void waitAll(const bool deleteFinished = true) {
-            const int numRunning = myRunningIndex;
-            spinUntil([&]() {
-                return myNumFinished.load(std::memory_order_acquire) >= numRunning;
-            });
+            if (spins()) {
+                const int numRunning = myRunningIndex;
+                spinUntil([&]() {
+                    return myNumFinished.load(std::memory_order_acquire) >= numRunning;
+                });
+            }
             myMutex.lock();
             while ((int)myFinishedTasks.size() < myRunningIndex) {
                 myCondition.wait(myMutex);
@@ -299,6 +311,8 @@ public:
         std::list<Task*> myFinishedTasks;
         /// @brief the number of tasks finished since the last waitAll (polled without the mutex, see spinUntil)
         std::atomic<int> myNumFinished{0};
+        /// @brief whether the threads poll before they wait (see setSpin)
+        std::atomic<bool> mySpin{false};
         /// @brief the running index for the next task
         int myRunningIndex;
         /// @brief the exception from a child thread
@@ -365,9 +379,11 @@ public:
      */
     FXint run() {
         while (!myStopped) {
-            Pool::spinUntil([&]() {
-                return myStopped || myNumPending.load(std::memory_order_acquire) > 0;
-            });
+            if (myPool.spins()) {
+                Pool::spinUntil([&]() {
+                    return myStopped || myNumPending.load(std::memory_order_acquire) > 0;
+                });
+            }
             myMutex.lock();
             while (!myStopped && myTasks.empty()) {
                 myCondition.wait(myMutex);

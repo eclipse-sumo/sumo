@@ -286,6 +286,7 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
 #ifdef HAVE_FOX
     if (MSGlobals::gNumMesoThreads > 0) {
         // the route files are read on their own thread while the vehicles move (see simulationStep)
+        myRouteLoaderPool.setSpin(true);
         new MFXWorkerThread(myRouteLoaderPool);
     }
 #endif

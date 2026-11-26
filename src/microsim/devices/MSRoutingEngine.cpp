@@ -679,6 +679,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
     if (MSGlobals::gNumThreads > 1 && MSGlobals::gNumMesoThreads > 0 && myThreadPool == nullptr) {
         // with --meso-threads the routes are computed by their own threads, so that the junction groups do not wait for them
         myThreadPool = new MFXWorkerThread::Pool();
+        myThreadPool->setSpin(true);
         for (int i = 0; i < MSGlobals::gNumThreads; i++) {
             new MSEdgeControl::WorkerThread(*myThreadPool);
         }
@@ -705,6 +706,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
         // the sparse re-customization of the CCH metrics runs on its own thread while the vehicles move
         // and is published at the next barrier (see adaptEdgeEfforts)
         myCustomizePool = new MFXWorkerThread::Pool(1);
+        myCustomizePool->setSpin(true);
         myCCHLive->setPublishLag(1);
     }
 #endif

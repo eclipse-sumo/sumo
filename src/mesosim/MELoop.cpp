@@ -1263,6 +1263,7 @@ MELoop::buildGroups(const OptionsCont& oc) {
         buildReach();
     }
 #ifdef HAVE_FOX
+    myThreadPool.setSpin(true);
     while (myThreadPool.size() < numThreads) {
         new MFXWorkerThread(myThreadPool);
     }
