@@ -25,6 +25,8 @@
 #include <netedit/elements/additional/GNECalibrator.h>
 #include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
+#include <netedit/elements/GNEHierarchicalElement.h>
+#include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEInternalTest.h>
@@ -543,6 +545,72 @@ GNEAttributesEditorType::setAttribute(SumoXMLAttr attr, const std::string& value
         }
         // finish change multiple attributes or ID Attributes
         if ((myEditedACs.size() > 1) || (attr == SUMO_ATTR_ID)) {
+            undoList->end();
+        }
+    }
+    refreshAttributesEditor();
+    // update frame parent (needed to update other attribute tables)
+    myFrameParent->attributeUpdated(attr);
+}
+
+
+void
+GNEAttributesEditorType::setVClassAttributes(SumoXMLAttr attr, const SVCPermissions allowedVClasses, const SVCPermissions disallowedVClasses) {
+    const auto undoList = myFrameParent->getViewNet()->getUndoList();
+    const auto tagProperty = myEditedACs.front()->getTagProperty();
+    if (isEditorTypeCreator()) {
+        for (const auto& editedAC : myEditedACs) {
+            const SVCPermissions perms = (parseVehicleClasses(editedAC->getAttribute(attr)) | allowedVClasses) & ~disallowedVClasses;
+            editedAC->setAttribute(attr, getVehicleClassNames(perms));
+        }
+    } else if (isEditorTypeEditor()) {
+        if (myEditedACs.size() > 1) {
+            undoList->begin(tagProperty->getGUIIcon(), TLF("change multiple % attributes", tagProperty->getTagStr()));
+        }
+        for (const auto& editedAC : myEditedACs) {
+            if ((editedAC->getTagProperty()->getTag() == SUMO_TAG_EDGE) && (attr == SUMO_ATTR_ALLOW) &&
+                    editedAC->getHierarchicalElement() && !editedAC->getHierarchicalElement()->getChildLanes().empty()) {
+                const auto& childLanes = editedAC->getHierarchicalElement()->getChildLanes();
+                SVCPermissions firstLanePerms = 0;
+                bool uniformLanes = true;
+                for (int i = 0; i < (int)childLanes.size(); i++) {
+                    const auto lane = childLanes.at(i);
+                    const SVCPermissions lanePerms = (parseVehicleClasses(lane->getAttribute(attr)) | allowedVClasses) & ~disallowedVClasses;
+                    if (i == 0) {
+                        firstLanePerms = lanePerms;
+                    } else if (lanePerms != firstLanePerms) {
+                        uniformLanes = false;
+                    }
+                }
+                if (uniformLanes) {
+                    const std::string newValue = getVehicleClassNames(firstLanePerms);
+                    if (editedAC->getAttribute(attr) != newValue) {
+                        editedAC->setAttribute(attr, newValue, undoList);
+                    }
+                } else {
+                    if (myEditedACs.size() == 1) {
+                        undoList->begin(tagProperty->getGUIIcon(), TLF("change % attribute", tagProperty->getTagStr()));
+                    }
+                    for (const auto& lane : childLanes) {
+                        const SVCPermissions lanePerms = (parseVehicleClasses(lane->getAttribute(attr)) | allowedVClasses) & ~disallowedVClasses;
+                        const std::string newLaneValue = getVehicleClassNames(lanePerms);
+                        if (lane->getAttribute(attr) != newLaneValue) {
+                            lane->setAttribute(attr, newLaneValue, undoList);
+                        }
+                    }
+                    if (myEditedACs.size() == 1) {
+                        undoList->end();
+                    }
+                }
+            } else if (editedAC->hasAttribute(attr)) {
+                const SVCPermissions perms = (parseVehicleClasses(editedAC->getAttribute(attr)) | allowedVClasses) & ~disallowedVClasses;
+                const std::string newValue = getVehicleClassNames(perms);
+                if (editedAC->getAttribute(attr) != newValue) {
+                    editedAC->setAttribute(attr, newValue, undoList);
+                }
+            }
+        }
+        if (myEditedACs.size() > 1) {
             undoList->end();
         }
     }

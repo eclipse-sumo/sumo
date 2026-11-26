@@ -158,6 +158,9 @@ protected:
     /// @brief set attribute in the current ACs (Callend from row)
     void setAttribute(SumoXMLAttr attr, const std::string& value);
 
+    /// @brief set vClass attribute in the current ACs using allow and disallow masks (Called from row)
+    void setVClassAttributes(SumoXMLAttr attr, const SVCPermissions allowedVClasses, const SVCPermissions disallowedVClasses);
+
     /// @brief set attribute in the current ACs (Callend from row)
     void toggleEnableAttribute(SumoXMLAttr attr, const bool value);
 

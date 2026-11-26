@@ -422,11 +422,18 @@ GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
 long
 GNEAttributesEditorRow::onCmdOpenVClassDialog(FXObject*, FXSelector, void*) {
     auto GNEApp = myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows();
-    // declare allowVClassesDialog
-    const auto allowVClassesDialog = new GNEVClassesDialog(GNEApp, myAttrProperty->getAttr(), myValueTextField->getText().text());
-    // continue depending of result
-    if (allowVClassesDialog->getResult() == GNEDialog::Result::ACCEPT) {
-        myValueTextField->setText(allowVClassesDialog->getModifiedVClasses().c_str(), TRUE);
+    if (myAttributeTable->isEditorTypeEditor() && !myAttributeTable->getEditedAttributeCarriers().empty()) {
+        // open dialog for edited ACs
+        const GNEVClassesDialog allowVClassesDialog(GNEApp, myAttrProperty->getAttr(), myAttributeTable->getEditedAttributeCarriers());
+        if (allowVClassesDialog.getResult() == GNEDialog::Result::ACCEPT) {
+            myAttributeTable->setVClassAttributes(myAttrProperty->getAttr(), allowVClassesDialog.getAllowedVClasses(), allowVClassesDialog.getDisallowedVClasses());
+        }
+    } else {
+        // open dialog for single vClasses string
+        const GNEVClassesDialog allowVClassesDialog(GNEApp, myAttrProperty->getAttr(), myValueTextField->getText().text());
+        if (allowVClassesDialog.getResult() == GNEDialog::Result::ACCEPT) {
+            myValueTextField->setText(allowVClassesDialog.getModifiedVClasses().c_str(), TRUE);
+        }
     }
     return 1;
 }

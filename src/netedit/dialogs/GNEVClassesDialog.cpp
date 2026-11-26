@@ -19,6 +19,10 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/elements/GNEHierarchicalElement.h>
+#include <netedit/elements/network/GNELane.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -84,29 +88,83 @@ GNEVClassesDialog::VClassRow::getVClassString() const {
 
 
 void
+GNEVClassesDialog::VClassRow::setInitialStatus(const ValueStatus status) {
+    myInitialStatus = status;
+    resetStatus();
+}
+
+
+void
+GNEVClassesDialog::VClassRow::resetStatus() {
+    myCycleKeep = (myInitialStatus == ValueStatus::KEEP);
+    updateButtonStatus(myInitialStatus);
+}
+
+
+void
 GNEVClassesDialog::VClassRow::setVClassButtonStatus(const bool enabled) {
-    if (enabled) {
-        myVClassButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
-    } else {
-        myVClassButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
-    }
+    myCycleKeep = false;
+    updateButtonStatus(enabled ? ValueStatus::ENABLED : ValueStatus::DISABLED);
 }
 
 
 bool
 GNEVClassesDialog::VClassRow::isVClassButtonEnabled() const {
-    return (myVClassButton->getIcon() == GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
+    return (myStatus == ValueStatus::ENABLED);
+}
+
+
+GNEVClassesDialog::ValueStatus
+GNEVClassesDialog::VClassRow::getStatus() const {
+    return myStatus;
+}
+
+
+GNEVClassesDialog::ValueStatus
+GNEVClassesDialog::VClassRow::getInitialStatus() const {
+    return myInitialStatus;
 }
 
 
 long
 GNEVClassesDialog::VClassRow::onCmdToggleVClass(FXObject*, FXSelector, void*) {
-    if (myVClassButton->getIcon() == GUIIconSubSys::getIcon(GUIIcon::ACCEPT)) {
-        setVClassButtonStatus(false);
+    if (myCycleKeep) {
+        if (myStatus == ValueStatus::KEEP) {
+            updateButtonStatus(ValueStatus::ENABLED);
+        } else if (myStatus == ValueStatus::ENABLED) {
+            updateButtonStatus(ValueStatus::DISABLED);
+        } else {
+            updateButtonStatus(ValueStatus::KEEP);
+        }
+    } else if (myStatus == ValueStatus::ENABLED) {
+        updateButtonStatus(ValueStatus::DISABLED);
     } else {
-        setVClassButtonStatus(true);
+        updateButtonStatus(ValueStatus::ENABLED);
     }
     return 1;
+}
+
+
+void
+GNEVClassesDialog::VClassRow::updateButtonStatus(const ValueStatus status) {
+    myStatus = status;
+    switch (status) {
+        case ValueStatus::ENABLED:
+            myVClassButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
+            myVClassButton->setTipText(TL("Allowed"));
+            myVClassButton->setHelpText(TL("Allowed"));
+            break;
+        case ValueStatus::DISABLED:
+            myVClassButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
+            myVClassButton->setTipText(TL("Disallowed"));
+            myVClassButton->setHelpText(TL("Disallowed"));
+            break;
+        case ValueStatus::KEEP:
+            myVClassButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::QUESTION_SMALL));
+            myVClassButton->setTipText(TL("Different values (keep unchanged)"));
+            myVClassButton->setHelpText(TL("Different values (keep unchanged)"));
+            break;
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -130,6 +188,31 @@ GNEVClassesDialog::GNEVClassesDialog(GNEApplicationWindow* applicationWindow, GN
               DialogType::VCLASS, GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC),
     myOriginalVClasses(originalVClasses),
     myEditedVClasses(originalVClasses) {
+    // build dialog
+    builder();
+}
+
+
+GNEVClassesDialog::GNEVClassesDialog(GNEApplicationWindow* applicationWindow, SumoXMLAttr attr,
+                                     const std::vector<GNEAttributeCarrier*>& ACs) :
+    GNEDialog(applicationWindow, TLF("Edit vClasses of attribute '%'", toString(attr)), GUIIcon::GREENVEHICLE,
+              DialogType::VCLASS, GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC),
+    myMultipleMode(true) {
+    // compute common allowed and disallowed vClasses across all edited ACs
+    for (const auto& AC : ACs) {
+        if ((AC->getTagProperty()->getTag() == SUMO_TAG_EDGE) && (attr == SUMO_ATTR_ALLOW) &&
+                AC->getHierarchicalElement() && !AC->getHierarchicalElement()->getChildLanes().empty()) {
+            for (const auto& lane : AC->getHierarchicalElement()->getChildLanes()) {
+                const SVCPermissions perms = parseVehicleClasses(lane->getAttribute(attr));
+                myCommonAllowed &= perms;
+                myCommonDisallowed &= invertPermissions(perms);
+            }
+        } else if (AC->hasAttribute(attr)) {
+            const SVCPermissions perms = parseVehicleClasses(AC->getAttribute(attr));
+            myCommonAllowed &= perms;
+            myCommonDisallowed &= invertPermissions(perms);
+        }
+    }
     // build dialog
     builder();
 }
@@ -160,6 +243,18 @@ GNEVClassesDialog::runInternalTest(const InternalTestStep::DialogArgument* dialo
 std::string
 GNEVClassesDialog::getModifiedVClasses() const {
     return myEditedVClasses;
+}
+
+
+SVCPermissions
+GNEVClassesDialog::getAllowedVClasses() const {
+    return myAllowedVClasses;
+}
+
+
+SVCPermissions
+GNEVClassesDialog::getDisallowedVClasses() const {
+    return myDisallowedVClasses;
 }
 
 
@@ -214,14 +309,24 @@ GNEVClassesDialog::onCmdSelectOnlyRail(FXObject*, FXSelector, void*) {
 long
 GNEVClassesDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     bool allSelected = true;
+    bool changed = false;
+    myAllowedVClasses = 0;
+    myDisallowedVClasses = 0;
     // clear allow and disallow VClasses
     std::vector<std::string> allowedVehicles;
     for (const auto& vClass : myVClassMap) {
-        // check if vehicle is allowed depending on the Icon
-        if (vClass.second->isVClassButtonEnabled()) {
+        if (vClass.second->getStatus() != vClass.second->getInitialStatus()) {
+            changed = true;
+        }
+        // check if vehicle is allowed depending on status
+        if (vClass.second->getStatus() == ValueStatus::ENABLED) {
+            myAllowedVClasses |= vClass.first;
             allowedVehicles.push_back(vClass.second->getVClassString());
         } else {
             allSelected = false;
+            if (vClass.second->getStatus() == ValueStatus::DISABLED) {
+                myDisallowedVClasses |= vClass.first;
+            }
         }
     }
     if (allSelected) {
@@ -229,8 +334,8 @@ GNEVClassesDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     } else {
         myEditedVClasses = joinToString(allowedVehicles, " ");
     }
-    // Stop Modal if we have a different  classes from original
-    if (myEditedVClasses != myOriginalVClasses) {
+    // Stop Modal if we have different classes from original
+    if (myMultipleMode ? changed : (myEditedVClasses != myOriginalVClasses)) {
         return closeDialogAccepting();
     } else {
         return closeDialogCanceling();
@@ -242,6 +347,8 @@ long
 GNEVClassesDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // reset vClasses
     myEditedVClasses = myOriginalVClasses;
+    myAllowedVClasses = 0;
+    myDisallowedVClasses = 0;
     // cancel
     return closeDialogCanceling();
 }
@@ -251,24 +358,8 @@ long
 GNEVClassesDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // reset vClasses
     myEditedVClasses = myOriginalVClasses;
-    // continue depending of allow
-    if (myEditedVClasses == "all") {
-        // iterate over myVClassMap and set all icons as true
-        for (const auto& vClass : myVClassMap) {
-            vClass.second->setVClassButtonStatus(true);
-        }
-    } else {
-        // declare string vector for saving all vclasses
-        const std::vector<std::string>& allowStringVector = StringTokenizer(myEditedVClasses).getVector();
-        const std::set<std::string> allowSet(allowStringVector.begin(), allowStringVector.end());
-        // iterate over myVClassMap and set icons
-        for (const auto& vClass : myVClassMap) {
-            if (allowSet.count(getVehicleClassNames(vClass.first)) > 0) {
-                vClass.second->setVClassButtonStatus(true);
-            } else {
-                vClass.second->setVClassButtonStatus(false);
-            }
-        }
+    for (const auto& vClass : myVClassMap) {
+        vClass.second->resetStatus();
     }
     return 1;
 }
@@ -335,6 +426,32 @@ GNEVClassesDialog::builder() {
     myVClassMap[SVC_DRONE] = new VClassRow(vehiclesRightFrame, SVC_DRONE, GUIIcon::VCLASS_DRONE, TL("A small unmanned robot"));
     myVClassMap[SVC_CUSTOM1] = new VClassRow(vehiclesRightFrame, SVC_CUSTOM1, GUIIcon::VCLASS_CUSTOM1, TL("Reserved for user-defined semantics"));
     myVClassMap[SVC_CUSTOM2] = new VClassRow(vehiclesRightFrame, SVC_CUSTOM2, GUIIcon::VCLASS_CUSTOM2, TL("Reserved for user-defined semantics"));
+    // initialize initial statuses
+    if (myMultipleMode) {
+        for (const auto& vClass : myVClassMap) {
+            if ((myCommonAllowed & vClass.first) != 0) {
+                vClass.second->setInitialStatus(ValueStatus::ENABLED);
+            } else if ((myCommonDisallowed & vClass.first) != 0) {
+                vClass.second->setInitialStatus(ValueStatus::DISABLED);
+            } else {
+                vClass.second->setInitialStatus(ValueStatus::KEEP);
+            }
+        }
+    } else if (myOriginalVClasses == "all") {
+        for (const auto& vClass : myVClassMap) {
+            vClass.second->setInitialStatus(ValueStatus::ENABLED);
+        }
+    } else {
+        const std::vector<std::string>& allowStringVector = StringTokenizer(myOriginalVClasses).getVector();
+        const std::set<std::string> allowSet(allowStringVector.begin(), allowStringVector.end());
+        for (const auto& vClass : myVClassMap) {
+            if (allowSet.count(getVehicleClassNames(vClass.first)) > 0) {
+                vClass.second->setInitialStatus(ValueStatus::ENABLED);
+            } else {
+                vClass.second->setInitialStatus(ValueStatus::DISABLED);
+            }
+        }
+    }
     // reset dialog
     onCmdReset(nullptr, 0, nullptr);
     // open modal dialog
