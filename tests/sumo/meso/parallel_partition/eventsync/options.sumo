@@ -1,0 +1,3 @@
+--meso-threads 2
+--meso-threads.partition-file input_districts.taz.xml
+--meso-threads.event-sync

@@ -1,0 +1,11 @@
+# without --meso-threads
+serial
+
+# one group per component loaded from input_districts.taz.xml: no vehicle changes the group, so the results are the serial ones
+rounds
+
+# the same with synchronisation at the events between groups
+eventsync
+
+# the two computed groups are the two components, written as taz elements
+computed

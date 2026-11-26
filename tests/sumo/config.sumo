@@ -48,6 +48,7 @@ bt:bt.xml
 tripinfos:tripinfos.xml
 personinfos:personinfos.xml
 statistic:statistic.xml
+partition:partition.xml
 stopinfos:stopinfos.xml
 collisions:collisions.xml
 vtypeprobe:vtypeprobe.xml
@@ -163,6 +164,7 @@ bt:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
 personinfos:<!--{[->]}-->
 statistic:<!--{[->]}-->
+partition:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
 collisions:<!--{[->]}-->
 tripinfosPrefix:<!--{[->]}-->

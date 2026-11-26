@@ -788,6 +788,10 @@ MSFrame::fillOptions() {
     oc.addDescription("meso-threads.rounds", "Mesoscopic", TL("Number of parallel rounds per step for the junction groups: the moves between groups of a round free their followers for the next one (0: until no event is due)"));
     oc.doRegister("meso-threads.event-sync", new Option_Bool(false));
     oc.addDescription("meso-threads.event-sync", "Mesoscopic", TL("Synchronise the groups at every event that concerns two groups instead of once per step (results match the serial simulation up to the order of simultaneous events in different groups)"));
+    oc.doRegister("meso-threads.partition-file", new Option_FileName());
+    oc.addDescription("meso-threads.partition-file", "Mesoscopic", TL("Load the junction groups for parallel mesoscopic events from FILE (taz elements with the edges of each group)"));
+    oc.doRegister("meso-threads.partition-output", new Option_FileName());
+    oc.addDescription("meso-threads.partition-output", "Mesoscopic", TL("Write the junction groups for parallel mesoscopic events to FILE (taz elements with the edges of each group)"));
     oc.doRegister("meso-edgelength", new Option_Float(98.0f));
     oc.addDescription("meso-edgelength", "Mesoscopic", TL("Length of an edge segment in mesoscopic simulation"));
     oc.doRegister("meso-tauff", new Option_String("1.13", "TIME"));

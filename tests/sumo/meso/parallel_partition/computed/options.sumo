@@ -1,0 +1,3 @@
+--meso-threads 2
+--meso-threads.groups 2
+--meso-threads.partition-output partition.xml

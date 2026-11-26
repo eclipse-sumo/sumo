@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-10-20T11:38:22.876611+05:30 by Eclipse SUMO sumo v1.28.0-0000000000
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <statistic-output value="statistic.xml"/>
+    </output>
+
+    <time>
+        <end value="1800"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <meso-ltm value="true"/>
+        <meso-threads value="2"/>
+        <meso-threads.groups value="2"/>
+        <meso-threads.partition-output value="partition.xml"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <taz id="0" edges="A0A1 A0B0 A1A0 A1A2 A1B1 A2A1 A2A3 A2B2 A3A2 A3A4 A3B3 A4A3 A4B4 AB0A0 AB0B1 AB0C0 AB1A1 AB1B0 AB1B2 AB1C1 AB2A2 AB2B1 AB2B3 AB2C2 AB3A3 AB3B2 AB3B4 AB3C3 AB4A4 AB4B3 AB4C4 AC0B0 AC0C1 AC0D0 AC1B1 AC1C0 AC1C2 AC1D1 AC2B2 AC2C1 AC2C3 AC2D2 AC3B3 AC3C2 AC3C4 AC3D3 AC4B4 AC4C3 AC4D4 AD0C0 AD0D1 AD0E0 AD1C1 AD1D0 AD1D2 AD1E1 AD2C2 AD2D1 AD2D3 AD2E2 AD3C3 AD3D2 AD3D4 AD3E3 AD4C4 AD4D3 AD4E4 AE0D0 AE0E1 AE1D1 AE1E0 AE1E2 AE2D2 AE2E1 AE2E3 AE3D3 AE3E2 AE3E4 AE4D4 AE4E3"/>
+    <taz id="1" edges="B0A0 B0B1 B0C0 B1A1 B1B0 B1B2 B1C1 B2A2 B2B1 B2B3 B2C2 B3A3 B3B2 B3B4 B3C3 B4A4 B4B3 B4C4 BA0A1 BA0B0 BA1A0 BA1A2 BA1B1 BA2A1 BA2A3 BA2B2 BA3A2 BA3A4 BA3B3 BA4A3 BA4B4 BC0B0 BC0C1 BC0D0 BC1B1 BC1C0 BC1C2 BC1D1 BC2B2 BC2C1 BC2C3 BC2D2 BC3B3 BC3C2 BC3C4 BC3D3 BC4B4 BC4C3 BC4D4 BD0C0 BD0D1 BD0E0 BD1C1 BD1D0 BD1D2 BD1E1 BD2C2 BD2D1 BD2D3 BD2E2 BD3C3 BD3D2 BD3D4 BD3E3 BD4C4 BD4D3 BD4E4 BE0D0 BE0E1 BE1D1 BE1E0 BE1E2 BE2D2 BE2E1 BE2E3 BE3D3 BE3E2 BE3E4 BE4D4 BE4E3"/>
+</additional>

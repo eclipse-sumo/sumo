@@ -44,6 +44,9 @@
 #include <utils/common/RandHelper.h>
 #include <utils/geom/Boundary.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXAttributes.h>
+#include <utils/xml/XMLSubSys.h>
 #include "MELoop.h"
 #include "MESegment.h"
 #include "MELSegment.h"
@@ -1166,12 +1169,120 @@ MELoop::getGroup(const MEVehicle* veh) const {
 }
 
 
+/// @brief reads the edges of the groups from taz elements (see MELoop::loadPartition)
+class MELoop::PartitionHandler : public SUMOSAXHandler {
+public:
+    PartitionHandler(const std::string& file) : SUMOSAXHandler(file) {}
+
+    /// @brief the number of groups read
+    int myNumGroups = 0;
+
+    /// @brief the edges with the index of their group
+    std::vector<std::pair<std::string, int> > myEdges;
+
+protected:
+    void myStartElement(int element, const SUMOSAXAttributes& attrs) override {
+        bool ok = true;
+        if (element == SUMO_TAG_TAZ) {
+            const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+            for (const std::string& edge : attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), ok)) {
+                myEdges.push_back(std::make_pair(edge, myNumGroups));
+            }
+            myNumGroups++;
+        } else if ((element == SUMO_TAG_TAZSOURCE || element == SUMO_TAG_TAZSINK) && myNumGroups > 0) {
+            myEdges.push_back(std::make_pair(attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok), myNumGroups - 1));
+        }
+    }
+};
+
+
 void
 MELoop::buildGroups(const OptionsCont& oc) {
     const int numThreads = oc.getInt("meso-threads");
     if (numThreads <= 0) {
         return;
     }
+    std::map<const MSJunction*, int> junctionGroups;
+    int numGroups;
+    const bool loaded = oc.isSet("meso-threads.partition-file");
+    if (loaded) {
+        if (!oc.isDefault("meso-threads.groups")) {
+            WRITE_WARNING(TL("Ignoring option --meso-threads.groups since the groups are loaded."));
+        }
+        numGroups = loadPartition(oc.getString("meso-threads.partition-file"), junctionGroups);
+    } else {
+        numGroups = oc.getInt("meso-threads.groups");
+        computeGroups(numGroups, junctionGroups);
+    }
+    myRounds = oc.getInt("meso-threads.rounds");
+    myEventSync = oc.getBool("meso-threads.event-sync");
+    myGroups.reserve(numGroups);
+    for (int i = 0; i < numGroups; i++) {
+        myGroups.push_back(Group("meso_" + toString(i)));
+        RandHelper::initRand(&myGroups.back().rng, oc.getBool("random"), oc.getInt("seed") + i);
+    }
+    myEdgeGroups.resize(MSEdge::getAllEdges().size());
+    int numEdges = 0;
+    int numCut = 0;
+    for (const MSEdge* e : MSEdge::getAllEdges()) {
+        const MSJunction* const end = e->getToJunction() != nullptr ? e->getToJunction() : e->getFromJunction();
+        if (end != nullptr) {
+            const int group = junctionGroups[end];
+            myEdgeGroups[e->getNumericalID()] = group;
+            for (MESegment* s = getSegmentForEdge(*e); s != nullptr; s = s->getNextSegment()) {
+                s->setGroup(group, &myGroups[group].rng);
+            }
+            if (getSegmentForEdge(*e) != nullptr && e->getFromJunction() != nullptr) {
+                numEdges++;
+                // a junction at which no edge ends has no group
+                const auto from = junctionGroups.find(e->getFromJunction());
+                if (from != junctionGroups.end() && from->second != group) {
+                    numCut++;
+                }
+            }
+        }
+    }
+    if (loaded) {
+        WRITE_MESSAGEF(TL("Loaded % groups for parallel meso events from '%', % of % edges connect different groups."),
+                       toString(numGroups), oc.getString("meso-threads.partition-file"), toString(numCut), toString(numEdges));
+    } else {
+        WRITE_MESSAGEF(TL("Built % groups for parallel meso events, % of % edges connect different groups."),
+                       toString(numGroups), toString(numCut), toString(numEdges));
+    }
+    if (oc.isSet("meso-threads.partition-output")) {
+        writePartition();
+    }
+    if (myEventSync) {
+        for (Group& g : myGroups) {
+            g.holds.resize(numGroups + 1);
+        }
+        std::vector<SharedKey>(numGroups * (numGroups + 1)).swap(myHoldKeys);
+        std::vector<SharedKey>(numGroups).swap(myParkedKeys);
+        // the steps follow each other from the begin on (see getStepEnd)
+        myStepEnd = string2time(oc.getString("begin")) - DELTA_T;
+        buildReach();
+    }
+#ifdef HAVE_FOX
+    while (myThreadPool.size() < numThreads) {
+        new MFXWorkerThread(myThreadPool);
+    }
+    for (const Phase phase : { EVENTS, ARRIVALS, DEPARTURES }) {
+        myGroupTasks.push_back(std::vector<GroupTask*>());
+        for (int i = 0; i < numGroups; i++) {
+            myGroupTasks.back().push_back(new GroupTask(*this, i, phase));
+        }
+    }
+    if (myEventSync) {
+        for (int i = 0; i < numThreads; i++) {
+            myEventSyncTasks.push_back(new EventSyncTask(*this, i, numThreads));
+        }
+    }
+#endif
+}
+
+
+void
+MELoop::computeGroups(const int numGroups, std::map<const MSJunction*, int>& junctionGroups) {
     // Union-find over the junctions. Moves into another group wait until the end of the step,
     // so the junctions of edges which can be passed within one step are kept in the same group.
     std::map<const MSJunction*, int> index;
@@ -1238,67 +1349,127 @@ MELoop::buildGroups(const OptionsCont& oc) {
         total += c.segments;
     }
     std::sort(order.begin(), order.end());
-    const int numGroups = oc.getInt("meso-threads.groups");
-    myRounds = oc.getInt("meso-threads.rounds");
-    myEventSync = oc.getBool("meso-threads.event-sync");
     long long int cumulated = 0;
     for (const auto& item : order) {
         Cluster& c = clusters[item.second];
         c.group = MIN2(numGroups - 1, (int)(cumulated * numGroups / MAX2(total, 1LL)));
         cumulated += c.segments;
     }
-    myGroups.reserve(numGroups);
-    for (int i = 0; i < numGroups; i++) {
-        myGroups.push_back(Group("meso_" + toString(i)));
-        RandHelper::initRand(&myGroups.back().rng, oc.getBool("random"), oc.getInt("seed") + i);
+    const std::set<const MSJunction*> ends = getEndJunctions();
+    for (const MSJunction* const j : junctions) {
+        if (ends.count(j) > 0) {
+            junctionGroups[j] = clusters[find(j)].group;
+        }
     }
-    myEdgeGroups.resize(MSEdge::getAllEdges().size());
-    int numEdges = 0;
-    int numCut = 0;
-    for (const MSEdge* e : MSEdge::getAllEdges()) {
-        const MSJunction* const end = e->getToJunction() != nullptr ? e->getToJunction() : e->getFromJunction();
+}
+
+
+std::set<const MSJunction*>
+MELoop::getEndJunctions() {
+    std::set<const MSJunction*> ends;
+    for (const MSEdge* const edge : MSEdge::getAllEdges()) {
+        const MSJunction* const end = edge->getToJunction() != nullptr ? edge->getToJunction() : edge->getFromJunction();
         if (end != nullptr) {
-            const int group = clusters[find(end)].group;
-            myEdgeGroups[e->getNumericalID()] = group;
-            for (MESegment* s = getSegmentForEdge(*e); s != nullptr; s = s->getNextSegment()) {
-                s->setGroup(group, &myGroups[group].rng);
+            ends.insert(end);
+        }
+    }
+    return ends;
+}
+
+
+int
+MELoop::loadPartition(const std::string& file, std::map<const MSJunction*, int>& junctionGroups) const {
+    PartitionHandler handler(file);
+    if (!XMLSubSys::runParser(handler, file) || handler.myNumGroups == 0) {
+        throw ProcessError(TLF("Could not load the junction groups from '%'.", file));
+    }
+    const int numGroups = handler.myNumGroups;
+    // every edge belongs to the group of the junction it ends at, so the edges vote for the group of their end junction
+    std::map<const MSJunction*, std::vector<int> > votes;
+    int unknown = 0;
+    for (const auto& item : handler.myEdges) {
+        const MSEdge* const edge = MSEdge::dictionary(item.first);
+        if (edge == nullptr || edge->getToJunction() == nullptr) {
+            unknown++;
+            continue;
+        }
+        std::vector<int>& v = votes[edge->getToJunction()];
+        v.resize(numGroups, 0);
+        v[item.second]++;
+    }
+    int split = 0;
+    for (const auto& item : votes) {
+        const std::vector<int>& v = item.second;
+        junctionGroups[item.first] = (int)(std::max_element(v.begin(), v.end()) - v.begin());
+        if ((int)v.size() - (int)std::count(v.begin(), v.end(), 0) > 1) {
+            split++;
+        }
+    }
+    // the other junctions at which edges end take the group of a neighbour, in the order of the edges so that the result is reproducible
+    const std::set<const MSJunction*> ends = getEndJunctions();
+    int inherited = 0;
+    for (bool changed = true; changed;) {
+        changed = false;
+        for (const MSEdge* const edge : MSEdge::getAllEdges()) {
+            const MSJunction* const from = edge->getFromJunction();
+            const MSJunction* const to = edge->getToJunction();
+            if (from == nullptr || to == nullptr) {
+                continue;
             }
-            if (getSegmentForEdge(*e) != nullptr && e->getFromJunction() != nullptr) {
-                numEdges++;
-                if (clusters[find(e->getFromJunction())].group != group) {
-                    numCut++;
-                }
+            const auto f = junctionGroups.find(from);
+            const auto t = junctionGroups.find(to);
+            if (t == junctionGroups.end() && f != junctionGroups.end()) {
+                junctionGroups[to] = f->second;
+                inherited++;
+                changed = true;
+            } else if (f == junctionGroups.end() && t != junctionGroups.end() && ends.count(from) > 0) {
+                junctionGroups[from] = t->second;
+                inherited++;
+                changed = true;
             }
         }
     }
-    WRITE_MESSAGEF(TL("Built % groups for parallel meso events, % of % edges connect different groups."),
-                   toString(numGroups), toString(numCut), toString(numEdges));
-    if (myEventSync) {
-        for (Group& g : myGroups) {
-            g.holds.resize(numGroups + 1);
-        }
-        std::vector<SharedKey>(numGroups * (numGroups + 1)).swap(myHoldKeys);
-        std::vector<SharedKey>(numGroups).swap(myParkedKeys);
-        // the steps follow each other from the begin on (see getStepEnd)
-        myStepEnd = string2time(oc.getString("begin")) - DELTA_T;
-        buildReach();
-    }
-#ifdef HAVE_FOX
-    while (myThreadPool.size() < numThreads) {
-        new MFXWorkerThread(myThreadPool);
-    }
-    for (const Phase phase : { EVENTS, ARRIVALS, DEPARTURES }) {
-        myGroupTasks.push_back(std::vector<GroupTask*>());
-        for (int i = 0; i < numGroups; i++) {
-            myGroupTasks.back().push_back(new GroupTask(*this, i, phase));
+    int unconnected = 0;
+    for (const MSJunction* const junction : ends) {
+        if (junctionGroups.insert(std::make_pair(junction, 0)).second) {
+            unconnected++;
         }
     }
-    if (myEventSync) {
-        for (int i = 0; i < numThreads; i++) {
-            myEventSyncTasks.push_back(new EventSyncTask(*this, i, numThreads));
-        }
+    if (unknown > 0) {
+        WRITE_WARNINGF(TL("Ignoring % unknown edges of the junction groups in '%'."), toString(unknown), file);
     }
-#endif
+    if (split > 0) {
+        WRITE_WARNINGF(TL("% junctions have incoming edges in different groups of '%' and belong to the group of most of them."), toString(split), file);
+    }
+    if (inherited > 0) {
+        WRITE_WARNINGF(TL("% junctions without edges in '%' belong to the group of a neighbour."), toString(inherited), file);
+    }
+    if (unconnected > 0) {
+        WRITE_WARNINGF(TL("% junctions are not connected to the edges in '%' and belong to the first group."), toString(unconnected), file);
+    }
+    return numGroups;
+}
+
+
+void
+MELoop::writePartition() const {
+    if (!OutputDevice::createDeviceByOption("meso-threads.partition-output", "additional", "additional_file.xsd")) {
+        return;
+    }
+    OutputDevice& dev = OutputDevice::getDeviceByOption("meso-threads.partition-output");
+    for (int i = 0; i < (int)myGroups.size(); i++) {
+        std::vector<std::string> edges;
+        for (const MSEdge* const edge : MSEdge::getAllEdges()) {
+            if (edge->isNormal() && myEdgeGroups[edge->getNumericalID()] == i) {
+                edges.push_back(edge->getID());
+            }
+        }
+        dev.openTag(SUMO_TAG_TAZ);
+        dev.writeAttr(SUMO_ATTR_ID, i);
+        dev.writeAttr(SUMO_ATTR_EDGES, joinToString(edges, " "));
+        dev.closeTag();
+    }
+    dev.close();
 }
 
 

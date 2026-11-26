@@ -40,6 +40,7 @@
 class MESegment;
 class MEVehicle;
 class MSEdge;
+class MSJunction;
 class MSLink;
 class MSVehicleControl;
 class OptionsCont;
@@ -217,6 +218,30 @@ private:
 
     /// @brief the group whose queue holds the event of the given car
     int getGroup(const MEVehicle* veh) const;
+
+    /** @brief Computes the groups of the junctions (see buildGroups)
+     *
+     * Junctions connected by edges which can be passed within one step stay together, the clusters are ordered along a
+     *  z-order curve and cut into groups with similar numbers of segments.
+     */
+    void computeGroups(const int numGroups, std::map<const MSJunction*, int>& junctionGroups);
+
+    /** @brief Loads the groups of the junctions from a file of taz elements (option --meso-threads.partition-file)
+     *
+     * Every edge belongs to the group of the junction it ends at, so the edges of a taz determine the group of their end
+     *  junctions (the group of most of them where they differ). Junctions without listed edges take the group of a neighbour.
+     * @return the number of groups
+     */
+    int loadPartition(const std::string& file, std::map<const MSJunction*, int>& junctionGroups) const;
+
+    /// @brief writes the groups as taz elements with their edges (option --meso-threads.partition-output)
+    void writePartition() const;
+
+    /// @brief the junctions at which edges end: only they need a group since every edge belongs to the group of its end
+    static std::set<const MSJunction*> getEndJunctions();
+
+    /// @brief reads the taz elements of a partition file
+    class PartitionHandler;
 
     /// @brief whether the move of the vehicle touches only the state of its group (no stops, passengers or reminders bound to the main thread)
     static bool isGroupSafe(const MEVehicle* veh, const MESegment* on, const MESegment* to);

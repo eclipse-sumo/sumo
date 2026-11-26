@@ -1,0 +1,26 @@
+Loading net-file from 'net.net.xml' ... done (3ms).
+Loaded 2 groups for parallel meso events from 'input_districts.taz.xml', 0 of 160 edges connect different groups.
+Loading route-files incrementally from 'input_routes.rou.xml'
+Loading done.
+Simulation version v1.28.0-0000000000 started with time: 0.00.
+Simulation ended at time: 1800.00.
+Reason: The final simulation step has been reached.
+Performance:
+ Duration: 0.09s
+ Real time factor: 20930.2
+ UPS: 1033104.651163
+Vehicles:
+ Inserted: 1200
+ Running: 0
+ Waiting: 0
+Statistics (avg of 1200):
+ RouteLength: 996.00
+ Speed: 13.47
+ Duration: 74.04
+ WaitingTime: 1.44
+ TimeLoss: 1.91
+ DepartDelay: 0.00
+DijkstraRouter answered 590 queries and explored 40.15 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+DijkstraRouter answered 592 queries and explored 41.07 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
