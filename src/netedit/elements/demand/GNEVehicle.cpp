@@ -739,17 +739,18 @@ GNEVehicle::updateGeometry() {
     if (myTagProperty->vehicleRoute() && getRouteParent()->getTagProperty()->isRouteDistribution()) {
         // remove vehicle from grid
         myNet->removeGLObjectFromGrid(this);
-        // reset view position to 0
-        myPosOverView = Position(0, 0);
-        // continue depending if the routeDistribution have references
-        for (auto routeRef : getParentDemandElements().at(1)->getChildDemandElements()) {
-            if (routeRef->getTagProperty()->isDistributionReference()) {
-                myPosOverView = routeRef->getParentDemandElements().at(1)->getParentEdges().front()->getChildLanes().at(0)->getLaneShape().front();
-                break;
+        const GNELane* firstPathLane = getFirstPathLane();
+        if (firstPathLane) {
+            double posOverLane = 0;
+            if (wasSet(VEHPARS_DEPARTPOS_SET) && (departPosProcedure == DepartPosDefinition::GIVEN)) {
+                posOverLane = departPos;
             }
+            myDemandElementGeometry.updateGeometry(firstPathLane->getLaneShape(), posOverLane, 0);
+            myPosOverView = myDemandElementGeometry.getShape().front();
+        } else {
+            myPosOverView = Position(0, 0);
+            myDemandElementGeometry.updateGeometry({myPosOverView - Position(1, 0), myPosOverView + Position(1, 0)});
         }
-        // update vehicle geometry
-        myDemandElementGeometry.updateGeometry({myPosOverView - Position(1, 0), myPosOverView + Position(1, 0)});
         // add object in grid again
         myNet->addGLObjectIntoGrid(this);
     } else if (getParentJunctions().size() > 0) {
@@ -1262,8 +1263,14 @@ GNEVehicle::getFirstPathLane() const {
     GNEEdge* firstEdge = nullptr;
     // continue depending of tags
     if (myTagProperty->vehicleRoute()) {
-        // check departEdge
-        if ((departEdge > 0) && (departEdge < (int)getRouteParent()->getParentEdges().size())) {
+        if (getRouteParent()->getTagProperty()->isRouteDistribution()) {
+            const GNELane* routeDistLane = getRouteParent()->getFirstPathLane();
+            if (routeDistLane) {
+                firstEdge = routeDistLane->getParentEdge();
+            } else {
+                return nullptr;
+            }
+        } else if ((departEdge > 0) && (departEdge < (int)getRouteParent()->getParentEdges().size())) {
             // use departEdge
             firstEdge = getRouteParent()->getParentEdges().at(departEdge);
         } else {
@@ -1311,8 +1318,14 @@ GNEVehicle::getLastPathLane() const {
     GNEEdge* lastEdge = nullptr;
     // continue depending of tags
     if (myTagProperty->vehicleRoute()) {
-        // check arrivalEdge
-        if ((arrivalEdge > 0) && (arrivalEdge < (int)getRouteParent()->getParentEdges().size())) {
+        if (getRouteParent()->getTagProperty()->isRouteDistribution()) {
+            const GNELane* routeDistLane = getRouteParent()->getLastPathLane();
+            if (routeDistLane) {
+                lastEdge = routeDistLane->getParentEdge();
+            } else {
+                return nullptr;
+            }
+        } else if ((arrivalEdge > 0) && (arrivalEdge < (int)getRouteParent()->getParentEdges().size())) {
             // use arrival edge
             lastEdge = getRouteParent()->getParentEdges().at(arrivalEdge);
         } else {
@@ -1531,8 +1544,12 @@ GNEVehicle::getAttributePosition(SumoXMLAttr key) const {
             if (getParentJunctions().size() > 0) {
                 return getParentJunctions().front()->getPositionInView();
             } else {
+                const GNELane* firstPathLane = getFirstPathLane();
+                if (firstPathLane == nullptr) {
+                    return myPosOverView;
+                }
                 // get first path lane shape
-                const PositionVector& laneShape = getFirstPathLane()->getLaneShape();
+                const PositionVector& laneShape = firstPathLane->getLaneShape();
                 // check arrivalPosProcedure
                 if (departPosProcedure == DepartPosDefinition::GIVEN) {
                     if (departPos < 0) {
@@ -1552,8 +1569,12 @@ GNEVehicle::getAttributePosition(SumoXMLAttr key) const {
             if (getParentJunctions().size() > 0) {
                 return getParentJunctions().back()->getPositionInView();
             } else {
+                const GNELane* lastPathLane = getLastPathLane();
+                if (lastPathLane == nullptr) {
+                    return myPosOverView;
+                }
                 // get last path lane shape
-                const PositionVector& laneShape = getLastPathLane()->getLaneShape();
+                const PositionVector& laneShape = lastPathLane->getLaneShape();
                 // check arrivalPosProcedure
                 if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
                     if (arrivalPos < 0) {
@@ -1646,8 +1667,19 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                     return (dummyDepartLane == 0);
                 } else if (getParentAdditionals().size() > 0) {
                     return (dummyDepartLane == 0);
+                } else if (myTagProperty->vehicleRoute() && getRouteParent()->getTagProperty()->isRouteDistribution()) {
+                    int maxLanes = 0;
+                    bool hasRefs = false;
+                    for (const auto& child : getRouteParent()->getChildDemandElements()) {
+                        if (child->getTagProperty()->isDistributionReference() && (child->getFirstPathLane() != nullptr)) {
+                            hasRefs = true;
+                            maxLanes = MAX2(maxLanes, (int)child->getFirstPathLane()->getParentEdge()->getChildLanes().size());
+                        }
+                    }
+                    return hasRefs ? (dummyDepartLane < maxLanes) : (dummyDepartLane >= 0);
                 } else {
-                    return dummyDepartLane < (int)getFirstPathLane()->getParentEdge()->getChildLanes().size();
+                    const GNELane* firstPathLane = getFirstPathLane();
+                    return firstPathLane ? (dummyDepartLane < (int)firstPathLane->getParentEdge()->getChildLanes().size()) : (dummyDepartLane >= 0);
                 }
             } else {
                 return false;
@@ -1691,8 +1723,19 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                     return (dummyArrivalLane == 0);
                 } else if (getParentAdditionals().size() > 0) {
                     return (dummyArrivalLane == 0);
+                } else if (myTagProperty->vehicleRoute() && getRouteParent()->getTagProperty()->isRouteDistribution()) {
+                    int maxLanes = 0;
+                    bool hasRefs = false;
+                    for (const auto& child : getRouteParent()->getChildDemandElements()) {
+                        if (child->getTagProperty()->isDistributionReference() && (child->getLastPathLane() != nullptr)) {
+                            hasRefs = true;
+                            maxLanes = MAX2(maxLanes, (int)child->getLastPathLane()->getParentEdge()->getChildLanes().size());
+                        }
+                    }
+                    return hasRefs ? (dummyArrivalLane < maxLanes) : (dummyArrivalLane >= 0);
                 } else {
-                    return dummyArrivalLane < (int)getLastPathLane()->getParentEdge()->getChildLanes().size();
+                    const GNELane* lastPathLane = getLastPathLane();
+                    return lastPathLane ? (dummyArrivalLane < (int)lastPathLane->getParentEdge()->getChildLanes().size()) : (dummyArrivalLane >= 0);
                 }
             } else {
                 return false;
@@ -1761,6 +1804,17 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                     } else if (isTemplate()) {
                         return true;
                     } else if (myTagProperty->vehicleRoute()) {
+                        if (getRouteParent()->getTagProperty()->isRouteDistribution()) {
+                            int maxEdges = 0;
+                            bool hasRefs = false;
+                            for (const auto& child : getRouteParent()->getChildDemandElements()) {
+                                if (child->getTagProperty()->isDistributionReference() && (child->getParentDemandElements().at(1)->getParentEdges().size() > 0)) {
+                                    hasRefs = true;
+                                    maxEdges = MAX2(maxEdges, (int)child->getParentDemandElements().at(1)->getParentEdges().size());
+                                }
+                            }
+                            return hasRefs ? (dummyIndex < maxEdges) : (dummyIndex >= 0);
+                        }
                         // check parent route
                         return (dummyIndex < (int)getRouteParent()->getParentEdges().size());
                     } else if (getChildDemandElements().size() > 0) {
@@ -1857,11 +1911,19 @@ GNEVehicle::copyVehicle(const GNEVehicle* originalVehicle) {
     newVehicleParameters.id = newVehicleID;
     // create vehicle using vehicleParameters
     if (originalVehicle->getTagProperty()->vehicleRoute()) {
-        newRoute = new GNERoute(newRouteID, originalVehicle->getParentDemandElements().at(1));
-        newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net,
-                                    originalVehicle->getFileBucket(),
-                                    originalVehicle->getParentDemandElements().at(0), newRoute,
-                                    newVehicleParameters);
+        if (originalVehicle->getParentDemandElements().at(1)->getTagProperty()->isRouteDistribution()) {
+            newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net,
+                                        originalVehicle->getFileBucket(),
+                                        originalVehicle->getParentDemandElements().at(0),
+                                        originalVehicle->getParentDemandElements().at(1),
+                                        newVehicleParameters);
+        } else {
+            newRoute = new GNERoute(newRouteID, originalVehicle->getParentDemandElements().at(1));
+            newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net,
+                                        originalVehicle->getFileBucket(),
+                                        originalVehicle->getParentDemandElements().at(0), newRoute,
+                                        newVehicleParameters);
+        }
     } else if (originalVehicle->getTagProperty()->vehicleRouteEmbedded()) {
         newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net,
                                     originalVehicle->getFileBucket(),
@@ -2128,13 +2190,22 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             insertionChecks = parseInsertionChecks(value);
             break;
         // Specific of vehicles over routes
-        case SUMO_ATTR_ROUTE:
+        case SUMO_ATTR_ROUTE: {
+            GNEEdge* previousRouteEdge = nullptr;
+            if ((getParentDemandElements().size() == 2) && (getRouteParent()->getParentEdges().size() > 0)) {
+                previousRouteEdge = getRouteParent()->getParentEdges().front();
+            }
             if (getParentDemandElements().size() == 2) {
                 replaceDemandElementParent(NamespaceIDs::routes, value, 1);
+            }
+            if (previousRouteEdge) {
+                previousRouteEdge->updateVehicleStackLabels();
+                previousRouteEdge->updateVehicleSpreadGeometries();
             }
             updateGeometry();
             updateSpreadStackGeometry = true;
             break;
+        }
         // Specific of from-to edges
         case SUMO_ATTR_FROM: {
             // change first edge

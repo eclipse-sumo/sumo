@@ -99,21 +99,23 @@ GNERouteDistribution::fixDemandElementProblem() {
 
 SUMOVehicleClass
 GNERouteDistribution::getVClass() const {
-    if (getChildDemandElements().size() > 0) {
-        return getChildDemandElements().front()->getVClass();
-    } else {
-        return SVC_IGNORING;
+    for (const auto& child : getChildDemandElements()) {
+        if (child->getTagProperty()->isDistributionReference()) {
+            return child->getVClass();
+        }
     }
+    return SVC_IGNORING;
 }
 
 
 const RGBColor&
 GNERouteDistribution::getColor() const {
-    if (getChildDemandElements().size() > 0) {
-        return getChildDemandElements().front()->getColor();
-    } else {
-        return RGBColor::INVISIBLE;
+    for (const auto& child : getChildDemandElements()) {
+        if (child->getTagProperty()->isDistributionReference()) {
+            return child->getColor();
+        }
     }
+    return RGBColor::INVISIBLE;
 }
 
 
@@ -130,11 +132,12 @@ GNERouteDistribution::updateGeometry() {
 
 Position
 GNERouteDistribution::getPositionInView() const {
-    if (getChildDemandElements().size() > 0) {
-        return getChildDemandElements().front()->getPositionInView();
-    } else {
-        return Position();
+    for (const auto& child : getChildDemandElements()) {
+        if (child->getTagProperty()->isDistributionReference()) {
+            return child->getParentDemandElements().at(1)->getPositionInView();
+        }
     }
+    return Position();
 }
 
 
@@ -146,11 +149,12 @@ GNERouteDistribution::getParentName() const {
 
 Boundary
 GNERouteDistribution::getCenteringBoundary() const {
-    if (getChildDemandElements().size() > 0) {
-        return getChildDemandElements().front()->getCenteringBoundary();
-    } else {
-        return Boundary(-0.1, -0.1, 0.1, 0.1);
+    for (const auto& child : getChildDemandElements()) {
+        if (child->getTagProperty()->isDistributionReference()) {
+            return child->getCenteringBoundary();
+        }
     }
+    return Boundary(-0.1, -0.1, 0.1, 0.1);
 }
 
 
@@ -191,21 +195,23 @@ GNERouteDistribution::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*
 
 GNELane*
 GNERouteDistribution::getFirstPathLane() const {
-    if (getChildDemandElements().size() > 0) {
-        return getChildDemandElements().front()->getFirstPathLane();
-    } else {
-        return nullptr;
+    for (const auto& child : getChildDemandElements()) {
+        if (child->getTagProperty()->isDistributionReference()) {
+            return child->getFirstPathLane();
+        }
     }
+    return nullptr;
 }
 
 
 GNELane*
 GNERouteDistribution::getLastPathLane() const {
-    if (getChildDemandElements().size() > 0) {
-        return getChildDemandElements().front()->getLastPathLane();
-    } else {
-        return nullptr;
+    for (const auto& child : getChildDemandElements()) {
+        if (child->getTagProperty()->isDistributionReference()) {
+            return child->getLastPathLane();
+        }
     }
+    return nullptr;
 }
 
 

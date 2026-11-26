@@ -125,7 +125,9 @@ GNERouteRef::getColor() const {
 
 void
 GNERouteRef::updateGeometry() {
-    // nothing to update
+    if (getParentDemandElements().size() > 0) {
+        getParentDemandElements().front()->updateGeometry();
+    }
 }
 
 

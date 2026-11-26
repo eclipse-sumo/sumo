@@ -570,20 +570,26 @@ void
 RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk);
+    const auto parentObj = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
+    const bool inRouteDistribution = parentObj && (parentObj->getTag() == SUMO_TAG_ROUTE_DISTRIBUTION);
+    // needed attributes (id is optional when defined inline inside a routeDistribution)
+    const std::string id = inRouteDistribution ?
+                           attrs.getOpt<std::string>(SUMO_ATTR_ID, "", parsedOk, "") :
+                           attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const std::string contextID = (id.empty() && inRouteDistribution && parentObj->hasStringAttribute(SUMO_ATTR_ID)) ?
+                                  parentObj->getStringAttribute(SUMO_ATTR_ID) : id;
+    const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, contextID.c_str(), parsedOk);
     // optional attributes
-    SUMOVehicleClass vClass = SUMOVehicleParserHelper::parseVehicleClass(attrs, id);
-    const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::INVISIBLE);
-    const int repeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, id.c_str(), parsedOk, 0);
-    const SUMOTime cycleTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, id.c_str(), parsedOk, 0);
-    const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, id.c_str(), parsedOk, 1.0);
+    SUMOVehicleClass vClass = SUMOVehicleParserHelper::parseVehicleClass(attrs, contextID);
+    const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, contextID.c_str(), parsedOk, RGBColor::INVISIBLE);
+    const int repeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, contextID.c_str(), parsedOk, 0);
+    const SUMOTime cycleTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, contextID.c_str(), parsedOk, 0);
+    const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, contextID.c_str(), parsedOk, inRouteDistribution ? INVALID_DOUBLE : 1.0);
     // check attributes
-    if (!checkNegative(SUMO_TAG_ROUTE, id, SUMO_ATTR_CYCLETIME, cycleTime, true)) {
+    if (!checkNegative(SUMO_TAG_ROUTE, contextID, SUMO_ATTR_CYCLETIME, cycleTime, true)) {
         parsedOk = false;
     }
-    if (!checkNegative(SUMO_TAG_ROUTE, id, SUMO_ATTR_REPEAT, repeat, true)) {
+    if (!checkNegative(SUMO_TAG_ROUTE, contextID, SUMO_ATTR_REPEAT, repeat, true)) {
         parsedOk = false;
     }
     if (parsedOk) {
