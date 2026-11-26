@@ -24,3 +24,9 @@ gtfs2fcd
 
 # import public transport using routes from osm and handle data errors
 gtfs2pt_osm_missingShapes
+
+# converts GTFS data into fcd traces and sorted vehicle routes
+gtfs2fcd_sort
+
+# import public transport using routes from osm with sorted vehicle output
+gtfs2pt_osm_sort

@@ -221,14 +221,24 @@ def writeVehicles(options, vehicles):
         filePrefix = os.path.join(options.fcd, mode)
         tripFile = io.open(filePrefix + '.rou.xml', 'w', encoding="utf8")
         tripFile.write(u"<routes>\n")
-        for trip_id, routeID, depart, lineID, params in vehicles[mode]:
+        vehList = vehicles[mode]
+        if getattr(options, "sort", False):
+            vehList = sorted(vehList, key=lambda v: (v[2], v[0]))
+        for trip_id, routeID, depart, lineID, params in vehList:
             tripFile.write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s">\n' % (
-                trip_id, routeID, mode, depart, lineID))
+                trip_id, routeID, mode, options.ft(depart), lineID))
             for k, v in params:
                 tripFile.write(u'        <param key="%s" value=%s/>\n' % (k, sumolib.xml.quoteattr(str(v), True)))
             tripFile.write(u'    </vehicle>\n')
         tripFile.write(u"</routes>\n")
         tripFile.close()
+
+
+def get_options(args=None):
+    op = add_options()
+    op.add_argument("--sort", action="store_true", default=False, category="processing",
+                    help="sort output route file by departure time")
+    return check_options(op.parse_args(args=args))
 
 
 def main(options):
@@ -246,4 +256,4 @@ def main(options):
 
 
 if __name__ == "__main__":
-    main(check_options(add_options().parse_args()))
+    main(get_options())
