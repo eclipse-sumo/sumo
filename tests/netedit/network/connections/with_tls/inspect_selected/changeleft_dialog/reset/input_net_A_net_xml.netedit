@@ -73,13 +73,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":Junction5_0_0" index="0" allow="ship" speed="15.00" length="6.00" width="3.00" shape="-1.50,7.00 -2.00,5.00 0.00,5.00 0.00,3.00 -2.00,3.00 -2.00,-3.00 0.00,-3.00 0.00,-5.00 -2.00,-5.00 -1.50,-7.00" changeLeft="private authority army vip pedestrian passenger hov taxi bus coach delivery motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2" changeRight="private emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship cable_car subway aircraft wheelchair scooter drone custom1 custom2"/>
     </edge>
     <edge id=":Junction5_1" function="internal">
-        <lane id=":Junction5_1_0" index="0" speed="13.89" length="14.00" width="3.00" shape="7.00,1.50 -7.00,1.50" changeLeft="private authority army vip pedestrian passenger hov taxi bus coach delivery motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2"/>
+        <lane id=":Junction5_1_0" index="0" speed="13.89" length="14.00" width="3.00" shape="7.00,1.50 -7.00,1.50"/>
     </edge>
     <edge id=":Junction5_2" function="internal">
-        <lane id=":Junction5_2_0" index="0" allow="ship" speed="13.89" length="14.00" width="3.00" shape="1.50,-7.00 1.50,7.00" changeLeft="private authority army vip pedestrian passenger hov taxi bus coach delivery motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2"/>
+        <lane id=":Junction5_2_0" index="0" allow="ship" speed="13.89" length="14.00" width="3.00" shape="1.50,-7.00 1.50,7.00"/>
     </edge>
     <edge id=":Junction5_3" function="internal">
-        <lane id=":Junction5_3_0" index="0" allow="bus" speed="13.89" length="14.00" width="3.00" shape="-7.00,-1.50 7.00,-1.50" changeLeft="private authority army vip pedestrian passenger hov taxi bus coach delivery motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2"/>
+        <lane id=":Junction5_3_0" index="0" allow="bus" speed="13.89" length="14.00" width="3.00" shape="-7.00,-1.50 7.00,-1.50"/>
     </edge>
 
     <edge id="-E0" from="J0" to="Junction5" priority="-1">
@@ -134,9 +134,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="JunctionExtern1" type="dead_end" x="60.00" y="0.00" incLanes="EdgeExternBot_0" intLanes="" shape="60.00,0.00 60.00,-3.00 60.00,0.00"/>
 
     <connection from="-E0" to="E3" fromLane="0" toLane="0" pass="1" keepClear="0" changeLeft="private authority army vip pedestrian passenger hov taxi bus coach delivery motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2" changeRight="private emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="15.00" length="6.00" shape="-1.50,7.00 -2.00,5.00 0.00,5.00 0.00,3.00 -2.00,3.00 -2.00,-3.00 0.00,-3.00 0.00,-5.00 -2.00,-5.00 -1.50,-7.00" uncontrolled="1" indirect="1" type="custom" via=":Junction5_0_0" dir="s" state="M" visibility="2.00"/>
-    <connection from="-E1" to="E2" fromLane="0" toLane="0" changeLeft="private authority army vip pedestrian passenger hov taxi bus coach delivery motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2" via=":Junction5_3_0" tl="Junction5" linkIndex="2" dir="s" state="o"/>
-    <connection from="-E2" to="E1" fromLane="0" toLane="0" changeLeft="private authority army vip pedestrian passenger hov taxi bus coach delivery motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2" via=":Junction5_1_0" tl="Junction5" linkIndex="0" dir="s" state="o"/>
-    <connection from="-E3" to="E0" fromLane="0" toLane="0" changeLeft="private authority army vip pedestrian passenger hov taxi bus coach delivery motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2" via=":Junction5_2_0" tl="Junction5" linkIndex="1" dir="s" state="O"/>
+    <connection from="-E1" to="E2" fromLane="0" toLane="0" via=":Junction5_3_0" tl="Junction5" linkIndex="2" dir="s" state="o"/>
+    <connection from="-E2" to="E1" fromLane="0" toLane="0" via=":Junction5_1_0" tl="Junction5" linkIndex="0" dir="s" state="o"/>
+    <connection from="-E3" to="E0" fromLane="0" toLane="0" via=":Junction5_2_0" tl="Junction5" linkIndex="1" dir="s" state="O"/>
 
     <connection from=":Junction5_0" to="E3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction5_1" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>
