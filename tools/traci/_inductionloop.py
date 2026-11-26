@@ -71,7 +71,8 @@ class InductionLoopDomain(Domain):
     def getLastStepMeanSpeed(self, loopID):
         """getLastStepMeanSpeed(string) -> double
 
-        Returns the mean speed in m/s of vehicles that were on the named induction loop within the last simulation step.
+        Returns the mean (passing) speed in m/s of vehicles that left the named induction loop within the last
+        simulation step or -1 if no vehicle left.
         """
         return self._getUniversal(tc.LAST_STEP_MEAN_SPEED, loopID)
 
@@ -85,14 +86,14 @@ class InductionLoopDomain(Domain):
     def getLastStepOccupancy(self, loopID):
         """getLastStepOccupancy(string) -> double
 
-        Returns the percentage of time the detector was occupied by a vehicle.
+        Returns the percentage of the last simulation step during which the detector was occupied by a vehicle.
         """
         return self._getUniversal(tc.LAST_STEP_OCCUPANCY, loopID)
 
     def getLastStepMeanLength(self, loopID):
         """getLastStepMeanLength(string) -> double
 
-        Returns the mean length in m of vehicles which were on the detector in the last step.
+        Returns the mean length in m of vehicles which left the detector in the last step or -1 if no vehicle left.
         """
         return self._getUniversal(tc.LAST_STEP_LENGTH, loopID)
 

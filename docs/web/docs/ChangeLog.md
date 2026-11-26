@@ -105,6 +105,8 @@ title: ChangeLog
   - Fixed invalid event time after adding a stop with default duration in meso #18392
   - Fixed libsumo crash when using `vehicle.moveToXY` and repeatedly restarting the simulation #18457
   - the python parts of libsumo and libtraci live now in pysrc intead of tools avoiding conflicts in the search path #18523
+  - `inductionloop.getLastStepOccupancy` and `inductionloop.getIntervalOccupancy` now include the time a vehicle spent on the detector before leaving if it entered in an earlier step / interval #3552
+  - `inductionloop.getLastStepMeanSpeed` and `inductionloop.getLastStepMeanLength` now report the (passing) speed and length of vehicles that left the detector in the last step (consistent with E1 file output) #3552
 
 - tools
   - gtfs2pt.py: fixed crash #18446 (regression in 1.27.1)

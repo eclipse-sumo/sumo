@@ -168,34 +168,35 @@ public:
     /// @name Methods returning current values
     /// @{
 
-    /** @brief Returns the speed of the vehicle on the detector
+    /** @brief Returns the mean speed of the vehicles which left the detector
      *
-     * If no vehicle is on the detector, -1 is returned, otherwise
-     *  this vehicle's current speed.
+     * Like a real loop, the speed of a vehicle is only known once it has passed the detector.
+     *  The (passing) speeds of all vehicles which left the detector in the step starting
+     *  at SIMSTEP - offset are averaged. If no vehicle left, -1 is returned.
      *
-     * @return The speed [m/s] of the vehicle if one is on the detector, -1 otherwise
+     * @param[in] offset The time offset (usually DELTA_T for the last step)
+     * @return The mean speed [m/s] of the vehicles which left the detector, -1 if there were none
      */
     double getSpeed(const int offset) const;
 
 
-    /** @brief Returns the length of the vehicle on the detector
+    /** @brief Returns the mean length of the vehicles which left the detector
      *
-     * If no vehicle is on the detector, -1 is returned, otherwise
-     *  this vehicle's length.
+     * The lengths of all vehicles which left the detector in the step starting
+     *  at SIMSTEP - offset are averaged. If no vehicle left, -1 is returned.
      *
-     * @return The length [m] of the vehicle if one is on the detector, -1 otherwise
+     * @param[in] offset The time offset (usually DELTA_T for the last step)
+     * @return The mean length [m] of the vehicles which left the detector, -1 if there were none
      */
     double getVehicleLength(const int offset) const;
 
 
-    /** @brief Returns the current occupancy
+    /** @brief Returns the occupancy of the last step
      *
-     * If a vehicle is on the detector, 1 is returned. If a vehicle has passed the detector
-     *  in this timestep, its occupancy value is returned. If no vehicle has passed,
-     *  0 is returned.
+     * The percentage of the last step during which any vehicle (including vehicles which
+     *  entered in an earlier step or left by lane change) was on the detector.
      *
-     * @return This detector's current occupancy
-     * @todo recheck (especially if more than one vehicle has passed)
+     * @return This detector's occupancy [%] during the last step
      */
     double getOccupancy() const;
 
@@ -335,6 +336,13 @@ public:
      * @return The list of vehicles
      */
     std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool includeEarly = false, bool leaveTime = false, bool forOccupancy = false, bool lastInterval = false) const;
+
+    /** @brief Returns vehicle data for vehicles that regularly left the detector in the step starting at the given time
+     *
+     * @param[in] t The begin of the step
+     * @return The list of vehicles
+     */
+    std::vector<VehicleData> collectVehiclesLeftDet(SUMOTime t) const;
 
     /// @brief allows for special color in the gui version
     virtual void setSpecialColor(const RGBColor* /*color*/) {};
