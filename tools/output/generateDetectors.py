@@ -31,7 +31,12 @@ SHORT_NAMES = {
     'E1': 'inductionLoop',
     'E1I': 'instantInductionLoop',
     'E2': 'laneAreaDetector',
-    #  'E3': 'multiEntryExitDetector'
+    'E3': 'entryExitDetector',
+}
+
+ALIASES = {
+    'e3Detector': 'entryExitDetector',
+    'multiEntryExitDetector': 'entryExitDetector',
 }
 
 NEED_EXTENT = ['laneAreaDetector',
@@ -73,9 +78,10 @@ def get_options(args=None):
     options = ap.parse_args(args=args)
 
     options.dType = SHORT_NAMES.get(options.dType, options.dType)
+    options.dType = ALIASES.get(options.dType, options.dType)
 
     if options.dType not in SHORT_NAMES.values():
-        sys.exit("Unsupported value '%s' for option --detector-type ")
+        sys.exit("Unsupported value '%s' for option --detector-type" % options.dType)
 
     if options.relpos is not None:
         try:
@@ -127,19 +133,42 @@ def main(options):
                 options.results))
             numWritten += 1
 
+        def writeE3(detID, entryLanes, exitLanes, exitPos):
+            fout.write('    <entryExitDetector id="%s%s" %sfile="%s" openEntry="true">\n' % (
+                options.prefix, detID, period, options.results))
+            for lane in entryLanes:
+                ep = max(0.0, lane.getLength() - options.length) if options.length is not None else 0.0
+                fout.write('        <detEntry lane="%s" pos="%.2f"/>\n' % (lane.getID(), ep))
+            for lane in exitLanes:
+                fout.write('        <detExit lane="%s" pos="%.2f"/>\n' % (lane.getID(), exitPos))
+            fout.write('    </entryExitDetector>\n')
+
         for edge in net.getEdges():
             if options.edgeProbability < 1 and random.random() > options.edgeProbability:
                 continue
-            for lane in edge.getLanes():
-                if not lane.allows(options.vclass):
+            lanes = [lane for lane in edge.getLanes() if lane.allows(options.vclass)
+                     and (options.probability >= 1 or random.random() <= options.probability)]
+            if options.dType == "entryExitDetector":
+                if not lanes:
                     continue
-                if options.probability < 1 and random.random() > options.probability:
-                    continue
+                if options.next and len(edge.getOutgoing()) > 1:
+                    for nextEdge in sorted(edge.getOutgoing(), key=lambda e: e.getID()):
+                        nextLanes = [nl for nl in nextEdge.getLanes() if nl.allows(options.vclass)]
+                        if nextLanes:
+                            writeE3("%s_%s" % (edge.getID(), nextEdge.getID()), lanes, nextLanes, 0.1)
+                            numWritten += 1
+                else:
+                    writeE3(edge.getID(), lanes, lanes, -0.1)
+                    numWritten += 1
+                continue
+            for lane in lanes:
                 if options.next and len(lane.getOutgoing()) > 1:
-                    for edge in lane.getOutgoingEdges():
-                        writeDet(options, lane, numWritten, edge)
+                    for outEdge in lane.getOutgoingEdges():
+                        writeDet(options, lane, numWritten, outEdge)
+                        numWritten += 1
                 else:
                     writeDet(options, lane, numWritten)
+                    numWritten += 1
 
         fout.write('</additional>\n')
 
