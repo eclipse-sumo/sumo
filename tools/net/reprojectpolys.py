@@ -28,11 +28,14 @@ This means, the resulting polygons, written to the output
 from __future__ import absolute_import
 from __future__ import print_function
 
+import os
 import sys
-from optparse import OptionParser
 from xml.sax import make_parser, handler
-sys.path.append("../lib")
+_TOOLS_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(_TOOLS_DIR)
+sys.path.append(os.path.join(_TOOLS_DIR, "lib"))
 import rmsd  # noqa
+import sumolib  # noqa
 
 
 class NetReader(handler.ContentHandler):
@@ -164,62 +167,59 @@ class PolyReprojector:
                 index = index + 1
 
 
-# initialise
-optParser = OptionParser()
-optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
-# i/o
-optParser.add_option("-1", "--net1", dest="net1",
-                     help="The network to project at", metavar="FILE")
-optParser.add_option("-2", "--net2", dest="net2",
-                     help="The network to reproject", metavar="FILE")
-optParser.add_option("-p", "--polys", dest="polys",
-                     help="The polygons to reproject", metavar="FILE")
-optParser.add_option("-a", "--nodes1", dest="nodes1",
-                     help="The first matching nodes", metavar="FILE")
-optParser.add_option("-b", "--nodes2", dest="nodes2",
-                     help="The second matching nodes", metavar="FILE")
-optParser.add_option("-o", "--output", dest="output",
-                     help="File to save reprojected polys into", metavar="FILE")
-# parse options
-(options, args) = optParser.parse_args()
+def get_options(args=None):
+    optParser = sumolib.options.ArgumentParser()
+    optParser.add_argument("-v", "--verbose", action="store_true", dest="verbose",
+                           default=False, help="tell me what you are doing")
+    optParser.add_argument("-1", "--net1", dest="net1", category="input",
+                           type=optParser.net_file, help="The network to project at", metavar="FILE")
+    optParser.add_argument("-2", "--net2", dest="net2", category="input",
+                           type=optParser.net_file, help="The network to reproject", metavar="FILE")
+    optParser.add_argument("-p", "--polys", dest="polys", category="input",
+                           type=optParser.additional_file, help="The polygons to reproject", metavar="FILE")
+    optParser.add_argument("-a", "--nodes1", dest="nodes1", category="processing",
+                           help="The first matching nodes")
+    optParser.add_argument("-b", "--nodes2", dest="nodes2", category="processing",
+                           help="The second matching nodes")
+    optParser.add_argument("-o", "--output", dest="output", category="output",
+                           type=optParser.additional_file, help="File to save reprojected polys into", metavar="FILE")
+    return optParser.parse_args(args=args)
 
 
-# read network#1
-if options.verbose:
-    print("Reading net#1...")
-parser = make_parser()
-net1 = NetReader()
-parser.setContentHandler(net1)
-parser.parse(options.net1)
+def main(options):
+    if options.verbose:
+        print("Reading net#1...")
+    parser = make_parser()
+    net1 = NetReader()
+    parser.setContentHandler(net1)
+    parser.parse(options.net1)
 
-# read network#2
-if options.verbose:
-    print("Reading net#2...")
-parser = make_parser()
-net2 = NetReader()
-parser.setContentHandler(net2)
-parser.parse(options.net2)
+    if options.verbose:
+        print("Reading net#2...")
+    parser = make_parser()
+    net2 = NetReader()
+    parser.setContentHandler(net2)
+    parser.parse(options.net2)
 
-# read polygons
-if options.verbose:
-    print("Reading polygons...")
-parser = make_parser()
-polys = PolyReader()
-parser.setContentHandler(polys)
-parser.parse(options.polys)
+    if options.verbose:
+        print("Reading polygons...")
+    parser = make_parser()
+    polys = PolyReader()
+    parser.setContentHandler(polys)
+    parser.parse(options.polys)
 
-# match
-if options.verbose:
-    print("(Re)Projecting...")
-matcher = PolyReprojector(net1, net2)
-matcher.match(options.nodes1, options.nodes2, polys, options.verbose)
+    if options.verbose:
+        print("(Re)Projecting...")
+    matcher = PolyReprojector(net1, net2)
+    matcher.match(options.nodes1, options.nodes2, polys, options.verbose)
 
-# write
-if options.verbose:
-    print("Writing...")
-fd = open(options.output, "w")
-fd.write("<polygons>\n\n")
-polys.write(fd)
-fd.write("</polygons>\n")
-fd.close()
+    if options.verbose:
+        print("Writing...")
+    with open(options.output, "w") as fd:
+        fd.write("<polygons>\n\n")
+        polys.write(fd)
+        fd.write("</polygons>\n")
+
+
+if __name__ == "__main__":
+    main(get_options())
