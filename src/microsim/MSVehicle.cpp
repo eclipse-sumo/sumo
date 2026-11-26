@@ -893,6 +893,7 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
             const bool needFurtherUpdate = v->myState.myPos < v->getVehicleType().getLength() && myRemotePos >= v->getVehicleType().getLength();
             v->myState.myPos = myRemotePos;
             v->myState.myPosLat = myRemotePosLat;
+            v->myCachedLanePositions.clear();
             if (needFurtherUpdate) {
                 v->myState.myBackPos = v->updateFurtherLanes(v->myFurtherLanes, v->myFurtherLanesPosLat, std::vector<MSLane*>());
             }
@@ -1058,6 +1059,7 @@ MSVehicle::cleanupFurtherLanes() {
     }
     myFurtherLanes.clear();
     myFurtherLanesPosLat.clear();
+    myCachedLanePositions.clear();
 }
 
 
@@ -1973,6 +1975,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                             const double backShift = splitVeh->getLength() + getVehicleType().getMinGap();
                             myState.myPos -= backShift;
                             myState.myBackPos -= backShift;
+                            myCachedLanePositions.clear();
                         }
                     }
                 }
@@ -4486,6 +4489,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, std::string& e
         // add some slack to ensure that the back of train does appear looped
         myState.myPos += 2 * (myLane->getLength() - myState.myPos) + myType->getLength() + NUMERICAL_EPS;
         myState.mySpeed = 0;
+        myCachedLanePositions.clear();
 #ifdef DEBUG_REVERSE_BIDI
         if (DEBUG_COND) {
             std::cout << SIMTIME << " reversing train=" << getID() << " newPos=" << myState.myPos << "\n";
@@ -4529,6 +4533,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, std::string& e
                         // continue myLFLinkLanes past stops
                         approachedLane = myLane;
                         myState.myPos = myLane->getLength();
+                        myCachedLanePositions.clear();
                         break;
                     }
                     approachedLane = link->getViaLaneOrLane();
@@ -4542,11 +4547,13 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, std::string& e
                     if (reverseTrain && approachedLane->isInternal()) {
                         // avoid getting stuck on a slow turn-around internal lane
                         myState.myPos += approachedLane->getLength();
+                        myCachedLanePositions.clear();
                     }
                 } else if (myState.myPos < myLane->getLength() + NUMERICAL_EPS) {
                     // avoid warning due to numerical instability
                     approachedLane = myLane;
                     myState.myPos = myLane->getLength();
+                    myCachedLanePositions.clear();
                 } else if (reverseTrain) {
                     approachedLane = (*(myCurrEdge + 1))->getLanes()[0];
                     link = myLane->getLinkTo(approachedLane);
@@ -4563,6 +4570,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, std::string& e
                 if (approachedLane != myLane && approachedLane != nullptr) {
                     leaveLane(MSMoveReminder::NOTIFICATION_JUNCTION, approachedLane);
                     myState.myPos -= myLane->getLength();
+                    myCachedLanePositions.clear();
                     assert(myState.myPos > 0);
                     enterLaneAtMove(approachedLane);
                     if (link->isEntryLink()) {
@@ -4626,6 +4634,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, std::string& e
         } else if (!hasArrivedInternal() && myState.myPos < myLane->getLength() + NUMERICAL_EPS) {
             // avoid warning due to numerical instability when stopping at the end of the route
             myState.myPos = myLane->getLength();
+            myCachedLanePositions.clear();
         }
 
     }
@@ -4769,6 +4778,7 @@ MSVehicle::executeMove() {
         // transform to the forward-direction lane, move and then transform back
         myState.myPos = myLane->getOppositePos(myState.myPos);
         myLane = myLane->getParallelOpposite();
+        myCachedLanePositions.clear();
     }
     updateState(vNext);
     updateWaitingTime(vNext);
@@ -4797,6 +4807,7 @@ MSVehicle::executeMove() {
             myState.myPos = myLane->getLength();
             myState.mySpeed = 0;
             myAcceleration = 0;
+            myCachedLanePositions.clear();
         }
         const MSLane* oldBackLane = getBackLane();
         if (myLaneChangeModel->isOpposite()) {
@@ -4808,6 +4819,7 @@ MSVehicle::executeMove() {
         }
 #endif
         myState.myBackPos = updateFurtherLanes(myFurtherLanes, myFurtherLanesPosLat, passedLanes);
+        myCachedLanePositions.clear();
         if (passedLanes.size() > 1 && isRail()) {
             for (auto pi = passedLanes.rbegin(); pi != passedLanes.rend(); ++pi) {
                 MSLane* pLane = *pi;
@@ -4884,6 +4896,7 @@ MSVehicle::executeMove() {
                     myFurtherLanesPosLat.push_back(0);
                     // small value since the lane is going in the other direction
                     myState.myBackPos = getLength() - myState.myPos;
+                    myCachedLanePositions.clear();
                     myAngle = computeAngle();
                 } else {
                     SOFT_ASSERT(false);
@@ -4894,7 +4907,7 @@ MSVehicle::executeMove() {
             myLane = newOpposite;
             oldLane = oldLaneMaybeOpposite;
             //std::cout << SIMTIME << " updated myLane=" << Named::getIDSecure(myLane) << " oldLane=" << oldLane->getID() << "\n";
-            myCachedPosition = Position::INVALID;
+            invalidateCachedPosition();
             myLaneChangeModel->updateShadowLane();
         }
     }
@@ -4912,7 +4925,7 @@ void
 MSVehicle::executeFractionalMove(double dist) {
     myState.myPos += dist;
     myState.myLastCoveredDist = dist;
-    myCachedPosition = Position::INVALID;
+    invalidateCachedPosition();
 
     const std::vector<const MSLane*> lanes = getUpcomingLanesUntil(dist);
     const SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
@@ -4960,6 +4973,7 @@ MSVehicle::executeFractionalMove(double dist) {
         }
         myFurtherLanes.clear();
         myFurtherLanesPosLat.clear();
+        myCachedLanePositions.clear();
         myLane->forceVehicleInsertion(this, getPositionOnLane(), MSMoveReminder::NOTIFICATION_JUNCTION, getLateralPositionOnLane());
     }
 }
@@ -5015,6 +5029,7 @@ MSVehicle::updateState(double vNext, bool parking) {
     myState.myPos += deltaPos;
     myState.myLastCoveredDist = deltaPos;
     myNextTurn.first -= deltaPos;
+    myCachedLanePositions.clear();
 
     if (!parking) {
         myCachedPosition = Position::INVALID;
@@ -5040,6 +5055,7 @@ MSVehicle::updateParkingState() {
 void
 MSVehicle::replaceVehicleType(const MSVehicleType* type) {
     MSBaseVehicle::replaceVehicleType(type);
+    myCachedLanePositions.clear();
     delete myCFVariables;
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
 }
@@ -5124,6 +5140,7 @@ MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<do
         furtherLanes.clear();
         furtherLanesPosLat.clear();
     }
+    myCachedLanePositions.clear();
 #ifdef DEBUG_SETFURTHER
     if (DEBUG_COND) std::cout
                 << " newFurther=" << toString(furtherLanes)
@@ -5157,30 +5174,39 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
                   << std::endl;
     }
 #endif
+    const double length = myType->getLength();
+    double backPos;
+    double backPosForPos;
     if (lane == myLane
             || lane == myLaneChangeModel->getShadowLane()
             || lane == myLaneChangeModel->getTargetLane()) {
         if (myLaneChangeModel->isOpposite()) {
             if (lane == myLaneChangeModel->getShadowLane()) {
-                return lane->getLength() - myState.myPos - myType->getLength();
+                backPos = lane->getLength() - myState.myPos - length;
+                backPosForPos = backPos;
             } else {
-                return myState.myPos + (calledByGetPosition ? -1 : 1) * myType->getLength();
+                backPos = myState.myPos + length;
+                backPosForPos = myState.myPos - length;
             }
         } else if (&lane->getEdge() != &myLane->getEdge()) {
-            return lane->getLength() - myState.myPos + (calledByGetPosition ? -1 : 1) * myType->getLength();
+            backPos = lane->getLength() - myState.myPos + length;
+            backPosForPos = lane->getLength() - myState.myPos - length;
         } else {
             // account for parallel lanes of different lengths in the most conservative manner (i.e. while turning)
-            return myState.myPos - myType->getLength() + MIN2(0.0, lane->getLength() - myLane->getLength());
+            backPos = myState.myPos - length + MIN2(0.0, lane->getLength() - myLane->getLength());
+            backPosForPos = backPos;
         }
     } else if (lane == myLane->getBidiLane()) {
-        return lane->getLength() - myState.myPos + myType->getLength() * (calledByGetPosition ? -1 : 1);
+        backPos = lane->getLength() - myState.myPos + length;
+        backPosForPos = lane->getLength() - myState.myPos - length;
     } else if (myFurtherLanes.size() > 0 && lane == myFurtherLanes.back()) {
-        return myState.myBackPos;
+        backPos = myState.myBackPos;
+        backPosForPos = backPos;
     } else if ((myLaneChangeModel->getShadowFurtherLanes().size() > 0 && lane == myLaneChangeModel->getShadowFurtherLanes().back())
                || (myLaneChangeModel->getFurtherTargetLanes().size() > 0 && lane == myLaneChangeModel->getFurtherTargetLanes().back())) {
         assert(myFurtherLanes.size() > 0);
         if (lane->getLength() == myFurtherLanes.back()->getLength()) {
-            return myState.myBackPos;
+            backPos = myState.myBackPos;
         } else {
             // interpolate
             //if (DEBUG_COND) {
@@ -5189,63 +5215,96 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
             //        << " len=" << lane->getLength() << " fLen=" << myFurtherLanes.back()->getLength()
             //        << " backPos=" << myState.myBackPos << " result=" << myState.myBackPos / myFurtherLanes.back()->getLength() * lane->getLength() << "\n";
             //}
-            return myState.myBackPos / myFurtherLanes.back()->getLength() * lane->getLength();
+            backPos = myState.myBackPos / myFurtherLanes.back()->getLength() * lane->getLength();
         }
+        backPosForPos = backPos;
     } else {
         //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myFurtherLanes=" << toString(myFurtherLanes) << "\n";
-        double leftLength = myType->getLength() - myState.myPos;
-
+        bool found = false;
+        double leftLength = length - myState.myPos;
         std::vector<MSLane*>::const_iterator i = myFurtherLanes.begin();
         while (leftLength > 0 && i != myFurtherLanes.end()) {
             leftLength -= (*i)->getLength();
             //if (DEBUG_COND) std::cout << " comparing i=" << (*i)->getID() << " lane=" << lane->getID() << "\n";
             if (*i == lane) {
-                return -leftLength;
+                backPos = -leftLength;
+                backPosForPos = backPos;
+                found = true;
+                break;
             } else if (*i == lane->getBidiLane()) {
-                return lane->getLength() + leftLength - (calledByGetPosition ? 2 * myType->getLength() : 0);
+                backPos = lane->getLength() + leftLength;
+                backPosForPos = backPos - 2 * length;
+                found = true;
+                break;
             }
             ++i;
         }
-        //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myShadowFurtherLanes=" << toString(myLaneChangeModel->getShadowFurtherLanes()) << "\n";
-        leftLength = myType->getLength() - myState.myPos;
-        i = myLaneChangeModel->getShadowFurtherLanes().begin();
-        while (leftLength > 0 && i != myLaneChangeModel->getShadowFurtherLanes().end()) {
-            leftLength -= (*i)->getLength();
-            //if (DEBUG_COND) std::cout << " comparing i=" << (*i)->getID() << " lane=" << lane->getID() << "\n";
-            if (*i == lane) {
-                return -leftLength;
-            } else if (*i == lane->getBidiLane()) {
-                return lane->getLength() + leftLength - (calledByGetPosition ? 2 * myType->getLength() : 0);
+        if (!found) {
+            //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myShadowFurtherLanes=" << toString(myLaneChangeModel->getShadowFurtherLanes()) << "\n";
+            leftLength = length - myState.myPos;
+            const std::vector<MSLane*>& shadowFurtherLanes = myLaneChangeModel->getShadowFurtherLanes();
+            i = shadowFurtherLanes.begin();
+            while (leftLength > 0 && i != shadowFurtherLanes.end()) {
+                leftLength -= (*i)->getLength();
+                //if (DEBUG_COND) std::cout << " comparing i=" << (*i)->getID() << " lane=" << lane->getID() << "\n";
+                if (*i == lane) {
+                    backPos = -leftLength;
+                    backPosForPos = backPos;
+                    found = true;
+                    break;
+                } else if (*i == lane->getBidiLane()) {
+                    backPos = lane->getLength() + leftLength;
+                    backPosForPos = backPos - 2 * length;
+                    found = true;
+                    break;
+                }
+                ++i;
             }
-            ++i;
         }
-        //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myFurtherTargetLanes=" << toString(myLaneChangeModel->getFurtherTargetLanes()) << "\n";
-        leftLength = myType->getLength() - myState.myPos;
-        i = getFurtherLanes().begin();
-        const std::vector<MSLane*> furtherTargetLanes = myLaneChangeModel->getFurtherTargetLanes();
-        auto j = furtherTargetLanes.begin();
-        while (leftLength > 0 && j != furtherTargetLanes.end()) {
-            leftLength -= (*i)->getLength();
-            // if (DEBUG_COND) std::cout << " comparing i=" << (*i)->getID() << " lane=" << lane->getID() << "\n";
-            if (*j == lane) {
-                return -leftLength;
-            } else if (*j == lane->getBidiLane()) {
-                return lane->getLength() + leftLength - (calledByGetPosition ? 2 * myType->getLength() : 0);
+        if (!found) {
+            //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myFurtherTargetLanes=" << toString(myLaneChangeModel->getFurtherTargetLanes()) << "\n";
+            leftLength = length - myState.myPos;
+            i = getFurtherLanes().begin();
+            const std::vector<MSLane*>& furtherTargetLanes = myLaneChangeModel->getFurtherTargetLanes();
+            auto j = furtherTargetLanes.begin();
+            while (leftLength > 0 && j != furtherTargetLanes.end()) {
+                leftLength -= (*i)->getLength();
+                // if (DEBUG_COND) std::cout << " comparing i=" << (*i)->getID() << " lane=" << lane->getID() << "\n";
+                if (*j == lane) {
+                    backPos = -leftLength;
+                    backPosForPos = backPos;
+                    found = true;
+                    break;
+                } else if (*j == lane->getBidiLane()) {
+                    backPos = lane->getLength() + leftLength;
+                    backPosForPos = backPos - 2 * length;
+                    found = true;
+                    break;
+                }
+                ++i;
+                ++j;
             }
-            ++i;
-            ++j;
         }
-        WRITE_WARNINGF("Request backPos of vehicle '%' for invalid lane '%' time=%.",
-                getID(), Named::getIDSecure(lane), time2string(SIMSTEP))
-        SOFT_ASSERT(false);
-        return  myState.myBackPos;
+        if (!found) {
+            WRITE_WARNINGF("Request backPos of vehicle '%' for invalid lane '%' time=%.",
+                    getID(), Named::getIDSecure(lane), time2string(SIMSTEP))
+            SOFT_ASSERT(false);
+            return myState.myBackPos;
+        }
     }
-}
-
-
-double
-MSVehicle::getPositionOnLane(const MSLane* lane) const {
-    return getBackPositionOnLane(lane, true) + myType->getLength();
+    if (MSGlobals::gNumSimThreads <= 1) {
+        if (myCachedLanePositions.capacity() == 0) {
+            myCachedLanePositions.reserve(4);
+        }
+        const double pos = backPosForPos + length;
+        if (lane == myLane && !myCachedLanePositions.empty()) {
+            myCachedLanePositions.push_back(myCachedLanePositions.front());
+            myCachedLanePositions.front() = {lane, backPos, pos};
+        } else {
+            myCachedLanePositions.push_back({lane, backPos, pos});
+        }
+    }
+    return calledByGetPosition ? backPosForPos : backPos;
 }
 
 
@@ -5602,6 +5661,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
     // set the entered lane as the current lane
     MSLane* oldLane = myLane;
     myLane = enteredLane;
+    myCachedLanePositions.clear();
     myLastBestLanesEdge = nullptr;
 
     // internal edges are not a part of the route...
@@ -5639,7 +5699,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
         // normal move() isn't called so reset position here. must be done
         // before calling reminders
         myState.myPos = 0;
-        myCachedPosition = Position::INVALID;
+        invalidateCachedPosition();
         activateReminders(MSMoveReminder::NOTIFICATION_TELEPORT, enteredLane);
     }
     // update via
@@ -5653,7 +5713,7 @@ void
 MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
     myAmOnNet = true;
     myLane = enteredLane;
-    myCachedPosition = Position::INVALID;
+    invalidateCachedPosition();
     // need to update myCurrentLaneInBestLanes
     updateBestLanes();
     // switch to and activate the new lane's reminders
@@ -5738,6 +5798,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
         myFurtherLanes.erase(myFurtherLanes.end() - deleteFurther, myFurtherLanes.end());
         myFurtherLanesPosLat.erase(myFurtherLanesPosLat.end() - deleteFurther, myFurtherLanesPosLat.end());
     }
+    myCachedLanePositions.clear();
 #ifdef DEBUG_SETFURTHER
     if (DEBUG_COND) {
         std::cout << SIMTIME << " enterLaneAtLaneChange new furtherLanes=" << toString(myFurtherLanes)
@@ -5814,6 +5875,7 @@ MSVehicle::computeFurtherLanes(MSLane* enteredLane, double pos, bool collision) 
         myFurtherLanes.clear();
         myFurtherLanesPosLat.clear();
     }
+    myCachedLanePositions.clear();
 }
 
 
@@ -5831,10 +5893,10 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
             myJunctionConflictEntryTime = myJunctionEntryTime;
         }
     }
-    myCachedPosition = Position::INVALID;
     assert(myState.myPos >= 0);
     assert(myState.mySpeed >= 0);
     myLane = enteredLane;
+    invalidateCachedPosition();
     myAmOnNet = true;
     // schedule action for the next timestep
     myLastActionTime = MSNet::getInstance()->getCurrentTimeStep() + DELTA_T;
@@ -5932,6 +5994,7 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
         }
         myFurtherLanes.clear();
         myFurtherLanesPosLat.clear();
+        myCachedLanePositions.clear();
     }
     if (reason >= MSMoveReminder::NOTIFICATION_TELEPORT) {
         myAmOnNet = false;
@@ -6955,6 +7018,7 @@ MSVehicle::setTentativeLaneAndPosition(MSLane* lane, double pos, double posLat) 
     myState.myPos = pos;
     myState.myPosLat = posLat;
     myState.myBackPos = pos - getVehicleType().getLength();
+    myCachedLanePositions.clear();
 }
 
 
@@ -7473,7 +7537,7 @@ MSVehicle::handleCollisionStop(MSStop& stop, const double distToStop) {
             //    << "\n";
             myState.mySpeed = MIN2(myState.mySpeed, vNew + ACCEL2SPEED(getCarFollowModel().getEmergencyDecel()));
             myState.myPos = MIN2(myState.myPos, stop.pars.endPos);
-            myCachedPosition = Position::INVALID;
+            invalidateCachedPosition();
             if (myState.myPos < myType->getLength()) {
                 computeFurtherLanes(myLane, myState.myPos, true);
                 myAngle = computeAngle();
@@ -7994,8 +8058,10 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
         myLane = const_cast<MSLane*>(myStops.front().lane);
         myStopDist = 0;
         myState.myPos = entryPos; // fake position for replication stop entry which happened before the position was updated
+        myCachedLanePositions.clear();
         processNextStop(getSpeed());
         myState.myPos = realPos; // reset fake position
+        myCachedLanePositions.clear();
         if (myStops.front().pars.parking != ParkingType::ONROAD) {
             // processNextStop is called again during MSVehicleTransfer::loadState
             stopDuration += getActionStepLength();
@@ -8007,6 +8073,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
         }
     }
     myLaneChangeModel->loadState(attrs);
+    myCachedLanePositions.clear();
     // no need to reset myCachedPosition here since state loading happens directly after creation
 }
 

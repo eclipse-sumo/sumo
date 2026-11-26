@@ -49,6 +49,7 @@
 #include "cfmodels/MSCFModel_CACC.h"
 #include "MSInsertionControl.h"
 #include "MSVehicleControl.h"
+#include "MSVehicle.h"
 #include "cfmodels/MSCFModel_CC.h"
 #include "cfmodels/MSCFModel_NaSch.h"
 #include "MSVehicleType.h"
@@ -105,6 +106,14 @@ MSVehicleType::setLength(const double& length) {
         myParameter.length = length;
     }
     myParameter.parametersSet |= VTYPEPARS_LENGTH_SET;
+    if (!MSGlobals::gUseMesoSim && MSNet::hasInstance()) {
+        MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+        for (auto vehIt = vc.loadedVehBegin(); vehIt != vc.loadedVehEnd(); ++vehIt) {
+            if (&vehIt->second->getVehicleType() == this) {
+                static_cast<MSVehicle*>(vehIt->second)->invalidateCachedLanePositions();
+            }
+        }
+    }
 }
 
 
