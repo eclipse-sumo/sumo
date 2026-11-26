@@ -24,12 +24,14 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
+from urllib.parse import quote
 from lxml import etree as ET
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
     import sumolib
+    from sumolib.files.tabular import isTabular, readTable
     from sumolib.xml import parse_fast
     from sumolib.miscutils import Statistics, humanReadableTime
     from sumolib.statistics import setPrecision, identity
@@ -40,7 +42,9 @@ else:
 def get_options():
     op = sumolib.options.ArgumentParser()
     op.add_argument("datafiles", nargs="+", category="input", type=op.file,
-                    help="XML files to analyze")
+                    help="XML, CSV, or Parquet files to analyze")
+    op.add_argument("--csv-separator", category="input",
+                    help="CSV column separator (default: detect semicolon, comma, tab, or pipe)")
     op.add_argument("-v", "--verbose", action="store_true", default=False,
                     help="Give more output")
     op.add_argument("-e", "--element", category="input",
@@ -76,7 +80,10 @@ def get_options():
     if options.element:
         options.element = options.element.split(',')
 
-    if options.fast:
+    if options.csv_separator is not None and len(options.csv_separator) != 1:
+        op.error("--csv-separator requires a single character")
+
+    if options.fast and any(not isTabular(path) for path in options.datafiles):
         if options.attribute is None:
             print("Parsing all attributes is not supported when using option --fast")
             sys.exit()
@@ -99,20 +106,23 @@ def main():
     invalidType = defaultdict(set)
     formatter = humanReadableTime if options.hrTime else identity
 
-    if options.fast:
-        assert len(options.element) == 1
-        elem = options.element[0]
-
-        def elements():
-            for datafile in options.datafiles:
+    def elements():
+        for datafile in options.datafiles:
+            defaultID = None if len(options.datafiles) == 1 else datafile
+            if isTabular(datafile):
+                with readTable(datafile, options.csv_separator) as (columns, rows):
+                    attrs = options.attribute if options.attribute is not None else [
+                        column for column in columns if column != options.idAttr]
+                    for row in rows:
+                        elementID = row.get(options.idAttr) or defaultID
+                        for attr in attrs:
+                            yield "", attr, row.get(attr), elementID
+            elif options.fast:
+                elem = options.element[0]
                 for element in parse_fast(datafile, elem, [options.idAttr] + options.attribute):
                     for attr in options.attribute:
-                        yield elem, attr, getattr(element, attr), getattr(element, options.idAttr),
-    else:
-        def elements():
-            for datafile in options.datafiles:
-                defaultID = None if len(options.datafiles) == 1 else datafile
-
+                        yield elem, attr, getattr(element, attr), getattr(element, options.idAttr)
+            else:
                 with sumolib.openz(datafile, 'rb') as f:
                     for _, node in ET.iterparse(f):
                         if options.element is not None and node.tag not in options.element:
@@ -136,7 +146,7 @@ def main():
                 vals[elementID][attr].append(val)
                 key = (tag, attr)
                 if key not in allStats:
-                    allStats[key] = Statistics("%s %s" % (tag, attr),
+                    allStats[key] = Statistics("%s %s" % (tag or "table", attr),
                                                histogram=options.binwidth > 0, scale=options.binwidth,
                                                printDev=True, abs=options.abs, printSum=options.sum)
 
@@ -165,14 +175,17 @@ def main():
 
     if options.hist_output is not None:
         for key in sorted(allStats.keys()):
-            fname = options.hist_output if len(allStats) == 1 else options.hist_output + ".%s.%s" % key
+            elem, attr = key
+            if not elem:
+                elem, attr = "table", quote(attr, safe="")
+            fname = options.hist_output if len(allStats) == 1 else options.hist_output + ".%s.%s" % (elem, attr)
             with open(fname, 'w') as f:
                 for bin, count in allStats[key].histogram():
                     f.write("%s %s\n" % (bin, count))
 
     if options.full_output is not None:
         with open(options.full_output, 'w') as f:
-            for elementID in sorted(vals.keys()):
+            for elementID in sorted(vals, key=lambda key: key or ""):
                 for attr, data in vals[elementID].items():
                     if len(vals[elementID]) > 1:
                         f.write("# %s\n" % attr)
@@ -191,12 +204,15 @@ def main():
                 for key in allStats.keys():
                     elemKeys[key[0]].append(key)
                 for elem in sorted(elemKeys.keys()):
-                    f.write('    <%s>\n' % elem)
+                    f.write('    <%s>\n' % (elem or "table"))
                     for key in sorted(elemKeys[elem]):
                         attr = key[1]
                         stats = allStats[key]
-                        f.write(stats.toXML(options.precision, tag=attr, indent=8, label='', fmt=formatter))
-                    f.write('    </%s>\n' % elem)
+                        if not elem:
+                            f.write(stats.toXML(options.precision, tag="column", indent=8, label=attr, fmt=formatter))
+                        else:
+                            f.write(stats.toXML(options.precision, tag=attr, indent=8, label='', fmt=formatter))
+                    f.write('    </%s>\n' % (elem or "table"))
             f.write('</attributeStats>\n')
 
 

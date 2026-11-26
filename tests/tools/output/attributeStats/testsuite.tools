@@ -1,3 +1,6 @@
+# analyze flat CSV and Parquet inputs
+tabular_input
+
 ## save template
 save_template
 
