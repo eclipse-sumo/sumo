@@ -37,17 +37,75 @@ def parse_args():
                            type=argParser.file, help="The polygon output file name")
     argParser.add_argument("-l", "--lanes", action="store_true", default=False,
                            category="processing", help="Write lanes to selection instead of edges")
+    argParser.add_argument("--strongly-connected", dest="strongCount", type=int, default=0,
+                           category="processing", help="Keep only the INT largest strongly connected components")
+    argParser.add_argument("--vclasses", default=None, category="processing",
+                           help="Comma-separated vehicle classes requiring strong connectivity")
     return argParser.parse_args()
+
+
+def getStronglyConnectedEdges(net, count, vclasses):
+    vcs = [v.strip() for v in vclasses.split(",") if v.strip()] if vclasses else []
+    edges = [e for e in net.getEdges() if all(e.allows(vc) for vc in vcs)]
+    allowed = {e.getID() for e in edges}
+    adj = {e.getID(): [o.getID() for o, cons in e.getOutgoing().items()
+                       if o.getID() in allowed and all(any(c.allows(vc) for c in cons) for vc in vcs)]
+           for e in edges}
+    idx, low, on_stack, stack, sccs = {}, {}, set(), [], []
+    counter = 0
+    for start in sorted(adj):
+        if start in idx:
+            continue
+        call_stack = [(start, 0)]
+        idx[start] = low[start] = counter
+        counter += 1
+        stack.append(start)
+        on_stack.add(start)
+        while call_stack:
+            u, pos = call_stack[-1]
+            nbrs = adj[u]
+            if pos < len(nbrs):
+                call_stack[-1] = (u, pos + 1)
+                w = nbrs[pos]
+                if w not in idx:
+                    idx[w] = low[w] = counter
+                    counter += 1
+                    stack.append(w)
+                    on_stack.add(w)
+                    call_stack.append((w, 0))
+                elif w in on_stack:
+                    low[u] = min(low[u], idx[w])
+            else:
+                call_stack.pop()
+                if call_stack:
+                    p = call_stack[-1][0]
+                    low[p] = min(low[p], low[u])
+                if low[u] == idx[u]:
+                    comp = []
+                    while True:
+                        w = stack.pop()
+                        on_stack.remove(w)
+                        comp.append(w)
+                        if w == u:
+                            break
+                    sccs.append(sorted(comp))
+    sccs.sort(key=lambda c: (-len(c), c[0]))
+    kept = {eid for comp in sccs[:count] for eid in comp}
+    return [e for e in net.getEdges() if e.getID() in kept]
 
 
 if __name__ == "__main__":
     options = parse_args()
     net = sumolib.net.readNet(options.netFile)
+    edges = (getStronglyConnectedEdges(net, options.strongCount, options.vclasses)
+             if options.strongCount > 0 else net.getEdges())
+    nodes = ({e.getFromNode() for e in edges} | {e.getToNode() for e in edges}
+             if options.strongCount > 0 else net.getNodes())
 
     with open(options.outFile, 'w') as outf:
-        for junction in net.getNodes():
+        for junction in sorted(nodes, key=lambda n: n.getID()) if options.strongCount > 0 else nodes:
             outf.write("junction:%s\n" % junction.getID())
-        for edge in net.getEdges():
+        for edge in edges:
             if options.lanes:
                 for lane in edge.getLanes():
                     outf.write("lane:%s\n" % lane.getID())
