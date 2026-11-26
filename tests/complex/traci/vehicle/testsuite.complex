@@ -176,3 +176,6 @@ delayed_taz_departure
 
 # see #11310
 tripinfoParameters
+
+# see #19194
+remove_stopped

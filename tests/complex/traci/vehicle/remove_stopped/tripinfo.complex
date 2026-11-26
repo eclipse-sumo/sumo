@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26T17:17:45.934982+01:00 by Eclipse SUMO sumo v1_28_0+0865-7d0f655fa6a
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+    </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="35035"/>
+    </traci_server>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="stopped" depart="0.00" departLane="SC_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="100.00" arrivalLane="CN_0" arrivalPos="91.94" arrivalSpeed="0.00" duration="100.00" routeLength="194.89" waitingTime="0.00" waitingCount="0" stopTime="79.00" timeLoss="4.38" rerouteNo="1" devices="tripinfo_stopped routing_stopped" vType="DEFAULT_VEHTYPE" speedFactor="1.06" vaporized="traci"/>
+    <tripinfo id="stoppedParking" depart="0.00" departLane="NC_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="100.00" arrivalLane="CS_0" arrivalPos="91.93" arrivalSpeed="0.00" duration="100.00" routeLength="194.88" waitingTime="0.00" waitingCount="0" stopTime="78.00" timeLoss="4.84" rerouteNo="1" devices="tripinfo_stoppedParking routing_stoppedParking" vType="DEFAULT_VEHTYPE" speedFactor="0.94" vaporized="traci"/>
+</tripinfos>
