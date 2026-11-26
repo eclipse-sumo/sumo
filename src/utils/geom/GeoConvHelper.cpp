@@ -26,7 +26,9 @@
 #include <cassert>
 #include <climits>
 #include <regex>
+#include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
@@ -68,7 +70,14 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
     myConvBoundary(conv) {
     // older PROJ libraries fail to construct inverse projection if this
     // string is present
-    myProjString = StringUtils::replace(myProjString, "+type=crs", "");
+    myProjString = StringUtils::replace(StringUtils::replace(myProjString, " +type=crs", ""), "+type=crs", "");
+    const std::string trimmedProj = StringUtils::trim(myProjString);
+    const std::string lowerProj = StringUtils::to_lower_case(trimmedProj);
+    if (StringUtils::startsWith(lowerProj, "epsg:")) {
+        myProjString = "EPSG:" + trimmedProj.substr(5);
+    } else if (StringUtils::startsWith(lowerProj, "+init=epsg:")) {
+        myProjString = "EPSG:" + trimmedProj.substr(11);
+    }
 
     if (proj == "!") {
         myProjectionMethod = NONE;
@@ -104,8 +113,16 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
 #ifdef PROJ_API_FILE
 void
 GeoConvHelper::initProj(const std::string& proj) {
+    myRadians = true;
 #ifdef PROJ_VERSION_MAJOR
-    myProjection = proj_create(PJ_DEFAULT_CTX, proj.c_str());
+    std::string normProj = StringUtils::trim(StringUtils::replace(proj, "+type=crs", ""));
+    const std::string lowerProj = StringUtils::to_lower_case(normProj);
+    if (StringUtils::startsWith(lowerProj, "epsg:")) {
+        normProj = "EPSG:" + normProj.substr(5);
+    } else if (StringUtils::startsWith(lowerProj, "+init=epsg:")) {
+        normProj = "EPSG:" + normProj.substr(11);
+    }
+    myProjection = proj_create(PJ_DEFAULT_CTX, normProj.c_str());
     checkError(myProjection);
 #if PROJ_VERSION_MAJOR > 5
     if (myProjection != nullptr) {
@@ -113,23 +130,23 @@ GeoConvHelper::initProj(const std::string& proj) {
         if (type != PJ_TYPE_TRANSFORMATION
                 && type != PJ_TYPE_CONCATENATED_OPERATION
                 && type != PJ_TYPE_OTHER_COORDINATE_OPERATION) {
-            // handle PROJCS WKT (i.e. from Visum) which doesn't define a transformation but only CRS
+            // handle EPSG codes and PROJCS WKT (i.e. from Visum) which define a CRS rather than a transformation
             proj_destroy(myProjection);
-            PJ_CONTEXT* ctx = proj_context_create();
-            proj_context_use_proj4_init_rules(ctx, 1);
-            myProjection = proj_create_crs_to_crs(ctx,
+            proj_context_use_proj4_init_rules(PJ_DEFAULT_CTX, 1);
+            myProjection = proj_create_crs_to_crs(PJ_DEFAULT_CTX,
                                                   "+proj=longlat +datum=WGS84 +type=crs +no_defs",
-                                                  proj.c_str(),
-                                                  NULL);
+                                                  normProj.c_str(),
+                                                  nullptr);
+            if (myProjection != nullptr) {
+                PJ* norm = proj_normalize_for_visualization(PJ_DEFAULT_CTX, myProjection);
+                if (norm != nullptr) {
+                    proj_destroy(myProjection);
+                    myProjection = norm;
+                }
+            }
             checkError(myProjection);
             // "modern" proj doesn't default to radians but traditional proj strings do
             myRadians = false;
-            //auto tmp = proj_normalize_for_visualization(ctx, myProjection);
-            //PJ_PROJ_INFO info = proj_pj_info(myProjection);
-            //printf("ID init: %s\n", info.id);
-            //printf("Description: %s\n", info.description);
-            //printf("Definition: %s\n", info.definition);
-            //printf("Has Inverse: %s\n", info.has_inverse ? "Yes" : "No");
         }
     }
 #endif
@@ -195,6 +212,7 @@ GeoConvHelper::operator=(const GeoConvHelper& orig) {
     myUseInverseProjection = orig.myUseInverseProjection;
     myFlatten = orig.myFlatten;
 #ifdef PROJ_API_FILE
+    myRadians = orig.myRadians;
     if (myProjection != nullptr) {
 #ifdef PROJ_VERSION_MAJOR
         proj_destroy(myProjection);
@@ -258,8 +276,11 @@ GeoConvHelper::init(OptionsCont& oc) {
 #ifdef PROJ_VERSION_MAJOR
 #ifdef WIN32
     if (getenv("SUMO_HOME") != nullptr) {
-        const char* paths[] = { (std::string(getenv("SUMO_HOME")) + "/data/proj").c_str() };
-        proj_context_set_search_paths(PJ_DEFAULT_CTX, 1, paths);
+        const std::string projPath = std::string(getenv("SUMO_HOME")) + "/data/proj";
+        if (FileHelpers::isReadable(projPath + "/proj.db")) {
+            const char* paths[] = { projPath.c_str() };
+            proj_context_set_search_paths(PJ_DEFAULT_CTX, 1, paths);
+        }
     }
 #endif
 #endif
