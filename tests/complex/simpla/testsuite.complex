@@ -21,3 +21,6 @@ basic
 
 # Tests the openGap method
 openGap
+
+# multiple simultaneous TraCI simulation connections
+multi_connection

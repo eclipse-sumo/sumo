@@ -1,0 +1,5 @@
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+simA leaders: ['v.0', 'v.2', 'v.3']
+simB leaders: ['b.0', 'b.2', 'b.3']
+simB leaders after stopping simA: ['b.0', 'b.2', 'b.3']

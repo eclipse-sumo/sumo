@@ -72,8 +72,50 @@ import simpla._platoonmanager  # noqa
 warn = rp.Warner("simpla")
 _mgr = None
 _mgr_listenerID = None
+_mgrs = {}
+_mgr_listenerIDs = {}
 _useStepListener = 'addStepListener' in dir(traci)
 _emergencyDecelImplemented = 'VAR_EMERGENCY_DECEL' in dir(traci.constants)
+
+
+def _getActiveLabel(connectionLabel=None):
+    if connectionLabel is not None:
+        return connectionLabel
+    try:
+        return traci.getLabel()
+    except Exception:
+        return "default"
+
+
+def _runWithLabel(label, func, *args):
+    prev = None
+    try:
+        prev = traci.getLabel()
+    except Exception:
+        prev = None
+    switched = prev is not None and label is not None and prev != label
+    if switched:
+        traci.switch(label)
+    try:
+        return func(*args)
+    finally:
+        if switched:
+            traci.switch(prev)
+
+
+class _BoundStepListener(traci.StepListener):
+    def __init__(self, label, mgr):
+        self._label = label
+        self._mgr = mgr
+
+    def step(self, t=0):
+        return _runWithLabel(self._label, self._mgr.step, t)
+
+
+def _getMgr(connectionLabel=None):
+    lbl = _getActiveLabel(connectionLabel)
+    return _mgrs.get(lbl, _mgr if connectionLabel is None else None)
+
 
 if not _emergencyDecelImplemented:
     # Old traci version. No emergency decel present.
@@ -84,39 +126,49 @@ if not _emergencyDecelImplemented:
     traci.vehicletype.getEmergencyDecel = traci.vehicletype.getDecel
 
 
-def load(config_filename):
+def load(config_filename, connectionLabel=None):
     '''
     Load the config from file and create a Platoon Manager
     '''
     global _mgr, _mgr_listenerID
-    simpla._config.load(config_filename)
-    _mgr = simpla._platoonmanager.PlatoonManager()
-    if _useStepListener:
-        # For SUMO version >= 0.30
-        _mgr_listenerID = traci.addStepListener(_mgr)
+    lbl = _getActiveLabel(connectionLabel)
+
+    def _init():
+        simpla._config.load(config_filename)
+        mgr = simpla._platoonmanager.PlatoonManager()
+        lid = traci.addStepListener(_BoundStepListener(lbl, mgr)) if _useStepListener else None
+        return mgr, lid
+
+    mgr, lid = _runWithLabel(lbl, _init)
+    _mgrs[lbl] = _mgr = mgr
+    _mgr_listenerIDs[lbl] = _mgr_listenerID = lid
 
 
-def stop():
+def stop(connectionLabel=None):
     '''
     Stop the PlatoonManager
     '''
     global _mgr, _mgr_listenerID
-    if _mgr is not None:
-        _mgr.stop()
-        traci.removeStepListener(_mgr_listenerID)
-    _mgr = None
+    lbl = _getActiveLabel(connectionLabel)
+    mgr = _mgrs.pop(lbl, _mgr if connectionLabel is None else None)
+    lid = _mgr_listenerIDs.pop(lbl, _mgr_listenerID if connectionLabel is None else None)
+    if mgr is not None:
+        _runWithLabel(lbl, mgr.stop)
+        if lid is not None:
+            _runWithLabel(lbl, traci.removeStepListener, lid)
+    _mgr = next(reversed(_mgrs.values()), None)
 
 
-def update():
+def update(connectionLabel=None):
     '''
     Function called each simulation step. Only to be used for SUMO version < 1.0
     '''
-    global _mgr, warn
-    if _mgr is not None:
-        _mgr.step()
-    else:
-        if rp.VERBOSITY >= 1:
-            warn("call simpla.load(<config_file>) before simpla.update()!")
+    lbl = _getActiveLabel(connectionLabel)
+    mgr = _getMgr(connectionLabel)
+    if mgr is not None:
+        _runWithLabel(lbl, mgr.step)
+    elif rp.VERBOSITY >= 1:
+        warn("call simpla.load(<config_file>) before simpla.update()!")
 
 
 def getAveragePlatoonLength():
@@ -157,18 +209,16 @@ def getPlatoonIDList(edgeID):
     return []
 
 
-def getPlatoonLeaderIDList():
+def getPlatoonLeaderIDList(connectionLabel=None):
     '''
     getPlatoonLeaderIDList() -> list(string)
 
     Get the platoon leader vehicle IDs of all platoons managed by simpla
     '''
-    global _mgr, warn
-    if _mgr is not None:
-        return _mgr.getPlatoonLeaderIDList()
-    else:
-        raise SimplaException("call simpla.load(<config_file>) before simpla.getPlatoonLeaderIDList()!")
-    return []
+    mgr = _getMgr(connectionLabel)
+    if mgr is not None:
+        return mgr.getPlatoonLeaderIDList()
+    raise SimplaException("call simpla.load(<config_file>) before simpla.getPlatoonLeaderIDList()!")
 
 
 def getPlatoonInfo(platoonID):
