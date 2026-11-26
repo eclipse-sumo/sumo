@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+    <node id="101" lat="52.50002" lon="13.40020">
+        <tag k="amenity" v="parking"/>
+        <tag k="capacity" v="8"/>
+    </node>
+    <node id="1" lat="52.50005" lon="13.40040"/>
+    <node id="2" lat="52.50005" lon="13.40060"/>
+    <node id="3" lat="52.50012" lon="13.40050"/>
+    <way id="202">
+        <nd ref="1"/><nd ref="2"/><nd ref="3"/><nd ref="1"/>
+        <tag k="amenity" v="parking"/>
+        <tag k="capacity" v="3"/>
+    </way>
+</osm>

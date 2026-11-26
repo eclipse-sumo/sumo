@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 13:45:19.862271 by Eclipse SUMO osmParkingArea.py v0.0.0
+<configuration>
+    <osm-file value="osm.xml"/>
+    <net-file value="input_net.net.xml"/>
+    <output value="out.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="parking_101" lane="e0_0" startPos="8.63" endPos="18.63" roadSideCapacity="8"/>
+    <poly id="parking_poly_202" type="parking" color="180,180,220" fill="true" shape="27.28,4.96 40.85,4.66 34.24,12.60 27.28,4.96"/>
+    <parkingArea id="parking_202" lane="e0_0" startPos="27.41" endPos="37.41">
+        <space x="28.13" y="5.27"/>
+        <space x="29.84" y="5.88"/>
+        <space x="31.55" y="6.49"/>
+    </parkingArea>
+</additional>
