@@ -290,6 +290,7 @@ bool
 MSAbstractLaneChangeModel::avoidOvertakeRight(const MSVehicle* const neighLeader, const bool allowProb) const {
     return (!myAllowOvertakingRight  // the highway case
             && !myVehicle.congested()
+            && (neighLeader == nullptr || (neighLeader->isStopped() && neighLeader->getSpeed() < SUMO_const_haltingSpeed) || !neighLeader->congested())
             && myVehicle.getVehicleType().getVehicleClass() != SVC_EMERGENCY
             && (!allowProb || myOvertakeRightParam == 0 || myOvertakeRightParam < RandHelper::rand(myVehicle.getRNG()))) ||
            (neighLeader != nullptr && neighLeader->isStopped()  // the bus stop case

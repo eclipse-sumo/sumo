@@ -575,7 +575,7 @@ MSLCM_SL2015::informLeader(int blocked,
 
         if ((dv < myOvertakeDeltaSpeedFactor * myVehicle.getLane()->getSpeedLimit() + NUMERICAL_EPS
                 // overtaking on the right on an uncongested highway is forbidden (noOvertakeLCLeft)
-                || (dir == LCA_MLEFT && !myVehicle.congested() && !myAllowOvertakingRight)
+                || (dir == LCA_MLEFT && avoidOvertakeRight(neighLead.first))
                 // not enough space to overtake? (we will start to brake when approaching a dead end)
                 || myLeftSpace - myLeadingBlockerLength - myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed()) < overtakeDist
                 // not enough time to overtake?
@@ -780,7 +780,7 @@ MSLCM_SL2015::informFollower(int blocked,
                 std::cout << " wants to cut in before nv=" << nv->getID() << " (eventually)\n";
             }
 #endif
-        } else if (dir == LCA_MRIGHT && !myAllowOvertakingRight && !nv->congested()) {
+        } else if (dir == LCA_MRIGHT && nv->getLaneChangeModel().avoidOvertakeRight(&myVehicle)) {
             const double vhelp = MAX2(neighNewSpeed, HELP_OVERTAKE);
             msg(neighFollow, vhelp, dir | LCA_AMBLOCKINGFOLLOWER);
 #ifdef DEBUG_INFORM
@@ -3004,16 +3004,17 @@ MSLCM_SL2015::checkStrategicChange(int ret,
         }
     } else {
         // VARIANT_20 (noOvertakeRight)
-        const MSVehicle* const stoppedLeader = getStopped(neighLeaders);
-        if (left && avoidOvertakeRight(stoppedLeader, true) && neighLeaders.hasVehicles()) {
+        if (left && neighLeaders.hasVehicles()) {
             // check for slower leader on the left. we should not overtake but
             // rather move left ourselves (unless congested)
             // XXX only adapt as much as possible to get a lateral gap
             CLeaderDist cld = getSlowest(neighLeaders);
             const MSVehicle* nv = cld.first;
+            const MSVehicle* const stoppedLeader = getStopped(neighLeaders);
             double deltaV = 0.;
             double vSafe = 0.;
-            if (canOvertakeRight(nv, cld.second, myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle) - neighLane.getVehicleMaxSpeed(nv), HELP_OVERTAKE, vSafe, deltaV)) {
+            if (avoidOvertakeRight(stoppedLeader != nullptr ? stoppedLeader : nv, true)
+                    && canOvertakeRight(nv, cld.second, myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle) - neighLane.getVehicleMaxSpeed(nv), HELP_OVERTAKE, vSafe, deltaV)) {
                 addLCSpeedAdvice(vSafe, LCA_MLEFT);
                 if (vSafe < myVehicle.getSpeed()) {
                     mySpeedGainProbabilityRight += myVehicle.getActionStepLengthSecs() * myChangeProbThresholdLeft / 3;
