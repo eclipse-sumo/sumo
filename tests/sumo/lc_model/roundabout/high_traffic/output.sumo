@@ -3,7 +3,7 @@ Loading additional-files from 'input_additional.add.xml' ... done (1ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
 Simulation version v1_27_1+0849-4958f8dcd9a started with time: 0.00.
-Simulation ended at time: 1094.00.
+Simulation ended at time: 1119.00.
 Reason: All vehicles have left the simulation.
 Performance:
  Duration: 0.43s
@@ -14,11 +14,11 @@ Vehicles:
  Running: 0
  Waiting: 0
 Statistics (avg of 1015):
- RouteLength: 616.72
- Speed: 7.57
- Duration: 90.28
- WaitingTime: 14.60
- TimeLoss: 44.19
+ RouteLength: 616.77
+ Speed: 7.24
+ Duration: 100.10
+ WaitingTime: 19.51
+ TimeLoss: 54.02
  DepartDelay: 1.55
 DijkstraRouter answered 1015 queries and explored 5.03 edges on average.
 DijkstraRouter spent 0.01s answering queries (0.01ms on average).

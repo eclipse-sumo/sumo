@@ -14,11 +14,11 @@ Vehicles:
  Running: 0
  Waiting: 0
 Statistics (avg of 282):
- RouteLength: 613.33
- Speed: 6.97
- Duration: 94.28
- WaitingTime: 29.95
- TimeLoss: 48.47
+ RouteLength: 613.75
+ Speed: 7.22
+ Duration: 90.15
+ WaitingTime: 26.84
+ TimeLoss: 44.34
  DepartDelay: 0.05
 DijkstraRouter answered 282 queries and explored 4.94 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).

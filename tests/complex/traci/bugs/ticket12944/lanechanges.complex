@@ -29,5 +29,5 @@
 
 <lanechanges>
     <change id="ego" type="DEFAULT_VEHTYPE" time="3.00" from="-9#1_0" to="-9#1_1" dir="1" speed="5.00" pos="230.53" reason="strategic|traci|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
-    <change id="ego" type="DEFAULT_VEHTYPE" time="9.00" from="-9#1_1" to="-9#1_2" dir="1" speed="16.87" pos="299.48" reason="traci" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="ego" type="DEFAULT_VEHTYPE" time="9.00" from="-9#1_1" to="-9#1_2" dir="1" speed="16.87" pos="299.48" reason="strategic|traci|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
 </lanechanges>

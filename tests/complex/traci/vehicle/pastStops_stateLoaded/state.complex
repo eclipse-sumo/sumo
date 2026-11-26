@@ -41,15 +41,15 @@
     </route>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.00"/>
     <vType id="bus" vClass="bus"/>
-    <vehicle id="bus" type="bus" depart="0.00" line="B7" route="r1" distance="1530.51 0" speedFactor="1.0000" state="34818 0 15 12.10 16000 285.61 499000 0 0 8 9223372036854774807 9223372036854774807 9223372036854774807" pos="91.94 79.94 0.00" speed="0.00 0.00" angle="0.00" posLat="0.00" waitingTime="100000 3 0 16000 24000 25000 50000 73000" lcStateBase="0.00" lcState2="0 0 0 0 0">
+    <vehicle id="bus" type="bus" depart="0.00" line="B7" route="r1" distance="1120.87 0" speedFactor="1.0000" state="34818 0 11 12.10 17000 344.35 499000 0 0 6 9223372036854774807 9223372036854774807 9223372036854774807" pos="91.92 79.92 0.00" speed="0.00 0.00" angle="0.00" posLat="0.00" waitingTime="100000 2 0 17000 50000 106000" lcStateBase="0.00" lcState2="0 0 0 0 0">
         <stop lane="NC_0" duration="10.00" until="20.00" started="25.00" ended="35.00"/>
-        <stop lane="SC_0" duration="8.00" until="80.00" started="114.00" ended="122.00"/>
-        <stop lane="NC_0" duration="10.00" until="140.00" started="146.00" ended="156.00"/>
-        <stop lane="SC_0" duration="8.00" until="200.00" started="205.00" ended="213.00"/>
-        <stop lane="NC_0" duration="10.00" until="260.00" started="296.00" ended="306.00"/>
-        <stop lane="SC_0" duration="8.00" until="320.00" started="384.00" ended="392.00"/>
-        <stop lane="NC_0" duration="10.00" until="380.00" started="417.00" ended="427.00"/>
-        <stop lane="SC_0" duration="8.00" until="440.00" started="476.00" ended="484.00"/>
+        <stop lane="SC_0" duration="8.00" until="80.00" started="115.00" ended="123.00"/>
+        <stop lane="NC_0" duration="10.00" until="140.00" started="204.00" ended="214.00"/>
+        <stop lane="SC_0" duration="8.00" until="200.00" started="296.00" ended="304.00"/>
+        <stop lane="NC_0" duration="10.00" until="260.00" started="384.00" ended="394.00"/>
+        <stop lane="SC_0" duration="8.00" until="320.00" started="475.00" ended="483.00"/>
+        <stop lane="NC_0" duration="10.00" until="380.00"/>
+        <stop lane="SC_0" duration="8.00" until="440.00"/>
         <stop lane="NC_0" duration="10.00" until="500.00"/>
         <stop lane="SC_0" duration="8.00" until="560.00"/>
         <stop lane="NC_0" duration="10.00" until="620.00"/>

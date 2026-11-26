@@ -2,7 +2,7 @@ Loading net-file from 'net.net.xml' ... done (8ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
 Simulation version v1_27_1+0849-4958f8dcd9a started with time: 0.00.
-Simulation ended at time: 3695.00.
+Simulation ended at time: 3686.00.
 Reason: All vehicles have left the simulation.
 Performance:
  Duration: 0.71s
@@ -13,11 +13,11 @@ Vehicles:
  Running: 0
  Waiting: 0
 Statistics (avg of 1431):
- RouteLength: 450.93
- Speed: 7.66
- Duration: 71.00
- WaitingTime: 13.20
- TimeLoss: 37.03
- DepartDelay: 1.23
-DijkstraRouter answered 1431 queries and explored 12.59 edges on average.
+ RouteLength: 451.00
+ Speed: 7.85
+ Duration: 70.81
+ WaitingTime: 13.78
+ TimeLoss: 36.82
+ DepartDelay: 1.17
+DijkstraRouter answered 1431 queries and explored 12.58 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).

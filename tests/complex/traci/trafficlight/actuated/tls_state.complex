@@ -59,15 +59,15 @@
         <phase duration="3.00"  state="yyyggrrrrryyyggrrrrr"/>
         <phase duration="6.00"  state="rrrGGrrrrrrrrGGrrrrr"/>
         <phase duration="3.00"  state="rrryyrrrrrrrryyrrrrr"/>
-        <phase duration="8.00"  state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="7.00"  state="rrrrrGGGggrrrrrGGGgg"/>
         <phase duration="3.00"  state="rrrrryyyggrrrrryyygg"/>
         <phase duration="6.00"  state="rrrrrrrrGGrrrrrrrrGG"/>
         <phase duration="3.00"  state="rrrrrrrryyrrrrrrrryy"/>
-        <phase duration="8.00"  state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="5.00"  state="GGGggrrrrrGGGggrrrrr"/>
         <phase duration="3.00"  state="yyyggrrrrryyyggrrrrr"/>
         <phase duration="6.00"  state="rrrGGrrrrrrrrGGrrrrr"/>
         <phase duration="3.00"  state="rrryyrrrrrrrryyrrrrr"/>
-        <phase duration="60.00" state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="5.00"  state="rrrrrGGGggrrrrrGGGgg"/>
         <phase duration="3.00"  state="rrrrryyyggrrrrryyygg"/>
         <phase duration="6.00"  state="rrrrrrrrGGrrrrrrrrGG"/>
         <phase duration="3.00"  state="rrrrrrrryyrrrrrrrryy"/>
@@ -79,7 +79,10 @@
         <phase duration="3.00"  state="rrrrryyyggrrrrryyygg"/>
         <phase duration="6.00"  state="rrrrrrrrGGrrrrrrrrGG"/>
         <phase duration="3.00"  state="rrrrrrrryyrrrrrrrryy"/>
-        <phase duration="52.00" state="GGGggrrrrrGGGggrrrrr"/>
-        <phase duration="1.00"  state="yyyggrrrrryyyggrrrrr"/>
+        <phase duration="60.00" state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="3.00"  state="yyyggrrrrryyyggrrrrr"/>
+        <phase duration="6.00"  state="rrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="3.00"  state="rrryyrrrrrrrryyrrrrr"/>
+        <phase duration="40.00" state="rrrrrGGGggrrrrrGGGgg"/>
     </tlLogic>
 </additional>

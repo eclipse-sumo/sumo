@@ -41,5 +41,5 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <lanechanges>
-    <change id="B" type="type1" time="64.20" from="2_0" to="2_1" dir="1" speed="0.00" pos="71.00" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.50" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="B" type="type1" time="64.10" from="2_0" to="2_1" dir="1" speed="0.00" pos="71.00" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.50" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
 </lanechanges>

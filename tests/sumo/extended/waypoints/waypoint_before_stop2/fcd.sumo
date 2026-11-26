@@ -160,13 +160,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="veh0" x="109.05" y="101.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="90.95" lane="EC_1" slope="0.00"/>
     </timestep>
     <timestep time="40.00">
-        <vehicle id="veh0" x="109.05" y="101.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="90.95" lane="EC_1" slope="0.00"/>
+        <vehicle id="veh0" x="109.05" y="104.95" angle="270.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="90.95" lane="EC_0" slope="0.00"/>
     </timestep>
     <timestep time="41.00">
-        <vehicle id="veh0" x="109.05" y="101.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="90.95" lane="EC_1" slope="0.00"/>
+        <vehicle id="veh0" x="109.05" y="104.95" angle="270.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="90.95" lane="EC_0" slope="0.00"/>
     </timestep>
     <timestep time="42.00">
-        <vehicle id="veh0" x="109.05" y="101.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="90.95" lane="EC_1" slope="0.00"/>
+        <vehicle id="veh0" x="109.05" y="104.95" angle="270.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="90.95" lane="EC_0" slope="0.00"/>
     </timestep>
     <timestep time="43.00">
         <vehicle id="veh0" x="109.05" y="104.95" angle="270.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="90.95" lane="EC_0" slope="0.00"/>

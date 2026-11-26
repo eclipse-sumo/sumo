@@ -15,10 +15,10 @@ Vehicles:
  Teleports: 1 (Collisions: 1)
 Statistics (avg of 427):
  RouteLength: 197.63
- Speed: 5.14
- Duration: 70.12
- WaitingTime: 42.94
- TimeLoss: 55.40
- DepartDelay: 41.62
+ Speed: 5.15
+ Duration: 70.10
+ WaitingTime: 43.00
+ TimeLoss: 55.38
+ DepartDelay: 41.61
 DijkstraRouter answered 533 queries and explored 3.23 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).

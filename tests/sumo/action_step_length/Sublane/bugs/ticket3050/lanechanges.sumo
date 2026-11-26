@@ -43,5 +43,5 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <lanechanges>
-    <change id="ego" type="t0" time="4.60" from="end_3" to="end_4" dir="1" speed="19.45" pos="43.98" reason="strategic|urgent" leaderGap="18.74" leaderSecureGap="0.00" leaderSpeed="27.78" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="5.40" origLeaderSecureGap="19.45" origLeaderSpeed="19.45" latGap="None"/>
+    <change id="ego" type="t0" time="5.60" from="end_3" to="end_4" dir="1" speed="19.45" pos="69.83" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
 </lanechanges>

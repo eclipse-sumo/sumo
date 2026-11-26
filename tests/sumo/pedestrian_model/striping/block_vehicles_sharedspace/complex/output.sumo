@@ -13,10 +13,10 @@ Vehicles:
  Inserted: 105
  Running: 8
  Waiting: 0
- Teleports: 0 (Collisions: 2)
+ Teleports: 0 (Collisions: 6)
 Persons:
  Inserted: 220 (Loaded: 742)
- Running: 41
+ Running: 52
 DijkstraRouter answered 220 queries and explored 69.32 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 DijkstraRouter answered 105 queries and explored 6.00 edges on average.

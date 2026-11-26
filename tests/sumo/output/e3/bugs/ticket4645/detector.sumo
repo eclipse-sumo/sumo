@@ -42,5 +42,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <e3Detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e3_file.xsd">
-    <interval begin="0.00" end="100.00" id="tt_fc09" meanTravelTime="42.61" meanOverlapTravelTime="43.01" meanSpeed="11.03" meanHaltsPerVehicle="0.50" meanTimeLoss="9.07" vehicleSum="4" meanSpeedWithin="10.08" meanHaltsPerVehicleWithin="0.54" meanDurationWithin="36.25" vehicleSumWithin="13" meanIntervalSpeedWithin="10.08" meanIntervalHaltsPerVehicleWithin="0.54" meanIntervalDurationWithin="36.25" meanTimeLossWithin="13.26"/>
+    <interval begin="0.00" end="100.00" id="tt_fc09" meanTravelTime="42.61" meanOverlapTravelTime="43.01" meanSpeed="11.03" meanHaltsPerVehicle="0.50" meanTimeLoss="9.07" vehicleSum="4" meanSpeedWithin="10.09" meanHaltsPerVehicleWithin="0.54" meanDurationWithin="36.26" vehicleSumWithin="13" meanIntervalSpeedWithin="10.09" meanIntervalHaltsPerVehicleWithin="0.54" meanIntervalDurationWithin="36.26" meanTimeLossWithin="13.24"/>
 </e3Detector>

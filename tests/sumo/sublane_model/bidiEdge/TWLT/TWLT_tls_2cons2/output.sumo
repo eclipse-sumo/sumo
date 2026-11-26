@@ -12,11 +12,11 @@ Vehicles:
  Inserted: 53
  Running: 0
  Waiting: 0
- Teleports: 7 (Jam: 1, Yield: 6)
+ Teleports: 9 (Yield: 8, Wrong Lane: 1)
 Statistics (avg of 53):
- RouteLength: 140.98
- Speed: 2.67
- Duration: 200.91
- WaitingTime: 172.28
- TimeLoss: 188.07
- DepartDelay: 284.38
+ RouteLength: 139.90
+ Speed: 2.87
+ Duration: 195.04
+ WaitingTime: 165.15
+ TimeLoss: 181.04
+ DepartDelay: 283.06
