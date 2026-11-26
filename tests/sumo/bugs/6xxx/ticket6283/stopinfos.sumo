@@ -38,8 +38,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="veh.0" type="DEFAULT_VEHTYPE" lane="gneE0_0" pos="80.56" parking="1" started="13.00" ended="73.00" parkingArea="p2" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="veh.1" type="DEFAULT_VEHTYPE" lane="gneE0_0" pos="80.56" parking="1" started="73.00" ended="133.00" parkingArea="p2" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="59.00"/>
-    <stopinfo id="veh.0" type="DEFAULT_VEHTYPE" lane="gneE1_0" pos="22.89" parking="1" started="82.00" ended="142.00" parkingArea="p3" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="veh.1" type="DEFAULT_VEHTYPE" lane="gneE1_0" pos="22.89" parking="1" started="149.00" ended="209.00" parkingArea="p3" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="8.00"/>
+    <stopinfo id="veh.0" type="DEFAULT_VEHTYPE" lane="gneE0_0" pos="80.56" parking="1" started="11.00" ended="71.00" parkingArea="p2" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="veh.1" type="DEFAULT_VEHTYPE" lane="gneE0_0" pos="80.56" parking="1" started="71.00" ended="131.00" parkingArea="p2" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="58.00"/>
+    <stopinfo id="veh.0" type="DEFAULT_VEHTYPE" lane="gneE1_0" pos="22.89" parking="1" started="78.00" ended="138.00" parkingArea="p3" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="veh.1" type="DEFAULT_VEHTYPE" lane="gneE1_0" pos="22.89" parking="1" started="143.00" ended="203.00" parkingArea="p3" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="6.00"/>
 </stops>

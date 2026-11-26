@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v_0" depart="0.00" departPos="91.85" arrival="65.00">
+    <vehicle id="v_0" depart="0.00" departPos="91.85" arrival="62.00">
         <route edges="SC WC CS SC CE"/>
         <stop edge="WC" duration="10.00"/>
         <stop edge="CS" duration="10.00"/>

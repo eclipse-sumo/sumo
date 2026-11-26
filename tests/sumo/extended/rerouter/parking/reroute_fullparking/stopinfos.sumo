@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="vehicle_1" type="DEFAULT_VEHTYPE" lane="61567479#3_0" pos="7.97" parking="1" started="16.00" ended="66.00" parkingArea="parkingArea_61567479#3_0_0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="vehicle_0" type="DEFAULT_VEHTYPE" lane="61567479#3_0" pos="15.94" parking="1" started="38.00" ended="88.00" parkingArea="parkingArea_61567479#3_0_0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="vehicle_2" type="DEFAULT_VEHTYPE" lane="-159245989#4_0" pos="45.61" parking="1" started="63.00" ended="113.00" parkingArea="parkingArea_-159245989#4_0_1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="vehicle_1" type="DEFAULT_VEHTYPE" lane="61567479#3_0" pos="7.97" parking="1" started="15.00" ended="65.00" parkingArea="parkingArea_61567479#3_0_0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="vehicle_0" type="DEFAULT_VEHTYPE" lane="61567479#3_0" pos="15.94" parking="1" started="37.00" ended="87.00" parkingArea="parkingArea_61567479#3_0_0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="vehicle_2" type="DEFAULT_VEHTYPE" lane="-159245989#4_0" pos="45.60" parking="1" started="61.00" ended="111.00" parkingArea="parkingArea_-159245989#4_0_1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
 </stops>

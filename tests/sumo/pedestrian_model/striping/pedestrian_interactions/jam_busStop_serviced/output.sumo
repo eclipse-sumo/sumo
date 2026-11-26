@@ -20,19 +20,19 @@ Persons:
  Jammed: 15
 Statistics (avg of 10):
  RouteLength: 194.90
- Speed: 5.45
- Duration: 54.30
- WaitingTime: 17.50
- TimeLoss: 26.17
+ Speed: 5.41
+ Duration: 54.40
+ WaitingTime: 18.30
+ TimeLoss: 26.68
  DepartDelay: 0.00
 Pedestrian Statistics (avg of 40 walks):
  RouteLength: 40.00
- Duration: 355.05
- TimeLoss: 326.25
+ Duration: 356.50
+ TimeLoss: 327.70
 Ride Statistics (avg of 40 rides):
- WaitingTime: 89.55
- RouteLength: 150.04
- Duration: 34.70
+ WaitingTime: 87.40
+ RouteLength: 150.00
+ Duration: 35.50
  Bus: 40
 DijkstraRouter answered 40 queries and explored 15.50 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).

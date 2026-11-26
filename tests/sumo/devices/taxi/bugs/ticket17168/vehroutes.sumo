@@ -22,7 +22,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p_0" depart="0.00" arrival="717.00">
+    <person id="p_0" depart="0.00" arrival="713.00">
         <ride from="A0B0" to="B0C0" arrivalPos="84.79" lines="taxi"/>
         <walk edges="B0C0" trainStop="ts_0"/>
         <ride from="C0D0" to="D0E0" trainStop="ts_1" intended="train" depart="90.00"/>

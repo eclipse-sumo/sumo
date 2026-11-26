@@ -49,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop lane="A0B0_1" endPos="5.10" triggered="person" parking="1" actType="idling"/>
     </vehicle>
 
-    <person id="p0" depart="0.00" arrival="214.00">
+    <person id="p0" depart="0.00" arrival="209.00">
         <ride from="B2C2" to="A0B0" arrivalPos="287.60" lines="taxi"/>
     </person>
 

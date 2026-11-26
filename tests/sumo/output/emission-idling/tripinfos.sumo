@@ -50,10 +50,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="ve1" depart="3.00" departLane="E0_0" departPos="5.10" departSpeed="0.00" departDelay="3.00" arrival="129.00" arrivalLane="E0_0" arrivalPos="200.00" arrivalSpeed="12.72" duration="126.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="9.03" rerouteNo="0" devices="tripinfo_ve1 emissions_ve1" vType="passenger" speedFactor="1.00" vaporized="">
-        <emissions CO_abs="21.21" CO2_abs="157283.49" HC_abs="8.08" PMx_abs="15.27" NOx_abs="644.85" fuel_abs="49773.45" electricity_abs="0.00"/>
+    <tripinfo id="ve1" depart="3.00" departLane="E0_0" departPos="5.10" departSpeed="0.00" departDelay="3.00" arrival="126.00" arrivalLane="E0_0" arrivalPos="200.00" arrivalSpeed="13.18" duration="123.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="6.11" rerouteNo="0" devices="tripinfo_ve1 emissions_ve1" vType="passenger" speedFactor="1.00" vaporized="">
+        <emissions CO_abs="20.93" CO2_abs="154870.42" HC_abs="8.08" PMx_abs="15.11" NOx_abs="611.07" fuel_abs="49009.96" electricity_abs="0.00"/>
     </tripinfo>
-    <tripinfo id="ve0" depart="0.00" departLane="E0_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="132.00" arrivalLane="E0_0" arrivalPos="200.00" arrivalSpeed="13.28" duration="132.00" routeLength="194.90" waitingTime="77.00" waitingCount="1" stopTime="107.00" timeLoss="6.87" rerouteNo="0" devices="tripinfo_ve0 emissions_ve0" vType="passenger" speedFactor="1.00" vaporized="">
-        <emissions CO_abs="20.67" CO2_abs="140743.39" HC_abs="7.26" PMx_abs="13.82" NOx_abs="584.03" fuel_abs="44540.10" electricity_abs="0.00"/>
+    <tripinfo id="ve0" depart="0.00" departLane="E0_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="129.00" arrivalLane="E0_0" arrivalPos="200.00" arrivalSpeed="13.26" duration="129.00" routeLength="194.90" waitingTime="76.00" waitingCount="1" stopTime="106.00" timeLoss="4.99" rerouteNo="0" devices="tripinfo_ve0 emissions_ve0" vType="passenger" speedFactor="1.00" vaporized="">
+        <emissions CO_abs="20.35" CO2_abs="140651.62" HC_abs="7.22" PMx_abs="13.92" NOx_abs="569.57" fuel_abs="44510.87" electricity_abs="0.00"/>
     </tripinfo>
 </tripinfos>

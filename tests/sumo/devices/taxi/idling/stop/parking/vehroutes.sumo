@@ -45,27 +45,27 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p0.0" depart="0.00" arrival="203.00">
+    <person id="p0.0" depart="0.00" arrival="200.00">
         <ride from="C1C2" to="B0C0" arrivalPos="285.60" lines="taxi"/>
     </person>
 
-    <person id="p0.1" depart="0.00" arrival="204.00">
+    <person id="p0.1" depart="0.00" arrival="201.00">
         <ride from="C1C2" to="B0C0" arrivalPos="285.60" lines="taxi"/>
     </person>
 
-    <person id="p0.2" depart="0.00" arrival="204.00">
+    <person id="p0.2" depart="0.00" arrival="201.00">
         <ride from="C1C2" to="B0C0" arrivalPos="285.60" lines="taxi"/>
     </person>
 
-    <person id="p0.3" depart="0.00" arrival="205.00">
+    <person id="p0.3" depart="0.00" arrival="202.00">
         <ride from="C1C2" to="B0C0" arrivalPos="285.60" lines="taxi"/>
     </person>
 
-    <person id="p0.4" depart="0.00" arrival="270.00">
+    <person id="p0.4" depart="0.00" arrival="265.00">
         <ride from="C1C2" to="B0C0" arrivalPos="285.60" lines="taxi"/>
     </person>
 
-    <person id="p0.5" depart="0.00" arrival="271.00">
+    <person id="p0.5" depart="0.00" arrival="266.00">
         <ride from="C1C2" to="B0C0" arrivalPos="285.60" lines="taxi"/>
     </person>
 

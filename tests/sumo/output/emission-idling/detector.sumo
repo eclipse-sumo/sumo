@@ -43,5 +43,5 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
-    <interval begin="0.00" end="150.00" id="ld1" nVehContrib="2" flow="48.00" occupancy="0.98" speed="6.84" harmonicMeanSpeed="6.78" length="5.00" nVehEntered="2"/>
+    <interval begin="0.00" end="150.00" id="ld1" nVehContrib="2" flow="48.00" occupancy="0.93" speed="7.20" harmonicMeanSpeed="7.20" length="5.00" nVehEntered="2"/>
 </detector>

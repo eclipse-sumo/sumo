@@ -47,8 +47,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="t_0" type="DEFAULT_VEHTYPE" lane="E0_0" pos="60.00" parking="0" started="12.00" ended="72.00" chargingStation="cs_0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="t_0" type="DEFAULT_VEHTYPE" lane="-E0_0" pos="99.97" parking="0" started="93.00" ended="153.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="t_1" type="DEFAULT_VEHTYPE" lane="E0_0" pos="59.99" parking="0" started="131.00" ended="191.00" chargingStation="cs_0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="t_0" type="DEFAULT_VEHTYPE" lane="E0_0" pos="52.48" parking="0" started="164.00" ended="224.00" chargingStation="cs_0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="t_0" type="DEFAULT_VEHTYPE" lane="E0_0" pos="60.00" parking="0" started="10.00" ended="70.00" chargingStation="cs_0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="t_0" type="DEFAULT_VEHTYPE" lane="-E0_0" pos="100.00" parking="0" started="90.00" ended="150.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="t_1" type="DEFAULT_VEHTYPE" lane="E0_0" pos="60.00" parking="0" started="129.00" ended="189.00" chargingStation="cs_0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="t_0" type="DEFAULT_VEHTYPE" lane="E0_0" pos="52.50" parking="0" started="160.00" ended="220.00" chargingStation="cs_0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
 </stops>

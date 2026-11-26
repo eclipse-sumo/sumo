@@ -40,15 +40,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="blocker2" depart="0.00" departLane="A0B0_1" departPos="280.10" departSpeed="0.00" departDelay="0.00" arrival="506.00" arrivalLane="A0B0_1" arrivalPos="287.60" arrivalSpeed="3.47" duration="506.00" routeLength="7.50" waitingTime="0.00" waitingCount="0" stopTime="500.00" timeLoss="2.16" rerouteNo="0" devices="tripinfo_blocker2 routing_blocker2" vType="long" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="blocker" depart="0.00" departLane="A1A0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="514.00" arrivalLane="A1A0_1" arrivalPos="87.60" arrivalSpeed="12.75" duration="514.00" routeLength="82.50" waitingTime="0.00" waitingCount="0" stopTime="500.00" timeLoss="4.86" rerouteNo="0" devices="tripinfo_blocker routing_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="595.00" waitingTime="13.00" timeLoss="319.79" traveltime="582.00">
-        <ride waitingTime="13.00" vehicle="taxi" depart="13.00" arrival="595.00" arrivalPos="287.60" duration="582.00" routeLength="1314.25" timeLoss="319.79"/>
+    <tripinfo id="blocker2" depart="0.00" departLane="A0B0_1" departPos="280.10" departSpeed="0.00" departDelay="0.00" arrival="504.00" arrivalLane="A0B0_1" arrivalPos="287.60" arrivalSpeed="3.73" duration="504.00" routeLength="7.50" waitingTime="0.00" waitingCount="0" stopTime="500.00" timeLoss="1.37" rerouteNo="0" devices="tripinfo_blocker2 routing_blocker2" vType="long" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blocker" depart="0.00" departLane="A1A0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="514.00" arrivalLane="A1A0_1" arrivalPos="87.60" arrivalSpeed="13.75" duration="514.00" routeLength="82.50" waitingTime="0.00" waitingCount="0" stopTime="500.00" timeLoss="4.88" rerouteNo="0" devices="tripinfo_blocker routing_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="587.00" waitingTime="10.00" timeLoss="314.69" traveltime="577.00">
+        <ride waitingTime="10.00" vehicle="taxi" depart="10.00" arrival="587.00" arrivalPos="287.60" duration="577.00" routeLength="1314.25" timeLoss="314.69"/>
     </personinfo>
-    <personinfo id="p1" depart="120.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="651.00" waitingTime="530.00" timeLoss="10.83" traveltime="121.00">
-        <ride waitingTime="530.00" vehicle="taxi" depart="650.00" arrival="771.00" arrivalPos="285.60" duration="121.00" routeLength="630.02" timeLoss="10.83"/>
+    <personinfo id="p1" depart="120.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="644.00" waitingTime="527.00" timeLoss="8.27" traveltime="117.00">
+        <ride waitingTime="527.00" vehicle="taxi" depart="647.00" arrival="764.00" arrivalPos="285.60" duration="117.00" routeLength="630.02" timeLoss="8.27"/>
     </personinfo>
-    <tripinfo id="taxi" depart="0.00" departLane="B2C2_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="774.00" routeLength="2433.89" waitingTime="312.00" waitingCount="5" stopTime="131.00" timeLoss="344.60" rerouteNo="4" devices="tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
-        <taxi customers="2" occupiedDistance="1864.15" occupiedTime="482.00"/>
+    <tripinfo id="taxi" depart="0.00" departLane="B2C2_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="767.00" routeLength="2433.89" waitingTime="301.00" waitingCount="1" stopTime="139.00" timeLoss="332.90" rerouteNo="4" devices="tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
+        <taxi customers="2" occupiedDistance="1864.17" occupiedTime="471.00"/>
     </tripinfo>
 </tripinfos>

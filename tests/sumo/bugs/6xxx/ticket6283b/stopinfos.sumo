@@ -38,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="occupyPA" type="DEFAULT_VEHTYPE" lane="gneE1_0" pos="53.30" parking="1" started="7.00" ended="67.00" parkingArea="p3" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="blocker" type="DEFAULT_VEHTYPE" lane="gneE0_0" pos="49.99" parking="0" started="8.00" ended="68.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="gneE1_0" pos="53.30" parking="1" started="67.00" ended="127.00" parkingArea="p3" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="46.00"/>
+    <stopinfo id="occupyPA" type="DEFAULT_VEHTYPE" lane="gneE1_0" pos="53.30" parking="1" started="6.00" ended="66.00" parkingArea="p3" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="blocker" type="DEFAULT_VEHTYPE" lane="gneE0_0" pos="50.00" parking="0" started="6.00" ended="66.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="gneE1_0" pos="53.30" parking="1" started="66.00" ended="126.00" parkingArea="p3" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="49.00"/>
 </stops>

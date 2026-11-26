@@ -34,6 +34,6 @@
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="v1" type="taxi" lane="C1B1_1" pos="50.00" parking="1" started="18.00" ended="19.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00" actType="pickup p0 (0)"/>
-    <stopinfo id="v1" type="taxi" lane="B1A1_1" pos="285.60" parking="1" started="73.00" ended="134.00" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00" actType="dropOff p0 (0)"/>
+    <stopinfo id="v1" type="taxi" lane="C1B1_1" pos="50.00" parking="1" started="14.00" ended="15.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00" actType="pickup p0 (0)"/>
+    <stopinfo id="v1" type="taxi" lane="B1A1_1" pos="285.60" parking="1" started="63.00" ended="124.00" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00" actType="dropOff p0 (0)"/>
 </stops>

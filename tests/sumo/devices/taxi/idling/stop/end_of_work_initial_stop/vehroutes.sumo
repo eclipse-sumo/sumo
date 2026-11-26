@@ -44,12 +44,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="trip_0" type="taxi" depart="0.00" arrival="148.00">
+    <vehicle id="trip_0" type="taxi" depart="0.00" arrival="147.00">
         <route edges="A0B0 B0C0"/>
         <stop lane="A0B0_1" endPos="287.60" triggered="person" parking="1"/>
     </vehicle>
 
-    <person id="p0" depart="0.00" arrival="213.00">
+    <person id="p0" depart="0.00" arrival="209.00">
         <ride from="B2C2" to="A0B0" arrivalPos="287.60" lines="taxi"/>
     </person>
 

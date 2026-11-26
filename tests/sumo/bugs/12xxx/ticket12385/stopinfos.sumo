@@ -37,6 +37,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="v_0" type="t_0" lane="WC_0" pos="67.43" parking="0" started="15.00" ended="35.00" busStop="bs_0" initialPersons="0" loadedPersons="20" unloadedPersons="0" initialContainers="0" loadedContainers="10" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="v_0" type="t_0" lane="CE_0" pos="71.18" parking="0" started="52.00" ended="72.00" busStop="bs_1" initialPersons="20" loadedPersons="0" unloadedPersons="20" initialContainers="10" loadedContainers="0" unloadedContainers="10" blockedDuration="0.00"/>
+    <stopinfo id="v_0" type="t_0" lane="WC_0" pos="67.45" parking="0" started="13.00" ended="33.00" busStop="bs_0" initialPersons="0" loadedPersons="20" unloadedPersons="0" initialContainers="0" loadedContainers="10" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="v_0" type="t_0" lane="CE_0" pos="71.18" parking="0" started="49.00" ended="69.00" busStop="bs_1" initialPersons="20" loadedPersons="0" unloadedPersons="20" initialContainers="10" loadedContainers="0" unloadedContainers="10" blockedDuration="0.00"/>
 </stops>
