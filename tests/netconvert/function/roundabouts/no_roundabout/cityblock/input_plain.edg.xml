@@ -46,6 +46,4 @@
     <edge id="332455377#5" from="92489496" to="34537342" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="113.92,157.22 115.29,150.74 122.07,115.04 129.94,76.04 133.51,56.88 142.45,11.81 142.91,7.48 143.72,0.00" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
     <edge id="43585161#0" from="92489496" to="92489497" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="113.92,157.22 119.82,157.68 157.14,160.51 162.67,160.93" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
 
-    <roundabout nodes="1608966953 92489171 92489496 92489497" edges="10594635#0 1419963610#1 332455377#2 43585161#0"/>
-
 </edges>
