@@ -10,3 +10,6 @@ MATSim
 # tools for importing GTFS data
 GTFS
 dxf
+
+# tools for importing GBFS bikeshare feeds
+gbfs

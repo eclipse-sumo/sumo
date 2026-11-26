@@ -1,0 +1,13 @@
+{
+  "data": {
+    "stations": [
+      {
+        "station_id": "s1",
+        "name": "Hub",
+        "lon": 13.4003,
+        "lat": 52.5,
+        "capacity": 12
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "data": {
+    "stations": [
+      {
+        "station_id": "s1",
+        "num_bikes_available": 7,
+        "num_docks_available": 5
+      }
+    ]
+  }
+}
