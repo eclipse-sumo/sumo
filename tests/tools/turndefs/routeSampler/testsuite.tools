@@ -16,6 +16,9 @@ intervals
 # sample routes by probabilites or counts
 weighted
 
+# sample counting locations by their priorities
+location_weights
+
 # make use of turn-ratios in addition to counts
 ratios
 

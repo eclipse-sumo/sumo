@@ -26,6 +26,7 @@ import os
 import sys
 from collections import defaultdict
 from math import ceil, modf
+from xml.etree.ElementTree import ParseError
 # multiprocessing imports
 import multiprocessing
 import numpy as np
@@ -59,6 +60,8 @@ def get_options(args=None):
                     help="Input edgeRelation and tazRelation files for origin-destination counts")
     op.add_argument("--taz-files", category="input", dest="tazFiles", type=op.file_list,
                     help="Input TAZ (district) definitions for interpreting tazRelation files")
+    op.add_argument("--location-weights", category="input", dest="locationWeightsFile", type=op.file, fix_path=True,
+                    help="XML file with relative weights for sampling counting locations")
     op.add_argument("--edgedata-attribute", category="input", dest="edgeDataAttr", default="entered",
                     help="Read edgeData counts from the given attribute")
     op.add_argument("--arrival-attribute", category="input", dest="arrivalAttr",
@@ -156,6 +159,11 @@ def get_options(args=None):
                     help="how to merge different data points for the same location and interval")
 
     options = op.parse_args(args=args)
+    try:
+        options.locationWeights = loadLocationWeights(
+            options.locationWeightsFile) if options.locationWeightsFile else {}
+    except (ValueError, OSError, ParseError) as error:
+        op.error("--location-weights: %s" % error)
     if (options.routeFiles is None or
             (options.turnFiles is None
              and options.turnRatioFiles is None
@@ -666,6 +674,28 @@ def getOverlap(begin, end, iBegin, iEnd):
         return (iEnd - begin) / (iEnd - iBegin)  # partial overlap
     else:
         return (end - iBegin) / (iEnd - iBegin)  # partial overlap
+
+
+def loadLocationWeights(filename):
+    weights = {}
+    for location in sumolib.xml.parse(filename, "location", heterogeneous=True):
+        if bool(location.edges) == bool(location.tazs):
+            raise ValueError("each location must specify either edges or tazs")
+        isTaz = bool(location.tazs)
+        ids = tuple((location.tazs if isTaz else location.edges).split())
+        if not ids or (isTaz and len(ids) != 2):
+            raise ValueError("specify one or more edge IDs or exactly two TAZ IDs")
+        try:
+            weight = float(location.weight)
+        except (TypeError, ValueError):
+            weight = 0
+        if not np.isfinite(weight) or weight <= 0:
+            raise ValueError("weight for %s must be a positive finite number" % " ".join(ids))
+        key = (isTaz, ids)
+        if key in weights:
+            raise ValueError("duplicate weight for %s" % " ".join(ids))
+        weights[key] = weight
+    return weights
 
 
 def parseTurnCounts(interval, attr, warn):
@@ -1233,6 +1263,9 @@ def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCo
                  ratioIndices, numSampled, intervalCount, routeCounts, remove=False):
     """pick a random counting location and select a new route that passes it until
        all counts are satisfied or no routes can be used anymore """
+    locationWeights = None
+    if options.locationWeights:
+        locationWeights = np.array([options.locationWeights.get((cd.isTaz, cd.edgeTuple), 1.) for cd in countData])
     while openCounts:
         if intervalCount is not None and numSampled >= intervalCount:
             break
@@ -1246,14 +1279,19 @@ def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCo
                           file=sys.stderr)
                 break
 
-        if options.weighted:
+        if options.weighted and locationWeights is None:
             routeIndex = _sample_skewed(openRoutes, rng, routes.probabilities)
         else:
-            # sampling equally among open counting locations appears to
-            # improve GEH but it would also introduce a bias in the loaded
-            # route probabilities
-            cd = countData[rng.choice(openCounts)]
-            routeIndex = rng.choice([r for r in openRoutes if r in cd.routeSet])
+            if locationWeights is None:
+                countIndex = rng.choice(openCounts)
+            else:
+                weights = locationWeights[openCounts]
+                weights /= weights.max()
+                countIndex = rng.choice(openCounts, p=weights / weights.sum())
+            cd = countData[countIndex]
+            candidates = [route for route in openRoutes if route in cd.routeSet]
+            routeIndex = (_sample_skewed(candidates, rng, routes.probabilities)
+                          if options.weighted else rng.choice(candidates))
         if remove:
             numSampled -= 1
             routeCounts[routeIndex] -= 1

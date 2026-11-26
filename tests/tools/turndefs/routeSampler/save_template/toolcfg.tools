@@ -5,6 +5,7 @@
     <edgedata-files value="None" type="file" help="Input edgeData file (for counts)" category="input" listSeparator=","/>
     <od-files value="None" type="file" help="Input edgeRelation and tazRelation files for origin-destination counts" category="input" listSeparator=","/>
     <taz-files value="None" type="file" help="Input TAZ (district) definitions for interpreting tazRelation files" category="input" listSeparator=","/>
+    <location-weights value="None" type="file" help="XML file with relative weights for sampling counting locations" category="input"/>
     <edgedata-attribute value="entered" type="string" help="Read edgeData counts from the given attribute" category="input"/>
     <arrival-attribute value="None" type="string" help="Read arrival counts from the given edgeData file attribute" category="input"/>
     <depart-attribute value="None" type="string" help="Read departure counts from the given edgeData file attribute" category="input"/>

@@ -272,6 +272,20 @@ By setting the option **--weighted**. The sampling algorithm is changed. For eac
 
 until all counting locations have reached their measured count or there are no viable routes (routes which have all their passed counting locations below the input count)
 
+### Location Weights
+
+Use **--location-weights FILE** to set relative sampling priorities for counting locations. At each draw, the sampler selects an eligible location with probability proportional to its weight. For example, a location with weight 2 is twice as likely to be selected as one with weight 1 while both are eligible. Locations omitted from the file have weight 1. Weights must be finite and positive.
+
+```xml
+<locationWeights>
+    <location edges="edge0" weight="2"/>
+    <location edges="edge1 viaEdge edge2" weight="4"/>
+    <location tazs="origin destination" weight="3"/>
+</locationWeights>
+```
+
+An `edges` entry matches a single edge or an ordered edge relation, including any via edges. A `tazs` entry matches an origin-destination pair by zone ID. When **--weighted** is also enabled, route probabilities are applied to the viable routes that pass through the selected location. Location weights apply to sampling and leave the optimization objective unchanged.
+
 ## Optimization
 By default, routes will be sampled from the input route set until no further routes can be added without exceeding one of the counts. This may still leave some counts below their target values.
 

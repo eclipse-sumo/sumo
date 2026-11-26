@@ -1,0 +1,6 @@
+<data>
+    <interval begin="0" end="60">
+        <edgeRelation from="a" to="end" via="x" count="1"/>
+        <edgeRelation from="b" to="end" via="z" count="1"/>
+    </interval>
+</data>

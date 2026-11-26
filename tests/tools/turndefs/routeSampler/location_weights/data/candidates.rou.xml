@@ -1,0 +1,5 @@
+<routes>
+    <route id="one" edges="a x end" probability="1000000000"/>
+    <route id="two" edges="b y end" probability="1"/>
+    <route id="three" edges="b z end" probability="1000000"/>
+</routes>
