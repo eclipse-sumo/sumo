@@ -6113,8 +6113,15 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                     }
                 }
                 assert(lanes.size() == startLane->getEdge().getLanes().size());
+                const double internalLength = startLane->getEdge().getLength() + startLane->getEdge().getInternalFollowingLengthTo(nextEdge, SVC_IGNORING);
+                const double prevInternalLength = (oldLanes[0].bestContinuations[0] == nullptr && myLastBestLanesInternalLane != nullptr)
+                                                  ? myLastBestLanesInternalLane->getEdge().getLength() + myLastBestLanesInternalLane->getEdge().getInternalFollowingLengthTo(nextEdge, SVC_IGNORING)
+                                                  : 0.;
                 // patch invalid bestLaneOffset and updated myCurrentLaneInBestLanes
                 for (int i = 0; i < (int)lanes.size(); ++i) {
+                    if (lanes[i].length > 0) {
+                        lanes[i].length += internalLength - prevInternalLength;
+                    }
                     if (i + lanes[i].bestLaneOffset < 0) {
                         lanes[i].bestLaneOffset = -i;
                     }
@@ -6240,6 +6247,13 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             progress &= (seen <= 8 || seenLength < MAX2(maxBrakeDist, 200.0) || isRailway(getVClass()));  // urban
         }
         progress &= ce != myRoute->end();
+        if (progress && !nextEdge->isInternal()) {
+            double internalLength = (*(ce - 1))->getInternalFollowingLengthTo(nextEdge, getVClass());
+            if (internalLength == 0.) {
+                internalLength = (*(ce - 1))->getInternalFollowingLengthTo(nextEdge, SVC_IGNORING);
+            }
+            seenLength += internalLength;
+        }
         /*
         if(progress) {
           progress &= (currentLanes.size()!=1||(*ce)->getLanes().size()!=1);
@@ -6325,6 +6339,11 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         int bestThisIndex = 0;
         int bestThisMaxIndex = 0;
         if (bestConnectedLength > 0) {
+            const MSEdge* const nextEdge = &nextLanes[0].lane->getEdge();
+            double internalLength = nextEdge->isInternal() ? 0. : cE->getInternalFollowingLengthTo(nextEdge, getVClass());
+            if (internalLength == 0. && !nextEdge->isInternal()) {
+                internalLength = cE->getInternalFollowingLengthTo(nextEdge, SVC_IGNORING);
+            }
             index = 0;
             for (LaneQ& j : clanes) {
                 const LaneQ* bestConnectedNext = nullptr;
@@ -6339,9 +6358,9 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                     }
                     if (bestConnectedNext != nullptr) {
                         if (bestConnectedNext->length == bestConnectedLength && abs(bestConnectedNext->bestLaneOffset) < 2) {
-                            j.length += bestLength;
-                        } else {
-                            j.length += bestConnectedNext->length;
+                            j.length += bestLength + internalLength;
+                        } else if (bestConnectedNext->length > 0) {
+                            j.length += bestConnectedNext->length + internalLength;
                         }
                         j.bestLaneOffset = bestConnectedNext->bestLaneOffset;
                     }
