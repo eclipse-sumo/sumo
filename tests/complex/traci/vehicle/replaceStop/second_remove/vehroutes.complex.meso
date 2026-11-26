@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 17 09:25:23 2021 by Eclipse SUMO sumo Version v1_8_0+1673-4fec7ef
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2026-11-26T17:01:10.246779+01:00 by Eclipse SUMO sumo v1_28_0+0863-46763c4e7fb
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net4.net.xml"/>
@@ -14,7 +14,8 @@
     </output>
 
     <processing>
-        <pedestrian.model value="nonInteracting"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
     </processing>
 
     <report>
@@ -22,7 +23,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="58147"/>
+        <remote-port value="43237"/>
     </traci_server>
 
     <mesoscopic>
@@ -30,11 +31,11 @@
         <meso-junction-control value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="ego" depart="0.00" arrival="158.00">
+    <vehicle id="ego" depart="0.00" arrival="161.00">
         <route edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3"/>
         <stop busStop="busStop_A1B1" duration="60.00"/>
         <stop busStop="busStop_C1D1" duration="60.00"/>

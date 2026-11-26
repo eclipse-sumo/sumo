@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-28 08:44:38 by Eclipse SUMO sumo Version v1_17_0+1317-06f42fb
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2026-11-26T17:01:11.493963+01:00 by Eclipse SUMO sumo v1_28_0+0863-46763c4e7fb
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net4.net.xml"/>
@@ -14,12 +14,17 @@
         <stop-output value="stopinfos.xml"/>
     </output>
 
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
     <report>
         <no-step-log value="true"/>
     </report>
 
     <traci_server>
-        <remote-port value="50847"/>
+        <remote-port value="35575"/>
     </traci_server>
 
     <mesoscopic>
@@ -27,11 +32,11 @@
         <meso-junction-control value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="ego" type="DEFAULT_VEHTYPE" edge="A1B1" pos="0.00" parking="0" started="6.26" ended="167.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_A1B1"/>
-    <stopinfo id="ego" type="DEFAULT_VEHTYPE" edge="B1C1" pos="0.00" parking="0" started="166.41" ended="233.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_B1C1"/>
-    <stopinfo id="ego" type="DEFAULT_VEHTYPE" edge="C1D1" pos="0.00" parking="0" started="232.56" ended="299.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_C1D1"/>
+    <stopinfo id="ego" type="DEFAULT_VEHTYPE" edge="A1B1" pos="0.00" parking="0" started="6.60" ended="167.00" busStop="busStop_A1B1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="ego" type="DEFAULT_VEHTYPE" edge="B1C1" pos="0.00" parking="0" started="167.39" ended="234.00" busStop="busStop_B1C1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="ego" type="DEFAULT_VEHTYPE" edge="C1D1" pos="0.00" parking="0" started="234.18" ended="301.00" busStop="busStop_C1D1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
 </stops>
