@@ -698,13 +698,17 @@ public:
                 }
             }
         }
-        if (validStops.size() < 2 && pars.line != "taxi") {
-            WRITE_WARNINGF(TL("Not using public transport line '%' for routing persons. It has less than two usable stops."), pars.line);
+        if (validStops.size() < 2) {
+            if (pars.line != "taxi") {
+                WRITE_WARNINGF(TL("Not using public transport line '%' for routing persons. It has less than two usable stops."), pars.line);
+            }
             return;
         }
 
-        typename std::vector<_PTEdge*>& lineEdges = myPTLines[pars.line];
-        if (lineEdges.empty()) {
+        PTLine& lineInfo = myPTLines[pars.line];
+        if (lineInfo.stops.empty()) {
+            std::map<EdgePair, _PTEdge*> uniqueEdges;
+            std::set<const _IntermodalEdge*> seenStops;
             _IntermodalEdge* lastStop = nullptr;
             Position lastPos;
             SUMOTime lastTime = 0;
@@ -712,46 +716,62 @@ public:
                 _IntermodalEdge* currStop = myStopConnections[s.busstop];
                 Position stopPos = E::getStopPosition(s);
                 if (lastStop != nullptr) {
-                    _PTEdge* const newEdge = new _PTEdge(s.busstop, myNumericalID++, lastStop, currStop->getEdge(), pars.line, lastPos.distanceTo(stopPos));
-                    addEdge(newEdge);
-                    newEdge->addSchedule(pars.id, lastTime, pars.repetitionNumber, pars.repetitionOffset, s.until - lastTime);
-                    myHavePTSchedules = true;
-                    lastStop->addSuccessor(newEdge);
-                    newEdge->addSuccessor(currStop);
-                    lineEdges.push_back(newEdge);
+                    if (currStop == lastStop) {
+                        lineInfo.edges.push_back(nullptr);
+                    } else {
+                        if (pars.line != "taxi" && seenStops.count(currStop) != 0) {
+                            myLoopedLines.insert(pars.line);
+                        }
+                        _PTEdge* ptEdge = nullptr;
+                        const EdgePair stopPair(lastStop, currStop);
+                        auto it = uniqueEdges.find(stopPair);
+                        if (it == uniqueEdges.end()) {
+                            ptEdge = new _PTEdge(s.busstop, myNumericalID++, lastStop, currStop->getEdge(), pars.line, lastPos.distanceTo(stopPos));
+                            addEdge(ptEdge);
+                            lastStop->addSuccessor(ptEdge);
+                            ptEdge->addSuccessor(currStop);
+                            uniqueEdges[stopPair] = ptEdge;
+                        } else {
+                            ptEdge = it->second;
+                        }
+                        ptEdge->addSchedule(pars.id, lastTime, pars.repetitionNumber, pars.repetitionOffset, s.until - lastTime);
+                        myHavePTSchedules = true;
+                        lineInfo.edges.push_back(ptEdge);
+                    }
                 }
+                seenStops.insert(currStop);
+                lineInfo.stops.push_back(currStop);
                 lastTime = s.until;
                 lastStop = currStop;
                 lastPos = stopPos;
             }
-            if (pars.line != "taxi" && validStops.front().busstop == validStops.back().busstop) {
-                myLoopedLines.insert(pars.line);
-            }
         } else {
-            if (validStops.size() != lineEdges.size() + 1) {
+            if (validStops.size() != lineInfo.stops.size()) {
                 WRITE_WARNINGF("Number of stops for public transport line '%' does not match earlier definitions, ignoring schedule.", pars.line);
                 return;
             }
-            if (lineEdges.front()->getEntryStop() != myStopConnections[validStops.front().busstop]) {
-                WRITE_WARNINGF("Different stop for '%' compared to earlier definitions, ignoring schedule.", pars.line);
-                return;
-            }
-            typename std::vector<_PTEdge*>::const_iterator lineEdge = lineEdges.begin();
-            typename StopParVector::const_iterator s = validStops.begin() + 1;
-            for (; s != validStops.end(); ++s, ++lineEdge) {
-                if ((*lineEdge)->getSuccessors(SVC_IGNORING)[0] != myStopConnections[s->busstop]) {
+            for (int i = 0; i < (int)validStops.size(); ++i) {
+                if (lineInfo.stops[i] != myStopConnections[validStops[i].busstop]) {
                     WRITE_WARNINGF("Different stop for '%' compared to earlier definitions, ignoring schedule.", pars.line);
                     return;
                 }
             }
-            SUMOTime lastTime = validStops.front().until;
-            if (lineEdges.front()->hasSchedule(lastTime)) {
-                WRITE_WARNINGF("Duplicate schedule for '%' at time=%.", pars.line, time2string(lastTime));
+            for (int i = 0; i < (int)lineInfo.edges.size(); ++i) {
+                if (lineInfo.edges[i] != nullptr) {
+                    if (lineInfo.edges[i]->hasSchedule(validStops[i].until)) {
+                        WRITE_WARNINGF("Duplicate schedule for '%' at time=%.", pars.line, time2string(validStops[i].until));
+                    }
+                    break;
+                }
             }
-            for (lineEdge = lineEdges.begin(), s = validStops.begin() + 1; lineEdge != lineEdges.end(); ++lineEdge, ++s) {
-                (*lineEdge)->addSchedule(pars.id, lastTime, pars.repetitionNumber, pars.repetitionOffset, s->until - lastTime);
-                myHavePTSchedules = true;
-                lastTime = s->until;
+            SUMOTime lastTime = validStops.front().until;
+            for (int i = 0; i < (int)lineInfo.edges.size(); ++i) {
+                const SUMOTime nextTime = validStops[i + 1].until;
+                if (lineInfo.edges[i] != nullptr) {
+                    lineInfo.edges[i]->addSchedule(pars.id, lastTime, pars.repetitionNumber, pars.repetitionOffset, nextTime - lastTime);
+                    myHavePTSchedules = true;
+                }
+                lastTime = nextTime;
             }
         }
     }
@@ -904,8 +924,13 @@ private:
     /// @brief retrieve the car edge for the given input edge E
     std::map<const E*, _IntermodalEdge*, ComparatorNumericalIdLess> myCarLookup;
 
-    /// @brief retrieve the public transport edges for the given line
-    std::map<std::string, std::vector<_PTEdge*> > myPTLines;
+    struct PTLine {
+        std::vector<const _IntermodalEdge*> stops;
+        std::vector<_PTEdge*> edges;
+    };
+
+    /// @brief retrieve the public transport stops and edges for the given line
+    std::map<std::string, PTLine> myPTLines;
 
     /// @brief retrieve the representing edge for the given stopping place
     std::map<std::string, _IntermodalEdge*> myStopConnections;
