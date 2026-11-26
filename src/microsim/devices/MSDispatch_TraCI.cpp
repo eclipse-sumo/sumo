@@ -108,7 +108,8 @@ std::string
 MSDispatch_TraCI::splitReservation(std::string resID, std::vector<std::string> personIDs) {
     if (myReservationLookup.hasString(resID)) {
         Reservation* res = const_cast<Reservation*>(myReservationLookup.get(resID));
-        if (myRunningReservations.count(res->group) != 0 && myRunningReservations[res->group].count(res) != 0) {
+        const GroupReservationKey groupKey(*res);
+        if (myRunningReservations.count(groupKey) != 0 && myRunningReservations[groupKey].count(res) != 0) {
             throw InvalidArgument("Cannot split reservation '" + resID + "' after dispatch");
         }
         std::set<std::string> allPersons;
@@ -139,7 +140,8 @@ MSDispatch_TraCI::splitReservation(std::string resID, std::vector<std::string> p
                                               res->from, res->fromPos, res->fromStop,
                                               res->to, res->toPos, res->toStop,
                                               res->group, res->line);
-        myGroupReservations[res->group].push_back(newRes);
+        newRes->order = myReservationOrder++;
+        myGroupReservations[groupKey].push_back(newRes);
         myReservationLookup.insert(newRes->id, newRes);
         return newRes->id;
     } else {
