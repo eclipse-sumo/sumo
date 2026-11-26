@@ -617,6 +617,21 @@ class OSMImporterHTTPHandler(SimpleHTTPRequestHandler):
         self.steps -= 1
 
     def build(self, data):
+        succeeded = False
+        try:
+            succeeded = self.buildScenario(data)
+        finally:
+            if self.server.exitAfterBuild:
+                if succeeded:
+                    self.server.messages.append("complete success")
+                    # Let the browser read the final progress messages before closing the connection.
+                    self.server.completionRead.wait(timeout=30)
+                    self.server.shutdown()
+                else:
+                    self.server.messages.append("complete failure")
+                    self.server.building = False
+
+    def buildScenario(self, data):
         if self.server.output is not None:
             data['outputDir'] = self.server.output
         builder = Builder(data, self.server.local)
@@ -625,6 +640,7 @@ class OSMImporterHTTPHandler(SimpleHTTPRequestHandler):
         self.steps = len(data["vehicles"]) + 4
         self.server.messages.append(u"steps %s" % self.steps)
 
+        succeeded = False
         try:
             builder.build()
             builder.makeConfigFile()
@@ -632,6 +648,7 @@ class OSMImporterHTTPHandler(SimpleHTTPRequestHandler):
 
             if self.server.local:
                 builder.openSUMO()
+                succeeded = True
             else:
                 self.server.messages.append(b"zip " + builder.createZip())
                 builder.finalize()
@@ -645,19 +662,27 @@ class OSMImporterHTTPHandler(SimpleHTTPRequestHandler):
             if os.path.isdir(builder.tmp) and not os.listdir(builder.tmp):
                 os.rmdir(builder.tmp)
         os.chdir(builder.origDir)
+        return succeeded
 
     def log_message(self, format, *args):
         pass  # disable default logging
 
     def do_POST(self):
         if self.path == "/build":
+            if self.server.exitAfterBuild and self.server.building:
+                self.send_error(409)
+                return
             length = int(self.headers.get("Content-Length", 0))
-            data = self.rfile.read(length)
-            threading.Thread(target=self.build, args=(json.loads(data),)).start()
+            data = json.loads(self.rfile.read(length))
+            if self.server.exitAfterBuild:
+                self.server.building = True
+            threading.Thread(target=self.build, args=(data,)).start()
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
-            self.wfile.write(json.dumps({"status": "started"}).encode())
+            self.wfile.write(json.dumps({
+                "status": "started", "exitAfterBuild": self.server.exitAfterBuild,
+            }).encode())
         else:
             self.send_error(404)
 
@@ -673,8 +698,11 @@ class OSMImporterHTTPHandler(SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
-            self.wfile.write(json.dumps({"data": self.server.messages[0] if self.server.messages else ""}).encode())
+            message = self.server.messages[0] if self.server.messages else ""
+            self.wfile.write(json.dumps({"data": message}).encode())
             del self.server.messages[:1]
+            if self.server.exitAfterBuild and message == "complete success":
+                self.server.completionRead.set()
         else:
             super().do_GET()
 
@@ -719,6 +747,8 @@ def get_options(args=None):
     parser.add_argument("--remote", action="store_true", default=False,
                         help="In remote mode, SUMO GUI will not be automatically opened instead a zip file " +
                         "will be generated.")
+    parser.add_argument("--exit-after-build", action="store_true",
+                        help="Stop the local HTTP server after successfully generating a scenario.")
     parser.add_argument("--osm-file", default="osm_bbox.osm.xml", dest="osmFile", help="use input file from path.")
     parser.add_argument("--test-output", dest="testOutputDir",
                         help="Run with pre-defined options on file 'osm_bbox.osm.xml' and " +
@@ -739,7 +769,10 @@ def get_options(args=None):
     parser.add_argument("-n", "--netconvert-options", help="additional comma-separated options for netconvert")
     parser.add_argument("--demand", default="passenger:6f5,bicycle:2f2,pedestrian:4,ship:1f40",
                         help="Traffic demand definition for non-interactive mode.")
-    return parser.parse_args(args)
+    options = parser.parse_args(args)
+    if options.exit_after_build and (options.remote or options.web_socket or options.testOutputDir is not None):
+        parser.error("--exit-after-build requires the local HTTP server mode")
+    return options
 
 
 def main(options):
@@ -811,20 +844,23 @@ def main(options):
         server.serveforever()
     else:
         port = options.port if options.port else sumolib.miscutils.getFreeSocketPort()
-        httpd = HTTPServer((options.address, port), OSMImporterHTTPHandler)
-        httpd.local = options.testOutputDir is not None or not options.remote
-        httpd.output = options.outputDir
-        httpd.messages = []
-        httpd.last_seen = time.time()
-        if options.remote:
-            print("Web server listening on http://%s:%s/ in remote mode." % (httpd.server_name, port))
-        else:
-            url = "http://127.0.0.1:%s/" % port
-            if options.language:
-                url += "?lang=%s" % options.language
-            webbrowser.open(url)
-            threading.Thread(target=watchdog, args=(httpd,), daemon=True).start()
-        httpd.serve_forever()
+        with HTTPServer((options.address, port), OSMImporterHTTPHandler) as httpd:
+            httpd.local = not options.remote
+            httpd.output = options.outputDir
+            httpd.messages = []
+            httpd.last_seen = time.time()
+            httpd.exitAfterBuild = options.exit_after_build
+            httpd.building = False
+            httpd.completionRead = threading.Event()
+            if options.remote:
+                print("Web server listening on http://%s:%s/ in remote mode." % (httpd.server_name, port))
+            else:
+                url = "http://127.0.0.1:%s/" % port
+                if options.language:
+                    url += "?lang=%s" % options.language
+                webbrowser.open(url)
+                threading.Thread(target=watchdog, args=(httpd,), daemon=True).start()
+            httpd.serve_forever()
 
 
 if __name__ == "__main__":
