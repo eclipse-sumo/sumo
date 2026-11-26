@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-18T10:02:30.915390+01:00 by Eclipse SUMO sumo v1.28.0-0000000000
+<!-- generated on 2026-11-26T14:49:35.727090+01:00 by Eclipse SUMO sumo UNKNOWN
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,6 +42,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </report>
 
     <mesoscopic>
+        <mesosim value="true"/>
         <meso-ltm value="true"/>
         <meso-junction-control value="true"/>
         <meso-interpolate-pos value="true"/>
@@ -275,218 +276,261 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lanes>
     </data>
     <data timestep="61.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="93.43" queueing_count="18"/>
+        </lanes>
     </data>
     <data timestep="62.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="93.87" queueing_count="18"/>
+        </lanes>
     </data>
     <data timestep="63.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="16.32" queueing_length="75.84" queueing_count="6"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="94.30" queueing_count="17"/>
+        </lanes>
     </data>
     <data timestep="64.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="16.07" queueing_length="74.64" queueing_count="6"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="16.32" queueing_length="66.83" queueing_count="6"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="94.73" queueing_count="16"/>
         </lanes>
     </data>
     <data timestep="65.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="16.07" queueing_length="65.62" queueing_count="6"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="16.32" queueing_length="71.83" queueing_count="7"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="90.50" queueing_count="16"/>
         </lanes>
     </data>
     <data timestep="66.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="16.07" queueing_length="84.64" queueing_count="8"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="16.32" queueing_length="85.84" queueing_count="8"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.17" queueing_count="15"/>
         </lanes>
     </data>
     <data timestep="67.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="16.07" queueing_length="89.64" queueing_count="9"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="16.32" queueing_length="23.00" queueing_count="5"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.17" queueing_count="15"/>
         </lanes>
     </data>
     <data timestep="68.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="16.07" queueing_length="23.00" queueing_count="5"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="16.32" queueing_length="28.00" queueing_count="6"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="14"/>
         </lanes>
     </data>
     <data timestep="69.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="16.07" queueing_length="28.00" queueing_count="6"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="16.32" queueing_length="33.00" queueing_count="7"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="13"/>
         </lanes>
     </data>
     <data timestep="70.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="16.07" queueing_length="33.00" queueing_count="7"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="16.32" queueing_length="38.00" queueing_count="8"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="13"/>
         </lanes>
     </data>
     <data timestep="71.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="16.07" queueing_length="38.00" queueing_count="8"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="16.32" queueing_length="43.00" queueing_count="9"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="12"/>
         </lanes>
     </data>
     <data timestep="72.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="16.07" queueing_length="43.00" queueing_count="9"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="16.32" queueing_length="43.00" queueing_count="9"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="12"/>
         </lanes>
     </data>
     <data timestep="73.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="16.07" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="16.32" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="11"/>
         </lanes>
     </data>
     <data timestep="74.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="16.07" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="16.32" queueing_length="53.00" queueing_count="11"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="10"/>
         </lanes>
     </data>
     <data timestep="75.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="16.07" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="16.32" queueing_length="53.00" queueing_count="11"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="10"/>
         </lanes>
     </data>
     <data timestep="76.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="16.07" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="16.32" queueing_length="53.00" queueing_count="11"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="9"/>
         </lanes>
     </data>
     <data timestep="77.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="16.07" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="16.32" queueing_length="53.00" queueing_count="11"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="8"/>
         </lanes>
     </data>
     <data timestep="78.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="16.07" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="18.55" queueing_length="53.00" queueing_count="11"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="8"/>
         </lanes>
     </data>
     <data timestep="79.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="18.30" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="18.55" queueing_length="53.00" queueing_count="11"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="7"/>
         </lanes>
     </data>
     <data timestep="80.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="18.30" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="18.55" queueing_length="53.00" queueing_count="11"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="7"/>
         </lanes>
     </data>
     <data timestep="81.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="19.93" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="20.18" queueing_length="53.00" queueing_count="11"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="6"/>
         </lanes>
     </data>
     <data timestep="82.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="19.93" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="21.81" queueing_length="53.00" queueing_count="11"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="5"/>
         </lanes>
     </data>
     <data timestep="83.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="21.56" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="21.81" queueing_length="53.00" queueing_count="11"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="5"/>
         </lanes>
     </data>
     <data timestep="84.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="21.56" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="23.44" queueing_length="53.00" queueing_count="11"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="4"/>
         </lanes>
     </data>
     <data timestep="85.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="23.19" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="23.44" queueing_length="53.00" queueing_count="11"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="0.00" queueing_length="95.50" queueing_count="4"/>
         </lanes>
     </data>
     <data timestep="86.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="24.82" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="25.07" queueing_length="53.00" queueing_count="11"/>
         </lanes>
     </data>
     <data timestep="87.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="24.82" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="0.00" queueing_length="53.00" queueing_count="10"/>
         </lanes>
     </data>
     <data timestep="88.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="2" queueing_time="0.00" queueing_length="47.65" queueing_count="9"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="0.00" queueing_length="53.00" queueing_count="10"/>
         </lanes>
     </data>
     <data timestep="89.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="0.00" queueing_length="53.00" queueing_count="9"/>
+        </lanes>
     </data>
     <data timestep="90.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="0.00" queueing_length="53.00" queueing_count="9"/>
+        </lanes>
     </data>
     <data timestep="91.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="3" queueing_time="2.06" queueing_length="8.00" queueing_count="2"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="0.00" queueing_length="53.00" queueing_count="8"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="2.06" queueing_length="3.00" queueing_count="1"/>
         </lanes>
     </data>
     <data timestep="92.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="3" queueing_time="3.06" queueing_length="8.00" queueing_count="2"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="0.00" queueing_length="53.00" queueing_count="8"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="3.06" queueing_length="3.00" queueing_count="1"/>
         </lanes>
     </data>
     <data timestep="93.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="3" queueing_time="4.06" queueing_length="8.00" queueing_count="2"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="0.00" queueing_length="53.00" queueing_count="7"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="4.06" queueing_length="3.00" queueing_count="1"/>
         </lanes>
     </data>
     <data timestep="94.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="3" queueing_time="5.06" queueing_length="8.00" queueing_count="2"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="0.00" queueing_length="53.00" queueing_count="6"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="5.06" queueing_length="3.00" queueing_count="1"/>
         </lanes>
     </data>
     <data timestep="95.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="3" queueing_time="6.06" queueing_length="8.00" queueing_count="2"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="0.00" queueing_length="53.00" queueing_count="6"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="6.06" queueing_length="3.00" queueing_count="1"/>
         </lanes>
     </data>
     <data timestep="96.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="3" queueing_time="7.06" queueing_length="8.00" queueing_count="2"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="0.00" queueing_length="53.00" queueing_count="5"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="7.06" queueing_length="3.00" queueing_count="1"/>
         </lanes>
     </data>
     <data timestep="97.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="3" queueing_time="8.06" queueing_length="13.00" queueing_count="3"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="0.00" queueing_length="53.00" queueing_count="5"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="8.06" queueing_length="8.00" queueing_count="2"/>
         </lanes>
     </data>
     <data timestep="98.00">
         <lanes>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="0.00" queueing_length="53.00" queueing_count="4"/>
             <lane id="4/1to3/1_0" segment="3" queueing_time="9.06" queueing_length="13.00" queueing_count="3"/>
         </lanes>
     </data>
     <data timestep="99.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="3" queueing_time="10.06" queueing_length="18.00" queueing_count="4"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="0.00" queueing_length="53.00" queueing_count="3"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="10.06" queueing_length="13.00" queueing_count="3"/>
         </lanes>
     </data>
     <data timestep="100.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="3" queueing_time="11.06" queueing_length="23.00" queueing_count="5"/>
+            <lane id="4/1to3/1_0" segment="2" queueing_time="0.00" queueing_length="53.00" queueing_count="3"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="11.06" queueing_length="18.00" queueing_count="4"/>
         </lanes>
     </data>
     <data timestep="101.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="3" queueing_time="12.06" queueing_length="28.00" queueing_count="6"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="12.06" queueing_length="23.00" queueing_count="5"/>
         </lanes>
     </data>
     <data timestep="102.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="3" queueing_time="13.06" queueing_length="33.00" queueing_count="7"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="13.06" queueing_length="28.00" queueing_count="6"/>
         </lanes>
     </data>
     <data timestep="103.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="3" queueing_time="14.06" queueing_length="38.00" queueing_count="8"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="14.06" queueing_length="33.00" queueing_count="7"/>
         </lanes>
     </data>
     <data timestep="104.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="3" queueing_time="15.06" queueing_length="43.00" queueing_count="9"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="15.06" queueing_length="38.00" queueing_count="8"/>
         </lanes>
     </data>
     <data timestep="105.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="3" queueing_time="16.06" queueing_length="48.00" queueing_count="10"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="16.06" queueing_length="43.00" queueing_count="9"/>
         </lanes>
     </data>
     <data timestep="106.00">
@@ -501,7 +545,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </data>
     <data timestep="108.00">
         <lanes>
-            <lane id="4/1to3/1_0" segment="3" queueing_time="19.06" queueing_length="58.00" queueing_count="12"/>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="19.06" queueing_length="53.00" queueing_count="11"/>
         </lanes>
     </data>
     <data timestep="109.00">
