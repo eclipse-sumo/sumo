@@ -50,6 +50,9 @@ vehicle_context
 # Tests the stop resume
 resume
 
+# resume a vehicle that waits at a parking stop (meso)
+resume_parking
+
 # Tests the distance retrieval after rerouting
 distance_after_reroute
 

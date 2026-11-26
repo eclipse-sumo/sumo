@@ -113,6 +113,7 @@ title: ChangeLog
   - Fixed invalid event time after adding a stop with default duration in meso #18392
   - Fixed libsumo crash when using `vehicle.moveToXY` and repeatedly restarting the simulation #18457
   - the python parts of libsumo and libtraci live now in pysrc intead of tools avoiding conflicts in the search path #18523
+  - Fixed `vehicle.resume` having no effect in meso #15382
   - several consistency fixes when working with subsriptions #18498, #18499, #18496, #18506
   - Fixed handling of invalid moveToXY angles #18500
   - Fixed inefficiency when sending commands #18503
