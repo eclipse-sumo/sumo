@@ -77,8 +77,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="-E0" from="J1" to="J0" priority="-1" shape="25.00,0.00 -10.00,20.00 -25.00,0.00">
         <lane id="-E0_0" index="0" speed="13.89" length="68.14" shape="25.79,1.39 -10.43,22.09 -26.28,0.96"/>
     </edge>
-    <edge id="E0" from="J0" to="J1" priority="-1">
-        <lane id="E0_0" index="0" speed="13.89" length="50.00" shape="-25.00,-1.60 25.00,-1.60"/>
+    <edge id="E0" from="J0" to="J1" priority="-1" shape="-25.00,0.00 -10.00,20.00 25.00,0.00">
+        <lane id="E0_0" index="0" speed="13.89" length="62.49" shape="-23.72,-0.96 -9.57,17.91 24.21,-1.39"/>
     </edge>
     <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" length="175.00" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00">
         <lane id="EdgeExternBot_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="-60.00,-1.50 -46.50,-1.50 -46.50,-25.62 -40.62,-31.50 40.62,-31.50 46.50,-25.62 46.50,-1.50 60.00,-1.50"/>
@@ -87,8 +87,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="EdgeExternTop_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="60.00,1.50 46.50,1.50 46.50,25.62 40.62,31.50 -40.62,31.50 -46.50,25.62 -46.50,1.50 -60.00,1.50"/>
     </edge>
 
-    <junction id="J0" type="dead_end" x="-25.00" y="0.00" incLanes="-E0_0" intLanes="" shape="-25.00,0.00 -25.00,-3.20 -27.56,1.92"/>
-    <junction id="J1" type="dead_end" x="25.00" y="0.00" incLanes="E0_0" intLanes="" shape="25.00,0.00 26.59,2.78 25.00,-3.20"/>
+    <junction id="J0" type="dead_end" x="-25.00" y="0.00" incLanes="-E0_0" intLanes="" shape="-25.00,0.00 -27.56,1.92 -25.00,-0.00"/>
+    <junction id="J1" type="dead_end" x="25.00" y="0.00" incLanes="E0_0" intLanes="" shape="25.00,-0.00 23.41,-2.78 25.00,-0.00"/>
     <junction id="JunctionExtern0" type="priority" x="-60.00" y="0.00" incLanes="EdgeExternTop_0" intLanes=":JunctionExtern0_0_0" shape="-60.00,0.00 -60.00,3.00 -60.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
