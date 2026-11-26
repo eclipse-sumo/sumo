@@ -4,7 +4,7 @@
   options: config_file.txt -o in_out.add.xml <doubleminus>size 10 <doubleminus>name exampleDist
 -->
 
-<additional>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <vTypeDistribution id="exampleDist2">
         <vType id="exampleDist0" tau="0.825" sigma="0.401" length="5.151" vClass="passenger" carFollowModel="Krauss"/>
         <vType id="exampleDist1" tau="0.786" sigma="0.305" length="5.013" vClass="passenger" carFollowModel="Krauss"/>

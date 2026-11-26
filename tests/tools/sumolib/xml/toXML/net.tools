@@ -1,4 +1,4 @@
-<net version="1.20" avoidOverlap="0">
+<net version="1.20" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
   <location netOffset="100.00,100.00" convBoundary="0.00,100.00,100.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
   <edge id=":C_0" function="internal">
     <lane id=":C_0_0" index="0" speed="13.89" length="7.74" shape="100.00,95.20 102.10,95.50 103.60,96.40 104.50,97.90 104.80,100.00"/>

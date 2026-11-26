@@ -36,6 +36,7 @@ parse_structured_xsd
 
 # parsing XML and  writing xml
 toXML
+xsi_schema
 
 # demo for adding new data values to an edgeData file
 extend_edgeData
