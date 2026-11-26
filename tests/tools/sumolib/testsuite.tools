@@ -71,3 +71,6 @@ getNeighboring
 
 # get the nearest lane, with vehicle-class filtering and geographic coordinates
 getNearestLane
+
+# parse inductive loop definitions via generic XML parser
+inductive_loop

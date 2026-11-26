@@ -22,49 +22,26 @@ Library for reading and storing Inductive Loop detector representations and
 """
 from __future__ import absolute_import
 
-from xml.sax import handler, parse
+from .. import xml as sumolib_xml
 
 
-class InductiveLoop:
-
-    def __init__(self, id, lane, pos, frequency=60, file="NUL", friendlyPos=True, vTypes=""):
-        self.id = id
-        self.lane = lane
-        self.pos = pos
-        self.frequency = frequency
-        self.file = file
-        self.friendlyPos = friendlyPos
-        self.vTypes = vTypes
-
-    def toXML(self):
-        return '<e1Detector id="%s" lane="%s" pos="%s" freq="%s" file="%s" friendlyPos="%s" vTypes="%s"/>' % (
-            self.id, self.lane, self.pos, self.frequency, self.file, self.friendlyPos, self.vTypes)
-
-
-class InductiveLoopReader(handler.ContentHandler):
-
-    def __init__(self):
-        self._id2il = {}
-        self._ils = []
-        self._lastIL = None
-        self.attributes = {}
-
-    def startElement(self, name, attrs):
-        if name == 'e1Detector':
-            poi = InductiveLoop(attrs['id'], attrs['lane'], float(
-                attrs['pos']), float(attrs['freq']), attrs['file'])
-            self._id2il[poi.id] = poi
-            self._ils.append(poi)
-            self._lastIL = poi
-        if name == 'param' and self._lastIL is not None:
-            self._lastIL.attributes[attrs['key']] = attrs['value']
-
-    def endElement(self, name):
-        if name == 'e1Detector':
-            self._lastIL = None
+def InductiveLoop(id, lane, pos, frequency=60, file="NUL", friendlyPos=True, vTypes="", attributes=None):
+    obj = sumolib_xml.makeXMLObject(
+        "e1Detector",
+        {"id": id, "lane": lane, "pos": pos, "freq": frequency,
+         "file": file, "friendlyPos": friendlyPos, "vTypes": vTypes}
+    )
+    obj.frequency = frequency
+    obj.attributes = dict(attributes) if attributes else {}
+    return obj
 
 
 def read(filename):
-    ils = InductiveLoopReader()
-    parse(filename, ils)
-    return ils._ils
+    loops = []
+    for det in sumolib_xml.parse(filename, "e1Detector"):
+        params = {p.key: p.value for p in (det.param or [])}
+        loops.append(InductiveLoop(
+            det.id, det.lane, float(det.pos), float(det.freq), det.file,
+            det.getAttributeSecure("friendlyPos", True), det.getAttributeSecure("vTypes", ""), params
+        ))
+    return loops

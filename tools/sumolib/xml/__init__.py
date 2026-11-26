@@ -23,8 +23,19 @@ import datetime
 
 from .. import version
 from .. import miscutils
+from collections import OrderedDict
 from .parsing import *  # noqa
+from .parsing import compound_object
 from . import xsd  # noqa
+
+
+def makeXMLObject(tag, attrDict=None, sortAttrs=False, **attrs):
+    """Create a generic CompoundObject representing an XML element with attributes."""
+    merged = OrderedDict(attrDict) if attrDict else OrderedDict()
+    merged.update(attrs)
+    keys = sorted(merged.keys()) if sortAttrs else list(merged.keys())
+    clazz = compound_object(tag, keys, sort=sortAttrs)
+    return clazz([merged[k] for k in keys])
 
 
 def buildHeader(script=None, root=None, schemaPath=None, rootAttrs="", options=None, includeXMLDeclaration=False):

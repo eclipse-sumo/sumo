@@ -1,0 +1,3 @@
+<detector id="d1" lane="e0_0" pos="10.5"/>
+loop0 e0_0 42.5 30.0 [('station', 'north')]
+<e1Detector id="loop0" lane="e0_0" pos="42.5" freq="30.0" file="out.xml" friendlyPos="True" vTypes=""/>
