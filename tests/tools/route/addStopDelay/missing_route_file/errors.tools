@@ -1,0 +1,25 @@
+Error: --route-file is required.
+usage: addStopDelay.py [-h] [-c FILE] [-C FILE] [--save-template FILE]
+                       [-r ROUTEFILE] [-o OUT] [-s SEED] [-p PROBABILITY]
+                       [--min MIN] [--max MAX] [--mean MEAN] [--dev DEV]
+
+Sample routes to match counts
+
+options:
+  -h, --help            show this help message and exit
+  -c FILE, --configuration-file FILE
+                        read configuration from FILE
+  -C FILE, --save-configuration FILE
+                        save configuration to FILE and exit
+  --save-template FILE  save configuration template to FILE and exit
+  -r ROUTEFILE, --route-file ROUTEFILE
+                        Input route file
+  -o OUT, --output-file OUT
+                        Output route file
+  -s SEED, --seed SEED  random seed
+  -p PROBABILITY, --probability PROBABILITY
+                        apply delay with the given probability ]0, 1]
+  --min MIN             minimum delay value (default 0)
+  --max MAX             maximum delay value (default 3600)
+  --mean MEAN           mean delay (default 0)
+  --dev DEV             mean standard deviation of delay (default 60)

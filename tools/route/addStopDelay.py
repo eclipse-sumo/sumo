@@ -54,13 +54,14 @@ def get_options(args=None):
 
     options = parser.parse_args(args=args)
     if options.routeFile is None:
-        parser.print_help()
-        sys.exit()
+        print("Error: --route-file is required.", file=sys.stderr)
+        parser.print_help(file=sys.stderr)
+        sys.exit(1)
 
     if options.min != options.max and (
             options.min > options.mean or options.mean > options.max):
-        sys.stderr.write("mean should lie between min and max")
-        sys.exit()
+        sys.stderr.write("mean should lie between min and max\n")
+        sys.exit(1)
 
     return options
 

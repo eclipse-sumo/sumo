@@ -5,3 +5,5 @@ fixed
 
 # only some stops delayed
 probability
+invalid_mean
+missing_route_file

@@ -33,8 +33,9 @@ def get_options(args=None):
     argParser.add_argument("-t", "--target-edges", category="input", help="comma separated list of target edge ids")
     options = argParser.parse_args(args=args)
     if options.net_file is None or options.output_file is None:
-        argParser.print_help()
-        sys.exit()
+        print("Error: --net-file and --output-file are required.", file=sys.stderr)
+        argParser.print_help(file=sys.stderr)
+        sys.exit(1)
     return options
 
 
