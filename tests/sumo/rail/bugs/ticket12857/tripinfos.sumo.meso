@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-16T16:32:55.307576+01:00 by Eclipse SUMO sumo v1_28_0+0575-efd1a5bcdbe
+<!-- generated on 2026-11-26T02:49:00.966963+00:00 by Eclipse SUMO sumo v1.28.0-0000000000
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,6 +46,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v_0" depart="0.00" departLane="E2_0" departPos="0.00" departSpeed="33.33" departDelay="0.00" arrival="113.00" arrivalLane="E4_0" arrivalPos="200.00" arrivalSpeed="33.33" duration="113.00" routeLength="600.20" waitingTime="90.00" waitingCount="1" stopTime="4.00" timeLoss="94.00" rerouteNo="0" devices="tripinfo_v_0" vType="train" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="v_1" depart="113.00" departLane="E0_0" departPos="0.00" departSpeed="33.33" departDelay="111.00" arrival="225.00" arrivalLane="E4_0" arrivalPos="200.00" arrivalSpeed="33.33" duration="112.00" routeLength="1000.40" waitingTime="80.99" waitingCount="1" stopTime="0.00" timeLoss="80.99" rerouteNo="0" devices="tripinfo_v_1" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v_0" depart="0.00" departLane="E2_0" departPos="100.00" departSpeed="0.00" departDelay="0.00" arrival="113.00" arrivalLane="E4_0" arrivalPos="200.00" arrivalSpeed="33.33" duration="113.00" routeLength="500.20" waitingTime="93.00" waitingCount="1" stopTime="4.00" timeLoss="93.00" rerouteNo="0" devices="tripinfo_v_0" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v_1" depart="2.00" departLane="E0_0" departPos="0.00" departSpeed="33.33" departDelay="0.00" arrival="116.00" arrivalLane="E4_0" arrivalPos="200.00" arrivalSpeed="33.33" duration="114.00" routeLength="1000.40" waitingTime="83.00" waitingCount="1" stopTime="0.00" timeLoss="83.30" rerouteNo="0" devices="tripinfo_v_1" vType="train" speedFactor="1.00" vaporized=""/>
 </tripinfos>

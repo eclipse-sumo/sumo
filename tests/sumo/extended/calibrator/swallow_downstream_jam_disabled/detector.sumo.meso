@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-22T10:48:29.800783+01:00 by Eclipse SUMO sumo v1_27_1+0680-d01f9b57dc9
+<!-- generated on 2026-11-26T02:48:56.102946+00:00 by Eclipse SUMO sumo v1.28.0-0000000000
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,6 +47,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <calibratorstats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/calibratorstats_file.xsd">
-    <interval begin="0.00" end="3600.00" id="swallow_jam" nVehContrib="544" removed="0" inserted="233" cleared="0" flow="544.00" aspiredFlow="2500.00" speed="1.31" aspiredSpeed="27.80"/>
+    <interval begin="0.00" end="3600.00" id="swallow_jam" nVehContrib="544" removed="0" inserted="232" cleared="0" flow="544.00" aspiredFlow="2500.00" speed="1.31" aspiredSpeed="27.80"/>
     <interval begin="3600.00" end="5400.00" id="swallow_jam" nVehContrib="234" removed="0" inserted="126" cleared="0" flow="468.00" aspiredFlow="2500.00" speed="1.09" aspiredSpeed="27.80"/>
 </calibratorstats>

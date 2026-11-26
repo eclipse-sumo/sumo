@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-25T12:42:24.517058+01:00 by Eclipse SUMO sumo v1_27_1+0774-b253f9293e7
+<!-- generated on 2026-11-26T02:48:55.910722+00:00 by Eclipse SUMO sumo v1.28.0-0000000000
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -60,10 +60,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="reroute_period" depart="0.00" arrival="1054.00">
+    <vehicle id="reroute_period" depart="1.00" arrival="1054.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter2" replacedAtTime="0.00" probability="0" edges="beg middle end"/>
-            <route replacedOnEdge="beg" reason="device.rerouting" replacedAtTime="10.00" probability="0" edges="beg beg2right right right2end end"/>
+            <route replacedOnEdge="beg" reason="rerouter2" replacedAtTime="1.00" probability="0" edges="beg middle end"/>
+            <route replacedOnEdge="beg" reason="device.rerouting" replacedAtTime="11.00" probability="0" edges="beg beg2right right right2end end"/>
             <route edges="beg middle end"/>
         </routeDistribution>
         <param key="device.rerouting.period" value="10"/>

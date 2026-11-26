@@ -47,6 +47,7 @@
 #include "MSNet.h"
 #include "MSVehicle.h"
 #include "MSLeaderInfo.h"
+#include "MSStop.h"
 #include <microsim/transportables/MSTransportable.h>
 #include "MSEdgeWeightsStorage.h"
 #include "MSEdge.h"
@@ -856,9 +857,12 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
         if (!forceCheck && myLastFailedInsertionTime == time) {
             return false;
         }
+        const bool hasStopOnEdge = v.hasStops() && v.getNextStop().edge == v.getCurrentRouteEdge();
+        const double maxPos = hasStopOnEdge ? MAX2(0.0, v.getNextStop().getEndPos(v)) : getLength();
         double pos = 0.0;
         switch (pars.departPosProcedure) {
             case DepartPosDefinition::GIVEN:
+            case DepartPosDefinition::GIVEN_VEHROUTE:
                 if (pars.departPos >= 0.) {
                     pos = pars.departPos;
                 } else {
@@ -872,29 +876,45 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
                 break;
             case DepartPosDefinition::RANDOM:
             case DepartPosDefinition::RANDOM_FREE:
-                pos = RandHelper::rand(getLength());
+                pos = RandHelper::rand(maxPos);
+                break;
+            case DepartPosDefinition::STOP:
+                if (hasStopOnEdge) {
+                    pos = maxPos;
+                }
                 break;
             default:
                 break;
         }
         bool result = false;
         MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this, pos);
+        const MESegment* const maxSegment = hasStopOnEdge ? MSGlobals::gMesoNet->getSegmentForEdge(*this, maxPos) : nullptr;
         MEVehicle* veh = static_cast<MEVehicle*>(&v);
         int qIdx;
+        if (pars.departPosProcedure == DepartPosDefinition::LAST) {
+            while (segment->getNextSegment() != nullptr && segment != maxSegment && segment->getCarNumber() == 0) {
+                segment = segment->getNextSegment();
+            }
+        }
         if (pars.departPosProcedure == DepartPosDefinition::FREE) {
             while (segment != nullptr && !result) {
-                if (checkOnly) {
-                    result = segment->hasSpaceFor(veh, time, qIdx, true) == time;
-                } else {
-                    result = segment->initialise(veh, time);
+                result = checkOnly ? segment->hasSpaceFor(veh, time, qIdx, true) == time : segment->initialise(veh, time);
+                if (segment == maxSegment) {
+                    break;
                 }
                 segment = segment->getNextSegment();
             }
         } else {
-            if (checkOnly) {
-                result = segment->hasSpaceFor(veh, time, qIdx, true) == time;
-            } else {
-                result = segment->initialise(veh, time);
+            result = checkOnly ? segment->hasSpaceFor(veh, time, qIdx, true) == time : segment->initialise(veh, time);
+            if (!result && pars.departPosProcedure == DepartPosDefinition::RANDOM_FREE) {
+                for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*this); s != nullptr && !result; s = s->getNextSegment()) {
+                    if (s != segment) {
+                        result = checkOnly ? s->hasSpaceFor(veh, time, qIdx, true) == time : s->initialise(veh, time);
+                    }
+                    if (s == maxSegment) {
+                        break;
+                    }
+                }
             }
         }
         return result;

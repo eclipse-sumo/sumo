@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-14 15:01:38 by Eclipse SUMO sumo Version v1_11_0+1159-1cf7001
+<!-- generated on 2026-11-26T02:49:08.832006+00:00 by Eclipse SUMO sumo v1.28.0-0000000000
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -24,13 +29,13 @@ SPDX-License-Identifier: EPL-2.0
     </time>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -40,72 +45,68 @@ SPDX-License-Identifier: EPL-2.0
         <meso-junction-control value="true"/>
     </mesoscopic>
 
-    <gui_only>
-        <tracker-interval value="0.1"/>
-    </gui_only>
-
-</configuration>
+</sumoConfiguration>
 -->
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="0.10">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="0.20">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="0.30">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="0.40">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="0.50">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="0.60">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="0.70">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="0.80">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="0.90">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="1.10">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="1.20">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="1.30">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="1.40">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="1.50">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="1.60">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="1.70">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="1.80">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
     <timestep time="1.90">
-        <vehicle id="flow_0" x="-300.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="a" slope="0.00"/>
+        <vehicle id="flow_0" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="300.00" edge="a" slope="0.00"/>
     </timestep>
 </fcd-export>

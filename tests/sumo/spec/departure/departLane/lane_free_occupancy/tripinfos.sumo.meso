@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-26 15:32:14 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
+<!-- generated on 2026-11-26T02:48:47.755888+00:00 by Eclipse SUMO sumo v1.28.0-0000000000
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,6 +30,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </time>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -50,7 +52,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tripinfo id="1" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="10.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_1" vType="long" speedFactor="1.00" vaporized="end"/>
     <tripinfo id="2" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="23.57" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="10.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.65" rerouteNo="0" devices="tripinfo_2" vType="short" speedFactor="1.00" vaporized="end"/>
     <tripinfo id="3" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="21.24" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="10.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.11" rerouteNo="0" devices="tripinfo_3" vType="short" speedFactor="1.00" vaporized="end"/>
-    <tripinfo id="4" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="19.33" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="10.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.58" rerouteNo="0" devices="tripinfo_4" vType="short" speedFactor="1.00" vaporized="end"/>
-    <tripinfo id="5" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="17.74" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="10.00" routeLength="100.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.04" rerouteNo="0" devices="tripinfo_5" vType="short" speedFactor="1.00" vaporized="end"/>
-    <tripinfo id="6" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="16.39" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="10.00" routeLength="100.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.51" rerouteNo="0" devices="tripinfo_6" vType="short" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="4" depart="1.00" departLane="beg_0" departPos="0.00" departSpeed="23.97" departDelay="1.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="9.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.58" rerouteNo="0" devices="tripinfo_4" vType="short" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="5" depart="1.00" departLane="beg_0" departPos="0.00" departSpeed="21.57" departDelay="1.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="9.00" routeLength="100.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.04" rerouteNo="0" devices="tripinfo_5" vType="short" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="6" depart="1.00" departLane="beg_0" departPos="0.00" departSpeed="19.60" departDelay="1.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="9.00" routeLength="100.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.51" rerouteNo="0" devices="tripinfo_6" vType="short" speedFactor="1.00" vaporized="end"/>
 </tripinfos>
