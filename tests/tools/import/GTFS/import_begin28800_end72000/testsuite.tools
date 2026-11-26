@@ -1,5 +1,8 @@
 # import public transport using routes from osm
 gtfs2pt_osm
 
+# reuse a merged schedule with shapes for OSM route matching
+gtfs2pt_osm_csv
+
 # import public transport using shorter path between stops
 gtfs2pt_fcd

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 15:45:12.829207 by Eclipse SUMO gtfs2pt.py v0.0.0
+<configuration>
+    <merged-csv value="data/schedule.csv"/>
+    <merged-csv-output value="out.csv"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <verbose value="True"/>
+    <begin value="28800.0"/>
+    <end value="72000.0"/>
+    <bbox value="10.509219,52.256458,10.530758,52.270119"/>
+    <network value="net.net.xml"/>
+    <osm-routes value="ptlines.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="bus" vClass="bus"/>
+</additional>

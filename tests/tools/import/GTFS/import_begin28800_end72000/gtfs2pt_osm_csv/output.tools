@@ -1,0 +1,10 @@
+Loading net
+function filter_gtfs called at Thu, 26 Nov 2026 15:45:12 +0000
+function filter_gtfs finished after 0.005065 seconds
+function import_osm called at Thu, 26 Nov 2026 15:45:12 +0000
+Import osm routes
+function import_osm finished after 0.033002 seconds
+function map_gtfs_osm called at Thu, 26 Nov 2026 15:45:12 +0000
+Map stops and routes
+function map_gtfs_osm finished after 0.021837 seconds
+Generates stops and routes output
