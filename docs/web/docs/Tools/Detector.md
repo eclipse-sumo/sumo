@@ -123,9 +123,10 @@ Example:
 
 # filterFlows.py
 
-Filters a flow file by detector ids and time range
-```
-<SUMO_HOME>/tools/detector/edgeDataFromFlow.py -d det1,det2 -f input_flows.txt -b 3600 -e 7200 -o output_flows.txt
+Filter detector measurements by ID and time. The begin and end values are in minutes. The begin value is included and the end value is excluded.
+
+```bash
+<SUMO_HOME>/tools/detector/filterFlows.py -d det1,det2 -f input_flows.txt -b 60 -e 120 -o output_flows.txt
 ```
 
 # mapDetectors.py
@@ -159,4 +160,28 @@ This script reads a network and an [edgeData file](../Simulation/Output/Lane-_or
 
 ```
 <SUMO_HOME>/tools/detector/flowConservation.py -n net.net.xml -e input_edgedata.xml
+```
+
+# plotFlows.py
+
+Plot detector counts over time from one or more [detector flow files](../Demand/Routes_from_Observation_Points.md#computing_flows). Use `-i` to choose the aggregation interval in minutes, `--reference-flow` to add a comparison series, or `--csv-output` to write the aggregated values. The default image format is PNG.
+
+```bash
+<SUMO_HOME>/tools/detector/plotFlows.py -d input_detectors.det.xml -i 15 input_flows.txt
+```
+
+# routeUsage.py
+
+Summarize how many vehicles use each route in a flow file. For a route distribution, calculate expected usage from its weights. Use `--threshold` with `--unused-output` to save IDs with expected usage at or below the threshold. The optional route file maps route IDs to edge sequences for `--flow-restrictions`.
+
+```bash
+<SUMO_HOME>/tools/detector/routeUsage.py --threshold 5 --unused-output low_usage.txt flows.xml routes.xml
+```
+
+# validate.py
+
+Compare measured detector counts and speeds against simulated counts from dfrouter validation detector output. Supply the original flow file, the detector definitions, and the validation output. The tool writes a flow PNG and a speed PNG per detector.
+
+```bash
+<SUMO_HOME>/tools/detector/validate.py -d input_detectors.det.xml -v validation.xml -i 15 input_flows.txt
 ```

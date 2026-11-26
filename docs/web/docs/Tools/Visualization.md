@@ -836,3 +836,7 @@ convert -delay 20 *.png -loop 0 animation.gif
 (loop 0 means that the animation repeats from begin after the end)
 
 You can format the axes by using **--xticks** **<XMIN,XMAX,XSTEP,FONTSIZE\>** and **--yticks** **<YMIN,YMAX,YSTEP,FONTSIZE\>** and set theit limits using **--xlim** **<XMIN,XMAX\>** and **--ylim** **<YMIN,YMAX\>**. The output size of the image may be set using **--size** **<WIDTH,HEIGHT\>**.
+
+# plotFlows.py
+
+Use [plotFlows.py](Detector.md#plotflowspy) to plot measured traffic counts by detector and compare them with a reference flow file.

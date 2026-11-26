@@ -41,8 +41,8 @@ def get_options():
                         help="Output routes that are used less than the threshold value")
     parser.add_argument("--unused-output", category="output", type=parser.file,
                         help="Output route ids that are used less than the threshold value to file")
-    parser.add_argument("-r", "--flow-restrictions", dest="restrictionfile", category="output", type=parser.file,
-                        help="Output route ids that are used more often than the threshold value given in file")
+    parser.add_argument("-r", "--flow-restrictions", dest="restrictionfile", category="input", type=parser.file,
+                        help="read the maximum counts for restricted routes from FILE")
     parser.add_argument("emitters", type=parser.file,
                         help="file path to emitter file", metavar="FILE")
     parser.add_argument("routes", nargs="?", type=parser.file,
@@ -72,10 +72,10 @@ def main():
         num = int(flow.number)
         if flow.route is None:
             dist = flow.routeDistribution[0]
-            probs = map(float, dist.probabilities.split())
-            probs = [p / sum(probs) for p in probs]
+            probs = [float(p) for p in dist.probabilities.split()]
+            total = sum(probs)
             for rID, p in zip(dist.routes.split(), probs):
-                routeUsage[rID] += p * num
+                routeUsage[rID] += p * num / total
         else:
             routeUsage[flow.route] += num
 

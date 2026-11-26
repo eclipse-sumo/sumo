@@ -1,0 +1,6 @@
+<additional>
+    <flow id="direct" route="r0" number="2"/>
+    <flow id="mixed" number="8">
+        <routeDistribution routes="r1 r2" probabilities="1 3"/>
+    </flow>
+</additional>

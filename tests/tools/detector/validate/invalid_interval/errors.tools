@@ -1,0 +1,2 @@
+usage: usage: validate.py [options] <input_flows.csv>
+validate.py: error: --interval must be positive
