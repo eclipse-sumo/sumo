@@ -18,3 +18,6 @@ named_routes
 
 # division by 0
 ticket12760
+
+# Keep the vehicle-only phase after pedestrian green at its configured duration
+pedestrian_clearance
