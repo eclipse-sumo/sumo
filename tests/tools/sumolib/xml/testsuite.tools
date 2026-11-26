@@ -39,3 +39,6 @@ toXML
 
 # demo for adding new data values to an edgeData file
 extend_edgeData
+
+# sumolib.version fallbacks without git or include/version.h (#14596)
+version_fallback
