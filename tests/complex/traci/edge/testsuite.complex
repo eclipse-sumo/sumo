@@ -19,3 +19,6 @@ permissions_internal_lane
 
 # see #5827
 adaptTraveltime_reset
+
+# retrieve mesoscopic segments (#14682)
+meso_segments

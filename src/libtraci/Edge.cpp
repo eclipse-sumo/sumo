@@ -221,6 +221,21 @@ Edge::getBidiEdge(const std::string& edgeID) {
     return Dom::getString(libsumo::VAR_BIDI, edgeID);
 }
 
+
+int
+Edge::getSegmentNumber(const std::string& edgeID) {
+    return Dom::getInt(libsumo::VAR_SEGMENT_INDEX, edgeID);
+}
+
+
+double
+Edge::getSegmentOffset(const std::string& edgeID, int segmentIndex) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+    content.writeInt(segmentIndex);
+    return Dom::getDouble(libsumo::VAR_SEGMENT_ID, edgeID, &content);
+}
+
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(Edge, EDGE)
 LIBTRACI_PARAMETER_IMPLEMENTATION(Edge, EDGE)
 

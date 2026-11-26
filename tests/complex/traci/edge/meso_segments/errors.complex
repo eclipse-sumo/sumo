@@ -1,0 +1,2 @@
+Error: Answered with error to command 0xaa: Invalid segment index -1 for edge '-branch'.
+Error: Answered with error to command 0xaa: Segment index 1 out of range for edge '-branch'.
