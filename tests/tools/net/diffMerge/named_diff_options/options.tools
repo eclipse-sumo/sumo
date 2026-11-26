@@ -1,0 +1,1 @@
+{CLEAR} --diff1 data/diff --diff2 data/diff2 tools/net/diffMerge.py

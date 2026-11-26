@@ -29,15 +29,21 @@ import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
 
 
-def parse_args():
+def parse_args(args=None):
     optParser = ArgumentParser()
-    optParser.add_option("diffprefix", category="input",
-                         help="first diff prefix")
-    optParser.add_option("diffprefix2", category="input",
-                         help="second diff prefix")
-    optParser.add_option("-v", "--verbose", action="store_true",
-                         default=False, help="Give more output")
-    options = optParser.parse_args()
+    optParser.add_argument("-1", "--diff1", dest="diffprefix", category="input",
+                           help="first diff prefix")
+    optParser.add_argument("-2", "--diff2", dest="diffprefix2", category="input",
+                           help="second diff prefix")
+    optParser.add_argument("-v", "--verbose", action="store_true",
+                           default=False, help="Give more output")
+    options, rem = optParser.parse_known_args(args=args)
+    if options.diffprefix is None and len(rem) >= 1:
+        options.diffprefix = rem[0]
+    if options.diffprefix2 is None and len(rem) >= 2:
+        options.diffprefix2 = rem[1]
+    if not options.diffprefix or not options.diffprefix2:
+        optParser.error("both --diff1 and --diff2 must be provided")
     return options
 
 
