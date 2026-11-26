@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 14:19:06.311567 by Eclipse SUMO gtfs2pt.py v0.0.0
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20201111"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <bbox value="10.509219,52.256458,10.530758,52.270119"/>
+    <network value="net.net.xml"/>
+    <osm-routes value="ptlines.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="1960" edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855"/>
+    <vehicle id="132185783.0" route="1960" line="14781_3_132185783" depart="18900" departEdge="6" arrivalEdge="28" type="bus" color="#0022AA">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="Westpark"/>
+        <stop busStop="120010034202_0" arrival="18900" duration="10" until="18900"/><!--stopSequence="0.0/4.0" "Braunschweig Rathaus"-->
+        <stop busStop="120010032201_0" arrival="18960" duration="10" until="18960"/><!--stopSequence="1.0/4.0" "Braunschweig Packhof"-->
+        <stop busStop="120010031501_0" arrival="19020" duration="10" until="19020"/><!--stopSequence="2.0/4.0" "Braunschweig Hintern Brüdern"-->
+        <stop busStop="120010001502_0" arrival="19080" duration="10" until="19080"/><!--stopSequence="3.0/4.0" "Braunschweig Altstadtmarkt"-->
+        <stop busStop="120010016102_0" arrival="19200" duration="10" until="19200"/><!--stopSequence="4.0/4.0" "Braunschweig Güldenstraße"-->
+    </vehicle>
+    <route id="1824" edges="25290398 25290438 32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876529 559570920#0 122119622#0 559570919#0 61996465#0 24021025 319389907"/>
+    <vehicle id="132244371.0" route="1824" line="14737_3_132244371" depart="20220" departEdge="3" arrivalEdge="20" type="bus" color="red">
+        <param key="gtfs.route_name" value="620"/>
+        <param key="gtfs.trip_headsign" value="Steterburg(Salzgitter) Danziger Straße"/>
+        <stop busStop="120010022113_0" arrival="20220" duration="10" until="20220"/><!--stopSequence="2.0/4.0" "Braunschweig John-F.-Kennedy-Platz"-->
+        <stop busStop="120010013704_0" arrival="20340" duration="10" until="20340"/><!--stopSequence="3.0/4.0" "Braunschweig Friedrich-Wilhelm-Platz"-->
+        <stop busStop="120010013002_0" arrival="20460" duration="10" until="20460"/><!--stopSequence="4.0/4.0" "Braunschweig Europaplatz"-->
+    </vehicle>
+</routes>

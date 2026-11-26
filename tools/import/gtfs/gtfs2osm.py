@@ -369,7 +369,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                 if main_shape not in map_routes:
                     # if route not mapped
                     continue
-                pt_color = map_routes[main_shape][2]
+                pt_color = gtfsutils.getRouteColor(getattr(row, 'route_color', None)) or map_routes[main_shape][2]
                 if pt_color is None:
                     pt_color = ""
                 else:

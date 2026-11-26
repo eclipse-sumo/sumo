@@ -107,7 +107,7 @@ def dataAvailable(options):
 def groupRoutes(options, full_data_merged):
     Stop = namedtuple("Stop", ["lon", "lat", "arrival", "until", "name", "gtfsid",
                                "block", "fareZone", "fareSymbol", "startFare", "fcdtime"])
-    vehicles = defaultdict(list)  # mode -> [(trip_id, route, type, depart, line, params), ...]
+    vehicles = defaultdict(list)  # mode -> [(trip_id, route_id, depart, line_id, params, color), ...]
     routes = defaultdict(lambda: defaultdict(list))  # mode -> trip_id -> [Stop, ...]
 
     modes = options.modes.split(",")
@@ -187,7 +187,8 @@ def groupRoutes(options, full_data_merged):
                                ("gtfs.origin_depart", options.ft(firstDep)),
                                ("gtfs.destination_stop", lastStop),
                                ("gtfs.destination_arrrival", options.ft(lastArrival))]
-                vehicles[mode].append((trip_id, routeID, firstDep, lineID, params))
+                color = gtfsutils.getRouteColor(getattr(data.iloc[0], 'route_color', None))
+                vehicles[mode].append((trip_id, routeID, firstDep, lineID, params, color))
 
     return vehicles, routes
 
@@ -221,9 +222,10 @@ def writeVehicles(options, vehicles):
         filePrefix = os.path.join(options.fcd, mode)
         tripFile = io.open(filePrefix + '.rou.xml', 'w', encoding="utf8")
         tripFile.write(u"<routes>\n")
-        for trip_id, routeID, depart, lineID, params in vehicles[mode]:
-            tripFile.write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s">\n' % (
-                trip_id, routeID, mode, depart, lineID))
+        for trip_id, routeID, depart, lineID, params, color in vehicles[mode]:
+            colorAttr = ' color="%s"' % color if color is not None else ""
+            tripFile.write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s"%s>\n' % (
+                trip_id, routeID, mode, depart, lineID, colorAttr))
             for k, v in params:
                 tripFile.write(u'        <param key="%s" value=%s/>\n' % (k, sumolib.xml.quoteattr(str(v), True)))
             tripFile.write(u'    </vehicle>\n')

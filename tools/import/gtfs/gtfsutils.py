@@ -23,6 +23,7 @@ import sys
 import datetime
 import time
 import hashlib
+import re
 
 # from pprint import pprint
 
@@ -131,6 +132,12 @@ SUMO_DECEL = {
 
 def sha256hash(s):
     return hashlib.sha256(s.encode('utf-8')).hexdigest()
+
+
+def getRouteColor(color):
+    if isinstance(color, str) and re.fullmatch(r"[0-9a-fA-F]{6}", color):
+        return "#" + color.upper()
+    return None
 
 
 @benchmark
@@ -277,10 +284,11 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
         gtfs_data['shape_id'] = gtfs_data['route_id'] + "_" + gtfs_data['direction_id']
 
     # filter relevant information
-    gtfs_data = gtfs_data[['route_id', 'shape_id', 'trip_id', 'stop_id',
-                           'route_short_name', 'route_type', 'trip_headsign',
-                           'direction_id', 'stop_name', 'stop_lat', 'stop_lon',
-                           'stop_sequence', 'arrival_fixed', 'departure_fixed']]
+    cols = ['route_id', 'shape_id', 'trip_id', 'stop_id', 'route_short_name', 'route_type', 'trip_headsign',
+            'direction_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence', 'arrival_fixed', 'departure_fixed']
+    if 'route_color' in gtfs_data:
+        cols.append('route_color')
+    gtfs_data = gtfs_data[cols]
 
     # filter data inside SUMO net by stop location and shape
     gtfs_data = gtfs_data[(options.bbox[1] <= gtfs_data['stop_lat']) &
@@ -451,6 +459,8 @@ def get_merged_data(options):
             'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
             'fare_zone', 'fare_token', 'start_char', 'trip_headsign',
             'arrival_time', 'departure_time']
+    if 'route_color' in merged and merged['route_color'].notna().any():
+        cols.append('route_color')
     # 'block_id' is optional
     if 'block_id' not in merged.columns:
         cols.remove('block_id')

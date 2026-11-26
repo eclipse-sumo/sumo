@@ -24,3 +24,6 @@ gtfs2fcd
 
 # import public transport using routes from osm and handle data errors
 gtfs2pt_osm_missingShapes
+
+# assign route colors from routes.txt
+route_color
