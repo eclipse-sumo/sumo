@@ -155,7 +155,7 @@ def main():
     if options.xml_output is not None:
         with open(options.xml_output, 'w') as f:
             root = "attributeCompare"
-            sumolib.writeXMLHeader(f, root=root)
+            sumolib.writeXMLHeader(f, root=root, options=options)
             for elem_id in sorted(values.keys()):
                 parts = elem_id.split('|')
                 elem = parts[0]

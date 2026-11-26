@@ -470,13 +470,13 @@ class SignalGroup(object):
                len(self._freeTimes))
 
 
-def writeXmlOutput(tlList, outputFile):
+def writeXmlOutput(tlList, outputFile, options=None):
     if len(tlList) > 0:
         root = sumolib.xml.create_document("additional")
         for tlLogic in tlList:
             tlLogic.xmlOutput(root)
         with open(outputFile, 'w') as out:
-            sumolib.xml.writeHeader(out)
+            sumolib.xml.writeHeader(out, options=options)
             out.write(root.toXML())
 
 
@@ -618,7 +618,7 @@ def toTll(options):
         tlLogic.setFreeTime()
         tlList.append(tlLogic)
 
-    writeXmlOutput(tlList, options.output)
+    writeXmlOutput(tlList, options.output, options)
 
 
 def toCsv(options):

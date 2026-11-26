@@ -141,7 +141,7 @@ def main(options):
             return ''
 
     with open(options.outfile, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "data", "datamode_file.xsd")  # noqa
+        sumolib.writeXMLHeader(outf, "$Id$", "data", "datamode_file.xsd", options=options)  # noqa
         # get traffic flows for each edge pair
         for edgePairFlowsMap, minDepart, maxDepart in getFlows(options):
             outf.write('    <interval id="%s" begin="%s" end="%s">\n' % (options.id, minDepart, maxDepart))

@@ -222,7 +222,7 @@ def main(options):
 
     if options.output:
         outf = open(options.output, 'w')
-        sumolib.writeXMLHeader(outf, root="scheduleStats")
+        sumolib.writeXMLHeader(outf, root="scheduleStats", options=options)
 
     description, fun = STATS[options.sType]
     useHist = options.histogram is not None

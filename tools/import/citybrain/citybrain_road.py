@@ -54,7 +54,7 @@ def main(options):
 
     edg = open(edgefile, "w")
 
-    sumolib.writeXMLHeader(edg, "$Id$", "edges")  # noqa
+    sumolib.writeXMLHeader(edg, "$Id$", "edges", options=options)  # noqa
 
     numNodes = 0
     numEdges = 0
@@ -96,7 +96,7 @@ def main(options):
     edg.close()
 
     with open(nodefile, "w") as nod:
-        sumolib.writeXMLHeader(nod, "$Id$", "nodes")  # noqa
+        sumolib.writeXMLHeader(nod, "$Id$", "nodes", options=options)  # noqa
         for line in nodes:
             lat, lon, nodeID, signalized = line.split()
             nodeType = options.junctionType
@@ -131,7 +131,7 @@ def main(options):
         net = sumolib.net.readNet(options.tmp)
         connfile = options.prefix + ".con.xml"
         con = open(connfile, "w")
-        sumolib.writeXMLHeader(con, "$Id$", "connections")  # noqa
+        sumolib.writeXMLHeader(con, "$Id$", "connections", options=options)  # noqa
 
         for edgeID in sorted(connections.keys()):
             edge = net.getEdge(edgeID)
