@@ -20,9 +20,12 @@
 #pragma once
 #include <config.h>
 
+#include <atomic>
+#include <limits>
 #include <vector>
 #include <queue>
 #include <map>
+#include <set>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/RandHelper.h>
 #ifdef HAVE_FOX
@@ -287,6 +290,10 @@ private:
         std::vector<DeferredMove*> departures;
         /// @brief the records of the thread moving the arrivals
         DeferredOps ops;
+        /// @brief per other group (and all groups as the last entry) the times from which on the pending events may change it (see addHolds)
+        std::vector<std::multiset<SUMOTime> > holds;
+        /// @brief the groups whose events may change this group within a step (sorted)
+        std::vector<int> neighbours;
     };
     std::vector<Group> myGroups;
 
@@ -314,6 +321,120 @@ private:
     /// @brief whether a group has an event due until the given time
     bool anyEventDue(SUMOTime tMax) const;
 
+    /// @name synchronisation of the groups at the events which concern two groups (option --meso-threads.event-sync)
+    /// @{
+
+    /// @brief whether the groups synchronise at these events instead of deferring the moves between groups to the end of the step
+    bool myEventSync = false;
+
+    /** @brief the holds which the pending event of a vehicle placed (see MEVehicle::getEventHolds)
+     *
+     * An event holds back the groups which its vehicle, or a follower it promotes, may enter within the step:
+     *  they do not run their events beyond the time of such a move until the event is done.
+     */
+    enum EventHolds {
+        /// @brief none: other groups may be beyond the event already, so it runs in the serial part of the step if it concerns them
+        NO_HOLDS = 0,
+        /// @brief the groups which a vehicle may enter from its segment within the step (see MESegment::getReach)
+        REACH_HOLDS = 1,
+        /// @brief these and all groups at the time of the event (teleports, stops, passengers, reminders bound to the main thread)
+        ALL_HOLDS = 2
+    };
+
+    /// @brief the event which a thread runs and the groups it changes (see isForeseen)
+    struct RunningEvent {
+        SUMOTime time;
+        int group;
+        /// @brief the other group the event changes, -1 for none and the number of groups for all
+        int partner;
+        /// @brief the holds the event placed
+        int holds;
+        const MESegment* segment;
+    };
+
+    /// @brief the event the calling thread runs, nullptr outside the parallel part of the step
+    static thread_local const RunningEvent* myRunningEvent;
+
+    /// @brief a key shared between the threads, alone in its cache line
+    struct SharedKey {
+        std::atomic<long long int> value{std::numeric_limits<long long int>::max()};
+        char padding[64 - sizeof(std::atomic<long long int>)];
+    };
+
+    /// @brief per group and target (the other groups, then all groups) the key of the smallest hold
+    std::vector<SharedKey> myHoldKeys;
+
+    /// @brief per group the key of its next event while it waits for others, RUNNING while its thread runs its events
+    std::vector<SharedKey> myParkedKeys;
+
+    /// @brief the number of groups which have events left in the current step
+    std::atomic<int> myActiveGroups{0};
+
+    /// @brief set when a thread failed so that the others stop waiting for it
+    std::atomic<bool> myAbort{false};
+
+    /// @brief the parked key of a group while its thread runs its events
+    static const long long int RUNNING;
+
+    /** @brief the reach of the segments assumes that vehicles drive at most this factor times the speed limit (see buildReach)
+     *
+     * The default speed distribution is capped there. A move of a faster vehicle may come earlier than foreseen and then waits for
+     *  the serial part of the step.
+     */
+    static const double MAX_SPEED_FACTOR;
+
+    /// @brief the position of an event of the given group at the given time in the order of the events of all groups
+    inline long long int getKey(SUMOTime time, int group) const {
+        return time * (long long int)myGroups.size() + group;
+    }
+
+    /// @brief the end of the step in which an event at the given time runs
+    SUMOTime getStepEnd(SUMOTime time) const;
+
+    /// @brief computes for every segment which other groups a vehicle may enter from there within one step (see MESegment::getReach)
+    void buildReach();
+
+    /// @brief places the holds of the new event of the vehicle in the given group
+    void addHolds(MEVehicle* veh, const int group);
+
+    /// @brief removes the holds of an event of the given group
+    void removeHolds(const int group, const MESegment* segment, SUMOTime time, int holds);
+
+    /// @brief adds or removes a single hold and publishes the smallest one
+    void insertHold(const int group, const int target, SUMOTime time);
+    void eraseHold(const int group, const int target, SUMOTime time);
+
+    /// @brief whether the event of the vehicle holds back all groups (see EventHolds)
+    bool holdsAll(MEVehicle* veh, MESegment* segment);
+
+    /// @brief whether the move changes state outside the groups of the two segments (stops, arrivals with passengers, reminders bound to the main thread)
+    static bool isGlobalMove(const MEVehicle* veh, const MESegment* on, const MESegment* to);
+
+    /// @brief whether the vehicle teleports if it is still blocked at the given time (see checkCar)
+    static bool mayTeleport(const MEVehicle* veh, SUMOTime time);
+
+    /// @brief whether the running event placed the holds which a new event with the given holds needs (no other group got beyond them)
+    bool isForeseen(const MESegment* segment, SUMOTime time, bool all, int group) const;
+
+    /// @brief the other group which the event of the vehicle changes (-1: none, the number of groups: all), -2 if its holds do not suffice
+    int getPartner(MEVehicle* veh, const int group);
+
+    /// @brief the smallest key at which another group may change the given group
+    long long int getBound(const int group) const;
+
+    /// @brief whether the partner (or every group) waits beyond the given key and no other group may change it before
+    bool isPartnerReady(const int group, const int partner, long long int key) const;
+
+    /// @brief removes the invalidated events from the top of the queue of the group
+    static void skipInvalidated(Group& g);
+
+    /// @brief runs the events of the step on the threads, each group in the order of its events
+    void runEventSync();
+
+    /// @brief runs the events of the groups of one thread
+    void runEventSyncThread(const int thread, const int numThreads);
+    /// @}
+
 #ifdef HAVE_FOX
     /// @brief the task running one phase for one group
     class GroupTask : public MFXWorkerThread::Task {
@@ -332,6 +453,27 @@ private:
     };
     /// @brief the tasks by phase and group
     std::vector<std::vector<GroupTask*> > myGroupTasks;
+
+    /// @brief the task running the events of the groups of one thread (option --meso-threads.event-sync)
+    class EventSyncTask : public MFXWorkerThread::Task {
+    public:
+        EventSyncTask(MELoop& loop, int thread, int numThreads) : myLoop(loop), myThread(thread), myNumThreads(numThreads) {}
+        void run(MFXWorkerThread* /*context*/) {
+            myLoop.runEventSyncThread(myThread, myNumThreads);
+        }
+        int getThread() const {
+            return myThread;
+        }
+    private:
+        MELoop& myLoop;
+        const int myThread;
+        const int myNumThreads;
+    private:
+        /// @brief Invalidated assignment operator.
+        EventSyncTask& operator=(const EventSyncTask&) = delete;
+    };
+    /// @brief one task per thread
+    std::vector<EventSyncTask*> myEventSyncTasks;
     MFXWorkerThread::Pool myThreadPool;
 #endif
 

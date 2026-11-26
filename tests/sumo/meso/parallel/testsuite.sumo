@@ -3,3 +3,6 @@ threads1
 
 # the junction groups are processed by four threads, the results are the same as with one thread
 threads4
+
+# the junction groups synchronise at every event that concerns two groups, the results are those without --meso-threads
+eventsync

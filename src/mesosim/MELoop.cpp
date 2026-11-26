@@ -23,6 +23,8 @@
 #include <vector>
 #include <map>
 #include <cmath>
+#include <chrono>
+#include <thread>
 
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
@@ -30,6 +32,7 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
+#include <microsim/MSStop.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSJunction.h>
@@ -49,6 +52,9 @@
 long long int MELoop::LeaderEvent::myEventCounter(0);
 thread_local MELoop::DeferredOps* MELoop::myDeferred(nullptr);
 const int MELoop::MIN_PARALLEL_MOVES(64);
+thread_local const MELoop::RunningEvent* MELoop::myRunningEvent(nullptr);
+const long long int MELoop::RUNNING(std::numeric_limits<long long int>::min());
+const double MELoop::MAX_SPEED_FACTOR(2.);
 
 
 /// @brief lets the calling thread record its moves for the lifetime of the object
@@ -77,6 +83,9 @@ MELoop::~MELoop() {
         for (GroupTask* const task : tasks) {
             delete task;
         }
+    }
+    for (EventSyncTask* const task : myEventSyncTasks) {
+        delete task;
     }
 #endif
     for (std::vector<MESegment*>::const_iterator j = myEdges2FirstSegments.begin(); j != myEdges2FirstSegments.end(); ++j) {
@@ -112,7 +121,12 @@ MELoop::simulate(SUMOTime tMax) {
     std::vector<MEVehicle*> serial;
     std::vector<DeferredLeader> leaders;
     for (int round = 1; ; round++) {
-        runPhase(EVENTS);
+        if (myEventSync) {
+            // the groups synchronise at the moves between them, only events whose holds do not suffice wait for the serial part
+            runEventSync();
+        } else {
+            runPhase(EVENTS);
+        }
         // the cars leaving their group follow in the order of their event times: the moves into other groups
         // run on the threads of the groups entered and left, teleports, stops and the like on this thread
         deferred.clear();
@@ -252,6 +266,473 @@ MELoop::anyEventDue(SUMOTime tMax) const {
         }
     }
     return false;
+}
+
+
+/* Synchronisation at the events (option --meso-threads.event-sync)
+ *
+ * Every group runs its events in the order of (time, event index) as before, and the events of all groups are ordered
+ * by the key (time, group). An event changes another group when its vehicle enters a segment of that group, and all
+ * groups for teleports, stops and the like. A pending event "holds back" the groups which its vehicle, or a follower it
+ * promotes, may enter within the step, from the least time the vehicle needs to get there (MESegment::getReach). A group
+ * runs its next event only below the smallest hold of the other groups on it (getBound), otherwise it waits at the key of
+ * the event (myParkedKeys). An event which changes another group runs on the thread of its own group when that group
+ * waits beyond the key of the event and no third group holds it back before (isPartnerReady). Every event places its
+ * holds when it is scheduled, and the holds of the event which schedules it must cover them (isForeseen): otherwise other
+ * groups may be beyond it already and it runs in the serial part of the step if it changes other groups. */
+
+SUMOTime
+MELoop::getStepEnd(SUMOTime time) const {
+    return time <= myStepEnd ? myStepEnd : myStepEnd + (time - myStepEnd + DELTA_T - 1) / DELTA_T * DELTA_T;
+}
+
+
+void
+MELoop::buildReach() {
+    // the segments a vehicle may enter from each segment backwards, and the other groups it enters directly
+    std::map<const MESegment*, std::vector<MESegment*> > predecessors;
+    std::map<std::pair<MESegment*, int>, SUMOTime> reach;
+    typedef std::pair<SUMOTime, std::pair<MESegment*, int> > Item;
+    std::priority_queue<Item, std::vector<Item>, std::greater<Item> > queue;
+    for (const MSEdge* const e : MSEdge::getAllEdges()) {
+        for (MESegment* s = getSegmentForEdge(*e); s != nullptr; s = s->getNextSegment()) {
+            std::vector<MESegment*> targets;
+            if (s->getNextSegment() != nullptr) {
+                targets.push_back(s->getNextSegment());
+            } else {
+                for (const auto& succ : e->getViaSuccessors()) {
+                    targets.push_back(getSegmentForEdge(*succ.first));
+                    if (succ.second != nullptr) {
+                        // the internal edge, see nextSegment
+                        targets.push_back(getSegmentForEdge(*succ.second));
+                    }
+                }
+            }
+            for (MESegment* const t : targets) {
+                if (t == nullptr) {
+                    continue;
+                }
+                predecessors[t].push_back(s);
+                if (t->getGroup() != s->getGroup() && reach.insert(std::make_pair(std::make_pair(s, t->getGroup()), 0)).second) {
+                    queue.push(std::make_pair(0, std::make_pair(s, t->getGroup())));
+                }
+            }
+        }
+    }
+    // a vehicle entering a segment stays there at least for its length at MAX_SPEED_FACTOR times the speed limit
+    // (the edges between groups take at least 1.3 s at the speed limit, so a few of them are passed within a step)
+    while (!queue.empty()) {
+        const Item item = queue.top();
+        queue.pop();
+        MESegment* const s = item.second.first;
+        if (reach[item.second] < item.first) {
+            continue;
+        }
+        double speed = 0.;
+        for (const MSLane* const lane : s->getEdge().getLanes()) {
+            speed = MAX2(speed, lane->getSpeedLimit());
+        }
+        if (speed <= 0.) {
+            continue;
+        }
+        const SUMOTime time = item.first + (SUMOTime)(s->getLength() / (MAX_SPEED_FACTOR * speed) * (double)TIME2STEPS(1));
+        if (time >= DELTA_T) {
+            // the move happens in a later step
+            continue;
+        }
+        for (MESegment* const p : predecessors[s]) {
+            if (p->getGroup() == item.second.second) {
+                continue;
+            }
+            // behind a move into another group, that group moves the vehicle on, maybe at the same time with a smaller index
+            const SUMOTime held = p->getGroup() == s->getGroup() ? time : time - 1;
+            const std::pair<MESegment*, int> key(p, item.second.second);
+            auto it = reach.find(key);
+            if (it == reach.end() || held < it->second) {
+                reach[key] = held;
+                queue.push(std::make_pair(held, key));
+            }
+        }
+    }
+    for (const auto& item : reach) {
+        item.first.first->addReach(item.first.second, item.second);
+        myGroups[item.first.second].neighbours.push_back(item.first.first->getGroup());
+    }
+    for (Group& g : myGroups) {
+        std::sort(g.neighbours.begin(), g.neighbours.end());
+        g.neighbours.erase(std::unique(g.neighbours.begin(), g.neighbours.end()), g.neighbours.end());
+    }
+}
+
+
+void
+MELoop::addHolds(MEVehicle* veh, const int group) {
+    const SUMOTime time = veh->getEventTime();
+    MESegment* const segment = veh->getSegment();
+    const bool all = holdsAll(veh, segment);
+    if (myRunningEvent != nullptr && !isForeseen(segment, time, all, group)) {
+        // other groups may be beyond the event already, so it waits for the serial part of the step if it changes them
+        veh->setEventHolds(NO_HOLDS);
+        return;
+    }
+    if (segment != nullptr) {
+        for (const auto& reach : segment->getReach()) {
+            insertHold(group, reach.first, time + reach.second);
+        }
+    }
+    if (all) {
+        insertHold(group, (int)myGroups.size(), time);
+    }
+    veh->setEventHolds(all ? ALL_HOLDS : REACH_HOLDS);
+}
+
+
+void
+MELoop::removeHolds(const int group, const MESegment* segment, SUMOTime time, int holds) {
+    if (holds == NO_HOLDS) {
+        return;
+    }
+    if (segment != nullptr) {
+        for (const auto& reach : segment->getReach()) {
+            eraseHold(group, reach.first, time + reach.second);
+        }
+    }
+    if (holds == ALL_HOLDS) {
+        eraseHold(group, (int)myGroups.size(), time);
+    }
+}
+
+
+void
+MELoop::insertHold(const int group, const int target, SUMOTime time) {
+    std::multiset<SUMOTime>& holds = myGroups[group].holds[target];
+    if (holds.empty() || time < *holds.begin()) {
+        myHoldKeys[group * (myGroups.size() + 1) + target].value.store(getKey(time, group), std::memory_order_release);
+    }
+    holds.insert(time);
+}
+
+
+void
+MELoop::eraseHold(const int group, const int target, SUMOTime time) {
+    std::multiset<SUMOTime>& holds = myGroups[group].holds[target];
+    const auto it = holds.find(time);
+    assert(it != holds.end());
+    if (it == holds.end()) {
+        return;
+    }
+    const bool first = it == holds.begin();
+    holds.erase(it);
+    if (first) {
+        const long long int key = holds.empty() ? std::numeric_limits<long long int>::max() : getKey(*holds.begin(), group);
+        myHoldKeys[group * (myGroups.size() + 1) + target].value.store(key, std::memory_order_release);
+    }
+}
+
+
+bool
+MELoop::holdsAll(MEVehicle* veh, MESegment* segment) {
+    if (segment == nullptr) {
+        // teleporting
+        return true;
+    }
+    MESegment* const next = veh->getQueIndex() == MESegment::PARKING_QUEUE ? segment : nextSegment(segment, veh);
+    if (isGlobalMove(veh, segment, next) || mayTeleport(veh, getStepEnd(veh->getEventTime()))) {
+        return true;
+    }
+    if (!MESegment::isInvalid(next) && next->getGroup() != segment->getGroup()) {
+        // a route which continues on an edge not following this one may enter any group
+        for (const auto& reach : segment->getReach()) {
+            if (reach.first == next->getGroup() && reach.second <= 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+
+bool
+MELoop::isGlobalMove(const MEVehicle* veh, const MESegment* on, const MESegment* to) {
+    if (veh->isStopped() || on->hasGlobalReminders() || (!MESegment::isInvalid(to) && to->hasGlobalReminders())) {
+        return true;
+    }
+    if (veh->hasStops() || veh->getPersonNumber() > 0 || veh->getContainerNumber() > 0) {
+        // between its stops a vehicle changes only itself and its passengers, reaching a stop or the end of the route changes more
+        const int arrivalEdge = veh->getParameter().arrivalEdge;
+        return MESegment::isInvalid(to) || veh->succEdge(2) == nullptr || (arrivalEdge >= 0 && veh->getRoutePosition() + 1 >= arrivalEdge)
+               || (veh->hasStops() && veh->getNextStop().segment == to);
+    }
+    return false;
+}
+
+
+bool
+MELoop::mayTeleport(const MEVehicle* veh, SUMOTime time) {
+    // see checkCar, the waiting time counts from the first event at which the vehicle could not leave its segment
+    const SUMOTime waiting = time - (veh->getBlockTime() == SUMOTime_MAX ? veh->getEventTime() : veh->getBlockTime());
+    const SUMOTime ttt = veh->getVehicleType().getParameter().getTimeToTeleport(MSGlobals::gTimeToGridlock);
+    const bool r1 = ttt > 0 && waiting > ttt;
+    const bool r3 = MSGlobals::gTimeToTeleportDisconnected >= 0 && waiting > MSGlobals::gTimeToTeleportDisconnected;
+    if (veh->isStopped() || !(r1 || r3)) {
+        return false;
+    }
+    const bool disconnected = (MSGlobals::gTimeToTeleportDisconnected >= 0
+                               && veh->succEdge(1) != nullptr
+                               && veh->getEdge()->allowedLanes(*veh->succEdge(1), veh->getVClass()) == nullptr);
+    return (r1 && !disconnected) || (r3 && disconnected);
+}
+
+
+bool
+MELoop::isForeseen(const MESegment* segment, SUMOTime time, bool all, int group) const {
+    if (time > myStepEnd) {
+        // all groups meet at the end of the step
+        return true;
+    }
+    const RunningEvent& running = *myRunningEvent;
+    const long long int runningKey = getKey(running.time, running.group);
+    if (running.holds == ALL_HOLDS) {
+        // no group got beyond the running event
+        return getKey(time, group) >= runningKey;
+    }
+    if (all) {
+        return false;
+    }
+    for (const auto& reach : segment->getReach()) {
+        const SUMOTime until = time + reach.second;
+        if (until > myStepEnd) {
+            continue;
+        }
+        const long long int key = getKey(until, group);
+        if (reach.first == running.group) {
+            // the group of the running event computes its bound again after the event (see runEventSyncThread)
+            if (key < runningKey) {
+                return false;
+            }
+            continue;
+        }
+        bool held = false;
+        if (running.holds != NO_HOLDS) {
+            for (const auto& runningReach : running.segment->getReach()) {
+                held |= runningReach.first == reach.first && getKey(running.time + runningReach.second, running.group) <= key;
+            }
+        }
+        if (!held) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+int
+MELoop::getPartner(MEVehicle* veh, const int group) {
+    const int holds = veh->getEventHolds();
+    MESegment* const onSegment = veh->getSegment();
+    if (onSegment != nullptr) {
+        MESegment* const toSegment = veh->getQueIndex() == MESegment::PARKING_QUEUE ? onSegment : nextSegment(onSegment, veh);
+        if (!isGlobalMove(veh, onSegment, toSegment) && !mayTeleport(veh, veh->getEventTime())) {
+            if (MESegment::isInvalid(toSegment) || toSegment->getGroup() == group) {
+                return -1;
+            }
+            for (const auto& reach : onSegment->getReach()) {
+                if (reach.first == toSegment->getGroup() && reach.second <= 0) {
+                    return holds == NO_HOLDS ? -2 : reach.first;
+                }
+            }
+        }
+    }
+    // teleports, stops, passengers, reminders bound to the main thread and routes continuing on edges not following this one
+    return holds == ALL_HOLDS ? (int)myGroups.size() : -2;
+}
+
+
+long long int
+MELoop::getBound(const int group) const {
+    const int numGroups = (int)myGroups.size();
+    long long int bound = std::numeric_limits<long long int>::max();
+    for (const int other : myGroups[group].neighbours) {
+        bound = MIN2(bound, myHoldKeys[other * (numGroups + 1) + group].value.load(std::memory_order_acquire));
+    }
+    for (int other = 0; other < numGroups; other++) {
+        if (other != group) {
+            bound = MIN2(bound, myHoldKeys[other * (numGroups + 1) + numGroups].value.load(std::memory_order_acquire));
+        }
+    }
+    return bound;
+}
+
+
+bool
+MELoop::isPartnerReady(const int group, const int partner, long long int key) const {
+    const int numGroups = (int)myGroups.size();
+    if (partner == numGroups) {
+        for (int other = 0; other < numGroups; other++) {
+            if (other != group && myParkedKeys[other].value.load(std::memory_order_acquire) <= key) {
+                return false;
+            }
+        }
+        return true;
+    }
+    // the holds first: a group which changed the partner before lowered its parked key before releasing its hold
+    for (const int other : myGroups[partner].neighbours) {
+        if (other != group && myHoldKeys[other * (numGroups + 1) + partner].value.load(std::memory_order_acquire) <= key) {
+            return false;
+        }
+    }
+    return myParkedKeys[partner].value.load(std::memory_order_acquire) > key;
+}
+
+
+void
+MELoop::skipInvalidated(Group& g) {
+    while (!g.leaders.empty()) {
+        const LeaderEvent& e = g.leaders.top();
+        while (!g.invalidated.empty() && e.time > g.invalidated.top().time) {
+            g.invalidated.pop();
+        }
+        if (g.invalidated.empty() || !wasInvalidated(e, g.invalidated)) {
+            return;
+        }
+        g.leaders.pop();
+    }
+}
+
+
+void
+MELoop::runEventSync() {
+    // every group waits at its next event until its thread finds that no other group may change it before
+    const long long int end = getKey(myStepEnd + 1, 0);
+    int active = 0;
+    for (int i = 0; i < (int)myGroups.size(); i++) {
+        Group& g = myGroups[i];
+        skipInvalidated(g);
+        const bool due = !g.leaders.empty() && g.leaders.top().time <= myStepEnd;
+        myParkedKeys[i].value.store(due ? getKey(g.leaders.top().time, i) : end, std::memory_order_relaxed);
+        active += due ? 1 : 0;
+    }
+    if (active == 0) {
+        return;
+    }
+    myActiveGroups.store(active);
+    myAbort.store(false);
+#ifdef HAVE_FOX
+    for (EventSyncTask* const task : myEventSyncTasks) {
+        myThreadPool.add(task, task->getThread());
+    }
+    myThreadPool.waitAll(false);
+#else
+    runEventSyncThread(0, 1);
+#endif
+}
+
+
+void
+MELoop::runEventSyncThread(const int thread, const int numThreads) {
+    const long long int end = getKey(myStepEnd + 1, 0);
+    // the groups of this thread with the bound below which they may run (it only rises within the step), whether they
+    // run (otherwise they wait at their parked key) and the partner they wait for
+    struct Own {
+        int group;
+        long long int bound;
+        bool running;
+        int partner;
+    };
+    std::vector<Own> own;
+    for (int i = thread; i < (int)myGroups.size(); i += numThreads) {
+        own.push_back({i, RUNNING, false, -1});
+    }
+    std::chrono::steady_clock::time_point idleSince;
+    bool idle = false;
+    try {
+        while (myActiveGroups.load(std::memory_order_acquire) > 0 && !myAbort.load(std::memory_order_relaxed)) {
+            // the group with the smallest next event which may run
+            Own* best = nullptr;
+            long long int bestKey = std::numeric_limits<long long int>::max();
+            for (Own& o : own) {
+                long long int next;
+                if (o.running) {
+                    Group& g = myGroups[o.group];
+                    skipInvalidated(g);
+                    next = g.leaders.empty() || g.leaders.top().time > myStepEnd ? end : getKey(g.leaders.top().time, o.group);
+                } else {
+                    next = myParkedKeys[o.group].value.load(std::memory_order_acquire);
+                    if (next >= end || (o.bound <= next && (o.bound = getBound(o.group)) <= next)
+                            || (o.partner >= 0 && !isPartnerReady(o.group, o.partner, next))) {
+                        continue;
+                    }
+                }
+                if (next < bestKey) {
+                    best = &o;
+                    bestKey = next;
+                }
+            }
+            if (best == nullptr) {
+                // all groups of this thread wait for others: poll for a while, then let other threads run
+                const auto now = std::chrono::steady_clock::now();
+                if (!idle) {
+                    idle = true;
+                    idleSince = now;
+                } else if (std::chrono::duration_cast<std::chrono::microseconds>(now - idleSince).count() > 100) {
+                    std::this_thread::yield();
+                }
+                continue;
+            }
+            idle = false;
+            Own& o = *best;
+            Group& g = myGroups[o.group];
+            if (!o.running) {
+                myParkedKeys[o.group].value.store(RUNNING, std::memory_order_relaxed);
+                o.running = true;
+                o.partner = -1;
+                skipInvalidated(g);
+            }
+            if (g.leaders.empty() || g.leaders.top().time > myStepEnd) {
+                // done unless the event of another group moves a car into this one
+                myParkedKeys[o.group].value.store(end, std::memory_order_release);
+                o.running = false;
+                myActiveGroups.fetch_sub(1, std::memory_order_acq_rel);
+                continue;
+            }
+            const LeaderEvent e = g.leaders.top();
+            const long long int key = getKey(e.time, o.group);
+            int partner = -1;
+            if ((o.bound <= key && (o.bound = getBound(o.group)) <= key)
+                    || ((partner = getPartner(e.veh, o.group)) >= 0 && !isPartnerReady(o.group, partner, key))) {
+                // another group may change this one before or the partner is not there yet
+                o.partner = partner;
+                o.running = false;
+                myParkedKeys[o.group].value.store(key, std::memory_order_release);
+                continue;
+            }
+            g.leaders.pop();
+            MEVehicle* const veh = e.veh;
+            const MESegment* const segment = veh->getSegment();
+            const int holds = veh->getEventHolds();
+            veh->setEventHolds(NO_HOLDS);
+            if (partner == -2) {
+                // other groups may be beyond the event
+                veh->setDeferred(true);
+                g.serial.push_back(veh);
+            } else {
+                const RunningEvent running = {e.time, o.group, partner, holds, segment};
+                myRunningEvent = &running;
+                checkCar(veh);
+                myRunningEvent = nullptr;
+                if (partner >= 0) {
+                    // the events scheduled in other groups may hold this one (see isForeseen)
+                    o.bound = RUNNING;
+                }
+            }
+            removeHolds(o.group, segment, e.time, holds);
+        }
+    } catch (ProcessError&) {
+        myRunningEvent = nullptr;
+        myAbort.store(true);
+        throw;
+    }
 }
 
 
@@ -568,13 +1049,29 @@ MELoop::addLeaderCar(MEVehicle* veh, MSLink* link, const bool fromState) {
         myLeaderCars.push(LeaderEvent(veh));
     } else {
         // each group has its own counter, so the order of events does not depend on other groups
-        Group& g = myGroups[getGroup(veh)];
+        const int group = getGroup(veh);
+        Group& g = myGroups[group];
         if (!fromState) {
             veh->setEventIndex(g.eventCounter++);
         } else {
             g.eventCounter = MAX2(g.eventCounter, veh->getEventIndex() + 1);
         }
         g.leaders.push(LeaderEvent(veh));
+        if (myEventSync) {
+            addHolds(veh, group);
+            if (myRunningEvent != nullptr && group != myRunningEvent->group) {
+                // the event of another group moved the car into this one while it waits, maybe before its next event
+                const long long int next = getKey(veh->getEventTime(), group);
+                const long long int parked = myParkedKeys[group].value.load(std::memory_order_relaxed);
+                assert(parked != RUNNING);
+                if (next < parked) {
+                    myParkedKeys[group].value.store(next, std::memory_order_release);
+                    if (parked >= getKey(myStepEnd + 1, 0) && veh->getEventTime() <= myStepEnd) {
+                        myActiveGroups.fetch_add(1, std::memory_order_relaxed);
+                    }
+                }
+            }
+        }
     }
     veh->setApproaching(link);
 }
@@ -592,6 +1089,12 @@ MELoop::clearState() {
         g.arrivals.clear();
         g.departures.clear();
         g.ops.clear();
+        for (std::multiset<SUMOTime>& holds : g.holds) {
+            holds.clear();
+        }
+    }
+    for (SharedKey& key : myHoldKeys) {
+        key.value.store(std::numeric_limits<long long int>::max());
     }
 }
 
@@ -602,7 +1105,12 @@ MELoop::removeLeaderCar(MEVehicle* v) {
         myInvalidatedLeaderCars.push(LeaderEvent(v));
     } else if (!v->isDeferred()) {
         // a deferred car has no pending event
-        myGroups[getGroup(v)].invalidated.push(LeaderEvent(v));
+        const int group = getGroup(v);
+        myGroups[group].invalidated.push(LeaderEvent(v));
+        if (myEventSync) {
+            removeHolds(group, v->getSegment(), v->getEventTime(), v->getEventHolds());
+            v->setEventHolds(NO_HOLDS);
+        }
     }
 }
 
@@ -732,6 +1240,7 @@ MELoop::buildGroups(const OptionsCont& oc) {
     std::sort(order.begin(), order.end());
     const int numGroups = oc.getInt("meso-threads.groups");
     myRounds = oc.getInt("meso-threads.rounds");
+    myEventSync = oc.getBool("meso-threads.event-sync");
     long long int cumulated = 0;
     for (const auto& item : order) {
         Cluster& c = clusters[item.second];
@@ -764,6 +1273,16 @@ MELoop::buildGroups(const OptionsCont& oc) {
     }
     WRITE_MESSAGEF(TL("Built % groups for parallel meso events, % of % edges connect different groups."),
                    toString(numGroups), toString(numCut), toString(numEdges));
+    if (myEventSync) {
+        for (Group& g : myGroups) {
+            g.holds.resize(numGroups + 1);
+        }
+        std::vector<SharedKey>(numGroups * (numGroups + 1)).swap(myHoldKeys);
+        std::vector<SharedKey>(numGroups).swap(myParkedKeys);
+        // the steps follow each other from the begin on (see getStepEnd)
+        myStepEnd = string2time(oc.getString("begin")) - DELTA_T;
+        buildReach();
+    }
 #ifdef HAVE_FOX
     while (myThreadPool.size() < numThreads) {
         new MFXWorkerThread(myThreadPool);
@@ -772,6 +1291,11 @@ MELoop::buildGroups(const OptionsCont& oc) {
         myGroupTasks.push_back(std::vector<GroupTask*>());
         for (int i = 0; i < numGroups; i++) {
             myGroupTasks.back().push_back(new GroupTask(*this, i, phase));
+        }
+    }
+    if (myEventSync) {
+        for (int i = 0; i < numThreads; i++) {
+            myEventSyncTasks.push_back(new EventSyncTask(*this, i, numThreads));
         }
     }
 #endif

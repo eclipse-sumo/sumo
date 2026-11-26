@@ -1,0 +1,2 @@
+--meso-threads 4
+--meso-threads.event-sync

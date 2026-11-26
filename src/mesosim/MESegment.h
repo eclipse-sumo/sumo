@@ -235,6 +235,14 @@ public:
         myRNG = rng;
     }
 
+    /// @brief the other groups a vehicle may enter within one step after an event on this segment, with the least time it needs to get there (see MELoop::buildReach)
+    const std::vector<std::pair<int, SUMOTime> >& getReach() const {
+        return myReach;
+    }
+    void addReach(int group, SUMOTime time) {
+        myReach.push_back(std::make_pair(group, time));
+    }
+
     /// @brief model specific queue state (e.g. the gap times of meso-ltm) for saving / loading
     virtual std::string getQueueExtraState(int /*qIdx*/) const {
         return "";
@@ -472,6 +480,11 @@ public:
         return myHasSerialReminders;
     }
 
+    /// @brief whether a reminder of this segment must be updated while all groups wait (see MELoop::isGlobalMove)
+    inline bool hasGlobalReminders() const {
+        return myHasGlobalReminders;
+    }
+
     /// @brief Like getEventTime but returns seconds (for visualization)
     inline double getEventTimeSeconds() const {
         return STEPS2TIME(getEventTime());
@@ -684,6 +697,9 @@ protected:
     int myGroup = 0;
     SumoRNG* myRNG = nullptr;
 
+    /// @brief the other groups a vehicle may enter within one step after an event on this segment (see getReach)
+    std::vector<std::pair<int, SUMOTime> > myReach;
+
     /// @brief Whether tls penalty is enabled
     bool myTLSPenalty;
 
@@ -730,6 +746,9 @@ protected:
 
     /// @brief whether a reminder other than mean data was added (see hasSerialReminders)
     bool myHasSerialReminders = false;
+
+    /// @brief whether a reminder other than mean data and induction loops was added (see hasGlobalReminders)
+    bool myHasGlobalReminders = false;
 
     /* @brief segment for signifying vaporization. This segment has invalid
      * data and should only be used as a unique pointer */

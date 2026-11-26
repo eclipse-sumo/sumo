@@ -34,6 +34,7 @@
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/output/MSXMLRawOut.h>
 #include <microsim/output/MSDetectorFileOutput.h>
+#include <microsim/output/MSInductLoop.h>
 #include <microsim/output/MSMeanData.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/devices/MSDevice.h>
@@ -343,6 +344,10 @@ MESegment::addDetector(MSMoveReminder* data, int queueIndex) {
     // calibrators, drive ways) keeps the moves on this segment in the serial part of the parallel loop
     if (dynamic_cast<MSMeanData::MeanDataValues*>(data) == nullptr) {
         myHasSerialReminders = true;
+        // induction loops (of actuated traffic lights) only see the vehicles of this segment, which synchronised groups never move at once
+        if (dynamic_cast<MSInductLoop*>(data) == nullptr) {
+            myHasGlobalReminders = true;
+        }
     }
     if (queueIndex == -1) {
         for (Queue& q : myQueues) {
