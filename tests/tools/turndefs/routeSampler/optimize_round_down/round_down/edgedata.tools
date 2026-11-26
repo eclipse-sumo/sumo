@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 13:18:21.357132 by Eclipse SUMO routeSampler.py v1.28.0-0000000000
+<configuration>
+    <route-files value="data/candidates.rou.xml"/>
+    <edgedata-files value="data/counts.xml"/>
+    <mismatch-output value="edgedata.xml"/>
+    <seed value="1"/>
+    <optimize value="full"/>
+    <optimize-round-down value="True"/>
+</configuration>
+-->
+
+<data>
+    <interval id="deficit" begin="0.0" end="60.0">
+        <edge id="a" measuredCount="1" deficit="1" GEH="10.95"/>
+        <edge id="b" measuredCount="1" deficit="1" GEH="10.95"/>
+        <edge id="c" measuredCount="1" deficit="1" GEH="10.95"/>
+        <edge id="d" measuredCount="2" deficit="0" GEH="0.00"/>
+    </interval>
+</data>
