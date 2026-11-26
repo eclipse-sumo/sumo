@@ -153,6 +153,7 @@ title: ChangeLog
   - vType-specific timeToTeleport now takes effect #18359
   - Added option **--meso-lookahead** and meso edge type attribute `lookahead` to permit route-specific queue choice when simulating with option **--meso-lane-queue**. This avoids unrealistic jam-propagation if some turns are blocked #18299
   - Overtaking by one vehicle now longer influences overtaking probability for another vehicle through shared RNG (with option **--meso-overtaking**) #18477
+  - `vehicle.getLeader` is now implemented for meso (previously: 'getLeader not yet implemented for meso'). It returns the next vehicle in the queue or the rearmost vehicle in the following segments along the route
 
 - netconvert
   - Added options for setting default actuated tls params #10836
