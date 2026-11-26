@@ -26,6 +26,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/MSStop.h>
 #include "MSCFModel_Krauss.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <utils/common/RandHelper.h>
@@ -95,26 +96,32 @@ MSCFModel_Krauss::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double v
     const double sigma = (veh->passingMinor()
                           ? veh->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_SIGMA_MINOR, myDawdle)
                           : myDawdle);
+    const bool noDawdleStop = (MSGlobals::gSemiImplicitEulerUpdate
+                               && !veh->isStopped() && veh->hasStops()
+                               && veh->getNextStop().lane == veh->getLane()
+                               && (veh->getNextStop().getSpeed() <= 0 || veh->getNextStop().waypointWithStop)
+                               && vMax < veh->getSpeed()
+                               && veh->nextStopDist() < SPEED2DIST(veh->getActionStepLengthSecs() * myDecel));
     double vDawdle;
     if (myDawdleStep > DELTA_T) {
         VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
         if (SIMSTEP % myDawdleStep == vars->updateOffset) {
-            const double vD = MAX2(vMin, dawdle2(vMax, sigma, veh->getRNG()));
+            const double vD = MAX2(vMin, dawdle2(vMax, noDawdleStop ? 0. : sigma, veh->getRNG()));
             const double a1 = SPEED2ACCEL(vMax - veh->getSpeed());
             const double a2 = SPEED2ACCEL(vD - vMax);
             const double accelMax = (veh->getLane()->getVehicleMaxSpeed(veh) - veh->getSpeed()) / STEPS2TIME(myDawdleStep);
             // avoid exceeding maxSpeed before the next sigmaStep
             vars->accelDawdle = MIN2(a1, accelMax) + a2;
-            vDawdle = veh->getSpeed() + ACCEL2SPEED(vars->accelDawdle);
+            vDawdle = noDawdleStop ? vMax : MAX2(vMin, veh->getSpeed() + ACCEL2SPEED(vars->accelDawdle));
             //std::cout << SIMTIME << " v=" << veh->getSpeed() << " updated vD=" << vD<< " a1=" << a1 << " a2=" << a2 << " aM=" << accelMax << " accelDawdle=" << vars->accelDawdle << " vDawdle=" << vDawdle << "\n";
         } else {
             const double safeAccel = SPEED2ACCEL(vMax - veh->getSpeed());
             const double accel = MIN2(safeAccel, vars->accelDawdle);
-            vDawdle = MAX2(vMin, MIN2(vMax, veh->getSpeed() + ACCEL2SPEED(accel)));
+            vDawdle = noDawdleStop ? vMax : MAX2(vMin, MIN2(vMax, veh->getSpeed() + ACCEL2SPEED(accel)));
             //std::cout << SIMTIME << " v=" << veh->getSpeed() << " safeAccel=" << safeAccel << " accel=" << accel << " vDawdle=" << vDawdle << "\n";
         }
     } else {
-        vDawdle = MAX2(vMin, dawdle2(vMax, sigma, veh->getRNG()));
+        vDawdle = MAX2(vMin, dawdle2(vMax, noDawdleStop ? 0. : sigma, veh->getRNG()));
         //const double accel1 = SPEED2ACCEL(vMax - veh->getSpeed());
         //const double accel2 = SPEED2ACCEL(vDawdle - vMax);
         //std::cout << SIMTIME << " v=" << veh->getSpeed() << " updated vDawdle=" << vDawdle << " a1=" << accel1 << " a2=" << accel2 << " accelDawdle=" << SPEED2ACCEL(vDawdle - veh->getSpeed()) << "\n";
