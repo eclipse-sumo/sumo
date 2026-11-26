@@ -87,6 +87,9 @@ public:
         /// @brief check if option "move only junction center" is enabled
         bool getMoveOnlyJunctionCenter() const;
 
+        /// @brief check if option "move paired edges" is enabled
+        bool getMovePairedEdges() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called after change option
@@ -110,6 +113,9 @@ public:
 
         /// @brief checkbox for move only juntion center
         FXCheckButton* myMoveOnlyJunctionCenter = nullptr;
+
+        /// @brief checkbox for move paired opposite edges with reversed geometry
+        FXCheckButton* myMovePairedEdges = nullptr;
     };
 
     // ===========================================================================
