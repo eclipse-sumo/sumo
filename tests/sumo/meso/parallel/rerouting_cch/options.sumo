@@ -1,0 +1,1 @@
+--device.rerouting.probability 1 --device.rerouting.period 60 --device.rerouting.threads 2 --routing-algorithm CCH --additional-files input_additional.add.xml --vehroute-output vehroutes.xml

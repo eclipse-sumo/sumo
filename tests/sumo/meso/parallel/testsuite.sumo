@@ -6,3 +6,18 @@ threads4
 
 # the junction groups synchronise at every event that concerns two groups, the results are those without --meso-threads
 eventsync
+
+# the parallel and the serial part of a step repeat until no event is due, the results are those of the default number of rounds
+rounds_unlimited
+
+# the routes are read in small portions on their own thread while the vehicles move, the results are those of threads4
+route_steps
+
+# periodic rerouting computes the routes during the step and applies them on the main thread, vehicles with stops are rerouted on the main thread
+rerouting
+
+# the same with CCH, whose metrics are customized on a thread of their own and published at the next adaptation step
+rerouting_cch
+
+# vehicles waiting for insertion are checked per departure edge
+insertion

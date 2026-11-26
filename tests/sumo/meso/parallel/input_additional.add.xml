@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trip id="stop0" depart="30.00" from="A0A1" to="E4E3">
+        <stop lane="B2C2_0" duration="60"/>
+    </trip>
+    <trip id="stop1" depart="90.00" from="E3E2" to="A1A2">
+        <stop lane="C2C3_0" duration="30"/>
+    </trip>
+    <trip id="stop2" depart="150.00" from="C0D0" to="A1A2">
+        <stop lane="D2D3_0" duration="45"/>
+    </trip>
+    <trip id="stop3" depart="210.00" from="A1A2" to="C0D0">
+        <stop lane="B2C2_0" duration="90"/>
+    </trip>
+</additional>

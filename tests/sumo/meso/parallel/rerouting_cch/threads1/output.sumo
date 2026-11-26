@@ -1,0 +1,27 @@
+Loading net-file from 'net.net.xml' ... done (3ms).
+Built 4 groups for parallel meso events, 34 of 80 edges connect different groups.
+Loading additional-files from 'input_additional.add.xml' ... done (1ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
+Loading done.
+Simulation version UNKNOWN started with time: 0.00.
+Simulation ended at time: 1800.00.
+Reason: The final simulation step has been reached.
+Performance:
+ Duration: 1.20s
+ Real time factor: 1497.5
+ UPS: 41375.207987
+Vehicles:
+ Inserted: 604
+ Running: 0
+ Waiting: 0
+Statistics (avg of 604):
+ RouteLength: 1012.25
+ Speed: 12.57
+ Duration: 82.34
+ WaitingTime: 3.84
+ TimeLoss: 9.00
+ DepartDelay: 0.00
+CCHRouter answered 933 queries and explored 4.32 edges on average.
+CCHRouter spent 0.00s answering queries (0.00ms on average).
+CCHRouter answered 18 queries and explored 3.33 edges on average.
+CCHRouter spent 0.00s answering queries (0.00ms on average).
