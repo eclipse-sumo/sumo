@@ -1729,6 +1729,12 @@ GNEViewNetHelper::MoveSingleElementModul::getMovedElement() const {
 }
 
 
+const GNEMoveOperation*
+GNEViewNetHelper::MoveSingleElementModul::getMoveOperation() const {
+    return myMoveOperation;
+}
+
+
 const GNEMoveOffset
 GNEViewNetHelper::MoveSingleElementModul::calculateMoveOffset() const {
     // calculate moveOffset depending of current mouse position and relative clicked position

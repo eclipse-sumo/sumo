@@ -35,6 +35,7 @@
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/elements/moving/GNEMoveElement.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
@@ -527,6 +528,13 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
     myVisualizationSettings->drawForViewObjectsHandler = true;
     // draw all GL elements within the small boundary
     drawGLElements(positionBoundary);
+    // also calculate contour of currently moved single element if outside its original RTree boundary
+    if (myMoveSingleElement.getMovedElement()) {
+        auto movedGLObject = myMoveSingleElement.getMovedElement()->getMovedElement()->getGUIGlObject();
+        if (movedGLObject) {
+            movedGLObject->drawGL(*myVisualizationSettings);
+        }
+    }
     // draw routeDistributions (temporal)
     for (auto& routeDistribution : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE_DISTRIBUTION)) {
         routeDistribution.second->drawGL(*myVisualizationSettings);

@@ -532,6 +532,8 @@ GNEEdge::checkDrawMoveContour() const {
                     }
                 }
             }
+        } else if (moveElementEdge && (moveElementEdge->getEdge() == this)) {
+            return true;
         } else {
             // check lanes
             for (const auto& lane : getChildLanes()) {

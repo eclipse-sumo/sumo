@@ -395,19 +395,19 @@ GNEJunction::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
-            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
         // check if we're editing this network element
         const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
         if (editedNetworkElement) {
             return editedNetworkElement == this;
-        } else {
+        } else if (myNet->getViewNet()->isCurrentlyMovingElements()) {
+            return myNet->getViewNet()->getMoveSingleElementValues().getMovedElement() == myMoveElementJunction;
+        } else if (myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
             // only move the first element
             return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
         }
-    } else {
-        return false;
     }
+    return false;
 }
 
 
@@ -701,6 +701,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     // draw dotted contour geometry points
                     myNetworkElementContour.drawDottedContourGeometryPoints(s, d, this, myNBNode->getShape(), s.neteditSizeSettings.junctionGeometryPointRadius,
                             junctionExaggeration, s.dottedContourSettings.segmentWidthSmall);
+                    // draw dotted contour for edited shape
+                    myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
                 } else {
                     if (drawBubble) {
                         // draw dotted contour for bubble

@@ -166,14 +166,17 @@ GNETAZ::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
-            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
-            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
-        // only move the first element
-        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
-    } else {
-        return false;
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement()) {
+        // check if we're moving this element
+        if (myNet->getViewNet()->isCurrentlyMovingElements()) {
+            return myNet->getViewNet()->getMoveSingleElementValues().getMovedElement() == myMoveElementShape;
+        } else if (myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
+            // only move the first element
+            return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+        }
     }
+    return false;
 }
 
 
