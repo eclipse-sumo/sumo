@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 13:08:12.187494 by Eclipse SUMO netdiff.py v1.28.0-0000000000
+<configuration>
+    <source value="/home/mark/rev-batch2-work/19082/tt_tmp_1/tools.26Nov130811.532/tools/net/netdiff/relative_config/load_relative/data/source edges.xml"/>
+    <dest value="/home/mark/rev-batch2-work/19082/tt_tmp_1/tools.26Nov130811.532/tools/net/netdiff/relative_config/load_relative/data/modified edges.xml"/>
+    <outprefix value="/home/mark/rev-batch2-work/19082/tt_tmp_1/tools.26Nov130811.532/tools/net/netdiff/relative_config/load_relative/diff"/>
+    <direct value="True"/>
+</configuration>
+-->
+
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <!-- Deleted Elements -->
+    <!-- Created Elements -->
+    <!-- Changed Elements -->
+    <edge id="e" priority="5"/>
+</edges>

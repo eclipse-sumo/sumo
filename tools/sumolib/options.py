@@ -146,16 +146,53 @@ class OptionReader(handler.ContentHandler):
 
     def __init__(self):
         self.opts = []
+        self.relative_paths = False
 
     def startElement(self, name, attrs):
+        if name == "configuration":
+            self.relative_paths = attrs.get("relative-paths") == "true"
         if 'value' in attrs:
             self.opts.append(Option(name, attrs['value'], attrs.get('type'), attrs.get('help'), attrs.get('category')))
 
 
+def _readOptions(filename):
+    reader = OptionReader()
+    parse(filename, reader)
+    return reader
+
+
 def readOptions(filename):
-    optionReader = OptionReader()
-    parse(filename, optionReader)
-    return optionReader.opts
+    return _readOptions(filename).opts
+
+
+_FILE_TYPES = {"file", "net_file", "route_file", "additional_file", "edgedata_file",
+               "data_file", "sumoconfig_file", "file_list", "route_file_list",
+               "additional_file_list", "sumoconfig_file_list"}
+
+
+_SPECIAL_PATHS = {"-", "stdout", "STDOUT", "stderr", "STDERR", "nul", "NUL", "/dev/null"}
+
+
+def _config_filename(value, directory, writing):
+    if (not value or value in _SPECIAL_PATHS
+            or ":" in value[2:] or value.startswith("${")):
+        return value
+    if writing:
+        try:
+            relative = os.path.relpath(value, directory)
+            return os.path.join(".", relative) if relative in _SPECIAL_PATHS else relative
+        except ValueError:
+            return value  # different Windows drive
+    return os.path.abspath(os.path.join(directory, value))
+
+
+def _filename_type(action):
+    name = getattr(action.type, "__name__", "")
+    return name if name in _FILE_TYPES else ""
+
+
+def _multiple_filenames(action):
+    return action.nargs not in (None, "?") or _filename_type(action).endswith("_list")
 
 
 class ArgumentParser(argparse.ArgumentParser):
@@ -231,6 +268,7 @@ class ArgumentParser(argparse.ArgumentParser):
         self.add_argument('-C', '--save-configuration', help='save configuration to FILE and exit', metavar="FILE")
         # add common argument for save template
         self.add_argument('--save-template', help='save configuration template to FILE and exit', metavar="FILE")
+        self.add_argument("--relative-toolcfg", action="store_true", default=argparse.SUPPRESS, help=argparse.SUPPRESS)
         self._fix_path_args = set()
 
     def add_argument(self, *args, **kwargs):
@@ -276,7 +314,11 @@ class ArgumentParser(argparse.ArgumentParser):
     def _write_config_file(self, namespace, toString=False):
         if namespace.save_configuration:
             with openz(namespace.save_configuration, "w") as out:
-                self.write_config_to_file(out, namespace, False)
+                if getattr(namespace, "relative_toolcfg", False):
+                    directory = os.path.dirname(os.path.abspath(namespace.save_configuration))
+                    self.write_config_to_file(out, namespace, False, directory)
+                else:
+                    self.write_config_to_file(out, namespace, False)
             sys.exit()
         if namespace.save_template:
             with openz(namespace.save_template, "w") as out:
@@ -292,14 +334,16 @@ class ArgumentParser(argparse.ArgumentParser):
                 self.write_config_to_file(out, namespace, False)
             return out.getvalue()
 
-    def write_config_to_file(self, out, namespace, print_template):
-        out.write(u'<configuration>\n')
+    def write_config_to_file(self, out, namespace, print_template, directory=None):
+        marker = ' relative-paths="true"' if directory is not None else ""
+        out.write(u'<configuration%s>\n' % marker)
         optionNames = vars(namespace).keys()
         if sys.version_info.major < 3 or sys.version_info.minor < 6:
             optionNames = sorted(optionNames)
         for k in optionNames:
             v = vars(namespace)[k]
-            if k not in ("save_configuration", "save_template", "configuration_file", "_parser", "_prefixed_options"):
+            if k not in ("save_configuration", "save_template", "configuration_file",
+                         "relative_toolcfg", "_parser", "_prefixed_options"):
                 key = k
                 help = ''
                 typeStr = ''
@@ -332,12 +376,7 @@ class ArgumentParser(argparse.ArgumentParser):
                                 typeName = a.type.__name__
                                 if typeName == 'parseTime':
                                     typeName = 'time'
-                                knownTypes = ['bool', 'float', 'int', 'time', 'file',
-                                              'net_file', 'route_file', 'additional_file',
-                                              'additional_file_list',
-                                              'edgedata_file', 'data_file', 'file_list',
-                                              'route_file_list', 'sumoconfig_file',
-                                              'sumoconfig_file_list', 'edge', 'edge_list']
+                                knownTypes = _FILE_TYPES | {"bool", "float", "int", "time", "edge", "edge_list"}
                                 if typeName not in knownTypes:
                                     typeName = 'string'
                                 elif typeName.endswith("_list"):
@@ -353,6 +392,11 @@ class ArgumentParser(argparse.ArgumentParser):
 
                         break
                 if print_template or v != a.default:
+                    if directory is not None and v is not None and _filename_type(a):
+                        values = v if isinstance(v, list) else [v]
+                        if _filename_type(a).endswith("_list"):
+                            values = [item for value in values for item in value.split(",")]
+                        v = ",".join(_config_filename(value, directory, True) for value in values)
                     if isinstance(v, list):
                         v = " ".join(map(str, v))
                     out.write(u'    <%s value="%s"%s%s%s%s%s%s/>\n' % (
@@ -388,30 +432,43 @@ class ArgumentParser(argparse.ArgumentParser):
         if idx > 0:
             act_map = {}
             pos_map = {}
+            file_actions = {}
             multi_value = set()
             pos_idx = 0
             for a in self._actions:
                 for s in a.option_strings:
                     if s.startswith("--"):
                         act_map[s[2:]] = a.option_strings
+                        if _filename_type(a):
+                            file_actions[s[2:]] = a
                         if a.nargs:
                             multi_value.add(s[2:])
                 if len(a.option_strings) == 0:
                     pos_map[a.dest] = pos_idx
+                    if _filename_type(a):
+                        file_actions[a.dest] = a
                     pos_args.append(None)
                     pos_idx += 1
             for cfg_file in args[idx].split(","):
-                for option in readOptions(cfg_file):
+                config = _readOptions(cfg_file)
+                for option in config.opts:
                     is_set = False
                     for s in act_map.get(option.name, []):
                         if s in args:
                             is_set = True
                             break
                     value = option.value
-                    if option.name in self._fix_path_args and not value.startswith("http"):
+                    file_action = file_actions.get(option.name) if config.relative_paths else None
+                    if file_action is not None:
+                        values = value.split(",") if _multiple_filenames(file_action) else [value]
+                        values = [_config_filename(item, os.path.dirname(cfg_file), False) for item in values]
+                        value = ",".join(values)
+                    elif option.name in self._fix_path_args and not value.startswith("http"):
                         value = os.path.join(os.path.dirname(cfg_file), value)
                     if option.name in pos_map and option.name != 'remaining_args':
-                        if ',' in value:
+                        if file_action is not None:
+                            value = [value] if _filename_type(file_action).endswith("_list") else values
+                        elif ',' in value:
                             value = value.split(',')
                         else:
                             value = value.split()
@@ -433,7 +490,11 @@ class ArgumentParser(argparse.ArgumentParser):
                                 # special case: magic option name to collect remaining arguments
                                 config_args += value.split()
                             elif option.name in multi_value:
-                                config_args += ["--" + option.name] + value.split()
+                                if file_action is not None:
+                                    config_args += ["--" + option.name] + (
+                                        [value] if _filename_type(file_action).endswith("_list") else values)
+                                else:
+                                    config_args += ["--" + option.name] + value.split()
                             else:
                                 # permit negative values and empty strings in cfg files
                                 config_args += ["--" + option.name + "=" + value]

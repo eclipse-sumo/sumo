@@ -102,6 +102,11 @@ public:
     /// @brief Returns the information whether an error occurred
     bool errorOccurred() const;
 
+    /// @brief Whether the configuration uses config-relative paths
+    bool usesRelativePaths() const {
+        return myRelativePaths;
+    }
+
     /// @brief Returns the last item read
     const std::string& getItem() const {
         return myItem;
@@ -113,6 +118,7 @@ private:
 
     /// @brief The information whether an error occurred
     bool myError = false;
+    bool myRelativePaths = false;
 
     /// @brief The options to fill
     OptionsCont& myOptions;

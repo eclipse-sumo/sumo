@@ -1,0 +1,5 @@
+[collate_file]
+toolcfg:data/config/out.toolcfg
+
+[run_dependent_text]
+toolcfg:\\{REPLACE /}

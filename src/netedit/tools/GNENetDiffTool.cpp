@@ -88,12 +88,12 @@ GNENetDiffTool::postProcessing() {
 
 
 std::string
-GNENetDiffTool::getCommand() const {
+GNENetDiffTool::getCommand(bool relativePaths) const {
     std::string arguments;
     // add arguments
-    arguments += "\"" + myPythonToolsOptions.getString("original-net") + "\" ";
-    arguments += "\"" + myPythonToolsOptions.getString("modified-net") + "\" ";
-    arguments += "\"" + myPythonToolsOptions.getString("outprefix")    + "\" ";
+    arguments += getCommandFilename(myPythonToolsOptions.getString("original-net"), relativePaths) + " ";
+    arguments += getCommandFilename(myPythonToolsOptions.getString("modified-net"), relativePaths) + " ";
+    arguments += getCommandFilename(myPythonToolsOptions.getString("outprefix"), relativePaths) + " ";
     // check if save selection
     if (myPythonToolsOptions.getBool("select-modified") ||
             myPythonToolsOptions.getBool("select-added") ||
@@ -135,7 +135,7 @@ GNENetDiffTool::getCommand() const {
         arguments += "--copy " + myPythonToolsOptions.getString("copy") + " ";
     }
     if (myPythonToolsOptions.getString("path").size() > 0) {
-        arguments += "--path " + myPythonToolsOptions.getString("path") + " ";
+        arguments += "--path " + getCommandFilename(myPythonToolsOptions.getString("path"), relativePaths) + " ";
     }
     return getCommandPath() + " " + arguments;
 }
@@ -150,6 +150,8 @@ GNENetDiffTool::fillNetDiffOptions(OptionsCont& options) {
 
     options.doRegister("modified-net", new Option_Network(""));
     options.addDescription("modified-net", "input", TL("Modified network"));
+    options.addSynonyme("original-net", "source");
+    options.addSynonyme("modified-net", "dest");
 
     options.addOptionSubTopic("output");
     options.doRegister("outprefix", new Option_FileName());

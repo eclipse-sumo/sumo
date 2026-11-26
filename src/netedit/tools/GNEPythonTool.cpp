@@ -18,6 +18,11 @@
 // Python tools used in netedit
 /****************************************************************************/
 
+#include <algorithm>
+#include <filesystem>
+#include <iomanip>
+#include <sstream>
+
 #include <netedit/GNEApplicationWindow.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/FileHelpers.h>
@@ -30,6 +35,19 @@
 #include <xercesc/parsers/SAXParser.hpp>
 
 #include "GNEPythonTool.h"
+
+namespace {
+bool isToolFilename(const Option& option) {
+    return option.isFileName() || option.isNetwork() || option.isAdditional()
+           || option.isRoute() || option.isData() || option.isSumoConfig();
+}
+
+
+bool isSpecialToolPath(const std::string& path) {
+    return path == "-" || path == "stdout" || path == "STDOUT" || path == "stderr"
+           || path == "STDERR" || path == "nul" || path == "NUL" || path == "/dev/null";
+}
+}
 
 // ============================================-===============================
 // member method definitions
@@ -118,7 +136,28 @@ GNEPythonTool::getCommandPath() const {
 
 
 std::string
-GNEPythonTool::getCommand() const {
+GNEPythonTool::getCommandFilename(const std::string& filename, bool relativePaths) {
+    std::string value = filename;
+    if (relativePaths && FileHelpers::isAbsolute(filename) && !FileHelpers::isSocket(filename)) {
+        std::error_code error;
+        const auto directory = std::filesystem::current_path(error);
+        if (!error) {
+            const auto relative = std::filesystem::u8path(filename).lexically_relative(directory);
+            if (!relative.empty() && relative != "." && std::find(relative.begin(), relative.end(), "..") == relative.end()) {
+                value = relative.generic_u8string();
+                // A relative filename must not become an option or a special output destination.
+                if (value.front() == '-' || isSpecialToolPath(value)) {
+                    value = "./" + value;
+                }
+            }
+        }
+    }
+    return "\"" + StringUtils::escapeShell(value) + "\"";
+}
+
+
+std::string
+GNEPythonTool::getCommand(bool relativePaths) const {
     std::string arguments;
     // add arguments
     for (const auto& option : myPythonToolsOptions) {
@@ -135,19 +174,31 @@ GNEPythonTool::getCommand() const {
                 if (!option.second->isPositional()) {
                     arguments += ("--" + option.first + " ");
                 }
+                const bool filename = isToolFilename(*option.second);
                 const std::string listSeparator = option.second->getListSeparator();
                 if (listSeparator != "") {
-                    StringTokenizer st(option.second->getValueString(), " ", true);
+                    StringVector values;
+                    if (filename && listSeparator == " ") {
+                        std::istringstream input(option.second->getValueString());
+                        std::string file;
+                        while (input >> std::quoted(file)) {
+                            values.push_back(file);
+                        }
+                    } else {
+                        values = StringTokenizer(option.second->getValueString(), filename ? listSeparator : " ", true).getVector();
+                    }
                     bool first = true;
-                    for (const std::string& v : st.getVector()) {
+                    for (const std::string& v : values) {
                         if (first) {
                             first = false;
                         } else {
                             arguments += listSeparator;
                         }
-                        arguments += ("\"" + v + "\"");
+                        arguments += filename ? getCommandFilename(v, relativePaths) : "\"" + v + "\"";
                     }
                     arguments += " ";
+                } else if (filename) {
+                    arguments += getCommandFilename(option.second->getValueString(), relativePaths) + " ";
                 } else {
                     arguments += ("\"" + StringUtils::escapeShell(option.second->getValueString()) + "\" ");
                 }
@@ -192,6 +243,31 @@ GNEPythonTool::loadConfiguration(const std::string& file) {
         WRITE_ERROR(TL("Could not load tool configuration '") + file + "':\n " + XMLSubSys::transcode(e.getMessage()));
         return false;
     }
+    if (handler.usesRelativePaths()) {
+        for (const auto& option : myPythonToolsOptions) {
+            Option& value = *option.second;
+            if (!value.isWriteable() && isToolFilename(value)) {
+                const auto& separator = value.getListSeparator();
+                auto files = separator.empty() ? StringVector{value.getValueString()}
+                             : StringTokenizer(value.getValueString(), ",", true).getVector();
+                for (auto& fileName : files) {
+                    if (!fileName.empty() && !isSpecialToolPath(fileName) && !StringUtils::startsWith(fileName, "${")) {
+                        fileName = FileHelpers::checkForRelativity(fileName, file);
+                    }
+                }
+                if (separator == " ") {
+                    for (auto& fileName : files) {
+                        std::ostringstream quoted;
+                        quoted << std::quoted(fileName);
+                        fileName = quoted.str();
+                    }
+                }
+                const auto path = joinToString(files, separator);
+                value.resetWritable();
+                value.set(path, path, false);
+            }
+        }
+    }
     // write info
     WRITE_MESSAGE(TLF("Loaded % configuration.", myPythonToolName));
     return true;
@@ -200,7 +276,7 @@ GNEPythonTool::loadConfiguration(const std::string& file) {
 
 void
 GNEPythonTool::saveConfiguration(const std::string& file) const {
-    std::string command = getCommand() + " -C \"" + file + "\" ";
+    std::string command = getCommand(false) + " --relative-toolcfg -C \"" + file + "\" ";
     // start in background
 #ifndef WIN32
     command = command + " &";

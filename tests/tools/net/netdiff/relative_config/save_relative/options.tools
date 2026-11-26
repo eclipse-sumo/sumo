@@ -1,0 +1,1 @@
+"data/source edges.xml" "data/modified edges.xml" "data/output diff" --direct --relative-toolcfg -C data/config/out.toolcfg tools/net/netdiff.py
