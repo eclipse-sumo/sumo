@@ -100,6 +100,7 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSDriveWay.h>
 #include <microsim/trigger/MSCalibrator.h>
+#include <microsim/trigger/MSDepot.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
 #include <microsim/trigger/MSOverheadWire.h>
@@ -902,6 +903,9 @@ MSNet::simulationStep(const bool onlyMove) {
     // flush arrived meso vehicles and micro vehicles that were removed due to collision
     myVehicleControl->removePending();
     loadRoutes();
+    if (MSDepot::hasDepots()) {
+        MSDepot::checkOverlappingDepots();
+    }
 
     // persons
     if (myPersonControl != nullptr && myPersonControl->hasTransportables()) {
@@ -1068,6 +1072,7 @@ MSNet::clearAll() {
     delete MSVehicleTransfer::getInstance();
     MSDevice::cleanupAll();
     MSCalibrator::cleanup();
+    MSDepot::cleanup();
     while (!MSLaneSpeedTrigger::getInstances().empty()) {
         delete MSLaneSpeedTrigger::getInstances().begin()->second;
     }
@@ -1142,6 +1147,7 @@ MSNet::clearState(const SUMOTime step, bool quickReload) {
     myBeginOfTimestepEvents->clearState(myStep, step);
     myEndOfTimestepEvents->clearState(myStep, step);
     myInsertionEvents->clearState(myStep, step);
+    MSDepot::clearState();
     MSRailSignalControl::clearState();
     MSDriveWay::clearState();
     myStep = step;

@@ -60,6 +60,7 @@
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/MSDriverState.h>
+#include <microsim/trigger/MSDepot.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
 #include <traci-server/TraCIServer.h>
 
@@ -319,6 +320,9 @@ NLBuilder::build() {
                 WRITE_MESSAGE(TLF("Loading route-files incrementally from '%'", file));
             }
         }
+    }
+    if (MSDepot::hasDepots()) {
+        MSDepot::checkOverlappingDepots();
     }
     // optionally switch off traffic lights
     if (myOptions.getBool("tls.all-off")) {

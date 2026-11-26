@@ -41,7 +41,13 @@
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/distribution/RandomDistributor.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
+#include <mesosim/MELoop.h>
+#include <mesosim/MESegment.h>
+#include <microsim/MSGlobals.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/shapes/SUMOPolygon.h>
 #include "MSCalibrator.h"
+#include "MSDepot.h"
 
 //#define MSCalibrator_DEBUG
 
@@ -749,5 +755,314 @@ MSCalibrator::setFlow(SUMOTime begin, SUMOTime end, double vehsPerHour, double s
     // fix iterator
     myCurrentStateInterval = myIntervals.begin() + intervalIndex;
 }
+
+// ===========================================================================
+// MSDepot static members and method definitions
+// ===========================================================================
+std::map<std::string, MSDepot*> MSDepot::myInstances;
+std::map<const MSEdge*, std::vector<MSDepot*> > MSDepot::myEdgeDepots;
+std::set<std::tuple<std::string, std::string, std::string> > MSDepot::myWarnedOverlaps;
+bool MSDepot::myOverlapsChecked = false;
+
+
+MSDepot::EdgeReminder::EdgeReminder(MSDepot* depot, MSLane* lane, bool doAdd) :
+    MSMoveReminder(depot->getID() + "_" + lane->getID(), lane, doAdd),
+    myDepot(depot) {
+}
+
+
+bool
+MSDepot::EdgeReminder::notifyEnter(SUMOTrafficObject& veh, Notification /*reason*/, const MSLane* /*enteredLane*/) {
+    return veh.isVehicle();
+}
+
+
+bool
+MSDepot::EdgeReminder::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, Notification reason, const MSLane* enteredLane) {
+    if (enteredLane != nullptr && myLane != nullptr && &enteredLane->getEdge() == &myLane->getEdge()) {
+        return true;
+    }
+    if (myDepot != nullptr && veh.isVehicle()
+            && reason >= NOTIFICATION_ARRIVED && reason <= NOTIFICATION_TELEPORT_CONTINUATION_ARRIVED) {
+        const SUMOVehicle& sveh = static_cast<const SUMOVehicle&>(veh);
+        const MSEdge* const arrEdge = sveh.getEdge();
+        if (std::find(myDepot->myEdges.begin(), myDepot->myEdges.end(), arrEdge) != myDepot->myEdges.end()) {
+            myDepot->handleArrive(sveh, arrEdge, MSNet::getInstance()->getCurrentTimeStep());
+        }
+    }
+    return false;
+}
+
+
+MSDepot::MSDepot(const std::string& id,
+                 const std::vector<MSEdge*>& edges,
+                 const std::string& type,
+                 int initialCount,
+                 int maxCount,
+                 const std::string& file,
+                 SUMOPolygon* poly) :
+    Named(id),
+    myEdges(edges),
+    myType(type),
+    myInitialCount(initialCount),
+    myMaxCount(maxCount),
+    myCount(initialCount),
+    myOutput(nullptr),
+    myPolygon(poly),
+    myLastArriveStep(SUMOTime_MIN) {
+    if (!file.empty()) {
+        myOutput = &OutputDevice::getDevice(file);
+        myOutput->writeXMLHeader("depot-output", "");
+    }
+    for (MSEdge* const edge : myEdges) {
+        myEdgeDepots[edge].push_back(this);
+        if (MSGlobals::gUseMesoSim) {
+            if (!edge->getLanes().empty()) {
+                EdgeReminder* rem = new EdgeReminder(this, edge->getLanes()[0], false);
+                myReminders.push_back(rem);
+                for (MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(*edge); seg != nullptr; seg = seg->getNextSegment()) {
+                    seg->addDetector(rem);
+                }
+            }
+        } else {
+            for (MSLane* const lane : edge->getLanes()) {
+                myReminders.push_back(new EdgeReminder(this, lane, true));
+            }
+        }
+    }
+    myInstances[id] = this;
+    myOverlapsChecked = false;
+    updatePolygonParameter();
+    checkOverlappingDepots();
+    myOverlapsChecked = false;
+}
+
+
+MSDepot::~MSDepot() {
+    for (EdgeReminder* const rem : myReminders) {
+        delete rem;
+    }
+    myReminders.clear();
+    for (MSEdge* const edge : myEdges) {
+        auto it = myEdgeDepots.find(edge);
+        if (it != myEdgeDepots.end()) {
+            std::vector<MSDepot*>& vec = it->second;
+            vec.erase(std::remove(vec.begin(), vec.end(), this), vec.end());
+            if (vec.empty()) {
+                myEdgeDepots.erase(it);
+            }
+        }
+    }
+    myInstances.erase(getID());
+}
+
+
+bool
+MSDepot::vehicleApplies(const SUMOVehicle& veh) const {
+    const MSVehicleType& vt = veh.getVehicleType();
+    const std::string& origID = vt.getOriginalID();
+    if (origID == myType || vt.getID() == myType || veh.getParameter().vtypeid == myType) {
+        return true;
+    }
+    const std::set<std::string>& dists = MSNet::getInstance()->getVehicleControl().getVTypeDistributionMembership(origID);
+    return dists.count(myType) > 0;
+}
+
+
+std::string
+MSDepot::getOverlappingType(const MSDepot& d1, const MSDepot& d2) {
+    if (d1.myType == d2.myType) {
+        return d1.myType;
+    }
+    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    const RandomDistributor<MSVehicleType*>* const dist1 = vc.getVTypeDistribution(d1.myType);
+    const RandomDistributor<MSVehicleType*>* const dist2 = vc.getVTypeDistribution(d2.myType);
+    if (dist1 != nullptr) {
+        for (const MSVehicleType* const t1 : dist1->getVals()) {
+            const std::string& tid1 = t1->getOriginalID();
+            if (tid1 == d2.myType || vc.getVTypeDistributionMembership(tid1).count(d2.myType) > 0) {
+                return tid1;
+            }
+            if (dist2 != nullptr) {
+                for (const MSVehicleType* const t2 : dist2->getVals()) {
+                    if (tid1 == t2->getOriginalID()) {
+                        return tid1;
+                    }
+                }
+            }
+        }
+    } else if (dist2 != nullptr) {
+        for (const MSVehicleType* const t2 : dist2->getVals()) {
+            const std::string& tid2 = t2->getOriginalID();
+            if (tid2 == d1.myType || vc.getVTypeDistributionMembership(tid2).count(d1.myType) > 0) {
+                return tid2;
+            }
+        }
+    }
+    return "";
+}
+
+
+void
+MSDepot::checkOverlappingDepots() {
+    for (const auto& edgeEntry : myEdgeDepots) {
+        const MSEdge* const edge = edgeEntry.first;
+        const std::vector<MSDepot*>& depots = edgeEntry.second;
+        for (size_t i = 0; i < depots.size(); ++i) {
+            for (size_t j = i + 1; j < depots.size(); ++j) {
+                const MSDepot* const d1 = depots[i];
+                const MSDepot* const d2 = depots[j];
+                const auto key = std::make_tuple(d1->getID(), d2->getID(), edge->getID());
+                if (myWarnedOverlaps.count(key) > 0) {
+                    continue;
+                }
+                const std::string overlapType = getOverlappingType(*d1, *d2);
+                if (!overlapType.empty()) {
+                    myWarnedOverlaps.insert(key);
+                    WRITE_WARNINGF(TL("Depot '%' shares edge '%' with depot '%' for type '%'."),
+                                   d2->getID(), edge->getID(), d1->getID(), overlapType);
+                }
+            }
+        }
+    }
+    myOverlapsChecked = true;
+}
+
+
+bool
+MSDepot::canDepart(const MSEdge* edge, const SUMOVehicle& veh) {
+    if (!myOverlapsChecked) {
+        checkOverlappingDepots();
+    }
+    const auto it = myEdgeDepots.find(edge);
+    if (it == myEdgeDepots.end()) {
+        return true;
+    }
+    for (const MSDepot* const depot : it->second) {
+        if (depot->vehicleApplies(veh) && depot->myCount <= 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+void
+MSDepot::notifyDepart(const MSEdge* edge, const SUMOVehicle& veh, SUMOTime time) {
+    const auto it = myEdgeDepots.find(edge);
+    if (it == myEdgeDepots.end()) {
+        return;
+    }
+    for (MSDepot* const depot : it->second) {
+        if (depot->vehicleApplies(veh)) {
+            depot->handleDepart(veh, edge, time);
+        }
+    }
+}
+
+
+bool
+MSDepot::canArrive(const MSEdge* edge, const SUMOVehicle& veh) {
+    if (!myOverlapsChecked) {
+        checkOverlappingDepots();
+    }
+    const auto it = myEdgeDepots.find(edge);
+    if (it == myEdgeDepots.end()) {
+        return true;
+    }
+    for (const MSDepot* const depot : it->second) {
+        if (depot->vehicleApplies(veh) && depot->myCount >= depot->myMaxCount) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+void
+MSDepot::notifyArrive(const MSEdge* edge, const SUMOVehicle& veh, SUMOTime time) {
+    const auto it = myEdgeDepots.find(edge);
+    if (it == myEdgeDepots.end()) {
+        return;
+    }
+    for (MSDepot* const depot : it->second) {
+        depot->handleArrive(veh, edge, time);
+    }
+}
+
+
+void
+MSDepot::handleDepart(const SUMOVehicle& veh, const MSEdge* edge, SUMOTime time) {
+    myCount--;
+    recordEvent(veh, edge, time, "depart");
+}
+
+
+void
+MSDepot::handleArrive(const SUMOVehicle& veh, const MSEdge* edge, SUMOTime time) {
+    if (!vehicleApplies(veh)) {
+        return;
+    }
+    const SUMOTime simStep = MSNet::getInstance()->getCurrentTimeStep();
+    if (simStep != myLastArriveStep) {
+        myArrivedVehNumericalIDs.clear();
+        myLastArriveStep = simStep;
+    }
+    if (!myArrivedVehNumericalIDs.insert(veh.getNumericalID()).second) {
+        return;
+    }
+    myCount++;
+    recordEvent(veh, edge, time, "arrive");
+}
+
+
+void
+MSDepot::updatePolygonParameter() {
+    if (myPolygon != nullptr) {
+        myPolygon->setParameter("count", toString(myCount));
+    }
+}
+
+
+void
+MSDepot::recordEvent(const SUMOVehicle& veh, const MSEdge* edge, SUMOTime time, const std::string& action) {
+    updatePolygonParameter();
+    if (myOutput != nullptr) {
+        myOutput->openTag("event");
+        myOutput->writeAttr(SUMO_ATTR_TIME, time2string(time));
+        myOutput->writeAttr(SUMO_ATTR_ID, getID());
+        myOutput->writeAttr(SUMO_ATTR_EDGE, edge->getID());
+        myOutput->writeAttr(SUMO_ATTR_VEHICLE, veh.getID());
+        myOutput->writeAttr(SUMO_ATTR_TYPE, veh.getVehicleType().getOriginalID());
+        myOutput->writeAttr("action", action);
+        myOutput->writeAttr(SUMO_ATTR_COUNT, myCount);
+        myOutput->closeTag();
+    }
+}
+
+
+void
+MSDepot::clearState() {
+    for (auto& item : myInstances) {
+        MSDepot* const depot = item.second;
+        depot->myCount = depot->myInitialCount;
+        depot->myArrivedVehNumericalIDs.clear();
+        depot->myLastArriveStep = SUMOTime_MIN;
+        depot->updatePolygonParameter();
+    }
+    myOverlapsChecked = false;
+}
+
+
+void
+MSDepot::cleanup() {
+    while (!myInstances.empty()) {
+        delete myInstances.begin()->second;
+    }
+    myEdgeDepots.clear();
+    myWarnedOverlaps.clear();
+    myOverlapsChecked = false;
+}
+
 
 /****************************************************************************/

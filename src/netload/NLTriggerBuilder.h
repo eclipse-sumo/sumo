@@ -41,7 +41,9 @@ class MSLane;
 class MSEdge;
 class MSStoppingPlace;
 class MSCalibrator;
+class MSDepot;
 class MSRouteProbe;
+class Parameterised;
 
 class METriggeredCalibrator;
 
@@ -264,6 +266,16 @@ public:
      */
     void parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& attrs,
                                  const std::string& base);
+
+    /** @brief Parses its values and builds a depot
+     *
+     * @param[in] net The network the depot belongs to
+     * @param[in] attrs SAX-attributes which define the depot
+     * @param[in] base The base path
+     * @return Built depot as Parameterised* (or nullptr on error)
+     */
+    Parameterised* parseAndBuildDepot(MSNet& net, const SUMOSAXAttributes& attrs,
+                                      const std::string& base);
 
     /** @brief updates the parkingArea default capacity
      */

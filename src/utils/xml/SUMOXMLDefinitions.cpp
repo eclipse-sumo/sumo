@@ -89,6 +89,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "variableSpeedSign",                      SUMO_TAG_VSS },
     { "variableSpeedSignSymbol",                GNE_TAG_VSS_SYMBOL },
     { "vaporizer",                              SUMO_TAG_VAPORIZER },
+    { "depot",                                  SUMO_TAG_DEPOT },
     { "tractionSubstation",                     SUMO_TAG_TRACTION_SUBSTATION },
     { "overheadWireSegment",                    SUMO_TAG_OVERHEAD_WIRE_SEGMENT },   // <- Deprecate
     { "overheadWire",                           SUMO_TAG_OVERHEAD_WIRE_SECTION },
@@ -1006,6 +1007,8 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "replacedAtTime",         SUMO_ATTR_REPLACED_AT_TIME },
     { "replacedOnIndex",        SUMO_ATTR_REPLACED_ON_INDEX },
     { "count",                  SUMO_ATTR_COUNT },
+    { "initialCount",           SUMO_ATTR_INITIALCOUNT },
+    { "maxCount",               SUMO_ATTR_MAXCOUNT },
     { "probabilities",          SUMO_ATTR_PROBS },
     { "routes",                 SUMO_ATTR_ROUTES },
     { "vTypes",                 SUMO_ATTR_VTYPES },

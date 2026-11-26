@@ -62,6 +62,7 @@
 #include <microsim/devices/MSDevice_GLOSA.h>
 #include <microsim/output/MSStopOut.h>
 #include <microsim/trigger/MSChargingStation.h>
+#include <microsim/trigger/MSDepot.h>
 #include <microsim/trigger/MSOverheadWire.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSRailSignalControl.h>
@@ -1131,7 +1132,8 @@ MSVehicle::hasArrivedInternal(bool oppositeTransformed) const {
     return ((myCurrEdge == myRoute->end() - 1 || (myParameter->arrivalEdge >= 0 && getRoutePosition() >= myParameter->arrivalEdge))
             && (myStops.empty() || myStops.front().edge != myCurrEdge || myStops.front().getSpeed() > 0)
             && ((myLaneChangeModel->isOpposite() && !oppositeTransformed) ? myLane->getLength() - myState.myPos : myState.myPos) > MIN2(myLane->getLength(), myArrivalPos) - POSITION_EPS
-            && !isRemoteControlled());
+            && !isRemoteControlled()
+            && (!MSDepot::hasDepots() || MSDepot::canArrive(*myCurrEdge, *this)));
 }
 
 
@@ -2749,6 +2751,17 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         //  check whether the vehicle is on its final edge
         if (myCurrEdge + view + 1 == myRoute->end()
                 || (myParameter->arrivalEdge >= 0 && getRoutePosition() + view == myParameter->arrivalEdge)) {
+            if (MSDepot::hasDepots() && !MSDepot::canArrive(*(myCurrEdge + view), *this)) {
+                const double stopPos = MIN2(lane->getLength(), myArrivalPos);
+                const double stopDist = MAX2(0., seen + stopPos - lane->getLength());
+                const double va = cfModel.stopSpeed(this, getSpeed(), stopDist);
+                v = MIN2(v, va);
+                if (lastLink != nullptr) {
+                    lastLink->adaptLeaveSpeed(va);
+                }
+                lfLinks.push_back(DriveProcessItem(v, stopDist, 0));
+                break;
+            }
             const double arrivalSpeed = (myParameter->arrivalSpeedProcedure == ArrivalSpeedDefinition::GIVEN ?
                                          myParameter->arrivalSpeed : laneMaxV);
             // subtract the arrival speed from the remaining distance so we get one additional driving step with arrival speed
