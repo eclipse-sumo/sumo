@@ -86,6 +86,8 @@ and the stop)
 Inconsistent constraints may arise from inconsistent input and cause simulation
 deadlock. To avoid this, the option --abort-unordered can be used to avoid
 generating constraints that are likely to be inconsistent.
+The option checks that each vehicle's scheduled arrivals and recorded `started` and `ended` events follow its stop sequence. The first inconsistent stop and subsequent stops are excluded from active constraint generation. With **--abort-unordered.keep-actual**, stops with consistent recorded arrival and departure times can still be used after an inconsistent schedule.
+
 When the option is set the ordering of vehicles is cross-checked with regard to
 arrival and until times:
 

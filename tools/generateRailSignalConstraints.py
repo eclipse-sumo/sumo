@@ -182,7 +182,8 @@ def get_options(args=None):
     parser.add_argument("--abort-unordered", dest="abortUnordered", action="store_true", default=False,
                         category="processing",
                         help="Abort generation of constraints for a stop "
-                        "once the ordering of vehicles by 'arrival' differs from the ordering by 'until'")
+                        "when one vehicle has inconsistent stop times or the arrival and departure "
+                        "orders of different vehicles disagree")
     parser.add_argument("--abort-unordered.keep-actual",
                         dest="abortUnorderedKeepActual", action="store_true", default=False,
                         category="processing",
@@ -616,7 +617,47 @@ def countPassingTrainsToOtherStops(options, signal, currentStop, begin, end, sig
     return count
 
 
-def markOvertaken(options, vehicleStopRoutes, stopRoutes):
+def markInconsistentStops(options, vehicleStopRoutes):
+    """Exclude timings that cannot be ordered along one vehicle's route."""
+    inconsistentStops = set()
+
+    for vehicle, stopRoute in vehicleStopRoutes.items():
+        previous = previousActual = None
+        lastArrival = lastActual = None
+        scheduleInvalid = actualInvalid = False
+        for index, (edgesBefore, stop) in enumerate(stopRoute):
+            arrival, started, ended = (
+                parseTime(stop.getAttribute(attr)) if stop.hasAttribute(attr) else None
+                for attr in ("arrival", "started", "ended"))
+            duplicateActual = (previous == stop.busStop and not edgesBefore and
+                               previousActual == (started, ended))
+            # Legacy route files can store an actual departure in 'until'.
+            # Compare scheduled arrivals only to other scheduled arrivals.
+            if not scheduleInvalid and arrival is not None and lastArrival is not None and arrival < lastArrival:
+                scheduleInvalid = True
+                print("Vehicle %s has inconsistent scheduled stop times at %s (index %s)." % (
+                    vehicle, stop.busStop, index), file=sys.stderr)
+            actualTimes = [v for v in (started, ended) if v is not None]
+            if not actualInvalid and actualTimes and (actualTimes != sorted(actualTimes) or (
+                    not duplicateActual and lastActual is not None and actualTimes[0] < lastActual)):
+                actualInvalid = True
+                print("Vehicle %s has inconsistent actual stop times at %s (index %s)." % (
+                    vehicle, stop.busStop, index), file=sys.stderr)
+            if scheduleInvalid or actualInvalid:
+                inconsistentStops.add(stop)
+            hasActual = started is not None and ended is not None
+            if actualInvalid or (scheduleInvalid and not (options.abortUnorderedKeepActual and hasActual)):
+                stop.setAttribute("invalid", True)
+            if arrival is not None:
+                lastArrival = arrival
+            if actualTimes:
+                lastActual = max(actualTimes + ([lastActual] if lastActual is not None else []))
+            previous = stop.busStop
+            previousActual = (started, ended)
+    return inconsistentStops
+
+
+def markOvertaken(options, vehicleStopRoutes, stopRoutes, inconsistentStops):
     """
     mark stops that should not participate in constraint generation
     once a vehicle appears to be "overtaken" (based on inconsistent
@@ -630,7 +671,7 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
         ignored = False
 
         for i, (edgesBefore, stop) in enumerate(stopRoute):
-            if not (stop.hasAttribute("arrival") and stop.hasAttribute("until")):
+            if stop in inconsistentStops or not (stop.hasAttribute("arrival") and stop.hasAttribute("until")):
                 continue
 
             started = parseTime(stop.started) if stop.hasAttribute("started") else None
@@ -640,7 +681,7 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
             if not overtaken:
                 arrival = parseTime(stop.arrival)
                 for edgesBefore2, stop2 in stopRoutes[stop.busStop]:
-                    if stop2.vehID == stop.vehID:
+                    if stop2.vehID == stop.vehID or stop2 in inconsistentStops:
                         continue
                     if not stop2.hasAttribute("arrival") or not stop2.hasAttribute("until"):
                         continue
@@ -1924,7 +1965,8 @@ def main(options):
     uniqueRoutes, stopRoutes, stopRoutesBidi, vehicleStopRoutes, departTimes = getStopRoutes(
             net, options, stopEdges, stopEnds, bidiStops)  # noqa
     if options.abortUnordered:
-        markOvertaken(options, vehicleStopRoutes, stopRoutes)
+        inconsistentStops = markInconsistentStops(options, vehicleStopRoutes)
+        markOvertaken(options, vehicleStopRoutes, stopRoutes, inconsistentStops)
     parkingConflicts, foeParkingInsertionConflicts = updateStartedEnded(
         options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes)
 
