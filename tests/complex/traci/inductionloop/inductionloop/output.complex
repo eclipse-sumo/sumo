@@ -6,10 +6,10 @@ inductionloops ('0',)
 inductionloop count 1
 examining 0
 vehNum 1
-meanSpeed 4.033343723951839
+meanSpeed -1.0
 vehIDs ('horiz',)
 occupancy 14.062612603401092
-meanLength 5.0
+meanLength -1.0
 timeSinceDet 0.0
 vehData (('horiz', 5.0, 2.859373873965989, -1.0, 'DEFAULT_VEHTYPE'),)
 position 10.0

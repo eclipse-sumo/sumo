@@ -1,0 +1,12 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="slow" maxSpeed="1.5" length="5"/>
+    <vType id="car" length="5"/>
+    <route id="horizontal" edges="2fi"/>
+    <!-- covers the loop for several steps: the last-step values describe the step it leaves in -->
+    <vehicle id="slow" type="slow" route="horizontal" depart="0" departPos="0" departSpeed="max"/>
+    <vehicle id="fast" type="car" route="horizontal" depart="20" departPos="0" departSpeed="max"/>
+    <!-- stands on the loop for 10 s -->
+    <vehicle id="stopper" type="car" route="horizontal" depart="40" departPos="0" departSpeed="max">
+        <stop lane="2fi_0" endPos="12" duration="10"/>
+    </vehicle>
+</routes>
