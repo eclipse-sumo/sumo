@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-25T13:46:08.284949+01:00 by Eclipse SUMO sumo v1_24_0+0988-90d076c371e
+<!-- generated on 2026-11-26T18:35:43.161310+01:00 by Eclipse SUMO sumo UNKNOWN
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -12,12 +12,17 @@
         <lanechange-output value="lanechanges.xml"/>
     </output>
 
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
     <report>
         <no-step-log value="true"/>
     </report>
 
     <traci_server>
-        <remote-port value="37017"/>
+        <remote-port value="59560"/>
     </traci_server>
 
 </sumoConfiguration>
@@ -25,7 +30,7 @@
 
 <lanechanges>
     <change id="ego" type="tEgo" time="10.00" from="gneE0_0" to="gneE0_1" dir="1" speed="13.89" pos="152.90" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="3.90" followerSecureGap="13.89" followerSpeed="13.89" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="v0" type="t0" time="10.00" from="gneE0_1" to="gneE0_2" dir="1" speed="13.89" pos="144.00" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="3.90" origLeaderSecureGap="13.89" origLeaderSpeed="13.89"/>
+    <change id="v0" type="t0" time="12.00" from="gneE0_1" to="gneE0_2" dir="1" speed="11.20" pos="165.06" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="10.62" origLeaderSecureGap="5.43" origLeaderSpeed="13.89"/>
     <change id="ego" type="tEgo" time="22.00" from="gneE0_1" to="gneE0_0" dir="-1" speed="13.89" pos="319.58" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="v0" type="t0" time="28.00" from="gneE0_2" to="gneE0_1" dir="-1" speed="13.89" pos="394.02" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="v0" type="t0" time="29.00" from="gneE0_2" to="gneE0_1" dir="-1" speed="13.89" pos="401.10" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
 </lanechanges>
