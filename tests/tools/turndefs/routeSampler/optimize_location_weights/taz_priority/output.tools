@@ -1,0 +1,3 @@
+Optimization succeeded
+Wrote 1 routes (1 distinct) achieving total count 2 (66.67%) at 3 locations. GEH<5 for 66.67%
+Warning: underflow locations: count 1, min 1.00 (('origin', 'l')), max 1.00 (('origin', 'l')), mean 1.00, Q1 1.00, median 1.00, Q3 1.00 (total 1)

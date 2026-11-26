@@ -287,6 +287,8 @@ When setting option **--optimize full**. No constraints on the route distributio
 The option **--minimize-vehicles <FLOAT>** can be used to configure a weighting term for simultaneously minimizing the total number of used routes (vehicles).
   A higher value, favors solutions with few vehicles that pass multiple counting locations rather than more vehicles that pass fewer locations. Hard constraints on the minimum number of counting locations passed by each route can also be set with option **-min-count**. An alternative approach to reducing the total number of vehicles is by setting option [**--total-count**](#total_count_restrictions).
 
+Use `--optimize-weight-attribute priority` to read shortfall weights from the `priority` attribute of edge, turn, or origin-destination counts. A larger weight makes the optimizer prioritize reducing the shortfall at that location. Weights must be finite and nonnegative. A missing weight defaults to 1. Give measurements the same weight if they are combined into one count in a solver interval.
+
 !!! note
     Optimization requires [scipy](https://www.scipy.org/).
 

@@ -1,0 +1,1 @@
+{CLEAR} -r data/routes.rou.xml -d data/counts_right.xml --optimize full -o out.rou.xml tools/routeSampler.py

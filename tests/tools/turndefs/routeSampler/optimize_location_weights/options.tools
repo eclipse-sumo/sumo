@@ -1,0 +1,1 @@
+-r data/routes.rou.xml --optimize full --optimize-weight-attribute priority -o out.rou.xml

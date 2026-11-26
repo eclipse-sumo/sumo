@@ -1,0 +1,6 @@
+<data>
+    <interval begin="0" end="60">
+        <edgeRelation from="entry" to="left" count="1" priority="7"/>
+        <edgeRelation from="entry" to="right" count="1" priority="2"/>
+    </interval>
+</data>

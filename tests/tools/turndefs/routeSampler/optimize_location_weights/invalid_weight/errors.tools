@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/mark/rev-batch2-work/19030/tests/../tools/routeSampler.py", line 1600, in <module>
+    main(get_options())
+  File "/home/mark/rev-batch2-work/19030/tests/../tools/routeSampler.py", line 1504, in main
+    countData = parseCounts(options, routes, b, e, True, 1.0)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mark/rev-batch2-work/19030/tests/../tools/routeSampler.py", line 1041, in parseCounts
+    + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mark/rev-batch2-work/19030/tests/../tools/routeSampler.py", line 762, in parseDataIntervals
+    raise ValueError("Invalid optimization weight '%s' in '%s' for '%s'" %
+ValueError: Invalid optimization weight 'nan' in 'data/counts_invalid.xml' for 'left'

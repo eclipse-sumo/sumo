@@ -1,0 +1,7 @@
+<data>
+    <interval begin="0" end="60">
+        <edge id="entry" entered="1"/>
+        <edge id="left" entered="1" priority="nan"/>
+        <edge id="right" entered="1"/>
+    </interval>
+</data>

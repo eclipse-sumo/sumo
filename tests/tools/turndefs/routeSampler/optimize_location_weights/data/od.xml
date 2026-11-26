@@ -1,0 +1,6 @@
+<data>
+    <interval begin="0" end="60">
+        <tazRelation from="origin" to="l" count="1" priority="2"/>
+        <tazRelation from="origin" to="r" count="1" priority="7"/>
+    </interval>
+</data>
