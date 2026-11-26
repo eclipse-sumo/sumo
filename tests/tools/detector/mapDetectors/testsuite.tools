@@ -15,3 +15,9 @@ poi_params
 # handle case where the edge shape is far away from the original junction position 
 # see #18085
 shape_junction_shift
+
+# map stopping places with optional second coordinate and fallback length
+busStop_endCoord
+
+# map laneAreaDetectors
+laneAreaDetector

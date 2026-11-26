@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17 18:25:00.545820 by Eclipse SUMO mapDetectors.py v1_28_0+0629-650f618c216
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <detector-file value="data.txt"/>
+    <delimiter value=","/>
+    <output-file value="out.add.xml"/>
+    <element value="laneAreaDetector"/>
+    <id-column value="customID"/>
+    <length value="20.0"/>
+    <max-radius value="100.0"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <laneAreaDetector id="8032" lane="323916051#2_0" pos="24.29" endPos="44.29" file="detector.out.xml" freq="3600"/>
+    <laneAreaDetector id="8026" lane="323916051#2_0" pos="2.21" endPos="22.21" file="detector.out.xml" freq="3600"/>
+</additional>

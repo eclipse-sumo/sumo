@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17 18:24:58.087383 by Eclipse SUMO mapDetectors.py v1_28_0+0629-650f618c216
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <detector-file value="data.txt"/>
+    <delimiter value=","/>
+    <output-file value="out.add.xml"/>
+    <element value="busStop"/>
+    <id-column value="customID"/>
+    <end-longitude-column value="end_lon"/>
+    <end-latitude-column value="end_lat"/>
+    <length value="15.0"/>
+    <max-radius value="100.0"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="bs_span" lane="323916051#2_0" startPos="12.21" endPos="44.29"/>
+    <busStop id="bs_point" lane="323916051#2_0" startPos="29.29" endPos="44.29"/>
+</additional>
