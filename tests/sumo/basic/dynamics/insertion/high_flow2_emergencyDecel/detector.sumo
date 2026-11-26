@@ -41,10 +41,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
-    <interval begin="0.00" end="900.00" id="beg2_0" nVehContrib="480" flow="1920.00" occupancy="9.20" speed="29.21" harmonicMeanSpeed="28.99" length="5.00" nVehEntered="480"/>
-    <interval begin="0.00" end="900.00" id="beg2_1" nVehContrib="553" flow="2212.00" occupancy="9.42" speed="32.74" harmonicMeanSpeed="32.63" length="5.00" nVehEntered="554"/>
-    <interval begin="900.00" end="1800.00" id="beg2_0" nVehContrib="509" flow="2036.00" occupancy="10.06" speed="28.84" harmonicMeanSpeed="28.12" length="5.00" nVehEntered="509"/>
-    <interval begin="900.00" end="1800.00" id="beg2_1" nVehContrib="581" flow="2324.00" occupancy="10.07" speed="32.16" harmonicMeanSpeed="32.06" length="5.00" nVehEntered="580"/>
-    <interval begin="1800.00" end="1905.00" id="beg2_0" nVehContrib="53" flow="1817.14" occupancy="9.05" speed="28.00" harmonicMeanSpeed="27.89" length="5.00" nVehEntered="53"/>
-    <interval begin="1800.00" end="1905.00" id="beg2_1" nVehContrib="67" flow="2297.14" occupancy="10.00" speed="31.98" harmonicMeanSpeed="31.90" length="5.00" nVehEntered="67"/>
+    <interval begin="0.00" end="900.00" id="beg2_0" nVehContrib="470" flow="1880.00" occupancy="9.05" speed="29.06" harmonicMeanSpeed="28.84" length="5.00" nVehEntered="470"/>
+    <interval begin="0.00" end="900.00" id="beg2_1" nVehContrib="556" flow="2224.00" occupancy="9.53" speed="32.55" harmonicMeanSpeed="32.42" length="5.00" nVehEntered="556"/>
+    <interval begin="900.00" end="1800.00" id="beg2_0" nVehContrib="483" flow="1932.00" occupancy="9.48" speed="28.77" harmonicMeanSpeed="28.29" length="5.00" nVehEntered="483"/>
+    <interval begin="900.00" end="1800.00" id="beg2_1" nVehContrib="570" flow="2280.00" occupancy="9.70" speed="32.76" harmonicMeanSpeed="32.63" length="5.00" nVehEntered="570"/>
+    <interval begin="1800.00" end="1902.00" id="beg2_0" nVehContrib="47" flow="1658.82" occupancy="8.05" speed="28.73" harmonicMeanSpeed="28.61" length="5.00" nVehEntered="47"/>
+    <interval begin="1800.00" end="1902.00" id="beg2_1" nVehContrib="57" flow="2011.76" occupancy="8.76" speed="32.04" harmonicMeanSpeed="31.90" length="5.00" nVehEntered="57"/>
 </detector>

@@ -43,19 +43,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
-    <interval begin="0.00" end="479.00" id="DEFAULT_LANEDATA">
+    <interval begin="0.00" end="469.00" id="DEFAULT_LANEDATA">
         <edge id="main_beg">
-            <lane id="main_beg_0" sampledSeconds="2564.22" traveltime="12.79" overlapTraveltime="13.36" density="53.49" overlapDensity="55.87" laneDensity="53.49" occupancy="27.36" waitingTime="216.00" timeLoss="1597.00" speed="7.54" speedRelative="0.38" departed="190" arrived="0" entered="0" left="190" laneChangedFrom="0" laneChangedTo="0" flow="1442.78" distance="18394.51"/>
+            <lane id="main_beg_0" sampledSeconds="2680.36" traveltime="14.16" overlapTraveltime="14.90" density="56.67" overlapDensity="59.64" laneDensity="56.67" occupancy="29.11" waitingTime="84.00" timeLoss="1773.77" speed="6.76" speedRelative="0.34" departed="179" arrived="0" entered="0" left="179" laneChangedFrom="0" laneChangedTo="0" flow="1380.80" distance="17236.85"/>
         </edge>
         <edge id="main_end">
-            <lane id="main_end_0" sampledSeconds="2901.91" traveltime="11.11" overlapTraveltime="11.38" density="29.70" overlapDensity="30.29" laneDensity="29.70" occupancy="14.73" waitingTime="0.00" timeLoss="287.11" speed="18.02" speedRelative="0.90" departed="0" arrived="256" entered="256" left="0" laneChangedFrom="0" laneChangedTo="0" flow="1924.00" distance="51199.80"/>
+            <lane id="main_end_0" sampledSeconds="2770.68" traveltime="11.18" overlapTraveltime="11.44" density="28.95" overlapDensity="29.54" laneDensity="28.95" occupancy="14.35" waitingTime="0.00" timeLoss="287.32" speed="17.93" speedRelative="0.90" departed="0" arrived="243" entered="243" left="0" laneChangedFrom="0" laneChangedTo="0" flow="1865.24" distance="48599.90"/>
         </edge>
         <edge id="merge">
-            <lane id="merge_0" sampledSeconds="4391.09" traveltime="116.56" overlapTraveltime="121.94" density="84.58" overlapDensity="84.58" laneDensity="84.58" occupancy="41.33" waitingTime="3434.00" timeLoss="4186.92" speed="0.93" speedRelative="0.05" departed="0" arrived="0" entered="66" left="0" laneChangedFrom="66" laneChangedTo="0" flow="283.14" distance="4083.35"/>
-            <lane id="merge_1" sampledSeconds="2811.49" traveltime="12.41" overlapTraveltime="12.78" density="52.18" overlapDensity="54.15" laneDensity="52.18" occupancy="25.98" waitingTime="331.00" timeLoss="1564.26" speed="8.87" speedRelative="0.44" departed="0" arrived="0" entered="190" left="256" laneChangedFrom="0" laneChangedTo="66" flow="1640.87" distance="23664.47"/>
+            <lane id="merge_0" sampledSeconds="4072.06" traveltime="101.70" overlapTraveltime="106.39" density="80.10" overlapDensity="80.10" laneDensity="80.10" occupancy="39.08" waitingTime="3176.00" timeLoss="3855.06" speed="1.07" speedRelative="0.05" departed="0" arrived="0" entered="64" left="0" laneChangedFrom="64" laneChangedTo="0" flow="307.34" distance="4339.86"/>
+            <lane id="merge_1" sampledSeconds="2771.60" traveltime="13.16" overlapTraveltime="13.54" density="52.54" overlapDensity="54.52" laneDensity="52.54" occupancy="26.10" waitingTime="250.00" timeLoss="1610.90" speed="8.38" speedRelative="0.42" departed="0" arrived="0" entered="179" left="243" laneChangedFrom="0" laneChangedTo="64" flow="1557.91" distance="21998.90"/>
         </edge>
         <edge id="ramp_beg">
-            <lane id="ramp_beg_0" sampledSeconds="4249.77" traveltime="62.96" overlapTraveltime="67.33" density="79.41" overlapDensity="85.01" laneDensity="79.41" occupancy="40.70" waitingTime="2659.00" timeLoss="3904.60" speed="1.62" speedRelative="0.08" departed="66" arrived="0" entered="0" left="66" laneChangedFrom="0" laneChangedTo="0" flow="473.89" distance="6580.87"/>
+            <lane id="ramp_beg_0" sampledSeconds="4057.17" traveltime="62.11" overlapTraveltime="66.20" density="77.59" overlapDensity="82.88" laneDensity="77.59" occupancy="39.80" waitingTime="2277.00" timeLoss="3722.05" speed="1.65" speedRelative="0.08" departed="64" arrived="0" entered="0" left="64" laneChangedFrom="0" laneChangedTo="0" flow="469.41" distance="6382.57"/>
         </edge>
     </interval>
 </meandata>
