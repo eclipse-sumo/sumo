@@ -1,0 +1,8 @@
+=== modelDescription.xml (100644) ===
+<fmiModelDescription><CoSimulation modelIdentifier="libsumofmi2"/></fmiModelDescription>
+=== binaries/win64/libsumocppD.dll (100755) ===
+debug libsumo
+=== binaries/win64/libsumofmi2.dll (100755) ===
+debug FMI bridge
+=== binaries/win64/runtimeD.dll (100755) ===
+debug runtime

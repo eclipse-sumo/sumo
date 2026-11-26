@@ -1,0 +1,5 @@
+[collate_file]
+fmu:out.fmu
+
+[collate_script]
+fmu:$SUMO_HOME/tests/unzip.py
