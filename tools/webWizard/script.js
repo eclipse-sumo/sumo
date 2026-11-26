@@ -444,8 +444,8 @@ on("ready", async function(){
         translatePage(layersControl.getContainer());
     });
 
-    function setPosition(lon, lat){
-        if(!lon || !lat){
+    function setPosition(lon, lat, zoom = 16){
+        if(lon === undefined || lat === undefined){
             let latLon = elem("#lat_lon").value.split(" ");
             lon = Number.parseFloat(latLon[1]);
             lat = Number.parseFloat(latLon[0]);
@@ -473,7 +473,7 @@ on("ready", async function(){
             }
         }
 
-        map.setView([lat, lon], 16);
+        map.setView([lat, lon], zoom);
     }
 
     function setPositionByString() {
@@ -523,8 +523,15 @@ on("ready", async function(){
         xhr.send();
     }; */
 
-    // set default position to center Berlin
-    setPosition(13.4, 52.52);
+    // set initial position from URL parameters or default to center Berlin
+    const initLon = params.has("lon") ? Number.parseFloat(params.get("lon")) : 13.4;
+    const initLat = params.has("lat") ? Number.parseFloat(params.get("lat")) : 52.52;
+    const initZoom = params.has("zoom") ? Number.parseInt(params.get("zoom"), 10) : 16;
+    setPosition(
+        Number.isFinite(initLon) ? initLon : 13.4,
+        Number.isFinite(initLat) ? initLat : 52.52,
+        Number.isFinite(initZoom) ? initZoom : 16
+    );
 
     /**
      * @listener
