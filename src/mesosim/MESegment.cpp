@@ -546,9 +546,12 @@ MESegment::writeVehicles(OutputDevice& of) const {
 
 MEVehicle*
 MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, const MSMoveReminder::Notification reason) {
-    Queue& q = myQueues[v->getQueIndex()];
     // One could be tempted to do  v->setSegment(next); here but position on lane will be invalid if next == 0
     v->updateDetectors(leaveTime, v->getEventTime(), true, reason);
+    if (v->getQueIndex() == PARKING_QUEUE) {
+        return nullptr;
+    }
+    Queue& q = myQueues[v->getQueIndex()];
     myNumVehicles--;
     myEdge.lock();
     MEVehicle* nextLeader = q.remove(v);

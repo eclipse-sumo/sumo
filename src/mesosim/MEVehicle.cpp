@@ -331,7 +331,7 @@ MEVehicle::resumeFromStopping() {
         myStops.pop_front();
         if (myEventTime > now) {
             // if this is an aborted stop we need to change the event time of the vehicle
-            const bool isLeader = mySegment->getQueue(myQueIndex).back() == this;
+            const bool isLeader = myQueIndex != MESegment::PARKING_QUEUE && mySegment->getQueue(myQueIndex).back() == this;
             if (isLeader) {
                 MSGlobals::gMesoNet->removeLeaderCar(this);
                 myEventTime = now + 1;
@@ -568,8 +568,8 @@ MEVehicle::getBaseInfluencer() const {
 
 void
 MEVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
-    MSGlobals::gMesoNet->removeLeaderCar(this);
     MSGlobals::gMesoNet->changeSegment(this, MSNet::getInstance()->getCurrentTimeStep(), nullptr, reason);
+    MSGlobals::gMesoNet->removeLeaderCar(this);
 }
 
 
