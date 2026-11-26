@@ -1,0 +1,69 @@
+<configuration>
+    <disable-warnings value="False" type="bool" help="disables warnings" category="processing"/>
+    <net-file value="None" type="net_file" help="SUMO network (mandatory)" category="input"/>
+    <additional value="" type="additional_file" help="Additional files" category="input"/>
+    <begin value="0" type="time" help="Set simulation/routing begin" category="processing"/>
+    <end value="None" type="time" help="Set simulation/routing end" category="processing"/>
+    <route-steps value="200" type="int" help="Set simulation route steps" category="processing"/>
+    <aggregation value="900" type="time" help="Set main weights aggregation period" category="processing"/>
+    <mesosim value="False" type="bool" help="Whether mesosim shall be used" category="processing"/>
+    <path value="None" type="string" help="Path to binaries" category="processing"/>
+    <absrand value="False" type="bool" help="use current time to generate random number" category="processing"/>
+    <nointernal-link value="False" type="bool" help="not to simulate internal link: true or false" category="processing"/>
+    <meso-junctioncontrol value="False" type="bool" help="Enable mesoscopic traffic light and priority junction handling" category="processing"/>
+    <meso-junctioncontrollimited value="False" type="bool" help="Enable mesoscopic traffic light and priority junction handling for saturated links" category="processing"/>
+    <meso-multiqueue value="False" type="bool" help="Enable multiple queues at edge ends" category="processing"/>
+    <meso-recheck value="0" type="int" help="Delay before checking whether a jam is gone. (higher values can lead to a big speed increase)" category="processing"/>
+    <meso-tls-penalty value="None" type="float" help="Apply scaled time penalties when driving across tls controlled junctions" category="processing"/>
+    <meso-minor-penalty value="None" type="int" help="Apply fixed time penalty when driving across a minor link; do not use together with --meso-junctioncontrollimited" category="processing"/>
+    <eco-measure value="None" type="string" help="define the applied eco measure, e.g. fuel, CO2, noise" category="processing"/>
+    <eager-insert value="False" type="bool" help="eager insertion tests (may slow down the sim considerably)" category="processing"/>
+    <time-to-teleport value="300" type="time" help="Delay before blocked vehicles are teleported (negative value disables teleporting)" category="processing"/>
+    <time-to-teleport.highways value="0" type="time" help="Delay before blocked vehicles are teleported on wrong highway lanes" category="processing"/>
+    <measure-vtypes value="None" type="string" help="Restrict edgeData measurements to the given vehicle types" category="processing"/>
+    <zip value="False" type="bool" help="zip old iterations (non-functional, kept for backwards compatibility)" category="processing"/>
+    <method-of-successive-average value="False" type="bool" help="apply the method of successive average as the swapping algorithm" category="processing"/>
+    <continue-on-unbuild value="False" type="bool" help="continues on unbuild routes" category="processing"/>
+    <trips value="None" type="string" help="trips in step 0 (either trips, flows, or routes have to be supplied)" category="processing"/>
+    <routes value="None" type="string" help="routes in step 0 (either trips, flows, or routes have to be supplied)" category="processing"/>
+    <flows value="None" type="string" help="flows in step 0 (either trips, flows, or routes have to be supplied)" category="processing"/>
+    <gA value="0.5" type="float" help="Sets Gawron's Alpha" category="processing"/>
+    <gBeta value="0.9" type="float" help="Sets Gawron's Beta" category="processing"/>
+    <disable-summary value="False" type="bool" help="No summaries are written by the simulation" category="output"/>
+    <disable-tripinfos value="False" type="bool" help="No tripinfos are written by the simulation" category="processing"/>
+    <tripinfo-filter value="None" type="string" help="filter tripinfo attributes" category="processing"/>
+    <inc-start value="0" type="float" help="Start for incrementing scale" category="processing"/>
+    <inc-max value="1" type="float" help="Maximum for incrementing scale" category="processing"/>
+    <inc-base value="-1" type="int" help="Give the incrementation base. Negative values disable incremental scaling" category="processing"/>
+    <incrementation value="1" type="int" help="Give the incrementation" category="processing"/>
+    <time-inc value="0" type="int" help="Give the time incrementation" category="processing"/>
+    <max-teleport-ratio value="-1" type="float" help="Hold incremental scaling constant while teleports/inserted exceeds FLOAT (negative values disable dynamic scaling)" category="processing"/>
+    <first-step value="0" type="int" help="First DUA step" category="processing"/>
+    <last-step value="50" type="int" help="Last DUA step" category="processing"/>
+    <convergence-iterations value="10" type="int" help="Number of iterations to use for convergence calculation" category="processing"/>
+    <max-convergence-deviation value="None" type="float" help="Maximum relative standard deviation in travel times" category="processing"/>
+    <districts value="None" type="string" help="use districts as sources and targets" category="processing"/>
+    <vehroute-file value="None" type="string" help="choose the format of the route file" category="processing"/>
+    <output-lastRoute value="False" type="bool" help="output the last routes" category="output"/>
+    <keep-allroutes value="False" type="bool" help="save routes with near zero probability" category="processing"/>
+    <routing-algorithm value="dijkstra" type="string" help="select the routing algorithm" category="processing"/>
+    <max-alternatives value="5" type="string" help="prune the number of alternatives to INT" category="processing"/>
+    <skip-first-routing value="False" type="bool" help="run simulation with demands before first routing" category="processing"/>
+    <logit value="False" type="bool" help="use the logit model for route choice" category="processing"/>
+    <logitbeta value="0.15" type="float" help="use the c-logit model for route choice; logit model when beta = 0" category="processing"/>
+    <logitgamma value="1.0" type="float" help="use the c-logit model for route choice" category="processing"/>
+    <logittheta value="None" type="float" help="parameter to adapt the cost unit" category="processing"/>
+    <addweights value="None" type="string" help="Additional weights for duarouter" category="processing"/>
+    <convergence-steps value="None" type="int" help="Given x, if x &gt; 0 reduce probability to change route by 1/x per step (Probabilistic Swapping (PSwap)). If x &lt; 0 set probability of rerouting to 1/step after step |x|" category="processing"/>
+    <addweights.once value="False" type="bool" help="use added weights only on the first iteration" category="processing"/>
+    <router-verbose value="False" type="bool" help="let duarouter print some statistics" category="processing"/>
+    <weight-memory value="False" type="bool" help="smooth edge weights across iterations" category="processing"/>
+    <pessimism value="1" type="float" help="give traffic jams a higher weight when using option --weight-memory" category="processing"/>
+    <clean-alt value="False" type="bool" help="Whether old rou.alt.xml files shall be removed" category="processing"/>
+    <gzip value="True" type="bool" help="writing intermediate and resulting route files in gzipped format (the default)" category="processing"/>
+    <dualog value="dua.log" type="string" help="log file path (default 'dua.log')" category="output"/>
+    <log value="stdout.log" type="string" help="stdout log file path (default 'stdout.log')" category="output"/>
+    <marginal-cost value="False" type="bool" help="use marginal cost to perform system optimal traffic assignment" category="processing"/>
+    <marginal-cost.exp value="0" type="float" help="apply the given exponent on the current traffic count when computing marginal cost" category="processing"/>
+    <remaining_args value="" type="string" category="processing" positional="true" listSeparator=" "/>
+</configuration>

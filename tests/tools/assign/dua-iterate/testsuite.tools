@@ -85,3 +85,6 @@ invalid_option
 
 # origins and destinations are junctions
 fromJunction
+
+# Netedit templates must allow empty forwarded arguments
+template_optional_args

@@ -252,9 +252,10 @@ class ArgumentParser(argparse.ArgumentParser):
         a.category = category
         # set if a is a boolean
         a.boolean = ((action == "store_true") or (action == "store_false"))
-        # the value of a.required is lost during parsing
-        a.isRequired = a.required
         a.isPositional = args[0][0] != "-"
+        # Older argparse versions mark zero-or-more positionals as required.
+        # Record the required status before template parsing clears it.
+        a.isRequired = a.required and not (a.isPositional and a.nargs == argparse.ZERO_OR_MORE)
         if catch_all:
             self._catch_all = a
 
