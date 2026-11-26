@@ -671,6 +671,8 @@ on("ready", async function(){
         let data = {
             language: currentLanguage,
             poly: elem("#polygons").checked,
+            taxiStands: elem("#taxiStands").checked,
+            chargingStations: elem("#chargingStations").checked,
             duration: Number.parseInt(elem("#duration").value),
             publicTransport: elem("#publicTransport").checked,
             ptModes: {

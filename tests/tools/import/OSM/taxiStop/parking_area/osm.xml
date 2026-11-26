@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="SUMO test">
+    <node id="1" lat="52.5" lon="13.4"/>
+    <node id="2" lat="52.5" lon="13.404"/>
+    <node id="3" lat="52.50001" lon="13.401">
+        <tag k="amenity" v="taxi"/>
+        <tag k="name" v="Taxi &amp; &quot;Ride&quot;"/>
+        <tag k="capacity" v="4"/>
+    </node>
+    <way id="5">
+        <nd ref="1"/>
+        <nd ref="2"/>
+        <tag k="highway" v="primary"/>
+    </way>
+</osm>

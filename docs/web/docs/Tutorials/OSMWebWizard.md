@@ -59,6 +59,7 @@ The infrastructure import from OSM into the SUMO simulation are affected by diff
 * if the checkbox "left-hand Traffic" is enabled, the network will be built with left hand traffic rules. For most geographic regions where this is required, this feature will be enabled automatically but if it does not work, this option can be used as a remedy.
 * if the checkbox "Car-only Network" is enabled, then only roads that permit passenger car traffic will be included. This can be used to reduce the network size and also helps to reduce intersection complexity
 * if the checkbox "Import Public Transport" is enabled, then busStops and trainStops will be exported. Also buses, trams and trains will be generated that follow the public transport routes defined in OSM (but they will follow synthetic schedules).
+* Select **Import Taxi Stands** to convert OSM taxi amenities into SUMO parking areas. Select **Import Charging Stations** to add SUMO charging stations from the corresponding OSM amenities.
 * if the Demand-checkbox "Bicycles" is active, then extra bicycle lanes will be added to roads where OSM contains this information
 * if the Demand-checkbox "Pedestrians" is active, then sidewalks and pedestrian crossings will be generated
 

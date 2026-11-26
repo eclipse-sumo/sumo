@@ -4,3 +4,6 @@ plain
 gz
 fleet0_1
 fleet1
+
+# taxi stands exported as parkingAreas with escaped names and capacity
+parking_area

@@ -1,0 +1,1 @@
+-s osm.xml -o out.add.xml -t parkingArea --vclass taxi tools/import/osm/osmTaxiStop.py
