@@ -1000,23 +1000,28 @@ std::pair<GNEJunction*, GNEEdge*>
 GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction) {
     // begin undo list
     undoList->begin(edge, TL("split edge"));
-    // check if we have to create a new edge
+    // check if we have to create a new junction
+    const bool wasNewJunction = (newJunction == nullptr);
     if (newJunction == nullptr) {
         newJunction = createJunction(pos, undoList);
     }
     // obtain edge geometry and split position
-    const PositionVector& oldEdgeGeometry = edge->getNBEdge()->getGeometry();
+    const PositionVector oldEdgeGeometry = edge->getNBEdge()->getGeometry();
     const double edgeSplitPosition = oldEdgeGeometry.nearest_offset_to_point2D(pos, false);
     // obtain lane geometry and split position (needed for adjust additional and demand childs)
-    const PositionVector& oldLaneGeometry = edge->getChildLanes().front()->getLaneShape();
+    const PositionVector oldLaneGeometry = edge->getChildLanes().front()->getLaneShape();
     const double laneSplitPosition = oldLaneGeometry.nearest_offset_to_point2D(pos, false);
     // split edge geometry in two new geometries using edgeSplitPosition
     std::pair<PositionVector, PositionVector> newGeoms = oldEdgeGeometry.splitAt(edgeSplitPosition);
     const double oldLength = oldEdgeGeometry.length();
     const double relativeLength1 = oldLength != 0 ? newGeoms.first.length() / oldLength : 1;
     const double relativeLength2 = oldLength != 0 ? newGeoms.second.length() / oldLength : 1;
-    // get shape end
-    const std::string shapeEnd = edge->getAttribute(GNE_ATTR_SHAPE_END);
+    // get shape endpoints
+    const Position splitPos = newGeoms.first.back();
+    const std::string shapeEnd = oldEdgeGeometry.back().almostSame(edge->getToJunction()->getNBNode()->getPosition(), POSITION_EPS)
+                                 ? "" : toString(oldEdgeGeometry.back());
+    const std::string newShapeEnd = (wasNewJunction || splitPos.almostSame(newJunction->getNBNode()->getPosition(), POSITION_EPS))
+                                    ? "" : toString(splitPos);
     // figure out the new name
     int posBase = 0;
     // set baseName
@@ -1062,10 +1067,18 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     // set first part of geometry
     newGeoms.first.pop_back();
     newGeoms.first.erase(newGeoms.first.begin());
-    edge->setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
+    GNEChange_Attribute::changeAttribute(edge, GNE_ATTR_SHAPE_END, newShapeEnd, toString(oldEdgeGeometry.back()), undoList, true);
     edge->setAttribute(SUMO_ATTR_SHAPE, toString(newGeoms.first), undoList);
     // set second part of geometry
-    secondPart->setAttribute(GNE_ATTR_SHAPE_END, shapeEnd, undoList);
+    if (!newShapeEnd.empty() && (GNEAttributeCarrier::parse<Position>(newShapeEnd) != secondPart->getNBEdge()->getGeometry().back())) {
+        secondPart->setAttribute(GNE_ATTR_SHAPE_START, newShapeEnd, undoList);
+        secondPart->setAttribute(GNE_ATTR_SHAPE_END, shapeEnd, undoList);
+    } else {
+        secondPart->setAttribute(GNE_ATTR_SHAPE_END, shapeEnd, undoList);
+        if (!newShapeEnd.empty()) {
+            secondPart->setAttribute(GNE_ATTR_SHAPE_START, newShapeEnd, undoList);
+        }
+    }
     newGeoms.second.pop_back();
     newGeoms.second.erase(newGeoms.second.begin());
     secondPart->setAttribute(SUMO_ATTR_SHAPE, toString(newGeoms.second), undoList);
@@ -1117,12 +1130,21 @@ void
 GNENet::splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos, GNEUndoList* undoList) {
     GNEJunction* newJunction = nullptr;
     undoList->begin(edge, TL("split edges"));
+    // compute split positions on both edges
+    const PositionVector& edgeGeom = edge->getNBEdge()->getGeometry();
+    const PositionVector& oppositeGeom = oppositeEdge->getNBEdge()->getGeometry();
+    const Position edgeSplitPos = edgeGeom.positionAtOffset(edgeGeom.nearest_offset_to_point2D(pos, false));
+    const Position oppositeSplitPos = oppositeGeom.positionAtOffset(oppositeGeom.nearest_offset_to_point2D(pos, false));
+    if (!edgeSplitPos.almostSame(oppositeSplitPos, POSITION_EPS)) {
+        newJunction = createJunction((edgeSplitPos + oppositeSplitPos) * 0.5, undoList);
+    }
     // split edge and save created junction
     auto newStuff = splitEdge(edge, pos, undoList, newJunction);
     newJunction = newStuff.first;
     // split second edge
     splitEdge(oppositeEdge, pos, undoList, newJunction);
-    if (edge->getChildLanes().back()->getAttribute(GNE_ATTR_OPPOSITE) != "") {
+    if ((edge->getChildLanes().back()->getAttribute(GNE_ATTR_OPPOSITE) != "") ||
+            (oppositeEdge->getChildLanes().back()->getAttribute(GNE_ATTR_OPPOSITE) != "")) {
         // restore opposite lane information
         for (const auto& nbEdge : newJunction->getNBNode()->getEdges()) {
             GNEEdge* e = myAttributeCarriers->retrieveEdge(nbEdge->getID());
