@@ -143,9 +143,6 @@ private:
     /// @brief scroll windows that holds the content frame
     FXScrollWindow* myScrollWindowsContents = nullptr;
 
-    /// @brief static Font for the Header (it's common for all headers, then create only one time)
-    static FXFont* myFrameHeaderFont;
-
     /// @brief the label for the frame's header
     FXLabel* myFrameHeaderLabel = nullptr;
 

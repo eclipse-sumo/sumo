@@ -60,21 +60,41 @@ GUIMainWindow::GUIMainWindow(FXApp* app) :
     myListInternal(false),
     myListParking(true),
     myListTeleporting(false) {
-    // build static tooltips
-    myStaticTooltipMenu = new MFXStaticToolTip(app);
-    myStaticTooltipView = new MFXStaticToolTip(app);
-    // build bold font
+    // build unified scaled fonts before creating tooltip and child widgets
     FXFontDesc fdesc;
     app->getNormalFont()->getFontDesc(fdesc);
-    const double uiScale = app->reg().readRealEntry("SETTINGS", "uiscale", 1);
-    fdesc.size = (FXushort)(fdesc.size * uiScale);
+    const double uiScale = MAX2(0.5, app->reg().readRealEntry("SETTINGS", "uiscale", 1));
+    const FXushort normalSize = (FXushort)MAX2(10, (int)(fdesc.size * uiScale));
+    fdesc.size = normalSize;
     myNormalFont = new FXFont(app, fdesc);
+    if (app->getDisplay() != nullptr) {
+        myNormalFont->create();
+    }
     app->setNormalFont(myNormalFont);
+    GUIDesignHeight = MAX2((int)(normalSize / 90.0 * 18) + 5, (int)(myNormalFont->getFontHeight() / 16.0 * 18) + 5);
+    GUIDesignDialogButtonsHeight = MAX2(32, GUIDesignHeight + 9);
+    // build bold, header, and headline fonts from the scaled normal font
     fdesc.weight = FXFont::Bold;
-    GUIDesignHeight = (int)(fdesc.size / 90.0 * 18) + 5;
     myBoldFont = new FXFont(app, fdesc);
+    fdesc.size = (FXushort)(normalSize * 14 / 9);
+    myHeaderFont = new FXFont(app, fdesc);
+    fdesc.size = (FXushort)(normalSize * 2);
+    myHeadlineFont = new FXFont(app, fdesc);
+    // build scaled monospace font
+    myMonospaceFont = new FXFont(app, "Courier New", 10, FXFont::Normal, FXFont::Straight, FONTENCODING_DEFAULT, FXFont::NonExpanded, FXFont::Fixed | FXFont::Modern);
+    FXFontDesc monoDesc;
+    myMonospaceFont->getFontDesc(monoDesc);
+    monoDesc.size = (FXushort)(normalSize * 10 / 9);
+    myMonospaceFont->setFontDesc(monoDesc);
     // https://en.wikipedia.org/wiki/Noto_fonts should be widely available
     myFallbackFont = new FXFont(app, "Noto Sans CJK JP");
+    FXFontDesc fallbackDesc;
+    myFallbackFont->getFontDesc(fallbackDesc);
+    fallbackDesc.size = normalSize;
+    myFallbackFont->setFontDesc(fallbackDesc);
+    // build static tooltips after updating normalFont
+    myStaticTooltipMenu = new MFXStaticToolTip(app);
+    myStaticTooltipView = new MFXStaticToolTip(app);
     // build docks
     myTopDock = new FXDockSite(this, LAYOUT_SIDE_TOP | LAYOUT_FILL_X);
     myBottomDock = new FXDockSite(this, LAYOUT_SIDE_BOTTOM | LAYOUT_FILL_X);
@@ -94,6 +114,9 @@ GUIMainWindow::~GUIMainWindow() {
     delete myStaticTooltipView;
     delete myNormalFont;
     delete myBoldFont;
+    delete myHeaderFont;
+    delete myHeadlineFont;
+    delete myMonospaceFont;
     delete myFallbackFont;
     delete myTopDock;
     delete myBottomDock;
@@ -185,6 +208,25 @@ FXFont*
 GUIMainWindow::getBoldFont() {
     return myBoldFont;
 }
+
+
+FXFont*
+GUIMainWindow::getHeaderFont() {
+    return myHeaderFont;
+}
+
+
+FXFont*
+GUIMainWindow::getHeadlineFont() {
+    return myHeadlineFont;
+}
+
+
+FXFont*
+GUIMainWindow::getMonospaceFont() {
+    return myMonospaceFont;
+}
+
 
 FXFont*
 GUIMainWindow::getFallbackFont() {

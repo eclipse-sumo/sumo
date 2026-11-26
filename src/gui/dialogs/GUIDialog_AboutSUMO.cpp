@@ -29,6 +29,7 @@
 #include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 #include "GUIDialog_AboutSUMO.h"
 
 
@@ -48,8 +49,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
 
     // "SUMO <VERSION>"
     FXVerticalFrame* descriptionFrame = new FXVerticalFrame(mainInfoFrame, GUIDesignLabelAboutInfo);
-    myHeadlineFont = new FXFont(getApp(), "Arial", 18, FXFont::Bold);
-    (new FXLabel(descriptionFrame, "SUMO sumo-gui " VERSION_STRING, nullptr, GUIDesignLabelAboutInfo))->setFont(myHeadlineFont);
+    (new FXLabel(descriptionFrame, "SUMO sumo-gui " VERSION_STRING, nullptr, GUIDesignLabelAboutInfo))->setFont(GUIMainWindow::getInstance()->getHeadlineFont());
     new FXLabel(descriptionFrame, "Eclipse SUMO - Simulation of Urban MObility", nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(descriptionFrame, TL("Graphical user interface for the microscopic, multi-modal traffic simulation SUMO."), nullptr, GUIDesignLabelAboutInfo);
     // show modules
@@ -82,9 +82,7 @@ GUIDialog_AboutSUMO::create() {
 }
 
 
-GUIDialog_AboutSUMO::~GUIDialog_AboutSUMO() {
-    delete myHeadlineFont;
-}
+GUIDialog_AboutSUMO::~GUIDialog_AboutSUMO() {}
 
 
 /****************************************************************************/

@@ -39,9 +39,6 @@ public:
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
 private:
-    /// @brief Font for the widget
-    FXFont* myHeadlineFont;
-
     /// @brief Invalidated copy constructor.
     GNEAboutDialog(const GNEAboutDialog&) = delete;
 

@@ -29,7 +29,6 @@
 // =========================================================================
 
 #define ICON_SPACING    4   // Spacing between icon and label (2 + 2)
-#define ICON_SIZE       16
 
 // ===========================================================================
 // FOX callback mapping
@@ -89,14 +88,16 @@ MFXTextFieldSearch::onPaint(FXObject*, FXSelector, void* ptr) {
     // Draw caret
     if (flags & FLAG_CARET) {
         int xx = coord(myCursorPosition) - 1;
-        xx += ICON_SPACING + ICON_SIZE;
+        xx += ICON_SPACING + (myIcon ? myIcon->getWidth() : 0);
         dc.setForeground(myCursorColor);
         dc.fillRectangle(xx, padtop + border, 1, height - padbottom - padtop - (border << 1));
         dc.fillRectangle(xx - 2, padtop + border, 5, 1);
         dc.fillRectangle(xx - 2, height - border - padbottom - 1, 5, 1);
     }
     // draw icon
-    dc.drawIcon(myIcon, 3, border + padtop + (height - padbottom - padtop - (border << 1) - ICON_SIZE) / 2);
+    if (myIcon) {
+        dc.drawIcon(myIcon, 3, border + padtop + (height - padbottom - padtop - (border << 1) - myIcon->getHeight()) / 2);
+    }
     return 1;
 }
 
@@ -174,7 +175,7 @@ MFXTextFieldSearch::drawSearchTextRange(FXDCWindow& dc, FXint fm, const FXString
         xx = myShiftAmount + mm - ww / 2;
     }
     // add icon spacing
-    xx += ICON_SPACING + ICON_SIZE;
+    xx += ICON_SPACING + (myIcon ? myIcon->getWidth() : 0);
     // Reduce to avoid drawing excessive amounts of text
     lx = xx + myFont->getTextWidth(&searchString[0], fm);
     rx = lx + myFont->getTextWidth(&searchString[fm], to - fm);

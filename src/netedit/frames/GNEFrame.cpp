@@ -30,12 +30,6 @@
 #include "GNEFrame.h"
 
 // ===========================================================================
-// static members
-// ===========================================================================
-
-FXFont* GNEFrame::myFrameHeaderFont = nullptr;
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 
@@ -53,11 +47,6 @@ GNEFrame::GNEFrame(GNEViewParent* viewParent, GNEViewNet* viewNet, const std::st
         }
         myPredefinedTagsMML[key] = SUMOXMLDefinitions::attrs[i].str;
         i++;
-    }
-
-    // Create font only one time
-    if (myFrameHeaderFont == nullptr) {
-        myFrameHeaderFont = new FXFont(getApp(), "Arial", 14, FXFont::Bold);
     }
 
     // Create frame for header
@@ -84,20 +73,14 @@ GNEFrame::GNEFrame(GNEViewParent* viewParent, GNEViewNet* viewNet, const std::st
     myContentFrame = new FXVerticalFrame(myScrollWindowsContents, GUIDesignAuxiliarFrameFixedWidth(0));
 
     // Set font of header
-    myFrameHeaderLabel->setFont(myFrameHeaderFont);
+    myFrameHeaderLabel->setFont(getFrameHeaderFont());
 
     // Hide Frame
     FXVerticalFrame::hide();
 }
 
 
-GNEFrame::~GNEFrame() {
-    // delete frame header only one time
-    if (myFrameHeaderFont) {
-        delete myFrameHeaderFont;
-        myFrameHeaderFont = nullptr;
-    }
-}
+GNEFrame::~GNEFrame() {}
 
 
 void
@@ -161,7 +144,7 @@ GNEFrame::getFrameHeaderLabel() const {
 
 FXFont*
 GNEFrame::getFrameHeaderFont() const {
-    return myFrameHeaderFont;
+    return myViewNet->getViewParent()->getGUIMainWindow()->getHeaderFont();
 }
 
 

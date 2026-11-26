@@ -43,8 +43,4 @@ public:
 
     /// @brief Creates the widget
     void create();
-
-private:
-    /// @brief Font for the widget
-    FXFont* myHeadlineFont;
 };

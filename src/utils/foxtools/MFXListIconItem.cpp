@@ -35,7 +35,6 @@
 #define SIDE_SPACING    6   // Left or right spacing between items
 #define ICON_SPACING    4   // Spacing between icon and label (2 + 2)
 #define LINE_SPACING    4   // Line spacing between items
-#define ICON_SIZE       16
 
 // ===========================================================================
 // FOX callback mapping
@@ -215,7 +214,7 @@ MFXListIconItem::MFXListIconItem() {}
 void
 MFXListIconItem::draw(const MFXListIcon* list, FXDC&   dc, FXint xx, FXint yy, FXint ww, FXint hh) {
     FXFont* font = list->getFont();
-    FXint ih = icon ? ICON_SIZE : 0;
+    FXint ih = icon ? icon->getHeight() : 0;
     FXint th = 0;
     if (!label.empty()) {
         th = font->getFontHeight();
@@ -234,7 +233,7 @@ MFXListIconItem::draw(const MFXListIcon* list, FXDC&   dc, FXint xx, FXint yy, F
         dc.drawIcon(icon, xx, yy + (hh - ih) / 2);
     }
     if (icon) {
-        xx += ICON_SPACING + ICON_SIZE;
+        xx += ICON_SPACING + icon->getWidth();
     }
     if (!label.empty()) {
         dc.setFont(font);

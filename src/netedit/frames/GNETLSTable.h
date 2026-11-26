@@ -393,15 +393,6 @@ protected:
     /// @brief move focus to current row
     bool moveFocus();
 
-    /// @brief font for the phase table
-    FXFont* myProgramFont = nullptr;
-
-    /// @brief font for index
-    FXFont* myIndexFont = nullptr;
-
-    /// @brief font for index selected
-    FXFont* myIndexSelectedFont = nullptr;
-
     /// @frame pointer to TLSEditorFrame phases parent
     GNETLSEditorFrame::TLSPhases* myTLSPhasesParent = nullptr;
 
