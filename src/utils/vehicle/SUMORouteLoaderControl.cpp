@@ -30,13 +30,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMORouteLoaderControl::SUMORouteLoaderControl(SUMOTime inAdvanceStepNo):
+SUMORouteLoaderControl::SUMORouteLoaderControl(SUMOTime inAdvanceStepNo, const bool continuous):
     myFirstLoadTime(SUMOTime_MAX),
     myCurrentLoadTime(-SUMOTime_MAX),
     myInAdvanceStepNo(inAdvanceStepNo),
     myRouteLoaders(),
     myLoadAll(inAdvanceStepNo <= 0),
-    myAllLoaded(false) {
+    myAllLoaded(false),
+    myContinuous(continuous) {
 }
 
 
@@ -61,11 +62,13 @@ SUMORouteLoaderControl::loadNext(SUMOTime step) {
     if (myAllLoaded) {
         return;
     }
+    // the routes are read route-steps ahead: at once when the horizon is reached or, continuously, up to route-steps ahead of every step
+    const SUMOTime horizon = myContinuous ? step + myInAdvanceStepNo : step;
     // vehicles departing within this step must be loaded now (their insertion events may be due)
-    if (STEPFLOOR(myCurrentLoadTime) > step) {
+    if (STEPFLOOR(myCurrentLoadTime) > horizon) {
         return;
     }
-    const SUMOTime loadMaxTime = myLoadAll ? SUMOTime_MAX : MAX2(myCurrentLoadTime + myInAdvanceStepNo, step);
+    const SUMOTime loadMaxTime = myLoadAll ? SUMOTime_MAX : (myContinuous ? horizon : MAX2(myCurrentLoadTime + myInAdvanceStepNo, step));
     myCurrentLoadTime = SUMOTime_MAX;
     // load all routes for the specified time period
     bool furtherAvailable = false;

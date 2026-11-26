@@ -268,9 +268,18 @@ MSBaseVehicle::stopsAtEdge(const MSEdge* edge) const {
 
 bool
 MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit, const bool withTaz, const bool silent, const MSEdge* sink) {
+    return reroute(t, info, router, onInit, withTaz, silent, sink, nullptr);
+}
+
+
+bool
+MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit,
+                       const bool withTaz, const bool silent, const MSEdge* sink, DeferredReroute* deferred) {
     // check whether to reroute
     const MSEdge* source = nullptr;
-    if (onInit) {
+    if (deferred != nullptr) {
+        source = deferred->source;
+    } else if (onInit) {
         if (withTaz) {
             source = MSEdge::dictionary(myParameter->fromTaz + "-source");
             if (source == nullptr) {
@@ -288,8 +297,13 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             sink = myRoute->getLastEdge();
         }
     }
-    // on insertion, the new route is compared against the complete loaded route
-    ConstMSEdgeVector oldEdgesRemaining(onInit ? myRoute->begin() : (source == *myCurrEdge ? myCurrEdge : myCurrEdge + 1), myRoute->end());
+    ConstMSEdgeVector oldEdgesRemaining;
+    if (deferred != nullptr) {
+        oldEdgesRemaining = deferred->oldEdges;
+    } else {
+        // on insertion, the new route is compared against the complete loaded route
+        oldEdgesRemaining.assign(onInit ? myRoute->begin() : (source == *myCurrEdge ? myCurrEdge : myCurrEdge + 1), myRoute->end());
+    }
     ConstMSEdgeVector edges;
     if (source != sink || !sink->prohibits(this)) {
         edges.push_back(source);
@@ -298,7 +312,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     std::set<int> jumps;
 
 
-    double sourcePos = getPositionOnLane();
+    double sourcePos = deferred != nullptr ? deferred->sourcePos : getPositionOnLane();
 #ifdef DEBUG_REROUTE
     if (DEBUG_COND) {
         std::cout << " curEdge=" << (*myCurrEdge)->getID() << " source=" << source->getID() << " sourcePos=" << sourcePos << " lane=" << Named::getIDSecure(getLane()) << " departPos=" << myParameter->departPos << " oldEdgesRemaining=" << toString(oldEdgesRemaining) << "\n";
@@ -525,7 +539,10 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     //        << " prevEdges=" << toString(oldEdgesRemaining)
     //        << " newEdges=" << toString(edges)
     //        << "\n";
-    if (savingsOk) {
+    if (savingsOk && deferred != nullptr) {
+        deferred->route = prepareRouteReplacement(edges, routeCost, savings, false, false, nullptr, deferred->source, deferred->currentEdge, deferred->offset);
+        deferred->removeStops = hasSkipped;
+    } else if (savingsOk) {
         replaceRouteEdges(edges, routeCost, savings, info, onInit, false, hasSkipped);
     }
     // this must be called even if the route could not be replaced
@@ -548,12 +565,24 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
 
 bool
 MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit, bool check, bool removeStops, std::string* msgReturn) {
+    int offset = 0;
+    ConstMSRoutePtr route = prepareRouteReplacement(edges, cost, savings, onInit, check, msgReturn, *getRerouteOrigin(), myCurrEdge, offset);
+    if (route == nullptr) {
+        return false;
+    }
+    return route == myRoute || replaceRoute(route, info, onInit, offset, false, removeStops, msgReturn);
+}
+
+
+ConstMSRoutePtr
+MSBaseVehicle::prepareRouteReplacement(ConstMSEdgeVector& edges, double cost, double savings, bool onInit, bool check, std::string* msgReturn,
+                                       const MSEdge* origin, const MSRouteIterator& currentEdge, int& offset) {
     if (edges.empty()) {
         WRITE_WARNINGF(TL("No route for vehicle '%' found."), getID());
         if (msgReturn != nullptr) {
             *msgReturn = "No route found";
         }
-        return false;
+        return nullptr;
     }
     // build a new id, first
     std::string id = getID();
@@ -568,16 +597,16 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
     }
     int oldSize = (int)edges.size();
     if (!onInit) {
-        const MSEdge* const origin = *getRerouteOrigin();
-        if (origin != *myCurrEdge && edges.front() == origin) {
-            edges.insert(edges.begin(), *myCurrEdge);
+        if (origin != *currentEdge && edges.front() == origin) {
+            edges.insert(edges.begin(), *currentEdge);
             oldSize = (int)edges.size();
         }
-        edges.insert(edges.begin(), myRoute->begin(), myCurrEdge);
+        edges.insert(edges.begin(), myRoute->begin(), currentEdge);
     }
+    offset = (int)edges.size() - oldSize;
     if (edges == myRoute->getEdges() && haveValidStopEdges(true)) {
         // re-assign stop iterators when rerouting to a new parkingArea / insertStop
-        return true;
+        return myRoute;
     }
     const RGBColor& c = myRoute->getColor();
     MSRoute* newRoute = new MSRoute(id, edges, false, &c == &RGBColor::DEFAULT_COLOR ? nullptr : new RGBColor(c), StopParVector());
@@ -585,11 +614,10 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
     newRoute->setSavings(savings);
     ConstMSRoutePtr constRoute = std::shared_ptr<MSRoute>(newRoute);
     if (!MSRoute::dictionary(id, constRoute)) {
-        delete newRoute;
         if (msgReturn != nullptr) {
             *msgReturn = "duplicate routeID '" + id + "'";
         }
-        return false;
+        return nullptr;
     }
 
     std::string msg;
@@ -599,13 +627,10 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
             if (msgReturn != nullptr) {
                 *msgReturn = msg;
             }
-            return false;
+            return nullptr;
         }
     }
-    if (!replaceRoute(constRoute, info, onInit, (int)edges.size() - oldSize, false, removeStops, msgReturn)) {
-        return false;
-    }
-    return true;
+    return constRoute;
 }
 
 

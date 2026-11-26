@@ -42,11 +42,13 @@ class SUMORouteLoader;
  * to load routes step wise.
  * The parameter myInAdvanceStepNo holds the number of time steps to read the
  * routes in forward. If it is 0 (default), all routes will be read at once.
+ * The routes are read at once when the horizon is reached or, if continuous
+ * loading is set, up to myInAdvanceStepNo ahead of every step.
  */
 class SUMORouteLoaderControl {
 public:
     /// @brief constructor
-    SUMORouteLoaderControl(SUMOTime inAdvanceStepNo);
+    SUMORouteLoaderControl(SUMOTime inAdvanceStepNo, const bool continuous = false);
 
     /// @brief destructor
     ~SUMORouteLoaderControl();
@@ -93,6 +95,9 @@ private:
 
     /// @brief information whether all routes shall be loaded and whether they were loaded
     bool myLoadAll, myAllLoaded;
+
+    /// @brief whether the routes are read up to myInAdvanceStepNo ahead of every step
+    const bool myContinuous;
 
 private:
     /// @brief Invalidated copy constructor

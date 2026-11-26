@@ -170,6 +170,12 @@ meso_ltm_queue_state
 
 # actuated traffic lights keep the detections of their detectors when loading state
 meso_actuated_detectors
+
+# with --meso-threads, the junction groups keep their random number states and event counters when loading state
+meso_threads_state
+
+# a state saved with --meso-threads by a build without the event counters of the groups (input_state.xml, saved at 240) still loads and continues like the run that saved it
+meso_threads_state_legacy
 # tripinfo devices that were added when loading state keep their values and the meso timeLoss when saving and loading again
 meso_tripinfo_state
 

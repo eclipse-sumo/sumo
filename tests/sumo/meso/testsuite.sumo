@@ -33,3 +33,6 @@ lane_queue
 ignore_lanes
 interpolate
 bugs
+
+# computing the events of junction groups in parallel (--meso-threads)
+parallel

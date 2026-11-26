@@ -46,7 +46,10 @@
 //   wholesale refills after permission flips. Staleness is bounded to one
 //   barrier -- CH's weightPeriod semantics: once any metric exists,
 //   customize(now) must run at every barrier where an effort moved (see
-//   atBarrier), and an epoch pair guards the bound as an invariant.
+//   atBarrier), and an epoch pair guards the bound as an invariant. The
+//   owner may also split customize: fill the back on another thread while
+//   the vehicles move and publish at its next barrier (setPublishLag),
+//   which bounds the staleness to two barriers.
 //
 // The family is intentionally ignorant of WHEN to customize -- only the
 // owner knows when no query is in flight (the simulation's adaptation
@@ -290,23 +293,21 @@ public:
     }
 
     /** @brief the owner's customization barrier: bump the speed epoch when
-     * an effort moved and re-customize when it matters. Lazy, following the
-     * CH weightPeriod pattern: metric state is only built for types somebody
-     * routes on (myLiveMetrics stays empty in a run that never routes, which
-     * then pays nothing here). Once any metric exists, every barrier where
-     * an effort moved re-customizes, so a query never sees a metric more
-     * than one barrier old -- CH's weightPeriod bound. The queried flag only
-     * bootstraps type creation; a pending permission flip forces the
-     * customize even without queries. */
-    void atBarrier(double now, bool effortsMoved) {
+     * an effort moved and tell whether the metrics must be customized now.
+     * Lazy, following the CH weightPeriod pattern: metric state is only
+     * built for types somebody routes on (myLiveMetrics stays empty in a run
+     * that never routes, which then pays nothing here). Once any metric
+     * exists, every barrier where an effort moved re-customizes, so a query
+     * never sees a metric more than one barrier old -- CH's weightPeriod
+     * bound. The queried flag only bootstraps type creation; a pending
+     * permission flip forces the customize even without queries. */
+    bool atBarrier(bool effortsMoved) {
         if (effortsMoved) {
             mySpeedEpoch.fetch_add(1, std::memory_order_release);
         }
-        if (myQueried.exchange(false, std::memory_order_acq_rel)
-                || myMetricStale.load(std::memory_order_acquire)
-                || (effortsMoved && !myLiveMetrics.empty())) {
-            customize(now);
-        }
+        return myQueried.exchange(false, std::memory_order_acq_rel)
+               || myMetricStale.load(std::memory_order_acquire)
+               || (effortsMoved && !myLiveMetrics.empty());
     }
 
     /** @brief refill + customize + publish every type's metric from the live
@@ -314,8 +315,19 @@ public:
      * publish itself is lock-free: release store here, acquire loads on the
      * query hot path). */
     void customize(double now) {
-        // types that queried since the last barrier without a metric
-        // (streamed route files, TraCI-added types): create their state now
+        prepare();
+        fill(now);
+        publish();
+    }
+
+    /** @brief the first step of customize (owner's thread, no query in
+     * flight): create the state of the types that queried since the last
+     * barrier without a metric (streamed route files, TraCI-added types).
+     * Returns whether the next fill refills a type wholesale (a new type, a
+     * pending permission flip); the owner then runs customize itself rather
+     * than fill on another thread, so new metrics and permission repairs are
+     * published at this barrier. */
+    bool prepare() {
         {
             std::lock_guard<std::mutex> lock(myWantedLock);
             for (const K* key : myWantedKeys) {
@@ -323,9 +335,27 @@ public:
             }
             myWantedKeys.clear();
         }
+        if (myFullFillsPending > 0) {
+            return true;
+        }
+        for (const LiveMetric* c : myLiveMetrics) {
+            if (c->metric[1 - c->frontIndex] == nullptr) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** @brief the second step of customize: refill and customize the back
+     * buffers from the live efforts and permissions. May run on another
+     * thread between two barriers of the owner, which must not change the
+     * efforts, the permissions or the dirty lists meanwhile and publishes
+     * the result at its next barrier. */
+    void fill(double now) {
         if (myLiveMetrics.empty()) {
             return;
         }
+        myFilledEpoch = mySpeedEpoch.load(std::memory_order_acquire);
         // Permission flip pending: run a FULL refill on this pass's back
         // buffer, the next pass copies it to the other buffer
         // (myFullFillsPending counts both down). The fills below re-prime the
@@ -430,10 +460,6 @@ public:
                     c->partial->customize(*c->metric[back]);
                 }
             }
-            // publish lock-free: release store at the barrier, worker
-            // acquire-loads on the hot path
-            c->frontIndex = back;
-            c->front.store(c->metric[back].get(), std::memory_order_release);
         }
         if (fullFill == 2) {
             // a permission flip's full refill matched every arc to the live
@@ -448,14 +474,40 @@ public:
             myAppliedEffort.assign(myAppliedEffort.size(), std::numeric_limits<double>::quiet_NaN());
         }
         myLastAccepted.swap(accepted);
-        // every published front now reflects the live permissions (the other
-        // buffer, if still pending a full refill, is repaired before its
-        // next publish) and the live efforts as of this barrier (both epoch
-        // counters only move on the owner's thread at the barrier, so the
-        // pair cannot tear)
-        myMetricStale.store(false, std::memory_order_release);
-        myPublishedEpoch.store(mySpeedEpoch.load(std::memory_order_relaxed),
-                               std::memory_order_release);
+        // a permission flip's first pass refilled wholesale: its publish clears the stale flag
+        myFilledFull = fullFill == 2;
+        myFilled = true;
+    }
+
+    /** @brief the last step of customize (owner's thread, no query in
+     * flight): make the filled back buffers the published metrics, lock-free
+     * (release store here, acquire loads on the query hot path). A no-op
+     * without a fill since the last publish. */
+    void publish() {
+        if (!myFilled) {
+            return;
+        }
+        myFilled = false;
+        for (LiveMetric* c : myLiveMetrics) {
+            c->frontIndex = 1 - c->frontIndex;
+            c->front.store(c->metric[c->frontIndex].get(), std::memory_order_release);
+        }
+        // every published front now reflects the live efforts as of the
+        // barrier of the fill and, after a full refill, the live permissions
+        // (the other buffer, if still pending a full refill, is repaired
+        // before its next publish); both epoch counters only move on the
+        // owner's thread at the barrier, so the pair cannot tear
+        if (myFilledFull) {
+            myMetricStale.store(false, std::memory_order_release);
+        }
+        myPublishedEpoch.store(myFilledEpoch, std::memory_order_release);
+    }
+
+    /// @brief how many barriers the published metrics may lag the efforts:
+    /// 0 when the owner customizes at its barrier, 1 when it fills on
+    /// another thread meanwhile and publishes at its next barrier
+    void setPublishLag(int barriers) {
+        myPublishLag = barriers;
     }
 
     /** @brief the published metric for a type key and querying vehicle id
@@ -490,13 +542,14 @@ public:
             return nullptr;
         }
         // Safety invariant: never serve a metric the efforts have moved away
-        // from -- the exact routers see live weights and CH is bounded to
-        // one weightPeriod. atBarrier re-customizes at every moved barrier
-        // once metrics exist, so this cannot fire in steady state; if a gap
-        // ever opens, this burst routes on the exact fallback (live weights)
-        // and the queried flag set above arms the customize that closes it.
-        if (myPublishedEpoch.load(std::memory_order_acquire)
-                != mySpeedEpoch.load(std::memory_order_acquire)) {
+        // from by more than the publish lag -- the exact routers see live
+        // weights and CH is bounded to one weightPeriod. atBarrier
+        // re-customizes at every moved barrier once metrics exist, so this
+        // cannot fire in steady state; if a gap ever opens, this burst routes
+        // on the exact fallback (live weights) and the queried flag set
+        // above arms the customize that closes it.
+        if (mySpeedEpoch.load(std::memory_order_acquire)
+                - myPublishedEpoch.load(std::memory_order_acquire) > myPublishLag) {
             return nullptr;
         }
         // stable slot assignment: FNV-1a over the id (std::hash is
@@ -739,6 +792,13 @@ private:
     /// atomics just publish the values to the query threads.
     std::atomic<uint64_t> mySpeedEpoch{0};
     std::atomic<uint64_t> myPublishedEpoch{0};
+    /// @brief the fill since the last publish: whether there is one, whether
+    /// it refilled wholesale and the epoch of the efforts it used
+    bool myFilled = false;
+    bool myFilledFull = false;
+    uint64_t myFilledEpoch = 0;
+    /// @brief how many barriers the published metrics may lag (setPublishLag)
+    uint64_t myPublishLag = 0;
     /// @brief how many customize passes must replace a whole buffer after a
     /// permission flip: 2 = refill one, then copy it (the sparse path cannot
     /// repair connection-level mask changes: arcsOfEdge deliberately omits

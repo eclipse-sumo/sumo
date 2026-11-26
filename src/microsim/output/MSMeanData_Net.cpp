@@ -192,7 +192,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOTrafficObject& veh, double
     if ((myParent == nullptr || myParent->vehicleApplies(veh)) && (
                 getLane() == nullptr || !veh.isVehicle() || getLane() == static_cast<MSVehicle&>(veh).getLane())) {
 #ifdef HAVE_FOX
-        ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+        ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1 || MSGlobals::gNumMesoThreads > 0);
 #endif
         if (MSGlobals::gUseMesoSim) {
             removeFromVehicleUpdateValues(veh);
@@ -231,7 +231,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOTrafficObject& veh, MSMove
     if (myParent == nullptr || myParent->vehicleApplies(veh)) {
         if (getLane() == nullptr || !veh.isVehicle() || getLane() == static_cast<MSVehicle&>(veh).getLane()) {
 #ifdef HAVE_FOX
-            ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+            ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1 || MSGlobals::gNumMesoThreads > 0);
 #endif
             if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
                 ++nVehDeparted;

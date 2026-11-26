@@ -321,6 +321,40 @@ public:
      */
     bool reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false, const bool silent = false, const MSEdge* sink = nullptr);
 
+    /** @brief The inputs and the result of a reroute that is computed apart from being applied (see reroute)
+     *
+     * The inputs are a copy of the state of the vehicle, so that the computation may run on another thread while
+     * the vehicle moves on; the result is applied with replaceRouteEdges afterwards.
+     */
+    struct DeferredReroute {
+        /// @brief the edge to route from (getRerouteOrigin)
+        const MSEdge* source = nullptr;
+        /// @brief the position on that edge
+        double sourcePos = 0.;
+        /// @brief the current edge of the vehicle
+        MSRouteIterator currentEdge;
+        /// @brief the remaining edges of the current route
+        ConstMSEdgeVector oldEdges;
+        /// @brief the new route (the current one if it would not change, nullptr if none was found)
+        ConstMSRoutePtr route;
+        /// @brief the index of the first new edge in it
+        int offset = 0;
+        /// @brief whether stops that do not fit on the new route shall be removed
+        bool removeStops = false;
+    };
+
+    /** @brief Computes a new route with replaceRoute left to the caller (vehicles with stops are not supported)
+     *
+     * @param[in] t The time for which the route is computed
+     * @param[in] router The router to use
+     * @param[in,out] deferred The copied state of the vehicle to route from and the result
+     * @return whether a valid route was found
+     */
+    bool reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, DeferredReroute& deferred,
+                 const bool withTaz = false, const bool silent = false) {
+        return reroute(t, info, router, false, withTaz, silent, nullptr, &deferred);
+    }
+
 
     /** @brief Replaces the current route by the given edges
      *
@@ -1101,6 +1135,21 @@ public:
 protected:
     /// @brief reset rail signal approach information
     virtual void resetApproachOnReroute() {};
+
+    /// @brief the implementation of reroute, see DeferredReroute
+    bool reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit,
+                 const bool withTaz, const bool silent, const MSEdge* sink, DeferredReroute* deferred);
+
+    /** @brief Builds and registers the route that replaceRouteEdges replaces the current one with
+     *
+     * @param[in,out] edges The new edges to pass, extended by the edges already passed
+     * @param[in] origin The edge the reroute started from (getRerouteOrigin)
+     * @param[in] currentEdge The current edge of the vehicle
+     * @param[out] offset The index of the first new edge in the route
+     * @return The new route, the current route if it would not change, nullptr if none could be built
+     */
+    ConstMSRoutePtr prepareRouteReplacement(ConstMSEdgeVector& edges, double cost, double savings, bool onInit, bool check, std::string* msgReturn,
+                                            const MSEdge* origin, const MSRouteIterator& currentEdge, int& offset);
 
     /** @brief Returns the list of still pending stop edges
      * also returns the first and last stop position

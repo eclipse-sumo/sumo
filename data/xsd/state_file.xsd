@@ -42,6 +42,7 @@
     <xsd:complexType name="rngStateType">
         <xsd:choice maxOccurs="unbounded">
             <xsd:element name="rngLane" type="rngLaneType" minOccurs="0"/>
+            <xsd:element name="rngMesoGroup" type="rngMesoGroupType" minOccurs="0"/>
         </xsd:choice>
         <xsd:attribute name="default" type="xsd:string" use="required"/>
         <xsd:attribute name="routeHandler" type="xsd:string" use="optional"/>
@@ -59,6 +60,12 @@
     <xsd:complexType name="rngLaneType">
         <xsd:attribute name="index" type="xsd:int" use="required"/>
         <xsd:attribute name="state" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="rngMesoGroupType">
+        <xsd:attribute name="index" type="xsd:int" use="required"/>
+        <xsd:attribute name="state" type="xsd:string" use="required"/>
+        <xsd:attribute name="count" type="xsd:long" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="delayStateType">

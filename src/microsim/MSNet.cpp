@@ -283,6 +283,12 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
     myJunctions = junctions;
     myRouteLoaders = routeLoaders;
     myLogics = tlc;
+#ifdef HAVE_FOX
+    if (MSGlobals::gNumMesoThreads > 0) {
+        // the route files are read on their own thread while the vehicles move (see simulationStep)
+        new MFXWorkerThread(myRouteLoaderPool);
+    }
+#endif
     // save the time the network state shall be saved at
     myStateDumpTimes = stateDumpTimes;
     myStateDumpFiles = stateDumpFiles;
@@ -805,6 +811,22 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
 }
 
 
+#ifdef HAVE_FOX
+/// @brief reads the route files up to the loading horizon of the step (MSNet::loadRoutes)
+class RouteLoadingTask : public MFXWorkerThread::Task {
+public:
+    RouteLoadingTask(MSNet& net) : myNet(net) {}
+
+    void run(MFXWorkerThread* /*context*/) override {
+        myNet.loadRoutes();
+    }
+
+private:
+    MSNet& myNet;
+};
+#endif
+
+
 void
 MSNet::simulationStep(const bool onlyMove) {
     if (myStepCompletionMissing) {
@@ -865,7 +887,10 @@ MSNet::simulationStep(const bool onlyMove) {
         MSRailSignalControl::getInstance().updateSignals(myStep);
     }
 #ifdef HAVE_FOX
-    MSRoutingEngine::waitForAll();
+    // the parallel mesoscopic loop applies the routes after the loop (MSRoutingEngine::RoutingTask::defer)
+    if (!MSGlobals::gUseMesoSim || MSGlobals::gNumMesoThreads == 0) {
+        MSRoutingEngine::waitForAll();
+    }
 #endif
     if (MSGlobals::gCheck4Accidents && !MSGlobals::gUseMesoSim) {
         myEdges->detectCollisions(myStep, STAGE_EVENTS);
@@ -874,7 +899,18 @@ MSNet::simulationStep(const bool onlyMove) {
     myLogics->check2Switch(myStep);
 
     if (MSGlobals::gUseMesoSim) {
+#ifdef HAVE_FOX
+        if (myRouteLoaderPool.size() > 0) {
+            // the loader only adds to the vehicles and routes waiting for insertion, which the loop does not touch
+            myRouteLoaderPool.add(new RouteLoadingTask(*this));
+        }
+#endif
         MSGlobals::gMesoNet->simulate(myStep);
+#ifdef HAVE_FOX
+        // the routes computed meanwhile are applied now (MSRoutingEngine::RoutingTask::defer)
+        MSRoutingEngine::waitForAll();
+        myRouteLoaderPool.waitAll();
+#endif
     } else {
         // assure all lanes with vehicles are 'active'
         myEdges->patchActiveLanes();

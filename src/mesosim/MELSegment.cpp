@@ -74,7 +74,7 @@ MELSegment::MELSegment(const std::string& id,
     MESegment(id, parent, next, length, speed, idx, multiQueue, edgeType),
     // the gap only has to pass the vehicles that fit into the segment (the remaining length cannot be occupied)
     myJamLength(MAX2(1., floor(length / DEFAULT_VEH_LENGTH_WITH_GAP)) * DEFAULT_VEH_LENGTH_WITH_GAP) {
-    myGapTimes.resize(myQueues.size());
+    myGaps.resize(myQueues.size());
     myJamGapTimes.resize(myQueues.size(), -1);
 }
 
@@ -100,20 +100,35 @@ MELSegment::computeHeadway(Queue& /*q*/, const Queue& /*qNext*/, const MESegment
 
 
 void
-MELSegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOTime time, const MSMoveReminder::Notification reason) {
-    GapTimes& gapTimes = myGapTimes[veh->getQueIndex()];
+MELSegment::recordGap(const int qIdx, const SUMOTime time, const bool queued) {
+    Gaps& gaps = myGaps[qIdx];
     // record time when the gap vacated by ego will reach the upstream end of the segment
     // gaps travel quickly in free flow (the number of gaps and vehicles stays below the segment capacity)
     // but they travel more slowly when queued (startupDelay)
-    const SUMOTime waveTime = (SUMOTime)(myJamLength * (double)(veh->getQueuingTimeLoss() > 0 ? myTau_jj : myTau_ff) / DEFAULT_VEH_LENGTH_WITH_GAP);
+    const SUMOTime waveTime = (SUMOTime)(myJamLength * (double)(queued ? myTau_jj : myTau_ff) / DEFAULT_VEH_LENGTH_WITH_GAP);
     // the entering vehicle needs this long to drive through the length that cannot be occupied
     const SUMOTime remainderTime = TIME2STEPS(MAX2(0., myLength - myJamLength) / myEdge.getSpeedLimit());
-    gapTimes.insert(gapTimes.begin(), time + MAX2((SUMOTime)0, waveTime - remainderTime));
-    if (veh->getQueuingTimeLoss() > 0) {
+    myEdge.lock(); // the gui reads the gaps when drawing vehicles
+    gaps.insert(gaps.begin(), {time + MAX2((SUMOTime)0, waveTime - remainderTime), time, queued});
+    myEdge.unlock();
+    if (queued) {
         // gaps are inserted in order of departure, so this gap is the last one left by a queued vehicle
-        myJamGapTimes[veh->getQueIndex()] = gapTimes.front();
+        myJamGapTimes[qIdx] = gaps.front().arrival;
     }
+}
+
+
+void
+MELSegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOTime time, const MSMoveReminder::Notification reason) {
+    recordGap(veh->getQueIndex(), time, veh->getQueuingTimeLoss() > 0);
     MESegment::send(veh, next, nextQIdx, time, reason);
+}
+
+
+void
+MELSegment::completeSend(MEVehicle* veh, const int qIdx, MSLink* link, SUMOTime time, SUMOTime headway, bool queued) {
+    recordGap(qIdx, time, queued);
+    MESegment::completeSend(veh, qIdx, link, time, headway, queued);
 }
 
 
@@ -125,9 +140,9 @@ MELSegment::updateEntryBlockTime(SUMOTime time) {
         if (numGaps == 0) {
             continue;
         }
-        // gap times are sorted in descending order, the gap which reaches the upstream end first is at the back
-        const GapTimes& gapTimes = myGapTimes[qIdx];
-        SUMOTime unblockTime = gapTimes.back();
+        // gaps are sorted in descending order of arrival, the gap which reaches the upstream end first is at the back
+        const Gaps& gaps = myGaps[qIdx];
+        SUMOTime unblockTime = gaps.back().arrival;
         if (myJamGapTimes[qIdx] > time) {
             // While a jam discharges, the entering vehicle needs space in addition to the vehicles and the traveling gaps.
             numGaps++;
@@ -136,15 +151,15 @@ MELSegment::updateEntryBlockTime(SUMOTime time) {
             // time per vehicle). Since a gap only frees space once it has reached the upstream end, rounding would block
             // vehicles and cause phantom jams (#18684). The next vehicle cannot follow the entering vehicle before tau_ff
             // so gaps that arrive within this time are counted as arrived
-            auto it = gapTimes.rbegin();
-            while (it != gapTimes.rend() && *it <= time + myTau_ff) {
+            auto it = gaps.rbegin();
+            while (it != gaps.rend() && it->arrival <= time + myTau_ff) {
                 ++it;
                 numGaps--;
             }
-            if (it == gapTimes.rend()) {
+            if (it == gaps.rend()) {
                 continue;
             }
-            unblockTime = *it - myTau_ff;
+            unblockTime = it->arrival - myTau_ff;
         }
         if (q.getOccupancy() + (double)numGaps * DEFAULT_VEH_LENGTH_WITH_GAP > myQueueCapacity) {
             // segment is jammed because the empty spaces have not yet reached the upstream end.
@@ -166,39 +181,78 @@ MELSegment::hasTravelingGaps(int qIdx, SUMOTime time) const {
 }
 
 
+double
+MELSegment::getMinDistanceToEnd(int qIdx, double lengthAhead, SUMOTime time) const {
+    // a queued vehicle may only move into the space vacated by a departing vehicle once the start wave
+    // has reached the place where it waits (one jam spacing behind the vacated space).
+    // The distance grows with the number of waves that did not yet arrive so we search the smallest consistent distance
+    const double lengthToDist = myLength / myQueueCapacity;
+    double dist = lengthAhead * lengthToDist;
+    int waveNotArrived = 0;
+    while (true) {
+        const double distFraction = MIN2(1., (dist + DEFAULT_VEH_LENGTH_WITH_GAP * lengthToDist) / myJamLength);
+        int count = 0;
+        for (const Gap& gap : myGaps[qIdx]) {
+            if (gap.queued && gap.departure + (SUMOTime)(myJamLength * (double)myTau_jj / DEFAULT_VEH_LENGTH_WITH_GAP * distFraction) > time) {
+                count++;
+            }
+        }
+        if (count <= waveNotArrived) {
+            return dist;
+        }
+        waveNotArrived = count;
+        dist = (lengthAhead + (double)waveNotArrived * DEFAULT_VEH_LENGTH_WITH_GAP) * lengthToDist;
+    }
+}
+
+
 int
 MELSegment::numTravelingGaps(int qIdx, SUMOTime time) const {
-    GapTimes& gapTimes = const_cast<GapTimes&>(myGapTimes[qIdx]);
-    while (!gapTimes.empty() && gapTimes.back() <= time) {
-        gapTimes.pop_back();
+    Gaps& gaps = const_cast<Gaps&>(myGaps[qIdx]);
+    if (!gaps.empty() && gaps.back().arrival <= time) {
+        myEdge.lock(); // the gui reads the gaps when drawing vehicles
+        while (!gaps.empty() && gaps.back().arrival <= time) {
+            gaps.pop_back();
+        }
+        myEdge.unlock();
     }
-    return (int)gapTimes.size();
+    return (int)gaps.size();
 }
 
 
 std::string
 MELSegment::getQueueExtraState(int qIdx) const {
-    const GapTimes& gapTimes = myGapTimes[qIdx];
-    std::string state = joinToString(gapTimes, " ");
-    if (!gapTimes.empty() && myJamGapTimes[qIdx] >= gapTimes.back()) {
-        // a gap left by a queued vehicle is still traveling
-        state += " j" + toString(myJamGapTimes[qIdx]);
+    // three values per gap: arrival, departure, queued
+    std::string result;
+    for (const Gap& gap : myGaps[qIdx]) {
+        if (!result.empty()) {
+            result += " ";
+        }
+        result += toString(gap.arrival);
+        result += " ";
+        result += toString(gap.departure);
+        result += gap.queued ? " 1" : " 0";
     }
-    return state;
+    if (!myGaps[qIdx].empty() && myJamGapTimes[qIdx] >= myGaps[qIdx].back().arrival) {
+        // a gap left by a queued vehicle is still traveling
+        result += " j" + toString(myJamGapTimes[qIdx]);
+    }
+    return result;
 }
 
 
 void
 MELSegment::loadQueueExtraState(int qIdx, const std::string& state, SUMOTime offset) {
-    GapTimes& gapTimes = myGapTimes[qIdx];
-    gapTimes.clear();
+    Gaps& gaps = myGaps[qIdx];
+    gaps.clear();
     myJamGapTimes[qIdx] = -1;
-    for (const std::string& t : StringTokenizer(state).getVector()) {
-        if (t[0] == 'j') {
-            myJamGapTimes[qIdx] = StringUtils::toLong(t.substr(1)) - offset;
-        } else {
-            gapTimes.push_back(StringUtils::toLong(t) - offset);
-        }
+    std::vector<std::string> values = StringTokenizer(state).getVector();
+    if (!values.empty() && values.back()[0] == 'j') {
+        myJamGapTimes[qIdx] = StringUtils::toLong(values.back().substr(1)) - offset;
+        values.pop_back();
+    }
+    for (int i = 0; i + 2 < (int)values.size(); i += 3) {
+        gaps.push_back({StringUtils::toLong(values[i]) - offset, StringUtils::toLong(values[i + 1]) - offset, values[i + 2] == "1"});
     }
 }
 

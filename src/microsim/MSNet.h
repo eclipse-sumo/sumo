@@ -41,6 +41,9 @@
 #include <utils/common/NamedObjectCont.h>
 #include <utils/common/NamedRTree.h>
 #include <utils/router/SUMOAbstractRouter.h>
+#ifdef HAVE_FOX
+#include <utils/foxtools/MFXWorkerThread.h>
+#endif
 #include <mesosim/MESegment.h>
 #include "MSRouterDefs.h"
 #include "MSJunction.h"
@@ -895,6 +898,11 @@ protected:
 
     /// @brief Route loader for dynamic loading of routes
     SUMORouteLoaderControl* myRouteLoaders;
+
+#ifdef HAVE_FOX
+    /// @brief the thread reading the route files while the vehicles move (parallel mesoscopic loop, see simulationStep), else empty
+    MFXWorkerThread::Pool myRouteLoaderPool;
+#endif
 
     /// @brief Current time step
     SUMOTime myStep;

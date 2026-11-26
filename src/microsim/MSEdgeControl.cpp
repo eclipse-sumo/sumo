@@ -408,6 +408,7 @@ MSEdgeControl::buildMesoSegments() {
             MSGlobals::gMesoNet->buildSegmentsFor(*edge, oc);
         }
     }
+    MSGlobals::gMesoNet->buildGroups(oc);
 }
 
 void

@@ -780,6 +780,12 @@ MSFrame::fillOptions() {
     oc.addDescription("mesosim", "Mesoscopic", TL("Enables mesoscopic simulation"));
     oc.doRegister("meso-ltm", new Option_Bool(false));
     oc.addDescription("meso-ltm", "Mesoscopic", TL("Enables the meso-LTM (LIFT) model"));
+    oc.doRegister("meso-threads", new Option_Integer(0));
+    oc.addDescription("meso-threads", "Mesoscopic", TL("Number of threads for computing mesoscopic events in parallel"));
+    oc.doRegister("meso-threads.groups", new Option_Integer(32));
+    oc.addDescription("meso-threads.groups", "Mesoscopic", TL("Number of junction groups for parallel mesoscopic events (the results depend on it but not on the number of threads)"));
+    oc.doRegister("meso-threads.rounds", new Option_Integer(8));
+    oc.addDescription("meso-threads.rounds", "Mesoscopic", TL("Number of parallel rounds per step for the junction groups: the moves between groups of a round free their followers for the next one (0: until no event is due)"));
     oc.doRegister("meso-edgelength", new Option_Float(98.0f));
     oc.addDescription("meso-edgelength", "Mesoscopic", TL("Length of an edge segment in mesoscopic simulation"));
     oc.doRegister("meso-tauff", new Option_String("1.13", "TIME"));
@@ -1138,11 +1144,15 @@ MSFrame::checkOptions() {
         }
     }
 #ifndef HAVE_FOX
-    if (oc.getInt("threads") > 1) {
+    if (oc.getInt("threads") > 1 || oc.getInt("meso-threads") > 1) {
         WRITE_ERROR(TL("Parallel simulation is only possible when compiled with Fox."));
         ok = false;
     }
 #endif
+    if (oc.getInt("meso-threads") > 0 && oc.getInt("meso-threads.groups") < 1) {
+        WRITE_ERROR(TL("The option 'meso-threads.groups' must be positive."));
+        ok = false;
+    }
     if (oc.getInt("threads") < 1) {
         WRITE_ERROR(TL("You need at least one thread."));
         ok = false;
@@ -1244,6 +1254,9 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     }
     MSGlobals::gNumSimThreads = oc.getInt("threads");
     MSGlobals::gNumThreads = MAX2(MSGlobals::gNumSimThreads, oc.getInt("device.rerouting.threads"));
+    MSGlobals::gNumMesoThreads = oc.getInt("meso-threads");
+    // the locks of the state shared between the threads (vehicle removal, state listeners) follow gNumThreads
+    MSGlobals::gNumThreads = MAX2(MSGlobals::gNumThreads, MSGlobals::gNumMesoThreads);
 
     MSGlobals::gEmergencyDecelWarningThreshold = oc.getFloat("emergencydecel.warning-threshold");
     MSGlobals::gMinorPenalty = oc.getFloat("weights.minor-penalty");

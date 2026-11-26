@@ -84,7 +84,12 @@ instead of a fresh draw per query as with *dijkstra* and *astar*).
   device](Demand/Automatic_Routing.md) adapts edge weights
   (**--device.rerouting.adaptation-interval**), so the metrics always reflect
   the device's current edge weights (**--device.rerouting.bike-speeds**
-  included, through the metrics of the bicycle types). The re-customization
+  included, through the metrics of the bicycle types). With rerouting
+  threads (**--device.rerouting.threads**) the re-customization runs on a
+  thread of its own while the simulation continues and is published at the
+  following adaptation interval, so the metrics lag the edge weights by one
+  interval (new types and permission changes are still customized in at the
+  interval itself). The re-customization
   is partial: an edge is only propagated into the metric once its weight has
   moved by more than **--device.rerouting.cch-update-threshold.factor**
   (relative) and **--device.rerouting.cch-update-threshold.constant**

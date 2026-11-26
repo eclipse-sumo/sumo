@@ -952,6 +952,9 @@ protected:
     /// @brief The time of last insertion failure
     mutable SUMOTime myLastFailedInsertionTime;
 
+    /// @brief The time of last insertion check failure of a waiting vehicle (mesosim, see insertVehicle)
+    mutable SUMOTime myLastFailedInsertionCheckTime;
+
     /// @brief A cache for the rejected insertion attempts. Used to assure that no
     ///        further insertion attempts are made on a lane where an attempt has
     ///        already failed in the current time step if MSInsertionControl::myEagerInsertionCheck is off.

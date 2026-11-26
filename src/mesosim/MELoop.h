@@ -24,6 +24,10 @@
 #include <queue>
 #include <map>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/RandHelper.h>
+#ifdef HAVE_FOX
+#include <utils/foxtools/MFXWorkerThread.h>
+#endif
 #include <microsim/MSMoveReminder.h>
 
 
@@ -36,6 +40,7 @@ class MSEdge;
 class MSLink;
 class MSVehicleControl;
 class OptionsCont;
+class OutputDevice;
 
 // ===========================================================================
 // class definitions
@@ -72,6 +77,13 @@ public:
      * @param[in] v the car which was a leading one
      */
     void removeLeaderCar(MEVehicle* v);
+
+    /** @brief Removes the approach of the given car from the given link
+     *
+     * While the threads move the deferred cars, other threads read the approaching vehicles
+     *  of the link (MSLink::opened), so the main thread removes it after the moves.
+     */
+    void removeApproaching(MEVehicle* veh, MSLink* link);
 
     /** @brief remove the given car and clean up the relevant data structures */
     void vaporizeCar(MEVehicle* v, MSMoveReminder::Notification reason);
@@ -115,15 +127,33 @@ public:
         LeaderEvent::myEventCounter = counter;
     }
 
+    /** @brief Split the network into groups whose events are processed in parallel (option --meso-threads)
+     *
+     * Every edge belongs to the group of the junction it ends at, so all vehicles which want
+     *  to pass a junction or enter an edge are handled by the same group.
+     */
+    void buildGroups(const OptionsCont& oc);
+
+    /// @brief save / load the states of the random number generators and the event counters of the groups
+    void saveRNGStates(OutputDevice& out);
+    /** @brief load the random number state and the event counter of a group
+     * @param[in] eventCounter the saved counter, -1 if the state has none (saved by an older build): the counter then
+     *  continues after the highest event index of the loaded vehicles (see addLeaderCar)
+     */
+    void loadRNGState(int index, const std::string& state, long long int eventCounter);
+
 private:
     /** @brief Check whether the vehicle may move
      *
      * This method is called when the vehicle reaches its event time and checks
      *  whether it may proceed to the next segment.
+     * When called for a group (see buildGroups), moves into the segment of another group
+     *  and teleports are deferred to the end of the parallel part of the step (see simulate).
      *
      * @param[in] veh The vehicle to check
+     * @param[in] group The group processing the event or -1
      */
-    void checkCar(MEVehicle* veh);
+    void checkCar(MEVehicle* veh, const int group = -1);
 
     /** @brief Retrieve next segment
      *
@@ -171,14 +201,139 @@ private:
         static long long int myEventCounter;
     };
 
-    /// @brief check whether the current car was invalidated and remove it from myInvalidatedLeaderCars
-    bool wasInvalidated(const LeaderEvent& e);
-
-
     /// @brief leader cars in the segments sorted by exit time
     typedef std::priority_queue<LeaderEvent> LeaderEventQueue;
     LeaderEventQueue myLeaderCars;
     LeaderEventQueue myInvalidatedLeaderCars;
+
+    /// @brief check whether the current car was invalidated and remove it from the invalidated cars
+    static bool wasInvalidated(const LeaderEvent& e, LeaderEventQueue& invalidated);
+
+    /// @brief check all cars with an event time up to tMax (group -1 for the queues without groups)
+    void processEvents(LeaderEventQueue& leaders, LeaderEventQueue& invalidated, SUMOTime tMax, const int group);
+
+    /// @brief the group whose queue holds the event of the given car
+    int getGroup(const MEVehicle* veh) const;
+
+    /// @brief whether the move of the vehicle touches only the state of its group (no stops, passengers or reminders bound to the main thread)
+    static bool isGroupSafe(const MEVehicle* veh, const MESegment* on, const MESegment* to);
+
+    /// @brief whether the move of the vehicle into the segment of another group may run on the threads of the two groups (no teleport due, no arrival)
+    static bool isParallelMove(const MEVehicle* veh, const MESegment* on, const MESegment* to);
+
+    /// @brief whether the car is the leader of its queue (or teleporting or parking): a deferred car which was overtaken waits for its next turn
+    static bool isQueueLeader(const MEVehicle* veh);
+
+    /** @brief A move into the segment of another group, see simulate
+     *
+     * The thread of the group entered decides the move and prepares the departure (MESegment::prepareSend),
+     *  the main thread sets the event time and the thread of the group left completes the departure (MESegment::completeSend).
+     */
+    struct DeferredMove {
+        MEVehicle* veh;
+        MESegment* from;
+        int qIdx;
+        MSLink* link;
+        SUMOTime time;
+        SUMOTime headway;
+        SUMOTime eventTime;
+        bool queued;
+    };
+
+    /// @brief an event the main thread schedules after the moves: the vehicle, the link it registers on, the time of the move and the new event time (-1: unchanged)
+    struct DeferredLeader {
+        MEVehicle* veh;
+        MSLink* link;
+        SUMOTime time;
+        SUMOTime eventTime;
+    };
+
+    /// @brief what a thread records while it moves the deferred cars into its group instead of changing what other threads read
+    struct DeferredOps {
+        std::vector<DeferredMove> moves;
+        std::vector<DeferredLeader> leaders;
+        /// @brief cars refused because the leader of their target is deferred as well: the main thread moves them after the departures
+        std::vector<MEVehicle*> serial;
+        /// @brief cars overtaken by an arrival which no longer approach their link: the main thread removes them after the moves
+        std::vector<std::pair<MEVehicle*, MSLink*> > unapproached;
+        void clear() {
+            moves.clear();
+            leaders.clear();
+            serial.clear();
+            unapproached.clear();
+        }
+    };
+
+    /// @brief the records of the calling thread while it moves deferred cars, nullptr otherwise
+    static thread_local DeferredOps* myDeferred;
+
+    /// @brief lets the calling thread record its moves for the lifetime of the object
+    struct DeferredScope;
+
+    /// @brief a set of junctions with the edges ending there, see buildGroups
+    struct Group {
+        Group(const std::string& id) : rng(id) {}
+        LeaderEventQueue leaders;
+        LeaderEventQueue invalidated;
+        long long int eventCounter = 0;
+        SumoRNG rng;
+        /// @brief cars which enter the segment of another group at the end of the parallel part of the step
+        std::vector<MEVehicle*> deferred;
+        /// @brief cars whose event needs the main thread: teleports, stops, passengers, serial reminders, the followers of deferred cars
+        std::vector<MEVehicle*> serial;
+        /// @brief the deferred cars entering this group in the order of their events
+        std::vector<MEVehicle*> arrivals;
+        /// @brief the moves out of this group to complete
+        std::vector<DeferredMove*> departures;
+        /// @brief the records of the thread moving the arrivals
+        DeferredOps ops;
+    };
+    std::vector<Group> myGroups;
+
+    /// @brief the parts of a step which run in parallel over the groups: the events, the moves into other groups, the departures they cause
+    enum Phase { EVENTS, ARRIVALS, DEPARTURES };
+
+    /// @brief runs the phase for the group
+    void runGroup(const int group, const Phase phase);
+
+    /// @brief runs the phase for all groups (on the threads with FOX)
+    void runPhase(const Phase phase);
+
+    /// @brief the number of moves between groups below which they run on the main thread (the synchronisation would cost more than it saves)
+    static const int MIN_PARALLEL_MOVES;
+
+    /// @brief the group of each edge by numerical id
+    std::vector<int> myEdgeGroups;
+
+    /// @brief the end of the current simulation step
+    SUMOTime myStepEnd = 0;
+
+    /// @brief how many parallel rounds a step may run, the events still due then run serially (0: until no event is due)
+    int myRounds = 8;
+
+    /// @brief whether a group has an event due until the given time
+    bool anyEventDue(SUMOTime tMax) const;
+
+#ifdef HAVE_FOX
+    /// @brief the task running one phase for one group
+    class GroupTask : public MFXWorkerThread::Task {
+    public:
+        GroupTask(MELoop& loop, int group, Phase phase) : myLoop(loop), myGroup(group), myPhase(phase) {}
+        void run(MFXWorkerThread* /*context*/) {
+            myLoop.runGroup(myGroup, myPhase);
+        }
+    private:
+        MELoop& myLoop;
+        const int myGroup;
+        const Phase myPhase;
+    private:
+        /// @brief Invalidated assignment operator.
+        GroupTask& operator=(const GroupTask&) = delete;
+    };
+    /// @brief the tasks by phase and group
+    std::vector<std::vector<GroupTask*> > myGroupTasks;
+    MFXWorkerThread::Pool myThreadPool;
+#endif
 
     /// @brief mapping from internal edge ids to their initial segments
     std::vector<MESegment*> myEdges2FirstSegments;
