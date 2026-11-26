@@ -1,0 +1,7 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- long red phase to build a queue which spills back over several segments -->
+    <tlLogic id="3/1" type="static" programID="t1" offset="0">
+        <phase duration="60" state="rrrrrrrrrrrrrrrr"/>
+        <phase duration="30" state="rrrrGGggrrrrGGgg"/>
+    </tlLogic>
+</additional>
