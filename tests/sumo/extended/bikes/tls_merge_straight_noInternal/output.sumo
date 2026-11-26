@@ -14,15 +14,15 @@ Vehicles:
  Waiting: 0
 Statistics (avg of 35):
  RouteLength: 194.90
- Speed: 7.01
- Duration: 33.77
+ Speed: 6.93
+ Duration: 33.97
  WaitingTime: 11.23
- TimeLoss: 19.20
+ TimeLoss: 19.40
  DepartDelay: 0.20
 Bike Statistics (avg of 38):
  RouteLength: 198.30
- Speed: 2.82
- Duration: 77.39
- WaitingTime: 28.89
- TimeLoss: 41.27
+ Speed: 2.90
+ Duration: 74.84
+ WaitingTime: 27.08
+ TimeLoss: 38.68
  DepartDelay: 0.21

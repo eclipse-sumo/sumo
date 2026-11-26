@@ -153,7 +153,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <interval id="device.rerouting" begin="220.00" end="240.00">
         <edge id="beg" traveltime="40.70" traveltimeBike="61.96"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="20.38" traveltimeBike="17.99"/>
+        <edge id="end" traveltime="21.09" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="middle" traveltime="181.10" traveltimeBike="75.41"/>
@@ -162,7 +162,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <interval id="device.rerouting" begin="240.00" end="260.00">
         <edge id="beg" traveltime="34.53" traveltimeBike="73.39"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="19.11" traveltimeBike="17.99"/>
+        <edge id="end" traveltime="19.41" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="middle" traveltime="147.61" traveltimeBike="106.29"/>
@@ -171,7 +171,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <interval id="device.rerouting" begin="260.00" end="280.00">
         <edge id="beg" traveltime="28.68" traveltimeBike="80.85"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="18.53" traveltimeBike="17.99"/>
+        <edge id="end" traveltime="18.67" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="middle" traveltime="137.41" traveltimeBike="133.66"/>
@@ -180,7 +180,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <interval id="device.rerouting" begin="280.00" end="300.00">
         <edge id="beg" traveltime="22.11" traveltimeBike="29.43"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="21.11" traveltimeBike="22.48"/>
+        <edge id="end" traveltime="21.20" traveltimeBike="22.48"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="middle" traveltime="132.83" traveltimeBike="153.40"/>
@@ -189,7 +189,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <interval id="device.rerouting" begin="300.00" end="320.00">
         <edge id="beg" traveltime="19.83" traveltimeBike="22.33"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="24.78" traveltimeBike="35.98"/>
+        <edge id="end" traveltime="24.84" traveltimeBike="35.98"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="middle" traveltime="128.57" traveltimeBike="165.64"/>
@@ -198,7 +198,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <interval id="device.rerouting" begin="320.00" end="340.00">
         <edge id="beg" traveltime="18.86" traveltimeBike="19.92"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="28.87" traveltimeBike="51.41"/>
+        <edge id="end" traveltime="28.92" traveltimeBike="51.41"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="middle" traveltime="124.12" traveltimeBike="172.52"/>
@@ -207,7 +207,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <interval id="device.rerouting" begin="340.00" end="360.00">
         <edge id="beg" traveltime="18.41" traveltimeBike="18.90"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="33.02" traveltimeBike="65.44"/>
+        <edge id="end" traveltime="33.04" traveltimeBike="65.44"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="middle" traveltime="119.12" traveltimeBike="176.18"/>
@@ -216,7 +216,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <interval id="device.rerouting" begin="360.00" end="380.00">
         <edge id="beg" traveltime="18.20" traveltimeBike="18.43"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="40.97" traveltimeBike="75.78"/>
+        <edge id="end" traveltime="40.99" traveltimeBike="75.78"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="middle" traveltime="113.26" traveltimeBike="178.07"/>
@@ -225,7 +225,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <interval id="device.rerouting" begin="380.00" end="400.00">
         <edge id="beg" traveltime="18.09" traveltimeBike="18.21"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="46.58" traveltimeBike="82.28"/>
+        <edge id="end" traveltime="46.60" traveltimeBike="82.28"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="middle" traveltime="106.19" traveltimeBike="179.03"/>
@@ -234,7 +234,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <interval id="device.rerouting" begin="400.00" end="420.00">
         <edge id="beg" traveltime="18.04" traveltimeBike="18.10"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="50.01" traveltimeBike="85.97"/>
+        <edge id="end" traveltime="50.02" traveltimeBike="85.97"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="middle" traveltime="97.40" traveltimeBike="179.51"/>
@@ -270,7 +270,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <interval id="device.rerouting" begin="480.00" end="500.00">
         <edge id="beg" traveltime="17.99" traveltimeBike="17.99"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="51.65" traveltimeBike="89.74"/>
+        <edge id="end" traveltime="51.66" traveltimeBike="89.74"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="middle" traveltime="41.01" traveltimeBike="44.96"/>
