@@ -342,8 +342,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     sequence_errors = []
     gtfsutils.write_vtypes(options)
 
-    with sumolib.openz(options.route_output, mode='w') as output_file:
-        sumolib.xml.writeHeader(output_file, root="routes", options=options)
+    with gtfsutils.routeOutputs(options) as routeOutput:
         numDays = int(options.end) // 86401
         start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
         shapes_written = set()
@@ -385,9 +384,11 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                     # Not enough stops mapped
                     continue
 
-                if main_shape not in shapes_written:
-                    output_file.write(u'    <route id="%s" edges="%s"/>\n' % (main_shape, " ".join(edges_list)))
-                    shapes_written.add(main_shape)
+                output_file = routeOutput(row.route_type)
+                routeID = "type%s.%s" % (row.route_type, main_shape) if options.splitByRouteType else main_shape
+                if routeID not in shapes_written:
+                    output_file.write(u'    <route id="%s" edges="%s"/>\n' % (routeID, " ".join(edges_list)))
+                    shapes_written.add(routeID)
 
                 stopSeq = tuple([stop.stop_item_id for stop in stop_list.itertuples()])
                 if stopSeq not in seqs:
@@ -402,7 +403,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                         break
 
                 veh_attr = (row.trip_id, day,
-                            main_shape, row.route_id, seqs[stopSeq], depart,
+                            routeID, row.route_id, seqs[stopSeq], depart,
                             min(stop_index), max(stop_index), pt_type, pt_color)
                 output_file.write(u'    <vehicle id="%s.%s" route="%s" line="%s_%s" depart="%s" departEdge="%s" arrivalEdge="%s" type="%s"%s>\n' % veh_attr)  # noqa
                 params = [("gtfs.route_name", row.route_short_name)]
@@ -449,7 +450,6 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                                                 stop.trip_id))
 
                 output_file.write(u'    </vehicle>\n')
-        output_file.write(u'</routes>\n')
 
     # -----------------------   Save missing data ------------------
     if any([missing_stops, missing_lines, sequence_errors]):

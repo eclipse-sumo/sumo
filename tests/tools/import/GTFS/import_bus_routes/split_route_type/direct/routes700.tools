@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 14:19:16.731682 by Eclipse SUMO gtfs2pt.py v0.0.0
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20201111"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net.net.xml"/>
+    <route-output value="out.rou.xml"/>
+    <split-by-route-type value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="coach-trip" edges="-198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855">
+        <stop busStop="132185783.0" duration="10" until="0"/> <!-- Braunschweig Rathaus -->
+        <stop busStop="132185783.1" duration="10" until="60"/> <!-- Braunschweig Packhof -->
+        <stop busStop="132185783.2" duration="10" until="120"/> <!-- Braunschweig Hintern Brüdern -->
+        <stop busStop="132185783.3" duration="10" until="180"/> <!-- Braunschweig Altstadtmarkt -->
+        <stop busStop="132185783.4" duration="10" until="300"/> <!-- Braunschweig Güldenstraße -->
+        <stop busStop="132185783.5" duration="10" until="360"/> <!-- Braunschweig Goslarsche Straße -->
+    </route>
+    <vehicle id="coach-trip.0" route="coach-trip" type="bus" depart="18890" line="418#1">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="Westpark"/>
+    </vehicle>
+</routes>

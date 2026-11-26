@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 14:19:16.309011 by Eclipse SUMO gtfs2pt.py v0.0.0
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20201111"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <bbox value="10.509219,52.256458,10.530758,52.270119"/>
+    <network value="net.net.xml"/>
+    <route-output value="out.rou.xml"/>
+    <split-by-route-type value="True"/>
+    <osm-routes value="ptlines.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="type700.1960" edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855"/>
+    <vehicle id="coach-trip.0" route="type700.1960" line="coach_132185783" depart="18900" departEdge="6" arrivalEdge="28" type="bus">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="Westpark"/>
+        <stop busStop="120010034202_0" arrival="18900" duration="10" until="18900"/><!--stopSequence="0.0/4.0" "Braunschweig Rathaus"-->
+        <stop busStop="120010032201_0" arrival="18960" duration="10" until="18960"/><!--stopSequence="1.0/4.0" "Braunschweig Packhof"-->
+        <stop busStop="120010031501_0" arrival="19020" duration="10" until="19020"/><!--stopSequence="2.0/4.0" "Braunschweig Hintern Brüdern"-->
+        <stop busStop="120010001502_0" arrival="19080" duration="10" until="19080"/><!--stopSequence="3.0/4.0" "Braunschweig Altstadtmarkt"-->
+        <stop busStop="120010016102_0" arrival="19200" duration="10" until="19200"/><!--stopSequence="4.0/4.0" "Braunschweig Güldenstraße"-->
+    </vehicle>
+</routes>

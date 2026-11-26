@@ -1,0 +1,8 @@
+function import_gtfs called at Thu, 26 Nov 2026 14:19:16 +0000
+function import_gtfs finished after 0.008373 seconds
+function filter_gtfs called at Thu, 26 Nov 2026 14:19:16 +0000
+function filter_gtfs finished after 0.007354 seconds
+function import_osm called at Thu, 26 Nov 2026 14:19:16 +0000
+function import_osm finished after 0.029429 seconds
+function map_gtfs_osm called at Thu, 26 Nov 2026 14:19:16 +0000
+function map_gtfs_osm finished after 0.021674 seconds
