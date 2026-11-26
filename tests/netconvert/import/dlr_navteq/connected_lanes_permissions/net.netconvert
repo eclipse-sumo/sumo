@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18T02:22:07.803105+00:00 by Eclipse SUMO netconvert v1_28_0+0644-bda840e3afe
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <dlr-navteq-prefix value="elmar"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <projection>
+        <simple-projection value="true"/>
+    </projection>
+
+    <processing>
+        <construction-date value="2016-01-01"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-917866.07,-5826616.56" convBoundary="0.00,0.00,290.01,169.52" origBoundary="1352237.090000,5242780.520000,1352677.530000,5242933.050000" projParameter="-"/>
+
+    <edge id="415852837" from="4167993267" to="1560223943" priority="-3" spreadType="center" shape="112.93,79.46 88.32,169.94">
+        <lane id="415852837_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="95.45" shape="110.02,90.15 88.32,169.94"/>
+    </edge>
+    <edge id="415852838" from="1560223615" to="4167993267" priority="-3" spreadType="center" shape="135.01,0.43 112.91,79.53">
+        <lane id="415852838_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="83.81" shape="135.01,0.43 115.94,68.68"/>
+    </edge>
+    <edge id="415852901" from="1392924660" to="4167993267" priority="-3" spreadType="center" shape="242.26,108.17 236.86,106.46 202.51,97.64 166.56,90.06 110.75,82.21">
+        <lane id="415852901_0" index="0" allow="bus coach" speed="13.89" length="134.60" shape="241.78,109.70 236.42,108.00 202.15,99.20 166.28,91.64 119.67,85.08"/>
+        <lane id="415852901_1" index="1" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="134.60" shape="242.74,106.64 237.30,104.92 202.87,96.08 166.84,88.48 119.87,81.88"/>
+    </edge>
+    <edge id="415852902" from="4167993267" to="4167993266" priority="-3" spreadType="center" shape="111.17,82.26 -0.30,71.82">
+        <lane id="415852902_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="115.66" shape="102.61,83.06 -0.45,73.41"/>
+        <lane id="415852902_1" index="1" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="115.66" shape="102.91,79.88 -0.15,70.23"/>
+    </edge>
+    <edge id="415852908" from="1560223943" to="4167993267" priority="-3" spreadType="center" shape="85.24,169.10 109.84,78.62">
+        <lane id="415852908_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="95.45" shape="85.24,169.10 106.93,89.31"/>
+    </edge>
+    <edge id="415852909" from="4167993267" to="1560223615" priority="-3" spreadType="center" shape="109.83,78.67 131.93,-0.43">
+        <lane id="415852909_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="83.81" shape="112.86,67.82 131.93,-0.43"/>
+    </edge>
+    <edge id="415852970" from="4167993266" to="4167993267" priority="-3" spreadType="center" shape="-0.05,65.43 45.75,67.92 111.92,75.92">
+        <lane id="415852970_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="115.91" shape="0.26,63.84 45.89,66.33 103.52,73.29"/>
+        <lane id="415852970_1" index="1" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="115.91" shape="0.09,67.04 45.61,69.51 103.22,76.48"/>
+    </edge>
+    <edge id="415852971" from="4167993267" to="4167993268" priority="-3" spreadType="center" shape="111.33,75.87 154.53,78.43 198.30,86.22 273.19,105.76 290.01,116.37">
+        <lane id="415852971_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="185.35" shape="120.30,74.80 154.72,76.84 198.64,84.66 273.83,104.27 290.86,115.02"/>
+        <lane id="415852971_1" index="1" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="185.35" shape="120.10,77.99 154.34,80.02 197.96,87.78 272.55,107.25 289.16,117.72"/>
+    </edge>
+
+    <junction id="1392924660" type="dead_end" x="242.26" y="108.17" incLanes="" intLanes="" shape="243.23,105.12 241.29,111.22"/>
+    <junction id="1560223615" type="priority" x="133.47" y="0.00" incLanes="415852909_0" intLanes="" shape="133.47,-0.00 130.39,-0.86 133.47,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="1560223943" type="priority" x="86.78" y="169.52" incLanes="415852837_0" intLanes="" shape="86.78,169.52 89.86,170.36 86.78,169.52">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="4167993266" type="priority" x="0.00" y="68.63" incLanes="415852902_0 415852902_1" intLanes="" shape="-0.00,68.64 0.35,62.25 -0.60,75.01">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="4167993267" type="priority" x="111.38" y="79.07" incLanes="415852901_0 415852901_1 415852838_0 415852970_0 415852970_1 415852908_0" intLanes="" shape="119.57,86.68 120.40,73.20 118.30,72.64 117.67,72.06 117.33,71.28 117.26,70.30 117.48,69.11 111.32,67.39 109.84,70.12 108.70,71.00 107.29,71.56 105.62,71.79 103.67,71.70 102.46,84.66 104.55,85.29 105.18,85.90 105.53,86.70 105.60,87.70 105.39,88.89 111.57,90.57 113.04,87.99 114.22,87.18 115.71,86.70 117.49,86.53">
+        <request index="0"  response="000000000000" foes="001000000000"/>
+        <request index="1"  response="000000000000" foes="111000000000"/>
+        <request index="2"  response="000000000000" foes="111000000000"/>
+        <request index="3"  response="000111000000" foes="000111000000"/>
+        <request index="4"  response="000110000000" foes="000110000000"/>
+        <request index="5"  response="000110000000" foes="000110000000"/>
+        <request index="6"  response="000000000000" foes="000000001000"/>
+        <request index="7"  response="000000000000" foes="000000111000"/>
+        <request index="8"  response="000000000000" foes="000000111000"/>
+        <request index="9"  response="000000000111" foes="000000000111"/>
+        <request index="10" response="000000000110" foes="000000000110"/>
+        <request index="11" response="000000000110" foes="000000000110"/>
+    </junction>
+    <junction id="4167993268" type="dead_end" x="290.01" y="116.37" incLanes="415852971_0 415852971_1" intLanes="" shape="291.72,113.66 288.30,119.08"/>
+
+    <connection from="415852837" to="415852908" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="415852838" to="415852971" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="415852901" to="415852837" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="415852901" to="415852902" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="415852901" to="415852902" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="415852901" to="415852909" fromLane="1" toLane="0" dir="l" state="m"/>
+    <connection from="415852901" to="415852971" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="415852902" to="415852970" fromLane="1" toLane="1" dir="t" state="M"/>
+    <connection from="415852908" to="415852902" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="415852908" to="415852902" fromLane="0" toLane="1" dir="r" state="m"/>
+    <connection from="415852909" to="415852838" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="415852970" to="415852909" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="415852970" to="415852971" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="415852970" to="415852971" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="415852970" to="415852837" fromLane="1" toLane="0" dir="l" state="m"/>
+
+</net>

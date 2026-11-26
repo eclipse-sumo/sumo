@@ -24,6 +24,9 @@
 
 #include <string>
 #include <map>
+#include <tuple>
+#include <vector>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/importio/LineHandler.h>
 
@@ -31,6 +34,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class NBEdge;
 class NBEdgeCont;
 class NBNetBuilder;
 class NBNodeCont;
@@ -475,7 +479,7 @@ protected:
          * @param[in] file The name of the parsed file
          * @param[filled] streetNames output container for read names
          */
-        ConnectedLanesHandler(NBEdgeCont& ne);
+        ConnectedLanesHandler(NBEdgeCont& ne, NBTypeCont& tc, const std::string& file);
 
 
         /// @brief Destructor
@@ -493,10 +497,18 @@ protected:
          */
         bool report(const std::string& result);
 
+        /// @brief Applies accumulated per-lane vClass restrictions from connected_lanes
+        void applyLanePermissions();
+
 
     protected:
         /// @brief The edge container to store loaded edges into
         NBEdgeCont& myEdgeCont;
+        NBTypeCont& myTypeCont;
+        const std::string myFile;
+        double myVersion;
+        std::map<NBEdge*, std::map<int, SVCPermissions> > myLanePermissions;
+        std::map<NBEdge*, std::vector<std::tuple<int, NBEdge*, int, SVCPermissions> > > myConPermissions;
 
 
     private:

@@ -36,3 +36,6 @@ version_6.1
 # overwriting edge type
 type
 duplicate_id_ignore
+
+# deduce lane-specific vClass permissions from connected_lanes (#3016)
+connected_lanes_permissions
