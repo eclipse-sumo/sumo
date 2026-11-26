@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 13:11:03.290879 by Eclipse SUMO tracemapper.py v1.28.0-0000000000
+  options: -t tracefile.txt -o out.rou.xml <doubleminus>polygon-output output.poly.xml -n input_net.net.xml <doubleminus>disconnected-action split <doubleminus>vehicle-class passenger
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="disconnected.part0" edges="beg"/>
+    <route id="disconnected.part1" edges="beg2right"/>
+    <route id="disconnected.part2" edges="left"/>
+    <route id="disconnected.part3" edges="rend"/>
+    <route id="connected.part0" edges="beg"/>
+    <route id="connected.part1" edges="beg2right"/>
+    <route id="repairable.part0" edges="beg"/>
+    <route id="repairable.part1" edges="rend"/>
+</routes>

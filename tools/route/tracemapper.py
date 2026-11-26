@@ -67,6 +67,24 @@ def readLines(traceFile, net, geo):
             yield tid.strip(), trace
 
 
+def routeParts(edges, action, vClass):
+    if not edges:
+        return []
+    if action == "allow":
+        return [edges]
+
+    parts = [[edges[0]]]
+    for previous, edge in zip(edges, edges[1:]):
+        if edge not in previous.getAllowedOutgoing(vClass):
+            if action == "discard":
+                return []
+            parts.append([])
+        parts[-1].append(edge)
+    if action == "longest":
+        return [max(parts, key=lambda part: sum(edge.getLength() for edge in part))]
+    return parts
+
+
 if __name__ == "__main__":
     ap = sumolib.options.ArgumentParser()
     ap.add_argument("-v", "--verbose", action="store_true",
@@ -92,6 +110,9 @@ if __name__ == "__main__":
                     help="filters the edges by the vehicle class the route is meant for")
     ap.add_argument("--fill-gaps", default=0., type=float,
                     help="repair disconnected routes bridging gaps of up to x meters")
+    ap.add_argument("--disconnected-action", choices=["allow", "split", "longest", "discard"], default="allow",
+                    help="handle disconnected mapped routes by allowing, splitting, retaining the longest part, "
+                    "or discarding them")
     ap.add_argument("-g", "--gap-penalty", default=-1, type=float,
                     help="penalty to add for disconnected routes " +
                     "(default of -1 adds the distance between the two endpoints as penalty)")
@@ -152,15 +173,21 @@ if __name__ == "__main__":
                 if poiOut is not None:
                     for idx, pos in enumerate(trace):
                         poiOut.write('    <poi id="%s:%s" x="%s" y="%s"/>\n' % (tid, idx, pos[0], pos[1]))
-                edges = [e.getID() for e in sumolib.route.mapTrace(
+                edges = [e for e in sumolib.route.mapTrace(
                     trace, net, *mapOpts) if e.getFunction() != "internal"]
                 edges = [edge for i, edge in enumerate(edges) if i == 0 or edge != edges[i-1]]
-                if polyOut is not None and edges:
-                    route2poly.generate_poly(options, net, tid, colorgen(), edges, polyOut)
-                if edges:
-                    outf.write('    <route id="%s" edges="%s"/>\n' % (tid, " ".join(edges)))
-                elif options.verbose:
-                    print("No edges are found for %s." % (tid))
+                parts = routeParts(edges, options.disconnected_action, options.vehicle_class)
+                for index, part in enumerate(parts):
+                    routeID = "%s.part%s" % (tid, index) if len(parts) > 1 else tid
+                    edgeIDs = [edge.getID() for edge in part]
+                    if polyOut is not None:
+                        route2poly.generate_poly(options, net, routeID, colorgen(), edgeIDs, polyOut)
+                    outf.write('    <route id="%s" edges="%s"/>\n' % (routeID, " ".join(edgeIDs)))
+                if options.verbose and not parts:
+                    if edges:
+                        print("Discarding disconnected route %s." % tid)
+                    else:
+                        print("No edges are found for %s." % tid)
 
             outf.write('</routes>\n')
             if poiOut is not None:

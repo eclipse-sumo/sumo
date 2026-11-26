@@ -475,6 +475,7 @@ this vehicle class is allowed.
 - **--delta**: increase the accepted distance between trace points and
 the edge reference line (default is *1*). If the network contains multi-lane edges, this option should be set to the maximum edge with in m.
 - **--fill-gaps**: repair disconnected routes by filling gaps up to the given distance in m (default 0).
+- **--disconnected-action** controls routes that still contain gaps after mapping. `allow` (the default) writes the mapped edges as one route. `split` writes each connected part, with IDs ending in `.part0`, `.part1`, and so on. `longest` keeps the part with the greatest total edge length under the original ID. `discard` omits disconnected routes. If a vehicle class is selected, its connection permissions determine where to split.
 
 
 !!! note
