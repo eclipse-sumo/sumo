@@ -45,7 +45,7 @@ GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
 GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, FileBucket* fileBucket, GNELane* lane, const double pos, const double length, const SUMOTime freq,
         const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
         const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos,
-        const bool show, const Parameterised::Map& parameters) :
+        const bool show, const Parameterised::Map& parameters, const std::string& toLane) :
     GNEDetector(id, net, fileBucket, SUMO_TAG_LANE_AREA_DETECTOR, freq, outputFilename, vehicleTypes, nextEdges, detectPersons, name, parameters),
     myStartPosOverLane(pos),
     myEndPosPosOverLane(pos + length),
@@ -54,6 +54,7 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, Fil
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
     myTrafficLight(trafficLight),
+    myToLane(toLane),
     myShow(show),
     myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_POSITION, myStartPosOverLane, SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
     // set parents
@@ -64,7 +65,7 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, Fil
 GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, FileBucket* fileBucket, std::vector<GNELane*> lanes, const double pos, const double endPos, const SUMOTime freq,
         const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
         const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos, const bool show,
-        const Parameterised::Map& parameters) :
+        const Parameterised::Map& parameters, const std::string& toLane) :
     GNEDetector(id, net, fileBucket, GNE_TAG_MULTI_LANE_AREA_DETECTOR, freq, outputFilename, vehicleTypes, nextEdges,
                 detectPersons, name, parameters),
     myStartPosOverLane(pos),
@@ -74,6 +75,7 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, Fil
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
     myTrafficLight(trafficLight),
+    myToLane(toLane),
     myShow(show),
     myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_POSITION, myStartPosOverLane, SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
     // set parents
@@ -113,6 +115,9 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     // write specific attributes
     if (myTrafficLight.size() > 0) {
         device.writeAttr(SUMO_ATTR_TLID, myTrafficLight);
+    }
+    if (myToLane.size() > 0) {
+        device.writeAttr(SUMO_ATTR_TO, myToLane);
     }
     if (myTimeThreshold != myTagProperty->getDefaultTimeValue(SUMO_ATTR_HALTING_TIME_THRESHOLD)) {
         device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, time2string(myTimeThreshold));
@@ -235,10 +240,9 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
         const double E2Exaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(E2Exaggeration);
-        // calculate startPos
-        const double geometryDepartPos = getAttributeDouble(SUMO_ATTR_POSITION);
-        // get endPos
-        const double geometryEndPos = getAttributeDouble(SUMO_ATTR_ENDPOS);
+        // calculate fixed start and end positions on first/last lane
+        const double geometryDepartPos = myMoveElementLaneDouble->getStartFixedPositionOverLane(true);
+        const double geometryEndPos = myMoveElementLaneDouble->getEndFixedPositionOverLane(true);
         // declare path geometry
         GUIGeometry E2Geometry;
         // update pathGeometry depending of first and last segment
@@ -343,9 +347,8 @@ std::string
 GNELaneAreaDetector::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_POSITION:
-            return toString(myStartPosOverLane);
         case SUMO_ATTR_ENDPOS:
-            return toString(myEndPosPosOverLane);
+            return myMoveElementLaneDouble->getMovingAttribute(key);
         case SUMO_ATTR_TLID:
             return myTrafficLight;
         case SUMO_ATTR_LENGTH:
@@ -416,7 +419,7 @@ GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_ENDPOS:
-            return canParse<double>(value);
+            return myMoveElementLaneDouble->isMovingAttributeValid(key, value);
         case SUMO_ATTR_TLID:
             // temporal
             return SUMOXMLDefinitions::isValidNetID(value);
@@ -579,14 +582,8 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_POSITION:
-            myStartPosOverLane = parse<double>(value);
-            // update geometry (except for template)
-            if (getParentLanes().size() > 0) {
-                updateGeometry();
-            }
-            break;
         case SUMO_ATTR_ENDPOS:
-            myEndPosPosOverLane = parse<double>(value);
+            myMoveElementLaneDouble->setMovingAttribute(key, value);
             // update geometry (except for template)
             if (getParentLanes().size() > 0) {
                 updateGeometry();

@@ -20,6 +20,10 @@
 #pragma once
 #include <config.h>
 
+#include <algorithm>
+#include <cmath>
+#include <set>
+
 #include "CommonHandler.h"
 
 // ===========================================================================
@@ -45,6 +49,115 @@ public:
 
     /// @brief parse SumoBaseObject (it's called recursivelly)
     void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);
+
+    /// @brief snap a detector position to a reference point within snapDist
+    static double snapE2Position(const double value, const double snapPoint, const double snapDist = POSITION_EPS) {
+        return (fabs(value - snapPoint) < snapDist) ? snapPoint : value;
+    }
+
+    /**@brief Select consecutive lanes for an implicit multi-lane E2 detector
+     * @param[in] lane Anchoring start (forward) or end (backward) lane
+     * @param[in] length Desired detector length
+     * @param[in] fw True to extend downstream from startPos, false to extend upstream from endPos
+     * @param[in,out] startPos Normalized start position on first lane (input when fw, output when !fw)
+     * @param[in,out] endPos Normalized end position on last lane (output when fw, input when !fw)
+     * @param[in] getLaneLength Functor returning lane length
+     * @param[in] getNextLane Functor returning canonical successor (fw) or predecessor (!fw) lane
+     * @param[in] getLinkLength Functor returning connection length between two consecutive lanes
+     */
+    template<typename LaneType, typename LengthFunc, typename NextLaneFunc, typename LinkLengthFunc>
+    static std::vector<LaneType*> selectE2Lanes(LaneType* lane, double length, const bool fw,
+            double& startPos, double& endPos,
+            LengthFunc getLaneLength, NextLaneFunc getNextLane, LinkLengthFunc getLinkLength,
+            const bool uniqueLanes = false) {
+        double linkLength = 0.;
+        bool subtractedLinkLength = false;
+        std::vector<LaneType*> lanes;
+        std::set<LaneType*> visited;
+        if (fw) {
+            length += startPos;
+        } else {
+            length += getLaneLength(lane) - endPos;
+        }
+        length = MAX2(POSITION_EPS, length);
+        while (length >= POSITION_EPS && lane != nullptr) {
+            lanes.push_back(lane);
+            if (uniqueLanes) {
+                visited.insert(lane);
+            }
+            length -= getLaneLength(lane);
+            LaneType* nextLane = getNextLane(lane);
+            if (uniqueLanes && nextLane != nullptr && visited.count(nextLane) > 0) {
+                nextLane = nullptr;
+            }
+            lane = nextLane;
+            subtractedLinkLength = false;
+            if (lane != nullptr && length > POSITION_EPS) {
+                linkLength = fw ? getLinkLength(lanes.back(), lane) : getLinkLength(lane, lanes.back());
+                if (linkLength > 0.) {
+                    length -= linkLength;
+                    subtractedLinkLength = true;
+                }
+            }
+        }
+        if (subtractedLinkLength) {
+            length += linkLength;
+        }
+        if (fw) {
+            if (length > -POSITION_EPS) {
+                endPos = getLaneLength(lanes.back());
+            } else if (length < 0.) {
+                endPos = getLaneLength(lanes.back()) + length;
+            }
+        } else {
+            if (length > -POSITION_EPS) {
+                startPos = 0.;
+            } else if (length < 0.) {
+                startPos = -length;
+            }
+        }
+        if (!fw) {
+            std::reverse(lanes.begin(), lanes.end());
+        }
+        return lanes;
+    }
+
+    /**@brief Compute total length along an explicit sequence of lanes (including connection lengths)
+     */
+    template<typename LaneType, typename LengthFunc, typename LinkLengthFunc>
+    static double computeE2LanesTotalLength(const std::vector<LaneType*>& lanes,
+                                            LengthFunc getLaneLength, LinkLengthFunc getLinkLength) {
+        double total = 0.;
+        for (size_t i = 0; i < lanes.size(); ++i) {
+            total += getLaneLength(lanes[i]);
+            if (i + 1 < lanes.size()) {
+                total += getLinkLength(lanes[i], lanes[i + 1]);
+            }
+        }
+        return total;
+    }
+
+    /**@brief Resolve missing startPos or endPos on an explicit E2 lane sequence when length is given
+     */
+    template<typename LaneType, typename LengthFunc, typename LinkLengthFunc>
+    static void resolveE2ExplicitLanesLength(const std::vector<LaneType*>& lanes,
+            double& pos, double& endPos, const double length,
+            LengthFunc getLaneLength, LinkLengthFunc getLinkLength) {
+        const double firstLen = getLaneLength(lanes.front());
+        const double lastLen = getLaneLength(lanes.back());
+        const double totalLen = computeE2LanesTotalLength(lanes, getLaneLength, getLinkLength);
+        if (pos != INVALID_DOUBLE && endPos == INVALID_DOUBLE) {
+            double normStart = (pos < 0.) ? (firstLen + pos) : pos;
+            normStart = MAX2(0., MIN2(firstLen - POSITION_EPS, normStart));
+            const double rawEnd = lastLen + (normStart + length - totalLen);
+            endPos = MAX2(POSITION_EPS, MIN2(lastLen, rawEnd));
+        } else if (pos == INVALID_DOUBLE && endPos != INVALID_DOUBLE) {
+            double normEnd = (endPos < 0.) ? (lastLen + endPos) : endPos;
+            normEnd = MAX2(POSITION_EPS, MIN2(lastLen, normEnd));
+            const double rawStart = (totalLen - (lastLen - normEnd)) - length;
+            pos = MAX2(0., MIN2(firstLen - POSITION_EPS, rawStart));
+        }
+    }
 
     /// @name build functions
     /// @{
@@ -221,7 +334,8 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual bool buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
-                                           const double pos, const double length, const SUMOTime period, const std::string& trafficLight, const std::string& filename,
+                                           const double pos, const double endPos, const double length, const SUMOTime period, const std::string& trafficLight,
+                                           const std::string& toLane, const std::string& filename,
                                            const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
                                            const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
                                            const bool friendlyPos, const bool show, const Parameterised::Map& parameters) = 0;
@@ -247,7 +361,8 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual bool buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& laneIDs,
-                                          const double pos, const double endPos, const SUMOTime period, const std::string& trafficLight, const std::string& filename,
+                                          const double pos, const double endPos, const double length, const SUMOTime period, const std::string& trafficLight,
+                                          const std::string& toLane, const std::string& filename,
                                           const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
                                           const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
                                           const bool friendlyPos, const bool show, const Parameterised::Map& parameters) = 0;

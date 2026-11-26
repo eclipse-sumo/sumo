@@ -40,6 +40,8 @@
 #include <utils/geom/GeomConvHelper.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
+#include <utils/handlers/AdditionalHandler.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSJunctionLogic.h>
 #include <microsim/MSStoppingPlace.h>
@@ -1157,18 +1159,57 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
                           "Usage combinations for positional specification: [lane, pos, length], [lane, endPos, length], or [lanes, pos, endPos]");
         }
         if (lengthGiven) {
-            WRITE_WARNING("Ignoring argument 'length' for E2Detector '" + id + "' since argument 'lanes' was given.\n"
-                          "Usage combinations for positional specification: [lane, pos, length], [lane, endPos, length], or [lanes, pos, endPos]");
-        }
-        if (!posGiven) {
-            // assuming start pos == lane start
-            position = 0;
-            WRITE_WARNINGF(TL("Missing argument 'pos' for E2Detector '%'. Assuming detector start == lane start of lane '%'."), id, clanes[0]->getID());
-        }
-        if (!endPosGiven) {
-            // assuming end pos == lane end
-            endPosition = clanes[clanes.size() - 1]->getLength();
-            WRITE_WARNINGF(TL("Missing argument 'endPos' for E2Detector '%'. Assuming detector end == lane end of lane '%'."), id, clanes[clanes.size() - 1]->getID());
+            if (posGiven && endPosGiven) {
+                WRITE_WARNING("Ignoring argument 'length' for E2Detector '" + id + "' since argument 'lanes' was given.\n"
+                              "Usage combinations for positional specification: [lane, pos, length], [lane, endPos, length], or [lanes, pos, endPos]");
+            } else {
+                if (length < 0) {
+                    throw InvalidArgument("Negative 'length' for E2Detector '" + id + "'.");
+                }
+                auto getLaneLen = [](const MSLane* const l) { return l->getLength(); };
+                auto getLinkLen = [](const MSLane* const from, const MSLane* const to) {
+                    const MSLink* const link = from->getLinkTo(to);
+                    if (link == nullptr) {
+                        return 0.;
+                    }
+                    if (!MSGlobals::gUsingInternalLanes) {
+                        return link->getLength();
+                    }
+                    double internalLen = 0.;
+                    const MSLane* internal = link->getViaLane();
+                    while (internal != nullptr && internal->isInternal()) {
+                        internalLen += internal->getLength();
+                        if (internal->getLinkCont().empty()) {
+                            break;
+                        }
+                        internal = internal->getLinkCont()[0]->getViaLaneOrLane();
+                    }
+                    return internalLen;
+                };
+                if (!posGiven && !endPosGiven) {
+                    const double totalLen = AdditionalHandler::computeE2LanesTotalLength(clanes, getLaneLen, getLinkLen);
+                    if (fabs(length - totalLen) > NUMERICAL_EPS) {
+                        throw InvalidArgument("Incomplete positional specification for E2Detector '" + id + "'.\n"
+                                              "Usage combinations for positional specification: [lane, pos, length], [lane, endPos, length], or [lanes, pos, endPos]");
+                    }
+                    position = 0;
+                    endPosition = clanes.back()->getLength();
+                    WRITE_WARNINGF(TL("Missing arguments 'pos'/'endPos' for E2Detector '%'. Assuming that the detector covers the whole lane sequence."), id);
+                } else {
+                    AdditionalHandler::resolveE2ExplicitLanesLength(clanes, position, endPosition, length, getLaneLen, getLinkLen);
+                }
+            }
+        } else {
+            if (!posGiven) {
+                // assuming start pos == lane start
+                position = 0;
+                WRITE_WARNINGF(TL("Missing argument 'pos' for E2Detector '%'. Assuming detector start == lane start of lane '%'."), id, clanes[0]->getID());
+            }
+            if (!endPosGiven) {
+                // assuming end pos == lane end
+                endPosition = clanes[clanes.size() - 1]->getLength();
+                WRITE_WARNINGF(TL("Missing argument 'endPos' for E2Detector '%'. Assuming detector end == lane end of lane '%'."), id, clanes[clanes.size() - 1]->getID());
+            }
         }
 
     } else {

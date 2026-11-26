@@ -389,15 +389,21 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 }
                 break;
             case SUMO_TAG_E2DETECTOR:
-            case SUMO_TAG_LANE_AREA_DETECTOR:
+            case SUMO_TAG_LANE_AREA_DETECTOR: {
+                const double pos = obj->hasDoubleAttribute(SUMO_ATTR_POSITION) ? obj->getDoubleAttribute(SUMO_ATTR_POSITION) : INVALID_DOUBLE;
+                const double endPos = obj->hasDoubleAttribute(SUMO_ATTR_ENDPOS) ? obj->getDoubleAttribute(SUMO_ATTR_ENDPOS) : INVALID_DOUBLE;
+                const double length = obj->hasDoubleAttribute(SUMO_ATTR_LENGTH) ? obj->getDoubleAttribute(SUMO_ATTR_LENGTH) : INVALID_DOUBLE;
+                const std::string toLane = obj->hasStringAttribute(SUMO_ATTR_TO) ? obj->getStringAttribute(SUMO_ATTR_TO) : "";
                 if (obj->hasStringAttribute(SUMO_ATTR_LANE)) {
                     if (buildSingleLaneDetectorE2(obj,
                                                   obj->getStringAttribute(SUMO_ATTR_ID),
                                                   obj->getStringAttribute(SUMO_ATTR_LANE),
-                                                  obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                                                  obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
+                                                  pos,
+                                                  endPos,
+                                                  length,
                                                   obj->getPeriodAttribute(),
                                                   obj->getStringAttribute(SUMO_ATTR_TLID),
+                                                  toLane,
                                                   obj->getStringAttribute(SUMO_ATTR_FILE),
                                                   obj->getStringListAttribute(SUMO_ATTR_VTYPES),
                                                   obj->getStringListAttribute(SUMO_ATTR_NEXT_EDGES),
@@ -415,10 +421,12 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                     if (buildMultiLaneDetectorE2(obj,
                                                  obj->getStringAttribute(SUMO_ATTR_ID),
                                                  obj->getStringListAttribute(SUMO_ATTR_LANES),
-                                                 obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                                                 obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
+                                                 pos,
+                                                 endPos,
+                                                 length,
                                                  obj->getPeriodAttribute(),
                                                  obj->getStringAttribute(SUMO_ATTR_TLID),
+                                                 toLane,
                                                  obj->getStringAttribute(SUMO_ATTR_FILE),
                                                  obj->getStringListAttribute(SUMO_ATTR_VTYPES),
                                                  obj->getStringListAttribute(SUMO_ATTR_NEXT_EDGES),
@@ -434,6 +442,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                     }
                 }
                 break;
+            }
             case SUMO_TAG_E3DETECTOR:
             case SUMO_TAG_ENTRY_EXIT_DETECTOR:
                 if (buildDetectorE3(obj,
@@ -1125,14 +1134,13 @@ void
 AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
+    const bool hasLanes = attrs.hasAttribute(SUMO_ATTR_LANES);
+    const bool hasLane = attrs.hasAttribute(SUMO_ATTR_LANE);
     const int positionDef = attrs.hasAttribute(SUMO_ATTR_POSITION) ? 1 : 0;
     const int endPosDef = attrs.hasAttribute(SUMO_ATTR_ENDPOS) ? 1 : 0;
     const int lengthDef = attrs.hasAttribute(SUMO_ATTR_LENGTH) ? 1 : 0;
-    // check attributes
-    if (attrs.hasAttribute(SUMO_ATTR_LANE) && ((positionDef + endPosDef + lengthDef) > 2)) {
-        writeError(TL("'pos', 'endPos' and 'length' cannot be defined together in a single lane area detector."));
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
-    } else if (attrs.hasAttribute(SUMO_ATTR_LANE) && ((positionDef + endPosDef + lengthDef) < 2)) {
+    // check attributes when anchoring lane is given without lanes
+    if (!hasLanes && hasLane && ((positionDef + endPosDef + lengthDef) < 2)) {
         writeError(TL("A single lane area detector requires two parameters of those 'pos', 'endPos' and 'length'."));
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
     } else {
@@ -1142,12 +1150,14 @@ AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
         // special attributes
         const std::string laneId = attrs.getOpt<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, "");
         const std::vector<std::string> laneIds = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), parsedOk, std::vector<std::string>());
-        const double position = attrs.getOpt<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, 0);
-        const double endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, 0);
-        const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, 0);
+        const double position = attrs.getOpt<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, INVALID_DOUBLE);
+        double endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, INVALID_DOUBLE);
+        double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, INVALID_DOUBLE);
         // optional attributes
         const SUMOTime period = attrs.getOptPeriod(id.c_str(), parsedOk, SUMOTime_MAX_PERIOD);
         const std::string trafficLight = attrs.getOpt<std::string>(SUMO_ATTR_TLID, id.c_str(), parsedOk, "");
+        const std::string toLane = attrs.getOpt<std::string>(SUMO_ATTR_TO, id.c_str(), parsedOk, "");
+        const std::string contStr = attrs.getOpt<std::string>(SUMO_ATTR_CONT, id.c_str(), parsedOk, "");
         const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
         const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, TIME2STEPS(1));
         const double haltingSpeedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), parsedOk, 1.39);
@@ -1157,42 +1167,50 @@ AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
         const std::string detectPersons = attrs.getOpt<std::string>(SUMO_ATTR_DETECT_PERSONS, "", parsedOk);
         const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
         const bool show = attrs.getOpt<bool>(SUMO_ATTR_SHOW_DETECTOR, id.c_str(), parsedOk, true);
+        if (!contStr.empty()) {
+            WRITE_WARNINGF(TL("Ignoring deprecated argument 'cont' for E2 detector '%'"), id);
+        }
         // continue if flag is ok
         if (parsedOk && checkDetectPersons(SUMO_TAG_E2DETECTOR, id, detectPersons)) {
-            // set tag
-            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_E2DETECTOR);
-            // add attributes depending of Lane/Lanes
-            if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
-                if (positionDef == 0) {
-                    myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, endPos - length);
-                    myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, length);
-                } else if (endPosDef == 0) {
-                    myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
-                    myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, length);
-                } else if (lengthDef == 0) {
-                    myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
-                    myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, endPos - position);
+            auto* baseObj = myCommonXMLStructure.getCurrentSumoBaseObject();
+            baseObj->setTag(SUMO_TAG_E2DETECTOR);
+            // add attributes depending on lanes vs lane (lanes takes priority over lane, matching SUMO)
+            if (hasLanes) {
+                if (hasLane) {
+                    WRITE_WARNINGF(TL("Ignoring argument 'lane' for E2Detector '%' since argument 'lanes' was given."), id);
                 }
+                if ((positionDef == 1) && (endPosDef == 1) && (lengthDef == 1)) {
+                    WRITE_WARNINGF(TL("Ignoring argument 'length' for E2Detector '%' since 'lanes', 'pos' and 'endPos' were given."), id);
+                    length = INVALID_DOUBLE;
+                }
+                baseObj->addStringListAttribute(SUMO_ATTR_LANES, laneIds);
+            } else if (hasLane) {
+                if ((positionDef + endPosDef + lengthDef) > 2) {
+                    WRITE_WARNINGF(TL("Ignoring argument 'endPos' for E2Detector '%' since argument 'pos' was given."), id);
+                    endPos = INVALID_DOUBLE;
+                }
+                baseObj->addStringAttribute(SUMO_ATTR_LANE, laneId);
             } else {
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LANES, laneIds);
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ENDPOS, endPos);
+                baseObj->addStringListAttribute(SUMO_ATTR_LANES, laneIds);
             }
+            baseObj->addDoubleAttribute(SUMO_ATTR_POSITION, position);
+            baseObj->addDoubleAttribute(SUMO_ATTR_ENDPOS, endPos);
+            baseObj->addDoubleAttribute(SUMO_ATTR_LENGTH, length);
             // add all attributes
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_PERIOD, period);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TLID, trafficLight);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_NEXT_EDGES, nextEdges);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_DETECT_PERSONS, detectPersons);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD, haltingTimeThreshold);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD, haltingSpeedThreshold);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD, jamDistThreshold);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_SHOW_DETECTOR, show);
+            baseObj->addStringAttribute(SUMO_ATTR_ID, id);
+            baseObj->addTimeAttribute(SUMO_ATTR_PERIOD, period);
+            baseObj->addStringAttribute(SUMO_ATTR_TLID, trafficLight);
+            baseObj->addStringAttribute(SUMO_ATTR_TO, toLane);
+            baseObj->addStringAttribute(SUMO_ATTR_FILE, file);
+            baseObj->addStringListAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
+            baseObj->addStringListAttribute(SUMO_ATTR_NEXT_EDGES, nextEdges);
+            baseObj->addStringAttribute(SUMO_ATTR_DETECT_PERSONS, detectPersons);
+            baseObj->addStringAttribute(SUMO_ATTR_NAME, name);
+            baseObj->addTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD, haltingTimeThreshold);
+            baseObj->addDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD, haltingSpeedThreshold);
+            baseObj->addDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD, jamDistThreshold);
+            baseObj->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+            baseObj->addBoolAttribute(SUMO_ATTR_SHOW_DETECTOR, show);
         } else {
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
         }
