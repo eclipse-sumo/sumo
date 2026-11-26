@@ -1,1 +1,1 @@
-tests/tools/import/OSM/mapReview/runner.py
+--osm-file osm.xml --net-file net.net.xml --log-file data/simulation.log --latitude 49.001 --longitude 8.001 --observation "Verify the connection at the selected junction." -o review.md tools/osmMapReview.py
