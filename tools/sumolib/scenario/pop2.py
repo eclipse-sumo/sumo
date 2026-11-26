@@ -1281,10 +1281,10 @@ class ScenarioSet_SinSinDemand(ScenarioSet):
             pv1 = v + pv1
             if random.uniform(0, 1) < pv1:
                 pv1 = pv1 - 1.
-                print('    <vehicle id="%i" type="passenger" route="WE" depart="%i" departSpeed="13.89" />' % (
+                print('    <vehicle id="%i" type="passenger" route="WE" depart="%i" />' % (
                     vehNr, i), file=fd)
                 vehNr += 1
-                print('    <vehicle id="%i" type="passenger" route="EW" depart="%i" departSpeed="13.89" />' % (
+                print('    <vehicle id="%i" type="passenger" route="EW" depart="%i" />' % (
                     vehNr, i), file=fd)
                 vehNr += 1
             v = math.sin(o2) * self.AMPLITUDE + self.MEAN
@@ -1292,10 +1292,10 @@ class ScenarioSet_SinSinDemand(ScenarioSet):
             pv2 = v + pv2
             if random.uniform(0, 1) < pv2:
                 pv2 = pv2 - 1.
-                print('    <vehicle id="%i" type="passenger" route="NS" depart="%i" departSpeed="13.89" />' % (
+                print('    <vehicle id="%i" type="passenger" route="NS" depart="%i" />' % (
                     vehNr, i), file=fd)
                 vehNr += 1
-                print('    <vehicle id="%i" type="passenger" route="SN" depart="%i" departSpeed="13.89" />' % (
+                print('    <vehicle id="%i" type="passenger" route="SN" depart="%i" />' % (
                     vehNr, i), file=fd)
                 vehNr += 1
             if frequency != 0:
@@ -1410,10 +1410,10 @@ class ScenarioSet_OneSinDemand(ScenarioSet):
             pv1 = v + pv1
             if random.uniform(0, 1) < pv1:
                 pv1 = pv1 - 1.
-                print('    <vehicle id="%i" type="passenger" route="WE" depart="%i" departSpeed="13.89" />' % (
+                print('    <vehicle id="%i" type="passenger" route="WE" depart="%i" />' % (
                     vehNr, i), file=fd)
                 vehNr += 1
-                print('    <vehicle id="%i" type="passenger" route="EW" depart="%i" departSpeed="13.89" />' % (
+                print('    <vehicle id="%i" type="passenger" route="EW" depart="%i" />' % (
                     vehNr, i), file=fd)
                 vehNr += 1
             if frequency != 0:
@@ -1421,11 +1421,11 @@ class ScenarioSet_OneSinDemand(ScenarioSet):
             pNS = float(self.MAIN_FLOW) / 3600
             pSN = float(self.MAIN_FLOW) / 3600
             if random.uniform(0, 1) < pNS:
-                print('    <vehicle id="%i" type="passenger" route="NS" depart="%i" departSpeed="13.89" />' % (
+                print('    <vehicle id="%i" type="passenger" route="NS" depart="%i" />' % (
                     vehNr, i), file=fd)
                 vehNr += 1
             if random.uniform(0, 1) < pSN:
-                print('    <vehicle id="%i" type="passenger" route="SN" depart="%i" departSpeed="13.89" />' % (
+                print('    <vehicle id="%i" type="passenger" route="SN" depart="%i" />' % (
                     vehNr, i), file=fd)
                 vehNr += 1
 

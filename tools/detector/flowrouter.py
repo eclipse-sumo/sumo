@@ -933,7 +933,7 @@ parser.add_argument("-o", "--routes-output", dest="routefile", category="output"
 parser.add_argument("-e", "--emitters-output", dest="emitfile", category="output", type=ArgumentParser.file,
                     help="write emitters to FILE and create files per emitter (needs -o)", metavar="FILE")
 parser.add_argument("-y", "--params", help="vehicle / flow params to use (vType, departPos etc.)", type=str,
-                    default='departSpeed="max" departPos="last" departLane="best"', metavar="STRING")
+                    default='departPos="last"', metavar="STRING")
 parser.add_argument("-t", "--trimmed-output", dest="trimfile", category="output", type=ArgumentParser.file,
                     help="write edges of trimmed network to FILE", metavar="FILE")
 parser.add_argument("-p", "--flow-poi-output", dest="flowpoifile", category="output", type=ArgumentParser.file,

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-05 10:16:30.461721 by cutRoutes.py v1_22_0+0650-d108669826e
+<!-- generated on 2026-11-26 16:22:56.431546 by Eclipse SUMO cutRoutes.py v0.0.0
 <configuration>
     <routes-output value="out.rou.xml"/>
     <stops-output value="out.add.xml"/>
@@ -11,7 +11,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="straight" depart="0.00" departLane="best" departSpeed="max">
+    <vehicle id="straight" depart="0.00">
         <route edges="middle end"/>
         <stop busStop="busstop1" duration="10"/>
     </vehicle>
