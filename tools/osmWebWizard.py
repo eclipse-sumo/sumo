@@ -22,6 +22,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
+import re
 import sys
 import stat
 import traceback
@@ -40,6 +41,7 @@ import gettext
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from urllib.parse import urlsplit, parse_qs
 import time
+import unicodedata
 
 import osmGet
 import osmBuild
@@ -150,6 +152,13 @@ class Builder(object):
         self.files = {}
         self.files_relative = {}
         self.data = data
+        name = data.get("scenarioName")
+        if isinstance(name, str):
+            name = unicodedata.normalize("NFKD", name).encode("ascii", errors="ignore").decode("ascii")
+            # The name is used in filenames, SUMO options, and generated batch commands.
+            self.prefix = re.sub(r"[^A-Za-z0-9_-]+", "-", name).strip("-")[:100] or self.prefix
+            if re.fullmatch(r"CON|PRN|AUX|NUL|(?:COM|LPT)[1-9]", self.prefix, re.IGNORECASE):
+                self.prefix += "-scenario"
 
         self.tmp = None
         if local:
