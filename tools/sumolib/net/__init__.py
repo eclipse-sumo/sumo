@@ -468,8 +468,21 @@ class Net:
             self._tlss.append(tls)
         return tls
 
+    def _getTLSNodeType(self, tls):
+        node = self._id2node.get(tls.getID())
+        return node.getType() if node is not None else None
+
     def getTrafficLights(self):
-        return self._tlss
+        """Return traffic light controllers for road and pedestrian traffic."""
+        return [tls for tls in self._tlss if self._getTLSNodeType(tls) not in ("rail_crossing", "rail_signal")]
+
+    def getRailCrossings(self):
+        """Return controllers for rail crossings."""
+        return [tls for tls in self._tlss if self._getTLSNodeType(tls) == "rail_crossing"]
+
+    def getRailSignals(self):
+        """Return controllers for rail signals."""
+        return [tls for tls in self._tlss if self._getTLSNodeType(tls) == "rail_signal"]
 
     def addTLS(self, tlid, inLane, outLane, linkNo):
         tls = self.getTLSSecure(tlid)

@@ -1,0 +1,1 @@
+--reverse --net input_net.net.xml --input input_plain.tll.xml --tls-filter rail-crossing,rail-signal --output export- tools/tls/tls_csvSignalGroups.py

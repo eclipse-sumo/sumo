@@ -641,7 +641,7 @@ def toCsv(options):
             addLogics[tlLogic._id].append(tlLogic)
 
     tlLogicsTotal = []
-    tlss = net.getTrafficLights()
+    tlss = net.getTrafficLights() + net.getRailCrossings() + net.getRailSignals()
     for tls in tlss:
         if len(filterIDs) > 0 and tls.getID() not in filterIDs:
             continue

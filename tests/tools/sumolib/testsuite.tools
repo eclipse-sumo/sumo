@@ -30,6 +30,9 @@ tls
 # parsing a network working with tlLogic
 tls_subsecond
 
+# distinguish road and railway signal controllers
+net_tls_types
+
 # generate a patch file to update the network
 patch_network
 
