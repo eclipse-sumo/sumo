@@ -20,8 +20,9 @@ from __future__ import absolute_import
 import os
 import re
 import subprocess
-from tkinter import Canvas, Menu, StringVar, Tk, LEFT
-from tkinter.ttk import Button, Frame, Menubutton, Label, Scrollbar, Entry
+from collections import defaultdict
+from tkinter import BooleanVar, Canvas, Menu, StringVar, Tk, Toplevel, LEFT
+from tkinter.ttk import Button, Checkbutton, Frame, LabelFrame, Menubutton, Label, Scrollbar, Entry
 from tkinter import filedialog
 from sumolib.options import Option, readOptions
 
@@ -79,13 +80,38 @@ class ScrollableFrame(Frame):
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
 
-def buildValueWidget(frame, optType):
-    if optType == "FOO":
-        pass
-    else:
-        var = StringVar()
-        widget = Entry(frame, textvariable=var)
-        return widget, var
+def bindHelpPopup(widget, helpText):
+    tip = {"win": None}
+
+    def show_tip(event):
+        if tip["win"] is None and helpText:
+            win = Toplevel(widget)
+            win.wm_overrideredirect(True)
+            win.wm_geometry("+%d+%d" % (event.x_root + 12, event.y_root + 12))
+            Label(win, text=helpText, justify=LEFT).pack(padx=4, pady=2)
+            tip["win"] = win
+
+    def hide_tip(_event):
+        if tip["win"] is not None:
+            tip["win"].destroy()
+            tip["win"] = None
+
+    widget.bind("<Enter>", show_tip)
+    widget.bind("<Leave>", hide_tip)
+
+
+def buildValueWidget(frame, optType, file_opt=None):
+    if optType == "BOOL":
+        var = BooleanVar(value=False)
+        return Checkbutton(frame, variable=var), var
+    var = StringVar()
+    if optType == "FILE":
+        holder = Frame(frame)
+        Entry(holder, textvariable=var).pack(side="left", fill="x", expand=True)
+        Button(holder, text="...", width=3,
+               command=lambda: var.set(filedialog.askopenfilename(**(file_opt or {})) or var.get())).pack(side="left")
+        return holder, var
+    return Entry(frame, textvariable=var), var
 
 
 class Launcher:
@@ -125,16 +151,20 @@ class Launcher:
 
     def buildAppOptions(self, appOptions):
         NAME, VALUE, HELP = range(3)
-        row = 0
+        byCat = defaultdict(list)
         for o in appOptions:
-            row += 1
-            Label(self.optFrame, text=o.name).grid(
-                row=row, column=NAME, sticky="NW")
-            widget, var = buildValueWidget(self.optFrame, o.type)
-            self.optionValues[o.name] = var
-            widget.grid(row=row, column=VALUE, sticky="NW")
-            Label(self.optFrame, text=o.help, justify=LEFT).grid(
-                row=row, column=HELP, sticky="NW")
+            byCat[getattr(o, "category", None) or "General"].append(o)
+        for catRow, (cat, opts) in enumerate(byCat.items()):
+            sec = LabelFrame(self.optFrame, text=cat)
+            sec.grid(row=catRow, column=0, sticky="NSEW", padx=4, pady=2)
+            for row, o in enumerate(opts):
+                lbl = Label(sec, text=o.name)
+                lbl.grid(row=row, column=NAME, sticky="NW")
+                bindHelpPopup(lbl, o.help)
+                widget, var = buildValueWidget(sec, o.type, getattr(self, "file_opt", None))
+                self.optionValues[o.name] = var
+                widget.grid(row=row, column=VALUE, sticky="NW")
+                Label(sec, text=o.help, justify=LEFT).grid(row=row, column=HELP, sticky="NW")
 
     def mainButtons(self):
         row = 0
@@ -186,31 +216,35 @@ class Launcher:
         pass
 
 
-def parse_help(app):
-    binary = os.path.join(BINDIR, app)
-    reOpt = re.compile(r"--([^ ]*) (\w*) (.*$)")
-    helpstring = subprocess.check_output([binary, '--help'])
-    options = []
-    optName = None
-    optHelp = ""
-    optType = ""
-    for line in helpstring.split(os.linesep):
-        if '--' in line:
+def parse_help_text(helpstring):
+    reOpt = re.compile(r"--([^ ]+)(?:\s+(FILE|TIME|FLOAT|INT|STR(?:\[])?))?\s+(.*$)")
+    reCat = re.compile(r"^([A-Za-z][A-Za-z0-9 /_-]*Options):\s*$")
+    options, category, optName, optHelp, optType = [], "General", None, "", ""
+    for line in helpstring.splitlines():
+        catMatch = reCat.match(line.strip())
+        if catMatch:
             if optName is not None:
-                options.append(Option(optName, None, optType, optHelp))
+                options.append(Option(optName, None, optType or "BOOL", optHelp, category))
+                optName = None
+            category = catMatch.group(1)
+        elif "--" in line:
+            if optName is not None:
+                options.append(Option(optName, None, optType or "BOOL", optHelp, category))
             match = reOpt.search(line)
             if match is not None:
-                optName = match.group(1)
-                optType = match.group(2)
-                optHelp = match.group(3).strip()
-        elif "                                     " in line:
+                optName, optType, optHelp = match.group(1), match.group(2) or "BOOL", match.group(3).strip()
+            else:
+                optName = None
+        elif optName is not None and line.startswith(" " * 10) and line.strip():
             optHelp += "\n" + line.strip()
     if optName is not None:
-        if optType == '':
-            optType = 'BOOL'
-        options.append(Option(optName, None, optType, optHelp))
-
+        options.append(Option(optName, None, optType or "BOOL", optHelp, category))
     return options
+
+
+def parse_help(app):
+    binary = os.path.join(BINDIR, app)
+    return parse_help_text(subprocess.check_output([binary, '--help'], universal_newlines=True))
 
 
 def main():
