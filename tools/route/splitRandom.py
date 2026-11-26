@@ -27,13 +27,12 @@ import random
 
 # (seed)
 
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
-
-import sumolib  # noqa
+try:
+    import sumolib  # noqa
+except ImportError:
+    sys.path.append(os.path.join(os.environ.get(
+        "SUMO_HOME", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")), "tools"))
+    import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
 
 
