@@ -565,6 +565,13 @@ on("ready", async function(){
     let currentStep;
     let presentedErrorLog = false;
     let progressTimer = null;
+    const scenarioOutput = elem("#scenario-output");
+    const scenarioDirectory = elem("#scenario-directory");
+    const scenarioTimestamp = elem("#scenario-timestamp");
+    const scenarioLocation = elem("#scenario-location");
+    scenarioDirectory.on("input", function(){
+        scenarioTimestamp.disabled = !scenarioDirectory.value.trim();
+    });
 
     function errorMessage(error) {
         if (presentedErrorLog == false) {
@@ -640,11 +647,18 @@ on("ready", async function(){
         } else if(type === "steps"){
             totalSteps = Number.parseInt(message);
             currentStep = 0;
+        } else if(type === "directory"){
+            scenarioLocation.textContent = TLF("Scenario directory: %", message);
+            scenarioLocation.hidden = false;
         }
     }
 
     if (globalThis.location.protocol == "file:") {
         connectSocket();
+    } else {
+        safeFetch("/scenario-settings").then(response => response.json()).then(settings => {
+            scenarioOutput.hidden = !settings.scenarioDirectory;
+        }).catch(() => {});
     }
 
     async function pollProgress() {
@@ -694,6 +708,13 @@ on("ready", async function(){
             vehicles: {},
             roadTypes:{} // sab-inf
         };
+
+        const directory = scenarioDirectory.value.trim();
+        if (!scenarioOutput.hidden && directory) {
+            data.scenarioDirectory = directory;
+            data.timestampScenarioDirectory = scenarioTimestamp.checked;
+        }
+        scenarioLocation.hidden = true;
 
         // calculates the coordinates of the rectangle if area-picking is active
         if(canvasActive){
