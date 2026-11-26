@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
+    <interval begin="0.00" end="3600.00" id="up_0" nVehContrib="120" flow="120.00" occupancy="4.50" speed="13.50" harmonicMeanSpeed="13.20" length="5.00" nVehEntered="120"/>
+    <interval begin="0.00" end="3600.00" id="up_1" nVehContrib="80" flow="80.00" occupancy="3.00" speed="14.50" harmonicMeanSpeed="14.20" length="5.00" nVehEntered="80"/>
+    <interval begin="0.00" end="3600.00" id="down_0" nVehContrib="150" flow="150.00" occupancy="5.50" speed="12.50" harmonicMeanSpeed="12.10" length="5.00" nVehEntered="150"/>
+    <interval begin="0.00" end="3600.00" id="down_1" nVehContrib="100" flow="100.00" occupancy="3.80" speed="13.80" harmonicMeanSpeed="13.50" length="5.00" nVehEntered="100"/>
+</detector>

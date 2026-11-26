@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <inductionLoop id="up_0" lane="e_main_0" pos="10.0" period="3600" file="e1_output.xml"/>
+    <inductionLoop id="up_1" lane="e_main_1" pos="10.0" period="3600" file="e1_output.xml"/>
+    <inductionLoop id="down_0" lane="e_main_0" pos="150.0" period="3600" file="e1_output.xml"/>
+    <inductionLoop id="down_1" lane="e_main_1" pos="150.0" period="3600" file="e1_output.xml"/>
+</additional>

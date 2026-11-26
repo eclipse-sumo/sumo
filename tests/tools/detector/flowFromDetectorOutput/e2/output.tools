@@ -1,0 +1,6 @@
+# detNames RouteFlow DetFlow ratio
+e2_north 45.0 50.0 -0.1
+e2_south 30.0 30.0 0.0
+# interval 0.0
+# avgRouteFlow avgDetFlow avgDev RMSE RMSPE
+# 37.5 40.0 2.5 3.5355339059327378 0.07071067811865475

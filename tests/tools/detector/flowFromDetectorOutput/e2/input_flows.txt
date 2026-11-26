@@ -1,0 +1,3 @@
+Detector;Time;qPKW;vPKW
+e2_north;0;50;11.5
+e2_south;0;30;12.0

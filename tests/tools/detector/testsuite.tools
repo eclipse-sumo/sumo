@@ -7,3 +7,6 @@ mapDetectors
 plotFlows
 flow2POI
 flowConservation
+
+# compare simulation E1/E2 detector XML output to reference flows (#10584)
+flowFromDetectorOutput
