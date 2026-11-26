@@ -69,7 +69,17 @@ GNEFileDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArg
 
 std::string
 GNEFileDialog::getFilename() const {
-    return assureExtension(myFileSelector->getFilename());
+    const std::string filename = assureExtension(myFileSelector->getFilename());
+    if (myFileSelector->isImageSelector() && !filename.empty()) {
+        const std::string iconsDir = GNEFileSelector::getIconsDirectory();
+        if (!iconsDir.empty() && FXFile::identical(FXPath::directory(filename.c_str()), iconsDir.c_str())) {
+            const std::string shortName = FXPath::name(filename.c_str()).text();
+            if (!FXStat::exists(shortName.c_str()) || FXFile::identical(shortName.c_str(), filename.c_str())) {
+                return shortName;
+            }
+        }
+    }
+    return filename;
 }
 
 
@@ -114,11 +124,17 @@ long
 GNEFileDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     const FXString directory = myFileSelector->getDirectory().c_str();
     const FXString filename = myFileSelector->getFilename().c_str();
-    // update current folder
+    const std::string iconsDir = myFileSelector->isImageSelector() ? GNEFileSelector::getIconsDirectory() : "";
+    // update current folder (unless selecting from SUMO icons directory)
     if (directory.length() > 0) {
-        gCurrentFolder = directory;
+        if (iconsDir.empty() || !FXFile::identical(directory, iconsDir.c_str())) {
+            gCurrentFolder = directory;
+        }
     } else if (filename.length() > 0) {
-        gCurrentFolder = FXPath::directory(filename);
+        const FXString fileDir = FXPath::directory(filename);
+        if (iconsDir.empty() || !FXFile::identical(fileDir, iconsDir.c_str())) {
+            gCurrentFolder = fileDir;
+        }
     }
     // close dialog accepting changes
     return closeDialogAccepting();

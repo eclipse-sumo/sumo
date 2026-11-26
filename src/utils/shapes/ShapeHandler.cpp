@@ -19,10 +19,12 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cstdlib>
 #include <string>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
@@ -41,6 +43,39 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+static std::string
+resolveShapeImgFile(const std::string& configFile, const std::string& imgFile) {
+    if (imgFile.empty() || FileHelpers::isAbsolute(imgFile)) {
+        return imgFile;
+    }
+    const std::string configRel = FileHelpers::getConfigurationRelative(configFile, imgFile);
+    if (FileHelpers::isReadable(configRel)) {
+        return configRel;
+    }
+    const char* sumoPath = std::getenv("SUMO_HOME");
+    if (sumoPath != nullptr) {
+        const std::string iconsDir = std::string(sumoPath) + "/data/icons/";
+        if (FileHelpers::isReadable(iconsDir + imgFile)) {
+            return imgFile;
+        }
+        if (StringUtils::startsWith(imgFile, "icons/") && FileHelpers::isReadable(std::string(sumoPath) + "/data/" + imgFile)) {
+            return imgFile;
+        }
+        if (StringUtils::startsWith(imgFile, "data/icons/") && FileHelpers::isReadable(std::string(sumoPath) + "/" + imgFile)) {
+            return imgFile;
+        }
+        if (imgFile.find('.') == std::string::npos) {
+            for (const char* ext : {".xpm", ".png", ".gif"}) {
+                if (FileHelpers::isReadable(iconsDir + imgFile + ext)) {
+                    return imgFile;
+                }
+            }
+        }
+    }
+    return configRel;
+}
+
 
 ShapeHandler::ShapeHandler(const std::string& file, ShapeContainer& sc, const GeoConvHelper* geoConvHelper) :
     SUMOSAXHandler(file),
@@ -134,9 +169,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
     const RGBColor color = attrs.hasAttribute(SUMO_ATTR_COLOR) ? attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok) : (imgFile != "" ? RGBColor::WHITE : myDefaultColor);
     // If the image file is set, change the default POI color to white.
-    if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
-        imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
-    }
+    imgFile = resolveShapeImgFile(getFileName(), imgFile);
     const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id.c_str(), ok, Shape::DEFAULT_IMG_WIDTH);
     const double height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, id.c_str(), ok, Shape::DEFAULT_IMG_HEIGHT);
     // check if ID is valid
@@ -252,9 +285,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
         }
         const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
         std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
-        if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
-            imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
-        }
+        imgFile = resolveShapeImgFile(getFileName(), imgFile);
         // check that shape's size is valid
         if (shape.size() == 0) {
             WRITE_ERROR(TL("Polygon's shape cannot be empty."));

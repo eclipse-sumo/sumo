@@ -18,6 +18,7 @@
 // widget used for file selection
 /****************************************************************************/
 
+#include <cstdlib>
 #include <fxkeys.h>
 #include <netedit/dialogs/basic/GNEErrorBasicDialog.h>
 #include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
@@ -66,6 +67,7 @@ FXDEFMAP(GNEFileSelector) GNEFileSelectorMap[] = {
     FXMAPFUNCS(SEL_UPDATE,              FXFileSelector::ID_NORMAL_SIZE,     FXFileSelector::ID_GIANT_SIZE,  GNEFileSelector::onUpdImageSize),
     FXMAPFUNC(SEL_KEYPRESS,             0,                                  GNEFileSelector::onKeyPress),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_BUTTON_CONFIG,              GNEFileSelector::onCmdConfigFolder),
+    FXMAPFUNC(SEL_COMMAND,              GNEFileSelector::ID_ICONS_FOLDER,   GNEFileSelector::onCmdIconsFolder),
 };
 
 // Implementation
@@ -81,6 +83,7 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
     myFileDialog(fileDialog),
     myOpenMode(openMode),
     myConfigType(configType),
+    myIsImageSelector((openMode != GNEFileDialog::OpenMode::SAVE) && (extensions == SUMOXMLDefinitions::ImageFileExtensions.getStrings())),
     myBookmarksRecentFiles(fileDialog->getApplicationWindow()->getApp(), TL("Visited Directories")) {
     // get static tooltip
     const auto tooltipMenu = fileDialog->getApplicationWindow()->getStaticTooltipMenu();
@@ -429,6 +432,13 @@ GNEFileSelector::onPopupMenu(FXObject*, FXSelector, void* ptr) {
     } else {
         configDirectory->setIcon(GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI));
     }
+    if (myIsImageSelector) {
+        auto iconsDirectory = new FXMenuCommand(&filemenu, TL("SUMO icons directory"),
+                                                GUIIconSubSys::getIcon(GUIIcon::POIICON_PIN), this, ID_ICONS_FOLDER);
+        if (getIconsDirectory().empty()) {
+            iconsDirectory->disable();
+        }
+    }
     new FXMenuCommand(&filemenu, TL("Select all"), NULL, myFileSelector, FXFileList::ID_SELECT_ALL);
     new FXMenuSeparator(&filemenu);
 
@@ -669,6 +679,25 @@ GNEFileSelector::getFilenameTextField() const {
 }
 
 
+bool
+GNEFileSelector::isImageSelector() const {
+    return myIsImageSelector;
+}
+
+
+std::string
+GNEFileSelector::getIconsDirectory() {
+    const char* sumoPath = std::getenv("SUMO_HOME");
+    if (sumoPath != nullptr) {
+        const FXString iconsDir = FXPath::simplify((std::string(sumoPath) + "/data/icons").c_str());
+        if (FXStat::isDirectory(iconsDir)) {
+            return iconsDir.text();
+        }
+    }
+    return "";
+}
+
+
 long
 GNEFileSelector::onCmdItemSelected(FXObject*, FXSelector, void* ptr) {
     const FXint index = (FXint)(FXival)ptr;
@@ -784,6 +813,13 @@ GNEFileSelector::onCmdAccept(FXObject* obj, FXSelector sel, void* ptr) {
             } else {
                 // check that file exist
                 if (FXStat::exists(filenameExtension.c_str())) {
+                    if (myIsImageSelector && getFilename().empty()) {
+                        setFilename(filenameExtension.c_str());
+                    }
+                    return myFileDialog->onCmdAccept(obj, sel, ptr);
+                } else if (myIsImageSelector && !getIconsDirectory().empty() &&
+                           FXStat::exists(FXPath::absolute(getIconsDirectory().c_str(), file.c_str()))) {
+                    setFilename(FXPath::absolute(getIconsDirectory().c_str(), file.c_str()));
                     return myFileDialog->onCmdAccept(obj, sel, ptr);
                 } else {
                     // open error dialog
@@ -836,6 +872,17 @@ GNEFileSelector::onCmdConfigFolder(FXObject*, FXSelector, void*) {
     // get config file folder
     const auto configFileFolder = FXPath::directory(OptionsCont::getOptions().getString("configuration-file").c_str());
     setDirectory(configFileFolder);
+    return 1;
+}
+
+
+long
+GNEFileSelector::onCmdIconsFolder(FXObject*, FXSelector, void*) {
+    const std::string iconsDir = getIconsDirectory();
+    if (!iconsDir.empty()) {
+        setDirectory(iconsDir.c_str());
+        showImages(TRUE);
+    }
     return 1;
 }
 
@@ -951,6 +998,14 @@ GNEFileSelector::buildButtons(FXHorizontalFrame* navigatorHorizontalFrame, MFXSt
     } else {
         goConfigDirectory->setIcon(GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI));
         goConfigDirectory->setTipText(TL("Go to sumo config directory"));
+    }
+    if (myIsImageSelector) {
+        auto goIconsDirectory = new MFXButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "",
+                GUIIconSubSys::getIcon(GUIIcon::POIICON_PIN), this, ID_ICONS_FOLDER, GUIDesignButtonIconFileDialog);
+        goIconsDirectory->setTipText(TL("Go to SUMO icons directory"));
+        if (getIconsDirectory().empty()) {
+            goIconsDirectory->disable();
+        }
     }
     // create button for bookmarks menu
     auto bookmenuTooltip = new MFXMenuButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET),

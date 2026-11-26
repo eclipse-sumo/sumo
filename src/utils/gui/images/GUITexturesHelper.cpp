@@ -21,6 +21,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cstdlib>
 #include <iostream>
 #include <utils/foxtools/fxheader.h>
 #include <utils/foxtools/MFXImageHelper.h>
@@ -28,7 +29,9 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringUtils.h>
 
 #include "GUITexturesHelper.h"
 
@@ -109,12 +112,41 @@ GUITexturesHelper::drawTexturedBox(int which, double sizeX1, double sizeY1, doub
 }
 
 
+static std::string
+resolveImagePath(const std::string& filename) {
+    if (filename.empty() || FileHelpers::isReadable(filename) || FileHelpers::isAbsolute(filename)) {
+        return filename;
+    }
+    const char* sumoPath = std::getenv("SUMO_HOME");
+    if (sumoPath != nullptr) {
+        const std::string iconsDir = std::string(sumoPath) + "/data/icons/";
+        if (FileHelpers::isReadable(iconsDir + filename)) {
+            return iconsDir + filename;
+        }
+        if (StringUtils::startsWith(filename, "icons/") && FileHelpers::isReadable(std::string(sumoPath) + "/data/" + filename)) {
+            return std::string(sumoPath) + "/data/" + filename;
+        }
+        if (StringUtils::startsWith(filename, "data/icons/") && FileHelpers::isReadable(std::string(sumoPath) + "/" + filename)) {
+            return std::string(sumoPath) + "/" + filename;
+        }
+        if (FXPath::extension(filename.c_str()).empty()) {
+            for (const char* ext : {".xpm", ".png", ".gif"}) {
+                if (FileHelpers::isReadable(iconsDir + filename + ext)) {
+                    return iconsDir + filename + ext;
+                }
+            }
+        }
+    }
+    return filename;
+}
+
+
 int
 GUITexturesHelper::getTextureID(const std::string& filename, const bool mirrorX) {
     if (myTextures.count(filename) == 0) {
         try {
             // load image
-            FXImage* i = MFXImageHelper::loadImage(GUIMainWindow::getInstance()->getApp(), filename);
+            FXImage* i = MFXImageHelper::loadImage(GUIMainWindow::getInstance()->getApp(), resolveImagePath(filename));
             if (mirrorX) {
                 i->mirror(false, true);
             }
