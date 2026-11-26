@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23T14:16:13.025762+00:00 by Eclipse SUMO netconvert v1.28.0-0000000000
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Users\Mark/.codex/sumo-backlog/17769/input_nodes.nod.xml"/>
+        <edge-files value="C:\Users\Mark/.codex/sumo-backlog/17769/input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\Mark/.codex/sumo-backlog/17769/input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-391390.73,-5817855.24" convBoundary="0.00,-3.20,200.00,0.00" origBoundary="13.399856,52.499908,13.403089,52.500132" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="far" from="b" to="c" priority="-1">
+        <lane id="far_0" index="0" speed="13.89" length="175.00" shape="25.00,-1.60 200.00,-1.60"/>
+    </edge>
+    <edge id="near" from="a" to="b" priority="-1">
+        <lane id="near_0" index="0" speed="13.89" length="25.00" shape="0.00,-1.60 25.00,-1.60"/>
+    </edge>
+
+    <junction id="a" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="b" type="priority" x="25.00" y="0.00" incLanes="near_0" intLanes="" shape="25.00,0.00 25.00,-3.20 25.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="c" type="dead_end" x="200.00" y="0.00" incLanes="far_0" intLanes="" shape="200.00,-3.20 200.00,0.00"/>
+
+    <connection from="near" to="far" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

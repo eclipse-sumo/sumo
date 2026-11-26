@@ -1,0 +1,1 @@
+-n input_net.net.xml --gtfs gtfs.zip --date 20260101 --bbox 13.39,52.49,13.41,52.51 --modes bus --radius 15 --bus-stop-length 30 --vtype-output vehtypes.xml tools/import/gtfs/gtfs2pt.py

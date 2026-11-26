@@ -463,17 +463,26 @@ def getBestLane(net, lon, lat, radius, stop_length, center, edge_set, pt_class, 
     # get edges near stop location
     x, y = net.convertLonLat2XY(lon, lat)
     edges = [e for e in net.getNeighboringEdges(x, y, radius, includeJunctions=False) if e[0].getID() in edge_set]
-    # sort by distance but have edges longer than stop length first
-    # TODO we should rather go for maximum overlap but it is unclear how to weight this against distance
-    for edge, _ in sorted(edges, key=lambda x: (x[0].getLength() <= stop_length, x[1])):
+    closest = None
+    distance_limit = radius
+    for edge, distance in sorted(edges, key=lambda x: x[1]):
+        if distance > distance_limit:
+            break
         for lane in edge.getLanes():
             if lane.allows(pt_class):
+                length = lane.getLength()
                 pos = lane.getClosestLanePosAndDist((x, y))[0]
                 start = max(0, pos - (stop_length / 2. if center else stop_length))
-                end = min(start + stop_length, lane.getLength())
+                end = min(start + stop_length, length)
                 if last_pos is None or end >= last_pos[1] or edge.getID() != last_pos[0]:
-                    return lane.getID(), start, end
-    return None
+                    if length >= stop_length:
+                        return lane.getID(), start, end
+                    if closest is None:
+                        closest = (lane.getID(), start, end)
+                        # Prefer a full-length platform only when the extra distance fits within the shortfall.
+                        distance_limit = distance + stop_length - length
+                    break
+    return closest
 
 
 def getAccess(net, lon, lat, radius, lane_id, max_access=10):

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-07-15 17:39:34.026775 by Eclipse SUMO gtfs2pt.py v1_27_1+0275-acf350395f8
+<!-- generated on 2026-11-23 14:20:33.535899 by Eclipse SUMO gtfs2pt.py v1_28_0+0759-22f87a6fede
 <configuration>
     <merged-csv value="data.csv"/>
     <vtype-output value="vehtypes.xml"/>
@@ -21,7 +21,7 @@
         <stop busStop="132.3" duration="10" until="560"/> <!-- Braunschweig Altstadtmarkt -->
         <stop busStop="132.2" duration="10" until="620"/> <!-- Braunschweig Hintern Brüdern -->
         <stop busStop="132.1" duration="10" until="680"/> <!-- Braunschweig Packhof -->
-        <stop busStop="133.4" duration="10" until="800"/> <!-- Braunschweig Rathaus -->
+        <stop busStop="132.0" duration="10" until="800"/> <!-- Braunschweig Rathaus -->
     </route>
     <vehicle id="132.0" route="132" type="bus" depart="18890" line="418">
         <param key="gtfs.route_name" value="418"/>
