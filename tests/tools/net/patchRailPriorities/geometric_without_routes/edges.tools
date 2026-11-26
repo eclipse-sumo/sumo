@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 12:35:48.874008 by Eclipse SUMO patchRailPriorities.py v0.0.0
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <output-file value="net.net.xml"/>
+    <patchfile-prefix value="out"/>
+    <exclude-reverse-usage value="1"/>
+</configuration>
+-->
+
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <edge id="-E0" priority="0" routingType="0"/>
+    <edge id="-E0c" priority="4" routingType="4"/>
+    <edge id="-E10" priority="4" routingType="4"/>
+    <edge id="-E10b" priority="0" routingType="0"/>
+    <edge id="-E11" priority="4" routingType="4"/>
+    <edge id="-E11b" priority="0" routingType="0"/>
+    <edge id="-E15" priority="4" routingType="4"/>
+    <edge id="-E15b" priority="0" routingType="0"/>
+    <edge id="-E4" priority="0" routingType="0"/>
+    <edge id="-E4c" priority="4" routingType="4"/>
+    <edge id="-E6" priority="4" routingType="4"/>
+    <edge id="-E6b" priority="0" routingType="0"/>
+    <edge id="-E8" priority="0" routingType="0"/>
+    <edge id="-E8c" priority="4" routingType="4"/>
+    <edge id="E0" priority="4" routingType="4"/>
+    <edge id="E0c" priority="0" routingType="0"/>
+    <edge id="E10" priority="0" routingType="0"/>
+    <edge id="E10b" priority="4" routingType="4"/>
+    <edge id="E11" priority="0" routingType="0"/>
+    <edge id="E11b" priority="4" routingType="4"/>
+    <edge id="E15" priority="0" routingType="0"/>
+    <edge id="E15b" priority="4" routingType="4"/>
+    <edge id="E4" priority="4" routingType="4"/>
+    <edge id="E4c" priority="0" routingType="0"/>
+    <edge id="E6" priority="0" routingType="0"/>
+    <edge id="E6b" priority="4" routingType="4"/>
+    <edge id="E8" priority="4" routingType="4"/>
+    <edge id="E8c" priority="0" routingType="0"/>
+</edges>
