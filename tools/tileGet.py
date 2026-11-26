@@ -23,6 +23,8 @@ import math
 import os
 import sys
 import json
+import html
+import re
 import shutil
 import subprocess
 from multiprocessing.pool import Pool
@@ -177,13 +179,61 @@ def reprojectTiles(options, tile_list, zoom, net, decals):
         os.unlink(filename)
 
 
+def tileErrorMessage(prefix, content_type, api_key):
+    message = ""
+    if content_type.endswith("json") or prefix.startswith(("{", "[")):
+        try:
+            response = json.loads(prefix)
+        except ValueError:
+            return ""
+        if isinstance(response, dict) and isinstance(response.get("error"), dict):
+            message = response["error"].get("message")
+    elif prefix.startswith("<") or content_type == "text/html":
+        title = re.search(r"<title\b[^>]*>([^<]*)</title\s*>", prefix, re.IGNORECASE)
+        if title is not None:
+            message = html.unescape(title.group(1))
+    elif content_type == "text/plain":
+        message = prefix.partition("\n")[0]
+    if not isinstance(message, str):
+        return ""
+    message = " ".join("".join(char if char.isprintable() else " " for char in message).split())
+    # Skip messages that may contain addresses or credentials.
+    if ((api_key and api_key in message)
+            or re.search(r"//|\b[\w-]+\.[a-z]{2,}\b|\b(?:\d{1,3}\.){3}\d{1,3}\b"
+                         r"|\b(?:key|token|secret|password|authorization)(?:\s*[:=]|\s+[\w-]{12,})",
+                         message, re.IGNORECASE)):
+        return ""
+    return message[:160].rstrip()
+
+
+def downloadImage(options, request, filename):
+    _, headers = urllib.urlretrieve(request, filename)
+    content_type = headers.get("Content-Type", "").split(";", 1)[0].strip().lower()
+    with open(filename, "rb") as image:
+        prefix = image.read(512).decode("utf-8-sig", errors="replace").lstrip()
+    text_type = content_type.startswith("text/") or content_type.endswith(("json", "xml"))
+    if text_type or prefix.startswith(("<", "{", "[")):
+        os.remove(filename)
+        detail = "text"
+        if text_type and re.fullmatch(r"[a-z0-9.+-]{1,40}/[a-z0-9.+-]{1,40}", content_type):
+            detail = content_type
+        error = "an unexpected response (%s) instead of an image for '%s'" % (detail, os.path.basename(filename))
+        explanation = tileErrorMessage(prefix, content_type, getattr(options, "key", None))
+        if explanation:
+            error += ": " + explanation
+        raise ValueError(error)
+    size = os.stat(filename).st_size
+    if size < options.min_file_size:
+        os.remove(filename)
+        raise ValueError("an image for '%s' with %s bytes (minimum %s)"
+                         % (os.path.basename(filename), size, options.min_file_size))
+
+
 def worker(options, request, filename):
     if options.simulate:
         print(request, filename)
     else:
-        urllib.urlretrieve(request, filename)
-        if os.stat(filename).st_size < options.min_file_size:
-            raise ValueError("small file")
+        downloadImage(options, request, filename)
 
 
 def writeSettings(options, net, tile_list, zoom, decals):
@@ -417,9 +467,7 @@ def get(args=None):
                            (options.url, size, c[0], c[1], z, maptype, options.key))
                 # print(request)
                 filename = os.path.join(options.output_dir, "%s%s.png" % (prefix, i))
-                urllib.urlretrieve(request, filename)
-                if os.stat(filename).st_size < options.min_file_size:
-                    raise ValueError("small file")
+                downloadImage(options, request, filename)
                 if net is not None:
                     print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
                           (os.path.basename(filename),
