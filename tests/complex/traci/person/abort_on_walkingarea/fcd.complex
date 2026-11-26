@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26T14:25:53.464909+01:00 by Eclipse SUMO sumo v1_28_0+0857-c4aaba87509
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net3.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="edge,pos"/>
+    </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="45493"/>
+    </traci_server>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <person id="p0" pos="85.15" edge="WC"/>
+    </timestep>
+    <timestep time="1.00">
+        <person id="p0" pos="85.72" edge="WC"/>
+    </timestep>
+    <timestep time="2.00">
+        <person id="p0" pos="0.17" edge=":C_w3"/>
+    </timestep>
+    <timestep time="3.00">
+        <person id="p0" pos="0.85" edge=":C_w3"/>
+    </timestep>
+    <timestep time="4.00">
+        <person id="p0" pos="1.48" edge=":C_w3"/>
+    </timestep>
+    <timestep time="5.00">
+        <person id="p0" pos="2.09" edge=":C_w3"/>
+    </timestep>
+    <timestep time="6.00">
+        <person id="p0" pos="2.78" edge=":C_w3"/>
+    </timestep>
+    <timestep time="7.00">
+        <person id="p0" pos="3.37" edge=":C_w3"/>
+    </timestep>
+    <timestep time="8.00">
+        <person id="p0" pos="4.03" edge=":C_w3"/>
+    </timestep>
+    <timestep time="9.00">
+        <person id="p0" pos="4.65" edge=":C_w3"/>
+    </timestep>
+    <timestep time="10.00">
+        <person id="p0" pos="5.24" edge=":C_w3"/>
+    </timestep>
+    <timestep time="11.00">
+        <person id="p0" pos="5.94" edge=":C_w3"/>
+    </timestep>
+    <timestep time="12.00">
+        <person id="p0" pos="5.94" edge=":C_w3"/>
+    </timestep>
+    <timestep time="13.00">
+        <person id="p0" pos="5.94" edge=":C_w3"/>
+    </timestep>
+    <timestep time="14.00"/>
+</fcd-export>

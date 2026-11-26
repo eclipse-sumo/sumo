@@ -1448,7 +1448,7 @@ NBEdgeCont::guessRoundabouts() {
             for (const NBEdge* const le : loopEdges) {
                 loopLength += le->getLoadedLength();
             }
-            if (formFactor(loopEdges) > 0.6
+            if (formFactor(loopEdges) > 0.8
                     && loopLength < OptionsCont::getOptions().getFloat("roundabouts.guess.max-length")) {
                 // Preserve explicitly loaded roundabouts.
                 const bool loaded = std::any_of(loopEdges.begin(), loopEdges.end(), [&loadedRoundaboutEdges](NBEdge* edge) {

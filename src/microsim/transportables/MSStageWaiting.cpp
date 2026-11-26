@@ -41,7 +41,9 @@ MSStageWaiting::MSStageWaiting(const MSEdge* destination, MSStoppingPlace* toSto
     MSStage(initial ? MSStageType::WAITING_FOR_DEPART : MSStageType::WAITING,
             destination,
             toStop,
-            SUMOVehicleParameter::interpretEdgePos(pos, destination->getLength(), SUMO_ATTR_DEPARTPOS, "stopping at " + destination->getID())),
+            // do not validate positions on walkingArea
+            SUMOVehicleParameter::interpretEdgePos(pos, destination->isWalkingArea() ? pos : destination->getLength(),
+                SUMO_ATTR_DEPARTPOS, "stopping at " + destination->getID())),
     myWaitingDuration(duration),
     myWaitingUntil(until),
     myStopWaitPos(Position::INVALID),

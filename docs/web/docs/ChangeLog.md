@@ -23,6 +23,10 @@ title: ChangeLog
   - Fixed invalid error when a rerouter closes a foot path #18601
   - Fixed slow loading of actuated traffic lights with many phases #18606
   - Fixed bug where wiedemann model blocks during lanechange (affects lane changing for all models) #16507
+  - Fixed non-deterministic ordering of link-output #18778
+  - keepRight behavior is now working even when setting lcspeedgain <= 0 #17793
+  - fixed inconsistencies when running with **--threads**  #18779, #17003, #19125 (still experimental)
+  - Option **--ignore-route-errors* now ignores invalid pedestrian plans #18623
   - Fixed railway issues:
     - Fixed invalid predecessor lane used when inserting long train on short edge #18345
     - Fixed failure to reverse train near route end #18385
@@ -71,23 +75,25 @@ title: ChangeLog
 
 - netconvert
   - Fixed insufficient geo-precision in parquet output #18390
+  - Fixed invalid track direction when processing OSM data with option **--railway.topology.repair** #18349
   - Options **--railway.topology.repair.stop-turn** now takes effect during initial network import #18452
   - OSM: fixed missing public transport stops #18454
-  - Fixed non-deterministic roundabout guessing #18375
+  - Fixed non-deterministic roundabout guessing #18375  
+  - Fixed missing traffic light signal at pedestrian crossing #18599
+  - Fixed misidentificaiton of roundabouts #18695
 
 - meso
   - Fixed extreme slow-down when running simulation with option **--time-to-teleport.disconnected** #18357 (regression in 1.28.0)
   - Fixed invalid junction effects by overtaken vehicle #18402
   - Fixed inconsistent queue outputs **--meso-interpolate-pos** #18396
   - Fixed invalid early event time before a tls switches to green #18474
+  - Fixed crash with option **--meso-lane-queue** involving internal lanes #18683
+  - Fixed invalid effects of **--meso-edgelength** on behavior of **--meso-ltm** #18388
   - state-saving:
     - multiple issues where state was not properly restored #18362, #18363 (regression in 1.28.0)
     - now restoring tripinfo timeLoss #18398
     - meso-ltm specific state is now restored #18364
     - Now restoring detector state for actuated traffic lights #18409
-
-- netconvert
-  - Fixed invalid track direction when processing OSM data with option **--railway.topology.repair** #18349
 
 - duarouter
   - Fixed invalid abort of train routing when running with **--ignore-errors** (also affects sumo) #18335
@@ -95,6 +101,8 @@ title: ChangeLog
   - Fixed invalid route output with **--bulk-routing** #18355
   - Fixed error 'route is not valid' with option **--bulk-routing** #17752
   - stop arrival times in named route are now shifted by vehicle departure #18483
+  - Fixed crash when loading calibrator with a flow #18597
+  - Now validating walks with edges #18598
 
 - traci / libsumo
   - functions `trafficlight.setNemaMaxGreens` and `trafficlight.setNemaSplits` now work again in free mode #18513 (regression in 1.13.0)
@@ -107,6 +115,10 @@ title: ChangeLog
   - the python parts of libsumo and libtraci live now in pysrc intead of tools avoiding conflicts in the search path #18523
   - `inductionloop.getLastStepOccupancy` and `inductionloop.getIntervalOccupancy` now include the time a vehicle spent on the detector before leaving if it entered in an earlier step / interval #3552
   - `inductionloop.getLastStepMeanSpeed` and `inductionloop.getLastStepMeanLength` now report the (passing) speed and length of vehicles that left the detector in the last step (consistent with E1 file output) #3552
+  - several consistency fixes when working with subsriptions #18498, #18499, #18496, #18506
+  - Fixed handling of invalid moveToXY angles #18500
+  - Fixed inefficiency when sending commands #18503
+  - Fixed transport failures and connection recovery #18495
 
 - tools
   - gtfs2pt.py: fixed crash #18446 (regression in 1.27.1)
@@ -129,11 +141,15 @@ title: ChangeLog
     - Make sure you have an active python environment with the jupedsim module installed, when running the model.
   - Added simulation option category 'persons' #6374
   - NEMA controller: new parameter *reservicePhases* serves a coordinated phase again in the same cycle when its lagging left turn gaps out. [documentation](Simulation/NEMA.md#leading_and_lagging_left_turns) #18453
+  - Taxi dispatch algorithm "greedyClosest" now runs much faster #7668
+  - Improvement in running time in the junction model (~8% simulation speed) #18776
+  - Improvement in parallel running time #18777 (still experimental)
 
 - sumo-gui
   - Converted some buttons into checkboxes in the locate dialog #9925
   - Status line icons now indicate whether micro or meso is running and which pedestrian model is active #9228
   - Added exit help text to Full Screen Mode #7610
+  - Keyboard <kbd>Ctrl+Shift+W</kbd> now toggles status line and message window (also in netedit) #15141
 
 - meso
   - vType-specific timeToTeleport now takes effect #18359
@@ -156,6 +172,8 @@ title: ChangeLog
   - When changing lane permissions, the internal lanes connected to that lane will automatically be updated (also affects rerouters) #18264
   - Function `vehicle.getParameter(vehID, 'device.tripinfo.PARAM')` now additionally supports PARAMs `depart,departPos,departSpeed,departDelay,duration,rerouteNo` #11310
   - Added offset member to `TraCILogic` and `traci.trafficlight.Logic` #14735
+  - command logging (`traceFile`) is now working with multiple connections #18504
+  - Can now modify W99 model params #15421
 
 - tools
   - osmWebWizard.py: added option **--language** to localize the web UI #13081
@@ -175,6 +193,8 @@ title: ChangeLog
   - xml2csv.py: added option **--decimal-separator** to simplify output that the German version of Excel can read #1497
   - randomTrips.py: avoid superfluous calls to duarouter to speed up processing #18113
   - duaIterate.py: Added option **--max-teleport-ratio** which adapts traffic scaling to congestion and avoids gridlook #1408
+  - cutRoutes.py: now compatible with persons #12246
+  - osmMapReview.py: new tool to help prepare OpenStreetMap review reports from SUMO diagnostics #19153
 
 
 ### Miscellaneous
@@ -193,6 +213,7 @@ title: ChangeLog
   - Dropped support for ubuntu 16.04 and Debian 9
 - Wheels for Python 3.15 have been added
 - CI builds on GitHub only run a reduced set of platforms and python versions for PRs now #18694
+- local docs avoid internet access until user request #17247
 
 
 ## Version 1.28.0 (08.10.2026)

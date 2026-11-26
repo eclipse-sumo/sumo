@@ -1196,7 +1196,7 @@ Vehicle::replaceStop(const std::string& vehID,
             if (!vehicle->rerouteBetweenStops(nextStopIndex, "traci:replaceStop", (teleport & 1), error)) {
                 throw TraCIException("Stop replacement failed for vehicle '" + vehID + "' (" + error + ").");
             }
-        } else {
+        } else if (!MSGlobals::gUseMesoSim) {
             MSVehicle* msVeh = dynamic_cast<MSVehicle*>(vehicle);
             if (msVeh->getLane() != nullptr) {
                 msVeh->updateBestLanes(true);

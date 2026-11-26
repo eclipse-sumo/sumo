@@ -22,6 +22,9 @@ remove
 # remove person while on a walkingarea and approaching a crossing (make sure it unregisters)
 remove_crossing
 
+# remove walking stage while on walkingarea
+abort_on_walkingarea
+
 # remove person and add another one with the same id
 remove_add
 
@@ -49,6 +52,7 @@ getWalkingDistance
 
 # Reject invalid stage replacement indices without changing the plan
 replaceStage_invalid_index
+
 # a person cannot depart because its sidewalk is closed by a rerouter (crashed libsumo, see #XXXXX)
 depart_closed_sidewalk
 

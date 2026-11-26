@@ -1,0 +1,5 @@
+initial v0: ['2.50', '1.30', '8.00', '-12.00', '-0.25', '0.35', '6.00', '0.25', '2.00', '1.50']
+updated v0: ['3.20', '1.80', '6.50', '-10.00', '-0.30', '0.40', '5.50', '0.30', '2.60', '1.90']
+v0 minGap/tau/accel: 3.2 1.8 2.6
+unchanged v1: ['2.50', '1.30', '8.00', '-12.00', '-0.25', '0.35', '6.00', '0.25', '2.00', '1.50']
+caught unknown: Vehicle 'v0' does not support carFollowModel parameter 'carFollowModel.cc10' (Setting parameter 'cc10' is not supported by carFollowModel).

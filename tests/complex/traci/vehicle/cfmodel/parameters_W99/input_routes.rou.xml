@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="w99" carFollowModel="W99"/>
+    <route id="r0" edges="1fi 1si"/>
+    <vehicle id="v0" type="w99" route="r0" depart="0"/>
+    <vehicle id="v1" type="w99" route="r0" depart="2"/>
+</routes>

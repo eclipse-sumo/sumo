@@ -559,6 +559,9 @@ MEVehicle*
 MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, const MSMoveReminder::Notification reason) {
     // One could be tempted to do  v->setSegment(next); here but position on lane will be invalid if next == 0
     v->updateDetectors(leaveTime, v->getEventTime(), true, reason);
+    if (v->getQueIndex() == PARKING_QUEUE) {
+        return nullptr;
+    }
     return unlinkCar(v, v->getQueIndex());
 }
 

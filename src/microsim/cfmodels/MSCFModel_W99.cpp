@@ -27,6 +27,8 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/ToString.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
@@ -206,4 +208,82 @@ MSCFModel_W99::interactionGap(const MSVehicle* const, double vL) const {
 MSCFModel*
 MSCFModel_W99::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_W99(vtype);
+}
+
+
+std::string
+MSCFModel_W99::getParameter(const MSVehicle* veh, const std::string& key) const {
+    if (key == "cc0") {
+        return toString(veh->getVehicleType().getMinGap());
+    } else if (key == "cc1") {
+        return toString(myCC1);
+    } else if (key == "cc2") {
+        return toString(myCC2);
+    } else if (key == "cc3") {
+        return toString(myCC3);
+    } else if (key == "cc4") {
+        return toString(myCC4);
+    } else if (key == "cc5") {
+        return toString(myCC5);
+    } else if (key == "cc6") {
+        return toString(myCC6);
+    } else if (key == "cc7") {
+        return toString(myCC7);
+    } else if (key == "cc8") {
+        return toString(myCC8);
+    } else if (key == "cc9") {
+        return toString(myCC9);
+    } else {
+        throw InvalidArgument("Parameter '" + key + "' is not supported by carFollowModel");
+    }
+}
+
+
+void
+MSCFModel_W99::setParameter(MSVehicle* veh, const std::string& key, const std::string& value) const {
+    double val;
+    try {
+        val = StringUtils::toDouble(value);
+    } catch (NumberFormatException&) {
+        throw InvalidArgument("Invalid value '" + value + "' for parameter '" + key + "' for vehicle '" + veh->getID() + "'");
+    }
+    if (key != "cc0" && key != "cc1" && key != "cc2" && key != "cc3" && key != "cc4"
+            && key != "cc5" && key != "cc6" && key != "cc7" && key != "cc8" && key != "cc9") {
+        throw InvalidArgument("Setting parameter '" + key + "' is not supported by carFollowModel");
+    }
+    MSVehicleType& singularType = veh->getSingularType();
+    MSCFModel_W99& mod = static_cast<MSCFModel_W99&>(singularType.getCarFollowModel());
+    SUMOVTypeParameter::SubParams& cfParams = const_cast<SUMOVTypeParameter&>(singularType.getParameter()).cfParameter;
+    if (key == "cc0") {
+        singularType.setMinGap(val);
+    } else if (key == "cc1") {
+        mod.myCC1 = val;
+        mod.myHeadwayTime = val;
+        cfParams[SUMO_ATTR_CF_W99_CC1] = value;
+    } else if (key == "cc2") {
+        mod.myCC2 = val;
+        cfParams[SUMO_ATTR_CF_W99_CC2] = value;
+    } else if (key == "cc3") {
+        mod.myCC3 = val;
+        cfParams[SUMO_ATTR_CF_W99_CC3] = value;
+    } else if (key == "cc4") {
+        mod.myCC4 = val;
+        cfParams[SUMO_ATTR_CF_W99_CC4] = value;
+    } else if (key == "cc5") {
+        mod.myCC5 = val;
+        cfParams[SUMO_ATTR_CF_W99_CC5] = value;
+    } else if (key == "cc6") {
+        mod.myCC6 = val;
+        cfParams[SUMO_ATTR_CF_W99_CC6] = value;
+    } else if (key == "cc7") {
+        mod.myCC7 = val;
+        cfParams[SUMO_ATTR_CF_W99_CC7] = value;
+    } else if (key == "cc8") {
+        mod.myCC8 = val;
+        mod.myAccel = val;
+        cfParams[SUMO_ATTR_CF_W99_CC8] = value;
+    } else if (key == "cc9") {
+        mod.myCC9 = val;
+        cfParams[SUMO_ATTR_CF_W99_CC9] = value;
+    }
 }
