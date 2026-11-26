@@ -561,7 +561,7 @@ MESegment::updateMesoPositions() const {
             earliestExitTime = MAX2(earliestExitTime, veh->getEventTime());
             const double vehLength = veh->getVehicleType().getLengthWithGap();
             double maxPos = segmentOffset + segLength;
-            const double oldPos = veh->myMesoPosition;
+            const double oldPos = MAX2(0., veh->getMesoPosition());
             if (i > 0) {
                 earliestExitTime += getMinTauWithVehLength(vehLength, veh->getVehicleType().getCarFollowModel().getHeadwayTime());
                 maxPos = MIN2(maxPos, prevPos - vehLength / lanesCovered);
@@ -574,9 +574,7 @@ MESegment::updateMesoPositions() const {
             } else {
                 overlap = 0;
             }
-            veh->myMesoPosition = pos;
-            veh->myMesoPositionOverlap = overlap;
-            veh->myMesoPositionValid = true;
+            veh->setMesoPosition(pos, overlap);
             prevPos = pos;
         }
     }
