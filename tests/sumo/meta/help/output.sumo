@@ -553,6 +553,11 @@ Persons Options:
                                         pedestrians start squeezing through a
                                         jam while on a narrow lane when using
                                         model 'striping'
+  --pedestrian.striping.jamtime.tls TIME  Time in seconds after which
+                                        pedestrians start squeezing through a
+                                        jam at a traffic light when using model
+                                        'striping' (non-positive values disable
+                                        squeezing)
   --pedestrian.striping.jamfactor FLOAT  Factor for reducing speed of
                                         pedestrian in jammed state
   --pedestrian.striping.reserve-oncoming FLOAT  Fraction of stripes to reserve
