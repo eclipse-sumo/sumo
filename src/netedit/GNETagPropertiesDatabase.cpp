@@ -1942,6 +1942,58 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // fill common vehicle attributes
         fillCommonVehicleAttributes(myTagProperties[currentTag], true);
     }
+    currentTag = GNE_TAG_CALIBRATOR_TYPEFLOW;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
+                GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::CALIBRATOR,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::LISTED,
+                GNETagProperties::Over::VIEW,
+                FileBucket::Type::NOTHING,
+                GNETagProperties::Conflicts::NO_CONFLICTS,
+                GUIIcon::FLOW, GUIGlObjectType::GLO_CALIBRATOR_FLOW, SUMO_TAG_FLOW, TL("CalibratorTypeFlow"),
+        {SUMO_TAG_CALIBRATOR}, FXRGBA(253, 255, 206, 255));
+        // set values of attributes
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BEGIN,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::SORTABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
+                                   TL("First calibrator flow departure time"),
+                                   "0");
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_END,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::SORTABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
+                                   TL("End of departure interval"),
+                                   "3600");
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::VTYPE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
+                                   TL("The id of the vehicle type to use for this calibrator flow"),
+                                   DEFAULT_VTYPE_ID);
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ROUTEPROBE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("The id of the routeProbe element from which to determine the route distribution for generated vehicles"));
+
+        // optional flow and speed attributes
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_VEHSPERHOUR,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::ACTIVATABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
+                                   TL("Number of vehicles per hour, equally spaced"),
+                                   "1800");
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SPEED,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::ACTIVATABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
+                                   TL("Vehicle's speed"),
+                                   "15");
+
+        // fill common vehicle attributes
+        fillCommonVehicleAttributes(myTagProperties[currentTag], true);
+    }
     currentTag = SUMO_TAG_REROUTER;
     {
         // set values of tag

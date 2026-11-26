@@ -20,7 +20,9 @@
 #include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_ToggleAttribute.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNETagProperties.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/images/GUITextureSubSys.h>
@@ -80,6 +82,29 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
     // reset ID
     id.clear();
 }
+GNECalibratorFlow::GNECalibratorFlow(SumoXMLTag tag, GNENet* net) :
+    GNEAdditional(net, tag),
+    GNEAdditionalListed(this) {
+    // set VPH and speed enabled
+    toggleAttribute(SUMO_ATTR_VEHSPERHOUR, true);
+    toggleAttribute(SUMO_ATTR_SPEED, true);
+    // reset ID
+    id.clear();
+}
+
+
+GNECalibratorFlow::GNECalibratorFlow(SumoXMLTag tag, GNEAdditional* calibratorParent) :
+    GNEAdditional(calibratorParent, tag, ""),
+    GNEAdditionalListed(this) {
+}
+
+
+GNECalibratorFlow::GNECalibratorFlow(SumoXMLTag tag, GNEAdditional* calibratorParent,
+                                     const SUMOVehicleParameter& vehicleParameters) :
+    GNEAdditional(calibratorParent, tag, ""),
+    SUMOVehicleParameter(vehicleParameters),
+    GNEAdditionalListed(this) {
+}
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
@@ -119,7 +144,7 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
         // write route probe
         if (getParentAdditionals().at(1)) {
-            device.writeAttr(SUMO_ATTR_ROUTEPROBE, getParentAdditionals().front()->getID());
+            device.writeAttr(SUMO_ATTR_ROUTEPROBE, getParentAdditionals().at(1)->getID());
         }
         // write parameters
         SUMOVehicleParameter::writeParams(device);
@@ -199,18 +224,26 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_TYPE:
-            return vtypeid;
+            if (getParentDemandElements().size() > 0) {
+                return getParentDemandElements().at(0)->getID();
+            } else {
+                return vtypeid;
+            }
         case SUMO_ATTR_ROUTE:
-            return getParentDemandElements().at(1)->getID();
+            if (getParentDemandElements().size() > 1) {
+                return getParentDemandElements().at(1)->getID();
+            } else {
+                return "";
+            }
         case SUMO_ATTR_ROUTEPROBE:
-            if (getParentAdditionals().at(1)) {
+            if (getParentAdditionals().size() > 1 && getParentAdditionals().at(1)) {
                 return getParentAdditionals().at(1)->getID();
             } else {
                 return "";
             }
         case SUMO_ATTR_VEHSPERHOUR:
             if (parametersSet & VEHPARS_VPH_SET) {
-                return toString(3600 / STEPS2TIME(repetitionOffset));
+                return (repetitionOffset == SUMOTime_MAX) ? "0" : toString(3600 / STEPS2TIME(repetitionOffset));
             } else {
                 return "";
             }
@@ -398,9 +431,9 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_TYPE:
-            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, value, false) == nullptr);
+            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, value, false) != nullptr);
         case SUMO_ATTR_ROUTE:
-            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::routes, value, false) == nullptr);
+            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::routes, value, false) != nullptr);
         case SUMO_ATTR_ROUTEPROBE:
             if (value.empty()) {
                 return true;
@@ -505,6 +538,42 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+void
+GNECalibratorFlow::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+    switch (key) {
+        case SUMO_ATTR_TYPE:
+        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_SPEED:
+            undoList->add(new GNEChange_ToggleAttribute(this, key, true), true);
+            break;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+void
+GNECalibratorFlow::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+    switch (key) {
+        case SUMO_ATTR_TYPE:
+            undoList->add(new GNEChange_ToggleAttribute(this, key, false), true);
+            break;
+        case SUMO_ATTR_VEHSPERHOUR:
+            if (isAttributeEnabled(SUMO_ATTR_SPEED) || isAttributeEnabled(SUMO_ATTR_TYPE)) {
+                undoList->add(new GNEChange_ToggleAttribute(this, key, false), true);
+            }
+            break;
+        case SUMO_ATTR_SPEED:
+            if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR) || isAttributeEnabled(SUMO_ATTR_TYPE)) {
+                undoList->add(new GNEChange_ToggleAttribute(this, key, false), true);
+            }
+            break;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
 bool
 GNECalibratorFlow::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
@@ -546,17 +615,18 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_TYPE:
             if (!isTemplate()) {
-                if (value.empty()) {
-                    replaceDemandElementParent(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID, 0);
-                } else {
-                    replaceDemandElementParent(SUMO_TAG_VTYPE, value, 0);
-                }
+                const std::string vTypeStr = value.empty() ? DEFAULT_VTYPE_ID : value;
+                auto newVType = myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, vTypeStr);
+                GNEHierarchicalElement::updateParent(static_cast<GNEAdditional*>(this), 0, newVType);
             }
             // set manually vtypeID (needed for saving)
-            vtypeid = value;
+            vtypeid = value.empty() ? DEFAULT_VTYPE_ID : value;
             break;
         case SUMO_ATTR_ROUTE:
-            replaceDemandElementParent(SUMO_TAG_ROUTE, value, 1);
+            if (!isTemplate()) {
+                auto newRoute = myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::routes, value);
+                GNEHierarchicalElement::updateParent(static_cast<GNEAdditional*>(this), 1, newRoute);
+            }
             break;
         case SUMO_ATTR_ROUTEPROBE:
             if (!isTemplate()) {
@@ -567,7 +637,8 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 parametersSet &= ~VEHPARS_VPH_SET;
             } else {
-                repetitionOffset = TIME2STEPS(3600 / parse<double>(value));
+                const double vph = parse<double>(value);
+                repetitionOffset = (vph == 0.) ? SUMOTime_MAX : TIME2STEPS(3600. / vph);
                 // set parameters
                 parametersSet |= VEHPARS_VPH_SET;
             }
@@ -771,6 +842,9 @@ GNECalibratorFlow::toggleAttribute(SumoXMLAttr key, const bool value) {
             break;
         case SUMO_ATTR_VEHSPERHOUR:
             if (value) {
+                if (repetitionOffset <= 0) {
+                    repetitionOffset = TIME2STEPS(3600. / parse<double>(myTagProperty->getDefaultStringValue(SUMO_ATTR_VEHSPERHOUR)));
+                }
                 parametersSet |= VEHPARS_VPH_SET;
             } else {
                 parametersSet &= ~VEHPARS_VPH_SET;
@@ -778,10 +852,229 @@ GNECalibratorFlow::toggleAttribute(SumoXMLAttr key, const bool value) {
             break;
         case SUMO_ATTR_SPEED:
             if (value) {
+                if (calibratorSpeed < 0) {
+                    calibratorSpeed = parse<double>(myTagProperty->getDefaultStringValue(SUMO_ATTR_SPEED));
+                }
                 parametersSet |= VEHPARS_CALIBRATORSPEED_SET;
             } else {
                 parametersSet &= ~VEHPARS_CALIBRATORSPEED_SET;
             }
+            break;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+// ===========================================================================
+// GNECalibratorTypeFlow member method definitions
+// ===========================================================================
+
+GNECalibratorTypeFlow::GNECalibratorTypeFlow(GNENet* net) :
+    GNECalibratorFlow(GNE_TAG_CALIBRATOR_TYPEFLOW, net) {
+}
+
+
+GNECalibratorTypeFlow::GNECalibratorTypeFlow(GNEAdditional* calibratorParent, const SUMOTime begin, const SUMOTime end,
+                                             GNEDemandElement* vehicleType) :
+    GNECalibratorFlow(GNE_TAG_CALIBRATOR_TYPEFLOW, calibratorParent) {
+    // set parents
+    setParents<GNEAdditional*>({calibratorParent, nullptr});
+    setParent<GNEDemandElement*>(vehicleType);
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
+    // reset ID
+    id.clear();
+    vtypeid = vehicleType->getID();
+    // set begin and end
+    depart = begin;
+    repetitionEnd = end;
+    // set default vehsperhour
+    setAttribute(SUMO_ATTR_VEHSPERHOUR, "1800");
+}
+
+
+GNECalibratorTypeFlow::GNECalibratorTypeFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType,
+                                             const SUMOVehicleParameter& vehicleParameters) :
+    GNECalibratorFlow(GNE_TAG_CALIBRATOR_TYPEFLOW, calibratorParent, vehicleParameters) {
+    // set parents
+    setParents<GNEAdditional*>({calibratorParent, nullptr});
+    setParent<GNEDemandElement*>(vehicleType);
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
+    // reset ID
+    id.clear();
+    vtypeid = vehicleType->getID();
+}
+
+
+GNECalibratorTypeFlow::~GNECalibratorTypeFlow() {}
+
+
+void
+GNECalibratorTypeFlow::writeAdditional(OutputDevice& device) const {
+    if ((getAttribute(SUMO_ATTR_TYPE) != DEFAULT_VTYPE_ID) || isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR) || isAttributeEnabled(SUMO_ATTR_SPEED)) {
+        // open tag
+        device.openTag(SUMO_TAG_FLOW);
+        // write vehicle attributes (write vehsPerHour directly so MSCalibrator parses flow rate)
+        SUMOVehicleParameter copy = *this;
+        copy.parametersSet &= ~VEHPARS_VPH_SET;
+        copy.write(device, OptionsCont::getOptions(), SUMO_TAG_FLOW, getParentDemandElements().at(0)->getID());
+        if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
+            device.writeAttr(SUMO_ATTR_VEHSPERHOUR, getAttribute(SUMO_ATTR_VEHSPERHOUR));
+        }
+        // write end
+        device.writeAttr(SUMO_ATTR_END, getAttribute(SUMO_ATTR_END));
+        // write route probe
+        if (getParentAdditionals().at(1)) {
+            device.writeAttr(SUMO_ATTR_ROUTEPROBE, getParentAdditionals().at(1)->getID());
+        }
+        // write parameters
+        SUMOVehicleParameter::writeParams(device);
+        // close vehicle tag
+        device.closeTag();
+    } else {
+        WRITE_WARNING(TLF("calibratorTypeFlow of calibrator '%' cannot be written. Either non-default type or vehsPerHour or speed must be enabled", getParentAdditionals().front()->getID()));
+    }
+}
+
+
+void
+GNECalibratorTypeFlow::drawGL(const GUIVisualizationSettings& s) const {
+    drawListedAdditional(s, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP,
+                         "TypeFlow: " + getAttribute(SUMO_ATTR_TYPE));
+}
+
+
+std::string
+GNECalibratorTypeFlow::getAttribute(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_ROUTE:
+            return getCommonAttribute(key);
+        case SUMO_ATTR_REROUTE:
+            return wasSet(VEHPARS_FORCE_REROUTE) ? "true" : "false";
+        default:
+            return GNECalibratorFlow::getAttribute(key);
+    }
+}
+
+
+double
+GNECalibratorTypeFlow::getAttributeDouble(SumoXMLAttr key) const {
+    if (key == SUMO_ATTR_END) {
+        return STEPS2TIME(repetitionEnd);
+    }
+    return GNECalibratorFlow::getAttributeDouble(key);
+}
+
+
+void
+GNECalibratorTypeFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    if (key == SUMO_ATTR_ROUTE) {
+        setCommonAttribute(key, value, undoList);
+    } else {
+        GNECalibratorFlow::setAttribute(key, value, undoList);
+    }
+}
+
+
+bool
+GNECalibratorTypeFlow::isValid(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case SUMO_ATTR_ROUTE:
+            return isCommonAttributeValid(key, value);
+        case SUMO_ATTR_TYPE:
+            if (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, value, false) == nullptr) {
+                return false;
+            }
+            if ((value == DEFAULT_VTYPE_ID) && !isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR) && !isAttributeEnabled(SUMO_ATTR_SPEED)) {
+                return false;
+            }
+            return true;
+        case SUMO_ATTR_VEHSPERHOUR:
+            if (value.empty()) {
+                return isAttributeEnabled(SUMO_ATTR_SPEED) || (getAttribute(SUMO_ATTR_TYPE) != DEFAULT_VTYPE_ID);
+            }
+            return GNECalibratorFlow::isValid(key, value);
+        case SUMO_ATTR_SPEED:
+            if (value.empty()) {
+                return isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR) || (getAttribute(SUMO_ATTR_TYPE) != DEFAULT_VTYPE_ID);
+            }
+            return GNECalibratorFlow::isValid(key, value);
+        default:
+            return GNECalibratorFlow::isValid(key, value);
+    }
+}
+
+
+void
+GNECalibratorTypeFlow::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+    switch (key) {
+        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_SPEED:
+            undoList->add(new GNEChange_ToggleAttribute(this, key, true), true);
+            break;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+void
+GNECalibratorTypeFlow::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+    switch (key) {
+        case SUMO_ATTR_VEHSPERHOUR:
+            if (isAttributeEnabled(SUMO_ATTR_SPEED) || (getAttribute(SUMO_ATTR_TYPE) != DEFAULT_VTYPE_ID)) {
+                undoList->add(new GNEChange_ToggleAttribute(this, key, false), true);
+            }
+            break;
+        case SUMO_ATTR_SPEED:
+            if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR) || (getAttribute(SUMO_ATTR_TYPE) != DEFAULT_VTYPE_ID)) {
+                undoList->add(new GNEChange_ToggleAttribute(this, key, false), true);
+            }
+            break;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+bool
+GNECalibratorTypeFlow::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_TYPE:
+            return true;
+        case SUMO_ATTR_VEHSPERHOUR:
+            return (parametersSet & VEHPARS_VPH_SET) != 0;
+        case SUMO_ATTR_SPEED:
+            return (parametersSet & VEHPARS_CALIBRATORSPEED_SET) != 0;
+        default:
+            return true;
+    }
+}
+
+
+void
+GNECalibratorTypeFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
+    if (key == SUMO_ATTR_ROUTE) {
+        setCommonAttribute(key, value);
+    } else if (key == SUMO_ATTR_REROUTE) {
+        if (!value.empty() && parse<bool>(value)) {
+            parametersSet |= VEHPARS_FORCE_REROUTE;
+        } else {
+            parametersSet &= ~VEHPARS_FORCE_REROUTE;
+        }
+    } else {
+        GNECalibratorFlow::setAttribute(key, value);
+    }
+}
+
+
+void
+GNECalibratorTypeFlow::toggleAttribute(SumoXMLAttr key, const bool value) {
+    switch (key) {
+        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_SPEED:
+            GNECalibratorFlow::toggleAttribute(key, value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

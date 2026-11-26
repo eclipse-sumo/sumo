@@ -168,6 +168,18 @@ public:
      */
     bool isValid(SumoXMLAttr key, const std::string& value) override;
 
+    /* @brief method for enable attribute
+     * @param[in] key The attribute key
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) override;
+
+    /* @brief method for disable attribute
+     * @param[in] key The attribute key
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) override;
+
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
@@ -181,16 +193,86 @@ public:
 
     /// @}
 
-private:
+protected:
+    /// @brief protected constructor for derived calibrator flow classes (template)
+    GNECalibratorFlow(SumoXMLTag tag, GNENet* net);
+
+    /// @brief protected constructor for derived calibrator flow classes (dialog)
+    GNECalibratorFlow(SumoXMLTag tag, GNEAdditional* calibratorParent);
+
+    /// @brief protected constructor for derived calibrator flow classes (parameters)
+    GNECalibratorFlow(SumoXMLTag tag, GNEAdditional* calibratorParent, const SUMOVehicleParameter& vehicleParameters);
+
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value) override;
 
     /// @brief toggle attribute
     void toggleAttribute(SumoXMLAttr key, const bool value) override;
 
+private:
     /// @brief Invalidated copy constructor.
     GNECalibratorFlow(const GNECalibratorFlow&) = delete;
 
     /// @brief Invalidated assignment operator
     GNECalibratorFlow& operator=(const GNECalibratorFlow&) = delete;
+};
+
+
+class GNECalibratorTypeFlow : public GNECalibratorFlow {
+
+public:
+    /// @brief default constructor (template)
+    GNECalibratorTypeFlow(GNENet* net);
+
+    /// @brief constructor used in GNECalibratorDialog
+    GNECalibratorTypeFlow(GNEAdditional* calibratorParent, const SUMOTime begin, const SUMOTime end,
+                          GNEDemandElement* vehicleType);
+
+    /// @brief parameter constructor
+    GNECalibratorTypeFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType,
+                          const SUMOVehicleParameter& vehicleParameters);
+
+    /// @brief destructor
+    ~GNECalibratorTypeFlow() override;
+
+    /// @brief write additional element into an xml file
+    void writeAdditional(OutputDevice& device) const override;
+
+    /// @brief Draws the object
+    void drawGL(const GUIVisualizationSettings& s) const override;
+
+    /// @brief method for getting the Attribute of an XML key
+    std::string getAttribute(SumoXMLAttr key) const override;
+
+    /// @brief method for getting the Attribute of an XML key in double format
+    double getAttributeDouble(SumoXMLAttr key) const override;
+
+    /// @brief method for setting the attribute and letting the object perform additional changes
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) override;
+
+    /// @brief method for checking if the value for an attribute is valid
+    bool isValid(SumoXMLAttr key, const std::string& value) override;
+
+    /// @brief method for enable attribute
+    void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) override;
+
+    /// @brief method for disable attribute
+    void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) override;
+
+    /// @brief method for checking if the value for certain attribute is enabled
+    bool isAttributeEnabled(SumoXMLAttr key) const override;
+
+protected:
+    /// @brief method for setting the attribute and nothing else
+    void setAttribute(SumoXMLAttr key, const std::string& value) override;
+
+    /// @brief toggle attribute
+    void toggleAttribute(SumoXMLAttr key, const bool value) override;
+
+private:
+    /// @brief Invalidated copy constructor.
+    GNECalibratorTypeFlow(const GNECalibratorTypeFlow&) = delete;
+
+    /// @brief Invalidated assignment operator
+    GNECalibratorTypeFlow& operator=(const GNECalibratorTypeFlow&) = delete;
 };

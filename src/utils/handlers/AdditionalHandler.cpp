@@ -1504,17 +1504,22 @@ AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs)
     bool parsedOk = true;
     // check parent
     if (checkCalibratorFlowParents()) {
-        // check that frecuency and trafficLight aren't defined together
-        if (!attrs.hasAttribute(SUMO_ATTR_TYPE) && !attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) && !attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+        // check that at least one calibration target attribute is defined
+        if (!attrs.hasAttribute(SUMO_ATTR_TYPE) && !attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) &&
+                !attrs.hasAttribute(SUMO_ATTR_PERHOUR) && !attrs.hasAttribute(SUMO_ATTR_SPEED)) {
             writeError(TL("CalibratorFlows need either the attribute vehsPerHour or speed or type (or any combination of these)"));
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
         } else {
             SUMOVehicleParameter* flowParameter = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_FLOW, attrs, false, true, true);
             if (flowParameter) {
                 // set VPH and speed
-                if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
-                    flowParameter->repetitionOffset = TIME2STEPS(3600. / attrs.get<double>(SUMO_ATTR_VEHSPERHOUR, "", parsedOk));
-                    flowParameter->parametersSet |= VEHPARS_VPH_SET;
+                if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) || attrs.hasAttribute(SUMO_ATTR_PERHOUR)) {
+                    const SumoXMLAttr vphAttr = attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) ? SUMO_ATTR_VEHSPERHOUR : SUMO_ATTR_PERHOUR;
+                    const double vph = attrs.get<double>(vphAttr, "", parsedOk);
+                    if (parsedOk) {
+                        flowParameter->repetitionOffset = (vph == 0.) ? SUMOTime_MAX : TIME2STEPS(3600. / vph);
+                        flowParameter->parametersSet |= VEHPARS_VPH_SET;
+                    }
                 }
                 if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
                     flowParameter->calibratorSpeed = attrs.get<double>(SUMO_ATTR_SPEED, "", parsedOk);

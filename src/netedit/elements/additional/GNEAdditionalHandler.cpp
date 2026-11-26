@@ -841,20 +841,21 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
 bool
 GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameter) {
     // get vType
-    GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameter.vtypeid.empty() ? DEFAULT_VTYPE_ID : vehicleParameter.vtypeid, false);
-    // get route
-    GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, vehicleParameter.routeid, false);
+    GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, vehicleParameter.vtypeid.empty() ? DEFAULT_VTYPE_ID : vehicleParameter.vtypeid, false);
     // get calibrator parent
     GNEAdditional* calibrator = myNet->getAttributeCarriers()->retrieveAdditional(sumoBaseObject->getParentSumoBaseObject()->getTag(), sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    // check whether a route attribute was provided
+    const bool hasRoute = vehicleParameter.wasSet(VEHPARS_ROUTE_SET) || !vehicleParameter.routeid.empty();
+    GNEDemandElement* route = hasRoute ? myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::routes, vehicleParameter.routeid, false) : nullptr;
     // check parents
     if (vType == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_FLOW, "", {SUMO_TAG_VTYPE}, vehicleParameter.vtypeid);
-    } else if (route == nullptr) {
+    } else if (hasRoute && (route == nullptr)) {
         return writeErrorInvalidParent(SUMO_TAG_FLOW, "", {SUMO_TAG_ROUTE}, vehicleParameter.routeid);
     } else if (calibrator == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_FLOW, "", {SUMO_TAG_CALIBRATOR}, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
-    } else {
-        // create calibrator flow
+    } else if (hasRoute) {
+        // create route-based calibrator flow
         GNEAdditional* flow = new GNECalibratorFlow(calibrator, vType, route, vehicleParameter);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
@@ -866,7 +867,24 @@ GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObje
             calibrator->addChildElement(flow);
             route->addChildElement(flow);
             vType->addChildElement(flow);
+            flow->updateGeometry();
             flow->incRef("buildCalibratorFlow");
+        }
+        return true;
+    } else {
+        // create type-based calibrator flow
+        GNEAdditional* flow = new GNECalibratorTypeFlow(calibrator, vType, vehicleParameter);
+        // insert depending of allowUndoRedo
+        if (myAllowUndoRedo) {
+            myNet->getUndoList()->begin(flow, TL("add calibrator type flow in '") + calibrator->getID() + "'");
+            myNet->getUndoList()->add(new GNEChange_Additional(flow, true), true);
+            myNet->getUndoList()->end();
+        } else {
+            myNet->getAttributeCarriers()->insertAdditional(flow);
+            calibrator->addChildElement(flow);
+            vType->addChildElement(flow);
+            flow->updateGeometry();
+            flow->incRef("buildCalibratorTypeFlow");
         }
         return true;
     }

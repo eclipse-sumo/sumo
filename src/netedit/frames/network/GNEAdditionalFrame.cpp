@@ -212,7 +212,8 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
         return false;
     }
     // disable flows (temporal)
-    if (tagProperties->getTag() == GNE_TAG_CALIBRATOR_FLOW) {
+    if ((tagProperties->getTag() == GNE_TAG_CALIBRATOR_FLOW) ||
+            (tagProperties->getTag() == GNE_TAG_CALIBRATOR_TYPEFLOW)) {
         WRITE_WARNING(TL("Currently unsupported. Create calibratorFlows using calibrator dialog"));
         return false;
     }
@@ -393,7 +394,8 @@ GNEAdditionalFrame::initBaseAdditionalObject(const GNETagProperties* tagProperty
     // check if tag has to be updated
     if (baseAdditionalTag == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
         baseAdditionalTag = SUMO_TAG_LANE_AREA_DETECTOR;
-    } else if (baseAdditionalTag == GNE_TAG_CALIBRATOR_FLOW) {
+    } else if ((baseAdditionalTag == GNE_TAG_CALIBRATOR_FLOW) ||
+               (baseAdditionalTag == GNE_TAG_CALIBRATOR_TYPEFLOW)) {
         baseAdditionalTag = SUMO_TAG_FLOW;
     }
     // update view objects parents
