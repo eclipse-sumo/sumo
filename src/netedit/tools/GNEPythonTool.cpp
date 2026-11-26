@@ -19,6 +19,8 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEExternalRunner.h>
+#include <netedit/dialogs/basic/GNEErrorBasicDialog.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
@@ -30,6 +32,35 @@
 #include <xercesc/parsers/SAXParser.hpp>
 
 #include "GNEPythonTool.h"
+
+namespace {
+
+std::string
+pythonCommand() {
+    const char* configured = getenv("PYTHON");
+    const std::string python = configured == nullptr || *configured == '\0' ? "python" : configured;
+    return python.find(' ') != std::string::npos && FileHelpers::isReadable(python) ? "\"" + python + "\"" : python;
+}
+
+
+std::string
+toolFileArgument(const std::string& path) {
+    const char* home = getenv("SUMO_HOME");
+    std::string directory = home == nullptr ? "" : home;
+    if (directory.size() >= 2 && directory.front() == '"' && directory.back() == '"') {
+        directory = directory.substr(1, directory.size() - 2);
+    }
+    if (!directory.empty()) {
+        if (directory.back() == '\\') {
+            directory.back() = '/';
+        } else if (directory.back() != '/') {
+            directory += '/';
+        }
+    }
+    return "\"" + directory + path + "\"";
+}
+
+}
 
 // ============================================-===============================
 // member method definitions
@@ -46,10 +77,10 @@ GNEPythonTool::GNEPythonTool(GNEApplicationWindow* applicationWindow, const std:
     // parse tool options
     if (templateStr.size() > 0) {
         try {
-            TemplateHandler::parseTemplate(myPythonToolsOptions, templateStr);
-            // make a copy (needed for reset)
-            TemplateHandler::parseTemplate(myPythonToolsOptionsOriginal, templateStr);
+            parseToolTemplate(templateStr);
         } catch (ProcessError& e) {
+            myPythonToolsOptions.clear();
+            myPythonToolsOptionsOriginal.clear();
             WRITE_ERROR("Error parsing template of tool: " + myPythonToolName + " (" + e.what() + ")");
         }
     }
@@ -68,6 +99,40 @@ GNEPythonTool::getToolName() const {
 OptionsCont&
 GNEPythonTool::getToolsOptions() {
     return myPythonToolsOptions;
+}
+
+
+void
+GNEPythonTool::parseToolTemplate(const std::string& templateStr) {
+    myPythonToolsOptions.clear();
+    myPythonToolsOptionsOriginal.clear();
+    TemplateHandler::parseTemplate(myPythonToolsOptions, templateStr);
+    TemplateHandler::parseTemplate(myPythonToolsOptionsOriginal, templateStr);
+    myTemplateLoaded = true;
+}
+
+
+bool
+GNEPythonTool::ensureTemplate() {
+    if (myTemplateLoaded || myPythonToolsOptionsOriginal.begin() != myPythonToolsOptionsOriginal.end()) {
+        return true;
+    }
+    const std::string command = pythonCommand() + " " + toolFileArgument("tools/neteditToolTemplate.py")
+                                + " " + toolFileArgument(myToolPath);
+    std::string output;
+    if (GNEExternalRunner::captureOutput(command, output)) {
+        try {
+            parseToolTemplate(output);
+            return true;
+        } catch (const ProcessError& e) {
+            myPythonToolsOptions.clear();
+            myPythonToolsOptionsOriginal.clear();
+            output = e.what();
+        }
+    }
+    GNEErrorBasicDialog(myApplicationWindow, TL("Could not load Python tool options"),
+                        TLF("Could not load options for '%'.", myPythonToolName), output);
+    return false;
 }
 
 
@@ -91,29 +156,7 @@ GNEPythonTool::postProcessing() {
 
 std::string
 GNEPythonTool::getCommandPath() const {
-    // add python script
-    const char* pythonEnv = getenv("PYTHON");
-    const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
-    const char* sumoHomeEnv = getenv("SUMO_HOME");
-    std::string sumoHome = "";
-    if (sumoHomeEnv != nullptr && sumoHomeEnv != std::string("")) {
-        sumoHome = std::string(sumoHomeEnv);
-        // harmonise slash
-        if (sumoHome.back() == '\\') {
-            sumoHome.pop_back();
-        }
-        if (sumoHome.back() != '/') {
-            sumoHome += "/";
-        }
-        // quote string to handle spaces but prevent double quotes
-        if (sumoHome.front() != '"') {
-            sumoHome = "\"" + sumoHome;
-        }
-        if (sumoHome.back() == '"') {
-            sumoHome.pop_back();
-        }
-    }
-    return python + " " + sumoHome + myToolPath + "\"";
+    return pythonCommand() + " " + toolFileArgument(myToolPath);
 }
 
 

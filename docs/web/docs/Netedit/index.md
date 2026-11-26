@@ -138,6 +138,10 @@ sumo-gui](../sumo-gui.md#keyboard_shortcuts) are supported.
 - **Join Selected Junctions** (<kbd>F7</kbd>): joins the selected junctions into a single junction (See [joining junctions](../Networks/PlainXML.md#joining_nodes)).
 - **Options** (<kbd>F10</kbd>): inspect and set all options. These are the same options that [netconvert](../netconvert.md) accepts on the commandline or in a configuration.
 
+## Python Tools
+
+The **Tools** menu uses the Python interpreter selected by the `PYTHON` environment variable, or `python` by default. If a package was unavailable when Netedit was built, Netedit retrieves the tool's options when you first open it. If the selected interpreter reports a missing module, install the required package in that interpreter's environment and reopen the tool.
+
 ## Customizing Visualization
 
 Most of the visualization options that are available in [sumo-gui](../sumo-gui.md#changing_the_appearancevisualization_of_the_simulation) can also be set in netedit. This includes the facilities for [loading

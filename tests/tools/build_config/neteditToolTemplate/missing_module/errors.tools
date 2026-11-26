@@ -1,0 +1,2 @@
+ModuleNotFoundError: No module named '_nonexistent_netedit_template_dep'
+Install the missing package in the Python environment used by Netedit (/tmp/pybin/python).

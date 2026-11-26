@@ -49,6 +49,9 @@ public:
     /// @brief get tools options
     OptionsCont& getToolsOptions();
 
+    /// @brief Recover options at runtime when build-time template generation failed
+    bool ensureTemplate();
+
     /// @brief get menu command
     FXMenuCommand* getMenuCommand() const;
 
@@ -93,6 +96,11 @@ protected:
     std::string getCommandPath() const;
 
 private:
+    /// @brief Fill the editable options and their defaults from a template
+    void parseToolTemplate(const std::string& templateStr);
+
+    bool myTemplateLoaded = false;
+
     /// @brief Invalidated copy constructor.
     GNEPythonTool(const GNEPythonTool&) = delete;
 
