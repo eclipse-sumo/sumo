@@ -1,0 +1,1 @@
+-t tripinfos.xml -o out.xml tools/output/tripinfoAddSpeed.py
