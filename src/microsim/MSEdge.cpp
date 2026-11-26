@@ -970,6 +970,22 @@ MSEdge::changeLanes(SUMOTime t) const {
 }
 
 
+void
+MSEdge::decideLaneChanges() const {
+    if (myLaneChanger != nullptr) {
+        myLaneChanger->decideLaneChanges();
+    }
+}
+
+
+void
+MSEdge::applyDeferredLaneChangeWrites() const {
+    if (myLaneChanger != nullptr) {
+        myLaneChanger->applyDeferredWrites();
+    }
+}
+
+
 const MSEdge*
 MSEdge::getInternalFollowingEdge(const MSEdge* followerAfterInternal, SUMOVehicleClass vClass) const {
     //@todo to be optimized
@@ -1790,6 +1806,16 @@ MSEdge::getMesoPositions() const {
         myLastCacheUpdate = SIMSTEP;
         auto old = std::move(myCachedMesoPos);
         myCachedMesoPos.clear();  // moved-from map is valid-but-unspecified; make it defined-empty
+        if (myMesoPosStep < SIMSTEP) {
+            // the cache may be invalidated and recomputed several times within a step,
+            // keep the last positions of the previous step for measuring the movement
+            myPrevStepMesoPos = std::move(old);
+            old.clear();
+            myPrevStepMesoPosTime = myMesoPosStep;
+            myMesoPosStep = SIMSTEP;
+        }
+        // positions from earlier in this step or (in a new step) from the previous step
+        const auto& lastPos = old.empty() ? myPrevStepMesoPos : old;
         int laneIndex = 0;
         const double now = SIMTIME;
         for (std::vector<MSLane*>::const_iterator msl = myLanes->begin(); msl != myLanes->end(); ++msl, ++laneIndex) {
@@ -1812,8 +1838,8 @@ MSEdge::getMesoPositions() const {
                         earliestExitTime = MAX2(earliestExitTime, veh->getEventTime());
                         const double vehLength = veh->getVehicleType().getLengthWithGap();
                         const double segmentEnd = segmentOffset + segLength;
-                        auto it = old.find(veh);
-                        const double oldPos = it != old.end() ? it->second.first : 0.;  // store the old position to prevent backwards moving vehicles
+                        auto it = lastPos.find(veh);
+                        const double oldPos = it != lastPos.end() ? it->second.first : 0.;  // store the old position to prevent backwards moving vehicles
                         // queued vehicles may have to wait for the start wave (meso-ltm)
                         double maxPos = segmentEnd - segment->getMinDistanceToEnd(laneIndex, lengthAhead, SIMSTEP);
                         if (i > 0) {
@@ -1839,6 +1865,22 @@ MSEdge::getMesoPositions() const {
         }
     }
     return myCachedMesoPos;
+}
+
+
+double
+MSEdge::getMesoPositionSpeed(const MEVehicle* veh) const {
+    const auto& positions = getMesoPositions();
+    if (myPrevStepMesoPosTime == SUMOTime_MIN || veh->getDeparture() > myPrevStepMesoPosTime) {
+        // the vehicle did not exist in the previous step (the pointer may have been reused)
+        return -1.;
+    }
+    const auto it = positions.find(veh);
+    const auto prevIt = myPrevStepMesoPos.find(veh);
+    if (it == positions.end() || prevIt == myPrevStepMesoPos.end()) {
+        return -1.;
+    }
+    return (it->second.first - prevIt->second.first) / STEPS2TIME(myMesoPosStep - myPrevStepMesoPosTime);
 }
 
 
