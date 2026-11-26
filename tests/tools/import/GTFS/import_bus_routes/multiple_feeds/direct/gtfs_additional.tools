@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 14:19:11.979104 by Eclipse SUMO gtfs2pt.py v0.0.0
+<configuration>
+    <gtfs value="data/feed A.zip,data/feed B.zip"/>
+    <merged-csv-output value="out.csv"/>
+    <date value="20201111"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <join-blocks value="True"/>
+    <network value="net.net.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="feed1.132244371.0" lane="27220201#0_0" startPos="121.01" endPos="134.01" friendlyPos="true" name="Braunschweig Rathaus"/>
+    <busStop id="feed1.132244371.1" lane="319583927#0_0" startPos="2.76" endPos="15.76" friendlyPos="true" name="Braunschweig Schloss"/>
+    <busStop id="feed1.132244371.2" lane="5059167#0_0" startPos="26.30" endPos="39.30" friendlyPos="true" name="Braunschweig John-F.-Kennedy-Platz"/>
+    <busStop id="feed1.132244371.3" lane="32055586#0_0" startPos="40.87" endPos="53.87" friendlyPos="true" name="Braunschweig Friedrich-Wilhelm-Platz"/>
+    <busStop id="feed1.132244371.4" lane="122119622#0_0" startPos="82.59" endPos="95.59" friendlyPos="true" name="Braunschweig Europaplatz"/>
+    <busStop id="feed1.132185783.0" lane="-5148300_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Rathaus"/>
+    <busStop id="feed1.132185783.1" lane="37983000_0" startPos="28.47" endPos="41.47" friendlyPos="true" name="Braunschweig Packhof"/>
+    <busStop id="feed1.132185783.2" lane="30425275#0_0" startPos="29.12" endPos="42.12" friendlyPos="true" name="Braunschweig Hintern Brüdern"/>
+    <busStop id="feed1.132185783.3" lane="8108069_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Altstadtmarkt"/>
+    <busStop id="feed1.132185783.4" lane="-320399277#2_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Güldenstraße"/>
+    <busStop id="feed1.132185783.5" lane="-283066855_0" startPos="0.00" endPos="8.17" friendlyPos="true" name="Braunschweig Goslarsche Straße"/>
+</additional>

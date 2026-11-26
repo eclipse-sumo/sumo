@@ -466,23 +466,34 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
 
 
 def process(options, net):
-    gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False, printErrors=True))
-    routes, trips_on_day, shapes, stops, stop_times = gtfsutils.import_gtfs(options, gtfsZip)
-    gtfsZip.fp.close()
     if options.mergedCSVOutput:
         full_data_merged = gtfsutils.get_merged_data(options)
         full_data_merged.sort_values(by=['trip_id', 'stop_sequence'], inplace=True)
         full_data_merged.to_csv(options.mergedCSVOutput, sep=";", index=False)
 
-    if routes.empty or trips_on_day.empty:
+    feeds = []
+    shapes_dict = {}
+    for filename, prefix in gtfsutils.gtfsFiles(options):
+        with sumolib.openz(filename, mode="rb", tryGZip=False, printErrors=True) as stream:
+            with zipfile.ZipFile(stream) as gtfsZip:
+                routes, trips_on_day, shapes, stops, stop_times = gtfsutils.import_gtfs(options, gtfsZip, filename)
+        if routes.empty or trips_on_day.empty:
+            continue
+        if shapes is None:
+            print("Warning: GTFS shapes file not found! Continuing mapping without shapes.", file=sys.stderr)
+        gtfs_data, trip_list, filtered_stops, shapes, shapeMap = gtfsutils.filter_gtfs(
+            options, routes, trips_on_day, shapes, stops, stop_times)
+        for table in (gtfs_data, trip_list, filtered_stops, shapes):
+            gtfsutils.namespaceIDs(table, prefix, "route_id", "trip_id", "stop_id", "shape_id")
+        shapes_dict.update((prefix + key, prefix + value) for key, value in shapeMap.items())
+        feeds.append((gtfs_data, trip_list, filtered_stops, shapes))
+
+    if not feeds:
         return
-    if shapes is None:
-        print('Warning: GTFS shapes file not found! Continuing mapping without shapes.', file=sys.stderr)
-    (gtfs_data, trip_list,
-        filtered_stops,
-        shapes, shapes_dict) = gtfsutils.filter_gtfs(options, routes,
-                                                     trips_on_day, shapes,
-                                                     stops, stop_times)
+    if len(feeds) == 1:
+        gtfs_data, trip_list, filtered_stops, shapes = feeds[0]
+    else:
+        gtfs_data, trip_list, filtered_stops, shapes = (pd.concat(tables, ignore_index=True) for tables in zip(*feeds))
 
     osm_routes = import_osm(options, net)
 

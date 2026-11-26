@@ -1,0 +1,1 @@
+-c data/import.toolcfg -n net.net.xml --osm-routes ptlines.xml --bbox 10.509219,52.256458,10.530758,52.270119 --modes bus --vtype-output vehtypes.xml tools/import/gtfs/gtfs2pt.py

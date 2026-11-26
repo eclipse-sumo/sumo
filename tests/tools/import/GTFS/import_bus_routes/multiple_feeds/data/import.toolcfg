@@ -1,0 +1,4 @@
+<configuration>
+    <gtfs value="feed A.zip,feed B.zip"/>
+    <date value="20201111"/>
+</configuration>

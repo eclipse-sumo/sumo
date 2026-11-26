@@ -60,6 +60,8 @@ be repaired with the **--repair** option. When this option is enabled and by the
 repair some warnings and errors occurs, these are written in a new output file
 "invalid_osm_routes.txt".
 
+Pass a comma-separated list to **--gtfs** to import several feeds for the same date. The importer evaluates service IDs within each feed and prefixes feed-local IDs with `feed1.`, `feed2.`, and so on in input order. Imports with one feed retain their original IDs.
+
 If the option **--write-terminals** is set, then each vehicle will also record `<param>` elements that describe the terminal stop names and terminal depart/arrival times. This may be useful if the GTFS data has a scope that is larger than the loaded network.
 
 ## known stop locations
