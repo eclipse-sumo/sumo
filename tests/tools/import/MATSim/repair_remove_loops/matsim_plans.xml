@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<population>
+    <person id="p1">
+        <plan selected="yes">
+            <activity type="home" link="e1" end_time="08:00:00"/>
+            <leg mode="car">
+                <route start_link="e1" end_link="e3">e1 back e1 e2 e3</route>
+            </leg>
+            <activity type="work" link="e3"/>
+        </plan>
+    </person>
+</population>

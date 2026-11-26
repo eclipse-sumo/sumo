@@ -24,6 +24,7 @@ from __future__ import print_function
 
 import os
 import sys
+import shutil
 import subprocess
 from xml.sax import saxutils
 
@@ -121,6 +122,20 @@ def writeLeg(outf, options, idveh, leg, start, end, types):
         outf.write('    <vehicle id="%s" depart="%s"%s>\n' % (idveh, depart, mode))
         outf.write('        <route edges="%s"/>\n' % (leg.route[0].getText()))
         outf.write('    </vehicle>\n')
+
+
+def build_duarouter_calls(options, tmpout):
+    extra = ["--write-trips", "--write-trips.geo"] if options.prefer_coordinate else []
+    if options.remove_loops and options.repair:
+        noloops = options.output_file + ".noloops.tmp"
+        call1 = ["-n", options.net_file, "-a", tmpout, "-o", noloops, "--remove-loops", "--ignore-errors"]
+        call2 = ["-n", options.net_file, "-a", noloops, "-o", options.output_file, "--repair"] + extra
+        return [call1, call2], [tmpout, noloops]
+    args = ["-n", options.net_file, "-a", tmpout, "-o", options.output_file]
+    args += ["--repair"] if options.repair else []
+    args += ["--remove-loops"] if options.remove_loops else []
+    args += extra
+    return [args], [tmpout]
 
 
 def main(options):
@@ -261,15 +276,16 @@ def main(options):
     outf.close()
     # use duarouter for sorting when --vehicles-only is set
     if options.repair or options.remove_loops:
-        args = ["-n", options.net_file, "-a", tmpout, "-o", options.output_file]
-        args += ["--repair"] if options.repair else []
-        args += ["--remove-loops"] if options.remove_loops else []
-        args += ["--write-trips", "--write-trips.geo"] if options.prefer_coordinate else []
-        subprocess.call([sumolib.checkBinary("duarouter")] + args)
+        calls, cleanup_files = build_duarouter_calls(options, tmpout)
+        for args in calls:
+            subprocess.call([sumolib.checkBinary("duarouter")] + args)
+        for f in cleanup_files:
+            if os.path.exists(f):
+                os.remove(f)
     elif options.vehicles_only:
         sort_routes.main([tmpout, '-o', options.output_file])
     else:
-        os.rename(tmpout, options.output_file)
+        shutil.move(tmpout, options.output_file)
 
 
 if __name__ == "__main__":

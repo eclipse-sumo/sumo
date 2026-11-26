@@ -25,3 +25,6 @@ coordinates_preferred
 
 # import activity end times
 activity
+
+# remove loops prior to repairing gaps
+repair_remove_loops
