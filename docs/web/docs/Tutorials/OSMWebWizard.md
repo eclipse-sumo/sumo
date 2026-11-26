@@ -136,6 +136,7 @@ data. The contents of the directory look like this:
 
 ```
    ➜  2016-10-17-14-54-30 ls
+   build.py
    build.bat                  osm.net.xml                osm.rail.rou.alt.xml       osm.tram.rou.alt.xml
    osm.bicycle.rou.alt.xml    osm.netccfg                osm.rail.rou.xml           osm.tram.rou.xml
    osm.bicycle.rou.xml        osm.passenger.rou.alt.xml  osm.rail.trips.xml         osm.tram.trips.xml
@@ -148,7 +149,7 @@ data. The contents of the directory look like this:
    osm.motorcycle.trips.xml   osm.polycfg                osm.sumocfg
 ```
 
-You may now edit those files and re-run the simulation. To learn more
+Run `python build.py` to rebuild demand using the recorded options. On Windows, the generated `build.bat` launches the same script. You can then re-run the simulation. To learn more
 about the SUMO scenario files, please consult the other
 [Tutorials](index.md) as well.
 

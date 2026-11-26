@@ -34,7 +34,7 @@ Open the osmWebWizard.py
 python <SUMO_HOME>/tools/osmWebWizard.py
 ```
 !!! note
-	All files that make up the scenario are created in a subfolder of the working directory with the current timestamp (e.g. <SUMO_HOME>/tools/2021-02-22-10-00-00/). If you edit the network, you can use the script `build.bat` to rebuild the random demand.
+	All files that make up the scenario are created in a subfolder of the working directory with the current timestamp (e.g. <SUMO_HOME>/tools/2021-02-22-10-00-00/). If you edit the network, you can run `python build.py` to rebuild the random demand.
 
 A browser window will open. On the left side, you see the map and on the right side, you can find your position and some options. First, navigate through the map to find the right port.
 <img src="../images/tutorialport1.png" width="100%">
@@ -152,7 +152,7 @@ These are the stops for our scenario: (H=busStop, C=containerStop)
 
 <img src="../images/tutorialport20.png" width="100%">
 
-If the network is now correct, save the network. Run the file `build.bat` at the scenario folder (for us: <SUMO_HOME>/tools/2021-02-22-10-00-00/ ) to create a new demand suitable for the customized network. You can run the file `run.bat` to restart the simulation.
+If the network is now correct, save the network. Run `python build.py` at the scenario folder (for us: <SUMO_HOME>/tools/2021-02-22-10-00-00/ ) to create a new demand suitable for the customized network. You can run the file `run.bat` to restart the simulation.
 
 <img src="../images/tutorialport21.png" width="100%">
 
@@ -163,7 +163,7 @@ Here you can see that in our scenario there are far too many ships. So it is tim
 Before we edit the demand, it would be a good idea to bring together some information about it. If you are in luck, you get this data directly from the port. Otherwise, there are also some ways to get approximate values. For the ships it is possible to look for data from the automatic identification system (AIS). There are a lot of free sources and you get information about the ships and their movements. Often you can find information about the port from the ports website and from the local logistics companies. Information about passenger transport can be retrieved from OpenStreetMap and local public transport and ferry companies.
 
 ### Demand editing
-If you just want to have a very simple scenario (without containers) then you just change the `Through Traffic Factor` and `count` within the file `build.bat` and generate a better simple demand. For more information see the [osmWebWizard](../Tutorials/OSMWebWizard.md).
+If you just want to have a very simple scenario (without containers) then you just change the `Through Traffic Factor` and `count` in `build.py` and generate a better simple demand. For more information see the [osmWebWizard](../Tutorials/OSMWebWizard.md).
 
 If you want a more complex scenario delete the generated demand, first. :-)
 

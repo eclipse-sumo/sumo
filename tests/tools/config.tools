@@ -211,7 +211,7 @@ osmimport:*/osm.net.xml.gz
 osmstops:*/osm_stops.add.xml
 osmlines:*/osm_ptlines.xml
 ptroutes:*/osm_pt.rou.xml
-osmbatch:*/build.bat
+osmbuild:*/build.py
 osmtrips:*/osm.pedestrian.trips.xml
 districts:districts.xml
 restrictions:restrictions.txt
@@ -359,11 +359,6 @@ osmimport:<!--{[->]}-->
 osmstops:<!--{[->]}-->
 osmlines:<!--{[->]}-->
 ptroutes:<!-- generated on{[->]}-->
-osmbatch:python.*randomTrips\.py"{REPLACE python /path/to/randomTrips.py}
-osmbatch:python.*route2trips\.py{REPLACE python /path/to/route2trips.py}
-osmbatch:python.*ptlines2flows\.py{REPLACE python /path/to/ptlines2flows.py}
-osmbatch:-attributes.*--{REPLACE -attributes <attrs-with-os-dependent-quoting> --}
-osmbatch:#!/bin/bash
 image:<g id="matplotlib.axis
 image:id="[^"]*"{REPLACE id="ReplacedTransientID"}
 image:url\(.*\){REPLACE url(ReplacedTransientURL)}
@@ -403,7 +398,6 @@ net:0.0101
 image:1.001
 image-600:1.001
 image-800:1.001
-osmbatch:0.001
 osmimport:0.0101
 osmlines:0.0101
 osmstops:0.0101
