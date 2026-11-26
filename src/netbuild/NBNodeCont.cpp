@@ -59,6 +59,7 @@
 // Algorithm constants
 // ===========================================================================
 #define MAX_SLIPLANE_LENGTH 1000
+#define MAX_BYPASS_LENGTH 85.0
 
 // ===========================================================================
 // Debug Flags
@@ -1465,6 +1466,408 @@ NBNodeCont::maybeSlipLaneEnd(const NBNode* n, EdgeVector& incoming, double& outA
     return false;
 }
 
+void
+NBNodeCont::removeBypassConnections(const std::set<const NBEdge*>& guessedEdges, const std::set<std::string>& explicitTurnarounds) {
+    auto edgeDist = [](const NBEdge* e) -> double {
+        return MAX2(e->getGeometry().length2D(), e->getFromNode()->getPosition().distanceTo2D(e->getToNode()->getPosition()));
+    };
+    auto isRoad = [](const NBEdge* e) -> bool {
+        return (e->getPermissions() & SVC_PASSENGER) != 0
+               && !isRailway(e->getPermissions())
+               && e->getJunctionPriority(e->getFromNode()) != NBEdge::JunctionPriority::ROUNDABOUT
+               && e->getJunctionPriority(e->getToNode()) != NBEdge::JunctionPriority::ROUNDABOUT;
+    };
+    auto hasPassengerConnectionBetween = [](const NBNode* from, const NBNode* to) -> bool {
+        for (const NBEdge* e : from->getOutgoingEdges()) {
+            if (e->getToNode() == to && (e->getPermissions() & SVC_PASSENGER) != 0) {
+                return true;
+            }
+        }
+        return false;
+    };
+    auto forbidEdgeConnection = [](NBEdge* from, NBEdge* to) {
+        from->removeFromConnections(to, -1, -1, true, false, true);
+        if (from->getConnections().empty()) {
+            // ensure getConnectedSorted() does not resurrect 'to' when myConnections becomes empty
+            from->removeFromConnections(to, -1, -1, true, false, true);
+        }
+    };
+    auto followStraightChain = [&](NBEdge* firstEdge, const NBNode* stopNode, EdgeVector& chain, double& totalLen) -> bool {
+        chain.clear();
+        chain.push_back(firstEdge);
+        totalLen = edgeDist(firstEdge);
+        if (totalLen > MAX_BYPASS_LENGTH) {
+            return false;
+        }
+        NodeSet seen;
+        seen.insert(firstEdge->getFromNode());
+        NBEdge* cur = firstEdge;
+        while (cur->getToNode() != stopNode) {
+            NBNode* v = cur->getToNode();
+            if (v->isRoundabout() || seen.count(v) != 0 || (int)chain.size() >= 5) {
+                return false;
+            }
+            seen.insert(v);
+            const double curAng = cur->getAngleAtNode(v);
+            for (const NBEdge* ei : v->getPassengerEdges(true)) {
+                if (ei == cur) {
+                    continue;
+                }
+                const double relIn = fabs(NBHelpers::normRelAngle(curAng, ei->getAngleAtNode(v)));
+                if (relIn >= 45.0 && relIn <= 120.0) {
+                    return false;
+                }
+            }
+            EdgeVector cands;
+            for (NBEdge* eo : v->getOutgoingEdges()) {
+                if (isRoad(eo) && !cur->isTurningDirectionAt(eo)
+                        && fabs(NBHelpers::normRelAngle(curAng, eo->getAngleAtNode(v))) < 150.0) {
+                    cands.push_back(eo);
+                }
+            }
+            if (cands.size() != 1) {
+                return false;
+            }
+            NBEdge* next = cands.front();
+            if (fabs(NBHelpers::normRelAngle(curAng, next->getAngleAtNode(v))) >= 30.0) {
+                return false;
+            }
+            totalLen += edgeDist(next);
+            if (totalLen > MAX_BYPASS_LENGTH) {
+                return false;
+            }
+            chain.push_back(next);
+            cur = next;
+        }
+        return true;
+    };
+
+    for (const auto& item : myNodes) {
+        NBNode* const nStart = item.second;
+        if (nStart->isRoundabout()) {
+            continue;
+        }
+        EdgeVector startOutRoads;
+        for (NBEdge* eo : nStart->getOutgoingEdges()) {
+            if (isRoad(eo)) {
+                startOutRoads.push_back(eo);
+            }
+        }
+        if (startOutRoads.size() < 2) {
+            continue;
+        }
+        const EdgeVector inPE = nStart->getPassengerEdges(true);
+        for (NBEdge* byp0 : startOutRoads) {
+            EdgeVector bypChain;
+            bypChain.push_back(byp0);
+            double bypLen = edgeDist(byp0);
+            NodeSet bypNodes;
+            bypNodes.insert(nStart);
+            NBNode* curEnd = byp0->getToNode();
+            bool validByp = (bypLen <= MAX_BYPASS_LENGTH);
+            while (validByp && !curEnd->isRoundabout() && isSlipLaneContinuation(curEnd) && (int)bypChain.size() < 8) {
+                if (bypNodes.count(curEnd) != 0) {
+                    validByp = false;
+                    break;
+                }
+                NBEdge* nextByp = curEnd->getPassengerEdges(false).front();
+                if (!isRoad(nextByp)
+                        || fabs(NBHelpers::normRelAngle(bypChain.back()->getAngleAtNode(curEnd), nextByp->getAngleAtNode(curEnd))) >= 60.0) {
+                    break;
+                }
+                bypNodes.insert(curEnd);
+                bypChain.push_back(nextByp);
+                bypLen += edgeDist(nextByp);
+                curEnd = nextByp->getToNode();
+                if (bypLen > MAX_BYPASS_LENGTH) {
+                    validByp = false;
+                }
+            }
+            NBNode* const nEnd = curEnd;
+            if (!validByp || nEnd == nStart || nEnd->isRoundabout() || bypNodes.count(nEnd) != 0) {
+                continue;
+            }
+            if (hasPassengerConnectionBetween(nEnd, nStart)) {
+                continue;
+            }
+            bool hasBidiBypass = false;
+            for (const NBEdge* b : bypChain) {
+                if (b->getTurnDestination(true) != nullptr
+                        || hasPassengerConnectionBetween(b->getToNode(), b->getFromNode())) {
+                    hasBidiBypass = true;
+                    break;
+                }
+            }
+            if (hasBidiBypass) {
+                continue;
+            }
+            NBEdge* const bypLast = bypChain.back();
+            const double bypStartAng = byp0->getAngleAtNode(nStart);
+            const double bypEndAng = bypLast->getAngleAtNode(nEnd);
+
+            for (NBEdge* main0 : startOutRoads) {
+                if (main0 == byp0) {
+                    continue;
+                }
+                const double mainStartAng = main0->getAngleAtNode(nStart);
+                // lefthand networks are mirrored in NBNetBuilder::compute, so clockwise (positive) is always right
+                const double splitAngle = NBHelpers::normRelAngle(mainStartAng, bypStartAng);
+                if (splitAngle < 3.0 || splitAngle > 70.0) {
+                    continue;
+                }
+                bool bypHasOppositeAtStart = false;
+                EdgeVector nonOppIn;
+                for (NBEdge* ei : inPE) {
+                    const double eiAng = ei->getAngleAtNode(nStart);
+                    const double relMain = fabs(NBHelpers::normRelAngle(eiAng, mainStartAng));
+                    const double relByp = fabs(NBHelpers::normRelAngle(eiAng, bypStartAng));
+                    if (relByp > 165.0 && relByp > relMain + 2.0) {
+                        bypHasOppositeAtStart = true;
+                        break;
+                    }
+                    if (relMain < 135.0) {
+                        nonOppIn.push_back(ei);
+                    }
+                }
+                if (bypHasOppositeAtStart) {
+                    continue;
+                }
+                double inAngle = mainStartAng;
+                if (!nonOppIn.empty()) {
+                    NBEdge* bestIn = nullptr;
+                    double bestRel = 45.0;
+                    for (NBEdge* ei : nonOppIn) {
+                        const double eiAng = ei->getAngleAtNode(nStart);
+                        const double relMain = fabs(NBHelpers::normRelAngle(eiAng, mainStartAng));
+                        const double relByp = NBHelpers::normRelAngle(eiAng, bypStartAng);
+                        if (relMain < bestRel && relByp >= 0.0) {
+                            bestRel = relMain;
+                            bestIn = ei;
+                        }
+                    }
+                    if (bestIn == nullptr) {
+                        continue;
+                    }
+                    inAngle = bestIn->getAngleAtNode(nStart);
+                }
+
+                EdgeVector mainChain;
+                mainChain.push_back(main0);
+                double mainLen = edgeDist(main0);
+                NodeSet mainNodes;
+                mainNodes.insert(nStart);
+                NBEdge* curMain = main0;
+                while (mainLen <= MAX_BYPASS_LENGTH && (int)mainChain.size() <= 5) {
+                    NBNode* const nMain = curMain->getToNode();
+                    if (nMain->isRoundabout() || nMain == nStart || mainNodes.count(nMain) != 0) {
+                        break;
+                    }
+                    if (nMain != nEnd && bypNodes.count(nMain) == 0) {
+                        const double mainEndAng = curMain->getAngleAtNode(nMain);
+                        EdgeVector mainOuts;
+                        for (NBEdge* eo : nMain->getOutgoingEdges()) {
+                            if (isRoad(eo)) {
+                                mainOuts.push_back(eo);
+                            }
+                        }
+                        for (NBEdge* cross0 : mainOuts) {
+                            if (curMain->isTurningDirectionAt(cross0)) {
+                                continue;
+                            }
+                            const double turnAngle = NBHelpers::normRelAngle(mainEndAng, cross0->getAngleAtNode(nMain));
+                            if (turnAngle < 45.0 || turnAngle > 155.0) {
+                                continue;
+                            }
+                            bool hasOtherOut = false;
+                            for (NBEdge* otherOut : mainOuts) {
+                                if (otherOut != cross0 && !curMain->isTurningDirectionAt(otherOut)
+                                        && fabs(NBHelpers::normRelAngle(mainEndAng, otherOut->getAngleAtNode(nMain))) < 160.0) {
+                                    hasOtherOut = true;
+                                    break;
+                                }
+                            }
+                            if (!hasOtherOut) {
+                                continue;
+                            }
+                            EdgeVector crossChain;
+                            double crossLen = 0.0;
+                            if (!followStraightChain(cross0, nEnd, crossChain, crossLen)) {
+                                continue;
+                            }
+                            bool disjoint = true;
+                            for (const NBEdge* ce : crossChain) {
+                                if (ce->getToNode() != nEnd
+                                        && (bypNodes.count(ce->getToNode()) != 0 || mainNodes.count(ce->getToNode()) != 0)) {
+                                    disjoint = false;
+                                    break;
+                                }
+                            }
+                            if (!disjoint) {
+                                continue;
+                            }
+                            NBEdge* const crossLast = crossChain.back();
+                            const double crossEndAng = crossLast->getAngleAtNode(nEnd);
+                            const double mergeAngle = NBHelpers::normRelAngle(bypEndAng, crossEndAng);
+                            if (mergeAngle < -5.0 || mergeAngle > 75.0) {
+                                continue;
+                            }
+                            const EdgeVector endOutPE = nEnd->getPassengerEdges(false);
+                            double outAngle = crossEndAng;
+                            if (!endOutPE.empty()) {
+                                NBEdge* bestOut = nullptr;
+                                double bestOutRel = 45.0;
+                                for (NBEdge* eo : endOutPE) {
+                                    const double eoAng = eo->getAngleAtNode(nEnd);
+                                    const double relCross = fabs(NBHelpers::normRelAngle(crossEndAng, eoAng));
+                                    const double relByp = NBHelpers::normRelAngle(bypEndAng, eoAng);
+                                    if (relCross < bestOutRel && relByp >= -10.0 && relByp <= 75.0) {
+                                        bestOutRel = relCross;
+                                        bestOut = eo;
+                                    }
+                                }
+                                if (bestOut == nullptr) {
+                                    continue;
+                                }
+                                outAngle = bestOut->getAngleAtNode(nEnd);
+                            }
+                            const double totTurn = NBHelpers::normRelAngle(inAngle, outAngle);
+                            if (totTurn < 20.0 || totTurn > 150.0) {
+                                continue;
+                            }
+
+                            // 1. Bypass road should not allow left turn or turnaround at merge node
+                            if (guessedEdges.count(bypLast) != 0) {
+                                const EdgeVector bypConn = bypLast->getConnectedEdges();
+                                bool hasValidKeep = false;
+                                for (NBEdge* out : bypConn) {
+                                    const LinkDirection dir = nEnd->getDirection(bypLast, out);
+                                    if (dir != LinkDirection::LEFT && dir != LinkDirection::PARTLEFT
+                                            && dir != LinkDirection::TURN && dir != LinkDirection::TURN_LEFTHAND) {
+                                        hasValidKeep = true;
+                                        break;
+                                    }
+                                }
+                                for (NBEdge* out : bypConn) {
+                                    const LinkDirection dir = nEnd->getDirection(bypLast, out);
+                                    const double relOut = NBHelpers::normRelAngle(bypEndAng, out->getAngleAtNode(nEnd));
+                                    const bool sharpBack = (relOut < -90.0 || relOut > 150.0);
+                                    if (dir == LinkDirection::TURN || dir == LinkDirection::TURN_LEFTHAND
+                                            || ((hasValidKeep || sharpBack)
+                                                && (dir == LinkDirection::LEFT || dir == LinkDirection::PARTLEFT || sharpBack))) {
+                                        forbidEdgeConnection(bypLast, out);
+                                    }
+                                }
+                                if (bypLast->getTurnDestination() != nullptr && explicitTurnarounds.count(bypLast->getID()) == 0) {
+                                    bypLast->removeFromConnections(bypLast->getTurnDestination(), -1, -1, true, false, true);
+                                }
+                            }
+
+                            // 2. Main road should forbid right turn when covered by the bypass road
+                            if (guessedEdges.count(curMain) != 0 && curMain->isConnectedTo(cross0, true)) {
+                                bool hasOtherConnected = false;
+                                for (NBEdge* out : curMain->getConnectedEdges()) {
+                                    if (out != cross0 && !curMain->isTurningDirectionAt(out)) {
+                                        hasOtherConnected = true;
+                                        break;
+                                    }
+                                }
+                                bool explicitTurnSign = false;
+                                if (curMain->getTurnSignTarget() == nMain->getID()) {
+                                    const int crossDirBit = (int)nMain->getDirection(curMain, cross0);
+                                    for (const NBEdge::Lane& lane : curMain->getLanes()) {
+                                        if ((lane.turnSigns & crossDirBit) != 0) {
+                                            explicitTurnSign = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (hasOtherConnected && !explicitTurnSign) {
+                                    SVCPermissions bypPerms = SVCAll;
+                                    for (const NBEdge* b : bypChain) {
+                                        bypPerms &= b->getPermissions();
+                                    }
+                                    SVCPermissions mainCrossPerms = SVCAll & ~SVC_PEDESTRIAN;
+                                    for (const NBEdge* m : mainChain) {
+                                        mainCrossPerms &= m->getPermissions();
+                                    }
+                                    for (const NBEdge* c : crossChain) {
+                                        mainCrossPerms &= c->getPermissions();
+                                    }
+                                    const SVCPermissions uncovered = mainCrossPerms & ~bypPerms;
+                                    bool keepForDedicatedLane = false;
+                                    if (uncovered != 0) {
+                                        for (int i = 0; i < curMain->getNumLanes(); ++i) {
+                                            const SVCPermissions lp = curMain->getPermissions(i) & ~SVC_PEDESTRIAN;
+                                            if (lp != 0 && (lp & SVC_PASSENGER) == 0 && (lp & uncovered) != 0) {
+                                                keepForDedicatedLane = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (!keepForDedicatedLane) {
+                                        forbidEdgeConnection(curMain, cross0);
+                                    }
+                                }
+                            }
+
+                            // 3. Opposite direction edge should not allow sharp-backwards left turn into bypass road
+                            for (NBEdge* oppIn : nStart->getIncomingEdges()) {
+                                if (guessedEdges.count(oppIn) == 0 || !oppIn->isConnectedTo(byp0, true)) {
+                                    continue;
+                                }
+                                const double oppAng = oppIn->getAngleAtNode(nStart);
+                                if (fabs(NBHelpers::normRelAngle(oppAng, mainStartAng)) >= 135.0
+                                        && fabs(NBHelpers::normRelAngle(oppAng, bypStartAng)) > 95.0) {
+                                    forbidEdgeConnection(oppIn, byp0);
+                                }
+                            }
+                        }
+                    }
+
+                    if (nMain == nEnd || bypNodes.count(nMain) != 0) {
+                        break;
+                    }
+                    const double curAng = curMain->getAngleAtNode(nMain);
+                    bool hasSideIn = false;
+                    for (const NBEdge* ei : nMain->getPassengerEdges(true)) {
+                        if (ei == curMain) {
+                            continue;
+                        }
+                        const double relIn = fabs(NBHelpers::normRelAngle(curAng, ei->getAngleAtNode(nMain)));
+                        if (relIn >= 45.0 && relIn <= 120.0) {
+                            hasSideIn = true;
+                            break;
+                        }
+                    }
+                    if (hasSideIn) {
+                        break;
+                    }
+                    EdgeVector nextMains;
+                    for (NBEdge* eo : nMain->getOutgoingEdges()) {
+                        if (isRoad(eo) && !curMain->isTurningDirectionAt(eo)
+                                && fabs(NBHelpers::normRelAngle(curAng, eo->getAngleAtNode(nMain))) < 150.0) {
+                            nextMains.push_back(eo);
+                        }
+                    }
+                    if (nextMains.size() != 1) {
+                        break;
+                    }
+                    NBEdge* nextMain = nextMains.front();
+                    if (fabs(NBHelpers::normRelAngle(curAng, nextMain->getAngleAtNode(nMain))) >= 30.0) {
+                        break;
+                    }
+                    mainNodes.insert(nMain);
+                    mainChain.push_back(nextMain);
+                    mainLen += edgeDist(nextMain);
+                    curMain = nextMain;
+                }
+            }
+        }
+    }
+    myClusterGuessedEdges.clear();
+}
+
+
 bool
 NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*, std::vector<NBNode*> >& ptStopEnds,
                             double maxDist, std::string& reason, NBNode*& tryRemove) const {
@@ -1963,6 +2366,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
                 e2->replaceInConnections(e, e->getConnections());
             }
         }
+        myClusterGuessedEdges.erase(e);
         ec.extract(dc, e, true);
         allEdges.erase(e);
     }
@@ -2019,6 +2423,9 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
                         //std::cout << " hasPostProcessConnection in=" << in->getID() << " out=" << out->getID() << "\n";
                     }
                 } else if (specialPermissions.count(in) != 0) {
+                    if (!ec.hasPostProcessConnection(in->getID()) && in->getStep() == NBEdge::EdgeBuildingStep::INIT) {
+                        myClusterGuessedEdges.insert(in);
+                    }
                     SVCPermissions pDefault = in->getPermissions() & out->getPermissions();
                     SVCPermissions p = conPermissions[ {in, out}] == 0 ? pDefault : conPermissions[ {in, out}];
                     in->addEdge2EdgeConnection(out, true, p == pDefault ? SVC_UNSPECIFIED : p);
@@ -2603,6 +3010,7 @@ NBNodeCont::clear() {
         delete item.second;
     }
     myExtractedNodes.clear();
+    myClusterGuessedEdges.clear();
 }
 
 

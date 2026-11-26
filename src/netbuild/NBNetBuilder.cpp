@@ -520,6 +520,14 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     NBEdgePriorityComputer::computeEdgePriorities(myNodeCont);
     PROGRESS_TIME_MESSAGE(before);
     //
+    std::set<const NBEdge*> guessedEdges;
+    for (const auto& it : myEdgeCont) {
+        NBEdge* const e = it.second;
+        if (e->getStep() == NBEdge::EdgeBuildingStep::INIT
+                || (e->getStep() == NBEdge::EdgeBuildingStep::EDGE2EDGES && myNodeCont.getClusterGuessedEdges().count(e) != 0)) {
+            guessedEdges.insert(e);
+        }
+    }
     before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Computing approached edges"));
     myEdgeCont.computeEdge2Edges(oc.getBool("no-left-connections"));
     PROGRESS_TIME_MESSAGE(before);
@@ -533,6 +541,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         PROGRESS_TIME_MESSAGE(before);
     }
     myEdgeCont.markRoundabouts();
+    myNodeCont.removeBypassConnections(guessedEdges, explicitTurnarounds);
     //
     before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Computing approaching lanes"));
     myEdgeCont.computeLanes2Edges();
