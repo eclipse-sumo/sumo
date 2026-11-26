@@ -691,16 +691,16 @@ names only, one could build a .5m long bus.
 The following vehicle deprecated classes exist for maintaining backward
 compatibility:
 
-| deprecated vClass | replacement                   |
-| ----------------- | ----------------------------- |
-| `public_emergency` | deprecated. use 'emergency'   |
-| `public_authority` | deprecated, use 'authority'   |
-| `public_army`      | deprecated, use 'army'        |
-| `public_transport` | deprecated, use 'bus'         |
-| `transport`         | deprecated, use 'truck'       |
-| `lightrail`         | deprecated, use 'tram'        |
-| `cityrail`          | deprecated, use 'rail_urban' |
-| `rail_slow`        | deprecated, use 'rail'        |
+| deprecated vClass  | replacement                  |
+| ------------------ | ---------------------------- |
+| `public_emergency` | deprecated. use 'emergency'  |
+| `public_authority` | deprecated, use 'authority'  |
+| `public_army`      | deprecated, use 'army'       |
+| `public_transport` | deprecated, use 'bus'        |
+| `transport`        | deprecated, use 'truck'      |
+| `lightrail`        | deprecated, use 'tram'       |
+| `cityrail`         | deprecated, use 'rail_urban' |
+| `rail_slow`        | deprecated, use 'rail'       |
 
 ## Vehicle Emission Classes
 
@@ -748,6 +748,7 @@ The following shapes are known:
 - "rickshaw"
 - "scooter"
 - "aircraft"
+- "drone"
 
 Some of these classes are drawn as a sequence of carriages. The length
 of a single carriage is indicated in parentheses after the type. For

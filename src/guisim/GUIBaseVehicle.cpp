@@ -548,6 +548,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
                 case SUMOVehicleShape::RAIL_CARGO:
                 case SUMOVehicleShape::RAIL_CAR:
                 case SUMOVehicleShape::AIRCRAFT:
+                case SUMOVehicleShape::DRONE:
                     break;
                 case SUMOVehicleShape::MOTORCYCLE:
                 case SUMOVehicleShape::MOPED:
@@ -891,7 +892,7 @@ GUIBaseVehicle::getScaleValue(const GUIVisualizationSettings& s, int activeSchem
 }
 
 
-// ------------ Additional visualisations
+// ------------ Additional visualizations
 bool
 GUIBaseVehicle::hasActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) const {
     return myAdditionalVisualizations.find(parent) != myAdditionalVisualizations.end() && (myAdditionalVisualizations.find(parent)->second & which) != 0;

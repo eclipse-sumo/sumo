@@ -298,6 +298,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             break;
         case SVC_DRONE:
             width = 0.5;
+            shape = SUMOVehicleShape::DRONE;
             break;
         case SVC_AIRCRAFT:
             // Airbus A380

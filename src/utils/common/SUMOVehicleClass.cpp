@@ -134,6 +134,7 @@ static StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitialize
     {"rickshaw",              SUMOVehicleShape::RICKSHAW },
     {"scooter",               SUMOVehicleShape::SCOOTER},
     {"aircraft",              SUMOVehicleShape::AIRCRAFT},
+    {"drone",                 SUMOVehicleShape::DRONE},
     {"",                      SUMOVehicleShape::UNKNOWN}
 };
 

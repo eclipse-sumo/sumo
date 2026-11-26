@@ -21,6 +21,7 @@
 #include <config.h>
 #include <utils/foxtools/fxheader.h>
 
+#include <utils/geom/GeomHelper.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/images/GUITexturesHelper.h>
@@ -109,6 +110,25 @@ static const double vehiclePoly_aircraftEngines[] = {0.326, -0.158, 0.413, -0.15
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+/// @brief draw a filled rectangle with rounded corners centered at (cx, cy)
+static void
+drawRoundedRect(const double cx, const double cy, const double halfX, const double halfY, const double radius, const int stepsPerCorner = 6) {
+    const double ix = halfX - radius;
+    const double iy = halfY - radius;
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2d(cx, cy);
+    const double cornerX[] = { ix, -ix, -ix, ix };
+    const double cornerY[] = { iy, iy, -iy, -iy };
+    for (int c = 0; c < 4; c++) {
+        for (int i = 0; i <= stepsPerCorner; i++) {
+            const double a = DEG2RAD(90. * c + 90. * i / stepsPerCorner);
+            glVertex2d(cx + cornerX[c] + radius * cos(a), cy + cornerY[c] + radius * sin(a));
+        }
+    }
+    glVertex2d(cx + ix + radius, cy + iy);
+    glEnd();
+}
 
 void
 GUIBaseVehicleHelper::drawPoly(const double* poses, const double offset) {
@@ -556,6 +576,75 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             GLHelper::popMatrix();
             break;
 
+        case SUMOVehicleShape::DRONE: {
+            // draw within a centered square so that the rotors stay circular
+            const double size = MIN2(length, width);
+            glScaled(1. / length, 1. / width, 1.);
+            glTranslated(length / 2., 0, 0);
+            glScaled(size, size, 1.);
+            const RGBColor bladeColor(90, 90, 90);
+            const RGBColor hubColor(150, 150, 150);
+            const double rotor = 0.3;
+            // arms
+            GLHelper::setColor(current);
+            for (const double angle : {
+                        45., -45.
+                    }) {
+                GLHelper::pushMatrix();
+                glTranslated(0, 0, 0.1);
+                glRotated(angle, 0, 0, 1);
+                glRectd(-rotor * sqrt(2.), -0.035, rotor * sqrt(2.), 0.035);
+                GLHelper::popMatrix();
+            }
+            // motor mounts
+            for (const double sx : {
+                        -1., 1.
+                        }) {
+                for (const double sy : {
+                            -1., 1.
+                            }) {
+                    GLHelper::pushMatrix();
+                    glTranslated(sx * rotor, sy * rotor, 0.15);
+                    GLHelper::drawFilledCircle(0.065, 16);
+                    GLHelper::popMatrix();
+                }
+            }
+            // body with camera at the front
+            GLHelper::pushMatrix();
+            glTranslated(0, 0, 0.2);
+            drawRoundedRect(-0.2, 0, 0.06, 0.07, 0.03);
+            drawRoundedRect(0, 0, 0.2, 0.14, 0.06);
+            glTranslated(0, 0, 0.05);
+            GLHelper::setColor(darker);
+            drawRoundedRect(0, 0, 0.15, 0.09, 0.04);
+            drawRoundedRect(-0.23, 0, 0.02, 0.04, 0.015);
+            GLHelper::popMatrix();
+            // propellers (perpendicular to the arms)
+            for (const double sx : {
+                        -1., 1.
+                        }) {
+                for (const double sy : {
+                            -1., 1.
+                            }) {
+                    GLHelper::pushMatrix();
+                    glTranslated(sx * rotor, sy * rotor, 0.3);
+                    GLHelper::pushMatrix();
+                    glRotated(-45. * sx * sy, 0, 0, 1);
+                    glScaled(0.19, 0.03, 1.);
+                    GLHelper::setColor(bladeColor);
+                    GLHelper::drawFilledCircle(1, 24);
+                    GLHelper::popMatrix();
+                    glTranslated(0, 0, 0.05);
+                    GLHelper::setColor(hubColor);
+                    GLHelper::drawFilledCircle(0.04, 16);
+                    glTranslated(0, 0, 0.05);
+                    GLHelper::setColor(bladeColor);
+                    GLHelper::drawFilledCircle(0.018, 12);
+                    GLHelper::popMatrix();
+                }
+            }
+            break;
+        }
         case SUMOVehicleShape::SCOOTER: {
             RGBColor darker2 = current.changedBrightness(-25);
             GLHelper::pushMatrix();
@@ -747,6 +836,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
         case SUMOVehicleShape::RICKSHAW:
         case SUMOVehicleShape::AIRCRAFT:
         case SUMOVehicleShape::SCOOTER:
+        case SUMOVehicleShape::DRONE:
             break;
         default: // same as passenger/sedan
             drawPoly(vehiclePoly_PassengerSedanRightGlass, 4.5);
