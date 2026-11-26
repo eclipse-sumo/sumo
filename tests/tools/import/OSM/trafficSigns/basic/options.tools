@@ -1,0 +1,1 @@
+-s osm.xml -n input_net.net.xml -o pois.add.xml tools/import/osm/osmTrafficSigns.py
