@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26T14:35:11.873398+01:00 by Eclipse SUMO netconvert v1_28_0+0857-c4aaba87509
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+    </processing>
+
+    <edge_removal>
+        <keep-edges.by-vclass value="passenger"/>
+    </edge_removal>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+</netconvertConfiguration>
+-->
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-465240.37,-5246011.99" convBoundary="0.00,0.00,169.35,348.73" origBoundary="8.539612,47.366652,8.542022,47.369866" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="156377016" x="158.15" y="77.82" type="dead_end"/>
+    <node id="1608966953" x="164.01" y="274.39" type="priority"/>
+    <node id="2936682637" x="85.35" y="299.81" type="dead_end"/>
+    <node id="34537342" x="143.72" y="0.00" type="dead_end"/>
+    <node id="5281831706" x="169.35" y="348.73" type="priority"/>
+    <node id="92489170" x="0.00" y="242.40" type="dead_end"/>
+    <node id="92489171" x="93.15" y="260.77" type="priority"/>
+    <node id="92489491" x="25.69" y="140.03" type="priority"/>
+    <node id="92489496" x="113.92" y="157.22" type="priority"/>
+    <node id="92489497" x="162.67" y="160.93" type="priority"/>
+</nodes>
