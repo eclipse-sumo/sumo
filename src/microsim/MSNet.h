@@ -30,6 +30,7 @@
 #include <typeinfo>
 #include <vector>
 #include <map>
+#include <mutex>
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -1079,6 +1080,8 @@ protected:
     mutable std::map<int, MSVehicleRouter*> myRouterEffort;
     mutable std::map<int, MSPedestrianRouter*> myPedestrianRouter;
     mutable std::map<int, MSTransportableRouter*> myIntermodalRouter;
+    /// @brief guards finding and building the routers above, which the simulation threads (rerouters, TraCI) may ask for at once
+    mutable std::mutex myRouterMutex;
 
     /// @brief An RTree structure holding lane IDs
     mutable std::pair<bool, NamedRTree> myLanesRTree;

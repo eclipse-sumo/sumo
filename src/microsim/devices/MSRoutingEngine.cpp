@@ -77,6 +77,8 @@ SUMOTime MSRoutingEngine::myLastAdaptation = -1;
 bool MSRoutingEngine::myWithTaz;
 bool MSRoutingEngine::myBikeSpeeds;
 MSRouterProvider* MSRoutingEngine::myRouterProvider = nullptr;
+std::atomic<bool> MSRoutingEngine::myRouterReady(false);
+std::mutex MSRoutingEngine::myRouterInitLock;
 std::map<std::pair<const MSEdge*, const MSEdge*>, ConstMSRoutePtr> MSRoutingEngine::myCachedRoutes;
 double MSRoutingEngine::myPriorityFactor(0);
 double MSRoutingEngine::myMinEdgePriority(std::numeric_limits<double>::max());
@@ -717,8 +719,12 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
 void
 MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const std::string& info,
                          const bool onInit, const bool silent, const Prohibitions& prohibited) {
-    if (myRouterProvider == nullptr) {
-        initRouter(&vehicle);
+    if (!myRouterReady.load(std::memory_order_acquire)) {
+        std::lock_guard<std::mutex> lock(myRouterInitLock);
+        if (myRouterProvider == nullptr) {
+            initRouter(&vehicle);
+        }
+        myRouterReady.store(true, std::memory_order_release);
     }
     auto& router = myRouterProvider->getVehicleRouter(vehicle.getVClass());
 #ifndef THREAD_POOL
@@ -812,10 +818,15 @@ MSRoutingEngine::addEdgeTravelTime(const MSEdge& edge, const SUMOTime travelTime
 
 MSVehicleRouter&
 MSRoutingEngine::getRouterTT(const int rngIndex, SUMOVehicleClass svc, const Prohibitions& prohibited) {
-    if (myRouterProvider == nullptr) {
-        initWeightUpdate();
-        initEdgeWeights(svc);
-        initRouter();
+    if (!myRouterReady.load(std::memory_order_acquire)) {
+        // rerouters may query from several simulation threads at once
+        std::lock_guard<std::mutex> lock(myRouterInitLock);
+        if (myRouterProvider == nullptr) {
+            initWeightUpdate();
+            initEdgeWeights(svc);
+            initRouter();
+        }
+        myRouterReady.store(true, std::memory_order_release);
     }
 #ifndef THREAD_POOL
 #ifdef HAVE_FOX
@@ -841,10 +852,14 @@ MSRoutingEngine::getRouterTT(const int rngIndex, SUMOVehicleClass svc, const Pro
 
 MSTransportableRouter&
 MSRoutingEngine::getIntermodalRouterTT(const int rngIndex, const Prohibitions& prohibited) {
-    if (myRouterProvider == nullptr) {
-        initWeightUpdate();
-        initEdgeWeights(SVC_PEDESTRIAN);
-        initRouter();
+    if (!myRouterReady.load(std::memory_order_acquire)) {
+        std::lock_guard<std::mutex> lock(myRouterInitLock);
+        if (myRouterProvider == nullptr) {
+            initWeightUpdate();
+            initEdgeWeights(SVC_PEDESTRIAN);
+            initRouter();
+        }
+        myRouterReady.store(true, std::memory_order_release);
     }
 #ifndef THREAD_POOL
 #ifdef HAVE_FOX
@@ -925,11 +940,13 @@ MSRoutingEngine::cleanup() {
         delete myThreadPool;
         myThreadPool = nullptr;
         myRouterProvider = nullptr;
+        myRouterReady.store(false, std::memory_order_release);
     }
 #endif
     cleanupCCH();
     delete myRouterProvider;
     myRouterProvider = nullptr;
+    myRouterReady.store(false, std::memory_order_release);
 }
 
 

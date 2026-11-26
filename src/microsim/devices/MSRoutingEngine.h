@@ -22,9 +22,11 @@
 #pragma once
 #include <config.h>
 
+#include <atomic>
 #include <set>
 #include <vector>
 #include <map>
+#include <mutex>
 #include <thread>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/WrappingCommand.h>
@@ -367,6 +369,12 @@ private:
 
     /// @brief The router to use
     static MSRouterProvider* myRouterProvider;
+
+    /// @brief whether the routers of all threads are built (see initRouterOnce)
+    static std::atomic<bool> myRouterReady;
+
+    /// @brief serialises building the routers when the first queries come from several threads
+    static std::mutex myRouterInitLock;
 
     /// @brief The container of pre-calculated routes
     static std::map<std::pair<const MSEdge*, const MSEdge*>, ConstMSRoutePtr> myCachedRoutes;
