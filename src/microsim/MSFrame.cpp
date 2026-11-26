@@ -612,6 +612,8 @@ MSFrame::fillOptions() {
     oc.addDescription("pedestrian.striping.jamtime.crossing", "Persons", TL("Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model 'striping' (non-positive values disable squeezing)"));
     oc.doRegister("pedestrian.striping.jamtime.narrow", new Option_String("1", "TIME"));
     oc.addDescription("pedestrian.striping.jamtime.narrow", "Persons", TL("Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model 'striping'"));
+    oc.doRegister("pedestrian.striping.jamtime.tls", new Option_String("300", "TIME"));
+    oc.addDescription("pedestrian.striping.jamtime.tls", "Persons", TL("Time in seconds after which pedestrians start squeezing through a jam at a traffic light when using model 'striping' (non-positive values disable squeezing)"));
 
     oc.doRegister("pedestrian.striping.jamfactor", new Option_Float(0.25));
     oc.addDescription("pedestrian.striping.jamfactor", "Persons", TL("Factor for reducing speed of pedestrian in jammed state"));
