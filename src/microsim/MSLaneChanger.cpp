@@ -287,16 +287,16 @@ MSLaneChanger::canDecideFirst() const {
 bool
 MSLaneChanger::executeDecision(MSVehicle* vehicle) {
     auto it = myDecisions.find(vehicle);
-    if (it == myDecisions.end() || !stillSafe(it->second)) {
+    if (it == myDecisions.end() || !stillSafe(it->second.first, it->second.second)) {
         registerUnchanged(vehicle);
         return false;
     }
-    return startChange(vehicle, myCandi, it->second);
+    return startChange(vehicle, myCandi, it->second.first);
 }
 
 
 bool
-MSLaneChanger::stillSafe(int direction) const {
+MSLaneChanger::stillSafe(int direction, int state) const {
     // the gap checks of checkChange, now with the changes executed so far (also those of other edges)
     MSVehicle* vehicle = veh(myCandi);
     ChangerIt target = myCandi + direction;
@@ -304,6 +304,15 @@ MSLaneChanger::stillSafe(int direction) const {
     std::pair<MSVehicle*, double> neighFollow = getRealFollower(target);
     if (neighLead.first != nullptr && neighLead.first == neighFollow.first) {
         neighFollow.first = nullptr;
+    }
+    if ((state & LCA_TRACI) != 0 && vehicle->hasInfluencer()) {
+        // TraCI's lane change priority, as in MSVehicle::Influencer::influenceChangeDecision
+        if (vehicle->getInfluencer().ignoreOverlap()) {
+            return true;
+        }
+        if (vehicle->getInfluencer().ignoreSafeGap()) {
+            return (neighFollow.first == nullptr || neighFollow.second >= 0) && (neighLead.first == nullptr || neighLead.second >= 0);
+        }
     }
     const double tauRemainder = vehicle->getActionStepLength() == DELTA_T ? 0 : MAX2(vehicle->getCarFollowModel().getHeadwayTime() - TS, 0.);
     const double safetyFactor = vehicle->getLaneChangeModel().getSafetyFactor();
@@ -644,7 +653,7 @@ MSLaneChanger::startChange(MSVehicle* vehicle, ChangerIt& from, int direction) {
         return false;
     }
     if (myDecideOnly) {
-        myDecisions[vehicle] = direction;
+        myDecisions[vehicle] = std::make_pair(direction, vehicle->getLaneChangeModel().getOwnState());
         registerUnchanged(vehicle);
         return false;
     }

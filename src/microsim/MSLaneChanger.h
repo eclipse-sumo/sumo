@@ -185,8 +185,8 @@ protected:
     /// @brief execute the decision of the current candidate
     bool executeDecision(MSVehicle* vehicle);
 
-    /// @brief whether the gaps on the target lane still allow the decided change
-    bool stillSafe(int direction) const;
+    /// @brief whether the gaps on the target lane still allow the decided change (with TraCI's lane change priority)
+    bool stillSafe(int direction, int state) const;
 
 
     /** try changing to the opposite direction edge. */
@@ -365,8 +365,8 @@ protected:
     /// @brief whether laneChange executes the decisions of decideLaneChanges
     bool myExecuteDecisions;
 
-    /// @brief the change direction decided per vehicle
-    std::map<const MSVehicle*, int> myDecisions;
+    /// @brief the change direction and the lane change state decided per vehicle
+    std::map<const MSVehicle*, std::pair<int, int> > myDecisions;
 
     /// @brief writes to vehicles on other edges while deciding
     std::vector<std::function<void()> > myDeferredWrites;

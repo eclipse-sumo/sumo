@@ -1616,6 +1616,11 @@ public:
             return myTraciLaneChangePriority == LCP_ALWAYS;
         }
 
+        /// @brief whether TraCI lane change requests may ignore the safe gaps as long as there is no overlap
+        bool ignoreSafeGap() const {
+            return myTraciLaneChangePriority == LCP_NOOVERLAP;
+        }
+
     private:
 
         /// @brief Static initalization
