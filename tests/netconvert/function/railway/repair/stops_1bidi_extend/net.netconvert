@@ -221,9 +221,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="-g" to="f" fromLane="0" toLane="0" via=":8_3_0" dir="s" state="M"/>
     <connection from="-gneE1" to="-f" fromLane="0" toLane="0" keepClear="0" via=":9_0_0" dir="s" state="M"/>
     <connection from="-h" to="-g" fromLane="0" toLane="0" via=":11_1_0" dir="s" state="M"/>
-    <connection from="-h" to="h" fromLane="0" toLane="0" speed="0.10" via=":11_2_0" dir="t" state="M"/>
+    <connection from="-h" to="h" fromLane="0" toLane="0" keepClear="0" speed="0.10" via=":11_2_0" dir="t" state="M"/>
     <connection from="a" to="b" fromLane="0" toLane="0" via=":2_1_0" dir="s" state="M"/>
-    <connection from="a" to="-a" fromLane="0" toLane="0" speed="0.10" via=":2_2_0" dir="t" state="M"/>
+    <connection from="a" to="-a" fromLane="0" toLane="0" keepClear="0" speed="0.10" via=":2_2_0" dir="t" state="M"/>
     <connection from="b" to="gneE2" fromLane="0" toLane="0" via=":3_2_0" dir="s" state="M"/>
     <connection from="b" to="-c" fromLane="0" toLane="0" via=":3_3_0" dir="L" state="M"/>
     <connection from="c" to="-b" fromLane="0" toLane="0" via=":3_0_0" dir="s" state="M"/>
@@ -231,7 +231,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="d" to="e" fromLane="0" toLane="0" via=":7_0_0" dir="s" state="M"/>
     <connection from="e" to="f" fromLane="0" toLane="0" via=":8_2_0" dir="s" state="M"/>
     <connection from="f" to="gneE1" fromLane="0" toLane="0" via=":9_1_0" dir="s" state="M"/>
-    <connection from="f" to="-f" fromLane="0" toLane="0" speed="0.10" via=":9_2_0" dir="t" state="M"/>
+    <connection from="f" to="-f" fromLane="0" toLane="0" keepClear="0" speed="0.10" via=":9_2_0" dir="t" state="M"/>
     <connection from="g" to="h" fromLane="0" toLane="0" keepClear="0" via=":11_0_0" dir="s" state="M"/>
     <connection from="h" to="-h" fromLane="0" toLane="0" speed="0.10" via=":12_0_0" dir="t" state="M"/>
 

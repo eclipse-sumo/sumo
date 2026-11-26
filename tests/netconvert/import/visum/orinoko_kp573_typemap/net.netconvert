@@ -491,8 +491,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="-905002551" to="905002548" fromLane="2" toLane="1" tl="1565" linkIndex="6" dir="l" state="o"/>
     <connection from="-905002551" to="905002551" fromLane="2" toLane="1" dir="t" state="m"/>
     <connection from="-905002586" to="59394061" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-905005134" to="-905005137" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="-905005134" to="-905005137" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from="-905005134" to="-905005137" fromLane="0" toLane="0" keepClear="0" dir="r" state="M"/>
+    <connection from="-905005134" to="-905005137" fromLane="1" toLane="1" keepClear="0" dir="r" state="M"/>
     <connection from="-905005137" to="905005137" fromLane="1" toLane="1" dir="t" state="M"/>
     <connection from="-905005456" to="905005626" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-905005456" to="905005626" fromLane="1" toLane="1" dir="s" state="M"/>

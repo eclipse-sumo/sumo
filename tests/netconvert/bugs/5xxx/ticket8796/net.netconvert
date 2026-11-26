@@ -120,7 +120,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="gneE4" to="gneE5" fromLane="0" toLane="0" keepClear="0" via=":gneJ5_0_0" dir="s" state="M"/>
     <connection from="gneE4" to="gneE5" fromLane="0" toLane="1" keepClear="0" via=":gneJ5_0_1" dir="s" state="M"/>
     <connection from="gneE6" to="gneE4" fromLane="0" toLane="0" via=":gneJ4_0_0" dir="t" state="M"/>
-    <connection from="gneE7" to="gneE6" fromLane="0" toLane="0" keepClear="0" via=":gneJ5_2_0" dir="s" state="M"/>
+    <connection from="gneE7" to="gneE6" fromLane="0" toLane="0" via=":gneJ5_2_0" dir="s" state="M"/>
     <connection from="gneE7" to="gneE5" fromLane="1" toLane="1" via=":gneJ5_3_0" dir="t" state="m"/>
 
     <connection from=":gneJ2_0" to="gneE7" fromLane="0" toLane="0" dir="r" state="M"/>

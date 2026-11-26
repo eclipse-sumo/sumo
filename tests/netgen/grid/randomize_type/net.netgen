@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:36:51 by Eclipse SUMO netgenerate Version v1_19_0+1092-a49a04372af
+<!-- generated on 2026-11-26T20:20:29.582638+00:00 by Eclipse SUMO netgenerate v1.28.0-0000000000
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
+<netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
 
     <grid_network>
         <grid value="true"/>
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netgenerateConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -555,7 +555,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="B2B1" to="B1B0" fromLane="0" toLane="0" via=":B1_1_0" dir="s" state="m"/>
     <connection from="B2B1" to="B1C1" fromLane="0" toLane="0" via=":B1_2_0" dir="l" state="m"/>
     <connection from="B2B1" to="B1B2" fromLane="0" toLane="1" via=":B1_3_0" dir="t" state="m"/>
-    <connection from="B2C2" to="C2C1" fromLane="0" toLane="0" keepClear="0" via=":C2_2_0" dir="r" state="M"/>
+    <connection from="B2C2" to="C2C1" fromLane="0" toLane="0" via=":C2_2_0" dir="r" state="M"/>
     <connection from="B2C2" to="C2B2" fromLane="2" toLane="1" via=":C2_3_0" dir="t" state="m"/>
     <connection from="C0B0" to="B0B1" fromLane="0" toLane="0" via=":B0_3_0" dir="r" state="M"/>
     <connection from="C0B0" to="B0A0" fromLane="0" toLane="0" via=":B0_4_0" dir="s" state="M"/>

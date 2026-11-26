@@ -352,7 +352,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="bottom0A0" to="A0left0" fromLane="2" toLane="1" dir="l" state="m"/>
     <connection from="bottom0A0" to="A0bottom0" fromLane="2" toLane="2" dir="t" state="m"/>
     <connection from="gneE0" to="-gneE0" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="gneE1" to="left0A0" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
+    <connection from="gneE1" to="left0A0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="gneE1" to="left0A0" fromLane="0" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="gneE3" to="top1B1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="gneE3" to="top1B1" fromLane="1" toLane="1" dir="s" state="M"/>

@@ -111,7 +111,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="gneJ49" type="dead_end" x="-100.95" y="-176.82" incLanes="h_0" intLanes="" shape="-100.96,-175.22 -100.94,-178.42"/>
 
     <connection from="-f" to="g" fromLane="0" toLane="0" via=":gneJ46_0_0" dir="s" state="M"/>
-    <connection from="-f" to="f" fromLane="0" toLane="0" speed="0.10" via=":gneJ46_1_0" dir="t" state="M"/>
+    <connection from="-f" to="f" fromLane="0" toLane="0" keepClear="0" speed="0.10" via=":gneJ46_1_0" dir="t" state="M"/>
     <connection from="d" to="e" fromLane="0" toLane="0" via=":gneJ45_0_0" dir="s" state="M"/>
     <connection from="e" to="f" fromLane="0" toLane="0" via=":gneJ46_2_0" dir="s" state="M"/>
     <connection from="f" to="-f" fromLane="0" toLane="0" speed="0.10" via=":gneJ47_0_0" dir="t" state="M"/>

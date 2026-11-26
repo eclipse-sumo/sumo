@@ -175,10 +175,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
 
     <connection from="-a" to="-b" fromLane="0" toLane="0" via=":2_1_0" dir="s" state="M"/>
-    <connection from="-a" to="a" fromLane="0" toLane="0" speed="0.10" via=":2_2_0" dir="t" state="M"/>
+    <connection from="-a" to="a" fromLane="0" toLane="0" keepClear="0" speed="0.10" via=":2_2_0" dir="t" state="M"/>
     <connection from="-b" to="c" fromLane="0" toLane="0" via=":3_1_0" dir="s" state="M"/>
     <connection from="-f" to="-gneE1" fromLane="0" toLane="0" via=":9_1_0" dir="s" state="M"/>
-    <connection from="-f" to="f" fromLane="0" toLane="0" speed="0.10" via=":9_2_0" dir="t" state="M"/>
+    <connection from="-f" to="f" fromLane="0" toLane="0" keepClear="0" speed="0.10" via=":9_2_0" dir="t" state="M"/>
     <connection from="a" to="-a" fromLane="0" toLane="0" speed="0.10" via=":1_0_0" dir="t" state="M"/>
     <connection from="b" to="a" fromLane="0" toLane="0" keepClear="0" via=":2_0_0" dir="s" state="M"/>
     <connection from="e" to="d" fromLane="0" toLane="0" via=":7_0_0" dir="s" state="M"/>
