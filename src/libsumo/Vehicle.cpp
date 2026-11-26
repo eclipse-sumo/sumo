@@ -1463,6 +1463,26 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
 }
 
 
+double
+Vehicle::getFlowParameter(const std::string& vehID, const std::string& param) {
+    try {
+        return MSNet::getInstance()->getInsertionControl().getFlowParameter(vehID, param);
+    } catch (const ProcessError& e) {
+        throw TraCIException(e.what());
+    }
+}
+
+
+void
+Vehicle::setFlowParameter(const std::string& vehID, const std::string& param, double value) {
+    try {
+        MSNet::getInstance()->getInsertionControl().setFlowParameter(vehID, param, value);
+    } catch (const ProcessError& e) {
+        throw TraCIException(e.what());
+    }
+}
+
+
 void
 Vehicle::rerouteParkingArea(const std::string& vehID, const std::string& parkingAreaID) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
@@ -3061,6 +3081,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             const bool customParam = count == 3 && StoHelp::readTypedByte(*paramData) != 0;
             return wrapper->wrapString(objID, variable, getStopParameter(objID, nextStopIndex, param, customParam));
         }
+        case VAR_FLOW_PARAMETER:
+            return wrapper->wrapDouble(objID, variable, getFlowParameter(objID, StoHelp::readTypedString(*paramData)));
         case VAR_NEXT_TLS:
             return wrapper->wrapNextTLSDataVector(objID, variable, getNextTLS(objID));
         case VAR_NEXT_STOPS:

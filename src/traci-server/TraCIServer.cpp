@@ -50,6 +50,7 @@
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/xml/XMLSubSys.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunctionControl.h>
@@ -522,6 +523,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_FOLLOWER));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_NEIGHBORS));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_STOP_PARAMETER));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_FLOW_PARAMETER));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_NEXT_STOPS));  // this is just a dummy to trigger an error
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_NEXT_STOPS2));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_TAXI_FLEET));
@@ -1337,7 +1339,8 @@ TraCIServer::postProcessSimulationStep() {
     for (std::vector<libsumo::Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
         const libsumo::Subscription& s = *i;
         bool isArrivedVehicle = (s.commandId == libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE || s.commandId == libsumo::CMD_SUBSCRIBE_VEHICLE_CONTEXT)
-                                && (MSNet::getInstance()->getVehicleControl().getVehicle(s.id) == nullptr
+                                && ((MSNet::getInstance()->getVehicleControl().getVehicle(s.id) == nullptr
+                                     && MSNet::getInstance()->getInsertionControl().getFlowPars(s.id) == nullptr)
                                     || find(myVehicleStateChanges[MSNet::VehicleState::ARRIVED].begin(), myVehicleStateChanges[MSNet::VehicleState::ARRIVED].end(), s.id) != myVehicleStateChanges[MSNet::VehicleState::ARRIVED].end());
 
         bool isArrivedPerson = (s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE || s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT) && MSNet::getInstance()->getPersonControl().get(s.id) == nullptr;

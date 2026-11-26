@@ -67,6 +67,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != libsumo::CMD_REPLACE_STOP
             && variable != libsumo::CMD_INSERT_STOP
             && variable != libsumo::VAR_STOP_PARAMETER
+            && variable != libsumo::VAR_FLOW_PARAMETER
             && variable != libsumo::CMD_SLOWDOWN && variable != libsumo::CMD_CHANGETARGET && variable != libsumo::CMD_RESUME
             && variable != libsumo::VAR_TYPE && variable != libsumo::VAR_ROUTE_ID && variable != libsumo::VAR_ROUTE
             && variable != libsumo::VAR_LANEPOSITION_LAT
@@ -104,7 +105,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 #ifdef DEBUG_MOVEXY
     std::cout << SIMTIME << " processSet veh=" << id << "\n";
 #endif
-    const bool shouldExist = variable != libsumo::ADD && variable != libsumo::ADD_FULL;
+    const bool shouldExist = variable != libsumo::ADD && variable != libsumo::ADD_FULL && variable != libsumo::VAR_FLOW_PARAMETER;
     SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
     if (sumoVehicle == nullptr) {
         if (shouldExist) {
@@ -165,6 +166,13 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     customParam = StoHelp::readTypedByte(inputStorage, "The fourth setStopParameter parameter must be the customParam flag given as a byte.");
                 }
                 libsumo::Vehicle::setStopParameter(id, nextStopIndex, param, value, customParam != 0);
+            }
+            break;
+            case libsumo::VAR_FLOW_PARAMETER: {
+                StoHelp::readCompound(inputStorage, 2, "Setting a flow parameter needs a compound object description of 2 items.");
+                const std::string param = StoHelp::readTypedString(inputStorage, "The first setFlowParameter parameter must be the param given as a string.");
+                const double value = StoHelp::readTypedDouble(inputStorage, "The second setFlowParameter parameter must be the value given as a double.");
+                libsumo::Vehicle::setFlowParameter(id, param, value);
             }
             break;
             case libsumo::CMD_REROUTE_TO_PARKING: {
