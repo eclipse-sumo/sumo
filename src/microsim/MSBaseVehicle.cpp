@@ -2842,6 +2842,10 @@ MSBaseVehicle::getRNGIndex() const {
 
 SumoRNG*
 MSBaseVehicle::getRNG() const {
+    if (MSAbstractLaneChangeModel::myDecidingEdge != nullptr) {
+        // all draws while deciding lane changes use the rng of the deciding edge (it selects the thread)
+        return MSAbstractLaneChangeModel::myDecidingEdge->getLanes()[0]->getRNG();
+    }
     const MSLane* lane = getLane();
     if (lane == nullptr) {
         return getEdge()->getLanes()[0]->getRNG();

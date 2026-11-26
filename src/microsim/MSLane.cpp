@@ -2505,8 +2505,8 @@ MSLane::updateLengthSum() {
 
 
 void
-MSLane::changeLanes(const SUMOTime t) {
-    myEdge->changeLanes(t);
+MSLane::decideLaneChanges(const SUMOTime /* t */) {
+    myEdge->decideLaneChanges();
 }
 
 

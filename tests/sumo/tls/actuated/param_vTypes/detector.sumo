@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-04 15:30:22 by Eclipse SUMO sumo Version v1_21_0+1186-e3e93bd8c94
+<!-- generated on 2026-11-23T14:13:38.298121+01:00 by Eclipse SUMO sumo v1_28_0+0708-67efd97d02b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,6 +24,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -70,8 +72,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <interval begin="360.00" end="540.00" id="0_actuated_additional_D2.0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="360.00" end="540.00" id="0_actuated_additional_D2.1" nVehContrib="8" flow="160.00" occupancy="3.73" speed="7.24" harmonicMeanSpeed="5.87" length="5.00" nVehEntered="7"/>
     <interval begin="360.00" end="540.00" id="0_actuated_additional_D2.2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="360.00" end="540.00" id="0_actuated_additional_D3.0" nVehContrib="4" flow="80.00" occupancy="32.37" speed="3.62" harmonicMeanSpeed="0.35" length="5.00" nVehEntered="5"/>
-    <interval begin="360.00" end="540.00" id="0_actuated_additional_D3.1" nVehContrib="8" flow="160.00" occupancy="7.71" speed="3.66" harmonicMeanSpeed="2.88" length="5.00" nVehEntered="8"/>
+    <interval begin="360.00" end="540.00" id="0_actuated_additional_D3.0" nVehContrib="4" flow="80.00" occupancy="32.89" speed="3.24" harmonicMeanSpeed="0.34" length="5.00" nVehEntered="4"/>
+    <interval begin="360.00" end="540.00" id="0_actuated_additional_D3.1" nVehContrib="9" flow="180.00" occupancy="8.77" speed="3.82" harmonicMeanSpeed="2.85" length="5.00" nVehEntered="9"/>
     <interval begin="360.00" end="540.00" id="0_actuated_additional_D3.2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="540.00" end="720.00" id="0_actuated_additional_D0.0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="540.00" end="720.00" id="0_actuated_additional_D0.1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
@@ -83,18 +85,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <interval begin="540.00" end="720.00" id="0_actuated_additional_D2.1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="540.00" end="720.00" id="0_actuated_additional_D2.2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="540.00" end="720.00" id="0_actuated_additional_D3.0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="540.00" end="720.00" id="0_actuated_additional_D3.1" nVehContrib="5" flow="100.00" occupancy="3.11" speed="4.54" harmonicMeanSpeed="4.47" length="5.00" nVehEntered="5"/>
+    <interval begin="540.00" end="720.00" id="0_actuated_additional_D3.1" nVehContrib="4" flow="80.00" occupancy="1.85" speed="6.74" harmonicMeanSpeed="6.00" length="5.00" nVehEntered="4"/>
     <interval begin="540.00" end="720.00" id="0_actuated_additional_D3.2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="720.00" end="816.00" id="0_actuated_additional_D0.0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="720.00" end="816.00" id="0_actuated_additional_D0.1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="720.00" end="816.00" id="0_actuated_additional_D0.2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="720.00" end="816.00" id="0_actuated_additional_D1.0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="720.00" end="816.00" id="0_actuated_additional_D1.1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="720.00" end="816.00" id="0_actuated_additional_D1.2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="720.00" end="816.00" id="0_actuated_additional_D2.0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="720.00" end="816.00" id="0_actuated_additional_D2.1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="720.00" end="816.00" id="0_actuated_additional_D2.2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="720.00" end="816.00" id="0_actuated_additional_D3.0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="720.00" end="816.00" id="0_actuated_additional_D3.1" nVehContrib="6" flow="225.00" occupancy="3.72" speed="9.20" harmonicMeanSpeed="8.40" length="5.00" nVehEntered="6"/>
-    <interval begin="720.00" end="816.00" id="0_actuated_additional_D3.2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="720.00" end="818.00" id="0_actuated_additional_D0.0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="720.00" end="818.00" id="0_actuated_additional_D0.1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="720.00" end="818.00" id="0_actuated_additional_D0.2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="720.00" end="818.00" id="0_actuated_additional_D1.0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="720.00" end="818.00" id="0_actuated_additional_D1.1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="720.00" end="818.00" id="0_actuated_additional_D1.2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="720.00" end="818.00" id="0_actuated_additional_D2.0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="720.00" end="818.00" id="0_actuated_additional_D2.1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="720.00" end="818.00" id="0_actuated_additional_D2.2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="720.00" end="818.00" id="0_actuated_additional_D3.0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="720.00" end="818.00" id="0_actuated_additional_D3.1" nVehContrib="6" flow="220.41" occupancy="3.65" speed="9.20" harmonicMeanSpeed="8.40" length="5.00" nVehEntered="6"/>
+    <interval begin="720.00" end="818.00" id="0_actuated_additional_D3.2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
 </detector>
