@@ -77,6 +77,8 @@ SUMOTime MSRoutingEngine::myLastAdaptation = -1;
 bool MSRoutingEngine::myWithTaz;
 bool MSRoutingEngine::myBikeSpeeds;
 MSRouterProvider* MSRoutingEngine::myRouterProvider = nullptr;
+std::atomic<bool> MSRoutingEngine::myRouterReady(false);
+std::mutex MSRoutingEngine::myRouterInitLock;
 std::map<std::pair<const MSEdge*, const MSEdge*>, ConstMSRoutePtr> MSRoutingEngine::myCachedRoutes;
 double MSRoutingEngine::myPriorityFactor(0);
 double MSRoutingEngine::myMinEdgePriority(std::numeric_limits<double>::max());
@@ -87,6 +89,9 @@ bool MSRoutingEngine::myHaveExtras(false);
 SUMOAbstractRouter<MSEdge, SUMOVehicle>::Operation MSRoutingEngine::myEffortFunc = &MSRoutingEngine::getEffort;
 #ifdef HAVE_FOX
 FXMutex MSRoutingEngine::myRouteCacheMutex;
+MFXWorkerThread::Pool* MSRoutingEngine::myThreadPool = nullptr;
+MFXWorkerThread::Pool* MSRoutingEngine::myCustomizePool = nullptr;
+std::vector<MSRoutingEngine::RoutingTask*> MSRoutingEngine::myPendingTasks;
 #endif
 MSCCHGraph* MSRoutingEngine::myCCHGraph = nullptr;
 MSCCHMetricFamily* MSRoutingEngine::myCCHLive = nullptr;
@@ -234,6 +239,8 @@ MSRoutingEngine::getAssumedSpeed(const MSEdge* edge, const SUMOVehicle* veh) {
 
 SUMOTime
 MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
+    // the fill of the CCH metrics started at the last barrier reads the speed tables
+    waitForCustomize();
     initEdgeWeights(SVC_PASSENGER);
     if (myBikeSpeeds) {
         initEdgeWeights(SVC_BICYCLE);
@@ -308,8 +315,23 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
     // never route (see CCHMetricFamily::atBarrier: measured on Lausanne, the
     // unconditional per-tick customize was 80% of meso wall time at
     // adaptation-interval 2, and ran even with rerouting probability 0).
+    // With routing threads the sparse re-customization runs on its own thread
+    // while the vehicles move and is published at the next barrier; wholesale
+    // refills (new types, permission changes) stay here.
     if (myCCHLive != nullptr) {
-        myCCHLive->atBarrier(STEPS2TIME(currentTime), cchEdgeMoved);
+        myCCHLive->publish();
+        if (myCCHLive->atBarrier(cchEdgeMoved)) {
+            bool deferred = false;
+#ifdef HAVE_FOX
+            if (myCustomizePool != nullptr && !myCCHLive->prepare()) {
+                myCustomizePool->add(new CustomizeTask(STEPS2TIME(currentTime)));
+                deferred = true;
+            }
+#endif
+            if (!deferred) {
+                myCCHLive->customize(STEPS2TIME(currentTime));
+            }
+        }
     }
     if (OptionsCont::getOptions().isSet("device.rerouting.output")) {
         OutputDevice& dev = OutputDevice::getDeviceByOption("device.rerouting.output");
@@ -435,8 +457,9 @@ MSRoutingEngine::invalidateCCHEdge(const MSEdge* e) {
     // the primed connection masks reflect the OLD successor lists; the next
     // fill of either family re-primes from the live ones. Safe to do right
     // here: masks are only read at fill time, and every fill runs on the
-    // main thread (the device barrier, the free-flow repair) -- never on a
-    // query thread.
+    // main thread (the device barrier, the free-flow repair) or on the
+    // customize thread, which is joined first -- never on a query thread.
+    waitForCustomize();
     myCCHGraph->invalidateClassMasks();
     if (myCCHFreeflow != nullptr) {
         myCCHFreeflow->flagPermissionsStale();
@@ -655,14 +678,38 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
     myRouterProvider = new MSRouterProvider(router, nullptr, transRouter, railRouter);
 #ifndef THREAD_POOL
 #ifdef HAVE_FOX
-    MFXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
-    if (threadPool.size() > 0) {
-        const std::vector<MFXWorkerThread*>& threads = threadPool.getWorkers();
+    if (MSGlobals::gNumThreads > 1 && MSGlobals::gNumMesoThreads > 0 && myThreadPool == nullptr) {
+        // with --meso-threads the routes are computed by their own threads, so that the junction groups do not wait for them
+        myThreadPool = new MFXWorkerThread::Pool();
+        myThreadPool->setSpin(true);
+        for (int i = 0; i < MSGlobals::gNumThreads; i++) {
+            new MSEdgeControl::WorkerThread(*myThreadPool);
+        }
+    }
+    if (myThreadPool != nullptr) {
+        const std::vector<MFXWorkerThread*>& threads = myThreadPool->getWorkers();
         if (static_cast<MSEdgeControl::WorkerThread*>(threads.front())->setRouterProvider(myRouterProvider)) {
             for (std::vector<MFXWorkerThread*>::const_iterator t = threads.begin() + 1; t != threads.end(); ++t) {
                 static_cast<MSEdgeControl::WorkerThread*>(*t)->setRouterProvider(myRouterProvider->clone());
             }
         }
+    }
+    MFXWorkerThread::Pool& simulationPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
+    if (simulationPool.size() > 0) {
+        // person trips are still routed on the simulation threads (MSStageTrip), which need routers of their own
+        for (MFXWorkerThread* const t : simulationPool.getWorkers()) {
+            MSRouterProvider* const provider = myRouterProvider->clone();
+            if (!static_cast<MSEdgeControl::WorkerThread*>(t)->setRouterProvider(provider)) {
+                delete provider;
+            }
+        }
+    }
+    if (myThreadPool != nullptr && myCCHLive != nullptr && myCustomizePool == nullptr && MSGlobals::gNumMesoThreads > 0) {
+        // the sparse re-customization of the CCH metrics runs on its own thread while the vehicles move
+        // and is published at the next barrier (see adaptEdgeEfforts)
+        myCustomizePool = new MFXWorkerThread::Pool(1);
+        myCustomizePool->setSpin(true);
+        myCCHLive->setPublishLag(1);
     }
 #endif
 #endif
@@ -672,12 +719,31 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
 void
 MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const std::string& info,
                          const bool onInit, const bool silent, const Prohibitions& prohibited) {
-    if (myRouterProvider == nullptr) {
-        initRouter(&vehicle);
+    if (!myRouterReady.load(std::memory_order_acquire)) {
+        std::lock_guard<std::mutex> lock(myRouterInitLock);
+        if (myRouterProvider == nullptr) {
+            initRouter(&vehicle);
+        }
+        myRouterReady.store(true, std::memory_order_release);
     }
     auto& router = myRouterProvider->getVehicleRouter(vehicle.getVClass());
 #ifndef THREAD_POOL
 #ifdef HAVE_FOX
+    if (myThreadPool != nullptr) {
+        RoutingTask* const task = new RoutingTask(vehicle, currentTime, info, onInit, silent, prohibited);
+        myPendingTasks.push_back(task);
+        if (!onInit && MSGlobals::gUseMesoSim && MSGlobals::gNumMesoThreads > 0 && vehicle.hasStops()) {
+            // replaceRoute changes the approach information of links, which the mesoscopic loop changes meanwhile
+            task->runOnMain();
+            return;
+        }
+        if (!onInit && MSGlobals::gUseMesoSim && MSGlobals::gNumMesoThreads > 0) {
+            // the route is computed while the vehicle moves on and applied in waitForAll
+            task->defer();
+        }
+        myThreadPool->add(task);
+        return;
+    }
     MFXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
     if (threadPool.size() > 0) {
         threadPool.add(new RoutingTask(vehicle, currentTime, info, onInit, silent, prohibited));
@@ -738,6 +804,7 @@ MSRoutingEngine::reroute(MSTransportable& t, const SUMOTime currentTime, const s
 
 void
 MSRoutingEngine::setEdgeTravelTime(const MSEdge* const edge, const double travelTime) {
+    waitForCustomize();
     myEdgeSpeeds[edge->getNumericalID()] = edge->getLength() / travelTime;
 }
 
@@ -751,13 +818,23 @@ MSRoutingEngine::addEdgeTravelTime(const MSEdge& edge, const SUMOTime travelTime
 
 MSVehicleRouter&
 MSRoutingEngine::getRouterTT(const int rngIndex, SUMOVehicleClass svc, const Prohibitions& prohibited) {
-    if (myRouterProvider == nullptr) {
-        initWeightUpdate();
-        initEdgeWeights(svc);
-        initRouter();
+    if (!myRouterReady.load(std::memory_order_acquire)) {
+        // rerouters may query from several simulation threads at once
+        std::lock_guard<std::mutex> lock(myRouterInitLock);
+        if (myRouterProvider == nullptr) {
+            initWeightUpdate();
+            initEdgeWeights(svc);
+            initRouter();
+        }
+        myRouterReady.store(true, std::memory_order_release);
     }
 #ifndef THREAD_POOL
 #ifdef HAVE_FOX
+    if (myThreadPool != nullptr) {
+        auto& router = static_cast<MSEdgeControl::WorkerThread*>(myThreadPool->getWorkers()[rngIndex % myThreadPool->size()])->getRouter(svc);
+        router.prohibit(prohibited);
+        return router;
+    }
     MFXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
     if (threadPool.size() > 0) {
         auto& router = static_cast<MSEdgeControl::WorkerThread*>(threadPool.getWorkers()[rngIndex % MSGlobals::gNumThreads])->getRouter(svc);
@@ -775,10 +852,14 @@ MSRoutingEngine::getRouterTT(const int rngIndex, SUMOVehicleClass svc, const Pro
 
 MSTransportableRouter&
 MSRoutingEngine::getIntermodalRouterTT(const int rngIndex, const Prohibitions& prohibited) {
-    if (myRouterProvider == nullptr) {
-        initWeightUpdate();
-        initEdgeWeights(SVC_PEDESTRIAN);
-        initRouter();
+    if (!myRouterReady.load(std::memory_order_acquire)) {
+        std::lock_guard<std::mutex> lock(myRouterInitLock);
+        if (myRouterProvider == nullptr) {
+            initWeightUpdate();
+            initEdgeWeights(SVC_PEDESTRIAN);
+            initRouter();
+        }
+        myRouterReady.store(true, std::memory_order_release);
     }
 #ifndef THREAD_POOL
 #ifdef HAVE_FOX
@@ -798,6 +879,16 @@ MSRoutingEngine::getIntermodalRouterTT(const int rngIndex, const Prohibitions& p
 
 
 void
+MSRoutingEngine::waitForCustomize() {
+#ifdef HAVE_FOX
+    if (myCustomizePool != nullptr) {
+        myCustomizePool->waitAll();
+    }
+#endif
+}
+
+
+void
 MSRoutingEngine::cleanupCCH() {
     // free the CCH state so a subsequent load (libsumo / GUI reload) rebuilds
     // it against the new network; the router clones referencing it were
@@ -806,6 +897,11 @@ MSRoutingEngine::cleanupCCH() {
     // MSVehicleType*, so this must run BEFORE MSNet deletes its
     // MSVehicleControl (see the call in ~MSNet); the nullptr checks below
     // make a second call from cleanup() a safe no-op.
+#ifdef HAVE_FOX
+    waitForCustomize();
+    delete myCustomizePool;
+    myCustomizePool = nullptr;
+#endif
     delete myCCHLive;
     myCCHLive = nullptr;
     delete myCCHFreeflow;
@@ -834,16 +930,23 @@ MSRoutingEngine::cleanup() {
         myCachedRoutes.clear();
     }
     myAdaptationStepsIndex = 0;
-    cleanupCCH();
 #ifdef HAVE_FOX
-    if (MSGlobals::gNumThreads > 1) {
+    if (myThreadPool != nullptr) {
         // router deletion is done in thread destructor
+        for (RoutingTask* const task : myPendingTasks) {
+            delete task;
+        }
+        myPendingTasks.clear();
+        delete myThreadPool;
+        myThreadPool = nullptr;
         myRouterProvider = nullptr;
-        return;
+        myRouterReady.store(false, std::memory_order_release);
     }
 #endif
+    cleanupCCH();
     delete myRouterProvider;
     myRouterProvider = nullptr;
+    myRouterReady.store(false, std::memory_order_release);
 }
 
 
@@ -912,6 +1015,7 @@ MSRoutingEngine::saveState(OutputDevice& out) {
 
 void
 MSRoutingEngine::loadState(const SUMOSAXAttributes& attrs) {
+    waitForCustomize();
     const MSEdge* const e = MSEdge::dictionary(attrs.getString(SUMO_ATTR_ID));
     e->markDelayed();
     const int id = e->getNumericalID();
@@ -964,6 +1068,19 @@ MSRoutingEngine::loadCCHMetric(const SUMOSAXAttributes& attrs) {
 void
 MSRoutingEngine::waitForAll() {
 #ifndef THREAD_POOL
+    if (myThreadPool != nullptr) {
+        myThreadPool->waitAll(false);
+        for (RoutingTask* const task : myPendingTasks) {
+            if (task->isOnMain()) {
+                // the workers wait, so their first router is free
+                task->run(myThreadPool->getWorkers().front());
+            } else {
+                task->apply();
+            }
+            delete task;
+        }
+        myPendingTasks.clear();
+    }
     MFXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
     if (threadPool.size() > 0) {
         threadPool.waitAll();
@@ -976,13 +1093,23 @@ MSRoutingEngine::waitForAll() {
 // MSRoutingEngine::RoutingTask-methods
 // ---------------------------------------------------------------------------
 void
+MSRoutingEngine::CustomizeTask::run(MFXWorkerThread* /*context*/) {
+    myCCHLive->fill(myNow);
+}
+
+
+void
 MSRoutingEngine::RoutingTask::run(MFXWorkerThread* context) {
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = static_cast<MSEdgeControl::WorkerThread*>(context)->getRouter(myVehicle.getVClass());
     if (!myProhibited.empty()) {
         router.prohibit(myProhibited);
     }
     try {
-        myVehicle.reroute(myTime, myInfo, router, myOnInit, myWithTaz, mySilent);
+        if (myDeferred != nullptr) {
+            static_cast<MSBaseVehicle&>(myVehicle).reroute(myTime, myInfo, router, *myDeferred, myWithTaz, mySilent);
+        } else {
+            myVehicle.reroute(myTime, myInfo, router, myOnInit, myWithTaz, mySilent);
+        }
     } catch (ProcessError&) {
         if (!mySilent) {
             if (!myProhibited.empty()) {
@@ -1002,6 +1129,26 @@ MSRoutingEngine::RoutingTask::run(MFXWorkerThread* context) {
         if (MSRoutingEngine::myCachedRoutes.find(key) == MSRoutingEngine::myCachedRoutes.end()) {
             MSRoutingEngine::myCachedRoutes[key] = myVehicle.getRoutePtr();
         }
+    }
+}
+
+
+void
+MSRoutingEngine::RoutingTask::defer() {
+    const MSBaseVehicle& veh = static_cast<const MSBaseVehicle&>(myVehicle);
+    myDeferred = new MSBaseVehicle::DeferredReroute();
+    myDeferred->source = *veh.getRerouteOrigin();
+    myDeferred->sourcePos = veh.getPositionOnLane();
+    myDeferred->currentEdge = veh.getCurrentRouteEdge();
+    const MSRouteIterator& current = myDeferred->currentEdge;
+    myDeferred->oldEdges.assign(myDeferred->source == *current ? current : current + 1, veh.getRoute().end());
+}
+
+
+void
+MSRoutingEngine::RoutingTask::apply() {
+    if (myDeferred != nullptr && myDeferred->route != nullptr && myDeferred->route != myVehicle.getRoutePtr()) {
+        myVehicle.replaceRoute(myDeferred->route, myInfo, false, myDeferred->offset, false, myDeferred->removeStops);
     }
 }
 

@@ -1,0 +1,8 @@
+--meso-ltm
+--meso-junction-control
+--no-step-log
+--net-file=net.net.xml
+--routes=input_routes.rou.xml
+--statistic-output=statistic.xml
+--end 1800
+--duration-log.statistics

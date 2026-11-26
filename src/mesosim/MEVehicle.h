@@ -390,6 +390,24 @@ public:
         return myWasJammed;
     }
 
+    /// @brief whether the vehicle's event waits for the serial part of a parallel step (see MELoop)
+    bool isDeferred() const {
+        return myAmDeferred;
+    }
+
+    void setDeferred(bool deferred) {
+        myAmDeferred = deferred;
+    }
+
+    /// @brief which other groups the pending event of the vehicle holds back (see MELoop, option --meso-threads.event-sync)
+    int getEventHolds() const {
+        return myEventHolds;
+    }
+
+    void setEventHolds(int holds) {
+        myEventHolds = holds;
+    }
+
     /// @name state io
     //@{
 
@@ -426,6 +444,12 @@ protected:
 
     /// @brief Whether this vehicle was jammed on it's previous normal segment
     bool myWasJammed;
+
+    /// @brief whether the vehicle's event waits for the serial part of a parallel step
+    bool myAmDeferred = false;
+
+    /// @brief which other groups the pending event of the vehicle holds back
+    int myEventHolds = 0;
 
     /// @brief An instance of a velocity/lane influencing instance; built in "getInfluencer"
     BaseInfluencer* myInfluencer;

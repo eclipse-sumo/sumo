@@ -63,7 +63,7 @@ step=42.0 occ=100.0 num=1 detVehs=('p0',) vehData=(('p0', 0.215, 1.8265353173167
 step=43.0 occ=100.0 num=1 detVehs=('p0',) vehData=(('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE'),)
 step=44.0 occ=100.0 num=1 detVehs=('p0',) vehData=(('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE'),)
 step=45.0 occ=100.0 num=1 detVehs=('p0',) vehData=(('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE'),)
-step=46.0 occ=0.0 num=1 detVehs=('p0',) vehData=(('p0', 0.215, 1.8265353173167695, 46.0, 'DEFAULT_PEDTYPE'),)
+step=46.0 occ=100.0 num=1 detVehs=('p0',) vehData=(('p0', 0.215, 1.8265353173167695, 46.0, 'DEFAULT_PEDTYPE'),)
 step=47.0 occ=0.0 num=1 detVehs=('p0',) vehData=(('p0', 0.215, 1.8265353173167695, 46.0, 'DEFAULT_PEDTYPE'),)
 step=48.0 occ=0.0 num=0 detVehs=() vehData=()
 step=49.0 occ=0.0 num=0 detVehs=() vehData=()

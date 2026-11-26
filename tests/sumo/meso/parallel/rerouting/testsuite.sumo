@@ -1,0 +1,5 @@
+# the junction groups are processed one after another
+threads1
+
+# the junction groups are processed by four threads, the results are the same as with one thread
+threads4

@@ -355,7 +355,7 @@ NLBuilder::init(const bool isLibsumo) {
         throw ProcessError();
     }
 #ifdef HAVE_FOX
-    if (oc.getInt("threads") > 1 || oc.getInt("device.rerouting.threads") > 1) {
+    if (oc.getInt("threads") > 1 || oc.getInt("device.rerouting.threads") > 1 || oc.getInt("meso-threads") > 1) {
         // make the output aware of threading
         MsgHandler::setFactory(&MsgHandlerSynchronized::create);
     }
@@ -496,7 +496,8 @@ NLBuilder::loadMesoEdgeTypes(const std::string& mmlWhat) {
 SUMORouteLoaderControl*
 NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
     // build the loaders
-    SUMORouteLoaderControl* loaders =  new SUMORouteLoaderControl(string2time(oc.getString("route-steps")));
+    // the parallel mesoscopic loop reads the routes continuously on a thread of its own (MSNet::simulationStep)
+    SUMORouteLoaderControl* loaders =  new SUMORouteLoaderControl(string2time(oc.getString("route-steps")), MSGlobals::gNumMesoThreads > 0);
     // check whether a list is existing
     if (oc.isSet("route-files") && !oc.getBool("ignore.routeelements") && string2time(oc.getString("route-steps")) > 0) {
         std::vector<std::string> files = oc.getStringVector("route-files");

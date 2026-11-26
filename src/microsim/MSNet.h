@@ -30,6 +30,7 @@
 #include <typeinfo>
 #include <vector>
 #include <map>
+#include <mutex>
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -41,6 +42,9 @@
 #include <utils/common/NamedObjectCont.h>
 #include <utils/common/NamedRTree.h>
 #include <utils/router/SUMOAbstractRouter.h>
+#ifdef HAVE_FOX
+#include <utils/foxtools/MFXWorkerThread.h>
+#endif
 #include <mesosim/MESegment.h>
 #include "MSRouterDefs.h"
 #include "MSJunction.h"
@@ -896,6 +900,11 @@ protected:
     /// @brief Route loader for dynamic loading of routes
     SUMORouteLoaderControl* myRouteLoaders;
 
+#ifdef HAVE_FOX
+    /// @brief the thread reading the route files while the vehicles move (parallel mesoscopic loop, see simulationStep), else empty
+    MFXWorkerThread::Pool myRouteLoaderPool;
+#endif
+
     /// @brief Current time step
     SUMOTime myStep;
 
@@ -1071,6 +1080,8 @@ protected:
     mutable std::map<int, MSVehicleRouter*> myRouterEffort;
     mutable std::map<int, MSPedestrianRouter*> myPedestrianRouter;
     mutable std::map<int, MSTransportableRouter*> myIntermodalRouter;
+    /// @brief guards finding and building the routers above, which the simulation threads (rerouters, TraCI) may ask for at once
+    mutable std::mutex myRouterMutex;
 
     /// @brief An RTree structure holding lane IDs
     mutable std::pair<bool, NamedRTree> myLanesRTree;

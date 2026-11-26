@@ -21,6 +21,8 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <algorithm>
+
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -187,9 +189,12 @@ MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime /*currentTime*/) {
         std::set<const Named*> surroundingVehicles;
         Named::StoringVisitor sv(surroundingVehicles);
         rt.Search(cmin, cmax, sv);
+        // in id order, since the visibility checks draw from the recognition RNG
+        std::vector<const Named*> sortedVehicles(surroundingVehicles.begin(), surroundingVehicles.end());
+        std::sort(sortedVehicles.begin(), sortedVehicles.end(), ComparatorIdLess());
 
         // loop over surrounding vehicles, check visibility status
-        for (const Named* vehicle : surroundingVehicles) {
+        for (const Named* vehicle : sortedVehicles) {
             if ((*i).first == vehicle->getID()) {
                 // seeing oneself? skip
                 continue;

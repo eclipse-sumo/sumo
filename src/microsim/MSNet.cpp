@@ -283,6 +283,13 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
     myJunctions = junctions;
     myRouteLoaders = routeLoaders;
     myLogics = tlc;
+#ifdef HAVE_FOX
+    if (MSGlobals::gNumMesoThreads > 0) {
+        // the route files are read on their own thread while the vehicles move (see simulationStep)
+        myRouteLoaderPool.setSpin(true);
+        new MFXWorkerThread(myRouteLoaderPool);
+    }
+#endif
     // save the time the network state shall be saved at
     myStateDumpTimes = stateDumpTimes;
     myStateDumpFiles = stateDumpFiles;
@@ -805,6 +812,22 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
 }
 
 
+#ifdef HAVE_FOX
+/// @brief reads the route files up to the loading horizon of the step (MSNet::loadRoutes)
+class RouteLoadingTask : public MFXWorkerThread::Task {
+public:
+    RouteLoadingTask(MSNet& net) : myNet(net) {}
+
+    void run(MFXWorkerThread* /*context*/) override {
+        myNet.loadRoutes();
+    }
+
+private:
+    MSNet& myNet;
+};
+#endif
+
+
 void
 MSNet::simulationStep(const bool onlyMove) {
     if (myStepCompletionMissing) {
@@ -865,7 +888,10 @@ MSNet::simulationStep(const bool onlyMove) {
         MSRailSignalControl::getInstance().updateSignals(myStep);
     }
 #ifdef HAVE_FOX
-    MSRoutingEngine::waitForAll();
+    // the parallel mesoscopic loop applies the routes after the loop (MSRoutingEngine::RoutingTask::defer)
+    if (!MSGlobals::gUseMesoSim || MSGlobals::gNumMesoThreads == 0) {
+        MSRoutingEngine::waitForAll();
+    }
 #endif
     if (MSGlobals::gCheck4Accidents && !MSGlobals::gUseMesoSim) {
         myEdges->detectCollisions(myStep, STAGE_EVENTS);
@@ -874,7 +900,18 @@ MSNet::simulationStep(const bool onlyMove) {
     myLogics->check2Switch(myStep);
 
     if (MSGlobals::gUseMesoSim) {
+#ifdef HAVE_FOX
+        if (myRouteLoaderPool.size() > 0) {
+            // the loader only adds to the vehicles and routes waiting for insertion, which the loop does not touch
+            myRouteLoaderPool.add(new RouteLoadingTask(*this));
+        }
+#endif
         MSGlobals::gMesoNet->simulate(myStep);
+#ifdef HAVE_FOX
+        // the routes computed meanwhile are applied now (MSRoutingEngine::RoutingTask::defer)
+        MSRoutingEngine::waitForAll();
+        myRouteLoaderPool.waitAll();
+#endif
     } else {
         // assure all lanes with vehicles are 'active'
         myEdges->patchActiveLanes();
@@ -1660,29 +1697,35 @@ MSNet::getRouterTT(int rngIndex, const Prohibitions& prohibited) const {
     if (MSGlobals::gNumSimThreads == 1) {
         rngIndex = 0;
     }
-    if (myRouterTT.count(rngIndex) == 0) {
-        const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
-        if (routingAlgorithm == "dijkstra") {
-            myRouterTT[rngIndex] = new DijkstraRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, false, nullptr, true);
-        } else if (routingAlgorithm == "CCH") {
-            // free-flow CCH metrics per vehicle type; every query a shared
-            // metric cannot serve (TraCI edge weights, non-default routing
-            // modes, prohibitions beyond live closures) routes on the exact
-            // embedded fallback -- see MSRoutingEngine::getFreeflowCCHMetric
-            SUMOAbstractRouter<MSEdge, SUMOVehicle>* fallback =
-                new AStarRouter<MSEdge, SUMOVehicle, MSMapMatcher>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, true);
-            myRouterTT[rngIndex] = new CCHRouter<MSEdge, SUMOVehicle, MSCCHGraph>(
-                MSRoutingEngine::ensureCCHGraph(), &MSRoutingEngine::getFreeflowCCHMetric,
-                &MSNet::getTravelTime, true, fallback);
-        } else {
-            if (routingAlgorithm != "astar") {
-                WRITE_WARNINGF(TL("TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."), routingAlgorithm);
+    MSVehicleRouter* router = nullptr;
+    {
+        // the simulation threads (rerouters, TraCI) may ask for their router at the same time
+        std::lock_guard<std::mutex> lock(myRouterMutex);
+        if (myRouterTT.count(rngIndex) == 0) {
+            const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
+            if (routingAlgorithm == "dijkstra") {
+                myRouterTT[rngIndex] = new DijkstraRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, false, nullptr, true);
+            } else if (routingAlgorithm == "CCH") {
+                // free-flow CCH metrics per vehicle type; every query a shared
+                // metric cannot serve (TraCI edge weights, non-default routing
+                // modes, prohibitions beyond live closures) routes on the exact
+                // embedded fallback -- see MSRoutingEngine::getFreeflowCCHMetric
+                SUMOAbstractRouter<MSEdge, SUMOVehicle>* fallback =
+                    new AStarRouter<MSEdge, SUMOVehicle, MSMapMatcher>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, true);
+                myRouterTT[rngIndex] = new CCHRouter<MSEdge, SUMOVehicle, MSCCHGraph>(
+                    MSRoutingEngine::ensureCCHGraph(), &MSRoutingEngine::getFreeflowCCHMetric,
+                    &MSNet::getTravelTime, true, fallback);
+            } else {
+                if (routingAlgorithm != "astar") {
+                    WRITE_WARNINGF(TL("TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."), routingAlgorithm);
+                }
+                myRouterTT[rngIndex] = new AStarRouter<MSEdge, SUMOVehicle, MSMapMatcher>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, true);
             }
-            myRouterTT[rngIndex] = new AStarRouter<MSEdge, SUMOVehicle, MSMapMatcher>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, true);
         }
+        router = myRouterTT[rngIndex];
     }
-    myRouterTT[rngIndex]->prohibit(prohibited);
-    return *myRouterTT[rngIndex];
+    router->prohibit(prohibited);
+    return *router;
 }
 
 
@@ -1691,11 +1734,17 @@ MSNet::getRouterEffort(int rngIndex, const Prohibitions& prohibited) const {
     if (MSGlobals::gNumSimThreads == 1) {
         rngIndex = 0;
     }
-    if (myRouterEffort.count(rngIndex) == 0) {
-        myRouterEffort[rngIndex] = new DijkstraRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, &MSNet::getEffort, &MSNet::getTravelTime, false, nullptr, true);
+    MSVehicleRouter* router = nullptr;
+    {
+        // the simulation threads (rerouters, TraCI) may ask for their router at the same time
+        std::lock_guard<std::mutex> lock(myRouterMutex);
+        if (myRouterEffort.count(rngIndex) == 0) {
+            myRouterEffort[rngIndex] = new DijkstraRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, &MSNet::getEffort, &MSNet::getTravelTime, false, nullptr, true);
+        }
+        router = myRouterEffort[rngIndex];
     }
-    myRouterEffort[rngIndex]->prohibit(prohibited);
-    return *myRouterEffort[rngIndex];
+    router->prohibit(prohibited);
+    return *router;
 }
 
 
@@ -1704,11 +1753,17 @@ MSNet::getPedestrianRouter(int rngIndex, const Prohibitions& prohibited) const {
     if (MSGlobals::gNumSimThreads == 1) {
         rngIndex = 0;
     }
-    if (myPedestrianRouter.count(rngIndex) == 0) {
-        myPedestrianRouter[rngIndex] = new MSPedestrianRouter();
+    MSPedestrianRouter* router = nullptr;
+    {
+        // the simulation threads (rerouters, TraCI) may ask for their router at the same time
+        std::lock_guard<std::mutex> lock(myRouterMutex);
+        if (myPedestrianRouter.count(rngIndex) == 0) {
+            myPedestrianRouter[rngIndex] = new MSPedestrianRouter();
+        }
+        router = myPedestrianRouter[rngIndex];
     }
-    myPedestrianRouter[rngIndex]->prohibit(prohibited);
-    return *myPedestrianRouter[rngIndex];
+    router->prohibit(prohibited);
+    return *router;
 }
 
 
@@ -1719,23 +1774,30 @@ MSNet::getIntermodalRouter(int rngIndex, const int routingMode, const Prohibitio
     }
     const OptionsCont& oc = OptionsCont::getOptions();
     const int key = rngIndex * oc.getInt("thread-rngs") + routingMode;
-    if (myIntermodalRouter.count(key) == 0) {
-        const int carWalk = SUMOVehicleParserHelper::parseCarWalkTransfer(oc, MSDevice_Taxi::hasFleet() || myInserter->hasTaxiFlow());
-        const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
-        const double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
-        if (routingMode == libsumo::ROUTING_MODE_COMBINED) {
-            myIntermodalRouter[key] = new MSTransportableRouter(MSNet::adaptIntermodalRouter, carWalk, taxiWait, routingAlgorithm, routingMode, new FareModul());
-        } else {
-            myIntermodalRouter[key] = new MSTransportableRouter(MSNet::adaptIntermodalRouter, carWalk, taxiWait, routingAlgorithm, routingMode);
+    MSTransportableRouter* router = nullptr;
+    {
+        // the simulation threads (rerouters, TraCI) may ask for their router at the same time
+        std::lock_guard<std::mutex> lock(myRouterMutex);
+        if (myIntermodalRouter.count(key) == 0) {
+            const int carWalk = SUMOVehicleParserHelper::parseCarWalkTransfer(oc, MSDevice_Taxi::hasFleet() || myInserter->hasTaxiFlow());
+            const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
+            const double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
+            if (routingMode == libsumo::ROUTING_MODE_COMBINED) {
+                myIntermodalRouter[key] = new MSTransportableRouter(MSNet::adaptIntermodalRouter, carWalk, taxiWait, routingAlgorithm, routingMode, new FareModul());
+            } else {
+                myIntermodalRouter[key] = new MSTransportableRouter(MSNet::adaptIntermodalRouter, carWalk, taxiWait, routingAlgorithm, routingMode);
+            }
         }
+        router = myIntermodalRouter[key];
     }
-    myIntermodalRouter[key]->prohibit(prohibited);
-    return *myIntermodalRouter[key];
+    router->prohibit(prohibited);
+    return *router;
 }
 
 
 void
 MSNet::resetIntermodalRouter() const {
+    std::lock_guard<std::mutex> lock(myRouterMutex);
     for (auto& router : myIntermodalRouter) {
         delete router.second;
     }

@@ -619,6 +619,12 @@ public:
     /** @brief Performs lane changing on this edge */
     void changeLanes(SUMOTime t) const;
 
+    /// @brief decide the lane changes on this edge without executing them (see MSLaneChanger)
+    void decideLaneChanges() const;
+
+    /// @brief apply the writes to vehicles on other edges from decideLaneChanges
+    void applyDeferredLaneChangeWrites() const;
+
 
     /// @todo extension: inner junctions are not filled
     const MSEdge* getInternalFollowingEdge(const MSEdge* followerAfterInternal, SUMOVehicleClass vClass) const;
@@ -895,6 +901,12 @@ public:
 
     const std::map<const MEVehicle*, std::pair<double, int> >& getMesoPositions() const;
 
+    /** @brief Returns the speed implied by the change of the interpolated meso position since the previous simulation step
+     * @param[in] veh The vehicle in question
+     * @return the travelled distance divided by the elapsed time or -1 if the vehicle had no position on this edge in the previous step
+     */
+    double getMesoPositionSpeed(const MEVehicle* veh) const;
+
     inline void invalidateMesoCache() const {
         myLastCacheUpdate = -1;
     }
@@ -951,6 +963,9 @@ protected:
 
     /// @brief The time of last insertion failure
     mutable SUMOTime myLastFailedInsertionTime;
+
+    /// @brief The time of last insertion check failure of a waiting vehicle (mesosim, see insertVehicle)
+    mutable SUMOTime myLastFailedInsertionCheckTime;
 
     /// @brief A cache for the rejected insertion attempts. Used to assure that no
     ///        further insertion attempts are made on a lane where an attempt has
@@ -1087,6 +1102,15 @@ protected:
 
     /// @brief time stamp of mesoscopic vehicle positions
     mutable SUMOTime myLastCacheUpdate = -1;
+
+    /// @brief Mesoscopic vehicle positions at the end of the previous simulation step in which they were computed
+    mutable std::map<const MEVehicle*, std::pair<double, int> > myPrevStepMesoPos;
+
+    /// @brief time stamp of myPrevStepMesoPos
+    mutable SUMOTime myPrevStepMesoPosTime = SUMOTime_MIN;
+
+    /// @brief the simulation step of the last computation of myCachedMesoPos (not reset by invalidation)
+    mutable SUMOTime myMesoPosStep = SUMOTime_MIN;
 
 #ifdef HAVE_FOX
     /// @brief Mutex for accessing waiting vehicles

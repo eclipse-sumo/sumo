@@ -81,6 +81,7 @@ bool MSGlobals::gClearState(false);
 
 int MSGlobals::gNumSimThreads;
 int MSGlobals::gNumThreads;
+int MSGlobals::gNumMesoThreads;
 
 double MSGlobals::gEmergencyDecelWarningThreshold(1);
 

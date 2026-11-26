@@ -1032,6 +1032,27 @@ TraCI Server Options:
 Mesoscopic Options:
   --mesosim                            Enables mesoscopic simulation
   --meso-ltm                           Enables the meso-LTM (LIFT) model
+  --meso-threads INT                   Number of threads for computing
+                                        mesoscopic events in parallel
+  --meso-threads.groups INT            Number of junction groups for parallel
+                                        mesoscopic events (the results depend on
+                                        it but not on the number of threads)
+  --meso-threads.rounds INT            Number of parallel rounds per step for
+                                        the junction groups: the moves between
+                                        groups of a round free their followers
+                                        for the next one (0: until no event is
+                                        due)
+  --meso-threads.event-sync            Synchronise the groups at every event
+                                        that concerns two groups instead of once
+                                        per step (results match the serial
+                                        simulation up to the order of
+                                        simultaneous events in different groups)
+  --meso-threads.partition-file FILE   Load the junction groups for parallel
+                                        mesoscopic events from FILE (taz
+                                        elements with the edges of each group)
+  --meso-threads.partition-output FILE  Write the junction groups for parallel
+                                        mesoscopic events to FILE (taz elements
+                                        with the edges of each group)
   --meso-edgelength FLOAT              Length of an edge segment in mesoscopic
                                         simulation
   --meso-tauff TIME                    Factor for calculating the net free-free

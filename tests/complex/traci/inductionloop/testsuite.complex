@@ -15,3 +15,6 @@ persons_walk_wrongType
 
 # Tests the inductionloop API, detector for persons is on walkingArea
 persons_internalDet
+
+# the last-step values describe the last step: occupancy includes vehicles that entered earlier, speed and length come from the vehicles that left
+lastStepValues

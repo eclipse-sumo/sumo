@@ -526,6 +526,12 @@
     <mesoscopic>
         <mesosim value="false" type="BOOL" help="Enables mesoscopic simulation"/>
         <meso-ltm value="false" type="BOOL" help="Enables the meso-LTM (LIFT) model"/>
+        <meso-threads value="0" type="INT" help="Number of threads for computing mesoscopic events in parallel"/>
+        <meso-threads.groups value="32" type="INT" help="Number of junction groups for parallel mesoscopic events (the results depend on it but not on the number of threads)"/>
+        <meso-threads.rounds value="8" type="INT" help="Number of parallel rounds per step for the junction groups: the moves between groups of a round free their followers for the next one (0: until no event is due)"/>
+        <meso-threads.event-sync value="false" type="BOOL" help="Synchronise the groups at every event that concerns two groups instead of once per step (results match the serial simulation up to the order of simultaneous events in different groups)"/>
+        <meso-threads.partition-file value="" type="FILE" help="Load the junction groups for parallel mesoscopic events from FILE (taz elements with the edges of each group)"/>
+        <meso-threads.partition-output value="" type="FILE" help="Write the junction groups for parallel mesoscopic events to FILE (taz elements with the edges of each group)"/>
         <meso-edgelength value="98" type="FLOAT" help="Length of an edge segment in mesoscopic simulation"/>
         <meso-tauff value="1.13" type="TIME" help="Factor for calculating the net free-free headway time"/>
         <meso-taufj value="1.13" type="TIME" help="Factor for calculating the net free-jam headway time"/>

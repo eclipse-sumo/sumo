@@ -45,6 +45,14 @@
 #include "MELoop.h"
 #include "MEVehicle.h"
 #include "MESegment.h"
+#ifdef HAVE_FOX
+#include <utils/foxtools/fxheader.h>
+#include <utils/common/ScopedLocker.h>
+
+/// @brief serialises updates of the links' approaching-vehicle maps: rerouting tasks replace routes on the
+/// worker threads (device.rerouting.threads) and several of them may touch the same link at once
+static FXMutex gApproachingLinkMutex;
+#endif
 
 
 // ===========================================================================
@@ -217,7 +225,7 @@ MEVehicle::setApproaching(MSLink* link) {
     if (link != nullptr) {
         const double speed = getSpeed();
         link->setApproaching(this, getEventTime() + (link->getState() == LINKSTATE_ALLWAY_STOP ?
-                             (SUMOTime)RandHelper::rand((int)2) : 0), // tie braker
+                             (SUMOTime)RandHelper::rand((int)2, mySegment != nullptr ? mySegment->getRNG() : nullptr) : 0), // tie braker
                              speed, link->getViaLaneOrLane()->getVehicleMaxSpeed(this), true,
                              speed, getWaitingTime(),
                              // @note: dist is not used by meso (getZipperSpeed is never called)
@@ -234,6 +242,9 @@ MEVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info,  bool
             MSLink* const newLink = mySegment->getLink(this);
             // update approaching vehicle information
             if (oldLink != newLink) {
+#ifdef HAVE_FOX
+                ScopedLocker<> lock(gApproachingLinkMutex, MSGlobals::gNumThreads > 1);
+#endif
                 if (oldLink != nullptr) {
                     oldLink->removeApproaching(this);
                 }

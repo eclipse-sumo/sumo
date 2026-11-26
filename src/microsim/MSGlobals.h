@@ -151,6 +151,9 @@ public:
     /// how many threads to use
     static int gNumThreads;
 
+    /// how many threads to use for the mesoscopic events
+    static int gNumMesoThreads;
+
     /// threshold for warning about strong deceleration
     static double gEmergencyDecelWarningThreshold;
 

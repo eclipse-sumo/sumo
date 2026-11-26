@@ -1,0 +1,16 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="east" edges="1/1to2/1 2/1to3/1"/>
+    <route id="north" edges="1/0to1/1 1/1to1/2"/>
+    <route id="west" edges="3/2to2/2 2/2to1/2"/>
+    <route id="south" edges="3/2to3/1 3/1to3/0"/>
+    <!-- the first wave numbers the events of the junction groups and has left the network when the state is saved at 200 -->
+    <flow id="w1_east" route="east" begin="0" end="40" period="4"/>
+    <flow id="w1_north" route="north" begin="0" end="40" period="4"/>
+    <flow id="w1_west" route="west" begin="0" end="40" period="4"/>
+    <flow id="w1_south" route="south" begin="0" end="40" period="4"/>
+    <!-- the second wave enters after the state was loaded: its event indices continue the saved counters of the groups -->
+    <flow id="w2_east" route="east" begin="220" end="260" period="4"/>
+    <flow id="w2_north" route="north" begin="220" end="260" period="4"/>
+    <flow id="w2_west" route="west" begin="220" end="260" period="4"/>
+    <flow id="w2_south" route="south" begin="220" end="260" period="4"/>
+</routes>

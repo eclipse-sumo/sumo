@@ -597,6 +597,12 @@
         <xsd:all>
             <xsd:element name="mesosim" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-ltm" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="meso-threads" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="meso-threads.groups" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="meso-threads.rounds" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="meso-threads.event-sync" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="meso-threads.partition-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="meso-threads.partition-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="meso-edgelength" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="meso-tauff" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="meso-taufj" type="timeOptionType" minOccurs="0"/>

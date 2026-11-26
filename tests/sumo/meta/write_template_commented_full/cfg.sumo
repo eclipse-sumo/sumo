@@ -1416,6 +1416,24 @@
         <!-- Enables the meso-LTM (LIFT) model -->
         <meso-ltm value="false" type="BOOL"/>
 
+        <!-- Number of threads for computing mesoscopic events in parallel -->
+        <meso-threads value="0" type="INT"/>
+
+        <!-- Number of junction groups for parallel mesoscopic events (the results depend on it but not on the number of threads) -->
+        <meso-threads.groups value="32" type="INT"/>
+
+        <!-- Number of parallel rounds per step for the junction groups: the moves between groups of a round free their followers for the next one (0: until no event is due) -->
+        <meso-threads.rounds value="8" type="INT"/>
+
+        <!-- Synchronise the groups at every event that concerns two groups instead of once per step (results match the serial simulation up to the order of simultaneous events in different groups) -->
+        <meso-threads.event-sync value="false" type="BOOL"/>
+
+        <!-- Load the junction groups for parallel mesoscopic events from FILE (taz elements with the edges of each group) -->
+        <meso-threads.partition-file value="" type="FILE"/>
+
+        <!-- Write the junction groups for parallel mesoscopic events to FILE (taz elements with the edges of each group) -->
+        <meso-threads.partition-output value="" type="FILE"/>
+
         <!-- Length of an edge segment in mesoscopic simulation -->
         <meso-edgelength value="98" type="FLOAT"/>
 

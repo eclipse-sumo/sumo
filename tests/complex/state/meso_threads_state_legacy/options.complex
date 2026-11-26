@@ -1,0 +1,9 @@
+--no-step-log --no-duration-log -n input_net.net.xml -r input_routes.rou.xml
+--mesosim --meso-ltm --meso-junction-control --meso-threads 4 --meso-threads.groups 4 -e 281
+--save-state.times 280 --save-state.files compare.xml --save-state.rng --save-state.precision 9
+:
+--no-step-log --no-duration-log -n input_net.net.xml -r input_routes.rou.xml
+--mesosim --meso-ltm --meso-junction-control --meso-threads 4 --meso-threads.groups 4 -e 281
+--load-state input_state.xml --save-state.times 280 --save-state.files compare2.xml --save-state.rng --save-state.precision 9
+--compare compare
+tests/complex/state/runner.py

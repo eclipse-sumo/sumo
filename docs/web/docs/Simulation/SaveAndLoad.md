@@ -91,6 +91,7 @@ By default, the state of the [random number generators](Randomness.md) is not sa
 simulations will behave differently from the original after being reloaded from a state.
 
 When setting option **--save-state.rng**, the state of all random number generators will be included in the state and restored upon loading.
+With **--meso-threads**, this includes the generator and the event counter of every junction group ([parallel simulation](Meso.md#parallel_simulation)).
 Saving this extra state costs about 500Kb. If this overhead is too high it can be reduced by setting a lower value of **--thread-rngs** (default 64).
 The value should be no lower than the number of threads used for routing or simulation (**--threads**, **--device.rerouting.threads**).
 

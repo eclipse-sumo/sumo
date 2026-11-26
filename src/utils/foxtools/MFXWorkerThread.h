@@ -25,6 +25,8 @@
 // undefine to use summary report only
 #define WORKLOAD_INTERVAL 100
 
+#include <atomic>
+#include <chrono>
 #include <list>
 #include <vector>
 #include "fxheader.h"
@@ -166,9 +168,41 @@ public:
          */
         void addFinished(std::list<Task*>& tasks) {
             myMutex.lock();
+            const int numTasks = (int)tasks.size();
             myFinishedTasks.splice(myFinishedTasks.end(), tasks);
+            myNumFinished.fetch_add(numTasks, std::memory_order_release);
             myCondition.signal();
             myMutex.unlock();
+        }
+
+        /** @brief Spins until the condition holds or the spin budget is used up
+         *
+         * Waiting on the condition variable costs the wake-up latency of the operating system (tens of microseconds),
+         *  which exceeds the work of the small batches of the parallel simulation loops, so the waiting thread first
+         *  polls for a short time.
+         * @param[in] condition The condition to wait for (must only read atomics)
+         */
+        template<class C>
+        static void spinUntil(const C& condition) {
+            const auto start = std::chrono::steady_clock::now();
+            for (int i = 1; !condition(); i++) {
+                if ((i & 63) == 0 && std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - start).count() > SPIN_MICROS) {
+                    return;
+                }
+            }
+        }
+
+        /// @brief how long a thread polls before it waits on its condition variable
+        static const int SPIN_MICROS = 100;
+
+        /// @brief lets the threads of this pool poll before they wait (only the pools of the parallel mesoscopic loop do)
+        void setSpin(const bool spin) {
+            mySpin.store(spin, std::memory_order_relaxed);
+        }
+
+        /// @brief whether the threads of this pool poll before they wait
+        bool spins() const {
+            return mySpin.load(std::memory_order_relaxed);
         }
 
         void setException(ProcessError& e) {
@@ -181,10 +215,17 @@ public:
 
         /// @brief waits for all tasks to be finished
         void waitAll(const bool deleteFinished = true) {
+            if (spins()) {
+                const int numRunning = myRunningIndex;
+                spinUntil([&]() {
+                    return myNumFinished.load(std::memory_order_acquire) >= numRunning;
+                });
+            }
             myMutex.lock();
             while ((int)myFinishedTasks.size() < myRunningIndex) {
                 myCondition.wait(myMutex);
             }
+            myNumFinished.store(0, std::memory_order_relaxed);
 #ifdef WORKLOAD_PROFILING
             if (myRunningIndex > 0) {
                 const auto end = std::chrono::high_resolution_clock::now();
@@ -268,6 +309,10 @@ public:
         FXCondition myCondition;
         /// @brief list of finished tasks
         std::list<Task*> myFinishedTasks;
+        /// @brief the number of tasks finished since the last waitAll (polled without the mutex, see spinUntil)
+        std::atomic<int> myNumFinished{0};
+        /// @brief whether the threads poll before they wait (see setSpin)
+        std::atomic<bool> mySpin{false};
         /// @brief the running index for the next task
         int myRunningIndex;
         /// @brief the exception from a child thread
@@ -321,6 +366,7 @@ public:
     void add(Task* t) {
         myMutex.lock();
         myTasks.push_back(t);
+        myNumPending.fetch_add(1, std::memory_order_release);
         myCondition.signal();
         myMutex.unlock();
     }
@@ -333,6 +379,11 @@ public:
      */
     FXint run() {
         while (!myStopped) {
+            if (myPool.spins()) {
+                Pool::spinUntil([&]() {
+                    return myStopped || myNumPending.load(std::memory_order_acquire) > 0;
+                });
+            }
             myMutex.lock();
             while (!myStopped && myTasks.empty()) {
                 myCondition.wait(myMutex);
@@ -341,6 +392,7 @@ public:
                 myMutex.unlock();
                 break;
             }
+            myNumPending.fetch_sub((int)myTasks.size(), std::memory_order_relaxed);
             myCurrentTasks.splice(myCurrentTasks.end(), myTasks);
             myMutex.unlock();
             try {
@@ -396,10 +448,12 @@ private:
     FXCondition myCondition;
     /// @brief the list of pending tasks
     std::list<Task*> myTasks;
+    /// @brief the number of pending tasks (polled without the mutex, see Pool::spinUntil)
+    std::atomic<int> myNumPending{0};
     /// @brief the list of tasks which are currently calculated
     std::list<Task*> myCurrentTasks;
     /// @brief whether we are still running
-    bool myStopped;
+    std::atomic<bool> myStopped;
 #ifdef WORKLOAD_PROFILING
     /// @brief counting completed tasks
     int myCounter;

@@ -1,0 +1,2 @@
+--no-step-log --no-duration-log --net-file=net.net.xml -r=input_routes.rou.xml -e 60
+--threads 4 --lanechange-output lanechanges.xml

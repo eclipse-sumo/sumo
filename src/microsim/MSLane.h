@@ -1312,7 +1312,7 @@ public:
     }
 
     MFXWorkerThread::Task* getLaneChangeTask(const SUMOTime time) {
-        mySimulationTask.init(&MSLane::changeLanes, time);
+        mySimulationTask.init(&MSLane::decideLaneChanges, time);
         return &mySimulationTask;
     }
 
@@ -1331,7 +1331,8 @@ public:
         return myStopWatch;
     }
 
-    void changeLanes(const SUMOTime time);
+    /// @brief decide the lane changes on this lane's edge (first phase of the lane change)
+    void decideLaneChanges(const SUMOTime time);
 
     /// @name State saving/loading
     /// @{

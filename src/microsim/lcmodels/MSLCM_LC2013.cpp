@@ -103,6 +103,7 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     myKeepRightProbability(0),
     myLeadingBlockerLength(0),
     myLeftSpace(0),
+    myDecisionLeftSpace(0),
     myLookAheadSpeed(LOOK_AHEAD_MIN_SPEED),
     myDontBrake(false),
     myStrategicParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_STRATEGIC_PARAM, 1)),
@@ -2107,6 +2108,26 @@ MSLCM_LC2013::saveBlockerLength(double length, double foeLeftSpace) {
     } else {
         return false;
     }
+}
+
+
+void
+MSLCM_LC2013::saveDecisionState() {
+    MSAbstractLaneChangeModel::saveDecisionState();
+    myDecisionLeftSpace = myLeftSpace;
+}
+
+
+bool
+MSLCM_LC2013::saveBlockerLengthLater(double length, double foeLeftSpace) {
+    const bool canReserve = MSLCHelper::canSaveBlockerLength(myVehicle, length, myDecisionLeftSpace);
+    if (!isOpposite() && (canReserve || myDecisionLeftSpace > foeLeftSpace)) {
+        myDeferredWrites->push_back([this, length]() {
+            myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
+        });
+        return true;
+    }
+    return false;
 }
 
 

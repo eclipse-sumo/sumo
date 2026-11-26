@@ -4,3 +4,6 @@ jump_to_end
 
 # teleport to the end of the route while on the final edge
 single_jump_to_end
+
+# a car rechecked every millisecond behind a segment it cannot use teleports in time with --meso-threads
+threads_recheck

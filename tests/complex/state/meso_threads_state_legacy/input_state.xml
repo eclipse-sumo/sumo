@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26T14:09:46.849077+01:00 by Eclipse SUMO sumo UNKNOWN
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="240"/>
+        <save-state.files value="state240.xml"/>
+        <save-state.rng value="true"/>
+        <save-state.precision value="9"/>
+    </output>
+
+    <time>
+        <end value="241"/>
+    </time>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-ltm value="true"/>
+        <meso-threads value="4"/>
+        <meso-threads.groups value="4"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<snapshot type="meso" version="UNKNOWN" count="0" time="240.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <rngState default="0" routeHandler="158" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
+        <rngLane index="0" state="0"/>
+        <rngLane index="1" state="0"/>
+        <rngLane index="2" state="0"/>
+        <rngLane index="3" state="0"/>
+        <rngLane index="4" state="0"/>
+        <rngLane index="5" state="0"/>
+        <rngLane index="6" state="0"/>
+        <rngLane index="7" state="0"/>
+        <rngLane index="8" state="0"/>
+        <rngLane index="9" state="0"/>
+        <rngLane index="10" state="0"/>
+        <rngLane index="11" state="0"/>
+        <rngLane index="12" state="0"/>
+        <rngLane index="13" state="0"/>
+        <rngLane index="14" state="0"/>
+        <rngLane index="15" state="0"/>
+        <rngLane index="16" state="0"/>
+        <rngLane index="17" state="0"/>
+        <rngLane index="18" state="0"/>
+        <rngLane index="19" state="0"/>
+        <rngLane index="20" state="0"/>
+        <rngLane index="21" state="0"/>
+        <rngLane index="22" state="0"/>
+        <rngLane index="23" state="0"/>
+        <rngLane index="24" state="0"/>
+        <rngLane index="25" state="0"/>
+        <rngLane index="26" state="0"/>
+        <rngLane index="27" state="0"/>
+        <rngLane index="28" state="0"/>
+        <rngLane index="29" state="0"/>
+        <rngLane index="30" state="0"/>
+        <rngLane index="31" state="0"/>
+        <rngLane index="32" state="0"/>
+        <rngLane index="33" state="0"/>
+        <rngLane index="34" state="0"/>
+        <rngLane index="35" state="0"/>
+        <rngLane index="36" state="0"/>
+        <rngLane index="37" state="0"/>
+        <rngLane index="38" state="0"/>
+        <rngLane index="39" state="0"/>
+        <rngLane index="40" state="0"/>
+        <rngLane index="41" state="0"/>
+        <rngLane index="42" state="0"/>
+        <rngLane index="43" state="0"/>
+        <rngLane index="44" state="0"/>
+        <rngLane index="45" state="0"/>
+        <rngLane index="46" state="0"/>
+        <rngLane index="47" state="0"/>
+        <rngLane index="48" state="0"/>
+        <rngLane index="49" state="0"/>
+        <rngLane index="50" state="0"/>
+        <rngLane index="51" state="0"/>
+        <rngLane index="52" state="0"/>
+        <rngLane index="53" state="0"/>
+        <rngLane index="54" state="0"/>
+        <rngLane index="55" state="0"/>
+        <rngLane index="56" state="0"/>
+        <rngLane index="57" state="0"/>
+        <rngLane index="58" state="0"/>
+        <rngLane index="59" state="0"/>
+        <rngLane index="60" state="0"/>
+        <rngLane index="61" state="0"/>
+        <rngLane index="62" state="0"/>
+        <rngLane index="63" state="0"/>
+        <rngMesoGroup index="0" state="0"/>
+        <rngMesoGroup index="1" state="0"/>
+        <rngMesoGroup index="2" state="0"/>
+        <rngMesoGroup index="3" state="0"/>
+    </rngState>
+    <route id="east" state="1" edges="1/1to2/1 2/1to3/1"/>
+    <route id="north" state="1" edges="1/0to1/1 1/1to1/2"/>
+    <route id="south" state="1" edges="3/2to3/1 3/1to3/0"/>
+    <route id="west" state="1" edges="3/2to2/2 2/2to1/2"/>
+    <delay number="20" begin="60" end="40" depart="0.000000000" time="4551.000000000" speedFactor="1.179700000" decel="4.500000000"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vehicle id="w2_east.0" depart="220.000" route="east" distance="0.000000000 0" speedFactor="1.030400000" state="2208 220000 0 0 1 0 239410 229705 9223372036854774807 0 0 0 226 239410"/>
+    <vehicle id="w2_north.0" depart="220.000" route="north" distance="0.000000000 0" speedFactor="0.957100000" state="2208 220000 0 0 1 0 240896 230448 9223372036854774807 0 0 0 228 240896"/>
+    <vehicle id="w2_west.0" depart="220.000" route="west" distance="0.000000000 0" speedFactor="1.091900000" state="2208 220000 0 0 2 0 247474 238316 9223372036854774807 0 0 0 163 247474"/>
+    <vehicle id="w2_south.0" depart="220.000" route="south" distance="0.000000000 0" speedFactor="1.037800000" state="2208 220000 0 0 1 0 239272 229636 9223372036854774807 0 0 0 132 239272"/>
+    <vehicle id="w2_east.1" depart="224.000" route="east" distance="0.000000000 0" speedFactor="1.043400000" state="2208 224000 0 0 1 0 243168 233584 9223372036854774807 0 0 0 225 243168"/>
+    <vehicle id="w2_north.1" depart="224.000" route="north" distance="0.000000000 0" speedFactor="1.088000000" state="2208 224000 0 0 1 0 242776 233191 9223372036854774807 0 0 0 227 242776"/>
+    <vehicle id="w2_west.1" depart="224.000" route="west" distance="0.000000000 0" speedFactor="0.997400000" state="2208 224000 0 0 1 0 244052 234026 9223372036854774807 0 0 0 162 244052"/>
+    <vehicle id="w2_south.1" depart="224.000" route="south" distance="0.000000000 0" speedFactor="0.900500000" state="2208 224000 0 0 1 0 246210 235105 9223372036854774807 0 0 0 131 246210"/>
+    <vehicle id="w2_east.2" depart="228.000" route="east" distance="0.000000000 0" speedFactor="0.876900000" state="2208 228000 0 0 0 0 239404 228000 9223372036854774807 0 0 0 230 239404"/>
+    <vehicle id="w2_north.2" depart="228.000" route="north" distance="0.000000000 0" speedFactor="0.850400000" state="2208 228000 0 0 0 0 239759 228000 9223372036854774807 0 0 0 229 239759"/>
+    <vehicle id="w2_west.2" depart="228.000" route="west" distance="0.000000000 0" speedFactor="0.854900000" state="2208 228000 0 0 0 0 239697 228000 9223372036854774807 0 0 0 161 239697"/>
+    <vehicle id="w2_south.2" depart="228.000" route="south" distance="0.000000000 0" speedFactor="1.168900000" state="2208 228000 0 0 1 0 248090 236985 9223372036854774807 0 0 0 133 248090"/>
+    <vehicle id="w2_east.3" depart="232.000" route="east" distance="0.000000000 0" speedFactor="1.016800000" state="2208 232000 0 0 0 0 241835 232000 9223372036854774807 0 0 0 -1 241835"/>
+    <vehicle id="w2_north.3" depart="232.000" route="north" distance="0.000000000 0" speedFactor="1.095800000" state="2208 232000 0 0 0 0 241639 232000 9223372036854774807 0 0 0 -1 241639"/>
+    <vehicle id="w2_west.3" depart="232.000" route="west" distance="0.000000000 0" speedFactor="1.003200000" state="2208 232000 0 0 0 0 241968 232000 9223372036854774807 0 0 0 -1 241968"/>
+    <vehicle id="w2_south.3" depart="232.000" route="south" distance="0.000000000 0" speedFactor="0.996000000" state="2208 232000 0 0 0 0 242040 232000 9223372036854774807 0 0 0 134 242040"/>
+    <vehicle id="w2_east.4" depart="236.000" route="east" distance="0.000000000 0" speedFactor="0.898900000" state="2208 236000 0 0 0 0 247125 236000 9223372036854774807 0 0 0 -1 247125"/>
+    <vehicle id="w2_north.4" depart="236.000" route="north" distance="0.000000000 0" speedFactor="1.142500000" state="2208 236000 0 0 0 0 244753 236000 9223372036854774807 0 0 0 -1 244753"/>
+    <vehicle id="w2_west.4" depart="236.000" route="west" distance="0.000000000 0" speedFactor="1.023600000" state="2208 236000 0 0 0 0 245769 236000 9223372036854774807 0 0 0 -1 245769"/>
+    <vehicle id="w2_south.4" depart="236.000" route="south" distance="0.000000000 0" speedFactor="0.969500000" state="2208 236000 0 0 0 0 246315 236000 9223372036854774807 0 0 0 -1 246315"/>
+    <flowState id="w2_east" begin="220.000" end="260.000" period="4" next="20.000000000" route="east" done="5" index="5"/>
+    <flowState id="w2_north" begin="220.000" end="260.000" period="4" next="20.000000000" route="north" done="5" index="5"/>
+    <flowState id="w2_west" begin="220.000" end="260.000" period="4" next="20.000000000" route="west" done="5" index="5"/>
+    <flowState id="w2_south" begin="220.000" end="260.000" period="4" next="20.000000000" route="south" done="5" index="5"/>
+    <segment id="1/0to1/1:0">
+        <vehicles time="235071" blockTime="-9223372036854775808" value="w2_north.4 w2_north.3 w2_north.2" state="247631 233191 0 244888 230448 0"/>
+    </segment>
+    <segment id="1/0to1/1:1">
+        <vehicles time="55116" blockTime="235070" value="w2_north.1 w2_north.0"/>
+    </segment>
+    <segment id="1/0to1/1:2">
+        <vehicles time="65900" blockTime="55115" value="" state="78460 64020 0 76580 62140 0 74700 60260 0 72820 58380 0 64186 49746 0 62306 47866 0 59330 44890 0 57450 43010 0 54542 40102 0"/>
+    </segment>
+    <segment id="1/0to1/1:3">
+        <vehicles time="105400" blockTime="65899" value="" state="121470 103520 1 119590 101640 1 117710 99760 1 115830 97880 1 113950 96000 1 112070 94120 1 110190 92240 1 108310 90360 1 106430 88480 1 103950 86000 1 j121470"/>
+    </segment>
+    <segment id="1/1to1/2:0">
+        <vehicles time="117434" blockTime="105399" value="" state="129994 115554 0 128114 113674 0 126234 111794 0 124354 109914 0 122474 108034 0 120594 106154 0 118714 104274 0 116834 102394 0 114954 100514 0 111098 96658 0"/>
+    </segment>
+    <segment id="1/1to1/2:1">
+        <vehicles time="129468" blockTime="117433" value="" state="142028 127588 0 140148 125708 0 138268 123828 0 136388 121948 0 134508 120068 0 132628 118188 0 130748 116308 0 128868 114428 0 126988 112548 0 121756 107316 0"/>
+    </segment>
+    <segment id="1/1to1/2:2">
+        <vehicles time="141502" blockTime="129467" value="" state="154062 139622 0 152182 137742 0 150302 135862 0 148422 133982 0 146542 132102 0 144662 130222 0 142782 128342 0 140902 126462 0 139022 124582 0 132414 117974 0"/>
+    </segment>
+    <segment id="1/1to1/2:3">
+        <vehicles time="151656" blockTime="141501" value="" state="166096 151656 0 164216 149776 0 162336 147896 0 160456 146016 0 158576 144136 0 156696 142256 0 154816 140376 0 152936 138496 0 151056 136616 0 143072 128632 0"/>
+    </segment>
+    <segment id="1/1to2/1:0">
+        <vehicles time="235464" blockTime="-9223372036854775808" value="w2_east.4 w2_east.3 w2_east.2" state="248024 233584 0 244145 229705 0"/>
+    </segment>
+    <segment id="1/1to2/1:1">
+        <vehicles time="58430" blockTime="235463" value="w2_east.1 w2_east.0"/>
+    </segment>
+    <segment id="1/1to2/1:2">
+        <vehicles time="68705" blockTime="58429" value="" state="81265 66825 0 78533 64093 0 76653 62213 0 74773 60333 0 66472 52032 0 64592 50152 0"/>
+    </segment>
+    <segment id="1/1to2/1:3">
+        <vehicles time="133360" blockTime="68704" value="" state="149430 131480 1 146950 129000 1 88764 74324 0 86884 72444 0 77856 63416 0 75976 61536 0 66968 52528 0 j149430"/>
+    </segment>
+    <segment id="2/1to3/1:0">
+        <vehicles time="143635" blockTime="133359" value="" state="156195 141755 0 153388 138948 0"/>
+    </segment>
+    <segment id="2/1to3/1:1">
+        <vehicles time="153910" blockTime="143634" value="" state="166470 152030 0 163336 148896 0"/>
+    </segment>
+    <segment id="2/1to3/1:2">
+        <vehicles time="164185" blockTime="153909" value="" state="176745 162305 0 173284 158844 0"/>
+    </segment>
+    <segment id="2/1to3/1:3">
+        <vehicles time="172580" blockTime="164184" value="" state="187020 172580 0 183232 168792 0"/>
+    </segment>
+    <segment id="2/2to1/2:0">
+        <vehicles time="107303" blockTime="96399" value="" state="119863 105423 0 117983 103543 0 116103 101663 0 114223 99783 0 112121 97681 0 110241 95801 0 107769 93329 0 105362 90922 0 103482 89042 0 101337 86897 0"/>
+    </segment>
+    <segment id="2/2to1/2:1">
+        <vehicles time="118206" blockTime="107302" value="" state="130766 116326 0 128886 114446 0 127006 112566 0 125126 110686 0 122802 108362 0 120922 106482 0 117858 103418 0 114994 100554 0 113114 98674 0 111234 96794 0"/>
+    </segment>
+    <segment id="2/2to1/2:2">
+        <vehicles time="129109" blockTime="118205" value="" state="141669 127229 0 139789 125349 0 137909 123469 0 136029 121589 0 133483 119043 0 131603 117163 0 127947 113507 0 124891 110451 0 123011 108571 0 121131 106691 0"/>
+    </segment>
+    <segment id="2/2to1/2:3">
+        <vehicles time="138132" blockTime="129108" value="" state="152572 138132 0 150692 136252 0 148812 134372 0 146932 132492 0 144164 129724 0 142284 127844 0 138036 123596 0 134788 120348 0 132908 118468 0 131028 116588 0"/>
+    </segment>
+    <segment id="3/1to3/0:0">
+        <vehicles time="116687" blockTime="105399" value="" state="129247 114807 0 127367 112927 0 125487 111047 0 123607 109167 0 121727 107287 0 119847 105407 0 117967 103527 0 116087 101647 0 114207 99767 0 109676 95236 0"/>
+    </segment>
+    <segment id="3/1to3/0:1">
+        <vehicles time="127974" blockTime="116686" value="" state="140534 126094 0 138654 124214 0 136774 122334 0 134894 120454 0 133014 118574 0 131134 116694 0 129254 114814 0 127374 112934 0 125494 111054 0 118912 104472 0"/>
+    </segment>
+    <segment id="3/1to3/0:2">
+        <vehicles time="139261" blockTime="127973" value="" state="151821 137381 0 149941 135501 0 148061 133621 0 146181 131741 0 144301 129861 0 142421 127981 0 140541 126101 0 138661 124221 0 136781 122341 0 128148 113708 0"/>
+    </segment>
+    <segment id="3/1to3/0:3">
+        <vehicles time="148668" blockTime="139260" value="" state="163108 148668 0 161228 146788 0 159348 144908 0 157468 143028 0 155588 141148 0 153708 139268 0 151828 137388 0 149948 135508 0 148068 133628 0 137384 122944 0"/>
+    </segment>
+    <segment id="3/2to2/2:0">
+        <vehicles time="235906" blockTime="-9223372036854775808" value="w2_west.4 w2_west.3 w2_west.2" state="248466 234026 0 243598 229158 0"/>
+    </segment>
+    <segment id="3/2to2/2:1">
+        <vehicles time="240196" blockTime="235905" value="w2_west.1" state="252756 238316 0"/>
+    </segment>
+    <segment id="3/2to2/2:2">
+        <vehicles time="65916" blockTime="240195" value="w2_west.0"/>
+    </segment>
+    <segment id="3/2to2/2:3">
+        <vehicles time="96400" blockTime="65915" value="" state="112470 94520 1 110590 92640 1 108710 90760 1 106830 88880 1 104950 87000 1 103070 85120 1 101190 83240 1 99310 81360 1 97430 79480 1 94950 77000 1 j112470"/>
+    </segment>
+    <segment id="3/2to3/1:0">
+        <vehicles time="238865" blockTime="-9223372036854775808" value="w2_south.4 w2_south.3" state="251425 236985 0 249545 235105 0 244076 229636 0"/>
+    </segment>
+    <segment id="3/2to3/1:1">
+        <vehicles time="60088" blockTime="238864" value="w2_south.2 w2_south.1 w2_south.0"/>
+    </segment>
+    <segment id="3/2to3/1:2">
+        <vehicles time="71192" blockTime="60087" value="" state="83752 69312 0 75861 61421 0 71940 57500 0 70060 55620 0 68163 53723 0 60690 46250 0 58810 44370 0"/>
+    </segment>
+    <segment id="3/2to3/1:3">
+        <vehicles time="105400" blockTime="71191" value="" state="121470 103520 1 119590 101640 1 117710 99760 1 115830 97880 1 113950 96000 1 112070 94120 1 110190 92240 1 108310 90360 1 106430 88480 1 103950 86000 1 j121470"/>
+    </segment>
+    <tlLogic id="0/0" programID="0" phase="2" duration="2000" until="269000" cycleTime="36000" active="1"/>
+    <tlLogic id="0/1" programID="0" phase="0" duration="9000" until="262000" cycleTime="9000" active="1"/>
+    <tlLogic id="0/2" programID="0" phase="2" duration="2000" until="269000" cycleTime="36000" active="1"/>
+    <tlLogic id="1/0" programID="0" phase="0" duration="9000" until="262000" cycleTime="9000" active="1"/>
+    <tlLogic id="1/1" programID="0" phase="4" duration="25000" until="246000" cycleTime="68000" active="1"/>
+    <tlLogic id="1/2" programID="0" phase="0" duration="9000" until="262000" cycleTime="9000" active="1"/>
+    <tlLogic id="2/0" programID="0" phase="0" duration="9000" until="262000" cycleTime="9000" active="1"/>
+    <tlLogic id="2/1" programID="0" phase="4" duration="25000" until="246000" cycleTime="68000" active="1"/>
+    <tlLogic id="2/2" programID="0" phase="0" duration="9000" until="262000" cycleTime="9000" active="1"/>
+    <tlLogic id="3/0" programID="0" phase="0" duration="9000" until="262000" cycleTime="9000" active="1"/>
+    <tlLogic id="3/1" programID="0" phase="4" duration="25000" until="246000" cycleTime="68000" active="1"/>
+    <tlLogic id="3/2" programID="0" phase="0" duration="9000" until="262000" cycleTime="9000" active="1"/>
+    <tlLogic id="4/0" programID="0" phase="2" duration="2000" until="269000" cycleTime="36000" active="1"/>
+    <tlLogic id="4/1" programID="0" phase="0" duration="9000" until="262000" cycleTime="9000" active="1"/>
+    <tlLogic id="4/2" programID="0" phase="2" duration="2000" until="269000" cycleTime="36000" active="1"/>
+</snapshot>

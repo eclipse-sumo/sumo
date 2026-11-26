@@ -33,3 +33,9 @@ lane_queue
 ignore_lanes
 interpolate
 bugs
+
+# computing the events of junction groups in parallel (--meso-threads)
+parallel
+
+# junction groups loaded from a file (--meso-threads.partition-file) on a network of two unconnected components
+parallel_partition

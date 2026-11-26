@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-21 15:37:34 by Eclipse SUMO sumo Version v1_22_0+0441-086a4a97432
+<!-- generated on 2026-11-23T14:13:40.875554+01:00 by Eclipse SUMO sumo v1_28_0+0708-67efd97d02b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <ignore-route-errors value="true"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -43,6 +45,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <stopinfo id="resident" type="resident" lane="a_0" pos="207.98" parking="1" started="21.00" ended="41.00" parkingArea="ParkAreaA" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="foreigner" type="foreigner" lane="a_0" pos="247.99" parking="1" started="28.00" ended="48.00" parkingArea="ParkAreaB" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="guest" type="foreigner" lane="a_0" pos="215.97" parking="1" started="29.00" ended="49.00" parkingArea="ParkAreaA" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="resident" type="resident" lane="a_0" pos="255.97" parking="1" started="51.00" ended="71.00" parkingArea="ParkAreaB" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="guest" type="foreigner" lane="a_0" pos="247.98" parking="1" started="57.00" ended="77.00" parkingArea="ParkAreaB" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="resident" type="resident" lane="a_0" pos="255.99" parking="1" started="51.00" ended="71.00" parkingArea="ParkAreaB" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="guest" type="foreigner" lane="a_0" pos="247.99" parking="1" started="57.00" ended="77.00" parkingArea="ParkAreaB" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
 </stops>

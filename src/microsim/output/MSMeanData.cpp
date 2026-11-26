@@ -322,6 +322,9 @@ MSMeanData::MeanDataValueTracker::notifyMoveInternal(const SUMOTrafficObject& ve
 
 bool
 MSMeanData::MeanDataValueTracker::notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+#ifdef HAVE_FOX
+    ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumMesoThreads > 0);
+#endif
     if (myParent == nullptr || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
         myTrackedData[&veh]->myNumVehicleLeft++;
     }
@@ -339,6 +342,9 @@ MSMeanData::MeanDataValueTracker::notifyEnter(SUMOTrafficObject& veh, MSMoveRemi
     if (reason == MSMoveReminder::NOTIFICATION_SEGMENT) {
         return true;
     }
+#ifdef HAVE_FOX
+    ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumMesoThreads > 0);
+#endif
     if (myParent->vehicleApplies(veh) && myTrackedData.find(&veh) == myTrackedData.end()) {
         myTrackedData[&veh] = myCurrentData.back();
         myTrackedData[&veh]->myNumVehicleEntered++;

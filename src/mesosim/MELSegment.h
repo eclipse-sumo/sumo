@@ -66,12 +66,27 @@ public:
      */
     void send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOTime time, const MSMoveReminder::Notification reason) override;
 
+    /// @brief records the gap the vehicle leaves behind, then completes the departure (see MESegment::completeSend)
+    void completeSend(MEVehicle* veh, const int qIdx, MSLink* link, SUMOTime time, SUMOTime headway, bool queued) override;
+
     /// @brief update entry blockTime for all queues
     void updateEntryBlockTime(SUMOTime time) override; 
+
+
+    /** @brief Returns the minimum distance between the segment end and the front of a queued vehicle
+     *
+     * The space vacated by queued vehicles that left the segment only becomes
+     * usable once the start wave has traveled back to the vehicle
+     * @param[in] qIdx The queue of the vehicle
+     * @param[in] lengthAhead The total length (with gaps) of the vehicles ahead in the queue
+     * @param[in] time The current time
+     */
+    double getMinDistanceToEnd(int qIdx, double lengthAhead, SUMOTime time) const override;
 
     /// @brief the gap times of the given queue for saving / loading
     std::string getQueueExtraState(int qIdx) const override;
     void loadQueueExtraState(int qIdx, const std::string& state, SUMOTime offset) override;
+
 
 protected:
     /// @brief compute current headway depending on traffic state
@@ -90,13 +105,26 @@ private:
     /// @brief the length of a segment filled with jammed (default) vehicles
     const double myJamLength;
 
-    /// @brief upstream arrival times of traveling gaps between cars (for each queue)
+    /// @brief space vacated by a vehicle that left the segment and travels upstream
+    struct Gap {
+        /// @brief the time at which the gap reaches the upstream end of the segment
+        SUMOTime arrival;
+        /// @brief the time at which the vehicle left the segment
+        SUMOTime departure;
+        /// @brief whether the vehicle left from a queue (and thus triggered a start wave)
+        bool queued;
+    };
+
+    /// @brief traveling gaps between cars (for each queue), the most recent one first
     // @note: could be slightly faster as a double-index ring-buffer
-    typedef std::vector<SUMOTime> GapTimes;
-    std::vector<GapTimes> myGapTimes;
+    typedef std::vector<Gap> Gaps;
+    std::vector<Gaps> myGaps;
 
     /// @brief upstream arrival time of the latest gap left by a queued vehicle (for each queue, -1 if there is none)
     std::vector<SUMOTime> myJamGapTimes;
+
+    /// @brief records when the gap a vehicle leaves in the queue at the given time reaches the upstream end
+    void recordGap(const int qIdx, const SUMOTime time, const bool queued);
 
 private:
     /// @brief Invalidated copy constructor.

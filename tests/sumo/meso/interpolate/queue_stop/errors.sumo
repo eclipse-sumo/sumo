@@ -1,0 +1,1 @@
+Warning: Unsafe green phase 0 in tlLogic '3/1', program 't1'. Lane '3/1to2/1_0' is targeted by 2 'G'-links. (use 'g' instead) Overall 4 lanes in 1 phases are unsafe.

@@ -215,6 +215,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "entry",                                  SUMO_TAG_ENTRY },
     { "rngState",                               SUMO_TAG_RNGSTATE },
     { "rngLane",                                SUMO_TAG_RNGLANE },
+    { "rngMesoGroup",                           SUMO_TAG_RNGMESOGROUP },
     { "vehicleTransfer",                        SUMO_TAG_VEHICLETRANSFER },
     { "device",                                 SUMO_TAG_DEVICE },
     { "cfmVars",                                SUMO_TAG_CFM_VARIABLES },
