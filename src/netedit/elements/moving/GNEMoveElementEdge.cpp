@@ -20,8 +20,11 @@
 #include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
+#include <utils/geom/GeomHelper.h>
 
 #include "GNEMoveElementEdge.h"
 
@@ -54,16 +57,19 @@ GNEMoveOperation*
 GNEMoveElementEdge::getMoveOperation() {
     // get geometry point radius
     const double geometryPointRadius = myEdge->getGeometryPointRadius();
-    // check if edge is selected
-    if (myEdge->isAttributeCarrierSelected()) {
+    // get move multiple element values
+    const auto& moveMultipleElementValues = myEdge->getNet()->getViewNet()->getMoveMultipleElementValues();
+    // check if edge is selected and we're moving a selection
+    if (!myEdge->isShapeEdited() && myEdge->isAttributeCarrierSelected() &&
+            (moveMultipleElementValues.isMovingSelection() || moveMultipleElementValues.isMovingSelectedEdge())) {
         // check if both junctions are selected
         if (myEdge->getFromJunction()->isAttributeCarrierSelected() && myEdge->getToJunction()->isAttributeCarrierSelected()) {
             return processMoveBothJunctionSelected();
         } else if (myEdge->getFromJunction()->isAttributeCarrierSelected()) {
-            return processMoveFromJunctionSelected(myEdge->getNBEdge()->getGeometry(), myEdge->getNet()->getViewNet()->getPositionInformation(), geometryPointRadius);
+            return processMoveFromJunctionSelected(geometryPointRadius);
         } else if (myEdge->getToJunction()->isAttributeCarrierSelected()) {
-            return processMoveToJunctionSelected(myEdge->getNBEdge()->getGeometry(), myEdge->getNet()->getViewNet()->getPositionInformation(), geometryPointRadius);
-        } else if (myEdge->getNet()->getViewNet()->getMoveMultipleElementValues().isMovingSelectedEdge()) {
+            return processMoveToJunctionSelected(geometryPointRadius);
+        } else if (moveMultipleElementValues.isMovingSelectedEdge()) {
             if (myEdge->getNet()->getAttributeCarriers()->getNumberOfSelectedEdges() == 1) {
                 // special case: when only a single edge is selected, move all shape points (including custom end points)
                 return processMoveBothJunctionSelected();
@@ -72,7 +78,7 @@ GNEMoveElementEdge::getMoveOperation() {
                 return processNoneJunctionSelected(geometryPointRadius);
             }
         } else {
-            // calculate move shape operation (because there are only an edge selected)
+            // calculate move shape operation
             return getEditShapeOperation(myEdge, myEdge->getNBEdge()->getGeometry(), false);
         }
     } else {
@@ -222,7 +228,7 @@ GNEMoveElementEdge::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList
             GNEChange_Attribute::changeAttribute(myEdge, GNE_ATTR_SHAPE_START, toString(moveResult.shapeToUpdate.front()), undoList);
         }
         // check if update shape
-        if (innenShapeToUpdate.size() > 0) {
+        if ((innenShapeToUpdate.size() > 0) || (myEdge->getNBEdge()->getInnerGeometry().size() > 0)) {
             GNEChange_Attribute::changeAttribute(myEdge, SUMO_ATTR_SHAPE, toString(innenShapeToUpdate), undoList);
         }
         // update end position
@@ -234,90 +240,173 @@ GNEMoveElementEdge::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList
 }
 
 
-GNEMoveOperation*
-GNEMoveElementEdge::processMoveFromJunctionSelected(const PositionVector originalShape, const Position mousePosition, const double snapRadius) {
-    // calculate squared snapRadius
-    const double squaredSnapRadius = (snapRadius * snapRadius);
-    // declare shape to move
-    PositionVector shapeToMove = originalShape;
-    // obtain nearest index
-    const int nearestIndex = originalShape.indexOfClosest(mousePosition);
-    // obtain nearest position
-    const Position nearestPosition = originalShape.positionAtOffset2D(originalShape.nearest_offset_to_point2D(mousePosition));
-    // generate indexes
-    std::vector<int> indexes;
-    // check conditions
-    if (nearestIndex == -1) {
-        return nullptr;
-    } else if (nearestPosition == Position::INVALID) {
-        // special case for extremes
-        if (mousePosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
-            for (int i = 1; i <= nearestIndex; i++) {
-                indexes.push_back(i);
-            }
-            // move extrem without creating new geometry point
-            return new GNEMoveOperation(this, originalShape, indexes, shapeToMove, indexes);
+double
+GNEMoveElementEdge::getMoveEdgeOffset() const {
+    const auto viewNet = myEdge->getNet()->getViewNet();
+    const GNEEdge* clickedEdge = viewNet->getViewObjectsSelector().getEdgeFront();
+    if (clickedEdge == nullptr) {
+        return INVALID_DOUBLE;
+    }
+    const auto& clickedShape = clickedEdge->getNBEdge()->getGeometry();
+    const double clickedOffset = clickedShape.nearest_offset_to_point2D(viewNet->getPositionInformation(), false);
+    if (clickedOffset == GeomHelper::INVALID_OFFSET) {
+        return INVALID_DOUBLE;
+    }
+    if (clickedEdge == myEdge) {
+        return clickedOffset;
+    }
+    const double myLength = myEdge->getNBEdge()->getGeometry().length2D();
+    const bool clickedFromSelected = clickedEdge->getFromJunction()->isAttributeCarrierSelected();
+    const bool clickedToSelected = clickedEdge->getToJunction()->isAttributeCarrierSelected();
+    const bool myFromSelected = myEdge->getFromJunction()->isAttributeCarrierSelected();
+    const bool myToSelected = myEdge->getToJunction()->isAttributeCarrierSelected();
+    if ((clickedFromSelected != clickedToSelected) && (myFromSelected != myToSelected)) {
+        const double distFromSelected = clickedFromSelected ? clickedOffset : (clickedShape.length2D() - clickedOffset);
+        return myFromSelected ? distFromSelected : (myLength - distFromSelected);
+    } else if (clickedOffset <= myLength) {
+        if (myEdge->isConvexAngle() == clickedEdge->isConvexAngle()) {
+            return clickedOffset;
         } else {
-            return nullptr;
+            return myLength - clickedOffset;
         }
-    } else if (nearestPosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
-        for (int i = 1; i <= nearestIndex; i++) {
-            indexes.push_back(i);
-        }
-        // move geometry point without creating new geometry point
-        return new GNEMoveOperation(this, originalShape, indexes, shapeToMove, indexes);
     } else {
-        // create new geometry point and keep new index (if we clicked near of shape)
-        const int newIndex = shapeToMove.insertAtClosest(nearestPosition, true);
-        for (int i = 1; i <= newIndex; i++) {
-            indexes.push_back(i);
-        }
-        // move after setting new geometry point in shapeToMove
-        return new GNEMoveOperation(this, originalShape, indexes, shapeToMove, indexes);
+        return INVALID_DOUBLE;
     }
 }
 
 
 GNEMoveOperation*
-GNEMoveElementEdge::processMoveToJunctionSelected(const PositionVector originalShape, const Position mousePosition, const double snapRadius) {
-    // calculate squared snapRadius
-    const double squaredSnapRadius = (snapRadius * snapRadius);
-    // declare shape to move
-    PositionVector shapeToMove = originalShape;
-    // obtain nearest index
-    const int nearestIndex = originalShape.indexOfClosest(mousePosition);
-    // obtain nearest position
-    const Position nearestPosition = originalShape.positionAtOffset2D(originalShape.nearest_offset_to_point2D(mousePosition));
-    // generate indexes
-    std::vector<int> indexes;
-    // check conditions
-    if (nearestIndex == -1) {
+GNEMoveElementEdge::processMoveFromJunctionSelected(const double snapRadius) {
+    const PositionVector& originalShape = myEdge->getNBEdge()->getGeometry();
+    if (originalShape.size() < 2) {
         return nullptr;
-    } else if (nearestPosition == Position::INVALID) {
-        // special case for extremes
-        if (mousePosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
-            for (int i = nearestIndex; i < ((int)originalShape.size() - 1); i++) {
+    }
+    PositionVector shapeToMove = originalShape;
+    const int lastIndex = (int)originalShape.size() - 1;
+    const bool onlyMoveCenter = myEdge->getNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveOnlyJunctionCenter();
+    const int firstMovedIndex = onlyMoveCenter ? 1 : 0;
+    const std::vector<int> originalIndexes = onlyMoveCenter ? std::vector<int>() : std::vector<int>({0});
+    std::vector<int> indexes;
+    // check if we're moving a selected edge or a selected junction
+    if (myEdge->getNet()->getViewNet()->getMoveMultipleElementValues().isMovingSelectedEdge()) {
+        const double offset = getMoveEdgeOffset();
+        const double length = originalShape.length2D();
+        if ((offset == INVALID_DOUBLE) || (offset <= 0)) {
+            return nullptr;
+        } else if (offset >= length) {
+            if (originalShape.size() <= 2) {
+                return nullptr;
+            }
+            for (int i = firstMovedIndex; i < lastIndex; i++) {
                 indexes.push_back(i);
             }
-            // move extrem without creating new geometry point
-            return new GNEMoveOperation(this, originalShape, indexes, shapeToMove, indexes);
-        } else {
+            return new GNEMoveOperation(this, originalShape, originalIndexes, shapeToMove, indexes);
+        }
+        const Position offsetPosition = originalShape.positionAtOffset2D(offset);
+        const int nearestIndex = originalShape.indexOfClosest(offsetPosition);
+        if ((nearestIndex == -1) || (offsetPosition == Position::INVALID)) {
             return nullptr;
+        } else if (offsetPosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= (snapRadius * snapRadius)) {
+            if (nearestIndex == 0) {
+                return nullptr;
+            }
+            const int endIndex = MIN2(nearestIndex, lastIndex - 1);
+            if (endIndex < 1) {
+                return nullptr;
+            }
+            for (int i = firstMovedIndex; i <= endIndex; i++) {
+                indexes.push_back(i);
+            }
+            return new GNEMoveOperation(this, originalShape, originalIndexes, shapeToMove, indexes);
+        } else {
+            const int newIndex = shapeToMove.insertAtClosest(offsetPosition, true);
+            const int endIndex = MIN2(newIndex, (int)shapeToMove.size() - 2);
+            if (endIndex < 1) {
+                return nullptr;
+            }
+            for (int i = firstMovedIndex; i <= endIndex; i++) {
+                indexes.push_back(i);
+            }
+            return new GNEMoveOperation(this, originalShape, originalIndexes, shapeToMove, indexes);
         }
-    } else if (nearestPosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
-        for (int i = nearestIndex; i < ((int)originalShape.size() - 1); i++) {
+    } else if (originalShape.size() > 2) {
+        // moving selected junction: move all existing inner geometry points
+        for (int i = firstMovedIndex; i < lastIndex; i++) {
             indexes.push_back(i);
         }
-        // move geometry point without creating new geometry point
-        return new GNEMoveOperation(this, originalShape, indexes, shapeToMove, indexes);
+        return new GNEMoveOperation(this, originalShape, originalIndexes, shapeToMove, indexes);
     } else {
-        // create new geometry point and keep new index (if we clicked near of shape)
-        const int newIndex = shapeToMove.insertAtClosest(nearestPosition, true);
-        for (int i = newIndex; i < ((int)originalShape.size() - 1); i++) {
+        return nullptr;
+    }
+}
+
+
+GNEMoveOperation*
+GNEMoveElementEdge::processMoveToJunctionSelected(const double snapRadius) {
+    const PositionVector& originalShape = myEdge->getNBEdge()->getGeometry();
+    if (originalShape.size() < 2) {
+        return nullptr;
+    }
+    PositionVector shapeToMove = originalShape;
+    const int lastIndex = (int)originalShape.size() - 1;
+    const bool onlyMoveCenter = myEdge->getNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveOnlyJunctionCenter();
+    const std::vector<int> originalIndexes = onlyMoveCenter ? std::vector<int>() : std::vector<int>({lastIndex});
+    std::vector<int> indexes;
+    // check if we're moving a selected edge or a selected junction
+    if (myEdge->getNet()->getViewNet()->getMoveMultipleElementValues().isMovingSelectedEdge()) {
+        const double offset = getMoveEdgeOffset();
+        const double length = originalShape.length2D();
+        if ((offset == INVALID_DOUBLE) || (offset >= length)) {
+            return nullptr;
+        } else if (offset <= 0) {
+            if (originalShape.size() <= 2) {
+                return nullptr;
+            }
+            const int endMovedIndex = onlyMoveCenter ? (lastIndex - 1) : lastIndex;
+            for (int i = 1; i <= endMovedIndex; i++) {
+                indexes.push_back(i);
+            }
+            return new GNEMoveOperation(this, originalShape, originalIndexes, shapeToMove, indexes);
+        }
+        const Position offsetPosition = originalShape.positionAtOffset2D(offset);
+        const int nearestIndex = originalShape.indexOfClosest(offsetPosition);
+        if ((nearestIndex == -1) || (offsetPosition == Position::INVALID)) {
+            return nullptr;
+        } else if (offsetPosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= (snapRadius * snapRadius)) {
+            if (nearestIndex == lastIndex) {
+                return nullptr;
+            }
+            const int startIndex = MAX2(1, nearestIndex);
+            if (startIndex >= lastIndex) {
+                return nullptr;
+            }
+            const int endMovedIndex = onlyMoveCenter ? (lastIndex - 1) : lastIndex;
+            for (int i = startIndex; i <= endMovedIndex; i++) {
+                indexes.push_back(i);
+            }
+            return new GNEMoveOperation(this, originalShape, originalIndexes, shapeToMove, indexes);
+        } else {
+            const int newIndex = shapeToMove.insertAtClosest(offsetPosition, true);
+            const int newLastIndex = (int)shapeToMove.size() - 1;
+            const int startIndex = MAX2(1, newIndex);
+            if (startIndex >= newLastIndex) {
+                return nullptr;
+            }
+            const int endMovedIndex = onlyMoveCenter ? (newLastIndex - 1) : newLastIndex;
+            for (int i = startIndex; i <= endMovedIndex; i++) {
+                indexes.push_back(i);
+            }
+            return new GNEMoveOperation(this, originalShape, originalIndexes, shapeToMove, indexes);
+        }
+    } else if (originalShape.size() > 2) {
+        // moving selected junction: move all existing inner geometry points
+        const int endMovedIndex = onlyMoveCenter ? (lastIndex - 1) : lastIndex;
+        for (int i = 1; i <= endMovedIndex; i++) {
             indexes.push_back(i);
         }
-        // move after setting new geometry point in shapeToMove
-        return new GNEMoveOperation(this, originalShape, indexes, shapeToMove, indexes);
+        return new GNEMoveOperation(this, originalShape, originalIndexes, shapeToMove, indexes);
+    } else {
+        return nullptr;
     }
 }
 
@@ -335,21 +424,12 @@ GNEMoveElementEdge::processMoveBothJunctionSelected() {
 
 GNEMoveOperation*
 GNEMoveElementEdge::processNoneJunctionSelected(const double snapRadius) {
-    // get move multiple element values
-    const auto& moveMultipleElementValues = myEdge->getNet()->getViewNet()->getMoveMultipleElementValues();
     // declare shape to move
     PositionVector shapeToMove = myEdge->getNBEdge()->getGeometry();
-    // first check if kept offset is larger than geometry
-    if (shapeToMove.length2D() < moveMultipleElementValues.getEdgeOffset()) {
+    // obtain offset
+    const double offset = getMoveEdgeOffset();
+    if (offset == INVALID_DOUBLE) {
         return nullptr;
-    }
-    // declare offset
-    double offset = 0;
-    // set offset depending of convex angle
-    if (myEdge->isConvexAngle()) {
-        offset = moveMultipleElementValues.getEdgeOffset();
-    } else {
-        offset = shapeToMove.length2D() - moveMultipleElementValues.getEdgeOffset();
     }
     // obtain offset position
     const Position offsetPosition = myEdge->getNBEdge()->getGeometry().positionAtOffset2D(offset);
@@ -361,11 +441,11 @@ GNEMoveElementEdge::processNoneJunctionSelected(const double snapRadius) {
     } else if (offsetPosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= (snapRadius * snapRadius)) {
         // move geometry point without creating new geometry point
         return new GNEMoveOperation(this, myEdge->getNBEdge()->getGeometry(), {nearestIndex}, shapeToMove, {nearestIndex});
-    } else  {
-        // create new geometry point and keep new index (if we clicked near of shape)
+    } else {
+        // create new geometry point and keep new index
         const int newIndex = shapeToMove.insertAtClosest(offsetPosition, true);
         // move after setting new geometry point in shapeToMove
-        return new GNEMoveOperation(this, myEdge->getNBEdge()->getGeometry(), {nearestIndex}, shapeToMove, {newIndex});
+        return new GNEMoveOperation(this, myEdge->getNBEdge()->getGeometry(), {}, shapeToMove, {newIndex});
     }
 }
 
