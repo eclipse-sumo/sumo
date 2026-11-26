@@ -202,6 +202,11 @@ public:
      */
     bool isAttributeEnabled(SumoXMLAttr key) const override;
 
+    /* @brief method for check if the value for certain attribute is computed
+     * @param[in] key The attribute key
+     */
+    bool isAttributeComputed(SumoXMLAttr key) const override;
+
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const override;
 
@@ -215,6 +220,9 @@ public:
 
     /// @brief get end position over lane that is applicable to the shape
     double getEndGeometryPositionOverLane() const;
+
+    /// @brief calculate insertion index among parent's vehicle stops for the given index value
+    static int getStopInsertionIndex(GNEDemandElement* stopParent, const GNEStop* stop, const int requestedIndex);
 
 protected:
     /// @brief move element lane double
