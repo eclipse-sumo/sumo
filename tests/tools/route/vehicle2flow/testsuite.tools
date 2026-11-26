@@ -3,3 +3,4 @@ basic
 
 # write end and repeat as xml entities
 entity
+sumolib_argparser_named
