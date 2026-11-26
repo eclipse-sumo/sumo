@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26T14:28:05.154284+00:00 by Eclipse SUMO netconvert v1.28.0-0000000000
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <edge_removal>
+        <keep-edges.in-geo-boundary value="12.02,48.08,12.07,48.08,12.07,48.13,12.02,48.13,12.02,48.08"/>
+    </edge_removal>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <no-warnings value="true"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-892836.93,-5344255.62" convBoundary="0.00,0.00,4061.64,3770.84" origBoundary="12.014694,48.087529,12.061386,48.121459" projParameter="-"/>
+
+    <edge id="o" from="0" to="1" priority="-1">
+        <lane id="o_0" index="0" speed="13.89" length="5542.22" shape="-1.09,3769.67 4060.55,-1.17"/>
+    </edge>
+
+    <junction id="0" type="dead_end" x="0.00" y="3770.84" incLanes="" intLanes="" shape="-0.00,3770.84 -2.18,3768.49"/>
+    <junction id="1" type="dead_end" x="4061.64" y="0.00" incLanes="o_0" intLanes="" shape="4059.46,-2.35 4061.64,-0.00"/>
+
+</net>

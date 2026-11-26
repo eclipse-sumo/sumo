@@ -215,6 +215,16 @@ By default, normal edge geometries will be exported. This can be changed with op
 
 It is also possible to enrich the generated geojson with edge-related data (i.e. traffic counts or speeds) by loading an edgedata file with option **--edgedata-file**.
 
+# cut_net.py
+
+Cuts a georeferenced SUMO network using a boundary from a local GeoJSON file or a public uMap link.
+
+```bash
+python tools/net/cut_net.py -n city.net.xml --umap-url https://umap.example.org/en/map/study-area_123 -o study-area.net.xml
+```
+
+Use a uMap view or short share link to read saved map layers. Use **--geojson** to read a local GeoJSON file. The tool uses the first polygon's outer ring or the first line of a MultiLineString as the boundary and passes it to [netconvert](../netconvert.md).
+
 # split_at_stops.py
 
 Generates an .edg.xml patch file with `split` definitions to ensure that each public transport stop of the given type (default `<trainStop>`) is on a separate edge from every other stop. The tool also generates an updated `.net.xml` and stop file. Furthermore, it can adapt a route-file so it matches the updated network.

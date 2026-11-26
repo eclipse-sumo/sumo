@@ -16,12 +16,15 @@
 # @date    2026-03-06
 
 """
-This script cuts a network according to the first polygon or multilinestring found in the given geojson
+Cut a network using a boundary from a GeoJSON file or a uMap link.
 """
 import json
 import os
+import re
 import subprocess
 import sys
+from urllib.parse import urlsplit, urlunsplit
+from urllib.request import urlopen
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -33,8 +36,9 @@ def parse_args():
     argParser = sumolib.options.ArgumentParser(usage=USAGE)
     argParser.add_argument("-n", "--input-net-file", required=True,
                            category="input", type=argParser.net_file, help="The .net.xml file to cut")
-    argParser.add_argument("-j", "--geojson", category="input", required=True,
-                           type=argParser.file, help="GeoJSON input file")
+    source = argParser.add_mutually_exclusive_group(required=True)
+    source.add_argument("-j", "--geojson", category="input", type=argParser.file, help="GeoJSON input file")
+    source.add_argument("--umap-url", category="input", help="Public uMap view or share link")
     argParser.add_argument("-k", "--netconvert-configuration",
                            category="input", help="Additional netconvert parameter to use")
     argParser.add_argument("-o", "--output-file", category="output",
@@ -44,16 +48,59 @@ def parse_args():
     return argParser.parse_known_args()
 
 
+def read_umap(url):
+    parts = urlsplit(url)
+    if parts.scheme not in ("http", "https") or not parts.netloc:
+        raise ValueError("Expected an HTTP or HTTPS uMap URL.")
+    if re.fullmatch(r"/m/[0-9]+/?", parts.path):
+        with urlopen(url, timeout=30) as response:
+            parts = urlsplit(response.geturl())
+    match = re.fullmatch(r"(?:/[^/]+)?/map/[^/]+_([0-9]+)/?", parts.path)
+    if not match or parts.scheme not in ("http", "https"):
+        raise ValueError("Expected a uMap view link ending in /map/<name>_<id> or a uMap short share link.")
+    download_url = urlunsplit((parts.scheme, parts.netloc, "/map/%s/download/" % match.group(1), "", ""))
+    with urlopen(download_url, timeout=30) as response:
+        return json.load(response)
+
+
+def iter_features(data):
+    if not isinstance(data, dict):
+        raise ValueError("Expected a GeoJSON object or a uMap export.")
+    yield from data.get("features", [])
+    for layer in data.get("layers", []):
+        yield from iter_features(layer)
+
+
+def get_boundary(data):
+    for feature in iter_features(data):
+        geometry = feature.get("geometry") or {}
+        if geometry.get("type") in ("Polygon", "MultiLineString"):
+            try:
+                shape = geometry["coordinates"][0]
+                if shape:
+                    return [(point[0], point[1]) for point in shape]
+            except (KeyError, IndexError, TypeError):
+                raise ValueError("Invalid coordinates in the boundary.")
+    raise ValueError("No Polygon or MultiLineString boundary found.")
+
+
 if __name__ == "__main__":
     options, nc_args = parse_args()
-    with open(options.geojson) as jsonf:
-        geo = json.load(jsonf)
-    for feat in geo.get("features", []):
-        if feat["geometry"]["type"] in ("Polygon", "MultiLineString"):
-            shape = feat["geometry"]["coordinates"][0]
-            break
+    try:
+        if options.umap_url:
+            geo = read_umap(options.umap_url)
+        else:
+            with open(options.geojson, encoding="utf-8") as jsonf:
+                geo = json.load(jsonf)
+        shape = get_boundary(geo)
+    except (OSError, ValueError) as e:
+        sys.exit("Error: %s" % e)
     if not options.output_file:
-        options.output_file = options.input_net_file.replace(".net.xml", "_cut.net.xml")
+        directory, filename = os.path.split(options.input_net_file)
+        output_name = filename.replace(".net.xml", "_cut.net.xml")
+        if output_name == filename:
+            output_name += "_cut.net.xml"
+        options.output_file = os.path.join(directory, output_name)
 
     cmd = [sumolib.checkBinary("netconvert"), "-s", options.input_net_file, "-o", options.output_file,
            "--keep-edges.in-geo-boundary", ",".join(["%s,%s" % (lon, lat) for lon, lat in shape])] + nc_args
