@@ -36,7 +36,10 @@ import time
 try:
     import Tkinter
 except ImportError:
-    import tkinter as Tkinter
+    try:
+        import tkinter as Tkinter
+    except ImportError:
+        Tkinter = None
 from xml.dom import pulldom
 from collections import defaultdict
 
@@ -72,6 +75,7 @@ def updateLocalMessages():
                           'cross': TL('Simple Junction'),
                           'cross_demo': TL('Simple Junction (Demo)'),
                           'square': TL('Four Junctions'),
+                          'square_demo': TL('Four Junctions (Demo)'),
                           'grid6': TL('Six Junctions'),
                           'kuehne': TL('Prof. Kühne'),
                           'bs3d': TL('3D Junction Virtual World'),
@@ -271,6 +275,7 @@ _SCORING_FUNCTION.update({
     'DRT2': computeScoreDRT,
     'DRT_demo': computeScoreDRT,
     'square': computeScoreSquare,
+    'square_demo': computeScoreSquare,
     'rail': computeScoreRail,
     'rail_demo': computeScoreRail,
 })
@@ -291,7 +296,7 @@ class IMAGE:
     pass
 
 
-class StartDialog(Tkinter.Frame):
+class StartDialog(Tkinter.Frame if Tkinter else object):
 
     def __init__(self, parent, lang, langCode):
         Tkinter.Frame.__init__(self, parent)
