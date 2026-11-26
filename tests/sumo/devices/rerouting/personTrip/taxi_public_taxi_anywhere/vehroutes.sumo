@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-06T08:08:22.651230+01:00 by Eclipse SUMO sumo v1_24_0+1168-e7b890310b7
+<!-- generated on 2026-11-18T02:07:56.068689+00:00 by Eclipse SUMO sumo v1_28_0+0644-bda840e3afe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,14 +27,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
-    <routing>
+    <persons>
         <persontrip.transfer.taxi-walk value="allJunctions"/>
         <persontrip.transfer.walk-taxi value="allJunctions"/>
         <persontrip.taxi.waiting-time value="30"/>
-    </routing>
+    </persons>
 
     <report>
         <xml-validation value="never"/>
@@ -46,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="p_0" depart="0.00" arrival="723.00">
-        <ride from="A0B0" to="B0C0" arrivalPos="84.79" lines="taxi"/>
+        <ride from="A0B0" to="B0C0" parkingArea="pa_1" lines="taxi"/>
         <walk edges="B0C0" trainStop="ts_0"/>
         <ride from="C0D0" to="D0E0" trainStop="ts_1" intended="train" depart="90.00"/>
         <walk edges="E0F0"/>

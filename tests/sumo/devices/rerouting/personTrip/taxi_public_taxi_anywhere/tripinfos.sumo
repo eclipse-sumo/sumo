@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-02T22:15:03.855885+01:00 by Eclipse SUMO sumo v1_28_0+0399-6a877122b51
+<!-- generated on 2026-11-18T02:07:56.065595+00:00 by Eclipse SUMO sumo v1_28_0+0644-bda840e3afe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,11 +32,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <default.speeddev value="0"/>
     </processing>
 
-    <routing>
+    <persons>
         <persontrip.transfer.taxi-walk value="allJunctions"/>
         <persontrip.transfer.walk-taxi value="allJunctions"/>
         <persontrip.taxi.waiting-time value="30"/>
-    </routing>
+    </persons>
 
     <report>
         <xml-validation value="never"/>
@@ -47,9 +47,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p_0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="723.00" waitingTime="427.00" timeLoss="15.31" traveltime="296.00">
-        <ride waitingTime="91.00" vehicle="bike_a.0" depart="91.00" arrival="191.00" arrivalPos="84.79" duration="100.00" routeLength="182.92" timeLoss="6.66"/>
-        <walk depart="191.00" departPos="84.79" arrival="197.00" arrivalPos="91.24" duration="6.00" routeLength="6.45" timeLoss="1.36" maxSpeed="1.39" waitingTime="0.00"/>
+    <personinfo id="p_0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="723.00" waitingTime="427.00" timeLoss="14.11" traveltime="296.00">
+        <ride waitingTime="91.00" vehicle="bike_a.0" depart="91.00" arrival="189.00" arrivalPos="82.29" duration="98.00" routeLength="180.42" timeLoss="5.26"/>
+        <walk depart="189.00" departPos="82.29" arrival="197.00" arrivalPos="91.24" duration="8.00" routeLength="8.95" timeLoss="1.56" maxSpeed="1.39" waitingTime="0.00"/>
         <access stop="ts_0" depart="197.00" arrival="212.00" duration="15.00" routeLength="21.27"/>
         <ride waitingTime="148.00" vehicle="train" depart="360.00" arrival="399.00" arrivalPos="87.30" duration="39.00" routeLength="167.40" timeLoss="0.00"/>
         <access stop="ts_1" depart="399.00" arrival="417.00" duration="18.00" routeLength="25.23"/>
