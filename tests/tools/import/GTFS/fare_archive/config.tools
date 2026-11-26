@@ -1,0 +1,6 @@
+[collate_file]
+fcd:output/bus.fcd.xml
+routes:output/bus.rou.xml
+
+[run_dependent_text]
+fcd:<!-- generated on{[->]}-->

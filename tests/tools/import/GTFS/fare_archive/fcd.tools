@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 14:18:55.579797 by Eclipse SUMO gtfs2fcd.py v0.0.0
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20261106"/>
+    <fcd value="output"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+</configuration>
+-->
+
+<fcd-export>
+    <timestep time="28800"><vehicle id="t" x="10" y="52" until="0" name="A" gtfsid="a" block="" fareZone="1" fareSymbol="T1" startFare="A" speed="20"/></timestep>
+    <timestep time="28860"><vehicle id="t" x="10" y="52.001" until="60" name="B" gtfsid="b" block="" fareZone="2" fareSymbol="H" startFare="B" speed="20"/></timestep>
+</fcd-export>
