@@ -1,11 +1,11 @@
 ---
-title: Shortcuts
+title: netedit Shortcuts
 ---
 
 
 ## netedit view shortcuts
 
-In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui.md#keyboard_shortcuts) there is a large number of netedit-specific shortcuts.
+In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui.md#view_shortcuts) there is a large number of netedit-specific shortcuts.
 
 | Shortcut | |
 |:---:|:---:|

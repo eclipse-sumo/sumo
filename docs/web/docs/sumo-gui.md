@@ -121,27 +121,98 @@ methods:
 
 ## Keyboard Shortcuts
 
-Various menu items are accessible via keyboard shortcuts. These are
-documented directly in the menu. (i.e. <kbd>Shift</kbd> + <kbd>E</kbd> opens the edge
-locator, <kbd>D</kbd> performs a single simulation step). Additional shortcuts
-are listed below:
+Most shortcuts are also shown next to the corresponding entries in the menus. Shortcuts without modifier keys are
+disabled in gaming mode.
 
-- <kbd>Ctrl</kbd> + <kbd>LeftClick</kbd>: toggle selection status of object under cursor
-- <kbd>Arrow keys</kbd>: move the view
-- <kbd>Ctrl</kbd> + <kbd>Arrow keys</kbd>: move the view less
-- <kbd>Alt</kbd> + <kbd>Arrow keys</kbd>: move the view a lot
-- <kbd>Page Up</kbd> / <kbd>Page Down</kbd>: change simulation delay
-- \+/-, Keypad +/-: zoom in/out
-- Home/Keypad Home: recenter view
-- <kbd>F9</kbd>: open view settings dialog
-- <kbd>Shift</kbd> + <kbd>LeftClick</kbd>:
-  - vehicle: start tracking
-  - rerouter: change routeProbReroute probabilities
-- Double-LeftClick: stop tracking
-- <kbd>Ctrl</kbd> + <kbd>J</kbd>: toggle 'show junction shapes'
-- <kbd>Ctrl</kbd> + <kbd>K</kbd>: toggle 'show secondary edge shape' (loaded with option **--alternative-net-file**)
-- <kbd>Ctrl</kbd> + <kbd>F</kbd> or <kbd>F11</kbd>: toggle full screen mode
-- <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd>: toggle message window and status line
+### File shortcuts
+
+| Shortcut | |
+|:---:|:---:|
+| <kbd>Ctrl</kbd> + <kbd>O</kbd> | <span style="color:orange">Open simulation (*.sumocfg) |
+| <kbd>Ctrl</kbd> + <kbd>N</kbd> | <span style="color:orange">Open network |
+| <kbd>Ctrl</kbd> + <kbd>P</kbd> | <span style="color:orange">Open shapes |
+| <kbd>Ctrl</kbd> + <kbd>U</kbd> | <span style="color:orange">Open edgeData |
+| <kbd>Ctrl</kbd> + <kbd>R</kbd> | <span style="color:orange">Reload simulation |
+| <kbd>Ctrl</kbd> + <kbd>0</kbd> | <span style="color:orange">Quick-reload (reload simulation, but not the network) |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> | <span style="color:orange">Save configuration |
+| <kbd>Ctrl</kbd> + <kbd>W</kbd> | <span style="color:orange">Close simulation |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | <span style="color:orange">Open a new sumo-gui window |
+| <kbd>Ctrl</kbd> + <kbd>T</kbd> | <span style="color:orange">Open simulation in netedit |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd> | <span style="color:orange">Open network in netedit |
+| <kbd>Ctrl</kbd> + <kbd>Q</kbd> or <kbd>Alt</kbd> + <kbd>F4</kbd> | <span style="color:orange">Quit sumo-gui |
+
+### Simulation control shortcuts
+
+| Shortcut | |
+|:---:|:---:|
+| <kbd>A</kbd> or <kbd>Ctrl</kbd> + <kbd>A</kbd> | <span style="color:orange">Run / resume simulation |
+| <kbd>S</kbd> or <kbd>Ctrl</kbd> + <kbd>S</kbd> | <span style="color:orange">Stop simulation |
+| <kbd>Space</kbd> | <span style="color:orange">Toggle run / stop simulation |
+| <kbd>D</kbd> or <kbd>Ctrl</kbd> + <kbd>D</kbd> | <span style="color:orange">Perform a single simulation step |
+| <kbd>PgUp</kbd> | <span style="color:orange">Increase simulation delay |
+| <kbd>PgDn</kbd> | <span style="color:orange">Decrease simulation delay |
+| <kbd>B</kbd> | <span style="color:orange">Set breakpoint at the current simulation step |
+| <kbd>Alt</kbd> + <kbd>B</kbd> | <span style="color:orange">Set breakpoint at the current simulation step + offset (configured in application settings) |
+| <kbd>Ctrl</kbd> + <kbd>B</kbd> | <span style="color:orange">Edit breakpoints |
+
+### Edit and settings shortcuts
+
+| Shortcut | |
+|:---:|:---:|
+| <kbd>Ctrl</kbd> + <kbd>E</kbd> | <span style="color:orange">Edit selected objects |
+| <kbd>F9</kbd> | <span style="color:orange">Edit visualization settings |
+| <kbd>Ctrl</kbd> + <kbd>I</kbd> | <span style="color:orange">Edit viewport |
+| <kbd>Ctrl</kbd> + <kbd>H</kbd> | <span style="color:orange">Application settings |
+| <kbd>Ctrl</kbd> + <kbd>G</kbd> | <span style="color:orange">Toggle gaming mode |
+| <kbd>Ctrl</kbd> + <kbd>F</kbd> or <kbd>F11</kbd> | <span style="color:orange">Toggle full screen mode |
+| <kbd>Ctrl</kbd> + <kbd>J</kbd> | <span style="color:orange">Toggle 'show junction shapes' |
+| <kbd>Ctrl</kbd> + <kbd>K</kbd> | <span style="color:orange">Toggle 'show secondary edge shape' (loaded with option **--alternative-net-file**) |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd> | <span style="color:orange">Toggle message window and status line |
+
+### Locate shortcuts
+
+| Shortcut | |
+|:---:|:---:|
+| <kbd>Shift</kbd> + <kbd>J</kbd> | <span style="color:orange">Locate junctions |
+| <kbd>Shift</kbd> + <kbd>E</kbd> | <span style="color:orange">Locate edges |
+| <kbd>Shift</kbd> + <kbd>V</kbd> | <span style="color:orange">Locate vehicles |
+| <kbd>Shift</kbd> + <kbd>P</kbd> | <span style="color:orange">Locate persons |
+| <kbd>Shift</kbd> + <kbd>C</kbd> | <span style="color:orange">Locate containers |
+| <kbd>Shift</kbd> + <kbd>T</kbd> | <span style="color:orange">Locate traffic lights |
+| <kbd>Shift</kbd> + <kbd>A</kbd> | <span style="color:orange">Locate additionals |
+| <kbd>Shift</kbd> + <kbd>O</kbd> | <span style="color:orange">Locate POIs |
+| <kbd>Shift</kbd> + <kbd>L</kbd> | <span style="color:orange">Locate polygons |
+
+### View shortcuts
+
+| Shortcut | |
+|:---:|:---:|
+| <kbd>Arrow keys</kbd> | <span style="color:orange">Move the view |
+| <kbd>Ctrl</kbd> + <kbd>Arrow keys</kbd> | <span style="color:orange">Move the view less |
+| <kbd>Alt</kbd> + <kbd>Arrow keys</kbd> | <span style="color:orange">Move the view a lot |
+| <kbd>+</kbd> / <kbd>-</kbd> (also keypad) | <span style="color:orange">Zoom in / out (hold <kbd>Shift</kbd> to zoom faster, <kbd>Ctrl</kbd> to zoom slower) |
+| <kbd>Home</kbd> (also keypad) | <span style="color:orange">Recenter view |
+| <kbd>Ctrl</kbd> + <kbd>PgUp</kbd> / <kbd>PgDn</kbd> | <span style="color:orange">Double / halve grid size |
+
+### Help shortcuts
+
+| Shortcut | |
+|:---:|:---:|
+| <kbd>F1</kbd> | <span style="color:orange">Online documentation |
+| <kbd>Shift</kbd> + <kbd>F11</kbd> | <span style="color:orange">Hall of fame |
+| <kbd>F12</kbd> | <span style="color:orange">About dialog |
+
+### Mouse shortcuts
+
+| Shortcut | |
+|:---:|:---:|
+| <kbd>LeftClick</kbd> + drag | <span style="color:orange">Move the view |
+| <kbd>RightClick</kbd> + drag | <span style="color:orange">Zoom the view (move the mouse up/down) |
+| <kbd>MouseWheel</kbd> | <span style="color:orange">Zoom the view (hold <kbd>Shift</kbd> to zoom faster, <kbd>Ctrl</kbd> to zoom slower) |
+| <kbd>RightClick</kbd> | <span style="color:orange">Open the context menu of the object under the cursor |
+| <kbd>Ctrl</kbd> + <kbd>LeftClick</kbd> | <span style="color:orange">Toggle selection status of object under cursor |
+| <kbd>Shift</kbd> + <kbd>LeftClick</kbd> | <span style="color:orange">Vehicle / person: start tracking; rerouter: change routeProbReroute probabilities |
+| Double <kbd>LeftClick</kbd> | <span style="color:orange">Stop tracking / leave full screen mode |
 
 ## Object Properties / Right-Click-Functions
 
