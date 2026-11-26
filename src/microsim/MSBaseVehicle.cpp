@@ -719,6 +719,13 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
         }
         int stopIndex = 0;
         for (std::list<MSStop>::iterator iter = myStops.begin(); iter != myStops.end();) {
+            if (iter->reached && (iter->lane->isInternal() || iter->isOpposite)) {
+                iter->edge = myCurrEdge;
+                setSkips(*iter, stopIndex);
+                ++iter;
+                stopIndex++;
+                continue;
+            }
             int lastToSkip = 0;
             double endPos = iter->getEndPos(*this);
 #ifdef DEBUG_REPLACE_ROUTE
@@ -2056,17 +2063,18 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
         errorMsg = TLF("invalid nextStopIndex % for % remaining stops", nextStopIndex, n);
         return false;
     }
-    if (nextStopIndex == 0 && isStopped()) {
-        errorMsg = TL("cannot replace reached stop");
-        return false;
-    }
+    const bool reached = nextStopIndex == 0 && isStopped();
     const SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
     MSLane* stopLane = MSLane::dictionary(stop.lane);
     MSEdge* stopEdge = &stopLane->getEdge();
 
     auto itStop = myStops.begin();
     std::advance(itStop, nextStopIndex);
-    MSStop& replacedStop = *itStop;
+    const MSStop& originalStop = *itStop;
+    if (MSGlobals::gUseMesoSim && stopLane->isInternal()) {
+        errorMsg = TLF("Mesoscopic simulation does not allow stopping on internal edge '%' for vehicle '%'.", stop.edge, getID());
+        return false;
+    }
 
     // check parking access rights
     if (stop.parkingarea != "") {
@@ -2077,10 +2085,10 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
         }
     }
 
-    if (replacedStop.lane == stopLane && replacedStop.pars.endPos == stop.endPos && !teleport) {
+    if (!reached && originalStop.lane == stopLane && originalStop.pars.endPos == stop.endPos && !teleport) {
         // only replace stop attributes
-        const_cast<SUMOVehicleParameter::Stop&>(replacedStop.pars) = stop;
-        replacedStop.initPars(stop);
+        const_cast<SUMOVehicleParameter::Stop&>(itStop->pars) = stop;
+        itStop->initPars(stop);
         return true;
     }
 
@@ -2118,17 +2126,18 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
         }
     }
 
-    cleanupParkingReservation();
-    const_cast<SUMOVehicleParameter::Stop&>(replacedStop.pars) = stop;
-    replacedStop.initPars(stop);
-    replacedStop.edge = myRoute->end(); // will be patched in replaceRoute
-    replacedStop.lane = stopLane;
+    if (reached) {
+        // Preserve the active stop until its replacement route has been accepted.
+        itStop = myStops.emplace(std::next(itStop), stop);
+    } else {
+        cleanupParkingReservation();
+        const_cast<SUMOVehicleParameter::Stop&>(itStop->pars) = stop;
+    }
+    itStop->initPars(stop);
+    itStop->edge = myRoute->end(); // will be patched in replaceRoute
+    itStop->lane = stopLane;
     if (MSGlobals::gUseMesoSim) {
-        replacedStop.segment = MSGlobals::gMesoNet->getSegmentForEdge(replacedStop.lane->getEdge(), replacedStop.getEndPos(*this));
-        if (replacedStop.lane->isInternal()) {
-            errorMsg = TLF("Mesoscopic simulation does not allow stopping on internal edge '%' for vehicle '%'.", stop.edge, getID());
-            return false;
-        }
+        itStop->segment = MSGlobals::gMesoNet->getSegmentForEdge(itStop->lane->getEdge(), itStop->getEndPos(*this));
     }
 
     ConstMSEdgeVector oldRemainingEdges(myCurrEdge, getRoute().end());
@@ -2161,15 +2170,33 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
         // stops will be rebuilt from scratch so we must patch the stops in myParameter
         const_cast<SUMOVehicleParameter*>(myParameter)->stops[nextStopIndex] = stop;
     }
+    auto pendingStart = itStop;
     if (teleport) {
-        // let the vehicle jump rather than teleport
-        // we add a jump-stop at the end of the edge (unless the vehicle is
-        // already configure to jump before the replaced stop)
+        // Add a jump stop before the replacement. A reached stop is still
+        // first in the list until the route change succeeds.
         if (!insertJump(nextStopIndex, itStart, errorMsg)) {
+            if (reached) {
+                myStops.erase(itStop);
+            }
             return false;
-        };
+        }
+        if (reached) {
+            pendingStart = myStops.begin();
+            myStops.splice(itStop, myStops, pendingStart);
+        }
     }
-    return replaceRouteEdges(newEdges, routeCost, savings, info, !hasDeparted(), false, false, &errorMsg);
+    if (!replaceRouteEdges(newEdges, routeCost, savings, info, !hasDeparted(), false, false, &errorMsg)) {
+        if (reached) {
+            myStops.erase(pendingStart, std::next(itStop));
+        }
+        return false;
+    }
+    if (reached) {
+        cleanupParkingReservation();
+        const_cast<SUMOVehicleParameter::Stop&>(myStops.front().pars).jump = -1;
+        resumeFromStopping();
+    }
+    return true;
 }
 
 
