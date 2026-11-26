@@ -576,6 +576,9 @@ protected:
     /// @brief whether the given link may be passed because the option meso-junction-control.limited is set
     bool limitedControlOverride(const MSLink* link) const;
 
+    /// @brief return the earliest time at which conflicting vehicles that already entered the junction have cleared enough space
+    SUMOTime getFoeBlockTime(const MSLink* link, const MEVehicle* veh) const;
+
     /// @brief convert net time gap (leader back to follower front) to gross time gap (leader front to follower front)
     inline SUMOTime tauWithVehLength(SUMOTime tau, double lengthWithGap, double vehicleTau) const {
         return (SUMOTime)((double)tau * vehicleTau + lengthWithGap * myTau_length);
@@ -669,6 +672,16 @@ protected:
 
     /// @brief the last headway
     SUMOTime myLastHeadway;
+
+    /// @brief clearance information for the last vehicle that entered each outgoing link
+    struct FoeBlockInfo {
+        SUMOTime entryTime = SUMOTime_MIN;
+        SUMOTime clearTime = SUMOTime_MIN;
+        std::string vehID;
+        std::string vTypeID;
+        double speed = 0.;
+    };
+    std::map<const MSLink*, FoeBlockInfo> myLinkBlockTimes;
 
     /* @brief segment for signifying vaporization. This segment has invalid
      * data and should only be used as a unique pointer */

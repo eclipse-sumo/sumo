@@ -79,18 +79,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="7.00">
         <vehicle id="EW" x="200.00" y="101.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge=":C_4" slope="0.00"/>
-        <vehicle id="SN" x="101.60" y="0.00" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge=":C_7" slope="0.00"/>
-        <vehicle id="WE" x="0.00" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge=":C_10" slope="0.00"/>
+        <vehicle id="SN" x="101.60" y="0.00" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+        <vehicle id="WE" x="0.00" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="0.00" edge="WC" slope="0.00"/>
     </timestep>
     <timestep time="8.00">
         <vehicle id="EW" x="92.80" y="101.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="CW" slope="0.00"/>
-        <vehicle id="SN" x="101.60" y="107.20" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
-        <vehicle id="WE" x="107.20" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="CE" slope="0.00"/>
+        <vehicle id="SN" x="101.60" y="0.00" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge=":C_7" slope="0.00"/>
+        <vehicle id="WE" x="0.00" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="0.00" edge="WC" slope="0.00"/>
     </timestep>
     <timestep time="9.00">
         <vehicle id="EW" x="92.80" y="101.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="CW" slope="0.00"/>
         <vehicle id="SN" x="101.60" y="107.20" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
-        <vehicle id="WE" x="107.20" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="CE" slope="0.00"/>
+        <vehicle id="WE" x="0.00" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge=":C_10" slope="0.00"/>
     </timestep>
     <timestep time="10.00">
         <vehicle id="EW" x="92.80" y="101.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="CW" slope="0.00"/>
@@ -117,5 +117,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="SN" x="101.60" y="107.20" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
         <vehicle id="WE" x="107.20" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="CE" slope="0.00"/>
     </timestep>
-    <timestep time="15.00"/>
+    <timestep time="15.00">
+        <vehicle id="SN" x="101.60" y="107.20" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+        <vehicle id="WE" x="107.20" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="CE" slope="0.00"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="WE" x="107.20" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="CE" slope="0.00"/>
+    </timestep>
+    <timestep time="17.00"/>
 </fcd-export>

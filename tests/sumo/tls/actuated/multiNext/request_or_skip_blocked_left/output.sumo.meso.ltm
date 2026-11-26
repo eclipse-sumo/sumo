@@ -3,7 +3,7 @@ Loading additional-files from 'input_additional2.add.xml' ... done (0ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
 Simulation version v1_28_0+0705-e0fc6c7fe65 started with time: 0.00.
-Simulation ended at time: 363.00.
+Simulation ended at time: 374.00.
 Reason: All vehicles have left the simulation.
 Performance:
  Duration: 0.00s
@@ -15,8 +15,8 @@ Vehicles:
  Waiting: 0
 Statistics (avg of 160):
  RouteLength: 198.04
- Speed: 9.08
- Duration: 40.48
- WaitingTime: 3.91
- TimeLoss: 25.68
- DepartDelay: 8.21
+ Speed: 9.00
+ Duration: 41.26
+ WaitingTime: 3.98
+ TimeLoss: 26.45
+ DepartDelay: 8.73

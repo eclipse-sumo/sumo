@@ -20,13 +20,13 @@ Statistics (avg of 181):
  Duration: 877.59
  WaitingTime: 0.23
  TimeLoss: 862.75
- DepartDelay: 1284.49
+ DepartDelay: 1284.52
 Bike Statistics (avg of 162):
  RouteLength: 159.11
  Speed: 3.52
- Duration: 987.48
+ Duration: 987.51
  WaitingTime: 111.11
- TimeLoss: 958.69
- DepartDelay: 604.55
+ TimeLoss: 958.71
+ DepartDelay: 604.57
 DijkstraRouter answered 1201 queries and explored 4.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
