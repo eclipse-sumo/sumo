@@ -15,3 +15,6 @@ customized_times
 
 # test time out to process a reservation
 max_processing
+
+# test vehicles departing after pending requests
+late_vehicle

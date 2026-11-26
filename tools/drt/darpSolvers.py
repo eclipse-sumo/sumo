@@ -278,7 +278,7 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
 
 def get_rv(options, res_id_new, res_id_picked, res_all,
            veh_type, veh_time_pickup, veh_time_dropoff, rv_dict, step,
-           veh_edges, pairs_dua_times):
+           veh_edges, pairs_dua_times, new_vehicles=()):
     """
     Generates the reservation-vehicle graph, which has the possible
     combinations between two reservations and between a reservation and a
@@ -364,6 +364,9 @@ def get_rv(options, res_id_new, res_id_picked, res_all,
                         route_id = '%s%s%sy' % (veh_id, SEP, res_id)
                         if rv_dict.get(route_id, False):
                             rv_dict[route_id][0] = pickup_time+60
+                            remove = False
+                        elif veh_id in new_vehicles:
+                            rv_dict[route_id] = [pickup_time + veh_time_pickup, 1, [veh_id, res_id]]
                             remove = False
                 else:
                     # remove pair if pick-up not possible
@@ -864,13 +867,18 @@ def main(options, step, fleet, veh_type, veh_time_pickup, veh_time_dropoff,
     if 'exact_sol' not in globals():
         global exact_sol
         exact_sol = [True]
+    if 'known_vehicles' not in globals():
+        global known_vehicles
+        known_vehicles = set()
+    new_vehicles = set(fleet) - known_vehicles
+    known_vehicles.update(fleet)
 
     if options.darp_solver == 'exhaustive_search':
 
         # search reservation-vehicles pairs (RV-Graph)
         get_rv(options, res_id_new, res_id_picked, res_all,
                veh_type, veh_time_pickup, veh_time_dropoff, rv_dict, step,
-               veh_edges, pairs_dua_times)
+               veh_edges, pairs_dua_times, new_vehicles)
 
         # search trips (RTV-Graph)
         rtv_dict, rtv_res, exact_sol = exhaustive_search(options, res_id_unassigned, res_id_picked,
@@ -884,7 +892,7 @@ def main(options, step, fleet, veh_type, veh_time_pickup, veh_time_dropoff,
         # search reservation-vehicles pairs (RV-Graph)
         get_rv(options, res_id_new, res_id_picked, res_all,
                veh_type, veh_time_pickup, veh_time_dropoff, rv_dict, step,
-               veh_edges, pairs_dua_times)
+               veh_edges, pairs_dua_times, new_vehicles)
 
         # search trips (RTV-Graph)
         rtv_dict, rtv_res = simple_rerouting(options, res_id_unassigned,
