@@ -37,3 +37,6 @@ patchRailConflicts
 # set new priorities in network based on loaded routes
 patchRailPriorities
 generateStationEdges
+
+# extract sub-scenarios from a .sumocfg
+cutScenario

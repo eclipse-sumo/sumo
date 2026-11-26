@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 12:28:42.893000 by Eclipse SUMO cutScenario.py v0.0.0
+<configuration>
+    <sumocfg value="sim.sumocfg"/>
+    <bbox value="600,480,1400,520"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="bs_kept" lane="middle_0" startPos="10" endPos="20"/>
+</additional>

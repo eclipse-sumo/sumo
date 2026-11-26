@@ -1,0 +1,5 @@
+[collate_file]
+cfg:cut.sumocfg
+net:cut.net.xml
+routes:cut.rou.xml
+additional:cut.add.xml
