@@ -231,6 +231,15 @@ GNEGenericData::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     } else {
         GUIDesigns::buildFXMenuCommand(ret, (TL("Cursor position in view: ") + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
     }
+    if ((myTagProperty->getTag() == GNE_TAG_EDGEREL_SINGLE) &&
+            myNet->getViewNet()->getEditModes().isCurrentSupermodeData() &&
+            (myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_EDGEDATA)) {
+        new FXMenuSeparator(ret);
+        FXMenuCommand* changeArea = GUIDesigns::buildFXMenuCommand(ret, TL("Change edgeData values in area..."), GUIIconSubSys::getIcon(GUIIcon::EDGEDATA), &parent, MID_GNE_EDGEDATA_CHANGE_AREA);
+        if (myNet->getAttributeCarriers()->getDataIntervals().empty()) {
+            changeArea->disable();
+        }
+    }
     return ret;
 }
 

@@ -304,6 +304,9 @@ public:
     /// @brief reset edge end points
     long onCmdResetEndPoints(FXObject*, FXSelector, void*);
 
+    /// @brief change edgeData values in area
+    long onCmdChangeEdgeDataArea(FXObject*, FXSelector, void*);
+
     /// @brief duplicate selected lane
     long onCmdDuplicateLane(FXObject*, FXSelector, void*);
 

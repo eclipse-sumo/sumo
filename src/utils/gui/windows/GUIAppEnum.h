@@ -1047,6 +1047,8 @@ enum {
     MID_GNE_DATASET_SELECTED,
     /// @brief GNEDataInterval selected in comboBox of IntervalBar
     MID_GNE_DATAINTERVAL_SELECTED,
+    /// @brief change edgeData values in area
+    MID_GNE_EDGEDATA_CHANGE_AREA,
     /// @brief text attribute edited
     MID_GNE_SET_ATTRIBUTE_TEXT,
     /// @brief bool attribute edited
