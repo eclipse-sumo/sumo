@@ -22,6 +22,7 @@
 
 #include <iostream>
 #include <cassert>
+#include <limits>
 #include <vector>
 #include <microsim/MSBaseVehicle.h>
 #include <microsim/MSEdge.h>
@@ -39,8 +40,6 @@ class MSLink;
  * @brief A vehicle from the mesoscopic point of view
  */
 class MEVehicle : public MSBaseVehicle {
-    friend class MESegment;
-
 public:
     /** @brief Constructor
      * @param[in] pars The vehicle description
@@ -249,13 +248,10 @@ public:
      * @param[in] q The current que
      */
     inline virtual void setSegment(MESegment* s, int idx = 0) {
-        if (s == nullptr || mySegment == nullptr || &s->getEdge() != &mySegment->getEdge()) {
-            myMesoPosition = 0.;
-        }
         if (!MESegment::isInvalid(mySegment)) {
             mySegment->invalidateMesoPositions();
         }
-        myMesoPositionValid = false;
+        invalidateMesoPosition();
         mySegment = s;
         myQueIndex = idx;
         if (!MESegment::isInvalid(mySegment)) {
@@ -280,6 +276,17 @@ public:
         return myQueIndex;
     }
 
+    /// @brief Returns the cached interpolated mesoscopic position
+    double getMesoPosition() const {
+        return myMesoPosition;
+    }
+
+    /// @brief Sets the interpolated position and lateral overlap offset
+    void setMesoPosition(double pos, int overlap) {
+        myMesoPosition = pos;
+        myMesoPositionOverlap = overlap;
+    }
+
     /// @brief Returns the lateral offset used to visualize overlapping mesoscopic vehicles
     int getMesoPositionOverlap() const {
         return myMesoPositionOverlap;
@@ -287,7 +294,7 @@ public:
 
     /// @brief Invalidates the cached interpolated position
     void invalidateMesoPosition() {
-        myMesoPositionValid = false;
+        myMesoPosition = -std::numeric_limits<double>::max();
     }
 
     /** @brief Get the vehicle's lateral position on the edge of the given lane
@@ -448,14 +455,11 @@ protected:
     /// @brief Whether this vehicle was jammed on it's previous normal segment
     bool myWasJammed;
 
-    /// @brief The interpolated mesoscopic position on the current edge
-    double myMesoPosition = 0.;
+    /// @brief The interpolated mesoscopic position on the current edge (-maxdouble when invalid)
+    double myMesoPosition = -std::numeric_limits<double>::max();
 
     /// @brief The lateral offset used to visualize overlapping mesoscopic vehicles
     int myMesoPositionOverlap = 0;
-
-    /// @brief Whether an interpolated position has been computed for this vehicle
-    bool myMesoPositionValid = false;
 
     /// @brief An instance of a velocity/lane influencing instance; built in "getInfluencer"
     BaseInfluencer* myInfluencer;

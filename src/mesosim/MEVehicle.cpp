@@ -78,7 +78,7 @@ MEVehicle::getPositionOnLane() const {
     if (MSGlobals::gMesoInterpolatePos && mySegment != nullptr
             && !MESegment::isInvalid(mySegment) && myQueIndex >= 0 && myQueIndex < mySegment->numQueues()) {
         mySegment->updateMesoPositions();
-        if (myMesoPositionValid) {
+        if (myMesoPosition != -std::numeric_limits<double>::max()) {
             return myMesoPosition;
         }
     }
