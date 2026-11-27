@@ -39,6 +39,7 @@
 #include <microsim/transportables/MSPModel_Striping.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
+#include <microsim/output/MSDetectorControl.h>
 #include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
@@ -182,6 +183,9 @@ MSTransportableControl::erase(MSTransportable* transportable) {
     if (i != myTransportables.end()) {
         if (i->second->hasDeparted()) {
             myRunningNumber--;
+            if (MSNet::hasInstance() && MSNet::getInstance()->hasDetectorControl()) {
+                MSNet::getInstance()->getDetectorControl().removeTrafficObject(*transportable);
+            }
         }
         myEndedNumber++;
         MSNet::getInstance()->informTransportableStateListener(transportable,

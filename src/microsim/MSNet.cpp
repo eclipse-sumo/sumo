@@ -311,6 +311,7 @@ MSNet::~MSNet() {
     // delete controls
     delete myJunctions;
     delete myDetectorControl;
+    myDetectorControl = nullptr;
     // delete mean data
     delete myEdges;
     delete myInserter;

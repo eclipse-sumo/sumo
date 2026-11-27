@@ -466,6 +466,10 @@ public:
         return *myDetectorControl;
     }
 
+    bool hasDetectorControl() const {
+        return myDetectorControl != nullptr;
+    }
+
 
     /** @brief Returns the tls logics control
      * @return The tls logics control
