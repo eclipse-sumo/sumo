@@ -45,6 +45,7 @@ class PhaseTransitionLogic;
 // Enumeration
 // ===========================================================================
 enum class LightState {
+    RedRest,
     RedXfer,
     Red,
     Yellow,
@@ -346,6 +347,9 @@ protected:
     /// @brief an array to store the phases located at a barrier for each ring
     PhasePtr defaultBarrierPhases[2][2];
 
+    /// @brief phases entered automatically across a barrier when no call is active in that ring (nullptr when disabled)
+    PhasePtr myDualEntryPhases[2][2] = { { nullptr, nullptr }, { nullptr, nullptr } };
+
     /**
      * Construct Timing and Phase Defs
      * @brief constructs phase using the configuration file
@@ -357,10 +361,13 @@ protected:
     void constructTimingAndPhaseDefs(std::string& barriers, std::string& coordinates,
                                      std::string& ring1, std::string& ring2);
 
-    /** @brief iterates over the two active phases (myActivePhaseObjs) and merges the two active phases
+    /** @brief iterates over the active phases (myActivePhaseObjs) and merges them
      * @return std::string the light string to implement (GGGrrrGGGrrr)
      */
     std::string composeLightString();
+
+    /// @brief formats the active phase name (e.g. "2+6" or "4" when the other ring rests in red)
+    std::string composePhaseName() const;
 
     /** @brief check if a vector contains an element
      * @param v the vector of phase numbers
@@ -556,6 +563,7 @@ protected:
  * and is resbonisble for determining the valid transitions given its current state
  */
 class NEMAPhase {
+    friend class PhaseTransitionLogic;
 public:
     /// @brief Typedef for commonly used phase pointer
     typedef NEMAPhase* PhasePtr;
@@ -638,7 +646,7 @@ public:
 
     /// @brief check if a transition is active
     inline bool isTransitionActive() const {
-        return myLightState < LightState::Green;
+        return myLightState > LightState::RedRest && myLightState < LightState::Green;
     }
 
     // Build a Map of Valid Transitions and store the detector-based information
@@ -811,6 +819,17 @@ public:
      */
     PhaseTransitionLogic* getTransition(int toPhase);
 
+    /// @brief return the red-rest PhaseTransitionLogic matching the toPhase
+    PhaseTransitionLogic* getRedRestTransition(int toPhase);
+
+    /// @brief enter red rest on this barrier side without turning green
+    void enterRedRest(NEMALogic* controller, PhasePtr lastPhase);
+
+    /// @brief get the last transition decision
+    inline PhaseTransitionLogic* getLastTransitionDecision() const {
+        return lastTransitionDecision;
+    }
+
     /// @brief Return the ryg light string for the phase
     char getNEMAChar(int i);
 
@@ -895,6 +914,9 @@ private:
     /// @brief stores a sorted list of potential transitions
     std::vector<PhaseTransitionLogic*> myTransitions;
 
+    /// @brief stores transitions that keep the ring resting in red across a barrier
+    std::vector<PhaseTransitionLogic*> myRedRestTransitions;
+
     /**
      * @brief handles entry to the phase during simulation
      * Sets the color to green and determines maximum duration
@@ -940,7 +962,8 @@ public:
      */
     PhaseTransitionLogic(
         PhasePtr fromPhase,
-        PhasePtr toPhase
+        PhasePtr toPhase,
+        bool redRest = false
     );
 
     /**
@@ -979,9 +1002,18 @@ public:
         return fromPhase;
     }
 
+    /// @brief whether this transition enters red rest instead of green
+    inline bool isRedRest() const {
+        return myRedRest;
+    }
+
+    /// @brief enter toPhase in green or red rest according to myRedRest
+    void activateTarget(NEMALogic* controller, PhasePtr lastPhase);
+
 private:
     PhasePtr fromPhase;
     PhasePtr toPhase;
+    bool myRedRest;
 
     /// @brief build the transition logic based on the from and to phase
     void buildLogic(void);
