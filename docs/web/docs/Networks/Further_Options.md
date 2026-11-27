@@ -60,7 +60,7 @@ as parameter. The behavior when a node is in both lists is undefined.
 During the computation of tls-logics among other information we have to
 guess the duration of the phases. The options **--tls.green.time** and **--tls.yellow.time** allow you to give
 the durations of green and yellow lights. Both options assume the
-duration in seconds as an int. The duration of having red is dependent
+duration in seconds as a float. The duration of having red is dependent
 on the number of other phases and their green and yellow phase
 durations. The green phase length has a default of 31s, yellow lights
 are - if no value is set for this option - computed using the **--tls.yellow.min-decel** which is

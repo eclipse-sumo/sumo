@@ -129,7 +129,7 @@ Each phase is defined using the following attributes:
 
 | Attribute Name | Value Type            | Description                |
 | -------------- | --------------------- | -------------------------- |
-| **duration**   | time (int)            | This attribute is default to 99 and does not affect the control. The duration of the phase will change dynamically according to the traffic actuation and constrained by **minDur** and **maxDur**.             |
+| **duration**   | time (double)         | This attribute is default to 99 and does not affect the control. The duration of the phase will change dynamically according to the traffic actuation and constrained by **minDur** and **maxDur**.             |
 | **minDur**         | time (double)            | The minimum green of the phase.                                                              |
 | **maxDur**         | time (double)            | The maximum green of the phase. **In coordinated mode, it's the split minus the yellow and all red time of the phase.**|
 | **vehExt**         | time (double)            | Vehicle extension in seconds of the actuated phase. |

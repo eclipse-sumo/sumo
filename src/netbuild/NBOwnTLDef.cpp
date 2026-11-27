@@ -268,33 +268,32 @@ NBOwnTLDef::hasStraightConnection(const NBEdge* fromEdge) {
 }
 
 NBTrafficLightLogic*
-NBOwnTLDef::myCompute(int brakingTimeSeconds) {
+NBOwnTLDef::myCompute(SUMOTime brakingTime) {
     if (myControlledNodes.size() > 1) {
         // call this first so that the following call to computeLogicAndConts resets linkIndices
         initNeedsContRelation();
         // reset insideTLS info
         collectEdges();
     }
-    return computeLogicAndConts(brakingTimeSeconds);
+    return computeLogicAndConts(brakingTime);
 }
 
 
 NBTrafficLightLogic*
-NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
+NBOwnTLDef::computeLogicAndConts(SUMOTime brakingTime, bool onlyConts) {
     if (myControlledNodes.size() == 1) {
         // otherwise, use values from previous call to initNeedsContRelation
         myNeedsContRelation.clear();
     }
     myExtraConflicts.clear();
     const bool isNEMA = myType == TrafficLightType::NEMA;
-    const SUMOTime brakingTime = TIME2STEPS(brakingTimeSeconds);
-    const SUMOTime leftTurnTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.left-green.time"));
-    const SUMOTime minMinDur = (myType == TrafficLightType::STATIC) ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.min-dur"));
-    const SUMOTime maxDur = (myType == TrafficLightType::STATIC) ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.max-dur"));
+    const SUMOTime leftTurnTime = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.left-green.time"));
+    const SUMOTime minMinDur = (myType == TrafficLightType::STATIC) ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getFloat("tls.min-dur"));
+    const SUMOTime maxDur = (myType == TrafficLightType::STATIC) ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getFloat("tls.max-dur"));
     const SUMOTime earliestEnd = UNSPECIFIED_DURATION;
     const SUMOTime latestEnd = UNSPECIFIED_DURATION;
-    const SUMOTime greenTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.green.time"));
-    SUMOTime allRedTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.allred.time"));
+    const SUMOTime greenTime = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.green.time"));
+    SUMOTime allRedTime = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.allred.time"));
     const double minorLeftSpeedThreshold = OptionsCont::getOptions().getFloat("tls.minor-left.max-speed");
     const bool noMixed = OptionsCont::getOptions().getBool("tls.no-mixed");
     // left-turn phases do not work well for joined tls, so we build incoming instead
@@ -650,7 +649,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 if (myLayout == TrafficLightLayout::ALTERNATE_ONEWAY) {
                     allRedTime = computeEscapeTime(state, fromEdges, toEdges);
                 }
-                buildAllRedState(allRedTime + MAX2(0ll, maxCross - brakingTime - allRedTime), logic, state);
+                buildAllRedState(allRedTime + MAX2(0ll, TIME2STEPS(ceil(STEPS2TIME(maxCross))) - brakingTime - allRedTime), logic, state);
             }
         }
 
@@ -707,7 +706,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 // add step
                 logic->addStep(brakingTime, state);
                 // add optional all-red state
-                buildAllRedState(allRedTime + MAX2(0ll, maxCross - brakingTime - allRedTime), logic, state);
+                buildAllRedState(allRedTime + MAX2(0ll, TIME2STEPS(ceil(STEPS2TIME(maxCross))) - brakingTime - allRedTime), logic, state);
             }
 
             if (buildMixedGreenPhase) {
@@ -744,7 +743,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                     // add step
                     logic->addStep(brakingTime, state);
                     // add optional all-red state
-                    buildAllRedState(allRedTime + MAX2(0ll, maxCross - brakingTime - allRedTime), logic, state);
+                    buildAllRedState(allRedTime + MAX2(0ll, TIME2STEPS(ceil(STEPS2TIME(maxCross))) - brakingTime - allRedTime), logic, state);
                 }
             }
 
@@ -777,8 +776,8 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     }
     // add optional red phase if there were no foes
     if (logic->getPhases().size() == 2 && brakingTime > 0
-            && OptionsCont::getOptions().getInt("tls.red.time") > 0) {
-        const SUMOTime redTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.red.time"));
+            && OptionsCont::getOptions().getFloat("tls.red.time") > 0) {
+        const SUMOTime redTime = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.red.time"));
         logic->addStep(redTime, std::string(totalNumLinks, 'r'));
     }
 
@@ -801,31 +800,36 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     SUMOTime totalDuration = logic->getDuration();
 
     if ((OptionsCont::getOptions().isDefault("tls.green.time") || !OptionsCont::getOptions().isDefault("tls.cycle.time")) && !isNEMA) {
-        const SUMOTime cycleTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.cycle.time"));
+        const SUMOTime cycleTime = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.cycle.time"));
         // adapt to cycle time by changing the duration of the green phases
         SUMOTime minGreenDuration = SUMOTime_MAX;
         for (std::vector<int>::const_iterator it = greenPhases.begin(); it != greenPhases.end(); ++it) {
             const SUMOTime dur = logic->getPhases()[*it].duration;
             minGreenDuration = MIN2(minGreenDuration, dur);
         }
-        const int patchSeconds = (int)(STEPS2TIME(cycleTime - totalDuration) / (double)greenPhases.size());
-        const int patchSecondsRest = (int)(STEPS2TIME(cycleTime - totalDuration)) - patchSeconds * (int)greenPhases.size();
-        //std::cout << "cT=" << cycleTime << " td=" << totalDuration << " pS=" << patchSeconds << " pSR=" << patchSecondsRest << "\n";
-        if (STEPS2TIME(minGreenDuration) + patchSeconds < MIN_GREEN_TIME
-                || STEPS2TIME(minGreenDuration) + patchSeconds + patchSecondsRest < MIN_GREEN_TIME
-                || greenPhases.size() == 0) {
+        if (greenPhases.size() == 0) {
             if (getID() != DummyID) {
                 WRITE_WARNINGF(TL("The traffic light '%' cannot be adapted to a cycle time of %."), getID(), time2string(cycleTime));
             }
-            // @todo use a multiple of cycleTime ?
         } else {
-            for (std::vector<int>::const_iterator it = greenPhases.begin(); it != greenPhases.end(); ++it) {
-                logic->setPhaseDuration(*it, logic->getPhases()[*it].duration + TIME2STEPS(patchSeconds));
+            const SUMOTime diff = cycleTime - totalDuration;
+            const SUMOTime patch = (diff % (TIME2STEPS(1) * (SUMOTime)greenPhases.size()) == 0
+                                    ? diff / (SUMOTime)greenPhases.size()
+                                    : TIME2STEPS((int)(STEPS2TIME(diff) / (double)greenPhases.size())));
+            const SUMOTime patchRest = diff - patch * (SUMOTime)greenPhases.size();
+            if (minGreenDuration + patch < TIME2STEPS(MIN_GREEN_TIME)
+                    || minGreenDuration + patch + patchRest < TIME2STEPS(MIN_GREEN_TIME)) {
+                if (getID() != DummyID) {
+                    WRITE_WARNINGF(TL("The traffic light '%' cannot be adapted to a cycle time of %."), getID(), time2string(cycleTime));
+                }
+                // @todo use a multiple of cycleTime ?
+            } else {
+                for (std::vector<int>::const_iterator it = greenPhases.begin(); it != greenPhases.end(); ++it) {
+                    logic->setPhaseDuration(*it, logic->getPhases()[*it].duration + patch);
+                }
+                logic->setPhaseDuration(greenPhases.front(), logic->getPhases()[greenPhases.front()].duration + patchRest);
+                totalDuration = logic->getDuration();
             }
-            if (greenPhases.size() > 0) {
-                logic->setPhaseDuration(greenPhases.front(), logic->getPhases()[greenPhases.front()].duration + TIME2STEPS(patchSecondsRest));
-            }
-            totalDuration = logic->getDuration();
         }
     }
 
@@ -899,9 +903,9 @@ NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime green
                                 const SUMOTime earliestEnd, const SUMOTime latestEnd,
                                 std::string state, const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
     // compute based on length of the crossing if not set by the user
-    const SUMOTime pedClearingTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.crossing-clearance.time"));
+    const SUMOTime pedClearingTime = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.crossing-clearance.time"));
     // compute if not set by user: must be able to reach the middle of the second "Richtungsfahrbahn"
-    const SUMOTime minPedTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.crossing-min.time"));
+    const SUMOTime minPedTime = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.crossing-min.time"));
     const std::string orig = state;
     state = patchStateForCrossings(state, crossings, fromEdges, toEdges);
     if (orig == state) {
@@ -1487,8 +1491,8 @@ NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, int totalNumLinks,
                     logic->addStep(brakingTime, state);
                 }
             }
-            const SUMOTime pedClearingTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.crossing-clearance.time"));
-            const SUMOTime scrambleTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.scramble.time"));
+            const SUMOTime pedClearingTime = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.crossing-clearance.time"));
+            const SUMOTime scrambleTime = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.scramble.time"));
             addPedestrianPhases(logic, scrambleTime + pedClearingTime, UNSPECIFIED_DURATION,
                                 UNSPECIFIED_DURATION, UNSPECIFIED_DURATION, UNSPECIFIED_DURATION, std::string(totalNumLinks, 'r'), crossings, fromEdges, toEdges);
             break;
@@ -1507,7 +1511,7 @@ NBOwnTLDef::buildAllRedState(SUMOTime allRedTime, NBTrafficLightLogic* logic, co
                 allRedState[i] = 'r';
             }
         }
-        logic->addStep(TIME2STEPS(ceil(STEPS2TIME(allRedTime))), allRedState);
+        logic->addStep(allRedTime, allRedState);
     }
 }
 
@@ -1657,12 +1661,12 @@ NBOwnTLDef::buildNemaPhases(
     if (chosenList.size() != 2) {
         return nullptr;
     }
-    const SUMOTime dur = TIME2STEPS(OptionsCont::getOptions().getInt("tls.cycle.time"));
-    const SUMOTime vehExt = TIME2STEPS(OptionsCont::getOptions().getInt("tls.nema.vehExt"));
-    const SUMOTime yellow = TIME2STEPS(OptionsCont::getOptions().getInt("tls.nema.yellow"));
-    const SUMOTime red = TIME2STEPS(OptionsCont::getOptions().getInt("tls.nema.red"));
-    const SUMOTime minMinDur = TIME2STEPS(OptionsCont::getOptions().getInt("tls.min-dur"));
-    const SUMOTime maxDur = TIME2STEPS(OptionsCont::getOptions().getInt("tls.max-dur"));
+    const SUMOTime dur = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.cycle.time"));
+    const SUMOTime vehExt = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.nema.vehExt"));
+    const SUMOTime yellow = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.nema.yellow"));
+    const SUMOTime red = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.nema.red"));
+    const SUMOTime minMinDur = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.min-dur"));
+    const SUMOTime maxDur = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.max-dur"));
     const SUMOTime earliestEnd = UNSPECIFIED_DURATION;
     const SUMOTime latestEnd = UNSPECIFIED_DURATION;
 

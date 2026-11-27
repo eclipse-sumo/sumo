@@ -299,6 +299,9 @@ private:
                               SUMOTime firstOffset, int first2Show, double hStart,
                               double panelWidth, double leftOffset, double barWidth, double stateHeight, double h20, double& h);
 
+    /// @brief format time value for tracker axis
+    static std::string formatTime(SUMOTime currTime, SUMOTime timeInCycle, bool mmSS, bool cycleTime);
+
     /// @brief find time in cycle based on myTimeInCycle
     SUMOTime findTimeInCycle(SUMOTime t);
 

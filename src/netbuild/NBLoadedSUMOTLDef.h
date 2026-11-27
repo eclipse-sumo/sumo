@@ -189,7 +189,7 @@ protected:
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls in seconds
      * @return The computed logic
      */
-    NBTrafficLightLogic* myCompute(int brakingTimeSeconds);
+    NBTrafficLightLogic* myCompute(SUMOTime brakingTime);
 
     bool amInvalid() const;
 

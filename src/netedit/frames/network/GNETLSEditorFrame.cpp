@@ -2478,7 +2478,7 @@ GNETLSEditorFrame::TLSPhases::buildDefaultPhase(const int row) {
     }
     if (haveGreen && haveYellow) {
         // guess left-mover state
-        duration = TIME2STEPS(neteditOptions.getInt("tls.left-green.time"));
+        duration = TIME2STEPS(neteditOptions.getFloat("tls.left-green.time"));
         for (int i = 0; i < (int)state.size(); i++) {
             if ((state[i] == LINKSTATE_TL_YELLOW_MAJOR) || (state[i] == LINKSTATE_TL_YELLOW_MINOR)) {
                 state[i] = LINKSTATE_TL_RED;
@@ -2500,7 +2500,7 @@ GNETLSEditorFrame::TLSPhases::buildDefaultPhase(const int row) {
             }
         }
     } else if (haveYellow) {
-        duration = TIME2STEPS(neteditOptions.isDefault("tls.allred.time") ? 2 :  neteditOptions.getInt("tls.allred.time"));
+        duration = TIME2STEPS(neteditOptions.isDefault("tls.allred.time") ? 2 : neteditOptions.getFloat("tls.allred.time"));
         // guess all-red state
         for (int i = 0; i < (int)state.size(); i++) {
             if ((state[i] == LINKSTATE_TL_YELLOW_MAJOR) || (state[i] == LINKSTATE_TL_YELLOW_MINOR)) {

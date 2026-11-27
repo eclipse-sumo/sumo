@@ -389,7 +389,7 @@ protected:
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
      * @return The computed logic
      */
-    virtual NBTrafficLightLogic* myCompute(int brakingTime) = 0;
+    virtual NBTrafficLightLogic* myCompute(SUMOTime brakingTime) = 0;
 
 
     /** @brief Collects the links participating in this traffic light

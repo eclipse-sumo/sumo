@@ -325,7 +325,7 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.addSynonyme("roundabouts.guess", "guess-roundabouts", true);
     oc.addDescription("roundabouts.guess", "Processing", TL("Enable roundabout-guessing"));
 
-    // The Putrajaya Roundabout (Malaysia) holds the Guinness record for the world’s largest roundabout with 3.4km.
+    // The Putrajaya Roundabout (Malaysia) holds the Guinness record for the world's largest roundabout with 3.4km.
     oc.doRegister("roundabouts.guess.max-length", new Option_Float(3500));
     oc.addDescription("roundabouts.guess.max-length", "Processing", TL("Structures with a circumference above FLOAT threshold are not classified as roundabout"));
 
@@ -581,12 +581,12 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
 
 
     // computational
-    oc.doRegister("tls.cycle.time", new Option_Integer(90));
-    oc.addDescription("tls.cycle.time", "TLS Building", TL("Use INT as cycle duration"));
+    oc.doRegister("tls.cycle.time", new Option_Float(90));
+    oc.addDescription("tls.cycle.time", "TLS Building", TL("Use FLOAT as cycle duration"));
 
-    oc.doRegister("tls.green.time", new Option_Integer(31));
+    oc.doRegister("tls.green.time", new Option_Float(31));
     oc.addSynonyme("tls.green.time", "traffic-light-green", true);
-    oc.addDescription("tls.green.time", "TLS Building", TL("Use INT as green phase duration"));
+    oc.addDescription("tls.green.time", "TLS Building", TL("Use FLOAT as green phase duration"));
 
     oc.doRegister("tls.yellow.min-decel", 'D', new Option_Float(3.0));
     oc.addSynonyme("tls.yellow.min-decel", "min-decel", true);
@@ -596,39 +596,39 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.addSynonyme("tls.yellow.patch-small", "patch-small-tyellow", true);
     oc.addDescription("tls.yellow.patch-small", "TLS Building", TL("Given yellow times are patched even if being too short"));
 
-    oc.doRegister("tls.yellow.time", new Option_Integer(-1));
+    oc.doRegister("tls.yellow.time", new Option_Float(-1));
     oc.addSynonyme("tls.yellow.time", "traffic-light-yellow", true);
-    oc.addDescription("tls.yellow.time", "TLS Building", TL("Set INT as fixed time for yellow phase durations"));
+    oc.addDescription("tls.yellow.time", "TLS Building", TL("Set FLOAT as fixed time for yellow phase durations"));
 
-    oc.doRegister("tls.red.time", new Option_Integer(5));
-    oc.addDescription("tls.red.time", "TLS Building", TL("Set INT as fixed time for red phase duration at traffic lights that do not have a conflicting flow"));
+    oc.doRegister("tls.red.time", new Option_Float(5));
+    oc.addDescription("tls.red.time", "TLS Building", TL("Set FLOAT as fixed time for red phase duration at traffic lights that do not have a conflicting flow"));
 
-    oc.doRegister("tls.allred.time", new Option_Integer(0));
-    oc.addDescription("tls.allred.time", "TLS Building", TL("Set INT as fixed time for intermediate red phase after every switch"));
+    oc.doRegister("tls.allred.time", new Option_Float(0));
+    oc.addDescription("tls.allred.time", "TLS Building", TL("Set FLOAT as fixed time for intermediate red phase after every switch"));
 
     oc.doRegister("tls.minor-left.max-speed", new Option_Float(19.44)); // 70km/h
     oc.addDescription("tls.minor-left.max-speed", "TLS Building", TL("Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles"));
 
-    oc.doRegister("tls.left-green.time", new Option_Integer(6));
-    oc.addDescription("tls.left-green.time", "TLS Building", TL("Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases"));
+    oc.doRegister("tls.left-green.time", new Option_Float(6));
+    oc.addDescription("tls.left-green.time", "TLS Building", TL("Use FLOAT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases"));
 
-    oc.doRegister("tls.nema.vehExt", new Option_Integer(2));
-    oc.addDescription("tls.nema.vehExt", "TLS Building", TL("Set INT as fixed time for intermediate vehext phase after every switch"));
+    oc.doRegister("tls.nema.vehExt", new Option_Float(2));
+    oc.addDescription("tls.nema.vehExt", "TLS Building", TL("Set FLOAT as fixed time for intermediate vehext phase after every switch"));
 
-    oc.doRegister("tls.nema.yellow", new Option_Integer(3));
-    oc.addDescription("tls.nema.yellow", "TLS Building", TL("Set INT as fixed time for intermediate NEMA yellow phase after every switch"));
+    oc.doRegister("tls.nema.yellow", new Option_Float(3));
+    oc.addDescription("tls.nema.yellow", "TLS Building", TL("Set FLOAT as fixed time for intermediate NEMA yellow phase after every switch"));
 
-    oc.doRegister("tls.nema.red", new Option_Integer(2));
-    oc.addDescription("tls.nema.red", "TLS Building", TL("Set INT as fixed time for intermediate NEMA red phase after every switch"));
+    oc.doRegister("tls.nema.red", new Option_Float(2));
+    oc.addDescription("tls.nema.red", "TLS Building", TL("Set FLOAT as fixed time for intermediate NEMA red phase after every switch"));
 
-    oc.doRegister("tls.crossing-min.time", new Option_Integer(4));
-    oc.addDescription("tls.crossing-min.time", "TLS Building", TL("Use INT as minimum green duration for pedestrian crossings (s)."));
+    oc.doRegister("tls.crossing-min.time", new Option_Float(4));
+    oc.addDescription("tls.crossing-min.time", "TLS Building", TL("Use FLOAT as minimum green duration for pedestrian crossings (s)."));
 
-    oc.doRegister("tls.crossing-clearance.time", new Option_Integer(5));
-    oc.addDescription("tls.crossing-clearance.time", "TLS Building", TL("Use INT as clearance time for pedestrian crossings (s)."));
+    oc.doRegister("tls.crossing-clearance.time", new Option_Float(5));
+    oc.addDescription("tls.crossing-clearance.time", "TLS Building", TL("Use FLOAT as clearance time for pedestrian crossings (s)."));
 
-    oc.doRegister("tls.scramble.time", new Option_Integer(5));
-    oc.addDescription("tls.scramble.time", "TLS Building", TL("Use INT as green phase duration for pedestrian scramble phase (s)."));
+    oc.doRegister("tls.scramble.time", new Option_Float(5));
+    oc.addDescription("tls.scramble.time", "TLS Building", TL("Use FLOAT as green phase duration for pedestrian scramble phase (s)."));
 
     // tls-shifts
     oc.doRegister("tls.half-offset", new Option_StringVector());
@@ -649,10 +649,10 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.doRegister("tls.no-mixed", new Option_Bool(false));
     oc.addDescription("tls.no-mixed", "TLS Building", TL("Avoid phases with green and red signals for different connections from the same lane"));
 
-    oc.doRegister("tls.min-dur", new Option_Integer(5));
+    oc.doRegister("tls.min-dur", new Option_Float(5));
     oc.addDescription("tls.min-dur", "TLS Building", TL("Default minimum phase duration for traffic lights with variable phase length"));
 
-    oc.doRegister("tls.max-dur", new Option_Integer(50));
+    oc.doRegister("tls.max-dur", new Option_Float(50));
     oc.addDescription("tls.max-dur", "TLS Building", TL("Default maximum phase duration for traffic lights with variable phase length"));
 
     oc.doRegister("tls.group-signals", new Option_Bool(false));
@@ -812,7 +812,7 @@ NBFrame::checkOptions(OptionsCont& oc) {
         WRITE_ERROR(TL("only one of the options 'tls.green.time' or 'tls.cycle.time' may be given"));
         ok = false;
     }
-    if (oc.getInt("tls.green.time") <= 0) {
+    if (oc.getFloat("tls.green.time") <= 0) {
         WRITE_ERROR(TL("'tls.green.time' must be positive"));
         ok = false;
     }

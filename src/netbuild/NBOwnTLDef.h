@@ -128,7 +128,7 @@ public:
      * @param[in] onlyConts whether the method is only called to compute myNeedsContRelation
      * @return The computed logic
      */
-    NBTrafficLightLogic* computeLogicAndConts(int brakingTimeSeconds, bool onlyConts = false);
+    NBTrafficLightLogic* computeLogicAndConts(SUMOTime brakingTime, bool onlyConts = false);
 
     /* initialize myNeedsContRelation and set myNeedsContRelationReady to true */
     void initNeedsContRelation() const;
@@ -160,7 +160,7 @@ protected:
      * @return The computed logic
      * @see NBTrafficLightDefinition::myCompute
      */
-    NBTrafficLightLogic* myCompute(int brakingTimeSeconds);
+    NBTrafficLightLogic* myCompute(SUMOTime brakingTime);
 
 
     /** @brief Collects the links participating in this traffic light
