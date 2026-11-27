@@ -4,6 +4,7 @@ dua-iterate
 # DUA iteration tests
 duaIterateMix
 duaIterate_analysis
+duaIterate_reroutingAnalysis
 
 # DUA cost function tests
 costFunctionChecker
