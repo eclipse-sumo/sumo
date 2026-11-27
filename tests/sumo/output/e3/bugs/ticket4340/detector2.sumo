@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-27T16:08:07.054231+00:00 by Eclipse SUMO sumo v1_28_0+0891-e1b038861866
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net3.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <time>
+        <end value="35"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<e3Detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e3_file.xsd">
+    <interval begin="0.00" end="1.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+    <interval begin="1.00" end="2.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+    <interval begin="2.00" end="3.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+    <interval begin="3.00" end="4.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="1.71" meanHaltsPerVehicleWithin="0.00" meanDurationWithin="1.69" vehicleSumWithin="1" meanIntervalSpeedWithin="2.21" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="1.00" meanTimeLossWithin="0.00"/>
+    <interval begin="4.00" end="5.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="1.86" meanHaltsPerVehicleWithin="0.00" meanDurationWithin="2.69" vehicleSumWithin="1" meanIntervalSpeedWithin="2.13" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="1.00" meanTimeLossWithin="0.00"/>
+    <interval begin="5.00" end="6.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="1.96" meanHaltsPerVehicleWithin="0.00" meanDurationWithin="3.69" vehicleSumWithin="1" meanIntervalSpeedWithin="2.23" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="1.00" meanTimeLossWithin="0.00"/>
+    <interval begin="6.00" end="7.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="2.08" meanHaltsPerVehicleWithin="0.00" meanDurationWithin="4.69" vehicleSumWithin="1" meanIntervalSpeedWithin="2.50" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="1.00" meanTimeLossWithin="0.00"/>
+    <interval begin="7.00" end="8.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="2.11" meanHaltsPerVehicleWithin="0.00" meanDurationWithin="5.69" vehicleSumWithin="1" meanIntervalSpeedWithin="2.27" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="1.00" meanTimeLossWithin="0.00"/>
+    <interval begin="8.00" end="9.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="2.13" meanHaltsPerVehicleWithin="0.00" meanDurationWithin="6.69" vehicleSumWithin="1" meanIntervalSpeedWithin="2.22" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="1.00" meanTimeLossWithin="0.00"/>
+    <interval begin="9.00" end="10.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="1.42" meanHaltsPerVehicleWithin="0.00" meanDurationWithin="4.80" vehicleSumWithin="2" meanIntervalSpeedWithin="1.81" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="1.00" meanTimeLossWithin="0.00"/>
+    <interval begin="10.00" end="11.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="1.52" meanHaltsPerVehicleWithin="0.50" meanDurationWithin="5.80" vehicleSumWithin="2" meanIntervalSpeedWithin="1.77" meanIntervalHaltsPerVehicleWithin="0.50" meanIntervalDurationWithin="1.00" meanTimeLossWithin="0.00"/>
+    <interval begin="11.00" end="12.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="1.58" meanHaltsPerVehicleWithin="0.50" meanDurationWithin="6.80" vehicleSumWithin="2" meanIntervalSpeedWithin="1.86" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="1.00" meanTimeLossWithin="0.00"/>
+    <interval begin="12.00" end="13.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="1.62" meanHaltsPerVehicleWithin="0.50" meanDurationWithin="7.80" vehicleSumWithin="2" meanIntervalSpeedWithin="1.78" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="1.00" meanTimeLossWithin="0.00"/>
+    <interval begin="13.00" end="14.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="1.62" meanHaltsPerVehicleWithin="0.50" meanDurationWithin="8.80" vehicleSumWithin="2" meanIntervalSpeedWithin="1.60" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="1.00" meanTimeLossWithin="0.00"/>
+    <interval begin="14.00" end="15.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="1.63" meanHaltsPerVehicleWithin="0.50" meanDurationWithin="9.80" vehicleSumWithin="2" meanIntervalSpeedWithin="1.67" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="1.00" meanTimeLossWithin="0.00"/>
+    <interval begin="15.00" end="16.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="1.65" meanHaltsPerVehicleWithin="0.50" meanDurationWithin="10.80" vehicleSumWithin="2" meanIntervalSpeedWithin="1.78" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="1.00" meanTimeLossWithin="0.00"/>
+    <interval begin="16.00" end="17.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="1.67" meanHaltsPerVehicleWithin="0.50" meanDurationWithin="11.80" vehicleSumWithin="2" meanIntervalSpeedWithin="1.89" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="1.00" meanTimeLossWithin="0.00"/>
+    <interval begin="17.00" end="18.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="1.68" meanHaltsPerVehicleWithin="0.50" meanDurationWithin="12.80" vehicleSumWithin="2" meanIntervalSpeedWithin="1.73" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="1.00" meanTimeLossWithin="0.00"/>
+    <interval begin="18.00" end="19.00" id="det_walk" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="1.69" meanHaltsPerVehicleWithin="0.50" meanDurationWithin="13.80" vehicleSumWithin="2" meanIntervalSpeedWithin="1.70" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin
