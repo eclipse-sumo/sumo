@@ -54,3 +54,4 @@ Prioritize shared testing resources. Run targeted builds, unit tests, and focuse
   3. One commit that updates the results of all affected tests.
 - Use context-based rebasing on open pull requests. Rebasing and force-pushing clears completed CI check results, requires workflows to run again, and disrupts the review flow. Inspect upstream `main` changes first and rebase only when semantically needed, such as for merge conflicts, upstream changes that affect the touched code, interfaces, schemas, or expected test outputs, or an explicit maintainer request.
 - Link the relevant issue and report the reproduction and verification in the PR. Sign off the commits, complete the Eclipse Contributor Agreement, and allow maintainer edits.
+- Declare co-authorship on every commit by adding option `--trailer "Co-authored-by: <Agent Name> <email>"` (i.e. `--trailer "Co-authored-by: Claude <noreply@anthropic.com>"`)
