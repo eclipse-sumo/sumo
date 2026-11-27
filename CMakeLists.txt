@@ -368,6 +368,7 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/geos-*")
     file(GLOB GRPC_PATH "${SUMO_LIBRARIES}/grpc-*")
     file(GLOB BOOST_PATH "${SUMO_LIBRARIES}/boost-*")
+    file(GLOB CURL_PATH "${SUMO_LIBRARIES}/dependencies/curl-*")
     if (MSVC_VERSION GREATER 1919)
         # fmt and gettext in SUMOLibraries only work with MSVC 2019 and later
         file(GLOB FMT_PATH "${SUMO_LIBRARIES}/fmt-*")
@@ -377,7 +378,7 @@ if (SUMO_LIBRARIES AND WIN32)
     set(ZLIB_ROOT "${ZLIB_PATH}")
 
     # set all paths in prefix
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${ZLIB_PATH};${GRPC_PATH};${EIGEN3_PATH};${XERCES_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext;${ARROW_PATH};${LZ4_PATH};${ZSTD_PATH};${BZIP2_PATH};${THRIFT_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH};${BOOST_PATH}")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${ZLIB_PATH};${GRPC_PATH};${EIGEN3_PATH};${XERCES_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext;${ARROW_PATH};${LZ4_PATH};${ZSTD_PATH};${BZIP2_PATH};${THRIFT_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH};${BOOST_PATH};${CURL_PATH}")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${ZLIB_PATH}/bin/*.dll"
@@ -633,7 +634,7 @@ if (ENABLE_CURL AND HAVE_FOX)
     if (CURL_FOUND)
         include_directories(SYSTEM ${CURL_INCLUDE_DIRS})
         set(HAVE_CURL 1)
-        set(CURL_LIBRARIES CURL::libcurl)
+        set(CURL_LIBRARY CURL::libcurl)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} CURL")
     endif (CURL_FOUND)
 endif ()
