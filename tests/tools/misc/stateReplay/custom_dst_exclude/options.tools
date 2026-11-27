@@ -1,0 +1,1 @@
+--sumo-config sim.sumocfg --dst custom_dst --exclude=state_2.00.xml

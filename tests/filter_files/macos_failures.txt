@@ -65,4 +65,7 @@ visualization/plot_summary/plain
 visualization/plotXMLAttributes/edgeData_entered_time_box
 visualization/plot_net_selection/plain
 visualization/macrOutput/plain
+misc/stateReplay/basic
+misc/stateReplay/not_enough_states
+misc/stateReplay/custom_dst_exclude
 appdata=traci
