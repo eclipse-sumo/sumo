@@ -127,6 +127,24 @@ ChargingStation::getTotalPower(const std::string& stopID) {
 }
 
 
+std::string
+ChargingStation::getChargingStrategy(const std::string& stopID) {
+    return SUMOXMLDefinitions::ChargingStationStrategies.getString(
+               dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->getChargingStrategy());
+}
+
+
+void
+ChargingStation::setChargingStrategy(const std::string& stopID, const std::string& strategy) {
+    MSChargingStation* const station = dynamic_cast<MSChargingStation*>(getChargingStation(stopID));
+    if (!SUMOXMLDefinitions::ChargingStationStrategies.hasString(strategy)) {
+        throw TraCIException("Invalid chargingStrategy '" + strategy
+                             + "'. Expected one of: proportional, max-min, flat.");
+    }
+    station->setChargingStrategy(SUMOXMLDefinitions::ChargingStationStrategies.get(strategy));
+}
+
+
 void
 ChargingStation::setChargingPower(const std::string& stopID, double power) {
     dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargingPower(power);
@@ -215,6 +233,8 @@ ChargingStation::handleVariable(const std::string& objID, const int variable, Va
             return wrapper->wrapInt(objID, variable, getChargeInTransit(objID));
         case VAR_CS_TOTAL_POWER:
             return wrapper->wrapDouble(objID, variable, getTotalPower(objID));
+        case VAR_CS_CHARGING_STRATEGY:
+            return wrapper->wrapString(objID, variable, getChargingStrategy(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

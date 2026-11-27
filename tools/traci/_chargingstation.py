@@ -106,6 +106,21 @@ class ChargingStationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_CS_TOTAL_POWER, stopID)
 
+    def getChargingStrategy(self, stopID):
+        """getChargingStrategy(string) -> string
+
+        Returns the total power allocation strategy: proportional, max-min or flat.
+        """
+        return self._getUniversal(tc.VAR_CS_CHARGING_STRATEGY, stopID)
+
+    def setChargingStrategy(self, stopID, strategy):
+        """setChargingStrategy(string, string) -> None
+
+        Sets the strategy for subsequent total power allocations.
+        Allowed values are proportional, max-min and flat.
+        """
+        self._setCmd(tc.VAR_CS_CHARGING_STRATEGY, stopID, "s", strategy)
+
     def setChargingPower(self, stopID, power):
         """setChargingPower(string, double) -> None
 

@@ -53,8 +53,8 @@ public:
      */
     GNEChargingStation(const std::string& id, GNENet* net, FileBucket* fileBucket, GNELane* lane,
                        const double startPos, const double endPos, const std::string& name, const double chargingPower,
-                       const double totalPower, const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay,
-                       const std::string& chargeType, const SUMOTime waitingTime, const std::string& parkingAreaID,
+                       const double totalPower, const std::string& chargingStrategy, const double efficiency, const bool chargeInTransit,
+                       const SUMOTime chargeDelay, const std::string& chargeType, const SUMOTime waitingTime, const std::string& parkingAreaID,
                        const bool friendlyPosition, const Parameterised::Map& parameters);
 
     /// @brief Destructor
@@ -121,6 +121,9 @@ protected:
 
     /// @brief Charging power pro timestep across all charging vehicles
     double myTotalPower = 0;
+
+    /// @brief Strategy for distributing total power among charging vehicles
+    std::string myChargingStrategy = "proportional";
 
     /// @brief efficiency of the charge
     double myEfficiency = 0;

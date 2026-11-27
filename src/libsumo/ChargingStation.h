@@ -51,6 +51,7 @@ public:
     static double getChargeDelay(const std::string& stopID);
     static int getChargeInTransit(const std::string& stopID);
     static double getTotalPower(const std::string& stopID);
+    static std::string getChargingStrategy(const std::string& stopID);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
@@ -60,6 +61,7 @@ public:
     static void setChargeDelay(const std::string& stopID, double delay);
     static void setChargeInTransit(const std::string& stopID, bool inTransit);
     static void setTotalPower(const std::string& stopID, double totalPower);
+    static void setChargingStrategy(const std::string& stopID, const std::string& strategy);
 
 #ifndef LIBTRACI
 #ifndef SWIG

@@ -1315,6 +1315,13 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                                    TL("Total power in W"),
                                    "0");
 
+        auto chargingStrategy = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CHARGINGSTRATEGY,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                TL("Strategy for distributing total power among charging vehicles"),
+                SUMOXMLDefinitions::ChargingStationStrategies.getString(ChargingStationStrategy::PROPORTIONAL));
+        chargingStrategy->setDiscreteValues(SUMOXMLDefinitions::ChargingStationStrategies.getStrings());
+
         auto efficiency = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_EFFICIENCY,
                 GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::RANGE | GNEAttributeProperties::Property::DEFAULTVALUE,
                 GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
