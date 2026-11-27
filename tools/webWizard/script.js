@@ -417,14 +417,17 @@ on("ready", async function(){
         }),
         "OpenStreetMap Deutschland": L.tileLayer("https://tile.openstreetmap.de/{z}/{x}/{y}.png", {
             noWrap: true,
+            referrerPolicy: "strict-origin-when-cross-origin",
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a>'
         }),
         "OpenTopoMap": L.tileLayer("https://a.tile.opentopomap.org/{z}/{x}/{y}.png", {
             noWrap: true,
+            referrerPolicy: "strict-origin-when-cross-origin",
             attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> | DEM: <a href="http://viewfinderpanoramas.org/" target="_blank">SRTM</a>, <a href="https://sonny.4lima.de/" target="_blank">Sonny</a> | Map style: &copy; <a href="https://opentopomap.org" target="_blank">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">CC-BY-SA</a>)'
         }),
         [translatableLayerName(N_("ÖPNVKarte (public transport facilities)"))]: L.tileLayer("https://tile.memomaps.de/tilegen/{z}/{x}/{y}.png", {
             noWrap: true,
+            referrerPolicy: "strict-origin-when-cross-origin",
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> | &copy; <a href="https://memomaps.de/" target="_blank">MeMoMaps</a> (<a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC-BY-SA</a>)'
         }),
     };
