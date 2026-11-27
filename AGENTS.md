@@ -30,7 +30,13 @@ Use [TextTest](docs/web/docs/Developer/Tests.md) for application regressions and
 texttest -a sumo -ts basic/routes/simtime_fractional -con
 ```
 
-Place regression fixtures in the affected application suite. Reuse an existing test network when it covers the case. Check related open pull requests for suitable fixtures. If no existing network covers the case, generate the network with netconvert or netgenerate and record the generator inputs and command. Check the relevant simulation or routing variants when a change affects shared behavior. Inspect differences before updating expected output.
+Place regression fixtures in the affected application suite. Reuse an existing test network when it covers the case. Check related open pull requests for suitable fixtures. If no existing network covers the case, generate the network with netconvert or netgenerate and record the generator inputs and command. Keep fixtures, simulation horizons, and written output attributes minimal (generally under 50 KB) so test suites stay fast. Check the relevant simulation or routing variants when a change affects shared behavior. Inspect differences before updating expected output.
+
+For Python tools under `tests/tools`, follow the declarative TextTest paradigm with [toolrunner.py](tests/toolrunner.py) and [config.tools](tests/tools/config.tools): specify options and the target tool script (listed last) in `options.tools`, provide small static input files, and check expected results (`output.tools`, `errors.tools`, and collated files). Keep as little code as possible in tests. Do not add custom `runner.py` scripts to `tests/tools` unless testing `sumolib` as a Python library; reserve `tests/complex` for scenarios that require multiple application or tool calls or TraCI scripts.
+
+Existing test and code coverage is limited, so passing current suites alone does not confirm that modified code paths are exercised. Check the [daily LCOV coverage report](https://sumo.dlr.de/daily/lcov/html/) to verify whether touched code is covered and identify gaps that need targeted tests.
+
+Prioritize shared testing resources. Run targeted builds, unit tests, and focused TextTest selections locally first rather than relying on full CI matrices for iteration, and avoid unnecessary pushes that re-trigger multi-platform workflows.
 
 ## Keep interfaces and documentation aligned
 
@@ -40,4 +46,11 @@ Place regression fixtures in the affected application suite. Reuse an existing t
 
 ## Submit changes
 
-Link the relevant issue and report the reproduction and verification in the PR. Follow the contribution guide's preferred commit order for behavior changes. Add the regression, change the implementation, then update affected expectations. Sign off the commits, complete the Eclipse Contributor Agreement, and allow maintainer edits.
+- Break oversized issues and broad tasks into smaller, well-scoped issues and atomic, single-topic pull requests that can be reviewed and merged independently.
+- Keep standalone test-coverage additions and test-suite cleanups in dedicated test-only pull requests rather than combining them with functional code changes.
+- Structure pull requests that modify application or tool behavior into three commits as specified in [CONTRIBUTING.md](CONTRIBUTING.md):
+  1. One commit that adds the new test.
+  2. One commit that modifies the source code.
+  3. One commit that updates the results of all affected tests.
+- Use context-based rebasing on open pull requests. Rebasing and force-pushing clears completed CI check results, requires workflows to run again, and disrupts the review flow. Inspect upstream `main` changes first and rebase only when semantically needed, such as for merge conflicts, upstream changes that affect the touched code, interfaces, schemas, or expected test outputs, or an explicit maintainer request.
+- Link the relevant issue and report the reproduction and verification in the PR. Sign off the commits, complete the Eclipse Contributor Agreement, and allow maintainer edits.
