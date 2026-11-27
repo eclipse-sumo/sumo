@@ -305,7 +305,7 @@ bool
 GUIVisualizationRainbowSettings::operator==(const GUIVisualizationRainbowSettings& other) {
     return (hideMin == other.hideMin) &&
            (minThreshold == other.minThreshold) &&
-           (hideMin == other.hideMin) &&
+           (hideMax == other.hideMax) &&
            (maxThreshold == other.maxThreshold) &&
            (setNeutral == other.setNeutral) &&
            (neutralThreshold == other.neutralThreshold) &&
