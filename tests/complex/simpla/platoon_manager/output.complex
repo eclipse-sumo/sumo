@@ -51,6 +51,37 @@ Managing all vTypes selected by ['connected'] (PlatoonManager)
 1.0: Adding vehicle 'connected.1' (PlatoonManager)
 
 
+Testing recovery after loadState clears subscriptions...
+Loading vehicle type mappings from file 'vtype.map'... (Config)
+original type: 'connected' (Config)
+platoon leader type: 'connected_pLeader' (Config)
+platoon follower type: 'connected_pFollower' (Config)
+catchup type: 'connected_pCatchup' (Config)
+catchup follower type: 'connected_pCatchupFollower' (Config)
+Initializing simpla.PlatoonManager... (PlatoonManager)
+Managing all vTypes selected by ['connected'] (PlatoonManager)
+0.1: Adding vehicle 'connected.1' (PlatoonManager)
+3.1: Adding vehicle 'IAMconnectedTOO' (PlatoonManager)
+3.1: Adding vehicle 'IAMconnectedTOO' (PlatoonManager)
+11.4: Platoon '2' joined Platoon '0', which now contains vehicles:
+['connected.1', 'IAMconnectedTOO'] (PlatoonManager)
+
+
+Testing recovery from missing subscription results...
+Loading vehicle type mappings from file 'vtype.map'... (Config)
+original type: 'connected' (Config)
+platoon leader type: 'connected_pLeader' (Config)
+platoon follower type: 'connected_pFollower' (Config)
+catchup type: 'connected_pCatchup' (Config)
+catchup follower type: 'connected_pCatchupFollower' (Config)
+Initializing simpla.PlatoonManager... (PlatoonManager)
+Managing all vTypes selected by ['connected'] (PlatoonManager)
+0.1: Adding vehicle 'connected.1' (PlatoonManager)
+3.1: Adding vehicle 'IAMconnectedTOO' (PlatoonManager)
+11.4: Platoon '1' joined Platoon '0', which now contains vehicles:
+['connected.1', 'IAMconnectedTOO'] (PlatoonManager)
+
+
 Testing platoon formation...
 Loading vehicle type mappings from file 'vtype.map'... (Config)
 original type: 'connected' (Config)
