@@ -40,6 +40,7 @@
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBAlgorithms_Ramps.h>
+#include <netbuild/NBOwnTLDef.h>
 #include <netbuild/NBNetBuilder.h>
 #include "NILoader.h"
 #include "NIXMLTypesHandler.h"
@@ -191,6 +192,50 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             continue;
         }
         const SumoXMLNodeType toType = nbe->getToNode()->getType();
+        bool keepLaneConnections = !myChangeLefthand;
+        std::vector<std::pair<NBEdge*, SVCPermissions> > edgeConnections;
+        if (myChangeLefthand) {
+            std::set<NBEdge*> nonTurnTargets;
+            std::set<NBEdge*> turnTargets;
+            int validCount = 0;
+            bool allIdentity = true;
+            for (int fromLaneIndex = 0; fromLaneIndex < (int)ed->lanes.size(); ++fromLaneIndex) {
+                for (const Connection& c : ed->lanes[fromLaneIndex]->connections) {
+                    if (myEdges.count(c.toEdgeID) == 0) {
+                        continue;
+                    }
+                    NBEdge* toEdge = myEdges[c.toEdgeID]->builtEdge;
+                    if (toEdge == nullptr || toEdge->getFromNode() != nbe->getToNode()) {
+                        continue;
+                    }
+                    validCount++;
+                    if (c.isTurnaround) {
+                        turnTargets.insert(toEdge);
+                    } else {
+                        nonTurnTargets.insert(toEdge);
+                        if (fromLaneIndex != c.toLaneIdx) {
+                            allIdentity = false;
+                        }
+                    }
+                    auto itPerm = std::find_if(edgeConnections.begin(), edgeConnections.end(),
+                        [toEdge](const std::pair<NBEdge*, SVCPermissions>& item) { return item.first == toEdge; });
+                    if (itPerm == edgeConnections.end()) {
+                        edgeConnections.push_back(std::make_pair(toEdge, c.permissions));
+                    } else if (itPerm->second == SVC_UNSPECIFIED || c.permissions == SVC_UNSPECIFIED) {
+                        itPerm->second = SVC_UNSPECIFIED;
+                    } else {
+                        itPerm->second |= c.permissions;
+                    }
+                }
+            }
+            if (nonTurnTargets.empty()) {
+                keepLaneConnections = true;
+            } else if (nonTurnTargets.size() == 1 && turnTargets.empty() && !NBNode::isTrafficLight(toType)
+                       && allIdentity && validCount == (int)ed->lanes.size()
+                       && (*nonTurnTargets.begin())->getNumLanes() == (int)ed->lanes.size()) {
+                keepLaneConnections = true;
+            }
+        }
         for (int fromLaneIndex = 0; fromLaneIndex < (int) ed->lanes.size(); ++fromLaneIndex) {
             LaneAttrs* lane = ed->lanes[fromLaneIndex];
             // connections
@@ -208,19 +253,23 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                     WRITE_WARNINGF("Removing invalid connection from edge '%' to edge '%'", nbe->getID(), toEdge->getID());
                     continue;
                 }
-                // patch attribute uncontrolled for legacy networks where it is not set explicitly
-                bool uncontrolled = c.uncontrolled;
+                if (keepLaneConnections) {
+                    // patch attribute uncontrolled for legacy networks where it is not set explicitly
+                    bool uncontrolled = c.uncontrolled;
 
-                if ((NBNode::isTrafficLight(toType) || toType == SumoXMLNodeType::RAIL_SIGNAL)
-                        && c.tlLinkIndex == NBConnection::InvalidTlIndex) {
-                    uncontrolled = true;
-                }
-                nbe->addLane2LaneConnection(
-                    fromLaneIndex, toEdge, c.toLaneIdx, NBEdge::Lane2LaneInfoType::VALIDATED,
-                    true, c.mayDefinitelyPass, c.keepClear ? KEEPCLEAR_TRUE : KEEPCLEAR_FALSE,
-                    c.contPos, c.visibility, c.speed, c.friction, c.customLength, c.customShape, uncontrolled, c.permissions, c.indirectLeft, c.edgeType, c.changeLeft, c.changeRight);
-                if (c.getParametersMap().size() > 0) {
-                    nbe->getConnectionRef(fromLaneIndex, toEdge, c.toLaneIdx).updateParameters(c.getParametersMap());
+                    if ((NBNode::isTrafficLight(toType) || toType == SumoXMLNodeType::RAIL_SIGNAL)
+                            && c.tlLinkIndex == NBConnection::InvalidTlIndex) {
+                        uncontrolled = true;
+                    }
+                    nbe->addLane2LaneConnection(
+                        fromLaneIndex, toEdge, c.toLaneIdx, NBEdge::Lane2LaneInfoType::VALIDATED,
+                        true, c.mayDefinitelyPass, c.keepClear ? KEEPCLEAR_TRUE : KEEPCLEAR_FALSE,
+                        c.contPos, c.visibility, c.speed, c.friction, c.customLength,
+                        myChangeLefthand ? PositionVector::EMPTY : c.customShape,
+                        uncontrolled, c.permissions, c.indirectLeft, c.edgeType, c.changeLeft, c.changeRight);
+                    if (c.getParametersMap().size() > 0) {
+                        nbe->getConnectionRef(fromLaneIndex, toEdge, c.toLaneIdx).updateParameters(c.getParametersMap());
+                    }
                 }
                 // maybe we have a tls-controlled connection
                 if (c.tlID != "" && myRailSignals.count(c.tlID) == 0) {
@@ -230,7 +279,12 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                         for (it = programs.begin(); it != programs.end(); it++) {
                             NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it->second);
                             if (tlDef) {
-                                tlDef->addConnection(nbe, toEdge, fromLaneIndex, c.toLaneIdx, c.tlLinkIndex, c.tlLinkIndex2, false);
+                                if (myChangeLefthand) {
+                                    tlDef->addNode(nbe->getToNode());
+                                    tlDef->addNode(toEdge->getFromNode());
+                                } else {
+                                    tlDef->addConnection(nbe, toEdge, fromLaneIndex, c.toLaneIdx, c.tlLinkIndex, c.tlLinkIndex2, false);
+                                }
                             } else {
                                 throw ProcessError("Corrupt traffic light definition '" + c.tlID + "' (program '" + it->first + "')");
                             }
@@ -268,7 +322,13 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 nbe->setEdgeStopOffset(fromLaneIndex, nbe->getEdgeStopOffset());
             }
         }
-        nbe->declareConnectionsAsLoaded();
+        if (keepLaneConnections) {
+            nbe->declareConnectionsAsLoaded();
+        } else {
+            for (const auto& ec : edgeConnections) {
+                nbe->addEdge2EdgeConnection(ec.first, false, ec.second);
+            }
+        }
         if (!nbe->hasLaneSpecificWidth() && nbe->getLanes()[0].width != NBEdge::UNSPECIFIED_WIDTH) {
             nbe->setLaneWidth(-1, nbe->getLaneWidth(0));
         }
@@ -286,6 +346,32 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     }
     for (EdgeVector::iterator i = toRemove.begin(); i != toRemove.end(); ++i) {
         myNetBuilder.getEdgeCont().erase(myNetBuilder.getDistrictCont(), *i);
+    }
+    if (myChangeLefthand) {
+        for (NBTrafficLightDefinition* def : myTLLCont.getDefinitions()) {
+            if (dynamic_cast<NBLoadedSUMOTLDef*>(def) != nullptr) {
+                std::vector<NBNode*> nodes = def->getNodes();
+                if (nodes.empty()) {
+                    NBNode* tlNode = myNodeCont.retrieve(def->getID());
+                    if (tlNode != nullptr) {
+                        nodes.push_back(tlNode);
+                    }
+                }
+                const std::string tlID = def->getID();
+                const std::string programID = def->getProgramID();
+                const SUMOTime offset = def->getOffset();
+                const TrafficLightType type = def->getType();
+                const Parameterised::Map params = def->getParametersMap();
+                for (NBNode* node : nodes) {
+                    node->removeTrafficLight(def);
+                }
+                myTLLCont.removeProgram(tlID, programID);
+                NBOwnTLDef* oDef = new NBOwnTLDef(tlID, nodes, offset, type);
+                oDef->setProgramID(programID);
+                oDef->updateParameters(params);
+                myTLLCont.insert(oDef);
+            }
+        }
     }
     // insert loaded prohibitions
     for (std::vector<Prohibition>::const_iterator it = myProhibitions.begin(); it != myProhibitions.end(); it++) {
@@ -375,7 +461,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 }
                 if (!edges.empty()) {
                     node->addCrossing(edges, crossing.width, crossing.priority,
-                                      crossing.customTLIndex, crossing.customTLIndex2, crossing.customShape, true, &crossing);
+                                      myChangeLefthand ? -1 : crossing.customTLIndex,
+                                      myChangeLefthand ? -1 : crossing.customTLIndex2,
+                                      crossing.customShape, true, &crossing);
                 }
             }
         }
@@ -819,6 +907,8 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     conn.mayDefinitelyPass = attrs.getOpt<bool>(SUMO_ATTR_PASS, nullptr, ok, false);
     conn.keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, nullptr, ok, true);
     conn.indirectLeft = attrs.getOpt<bool>(SUMO_ATTR_INDIRECT, nullptr, ok, false);
+    const std::string dir = attrs.getOpt<std::string>(SUMO_ATTR_DIR, nullptr, ok, "");
+    conn.isTurnaround = (dir == toString(LinkDirection::TURN) || dir == toString(LinkDirection::TURN_LEFTHAND));
     conn.edgeType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, nullptr, ok, "");
     double contPos = NBEdge::UNSPECIFIED_CONTPOS;
     if (OptionsCont::getOptions().isSet("default.connection.cont-pos")) {
