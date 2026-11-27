@@ -247,7 +247,7 @@ MSRoute::writeEdgeIDs(OutputDevice& os, int firstIndex, int lastIndex, bool with
         }
     }
     os << ids;
-    return internal + lastIndex - firstIndex;
+    return internal + MAX2(0, lastIndex - firstIndex);
 }
 
 
