@@ -1,0 +1,18 @@
+<routes>
+    <vType id="car" sigma="0"/>
+    <vehicle id="v_p4" type="car" depart="30" departLane="1" departPos="245" departSpeed="0">
+        <route edges="3si 4o"/>
+    </vehicle>
+    <vehicle id="v_p8" type="car" depart="70" departLane="1" departPos="245" departSpeed="0">
+        <route edges="4si 3o"/>
+    </vehicle>
+    <vehicle id="v_p3" type="car" depart="115" departLane="2" departPos="245" departSpeed="0">
+        <route edges="4si 2o"/>
+    </vehicle>
+    <vehicle id="v_p4b" type="car" depart="115" departLane="1" departPos="245" departSpeed="0">
+        <route edges="3si 4o"/>
+    </vehicle>
+    <vehicle id="v_p8b" type="car" depart="133" departLane="1" departPos="245" departSpeed="0">
+        <route edges="4si 3o"/>
+    </vehicle>
+</routes>

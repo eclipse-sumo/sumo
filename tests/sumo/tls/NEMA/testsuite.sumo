@@ -42,3 +42,6 @@ crossings_stayRed
 
 # lagging left turns in coordinated mode
 lagging_left
+
+# configurable dual entry (#10616)
+dual_entry

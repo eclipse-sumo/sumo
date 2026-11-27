@@ -1,0 +1,11 @@
+# single entry on all phases in free mode
+single_entry_free
+
+# per-phase dualEntry on main street only
+dual_entry_phases_free
+
+# single entry on side street in coordinated TS2 mode
+single_entry_coordinated
+
+# invalid dualEntry parameter value
+invalid_dual_entry
