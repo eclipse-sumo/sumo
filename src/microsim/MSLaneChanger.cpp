@@ -89,7 +89,8 @@ MSLaneChanger::ChangeElem::ChangeElem(MSLane* _lane) :
     aheadNext(_lane->getWidth(), nullptr, 0.),
     zipperDist(0),
     lastBlockedBackPos(-1),
-    lastBlockedWaitingTime(-1) {
+    lastBlockedWaitingTime(-1),
+    decideIndex(-1) {
     if (lane->isInternal()) {
         for (auto ili : lane->getIncomingLanes()) {
             if (ili.viaLink->getState() == LINKSTATE_ZIPPER) {
@@ -122,7 +123,9 @@ MSLaneChanger::ChangeElem::registerHop(MSVehicle* vehicle) {
 // ===========================================================================
 MSLaneChanger::MSLaneChanger(const std::vector<MSLane*>* lanes, bool allowChanging) :
     myAllowsChanging(allowChanging),
-    myChangeToOpposite(lanes->front()->getEdge().canChangeToOpposite()) {
+    myChangeToOpposite(lanes->front()->getEdge().canChangeToOpposite()),
+    myDecideOnly(false),
+    myExecuteDecisions(false) {
 
     // Fill the changer with the lane-data.
     myChanger.reserve(lanes->size());
@@ -192,7 +195,17 @@ MSLaneChanger::laneChange(SUMOTime t) {
     // changer, each vehicle will try to change. After that the changer
     // needs an update to prevent multiple changes of one vehicle.
     // Finally, the change-result has to be given back to the lanes.
+    std::vector<MSVehicle*> firstBlocked;
+    if (myExecuteDecisions) {
+        // keep the blocked vehicles found while deciding
+        for (const ChangeElem& ce : myChanger) {
+            firstBlocked.push_back(ce.firstBlocked);
+        }
+    }
     initChanger();
+    for (int i = 0; i < (int)firstBlocked.size(); i++) {
+        myChanger[i].firstBlocked = firstBlocked[i];
+    }
     try {
         while (vehInChanger()) {
             const bool haveChanged = change();
@@ -200,12 +213,119 @@ MSLaneChanger::laneChange(SUMOTime t) {
         }
         updateLanes(t);
     } catch (const ProcessError&) {
+        myExecuteDecisions = false;
         // clean up locks or the gui may hang
         for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
             ce->lane->releaseVehicles();
         }
         throw;
     }
+    myExecuteDecisions = false;
+}
+
+
+void
+MSLaneChanger::decideLaneChanges() {
+    myDecisions.clear();
+    if (!canDecideFirst()) {
+        return;
+    }
+    for (ChangeElem& ce : myChanger) {
+        ce.lead = nullptr;
+        ce.hoppedVeh = nullptr;
+        ce.lastBlocked = nullptr;
+        ce.firstBlocked = nullptr;
+        ce.lastStopped = nullptr;
+        ce.dens = 0;
+        ce.decideIndex = (int)ce.lane->myVehicles.size() - 1;
+    }
+    // the lanes are not modified, so other edges may read them in parallel
+    myDecideOnly = true;
+    MSAbstractLaneChangeModel::myDecidingEdge = &myChanger.front().lane->getEdge();
+    MSAbstractLaneChangeModel::myDeferredWrites = &myDeferredWrites;
+    while (vehInChanger()) {
+        const bool haveChanged = change();
+        updateChanger(haveChanged);
+    }
+    MSAbstractLaneChangeModel::myDecidingEdge = nullptr;
+    MSAbstractLaneChangeModel::myDeferredWrites = nullptr;
+    myDecideOnly = false;
+    myExecuteDecisions = true;
+}
+
+
+void
+MSLaneChanger::applyDeferredWrites() {
+    for (const std::function<void()>& write : myDeferredWrites) {
+        write();
+    }
+    myDeferredWrites.clear();
+}
+
+
+bool
+MSLaneChanger::canDecideFirst() const {
+    if (!myAllowsChanging || myChanger.size() < 2 || myChangeToOpposite || MSGlobals::gLaneChangeDuration > 0) {
+        return false;
+    }
+    for (const ChangeElem& ce : myChanger) {
+        if (ce.lane->getBidiLane() != nullptr) {
+            // the bidi lane is entered from both directions in the same step
+            return false;
+        }
+        for (const MSVehicle* const vehicle : ce.lane->myVehicles) {
+            if (vehicle->getLaneChangeModel().getModelID() != LaneChangeModel::LC2013) {
+                // the other models write to vehicles on other edges while deciding
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+
+bool
+MSLaneChanger::executeDecision(MSVehicle* vehicle) {
+    auto it = myDecisions.find(vehicle);
+    if (it == myDecisions.end() || !stillSafe(it->second)) {
+        registerUnchanged(vehicle);
+        return false;
+    }
+    return startChange(vehicle, myCandi, it->second);
+}
+
+
+bool
+MSLaneChanger::stillSafe(int direction) const {
+    // the gap checks of checkChange, now with the changes executed so far (also those of other edges)
+    MSVehicle* vehicle = veh(myCandi);
+    ChangerIt target = myCandi + direction;
+    std::pair<MSVehicle* const, double> neighLead = getRealLeader(target);
+    std::pair<MSVehicle*, double> neighFollow = getRealFollower(target);
+    if (neighLead.first != nullptr && neighLead.first == neighFollow.first) {
+        neighFollow.first = nullptr;
+    }
+    const double tauRemainder = vehicle->getActionStepLength() == DELTA_T ? 0 : MAX2(vehicle->getCarFollowModel().getHeadwayTime() - TS, 0.);
+    const double safetyFactor = vehicle->getLaneChangeModel().getSafetyFactor();
+    if (neighFollow.first != nullptr) {
+        const double vNextFollower = neighFollow.first->getSpeed() + MAX2(0., tauRemainder * neighFollow.first->getAcceleration());
+        const double vNextLeader = vehicle->getSpeed() + MIN2(0., tauRemainder * vehicle->getAcceleration());
+        const double secureBackGap = neighFollow.first->getCarFollowModel().getSecureGap(neighFollow.first, vehicle, vNextFollower,
+                                     vNextLeader, vehicle->getCarFollowModel().getMaxDecel());
+        if (neighFollow.second < 0 || neighFollow.second < secureBackGap * safetyFactor) {
+            return false;
+        }
+    }
+    if (neighLead.first != nullptr) {
+        const double vNextFollower = vehicle->getSpeed() + MAX2(0., tauRemainder * vehicle->getAcceleration());
+        const double vNextLeader = neighLead.first->getSpeed() + MIN2(0., tauRemainder * neighLead.first->getAcceleration());
+        const double secureFrontGap = vehicle->getCarFollowModel().getSecureGap(vehicle, neighLead.first, vNextFollower,
+                                      vNextLeader, neighLead.first->getCarFollowModel().getMaxDecel());
+        if (neighLead.second < 0 || neighLead.second < secureFrontGap * safetyFactor) {
+            return false;
+        }
+    }
+    return true;
 }
 
 
@@ -238,6 +358,10 @@ MSLaneChanger::updateChanger(bool vehHasChanged) {
     if (!vehHasChanged) {
         //std::cout << SIMTIME << " updateChanger: lane=" << myCandi->lane->getID() << " has new lead=" << veh(myCandi)->getID() << "\n";
         myCandi->lead = veh(myCandi);
+    }
+    if (myDecideOnly) {
+        myCandi->decideIndex--;
+        return;
     }
 
     MSLane::VehCont& vehicles = myCandi->lane->myVehicles;
@@ -343,7 +467,10 @@ MSLaneChanger::change() {
 
     myCandi = findCandidate();
     MSVehicle* vehicle = veh(myCandi);
-    vehicle->getLaneChangeModel().clearNeighbors();
+    if (!myExecuteDecisions) {
+        // the neighbors were saved while deciding
+        vehicle->getLaneChangeModel().clearNeighbors();
+    }
 
     if (vehicle->getLaneChangeModel().isChangingLanes() && !vehicle->getLaneChangeModel().alreadyChanged()) {
         return continueChange(vehicle, myCandi);
@@ -356,6 +483,11 @@ MSLaneChanger::change() {
         return false;
     }
 
+    if (!vehicle->isActive() && myDecideOnly) {
+        // TraCI commands outside action steps are applied when executing
+        registerUnchanged(vehicle);
+        return false;
+    }
     if (!vehicle->isActive()) {
 #ifdef DEBUG_ACTIONSTEPS
         if (DEBUG_COND) {
@@ -373,6 +505,9 @@ MSLaneChanger::change() {
             registerUnchanged(vehicle);
         }
         return changed;
+    }
+    if (myExecuteDecisions) {
+        return executeDecision(vehicle);
     }
 
     // Check for changes to the opposite lane if vehicle is active
@@ -447,6 +582,10 @@ MSLaneChanger::change() {
 
 void
 MSLaneChanger::registerUnchanged(MSVehicle* vehicle) {
+    if (myDecideOnly) {
+        myCandi->dens += vehicle->getVehicleType().getLengthWithGap();
+        return;
+    }
     //std::cout << SIMTIME << " registerUnchanged lane=" << myCandi->lane->getID() << " veh=" << vehicle->getID() << "\n";
     myCandi->lane->myTmpVehicles.insert(myCandi->lane->myTmpVehicles.begin(), veh(myCandi));
     myCandi->dens += vehicle->getVehicleType().getLengthWithGap();
@@ -501,6 +640,11 @@ MSLaneChanger::applyTraCICommands(MSVehicle* vehicle) {
 bool
 MSLaneChanger::startChange(MSVehicle* vehicle, ChangerIt& from, int direction) {
     if (vehicle->isRemoteControlled()) {
+        registerUnchanged(vehicle);
+        return false;
+    }
+    if (myDecideOnly) {
+        myDecisions[vehicle] = direction;
         registerUnchanged(vehicle);
         return false;
     }
@@ -697,6 +841,10 @@ MSLaneChanger::getRealFollower(const ChangerIt& target) const {
     MSVehicle* neighFollow = nullptr;
     if (target != myCandi) {
         neighFollow = veh(target);
+    } else if (myDecideOnly) {
+        if (target->decideIndex > 0) {
+            neighFollow = target->lane->myVehicles[target->decideIndex - 1];
+        }
     } else {
         // veh(target) would return the ego vehicle so we use its predecessor instead
         if (target->lane->myVehicles.size() > 1) {

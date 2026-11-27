@@ -79,6 +79,28 @@ MSAbstractLaneChangeModel::initGlobalOptions(const OptionsCont& oc) {
 }
 
 
+thread_local const MSEdge* MSAbstractLaneChangeModel::myDecidingEdge = nullptr;
+thread_local std::vector<std::function<void()> >* MSAbstractLaneChangeModel::myDeferredWrites = nullptr;
+
+
+bool
+MSAbstractLaneChangeModel::onOtherEdge(const MSVehicle* veh) {
+    return myDecidingEdge != nullptr && &veh->getLane()->getEdge() != myDecidingEdge;
+}
+
+
+void*
+MSAbstractLaneChangeModel::deliver(MSVehicle* receiver, void* info, MSVehicle* sender) {
+    if (onOtherEdge(receiver)) {
+        myDeferredWrites->push_back([receiver, info, sender]() {
+            receiver->getLaneChangeModel().inform(info, sender);
+        });
+        return (void*) true;
+    }
+    return receiver->getLaneChangeModel().inform(info, sender);
+}
+
+
 MSAbstractLaneChangeModel*
 MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
     if (MSGlobals::gLateralResolution > 0 && lcm != LaneChangeModel::SL2015 && lcm != LaneChangeModel::DEFAULT) {
@@ -110,6 +132,9 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myOwnState(0),
     myPreviousState(0),
     myPreviousState2(0),
+    myDecisionState(0),
+    myDecisionStateRight(0),
+    myDecisionStateLeft(0),
     myCanceledStateRight(LCA_NONE),
     myCanceledStateCenter(LCA_NONE),
     myCanceledStateLeft(LCA_NONE),
@@ -1078,14 +1103,16 @@ MSAbstractLaneChangeModel::setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicle
 
 bool
 MSAbstractLaneChangeModel::isStrategicBlocked() const {
-    const int stateRight = mySavedStateRight.second;
+    // a vehicle on another edge is seen as it was before deciding
+    const bool otherEdge = onOtherEdge(&myVehicle);
+    const int stateRight = otherEdge ? myDecisionStateRight : mySavedStateRight.second;
     if (
         (stateRight & LCA_STRATEGIC) != 0
         && (stateRight & LCA_RIGHT) != 0
         && (stateRight & LCA_BLOCKED) != 0) {
         return true;
     }
-    const int stateLeft = mySavedStateLeft.second;
+    const int stateLeft = otherEdge ? myDecisionStateLeft : mySavedStateLeft.second;
     if (
         (stateLeft & LCA_STRATEGIC) != 0
         && (stateLeft & LCA_LEFT) != 0

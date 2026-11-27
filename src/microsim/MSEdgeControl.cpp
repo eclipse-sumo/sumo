@@ -36,7 +36,6 @@
 
 #define PARALLEL_PLAN_MOVE
 #define PARALLEL_EXEC_MOVE
-//#define PARALLEL_CHANGE_LANES
 //#define LOAD_BALANCING
 
 //#define PARALLEL_STOPWATCH
@@ -295,68 +294,55 @@ MSEdgeControl::executeMovements(SUMOTime t) {
 
 void
 MSEdgeControl::changeLanes(const SUMOTime t) {
-    std::vector<MSLane*> toAdd;
-#ifdef PARALLEL_CHANGE_LANES
-    std::vector<const MSEdge*> recheckLaneUsage;
-#endif
+    std::vector<const MSEdge*> edges;
     MSGlobals::gComputeLC = true;
     for (const MSLane* const l : myActiveLanes) {
         if (myLanes[l->getNumericalID()].haveNeighbors) {
             const MSEdge& edge = l->getEdge();
             if (myLastLaneChange[edge.getNumericalID()] != t) {
                 myLastLaneChange[edge.getNumericalID()] = t;
-#ifdef PARALLEL_CHANGE_LANES
-                if (MSGlobals::gNumSimThreads > 1) {
-                    MSLane* lane = edge.getLanes()[0];
-                    myThreadPool.add(lane->getLaneChangeTask(t), lane->getRNGIndex() % myThreadPool.size());
-                    recheckLaneUsage.push_back(&edge);
-                } else {
-#endif
-                    edge.changeLanes(t);
-                    for (MSLane* const lane : edge.getLanes()) {
-                        LaneUsage& lu = myLanes[lane->getNumericalID()];
-                        //if ((*i)->getID() == "disabled") {
-                        //    std::cout << SIMTIME << " vehicles=" << toString((*i)->getVehiclesSecure()) << "\n";
-                        //    (*i)->releaseVehicles();
-                        //}
-                        if (lane->getVehicleNumber() > 0 && !lu.amActive) {
-                            toAdd.push_back(lane);
-                            lu.amActive = true;
-                        }
-                        if (MSGlobals::gLateralResolution > 0) {
-                            lane->sortManeuverReservations();
-                        }
-                    }
-#ifdef PARALLEL_CHANGE_LANES
-                }
-#endif
+                edges.push_back(&edge);
             }
         } else {
             break;
         }
     }
-
-#ifdef PARALLEL_CHANGE_LANES
+    // first phase: decide without moving any vehicle, so edges only read each other
+#ifdef HAVE_FOX
     if (MSGlobals::gNumSimThreads > 1) {
+        for (const MSEdge* const edge : edges) {
+            MSLane* const lane = edge->getLanes()[0];
+            myThreadPool.add(lane->getLaneChangeTask(t), lane->getRNGIndex() % myThreadPool.size());
+        }
         myThreadPool.waitAll(false);
-        for (const MSEdge* e : recheckLaneUsage) {
-            for (MSLane* const l : e->getLanes()) {
-                LaneUsage& lu = myLanes[l->getNumericalID()];
-                if (l->getVehicleNumber() > 0 && !lu.amActive) {
-                    toAdd.push_back(l);
-                    lu.amActive = true;
-                }
-                if (MSGlobals::gLateralResolution > 0) {
-                    l->sortManeuverReservations();
-                }
+    } else
+#endif
+    {
+        for (const MSEdge* const edge : edges) {
+            edge->decideLaneChanges();
+        }
+    }
+    for (const MSEdge* const edge : edges) {
+        edge->applyDeferredLaneChangeWrites();
+    }
+    // second phase: execute serially (edges which cannot decide first decide and execute here)
+    std::vector<MSLane*> toAdd;
+    for (const MSEdge* const edge : edges) {
+        edge->changeLanes(t);
+        for (MSLane* const lane : edge->getLanes()) {
+            LaneUsage& lu = myLanes[lane->getNumericalID()];
+            if (lane->getVehicleNumber() > 0 && !lu.amActive) {
+                toAdd.push_back(lane);
+                lu.amActive = true;
+            }
+            if (MSGlobals::gLateralResolution > 0) {
+                lane->sortManeuverReservations();
             }
         }
     }
-#endif
-
     MSGlobals::gComputeLC = false;
-    for (std::vector<MSLane*>::iterator i = toAdd.begin(); i != toAdd.end(); ++i) {
-        myActiveLanes.push_front(*i);
+    for (MSLane* const lane : toAdd) {
+        myActiveLanes.push_front(lane);
     }
 }
 

@@ -25,6 +25,8 @@
 #pragma once
 #include <config.h>
 
+#include <functional>
+#include <vector>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLeaderInfo.h>
 #include <microsim/MSVehicle.h>
@@ -73,7 +75,7 @@ public:
          */
         void* informLeader(void* info, MSVehicle* sender) {
             assert(myLeader != 0);
-            return myLeader->getLaneChangeModel().inform(info, sender);
+            return deliver(myLeader, info, sender);
         }
 
 
@@ -84,7 +86,7 @@ public:
          */
         void* informNeighLeader(void* info, MSVehicle* sender) {
             assert(myNeighLeader != 0);
-            return myNeighLeader->getLaneChangeModel().inform(info, sender);
+            return deliver(myNeighLeader, info, sender);
         }
 
 
@@ -95,7 +97,7 @@ public:
          */
         void* informNeighFollower(void* info, MSVehicle* sender) {
             assert(myNeighFollower != 0);
-            return myNeighFollower->getLaneChangeModel().inform(info, sender);
+            return deliver(myNeighFollower, info, sender);
         }
 
 
@@ -138,6 +140,30 @@ public:
      * @param[in] vehicle The vehicle for which this model shall be built
      */
     static MSAbstractLaneChangeModel* build(LaneChangeModel lcm, MSVehicle& vehicle);
+
+    /// @brief the edge whose lane changes the current thread decides (nullptr outside MSLaneChanger::decideLaneChanges)
+    static thread_local const MSEdge* myDecidingEdge;
+
+    /// @brief writes to vehicles on other edges, applied after all edges have decided
+    static thread_local std::vector<std::function<void()> >* myDeferredWrites;
+
+    /// @brief whether veh is on another edge than the one deciding in this thread
+    static bool onOtherEdge(const MSVehicle* veh);
+
+    /// @brief passes info to the receiver now, or after all edges have decided if it is on another edge
+    static void* deliver(MSVehicle* receiver, void* info, MSVehicle* sender);
+
+    /// @brief keep the state seen by vehicles on other edges while deciding
+    virtual void saveDecisionState() {
+        myDecisionState = myOwnState;
+        myDecisionStateRight = mySavedStateRight.second;
+        myDecisionStateLeft = mySavedStateLeft.second;
+    }
+
+    /// @brief the state before deciding
+    int getDecisionState() const {
+        return myDecisionState;
+    }
 
     /** @brief Returns the model's ID;
      * @return The model's ID
@@ -550,6 +576,11 @@ public:
         return true;
     }
 
+    /// @brief saveBlockerLength for a vehicle on another edge while deciding: check the saved state, write later
+    virtual bool saveBlockerLengthLater(double /* length */, double /* foeLeftSpace */) {
+        return false;
+    }
+
     void setShadowPartialOccupator(MSLane* lane) {
         myPartiallyOccupatedByShadow.push_back(lane);
     }
@@ -695,6 +726,11 @@ protected:
     int myPreviousState;
     /// @brief lane changing state from step before the previous simulation step
     int myPreviousState2;
+
+    /// @brief the state before deciding (seen by vehicles on other edges)
+    int myDecisionState;
+    int myDecisionStateRight;
+    int myDecisionStateLeft;
 
     std::pair<int, int> mySavedStateRight;
     std::pair<int, int> mySavedStateCenter;

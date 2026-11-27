@@ -50,6 +50,11 @@ protected:
     /** Find a new candidate and try to change it. */
     virtual bool change();
 
+    /// @brief the sublane model decides and executes the changes in one pass
+    virtual bool canDecideFirst() const {
+        return false;
+    }
+
     /// @brief  Initialize the changer before looping over all vehicles.
     virtual void initChanger();
 

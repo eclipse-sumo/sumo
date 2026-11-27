@@ -1,23 +1,23 @@
-Loading net-file from 'net.net.xml' ... done (55ms).
+Loading net-file from 'net.net.xml' ... done (36ms).
 Loading route-files incrementally from 'input_trips.trips.xml'
 Loading done.
-Simulation version v1_27_0+0279-a98528887a8 started with time: 0.00.
-Simulation ended at time: 4193.00.
+Simulation version v1_28_0+0708-67efd97d02b started with time: 0.00.
+Simulation ended at time: 4212.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 1.64s
- Real time factor: 2556.71
- UPS: 221765.243902
+ Duration: 1.72s
+ Real time factor: 2444.57
+ UPS: 211177.016831
 Vehicles:
  Inserted: 900
  Running: 0
  Waiting: 0
 Statistics (avg of 900):
- RouteLength: 3711.93
- Speed: 9.34
- Duration: 404.11
- WaitingTime: 85.51
- TimeLoss: 132.75
+ RouteLength: 3712.41
+ Speed: 9.33
+ Duration: 404.29
+ WaitingTime: 85.30
+ TimeLoss: 132.88
  DepartDelay: 0.03
-DijkstraRouter answered 3289 queries and explored 145.55 edges on average.
-DijkstraRouter spent 0.28s answering queries (0.08ms on average).
+DijkstraRouter answered 3296 queries and explored 145.57 edges on average.
+DijkstraRouter spent 0.21s answering queries (0.06ms on average).

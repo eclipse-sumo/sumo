@@ -23,10 +23,12 @@
 #pragma once
 #include <config.h>
 
+#include <functional>
+#include <map>
+#include <vector>
 #include "MSLane.h"
 #include "MSEdge.h"
 #include "MSVehicle.h"
-#include <vector>
 #include <utils/iodevices/OutputDevice.h>
 
 
@@ -52,6 +54,14 @@ public:
 
     /// Start lane-change-process for all vehicles on the edge'e lanes.
     void laneChange(SUMOTime t);
+
+    /** @brief Decide the lane changes of all vehicles without executing them
+     * (first phase, may run in parallel for different edges). laneChange executes the decisions.
+     */
+    void decideLaneChanges();
+
+    /// @brief apply the writes to vehicles on other edges from decideLaneChanges
+    void applyDeferredWrites();
 
 public:
     /** Structure used for lane-change. For every lane you have to
@@ -107,6 +117,8 @@ public:
 
         /// the waiting time of the last blocked vehicle that wants to change to this lane
         SUMOTime lastBlockedWaitingTime;
+        /// @brief index of the candidate in lane->myVehicles while deciding
+        int decideIndex;
         ///@}
 
     };
@@ -153,6 +165,9 @@ protected:
         or 0 if there is none. */
     MSVehicle* veh(ConstChangerIt ce) const {
         // If ce has a valid vehicle, return it. Otherwise return 0.
+        if (myDecideOnly) {
+            return ce->decideIndex >= 0 ? ce->lane->myVehicles[ce->decideIndex] : nullptr;
+        }
         if (!ce->lane->myVehicles.empty()) {
             return ce->lane->myVehicles.back();
         } else {
@@ -163,6 +178,15 @@ protected:
 
     /** Find a new candidate and try to change it. */
     virtual bool change();
+
+    /// @brief whether the lane changes of this edge can be decided before any change is executed
+    virtual bool canDecideFirst() const;
+
+    /// @brief execute the decision of the current candidate
+    bool executeDecision(MSVehicle* vehicle);
+
+    /// @brief whether the gaps on the target lane still allow the decided change
+    bool stillSafe(int direction) const;
 
 
     /** try changing to the opposite direction edge. */
@@ -334,6 +358,18 @@ protected:
 
     /// @brief whether this edge allows changing to the opposite direction edge
     const bool myChangeToOpposite;
+
+    /// @brief whether vehicles are only checked, not moved (decideLaneChanges)
+    bool myDecideOnly;
+
+    /// @brief whether laneChange executes the decisions of decideLaneChanges
+    bool myExecuteDecisions;
+
+    /// @brief the change direction decided per vehicle
+    std::map<const MSVehicle*, int> myDecisions;
+
+    /// @brief writes to vehicles on other edges while deciding
+    std::vector<std::function<void()> > myDeferredWrites;
 
     /* @brief whether neigboring lanes target the same outgoing edge but have different foe links and
      * therefore require an extra MSLink::opened check before changing */

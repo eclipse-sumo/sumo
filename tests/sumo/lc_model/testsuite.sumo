@@ -50,3 +50,6 @@ lcSigma_threads
 
 # test vType attribute 'lcm'
 specify_lcm
+
+# lane changes are decided on all edges before any is executed
+parallel
