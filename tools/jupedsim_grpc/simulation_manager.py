@@ -112,7 +112,7 @@ class SimulationManager:
     def __init__(self, debug=False, sqlite=False):
         self._geometry_id_counter = 0
         self._simulation_id_counter = 0
-        self._region_id = None
+        self._region = None
         self._geometries = {}  # geometry_id -> shapely.Polygon
         self._simulations = {}  # sim_id -> jps.Simulation
         self._agents = {}  # agent_id -> simulation_id
@@ -156,7 +156,7 @@ class SimulationManager:
         polygon = shapely.Polygon(boundary, holes=obstacles)
         if jps.__version__ >= '2':
             geo_builder = jps.GeometryBuilder()
-            self._region_id = geo_builder.add_region(polygon=polygon, height=0.0)
+            self._region = geo_builder.add_region(polygon=polygon, height=0.0)
             self._geometries[geometry_id] = geo_builder.build()
         else:
             self._geometries[geometry_id] = polygon
@@ -190,9 +190,15 @@ class SimulationManager:
         param_dict = {}
         if parameters is not None:
             param_dict = json_format.MessageToDict(parameters)
-        if jps.__version__ >= '2' and model_class == 'GeneralizedCentrifugalForceModel':
-            if (geometry_repulsion := param_dict.pop("strength_geometry_repulsion", None)) is not None:
-                param_dict["strength_wall_repulsion"] = geometry_repulsion
+        if jps.__version__ >= '2':
+            if model_class == 'GeneralizedCentrifugalForceModel':
+                if (geometry_repulsion := param_dict.pop("strength_geometry_repulsion", None)) is not None:
+                    param_dict["strength_wall_repulsion"] = geometry_repulsion
+            else:
+                # TODO model names and parameters changed
+                #  the old CollisionFreeSpeedModel is now CollisionFreeSpeedModelTordeux2016
+                #  and the new CollisionFreeSpeedModel has all parameters per agent
+                param_dict = {}
         # The model class is a dataclass; unset parameters keep their defaults.
         try:
             model = jps_model_cls(**param_dict)
@@ -263,7 +269,7 @@ class SimulationManager:
 
         if jps.__version__ >= '2':
             journey_id = param_dict.pop("journey_id")
-            stage_id = param_dict.pop("stage_id")
+            param_dict.pop("stage_id")
             position = param_dict.pop("position")
             if agent_model_class == "SocialForceModel":
                 # TODO we should probably calculate a proper velocity vector instead
@@ -273,8 +279,8 @@ class SimulationManager:
                 jps, f"{agent_model_class}State"
             )
             agent_state = jps_model_state_cls(**param_dict)
-            agent_id = simulation.add_agent(journey_id=journey_id, stage_id=stage_id,
-                                            position=position, state=agent_state, region_id=self._region_id)
+            agent_id = simulation.add_agent(self._region.at(
+                *position), route=simulation.route(journey_id), state=agent_state).id
         else:
             # Create model parameters
             jps_model_param_cls = getattr(
@@ -297,7 +303,10 @@ class SimulationManager:
         # mark_agent_for_removal defers actual removal to the next iterate.
         for agent_id in agent_ids:
             try:
-                simulation.mark_agent_for_removal(agent_id)
+                if jps.__version__ >= '2':
+                    simulation.mark_agent_for_removal(simulation.agent(agent_id))
+                else:
+                    simulation.mark_agent_for_removal(agent_id)
             except RuntimeError as e:
                 return None, str(e)
         if (script := self._script(simulation_id)) is not None:
@@ -331,7 +340,7 @@ class SimulationManager:
         if ring[0] != ring[-1]:  # agents_in_polygon wants a closed ring
             ring.append(ring[0])
         if jps.__version__ >= '2':
-            agent_ids = [a.id for a in simulation.agents_in_polygon(ring)]
+            agent_ids = [a.id for a in simulation.agents_in_polygon(ring, region=self._region)]
         else:
             agent_ids = simulation.agents_in_polygon(ring)
         return dict(agent_ids=agent_ids), None
@@ -368,6 +377,10 @@ class SimulationManager:
     def add_journey(self, simulation_id, stage_ids):
         if (simulation := self._simulations.get(simulation_id, None)) is None:
             return None, f"simulation ID {simulation_id} unknown"
+        if jps.__version__ >= '2':
+            rt = [simulation.target(id) for id in stage_ids]
+            route = [jps.FixedTransition(source, target) for source, target in zip([jps.AGENT_LOCATION] + rt, rt)]
+            return dict(journey_id=simulation.add_route(route).id), None
         journey = jps.JourneyDescription(stage_ids=stage_ids)
         for i in range(1, len(stage_ids)):
             journey.set_transition_for_stage(stage_ids[i-1], jps.Transition.create_fixed_transition(stage_ids[i]))
@@ -395,8 +408,8 @@ class SimulationManager:
         if (simulation := self._simulations.get(simulation_id, None)) is None:
             return None, f"simulation ID {simulation_id} unknown"
         if jps.__version__ >= '2':
-            waypoint_id = simulation.add_waypoint_stage([(jps.circle_to_polygon(center=(x, y), radius=distance),
-                                                          self._region_id)])
+            wp = [(jps.circle_to_polygon(center=(x, y), radius=distance), self._region)]
+            waypoint_id = simulation.add_target(jps.Waypoint(wp)).id
         else:
             waypoint_id = simulation.add_waypoint_stage((x, y), distance)
         self._stages[waypoint_id] = simulation_id
@@ -477,16 +490,14 @@ class SimulationManager:
         properties = {}
         for agent in simulation.agents():
             if jps.__version__ >= '2':
+                position = agent.location.xy
                 orientation = getattr(agent.state, "orientation", (1, 0))
             else:
+                position = agent.position
                 orientation = agent.orientation
             properties[agent.id] = jupedsim_pb2.AgentCoreProperties(
-                position=jupedsim_pb2.Point(
-                    x=agent.position[0], y=agent.position[1]
-                ),
-                orientation=jupedsim_pb2.Point(
-                    x=orientation[0], y=orientation[1]
-                ),
+                position=jupedsim_pb2.Point(x=position[0], y=position[1]),
+                orientation=jupedsim_pb2.Point(x=orientation[0], y=orientation[1]),
             )
         return dict(properties=properties), None
 
