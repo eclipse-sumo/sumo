@@ -136,6 +136,7 @@ static StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitialize
     {"aircraft",              SUMOVehicleShape::AIRCRAFT},
     {"drone",                 SUMOVehicleShape::DRONE},
     {"wheelchair",            SUMOVehicleShape::WHEELCHAIR},
+    {"cable_car",             SUMOVehicleShape::CABLE_CAR},
     {"",                      SUMOVehicleShape::UNKNOWN}
 };
 
@@ -609,6 +610,8 @@ getDefaultVehicleLength(const SUMOVehicleClass vc) {
             return 0.5;
         case SVC_AIRCRAFT:
             return 72.7;
+        case SVC_CABLE_CAR:
+            return 2.4;
         default:
             return 5; /*4.3*/
     }

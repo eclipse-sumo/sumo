@@ -305,6 +305,11 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             shape = SUMOVehicleShape::AIRCRAFT;
             width = 79.8;
             break;
+        case SVC_CABLE_CAR:
+            width = 1.5;
+            height = 2.2;
+            shape = SUMOVehicleShape::CABLE_CAR;
+            break;
         case SVC_SHIP:
             width = 4;
             maxSpeed = 8 / 1.94; // 8 knots

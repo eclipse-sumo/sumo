@@ -700,6 +700,7 @@ enum class GUIIcon {
     VSHAPE_AIRCRAFT,
     VSHAPE_DRONE,
     VSHAPE_WHEELCHAIR,
+    VSHAPE_CABLE_CAR,
     /// @}
 
     /// @name icons for status

@@ -31,7 +31,9 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/foxtools/MFXImageHelper.h>
+#include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/foxtools/MFXStaticToolTip.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/options/OptionsCont.h>
@@ -641,9 +643,21 @@ GUIMainWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
                                  TL("For the Debug build you might also need to set the LANG environment variable.") + std::string("\n") +
 #endif
 #endif
-                                 TL("Under development. You can help to improve the translation at:") + std::string("\n") +
-                                 "https://hosted.weblate.org/projects/eclipse-sumo/";
-        FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", body.c_str());
+                                 TL("Under development. You can help to improve the translation at:");
+        const std::string url = "https://hosted.weblate.org/projects/eclipse-sumo/";
+        FXDialogBox dialog(this, header.c_str(), GUIDesignDialogBox);
+        dialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::INFORMATION_SMALL));
+        FXHorizontalFrame* contentFrame = new FXHorizontalFrame(&dialog, GUIDesignHorizontalFrame);
+        new FXLabel(contentFrame, "", GUIIconSubSys::getIcon(GUIIcon::INFORMATION_LARGE), GUIDesignLabelIcon);
+        FXVerticalFrame* textFrame = new FXVerticalFrame(contentFrame, GUIDesignAuxiliarFrame);
+        new FXLabel(textFrame, body.c_str(), nullptr, GUIDesignLabelAboutInfo);
+        (new MFXLinkLabel(textFrame, url.c_str(), nullptr, GUIDesignLabelAboutInfo))->setTipText(url.c_str());
+        FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(&dialog, GUIDesignHorizontalFrame);
+        new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
+        GUIDesigns::buildFXButton(buttonFrame, TL("OK"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), &dialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonDialog);
+        new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
+        dialog.create();
+        dialog.execute(PLACEMENT_OWNER);
         // update language in registry (common for sumo and netedit)
         std::string appKey = getApp()->reg().getAppKey().text();
         if (appKey == "SUMO GUI") {

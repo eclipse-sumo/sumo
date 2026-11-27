@@ -626,6 +626,60 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             }
             break;
         }
+        case SUMOVehicleShape::CABLE_CAR: {
+            // draw in units of the vehicle width so that the cabin ends keep their designed
+            // proportions and only the middle section stretches with the vehicle length
+            GLHelper::pushMatrix();
+            const double len = length / width;
+            glScaled(1. / len, 1., 1.);
+            // length/width ratio of the reference design, cabin ends shrink for shorter vehicles
+            const double k = MIN2(1., len / 1.64);
+            const double cap = 0.254 * k;
+            const double body[] = {
+                0., -0.245,  0.044 * k, -0.341,  cap, -0.5,  len - cap, -0.5,  len - 0.044 * k, -0.341,  len, -0.245,
+                len, 0.245,  len - 0.044 * k, 0.341,  len - cap, 0.5,  cap, 0.5,  0.044 * k, 0.341,  0., 0.245,  -10000
+            };
+            drawPoly(body, 1);
+            // windows at both ends
+            const double window[] = {
+                0.195 * k, -0.402,  0.057 * k, -0.305,  0.041 * k, -0.235,  0.041 * k, 0.235,  0.057 * k, 0.305,  0.195 * k, 0.402,  -10000
+            };
+            GLHelper::setColor(RGBColor::BLACK);
+            drawPoly(window, 2);
+            GLHelper::pushMatrix();
+            glTranslated(len, 0, 0);
+            glScaled(-1, 1, 1);
+            drawPoly(window, 2);
+            GLHelper::popMatrix();
+            glTranslated(0, 0, 0.2);
+            // roof grills are repeated along the cabin so that they keep roughly their designed length
+            const double gap = 0.033;
+            const double grillStart = 0.3115 * k;
+            const double grillRange = len - 2 * grillStart;
+            const int numGrills = MAX2(1, (int)(grillRange / (1.0165 * k) + 0.5));
+            const double grillLength = (grillRange - (numGrills - 1) * gap) / numGrills;
+            // rails on the long sides, split in the middle or between the grills
+            const double railStart = 0.279 * k;
+            const double railRange = len - 2 * railStart;
+            const int numRails = MAX2(2, numGrills);
+            const double railLength = (railRange - (numRails - 1) * gap) / numRails;
+            for (int i = 0; i < numRails; i++) {
+                const double x = railStart + railLength / 2 + i * (railLength + gap);
+                drawRoundedRect(x, -0.459, railLength / 2, 0.016, 0.016);
+                drawRoundedRect(x, 0.459, railLength / 2, 0.016, 0.016);
+            }
+            GLHelper::setColor(darker);
+            for (int i = 0; i < numGrills; i++) {
+                const double x = grillStart + grillLength / 2 + i * (grillLength + gap);
+                for (const double offset : {
+                            -0.265, 0., 0.265
+                            }) {
+                    drawRoundedRect(x, offset, grillLength / 2, 0.116, 0.02);
+                }
+            }
+            GLHelper::popMatrix();
+            break;
+        }
         case SUMOVehicleShape::DRONE: {
             // draw within a centered square so that the rotors stay circular
             const double size = MIN2(length, width);
@@ -888,6 +942,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
         case SUMOVehicleShape::SCOOTER:
         case SUMOVehicleShape::DRONE:
         case SUMOVehicleShape::WHEELCHAIR:
+        case SUMOVehicleShape::CABLE_CAR:
             break;
         default: // same as passenger/sedan
             drawPoly(vehiclePoly_PassengerSedanRightGlass, 4.5);
