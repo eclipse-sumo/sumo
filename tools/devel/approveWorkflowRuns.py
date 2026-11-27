@@ -127,7 +127,8 @@ def rebase(options, pr, runs):
                 body={"expected_head_sha": sha, "update_method": "rebase"})
     except urllib.error.HTTPError as e:
         # e.g. conflicts or no permission to push
-        print("  could not rebase PR #%s, not approving: %s" % (pr["number"], e), file=sys.stderr)
+        if options.verbose or e.code != 503:
+            print("  could not rebase PR #%s, not approving: %s" % (pr["number"], e), file=sys.stderr)
         return []
     if options.verbose:
         print("  rebased PR #%s, waiting for the new runs." % pr["number"])
@@ -214,7 +215,8 @@ def main():
                 request(options, "/repos/%s/actions/runs/%s/approve" % (options.repo, run["id"]), method="POST")
             except urllib.error.HTTPError as e:
                 # e.g. the run has already been approved or cancelled in the meantime
-                print("  could not approve %s: %s" % (run["name"], e), file=sys.stderr)
+                if options.verbose or e.code != 503:
+                    print("  could not approve %s: %s" % (run["name"], e), file=sys.stderr)
         approved += 1
         for pool in active:
             active[pool] += estimate[pool]
@@ -228,4 +230,9 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except urllib.error.HTTPError as err:
+        # temporary GitHub outage, the next periodic run will try again
+        if err.code != 503:
+            raise
