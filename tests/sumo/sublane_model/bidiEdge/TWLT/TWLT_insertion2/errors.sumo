@@ -1,48 +1,68 @@
-Warning: Teleporting vehicle 'a.15'; waited too long (wrong lane), lane='-E1_0', time=623.00.
-Warning: Vehicle 'a.15' ends teleporting on edge 'E3', time=623.00.
-Warning: Teleporting vehicle 'a.26'; waited too long (jam), lane='-E2_0', time=655.00.
-Warning: Teleporting vehicle 'a.20'; waited too long (yield), lane='-E1_1', time=661.00.
-Warning: Teleporting vehicle 'b.19'; waited too long (yield), lane='E1_1', time=661.00.
-Warning: Vehicle 'a.20' ends teleporting on edge 'E3', time=661.00.
-Warning: Vehicle 'b.19' ends teleporting on edge 'E4', time=661.00.
-Warning: Teleporting vehicle 'b.20'; waited too long (yield), lane='E1_1', time=662.00.
-Warning: Vehicle 'b.20' ends teleporting on edge 'E4', time=663.00.
-Warning: Vehicle 'a.26' ends teleporting on edge 'E3', time=692.00.
-Warning: Vehicle 'a.22'; frontal collision with vehicle 'b.22', lane='-E1_1', gap=-0.41, latGap=-0.60, time=713.00, stage=laneChange.
-Warning: Vehicle 'a.22'; frontal collision with vehicle 'b.22', lane='-E1_1', gap=-0.41, latGap=-0.60, time=717.00, stage=laneChange.
-Warning: Teleporting vehicle 'a.29'; waited too long (jam), lane='-E2_0', time=961.00.
-Warning: Teleporting vehicle 'a.30'; waited too long (jam), lane='-E2_0', time=962.00.
-Warning: Teleporting vehicle 'a.31'; waited too long (jam), lane='-E2_0', time=963.00.
-Warning: Teleporting vehicle 'a.32'; waited too long (jam), lane='-E2_0', time=964.00.
-Warning: Teleporting vehicle 'a.23'; waited too long (yield), lane='-E2_1', time=969.00.
-Warning: Teleporting vehicle 'b.21'; waited too long (wrong lane), lane='E1_0', time=997.00.
-Warning: Vehicle 'b.21' ends teleporting on edge 'E4', time=997.00.
-Warning: Vehicle 'a.29' ends teleporting on edge 'E3', time=998.00.
-Warning: Vehicle 'a.30' ends teleporting on edge 'E3', time=1000.00.
-Warning: Vehicle 'a.31' ends teleporting on edge 'E3', time=1002.00.
-Warning: Vehicle 'a.32' ends teleporting on edge 'E3', time=1004.00.
-Warning: Teleporting vehicle 'b.22'; waited too long (yield), lane='E1_1', time=1013.00.
-Warning: Teleporting vehicle 'c.83'; waited too long (jam), lane='E0_0', time=1016.00.
-Warning: Teleporting vehicle 'a.17'; waited too long (yield), lane=':J1_2_0', time=1023.00.
-Warning: Teleporting vehicle 'b.23'; waited too long (wrong lane), lane='E1_0', time=1323.00.
-Warning: Teleporting vehicle 'a.25'; waited too long (yield), lane='-E2_1', time=1335.00.
-Warning: Teleporting vehicle 'a.34'; waited too long (yield), lane=':J1_2_0', time=1341.00.
-Warning: Teleporting vehicle 'a.38'; waited too long (wrong lane), lane='-E1_0', time=1347.00.
-Warning: Teleporting vehicle 'a.40'; waited too long (jam), lane='-E2_0', time=1351.00.
-Warning: Teleporting vehicle 'a.41'; waited too long (jam), lane='-E2_0', time=1354.00.
-Warning: Teleporting vehicle 'a.42'; waited too long (jam), lane='-E2_0', time=1356.00.
-Warning: Teleporting vehicle 'a.43'; waited too long (jam), lane='-E2_0', time=1358.00.
-Warning: Vehicle 'a.43' teleports beyond arrival edge 'E3', time=1398.00.
-Warning: Vehicle 'b.27'; frontal collision with vehicle 'a.82', lane='E1_1', gap=-0.84, latGap=-0.70, time=1506.00, stage=laneChange.
-Warning: Teleporting vehicle 'b.24'; waited too long (wrong lane), lane='E1_0', time=1777.00.
-Warning: Teleporting vehicle 'b.25'; waited too long (wrong lane), lane='E1_0', time=1780.00.
-Warning: Teleporting vehicle 'b.29'; waited too long (yield), lane='E1_1', time=1812.00.
-Warning: Teleporting vehicle 'a.82'; waited too long (yield), lane='-E1_1', time=1812.00.
-Warning: Teleporting vehicle 'a.93'; waited too long (wrong lane), lane='-E1_0', time=1827.00.
-Warning: Teleporting vehicle 'b.26'; waited too long (wrong lane), lane='E1_0', time=2129.00.
-Warning: Teleporting vehicle 'b.27'; waited too long (wrong lane), lane='E1_0', time=2434.00.
-Warning: Vehicle 'b.32'; frontal collision with vehicle 'a.89', lane='E1_1', gap=-2.21, latGap=-0.60, time=2438.00, stage=laneChange.
-Warning: Teleporting vehicle 'b.28'; waited too long (wrong lane), lane='E1_0', time=2740.00.
-Warning: 13 total messages of type: Teleporting vehicle '%'; waited too long (jam), lane='%', time=%.
-Warning: 18 total messages of type: Teleporting vehicle '%'; waited too long (yield), lane='%', time=%.
-Warning: 40 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
+Warning: Teleporting vehicle 'a.15'; waited too long (wrong lane), lane='-E1_0', time=603.00.
+Warning: Vehicle 'a.15' ends teleporting on edge 'E3', time=603.00.
+Warning: Teleporting vehicle 'a.16'; waited too long (wrong lane), lane='-E1_0', time=604.00.
+Warning: Teleporting vehicle 'a.17'; waited too long (wrong lane), lane='-E1_0', time=605.00.
+Warning: Vehicle 'a.16' ends teleporting on edge 'E3', time=605.00.
+Warning: Vehicle 'a.17' ends teleporting on edge 'E3', time=607.00.
+Warning: Teleporting vehicle 'a.22'; waited too long (yield), lane='-E2_1', time=627.00.
+Warning: Vehicle 'a.22' ends teleporting on edge 'E3', time=664.00.
+Warning: Teleporting vehicle 'b.19'; waited too long (yield), lane='E1_1', time=915.00.
+Warning: Vehicle 'b.19' ends teleporting on edge 'E4', time=915.00.
+Warning: Teleporting vehicle 'a.18'; waited too long (wrong lane), lane='-E1_0', time=919.00.
+Warning: Vehicle 'a.18' ends teleporting on edge 'E3', time=919.00.
+Warning: Teleporting vehicle 'a.23'; waited too long (yield), lane='-E2_1', time=932.00.
+Warning: Vehicle 'a.28'; frontal collision with vehicle 'b.20', lane='-E1_1', gap=-0.18, latGap=-0.40, time=932.00, stage=laneChange.
+Warning: Teleporting vehicle 'a.24'; waited too long (yield), lane='-E2_1', time=937.00.
+Warning: Teleporting vehicle 'a.25'; waited too long (yield), lane='-E2_1', time=939.00.
+Warning: Teleporting vehicle 'a.26'; waited too long (yield), lane='-E2_1', time=941.00.
+Warning: Teleporting vehicle 'a.33'; waited too long (yield), lane='-E2_1', time=943.00.
+Warning: Vehicle 'a.23' ends teleporting on edge 'E3', time=969.00.
+Warning: Vehicle 'a.24' ends teleporting on edge 'E3', time=974.00.
+Warning: Vehicle 'a.25' ends teleporting on edge 'E3', time=976.00.
+Warning: Vehicle 'a.26' ends teleporting on edge 'E3', time=978.00.
+Warning: Teleporting vehicle 'b.20'; waited too long (yield), lane=':J2_7_0', time=1242.00.
+Warning: Teleporting vehicle 'a.27'; waited too long (wrong lane), lane='-E1_0', time=1250.00.
+Warning: Teleporting vehicle 'a.31'; waited too long (jam), lane='-E2_0', time=1255.00.
+Warning: Vehicle 'a.30'; frontal collision with vehicle 'b.25', lane='-E1_1', gap=-2.37, latGap=-0.70, time=1271.00, stage=laneChange.
+Warning: Vehicle 'a.32'; frontal collision with vehicle 'b.28', lane='-E1_1', gap=-0.28, latGap=-0.70, time=1297.00, stage=laneChange.
+Warning: Vehicle 'a.34'; frontal collision with vehicle 'b.29', lane='-E1_1', gap=-0.26, latGap=-0.40, time=1314.00, stage=laneChange.
+Warning: Teleporting vehicle 'a.28'; waited too long (wrong lane), lane='-E1_0', time=1609.00.
+Warning: Teleporting vehicle 'a.35'; waited too long (yield), lane='-E2_1', time=1616.00.
+Warning: Teleporting vehicle 'a.36'; waited too long (yield), lane='-E2_1', time=1617.00.
+Warning: Teleporting vehicle 'a.40'; waited too long (jam), lane='-E2_0', time=1620.00.
+Warning: Teleporting vehicle 'a.29'; waited too long (wrong lane), lane='-E1_0', time=1913.00.
+Warning: Vehicle 'a.41'; frontal collision with vehicle 'b.36', lane='-E1_1', gap=-1.45, latGap=-0.80, time=1958.00, stage=laneChange.
+Warning: Vehicle 'b.37'; frontal collision with vehicle 'a.41', lane='E1_1', gap=-1.18, latGap=-0.60, time=1964.00, stage=laneChange.
+Warning: Vehicle 'b.36'; frontal collision with vehicle 'a.47', lane='E1_1', gap=-1.18, latGap=-0.80, time=1974.00, stage=laneChange.
+Warning: Vehicle 'b.36'; frontal collision with vehicle 'a.47', lane='E1_1', gap=-1.18, latGap=-0.80, time=1978.00, stage=laneChange.
+Warning: Vehicle 'b.36'; frontal collision with vehicle 'a.47', lane='E1_1', gap=-1.18, latGap=-0.80, time=1982.00, stage=laneChange.
+Warning: Vehicle 'b.36'; frontal collision with vehicle 'a.47', lane='E1_1', gap=-1.18, latGap=-0.80, time=1986.00, stage=laneChange.
+Warning: Vehicle 'b.36'; frontal collision with vehicle 'a.47', lane='E1_1', gap=-1.18, latGap=-0.80, time=1990.00, stage=laneChange.
+Warning: Vehicle 'b.36'; frontal collision with vehicle 'a.47', lane='E1_1', gap=-1.18, latGap=-0.80, time=1994.00, stage=laneChange.
+Warning: Vehicle 'b.36'; frontal collision with vehicle 'a.47', lane='E1_1', gap=-1.18, latGap=-0.80, time=1998.00, stage=laneChange.
+Warning: Vehicle 'b.36'; frontal collision with vehicle 'a.47', lane='E1_1', gap=-1.18, latGap=-0.80, time=2002.00, stage=laneChange.
+Warning: Vehicle 'b.36'; frontal collision with vehicle 'a.47', lane='E1_1', gap=-1.18, latGap=-0.80, time=2006.00, stage=laneChange.
+Warning: Vehicle 'b.36'; frontal collision with vehicle 'a.47', lane='E1_1', gap=-1.18, latGap=-0.80, time=2010.00, stage=laneChange.
+Warning: Teleporting vehicle 'a.48'; waited too long (jam), lane=':J2_3_1', time=2243.00.
+Warning: Teleporting vehicle 'b.34'; waited too long (wrong lane), lane='E1_0', time=2246.00.
+Warning: Teleporting vehicle 'a.52'; waited too long (jam), lane='-E2_0', time=2266.00.
+Warning: Teleporting vehicle 'a.55'; waited too long (jam), lane='-E2_0', time=2269.00.
+Warning: Teleporting vehicle 'b.35'; waited too long (wrong lane), lane='E1_0', time=2551.00.
+Warning: Teleporting vehicle 'a.54'; waited too long (jam), lane=':J2_3_0', time=2573.00.
+Warning: Teleporting vehicle 'a.58'; waited too long (jam), lane='-E2_0', time=2576.00.
+Warning: Teleporting vehicle 'b.38'; waited too long (wrong lane), lane='E1_0', time=2859.00.
+Warning: Vehicle 'b.43'; frontal collision with vehicle 'a.44', lane='E1_1', gap=-2.38, latGap=-0.50, time=2872.00, stage=laneChange.
+Warning: Vehicle 'b.45'; frontal collision with vehicle 'a.61', lane='E1_1', gap=-0.03, latGap=-0.70, time=3184.00, stage=laneChange.
+Warning: Vehicle 'b.45'; frontal collision with vehicle 'a.66', lane='E1_1', gap=-0.58, latGap=-0.50, time=3231.00, stage=laneChange.
+Warning: Vehicle 'b.44'; frontal collision with vehicle 'a.70', lane='E1_1', gap=-0.20, latGap=-0.50, time=3239.00, stage=laneChange.
+Warning: Vehicle 'b.45'; frontal collision with vehicle 'a.69', lane='E1_1', gap=-2.41, latGap=-0.70, time=3258.00, stage=laneChange.
+Warning: Vehicle 'b.45'; frontal collision with vehicle 'a.71', lane='E1_1', gap=-0.31, latGap=-0.50, time=3266.00, stage=laneChange.
+Warning: Vehicle 'b.46'; frontal collision with vehicle 'a.77', lane='E1_1', gap=-0.57, latGap=-0.70, time=3489.00, stage=laneChange.
+Warning: Vehicle 'b.46'; frontal collision with vehicle 'a.82', lane='E1_1', gap=-0.49, latGap=-0.70, time=3507.00, stage=laneChange.
+Warning: Vehicle 'b.46'; frontal collision with vehicle 'a.84', lane='E1_1', gap=-0.63, latGap=-0.60, time=3523.00, stage=laneChange.
+Warning: Vehicle 'b.45'; frontal collision with vehicle 'a.93', lane='E1_1', gap=-2.34, latGap=-0.70, time=3563.00, stage=laneChange.
+Warning: Vehicle 'b.46'; frontal collision with vehicle 'a.97', lane='E1_1', gap=-2.08, latGap=-1.00, time=3576.00, stage=laneChange.
+Warning: 12 total messages of type: Teleporting vehicle '%'; waited too long (wrong lane), lane='%', time=%.
+Warning: 20 total messages of type: Teleporting vehicle '%'; waited too long (yield), lane='%', time=%.
+Warning: 39 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
+Warning: 69 total messages of type: Vehicle 'b.36'; frontal collision with vehicle 'a.47', lane='%', gap=%%, time=%, stage=%.
