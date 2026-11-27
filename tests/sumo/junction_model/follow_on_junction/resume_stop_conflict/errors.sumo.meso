@@ -1,0 +1,2 @@
+Error: Mesoscopic simulation does not allow stopping on internal edge ':C_1' for vehicle 'blocker'.
+Quitting (on error).
