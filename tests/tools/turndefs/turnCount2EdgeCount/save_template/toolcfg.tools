@@ -1,6 +1,6 @@
 <configuration>
-    <turn-file value="None" type="file" help="Input turn-count file" category="processing" required="true"/>
-    <output-file value="None" type="file" help="Output edgeData file" category="processing" required="true"/>
-    <edgedata-attribute value="entered" type="string" help="Write edgeData counts with the given attribute" category="processing"/>
-    <turn-attribute value="count" type="string" help="Read turning counts from the given attribute" category="processing"/>
+    <turn-file value="None" type="file" help="Input turn-count file" category="input" required="true"/>
+    <output-file value="None" type="file" help="Output edgeData file" category="output" required="true"/>
+    <edgedata-attribute value="entered" type="string" help="Write edgeData counts with the given attribute" category="output"/>
+    <turn-attribute value="count" type="string" help="Read turning counts from the given attribute" category="input"/>
 </configuration>
