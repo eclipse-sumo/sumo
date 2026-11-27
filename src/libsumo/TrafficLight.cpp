@@ -1004,6 +1004,19 @@ TrafficLight::buildConstraint(const std::string& tlsID, const std::string& tripI
 }
 
 
+void
+TrafficLight::storeShape(const std::string& id, PositionVector& shape) {
+    std::set<const MSJunction*> seen;
+    for (const MSTrafficLightLogic::LinkVector& llinks : Helper::getTLS(id).getActive()->getLinks()) {
+        for (const MSLink* l : llinks) {
+            if (l->getJunction() != nullptr && seen.insert(l->getJunction()).second) {
+                shape.push_back(l->getJunction()->getPosition());
+            }
+        }
+    }
+}
+
+
 std::shared_ptr<VariableWrapper>
 TrafficLight::makeWrapper() {
     return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
