@@ -1,5 +1,5 @@
-Error: Edge 'left' not connected to edge 'end' for vehicle 'left_gap'.
+Error: Edge 'left' not connected to edge 'end' for vehicle 'left_gap' (use option --repair to connect edges).
 Error: The vehicle 'left_gap' has no valid route.
-Error: Edge 'middle' not connected to edge 'rend' for vehicle 'middle_gap'.
+Error: Edge 'middle' not connected to edge 'rend' for vehicle 'middle_gap' (use option --repair to connect edges).
 Error: The vehicle 'middle_gap' has no valid route.
 Quitting (on error).
