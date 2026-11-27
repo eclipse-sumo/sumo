@@ -25,8 +25,7 @@ import sys
 import json
 import shutil
 import subprocess
-from multiprocessing.pool import Pool
-import signal
+from concurrent.futures import ThreadPoolExecutor
 
 try:
     # python3
@@ -189,6 +188,7 @@ def worker(options, request, filename):
 def writeSettings(options, net, tile_list, zoom, decals):
     if net is None:
         print("Warning: No network given, will not try reprojection or writing a decal file.", file=sys.stderr)
+        return
     if options.reproject:
         reprojectTiles(options, tile_list, zoom, net, decals)
     else:
@@ -268,25 +268,23 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net, patte
     # opener.addheaders = [('User-agent', 'Mozilla/5.0')]
     # urllib.install_opener(opener)
 
-    if options.parallel_jobs != 0:
-        original_sigint_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
-        pool = Pool(options.parallel_jobs)
-        signal.signal(signal.SIGINT, original_sigint_handler)
-
-    futures = []
+    tasks = []
     tile_list = []
     for x in range(sx, ex + 1):
         for y in range(sy, ey + 1):
             request = options.url + pattern.format(z=zoom, y=y, x=x)
             suffix = ".png" if pattern.endswith(".png") else ".jpeg"
             filename = os.path.join(options.output_dir, "%s%s_%s%s" % (options.prefix, x, y, suffix))
-            if options.parallel_jobs == 0:
-                worker(options, request, filename)
-            else:
-                futures.append((x, y, pool.apply_async(worker, (options, request, filename))))
+            tasks.append((request, filename))
             tile_list.append((x, y, filename))
-    for x, y, future in futures:
-        future.get()
+    if options.parallel_jobs != 0 and not options.simulate:
+        with ThreadPoolExecutor(max_workers=options.parallel_jobs) as executor:
+            futures = [executor.submit(worker, options, req, fn) for req, fn in tasks]
+            for future in futures:
+                future.result()
+    else:
+        for req, fn in tasks:
+            worker(options, req, fn)
     writeSettings(options, net, tile_list, zoom, decals)
 
 
@@ -323,7 +321,7 @@ def get_options(args=None):
     optParser.add_option("--resolution", type=float, default=None,
                          help="target resolution in meters per pixel; the closest zoom level is used "
                               "(overrides --tiles based selection, capped by --max-zoom)")
-    optParser.add_option("-j", "--parallel-jobs", type=int, default=0,
+    optParser.add_option("-j", "--parallel-jobs", type=int, default=8,
                          help="Number of parallel jobs to run when downloading tiles. 0 means no parallelism.")
     optParser.add_option("-r", "--retina", action="store_true", default=False,
                          help="set 'true' for double resolution tiles (applies to cartodb only).")
