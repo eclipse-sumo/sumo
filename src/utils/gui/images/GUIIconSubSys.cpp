@@ -537,6 +537,7 @@
 #include "icons/vshapes/vshape_scooter.xpm"
 #include "icons/vshapes/vshape_aircraft.xpm"
 #include "icons/vshapes/vshape_drone.xpm"
+#include "icons/vshapes/vshape_wheelchair.xpm"
 #include "icons/vshapes/vshape_unknown.xpm"
 
 #include "icons/accept.xpm"
@@ -1122,6 +1123,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::VSHAPE_RICKSHAW] = new FXXPMIcon(a, vshape_rickshaw_xpm);
     myIcons[GUIIcon::VSHAPE_AIRCRAFT] = new FXXPMIcon(a, vshape_aircraft_xpm);
     myIcons[GUIIcon::VSHAPE_DRONE] = new FXXPMIcon(a, vshape_drone_xpm);
+    myIcons[GUIIcon::VSHAPE_WHEELCHAIR] = new FXXPMIcon(a, vshape_wheelchair_xpm);
     myIcons[GUIIcon::VSHAPE_SCOOTER] = new FXXPMIcon(a, vshape_scooter_xpm);
     myIcons[GUIIcon::VSHAPE_UNKNOWN] = new FXXPMIcon(a, vshape_unknown_xpm);
 

@@ -104,6 +104,9 @@ static const double vehiclePoly_scooterBase2[] = { .98, .05, 1., .05, 1., -.05, 
 static const double vehiclePoly_scooterBase3[] = { -.32, .6, .32, .6, .32, -.6, -.32, -.6, -10000 };
 
 static const double vehiclePoly_aircraft[] = {0.633, -0.500, 0.609, -0.465, 0.563, -0.460, 0.517, -0.168, 0.413, -0.156, 0.509, -0.053, 0.509, 0.053, 0.413, -0.156, 0.413, 0.156, 0.385, -0.101, 0.385, 0.101, 0.354, -0.058, 0.354, 0.058, 0.109, -0.050, 0.109, 0.050, 0, -0.003, 0, 0.003, 0, 0.003, 0.633, 0.500, 0.633, 0.500, 0.609, 0.465, 0.563, 0.460, 0.517, 0.168, 0.413, 0.156, 0.509, 0.053, 0.385, 0.101, 0.326, 0.158, 0.326, 0.108, 0.413, 0.156, 0.385, 0.101, 0.509, 0.053, 0.509, -0.053, 0.761, 0.043, 0.761, -0.043, 0.830, 0.030, 0.830, -0.030, 0.952, -0.196, 0.933, -0.196, 0.907, -0.008, 0.830, 0.030, 0.933, 0.196, 0.952, 0.196, 0.907, 0.008, 0.830, 0.030, 0.907, -0.008, 1.000, 0.003, 0.907, 0.008, 0.354, -0.058, 0.509, -0.053, 0.413, -0.156, 0.385, -0.101, 0.326, -0.158, 0.326, -0.108, 0.385, -0.101, -10000};
+static const double vehiclePoly_WheelchairFootrest[] = { 0.053, -0.324,  0.003, -0.259,  0.003, -0.056,  0.102, -0.056,  0.102, -0.259,  0.083, -0.286,  -10000 };
+static const double vehiclePoly_WheelchairArm[] = { 0.75, -0.30,  0.75, -0.44,  0.62, -0.50,  0.47, -0.50,  0.44, -0.47,  0.44, -0.38,  -10000 };
+static const double vehiclePoly_WheelchairLeg[] = { 0.45, -0.26,  0.40, -0.01,  0.03, -0.06,  0., -0.09,  0., -0.19,  0.03, -0.215,  -10000 };
 static const double vehiclePoly_aircraftEngines[] = {0.326, -0.158, 0.413, -0.156, 0.326, -0.108, 0.385, -0.101, 0.385, -0.101, 0.385, 0.101, 0.385, 0.101, 0.326, 0.108, 0.413, 0.156, 0.326, 0.158, -10000};
 //static const double vehiclePoly_Rickshaw[] = { 0.5, 0,  0.25, 0.45,  0.25, 0.5, 0.8, 0.15,     0.8, -0.15, 0.25, -0.5, 0.25, -0.45,     -10000 };
 
@@ -576,6 +579,53 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             GLHelper::popMatrix();
             break;
 
+        case SUMOVehicleShape::WHEELCHAIR: {
+            const RGBColor tyreColor(102, 102, 102);
+            // left and right side are mirrored
+            for (const double side : {
+                        -1., 1.
+                        }) {
+                GLHelper::pushMatrix();
+                glScaled(1, side, 1);
+                // tyres
+                GLHelper::setColor(tyreColor);
+                drawRoundedRect(0.670, -0.447, 0.290, 0.026, 0.026);
+                drawRoundedRect(0.650, -0.4605, 0.254, 0.0395, 0.03);
+                // frame: side rail, push handle, front leg and footrest
+                GLHelper::setColor(current);
+                glRectd(0.359, -0.417, 1., -0.358);
+                glRectd(0.826, -0.324, 0.939, -0.282);
+                glRectd(0.05, -0.324, 0.273, -0.286);
+                drawPoly(vehiclePoly_WheelchairFootrest, 1);
+                GLHelper::popMatrix();
+            }
+            // seat
+            glRectd(0.273, -0.36, 0.826, 0.36);
+            if (!isStopped) {
+                // person
+                GLHelper::setColor(darker);
+                for (const double side : {
+                            -1., 1.
+                            }) {
+                    GLHelper::pushMatrix();
+                    glScaled(1, side, 1);
+                    drawPoly(vehiclePoly_WheelchairArm, 2);
+                    drawPoly(vehiclePoly_WheelchairLeg, 2);
+                    GLHelper::popMatrix();
+                }
+                GLHelper::pushMatrix();
+                glTranslated(0, 0, 0.2);
+                drawRoundedRect(0.686, 0, 0.083, 0.46, 0.05);
+                drawRoundedRect(0.575, 0, 0.195, 0.26, 0.05);
+                // head
+                glTranslated(0.674, 0, 0.1);
+                glScaled(0.094, 0.157, 1);
+                GLHelper::setColor(RGBColor::BLACK);
+                GLHelper::drawFilledCircle(1, 24);
+                GLHelper::popMatrix();
+            }
+            break;
+        }
         case SUMOVehicleShape::DRONE: {
             // draw within a centered square so that the rotors stay circular
             const double size = MIN2(length, width);
@@ -837,6 +887,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
         case SUMOVehicleShape::AIRCRAFT:
         case SUMOVehicleShape::SCOOTER:
         case SUMOVehicleShape::DRONE:
+        case SUMOVehicleShape::WHEELCHAIR:
             break;
         default: // same as passenger/sedan
             drawPoly(vehiclePoly_PassengerSedanRightGlass, 4.5);

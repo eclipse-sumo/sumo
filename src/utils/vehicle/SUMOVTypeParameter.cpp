@@ -104,7 +104,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             desiredMaxSpeed = DEFAULT_PEDESTRIAN_SPEED;
             width = 0.72;
             height = 1.2;
-            shape = SUMOVehicleShape::PEDESTRIAN;
+            shape = SUMOVehicleShape::WHEELCHAIR;
             osgFile = "humanResting.obj";
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             mass = 90.; // 20 (empty) + 70 (person)

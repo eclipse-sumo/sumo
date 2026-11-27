@@ -549,6 +549,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
                 case SUMOVehicleShape::RAIL_CAR:
                 case SUMOVehicleShape::AIRCRAFT:
                 case SUMOVehicleShape::DRONE:
+                case SUMOVehicleShape::WHEELCHAIR:
                     break;
                 case SUMOVehicleShape::MOTORCYCLE:
                 case SUMOVehicleShape::MOPED:

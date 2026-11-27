@@ -455,6 +455,9 @@ GNEVehicleTypeDialog::VTypeAttributes::VShapeRow::setVShapeLabelImage() {
         case SUMOVehicleShape::DRONE:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_DRONE));
             break;
+        case SUMOVehicleShape::WHEELCHAIR:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_WHEELCHAIR));
+            break;
         default:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_IGNORING));
             break;
