@@ -152,8 +152,14 @@ public:
                 addVirtualTurns(myOriginal, viaPair.first, railEdges, numericalID,
                                 initialDist, getLength(), std::vector<const E*> {myOriginal});
             } else {
-                myViaSuccessors.push_back(std::make_pair(viaPair.first->getRailwayRoutingEdge(),
-                                          viaPair.second == nullptr ? nullptr : viaPair.second->getRailwayRoutingEdge()));
+                _RailEdge* viaRailEdge = nullptr;
+                if (viaPair.second != nullptr) {
+                    viaRailEdge = viaPair.second->getRailwayRoutingEdge();
+                    if (viaPair.second->getNumericalID() < 0 && viaRailEdge->myViaSuccessors.empty()) {
+                        viaRailEdge->myViaSuccessors.push_back(std::make_pair(viaPair.first->getRailwayRoutingEdge(), nullptr));
+                    }
+                }
+                myViaSuccessors.push_back(std::make_pair(viaPair.first->getRailwayRoutingEdge(), viaRailEdge));
             }
         }
 #ifdef RailEdge_DEBUG_SUCCESSORS

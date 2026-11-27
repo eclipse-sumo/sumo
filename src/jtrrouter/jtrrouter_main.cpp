@@ -82,7 +82,10 @@ initNet(RONet& net, ROLoader& loader,
     loader.loadNet(net, builder);
     // set the turn defaults
     for (const auto& i : net.getEdgeMap()) {
-        static_cast<ROJTREdge*>(i.second)->setTurnDefaults(turnDefs);
+        ROJTREdge* const jtrEdge = dynamic_cast<ROJTREdge*>(i.second);
+        if (jtrEdge != nullptr) {
+            jtrEdge->setTurnDefaults(turnDefs);
+        }
     }
 }
 

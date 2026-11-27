@@ -387,20 +387,39 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     if (myIgnoreInternal || viaID == "") {
         std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, nullptr, ok, "");
         std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, nullptr, ok, "");
+        double penalty = 0.;
+        if (!from->isInternal() && viaID != "") {
+            const LinkState state = SUMOXMLDefinitions::LinkStates.get(attrs.get<std::string>(SUMO_ATTR_STATE, nullptr, ok));
+            if (state == LINKSTATE_MINOR || state == LINKSTATE_EQUAL || state == LINKSTATE_STOP || state == LINKSTATE_ALLWAY_STOP) {
+                penalty = myMinorPenalty;
+            }
+            if (dir == toString(LinkDirection::TURN) || dir == toString(LinkDirection::TURN_LEFTHAND)) {
+                penalty = myTurnaroundPenalty;
+            }
+            if (tlID != "") {
+                penalty = myTLSPenalty;
+            }
+        }
         ROEdge* dummyVia = nullptr;
-        SVCPermissions permissions;
-        if (allow == "" && disallow == "") {
-            permissions = SVC_UNSPECIFIED;
-        } else {
-            myNet.setPermissionsFound();
-            // dummyVia is only needed to hold permissions
-            permissions = parseVehicleClasses(allow, disallow);
-            dummyVia = new ROEdge("dummyVia_" + from->getLanes()[fromLane]->getID() + "->" + to->getLanes()[toLane]->getID(),
-                                  from->getToJunction(), from->getToJunction(), permissions);
-            myNet.addEdge(dummyVia);
+        if (allow != "" || disallow != "" || penalty > 0.) {
+            const SVCPermissions permissions = (allow == "" && disallow == "") ? SVCAll : parseVehicleClasses(allow, disallow);
+            if (allow != "" || disallow != "") {
+                myNet.setPermissionsFound();
+            }
+            const std::string dummyID = "dummyVia_" + fromID + "->" + toID + "_" + toString(permissions) + "_" + toString(penalty);
+            dummyVia = myNet.getEdge(dummyID);
+            if (dummyVia == nullptr) {
+                dummyVia = new ROEdge(dummyID, from->getToJunction(), from->getToJunction(), permissions);
+                if (penalty > 0.) {
+                    dummyVia->setFunction(SumoXMLEdgeFunc::INTERNAL);
+                    dummyVia->setTimePenalty(penalty);
+                    dummyVia->addSuccessor(to, nullptr, dir);
+                }
+                myNet.addEdge(dummyVia);
+            }
         }
         from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane], dummyVia);
-        from->addSuccessor(to, nullptr, dir);
+        from->addSuccessor(to, penalty > 0. ? dummyVia : nullptr, dir);
     } else {
         ROEdge* const via = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(viaID));
         if (via == nullptr) {

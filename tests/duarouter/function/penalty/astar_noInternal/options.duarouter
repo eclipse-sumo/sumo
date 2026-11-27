@@ -1,0 +1,5 @@
+--weights.minor-penalty 10
+--weights.tls-penalty 10
+--weights.turnaround-penalty 10
+--no-internal-links
+--routing-algorithm astar
