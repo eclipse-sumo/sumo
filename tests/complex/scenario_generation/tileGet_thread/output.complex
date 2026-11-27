@@ -1,2 +1,2 @@
-default: AttributeError: 'NoneType' object has no attribute 'convertLonLat2XY'
-parallel: ValueError: signal only works in main thread of the main interpreter
+default: ok, tiles=4
+parallel: ok, tiles=4
