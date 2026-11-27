@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18T10:55:06.431288+08:00 by Eclipse SUMO sumo 41b9f27
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="routes.rou.xml"/>
+        <additional-files value="meandata.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="10"/>
+    </time>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="10.00" id="m">
+        <edge id="district-sink" sampledSeconds="0.77" numEdges="1" traveltime="42.94" overlapTraveltime="44.45" density="0.54" overlapDensity="0.54" laneDensity="0.54" occupancy="0.07" waitingTime="0.00" timeLoss="0.60" speed="3.29" speedRelative="0.24" departed="0" arrived="0" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0" flow="6.44" distance="2.53"/>
+        <edge id="district-source" sampledSeconds="9.00" numEdges="1" traveltime="8.30" overlapTraveltime="9.58" density="7.88" overlapDensity="9.00" laneDensity="7.88" occupancy="4.28" waitingTime="0.00" timeLoss="1.66" speed="10.97" speedRelative="0.79" departed="1" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0" flow="341.64" distance="94.90"/>
+    </interval>
+</meandata>

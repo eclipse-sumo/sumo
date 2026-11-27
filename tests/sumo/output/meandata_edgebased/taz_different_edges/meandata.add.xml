@@ -1,0 +1,7 @@
+<additional>
+    <taz id="district">
+        <tazSource id="AB"/>
+        <tazSink id="BC"/>
+    </taz>
+    <edgeData id="m" period="10" file="taz.xml" aggregate="taz"/>
+</additional>

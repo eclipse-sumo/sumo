@@ -82,3 +82,13 @@ teleporting_across
 
 # two vehicles sampling at 15s with traffic and emissions
 mixed_attrs
+
+# aggregate meandata by TAZ
+taz_aggregated
+
+# warn when no TAZ exists
+taz_missing
+
+# do not merge TAZs with different source and sink edges
+taz_different_edges
+
