@@ -1,3 +1,6 @@
+# a flow of persons in a flow of triggered vehicles
+ride_triggeredFlow
+
 # containers with a single transport
 transport
 tranship_containersPerHour

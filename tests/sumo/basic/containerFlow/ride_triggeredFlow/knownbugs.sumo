@@ -1,0 +1,8 @@
+
+[Reported by Windows at 27Nov15:38:21]
+search_string:v.2
+use_regexp:0
+trigger_on_absence:1
+search_file:tripinfos
+full_description:flows triggered by containers do not work
+brief_description:see #19361
