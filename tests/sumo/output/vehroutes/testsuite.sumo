@@ -42,6 +42,9 @@ exit_times_teleport
 # one vehicle is moving with exit times
 exit_times_internal
 
+# rerouting multiple times on the same edge and after connected trip departure with exit times
+exit_times_reroute
+
 # teleporting over multiple edges
 teleport_multihop
 
