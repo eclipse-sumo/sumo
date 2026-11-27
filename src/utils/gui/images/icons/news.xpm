@@ -1,0 +1,25 @@
+/* XPM */
+static const char *news_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"o c #F78422",
+"w c #FFFFFF",
+"  c None",
+/* pixels */
+"                ",
+"  oooooooooooo  ",
+" oooooooooooooo ",
+" oowwwwoooooooo ",
+" oowwwwwwoooooo ",
+" ooooooowwwoooo ",
+" oooooooowwwooo ",
+" oowwwwooowwooo ",
+" oowwwwwooowwoo ",
+" ooooowwwooowoo ",
+" oooooowwwoowwo ",
+" oowwooowwoowwo ",
+" owwwwoowwoowwo ",
+" owwwwoowwoowwo ",
+"  owwooooooooo  ",
+"                "
+};

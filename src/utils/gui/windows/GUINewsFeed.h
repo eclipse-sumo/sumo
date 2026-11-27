@@ -120,8 +120,8 @@ private:
     /// @brief the button in the status bar (null while there is nothing new)
     FXButton* myButton = nullptr;
 
-    /// @brief the text of the latest items (empty until a download succeeded)
-    std::string myNewsText;
+    /// @brief the latest items (empty until a download succeeded)
+    std::vector<Item> myItems;
 
     /// @brief whether the dialog should open as soon as the running download finishes
     bool myShowAfterFetch = false;

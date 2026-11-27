@@ -725,6 +725,7 @@ enum class GUIIcon {
     ERROR_SMALL,
     WARNING_LARGE,
     WARNING_SMALL,
+    NEWS,
     /// @}
 
     /// @name icons for grid

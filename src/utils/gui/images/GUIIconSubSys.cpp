@@ -557,6 +557,7 @@
 #include "icons/question_small.xpm"
 #include "icons/warning_large.xpm"
 #include "icons/warning_small.xpm"
+#include "icons/news.xpm"
 
 #include "icons/grid.xpm"
 #include "icons/grid1.xpm"
@@ -1144,6 +1145,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::QUESTION_SMALL] = new FXXPMIcon(a, question_small_xpm);
     myIcons[GUIIcon::WARNING_LARGE] = new FXXPMIcon(a, warning_large_xpm);
     myIcons[GUIIcon::WARNING_SMALL] = new FXXPMIcon(a, warning_small_xpm);
+    myIcons[GUIIcon::NEWS] = new FXXPMIcon(a, news_xpm);
 
     myIcons[GUIIcon::GRID] = new FXXPMIcon(a, grid_xpm);
     myIcons[GUIIcon::GRID1] = new FXXPMIcon(a, grid1_xpm);

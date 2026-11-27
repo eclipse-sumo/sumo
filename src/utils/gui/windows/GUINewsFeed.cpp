@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <iomanip>
+#include <regex>
 #include <sstream>
 #ifdef HAVE_CURL
 #include <curl/curl.h>
@@ -28,6 +29,8 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/Translation.h>
+#include <utils/foxtools/MFXLinkLabel.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GUINewsFeed.h"
@@ -36,11 +39,13 @@
 // ===========================================================================
 // constants
 // ===========================================================================
-const std::string GUINewsFeed::DEFAULT_URL = "https://sumo.dlr.de/releases/news.xml";
+const std::string GUINewsFeed::DEFAULT_URL = "https://bsky.app/profile/eclipse-sumo.bsky.social/rss";
 const time_t GUINewsFeed::MIN_INTERVAL = 30 * 24 * 60 * 60;
 
 #define NEWS_REG_SECTION "NEWS"
 #define NEWS_MAX_SHOWN 5
+#define NEWS_DISABLED 4102444800LL // year 2100
+#define NEWS_WRAP_COLUMNS 80
 #define NEWS_MAX_BYTES (1024 * 1024)
 
 
@@ -77,6 +82,25 @@ checkAbort(void* userdata, curl_off_t, curl_off_t, curl_off_t, curl_off_t) {
 }
 #endif
 
+/// @brief inserts line breaks at spaces so that lines have at most the given number of bytes (if possible)
+std::string
+wrapLine(const std::string& line, const size_t width) {
+    std::string result;
+    size_t lineStart = 0;
+    size_t lastSpace = std::string::npos;
+    for (size_t i = 0; i < line.size(); i++) {
+        if (line[i] == ' ') {
+            lastSpace = i;
+        }
+        if (i - lineStart >= width && lastSpace != std::string::npos && lastSpace > lineStart) {
+            result += line.substr(lineStart, lastSpace - lineStart) + "\n";
+            lineStart = lastSpace + 1;
+            lastSpace = std::string::npos;
+        }
+    }
+    return result + line.substr(lineStart);
+}
+
 /// @brief returns the text of the first <tag> element in xml (starting at pos), unwrapping CDATA
 bool
 getElement(const std::string& xml, const std::string& tag, size_t& pos, std::string& result) {
@@ -105,26 +129,31 @@ getElement(const std::string& xml, const std::string& tag, size_t& pos, std::str
         result = StringUtils::replace(result, "&gt;", ">");
         result = StringUtils::replace(result, "&quot;", "\"");
         result = StringUtils::replace(result, "&apos;", "'");
+        result = StringUtils::replace(result, "&#xA;", "\n");
+        result = StringUtils::replace(result, "&#34;", "\"");
+        result = StringUtils::replace(result, "&#39;", "'");
         result = StringUtils::replace(result, "&amp;", "&");
     }
     pos = end;
     return true;
 }
 
-/// @brief parses an RFC 822 date like "Thu, 19 Nov 2026 10:00:00 +0000" (the time zone is treated as UTC)
+/// @brief parses an RFC 822 date like "Thu, 19 Nov 2026 10:00:00 +0000" or "19 Nov 2026 10:00 +0000" (the time zone is treated as UTC)
 time_t
 parseDate(const std::string& text) {
-    std::tm tm = {};
-    std::istringstream in(text);
-    in >> std::get_time(&tm, "%a, %d %b %Y %H:%M:%S");
-    if (in.fail()) {
-        return 0;
-    }
+    for (const char* format : {"%a, %d %b %Y %H:%M:%S", "%d %b %Y %H:%M"}) {
+        std::tm tm = {};
+        std::istringstream in(text);
+        in >> std::get_time(&tm, format);
+        if (!in.fail()) {
 #ifdef _MSC_VER
-    return _mkgmtime(&tm);
+            return _mkgmtime(&tm);
 #else
-    return timegm(&tm);
+            return timegm(&tm);
 #endif
+        }
+    }
+    return 0;
 }
 }
 
@@ -163,7 +192,7 @@ GUINewsFeed::getLastAccess() const {
 
 void
 GUINewsFeed::showLatest() {
-    if (!myNewsText.empty()) {
+    if (!myItems.empty()) {
         onCmdShow(nullptr, 0, nullptr);
     } else if (myThread.joinable()) {
         myShowAfterFetch = true;
@@ -256,18 +285,16 @@ GUINewsFeed::onFetched(FXObject*, FXSelector, void*) {
         // an explicit request must not reset a (possibly manually set) last access time
         myApp->reg().writeStringEntry(NEWS_REG_SECTION, "lastaccess", toString((long long)time(nullptr)).c_str());
     }
-    std::string latest;
+    myItems.clear();
     bool hasNew = false;
-    int count = 0;
     for (const Item& item : parseRSS(document)) {
-        if (count++ < NEWS_MAX_SHOWN) {
-            latest += item.title + "\n" + item.link + "\n\n";
+        if ((int)myItems.size() < NEWS_MAX_SHOWN) {
+            myItems.push_back(item);
             hasNew |= item.published > myPreviousAccess;
         }
     }
-    myNewsText = latest;
     if (requested) {
-        if (latest.empty()) {
+        if (myItems.empty()) {
             FXMessageBox::information(myOwner, MBOX_OK, TL("SUMO news"), "%s", TL("There is currently no news."));
         } else {
             onCmdShow(nullptr, 0, nullptr);
@@ -276,8 +303,8 @@ GUINewsFeed::onFetched(FXObject*, FXSelector, void*) {
         if (myStatusBar == nullptr) {
             onCmdShow(nullptr, 0, nullptr);
         } else if (myButton == nullptr) {
-            myButton = GUIDesigns::buildFXButton(myStatusBar, TL("News"), TL("Show the latest SUMO news"), TL("Show the latest SUMO news"),
-                                                 nullptr, this, ID_SHOW, BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_RIGHT);
+            myButton = GUIDesigns::buildFXButton(myStatusBar, "", TL("Show the latest SUMO news"), TL("Show the latest SUMO news"),
+                                                 GUIIconSubSys::getIcon(GUIIcon::NEWS), this, ID_SHOW, BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_RIGHT);
             if (myStatusBar->id() != 0) {
                 myButton->create();
             }
@@ -288,9 +315,103 @@ GUINewsFeed::onFetched(FXObject*, FXSelector, void*) {
 }
 
 
+namespace {
+/// @brief adds a row of labels to parent, words that look like URLs (with or without scheme) become clickable links
+void
+addRichLine(FXComposite* parent, const std::string& line) {
+    static const std::regex urlRegex("^(https?://\\S+|([A-Za-z0-9-]+\\.)+[A-Za-z]{2,}(/\\S*)?)$");
+    const char* const leadChars = "(\"'";
+    const char* const trailChars = ".,;:!?)\"'";
+    FXHorizontalFrame* row = new FXHorizontalFrame(parent, LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    std::string text;
+    bool first = true;
+    const auto flush = [&]() {
+        if (!text.empty()) {
+            new FXLabel(row, text.c_str(), nullptr, LABEL_NORMAL | JUSTIFY_LEFT, 0, 0, 0, 0, 0, 0, 0, 0);
+            text.clear();
+        }
+    };
+    std::istringstream words(line);
+    std::string word;
+    while (words >> word) {
+        const size_t coreStart = word.find_first_not_of(leadChars);
+        const size_t coreEnd = word.find_last_not_of(trailChars);
+        if (coreStart != std::string::npos && coreEnd != std::string::npos && coreStart <= coreEnd
+                && std::regex_match(word.substr(coreStart, coreEnd - coreStart + 1), urlRegex)) {
+            const std::string core = word.substr(coreStart, coreEnd - coreStart + 1);
+            text += (first ? "" : " ") + word.substr(0, coreStart);
+            flush();
+            MFXLinkLabel* link = new MFXLinkLabel(row, core.c_str(), nullptr, LABEL_NORMAL | JUSTIFY_LEFT, 0, 0, 0, 0, 0, 0, 0, 0);
+            link->setTipText((core.compare(0, 4, "http") == 0 ? core : "https://" + core).c_str());
+            text = word.substr(coreEnd + 1);
+        } else {
+            text += (first ? "" : " ") + word;
+        }
+        first = false;
+    }
+    flush();
+}
+}
+
+
 long
 GUINewsFeed::onCmdShow(FXObject*, FXSelector, void*) {
-    FXMessageBox::information(myOwner, MBOX_OK, TL("SUMO news"), "%s", myNewsText.c_str());
+    FXDialogBox* dialog = new FXDialogBox(myOwner, TL("SUMO news"), GUIDesignDialogBox);
+    dialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI));
+    FXScrollWindow* scroll = new FXScrollWindow(dialog, GUIDesignScrollWindowFixed(640, 420));
+    FXVerticalFrame* content = new FXVerticalFrame(scroll, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    bool first = true;
+    for (const Item& item : myItems) {
+        if (!first) {
+            new FXHorizontalSeparator(content, GUIDesignHorizontalSeparator);
+        }
+        first = false;
+        // the date links to the post, if there is no date the link itself is shown
+        std::string dateText = item.link;
+        if (item.published > 0) {
+            char date[32];
+            const std::tm* tm = std::gmtime(&item.published);
+            if (tm != nullptr && std::strftime(date, sizeof(date), "%Y-%m-%d", tm) > 0) {
+                dateText = date;
+            }
+        }
+        if (!item.link.empty()) {
+            MFXLinkLabel* link = new MFXLinkLabel(content, dateText.c_str(), nullptr, LABEL_NORMAL | JUSTIFY_LEFT, 0, 0, 0, 0, 0, 0, 0, 0);
+            link->setTipText(item.link.c_str());
+        }
+        // the title (if any) is followed by the description
+        std::vector<std::string> lines;
+        for (const std::string& part : {item.title, item.description}) {
+            std::istringstream in(part);
+            std::string line;
+            while (std::getline(in, line)) {
+                lines.push_back(StringUtils::trim(line));
+            }
+        }
+        for (const std::string& line : lines) {
+            if (!line.empty()) {
+                std::istringstream wrapped(wrapLine(line, NEWS_WRAP_COLUMNS));
+                std::string part;
+                while (std::getline(wrapped, part)) {
+                    addRichLine(content, part);
+                }
+            }
+        }
+    }
+    // automatic checking is disabled by a last access far in the future
+    const bool wasEnabled = getLastAccess() < NEWS_DISABLED;
+    FXCheckButton* autoCheck = new FXCheckButton(dialog, TL("Check for news automatically"), nullptr, 0, CHECKBUTTON_NORMAL | LAYOUT_LEFT);
+    autoCheck->setCheck(wasEnabled);
+    FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(dialog, GUIDesignHorizontalFrame);
+    new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
+    GUIDesigns::buildFXButton(buttonFrame, TL("OK"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), dialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonDialog);
+    new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
+    dialog->create();
+    dialog->execute(PLACEMENT_OWNER);
+    if (autoCheck->getCheck() != wasEnabled) {
+        myApp->reg().writeStringEntry(NEWS_REG_SECTION, "lastaccess", autoCheck->getCheck() ? "0" : toString((long long)NEWS_DISABLED).c_str());
+    }
+    delete dialog;
     if (myButton != nullptr) {
         delete myButton;
         myButton = nullptr;
