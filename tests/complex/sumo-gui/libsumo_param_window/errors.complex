@@ -1,0 +1,2 @@
+terminate called after throwing an instance of 'libsumo::TraCIException'
+  what():  configuration-file is an already used option name.

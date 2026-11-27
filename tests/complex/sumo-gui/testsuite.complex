@@ -3,3 +3,6 @@ stateReplay
 
 # testing replay of fcd data
 fcdReplay
+
+# testing opening parameter window in libsumo-gui
+libsumo_param_window
