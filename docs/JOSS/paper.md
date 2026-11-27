@@ -47,7 +47,7 @@ authors:
     equal-contrib: true
     affiliation: 1
   - name: Ronald Nippold
-    orcid: 0000-0002-0651-6767
+    orcid: 0000-0003-4837-8021
     equal-contrib: true
     affiliation: 1
   - name: Peter Wagner
