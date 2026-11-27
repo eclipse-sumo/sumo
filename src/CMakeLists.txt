@@ -18,7 +18,7 @@ set(sumoguilibs
     utils_gui_div utils_gui_settings utils_gui_images utils_gui_cursors
     utils_gui_shortcuts utils_tests utils_gui_tracker utils_foxtools
     ${osgviewlib} ${sumolibs} mesogui
-    ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${GL2PS_LIBRARIES})
+    ${GDAL_LIBRARY} ${CURL_LIBRARIES} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${GL2PS_LIBRARIES})
 if (MSVC)
     set(sumoguilibs ${sumoguilibs} opengl32 glu32)
 endif ()

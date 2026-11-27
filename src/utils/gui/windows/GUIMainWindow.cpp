@@ -38,6 +38,7 @@
 #include <regex>
 #include "GUIMainWindow.h"
 #include "GUIGlChildWindow.h"
+#include "GUINewsFeed.h"
 #include "GUISUMOAbstractView.h"
 
 
@@ -88,6 +89,7 @@ GUIMainWindow::GUIMainWindow(FXApp* app) :
 
 
 GUIMainWindow::~GUIMainWindow() {
+    delete myNewsFeed;
     delete myStaticTooltipMenu;
     delete myStaticTooltipView;
     delete myNormalFont;
@@ -98,6 +100,29 @@ GUIMainWindow::~GUIMainWindow() {
     delete myLeftDock;
     delete myRightDock;
     myInstance = nullptr;
+}
+
+
+void
+GUIMainWindow::checkNews() {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.exists("gui-testing") && oc.getBool("gui-testing")) {
+        return;
+    }
+    if (myNewsFeed == nullptr) {
+        myNewsFeed = new GUINewsFeed(getApp(), this, myStatusbar);
+    }
+    myNewsFeed->startCheck();
+}
+
+
+long
+GUIMainWindow::onCmdNews(FXObject*, FXSelector, void*) {
+    if (myNewsFeed == nullptr) {
+        myNewsFeed = new GUINewsFeed(getApp(), this, myStatusbar);
+    }
+    myNewsFeed->showLatest();
+    return 1;
 }
 
 

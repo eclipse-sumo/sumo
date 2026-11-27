@@ -676,6 +676,9 @@ enum {
     ///@brief feedback button
     MID_FEEDBACK,
 
+    ///@brief show latest news
+    MID_NEWS,
+
     /// @name dynamic interaction with the simulation via SUMO-GUI
     /// @{
 

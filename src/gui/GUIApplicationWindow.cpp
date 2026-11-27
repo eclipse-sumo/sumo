@@ -194,6 +194,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_TUTORIAL,                                               GUIApplicationWindow::onCmdTutorial),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F11_HALLOFFAME,                            GUIApplicationWindow::onCmdHallOfFame),
     FXMAPFUNC(SEL_COMMAND,  MID_FEEDBACK,                                               GUIApplicationWindow::onCmdFeedback),
+    FXMAPFUNC(SEL_COMMAND,  MID_NEWS,                                                   GUIMainWindow::onCmdNews),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F12_ABOUT,                                       GUIApplicationWindow::onCmdAbout),
     // forward requests to the active view
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,      GUIApplicationWindow::onCmdLocate),
@@ -454,6 +455,7 @@ GUIApplicationWindow::create() {
         myOnlineMaps["OSM"] = "https://www.openstreetmap.org/?mlat=%lat&mlon=%lon&zoom=18&layers=M";
     }
     updateTimeLCDTooltip();
+    checkNews();
 }
 
 
@@ -728,6 +730,8 @@ GUIApplicationWindow::fillMenuBar() {
                                            nullptr, this, MID_TUTORIAL);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Feedback"), "", TL("Open feedback dialog."),
                                            nullptr, this, MID_FEEDBACK);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&News"), "", TL("Show the latest SUMO news."),
+                                           nullptr, this, MID_NEWS);
     new FXMenuSeparator(myHelpMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&About"), "F12", TL("About sumo-gui."),
                                            GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), this, MID_HOTKEY_F12_ABOUT);

@@ -2198,6 +2198,8 @@ GNEApplicationWindowHelper::HelpMenuCommands::buildHelpMenuCommands(FXMenuPane* 
                                            nullptr, myApplicationWindow, MID_TUTORIAL);
     GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("Feedback"), "", TL("Open feedback channels."),
                                            nullptr, myApplicationWindow, MID_FEEDBACK);
+    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("News"), "", TL("Show the latest SUMO news."),
+                                           nullptr, myApplicationWindow, MID_NEWS);
     new FXMenuSeparator(helpMenu);
     GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("About"), "F12", TL("About netedit."),
                                            GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), myApplicationWindow, MID_HOTKEY_F12_ABOUT);
