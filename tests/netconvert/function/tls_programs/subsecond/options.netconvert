@@ -1,0 +1,5 @@
+-e input_plain.edg.xml -n input_plain.nod.xml -o net.net.xml
+--no-internal-links --no-turnarounds
+--tls.default-type actuated
+--tls.green.time 20.5 --tls.yellow.time 3.5 --tls.allred.time 1.5 --tls.left-green.time 4.5
+--tls.min-dur 5.5 --tls.max-dur 35.5
