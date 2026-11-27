@@ -344,6 +344,10 @@ void
 GUIRunThread::prepareDestruction() {
     myHalting = true;
     myQuit = true;
+    if (myAmLibsumo) {
+        myApp->stop();
+        myEventThrow.signal();
+    }
 }
 
 
