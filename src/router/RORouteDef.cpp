@@ -76,8 +76,16 @@ RORouteDef::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
 
 void
 RORouteDef::validateAlternatives(const ROVehicle* veh, MsgHandler* errorHandler) {
+    const bool ignoreErrors = errorHandler != MsgHandler::getErrorInstance();
     for (int i = 0; i < (int)myAlternatives.size();) {
-        if ((i != myLastUsed || mySkipNewRoutes) && !myAlternatives[i]->isPermitted(veh, errorHandler)) {
+        if ((i != myLastUsed || mySkipNewRoutes) && myAlternatives[i]->getProbability() >= 0
+                && (!myAlternatives[i]->isPermitted(veh, errorHandler)
+                    || (!myUsingJTRR && !(myTryRepair && i == 0) && !myMayBeDisconnected
+                        && (i != myLastUsed || myAlternatives.size() > 1)
+                        && !myAlternatives[i]->isValid(*veh, ignoreErrors, errorHandler)))) {
+            if (i != myLastUsed && !mySkipNewRoutes && !ignoreErrors) {
+                throw ProcessError(TLF("Route '%' (vehicle '%') is not valid.", myAlternatives[i]->getID(), veh->getID()));
+            }
             myAlternatives.erase(myAlternatives.begin() + i);
             if (myLastUsed > i) {
                 myLastUsed--;
@@ -395,11 +403,23 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         return replaced;
     }
     // add the route when it's new
-    if (myAlternatives.back()->getProbability() < 0 || !myAlternatives.back()->isPermitted(veh, errorHandler)) {
-        if (myAlternatives.back()->getProbability() >= 0 && errorHandler == MsgHandler::getErrorInstance()) {
-            throw ProcessError("Route '" + current->getID() + "' (vehicle '" + veh->getID() + "') is not valid.");
-        }
+    if (myAlternatives.back()->getProbability() < 0) {
         myAlternatives.pop_back();
+    }
+    const bool ignoreErrors = errorHandler != MsgHandler::getErrorInstance();
+    if (!mySkipNewRoutes && myLastUsed < (int)myAlternatives.size()
+            && (!myAlternatives[myLastUsed]->isPermitted(veh, errorHandler)
+                || (!myMayBeDisconnected && !myAlternatives[myLastUsed]->isValid(*veh, ignoreErrors, errorHandler)))) {
+        if (!ignoreErrors) {
+            throw ProcessError(TLF("Route '%' (vehicle '%') is not valid.", current->getID(), veh->getID()));
+        }
+        myAlternatives.erase(myAlternatives.begin() + myLastUsed);
+        if (myLastUsed >= (int)myAlternatives.size()) {
+            myLastUsed = 0;
+        }
+        if (myAlternatives.empty() && !myNewRoute) {
+            return nullptr;
+        }
     }
     if (myNewRoute) {
         myAlternatives.push_back(current);

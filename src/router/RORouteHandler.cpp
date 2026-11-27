@@ -513,7 +513,7 @@ RORouteHandler::closeRoute(const bool mayBeDisconnected) {
             myActiveRouteStops.clear();
             return;
         } else {
-            myCurrentAlternatives = new RORouteDef(myActiveRouteID, 0, mayBeDisconnected || myTryRepair, mayBeDisconnected);
+            myCurrentAlternatives = new RORouteDef(myActiveRouteID, 0, mayBeDisconnected || myTryRepair || mustReroute, mayBeDisconnected || mustReroute);
             myCurrentAlternatives->addLoadedAlternative(route);
             myNet.addRouteDef(myCurrentAlternatives);
             myCurrentAlternatives = nullptr;
