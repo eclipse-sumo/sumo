@@ -1,0 +1,12 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" accel="2.0" decel="4.5" sigma="0" length="5" minGap="1.5" maxSpeed="13.89"/>
+    <route id="EC_CW" edges="EC CW"/>
+    <route id="NC_CS" edges="NC CS"/>
+    <vehicle id="blocker" type="car" route="NC_CS" depart="0" departPos="-1">
+        <stop lane=":C_1_0" endPos="5" duration="8"/>
+    </vehicle>
+    <vehicle id="minor" type="car" route="EC_CW" depart="0" departPos="-1">
+        <stop lane=":C_4_0" endPos="5" duration="9"/>
+    </vehicle>
+    <vehicle id="major2" type="car" route="NC_CS" depart="13.4" departPos="-45" departSpeed="max"/>
+</routes>
