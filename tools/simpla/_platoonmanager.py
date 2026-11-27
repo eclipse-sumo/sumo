@@ -34,6 +34,7 @@ report = rp.Reporter("PlatoonManager")
 
 
 class PlatoonManager(traci.StepListener):
+    _SUBSCRIPTION_VARS = (tc.VAR_ROAD_ID, tc.VAR_LANE_INDEX, tc.VAR_LANE_ID, tc.VAR_SPEED)
 
     '''
     A PlatoonManager coordinates the initialization of platoons
@@ -278,17 +279,31 @@ class PlatoonManager(traci.StepListener):
         This updates the vehicles' states with information from the simulation
         '''
         self._subscriptionResults = traci.vehicle.getAllSubscriptionResults()
-        for veh in self._connectedVehicles.values():
-            if (veh.getID() not in self._subscriptionResults):
-                # FIXME: For some reason, this is in rare occasions called with vehicles,
-                #        which have no subscription results.
-                return
-            veh.state.speed = self._subscriptionResults[veh.getID()][tc.VAR_SPEED]
-            veh.state.edgeID = self._subscriptionResults[veh.getID()][tc.VAR_ROAD_ID]
-            veh.state.laneID = self._subscriptionResults[veh.getID()][tc.VAR_LANE_ID]
-            veh.state.laneIX = self._subscriptionResults[veh.getID()][tc.VAR_LANE_INDEX]
+        toRemove = defaultdict(list)
+        for veh in list(self._connectedVehicles.values()):
+            vehID = veh.getID()
+            subResults = self._subscriptionResults.get(vehID)
+            if subResults is None or any(var not in subResults for var in self._SUBSCRIPTION_VARS):
+                # Re-subscribe vehicles whose subscriptions were cleared (e.g. via unsubscribe or loadState)
+                try:
+                    if traci.vehicle.getDeparture(vehID) == tc.INVALID_DOUBLE_VALUE:
+                        raise TraCIException("Vehicle '%s' has not departed." % vehID)
+                    traci.vehicle.subscribe(vehID, self._SUBSCRIPTION_VARS)
+                except TraCIException:
+                    if rp.VERBOSITY >= 1:
+                        warn("Removing non-existing vehicle '%s'" % vehID)
+                    self._connectedVehicles.pop(vehID)
+                    toRemove[veh.getPlatoon().getID()].append(veh)
+                    continue
+                subResults = traci.vehicle.getSubscriptionResults(vehID)
+                if not subResults or any(var not in subResults for var in self._SUBSCRIPTION_VARS):
+                    continue
+            veh.state.speed = subResults[tc.VAR_SPEED]
+            veh.state.edgeID = subResults[tc.VAR_ROAD_ID]
+            veh.state.laneID = subResults[tc.VAR_LANE_ID]
+            veh.state.laneIX = subResults[tc.VAR_LANE_INDEX]
             veh.state.leaderInfo = traci.vehicle.getLeader(
-                veh.getID(), self._catchupHeadway*veh.state.speed if self._useHeadway else self._catchupDist)
+                vehID, self._catchupHeadway*veh.state.speed if self._useHeadway else self._catchupDist)
 
             # check if there is a new, connected leader and if so, verify if this leader
             # has sufficient edges in common with the ego vehicle
@@ -365,6 +380,21 @@ class PlatoonManager(traci.StepListener):
                             break
                         dist += nextLeaderInfo[1] + traci.vehicle.getLength(vehAheadID)
 
+        if toRemove:
+            self._removeFromPlatoons(toRemove)
+
+    def _removeFromPlatoons(self, toRemove):
+        '''_removeFromPlatoons(dict)
+
+        Removes vehicles from their platoons and drops empty platoons
+        '''
+        for pltnID, vehs in toRemove.items():
+            pltn = self._platoons[pltnID]
+            pltn.removeVehicles(vehs)
+            if pltn.size() == 0:
+                # remove empty platoons
+                self._platoons.pop(pltn.getID())
+
     def _removeArrived(self):
         ''' _removeArrived()
 
@@ -383,12 +413,7 @@ class PlatoonManager(traci.StepListener):
             toRemove[veh.getPlatoon().getID()].append(veh)
             count += 1
 
-        for pltnID, vehs in toRemove.items():
-            pltn = self._platoons[pltnID]
-            pltn.removeVehicles(vehs)
-            if pltn.size() == 0:
-                # remove empty platoons
-                self._platoons.pop(pltn.getID())
+        self._removeFromPlatoons(toRemove)
 
         return count
 
@@ -413,7 +438,7 @@ class PlatoonManager(traci.StepListener):
         Creates a new PVehicle object and registers is soliton platoon
         '''
         try:
-            traci.vehicle.subscribe(vehID, (tc.VAR_ROAD_ID, tc.VAR_LANE_INDEX, tc.VAR_LANE_ID, tc.VAR_SPEED))
+            traci.vehicle.subscribe(vehID, self._SUBSCRIPTION_VARS)
             veh = simpla._pvehicle.PVehicle(vehID, self._controlInterval)
         except TraCIException:
             if rp.VERBOSITY >= 1:
