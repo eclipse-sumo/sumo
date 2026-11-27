@@ -155,7 +155,7 @@ private:
     static double timeGreen(const MSLink* tlsLink);
 
     /// @brief return minimum number of seconds to reach the junction
-    double earliest_arrival(double speed, double distance);
+    double earliest_arrival(double distance, double vMax);
 
     /// @brief return maximum number of seconds to reach the junction
     double latest_arrival(double speed, double distance, double earliest);
