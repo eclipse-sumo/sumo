@@ -378,7 +378,6 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont& ec, const
 
 void
 NBTrafficLightLogicCont::setOpenDriveSignalParameters() {
-    Definitions definitions = getDefinitions();
     for (NBTrafficLightDefinition* def : getDefinitions()) {
         std::map<NBEdge*, std::string> defaultSignalIDs;
         for (const NBConnection& con : def->getControlledLinks()) {
