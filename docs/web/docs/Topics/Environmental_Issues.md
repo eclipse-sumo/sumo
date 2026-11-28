@@ -30,13 +30,16 @@ written into output files, both by [sumo](../sumo.md) and
 - [edge/lane
   emissions](../Simulation/Output/Lane-_or_Edge-based_Emissions_Measures.md):
   these output files contain the pollutants emitted and fuel consumed
-  at an edge / a lane, aggregated over a variable time span;
+  at an edge / a lane, aggregated over a variable time span (omitting `period` and setting `aggregate="true"` in `<edgeData id="total" type="emissions" file="total_emissions.xml" aggregate="true"/>` writes one network-wide sum over the entire simulation);
 - [edge/lane
   noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md):
   these output files contain the noise produced at an edge / a lane,
   aggregated over a variable time span.
 
 Further information can be found in the outputs' documentation.
+
+!!! note
+    In HBEFA and PHEMlight emission classes, combustion vehicles waiting at red lights emit idling `CO2` and fuel unless `<vType>` generic parameter `shutOffAutoDuration` (unplanned stops, disabled by default) or `shutOffStopDuration` (scheduled `<stop>` elements, default `300` s) switches the engine off; regulated tailpipe pollutants such as `CO` or `PMx` can still evaluate to `0` at standstill in modern Euro classes. During deceleration (`v > 0.5` m/s and `a < getCoastingDecel`), coasting fuel cut-off clamps exhaust emissions to `0` automatically without a separate override parameter (see [Standing and Coasting Vehicles](../Models/Emissions.md#standing_vehicles)).
 
 A SUMO-vehicle owns the attribute `"emissionClass"` (see [Vehicle Emission
 Classes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_emission_classes)).
