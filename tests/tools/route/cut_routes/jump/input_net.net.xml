@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,500.00,0.00" origBoundary="0.00,0.00,500.00,0.00" projParameter="!"/>
+
+    <edge id="a" from="n0" to="n1" priority="-1">
+        <lane id="a_0" index="0" speed="10.00" length="100.00" shape="0.00,-1.60 100.00,-1.60"/>
+    </edge>
+    <edge id="c" from="n2" to="n3" priority="-1">
+        <lane id="c_0" index="0" speed="10.00" length="100.00" shape="200.00,-1.60 300.00,-1.60"/>
+    </edge>
+    <edge id="e" from="n4" to="n5" priority="-1">
+        <lane id="e_0" index="0" speed="10.00" length="100.00" shape="400.00,-1.60 500.00,-1.60"/>
+    </edge>
+
+    <junction id="n0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="n1" type="dead_end" x="100.00" y="0.00" incLanes="a_0" intLanes="" shape="100.00,-3.20 100.00,0.00"/>
+    <junction id="n2" type="dead_end" x="200.00" y="0.00" incLanes="" intLanes="" shape="200.00,0.00 200.00,-3.20"/>
+    <junction id="n3" type="dead_end" x="300.00" y="0.00" incLanes="c_0" intLanes="" shape="300.00,-3.20 300.00,0.00"/>
+    <junction id="n4" type="dead_end" x="400.00" y="0.00" incLanes="" intLanes="" shape="400.00,0.00 400.00,-3.20"/>
+    <junction id="n5" type="dead_end" x="500.00" y="0.00" incLanes="e_0" intLanes="" shape="500.00,-3.20 500.00,0.00"/>
+
+</net>

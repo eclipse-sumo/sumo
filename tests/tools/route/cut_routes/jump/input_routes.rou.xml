@@ -1,0 +1,21 @@
+<routes>
+    <route id="shared" edges="a b c d e">
+        <stop lane="c_0" endPos="40" duration="2"/>
+    </route>
+    <vehicle id="inline" depart="0">
+        <route edges="a b c d e" exitTimes="10 21 32 45 55"/>
+        <stop lane="a_0" endPos="50" duration="2"/>
+        <stop edge="b" duration="5"/>
+        <stop edge="e" endPos="20" duration="2"/>
+    </vehicle>
+    <vehicle id="reference" route="shared" depart="60">
+        <stop edge="e" endPos="70" duration="3"/>
+    </vehicle>
+    <flow id="flow" route="shared" begin="120" end="180" number="1"/>
+    <vehicle id="connected" depart="160">
+        <route edges="e"/>
+    </vehicle>
+    <person id="person" depart="160">
+        <walk edges="a b c"/>
+    </person>
+</routes>
