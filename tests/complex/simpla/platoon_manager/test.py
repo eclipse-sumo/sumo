@@ -18,6 +18,7 @@
 import unittest as ut
 import os
 import sys
+import tempfile
 
 # Put tools into PYTHONPATH
 if "SUMO_HOME" in os.environ:
@@ -362,6 +363,57 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
         self.assertEqual(
             rp.REPORT_LOG[-1][1], "Platoon '0' splits (ID of new platoon: '2'):\n    Platoon '0': ['connected.1']\n" +
             "    Platoon '2': ['connected.2'] (PlatoonManager)")
+
+    def test_missing_subscription_results(self):
+        print("Testing recovery from missing subscription results...")
+        self.patchSumoConfig()
+        self.connectToSumo(self.SUMO_CFG)
+        self.patchConfigFile(self.cfg_body0)
+        simpla.load(self.CFG1)
+        mgr = simpla._mgr
+
+        while traci.simulation.getTime() <= 4.:
+            traci.simulationStep()
+        self.assertIn("connected.1", mgr._connectedVehicles)
+        self.assertIn("IAMconnectedTOO", mgr._connectedVehicles)
+
+        # Unsubscribing one vehicle must neither raise KeyError nor stall updates for others
+        traci.vehicle.unsubscribe("connected.1")
+        while traci.simulation.getTime() <= 14.:
+            traci.simulationStep()
+        self.assertIn("connected.1", traci.vehicle.getAllSubscriptionResults())
+        self.assertEqual(mgr.getPlatoonID("connected.1"), mgr.getPlatoonID("IAMconnectedTOO"))
+        self.assertEqual(len(mgr.getPlatoonLeaders()), 1)
+
+    def test_load_state_missing_subscriptions(self):
+        print("Testing recovery after loadState clears subscriptions...")
+        self.patchSumoConfig()
+        self.connectToSumo(self.SUMO_CFG)
+        self.patchConfigFile(self.cfg_body0)
+        simpla.load(self.CFG1)
+        mgr = simpla._mgr
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            state_file = os.path.join(tmpdir, "state.xml")
+            while traci.simulation.getTime() < 2.:
+                traci.simulationStep()
+            traci.simulation.saveState(state_file)
+            while traci.simulation.getTime() <= 4.:
+                traci.simulationStep()
+            self.assertIn("IAMconnectedTOO", mgr._connectedVehicles)
+
+            # loadState clears TraCI subscriptions and removes vehicles departed after saveState
+            traci.simulation.loadState(state_file)
+            traci.simulationStep()
+            self.assertIn("connected.1", mgr._connectedVehicles)
+            self.assertIn("connected.1", traci.vehicle.getAllSubscriptionResults())
+            self.assertNotIn("IAMconnectedTOO", mgr._connectedVehicles)
+
+            while traci.simulation.getTime() <= 14.:
+                traci.simulationStep()
+            self.assertIn("IAMconnectedTOO", mgr._connectedVehicles)
+            self.assertEqual(mgr.getPlatoonID("connected.1"), mgr.getPlatoonID("IAMconnectedTOO"))
+            self.assertEqual(len(mgr.getPlatoonLeaders()), 1)
 
 
 # # ignore some tests for faster execution
