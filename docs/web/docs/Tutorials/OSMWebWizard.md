@@ -28,6 +28,9 @@ directory:
 python osmWebWizard.py
 ```
 
+Run `python osmWebWizard.py --exit-after-build` to stop the local Web Wizard after it successfully generates a scenario and launches SUMO GUI.
+If generation fails, the wizard stays open so you can try again.
+
 Windows users may also invoke the command by clicking *All Programs -\>
 SUMO -\> OSM Web Wizard*. Once the script is running, a web browser
 should open showing a map excerpt of central Berlin.

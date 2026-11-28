@@ -565,6 +565,7 @@ on("ready", async function(){
     let currentStep;
     let presentedErrorLog = false;
     let progressTimer = null;
+    let waitForCompletion = false;
 
     function errorMessage(error) {
         if (presentedErrorLog == false) {
@@ -612,6 +613,19 @@ on("ready", async function(){
         socket.addEventListener("message", messageHandler);
     }
 
+    function finishBuild(exitAfterBuild) {
+        setTimeout(function(){
+            elem("#status").style.display = "none";
+            if (!exitAfterBuild) {
+                elem("#export-button").style.display = "block";
+            }
+        }, 2000);
+        if (progressTimer) {
+            clearInterval(progressTimer);
+            progressTimer = null;
+        }
+    }
+
     function messageHandler(evt){
         let message = evt.data;
         // get the first space
@@ -627,16 +641,11 @@ on("ready", async function(){
             elem("#status > span").textContent = message;
             elem("#status > div").style.width = (100 * currentStep / totalSteps) + "%";
 
-            if(currentStep === totalSteps){
-                setTimeout(function(){
-                    elem("#status").style.display = "none";
-                    elem("#export-button").style.display = "block";
-                }, 2000);
-                if (progressTimer) {
-                    clearInterval(progressTimer);
-                    progressTimer = null;
-                }
+            if(currentStep === totalSteps && !waitForCompletion){
+                finishBuild(false);
             }
+        } else if(type === "complete"){
+            finishBuild(message === "success");
         } else if(type === "steps"){
             totalSteps = Number.parseInt(message);
             currentStep = 0;
@@ -742,9 +751,11 @@ on("ready", async function(){
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)
-            })
-            // poll for messages
-            progressTimer = setInterval(pollProgress, 500);
+            }).then(async function(response) {
+                const result = await response.json();
+                waitForCompletion = result.exitAfterBuild;
+                progressTimer = setInterval(pollProgress, 500);
+            });
         }
 
         elem("#status").style.display = "block";
