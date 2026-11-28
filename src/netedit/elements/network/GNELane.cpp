@@ -2026,10 +2026,15 @@ GNELane::buildEdgeOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     if (oppositeEdges.size() == 0) {
         splitBothDirections->setText(TL("Split edge in both directions here (no opposite edge)"));
     } else {
+        const NBEdge* nbEdge = getParentEdges().front()->getNBEdge();
         for (const auto& oppositeEdge : oppositeEdges) {
+            const NBEdge* oppNBEdge = oppositeEdge->getNBEdge();
             // get reverse inner geometry
-            const auto reverseGeometry = oppositeEdge->getNBEdge()->getInnerGeometry().reverse();
-            if (reverseGeometry == getParentEdges().front()->getNBEdge()->getInnerGeometry()) {
+            const auto reverseGeometry = oppNBEdge->getInnerGeometry().reverse();
+            const auto reverseLaneShape = oppNBEdge->getLanes().back().shape.reverse();
+            if ((reverseGeometry == nbEdge->getInnerGeometry()) ||
+                    reverseLaneShape.almostSame(nbEdge->getLanes().back().shape, POSITION_EPS) ||
+                    (oppNBEdge == nbEdge->getBidiEdge())) {
                 splitBothDirections->enable();
                 splitBothDirections->setText(TL("Split edge in both directions here"));
             }
