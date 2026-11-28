@@ -2,5 +2,4 @@ Warning: 1 total messages of type: Missing yellow phase in tlLogic '%', program 
 Warning: 4 total messages of type: Teleporting vehicle '%' after earlier collision, lane='%', time=%.
 Warning: 4 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
 Warning: 4 total messages of type: Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset=%), time=%.
-Warning: 1 total messages of type: Vehicle 'horizontal.0'; junction collision with vehicle 'vertical.0', lane='%', gap=%%, time=%, stage=%.
-Warning: 1 total messages of type: Vehicle 'horizontal.10'; junction collision with vehicle 'vertical.1', lane='%', gap=%%, time=%, stage=%.
+Warning: 2 total messages of type: Vehicle '%'; % with vehicle '%', lane='%', gap=%%, time=%, stage=%.
