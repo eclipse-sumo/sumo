@@ -109,4 +109,11 @@ settings by adding a `<gui-settings-file ... />`-element:
 If you now restart SUMO with the configuration, it will automatically
 load the view settings stored in `autobahn.view.xml`.
 
+# Modeling Lane Reductions and Work Zones
+
+Highway lane drops and construction tapers can be modeled with two junction configurations in [netedit](../Netedit/index.md) (see [PlainXML node types](../Networks/PlainXML.md#node_types)):
+
+- **Early strategic merging (`type="priority"`)**: Connect the continuing lanes across the node while leaving the dropped lane unconnected, or close a lane along a split work-zone edge with `disallow="all"` (or dynamically via [`<closingLaneReroute>`](../Simulation/Rerouter.md#closing_a_lane)). All vehicles merge onto the open lane upstream of the taper at varying longitudinal positions governed by `<vType>` lane-changing parameters (and `maxSpeedLat` when [sublane](../Simulation/SublaneModel.md) or continuous lane-changing is active).
+- **Late zipper merging (`type="zipper"`)**: Connect two incoming lanes into one outgoing lane at a `zipper` node (using a ~100 m junction shape or split taper where needed) so vehicles alternate right-of-way longitudinally along the merging internal lanes. Lower the speed limit slightly on the dropping approach lane (for example by `1` m/s) and raise `<vType>` `lcSpeedGain` (for example `lcSpeedGain="2.0"`) when part of the traffic stream should merge earlier upstream while remaining vehicles merge at the zipper.
+
 Back to [Tutorials](index.md).
