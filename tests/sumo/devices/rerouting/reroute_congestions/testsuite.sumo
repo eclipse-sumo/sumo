@@ -21,3 +21,6 @@ thresholdFactor_1.1
 
 # vehicles should not skip every second reroute when rerouting on adaptation steps
 period_adaptation_step
+
+# reroute when exceeding waiting-time threshold (#1000)
+waiting_time
