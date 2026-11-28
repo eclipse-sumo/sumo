@@ -147,6 +147,8 @@ are distributed under GPL and are not part of the SUMO download.
 
 ### [{fmt}](https://fmt.dev) - Formatting library
 
+CMake looks for {fmt} 8.0 or newer by default. Install `libfmt-dev` on Debian or Ubuntu, `fmt` through Homebrew on macOS, or use SUMOLibraries or vcpkg on Windows. Look for `FMT` in CMake's **Enabled features** line to confirm detection. Set `-DENABLE_FMT=OFF` to use the standard formatting code.
+
 - [​MIT License](https://github.com/fmtlib/fmt/blob/master/LICENSE)
 
 ### [JuPedSim](https://jupedsim.org/) - Pedestrian Simulator

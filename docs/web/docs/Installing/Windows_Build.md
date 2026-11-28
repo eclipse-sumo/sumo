@@ -116,7 +116,7 @@ Unless you are determined that all your builds will use vcpkg libraries,
 you should not call `./vcpkg integrate install` because it might mess up
 your environment if you decide to build against SUMOLibraries at a later point.
 Instead you should add
-`-DCMAKE_TOOLCHAIN_FILE=<vcpkg-root>/scripts/buildsystems/vcpkg.cmake` to your cmake options.
+`-DCMAKE_TOOLCHAIN_FILE=<vcpkg-root>/scripts/buildsystems/vcpkg.cmake` to your cmake options. With this toolchain, MSVC builds can use the vcpkg installation of [{fmt}](../Libraries_Licenses.md#fmt_-_formatting_library).
 
 Unfortunately the FOX toolkit is still missing from vcpkg so you
 cannot build any GUI applications by using only vcpkg.
