@@ -1,0 +1,15 @@
+use_case_record_mode:GUI
+copy_test_path:sumo.sumocfg
+copy_test_path_merge:src
+
+[run_dependent_text]
+output:Calling wsl rsync{REPLACE Calling rsync}
+output:Warning: detected OpenGL error 'invalid enumerant' at Before Renderer::compile
+output:StatsHandler::StatsHandler() Setting up GL2 compatible shaders
+output:vm3dgl: Unable to acquire VMware SVGA 3D display device.
+output:vm3dgl: Failed to initialize svga driver.
+output:vm3dgl: Falling back to LLVMPipe.
+errors:error: XDG_RUNTIME_DIR is invalid or not set in the environment.
+errors:MESA: error: ZINK: {LINES 2}
+errors:Fontconfig warning:
+errors:Unable to revert mtime:
