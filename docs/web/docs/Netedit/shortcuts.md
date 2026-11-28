@@ -118,7 +118,7 @@ In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui
 
 | Shortcut | |
 |:---:|:---:|
-| <kbd>Alt</kbd> + 0-9 | <span style="color:orange">Toggle view / edit checkbox option |
+| <kbd>Alt</kbd> + number | Toggle a visible toolbar option. The **Edit** menu shows the shortcuts for the current mode. |
 | <kbd>Shift</kbd> + <kbd>TAB</kbd> | <span style="color:orange">Jump to previous Element |
 | <kbd>Shift</kbd> + <kbd>F1</kbd> | <span style="color:orange">Set inspected edge as Edge template |
 | <kbd>Shift</kbd> + <kbd>F2</kbd> | <span style="color:orange">Copy Edge template to inspected edges |

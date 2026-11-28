@@ -87,8 +87,9 @@ The entire list of shortcuts can be found [here](shortcuts.md):
 | Grid- | <kbd>Ctrl</kbd> + <kbd>PageDown</kbd> | Reduce grid spacing               |
 
 
-**Toolbar shortcuts**
-The mode-depended option checkboxes (such as *Toggle grid* and others) located in the toolbar, can easily be checked an unchecked using the <kbd>Alt</kbd> + <kbd>NUMBER</kbd> shortcut, where NUMBER corresponds to its position within the options (e.g. *Toggle grid* is 1, and so on).
+**Toolbar and Edit menu shortcuts**
+
+The toolbar shows toggle buttons for the active edit mode. The **Edit** menu lists the available options by name with their current keyboard shortcuts. Press <kbd>Alt</kbd> plus the number for a visible toggle button to switch it on or off. The number follows the order of the visible buttons, so it can change when you switch modes.
 
 ---
 

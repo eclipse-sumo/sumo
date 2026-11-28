@@ -24,14 +24,14 @@ Some attributes have pre-computed values (i.e. edge length) but can be overrule 
 By default, clicking on an edge will inspect the edge object. To inspect individual lanes of an edge either
 
 - shift-click on the lane
-- deactivate the "click selects edges" toggle button in the top bar (shortcut Alt+4) and then left-click on lanes
+- Enable **Clicks target lanes** in the toolbar, then click a lane.
 - inspect an edge an then right-click a lane in the hierarchy view and select 'inspect'
 
 ## Inspecting Connections
 
 After opening the network, junctions must be recomputed at least once (F5). Computation happens automatically when switching to connection mode or traffic light mode. After network computation, either of the following can be used to inspect and edit connection attributes while in inspect mode:
 
-- activate 'show connections' toggle button in the button bar (shortcut Alt + 5) and the left-click on a connection
+- Enable **Show connections over junctions** in the toolbar or the **Edit** menu, then click a connection. The **Edit** menu shows the shortcut for the current mode.
 - inspect an edge and then right-click a connection in the hierarchy view (lane->outgoing->connections) and select 'inspect'
 
 ## Inspecting Selections
@@ -73,7 +73,7 @@ Changing the number of lanes of an edge
 Number of lanes of the edge changed
 
 ![](../images/InspectMode3.png)
-Changing the width of a lane. Note that option "select edges" is disabled
+Changing the width of a lane in the Inspector
 
 ![](../images/InspectMode4.png)
 Width of lane changed (gaps will disappear upon triggering recomputation with **F5**)
@@ -121,9 +121,8 @@ Selected elements are painted with a different color
 
 ## Methods for selecting
 
-- the selection status of objects is toggled by left-clicking. When the *select edges* check-box is unset, lanes, rather than edges will
-  be selected/deselected.
-- by rectangle-selection via shift+leftClick+drag (When the checkbox *auto-select junctions* is enabled, junctions of selected edges will be selected automatically)
+- Click an object to toggle its selection. Enable **Clicks target lanes** in the toolbar to select individual lanes.
+- Hold Shift and drag with the left mouse button to select a rectangle. When **Automatic select junctions** is enabled, adding edges to the selection also selects their junctions.
 - by matching object attributes [(see below)](#match_attribute)
 - by loading a saved selection
 - by inverting an existing selection

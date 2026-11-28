@@ -45,13 +45,9 @@ Connections in a Junction without a bubble as shape.
 
 ### Inspecting connections
 
-As the rest of elements of netedit, connections can be inspected and modified using inspected mode. Note that the option *show connections* must be enabled. All parameters can be modified excepting *From*, *To*, *fromLane* and *toLane*. The connection coloring is done as [in sumo-gui](../sumo-gui.md#right_of_way) with the exception of traffic-light connections which are brown in inspect-mode.
+Use [Inspect mode](editModesCommon.md#inspecting_connections) to edit connection attributes. Enable the **Show connections over junctions** toolbar button or use its entry in the **Edit** menu. Then click a connection in the network view. You can also select a connection from the outgoing connections in the Inspector hierarchy for its source lane.
 
-![](../images/GNEConnections4.png)
-Inspecting a connection. Note that check box "Show connections" is enabled.
-
-![](../images/GNEConnections4b.png)
-Connections can be inspected through inspection of their **from** lane or its corresponding edge.
+The Inspector displays the connection endpoints (*From*, *To*, *fromLane* and *toLane*) as read-only attributes. You can edit the other attributes. Connections use the same [right-of-way colors as SUMO-GUI](../sumo-gui.md#right_of_way), except that Inspect mode displays traffic light connections in brown.
 
 ### Changing connections
 
@@ -100,7 +96,7 @@ Editing signal states can be accomplished in either of the following ways:
 - right-clicking on any of the incoming lanes to change all controlled connections from that edge
 - If the lane is currently selected, all connections from selected lanes incoming to the traffic light will be changed as well
 - If the edge is currently selected, all connections from selected edges incoming to the traffic light will be changed as well
-- If the check-box *apply change to all phases* is activated, all phases of the current plan will be affected
+- Enable **Apply state to all phases** in the toolbar to apply state changes to every phase of the current plan.
 
 You can also change the state by editing the phase table directly.
 

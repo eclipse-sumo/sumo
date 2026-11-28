@@ -26,7 +26,7 @@ represent roads or streets. Note that edges are unidirectional. It's
 equivalent to a edge in a graph theory.
 
 ![](../images/GNEEdge.png)
-Example of edge. Note that the box "select edge" is **checked**
+An edge in the Inspector
 
 ### Lanes
 
@@ -35,7 +35,7 @@ Each SUMO edge is composed of a set of
 (At least one).
 
 ![](../images/GNELane.png)
-Example of lane. Note that the box "select edge" is **unchecked**
+A lane in the Inspector
 
 ### Connections
 
