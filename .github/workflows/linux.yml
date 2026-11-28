@@ -46,8 +46,6 @@ jobs:
         path: sumo
         fetch-depth: 0
         # filter: tree:0  # no tree filter because sonar needs to do a git blame
-        # fetching the ref on tag runs to work around actions/checkout#1467
-        ref: ${{ github.ref }}
 
     - name: Installing dependencies
       run: |
