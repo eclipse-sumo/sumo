@@ -25,8 +25,8 @@ import sys
 import json
 import shutil
 import subprocess
-from multiprocessing.pool import Pool
-import signal
+from concurrent.futures import ThreadPoolExecutor
+from itertools import islice
 
 try:
     # python3
@@ -47,6 +47,7 @@ import sumolib  # noqa
 
 MERCATOR_RANGE = 256
 MAX_TILE_SIZE = 640
+MAX_DOWNLOAD_WORKERS = 32
 MAPQUEST_TYPES = {"roadmap": "map", "satellite": "sat", "hybrid": "hyb", "terrain": "sat"}
 
 
@@ -189,6 +190,7 @@ def worker(options, request, filename):
 def writeSettings(options, net, tile_list, zoom, decals):
     if net is None:
         print("Warning: No network given, will not try reprojection or writing a decal file.", file=sys.stderr)
+        return
     if options.reproject:
         reprojectTiles(options, tile_list, zoom, net, decals)
     else:
@@ -268,25 +270,26 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net, patte
     # opener.addheaders = [('User-agent', 'Mozilla/5.0')]
     # urllib.install_opener(opener)
 
-    if options.parallel_jobs != 0:
-        original_sigint_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
-        pool = Pool(options.parallel_jobs)
-        signal.signal(signal.SIGINT, original_sigint_handler)
+    suffix = ".png" if pattern.endswith(".png") else ".jpeg"
+    tiles = ((x, y) for x in range(sx, ex + 1) for y in range(sy, ey + 1))
 
-    futures = []
-    tile_list = []
-    for x in range(sx, ex + 1):
-        for y in range(sy, ey + 1):
-            request = options.url + pattern.format(z=zoom, y=y, x=x)
-            suffix = ".png" if pattern.endswith(".png") else ".jpeg"
-            filename = os.path.join(options.output_dir, "%s%s_%s%s" % (options.prefix, x, y, suffix))
-            if options.parallel_jobs == 0:
-                worker(options, request, filename)
-            else:
-                futures.append((x, y, pool.apply_async(worker, (options, request, filename))))
-            tile_list.append((x, y, filename))
-    for x, y, future in futures:
-        future.get()
+    def download(tile):
+        x, y = tile
+        request = options.url + pattern.format(z=zoom, y=y, x=x)
+        filename = os.path.join(options.output_dir, "%s%s_%s%s" % (options.prefix, x, y, suffix))
+        worker(options, request, filename)
+        return x, y, filename
+
+    jobs = min(options.parallel_jobs, MAX_DOWNLOAD_WORKERS, (ex - sx + 1) * (ey - sy + 1))
+    if jobs <= 1 or options.simulate:
+        tile_list = list(map(download, tiles))
+    else:
+        tile_list = []
+        with ThreadPoolExecutor(max_workers=jobs) as pool:
+            batch = tuple(islice(tiles, jobs))
+            while batch:
+                tile_list.extend(pool.map(download, batch))
+                batch = tuple(islice(tiles, jobs))
     writeSettings(options, net, tile_list, zoom, decals)
 
 
@@ -294,7 +297,7 @@ def get_options(args=None):
     optParser = sumolib.options.ArgumentParser()
     optParser.add_option("-p", "--prefix", category="output", default="tile", help="for output file")
     optParser.add_option("-b", "--bbox", category="input",
-                         help="bounding box to retrieve in geo coordinates west,south,east,north")
+                         help="bounding box to retrieve in geo coordinates west,south,east,north (overrides --net)")
     optParser.add_option("-t", "--tiles", type=int, default=1,
                          help="maximum number of tiles the output gets split into")
     optParser.add_option("-d", "--output-dir", category="output", default=".",
@@ -324,7 +327,7 @@ def get_options(args=None):
                          help="target resolution in meters per pixel; the closest zoom level is used "
                               "(overrides --tiles based selection, capped by --max-zoom)")
     optParser.add_option("-j", "--parallel-jobs", type=int, default=0,
-                         help="Number of parallel jobs to run when downloading tiles. 0 means no parallelism.")
+                         help="MapServer download jobs, up to %s. 0 means no parallelism." % MAX_DOWNLOAD_WORKERS)
     optParser.add_option("-r", "--retina", action="store_true", default=False,
                          help="set 'true' for double resolution tiles (applies to cartodb only).")
     optParser.add_option("--reproject", action="store_true", default=False,
@@ -354,6 +357,8 @@ def get_options(args=None):
     options = optParser.parse_args(args=args)
     if not options.bbox and not options.net and not options.polygon:
         optParser.error("At least one of 'bbox' and 'net' and 'polygon' has to be set.")
+    if options.parallel_jobs < 0:
+        optParser.error("--parallel-jobs must be non-negative.")
     options.url = URL_SHORTCUTS.get(options.url.lower(), options.url)
     if not options.url.startswith("http"):
         options.url = "https://" + options.url
@@ -370,7 +375,16 @@ def get_options(args=None):
 
 def get(args=None):
     options = get_options(args)
-    if options.polygon:
+    net = sumolib.net.readNet(options.net) if options.net else None
+    if options.bbox:
+        west, south, east, north = [float(v) for v in options.bbox.split(',')]
+        if net is not None:
+            bboxNet = net.convertLonLat2XY(west, south), net.convertLonLat2XY(east, north)
+    elif net is not None:
+        bboxNet = net.getBBoxXY()
+        west, south = net.convertXY2LonLat(*bboxNet[0])
+        east, north = net.convertXY2LonLat(*bboxNet[1])
+    else:
         west = 1e400
         south = 1e400
         east = -1e400
@@ -383,15 +397,6 @@ def get(args=None):
                 south = min(point[1], south)
                 east = max(point[0], east)
                 north = max(point[1], north)
-    if options.bbox:
-        west, south, east, north = [float(v) for v in options.bbox.split(',')]
-    net = None
-    if options.net:
-        net = sumolib.net.readNet(options.net)
-        bboxNet = net.getBBoxXY()
-        offset = (bboxNet[1][0] - bboxNet[0][0]) / options.tiles
-        west, south = net.convertXY2LonLat(*bboxNet[0])
-        east, north = net.convertXY2LonLat(*bboxNet[1])
 
     prefix = os.path.join(options.output_dir, options.prefix)
     mapQuest = "mapquest" in options.url
@@ -404,6 +409,8 @@ def get(args=None):
             retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net, options.retina)
         else:
             b = west
+            if net is not None:
+                offset = (bboxNet[1][0] - bboxNet[0][0]) / options.tiles
             for i in range(options.tiles):
                 e = b + (east - west) / options.tiles
                 c, z, w, h = getZoomWidthHeight(south, b, north, e, 2560 if mapQuest else 640)
@@ -417,9 +424,7 @@ def get(args=None):
                            (options.url, size, c[0], c[1], z, maptype, options.key))
                 # print(request)
                 filename = os.path.join(options.output_dir, "%s%s.png" % (prefix, i))
-                urllib.urlretrieve(request, filename)
-                if os.stat(filename).st_size < options.min_file_size:
-                    raise ValueError("small file")
+                worker(options, request, filename)
                 if net is not None:
                     print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
                           (os.path.basename(filename),

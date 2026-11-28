@@ -1,0 +1,1 @@
+Explicit bounds control tile requests and decal placement. MapServer download workers are bounded.

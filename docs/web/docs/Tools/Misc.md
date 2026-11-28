@@ -371,6 +371,8 @@ can be loaded with sumo-gui or netedit. The most useful options are `--reproject
 python tools/tileGet.py -n test.net.xml -t 10
 ```
 
+Use `--bbox west,south,east,north` to select a geographic subarea. You can pass `-n` with `--bbox` to position decals in the network's coordinate system. `--parallel-jobs` downloads MapServer tiles concurrently with up to 32 workers.
+
 - Retrieving satellite data from Google or MapQuest (Requires obtaining an API-key first):
 ```
 python tools/tileGet.py -n test.net.xml -t 10 --url maps.googleapis.com/maps/api/staticmap --key YOURKEY
