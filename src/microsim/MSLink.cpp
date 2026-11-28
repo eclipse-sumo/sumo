@@ -1204,7 +1204,7 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
 #ifdef MSLink_DEBUG_OPENED
         gDebugFlag6 = ((ego == nullptr || ego->isSelected()) && (veh == nullptr || veh->isSelected()));
 #endif
-        const SUMOTime fatb = computeFoeArrivalTimeBraking(arrivalTime, veh, avi.arrivalTime, impatience, avi.dist, foeArrivalSpeedBraking);
+        const SUMOTime fatb = computeFoeArrivalTimeBraking(arrivalTime, veh, avi.arrivalTime, impatience, avi.dist, avi.speed, foeArrivalSpeedBraking);
         foeArrivalTime = (SUMOTime)((1. - impatience) * (double)avi.arrivalTime + impatience * (double)fatb);
 #ifdef MSLink_DEBUG_OPENED
         if (gDebugFlag6) {
@@ -1269,7 +1269,7 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
 
 
 SUMOTime
-MSLink::computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* foe, SUMOTime foeArrivalTime, double impatience, double dist, double& fasb) {
+MSLink::computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* foe, SUMOTime foeArrivalTime, double impatience, double dist, double foeSpeed, double& fasb) {
     // a: distance saved when foe brakes from arrivalTime to foeArrivalTime
     // b: distance driven past foeArrivalTime
     // m: permitted decceleration
@@ -1289,11 +1289,38 @@ MSLink::computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* fo
         arrivalTime = arrivalTime - (arrivalTime % DELTA_T) + DELTA_T;
     }
     //arrivalTime += DELTA_T - arrivalTime % DELTA_T;
-    const double m = foe->getVehicleType().getCarFollowModel().getMaxDecel() * impatience;
+    const MSCFModel& cfModel = foe->getVehicleType().getCarFollowModel();
+    const double m = cfModel.getMaxDecel() * impatience;
     const double dt = STEPS2TIME(foeArrivalTime - arrivalTime);
     const double d = dt * m;
     const double a = dt * d / 2;
-    const double v = dist / STEPS2TIME(foeArrivalTime - SIMSTEP + DELTA_T);
+    const double tTotal = STEPS2TIME(foeArrivalTime - SIMSTEP + DELTA_T);
+    const double v = dist / tTotal;
+    const double origFasb = fasb;
+    double maxFasb = std::numeric_limits<double>::max();
+    if (!MSGlobals::gUseMesoSim && foeSpeed < SUMO_const_haltingSpeed) {
+        const double curSpeed = MAX2(0.0, foeSpeed);
+        const double tAccel = STEPS2TIME(MAX2(DELTA_T, arrivalTime - SIMSTEP));
+        const double vMax = curSpeed + tAccel * cfModel.getMaxAccel();
+        const double tPlan = MSGlobals::gSemiImplicitEulerUpdate ? tTotal : STEPS2TIME(foeArrivalTime - SIMSTEP);
+        const double vAvgMax = curSpeed + 0.5 * cfModel.getMaxAccel() * MAX2(TS, tPlan);
+        if (vMax < v && vAvgMax < v + NUMERICAL_EPS) {
+            const double distDuringAccel = (MSGlobals::gSemiImplicitEulerUpdate
+                                            ? curSpeed * tAccel + 0.5 * cfModel.getMaxAccel() * tAccel * (tAccel + TS)
+                                            : curSpeed * tAccel + 0.5 * cfModel.getMaxAccel() * tAccel * tAccel);
+            const double distAccel = MAX2(0.0, dist - distDuringAccel);
+            if (origFasb <= 0 && 0.5 * vMax * vMax / m <= distAccel) {
+#ifdef MSLink_DEBUG_OPENED
+                if (gDebugFlag6) {
+                    std::cout << "   canBrakeToStop (from halted)\n";
+                }
+#endif
+                fasb = 0;
+                return foeArrivalTime + TIME2STEPS(30);
+            }
+            maxFasb = MAX2(origFasb, sqrt(MAX2(0.0, vMax * vMax - 2.0 * m * distAccel)));
+        }
+    }
     const double dist2 = dist - v * STEPS2TIME(arrivalTime - SIMSTEP);
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag6) {
@@ -1327,7 +1354,7 @@ MSLink::computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* fo
         std::cout << SIMTIME << "   dist=" << dist << " dist2=" << dist2  << " at=" << STEPS2TIME(arrivalTime) << " m=" << m << " d=" << d << " v=" << v << " a=" << a << " x=" << x << " x2=" << x2 << "\n";
     }
 #endif
-    fasb = v - (dt + x) * m;
+    fasb = MIN2(v - (dt + x) * m, maxFasb);
     return foeArrivalTime + TIME2STEPS(x);
 }
 

@@ -1,0 +1,10 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="egoT" sigma="0" impatience="0.03"/>
+    <vType id="foeT" sigma="0" accel="1.2"/>
+    <vehicle id="ego" type="egoT" depart="0" departPos="499.9">
+        <route edges="right2end end"/>
+    </vehicle>
+    <vehicle id="foe" type="foeT" depart="0" departPos="993">
+        <route edges="middle end"/>
+    </vehicle>
+</routes>
