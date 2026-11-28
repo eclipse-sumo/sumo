@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-19 21:01:33.804251 by Eclipse SUMO locTurnCounts2EdgeRelations.py v1_28_0+0668-388c9872167
+<configuration>
+    <net-file value="net.net.xml"/>
+    <turn-file value="data.csv"/>
+    <output-file value="edgedata.xml"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="loc_0" begin="0" end="3600">
+        <edgeRelation from="N2C" to="C2E" count="45"/>
+        <edgeRelation from="S2C" to="C2E" count="120"/>
+        <edgeRelation from="W2C" to="C2E" count="300"/>
+        <edgeRelation from="W2C" to="C2N" count="80"/>
+    </interval>
+</data>
