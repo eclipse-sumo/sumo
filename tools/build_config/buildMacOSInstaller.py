@@ -67,6 +67,8 @@ def parse_args(def_dmg_name, def_pkg_name):
     op.add_argument("--apps-pkg-dir", default=os.path.join(base_dir, "apps-pkg"))
     op.add_argument("--installer-pkg-file", default=os.path.join(base_dir, "installer", def_pkg_name))
     op.add_argument("--installer-dmg-file", default=def_output_dmg_path)
+    op.add_argument("--library-path", action="append", type=os.path.abspath, default=[], metavar="DIR",
+                    help="Additional directory to search for dynamic libraries when creating the framework")
     op.add_argument("--clean", action="store_true")
 
     args = op.parse_args()
@@ -87,7 +89,7 @@ def parse_args(def_dmg_name, def_pkg_name):
     return args
 
 
-def create_framework_dir(name, longname, pkg_id, version, sumo_build_directory, framework_output_dir):
+def create_framework_dir(name, longname, pkg_id, version, sumo_build_directory, framework_output_dir, library_paths):
     # Create the directory structure for the framework bundle
     # see: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/FrameworkAnatomy.html  # noqa
     #
@@ -145,7 +147,6 @@ def create_framework_dir(name, longname, pkg_id, version, sumo_build_directory, 
 
     # Determine library dependencies
     print(" - Delocating binaries and libraries")
-    os.chdir(os.path.join(version_dir, name))
 
     # - libraries that landed in the lib folder need to be delocated as well
     lib_dir = os.path.join(version_dir, name, "lib")
@@ -156,7 +157,20 @@ def create_framework_dir(name, longname, pkg_id, version, sumo_build_directory, 
             shutil.move(os.path.join(lib_dir, file_name), os.path.join(bin_dir, file_name))
 
     # Start the delocation of the libraries and binaries
-    delocate_path("./bin", lib_filt_func=None, lib_path="./lib", sanitize_rpaths=True)
+    # Set the search path inside Python because macOS can strip DYLD variables when launching protected processes.
+    existing_path = os.environ.get("DYLD_LIBRARY_PATH")
+    if library_paths:
+        paths = library_paths + ([existing_path] if existing_path else [])
+        os.environ["DYLD_LIBRARY_PATH"] = os.pathsep.join(paths)
+    try:
+        delocate_path(os.path.abspath(bin_dir), lib_filt_func=None, lib_path=os.path.abspath(lib_dir),
+                      sanitize_rpaths=True)
+    finally:
+        if library_paths:
+            if existing_path is None:
+                del os.environ["DYLD_LIBRARY_PATH"]
+            else:
+                os.environ["DYLD_LIBRARY_PATH"] = existing_path
 
     # - and we need to move them back to the lib folder
     for pattern in ("*.jnilib", "*.dylib"):
@@ -533,7 +547,7 @@ def main():
 
         print(f"Creating {default_framework_name} framework directory: \"{opts.framework_dir}\"")
         create_framework_dir(default_framework_name, default_framework_long_name, f"{base_id}.framework", version,
-                             opts.build_dir, opts.framework_dir)
+                             opts.build_dir, opts.framework_dir, opts.library_path)
         print(f"Successfully created {default_framework_name} framework directory")
 
     if opts.all or opts.create_framework_pkg:

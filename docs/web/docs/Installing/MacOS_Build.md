@@ -181,6 +181,23 @@ Type "help", "copyright", "credits" or "license" for more information.
 !!! note
     To build JuPedSim and build SUMO with JuPedSim follow the [instructions for the Linux build](Linux_Build.md#how_to_build_jupedsim_and_then_build_sumo_with_jupedsim)
 
+### Build a local DMG
+
+Install the packaging dependencies in the Python environment used to build the installer.
+
+```sh
+python -m pip install delocate dmgbuild
+```
+
+From the repository root, pass your CMake build directory and the library directory of your custom JuPedSim installation. Replace the paths with the directories used for your build.
+
+```sh
+python tools/build_config/buildMacOSInstaller.py --all --build-dir cmake-build \
+    --library-path "/path/to/jupedsim-install/lib"
+```
+
+Repeat `--library-path` for each additional library directory. Omit the option when the packaging tools can already locate all dependencies.
+
 # The Macports Approach (legacy)
 
 !!! note
