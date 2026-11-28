@@ -24,3 +24,6 @@ addConstraint
 
 # tests for automatic deadlock-avoidance after swapConstraints
 swap
+
+# update ongoing phase switch time when overwriting active program (#5554)
+replace_program_ongoing_phase
