@@ -82,3 +82,6 @@ unknown_vClass
 
 # refuse loading
 nan_length
+
+# forbid absolute path in --output-prefix
+invalid_output_prefix_absolute

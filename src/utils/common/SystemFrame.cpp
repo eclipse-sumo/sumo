@@ -23,8 +23,11 @@
 
 #include <string>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/common/StdDefs.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "RandHelper.h"
@@ -155,6 +158,17 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
 
 bool
 SystemFrame::checkOptions(OptionsCont& oc) {
+    if (oc.exists("output-prefix") && oc.isSet("output-prefix")) {
+        const std::string prefix = StringUtils::substituteEnvironment(oc.getString("output-prefix"));
+        if (FileHelpers::isAbsolute(prefix)) {
+            const std::string msg = TLF("Option 'output-prefix' does not support absolute paths ('%').", oc.getString("output-prefix"));
+            if (&oc != &OptionsCont::getOptions() || oc.getFullName().find("netedit") != std::string::npos) {
+                WRITE_ERROR(msg);
+                return false;
+            }
+            throw ProcessError(msg);
+        }
+    }
     gPrecision = oc.getInt("precision");
     if (oc.exists("emission-output.precision")) {
         gPrecisionEmissions = oc.getInt("emission-output.precision");
