@@ -648,6 +648,9 @@ class Net:
         including the internal connectors, if they are present in the network.
         The path itself does not include internal edges except for the case
         when the start or end edge are internal edges.
+        Endpoint positions are measured from the start of their edges. Negative
+        positions are measured from the end. When direction is ignored, the
+        endpoint costs use the slices traversed by the selected path.
         The search may be limited using the given threshold.
         The preferences declare a mapping from the 'routingType' of each edge to divisor
         that is applied to the computed cost of that edge (i.e. a preference of 2 reduces cost by a factor of 0.5).
@@ -678,6 +681,30 @@ class Net:
             else:
                 return []
 
+        def internalCost(connections):
+            if self.hasInternal and connections is not None:
+                viaPath, cost = self.getInternalPath(connections, fastest=fastest)
+                if viaPath is not None:
+                    return cost
+            return 0.
+
+        def transitionReversals(edge, follower):
+            outgoing = edge.getAllowedOutgoing(vClass)
+            incoming = edge.getIncoming()
+            minCost = internalCost(outgoing[follower]) if follower in outgoing else PRACTICAL_INFINITY
+            reversedTravel = False
+            if follower in incoming:
+                cost = internalCost(incoming[follower])
+                if cost < minCost:
+                    minCost = cost
+                    reversedTravel = True
+            # Use the same transition order and costs as the path search.
+            if (minCost > 0 and not self.hasWalkingArea
+                    and edge.getFunction() == '' and follower.getFunction() == ''
+                    and edge.getToNode() == follower.getToNode()):
+                return False, True
+            return reversedTravel, reversedTravel
+
         if self._edgeSuccessorCache != (vClass, ignoreDirection):
             self._edgeSuccessorCache = (vClass, ignoreDirection)
             for e1 in self.getEdges():
@@ -690,35 +717,54 @@ class Net:
             for e1 in self.getEdges():
                 e1._costCache = e1.getLength() / speedFunc(e1)
 
+        destinationEdge = toEdge
+        needLoop = (fromEdge == destinationEdge
+                    and fromPos is not None
+                    and toPos is not None
+                    and remainder(fromEdge, fromPos) < remainder(destinationEdge, toPos)
+                    and not ignoreDirection)
+        if fromEdge == destinationEdge and not needLoop and (ignoreDirection or fromEdge.getFunction() == "internal"):
+            remainFrom = fromEdge.getLength() if fromPos is None else remainder(fromEdge, fromPos)
+            remainTo = 0. if toPos is None else remainder(destinationEdge, toPos)
+            cost = abs(remainFrom - remainTo) / speedFunc(fromEdge) if includeFromToCost else 0.
+            return (fromEdge,), cost
+
+        appendix = []
+        appendixCost = 0.
         if self.hasInternal:
-            appendix = []
-            appendixCost = 0.
             while toEdge.getFunction() == "internal":
                 appendix = [toEdge] + appendix
                 appendixCost += toEdge._costCache
                 toEdge = list(toEdge.getIncoming().keys())[0]
 
-        def finalizeCost(cost, path):
+        def finalizeCost(cost, firstFollower, lastPredecessor):
             if includeFromToCost:
-                # add costs for (part of) the first edge, still needs to be fixed for wrong direction travel
                 remainFrom = fromEdge.getLength() if fromPos is None else remainder(fromEdge, fromPos)
+                if ignoreDirection and fromPos is not None and firstFollower is not None:
+                    if transitionReversals(fromEdge, firstFollower)[0]:
+                        remainFrom = fromEdge.getLength() - remainFrom
                 cost += remainFrom / speedFunc(fromEdge)
-                # remove costs for (part of) the last edge, still needs to be fixed for wrong direction travel
-                removeTo = 0. if toPos is None else remainder(toEdge, toPos)
+                removeTo = 0. if toPos is None else remainder(destinationEdge, toPos)
+                if ignoreDirection and toPos is not None and not appendix and lastPredecessor is not None:
+                    if transitionReversals(lastPredecessor, destinationEdge)[1]:
+                        removeTo = destinationEdge.getLength() - removeTo
             else:
-                removeTo = toEdge.getLength() if len(path) > 1 else 0.
-            cost -= removeTo / speedFunc(toEdge)
-            return cost
+                removeTo = destinationEdge.getLength() if lastPredecessor is not None or appendix else 0.
+            return cost + appendixCost - removeTo / speedFunc(destinationEdge)
 
         def constructPath(dist):
             # destination was already reached in a previous query
             cost, pred = dist[toEdge]
+            fullCost = cost + appendixCost
             if ((cost == PRACTICAL_INFINITY
                  # the final node may exceed max cost but the prior node may not
-                 or (cost > maxCost and cost - toEdge._costCache > maxCost))):
+                 or (fullCost > maxCost and fullCost - destinationEdge._costCache > maxCost))):
                 return None, cost
             path = [toEdge]
+            firstFollower = None
+            lastPredecessor = pred
             while pred is not None:
+                firstFollower = path[-1]
                 if self.hasInternal and withInternal:
                     viaPath, minInternalCost = self.getInternalPath(pred.getAllowedOutgoing(vClass).get(path[-1], []),
                                                                     fastest=fastest)
@@ -728,20 +774,14 @@ class Net:
                 _, pred = dist[pred]
 
             path.reverse()
-            cost = finalizeCost(cost, path)
+            cost = finalizeCost(cost, firstFollower, lastPredecessor)
             assert cost >= 0
             if self.hasInternal:
                 if appendix:
-                    return tuple(path + appendix), cost + appendixCost
+                    return tuple(path + appendix), cost
                 elif ignoreDirection and self.hasWalkingArea and not withInternal:
                     return [e for e in path if e.getFunction() == ''], cost
             return tuple(path), cost
-
-        needLoop = (fromEdge == toEdge
-                    and fromPos is not None
-                    and toPos is not None
-                    and fromPos > toPos
-                    and not ignoreDirection)
 
         seen = set()
         dist = {}
@@ -752,7 +792,8 @@ class Net:
                 bestCost = maxCost
                 bestPath = None
                 for e2, conn in fromEdge.getAllowedOutgoing(vClass).items():
-                    path, cost = self.getOptimalPath(e2, toEdge, fastest=fastest, maxCost=maxCost, vClass=vClass,
+                    path, cost = self.getOptimalPath(e2, destinationEdge, fastest=fastest,
+                                                     maxCost=maxCost, vClass=vClass,
                                                      reversalPenalty=reversalPenalty,
                                                      includeFromToCost=includeFromToCost,
                                                      withInternal=withInternal, fromPos=0, toPos=toPos,
@@ -779,11 +820,13 @@ class Net:
                 cost, path = self._routingCacheOD[(fromEdge, toEdge, fastest, vClass)]
                 if cost == PRACTICAL_INFINITY:
                     return None, cost
-                cost = finalizeCost(cost, path)
+                firstFollower = path[1] if len(path) > 1 else None
+                lastPredecessor = path[-2] if len(path) > 1 else None
+                cost = finalizeCost(cost, firstFollower, lastPredecessor)
                 if cost > maxCost:
                     return None, cost
                 else:
-                    return tuple(path), cost
+                    return tuple(path) + tuple(appendix), cost
 
             dist = self._routingCache(fromEdge, fastest, vClass, ignoreDirection, reversalPenalty,
                                       tuple(preferences.items()))
@@ -823,9 +866,7 @@ class Net:
                     if e2 == bidi:
                         newCost += reversalPenalty
                     if self.hasInternal and conn is not None:
-                        viaPath, minInternalCost = self.getInternalPath(conn, fastest=fastest)
-                        if viaPath is not None:
-                            newCost += minInternalCost
+                        newCost += internalCost(conn)
                     if e2 not in dist or newCost < dist[e2][0]:
                         dist[e2] = (newCost, e1)
                         heapq.heappush(q, (newCost, e2, e1))
