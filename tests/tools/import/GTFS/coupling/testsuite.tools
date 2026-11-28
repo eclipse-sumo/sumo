@@ -3,3 +3,4 @@ remove
 
 # trains join and split so a clean removal is not possible
 remove_joinSplit
+gtfs_rt_timings

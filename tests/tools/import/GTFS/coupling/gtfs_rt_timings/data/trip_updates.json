@@ -1,0 +1,14 @@
+{
+  "entity": [
+    {
+      "id": "e1",
+      "trip_update": {
+        "trip": {"trip_id": "t1"},
+        "stop_time_update": [
+          {"stop_id": "stopA", "arrival": {"time": 1012}, "departure": {"time": 1025}},
+          {"stop_sequence": 2, "arrival": {"time": 1205}, "departure": {"time": 1218}}
+        ]
+      }
+    }
+  ]
+}

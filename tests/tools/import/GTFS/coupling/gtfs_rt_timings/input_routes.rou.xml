@@ -1,0 +1,7 @@
+<routes>
+    <vehicle id="t1" depart="100">
+        <route edges="e1 e2"/>
+        <stop busStop="stopA" arrival="110" until="120"/>
+        <stop busStop="stopB" arrival="200" until="210"/>
+    </vehicle>
+</routes>

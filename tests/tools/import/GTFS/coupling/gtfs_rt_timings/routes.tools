@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="t1" depart="100">
+        <route edges="e1 e2"/>
+        <stop busStop="stopA" arrival="110" until="120" started="112" ended="125"/>
+        <stop busStop="stopB" arrival="200" until="210" started="305" ended="318"/>
+    </vehicle>
+</routes>

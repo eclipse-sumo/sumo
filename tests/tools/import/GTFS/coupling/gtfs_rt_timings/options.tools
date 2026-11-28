@@ -1,0 +1,1 @@
+{CLEAR} -r input_routes.rou.xml -u data/trip_updates.json --base-timestamp 900 -o out.rou.xml tools/import/gtfs/gtfs_rt2sumo.py
