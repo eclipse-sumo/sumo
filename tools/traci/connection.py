@@ -414,6 +414,8 @@ class Connection(StepManager):
             if self._label is not None:
                 if _connections.get("") is self:
                     del _connections[""]
+                    for domain in DOMAINS:
+                        domain._setConnection(None)
                 if _connections.get(self._label) is self:
                     del _connections[self._label]
         if wait and self._process is not None:
