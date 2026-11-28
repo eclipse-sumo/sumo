@@ -28,6 +28,9 @@ tracing_close_start
 # test client-side command tracing across multiple connections
 tracing_multi
 
+# verify TraCI client startup and process cleanup
+traci_startup
+
 # test some output
 verbose
 option_list_append

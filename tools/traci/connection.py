@@ -89,13 +89,19 @@ class Connection(StepManager):
         self._queue = []
         self._subscriptionMapping = {}
         self._lock = threading.Lock()
-        for domain in DOMAINS:
-            domain._register(self, self._subscriptionMapping)
-        if traceFile is not None:
-            self.startTracing(traceFile, traceGetters, [getattr(self, domain._name) for domain in DOMAINS])
-        self._label = label
-        if _connectHook is not None:
-            _connectHook(self)
+        try:
+            for domain in DOMAINS:
+                domain._register(self, self._subscriptionMapping)
+            if traceFile is not None:
+                self.startTracing(traceFile, traceGetters, [getattr(self, domain._name) for domain in DOMAINS])
+            self._label = label
+            if _connectHook is not None:
+                _connectHook(self)
+        except BaseException:
+            self._socket.close()
+            self._socket = None
+            StepManager.close(self)
+            raise
         if label is not None:
             _connections[label] = self
 
