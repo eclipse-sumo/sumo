@@ -42,6 +42,7 @@
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/devices/MSDevice_ToC.h>
 #include <microsim/devices/MSDispatch.h>
+#include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -453,6 +454,17 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         case SUMO_TAG_CONTAINER:
             myAttrs = attrs.clone();
             break;
+        case SUMO_TAG_ACCESS: {
+            const int index = attrs.getInt(SUMO_ATTR_INDEX);
+            if (myActiveTransportablePlan == nullptr || myActiveType != ObjectTypeEnum::PERSON
+                    || index < 1 || index > (int)myActiveTransportablePlan->size()) {
+                throw ProcessError(TL("Invalid index for a saved access stage."));
+            }
+            auto stage = std::unique_ptr<MSStage>(MSPerson::MSPersonStage_Access::loadPlanState(attrs));
+            myActiveTransportablePlan->insert(myActiveTransportablePlan->begin() + index, stage.get());
+            stage.release();
+            break;
+        }
         case SUMO_TAG_RAILSIGNAL_CONSTRAINTS: {
             bool ok = true;
             const std::string signalID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);

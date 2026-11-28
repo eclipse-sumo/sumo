@@ -19,6 +19,9 @@ walk_trip_undeparted
 # test walking person saved during access stage
 walk_access
 
+# test saving during a second access and after both accesses complete
+walk_access_history
+
 # test riding person
 ride
 

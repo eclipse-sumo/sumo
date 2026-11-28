@@ -179,9 +179,27 @@
     <xsd:complexType name="personStateType">
         <xsd:complexContent>
             <xsd:extension base="personType">
+                  <xsd:sequence>
+                      <xsd:element name="access" type="accessStateType" minOccurs="0" maxOccurs="unbounded"/>
+                  </xsd:sequence>
                 <xsd:attribute name="state" type="xsd:string" use="required"/>
             </xsd:extension>
         </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="accessStateType">
+        <xsd:attribute name="index" type="xsd:positiveInteger" use="required"/>
+        <xsd:attribute name="edge" type="idType" use="required"/>
+        <xsd:attribute name="id" type="idType"/>
+        <xsd:attribute name="type" type="xsd:string"/>
+        <xsd:attribute name="arrivalPos" type="floatType" use="required"/>
+        <xsd:attribute name="arrivalPosLat" type="floatType" use="required"/>
+        <xsd:attribute name="distance" type="floatType" use="required"/>
+        <xsd:attribute name="dir" type="boolType" use="required"/>
+        <xsd:attribute name="shape" type="shapeType" use="required"/>
+        <xsd:attribute name="depart" type="timeType" use="required"/>
+        <xsd:attribute name="arrival" type="timeType"/>
+        <xsd:attribute name="until" type="timeType" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="containerStateType">

@@ -694,14 +694,12 @@ MSTransportable::saveState(OutputDevice& out) {
     }
     int stepIdx = (int)(myStep - myPlan->begin());
     for (auto it = myPlan->begin(); it != myStep; ++it) {
-        const MSStageType st = (*it)->getStageType();
-        if (st == MSStageType::TRIP || st == MSStageType::ACCESS) {
+        if ((*it)->getStageType() == MSStageType::TRIP) {
             stepIdx--;
         }
     }
-    const bool isAccess = (*myStep)->getStageType() == MSStageType::ACCESS;
     std::ostringstream state;
-    state << myParameter->parametersSet << " " << (isAccess ? toString(stepIdx - 0.5, 1) : toString(stepIdx));
+    state << myParameter->parametersSet << " " << stepIdx;
     (*myStep)->saveState(state, this);
     out.writeAttr(SUMO_ATTR_STATE, state.str());
     const MSStage* previous = nullptr;
@@ -710,6 +708,17 @@ MSTransportable::saveState(OutputDevice& out) {
         const bool withTiming = stage->getDeparted() >= 0;
         stage->routeOutput(myAmPerson, out, routeLength, previous, withTiming, true);
         previous = stage;
+    }
+    // Access records follow the route stages so their insertion does not affect route parsing.
+    int index = 0;
+    for (const MSStage* const stage : *myPlan) {
+        if (stage->getStageType() == MSStageType::TRIP && stage->getArrived() >= 0) {
+            continue;
+        }
+        if (stage->getStageType() == MSStageType::ACCESS) {
+            static_cast<const MSPerson::MSPersonStage_Access*>(stage)->savePlanState(out, index);
+        }
+        index++;
     }
     out.closeTag();
 }
@@ -722,7 +731,7 @@ MSTransportable::loadState(const std::string& state) {
     iss >> myParameter->parametersSet >> step;
     myPlan->front()->setDeparted(myParameter->depart);
     if (step != floor(step)) {
-        // we are in an access stage
+        // Legacy snapshots encode the current access stage as a fractional index.
         int priorIndex = (int)(step - 0.5);
         MSStage* prior = *(myPlan->begin() + priorIndex);
         myStep = myPlan->begin() + priorIndex + 1;
