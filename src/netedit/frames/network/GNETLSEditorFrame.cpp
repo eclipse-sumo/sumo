@@ -49,6 +49,37 @@
 
 #include "GNETLSEditorFrame.h"
 
+namespace {
+
+struct TLSProgramSnapshot {
+    explicit TLSProgramSnapshot(NBLoadedSUMOTLDef& def) :
+        logic(def.getLogic()), parameters(def.getParametersMap()), links(def.getControlledLinks()) {}
+
+    bool matches(NBLoadedSUMOTLDef& def) const {
+        const auto* updated = def.getLogic();
+        if (logic.getType() != updated->getType() || logic.getOffset() != updated->getOffset()
+                || parameters != def.getParametersMap()) {
+            return false;
+        }
+        const auto& before = logic.getPhases();
+        const auto& after = updated->getPhases();
+        const auto samePhase = [](const auto& first, const auto& second) {
+            return !(first != second) && first.vehExt == second.vehExt
+                   && first.yellow == second.yellow && first.red == second.red;
+        };
+        const auto& updatedLinks = def.getControlledLinks();
+        return std::equal(before.begin(), before.end(), after.begin(), after.end(), samePhase)
+               && std::is_permutation(links.begin(), links.end(), updatedLinks.begin(), updatedLinks.end());
+    }
+
+    const NBTrafficLightLogic logic;
+    const Parameterised::Map parameters;
+    const NBConnectionVector links;
+};
+
+}
+
+
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -232,12 +263,12 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
     NBTrafficLightLogicCont tmpTLLCont;
     NIXMLTrafficLightsHandler tllHandler(tmpTLLCont, myViewNet->getNet()->getEdgeCont());
     // existing definitions must be available to update their programs
-    std::set<NBTrafficLightDefinition*> origDefs;
+    std::map<NBLoadedSUMOTLDef*, TLSProgramSnapshot> origDefs;
     for (NBTrafficLightDefinition* def : tllCont.getDefinitions()) {
         // make a duplicate of every program
         NBTrafficLightLogic* logic = tllCont.getLogic(def->getID(), def->getProgramID());
         if (logic != nullptr) {
-            NBTrafficLightDefinition* duplicate = new NBLoadedSUMOTLDef(*def, *logic);
+            auto* duplicate = new NBLoadedSUMOTLDef(*def, *logic);
             std::vector<NBNode*> nodes = def->getNodes();
             for (auto it_node : nodes) {
                 GNEJunction* junction = myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(it_node->getID());
@@ -245,13 +276,13 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, duplicate, true), true);
             }
             tmpTLLCont.insert(duplicate);
-            origDefs.insert(duplicate);
+            origDefs.try_emplace(duplicate, *duplicate);
         } else {
             WRITE_WARNINGF(TL("tlLogic '%', program '%' could not be built"), def->getID(), def->getProgramID());
         }
     }
     //std::cout << " initialized tmpCont with " << origDefs.size() << " defs\n";
-    XMLSubSys::runParser(tllHandler, file);
+    const bool parsed = XMLSubSys::runParser(tllHandler, file);
 
     std::vector<NBLoadedSUMOTLDef*> loadedTLS;
     for (NBTrafficLightDefinition* def : tmpTLLCont.getDefinitions()) {
@@ -260,7 +291,14 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
             loadedTLS.push_back(sdef);
         }
     }
-    myViewNet->setStatusBarText(TL("Loaded ") + toString(loadedTLS.size()) + TL(" programs"));
+    const auto changed = std::count_if(loadedTLS.begin(), loadedTLS.end(), [&](NBLoadedSUMOTLDef* def) {
+        const auto original = origDefs.find(def);
+        return original == origDefs.end() || !original->second.matches(*def);
+    });
+    if (parsed && changed == 0) {
+        WRITE_WARNINGF(TL("Loading TLS programs from '%' did not change any traffic light programs."), file);
+    }
+    myViewNet->setStatusBarText(TLF("Loaded % programs", changed));
     for (auto def : loadedTLS) {
         if (origDefs.count(def) != 0) {
             // already add to undolist before
@@ -2940,7 +2978,8 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
         NBTrafficLightLogicCont tmpTLLCont;
         NIXMLTrafficLightsHandler tllHandler(tmpTLLCont, myTLSEditorParent->getViewNet()->getNet()->getEdgeCont(), true);
         tmpTLLCont.insert(myTLSEditorParent->myEditedDef);
-        XMLSubSys::runParser(tllHandler, opendialog.getFilename().text());
+        const TLSProgramSnapshot original(*myTLSEditorParent->myEditedDef);
+        const bool parsed = XMLSubSys::runParser(tllHandler, opendialog.getFilename().text());
 
         NBLoadedSUMOTLDef* newDefSameProgram = nullptr;
         std::set<NBLoadedSUMOTLDef*> newDefsOtherProgram;
@@ -2972,8 +3011,13 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
                 WRITE_MESSAGE(TL("Updated program '") + newDefSameProgram->getProgramID() + TL("' for tlLogic '") + myTLSEditorParent->myEditedDef->getID() + "'");
             }
         } else {
-            if (tllHandler.getSeenIDs().count(myTLSEditorParent->myEditedDef->getID()) == 0)  {
-                myTLSEditorParent->getViewNet()->setStatusBarText(TL("No programs found for traffic light '") + myTLSEditorParent->myEditedDef->getID() + "'");
+            const auto& id = myTLSEditorParent->myEditedDef->getID();
+            if (tllHandler.getSeenIDs().count(id) == 0) {
+                myTLSEditorParent->getViewNet()->setStatusBarText(TLF("No programs found for traffic light '%'", id));
+            }
+            if (parsed && original.matches(*myTLSEditorParent->myEditedDef)) {
+                WRITE_WARNINGF(TL("Loading TLS programs from '%' did not change any programs for traffic light '%'."),
+                               opendialog.getFilename().text(), id);
             }
         }
 
