@@ -48,6 +48,9 @@ public:
     //// @brief empty destructor
     virtual ~GNEMoveElement();
 
+    /// @brief get moved element
+    GNEAttributeCarrier* getMovedElement() const;
+
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
      */

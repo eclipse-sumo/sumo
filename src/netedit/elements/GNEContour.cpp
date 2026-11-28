@@ -18,6 +18,7 @@
 // class used for show contour elements
 /****************************************************************************/
 
+#include <netedit/elements/moving/GNEMoveOperation.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/geom/GeomHelper.h>
@@ -370,30 +371,40 @@ GNEContour::drawDottedContourGeometryPoints(const GUIVisualizationSettings& s, c
     if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours) && AC->checkDrawMoveContour()) {
         // get gl object
         const auto glObject = AC->getGUIGlObject();
+        // check if we're moving this AC
+        const auto moveOperation = AC->getNet()->getViewNet()->getMoveSingleElementValues().getMoveOperation();
+        const bool movingAC = moveOperation && (moveOperation->moveElement == AC->getMoveElement());
         // get geometry points
-        const auto& geometryPoints = gViewObjectsHandler.getSelectedGeometryPoints(glObject);
+        const auto& geometryPoints = movingAC ? moveOperation->geometryPointsToMove : gViewObjectsHandler.getSelectedGeometryPoints(glObject);
         // get temporal position over shape
         const auto& posOverShape = gViewObjectsHandler.getSelectedPositionOverShape(glObject);
         // either draw geometry points or position over shape
         if (geometryPoints.size() > 0) {
             // draw every geometry point
             for (const auto& geometryPoint : geometryPoints) {
-                // create circle shape
-                const auto circleShape = GUIGeometry::getVertexCircleAroundPosition(shape[geometryPoint], radius * scale, 16);
-                // calculate dotted geometry
-                const auto dottedGeometry = GUIDottedGeometry(s, d, circleShape, true);
-                // reset dotted geometry color
-                myDottedGeometryColor.reset();
-                // Push draw matrix
-                GLHelper::pushMatrix();
-                // translate to front
-                glTranslated(0, 0, GLO_DOTTEDCONTOUR);
-                // draw dotted geometries
-                dottedGeometry.drawDottedGeometry(s, GUIDottedGeometry::DottedContourType::MOVE, myDottedGeometryColor, lineWidth, 0);
-                // pop matrix
-                GLHelper::popMatrix();
+                if ((geometryPoint >= 0) && (geometryPoint < (int)shape.size())) {
+                    // avoid drawing duplicated closing vertex twice
+                    if ((geometryPoint > 0) && (shape[geometryPoint] == shape.front()) &&
+                            (std::find(geometryPoints.begin(), geometryPoints.end(), 0) != geometryPoints.end())) {
+                        continue;
+                    }
+                    // create circle shape
+                    const auto circleShape = GUIGeometry::getVertexCircleAroundPosition(shape[geometryPoint], radius * scale, 16);
+                    // calculate dotted geometry
+                    const auto dottedGeometry = GUIDottedGeometry(s, d, circleShape, true);
+                    // reset dotted geometry color
+                    myDottedGeometryColor.reset();
+                    // Push draw matrix
+                    GLHelper::pushMatrix();
+                    // translate to front
+                    glTranslated(0, 0, GLO_DOTTEDCONTOUR);
+                    // draw dotted geometries
+                    dottedGeometry.drawDottedGeometry(s, GUIDottedGeometry::DottedContourType::MOVE, myDottedGeometryColor, lineWidth, 0);
+                    // pop matrix
+                    GLHelper::popMatrix();
+                }
             }
-        } else if (posOverShape != Position::INVALID) {
+        } else if (!movingAC && (posOverShape != Position::INVALID)) {
             // create circle shape
             const auto circleShape = GUIGeometry::getVertexCircleAroundPosition(posOverShape, radius * scale, 16);
             // calculate dotted geometry

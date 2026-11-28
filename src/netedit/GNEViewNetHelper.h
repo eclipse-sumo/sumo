@@ -1225,6 +1225,9 @@ struct GNEViewNetHelper {
         /// @brief get moved element
         GNEMoveElement* getMovedElement() const;
 
+        /// @brief get move operation
+        const GNEMoveOperation* getMoveOperation() const;
+
     protected:
         /// @brief calculate offset
         const GNEMoveOffset calculateMoveOffset() const;

@@ -37,6 +37,12 @@ GNEMoveElement::GNEMoveElement(GNEAttributeCarrier* movedElement) :
 GNEMoveElement::~GNEMoveElement() {}
 
 
+GNEAttributeCarrier*
+GNEMoveElement::getMovedElement() const {
+    return myMovedElement;
+}
+
+
 std::string
 GNEMoveElement::getMovingAttribute(SumoXMLAttr key) const {
     throw InvalidArgument(myMovedElement->getTagStr() + " doesn't have a moving attribute of type '" + toString(key) + "'");

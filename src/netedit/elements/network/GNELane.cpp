@@ -1100,6 +1100,10 @@ GNELane::drawShapeEdited(const GUIVisualizationSettings& s) const {
                                         true, myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         // Pop shape edited matrix
         GLHelper::popMatrix();
+        // draw dotted contour geometry points
+        myNetworkElementContour.drawDottedContourGeometryPoints(s, myDrawingConstants->getDetail(), this, myLaneGeometry.getShape(),
+                s.neteditSizeSettings.laneGeometryPointRadius, myDrawingConstants->getExaggeration(),
+                s.dottedContourSettings.segmentWidthSmall);
     }
 }
 

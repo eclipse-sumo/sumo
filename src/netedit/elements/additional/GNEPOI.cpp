@@ -309,14 +309,17 @@ GNEPOI::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
-            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
-            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
-        // only move the first element
-        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
-    } else {
-        return false;
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement()) {
+        // check if we're moving this element
+        if (myNet->getViewNet()->isCurrentlyMovingElements()) {
+            return myNet->getViewNet()->getMoveSingleElementValues().getMovedElement() == getMoveElement();
+        } else if (myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
+            // only move the first element
+            return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+        }
     }
+    return false;
 }
 
 
@@ -383,15 +386,19 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 // get snap radius
                 const double snapRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
                 const double snapRadiusSquared = snapRadius * snapRadius;
-                // get mouse position
+                // get mouse position and move operation
                 const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+                const auto moveOperation = myNet->getViewNet()->getMoveSingleElementValues().getMoveOperation();
+                const bool resizingThis = moveOperation && (moveOperation->moveElement == myMoveElementViewResizable);
                 // check if we're editing width or height
-                if ((myMoveElementViewResizable->myShapeHeight.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) ||
-                        (myMoveElementViewResizable->myShapeHeight.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
+                if ((resizingThis && (moveOperation->operationType == GNEMoveOperation::OperationType::HEIGHT)) ||
+                        (!resizingThis && ((myMoveElementViewResizable->myShapeHeight.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) ||
+                                           (myMoveElementViewResizable->myShapeHeight.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)))) {
                     myMoveElementViewResizable->myMovingContourUp.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
                     myMoveElementViewResizable->myMovingContourDown.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
-                } else if ((myMoveElementViewResizable->myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) ||
-                           (myMoveElementViewResizable->myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
+                } else if ((resizingThis && (moveOperation->operationType == GNEMoveOperation::OperationType::WIDTH)) ||
+                           (!resizingThis && ((myMoveElementViewResizable->myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) ||
+                                              (myMoveElementViewResizable->myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)))) {
                     myMoveElementViewResizable->myMovingContourLeft.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
                     myMoveElementViewResizable->myMovingContourRight.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
                 }
