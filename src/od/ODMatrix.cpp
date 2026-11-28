@@ -27,6 +27,8 @@
 #include <algorithm>
 #include <list>
 #include <iterator>
+#include <map>
+#include <utility>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/StdDefs.h>
@@ -431,6 +433,42 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                 dev.closeTag();
             }
         }
+    }
+}
+
+
+void
+ODMatrix::writeTazRelations(SUMOTime begin, SUMOTime end, SUMOTime period, OutputDevice& dev) const {
+    const SUMOTime first = MAX2(begin, SUMOTime(0));
+    using TazPair = std::pair<std::string, std::string>;
+    std::map<SUMOTime, std::map<TazPair, double> > intervals;
+    for (const ODCell* cell : myContainer) {
+        const SUMOTime overlapBegin = MAX2(first, cell->begin);
+        const SUMOTime overlapEnd = MIN2(end, cell->end);
+        if (overlapBegin >= overlapEnd || cell->vehicleNumber <= 0) {
+            continue;
+        }
+        const TazPair tazPair(cell->origin, cell->destination);
+        const double duration = double(cell->end) - double(cell->begin);
+        SUMOTime bucket = first + (overlapBegin - first) / period * period;
+        while (bucket < overlapEnd) {
+            const SUMOTime next = bucket + MIN2(period, end - bucket);
+            const SUMOTime overlap = MIN2(next, overlapEnd) - MAX2(bucket, overlapBegin);
+            intervals[bucket][tazPair] += cell->vehicleNumber * (double(overlap) / duration);
+            bucket = next;
+        }
+    }
+    for (const auto& interval : intervals) {
+        const SUMOTime bucket = interval.first;
+        dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_ID, "od2trips");
+        dev.writeAttr(SUMO_ATTR_BEGIN, time2string(bucket));
+        dev.writeAttr(SUMO_ATTR_END, time2string(bucket + MIN2(period, end - bucket)));
+        for (const auto& relation : interval.second) {
+            dev.openTag(SUMO_TAG_TAZREL).writeAttr(SUMO_ATTR_FROM, relation.first.first);
+            dev.writeAttr(SUMO_ATTR_TO, relation.first.second).writeAttr(SUMO_ATTR_COUNT, relation.second);
+            dev.closeTag();
+        }
+        dev.closeTag();
     }
 }
 

@@ -184,6 +184,10 @@ public:
                     const std::string& modes = "");
 
 
+    /// @brief Writes fractional demand per TAZ pair in intervals of the given period.
+    void writeTazRelations(SUMOTime begin, SUMOTime end, SUMOTime period, OutputDevice& dev) const;
+
+
     /** @brief Returns the number of loaded vehicles
      *
      * Returns the value of myNoLoaded
