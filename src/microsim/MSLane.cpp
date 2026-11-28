@@ -2863,6 +2863,12 @@ void
 MSLane::setLength(double val) {
     myLength = val;
     myEdge->recalcCache();
+    if (!MSGlobals::gUseMesoSim && MSNet::hasInstance()) {
+        MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+        for (auto vehIt = vc.loadedVehBegin(); vehIt != vc.loadedVehEnd(); ++vehIt) {
+            static_cast<MSVehicle*>(vehIt->second)->invalidateCachedLanePositions();
+        }
+    }
 }
 
 

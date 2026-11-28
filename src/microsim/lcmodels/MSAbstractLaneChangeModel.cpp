@@ -543,6 +543,7 @@ MSAbstractLaneChangeModel::cleanupShadowLane() {
     }
     myShadowFurtherLanes.clear();
     myNoPartiallyOccupatedByShadow.clear();
+    myVehicle.invalidateCachedLanePositions();
 }
 
 void
@@ -564,6 +565,7 @@ MSAbstractLaneChangeModel::cleanupTargetLane() {
     }
     myFurtherTargetLanes.clear();
 //    myNoPartiallyOccupatedByShadow.clear();
+    myVehicle.invalidateCachedLanePositions();
 }
 
 
@@ -643,6 +645,7 @@ MSAbstractLaneChangeModel::updateShadowLane() {
     }
 #endif
     myVehicle.updateFurtherLanes(myShadowFurtherLanes, myShadowFurtherLanesPosLat, passed);
+    myVehicle.invalidateCachedLanePositions();
 #ifdef DEBUG_SHADOWLANE
     if (debugVehicle()) std::cout
                 << "\n   after:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << "\n";
@@ -716,6 +719,7 @@ MSAbstractLaneChangeModel::updateTargetLane() {
                   << std::endl;
     }
 #endif
+    myVehicle.invalidateCachedLanePositions();
     return myTargetLane;
 }
 
@@ -961,6 +965,7 @@ void
 MSAbstractLaneChangeModel::changedToOpposite() {
     myAmOpposite = !myAmOpposite;
     myAlreadyChanged = true;
+    myVehicle.invalidateCachedLanePositions();
 }
 
 void

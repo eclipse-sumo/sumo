@@ -385,7 +385,18 @@ public:
     /** @brief Get the vehicle's front position relative to the given lane
      * @return The front position of the vehicle (in m from the given lane's begin)
      */
-    double getPositionOnLane(const MSLane* lane) const;
+    inline double getPositionOnLane(const MSLane* lane) const {
+#ifndef DEBUG_FURTHER
+        if (MSGlobals::gNumSimThreads <= 1) {
+            for (const CachedLanePos& item : myCachedLanePositions) {
+                if (item.lane == lane) {
+                    return item.pos;
+                }
+            }
+        }
+#endif
+        return getBackPositionOnLane(lane, true) + myType->getLength();
+    }
 
     /** @brief Get the vehicle's position relative to the given lane
      * @return The back position of the vehicle (in m from the given lane's begin)
@@ -395,7 +406,16 @@ public:
      *       lanes surface (regular or partial vehicle for the lane), or (for the sublane
      *       model) it issued a maneuver reservation for a lane change.
      */
-    inline double getBackPositionOnLane(const MSLane* lane) const {
+    inline double getBackPositionOnLane(const MSLane* lane) const final {
+#ifndef DEBUG_FURTHER
+        if (MSGlobals::gNumSimThreads <= 1) {
+            for (const CachedLanePos& item : myCachedLanePositions) {
+                if (item.lane == lane) {
+                    return item.backPos;
+                }
+            }
+        }
+#endif
         return getBackPositionOnLane(lane, false);
     }
 
@@ -420,6 +440,11 @@ public:
 
     void invalidateCachedPosition() {
         myCachedPosition = Position::INVALID;
+        myCachedLanePositions.clear();
+    }
+
+    void invalidateCachedLanePositions() {
+        myCachedLanePositions.clear();
     }
 
     /** @brief Get the lateral position of the vehicles right side on the lane:
@@ -1967,6 +1992,13 @@ protected:
     SUMOTime myCollisionImmunity;
 
     mutable Position myCachedPosition;
+
+    struct CachedLanePos {
+        const MSLane* lane;
+        double backPos;
+        double pos;
+    };
+    mutable std::vector<CachedLanePos> myCachedLanePositions;
 
     /// @brief time at which the current junction was entered
     SUMOTime myJunctionEntryTime;
