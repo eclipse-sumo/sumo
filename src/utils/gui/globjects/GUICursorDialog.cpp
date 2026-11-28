@@ -38,6 +38,7 @@ FXDEFMAP(GUICursorDialog) GUICursorDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_SETFRONTELEMENT,   GUICursorDialog::onCmdSetFrontElement),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_DELETEELEMENT,     GUICursorDialog::onCmdDeleteElement),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_SELECTELEMENT,     GUICursorDialog::onCmdSelectElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_CHOOSEELEMENT,     GUICursorDialog::onCmdChooseElement),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_PROPERTIES,        GUICursorDialog::onCmdOpenPropertiesPopUp),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_MOVEUP,            GUICursorDialog::onCmdMoveListUp),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_MOVEDOWN,          GUICursorDialog::onCmdMoveListDown),
@@ -66,6 +67,16 @@ GUICursorDialog::GUICursorDialog(GUIGLObjectPopupMenu::PopupType type, GUISUMOAb
     } else if (type == GUIGLObjectPopupMenu::PopupType::FRONT_ELEMENT) {
         buildDialogElements(view, TL("Mark front element"), GUIIcon::FRONTELEMENT, MID_CURSORDIALOG_SETFRONTELEMENT, objects);
     }
+}
+
+
+GUICursorDialog::GUICursorDialog(GUISUMOAbstractView* view, const std::vector<GUIGlObject*>& objects,
+                                  const FXString& text, GUIIcon icon, std::function<void(GUIGlObject*)> onChoose) :
+    GUIGLObjectPopupMenu(view->getMainWindow(), view, PopupType::CHOOSE_ELEMENT),
+    myType(PopupType::CHOOSE_ELEMENT),
+    myView(view),
+    myOnChoose(std::move(onChoose)) {
+    buildDialogElements(view, text, icon, MID_CURSORDIALOG_CHOOSEELEMENT, objects);
 }
 
 
@@ -125,6 +136,19 @@ GUICursorDialog::onCmdOpenPropertiesPopUp(FXObject* obj, FXSelector, void*) {
     for (const auto& GLObject : myMenuCommandGLObjects) {
         if (GLObject.first == obj) {
             myView->replacePopup(GLObject.second->getPopUpMenu(*myView->getMainWindow(), *myView));
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
+long
+GUICursorDialog::onCmdChooseElement(FXObject* obj, FXSelector, void*) {
+    for (const auto& [command, object] : myMenuCommandGLObjects) {
+        if (command == obj) {
+            myOnChoose(object);
+            myView->destroyPopup();
             return 1;
         }
     }

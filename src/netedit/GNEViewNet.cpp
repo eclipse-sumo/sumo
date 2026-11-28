@@ -6367,10 +6367,24 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             // filter additionals (except TAZs) and demands (except routes)
             myViewObjectsSelector.filterAdditionals(true, false);
             myViewObjectsSelector.filterDemandElements(false);
-            // Handle click
-            myViewParent->getVehicleFrame()->addVehicle(myViewObjectsSelector, myMouseButtonKeyPressed);
-            // process click
-            processClick(eventData);
+            auto* vehicleFrame = myViewParent->getVehicleFrame();
+            const auto& routes = myViewObjectsSelector.getDemandElements();
+            if (routes.size() > 1 && vehicleFrame->canAddVehicleOverRoute()) {
+                destroyPopup();
+                std::vector<GUIGlObject*> choices(routes.begin(), routes.end());
+                std::sort(choices.begin(), choices.end(), [](const GUIGlObject* a, const GUIGlObject* b) {
+                    return a->getMicrosimID() < b->getMicrosimID();
+                });
+                myPopup = new GUICursorDialog(this, choices, TL("Choose route"), GUIIcon::ROUTE,
+                [vehicleFrame](GUIGlObject* route) {
+                    vehicleFrame->addVehicleOverRoute(static_cast<GNEDemandElement*>(route));
+                });
+                myCreatedPopup = true;
+                openPopupDialog();
+            } else {
+                vehicleFrame->addVehicle(myViewObjectsSelector, myMouseButtonKeyPressed);
+                processClick(eventData);
+            }
             break;
         }
         case DemandEditMode::DEMAND_STOP: {

@@ -222,6 +222,22 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ViewObjectsSelector& viewObj
 }
 
 
+bool
+GNEVehicleFrame::canAddVehicleOverRoute() const {
+    const auto* vehicle = myVehicleTagSelector->getCurrentTemplateAC();
+    return vehicle && vehicle->getTagProperty()->vehicleRoute() && myTypeSelector->getCurrentDemandElement();
+}
+
+
+bool
+GNEVehicleFrame::addVehicleOverRoute(GNEDemandElement* route) {
+    if (!canAddVehicleOverRoute()) {
+        return false;
+    }
+    return buildVehicleOverRoute(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag(), route);
+}
+
+
 GNETagSelector*
 GNEVehicleFrame::getVehicleTagSelector() const {
     return myVehicleTagSelector;
@@ -543,6 +559,8 @@ GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* 
             return false;
         }
         // get vehicle attributes
+        myVehicleBaseObject->clear();
+        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
         myVehicleAttributesEditor->fillSumoBaseObject(myVehicleBaseObject);
         // declare route handler
         GNERouteHandler routeHandler(myViewNet->getNet(), route->getFileBucket(),
