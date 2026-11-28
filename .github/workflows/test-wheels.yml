@@ -117,6 +117,44 @@ jobs:
         rm -rf testenv
         echo 'SUMO_HOME=' >> $GITHUB_ENV
 
+    - name: Testing pipx installation of eclipse-sumo
+      if: ${{ matrix.shard == 'binaries' }}
+      shell: bash
+      run: |
+        python -m venv pipxenv
+        source pipxenv/*/activate
+        python -m pip install --upgrade pip
+        python -m pip install pipx
+        unset SUMO_HOME
+        export PIPX_HOME="$(python -c 'import os; print(os.path.abspath("pipx_home"))')"
+        export PIPX_BIN_DIR="$(python -c 'import os; print(os.path.abspath("pipx_bin"))')"
+        if [[ "${{ startsWith(matrix.os, 'ubuntu') && inputs.wheel_source == 'python-wheels' }}" == "true" ]]; then
+          mkdir -p pipx_wheelhouse
+          cp python-wheels/eclipse_sumo*${{ matrix.manylinux }}*$(uname -m).whl pipx_wheelhouse/
+          cp python-wheels/sumo_data*${{ matrix.manylinux }}*$(uname -m).whl pipx_wheelhouse/
+          FIND_LINKS="$(python -c 'from pathlib import Path; print(Path("pipx_wheelhouse").resolve().as_posix())')"
+        elif [ -d "$WHEEL_SOURCE" ]; then
+          FIND_LINKS="$(python -c 'from pathlib import Path; import sys; print(Path(sys.argv[1]).resolve().as_posix())' "$WHEEL_SOURCE")"
+        else
+          FIND_LINKS="$WHEEL_SOURCE"
+        fi
+        # Bootstrap pipx's shared pip before restricting the SUMO install to its wheel source.
+        python -m pipx upgrade-shared
+        python -m pipx install --pip-args="--no-index --find-links=$FIND_LINKS" eclipse-sumo
+        export PATH="$PWD/pipx_bin:$PATH"
+        python -m pipx list
+        for app in sumo netconvert netgenerate; do
+          APP_BIN="$(command -v "$app")"
+          echo "Resolved $app: $APP_BIN"
+          [[ "$APP_BIN" == "$PWD/pipx_bin/"* ]]
+        done
+        sumo --version
+        netconvert --version
+        mkdir -p pipx_sim
+        netgenerate --spider --spider.arm-number 4 --output-file pipx_sim/net.net.xml
+        sumo -n pipx_sim/net.net.xml --end 10 --no-step-log
+        rm -rf pipxenv pipx_home pipx_bin pipx_wheelhouse pipx_sim
+
     - name: Preparing Python environment for libsumo
       if: ${{ matrix.shard == 'python' }}
       shell: bash
