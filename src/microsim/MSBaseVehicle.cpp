@@ -2841,11 +2841,17 @@ MSBaseVehicle::getPrefixedParameter(const std::string& key, std::string& error) 
             return "";
         }
     } else if (StringUtils::startsWith(key, "laneChangeModel.")) {
+        const std::string attrName = key.substr(16);
         if (microVeh == nullptr) {
-            error = TLF("Mesoscopic vehicle '%' does not support laneChangeModel parameters.", getID());
+            // meso vehicles have no lane change model, report the value configured in the vType
+            for (const auto& lcParam : getVehicleType().getParameter().getLCParams()) {
+                if (toString(lcParam.first) == attrName) {
+                    return lcParam.second;
+                }
+            }
+            error = TLF("Mesoscopic vehicle '%' has no lane change model and its vType does not define laneChangeModel parameter '%'.", getID(), attrName);
             return "";
         }
-        const std::string attrName = key.substr(16);
         try {
             return microVeh->getLaneChangeModel().getParameter(attrName);
         } catch (InvalidArgument& e) {

@@ -113,6 +113,7 @@ setLcContRight
 
 # see #18463
 getParameter
+getParameter_lcm
 getFollower
 getLeader
 
