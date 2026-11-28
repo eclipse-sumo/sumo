@@ -305,6 +305,9 @@ public:
     /// divides the incoming lanes on outgoing lanes
     void computeLanes2Lanes();
 
+    /// @brief remove invalid connections at intersection bypass (slip-lane) roads
+    void removeBypassConnections(const std::set<const NBEdge*>& guessedEdges, const std::set<std::string>& explicitTurnarounds);
+
     /// @brief build the list of outgoing edges and lanes
     void computeLogics(const NBEdgeCont& ec);
 
@@ -375,6 +378,11 @@ public:
     /// @brief mark a node as explicitly not controlled by a TLS
     void markAsNotTLS(const NBNode* node) {
         myUnsetTLS.insert(node);
+    }
+
+    /// @brief get edges whose edge-to-edge connections were guessed during junction joining
+    const std::set<const NBEdge*>& getClusterGuessedEdges() const {
+        return myClusterGuessedEdges;
     }
 
     /// @brief remap node IDs according to options --numerical-ids and --reserved-ids
@@ -476,6 +484,9 @@ private:
 
     /// @brief nodes that are excluded from tls-guessing
     std::set<const NBNode*> myUnsetTLS;
+
+    /// @brief edges that received guessed edge-to-edge connections when joining clusters
+    std::set<const NBEdge*> myClusterGuessedEdges;
 
     /// @brief node positions for faster lookup
     NamedRTree myRTree;
