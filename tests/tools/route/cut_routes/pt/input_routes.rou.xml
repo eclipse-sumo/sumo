@@ -20,7 +20,7 @@
         <stop busStop="3959807201" duration="30.00" until="39.0"/> <!-- Dudenstraße/Katzbachstraße -->
         <stop busStop="3959807220" duration="30.00" until="103.0"/> <!-- Kolonnenbrücke -->
     </route>
-    <route id="bus_140:0" edges="391493945#1 391493945#2 391493945#3 161159325#0 161159325#1 -53356539#1 -53356539#0" >
+    <route id="bus_140:0" routeLength="2200" edges="391493945#1 391493945#2 391493945#3 161159325#0 161159325#1 -53356539#1 -53356539#0" >
         <stop busStop="2029039195" duration="30.00" until="34.0"/> <!-- Dudenstraße/Katzbachstraße -->
         <stop busStop="4032629820" duration="30.00" until="108.0"/> <!-- Monumentenstraße -->
     </route>
