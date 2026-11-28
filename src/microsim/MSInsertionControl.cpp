@@ -37,6 +37,7 @@
 #include "MSLane.h"
 #include "MSEdge.h"
 #include "MSNet.h"
+#include <microsim/trigger/MSDepot.h>
 #include "MSRouteHandler.h"
 #include "MSInsertionControl.h"
 
@@ -162,9 +163,14 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
     if (veh->isOnRoad()) {
         return 1;
     }
-    if ((myMaxVehicleNumber < 0 || (int)MSNet::getInstance()->getVehicleControl().getRunningVehicleNo() < myMaxVehicleNumber)
+    const bool canInsertCount = (myMaxVehicleNumber < 0 || (int)MSNet::getInstance()->getVehicleControl().getRunningVehicleNo() < myMaxVehicleNumber)
+                                && (!MSDepot::hasDepots() || MSDepot::canDepart(&edge, *veh));
+    if (canInsertCount
             && edge.insertVehicle(*veh, time, false, myEagerInsertionCheck || veh->getParameter().departProcedure == DepartDefinition::SPLIT)) {
         // Successful insertion
+        if (MSDepot::hasDepots()) {
+            MSDepot::notifyDepart(&edge, *veh, time);
+        }
         return 1;
     }
     if (myMaxDepartDelay >= 0 && time - veh->getParameter().depart > myMaxDepartDelay) {
@@ -185,7 +191,9 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
         // let the vehicle wait one step, we'll retry then
         refusedEmits.push_back(veh);
     }
-    edge.setLastFailedInsertionTime(time);
+    if (canInsertCount) {
+        edge.setLastFailedInsertionTime(time);
+    }
     return 0;
 }
 
@@ -214,7 +222,8 @@ MSInsertionControl::checkCandidates(SUMOTime time, const bool preCheck) {
         for (veh = myPendingEmits.begin(); veh != myPendingEmits.end(); veh++) {
             SUMOVehicle* const v = *veh;
             const MSEdge* const edge = v->getEdge();
-            if (edge->insertVehicle(*v, time, true, myEagerInsertionCheck)) {
+            if ((!MSDepot::hasDepots() || MSDepot::canDepart(edge, *v))
+                    && edge->insertVehicle(*v, time, true, myEagerInsertionCheck)) {
                 myEmitCandidates.insert(v);
             } else {
                 MSDevice_Routing* dev = static_cast<MSDevice_Routing*>(v->getDevice(typeid(MSDevice_Routing)));

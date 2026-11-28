@@ -33,6 +33,7 @@
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_Taxi.h>
+#include <microsim/trigger/MSDepot.h>
 #include <microsim/output/MSStopOut.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSEdge.h>
@@ -177,7 +178,7 @@ bool
 MEVehicle::moveRoutePointer() {
     // vehicle has just entered a new edge. Position is 0
     if (myCurrEdge == myRoute->end() - 1 || (myParameter->arrivalEdge >= 0 && getRoutePosition() >= myParameter->arrivalEdge)) { // may happen during teleport
-        return true;
+        return hasArrived();
     }
     ++myCurrEdge;
     if ((*myCurrEdge)->isVaporizing()) {
@@ -194,10 +195,11 @@ MEVehicle::moveRoutePointer() {
 bool
 MEVehicle::hasArrived() const {
     // mySegment may be 0 due to teleporting or arrival
-    return (myCurrEdge == myRoute->end() - 1 || (myParameter->arrivalEdge >= 0 && getRoutePosition() >= myParameter->arrivalEdge)) && (
-               (mySegment == nullptr)
+    return (myCurrEdge == myRoute->end() - 1 || (myParameter->arrivalEdge >= 0 && getRoutePosition() >= myParameter->arrivalEdge))
+           && ((mySegment == nullptr)
                || myEventTime == SUMOTime_MIN
-               || getPositionOnLane() > myArrivalPos - POSITION_EPS);
+               || getPositionOnLane() > myArrivalPos - POSITION_EPS)
+           && (!MSDepot::hasDepots() || MSDepot::canArrive(*myCurrEdge, *this));
 }
 
 

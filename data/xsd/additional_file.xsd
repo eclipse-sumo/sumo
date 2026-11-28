@@ -40,6 +40,7 @@
             <xsd:element name="parkingArea" type="parkingAreaType" minOccurs="0"/>
             <xsd:element name="calibrator" type="calibratorType" minOccurs="0"/>
             <xsd:element name="vaporizer" type="vaporizerType" minOccurs="0"/>
+            <xsd:element name="depot" type="depotType" minOccurs="0"/>
             <xsd:element name="railSignalConstraints" type="railSignalConstraintsType" minOccurs="0"/>
             <xsd:element name="deadlock" type="deadlockType" minOccurs="0"/>
 
@@ -734,6 +735,24 @@
         <xsd:attribute name="imgFile" type="xsd:string" use="optional"/>
         <xsd:attribute name="width" type="floatType" use="optional"/>
         <xsd:attribute name="height" type="floatType" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="depotType">
+        <xsd:sequence>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="idType" use="required"/>
+        <xsd:attribute name="edges" type="xsd:string" use="required"/>
+        <xsd:attribute name="type" type="idType" use="required"/>
+        <xsd:attribute name="initialCount" type="nonNegativeIntType" use="optional"/>
+        <xsd:attribute name="maxCount" type="nonNegativeIntType" use="optional"/>
+        <xsd:attribute name="shape" type="shapeType" use="optional"/>
+        <xsd:attribute name="file" type="xsd:string" use="optional"/>
+        <xsd:attribute name="color" type="colorType" use="optional"/>
+        <xsd:attribute name="fill" type="boolType" use="optional"/>
+        <xsd:attribute name="layer" type="floatType" use="optional"/>
+        <xsd:attribute name="lineWidth" type="floatType" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
 

@@ -31,6 +31,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/trigger/MSDepot.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/ToString.h>
 #include <utils/common/FileHelpers.h>
@@ -131,7 +132,7 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
     int qIdx = 0;
     MESegment* const onSegment = veh->getSegment();
     if (MESegment::isInvalid(toSegment)) {
-        if (veh->isStoppedTriggered()) {
+        if (veh->isStoppedTriggered() || (MSDepot::hasDepots() && !MSDepot::canArrive(veh->getEdge(), *veh))) {
             return leaveTime + MAX2(SUMOTime(1), myLinkRecheckInterval);
         }
         if (onSegment != nullptr) {
@@ -139,6 +140,9 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
         } else {
             WRITE_WARNINGF(TL("Vehicle '%' teleports beyond arrival edge '%', time=%."),
                            veh->getID(), veh->getEdge()->getID(), time2string(leaveTime));
+        }
+        if (MSDepot::hasDepots()) {
+            MSDepot::notifyArrive(veh->getEdge(), *veh, leaveTime);
         }
         veh->setSegment(toSegment); // signal arrival
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
@@ -226,7 +230,8 @@ MELoop::checkCar(MEVehicle* veh) {
     const SUMOTime ttt = veh->getVehicleType().getParameter().getTimeToTeleport(MSGlobals::gTimeToGridlock);
     const bool r1 = ttt > 0 && veh->getWaitingTime() > ttt;
     const bool r3 = MSGlobals::gTimeToTeleportDisconnected >= 0 && veh->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected;
-    if (!veh->isStopped() && (r1 || r3)) {
+    if (!veh->isStopped() && (r1 || r3)
+            && (!MSDepot::hasDepots() || !MESegment::isInvalid(toSegment) || MSDepot::canArrive(veh->getEdge(), *veh))) {
         const bool disconnected = (MSGlobals::gTimeToTeleportDisconnected >= 0
                                    && veh->succEdge(1) != nullptr
                                    && veh->getEdge()->allowedLanes(*veh->succEdge(1), veh->getVClass()) == nullptr);

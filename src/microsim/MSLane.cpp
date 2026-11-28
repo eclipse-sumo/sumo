@@ -56,6 +56,7 @@
 #include <microsim/traffic_lights/MSDriveWay.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice_Taxi.h>
+#include <microsim/trigger/MSDepot.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
 #include <mesosim/MELoop.h>
 #include "MSNet.h"
@@ -2437,7 +2438,8 @@ MSLane::executeMovements(const SUMOTime t) {
                             && firstNotStopped->getWaitingTime() > tttb && getBidiLane() && !disconnected;
             const bool r5 = MSGlobals::gTimeToTeleportRSDeadlock > 0 && MSRailSignalControl::hasInstance() && !r1 && !r2 && !r3 && !r4
                             && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToTeleportRSDeadlock && MSRailSignalControl::getInstance().haveDeadlock(firstNotStopped);
-            if (r1 || r2 || r3 || r4 || r5) {
+            if ((r1 || r2 || r3 || r4 || r5)
+                    && (!MSDepot::hasDepots() || firstNotStopped->succEdge(1) != nullptr || MSDepot::canArrive(myEdge, *firstNotStopped))) {
                 const std::vector<MSLink*>::const_iterator link = succLinkSec(*firstNotStopped, 1, *this, firstNotStopped->getBestLanesContinuation());
                 const bool minorLink = !wrongLane && (link != myLinks.end()) && !((*link)->havePriority());
                 std::string reason = (wrongLane ? " (wrong lane" : (minorLink ? " (yield" : " (jam"));

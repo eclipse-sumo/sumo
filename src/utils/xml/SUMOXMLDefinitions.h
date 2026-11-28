@@ -143,6 +143,8 @@ enum SumoXMLTag {
     SUMO_TAG_STEP,
     /// @brief vaporizer of vehicles
     SUMO_TAG_VAPORIZER,
+    /// @brief depot constraining vehicle insertions and arrivals
+    SUMO_TAG_DEPOT,
     /// @brief  A traction substation
     SUMO_TAG_TRACTION_SUBSTATION,
     /// @brief  An overhead wire segment
@@ -1335,6 +1337,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_REPLACED_AT_TIME,
     SUMO_ATTR_REPLACED_ON_INDEX,
     SUMO_ATTR_COUNT,
+    SUMO_ATTR_INITIALCOUNT,
+    SUMO_ATTR_MAXCOUNT,
     SUMO_ATTR_PROBS,
     SUMO_ATTR_ROUTES,
     SUMO_ATTR_VTYPES,

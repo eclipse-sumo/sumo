@@ -1,6 +1,7 @@
 set(microsim_trigger_STAT_SRCS
    MSCalibrator.cpp
    MSCalibrator.h
+   MSDepot.h
    MSLaneSpeedTrigger.cpp
    MSLaneSpeedTrigger.h
    MSChargingStation.h

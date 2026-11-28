@@ -225,6 +225,11 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_VAPORIZER:
                 myTriggerBuilder.buildVaporizer(attrs);
                 break;
+            case SUMO_TAG_DEPOT:
+                myCurrentIsBroken = true;
+                myLastParameterised.push_back(myTriggerBuilder.parseAndBuildDepot(myNet, attrs, getFileName()));
+                myCurrentIsBroken = false;
+                break;
             case SUMO_TAG_LOCATION:
                 setLocation(attrs);
                 break;
@@ -379,6 +384,7 @@ NLHandler::myEndElement(int element) {
         case SUMO_TAG_INSTANT_INDUCTION_LOOP:
         case SUMO_TAG_E2DETECTOR:
         case SUMO_TAG_LANE_AREA_DETECTOR:
+        case SUMO_TAG_DEPOT:
             if (!myCurrentIsBroken) {
                 myLastParameterised.pop_back();
             }

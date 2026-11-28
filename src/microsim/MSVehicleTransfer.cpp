@@ -31,6 +31,7 @@
 #include "MSParkingArea.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice_Taxi.h>
+#include <microsim/trigger/MSDepot.h>
 #include "MSVehicleControl.h"
 #include "MSInsertionControl.h"
 #include "MSVehicleTransfer.h"
@@ -186,12 +187,16 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                     desc.myProceedTime = time + TIME2STEPS(e->getCurrentTravelTime(TeleportMinSpeed));
                 } else if (desc.myProceedTime < time) {
                     if (desc.myVeh->succEdge(1) == nullptr) {
-                        if (desc.myVeh->getDevice(typeid(MSDevice_Taxi)) != nullptr) {
-                            // never teleport a taxi beyond the end of it's route
+                        if (desc.myVeh->getDevice(typeid(MSDevice_Taxi)) != nullptr
+                                || (MSDepot::hasDepots() && !MSDepot::canArrive(e, *desc.myVeh))) {
+                            // never teleport a taxi or depot-blocked vehicle beyond the end of its route
                             desc.myProceedTime = time + TIME2STEPS(e->getCurrentTravelTime(TeleportMinSpeed));
                         } else {
                             WRITE_WARNINGF(TL("Vehicle '%' teleports beyond arrival edge '%', time=%."), desc.myVeh->getID(), e->getID(), time2string(time));
                             desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT_CONTINUATION_ARRIVED);
+                            if (MSDepot::hasDepots()) {
+                                MSDepot::notifyArrive(e, *desc.myVeh, time);
+                            }
                             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
                             i = vehInfos.erase(i);
                         }

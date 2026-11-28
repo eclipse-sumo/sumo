@@ -40,6 +40,9 @@
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
 #include <microsim/trigger/MSCalibrator.h>
+#include <microsim/trigger/MSDepot.h>
+#include <utils/shapes/ShapeContainer.h>
+#include <utils/shapes/SUMOPolygon.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSOverheadWire.h>
 #include <utils/common/StringTokenizer.h>
@@ -1038,6 +1041,71 @@ NLTriggerBuilder::updateParkingAreaDefaultCapacity() {
     if (myParkingArea != nullptr && !myParkingAreaCapacitySet) {
         myParkingArea->setRoadsideCapacity(1);
     }
+}
+
+
+Parameterised*
+NLTriggerBuilder::parseAndBuildDepot(MSNet& net, const SUMOSAXAttributes& attrs,
+                                     const std::string& base) {
+    bool ok = true;
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    if (!ok || id.empty()) {
+        throw InvalidArgument("Could not build depot without an id.");
+    }
+    if (MSDepot::getInstances().count(id) > 0) {
+        throw InvalidArgument("Could not build depot '" + id + "'; probably declared twice.");
+    }
+    std::vector<MSEdge*> edges;
+    for (const std::string& edgeID : attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), ok)) {
+        MSEdge* const edge = MSEdge::dictionary(edgeID);
+        if (edge == nullptr) {
+            throw InvalidArgument("The edge '" + edgeID + "' to use within depot '" + id + "' is not known.");
+        }
+        if (std::find(edges.begin(), edges.end(), edge) == edges.end()) {
+            edges.push_back(edge);
+        }
+    }
+    if (!ok || edges.empty()) {
+        throw InvalidArgument("No edges found for depot '" + id + "'.");
+    }
+    const std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok);
+    if (!ok || type.empty()) {
+        throw InvalidArgument("Attribute 'type' is missing or empty in definition of depot '" + id + "'.");
+    }
+    const int initialCount = attrs.getOpt<int>(SUMO_ATTR_INITIALCOUNT, id.c_str(), ok, 0);
+    const int maxCount = attrs.getOpt<int>(SUMO_ATTR_MAXCOUNT, id.c_str(), ok, std::numeric_limits<int>::max());
+    const std::string rawFile = attrs.getOpt<std::string>(SUMO_ATTR_FILE, id.c_str(), ok, "");
+    if (!ok) {
+        throw InvalidArgument("Could not parse attributes for depot '" + id + "'.");
+    }
+    if (initialCount < 0) {
+        throw InvalidArgument("Attribute 'initialCount' must not be negative in depot '" + id + "'.");
+    }
+    if (maxCount < 0) {
+        throw InvalidArgument("Attribute 'maxCount' must not be negative in depot '" + id + "'.");
+    }
+    const std::string file = rawFile.empty() ? "" : FileHelpers::checkForRelativity(rawFile, base);
+    SUMOPolygon* poly = nullptr;
+    if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
+        const PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
+        const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok, RGBColor::CYAN);
+        const bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), ok, false);
+        const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, id.c_str(), ok, Shape::DEFAULT_LAYER);
+        const double lineWidth = attrs.getOpt<double>(SUMO_ATTR_LINEWIDTH, id.c_str(), ok, Shape::DEFAULT_LINEWIDTH);
+        const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, Shape::DEFAULT_NAME);
+        if (!ok) {
+            throw InvalidArgument("Invalid shape attributes in definition of depot '" + id + "'.");
+        }
+        if (!shape.empty()) {
+            if (!net.getShapeContainer().addPolygon(id, "depot", color, layer, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE,
+                                                    shape, false, fill, lineWidth, false, name)) {
+                WRITE_WARNINGF(TL("Skipping visualization of depot '%', polygon already exists."), id);
+            } else {
+                poly = net.getShapeContainer().getPolygons().get(id);
+            }
+        }
+    }
+    return new MSDepot(id, edges, type, initialCount, maxCount, file, poly);
 }
 
 
