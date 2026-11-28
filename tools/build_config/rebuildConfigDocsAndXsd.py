@@ -21,6 +21,7 @@ import os
 import sys
 import subprocess
 from xml.sax import parseString, handler
+import buildToolOptionsDocs
 
 
 class ConfigReader(handler.ContentHandler):
@@ -110,6 +111,7 @@ if __name__ == "__main__":
                 pass
         subprocess.call(['netedit', '--attribute-help-output',
                          os.path.join(homeDir, "docs", "web", "docs", 'Netedit', 'attribute_help.md')])
+        buildToolOptionsDocs.main([])
     elif len(sys.argv) == 2:
         app = sys.argv[1].lower()
         cfg = subprocess.check_output([app, "--save-template", "stdout"])

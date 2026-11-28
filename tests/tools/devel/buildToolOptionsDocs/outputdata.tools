@@ -1,0 +1,40 @@
+---
+title: Tools Options Overview
+---
+
+# Python Tools Options Overview
+
+The command-line Python tools listed below use `sumolib.options.ArgumentParser` and
+therefore also support configuration files via **-c** / **--configuration-file** {{DT_FILE}},
+**-C** / **--save-configuration** {{DT_FILE}}, **--save-template** {{DT_FILE}}, and **-h** / **--help**.
+
+## `tools/district`
+
+### [gridDistricts.py]({{Source}}tools/district/gridDistricts.py)
+
+| Option | Description |
+|--------|-------------|
+| **-v** {{DT_BOOL}}<br> **--verbose** {{DT_BOOL}} | tell me what you are doing; *default:* **False** |
+| **-n** {{DT_NET}}<br> **--net-file** {{DT_NET}} | the network to read lane and edge permissions; *required* |
+| **-o** {{DT_FILE}}<br> **--output** {{DT_FILE}} | output taz file; *required* |
+| **-w** {{DT_FLOAT}}<br> **--grid-width** {{DT_FLOAT}} | width of gride cells in m; *default:* **100.0** |
+| **--vclass** {{DT_STR}} | Include only edges allowing VCLASS |
+| **-u** {{DT_STR}}<br> **--hue** {{DT_STR}} | hue for taz (float from [0,1] or 'random'); *default:* **random** |
+| **-s** {{DT_STR}}<br> **--saturation** {{DT_STR}} | saturation for taz (float from [0,1] or 'random'); *default:* **1** |
+| **-b** {{DT_STR}}<br> **--brightness** {{DT_STR}} | brightness for taz (float from [0,1] or 'random'); *default:* **1** |
+| **--seed** {{DT_INT}} | random seed; *default:* **42** |
+
+## `tools/net`
+
+### [reduceLanes.py]({{Source}}tools/net/reduceLanes.py)
+
+| Option | Description |
+|--------|-------------|
+| **-n** {{DT_NET}}<br> **--network** {{DT_NET}} | sumo network to use; *required* |
+| **-o** {{DT_FILE}}<br> **--output-file** {{DT_FILE}} | The output edge patch file name; *default:* **reduced.edg.xml** |
+| **--too-short-output** {{DT_FILE}} | The output for edges which were ignored because of length |
+| **--roundabout-output** {{DT_FILE}} | The output for edges which were ignored because of roundabouts |
+| **--min-length** {{DT_FLOAT}} | the minimum edge length to process; *default:* **60.0** |
+| **--min-lane-number** {{DT_INT}} | the minimum number of lanes to process; *default:* **1** |
+| **--junction-distance** {{DT_FLOAT}} | where to perform the edge split near the junction; *default:* **20.0** |
+| **--max-priority** {{DT_INT}} | the maximum priority; *default:* **13** |

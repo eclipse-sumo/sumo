@@ -1,2 +1,5 @@
 # test for debug2shapes
 debug2shapes
+
+# test building the Python tools options overview documentation
+buildToolOptionsDocs
