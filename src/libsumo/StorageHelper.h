@@ -347,7 +347,7 @@ public:
             info.laneID = readTypedString(inputStorage);
             info.length = readTypedDouble(inputStorage);
             info.occupation = readTypedDouble(inputStorage);
-            info.bestLaneOffset = readTypedUnsignedByte(inputStorage);
+            info.bestLaneOffset = readTypedByte(inputStorage);
             info.allowsContinuation = readBool(inputStorage);
             info.continuationLanes = readTypedStringList(inputStorage, error);
             result.emplace_back(info);

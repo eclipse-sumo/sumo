@@ -66,7 +66,11 @@ public:
     }
 
     static void switchCon(const std::string& label) {
-        myActive = myConnections.find(label)->second;
+        const auto it = myConnections.find(label);
+        if (it == myConnections.end()) {
+            throw libsumo::TraCIException("Connection '" + label + "' is not known.");
+        }
+        myActive = it->second;
     }
 
     const std::string& getLabel() const {

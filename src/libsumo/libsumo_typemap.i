@@ -201,6 +201,106 @@ static PyObject* parseConnectionList(const std::vector<libsumo::TraCIConnection>
     return result;
 }
 
+static PyObject* parsePositionVector(const std::vector<libsumo::TraCIPosition>& posVec) {
+    PyObject* result = PyTuple_New(posVec.size());
+    int index = 0;
+    for (auto iter = posVec.begin(); iter != posVec.end(); ++iter) {
+        PyTuple_SetItem(result, index++, Py_BuildValue("(dd)", iter->x, iter->y));
+    }
+    return result;
+}
+
+static PyObject* parseVehicleDataList(const std::vector<libsumo::TraCIVehicleData>& vehData) {
+    PyObject* result = PyTuple_New(vehData.size());
+    int index = 0;
+    for (auto iter = vehData.begin(); iter != vehData.end(); ++iter) {
+        PyTuple_SetItem(result, index++, Py_BuildValue("(sddds)",
+                                                       iter->id.c_str(),
+                                                       iter->length,
+                                                       iter->entryTime,
+                                                       iter->leaveTime,
+                                                       iter->typeID.c_str()));
+    }
+    return result;
+}
+
+static PyObject* parseBestLanesDataList(const std::vector<libsumo::TraCIBestLanesData>& lanesData) {
+    PyObject* result = PyTuple_New(lanesData.size());
+    int index = 0;
+    for (auto iter = lanesData.begin(); iter != lanesData.end(); ++iter) {
+        const int size = (int)iter->continuationLanes.size();
+        auto nextLanes = PyTuple_New(size);
+        for (int i = 0; i < size; i++) {
+            PyTuple_SetItem(nextLanes, i, PyUnicode_FromString(iter->continuationLanes[i].c_str()));
+        }
+        PyTuple_SetItem(result, index++, Py_BuildValue("(sddiNN)",
+                                                       iter->laneID.c_str(),
+                                                       iter->length,
+                                                       iter->occupation,
+                                                       iter->bestLaneOffset,
+                                                       PyBool_FromLong(iter->allowsContinuation),
+                                                       nextLanes));
+    }
+    return result;
+}
+
+static PyObject* parseNextTLSDataList(const std::vector<libsumo::TraCINextTLSData>& tlsData) {
+    PyObject* result = PyTuple_New(tlsData.size());
+    int index = 0;
+    for (auto iter = tlsData.begin(); iter != tlsData.end(); ++iter) {
+        PyTuple_SetItem(result, index++, Py_BuildValue("(sidN)",
+                                                       iter->id.c_str(),
+                                                       iter->tlIndex,
+                                                       iter->dist,
+                                                       PyUnicode_FromStringAndSize(&iter->state, 1)));
+    }
+    return result;
+}
+
+static PyObject* parseLinkVectorVector(const std::vector<std::vector<libsumo::TraCILink> >& links) {
+    PyObject* result = PyTuple_New(links.size());
+    int index = 0;
+    for (auto iter = links.begin(); iter != links.end(); ++iter) {
+        PyObject* innerList = PyTuple_New(iter->size());
+        int innerIndex = 0;
+        for (auto inner = iter->begin(); inner != iter->end(); ++inner) {
+            PyTuple_SetItem(innerList, innerIndex++, Py_BuildValue("(sss)",
+                                                                   inner->fromLane.c_str(),
+                                                                   inner->toLane.c_str(),
+                                                                   inner->viaLane.c_str()));
+        }
+        PyTuple_SetItem(result, index++, innerList);
+    }
+    return result;
+}
+
+static PyObject* parseJunctionFoeList(const std::vector<libsumo::TraCIJunctionFoe>& foes) {
+    PyObject* result = PyTuple_New(foes.size());
+    int index = 0;
+    for (auto iter = foes.begin(); iter != foes.end(); ++iter) {
+        PyTuple_SetItem(result, index++, Py_BuildValue("(sddddssNN)",
+                                                       iter->foeId.c_str(),
+                                                       iter->egoDist,
+                                                       iter->foeDist,
+                                                       iter->egoExitDist,
+                                                       iter->foeExitDist,
+                                                       iter->egoLane.c_str(),
+                                                       iter->foeLane.c_str(),
+                                                       PyBool_FromLong(iter->egoResponse),
+                                                       PyBool_FromLong(iter->foeResponse)));
+    }
+    return result;
+}
+
+static PyObject* parseStringDoublePairList(const std::vector<std::pair<std::string, double> >& pairs) {
+    PyObject* result = PyTuple_New(pairs.size());
+    int index = 0;
+    for (auto iter = pairs.begin(); iter != pairs.end(); ++iter) {
+        PyTuple_SetItem(result, index++, Py_BuildValue("(sd)", iter->first.c_str(), iter->second));
+    }
+    return result;
+}
+
 static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsumo::TraCIResult> >& subMap) {
     PyObject* result = PyDict_New();
     for (auto iter = subMap.begin(); iter != subMap.end(); ++iter) {
@@ -243,6 +343,16 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
             }
         }
         if (pyVal == nullptr) {
+            const libsumo::TraCIIntList* const theIntList = dynamic_cast<const libsumo::TraCIIntList*>(traciVal);
+            if (theIntList != nullptr) {
+                const Py_ssize_t size = theIntList->value.size();
+                pyVal = PyTuple_New(size);
+                for (Py_ssize_t i = 0; i < size; i++) {
+                    PyTuple_SetItem(pyVal, i, PyLong_FromLong(theIntList->value[i]));
+                }
+            }
+        }
+        if (pyVal == nullptr) {
             const libsumo::TraCIPosition* const thePosition = dynamic_cast<const libsumo::TraCIPosition*>(traciVal);
             if (thePosition != nullptr) {
                 if (thePosition->z != libsumo::INVALID_DOUBLE_VALUE) {
@@ -250,6 +360,18 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
                 } else {
                     pyVal = Py_BuildValue("(dd)", thePosition->x, thePosition->y);
                 }
+            }
+        }
+        if (pyVal == nullptr) {
+            const libsumo::TraCIPositionVector* const thePosVec = dynamic_cast<const libsumo::TraCIPositionVector*>(traciVal);
+            if (thePosVec != nullptr) {
+                pyVal = parsePositionVector(thePosVec->value);
+            }
+        }
+        if (pyVal == nullptr) {
+            const libsumo::TraCIColor* const theColor = dynamic_cast<const libsumo::TraCIColor*>(traciVal);
+            if (theColor != nullptr) {
+                pyVal = Py_BuildValue("(iiii)", theColor->r, theColor->g, theColor->b, theColor->a);
             }
         }
         if (pyVal == nullptr) {
@@ -263,13 +385,105 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
             }
         }
         if (pyVal == nullptr) {
+            const libsumo::TraCIStringDoublePairList* const thePairList = dynamic_cast<const libsumo::TraCIStringDoublePairList*>(traciVal);
+            if (thePairList != nullptr) {
+                pyVal = parseStringDoublePairList(thePairList->value);
+            }
+        }
+        if (pyVal == nullptr) {
             const libsumo::TraCIConnectionVectorWrapped* const theConnectionList = dynamic_cast<const libsumo::TraCIConnectionVectorWrapped*>(traciVal);
             if (theConnectionList != nullptr) {
                 pyVal = parseConnectionList(theConnectionList->value);
             }
         }
         if (pyVal == nullptr) {
-            pyVal = SWIG_NewPointerObj(SWIG_as_voidptr(traciVal), SWIGTYPE_p_libsumo__TraCIResult, 0);
+            const libsumo::TraCIVehicleDataVectorWrapped* const theVehData = dynamic_cast<const libsumo::TraCIVehicleDataVectorWrapped*>(traciVal);
+            if (theVehData != nullptr) {
+                pyVal = parseVehicleDataList(theVehData->value);
+            }
+        }
+        if (pyVal == nullptr) {
+            const libsumo::TraCIBestLanesDataVectorWrapped* const theBestLanes = dynamic_cast<const libsumo::TraCIBestLanesDataVectorWrapped*>(traciVal);
+            if (theBestLanes != nullptr) {
+                pyVal = parseBestLanesDataList(theBestLanes->value);
+            }
+        }
+        if (pyVal == nullptr) {
+            const libsumo::TraCINextTLSDataVectorWrapped* const theNextTLS = dynamic_cast<const libsumo::TraCINextTLSDataVectorWrapped*>(traciVal);
+            if (theNextTLS != nullptr) {
+                pyVal = parseNextTLSDataList(theNextTLS->value);
+            }
+        }
+        if (pyVal == nullptr) {
+            const libsumo::TraCILinkVectorVectorWrapped* const theLinks = dynamic_cast<const libsumo::TraCILinkVectorVectorWrapped*>(traciVal);
+            if (theLinks != nullptr) {
+                pyVal = parseLinkVectorVector(theLinks->value);
+            }
+        }
+        if (pyVal == nullptr) {
+            const libsumo::TraCIJunctionFoeVectorWrapped* const theFoes = dynamic_cast<const libsumo::TraCIJunctionFoeVectorWrapped*>(traciVal);
+            if (theFoes != nullptr) {
+                pyVal = parseJunctionFoeList(theFoes->value);
+            }
+        }
+        if (pyVal == nullptr) {
+            const libsumo::TraCIStage* const theStage = dynamic_cast<const libsumo::TraCIStage*>(traciVal);
+            if (theStage != nullptr) {
+                pyVal = SWIG_NewPointerObj(SWIG_as_voidptr(new libsumo::TraCIStage(*theStage)), SWIGTYPE_p_libsumo__TraCIStage, SWIG_POINTER_OWN);
+            }
+        }
+        if (pyVal == nullptr) {
+            const libsumo::TraCINextStopDataVectorWrapped* const theStops = dynamic_cast<const libsumo::TraCINextStopDataVectorWrapped*>(traciVal);
+            if (theStops != nullptr) {
+                const Py_ssize_t size = theStops->value.size();
+                pyVal = PyTuple_New(size);
+                for (Py_ssize_t i = 0; i < size; i++) {
+                    PyTuple_SetItem(pyVal, i, SWIG_NewPointerObj(SWIG_as_voidptr(new libsumo::TraCINextStopData(theStops->value[i])), SWIGTYPE_p_libsumo__TraCINextStopData, SWIG_POINTER_OWN));
+                }
+            }
+        }
+        if (pyVal == nullptr) {
+            const libsumo::TraCIReservationVectorWrapped* const theRes = dynamic_cast<const libsumo::TraCIReservationVectorWrapped*>(traciVal);
+            if (theRes != nullptr) {
+                const Py_ssize_t size = theRes->value.size();
+                pyVal = PyTuple_New(size);
+                for (Py_ssize_t i = 0; i < size; i++) {
+                    PyTuple_SetItem(pyVal, i, SWIG_NewPointerObj(SWIG_as_voidptr(new libsumo::TraCIReservation(theRes->value[i])), SWIGTYPE_p_libsumo__TraCIReservation, SWIG_POINTER_OWN));
+                }
+            }
+        }
+        if (pyVal == nullptr) {
+            const libsumo::TraCICollisionVectorWrapped* const theColls = dynamic_cast<const libsumo::TraCICollisionVectorWrapped*>(traciVal);
+            if (theColls != nullptr) {
+                const Py_ssize_t size = theColls->value.size();
+                pyVal = PyTuple_New(size);
+                for (Py_ssize_t i = 0; i < size; i++) {
+                    PyTuple_SetItem(pyVal, i, SWIG_NewPointerObj(SWIG_as_voidptr(new libsumo::TraCICollision(theColls->value[i])), SWIGTYPE_p_libsumo__TraCICollision, SWIG_POINTER_OWN));
+                }
+            }
+        }
+        if (pyVal == nullptr) {
+            const libsumo::TraCISignalConstraintVectorWrapped* const theCons = dynamic_cast<const libsumo::TraCISignalConstraintVectorWrapped*>(traciVal);
+            if (theCons != nullptr) {
+                const Py_ssize_t size = theCons->value.size();
+                pyVal = PyTuple_New(size);
+                for (Py_ssize_t i = 0; i < size; i++) {
+                    PyTuple_SetItem(pyVal, i, SWIG_NewPointerObj(SWIG_as_voidptr(new libsumo::TraCISignalConstraint(theCons->value[i])), SWIGTYPE_p_libsumo__TraCISignalConstraint, SWIG_POINTER_OWN));
+                }
+            }
+        }
+        if (pyVal == nullptr) {
+            const libsumo::TraCILogicVectorWrapped* const theLogics = dynamic_cast<const libsumo::TraCILogicVectorWrapped*>(traciVal);
+            if (theLogics != nullptr) {
+                const Py_ssize_t size = theLogics->value.size();
+                pyVal = PyTuple_New(size);
+                for (Py_ssize_t i = 0; i < size; i++) {
+                    PyTuple_SetItem(pyVal, i, SWIG_NewPointerObj(SWIG_as_voidptr(new libsumo::TraCILogic(theLogics->value[i])), SWIGTYPE_p_libsumo__TraCILogic, SWIG_POINTER_OWN));
+                }
+            }
+        }
+        if (pyVal == nullptr) {
+            pyVal = SWIG_NewPointerObj(SWIG_as_voidptr(traciVal != nullptr ? new libsumo::TraCIResult(*traciVal) : nullptr), SWIGTYPE_p_libsumo__TraCIResult, SWIG_POINTER_OWN);
         }
         PyObject* const pyKey = PyLong_FromLong(iter->first);
         PyDict_SetItem(result, pyKey, pyVal);
@@ -322,11 +536,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 };
 
 %typemap(out) libsumo::TraCIPositionVector {
-    $result = PyTuple_New($1.value.size());
-    int index = 0;
-    for (auto iter = $1.value.begin(); iter != $1.value.end(); ++iter) {
-        PyTuple_SetItem($result, index++, Py_BuildValue("(dd)", iter->x, iter->y));
-    }
+    $result = parsePositionVector($1.value);
 };
 
 %typemap(out) libsumo::TraCIColor {
@@ -342,88 +552,27 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 };
 
 %typemap(out) std::vector<libsumo::TraCIVehicleData> {
-    $result = PyTuple_New($1.size());
-    int index = 0;
-    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        PyTuple_SetItem($result, index++, Py_BuildValue("(sddds)",
-                                                        iter->id.c_str(),
-                                                        iter->length,
-                                                        iter->entryTime,
-                                                        iter->leaveTime,
-                                                        iter->typeID.c_str()));
-    }
+    $result = parseVehicleDataList($1);
 };
 
 %typemap(out) std::vector<libsumo::TraCIBestLanesData> {
-    $result = PyTuple_New($1.size());
-    int index = 0;
-    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        const int size = (int)iter->continuationLanes.size();
-        auto nextLanes = PyTuple_New(size);
-        for (int i = 0; i < size; i++) {
-            PyTuple_SetItem(nextLanes, i, PyUnicode_FromString(iter->continuationLanes[i].c_str()));
-        }
-        PyTuple_SetItem($result, index++, Py_BuildValue("(sddiNN)",
-                                                        iter->laneID.c_str(),
-                                                        iter->length,
-                                                        iter->occupation,
-                                                        iter->bestLaneOffset,
-                                                        PyBool_FromLong(iter->allowsContinuation),
-                                                        nextLanes));
-    }
+    $result = parseBestLanesDataList($1);
 };
 
 %typemap(out) std::vector<libsumo::TraCINextTLSData> {
-    $result = PyTuple_New($1.size());
-    int index = 0;
-    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        PyTuple_SetItem($result, index++, Py_BuildValue("(sidN)",
-                                                        iter->id.c_str(),
-                                                        iter->tlIndex,
-                                                        iter->dist,
-                                                        PyUnicode_FromStringAndSize(&iter->state, 1)));
-    }
+    $result = parseNextTLSDataList($1);
 };
 
 %typemap(out) std::vector<std::vector<libsumo::TraCILink> > {
-    $result = PyTuple_New($1.size());
-    int index = 0;
-    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        PyObject* innerList = PyTuple_New(iter->size());
-        int innerIndex = 0;
-        for (auto inner = iter->begin(); inner != iter->end(); ++inner) {
-            PyTuple_SetItem(innerList, innerIndex++, Py_BuildValue("(sss)",
-                                                                   inner->fromLane.c_str(),
-                                                                   inner->toLane.c_str(),
-                                                                   inner->viaLane.c_str()));
-        }
-        PyTuple_SetItem($result, index++, innerList);
-    }
+    $result = parseLinkVectorVector($1);
 };
 
 %typemap(out) std::vector<libsumo::TraCIJunctionFoe> {
-    $result = PyTuple_New($1.size());
-    int index = 0;
-    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        PyTuple_SetItem($result, index++, Py_BuildValue("(sddddssNN)",
-                                                        iter->foeId.c_str(),
-                                                        iter->egoDist,
-                                                        iter->foeDist,
-                                                        iter->egoExitDist,
-                                                        iter->foeExitDist,
-                                                        iter->egoLane.c_str(),
-                                                        iter->foeLane.c_str(),
-                                                        PyBool_FromLong(iter->egoResponse),
-                                                        PyBool_FromLong(iter->foeResponse)));
-    }
+    $result = parseJunctionFoeList($1);
 };
 
 %typemap(out) std::vector<std::pair<std::string, double> > {
-    $result = PyTuple_New($1.size());
-    int index = 0;
-    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        PyTuple_SetItem($result, index++, Py_BuildValue("(sd)", iter->first.c_str(), iter->second));
-    }
+    $result = parseStringDoublePairList($1);
 };
 
 %exceptionclass libsumo::TraCIException;
