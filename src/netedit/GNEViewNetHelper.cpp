@@ -26,6 +26,8 @@
 #include <netedit/elements/data/GNEEdgeData.h>
 #include <netedit/elements/data/GNEEdgeRelData.h>
 #include <netedit/elements/data/GNETAZRelData.h>
+#include <netedit/elements/moving/GNEMoveElementEdge.h>
+#include <netedit/elements/moving/GNEMoveOperation.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEInternalLane.h>
@@ -48,6 +50,7 @@
 #include "GNEViewNet.h"
 #include "GNEViewNetHelper.h"
 #include "GNEViewParent.h"
+#include <netedit/frames/common/GNEMoveFrame.h>
 
 // ===========================================================================
 // static members
@@ -1601,10 +1604,13 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
         // check if over junction there is a geometry point
         if (myViewNet->myViewObjectsSelector.getEdgeFront() && (myViewNet->myViewObjectsSelector.getEdgeFront()->clickedOverGeometryPoint(myRelativeClickedPosition))) {
             // get move operation
-            GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getEdgeFront()->getMoveElement()->getMoveOperation();
+            GNEEdge* clickedEdge = myViewNet->myViewObjectsSelector.getEdgeFront();
+            GNEMoveOperation* moveOperation = clickedEdge->getMoveElement()->getMoveOperation();
             // continue if move operation is valid
             if (moveOperation) {
-                myMoveOperation = moveOperation;
+                if (!myViewNet->myMoveMultipleElements.beginMovePairedEdges(clickedEdge, moveOperation)) {
+                    myMoveOperation = moveOperation;
+                }
                 return true;
             } else {
                 return false;
@@ -1629,10 +1635,13 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
             return false;
         } else {
             // get move operation
-            GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getEdgeFront()->getMoveElement()->getMoveOperation();
+            GNEEdge* clickedEdge = myViewNet->myViewObjectsSelector.getEdgeFront();
+            GNEMoveOperation* moveOperation = clickedEdge->getMoveElement()->getMoveOperation();
             // continue if move operation is valid
             if (moveOperation) {
-                myMoveOperation = moveOperation;
+                if (!myViewNet->myMoveMultipleElements.beginMovePairedEdges(clickedEdge, moveOperation)) {
+                    myMoveOperation = moveOperation;
+                }
                 return true;
             } else {
                 return false;
@@ -1759,6 +1768,7 @@ void
 GNEViewNetHelper::MoveMultipleElementModul::beginMoveSelection() {
     // save clicked position (to calculate offset)
     myClickedPosition = myViewNet->getPositionInformation();
+    myMovingPairedEdges = false;
     // continue depending of clicked element
     if (myViewNet->myViewObjectsSelector.getJunctionFront()) {
         calculateJunctionSelection();
@@ -1781,19 +1791,7 @@ GNEViewNetHelper::MoveMultipleElementModul::moveSelection(const bool mouseLeftBu
             GNEMoveElement::moveElement(myViewNet, moveOperation, moveOffset);
         }
     } else if (myMoveOperations.size() > 0) {
-        // begin undo list
-        myViewNet->getUndoList()->begin(GUIIcon::MODEMOVE, TL("moving selection"));
-        // iterate over all operations
-        for (const auto& moveOperation : myMoveOperations) {
-            // commit move
-            GNEMoveElement::commitMove(myViewNet, moveOperation, moveOffset, myViewNet->getUndoList());
-            // don't forget delete move operation
-            delete moveOperation;
-        }
-        // end undo list
-        myViewNet->getUndoList()->end();
-        // clear move operations
-        myMoveOperations.clear();
+        finishMoveSelection();
     }
 }
 
@@ -1803,13 +1801,34 @@ GNEViewNetHelper::MoveMultipleElementModul::finishMoveSelection() {
     // calculate moveOffset
     const GNEMoveOffset moveOffset = calculateMoveOffset();
     // begin undo list
-    myViewNet->getUndoList()->begin(GUIIcon::MODEMOVE, TL("moving selection"));
+    myViewNet->getUndoList()->begin(GUIIcon::MODEMOVE, myMovingPairedEdges ? TL("moving paired edges") : TL("moving selection"));
+    const GNEMoveElementEdge* primaryMoveEdge = myMovingPairedEdges && (myMoveOperations.size() > 1) ?
+            dynamic_cast<GNEMoveElementEdge*>(myMoveOperations.front()->moveElement) : nullptr;
+    std::vector<GNEEdge*> pairedEdges;
+    if (primaryMoveEdge) {
+        for (size_t i = 1; i < myMoveOperations.size(); i++) {
+            const auto pairedMoveEdge = dynamic_cast<GNEMoveElementEdge*>(myMoveOperations[i]->moveElement);
+            if (pairedMoveEdge) {
+                pairedEdges.push_back(pairedMoveEdge->getEdge());
+            }
+        }
+    }
     // finish all move operations
     for (const auto& moveOperation : myMoveOperations) {
         GNEMoveElement::commitMove(myViewNet, moveOperation, moveOffset, myViewNet->getUndoList());
         // don't forget delete move operation
         delete moveOperation;
     }
+    // synchronize inner geometry if merging geometry points removed adjacent vertices asymmetrically
+    if (primaryMoveEdge) {
+        const PositionVector expectedInner = primaryMoveEdge->getEdge()->getNBEdge()->getInnerGeometry().reverse();
+        for (const auto& pairedEdge : pairedEdges) {
+            if (pairedEdge->getNBEdge()->getInnerGeometry() != expectedInner) {
+                pairedEdge->setAttribute(SUMO_ATTR_SHAPE, toString(expectedInner), myViewNet->getUndoList());
+            }
+        }
+    }
+    myMovingPairedEdges = false;
     // end undo list
     myViewNet->getUndoList()->end();
     // clear move operations
@@ -1844,6 +1863,52 @@ GNEViewNetHelper::MoveMultipleElementModul::getEdgeOffset() const {
 bool
 GNEViewNetHelper::MoveMultipleElementModul::isCurrentlyMovingMultipleElements() const {
     return myMoveOperations.size() > 0;
+}
+
+
+bool
+GNEViewNetHelper::MoveMultipleElementModul::beginMovePairedEdges(GNEEdge* clickedEdge, GNEMoveOperation* moveOperation) {
+    if (!clickedEdge || !moveOperation || (moveOperation->originalShape.size() < 2) ||
+            moveOperation->geometryPointsToMove.empty() ||
+            !myViewNet->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMovePairedEdges()) {
+        return false;
+    }
+    const PositionVector reversedOriginalShape = moveOperation->originalShape.reverse();
+    std::vector<GNEMoveOperation*> pairedOperations;
+    for (const auto& oppositeEdge : clickedEdge->getOppositeEdges()) {
+        if (!oppositeEdge->isGLObjectLocked()) {
+            const PositionVector& oppOriginalShape = oppositeEdge->getNBEdge()->getGeometry();
+            if (oppOriginalShape.almostSame(reversedOriginalShape, POSITION_EPS)) {
+                PositionVector oppShapeToMove = moveOperation->shapeToMove.reverse();
+                const int lastMoveIndex = (int)oppShapeToMove.size() - 1;
+                std::vector<int> oppGeometryPointsToMove;
+                oppGeometryPointsToMove.reserve(moveOperation->geometryPointsToMove.size());
+                for (const int idx : moveOperation->geometryPointsToMove) {
+                    oppGeometryPointsToMove.push_back(lastMoveIndex - idx);
+                }
+                if (std::find(oppGeometryPointsToMove.begin(), oppGeometryPointsToMove.end(), 0) == oppGeometryPointsToMove.end()) {
+                    oppShapeToMove.front() = oppOriginalShape.front();
+                }
+                if (std::find(oppGeometryPointsToMove.begin(), oppGeometryPointsToMove.end(), lastMoveIndex) == oppGeometryPointsToMove.end()) {
+                    oppShapeToMove.back() = oppOriginalShape.back();
+                }
+                const std::vector<int> oppOriginalGeometryPoints = (oppShapeToMove.size() == oppOriginalShape.size()) ?
+                        oppGeometryPointsToMove : std::vector<int>();
+                pairedOperations.push_back(new GNEMoveOperation(oppositeEdge->getMoveElement(),
+                        oppOriginalShape, oppOriginalGeometryPoints, oppShapeToMove, oppGeometryPointsToMove));
+            }
+        }
+    }
+    if (pairedOperations.empty()) {
+        return false;
+    }
+    myClickedPosition = myViewNet->getPositionInformation();
+    myMovingSelectedEdge = false;
+    myMovingPairedEdges = true;
+    myMoveOperations.clear();
+    myMoveOperations.push_back(moveOperation);
+    myMoveOperations.insert(myMoveOperations.end(), pairedOperations.begin(), pairedOperations.end());
+    return true;
 }
 
 

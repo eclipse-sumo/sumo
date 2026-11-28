@@ -1276,6 +1276,9 @@ struct GNEViewNetHelper {
         /// @brief check if there are moving elements
         bool isCurrentlyMovingMultipleElements() const;
 
+        /// @brief begin moving unselected edge together with paired reversed-geometry opposite edges
+        bool beginMovePairedEdges(GNEEdge* clickedEdge, GNEMoveOperation* moveOperation);
+
     protected:
         /// @brief calculate move offset
         const GNEMoveOffset calculateMoveOffset() const;
@@ -1295,6 +1298,9 @@ struct GNEViewNetHelper {
 
         /// @brief flag for enable moving edge
         bool myMovingSelectedEdge;
+
+        /// @brief flag for moving paired opposite edges
+        bool myMovingPairedEdges = false;
 
         /// @brief offset of moved edge
         double myEdgeOffset;

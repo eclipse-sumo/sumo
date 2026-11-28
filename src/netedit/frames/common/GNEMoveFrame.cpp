@@ -105,6 +105,9 @@ GNEMoveFrame::NetworkMoveOptions::NetworkMoveOptions(GNEMoveFrame* moveFramePare
     // Create checkbox for force draw end geometry points
     myMoveOnlyJunctionCenter = new FXCheckButton(getCollapsableFrame(), TL("Move only junction center"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myMoveOnlyJunctionCenter->setCheck(FALSE);
+    // Create checkbox for moving paired opposite edges together
+    myMovePairedEdges = new FXCheckButton(getCollapsableFrame(), TL("Move paired edges"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myMovePairedEdges->setCheck(TRUE);
 }
 
 
@@ -151,6 +154,17 @@ GNEMoveFrame::NetworkMoveOptions::getMoveOnlyJunctionCenter() const {
     if (myMoveFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
             (myMoveFrameParent->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
         return (myMoveOnlyJunctionCenter->getCheck() == TRUE);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEMoveFrame::NetworkMoveOptions::getMovePairedEdges() const {
+    if (myMoveFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+            (myMoveFrameParent->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+        return (myMovePairedEdges->getCheck() == TRUE);
     } else {
         return false;
     }
