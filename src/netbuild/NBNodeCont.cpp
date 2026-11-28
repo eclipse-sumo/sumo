@@ -808,6 +808,7 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
             ptStopEnds[edge->getFromNode()].push_back(edge->getToNode());
         }
     }
+    const bool keepCrossingApproaches = !OptionsCont::getOptions().getBool("geometry.remove");
     generateNodeClusters(maxDist, cands);
     for (NodeSet& cluster : cands) {
 #ifdef DEBUG_JOINJUNCTIONS
@@ -828,7 +829,7 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
         }
         std::string origCluster = joinNamedToString(cluster, ',');
         // remove nodes that can be eliminated by geometry.remove
-        pruneClusterFringe(cluster, maxDist);
+        pruneClusterFringe(cluster, maxDist, false, keepCrossingApproaches);
         if (cluster.size() < 2) {
             continue;
         }
@@ -876,7 +877,7 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
         }
         while (!feasible && tryRemove != nullptr) {
             cluster.erase(tryRemove);
-            pruneClusterFringe(cluster, maxDist);
+            pruneClusterFringe(cluster, maxDist, false, keepCrossingApproaches);
             tryRemove = nullptr;
             feasible = feasibleCluster(cluster, ptStopEnds, maxDist, reason, tryRemove);
             if (feasible) {
@@ -895,7 +896,7 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
         }
         // after pruning long edges we have to recheck
         if (numPruned > 0) {
-            pruneClusterFringe(cluster, maxDist);
+            pruneClusterFringe(cluster, maxDist, false, keepCrossingApproaches);
             if (cluster.size() < 2) {
                 WRITE_WARNINGF(TL("Not joining junctions % (%)."), origCluster, "long edge");
                 continue;
@@ -983,7 +984,7 @@ NBNodeCont::joinSameJunctions(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLight
 }
 
 void
-NBNodeCont::pruneClusterFringe(NodeSet& cluster, double maxDist, bool remove2TLS) const {
+NBNodeCont::pruneClusterFringe(NodeSet& cluster, double maxDist, bool remove2TLS, bool keepCrossingApproaches) const {
 #ifdef DEBUG_JOINJUNCTIONS
     if (gDebugFlag1) {
         std::cout << "pruning cluster=" << joinNamedToString(cluster, ' ') << "\n";
@@ -1052,10 +1053,25 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster, double maxDist, bool remove2TLS
                                            << " dia=" << getDiameter(cluster)
                                            << "\n";
 #endif
-            if (clusterNeighbors.size() == 0
-                    || (outsideNeighbors.size() <= 1
-                        && clusterNeighbors.size() == 1
-                        && !(n->isTLControlled() /*|| n->hadSignal()*/))) {
+            const bool fringe = outsideNeighbors.size() <= 1 && clusterNeighbors.size() == 1;
+            if (keepCrossingApproaches && fringe && outsideNeighbors.size() == 1 && touchingCluster
+                    && clusterDist <= pedestrianFringeThreshold && n->geometryLike()
+                    && std::all_of(n->getEdges().begin(), n->getEdges().end(), [](const NBEdge* edge) {
+                return edge->getNumLanesThatAllow(SVC_PASSENGER) == 1;
+            })) {
+                const NBNode* crossing = *clusterNeighbors.begin();
+                NodeSet pedestrianNeighbors;
+                for (const NBEdge* edge : crossing->getEdges()) {
+                    if (edge->getPermissions() == SVC_PEDESTRIAN) {
+                        pedestrianNeighbors.insert(edge->getFromNode() == crossing ? edge->getToNode() : edge->getFromNode());
+                    }
+                }
+                if (pedestrianNeighbors.size() >= 2) {
+                    // The short road piece forms part of a crossing between separate footways.
+                    continue;
+                }
+            }
+            if (clusterNeighbors.empty() || (fringe && !n->isTLControlled())) {
                 cluster.erase(check);
                 pruneFringe = true; // other nodes could belong to the fringe now
 #ifdef DEBUG_JOINJUNCTIONS
