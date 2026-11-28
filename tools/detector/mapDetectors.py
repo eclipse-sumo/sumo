@@ -35,9 +35,22 @@ import sumolib  # noqa
 from sumolib.statistics import Statistics  # noqa
 
 
+ELEMENT_CHOICES = (
+    "inductionLoop",
+    "instantInductionLoop",
+    "laneAreaDetector",
+    "busStop",
+    "trainStop",
+    "containerStop",
+    "chargingStation",
+    "parkingArea",
+)
+STOPPING_PLACES = {"busStop", "trainStop", "containerStop", "chargingStation", "parkingArea"}
+
+
 def get_options(args=None):
     ap = sumolib.options.ArgumentParser(
-        description="Map detector locations to a network and write inductionLoop-definitions")
+        description="Map detector or stopping place locations to a network and write additional-definitions")
     ap.add_argument("-n", "--net-file", dest="netfile", category="input", type=ap.net_file,
                     help="define the net file (mandatory)")
     ap.add_argument("-d", "--detector-file", dest="detfile", category="input", type=ap.file,
@@ -46,6 +59,8 @@ def get_options(args=None):
                     help="the field separator of the detector input file")
     ap.add_argument("-o", "--output-file", dest="outfile", category="output", type=ap.file,
                     help="define the output file for generated mapped detectors")
+    ap.add_argument("-e", "--element", default="inductionLoop", choices=ELEMENT_CHOICES,
+                    help="element tag to generate")
     ap.add_argument("--poi-output", category="output", type=ap.file, dest="poiOut",
                     help="file to write the input stop coordinates to")
     ap.add_argument("-i", "--id-column", default="id", dest="id",
@@ -54,6 +69,12 @@ def get_options(args=None):
                     help="Read detector x-coordinate (lon) from the given column")
     ap.add_argument("-y", "--latitude-column", default="lat", dest="lat",
                     help="Read detector y-coordinate (lat) from the given column")
+    ap.add_argument("--end-longitude-column", dest="endLon",
+                    help="Read optional end x-coordinate (lon) from the given column")
+    ap.add_argument("--end-latitude-column", dest="endLat",
+                    help="Read optional end y-coordinate (lat) from the given column")
+    ap.add_argument("--length", type=float, default=10.0,
+                    help="Default length in m for range elements when no end coordinate is given")
     ap.add_argument("--max-radius", type=float, default="100", dest="maxRadius",
                     help="specify maximum distance error when mapping coordinates")
     ap.add_argument("--vclass", default="passenger",
@@ -92,23 +113,33 @@ def main():
         reader = csv.DictReader(inputf, delimiter=options.delimiter)
         checkedFields = False
         extraCols = []
+        isRange = options.element == "laneAreaDetector" or options.element in STOPPING_PLACES
+        hasEndCoords = options.endLon is not None and options.endLat is not None
         for row in reader:
             if not checkedFields:
                 checkedFields = True
                 if options.writeParams:
                     extraCols = list(reader.fieldnames)
-                for attr in ["id", "lon", "lat"]:
+                reqAttrs = ["id", "lon", "lat"]
+                if hasEndCoords:
+                    reqAttrs.extend(["endLon", "endLat"])
+                for attr in reqAttrs:
                     colName = getattr(options, attr)
                     if colName not in row:
                         sys.exit("Required column %s not found. Available columns are %s" % (
                             colName, ",".join(row.keys())))
-                    elif extraCols:
+                    elif colName in extraCols:
                         extraCols.remove(colName)
 
             detID = row[options.id]
             lon = float(row[options.lon])
             lat = float(row[options.lat])
             x, y = net.convertLonLat2XY(lon, lat)
+            hasRowEnd = hasEndCoords and row[options.endLon] != "" and row[options.endLat] != ""
+            if hasRowEnd:
+                lon2 = float(row[options.endLon])
+                lat2 = float(row[options.endLat])
+                x2, y2 = net.convertLonLat2XY(lon2, lat2)
             if poutf:
                 poutf.write('    <poi id="%s" lon="%.8f" lat="%.8f">\n' % (detID, lon, lat))
                 if extraCols:
@@ -117,6 +148,8 @@ def main():
                             sumolib.xml.xmlescape(col),
                             sumolib.xml.xmlescape(row[col])))
                 poutf.write('    </poi>\n')
+                if hasRowEnd:
+                    poutf.write('    <poi id="%s_end" lon="%.8f" lat="%.8f"/>\n' % (detID, lon2, lat2))
 
             lanes = []
             radius = 0.1
@@ -131,7 +164,20 @@ def main():
             lanes.sort(key=lambda x: x[0])
             best = lanes[0][1]
             pos, error = best.getClosestLanePosAndDist((x, y))
-            pos = min(best.getLength(), pos)
+            pos = min(best.getLength(), max(0.0, pos))
+            if isRange:
+                if hasRowEnd:
+                    pos2, error2 = best.getClosestLanePosAndDist((x2, y2))
+                    pos2 = min(best.getLength(), max(0.0, pos2))
+                    error = max(error, error2)
+                    startPos, endPos = (pos, pos2) if pos <= pos2 else (pos2, pos)
+                    if endPos - startPos < 0.1:
+                        endPos = min(best.getLength(), startPos + options.length)
+                        startPos = max(0.0, min(startPos, endPos - min(options.length, best.getLength())))
+                else:
+                    startPos = max(0.0, pos - options.length / 2.0)
+                    endPos = min(best.getLength(), startPos + options.length)
+                    startPos = max(0.0, endPos - min(options.length, best.getLength()))
             mapErrors.add(error, detID)
 
             commentStart, commentEnd = "", ""
@@ -146,19 +192,33 @@ def main():
             if options.allLanes:
                 usedLanes = [(lane, '_%i' % index) for index, lane in enumerate(best.getEdge().getLanes())]
 
+            tag = options.element
             for lane, suffix in usedLanes:
-                outf.write(' ' * 4 + '<%sinductionLoop id="%s%s" lane="%s" pos="%.2f" file="%s" freq="%s"%s>\n' % (
-                    commentStart,
-                    detID, suffix,
-                    lane.getID(), pos, options.detOut,
-                    options.interval,
-                    endTag))
+                laneLen = lane.getLength()
+                if tag == "inductionLoop":
+                    attrs = 'lane="%s" pos="%.2f" file="%s" freq="%s"' % (
+                        lane.getID(), min(laneLen, pos), options.detOut, options.interval)
+                elif tag == "instantInductionLoop":
+                    attrs = 'lane="%s" pos="%.2f" file="%s"' % (
+                        lane.getID(), min(laneLen, pos), options.detOut)
+                elif tag == "laneAreaDetector":
+                    sPos = min(laneLen, startPos)
+                    ePos = max(sPos, min(laneLen, endPos))
+                    attrs = 'lane="%s" pos="%.2f" endPos="%.2f" file="%s" freq="%s"' % (
+                        lane.getID(), sPos, ePos, options.detOut, options.interval)
+                else:
+                    sPos = min(laneLen, startPos)
+                    ePos = max(sPos, min(laneLen, endPos))
+                    attrs = 'lane="%s" startPos="%.2f" endPos="%.2f"' % (
+                        lane.getID(), sPos, ePos)
+                outf.write(' ' * 4 + '<%s%s id="%s%s" %s%s>\n' % (
+                    commentStart, tag, detID, suffix, attrs, endTag))
                 if extraCols:
                     for col in extraCols:
                         outf.write(' ' * 8 + '<param key="%s" value="%s"/>\n' % (
                             sumolib.xml.xmlescape(col),
                             sumolib.xml.xmlescape(row[col])))
-                    outf.write(' ' * 4 + '</inductionLoop%s>\n' % commentEnd)
+                    outf.write(' ' * 4 + '</%s%s>\n' % (tag, commentEnd))
             seenIDs.add(detID)
 
         outf.write('</additional>\n')
