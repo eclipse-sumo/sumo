@@ -4168,11 +4168,11 @@ MSVehicle::updateDriveItems() {
         if (parallelLink != nullptr && parallelLink->getLaneBefore() == getLane()) {
             // lcDir = -1;
         } else {
-            // If the vehicle's current lane is not the approaching lane for the next
-            // drive process item's link, it is expected to lead to a parallel link,
-            // XXX: What if the lc was an overtaking maneuver and there is no upcoming link?
-            //      Then a stop item should be scheduled! -> TODO!
-            //assert(false);
+            if (&getLane()->getEdge() == &nextPlannedLink->getLaneBefore()->getEdge()) {
+                // A lane split or merge may lack a parallel link from the new lane.
+                // Replan before moving again to avoid following the previous lane's link.
+                resetActionOffset(DELTA_T);
+            }
             return;
         }
     }
