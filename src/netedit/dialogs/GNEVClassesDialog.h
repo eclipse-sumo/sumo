@@ -39,6 +39,13 @@ class GNEVClassesDialog : public GNEDialog {
     FXDECLARE(GNEVClassesDialog)
 
 public:
+    /// @brief vClass status across edited objects
+    enum class ValueStatus {
+        ENABLED,
+        DISABLED,
+        KEEP
+    };
+
     /// @brief vclass row
     class VClassRow : protected FXHorizontalFrame {
         /// @brief FOX-declaration
@@ -55,11 +62,23 @@ public:
         /// @brief get vclass in string format
         const std::string& getVClassString() const;
 
+        /// @brief set initial status and apply it
+        void setInitialStatus(const ValueStatus status);
+
+        /// @brief reset button status to initial status
+        void resetStatus();
+
         /// @brief set vClass button status
         void setVClassButtonStatus(const bool enabled);
 
         /// @brief check if vClass button is enabled
         bool isVClassButtonEnabled() const;
+
+        /// @brief get current status
+        ValueStatus getStatus() const;
+
+        /// @brief get initial status
+        ValueStatus getInitialStatus() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -73,11 +92,23 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(VClassRow)
 
+        /// @brief update button icon and tooltip for status
+        void updateButtonStatus(const ValueStatus status);
+
         /// @brief vclass button
         FXButton* myVClassButton = nullptr;
 
         /// @brief vclass in string format
         const std::string myVClassString;
+
+        /// @brief current status
+        ValueStatus myStatus = ValueStatus::ENABLED;
+
+        /// @brief initial status (used for reset)
+        ValueStatus myInitialStatus = ValueStatus::ENABLED;
+
+        /// @brief whether toggling cycles through KEEP state
+        bool myCycleKeep = false;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -95,6 +126,10 @@ public:
     GNEVClassesDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
                       SumoXMLAttr attr, const std::string originalVClasses);
 
+    /// @brief Constructor for edited ACs
+    GNEVClassesDialog(GNEApplicationWindow* applicationWindow, SumoXMLAttr attr,
+                      const std::vector<GNEAttributeCarrier*>& ACs);
+
     /// @brief destructor
     ~GNEVClassesDialog();
 
@@ -103,6 +138,12 @@ public:
 
     /// @brief get vClasses modified by this dialog
     std::string getModifiedVClasses() const;
+
+    /// @brief get allowed vClasses bitmask
+    SVCPermissions getAllowedVClasses() const;
+
+    /// @brief get disallowed vClasses bitmask
+    SVCPermissions getDisallowedVClasses() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -139,6 +180,21 @@ protected:
 
     /// @brief edited vClasses
     std::string myEditedVClasses;
+
+    /// @brief whether dialog was opened for edited ACs
+    const bool myMultipleMode = false;
+
+    /// @brief vClasses initially allowed in all edited ACs
+    SVCPermissions myCommonAllowed = SVCAll;
+
+    /// @brief vClasses initially disallowed in all edited ACs
+    SVCPermissions myCommonDisallowed = SVCAll;
+
+    /// @brief allowed vClasses bitmask after accepting dialog
+    SVCPermissions myAllowedVClasses = 0;
+
+    /// @brief disallowed vClasses bitmask after accepting dialog
+    SVCPermissions myDisallowedVClasses = 0;
 
     /// @brief map with the buttons for every VClass
     std::map<SUMOVehicleClass, VClassRow* > myVClassMap;
