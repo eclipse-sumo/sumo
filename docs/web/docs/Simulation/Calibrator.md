@@ -15,6 +15,8 @@ specified number of `vehsPerHour`. Furthermore, the speed on the edge will be
 adjusted to the specified `speed` similar to the workings of a [variable speed
 sign](../Simulation/Variable_Speed_Signs.md).
 
+A calibrator with a remaining vehicle target and a finite interval keeps the simulation running while it can still insert vehicles. The configured simulation end time still applies.
+
 Calibrators will also remove vehicles if the traffic on their lane is jammed beyond what
 would be expected given the specified flow and speed. This ensures that
 invalid jams do not grow upstream past a calibrator. This behavior can be controlled with attribute 'jamThreshold' (see below).

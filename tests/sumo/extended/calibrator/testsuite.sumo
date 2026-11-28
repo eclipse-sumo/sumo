@@ -53,6 +53,9 @@ speed_only_swallow_downstream_jam
 # tests whether calibration works correctly if there are non-consecutive calibration intervals
 inactive_in_between
 
+# Finite calibrator flows remain eligible while there are no vehicles in the network.
+flow_after_idle
+
 # vehicles should be inserted into a properly sized gap to prevent speed drops. 
 # This tests whether the front gap is accounted for
 insertion_front_gap
