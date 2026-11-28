@@ -51,6 +51,7 @@
             <xsd:attribute name="entryTime" type="timeType" use="optional"/>
             <xsd:attribute name="eventTime" type="timeType" use="optional"/>
             <xsd:attribute name="blockTime" type="timeTypeWithErrorValue" use="optional"/>
+            <xsd:attribute name="onRoad" type="xsd:boolean" use="optional"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:complexType name="transportableType">

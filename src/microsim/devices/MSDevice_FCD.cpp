@@ -221,6 +221,7 @@ MSDevice_FCD::initOnce() {
     misc.set(SUMO_ATTR_ENTRYTIME);
     misc.set(SUMO_ATTR_EVENTTIME);
     misc.set(SUMO_ATTR_BLOCKTIME);
+    misc.set(SUMO_ATTR_ONROAD);
     const std::map<std::string, SumoXMLAttrMask> special = {{"location", getDefaultMask()}, {"emissions", emissions}, {"misc", misc}};
     if (oc.isSet("fcd-output.attributes")) {
         myWrittenAttributes = OutputDevice::parseWrittenAttributes(oc.getStringVector("fcd-output.attributes"), "fcd output", special);

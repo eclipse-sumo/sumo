@@ -684,6 +684,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "flow",                   SUMO_ATTR_FLOW },
     { "personNumber",           SUMO_ATTR_PERSON_NUMBER },
     { "containerNumber",        SUMO_ATTR_CONTAINER_NUMBER },
+    { "onRoad",                 SUMO_ATTR_ONROAD },
     // Edge
     { "id",                     SUMO_ATTR_ID },
     { "refId",                  SUMO_ATTR_REFID },
@@ -1140,7 +1141,6 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "parkingArea",            SUMO_ATTR_PARKING_AREA },
     { "roadsideCapacity",       SUMO_ATTR_ROADSIDE_CAPACITY },
     { "acceptedBadges",         SUMO_ATTR_ACCEPTED_BADGES },
-    { "onRoad",                 SUMO_ATTR_ONROAD },
     { "chargingStation",        SUMO_ATTR_CHARGING_STATION },
     { "group",                  SUMO_ATTR_GROUP },
     { "line",                   SUMO_ATTR_LINE },
