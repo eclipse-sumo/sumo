@@ -20,6 +20,7 @@ import argparse
 import glob
 import logging
 import os
+import shlex
 import shutil
 import subprocess
 
@@ -34,17 +35,21 @@ def run(suffix, args, guiTests=False, chrouter=True, apps=None, force_gui=False,
         suffix += ".exe"
     env = os.environ
     root = os.path.abspath(os.path.dirname(__file__))
-    for d in sorted(glob.glob(os.path.join(root, "*env", "*", "activate"))):
-        env_dir = os.path.dirname(os.path.dirname(d))
+    scripts = "bin" if os.name == "posix" else "Scripts"
+    activate = os.path.join(scripts, "activate")
+    candidates = sorted(glob.glob(os.path.join(root, "*env", activate)))
+    candidates.append(os.path.join(root, ".venv", activate))
+    for path in candidates:
+        if not os.path.isfile(path):
+            continue
+        scripts_dir = os.path.dirname(path)
+        env_dir = os.path.dirname(scripts_dir)
         if env.get("VIRTUAL_ENV"):
             print("Virtual environment %s already active, ignoring %s." % (env["VIRTUAL_ENV"], env_dir))
         else:
             print("Using virtual environment %s." % env_dir)
             env["VIRTUAL_ENV"] = env_dir
-            if os.name != "posix":
-                env["PATH"] = "%s\\Scripts;%s" % (env_dir, env["PATH"])
-            else:
-                env["PATH"] = "%s/bin:%s" % (env_dir, env["PATH"])
+            env["PATH"] = scripts_dir + os.pathsep + env["PATH"]
 
     env["TEXTTEST_HOME"] = root
     env["LANG"] = "C"
@@ -74,6 +79,7 @@ def run(suffix, args, guiTests=False, chrouter=True, apps=None, force_gui=False,
             tt = shutil.which("texttest.exe")
         if not tt:
             tt = shutil.which("texttest") or "texttest"
+        tt = shlex.quote(tt) if os.name == "posix" else subprocess.list2cmdline([tt])
     if not logging.root.handlers:
         logging.basicConfig(level=logging.INFO, format="%(message)s")
     process = subprocess.Popen("%s %s -a %s" % (tt, args, apps), env=env,

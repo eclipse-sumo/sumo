@@ -36,15 +36,21 @@ if [[ $(uname) == MINGW* || $(uname) == CYGWIN* ]]; then
   sumo_suffix="${sumo_suffix}.exe"
 fi
 
-pushd $(dirname $0) > /dev/null
+pushd "$(dirname "$0")" > /dev/null
 export TEXTTEST_HOME="$PWD"
 shopt -s nullglob  # expand the pattern to an empty list if no env exists
-for i in *env/bin/activate; do
+activation_scripts=(*env/bin/activate .venv/bin/activate)
+if [[ "$suffix" == *.exe ]]; then
+  activation_scripts+=(*env/Scripts/activate .venv/Scripts/activate)
+fi
+for i in "${activation_scripts[@]}"; do
+  [[ -f "$i" ]] || continue
+  test_env="$(dirname "$(dirname "$i")")"
   if [[ "$VIRTUAL_ENV" == "" ]]; then
-    echo "Activating virtual environment $(dirname $(dirname $i))."
-    source $i
+    echo "Activating virtual environment $test_env."
+    source "$i"
   else
-    echo "Virtual environment $VIRTUAL_ENV already active, ignoring $(dirname $(dirname $i))."
+    echo "Virtual environment $VIRTUAL_ENV already active, ignoring $test_env."
   fi
 done
 if [[ "$SUMO_HOME" == "" ]]; then
