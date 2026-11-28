@@ -336,7 +336,9 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     if ((vPos <= SUMO_const_haltingSpeed && vPos <= oldV) || !(vPos > oldV + ACCEL2SPEED(vars->realacc) - NUMERICAL_EPS && vPos < oldV + ACCEL2SPEED(vars->realacc) + NUMERICAL_EPS)) {
         for (auto it = vars->stop.cbegin(); it != vars->stop.cend(); ++it) {
             if (vPos > oldV + ACCEL2SPEED(it->first) - NUMERICAL_EPS && vPos < oldV + ACCEL2SPEED(it->first) + NUMERICAL_EPS) {
+                vars->myFinalizing = true;
                 _vPos = _v(veh, it->second, oldV, 0, vars->v0_int, false, 1, CalcReason::CURRENT);
+                vars->myFinalizing = false;
             }
         }
     }
@@ -441,9 +443,9 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     internalspeedlimit(veh, oldV);
 
     if (vNext > EST_REAC_THRESHOLD) { // update the Wiener-Prozess variables
-        vars->myw_gap = exp(-TS / myTPersEstimate) * vars->myw_gap + sqrt(2 * TS / myTPersEstimate) * RandHelper::randNorm(0, 0.5); // variance of 1 can create very high values and may be too high!
-        vars->myw_speed = exp(-TS / myTPersEstimate) * vars->myw_speed + sqrt(2 * TS / myTPersEstimate) * RandHelper::randNorm(0, 0.5); // variance of 1 can create very high values and may be too high!
-        vars->myw_error = exp(-TS / myTPersDrive) * vars->myw_error + sqrt(2 * TS / myTPersDrive) * RandHelper::randNorm(0, 1);
+        vars->myw_gap = exp(-TS / myTPersEstimate) * vars->myw_gap + sqrt(2 * TS / myTPersEstimate) * RandHelper::randNorm(0, 0.5, veh->getRNG()); // variance of 1 can create very high values and may be too high!
+        vars->myw_speed = exp(-TS / myTPersEstimate) * vars->myw_speed + sqrt(2 * TS / myTPersEstimate) * RandHelper::randNorm(0, 0.5, veh->getRNG()); // variance of 1 can create very high values and may be too high!
+        vars->myw_error = exp(-TS / myTPersDrive) * vars->myw_error + sqrt(2 * TS / myTPersDrive) * RandHelper::randNorm(0, 1, veh->getRNG());
     } // else all those w_... are zero by default
 
     // Update the Action-point reaction time
@@ -496,6 +498,7 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     vars->realleaderacc = 100;
 
     vars->stop.clear();
+    vars->myLeaderFound = false;
 
     return vNext;
 }
@@ -1017,7 +1020,6 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
 
         // ToDo: The headway can change for IDMM based on the scenario, should something like that also be integrated here???
         double headwayTime = myHeadwayTime;
-        MSVehicle* leader;
 
         double Accel_estSpeed = getCurrentAccel(estSpeed);
         double Accel_current_estSpeed = getCurrentAccel(current_estSpeed);
@@ -1144,9 +1146,14 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
         // @ToDo: Maybe without usage == CalcReason::CURRENT??? To let all calculations profit from Coolness??? (e.g. also lane change calculation)
         if (vars->minaccel > wantedacc - NUMERICAL_EPS && usage == CalcReason::CURRENT) {
 
-            leader = (MSVehicle*)veh->getLeader(estGap + 25).first;
-            if (leader != nullptr && lastrespectMinGap && estleaderSpeed >= SPEED_EPS) {
-                a_leader = MIN2(leader->getAcceleration(), Accel_estSpeed);
+            if (!vars->myFinalizing) {
+                // in finalizeSpeed, reuse the leader seen before the vehicles moved
+                const MSVehicle* const leader = veh->getLeader(estGap + 25).first;
+                vars->myLeaderFound = leader != nullptr;
+                vars->myLeaderAccel = leader != nullptr ? leader->getAcceleration() : 0.;
+            }
+            if (vars->myLeaderFound && lastrespectMinGap && estleaderSpeed >= SPEED_EPS) {
+                a_leader = MIN2(vars->myLeaderAccel, Accel_estSpeed);
                 // Change a_leader to lower values when far away from leader or else far away leaders influence the ego-vehicle!
                 if (estGap > s * 3 / 2) { // maybe estGap > 2*s???
                     a_leader = a_leader * (s * 3 / 2) / estGap;

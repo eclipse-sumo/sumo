@@ -247,6 +247,9 @@ public:
         ret->mys_est = 0.;
         ret->myrespectMinGap = true;
         ret->myap_update = 0;
+        ret->myLeaderFound = false;
+        ret->myLeaderAccel = 0.;
+        ret->myFinalizing = false;
         return ret;
     }
 
@@ -273,6 +276,9 @@ private:
         bool myrespectMinGap; // @brief saves the information, if minGap was added to the desired gap s* at the last driver update (reaction time)
         int myap_update; // @brief is a number counting the simulation steps since the last driver/vehicle update (reaction time)
         std::vector<std::pair<double, double>> stop; // @brief saves the intended accelerations and distances from all stopSpeed-calculations of the current time step
+        bool myLeaderFound; // @brief whether the last leader lookup of the current time step found a leader
+        double myLeaderAccel; // @brief acceleration of that leader, looked up before any vehicle moves
+        bool myFinalizing; // @brief whether finalizeSpeed is running (vehicles may move concurrently)
                                                      
         /** @brief Saves the vehicle variables
          * @param[in] out The OutputDevice to write the information into
