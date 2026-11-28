@@ -66,6 +66,18 @@ Custom classes:
 ```
 
 <br><br>
+# Sortable tables
+
+Add `{.sortable}` to the first header cell of a Markdown table to let readers sort its rows. Each sortable column header becomes a button. Add `data-sort-method="numeric"` to a header to sort by its cells' leading numbers. For numeric columns, cells without a leading number come before numbers in ascending order. Use `data-sort-method="none"` on a header to keep it static.
+
+```markdown
+| Name {.sortable} | Length {data-sort-method="numeric"} |
+| --- | --- |
+| River Road | 9.5 m |
+| Main Street | 12 m |
+```
+
+<br><br>
 # **Styling text**
 
 Element | Code | Will show as

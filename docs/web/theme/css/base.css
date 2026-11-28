@@ -779,3 +779,34 @@ border-radius: 0.2rem;
 color: #868e96;
 border-color: #868e96;
 }
+
+.table-sort-button {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
+}
+
+.table-sort-button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+.table-sort-icon {
+    margin-left: .35em;
+}
+
+.table-sort-icon::before {
+    content: "↕";
+}
+
+th[aria-sort="ascending"] .table-sort-icon::before {
+    content: "▲";
+}
+
+th[aria-sort="descending"] .table-sort-icon::before {
+    content: "▼";
+}

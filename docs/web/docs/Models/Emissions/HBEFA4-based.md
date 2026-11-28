@@ -29,8 +29,11 @@ definition of vehicle types together with the fleet share in an average 2022 veh
 as estimated by HBEFA4.2 and the error when fitting the relevant emission (so please be
 careful if you evaluate emissions with an error value above 40%).
 
+Select a column header to sort its table. The PM column sorts by the first error component.
+
 ### Passenger Cars
-| SUMO emission class | HBEFA subsegment | HBEFA subsegment ID | fleet share 2022 | error CO2 | error CO | error HC | error FC | error NOx | error PM | error FC_MJ |
+
+| SUMO emission class {.sortable} | HBEFA subsegment | HBEFA subsegment ID {data-sort-method="numeric"} | fleet share 2022 {data-sort-method="numeric"} | error CO2 {data-sort-method="numeric"} | error CO {data-sort-method="numeric"} | error HC {data-sort-method="numeric"} | error FC {data-sort-method="numeric"} | error NOx {data-sort-method="numeric"} | error PM {data-sort-method="numeric"} | error FC_MJ {data-sort-method="numeric"} |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | PC_petrol_ltECE | PC petrol <ECE | 111900 | 0.0332% | 5.41% | 26.38% | 7.35% | 5.41% | 17.23% | 66.33% + 3.07% | - |
 | PC_petrol_ECE-15_00 | PC petrol ECE-15'00 | 111901 | 0.0000% | 5.41% | 26.38% | 7.26% | 5.41% | 17.23% | 66.33% + 3.07% | - |
@@ -123,7 +126,7 @@ careful if you evaluate emissions with an error value above 40%).
 | PC_4S_EE | PC 4S EE | 191800 | 0.0000% | 5.41% | 39.44% | 37.30% | 5.41% | 22.51% | 66.33% + 3.07% | - |
 
 ### Light Vehicles
-| SUMO emission class | HBEFA subsegment | HBEFA subsegment ID | fleet share 2022 | error CO2 | error CO | error HC | error FC | error NOx | error PM | error FC_MJ |
+| SUMO emission class {.sortable} | HBEFA subsegment | HBEFA subsegment ID {data-sort-method="numeric"} | fleet share 2022 {data-sort-method="numeric"} | error CO2 {data-sort-method="numeric"} | error CO {data-sort-method="numeric"} | error HC {data-sort-method="numeric"} | error FC {data-sort-method="numeric"} | error NOx {data-sort-method="numeric"} | error PM {data-sort-method="numeric"} | error FC_MJ {data-sort-method="numeric"} |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | LCV_petrol_M+N1-I_Conv_lt1981 | LCV petrol M+N1-I Conv <1981 | 212100 | 0.0000% | 6.51% | 30.77% | 10.23% | 6.51% | 29.31% | 47.95% + 2.97% | - |
 | LCV_petrol_M+N1-I_Conv_gt1981 | LCV petrol M+N1-I Conv >1981 | 212101 | 0.1697% | 6.51% | 30.77% | 10.23% | 6.51% | 29.31% | 47.95% + 2.97% | - |
@@ -285,7 +288,7 @@ careful if you evaluate emissions with an error value above 40%).
 | LCV_FuelCell_N1-III | LCV FuelCell N1-III | 281301 | 0.0000% | 0.00% | 0.00% | 0.00% | 5.85% | 0.00% | 0.00% + 3.03% | - |
 
 ### Coaches
-| SUMO emission class | HBEFA subsegment | HBEFA subsegment ID | fleet share 2022 | error CO2 | error CO | error HC | error FC | error NOx | error PM | error FC_MJ |
+| SUMO emission class {.sortable} | HBEFA subsegment | HBEFA subsegment ID {data-sort-method="numeric"} | fleet share 2022 {data-sort-method="numeric"} | error CO2 {data-sort-method="numeric"} | error CO {data-sort-method="numeric"} | error HC {data-sort-method="numeric"} | error FC {data-sort-method="numeric"} | error NOx {data-sort-method="numeric"} | error PM {data-sort-method="numeric"} | error FC_MJ {data-sort-method="numeric"} |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Coach_Std_le18t_50ties | Coach Std <=18t 50ties | 626105 | 0.0000% | - | 12.27% | 15.60% | 20.02% | 21.28% | 11.69% | - |
 | Coach_Std_le18t_60ties | Coach Std <=18t 60ties | 626106 | 0.0000% | - | 12.27% | 15.60% | 20.02% | 21.28% | 11.69% | - |
@@ -365,7 +368,7 @@ careful if you evaluate emissions with an error value above 40%).
 | Coach_Std_le18t_EE | Coach Std <=18t EE | 696909 | 0.0000% | - | 12.27% | 15.60% | 20.02% | 21.28% | 11.69% | - |
 
 ### City Bus
-| SUMO emission class | HBEFA subsegment | HBEFA subsegment ID | fleet share 2022 | error CO2 | error CO | error HC | error FC | error NOx | error PM | error FC_MJ |
+| SUMO emission class {.sortable} | HBEFA subsegment | HBEFA subsegment ID {data-sort-method="numeric"} | fleet share 2022 {data-sort-method="numeric"} | error CO2 {data-sort-method="numeric"} | error CO {data-sort-method="numeric"} | error HC {data-sort-method="numeric"} | error FC {data-sort-method="numeric"} | error NOx {data-sort-method="numeric"} | error PM {data-sort-method="numeric"} | error FC_MJ {data-sort-method="numeric"} |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | UBus_Midi_P_le15t_Euro-IV | UBus Midi P <=15t Euro-IV | 717140 | 0.0000% | 18.23% | 17.77% | 15.02% | 18.23% | 21.40% | 18.52% + 15.91% | - |
 | UBus_Midi_P_le15t_Euro-V | UBus Midi P <=15t Euro-V | 717150 | 0.0000% | 18.88% | 44.99% | 8.75% | 18.88% | 18.80% | 13.10% + 15.76% | - |
@@ -509,7 +512,7 @@ careful if you evaluate emissions with an error value above 40%).
 | UBus_Artic_gt18t_LNG_Euro-VI | UBus Artic >18t LNG Euro-VI | 796360 | 0.0000% | 24.11% | 24.11% | 24.11% | 24.11% | 24.11% | 24.11% + 15.44% | - |
 
 ### Motor Cycles
-| SUMO emission class | HBEFA subsegment | HBEFA subsegment ID | fleet share 2022 | error CO2 | error CO | error HC | error FC | error NOx | error PM | error FC_MJ |
+| SUMO emission class {.sortable} | HBEFA subsegment | HBEFA subsegment ID {data-sort-method="numeric"} | fleet share 2022 {data-sort-method="numeric"} | error CO2 {data-sort-method="numeric"} | error CO {data-sort-method="numeric"} | error HC {data-sort-method="numeric"} | error FC {data-sort-method="numeric"} | error NOx {data-sort-method="numeric"} | error PM {data-sort-method="numeric"} | error FC_MJ {data-sort-method="numeric"} |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | MC_4S_le250cc_preEuro | MC 4S <=250cc preEuro | 919200 | 4.9814% | 2.97% | 13.73% | 12.06% | 2.97% | 16.67% | 12.83% + 6.21% | - |
 | MC_4S_le250cc_Euro-1 | MC 4S <=250cc Euro-1 | 919210 | 2.2953% | 2.97% | 13.73% | 12.06% | 2.97% | 16.67% | 12.83% + 6.21% | - |
@@ -549,7 +552,7 @@ careful if you evaluate emissions with an error value above 40%).
 | MC_BEV | MC BEV | 951501 | 0.2665% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% + 6.23% | 1.40% |
 
 ### Heavy Goods Vehicles
-| SUMO emission class | HBEFA subsegment | HBEFA subsegment ID | fleet share 2022 | error CO2 | error CO | error HC | error FC | error NOx | error PM | error FC_MJ |
+| SUMO emission class {.sortable} | HBEFA subsegment | HBEFA subsegment ID {data-sort-method="numeric"} | fleet share 2022 {data-sort-method="numeric"} | error CO2 {data-sort-method="numeric"} | error CO {data-sort-method="numeric"} | error HC {data-sort-method="numeric"} | error FC {data-sort-method="numeric"} | error NOx {data-sort-method="numeric"} | error PM {data-sort-method="numeric"} | error FC_MJ {data-sort-method="numeric"} |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | RT_petrol | RT petrol | 1413000 | 0.0000% | 5.03% | 12.38% | 15.59% | 5.03% | 3.57% | 0.00% + 12.29% | - |
 | RT_le7.5t_50ties | RT <=7.5t 50ties | 1423105 | 0.0000% | 5.03% | 12.38% | 15.59% | 5.03% | 3.57% | 9.32% + 12.29% | - |
