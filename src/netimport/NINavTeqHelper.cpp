@@ -97,140 +97,135 @@ NINavTeqHelper::getLaneNumber(const std::string& id, const std::string& laneNoS,
 
 
 bool
-NINavTeqHelper::addCommonVehicleClasses(NBEdge& e, const std::string& classS, const int offset) {
+NINavTeqHelper::addCommonVehicleClasses(SVCPermissions& permissions, const std::string& classS, const int offset) {
     bool haveCar = false;
     // High Occupancy Vehicle -- becomes SVC_PASSENGER|SVC_HOV
     if (classS[offset] == '1') {
-        e.allowVehicleClass(-1, SVC_HOV);
-        e.allowVehicleClass(-1, SVC_PASSENGER);
+        permissions |= SVC_HOV | SVC_PASSENGER;
         haveCar = true;
     } else {
-        e.disallowVehicleClass(-1, SVC_HOV);
+        permissions &= ~SVC_HOV;
     }
     // Emergency Vehicle -- becomes SVC_EMERGENCY
     if (classS[offset + 1] == '1') {
-        e.allowVehicleClass(-1, SVC_EMERGENCY);
+        permissions |= SVC_EMERGENCY;
     } else {
-        e.disallowVehicleClass(-1, SVC_EMERGENCY);
+        permissions &= ~SVC_EMERGENCY;
     }
     // Taxi -- becomes SVC_TAXI
     if (classS[offset + 2] == '1') {
-        e.allowVehicleClass(-1, SVC_TAXI);
+        permissions |= SVC_TAXI;
         haveCar = true;
     } else {
-        e.disallowVehicleClass(-1, SVC_TAXI);
+        permissions &= ~SVC_TAXI;
     }
     // Public Bus -- becomes SVC_BUS|SVC_COACH
     if (classS[offset + 3] == '1') {
-        e.allowVehicleClass(-1, SVC_BUS);
-        e.allowVehicleClass(-1, SVC_COACH);
+        permissions |= SVC_BUS | SVC_COACH;
         haveCar = true;
     } else {
-        e.disallowVehicleClass(-1, SVC_BUS);
-        e.disallowVehicleClass(-1, SVC_COACH);
+        permissions &= ~(SVC_BUS | SVC_COACH);
     }
     // Delivery Truck -- becomes SVC_DELIVERY
     if (classS[offset + 4] == '1') {
-        e.allowVehicleClass(-1, SVC_DELIVERY);
+        permissions |= SVC_DELIVERY;
         haveCar = true;
     } else {
-        e.disallowVehicleClass(-1, SVC_DELIVERY);
+        permissions &= ~SVC_DELIVERY;
     }
     // Transport Truck -- becomes SVC_TRUCK|SVC_TRAILER
     if (classS[offset + 5] == '1') {
-        e.allowVehicleClass(-1, SVC_TRUCK);
-        e.allowVehicleClass(-1, SVC_TRAILER);
+        permissions |= SVC_TRUCK | SVC_TRAILER;
         haveCar = true;
     } else {
-        e.disallowVehicleClass(-1, SVC_TRUCK);
-        e.disallowVehicleClass(-1, SVC_TRAILER);
+        permissions &= ~(SVC_TRUCK | SVC_TRAILER);
     }
     return haveCar;
 }
 
 
-void
-NINavTeqHelper::addVehicleClasses(NBEdge& e, const std::string& oclassS, const SVCPermissions allPermissions, const SVCPermissions defaultPermissions) {
-    std::string classS = "0000000000" + oclassS;
-    classS = classS.substr(classS.length() - 10);
-    // 0: allow all vehicle types
-    if (classS[0] == '1') {
-        e.setPermissions(allPermissions);
-        return;
-    }
-    bool haveCar = false;
-    e.setPermissions(defaultPermissions);
-    // Passenger cars -- becomes SVC_PASSENGER
-    if (classS[1] == '1') {
-        e.allowVehicleClass(-1, SVC_PASSENGER);
-        haveCar = true;
+SVCPermissions
+NINavTeqHelper::getVehicleClasses(const std::string& oclassS, const SVCPermissions allPermissions, const SVCPermissions defaultPermissions, double version) {
+    if (version < 6.0) {
+        std::string classS = "0000000000" + oclassS;
+        classS = classS.substr(classS.length() - 10);
+        if (classS[0] == '1') {
+            return allPermissions;
+        }
+        bool haveCar = false;
+        SVCPermissions permissions = defaultPermissions;
+        if (classS[1] == '1') {
+            permissions |= SVC_PASSENGER;
+            haveCar = true;
+        } else {
+            permissions &= ~SVC_PASSENGER;
+        }
+        haveCar |= addCommonVehicleClasses(permissions, classS, 2);
+        if (!haveCar) {
+            permissions = 0;
+        }
+        if (classS[8] == '1') {
+            permissions |= SVC_BICYCLE;
+        } else {
+            permissions &= ~SVC_BICYCLE;
+        }
+        if (classS[9] == '1') {
+            permissions |= SVC_PEDESTRIAN;
+        } else {
+            permissions &= ~SVC_PEDESTRIAN;
+        }
+        return permissions;
     } else {
-        e.disallowVehicleClass(-1, SVC_PASSENGER);
-    }
-    haveCar |= addCommonVehicleClasses(e, classS, 2);
-    if (!haveCar) {
-        e.setPermissions(0);
-    }
-    // Bicycle -- becomes SVC_BICYCLE
-    if (classS[8] == '1') {
-        e.allowVehicleClass(-1, SVC_BICYCLE);
-    } else {
-        e.disallowVehicleClass(-1, SVC_BICYCLE);
-    }
-    // Pedestrian -- becomes SVC_PEDESTRIAN
-    if (classS[9] == '1') {
-        e.allowVehicleClass(-1, SVC_PEDESTRIAN);
-    } else {
-        e.disallowVehicleClass(-1, SVC_PEDESTRIAN);
+        std::string classS = "0000000000" + oclassS;
+        classS = classS.substr(classS.length() - 12);
+        if (classS[0] == '1') {
+            return allPermissions;
+        }
+        bool haveCar = false;
+        SVCPermissions permissions = defaultPermissions;
+        if (classS[1] == '1') {
+            permissions |= SVC_PASSENGER;
+            haveCar = true;
+        } else {
+            permissions &= ~SVC_PASSENGER;
+        }
+        if (classS[2] == '1') {
+            permissions |= SVC_PASSENGER;
+            haveCar = true;
+        }
+        haveCar |= addCommonVehicleClasses(permissions, classS, 3);
+        if (!haveCar) {
+            permissions = 0;
+        }
+        if (classS[9] == '1') {
+            permissions |= SVC_MOTORCYCLE;
+        } else {
+            permissions &= ~SVC_MOTORCYCLE;
+        }
+        if (classS[10] == '1') {
+            permissions |= SVC_BICYCLE;
+        } else {
+            permissions &= ~SVC_BICYCLE;
+        }
+        if (classS[11] == '1') {
+            permissions |= SVC_PEDESTRIAN;
+        } else {
+            permissions &= ~SVC_PEDESTRIAN;
+        }
+        return permissions;
     }
 }
 
 
 void
+NINavTeqHelper::addVehicleClasses(NBEdge& e, const std::string& oclassS, const SVCPermissions allPermissions, const SVCPermissions defaultPermissions) {
+    e.setPermissions(getVehicleClasses(oclassS, allPermissions, defaultPermissions, 5.0));
+}
+
+
+void
 NINavTeqHelper::addVehicleClassesV6(NBEdge& e, const std::string& oclassS, const SVCPermissions allPermissions, const SVCPermissions defaultPermissions) {
-    std::string classS = "0000000000" + oclassS;
-    classS = classS.substr(classS.length() - 12);
-    // 0: allow all vehicle types
-    if (classS[0] == '1') {
-        e.setPermissions(allPermissions);
-        return;
-    }
-    bool haveCar = false;
-    e.setPermissions(defaultPermissions);
-    // Passenger cars -- becomes SVC_PASSENGER
-    if (classS[1] == '1') {
-        e.allowVehicleClass(-1, SVC_PASSENGER);
-        haveCar = true;
-    } else {
-        e.disallowVehicleClass(-1, SVC_PASSENGER);
-    }
-    // Residential Vehicle -- becomes SVC_PASSENGER
-    if (classS[2] == '1') {
-        e.allowVehicleClass(-1, SVC_PASSENGER);
-        haveCar = true;
-    }
-    haveCar |= addCommonVehicleClasses(e, classS, 3);
-    if (!haveCar) {
-        e.setPermissions(0);
-    }
-    // Motorcycle -- becomes SVC_MOTORCYCLE
-    if (classS[9] == '1') {
-        e.allowVehicleClass(-1, SVC_MOTORCYCLE);
-    } else {
-        e.disallowVehicleClass(-1, SVC_MOTORCYCLE);
-    }
-    // Bicycle -- becomes SVC_BICYCLE
-    if (classS[10] == '1') {
-        e.allowVehicleClass(-1, SVC_BICYCLE);
-    } else {
-        e.disallowVehicleClass(-1, SVC_BICYCLE);
-    }
-    // Pedestrian -- becomes SVC_PEDESTRIAN
-    if (classS[11] == '1') {
-        e.allowVehicleClass(-1, SVC_PEDESTRIAN);
-    } else {
-        e.disallowVehicleClass(-1, SVC_PEDESTRIAN);
-    }
+    e.setPermissions(getVehicleClasses(oclassS, allPermissions, defaultPermissions, 6.0));
 }
 
 

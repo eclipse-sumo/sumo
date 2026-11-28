@@ -88,7 +88,10 @@ public:
     /// @brief same as addVehicleClasses but for version 6+
     static void addVehicleClassesV6(NBEdge& e, const std::string& classS, const SVCPermissions allPermissions, const SVCPermissions defaultPermissions);
 
+    /// @brief Returns SVCPermissions parsed from the given Navteq vehicle-type bitstring
+    static SVCPermissions getVehicleClasses(const std::string& classS, const SVCPermissions allPermissions, const SVCPermissions defaultPermissions, double version);
+
 private:
-    static bool addCommonVehicleClasses(NBEdge& e, const std::string& classS, const int offset);
+    static bool addCommonVehicleClasses(SVCPermissions& permissions, const std::string& classS, const int offset);
 
 };

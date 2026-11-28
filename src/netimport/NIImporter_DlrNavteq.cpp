@@ -130,8 +130,9 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     file = oc.getString("dlr-navteq-prefix") + "_connected_lanes.txt";
     if (lr.setFile(file)) {
         PROGRESS_BEGIN_MESSAGE(TL("Loading connected lanes"));
-        ConnectedLanesHandler handler7(nb.getEdgeCont());
+        ConnectedLanesHandler handler7(nb.getEdgeCont(), nb.getTypeCont(), file);
         lr.readAll(handler7);
+        handler7.applyLanePermissions();
         PROGRESS_DONE_MESSAGE();
     }
 
@@ -770,8 +771,11 @@ NIImporter_DlrNavteq::ProhibitionHandler::report(const std::string& result) {
 // definitions of NIImporter_DlrNavteq::ConnectedLanesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_DlrNavteq::ConnectedLanesHandler::ConnectedLanesHandler(
-    NBEdgeCont& ec) :
-    myEdgeCont(ec) {
+    NBEdgeCont& ec, NBTypeCont& tc, const std::string& file) :
+    myEdgeCont(ec),
+    myTypeCont(tc),
+    myFile(file),
+    myVersion(0) {
 }
 
 
@@ -781,6 +785,12 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::~ConnectedLanesHandler() {}
 bool
 NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
     if (result[0] == '#') {
+        if (myVersion == 0) {
+            const double version = readVersion(result, myFile);
+            if (version > 0) {
+                myVersion = version;
+            }
+        }
         return true;
     }
     StringTokenizer st(result, StringTokenizer::TAB);
@@ -816,6 +826,18 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
         WRITE_WARNINGF(TL("Ignoring invalid lane index '%' in connection to edge '%' with % lanes"), toLaneS, endEdge, to->getNumLanes());
         return true;
     }
+    if (vehicleType != "" && vehicleType != UNDEFINED) {
+        const SVCPermissions allPermissions = myTypeCont.getEdgeTypePermissions("");
+        const SVCPermissions defaultPermissions = OptionsCont::getOptions().getBool("dlr-navteq.tolerant-permissions") ? allPermissions : 0;
+        const SVCPermissions fromPerm = from->getPermissions(fromLane);
+        const SVCPermissions toPerm = to->getPermissions(toLane);
+        const SVCPermissions connPerms = NINavTeqHelper::getVehicleClasses(vehicleType, allPermissions, defaultPermissions, myVersion == 0 ? 6.0 : myVersion) & fromPerm;
+        const SVCPermissions effectiveLanePerms = (connPerms == (fromPerm & toPerm)) ? fromPerm : connPerms;
+        myLanePermissions[from][fromLane] |= effectiveLanePerms;
+        if (connPerms != (fromPerm & toPerm)) {
+            myConPermissions[from].push_back(std::make_tuple(fromLane, to, toLane, connPerms));
+        }
+    }
     if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::Lane2LaneInfoType::USER, true)) {
         if (OptionsCont::getOptions().getBool("show-errors.connections-first-try")) {
             WRITE_WARNINGF(TL("Could not set loaded connection from '%' to '%'."), from->getLaneID(fromLane), to->getLaneID(toLane));
@@ -831,6 +853,33 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
     from->declareConnectionsAsLoaded(NBEdge::EdgeBuildingStep::INIT);
     from->getLaneStruct(fromLane).connectionsDone = true;
     return true;
+}
+
+
+void
+NIImporter_DlrNavteq::ConnectedLanesHandler::applyLanePermissions() {
+    for (const auto& edgeEntry : myLanePermissions) {
+        NBEdge* from = edgeEntry.first;
+        for (const auto& laneEntry : edgeEntry.second) {
+            const int laneIdx = laneEntry.first;
+            const SVCPermissions lanePerms = laneEntry.second;
+            if (lanePerms != from->getPermissions(laneIdx)) {
+                from->setPermissions(lanePerms, laneIdx);
+            }
+        }
+    }
+    for (const auto& conEntry : myConPermissions) {
+        NBEdge* from = conEntry.first;
+        for (const auto& tup : conEntry.second) {
+            const int fromLane = std::get<0>(tup);
+            NBEdge* to = std::get<1>(tup);
+            const int toLane = std::get<2>(tup);
+            const SVCPermissions connPerms = std::get<3>(tup);
+            if (connPerms != from->getPermissions(fromLane) && from->hasConnectionTo(to, toLane, fromLane)) {
+                from->getConnectionRef(fromLane, to, toLane).permissions = connPerms;
+            }
+        }
+    }
 }
 
 
