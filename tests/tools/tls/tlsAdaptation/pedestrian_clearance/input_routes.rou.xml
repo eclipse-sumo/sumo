@@ -1,0 +1,7 @@
+<routes>
+    <vehicle id="west0" depart="0"><route edges="A1B1 B1C1"/></vehicle>
+    <vehicle id="north0" depart="0"><route edges="B2B1 B1B0"/></vehicle>
+    <vehicle id="west1" depart="1200"><route edges="A1B1 B1C1"/></vehicle>
+    <vehicle id="north1" depart="1800"><route edges="B2B1 B1B0"/></vehicle>
+    <vehicle id="west2" depart="3599"><route edges="A1B1 B1C1"/></vehicle>
+</routes>

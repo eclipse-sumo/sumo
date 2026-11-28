@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 13:02:37.224469 by Eclipse SUMO tlsCycleAdaptation.py v1.28.0-0000000000
+<configuration>
+    <net-file value="net.net.xml"/>
+    <output-file value="out.add.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <begin value="0.0"/>
+    <existing-cycle value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="B1" type="static" programID="a" offset="0">
+        <phase duration="28" state="gGggrrrrgGggrrrrrGrGr"/>
+        <phase duration="5" state="gGggrrrrgGggrrrrrrrrr"/>
+        <phase duration="4" state="yyyyrrrryyyyrrrrrrrrr"/>
+        <phase duration="44" state="rrrrgGggrrrrgGggGrGrG"/>
+        <phase duration="5" state="rrrrgGggrrrrgGggrrrrr"/>
+        <phase duration="4" state="rrrryyyyrrrryyyyrrrrr"/>
+    </tlLogic>
+</additional>
