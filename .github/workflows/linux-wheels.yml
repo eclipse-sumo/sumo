@@ -15,6 +15,7 @@ on:
     paths:
       - 'CMakeLists.txt'
       - 'build_config/**'
+      - 'tools/build_config/version.py'
       - 'pysrc/**'
       - 'src/libsumo/**'
       - 'src/libtraci/**'
