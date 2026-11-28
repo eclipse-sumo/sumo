@@ -27,3 +27,12 @@ mixed_permissions_no_conflict
 
 # test option --split-offset
 split_at_tls
+
+# test --split-range detecting upstream rail_signal over multiple edges
+split_range
+
+# test --split-offset looking upstream over multiple edges
+split_upstream
+
+# test patching stops when splitting edges
+split_stops

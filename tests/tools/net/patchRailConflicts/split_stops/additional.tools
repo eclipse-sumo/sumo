@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-28T10:32:05.709311+00:00 by Eclipse SUMO netconvert v1.28.0-0000000000
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Users\Mark\.gemini\antigravity\brain\88999300-c898-4d77-bdb4-15d306dbc42f\scratch\worktrees\wt_17744\tests\tools\net\patchRailConflicts\split_stops\input_net.net.xml"/>
+        <node-files value="C:\Users\Mark\.gemini\antigravity\brain\9a18d7bf-4861-4978-84cf-c643cc1a3f00\scratch\inspect_stops\net.nod.xml"/>
+        <edge-files value="C:\Users\Mark\.gemini\antigravity\brain\9a18d7bf-4861-4978-84cf-c643cc1a3f00\scratch\inspect_stops\net.edg.xml"/>
+        <connection-files value="C:\Users\Mark\.gemini\antigravity\brain\9a18d7bf-4861-4978-84cf-c643cc1a3f00\scratch\inspect_stops\net.con.xml"/>
+        <ptstop-files value="C:\Users\Mark\.gemini\antigravity\brain\88999300-c898-4d77-bdb4-15d306dbc42f\scratch\worktrees\wt_17744\tests\tools\net\patchRailConflicts\split_stops\input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\Mark\.gemini\antigravity\brain\9a18d7bf-4861-4978-84cf-c643cc1a3f00\scratch\inspect_stops\net.net.xml"/>
+        <ptstop-output value="C:\Users\Mark\.gemini\antigravity\brain\9a18d7bf-4861-4978-84cf-c643cc1a3f00\scratch\inspect_stops\out_stops.add.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <ptstop-output.no-bidi value="true"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+</netconvertConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop id="stop_E0" lane="E0.-50_0" startPos="10.00" endPos="30.00" friendlyPos="true"/>
+    <trainStop id="stop_E2" lane="E2_0" startPos="61.41" endPos="91.41" friendlyPos="true"/>
+</additional>
