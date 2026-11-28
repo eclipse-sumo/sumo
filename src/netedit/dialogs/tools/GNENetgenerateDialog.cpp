@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <utils/common/StringUtils.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNENetgenerateDialog.h"
@@ -30,6 +31,7 @@
 FXDEFMAP(GNENetgenerateDialog) GNENetgenerateDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN,                   GNENetgenerateDialog::onCmdOpenOutputFile),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNENetgenerateDialog::onCmdSetOutput),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_SET_ATTRIBUTE,          GNENetgenerateDialog::onCmdSetOutput),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_GRID,       GNENetgenerateDialog::onCmdSetGridNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_SPIDER,     GNENetgenerateDialog::onCmdSetSpiderNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_RANDOMGRID, GNENetgenerateDialog::onCmdSetRandomNetworkGridNetwork),
@@ -126,15 +128,6 @@ GNENetgenerateDialog::onCmdOpenOutputFile(FXObject*, FXSelector, void*) {
 
 long
 GNENetgenerateDialog::onCmdSetOutput(FXObject*, FXSelector, void*) {
-    auto& generateOptions = myApplicationWindow->getNetgenerateOptions();
-    generateOptions.resetWritable();
-    // check if filename is valid
-    if (SUMOXMLDefinitions::isValidFilename(myOutputTextField->getText().text()) == false) {
-        myOutputTextField->setTextColor(GUIDesignTextColorRed);
-    } else {
-        generateOptions.set("output-file", myOutputTextField->getText().text());
-        myOutputTextField->setTextColor(GUIDesignTextColorBlack);
-    }
     updateRunButtons();
     return 1;
 }
@@ -247,6 +240,9 @@ GNENetgenerateDialog::onCmdSetRandomNetwork(FXObject*, FXSelector, void*) {
 
 long
 GNENetgenerateDialog::onCmdRun(FXObject*, FXSelector, void*) {
+    if (!commitOutputFile()) {
+        return 1;
+    }
     // close dialog
     closeDialogCanceling();
     // run netgenerate
@@ -256,6 +252,9 @@ GNENetgenerateDialog::onCmdRun(FXObject*, FXSelector, void*) {
 
 long
 GNENetgenerateDialog::onCmdAdvanced(FXObject*, FXSelector, void*) {
+    if (!commitOutputFile()) {
+        return 1;
+    }
     // close dialog
     closeDialogCanceling();
     // open netgenerate option dialog
@@ -265,8 +264,10 @@ GNENetgenerateDialog::onCmdAdvanced(FXObject*, FXSelector, void*) {
 
 void
 GNENetgenerateDialog::updateRunButtons() {
-    // enable or disable run and advanced buttons depending of flags
-    if ((myOutputTextField->getText().length() > 0) && mySelectedNetworktypeFlag) {
+    const std::string filename = myOutputTextField->getText().text();
+    const bool valid = SUMOXMLDefinitions::isValidFilename(filename);
+    myOutputTextField->setTextColor(valid ? GUIDesignTextColorBlack : GUIDesignTextColorRed);
+    if (!filename.empty() && valid && mySelectedNetworktypeFlag) {
         myRunButton->enable();
         myAdvancedButton->enable();
     } else {
@@ -274,5 +275,22 @@ GNENetgenerateDialog::updateRunButtons() {
         myAdvancedButton->disable();
     }
 }
+
+
+bool
+GNENetgenerateDialog::commitOutputFile() {
+    if (!myRunButton->isEnabled()) {
+        return false;
+    }
+    std::string filename = myOutputTextField->getText().text();
+    if (!StringUtils::endsWith(filename, ".net.xml") && !StringUtils::endsWith(filename, ".net.xml.gz")) {
+        filename += ".net.xml";
+    }
+    auto& generateOptions = myApplicationWindow->getNetgenerateOptions();
+    generateOptions.resetWritable();
+    generateOptions.set("output-file", filename);
+    return true;
+}
+
 
 /****************************************************************************/

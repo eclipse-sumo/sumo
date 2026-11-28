@@ -116,6 +116,9 @@ private:
     /// @brief update run buttons
     void updateRunButtons();
 
+    /// @brief save a valid output filename before proceeding
+    bool commitOutputFile();
+
     /// @brief Invalidated copy constructor.
     GNENetgenerateDialog(const GNENetgenerateDialog&) = delete;
 
