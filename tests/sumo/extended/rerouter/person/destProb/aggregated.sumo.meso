@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-22 08:20:47 by Eclipse SUMO sumo Version v1_16_0+0596-1ab9327
+<!-- generated on 2026-11-23T11:44:40.824325+00:00 by Eclipse SUMO sumo v1.28.0-0000000000
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -28,6 +28,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </time>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -45,13 +47,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
-    <interval begin="0.00" end="283.00" id="ed0">
+    <interval begin="0.00" end="1358.00" id="ed0">
+        <edge id="beg" arrived="0"/>
+        <edge id="beg2left" arrived="0"/>
+        <edge id="beg2right" arrived="0"/>
+        <edge id="end" arrived="29"/>
         <edge id="left" arrived="41"/>
-        <edge id="middle" arrived="29"/>
+        <edge id="left2end" arrived="0"/>
+        <edge id="middle" arrived="0"/>
+        <edge id="rend" arrived="0"/>
         <edge id="right" arrived="30"/>
+        <edge id="right2end" arrived="0"/>
     </interval>
 </meandata>

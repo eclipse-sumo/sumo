@@ -151,7 +151,8 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
     sampleSeconds += timeOnLane;
     travelledDistance += travelledDistanceVehicleOnLane;
     vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
-    if (MSGlobals::gUseMesoSim) {
+    const bool mesoVehicle = MSGlobals::gUseMesoSim && veh.isVehicle();
+    if (mesoVehicle) {
         // For the mesosim case no information on whether the vehicle was occupying
         // the lane with its whole length is available. We assume the whole length
         // Therefore this increment is taken out with more information on the vehicle movement.
@@ -165,7 +166,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
         if (myParent != nullptr && (meanSpeedVehicleOnLane < myParent->myHaltSpeed
                                     || (myParent->myHaltSpeedRel > 0 && meanSpeedVehicleOnLane / veh.getCurrentEdge()->getSpeedLimit(veh.getVClass()) < myParent->myHaltSpeedRel))) {
             waitSeconds += timeOnLane;
-        } else if (MSGlobals::gUseMesoSim) {
+        } else if (mesoVehicle) {
             waitSeconds += STEPS2TIME(veh.getWaitingTime());
         }
         const double vmax = veh.getLane() == nullptr ? veh.getEdge()->getVehicleMaxSpeed(&veh) : veh.getLane()->getVehicleMaxSpeed(&veh);
@@ -194,7 +195,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOTrafficObject& veh, double
 #ifdef HAVE_FOX
         ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
-        if (MSGlobals::gUseMesoSim) {
+        if (MSGlobals::gUseMesoSim && veh.isVehicle()) {
             removeFromVehicleUpdateValues(veh);
         }
         if (reason == MSMoveReminder::NOTIFICATION_ARRIVED) {
