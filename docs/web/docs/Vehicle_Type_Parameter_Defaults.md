@@ -2,11 +2,14 @@
 title: Vehicle Type Parameter Defaults
 ---
 
-This page describes the vehicle parameter defaults depending on the
-vehicle class. If no values are given the values for passenger are used.
-It uses as default always the values in the first line for each vehicle
-class. The other values (in the subsections) are just an information (to be used with own
-vehicle types).
+This page lists `<vType>` parameter values associated with each `vClass`.
+
+### Implemented Defaults vs. Reference Recommendations
+
+- **Active C++ defaults (`SUMOVTypeParameter`)**: Primary category tables (`Pedestrians and Two-Wheelers`, `Passenger Cars and Light Delivery`, `Trucks and Buses`, `Rail`, plus `ship` and `wheelchair` under `Other`) list the defaults applied automatically by SUMO when `<vType vClass="..."/>` omits an attribute. Any attribute shown as `-` in `desiredMaxSpeed` defaults to `10000/3.6` m/s (`2777.78` m/s) so road speed limits and `maxSpeed` govern travel speed. Driver imperfection `sigma` defaults to `0` for `tram`, `rail_urban`, `rail`, `rail_electric`, `rail_fast`, and `ship`, and to `0.5` for all other classes.
+- **Exact numeric values for compound expressions**: In `Trucks and Buses`, `coach` uses `decel="4.0"` m/s<sup>2</sup> and `emergencyDecel="7.0"` m/s<sup>2</sup>. In `Rail`, the evaluated default lengths and capacities in C++ are `rail_urban` (`length="109.5"` m, `personCapacity="300"`), `rail` (`length="135.0"` m, `personCapacity="434"`), and `rail_electric` / `rail_fast` (`length="200.0"` m, `personCapacity="425"`). In `Pedestrians and Two-Wheelers` and `Trucks and Buses`, C++ `personCapacity` defaults to `1` for `moped` and `motorcycle` and `2` for `delivery`, `emergency`, `truck`, and `trailer`, and `moped` uses `width="0.78"` m and `maxSpeed="60"` km/h (`16.67` m/s).
+- **Recommended subclass tables (reference only)**: Every `Recommended subclass settings` subsection (`passenger/sedan`, `passenger/hatchback`, `passenger/wagon`, `passenger/van`, `truck/semitrailer`, `bus/flexible`, and `rail/cargo`) provides literature reference values for custom `<vType>` definitions; selecting `guiShape` alone does not change physical `<vType>` parameters.
+- **Partially specified classes in `Other`**: In C++, `subway` shares all `rail_urban` defaults (`length="109.5"` m, `width="3.0"` m, `height="3.6"` m, `mass="59000"` kg, `minGap="5"` m, `accel="1.0"` m/s<sup>2</sup>, `decel="3.0"` m/s<sup>2</sup>, `emergencyDecel="7.0"` m/s<sup>2</sup>, `maxSpeed="100"` km/h, `personCapacity="300"`, `emissionClass="HBEFA4/zero"`, `speedDev="0"`). By contrast, `aircraft` (`length="72.7"` m, `width="79.8"` m), `container` (`length="6.058"` m, `width="2.438"` m, `height="2.591"` m), `drone` (`length="0.5"` m, `width="0.5"` m), and `cable_car` only override those specific dimensions in C++ and inherit `passenger` defaults for remaining dynamics; the footnoted figures in those rows are literature reference values for custom `<vType>` definitions.
 
 !!! note
     The correct setting may be dependent on the car-following model in use. This is especially true for `accel` and `decel` which
