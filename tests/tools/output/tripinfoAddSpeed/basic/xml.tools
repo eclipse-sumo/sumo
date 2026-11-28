@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<tripinfos>
+    <tripinfo id="v0" duration="10.00" routeLength="138.90" speed="13.89"/>
+    <tripinfo id="v1" duration="0.00" routeLength="0.00" speed="0.00"/>
+    <personinfo id="p0">
+        <walk duration="20.00" routeLength="28.00" speed="1.40"/>
+    </personinfo>
+</tripinfos>
