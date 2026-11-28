@@ -31,6 +31,7 @@ It needs one parameter, the SUMO net (.net.xml).
 """
 from __future__ import absolute_import
 from __future__ import print_function
+import math
 import os
 import sys
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -53,6 +54,15 @@ def parse_args():
     op.add_argument("--short-tls-edges", action="store_true", default=False,
                     dest="shortTlsEdges",
                     help="Check for problems with right-of-way rules")
+    op.add_argument("--capacity-reductions", action="store_true", default=False,
+                    dest="capacityReductions",
+                    help="Check for multi-lane corridors losing connecting lanes across junctions")
+    op.add_argument("--max-intermediate-length", type=float, default=50.0,
+                    dest="maxIntermediateLength",
+                    help="Maximum total length of intermediate edges when checking capacity reductions")
+    op.add_argument("--max-turn-angle", type=float, default=45.0,
+                    dest="maxTurnAngle",
+                    help="Maximum turn angle in degrees to treat an outgoing edge as a continuation")
     op.add_argument("-o", "--selection-output", category="output", type=op.file,
                     help="Write output to file(s) as a loadable selection")
     op.add_argument("--ignore-connections", action="store_true", default=False,
@@ -166,6 +176,151 @@ def checkShortTLSEdges(net, options):
             len(short), SHORT_EDGE))
 
 
+def _edgeTangent(edge, atEnd):
+    shape = edge.getShape()
+    if atEnd:
+        for i in range(len(shape) - 1, 0, -1):
+            dx = shape[i][0] - shape[i - 1][0]
+            dy = shape[i][1] - shape[i - 1][1]
+            if dx != 0 or dy != 0:
+                return math.degrees(math.atan2(dy, dx))
+    else:
+        for i in range(len(shape) - 1):
+            dx = shape[i + 1][0] - shape[i][0]
+            dy = shape[i + 1][1] - shape[i][1]
+            if dx != 0 or dy != 0:
+                return math.degrees(math.atan2(dy, dx))
+    return 0.0
+
+
+def _maxDisjointLanes(chain, vclass):
+    # Unit vertex-capacity max-flow through allowed lanes along chain[0]..chain[-1]
+    adj = {}
+    source = ("SRC", 0)
+    sink = ("SNK", 0)
+    adj[source] = []
+    adj[sink] = []
+
+    def add_cap_edge(u, v):
+        adj.setdefault(u, [])
+        adj.setdefault(v, [])
+        adj[u].append([v, 1, len(adj[v])])
+        adj[v].append([u, 0, len(adj[u]) - 1])
+
+    for step_idx, edge in enumerate(chain):
+        for lane in edge.getLanes():
+            if not vclass or lane.allows(vclass):
+                u_in = ("IN", step_idx, lane.getIndex())
+                u_out = ("OUT", step_idx, lane.getIndex())
+                add_cap_edge(u_in, u_out)
+                if step_idx == 0:
+                    add_cap_edge(source, u_in)
+                if step_idx == len(chain) - 1:
+                    add_cap_edge(u_out, sink)
+
+    for step_idx in range(len(chain) - 1):
+        e1 = chain[step_idx]
+        e2 = chain[step_idx + 1]
+        seen_pairs = set()
+        for conn in e1.getConnections(e2):
+            fl = conn.getFromLane()
+            tl = conn.getToLane()
+            if vclass and (not fl.allows(vclass) or not tl.allows(vclass)):
+                continue
+            pair = (fl.getIndex(), tl.getIndex())
+            if pair not in seen_pairs:
+                seen_pairs.add(pair)
+                add_cap_edge(("OUT", step_idx, pair[0]), ("IN", step_idx + 1, pair[1]))
+
+    flow = 0
+    while True:
+        parent = {source: None}
+        queue = [source]
+        while queue and sink not in parent:
+            u = queue.pop(0)
+            for idx, (v, cap, _rev) in enumerate(adj.get(u, [])):
+                if cap > 0 and v not in parent:
+                    parent[v] = (u, idx)
+                    queue.append(v)
+        if sink not in parent:
+            break
+        flow += 1
+        cur = sink
+        while parent[cur] is not None:
+            prev, e_idx = parent[cur]
+            fwd = adj[prev][e_idx]
+            fwd[1] -= 1
+            adj[cur][fwd[2]][1] += 1
+            cur = prev
+    return flow
+
+
+def checkCapacityReductions(net, options):
+    vclass = options.vclass if options.vclass is not None else "passenger"
+
+    def num_allowed(edge):
+        return sum(1 for lane in edge.getLanes() if not vclass or lane.allows(vclass))
+
+    def continuations(edge):
+        ang1 = _edgeTangent(edge, True)
+        res = []
+        for out_edge in sorted(edge.getOutgoing().keys(), key=lambda e: e.getID()):
+            if out_edge == edge.getBidi():
+                continue
+            diff = abs((ang1 - _edgeTangent(out_edge, False) + 180.0) % 360.0 - 180.0)
+            if diff <= options.maxTurnAngle:
+                res.append(out_edge)
+        return res
+
+    has_long_pred = set()
+    for edge in net.getEdges(False):
+        if num_allowed(edge) >= 2:
+            for out_e in continuations(edge):
+                if out_e.getLength() <= options.maxIntermediateLength:
+                    has_long_pred.add(out_e)
+
+    reductions = []
+    flagged_edges = set()
+    for e_start in sorted(net.getEdges(False), key=lambda e: e.getID()):
+        n_in = num_allowed(e_start)
+        if n_in < 2 or e_start in has_long_pred:
+            continue
+        stack = [([e_start], 0.0)]
+        while stack:
+            chain, mid_len = stack.pop(0)
+            cur = chain[-1]
+            for nxt in continuations(cur):
+                if nxt in chain:
+                    continue
+                new_chain = chain + [nxt]
+                if nxt.getLength() <= options.maxIntermediateLength and continuations(nxt):
+                    if mid_len + nxt.getLength() <= options.maxIntermediateLength:
+                        stack.append((new_chain, mid_len + nxt.getLength()))
+                        continue
+                n_out = num_allowed(nxt)
+                if n_out >= 2:
+                    passable = _maxDisjointLanes(new_chain, vclass)
+                    expected = min(n_in, n_out)
+                    if passable < expected:
+                        reductions.append((e_start, nxt, new_chain, n_in, n_out, passable))
+                        for ce in new_chain[:-1]:
+                            flagged_edges.add(ce.getID())
+
+    for e_start, e_end, chain, n_in, n_out, passable in reductions:
+        via_str = ""
+        if len(chain) > 2:
+            via_str = " via %s" % ",".join(e.getID() for e in chain[1:-1])
+        print("Capacity reduction: %s (%s lanes) -> %s (%s lanes)%s: only %s passable lane(s)" % (
+            e_start.getID(), n_in, e_end.getID(), n_out, via_str, passable))
+
+    if options.selection_output:
+        with open(options.selection_output, 'w') as f:
+            for eid in sorted(flagged_edges):
+                f.write("edge:%s\n" % eid)
+    if reductions:
+        print("Found %s capacity reductions" % len(reductions))
+
+
 if __name__ == "__main__":
     options = parse_args()
     net = sumolib.net.readNet(options.net,
@@ -179,6 +334,8 @@ if __name__ == "__main__":
         checkRightOfWay(net, options)
     elif options.shortTlsEdges:
         checkShortTLSEdges(net, options)
+    elif options.capacityReductions:
+        checkCapacityReductions(net, options)
     else:
         components = getWeaklyConnected(
             net, options.vclass, options.ignore_connections)
