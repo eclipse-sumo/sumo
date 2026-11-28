@@ -33,6 +33,7 @@
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSLeaderInfo.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
@@ -172,27 +173,126 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep, const SumoXMLTag t
                     }, mask);
                 }
                 if (maxLeaderDistance >= 0 && !MSGlobals::gUseMesoSim) {
-                    const std::pair<const MSVehicle* const, double> leader = microVeh->getLeader(maxLeaderDistance);
-                    if (leader.first != nullptr) {
-                        of.writeFuncAttr(SUMO_ATTR_LEADER_ID, [ = ]() {
-                            return leader.first->getID();
+                    if (MSGlobals::gSublane) {
+                        double dist = maxLeaderDistance;
+                        if (dist == 0) {
+                            dist = microVeh->getCarFollowModel().brakeGap(microVeh->getSpeed()) + microVeh->getVehicleType().getMinGap();
+                        }
+                        std::vector<const MSVehicle*> leaderVehs;
+                        std::map<const MSVehicle*, double> minGaps;
+                        auto collectOnLane = [&](const MSLane* lane, const double latOffset) {
+                            if (lane == nullptr) {
+                                return;
+                            }
+                            int rightmost, leftmost;
+                            MSLeaderDistanceInfo probe(lane->getWidth(), nullptr, 0.);
+                            probe.getSubLanes(microVeh, latOffset, rightmost, leftmost);
+                            if (rightmost > leftmost) {
+                                return;
+                            }
+                            const double vehPos = microVeh->getPositionOnLane(lane);
+                            MSLeaderDistanceInfo leaders(lane->getWidth(), microVeh, latOffset);
+                            const MSLeaderInfo ahead = lane->getLastVehicleInformation(microVeh, latOffset, vehPos, false);
+                            for (int i = rightmost; i <= leftmost; ++i) {
+                                const MSVehicle* lead = ahead[i];
+                                if (lead != nullptr && lead != microVeh) {
+                                    const double gap = lead->getBackPositionOnLane(lane) - vehPos - microVeh->getVehicleType().getMinGap();
+                                    leaders.addLeader(lead, gap, 0, i);
+                                }
+                            }
+                            if (leaders.numFreeSublanes() > 0 || lane->isInternal()) {
+                                const double seen = lane->getLength() - vehPos;
+                                std::vector<MSLane*> laneConts = microVeh->getBestLanesContinuation(lane);
+                                if (!laneConts.empty()) {
+                                    double contDist = seen;
+                                    for (int j = 1; j < (int)laneConts.size(); ++j) {
+                                        if (laneConts[j] != nullptr) {
+                                            contDist += laneConts[j]->getLength();
+                                        }
+                                    }
+                                    int routeOffset = (int)laneConts.size();
+                                    while (contDist < dist && microVeh->getRoutePosition() + routeOffset < microVeh->getRoute().size()) {
+                                        const MSEdge* nextEdge = *(microVeh->getCurrentRouteEdge() + routeOffset);
+                                        if (nextEdge->getNumLanes() == 1) {
+                                            MSLane* nextSingleLane = nextEdge->getLanes().front();
+                                            laneConts.push_back(nextSingleLane);
+                                            contDist += nextSingleLane->getLength();
+                                            routeOffset++;
+                                        } else {
+                                            break;
+                                        }
+                                    }
+                                }
+                                lane->getLeadersOnConsecutive(dist, seen, 0., microVeh, laneConts, leaders);
+                            }
+                            for (int i = rightmost; i <= leftmost; ++i) {
+                                const CLeaderDist ld = leaders[i];
+                                if (ld.first != nullptr && ld.first != microVeh && ld.second <= dist) {
+                                    const double netGap = ld.second + microVeh->getVehicleType().getMinGap();
+                                    auto it = minGaps.find(ld.first);
+                                    if (it == minGaps.end()) {
+                                        leaderVehs.push_back(ld.first);
+                                        minGaps[ld.first] = netGap;
+                                    } else {
+                                        it->second = MIN2(it->second, netGap);
+                                    }
+                                }
+                            }
+                        };
+                        collectOnLane(microVeh->getLane(), 0.);
+                        const MSLane* shadowLane = microVeh->getLaneChangeModel().getShadowLane();
+                        if (shadowLane != nullptr) {
+                            collectOnLane(shadowLane, microVeh->getLatOffset(shadowLane));
+                        }
+                        const int prec = of.getPrecision();
+                        of.writeFuncAttr(SUMO_ATTR_LEADER_ID, [&]() {
+                            return toString(leaderVehs);
                         }, mask);
-                        of.writeFuncAttr(SUMO_ATTR_LEADER_SPEED, [ = ]() {
-                            return leader.first->getSpeed();
+                        of.writeFuncAttr(SUMO_ATTR_LEADER_SPEED, [&]() -> std::string {
+                            if (leaderVehs.empty()) {
+                                return "-1";
+                            }
+                            std::vector<double> speeds;
+                            speeds.reserve(leaderVehs.size());
+                            for (const MSVehicle* lv : leaderVehs) {
+                                speeds.push_back(lv->getSpeed());
+                            }
+                            return joinToString(speeds, " ", prec);
                         }, mask);
-                        of.writeFuncAttr(SUMO_ATTR_LEADER_GAP, [ = ]() {
-                            return leader.second + microVeh->getVehicleType().getMinGap();
+                        of.writeFuncAttr(SUMO_ATTR_LEADER_GAP, [&]() -> std::string {
+                            if (leaderVehs.empty()) {
+                                return "-1";
+                            }
+                            std::vector<double> gaps;
+                            gaps.reserve(leaderVehs.size());
+                            for (const MSVehicle* lv : leaderVehs) {
+                                gaps.push_back(minGaps[lv]);
+                            }
+                            return joinToString(gaps, " ", prec);
                         }, mask);
                     } else {
-                        of.writeFuncAttr(SUMO_ATTR_LEADER_ID, [ = ]() {
-                            return "";
-                        }, mask);
-                        of.writeFuncAttr(SUMO_ATTR_LEADER_SPEED, [ = ]() {
-                            return -1;
-                        }, mask);
-                        of.writeFuncAttr(SUMO_ATTR_LEADER_GAP, [ = ]() {
-                            return -1;
-                        }, mask);
+                        const std::pair<const MSVehicle* const, double> leader = microVeh->getLeader(maxLeaderDistance);
+                        if (leader.first != nullptr) {
+                            of.writeFuncAttr(SUMO_ATTR_LEADER_ID, [ = ]() {
+                                return leader.first->getID();
+                            }, mask);
+                            of.writeFuncAttr(SUMO_ATTR_LEADER_SPEED, [ = ]() {
+                                return leader.first->getSpeed();
+                            }, mask);
+                            of.writeFuncAttr(SUMO_ATTR_LEADER_GAP, [ = ]() {
+                                return leader.second + microVeh->getVehicleType().getMinGap();
+                            }, mask);
+                        } else {
+                            of.writeFuncAttr(SUMO_ATTR_LEADER_ID, [ = ]() {
+                                return "";
+                            }, mask);
+                            of.writeFuncAttr(SUMO_ATTR_LEADER_SPEED, [ = ]() {
+                                return -1;
+                            }, mask);
+                            of.writeFuncAttr(SUMO_ATTR_LEADER_GAP, [ = ]() {
+                                return -1;
+                            }, mask);
+                        }
                     }
                 }
                 for (const std::string& key : params) {

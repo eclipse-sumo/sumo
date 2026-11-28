@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="wide" length="5.0" width="2.0" minGap="2.5" maxSpeed="20" sigma="0" lcSublane="0"/>
+    <vType id="narrow" length="5.0" width="1.0" minGap="2.5" maxSpeed="20" sigma="0" lcSublane="0"/>
+    <vType id="side" length="5.0" width="0.8" minGap="2.5" maxSpeed="20" sigma="0" lcSublane="0"/>
+    <route id="r0" edges="E0"/>
+    <vehicle id="leadL" type="narrow" route="r0" depart="0" departPos="80" departPosLat="0.6" departSpeed="12"/>
+    <vehicle id="leadR" type="narrow" route="r0" depart="0" departPos="60" departPosLat="-0.6" departSpeed="10"/>
+    <vehicle id="sideVeh" type="side" route="r0" depart="0" departPos="40" departPosLat="2.4" departSpeed="8"/>
+    <vehicle id="ego" type="wide" route="r0" depart="0" departPos="10" departPosLat="0.0" departSpeed="10"/>
+</routes>
