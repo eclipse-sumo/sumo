@@ -33,6 +33,7 @@ out_dir = osm_history if os.environ.get("FILEPREFIX") == "gcc" else "test"
 subprocess.call([sys.executable,
                  os.path.join(TOOLS, "osmWebWizard.py"), "-b=7:0:0", "-e=8:0:0",
                  "--bbox=13.381507,52.511801,13.417790,52.527748", "--test-output", out_dir,
+                 "--public-transport",
                  "-n=--aggregate-warnings=0", "--remote"])
 net_file = os.path.join(out_dir, "osm.net.xml.gz")
 if not os.path.exists(net_file):

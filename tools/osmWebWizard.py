@@ -51,6 +51,7 @@ from webWizard.SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 DEFAULT_PORT = 8010
+DEFAULT_PT_MODES = "bus,tram,train,subway,light_rail,monorail,trolleybus,minibus,share_taxi,aerialway,ferry"
 
 try:
     basestring
@@ -165,10 +166,11 @@ class Builder(object):
         if self.tmp is None:
             self.tmp = tempfile.mkdtemp()
 
+        self.decalError = False
         self.origDir = os.getcwd()
         print("Building scenario in '%s'." % self.tmp)
         # progress messages are shown in the language of the web interface
-        self.translations = getTranslation(data.get("language", "en"))[1]
+        self.translations = getTranslation(data.get("language") or "en")[1]
 
     def TL(self, message):
         return self.translations.get(message, message)
@@ -208,11 +210,11 @@ class Builder(object):
         else:
             self.report(self.TL("Downloading map data"))
             osmArgs = ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp, "-z"]
-            if self.data["poly"]:
+            if self.data.get("poly"):
                 osmArgs.append("--shapes")
-            if 'osmMirror' in self.data:
+            if self.data.get("osmMirror"):
                 osmArgs += ["-u", self.data["osmMirror"]]
-            if 'roadTypes' in self.data:
+            if self.data.get("roadTypes"):
                 osmArgs += ["-r", json.dumps(self.data["roadTypes"])]
             if self.data.get("verbose"):
                 osmArgs.append("--verbose")
@@ -228,7 +230,7 @@ class Builder(object):
         self.additionalFiles = []
         self.routenames = []
 
-        if self.data["poly"]:
+        if self.data.get("poly"):
             # output name for the poly file, will be used by osmBuild and sumo-gui
             self.filename("poly", ".poly.xml.gz")
 
@@ -251,7 +253,7 @@ class Builder(object):
             netconvertOptions += ",--osm.sidewalks"
             typefiles.append(typemaps["urban"])
             typefiles.append(typemaps["pedestrians"])
-            if self.data["carOnlyNetwork"]:
+            if self.data.get("carOnlyNetwork"):
                 netconvertOptions += ",--sidewalks.guess"
         # if ferry PT mode is requested, aslo include ships typemap for netconvert
         if ("ship" in self.data["vehicles"] or
@@ -263,7 +265,7 @@ class Builder(object):
             typefiles.append(typemaps["bicycles"])
             netconvertOptions += ",--osm.bike-access"
         # special treatment for public transport
-        if self.data["publicTransport"]:
+        if self.data.get("publicTransport"):
             self.filename("stops", "_stops.add.xml")
             netconvertOptions += ",--ptstop-output,%s" % self.files["stops"]
             netconvertOptions += ",--ptline-clean-up"
@@ -273,16 +275,16 @@ class Builder(object):
             self.additionalFiles.append(self.files["stops"])
             netconvertOptions += ",--railway.topology.repair"
             typefiles.append(typemaps["aerialway"])
-        if self.data["leftHand"]:
+        if self.data.get("leftHand"):
             netconvertOptions += ",--lefthand"
         if self.data.get("verbose"):
             netconvertOptions += ",--verbose"
-        if self.data["decal"] and not tileGet.HAVE_GDAL:
+        if self.data.get("decal") and not tileGet.HAVE_GDAL:
             # change projection to web-mercator to match the background image projection
             netconvertOptions += ",--proj,+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"  # noqa
 
-        if self.data["carOnlyNetwork"]:
-            if self.data["publicTransport"]:
+        if self.data.get("carOnlyNetwork"):
+            if self.data.get("publicTransport"):
                 options += ["--vehicle-classes", "publicTransport"]
             else:
                 options += ["--vehicle-classes", "passenger"]
@@ -296,15 +298,15 @@ class Builder(object):
         ptOptions = None
         hasPTFlows = False
         begin = self.data.get("begin", 0)
-        if self.data["publicTransport"]:
+        if self.data.get("publicTransport"):
             self.report(self.TL("Generating public transport schedule"))
             self.filename("pt_stopinfos", "stopinfos.xml", False)
             self.filename("pt_vehroutes", "vehroutes.xml", False)
             self.filename("pt_trips", "trips.trips.xml", False)
             ptOptions = [
                 "-n", self.files["net"],
-                "-b", begin,
-                "-e", begin + self.data["duration"],
+                "-b", sumolib.miscutils.intIfPossible(begin),
+                "-e", sumolib.miscutils.intIfPossible(begin + self.data["duration"]),
                 "-p", "600",
                 "--random-begin",
                 "--seed", "42",
@@ -329,7 +331,7 @@ class Builder(object):
                     ptlines2flows.main(ptlines2flows.get_options(ptOptions))
                     hasPTFlows = True
 
-        if self.data["decal"]:
+        if self.data.get("decal"):
             self.report(self.TL("Downloading background images"))
             tileOptions = [
                 "-n", self.files["net"],
@@ -351,6 +353,8 @@ class Builder(object):
                 shutil.rmtree("background_images", ignore_errors=True)
                 self.report(self.TL("Error while downloading background images: %s") % e)
                 self.decalError = True
+            finally:
+                os.chdir(self.origDir)
 
         if self.data["vehicles"] or hasPTFlows:
             # routenames stores all routefiles and will join the items later, will
@@ -368,11 +372,11 @@ class Builder(object):
                 self.filename("trips", ".%s.trips.xml" % vehicle)
 
                 try:
-                    options = self.parseTripOpts(vehicle, options, self.data["publicTransport"])
+                    options = self.parseTripOpts(vehicle, options, self.data.get("publicTransport", False))
                 except ZeroDivisionError:
                     continue
 
-                if vehicle == "pedestrian" and self.data["publicTransport"]:
+                if vehicle == "pedestrian" and self.data.get("publicTransport"):
                     addFiles = [self.files["stops"]]
                     if hasPTFlows:
                         addFiles.append(self.files["ptroutes"])
@@ -433,8 +437,8 @@ class Builder(object):
                 "--insertion-density", options["count"],
                 "-o", self.files["trips"],
                 "-r", self.files["route"],
-                "-b", begin,
-                "-e", begin + self.data["duration"]]
+                "-b", sumolib.miscutils.intIfPossible(begin),
+                "-e", sumolib.miscutils.intIfPossible(begin + self.data["duration"])]
         if vehicle == "pedestrian" and publicTransport:
             opts += vehicleParameters["persontrips"]
         else:
@@ -449,7 +453,7 @@ class Builder(object):
 
         self.filename("guisettings", ".view.xml")
         with open(self.files["guisettings"], 'w') as f:
-            if self.data["decal"] and not self.decalError:
+            if self.data.get("decal") and not self.decalError:
                 f.write("""
 <viewsettings>
     <scheme name="real world"/>
@@ -488,13 +492,23 @@ class Builder(object):
                 fadd.write("</additional>\n")
             self.additionalFiles.append(self.files["outadd"])
 
-        if self.data["publicTransport"]:
+        if self.data.get("publicTransport"):
             opts += ["--stop-output", "stopinfos.xml"]
 
         if len(self.additionalFiles) > 0:
             opts += ["-a", ",".join(self.getRelative(self.additionalFiles))]
 
         subprocess.call(opts, cwd=self.tmp)
+        self.saveWizardConfig()
+
+    def saveWizardConfig(self):
+        "Save the osmWebWizard configuration for reproducing the scenario"
+
+        self.filename("wizardcfg", ".wizardcfg")
+        args = data_to_args(self.data, self.tmp)
+        wizardOpts = get_parser().parse_args(args)
+        with sumolib.miscutils.openz(self.files["wizardcfg"], "w") as f:
+            f.write(wizardOpts.config_as_string)
 
     def createBatch(self):
         "Create a batch / bash file "
@@ -522,18 +536,18 @@ class Builder(object):
         self.filename("zip", ".zip")
 
         with ZipFile(self.files["zip"], "w") as zipfile:
-            files = ["net", "guisettings", "config", "run.bat"]
+            files = ["net", "guisettings", "config", "run.bat", "wizardcfg"]
 
-            if self.data["vehicles"] or self.data["publicTransport"]:
+            if "build.bat" in self.files:
                 files += ["build.bat"]
 
-            if self.data["poly"]:
+            if self.data.get("poly"):
                 files += ["poly"]
 
             # translate the pseudo file names to real file names
             files = list(map(lambda name: self.files[name], files))
 
-            if self.data["vehicles"]:
+            if self.routenames:
                 files += self.routenames
 
             # add the files to the zip
@@ -712,16 +726,17 @@ def watchdog(server, timeout=3600):
             break
 
 
-def get_options(args=None):
+def get_parser():
     parser = sumolib.options.ArgumentParser(description="OSM Web Wizard for SUMO")
     parser.add_argument("--web-socket", action="store_true", default=False,
                         help="Create a (legacy) websocket instead of running a http server.")
     parser.add_argument("--remote", action="store_true", default=False,
                         help="In remote mode, SUMO GUI will not be automatically opened instead a zip file " +
                         "will be generated.")
-    parser.add_argument("--osm-file", default="osm_bbox.osm.xml", dest="osmFile", help="use input file from path.")
+    parser.add_argument("--osm-file", dest="osmFile", fix_path=True, type=parser.file,
+                        help="use input file from path.")
     parser.add_argument("--test-output", dest="testOutputDir",
-                        help="Run with pre-defined options on file 'osm_bbox.osm.xml' and " +
+                        help="Run non-interactively on '--osm-file' or '--bbox' and " +
                         "write output to the given directory.")
     parser.add_argument("--bbox", help="bounding box to retrieve in geo coordinates west,south,east,north.")
     parser.add_argument("-o", "--output", dest="outputDir",
@@ -739,51 +754,156 @@ def get_options(args=None):
     parser.add_argument("-n", "--netconvert-options", help="additional comma-separated options for netconvert")
     parser.add_argument("--demand", default="passenger:6f5,bicycle:2f2,pedestrian:4,ship:1f40",
                         help="Traffic demand definition for non-interactive mode.")
-    return parser.parse_args(args)
+    parser.add_argument("--poly", "--polygons", dest="poly", action="store_true", default=False,
+                        help="Add polygons (buildings, waterways, etc.) to the scenario.")
+    parser.add_argument("--public-transport", dest="publicTransport", action="store_true", default=False,
+                        help="Import public transport stops and schedules.")
+    parser.add_argument("--pt-modes", dest="ptModes", default=DEFAULT_PT_MODES,
+                        help="Comma-separated list of public transport modes to import.")
+    parser.add_argument("--car-only", "--car-only-network", dest="carOnlyNetwork",
+                        action="store_true", default=False,
+                        help="Only import roads accessible to passenger cars (plus public transport if enabled).")
+    parser.add_argument("--decal", "--satellite-background", dest="decal", action="store_true", default=False,
+                        help="Download satellite background images.")
+    parser.add_argument("--tile-zoom", dest="tileZoom", type=int, default=17,
+                        help="Zoom level for downloaded satellite background images (12-19).")
+    parser.add_argument("--left-hand", "--lefthand", dest="leftHand", action="store_true", default=False,
+                        help="Assume left-hand traffic.")
+    parser.add_argument("--road-types", dest="roadTypes",
+                        help="JSON dictionary mapping OSM categories to lists of allowed road types.")
+    parser.add_argument("--osm-mirror", dest="osmMirror",
+                        help="Overpass API mirror URL or shortcut to download OSM data from.")
+    return parser
+
+
+def get_options(args=None):
+    return get_parser().parse_args(args)
+
+
+def options_to_data(options):
+    demand = collections.defaultdict(dict)
+    if options.demand:
+        for mode in options.demand.split(","):
+            k, v = mode.split(":")
+            if "f" in v:
+                demand[k]["count"], demand[k]["fringeFactor"] = v.split("f")
+            else:
+                demand[k]["count"] = v
+    ptModes = {}
+    if options.ptModes:
+        for mode in options.ptModes.split(","):
+            mode = mode.strip()
+            if mode:
+                ptModes[mode] = True
+    osmFile = options.osmFile
+    if osmFile is None and options.bbox is None:
+        osmFile = "osm_bbox.osm.xml"
+    data = {
+        "begin": options.begin,
+        "duration": options.end - options.begin,
+        "vehicles": demand,
+        "poly": options.poly,
+        "publicTransport": options.publicTransport,
+        "ptModes": ptModes,
+        "leftHand": options.leftHand,
+        "decal": options.decal,
+        "tileZoom": options.tileZoom,
+        "verbose": options.verbose,
+        "carOnlyNetwork": options.carOnlyNetwork,
+        "coords": options.bbox.split(",") if options.bbox else None,
+        "options": options.netconvert_options,
+    }
+    if osmFile is not None:
+        data["osm"] = os.path.abspath(osmFile)
+    if options.language:
+        data["language"] = options.language
+    outputDir = options.testOutputDir if options.testOutputDir is not None else options.outputDir
+    if outputDir is not None:
+        data["outputDir"] = outputDir
+    if options.osmMirror:
+        data["osmMirror"] = options.osmMirror
+    if options.roadTypes:
+        try:
+            data["roadTypes"] = json.loads(options.roadTypes)
+        except ValueError:
+            data["roadTypes"] = json.loads(options.roadTypes.replace("'", '"'))
+    return data
+
+
+def data_to_args(data, baseDir=None):
+    args = []
+    if data.get("coords"):
+        args.append("--bbox=" + ",".join(map(str, data["coords"])))
+    elif data.get("osm"):
+        osmPath = data["osm"]
+        if baseDir is not None:
+            try:
+                osmPath = os.path.relpath(osmPath, baseDir).replace(os.sep, "/")
+            except ValueError:
+                pass
+        args.append("--osm-file=" + osmPath)
+    if data.get("language"):
+        args.append("--language=" + data["language"])
+    begin = data.get("begin", 0)
+    if begin:
+        args.append("--begin=" + str(sumolib.miscutils.intIfPossible(begin)))
+    if "duration" in data:
+        end = begin + data["duration"]
+        args.append("--end=" + str(sumolib.miscutils.intIfPossible(end)))
+    if data.get("options"):
+        args.append("--netconvert-options=" + data["options"])
+    vehicles = data.get("vehicles", {})
+    demandParts = []
+    for k in sorted(vehicles.keys()):
+        v = vehicles[k]
+        if "fringeFactor" in v:
+            demandParts.append("%s:%sf%s" % (k, sumolib.miscutils.intIfPossible(float(v["count"])),
+                                             sumolib.miscutils.intIfPossible(float(v["fringeFactor"]))))
+        else:
+            demandParts.append("%s:%s" % (k, sumolib.miscutils.intIfPossible(float(v["count"]))))
+    args.append("--demand=" + ",".join(demandParts))
+    if data.get("poly"):
+        args.append("--poly")
+    if data.get("publicTransport"):
+        args.append("--public-transport")
+    if data.get("ptModes") is not None:
+        defaultModes = DEFAULT_PT_MODES.split(",")
+        enabled = [m for m in defaultModes if data["ptModes"].get(m)]
+        for m, val in data["ptModes"].items():
+            if val and m not in defaultModes:
+                enabled.append(m)
+        args.append("--pt-modes=" + ",".join(enabled))
+    if data.get("carOnlyNetwork"):
+        args.append("--car-only")
+    if data.get("decal"):
+        args.append("--decal")
+        if data.get("tileZoom") is not None:
+            args.append("--tile-zoom=" + str(data["tileZoom"]))
+    if data.get("leftHand"):
+        args.append("--left-hand")
+    if data.get("verbose"):
+        args.append("--verbose")
+    if data.get("roadTypes") is not None:
+        args.append("--road-types=" + json.dumps(data["roadTypes"]))
+    if data.get("osmMirror"):
+        args.append("--osm-mirror=" + data["osmMirror"])
+    return args
 
 
 def main(options):
     if options.port is None:
         options.port = DEFAULT_PORT if options.remote else 0
-    if options.testOutputDir is not None:
-        demand = collections.defaultdict(dict)
-        for mode in options.demand.split(","):
-            k, v = mode.split(":")
-            if "f" in v:
-                demand[k]['count'], demand[k]['fringeFactor'] = v.split("f")
-            else:
-                demand[k]['count'] = v
-        data = {u'begin': options.begin,
-                u'duration': options.end - options.begin,
-                u'vehicles': demand,
-                u'osm': os.path.abspath(options.osmFile),
-                u'poly': options.bbox is None,  # reduce download size
-                u'publicTransport': True,
-                u'ptModes': {'bus': True,
-                             'tram': True,
-                             'train': True,
-                             'subway': True,
-                             'light_rail': True,
-                             'monorail': True,
-                             'trolleybus': True,
-                             'minibus': True,
-                             'share_taxi': True,
-                             'aerialway': True,
-                             'ferry': True},
-                u'leftHand': False,
-                u'decal': False,
-                u'verbose': options.verbose,
-                u'carOnlyNetwork': False,
-                u'outputDir': options.testOutputDir,
-                u'coords': options.bbox.split(",") if options.bbox else None,
-                u'options': options.netconvert_options,
-                }
+    if options.testOutputDir is not None or options.bbox is not None or options.osmFile is not None:
+        data = options_to_data(options)
         builder = Builder(data, True)
         builder.build()
         builder.makeConfigFile()
         builder.createBatch()
         if not options.remote:
-            subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
+            if options.testOutputDir is not None:
+                subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
+            else:
+                builder.openSUMO()
     elif options.web_socket:
         # everything concerning web sockets is considered legacy
         OSMImporterWebSocket.local = options.testOutputDir is not None or not options.remote

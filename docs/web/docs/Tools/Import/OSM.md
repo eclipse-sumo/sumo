@@ -27,6 +27,8 @@ python tools/osmWebWizard.py
 The script will keep running so you can build multiple scenarios in your
 web-browser. Stop the script when you're done to free up the port again.
 
+Each generated scenario also includes a configuration file named `osm.wizardcfg` that stores all wizard options. You can run the script non-interactively with `-c` / `--configuration-file` to reproduce or adjust a scenario without opening the browser, or pass `-C` / `--save-configuration` to write a configuration file. All web interface options are available on the command line (see `--help`), including `--bbox`, `--osm-file`, `--begin`, `--end`, `--demand`, `--poly`, `--public-transport`, `--pt-modes`, `--car-only`, `--decal`, `--tile-zoom`, `--left-hand`, `--road-types`, `--netconvert-options`, `--osm-mirror`, `--language`, and `--verbose`.
+
 !!! caution
     The script requires the environment variable *SUMO_HOME* to be set [as explained here](../../Basics/Basic_Computer_Skills.md#sumo_home).
 
