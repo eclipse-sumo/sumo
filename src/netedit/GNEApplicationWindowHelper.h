@@ -649,6 +649,7 @@ struct GNEApplicationWindowHelper {
 
             /// @brief menu check to toggle TAZRel only to
             MFXMenuCheckIcon* menuCheckToggleTAZRelOnlyTo = nullptr;
+            MFXMenuCheckIcon* menuCheckFocusTAZRelations = nullptr;
 
             /// @brief separator
             FXMenuSeparator* separator = nullptr;

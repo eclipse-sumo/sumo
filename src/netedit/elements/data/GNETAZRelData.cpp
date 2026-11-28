@@ -479,7 +479,6 @@ GNETAZRelData::getHierarchyName() const {
 
 bool
 GNETAZRelData::drawTAZRel() const {
-    const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // first check supermode
     if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         return false;
@@ -501,21 +500,12 @@ GNETAZRelData::drawTAZRel() const {
     if (!myNet->getViewNet()->getDataViewOptions().TAZRelOnlyFrom() && !myNet->getViewNet()->getDataViewOptions().TAZRelOnlyTo()) {
         return false;
     }
-    // check if we're inspecting a TAZ
-    if ((myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) &&
-            inspectedElements.isInspectingSingleElement() && (inspectedElements.getFirstAC()->getTagProperty()->getTag() == SUMO_TAG_TAZ)) {
-        // ignore TAZRels with one TAZParent
-        if (getParentAdditionals().size() == 2) {
-            if ((getParentAdditionals().front() == inspectedElements.getFirstAC())  &&
-                    myNet->getViewNet()->getDataViewOptions().TAZRelOnlyFrom()) {
-                return true;
-            } else if ((getParentAdditionals().back() == inspectedElements.getFirstAC())  &&
-                       myNet->getViewNet()->getDataViewOptions().TAZRelOnlyTo()) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+    const auto focusedTAZ = myNet->getViewNet()->getTAZRelationFocus();
+    if (focusedTAZ != GUIGlObject::INVALID_ID) {
+        return (getParentAdditionals().front()->getGlID() == focusedTAZ &&
+                myNet->getViewNet()->getDataViewOptions().TAZRelOnlyFrom()) ||
+               (getParentAdditionals().back()->getGlID() == focusedTAZ &&
+                myNet->getViewNet()->getDataViewOptions().TAZRelOnlyTo());
     }
     return true;
 }

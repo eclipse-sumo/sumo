@@ -810,6 +810,41 @@ GNEViewNet::getDataViewOptions() const {
 }
 
 
+void
+GNEViewNet::updateTAZRelationFocus(const std::vector<GNEAttributeCarrier*>& inspected) {
+    if (!myTAZRelationFocusEnabled || !myEditModes.isCurrentSupermodeData() ||
+            myEditModes.dataEditMode != DataEditMode::DATA_INSPECT || inspected.size() != 1) {
+        myTAZRelationFocus = GUIGlObject::INVALID_ID;
+    } else if (inspected.front()->getTagProperty()->getTag() == SUMO_TAG_TAZ) {
+        myTAZRelationFocus = inspected.front()->getGUIGlObject()->getGlID();
+    } else if (inspected.front()->getTagProperty()->getTag() != SUMO_TAG_TAZREL) {
+        myTAZRelationFocus = GUIGlObject::INVALID_ID;
+    }
+}
+
+
+GUIGlID
+GNEViewNet::getTAZRelationFocus() const {
+    return myTAZRelationFocus;
+}
+
+
+bool
+GNEViewNet::isTAZRelationFocusEnabled() const {
+    return myTAZRelationFocusEnabled;
+}
+
+
+void
+GNEViewNet::toggleTAZRelationFocus() {
+    myTAZRelationFocusEnabled = !myTAZRelationFocusEnabled;
+    if (myInspectedElements.isInspectingSingleElement()) {
+        updateTAZRelationFocus({myInspectedElements.getFirstAC()});
+    }
+    updateViewNet();
+}
+
+
 const GNEViewNetHelper::MouseButtonKeyPressed&
 GNEViewNet::getMouseButtonKeyPressed() const {
     return myMouseButtonKeyPressed;
@@ -1672,6 +1707,7 @@ GNEViewNet::onKeyRelease(FXObject* obj, FXSelector sel, void* eventData) {
 
 void
 GNEViewNet::abortOperation(bool clearSelection) {
+    myTAZRelationFocus = GUIGlObject::INVALID_ID;
     // steal focus from any text fields and place it over view net
     setFocus();
     // check what supermode is enabled
@@ -5353,6 +5389,7 @@ GNEViewNet::updateDataModeSpecificControls() {
             menuChecks.menuCheckToggleTAZDrawFill->show();
             menuChecks.menuCheckToggleTAZRelOnlyFrom->show();
             menuChecks.menuCheckToggleTAZRelOnlyTo->show();
+            menuChecks.menuCheckFocusTAZRelations->show();
             break;
         case DataEditMode::DATA_DELETE:
             myViewParent->getDeleteFrame()->show();

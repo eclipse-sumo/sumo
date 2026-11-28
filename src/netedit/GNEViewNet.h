@@ -138,6 +138,18 @@ public:
     /// @brief get data view options
     const GNEViewNetHelper::DataViewOptions& getDataViewOptions() const;
 
+    /// @brief Update the TAZ used to filter relations when the Inspector changes.
+    void updateTAZRelationFocus(const std::vector<GNEAttributeCarrier*>& inspected);
+
+    /// @brief The TAZ object ID used to filter relations.
+    GUIGlID getTAZRelationFocus() const;
+
+    /// @brief Whether inspection can focus related TAZ relations.
+    bool isTAZRelationFocusEnabled() const;
+
+    /// @brief Toggle focus on TAZ inspection.
+    void toggleTAZRelationFocus();
+
     /// @brief get Key Pressed module
     const GNEViewNetHelper::MouseButtonKeyPressed& getMouseButtonKeyPressed() const;
 
@@ -726,6 +738,12 @@ private:
 
     /// @brief inspected element
     GNEViewNetHelper::InspectedElements myInspectedElements;
+
+    /// @brief Object ID of the TAZ retained while inspecting its relations.
+    GUIGlID myTAZRelationFocus = GUIGlObject::INVALID_ID;
+
+    /// @brief Enable TAZ relation focus on inspection.
+    bool myTAZRelationFocusEnabled = true;
 
     /// @brief front element
     GNEViewNetHelper::MarkFrontElements myMarkFrontElements;
