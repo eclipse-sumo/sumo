@@ -72,18 +72,18 @@ found by following its link.
 
 ## simulated detectors
 
+Simulated detectors emulate roadside sensors placed at fixed cross-sections, lane segments, or cordons in the network. Detectors record localized flow, occupancy, speed, queue length, and travel-time measurements that match real-world counting stations for model validation, feed [actuated traffic lights](../Traffic_Lights.md) and [TraCI](../../TraCI/index.md) controllers at runtime, and supply count inputs to [demand calibration tools](../../Demand/Routes_from_Observation_Points.md).
+
 - [Inductive loop detectors (E1)](Induction_Loops_Detectors_(E1).md):
-  simulated induction loops
+  cross-section point detectors on a single lane that aggregate vehicle counts, flow, occupancy, and mean speed over a configurable period (also used by actuated traffic lights)
 - [Instant induction loops](Instantaneous_Induction_Loops_Detectors.md):
-  simulated unaggregated induction loops
+  event-driven point detectors that write an immediate record (enter, stay, leave, gap, occupancy) whenever a vehicle crosses the loop without time aggregation
 - [Lane area detectors (E2)](Lanearea_Detectors_(E2).md):
-  detectors that capture a lane segment (i.e. simulated vehicle
-  tracking cameras)
+  segment detectors covering a defined length along one or consecutive lanes (analogous to video tracking cameras) to measure queue length, jam duration, occupancy, and time loss
 - [Multi-Entry-Exit detectors (E3)](Multi-Entry-Exit_Detectors_(E3).md):
-  simulators that track traffic in an area by detecting entry and exit
-  events at defined locations
-- [Route Detectors](RouteProbe.md): detector
-  for sampling route distributions
+  cordon detectors defined by arbitrary sets of entry and exit cross-sections to measure travel time, time loss, halts, and throughput across intersections or subnetworks
+- [Route Detectors](RouteProbe.md): detectors
+  that sample the routes of vehicles passing an edge to build empirical route distributions (for example for [calibrators](../Calibrator.md))
 
 ## values for edges or lanes
 
