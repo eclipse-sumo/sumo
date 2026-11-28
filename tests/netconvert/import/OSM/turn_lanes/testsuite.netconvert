@@ -18,3 +18,6 @@ service_target
 
 # see #13586
 turn-lanes2_avoid_bus
+
+# abort applying turn:lanes when signed directions conflict with unjoined junction target directions (#16456)
+unjoined_mismatch

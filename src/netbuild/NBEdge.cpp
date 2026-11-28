@@ -2816,8 +2816,32 @@ NBEdge::applyTurnSigns() {
         }
     }
     // directions and connections are both sorted from right to left
+    std::vector<LinkDirection> targetDirs;
+    targetDirs.reserve(targets.size());
+    for (const NBEdge* to : targets) {
+        targetDirs.push_back(to == nullptr ? LinkDirection::NODIR : myTo->getDirection(this, to));
+    }
+    const bool hasRightSign = (allDirs & ((int)LinkDirection::RIGHT | (int)LinkDirection::PARTRIGHT)) != 0;
+    const bool hasLeftSign = (allDirs & ((int)LinkDirection::LEFT | (int)LinkDirection::PARTLEFT)) != 0;
+    const bool hasStraightSign = (allDirs & (int)LinkDirection::STRAIGHT) != 0;
     for (int i = 0; i < (int)signedDirs.size(); i++) {
-        dirMap[signedDirs[i]] = targets[i];
+        const LinkDirection sd = signedDirs[i];
+        const LinkDirection td = targetDirs[i];
+        const bool incompatible = (
+            ((sd == LinkDirection::NODIR) != (td == LinkDirection::NODIR))
+            || (td == LinkDirection::RIGHT && !hasRightSign)
+            || (td == LinkDirection::LEFT && !hasLeftSign)
+            || (sd == LinkDirection::LEFT && (td == LinkDirection::RIGHT || td == LinkDirection::PARTRIGHT
+                                              || (td == LinkDirection::STRAIGHT && !hasStraightSign)))
+            || (sd == LinkDirection::RIGHT && (td == LinkDirection::LEFT || td == LinkDirection::PARTLEFT
+                                               || (td == LinkDirection::STRAIGHT && !hasStraightSign)))
+        );
+        if (incompatible) {
+            WRITE_WARNINGF(TL("Cannot apply turn sign information for edge '%' because signed directions (%) do not match target directions (%)"),
+                           getID(), joinToString(signedDirs, " "), joinToString(targetDirs, " "));
+            return false;
+        }
+        dirMap[sd] = targets[i];
     }
     // check whether we have enough target lanes for a each signed direction
     for (auto item : signCons) {
