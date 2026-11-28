@@ -1,0 +1,10 @@
+<routes>
+    <vType id="changingType" sigma="0" width="1.2" accel="1" maxSpeed="8" maxSpeedLat="0.6" lcAccelLat="5"
+           lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0"/>
+    <vType id="insertingType" sigma="0" width="1.6" accel="0.5"
+           lcSublane="0" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0"/>
+    <route id="r0" edges="gneE0"/>
+    <vehicle id="changing" type="changingType" route="r0" depart="0" departLane="0" departPos="25" departSpeed="8"/>
+    <vehicle id="inserting" type="insertingType" route="r0" depart="1.5" departLane="1" departPos="40"
+             departPosLat="right" departSpeed="0"/>
+</routes>

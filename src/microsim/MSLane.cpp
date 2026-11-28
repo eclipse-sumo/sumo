@@ -1236,7 +1236,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         }
     }
 
-    const MSLeaderDistanceInfo& followers = getFollowersOnConsecutive(aVehicle, aVehicle->getBackPositionOnLane(), false);
+    const MSLeaderDistanceInfo& followers = getFollowersOnConsecutive(aVehicle, aVehicle->getBackPositionOnLane(), false, -1, FOLLOW_ALWAYS, false, true);
     for (int i = 0; i < followers.numSublanes(); ++i) {
         const MSVehicle* follower = followers[i].first;
         if (follower != nullptr) {
@@ -1275,7 +1275,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     }
 #endif
     if (shadowLane != nullptr) {
-        const MSLeaderDistanceInfo& shadowFollowers = shadowLane->getFollowersOnConsecutive(aVehicle, aVehicle->getBackPositionOnLane(), false);
+        const MSLeaderDistanceInfo& shadowFollowers = shadowLane->getFollowersOnConsecutive(aVehicle, aVehicle->getBackPositionOnLane(), false, -1, FOLLOW_ALWAYS, false, true);
         for (int i = 0; i < shadowFollowers.numSublanes(); ++i) {
             const MSVehicle* follower = shadowFollowers[i].first;
             if (follower != nullptr) {
@@ -2949,7 +2949,7 @@ double MSLane::getMissingRearGap(const MSVehicle* leader, double backOffset, dou
     // relevant range
     double result = 0;
     const double leaderDecel = leader->getCarFollowModel().getMaxDecel();
-    CLeaderDist followerInfo = getFollowersOnConsecutive(leader, backOffset, false)[0];
+    CLeaderDist followerInfo = getFollowersOnConsecutive(leader, backOffset, false, -1, FOLLOW_ALWAYS, false, true)[0];
     const MSVehicle* v = followerInfo.first;
     if (v != nullptr) {
         result = v->getCarFollowModel().getSecureGap(v, leader, v->getSpeed(), leaderSpeed, leaderDecel) - followerInfo.second;
@@ -3857,7 +3857,8 @@ MSLane::setLaneStopOffset(const StopOffset& stopOffset) {
 
 MSLeaderDistanceInfo
 MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
-                                  bool allSublanes, double searchDist, MinorLinkMode mLinkMode, bool maxSearchDist) const {
+                                  bool allSublanes, double searchDist, MinorLinkMode mLinkMode,
+                                  bool maxSearchDist, bool includeReservations) const {
     assert(ego != 0);
     // get the follower vehicle on the lane to change to
     const double egoPos = backOffset + ego->getVehicleType().getLength();
@@ -3895,9 +3896,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
         }
 #endif
     }
-    /// XXX iterate in reverse and abort when there are no more freeSublanes
-    for (AnyVehicleIterator last = anyVehiclesBegin(); last != anyVehiclesEnd(); ++last) {
-        const MSVehicle* veh = *last;
+    const auto addFollower = [&](const MSVehicle* veh) {
 #ifdef DEBUG_CONTEXT
         if (DEBUG_COND2(ego)) {
             std::cout << "  veh=" << veh->getID() << " lane=" << veh->getLane()->getID() << " pos=" << veh->getPositionOnLane(this) << "\n";
@@ -3916,6 +3915,16 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                 std::cout << "  (1) added veh=" << veh->getID() << " latOffset=" << latOffset << " result=" << result.toString() << "\n";
             }
 #endif
+        }
+    };
+    /// XXX iterate in reverse and abort when there are no more freeSublanes
+    for (AnyVehicleIterator last = anyVehiclesBegin(); last != anyVehiclesEnd(); ++last) {
+        addFollower(*last);
+    }
+    // Insertion must leave room for maneuvers already reserved on this lane.
+    if (includeReservations) {
+        for (const MSVehicle* veh : myManeuverReservations) {
+            addFollower(veh);
         }
     }
 #ifdef DEBUG_CONTEXT
