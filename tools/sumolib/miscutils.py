@@ -404,6 +404,8 @@ def openz(fileOrURL, mode="r", **kwargs):
         if fileOrURL.endswith(".gz") and "w" in mode:
             if "b" in mode:
                 return gzip.open(fileOrURL, mode="w")
+            if sys.version_info[0] < 3:
+                return codecs.getwriter(encoding)(gzip.open(fileOrURL, mode="w"))
             return gzip.open(fileOrURL, mode="wt", encoding=encoding)
         if kwargs.get("trySocket") and fileOrURL.isdigit():
             return getSocketStream(int(fileOrURL), mode)
@@ -413,7 +415,7 @@ def openz(fileOrURL, mode="r", **kwargs):
             if "b" in mode:
                 return gzip.open(fileOrURL)
             if sys.version_info[0] < 3:
-                return codecs.getreader('utf-8')(gzip.open(fileOrURL))
+                return codecs.getreader(encoding)(gzip.open(fileOrURL))
             return gzip.open(fileOrURL, mode="rt", encoding=encoding)
     except OSError as e:
         if kwargs.get("printErrors"):
