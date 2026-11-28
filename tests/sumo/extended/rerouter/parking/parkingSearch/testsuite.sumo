@@ -7,6 +7,9 @@ probability
 # define 2 parking areas which only differ in probability and check their usage
 probability2
 
+# deterministic preference weighting via parking.preference.weight (see #9655)
+preference
+
 # always remember all visibly occupied parking areas along the way
 active_memory
 
