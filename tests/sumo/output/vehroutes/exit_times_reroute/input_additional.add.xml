@@ -1,0 +1,20 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <route id="r1" edges="0/0to0/1 0/1to1/1 1/1to1/0"/>
+    <route id="r2" edges="0/0to0/1 0/1to1/1 1/1to2/1"/>
+    <route id="r3" edges="3/1to3/2 3/2to3/1"/>
+    <rerouter id="rr1" edges="0/1to1/1">
+        <interval begin="0" end="20">
+            <routeProbReroute id="r1"/>
+        </interval>
+    </rerouter>
+    <rerouter id="rr2" edges="0/1to1/1">
+        <interval begin="0" end="20">
+            <routeProbReroute id="r2"/>
+        </interval>
+    </rerouter>
+    <rerouter id="rr3" edges="3/1to3/2">
+        <interval begin="0" end="200">
+            <routeProbReroute id="r3"/>
+        </interval>
+    </rerouter>
+</additional>

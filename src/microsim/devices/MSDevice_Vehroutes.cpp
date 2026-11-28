@@ -245,7 +245,6 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
     }
     // check if a previous route shall be written
     //std::cout << " writeXMLRoute index=" << index << " numReroutes=" << myHolder.getNumberReroutes() << "\n";
-    const int routesToSkip = myHolder.getParameter().wasSet(VEHPARS_FORCE_REROUTE) ? 1 : 0;
     os.openTag(SUMO_TAG_ROUTE);
     if (index >= 0) {
         assert((int)myReplacedRoutes.size() > index);
@@ -275,12 +274,12 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         OutputDevice_String edgesD;
         // always write the part that was actually driven and the rest of the current route that wasn't yet driven
         int start = 0;
-        for (int i = routesToSkip; i < index; i++) {
+        for (int i = 0; i < index; i++) {
             if (myReplacedRoutes[i].edge != nullptr) {
                 int end = myReplacedRoutes[i].lastRouteIndex;
                 myReplacedRoutes[i].route->writeEdgeIDs(edgesD, start, end, myWriteInternal, myHolder.getVClass());
+                start = myReplacedRoutes[i].newRouteIndex;
             }
-            start = myReplacedRoutes[i].newRouteIndex;
         }
         myReplacedRoutes[index].route->writeEdgeIDs(edgesD, start, -1, myWriteInternal, myHolder.getVClass());
         std::string edgesS = edgesD.getString();
@@ -305,12 +304,12 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         int start = 0;
         if (myHolder.getNumberReroutes() > 0) {
             assert((int)myReplacedRoutes.size() <= myHolder.getNumberReroutes());
-            for (int i = routesToSkip; i < (int)myReplacedRoutes.size(); i++) {
+            for (int i = 0; i < (int)myReplacedRoutes.size(); i++) {
                 if (myReplacedRoutes[i].edge != nullptr) {
                     int end = myReplacedRoutes[i].lastRouteIndex;
                     numWritten += myReplacedRoutes[i].route->writeEdgeIDs(edgesD, start, end, myWriteInternal, myHolder.getVClass());
+                    start = myReplacedRoutes[i].newRouteIndex;
                 }
-                start = myReplacedRoutes[i].newRouteIndex;
             }
         }
         numWritten += myCurrentRoute->writeEdgeIDs(edgesD, start, -1, myWriteInternal, myHolder.getVClass());
@@ -323,8 +322,8 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
             for (SUMOTime t : myExits) {
                 exits.push_back(time2string(t));
             }
-            assert(numWritten >= (int)myExits.size());
-            std::vector<std::string> missing(numWritten - (int)myExits.size(), "-1");
+            assert(myLastRouteOnly || numWritten >= (int)myExits.size());
+            std::vector<std::string> missing(MAX2(0, numWritten - (int)myExits.size()), "-1");
             exits.insert(exits.end(), missing.begin(), missing.end());
             os.writeAttr(SUMO_ATTR_EXITTIMES, exits);
         }
@@ -427,6 +426,7 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
         const int routesToSkip = (myHolder.getParameter().wasSet(VEHPARS_FORCE_REROUTE)
                                   && !myIncludeIncomplete
                                   && myReplacedRoutes.size() > 0
+                                  && myReplacedRoutes[0].edge == nullptr
                                   && !myReplacedRoutes[0].isValid ? 1 : 0);
         if ((int)myReplacedRoutes.size() > routesToSkip) {
             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
@@ -475,6 +475,9 @@ MSDevice_Vehroutes::addRoute(const std::string& info) {
         if ((int)myReplacedRoutes.size() > myMaxRoutes) {
             myReplacedRoutes.erase(myReplacedRoutes.begin());
         }
+    }
+    if (myHolder.hasDeparted()) {
+        myLastRouteIndex = myHolder.getRoutePosition();
     }
     std::string dummyMsg;
     myCurrentRoute = myHolder.getRoutePtr();

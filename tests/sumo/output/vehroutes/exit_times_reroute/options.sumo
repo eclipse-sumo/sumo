@@ -1,0 +1,1 @@
+--net-file=net.net.xml -r input_routes.rou.xml -a input_additional.add.xml --vehroute-output=vehroutes.xml --vehroute-output.exit-times --no-step-log --no-duration-log
