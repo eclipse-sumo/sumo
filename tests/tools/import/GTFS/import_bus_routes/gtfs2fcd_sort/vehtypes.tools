@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 14:18:59.269731 by Eclipse SUMO gtfs2fcd.py v0.0.0
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20201111"/>
+    <fcd value="output"/>
+    <gpsdat value="output"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <sort value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="bus" vClass="bus"/>
+</additional>

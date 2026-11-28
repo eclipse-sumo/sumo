@@ -347,6 +347,9 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
         numDays = int(options.end) // 86401
         start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
         shapes_written = set()
+        do_sort = getattr(options, "sort", False)
+        sorted_routes = []
+        sorted_vehicles = []
 
         for day in range(numDays+1):
             if day == numDays and options.end % 86400 > 0:
@@ -386,7 +389,11 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                     continue
 
                 if main_shape not in shapes_written:
-                    output_file.write(u'    <route id="%s" edges="%s"/>\n' % (main_shape, " ".join(edges_list)))
+                    route_line = u'    <route id="%s" edges="%s"/>\n' % (main_shape, " ".join(edges_list))
+                    if do_sort:
+                        sorted_routes.append(route_line)
+                    else:
+                        output_file.write(route_line)
                     shapes_written.add(main_shape)
 
                 stopSeq = tuple([stop.stop_item_id for stop in stop_list.itertuples()])
@@ -394,17 +401,20 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                     seqs[stopSeq] = row.trip_id
 
                 # determine departure from first valid stop
+                depart_sec = 0
                 depart = None
                 for stop in stop_list.itertuples():
                     if stop.stop_item_id:
-                        depart = ft(parseTime(str(stop.arrival_fixed.days + day) +
-                                    ":" + str(stop.arrival_fixed).split(' ')[2]))
+                        depart_sec = parseTime(str(stop.arrival_fixed.days + day) +
+                                               ":" + str(stop.arrival_fixed).split(' ')[2])
+                        depart = ft(depart_sec)
                         break
 
+                veh_lines = []
                 veh_attr = (row.trip_id, day,
                             main_shape, row.route_id, seqs[stopSeq], depart,
                             min(stop_index), max(stop_index), pt_type, pt_color)
-                output_file.write(u'    <vehicle id="%s.%s" route="%s" line="%s_%s" depart="%s" departEdge="%s" arrivalEdge="%s" type="%s"%s>\n' % veh_attr)  # noqa
+                veh_lines.append(u'    <vehicle id="%s.%s" route="%s" line="%s_%s" depart="%s" departEdge="%s" arrivalEdge="%s" type="%s"%s>\n' % veh_attr)  # noqa
                 params = [("gtfs.route_name", row.route_short_name)]
                 if row.trip_headsign:
                     params.append(("gtfs.trip_headsign", row.trip_headsign))
@@ -420,7 +430,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                                ("gtfs.destination_stop", lastStop.stop_name),
                                ("gtfs.destination_arrrival", ft(lastArrival))]
                 for k, v in params:
-                    output_file.write(u'        <param key="%s" value=%s/>\n' % (
+                    veh_lines.append(u'        <param key="%s" value=%s/>\n' % (
                         k, sumolib.xml.quoteattr(str(v), True)))
 
                 check_seq = -1
@@ -440,7 +450,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                                         ":" + str(stop.departure_fixed).split(' ')[2])),
                                      stop.stop_sequence, stop_list.stop_sequence.max(),
                                      sumolib.xml.quoteattr(stop.stop_name, True))
-                        output_file.write(u'        <stop busStop="%s" arrival="%s" duration="%s" until="%s"/><!--stopSequence="%s/%s" %s-->\n' % stop_attr)  # noqa
+                        veh_lines.append(u'        <stop busStop="%s" arrival="%s" duration="%s" until="%s"/><!--stopSequence="%s/%s" %s-->\n' % stop_attr)  # noqa
                     elif stop_index < check_seq:
                         # stop not downstream
                         sequence_errors.append((stop.stop_item_id, sumolib.xml.quoteattr(stop.stop_name, True),
@@ -448,7 +458,17 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                                                 sumolib.xml.quoteattr(str(row.trip_headsign), True), row.direction_id,
                                                 stop.trip_id))
 
-                output_file.write(u'    </vehicle>\n')
+                veh_lines.append(u'    </vehicle>\n')
+                veh_block = u"".join(veh_lines)
+                if do_sort:
+                    sorted_vehicles.append((depart_sec, "%s.%s" % (row.trip_id, day), veh_block))
+                else:
+                    output_file.write(veh_block)
+        if do_sort:
+            for rline in sorted_routes:
+                output_file.write(rline)
+            for _, _, vblock in sorted(sorted_vehicles, key=lambda x: (x[0], x[1])):
+                output_file.write(vblock)
         output_file.write(u'</routes>\n')
 
     # -----------------------   Save missing data ------------------
