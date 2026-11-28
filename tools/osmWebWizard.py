@@ -37,6 +37,7 @@ import base64
 import ssl
 import collections
 import gettext
+import math
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from urllib.parse import urlsplit, parse_qs
 import time
@@ -51,6 +52,17 @@ from webWizard.SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 DEFAULT_PORT = 8010
+# Target area per query in square kilometres. Actual limits depend on the provider and map density.
+OSM_DOWNLOAD_TILE_AREA = 25
+OSM_DOWNLOAD_MAX_TILES = 16
+
+
+def osmTileCount(coords):
+    west, south, east, north = map(float, coords)
+    width = (east - west) * 111.32 * math.cos(math.radians((south + north) / 2))
+    height = (north - south) * 111.32
+    return max(1, min(OSM_DOWNLOAD_MAX_TILES, math.ceil(width * height / OSM_DOWNLOAD_TILE_AREA)))
+
 
 try:
     basestring
@@ -194,9 +206,6 @@ class Builder(object):
         return result
 
     def build(self):
-        # output name for the osm file, will be used by osmBuild, can be
-        # deleted after the process (but should generally be kept for rebuilding)
-        self.filename("osm", "_bbox.osm.xml.gz")
         # configuration for re-downloading the same area from OSM
         self.filename("ogc", ".ogcfg")
         # output name for the net file, will be used by osmBuild, randomTrips and sumo-gui
@@ -204,10 +213,15 @@ class Builder(object):
 
         if self.data.get("coords") is None:
             # fixed input testing mode
-            self.files["osm"] = self.data['osm']
+            osmFiles = [self.data['osm']]
         else:
-            self.report(self.TL("Downloading map data"))
+            tiles = osmTileCount(self.data["coords"])
             osmArgs = ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp, "-z"]
+            if tiles > 1:
+                self.report(self.TL("Large area selected. Downloading map data in %s tiles.") % tiles)
+                osmArgs += ["--tiles", str(tiles)]
+            else:
+                self.report(self.TL("Downloading map data"))
             if self.data["poly"]:
                 osmArgs.append("--shapes")
             if 'osmMirror' in self.data:
@@ -218,12 +232,12 @@ class Builder(object):
                 osmArgs.append("--verbose")
             # cannot write config by calling osmGet.get because saving config triggers sys.exit()
             subprocess.call([sys.executable, osmGet.__file__] + osmArgs + ['-C', self.files['ogc']])
-            osmGet.get(osmArgs)
+            osmFiles = osmGet.get(osmArgs)
 
-        if not os.path.exists(self.files["osm"]):
+        if not osmFiles or not all(os.path.isfile(path) for path in osmFiles):
             raise RuntimeError("Download failed")
 
-        options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp, "-z"]
+        options = ["-f", ",".join(self.getRelative(osmFiles)), "-p", self.prefix, "-d", self.tmp, "-z"]
 
         self.additionalFiles = []
         self.routenames = []
