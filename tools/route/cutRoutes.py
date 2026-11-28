@@ -204,14 +204,20 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
 
     for routeFile in options.routeFiles:
         print("Parsing routes from %s" % routeFile)
-        for moving in parse(routeFile, (u'vehicle', u'person', u'flow'),
+        for moving in parse(routeFile, (u'vehicle', u'person', u'flow', u'personFlow'),
                             {u"walk": (u"edges", u"busStop", u"trainStop")}):
             if options.verbose and stats.total() > 0 and stats.total() % 100000 == 0:
                 print("%s items read" % stats.total())
             old_route = None
-            if moving.name == 'person':
-                stats.num_persons += 1
-                oldDepart = moving.depart
+            isPersonFlow = moving.name == "personFlow"
+            if moving.name == "person" or isPersonFlow:
+                if isPersonFlow:
+                    stats.num_flows += 1
+                    oldDepart = moving.begin or "0"
+                else:
+                    stats.num_persons += 1
+                    oldDepart = moving.depart
+                isTriggeredFlow = isPersonFlow and oldDepart == "triggered"
                 newDepart = None
                 remaining = set()
                 newPlan = []
@@ -287,7 +293,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                                             isDiscoBefore = True
                                     else:
                                         planItem = None
-                                elif planItem.attr_from is None and len(newPlan) == 0:
+                                elif planItem.attr_from is None and not newPlan and not isTriggeredFlow:
                                     if planItem.lines in ptRoutes:
                                         planItem.setAttribute("from", ptRoutes[planItem.lines][0])
                                     else:
@@ -295,7 +301,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                         except ValueError as e:
                             print("Error handling ride in '%s'" % moving.id, e)
                             planItem = None
-                        if planItem is not None and newDepart is None and planItem.depart is not None:
+                        if (not isPersonFlow and planItem is not None
+                                and newDepart is None and planItem.depart is not None):
                             newDepart = parseTime(planItem.depart)
                     if planItem is None:
                         isDiscoAfter = True
@@ -306,16 +313,28 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                         break
                     isDiscoBefore = isDiscoAfter
                     isDiscoAfter = False
-                if not newPlan:
+                if not newPlan or (isTriggeredFlow and (not moving.ride or newPlan[0] is not moving.ride[0])):
                     continue
                 moving.setChildList(params + newPlan)
                 cut_stops(moving, busStopEdges, remaining)
-                if newDepart is None:
-                    newDepart = parseTime(moving.depart)
-                if newPlan[0].name == "ride" and newPlan[0].lines == newPlan[0].intended:
-                    moving.depart = "triggered"
+                if isPersonFlow:
+                    if isTriggeredFlow:
+                        newDepart = -1
+                    else:
+                        oldBegin = parseTime(oldDepart)
+                        if newDepart is None:
+                            newDepart = oldBegin
+                        if newDepart != oldBegin:
+                            moving.setAttribute("begin", "%.3f" % newDepart)
+                            if moving.end is not None:
+                                moving.end = "%.3f" % (parseTime(moving.end) + newDepart - oldBegin)
                 else:
-                    moving.depart = "%.2f" % newDepart
+                    if newDepart is None:
+                        newDepart = parseTime(oldDepart)
+                    if newPlan[0].name == "ride" and newPlan[0].lines == newPlan[0].intended:
+                        moving.depart = "triggered"
+                    else:
+                        moving.depart = "%.2f" % newDepart
                 yield newDepart, moving
             else:
                 if moving.name == 'vehicle':
@@ -612,7 +631,17 @@ def main(options):
                              (['--verbose'] if options.verbose else []))
         else:
             routes = list(cut_routes(edges, orig_net, options, busStopEdges, ptRoutes, oldPTRoutes))
-            routes.sort(key=lambda v: v[0])
+            vehicleDeparts = {vehicle.id: depart for depart, vehicle in routes
+                              if vehicle.name in sort_routes.VEHICLE_TAGS}
+
+            def sort_key(item):
+                depart, moving = item
+                trigger = None
+                if moving.name == "personFlow" and moving.begin == "triggered":
+                    trigger = moving.ride[0].lines
+                return sort_routes.departure_key(depart, trigger, vehicleDeparts)
+
+            routes.sort(key=sort_key)
             with io.open(options.output, 'w', encoding="utf8") as f:
                 write_to_file(routes, f)
 
