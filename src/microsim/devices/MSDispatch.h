@@ -23,6 +23,7 @@
 #include <set>
 #include <vector>
 #include <map>
+#include <microsim/MSEdge.h>
 #include <utils/common/Parameterised.h>
 #include <utils/common/SUMOTime.h>
 #include "MSDevice_Taxi.h"
@@ -70,7 +71,8 @@ struct Reservation {
         group(_group),
         line(_line),
         recheck(_reservationTime),
-        state(NEW)
+        state(NEW),
+        order(0)
     {}
 
     std::string id;
@@ -88,6 +90,7 @@ struct Reservation {
     std::string line;
     SUMOTime recheck;
     ReservationState state;
+    long long order;
 
     bool operator==(const Reservation& other) const {
         return persons == other.persons
@@ -216,21 +219,47 @@ public:
 
 protected:
 
+    struct GroupReservationKey {
+        GroupReservationKey(const std::string& _group, const MSEdge* _from, const MSEdge* _to) :
+            group(_group), from(_from), to(_to) {}
+
+        explicit GroupReservationKey(const Reservation& res) :
+            group(res.group), from(res.from), to(res.to) {}
+
+        std::string group;
+        const MSEdge* from;
+        const MSEdge* to;
+
+        bool operator<(const GroupReservationKey& other) const {
+            if (group != other.group) {
+                return group < other.group;
+            }
+            if (from != other.from) {
+                return from->getNumericalID() < other.from->getNumericalID();
+            }
+            if (to != other.to) {
+                return to->getNumericalID() < other.to->getNumericalID();
+            }
+            return false;
+        }
+    };
+
     /// @brief whether the given taxi has sufficient capacity to serve the reservation
     int remainingCapacity(const MSDevice_Taxi* taxi, const Reservation* res);
 
     // reservations that are currently being served (could still be used during re-dispatch)
-    std::map<std::string, std::map<const Reservation*, MSDevice_Taxi*, ComparatorIdLess> > myRunningReservations;
+    std::map<GroupReservationKey, std::map<const Reservation*, MSDevice_Taxi*, ComparatorIdLess> > myRunningReservations;
 
     /// @brief optional file output for dispatch information
     OutputDevice* myOutput;
 
     int myReservationCount;
+    long long myReservationOrder = 0;
 
     /// @brief the duration before canceling unreachable reservations
     SUMOTime myKeepUnreachableResTime;
 
-    std::map<std::string, std::vector<Reservation*> > myGroupReservations;
+    std::map<GroupReservationKey, std::vector<Reservation*> > myGroupReservations;
 
     /// @brief which router/edge weights to use
     const int myRoutingMode;

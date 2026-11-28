@@ -87,18 +87,19 @@ MSDispatch::addReservation(MSTransportable* person,
         }
     }
     // no new reservation nedded if the person can be added to an existing group
+    const bool checkRunning = group != "";
     if (group == "") {
         // the default empty group implies, no grouping is wanted (and
         // transportable ids are unique)
         group = person->getID();
-    } else {
-        auto it2 = myRunningReservations.find(group);
+    }
+    const GroupReservationKey groupKey(group, from, to);
+    if (checkRunning) {
+        auto it2 = myRunningReservations.find(groupKey);
         if (it2 != myRunningReservations.end()) {
             for (auto item : it2->second) {
                 Reservation* res = const_cast<Reservation*>(item.first);
-                if (res->from == from
-                        && res->to == to
-                        && (res->fromPos == fromPos || res->fromStop == fromStop)
+                if ((res->fromPos == fromPos || res->fromStop == fromStop)
                         && (res->toPos == toPos || res->toStop == toStop)) {
                     MSDevice_Taxi* taxi = item.second;
                     if ((taxi->getState() == taxi->PICKUP
@@ -119,13 +120,11 @@ MSDispatch::addReservation(MSTransportable* person,
     }
     Reservation* result = nullptr;
     bool added = false;
-    auto it = myGroupReservations.find(group);
+    auto it = myGroupReservations.find(groupKey);
     if (it != myGroupReservations.end()) {
         // try to add to existing reservation
         for (Reservation* res : it->second) {
             if (res->persons.count(person) == 0
-                    && res->from == from
-                    && res->to == to
                     && (res->fromPos == fromPos || res->fromStop == fromStop)
                     && (res->toPos == toPos || res->toStop == toStop)
                     && (resID.empty() || res->id == resID)) {
@@ -150,7 +149,8 @@ MSDispatch::addReservation(MSTransportable* person,
             resID = toString(myReservationCount++);
         }
         Reservation* newRes = new Reservation(resID, {person}, reservationTime, pickupTime, earliestPickupTime, from, fromPos, fromStop, to, toPos, toStop, group, line);
-        myGroupReservations[group].push_back(newRes);
+        newRes->order = myReservationOrder++;
+        myGroupReservations[groupKey].push_back(newRes);
         result = newRes;
     }
     myHasServableReservations = true;
@@ -180,16 +180,17 @@ MSDispatch::removeReservation(MSTransportable* person,
         // transportable ids are unique)
         group = person->getID();
     }
+    const GroupReservationKey groupKey(group, from, to);
     std::string removedID = "";
-    auto it = myGroupReservations.find(group);
+    bool found = false;
+    auto it = myGroupReservations.find(groupKey);
     if (it != myGroupReservations.end()) {
         for (auto itRes = it->second.begin(); itRes != it->second.end(); itRes++) {
             Reservation* res = *itRes;
             if (res->persons.count(person) != 0
-                    && res->from == from
-                    && res->to == to
                     && res->fromPos == fromPos
                     && res->toPos == toPos) {
+                found = true;
                 res->persons.erase(person);
                 if (res->persons.empty()) {
                     removedID = res->id;
@@ -203,14 +204,13 @@ MSDispatch::removeReservation(MSTransportable* person,
                 break;
             }
         }
-    } else {
-        auto it2 = myRunningReservations.find(group);
+    }
+    if (!found) {
+        auto it2 = myRunningReservations.find(groupKey);
         if (it2 != myRunningReservations.end()) {
             for (auto item : it2->second) {
                 const Reservation* const res = item.first;
                 if (res->persons.count(person) != 0
-                        && res->from == from
-                        && res->to == to
                         && res->fromPos == fromPos
                         && res->toPos == toPos) {
                     if (res->persons.size() == 1) {
@@ -249,15 +249,14 @@ MSDispatch::updateReservationFromPos(MSTransportable* person,
     }
     Reservation* result = nullptr;
     std::string updatedID = "";
-    auto it = myGroupReservations.find(group);
+    const GroupReservationKey groupKey(group, from, to);
+    auto it = myGroupReservations.find(groupKey);
     if (it != myGroupReservations.end()) {
         for (auto itRes = it->second.begin(); itRes != it->second.end(); itRes++) {
             Reservation* res = *itRes;
             // TODO: if there is already a reservation with the newFromPos, add to this reservation
             // TODO: if there are other persons in this reservation, create a new reservation for the updated one
             if (res->persons.count(person) != 0
-                    && res->from == from
-                    && res->to == to
                     && res->fromPos == fromPos
                     && res->toPos == toPos) {
                 // update fromPos
@@ -288,6 +287,12 @@ MSDispatch::getReservations() {
     for (const auto& it : myGroupReservations) {
         reservations.insert(reservations.end(), it.second.begin(), it.second.end());
     }
+    std::sort(reservations.begin(), reservations.end(), [](const Reservation* a, const Reservation* b) {
+        if (a->group != b->group) {
+            return a->group < b->group;
+        }
+        return a->order < b->order;
+    });
     return reservations;
 }
 
@@ -295,18 +300,25 @@ MSDispatch::getReservations() {
 std::vector<const Reservation*>
 MSDispatch::getRunningReservations() {
     std::vector<const Reservation*> result;
-    for (auto item : myRunningReservations) {
-        for (auto item2 : item.second) {
+    for (const auto& item : myRunningReservations) {
+        for (const auto& item2 : item.second) {
             result.push_back(item2.first);
         }
     }
+    std::sort(result.begin(), result.end(), [](const Reservation* a, const Reservation* b) {
+        if (a->group != b->group) {
+            return a->group < b->group;
+        }
+        return ComparatorIdLess()(a, b);
+    });
     return result;
 }
 
 
 void
 MSDispatch::servedReservation(const Reservation* res, MSDevice_Taxi* taxi) {
-    auto itR = myRunningReservations.find(res->group);
+    const GroupReservationKey groupKey(*res);
+    auto itR = myRunningReservations.find(groupKey);
     if (itR != myRunningReservations.end() && itR->second.count(res) != 0) {
 #ifdef DEBUG_RESERVATION
         std::cout << SIMTIME << " servedReservation res=" << res->id << " taxi=" << taxi->getID() << " (running)\n";
@@ -316,7 +328,7 @@ MSDispatch::servedReservation(const Reservation* res, MSDevice_Taxi* taxi) {
 #ifdef DEBUG_RESERVATION
     std::cout << SIMTIME << " servedReservation res=" << res->id << " taxi=" << taxi->getID() << "\n";
 #endif
-    auto it = myGroupReservations.find(res->group);
+    auto it = myGroupReservations.find(groupKey);
     if (it == myGroupReservations.end()) {
         throw ProcessError(TL("Inconsistent group reservations."));
     }
@@ -324,7 +336,7 @@ MSDispatch::servedReservation(const Reservation* res, MSDevice_Taxi* taxi) {
     if (it2 == it->second.end()) {
         throw ProcessError(TL("Inconsistent group reservations (2)."));
     }
-    myRunningReservations[res->group][res] = taxi;
+    myRunningReservations[groupKey][res] = taxi;
     const_cast<Reservation*>(*it2)->state = Reservation::ASSIGNED;
     it->second.erase(it2);
     if (it->second.empty()) {
@@ -335,21 +347,26 @@ MSDispatch::servedReservation(const Reservation* res, MSDevice_Taxi* taxi) {
 
 void
 MSDispatch::swappedRunning(const Reservation* res, MSDevice_Taxi* taxi) {
+    const GroupReservationKey groupKey(*res);
 #ifdef DEBUG_RESERVATION
-    std::cout << SIMTIME << " swapped res=" << res->id << " old=" << myRunningReservations[res->group][res]->getID() << " new=" << taxi->getID() << "\n";
+    std::cout << SIMTIME << " swapped res=" << res->id << " old=" << myRunningReservations[groupKey][res]->getID() << " new=" << taxi->getID() << "\n";
 #endif
-    myRunningReservations[res->group][res] = taxi;
+    myRunningReservations[groupKey][res] = taxi;
 }
 
 
 void
 MSDispatch::fulfilledReservation(const Reservation* res) {
+    const GroupReservationKey groupKey(*res);
 #ifdef DEBUG_RESERVATION
     std::cout << SIMTIME << " fullfilled res=" << res->id << "\n";
 #endif
-    myRunningReservations[res->group].erase(res);
-    if (myRunningReservations[res->group].empty()) {
-        myRunningReservations.erase(res->group);
+    auto it = myRunningReservations.find(groupKey);
+    if (it != myRunningReservations.end()) {
+        it->second.erase(res);
+        if (it->second.empty()) {
+            myRunningReservations.erase(it);
+        }
     }
     delete res;
 }
@@ -439,19 +456,37 @@ MSDispatch::saveState(OutputDevice& out, SUMOTime nextDispatch) const {
     out.writeAttr(SUMO_ATTR_NEXT, nextDispatch);
     out.writeAttr(SUMO_ATTR_COUNT, myReservationCount);
 
-    std::ostringstream internals;
+    std::vector<const Reservation*> running;
     for (const auto& it : myRunningReservations) {
         for (const auto& item : it.second) {
-            for (const MSTransportable* t : item.first->persons) {
-                internals << t->getID() << " " << item.first->id << " ";
-            }
+            running.push_back(item.first);
         }
     }
+    std::sort(running.begin(), running.end(), [](const Reservation* a, const Reservation* b) {
+        if (a->group != b->group) {
+            return a->group < b->group;
+        }
+        return ComparatorIdLess()(a, b);
+    });
+    std::vector<const Reservation*> waiting;
     for (const auto& it : myGroupReservations) {
-        for (const Reservation* res : it.second) {
-            for (const MSTransportable* t : res->persons) {
-                internals << t->getID() << " " << res->id << " ";
-            }
+        waiting.insert(waiting.end(), it.second.begin(), it.second.end());
+    }
+    std::sort(waiting.begin(), waiting.end(), [](const Reservation* a, const Reservation* b) {
+        if (a->group != b->group) {
+            return a->group < b->group;
+        }
+        return a->order < b->order;
+    });
+    std::ostringstream internals;
+    for (const Reservation* res : running) {
+        for (const MSTransportable* t : res->persons) {
+            internals << t->getID() << " " << res->id << " ";
+        }
+    }
+    for (const Reservation* res : waiting) {
+        for (const MSTransportable* t : res->persons) {
+            internals << t->getID() << " " << res->id << " ";
         }
     }
     out.writeAttr(SUMO_ATTR_CUSTOMERS, internals.str());
