@@ -138,6 +138,8 @@ def get_options(args=None):
     op.add_argument("--minimize-vehicles", dest="minimizeVehs", type=float, default=0,
                     help="Set optimization factor from [0, 1[ for reducing the number of vehicles" +
                     "(prefer routes that pass multiple counting locations over routes that pass fewer)")
+    op.add_argument("--optimize-weight-attribute", dest="optimizeWeightAttr",
+                    help="count attribute to use as an optimization shortfall weight")
     op.add_argument("--geh-ok", dest="gehOk", type=float, default=5,
                     help="threshold for acceptable GEH values")
     op.add_argument("--geh-scale", dest="gehScale", type=float, default=None,
@@ -488,6 +490,7 @@ class CountData:
     def __init__(self, count, edgeTuple, allRoutes, isOrigin, isDest, isRatio, isTaz, options):
         self.index = None
         self.origCount = count
+        self.optimizeWeight = None
         self.count = count
         self.edgeTuple = edgeTuple
         self.isOrigin = isOrigin
@@ -703,6 +706,8 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
     result = []
     if attr is None or attr == "None":
         return result
+    weightAttr = options.optimizeWeightAttr if options.optimize else None
+    countAttrs = attr + [weightAttr] if weightAttr else attr
     for fname in fnames:
         for interval in sumolib.xml.parse(fname, 'interval', heterogeneous=True):
             iBegin = parseTime(interval.begin)
@@ -710,7 +715,8 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
             overlap = 1 if isRatio else getOverlap(begin, end, iBegin, iEnd)
             if overlap > 0:
                 # print(begin, end, interval.begin, interval.end, "overlap:", overlap)
-                for edges, value in parseFun(interval, attr, warn):
+                for edges, value in parseFun(interval, countAttrs, warn):
+                    weight = value.pop() if weightAttr else None
                     try:
                         value = sum([float(v) for v in value])
                     except TypeError:
@@ -747,7 +753,18 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
                             print("Ignoring negative count %s for edge(s) '%s'" % (
                                 value, " ".join(edges)), file=sys.stderr)
                     elif firstData or options.merge_strategy == "sum":
-                        locations[edges].addCount(value)
+                        location = locations[edges]
+                        location.addCount(value)
+                        if weight is not None:
+                            rawWeight = weight
+                            weight = float(rawWeight)
+                            if not np.isfinite(weight) or weight < 0:
+                                raise ValueError("Invalid optimization weight '%s' in '%s' for '%s'" %
+                                                 (rawWeight, fname, ' '.join(edges)))
+                            if not warn and location.optimizeWeight is not None and location.optimizeWeight != weight:
+                                raise ValueError("Conflicting optimization weights in interval %s-%s for '%s'" %
+                                                 (begin, end, ' '.join(edges)))
+                            location.optimizeWeight = weight
     return result
 
 
@@ -826,7 +843,7 @@ def optimize(options, countData, routes, priorRouteCounts, routeUsage, intervalC
     b = np.asarray([cd.origCount for cd in countData])
 
     # minimization objective [routeCounts] + [slack]
-    c = [options.minimizeVehs] * k + [1] * m
+    c = [options.minimizeVehs] * k + [1 if cd.optimizeWeight is None else cd.optimizeWeight for cd in countData]
 
     A_ub = None
     b_ub = None

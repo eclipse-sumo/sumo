@@ -1,0 +1,4 @@
+<routes>
+    <route id="left" edges="entry left"/>
+    <route id="right" edges="entry right"/>
+</routes>

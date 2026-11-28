@@ -1,0 +1,5 @@
+<additional>
+    <taz id="origin" edges="entry"/>
+    <taz id="l" edges="left"/>
+    <taz id="r" edges="right"/>
+</additional>
