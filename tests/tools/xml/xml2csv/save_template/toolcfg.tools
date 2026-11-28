@@ -7,5 +7,7 @@
     <xsd value="None" type="string" help="xsd schema to use" category="processing"/>
     <validation value="False" type="bool" help="enable schema validation" category="processing"/>
     <keep-attributes value="None" type="string" help="Only keep the given attributes" category="processing"/>
+    <keep-tags value="None" type="string" help="Only keep the given tags" category="processing"/>
+    <tag-column value="False" type="bool" help="Add a column containing the lowest tag name" category="processing"/>
     <split value="False" type="bool" help="split in different files for the first hierarchy level" category="processing"/>
 </configuration>

@@ -61,6 +61,79 @@ def _is_float_value(val):
         return False
 
 
+class FilteredAttrFinder(sumolib.xml.AttrFinder):
+
+    def __init__(self, xsdFile, source, split, keepAttrs=None, keepTags=None):
+        self.keepTags = keepTags
+        self._visitedSkipped = set()
+        sumolib.xml.AttrFinder.__init__(self, xsdFile, source, split, keepAttrs)
+        if self.keepTags is not None and split:
+            for root in list(self.attrs.keys()):
+                if not self.attrs[root] and all(not tags for tags in self.depthTags[root]):
+                    del self.attrs[root]
+                    del self.depthTags[root]
+
+    def addElement(self, root, name, depth):
+        while len(self.depthTags[root]) <= depth:
+            self.depthTags[root].append([])
+        if name not in self.tagDepths:
+            self.tagDepths[name] = depth
+            self.depthTags[root][depth].append(name)
+            return True
+        if name in self.depthTags[root][depth]:
+            return True
+        print("Ignoring tag %s at depth %s" % (name, depth), file=sys.stderr)
+        return False
+
+    def recursiveAttrFind(self, root, currEle, depth):
+        if self.keepTags is None or currEle.name in self.keepTags:
+            if currEle.name in self.tagDepths:
+                while len(self.depthTags[root.name]) <= depth:
+                    self.depthTags[root.name].append([])
+                if currEle.name not in self.depthTags[root.name][depth]:
+                    print("Ignoring tag %s at depth %s" % (currEle.name, depth), file=sys.stderr)
+                return
+            self.addElement(root.name, currEle.name, depth)
+            for a in currEle.attributes:
+                if ":" not in a.name and (self.keepAttrs is None or a.name in self.keepAttrs):
+                    self.tagAttrs[currEle.name][a.name] = a
+                    anew = "%s_%s" % (currEle.name, a.name)
+                    self.renamedAttrs[(currEle.name, a.name)] = anew
+                    attrList = self.attrs[root.name]
+                    if anew in attrList:
+                        del attrList[attrList.index(anew)]
+                    attrList.append(anew)
+        else:
+            while len(self.depthTags[root.name]) <= depth:
+                self.depthTags[root.name].append([])
+            if (root.name, currEle.name) in self._visitedSkipped:
+                return
+            self._visitedSkipped.add((root.name, currEle.name))
+        for ele in currEle.children:
+            self.recursiveAttrFind(root, ele, depth + 1)
+
+    def startElement(self, name, attrs):
+        sumolib.xml.NestingHandler.startElement(self, name, attrs)
+        if self.depth() >= self.rootDepth:
+            root = self.tagstack[self.rootDepth]
+            if self.depth() == self.rootDepth and root not in self.attrs:
+                self.attrs[root] = []
+                self.depthTags[root] = [[] for _ in range(self.rootDepth + 1)]
+            if self.keepTags is not None and name not in self.keepTags:
+                return
+            if not self.addElement(root, name, self.depth()):
+                return
+            for a in sorted(list(attrs.keys())):
+                if self.keepAttrs is not None and a not in self.keepAttrs:
+                    continue
+                if a not in self.tagAttrs[name] and ":" not in a:
+                    self.tagAttrs[name][a] = sumolib.xml.xsd.XmlAttribute(a)
+                    if (name, a) not in self.renamedAttrs:
+                        anew = "%s_%s" % (name, a)
+                        self.renamedAttrs[(name, a)] = anew
+                        self.attrs[root].append(anew)
+
+
 class CSVWriter(sumolib.xml.NestingHandler):
 
     def __init__(self, attrFinder, options):
@@ -85,8 +158,9 @@ class CSVWriter(sumolib.xml.NestingHandler):
             else:
                 outfilename = options.output + "%s.csv" % root
                 self.outfiles[root] = sumolib.openz(outfilename, "w", trySocket=True)
+            headerCols = (["tag"] if options.tagColumn else []) + attrFinder.attrs[root]
             self.outfiles[root].write(
-                options.separator.join(map(self.quote, attrFinder.attrs[root])) + u"\n")
+                options.separator.join(map(self.quote, headerCols)) + u"\n")
 
     def quote(self, s):
         return "%s%s%s" % (self.options.quotechar, s, self.options.quotechar)
@@ -103,7 +177,9 @@ class CSVWriter(sumolib.xml.NestingHandler):
         if self.depth() >= self.rootDepth:
             root = self.tagstack[self.rootDepth]
             # print("start", name, root, self.depth(), self.attrFinder.depthTags[root][self.depth()])
-            if name in self.attrFinder.depthTags[root][self.depth()]:
+            if (root in self.attrFinder.depthTags
+                    and self.depth() < len(self.attrFinder.depthTags[root])
+                    and name in self.attrFinder.depthTags[root][self.depth()]):
                 for a, v in attrs.items():
                     if isinstance(a, tuple):
                         a = a[1]
@@ -130,10 +206,15 @@ class CSVWriter(sumolib.xml.NestingHandler):
             root = self.tagstack[self.rootDepth]
             # print("end", name, root, self.depth(), self.attrFinder.depthTags[root][self.depth()],
             # self.haveUnsavedValues)
-            if name in self.attrFinder.depthTags[root][self.depth()]:
+            if (root in self.attrFinder.depthTags
+                    and self.depth() < len(self.attrFinder.depthTags[root])
+                    and name in self.attrFinder.depthTags[root][self.depth()]):
                 if self.haveUnsavedValues:
+                    rowVals = ([name] if self.options.tagColumn else []) + [
+                        self.currentValues[a] for a in self.attrFinder.attrs[root]
+                    ]
                     self.outfiles[root].write(self.options.separator.join(
-                        [self.quote(self.currentValues[a]) for a in self.attrFinder.attrs[root]]) + u"\n")
+                        [self.quote(v) for v in rowVals]) + u"\n")
                     self.haveUnsavedValues = False
                 for a in self.attrFinder.tagAttrs[name]:
                     a2 = self.attrFinder.renamedAttrs.get((name, a), a)
@@ -165,6 +246,10 @@ def get_options(arglist=None):
                            help="enable schema validation")
     optParser.add_argument("--keep-attributes", dest="keepAttrs",
                            help="Only keep the given attributes")
+    optParser.add_argument("--keep-tags", dest="keepTags",
+                           help="Only keep the given tags")
+    optParser.add_argument("--tag-column", dest="tagColumn", action="store_true", default=False,
+                           help="Add a column containing the lowest tag name")
     optParser.add_argument("-p", "--split", action="store_true", default=False,
                            help="split in different files for the first hierarchy level")
     options = optParser.parse_args(arglist)
@@ -183,13 +268,19 @@ def get_options(arglist=None):
         sys.exit()
     if options.keepAttrs:
         options.keepAttrs = set(options.keepAttrs.split(','))
+    if options.keepTags:
+        options.keepTags = set(options.keepTags.split(','))
     return options
 
 
 def main(args=None):
     options = get_options(args)
     # get attributes
-    attrFinder = sumolib.xml.AttrFinder(options.xsd, options.source, options.split, options.keepAttrs)
+    if options.keepTags is not None:
+        attrFinder = FilteredAttrFinder(options.xsd, options.source, options.split,
+                                        options.keepAttrs, options.keepTags)
+    else:
+        attrFinder = sumolib.xml.AttrFinder(options.xsd, options.source, options.split, options.keepAttrs)
     # write csv
     handler = CSVWriter(attrFinder, options)
     if options.validation:
