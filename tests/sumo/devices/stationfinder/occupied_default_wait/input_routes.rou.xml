@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType accel="1.0" decel="5.0" id="EV" emissionClass="Energy" mass="1600" length="18" maxSpeed="20.0" sigma="0.0" minGap="2.5">
+        <param key="device.battery.capacity" value="6000"/>
+        <param key="device.battery.maxPower" value="100000"/>
+    </vType>
+    <route id="r0" edges="D2 L2 L12"/>
+    <vehicle depart="0" id="veh0" route="r0" type="EV" departPos="470" departSpeed="max">
+        <param key="device.battery.chargeLevel" value="500"/>
+    </vehicle>
+    <vehicle depart="2" id="veh1" route="r0" type="EV" departPos="470" departSpeed="max">
+        <param key="device.battery.chargeLevel" value="500"/>
+    </vehicle>
+</routes>

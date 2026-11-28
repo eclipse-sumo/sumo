@@ -1,0 +1,1 @@
+--no-step-log --no-duration-log --net-file=net.net.xml -a=input_additional.add.xml -r input_routes.rou.xml --device.stationfinder.probability 1 --device.stationfinder.checkEnergyForRoute false --time-to-teleport 30 --tripinfo-output tripinfos.xml
