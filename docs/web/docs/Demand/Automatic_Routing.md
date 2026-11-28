@@ -105,14 +105,13 @@ without the need to instantiate the device for them explicitly. Whenever
 an error occurs on routing because no route can be found which includes
 all mandatory edges ("from", "to", and all stop edges in the correct
 order) and is connected (also respecting the vehicle class permissions)
-this is a fatal error and stops the simulation. This can be switched off
-by using **--ignore-route-errors** which will leave the route untouched in the error case. If the
-vehicle did not have a route yet (because it was defined using a trip)
-and cannot find one and **--ignore-route-errors** is used, it will not be inserted.
+this is a fatal error and stops the simulation. Setting **--ignore-route-errors** suppresses that fatal error and handles disconnected trips or flows according to how their endpoints are defined:
 
-Alternatively to using attributes "from" and "to" it is also possible to
-use "fromTaz" and "toTaz", if a [district file is
-loaded](../Demand/Importing_O/D_Matrices.md#describing_the_taz).
+- **Trips or flows with `fromTaz` and `toTaz`**: SUMO emits `Warning: Removing vehicle '...' which has no valid route.` and discards the vehicle before insertion.
+- **Trips or flows with `from` and `to` in microscopic simulation**: SUMO emits `Warning: No route for vehicle '...' found.`, keeps the two-edge `[from, to]` route, and inserts the vehicle on `from`. Upon reaching the end of `from` without a valid outgoing connection, the vehicle waits and [teleports](../Simulation/Why_Vehicles_are_teleporting.md) onto `to` once **--time-to-teleport** elapses (when teleporting is enabled).
+- **Trips or flows with `from` and `to` in [mesoscopic simulation](../Simulation/Meso.md) (`--mesosim`)**: SUMO emits `Warning: No route for vehicle '...' found.`, inserts the vehicle on `from`, and advances it directly onto `to` without waiting or further warnings as soon as `to` has available queue space.
+
+Alternatively to using attributes `from` and `to`, you can specify `fromTaz` and `toTaz` when a [district file is loaded](../Demand/Importing_O/D_Matrices.md#describing_the_taz).
 
 # Alternative Declaration via Parameters
 
