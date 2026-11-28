@@ -156,20 +156,15 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                          oc.isSet("astar.save-landmark-distances") ? oc.getString("astar.save-landmark-distances") : "", oc.getInt("routing-threads"), mapMatcher);
             }
             router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, lookup, net.hasPermissions(), oc.isSet("restriction-params"));
-        } else if (routingAlgorithm == "CH" && !net.hasPermissions() && !gRoutingPreferences && !net.hasSpeedRestrictions()) {
-            const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
-                                           string2time(oc.getString("weight-period")) :
-                                           SUMOTime_MAX);
-            router = new CHRouter<ROEdge, ROVehicle>(
-                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, SVC_IGNORING, weightPeriod, net.hasPermissions(), oc.isSet("restriction-params"));
         } else if (routingAlgorithm == "CHWrapper" || routingAlgorithm == "CH") {
-            // use CHWrapper instead of CH if the net has permissions, preferences or speed restriction
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            SUMOTime_MAX);
+            const bool ignoreVClass = routingAlgorithm == "CH" && !net.hasPermissions() && !gRoutingPreferences && !net.hasSpeedRestrictions();
             router = new CHRouterWrapper<ROEdge, ROVehicle>(
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op,
-                begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
+                begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"),
+                oc.isSet("restriction-params"), ignoreVClass);
         } else if (routingAlgorithm == "CCH") {
             // One weight-independent hierarchy over the union graph; one
             // customized metric per (vehicle type, weight period), built

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18T01:22:19.984657+00:00 by Eclipse SUMO netconvert v1_28_0+0644-bda840e3afe
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Users\Mark\AppData\Local\Temp\tmpi8mlbr49\n.nod.xml"/>
+        <edge-files value="C:\Users\Mark\AppData\Local\Temp\tmpi8mlbr49\e.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="c:\Users\Mark\Desktop\sumo\tests\duarouter\function\routing\chrouter\different_maxspeed\input_net.net.xml"/>
+    </output>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,1200.00,500.00" origBoundary="0.00,0.00,1200.00,500.00" projParameter="!"/>
+
+    <edge id="beg" from="n0" to="n1" priority="-1" length="100.00">
+        <lane id="beg_0" index="0" speed="40.00" length="100.00" shape="0.00,-1.60 98.34,-1.60"/>
+    </edge>
+    <edge id="end" from="n2" to="n3" priority="-1" length="100.00">
+        <lane id="end_0" index="0" speed="40.00" length="100.00" shape="1101.66,-1.60 1200.00,-1.60"/>
+    </edge>
+    <edge id="hwy1" from="n1" to="n_hwy" priority="-1" length="750.00">
+        <lane id="hwy1_0" index="0" speed="40.00" length="750.00" shape="104.57,2.30 598.87,496.61"/>
+    </edge>
+    <edge id="hwy2" from="n_hwy" to="n2" priority="-1" length="750.00">
+        <lane id="hwy2_0" index="0" speed="40.00" length="750.00" shape="601.13,496.61 1095.43,2.30"/>
+    </edge>
+    <edge id="loc1" from="n1" to="n_loc" priority="-1" length="500.00">
+        <lane id="loc1_0" index="0" speed="20.00" length="500.00" shape="106.18,-1.60 600.00,-1.60"/>
+    </edge>
+    <edge id="loc2" from="n_loc" to="n2" priority="-1" length="500.00">
+        <lane id="loc2_0" index="0" speed="20.00" length="500.00" shape="600.00,-1.60 1093.82,-1.60"/>
+    </edge>
+
+    <junction id="n0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="n1" type="priority" x="100.00" y="0.00" incLanes="beg_0" intLanes="" shape="103.43,3.43 105.70,1.17 105.23,0.52 105.23,0.29 105.39,0.13 105.71,0.03 106.18,0.00 106.18,-3.20 98.34,-3.20 98.34,0.00 99.65,0.38 100.44,0.86 101.34,1.53 102.34,2.38">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="n2" type="priority" x="1100.00" y="0.00" incLanes="loc2_0 hwy2_0" intLanes="" shape="1101.66,0.00 1101.66,-3.20 1093.82,-3.20 1093.82,0.00 1094.61,0.13 1094.77,0.29 1094.77,0.52 1094.61,0.81 1094.30,1.17 1096.57,3.43 1098.17,1.58 1098.77,0.90 1099.45,0.41 1100.36,0.10">
+        <request index="0" response="10" foes="10"/>
+        <request index="1" response="00" foes="01"/>
+    </junction>
+    <junction id="n3" type="dead_end" x="1200.00" y="0.00" incLanes="end_0" intLanes="" shape="1200.00,-3.20 1200.00,0.00"/>
+    <junction id="n_hwy" type="priority" x="600.00" y="500.00" incLanes="hwy1_0" intLanes="" shape="602.26,497.74 600.00,495.47 597.74,497.74 599.25,498.74 600.00,498.87 600.75,498.74 601.51,498.37">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="n_loc" type="priority" x="600.00" y="0.00" incLanes="loc1_0" intLanes="" shape="600.00,0.00 600.00,-3.20 600.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+
+    <connection from="beg" to="loc1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="beg" to="hwy1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="hwy1" to="hwy2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="hwy2" to="end" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="loc1" to="loc2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="loc2" to="end" fromLane="0" toLane="0" dir="s" state="m"/>
+
+</net>

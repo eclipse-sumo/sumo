@@ -15,3 +15,6 @@ weights
 
 # test for rebuilding the hierarchy and cloning afterwards for parallel processing
 weights_parallel
+
+# test vehicles with different maxSpeed and speedFactor (#1381)
+different_maxspeed
