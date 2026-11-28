@@ -269,12 +269,13 @@ class PersonDomain(VTypeDomain):
         self.removeStage(personID, 0)
 
     def add(self, personID, edgeID, pos, depart=tc.DEPARTFLAG_NOW, typeID="DEFAULT_PEDTYPE"):
-        """add(string, string, double, double, string)
+        """add(string, string, double or string, double, string)
         Inserts a new person to the simulation at the given edge, position and
-        time (in s). This function should be followed by appending Stages or the person
-        will immediately vanish on departure.
+        time (in s). Pass "random" to sample a position on the edge. A negative
+        position in metres counts from the end of the edge.
+        Append a stage to keep the person in the simulation after departure.
         """
-        format = "tssdd"
+        format = "tssds" if isinstance(pos, str) else "tssdd"
         values = [4, typeID, edgeID, depart, pos]
         self._setCmd(tc.ADD, personID, format, *values)
 

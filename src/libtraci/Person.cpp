@@ -367,8 +367,8 @@ Person::setBoardingDuration(const std::string& personID, double boardingDuration
     Dom::setDouble(libsumo::VAR_BOARDING_DURATION, personID, boardingDuration);
 }
 
-void
-Person::add(const std::string& personID, const std::string& edgeID, double pos, double departInSecs, const std::string typeID) {
+static tcpip::Storage
+personAddParameters(const std::string& edgeID, double departInSecs, const std::string& typeID) {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
     content.writeInt(4);
@@ -378,8 +378,24 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
     content.writeString(edgeID);
     content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(departInSecs);
+    return content;
+}
+
+
+void
+Person::add(const std::string& personID, const std::string& edgeID, double pos, double departInSecs, const std::string typeID) {
+    tcpip::Storage content = personAddParameters(edgeID, departInSecs, typeID);
     content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(pos);
+    Dom::set(libsumo::ADD, personID, &content);
+}
+
+
+void
+Person::add(const std::string& personID, const std::string& edgeID, const std::string& pos, double departInSecs, const std::string typeID) {
+    tcpip::Storage content = personAddParameters(edgeID, departInSecs, typeID);
+    content.writeUnsignedByte(libsumo::TYPE_STRING);
+    content.writeString(pos);
     Dom::set(libsumo::ADD, personID, &content);
 }
 

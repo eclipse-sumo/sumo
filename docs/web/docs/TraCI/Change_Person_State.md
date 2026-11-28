@@ -40,9 +40,9 @@ The message contents are as following:
 
 |         byte          |     integer     |        byte         | string  |        byte         |     string      |        byte         |         double         |        byte         |     double      |
 | :------: | :--------: | :----------: | :-----: | :---------: | :-------: | :--------: | :-----------: | :-----------: | :-------: |
-| value type *compound* | item number (4) | value type *string* | type ID | value type *string* | Initial Edge ID | value type *double* | depart time in seconds | value type *double* | depart position |
+| value type *compound* | item number (4) | value type *string* | type ID | value type *string* | Initial Edge ID | value type *double* | depart time in seconds | value type *double* or *string* | depart position |
 
-A depart time value of -3 is interpreted as immediate departure
+A depart time of -3 requests immediate departure. Pass a position in metres or the string "random" to sample a position on the initial edge. Negative distances are measured from the end of the edge. Random positions use the simulation seed.
 
 ### append stage (0xc4)
 
