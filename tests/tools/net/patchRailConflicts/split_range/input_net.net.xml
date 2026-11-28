@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-100.00,-100.00,100.00,130.00" origBoundary="-100.00,-100.00,100.00,130.00" projParameter="!"/>
+
+    <edge id=":C_0" function="internal">
+        <lane id=":C_0_0" index="0" allow="tram" speed="13.89" length="6.20" shape="0.00,3.10 0.00,-3.10"/>
+    </edge>
+    <edge id=":C_1" function="internal">
+        <lane id=":C_1_0" index="0" allow="tram" speed="5.75" length="5.00" shape="0.00,3.10 0.19,1.74 0.77,0.78 1.74,0.19 3.10,0.00"/>
+    </edge>
+    <edge id=":C_2" function="internal">
+        <lane id=":C_2_0" index="0" allow="tram" speed="5.75" length="5.00" shape="-3.10,0.00 -1.74,-0.19 -0.78,-0.77 -0.19,-1.74 0.00,-3.10"/>
+    </edge>
+    <edge id=":C_3" function="internal">
+        <lane id=":C_3_0" index="0" allow="tram" speed="13.89" length="6.20" shape="-3.10,0.00 3.10,0.00"/>
+    </edge>
+    <edge id=":J1_0" function="internal">
+        <lane id=":J1_0_0" index="0" allow="tram" speed="13.89" length="0.10" shape="-30.00,0.00 -30.00,0.00"/>
+    </edge>
+    <edge id=":J3_0" function="internal">
+        <lane id=":J3_0_0" index="0" allow="tram" speed="13.89" length="0.10" shape="0.00,30.00 0.00,30.00"/>
+    </edge>
+    <edge id=":S1_0" function="internal">
+        <lane id=":S1_0_0" index="0" allow="tram" speed="13.89" length="0.10" shape="-70.00,0.00 -70.00,0.00"/>
+    </edge>
+
+    <edge id="E0" from="J1" to="C" priority="-1" spreadType="center">
+        <lane id="E0_0" index="0" allow="tram" speed="13.89" length="26.90" shape="-30.00,0.00 -3.10,0.00"/>
+    </edge>
+    <edge id="E0_pre" from="J0" to="S1" priority="-1" spreadType="center">
+        <lane id="E0_pre_0" index="0" allow="tram" speed="13.89" length="30.00" shape="-100.00,0.00 -70.00,0.00"/>
+    </edge>
+    <edge id="E0_up" from="S1" to="J1" priority="-1" spreadType="center">
+        <lane id="E0_up_0" index="0" allow="tram" speed="13.89" length="40.00" shape="-70.00,0.00 -30.00,0.00"/>
+    </edge>
+    <edge id="E1" from="C" to="J_out1" priority="-1" spreadType="center">
+        <lane id="E1_0" index="0" allow="tram" speed="13.89" length="96.90" shape="3.10,0.00 100.00,0.00"/>
+    </edge>
+    <edge id="E2" from="J3" to="C" priority="-1" spreadType="center">
+        <lane id="E2_0" index="0" allow="tram" speed="13.89" length="26.90" shape="0.00,30.00 0.00,3.10"/>
+    </edge>
+    <edge id="E2_up" from="J2" to="J3" priority="-1" spreadType="center">
+        <lane id="E2_up_0" index="0" allow="tram" speed="13.89" length="100.00" shape="0.00,130.00 0.00,30.00"/>
+    </edge>
+    <edge id="E3" from="C" to="J_out2" priority="-1" spreadType="center">
+        <lane id="E3_0" index="0" allow="tram" speed="13.89" length="96.90" shape="0.00,-3.10 0.00,-100.00"/>
+    </edge>
+
+    <tlLogic id="C" type="static" programID="0" offset="0">
+        <phase duration="42" state="GGrr"/>
+        <phase duration="3"  state="yyrr"/>
+        <phase duration="42" state="rrGG"/>
+        <phase duration="3"  state="rryy"/>
+    </tlLogic>
+
+    <junction id="C" type="traffic_light" x="0.00" y="0.00" incLanes="E2_0 E0_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0" shape="-1.60,3.10 1.60,3.10 1.77,2.27 1.97,1.97 2.27,1.77 2.64,1.64 3.10,1.60 3.10,-1.60 2.27,-1.77 1.97,-1.97 1.77,-2.27 1.64,-2.64 1.60,-3.10 -1.60,-3.10 -1.77,-2.27 -1.98,-1.97 -2.27,-1.77 -2.64,-1.64 -3.10,-1.60 -3.10,1.60 -2.27,1.77 -1.98,1.98 -1.77,2.27 -1.64,2.64">
+        <request index="0" response="1100" foes="1100" cont="0"/>
+        <request index="1" response="1000" foes="1000" cont="0"/>
+        <request index="2" response="0000" foes="0001" cont="0"/>
+        <request index="3" response="0000" foes="0011" cont="0"/>
+    </junction>
+    <junction id="J0" type="dead_end" x="-100.00" y="0.00" incLanes="" intLanes="" shape="-100.00,1.60 -100.00,-1.60"/>
+    <junction id="J1" type="priority" x="-30.00" y="0.00" incLanes="E0_up_0" intLanes=":J1_0_0" shape="-30.00,1.60 -30.00,-1.60 -30.00,1.60">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="J2" type="dead_end" x="0.00" y="130.00" incLanes="" intLanes="" shape="1.60,130.00 -1.60,130.00"/>
+    <junction id="J3" type="priority" x="0.00" y="30.00" incLanes="E2_up_0" intLanes=":J3_0_0" shape="-1.60,30.00 1.60,30.00 -1.60,30.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="J_out1" type="dead_end" x="100.00" y="0.00" incLanes="E1_0" intLanes="" shape="100.00,-1.60 100.00,1.60"/>
+    <junction id="J_out2" type="dead_end" x="0.00" y="-100.00" incLanes="E3_0" intLanes="" shape="-1.60,-100.00 1.60,-100.00"/>
+    <junction id="S1" type="rail_signal" x="-70.00" y="0.00" incLanes="E0_pre_0" intLanes=":S1_0_0" shape="-70.00,1.60 -70.00,-1.60 -70.00,1.60">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="E0" to="E3" fromLane="0" toLane="0" via=":C_2_0" tl="C" linkIndex="2" dir="r" state="O"/>
+    <connection from="E0" to="E1" fromLane="0" toLane="0" via=":C_3_0" tl="C" linkIndex="3" dir="s" state="O"/>
+    <connection from="E0_pre" to="E0_up" fromLane="0" toLane="0" via=":S1_0_0" tl="S1" linkIndex="0" dir="s" state="O"/>
+    <connection from="E0_up" to="E0" fromLane="0" toLane="0" via=":J1_0_0" dir="s" state="M"/>
+    <connection from="E2" to="E3" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="s" state="o"/>
+    <connection from="E2" to="E1" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="1" dir="l" state="o"/>
+    <connection from="E2_up" to="E2" fromLane="0" toLane="0" via=":J3_0_0" dir="s" state="M"/>
+
+    <connection from=":C_0" to="E3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_1" to="E1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":C_2" to="E3" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":C_3" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":J1_0" to="E0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":J3_0" to="E2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":S1_0" to="E0_up" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
