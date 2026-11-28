@@ -174,7 +174,7 @@ NILoader::loadXML(OptionsCont& oc) {
     }
     // load traffic lights (needs to come last, references loaded edges and connections)
     if (ok) {
-        NIXMLTrafficLightsHandler tlHandler(myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont());
+        NIXMLTrafficLightsHandler tlHandler(myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont(), false, true);
         ok = NITypeLoader::load(tlHandler, oc.getStringVector("tllogic-files"), "traffic lights");
     }
 

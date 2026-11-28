@@ -181,6 +181,9 @@ public:
         /// @brief Whether this lane is an acceleration lane
         bool accelRamp;
 
+        /// @brief Whether this sidewalk was inserted ahead of the authored PlainXML lanes
+        bool generatedPlainXMLSidewalk = false;
+
         /// @brief Whether connection information for this lane is already completed
         // @note (see NIImporter_DlrNavteq::ConnectedLanesHandler)
         bool connectionsDone;
@@ -670,6 +673,19 @@ public:
 
     /// @brief Returns the combined width of all lanes of this edge
     double getTotalWidth() const;
+
+    /// @brief Translate an authored PlainXML connection lane index to the current lane index
+    int getLaneIndexFromPlainXML(int index) const;
+
+    /// @brief Remember that the edge was created from a plain edge file
+    void markAsPlainXMLEdge() {
+        myFromPlainXML = true;
+    }
+
+    /// @brief Whether the edge came from a plain edge file in this import
+    bool isPlainXMLEdge() const {
+        return myFromPlainXML;
+    }
 
     /// @brief Returns the street name of this edge
     const std::string& getStreetName() const {
@@ -1871,6 +1887,9 @@ private:
 
     /// @brief True when way metadata excludes this edge from inferred roundabouts.
     bool myRoundaboutGuessExcluded = false;
+
+    /// @brief Whether the edge was created from a plain edge file
+    bool myFromPlainXML = false;
 
     /// @brief The routing type of the edge
     std::string myRoutingType;

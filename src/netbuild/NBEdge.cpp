@@ -339,6 +339,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
     myIsOffRamp(false),
     myIsBidi(tpl->myIsBidi),
     myRoundaboutGuessExcluded(tpl->myRoundaboutGuessExcluded),
+    myFromPlainXML(tpl->myFromPlainXML),
     myIndex(-1) {
     init(numLanes > 0 ? numLanes : tpl->getNumLanes(), myGeom.size() > 0, "");
     for (int i = 0; i < getNumLanes(); i++) {
@@ -348,6 +349,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
         setPermissions(tpl->getPermissions(tplIndex), i);
         setLaneWidth(i, tpl->myLanes[tplIndex].width);
         setLaneType(i, tpl->myLanes[tplIndex].type);
+        myLanes[i].generatedPlainXMLSidewalk = tpl->myLanes[tplIndex].generatedPlainXMLSidewalk;
         myLanes[i].updateParameters(tpl->myLanes[tplIndex].getParametersMap());
         if (to == tpl->myTo) {
             setEndOffset(i, tpl->myLanes[tplIndex].endOffset);
@@ -4391,6 +4393,15 @@ NBEdge::getTotalWidth() const {
 double
 NBEdge::getEndOffset(int lane) const {
     return myLanes[lane].endOffset != UNSPECIFIED_OFFSET ? myLanes[lane].endOffset : getEndOffset();
+}
+
+
+int
+NBEdge::getLaneIndexFromPlainXML(int index) const {
+    if (index >= 0 && index < getNumLanes() && myLanes.front().generatedPlainXMLSidewalk) {
+        return index + 1;
+    }
+    return index;
 }
 
 

@@ -245,11 +245,14 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
 bool
 NIXMLConnectionsHandler::parseLaneInfo(const SUMOSAXAttributes& attributes, NBEdge* fromEdge, NBEdge* toEdge,
                                        int* fromLane, int* toLane) {
-    if (attributes.hasAttribute(SUMO_ATTR_LANE)) {
-        return parseDeprecatedLaneDefinition(attributes, fromEdge, toEdge, fromLane, toLane);
-    } else {
-        return parseLaneDefinition(attributes, fromLane, toLane);
+    const bool ok = attributes.hasAttribute(SUMO_ATTR_LANE)
+                    ? parseDeprecatedLaneDefinition(attributes, fromEdge, toEdge, fromLane, toLane)
+                    : parseLaneDefinition(attributes, fromLane, toLane);
+    if (ok) {
+        *fromLane = fromEdge->getLaneIndexFromPlainXML(*fromLane);
+        *toLane = toEdge->getLaneIndexFromPlainXML(*toLane);
     }
+    return ok;
 }
 
 

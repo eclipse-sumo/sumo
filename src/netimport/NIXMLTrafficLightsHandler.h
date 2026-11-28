@@ -49,7 +49,8 @@ public:
     /** @brief Constructor
      * @param[in] ec The traffic light container into which to load logics
      */
-    NIXMLTrafficLightsHandler(NBTrafficLightLogicCont& tlCont, NBEdgeCont& ec, bool ignoreUnknown = false);
+    NIXMLTrafficLightsHandler(NBTrafficLightLogicCont& tlCont, NBEdgeCont& ec, bool ignoreUnknown = false,
+                              bool translateLaneIndices = false);
 
 
     /// @brief Destructor
@@ -118,6 +119,9 @@ private:
 
     /// @brief whether definitions for unknown traffic lights shall be silently ignored
     bool myIgnoreUnknown;
+
+    /// @brief Whether lane references use the authored PlainXML indices
+    bool myTranslateLaneIndices;
 
     /// @brief list of traffic light logics that were found
     std::set<std::string> mySeenIDs;
