@@ -244,9 +244,14 @@ GNEInspectorFrame::TemplateEditor::updateButtons() {
 GNEInspectorFrame::GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "Inspector") {
 
-    // Create back button
-    myBackButton = GUIDesigns::buildFXButton(myHeaderLeftFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT),
-                   this, MID_GNE_INSPECTORFRAME_INSPECTPREVIOUSELEMENT, GUIDesignButtonRectangular);
+    // Align the header with the inspector modules and keep the Back button next to the title.
+    myHeaderFrame->setPadLeft(DEFAULT_SPACING);
+    myHeaderFrame->setPadRight(DEFAULT_SPACING);
+    myHeaderFrame->setHSpacing(DEFAULT_SPACING);
+    myHeaderLeftFrame->setLayoutHints(LAYOUT_CENTER_Y);
+    getFrameHeaderLabel()->setLayoutHints(LAYOUT_FILL_X | LAYOUT_CENTER_Y);
+    myBackButton = GUIDesigns::buildFXButton(myHeaderLeftFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ARROW_LEFT),
+                   this, MID_GNE_INSPECTORFRAME_INSPECTPREVIOUSELEMENT, GUIDesignButtonIcon);
     myHeaderLeftFrame->hide();
     myBackButton->hide();
 
