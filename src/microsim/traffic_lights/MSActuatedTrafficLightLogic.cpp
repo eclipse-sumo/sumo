@@ -131,6 +131,44 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         }
     }
     myStack.push_back(std::map<std::string, double>());
+
+    myConditionSlots.reserve(myConditions.size());
+    for (const auto& item : myConditions) {
+        const int idx = (int)myConditionSlots.size();
+        myConditionIndex[item.first] = idx;
+        ConditionSlot slot;
+        slot.id = item.first;
+        slot.exprStr = item.second;
+        slot.listed = myListedConditions.count(item.first) != 0;
+        myConditionSlots.push_back(slot);
+    }
+    getOrCreateStackSlot("$0");
+    int maxFuncArgs = 0;
+    for (const auto& fItem : myFunctions) {
+        maxFuncArgs = MAX2(maxFuncArgs, fItem.second.nArgs);
+    }
+    for (int i = 1; i <= maxFuncArgs; i++) {
+        getOrCreateStackSlot("$" + toString(i));
+    }
+    myCompiledFunctions.reserve(myFunctions.size());
+    for (const auto& fItem : myFunctions) {
+        const int fIdx = (int)myCompiledFunctions.size();
+        myFunctionIndex[fItem.first] = fIdx;
+        CompiledFunction cf;
+        cf.id = fItem.second.id;
+        cf.nArgs = fItem.second.nArgs;
+        cf.assignments.reserve(fItem.second.assignments.size());
+        for (const auto& a : fItem.second.assignments) {
+            cf.assignments.push_back(buildCompiledAssignment(a));
+        }
+        myCompiledFunctions.push_back(cf);
+    }
+    myCompiledAssignments.reserve(myAssignments.size());
+    for (const auto& a : myAssignments) {
+        myCompiledAssignments.push_back(buildCompiledAssignment(a));
+    }
+    myStackStorage.assign(myNumStackVars, StackVal());
+    myStackStorage.reserve(MAX2(1, myNumStackVars) * 16);
 }
 
 
@@ -552,68 +590,93 @@ SUMOTime
 MSActuatedTrafficLightLogic::getMinDur(int step) const {
     step = step < 0 ? myStep : step;
     const MSPhaseDefinition* p = myPhases[step];
-    return p->minDuration != MSPhaseDefinition::OVERRIDE_DURATION
-           ? p->minDuration
-           : TIME2STEPS(evalExpression(myConditions.find("minDur:" + toString(step))->second));
+    if (p->minDuration != MSPhaseDefinition::OVERRIDE_DURATION) {
+        return p->minDuration;
+    }
+    if (step < (int)myPhaseOverrides.size() && myPhaseOverrides[step].minDurCond >= 0) {
+        return TIME2STEPS(evalConditionSlot(myConditionSlots[myPhaseOverrides[step].minDurCond]));
+    }
+    return TIME2STEPS(evalExpression(myConditions.find("minDur:" + toString(step))->second));
 }
 
 SUMOTime
 MSActuatedTrafficLightLogic::getMaxDur(int step) const {
     step = step < 0 ? myStep : step;
     const MSPhaseDefinition* p = myPhases[step];
-    return p->maxDuration != MSPhaseDefinition::OVERRIDE_DURATION
-           ? p->maxDuration
-           : TIME2STEPS(evalExpression(myConditions.find("maxDur:" + toString(step))->second));
+    if (p->maxDuration != MSPhaseDefinition::OVERRIDE_DURATION) {
+        return p->maxDuration;
+    }
+    if (step < (int)myPhaseOverrides.size() && myPhaseOverrides[step].maxDurCond >= 0) {
+        return TIME2STEPS(evalConditionSlot(myConditionSlots[myPhaseOverrides[step].maxDurCond]));
+    }
+    return TIME2STEPS(evalExpression(myConditions.find("maxDur:" + toString(step))->second));
 }
 
 SUMOTime
 MSActuatedTrafficLightLogic::getEarliestEnd(int step) const {
     step = step < 0 ? myStep : step;
     const MSPhaseDefinition* p = myPhases[step];
-    return p->earliestEnd != MSPhaseDefinition::OVERRIDE_DURATION
-           ? p->earliestEnd
-           : TIME2STEPS(evalExpression(myConditions.find("earliestEnd:" + toString(step))->second));
+    if (p->earliestEnd != MSPhaseDefinition::OVERRIDE_DURATION) {
+        return p->earliestEnd;
+    }
+    if (step < (int)myPhaseOverrides.size() && myPhaseOverrides[step].earliestEndCond >= 0) {
+        return TIME2STEPS(evalConditionSlot(myConditionSlots[myPhaseOverrides[step].earliestEndCond]));
+    }
+    return TIME2STEPS(evalExpression(myConditions.find("earliestEnd:" + toString(step))->second));
 }
 
 SUMOTime
 MSActuatedTrafficLightLogic::getLatestEnd(int step) const {
     step = step < 0 ? myStep : step;
     const MSPhaseDefinition* p = myPhases[step];
-    return p->latestEnd != MSPhaseDefinition::OVERRIDE_DURATION
-           ? p->latestEnd
-           : TIME2STEPS(evalExpression(myConditions.find("latestEnd:" + toString(step))->second));
+    if (p->latestEnd != MSPhaseDefinition::OVERRIDE_DURATION) {
+        return p->latestEnd;
+    }
+    if (step < (int)myPhaseOverrides.size() && myPhaseOverrides[step].latestEndCond >= 0) {
+        return TIME2STEPS(evalConditionSlot(myConditionSlots[myPhaseOverrides[step].latestEndCond]));
+    }
+    return TIME2STEPS(evalExpression(myConditions.find("latestEnd:" + toString(step))->second));
 }
 
 
 void
 MSActuatedTrafficLightLogic::initAttributeOverride() {
     const SUMOTime ovrd = MSPhaseDefinition::OVERRIDE_DURATION;
+    myPhaseOverrides.assign(myPhases.size(), PhaseOverrides());
     for (int i = 0; i < (int)myPhases.size(); i++) {
         MSPhaseDefinition* phase = myPhases[i];
         const std::string errorSuffix = "' for overriding attribute in phase " + toString(i) + " of tlLogic '" + getID() + "' in program '" + getProgramID() + "'.";
         if (phase->minDuration == ovrd) {
             const std::string cond = "minDur:" + toString(i);
-            if (myConditions.count(cond) == 0) {
+            auto it = myConditionIndex.find(cond);
+            if (it == myConditionIndex.end()) {
                 throw ProcessError("Missing condition '" + cond + errorSuffix);
             }
+            myPhaseOverrides[i].minDurCond = it->second;
         }
         if (phase->maxDuration == ovrd) {
             const std::string cond = "maxDur:" + toString(i);
-            if (myConditions.count(cond) == 0) {
+            auto it = myConditionIndex.find(cond);
+            if (it == myConditionIndex.end()) {
                 throw ProcessError("Missing condition '" + cond + errorSuffix);
             }
+            myPhaseOverrides[i].maxDurCond = it->second;
         }
         if (phase->earliestEnd == ovrd) {
             const std::string cond = "earliestEnd:" + toString(i);
-            if (myConditions.count(cond) == 0) {
+            auto it = myConditionIndex.find(cond);
+            if (it == myConditionIndex.end()) {
                 throw ProcessError("Missing condition '" + cond + errorSuffix);
             }
+            myPhaseOverrides[i].earliestEndCond = it->second;
         }
         if (phase->latestEnd == ovrd) {
             const std::string cond = "latestEnd:" + toString(i);
-            if (myConditions.count(cond) == 0) {
+            auto it = myConditionIndex.find(cond);
+            if (it == myConditionIndex.end()) {
                 throw ProcessError("Missing condition '" + cond + errorSuffix);
             }
+            myPhaseOverrides[i].latestEndCond = it->second;
         }
     }
 }
@@ -621,9 +684,12 @@ MSActuatedTrafficLightLogic::initAttributeOverride() {
 
 void
 MSActuatedTrafficLightLogic::initSwitchingRules() {
+    const bool hasCustomDefault = myConditionIndex.count(DEFAULT_CONDITION) != 0;
     for (int i = 0; i < (int)myPhases.size(); i++) {
         SwitchingRules sr;
         MSPhaseDefinition* phase = myPhases[i];
+        sr.earlyIsDefault = (phase->earlyTarget == DEFAULT_CONDITION && !hasCustomDefault);
+        sr.finalIsDefault = (phase->finalTarget == DEFAULT_CONDITION && !hasCustomDefault);
         std::vector<int> nextPhases = phase->nextPhases;
         if (nextPhases.size() == 0) {
             nextPhases.push_back((i + 1) % (int)myPhases.size());
@@ -826,7 +892,9 @@ MSActuatedTrafficLightLogic::trySwitch() {
     // @note any vehicles which arrived during the previous phases which are now waiting between the detector and the stop line are not
     // considere here. RiLSA recommends to set minDuration in a way that lets all vehicles pass the detector
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-    executeAssignments(myAssignments, myConditions);
+    if (!myCompiledAssignments.empty()) {
+        executeCompiledAssignments(myCompiledAssignments, false);
+    }
 
     if (myLinkGreenTimes.size() > 0) {
         // constraints exist, record green time durations for each link
@@ -1183,36 +1251,96 @@ MSActuatedTrafficLightLogic::getLinkMinDuration(int target) const {
 }
 
 int
-MSActuatedTrafficLightLogic::decideNextPhaseCustom(bool mustSwitch) {
-    for (int next : getCurrentPhaseDef().nextPhases) {
-        const MSPhaseDefinition* phase = myPhases[next];
-        const std::string& condition = mustSwitch ? phase->finalTarget : phase->earlyTarget;
-#ifdef DEBUG_PHASE_SELECTION_CUSTOM
-        if (DEBUG_COND) {
-            std::cout << SIMTIME << " mustSwitch=" << mustSwitch << " cur=" << myStep << " next=" << next << " condition=" << condition
-                      << " eval=" << (condition == "" ? NAN : evalExpression(condition)) << "\n";
-        }
-#endif
-        if (condition != "") {
-            // backward compatibility if a user redefined DEFAULT_CONDITION
-            if (condition == DEFAULT_CONDITION && myConditions.count(DEFAULT_CONDITION) == 0) {
-                if (gapControl() == std::numeric_limits<double>::max()) {
-                    return next;
-                }
-            } else if (evalExpression(condition)) {
-                return next;
-            }
-        }
+MSActuatedTrafficLightLogic::getOrCreateStackSlot(const std::string& varName) {
+    auto it = myStackVarIndex.find(varName);
+    if (it != myStackVarIndex.end()) {
+        return it->second;
     }
-    return mustSwitch ? getCurrentPhaseDef().nextPhases.back() : myStep;
+    const int slot = myNumStackVars++;
+    myStackVarIndex[varName] = slot;
+    return slot;
 }
 
 
-double
-MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const {
+MSActuatedTrafficLightLogic::CompiledAssignment
+MSActuatedTrafficLightLogic::buildCompiledAssignment(const std::tuple<std::string, std::string, std::string>& assignment) {
+    CompiledAssignment ca;
+    ca.id = std::get<0>(assignment);
+    ca.checkStr = std::get<1>(assignment);
+    ca.valStr = std::get<2>(assignment);
+    auto it = myConditionIndex.find(ca.id);
+    if (it != myConditionIndex.end()) {
+        ca.targetCondIdx = it->second;
+    } else {
+        ca.targetStackSlot = getOrCreateStackSlot(ca.id);
+    }
+    return ca;
+}
+
+
+MSActuatedTrafficLightLogic::ExprNode*
+MSActuatedTrafficLightLogic::allocExprNode(ExprOp op) const {
+    std::unique_ptr<ExprNode> node(new ExprNode());
+    node->op = op;
+    node->poolIndex = (int)myExprNodes.size();
+    ExprNode* ptr = node.get();
+    myExprNodes.push_back(std::move(node));
+    return ptr;
+}
+
+
+MSActuatedTrafficLightLogic::ExprOp
+MSActuatedTrafficLightLogic::parseBinaryOp(const std::string& o, const std::string& condition) {
+    if (o == "=" || o == "==") {
+        return ExprOp::BIN_EQ;
+    } else if (o == "<") {
+        return ExprOp::BIN_LT;
+    } else if (o == ">") {
+        return ExprOp::BIN_GT;
+    } else if (o == "<=") {
+        return ExprOp::BIN_LE;
+    } else if (o == ">=") {
+        return ExprOp::BIN_GE;
+    } else if (o == "!=") {
+        return ExprOp::BIN_NE;
+    } else if (o == "or" || o == "||") {
+        return ExprOp::BIN_OR;
+    } else if (o == "and" || o == "&&") {
+        return ExprOp::BIN_AND;
+    } else if (o == "+") {
+        return ExprOp::BIN_ADD;
+    } else if (o == "-") {
+        return ExprOp::BIN_SUB;
+    } else if (o == "*") {
+        return ExprOp::BIN_MUL;
+    } else if (o == "/") {
+        return ExprOp::BIN_DIV;
+    } else if (o == "%") {
+        return ExprOp::BIN_MOD;
+    } else if (o == "**" || o == "^") {
+        return ExprOp::BIN_POW;
+    } else {
+        throw ProcessError(TLF("Unsupported operator '%' in condition '%'", o, condition));
+    }
+}
+
+
+const MSActuatedTrafficLightLogic::ExprNode*
+MSActuatedTrafficLightLogic::getOrCompileExpression(const std::string& condition) const {
+    auto it = myExprCache.find(condition);
+    if (it != myExprCache.end()) {
+        return it->second;
+    }
+    const ExprNode* compiled = compileExpressionImpl(condition, condition);
+    myExprCache[condition] = compiled;
+    return compiled;
+}
+
+
+const MSActuatedTrafficLightLogic::ExprNode*
+MSActuatedTrafficLightLogic::compileExpressionImpl(const std::string& condition, const std::string& origCondition) const {
     const size_t bracketOpen = condition.find('(');
     if (bracketOpen != std::string::npos) {
-        // find matching closing bracket
         size_t bracketClose = std::string::npos;
         int open = 1;
         for (size_t i = bracketOpen + 1; i < condition.size(); i++) {
@@ -1227,71 +1355,498 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
             }
         }
         if (bracketClose == std::string::npos) {
-            throw ProcessError(TLF("Unmatched parentheses in condition %'", condition));
+            throw ProcessError(TLF("Unmatched parentheses in condition %'", origCondition));
         }
-        std::string cond2 = condition;
         const std::string inBracket = condition.substr(bracketOpen + 1, bracketClose - bracketOpen - 1);
-        double bracketVal = evalExpression(inBracket);
-        cond2.replace(bracketOpen, bracketClose - bracketOpen + 1, toString(bracketVal));
+        const ExprNode* bracketNode = compileExpressionImpl(inBracket, inBracket);
+        std::string cond2 = condition;
+        cond2.replace(bracketOpen, bracketClose - bracketOpen + 1, "\x7f" + toString(bracketNode->poolIndex) + "\x7f");
         try {
-            return evalExpression(cond2);
+            return compileExpressionImpl(cond2, origCondition);
         } catch (ProcessError& e) {
-            throw ProcessError(TLF("Error when evaluating expression '%':\n  %", condition, e.what()));
+            throw ProcessError(TLF("Error when evaluating expression '%':\n  %", origCondition, e.what()));
         }
     }
     std::vector<std::string> tokens = StringTokenizer(condition).getVector();
-    //std::cout << SIMTIME << " tokens(" << tokens.size() << ")=" << toString(tokens) << "\n";
-    if (tokens.size() == 0) {
-        throw ProcessError(TLF("Invalid empty condition '%'", condition));
-    } else if (tokens.size() == 1) {
-        try {
-            return evalAtomicExpression(tokens[0]);
-        } catch (ProcessError& e) {
-            throw ProcessError(TLF("Error when evaluating expression '%':\n  %", condition, e.what()));
-        }
-    } else if (tokens.size() == 2) {
-        if (tokens[0] == "not") {
-            try {
-                return evalAtomicExpression(tokens[1]) == 0. ? 1. : 0.;
-            } catch (ProcessError& e) {
-                throw ProcessError(TLF("Error when evaluating expression '%':\n  %", condition, e.what()));
-            }
-        } else {
-            throw ProcessError(TLF("Unsupported condition '%'", condition));
-        }
-    } else if (tokens.size() == 3) {
-        // infix expression
-        const double a = evalAtomicExpression(tokens[0]);
-        const double b = evalAtomicExpression(tokens[2]);
-        const std::string& o = tokens[1];
-        //std::cout << SIMTIME << " o=" << o << " a=" << a << " b=" << b << "\n";
-        try {
-            return evalTernaryExpression(a, o, b, condition);
-        } catch (ProcessError& e) {
-            throw ProcessError(TLF("Error when evaluating expression '%':\n  %", condition, e.what()));
-        }
-    } else {
+    while (tokens.size() >= 4) {
+        bool reduced = false;
         const int iEnd = (int)tokens.size() - 1;
         for (const std::string& o : OPERATOR_PRECEDENCE) {
             for (int i = 1; i < iEnd; i++) {
                 if (tokens[i] == o) {
                     try {
-                        const double val = evalTernaryExpression(
-                                               evalAtomicExpression(tokens[i - 1]), o,
-                                               evalAtomicExpression(tokens[i + 1]), condition);
-                        std::vector<std::string> newTokens(tokens.begin(), tokens.begin() + (i - 1));
-                        newTokens.push_back(toString(val));
-                        newTokens.insert(newTokens.end(), tokens.begin() + (i + 2), tokens.end());
-                        return evalExpression(toString(newTokens));
+                        const ExprNode* left = compileAtomicExpression(tokens[i - 1]);
+                        const ExprNode* right = compileAtomicExpression(tokens[i + 1]);
+                        ExprNode* bin = allocExprNode(parseBinaryOp(o, origCondition));
+                        bin->left = left;
+                        bin->right = right;
+                        bin->contextStr = origCondition;
+                        tokens[i - 1] = "\x7f" + toString(bin->poolIndex) + "\x7f";
+                        tokens.erase(tokens.begin() + i, tokens.begin() + (i + 2));
+                        reduced = true;
+                        break;
                     } catch (ProcessError& e) {
-                        throw ProcessError(TLF("Error when evaluating expression '%':\n  %", condition, e.what()));
+                        throw ProcessError(TLF("Error when evaluating expression '%':\n  %", origCondition, e.what()));
                     }
                 }
             }
+            if (reduced) {
+                break;
+            }
         }
-        throw ProcessError(TLF("Parsing expressions with % elements ('%') is not supported", toString(tokens.size()), condition));
+        if (!reduced) {
+            throw ProcessError(TLF("Parsing expressions with % elements ('%') is not supported", toString(tokens.size()), origCondition));
+        }
     }
-    return true;
+    if (tokens.size() == 0) {
+        throw ProcessError(TLF("Invalid empty condition '%'", origCondition));
+    } else if (tokens.size() == 1) {
+        try {
+            return compileAtomicExpression(tokens[0]);
+        } catch (ProcessError& e) {
+            throw ProcessError(TLF("Error when evaluating expression '%':\n  %", origCondition, e.what()));
+        }
+    } else if (tokens.size() == 2) {
+        if (tokens[0] == "not") {
+            try {
+                const ExprNode* sub = compileAtomicExpression(tokens[1]);
+                ExprNode* node = allocExprNode(ExprOp::UNARY_NOT);
+                node->left = sub;
+                return node;
+            } catch (ProcessError& e) {
+                throw ProcessError(TLF("Error when evaluating expression '%':\n  %", origCondition, e.what()));
+            }
+        } else {
+            throw ProcessError(TLF("Unsupported condition '%'", origCondition));
+        }
+    } else {
+        const ExprNode* left = compileAtomicExpression(tokens[0]);
+        const ExprNode* right = compileAtomicExpression(tokens[2]);
+        try {
+            ExprNode* bin = allocExprNode(parseBinaryOp(tokens[1], origCondition));
+            bin->left = left;
+            bin->right = right;
+            bin->contextStr = origCondition;
+            return bin;
+        } catch (ProcessError& e) {
+            throw ProcessError(TLF("Error when evaluating expression '%':\n  %", origCondition, e.what()));
+        }
+    }
+}
+
+
+const MSActuatedTrafficLightLogic::ExprNode*
+MSActuatedTrafficLightLogic::compileAtomicExpression(const std::string& expr) const {
+    if (expr.empty()) {
+        throw ProcessError(TL("Invalid empty expression"));
+    }
+    if (expr.size() >= 3 && expr.front() == '\x7f' && expr.back() == '\x7f'
+            && expr.find('\x7f', 1) == expr.size() - 1) {
+        const int idx = StringUtils::toInt(expr.substr(1, expr.size() - 2));
+        return myExprNodes[idx].get();
+    }
+    if (expr[0] == '!') {
+        const ExprNode* sub = compileAtomicExpression(expr.substr(1));
+        ExprNode* node = allocExprNode(ExprOp::UNARY_NOT);
+        node->left = sub;
+        return node;
+    }
+    if (expr[0] == '-') {
+        const ExprNode* sub = compileAtomicExpression(expr.substr(1));
+        if (sub->op == ExprOp::LITERAL) {
+            ExprNode* node = allocExprNode(ExprOp::LITERAL);
+            node->numVal = -sub->numVal;
+            return node;
+        }
+        ExprNode* node = allocExprNode(ExprOp::UNARY_NEG);
+        node->left = sub;
+        return node;
+    }
+    const size_t pos = expr.find(':');
+    if (pos == std::string::npos) {
+        auto condIt = myConditionIndex.find(expr);
+        if (condIt != myConditionIndex.end()) {
+            ExprNode* node = allocExprNode(ExprOp::CONDITION_REF);
+            node->intArg = condIt->second;
+            return node;
+        }
+        auto stackIt = myStackVarIndex.find(expr);
+        if (stackIt != myStackVarIndex.end()) {
+            ExprNode* node = allocExprNode(ExprOp::STACK_OR_NUM);
+            node->intArg = stackIt->second;
+            node->strArg = expr;
+            try {
+                node->numVal = StringUtils::toDouble(expr);
+                node->hasFallbackNum = true;
+            } catch (NumberFormatException&) {
+                node->hasFallbackNum = false;
+            }
+            return node;
+        }
+        const double val = StringUtils::toDouble(expr);
+        ExprNode* node = allocExprNode(ExprOp::LITERAL);
+        node->numVal = val;
+        return node;
+    }
+    const std::string fun = expr.substr(0, pos);
+    const std::string arg = expr.substr(pos + 1);
+    if (fun == "z") {
+        ExprNode* node = allocExprNode(ExprOp::DET_Z);
+        node->strArg = arg;
+        node->contextStr = expr;
+        return node;
+    } else if (fun == "a") {
+        ExprNode* node = allocExprNode(ExprOp::DET_A);
+        node->strArg = arg;
+        node->contextStr = expr;
+        return node;
+    } else if (fun == "w") {
+        ExprNode* node = allocExprNode(ExprOp::DET_W);
+        node->strArg = arg;
+        node->contextStr = expr;
+        return node;
+    } else if (fun == "d") {
+        ExprNode* node = allocExprNode(ExprOp::DET_D);
+        node->strArg = arg;
+        node->contextStr = expr;
+        return node;
+    } else if (fun == "g" || fun == "r") {
+        ExprNode* node = allocExprNode(fun == "g" ? ExprOp::LINK_GREEN : ExprOp::LINK_RED);
+        node->strArg = arg;
+        node->contextStr = expr;
+        try {
+            node->intArg = StringUtils::toInt(arg);
+        } catch (NumberFormatException&) {
+            node->intArg = -1;
+        }
+        return node;
+    } else if (fun == "p") {
+        ExprNode* node = allocExprNode(ExprOp::LINK_PERSONS);
+        node->strArg = arg;
+        node->contextStr = expr;
+        try {
+            node->intArg = StringUtils::toInt(arg);
+        } catch (NumberFormatException&) {
+            node->intArg = -1;
+        }
+        return node;
+    } else if (fun == "c") {
+        return allocExprNode(ExprOp::CYCLE_TIME);
+    } else {
+        auto fIt = myFunctionIndex.find(fun);
+        if (fIt == myFunctionIndex.end()) {
+            throw ProcessError(TLF("Unsupported function '%' in expression '%'", fun, expr));
+        }
+        const CompiledFunction& cf = myCompiledFunctions[fIt->second];
+        std::vector<std::string> args = StringTokenizer(arg, ",").getVector();
+        if ((int)args.size() != cf.nArgs) {
+            throw ProcessError(TLF("Function '%' requires % arguments but % were given", fun, toString(cf.nArgs), toString(args.size())));
+        }
+        std::vector<const ExprNode*> compiledArgs;
+        compiledArgs.reserve(args.size());
+        for (const std::string& a : args) {
+            compiledArgs.push_back(compileExpressionImpl(a, a));
+        }
+        ExprNode* node = allocExprNode(ExprOp::CUSTOM_FUNC);
+        node->intArg = fIt->second;
+        node->callArgs = std::move(compiledArgs);
+        return node;
+    }
+}
+
+
+double
+MSActuatedTrafficLightLogic::evalConditionSlot(const ConditionSlot& slot) const {
+    if (slot.isNumericVal) {
+        return slot.numericVal;
+    }
+    if (slot.compiledExpr == nullptr) {
+        slot.compiledExpr = getOrCompileExpression(slot.exprStr);
+        if (slot.compiledExpr->op == ExprOp::LITERAL) {
+            slot.numericVal = slot.compiledExpr->numVal;
+            slot.isNumericVal = true;
+            return slot.numericVal;
+        }
+    }
+    return evalNode(slot.compiledExpr);
+}
+
+
+double
+MSActuatedTrafficLightLogic::evalCompiledFunction(int funcIdx, const std::vector<const ExprNode*>& argNodes) const {
+    const CompiledFunction& cf = myCompiledFunctions[funcIdx];
+    const int nArgs = cf.nArgs;
+    double localArgs[8];
+    std::vector<double> heapArgs;
+    double* argVals = localArgs;
+    if (nArgs > 8) {
+        heapArgs.resize(nArgs);
+        argVals = heapArgs.data();
+    }
+    for (int i = 0; i < nArgs; i++) {
+        argVals[i] = evalNode(argNodes[i]);
+    }
+    const int prevOffset = myStackFrameOffset;
+    const int newOffset = prevOffset + myNumStackVars;
+    if ((int)myStackStorage.size() < newOffset + myNumStackVars) {
+        myStackStorage.resize(newOffset + myNumStackVars);
+    }
+    for (int s = 0; s < myNumStackVars; s++) {
+        myStackStorage[newOffset + s] = myStackStorage[prevOffset + s];
+    }
+    myStackStorage[newOffset].val = 0.;
+    myStackStorage[newOffset].isSet = true;
+    for (int i = 0; i < nArgs; i++) {
+        myStackStorage[newOffset + i + 1].val = argVals[i];
+        myStackStorage[newOffset + i + 1].isSet = true;
+    }
+    myStackFrameOffset = newOffset;
+    try {
+        executeCompiledAssignments(cf.assignments, true);
+    } catch (ProcessError& e) {
+        myStackFrameOffset = prevOffset;
+        std::vector<double> argsVec(argVals, argVals + nArgs);
+        throw ProcessError(TLF("Error when evaluating function '%' with args '%' (%)", cf.id, joinToString(argsVec, ","), e.what()));
+    } catch (...) {
+        myStackFrameOffset = prevOffset;
+        throw;
+    }
+    const double result = myStackStorage[newOffset].val;
+    myStackFrameOffset = prevOffset;
+    return result;
+}
+
+
+void
+MSActuatedTrafficLightLogic::executeCompiledAssignments(const std::vector<CompiledAssignment>& assignments, bool isFunctionScope) const {
+    for (const CompiledAssignment& ca : assignments) {
+        if (ca.checkExpr == nullptr) {
+            ca.checkExpr = getOrCompileExpression(ca.checkStr);
+        }
+        if (evalNode(ca.checkExpr)) {
+            if (ca.valExpr == nullptr) {
+                ca.valExpr = getOrCompileExpression(ca.valStr);
+            }
+            const double val = evalNode(ca.valExpr);
+            if (ca.targetCondIdx >= 0) {
+                if (isFunctionScope) {
+                    throw ProcessError(TLF("Modifying global condition '%' is forbidden", ca.id));
+                }
+                ConditionSlot& slot = const_cast<ConditionSlot&>(myConditionSlots[ca.targetCondIdx]);
+                slot.numericVal = val;
+                slot.isNumericVal = true;
+            } else {
+                StackVal& sv = myStackStorage[myStackFrameOffset + ca.targetStackSlot];
+                sv.val = val;
+                sv.isSet = true;
+            }
+        }
+    }
+}
+
+
+double
+MSActuatedTrafficLightLogic::evalNode(const ExprNode* node) const {
+    switch (node->op) {
+        case ExprOp::LITERAL:
+            return node->numVal;
+        case ExprOp::CONDITION_REF:
+            return evalConditionSlot(myConditionSlots[node->intArg]);
+        case ExprOp::STACK_OR_NUM: {
+            const StackVal& sv = myStackStorage[myStackFrameOffset + node->intArg];
+            if (sv.isSet) {
+                return sv.val;
+            }
+            if (node->hasFallbackNum) {
+                return node->numVal;
+            }
+            return StringUtils::toDouble(node->strArg);
+        }
+        case ExprOp::UNARY_NOT:
+            return evalNode(node->left) == 0. ? 1. : 0.;
+        case ExprOp::UNARY_NEG:
+            return -evalNode(node->left);
+        case ExprOp::DET_Z: {
+            if (!node->detResolved) {
+                node->cachedLoop = retrieveDetExpression<MSInductLoop, SUMO_TAG_INDUCTION_LOOP>(node->strArg, node->contextStr, true);
+                node->detResolved = true;
+            }
+            return node->cachedLoop->getTimeSinceLastDetection();
+        }
+        case ExprOp::DET_A:
+        case ExprOp::DET_W:
+        case ExprOp::DET_D: {
+            if (!node->detResolved) {
+                try {
+                    node->cachedLoop = retrieveDetExpression<MSInductLoop, SUMO_TAG_INDUCTION_LOOP>(node->strArg, node->contextStr, true);
+                } catch (ProcessError&) {
+                    node->cachedE2 = retrieveDetExpression<MSE2Collector, SUMO_TAG_LANE_AREA_DETECTOR>(node->strArg, node->contextStr, true);
+                }
+                node->detResolved = true;
+            }
+            if (node->op == ExprOp::DET_A) {
+                return node->cachedLoop != nullptr ? (double)(node->cachedLoop->getTimeSinceLastDetection() == 0) : (double)node->cachedE2->getCurrentVehicleNumber();
+            } else if (node->op == ExprOp::DET_W) {
+                return node->cachedLoop != nullptr ? node->cachedLoop->getOccupancyTime() : node->cachedE2->getCurrentJamDuration();
+            } else {
+                return node->cachedLoop != nullptr ? node->cachedLoop->getArrivalDelay() : node->cachedE2->getArrivalDelay();
+            }
+        }
+        case ExprOp::LINK_GREEN:
+        case ExprOp::LINK_RED: {
+            const int linkIndex = node->intArg;
+            if (linkIndex < 0 || linkIndex >= myNumLinks) {
+                throw ProcessError(TLF("Invalid link index '%' in expression '%'", node->strArg, node->contextStr));
+            }
+            const bool isGreen = (node->op == ExprOp::LINK_GREEN);
+            const std::vector<SUMOTime>& times = isGreen ? myLinkGreenTimes : myLinkRedTimes;
+            if (times.empty()) {
+                return 0;
+            }
+            if (myLastTrySwitchTime < SIMSTEP) {
+                const LinkState ls = getCurrentPhaseDef().getSignalState(linkIndex);
+                if ((isGreen && (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR))
+                        || (!isGreen && (ls == LINKSTATE_TL_RED || ls == LINKSTATE_TL_REDYELLOW))) {
+                    const SUMOTime currentGreen = SIMSTEP - myLastTrySwitchTime;
+                    return STEPS2TIME(times[linkIndex] + currentGreen);
+                }
+                return 0;
+            }
+            return STEPS2TIME(times[linkIndex]);
+        }
+        case ExprOp::LINK_PERSONS: {
+            const int linkIndex = node->intArg;
+            if (linkIndex < 0 || linkIndex >= myNumLinks) {
+                throw ProcessError(TLF("Invalid link index '%' in expression '%'", node->strArg, node->contextStr));
+            }
+            double approachingPersons = 0;
+            for (const MSLink* link : getLinksAt(linkIndex)) {
+                auto* aPersons = link->getApproachingPersons();
+                if (aPersons != nullptr) {
+                    approachingPersons += (double)aPersons->size();
+                }
+            }
+            return approachingPersons;
+        }
+        case ExprOp::CYCLE_TIME:
+            return STEPS2TIME(getTimeInCycle());
+        case ExprOp::CUSTOM_FUNC:
+            return evalCompiledFunction(node->intArg, node->callArgs);
+        case ExprOp::BIN_EQ: {
+            const double a = evalNode(node->left);
+            const double b = evalNode(node->right);
+            return (double)(a == b);
+        }
+        case ExprOp::BIN_NE: {
+            const double a = evalNode(node->left);
+            const double b = evalNode(node->right);
+            return (double)(a != b);
+        }
+        case ExprOp::BIN_LT: {
+            const double a = evalNode(node->left);
+            const double b = evalNode(node->right);
+            return (double)(a < b);
+        }
+        case ExprOp::BIN_GT: {
+            const double a = evalNode(node->left);
+            const double b = evalNode(node->right);
+            return (double)(a > b);
+        }
+        case ExprOp::BIN_LE: {
+            const double a = evalNode(node->left);
+            const double b = evalNode(node->right);
+            return (double)(a <= b);
+        }
+        case ExprOp::BIN_GE: {
+            const double a = evalNode(node->left);
+            const double b = evalNode(node->right);
+            return (double)(a >= b);
+        }
+        case ExprOp::BIN_OR: {
+            const double a = evalNode(node->left);
+            const double b = evalNode(node->right);
+            return (double)(a || b);
+        }
+        case ExprOp::BIN_AND: {
+            const double a = evalNode(node->left);
+            const double b = evalNode(node->right);
+            return (double)(a && b);
+        }
+        case ExprOp::BIN_ADD: {
+            const double a = evalNode(node->left);
+            const double b = evalNode(node->right);
+            return a + b;
+        }
+        case ExprOp::BIN_SUB: {
+            const double a = evalNode(node->left);
+            const double b = evalNode(node->right);
+            return a - b;
+        }
+        case ExprOp::BIN_MUL: {
+            const double a = evalNode(node->left);
+            const double b = evalNode(node->right);
+            return a * b;
+        }
+        case ExprOp::BIN_DIV: {
+            const double a = evalNode(node->left);
+            const double b = evalNode(node->right);
+            if (b == 0) {
+                WRITE_ERRORF(TL("Division by 0 in condition '%'"), node->contextStr);
+                return 0;
+            }
+            return a / b;
+        }
+        case ExprOp::BIN_MOD: {
+            const double a = evalNode(node->left);
+            const double b = evalNode(node->right);
+            return fmod(a, b);
+        }
+        case ExprOp::BIN_POW: {
+            const double a = evalNode(node->left);
+            const double b = evalNode(node->right);
+            return pow(a, b);
+        }
+    }
+    return 0.;
+}
+
+
+int
+MSActuatedTrafficLightLogic::decideNextPhaseCustom(bool mustSwitch) {
+    for (int next : getCurrentPhaseDef().nextPhases) {
+        const MSPhaseDefinition* phase = myPhases[next];
+        const std::string& condition = mustSwitch ? phase->finalTarget : phase->earlyTarget;
+#ifdef DEBUG_PHASE_SELECTION_CUSTOM
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " mustSwitch=" << mustSwitch << " cur=" << myStep << " next=" << next << " condition=" << condition
+                      << " eval=" << (condition == "" ? NAN : evalExpression(condition)) << "\n";
+        }
+#endif
+        if (condition != "") {
+            const SwitchingRules& nextSR = mySwitchingRules[next];
+            // backward compatibility if a user redefined DEFAULT_CONDITION
+            if (mustSwitch ? nextSR.finalIsDefault : nextSR.earlyIsDefault) {
+                if (gapControl() == std::numeric_limits<double>::max()) {
+                    return next;
+                }
+            } else {
+                const ExprNode*& targetExpr = mustSwitch ? nextSR.finalTargetExpr : nextSR.earlyTargetExpr;
+                if (targetExpr == nullptr) {
+                    targetExpr = getOrCompileExpression(condition);
+                }
+                if (evalNode(targetExpr)) {
+                    return next;
+                }
+            }
+        }
+    }
+    return mustSwitch ? getCurrentPhaseDef().nextPhases.back() : myStep;
+}
+
+
+double
+MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const {
+    return evalNode(getOrCompileExpression(condition));
 }
 
 double
@@ -1513,12 +2068,12 @@ MSActuatedTrafficLightLogic::getDetectorState(const std::string laneID) const {
 std::map<std::string, double>
 MSActuatedTrafficLightLogic::getConditions() const {
     std::map<std::string, double> result;
-    for (auto item : myConditions) {
-        if (myListedConditions.count(item.first) != 0) {
+    for (const ConditionSlot& slot : myConditionSlots) {
+        if (slot.listed) {
             try {
-                result[item.first] = evalExpression(item.second);
+                result[slot.id] = evalConditionSlot(slot);
             } catch (ProcessError& e) {
-                WRITE_ERRORF(TL("Error when retrieving conditions '%' for tlLogic '%' (%)"), item.first, getID(), e.what());
+                WRITE_ERRORF(TL("Error when retrieving conditions '%' for tlLogic '%' (%)"), slot.id, getID(), e.what());
             }
         }
     }
@@ -1529,9 +2084,9 @@ const std::string
 MSActuatedTrafficLightLogic::getParameter(const std::string& key, const std::string defaultValue) const {
     if (StringUtils::startsWith(key, "condition.")) {
         const std::string cond = key.substr(10);
-        auto it = myConditions.find(cond);
-        if (it != myConditions.end()) {
-            return toString(evalExpression(it->second));
+        auto it = myConditionIndex.find(cond);
+        if (it != myConditionIndex.end()) {
+            return toString(evalConditionSlot(myConditionSlots[it->second]));
         } else {
             throw InvalidArgument(TLF("Unknown condition '%' for actuated traffic light '%'", cond, getID()));
         }
