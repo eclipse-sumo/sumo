@@ -361,6 +361,47 @@ on("ready", async function(){
     canvasToggle.on("click", toggleCanvas);
     toggleCanvas();
 
+    const osmFileInput = elem("#osmFile");
+    const clearOsmFileBtn = elem("#clearOsmFile");
+    const mapSourceInputs = ["#address", "#buttonSearch", "#lat_lon", "#buttonLatLon", "#buttonCurrent", "#canvas-toggle"];
+
+    function updateOsmFileState() {
+        const hasFile = osmFileInput.files && osmFileInput.files.length > 0;
+        clearOsmFileBtn.style.display = hasFile ? "inline-block" : "none";
+        mapSourceInputs.forEach(function(sel) {
+            elem(sel).disabled = hasFile;
+        });
+        document.querySelectorAll("#road-types input[type=checkbox]").forEach(function(ch) {
+            ch.disabled = hasFile;
+        });
+        if (hasFile) {
+            canvasActive = false;
+            canvas.style.display = "none";
+        } else {
+            toggleCanvas();
+        }
+    }
+
+    osmFileInput.on("change", updateOsmFileState);
+    clearOsmFileBtn.on("click", function() {
+        osmFileInput.value = "";
+        updateOsmFileState();
+    });
+
+    function readFileAsBase64(file) {
+        return new Promise(function(resolve, reject) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const comma = reader.result.indexOf(",");
+                resolve(comma >= 0 ? reader.result.slice(comma + 1) : "");
+            };
+            reader.onerror = function() {
+                reject(reader.error || new Error("File read failed"));
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
     // Enable/disable pt mode checkboxes depending on the main publicTransport checkbox
     let ptModesContainer = elem("#pt-modes");
     function updatePtModesState() {
@@ -659,7 +700,7 @@ on("ready", async function(){
      * @function
      * generate and send the data to the websocket
      */
-    function startBuild(){
+    async function startBuild(){
         let bounds = map.getBounds();
         let cor = {
             left: bounds.getWest(),
@@ -695,8 +736,21 @@ on("ready", async function(){
             roadTypes:{} // sab-inf
         };
 
-        // calculates the coordinates of the rectangle if area-picking is active
-        if(canvasActive){
+        const osmFile = osmFileInput.files && osmFileInput.files[0];
+        if (osmFile) {
+            elem("#export-button").disabled = true;
+            try {
+                data.osmContent = await readFileAsBase64(osmFile);
+                data.osmFileName = osmFile.name;
+                data.coords = null;
+            } catch (e) {
+                globalThis.alert(TLF("Could not read OSM file: %", e));
+                return;
+            } finally {
+                elem("#export-button").disabled = false;
+            }
+        } else if (canvasActive) {
+            // calculates the coordinates of the rectangle if area-picking is active
             let width = cor.right - cor.left;
             let height = cor.bottom - cor.top;
             data.coords = [
@@ -705,8 +759,9 @@ on("ready", async function(){
                 cor.left + width * canvasRect[2],
                 cor.top + height * canvasRect[1]
             ];
-        } else
+        } else {
             data.coords = [cor.left, cor.bottom, cor.right, cor.top];
+        }
 
         vehicleClasses.forEach(function(vehicleClass){
             let result = vehicleClass.toJSON();
@@ -714,22 +769,24 @@ on("ready", async function(){
                 data.vehicles[vehicleClass.internal] = result;
         });
 
-        roadClasses.forEach(function(roadType){
-            let result = roadType.getEnabledTypeList();
-            if(result){
-                // in OSM "pedestrians" have also the key "highway", therefore we prepare the data accordingly
-                if(roadType.category == "Pedestrians" || roadType.category == "Highway"){
-                    try{
-                        data.roadTypes["Highway"] = data.roadTypes["Highway"].concat(result);
-                    }catch (e){
-                        if (e instanceof TypeError) {
-                            data.roadTypes["Highway"] = result;
+        if (!osmFile) {
+            roadClasses.forEach(function(roadType){
+                let result = roadType.getEnabledTypeList();
+                if(result){
+                    // in OSM "pedestrians" have also the key "highway", therefore we prepare the data accordingly
+                    if(roadType.category == "Pedestrians" || roadType.category == "Highway"){
+                        try{
+                            data.roadTypes["Highway"] = data.roadTypes["Highway"].concat(result);
+                        }catch (e){
+                            if (e instanceof TypeError) {
+                                data.roadTypes["Highway"] = result;
+                            }
                         }
-                    }
-                }else
-                    data.roadTypes[roadType.category] = result;
-            }
-        });
+                    }else
+                        data.roadTypes[roadType.category] = result;
+                }
+            });
+        }
 
         if (globalThis.location.protocol == "file:") {
             try {
@@ -738,11 +795,15 @@ on("ready", async function(){
                 return;
             }
         } else {
-            safeFetch("/build", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            })
+            try {
+                await safeFetch("/build", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+            } catch(e){
+                return;
+            }
             // poll for messages
             progressTimer = setInterval(pollProgress, 500);
         }

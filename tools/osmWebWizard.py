@@ -202,7 +202,14 @@ class Builder(object):
         # output name for the net file, will be used by osmBuild, randomTrips and sumo-gui
         self.filename("net", ".net.xml.gz")
 
-        if self.data.get("coords") is None:
+        if self.data.get("osmContent") is not None:
+            self.report(self.TL("Reading map data"))
+            raw = base64.b64decode(self.data["osmContent"])
+            if not raw.startswith(b"\x1f\x8b"):
+                self.filename("osm", "_bbox.osm.xml")
+            with open(self.files["osm"], "wb") as osmOut:
+                osmOut.write(raw)
+        elif self.data.get("coords") is None:
             # fixed input testing mode
             self.files["osm"] = self.data['osm']
         else:
@@ -293,6 +300,8 @@ class Builder(object):
 
         self.report(self.TL("Converting map data"))
         osmBuild.build(options)
+        if not os.path.exists(self.files["net"]):
+            raise RuntimeError("Building network failed")
         ptOptions = None
         hasPTFlows = False
         begin = self.data.get("begin", 0)
@@ -633,7 +642,7 @@ class OSMImporterHTTPHandler(SimpleHTTPRequestHandler):
             if self.server.local:
                 builder.openSUMO()
             else:
-                self.server.messages.append(b"zip " + builder.createZip())
+                self.server.messages.append("zip " + builder.createZip().decode("ascii"))
                 builder.finalize()
         except ssl.CertificateError:
             self.report(builder.TL("Error with SSL certificate, try 'pip install -U certifi'."))

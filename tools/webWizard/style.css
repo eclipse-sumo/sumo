@@ -265,3 +265,20 @@ input[type=number] {
 .checkAll {
     margin: 5px;
 }
+
+#osmFile {
+    float: none;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+#clearOsmFile {
+    float: none;
+    margin-top: 5px;
+}
+
+.controls input:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
