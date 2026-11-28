@@ -155,3 +155,7 @@ You can check the feature support per version (and request new features) in our 
 - [OpenDrive 1.4 features](https://github.com/eclipse-sumo/sumo/issues/6694)
 - [OpenDrive 1.5 features](https://github.com/eclipse-sumo/sumo/issues/6695)
 - [OpenDrive 1.6 features](https://github.com/eclipse-sumo/sumo/issues/8901)
+
+## Known Limitations
+
+- **Virtual junctions (`<junction type="virtual">`, OpenDRIVE 1.5+)**: Unsupported. `netconvert` expects every `<junction>` to connect `<road>` endpoints (`contactPoint="start"` or `"end"`), so mid-road virtual junctions produce distorted connection geometry unless the continuous `<road>` is split at the virtual junction interface prior to import.
