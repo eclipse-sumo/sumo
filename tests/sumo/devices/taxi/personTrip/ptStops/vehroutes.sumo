@@ -45,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p0" depart="0.00" arrival="684.00">
+    <person id="p0" depart="0.00" arrival="682.00">
         <walk edges="A1B1 B1C1" busStop="A"/>
         <ride from="B1C1" to="D1E1" busStop="B" lines="taxi"/>
         <walk edges="D1E1 E1F1"/>

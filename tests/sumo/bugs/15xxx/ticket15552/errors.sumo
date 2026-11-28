@@ -10,6 +10,6 @@ Warning: No route for vehicle 'veh1' found.
 Warning: Teleporting vehicle 'veh1'; waited too long (jam), lane='end_0', time=489.00.
 Warning: Vehicle 'veh1' teleports beyond arrival edge 'end', time=489.00.
 Warning: Vehicle 'veh1' skips stop on lane 'end_0' time=489.00.
-Warning: Teleporting vehicle 'veh2'; waited too long (jam), lane='end_0', time=536.00.
-Warning: Vehicle 'veh2' teleports beyond arrival edge 'end', time=536.00.
-Warning: Vehicle 'veh2' skips stop on lane 'end_0' time=536.00.
+Warning: Teleporting vehicle 'veh2'; waited too long (jam), lane='end_0', time=535.50.
+Warning: Vehicle 'veh2' teleports beyond arrival edge 'end', time=535.50.
+Warning: Vehicle 'veh2' skips stop on lane 'end_0' time=535.50.

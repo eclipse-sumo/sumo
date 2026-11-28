@@ -36,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="veh" depart="0.00" arrival="484.00">
+    <vehicle id="veh" depart="0.00" arrival="481.00">
         <route edges="1o 1fi 1si 3o 3fi 3si 4o 4fi 4si 3o 3fi 3si"/>
         <stop lane="3si_0" endPos="50.00" duration="10.00"/>
         <stop lane="4si_0" endPos="50.00" duration="10.00"/>

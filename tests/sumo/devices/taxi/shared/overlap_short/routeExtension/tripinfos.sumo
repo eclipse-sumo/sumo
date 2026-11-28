@@ -47,13 +47,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="72.00" waitingTime="16.00" timeLoss="8.69" traveltime="56.00">
-        <ride waitingTime="16.00" vehicle="taxi" depart="16.00" arrival="72.00" arrivalPos="4.97" duration="56.00" routeLength="599.98" timeLoss="8.69"/>
+    <personinfo id="1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="68.00" waitingTime="15.00" timeLoss="6.70" traveltime="53.00">
+        <ride waitingTime="15.00" vehicle="taxi" depart="15.00" arrival="68.00" arrivalPos="5.00" duration="53.00" routeLength="600.00" timeLoss="6.70"/>
     </personinfo>
-    <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="278.00" waitingTime="73.00" timeLoss="13.52" traveltime="205.00">
-        <ride waitingTime="73.00" vehicle="taxi" depart="73.00" arrival="278.00" arrivalPos="285.60" duration="205.00" routeLength="880.67" timeLoss="13.52"/>
+    <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="264.00" waitingTime="69.00" timeLoss="6.94" traveltime="195.00">
+        <ride waitingTime="69.00" vehicle="taxi" depart="69.00" arrival="264.00" arrivalPos="285.60" duration="195.00" routeLength="880.60" timeLoss="6.94"/>
     </personinfo>
-    <tripinfo id="taxi" depart="0.00" departLane="A2A1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="281.00" routeLength="1582.29" waitingTime="8.00" waitingCount="2" stopTime="125.00" timeLoss="26.46" rerouteNo="3" devices="vehroute_taxi tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
-        <taxi customers="2" occupiedDistance="1480.61" occupiedTime="146.00"/>
+    <tripinfo id="taxi" depart="0.00" departLane="A2A1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="267.00" routeLength="1582.29" waitingTime="0.00" waitingCount="0" stopTime="125.00" timeLoss="17.75" rerouteNo="3" devices="vehroute_taxi tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
+        <taxi customers="2" occupiedDistance="1480.60" occupiedTime="133.00"/>
     </tripinfo>
 </tripinfos>

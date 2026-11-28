@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-24T23:41:18.879941+01:00 by Eclipse SUMO sumo v1_28_0+0824-dcae2a50ffe
+<!-- generated on 2026-11-27T12:32:16.858486+00:00 by Eclipse SUMO sumo v1.28.0-0000000000
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1143,7 +1143,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="veh.4" x="33.89" y="-1.51" angle="90.69" type="t0" speed="10.33" pos="33.89" lane="beg_1" slope="0.00" acceleration="2.37" accelerationLat="-1.00"/>
     </timestep>
     <timestep time="18.70">
-        <vehicle id="blocker" x="196.00" y="-1.12" angle="89.36" type="t0" speed="0.41" pos="196.00" lane="beg_1" slope="0.00" acceleration="-4.30" accelerationLat="1.00"/>
+        <vehicle id="blocker" x="196.00" y="-1.12" angle="89.36" type="t0" speed="0.41" pos="196.00" lane="beg_1" slope="0.00" acceleration="-4.27" accelerationLat="1.00"/>
         <vehicle id="veh.0" x="175.11" y="-1.45" angle="88.79" type="t0" speed="7.71" pos="175.11" lane="beg_1" slope="0.00" acceleration="-3.78" accelerationLat="1.00"/>
         <vehicle id="veh.1" x="144.78" y="-0.90" angle="90.00" type="t0" speed="12.74" pos="144.78" lane="beg_1" slope="0.00" acceleration="-1.44" accelerationLat="0.00"/>
         <vehicle id="veh.2" x="107.59" y="-2.20" angle="89.17" type="t0" speed="13.88" pos="107.59" lane="beg_1" slope="0.00" acceleration="0.05" accelerationLat="1.00"/>
@@ -1151,7 +1151,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="veh.4" x="34.95" y="-1.54" angle="90.98" type="t0" speed="10.53" pos="34.95" lane="beg_1" slope="0.00" acceleration="2.00" accelerationLat="-1.00"/>
     </timestep>
     <timestep time="18.80">
-        <vehicle id="blocker" x="196.00" y="-1.12" angle="89.23" type="t0" speed="0.00" pos="196.00" lane="beg_1" slope="0.00" acceleration="-4.10" accelerationLat="1.00"/>
+        <vehicle id="blocker" x="196.00" y="-1.12" angle="89.23" type="t0" speed="0.00" pos="196.00" lane="beg_1" slope="0.00" acceleration="-4.15" accelerationLat="1.00"/>
         <vehicle id="veh.0" x="175.85" y="-1.41" angle="88.48" type="t0" speed="7.41" pos="175.85" lane="beg_1" slope="0.00" acceleration="-2.98" accelerationLat="-1.00"/>
         <vehicle id="veh.1" x="146.02" y="-0.90" angle="90.00" type="t0" speed="12.40" pos="146.02" lane="beg_1" slope="0.00" acceleration="-3.48" accelerationLat="0.00"/>
         <vehicle id="veh.2" x="108.97" y="-2.15" angle="88.82" type="t0" speed="13.78" pos="108.97" lane="beg_1" slope="0.00" acceleration="-1.06" accelerationLat="1.00"/>
@@ -1159,8 +1159,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="veh.4" x="36.01" y="-1.58" angle="91.21" type="t0" speed="10.67" pos="36.01" lane="beg_1" slope="0.00" acceleration="1.38" accelerationLat="0.00"/>
     </timestep>
     <timestep time="18.90">
-        <vehicle id="blocker" x="196.00" y="-1.12" angle="89.10" type="t0" speed="0.00" pos="196.00" lane="beg_1" slope="0.00" acceleration="-0.02" accelerationLat="1.00"/>
-        <vehicle id="veh.0" x="176.56" y="-1.38" angle="88.31" type="t0" speed="7.13" pos="176.56" lane="beg_1" slope="0.00" acceleration="-2.78" accelerationLat="-1.00"/>
+        <vehicle id="blocker" x="196.00" y="-1.12" angle="89.10" type="t0" speed="0.00" pos="196.00" lane="beg_1" slope="0.00" acceleration="0.00" accelerationLat="1.00"/>
+        <vehicle id="veh.0" x="176.56" y="-1.38" angle="88.31" type="t0" speed="7.13" pos="176.56" lane="beg_1" slope="0.00" acceleration="-2.79" accelerationLat="-1.00"/>
         <vehicle id="veh.1" x="147.23" y="-0.90" angle="90.00" type="t0" speed="12.13" pos="147.23" lane="beg_1" slope="0.00" acceleration="-2.63" accelerationLat="0.00"/>
         <vehicle id="veh.2" x="110.35" y="-2.11" angle="88.69" type="t0" speed="13.78" pos="110.35" lane="beg_1" slope="0.00" acceleration="-0.02" accelerationLat="-1.00"/>
         <vehicle id="veh.3" x="73.77" y="-0.96" angle="89.23" type="t0" speed="13.76" pos="73.77" lane="beg_1" slope="0.00" acceleration="-0.38" accelerationLat="-1.00"/>
@@ -1400,7 +1400,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="21.90">
         <vehicle id="blocker" x="196.00" y="-1.12" angle="85.35" type="t0" speed="0.00" pos="196.00" lane="beg_1" slope="0.00" acceleration="0.00" accelerationLat="1.00"/>
-        <vehicle id="veh.0" x="187.29" y="-1.52" angle="90.63" type="t0" speed="1.16" pos="187.29" lane="beg_1" slope="0.00" acceleration="-1.40" accelerationLat="0.69"/>
+        <vehicle id="veh.0" x="187.29" y="-1.52" angle="90.63" type="t0" speed="1.16" pos="187.29" lane="beg_1" slope="0.00" acceleration="-1.40" accelerationLat="0.68"/>
         <vehicle id="veh.1" x="172.34" y="-0.90" angle="89.54" type="t0" speed="5.20" pos="172.34" lane="beg_1" slope="0.00" acceleration="-1.70" accelerationLat="1.00"/>
         <vehicle id="veh.2" x="148.02" y="-0.90" angle="89.66" type="t0" speed="9.76" pos="148.02" lane="beg_1" slope="0.00" acceleration="-2.88" accelerationLat="0.00"/>
         <vehicle id="veh.3" x="115.25" y="-0.91" angle="88.61" type="t0" speed="13.86" pos="115.25" lane="beg_1" slope="0.00" acceleration="0.71" accelerationLat="-1.00"/>
@@ -1408,7 +1408,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="22.00">
         <vehicle id="blocker" x="196.00" y="-1.12" angle="85.22" type="t0" speed="0.00" pos="196.00" lane="beg_1" slope="0.00" acceleration="0.00" accelerationLat="1.00"/>
-        <vehicle id="veh.0" x="187.40" y="-1.52" angle="90.65" type="t0" speed="1.09" pos="187.40" lane="beg_1" slope="0.00" acceleration="-0.71" accelerationLat="-0.42"/>
+        <vehicle id="veh.0" x="187.40" y="-1.52" angle="90.65" type="t0" speed="1.09" pos="187.40" lane="beg_1" slope="0.00" acceleration="-0.71" accelerationLat="-0.41"/>
         <vehicle id="veh.1" x="172.82" y="-0.90" angle="89.58" type="t0" speed="4.88" pos="172.82" lane="beg_1" slope="0.00" acceleration="-3.17" accelerationLat="-1.00"/>
         <vehicle id="veh.2" x="148.99" y="-0.90" angle="89.72" type="t0" speed="9.65" pos="148.99" lane="beg_1" slope="0.00" acceleration="-1.11" accelerationLat="0.00"/>
         <vehicle id="veh.3" x="116.63" y="-0.91" angle="88.91" type="t0" speed="13.79" pos="116.63" lane="beg_1" slope="0.00" acceleration="-0.63" accelerationLat="-1.00"/>
@@ -1967,7 +1967,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="veh.4" x="150.75" y="-1.86" angle="92.11" type="t0" speed="4.44" pos="150.75" lane="beg_1" slope="0.00" acceleration="-1.65" accelerationLat="-1.00"/>
     </timestep>
     <timestep time="29.00">
-        <vehicle id="blocker" x="196.15" y="-1.12" angle="77.36" type="t0" speed="0.75" pos="0.15" lane=":gneJ1_0_0" slope="0.00" acceleration="2.58" accelerationLat="-0.60"/>
+        <vehicle id="blocker" x="196.15" y="-1.12" angle="77.36" type="t0" speed="0.75" pos="0.15" lane=":gneJ1_0_0" slope="0.00" acceleration="2.58" accelerationLat="-0.61"/>
         <vehicle id="veh.0" x="188.51" y="-1.52" angle="90.45" type="t0" speed="0.08" pos="188.51" lane="beg_1" slope="0.00" acceleration="0.49" accelerationLat="0.02"/>
         <vehicle id="veh.1" x="180.98" y="-1.05" angle="90.75" type="t0" speed="0.02" pos="180.98" lane="beg_1" slope="0.00" acceleration="0.00" accelerationLat="-0.04"/>
         <vehicle id="veh.2" x="173.30" y="-1.04" angle="90.33" type="t0" speed="0.19" pos="173.30" lane="beg_1" slope="0.00" acceleration="-0.13" accelerationLat="-0.09"/>
@@ -2047,7 +2047,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="veh.4" x="154.30" y="-2.30" angle="94.33" type="t0" speed="2.82" pos="154.30" lane="beg_1" slope="0.00" acceleration="-2.37" accelerationLat="1.00"/>
     </timestep>
     <timestep time="30.00">
-        <vehicle id="blocker" x="198.12" y="-1.15" angle="81.71" type="t0" speed="2.88" pos="2.12" lane=":gneJ1_0_0" slope="0.00" acceleration="1.35" accelerationLat="1.00"/>
+        <vehicle id="blocker" x="198.12" y="-1.15" angle="81.70" type="t0" speed="2.88" pos="2.12" lane=":gneJ1_0_0" slope="0.00" acceleration="1.35" accelerationLat="1.00"/>
         <vehicle id="veh.0" x="189.33" y="-1.50" angle="90.14" type="t0" speed="1.58" pos="189.33" lane="beg_1" slope="0.00" acceleration="1.75" accelerationLat="-1.00"/>
         <vehicle id="veh.1" x="181.22" y="-1.04" angle="90.53" type="t0" speed="0.64" pos="181.22" lane="beg_1" slope="0.00" acceleration="1.22" accelerationLat="0.94"/>
         <vehicle id="veh.2" x="173.46" y="-1.04" angle="90.35" type="t0" speed="0.22" pos="173.46" lane="beg_1" slope="0.00" acceleration="0.36" accelerationLat="0.13"/>
@@ -2087,7 +2087,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="veh.4" x="155.52" y="-2.30" angle="93.37" type="t0" speed="2.19" pos="155.52" lane="beg_1" slope="0.00" acceleration="-1.46" accelerationLat="0.00"/>
     </timestep>
     <timestep time="30.50">
-        <vehicle id="blocker" x="199.84" y="-1.16" angle="84.41" type="t0" speed="3.78" pos="3.84" lane=":gneJ1_0_0" slope="0.00" acceleration="1.96" accelerationLat="-1.00"/>
+        <vehicle id="blocker" x="199.84" y="-1.16" angle="84.40" type="t0" speed="3.78" pos="3.84" lane=":gneJ1_0_0" slope="0.00" acceleration="1.96" accelerationLat="-1.00"/>
         <vehicle id="veh.0" x="190.39" y="-1.48" angle="89.95" type="t0" speed="2.46" pos="190.39" lane="beg_1" slope="0.00" acceleration="1.48" accelerationLat="1.00"/>
         <vehicle id="veh.1" x="181.74" y="-1.07" angle="90.85" type="t0" speed="1.34" pos="181.74" lane="beg_1" slope="0.00" acceleration="1.88" accelerationLat="1.00"/>
         <vehicle id="veh.2" x="173.67" y="-1.06" angle="90.48" type="t0" speed="0.57" pos="173.67" lane="beg_1" slope="0.00" acceleration="1.03" accelerationLat="-0.78"/>
@@ -2769,7 +2769,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="39.00">
         <vehicle id="blocker" x="292.49" y="-0.98" angle="90.63" type="t0" speed="13.77" pos="88.49" lane="end_0" slope="0.00" acceleration="-0.38" accelerationLat="1.00"/>
         <vehicle id="veh.0" x="272.80" y="-0.90" angle="89.15" type="t0" speed="13.37" pos="68.80" lane="end_0" slope="0.00" acceleration="0.58" accelerationLat="-1.00"/>
-        <vehicle id="veh.1" x="253.64" y="-1.00" angle="90.88" type="t0" speed="12.81" pos="49.64" lane="end_0" slope="0.00" acceleration="0.20" accelerationLat="-1.00"/>
+        <vehicle id="veh.1" x="253.65" y="-1.00" angle="90.88" type="t0" speed="12.81" pos="49.65" lane="end_0" slope="0.00" acceleration="0.20" accelerationLat="-1.00"/>
         <vehicle id="veh.2" x="235.51" y="-1.80" angle="93.00" type="t0" speed="12.19" pos="31.51" lane="end_0" slope="0.00" acceleration="0.20" accelerationLat="1.00"/>
         <vehicle id="veh.3" x="218.27" y="-0.97" angle="89.18" type="t0" speed="11.43" pos="14.27" lane="end_0" slope="0.00" acceleration="1.77" accelerationLat="-1.00"/>
         <vehicle id="veh.4" x="201.82" y="-2.30" angle="90.00" type="t0" speed="10.50" pos="5.82" lane=":gneJ1_0_0" slope="0.00" acceleration="0.42" accelerationLat="0.00"/>

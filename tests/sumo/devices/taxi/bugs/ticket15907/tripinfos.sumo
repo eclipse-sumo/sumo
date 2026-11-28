@@ -32,8 +32,8 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p_0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="127.00" waitingTime="19.00" timeLoss="11.50" traveltime="108.00">
+    <personinfo id="p_0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="124.00" waitingTime="17.00" timeLoss="11.26" traveltime="107.00">
         <stop duration="0.00" arrival="0.00" arrivalPos="50.87" actType="waiting"/>
-        <ride waitingTime="19.00" vehicle="t_0" depart="19.00" arrival="127.00" arrivalPos="43.65" duration="108.00" routeLength="480.48" timeLoss="11.50"/>
+        <ride waitingTime="17.00" vehicle="t_0" depart="17.00" arrival="124.00" arrivalPos="43.68" duration="107.00" routeLength="480.47" timeLoss="11.26"/>
     </personinfo>
 </tripinfos>

@@ -33,13 +33,13 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="veh.0" depart="0.00" arrival="150.00">
+    <vehicle id="veh.0" depart="0.00" arrival="146.00">
         <route edges="gneE0 gneE1"/>
         <stop parkingArea="p2" duration="60.00"/>
         <stop parkingArea="p3" duration="60.00"/>
     </vehicle>
 
-    <vehicle id="veh.1" depart="3.00" arrival="217.00">
+    <vehicle id="veh.1" depart="3.00" arrival="211.00">
         <route edges="gneE0 gneE1"/>
         <stop parkingArea="p2" duration="60.00"/>
         <stop parkingArea="p3" duration="60.00"/>

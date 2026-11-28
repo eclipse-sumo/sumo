@@ -42,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="t_0" depart="0.00" arrival="740.00">
+    <vehicle id="t_0" depart="0.00" arrival="730.00">
         <routeDistribution>
             <route replacedOnEdge="A0B0" replacedOnIndex="1" reason="rr_0" replacedAtTime="11.00" probability="0" edges="left0A0 A0B0 B0C0 C0D0 D0E0 E0F0 F0G0 G0H0 H0I0 I0J0 J0right0"/>
             <route edges="left0A0 A0B0 B0B1 B1B2 B2C2 C2C3 C3C4 C4D4 -D3D4 -D2D3 -D1D2 -D0D1 D0E0 E0F0 F0G0 G0H0 H0I0 I0J0 J0right0"/>

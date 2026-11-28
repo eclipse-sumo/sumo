@@ -38,12 +38,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v1.0" type="DEFAULT_BIKETYPE" depart="0.00" departPos="0.00" arrival="445.00">
+    <vehicle id="v1.0" type="DEFAULT_BIKETYPE" depart="0.00" departPos="0.00" arrival="444.00">
         <route edges="SC CN"/>
         <stop edge="SC" startPos="40.00" endPos="70.00" duration="400.00"/>
     </vehicle>
 
-    <vehicle id="v1.1" type="DEFAULT_BIKETYPE" depart="2.00" departPos="0.00" arrival="447.00">
+    <vehicle id="v1.1" type="DEFAULT_BIKETYPE" depart="2.00" departPos="0.00" arrival="446.00">
         <route edges="SC CN"/>
         <stop edge="SC" startPos="40.00" endPos="70.00" duration="400.00"/>
     </vehicle>

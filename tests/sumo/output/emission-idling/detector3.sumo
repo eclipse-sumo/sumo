@@ -50,9 +50,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="150.00" id="ld1">
         <edge id="E0">
-            <lane id="E0_0" sampledSeconds="151.11" CO_abs="41.545458" CO2_abs="295973.186275" HC_abs="15.207581" PMx_abs="28.875711" NOx_abs="1223.650507" fuel_abs="93663.583569" electricity_abs="0"
-            CO_normed="4.985455" CO2_normed="35516.782353" HC_normed="1.824910" PMx_normed="3.465085" NOx_normed="146.838061" fuel_normed="11239.630028" electricity_normed="0"
-            traveltime="77.53" CO_perVeh="21.316785" CO2_perVeh="151862.490589" HC_perVeh="7.802940" PMx_perVeh="14.815995" NOx_perVeh="627.849489" fuel_perVeh="48058.357101" electricity_perVeh="0"/>
+            <lane id="E0_0" sampledSeconds="145.52" CO_abs="40.33" CO2_abs="290154.36" HC_abs="15.00" PMx_abs="28.43" NOx_abs="1165.04" fuel_abs="91822.05" electricity_abs="0.00"
+            CO_normed="4.84" CO2_normed="34818.52" HC_normed="1.80" PMx_normed="3.41" NOx_normed="139.80" fuel_normed="11018.65" electricity_normed="0.00"
+            traveltime="74.66" CO_perVeh="20.69" CO2_perVeh="148873.83" HC_perVeh="7.70" PMx_perVeh="14.59" NOx_perVeh="597.76" fuel_perVeh="47112.51" electricity_perVeh="0.00"/>
         </edge>
     </interval>
 </meandata>

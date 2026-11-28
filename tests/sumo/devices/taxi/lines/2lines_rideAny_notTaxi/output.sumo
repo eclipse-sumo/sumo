@@ -18,17 +18,17 @@ Persons:
  Inserted: 2
  Running: 0
 Statistics (avg of 2):
- RouteLength: 2319.43
- Speed: 11.26
+ RouteLength: 2319.45
+ Speed: 11.55
  Duration: 522.00
- WaitingTime: 2.50
- TimeLoss: 28.66
+ WaitingTime: 0.00
+ TimeLoss: 26.26
  DepartDelay: 0.00
  DepartDelayWaiting: 0.00
 Ride Statistics (avg of 2 rides):
- WaitingTime: 225.50
- RouteLength: 1180.65
- Duration: 160.50
+ WaitingTime: 225.00
+ RouteLength: 1180.60
+ Duration: 158.00
  Taxi: 2
 DijkstraRouter answered 10 queries and explored 23.90 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).

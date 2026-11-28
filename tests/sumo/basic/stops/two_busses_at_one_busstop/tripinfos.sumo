@@ -44,6 +44,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v0" depart="0.00" departLane="gneE0_0" departPos="50.00" departSpeed="0.00" departDelay="0.00" arrival="110.00" arrivalLane="gneE2_0" arrivalPos="278.05" arrivalSpeed="13.46" duration="110.00" routeLength="834.99" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="13.24" rerouteNo="0" devices="tripinfo_v0" vType="busShort" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="v1" depart="0.00" departLane="gneE0_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="112.00" arrivalLane="gneE2_0" arrivalPos="278.05" arrivalSpeed="13.70" duration="112.00" routeLength="884.99" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="12.47" rerouteNo="0" devices="tripinfo_v1" vType="busShort" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v0" depart="0.00" departLane="gneE0_0" departPos="50.00" departSpeed="0.00" departDelay="0.00" arrival="108.00" arrivalLane="gneE2_0" arrivalPos="278.05" arrivalSpeed="13.73" duration="108.00" routeLength="834.99" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="11.85" rerouteNo="0" devices="tripinfo_v0" vType="busShort" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v1" depart="0.00" departLane="gneE0_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="111.00" arrivalLane="gneE2_0" arrivalPos="278.05" arrivalSpeed="13.70" duration="111.00" routeLength="884.99" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="11.86" rerouteNo="0" devices="tripinfo_v1" vType="busShort" speedFactor="1.00" vaporized=""/>
 </tripinfos>
