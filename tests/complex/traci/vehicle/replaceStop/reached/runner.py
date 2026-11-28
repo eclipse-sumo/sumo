@@ -41,14 +41,36 @@ traci.start([sumoBinary,
              ] + sys.argv[1:])
 
 vehID = "ego"
+meso = traci.simulation.getOption("mesosim") == "true"
 
 while traci.simulation.getMinExpectedNumber() > 0:
     if traci.simulation.getTime() == 20:
+        if not meso:
+            assert traci.vehicle.isStopped(vehID)
+        original_stops = repr(traci.vehicle.getStops(vehID))
+        original_route = traci.vehicle.getRoute(vehID)
+        lane = "C1D1_0"
+        allowed = traci.lane.getAllowed(lane)
+        traci.lane.setDisallowed(lane, ["passenger"])
         try:
             traci.vehicle.replaceStop(vehID, 0, "busStop_C1D1",
                                       flags=tc.STOP_BUS_STOP, duration=30, teleport=True)
-        except traci.TraCIException:
-            pass
+        except traci.TraCIException as error:
+            assert "disallowed stop lane" in str(error), error
+        else:
+            raise AssertionError("Replacement accepted a disallowed lane.")
+        finally:
+            traci.lane.setAllowed(lane, allowed)
+        if not meso:
+            assert traci.vehicle.isStopped(vehID)
+        assert repr(traci.vehicle.getStops(vehID)) == original_stops
+        assert traci.vehicle.getRoute(vehID) == original_route
+
+        traci.vehicle.replaceStop(vehID, 0, "busStop_C1D1",
+                                  flags=tc.STOP_BUS_STOP, duration=30, teleport=True)
+        if not meso:
+            assert not traci.vehicle.isStopped(vehID)
+        assert traci.vehicle.getStops(vehID)[1].stoppingPlaceID == "busStop_C1D1"
 
     traci.simulationStep()
 traci.close()
