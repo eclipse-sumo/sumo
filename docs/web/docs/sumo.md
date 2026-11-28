@@ -602,6 +602,8 @@ configuration:
 |--------|-------------|
 | **--mesosim** {{DT_BOOL}} | Enables mesoscopic simulation; *default:* **false** |
 | **--meso-ltm** {{DT_BOOL}} | Enables the meso-LTM (LIFT) model; *default:* **false** |
+| **--meso-threads** {{DT_INT}} | Use up to this many threads for independent meso-LTM events. Defaults to **0**. |
+| **--meso-threads.partition-file** {{DT_FILE}} | Load meso-LTM worker groups from the edge memberships of a TAZ file. |
 | **--meso-edgelength** {{DT_FLOAT}} | Length of an edge segment in mesoscopic simulation; *default:* **98** |
 | **--meso-tauff** {{DT_TIME}} | Factor for calculating the net free-free headway time; *default:* **1.13** |
 | **--meso-taufj** {{DT_TIME}} | Factor for calculating the net free-jam headway time; *default:* **1.13** |

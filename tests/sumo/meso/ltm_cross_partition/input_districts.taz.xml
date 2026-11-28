@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<tazs>
+  <taz id="group0" edges="u.000 l.000 end.000 main.003 u.004 l.004 end.004 main.007 u.008 l.008 end.008 main.011 u.012 l.012 end.012 main.015 u.016 l.016 end.016 main.019 u.020 l.020 end.020 main.023 u.024 l.024 end.024 main.027 u.028 l.028 end.028 main.031" />
+  <taz id="group1" edges="main.000 u.001 l.001 end.001 main.004 u.005 l.005 end.005 main.008 u.009 l.009 end.009 main.012 u.013 l.013 end.013 main.016 u.017 l.017 end.017 main.020 u.021 l.021 end.021 main.024 u.025 l.025 end.025 main.028 u.029 l.029 end.029" />
+  <taz id="group2" edges="main.001 u.002 l.002 end.002 main.005 u.006 l.006 end.006 main.009 u.010 l.010 end.010 main.013 u.014 l.014 end.014 main.017 u.018 l.018 end.018 main.021 u.022 l.022 end.022 main.025 u.026 l.026 end.026 main.029 u.030 l.030 end.030" />
+  <taz id="group3" edges="main.002 u.003 l.003 end.003 main.006 u.007 l.007 end.007 main.010 u.011 l.011 end.011 main.014 u.015 l.015 end.015 main.018 u.019 l.019 end.019 main.022 u.023 l.023 end.023 main.026 u.027 l.027 end.027 main.030 u.031 l.031 end.031" />
+</tazs>

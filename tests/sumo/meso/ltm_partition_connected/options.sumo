@@ -1,0 +1,1 @@
+-n net.net.xml -r input_routes.rou.xml --meso-ltm --meso-threads 2 --meso-junction-control --meso-edgelength 30 --meso-threads.partition-file input_districts.taz.xml --tripinfo-output tripinfos.xml --seed 947 --no-step-log --duration-log.disable

@@ -23,6 +23,7 @@
 #include <vector>
 #include <queue>
 #include <map>
+#include <memory>
 #include <utils/common/SUMOTime.h>
 #include <microsim/MSMoveReminder.h>
 
@@ -173,6 +174,12 @@ private:
 
     /// @brief check whether the current car was invalidated and remove it from myInvalidatedLeaderCars
     bool wasInvalidated(const LeaderEvent& e);
+
+    /// @brief Discard expired invalidations and test the current leader event.
+    bool skipInvalidated(const LeaderEvent& e);
+
+    class ParallelEvents;
+    std::unique_ptr<ParallelEvents> myParallelEvents;
 
 
     /// @brief leader cars in the segments sorted by exit time

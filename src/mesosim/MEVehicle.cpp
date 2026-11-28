@@ -466,6 +466,15 @@ MEVehicle::endTriggeredStop() {
 }
 
 
+bool
+MEVehicle::hasOnlyLocalMoveReminders() const {
+    return std::all_of(myMoveReminders.begin(), myMoveReminders.end(), [](const auto& reminder) {
+        return dynamic_cast<const MSDevice_Tripinfo*>(reminder.first) != nullptr
+               || dynamic_cast<const MSDevice_Vehroutes*>(reminder.first) != nullptr;
+    });
+}
+
+
 int
 MEVehicle::mayProceed() {
     if (mySegment == nullptr) {

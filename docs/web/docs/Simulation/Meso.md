@@ -149,6 +149,12 @@ The following parameters are used by the model:
 !!! note
     The meso-LTM model achieves more realistic simulation for urban queuing dynamics. The original meso model (Eissfeldt) achieves instant propagation of gaps when queued traffic starts to flow again (i.e. at a traffic light). In contrast, the meso-LTM model distinguishes between a queue that has space at the upstream end and a queue that has space ad the downstream end.
 
+### Parallel meso-LTM events
+
+Set **--meso-threads** {{DT_INT}} to at least 2 to process independent meso-LTM events on worker threads. The simulation batches events at the same time when their moves have exclusive access to the affected edges. It also supports crossings without mesoscopic junction control or penalties when both edges have assigned groups and the receiving segment precedes the final segment. Smaller batches and events involving stops, teleports, or shared detectors use the serial loop. The option defaults to 0.
+
+Use **--meso-threads.partition-file** {{DT_FILE}} with at least two mesoscopic threads to supply groups on a connected network. The file defines edge memberships with [traffic assignment zones](../Demand/Importing_O/D_Matrices.md#describing_the_taz). SUMO accepts edges listed in the `edges` attribute and in `tazSource` or `tazSink` elements. Unlisted edges, internal links and moves with junction control or penalties use the serial loop. Competing events for the same edge are processed in order.
+
 ## Lateral Model
 
 Lateral movement is not modelled explicitly. Vehicles may overtake each

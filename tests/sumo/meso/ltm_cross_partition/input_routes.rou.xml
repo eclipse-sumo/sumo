@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='utf-8'?>
+<routes>
+  <route id="u.000" edges="u.000 main.000 end.000" />
+  <route id="l.000" edges="l.000 main.000 end.000" />
+  <route id="u.001" edges="u.001 main.001 end.001" />
+  <route id="l.001" edges="l.001 main.001 end.001" />
+  <route id="u.002" edges="u.002 main.002 end.002" />
+  <route id="l.002" edges="l.002 main.002 end.002" />
+  <route id="u.003" edges="u.003 main.003 end.003" />
+  <route id="l.003" edges="l.003 main.003 end.003" />
+  <route id="u.004" edges="u.004 main.004 end.004" />
+  <route id="l.004" edges="l.004 main.004 end.004" />
+  <route id="u.005" edges="u.005 main.005 end.005" />
+  <route id="l.005" edges="l.005 main.005 end.005" />
+  <route id="u.006" edges="u.006 main.006 end.006" />
+  <route id="l.006" edges="l.006 main.006 end.006" />
+  <route id="u.007" edges="u.007 main.007 end.007" />
+  <route id="l.007" edges="l.007 main.007 end.007" />
+  <route id="u.008" edges="u.008 main.008 end.008" />
+  <route id="l.008" edges="l.008 main.008 end.008" />
+  <route id="u.009" edges="u.009 main.009 end.009" />
+  <route id="l.009" edges="l.009 main.009 end.009" />
+  <route id="u.010" edges="u.010 main.010 end.010" />
+  <route id="l.010" edges="l.010 main.010 end.010" />
+  <route id="u.011" edges="u.011 main.011 end.011" />
+  <route id="l.011" edges="l.011 main.011 end.011" />
+  <route id="u.012" edges="u.012 main.012 end.012" />
+  <route id="l.012" edges="l.012 main.012 end.012" />
+  <route id="u.013" edges="u.013 main.013 end.013" />
+  <route id="l.013" edges="l.013 main.013 end.013" />
+  <route id="u.014" edges="u.014 main.014 end.014" />
+  <route id="l.014" edges="l.014 main.014 end.014" />
+  <route id="u.015" edges="u.015 main.015 end.015" />
+  <route id="l.015" edges="l.015 main.015 end.015" />
+  <route id="u.016" edges="u.016 main.016 end.016" />
+  <route id="l.016" edges="l.016 main.016 end.016" />
+  <route id="u.017" edges="u.017 main.017 end.017" />
+  <route id="l.017" edges="l.017 main.017 end.017" />
+  <route id="u.018" edges="u.018 main.018 end.018" />
+  <route id="l.018" edges="l.018 main.018 end.018" />
+  <route id="u.019" edges="u.019 main.019 end.019" />
+  <route id="l.019" edges="l.019 main.019 end.019" />
+  <route id="u.020" edges="u.020 main.020 end.020" />
+  <route id="l.020" edges="l.020 main.020 end.020" />
+  <route id="u.021" edges="u.021 main.021 end.021" />
+  <route id="l.021" edges="l.021 main.021 end.021" />
+  <route id="u.022" edges="u.022 main.022 end.022" />
+  <route id="l.022" edges="l.022 main.022 end.022" />
+  <route id="u.023" edges="u.023 main.023 end.023" />
+  <route id="l.023" edges="l.023 main.023 end.023" />
+  <route id="u.024" edges="u.024 main.024 end.024" />
+  <route id="l.024" edges="l.024 main.024 end.024" />
+  <route id="u.025" edges="u.025 main.025 end.025" />
+  <route id="l.025" edges="l.025 main.025 end.025" />
+  <route id="u.026" edges="u.026 main.026 end.026" />
+  <route id="l.026" edges="l.026 main.026 end.026" />
+  <route id="u.027" edges="u.027 main.027 end.027" />
+  <route id="l.027" edges="l.027 main.027 end.027" />
+  <route id="u.028" edges="u.028 main.028 end.028" />
+  <route id="l.028" edges="l.028 main.028 end.028" />
+  <route id="u.029" edges="u.029 main.029 end.029" />
+  <route id="l.029" edges="l.029 main.029 end.029" />
+  <route id="u.030" edges="u.030 main.030 end.030" />
+  <route id="l.030" edges="l.030 main.030 end.030" />
+  <route id="u.031" edges="u.031 main.031 end.031" />
+  <route id="l.031" edges="l.031 main.031 end.031" />
+  <vehicle id="000.u.000" route="u.000" depart="0" />
+  <vehicle id="000.u.001" route="u.001" depart="0" />
+  <vehicle id="000.u.002" route="u.002" depart="0" />
+  <vehicle id="000.u.003" route="u.003" depart="0" />
+  <vehicle id="000.u.004" route="u.004" depart="0" />
+  <vehicle id="000.u.005" route="u.005" depart="0" />
+  <vehicle id="000.u.006" route="u.006" depart="0" />
+  <vehicle id="000.u.007" route="u.007" depart="0" />
+  <vehicle id="000.u.008" route="u.008" depart="0" />
+  <vehicle id="000.u.009" route="u.009" depart="0" />
+  <vehicle id="000.u.010" route="u.010" depart="0" />
+  <vehicle id="000.u.011" route="u.011" depart="0" />
+  <vehicle id="000.u.012" route="u.012" depart="0" />
+  <vehicle id="000.u.013" route="u.013" depart="0" />
+  <vehicle id="000.u.014" route="u.014" depart="0" />
+  <vehicle id="000.u.015" route="u.015" depart="0" />
+  <vehicle id="000.u.016" route="u.016" depart="0" />
+  <vehicle id="000.u.017" route="u.017" depart="0" />
+  <vehicle id="000.u.018" route="u.018" depart="0" />
+  <vehicle id="000.u.019" route="u.019" depart="0" />
+  <vehicle id="000.u.020" route="u.020" depart="0" />
+  <vehicle id="000.u.021" route="u.021" depart="0" />
+  <vehicle id="000.u.022" route="u.022" depart="0" />
+  <vehicle id="000.u.023" route="u.023" depart="0" />
+  <vehicle id="000.u.024" route="u.024" depart="0" />
+  <vehicle id="000.u.025" route="u.025" depart="0" />
+  <vehicle id="000.u.026" route="u.026" depart="0" />
+  <vehicle id="000.u.027" route="u.027" depart="0" />
+  <vehicle id="000.u.028" route="u.028" depart="0" />
+  <vehicle id="000.u.029" route="u.029" depart="0" />
+  <vehicle id="000.u.030" route="u.030" depart="0" />
+  <vehicle id="000.u.031" route="u.031" depart="0" />
+  <vehicle id="000.l.000" route="l.000" depart="0" />
+  <vehicle id="000.l.001" route="l.001" depart="0" />
+  <vehicle id="000.l.002" route="l.002" depart="0" />
+  <vehicle id="000.l.003" route="l.003" depart="0" />
+  <vehicle id="000.l.004" route="l.004" depart="0" />
+  <vehicle id="000.l.005" route="l.005" depart="0" />
+  <vehicle id="000.l.006" route="l.006" depart="0" />
+  <vehicle id="000.l.007" route="l.007" depart="0" />
+  <vehicle id="000.l.008" route="l.008" depart="0" />
+  <vehicle id="000.l.009" route="l.009" depart="0" />
+  <vehicle id="000.l.010" route="l.010" depart="0" />
+  <vehicle id="000.l.011" route="l.011" depart="0" />
+  <vehicle id="000.l.012" route="l.012" depart="0" />
+  <vehicle id="000.l.013" route="l.013" depart="0" />
+  <vehicle id="000.l.014" route="l.014" depart="0" />
+  <vehicle id="000.l.015" route="l.015" depart="0" />
+  <vehicle id="000.l.016" route="l.016" depart="0" />
+  <vehicle id="000.l.017" route="l.017" depart="0" />
+  <vehicle id="000.l.018" route="l.018" depart="0" />
+  <vehicle id="000.l.019" route="l.019" depart="0" />
+  <vehicle id="000.l.020" route="l.020" depart="0" />
+  <vehicle id="000.l.021" route="l.021" depart="0" />
+  <vehicle id="000.l.022" route="l.022" depart="0" />
+  <vehicle id="000.l.023" route="l.023" depart="0" />
+  <vehicle id="000.l.024" route="l.024" depart="0" />
+  <vehicle id="000.l.025" route="l.025" depart="0" />
+  <vehicle id="000.l.026" route="l.026" depart="0" />
+  <vehicle id="000.l.027" route="l.027" depart="0" />
+  <vehicle id="000.l.028" route="l.028" depart="0" />
+  <vehicle id="000.l.029" route="l.029" depart="0" />
+  <vehicle id="000.l.030" route="l.030" depart="0" />
+  <vehicle id="000.l.031" route="l.031" depart="0" />
+</routes>

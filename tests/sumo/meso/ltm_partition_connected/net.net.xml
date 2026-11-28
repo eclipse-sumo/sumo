@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,30.00" convBoundary="0.00,0.00,1500.00,60.00" origBoundary="-100.00,-30.00,1400.00,30.00" projParameter="!"/>
+
+    <edge id=":A.exit_0" function="internal">
+        <lane id=":A.exit_0_0" index="0" speed="15.00" length="0.10" shape="500.00,28.40 500.10,28.40"/>
+    </edge>
+    <edge id=":A.join_0" function="internal">
+        <lane id=":A.join_0_0" index="0" speed="12.00" length="8.82" shape="93.45,26.37 95.94,27.21 97.64,27.85 99.38,28.26 101.97,28.40"/>
+    </edge>
+    <edge id=":A.join_1" function="internal">
+        <lane id=":A.join_1_0" index="0" speed="12.00" length="8.79" shape="93.45,30.29 95.93,29.47 97.64,28.88 99.39,28.52 101.97,28.40"/>
+    </edge>
+    <edge id=":A.right_0" function="internal">
+        <lane id=":A.right_0_0" index="0" speed="12.00" length="0.10" shape="280.00,28.40 280.00,28.40"/>
+    </edge>
+    <edge id=":B.join_0" function="internal">
+        <lane id=":B.join_0_0" index="0" speed="12.00" length="8.82" shape="1093.45,26.37 1095.94,27.21 1097.64,27.85 1099.38,28.26 1101.97,28.40"/>
+    </edge>
+    <edge id=":B.join_1" function="internal">
+        <lane id=":B.join_1_0" index="0" speed="12.00" length="8.79" shape="1093.45,30.29 1095.93,29.47 1097.64,28.88 1099.39,28.52 1101.97,28.40"/>
+    </edge>
+    <edge id=":B.right_0" function="internal">
+        <lane id=":B.right_0_0" index="0" speed="12.00" length="0.10" shape="1280.00,28.40 1280.00,28.40"/>
+    </edge>
+    <edge id=":B.upper_0" function="internal">
+        <lane id=":B.upper_0_0" index="0" speed="15.00" length="0.56" shape="999.53,58.37 999.70,58.38 999.81,58.37 999.92,58.35 1000.08,58.30"/>
+    </edge>
+
+    <edge id="A.lower" from="A.lower" to="A.join" priority="-1">
+        <lane id="A.lower_0" index="0" speed="12.00" length="97.09" shape="0.46,-1.53 93.45,26.37"/>
+    </edge>
+    <edge id="A.merge" from="A.join" to="A.right" priority="-1">
+        <lane id="A.merge_0" index="0" speed="12.00" length="178.03" shape="101.97,28.40 280.00,28.40"/>
+    </edge>
+    <edge id="A.out" from="A.right" to="A.exit" priority="-1">
+        <lane id="A.out_0" index="0" speed="12.00" length="220.00" shape="280.00,28.40 500.00,28.40"/>
+    </edge>
+    <edge id="A.upper" from="A.upper" to="A.join" priority="-1">
+        <lane id="A.upper_0" index="0" speed="12.00" length="98.05" shape="-0.46,58.47 93.45,30.29"/>
+    </edge>
+    <edge id="B.lower" from="B.lower" to="B.join" priority="-1">
+        <lane id="B.lower_0" index="0" speed="12.00" length="97.09" shape="1000.46,-1.53 1093.45,26.37"/>
+    </edge>
+    <edge id="B.merge" from="B.join" to="B.right" priority="-1">
+        <lane id="B.merge_0" index="0" speed="12.00" length="178.03" shape="1101.97,28.40 1280.00,28.40"/>
+    </edge>
+    <edge id="B.out" from="B.right" to="B.exit" priority="-1">
+        <lane id="B.out_0" index="0" speed="12.00" length="220.00" shape="1280.00,28.40 1500.00,28.40"/>
+    </edge>
+    <edge id="B.upper" from="B.upper" to="B.join" priority="-1">
+        <lane id="B.upper_0" index="0" speed="12.00" length="97.48" shape="1000.08,58.30 1093.45,30.29"/>
+    </edge>
+    <edge id="bridge" from="A.exit" to="B.upper" priority="-1">
+        <lane id="bridge_0" index="0" speed="18.00" length="500.33" shape="500.10,28.40 999.53,58.37"/>
+    </edge>
+
+    <junction id="A.exit" type="priority" x="500.00" y="30.00" incLanes="A.out_0" intLanes=":A.exit_0_0" shape="500.00,30.00 500.19,26.81 500.00,26.80">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="A.join" type="allway_stop" x="100.00" y="30.00" incLanes="A.lower_0 A.upper_0" intLanes=":A.join_0_0 :A.join_1_0" shape="101.97,30.00 101.97,26.80 98.92,26.55 97.88,26.26 96.85,25.87 95.60,25.39 93.91,24.83 93.00,27.90 93.00,28.76 93.91,31.83 96.84,30.82 97.88,30.47 98.92,30.21 100.21,30.05">
+        <request index="0" response="10" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="0"/>
+    </junction>
+    <junction id="A.lower" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.00 0.92,-3.07"/>
+    <junction id="A.right" type="priority" x="280.00" y="30.00" incLanes="A.merge_0" intLanes=":A.right_0_0" shape="280.00,30.00 280.00,26.80 280.00,30.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="A.upper" type="dead_end" x="0.00" y="60.00" incLanes="" intLanes="" shape="-0.00,60.00 -0.92,56.93"/>
+    <junction id="B.exit" type="dead_end" x="1500.00" y="30.00" incLanes="B.out_0" intLanes="" shape="1500.00,26.80 1500.00,30.00"/>
+    <junction id="B.join" type="allway_stop" x="1100.00" y="30.00" incLanes="B.lower_0 B.upper_0" intLanes=":B.join_0_0 :B.join_1_0" shape="1101.97,30.00 1101.97,26.80 1098.92,26.55 1097.88,26.26 1096.85,25.87 1095.60,25.39 1093.91,24.83 1093.00,27.90 1093.00,28.76 1093.91,31.83 1096.84,30.82 1097.88,30.47 1098.92,30.21 1100.21,30.05">
+        <request index="0" response="10" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="0"/>
+    </junction>
+    <junction id="B.lower" type="dead_end" x="1000.00" y="0.00" incLanes="" intLanes="" shape="1000.00,-0.00 1000.92,-3.07"/>
+    <junction id="B.right" type="priority" x="1280.00" y="30.00" incLanes="B.merge_0" intLanes=":B.right_0_0" shape="1280.00,30.00 1280.00,26.80 1280.00,30.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="B.upper" type="priority" x="1000.00" y="60.00" incLanes="bridge_0" intLanes=":B.upper_0_0" shape="1000.54,59.84 999.62,56.77 999.43,59.97 999.85,59.98 1000.00,59.97 1000.14,59.95 1000.31,59.90">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="A.lower" to="A.merge" fromLane="0" toLane="0" via=":A.join_0_0" dir="s" state="w"/>
+    <connection from="A.merge" to="A.out" fromLane="0" toLane="0" via=":A.right_0_0" dir="s" state="M"/>
+    <connection from="A.out" to="bridge" fromLane="0" toLane="0" via=":A.exit_0_0" dir="s" state="M"/>
+    <connection from="A.upper" to="A.merge" fromLane="0" toLane="0" via=":A.join_1_0" dir="s" state="w"/>
+    <connection from="B.lower" to="B.merge" fromLane="0" toLane="0" via=":B.join_0_0" dir="s" state="w"/>
+    <connection from="B.merge" to="B.out" fromLane="0" toLane="0" via=":B.right_0_0" dir="s" state="M"/>
+    <connection from="B.upper" to="B.merge" fromLane="0" toLane="0" via=":B.join_1_0" dir="s" state="w"/>
+    <connection from="bridge" to="B.upper" fromLane="0" toLane="0" via=":B.upper_0_0" dir="s" state="M"/>
+
+    <connection from=":A.exit_0" to="bridge" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":A.join_0" to="A.merge" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":A.join_1" to="A.merge" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":A.right_0" to="A.out" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":B.join_0" to="B.merge" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":B.join_1" to="B.merge" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":B.right_0" to="B.out" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":B.upper_0" to="B.upper" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

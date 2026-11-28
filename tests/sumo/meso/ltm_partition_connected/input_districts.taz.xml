@@ -1,0 +1,9 @@
+<tazs>
+    <taz id="west" edges="A.upper A.lower A.merge A.out"/>
+    <taz id="east">
+        <tazSource id="B.upper"/>
+        <tazSource id="B.lower"/>
+        <tazSink id="B.merge"/>
+        <tazSink id="B.out"/>
+    </taz>
+</tazs>

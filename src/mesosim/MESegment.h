@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <algorithm>
 #include <vector>
 #include <cassert>
 #include <utils/common/SUMOVehicleClass.h>
@@ -129,6 +130,10 @@ protected:
             myPermissions = p;
         }
 
+        bool hasDetectors() const {
+            return !myDetectorData.empty();
+        }
+
         void addDetector(MSMoveReminder* data);
 
         void addReminders(MEVehicle* veh) const;
@@ -183,6 +188,13 @@ public:
      * @param[in] queueIndex The queue (aka lane) to use, -1 means all
      */
     void addDetector(MSMoveReminder* data, int queueIndex = -1);
+
+    /// @brief Whether entering this segment can activate a detector or another shared reminder.
+    bool hasDetectors() const {
+        return std::any_of(myQueues.begin(), myQueues.end(), [](const Queue& q) {
+            return q.hasDetectors();
+        });
+    }
 
     /** @brief Removes a data collector for a detector from this segment
      *
@@ -363,6 +375,11 @@ public:
      * @return The link to use or 0 without junction control
      */
     MSLink* getLink(const MEVehicle* veh, bool tlsPenalty = false) const;
+
+    /// @brief Whether a departure from this segment can use junction links.
+    bool usesJunctionLinks() const {
+        return myJunctionControl || myTLSPenalty || myCheckMinorPenalty;
+    }
 
     /** @brief Returns whether the vehicle may use the next link
      *

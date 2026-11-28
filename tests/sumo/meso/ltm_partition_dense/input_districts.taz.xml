@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<tazs>
+  <taz id="group0" edges="in0000 out0000 in0008 out0008 in0016 out0016 in0024 out0024" />
+  <taz id="group1" edges="in0001 out0001 in0009 out0009 in0017 out0017 in0025 out0025" />
+  <taz id="group2" edges="in0002 out0002 in0010 out0010 in0018 out0018 in0026 out0026" />
+  <taz id="group3" edges="in0003 out0003 in0011 out0011 in0019 out0019 in0027 out0027" />
+  <taz id="group4" edges="in0004 out0004 in0012 out0012 in0020 out0020 in0028 out0028" />
+  <taz id="group5" edges="in0005 out0005 in0013 out0013 in0021 out0021 in0029 out0029" />
+  <taz id="group6" edges="in0006 out0006 in0014 out0014 in0022 out0022 in0030 out0030" />
+  <taz id="group7" edges="in0007 out0007 in0015 out0015 in0023 out0023 in0031 out0031" />
+</tazs>

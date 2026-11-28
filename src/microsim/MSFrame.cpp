@@ -780,6 +780,12 @@ MSFrame::fillOptions() {
     oc.addDescription("mesosim", "Mesoscopic", TL("Enables mesoscopic simulation"));
     oc.doRegister("meso-ltm", new Option_Bool(false));
     oc.addDescription("meso-ltm", "Mesoscopic", TL("Enables the meso-LTM (LIFT) model"));
+    oc.doRegister("meso-threads", new Option_Integer(0));
+    oc.addDescription("meso-threads", "Mesoscopic",
+                      TL("Use up to this many threads for independent meso-LTM events (0 or 1 keeps serial processing)"));
+    oc.doRegister("meso-threads.partition-file", new Option_FileName());
+    oc.addDescription("meso-threads.partition-file", "Mesoscopic",
+                      TL("Load meso-LTM worker groups from the edge memberships of a TAZ file"));
     oc.doRegister("meso-edgelength", new Option_Float(98.0f));
     oc.addDescription("meso-edgelength", "Mesoscopic", TL("Length of an edge segment in mesoscopic simulation"));
     oc.doRegister("meso-tauff", new Option_String("1.13", "TIME"));
@@ -991,6 +997,19 @@ MSFrame::checkOptions() {
     }
     if (oc.getBool("meso-ltm") && oc.isDefault("mesosim")) {
         oc.setDefault("mesosim", "true");
+    }
+    if (oc.isSet("meso-threads.partition-file") && oc.getInt("meso-threads") < 2) {
+        WRITE_ERROR(TL("Option 'meso-threads.partition-file' requires at least two mesoscopic threads."));
+        ok = false;
+    }
+    if (oc.getInt("meso-threads") < 0) {
+        WRITE_ERROR(TL("The number of mesoscopic threads must be nonnegative."));
+        ok = false;
+    } else if (oc.getInt("meso-threads") > 1) {
+        if (!oc.getBool("mesosim") || !oc.getBool("meso-ltm")) {
+            WRITE_ERROR(TL("Option 'meso-threads' requires mesoscopic LTM simulation."));
+            ok = false;
+        }
     }
     if (oc.getBool("mesosim")) {
         if (oc.isDefault("pedestrian.model")) {

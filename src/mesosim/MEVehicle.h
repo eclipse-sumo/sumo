@@ -388,6 +388,9 @@ public:
      */
     int mayProceed();
 
+    /// @brief Whether every active move reminder is local to this vehicle.
+    bool hasOnlyLocalMoveReminders() const;
+
     /** @brief Updates a single vehicle detector if present
      */
     void updateDetectorForWriting(MSMoveReminder* rem, SUMOTime currentTime, SUMOTime exitTime);
