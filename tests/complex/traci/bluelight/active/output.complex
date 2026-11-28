@@ -1,0 +1,7 @@
+initial active: 0
+initial speedMode: 31
+stopped at red: road=SC speed=0.03 blocker_rescue=''
+activated: 1 speedMode: 7
+step 1 after activation: road=:C_11 blocker_rescue=''
+deactivated on SC: active=0 speedMode=31 blocker_rescue=''
+drove past red after re-activation: road=CN
