@@ -18,6 +18,9 @@
 // The Widget for modifying selections of network-elements
 /****************************************************************************/
 
+#include <algorithm>
+#include <sstream>
+
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
@@ -29,6 +32,8 @@
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEAttributeProperties.h>
 #include <netedit/GNETagPropertiesDatabase.h>
+#include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/network/GNELane.h>
 
 #include "GNEComboBoxAttrProperty.h"
 #include "GNEComboBoxTagProperty.h"
@@ -346,40 +351,51 @@ GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
 std::vector<GNEAttributeCarrier*>
 GNEMatchAttribute::getMatches(const char compOp, const double val, const std::string& expr) {
     std::vector<GNEAttributeCarrier*> result;
+    const auto attribute = myCurrentEditedProperties->getAttributeProperties()->getAttr();
+    const auto tag = myCurrentEditedProperties->getTagProperties()->getTag();
+    const auto matchesNumber = [compOp, val](double value) {
+        switch (compOp) {
+            case '<':
+                return value < val;
+            case '>':
+                return value > val;
+            case '=':
+                return value == val;
+            default:
+                return false;
+        }
+    };
+    const auto matchesLaneWidth = [&matchesNumber](const GNELane* lane) {
+        return matchesNumber(lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()));
+    };
     // first retrieve all ACs using ACTag
-    const auto allACbyTag = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveAttributeCarriers(myCurrentEditedProperties->getTagProperties()->getTag());
+    const auto allACbyTag = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveAttributeCarriers(tag);
     // iterate over all ACs
     for (const auto& AC : allACbyTag) {
         // first check if the attribute exist in the given tag
-        if (AC->getTagProperty()->hasAttribute(myCurrentEditedProperties->getAttributeProperties()->getAttr())) {
+        if (AC->getTagProperty()->hasAttribute(attribute)) {
             if (expr == "" && compOp == '@') {
                 result.push_back(AC);
             } else if (myCurrentEditedProperties->getAttributeProperties()->isNumerical()) {
-                double acVal;
-                std::istringstream buf(AC->getAttribute(myCurrentEditedProperties->getAttributeProperties()->getAttr()));
-                buf >> acVal;
-                switch (compOp) {
-                    case '<':
-                        if (acVal < val) {
-                            result.push_back(AC);
-                        }
-                        break;
-                    case '>':
-                        if (acVal > val) {
-                            result.push_back(AC);
-                        }
-                        break;
-                    case '=':
-                        if (acVal == val) {
-                            result.push_back(AC);
-                        }
-                        break;
-                    default:
-                        break;
+                if (attribute == SUMO_ATTR_WIDTH && tag == SUMO_TAG_EDGE) {
+                    const auto& lanes = static_cast<const GNEEdge*>(AC)->getChildLanes();
+                    if (std::all_of(lanes.begin(), lanes.end(), matchesLaneWidth)) {
+                        result.push_back(AC);
+                    }
+                } else if (attribute == SUMO_ATTR_WIDTH && tag == SUMO_TAG_LANE) {
+                    if (matchesLaneWidth(static_cast<const GNELane*>(AC))) {
+                        result.push_back(AC);
+                    }
+                } else {
+                    std::istringstream buf(AC->getAttribute(attribute));
+                    double acVal;
+                    if ((buf >> acVal) && matchesNumber(acVal)) {
+                        result.push_back(AC);
+                    }
                 }
             } else {
                 // string match
-                std::string acVal = AC->getAttributeForSelection(myCurrentEditedProperties->getAttributeProperties()->getAttr());
+                const std::string acVal = AC->getAttributeForSelection(attribute);
                 switch (compOp) {
                     case '@':
                         if (acVal.find(expr) != std::string::npos) {
