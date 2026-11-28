@@ -1,0 +1,8 @@
+[collate_file]
+alternatives:001/input_trips_001.rou.alt.xml.gz
+
+[collate_script]
+alternatives:$TEXTTEST_HOME/unzip.py
+
+[run_dependent_text]
+alternatives:<!--{[->]}-->

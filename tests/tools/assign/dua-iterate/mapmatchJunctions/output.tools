@@ -1,76 +1,71 @@
-Loading configuration ... done.
 > Executing step 0
 >> Running router on input_trips.trips.xml
->>> Begin time: 2015-10-27 12:13:59.828000
->>> End time: 2015-10-27 12:14:00.060000
->>> Duration: 0:00:00.232000
+>>> Begin time: 2026-11-23 15:19:45.304830
+>>> End time: 2026-11-23 15:19:45.407368
+>>> Duration: 0:00:00.102538
 <<
 >> Running simulation
->>> Begin time: 2015-10-27 12:14:00.060000
->>> End time: 2015-10-27 12:14:00.335000
->>> Duration: 0:00:00.275000
+>>> Begin time: 2026-11-23 15:19:45.407407
+>>> End time: 2026-11-23 15:19:45.625418
+>>> Duration: 0:00:00.218011
 <<
-< Step 0 ended (duration: 0:00:00.507000)
+< Step 0 ended (duration: 0:00:00.320663)
 ------------------
 
-Loading configuration ... done.
 > Executing step 1
->> Running router on input_trips_000.rou.alt.xml
->>> Begin time: 2015-10-27 12:14:00.338000
->>> End time: 2015-10-27 12:14:00.595000
->>> Duration: 0:00:00.257000
+>> Running router on 000/input_trips_000.rou.alt.xml.gz
+>>> Begin time: 2026-11-23 15:19:45.628959
+>>> End time: 2026-11-23 15:19:45.723494
+>>> Duration: 0:00:00.094535
 <<
 >> Running simulation
->>> Begin time: 2015-10-27 12:14:00.596000
->>> End time: 2015-10-27 12:14:00.904000
->>> Duration: 0:00:00.308000
+>>> Begin time: 2026-11-23 15:19:45.723539
+>>> End time: 2026-11-23 15:19:45.937806
+>>> Duration: 0:00:00.214267
 <<
-< Step 1 ended (duration: 0:00:00.566000)
+< Step 1 ended (duration: 0:00:00.308978)
 ------------------
 
-Loading configuration ... done.
 > Executing step 2
->> Running router on input_trips_001.rou.alt.xml
->>> Begin time: 2015-10-27 12:14:00.914000
->>> End time: 2015-10-27 12:14:01.242000
->>> Duration: 0:00:00.328000
+>> Running router on 001/input_trips_001.rou.alt.xml.gz
+>>> Begin time: 2026-11-23 15:19:45.940113
+>>> End time: 2026-11-23 15:19:46.041183
+>>> Duration: 0:00:00.101070
 <<
 >> Running simulation
->>> Begin time: 2015-10-27 12:14:01.242000
->>> End time: 2015-10-27 12:14:01.531000
->>> Duration: 0:00:00.289000
+>>> Begin time: 2026-11-23 15:19:46.041224
+>>> End time: 2026-11-23 15:19:46.266605
+>>> Duration: 0:00:00.225381
 <<
-< Step 2 ended (duration: 0:00:00.617000)
+< Step 2 ended (duration: 0:00:00.326566)
 ------------------
 
-Loading configuration ... done.
 > Executing step 3
->> Running router on input_trips_002.rou.alt.xml
->>> Begin time: 2015-10-27 12:14:01.536000
->>> End time: 2015-10-27 12:14:01.880000
->>> Duration: 0:00:00.344000
+>> Running router on 002/input_trips_002.rou.alt.xml.gz
+>>> Begin time: 2026-11-23 15:19:46.268665
+>>> End time: 2026-11-23 15:19:46.367548
+>>> Duration: 0:00:00.098883
 <<
 >> Running simulation
->>> Begin time: 2015-10-27 12:14:01.880000
->>> End time: 2015-10-27 12:14:02.170000
->>> Duration: 0:00:00.290000
+>>> Begin time: 2026-11-23 15:19:46.367594
+>>> End time: 2026-11-23 15:19:46.591772
+>>> Duration: 0:00:00.224178
 <<
-< Step 3 ended (duration: 0:00:00.634000)
+< Step 3 ended (duration: 0:00:00.323187)
 ------------------
 
-Loading configuration ... done.
 > Executing step 4
->> Running router on input_trips_003.rou.alt.xml
->>> Begin time: 2015-10-27 12:14:02.174000
->>> End time: 2015-10-27 12:14:02.457000
->>> Duration: 0:00:00.283000
+>> Running router on 003/input_trips_003.rou.alt.xml.gz
+>>> Begin time: 2026-11-23 15:19:46.593733
+>>> End time: 2026-11-23 15:19:46.682924
+>>> Duration: 0:00:00.089191
 <<
 >> Running simulation
->>> Begin time: 2015-10-27 12:14:02.457000
->>> End time: 2015-10-27 12:14:02.816000
->>> Duration: 0:00:00.359000
+>>> Begin time: 2026-11-23 15:19:46.682969
+>>> End time: 2026-11-23 15:19:46.902185
+>>> Duration: 0:00:00.219216
 <<
-< Step 4 ended (duration: 0:00:00.642000)
+< Step 4 ended (duration: 0:00:00.308527)
 ------------------
 
-dua-iterate ended (duration: 0:00:02.993000)
+dua-iterate ended (duration: 0:00:01.599626)

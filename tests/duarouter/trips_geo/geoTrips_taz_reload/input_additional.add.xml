@@ -1,0 +1,7 @@
+<additional>
+    <taz id="taz0" edges="beg beg2left middle"/>
+    <taz id="taz1" edges="left left2end"/>
+    <taz id="canonical" edges="beg2left left"/>
+    <taz id="canonical-source" edges="beg"/>
+    <taz id="canonical-sink" edges="left2end"/>
+</additional>

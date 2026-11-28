@@ -1,0 +1,12 @@
+<routes>
+    <vehicle id="legacy" depart="0" fromTaz="taz0-source" toTaz="taz1-sink">
+        <routeDistribution last="0">
+            <route edges="beg beg2left left left2end" cost="200" probability="1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="canonical" depart="1" fromTaz="canonical-source" toTaz="canonical-sink">
+        <routeDistribution last="0">
+            <route edges="beg beg2left left left2end" cost="200" probability="1"/>
+        </routeDistribution>
+    </vehicle>
+</routes>

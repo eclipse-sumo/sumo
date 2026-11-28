@@ -35,8 +35,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <trip id="0" depart="0.00" from="beg" to="rend">
+    <trip id="0" depart="0.00" fromTaz="absBeg" toTaz="rabsEnd" from="beg" to="rend">
         <stop busStop="busStop#1" duration="10.00"/>
     </trip>
-    <trip id="2" depart="0.00" from="beg2left" to="rend" via="left"/>
+    <trip id="2" depart="0.00" fromTaz="beg" toTaz="rabsEnd" from="beg2left" to="rend" via="left"/>
 </routes>
