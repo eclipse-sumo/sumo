@@ -11,6 +11,10 @@
         <walk edges="111325187#1" busStop="2029039199"/>
 		<ride from="111325187#1" busStop="2029039146" lines="140:1"/>
     </person>
+    <person id="walk_ride_nofrom" depart="0">
+        <walk edges="111325188#1 111325188#2 391493945#0 391493945#1" busStop="2029039195"/>
+        <ride busStop="4032629820" lines="140:0"/>
+    </person>
     <person id="ride_off_nofrom" depart="0">
         <walk edges="111325187#1" busStop="2029039199"/>
 		<ride busStop="2029039146" lines="140:1"/>

@@ -20,7 +20,7 @@
     <person id="ride_walk" depart="0.00">
         <ride from="53356539#0" lines="140:1" to="4710636#2"/>
     </person>
-    <person id="ride_off_nofrom" depart="0.00">
-        <ride lines="140:1" to="4710636#2" from="53356539#0"/>
+    <person id="walk_ride_nofrom" depart="0.00">
+        <ride busStop="4032629820" lines="140:0" from="161159325#0"/>
     </person>
 </routes>
