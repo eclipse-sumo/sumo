@@ -89,11 +89,14 @@ private:
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) override;
 
+    /// @brief get move offset over this edge when moving multiple selected edges
+    double getMoveEdgeOffset() const;
+
     /// @brief process moving edge when only from junction is selected
-    GNEMoveOperation* processMoveFromJunctionSelected(const PositionVector originalShape, const Position mousePosition, const double snapRadius);
+    GNEMoveOperation* processMoveFromJunctionSelected(const double snapRadius);
 
     /// @brief process moving edge when only to junction is selected
-    GNEMoveOperation* processMoveToJunctionSelected(const PositionVector originalShape, const Position mousePosition, const double snapRadius);
+    GNEMoveOperation* processMoveToJunctionSelected(const double snapRadius);
 
     /// @brief process moving edge when both junctions are selected
     GNEMoveOperation* processMoveBothJunctionSelected();
