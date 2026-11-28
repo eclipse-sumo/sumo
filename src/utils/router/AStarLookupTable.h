@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #ifdef HAVE_ZLIB
@@ -134,6 +135,21 @@ public:
         std::vector<const E*> landmarks;
         int numLandMarks = 0;
         bool haveData = false;
+        bool missingTaz = false;
+        const auto fillMissingTaz = [&](int landmark, int nextIndex) {
+            const int tableSize = (int)myFromLandmarkDists[landmark].size();
+            if (tableSize == nextIndex) {
+                return true;
+            }
+            if (!haveTaz || nextIndex < tableSize || !std::all_of(edges.begin() + myFirstNonInternal + tableSize,
+                    edges.begin() + myFirstNonInternal + nextIndex, [](const E* e) { return e->isTazConnector(); })) {
+                return false;
+            }
+            myFromLandmarkDists[landmark].resize(nextIndex, UNKNOWN_DISTANCE);
+            myToLandmarkDists[landmark].resize(nextIndex, UNKNOWN_DISTANCE);
+            missingTaz = true;
+            return true;
+        };
         while (std::getline(strm, line)) {
             if (line == "") {
                 break;
@@ -185,23 +201,30 @@ public:
                 // legacy style landmark table
                 const std::string lm = st.get(0);
                 const std::string edge = st.get(1);
-                if (numericID[edge] != (int)myFromLandmarkDists[myLandmarks[lm]].size()) {
+                const auto lookupEdge = numericID.find(edge);
+                const auto landmark = myLandmarks.find(lm);
+                if (landmark == myLandmarks.end()) {
+                    throw ProcessError(TLF("Landmark edge '%' does not exist in the network.", lm));
+                }
+                const int landmarkIndex = landmark->second;
+                if (lookupEdge == numericID.end() || !fillMissingTaz(landmarkIndex, lookupEdge->second)) {
                     throw ProcessError(TLF("Unknown or unordered edge '%' in landmark file.", edge));
                 }
                 const double distFrom = StringUtils::toDouble(st.get(2));
                 const double distTo = StringUtils::toDouble(st.get(3));
-                myFromLandmarkDists[myLandmarks[lm]].push_back(distFrom);
-                myToLandmarkDists[myLandmarks[lm]].push_back(distTo);
+                myFromLandmarkDists[landmarkIndex].push_back(distFrom);
+                myToLandmarkDists[landmarkIndex].push_back(distTo);
                 haveData = true;
             } else {
                 const std::string edge = st.get(0);
                 if ((int)st.size() != 2 * numLandMarks + 1) {
                     throw ProcessError(TLF("Broken landmark file, unexpected number of entries (%) for edge '%'.", st.size() - 1, edge));
                 }
-                if (numericID[edge] != (int)myFromLandmarkDists[0].size()) {
-                    throw ProcessError(TLF("Unknown or unordered edge '%' in landmark file.", edge));
-                }
+                const auto lookupEdge = numericID.find(edge);
                 for (int i = 0; i < numLandMarks; i++) {
+                    if (lookupEdge == numericID.end() || !fillMissingTaz(i, lookupEdge->second)) {
+                        throw ProcessError(TLF("Unknown or unordered edge '%' in landmark file.", edge));
+                    }
                     const double distFrom = StringUtils::toDouble(st.get(2 * i + 1));
                     const double distTo = StringUtils::toDouble(st.get(2 * i + 2));
                     myFromLandmarkDists[i].push_back(distFrom);
@@ -221,12 +244,15 @@ public:
         if (!haveData) {
             WRITE_MESSAGE(TL("Calculating new lookup table."));
         }
+        const int lookupSize = (int)edges.size() - myFirstNonInternal;
         for (int i = 0; i < numLandMarks; ++i) {
-            if ((int)myFromLandmarkDists[i].size() != (int)edges.size() - myFirstNonInternal) {
+            if ((int)myFromLandmarkDists[i].size() != lookupSize) {
                 const E* const landmark = landmarks[i];
                 if (haveData) {
                     if (myFromLandmarkDists[i].empty()) {
                         WRITE_WARNINGF(TL("No lookup table for landmark edge '%', recalculating."), landmark->getID());
+                    } else if (fillMissingTaz(i, lookupSize)) {
+                        continue;
                     } else {
                         const std::string tazWarning = haveTaz ? " Make sure that any used taz or junction-taz definitions are loaded when generating the table" : "";
                         throw ProcessError(TLF("Not all network edges were found in the lookup table '%' for landmark edge '%'.%", filename, landmark->getID(), tazWarning));
@@ -263,6 +289,9 @@ public:
                 UNUSED_PARAMETER(reverseRouter);
 #endif
             }
+        }
+        if (missingTaz) {
+            WRITE_WARNINGF(TL("Some district edges are missing from landmark lookup table '%', using standard A* estimates for these edges."), filename);
         }
 #ifdef HAVE_FOX
         threadPool.waitAll(false);
@@ -369,6 +398,9 @@ public:
             // a cost of -1 is used to encode unreachability.
             const double fl = myToLandmarkDists[i][from->getNumericalID() - myFirstNonInternal];
             const double tl = myToLandmarkDists[i][to->getNumericalID() - myFirstNonInternal];
+            if (fl == UNKNOWN_DISTANCE || tl == UNKNOWN_DISTANCE) {
+                continue;
+            }
             if (fl >= 0 && tl >= 0) {
                 const double bound = (fl - tl - toEffort) / speedFactor;
 #ifdef ASTAR_DEBUG_LOOKUPTABLE
@@ -411,6 +443,9 @@ public:
     }
 
 private:
+    // Distinguish missing district entries from the -1 used for unreachable edges.
+    static constexpr double UNKNOWN_DISTANCE = -2;
+
     std::map<std::string, int> myLandmarks;
     std::vector<std::vector<double> > myFromLandmarkDists;
     std::vector<std::vector<double> > myToLandmarkDists;
