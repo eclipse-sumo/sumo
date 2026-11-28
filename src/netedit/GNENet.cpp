@@ -709,8 +709,8 @@ GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
     NBConnection deleted = connection->getNBConnection();
     GNEJunction* junctionDestination = connection->getEdgeFrom()->getToJunction();
     junctionDestination->markAsModified(undoList);
-    undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), connection->isAttributeCarrierSelected(), false), true);
     junctionDestination->invalidateTLS(undoList, deleted);
+    undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), connection->isAttributeCarrierSelected(), false), true);
     // remove connection requires always a recompute (due geometry and connections)
     requireRecompute();
     undoList->end();
