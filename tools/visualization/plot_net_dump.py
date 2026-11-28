@@ -27,12 +27,43 @@ from xml.sax.handler import ContentHandler
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import sumolib  # noqa
 from sumolib.visualization import helpers  # noqa
 import matplotlib.pyplot as plt  # noqa
+from matplotlib.collections import LineCollection  # noqa
 import matplotlib  # noqa
+
+
+def plotNetLanes(net, colors, widths, options):
+    shapes = []
+    c = []
+    w = []
+    for e in net._edges:
+        eid = str(e.getID())
+        for lane in e.getLanes():
+            lid = str(lane.getID())
+            shapes.append(lane.getShape())
+            if lid in colors:
+                c.append(colors[lid])
+            elif eid in colors:
+                c.append(colors[eid])
+            else:
+                c.append(options.defaultColor)
+            if lid in widths:
+                w.append(widths[lid])
+            elif eid in widths:
+                w.append(widths[eid])
+            else:
+                w.append(options.defaultWidth)
+
+    line_segments = LineCollection(shapes, linewidths=w, colors=c, linestyles=options.linestyle)
+    ax = plt.gca()
+    ax.add_collection(line_segments)
+    ax.set_xmargin(0.1)
+    ax.set_ymargin(0.1)
+    ax.autoscale_view(True, True, True)
 
 
 class WeightsReader(ContentHandler):
@@ -41,19 +72,28 @@ class WeightsReader(ContentHandler):
 
     def __init__(self, value):
         self._edge2value = {}
+        self._lane2value = {}
         self._value = value
         self._intervals = []
+        self._lanebased = False
 
     def startElement(self, name, attrs):
         if name == 'interval':
             self._time = float(attrs['begin'])
             self._edge2value[self._time] = {}
+            self._lane2value[self._time] = {}
             self._intervals.append(self._time)
 
         elif name == 'edge':
             id = attrs['id']
             if self._value in attrs:
                 self._edge2value[self._time][id] = float(attrs[self._value])
+
+        elif name == 'lane':
+            self._lanebased = True
+            id = attrs['id']
+            if self._value in attrs:
+                self._lane2value[self._time][id] = float(attrs[self._value])
 
 
 def main(args=None):
@@ -120,26 +160,30 @@ def main(args=None):
         return 1
 
     dumps = options.dumps.split(",")
+    measures = options.measures.split(",")
     times = []
     hc = None
     colorDump = dumps[0]
-    colorMeasure = options.measures.split(",")[0]
+    colorMeasure = measures[0]
     if colorDump:
         if options.verbose:
             print("Reading colors from '%s' (attribute:%s)" % (colorDump, colorMeasure))
         hc = WeightsReader(colorMeasure)
         sumolib.output.parse_sax(colorDump, hc)
-        times = hc._edge2value
+        times = hc._lane2value if hc._lanebased else hc._edge2value
 
     hw = None
     if len(dumps) > 1:
         widthDump = dumps[1]
-        widthMeasure = options.measures.split(",")[1]
+        widthMeasure = measures[1] if len(measures) > 1 else measures[0]
         if options.verbose:
             print("Reading width attribute from '%s' (attribute:%s)" % (widthDump, widthMeasure))
         hw = WeightsReader(widthMeasure)
         sumolib.output.parse_sax(widthDump, hw)
-        times = hw._edge2value
+        times = hw._lane2value if hw._lanebased else hw._edge2value
+
+    lanebased = bool((hc and hc._lanebased) or (hw and hw._lanebased))
+    lane_ids = [lane.getID() for edge in net._edges for lane in edge.getLanes()] if lanebased else []
 
     # Should we also save the figure to a file / list of files (comma
     # separated)? Then we need to check the output filename(s)
@@ -169,17 +213,19 @@ def main(args=None):
         colors = {}
         maxColorValue = None
         minColorValue = None
-        for e in net._id2edge:
-            if hc and t in hc._edge2value and e in hc._edge2value[t]:
-                if options.colorMax is not None and hc._edge2value[t][e] > options.colorMax:
-                    hc._edge2value[t][e] = options.colorMax
-                if options.colorMin is not None and hc._edge2value[t][e] < options.colorMin:
-                    hc._edge2value[t][e] = options.colorMin
-                if maxColorValue is None or maxColorValue < hc._edge2value[t][e]:
-                    maxColorValue = hc._edge2value[t][e]
-                if minColorValue is None or minColorValue > hc._edge2value[t][e]:
-                    minColorValue = hc._edge2value[t][e]
-                colors[e] = hc._edge2value[t][e]
+        colorData = hc._lane2value if (hc and hc._lanebased) else (hc._edge2value if hc else {})
+        colorItems = lane_ids if (hc and hc._lanebased) else net._id2edge
+        for e in colorItems:
+            if hc and t in colorData and e in colorData[t]:
+                if options.colorMax is not None and colorData[t][e] > options.colorMax:
+                    colorData[t][e] = options.colorMax
+                if options.colorMin is not None and colorData[t][e] < options.colorMin:
+                    colorData[t][e] = options.colorMin
+                if maxColorValue is None or maxColorValue < colorData[t][e]:
+                    maxColorValue = colorData[t][e]
+                if minColorValue is None or minColorValue > colorData[t][e]:
+                    minColorValue = colorData[t][e]
+                colors[e] = colorData[t][e]
         if options.colorMax is not None:
             maxColorValue = options.colorMax
         if options.colorMin is not None:
@@ -202,9 +248,11 @@ def main(args=None):
         widths = {}
         maxWidthValue = None
         minWidthValue = None
-        for e in net._id2edge:
-            if hw and t in hw._edge2value and e in hw._edge2value[t]:
-                v = abs(hw._edge2value[t][e])
+        widthData = hw._lane2value if (hw and hw._lanebased) else (hw._edge2value if hw else {})
+        widthItems = lane_ids if (hw and hw._lanebased) else net._id2edge
+        for e in widthItems:
+            if hw and t in widthData and e in widthData[t]:
+                v = abs(widthData[t][e])
                 if options.widthMax is not None and v > options.widthMax:
                     v = options.widthMax
                 if options.widthMin is not None and v < options.widthMin:
@@ -234,7 +282,10 @@ def main(args=None):
 
         fig, ax = helpers.openFigure(options)
         ax.set_aspect("equal", None, 'C')
-        helpers.plotNet(net, colors, widths, options)
+        if lanebased:
+            plotNetLanes(net, colors, widths, options)
+        else:
+            helpers.plotNet(net, colors, widths, options)
 
         # drawing the legend, at least for the colors
         if options.colormapCenter is not None:
