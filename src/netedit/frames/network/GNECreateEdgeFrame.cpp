@@ -672,6 +672,9 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(GNEViewParent* viewParent, GNEViewNet* vi
     myJunctionSource(nullptr) {
     // create custom edge selector
     myEdgeTypeSelector = new EdgeTypeSelector(this);
+    myJunctionAttributes = new GNEAttributesEditorType(this, nullptr, TL("Source junction"),
+                           GNEAttributesEditorType::EditorType::EDITOR, GNEAttributesEditorType::AttributeType::EDGE_SOURCE_JUNCTION);
+    myJunctionAttributes->hideAttributesEditor();
     // Create edgeType parameters
     myEdgeTypeAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
     // lane type selector
@@ -693,7 +696,8 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
     if (!myEdgeTypeSelector->useDefaultEdgeType() && !myEdgeTypeSelector->useDefaultEdgeTypeShort() &&
             !myEdgeTypeSelector->useEdgeTemplate() && (myEdgeTypeSelector->getEdgeTypeSelected() == nullptr)) {
         WRITE_WARNING(TL("Select either default edgeType or short edge or a custom edgeType or template"));
-    } else if (myEdgeTypeAttributesEditor->checkAttributes(true) && myLaneTypeAttributesEditor->checkAttributes(true)) {
+    } else if (myEdgeTypeAttributesEditor->checkAttributes(true) && myLaneTypeAttributesEditor->checkAttributes(true) &&
+               myJunctionAttributes->checkAttributes(true)) {
         // get edge type
         auto edgeType = myViewNet->getNet()->getACTemplates()->getDefaultEdgeType();
         // if grid is enabled and currently there isn't a junction under mouse, make a new search snapping position to grid
@@ -741,6 +745,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
             } else {
                 myJunctionSource = junction;
                 myJunctionSource->markAsCreateEdgeSource();
+                myJunctionAttributes->showAttributesEditor(myJunctionSource, true);
             }
             update();
         } else {
@@ -807,9 +812,11 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                     if (chainEdge) {
                         myJunctionSource = junction;
                         myJunctionSource->markAsCreateEdgeSource();
+                        myJunctionAttributes->showAttributesEditor(myJunctionSource, true);
                         myViewNet->getUndoList()->begin(GUIIcon::EDGE, TL("create new edge"));
                     } else {
                         myJunctionSource = nullptr;
+                        myJunctionAttributes->hideAttributesEditor();
                     }
                 } else {
                     myViewNet->setStatusBarText(TL("An edge with the same geometry already exists!"));
@@ -825,6 +832,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
 
 void
 GNECreateEdgeFrame::abortEdgeCreation() {
+    myJunctionAttributes->hideAttributesEditor();
     // if myCreateEdgeSource exist, unmark ist as create edge source
     if (myJunctionSource != nullptr) {
         // remove current created edge source
@@ -851,6 +859,7 @@ GNECreateEdgeFrame::show() {
 
 void
 GNECreateEdgeFrame::hide() {
+    myJunctionAttributes->hideAttributesEditor();
     // hide frame
     GNEFrame::hide();
 }

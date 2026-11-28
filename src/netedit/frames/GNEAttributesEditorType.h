@@ -64,6 +64,7 @@ public:
         GEO,        // GEO attributes (lon and lat)
         NETEDIT,    // Netedit attributes (front, select...)
         PARAMETERS, // Generic parameters
+        EDGE_SOURCE_JUNCTION, // Junction attributes editable during edge creation
     };
 
     /// @brief constructor

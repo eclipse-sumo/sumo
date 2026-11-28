@@ -243,6 +243,12 @@ GNEAttributesEditorType::refreshAttributesEditor() {
         } else {
             // Iterate over tag property of first AC and show row for every attribute
             for (const auto& attrProperty : tagProperty->getAttributeProperties()) {
+                if (myAttributeType == AttributeType::EDGE_SOURCE_JUNCTION &&
+                        attrProperty->getAttr() != SUMO_ATTR_TYPE &&
+                        attrProperty->getAttr() != SUMO_ATTR_RADIUS &&
+                        attrProperty->getAttr() != SUMO_ATTR_TLTYPE) {
+                    continue;
+                }
                 // filter editor type
                 bool validEditorType = false;
                 if (isEditorTypeCreator() && attrProperty->isCreateMode()) {
@@ -678,7 +684,8 @@ GNEAttributesEditorType::buildRows(GNEAttributesEditorType* editorParent) {
     if (myFirstSingletonAttributesEditorRows.empty()) {
         const auto tagPropertiesDatabase = editorParent->getFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase();
         // declare vector of types with rows
-        const std::vector<AttributeType> types = {AttributeType::BASIC, AttributeType::FLOW, AttributeType::GEO, AttributeType::NETEDIT, AttributeType::PARAMETERS};
+        const std::vector<AttributeType> types = {AttributeType::BASIC, AttributeType::FLOW, AttributeType::GEO, AttributeType::NETEDIT,
+                                                   AttributeType::PARAMETERS, AttributeType::EDGE_SOURCE_JUNCTION};
         // iterate over all types and create their correspond rows
         for (const auto type : types) {
             int maxNumberOfRows = 0;
@@ -691,6 +698,8 @@ GNEAttributesEditorType::buildRows(GNEAttributesEditorType* editorParent) {
                 maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfGeoAttributeRows();
             } else if (type == AttributeType::NETEDIT) {
                 maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfNeteditAttributesRows();
+            } else if (type == AttributeType::EDGE_SOURCE_JUNCTION) {
+                maxNumberOfRows = 3;
             } else if (type == AttributeType::PARAMETERS) {
                 maxNumberOfRows = 1;
             } else {

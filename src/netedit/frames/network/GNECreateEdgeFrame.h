@@ -29,6 +29,7 @@
 
 class GNEEdgeType;
 class GNEAttributesEditor;
+class GNEAttributesEditorType;
 
 // ===========================================================================
 // class definitions
@@ -311,4 +312,7 @@ protected:
 private:
     /// @brief source junction for new edge
     GNEJunction* myJunctionSource;
+
+    /// @brief Editor for the pending source junction
+    GNEAttributesEditorType* myJunctionAttributes = nullptr;
 };

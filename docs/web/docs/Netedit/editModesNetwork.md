@@ -20,6 +20,8 @@ To connect two already created edges, click over the first junction.
 ![](../images/CreateEdge4.png)
 Click over the second junction to create an edge between both.
 
+After choosing the source junction, use **Source junction** to set its type, radius, or traffic light algorithm before choosing the destination. The traffic light algorithm is available for junctions with a traffic light. Undo reverts these edits together with the edge creation.
+
 ### Creating a chain of edges
 
 ![](../images/CreateEdge5.png)
