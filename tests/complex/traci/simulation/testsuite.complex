@@ -17,3 +17,4 @@ convertRoad
 
 # Tests the simulation API
 findRoute
+findRoute_effort
