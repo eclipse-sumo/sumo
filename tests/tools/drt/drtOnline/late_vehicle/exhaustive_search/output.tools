@@ -1,0 +1,20 @@
+ Retrying in 1 seconds
+
+Run dispatcher
+New reservations: ['0', '1']
+Pending reservations: []
+Solve DARP with exhaustive_search
+Dispatch: taxiA_1y_1z
+
+Run dispatcher
+Pending reservations: ['0']
+Solve DARP with exhaustive_search
+
+Run dispatcher
+Pending reservations: ['0']
+Solve DARP with exhaustive_search
+Solve ILP
+Dispatch: taxiB_0y_0z
+
+Exact solution found.
+DRT simulation ended
