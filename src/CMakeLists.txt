@@ -128,3 +128,27 @@ add_custom_command(OUTPUT version.h
                   )
 add_custom_target(generate-version-h DEPENDS version.h)
 set_property(TARGET generate-version-h PROPERTY FOLDER "CMake")
+
+if (WIN32)
+    set(windows_version_header "${CMAKE_CURRENT_BINARY_DIR}/windows-version.h")
+    set(windows_version_script "${CMAKE_CURRENT_SOURCE_DIR}/../build_config/cmake_modules/GenerateWindowsVersion.cmake")
+    add_custom_command(OUTPUT "${windows_version_header}"
+        COMMAND "${CMAKE_COMMAND}"
+            "-DVERSION_HEADER=${CMAKE_CURRENT_BINARY_DIR}/version.h"
+            "-DWINDOWS_VERSION_HEADER=${windows_version_header}"
+            -P "${windows_version_script}"
+        DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/version.h" "${windows_version_script}"
+        VERBATIM)
+    add_custom_target(generate-windows-version-h DEPENDS "${windows_version_header}")
+    add_dependencies(generate-windows-version-h generate-version-h)
+    set_property(TARGET generate-windows-version-h PROPERTY FOLDER "CMake")
+    set_source_files_properties(version.rc PROPERTIES OBJECT_DEPENDS "${windows_version_header}")
+    foreach (versioned_target IN ITEMS sumo sumo-gui)
+        if (TARGET ${versioned_target})
+            target_sources(${versioned_target} PRIVATE version.rc)
+            target_compile_definitions(${versioned_target} PRIVATE
+                "SUMO_EXECUTABLE_NAME=\"${versioned_target}${BINARY_SUFFIX}$<$<CONFIG:Debug>:D>\"")
+            add_dependencies(${versioned_target} generate-windows-version-h)
+        endif ()
+    endforeach ()
+endif ()

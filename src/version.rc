@@ -1,0 +1,48 @@
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2026 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at the following URL:
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+
+#include <windows.h>
+#include <version.h>
+#include <windows-version.h>
+
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+VS_VERSION_INFO VERSIONINFO
+    FILEVERSION SUMO_WINDOWS_VERSION
+    PRODUCTVERSION SUMO_WINDOWS_VERSION
+    FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+#ifdef _DEBUG
+    FILEFLAGS VS_FF_DEBUG
+#else
+    FILEFLAGS 0
+#endif
+    FILEOS VOS_NT_WINDOWS32
+    FILETYPE VFT_APP
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "Eclipse Foundation"
+            VALUE "FileDescription", "Eclipse SUMO " SUMO_EXECUTABLE_NAME
+            VALUE "FileVersion", SUMO_WINDOWS_VERSION_STRING
+            VALUE "InternalName", SUMO_EXECUTABLE_NAME
+            VALUE "OriginalFilename", SUMO_EXECUTABLE_NAME ".exe"
+            VALUE "ProductName", "Eclipse SUMO"
+            VALUE "ProductVersion", VERSION_STRING
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0409, 1200
+    END
+END
