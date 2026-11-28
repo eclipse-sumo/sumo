@@ -129,6 +129,24 @@ public:
         ConsecutiveLaneOptions& operator=(const ConsecutiveLaneOptions&) = delete;
     };
 
+    /// @brief resolution for calibrator flow routes that miss their parent edge
+    class CalibratorFlowOptions : public GNEFixElementsDialog::FixOptions {
+        FXDECLARE(CalibratorFlowOptions)
+
+    public:
+        explicit CalibratorFlowOptions(GNEFixAdditionalElementsDialog* dialog);
+        void selectInternalTestSolution(const std::string& solution) override;
+        bool applyFixOption() override;
+        long onCmdSelectOption(FXObject*, FXSelector, void*) override;
+
+    protected:
+        FOX_CONSTRUCTOR(CalibratorFlowOptions)
+
+    private:
+        FXRadioButton* myKeepFlows = nullptr;
+        FXRadioButton* myRemoveFlows = nullptr;
+    };
+
     /// @brief Constructor
     GNEFixAdditionalElementsDialog(GNEApplicationWindow* mainWindow,
                                    const std::vector<GNEAdditional*>& elements);

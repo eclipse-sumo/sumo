@@ -98,7 +98,17 @@ GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
     // get vType
     GNEDemandElement* vType = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
     // get route
-    GNEDemandElement* route = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->second;
+    const auto calibrator = myElementDialogParent->getElement();
+    const auto& routes = calibrator->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE);
+    const auto matching = std::find_if(routes.begin(), routes.end(), [calibrator](const auto& route) {
+        return GNECalibratorFlow::routeFitsCalibrator(*calibrator, *route.second);
+    });
+    if (matching == routes.end()) {
+        GNEWarningBasicDialog(calibrator->getNet()->getGNEApplicationWindow(), myElementDialogParent,
+                              TL("No compatible routes"), TL("Create a route that visits the calibrator's edge first."));
+        return 1;
+    }
+    auto route = matching->second;
     // calculate begin based in last calibrator flow
     SUMOTime begin = 0;
     for (const auto& child :  myElementDialogParent->getElement()->getChildAdditionals()) {
@@ -117,7 +127,10 @@ GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
     if (calibratorFlowDialog.getResult() != GNEDialog::Result::ACCEPT) {
         // add calibratorFlow
         return removeElement(calibratorFlow);
-    } else if (calibratorFlow->getFileBucket()->getFilename().empty()) {
+    }
+    // The flow dialog can choose another compatible route.
+    route = calibratorFlow->getParentDemandElements().at(1);
+    if (calibratorFlow->getFileBucket()->getFilename().empty()) {
         // in this case, the bucket has to be updated manually
         if (vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED) == GNEAttributeCarrier::TRUE_STR) {
             vType->changeFileBucket(calibratorFlow->getFileBucket());
