@@ -1,0 +1,4 @@
+<routes>
+    <vehicle id="later" depart="2"/>
+    <vehicle id="earlier" depart="1"/>
+</routes>

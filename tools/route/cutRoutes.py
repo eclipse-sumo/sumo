@@ -529,7 +529,7 @@ def main(options):
 
     busStopEdges = {}
     if options.stops_output:
-        busStops = io.open(options.stops_output, 'w', encoding="utf8")
+        busStops = sumolib.openz(os.path.abspath(options.stops_output), 'w')
         writeHeader(busStops, os.path.basename(__file__), 'additional', options=options)
     if options.additional_input:
         num_busstops = 0
@@ -588,7 +588,8 @@ def main(options):
         allRouteFiles = options.routeFiles
         options.routeFiles = options.pt_input.split(",")
         ptExternalRoutes = {}
-        with io.open(options.pt_output if options.pt_output else options.pt_input + ".cut", 'w', encoding="utf8") as f:
+        pt_output = options.pt_output if options.pt_output else options.pt_input + ".cut"
+        with sumolib.openz(os.path.abspath(pt_output), 'w') as f:
             writeHeader(f, os.path.basename(__file__), 'routes', options=options)
             for _, v in cut_routes(edges, orig_net, options, busStopEdges, None, oldPTRoutes, True):
                 f.write(v.toXML(u'    '))
@@ -613,7 +614,7 @@ def main(options):
         else:
             routes = list(cut_routes(edges, orig_net, options, busStopEdges, ptRoutes, oldPTRoutes))
             routes.sort(key=lambda v: v[0])
-            with io.open(options.output, 'w', encoding="utf8") as f:
+            with sumolib.openz(os.path.abspath(options.output), 'w') as f:
                 write_to_file(routes, f)
 
 

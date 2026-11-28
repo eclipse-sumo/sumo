@@ -52,3 +52,6 @@ departEdge
 # keeping params but removing emtpy plans
 param
 pt
+
+# write equivalent XML in plain and gzip formats
+gzip_output

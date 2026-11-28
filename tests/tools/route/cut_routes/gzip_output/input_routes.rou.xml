@@ -1,0 +1,7 @@
+<routes>
+    <vehicle id="straight" depart="0">
+        <route edges="beg middle end rend"/>
+        <stop busStop="busstop0" duration="10"/>
+        <stop busStop="busstop1" duration="10"/>
+    </vehicle>
+</routes>

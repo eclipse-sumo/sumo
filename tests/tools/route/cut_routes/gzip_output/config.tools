@@ -1,0 +1,17 @@
+[collate_file]
+gzroutes:out.rou.xml.gz
+gzstops:out.add.xml.gz
+gzpt:out_pt.rou.xml.gz
+gztrips:out.trips.xml.gz
+
+[collate_script]
+gzroutes:$SUMO_HOME/tests/unzip.py
+gzstops:$SUMO_HOME/tests/unzip.py
+gzpt:$SUMO_HOME/tests/unzip.py
+gztrips:$SUMO_HOME/tests/unzip.py
+
+[run_dependent_text]
+gzroutes:<!-- generated on{[->]}-->
+gzstops:<!-- generated on{[->]}-->
+gzpt:<!-- generated on{[->]}-->
+gztrips:<!-- generated on{[->]}-->

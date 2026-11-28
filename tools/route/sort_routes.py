@@ -149,7 +149,7 @@ def copy_elements(routefilename, outfilename, element_lines, line_offsets, verbo
         print("Copying elements from %s to %s sorted by departure" % (
             routefilename, outfilename))
     # don't read binary here for line end conversion
-    with open(routefilename) as routefile, open(outfilename, 'w') as outfile:
+    with open(routefilename) as routefile, sumolib.openz(os.path.abspath(outfilename), 'w') as outfile:
         # copy header
         for line in routefile:
             outfile.write(line)
@@ -171,7 +171,7 @@ def main(args=None):
         element_lines = sorted(get_element_lines(options.routefile, options.verbose))
         copy_elements(options.routefile, options.outfile, element_lines, line_offsets, options.verbose)
     else:
-        with open(options.routefile) as routefile, open(options.outfile, 'w') as outfile:
+        with open(options.routefile) as routefile, sumolib.openz(os.path.abspath(options.outfile), 'w') as outfile:
             # copy header
             for line in routefile:
                 if line.find('<routes') == 0 or line.find('<additional') == 0:

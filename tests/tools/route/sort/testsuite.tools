@@ -9,3 +9,6 @@ big_file
 
 # persons and triggered trips
 person_plans
+
+# write gzip-compressed sorted routes
+gzip_output
