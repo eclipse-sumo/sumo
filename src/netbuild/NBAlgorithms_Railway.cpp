@@ -20,6 +20,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <algorithm>
 #include <cassert>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
@@ -661,7 +662,10 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLi
     }
     std::sort(seqsToReverse.begin(), seqsToReverse.end(),
     [](const EdgeVector & a, const EdgeVector & b) {
-        return a.size() < b.size();
+        if (a.size() != b.size()) {
+            return a.size() < b.size();
+        }
+        return std::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end(), ComparatorIdLess());
     });
     int numReversed = 0;
     std::set<NBNode*> affectedEndpoints;
@@ -713,8 +717,15 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBEdgeCont& ec) {
     // find buffer stops and ensure that they are connect to the network in both directions
     int numBufferStops = 0;
     int numAddedBidiTotal = 0;
+    std::vector<NBNode*> bufferStopNodes;
     for (NBNode* node : railNodes) {
         if (StringUtils::toBool(node->getParameter("buffer_stop", "false"))) {
+            bufferStopNodes.push_back(node);
+        }
+    }
+    std::sort(bufferStopNodes.begin(), bufferStopNodes.end(), ComparatorIdLess());
+    for (NBNode* node : bufferStopNodes) {
+        {
             if (node->getEdges().size() != 1) {
                 WRITE_WARNINGF(TL("Ignoring buffer stop junction '%' with % edges."), node->getID(), node->getEdges().size());
                 continue;
@@ -806,7 +817,9 @@ NBRailwayTopologyAnalyzer::addBidiEdgesBetweenSwitches(NBEdgeCont& ec) {
     std::map<int, int> seqLengths;
     int numAdded = 0;
     int numSeqs = 0;
-    for (NBNode* n : brokenNodes) {
+    std::vector<NBNode*> sortedBroken(brokenNodes.begin(), brokenNodes.end());
+    std::sort(sortedBroken.begin(), sortedBroken.end(), ComparatorIdLess());
+    for (NBNode* n : sortedBroken) {
         NBEdge* edge = isBidiSwitch(n);
         if (edge != nullptr && edge->getLaneSpreadFunction() == LaneSpreadFunction::CENTER) {
             std::vector<NBNode*> nodeSeq;
@@ -1545,7 +1558,7 @@ NBRailwayGeometryHelper::straigthenCorrdidor(NBEdgeCont& ec, double maxAngle) {
             railGeomNodes.insert(n);
         }
     }
-    std::set<NBNode*, ComparatorIdLess> kinkNodes;;
+    std::set<NBNode*, ComparatorIdLess> kinkNodes;
     for (NBNode* n : railGeomNodes) {
         NBEdge* in = n->getIncomingEdges().front();
         NBEdge* out = n->getOutgoingEdges().size() == 1 || n->getOutgoingEdges()[1]->isTurningDirectionAt(in) ? n->getOutgoingEdges().front() : n->getOutgoingEdges().back();
