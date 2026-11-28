@@ -59,7 +59,7 @@ affiliations:
  - name: German Aerospace Center (DLR), Institute of Transportation Systems, Berlin, Germany
    index: 1
 
-date: 19 May 2025
+date: 24 June 2025
 bibliography: paper.bib
 ---
 
