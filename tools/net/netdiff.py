@@ -556,14 +556,23 @@ class AttributeStore:
                 ":".join(id2), tag, shape, fill, layer, color))
 
 
-def create_plain(netfile, netconvert, plain_geo):
+def get_offset(netfile):
+    if not os.path.isfile(netfile):
+        return None
+    for loc in sumolib.xml.parse_fast(netfile, 'location', ['netOffset']):
+        return tuple(map(float, loc.netOffset.split(',')))
+    return None
+
+
+def create_plain(netfile, netconvert, plain_geo, extra_args=None):
     prefix = sumolib.miscutils.getBaseName(netfile)
     call([netconvert,
           "--sumo-net-file", netfile,
           "--plain-output-prefix", prefix,
           "--default.spreadtype", "right",  # overwrite value in net
           "--roundabouts.guess", "false"]
-         + (["--proj.plain-geo"] if plain_geo else []))
+         + (["--proj.plain-geo"] if plain_geo else [])
+         + (extra_args if extra_args else []))
     return prefix
 
 
@@ -709,8 +718,15 @@ def main(options):
             if shapeOutputFiles:
                 sourceNet = sumolib.net.readNet(options.source)
                 destNet = sumolib.net.readNet(options.dest)
+            dest_extra = []
+            if not options.plain_geo:
+                src_offset = get_offset(options.source)
+                dst_offset = get_offset(options.dest)
+                if src_offset is not None and dst_offset is not None and src_offset != dst_offset:
+                    dest_extra = ["--offset.x", str(src_offset[0] - dst_offset[0]),
+                                  "--offset.y", str(src_offset[1] - dst_offset[1])]
             options.source = create_plain(options.source, netconvert, options.plain_geo)
-            options.dest = create_plain(options.dest, netconvert, options.plain_geo)
+            options.dest = create_plain(options.dest, netconvert, options.plain_geo, dest_extra)
 
         for type in PLAIN_TYPES:
             xmldiff(options,
