@@ -374,7 +374,7 @@ protected:
         std::map<int, int> getInnerConnections(OpenDriveXMLTag dir, const OpenDriveLaneSection& prev);
 
 
-        bool buildAttributeChanges(const NBTypeCont& tc, std::vector<OpenDriveLaneSection>& newSections);
+        bool buildAttributeChanges(const NBTypeCont& tc, std::vector<OpenDriveLaneSection>& newSections, double maxOffset);
         OpenDriveLaneSection buildLaneSection(const NBTypeCont& tc, double startPos);
         /// @brief The starting offset of this lane section
         double s;
