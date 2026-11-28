@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 14:02:51.509065 by Eclipse SUMO gbfs2sumo.py v0.0.0
+<configuration>
+    <station-info value="data/station_information.json"/>
+    <station-status value="data/station_status.json"/>
+    <net-file value="input_net.net.xml"/>
+    <output value="out.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="gbfs_s1" name="Hub" lane="e0_0" startPos="17.86" endPos="22.86" roadSideCapacity="12">
+        <param key="bikes_available" value="7"/>
+    </parkingArea>
+</additional>

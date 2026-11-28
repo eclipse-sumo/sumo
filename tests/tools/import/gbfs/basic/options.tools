@@ -1,0 +1,1 @@
+-i data/station_information.json -s data/station_status.json -n input_net.net.xml -o out.add.xml tools/import/gbfs/gbfs2sumo.py
