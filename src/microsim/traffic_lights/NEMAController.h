@@ -160,12 +160,12 @@ public:
 
     /**
      * @brief returns the IDs of the phase's controlled lanes.
-     * Found by looking for the "G" in the light state string
+     * Found by looking for the "G" (or "g" if never major) in the light state string
      *
      * @param state the light state string
-     * @return std::set<std::string>
      */
-    void getLaneInfoFromNEMAState(std::string state, StringVector& laneIDs, IntVector& stateIndex);
+    void getLaneInfoFromNEMAState(std::string state, StringVector& laneIDs, IntVector& stateIndex,
+                                  const std::vector<bool>& neverMajor = std::vector<bool>());
 
     /**
      * @brief Set the max green of all phases.

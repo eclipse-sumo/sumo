@@ -103,6 +103,26 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
     rings.push_back(readParaFromString(ring1));
     rings.push_back(readParaFromString(ring2));
 
+    std::set<int> activePhaseNums;
+    for (const auto& r : rings) {
+        for (int p : r) {
+            if (p != 0) {
+                activePhaseNums.insert(p);
+            }
+        }
+    }
+    std::vector<bool> neverMajor(myLinks.size(), true);
+    for (const auto& pDef : myPhases) {
+        if (activePhaseNums.count(string2int(pDef->getName())) > 0) {
+            const std::string& pState = pDef->getState();
+            for (int i = 0; i < (int)MIN2(myLinks.size(), pState.size()); i++) {
+                if (pState[i] == LINKSTATE_TL_GREEN_MAJOR) {
+                    neverMajor[i] = false;
+                }
+            }
+        }
+    }
+
 #ifdef DEBUG_NEMA
     //print to check
     for (int i = 0; i < (int)rings.size(); i++) {
@@ -174,7 +194,7 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
                 // get the lane-based info
                 StringVector laneIDs;
                 IntVector controlledStateIndexes;
-                getLaneInfoFromNEMAState(state, laneIDs, controlledStateIndexes);
+                getLaneInfoFromNEMAState(state, laneIDs, controlledStateIndexes, neverMajor);
 
                 std::vector<std::string> laneIDs_vector;
                 for (std::string laneID : laneIDs) {
@@ -552,9 +572,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
             for (int i = 0; i < numLinks; i++) {
                 if (state[i] == LINKSTATE_TL_GREEN_MAJOR
                         || (state[i] == LINKSTATE_TL_GREEN_MINOR
-                            && ((neverMajor[i]  // check1a
-                                 && hasMajor(state, getLanesAt(i))) // check1b
-                                || oneLane[i])) // check1c
+                            && (neverMajor[i] || oneLane[i]))
                    ) {
                     greenLinks.insert(i);
                     actuatedLinks.insert(i);
@@ -765,7 +783,8 @@ NEMALogic::ModeCycle(SUMOTime a, SUMOTime b) {
 
 
 void
-NEMALogic::getLaneInfoFromNEMAState(std::string state, StringVector& laneIDs, IntVector& stateIndex) {
+NEMALogic::getLaneInfoFromNEMAState(std::string state, StringVector& laneIDs, IntVector& stateIndex,
+                                    const std::vector<bool>& neverMajor) {
     std::set<std::string> output;
     for (int i = 0; i < (int)myLinks.size(); i++) {
         if (myLinks[i].empty()) {
@@ -773,13 +792,31 @@ NEMALogic::getLaneInfoFromNEMAState(std::string state, StringVector& laneIDs, In
             continue;
         }
         char ch = state[i];
-        // if the ch is 'G', it means that the phase is controlling this lane
-        if (ch == 'G') {
-            stateIndex.push_back(i);
+        // if ch is 'G' (or 'g' for a movement without any protected phase), the phase controls this lane
+        const bool isPermissiveControlled = (ch == 'g' && i < (int)neverMajor.size() && neverMajor[i]);
+        if (ch == 'G' || isPermissiveControlled) {
+            if (ch == 'G') {
+                stateIndex.push_back(i);
+            }
             for (auto link : myLinks[i]) {
                 const MSLane* incoming = link->getLaneBefore();
-                if (incoming->isNormal()) {
-                    laneIDs.push_back(incoming->getID());
+                if (incoming->isNormal() && !noVehicles(incoming->getPermissions())) {
+                    if (isPermissiveControlled) {
+                        bool hasBlockedLink = false;
+                        for (const MSLink* cand : incoming->getLinkCont()) {
+                            const int tlIdx = cand->getTLIndex();
+                            if (tlIdx >= 0 && tlIdx < (int)state.size() && state[tlIdx] != 'G' && state[tlIdx] != 'g') {
+                                hasBlockedLink = true;
+                                break;
+                            }
+                        }
+                        if (hasBlockedLink) {
+                            continue;
+                        }
+                    }
+                    if (output.insert(incoming->getID()).second) {
+                        laneIDs.push_back(incoming->getID());
+                    }
                 }
             }
         }
