@@ -1,6 +1,6 @@
-Warning: Teleporting vehicle 'onRerouterEdgeAtClose'; waited too long, from edge 'beg2left':4, time=354.18.
-Warning: Vehicle 'onRerouterEdgeAtClose' ends teleporting on edge 'left2end':0, time=390.38.
-Warning: Teleporting vehicle 'insertedWhileClosed.0'; waited too long, from edge 'beg2left':4, time=654.18.
-Warning: Vehicle 'insertedWhileClosed.0' ends teleporting on edge 'left2end':0, time=690.38.
-Warning: Teleporting vehicle 'insertedWhileClosed.3'; waited too long, from edge 'beg2left':4, time=954.18.
-Warning: Vehicle 'insertedWhileClosed.3' ends teleporting on edge 'left2end':0, time=990.38.
+Warning: Teleporting vehicle 'beforeRerouterEdgeAtClose'; waited too long, from edge 'beg2left':4, time=394.18.
+Warning: Vehicle 'beforeRerouterEdgeAtClose' ends teleporting on edge 'left2end':0, time=430.38.
+Warning: Teleporting vehicle 'insertedWhileClosed.2'; waited too long, from edge 'beg2left':4, time=694.18.
+Warning: Vehicle 'insertedWhileClosed.2' ends teleporting on edge 'left2end':0, time=730.38.
+Warning: Teleporting vehicle 'insertedWhileClosed.3'; waited too long, from edge 'beg2left':4, time=994.18.
+Warning: Vehicle 'insertedWhileClosed.3' ends teleporting on edge 'left2end':0, time=1030.38.

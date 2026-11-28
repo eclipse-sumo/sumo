@@ -62,6 +62,7 @@
 
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
+#include <mesosim/MEVehicle.h>
 
 //#define DEBUG_REROUTER
 //#define DEBUG_OVERTAKING
@@ -369,6 +370,16 @@ MSTriggeredRerouter::myEndElement(int element) {
             MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
                 new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), myParsedRerouteInterval.begin);
         }
+        if (MSGlobals::gUseMesoSim && !myAmOptional && myRadius == std::numeric_limits<double>::max()) {
+            // A meso vehicle may stay on the rerouter edge without a movement notification.
+            const SUMOTime offset = MAX2<SUMOTime>(0, myParsedRerouteInterval.begin - simBegin);
+            const SUMOTime start = simBegin + offset + (DELTA_T - offset % DELTA_T) % DELTA_T;
+            if (start < myParsedRerouteInterval.end) {
+                auto* command = new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::rerouteMesoVehicles);
+                command->priority = -1; // apply permission changes first
+                MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(command, start);
+            }
+        }
     }
 }
 
@@ -429,6 +440,23 @@ MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
 }
 
 
+SUMOTime
+MSTriggeredRerouter::rerouteMesoVehicles(SUMOTime /*currentTime*/) {
+    for (const MSEdge* edge : myEdges) {
+        for (const MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*edge); segment != nullptr; segment = segment->getNextSegment()) {
+            for (int queue = 0; queue < segment->numQueues(); ++queue) {
+                for (MEVehicle* vehicle : segment->getQueue(queue)) {
+                    if (vehicle->hasReminder(this) && !triggerRouting(*vehicle, NOTIFICATION_JUNCTION)) {
+                        vehicle->removeReminder(this);
+                    }
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+
 const MSTriggeredRerouter::RerouteInterval*
 MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOTrafficObject& obj) const {
     for (const RerouteInterval& ri : myIntervals) {
@@ -479,7 +507,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const {
 
 bool
 MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
-    if (myAmOptional || myRadius != std::numeric_limits<double>::max()) {
+    if (reason == NOTIFICATION_SEGMENT || myAmOptional || myRadius != std::numeric_limits<double>::max()) {
         return true;
     }
     return triggerRouting(tObject, reason);
@@ -496,7 +524,7 @@ MSTriggeredRerouter::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/,
 bool
 MSTriggeredRerouter::notifyLeave(SUMOTrafficObject& /*veh*/, double /*lastPos*/,
                                  MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
-    return reason == NOTIFICATION_LANE_CHANGE;
+    return reason == NOTIFICATION_LANE_CHANGE || reason == NOTIFICATION_SEGMENT;
 }
 
 
