@@ -103,3 +103,6 @@ line_4813_moving_block
 
 # tests using S42 (Berlin)
 S42
+
+# two represented tracks and separately mapped parallel ways
+track_count

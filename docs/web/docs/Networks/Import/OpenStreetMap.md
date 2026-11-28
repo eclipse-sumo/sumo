@@ -200,6 +200,8 @@ The created polygon file *berlin.poly.xml* can then be added to a
 
 ## Railway-specific Objects
 
+A railway way tagged `tracks=2` can provide the centerline for two separate, oppositely directed tracks. SUMO checks the tag against track references, explicit direction, lane and typemap settings. It also checks for separately mapped parallel ways with the same rail permissions and layer within 10 m. Ambiguous tags retain the usual railway import behavior and produce a warning.
+
 By using typemap [{{SUMO}}/data/typemap/osmPolyconvertRail.typ.xml]({{Source}}data/typemap/osmPolyconvertRail.typ.xml), numerous railway-related POIs such as
 
 - stations

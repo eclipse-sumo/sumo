@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-24T12:57:49.712081+00:00 by Eclipse SUMO netconvert v1.28.0-0000000000
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-602949.95,-5762100.49" convBoundary="0.00,0.00,91.68,1117.45" origBoundary="10.500000,52.000000,10.501000,52.010035" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="railway.rail" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
+
+    <edge id=":6_0" function="internal">
+        <lane id=":6_0_0" index="0" allow="rail" speed="44.44" length="0.10" shape="34.31,1116.74 34.31,1116.74"/>
+    </edge>
+
+    <edge id="-100" from="2" to="1" priority="20" type="railway.rail">
+        <lane id="-100_0" index="0" allow="rail" speed="44.44" length="68.66" shape="91.65,3.02 23.00,1.60"/>
+    </edge>
+    <edge id="100" from="1" to="2" priority="20" type="railway.rail">
+        <lane id="100_0" index="0" allow="rail" speed="44.44" length="68.66" shape="23.06,-1.60 91.71,-0.18"/>
+    </edge>
+    <edge id="200" from="3" to="4" priority="20" type="railway.rail" spreadType="center">
+        <lane id="200_0" index="0" allow="rail" speed="44.44" length="68.64" shape="0.08,1112.14 68.71,1113.55"/>
+    </edge>
+    <edge id="300" from="5" to="6" priority="20" type="railway.rail" spreadType="center">
+        <lane id="300_0" index="0" allow="rail" speed="44.44" length="34.33" shape="68.63,1117.45 34.31,1116.74"/>
+    </edge>
+    <edge id="400" from="6" to="7" priority="20" type="railway.rail" spreadType="center">
+        <lane id="400_0" index="0" allow="rail" speed="44.44" length="34.32" shape="34.31,1116.74 0.00,1116.03"/>
+    </edge>
+
+    <junction id="1" type="dead_end" x="23.03" y="0.00" incLanes="-100_0" intLanes="" shape="23.03,-0.00 22.96,3.20 23.03,-0.00"/>
+    <junction id="2" type="dead_end" x="91.68" y="1.42" incLanes="100_0" intLanes="" shape="91.68,1.42 91.75,-1.78 91.68,1.42"/>
+    <junction id="3" type="dead_end" x="0.08" y="1112.14" incLanes="" intLanes="" shape="0.05,1113.74 0.11,1110.54"/>
+    <junction id="4" type="dead_end" x="68.71" y="1113.55" incLanes="200_0" intLanes="" shape="68.74,1111.95 68.68,1115.15"/>
+    <junction id="5" type="dead_end" x="68.63" y="1117.45" incLanes="" intLanes="" shape="68.66,1115.85 68.60,1119.05"/>
+    <junction id="6" type="priority" x="34.31" y="1116.74" incLanes="300_0" intLanes=":6_0_0" shape="34.28,1118.34 34.34,1115.14 34.28,1118.34">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="7" type="dead_end" x="0.00" y="1116.03" incLanes="400_0" intLanes="" shape="-0.03,1117.63 0.03,1114.43"/>
+
+    <connection from="300" to="400" fromLane="0" toLane="0" via=":6_0_0" dir="s" state="M"/>
+
+    <connection from=":6_0" to="400" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
