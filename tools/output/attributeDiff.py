@@ -63,9 +63,9 @@ def get_options():
     return options
 
 
-def write(fname, values, root):
+def write(fname, values, root, options=None):
     with open(fname, 'w') as f:
-        sumolib.writeXMLHeader(f, root=root)
+        sumolib.writeXMLHeader(f, root=root, options=options)
         for elem_id in sorted(values.keys()):
             parts = elem_id.split('|')
             elem = parts[0]
@@ -179,10 +179,10 @@ def main():
                              (len(invalidType[attr]), attr, "', '".join(sorted(invalidType[attr])[:10])))
 
     if options.xml_output is not None:
-        write(options.xml_output, differences, "attributeDiff")
+        write(options.xml_output, differences, "attributeDiff", options)
 
     if options.onlySecond is not None:
-        write(options.onlySecond, onlySecondValues, "attributeDiff-onlySecond")
+        write(options.onlySecond, onlySecondValues, "attributeDiff-onlySecond", options)
 
     if options.onlyFirst is not None:
         onlyFirstValues = defaultdict(dict)  # elem->attr->value
@@ -190,7 +190,7 @@ def main():
             for attr, oldV in oldValues[elem_id].items():
                 if elem_id not in differences or attr not in differences[elem_id]:
                     onlyFirstValues[elem_id][attr] = oldV
-        write(options.onlyFirst, onlyFirstValues, "attributeDiff-onlyFirst")
+        write(options.onlyFirst, onlyFirstValues, "attributeDiff-onlyFirst", options)
 
 
 if __name__ == "__main__":

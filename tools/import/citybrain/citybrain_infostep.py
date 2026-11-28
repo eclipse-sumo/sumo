@@ -46,7 +46,7 @@ def main(options):
     # unsorted temporary file
 
     with open(options.output, "w") as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
+        sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
         outf.write('    <vType id="DEFAULT_VEHTYPE" length="%s" minGap="%s"/>\n\n' % (
             options.length, options.mingap))
         vehLine = 0

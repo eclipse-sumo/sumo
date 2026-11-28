@@ -46,7 +46,7 @@ def main(options):
     tmpfile = options.output + ".tmp"
 
     with open(tmpfile, "w") as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
+        sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
         outf.write('    <vType id="DEFAULT_VEHTYPE" length="4" minGap="1"/>\n\n')
         flowLine = 0
         flowIndex = 0

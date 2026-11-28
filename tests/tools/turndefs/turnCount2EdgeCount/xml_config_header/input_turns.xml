@@ -1,0 +1,5 @@
+<data>
+    <interval id="i0" begin="0" end="100">
+        <edgeRelation from="e0" to="e1" count="5"/>
+    </interval>
+</data>

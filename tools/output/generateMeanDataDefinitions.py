@@ -155,7 +155,7 @@ if __name__ == "__main__":
     output = sys.stdout
     if options.output is not None:
         output = open(options.output, "w")
-        sumolib.xml.writeHeader(output)
+        sumolib.xml.writeHeader(output, options=options)
 
     output.write(
         generate_mean_data_xml(

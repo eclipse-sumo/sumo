@@ -1,0 +1,5 @@
+[collate_file]
+rawxml:raw_out.xml
+
+[run_dependent_text]
+rawxml:<!-- generated on

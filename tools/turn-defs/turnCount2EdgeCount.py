@@ -61,7 +61,7 @@ def parseEdgeCounts(turnfile, attr):
 
 def main(options):
     with open(options.out, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "meandata")  # noqa
+        sumolib.writeXMLHeader(outf, "$Id$", "meandata", options=options)  # noqa
         for interval_id, interval_begin, interval_end, counts in parseEdgeCounts(options.turnFile, options.turnAttr):
             outf.write('    <interval id="%s" begin="%s" end="%s">\n' % (
                 interval_id, interval_begin, interval_end))
