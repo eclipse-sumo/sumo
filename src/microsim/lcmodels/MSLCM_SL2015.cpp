@@ -3173,10 +3173,7 @@ MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, co
     int rightmost;
     int leftmost;
     const bool curHasStopped = stoppedLeader != nullptr;
-    const int dir = latLaneDist < 0 ? -1 : 1;
-    const MSLane* neighBeyond = neighLane.getParallelLane(dir);
-    const bool hasLaneBeyond = checkCurrent && neighBeyond != nullptr && neighBeyond->allowsVehicleClass(myVehicle.getVClass());
-    UNUSED_PARAMETER(hasLaneBeyond);
+    const MSLane* const targetLane = checkCurrent ? &neighLane : myVehicle.getLane();
     if (curHasStopped || hasBidiLeader(leaders, conts)) {
         leaders.getSubLanes(&myVehicle, 0, rightmost, leftmost);
         for (int i = rightmost; i <= leftmost; i++) {
@@ -3184,11 +3181,30 @@ MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, co
             if (leader.first != 0 && (leader.first->isStopped() || MSLCHelper::isBidiLeader(leader.first, conts)) && leader.second < REACT_TO_STOPPED_DISTANCE) {
                 const double overtakeDist = leader.second + myVehicle.getVehicleType().getLength() + leader.first->getVehicleType().getLengthWithGap();
                 const double remaining = MIN2(neighDist, currentDist) - posOnLane;
+                double minDistToStopped = std::numeric_limits<double>::max();
+                bool hasCloseUnstoppedNeigh = false;
+                if (neighLead.hasVehicles()) {
+                    for (int j = 0; j < neighLead.numSublanes(); ++j) {
+                        const CLeaderDist& nl = neighLead[j];
+                        if (nl.first != nullptr) {
+                            if (nl.first->isStopped()) {
+                                minDistToStopped = MIN2(minDistToStopped, nl.second);
+                            } else if (nl.second <= overtakeDist) {
+                                hasCloseUnstoppedNeigh = true;
+                            }
+                        }
+                    }
+                }
+                if (minDistToStopped > overtakeDist && hasCloseUnstoppedNeigh) {
+                    const std::pair<const MSVehicle*, double> hiddenStopped = findStoppedAhead(targetLane, posOnLane, overtakeDist);
+                    if (hiddenStopped.first != nullptr) {
+                        minDistToStopped = MIN2(minDistToStopped, hiddenStopped.second);
+                    }
+                }
 #ifdef DEBUG_STRATEGIC_CHANGE
                 if (DEBUG_COND) {
                     std::cout << "  overtakeDist=" << overtakeDist << " remaining=" << remaining
-                              << " minDistToStopped=" << neighLead.getMinDistToStopped()
-                              << " hasLaneBeyond=" << hasLaneBeyond
+                              << " minDistToStopped=" << minDistToStopped
                               << "\n";
                 }
 #endif
@@ -3196,10 +3212,7 @@ MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, co
                     remaining > overtakeDist
                     // maybe do not overtake on the right at high speed
                     && (!checkCurrent || !checkOverTakeRight || !right)
-                    && (!neighLead.hasStoppedVehicle() || neighLead.getMinDistToStopped() > overtakeDist /*|| (hasLaneBeyond && hasFreeLaneBeyond(neighBeyond, dir))*/)
-                    //&& (neighLead.first == 0 || !neighLead.first->isStopped()
-                    //    // neighboring stopped vehicle leaves enough space to overtake leader
-                    //    || neighLead.second > overtakeDist))
+                    && minDistToStopped > overtakeDist
                 ) {
                     // avoid becoming stuck behind a stopped leader
                     currentDist = myVehicle.getPositionOnLane() + leader.second;
@@ -3237,6 +3250,49 @@ MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, co
         }
     }
     return mustOvertake;
+}
+
+
+std::pair<const MSVehicle*, double>
+MSLCM_SL2015::findStoppedAhead(const MSLane* lane, double posOnLane, double maxDist) const {
+    const MSVehicle* bestVeh = nullptr;
+    double bestGap = std::numeric_limits<double>::max();
+    const double minGap = myVehicle.getVehicleType().getMinGap();
+    const double minBackGap = -myVehicle.getVehicleType().getLengthWithGap();
+    const std::vector<MSLane*>& conts = myVehicle.getBestLanesContinuation(lane);
+    double seen = -posOnLane;
+    const MSLane* curLane = lane;
+    int contIdx = 1;
+    while (curLane != nullptr) {
+        for (MSLane::AnyVehicleIterator it = curLane->anyVehiclesBegin(); it != curLane->anyVehiclesEnd(); ++it) {
+            const MSVehicle* v = *it;
+            if (v == nullptr || v == &myVehicle) {
+                continue;
+            }
+            const double gap = seen + v->getBackPositionOnLane(curLane) - minGap;
+            if (gap > maxDist) {
+                break;
+            }
+            if (v->isStopped() && gap >= minBackGap && gap < bestGap) {
+                if (v->getLane() != curLane) {
+                    const double clearRight = v->getRightSideOnLane(curLane);
+                    const double clearLeft = curLane->getWidth() - v->getLeftSideOnLane(curLane);
+                    if (MAX2(clearRight, clearLeft) > getWidth()) {
+                        continue;
+                    }
+                }
+                bestGap = gap;
+                bestVeh = v;
+                break;
+            }
+        }
+        seen += curLane->getLength();
+        if (bestVeh != nullptr || seen > maxDist || contIdx >= (int)conts.size()) {
+            break;
+        }
+        curLane = conts[contIdx++];
+    }
+    return std::make_pair(bestVeh, bestGap);
 }
 
 

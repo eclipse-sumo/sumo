@@ -299,6 +299,9 @@ protected:
     bool mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, const MSLeaderDistanceInfo& leaders, const MSLeaderDistanceInfo& neighLead,
                              double posOnLane, double neighDist, bool right, double latLaneDist, const std::vector<MSLane*>& conts, double& currentDist, double& latDist);
 
+    /// @brief find the closest stopped vehicle on lane (and its best continuations) within maxDist ahead of posOnLane
+    std::pair<const MSVehicle*, double> findStoppedAhead(const MSLane* lane, double posOnLane, double maxDist) const;
+
     /// @brief check whether lateral gap requirements are met override the current maneuver if necessary
     int keepLatGap(int state,
                    const MSLeaderDistanceInfo& leaders,
