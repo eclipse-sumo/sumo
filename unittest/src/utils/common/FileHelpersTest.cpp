@@ -72,3 +72,13 @@ TEST(FileHelpers, test_method_fixRelative) {
     EXPECT_EQ("../../test.net.xml", FileHelpers::fixRelative("../../test.net.xml", "test.sumocfg", true, "/home/user")) << "file in parent dir with straight cfg should stay unchanged.";
     EXPECT_EQ("stdout", FileHelpers::fixRelative("stdout", "/home/sampledir", true, "/home")) << "check for reserved filenames.";
 }
+
+
+TEST(FileHelpers, test_method_isSocket_and_extended_length_paths) {
+    EXPECT_TRUE(FileHelpers::isSocket("localhost:8080"));
+    EXPECT_TRUE(FileHelpers::isSocket("[::1]:8080"));
+    EXPECT_FALSE(FileHelpers::isSocket("C:\\temp\\out.xml"));
+    EXPECT_FALSE(FileHelpers::isSocket("\\\\?\\C:\\temp\\out.xml"));
+    EXPECT_FALSE(FileHelpers::isSocket("//?/C:/temp/out.xml"));
+    EXPECT_TRUE(FileHelpers::isAbsolute("\\\\?\\C:\\temp\\out.xml"));
+}
