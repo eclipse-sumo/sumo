@@ -34,4 +34,3 @@ Warning: Ignoring vehicle type 'DEFAULT_BIKETYPE' when performing intermodal rou
 Error: Answered with error to command 0xab: Invalid depart position 100000.00 for edge 'o'.
 Warning: setSpeedMode not yet implemented for meso
 Warning: setSpeed not yet implemented for meso
-Error: Requested command not implemented (0xac): GUI is not running, command not implemented in command line sumo

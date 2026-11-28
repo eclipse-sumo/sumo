@@ -118,8 +118,10 @@ public:
      * @param[in] status The status to send
      * @param[in] description The status description (error message, for example)
      * @param[in, filled] outputStorage The storage to write the status into
+     * @param[in] logError Whether to also log an error status locally
      */
-    void writeStatusCmd(int commandId, int status, const std::string& description, tcpip::Storage& outputStorage);
+    void writeStatusCmd(int commandId, int status, const std::string& description, tcpip::Storage& outputStorage,
+                        bool logError = true);
 
 
     /** @brief Writes a status command to myOutputStorage
