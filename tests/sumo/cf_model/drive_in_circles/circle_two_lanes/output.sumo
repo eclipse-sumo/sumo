@@ -15,10 +15,10 @@ Vehicles:
  Running: 600
  Waiting: 0
 Statistics (avg of 600):
- RouteLength: 34356.16
- Speed: 13.20
- Duration: 2597.99
- WaitingTime: 0.71
- TimeLoss: 627.09
- DepartDelay: 103.02
+ RouteLength: 34423.81
+ Speed: 13.22
+ Duration: 2600.36
+ WaitingTime: 0.68
+ TimeLoss: 625.95
+ DepartDelay: 100.64
  DepartDelayWaiting: 0.00

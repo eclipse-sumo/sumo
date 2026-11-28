@@ -10,13 +10,13 @@ Performance:
  Real time factor: 215.466
  UPS: 144891.548959
 Vehicles:
- Inserted: 2047 (Loaded: 3328)
- Running: 906
- Waiting: 173
-Statistics (avg of 1141):
- RouteLength: 19993.99
- Speed: 27.31
- Duration: 743.86
- WaitingTime: 1.37
- TimeLoss: 180.92
- DepartDelay: 155.64
+ Inserted: 2042 (Loaded: 3328)
+ Running: 910
+ Waiting: 180
+Statistics (avg of 1132):
+ RouteLength: 19994.00
+ Speed: 26.81
+ Duration: 757.70
+ WaitingTime: 5.69
+ TimeLoss: 196.62
+ DepartDelay: 153.70

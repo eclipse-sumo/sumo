@@ -1324,7 +1324,7 @@ MSLCM_LC2013::_wantsChange(
     const double neighVMax = neighLane.getVehicleMaxSpeed(&myVehicle);
     // upper bound which will be restricted successively
     double thisLaneVSafe = vMax;
-    const bool checkOverTakeRight = avoidOvertakeRight(neighLead.first, true);
+    const bool checkOverTakeRight = avoidOvertakeRight(right ? leader.first : neighLead.first, true);
 
     double neighLeftPlace = MAX2(0.0, neighDist - posOnLane - maxJam);
     if (neighLead.first != 0 && neighLead.first->isStopped()) {
