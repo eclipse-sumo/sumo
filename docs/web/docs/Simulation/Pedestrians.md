@@ -329,6 +329,7 @@ There are several mitigations to prevent the frequency of jams and to resolve th
 
 - on crossings and walkingareas, pedestrians reserve 1/3 of the road space for oncoming traffic (configurable with option **--pedestrian.striping.reserve-oncoming.junctions**)
 - on normal lanes / sidewalks, such a reservation can be activated with option **--pedestrian.striping.reserve-oncoming**
+- on bidirectional lanes shared with vehicles, pedestrians move toward the network's driving side when the intervening stripes are clear. An explicit `departPosLat` takes precedence on the first edge. Disable the preference with **--pedestrian.striping.bidi-keep-side false**.
 - if a pedestrian was unable to move for 300s (configurable with option **--pedestrian.striping.jamtime**) he goes into a 'jammed' state accompanied by the warning "Person ... is jammed ...". In this state the person starts moving regardless of obstacles at 1/4 of its maximum speed. While jammed, no pedestrian collisions are registered. The jammed state ends as soon as there as there are no more obstacles in front of the person.
 - while on a crossing the time to register as jammed is reduced to 10s (configurable with **--pedestrian.striping.jamtime.crossing**)
 - while on a network elements that online permits a single pedestrian abreast the time time to jammed is set to 1s (configurable with option **pedestrian.striping.jamtime.narrow**)

@@ -111,6 +111,9 @@ public:
     /// @brief use old style departPosLat interpretation
     static bool myLegacyPosLat;
 
+    /// @brief Whether pedestrians keep to the driving side on shared bidirectional lanes
+    static bool myBidiKeepSide;
+
     /// @brief the distance (in seconds) to look ahead for changing stripes
     static const double LOOKAHEAD_SAMEDIR;
     /// @brief the distance (in seconds) to look ahead for changing stripes (regarding oncoming pedestrians)

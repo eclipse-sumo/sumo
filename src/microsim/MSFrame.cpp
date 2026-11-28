@@ -625,6 +625,9 @@ MSFrame::fillOptions() {
     oc.doRegister("pedestrian.striping.reserve-oncoming.max", new Option_Float(1.28));
     oc.addDescription("pedestrian.striping.reserve-oncoming.max", "Persons", TL("Maximum width in m to reserve for oncoming pedestrians"));
 
+    oc.doRegister("pedestrian.striping.bidi-keep-side", new Option_Bool(true));
+    oc.addDescription("pedestrian.striping.bidi-keep-side", "Persons", TL("Prefer the driving side when walking on clear bidirectional lanes shared with vehicles"));
+
     oc.doRegister("pedestrian.striping.legacy-departposlat", new Option_Bool(false));
     oc.addDescription("pedestrian.striping.legacy-departposlat", "Persons", TL("Interpret departPosLat for walks in legacy style"));
 
