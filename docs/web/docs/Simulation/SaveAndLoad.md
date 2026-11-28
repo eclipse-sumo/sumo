@@ -4,6 +4,9 @@ title: SaveAndLoad
 
 SUMO allows loading and saving simulation state since version 0.18.0.
 
+!!! caution
+    Saved state files (`<snapshot>`) store internal simulation data solely for restoring a simulation via **--load-state** or `traci.simulation.loadState` in the same SUMO version. They **should not be parsed for data analysis** (see [State Files Are Not Simulation Outputs](#state_files_are_not_simulation_outputs) below).
+
 # Saving
 
 ## Saving at fixed times
@@ -34,7 +37,7 @@ should be given (with suffix .xml).
 ## Saving periodically
 
 Alternatively, the option **--save-state.period** {{DT_TIME}} can be used to save states periodically.
-The options **-save-state.prefix** and **--save-state.suffix** apply as described above.
+The options **--save-state.prefix** and **--save-state.suffix** apply as described above.
 
 The option **--save-state.period.keep N** can be used to remove all but the last **N** state files.
 
@@ -44,7 +47,7 @@ The option **--save-state.period.keep N** can be used to remove all but the last
 
 ## Saving via TraCI
 
-The function `traci.simulation.saveState(FILENAME`) can be used to trigger saving from a script.
+The function `traci.simulation.saveState(FILENAME)` can be used to trigger saving from a script.
 
 ## Further options
 
@@ -85,6 +88,15 @@ Vehicles that have not yet departed are not included in the simulation
 state and must be loaded from input files. When loading vehicles from an
 input file that are already present in the simulation state, these
 vehicles are automatically ignored and loading proceeds without errors.
+
+## State Files Are Not Simulation Outputs
+
+Saved state files are internal snapshots meant exclusively for resuming a simulation in SUMO and **must not be parsed as simulation output**:
+
+- **Unstable internal format:** The XML structure and attribute encodings (such as space-separated internal state tuples, internal route IDs prefixed with `!`, and internal millisecond timestamps) are implementation details that may change between SUMO versions without notice.
+- **Incomplete history and scope:** State files omit already arrived vehicles as well as vehicles that have not yet departed, and their structure differs between microscopic (`type="micro"`) and mesoscopic (`type="meso"`) runs.
+
+To extract vehicle trajectories, network states, or aggregated metrics for analysis, use dedicated [Simulation Outputs](Output/index.md) instead — such as [FCD Output](Output/FCDOutput.md) (**--fcd-output**), [Raw Vehicle Positions Dump](Output/RawDump.md) (**--netstate-dump**), [VehRoutes](Output/VehRoutes.md) (**--vehroute-output**), [TripInfo](Output/TripInfo.md) (**--tripinfo-output**), or [Edge-/Lane-based Traffic Measures](Output/Lane-_or_Edge-based_Traffic_Measures.md) — or query the running simulation via [TraCI](../TraCI/index.md).
 
 # Random number generators (RNG)
 By default, the state of the [random number generators](Randomness.md) is not saved. Thus,
