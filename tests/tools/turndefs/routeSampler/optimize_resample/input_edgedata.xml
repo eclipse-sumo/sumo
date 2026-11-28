@@ -1,0 +1,7 @@
+<meandata>
+    <interval begin="0" end="3600">
+        <edge id="a" entered="1"/>
+        <edge id="b" entered="1"/>
+        <edge id="c" entered="1"/>
+    </interval>
+</meandata>

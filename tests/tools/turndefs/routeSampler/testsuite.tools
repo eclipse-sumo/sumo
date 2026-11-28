@@ -121,3 +121,6 @@ min_count_optimize
 marouter_input
 timeline
 errors
+
+# Fill available counts after rounding a fractional optimization result.
+optimize_resample
