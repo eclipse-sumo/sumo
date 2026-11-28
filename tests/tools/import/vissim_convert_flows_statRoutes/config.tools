@@ -1,0 +1,2 @@
+[run_dependent_text]
+output:.*tests[\\/]tools[\\/]net[\\/]remap_renamed[\\/]net2\.net\.xml{REPLACE \t tests/tools/net/remap_renamed/net2.net.xml}
