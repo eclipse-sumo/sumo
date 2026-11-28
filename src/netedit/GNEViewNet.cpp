@@ -2030,8 +2030,21 @@ GNEViewNet::setLastCreatedRoute(GNEDemandElement* lastCreatedRoute) {
 }
 
 
+GNEAttributeCarrier*
+GNEViewNet::getAttributeCarrierAtPopupPosition() {
+    // The object-specific menu owns the choice made in the overlap menu.
+    if (myPopup) {
+        return dynamic_cast<GNEAttributeCarrier*>(myPopup->getGLObject());
+    }
+    return myViewObjectsSelector.getAttributeCarrierFront();
+}
+
+
 GNEJunction*
 GNEViewNet::getJunctionAtPopupPosition() {
+    if (myPopup) {
+        return dynamic_cast<GNEJunction*>(myPopup->getGLObject());
+    }
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
         for (const auto& glObject : glObjectLayer.second) {
@@ -2047,6 +2060,9 @@ GNEViewNet::getJunctionAtPopupPosition() {
 
 GNEConnection*
 GNEViewNet::getConnectionAtPopupPosition() {
+    if (myPopup) {
+        return dynamic_cast<GNEConnection*>(myPopup->getGLObject());
+    }
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
         for (const auto& glObject : glObjectLayer.second) {
@@ -2062,6 +2078,9 @@ GNEViewNet::getConnectionAtPopupPosition() {
 
 GNECrossing*
 GNEViewNet::getCrossingAtPopupPosition() {
+    if (myPopup) {
+        return dynamic_cast<GNECrossing*>(myPopup->getGLObject());
+    }
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
         for (const auto& glObject : glObjectLayer.second) {
@@ -2077,6 +2096,9 @@ GNEViewNet::getCrossingAtPopupPosition() {
 
 GNEWalkingArea*
 GNEViewNet::getWalkingAreaAtPopupPosition() {
+    if (myPopup) {
+        return dynamic_cast<GNEWalkingArea*>(myPopup->getGLObject());
+    }
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
         for (const auto& glObject : glObjectLayer.second) {
@@ -2092,6 +2114,13 @@ GNEViewNet::getWalkingAreaAtPopupPosition() {
 
 GNEEdge*
 GNEViewNet::getEdgeAtPopupPosition() {
+    if (myPopup) {
+        const auto object = myPopup->getGLObject();
+        if (const auto lane = dynamic_cast<GNELane*>(object)) {
+            return lane->getParentEdge();
+        }
+        return dynamic_cast<GNEEdge*>(object);
+    }
     // get firt lanes
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
         for (const auto& glObject : glObjectLayer.second) {
@@ -2116,6 +2145,9 @@ GNEViewNet::getEdgeAtPopupPosition() {
 
 GNELane*
 GNEViewNet::getLaneAtPopupPosition() {
+    if (myPopup) {
+        return dynamic_cast<GNELane*>(myPopup->getGLObject());
+    }
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
         for (const auto& glObject : glObjectLayer.second) {
@@ -2131,6 +2163,9 @@ GNEViewNet::getLaneAtPopupPosition() {
 
 GNEAdditional*
 GNEViewNet::getAdditionalAtPopupPosition() {
+    if (myPopup) {
+        return dynamic_cast<GNEAdditional*>(myPopup->getGLObject());
+    }
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
         for (const auto& glObject : glObjectLayer.second) {
@@ -2146,6 +2181,9 @@ GNEViewNet::getAdditionalAtPopupPosition() {
 
 GNEDemandElement*
 GNEViewNet::getDemandElementAtPopupPosition() {
+    if (myPopup) {
+        return dynamic_cast<GNEDemandElement*>(myPopup->getGLObject());
+    }
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
         for (const auto& glObject : glObjectLayer.second) {
@@ -2161,6 +2199,9 @@ GNEViewNet::getDemandElementAtPopupPosition() {
 
 GNEPoly*
 GNEViewNet::getPolygonAtPopupPosition() {
+    if (myPopup) {
+        return dynamic_cast<GNEPoly*>(myPopup->getGLObject());
+    }
     // get first object that can be parsed to poly element
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
         for (const auto& glObject : glObjectLayer.second) {
@@ -2176,6 +2217,9 @@ GNEViewNet::getPolygonAtPopupPosition() {
 
 GNEPOI*
 GNEViewNet::getPOIAtPopupPosition() {
+    if (myPopup) {
+        return dynamic_cast<GNEPOI*>(myPopup->getGLObject());
+    }
     // get first object that can be parsed to POI element
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
         for (const auto& glObject : glObjectLayer.second) {
@@ -2191,6 +2235,9 @@ GNEViewNet::getPOIAtPopupPosition() {
 
 GNETAZ*
 GNEViewNet::getTAZAtPopupPosition() {
+    if (myPopup) {
+        return dynamic_cast<GNETAZ*>(myPopup->getGLObject());
+    }
     // get first object that can be parsed to TAZ element
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
         for (const auto& glObject : glObjectLayer.second) {
@@ -2206,6 +2253,10 @@ GNEViewNet::getTAZAtPopupPosition() {
 
 GNENetworkElement*
 GNEViewNet::getShapeEditedAtPopupPosition() {
+    if (myPopup) {
+        const auto edited = myEditNetworkElementShapes.getEditedNetworkElement();
+        return edited && edited->getGUIGlObject() == myPopup->getGLObject() ? edited : nullptr;
+    }
     // get first object that can be parsed to TAZ element
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
         for (const auto& glObject : glObjectLayer.second) {
@@ -4750,8 +4801,7 @@ GNEViewNet::onCmdIntervalBarSetParameter(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdAddSelected(FXObject*, FXSelector, void*) {
-    // only select if AC under cursor isn't previously selected
-    auto AC = myViewObjectsSelector.getAttributeCarrierFront();
+    auto AC = getAttributeCarrierAtPopupPosition();
     if (AC && !AC->isAttributeCarrierSelected()) {
         AC->selectAttributeCarrier();
     }
@@ -4761,8 +4811,7 @@ GNEViewNet::onCmdAddSelected(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdRemoveSelected(FXObject*, FXSelector, void*) {
-    // only unselect if AC under cursor isn't previously selected
-    auto AC = myViewObjectsSelector.getAttributeCarrierFront();
+    auto AC = getAttributeCarrierAtPopupPosition();
     if (AC && AC->isAttributeCarrierSelected()) {
         AC->unselectAttributeCarrier();
     }
@@ -4772,8 +4821,7 @@ GNEViewNet::onCmdRemoveSelected(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdAddEdgeSelected(FXObject*, FXSelector, void*) {
-    // only select if edge under cursor isn't previously selected
-    auto edge = myViewObjectsSelector.getEdgeFront();
+    auto edge = myPopup ? getEdgeAtPopupPosition() : myViewObjectsSelector.getEdgeFront();
     if (edge && !edge->isAttributeCarrierSelected()) {
         edge->selectAttributeCarrier();
     }
@@ -4783,8 +4831,7 @@ GNEViewNet::onCmdAddEdgeSelected(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*) {
-    // only unselect if edge under cursor isn't previously selected
-    auto edge = myViewObjectsSelector.getEdgeFront();
+    auto edge = myPopup ? getEdgeAtPopupPosition() : myViewObjectsSelector.getEdgeFront();
     if (edge && edge->isAttributeCarrierSelected()) {
         edge->unselectAttributeCarrier();
     }
@@ -4794,10 +4841,9 @@ GNEViewNet::onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdDelete(FXObject*, FXSelector, void*) {
-    // only unselect if edge under cursor isn't previously selected
-    auto ac = myViewObjectsSelector.getAttributeCarrierFront();
-    if (ac) {
-        ac->getGUIGlObject()->deleteGLObject();
+    auto AC = getAttributeCarrierAtPopupPosition();
+    if (AC) {
+        AC->getGUIGlObject()->deleteGLObject();
     }
     return 1;
 }
