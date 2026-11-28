@@ -670,6 +670,7 @@ on("ready", async function(){
 
         let data = {
             language: currentLanguage,
+            scenarioName: elem("#scenario-name").value,
             poly: elem("#polygons").checked,
             duration: Number.parseInt(elem("#duration").value),
             publicTransport: elem("#publicTransport").checked,

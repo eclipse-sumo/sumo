@@ -53,6 +53,8 @@ the next step.
 
 # Network Generation
 
+Set **Scenario name** under **Options** to name the generated configuration and network files. The wizard converts the name to a portable file prefix. For example, `Berlin Mitte` produces `Berlin-Mitte.sumocfg`. Leave the field empty to use `osm`.
+
 The infrastructure import from OSM into the SUMO simulation are affected by different Wizard options
 
 * by default the "Add Polygon" checkbox is checked and a road traffic simulation is generated but all types of roads and rails will be imported as well (cycle paths, footpaths, railways etc)
