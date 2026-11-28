@@ -18,6 +18,9 @@
 // A abstract class for demand elements
 /****************************************************************************/
 
+#include <array>
+#include <unordered_set>
+
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>
@@ -554,6 +557,66 @@ GNEDemandElement::drawJunctionLine(const GNEDemandElement* element) const {
     GLHelper::drawBoxLine(posA, rot, len, 0.25);
     // pop draw matrix
     GLHelper::popMatrix();
+}
+
+
+void
+GNEDemandElement::drawEndpointStackLabels(const GUIVisualizationSettings& s, const GNEAttributeCarrier* endpoint,
+        const std::vector<GNEDemandElement*>& children, const Position& position) {
+    const auto view = endpoint->getNet()->getViewNet();
+    if (s.drawForViewObjectsHandler || children.size() < 2 || !view->getNetworkViewOptions().showDemandElements() ||
+            !view->getDataViewOptions().showDemandElements()) {
+        return;
+    }
+    const bool junction = endpoint->getTagProperty()->getTag() == SUMO_TAG_JUNCTION;
+    struct Stack {
+        const char* name;
+        const GNEDemandElement* actor = nullptr;
+        int count = 0;
+        double exaggeration = 0;
+    };
+    std::array<Stack, 2> stacks = {{{"Vehicle"}, {"person"}}};
+    std::unordered_set<const GNEDemandElement*> countedActors;
+    for (const auto* child : children) {
+        const auto tag = child->getTagProperty();
+        const bool vehicle = tag->isVehicle();
+        if (junction ? !(tag->vehicleJunctions() || tag->planFromJunction()) : !(tag->vehicleTAZs() || tag->planFromTAZ())) {
+            continue;
+        }
+        const GNEAttributeCarrier* from = junction
+                                         ? static_cast<const GNEAttributeCarrier*>(child->getParentJunctions().front())
+                                         : static_cast<const GNEAttributeCarrier*>(child->getParentAdditionals().front());
+        if (from != endpoint) {
+            continue;
+        }
+        const auto actor = vehicle ? child : child->getParentDemandElements().front();
+        if ((!vehicle && actor->getChildDemandElements().front() != child) ||
+                !view->getDemandViewOptions().showNonInspectedDemandElements(actor)) {
+            continue;
+        }
+        if (!vehicle && !actor->getTagProperty()->isPerson()) {
+            continue;
+        }
+        const double exaggeration = actor->getExaggeration(s);
+        const auto detail = s.getDetailLevel(exaggeration + (vehicle ? 0 : 10));
+        const bool selected = actor->isAttributeCarrierSelected();
+        const bool draw = vehicle ? s.checkDrawVehicle(detail, selected) : s.checkDrawPerson(detail, selected);
+        if (draw && countedActors.insert(actor).second) {
+            auto& stack = stacks[vehicle ? 0 : 1];
+            stack.actor = actor;
+            stack.count++;
+            stack.exaggeration = MAX2(stack.exaggeration, exaggeration);
+        }
+    }
+    double previousExaggeration = 0;
+    for (const auto& stack : stacks) {
+        if (stack.count > 1) {
+            const double offset = previousExaggeration > 0 ? 0.75 * (previousExaggeration + stack.exaggeration) : 0;
+            stack.actor->drawStackLabel(stack.count, stack.name, Position(position.x() - 2.5, position.y() - offset),
+                                        -90, 1.3, 5, stack.exaggeration);
+            previousExaggeration = stack.exaggeration;
+        }
+    }
 }
 
 

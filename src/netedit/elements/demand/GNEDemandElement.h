@@ -113,6 +113,10 @@ public:
     /// @brief update stack label
     void updateDemandElementStackLabel(const int stack);
 
+    /// @brief draw one label per kind of demand departing from a junction or TAZ
+    static void drawEndpointStackLabels(const GUIVisualizationSettings& s, const GNEAttributeCarrier* endpoint,
+                                        const std::vector<GNEDemandElement*>& children, const Position& position);
+
     /// @brief update element spread geometry
     void updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane);
 
