@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18 00:01:44.424240 by Eclipse SUMO checkBidiUsage.py v1_28_0+0644-bda840e3afe
+<configuration>
+    <net-file value="net.net.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="edgedata.xml"/>
+    <begin value="0.0"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="bidiUsage" begin="0" end="3600">
+        <edge id="-t0" count="1" bidiCount="3" totalCount="4" minCount="1" stops="0" bidiStops="0" totalStops="0" minStops="0"/>
+        <edge id="t0" count="3" bidiCount="1" totalCount="4" minCount="1" stops="0" bidiStops="0" totalStops="0" minStops="0"/>
+    </interval>
+</data>

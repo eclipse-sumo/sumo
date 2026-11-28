@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" vClass="rail"/>
+    <vehicle id="v0" type="train" depart="0">
+        <route edges="t0"/>
+    </vehicle>
+    <vehicle id="v1" type="train" depart="60">
+        <route edges="t0"/>
+    </vehicle>
+    <vehicle id="v2" type="train" depart="120">
+        <route edges="t0"/>
+    </vehicle>
+    <vehicle id="v3" type="train" depart="180">
+        <route edges="-t0"/>
+    </vehicle>
+    <vehicle id="v4" type="train" depart="240">
+        <route edges="t1"/>
+    </vehicle>
+    <vehicle id="v5" type="train" depart="300">
+        <route edges="t1"/>
+    </vehicle>
+</routes>
