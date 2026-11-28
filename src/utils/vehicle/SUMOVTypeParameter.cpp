@@ -332,6 +332,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues() :
 SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass)
     : id(vtid),
       actionStepLength(0),
+      actionStepSkipProb(0),
       defaultProbability(DEFAULT_VEH_PROB),
       speedFactor("normc", 1.0, 0.0, 0.2, 2.0),
       emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "default", vclass)),
@@ -486,6 +487,9 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     if (wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
         // Note: action step length is only exposed in seconds to the user
         dev.writeAttr(SUMO_ATTR_ACTIONSTEPLENGTH, STEPS2TIME(actionStepLength));
+    }
+    if (wasSet(VTYPEPARS_ACTIONSTEPSKIPPROB_SET)) {
+        dev.writeAttr(SUMO_ATTR_ACTIONSTEPSKIPPROB, actionStepSkipProb);
     }
     if (wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
         dev.writeAttr(SUMO_ATTR_VCLASS, toString(vehicleClass));

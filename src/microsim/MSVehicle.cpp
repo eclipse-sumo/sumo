@@ -2127,7 +2127,12 @@ bool
 MSVehicle::checkActionStep(const SUMOTime t) {
     myActionStep = isActionStep(t);
     if (myActionStep) {
-        myLastActionTime = t;
+        if (myType->getActionStepSkipProb() > 0 && t > myLastActionTime && !isStopped()
+                && RandHelper::rand(getRNG()) < myType->getActionStepSkipProb()) {
+            myActionStep = false;
+        } else {
+            myLastActionTime = t;
+        }
     }
     return myActionStep;
 }

@@ -260,6 +260,9 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     if (myType->getParameter().wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
         ret->mkItem(TL("action step length [s]"), false, myType->getActionStepLengthSecs());
     }
+    if (myType->getParameter().wasSet(VTYPEPARS_ACTIONSTEPSKIPPROB_SET)) {
+        ret->mkItem(TL("action step skip prob"), false, myType->getActionStepSkipProb());
+    }
     ret->mkItem(TL("person capacity"), false, myType->getPersonCapacity());
     ret->mkItem(TL("boarding time [s]"), false, STEPS2TIME(myType->getLoadingDuration(true)));
     ret->mkItem(TL("container capacity"), false, myType->getContainerCapacity());

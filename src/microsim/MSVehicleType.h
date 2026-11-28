@@ -248,6 +248,14 @@ public:
     }
 
 
+    /** @brief Returns this type's probability for skipping an action step
+     * @return The action step skipping probability of this type
+     */
+    double getActionStepSkipProb() const {
+        return myParameter.actionStepSkipProb;
+    }
+
+
     /** @brief Returns this type's impatience
      * @return The impatience of this type
      */
@@ -526,6 +534,11 @@ public:
      *        perform the actionOffsetReset operation at caller context, where the vehicle is known.
      */
     void setActionStepLength(const SUMOTime actionStepLength, bool resetActionOffset);
+
+    /** @brief Set a new value for this type's action step skipping probability
+     * @param[in] actionStepSkipProb The new action step skipping probability of this type
+     */
+    void setActionStepSkipProb(const double actionStepSkipProb);
 
 
     /** @brief Set a new value for this type's emission class

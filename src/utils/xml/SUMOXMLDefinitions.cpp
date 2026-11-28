@@ -751,6 +751,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "maxAccelProfile",        SUMO_ATTR_MAXACCEL_PROFILE },
     { "desAccelProfile",        SUMO_ATTR_DESACCEL_PROFILE },
     { "actionStepLength",       SUMO_ATTR_ACTIONSTEPLENGTH },
+    { "actionStepSkipProb",     SUMO_ATTR_ACTIONSTEPSKIPPROB },
     { "vClass",                 SUMO_ATTR_VCLASS },
     { "vClasses",               SUMO_ATTR_VCLASSES },
     { "exceptions",             SUMO_ATTR_EXCEPTIONS },
