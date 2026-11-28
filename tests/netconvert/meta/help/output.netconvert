@@ -637,6 +637,8 @@ Formats Options:
                                         according to road speed.
   --osm.oneway-spread-right            Whether one-way roads should be spread
                                         to the side instead of centered
+  --osm.min-lane-width FLOAT           Minimum width in meters for OSM travel
+                                        lanes with a specified width
   --osm.lane-access                    Import lane-specific access restrictions
   --osm.bike-access                    Import bike lanes and fix directions and
                                         permissions on bike paths

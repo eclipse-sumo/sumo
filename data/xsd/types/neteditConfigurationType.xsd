@@ -390,6 +390,7 @@
             <xsd:element name="osm.layer-elevation" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.layer-elevation.max-grade" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.oneway-spread-right" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osm.min-lane-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.lane-access" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.bike-access" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.sidewalks" type="boolOptionType" minOccurs="0"/>

@@ -25,6 +25,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <cmath>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
@@ -192,6 +193,9 @@ NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
 
     oc.doRegister("osm.oneway-spread-right", new Option_Bool(false));
     oc.addDescription("osm.oneway-spread-right", "Formats", TL("Whether one-way roads should be spread to the side instead of centered"));
+
+    oc.doRegister("osm.min-lane-width", new Option_Float(0));
+    oc.addDescription("osm.min-lane-width", "Formats", TL("Minimum width in meters for OSM travel lanes with a specified width"));
 
     oc.doRegister("osm.lane-access", new Option_Bool(false));
     oc.addDescription("osm.lane-access", "Formats", TL("Import lane-specific access restrictions"));
@@ -473,6 +477,11 @@ NIFrame::checkOptions(OptionsCont& oc) {
     }
     if (!oc.isDefault("osm.extra-attributes") && oc.isDefault("osm.all-attributes")) {
         oc.setDefault("osm.all-attributes", "true");
+    }
+    const double minLaneWidth = oc.getFloat("osm.min-lane-width");
+    if (!std::isfinite(minLaneWidth) || minLaneWidth < 0) {
+        WRITE_ERROR(TL("Option osm.min-lane-width must be a finite, non-negative number."));
+        ok = false;
     }
     if (oc.getBool("osm.crossings") && !oc.getBool("osm.sidewalks")) {
         WRITE_WARNING(TL("It is recommended to use option osm.crossings with osm.sidewalks"));

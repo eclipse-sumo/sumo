@@ -936,6 +936,9 @@
         <!-- Whether one-way roads should be spread to the side instead of centered -->
         <osm.oneway-spread-right value="false" type="BOOL"/>
 
+        <!-- Minimum width in meters for OSM travel lanes with a specified width -->
+        <osm.min-lane-width value="0" type="FLOAT"/>
+
         <!-- Import lane-specific access restrictions -->
         <osm.lane-access value="false" type="BOOL"/>
 
