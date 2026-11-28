@@ -48,8 +48,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p" depart="0.00">
+    <person id="p" depart="0.00" arrival="80.00">
         <walk edges="beg trigger closed end"/>
+        <walk edges="trigger detour end"/>
     </person>
 
 </routes>

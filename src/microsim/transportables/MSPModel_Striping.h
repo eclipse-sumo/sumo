@@ -293,7 +293,7 @@ protected:
         double distToLaneEnd() const;
 
         /// @brief return whether this pedestrian has passed the end of the current lane and update myRelX if so
-        bool moveToNextLane(SUMOTime currentTime);
+        bool moveToNextLane(SUMOTime currentTime, std::string& deferredError);
 
         /// @brief perform position update
         void walk(const Obstacles& obs);
@@ -442,7 +442,7 @@ private:
      * @param[in] currentLane The lane the pedestrian is currently on
      * @param[in] ped The pedestrian for which to compute the next lane
      */
-    static NextLaneInfo getNextLane(const PState& ped, const MSLane* currentLane, const MSLane* prevLane);
+    static NextLaneInfo getNextLane(const PState& ped, const MSLane* currentLane, const MSLane* prevLane, std::string* deferredError = nullptr);
 
     /// @brief return the next walkingArea in the given direction
     static const MSLane* getNextWalkingArea(const MSLane* currentLane, const int dir, const MSLink*& link);
