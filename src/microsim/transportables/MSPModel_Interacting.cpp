@@ -55,15 +55,21 @@ MSPModel_Interacting::clearState() {
 
 void
 MSPModel_Interacting::remove(MSTransportableStateAdapter* state) {
-    Pedestrians& pedestrians = myActiveLanes[state->getLane()];
-    MSPModel_InteractingState* const p = static_cast<MSPModel_InteractingState*>(state);
-    const auto& it = std::find(pedestrians.begin(), pedestrians.end(), p);
-    if (it != pedestrians.end()) {
-        if (p->getNextCrossing() != nullptr) {
-            unregisterCrossingApproach(*p, p->getNextCrossing());
+    ActiveLanes::iterator itLane = myActiveLanes.find(state->getLane());
+    if (itLane != myActiveLanes.end()) {
+        Pedestrians& pedestrians = itLane->second;
+        MSPModel_InteractingState* const p = static_cast<MSPModel_InteractingState*>(state);
+        const auto& it = std::find(pedestrians.begin(), pedestrians.end(), p);
+        if (it != pedestrians.end()) {
+            if (p->getNextCrossing() != nullptr) {
+                unregisterCrossingApproach(*p, p->getNextCrossing());
+            }
+            pedestrians.erase(it);
+            if (pedestrians.empty()) {
+                myActiveLanes.erase(itLane);
+            }
+            myNumActivePedestrians--;
         }
-        pedestrians.erase(it);
-        myNumActivePedestrians--;
     }
 }
 

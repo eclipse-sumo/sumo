@@ -844,10 +844,11 @@ MSPModel_Striping::addCloserObstacle(Obstacles& obs, double x, int stripe, int n
 
 void
 MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir) {
-    for (ActiveLanes::iterator it_lane = myActiveLanes.begin(); it_lane != myActiveLanes.end(); ++it_lane) {
+    for (ActiveLanes::iterator it_lane = myActiveLanes.begin(); it_lane != myActiveLanes.end();) {
         const MSLane* lane = it_lane->first;
         Pedestrians& pedestrians = it_lane->second;
-        if (pedestrians.size() == 0) {
+        if (pedestrians.empty()) {
+            it_lane = myActiveLanes.erase(it_lane);
             continue;
         }
         //std::cout << SIMTIME << ">>> lane=" << lane->getID() << " numPeds=" << pedestrians.size() << "\n";
@@ -990,6 +991,11 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
         } else {
             moveInDirectionOnLane(pedestrians, lane, currentTime, changedLane, dir, false);
             arriveAndAdvance(pedestrians, currentTime, changedLane, dir);
+        }
+        if (pedestrians.empty()) {
+            it_lane = myActiveLanes.erase(it_lane);
+        } else {
+            ++it_lane;
         }
     }
 }
