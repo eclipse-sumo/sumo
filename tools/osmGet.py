@@ -22,6 +22,7 @@ from __future__ import print_function
 import sys
 import os
 import gzip
+import xml.etree.ElementTree as ET
 import ssl
 import json
 import collections
@@ -85,7 +86,119 @@ NORTH_AMERICA = [
     (-140.0, 71.0)]
 
 
-def readCompressed(options, urls, context, query, roadTypesJSON, getShapes, filename):
+def clip_segment_to_bbox(p0, p1, west, south, east, north):
+    x0, y0 = p0
+    x1, y1 = p1
+    dx = x1 - x0
+    dy = y1 - y0
+    t0, t1 = 0.0, 1.0
+    for p, q in ((-dx, x0 - west), (dx, east - x0), (-dy, y0 - south), (dy, north - y0)):
+        if p == 0:
+            if q < 0:
+                return None
+        else:
+            r = q / float(p)
+            if p < 0:
+                if r > t1:
+                    return None
+                if r > t0:
+                    t0 = r
+            else:
+                if r < t0:
+                    return None
+                if r < t1:
+                    t1 = r
+    return ((x0 + t0 * dx, y0 + t0 * dy), (x0 + t1 * dx, y0 + t1 * dy), t0 > 0.0, t1 < 1.0)
+
+
+def cut_ways_at_bbox(osm_bytes, west, south, east, north):
+    root = ET.fromstring(osm_bytes)
+    nodes = {}
+    node_elems = {}
+    for n in root.findall("node"):
+        nid = n.get("id")
+        if nid is not None and n.get("lon") is not None and n.get("lat") is not None:
+            nodes[nid] = (float(n.get("lon")), float(n.get("lat")))
+            node_elems[nid] = n
+
+    cut_idx = 0
+    for way in list(root.findall("way")):
+        wid = way.get("id", "way")
+        nds = [nd.get("ref") for nd in way.findall("nd") if nd.get("ref") in nodes]
+        tags = [ET.Element("tag", dict(t.attrib)) for t in way.findall("tag")]
+        pieces = []
+        cur = []
+        for u, v in zip(nds, nds[1:]):
+            clipped = clip_segment_to_bbox(nodes[u], nodes[v], west, south, east, north)
+            if clipped is None:
+                if len(cur) >= 2:
+                    pieces.append(cur)
+                cur = []
+                continue
+            q0, q1, c0, c1 = clipped
+            if c0:
+                u_ref = "%s_cut_%d" % (wid, cut_idx)
+                cut_idx += 1
+                nodes[u_ref] = q0
+                ne = ET.Element("node", {"id": u_ref, "lon": "%.7f" % q0[0], "lat": "%.7f" % q0[1]})
+                root.insert(0, ne)
+                node_elems[u_ref] = ne
+            else:
+                u_ref = u
+            if c1:
+                v_ref = "%s_cut_%d" % (wid, cut_idx)
+                cut_idx += 1
+                nodes[v_ref] = q1
+                ne = ET.Element("node", {"id": v_ref, "lon": "%.7f" % q1[0], "lat": "%.7f" % q1[1]})
+                root.insert(0, ne)
+                node_elems[v_ref] = ne
+            else:
+                v_ref = v
+            if not cur:
+                cur = [u_ref, v_ref]
+            else:
+                if cur[-1] != u_ref:
+                    if len(cur) >= 2:
+                        pieces.append(cur)
+                    cur = [u_ref, v_ref]
+                elif cur[-1] != v_ref:
+                    cur.append(v_ref)
+            if c1:
+                if len(cur) >= 2:
+                    pieces.append(cur)
+                cur = []
+        if len(cur) >= 2:
+            pieces.append(cur)
+
+        root.remove(way)
+        for idx, piece in enumerate(pieces):
+            new_id = wid if len(pieces) == 1 else "%s#%d" % (wid, idx)
+            new_attrs = dict(way.attrib)
+            new_attrs["id"] = new_id
+            w_el = ET.Element("way", new_attrs)
+            for ref in piece:
+                w_el.append(ET.Element("nd", {"ref": ref}))
+            for t_el in tags:
+                w_el.append(ET.Element("tag", dict(t_el.attrib)))
+            root.append(w_el)
+
+    referenced = set()
+    for way in root.findall("way"):
+        for nd in way.findall("nd"):
+            referenced.add(nd.get("ref"))
+    for rel in root.findall("relation"):
+        for mem in rel.findall("member"):
+            if mem.get("type") == "node":
+                referenced.add(mem.get("ref"))
+    for nid, (lon, lat) in list(nodes.items()):
+        if nid not in referenced and not (west <= lon <= east and south <= lat <= north):
+            if nid in node_elems:
+                root.remove(node_elems[nid])
+
+    return b'<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(root, encoding="utf-8")
+
+
+def readCompressed(options, urls, context, query, roadTypesJSON, getShapes, filename, bbox=None):
     # generate query string for each road-type category
     queryStringNode = []
 
@@ -217,6 +330,8 @@ def readCompressed(options, urls, context, query, roadTypesJSON, getShapes, file
                 # validate before injecting SUMO header
                 if b"<osm" not in lines[:1000]:
                     raise ValueError("Server %s returned non-OSM content" % url)
+                if options.cut_ways and bbox is not None:
+                    lines = cut_ways_at_bbox(lines, *bbox)
                 declClose = lines.find(b'>') + 1
                 lines = (lines[:declClose]
                          + b"\n"
@@ -269,6 +384,8 @@ def get_options(args):
                            help="only delivers osm data to the specified road-types")
     optParser.add_argument("-s", "--shapes", action="store_true", default=False,
                            help="determines if polygon data (buildings, areas, etc.) is downloaded")
+    optParser.add_argument("--cut-ways", dest="cut_ways", category="processing", action="store_true",
+                           default=False, help="cut OSM ways at the configured bounding box")
     optParser.add_argument("-z", "--gzip", category="output", action="store_true",
                            default=False, help="save gzipped output")
     optParser.add_argument("-q", "--query-output", category="output",
@@ -347,7 +464,8 @@ def get(args=None):
         if options.tiles == 1:
             readCompressed(options, urls, context,
                            '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' % (north, south, west, east),
-                           roadTypesJSON, options.shapes, options.prefix + "_bbox" + suffix)
+                           roadTypesJSON, options.shapes, options.prefix + "_bbox" + suffix,
+                           bbox=(west, south, east, north))
         else:
             num = options.tiles
             b = west
@@ -357,7 +475,8 @@ def get(args=None):
                 e = b + (east - west) / float(num)
                 readCompressed(options, urls, context,
                                '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' % (north, south, b, e),
-                               roadTypesJSON, options.shapes, "%s%s_%s%s" % (options.prefix, i, num, suffix))
+                               roadTypesJSON, options.shapes, "%s%s_%s%s" % (options.prefix, i, num, suffix),
+                               bbox=(b, south, e, north))
                 b = e
 
     # extract the wiki data according to the wikidata-value in the extracted osm file
