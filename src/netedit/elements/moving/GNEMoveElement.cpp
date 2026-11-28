@@ -96,6 +96,12 @@ GNEMoveElement::getEditShapeOperation(const GUIGlObject* obj, const PositionVect
 }
 
 
+const GNEAttributeCarrier*
+GNEMoveElement::getAttributeCarrier() const {
+    return myMovedElement;
+}
+
+
 void
 GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const GNEMoveOffset& offset) {
     // declare move result
@@ -145,7 +151,11 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
                 // add offset
                 moveResult.shapeToUpdate[geometryPointIndex].add(offset.x, offset.y, offset.z);
                 // apply snap to active grid
-                moveResult.shapeToUpdate[geometryPointIndex] = viewNet->snapToActiveGrid(moveResult.shapeToUpdate[geometryPointIndex]);
+                if (offset.snapToGrid) {
+                    if (offset.snapToGrid) {
+                        moveResult.shapeToUpdate[geometryPointIndex] = viewNet->snapToActiveGrid(moveResult.shapeToUpdate[geometryPointIndex]);
+                    }
+                }
             } else {
                 throw ProcessError("trying to move an invalid position");
             }
@@ -159,7 +169,11 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
                 // add offset
                 geometryPointIndex.add(offset.x, offset.y, offset.z);
                 // apply snap to active grid
-                geometryPointIndex = viewNet->snapToActiveGrid(geometryPointIndex);
+                if (offset.snapToGrid) {
+                    if (offset.snapToGrid) {
+                        geometryPointIndex = viewNet->snapToActiveGrid(geometryPointIndex);
+                    }
+                }
             } else {
                 throw ProcessError("trying to move an invalid position");
             }
@@ -241,7 +255,9 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
                     // add offset
                     moveResult.shapeToUpdate[geometryPointIndex].add(offset.x, offset.y, offset.z);
                     // apply snap to active grid
-                    moveResult.shapeToUpdate[geometryPointIndex] = viewNet->snapToActiveGrid(moveResult.shapeToUpdate[geometryPointIndex]);
+                    if (offset.snapToGrid) {
+                        moveResult.shapeToUpdate[geometryPointIndex] = viewNet->snapToActiveGrid(moveResult.shapeToUpdate[geometryPointIndex]);
+                    }
                 } else {
                     throw ProcessError("trying to move an invalid position");
                 }
@@ -257,7 +273,9 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
                     // add offset
                     geometryPointIndex.add(offset.x, offset.y, offset.z);
                     // apply snap to active grid
-                    geometryPointIndex = viewNet->snapToActiveGrid(geometryPointIndex);
+                    if (offset.snapToGrid) {
+                        geometryPointIndex = viewNet->snapToActiveGrid(geometryPointIndex);
+                    }
                 } else {
                     throw ProcessError("trying to move an invalid position");
                 }

@@ -31,7 +31,7 @@ public:
     GNEMoveOffset();
 
     /// @brief constructor for X-Y move
-    GNEMoveOffset(const double x, const double y);
+    GNEMoveOffset(const double x, const double y, const bool snapToGrid = true);
 
     /// @brief constructor for Z move
     GNEMoveOffset(const double z);
@@ -47,4 +47,7 @@ public:
 
     /// @brief Z
     const double z;
+
+    /// @brief whether each displaced point still needs grid snapping
+    const bool snapToGrid = true;
 };

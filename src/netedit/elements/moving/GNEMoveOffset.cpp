@@ -32,10 +32,11 @@ GNEMoveOffset::GNEMoveOffset() :
 }
 
 
-GNEMoveOffset::GNEMoveOffset(const double x_, const double y_) :
+GNEMoveOffset::GNEMoveOffset(const double x_, const double y_, const bool snapToGrid_) :
     x(x_),
     y(y_),
-    z(0) {
+    z(0),
+    snapToGrid(snapToGrid_) {
 }
 
 

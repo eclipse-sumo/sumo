@@ -28,6 +28,7 @@
 // ===========================================================================
 
 class GNEEdgeType;
+class GNEAngleSnap;
 class GNEAttributesEditor;
 
 // ===========================================================================
@@ -262,6 +263,9 @@ public:
     /// @brief get junction source for new edge
     const GNEJunction* getJunctionSource() const;
 
+    /// @brief apply grid and angle constraints to a new junction
+    Position getNewJunctionPosition(const Position& clickedPosition, const GNEJunction* junction = nullptr) const;
+
     /// @brief show create edge frame
     void show();
 
@@ -309,6 +313,8 @@ protected:
     void addBikelane(GNEEdge* edge, const std::string& bikelaneWidth) const;
 
 private:
+    GNEAngleSnap* myAngleSnap = nullptr;
+
     /// @brief source junction for new edge
     GNEJunction* myJunctionSource;
 };

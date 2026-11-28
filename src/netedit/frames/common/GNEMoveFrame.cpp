@@ -21,6 +21,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/frames/common/GNEAngleSnap.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -105,10 +106,17 @@ GNEMoveFrame::NetworkMoveOptions::NetworkMoveOptions(GNEMoveFrame* moveFramePare
     // Create checkbox for force draw end geometry points
     myMoveOnlyJunctionCenter = new FXCheckButton(getCollapsableFrame(), TL("Move only junction center"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myMoveOnlyJunctionCenter->setCheck(FALSE);
+    myAngleSnap = new GNEAngleSnap(getCollapsableFrame());
 }
 
 
 GNEMoveFrame::NetworkMoveOptions::~NetworkMoveOptions() {}
+
+
+const GNEAngleSnap*
+GNEMoveFrame::NetworkMoveOptions::getAngleSnap() const {
+    return myAngleSnap;
+}
 
 
 void

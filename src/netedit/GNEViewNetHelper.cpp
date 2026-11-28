@@ -31,6 +31,8 @@
 #include <netedit/elements/network/GNEInternalLane.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/common/GNEAngleSnap.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/network/GNEConnectorFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
@@ -1729,6 +1731,47 @@ GNEViewNetHelper::MoveSingleElementModul::getMovedElement() const {
 }
 
 
+namespace {
+
+Position
+getJunctionAngleAnchor(const GNEJunction& junction, const Position& fallback) {
+    auto neighbors = junction.getJunctionNeighbours();
+    neighbors.erase(std::remove(neighbors.begin(), neighbors.end(), &junction), neighbors.end());
+    return neighbors.size() == 1 ? neighbors.front()->getPositionInView() : fallback;
+}
+
+
+GNEMoveOffset
+angleMoveOffset(const GNEViewNet* viewNet, const Position& moveOffset, const Position& start,
+                const GNEMoveOperation* operation = nullptr) {
+    if (viewNet->getEditModes().isCurrentSupermodeNetwork() &&
+            viewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+        const auto angleSnap = viewNet->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getAngleSnap();
+        const bool planarMove = !operation || (operation->moveElement->getAttributeCarrier()->getTagProperty()->isNetworkElement() &&
+                                operation->operationType != GNEMoveOperation::OperationType::WIDTH &&
+                                operation->operationType != GNEMoveOperation::OperationType::HEIGHT &&
+                                operation->operationType != GNEMoveOperation::OperationType::LENGTH);
+        if (angleSnap->isEnabled() && planarMove) {
+            if (moveOffset.x() == 0 && moveOffset.y() == 0) {
+                return GNEMoveOffset(0, 0, false);
+            }
+            const auto junction = operation && operation->operationType == GNEMoveOperation::OperationType::POSITION ?
+                                  dynamic_cast<const GNEJunction*>(operation->moveElement->getAttributeCarrier()) : nullptr;
+            const auto origin = junction ? operation->originalShape.front() : start;
+            const auto anchor = junction ? getJunctionAngleAnchor(*junction, origin) : origin;
+            const auto projected = angleSnap->project(anchor, viewNet->snapToActiveGrid(origin + moveOffset));
+            if (anchor != origin && projected.distanceSquaredTo2D(anchor) < POSITION_EPS * POSITION_EPS) {
+                return GNEMoveOffset(0, 0, false);
+            }
+            return GNEMoveOffset(projected.x() - origin.x(), projected.y() - origin.y(), false);
+        }
+    }
+    return GNEMoveOffset(moveOffset.x(), moveOffset.y());
+}
+
+}
+
+
 const GNEMoveOffset
 GNEViewNetHelper::MoveSingleElementModul::calculateMoveOffset() const {
     // calculate moveOffset depending of current mouse position and relative clicked position
@@ -1740,7 +1783,7 @@ GNEViewNetHelper::MoveSingleElementModul::calculateMoveOffset() const {
         return GNEMoveOffset(moveOffset.y());
     } else {
         // return X-Y move offset
-        return GNEMoveOffset(moveOffset.x(), moveOffset.y());
+        return angleMoveOffset(myViewNet, moveOffset, myRelativeClickedPosition, myMoveOperation);
     }
 }
 
@@ -1858,7 +1901,7 @@ GNEViewNetHelper::MoveMultipleElementModul::calculateMoveOffset() const {
         return GNEMoveOffset(moveOffset.y());
     } else {
         // return X-Y move offset
-        return GNEMoveOffset(moveOffset.x(), moveOffset.y());
+        return angleMoveOffset(myViewNet, moveOffset, myClickedPosition);
     }
 }
 

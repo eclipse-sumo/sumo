@@ -204,6 +204,9 @@ The following operations can be performed on the whole selection
 
 # Move
 
+In Network Move mode, **Angle snap** constrains planar dragging to the nearest horizontal or vertical line, or to a custom angle measured counterclockwise from east. When moving one junction with exactly one neighboring junction, the line passes through that neighbor. Other network moves constrain the drag direction from its starting position. Netedit applies any grid snapping before the angle and translates selections together. Elevation movement keeps its existing behavior.
+
+
 Move junctions by dragging with the left mouse button. Dragging edges creates or moves geometry points. Dragging a junction on top of another junction joins them into a single junction. By default, the junction shape is updated while moving. However the
 final shape after saving or activating full recomputation (F5) may be slightly different.
 

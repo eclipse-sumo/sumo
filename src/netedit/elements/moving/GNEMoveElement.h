@@ -48,6 +48,9 @@ public:
     //// @brief empty destructor
     virtual ~GNEMoveElement();
 
+    /// @brief access the carrier for topology-aware movement
+    const GNEAttributeCarrier* getAttributeCarrier() const;
+
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
      */
