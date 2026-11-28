@@ -38,6 +38,7 @@ import ssl
 import collections
 import gettext
 from http.server import HTTPServer, SimpleHTTPRequestHandler
+from ipaddress import ip_address
 from urllib.parse import urlsplit, parse_qs
 import time
 
@@ -146,13 +147,17 @@ def quoted_str(s):
 class Builder(object):
     prefix = "osm"
 
-    def __init__(self, data, local):
+    def __init__(self, data, local, scenarioDirectory=None):
         self.files = {}
         self.files_relative = {}
         self.data = data
+        self.origDir = os.getcwd()
+        self.translations = getTranslation(data.get("language", "en"))[1]
 
         self.tmp = None
-        if local:
+        if scenarioDirectory is not None:
+            self.tmp = self.createScenarioDirectory(scenarioDirectory, data.get("timestampScenarioDirectory", True))
+        elif local:
             now = data.get("outputDir", datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
             for base in ['', os.path.expanduser('~/Sumo')]:
                 try:
@@ -165,10 +170,24 @@ class Builder(object):
         if self.tmp is None:
             self.tmp = tempfile.mkdtemp()
 
-        self.origDir = os.getcwd()
         print("Building scenario in '%s'." % self.tmp)
-        # progress messages are shown in the language of the web interface
-        self.translations = getTranslation(data.get("language", "en"))[1]
+
+    def createScenarioDirectory(self, target, timestamp):
+        if not isinstance(target, str) or not target.strip():
+            raise ValueError(self.TL("Enter a scenario directory."))
+        directory = os.path.abspath(os.path.expanduser(target))
+        os.makedirs(directory, exist_ok=True)
+        if timestamp:
+            name = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+            subdirectory = os.path.join(directory, name)
+            try:
+                os.mkdir(subdirectory)
+                return subdirectory
+            except FileExistsError:
+                return tempfile.mkdtemp(prefix=name + "-", dir=directory)
+        if os.listdir(directory):
+            raise FileExistsError(self.TL("Choose an empty scenario directory: %s") % directory)
+        return directory
 
     def TL(self, message):
         return self.translations.get(message, message)
@@ -617,15 +636,22 @@ class OSMImporterHTTPHandler(SimpleHTTPRequestHandler):
         self.steps -= 1
 
     def build(self, data):
+        with self.server.buildLock:
+            self.buildScenario(data)
+
+    def buildScenario(self, data):
         if self.server.output is not None:
             data['outputDir'] = self.server.output
-        builder = Builder(data, self.server.local)
-        builder.report = self.report
-
         self.steps = len(data["vehicles"]) + 4
-        self.server.messages.append(u"steps %s" % self.steps)
+        scenarioDirectory = data.get("scenarioDirectory")
+        builder = None
 
         try:
+            builder = Builder(data, self.server.local, scenarioDirectory)
+            builder.report = self.report
+            self.server.messages.append(u"steps %s" % self.steps)
+            if scenarioDirectory is not None:
+                self.server.messages.append(u"directory " + builder.tmp)
             builder.build()
             builder.makeConfigFile()
             builder.createBatch()
@@ -638,22 +664,46 @@ class OSMImporterHTTPHandler(SimpleHTTPRequestHandler):
         except ssl.CertificateError:
             self.report(builder.TL("Error with SSL certificate, try 'pip install -U certifi'."))
         except Exception as e:
+            if builder is None:
+                self.steps = 1
+                self.server.messages.append(u"steps 1")
+                self.report(str(e))
+                return
             print(traceback.format_exc())
             # reset 'Generate Scenario' button
             while self.steps > 0:
                 self.report(builder.TL("%s, recovering.") % e)
-            if os.path.isdir(builder.tmp) and not os.listdir(builder.tmp):
+            canRemove = scenarioDirectory is None or data.get("timestampScenarioDirectory", True)
+            if canRemove and os.path.isdir(builder.tmp) and not os.listdir(builder.tmp):
                 os.rmdir(builder.tmp)
-        os.chdir(builder.origDir)
+        finally:
+            if builder is not None:
+                os.chdir(builder.origDir)
+
+    def canSetScenarioDirectory(self):
+        origin = self.headers.get("Origin")
+        return (self.server.local and self.server.output is None and ip_address(self.client_address[0]).is_loopback
+                and (origin is None or origin == "http://" + self.headers.get("Host", "")))
 
     def log_message(self, format, *args):
         pass  # disable default logging
 
     def do_POST(self):
         if self.path == "/build":
-            length = int(self.headers.get("Content-Length", 0))
-            data = self.rfile.read(length)
-            threading.Thread(target=self.build, args=(json.loads(data),)).start()
+            try:
+                length = int(self.headers.get("Content-Length", 0))
+                data = json.loads(self.rfile.read(length))
+            except (ValueError, UnicodeError):
+                self.send_error(400)
+                return
+            if not isinstance(data, dict):
+                self.send_error(400)
+                return
+            if "scenarioDirectory" in data and (not self.canSetScenarioDirectory()
+                                                or self.headers.get_content_type() != "application/json"):
+                self.send_error(403)
+                return
+            threading.Thread(target=self.build, args=(data,)).start()
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
@@ -663,7 +713,12 @@ class OSMImporterHTTPHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         url = urlsplit(self.path)
-        if url.path == "/translation":
+        if url.path == "/scenario-settings":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"scenarioDirectory": self.canSetScenarioDirectory()}).encode())
+        elif url.path == "/translation":
             lang, messages = getTranslation(parse_qs(url.query).get("lang", [""])[0])
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
@@ -814,6 +869,7 @@ def main(options):
         httpd = HTTPServer((options.address, port), OSMImporterHTTPHandler)
         httpd.local = options.testOutputDir is not None or not options.remote
         httpd.output = options.outputDir
+        httpd.buildLock = threading.Lock()
         httpd.messages = []
         httpd.last_seen = time.time()
         if options.remote:

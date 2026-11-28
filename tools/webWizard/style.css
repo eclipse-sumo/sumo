@@ -262,6 +262,15 @@ input[type=number] {
     margin: 5px 0;
 }
 
+#scenario-output #scenario-directory {
+    flex: 1;
+    min-width: 0;
+}
+
+#scenario-location {
+    overflow-wrap: anywhere;
+}
+
 .checkAll {
     margin: 5px;
 }

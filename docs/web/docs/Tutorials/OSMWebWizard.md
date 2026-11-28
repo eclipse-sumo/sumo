@@ -127,6 +127,8 @@ pressing the *Play* button.
 
 # Where to go from here
 
+In the local web wizard, set **Scenario directory** under **Options** to choose where to save the files. Clear **Create a timestamped subfolder** to write directly into a new or empty directory. The wizard displays the selected path when generation starts. Leave the directory field empty to use the default location.
+
 The OSM Web Wizard stores the entire simulation scenario sumo config and
 intermediate files in a local directory with a name in the format of
 *yyyy-mm-dd-hh-mm-ss*. If your SUMO installation location is writable,
