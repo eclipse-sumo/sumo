@@ -1374,6 +1374,7 @@ MSLink::getFirstApproachingFoe(const MSLink* wrapAround) const {
 void
 MSLink::setTLState(LinkState state, SUMOTime t) {
     if (myState != state) {
+        myLostGreenPriority = myState == LINKSTATE_TL_GREEN_MAJOR && state == LINKSTATE_TL_GREEN_MINOR;
         myLastStateChange = t;
     }
     myState = state;

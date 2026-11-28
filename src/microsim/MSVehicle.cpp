@@ -3844,7 +3844,8 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
             double visibilityDistance = link->getFoeVisibilityDistance();
             bool determinedFoePresence = dpi.myDistance <= visibilityDistance;
             if (opened && !influencerPrio && !link->havePriority() && !link->lastWasContMajor() && !link->isCont() && !ignoreRedLink) {
-                if (!determinedFoePresence && (canBrake || !yellow)) {
+                // A vehicle committed under major green can continue if the link is still open.
+                if (!determinedFoePresence && (canBrake || (!yellow && !link->justLostGreenPriority(SIMSTEP)))) {
                     vSafe = dpi.myVLinkWait;
                     myHaveToWaitOnNextLink = true;
 #ifdef DEBUG_CHECKREWINDLINKLANES
