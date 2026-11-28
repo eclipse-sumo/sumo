@@ -548,11 +548,19 @@ void
 GNEPathManager::calculatePath(GNEPathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges) {
     // build path
     if (edges.size() > 0) {
-        buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, edges),
-                  edges.front()->getLaneByAllowedVClass(vClass), nullptr, edges.back()->getLaneByAllowedVClass(vClass), nullptr);
+        calculatePath(pathElement, vClass, edges,
+                      edges.front()->getLaneByAllowedVClass(vClass), edges.back()->getLaneByAllowedVClass(vClass));
     } else {
         removePath(pathElement);
     }
+}
+
+
+void
+GNEPathManager::calculatePath(GNEPathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
+                              GNELane* fromLane, GNELane* toLane) {
+    buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, edges),
+              fromLane, nullptr, toLane, nullptr);
 }
 
 
