@@ -55,6 +55,8 @@ def get_options(args=None):
                     help="sumo network to use")
     ap.add_argument("--route-output", category="output", type=ap.route_file,
                     help="file to write the generated public transport vehicles to")
+    ap.add_argument("--split-by-route-type", dest="splitByRouteType", action="store_true", category="output",
+                    help="write one route output file per GTFS route_type")
     ap.add_argument("--additional-output", category="output", type=ap.additional_file,
                     help="file to write the generated public transport stops and routes to")
     ap.add_argument("--duration", default=10, category="input",
@@ -633,7 +635,7 @@ def map_stops(options, net, routes, rout, fixedStops, stopLookup, geoRoutes):
     return stops
 
 
-def filter_trips(options, routes, stops, outf, begin, end, vehicles):
+def filter_trips(options, routes, stops, routeOutput, routeTypes, begin, end, vehicles):
     numDays = int(end) // 86400
     if end % 86400 != 0:
         numDays += 1
@@ -656,6 +658,7 @@ def filter_trips(options, routes, stops, outf, begin, end, vehicles):
         vehDeparts.sort()
     for depart, vehs in vehDeparts:
         for mode, tripID, routeID, orig_depart, line, params in vehs:
+            outf = routeOutput(routeTypes.get(routeID))
             outf.write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s">\n' %
                        (tripID, routeID, mode, options.ft(depart), line))
             for k, v in params:
@@ -753,18 +756,21 @@ def main(options):
             sumolib.xml.writeHeader(aout, os.path.basename(__file__), "additional", options=options)
             stops = map_stops(options, orignet, routes, aout, fixedStops, stopLookup, geoRoutes)
             aout.write(u'</additional>\n')
-        with sumolib.openz(options.route_output, mode='w') as rout:
-            sumolib.xml.writeHeader(rout, os.path.basename(__file__), "routes", options=options)
+        routeTypes = {}
+        if options.splitByRouteType:
+            # Use the last leg for joined blocks, as groupRoutes does for the vehicle mode.
+            lastStops = full_data_merged.sort_values('stop_sequence').drop_duplicates('trip_id', keep='last')
+            routeTypes = lastStops.set_index('trip_id')['route_type'].to_dict()
+        with gtfsutils.routeOutputs(options, os.path.basename(__file__)) as routeOutput:
             for vehID, (edges, indices) in routes.items():
                 if edges:
                     if len(stops[vehID]) < options.minStops:
                         print("Warning! Dropping %s with Only %s stops." % (vehID, len(stops[vehID])), file=sys.stderr)
                     else:
-                        writeRoute(options, rout, vehID, edges, stops)
+                        writeRoute(options, routeOutput(routeTypes.get(vehID)), vehID, edges, stops)
                 else:
                     print("Warning! Empty route for %s." % vehID, file=sys.stderr)
-            filter_trips(options, routes, stops, rout, options.begin, options.end, vehicles)
-            rout.write(u'</routes>\n')
+            filter_trips(options, routes, stops, routeOutput, routeTypes, options.begin, options.end, vehicles)
 
 
 def writeRoute(options, rout, vehID, edges, stops):

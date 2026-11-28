@@ -60,6 +60,8 @@ be repaired with the **--repair** option. When this option is enabled and by the
 repair some warnings and errors occurs, these are written in a new output file
 "invalid_osm_routes.txt".
 
+Use **--split-by-route-type** to write a route file for each GTFS `route_type` with mapped routes. For example, `--route-output transit.rou.xml.gz` produces `transit.3.rou.xml.gz` for GTFS bus routes. Load each route file with the shared stops and vehicle types files.
+
 If the option **--write-terminals** is set, then each vehicle will also record `<param>` elements that describe the terminal stop names and terminal depart/arrival times. This may be useful if the GTFS data has a scope that is larger than the loaded network.
 
 ## known stop locations

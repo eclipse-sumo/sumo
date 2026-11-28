@@ -23,6 +23,7 @@ import sys
 import datetime
 import time
 import hashlib
+from contextlib import contextmanager, ExitStack
 
 # from pprint import pprint
 
@@ -379,6 +380,38 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
                                               ].drop_duplicates(['shape_id', 'stop_id', 'stop_sequence'])
 
     return gtfs_data, trip_list, filtered_stops, shapes, shapes_dict
+
+
+def _routeTypeFilename(filename, routeType):
+    stem, extension = os.path.splitext(filename)
+    if extension == ".gz":
+        stem, inner = os.path.splitext(stem)
+        extension = inner + extension
+    if extension.startswith(".xml") and stem.endswith((".rou", ".add")):
+        stem, kind = os.path.splitext(stem)
+        extension = kind + extension
+    return "%s.%s%s" % (stem, routeType, extension)
+
+
+@contextmanager
+def routeOutputs(options, script=None):
+    """Return the route output stream for each GTFS route type."""
+    outputs = {}
+    with ExitStack() as stack:
+        def output(routeType=None):
+            key = routeType if options.splitByRouteType else None
+            if key not in outputs:
+                filename = options.route_output if key is None else _routeTypeFilename(options.route_output, key)
+                stream = stack.enter_context(sumolib.openz(filename, mode="w"))
+                sumolib.xml.writeHeader(stream, script, root="routes", options=options)
+                outputs[key] = stream
+            return outputs[key]
+
+        if not options.splitByRouteType:
+            output()
+        yield output
+        for stream in outputs.values():
+            stream.write(u'</routes>\n')
 
 
 def write_vtypes(options, seen=None):
