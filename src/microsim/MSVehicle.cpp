@@ -46,6 +46,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
+#include <utils/emissions/HelpersMMPEVEM.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>
@@ -4736,6 +4737,14 @@ MSVehicle::executeMove() {
         vNext = MAX2(vNext, 0.);
     } else {
         // (Leo) Ballistic: negative vNext can be used to indicate a stop within next step.
+    }
+
+    const SUMOEmissionClass emissionClass = getVehicleType().getEmissionClass();
+    if (vNext > getSpeed() && HelpersMMPEVEM::matches(emissionClass)) {
+        const auto& parameters = getVehicleType().getParameter().cfParameter;
+        if (parameters.count(SUMO_ATTR_MAXACCEL_PROFILE) == 0 && parameters.count(SUMO_ATTR_DESACCEL_PROFILE) == 0) {
+            vNext = HelpersMMPEVEM::limitNextSpeed(emissionClass, getSpeed(), vNext, getSlope(), getEmissionParameters());
+        }
     }
 
     // Check for speed advices from the traci client
