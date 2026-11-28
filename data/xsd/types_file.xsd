@@ -10,6 +10,13 @@
         </xsd:key>
     </xsd:element>
 
+    <xsd:element name="polygonTypes" type="polygonTypesType">
+        <xsd:key name="polygonTypeKey">
+            <xsd:selector xpath="polygonType"/>
+            <xsd:field xpath="@id"/>
+        </xsd:key>
+    </xsd:element>
+
     <xsd:complexType name="typesType">
         <xsd:sequence>
             <xsd:element name="type" type="typeType" minOccurs="0" maxOccurs="unbounded"/>
@@ -21,6 +28,35 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:simpleType name="polygonFillType">
+        <xsd:union memberTypes="boolType">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="force"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:union>
+    </xsd:simpleType>
+
+    <xsd:complexType name="polygonTypeType">
+        <xsd:attribute name="id" type="idType" use="required"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
+        <xsd:attribute name="color" type="colorType" use="optional"/>
+        <xsd:attribute name="fill" type="polygonFillType" use="optional"/>
+        <xsd:attribute name="layer" type="floatType" use="optional"/>
+        <xsd:attribute name="discard" type="boolType" use="optional"/>
+        <xsd:attribute name="prefix" type="xsd:string" use="optional"/>
+        <xsd:attribute name="icon" type="xsd:string" use="optional"/>
+        <xsd:attribute name="angle" type="floatType" use="optional"/>
+        <xsd:attribute name="imgFile" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="polygonTypesType">
+        <xsd:sequence>
+            <xsd:element name="polygonType" type="polygonTypeType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
     </xsd:complexType>
 
 </xsd:schema>

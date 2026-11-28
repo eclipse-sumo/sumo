@@ -70,7 +70,7 @@ corresponding executable with "cfg" appended)
   - **\*.con.xml**: [netconvert](../netconvert.md)- connection
     file ([xsd](https://sumo.dlr.de/xsd/connections_file.xsd),
     [description](../Networks/PlainXML.md#connection_descriptions))
-  - **\*.typ.xml**: [netconvert](../netconvert.md)- edge types
+  - **\*.typ.xml**: [netconvert](../netconvert.md) edge types file or [polyconvert](../polyconvert.md) polygon types
     file ([xsd](https://sumo.dlr.de/xsd/types_file.xsd),
     [description](../SUMO_edge_type_file.md))
   - **\*.trips.xml**: trip definitions for

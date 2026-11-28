@@ -1,4 +1,4 @@
-<polygonTypes>
+<polygonTypes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
 
     <polygonType id="traffic_sign"            name="traffic_sign" color=".0,.0,.0" layer="0"/>
     <polygonType id="waterway"                name="water"       color=".71,.82,.82" layer="-4"/>
