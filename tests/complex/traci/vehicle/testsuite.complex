@@ -146,6 +146,9 @@ alightingPersons
 # check handling of stops (#14789)
 changeTarget
 
+# changeTarget on a vehicle that is already on the road (meso)
+changeTarget_onRoad
+
 # retrieve vehicle information after arrival
 keepAfterArrival
 

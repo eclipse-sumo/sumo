@@ -1,0 +1,6 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" sigma="0"/>
+    <trip id="v" type="car" depart="0" departSpeed="avg" from="A1B1" to="C1D1">
+        <stop edge="B2C2" duration="5"/>
+    </trip>
+</routes>
