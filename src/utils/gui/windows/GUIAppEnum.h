@@ -697,6 +697,8 @@ enum {
     MID_TOOLBAREDIT_LOADADDITIONALS,
     /// @brief load demand in sumo-gui/netedit after press ctrl+T
     MID_TOOLBAREDIT_LOADDEMAND,
+    /// @brief load the SUMO configuration when opening sumo-gui from netedit
+    MID_TOOLBAREDIT_LOADSUMOCONFIG,
 
     /// @}
 

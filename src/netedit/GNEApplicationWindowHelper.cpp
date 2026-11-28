@@ -1351,6 +1351,10 @@ GNEApplicationWindowHelper::EditMenuCommands::buildOpenSUMOMenuCommands(FXMenuPa
                           TL("Load demand in sumo-gui"), TL("Load demand in sumo-gui."),
                           myApplicationWindow, MID_TOOLBAREDIT_LOADDEMAND);
     loadDemandInSUMOGUI->setCheck(TRUE);
+    loadSumoConfigInSUMOGUI = GUIDesigns::buildFXMenuCheckbox(editMenu,
+                               TL("Load SUMO configuration in sumo-gui"), TL("Load the simulation options from the SUMO configuration."),
+                               myApplicationWindow, MID_TOOLBAREDIT_LOADSUMOCONFIG);
+    loadSumoConfigInSUMOGUI->setCheck(TRUE);
     openInSUMOGUI = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
                     TL("Open in sumo-gui"), "Ctrl+T", TL("Opens the sumo-gui application with the current network."),
                     GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), myApplicationWindow, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);

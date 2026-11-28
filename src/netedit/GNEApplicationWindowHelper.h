@@ -715,6 +715,9 @@ struct GNEApplicationWindowHelper {
         /// @brief menu check for load demand in SUMO GUI
         FXMenuCheck* loadDemandInSUMOGUI = nullptr;
 
+        /// @brief menu check for loading the SUMO configuration in sumo-gui
+        FXMenuCheck* loadSumoConfigInSUMOGUI = nullptr;
+
         /// @brief FXMenuCommand for open in SUMO GUI
         FXMenuCommand* openInSUMOGUI = nullptr;
 
@@ -1233,6 +1236,9 @@ struct GNEApplicationWindowHelper {
         /// @brief check if at least we have an additional file defined
         bool isFilenameDefined(const FileBucket::Type type) const;
 
+        /// @brief list the filenames for the given file types
+        std::string parseFilenames(const std::vector<FileBucket::Type> types) const;
+
         /// brief set default files for all buckets
         void resetDefaultFilenames();
 
@@ -1245,9 +1251,6 @@ struct GNEApplicationWindowHelper {
         void removeEmptyBuckets();
 
     private:
-        /// @brief parse filenames
-        std::string parseFilenames(const std::vector<FileBucket::Type> types) const;
-
         /// @brief get prefix of the given filename
         std::string getPrefix(FileBucket::Type type, const std::vector<std::string> invalidExtensions) const;
 
