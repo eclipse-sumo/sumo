@@ -124,6 +124,7 @@ driverstate
 
 # test setRoute with internal edges
 setRoute_internal
+setRoute_previous_edge
 
 # test ignoring specific foes ids and foe types
 junctionModel.ignore

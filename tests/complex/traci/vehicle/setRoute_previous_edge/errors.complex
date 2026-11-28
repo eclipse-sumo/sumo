@@ -1,0 +1,4 @@
+Warning: Invalid route replacement for vehicle 'ego'. Replacement route starts on edge 'SC' instead of the current edge 'CN'.
+Error: Answered with error to command 0xc4: Route replacement failed for vehicle 'ego' (Replacement route starts on edge 'SC' instead of the current edge 'CN'.).
+Warning: Invalid route replacement for vehicle 'ego'. No connection between edge 'CN' and edge 'CE'.
+Error: Answered with error to command 0xc4: Route replacement failed for vehicle 'ego' (No connection between edge 'CN' and edge 'CE'.).
