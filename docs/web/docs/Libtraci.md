@@ -63,28 +63,27 @@ you have `ENABLE_CS_BINDINGS` set in your cmake configuration.
     library. The method below is mostly used for testing libtraci.
 
 ```py
-import libtraci
-libtraci.start(["sumo", "-c", "test.sumocfg"])
-libtraci.simulationStep()
-libtraci.close()
-```
-
-Existing traci scripts can mostly be reused by calling
-
-```py
 import libtraci as traci
+
+traci.start(["sumo", "-c", "test.sumocfg"])
+while traci.simulation.getMinExpectedNumber() > 0:
+    traci.simulationStep()
+    for veh_id in traci.vehicle.getIDList():
+        if traci.vehicle.getSpeed(veh_id) > 10.0:
+            traci.vehicle.setMaxSpeed(veh_id, 10.0)
+traci.close()
 ```
 
 In case you have a lot of scripts you can also set the environment
 variable `LIBTRACI_AS_TRACI` to a non empty value which will trigger the
-import as above.
+`import libtraci as traci` behavior automatically when importing `traci`.
 
 ## C++
 
 ### Example Code (test.cpp)
 
-The example assumes you have the named sumocfg file in your current working directory and the SUMO bin directory included
-in the PATH environmental variable. Otherwise you need to provide the full file path.
+The example assumes you have `test.sumocfg` in your current working directory and the SUMO `bin` directory included
+in your `PATH` environment variable.
 
 ```cpp
 #include <iostream>
@@ -93,29 +92,43 @@ in the PATH environmental variable. Otherwise you need to provide the full file 
 using namespace libtraci;
 
 int main(int argc, char* argv[]) {
-    Simulation::start({"sumo", "-n", "net.net.xml"});
-    for (int i = 0; i < 5; i++) {
+    Simulation::start({"sumo", "-c", "test.sumocfg"});
+    while (Simulation::getMinExpectedNumber() > 0) {
         Simulation::step();
+        for (const std::string& vehID : Vehicle::getIDList()) {
+            std::cout << vehID << " speed=" << Vehicle::getSpeed(vehID) << "\n";
+        }
     }
     Simulation::close();
+    return 0;
 }
 ```
 
-### compiling on Linux (make sure SUMO_HOME is set and sumo has been built)
+### Building with CMake (Cross-Platform)
 
-```
-g++ -o test -I$SUMO_HOME/src test.cpp -L$SUMO_HOME/bin -ltracicpp
+SUMO exports the `SUMO::libtracicpp` CMake target via `SUMOConfig.cmake`:
+
+```cmake
+cmake_minimum_required(VERSION 3.16)
+project(libtraci_example CXX)
+set(CMAKE_CXX_STANDARD 17)
+find_package(SUMO CONFIG REQUIRED)
+add_executable(test test.cpp)
+target_link_libraries(test PRIVATE SUMO::libtracicpp)
 ```
 
-### running on Linux
+On Windows releases (`.msi` or `.zip`), headers reside in `%SUMO_HOME%\include`, the import library in `%SUMO_HOME%\lib\libtracicpp.lib`, and the runtime DLL in `%SUMO_HOME%\bin\libtracicpp.dll`. On Ubuntu packages, headers are installed under `/usr/include` and `libtracicpp.so` under `/usr/lib`.
 
-```
+### Compiling Directly on Linux (Source Build)
+
+```bash
+g++ -std=c++17 -o test -I$SUMO_HOME/src test.cpp -L$SUMO_HOME/bin -ltracicpp
 LD_LIBRARY_PATH=$SUMO_HOME/bin ./test
 ```
 
 ## Java
 
-You might want to use the available [Maven package](Developer/Maven.md).
+You can depend on `org.eclipse.sumo:libtraci` from the [Maven repository](Developer/Maven.md) or reference the JAR and JNI library (`libtracijni.dll` / `liblibtracijni.so`) in `$SUMO_HOME/bin`.
 
 ### Example Code (APITest.java)
 
@@ -125,14 +138,21 @@ import org.eclipse.sumo.libtraci.*;
 public class APITest {
     public static void main(String[] args) {
         Simulation.preloadLibraries();
-        Simulation.start(new StringVector(new String[] {"sumo", "-n", "net.net.xml"}));
-        for (int i = 0; i < 5; i++) {
+        Simulation.start(new StringVector(new String[] {"sumo", "-c", "test.sumocfg"}));
+        while (Simulation.getMinExpectedNumber() > 0) {
             Simulation.step();
+            for (String vehID : Vehicle.getIDList()) {
+                System.out.println(vehID + " speed=" + Vehicle.getSpeed(vehID));
+            }
         }
         Simulation.close();
     }
 }
 ```
+
+### Migrating from TraaS
+
+Applications migrating from [TraaS](TraCI/TraaS.md) replace `SumoTraciConnection` and untyped `conn.do_job_get(...)` / `conn.do_job_set(...)` wrappers with `import org.eclipse.sumo.libtraci.*;`, `Simulation.preloadLibraries()`, `Simulation.start(new StringVector(...))`, and static domain methods such as `Vehicle.getSpeed(vehID)` and `Vehicle.setMaxSpeed(vehID, 10.0)`.
 
 See also the information on [casting subscription results](Libsumo.md#casting_subscription_results).
 
