@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-24T19:27:30.628595+00:00 by Eclipse SUMO sumo v1.28.0-0000000000
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="after.xml"/>
+    </output>
+
+    <time>
+        <end value="290"/>
+    </time>
+
+    <report>
+        <xml-validation value="local"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="closure-starts-after-passing" type="car" depart="20.00" departSpeed="20.00" speedFactor="1.0000" arrival="120.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="arrives-during-closure" type="car" depart="0.00" departSpeed="20.00" speedFactor="1.0000" arrival="197.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="8.00" probability="0" edges="beg middle end"/>
+            <route edges="beg beg2left left left2end end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="starts-beyond-trigger" type="car" depart="70.00" departPos="200.00" departSpeed="20.00" speedFactor="1.0000" arrival="257.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="71.00" probability="0" edges="beg middle end"/>
+            <route edges="beg beg2right right right2end end"/>
+        </routeDistribution>
+    </vehicle>
+
+</routes>

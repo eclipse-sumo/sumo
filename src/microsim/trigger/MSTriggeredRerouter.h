@@ -361,6 +361,9 @@ protected:
     /// At which distance are we activated
     double myRadius;
 
+    /// @brief Optional lane position at which to evaluate automatic rerouting.
+    double myTriggerPos = -1;
+
     // @brief waiting time threshold for activation
     SUMOTime myTimeThreshold;
 

@@ -30,6 +30,8 @@ A rerouter may work in several different ways. Within a time period you
 may close an edge, or assign new destinations or predefined routes to
 vehicles. The next sections will describe these actions in detail.
 
+In microscopic simulation, add `<param key="rerouter.triggerPos" value="50"/>` to an automatic rerouter to evaluate it on a vehicle's first movement step at or beyond 50 m along a trigger edge. The value is measured from the start of each listed edge and must lie within all of them. The conditions in effect during that step govern rerouting. Use this parameter with automatic rerouting and leave `radius` unset.
+
 ## Definition styles
 
 There are two styles in which to declare rerouters.

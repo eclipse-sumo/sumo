@@ -133,6 +133,19 @@ MSTriggeredRerouter::~MSTriggeredRerouter() {
 void
 MSTriggeredRerouter::myStartElement(int element,
                                     const SUMOSAXAttributes& attrs) {
+    if (element == SUMO_TAG_PARAM && attrs.getStringSecure(SUMO_ATTR_KEY, "") == "rerouter.triggerPos") {
+        if (MSGlobals::gUseMesoSim || myAmOptional || myRadius != std::numeric_limits<double>::max()) {
+            throw ProcessError(TLF("Rerouter '%' uses rerouter.triggerPos with an incompatible simulation or rerouter mode.", getID()));
+        }
+        bool ok = true;
+        const double pos = attrs.get<double>(SUMO_ATTR_VALUE, getID().c_str(), ok);
+        if (!ok || !std::isfinite(pos) || pos < 0 || std::any_of(myEdges.begin(), myEdges.end(), [pos](const MSEdge* edge) {
+            return pos >= edge->getLength();
+        })) {
+            throw ProcessError(TLF("Rerouter '%' requires a position within every trigger edge for rerouter.triggerPos.", getID()));
+        }
+        myTriggerPos = pos;
+    }
     if (element == SUMO_TAG_INTERVAL) {
         bool ok = true;
         myParsedRerouteInterval = RerouteInterval();
@@ -479,6 +492,9 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const {
 
 bool
 MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+    if (myTriggerPos >= 0) {
+        return !tObject.isPerson() && (reason != NOTIFICATION_LANE_CHANGE || tObject.getPositionOnLane() < myTriggerPos);
+    }
     if (myAmOptional || myRadius != std::numeric_limits<double>::max()) {
         return true;
     }
@@ -488,7 +504,14 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
 
 bool
 MSTriggeredRerouter::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/,
-                                double /*newPos*/, double /*newSpeed*/) {
+                                double newPos, double /*newSpeed*/) {
+    if (myTriggerPos >= 0) {
+        if (newPos < myTriggerPos) {
+            return true;
+        }
+        triggerRouting(veh, NOTIFICATION_JUNCTION);
+        return false;
+    }
     return triggerRouting(veh, NOTIFICATION_JUNCTION);
 }
 
