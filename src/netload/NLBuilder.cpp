@@ -124,6 +124,31 @@ NLBuilder::~NLBuilder() {}
 
 bool
 NLBuilder::build() {
+    bool stateBeginMismatch = false;
+    bool defaultBegin = false;
+    SUMOTime stateTime = 0;
+    const SUMOTime stateOffset = string2time(myOptions.getString("load-state.offset"));
+    if (myOptions.isSet("load-state")) {
+        // first, load only the time so network and traffic light events are initialized at the right begin step (#7450)
+        stateTime = MSStateHandler::MSStateTimeHandler::getTime(myOptions.getString("load-state"));
+        defaultBegin = myOptions.isDefault("begin");
+        if (stateTime != string2time(myOptions.getString("begin"))) {
+            if (myOptions.isDefault("load-state.offset")) {
+                if (!defaultBegin) {
+                    WRITE_WARNINGF(TL("State was written at a different time=% than the begin time % (set option load-state.offset to force a different begin)!"),
+                                   time2string(stateTime), myOptions.getString("begin"));
+                }
+                myOptions.resetWritable("begin");
+                defaultBegin = true;
+            } else {
+                stateBeginMismatch = true;
+            }
+        }
+        if (defaultBegin) {
+            myOptions.set("begin", time2string(stateTime));
+        }
+        myNet.setCurrentTimeStep(string2time(myOptions.getString("begin")));
+    }
     // try to build the net
     if (!load("net-file", true)) {
         return false;
@@ -140,6 +165,14 @@ NLBuilder::build() {
         MSGlobals::gUsingInternalLanes = false;
     }
     buildNet();
+    if (myOptions.isSet("load-state") && defaultBegin) {
+        // if vehicles are deliberately removed from the state, we must allow them to be reloaded from a route file at state time
+        const SUMOTime allowReloadOffset = myOptions.isDefault("load-state.remove-vehicles") ? 0 : 1;
+        myNet.setLoaderTime(stateTime - allowReloadOffset);
+        if (TraCIServer::getInstance() != nullptr) {
+            TraCIServer::getInstance()->stateLoaded(stateTime);
+        }
+    }
     if (myOptions.isSet("alternative-net-file")) {
         for (std::string fname : myOptions.getStringVector("alternative-net-file")) {
             const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading alternative net from '" + fname + "'");
@@ -155,36 +188,6 @@ NLBuilder::build() {
     // @note on loading order constraints:
     // - additional-files before route-files and state-files due to referencing
     // - additional-files before weight-files since the latter might contain intermodal edge data and the intermodal net depends on the stops and public transport from the additionals
-
-    bool stateBeginMismatch = false;
-    const SUMOTime stateOffset = string2time(myOptions.getString("load-state.offset"));
-    if (myOptions.isSet("load-state")) {
-        // first, load only the time
-        const SUMOTime stateTime = MSStateHandler::MSStateTimeHandler::getTime(myOptions.getString("load-state"));
-        bool defaultBegin = myOptions.isDefault("begin");
-        if (stateTime != string2time(myOptions.getString("begin"))) {
-            if (myOptions.isDefault("load-state.offset")) {
-                if (!defaultBegin) {
-                    WRITE_WARNINGF(TL("State was written at a different time=% than the begin time % (set option load-state.offset to force a different begin)!"),
-                                   time2string(stateTime), myOptions.getString("begin"));
-                }
-                myOptions.resetWritable("begin");
-                defaultBegin = true;
-            } else {
-                stateBeginMismatch = true;
-            }
-        }
-        if (defaultBegin) {
-            myOptions.set("begin", time2string(stateTime));
-            // if vehicles are deliberately removed from the state, we must allow them to be reloaded from a route file at state time
-            SUMOTime allowReloadOffset = myOptions.isDefault("load-state.remove-vehicles") ? 0 : 1;
-            myNet.setLoaderTime(stateTime - allowReloadOffset);
-            if (TraCIServer::getInstance() != nullptr) {
-                TraCIServer::getInstance()->stateLoaded(stateTime);
-            }
-        }
-        myNet.setCurrentTimeStep(string2time(myOptions.getString("begin")));
-    }
 
     if (myOptions.getBool("junction-taz")) {
         // create a TAZ for every junction

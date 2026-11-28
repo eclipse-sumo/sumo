@@ -322,6 +322,13 @@ MSSimpleTrafficLightLogic::setPhases(const Phases& phases, int step) {
 
 
 void
+MSSimpleTrafficLightLogic::setStep(int step) {
+    assert(step >= 0 && step < (int)myPhases.size());
+    myStep = step;
+}
+
+
+void
 MSSimpleTrafficLightLogic::deletePhases() {
     for (int i = 0; i < (int)myPhases.size(); i++) {
         delete myPhases[i];
