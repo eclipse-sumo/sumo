@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18 00:04:28.630095 by Eclipse SUMO splitPublicTransport.py v1_28_0+0644-bda840e3afe
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <pt-output value="outA.rou.xml"/>
+    <individual-output value="outB.rou.xml"/>
+    <persons-output value="out.rou.xml"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="carType" vClass="passenger"/>
+    <route id="r_car" edges="e0 e2"/>
+    <vehicle id="car_1" type="carType" depart="15" route="r_car"/>
+</routes>

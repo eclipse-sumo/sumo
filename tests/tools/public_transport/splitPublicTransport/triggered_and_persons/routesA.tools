@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18 00:04:28.527265 by Eclipse SUMO splitPublicTransport.py v1_28_0+0644-bda840e3afe
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <pt-output value="outA.rou.xml"/>
+    <individual-output value="outB.rou.xml"/>
+    <persons-output value="out.rou.xml"/>
+    <restore-triggered value="True"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="tramType" vClass="tram"/>
+    <vehicle id="tram_0" type="tramType" line="T1" depart="0.00">
+        <route edges="e0 e1 e2"/>
+    </vehicle>
+</routes>
