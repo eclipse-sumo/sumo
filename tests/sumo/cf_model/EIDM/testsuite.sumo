@@ -24,3 +24,9 @@ ticket15557
 
 # emergency braking after teleport
 ticket17317
+
+# the driver noise does not depend on the number of threads
+threads
+
+# the leader lookup does not depend on the number of threads
+threads_junction

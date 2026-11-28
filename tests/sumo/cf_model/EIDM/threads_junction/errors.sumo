@@ -1,0 +1,4 @@
+Warning: The option --threads has known problems and does NOT provide meaningful speedup at this time (https://github.com/eclipse-sumo/sumo/issues/4767). Using it is not recommended!
+Warning: Request backPos of vehicle '1.82' for invalid lane ':C_1_0' time=498.50.
+Error: Request lateral offset of vehicle '1.127' for invalid lane ':C_1_0'
+Quitting (on error).

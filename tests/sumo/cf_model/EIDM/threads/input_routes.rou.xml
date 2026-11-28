@@ -1,0 +1,11 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="default" carFollowModel="EIDM"/>
+    <route id="w" edges="WC"/>
+    <route id="n" edges="NC"/>
+    <route id="e" edges="EC"/>
+    <route id="s" edges="SC"/>
+    <flow id="w" type="default" route="w" begin="0" end="60" period="2" arrivalPos="80"/>
+    <flow id="n" type="default" route="n" begin="0" end="60" period="2" arrivalPos="80"/>
+    <flow id="e" type="default" route="e" begin="0" end="60" period="2" arrivalPos="80"/>
+    <flow id="s" type="default" route="s" begin="0" end="60" period="2" arrivalPos="80"/>
+</routes>
