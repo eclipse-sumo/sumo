@@ -71,3 +71,6 @@ getNeighboring
 
 # get the nearest lane, with vehicle-class filtering and geographic coordinates
 getNearestLane
+
+# test generated routes without hardcoded departSpeed (#17882)
+scenario_pop2

@@ -85,9 +85,9 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
                               "(default 1.0)")
     optParser.add_option("--default.stop-duration", type=float, default=0.0, dest="defaultStopDuration",
                          help="default duration for stops in stand-alone routes")
-    optParser.add_option("--default.departLane", default="best", dest="defaultDepartLane",
+    optParser.add_option("--default.departLane", dest="defaultDepartLane",
                          help="default departure lane for cut routes")
-    optParser.add_option("--default.departSpeed", default="max", dest="defaultDepartSpeed",
+    optParser.add_option("--default.departSpeed", dest="defaultDepartSpeed",
                          help="default departure speed for cut routes")
     optParser.add_option("--orig-net", help="complete network for retrieving edge lengths")
     optParser.add_option("-b", "--big", action="store_true", default=False,
@@ -379,8 +379,10 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                         yield -1, routeRef
                     else:
                         if ix_part > 0 or old_route.edges.split()[0] != remaining[0]:
-                            moving.setAttribute("departLane", options.defaultDepartLane)
-                            moving.setAttribute("departSpeed", options.defaultDepartSpeed)
+                            if options.defaultDepartLane is not None:
+                                moving.setAttribute("departLane", options.defaultDepartLane)
+                            if options.defaultDepartSpeed is not None:
+                                moving.setAttribute("departSpeed", options.defaultDepartSpeed)
                         newDepart = max(newDepart, departShift)
                         old_route.edges = " ".join(remaining)
                     if moving.name == 'vehicle':

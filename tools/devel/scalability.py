@@ -43,6 +43,15 @@ def get_options(args=None):
     return argparser.parse_args(args)
 
 
+def write_flows(rout, threads, number):
+    sumolib.xml.writeHeader(rout, root="routes")
+    for i in range(threads):
+        edges = ["%s%s%s%s" % (chr(c), i, chr(c + 1), i) for c in range(65, 64 + NUM_PARTS)]
+        rout.write('    <route id="r%s" edges="%s"/>\n' % (i, " ".join(edges)))
+        rout.write('    <flow id="flow%s" route="r%s" end="3600.00" number="%s"/>\n' % (i, i, number))
+    rout.write("</routes>\n")
+
+
 def main():
     options = get_options()
     subprocess.call([sumolib.checkBinary('netgenerate'), "--grid", "--grid.x-number", str(NUM_PARTS),
@@ -59,13 +68,7 @@ def main():
         os.remove(f)
 
     with open("flow.rou.xml", "w", encoding="utf8") as rout:
-        sumolib.xml.writeHeader(rout, root="routes")
-        for i in range(options.threads):
-            edges = ["%s%s%s%s" % (chr(c), i, chr(c+1), i) for c in range(65, 64 + NUM_PARTS)]
-            rout.write('    <route id="r%s" edges="%s"/>\n' % (i, " ".join(edges)))
-            rout.write('    <flow id="flow%s" route="r%s" end="3600.00" number="%s" departSpeed="max"/>\n' %
-                       (i, i, options.number))
-        rout.write("</routes>\n")
+        write_flows(rout, options.threads, options.number)
 
     if options.all:
         tc = range(1, options.threads + 1)

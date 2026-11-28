@@ -70,9 +70,7 @@ typemaps = {
 }
 
 # common parameters
-CP = ["--trip-attributes", 'departLane="best"',
-      "--fringe-start-attributes", 'departSpeed="max"',
-      "--validate", "--remove-loops",
+CP = ["--validate", "--remove-loops",
       "--via-edge-types", ','.join(["highway.motorway",
                                     "highway.motorway_link",
                                     "highway.trunk_link",
@@ -101,7 +99,7 @@ vehicleParameters = {
     "tram":        CP + getParams("tram") + ["--min-distance", "1200", "--min-distance.fringe", "10"],  # noqa
     "rail_urban":  CP + getParams("rail_urban") + ["--min-distance", "1800", "--min-distance.fringe", "10"],  # noqa
     "rail":        CP + getParams("rail") + ["--min-distance", "2400", "--min-distance.fringe", "10"],  # noqa
-    "ship":             getParams("ship") + ["--fringe-start-attributes", 'departSpeed="max"', "--validate"],
+    "ship":             getParams("ship") + ["--validate"],
     "pedestrian":  PP + ["--pedestrians", "--max-distance", "2000"],
     "persontrips": PP + ["--persontrips", "--trip-attributes", 'modes="public"'],
 }
