@@ -1,0 +1,2 @@
+default: ok, tiles=4
+parallel: ok, tiles=4
