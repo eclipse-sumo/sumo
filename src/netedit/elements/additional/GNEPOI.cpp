@@ -645,7 +645,7 @@ GNEPOI::drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSetting
             int textureID = GUITexturesHelper::getTextureID(getShapeImgFile());
             if (textureID > 0) {
                 GUITexturesHelper::drawTexturedBox(textureID,
-                                                   myWidth * 0.5 * exaggeration, myHeight * 0.5 * exaggeration,
+                                                   myWidth * -0.5 * exaggeration, myHeight * -0.5 * exaggeration,
                                                    myWidth * 0.5 * exaggeration, myHeight * 0.5 * exaggeration);
             } else {
                 // draw box

@@ -42,6 +42,11 @@ class GNEFileSelector : public FXVerticalFrame {
     FXDECLARE(GNEFileSelector)
 
 public:
+    /// @brief widget message IDs
+    enum {
+        ID_ICONS_FOLDER = FXFileSelector::ID_LAST
+    };
+
     /// @brief Constructor
     GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<std::string>& extensions,
                     GNEFileDialog::OpenMode openMode, GNEFileDialog::ConfigType configType);
@@ -115,6 +120,12 @@ public:
     /// @brief get file name entry field
     MFXTextFieldIcon* getFilenameTextField() const;
 
+    /// @brief check whether this file selector opens image files
+    bool isImageSelector() const;
+
+    /// @brief return SUMO_HOME/data/icons directory if readable
+    static std::string getIconsDirectory();
+
     /// @name list of FOX handlers
     /// @{
 
@@ -150,6 +161,9 @@ public:
 
     /// @brief Handler for navigating to the sumo/netedit config directory.
     long onCmdConfigFolder(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for navigating to the SUMO icons directory.
+    long onCmdIconsFolder(FXObject*, FXSelector, void*);
 
     /// @brief Handler for opening myBookmarksRecentFiles.
     long onCmdBookmark(FXObject*, FXSelector, void*);
@@ -201,6 +215,9 @@ protected:
 
     /// @brief config type
     const GNEFileDialog::ConfigType myConfigType = GNEFileDialog::ConfigType::NETEDIT;
+
+    /// @brief whether this selector opens image files
+    const bool myIsImageSelector = false;
 
     /// @brief File list widget
     FXFileList* myFileSelector = nullptr;
