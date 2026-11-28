@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional>
+    <vType id="vType0" />
+    <busStop id="bs_0" lane="-E1_1" startPos="4.80" endPos="14.80" lines="line1">
+        <access lane="-E1_0" pos="19.80" />
+    </busStop>
+</additional>

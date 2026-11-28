@@ -87,8 +87,27 @@ bool
 GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter) {
     // check if loaded type is a default type
     if (DEFAULT_VTYPES.count(vTypeParameter.id) > 0) {
-        // overwrite default vehicle type
-        return GNEVType::overwriteVType(myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeParameter.id, false), vTypeParameter, myNet->getUndoList());
+        auto vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeParameter.id, false);
+        const auto savingStatus = myNet->getSavingStatus();
+        const bool wasImplicit = vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED) == GNEAttributeCarrier::FALSE_STR;
+        const bool routeFilesWereSaved = savingStatus->areRouteFilesSaved();
+        const bool fromAdditionalFile = myFileBucket->getType() == FileBucket::Type::ADDITIONAL;
+        const bool moveFile = vType->getFileBucket() != myFileBucket &&
+                              (fromAdditionalFile || vType->getFileBucket()->getType() == FileBucket::Type::ADDITIONAL);
+        if (!moveFile) {
+            return GNEVType::overwriteVType(vType, vTypeParameter, myNet->getUndoList());
+        }
+        auto undoList = myNet->getUndoList();
+        undoList->begin(vType, TL("load default vehicle type"));
+        const bool loaded = GNEVType::overwriteVType(vType, vTypeParameter, undoList);
+        if (loaded && vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED) == GNEAttributeCarrier::TRUE_STR) {
+            vType->setAttribute(GNE_ATTR_SAVEFILE, myFileBucket->getFilename(), undoList);
+            if (fromAdditionalFile && wasImplicit && routeFilesWereSaved) {
+                savingStatus->demandElementsSaved();
+            }
+        }
+        undoList->end();
+        return loaded;
     } else {
         const auto element = retrieveDemandElement(NamespaceIDs::types, vTypeParameter.id);
         if (!checkElement(SUMO_TAG_VTYPE, element)) {

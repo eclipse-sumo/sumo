@@ -940,9 +940,15 @@ GNEAttributeCarrier::isCommonAttributeValid(SumoXMLAttr key, const std::string& 
 void
 GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case GNE_ATTR_SAVEFILE:
+        case GNE_ATTR_SAVEFILE: {
+            const auto previousBucket = myFileBucket;
             myFileBucket = myNet->getGNEApplicationWindow()->getFileBucketHandler()->updateAC(this, value);
+            if (myTagProperty->isDemandElement() && previousBucket != nullptr && previousBucket != myFileBucket &&
+                    !previousBucket->getFilename().empty()) {
+                myNet->getSavingStatus()->requireSaveDemandElements(previousBucket);
+            }
             break;
+        }
         case GNE_ATTR_CENTER_AFTER_CREATION:
             myCenterAfterCreation = parse<bool>(value);
             break;

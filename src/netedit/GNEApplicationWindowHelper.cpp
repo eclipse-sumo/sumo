@@ -2758,7 +2758,7 @@ GNEApplicationWindowHelper::FileBucketHandler::parseFilenames(const std::vector<
     // group all saving files in a single string separated with comma
     for (const auto& type : types) {
         for (const auto& bucket : myBuckets.at(type)) {
-            if ((bucket->getFilename().size() > 0) && (bucket->isDefaultBucket() || (bucket->getNumElements() > 0))) {
+            if ((bucket->getFilename().size() > 0) && (bucket->isDefaultBucket() || bucket->isImportAttached() || bucket->getNumElements() > 0)) {
                 result.append(bucket->getFilename() + ",");
             }
         }
@@ -2778,7 +2778,7 @@ GNEApplicationWindowHelper::FileBucketHandler::removeEmptyBuckets() {
         size_t bucketIndex = 0;
         while (bucketIndex < myBuckets.at(type).size()) {
             auto bucket = myBuckets.at(type).at(bucketIndex);
-            if (bucket->isEmpty() && (bucket->isDefaultBucket() == false)) {
+            if (bucket->isEmpty() && !bucket->isDefaultBucket() && !bucket->hasTrackedDemandElements()) {
                 delete bucket;
                 myBuckets.at(type).erase(myBuckets.at(type).begin() + bucketIndex);
             } else {

@@ -116,7 +116,7 @@ GNEChange_Attribute::undo() {
         } else if (myAC->getTagProperty()->isAdditionalElement()) {
             myAC->getNet()->getSavingStatus()->requireSaveAdditionals();
         } else if (myAC->getTagProperty()->isDemandElement()) {
-            myAC->getNet()->getSavingStatus()->requireSaveDemandElements();
+            myAC->getNet()->getSavingStatus()->requireSaveDemandElements(myAC->getFileBucket());
         } else if (myAC->getTagProperty()->isDataElement()) {
             myAC->getNet()->getSavingStatus()->requireSaveDataElements();
         } else if (myAC->getTagProperty()->isMeanData()) {
@@ -148,7 +148,7 @@ GNEChange_Attribute::redo() {
         } else if (myAC->getTagProperty()->isAdditionalElement()) {
             myAC->getNet()->getSavingStatus()->requireSaveAdditionals();
         } else if (myAC->getTagProperty()->isDemandElement()) {
-            myAC->getNet()->getSavingStatus()->requireSaveDemandElements();
+            myAC->getNet()->getSavingStatus()->requireSaveDemandElements(myAC->getFileBucket());
         } else if (myAC->getTagProperty()->isDataElement()) {
             myAC->getNet()->getSavingStatus()->requireSaveDataElements();
         } else if (myAC->getTagProperty()->isMeanData()) {

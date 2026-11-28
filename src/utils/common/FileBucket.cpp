@@ -78,7 +78,10 @@ FileBucket::getFilename() const {
 
 void
 FileBucket::setFilename(const std::string& filename) {
-    myFilename = filename;
+    if (myFilename != filename) {
+        myFilename = filename;
+        myIncompleteLoad = false;
+    }
 }
 
 
@@ -141,6 +144,50 @@ FileBucket::getNumElements() const {
 bool
 FileBucket::isEmpty() const {
     return (myNumElements + myNumTemplates) == 0;
+}
+
+
+bool
+FileBucket::hasUnsavedDemandElements() const {
+    return myUnsavedDemandElements;
+}
+
+
+void
+FileBucket::setUnsavedDemandElements(bool unsaved) {
+    myUnsavedDemandElements = unsaved;
+    myTrackedDemandElements |= unsaved;
+}
+
+
+bool
+FileBucket::hasTrackedDemandElements() const {
+    return myTrackedDemandElements;
+}
+
+
+bool
+FileBucket::isImportAttached() const {
+    return myImportAttached;
+}
+
+
+void
+FileBucket::setImportedFilename(const std::string& filename) {
+    setFilename(filename);
+    myImportAttached = !filename.empty();
+}
+
+
+bool
+FileBucket::hasIncompleteLoad() const {
+    return myIncompleteLoad;
+}
+
+
+void
+FileBucket::setIncompleteLoad(bool incomplete) {
+    myIncompleteLoad = incomplete;
 }
 
 /****************************************************************************/

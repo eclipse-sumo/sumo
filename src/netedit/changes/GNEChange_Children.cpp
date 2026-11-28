@@ -97,7 +97,7 @@ GNEChange_Children::undo() {
         }
     }
     // require always save children
-    myParentDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();
+    myParentDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements(myParentDemandElement->getFileBucket());
 }
 
 
@@ -123,7 +123,7 @@ GNEChange_Children::redo() {
         }
     }
     // require always save children
-    myParentDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();
+    myParentDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements(myParentDemandElement->getFileBucket());
 }
 
 

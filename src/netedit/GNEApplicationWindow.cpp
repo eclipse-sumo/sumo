@@ -83,6 +83,56 @@
 #include <version.h>
 #endif
 
+namespace {
+
+class AttachAdditionalFile : public GNEChange {
+public:
+    AttachAdditionalFile(GNEApplicationWindowHelper::FileBucketHandler* handler, FileBucket* bucket) :
+        GNEChange(Supermode::NETWORK, true, false), myHandler(handler), myBucket(bucket), myFilename(bucket->getFilename()) {
+    }
+
+    void recordImport(bool hasDemand) {
+        myHasDemand = hasDemand;
+        myIncompleteLoad = myBucket->hasIncompleteLoad();
+        if (myHasDemand) {
+            redo();
+        }
+    }
+
+    void undo() override {
+        if (myHasDemand) {
+            myBucket->setImportedFilename("");
+            myBucket->setUnsavedDemandElements(false);
+            myHandler->updateOptions();
+        }
+    }
+
+    void redo() override {
+        if (myHasDemand) {
+            myBucket->setImportedFilename(myFilename);
+            myBucket->setIncompleteLoad(myIncompleteLoad);
+            myHandler->updateOptions();
+        }
+    }
+
+    std::string undoName() const override {
+        return TL("Detach imported additional file");
+    }
+
+    std::string redoName() const override {
+        return TL("Attach imported additional file");
+    }
+
+private:
+    GNEApplicationWindowHelper::FileBucketHandler* const myHandler;
+    FileBucket* const myBucket;
+    const std::string myFilename;
+    bool myHasDemand = false;
+    bool myIncompleteLoad = false;
+};
+
+}
+
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
@@ -4136,16 +4186,27 @@ GNEApplicationWindow::onCmdOpenAdditionalElements(FXObject*, FXSelector, void*) 
     if (additionalFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // flag for save current saving status
         const auto previouslySaved = myNet->getSavingStatus()->isAdditionalsSaved();
-        // get (or create) bucket for this new file
-        auto bucket = myFileBucketHandler->getBucket(FileBucket::Type::ADDITIONAL, additionalFileDialog.getFilename(), true);
+        const auto& filename = additionalFileDialog.getFilename();
+        const bool newFile = myFileBucketHandler->getBucket(FileBucket::Type::ADDITIONAL, filename, false) == nullptr;
+        auto bucket = myFileBucketHandler->getBucket(FileBucket::Type::ADDITIONAL, filename, true);
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
         GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // begin undoList operation
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TLF("load additionals from '%'", bucket->getFilename()));
-        // Run parser
-        if (!generalHandler.parse()) {
+        AttachAdditionalFile* attachment = nullptr;
+        if (newFile && myAllowUndoRedoLoading && myAllowUndoRedo) {
+            // Attach before replaying the import, and detach after undoing its elements.
+            attachment = new AttachAdditionalFile(myFileBucketHandler, bucket);
+            myUndoList->add(attachment, false);
+        }
+        const bool parsed = generalHandler.parse();
+        bucket->setIncompleteLoad(!parsed || generalHandler.isErrorCreatingElement());
+        if (attachment != nullptr) {
+            attachment->recordImport(generalHandler.isRouteFile() || bucket->hasUnsavedDemandElements());
+        }
+        if (!parsed) {
             // write error
             WRITE_ERROR(TLF("Loading of additional file '%' failed.", bucket->getFilename()));
         } else {
@@ -4225,12 +4286,12 @@ GNEApplicationWindow::onCmdSaveAdditionalElements(FXObject* sender, FXSelector s
         // nothing to save
         return 1;
     }
-    // check if we have to define a default filename
-    if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::ADDITIONAL)) {
+    const bool unnamedAdditionals = !savingFileHandler->isFilenameDefined(FileBucket::Type::ADDITIONAL) &&
+                                    savingFileHandler->getDefaultBucket(FileBucket::Type::ADDITIONAL)->getNumElements() > 0;
+    if (unnamedAdditionals) {
         savingFileHandler->setDefaultFilenameFile(FileBucket::Type::ADDITIONAL, myFileBucketHandler->getConfigFilePrefix(".add.xml"));
     }
-    // check if we have to open save as dialog
-    if (!savingFileHandler->isFilenameDefined(FileBucket::Type::ADDITIONAL)) {
+    if (unnamedAdditionals && !savingFileHandler->isFilenameDefined(FileBucket::Type::ADDITIONAL)) {
         // choose file to save
         return onCmdSaveAdditionalElementsAs(sender, sel, ptr);
     } else {
@@ -4352,7 +4413,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
     // continue depending of dialog
     if (routeFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // save previous demand element status saving
-        const auto previouslySaved = myNet->getSavingStatus()->isDemandElementsSaved();
+        const auto previouslySaved = myNet->getSavingStatus()->areRouteFilesSaved();
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // get (or create) bucket for this new file
@@ -4427,21 +4488,22 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
     const auto savingFileHandler = myFileBucketHandler;
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // check if we're forcing to saving demand elements
-    if (myNet->getSavingStatus()->isDemandElementsSaved() &&
-            neteditOptions.getBool("force-saving") &&
-            myFileBucketHandler->isFilenameDefined(FileBucket::Type::DEMAND)) {
+    const auto savingStatus = myNet->getSavingStatus();
+    const bool forceSaving = neteditOptions.getBool("force-saving") &&
+                             myFileBucketHandler->isFilenameDefined(FileBucket::Type::DEMAND);
+    const bool saveRouteFiles = !savingStatus->areRouteFilesSaved() || forceSaving;
+    if (forceSaving && savingStatus->isDemandElementsSaved()) {
         WRITE_MESSAGE(TL("Force save demand elements"));
-    } else if (myNet->getSavingStatus()->isDemandElementsSaved()) {
+    } else if (savingStatus->isDemandElementsSaved()) {
         // nothing to save
         return 1;
     }
-    // check if we have to define a default filename
-    if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::DEMAND)) {
+    const bool unnamedDemand = saveRouteFiles && !savingFileHandler->isFilenameDefined(FileBucket::Type::DEMAND) &&
+                               savingFileHandler->getDefaultBucket(FileBucket::Type::DEMAND)->getNumElements() > 0;
+    if (unnamedDemand) {
         savingFileHandler->setDefaultFilenameFile(FileBucket::Type::DEMAND, myFileBucketHandler->getConfigFilePrefix(".rou.xml"));
     }
-    // check if we have to open save as dialog
-    if (!savingFileHandler->isFilenameDefined(FileBucket::Type::DEMAND)) {
+    if (unnamedDemand && !savingFileHandler->isFilenameDefined(FileBucket::Type::DEMAND)) {
         // choose file to save
         return onCmdSaveDemandElementsAs(sender, sel, ptr);
     } else {
@@ -4449,7 +4511,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
         myNet->computeNetwork(this);
         try {
             // save demand elements
-            const bool savingResult = myNet->saveDemandElements();
+            const bool savingResult = myNet->saveDemandElements(saveRouteFiles);
             // show info
             if (savingResult) {
                 WRITE_MESSAGE(TL("Demand elements saved."));
@@ -5094,7 +5156,7 @@ GNEApplicationWindow::getNetgenerateOptions() {
 
 bool
 GNEApplicationWindow::checkMeanDataFileBucket(const std::string& file, FileBucket* bucket, const GNEGeneralHandler& generalHandler) {
-    if (generalHandler.isMeanDataFile() && !generalHandler.isAdditionalFile()) {
+    if (generalHandler.isMeanDataFile() && !generalHandler.isAdditionalFile() && !generalHandler.isRouteFile()) {
         auto meanDataBucket = myFileBucketHandler->getBucket(FileBucket::Type::MEANDATA, file, true);
         for (const auto& meanDataTag : myNet->getAttributeCarriers()->getMeanDatas()) {
             for (const auto& meanDataPair : meanDataTag.second) {
@@ -5152,6 +5214,7 @@ GNEApplicationWindow::loadAdditionalElements(const std::string operation) {
                 }
                 // Run parser
                 const bool parsed = generalHandler.parse();
+                bucket->setIncompleteLoad(!parsed || generalHandler.isErrorCreatingElement());
                 if (!parsed) {
                     WRITE_ERROR(TLF("% of '%' failed.", operation, file));
                     additionalErrors = true;
