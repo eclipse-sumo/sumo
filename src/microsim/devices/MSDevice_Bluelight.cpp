@@ -26,7 +26,6 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/iodevices/OutputDevice.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
@@ -360,14 +359,6 @@ MSDevice_Bluelight::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMo
     return true; // keep the device
 }
 
-
-void
-MSDevice_Bluelight::generateOutput(OutputDevice* tripinfoOut) const {
-    if (tripinfoOut != nullptr) {
-        tripinfoOut->openTag("bluelight");
-        tripinfoOut->closeTag();
-    }
-}
 
 std::string
 MSDevice_Bluelight::getParameter(const std::string& key) const {
