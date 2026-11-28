@@ -30,3 +30,4 @@ tracing
 
 # Python TraCI socket framing, partial I/O, and connection close recovery
 transport_recovery
+invalid_subscription

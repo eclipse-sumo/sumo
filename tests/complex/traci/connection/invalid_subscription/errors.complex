@@ -1,0 +1,14 @@
+Error: Answered with error to command 0xab: Position conversion requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xdb: Could not add subscription. Position conversion requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xab: Retrieval of distance requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xdb: Could not add subscription. Retrieval of distance requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xab: Retrieval of a route requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xdb: Could not add subscription. Retrieval of a route requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xab: Retrieval of an intermodal route requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xdb: Could not add subscription. Retrieval of an intermodal route requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xab: Variable 0x67 requires a busStop ID (use the busstop domain instead).
+Error: Answered with error to command 0xdb: Could not add subscription. Variable 0x67 requires a busStop ID (use the busstop domain instead).
+Error: Answered with error to command 0xab: Variable 0xef requires a busStop ID (use the busstop domain instead).
+Error: Answered with error to command 0xdb: Could not add subscription. Variable 0xef requires a busStop ID (use the busstop domain instead).
+Error: Answered with error to command 0xab: Subscribing to simulation option requires an option name as object ID.
+Error: Answered with error to command 0xdb: Could not add subscription. Subscribing to simulation option requires an option name as object ID.

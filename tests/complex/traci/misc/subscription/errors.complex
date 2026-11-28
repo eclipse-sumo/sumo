@@ -35,26 +35,28 @@ Error: Answered with error to command 0xa6: Get Route Variable: unsupported vari
 Error: Answered with error to command 0xd6: Could not add subscription. Get Route Variable: unsupported variable 0x80 specified
 Error: Answered with error to command 0x26: Get RouteProbe Variable: unsupported variable 0x80 specified
 Error: Answered with error to command 0x56: Could not add subscription. Get RouteProbe Variable: unsupported variable 0x80 specified
-Error: Requested command not implemented (0xdb): Unsupported command specified
-Error: Answered with error to command 0xdb: Could not add subscription. Unsupported command specified
-Error: Requested command not implemented (0xdb): Unsupported command specified
-Error: Answered with error to command 0xdb: Could not add subscription. Unsupported command specified
-Error: Requested command not implemented (0xdb): Unsupported command specified
-Error: Answered with error to command 0xdb: Could not add subscription. Unsupported command specified
-Error: Requested command not implemented (0xdb): Unsupported command specified
-Error: Answered with error to command 0xdb: Could not add subscription. Unsupported command specified
-Error: Answered with error to command 0xab: Unknown bus stop ''.
-Error: Answered with error to command 0xdb: Could not add subscription. Unknown bus stop ''.
-Error: Answered with error to command 0xab: Unknown bus stop ''.
-Error: Answered with error to command 0xdb: Could not add subscription. Unknown bus stop ''.
-Error: Requested command not implemented (0xdb): Unsupported command specified
-Error: Answered with error to command 0xdb: Could not add subscription. Unsupported command specified
-Error: Requested command not implemented (0xdb): Unsupported command specified
-Error: Answered with error to command 0xdb: Could not add subscription. Unsupported command specified
+Error: Answered with error to command 0xab: Position conversion requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xdb: Could not add subscription. Position conversion requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xab: Position conversion requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xdb: Could not add subscription. Position conversion requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xab: Position conversion requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xdb: Could not add subscription. Position conversion requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xab: Retrieval of a route requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xdb: Could not add subscription. Retrieval of a route requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xab: Variable 0x67 requires a busStop ID (use the busstop domain instead).
+Error: Answered with error to command 0xdb: Could not add subscription. Variable 0x67 requires a busStop ID (use the busstop domain instead).
+Error: Answered with error to command 0xab: Variable 0xef requires a busStop ID (use the busstop domain instead).
+Error: Answered with error to command 0xdb: Could not add subscription. Variable 0xef requires a busStop ID (use the busstop domain instead).
+Error: Answered with error to command 0xab: Retrieval of distance requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xdb: Could not add subscription. Retrieval of distance requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xab: Retrieval of distance requires parameters and cannot be subscribed without arguments.
+Error: Answered with error to command 0xdb: Could not add subscription. Retrieval of distance requires parameters and cannot be subscribed without arguments.
 Error: Answered with error to command 0xab: Get Simulation Variable: unsupported variable 0x01 specified
 Error: Answered with error to command 0xdb: Could not add subscription. Get Simulation Variable: unsupported variable 0x01 specified
 Error: Answered with error to command 0xab: Get Simulation Variable: unsupported variable 0x00 specified
 Error: Answered with error to command 0xdb: Could not add subscription. Get Simulation Variable: unsupported variable 0x00 specified
+Error: Answered with error to command 0xab: Subscribing to simulation option requires an option name as object ID.
+Error: Answered with error to command 0xdb: Could not add subscription. Subscribing to simulation option requires an option name as object ID.
 Error: Requested command not implemented (0xd2): Unsupported command specified
 Error: Answered with error to command 0xd2: Could not add subscription. Unsupported command specified
 Error: Answered with error to command 0xa2: Get TLS Variable: unsupported variable 0x80 specified
