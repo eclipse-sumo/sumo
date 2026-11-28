@@ -1,0 +1,1 @@
+-d trafficlight,busstop,calibrator,inductionloop,junction,lanearea,overheadwire,parkingarea,poi,polygon,rerouter,route,variablespeedsign --exit-code tools/build_config/checkTraCIDocs.py
