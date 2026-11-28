@@ -12,47 +12,36 @@ tags:
 authors:
   - name: Robert Alms
     orcid: 0000-0001-9950-3596
-    equal-contrib: true
     affiliation: 1
   - name: Pablo Alvarez Lopez
     orcid: 0000-0002-0651-6767
-    equal-contrib: true
     affiliation: 1
   - name: Angelo Banse
     orcid: 0000-0001-7615-627X
-    equal-contrib: true
     affiliation: 1
   - name: Mirko Barthauer
     orcid: 0000-0003-3177-3260
-    equal-contrib: true
     affiliation: 1
   - name: Michael Behrisch
     orcid: 0000-0002-0032-7930
-    equal-contrib: true
     affiliation: 1
   - name: Benjamin Couéraud
     orcid: 0009-0001-3739-730X
-    equal-contrib: true
     affiliation: 1
   - name: Jakob Erdmann
     orcid: 0000-0002-4195-4535
-    equal-contrib: true
     affiliation: 1
   - name: Yun-Pang Flötteröd
     orcid: 0000-0003-3620-2715
-    equal-contrib: true
     affiliation: 1
   - name: Robert Hilbrich
     orcid: 0000-0003-3793-3982
-    equal-contrib: true
     affiliation: 1
   - name: Ronald Nippold
     orcid: 0000-0003-4837-8021
-    equal-contrib: true
     affiliation: 1
   - name: Peter Wagner
     orcid: 0000-0001-9097-8026
-    equal-contrib: true
     affiliation: 1
 
 affiliations:
