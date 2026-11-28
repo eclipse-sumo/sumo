@@ -282,6 +282,8 @@ By activating the 'Multiplot'-checkbox, any additional attribute plots will be a
 
 When moving the mouse over a plot window, plot point closest to the mouse cursor is highlighted and its *x* and *y* values are printed in blue along the plot axes.
 
+Click **SVG** in the plotting window to save a vector figure of the displayed series. The figure uses the current aggregation interval and includes each series' time and value range. The data save button exports the underlying CSV values.
+
 ## Selecting Objects
 
 **sumo-gui** allows for the selection of arbitrary

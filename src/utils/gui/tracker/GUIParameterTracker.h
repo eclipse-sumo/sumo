@@ -48,6 +48,7 @@ public:
         MID_SAVE,
         /// @brief toggle multiplot
         MID_MULTIPLOT,
+        MID_SAVE_PLOT,
         /// @brief end-of-enum
         ID_LAST
     };
@@ -97,6 +98,9 @@ public:
 
     /// @brief Called when the data shall be saved
     long onCmdSave(FXObject*, FXSelector, void*);
+
+    /// @brief Called when the plot shall be saved as SVG.
+    long onCmdSavePlot(FXObject*, FXSelector, void*);
     /// @}
 
 
@@ -175,6 +179,9 @@ public:
 private:
     /// @brief Builds the tool bar
     void buildToolBar();
+
+    /// @brief Write the aggregated plot as an SVG figure.
+    void writePlotSVG(const std::string& filename) const;
 
 protected:
     /// @brief The main application
