@@ -1,1 +1,1 @@
---test-output test tools/osmWebWizard.py
+--test-output test --demand passenger:6f5,bicycle:2f2,pedestrian:4,ship:1f40,truck:0 tools/osmWebWizard.py
