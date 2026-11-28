@@ -234,6 +234,17 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
     accelTable->addAccel(parseKey(KEY_w, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_W_TOGGLEMESSAGEWINDOW));
     accelTable->addAccel(parseKey(KEY_W, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_W_TOGGLEMESSAGEWINDOW));
 
+    // Netedit Save As commands
+    if (!sumogui) {
+        const int modifiers = (CONTROLMASK | SHIFTMASK | ALTMASK) << 16;
+        accelTable->addAccel(parseKey(KEY_s) | modifiers, target, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVENETWORK_AS));
+        accelTable->addAccel(parseKey(KEY_S) | modifiers, target, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVENETWORK_AS));
+        accelTable->addAccel(parseKey(KEY_a) | modifiers, target, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_UNIFIED));
+        accelTable->addAccel(parseKey(KEY_A) | modifiers, target, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_UNIFIED));
+        accelTable->addAccel(parseKey(KEY_d) | modifiers, target, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_UNIFIED));
+        accelTable->addAccel(parseKey(KEY_D) | modifiers, target, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_UNIFIED));
+    }
+
     // shift hotkeys
 
     accelTable->addAccel(parseKey(KEY_a, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL));

@@ -113,6 +113,9 @@ In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd> | <span style="color:orange">Save Traffic Lights |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> | <span style="color:orange">Save MeanData Elements |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> | <span style="color:orange">Save SUMO config |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>S</kbd> | <span style="color:orange">Save Network As |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>A</kbd> | <span style="color:orange">Save Additionals Unified As |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>D</kbd> | <span style="color:orange">Save Demand Elements Unified As |
 
 ## netedit miscellaneous shortcuts
 
