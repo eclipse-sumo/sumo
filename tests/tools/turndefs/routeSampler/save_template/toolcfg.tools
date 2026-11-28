@@ -2,6 +2,10 @@
     <route-files value="None" type="route_file" help="Input route file" category="input" required="true" listSeparator=","/>
     <turn-files value="None" type="file" help="Input turn-count file" category="input" listSeparator=","/>
     <turn-ratio-files value="None" type="file" help="Input turn-ratio file" category="input" listSeparator=","/>
+    <net-file value="None" type="net_file" help="Input network for generating turning ratios" category="input"/>
+    <turn-ratio-edges value="None" type="edge" help="Generate turning ratios for these comma-separated incoming edges" category="input" listSeparator=","/>
+    <turn-ratio-junctions value="None" type="string" help="Generate turning ratios for incoming passenger edges at these comma-separated junctions" category="input"/>
+    <turn-ratio-weights value="None" type="string" help="Weights for straight, left, right and turnaround movements (default 80,10,10,0)" category="input"/>
     <edgedata-files value="None" type="file" help="Input edgeData file (for counts)" category="input" listSeparator=","/>
     <od-files value="None" type="file" help="Input edgeRelation and tazRelation files for origin-destination counts" category="input" listSeparator=","/>
     <taz-files value="None" type="file" help="Input TAZ (district) definitions for interpreting tazRelation files" category="input" listSeparator=","/>

@@ -1,0 +1,4 @@
+Warning: interval 0.0-3600.0, turn '-27.80.00' to '-3' has ratio 0.568 (target 0.625).
+Warning: interval 0.0-3600.0, turn '-27.80.00' to '27' has ratio 0.162 (target 0.125).
+Warning: interval 0.0-3600.0, turn '71.121.42' to '-71' has ratio 0.250 (target 0.200).
+Warning: interval 0.0-3600.0, turn '71.121.42' to '27' has ratio 0.321 (target 0.400).

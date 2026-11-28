@@ -1,0 +1,11 @@
+<routes>
+    <route id="0" edges="-27.80.00 -71"/>
+    <route id="1" edges="-27.80.00 -3"/>
+    <route id="2" edges="-27.80.00 27"/>
+    <route id="3" edges="3.180.00 27"/>
+    <route id="4" edges="3.180.00 -71"/>
+    <route id="5" edges="3.180.00 -3"/>
+    <route id="6" edges="71.121.42 -3"/>
+    <route id="7" edges="71.121.42 27"/>
+    <route id="8" edges="71.121.42 -71"/>
+</routes>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-24 23:58:27.075567 by Eclipse SUMO routeSampler.py v0.0.0
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <turn-ratio-files value="input_turns.xml"/>
+    <net-file value="net.net.xml"/>
+    <turn-ratio-edges value="3.180.00"/>
+    <turn-ratio-junctions value="2"/>
+    <turn-ratio-weights value="50,20,20,10"/>
+    <mismatch-output value="edgedata.xml"/>
+    <write-flows value="number"/>
+    <total-count value="90"/>
+</configuration>
+-->
+
+<data>
+    <interval id="deficit" begin="0.0" end="3600.0">
+        <edgeRelation from="3.180.00" to="27" measuredProbability="0.5" deficit="-0.10" totalAssignedFromCount="25"/>
+        <edgeRelation from="3.180.00" to="-71" measuredProbability="0.4" deficit="0.04" totalAssignedFromCount="25"/>
+        <edgeRelation from="3.180.00" to="-3" measuredProbability="0.1" deficit="0.06" totalAssignedFromCount="25"/>
+        <edgeRelation from="-27.80.00" to="-3" measuredProbability="0.625" deficit="-0.06" totalAssignedFromCount="37"/>
+        <edgeRelation from="-27.80.00" to="-71" measuredProbability="0.25" deficit="0.02" totalAssignedFromCount="37"/>
+        <edgeRelation from="-27.80.00" to="27" measuredProbability="0.125" deficit="0.04" totalAssignedFromCount="37"/>
+        <edgeRelation from="71.121.42" to="-3" measuredProbability="0.4" deficit="0.03" totalAssignedFromCount="28"/>
+        <edgeRelation from="71.121.42" to="-71" measuredProbability="0.2" deficit="0.05" totalAssignedFromCount="28"/>
+        <edgeRelation from="71.121.42" to="27" measuredProbability="0.4" deficit="-0.08" totalAssignedFromCount="28"/>
+    </interval>
+</data>

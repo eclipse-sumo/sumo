@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-24 23:58:27.114476 by Eclipse SUMO routeSampler.py v0.0.0
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <net-file value="net.net.xml"/>
+    <turn-ratio-edges value="3.180.00"/>
+    <mismatch-output value="edgedata.xml"/>
+    <write-flows value="number"/>
+    <begin value="0"/>
+    <end value="3600"/>
+    <total-count value="90"/>
+</configuration>
+-->
+
+<data>
+    <interval id="deficit" begin="0.0" end="3600.0">
+        <edgeRelation from="3.180.00" to="-3" measuredProbability="0.0" deficit="0.01" totalAssignedFromCount="90"/>
+        <edgeRelation from="3.180.00" to="-71" measuredProbability="0.1111111111111111" deficit="0.01" totalAssignedFromCount="90"/>
+        <edgeRelation from="3.180.00" to="27" measuredProbability="0.8888888888888888" deficit="-0.02" totalAssignedFromCount="90"/>
+    </interval>
+</data>

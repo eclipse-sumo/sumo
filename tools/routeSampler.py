@@ -25,7 +25,7 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
-from math import ceil, modf
+from math import ceil, isfinite, modf
 # multiprocessing imports
 import multiprocessing
 import numpy as np
@@ -53,6 +53,14 @@ def get_options(args=None):
                     help="Input turn-count file")
     op.add_argument("-T", "--turn-ratio-files", category="input", dest="turnRatioFiles", type=op.file_list,
                     help="Input turn-ratio file")
+    op.add_argument("-n", "--net-file", category="input", dest="netFile", type=op.net_file,
+                    help="Input network for generating turning ratios")
+    op.add_argument("--turn-ratio-edges", category="input", dest="turnRatioEdges", type=op.edge_list,
+                    help="Generate turning ratios for these comma-separated incoming edges")
+    op.add_argument("--turn-ratio-junctions", category="input", dest="turnRatioJunctions",
+                    help="Generate turning ratios for incoming passenger edges at these comma-separated junctions")
+    op.add_argument("--turn-ratio-weights", category="input", dest="turnRatioWeights",
+                    help="Weights for straight, left, right and turnaround movements (default 80,10,10,0)")
     op.add_argument("-d", "--edgedata-files", category="input", dest="edgeDataFiles", type=op.file_list,
                     help="Input edgeData file (for counts)")
     op.add_argument("-O", "--od-files", category="input", dest="odFiles", type=op.file_list,
@@ -156,11 +164,13 @@ def get_options(args=None):
                     help="how to merge different data points for the same location and interval")
 
     options = op.parse_args(args=args)
+    generateRatios = options.turnRatioEdges is not None or options.turnRatioJunctions is not None
     if (options.routeFiles is None or
             (options.turnFiles is None
              and options.turnRatioFiles is None
              and options.edgeDataFiles is None
-             and options.odFiles is None)):
+             and options.odFiles is None
+             and not generateRatios)):
         sys.stderr.write("At least one file with counting data must be loaded\n")
         sys.exit()
     if options.writeRouteIDs and options.writeRouteDist:
@@ -180,6 +190,25 @@ def get_options(args=None):
     options.edgeDataFiles = options.edgeDataFiles.split(',') if options.edgeDataFiles is not None else []
     options.odFiles = options.odFiles.split(',') if options.odFiles is not None else []
     options.tazFiles = options.tazFiles.split(',') if options.tazFiles is not None else []
+    options.generatedRatios = {}
+    if generateRatios:
+        if options.netFile is None:
+            op.error("--turn-ratio-edges and --turn-ratio-junctions require --net-file")
+        if not isfinite(options.turnRatioTotal) or options.turnRatioTotal <= 0:
+            op.error("--turn-ratio-total must be finite and positive when generating ratios")
+        if options.interval is not None:
+            interval = parseTime(options.interval)
+            if not isfinite(interval) or interval <= 0:
+                op.error("--interval must be finite and positive")
+        if not (options.turnFiles or options.turnRatioFiles or options.edgeDataFiles or options.odFiles):
+            if options.begin is None or options.end is None:
+                op.error("Without counting files, generated turning ratios require --begin and --end")
+            begin, end = parseTime(options.begin), parseTime(options.end)
+            if not isfinite(begin) or not isfinite(end) or end <= begin:
+                op.error("--begin and --end must be finite and --end must be greater than --begin")
+        options.generatedRatios = generateTurnRatios(options, op)
+    elif options.turnRatioWeights is not None:
+        op.error("--turn-ratio-weights requires --turn-ratio-edges or --turn-ratio-junctions")
     if options.vehattrs and options.vehattrs[0] != ' ':
         options.vehattrs = ' ' + options.vehattrs
 
@@ -232,6 +261,57 @@ def get_options(args=None):
         options.timeline = list(map(float, options.timeline.split(sep)))
 
     return options
+
+
+def generateTurnRatios(options, parser):
+    weightText = "80,10,10,0" if options.turnRatioWeights is None else options.turnRatioWeights
+    try:
+        weights = [float(w) for w in weightText.split(",")]
+        if (len(weights) != 4 or any(not isfinite(w) or w < 0 for w in weights)
+                or not isfinite(sum(weights)) or sum(weights) == 0):
+            raise ValueError()
+    except ValueError:
+        parser.error("--turn-ratio-weights requires four finite nonnegative numbers with a positive sum")
+    weights = dict(zip("slrt", weights))
+    try:
+        net = sumolib.net.readNet(options.netFile)
+    except OSError as e:
+        parser.error(str(e))
+    origins = set()
+    if options.turnRatioEdges is not None:
+        for edgeID in options.turnRatioEdges.split(","):
+            if not net.hasEdge(edgeID):
+                parser.error("Unknown edge '%s' in --turn-ratio-edges" % edgeID)
+            origins.add(net.getEdge(edgeID))
+    if options.turnRatioJunctions is not None:
+        for nodeID in options.turnRatioJunctions.split(","):
+            if not net.hasNode(nodeID):
+                parser.error("Unknown junction '%s' in --turn-ratio-junctions" % nodeID)
+            origins.update(edge for edge in net.getNode(nodeID).getIncoming() if edge.allows("passenger"))
+
+    ratios = {}
+    for edge in sorted(origins, key=lambda e: e.getID()):
+        byDirection = defaultdict(list)
+        for dest, connections in sorted(edge.getAllowedOutgoing("passenger").items(), key=lambda item: item[0].getID()):
+            directions = {c.getDirection().lower() for c in connections}
+            if len(directions) != 1 or not directions.issubset(weights):
+                print("Warning: ambiguous direction for turn '%s' to '%s'; use explicit turning ratios for '%s'."
+                      % (edge.getID(), dest.getID(), edge.getID()), file=sys.stderr)
+                break
+            byDirection[directions.pop()].append(dest.getID())
+        else:
+            total = sum(weights[direction] for direction in byDirection)
+            if total:
+                ratios[edge.getID()] = {
+                    dest: options.turnRatioTotal * (weights[direction] / total) / len(destinations)
+                    for direction, destinations in byDirection.items() for dest in destinations
+                }
+            else:
+                print("Warning: no positively weighted passenger turn from edge '%s'." % edge.getID(),
+                      file=sys.stderr)
+    if not ratios:
+        parser.error("No turning ratios could be generated for the selected edges or junctions")
+    return ratios
 
 
 class Routes:
@@ -485,7 +565,7 @@ class DepartDist:
 
 
 class CountData:
-    def __init__(self, count, edgeTuple, allRoutes, isOrigin, isDest, isRatio, isTaz, options):
+    def __init__(self, count, edgeTuple, allRoutes, isOrigin, isDest, isRatio, isTaz, options, generatedRatio=False):
         self.index = None
         self.origCount = count
         self.count = count
@@ -493,6 +573,7 @@ class CountData:
         self.isOrigin = isOrigin
         self.isDest = isDest
         self.isRatio = isRatio
+        self.generatedRatio = generatedRatio
         self.isTaz = isTaz
         self.ratioSiblings = []
         self.assignedCount = 0
@@ -519,7 +600,7 @@ class CountData:
         firstEdge = self.edgeTuple[0]
         if firstEdge in edgeSet:
             i = edges.index(firstEdge)
-            maxDelta = self.options.turnMaxGap + 1
+            maxDelta = 1 if self.generatedRatio else self.options.turnMaxGap + 1
             for edge in self.edgeTuple[1:]:
                 if edge in edgeSet:
                     try:
@@ -624,14 +705,16 @@ def inTaz(options, edge, tazID, isOrigin):
 
 
 def getIntervals(options):
-    begin, end, interval = parseTimeRange(options.turnFiles + options.turnRatioFiles
-                                          + options.edgeDataFiles + options.odFiles)
+    countFiles = options.turnFiles + options.turnRatioFiles + options.edgeDataFiles + options.odFiles
+    begin, end, interval = parseTimeRange(countFiles)
     if options.begin is not None:
         begin = parseTime(options.begin)
     if options.end is not None:
         end = parseTime(options.end)
     if options.interval is not None:
         interval = parseTime(options.interval)
+    elif not countFiles and getattr(options, "generatedRatios", None):
+        interval = end - begin
     numIntervals = int((end - begin) // interval)
     if (end - begin) % interval != 0:
         numIntervals += 1
@@ -1038,6 +1121,13 @@ def parseCounts(options, routes, b, e, warn, intervalScale):
         countData += parseDataIntervals(parseTazCounts, options.odFiles, b, e,
                                         routes, options.turnAttr, options=options,
                                         isTaz=True, warn=warn, intervalScale=intervalScale)
+    if getattr(options, "generatedRatios", None):
+        explicitOrigins = {cd.edgeTuple[0] for cd in countData if cd.isRatio}
+        for origin, ratios in options.generatedRatios.items():
+            if origin not in explicitOrigins:
+                for dest, ratio in ratios.items():
+                    countData.append(CountData(ratio, (origin, dest), routes, False, False, True, False, options,
+                                               generatedRatio=True))
     for i, cd in enumerate(countData):
         cd.index = i
     return countData
@@ -1071,7 +1161,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     countData = parseCounts(options, routes, begin, end, False, intervalScale)
 
     ratioIndices = None
-    if options.turnRatioFiles:
+    if options.turnRatioFiles or options.generatedRatios:
         ratioIndices = initTurnRatioSiblings(routes, countData, options.turnRatioTotal)
 
     routeUsage = getRouteUsage(routes, countData)
@@ -1162,10 +1252,16 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     totalRatioCount = 0
     for cd in countData:
         if cd.isRatio:
-            aProb = setPrecision("%.2f", options.precision) % cd.assignedProbability()
+            probability = cd.assignedProbability()
+            aProb = setPrecision("%.2f", options.precision) % probability
             cdID = "[%s] %s %s" % (' '.join(cd.edgeTuple), cd.origCount, aProb)
-            ratioStats.add(cd.assignedProbability() - cd.origCount, cdID)
+            ratioStats.add(probability - cd.origCount, cdID)
             totalRatioCount += cd.assignedCount
+            if cd.generatedRatio:
+                targetCount = cd.origCount * cd.getSiblingCount()
+                if abs(cd.assignedCount - targetCount) > options.turnRatioAbsTolerance + 1e-9:
+                    print("Warning: interval %s-%s, turn '%s' to '%s' has ratio %.3f (target %.3f)."
+                          % (begin, end, cd.edgeTuple[0], cd.edgeTuple[1], probability, cd.origCount), file=sys.stderr)
             continue
         localCount = cd.origCount - cd.count
         totalCount += localCount
