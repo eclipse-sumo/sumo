@@ -1,0 +1,13 @@
+<routes>
+    <vType id="regionalTrain" vClass="rail" guiShape="rail" length="30" carriageLength="15" sigma="0"/>
+    <person id="maya" depart="0">
+        <walk from="approach" busStop="west"/>
+        <ride busStop="east" lines="R1"/>
+        <walk to="exit" arrivalPos="60"/>
+    </person>
+    <vehicle id="regional" type="regionalTrain" depart="0" line="R1">
+        <route edges="westTrack eastTrack"/>
+        <stop trainStop="west" until="75" duration="5"/>
+        <stop trainStop="east" until="135" duration="10"/>
+    </vehicle>
+</routes>

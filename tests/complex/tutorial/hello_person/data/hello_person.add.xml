@@ -1,0 +1,8 @@
+<additional>
+    <trainStop id="west" name="West Station" lane="westTrack_0" startPos="20" endPos="60" lines="R1">
+        <access lane="approach_0" pos="75" length="8"/>
+    </trainStop>
+    <trainStop id="east" name="East Station" lane="eastTrack_0" startPos="80" endPos="120" lines="R1">
+        <access lane="exit_0" pos="0" length="8"/>
+    </trainStop>
+</additional>
