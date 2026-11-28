@@ -1,0 +1,1 @@
+-s osm.xml -n input_net.net.xml -o out.add.xml tools/import/osm/osmParkingArea.py
