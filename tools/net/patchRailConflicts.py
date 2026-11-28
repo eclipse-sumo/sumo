@@ -34,13 +34,13 @@ try:
 except:  # noqa
     pass
 
-NETCONVERT = sumolib.checkBinary('netconvert')
-
 
 def get_options():
     ap = ArgumentParser()
     ap.add_argument("-n", "--net-file", category="input", dest="netfile", required=True, type=ap.net_file,
                     help="the network to read lane and edge permissions")
+    ap.add_argument("-a", "--additional-files", category="input", dest="additionalFiles", type=ap.additional_file_list,
+                    help="additional files with busStop or trainStop definitions")
     ap.add_argument("-o", "--output-file", category="output", dest="output", required=True, type=ap.file,
                     help="output network file")
     ap.add_argument("--vclass", default="tram",
@@ -124,8 +124,53 @@ def findClusters(joinDist, nodes):
     return result
 
 
+def getInternalClusterEdges(clusterNodes, joinDist):
+    clusterSet = set(clusterNodes)
+    if len(clusterSet) <= 1:
+        return set()
+    internalEdges = set()
+    for startNode in clusterSet:
+        stack = [(startNode, 0.0, [])]
+        bestDist = {startNode: 0.0}
+        while stack:
+            n, dist, pathEdges = stack.pop()
+            if n != startNode and n in clusterSet:
+                internalEdges.update(pathEdges)
+            for e in n.getOutgoing():
+                dist2 = dist + e.getLength()
+                if dist2 < joinDist:
+                    toNode = e.getToNode()
+                    if toNode not in bestDist or dist2 < bestDist[toNode]:
+                        bestDist[toNode] = dist2
+                        stack.append((toNode, dist2, pathEdges + [e]))
+    return internalEdges
+
+
+def loadStopEnds(net, additionalFiles):
+    stopEnds = defaultdict(list)
+    if not additionalFiles:
+        return stopEnds
+    files = additionalFiles.split(',') if isinstance(additionalFiles, str) else additionalFiles
+    for addFile in files:
+        addFile = addFile.strip()
+        if not addFile:
+            continue
+        for stop in sumolib.xml.parse(addFile, ('busStop', 'trainStop')):
+            if stop.lane:
+                edgeID = stop.lane.rsplit('_', 1)[0]
+                if net.hasEdge(edgeID):
+                    edge = net.getEdge(edgeID)
+                    endPos = float(stop.endPos) if stop.endPos is not None else edge.getLength()
+                    endPos = min(edge.getLength(), max(0.0, endPos))
+                    stopEnds[edge].append(endPos)
+    for edge in list(stopEnds.keys()):
+        stopEnds[edge] = sorted(set(stopEnds[edge]))
+    return stopEnds
+
+
 def main(options):
     net = sumolib.net.readNet(options.netfile)
+    stopEndsByEdge = loadStopEnds(net, options.additionalFiles)
     crossingNodes = []
     splitNodes = []
     skipped = defaultdict(lambda: 0)
@@ -166,7 +211,7 @@ def main(options):
                 continue
             crossingNodes.append(node)
 
-    clusters = findClusters(options.joinDist,  crossingNodes)
+    clusters = findClusters(options.joinDist, crossingNodes)
 
     outf_nod = open(options.output_nodes, 'w')
     outf_edg = open(options.output_edges, 'w')
@@ -175,16 +220,35 @@ def main(options):
     sumolib.writeXMLHeader(outf_edg, "$Id$", "edges", schemaPath="edgediff_file.xsd", options=options)
     sumolib.writeXMLHeader(outf_con, "$Id$", "connections", options=options)
 
+    edgeSplits = defaultdict(list)
     for outerNodes, incomingEdges in clusters:
         allIncoming = set()
         for node in outerNodes:
             allIncoming.update(node.getIncoming())
         uncontrolled = allIncoming.difference(incomingEdges)
+        internalEdges = set(uncontrolled)
+        if len(outerNodes) > 1 and stopEndsByEdge:
+            internalEdges.update(getInternalClusterEdges(outerNodes, options.joinDist))
 
-        controlledNodes = []
+        controlledNodes = set()
+        finalFromID = {}
+        if len(outerNodes) > 1 and stopEndsByEdge:
+            for edge in sorted(internalEdges, key=lambda e: e.getID()):
+                if edge not in stopEndsByEdge or options.vclass not in edge.getPermissions():
+                    continue
+                for endPos in stopEndsByEdge[edge]:
+                    if edge.getLength() - endPos <= 3.0:
+                        uncontrolled.discard(edge)
+                        controlledNodes.add(edge.getToNode().getID())
+                    elif endPos > 0.1:
+                        splitPos = endPos + 2.0
+                        afterID = "%s.%s" % (edge.getID(), int(splitPos))
+                        edgeSplits[edge].append((splitPos, afterID, options.junctionType))
+                        finalFromID[edge] = afterID
+
         for n in outerNodes:
             if set(n.getIncoming()).difference(uncontrolled):
-                controlledNodes.append(n.getID())
+                controlledNodes.add(n.getID())
 
         for nodeID in sorted(controlledNodes):
             outf_nod.write('    <node id="%s" type="%s"/>\n' % (nodeID, options.junctionType))
@@ -195,20 +259,28 @@ def main(options):
                 outf_edg.write('    <edge id="%s" endOffset="%s"/>\n' % (edgeID, options.endOffset))
             outf_edg.write('\n')
 
-        for node in splitNodes:
-            for e in node.getIncoming():
-                if options.vclass in e.getPermissions():
-                    outf_edg.write('    <edge id="%s">\n' % e.getID())
-                    outf_edg.write('       <split pos="%s" type="rail_signal"/>\n' % -options.splitOffset)
-                    outf_edg.write('    </edge>\n')
-
         if uncontrolled:
-            for edge in uncontrolled:
+            for edge in sorted(uncontrolled, key=lambda e: e.getID()):
+                fromID = finalFromID.get(edge, edge.getID())
                 for con in sum(edge.getOutgoing().values(), start=[]):
                     outf_con.write('    <connection from="%s" fromLane="%s" to="%s" toLane="%s" uncontrolled="1"/>\n' % (  # noqa
-                        con.getFrom().getID(), con.getFromLane().getIndex(),
+                        fromID, con.getFromLane().getIndex(),
                         con.getTo().getID(), con.getToLane().getIndex()))
             outf_con.write('\n')
+
+    for node in dict.fromkeys(splitNodes):
+        for e in node.getIncoming():
+            if options.vclass in e.getPermissions():
+                edgeSplits[e].append((-options.splitOffset, None, "rail_signal"))
+
+    for edge in sorted(edgeSplits.keys(), key=lambda e: e.getID()):
+        outf_edg.write('    <edge id="%s">\n' % edge.getID())
+        for pos, afterID, sigType in sorted(edgeSplits[edge], key=lambda item: item[0]):
+            if afterID is not None:
+                outf_edg.write('       <split pos="%s" idAfter="%s" type="%s"/>\n' % (pos, afterID, sigType))
+            else:
+                outf_edg.write('       <split pos="%s" type="%s"/>\n' % (pos, sigType))
+        outf_edg.write('    </edge>\n')
 
     outf_nod.write("</nodes>\n")
     outf_edg.write("</edges>\n")
@@ -228,7 +300,8 @@ def main(options):
 
         print("Building new net")
     sys.stderr.flush()
-    subprocess.call([NETCONVERT,
+    netconvert = sumolib.checkBinary('netconvert')
+    subprocess.call([netconvert,
                      '-s', options.netfile,
                      '-n', options.output_nodes,
                      '-e', options.output_edges,
