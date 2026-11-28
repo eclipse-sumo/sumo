@@ -36,7 +36,8 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSDetectorControl::MSDetectorControl() {
+MSDetectorControl::MSDetectorControl() :
+    myClosed(false) {
 }
 
 
@@ -59,6 +60,7 @@ MSDetectorControl::close(SUMOTime step) {
     writeOutput(step, true);
     // [...] files are closed on another place [...]
     myIntervals.clear();
+    myClosed = true;
 }
 
 
@@ -203,6 +205,17 @@ MSDetectorControl::getAllReminders() {
 }
 
 void
+MSDetectorControl::removeTrafficObject(const SUMOTrafficObject& obj) {
+    const auto it = myDetectors.find(SUMO_TAG_ENTRY_EXIT_DETECTOR);
+    if (it != myDetectors.end()) {
+        for (const auto& item : it->second) {
+            static_cast<MSE3Collector*>(item.second)->cleanUp(obj, !myClosed);
+        }
+    }
+}
+
+
+void
 MSDetectorControl::clearState(SUMOTime step) {
     for (const auto& i : myDetectors) {
         for (const auto& j : getTypedDetectors(i.first)) {
@@ -210,6 +223,7 @@ MSDetectorControl::clearState(SUMOTime step) {
         }
     }
     myReminders.clear();
+    myClosed = false;
 }
 
 

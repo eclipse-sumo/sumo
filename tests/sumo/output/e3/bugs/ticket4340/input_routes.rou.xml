@@ -1,0 +1,22 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <person id="p2" depart="0" departPos="80">
+        <walk edges="SC" arrivalPos="50"/>
+    </person>
+    <person id="p3" depart="0" departPos="75">
+        <walk edges="SC" arrivalPos="15" speed="2.5"/>
+    </person>
+    <person id="p0" depart="20">
+        <ride from="SC" to="SC" arrivalPos="50" lines="v0"/>
+    </person>
+    <vehicle id="v0" depart="triggered" departLane="3" arrivalPos="50">
+        <route edges="SC"/>
+    </vehicle>
+    <person id="p1" depart="22">
+        <ride from="SC" to="SC" arrivalPos="50" lines="v1"/>
+    </person>
+    <vehicle id="v1" depart="triggered" departLane="3">
+        <route edges="SC CN"/>
+        <stop lane="SC_3" endPos="50" duration="2"/>
+    </vehicle>
+</routes>

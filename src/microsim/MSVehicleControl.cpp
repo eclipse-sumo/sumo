@@ -30,6 +30,7 @@
 #include "MSEventControl.h"
 #include "MSStop.h"
 #include <microsim/devices/MSVehicleDevice.h>
+#include <microsim/output/MSDetectorControl.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/Named.h>
@@ -372,6 +373,9 @@ MSVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard, bool wasKept) {
         }
     }
     if (veh != nullptr) {
+        if (veh->hasDeparted() && MSNet::hasInstance() && MSNet::getInstance()->hasDetectorControl()) {
+            MSNet::getInstance()->getDetectorControl().removeTrafficObject(*veh);
+        }
         myVehicleDict.erase(veh->getID());
     }
     auto ptVehIt = std::find(myPTVehicles.begin(), myPTVehicles.end(), veh);

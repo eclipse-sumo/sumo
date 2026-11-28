@@ -177,6 +177,9 @@ public:
      */
     void writeOutput(SUMOTime step, bool closing);
 
+    /** @brief Remove a deleted traffic object from active area detectors */
+    void removeTrafficObject(const SUMOTrafficObject& obj);
+
     /** @brief Remove all vehicles before quick-loading state */
     void clearState(SUMOTime step);
 
@@ -220,6 +223,9 @@ protected:
     NamedObjectCont< MSDetectorFileOutput*> myEmptyContainer;
 
     std::map<std::string, MSMoveReminder*> myReminders;
+
+    /// @brief Whether detector output has already been closed
+    bool myClosed;
 
 private:
     /// @brief Invalidated copy constructor.

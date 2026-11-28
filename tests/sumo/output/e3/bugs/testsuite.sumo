@@ -12,3 +12,6 @@ ticket4845
 
 # Copy of joined
 ticket10881
+
+# crash when tracked object is removed inside detector
+ticket4340

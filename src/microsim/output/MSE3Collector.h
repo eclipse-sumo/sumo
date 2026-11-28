@@ -373,6 +373,9 @@ public:
      */
     void detectorUpdate(const SUMOTime step);
 
+    /** @brief Remove a deleted or arriving traffic object from the detector */
+    void cleanUp(const SUMOTrafficObject& veh, bool warn = true);
+
     /** @brief Remove all vehicles before quick-loading state */
     virtual void clearState(SUMOTime step);
 

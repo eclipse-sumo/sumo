@@ -1,0 +1,3 @@
+Warning: Person 'p2' arrived inside e3Detector 'det_walk', time=24.00.
+Warning: Person 'p0' arrived inside e3Detector 'det_car', time=26.00.
+Warning: Person 'p1' arrived inside e3Detector 'det_car', time=31.00.
