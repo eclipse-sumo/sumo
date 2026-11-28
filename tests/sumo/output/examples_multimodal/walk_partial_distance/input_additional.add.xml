@@ -1,0 +1,3 @@
+<additional>
+    <edgeData id="walking" period="40" file="aggregated.xml" detectPersons="walk"/>
+</additional>
