@@ -136,6 +136,9 @@ The call
 will be mapped onto the call
 `MSCFModel::setParameter(MSVehicle* veh, "XYZ" , "42")` which is called on the current carFollowModel of the vehicle.
 
+## Hybrid and Composite Car-Following Models
+
+When combining two car-following models (such as `ACC` and `EIDM`) into a single composite `MSCFModel` subclass, delegating `followSpeed`, `freeSpeed`, and `stopSpeed` alone is insufficient for models that update internal state or apply post-processing in `finalizeSpeed`. Override `MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos)` in the composite class and forward the call to the active sub-model (and allocate compatible `VehicleVariables` via `createVehicleVariables`) so driver-state updates, jerk limits, and lane-change speed adaptations execute consistently.
 
 ## XML Validation
 
