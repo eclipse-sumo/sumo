@@ -1,0 +1,32 @@
+<osm version="0.6">
+    <node id="1" lat="52.0000" lon="13.0000"/>
+    <node id="2" lat="52.0000" lon="13.0010"/>
+    <node id="3" lat="52.0010" lon="13.0000"/>
+    <node id="4" lat="52.0010" lon="13.0010"/>
+    <node id="5" lat="52.0020" lon="13.0000"/>
+    <node id="6" lat="52.0020" lon="13.0010"/>
+    <way id="101">
+        <nd ref="1"/><nd ref="2"/>
+        <tag k="highway" v="primary"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="lanes" v="5"/>
+        <tag k="psv:lanes" v="yes|yes|yes|designated|no"/>
+        <tag k="bus:lanes" v="yes|yes|yes|designated|designated"/>
+    </way>
+    <way id="102">
+        <nd ref="3"/><nd ref="4"/>
+        <tag k="highway" v="primary"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="lanes" v="2"/>
+        <tag k="bus:lanes:forward" v="yes|no"/>
+        <tag k="psv:lanes:forward" v="yes|designated"/>
+    </way>
+    <way id="103">
+        <nd ref="5"/><nd ref="6"/>
+        <tag k="highway" v="primary"/>
+        <tag k="lanes:forward" v="2"/>
+        <tag k="lanes:backward" v="2"/>
+        <tag k="bus:lanes:backward" v="designated|no"/>
+        <tag k="psv:lanes:backward" v="no|designated"/>
+    </way>
+</osm>

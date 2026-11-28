@@ -580,7 +580,8 @@ protected:
 
         int interpretChangeType(const std::string& value) const;
 
-        void interpretLaneUse(const std::string& value, SUMOVehicleClass svc, const bool forward) const;
+        void interpretLaneUse(const std::string& value, SUMOVehicleClass svc, bool forward,
+                              bool overrideExisting = false) const;
 
         bool interpretPlacement(const std::string& value, NIImporter_OpenStreetMap::PlacementType& placement, int& laneIndex) const;
 
@@ -599,6 +600,10 @@ protected:
 
         /// @brief The currently built edge
         Edge* myCurrentEdge = nullptr;
+
+        /// @brief Per-lane bus tags, applied after the more general PSV tags.
+        std::string myBusLaneUseForward;
+        std::string myBusLaneUseBackward;
 
         /// @brief A map of non-numeric speed descriptions to their numeric values
         std::map<std::string, double> mySpeedMap;

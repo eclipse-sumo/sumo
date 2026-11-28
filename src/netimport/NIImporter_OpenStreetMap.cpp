@@ -1886,6 +1886,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             return;
         }
         myCurrentEdge = new Edge(id);
+        myBusLaneUseForward.clear();
+        myBusLaneUseBackward.clear();
     }
     // parse "nd" (node) elements
     if (element == SUMO_TAG_ND && myCurrentEdge != nullptr) {
@@ -2312,9 +2314,11 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             interpretLaneUse(value, SVC_PASSENGER, false);
             interpretLaneUse(value, SVC_PRIVATE, false);
         } else if (key == "bus:lanes" || key == "bus:lanes:forward") {
-            interpretLaneUse(value, SVC_BUS, true);
+            if (key == "bus:lanes:forward" || myBusLaneUseForward.empty()) {
+                myBusLaneUseForward = value;
+            }
         } else if (key == "bus:lanes:backward") {
-            interpretLaneUse(value, SVC_BUS, false);
+            myBusLaneUseBackward = value;
         } else if (key == "psv:lanes" || key == "psv:lanes:forward") {
             interpretLaneUse(value, SVC_BUS, true);
             interpretLaneUse(value, SVC_TAXI, true);
@@ -2479,7 +2483,8 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretPlacement(const std::string& va
 
 
 void
-NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUse(const std::string& value, SUMOVehicleClass svc, const bool forward) const {
+NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUse(const std::string& value, SUMOVehicleClass svc,
+        bool forward, bool overrideExisting) const {
     const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
     std::vector<bool>& designated = forward ? myCurrentEdge->myDesignatedLaneForward : myCurrentEdge->myDesignatedLaneBackward;
     std::vector<SVCPermissions>& allowed = forward ? myCurrentEdge->myAllowedLaneForward : myCurrentEdge->myAllowedLaneBackward;
@@ -2489,13 +2494,18 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUse(const std::string& valu
     disallowed.resize(MAX2(disallowed.size(), values.size()), SVC_IGNORING);
     int i = 0;
     for (const std::string& val : values) {
-        if (val == "yes" || val == "permissive") {
+        const bool exclusive = val == "lane" || val == "designated";
+        if (exclusive || val == "yes" || val == "permissive") {
             allowed[i] |= svc;
-        } else if (val == "lane" || val == "designated") {
-            allowed[i] |= svc;
-            designated[i] = true;
+            designated[i] = designated[i] || exclusive;
+            if (overrideExisting) {
+                disallowed[i] &= ~svc;
+            }
         } else if (val == "no") {
             disallowed[i] |= svc;
+            if (overrideExisting) {
+                allowed[i] &= ~svc;
+            }
         } else {
             WRITE_WARNINGF(TL("Unknown lane use specifier '%' ignored for way '%'"), val, myCurrentEdge->id);
         }
@@ -2508,6 +2518,12 @@ void
 NIImporter_OpenStreetMap::EdgesHandler::myEndElement(int element) {
     if (element == SUMO_TAG_WAY && myCurrentEdge != nullptr) {
         if (myCurrentEdge->myCurrentIsRoad) {
+            if (!myBusLaneUseForward.empty()) {
+                interpretLaneUse(myBusLaneUseForward, SVC_BUS, true, true);
+            }
+            if (!myBusLaneUseBackward.empty()) {
+                interpretLaneUse(myBusLaneUseBackward, SVC_BUS, false, true);
+            }
             const auto insertionIt = myEdgeMap.lower_bound(myCurrentEdge->id);
             if (insertionIt == myEdgeMap.end() || insertionIt->first != myCurrentEdge->id) {
                 // assume we are loading multiple files, so we won't report duplicate edges

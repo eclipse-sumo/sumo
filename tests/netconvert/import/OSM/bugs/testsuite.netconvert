@@ -159,5 +159,8 @@ ticket16557
 ticket16557b
 ticket16557c
 
+# prefer bus-specific lane permissions to general PSV permissions
+ticket16783
+
 # nans
 ticket17182
