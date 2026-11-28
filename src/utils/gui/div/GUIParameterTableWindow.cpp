@@ -30,6 +30,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/Parameterised.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/div/GUIParam_PopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
@@ -200,6 +201,23 @@ GUIParameterTableWindow::onRightButtonPress(FXObject* /*sender*/, FXSelector /*s
         p->show();
     }
     return 1;
+}
+
+
+void
+GUIParameterTableWindow::addNetworkLocation(const Boundary& fallbackBoundary) {
+    const GeoConvHelper& location = GeoConvHelper::getFinal();
+    const Boundary& converted = location.getConvBoundary();
+    const Boundary& projected = converted.isInitialised() ? converted : fallbackBoundary;
+    if (projected.isInitialised()) {
+        mkItem(TL("Network boundary [m]"), false, toString(projected));
+    }
+    const std::string& projection = location.getProjString();
+    const bool hasProjection = !projection.empty() && projection != "!";
+    if (hasProjection && location.getOrigBoundary().isInitialised()) {
+        mkItem(TL("Geographic boundary [deg]"), false, toString(location.getOrigBoundary(), gPrecisionGeo));
+    }
+    mkItem(TL("Projection"), false, hasProjection ? projection : TL("None"));
 }
 
 

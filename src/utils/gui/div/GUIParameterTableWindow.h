@@ -36,6 +36,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class Boundary;
 class GUIGlObject;
 class GUIMainWindow;
 class GUIParameterTableItemInterface;
@@ -92,6 +93,10 @@ public:
      */
     void removeObject(GUIGlObject* const o);
 
+
+
+    /// @brief Adds the network bounds and projection parameters.
+    void addNetworkLocation(const Boundary& fallbackBoundary);
 
 
     /// @name Row adding functions

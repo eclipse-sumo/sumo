@@ -229,6 +229,7 @@ GNENet::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
+    buildShowParamsPopupEntry(ret);
     buildPositionCopyEntry(ret, app);
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
         GUIDesigns::buildFXMenuCommand(ret, TL("Copy view geo-boundary to clipboard"), nullptr, ret, MID_COPY_VIEW_GEOBOUNDARY);
@@ -239,9 +240,9 @@ GNENet::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 GUIParameterTableWindow*
 GNENet::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
-    // Nets lanes don't have attributes
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
-    // close building
+    const Boundary emptyBoundary;
+    ret->addNetworkLocation(myAttributeCarriers->getJunctions().empty() ? emptyBoundary : getBoundary());
     ret->closeBuilding();
     return ret;
 }
