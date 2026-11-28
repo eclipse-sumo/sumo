@@ -1,0 +1,5 @@
+<configuration>
+    <turn-file value="None" type="file" help="Input turn-count file" category="input" required="true"/>
+    <output-file value="None" type="file" help="Output edgeRelations file" category="output" required="true"/>
+    <turn-attribute value="probability" type="string" help="Write turning 'probability' to the given attribute" category="output"/>
+</configuration>

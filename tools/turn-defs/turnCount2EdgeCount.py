@@ -32,13 +32,13 @@ import sumolib  # noqa
 
 def get_options(args=None):
     ap = sumolib.options.ArgumentParser(description="Sample routes to match counts")
-    ap.add_argument("-t", "--turn-file", dest="turnFile", required=True, type=ap.file,
+    ap.add_argument("-t", "--turn-file", category="input", dest="turnFile", required=True, type=ap.file,
                     help="Input turn-count file")
-    ap.add_argument("-o", "--output-file", dest="out", required=True, type=ap.file,
+    ap.add_argument("-o", "--output-file", category="output", dest="out", required=True, type=ap.file,
                     help="Output edgeData file")
-    ap.add_argument("--edgedata-attribute", dest="edgeDataAttr", default="entered",
+    ap.add_argument("--edgedata-attribute", category="output", dest="edgeDataAttr", default="entered",
                     help="Write edgeData counts with the given attribute")
-    ap.add_argument("--turn-attribute", dest="turnAttr", default="count",
+    ap.add_argument("--turn-attribute", category="input", dest="turnAttr", default="count",
                     help="Read turning counts from the given attribute")
 
     options = ap.parse_args(args=args)

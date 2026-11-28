@@ -1,0 +1,12 @@
+<configuration>
+    <route-files value="None" type="route_file" help="define the route file separated by comma(mandatory)" category="input" required="true" listSeparator=","/>
+    <net-file value="None" type="net_file" help="load network for annotation turns with directions" category="input"/>
+    <output-file value="turnRatios.add.xml" type="file" help="define the output filename" category="output"/>
+    <probabilities value="False" type="bool" help=" calculate the turning probabilities instead of traffic volumes" category="processing"/>
+    <id value="generated" type="string" help="define the interval id" category="processing"/>
+    <begin value="0" type="string" help="custom begin time (seconds or H:M:S)" category="time"/>
+    <end value="None" type="string" help="custom end time (seconds or H:M:S)" category="time"/>
+    <interval value="None" type="string" help="custom aggregation interval (seconds or H:M:S)" category="time"/>
+    <verbose value="False" type="bool" help="tell me what you are doing" category="processing"/>
+    <split-types value="False" type="bool" help="split output by vehicle types" category="processing"/>
+</configuration>

@@ -42,22 +42,25 @@ from sumolib.miscutils import parseTime  # noqa
 
 def get_options(args=None):
     ap = sumolib.options.ArgumentParser()
-    ap.add_option("-r", "--route-files", required=True, type=ap.file, dest="routefiles",
-                  help="define the route file separated by comma(mandatory)")
-    ap.add_option("-n", "--net-file", type=ap.net_file, dest="netfile",
+    ap.add_option("-r", "--route-files", category="input", required=True, type=ap.route_file_list,
+                  dest="routefiles", help="define the route file separated by comma(mandatory)")
+    ap.add_option("-n", "--net-file", category="input", type=ap.net_file, dest="netfile",
                   help="load network for annotation turns with directions")
-    ap.add_option("-o", "--output-file", dest="outfile", default="turnRatios.add.xml",
-                  help="define the output filename")
-    ap.add_option("-p", "--probabilities", dest="prob", action="store_true", default=False,
-                  help=" calculate the turning probabilities instead of traffic volumes")
-    ap.add_option("--id", default="generated",
+    ap.add_option("-o", "--output-file", category="output", dest="outfile", type=ap.file,
+                  default="turnRatios.add.xml", help="define the output filename")
+    ap.add_option("-p", "--probabilities", category="processing", dest="prob", action="store_true",
+                  default=False, help=" calculate the turning probabilities instead of traffic volumes")
+    ap.add_option("--id", category="processing", default="generated",
                   help="define the interval id")
-    ap.add_option("-b", "--begin", default="0", help="custom begin time (seconds or H:M:S)")
-    ap.add_option("-e", "--end", help="custom end time (seconds or H:M:S)")
-    ap.add_option("-i", "--interval", help="custom aggregation interval (seconds or H:M:S)")
-    ap.add_option("-v", "--verbose", dest="verbose", action="store_true",
+    ap.add_option("-b", "--begin", category="time", default="0",
+                  help="custom begin time (seconds or H:M:S)")
+    ap.add_option("-e", "--end", category="time",
+                  help="custom end time (seconds or H:M:S)")
+    ap.add_option("-i", "--interval", category="time",
+                  help="custom aggregation interval (seconds or H:M:S)")
+    ap.add_option("-v", "--verbose", category="processing", dest="verbose", action="store_true",
                   default=False, help="tell me what you are doing")
-    ap.add_option("--split-types", dest="split_types", action="store_true",
+    ap.add_option("--split-types", category="processing", dest="split_types", action="store_true",
                   default=False, help="split output by vehicle types")
     options = ap.parse_args(args=args)
 

@@ -8,3 +8,4 @@ split_types
 
 # load network to obtain directions
 dirs
+save_template
