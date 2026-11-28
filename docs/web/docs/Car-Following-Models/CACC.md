@@ -12,9 +12,13 @@ cruising) control, (ii) gap control and (iii) gap-closing control. A
 fourth mode (i.e. collision avoidance mode) has been introduced within
 the project [TransAID](https://www.transaid.eu), when the CACC model was first integrated to SUMO [\[4\]](#references).
 
-The full list if model parameters can be found at [carFollowing model parameters](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#car-following_model_parameters).
+The full list of model parameters can be found at [carFollowing model parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#car-following_model_parameters).
 
 see also [ACC model](ACC.md).
+
+## Standstill Spacing and Mixed-Traffic Fallback (`caccVehicleMode`)
+
+`CACC` adjusts its gap control law according to the car-following model of the preceding vehicle and records the active state in the vehicle parameter `caccVehicleMode` (`CC`, `CACC_GAP_CL`, `CACC_GAP`, `CACC_CA`, or `ACC`). When a `CACC` vehicle follows another `CACC` vehicle, desired net gap above `minGap` equals `tau * speed`, so vehicles queue at `minGap` at standstill. Conversely, when a `CACC` vehicle follows a leader with any other `carFollowModel`, `speedGapControl` switches `caccVehicleMode` to `ACC` and delegates to the [ACC model](ACC.md). The `ACC` gap controller adds a speed-dependent dynamic spacing margin `d0 = max(0, min(75/speed-5, 2))` (in meters) on top of `minGap` [\[3\]](#references), which yields an additional 2 m standstill buffer when the vehicle decelerates under `ACC` gap control. If `followSpeed` exceeds the Krauss safe speed plus `collisionAvoidanceOverride` or if `time_gap` stays above the gap-closing threshold during approach, stopping distance is governed by the safe stop speed, producing leader-dependent standstill gaps in mixed queues.
 
 ## (i) Speed control mode
 
