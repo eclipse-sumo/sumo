@@ -20,5 +20,5 @@ Statistics (avg of 1000):
  WaitingTime: 18.46
  TimeLoss: 25.89
  DepartDelay: 0.40
-AStarRouter answered 1000 queries and explored 6.16 edges on average.
+AStarRouter answered 1000 queries and explored 6.92 edges on average.
 AStarRouter spent 0.00s answering queries (0.00ms on average).

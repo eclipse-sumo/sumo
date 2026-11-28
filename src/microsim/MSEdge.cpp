@@ -126,6 +126,7 @@ void MSEdge::recalcCache() {
     }
     myLength = myLanes->front()->getLength();
     myEmptyTraveltime = myLength / MAX2(getSpeedLimit(), NUMERICAL_EPS);
+    myTimePenalty = 0.;
     if (isNormal() && (MSGlobals::gUseMesoSim || MSGlobals::gTLSPenalty > 0)) {
         SUMOTime minorPenalty = 0;
         bool haveTLSPenalty = MSGlobals::gTLSPenalty > 0;
@@ -139,7 +140,8 @@ void MSEdge::recalcCache() {
             SUMOTime minPenalty = -1;
             for (const MSLane* const l : *myLanes) {
                 for (const MSLink* const link : l->getLinkCont()) {
-                    if (link->getLane()->isWalkingArea() && link->getLaneBefore()->isNormal()) {
+                    if ((link->getLane()->isWalkingArea() && link->getLaneBefore()->isNormal())
+                            || (!MSGlobals::gUseMesoSim && link->getViaLane() != nullptr)) {
                         continue;
                     }
                     SUMOTime linkPenalty = link->isTLSControlled() ? link->getMesoTLSPenalty() : (link->havePriority() ? 0 : minorPenalty);
@@ -169,7 +171,23 @@ void MSEdge::recalcCache() {
         }
     } else if (isInternal() && MSGlobals::gUsingInternalLanes) {
         const MSLink* link = myLanes->front()->getIncomingLanes()[0].viaLink;
-        if (!link->isTLSControlled() && !link->havePriority()) {
+        if (link->isTLSControlled()) {
+            if (!MSGlobals::gUseMesoSim && MSGlobals::gTLSPenalty > 0) {
+                SUMOTime minPenalty = -1;
+                for (const MSLane* const l : *myLanes) {
+                    for (const auto& ili : l->getIncomingLanes()) {
+                        if (ili.viaLink->isTLSControlled()) {
+                            const SUMOTime linkPenalty = ili.viaLink->getMesoTLSPenalty();
+                            minPenalty = minPenalty == -1 ? linkPenalty : MIN2(minPenalty, linkPenalty);
+                        }
+                    }
+                }
+                if (minPenalty > 0) {
+                    myEmptyTraveltime += STEPS2TIME(minPenalty);
+                    myTimePenalty = STEPS2TIME(minPenalty);
+                }
+            }
+        } else if (!link->havePriority()) {
             if (link->isTurnaround()) {
                 myEmptyTraveltime += MSGlobals::gTurnaroundPenalty;
                 myTimePenalty = MSGlobals::gTurnaroundPenalty;
