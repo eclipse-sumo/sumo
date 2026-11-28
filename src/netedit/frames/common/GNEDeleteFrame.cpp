@@ -27,6 +27,7 @@
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/moving/GNEMoveElementEdge.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -463,7 +464,8 @@ GNEDeleteFrame::removeGeometryPoint(const GNEViewNetHelper::ViewObjectsSelector&
     // filter elements with geometry points
     for (const auto& AC : viewObjects.getAttributeCarriers()) {
         if (AC->getTagProperty()->getTag() == SUMO_TAG_EDGE) {
-            viewObjects.getEdgeFront()->getMoveElement()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
+            auto* edgeMove = static_cast<GNEMoveElementEdge*>(viewObjects.getEdgeFront()->getMoveElement());
+            edgeMove->removeSelectedGeometryPoints(clickedPosition, myViewNet->getUndoList());
             return true;
         } else if (AC->getTagProperty()->getTag() == SUMO_TAG_POLY) {
             viewObjects.getPolyFront()->getMoveElement()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());

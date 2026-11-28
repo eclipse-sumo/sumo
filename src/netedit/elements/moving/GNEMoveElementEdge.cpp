@@ -126,61 +126,99 @@ GNEMoveElementEdge::setMovingAttribute(SumoXMLAttr key, const std::string& value
 
 void
 GNEMoveElementEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-    // get geometry point radius
-    const double geometryPointRadius = myEdge->getGeometryPointRadius();
-    // declare shape to move
-    PositionVector shape = myEdge->getNBEdge()->getGeometry();
-    // obtain flags for start and end positions
-    const bool customStartPosition = (myEdge->getNBEdge()->getGeometry().front().distanceSquaredTo2D(myEdge->getFromJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE);
-    const bool customEndPosition = (myEdge->getNBEdge()->getGeometry().back().distanceSquaredTo2D(myEdge->getToJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE);
-    // get variable for last index
-    const int lastIndex = (int)myEdge->getNBEdge()->getGeometry().size() - 1;
-    // flag to enable/disable remove geometry point
-    bool removeGeometryPoint = true;
-    // obtain index
-    const int index = myEdge->getNBEdge()->getGeometry().indexOfClosest(clickedPosition, true);
-    // check index
-    if (index == -1) {
-        removeGeometryPoint = false;
+    const int index = getRemovableGeometryPointIndex(clickedPosition, true);
+    if (index >= 0) {
+        removeGeometryPoint(index, undoList);
     }
-    // check distance
-    if (shape[index].distanceSquaredTo2D(clickedPosition) > (geometryPointRadius * geometryPointRadius)) {
-        removeGeometryPoint = false;
+}
+
+
+void
+GNEMoveElementEdge::removeSelectedGeometryPoints(const Position clickedPosition, GNEUndoList* undoList) {
+    const int index = getRemovableGeometryPointIndex(clickedPosition, true);
+    if (index < 0) {
+        return;
     }
-    // check custom start position
-    if (!customStartPosition && (index == 0)) {
-        removeGeometryPoint = false;
+    if (!myEdge->isAttributeCarrierSelected()) {
+        removeGeometryPoint(index, undoList);
+        return;
     }
-    // check custom end position
-    if (!customEndPosition && (index == lastIndex)) {
-        removeGeometryPoint = false;
-    }
-    // check if we can remove geometry point
-    if (removeGeometryPoint) {
-        // check if we're removing first geometry proint
-        if (index == 0) {
-            // commit new geometry start
-            undoList->begin(myEdge, TLF("remove first geometry point of %", myEdge->getTagStr()));
-            GNEChange_Attribute::changeAttribute(myEdge, GNE_ATTR_SHAPE_START, "", undoList);
-            undoList->end();
-        } else if (index == lastIndex) {
-            // commit new geometry end
-            undoList->begin(myEdge, TLF("remove last geometry point of %", myEdge->getTagStr()));
-            GNEChange_Attribute::changeAttribute(myEdge, GNE_ATTR_SHAPE_END, "", undoList);
-            undoList->end();
-        } else {
-            // remove geometry point
-            shape.erase(shape.begin() + index);
-            // get innen shape
-            shape.pop_front();
-            shape.pop_back();
-            // remove double points
-            shape.removeDoublePoints((geometryPointRadius * geometryPointRadius));
-            // commit new shape
-            undoList->begin(myEdge, TLF("remove geometry point of %", myEdge->getTagStr()));
-            GNEChange_Attribute::changeAttribute(myEdge, SUMO_ATTR_SHAPE, toString(shape), undoList);
-            undoList->end();
+    const Position position = myEdge->getNBEdge()->getGeometry()[index];
+    std::vector<std::pair<GNEMoveElementEdge*, int>> matches = {{this, index}};
+    for (auto* edge : myEdge->getNet()->getAttributeCarriers()->getSelectedEdges()) {
+        if (edge != myEdge && !edge->getGUIGlObject()->isGLObjectLocked()) {
+            auto* moveElement = static_cast<GNEMoveElementEdge*>(edge->getMoveElement());
+            const int matchingIndex = moveElement->getRemovableGeometryPointIndex(position, false);
+            if (matchingIndex >= 0) {
+                matches.emplace_back(moveElement, matchingIndex);
+            }
         }
+    }
+    if (matches.size() == 1) {
+        removeGeometryPoint(index, undoList);
+        return;
+    }
+    undoList->begin(myEdge, TL("remove coincident geometry points from selected edges"));
+    for (const auto& [moveElement, matchingIndex] : matches) {
+        moveElement->removeGeometryPoint(matchingIndex, undoList);
+    }
+    undoList->end();
+}
+
+
+int
+GNEMoveElementEdge::getRemovableGeometryPointIndex(const Position& position, const bool clicked) const {
+    const auto& shape = myEdge->getNBEdge()->getGeometry();
+    const int index = shape.indexOfClosest(position, clicked);
+    if (index < 0) {
+        return -1;
+    }
+    if (clicked) {
+        const double radius = myEdge->getGeometryPointRadius();
+        if (shape[index].distanceSquaredTo2D(position) > radius * radius) {
+            return -1;
+        }
+    } else if (!shape[index].almostSame(position, NUMERICAL_EPS)) {
+        return -1;
+    }
+    if (index == 0 && shape.front().distanceSquaredTo2D(myEdge->getFromJunction()->getNBNode()->getPosition()) <= ENDPOINT_TOLERANCE) {
+        return -1;
+    }
+    if (index == (int)shape.size() - 1 && shape.back().distanceSquaredTo2D(myEdge->getToJunction()->getNBNode()->getPosition()) <= ENDPOINT_TOLERANCE) {
+        return -1;
+    }
+    return index;
+}
+
+
+void
+GNEMoveElementEdge::removeGeometryPoint(const int index, GNEUndoList* undoList) {
+    PositionVector shape = myEdge->getNBEdge()->getGeometry();
+    const int lastIndex = (int)shape.size() - 1;
+    const double geometryPointRadius = myEdge->getGeometryPointRadius();
+    // check if we're removing first geometry point
+    if (index == 0) {
+        // commit new geometry start
+        undoList->begin(myEdge, TLF("remove first geometry point of %", myEdge->getTagStr()));
+        GNEChange_Attribute::changeAttribute(myEdge, GNE_ATTR_SHAPE_START, "", undoList);
+        undoList->end();
+    } else if (index == lastIndex) {
+        // commit new geometry end
+        undoList->begin(myEdge, TLF("remove last geometry point of %", myEdge->getTagStr()));
+        GNEChange_Attribute::changeAttribute(myEdge, GNE_ATTR_SHAPE_END, "", undoList);
+        undoList->end();
+    } else {
+        // remove geometry point
+        shape.erase(shape.begin() + index);
+        // get inner shape
+        shape.pop_front();
+        shape.pop_back();
+        // remove double points
+        shape.removeDoublePoints((geometryPointRadius * geometryPointRadius));
+        // commit new shape
+        undoList->begin(myEdge, TLF("remove geometry point of %", myEdge->getTagStr()));
+        GNEChange_Attribute::changeAttribute(myEdge, SUMO_ATTR_SHAPE, toString(shape), undoList);
+        undoList->end();
     }
 }
 
