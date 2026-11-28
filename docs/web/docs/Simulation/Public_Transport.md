@@ -152,7 +152,7 @@ In most cases, public transport runs according to a fixed schedule. Such a sched
     Defining a public transport schedule is necessary for [intermodal routing](../IntermodalRouting.md).
 
 !!! caution
-    A public transport schedule for [intermodal routing](../IntermodalRouting.md) must be fully defined when loading the simulation. Stops that are defined during the simulation via rerouters or TraCI will not be considered when routing a [`<personTrip>`](../Specification/Persons.md#persontrips).
+    A public transport schedule for [intermodal routing](../IntermodalRouting.md) must be fully loaded at startup. Load public transport `<vehicle>` and `<flow>` schedules with **--additional-files** (listed after the `<busStop>` definition file, or inside the same `.add.xml` file) so both [sumo](../sumo.md) and [duarouter](../duarouter.md) parse the entire timetable upfront (and `duarouter` registers the transit lines without duplicating them into its route output when `--ptline-routing` is disabled). By contrast, **--route-files** streams demand incrementally in **--route-steps** windows (`200` s by default), so transit runs departing further ahead remain invisible to `<personTrip>` routing unless **--route-steps 0** is set. Stops added dynamically via rerouters or TraCI are likewise excluded when routing a [`<personTrip>`](../Specification/Persons.md#persontrips).
 
 
 ## Single vehicles and trips
