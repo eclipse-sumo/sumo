@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" vClass="passenger"/>
+    <vehicle id="p1_0" depart="triggered" type="car">
+        <route edges="e1 e2 e3"/>
+    </vehicle>
+    <person id="p1" depart="00:00:00">
+        <param key="age" value="35"/>
+        <param key="employed" value="true"/>
+        <param key="sex" value="f"/>
+        <stop edge="e1" until="08:00:00" actType="home"/>
+        <ride lines="p1_0" to="e3"/>
+        <stop edge="e3" until="17:00:00" actType="work"/>
+        <personTrip to="e2" modes="public"/>
+        <walk edges="e2 e1"/>
+        <stop edge="e1" until="24:00:00" actType="home"/>
+    </person>
+</routes>

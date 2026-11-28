@@ -25,3 +25,7 @@ coordinates_preferred
 
 # import activity end times
 activity
+
+# export SUMO person plans and vehicle routes to MATSim (#13329)
+export_persons
+export_vehicles

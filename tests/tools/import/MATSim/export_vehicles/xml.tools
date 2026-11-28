@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE population SYSTEM "http://www.matsim.org/files/dtd/population_v6.dtd">
+
+<population>
+    <person id="v1">
+        <plan selected="yes">
+            <activity type="home" link="e1" x="50.00" y="-1.60" end_time="07:30:00"/>
+            <leg mode="car" dep_time="07:30:00">
+                <route type="links" start_link="e1" end_link="e3" distance="300.00">e1 e2 e3</route>
+            </leg>
+            <activity type="work" link="e3" x="250.00" y="-1.60" end_time="24:00:00"/>
+        </plan>
+    </person>
+    <person id="t1">
+        <plan selected="yes">
+            <activity type="home" link="e1" x="50.00" y="-1.60" end_time="08:15:00"/>
+            <leg mode="bike" dep_time="08:15:00"/>
+            <activity type="work" link="e3" x="250.00" y="-1.60" end_time="24:00:00"/>
+        </plan>
+    </person>
+    <person id="f1.0">
+        <plan selected="yes">
+            <activity type="home" link="e1" x="50.00" y="-1.60" end_time="09:00:00"/>
+            <leg mode="car" dep_time="09:00:00">
+                <route type="links" start_link="e1" end_link="e3" distance="300.00">e1 e2 e3</route>
+            </leg>
+            <activity type="work" link="e3" x="250.00" y="-1.60" end_time="24:00:00"/>
+        </plan>
+    </person>
+    <person id="f1.1">
+        <plan selected="yes">
+            <activity type="home" link="e1" x="50.00" y="-1.60" end_time="09:10:00"/>
+            <leg mode="car" dep_time="09:10:00">
+                <route type="links" start_link="e1" end_link="e3" distance="300.00">e1 e2 e3</route>
+            </leg>
+            <activity type="work" link="e3" x="250.00" y="-1.60" end_time="24:00:00"/>
+        </plan>
+    </person>
+</population>
