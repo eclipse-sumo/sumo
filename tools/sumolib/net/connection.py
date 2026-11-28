@@ -35,8 +35,7 @@ class Connection:
 
     def __init__(self, fromEdge, toEdge, fromLane, toLane, direction,
                  tls, tllink, tllink2, allow, disallow, state, viaLaneID=None):
-        self._from = fromEdge
-        self._to = toEdge
+        """Keep the legacy edge arguments; the lanes determine the endpoints."""
         self._fromLane = fromLane
         self._toLane = toLane
         self._direction = direction
@@ -50,8 +49,8 @@ class Connection:
 
     def __str__(self):
         return '<connection from="%s" to="%s" fromLane="%s" toLane="%s" %s%sdirection="%s">' % (
-            self._from.getID(),
-            self._to.getID(),
+            self.getFrom().getID(),
+            self.getTo().getID(),
             self._fromLane.getIndex(),
             self._toLane.getIndex(),
             ('' if self._tls == '' else 'tl="%s" linkIndex="%s" ' % (self._tls, self._tlLink)),
@@ -101,10 +100,10 @@ class Connection:
         return self._tlLink2
 
     def getJunctionIndex(self):
-        return self._from.getToNode().getLinkIndex(self)
+        return self.getJunction().getLinkIndex(self)
 
     def getJunction(self):
-        return self._from.getToNode()
+        return self.getFrom().getToNode()
 
     def getState(self):
         return self._state

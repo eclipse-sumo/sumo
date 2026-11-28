@@ -97,14 +97,10 @@ class Edge:
         self._length = lane.getLength()
 
     def addOutgoing(self, conn):
-        if conn._to not in self._outgoing:
-            self._outgoing[conn._to] = []
-        self._outgoing[conn._to].append(conn)
+        self._outgoing.setdefault(conn.getTo(), []).append(conn)
 
     def _addIncoming(self, conn):
-        if conn._from not in self._incoming:
-            self._incoming[conn._from] = []
-        self._incoming[conn._from].append(conn)
+        self._incoming.setdefault(conn.getFrom(), []).append(conn)
 
     def _addCrossingEdge(self, edge):
         if edge not in self._crossingEdges:
