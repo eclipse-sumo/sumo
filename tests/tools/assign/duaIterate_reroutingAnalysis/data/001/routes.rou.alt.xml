@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route-alternatives>
+    <vehicle id="v0" depart="0.00">
+        <routeDistribution last="1">
+            <route cost="10.00" probability="0.40" edges="e0 e1"/>
+            <route cost="8.00" probability="0.60" edges="e0 e2"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="v1" depart="1.00">
+        <routeDistribution last="0">
+            <route cost="10.00" probability="0.70" edges="e0 e1"/>
+            <route cost="12.00" probability="0.30" edges="e0 e2"/>
+        </routeDistribution>
+    </vehicle>
+</route-alternatives>
