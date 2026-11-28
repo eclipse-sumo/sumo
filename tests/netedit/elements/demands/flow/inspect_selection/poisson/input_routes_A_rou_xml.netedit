@@ -15,7 +15,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="flowA" begin="0.00" end="22.00" period="exp(2.60000000000000008882)" departLane="random" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" personNumber="1" containerNumber="5" insertionChecks="speedLimit pedestrian all" from="Edge0" to="Edge2">
+    <flow id="flowA" begin="0.00" end="22.00" period="exp(2.6)" departLane="random" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" personNumber="1" containerNumber="5" insertionChecks="speedLimit pedestrian all" from="Edge0" to="Edge2">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>

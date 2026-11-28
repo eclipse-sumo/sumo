@@ -15,7 +15,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <containerFlow id="cf_1" begin="12.00" end="3800.00" period="exp(2.60000000000000008882)" departPos="11.00" color="blue">
+    <containerFlow id="cf_1" begin="12.00" end="3800.00" period="exp(2.6)" departPos="11.00" color="blue">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>
