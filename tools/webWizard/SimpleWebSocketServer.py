@@ -42,6 +42,15 @@ def _check_unicode(val):
         return isinstance(val, unicode)  # noqa
 
 
+def _normalize_text_bytes(data):
+    if VER >= 3 and isinstance(data, bytes):
+        try:
+            return data.decode('utf-8')
+        except UnicodeDecodeError:
+            return data
+    return data
+
+
 class HTTPRequest(BaseHTTPRequestHandler):
     def __init__(self, request_text):
         if VER >= 3:
@@ -361,6 +370,7 @@ class WebSocket(object):
             If data is a unicode object then the frame is sent as Text.
             If the data is a bytearray object then the frame is sent as Binary.
         """
+        data = _normalize_text_bytes(data)
         opcode = BINARY
         if _check_unicode(data):
             opcode = TEXT
@@ -391,6 +401,7 @@ class WebSocket(object):
             If data is a unicode object then the frame is sent as Text.
             If the data is a bytearray object then the frame is sent as Binary.
         """
+        data = _normalize_text_bytes(data)
         opcode = BINARY
         if _check_unicode(data):
             opcode = TEXT
