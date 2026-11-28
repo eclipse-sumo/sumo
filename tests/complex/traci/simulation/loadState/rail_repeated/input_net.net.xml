@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 13 May 2020 09:07:57 PM CEST by Eclipse SUMO netedit Version v1_6_0+0223-1b0dc856cd
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/debug/6201/railsignal/net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-100.00,0.00,400.00,0.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <edge id=":B_0" function="internal">
+        <lane id=":B_0_0" index="0" allow="rail" speed="13.89" length="0.10" shape="0.00,0.00 0.00,0.00"/>
+    </edge>
+    <edge id=":C_0" function="internal">
+        <lane id=":C_0_0" index="0" allow="rail" speed="13.89" length="0.10" shape="100.00,0.00 100.00,0.00"/>
+    </edge>
+    <edge id=":D_0" function="internal">
+        <lane id=":D_0_0" index="0" allow="rail" speed="13.89" length="0.10" shape="200.00,0.00 200.00,0.00"/>
+    </edge>
+    <edge id=":E_0" function="internal">
+        <lane id=":E_0_0" index="0" allow="rail" speed="13.89" length="0.10" shape="300.00,0.00 300.00,0.00"/>
+    </edge>
+
+    <edge id="a" from="A" to="B" priority="-1" spreadType="center">
+        <lane id="a_0" index="0" allow="rail" speed="13.89" length="100.00" shape="-100.00,0.00 0.00,0.00"/>
+    </edge>
+    <edge id="b" from="B" to="C" priority="-1" spreadType="center">
+        <lane id="b_0" index="0" allow="rail" speed="13.89" length="100.00" shape="0.00,0.00 100.00,0.00"/>
+    </edge>
+    <edge id="c" from="C" to="D" priority="-1" spreadType="center">
+        <lane id="c_0" index="0" allow="rail" speed="13.89" length="100.00" shape="100.00,0.00 200.00,0.00"/>
+    </edge>
+    <edge id="d" from="D" to="E" priority="-1" spreadType="center">
+        <lane id="d_0" index="0" allow="rail" speed="13.89" length="100.00" shape="200.00,0.00 300.00,0.00"/>
+    </edge>
+    <edge id="e" from="E" to="F" priority="-1" spreadType="center">
+        <lane id="e_0" index="0" allow="rail" speed="13.89" length="100.00" shape="300.00,0.00 400.00,0.00"/>
+    </edge>
+
+    <junction id="A" type="dead_end" x="-100.00" y="0.00" incLanes="" intLanes="" shape="-100.00,1.60 -100.00,-1.60"/>
+    <junction id="B" type="rail_signal" x="0.00" y="0.00" incLanes="a_0" intLanes=":B_0_0" shape="0.00,1.60 0.00,-1.60 0.00,1.60">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="C" type="rail_signal" x="100.00" y="0.00" incLanes="b_0" intLanes=":C_0_0" shape="100.00,1.60 100.00,-1.60 100.00,1.60">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="D" type="rail_signal" x="200.00" y="0.00" incLanes="c_0" intLanes=":D_0_0" shape="200.00,1.60 200.00,-1.60 200.00,1.60">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="E" type="rail_signal" x="300.00" y="0.00" incLanes="d_0" intLanes=":E_0_0" shape="300.00,1.60 300.00,-1.60 300.00,1.60">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="F" type="dead_end" x="400.00" y="0.00" incLanes="e_0" intLanes="" shape="400.00,-1.60 400.00,1.60"/>
+
+    <connection from="a" to="b" fromLane="0" toLane="0" via=":B_0_0" tl="B" linkIndex="0" dir="s" state="O"/>
+    <connection from="b" to="c" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="s" state="O"/>
+    <connection from="c" to="d" fromLane="0" toLane="0" via=":D_0_0" tl="D" linkIndex="0" dir="s" state="O"/>
+    <connection from="d" to="e" fromLane="0" toLane="0" via=":E_0_0" tl="E" linkIndex="0" dir="s" state="O"/>
+
+    <connection from=":B_0" to="b" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_0" to="c" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":D_0" to="d" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":E_0" to="e" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

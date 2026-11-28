@@ -278,12 +278,15 @@ MSVehicleControl::clearState(const bool reinit) {
         delete item.second;
     }
     myVTypeDistDict.clear();
+    myVTypeToDist.clear();
     // delete vehicle types
     for (const auto& item : myVTypeDict) {
         delete item.second;
     }
     myVTypeDict.clear();
+    myPTVehicles.clear();
     myPendingRemovals.clear(); // could be leftovers from MSVehicleTransfer::checkInsertions (teleport beyond arrival)
+    myWaitingForTransportable = 0;
     if (reinit) {
         initDefaultTypes();
     }

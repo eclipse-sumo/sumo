@@ -41,3 +41,6 @@ calibrator
 
 # test error messages on loading a simulation state
 errors
+
+# repeated loadState calls in a railway/PT simulation with distributions
+rail_repeated

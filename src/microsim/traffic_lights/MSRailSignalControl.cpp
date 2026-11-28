@@ -74,9 +74,11 @@ MSRailSignalControl::clearState() {
         myInstance->myDriveWayCompatibility.clear();
         myInstance->myDriveWaySucc.clear();
         myInstance->myDriveWayPred.clear();
+        myInstance->myWaitRelations.clear();
         myInstance->myWrittenDeadlocks.clear();
         myInstance->mySignalDeadlocks.clear();
         myInstance->myLoadedDeadlocks.clear();
+        myInstance->mySwitchedGreenFlanks.clear();
         //myInstance->myActiveSignals.clear();
     }
 }
