@@ -784,11 +784,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.135" depart="172.00" departLane="0" departSpeed="9.8493" speedFactor="1.0000" arrival="211.00">
+    <vehicle id="flow.141" depart="175.00" departLane="0" departSpeed="8.6964" speedFactor="1.0000" arrival="210.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.141" depart="175.00" departLane="0" departSpeed="8.6964" speedFactor="1.0000" arrival="211.00">
+    <vehicle id="flow.135" depart="172.00" departLane="0" departSpeed="9.8493" speedFactor="1.0000" arrival="211.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 

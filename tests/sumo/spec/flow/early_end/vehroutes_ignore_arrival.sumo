@@ -58,27 +58,27 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="f1.9" depart="9.00" departPos="75.697" arrival="48.00">
+    <vehicle id="f1.9" depart="9.00" departPos="79.897" arrival="47.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="f1.3" depart="3.00" departPos="12.80" arrival="49.00">
+    <vehicle id="f1.7" depart="7.00" departPos="9.598" arrival="48.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="f1.8" depart="8.00" departPos="62.897" arrival="49.00">
+    <vehicle id="f1.5" depart="5.00" departPos="28.597" arrival="49.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="f1.5" depart="5.00" departPos="28.597" arrival="50.00">
+    <vehicle id="f1.6" depart="6.00" departPos="0.00" arrival="49.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="f1.6" depart="6.00" departPos="0.00" arrival="50.00">
+    <vehicle id="f1.3" depart="3.00" departPos="12.80" arrival="50.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="f1.7" depart="7.00" departPos="9.598" arrival="51.00">
+    <vehicle id="f1.8" depart="8.00" departPos="0.00" arrival="51.00">
         <route edges="beg end"/>
     </vehicle>
 

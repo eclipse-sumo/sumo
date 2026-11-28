@@ -10,7 +10,8 @@ Performance:
  Real time factor: 4950.5
  UPS: 407920.792079
 Vehicles:
- Inserted: 187 (Loaded: 1000)
+ Inserted: 191 (Loaded: 1000)
  Running: 147
- Waiting: 813
- Teleports: 21 (Collisions: 19, Yield: 2)
+ Waiting: 809
+ Teleports: 9 (Collisions: 7, Yield: 2)
+ Emergency Braking: 1

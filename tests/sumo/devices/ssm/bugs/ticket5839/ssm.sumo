@@ -1497,14 +1497,44 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <maxDRAC time="873.00" position="-827.309972,1514.240000" type="2" value="0.89" speed="13.37"/>
         <PET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="806.00" end="948.00" ego="flow_1.234" foe="flow_1.235">
-        <minTTC time="875.00" position="-807.979021,1514.240000" type="3" value="2.59" speed="8.87"/>
-        <maxDRAC time="875.00" position="-807.979021,1514.240000" type="3" value="1.01" speed="8.87"/>
+    <conflict begin="778.00" end="949.00" ego="flow_1.235" foe="flow_1.236">
+        <minTTC time="880.00" position="-832.028289,1514.240000" type="3" value="2.90" speed="6.33"/>
+        <maxDRAC time="779.00" position="927.423815,1483.198948" type="3" value="1.44" speed="9.88"/>
         <PET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="806.00" end="948.00" ego="flow_1.235" foe="flow_1.234">
-        <minTTC time="875.00" position="-807.979021,1514.240000" type="2" value="2.59" speed="14.09"/>
-        <maxDRAC time="875.00" position="-807.979021,1514.240000" type="2" value="1.01" speed="14.09"/>
+    <conflict begin="778.00" end="949.00" ego="flow_1.236" foe="flow_1.235">
+        <minTTC time="880.00" position="-832.028289,1514.240000" type="2" value="2.90" speed="9.86"/>
+        <maxDRAC time="779.00" position="927.423815,1483.198948" type="2" value="1.44" speed="20.42"/>
+        <PET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+    </conflict>
+    <conflict begin="803.00" end="950.00" ego="flow_1.236" foe="flow_1.237">
+        <minTTC time="881.00" position="-822.581645,1514.240000" type="3" value="2.31" speed="5.80"/>
+        <maxDRAC time="881.00" position="-822.581645,1514.240000" type="3" value="0.98" speed="5.80"/>
+        <PET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+    </conflict>
+    <conflict begin="803.00" end="950.00" ego="flow_1.237" foe="flow_1.236">
+        <minTTC time="881.00" position="-822.581645,1514.240000" type="2" value="2.31" speed="10.30"/>
+        <maxDRAC time="881.00" position="-822.581645,1514.240000" type="2" value="0.98" speed="10.30"/>
+        <PET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+    </conflict>
+    <conflict begin="826.00" end="957.00" ego="flow_1.238" foe="flow_1.239">
+        <minTTC time="891.00" position="-868.407947,1514.240000" type="3" value="2.89" speed="7.24"/>
+        <maxDRAC time="891.00" position="-868.407947,1514.240000" type="3" value="0.77" speed="7.24"/>
+        <PET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+    </conflict>
+    <conflict begin="826.00" end="957.00" ego="flow_1.239" foe="flow_1.238">
+        <minTTC time="891.00" position="-868.407947,1514.240000" type="2" value="2.89" speed="11.67"/>
+        <maxDRAC time="891.00" position="-868.407947,1514.240000" type="2" value="0.77" speed="11.67"/>
+        <PET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+    </conflict>
+    <conflict begin="889.00" end="960.00" ego="flow_1.239" foe="flow_1.240">
+        <minTTC time="892.00" position="-858.245842,1514.240000" type="3" value="2.62" speed="7.63"/>
+        <maxDRAC time="892.00" position="-858.245842,1514.240000" type="3" value="1.71" speed="7.63"/>
+        <PET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+    </conflict>
+    <conflict begin="889.00" end="960.00" ego="flow_1.240" foe="flow_1.239">
+        <minTTC time="892.00" position="-858.245842,1514.240000" type="2" value="2.62" speed="16.59"/>
+        <maxDRAC time="892.00" position="-858.245842,1514.240000" type="2" value="1.71" speed="16.59"/>
         <PET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
 </SSMLog>

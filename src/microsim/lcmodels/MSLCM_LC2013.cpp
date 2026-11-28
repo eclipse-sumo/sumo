@@ -1574,8 +1574,22 @@ MSLCM_LC2013::_wantsChange(
 
     // we wish to anticipate future speeds. This is difficult when the leading
     // vehicles are still accelerating so we resort to comparing speeds for the near future (1s) in this case
-    const bool acceleratingLeader = (neighLead.first != 0 && neighLead.first->getAcceleration() > 0)
-                                    || (leader.first != 0 && leader.first->getAcceleration() > 0);
+    const double maxSpeed1s = myVehicle.getSpeed() + myVehicle.getCarFollowModel().getMaxAccel();
+    const double leaderSpeed1s = leader.first != nullptr ? leader.first->getSpeed() + MAX2(0., leader.first->getAcceleration()) : 0.;
+    const double refSpeed = MAX2(maxSpeed1s, leaderSpeed1s) + 5 / 3.6;
+    const bool hasBidiNeighFollower = neighLane.getBidiLane() != nullptr && MSLCHelper::isBidiFollower(&myVehicle, neighFollow.first);
+    const MSLane* neighNext = neigh.bestContinuations.size() > 1 ? neigh.bestContinuations[1] : nullptr;
+    const MSLink* neighNextLink = neighNext != nullptr ? neigh.lane->getLinkTo(neighNext) : nullptr;
+    const bool currPotentialGain = driveToNextStop == -std::numeric_limits<double>::max()
+                                   && (leader.first != nullptr || currentDist < neighDist || neighVMax > vMax);
+    const bool neighPrioritized = !curr.lane->getEdge().isRoundabout()
+                                  && (neighNext == nullptr ? best.bestContinuations.size() <= 1
+                                      : (!neighNext->getEdge().isRoundabout() && neighNextLink != nullptr && neighNextLink->havePriority()));
+    const bool fastNeighLane = currPotentialGain && neighPrioritized && (neighLead.first != nullptr && !hasBidiNeighLeader
+                               ? neighLead.first->getSpeed() > refSpeed
+                               : (neighVMax > vMax || (!right && neighFollow.first != nullptr && !hasBidiNeighFollower && neighFollow.first->getSpeed() > refSpeed)));
+    const bool acceleratingLeader = !fastNeighLane && ((neighLead.first != 0 && neighLead.first->getAcceleration() > 0)
+                                    || (leader.first != 0 && leader.first->getAcceleration() > 0));
     double neighLaneVSafe = MIN2(neighVMax, anticipateFollowSpeed(neighLead, neighDist, neighVMax, acceleratingLeader));
     thisLaneVSafe = MIN2(thisLaneVSafe, anticipateFollowSpeed(leader, currentDist, vMax, acceleratingLeader));
     //std::cout << SIMTIME << " veh=" << myVehicle.getID() << " thisLaneVSafe=" << thisLaneVSafe << " neighLaneVSafe=" << neighLaneVSafe << "\n";
@@ -1959,7 +1973,7 @@ MSLCM_LC2013::anticipateFollowSpeed(const std::pair<MSVehicle*, double>& leaderD
     }
     futureSpeed = MIN2(vMax, futureSpeed);
     if (leader != nullptr && gap > 0 && mySpeedGainLookahead > 0) {
-        const double futureLeaderSpeed = acceleratingLeader ? leader->getLane()->getVehicleMaxSpeed(leader) : leader->getSpeed();
+        const double futureLeaderSpeed = leader->getAcceleration() > 0 ? leader->getLane()->getVehicleMaxSpeed(leader) : leader->getSpeed();
         const double deltaV = vMax - futureLeaderSpeed;
         if (deltaV > 0 && gap > 0) {
             const double secGap = getCarFollowModel().getSecureGap(&myVehicle, leader, futureSpeed, leader->getSpeed(), getCarFollowModel().getMaxDecel());

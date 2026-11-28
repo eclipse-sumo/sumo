@@ -100,7 +100,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop lane="2o_0" startPos="0.126" endPos="0.126" duration="10.000" collision="1"/>
     </vehicle>
 
-    <vehicle id="horizontal.5" type="SUMO_DEFAULT_TYPE" depart="20.000" arrival="157.000">
+    <vehicle id="horizontal.5" type="SUMO_DEFAULT_TYPE" depart="17.000" arrival="157.000">
         <route edges="1si 2o"/>
         <stop lane="2o_0" startPos="3.125" endPos="3.125" duration="10.000" collision="1"/>
     </vehicle>

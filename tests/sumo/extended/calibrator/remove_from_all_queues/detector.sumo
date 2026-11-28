@@ -42,5 +42,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <calibratorstats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/calibratorstats_file.xsd">
-    <interval begin="0.00" end="100.00" id="calibtest" nVehContrib="50" removed="0" inserted="38" cleared="0" flow="1800.00" aspiredFlow="1800.00" speed="22.83" aspiredSpeed="-1.00"/>
+    <interval begin="0.00" end="100.00" id="calibtest" nVehContrib="50" removed="0" inserted="36" cleared="0" flow="1800.00" aspiredFlow="1800.00" speed="22.22" aspiredSpeed="-1.00"/>
 </calibratorstats>

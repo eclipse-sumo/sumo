@@ -16,17 +16,17 @@ Vehicles:
  Teleports: 4 (Yield: 4)
 Statistics (avg of 413):
  RouteLength: 253.15
- Speed: 7.67
- Duration: 66.65
- WaitingTime: 34.65
- TimeLoss: 47.95
- DepartDelay: 441.71
+ Speed: 7.68
+ Duration: 66.69
+ WaitingTime: 34.71
+ TimeLoss: 47.98
+ DepartDelay: 442.53
 Bike Statistics (avg of 421):
  RouteLength: 266.79
- Speed: 4.94
- Duration: 108.39
- WaitingTime: 57.19
- TimeLoss: 59.92
- DepartDelay: 232.77
-DijkstraRouter answered 5215 queries and explored 3.88 edges on average.
+ Speed: 4.95
+ Duration: 108.22
+ WaitingTime: 57.07
+ TimeLoss: 59.76
+ DepartDelay: 232.02
+DijkstraRouter answered 5199 queries and explored 3.86 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).

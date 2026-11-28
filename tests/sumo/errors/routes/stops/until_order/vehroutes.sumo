@@ -93,29 +93,29 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop lane="beg_0" endPos="6.00" until="50.00"/>
     </vehicle>
 
-    <vehicle id="until_before_depart_with_ended" depart="97.00" arrival="140.00">
+    <vehicle id="until_before_depart_with_ended" depart="96.00" arrival="139.00">
         <route edges="beg end"/>
-        <stop lane="beg_0" endPos="6.00" until="50.00" ended="100.00"/>
+        <stop lane="beg_0" endPos="6.00" until="50.00" ended="99.00"/>
     </vehicle>
 
-    <vehicle id="until_before_depart_with_ended2" depart="101.00" arrival="144.00">
+    <vehicle id="until_before_depart_with_ended2" depart="100.00" arrival="143.00">
         <route edges="beg end"/>
-        <stop lane="beg_0" endPos="6.00" until="50.00" ended="104.00"/>
+        <stop lane="beg_0" endPos="6.00" until="50.00" ended="103.00"/>
     </vehicle>
 
-    <vehicle id="arrival_before_depart" depart="105.00" arrival="152.00">
+    <vehicle id="arrival_before_depart" depart="103.00" arrival="150.00">
         <route edges="beg end"/>
         <stop lane="beg_0" endPos="6.00" arrival="40.00" duration="5.00"/>
     </vehicle>
 
-    <vehicle id="arrival_before_depart_with_started" depart="113.00" arrival="160.00">
+    <vehicle id="arrival_before_depart_with_started" depart="111.00" arrival="158.00">
         <route edges="beg end"/>
-        <stop lane="beg_0" endPos="6.00" arrival="40.00" duration="5.00" started="115.00"/>
+        <stop lane="beg_0" endPos="6.00" arrival="40.00" duration="5.00" started="113.00"/>
     </vehicle>
 
-    <vehicle id="arrival_before_depart_with_started2" depart="121.00" arrival="168.00">
+    <vehicle id="arrival_before_depart_with_started2" depart="119.00" arrival="166.00">
         <route edges="beg end"/>
-        <stop lane="beg_0" endPos="6.00" arrival="40.00" duration="5.00" started="123.00"/>
+        <stop lane="beg_0" endPos="6.00" arrival="40.00" duration="5.00" started="121.00"/>
     </vehicle>
 
 </routes>

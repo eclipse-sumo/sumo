@@ -12,12 +12,12 @@ Performance:
  UPS: 483468.750000
 Vehicles:
  Inserted: 422 (Loaded: 423)
- Running: 89
+ Running: 84
  Waiting: 1
-Statistics (avg of 333):
- RouteLength: 351.61
- Speed: 7.64
- Duration: 66.93
- WaitingTime: 30.55
- TimeLoss: 48.37
- DepartDelay: 0.70
+Statistics (avg of 338):
+ RouteLength: 354.01
+ Speed: 7.66
+ Duration: 65.47
+ WaitingTime: 29.13
+ TimeLoss: 46.84
+ DepartDelay: 0.67
