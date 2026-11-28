@@ -1,0 +1,5 @@
+<additional>
+    <e1Detector id="loop0" lane="e0_0" pos="42.5" freq="30" file="out.xml">
+        <param key="station" value="north"/>
+    </e1Detector>
+</additional>
