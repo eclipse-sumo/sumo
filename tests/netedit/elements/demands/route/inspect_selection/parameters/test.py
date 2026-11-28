@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # check parameters
-netedit.checkParametersOverlapped(referencePosition, netedit.attrs.route.inspectSelection.parameters)
+netedit.checkParameters(referencePosition, netedit.attrs.route.inspectSelection.parameters)
 
 # save Netedit config
 netedit.saveExistentFile("neteditConfig")

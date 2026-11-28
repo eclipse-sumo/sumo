@@ -41,16 +41,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change parameter color with a non valid value (empty)
-netedit.modifyAttributeOverlapped(netedit.attrs.route.inspectSelection.cycletime, "")
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "")
 
 # Change parameter color with a non valid value (dummy)
-netedit.modifyAttributeOverlapped(netedit.attrs.route.inspectSelection.cycletime, "dummyCycle")
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "dummyCycle")
 
 # Change parameter color with a valid value
-netedit.modifyAttributeOverlapped(netedit.attrs.route.inspectSelection.cycletime, "-12.4")
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "-12.4")
 
 # Change parameter color with a valid value
-netedit.modifyAttributeOverlapped(netedit.attrs.route.inspectSelection.cycletime, "56.12")
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "56.12")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
