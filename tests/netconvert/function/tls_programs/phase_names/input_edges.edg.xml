@@ -1,0 +1,10 @@
+<edges>
+    <edge id="NC" from="N" to="C"/>
+    <edge id="CN" from="C" to="N"/>
+    <edge id="EC" from="E" to="C"/>
+    <edge id="CE" from="C" to="E"/>
+    <edge id="SC" from="S" to="C"/>
+    <edge id="CS" from="C" to="S"/>
+    <edge id="WC" from="W" to="C"/>
+    <edge id="CW" from="C" to="W"/>
+</edges>

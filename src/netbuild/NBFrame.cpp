@@ -536,6 +536,9 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.addSynonyme("tls.guess", "guess-tls", true);
     oc.addDescription("tls.guess", "TLS Building", TL("Turns on TLS guessing"));
 
+    oc.doRegister("tls.guess-phase-names", new Option_Bool(false));
+    oc.addDescription("tls.guess-phase-names", "TLS Building", TL("Name generated green and transition phases of traffic light programs"));
+
     oc.doRegister("tls.guess.threshold", new Option_Float(250 / 3.6));
     oc.addDescription("tls.guess.threshold", "TLS Building", TL("Sets minimum value for the sum of all incoming lane speeds when guessing TLS"));
 

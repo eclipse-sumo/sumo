@@ -435,6 +435,9 @@
         <!-- Turns on TLS guessing -->
         <tls.guess value="false" synonymes="guess-tls" deprecated="guess-tls" type="BOOL"/>
 
+        <!-- Name generated green and transition phases of traffic light programs -->
+        <tls.guess-phase-names value="false" type="BOOL"/>
+
         <!-- Sets minimum value for the sum of all incoming lane speeds when guessing TLS -->
         <tls.guess.threshold value="69.4444" type="FLOAT"/>
 

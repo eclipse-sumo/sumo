@@ -184,6 +184,7 @@
             <xsd:element name="tls.set" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tls.unset" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tls.guess" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="tls.guess-phase-names" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.guess.threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.guess.joining" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.join" type="boolOptionType" minOccurs="0"/>
