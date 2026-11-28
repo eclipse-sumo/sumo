@@ -247,7 +247,7 @@ def discover_direction(routes, trips, stop_times):
 
 
 @benchmark
-def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
+def filter_gtfs(options, gtfs_data, shapes):
     """
     Filters the gtfs-data by the given bounding box.
 
@@ -257,8 +257,8 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
     Trips with secondary shapes will be defined by the start and end edge belonging
     to the main shape (if they a part of the main shape).
     """
-    stops['stop_lat'] = stops['stop_lat'].astype(float)
-    stops['stop_lon'] = stops['stop_lon'].astype(float)
+    gtfs_data['stop_lat'] = gtfs_data['stop_lat'].astype(float)
+    gtfs_data['stop_lon'] = gtfs_data['stop_lon'].astype(float)
 
     if shapes is not None:
         shapes['shape_pt_lat'] = shapes['shape_pt_lat'].astype(float)
@@ -270,9 +270,6 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
                         (options.bbox[0] <= shapes['shape_pt_lon']) &
                         (shapes['shape_pt_lon'] <= options.bbox[2])]
 
-    # merge gtfs data from stop_times / trips / routes / stops
-    gtfs_data = pd.merge(pd.merge(pd.merge(trips_on_day, stop_times, on='trip_id'),
-                         stops, on='stop_id'), routes, on='route_id')
     if shapes is None:
         gtfs_data['shape_id'] = gtfs_data['route_id'] + "_" + gtfs_data['direction_id']
 
@@ -341,7 +338,7 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
 
         # get all stops in all the main routes
         routes_stops = group_routes.explode('new_stop_id', ignore_index=True)
-        routes_stops[['stop_sequence', 'stop_id']] = routes_stops.new_stop_id.str.split('_', expand=True)
+        routes_stops[['stop_sequence', 'stop_id']] = routes_stops.new_stop_id.str.split('_', n=1, expand=True)
         routes_stops['stop_sequence'] = routes_stops['stop_sequence'].astype(float)
 
         stop_indexes = []
@@ -423,6 +420,11 @@ def joinBlocks(data):
     return pd.concat(blocks)
 
 
+MERGED_CSV_COLUMNS = ['trip_id', 'block_id', 'route_id', 'route_short_name', 'route_type',
+                      'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
+                      'fare_zone', 'fare_token', 'start_char', 'trip_headsign', 'arrival_time', 'departure_time']
+
+
 def get_merged_data(options):
     gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False, printErrors=True))
     routes, trips_on_day, shapes, stops, stop_times = import_gtfs(options, gtfsZip)
@@ -447,10 +449,7 @@ def get_merged_data(options):
 
     trips_routes_merged = pd.merge(trips_on_day, routes, on='route_id')
     merged = pd.merge(stops_merged, trips_routes_merged, on='trip_id').drop_duplicates()
-    cols = ['trip_id', 'block_id', 'route_id', 'route_short_name', 'route_type',
-            'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
-            'fare_zone', 'fare_token', 'start_char', 'trip_headsign',
-            'arrival_time', 'departure_time']
+    cols = MERGED_CSV_COLUMNS.copy()
     # 'block_id' is optional
     if 'block_id' not in merged.columns:
         cols.remove('block_id')
@@ -496,19 +495,18 @@ def getAccess(net, lon, lat, radius, lane_id, max_access=10):
     return access
 
 
+def read_merged_csv(filename):
+    # Preserve identifiers and names as strings, including leading zeros.
+    data = pd.read_csv(filename, sep=";", keep_default_na=False, dtype=str)
+    return data.astype({
+        'arrival_time': int, 'departure_time': int,
+        'stop_lat': float, 'stop_lon': float, 'stop_sequence': float,
+    })
+
+
 def loadGTFS(options):
     if options.mergedCSV:
-        # Need everything except few columns as strings. The exceptions are:
-        # - `arrival_time` and `departure_time` have to be integers,
-        # - `stop_lat`, `stop_lon`, and `stop_sequence` have to be floats
-        full_data_merged = pd.read_csv(options.mergedCSV, sep=";",
-                                       keep_default_na=False,
-                                       dtype=str)
-        full_data_merged['arrival_time'] = full_data_merged['arrival_time'].astype(int)
-        full_data_merged['departure_time'] = full_data_merged['departure_time'].astype(int)
-        full_data_merged['stop_lat'] = full_data_merged['stop_lat'].astype(float)
-        full_data_merged['stop_lon'] = full_data_merged['stop_lon'].astype(float)
-        full_data_merged['stop_sequence'] = full_data_merged['stop_sequence'].astype(float)
+        full_data_merged = read_merged_csv(options.mergedCSV)
         if 'block_id' not in full_data_merged.columns:
             options.joinBlocks = False
     else:

@@ -37,6 +37,8 @@ or for the option with OSM routes:
 python tools/import/gtfs/gtfs2pt.py --network <net-file> --gtfs <gtfs-data-file> --date <YYYYMMDD> --osm-routes <ptlines-file>
 ```
 
+Add **--merged-csv-output** to save the selected schedule for reuse. With **--osm-routes**, the CSV also stores the GTFS shape data and direction IDs. Subsequent runs can pass this file with **--merged-csv** in place of **--gtfs** and **--date**. The saved trips reflect the date, time range, modes and bounding box selected when generating the file. For CSV files without shape data, the importer derives shape directions from the stop sequences.
+
 If OSM routes or shapes are not available, it helps to load a file with candidate stopping locations (i.e. from importing OSM with option **--ptstop-output**).
 Whenever a GTFS-coordinate has nearby stops, all of them will be considered as candidates instead of using all edges within range. This greatly speeds up the importer.
 

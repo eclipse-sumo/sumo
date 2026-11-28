@@ -26,6 +26,7 @@ import subprocess
 import time
 import math
 import io
+import json
 import re
 from collections import defaultdict
 import zipfile
@@ -465,24 +466,99 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
             output_file.write(u'</missingElements>\n')
 
 
-def process(options, net):
-    gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False, printErrors=True))
-    routes, trips_on_day, shapes, stops, stop_times = gtfsutils.import_gtfs(options, gtfsZip)
-    gtfsZip.fp.close()
-    if options.mergedCSVOutput:
-        full_data_merged = gtfsutils.get_merged_data(options)
-        full_data_merged.sort_values(by=['trip_id', 'stop_sequence'], inplace=True)
-        full_data_merged.to_csv(options.mergedCSVOutput, sep=";", index=False)
+SHAPE_COLUMNS = ['shape_pt_lat', 'shape_pt_lon', 'shape_pt_sequence']
 
-    if routes.empty or trips_on_day.empty:
+
+def read_osm_schedule(options):
+    schedule = gtfsutils.read_merged_csv(options.mergedCSV)
+    shapes = None
+    if 'shape_points' in schedule:
+        serialized_shapes = schedule.loc[schedule.shape_points != '', ['shape_id', 'shape_points']]
+        shape_rows = [(shape_id, *point) for shape_id, points in serialized_shapes.itertuples(index=False, name=None)
+                      for point in json.loads(points)]
+        shapes = pd.DataFrame(shape_rows, columns=['shape_id'] + SHAPE_COLUMNS)
+        schedule['shape_id'] = schedule.shape_id.replace('', float('nan'))
+    schedule = schedule[schedule.route_type.map(GTFS2OSM_MODES).isin(options.modes.split(','))]
+    if 'osm_stop_order' in schedule:
+        schedule['osm_stop_order'] = schedule.osm_stop_order.astype(int)
+        schedule = schedule.sort_values('osm_stop_order', kind='stable')
+        schedule['direction_id'] = schedule.direction_id.replace('', float('nan'))
+    else:
+        schedule = schedule.sort_values(['trip_id', 'stop_sequence'], kind='stable')
+    if 'direction_id' not in schedule:
+        stop_sequences = schedule.groupby('trip_id').stop_id.agg(' '.join)
+        schedule['direction_id'] = schedule.trip_id.map(stop_sequences.map(gtfsutils.sha256hash))
+    if 'arrival_fixed' not in schedule:
+        first_arrival = schedule.groupby('trip_id').arrival_time.transform('first')
+        trimmed = schedule.trip_id.str.endswith('.trimmed')
+        split_trips = schedule.loc[trimmed, 'trip_id'].str.removesuffix('.trimmed')
+        shift = trimmed | ((first_arrival >= 86400) & ~schedule.trip_id.isin(split_trips))
+        for column in ('arrival', 'departure'):
+            times = schedule[column + '_time']
+            schedule[column + '_fixed'] = times.where(~shift, times % 86400)
+    for column in ('arrival_fixed', 'departure_fixed'):
+        schedule[column] = pd.to_timedelta(schedule[column].astype(int), unit='s')
+    return schedule, shapes
+
+
+def write_osm_schedule(options, schedule, shapes, gtfs_zip=None):
+    schedule = schedule.astype({'stop_lat': float, 'stop_lon': float})
+    min_lon, min_lat, max_lon, max_lat = options.bbox
+    schedule = schedule[schedule.stop_lat.between(min_lat, max_lat) &
+                        schedule.stop_lon.between(min_lon, max_lon)].copy()
+    if 'osm_stop_order' not in schedule:
+        # Preserve the input order for mapping while presenting the CSV in trip order.
+        schedule['osm_stop_order'] = range(len(schedule))
+    if gtfs_zip is not None:
+        for column in ('arrival_time', 'departure_time'):
+            schedule[column] = schedule[column].map(gtfsutils.time2sec)
+        if 'fare_stops.txt' in gtfs_zip.namelist():
+            with gtfs_zip.open('fare_stops.txt') as fare_stops:
+                fare_columns = ('stop_id', 'fare_zone', 'fare_token', 'start_char')
+                fares = pd.read_csv(fare_stops, dtype=str, usecols=lambda column: column in fare_columns)
+                schedule = schedule.merge(fares, on='stop_id', how='left')
+
+    columns = gtfsutils.MERGED_CSV_COLUMNS + ['direction_id', 'arrival_fixed', 'departure_fixed', 'osm_stop_order']
+    for column in ('fare_zone', 'fare_token', 'start_char'):
+        if column not in schedule:
+            schedule[column] = ''
+    for column in ('arrival_fixed', 'departure_fixed'):
+        schedule[column] = schedule[column].dt.total_seconds().astype(int)
+    if shapes is not None:
+        # Store each shape once, next to the first stop row that references it.
+        shape_points = {shape_id: json.dumps(group[SHAPE_COLUMNS].values.tolist(), separators=(',', ':'))
+                        for shape_id, group in shapes[shapes.shape_id.isin(schedule.shape_id)].groupby('shape_id')}
+        schedule['shape_points'] = schedule.shape_id.where(~schedule.shape_id.duplicated()).map(shape_points)
+        columns += ['shape_id', 'shape_points']
+    schedule = schedule[[column for column in columns if column in schedule]]
+    schedule.sort_values(['trip_id', 'stop_sequence'], kind='stable').to_csv(
+        options.mergedCSVOutput, sep=";", index=False)
+
+
+def process(options, net):
+    if options.mergedCSV:
+        schedule, shapes = read_osm_schedule(options)
+        if options.mergedCSVOutput:
+            write_osm_schedule(options, schedule, shapes)
+        if 'osm_stop_order' in schedule:
+            # A stop can appear once per fare entry in the CSV.
+            schedule = schedule.drop_duplicates('osm_stop_order')
+    else:
+        with sumolib.openz(options.gtfs, mode="rb", tryGZip=False, printErrors=True) as source:
+            with zipfile.ZipFile(source) as gtfsZip:
+                routes, trips_on_day, shapes, stops, stop_times = gtfsutils.import_gtfs(options, gtfsZip)
+                schedule = pd.merge(pd.merge(pd.merge(trips_on_day, stop_times, on='trip_id'),
+                                             stops, on='stop_id'), routes, on='route_id')
+                if options.mergedCSVOutput:
+                    write_osm_schedule(options, schedule, shapes, gtfsZip)
+
+    if schedule.empty:
         return
     if shapes is None:
         print('Warning: GTFS shapes file not found! Continuing mapping without shapes.', file=sys.stderr)
     (gtfs_data, trip_list,
         filtered_stops,
-        shapes, shapes_dict) = gtfsutils.filter_gtfs(options, routes,
-                                                     trips_on_day, shapes,
-                                                     stops, stop_times)
+        shapes, shapes_dict) = gtfsutils.filter_gtfs(options, schedule, shapes)
 
     osm_routes = import_osm(options, net)
 
