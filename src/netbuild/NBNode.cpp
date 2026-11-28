@@ -1118,6 +1118,12 @@ NBNode::computeKeepClear() {
                 }
             }
         } else if (geometryLike() && myCrossings.size() == 0 && !isTLControlled()) {
+            std::vector<std::pair<const NBEdge*, const NBEdge::Connection*> > allCons;
+            for (const NBEdge* incoming : myIncomingEdges) {
+                for (const NBEdge::Connection& c : incoming->getConnections()) {
+                    allCons.emplace_back(incoming, &c);
+                }
+            }
             int linkIndex = 0;
             for (NBEdge* incoming : myIncomingEdges) {
                 std::vector<NBEdge::Connection>& connections = incoming->getConnections();
@@ -1126,10 +1132,28 @@ NBNode::computeKeepClear() {
                         const LinkState linkState = getLinkState(incoming, c.toEdge, c.fromLane, c.toLane, c.mayDefinitelyPass, c.tlID);
                         if (linkState == LINKSTATE_MAJOR) {
                             c.keepClear = KEEPCLEAR_FALSE;
+                        } else if (c.toEdge != nullptr && c.toEdge->getBidiEdge() == nullptr
+                                   && getDirection(incoming, c.toEdge) != LinkDirection::TURN) {
+                            const std::string& foes = myRequest->getFoes(linkIndex);
+                            bool hasCrossTraffic = false;
+                            for (int j = 0; !hasCrossTraffic && j < (int)allCons.size(); ++j) {
+                                if (foes[(int)foes.size() - 1 - j] == '1') {
+                                    const NBEdge* foeIn = allCons[j].first;
+                                    const NBEdge::Connection& foeCon = *allCons[j].second;
+                                    if (foeCon.toEdge != c.toEdge) {
+                                        hasCrossTraffic = true;
+                                    } else if (foeIn == incoming && (c.fromLane - foeCon.fromLane) * (c.toLane - foeCon.toLane) < 0) {
+                                        hasCrossTraffic = true;
+                                    }
+                                }
+                            }
+                            if (!hasCrossTraffic) {
+                                c.keepClear = KEEPCLEAR_FALSE;
+                            }
                         }
                     }
+                    linkIndex++;
                 }
-                linkIndex++;
             }
         }
     }

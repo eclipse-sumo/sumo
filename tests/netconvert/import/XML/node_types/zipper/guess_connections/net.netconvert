@@ -53,8 +53,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="gneJ3" type="dead_end" x="1500.00" y="0.00" incLanes="end_0" intLanes="" shape="1500.00,-3.20 1500.00,0.00"/>
 
-    <connection from="beg" to="end" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="s" state="Z"/>
-    <connection from="beg" to="end" fromLane="1" toLane="0" via=":gneJ1_0_1" dir="s" state="Z"/>
+    <connection from="beg" to="end" fromLane="0" toLane="0" keepClear="0" via=":gneJ1_0_0" dir="s" state="Z"/>
+    <connection from="beg" to="end" fromLane="1" toLane="0" keepClear="0" via=":gneJ1_0_1" dir="s" state="Z"/>
 
     <connection from=":gneJ1_0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ1_0" to="end" fromLane="1" toLane="0" dir="s" state="M"/>

@@ -59,8 +59,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
 
     <connection from="1" to="1.50" fromLane="0" toLane="0" via=":C_0_0" dir="s" state="M"/>
-    <connection from="1" to="1.50" fromLane="1" toLane="1" via=":C_0_1" dir="s" state="Z"/>
-    <connection from="1" to="1.50" fromLane="2" toLane="1" via=":C_0_2" dir="s" state="Z"/>
+    <connection from="1" to="1.50" fromLane="1" toLane="1" keepClear="0" via=":C_0_1" dir="s" state="Z"/>
+    <connection from="1" to="1.50" fromLane="2" toLane="1" keepClear="0" via=":C_0_2" dir="s" state="Z"/>
 
     <connection from=":C_0" to="1.50" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_0" to="1.50" fromLane="1" toLane="1" dir="s" state="M"/>

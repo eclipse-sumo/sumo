@@ -56,8 +56,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="E" type="dead_end" x="400.00" y="0.00" incLanes="CE_0" intLanes="" shape="400.00,-1.60 400.00,1.60"/>
     <junction id="W" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,4.80 0.00,-4.80"/>
 
-    <connection from="WC" to="CE" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="WC" to="CE" fromLane="1" toLane="0" dir="s" state="m"/>
+    <connection from="WC" to="CE" fromLane="0" toLane="0" keepClear="0" dir="s" state="m"/>
+    <connection from="WC" to="CE" fromLane="1" toLane="0" keepClear="0" dir="s" state="m"/>
     <connection from="WC" to="CE" fromLane="2" toLane="0" keepClear="0" dir="s" state="M"/>
 
 </net>

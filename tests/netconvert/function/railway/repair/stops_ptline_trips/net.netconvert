@@ -118,9 +118,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="-a" to="a" fromLane="0" toLane="0" speed="0.10" via=":gneJ40_0_0" dir="t" state="M"/>
     <connection from="-b" to="-a" fromLane="0" toLane="0" keepClear="0" via=":gneJ38_0_0" dir="s" state="M"/>
     <connection from="-c" to="-b" fromLane="0" toLane="0" via=":gneJ39_0_0" dir="s" state="M"/>
-    <connection from="-c" to="c" fromLane="0" toLane="0" speed="0.10" via=":gneJ39_1_0" dir="t" state="M"/>
+    <connection from="-c" to="c" fromLane="0" toLane="0" keepClear="0" speed="0.10" via=":gneJ39_1_0" dir="t" state="M"/>
     <connection from="a" to="b" fromLane="0" toLane="0" via=":gneJ38_1_0" dir="s" state="M"/>
-    <connection from="a" to="-a" fromLane="0" toLane="0" speed="0.10" via=":gneJ38_2_0" dir="t" state="M"/>
+    <connection from="a" to="-a" fromLane="0" toLane="0" keepClear="0" speed="0.10" via=":gneJ38_2_0" dir="t" state="M"/>
     <connection from="b" to="c" fromLane="0" toLane="0" keepClear="0" via=":gneJ39_2_0" dir="s" state="M"/>
     <connection from="c" to="-c" fromLane="0" toLane="0" speed="0.10" via=":gneJ43_0_0" dir="t" state="M"/>
 

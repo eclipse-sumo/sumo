@@ -107,9 +107,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <connection from="-a" to="-b" fromLane="0" toLane="0" keepClear="0" via=":gneJ45_2_0" dir="s" state="M"/>
     <connection from="-b" to="-c" fromLane="0" toLane="0" via=":gneJ46_1_0" dir="s" state="M"/>
-    <connection from="-b" to="b" fromLane="0" toLane="0" speed="0.10" via=":gneJ46_2_0" dir="t" state="M"/>
+    <connection from="-b" to="b" fromLane="0" toLane="0" keepClear="0" speed="0.10" via=":gneJ46_2_0" dir="t" state="M"/>
     <connection from="b" to="a" fromLane="0" toLane="0" via=":gneJ45_0_0" dir="s" state="M"/>
-    <connection from="b" to="-b" fromLane="0" toLane="0" speed="0.10" via=":gneJ45_1_0" dir="t" state="M"/>
+    <connection from="b" to="-b" fromLane="0" toLane="0" keepClear="0" speed="0.10" via=":gneJ45_1_0" dir="t" state="M"/>
     <connection from="c" to="b" fromLane="0" toLane="0" keepClear="0" via=":gneJ46_0_0" dir="s" state="M"/>
 
     <connection from=":gneJ45_0" to="a" fromLane="0" toLane="0" dir="s" state="M"/>
