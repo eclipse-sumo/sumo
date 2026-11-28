@@ -116,6 +116,8 @@ in a smaller file size.
 
 # Generating and Running the scenario
 
+Use **Save settings** to download the current scenario area and options as a JSON file. Use **Load settings** to restore the area, transport modes and road types from that file before generating a scenario.
+
 The complete scenario will be generated automatically once *Generate
 Scenario* in the control panel has been clicked. The scenario generation
 takes a couple of seconds or minutes (depending, among other factors, on the

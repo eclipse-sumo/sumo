@@ -258,6 +258,13 @@ input[type=number] {
     transition: 0.5s width;
 }
 
+#settings-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 8px;
+}
+
 #general-options label {
     margin: 5px 0;
 }
