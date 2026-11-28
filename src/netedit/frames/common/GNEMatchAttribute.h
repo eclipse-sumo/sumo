@@ -20,6 +20,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+#include <map>
 
 #include "GNEGroupBoxModule.h"
 
@@ -33,6 +34,7 @@ class GNETagProperties;
 class GNETagPropertiesDatabase;
 class GNEComboBoxAttrProperty;
 class GNEComboBoxTagProperty;
+class MFXListIcon;
 
 // ===========================================================================
 // class definitions
@@ -93,15 +95,21 @@ protected:
      */
     std::vector<GNEAttributeCarrier*> getMatches(const char compOp, const double val, const std::string& expr);
 
-    /**@brief return GenericDatas of the given type with matching attrs
-     * @param[in] genericDatas list of filter generic datas
-     * @param[in] attr XML Attribute used to filter
-     * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
-     */
-    std::vector<GNEAttributeCarrier*> getGenericMatches(const std::vector<GNEGenericData*>& genericDatas, const std::string& attr, const char compOp, const double val, const std::string& expr);
-
-
 private:
+    struct DataAttribute {
+        std::string name;
+        const GNEAttributeProperties* property;
+        bool numeric;
+    };
+
+    void refreshDataAttributes(const std::map<std::string, const GNEAttributeProperties*>& attributes);
+
+    const DataAttribute* getCurrentDataAttribute() const;
+
+    MFXListIcon* myDataAttributeList = nullptr;
+
+    std::vector<DataAttribute> myDataAttributes;
+
     /// @brief container with current edited properties
     class CurrentEditedProperties {
 

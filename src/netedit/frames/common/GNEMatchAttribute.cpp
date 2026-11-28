@@ -18,6 +18,8 @@
 // The Widget for modifying selections of network-elements
 /****************************************************************************/
 
+#include <utils/foxtools/MFXListIcon.h>
+#include <utils/foxtools/MFXListIconItem.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
@@ -29,6 +31,7 @@
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEAttributeProperties.h>
 #include <netedit/GNETagPropertiesDatabase.h>
+#include <netedit/elements/data/GNEGenericData.h>
 
 #include "GNEComboBoxAttrProperty.h"
 #include "GNEComboBoxTagProperty.h"
@@ -41,6 +44,7 @@
 FXDEFMAP(GNEMatchAttribute) GNEMatchAttributeMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTTAG,        GNEMatchAttribute::onCmdTagSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTATTRIBUTE,  GNEMatchAttribute::onCmdAttributeSelected),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_SELECTORFRAME_SELECTATTRIBUTE,  GNEMatchAttribute::onCmdAttributeSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_TOGGLECOMMON,     GNEMatchAttribute::onCmdToggleOnlyCommon),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_PROCESSSTRING,    GNEMatchAttribute::onCmdProcessString),
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNEMatchAttribute::onCmdHelp)
@@ -76,6 +80,9 @@ GNEMatchAttribute::GNEMatchAttribute(GNESelectorFrame* selectorFrameParent) :
     // Create MFXComboBoxIcon for Attributes
     myAttributeComboBox = new GNEComboBoxAttrProperty(getCollapsableFrame(), staticTooltipMenu, true, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
+    myDataAttributeList = new MFXListIcon(getCollapsableFrame(), this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE,
+                                         LIST_BROWSESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X);
+    myDataAttributeList->setNumVisible(6);
     // Create TextField for Match string
     myMatchString = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
     // create button
@@ -100,6 +107,7 @@ GNEMatchAttribute::enableMatchAttribute() {
         tagComboBox->enable();
     }
     myAttributeComboBox->enable();
+    myDataAttributeList->enable();
     myMatchString->enable();
     myMatchStringButton->enable();
 }
@@ -112,6 +120,7 @@ GNEMatchAttribute::disableMatchAttribute() {
         tagComboBox->setTextColor(GUIDesignTextColorBlack);
     }
     myAttributeComboBox->disable();
+    myDataAttributeList->disable();
     myMatchString->disable();
     myMatchStringButton->disable();
     // change colors to black (even if there are invalid values)
@@ -188,10 +197,16 @@ GNEMatchAttribute::refreshMatchAttribute() {
     for (size_t i = (parentHierarchy.size() + 1); i < myTagComboBoxVector.size(); i++) {
         myTagComboBoxVector.at(i)->hide();
     }
-    // now fill attributes
-    myAttributeComboBox->clearItems();
-    // get all children recursivelly
     const auto attributes = myCurrentEditedProperties->getTagProperties()->getHierarchicalChildrenAttributesRecursively(myShowOnlyCommonAttributes->getCheck() == TRUE, true);
+    if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+        myAttributeComboBox->hide();
+        myDataAttributeList->show();
+        refreshDataAttributes(attributes);
+        return;
+    }
+    myDataAttributeList->hide();
+    myAttributeComboBox->show();
+    myAttributeComboBox->clearItems();
     for (const auto& attribute : attributes) {
         myAttributeComboBox->appendAttrItem(attribute.second);
     }
@@ -214,6 +229,74 @@ GNEMatchAttribute::refreshMatchAttribute() {
         myMatchString->setText(myCurrentEditedProperties->getMatchValue().c_str(), FALSE);
         myMatchString->enable();
     }
+}
+
+
+void
+GNEMatchAttribute::refreshDataAttributes(const std::map<std::string, const GNEAttributeProperties*>& attributes) {
+    const auto* previous = getCurrentDataAttribute();
+    const std::string previousName = previous == nullptr ? "" : previous->name;
+    const bool previousParameter = previous != nullptr && previous->property == nullptr;
+    myDataAttributeList->clearItems();
+    myDataAttributes.clear();
+    for (const auto& attribute : attributes) {
+        myDataAttributes.push_back({attribute.first, attribute.second, attribute.second->isNumerical()});
+        myDataAttributeList->appendItem(new MFXListIconItem(attribute.first.c_str(), nullptr, GUIDesignBackgroundColorWhite));
+    }
+
+    struct ParameterInfo {
+        size_t count = 0;
+        bool numeric = true;
+    };
+    std::map<std::string, ParameterInfo> parameters;
+    size_t dataCount = 0;
+    const auto tag = myCurrentEditedProperties->getTagProperties()->getTag();
+    const auto carriers = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveAttributeCarriers(tag);
+    for (const auto* carrier : carriers) {
+        if (carrier->getTagProperty()->isGenericData()) {
+            dataCount++;
+            for (const auto& parameter : static_cast<const GNEGenericData*>(carrier)->getParametersMap()) {
+                auto& info = parameters[parameter.first];
+                info.count++;
+                info.numeric = info.numeric && GNEAttributeCarrier::canParse<double>(parameter.second);
+            }
+        }
+    }
+    for (const auto& parameter : parameters) {
+        if (!myShowOnlyCommonAttributes->getCheck() || parameter.second.count == dataCount) {
+            myDataAttributes.push_back({parameter.first, nullptr, parameter.second.numeric});
+            const std::string label = TLF("% (parameter)", parameter.first);
+            myDataAttributeList->appendItem(new MFXListIconItem(label.c_str(), nullptr, FXRGB(224, 235, 255)));
+        }
+    }
+    myMatchString->setText(myCurrentEditedProperties->getMatchValue().c_str(), FALSE);
+    if (myDataAttributes.empty()) {
+        myDataAttributeList->appendItem(new MFXListIconItem(TL("No matching attributes"), nullptr, GUIDesignBackgroundColorWhite));
+        myDataAttributeList->disable();
+        myMatchString->disable();
+    } else {
+        myDataAttributeList->enable();
+        myMatchString->enable();
+        int index = 0;
+        for (int i = 0; i < (int)myDataAttributes.size(); ++i) {
+            const auto& attribute = myDataAttributes[i];
+            if (attribute.name == previousName && (attribute.property == nullptr) == previousParameter) {
+                index = i;
+                break;
+            }
+        }
+        auto* item = myDataAttributeList->getItem(index);
+        myDataAttributeList->setCurrentItem(item);
+        myDataAttributeList->selectItem(item);
+        myDataAttributeList->makeItemVisible(item);
+    }
+}
+
+
+const GNEMatchAttribute::DataAttribute*
+GNEMatchAttribute::getCurrentDataAttribute() const {
+    const int index = myDataAttributeList->getCurrentItemIndex();
+    return index >= 0 && index < (int)myDataAttributes.size() ? &myDataAttributes[index] : nullptr;
 }
 
 
@@ -242,7 +325,14 @@ GNEMatchAttribute::onCmdTagSelected(FXObject* obj, FXSelector, void*) {
 
 
 long
-GNEMatchAttribute::onCmdAttributeSelected(FXObject*, FXSelector, void*) {
+GNEMatchAttribute::onCmdAttributeSelected(FXObject* object, FXSelector, void*) {
+    if (object == myDataAttributeList) {
+        const int index = myDataAttributeList->getCurrentItemIndex();
+        if (index >= 0) {
+            myDataAttributeList->selectItem(myDataAttributeList->getItem(index));
+        }
+        return 1;
+    }
     myCurrentEditedProperties->setAttributeProperties(myAttributeComboBox->getCurrentAttrProperty());
     refreshMatchAttribute();
     return 1;
@@ -260,13 +350,19 @@ GNEMatchAttribute::onCmdToggleOnlyCommon(FXObject*, FXSelector, void*) {
 long
 GNEMatchAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
     std::vector<GNEAttributeCarrier*> matches;
-    // obtain expresion
+    const bool dataMode = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData();
+    const auto* dataAttribute = dataMode ? getCurrentDataAttribute() : nullptr;
+    if (dataMode && dataAttribute == nullptr) {
+        return 1;
+    }
+    const bool numerical = dataMode ? dataAttribute->numeric : myCurrentEditedProperties->getAttributeProperties()->isNumerical();
+    // Obtain the selection expression.
     std::string expr = myMatchString->getText().text();
     bool valid = true;
     if (expr == "") {
         // the empty expression matches all objects
         matches = getMatches('@', 0, expr);
-    } else if (myCurrentEditedProperties->getAttributeProperties()->isNumerical()) {
+    } else if (numerical) {
         // The expression must have the form
         //  <val matches if attr < val
         //  >val matches if attr > val
@@ -346,132 +442,67 @@ GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
 std::vector<GNEAttributeCarrier*>
 GNEMatchAttribute::getMatches(const char compOp, const double val, const std::string& expr) {
     std::vector<GNEAttributeCarrier*> result;
-    // first retrieve all ACs using ACTag
-    const auto allACbyTag = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveAttributeCarriers(myCurrentEditedProperties->getTagProperties()->getTag());
-    // iterate over all ACs
-    for (const auto& AC : allACbyTag) {
-        // first check if the attribute exist in the given tag
-        if (AC->getTagProperty()->hasAttribute(myCurrentEditedProperties->getAttributeProperties()->getAttr())) {
-            if (expr == "" && compOp == '@') {
-                result.push_back(AC);
-            } else if (myCurrentEditedProperties->getAttributeProperties()->isNumerical()) {
-                double acVal;
-                std::istringstream buf(AC->getAttribute(myCurrentEditedProperties->getAttributeProperties()->getAttr()));
-                buf >> acVal;
-                switch (compOp) {
-                    case '<':
-                        if (acVal < val) {
-                            result.push_back(AC);
-                        }
-                        break;
-                    case '>':
-                        if (acVal > val) {
-                            result.push_back(AC);
-                        }
-                        break;
-                    case '=':
-                        if (acVal == val) {
-                            result.push_back(AC);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                // string match
-                std::string acVal = AC->getAttributeForSelection(myCurrentEditedProperties->getAttributeProperties()->getAttr());
-                switch (compOp) {
-                    case '@':
-                        if (acVal.find(expr) != std::string::npos) {
-                            result.push_back(AC);
-                        }
-                        break;
-                    case '!':
-                        if (acVal.find(expr) == std::string::npos) {
-                            result.push_back(AC);
-                        }
-                        break;
-                    case '=':
-                        if (acVal == expr) {
-                            result.push_back(AC);
-                        }
-                        break;
-                    case '^':
-                        if (acVal != expr) {
-                            result.push_back(AC);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+    const bool dataMode = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData();
+    const auto* dataAttribute = dataMode ? getCurrentDataAttribute() : nullptr;
+    if (dataMode && dataAttribute == nullptr) {
+        return result;
     }
-    return result;
-}
-
-
-std::vector<GNEAttributeCarrier*>
-GNEMatchAttribute::getGenericMatches(const std::vector<GNEGenericData*>& genericDatas, const std::string& attr, const char compOp, const double val, const std::string& expr) {
-    std::vector<GNEAttributeCarrier*> result;
-    // iterate over generic datas
-    for (const auto& genericData : genericDatas) {
-        if (expr == "" && compOp == '@') {
-            result.push_back(genericData);
-        } else if (attr != toString(GNE_ATTR_PARENT)) {
-            double acVal;
-            std::istringstream buf(genericData->getParameter(attr, "0"));
-            buf >> acVal;
+    const auto* property = dataMode ? dataAttribute->property : myCurrentEditedProperties->getAttributeProperties();
+    const bool numeric = dataMode ? dataAttribute->numeric : property->isNumerical();
+    const auto tag = myCurrentEditedProperties->getTagProperties()->getTag();
+    const auto carriers = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveAttributeCarriers(tag);
+    const auto matches = [&](const std::string& value) {
+        if (expr.empty() && compOp == '@') {
+            return true;
+        }
+        if (numeric) {
+            double number;
+            std::istringstream stream(value);
+            if (!(stream >> number)) {
+                return false;
+            }
             switch (compOp) {
                 case '<':
-                    if (acVal < val) {
-                        result.push_back(genericData);
-                    }
-                    break;
+                    return number < val;
                 case '>':
-                    if (acVal > val) {
-                        result.push_back(genericData);
-                    }
-                    break;
+                    return number > val;
                 case '=':
-                    if (acVal == val) {
-                        result.push_back(genericData);
-                    }
-                    break;
+                    return number == val;
                 default:
-                    break;
+                    return false;
             }
-        } else {
-            // string match
-            std::string acVal = genericData->getAttributeForSelection(GNE_ATTR_PARENT);
-            switch (compOp) {
-                case '@':
-                    if (acVal.find(expr) != std::string::npos) {
-                        result.push_back(genericData);
-                    }
-                    break;
-                case '!':
-                    if (acVal.find(expr) == std::string::npos) {
-                        result.push_back(genericData);
-                    }
-                    break;
-                case '=':
-                    if (acVal == expr) {
-                        result.push_back(genericData);
-                    }
-                    break;
-                case '^':
-                    if (acVal != expr) {
-                        result.push_back(genericData);
-                    }
-                    break;
-                default:
-                    break;
+        }
+        switch (compOp) {
+            case '@':
+                return value.find(expr) != std::string::npos;
+            case '!':
+                return value.find(expr) == std::string::npos;
+            case '=':
+                return value == expr;
+            case '^':
+                return value != expr;
+            default:
+                return false;
+        }
+    };
+    for (auto* carrier : carriers) {
+        if (property != nullptr) {
+            const auto attr = property->getAttr();
+            if (carrier->getTagProperty()->hasAttribute(attr) &&
+                    (numeric ? matches(carrier->getAttribute(attr)) : matches(carrier->getAttributeForSelection(attr)))) {
+                result.push_back(carrier);
+            }
+        } else if (carrier->getTagProperty()->isGenericData()) {
+            const auto& parameterMap = static_cast<const GNEGenericData*>(carrier)->getParametersMap();
+            const auto value = parameterMap.find(dataAttribute->name);
+            if (value != parameterMap.end() && matches(value->second)) {
+                result.push_back(carrier);
             }
         }
     }
     return result;
 }
+
 
 // ---------------------------------------------------------------------1------
 // GNEMatchAttribute::CurrentEditedProperties - methods
