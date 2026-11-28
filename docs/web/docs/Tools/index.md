@@ -14,6 +14,8 @@ depend on external libraries, which can be installed using
 `pip install -r tools/requirements.txt`. For details on installation
 and required versions see also the [Linux installation instructions](../Installing/Linux_Build.md#installing_python_packages_for_the_tools).
 
+With free-threaded CPython 3.13 or 3.14, install the tools' dependencies using `python -m pip install -r tools/req_free_threaded.txt`. The list skips dependencies when compatible wheels are unavailable for the Python version or platform. Tools that need those dependencies, such as the JuPedSim gRPC service, require a separate installation of the dependency. Some extensions may enable the GIL when imported.
+
 # How to use python tools
 
 Python tools are usually called from the [command

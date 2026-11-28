@@ -1,0 +1,13 @@
+# Install this file with free-threaded CPython 3.13 or 3.14.
+# grpcio does not publish free-threaded wheels.
+-r req_tools_common.txt
+
+# lxml publishes free-threaded wheels starting with Python 3.14.
+fmpy>=0.3.5,!=0.3.17,!=0.3.28; python_version >= '3.14'
+lxml>=6.1.0; python_version >= '3.14'
+
+# kiwisolver, a dependency of matplotlib, lacks Windows wheels for Python 3.13t.
+matplotlib>=3.1.2; sys_platform != 'win32' or python_version >= '3.14'
+
+# OR-Tools publishes free-threaded wheels for x86-64 and aarch64 Linux.
+ortools>=9.12; sys_platform == 'linux' and (platform_machine == 'x86_64' or platform_machine == 'aarch64') and python_version < '3.15'
