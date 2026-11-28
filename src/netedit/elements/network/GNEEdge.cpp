@@ -661,12 +661,12 @@ GNEEdge::updateCenteringBoundary(const bool updateGrid) {
         const auto laneBoundary = lane->getCenteringBoundary();
         if (laneBoundary.isInitialised()) {
             myEdgeBoundary.add(laneBoundary);
-            // add additional and demand boundaries
-            for (const auto& additional : lane->getChildAdditionals()) {
-                const auto additionalBoundary = additional->getCenteringBoundary();
-                if (additionalBoundary.isInitialised()) {
-                    myEdgeBoundary.add(additional->getCenteringBoundary());
-                }
+        }
+        // An additional can have a boundary before the lane contour is drawn.
+        for (const auto& additional : lane->getChildAdditionals()) {
+            const auto additionalBoundary = additional->getCenteringBoundary();
+            if (additionalBoundary.isInitialised()) {
+                myEdgeBoundary.add(additionalBoundary);
             }
         }
     }

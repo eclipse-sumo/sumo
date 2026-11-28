@@ -49,8 +49,6 @@ GNEParkingArea::GNEParkingArea(const std::string& id, GNENet* net, FileBucket* f
     myLength(length),
     myLefthand(lefthand),
     myAcceptedBadges(badges) {
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
 }
 
 
@@ -112,6 +110,13 @@ GNEParkingArea::updateGeometry() {
     tmpShape.move2side(offsetSign * (1.5 + myWidth));
     // Get position of the sign
     mySymbolPosition = tmpShape.getLineCenter();
+    // Parking areas use their parent edge's spatial index for drawing and hit testing.
+    myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    myAdditionalBoundary.grow(myWidth * 0.5);
+    myAdditionalBoundary.add(mySymbolPosition);
+    myAdditionalBoundary.grow(5);
+    auto* edge = getParentLanes().front()->getParentEdge();
+    edge->updateCenteringBoundary(edge->inGrid());
     // clear LotSpaceDefinitions
     myLotSpaceDefinitions.clear();
     // iterate over
@@ -336,20 +341,21 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ROADSIDE_CAPACITY:
             myRoadSideCapacity = parse<int>(value);
-            updateCenteringBoundary(false);
+            if (!isTemplate()) {
+                updateGeometry();
+            }
             break;
         case SUMO_ATTR_ONROAD:
             myOnRoad = parse<bool>(value);
+            if (!isTemplate()) {
+                updateGeometry();
+            }
             break;
         case SUMO_ATTR_WIDTH:
             myWidth = parse<double>(value);
             // update geometry of all spaces
             for (const auto& space : getChildAdditionals()) {
                 space->updateGeometry();
-            }
-            updateCenteringBoundary(false);
-            if (!isTemplate()) {
-                getParentLanes().front()->getParentEdge()->updateCenteringBoundary(true);
             }
             break;
         case SUMO_ATTR_LENGTH:
