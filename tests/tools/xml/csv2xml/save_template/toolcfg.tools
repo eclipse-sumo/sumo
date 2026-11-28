@@ -4,6 +4,8 @@
     <quotechar value="" type="string" help="the quoting character for fields" category="processing"/>
     <delimiter value=";" type="string" help="the field separator of the input file" category="processing"/>
     <skip-root value="False" type="bool" help="the root element is not contained" category="processing"/>
+    <root-tag value="data" type="string" help="root element tag for --flat output" category="processing"/>
+    <row-tag value="record" type="string" help="row element tag for --flat output" category="processing"/>
     <type value="None" type="string" help="convert the given csv-file into the specified format" category="processing"/>
     <xsd value="None" type="string" help="xsd schema to use" category="processing"/>
     <flat value="False" type="bool" help="use csv header as flat structure instead of a schema" category="processing"/>

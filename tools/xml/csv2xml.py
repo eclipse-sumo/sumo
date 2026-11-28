@@ -30,6 +30,8 @@ from collections import OrderedDict
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+else:
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import sumolib  # noqa
 from sumolib.xml import xsd  # noqa
 
@@ -46,6 +48,10 @@ def get_options(args=None):
                            help="the field separator of the input file")
     optParser.add_argument("-p", "--skip-root", action="store_true", default=False,
                            help="the root element is not contained")
+    optParser.add_argument("--root-tag", default="data",
+                           help="root element tag for --flat output")
+    optParser.add_argument("--row-tag", default="record",
+                           help="row element tag for --flat output")
     group = optParser.add_mutually_exclusive_group(required=True)
     group.add_argument("-t", "--type",
                        help="convert the given csv-file into the specified format")
@@ -184,22 +190,46 @@ def checkChanges(out, old, new, currEle, tagStack, depth, used):
                     checkChanges(out, old, new, ele, tagStack, depth + 1, used)
 
 
+def registerAnyAttributes(struct, fields):
+    prefixMap = []
+
+    def collectPaths(ele, path):
+        currPath = path + [ele.name]
+        prefixMap.append(("_".join(currPath) + "_", ele))
+        prefixMap.append((ele.name + "_", ele))
+        for child in ele.children:
+            if child.name not in currPath:
+                collectPaths(child, currPath)
+
+    if struct.root:
+        collectPaths(struct.root, [])
+    prefixMap.sort(key=lambda item: len(item[0]), reverse=True)
+    for field in fields:
+        for prefix, ele in prefixMap:
+            if field.startswith(prefix):
+                attrName = field[len(prefix):]
+                if attrName and ele.anyAttribute and all(a.name != attrName for a in ele.attributes):
+                    ele.attributes.append(xsd.XmlAttribute(attrName))
+                break
+
+
 def writeHierarchicalXml(struct, options):
-    if not struct.root.attributes:
-        options.skip_root = True
     with contextlib.closing(sumolib.openz(options.output, "w", trySocket=True)) as outputf:
         inputf = sumolib.openz(options.source, trySocket=True)
         lastRow = OrderedDict()
         tagStack = []
-        if options.skip_root:
-            outputf.write(u'<%s' % struct.root.name)
-            tagStack.append(struct.root.name)
         fields = None
         enums = {}
         first = True
         for raw in csv.reader(inputf, delimiter=options.delimiter):
             if not fields:
                 fields = raw
+                registerAnyAttributes(struct, fields)
+                if not struct.root.attributes:
+                    options.skip_root = True
+                if options.skip_root:
+                    outputf.write(u'<%s' % struct.root.name)
+                    tagStack.append(struct.root.name)
                 for f in fields:
                     if '_' not in f:
                         continue
@@ -219,6 +249,9 @@ def writeHierarchicalXml(struct, options):
                     first = False
                 checkChanges(outputf, lastRow, row, struct.root, tagStack, 1, used)
                 lastRow = row
+        if fields is None and (options.skip_root or not struct.root.attributes):
+            outputf.write(u'<%s' % struct.root.name)
+            tagStack.append(struct.root.name)
         outputf.write(u"/>\n")
         for idx in range(len(tagStack) - 2, -1, -1):
             outputf.write(u"%s</%s>\n" % (idx * '    ', tagStack[idx]))
@@ -228,15 +261,21 @@ def writeHierarchicalXml(struct, options):
 def writeFlatXml(options):
     with contextlib.closing(sumolib.openz(options.output, "w", trySocket=True)) as outputf:
         inputf = sumolib.openz(options.source, trySocket=True)
-        outputf.write('<data>\n')
+        indent = "" if options.skip_root else "    "
+        if not options.skip_root:
+            outputf.write('<%s>\n' % options.root_tag)
         fields = None
         for raw in csv.reader(inputf, delimiter=options.delimiter):
             if not fields:
                 fields = raw
             else:
-                outputf.write('    <record %s/>\n' % (
-                    ' '.join(['%s="%s"' % av for av in zip(fields, raw)])))
-        outputf.write('</data>\n')
+                attrs = ' '.join(['%s="%s"' % av for av in zip(fields, raw) if av[1] != ""])
+                if attrs:
+                    outputf.write('%s<%s %s/>\n' % (indent, options.row_tag, attrs))
+                else:
+                    outputf.write('%s<%s/>\n' % (indent, options.row_tag))
+        if not options.skip_root:
+            outputf.write('</%s>\n' % options.root_tag)
         inputf.close()
 
 
