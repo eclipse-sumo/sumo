@@ -866,6 +866,13 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_STOP_PARAMETER, vehID, "tisb", 3, nextStopIndex, param, customParam)
 
+    def getFlowParameter(self, vehID, param):
+        """getFlowParameter(string, string) -> double
+        Gets the value of the given parameter for the flow with the given ID.
+        Supported params are 'number', 'end', 'period', 'probability', 'poissonRate'.
+        """
+        return self._getUniversal(tc.VAR_FLOW_PARAMETER, vehID, "s", param)
+
     def getStopState(self, vehID):
         """getStopState(string) -> integer
 
@@ -1116,6 +1123,13 @@ class VehicleDomain(VTypeDomain):
         specified param name will be set instead
         """
         self._setCmd(tc.VAR_STOP_PARAMETER, vehID, "tissb", 4, nextStopIndex, param, value, customParam)
+
+    def setFlowParameter(self, vehID, param, value):
+        """setFlowParameter(string, string, double) -> None
+        Sets the value of the given flow parameter ('number', 'end', 'period',
+        'probability', 'poissonRate'). If vehID refers to a vehicle, turns it into a flow.
+        """
+        self._setCmd(tc.VAR_FLOW_PARAMETER, vehID, "tsd", 2, param, value)
 
     def resume(self, vehID):
         """resume(string) -> None

@@ -179,6 +179,12 @@ public:
     /// @brief return parameters for the given flow
     const SUMOVehicleParameter* getFlowPars(const std::string& id) const;
 
+    /// @brief return flow parameter value for the given flow
+    double getFlowParameter(const std::string& id, const std::string& param) const;
+
+    /// @brief set flow parameter value for the given flow or turn vehicle into a flow
+    void setFlowParameter(const std::string& id, const std::string& param, double value);
+
     /// @brief return the last vehicle for the given flow
     SUMOVehicle* getLastFlowVehicle(const std::string& id) const;
 

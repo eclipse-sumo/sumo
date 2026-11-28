@@ -27,6 +27,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cassert>
+#include <cmath>
 #include <iterator>
 #include <utils/router/IntermodalRouter.h>
 #include <microsim/devices/MSDevice_Routing.h>
@@ -248,6 +249,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                               && pars->repetitionsDone < scaledRepetitions
                               && pars->depart + pars->repetitionTotalOffset <= time)
                              || (tryEmitByProb
+                                 && pars->repetitionsDone < scaledRepetitions
                                  && pars->depart <= time
                                  && pars->repetitionEnd > time
                                  // only call rand if all other conditions are met
@@ -453,6 +455,224 @@ MSInsertionControl::getFlowPars(const std::string& id) const {
         }
     }
     return nullptr;
+}
+
+
+double
+MSInsertionControl::getFlowParameter(const std::string& id, const std::string& param) const {
+    const SUMOVehicleParameter* pars = getFlowPars(id);
+    if (pars == nullptr) {
+        throw InvalidArgument("Flow '" + id + "' is not known.");
+    }
+    if (param == "number") {
+        return (pars->repetitionNumber < 0 || pars->repetitionNumber == std::numeric_limits<long long int>::max())
+               ? -1. : (double)pars->repetitionNumber;
+    } else if (param == "end") {
+        return (pars->repetitionEnd < 0 || pars->repetitionEnd == SUMOTime_MAX)
+               ? -1. : STEPS2TIME(pars->repetitionEnd);
+    } else if (param == "period") {
+        return (pars->repetitionProbability < 0 && pars->repetitionOffset >= 0)
+               ? STEPS2TIME(pars->repetitionOffset) : -1.;
+    } else if (param == "probability") {
+        return pars->repetitionProbability;
+    } else if (param == "poissonRate") {
+        return (pars->repetitionProbability < 0 && pars->repetitionOffset < 0 && pars->poissonRate > 0)
+               ? pars->poissonRate : -1.;
+    } else {
+        throw InvalidArgument("Unsupported flow parameter '" + param + "'.");
+    }
+}
+
+
+void
+MSInsertionControl::setFlowParameter(const std::string& id, const std::string& param, double value) {
+    Flow* flow = nullptr;
+    for (Flow& f : myFlows) {
+        if (f.pars->id == id) {
+            flow = &f;
+            break;
+        }
+    }
+    const bool isNewFlow = (flow == nullptr);
+    MSBaseVehicle* templateVeh = nullptr;
+    if (isNewFlow) {
+        if (hasFlow(id)) {
+            throw InvalidArgument("Flow '" + id + "' has already ended.");
+        }
+        SUMOVehicle* sumoVeh = myVehicleControl.getVehicle(id);
+        if (sumoVeh == nullptr) {
+            throw InvalidArgument("Vehicle '" + id + "' is not known.");
+        }
+        templateVeh = dynamic_cast<MSBaseVehicle*>(sumoVeh);
+        if (templateVeh == nullptr) {
+            throw InvalidArgument("Vehicle '" + id + "' is not a proper vehicle.");
+        }
+        if (param != "period" && param != "probability" && param != "poissonRate") {
+            if (param == "number" || param == "end") {
+                throw InvalidArgument("Turning vehicle '" + id + "' into a flow requires parameter 'period', 'probability' or 'poissonRate'.");
+            }
+            throw InvalidArgument("Unsupported flow parameter '" + param + "'.");
+        }
+    }
+    if (param == "number") {
+        if (!std::isfinite(value) || value < 0.) {
+            throw InvalidArgument("Flow number must not be negative.");
+        }
+    } else if (param == "end") {
+        if (!std::isfinite(value) || value < 0.) {
+            throw InvalidArgument("Flow end time must not be negative.");
+        }
+        checkTimeBounds(value);
+    } else if (param == "period") {
+        if (!std::isfinite(value) || value <= 0.) {
+            throw InvalidArgument("Flow period must be positive.");
+        }
+        checkTimeBounds(value);
+        if (TIME2STEPS(value) <= 0) {
+            throw InvalidArgument("Flow period must be positive.");
+        }
+    } else if (param == "probability") {
+        if (!std::isfinite(value) || value < 0. || value > 1.) {
+            throw InvalidArgument("Flow probability must be in [0, 1].");
+        }
+    } else if (param == "poissonRate") {
+        if (!std::isfinite(value) || value <= 0.) {
+            throw InvalidArgument("Flow poissonRate must be positive.");
+        }
+    } else {
+        throw InvalidArgument("Unsupported flow parameter '" + param + "'.");
+    }
+
+    const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+    if (isNewFlow) {
+        SUMOVehicleParameter* flowPars = new SUMOVehicleParameter(templateVeh->getParameter());
+        flowPars->tag = SUMO_TAG_FLOW;
+        flowPars->id = id;
+        if (flowPars->routeid.empty() || templateVeh->getNumberReroutes() > 0 || MSRoute::dictionary(flowPars->routeid) == nullptr) {
+            flowPars->routeid = templateVeh->getRoute().getID();
+            if (MSRoute::dictionary(flowPars->routeid) == nullptr) {
+                MSRoute::dictionary(flowPars->routeid, templateVeh->getRoutePtr());
+            }
+        }
+        if (!myVehicleControl.hasVTypeDistribution(flowPars->vtypeid)) {
+            flowPars->vtypeid = templateVeh->getVehicleType().getID();
+        }
+        if (flowPars->departProcedure == DepartDefinition::BEGIN) {
+            flowPars->depart = string2time(OptionsCont::getOptions().getString("begin"));
+        }
+        if (flowPars->depart < now || templateVeh->hasDeparted()) {
+            flowPars->depart = now;
+        }
+        if (flowPars->departProcedure != DepartDefinition::GIVEN && flowPars->departProcedure != DepartDefinition::BEGIN) {
+            flowPars->departProcedure = DepartDefinition::GIVEN;
+        }
+        const SUMOTime simEnd = string2time(OptionsCont::getOptions().getString("end"));
+        if (simEnd < 0) {
+            flowPars->repetitionEnd = SUMOTime_MAX;
+            flowPars->parametersSet &= ~VEHPARS_END_SET;
+        } else {
+            flowPars->repetitionEnd = simEnd;
+            flowPars->parametersSet |= VEHPARS_END_SET;
+        }
+        flowPars->repetitionsDone = 0;
+        flowPars->repetitionTotalOffset = 0;
+        flowPars->repetitionNumber = std::numeric_limits<long long int>::max();
+        flowPars->repetitionOffset = -1;
+        flowPars->repetitionProbability = -1;
+        flowPars->poissonRate = 0;
+        flowPars->parametersSet &= ~(VEHPARS_NUMBER_SET | VEHPARS_PERIOD_SET | VEHPARS_VPH_SET | VEHPARS_PROB_SET | VEHPARS_POISSON_SET);
+
+        myFlows.push_back(Flow{flowPars, 0, initScale(flowPars->vtypeid)});
+        myFlowIDs.insert(std::make_pair(id, 0));
+        flow = &myFlows.back();
+
+        if (!templateVeh->hasDeparted()) {
+            alreadyDeparted(templateVeh);
+            myEmitCandidates.erase(templateVeh);
+            myAbortedEmits.erase(templateVeh);
+            myVehicleControl.handleTriggeredDepart(templateVeh, false);
+            myVehicleControl.deleteVehicle(templateVeh, true);
+        }
+    }
+
+    SUMOVehicleParameter* const pars = flow->pars;
+    double typeScale = flow->scale;
+    if (typeScale < 0) {
+        typeScale = myVehicleControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG())->getParameter().scale;
+    }
+    const double scale = myVehicleControl.getScale() * typeScale;
+    const double effScale = scale > 0. ? scale : 1.;
+
+    if (param == "number") {
+        pars->repetitionNumber = (long long int)std::llround(value);
+        pars->parametersSet |= VEHPARS_NUMBER_SET;
+        pars->parametersSet &= ~VEHPARS_END_SET;
+        pars->repetitionEnd = SUMOTime_MAX;
+    } else if (param == "end") {
+        pars->repetitionEnd = TIME2STEPS(value);
+        pars->parametersSet |= VEHPARS_END_SET;
+        pars->parametersSet &= ~VEHPARS_NUMBER_SET;
+        if (pars->repetitionProbability < 0 && pars->repetitionOffset > 0) {
+            const SUMOTime nextDepart = pars->depart + pars->repetitionTotalOffset;
+            if (nextDepart >= pars->repetitionEnd) {
+                pars->repetitionNumber = (long long int)std::ceil((double)pars->repetitionsDone / effScale);
+            } else {
+                pars->repetitionNumber = (long long int)std::ceil(((double)pars->repetitionsDone / effScale)
+                                         + (double)(pars->repetitionEnd - nextDepart) / (double)pars->repetitionOffset);
+            }
+        } else {
+            pars->repetitionNumber = std::numeric_limits<long long int>::max();
+        }
+    } else if (param == "period") {
+        const SUMOTime newOffset = TIME2STEPS(value);
+        const SUMOTime newScaledOffset = (SUMOTime)((double)newOffset / effScale);
+        if (!isNewFlow && pars->repetitionProbability < 0 && pars->repetitionOffset >= 0 && pars->repetitionsDone > 0) {
+            const SUMOTime prevScaledOffset = (SUMOTime)((double)pars->repetitionOffset / effScale);
+            const SUMOTime prevTotalOffset = pars->repetitionTotalOffset - prevScaledOffset;
+            pars->repetitionTotalOffset = MAX2(now - pars->depart, prevTotalOffset + newScaledOffset);
+        } else {
+            pars->repetitionTotalOffset = MAX2((SUMOTime)0, now - pars->depart);
+        }
+        pars->repetitionOffset = newOffset;
+        pars->repetitionProbability = -1;
+        pars->poissonRate = 0;
+        pars->parametersSet &= ~(VEHPARS_VPH_SET | VEHPARS_PROB_SET | VEHPARS_POISSON_SET);
+        pars->parametersSet |= VEHPARS_PERIOD_SET;
+        if (!pars->wasSet(VEHPARS_NUMBER_SET)) {
+            if (pars->repetitionEnd == SUMOTime_MAX) {
+                pars->repetitionNumber = std::numeric_limits<long long int>::max();
+            } else {
+                const SUMOTime nextDepart = pars->depart + pars->repetitionTotalOffset;
+                if (nextDepart >= pars->repetitionEnd) {
+                    pars->repetitionNumber = (long long int)std::ceil((double)pars->repetitionsDone / effScale);
+                } else {
+                    pars->repetitionNumber = (long long int)std::ceil(((double)pars->repetitionsDone / effScale)
+                                             + (double)(pars->repetitionEnd - nextDepart) / (double)pars->repetitionOffset);
+                }
+            }
+        }
+    } else if (param == "probability") {
+        pars->repetitionProbability = value;
+        pars->repetitionOffset = -1;
+        pars->poissonRate = 0;
+        pars->parametersSet &= ~(VEHPARS_PERIOD_SET | VEHPARS_VPH_SET | VEHPARS_POISSON_SET);
+        pars->parametersSet |= VEHPARS_PROB_SET;
+        if (!pars->wasSet(VEHPARS_NUMBER_SET)) {
+            pars->repetitionNumber = std::numeric_limits<long long int>::max();
+        }
+    } else if (param == "poissonRate") {
+        pars->poissonRate = value;
+        pars->repetitionOffset = -1;
+        pars->repetitionProbability = -1;
+        pars->parametersSet &= ~(VEHPARS_PERIOD_SET | VEHPARS_VPH_SET | VEHPARS_PROB_SET);
+        pars->parametersSet |= VEHPARS_POISSON_SET;
+        pars->repetitionTotalOffset = MAX2((SUMOTime)0, now - pars->depart);
+        pars->incrementFlow(effScale, &myFlowRNG);
+        pars->repetitionsDone--;
+        if (!pars->wasSet(VEHPARS_NUMBER_SET)) {
+            pars->repetitionNumber = std::numeric_limits<long long int>::max();
+        }
+    }
 }
 
 SUMOVehicle*

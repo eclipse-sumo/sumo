@@ -61,6 +61,8 @@ Error: Answered with error to command 0xa2: Get TLS Variable: unsupported variab
 Error: Answered with error to command 0xd2: Could not add subscription. Get TLS Variable: unsupported variable 0x80 specified
 Error: Answered with error to command 0x29: Get VariableSpeedSign Variable: unsupported variable 0x80 specified
 Error: Answered with error to command 0x59: Could not add subscription. Get VariableSpeedSign Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xa4: Flow 'vehicle_0' is not known.
+Error: Answered with error to command 0xd4: Could not add subscription. Flow 'vehicle_0' is not known.
 Error: Answered with error to command 0xd4: Missing parameter for subscription 0xd4
 Error: Answered with error to command 0xa4: Get Vehicle Variable: unsupported variable 0x80 specified
 Error: Answered with error to command 0xd4: Could not add subscription. Get Vehicle Variable: unsupported variable 0x80 specified
