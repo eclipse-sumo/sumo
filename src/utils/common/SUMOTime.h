@@ -76,6 +76,9 @@ inline constexpr SUMOTime TIME2STEPS(double x) {
 /// @brief convert string to SUMOTime
 SUMOTime string2time(const std::string& r);
 
+/// @brief Convert a time string and report whether any component was rounded to milliseconds.
+SUMOTime string2time(const std::string& r, bool& rounded);
+
 /// @brief check if the given string is a valid time
 bool isTime(const std::string& r);
 

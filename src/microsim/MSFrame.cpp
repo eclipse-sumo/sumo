@@ -1010,7 +1010,10 @@ MSFrame::checkOptions() {
         ok = false;
     }
     // DELTA_T not yet initialized
-    const SUMOTime deltaT = MAX2((SUMOTime)1, string2time(oc.getString("step-length")));
+    const std::string stepLength = oc.getString("step-length");
+    bool roundedStepLength;
+    const SUMOTime stepLengthMs = string2time(stepLength, roundedStepLength);
+    const SUMOTime deltaT = MAX2((SUMOTime)1, stepLengthMs);
     if (begin < TIME2STEPS(1)) {
         checkStepLengthMultiple(begin, " for begin", deltaT);
     }
@@ -1020,9 +1023,11 @@ MSFrame::checkOptions() {
             ok = false;
         }
     }
-    if (string2time(oc.getString("step-length")) <= 0) {
+    if (stepLengthMs <= 0) {
         WRITE_ERROR(TL("the minimum step-length is 0.001."));
         ok = false;
+    } else if (roundedStepLength) {
+        WRITE_WARNINGF(TL("Step length '%' was rounded to % milliseconds."), stepLength, stepLengthMs);
     }
     const SUMOTime period = string2time(oc.getString("device.fcd.period"));
     if (period > 0) {
@@ -1069,7 +1074,7 @@ MSFrame::checkOptions() {
     if (oc.getBool("duration-log.statistics") && oc.isDefault("verbose")) {
         oc.setDefault("verbose", "true");
     }
-    if (oc.isDefault("precision") && string2time(oc.getString("step-length")) % 10 != 0) {
+    if (oc.isDefault("precision") && stepLengthMs % 10 != 0) {
         oc.setDefault("precision", "3");
     }
     if (oc.isDefault("tracker-interval") && !oc.isDefault("step-length")) {

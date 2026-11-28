@@ -47,6 +47,7 @@ invalid_float
 # the value for --device.rerouting.probability is not a float
 invalid_bool
 invalid_step_length
+rounded_step_length
 
 # Tests warning if the given default action step length is no multiple of the simulation step-length.
 action_step_fractional_warning
