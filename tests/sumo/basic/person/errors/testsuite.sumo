@@ -14,3 +14,6 @@ person_triggered_invalidFrom
 
 # warning only
 unsuitable_vclass
+
+# warning when explicit vClass on person vType is unsuitable (#5736)
+unsuitable_vclass_explicit
