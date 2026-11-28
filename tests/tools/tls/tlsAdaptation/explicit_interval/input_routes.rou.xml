@@ -1,0 +1,10 @@
+<routes>
+    <route id="north" edges="195687408#1 262667817#4.0 262667817#4.45"/>
+    <vehicle id="before" depart="99" route="north"/>
+    <vehicle id="begin" depart="100" route="north"/>
+    <vehicle id="in-short" depart="399" route="north"/>
+    <vehicle id="end-short" depart="400" route="north"/>
+    <vehicle id="after-an-hour" depart="3700" route="north"/>
+    <vehicle id="in-long" depart="7299" route="north"/>
+    <vehicle id="end-long" depart="7300" route="north"/>
+</routes>

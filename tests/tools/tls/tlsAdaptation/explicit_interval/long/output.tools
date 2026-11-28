@@ -1,0 +1,6 @@
+Begin time:100.0
+Warning: the number of unused states at TLS 1025888921: 20 (36 states, 16 connections)
+Warning: the number of unused states at TLS 1036849914: 4 (12 states, 8 connections)
+Warning: the number of unused states at TLS 1037005478: 8 (12 states, 4 connections)
+cluster_1037005497_2683362682 {0: 0.0, 2: 0.0, 4: 0.0006944444444444445}
+sum of the critical flow ratios:  0.0006944444444444445
