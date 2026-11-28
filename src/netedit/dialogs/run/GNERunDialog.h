@@ -100,6 +100,9 @@ protected:
     /// @brief flag to check if there is an error
     bool myError = false;
 
+    /// @brief Prepare a completed run whose output stays open.
+    virtual void showCompletedRun() {}
+
     /// @brief update dialog buttons
     void updateDialogButtons();
 
