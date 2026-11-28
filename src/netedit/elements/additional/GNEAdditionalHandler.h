@@ -41,6 +41,9 @@ class GNEAdditionalHandler : public AdditionalHandler {
 public:
     /// @brief Constructor
     GNEAdditionalHandler(GNENet* net, FileBucket* fileBucket, const bool allowUndoRedo);
+    /// @brief Build additionals with invalid stopping place positions when importing.
+    GNEAdditionalHandler(GNENet* net, FileBucket* fileBucket, const bool allowUndoRedo,
+                         const bool allowInvalidStoppingPlacePositions);
 
     /// @brief Destructor
     ~GNEAdditionalHandler();
@@ -699,6 +702,9 @@ private:
 
     /// @brief allow undo/redo
     const bool myAllowUndoRedo;
+
+    /// @brief keep imported stopping places available for repair
+    const bool myAllowInvalidStoppingPlacePositions;
 
     /// @brief invalidate default constructo
     GNEAdditionalHandler() = delete;

@@ -67,9 +67,16 @@
 // ===========================================================================
 
 GNEAdditionalHandler::GNEAdditionalHandler(GNENet* net, FileBucket* fileBucket, const bool allowUndoRedo) :
+    GNEAdditionalHandler(net, fileBucket, allowUndoRedo, false) {
+}
+
+
+GNEAdditionalHandler::GNEAdditionalHandler(GNENet* net, FileBucket* fileBucket, const bool allowUndoRedo,
+        const bool allowInvalidStoppingPlacePositions) :
     AdditionalHandler(fileBucket),
     myNet(net),
-    myAllowUndoRedo(allowUndoRedo) {
+    myAllowUndoRedo(allowUndoRedo),
+    myAllowInvalidStoppingPlacePositions(allowInvalidStoppingPlacePositions) {
 }
 
 
@@ -97,7 +104,8 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* /*s
         // check lane
         if (lane == nullptr) {
             return writeErrorInvalidParent(SUMO_TAG_BUS_STOP, id, {SUMO_TAG_LANE}, laneID);
-        } else if (!checkLaneDoublePosition(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!myAllowInvalidStoppingPlacePositions &&
+                !checkLaneDoublePosition(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             return writeErrorInvalidPosition(SUMO_TAG_BUS_STOP, id);
         } else if (!checkNegative(SUMO_TAG_BUS_STOP, id, SUMO_ATTR_PERSON_CAPACITY, personCapacity, true)) {
             return false;
@@ -141,7 +149,8 @@ GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* /
         // check lane
         if (lane == nullptr) {
             return writeErrorInvalidParent(SUMO_TAG_TRAIN_STOP, id, {SUMO_TAG_LANE}, laneID);
-        } else if (!checkLaneDoublePosition(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!myAllowInvalidStoppingPlacePositions &&
+                !checkLaneDoublePosition(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             return writeErrorInvalidPosition(SUMO_TAG_TRAIN_STOP, id);
         } else if (!checkNegative(SUMO_TAG_TRAIN_STOP, id, SUMO_ATTR_PERSON_CAPACITY, personCapacity, true)) {
             return false;
@@ -247,7 +256,8 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
         // check lane
         if (lane == nullptr) {
             return writeErrorInvalidParent(SUMO_TAG_CONTAINER_STOP, id, {SUMO_TAG_LANE}, laneID);
-        } else if (!checkLaneDoublePosition(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!myAllowInvalidStoppingPlacePositions &&
+                !checkLaneDoublePosition(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             return writeErrorInvalidPosition(SUMO_TAG_CONTAINER_STOP, id);
         } else if (!checkNegative(SUMO_TAG_CONTAINER_STOP, id, SUMO_ATTR_CONTAINER_CAPACITY, containerCapacity, true)) {
             return false;
@@ -290,7 +300,8 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
         // check lane
         if (lane == nullptr) {
             return writeErrorInvalidParent(SUMO_TAG_CHARGING_STATION, id, {SUMO_TAG_LANE}, laneID);
-        } else if (!checkLaneDoublePosition(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!myAllowInvalidStoppingPlacePositions &&
+                !checkLaneDoublePosition(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             return writeErrorInvalidPosition(SUMO_TAG_CHARGING_STATION, id);
         } else if (!checkNegative(SUMO_TAG_CHARGING_STATION, id, SUMO_ATTR_CHARGINGPOWER, chargingPower, true)) {
             return false;
@@ -339,7 +350,8 @@ GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject*
         // check lane
         if (lane == nullptr) {
             return writeErrorInvalidParent(SUMO_TAG_PARKING_AREA, id, {SUMO_TAG_LANE}, laneID);
-        } else if (!checkLaneDoublePosition(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!myAllowInvalidStoppingPlacePositions &&
+                !checkLaneDoublePosition(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             return writeErrorInvalidPosition(SUMO_TAG_PARKING_AREA, id);
         } else if (!checkNegative(SUMO_TAG_PARKING_AREA, id, SUMO_ATTR_ROADSIDE_CAPACITY, roadSideCapacity, true)) {
             return false;

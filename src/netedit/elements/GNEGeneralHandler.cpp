@@ -28,7 +28,7 @@
 
 GNEGeneralHandler::GNEGeneralHandler(GNENet* net, FileBucket* fileBucket, const bool allowUndoRedo) :
     GeneralHandler(fileBucket),
-    myAdditionalHandler(net, fileBucket, allowUndoRedo),
+    myAdditionalHandler(net, fileBucket, allowUndoRedo, true),
     myDemandHandler(net, fileBucket, allowUndoRedo, true),
     myMeanDataHandler(net, fileBucket, allowUndoRedo) {
 }
