@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17 23:00:13.529564 by Eclipse SUMO addIntermediateIds.py v1_28_0+0644-bda840e3afe
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <raw-net value="input_net2.net.xml"/>
+    <output-file value="edges.xml"/>
+    <patch-only value="True"/>
+    <mode value="id"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <edge id="-way1#2">
+        <param key="removedNodeIds" value="J2 J1"/>
+    </edge>
+    <edge id="way1#0">
+        <param key="removedNodeIds" value="J1 J2"/>
+    </edge>
+</edges>

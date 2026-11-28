@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17T23:00:12.573627+00:00 by Eclipse SUMO netconvert v1_28_0+0629-650f618c216
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Users\Mark\.gemini\antigravity\brain\ccc3a0cb-b99a-4eef-877f-2d9a12620d69\scratch\tmp_16970\n.nod.xml"/>
+        <edge-files value="C:\Users\Mark\.gemini\antigravity\brain\ccc3a0cb-b99a-4eef-877f-2d9a12620d69\scratch\tmp_16970\e_renamed.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="c:\Users\Mark\Desktop\sumo\tests\tools\net\addIntermediateIds\geometry\input_net.net.xml"/>
+    </output>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,300.00,0.00" origBoundary="0.00,0.00,300.00,0.00" projParameter="!"/>
+
+    <edge id=":J0_0" function="internal">
+        <lane id=":J0_0_0" index="0" speed="3.65" length="4.67" shape="0.00,1.60 -1.20,0.80 -1.60,0.00 -1.20,-0.80 0.00,-1.60"/>
+    </edge>
+    <edge id=":J3_0" function="internal">
+        <lane id=":J3_0_0" index="0" speed="3.65" length="4.67" shape="300.00,-1.60 301.20,-0.80 301.60,0.00 301.20,0.80 300.00,1.60"/>
+    </edge>
+
+    <edge id="east_corridor" from="J0" to="J3" priority="-1">
+        <lane id="east_corridor_0" index="0" speed="13.89" length="300.00" shape="0.00,-1.60 300.00,-1.60"/>
+    </edge>
+    <edge id="west_corridor" from="J3" to="J0" priority="-1">
+        <lane id="west_corridor_0" index="0" speed="13.89" length="300.00" shape="300.00,1.60 0.00,1.60"/>
+    </edge>
+
+    <junction id="J0" type="priority" x="0.00" y="0.00" incLanes="west_corridor_0" intLanes=":J0_0_0" shape="0.00,0.00 0.00,3.20 0.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="J3" type="priority" x="300.00" y="0.00" incLanes="east_corridor_0" intLanes=":J3_0_0" shape="300.00,0.00 300.00,-3.20 300.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="east_corridor" to="west_corridor" fromLane="0" toLane="0" via=":J3_0_0" dir="t" state="M"/>
+    <connection from="west_corridor" to="east_corridor" fromLane="0" toLane="0" via=":J0_0_0" dir="t" state="M"/>
+
+    <connection from=":J0_0" to="east_corridor" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":J3_0" to="west_corridor" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>
