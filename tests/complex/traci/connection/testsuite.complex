@@ -30,3 +30,6 @@ tracing
 
 # Python TraCI socket framing, partial I/O, and connection close recovery
 transport_recovery
+
+# suppress startup diagnostics on request
+quiet_startup
