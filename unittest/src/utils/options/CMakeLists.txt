@@ -1,0 +1,2 @@
+add_executable(testoptions OptionsContTest.cpp)
+setTestProperties(testoptions utils_options)
