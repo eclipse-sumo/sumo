@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-24T13:20:29.993330+00:00 by Eclipse SUMO sumo v1.28.0-0000000000
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <end value="1100"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <lateral-resolution value="0.3"/>
+        <collision.action value="warn"/>
+        <time-to-teleport value="-1"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="bike147" depart="1021.00" departLane="a_0" departPos="69.48" departPosLat="0.00" departSpeed="1.03" departDelay="0.00" arrival="1034.20" arrivalLane="-c_0" arrivalPos="47.00" arrivalPosLat="-1.27" arrivalSpeed="5.51" duration="13.20" routeLength="62.50" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.88" rerouteNo="0" devices="tripinfo_bike147 fcd_bike147" vType="bike_bicycle" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="Easymiles.0" depart="1021.00" departLane="d_0" departPos="100.55" departPosLat="0.00" departSpeed="2.20" departDelay="0.00" arrival="1042.90" arrivalLane="-c_0" arrivalPos="47.00" arrivalPosLat="0.00" arrivalSpeed="3.58" duration="21.90" routeLength="61.45" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.69" rerouteNo="0" devices="tripinfo_Easymiles.0 fcd_Easymiles.0" vType="AV_Easymile" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="bike213" depart="1021.00" departLane="b_0" departPos="24.07" departPosLat="0.00" departSpeed="3.13" departDelay="0.00" arrival="1052.40" arrivalLane="-d_0" arrivalPos="108.15" arrivalPosLat="-1.27" arrivalSpeed="5.54" duration="31.40" routeLength="122.40" waitingTime="3.30" waitingCount="1" stopTime="0.00" timeLoss="9.31" rerouteNo="0" devices="tripinfo_bike213 fcd_bike213" vType="bike_bicycle" speedFactor="1.00" vaporized=""/>
+</tripinfos>
