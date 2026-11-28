@@ -1,0 +1,9 @@
+<additional>
+    <route id="reroute" edges="SC CN NC CE EC"/>
+    <laneAreaDetector id="filtered" lanes="CS_0 :S_0_0 SC_0 :C_7_0 CN_0" pos="80" endPos="92.8" period="1000" file="detector.xml" nextEdges="CW"/>
+    <rerouter id="change" edges="SC">
+        <interval begin="0" end="300">
+            <routeProbReroute id="reroute"/>
+        </interval>
+    </rerouter>
+</additional>

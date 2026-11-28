@@ -1,2 +1,5 @@
 # Tests the multientryexit API
 multientryexit
+
+# Keep the entry filter decision when a vehicle reroutes inside the detector.
+nextEdges_reroute

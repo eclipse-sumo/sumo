@@ -1,0 +1,3 @@
+<additional>
+    <laneAreaDetector id="filtered" lanes="SC_0 :C_7_0 CN_0" pos="80" endPos="92.8" period="1000" file="detector.xml" nextEdges=":C_7"/>
+</additional>
