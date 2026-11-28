@@ -1,0 +1,13 @@
+<routes>
+    <vType id="car" maxSpeed="20" speedFactor="1"/>
+    <route id="left" edges="approach left"/>
+    <route id="right" edges="approach right"/>
+    <vehicle id="v0" type="car" route="left" depart="0"/>
+    <vehicle id="v1" type="car" route="right" depart="0"/>
+    <vehicle id="v2" type="car" route="left" depart="0"/>
+    <vehicle id="v3" type="car" route="right" depart="0"/>
+    <vehicle id="v4" type="car" route="left" depart="0"/>
+    <vehicle id="v5" type="car" route="right" depart="0"/>
+    <vehicle id="v6" type="car" route="left" depart="0"/>
+    <vehicle id="v7" type="car" route="right" depart="0"/>
+</routes>

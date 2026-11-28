@@ -1,3 +1,6 @@
+# pooled discharge from four lanes into two two-lane branches
+lane_split
+
 # changing tau_ff
 tau_ff
 
