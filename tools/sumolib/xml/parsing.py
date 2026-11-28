@@ -336,11 +336,22 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
             nodeText = '' if self._text is None else ",text=%s" % self._text
             return "<%s,child_dict=%s%s>" % (self.getAttributes(), dict(self._child_dict), nodeText)
 
-        def toXML(self, initialIndent="", indent="    ", withComments=False):
-            fields = [' %s="%s"' % (self._original_fields[i], xmlescape(getattr(self, k)))
-                      for i, k in enumerate(self._fields) if getattr(self, k) is not None and
-                      # see #3454
-                      '{' not in self._original_fields[i]]
+        def toXML(self, initialIndent="", indent="    ", withComments=False, attr_conversions=None):
+            """Serialize this object and its children using optional attribute formatters.
+
+            Keys in attr_conversions are the original XML attribute names.
+            Each formatter receives the stored value and its result is XML escaped.
+            """
+            attr_conversions = attr_conversions or {}
+            fields = []
+            for name, field in zip(self._original_fields, self._fields):
+                value = getattr(self, field)
+                # see #3454
+                if value is None or '{' in name:
+                    continue
+                if name in attr_conversions:
+                    value = attr_conversions[name](value)
+                fields.append(' %s="%s"' % (name, xmlescape(value)))
             if self.isComment():
                 if withComments:
                     return initialIndent + "<!-- %s -->\n" % self._text
@@ -355,10 +366,11 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
                 return initialIndent + "<%s%s%s/%s>\n" % (commentStart, self.name, "".join(fields), commentEnd)
             else:
                 s = initialIndent + "<%s%s%s>\n" % (commentStart, self.name, "".join(fields))
+                child_options = {"attr_conversions": attr_conversions} if attr_conversions else {}
                 for i, c in enumerate(self._child_list):
                     if i > 0 and c.isComment() and withComments == "inline":
                         s = s[:-1]
-                    s += c.toXML(initialIndent + indent, indent=indent, withComments=withComments)
+                    s += c.toXML(initialIndent + indent, indent=indent, withComments=withComments, **child_options)
                 if self._text is not None and self._text.strip():
                     s += self._text.strip(" ")
                 return s + "%s</%s%s>\n" % (initialIndent, self.name, commentEnd)
