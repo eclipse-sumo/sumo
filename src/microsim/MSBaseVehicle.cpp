@@ -1999,8 +1999,11 @@ MSBaseVehicle::addTraciStop(SUMOVehicleParameter::Stop stop, std::string& errorM
                 iter->duration = stop.duration;
                 iter->triggered = stop.triggered;
                 iter->containerTriggered = stop.containerTriggered;
-                const_cast<SUMOVehicleParameter::Stop&>(iter->pars).until = stop.until;
-                const_cast<SUMOVehicleParameter::Stop&>(iter->pars).parking = stop.parking;
+                SUMOVehicleParameter::Stop& pars = const_cast<SUMOVehicleParameter::Stop&>(iter->pars);
+                pars.duration = stop.duration;
+                pars.parametersSet |= stop.parametersSet & STOP_DURATION_SET;
+                pars.until = stop.until;
+                pars.parking = stop.parking;
             }
             return true;
         }
