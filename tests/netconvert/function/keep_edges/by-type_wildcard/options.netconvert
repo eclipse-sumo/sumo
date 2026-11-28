@@ -1,0 +1,1 @@
+-n input_plain.nod.xml -t input_plain.typ.xml -e input_plain.edg.xml --keep-edges.by-type "*primary*,*psv*" --remove-edges.by-type "*_link" -o net.net.xml

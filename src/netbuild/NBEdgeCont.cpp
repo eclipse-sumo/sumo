@@ -200,6 +200,47 @@ NBEdgeCont::insert(NBEdge* edge, bool ignorePrunning) {
 
 
 bool
+NBEdgeCont::wildcardMatch(const std::string& pattern, const std::string& text) {
+    size_t p = 0;
+    size_t t = 0;
+    size_t starIdx = std::string::npos;
+    size_t matchIdx = 0;
+    while (t < text.size()) {
+        if (p < pattern.size() && (pattern[p] == '?' || pattern[p] == text[t])) {
+            ++p;
+            ++t;
+        } else if (p < pattern.size() && pattern[p] == '*') {
+            starIdx = p++;
+            matchIdx = t;
+        } else if (starIdx != std::string::npos) {
+            p = starIdx + 1;
+            t = ++matchIdx;
+        } else {
+            return false;
+        }
+    }
+    while (p < pattern.size() && pattern[p] == '*') {
+        ++p;
+    }
+    return p == pattern.size();
+}
+
+
+bool
+NBEdgeCont::typeMatches(const std::set<std::string>& patterns, const std::string& edgeType) {
+    if (patterns.count(edgeType) > 0) {
+        return true;
+    }
+    for (const std::string& pat : patterns) {
+        if ((pat.find('*') != std::string::npos || pat.find('?') != std::string::npos) && wildcardMatch(pat, edgeType)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
 NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
     if (!myRemoveEdgesAfterLoading) {
         // check whether the edge is a named edge to keep
@@ -237,13 +278,13 @@ NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
     }
     // check whether the edge shall be removed because it does not have one of the requested types
     if (myTypes2Keep.size() != 0) {
-        if (myTypes2Keep.count(edge->getTypeID()) == 0) {
+        if (!typeMatches(myTypes2Keep, edge->getTypeID())) {
             return true;
         }
     }
     // check whether the edge shall be removed because it has one of the forbidden types
     if (myTypes2Remove.size() != 0) {
-        if (myTypes2Remove.count(edge->getTypeID()) > 0) {
+        if (typeMatches(myTypes2Remove, edge->getTypeID())) {
             return true;
         }
     }
