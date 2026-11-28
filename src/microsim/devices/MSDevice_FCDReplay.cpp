@@ -106,6 +106,7 @@ MSDevice_FCDReplay::init() {
             myUsedAttributes.set(SUMO_ATTR_TYPE);
         }
     }
+    myParsers.clear();
     myHandlers.clear();
     if (oc.isSet("device.fcd-replay.files")) {
         for (const std::string& filename : oc.getStringVector("device.fcd-replay.files")) {
@@ -114,12 +115,12 @@ MSDevice_FCDReplay::init() {
             if (!myParsers.back()->parseFirst(filename)) {
                 throw ProcessError(TLF("Can not read XML-file '%'.", filename));
             }
-            const SUMOTime inc = parseNext(SIMSTEP);
-            MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(new MoveVehicles(), SIMSTEP + DELTA_T);
-            if (inc > 0) {
-                MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(new StaticCommand<MSDevice_FCDReplay>(&MSDevice_FCDReplay::parseNext),
-                        SIMSTEP + inc);
-            }
+        }
+        const SUMOTime inc = parseNext(SIMSTEP);
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(new MoveVehicles(), SIMSTEP + DELTA_T);
+        if (inc > 0) {
+            MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(new StaticCommand<MSDevice_FCDReplay>(&MSDevice_FCDReplay::parseNext),
+                    SIMSTEP + inc);
         }
     }
 }
@@ -137,6 +138,7 @@ MSDevice_FCDReplay::parseNext(SUMOTime t) {
             while (myHandlers[i]->getTime() < t + 2 * inc) {
                 if (!myParsers[i]->parseNext()) {
                     myParsers[i] = nullptr;
+                    myHandlers[i]->setFinished();
                     break;
                 }
             }
@@ -159,28 +161,34 @@ MSDevice_FCDReplay::~MSDevice_FCDReplay() {
 }
 
 
-void
+bool
 MSDevice_FCDReplay::move(SUMOTime currentTime) {
     if (myTrajectory == nullptr) {
         for (auto& handler : myHandlers) {
             auto it = handler->getTrajectories().find(myHolder.getID());
             if (it != handler->getTrajectories().end()) {
-                setTrajectory(&it->second);
+                setTrajectory(&it->second, handler.get(), false);
                 break;
             }
         }
         if (myTrajectory == nullptr) {
-            return;
+            return false;
         }
-    } else if (myTrajectoryIndex == (int)myTrajectory->size()) {
-        // removal happens via the usual MSVehicle::hasArrived mechanism
-        // TODO we may need to set an arrivalPos
-        return;
+    }
+    if (myTrajectoryIndex == (int)myTrajectory->size()) {
+        // The reader may still append samples to this trajectory.
+        return myReplayCreated && myTrajectorySource->isFinished();
     }
     MSVehicle* v = dynamic_cast<MSVehicle*>(&myHolder);
+    // Apply the latest position due at this simulation step when the recording
+    // has a finer time resolution than the replay.
+    while (myTrajectoryIndex + 1 < (int)myTrajectory->size()
+            && myTrajectory->at(myTrajectoryIndex + 1).time <= currentTime) {
+        myTrajectoryIndex++;
+    }
     const TrajectoryEntry& te = myTrajectory->at(myTrajectoryIndex);
     if (v == nullptr || te.time > currentTime) {
-        return;
+        return false;
     }
     if (te.edgeOrLane != "") {
         const std::string& edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(te.edgeOrLane);
@@ -193,17 +201,22 @@ MSDevice_FCDReplay::move(SUMOTime currentTime) {
     libsumo::Vehicle::setSpeed(myHolder.getID(), te.speed);
     // libsumo::Vehicle::changeLane(myHolder.getID(), laneIdx, TS);
     myTrajectoryIndex++;
+    return false;
 }
 
 
 SUMOTime
 MSDevice_FCDReplay::MoveVehicles::execute(SUMOTime currentTime) {
     MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+    std::vector<std::string> finished;
     for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
         MSDevice_FCDReplay* device = static_cast<MSDevice_FCDReplay*>(i->second->getDevice(typeid(MSDevice_FCDReplay)));
-        if (device != nullptr && i->second->hasDeparted()) {
-            device->move(currentTime);
+        if (device != nullptr && i->second->hasDeparted() && device->move(currentTime)) {
+            finished.push_back(i->first);
         }
+    }
+    for (const std::string& id : finished) {
+        libsumo::Vehicle::remove(id, libsumo::REMOVE_ARRIVED);
     }
     return DELTA_T;
 }
@@ -446,7 +459,7 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
                     MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
                     continue;
                 }
-                device->setTrajectory(&t);
+                device->setTrajectory(&t, this, true);
 
                 // repair the route, cannot do this on parsing because a vehicle is needed
                 ConstMSEdgeVector checkedRoute = checkRoute(routeEdges, vehicle);

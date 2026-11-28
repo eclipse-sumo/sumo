@@ -179,3 +179,5 @@ tripinfoParameters
 
 # see #19194
 remove_stopped
+# Replay-created vehicles leave after the final recorded sample
+fcdReplay_terminal
