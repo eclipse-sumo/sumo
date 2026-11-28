@@ -1,0 +1,4 @@
+--osm-files osm.xml --type-files $SUMO_HOME/data/typemap/osmNetconvert.typ.xml,$SUMO_HOME/data/typemap/osmNetconvertUrbanDe.typ.xml,$SUMO_HOME/data/typemap/osmNetconvertPedestrians.typ.xml,$SUMO_HOME/data/typemap/osmNetconvertBicycle.typ.xml
+--geometry.remove --ramps.guess --junctions.join --tls.guess-signals --tls.join
+--osm.sidewalks --osm.bike-access --crossings.guess --tls.default-type actuated
+--junctions.join-output joined.nod.xml -o discard.net.xml
