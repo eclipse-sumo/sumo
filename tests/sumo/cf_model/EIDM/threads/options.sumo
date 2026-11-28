@@ -1,0 +1,6 @@
+--no-step-log
+-n net2.net.xml
+-r input_routes.rou.xml
+--step-length 0.1
+--tripinfo-output tripinfos.xml
+--threads 4
