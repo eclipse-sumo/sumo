@@ -73,6 +73,8 @@ public:
     static std::string getFromJunction(const std::string& edgeID);
     static std::string getToJunction(const std::string& edgeID);
     static std::string getBidiEdge(const std::string& edgeID);
+    static int getSegmentNumber(const std::string& edgeID);
+    static double getSegmentOffset(const std::string& edgeID, int segmentIndex);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API

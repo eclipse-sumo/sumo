@@ -76,6 +76,8 @@ Subscribing to edge.VAR_PMXEMISSION.
 Subscribing to edge.VAR_PARAMETER.
 Subscribing to edge.VAR_PARAMETER_WITH_KEY.
 Subscribing to edge.VAR_PENDING_VEHICLES.
+Subscribing to edge.VAR_SEGMENT_INDEX.
+Subscribing to edge.VAR_SEGMENT_ID.
 Subscribing to edge.VAR_NAME.
 Subscribing to edge.TO_JUNCTION.
 Subscribing to edge.VAR_CURRENT_TRAVELTIME.
@@ -653,7 +655,9 @@ Could not add subscription. Get Vehicle Type Variable: unsupported variable 0x80
          124: '0',
          126: '',
          127: '',
-         148: ()}}
+         148: (),
+         161: -1073741824.0,
+         162: 0}}
 {}
 {'inductionloop_0': {0: ('inductionloop_0',),
                      1: 1,

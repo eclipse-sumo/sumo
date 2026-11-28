@@ -1,0 +1,7 @@
+micro edge=-branch num=0 offset0=True
+meso edge=-branch num=1 offsets=[0.0]
+meso edge=-h num=1 offsets=[0.0]
+meso edge=b num=2 offsets=[0.0, 91.72]
+meso edge=beg num=1 offsets=[0.0]
+caught: Invalid segment index -1 for edge '-branch'.
+caught: Segment index 1 out of range for edge '-branch'.

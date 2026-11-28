@@ -230,6 +230,21 @@ class EdgeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_BIDI, edgeID)
 
+    def getSegmentNumber(self, edgeID):
+        """getSegmentNumber(string) -> integer
+
+        Returns the number of mesoscopic segments for the given edge (0 in microscopic simulation).
+        """
+        return self._getUniversal(tc.VAR_SEGMENT_INDEX, edgeID)
+
+    def getSegmentOffset(self, edgeID, segmentIndex):
+        """getSegmentOffset(string, integer) -> double
+
+        Returns the start offset in m of the given mesoscopic segment on the edge
+        (or INVALID_DOUBLE_VALUE in microscopic simulation).
+        """
+        return self._getUniversal(tc.VAR_SEGMENT_ID, edgeID, "i", segmentIndex)
+
     def adaptTraveltime(self, edgeID, time, begin=None, end=None):
         """adaptTraveltime(string, double, double, double) -> None
 

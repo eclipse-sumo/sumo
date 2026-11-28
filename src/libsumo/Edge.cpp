@@ -22,11 +22,14 @@
 #include <iterator>
 #include <limits>
 #include <microsim/MSEdge.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSInsertionControl.h>
+#include <mesosim/MELoop.h>
+#include <mesosim/MESegment.h>
 #include <libsumo/Helper.h>
 #include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIDefs.h>
@@ -314,6 +317,41 @@ Edge::getBidiEdge(const std::string& edgeID) {
     return bidi == nullptr ? "" : bidi->getID();
 }
 
+
+int
+Edge::getSegmentNumber(const std::string& edgeID) {
+    const MSEdge* const e = getEdge(edgeID);
+    if (!MSGlobals::gUseMesoSim || MSGlobals::gMesoNet == nullptr) {
+        return 0;
+    }
+    int count = 0;
+    for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*e); s != nullptr; s = s->getNextSegment()) {
+        ++count;
+    }
+    return count;
+}
+
+
+double
+Edge::getSegmentOffset(const std::string& edgeID, int segmentIndex) {
+    const MSEdge* const e = getEdge(edgeID);
+    if (!MSGlobals::gUseMesoSim || MSGlobals::gMesoNet == nullptr) {
+        return libsumo::INVALID_DOUBLE_VALUE;
+    }
+    if (segmentIndex < 0) {
+        throw TraCIException("Invalid segment index " + toString(segmentIndex) + " for edge '" + edgeID + "'.");
+    }
+    double offset = 0.;
+    int i = 0;
+    for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*e); s != nullptr; s = s->getNextSegment(), ++i) {
+        if (i == segmentIndex) {
+            return offset;
+        }
+        offset += s->getLength();
+    }
+    throw TraCIException("Segment index " + toString(segmentIndex) + " out of range for edge '" + edgeID + "'.");
+}
+
 std::string
 Edge::getParameter(const std::string& edgeID, const std::string& param) {
     return getEdge(edgeID)->getParameter(param, "");
@@ -484,6 +522,10 @@ Edge::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapString(objID, variable, getToJunction(objID));
         case VAR_BIDI:
             return wrapper->wrapString(objID, variable, getBidiEdge(objID));
+        case VAR_SEGMENT_INDEX:
+            return wrapper->wrapInt(objID, variable, getSegmentNumber(objID));
+        case VAR_SEGMENT_ID:
+            return wrapper->wrapDouble(objID, variable, getSegmentOffset(objID, StoHelp::readTypedInt(*paramData)));
         case VAR_PARAMETER:
             return wrapper->wrapString(objID, variable, getParameter(objID, StoHelp::readTypedString(*paramData)));
         case VAR_PARAMETER_WITH_KEY:
