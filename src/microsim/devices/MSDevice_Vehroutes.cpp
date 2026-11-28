@@ -65,24 +65,26 @@ MSDevice_Vehroutes::SortedRouteInfo MSDevice_Vehroutes::myRouteInfos;
 void
 MSDevice_Vehroutes::init() {
     const OptionsCont& oc = OptionsCont::getOptions();
+    mySaveExits = oc.getBool("vehroute-output.exit-times");
+    myLastRouteOnly = oc.getBool("vehroute-output.last-route");
+    myDUAStyle = oc.getBool("vehroute-output.dua");
+    myWriteCosts = oc.getBool("vehroute-output.cost");
+    mySorted = false;
+    myIntendedDepart = oc.getBool("vehroute-output.intended-depart");
+    myRouteLength = oc.getBool("vehroute-output.route-length");
+    mySkipPTLines = oc.getBool("vehroute-output.skip-ptlines");
+    myIncludeIncomplete = oc.getBool("vehroute-output.incomplete");
+    myWriteStopPriorEdges = oc.getBool("vehroute-output.stop-edges");
+    myWriteInternal = oc.getBool("vehroute-output.internal");
+    myRouteInfos.routeOut = nullptr;
+    MSNet::getInstance()->addVehicleStateListener(&myStateListener);
     if (oc.isSet("vehroute-output")) {
         OutputDevice::createDeviceByOption("vehroute-output", "routes", "routes_file.xsd");
         OutputDevice& od = OutputDevice::getDeviceByOption("vehroute-output");
         if (!od.isXML()) {
             WRITE_WARNING("Vehroute output does not fully support tabular formats. Sorting and stop output will not work.");
         }
-        mySaveExits = oc.getBool("vehroute-output.exit-times");
-        myLastRouteOnly = oc.getBool("vehroute-output.last-route");
-        myDUAStyle = oc.getBool("vehroute-output.dua");
-        myWriteCosts = oc.getBool("vehroute-output.cost");
         mySorted = myDUAStyle || oc.getBool("vehroute-output.sorted");
-        myIntendedDepart = oc.getBool("vehroute-output.intended-depart");
-        myRouteLength = oc.getBool("vehroute-output.route-length");
-        mySkipPTLines = oc.getBool("vehroute-output.skip-ptlines");
-        myIncludeIncomplete = oc.getBool("vehroute-output.incomplete");
-        myWriteStopPriorEdges = oc.getBool("vehroute-output.stop-edges");
-        myWriteInternal = oc.getBool("vehroute-output.internal");
-        MSNet::getInstance()->addVehicleStateListener(&myStateListener);
         myRouteInfos.routeOut = &od;
     }
 }
@@ -192,7 +194,7 @@ MSDevice_Vehroutes::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notifica
 
 bool
 MSDevice_Vehroutes::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
-    if (mySaveExits && reason != NOTIFICATION_LANE_CHANGE && reason != NOTIFICATION_PARKING && reason != NOTIFICATION_SEGMENT) {
+    if (reason != NOTIFICATION_LANE_CHANGE && reason != NOTIFICATION_PARKING && reason != NOTIFICATION_SEGMENT) {
         const MSEdge* edge = myWriteInternal ? dynamic_cast<MSBaseVehicle&>(veh).getCurrentEdge() : veh.getEdge();
         if (myLastSavedAt != edge) {
             myExits.push_back(MSNet::getInstance()->getCurrentTimeStep());
@@ -335,7 +337,22 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
 
 void
 MSDevice_Vehroutes::generateOutput(OutputDevice* /*tripinfoOut*/) const {
-    writeOutput(true);
+    if (OptionsCont::getOptions().isSet("vehroute-output")) {
+        writeOutput(true);
+    }
+}
+
+
+std::string
+MSDevice_Vehroutes::getParameter(const std::string& key) const {
+    if (key == "exitTimes") {
+        std::vector<std::string> exits;
+        for (SUMOTime t : myExits) {
+            exits.push_back(toString(STEPS2TIME(t)));
+        }
+        return joinToString(exits, " ");
+    }
+    throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
 
 
@@ -484,6 +501,9 @@ MSDevice_Vehroutes::addRoute(const std::string& info) {
 
 void
 MSDevice_Vehroutes::writePendingOutput(const bool includeUnfinished) {
+    if (!OptionsCont::getOptions().isSet("vehroute-output")) {
+        return;
+    }
     MSNet* const net = MSNet::getInstance();
 
     if (!includeUnfinished) {
