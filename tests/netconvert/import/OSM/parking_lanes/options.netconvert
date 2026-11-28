@@ -1,0 +1,1 @@
+--osm-files osm.xml --simple-projection --osm.sidewalks --osm.bike-access --osm.parking-lane-width 2

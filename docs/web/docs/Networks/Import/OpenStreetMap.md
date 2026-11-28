@@ -529,6 +529,12 @@ must be extended by:
 --remove-edges.by-vclass rail_slow,rail_fast,bicycle,pedestrian
 ```
 
+## Street parking lanes
+
+Set **--osm.parking-lane-width** to a positive width in meters to model parking lanes within the measured road width. The importer recognizes `parking:left=lane`, `parking:right=lane` and `parking:both=lane`. Legacy `parking:lane:*` tags require an explicit `on_street` position. The importer subtracts the parking width from the travel lanes in the corresponding direction. It skips parking lane creation on roads without a measured width, roads with individual lane width tags, and roads where the parking lanes would leave no width for travel lanes.
+
+Parking lanes are green verges by default. Set **--osm.parking-lane-allow** to a space-separated list of vehicle classes to permit traffic on them.
+
 ## Relationship between OSM ids and SUMO-ids
 
 For the most part, the relationship between OSM and .net.xml is simple:
