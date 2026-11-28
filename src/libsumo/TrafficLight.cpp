@@ -956,7 +956,11 @@ TrafficLight::setParameter(const std::string& tlsID, const std::string& paramNam
     if (StringUtils::startsWith(paramName, "NEMA.") && tll->getLogicType() != TrafficLightType::NEMA) {
         throw TraCIException("'" + tlsID + "' is not a NEMA controller");
     }
-    tll->setParameter(paramName, value);
+    try {
+        tll->setParameter(paramName, value);
+    } catch (const ProcessError& e) {
+        throw TraCIException(e.what());
+    }
 }
 
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(TrafficLight, TL)
@@ -969,6 +973,11 @@ TrafficLight::setNemaSplits(const std::string& tlsID, const std::vector<double>&
 void
 TrafficLight::setNemaMaxGreens(const std::string& tlsID, const std::vector<double>& maxGreens) {
     setParameter(tlsID, "NEMA.maxGreens", toString(maxGreens));
+}
+
+void
+TrafficLight::setNemaMinGreens(const std::string& tlsID, const std::vector<double>& minGreens) {
+    setParameter(tlsID, "NEMA.minGreens", toString(minGreens));
 }
 
 void

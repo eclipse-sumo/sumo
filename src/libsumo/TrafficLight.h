@@ -87,6 +87,7 @@ public:
 
     static void setNemaSplits(const std::string& tlsID, const std::vector<double>& splits);
     static void setNemaMaxGreens(const std::string& tlsID, const std::vector<double>& maxGreens);
+    static void setNemaMinGreens(const std::string& tlsID, const std::vector<double>& minGreens);
     static void setNemaCycleLength(const std::string& tlsID,  double cycleLength);
     static void setNemaOffset(const std::string& tlsID, double offset);
 

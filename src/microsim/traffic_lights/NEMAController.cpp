@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include <cassert>
+#include <cmath>
 #include <utility>
 #include <vector>
 #include <bitset>
@@ -693,6 +694,29 @@ NEMALogic::setNewMaxGreens(std::vector<double> newMaxGreens) {
 
 
 void
+NEMALogic::setNewMinGreens(const std::vector<double>& newMinGreens) {
+    for (const double duration : newMinGreens) {
+        if (!std::isfinite(duration) || duration < 0) {
+            throw InvalidArgument("Minimum green times must be finite and nonnegative");
+        }
+    }
+    for (const auto& p : myPhaseObjs) {
+        const double duration = newMinGreens[p->phaseName - 1];
+        if (duration > 0 && duration > STEPS2TIME(p->nextMaxDuration)) {
+            throw InvalidArgument("Minimum green time exceeds maximum green time for NEMA phase "
+                                  + toString(p->phaseName) + " in controller '" + getID() + "'");
+        }
+    }
+    for (auto& p : myPhaseObjs) {
+        const double duration = newMinGreens[p->phaseName - 1];
+        if (duration > 0) {
+            p->nextMinDuration = TIME2STEPS(duration);
+        }
+    }
+}
+
+
+void
 NEMALogic::setNewCycleLength(double newCycleLength) {
     // set the controller's next cycle length. This will be implemented when implementTraciChanges is called
     myNextCycleLength = TIME2STEPS(newCycleLength);
@@ -873,13 +897,11 @@ NEMALogic::getParameter(const std::string& key, const std::string defaultValue) 
 
 void
 NEMALogic::setParameter(const std::string& key, const std::string& value) {
-    queuedTraciChanges = true;
     if (StringUtils::startsWith(key, "NEMA.")) {
-        if (key == "NEMA.splits" || key == "NEMA.maxGreens") {
+        if (key == "NEMA.splits" || key == "NEMA.maxGreens" || key == "NEMA.minGreens") {
             //splits="2.0 3.0 4.0 5.0 2.0 3.0 4.0 5.0"
             const std::vector<std::string>& tmp = StringTokenizer(value).getVector();
             if (tmp.size() != 8) {
-                queuedTraciChanges = false;
                 throw InvalidArgument("Parameter '" + key + "' for NEMA controller '" + getID() + "' requires 8 space or comma separated values");
             }
             std::vector<double> timing;
@@ -888,6 +910,8 @@ NEMALogic::setParameter(const std::string& key, const std::string& value) {
             }
             if (key == "NEMA.maxGreens") {
                 setNewMaxGreens(timing);
+            } else if (key == "NEMA.minGreens") {
+                setNewMinGreens(timing);
             } else {
                 setNewSplits(timing);
             }
@@ -896,10 +920,10 @@ NEMALogic::setParameter(const std::string& key, const std::string& value) {
         } else if (key == "NEMA.offset") {
             setNewOffset(StringUtils::toDouble(value));
         } else {
-            queuedTraciChanges = false;
             throw InvalidArgument("Unsupported parameter '" + key + "' for NEMA controller '" + getID() + "'");
         }
     }
+    queuedTraciChanges = true;
     Parameterised::setParameter(key, value);
 }
 
@@ -1286,10 +1310,11 @@ NEMALogic::implementTraciChanges(void) {
     if (queuedTraciChanges) {
         for (auto& p : myPhaseObjs) {
             p->maxDuration = p->nextMaxDuration;
+            p->minDuration = p->nextMinDuration;
         }
         offset = myNextOffset;
         myCycleLength = myNextCycleLength;
-        // now that we have set the cycle length, offset and max duration, we need to update force off times
+        // Update force-off times after applying the new timing parameters.
         calculateForceOffs();
         queuedTraciChanges = false;
     }
@@ -1377,6 +1402,7 @@ NEMAPhase::recalculateTiming(void) {
     minDuration = myCorePhase->minDuration;
     maxDuration = myCorePhase->maxDuration;
     nextMaxDuration = myCorePhase->maxDuration;
+    nextMinDuration = myCorePhase->minDuration;
     maxGreenDynamic = myCorePhase->maxDuration;
     vehExt = myCorePhase->vehext;
 }
