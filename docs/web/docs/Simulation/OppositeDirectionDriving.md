@@ -61,3 +61,24 @@ Vehicles may also stop on the opposite side by defining a `<stop>` with a lane i
   This can be automated by setting the option **--opposites.guess.fix-lengths**.
 - Opposite-direction-driving is not compatible with the [sublane
   model](../Simulation/SublaneModel.md) before version 1.9.0.
+
+# Bidirectional Road Edges (`bidi`)
+
+Narrow single-lane two-way streets and shared Two-Way Left-Turn (`TWLT`) center lanes can be modeled with paired opposite-direction edges that reference each other via the `bidi` attribute (analogous to [bidirectional railway tracks](Railways.md#bidirectional_track_usage)).
+
+## Network Definition
+
+Define two reversed [plain-XML edges](../Networks/PlainXML.md#edge_descriptions) between the same pair of nodes with matching lengths and reversed shapes, and set `bidi="<OPPOSITE_EDGE_ID>"` on each edge:
+
+```xml
+<edges>
+    <edge id="AB" from="A" to="B" numLanes="1" spreadType="center" bidi="BA"/>
+    <edge id="BA" from="B" to="A" numLanes="1" spreadType="center" bidi="AB"/>
+</edges>
+```
+
+On multi-lane roads where only the innermost lane is shared (such as a `TWLT` center turn lane), assign overlapping reversed shapes to the leftmost lanes of both edges (`AB_1` and `BA_1`) while keeping outer through lanes laterally separated.
+
+## Simulation Behavior
+
+When a road vehicle occupies a lane that has a `bidi` counterpart, SUMO registers partial occupation on the opposing lane. Consequently, vehicles approaching from opposite directions detect each other head-on, yield at the entry junction before entering an occupied shared section, and share `TWLT` center turn pockets safely without passing through oncoming traffic. Deadlocks on long shared road sections can be resolved with option **--time-to-teleport.bidi** {{DT_TIME}}.
