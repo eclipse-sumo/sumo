@@ -52,6 +52,7 @@ except ImportError as e:
 
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib import openz  # noqa
+from sumolib.files.tabular import isTabular, readTable  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime, short_names  # noqa
 from sumolib.options import ArgumentParser, RawDescriptionHelpFormatter  # noqa
 import sumolib.visualization.helpers  # noqa
@@ -78,7 +79,9 @@ def getOptions(args=None):
         formatter_class=RawDescriptionHelpFormatter, conflict_handler='resolve')
 
     optParser.add_option("files", nargs='+', category="input", type=optParser.file_list,
-                         help="List of XML files to plot")
+                         help="List of XML, CSV, or Parquet files to plot")
+    optParser.add_option("--csv-separator", category="input",
+                         help="CSV column separator (default: detect semicolon, comma, tab, or pipe)")
     optParser.add_option("-x", "--xattr", help="attribute for x-axis")
     optParser.add_option("-y", "--yattr", help="attribute for y-axis")
     optParser.add_option("-i", "--idattr", default="id", help="attribute for grouping data points into lines")
@@ -133,6 +136,8 @@ def getOptions(args=None):
     sumolib.visualization.helpers.addInteractionOptions(optParser)
 
     options = optParser.parse_args(args=args)
+    if options.csv_separator is not None and len(options.csv_separator) != 1:
+        optParser.error("--csv-separator requires a single character")
 
     options.attrOptions = ['idattr', 'xattr', 'yattr']
     options.attrElems = [options.idelem, options.xelem, options.yelem]
@@ -271,7 +276,9 @@ def getDataStream(options):
     level = 0
     foundAll = False
     dataAttrs = [a for a in allAttrs if a not in NON_DATA_ATTRS]
-    for fname in options.files:
+    tableFiles = {filename for filename in options.files if isTabular(filename)}
+    xmlFiles = [filename for filename in options.files if filename not in tableFiles]
+    for fname in xmlFiles:
         with openz(fname) as xmlf:
             for event, elem in ET.iterparse(xmlf, ("start", "end")):
                 if event == "start":
@@ -305,6 +312,15 @@ def getDataStream(options):
         if foundAll:
             break
 
+    if not xmlFiles:
+        for filename in options.files:
+            with readTable(filename, options.csv_separator) as (columns, _):
+                if columns:
+                    elem2level["table"] = 1
+                    for attr in dataAttrs:
+                        if attr in columns:
+                            attr2elem[attr] = "table"
+
     if not elem2level:
         print("Error: No elements found in input files.", file=sys.stderr)
         sys.exit()
@@ -336,6 +352,33 @@ def getDataStream(options):
 
     # we don't know the order of the elements and we cannot get it from our xml parser
     skippedLines = defaultdict(int)
+
+    def tabularDataStream(filename):
+        skipped = defaultdict(int)
+        with readTable(filename, options.csv_separator) as (_, rows):
+            index = 0
+            for row in rows:
+                values = {}
+                if not retrieveValues(index, row, allAttrs, values, skipped):
+                    for item in combineValues(attrs, attr2parts, values, splitX, splitY, options.join):
+                        yield item
+                        index += 1
+        for attr, count in skipped.items():
+            print("Warning: Skipped %s rows because of missing columns or values '%s'." % (
+                count, attr), file=sys.stderr)
+
+    tableStream = tabularDataStream
+    if options.splitx:
+        tableStream = makeSplitter(True, options.yattr == INDEX_ATTR, tableStream)
+    if options.splity:
+        tableStream = makeSplitter(False, options.xattr == INDEX_ATTR, tableStream)
+
+    def combineStreams(xmlStream):
+        return lambda filename: (tableStream if filename in tableFiles else xmlStream)(filename)
+
+    if not xmlFiles:
+        return tableStream
+
     if len(allElems) == 2:
         def datastream(xmlfile):
             missingParents = 0
@@ -394,7 +437,7 @@ def getDataStream(options):
         if options.splity:
             datastream = makeSplitter(False, options.xattr == INDEX_ATTR, datastream)
 
-        return datastream
+        return combineStreams(datastream)
 
     elif len(allElems) == 1:
         def datastream(xmlfile):
@@ -426,7 +469,7 @@ def getDataStream(options):
                 print("Warning: Skipped %s lines because of missing attributes '%s'." % (
                     count, attr), file=sys.stderr)
 
-        return datastream
+        return combineStreams(datastream)
 
     else:
         sys.exit("Found attributes at elements %s but at most 2 elements are supported" % allElems)

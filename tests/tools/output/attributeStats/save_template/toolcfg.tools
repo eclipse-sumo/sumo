@@ -1,5 +1,6 @@
 <configuration>
-    <datafiles value="None" type="file" help="XML files to analyze" category="input" required="true" positional="true" listSeparator=" "/>
+    <datafiles value="None" type="file" help="XML, CSV, or Parquet files to analyze" category="input" required="true" positional="true" listSeparator=" "/>
+    <csv-separator value="None" type="string" help="CSV column separator (default: detect semicolon, comma, tab, or pipe)" category="input"/>
     <verbose value="False" type="bool" help="Give more output" category="processing"/>
     <element value="None" type="string" help="element to analyze" category="input"/>
     <attribute value="None" type="string" help="attribute to analyze" category="input"/>

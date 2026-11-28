@@ -39,6 +39,8 @@ may not work for certain scripts.
 
 ## plotXMLAttributes.py
 
+For CSV and Parquet inputs, use column headers for the axis and ID options. For example, `python tools/visualization/plotXMLAttributes.py -x timestep_time -y vehicle_speed -i vehicle_id fcd.csv` plots speed over time by vehicle. Element filters apply to XML inputs. Parquet input requires PyArrow. Use `--csv-separator` to override CSV separator detection.
+
 Create multiple 2D-plots of 2 arbitrary attributes from on or more xml files aggregated by an third attribute (i.e. detector-id).
 
 Example uses:

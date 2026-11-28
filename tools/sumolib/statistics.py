@@ -21,6 +21,7 @@ from __future__ import division
 import math
 import warnings
 from collections import defaultdict
+from xml.sax.saxutils import escape
 try:
     from numpy import sqrt, set_printoptions
 except ImportError:
@@ -260,7 +261,11 @@ class Statistics:
         pre = fmt != identity
         if label is None:
             label = self.label
-        description = ' description="%s"' % label if label != '' else ''
+
+        def escapeLabel(value):
+            return escape(str(value), {'"': '&quot;'})
+
+        description = ' description="%s"' % escapeLabel(label) if label != '' else ''
 
         result = ' ' * indent + '<%s%s' % (tag, description)
         for k, v in extraAttributes.items():
@@ -269,7 +274,8 @@ class Statistics:
             result += ' count="%i"' % self.count()
             result += (setPrecision(' min="%.2f" minLabel="%s" max="%.2f" maxLabel="%s" mean="%.2f"',
                                     precision, self.isArray, pre) %
-                       (fmt(self.min), self.min_label, fmt(self.max), self.max_label, fmt(self.avg())))
+                       (fmt(self.min), escapeLabel(self.min_label), fmt(self.max), escapeLabel(self.max_label),
+                        fmt(self.avg())))
             result += setPrecision(' Q1="%.2f" median="%.2f" Q3="%.2f"', precision, self.isArray, pre) % (
                 tuple(map(fmt, self.quartiles())))
             result += (setPrecision(' meanAbs="%.2f" medianAbs="%.2f"', precision, self.isArray, pre) %

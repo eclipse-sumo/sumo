@@ -6,6 +6,8 @@ All of the tools described below exist in *tools/output* directory.
 
 ## attributeStats.py
 
+Select tabular columns by their header names. For example, `python tools/output/attributeStats.py -a tripinfo_timeLoss -i tripinfo_id tripinfo.parquet` summarizes time loss from a SUMO Parquet output. Element filters apply to XML inputs. Parquet input requires PyArrow. Use `--csv-separator` to override CSV separator detection.
+
 Computes statistics on arbitrary numerical attributes in one or more xml
 documents. (eg. attribute *timeLoss* for element *tripinfo* in
 [tripinfo-output](../Simulation/Output/TripInfo.md)) and writes the

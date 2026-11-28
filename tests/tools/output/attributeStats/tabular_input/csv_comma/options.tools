@@ -1,0 +1,1 @@
+-a "speed & \"unit\"" -i vehicle_id -x stats.xml data/comma.csv tools/output/attributeStats.py

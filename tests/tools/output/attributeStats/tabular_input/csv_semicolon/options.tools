@@ -1,0 +1,1 @@
+-a "speed & \"unit\"" -i vehicle_id -x stats.xml --full-output fullstats.dat data/native.csv tools/output/attributeStats.py

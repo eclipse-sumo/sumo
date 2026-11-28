@@ -1,0 +1,1 @@
+--csv-separator ^ -a "speed & \"unit\"" -i vehicle_id -x stats.xml data/custom.csv tools/output/attributeStats.py
