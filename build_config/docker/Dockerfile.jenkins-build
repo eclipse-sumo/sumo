@@ -50,6 +50,7 @@ WORKDIR /opt/sumo
 
 # Copy files early (into /opt/sumo)
 COPY build_config/install_dependencies.sh ./install_dependencies.sh
+COPY build_config/list_debian_dependencies.sh ./list_debian_dependencies.sh
 COPY build_config/build_req_deb.txt ./build_req_deb.txt
 
 RUN set -eux; \
@@ -66,7 +67,7 @@ RUN set -eux; \
     ; \
     chmod +x ./install_dependencies.sh; \
     ./install_dependencies.sh; \
-    rm -f ./install_dependencies.sh ./build_req_deb.txt; \
+    rm -f ./install_dependencies.sh ./list_debian_dependencies.sh ./build_req_deb.txt; \
     apt-get autoremove -y; \
     apt-get clean -y; \
     rm -rf /var/cache/apt /var/lib/apt/lists/*

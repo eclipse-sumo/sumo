@@ -21,7 +21,8 @@ RUN cd /opt; git clone --shallow-submodules --single-branch --recursive https://
 # installing dependencies
 RUN /opt/sumo/build_config/install_dependencies.sh && \
     apt-get -y install libavformat-dev libopenscenegraph-dev libswscale-dev && \
-    apt-get -y install $(cat /opt/sumo/build_config/tools_req_deb.txt) && \
+    dependency_packages=$(/opt/sumo/build_config/list_debian_dependencies.sh tools) && \
+    apt-get -y install $dependency_packages && \
     pip3 install --no-cache-dir -r /opt/sumo/tools/req_ci.txt -r /opt/sumo/docs/web/requirements.txt
 
 # SUMO build
@@ -50,6 +51,7 @@ ARG ARROW_VERSION=2300
 COPY --from=build /install/usr /usr
 COPY --from=build /usr/local/lib/libjupedsim.so /usr/lib/libjupedsim.so
 # Get dependency lists
+COPY --from=build /opt/sumo/build_config/list_debian_dependencies.sh /tmp/list_debian_dependencies.sh
 COPY --from=build /opt/sumo/build_config/build_req_deb.txt /tmp/build_req_deb.txt
 COPY --from=build /opt/sumo/build_config/tools_req_deb.txt /tmp/tools_req_deb.txt
 COPY --from=build /opt/sumo/tools/requirements.txt /tmp/requirements.txt
@@ -61,7 +63,8 @@ RUN apt-get -qq update && \
     wget https://packages.apache.org/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb && \
     apt-get -y install ./apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb && \
     apt-get -qq update && \
-    apt-get -qq -y install $(cat /tmp/build_req_deb.txt) $(cat /tmp/tools_req_deb.txt) \
+    dependency_packages=$(/tmp/list_debian_dependencies.sh build tools) && \
+    apt-get -qq -y install $dependency_packages \
                            libavformat58 libopenscenegraph161 libswscale5 libarrow$ARROW_VERSION libparquet$ARROW_VERSION && \
     apt-get -qq clean autoclean && \
     apt-get -qq -y autoremove && \

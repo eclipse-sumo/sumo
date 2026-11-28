@@ -40,7 +40,7 @@ retry() {
     exit 1
 }
 
-SCRIPT_DIR=$(dirname $0)
+SCRIPT_DIR=$(dirname "$0")
 case "$ID" in
     macOS)
         # with SKIP_BREW_UPDATE homebrew is only updated if the installation fails without it
@@ -53,8 +53,8 @@ case "$ID" in
     ubuntu|debian)
         export DEBIAN_FRONTEND=noninteractive
         retry apt-get -qq update
-        retry apt-get -y install curl $(cat $SCRIPT_DIR/build_req_deb.txt)
-        apt-get install -y libboost-process-dev || true
+        dependency_packages=$("$SCRIPT_DIR/list_debian_dependencies.sh" build) || exit $?
+        retry apt-get -y install curl $dependency_packages
         # Adding parquet support libraries
         retry curl -fLOs https://packages.apache.org/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
         retry apt-get -y install ./apache-arrow-apt-source-latest-*.deb

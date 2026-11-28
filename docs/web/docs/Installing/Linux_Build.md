@@ -63,7 +63,8 @@ alternatives below.
 The package names above are for openSUSE, on a debian/ubuntu system the packages can be installed using:
 
 ```
-sudo apt-get install $(cat build_config/build_req_deb.txt build_config/tools_req_deb.txt)
+sudo apt-get update
+sudo apt-get install $(build_config/list_debian_dependencies.sh build tools)
 ```
 
 In contrast to the install script this will not include jupedsim and parquet.
