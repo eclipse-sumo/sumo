@@ -675,14 +675,24 @@ GeoConvHelper::resetLoaded() {
 
 
 void
-GeoConvHelper::writeLocation(OutputDevice& into) {
+GeoConvHelper::writeLocation(OutputDevice& into, bool boundaryAsPositions) {
+    auto writeBoundary = [&](SumoXMLAttr attr, const Boundary& boundary) {
+        if (boundaryAsPositions) {
+            const Position lower(boundary.xmin(), boundary.ymin(), boundary.zmin());
+            const Position upper(boundary.xmax(), boundary.ymax(), boundary.zmax());
+            const int precision = into.getPrecision();
+            into.writeAttr(attr, toString(lower, precision) + " " + toString(upper, precision));
+        } else {
+            into.writeAttr(attr, boundary);
+        }
+    };
     into.openTag(SUMO_TAG_LOCATION);
     into.writeAttr(SUMO_ATTR_NET_OFFSET, myFinal.getOffsetBase());
-    into.writeAttr(SUMO_ATTR_CONV_BOUNDARY, myFinal.getConvBoundary());
+    writeBoundary(SUMO_ATTR_CONV_BOUNDARY, myFinal.getConvBoundary());
     if (myFinal.usingGeoProjection()) {
         into.setPrecision(gPrecisionGeo);
     }
-    into.writeAttr(SUMO_ATTR_ORIG_BOUNDARY, myFinal.getOrigBoundary());
+    writeBoundary(SUMO_ATTR_ORIG_BOUNDARY, myFinal.getOrigBoundary());
     if (myFinal.usingGeoProjection()) {
         into.setPrecision();
     }

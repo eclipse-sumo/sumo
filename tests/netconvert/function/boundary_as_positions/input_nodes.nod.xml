@@ -1,0 +1,4 @@
+<nodes>
+    <node id="start" x="2" y="5" z="-12"/>
+    <node id="end" x="1000" y="40" z="46"/>
+</nodes>

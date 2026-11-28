@@ -120,7 +120,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     const NBDistrictCont& dc = nb.getDistrictCont();
 
     // write network offsets and projection
-    GeoConvHelper::writeLocation(device);
+    GeoConvHelper::writeLocation(device, oc.getBool("output.boundary-as-positions"));
 
     // write edge types and restrictions
     std::set<std::string> usedTypes = ec.getUsedTypes();

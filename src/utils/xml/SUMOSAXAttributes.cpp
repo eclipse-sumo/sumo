@@ -334,6 +334,16 @@ PositionVector SUMOSAXAttributes::fromString(const std::string& value) const {
 const Boundary invalid_return<Boundary>::value = Boundary();
 template<>
 Boundary SUMOSAXAttributes::fromString(const std::string& value) const {
+    StringTokenizer corners(value);
+    if (corners.size() == 2) {
+        const std::string lowerCorner = corners.next();
+        const std::string upperCorner = corners.next();
+        if (lowerCorner.back() != ',' && upperCorner.front() != ',') {
+            const Position lower = fromString<Position>(lowerCorner);
+            const Position upper = fromString<Position>(upperCorner);
+            return Boundary(lower.x(), lower.y(), lower.z(), upper.x(), upper.y(), upper.z());
+        }
+    }
     StringTokenizer st(value, ",");
     if (st.size() != 4) {
         throw FormatException("is not a valid boundary");

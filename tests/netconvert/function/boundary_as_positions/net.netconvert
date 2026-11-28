@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-2.00,-5.00" convBoundary="0.00,0.00,-12.00 998.00,35.00,46.00" origBoundary="2.00,5.00,-12.00 1000.00,40.00,46.00" projParameter="!"/>
+
+    <edge id="road" from="start" to="end" priority="-1">
+        <lane id="road_0" index="0" speed="13.89" length="1000.30" shape="0.06,-1.60,-12.00 998.06,33.40,46.00"/>
+    </edge>
+
+    <junction id="end" type="dead_end" x="998.00" y="35.00" z="46.00" incLanes="road_0" intLanes="" shape="998.11,31.80,46.00 998.00,35.00,46.00"/>
+    <junction id="start" type="dead_end" x="0.00" y="0.00" z="-12.00" incLanes="" intLanes="" shape="-0.00,-0.00,-12.00 0.11,-3.20,-12.00"/>
+
+</net>

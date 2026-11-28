@@ -79,9 +79,11 @@ following attributes:
 | Name          | Type                 | Description                                                                              |
 | ------------- | -------------------- | ---------------------------------------------------------------------------------------- |
 | netOffset     | offset ({{DT_2DPosition}})  | The offset applied for moving the network to (0,0)                                |
-| convBoundary  | boundary ({{DT_2DBoundingBox}})        | The boundary spanning over the nodes of the converted network (the network as now given) |
-| origBoundary  | boundary ({{DT_2DBoundingBox}})          | The network's initial boundary before projecting and translating it                      |
+| convBoundary  | boundary (see below)        | The boundary spanning over the nodes of the converted network (the network as now given) |
+| origBoundary  | boundary (see below)          | The network's initial boundary before projecting and translating it                      |
 | projParameter | projection parameter | Information how the network was projected (see below)                                    |
+
+The boundary attributes accept the comma-separated form `xmin,ymin,xmax,ymax` and the two-position form `xmin,ymin xmax,ymax`. Each position can include an elevation, as in `xmin,ymin,zmin xmax,ymax,zmax`. Use **--output.boundary-as-positions** to write the two-position form.
 
 `projParameter` may have one of the following
 values:
