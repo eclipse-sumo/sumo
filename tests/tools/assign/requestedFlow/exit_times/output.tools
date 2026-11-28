@@ -1,0 +1,4 @@
+Reading net 'net.net.xml'
+Reading routes 'input_routes.rou.xml'
+Overloaded edge-intervals (vcRatio > 1): 0
+Requested vcRatio: count 4, min 0.00 (e_a@0), max 0.01 (e_bottle@900), mean 0.00, Q1 0.00, median 0.00, Q3 0.01
