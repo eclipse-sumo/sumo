@@ -118,6 +118,25 @@ These tutorials use the [Python-TraCI Library](../TraCI/Interfacing_TraCI_from_P
 - [Railway Tutorial](https://sumo.dlr.de/daily/workshop_rail_db2019.7z)
 
 # Further Sources for Examples
+
+## Bundled examples
+
+The Windows packages include runnable examples in `docs/examples` under the SUMO installation directory. Open a `.sumocfg` file in [SUMO-GUI](../sumo-gui.md) or pass it to [sumo](../sumo.md) with `-c`. With SUMO on your PATH, run this example from the installation directory:
+
+```bash
+sumo-gui -c docs/examples/sumo/simple_nets/cross/cross1ltl/test.sumocfg
+```
+
+| Example | Directory under `docs/examples` |
+| --- | --- |
+| A one-lane intersection with traffic lights | `sumo/simple_nets/cross/cross1ltl` |
+| Three buses with scheduled stops | `sumo/busses` |
+| Angled roadside parking | `sumo/angled_roadside_parking` |
+| Exporting vehicle trajectories | `sumo/output/cross3ltl_fcd` |
+| Generating routes from flows with duarouter | `duarouter/flows2routes` |
+
+The build generates these examples from the [examples manifest](https://github.com/eclipse-sumo/sumo/blob/main/tests/examples.txt). If your installation omits the bundle, extract a test as described below.
+
 ## Using Examples from the Test Suite
 SUMO comes with a large set of tests, just browse them at [{{SUMO}}/tests](https://github.com/eclipse-sumo/sumo/blob/main/tests). They are set up to be running by using a testing environment, but it is also possible to extract them and execute using [sumo](../sumo.md) and/or the other tools of the package. In order to do so you can either clone the [GitHub repository](https://github.com/eclipse-sumo/sumo/) or use the [online test extraction](https://sumo.dlr.de/extractTest.php). In the online tool you enter the path to the test you like (e.g. [{{SUMO}}/tests/sumo/extended/rerouter/use_routing_device](https://github.com/eclipse-sumo/sumo/blob/main/tests/sumo/extended/rerouter/use_routing_device)) into the form and get a zip containing all the files.
 
@@ -129,6 +148,19 @@ cd <SUMO_HOME>/tests
 ```
 
 will extract you an example for [rerouting vehicles](../Simulation/Rerouter.md) into /tmp/test.
+
+The following examples use the same extraction workflow. For a test case, use its path relative to the repository's `tests` directory. Open the extracted `test.sumocfg` with SUMO-GUI or run duarouter with `-c test.duarcfg` for the intermodal example.
+
+| Feature | Example |
+| --- | --- |
+| Electric vehicles and charging stations | [`sumo/devices/battery/chargingStations`](https://github.com/eclipse-sumo/sumo/tree/main/tests/sumo/devices/battery/chargingStations) |
+| Parking areas | [`sumo/extended/rerouter/parking/angled_roadside_parking`](https://github.com/eclipse-sumo/sumo/tree/main/tests/sumo/extended/rerouter/parking/angled_roadside_parking) |
+| Opposite-direction driving | [`sumo/opposite_direction_driving/overtaking_noconflict`](https://github.com/eclipse-sumo/sumo/tree/main/tests/sumo/opposite_direction_driving/overtaking_noconflict) |
+| Circular rerouting | [Driving in Circles tutorial](Driving_in_Circles.md) |
+| Closing a lane with a rerouter | [`sumo/extended/rerouter/closingLaneReroute/closingLane_with_rerouting`](https://github.com/eclipse-sumo/sumo/tree/main/tests/sumo/extended/rerouter/closingLaneReroute/closingLane_with_rerouting) |
+| Calibrators | [`sumo/extended/calibrator/simple`](https://github.com/eclipse-sumo/sumo/tree/main/tests/sumo/extended/calibrator/simple) |
+| Actuated traffic lights | [`sumo/tls/actuated/basic`](https://github.com/eclipse-sumo/sumo/tree/main/tests/sumo/tls/actuated/basic) |
+| Intermodal routing by train, bus, and walking | [`duarouter/person/personTrip/intermodal_train_bus_walk`](https://github.com/eclipse-sumo/sumo/tree/main/tests/duarouter/person/personTrip/intermodal_train_bus_walk) |
 
 # Unfinished Tutorials
 The following tutorials are not yet completed
