@@ -23,6 +23,7 @@
 #include <netedit/elements/additional/GNECalibratorFlow.h>
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/elements/demand/GNEVType.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
@@ -117,18 +118,28 @@ GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
     if (calibratorFlowDialog.getResult() != GNEDialog::Result::ACCEPT) {
         // add calibratorFlow
         return removeElement(calibratorFlow);
-    } else if (calibratorFlow->getFileBucket()->getFilename().empty()) {
-        // in this case, the bucket has to be updated manually
-        if (vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED) == GNEAttributeCarrier::TRUE_STR) {
-            vType->changeFileBucket(calibratorFlow->getFileBucket());
-        }
-        route->changeFileBucket(calibratorFlow->getFileBucket());
-    } else {
-        if (vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED) == GNEAttributeCarrier::TRUE_STR) {
-            vType->setAttribute(GNE_ATTR_SAVEFILE, calibratorFlow->getFileBucket()->getFilename(), calibratorFlow->getNet()->getUndoList());
-        }
-        route->setAttribute(GNE_ATTR_SAVEFILE, calibratorFlow->getFileBucket()->getFilename(), calibratorFlow->getNet()->getUndoList());
     }
+    const auto destination = calibratorFlow->getFileBucket();
+    const auto& buckets = calibratorFlow->getNet()->getGNEApplicationWindow()->getFileBucketHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL);
+    const auto destinationOrder = std::find(buckets.begin(), buckets.end(), destination);
+    const auto moveDefinition = [&](GNEDemandElement* definition) {
+        const auto sourceOrder = std::find(buckets.begin(), buckets.end(), definition->getFileBucket());
+        // Earlier additional files may contain other references to this definition.
+        if (sourceOrder <= destinationOrder) {
+            return;
+        }
+        if (destination->getFilename().empty()) {
+            definition->changeFileBucket(destination);
+        } else {
+            definition->setAttribute(GNE_ATTR_SAVEFILE, destination->getFilename(), calibratorFlow->getNet()->getUndoList());
+        }
+    };
+    const auto& dependencies = calibratorFlow->getParentDemandElements();
+    vType = dependencies.at(0);
+    if (vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED) == GNEAttributeCarrier::TRUE_STR) {
+        moveDefinition(vType);
+    }
+    moveDefinition(dependencies.at(1));
     updateList();
     return 1;
 }

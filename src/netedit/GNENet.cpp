@@ -2273,21 +2273,61 @@ GNENet::saveAdditionals() {
             return false;
         }
     }
-    // Start saving additionals
-    myApplicationWindow->getApp()->beginWaitCursor();
-    // iterate over all elements and save files
-    for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL)) {
-        // only write buckets with elements
-        if ((bucket->getNumElements() > 0) || (bucket->isDefaultBucket() && (bucket->getFilename().size() > 0))) {
-            // open file
-            OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
-            // open header
-            device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
-            // save additionals, demand elements and meanDatas
-            writeAdditionalFileElements(device, bucket);
-            // close device
-            device.close();
+    const auto& buckets = myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL);
+    // Follow the order used by the configuration when loading additional files.
+    std::map<const FileBucket*, size_t> loadOrder;
+    for (size_t i = 0; i < buckets.size(); ++i) {
+        loadOrder.emplace(buckets[i], i);
+    }
+    std::map<GNEDemandElement*, FileBucket*> firstCalibratorFiles;
+    std::set<GNEDemandElement*> sharedDependencies;
+    for (const auto& item : myAttributeCarriers->getAdditionals().at(GNE_TAG_CALIBRATOR_FLOW)) {
+        const auto flow = item.second;
+        auto bucket = flow->getParentAdditionals().front()->getFileBucket();
+        for (const auto dependency : flow->getParentDemandElements()) {
+            const auto result = firstCalibratorFiles.emplace(dependency, bucket);
+            if (!result.second && result.first->second != bucket) {
+                sharedDependencies.insert(dependency);
+                if (loadOrder.at(bucket) < loadOrder.at(result.first->second)) {
+                    result.first->second = bucket;
+                }
+            }
         }
+    }
+    std::set<const FileBucket*> emptiedBuckets;
+    std::vector<std::pair<GNEDemandElement*, FileBucket*>> movedDependencies;
+    myApplicationWindow->getApp()->beginWaitCursor();
+    try {
+        for (const auto dependency : sharedDependencies) {
+            auto source = dependency->getFileBucket();
+            const auto destination = firstCalibratorFiles.at(dependency);
+            const auto sourceOrder = loadOrder.find(source);
+            // Preserve definitions already read before the first flow that needs them.
+            if (sourceOrder != loadOrder.end() && sourceOrder->second > loadOrder.at(destination)) {
+                dependency->changeFileBucket(destination);
+                movedDependencies.emplace_back(dependency, source);
+                if (source->getNumElements() == 0 && !source->getFilename().empty()) {
+                    emptiedBuckets.insert(source);
+                }
+            }
+        }
+        for (const auto bucket : buckets) {
+            // Rewrite emptied source files so they cannot reintroduce duplicate definitions.
+            if ((bucket->getNumElements() > 0) || emptiedBuckets.count(bucket) != 0
+                    || (bucket->isDefaultBucket() && (bucket->getFilename().size() > 0))) {
+                OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
+                device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
+                writeAdditionalFileElements(device, bucket);
+                device.close();
+            }
+        }
+    } catch (const IOError&) {
+        // Retry must repeat the relocation and rewrite every old source file.
+        for (const auto& moved : movedDependencies) {
+            moved.first->changeFileBucket(moved.second);
+        }
+        myApplicationWindow->getApp()->endWaitCursor();
+        throw;
     }
     // mark additionals as saved
     mySavingStatus->additionalsSaved();
