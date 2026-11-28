@@ -81,6 +81,9 @@ class Connection(StepManager):
         self._socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
         try:
             self._socket.connect((host, port))
+            # A client can connect to itself if its local port matches a server port that is not yet listening.
+            if self._socket.getsockname() == self._socket.getpeername():
+                raise socket.error("TraCI socket connected to itself.")
         except socket.error:
             self._socket.close()
             raise
