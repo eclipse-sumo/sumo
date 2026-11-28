@@ -91,6 +91,21 @@ jobs:
         cmake -Bbuild_msvc -GNinja -DENABLE_JAVA_BINDINGS=false
         cmake --build build_msvc
 
+    - name: Measuring simulation performance
+      if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && matrix.build_type == 'extra'
+      run: |
+        $env:SUMO_HOME = $PWD.Path
+        python tools/build_config/performance.py --binary bin/sumo.exe --repeat 3 `
+          --report "$env:RUNNER_TEMP/sumo-performance-windows.json"
+
+    - name: Uploading Windows performance report
+      if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && matrix.build_type == 'extra'
+      uses: actions/upload-artifact@v7
+      with:
+        name: sumo-performance-windows
+        path: ${{ runner.temp }}/sumo-performance-windows.json
+        if-no-files-found: error
+
     - name: Building SUMO debug
       if: github.event_name == 'workflow_dispatch'
       run: |

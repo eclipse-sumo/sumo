@@ -104,6 +104,21 @@ jobs:
         make -j4
         sudo make install
 
+    - name: Measuring simulation performance
+      if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && matrix.os == 'ubuntu-latest' && matrix.build_type == 'full' && matrix.compiler == 'gcc'
+      run: |
+        export SUMO_HOME="$PWD/sumo"
+        python3 sumo/tools/build_config/performance.py --binary sumo --repeat 3 \
+          --report "$RUNNER_TEMP/sumo-performance-linux.json"
+
+    - name: Uploading Linux performance report
+      if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && matrix.os == 'ubuntu-latest' && matrix.build_type == 'full' && matrix.compiler == 'gcc'
+      uses: actions/upload-artifact@v7
+      with:
+        name: sumo-performance-linux
+        path: ${{ runner.temp }}/sumo-performance-linux.json
+        if-no-files-found: error
+
     - name: Building Examples and Unit Tests
       if: matrix.build_type == 'full'
       run: |
