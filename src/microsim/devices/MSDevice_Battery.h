@@ -135,9 +135,12 @@ private:
     * @param[in] maximumChargeRate The maximum charging rate allowed by the battery control
     * @param[in] chargeLevelTable The axis values of the charge curve
     * @param[in] chargeCurveTable The charge curve state of charge values
+    * @param[in] maximumDischargeRate The maximum rate for discharging into a charging station (vehicle-to-grid)
+    * @param[in] minimumChargeLevel The charge level which is kept when discharging into a charging station
     */
     MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity,
-                     const double stoppingThreshold, const double maximumChargeRate, const std::string& chargeLevelTable, const std::string& chargeCurveTable);
+                     const double stoppingThreshold, const double maximumChargeRate, const std::string& chargeLevelTable, const std::string& chargeCurveTable,
+                     const double maximumDischargeRate, const double minimumChargeLevel);
 
 public:
     /// @brief Get the actual vehicle's Battery Capacity in Wh
@@ -180,6 +183,29 @@ public:
     /// @brief Get charged energy
     double getEnergyCharged() const;
 
+    /// @brief Get the energy in Wh discharged into a charging station in the last step (vehicle-to-grid)
+    double getEnergyDischarged() const {
+        return myEnergyDischarged;
+    }
+
+    /// @brief Get the total energy in Wh discharged into charging stations (vehicle-to-grid)
+    double getTotalEnergyDischarged() const {
+        return myTotalEnergyDischarged;
+    }
+
+    /// @brief Get the maximum discharge rate in W (vehicle-to-grid, 0 = no discharging)
+    double getMaximumDischargeRate() const {
+        return myMaximumDischargeRate;
+    }
+
+    /// @brief Get the charge level in Wh which is kept when discharging (vehicle-to-grid)
+    double getMinimumChargeLevel() const {
+        return myMinimumChargeLevel;
+    }
+
+    /// @brief Whether the battery exchanges energy bidirectionally with the given charging station (vehicle-to-grid)
+    bool allowsDischarge(const MSChargingStation* cs) const;
+
     /// @brief Get number of timestep that vehicle is stopped
     int getVehicleStopped() const;
 
@@ -206,6 +232,12 @@ public:
 
     /// @brief Set vehicle's stopping threshold
     void setMaximumChargeRate(const double chargeRate);
+
+    /// @brief Set the maximum discharge rate in W (vehicle-to-grid, 0 = no discharging)
+    void setMaximumDischargeRate(const double dischargeRate);
+
+    /// @brief Set the charge level in Wh which is kept when discharging (vehicle-to-grid)
+    void setMinimumChargeLevel(const double chargeLevel);
 
     /// @brief Set (temporary) charge limit
     void setChargeLimit(const double limit);
@@ -276,6 +308,21 @@ protected:
 
     /// @brief Parameter, Energy charged in each timestep
     double myEnergyCharged;
+
+    /// @brief Parameter, maximum rate in W for discharging into a charging station (vehicle-to-grid, 0 = no discharging)
+    double myMaximumDischargeRate;
+
+    /// @brief Parameter, charge level in Wh which is kept when discharging into a charging station
+    double myMinimumChargeLevel;
+
+    /// @brief Energy discharged into a charging station in each timestep
+    double myEnergyDischarged;
+
+    /// @brief Total energy discharged into charging stations
+    double myTotalEnergyDischarged;
+
+    /// @brief Preserve V2G parameters explicitly set at runtime or restored from state.
+    bool mySaveV2GState = false;
 
     /// @brief Parameter, How many timestep the vehicle is stopped
     int myVehicleStopped;

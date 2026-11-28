@@ -84,6 +84,10 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
                 } else {
                     of.writeAttr(SUMO_ATTR_ENERGYCHARGEDSTOPPED, 0.00);
                 }
+                // Write energy discharged into a charging station (only for vehicles taking part in vehicle-to-grid)
+                if (batteryToExport->getMaximumDischargeRate() > 0 || batteryToExport->getTotalEnergyDischarged() > 0) {
+                    of.writeAttr(SUMO_ATTR_ENERGYDISCHARGED, batteryToExport->getEnergyDischarged());
+                }
                 // Write Speed
                 of.writeAttr(SUMO_ATTR_SPEED, veh->getSpeed());
                 // Write Acceleration
