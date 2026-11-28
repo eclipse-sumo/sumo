@@ -208,7 +208,8 @@ if (SWIG_FOUND)
                 install(CODE "
                     execute_process(COMMAND ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build_config/version.py --pep440 ${CMAKE_SOURCE_DIR}/build_config/pyproject/libsumo_local.toml pyproject.toml
                                     WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
-                    execute_process(COMMAND ${Python_EXECUTABLE} -m pip install --no-build-isolation --prefix=\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} --no-index .
+                    get_filename_component(python_package_destination \"${PYTHON_PACKAGE_DESTINATION}\" ABSOLUTE)
+                    execute_process(COMMAND ${Python_EXECUTABLE} -m pip install --no-build-isolation --upgrade \"--target=\${python_package_destination}\" -f ${CMAKE_BINARY_DIR} --no-index .
                                     WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
                 " COMPONENT python_package EXCLUDE_FROM_ALL)
             endif()

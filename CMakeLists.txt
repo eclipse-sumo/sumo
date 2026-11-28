@@ -815,6 +815,15 @@ install(EXPORT SUMOConfig DESTINATION ${DATA_PATH}cmake NAMESPACE SUMO:: COMPONE
 
 set(SUMO_TOOLS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tools")
 if (NOT PYTHON_BUILD_MISSING)
+    # Keep the interpreter's library layout under the CMake prefix without letting pip reinterpret that prefix.
+    execute_process(COMMAND "${Python_EXECUTABLE}" -c
+                    "from pathlib import Path; import sysconfig; print(Path(sysconfig.get_path('purelib')).relative_to(sysconfig.get_path('data')).as_posix())"
+                    OUTPUT_VARIABLE PYTHON_PACKAGE_SUBDIR OUTPUT_STRIP_TRAILING_WHITESPACE
+                    RESULT_VARIABLE PYTHON_PACKAGE_PATH_STATUS)
+    if (NOT PYTHON_PACKAGE_PATH_STATUS EQUAL 0)
+        message(FATAL_ERROR "Could not determine the Python package directory")
+    endif ()
+    set(PYTHON_PACKAGE_DESTINATION "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PYTHON_PACKAGE_SUBDIR}")
     # no isolated build here because we need to be able to do it offline (on open build service, launchpad etc.)
     # furthermore several commands in the same execute_process are not guaranteed to be executed sequentially
     install(CODE "
@@ -826,7 +835,8 @@ if (NOT PYTHON_BUILD_MISSING)
                         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
         execute_process(COMMAND ${Python_EXECUTABLE} -m build --no-isolation --wheel . -o ${CMAKE_BINARY_DIR}
                         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-        execute_process(COMMAND ${Python_EXECUTABLE} -m pip install --prefix=\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} --no-index traci
+        get_filename_component(python_package_destination \"${PYTHON_PACKAGE_DESTINATION}\" ABSOLUTE)
+        execute_process(COMMAND ${Python_EXECUTABLE} -m pip install --upgrade \"--target=\${python_package_destination}\" -f ${CMAKE_BINARY_DIR} --no-index traci
                         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     " COMPONENT python_package EXCLUDE_FROM_ALL)
 endif ()
