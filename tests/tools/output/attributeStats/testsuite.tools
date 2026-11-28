@@ -35,3 +35,6 @@ humanReadableTime
 
 # include statistics on absolute values
 abs
+
+# set the number of histogram bins for each attribute
+histogram_bins

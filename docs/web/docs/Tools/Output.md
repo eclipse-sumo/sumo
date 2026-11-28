@@ -20,7 +20,8 @@ python tools/output/attributeStats --element tripinfo --attribute timeLoss input
 - It is also possible to give multiple files as input as a space separated list or via shell expansion (i.e. `*.input.xml`)
 - If option **--id-attribute** (**-i**) is set, the minimum and maximum values of each attribute will be annotated with the corresponding id value
 - With option **--hist-output** {{DT_FILE}}, a histogram data file (e.g. for plotting with gnuplot) is generated.
-  - option **--binwidth INT** (**-b**) defines the binning width for the histogram
+  - **--binwidth FLOAT** (**-b**) sets a fixed histogram bin width. The default is 50.
+  - **--bins INT** sets a positive number of equal-width bins. Each element and attribute pair uses its own minimum and maximum. The histogram reports bin centers and includes empty bins. A constant series uses one bin centered on its value.
 - With option **--abs** the output will include statistics on absolute values
 - With option **--xml-output** {{DT_FILE}}, A file with statistical measures for all processed attributes is written
 - With option **--full-output** {{DT_FILE}}, A collected attribute values are recorded with their corresponding ids

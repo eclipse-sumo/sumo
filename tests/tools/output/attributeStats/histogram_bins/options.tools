@@ -1,0 +1,1 @@
+-c data/bins.toolcfg -e sample -a small,large,constant --xml-output stats.xml input_data.xml tools/output/attributeStats.py
