@@ -28,16 +28,140 @@
 #include <netedit/frames/GNEPathCreator.h>
 #include <netedit/frames/GNEPathLegendModule.h>
 #include <netedit/frames/GNETagSelector.h>
+#include <utils/foxtools/MFXComboBoxIcon.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
 #include "GNEVehicleFrame.h"
 
 // ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
+FXDEFMAP(GNEVehicleFrame::RouteSelector) RouteSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,   GNEVehicleFrame::RouteSelector::onCmdSelectRoute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATE,     GNEVehicleFrame::RouteSelector::onCmdCreateVehicle),
+};
+
+FXIMPLEMENT(GNEVehicleFrame::RouteSelector, GNEGroupBoxModule, RouteSelectorMap, ARRAYNUMBER(RouteSelectorMap))
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// GNEVehicleFrame::RouteSelector - methods
+// ---------------------------------------------------------------------------
+
+GNEVehicleFrame::RouteSelector::RouteSelector(GNEVehicleFrame* vehicleFrameParent) :
+    GNEGroupBoxModule(vehicleFrameParent, TL("Parent route")),
+    myVehicleFrameParent(vehicleFrameParent) {
+    myRouteComboBox = new MFXComboBoxIcon(getCollapsableFrame(),
+                                          vehicleFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                                          true, GUIDesignComboBoxVisibleItems, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myCreateButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Create"), "",
+                                               TL("Create vehicle over selected route or routeDistribution"),
+                                               GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_CREATE, GUIDesignButton);
+    hide();
+}
+
+
+GNEVehicleFrame::RouteSelector::~RouteSelector() {}
+
+
+GNEDemandElement*
+GNEVehicleFrame::RouteSelector::getCurrentRoute() const {
+    return myCurrentRoute;
+}
+
+
+void
+GNEVehicleFrame::RouteSelector::showRouteSelector() {
+    refreshRouteSelector();
+    show();
+}
+
+
+void
+GNEVehicleFrame::RouteSelector::hideRouteSelector() {
+    hide();
+}
+
+
+bool
+GNEVehicleFrame::RouteSelector::isRouteSelectorShown() const {
+    return shown();
+}
+
+
+void
+GNEVehicleFrame::RouteSelector::refreshRouteSelector() {
+    const auto& ACs = myVehicleFrameParent->getViewNet()->getNet()->getAttributeCarriers();
+    myRouteComboBox->clearItems();
+    std::map<std::string, GNEDemandElement*> sortedRoutes;
+    for (const auto& tag : {SUMO_TAG_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION}) {
+        for (const auto& item : ACs->getDemandElements().at(tag)) {
+            sortedRoutes[item.second->getID()] = item.second;
+        }
+    }
+    for (const auto& item : sortedRoutes) {
+        myRouteComboBox->appendIconItem(item.first.c_str(), item.second->getACIcon(),
+                                        item.second->getTagProperty()->getBackGroundColor());
+    }
+    if (sortedRoutes.empty()) {
+        myCurrentRoute = nullptr;
+        myRouteComboBox->disable();
+        myCreateButton->disable();
+    } else {
+        myRouteComboBox->enable();
+        if ((myCurrentRoute != nullptr) && (sortedRoutes.count(myCurrentRoute->getID()) > 0) &&
+                (sortedRoutes.at(myCurrentRoute->getID()) == myCurrentRoute)) {
+            for (int i = 0; i < myRouteComboBox->getNumItems(); i++) {
+                if (myRouteComboBox->getItemText(i) == myCurrentRoute->getID()) {
+                    myRouteComboBox->setCurrentItem(i, FALSE);
+                    break;
+                }
+            }
+        } else {
+            myCurrentRoute = sortedRoutes.begin()->second;
+            myRouteComboBox->setCurrentItem(0, FALSE);
+        }
+        myRouteComboBox->setTextColor(GUIDesignTextColorBlack);
+        myCreateButton->enable();
+    }
+    recalc();
+}
+
+
+long
+GNEVehicleFrame::RouteSelector::onCmdSelectRoute(FXObject*, FXSelector, void*) {
+    const auto& ACs = myVehicleFrameParent->getViewNet()->getNet()->getAttributeCarriers();
+    const std::string text = myRouteComboBox->getText().text();
+    for (const auto& tag : {SUMO_TAG_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION}) {
+        auto* candidate = ACs->retrieveDemandElement(tag, text, false);
+        if (candidate != nullptr) {
+            myCurrentRoute = candidate;
+            myRouteComboBox->setTextColor(GUIDesignTextColorBlack);
+            myRouteComboBox->killFocus();
+            myCreateButton->enable();
+            return 1;
+        }
+    }
+    myCurrentRoute = nullptr;
+    myRouteComboBox->setTextColor(GUIDesignTextColorRed);
+    myCreateButton->disable();
+    return 1;
+}
+
+
+long
+GNEVehicleFrame::RouteSelector::onCmdCreateVehicle(FXObject*, FXSelector, void*) {
+    myVehicleFrameParent->createVehicleOverSelectedRoute();
+    return 1;
+}
 
 // ---------------------------------------------------------------------------
 // GNEVehicleFrame::HelpCreation - methods
@@ -76,7 +200,7 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
         // vehicles
         case SUMO_TAG_VEHICLE:
             information
-                    << "- " << TL("Click over a route to create a vehicle.");
+                    << "- " << TL("Click over a route or select a route/routeDistribution and press Create to create a vehicle.");
             break;
         case SUMO_TAG_TRIP:
             information
@@ -97,7 +221,7 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
         // flows
         case GNE_TAG_FLOW_ROUTE:
             information
-                    << "- " << TL("Click over a route to create a routeFlow.");
+                    << "- " << TL("Click over a route or select a route/routeDistribution and press Create to create a routeFlow.");
             break;
         case SUMO_TAG_FLOW:
             information
@@ -139,6 +263,9 @@ GNEVehicleFrame::GNEVehicleFrame(GNEViewParent* viewParent, GNEViewNet* viewNet)
     // Create attributes editor
     myVehicleAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
 
+    // Create route / routeDistribution selector
+    myRouteSelector = new RouteSelector(this);
+
     // create GNEPathCreator Module
     myPathCreator = new GNEPathCreator(this, viewNet->getNet()->getDemandPathManager());
 
@@ -159,6 +286,9 @@ void
 GNEVehicleFrame::show() {
     // refresh tag selector
     myVehicleTagSelector->refreshTagSelector();
+    if (myRouteSelector->isRouteSelectorShown()) {
+        myRouteSelector->refreshRouteSelector();
+    }
     // show frame
     GNEFrame::show();
 }
@@ -245,6 +375,26 @@ GNEVehicleFrame::getVehicleAttributesEditor() const {
     return myVehicleAttributesEditor;
 }
 
+
+GNEVehicleFrame::RouteSelector*
+GNEVehicleFrame::getRouteSelector() const {
+    return myRouteSelector;
+}
+
+
+bool
+GNEVehicleFrame::createVehicleOverSelectedRoute() {
+    if ((myVehicleTagSelector->getCurrentTemplateAC() == nullptr) ||
+            (myTypeSelector->getCurrentDemandElement() == nullptr) ||
+            (myRouteSelector->getCurrentRoute() == nullptr)) {
+        return false;
+    }
+    myVehicleBaseObject->clear();
+    const SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
+    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
+    return buildVehicleOverRoute(vehicleTag, myRouteSelector->getCurrentRoute());
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================
@@ -266,6 +416,7 @@ GNEVehicleFrame::tagSelected() {
         // hide all moduls if tag isn't valid
         myTypeSelector->hideDemandElementSelector();
         myVehicleAttributesEditor->hideAttributesEditor();
+        myRouteSelector->hideRouteSelector();
         myPathCreator->hidePathCreatorModule();
         myHelpCreation->hideHelpCreation();
         myPathLegend->hidePathLegendModule();
@@ -278,6 +429,12 @@ GNEVehicleFrame::demandElementSelected() {
     if (myTypeSelector->getCurrentDemandElement()) {
         // show vehicle attributes modul
         myVehicleAttributesEditor->showAttributesEditor(myVehicleTagSelector->getCurrentTemplateAC(), true);
+        // show or hide route selector depending on vehicle tag
+        if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty()->vehicleRoute()) {
+            myRouteSelector->showRouteSelector();
+        } else {
+            myRouteSelector->hideRouteSelector();
+        }
         // clear colors
         myPathCreator->clearJunctionColors();
         myPathCreator->clearEdgeColors();
@@ -290,6 +447,7 @@ GNEVehicleFrame::demandElementSelected() {
     } else {
         // hide all moduls if selected item isn't valid
         myVehicleAttributesEditor->hideAttributesEditor();
+        myRouteSelector->hideRouteSelector();
         myPathCreator->hidePathCreatorModule();
         myPathLegend->hidePathLegendModule();
         myHelpCreation->hideHelpCreation();
@@ -537,7 +695,7 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
 
 bool
 GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* route) {
-    if (route && (route->getTagProperty()->isRoute())) {
+    if (route && (route->getTagProperty()->isRoute() || route->getTagProperty()->isRouteDistribution())) {
         // now check if parameters are valid
         if (!myVehicleAttributesEditor->checkAttributes(true)) {
             return false;
@@ -548,12 +706,27 @@ GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* 
         GNERouteHandler routeHandler(myViewNet->getNet(), route->getFileBucket(),
                                      myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), true);
         // check if departLane is valid
-        if ((route->getTagProperty()->getTag() == SUMO_TAG_ROUTE) && myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPARTLANE) &&
+        if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPARTLANE) &&
                 GNEAttributeCarrier::canParse<int>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE))) {
             const int departLane = GNEAttributeCarrier::parse<int>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE));
-            if (departLane >= (int)route->getParentEdges().front()->getChildLanes().size()) {
-                myViewNet->setStatusBarText("Invalid " + toString(SUMO_ATTR_DEPARTLANE));
-                return false;
+            if (route->getTagProperty()->getTag() == SUMO_TAG_ROUTE) {
+                if ((departLane < 0) || (departLane >= (int)route->getParentEdges().front()->getChildLanes().size())) {
+                    myViewNet->setStatusBarText("Invalid " + toString(SUMO_ATTR_DEPARTLANE));
+                    return false;
+                }
+            } else if (route->getTagProperty()->isRouteDistribution()) {
+                int maxLanes = 0;
+                bool hasRefs = false;
+                for (const auto& child : route->getChildDemandElements()) {
+                    if (child->getTagProperty()->isDistributionReference() && (child->getFirstPathLane() != nullptr)) {
+                        hasRefs = true;
+                        maxLanes = MAX2(maxLanes, (int)child->getFirstPathLane()->getParentEdge()->getChildLanes().size());
+                    }
+                }
+                if ((departLane < 0) || (hasRefs && (departLane >= maxLanes))) {
+                    myViewNet->setStatusBarText("Invalid " + toString(SUMO_ATTR_DEPARTLANE));
+                    return false;
+                }
             }
         }
         // check if departSpeed is valid
@@ -607,8 +780,8 @@ GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* 
             }
         }
         // center view after creation
-        const auto* vehicle = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(myVehicleBaseObject->getTag(), myVehicleBaseObject->getStringAttribute(SUMO_ATTR_ID), false);
-        if (vehicle && !myViewNet->getVisibleBoundary().around(vehicle->getPositionInView())) {
+        const auto* vehicle = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(vehicleTag, myVehicleBaseObject->getStringAttribute(SUMO_ATTR_ID), false);
+        if (vehicle && (vehicle->getFirstPathLane() != nullptr) && !myViewNet->getVisibleBoundary().around(vehicle->getPositionInView())) {
             myViewNet->centerToPos(vehicle->getPositionInView(), false);
         }
         // refresh attributes editor

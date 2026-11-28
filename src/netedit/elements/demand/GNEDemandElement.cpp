@@ -809,7 +809,11 @@ GNEDemandElement::getColorByScheme(const GUIColorer& c, const SUMOVehicleParamet
             }
         }
         case 5: {
-            Position p = getRouteParent()->getParentEdges().at(0)->getChildLanes().at(0)->getLaneShape()[0];
+            const GNELane* firstLane = getFirstPathLane();
+            if (firstLane == nullptr) {
+                return c.getScheme().getColor(0);
+            }
+            Position p = firstLane->getLaneShape()[0];
             const Boundary& b = myNet->getBoundary();
             Position center = b.getCenter();
             double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
@@ -817,7 +821,11 @@ GNEDemandElement::getColorByScheme(const GUIColorer& c, const SUMOVehicleParamet
             return RGBColor::fromHSV(hue, sat, 1.);
         }
         case 6: {
-            Position p = getRouteParent()->getParentEdges().back()->getChildLanes().at(0)->getLaneShape()[-1];
+            const GNELane* lastLane = getLastPathLane();
+            if (lastLane == nullptr) {
+                return c.getScheme().getColor(0);
+            }
+            Position p = lastLane->getLaneShape()[-1];
             const Boundary& b = myNet->getBoundary();
             Position center = b.getCenter();
             double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
@@ -825,8 +833,13 @@ GNEDemandElement::getColorByScheme(const GUIColorer& c, const SUMOVehicleParamet
             return RGBColor::fromHSV(hue, sat, 1.);
         }
         case 7: {
-            Position pb = getRouteParent()->getParentEdges().at(0)->getChildLanes().at(0)->getLaneShape()[0];
-            Position pe = getRouteParent()->getParentEdges().back()->getChildLanes().at(0)->getLaneShape()[-1];
+            const GNELane* firstLane = getFirstPathLane();
+            const GNELane* lastLane = getLastPathLane();
+            if ((firstLane == nullptr) || (lastLane == nullptr)) {
+                return c.getScheme().getColor(0);
+            }
+            Position pb = firstLane->getLaneShape()[0];
+            Position pe = lastLane->getLaneShape()[-1];
             const Boundary& b = myNet->getBoundary();
             double hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / M_PI;
             Position minp(b.xmin(), b.ymin());

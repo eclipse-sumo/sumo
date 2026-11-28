@@ -92,7 +92,8 @@ GNEChange_DemandElement::undo() {
         parentEdges.front()->updateContainerStackLabels();
     }
     // update stack labels also for route elements
-    if (myDemandElement->getTagProperty()->vehicleRoute()) {
+    if (myDemandElement->getTagProperty()->vehicleRoute() &&
+            (myParents.get<GNEDemandElement*>().at(1)->getParentEdges().size() > 0)) {
         const auto firstRouteEdge = myParents.get<GNEDemandElement*>().at(1)->getParentEdges().front();
         firstRouteEdge->updateVehicleStackLabels();
         firstRouteEdge->updatePersonStackLabels();
@@ -136,7 +137,8 @@ GNEChange_DemandElement::redo() {
         parentEdges.front()->updateContainerStackLabels();
     }
     // update stack labels also for route elements
-    if (myDemandElement->getTagProperty()->vehicleRoute()) {
+    if (myDemandElement->getTagProperty()->vehicleRoute() &&
+            (myParents.get<GNEDemandElement*>().at(1)->getParentEdges().size() > 0)) {
         const auto firstRouteEdge = myParents.get<GNEDemandElement*>().at(1)->getParentEdges().front();
         firstRouteEdge->updateVehicleStackLabels();
         firstRouteEdge->updatePersonStackLabels();

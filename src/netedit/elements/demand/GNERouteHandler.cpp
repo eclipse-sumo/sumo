@@ -188,40 +188,62 @@ bool
 GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
                             const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
                             const double probability, const Parameterised::Map& routeParameters) {
+    // check if this route is defined inline inside a routeDistribution
+    const bool inRouteDistribution = sumoBaseObject && sumoBaseObject->getParentSumoBaseObject() &&
+                                     (sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_ROUTE_DISTRIBUTION);
+    GNEDemandElement* distributionParent = nullptr;
+    std::string routeID = id;
+    if (inRouteDistribution) {
+        const auto& routeDistributionID = sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
+        distributionParent = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, routeDistributionID, false);
+        if (distributionParent) {
+            if (routeID.empty()) {
+                int index = 0;
+                do {
+                    routeID = routeDistributionID + "#" + toString(index++);
+                } while (retrieveDemandElement(NamespaceIDs::routes, routeID) != nullptr);
+            } else if (retrieveDemandElement(NamespaceIDs::routes, routeID) != nullptr) {
+                routeID = routeDistributionID + "#" + id;
+                int index = 0;
+                while (retrieveDemandElement(NamespaceIDs::routes, routeID) != nullptr) {
+                    routeID = routeDistributionID + "#" + id + "#" + toString(index++);
+                }
+            }
+            const_cast<CommonXMLStructure::SumoBaseObject*>(sumoBaseObject)->addStringAttribute(SUMO_ATTR_ID, routeID);
+        }
+    }
     // check conditions
-    const auto element = retrieveDemandElement(NamespaceIDs::routes, id);
+    const auto element = retrieveDemandElement(NamespaceIDs::routes, routeID);
     if (!checkElement(SUMO_TAG_ROUTE, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_ROUTE, id)) {
+    } else if (!checkValidDemandElementID(SUMO_TAG_ROUTE, routeID)) {
         return false;
-    } else if (!checkNegative(SUMO_TAG_ROUTE, id, SUMO_ATTR_REPEAT, repeat, true)) {
+    } else if (!checkNegative(SUMO_TAG_ROUTE, routeID, SUMO_ATTR_REPEAT, repeat, true)) {
         return false;
     } else {
         // parse edges
-        const auto edges = parseEdges(SUMO_TAG_ROUTE, id, edgeIDs);
+        const auto edges = parseEdges(SUMO_TAG_ROUTE, routeID, edgeIDs);
         // check edges
         const auto validEdges = GNERoute::isRouteValid(edges);
         // continue depending if route is valid
         if (validEdges.size() > 0) {
-            return writeError(TLF("Could not build % with ID '%' in netedit; %.", toString(SUMO_TAG_ROUTE), id, validEdges));
+            return writeError(TLF("Could not build % with ID '%' in netedit; %.", toString(SUMO_TAG_ROUTE), routeID, validEdges));
         } else {
-            // create GNERoute
-            GNEDemandElement* route = new GNERoute(id, myNet, myFileBucket, vClass, edges, color, repeat, cycleTime, probability, routeParameters);
+            // create GNERoute (keep distribution probability on GNERouteRef when defined inside a routeDistribution)
+            const double routeProb = inRouteDistribution ? DEFAULT_VEH_PROB : ((probability == INVALID_DOUBLE) ? DEFAULT_VEH_PROB : probability);
+            GNEDemandElement* route = new GNERoute(routeID, myNet, myFileBucket, vClass, edges, color, repeat, cycleTime, routeProb, routeParameters);
             // if this route was created within a route distribution, we have to create an extra routeRef
             GNEDemandElement* routeRef = nullptr;
-            GNEDemandElement* distributionParent = nullptr;
-            if (sumoBaseObject && sumoBaseObject->getParentSumoBaseObject() && (sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_ROUTE_DISTRIBUTION)) {
+            if (inRouteDistribution) {
                 const auto& routeDistributionID = sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
-                distributionParent = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, routeDistributionID, false);
                 if (distributionParent) {
-                    // create route reference without probability
-                    routeRef = new GNERouteRef(distributionParent, route);
+                    routeRef = new GNERouteRef(distributionParent, route, probability);
                 } else {
-                    WRITE_WARNING(TLF("Route '%' with probability % cannot be referenced with distribution '%'", id, toString(probability), routeDistributionID));
+                    WRITE_WARNING(TLF("Route '%' with probability % cannot be referenced with distribution '%'", routeID, toString(probability), routeDistributionID));
                 }
             }
             if (myAllowUndoRedo) {
-                myNet->getUndoList()->begin(route, TLF("add % '%'", route->getTagStr(), id));
+                myNet->getUndoList()->begin(route, TLF("add % '%'", route->getTagStr(), routeID));
                 myNet->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
                 if (routeRef) {
                     myNet->getUndoList()->add(new GNEChange_DemandElement(routeRef, true), true);
@@ -241,7 +263,6 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
             return true;
         }
     }
-
 }
 
 
@@ -309,11 +330,26 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
         // obtain routes and vtypes
         GNEDemandElement* type = getType(vehicleParameters.vtypeid);
         GNEDemandElement* route = getRoute(vehicleParameters.routeid);
+        int maxDepartLanes = 0;
+        bool checkDepartLanes = false;
+        if (route != nullptr) {
+            if (route->getTagProperty()->isRouteDistribution()) {
+                for (const auto& child : route->getChildDemandElements()) {
+                    if (child->getTagProperty()->isDistributionReference() && (child->getFirstPathLane() != nullptr)) {
+                        checkDepartLanes = true;
+                        maxDepartLanes = MAX2(maxDepartLanes, (int)child->getFirstPathLane()->getParentEdge()->getChildLanes().size());
+                    }
+                }
+            } else if (route->getParentEdges().size() > 0) {
+                checkDepartLanes = true;
+                maxDepartLanes = (int)route->getParentEdges().front()->getChildLanes().size();
+            }
+        }
         if (type == nullptr) {
             return writeErrorInvalidParent(SUMO_TAG_VEHICLE, vehicleParameters.id, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION}, vehicleParameters.vtypeid);
         } else if (route == nullptr) {
             return writeErrorInvalidParent(SUMO_TAG_VEHICLE, vehicleParameters.id, {SUMO_TAG_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION}, vehicleParameters.routeid);
-        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN) && ((int)route->getParentEdges().front()->getChildLanes().size() < vehicleParameters.departLane)) {
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN) && checkDepartLanes && (maxDepartLanes < vehicleParameters.departLane)) {
             return writeError(TLF("Invalid % used in % '%'. % is greater than number of lanes", toString(SUMO_ATTR_DEPARTLANE), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departLane)));
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (type->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
             return writeError(TLF("Invalid % used in % '%'. % is greater than type %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
@@ -404,11 +440,26 @@ GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*
         // obtain routes and vtypes
         GNEDemandElement* type = getType(vehicleParameters.vtypeid);
         GNEDemandElement* route = getRoute(vehicleParameters.routeid);
+        int maxDepartLanes = 0;
+        bool checkDepartLanes = false;
+        if (route != nullptr) {
+            if (route->getTagProperty()->isRouteDistribution()) {
+                for (const auto& child : route->getChildDemandElements()) {
+                    if (child->getTagProperty()->isDistributionReference() && (child->getFirstPathLane() != nullptr)) {
+                        checkDepartLanes = true;
+                        maxDepartLanes = MAX2(maxDepartLanes, (int)child->getFirstPathLane()->getParentEdge()->getChildLanes().size());
+                    }
+                }
+            } else if (route->getParentEdges().size() > 0) {
+                checkDepartLanes = true;
+                maxDepartLanes = (int)route->getParentEdges().front()->getChildLanes().size();
+            }
+        }
         if (type == nullptr) {
             return writeErrorInvalidParent(SUMO_TAG_VEHICLE, vehicleParameters.id, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION}, vehicleParameters.vtypeid);
         } else if (route == nullptr) {
             return writeErrorInvalidParent(SUMO_TAG_VEHICLE, vehicleParameters.id, {SUMO_TAG_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION}, vehicleParameters.routeid);
-        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN) && ((int)route->getParentEdges().front()->getChildLanes().size() < vehicleParameters.departLane)) {
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN) && checkDepartLanes && (maxDepartLanes < vehicleParameters.departLane)) {
             return writeError(TLF("Invalid % used in % '%'. % is greater than number of lanes", toString(SUMO_ATTR_DEPARTLANE), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departLane)));
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (type->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
             return writeError(TLF("Invalid % used in % '%'. % is greater than type %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
@@ -1673,8 +1724,25 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
     std::vector<GNEEdge*> routeEdges;
     // obtain edges depending of tag
     if (originalVehicle->getTagProperty()->vehicleRoute()) {
-        // get route edges
+        // get route or routeDistribution
         originalRoute = originalVehicle->getParentDemandElements().at(1);
+        if (createEmbeddedRoute && originalRoute->getTagProperty()->isRouteDistribution()) {
+            const GNEDemandElement* ref = originalRoute;
+            while (ref && ref->getTagProperty()->isRouteDistribution()) {
+                const GNEDemandElement* nextRef = nullptr;
+                for (const auto& child : ref->getChildDemandElements()) {
+                    if (child->getTagProperty()->isDistributionReference()) {
+                        nextRef = child->getParentDemandElements().at(1);
+                        break;
+                    }
+                }
+                ref = nextRef;
+            }
+            if (ref) {
+                routeEdges = ref->getParentEdges();
+            }
+            originalRoute = nullptr;
+        }
     } else if (originalVehicle->getTagProperty()->vehicleRouteEmbedded()) {
         // get embedded route edges
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
@@ -1763,8 +1831,25 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
     std::vector<GNEEdge*> routeEdges;
     // obtain edges depending of tag
     if (originalVehicle->getTagProperty()->vehicleRoute()) {
-        // get original route
+        // get original route or routeDistribution
         originalRoute = originalVehicle->getParentDemandElements().back();
+        if (createEmbeddedRoute && originalRoute->getTagProperty()->isRouteDistribution()) {
+            const GNEDemandElement* ref = originalRoute;
+            while (ref && ref->getTagProperty()->isRouteDistribution()) {
+                const GNEDemandElement* nextRef = nullptr;
+                for (const auto& child : ref->getChildDemandElements()) {
+                    if (child->getTagProperty()->isDistributionReference()) {
+                        nextRef = child->getParentDemandElements().at(1);
+                        break;
+                    }
+                }
+                ref = nextRef;
+            }
+            if (ref) {
+                routeEdges = ref->getParentEdges();
+            }
+            originalRoute = nullptr;
+        }
     } else if (originalVehicle->getTagProperty()->vehicleRouteEmbedded()) {
         // get embedded route edges
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
@@ -1865,8 +1950,26 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
     if (originalVehicle->getTagProperty()->vehicleRoute()) {
         // set route
         route = originalVehicle->getParentDemandElements().back();
-        // get route edges
-        edges = route->getParentEdges();
+        if (route->getTagProperty()->isRouteDistribution()) {
+            const GNEDemandElement* ref = route;
+            while (ref && ref->getTagProperty()->isRouteDistribution()) {
+                const GNEDemandElement* nextRef = nullptr;
+                for (const auto& child : ref->getChildDemandElements()) {
+                    if (child->getTagProperty()->isDistributionReference()) {
+                        nextRef = child->getParentDemandElements().at(1);
+                        break;
+                    }
+                }
+                ref = nextRef;
+            }
+            if (ref) {
+                edges = ref->getParentEdges();
+            }
+            route = nullptr;
+        } else {
+            // get route edges
+            edges = route->getParentEdges();
+        }
     } else if (originalVehicle->getTagProperty()->vehicleRouteEmbedded()) {
         // get embedded route edges
         edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
@@ -1927,8 +2030,26 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
     if (originalVehicle->getTagProperty()->vehicleRoute()) {
         // set route
         route = originalVehicle->getParentDemandElements().back();
-        // get route edges
-        edges = route->getParentEdges();
+        if (route->getTagProperty()->isRouteDistribution()) {
+            const GNEDemandElement* ref = route;
+            while (ref && ref->getTagProperty()->isRouteDistribution()) {
+                const GNEDemandElement* nextRef = nullptr;
+                for (const auto& child : ref->getChildDemandElements()) {
+                    if (child->getTagProperty()->isDistributionReference()) {
+                        nextRef = child->getParentDemandElements().at(1);
+                        break;
+                    }
+                }
+                ref = nextRef;
+            }
+            if (ref) {
+                edges = ref->getParentEdges();
+            }
+            route = nullptr;
+        } else {
+            // get route edges
+            edges = route->getParentEdges();
+        }
     } else if (originalVehicle->getTagProperty()->vehicleRouteEmbedded()) {
         // get embedded route edges
         edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
@@ -2338,6 +2459,9 @@ GNERouteHandler::canReverse(const GNEDemandElement* element) {
     if (element->getTagProperty()->getTag() == SUMO_TAG_ROUTE) {
         return canReverse(element->getNet(), SVC_PEDESTRIAN, element->getParentEdges());
     } else if (element->getTagProperty()->vehicleRoute()) {
+        if (element->getParentDemandElements().at(1)->getTagProperty()->isRouteDistribution()) {
+            return false;
+        }
         return canReverse(element->getNet(), element->getVClass(), element->getParentDemandElements().at(1)->getParentEdges());
     } else if (element->getTagProperty()->vehicleRouteEmbedded()) {
         return canReverse(element->getNet(), element->getVClass(), element->getChildDemandElements().front()->getParentEdges());
@@ -2384,8 +2508,10 @@ GNERouteHandler::reverse(GNEDemandElement* element) {
     auto undoList = element->getNet()->getUndoList();
     // continue depending of element
     if (element->getTagProperty()->vehicleRoute()) {
-        // reverse parent route
-        reverse(element->getParentDemandElements().at(1));
+        // reverse parent route if not a routeDistribution
+        if (!element->getParentDemandElements().at(1)->getTagProperty()->isRouteDistribution()) {
+            reverse(element->getParentDemandElements().at(1));
+        }
     } else if (element->getTagProperty()->vehicleRouteEmbedded()) {
         // reverse embedded route
         reverse(element->getChildDemandElements().front());

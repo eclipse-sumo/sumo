@@ -27,6 +27,7 @@
 // class declaration
 // ===========================================================================
 
+class MFXComboBoxIcon;
 class MFXDynamicLabel;
 class GNEAttributesEditor;
 class GNEDemandElementSelector;
@@ -41,6 +42,65 @@ class GNEPathCreator;
 class GNEVehicleFrame : public GNEFrame {
 
 public:
+
+    // ===========================================================================
+    // class RouteSelector
+    // ===========================================================================
+
+    class RouteSelector : public GNEGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEVehicleFrame::RouteSelector)
+
+    public:
+        /// @brief constructor
+        RouteSelector(GNEVehicleFrame* vehicleFrameParent);
+
+        /// @brief destructor
+        ~RouteSelector();
+
+        /// @brief get current selected route or routeDistribution
+        GNEDemandElement* getCurrentRoute() const;
+
+        /// @brief show RouteSelector module
+        void showRouteSelector();
+
+        /// @brief hide RouteSelector module
+        void hideRouteSelector();
+
+        /// @brief check if RouteSelector module is shown
+        bool isRouteSelectorShown() const;
+
+        /// @brief refresh RouteSelector module
+        void refreshRouteSelector();
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief called when user selects a route or routeDistribution in comboBox
+        long onCmdSelectRoute(FXObject*, FXSelector, void*);
+
+        /// @brief called when user presses Create button
+        long onCmdCreateVehicle(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(RouteSelector)
+
+    private:
+        /// @brief pointer to Vehicle Frame Parent
+        GNEVehicleFrame* myVehicleFrameParent = nullptr;
+
+        /// @brief comboBox with routes and routeDistributions
+        MFXComboBoxIcon* myRouteComboBox = nullptr;
+
+        /// @brief button for creating vehicle over selected route or routeDistribution
+        FXButton* myCreateButton = nullptr;
+
+        /// @brief current selected route or routeDistribution
+        GNEDemandElement* myCurrentRoute = nullptr;
+    };
 
     // ===========================================================================
     // class HelpCreation
@@ -106,6 +166,12 @@ public:
     /// @brief get attributes creator
     GNEAttributesEditor* getVehicleAttributesEditor() const;
 
+    /// @brief get route selector
+    RouteSelector* getRouteSelector() const;
+
+    /// @brief create vehicle over currently selected route or routeDistribution
+    bool createVehicleOverSelectedRoute();
+
 protected:
     /// @brief Tag selected in GNETagSelector
     void tagSelected();
@@ -134,6 +200,9 @@ private:
 
     /// @brief attributes editor
     GNEAttributesEditor* myVehicleAttributesEditor = nullptr;
+
+    /// @brief route and routeDistribution selector (used for vehicles and flows over routes)
+    RouteSelector* myRouteSelector = nullptr;
 
     /// @brief edge path creator (used for trips and flows)
     GNEPathCreator* myPathCreator = nullptr;
