@@ -120,6 +120,8 @@ python tools/route/cutRoutes.py reduced.net.xml orig.rou.xml
   --routes-output output.rou.xml --orig-net orig.net.xml
 ```
 
+Use **--vclass** to treat edges that prohibit the specified vehicle class as outside the reduced network. An edge remains eligible if at least one of its lanes permits that class. For example, **--vclass passenger** excludes edges closed to passenger cars.
+
 Filtering stopping places is also supported by setting the options **--additional-input** and **--stops-output**.
 
 # cutTrips.py

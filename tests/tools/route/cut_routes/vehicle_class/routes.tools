@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23 09:28:22.966582 by Eclipse SUMO cutRoutes.py v1_28_0+0760-a90f1c1a2ad
+<configuration>
+    <routes-output value="out.rou.xml"/>
+    <vclass value="passenger"/>
+    <network value="input_net.net.xml"/>
+    <routeFiles value="input_routes.rou.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="already-open" depart="20.00">
+        <route edges="b c"/>
+    </vehicle>
+    <vehicle id="clipped" depart="35.00" departLane="best" departSpeed="max">
+        <route edges="b c"/>
+    </vehicle>
+</routes>
