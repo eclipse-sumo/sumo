@@ -6,3 +6,4 @@ polygon_dynamics
 
 # add polygon with more than 255 points
 add_large
+highlight_loadState
