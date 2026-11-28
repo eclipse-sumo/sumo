@@ -26,6 +26,9 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBNode.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/NamespaceIDs.h>
 
@@ -462,70 +465,185 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
 
 
 bool
-GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const std::string& laneID,
-        const double pos, const double length, const SUMOTime period, const std::string& trafficLight, const std::string& filename,
+GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
+        const double pos, const double endPos, const double length, const SUMOTime period, const std::string& trafficLight,
+        const std::string& toLane, const std::string& filename,
         const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
         const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
         const bool friendlyPos, const bool show, const Parameterised::Map& parameters) {
-    // check conditions
+    // get lane first when resolving implicit multi-lane definitions so checkElement is only executed once
+    GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
+    if (lane == nullptr) {
+        const auto element = retrieveAdditionalElement(NamespaceIDs::laneAreaDetectors, id);
+        if (!checkElement(SUMO_TAG_LANE_AREA_DETECTOR, element) || !checkValidDetectorID(SUMO_TAG_LANE_AREA_DETECTOR, id)) {
+            return false;
+        }
+        return writeErrorInvalidParent(SUMO_TAG_LANE_AREA_DETECTOR, id, {SUMO_TAG_LANE}, laneID);
+    }
+    if (!lane->getParentEdge()->getNBEdge()->hasLoadedLength()) {
+        ensureNetworkComputedForE2();
+    }
+    const double laneLength = getE2LaneLength(lane);
+    const bool posGiven = (pos != INVALID_DOUBLE);
+    const bool endPosGiven = (endPos != INVALID_DOUBLE);
+    const bool lengthGiven = (length != INVALID_DOUBLE);
+    double resolvedPos = pos;
+    double resolvedLength = length;
+
+    auto snapMultiLaneEnds = [](double& startP, const double firstLen, double& endP, const double lastLen) {
+        startP = snapE2Position(startP, 0., POSITION_EPS);
+        startP = snapE2Position(startP, firstLen - POSITION_EPS, POSITION_EPS);
+        startP = snapE2Position(startP, 0., POSITION_EPS);
+        endP = snapE2Position(endP, lastLen, POSITION_EPS);
+        endP = snapE2Position(endP, POSITION_EPS, POSITION_EPS);
+        endP = snapE2Position(endP, lastLen, POSITION_EPS);
+    };
+    auto getLaneLen = [this](const GNELane* const l) {
+        return getE2LaneLength(l);
+    };
+    auto getLinkLen = [this](GNELane* const from, GNELane* const to) {
+        return getConnectionLength(from, to);
+    };
+
+    if (lengthGiven) {
+        if (length < 0) {
+            const auto element = retrieveAdditionalElement(NamespaceIDs::laneAreaDetectors, id);
+            if (!checkElement(SUMO_TAG_LANE_AREA_DETECTOR, element) || !checkValidDetectorID(SUMO_TAG_LANE_AREA_DETECTOR, id)) {
+                return false;
+            }
+            return checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_LENGTH, length, true);
+        }
+        if (posGiven) {
+            // [lane, pos, length]: check for downstream implicit multi-lane extension
+            double normStart = (pos < 0.) ? (laneLength + pos) : pos;
+            normStart = snapE2Position(normStart, 0., POSITION_EPS);
+            if (normStart >= 0. && normStart < laneLength && (normStart + length - laneLength) >= POSITION_EPS) {
+                ensureNetworkComputedForE2();
+                double selStart = normStart;
+                double selEnd = INVALID_DOUBLE;
+                const auto lanes = selectE2Lanes(
+                    lane, length, true, selStart, selEnd, getLaneLen,
+                    [this](GNELane* const l) { return getCanonicalSuccessorLane(l); },
+                    getLinkLen, true);
+                if (lanes.size() > 1) {
+                    snapMultiLaneEnds(selStart, getLaneLen(lanes.front()), selEnd, getLaneLen(lanes.back()));
+                    std::vector<std::string> laneIDs;
+                    laneIDs.reserve(lanes.size());
+                    for (const auto* const l : lanes) {
+                        laneIDs.push_back(l->getID());
+                    }
+                    return buildMultiLaneDetectorE2(sumoBaseObject, id, laneIDs, selStart, selEnd, INVALID_DOUBLE,
+                                                    period, trafficLight, toLane, filename, vehicleTypes, nextEdges,
+                                                    detectPersons, name, timeThreshold, speedThreshold, jamThreshold,
+                                                    friendlyPos, show, parameters);
+                }
+            }
+        } else if (endPosGiven) {
+            // [lane, endPos, length]: check for upstream implicit multi-lane extension
+            double normEnd = (endPos < 0.) ? (laneLength + endPos) : endPos;
+            normEnd = snapE2Position(normEnd, laneLength, POSITION_EPS);
+            if (normEnd > 0. && normEnd <= laneLength && (normEnd - length) <= -POSITION_EPS) {
+                ensureNetworkComputedForE2();
+                double selStart = INVALID_DOUBLE;
+                double selEnd = normEnd;
+                const auto lanes = selectE2Lanes(
+                    lane, length, false, selStart, selEnd, getLaneLen,
+                    [this](GNELane* const l) { return getCanonicalPredecessorLane(l); },
+                    getLinkLen, true);
+                if (lanes.size() > 1) {
+                    snapMultiLaneEnds(selStart, getLaneLen(lanes.front()), selEnd, getLaneLen(lanes.back()));
+                    std::vector<std::string> laneIDs;
+                    laneIDs.reserve(lanes.size());
+                    for (const auto* const l : lanes) {
+                        laneIDs.push_back(l->getID());
+                    }
+                    return buildMultiLaneDetectorE2(sumoBaseObject, id, laneIDs, selStart, selEnd, INVALID_DOUBLE,
+                                                    period, trafficLight, toLane, filename, vehicleTypes, nextEdges,
+                                                    detectPersons, name, timeThreshold, speedThreshold, jamThreshold,
+                                                    friendlyPos, show, parameters);
+                }
+                // no predecessor normal lane reached: truncate at start of anchoring lane, matching SUMO
+                WRITE_WARNINGF(TL("Cannot build detector '%' of length % because no further continuation lane was found for lane '%'! Truncated detector at length %."),
+                               id, toString(length), laneID, toString(normEnd));
+                resolvedPos = 0.;
+                resolvedLength = normEnd;
+            } else if (normEnd > 0. && normEnd <= laneLength && (normEnd - length) < 0.) {
+                resolvedPos = 0.;
+                resolvedLength = normEnd;
+            } else {
+                resolvedPos = endPos - length;
+                resolvedLength = length;
+            }
+        }
+    } else if (posGiven && endPosGiven) {
+        // [lane, pos, endPos]: single-lane specification with positive or negative start/end positions
+        double normStart = (pos < 0.) ? (laneLength + pos) : pos;
+        double normEnd = (endPos < 0.) ? (laneLength + endPos) : endPos;
+        if (friendlyPos) {
+            normStart = (normStart < 0.) ? 0. : ((normStart >= laneLength) ? MAX2(0., laneLength - POSITION_EPS) : normStart);
+            normEnd = (normEnd <= 0.) ? MIN2(laneLength, POSITION_EPS) : ((normEnd > laneLength) ? laneLength : normEnd);
+            if (normEnd - normStart < POSITION_EPS) {
+                fixLaneDoublePosition(normStart, normEnd, laneLength);
+            }
+        }
+        normEnd = snapE2Position(normEnd, laneLength, POSITION_EPS);
+        normStart = snapE2Position(normStart, 0., POSITION_EPS);
+        resolvedPos = normStart;
+        resolvedLength = normEnd - normStart;
+    }
+
+    // check single-lane E2 conditions
     const auto element = retrieveAdditionalElement(NamespaceIDs::laneAreaDetectors, id);
     if (!checkElement(SUMO_TAG_LANE_AREA_DETECTOR, element)) {
         return false;
     } else if (!checkValidDetectorID(SUMO_TAG_LANE_AREA_DETECTOR, id)) {
         return false;
+    }
+    const bool friendlyPosCheck = checkFriendlyPosSmallLanes(resolvedPos, resolvedLength, laneLength, friendlyPos);
+    if (!checkLanePosition(resolvedPos, resolvedLength, laneLength, friendlyPosCheck)) {
+        return writeErrorInvalidPosition(SUMO_TAG_LANE_AREA_DETECTOR, id);
+    } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_LENGTH, resolvedLength, true)) {
+        return false;
+    } else if ((period != -1) && !checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_PERIOD, period, true)) {
+        return false;
+    } else if ((trafficLight.size() > 0) && !(SUMOXMLDefinitions::isValidNetID(trafficLight))) {
+        return writeError(TLF("Could not build lane area detector with ID '%' in netedit; invalid traffic light ID.", id));
+    } else if ((toLane.size() > 0) && !(SUMOXMLDefinitions::isValidNetID(toLane))) {
+        return writeError(TLF("Could not build lane area detector with ID '%' in netedit; invalid to-lane ID.", id));
+    } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD, timeThreshold, true)) {
+        return false;
+    } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD, speedThreshold, true)) {
+        return false;
+    } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD, jamThreshold, true)) {
+        return false;
+    } else if (!checkFileName(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_FILE, filename)) {
+        return false;
+    } else if (!checkListOfVehicleTypes(SUMO_TAG_LANE_AREA_DETECTOR, id, vehicleTypes)) {
+        return false;
     } else {
-        // get lane
-        GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
-        // check lane
-        if (lane == nullptr) {
-            return writeErrorInvalidParent(SUMO_TAG_LANE_AREA_DETECTOR, id, {SUMO_TAG_LANE}, laneID);
+        // build E2 single lane
+        GNEAdditional* detectorE2 = new GNELaneAreaDetector(id, myNet, myFileBucket, lane, resolvedPos, resolvedLength, period, trafficLight, filename,
+                vehicleTypes, nextEdges, detectPersons, name, timeThreshold,
+                speedThreshold, jamThreshold, friendlyPosCheck, show, parameters, toLane);
+        // insert depending of allowUndoRedo
+        if (myAllowUndoRedo) {
+            myNet->getUndoList()->begin(detectorE2, TL("add lane area detector '") + id + "'");
+            myNet->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
+            myNet->getUndoList()->end();
         } else {
-            // check friendlyPos in small lanes
-            const bool friendlyPosCheck = checkFriendlyPosSmallLanes(pos, length, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos);
-            if (!checkLanePosition(pos, length, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosCheck)) {
-                return writeErrorInvalidPosition(SUMO_TAG_LANE_AREA_DETECTOR, id);
-            } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_LENGTH, length, true)) {
-                return false;
-            } else if ((period != -1) && !checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_PERIOD, period, true)) {
-                return false;
-            } else if ((trafficLight.size() > 0) && !(SUMOXMLDefinitions::isValidNetID(trafficLight))) {
-                // temporal
-                return writeError(TLF("Could not build lane area detector with ID '%' in netedit; invalid traffic light ID.", id));
-            } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD, timeThreshold, true)) {
-                return false;
-            } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD, speedThreshold, true)) {
-                return false;
-            } else if (!checkNegative(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD, jamThreshold, true)) {
-                return false;
-            } else if (!checkFileName(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_FILE, filename)) {
-                return false;
-            } else if (!checkListOfVehicleTypes(SUMO_TAG_LANE_AREA_DETECTOR, id, vehicleTypes)) {
-                return false;
-            } else {
-                // build E2 single lane
-                GNEAdditional* detectorE2 = new GNELaneAreaDetector(id, myNet, myFileBucket, lane, pos, length, period, trafficLight, filename,
-                        vehicleTypes, nextEdges, detectPersons, name, timeThreshold,
-                        speedThreshold, jamThreshold, friendlyPosCheck, show, parameters);
-                // insert depending of allowUndoRedo
-                if (myAllowUndoRedo) {
-                    myNet->getUndoList()->begin(detectorE2, TL("add lane area detector '") + id + "'");
-                    myNet->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
-                    myNet->getUndoList()->end();
-                } else {
-                    myNet->getAttributeCarriers()->insertAdditional(detectorE2);
-                    lane->addChildElement(detectorE2);
-                    detectorE2->incRef("buildDetectorE2");
-                }
-                return true;
-            }
+            myNet->getAttributeCarriers()->insertAdditional(detectorE2);
+            lane->addChildElement(detectorE2);
+            detectorE2->incRef("buildDetectorE2");
         }
+        return true;
     }
 }
 
 
 bool
 GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const std::vector<std::string>& laneIDs,
-        const double pos, const double endPos, const SUMOTime period, const std::string& trafficLight, const std::string& filename,
+        const double pos, const double endPos, const double length, const SUMOTime period, const std::string& trafficLight,
+        const std::string& toLane, const std::string& filename,
         const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
         const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
         const bool friendlyPos, const bool show, const Parameterised::Map& parameters) {
@@ -545,15 +663,53 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
             // calculate path
             if (!GNEAdditional::areLaneConsecutives(lanes)) {
                 return writeError(TLF("Could not build lane area detector with ID '%' in netedit; Lanes aren't consecutives.", id));
-            } else if (!checkMultiLanePosition(
-                           pos, lanes.front()->getParentEdge()->getNBEdge()->getFinalLength(),
-                           endPos, lanes.back()->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
+            }
+            bool needNetCompute = (length != INVALID_DOUBLE);
+            if (!needNetCompute) {
+                for (const auto* const l : lanes) {
+                    if (!l->getParentEdge()->getNBEdge()->hasLoadedLength()) {
+                        needNetCompute = true;
+                        break;
+                    }
+                }
+            }
+            if (needNetCompute) {
+                ensureNetworkComputedForE2();
+            }
+            double resolvedPos = pos;
+            double resolvedEndPos = endPos;
+            if (length != INVALID_DOUBLE) {
+                if (!checkNegative(GNE_TAG_MULTI_LANE_AREA_DETECTOR, id, SUMO_ATTR_LENGTH, length, true)) {
+                    return false;
+                }
+                auto getLaneLen = [this](const GNELane* const l) {
+                    return getE2LaneLength(l);
+                };
+                auto getLinkLen = [this](GNELane* const from, GNELane* const to) {
+                    return getConnectionLength(from, to);
+                };
+                if ((resolvedPos == INVALID_DOUBLE) && (resolvedEndPos == INVALID_DOUBLE)) {
+                    const double totalLen = computeE2LanesTotalLength(lanes, getLaneLen, getLinkLen);
+                    if (fabs(length - totalLen) > NUMERICAL_EPS) {
+                        return writeError(TLF("Could not build multiLaneAreaDetector with ID '%' in netedit; incomplete positional specification.", id));
+                    }
+                    resolvedPos = 0.;
+                    resolvedEndPos = getLaneLen(lanes.back());
+                } else {
+                    resolveE2ExplicitLanesLength(lanes, resolvedPos, resolvedEndPos, length, getLaneLen, getLinkLen);
+                }
+            }
+            if (!checkMultiLanePosition(
+                        resolvedPos, getE2LaneLength(lanes.front()),
+                        resolvedEndPos, getE2LaneLength(lanes.back()), friendlyPos)) {
                 return writeErrorInvalidPosition(GNE_TAG_MULTI_LANE_AREA_DETECTOR, id);
             } else if ((period != -1) && !checkNegative(GNE_TAG_MULTI_LANE_AREA_DETECTOR, id, SUMO_ATTR_PERIOD, period, true)) {
                 return false;
             } else if ((trafficLight.size() > 0) && !(SUMOXMLDefinitions::isValidNetID(trafficLight))) {
                 // temporal
                 return writeError(TLF("Could not build lane area detector with ID '%' in netedit; invalid traffic light ID.", id));
+            } else if ((toLane.size() > 0) && !(SUMOXMLDefinitions::isValidNetID(toLane))) {
+                return writeError(TLF("Could not build lane area detector with ID '%' in netedit; invalid to-lane ID.", id));
             } else if (!checkNegative(GNE_TAG_MULTI_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD, timeThreshold, true)) {
                 return false;
             } else if (!checkNegative(GNE_TAG_MULTI_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD, speedThreshold, true)) {
@@ -566,9 +722,9 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
                 return false;
             } else {
                 // build E2 multilane detector
-                GNEAdditional* detectorE2 = new GNELaneAreaDetector(id, myNet, myFileBucket, lanes, pos, endPos, period, trafficLight, filename,
+                GNEAdditional* detectorE2 = new GNELaneAreaDetector(id, myNet, myFileBucket, lanes, resolvedPos, resolvedEndPos, period, trafficLight, filename,
                         vehicleTypes, nextEdges, detectPersons, name, timeThreshold,
-                        speedThreshold, jamThreshold, friendlyPos, show, parameters);
+                        speedThreshold, jamThreshold, friendlyPos, show, parameters, toLane);
                 // insert depending of allowUndoRedo
                 if (myAllowUndoRedo) {
                     myNet->getUndoList()->begin(detectorE2, TL("add lane area detector '") + id + "'");
@@ -1960,7 +2116,9 @@ GNEAdditionalHandler::checkMultiLanePosition(double fromPos, const double fromLa
     if (friendlyPos) {
         return true;
     } else {
-        return (checkLanePosition(fromPos, 0, fromLaneLength, false) && checkLanePosition(toPos, 0, tolaneLength, false));
+        const double checkFrom = (fromPos == INVALID_DOUBLE) ? 0. : fromPos;
+        const double checkTo = (toPos == INVALID_DOUBLE) ? tolaneLength : toPos;
+        return (checkLanePosition(checkFrom, 0, fromLaneLength, false) && checkLanePosition(checkTo, 0, tolaneLength, false));
     }
 }
 
@@ -2072,6 +2230,194 @@ GNEAdditionalHandler::checkElement(const SumoXMLTag tag, GNEAdditional* addition
         }
     }
     return true;
+}
+
+
+void
+GNEAdditionalHandler::ensureNetworkComputedForE2() const {
+    if (!myNet->isNetRecomputed() && (myNet->getGNEApplicationWindow() != nullptr)) {
+        myNet->computeNetwork(myNet->getGNEApplicationWindow());
+    }
+}
+
+
+double
+GNEAdditionalHandler::getE2LaneLength(const GNELane* lane) const {
+    const NBEdge* const nbEdge = lane->getParentEdge()->getNBEdge();
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (myNet->isNetRecomputed() || nbEdge->hasLoadedLength() || (oc.exists("no-internal-links") && oc.getBool("no-internal-links"))) {
+        return nbEdge->getFinalLength();
+    }
+    return lane->getLaneShapeLength();
+}
+
+
+GNELane*
+GNEAdditionalHandler::getCanonicalSuccessorLane(GNELane* lane) const {
+    NBEdge* const fromEdge = lane->getParentEdge()->getNBEdge();
+    const int fromLaneIdx = lane->getIndex();
+    const double sourceDir = lane->getLaneShape().angleAt2D(0);
+    GNELane* bestLane = nullptr;
+    int bestPrio = 0;
+    double bestAngleDiff = 0.;
+    for (const auto& con : fromEdge->getConnections()) {
+        if (con.fromLane != fromLaneIdx || con.toEdge == nullptr) {
+            continue;
+        }
+        GNEEdge* const toGNEEdge = myNet->getAttributeCarriers()->retrieveEdge(con.toEdge->getID(), false);
+        if (toGNEEdge == nullptr || con.toLane < 0 || con.toLane >= (int)toGNEEdge->getChildLanes().size()) {
+            continue;
+        }
+        GNELane* const cand = toGNEEdge->getChildLanes().at(con.toLane);
+        const int prio = con.toEdge->getPriority();
+        const double angleDiff = fabs(GeomHelper::angleDiff(cand->getLaneShape().angleAt2D(0), sourceDir));
+        if (bestLane == nullptr || prio > bestPrio || (prio == bestPrio && angleDiff < bestAngleDiff)) {
+            bestLane = cand;
+            bestPrio = prio;
+            bestAngleDiff = angleDiff;
+        }
+    }
+    return bestLane;
+}
+
+
+GNELane*
+GNEAdditionalHandler::getCanonicalPredecessorLane(GNELane* lane) const {
+    NBEdge* const toEdge = lane->getParentEdge()->getNBEdge();
+    const int toLaneIdx = lane->getIndex();
+    NBNode* const fromNode = toEdge->getFromNode();
+    if (fromNode == nullptr) {
+        return nullptr;
+    }
+    struct Candidate {
+        GNELane* lane;
+        NBEdge* edge;
+        const NBEdge::Connection* con;
+    };
+    std::vector<Candidate> candidates;
+    for (NBEdge* const incEdge : fromNode->getIncomingEdges()) {
+        GNEEdge* const incGNEEdge = myNet->getAttributeCarriers()->retrieveEdge(incEdge->getID(), false);
+        if (incGNEEdge == nullptr) {
+            continue;
+        }
+        for (const auto& con : incEdge->getConnections()) {
+            if (con.toEdge == toEdge && con.toLane == toLaneIdx &&
+                    con.fromLane >= 0 && con.fromLane < (int)incGNEEdge->getChildLanes().size()) {
+                candidates.push_back({incGNEEdge->getChildLanes().at(con.fromLane), incEdge, &con});
+            }
+        }
+    }
+    if (candidates.empty()) {
+        return nullptr;
+    }
+    const double targetDir = lane->getLaneShape().angleAt2D(0);
+    auto isBetter = [&](const Candidate& c1, const Candidate& c2) {
+        const bool sig1 = c1.edge->hasSignalisedConnectionTo(toEdge);
+        const bool sig2 = c2.edge->hasSignalisedConnectionTo(toEdge);
+        const bool c2ForbidsC1 = fromNode->forbids(c2.edge, toEdge, c1.edge, toEdge, sig1) ||
+                                 NBNode::rightTurnConflict(c1.edge, toEdge, c1.con->fromLane, c2.edge, toEdge, c2.con->fromLane) ||
+                                 fromNode->mergeConflict(c1.edge, *c1.con, c2.edge, *c2.con, false);
+        const bool c1ForbidsC2 = fromNode->forbids(c1.edge, toEdge, c2.edge, toEdge, sig2) ||
+                                 NBNode::rightTurnConflict(c2.edge, toEdge, c2.con->fromLane, c1.edge, toEdge, c1.con->fromLane) ||
+                                 fromNode->mergeConflict(c2.edge, *c2.con, c1.edge, *c1.con, false);
+        if (c1ForbidsC2 != c2ForbidsC1) {
+            return c1ForbidsC2;
+        }
+        if (c1.con->mayDefinitelyPass != c2.con->mayDefinitelyPass) {
+            return c1.con->mayDefinitelyPass;
+        }
+        const SumoXMLNodeType nodeType = fromNode->getType();
+        if (nodeType != SumoXMLNodeType::RIGHT_BEFORE_LEFT &&
+                nodeType != SumoXMLNodeType::LEFT_BEFORE_RIGHT &&
+                nodeType != SumoXMLNodeType::ALLWAY_STOP &&
+                nodeType != SumoXMLNodeType::NOJUNCTION) {
+            const int jPrio1 = c1.edge->getJunctionPriority(fromNode);
+            const int jPrio2 = c2.edge->getJunctionPriority(fromNode);
+            if (jPrio1 != jPrio2) {
+                return jPrio1 > jPrio2;
+            }
+            if (c1.edge->getPriority() != c2.edge->getPriority()) {
+                return c1.edge->getPriority() > c2.edge->getPriority();
+            }
+        }
+        const double d1 = fabs(GeomHelper::angleDiff(c1.lane->getLaneShape().angleAt2D(0), targetDir));
+        const double d2 = fabs(GeomHelper::angleDiff(c2.lane->getLaneShape().angleAt2D(0), targetDir));
+        return d1 < d2;
+    };
+    auto bestIt = std::min_element(candidates.begin(), candidates.end(), isBetter);
+    return bestIt->lane;
+}
+
+
+double
+GNEAdditionalHandler::getConnectionLength(GNELane* fromLane, GNELane* toLane) const {
+    NBEdge* const fromEdge = fromLane->getParentEdge()->getNBEdge();
+    NBEdge* const toEdge = toLane->getParentEdge()->getNBEdge();
+    const int fromIdx = fromLane->getIndex();
+    const int toIdx = toLane->getIndex();
+    const NBEdge::Connection* targetCon = nullptr;
+    for (const auto& con : fromEdge->getConnections()) {
+        if (con.fromLane == fromIdx && con.toEdge == toEdge && con.toLane == toIdx) {
+            targetCon = &con;
+            break;
+        }
+    }
+    if (targetCon == nullptr) {
+        return 0.;
+    }
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.exists("no-internal-links") && oc.getBool("no-internal-links")) {
+        return fromLane->getLaneShape().back().distanceTo2D(toLane->getLaneShape().front());
+    }
+    if (targetCon->customLength != NBEdge::UNSPECIFIED_LOADED_LENGTH) {
+        return MAX2(POSITION_EPS, targetCon->customLength);
+    }
+    if (targetCon->length != NBEdge::UNSPECIFIED_LOADED_LENGTH) {
+        return targetCon->length + (targetCon->haveVia ? targetCon->viaLength : 0.);
+    }
+    NBNode* const toNode = fromEdge->getToNode();
+    if (toNode == nullptr) {
+        return 0.;
+    }
+    const int numPoints = oc.exists("junctions.internal-link-detail") ? oc.getInt("junctions.internal-link-detail") : 5;
+    const bool joinTurns = oc.exists("junctions.join-turns") ? oc.getBool("junctions.join-turns") : false;
+    const LinkDirection dir = toNode->getDirection(fromEdge, toEdge);
+    const bool isTurn = (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT ||
+                         dir == LinkDirection::LEFT || dir == LinkDirection::PARTLEFT);
+    const bool averageLength = !isTurn || joinTurns;
+    GNEEdge* const fromGNEEdge = fromLane->getParentEdge();
+    GNEEdge* const toGNEEdge = toLane->getParentEdge();
+    auto computeConnShapeLen = [&](const NBEdge::Connection& con) {
+        if (con.customShape.size() > 0) {
+            return con.customShape.length();
+        }
+        if (con.fromLane >= 0 && con.fromLane < (int)fromGNEEdge->getChildLanes().size() &&
+                con.toLane >= 0 && con.toLane < (int)toGNEEdge->getChildLanes().size()) {
+            const PositionVector& fShape = fromGNEEdge->getChildLanes().at(con.fromLane)->getLaneShape();
+            const PositionVector& tShape = toGNEEdge->getChildLanes().at(con.toLane)->getLaneShape();
+            return toNode->computeSmoothShape(
+                       fShape, tShape, numPoints, fromEdge->getTurnDestination() == toEdge,
+                       (double)numPoints * (double)fromEdge->getNumLanes(),
+                       (double)numPoints * (double)toEdge->getNumLanes()).length();
+        }
+        const SVCPermissions perms = fromEdge->getPermissions(con.fromLane) & toEdge->getPermissions(con.toLane);
+        const int flag = (perms & ~SVC_PEDESTRIAN) != 0 ? 0 : NBNode::SCURVE_IGNORE;
+        return toNode->computeInternalLaneShape(fromEdge, con, numPoints, toNode, flag).length();
+    };
+    if (averageLength) {
+        double lengthSum = 0.;
+        int numLanes = 0;
+        for (const auto& con : fromEdge->getConnections()) {
+            if (con.toEdge == toEdge) {
+                lengthSum += computeConnShapeLen(con);
+                ++numLanes;
+            }
+        }
+        if (numLanes > 0) {
+            return MAX2(POSITION_EPS, lengthSum / numLanes);
+        }
+    }
+    return MAX2(POSITION_EPS, computeConnShapeLen(*targetCon));
 }
 
 /****************************************************************************/

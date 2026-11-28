@@ -51,6 +51,7 @@
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSPModel.h>
 #include <utils/common/StringUtils.h>
+#include <utils/handlers/AdditionalHandler.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSE2Collector.h"
 
@@ -258,11 +259,7 @@ MSE2Collector::checkPositioning(bool posGiven, double desiredLength) {
 
 double
 MSE2Collector::snap(double value, double snapPoint, double snapDist) {
-    if (fabs(value - snapPoint) < snapDist) {
-        return snapPoint;
-    } else {
-        return value;
-    }
+    return AdditionalHandler::snapE2Position(value, snapPoint, snapDist);
 }
 
 
@@ -309,112 +306,24 @@ MSE2Collector::~MSE2Collector() {
 
 std::vector<MSLane*>
 MSE2Collector::selectLanes(MSLane* lane, double length, std::string dir) {
-    // direction of detector extension
     assert(dir == "fw" || dir == "bw");
-    bool fw = dir == "fw";
-    double linkLength = 0; // linkLength (used if no internal lanes are present)
-    bool subtractedLinkLength = false; // whether linkLength was subtracted during the last iteration.
-
-#ifdef DEBUG_E2_CONSTRUCTOR
-    if (DEBUG_COND) {
-        std::cout << "\n" << "selectLanes()" << (fw ? "(forward)" : "(backward)") << std::endl;
-    }
-#endif
-    std::vector<MSLane*> lanes;
-    // Selected lanes are stacked into vector 'lanes'. If dir == "bw" lanes will be reversed after this is done.
-    // The length is reduced while adding lanes to the detector
-    // First we adjust the starting value for length (in the first iteration, the whole length of the first considered lane is subtracted,
-    // while it might only be partially covered by the detector)
+    const bool fw = (dir == "fw");
     if (fw) {
         assert(myStartPos != std::numeric_limits<double>::max());
-        length += myStartPos;
     } else {
         assert(myEndPos != std::numeric_limits<double>::max());
-        length += lane->getLength() - myEndPos;
     }
-    length = MAX2(POSITION_EPS, length); // this assures to add at least one lane to lanes
-    while (length >= POSITION_EPS && lane != nullptr) {
-        // Break loop for length <= NUMERICAL_EPS to avoid placement of very small
-        // detector piece on the end or beginning of one lane due to numerical rounding errors.
-        lanes.push_back(lane);
-#ifdef DEBUG_E2_CONSTRUCTOR
-        if (DEBUG_COND) {
-            std::cout << "Added lane " << lane->getID()
-                      << " (length: " << lane->getLength() << ")" << std::endl;
-        }
-#endif
-
-        length -= lane->getLength();
-
-        // proceed to upstream predecessor
-        if (fw) {
-            lane = lane->getCanonicalSuccessorLane();
-        } else {
-            lane = lane->getCanonicalPredecessorLane();
-        }
-
-
-        subtractedLinkLength = false;
-        if (lane != nullptr && !MSGlobals::gUsingInternalLanes && length > POSITION_EPS) {
-            // In case wher no internal lanes are used,
-            // take into account the link length for the detector range
-            linkLength = 0;
-            if (fw) {
-                linkLength = lanes.back()->getLinkTo(lane)->getLength();
-            } else {
-                linkLength = lane->getLinkTo(lanes.back())->getLength();
+    return AdditionalHandler::selectE2Lanes(
+        lane, length, fw, myStartPos, myEndPos,
+        [](const MSLane* const l) { return l->getLength(); },
+        [fw](MSLane* const l) { return fw ? l->getCanonicalSuccessorLane() : l->getCanonicalPredecessorLane(); },
+        [](MSLane* const from, MSLane* const to) {
+            if (!MSGlobals::gUsingInternalLanes) {
+                const MSLink* const link = from->getLinkTo(to);
+                return link != nullptr ? link->getLength() : 0.;
             }
-            length -= linkLength;
-            subtractedLinkLength = true;
-        }
-
-
-#ifdef DEBUG_E2_CONSTRUCTOR
-        if (DEBUG_COND) {
-            if (lane != 0) {
-                std::cout << (fw ? "Successor lane: " : "Predecessor lane: ") << "'" << lane->getID() << "'";
-            }
-            std::cout << std::endl;
-        }
-#endif
-    }
-
-    if (subtractedLinkLength) {
-        // if the link's length was subtracted during the last step,
-        // the start/endPos would lie on a non-existing internal lane,
-        // therefore revert and truncate detector part on the non-existing internal lane.
-        length += linkLength;
-    }
-
-
-    // 1) At this point a negative <length> means that not the whole last stored lane lanes[lanes.size()-1]
-    // should be added to the detector, but the detector should spare out a part with length = -<length>
-    // If this part is too small (of length < POSITION_EPS) we take the whole lane
-    // 2) The whole lane is also taken for the case that <length> is positive. This corresponds to on
-    // of three situations: i) <length> < POSITION_EPS (break condition -> don't take too small pieces on the next lane)
-    //                 ii&iii) <length> >= POS_EPSILON may arise either if no continuation lane was found (lane==0), or
-    //                         in case of not using internal lanes if the detector end/start falls on a link.
-    // In all cases we take the whole last lane.
-    if (fw) {
-        if (length > -POSITION_EPS) {
-            myEndPos = lanes[lanes.size() - 1]->getLength();
-        } else if (length < 0) {
-            myEndPos = lanes[lanes.size() - 1]->getLength() + length;
-        }
-    } else {
-        if (length > -POSITION_EPS) {
-            myStartPos = 0;
-        } else if (length < 0) {
-            myStartPos = -length;
-        }
-    }
-
-    // reverse lanes if lane selection was backwards
-    if (!fw) {
-        std::reverse(lanes.begin(), lanes.end());
-    }
-
-    return lanes;
+            return 0.;
+        });
 }
 
 void

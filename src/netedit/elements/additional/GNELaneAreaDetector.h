@@ -65,7 +65,7 @@ public:
                         const SUMOTime freq, const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes,
                         const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
                         const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos,
-                        const bool show, const Parameterised::Map& parameters);
+                        const bool show, const Parameterised::Map& parameters, const std::string& toLane = "");
 
     /**@brief Constructor for Multi-Lane detectors
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -92,7 +92,7 @@ public:
                         const SUMOTime freq, const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes,
                         const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
                         const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos,
-                        const bool show, const Parameterised::Map& parameters);
+                        const bool show, const Parameterised::Map& parameters, const std::string& toLane = "");
 
     /// @brief Destructor
     ~GNELaneAreaDetector();
@@ -227,6 +227,9 @@ protected:
 
     /// @brief Traffic light vinculated with this E2 Detector
     std::string myTrafficLight;
+
+    /// @brief Outgoing lane associated with traffic light aggregation
+    std::string myToLane;
 
     /// @brief show or hidde detector in sumo-gui
     bool myShow = true;

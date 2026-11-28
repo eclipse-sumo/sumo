@@ -219,7 +219,8 @@ public:
      * @param[in] parameters generic parameters
      */
     bool buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
-                                   const double pos, const double length, const SUMOTime period, const std::string& trafficLight, const std::string& filename,
+                                   const double pos, const double endPos, const double length, const SUMOTime period, const std::string& trafficLight,
+                                   const std::string& toLane, const std::string& filename,
                                    const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
                                    const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
                                    const bool friendlyPos, const bool show, const Parameterised::Map& parameters);
@@ -245,7 +246,8 @@ public:
      * @param[in] parameters generic parameters
      */
     bool buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& laneIDs,
-                                  const double pos, const double endPos, const SUMOTime period, const std::string& trafficLight, const std::string& filename,
+                                  const double pos, const double endPos, const double length, const SUMOTime period, const std::string& trafficLight,
+                                  const std::string& toLane, const std::string& filename,
                                   const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
                                   const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
                                   const bool friendlyPos, const bool show, const Parameterised::Map& parameters);
@@ -692,6 +694,21 @@ protected:
 
     /// @brief check if element exist, and if overwrite
     bool checkElement(const SumoXMLTag tag, GNEAdditional* additional);
+
+    /// @brief ensure network geometry and junction connections are computed before E2 resolution
+    void ensureNetworkComputedForE2() const;
+
+    /// @brief get effective lane length for E2 detector resolution
+    double getE2LaneLength(const GNELane* lane) const;
+
+    /// @brief get canonical successor lane for implicit multi-lane E2 resolution
+    GNELane* getCanonicalSuccessorLane(GNELane* lane) const;
+
+    /// @brief get canonical predecessor lane for implicit multi-lane E2 resolution
+    GNELane* getCanonicalPredecessorLane(GNELane* lane) const;
+
+    /// @brief get internal/link connection length between two consecutive lanes
+    double getConnectionLength(GNELane* fromLane, GNELane* toLane) const;
 
 private:
     /// @brief pointer to GNENet

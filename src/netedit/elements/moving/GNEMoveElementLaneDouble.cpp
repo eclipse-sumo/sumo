@@ -390,14 +390,18 @@ GNEMoveElementLaneDouble::writeMoveAttributes(OutputDevice& device, const bool w
     } else {
         device.writeAttr(SUMO_ATTR_LANES, myMovedElement->getAttribute(SUMO_ATTR_LANES));
     }
+    const bool isE2 = (myMovedElement->getTagProperty()->getTag() == SUMO_TAG_LANE_AREA_DETECTOR) ||
+                      (myMovedElement->getTagProperty()->getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR);
     // write start position
-    if (myStartPos->myPosOverLane != myMovedElement->getTagProperty()->getDefaultDoubleValue(myStartPos->myPosAttr)) {
+    if ((myStartPos->myPosOverLane != INVALID_DOUBLE) &&
+            (isE2 || (myStartPos->myPosOverLane != myMovedElement->getTagProperty()->getDefaultDoubleValue(myStartPos->myPosAttr)))) {
         device.writeAttr(myStartPos->myPosAttr, myStartPos->myPosOverLane);
     }
-    // write end position depending of lenght
+    // write end position depending of length
     if (writeLength) {
         device.writeAttr(SUMO_ATTR_LENGTH, (myEndPos->myPosOverLane - myStartPos->myPosOverLane));
-    } else if (myEndPos->myPosOverLane != myMovedElement->getTagProperty()->getDefaultDoubleValue(myEndPos->myPosAttr)) {
+    } else if ((myEndPos->myPosOverLane != INVALID_DOUBLE) &&
+               (isE2 || (myEndPos->myPosOverLane != myMovedElement->getTagProperty()->getDefaultDoubleValue(myEndPos->myPosAttr)))) {
         device.writeAttr(myEndPos->myPosAttr, myEndPos->myPosOverLane);
     }
     // friendly position (only if true)
@@ -411,8 +415,9 @@ double
 GNEMoveElementLaneDouble::getStartFixedPositionOverLane(const bool adjustGeometryFactor) const {
     if (myStartPos->getFixedPositionOverLane(adjustGeometryFactor) < 0) {
         return 0;
-    } else if (myStartPos->getFixedPositionOverLane(adjustGeometryFactor) > (myEndPos->getFixedPositionOverLane(adjustGeometryFactor) - POSITION_EPS)) {
-        return (myEndPos->getFixedPositionOverLane(adjustGeometryFactor) - POSITION_EPS);
+    } else if ((myMovedElement->getHierarchicalElement()->getParentLanes().size() == 1) &&
+               (myStartPos->getFixedPositionOverLane(adjustGeometryFactor) > (myEndPos->getFixedPositionOverLane(adjustGeometryFactor) - POSITION_EPS))) {
+        return MAX2(0., myEndPos->getFixedPositionOverLane(adjustGeometryFactor) - POSITION_EPS);
     } else {
         return myStartPos->getFixedPositionOverLane(adjustGeometryFactor);
     }

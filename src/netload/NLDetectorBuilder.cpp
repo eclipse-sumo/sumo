@@ -191,7 +191,7 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, MSLane* lane, double p
                 double newEndPos = endPos > 0 ? lane->getLength() : POSITION_EPS;
                 ss << " (adjusting to new position " << newEndPos;
                 WRITE_WARNING(ss.str());
-                pos = newEndPos;
+                endPos = newEndPos;
             } else {
                 ss << " (0 <= pos < lane->getLength() is required)";
                 throw InvalidArgument(ss.str());
@@ -272,7 +272,7 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, std::vector<MSLane*> l
             double newEndPos = endPos > 0 ? lastLane->getLength() : POSITION_EPS;
             ss << " (adjusting to new position " << newEndPos;
             WRITE_WARNING(ss.str());
-            pos = newEndPos;
+            endPos = newEndPos;
         } else {
             ss << " (0 <= pos < lane->getLength() is required)";
             throw InvalidArgument(ss.str());
