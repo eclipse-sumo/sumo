@@ -18,11 +18,14 @@
 // Representation of persons in netedit
 /****************************************************************************/
 
+#include <algorithm>
+
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/moving/GNEMoveElementPlanParent.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
+#include <netedit/GNEUndoList.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIBasePersonHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -98,7 +101,6 @@ GNEPerson::GNEPersonPopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) 
 
 GNEPerson::GNESelectedPersonsPopupMenu::GNESelectedPersonsPopupMenu(GNEPerson* person, const std::vector<GNEPerson*>& selectedPerson, GUIMainWindow& app, GUISUMOAbstractView& parent) :
     GUIGLObjectPopupMenu(app, parent, person),
-    myPersonTag(person->getTagProperty()->getTag()),
     mySelectedPersons(selectedPerson),
     myTransformToPerson(nullptr),
     myTransformToPersonFlow(nullptr) {
@@ -113,6 +115,16 @@ GNEPerson::GNESelectedPersonsPopupMenu::GNESelectedPersonsPopupMenu(GNEPerson* p
         // Create menu comands for all transformations
         myTransformToPerson = GUIDesigns::buildFXMenuCommand(transformOperation, "Person", GUIIconSubSys::getIcon(GUIIcon::PERSON), this, MID_GNE_PERSON_TRANSFORM);
         myTransformToPersonFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "PersonFlow", GUIIconSubSys::getIcon(GUIIcon::PERSONFLOW), this, MID_GNE_PERSON_TRANSFORM);
+        if (std::all_of(mySelectedPersons.begin(), mySelectedPersons.end(), [](const auto* selected) {
+            return selected->getTagProperty()->getTag() == SUMO_TAG_PERSON;
+        })) {
+            myTransformToPerson->disable();
+        }
+        if (std::all_of(mySelectedPersons.begin(), mySelectedPersons.end(), [](const auto* selected) {
+            return selected->getTagProperty()->getTag() == SUMO_TAG_PERSONFLOW;
+        })) {
+            myTransformToPersonFlow->disable();
+        }
     }
 }
 
@@ -122,16 +134,24 @@ GNEPerson::GNESelectedPersonsPopupMenu::~GNESelectedPersonsPopupMenu() {}
 
 long
 GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) {
-    // iterate over all selected persons
-    for (const auto& i : mySelectedPersons) {
-        if ((obj == myTransformToPerson) &&
-                (i->getTagProperty()->getTag() == myPersonTag)) {
-            GNERouteHandler::transformToPerson(i);
-        } else if ((obj == myTransformToPersonFlow) &&
-                   (i->getTagProperty()->getTag() == myPersonTag)) {
-            GNERouteHandler::transformToPerson(i);
+    if (obj != myTransformToPerson && obj != myTransformToPersonFlow) {
+        return 0;
+    }
+    const bool toPerson = obj == myTransformToPerson;
+    const auto target = toPerson ? SUMO_TAG_PERSON : SUMO_TAG_PERSONFLOW;
+    const auto undoList = mySelectedPersons.front()->getNet()->getUndoList();
+    undoList->begin(Supermode::DEMAND, toPerson ? GUIIcon::PERSON : GUIIcon::PERSONFLOW,
+                    TLF("transform selected persons to %", toString(target)));
+    for (const auto& person : mySelectedPersons) {
+        if (person->getTagProperty()->getTag() != target) {
+            if (toPerson) {
+                GNERouteHandler::transformToPerson(person);
+            } else {
+                GNERouteHandler::transformToPersonFlow(person);
+            }
         }
     }
+    undoList->end();
     return 1;
 }
 
@@ -267,7 +287,19 @@ GNEPerson::getPositionInView() const {
 
 GUIGLObjectPopupMenu*
 GNEPerson::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    // return a GNEPersonPopupMenu
+    if (isAttributeCarrierSelected() && myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+        const auto selectedDemandElements = myNet->getAttributeCarriers()->getSelectedDemandElements();
+        std::vector<GNEPerson*> selectedPersons;
+        selectedPersons.reserve(selectedDemandElements.size());
+        for (const auto& element : selectedDemandElements) {
+            if (element->getTagProperty()->isPerson()) {
+                selectedPersons.push_back(static_cast<GNEPerson*>(element));
+            }
+        }
+        if (selectedPersons.size() > 1) {
+            return new GNESelectedPersonsPopupMenu(this, selectedPersons, app, parent);
+        }
+    }
     return new GNEPersonPopupMenu(this, app, parent);
 }
 
