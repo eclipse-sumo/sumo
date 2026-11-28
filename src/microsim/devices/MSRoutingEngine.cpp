@@ -774,12 +774,19 @@ MSRoutingEngine::getRouterTT(const int rngIndex, SUMOVehicleClass svc, const Pro
 
 
 MSTransportableRouter&
-MSRoutingEngine::getIntermodalRouterTT(const int rngIndex, const Prohibitions& prohibited) {
+MSRoutingEngine::getDefaultIntermodalRouter() {
     if (myRouterProvider == nullptr) {
         initWeightUpdate();
         initEdgeWeights(SVC_PEDESTRIAN);
         initRouter();
     }
+    return myRouterProvider->getIntermodalRouter();
+}
+
+
+MSTransportableRouter&
+MSRoutingEngine::getIntermodalRouterTT(const int rngIndex, const Prohibitions& prohibited) {
+    MSTransportableRouter& defaultRouter = getDefaultIntermodalRouter();
 #ifndef THREAD_POOL
 #ifdef HAVE_FOX
     MFXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
@@ -792,8 +799,8 @@ MSRoutingEngine::getIntermodalRouterTT(const int rngIndex, const Prohibitions& p
     UNUSED_PARAMETER(rngIndex);
 #endif
 #endif
-    myRouterProvider->getIntermodalRouter().prohibit(prohibited);
-    return myRouterProvider->getIntermodalRouter();
+    defaultRouter.prohibit(prohibited);
+    return defaultRouter;
 }
 
 
