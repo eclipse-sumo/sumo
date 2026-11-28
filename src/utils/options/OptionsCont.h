@@ -685,8 +685,14 @@ public:
     /// @brief get begin addresses iterator
     std::vector<std::pair<std::string, Option*> >::const_iterator end() const;
 
-    /// @brief make a copy of this OptionsCont instance
+    /// @brief make a writable copy of this OptionsCont instance
     OptionsCont* clone() const;
+
+    /// @brief copy all options, optionally retaining their current writability
+    OptionsCont* clone(bool makeWritable) const;
+
+    /// @brief restore options and flags from a snapshot with identical registrations
+    void restoreOptions(const OptionsCont& snapshot);
 
 private:
     /** @brief Returns the named option

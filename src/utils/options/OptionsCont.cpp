@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include <map>
+#include <memory>
 #include <string>
 #include <exception>
 #include <algorithm>
@@ -1115,14 +1116,33 @@ OptionsCont::isInStringVector(const std::string& optionName,
 
 OptionsCont*
 OptionsCont::clone() const {
-    // build a clone to call writeConfiguration on
-    // (with the possibility of changing a few settings and not affecting the original)
+    return clone(true);
+}
+
+OptionsCont*
+OptionsCont::clone(bool makeWritable) const {
     OptionsCont* oc = new OptionsCont(*this);
-    oc->resetWritable();
+    std::map<Option*, Option*> clonedOptions;
     for (auto& addr : oc->myAddresses) {
-        addr.second = addr.second->clone();
+        Option* original = addr.second;
+        addr.second = original->clone();
+        clonedOptions[original] = addr.second;
+    }
+    for (auto& value : oc->myValues) {
+        value.second = clonedOptions.at(value.second);
+    }
+    if (makeWritable) {
+        oc->resetWritable();
     }
     return oc;
+}
+
+
+void
+OptionsCont::restoreOptions(const OptionsCont& snapshot) {
+    std::unique_ptr<OptionsCont> restored(snapshot.clone(false));
+    myAddresses.swap(restored->myAddresses);
+    myValues.swap(restored->myValues);
 }
 
 
