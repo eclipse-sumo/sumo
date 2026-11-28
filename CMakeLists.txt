@@ -835,31 +835,40 @@ if (SUMO_LIBRARIES AND WIN32)
     # filter release DLLs
     execute_process(COMMAND ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build_config/filterDebugDLL.py ${SUMO_LIBRARIES_DLL}
                     OUTPUT_VARIABLE SUMO_LIBRARIES_RELEASE_DLL)
+    if (GTEST_DLL)
+        execute_process(COMMAND ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build_config/filterDebugDLL.py ${GTEST_DLL}
+                        OUTPUT_VARIABLE GTEST_RELEASE_DLL)
+    endif()
     if (ISOLATED_BUILD)
         set(TARGET_DIR ${CMAKE_CURRENT_BINARY_DIR})
     else()
         set(TARGET_DIR ${CMAKE_CURRENT_SOURCE_DIR})
     endif()
-    # copy debug dlls
+    # Register each runtime file once across enabled dependencies.
     foreach(DLL_PATH ${SUMO_LIBRARIES_DLL} ${GTEST_DLL})
         get_filename_component(DLL_BASENAME ${DLL_PATH} NAME)
-        set(TARGET_DLL ${TARGET_DIR}/bin/${DLL_BASENAME})
-        list(FIND TARGET_ALL_DLLS ${TARGET_DLL} DLL_KNOWN)
-        list(FIND SUMO_LIBRARIES_RELEASE_DLL ${DLL_PATH} IS_RELEASE_DLL)
-        list(FIND GTEST_DLL ${DLL_PATH} IS_TEST_DLL)
-        if (DLL_KNOWN EQUAL -1)
-            add_custom_command(OUTPUT ${TARGET_DLL}
-                               COMMAND ${CMAKE_COMMAND} -E copy ${DLL_PATH} ${TARGET_DLL}
-                               DEPENDS ${DLL_PATH})
-            if (IS_TEST_DLL GREATER -1)
-                list(APPEND TARGET_TEST_DLLS ${TARGET_DLL})
-            elseif (IS_RELEASE_DLL GREATER -1)
-                list(APPEND TARGET_ALL_DLLS ${TARGET_DLL})
-            else ()
-                list(APPEND TARGET_ALL_DLLS $<$<CONFIG:Debug>:${TARGET_DLL}>)
-            endif ()
+        if (DLL_BASENAME IN_LIST KNOWN_RUNTIME_DLLS)
+            continue()
         endif()
-    endforeach(DLL_PATH)
+        list(APPEND KNOWN_RUNTIME_DLLS ${DLL_BASENAME})
+        if (DLL_PATH IN_LIST GTEST_DLL AND NOT DLL_PATH IN_LIST GTEST_RELEASE_DLL)
+            list(APPEND GTEST_DEBUG_DLL ${DLL_PATH})
+            continue()
+        elseif (NOT DLL_PATH IN_LIST GTEST_DLL AND NOT DLL_PATH IN_LIST SUMO_LIBRARIES_RELEASE_DLL)
+            list(APPEND SUMO_LIBRARIES_DEBUG_DLL ${DLL_PATH})
+            continue()
+        endif()
+
+        set(TARGET_DLL ${TARGET_DIR}/bin/${DLL_BASENAME})
+        add_custom_command(OUTPUT ${TARGET_DLL}
+                           COMMAND ${CMAKE_COMMAND} -E copy ${DLL_PATH} ${TARGET_DLL}
+                           DEPENDS ${DLL_PATH})
+        if (DLL_PATH IN_LIST GTEST_DLL)
+            list(APPEND TARGET_TEST_DLLS ${TARGET_DLL})
+        else ()
+            list(APPEND TARGET_ALL_DLLS ${TARGET_DLL})
+        endif ()
+    endforeach()
     # copy OSG dlls
     if (HAVE_OSG)
         file(GLOB OSG_PLUGIN_DLL "${OSG_PATH}/bin/osgPlugins*/osgdb_osg.dll")
@@ -882,6 +891,18 @@ endif()
 # set install dll targets, for non-Windows they depend on nothing
 add_custom_target(install_dll DEPENDS ${TARGET_ALL_DLLS} ${OSG_TARGET} ${PROJ_DATA})
 add_custom_target(install_test_dll DEPENDS ${TARGET_TEST_DLLS})
+# A multi-config generator can add all custom command outputs to a target.
+# Copy debug runtimes in a configuration-specific command instead.
+function(copy_debug_runtime_dlls target debug_dlls)
+    if (debug_dlls)
+        add_custom_command(TARGET ${target} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E "$<IF:$<CONFIG:Debug>,copy_if_different,echo_append>"
+                    "$<$<CONFIG:Debug>:${debug_dlls};${TARGET_DIR}/bin>"
+            COMMAND_EXPAND_LISTS VERBATIM)
+    endif()
+endfunction()
+copy_debug_runtime_dlls(install_dll "${SUMO_LIBRARIES_DEBUG_DLL}")
+copy_debug_runtime_dlls(install_test_dll "${GTEST_DEBUG_DLL}")
 set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 set_property(TARGET install_test_dll PROPERTY FOLDER "CMake")
 
