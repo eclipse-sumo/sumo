@@ -89,8 +89,7 @@ A subsequent call to simulation step will then create the output.
 | :-----------: | :-----------: |
 |      \-       | [close](https://sumo.dlr.de/pydoc/traci.html#close) |
 
-Tells TraCI to close the connection to any client, stop simulation and
-shut down sumo.
+Disconnects the calling client from the TraCI server. When only one client remains connected, SUMO stops the simulation and shuts down; in multi-client sessions (**--num-clients**), remaining clients continue stepping until the last client closes.
 
 ## Command 0x01: Load
 
@@ -110,7 +109,9 @@ Tells TraCI to reload the simulation with the given options.
 | number of the client    | int  | Specify the execution order (when using multiple clients) | [setOrder](https://sumo.dlr.de/pydoc/traci.html#setOrder) |
 
 Tells TraCI to give the current client the given position in the
-execution order. It is mandatory to send this as the first command after
-connecting to the TraCI server when using multiple clients. Each client
-must be assigned a unique integer but there are not further restrictions
+execution order. SUMO waits until all **--num-clients** clients have connected before processing commands, and every client must send `SetOrder` (optionally preceded by `GetVersion`) before its first `Simulation Step`. Each client
+must be assigned a unique integer below `MAX_ORDER` without further restrictions
 on numbering.
+
+!!! caution
+    When attaching Python `traci` to an already running SUMO server started with **--remote-port**, call `traci.init(port)` (which registers and activates the default connection) if using module-level calls such as `traci.setOrder(1)` and `traci.simulationStep()`. Calling `traci.connect(port)` returns a standalone `Connection` instance without setting an active module-level connection, so subsequent module-level `traci.simulationStep()` calls raise `FatalTraCIError: Not connected.` unless invoked on the returned object (`conn = traci.connect(port); conn.setOrder(1); conn.simulationStep()`).
