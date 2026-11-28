@@ -211,6 +211,11 @@ def get_options(args=None):
     parser.add_argument("--bidi-conflicts", dest="bidiConflicts", action="store_true", default=False,
                         category="processing",
                         help="Write bidiPredecessor constraints")
+    parser.add_argument("--list-unconstrained", dest="listUnconstrained", action="store_true", default=False,
+                        category="processing",
+                        help="List conflicts for which no ordering constraint could be computed")
+    parser.add_argument("--unconstrained-output", dest="unconstrainedOutput", category="output", type=parser.file,
+                        help="Write conflicts without ordering constraints to FILE")
     parser.add_argument("--comment.line", category="processing", action="store_true", dest="commentLine", default=False,
                         help="add lines of involved trains in comment")
     parser.add_argument("--comment.id", category="processing", action="store_true", dest="commentId", default=False,
@@ -1917,6 +1922,227 @@ def getStopTLS(stopEdges, net):
     return tls_to_stop
 
 
+def _isReachable(adj, src, dst):
+    if src == dst:
+        return True
+    visited = set([src])
+    stack = [src]
+    while stack:
+        cur = stack.pop()
+        for nxt in adj.get(cur, ()):
+            if nxt == dst:
+                return True
+            if nxt not in visited:
+                visited.add(nxt)
+                stack.append(nxt)
+    return False
+
+
+def _chooseReason(r1, r2, defaultReason):
+    for r in (r1, r2):
+        if r != "ok":
+            return r
+    return defaultReason
+
+
+def reportUnconstrainedConflicts(options, net, uniqueRoutes, vehicleStopRoutes, departTimes,
+                                 mergeSwitches, mergeSignals, conflicts, intermediateParkingConflicts, bidiConflicts):
+    unconstrained = []
+
+    # 1. Merging-switch conflicts without an active ordering constraint
+    beforeAtSwitch = defaultdict(lambda: defaultdict(set))
+    for sigConflicts in (conflicts, intermediateParkingConflicts):
+        for clist in sigConflicts.values():
+            for c in clist:
+                if c.active and c.switch is not None:
+                    beforeAtSwitch[c.switch][(c.otherVehID, c.otherTripID)].add((c.vehID, c.tripID))
+
+    # Pre-index per-vehicle route edges and stop step boundaries
+    vehRouteInfo = {}
+    for route, vehIDs in sorted(uniqueRoutes.items()):
+        for vehID in vehIDs:
+            stopRoute = vehicleStopRoutes[vehID]
+            segBounds = []
+            offset = 0
+            lastTripID = vehID
+            lastUntil = departTimes.get(vehID) or 0.0
+            for edgesBefore, stop in stopRoute:
+                segLen = len(edgesBefore)
+                segBounds.append((offset, offset + segLen, edgesBefore, stop))
+                offset += segLen
+                lastTripID = stop.getAttributeSecure("tripId", stop.prevTripId)
+                arr = getArrivalSecure(stop)
+                if stop.hasAttribute("until") and not options.untilFromDuration:
+                    lastUntil = parseTime(stop.until)
+                elif arr is not None:
+                    lastUntil = arr + parseTime(stop.getAttributeSecure("duration", "0"))
+            vehRouteInfo[vehID] = (route, segBounds, offset, lastTripID, lastUntil)
+
+    for switch in sorted(mergeSwitches):
+        traversals = []
+        for vehID in sorted(vehRouteInfo.keys()):
+            route, segBounds, lastStopOffset, lastTripID, lastUntil = vehRouteInfo[vehID]
+            for i in range(1, len(route)):
+                if route[i] != switch:
+                    continue
+                prevEdge = route[i - 1]
+                matchedSeg = None
+                for begIdx, endIdx, edgesBefore, stop in segBounds:
+                    if begIdx <= i < endIdx:
+                        matchedSeg = (i - begIdx, edgesBefore, stop)
+                        break
+                if matchedSeg is None:
+                    sig = findSignal(net, list(reversed(route[:i + 1])), True)
+                    estTime = lastUntil + getTravelTime(net, route[lastStopOffset:i])
+                    reason = "noSignal" if sig is None else "noStopAfterSwitch"
+                    traversals.append((estTime, vehID, lastTripID, prevEdge, sig, None, reason))
+                else:
+                    localIdx, edgesBefore, stop = matchedSeg
+                    sig, _ = mergeSignals.get((switch, edgesBefore), (None, 0.0))
+                    arr = getArrivalSecure(stop)
+                    if arr is not None:
+                        estTime = arr - getTravelTime(net, edgesBefore[localIdx:])
+                    else:
+                        estTime = (departTimes.get(vehID) or 0.0) + getTravelTime(net, route[:i])
+                    if sig is None:
+                        reason = "noSignal"
+                    elif arr is None:
+                        reason = "missingSchedule"
+                    elif stop.getAttributeSecure("invalid", False):
+                        reason = "invalidStop"
+                    elif options.skipParking and parseBool(stop.getAttributeSecure("parking", "false")):
+                        reason = "skippedParking"
+                    else:
+                        reason = "ok"
+                    traversals.append((estTime, vehID, stop.prevTripId, prevEdge, sig, stop.busStop, reason))
+
+        traversals.sort(key=lambda x: (x[0], x[1], x[2]))
+        seenSwitchPairs = set()
+        adj = beforeAtSwitch[switch]
+        for t1, t2 in zip(traversals[:-1], traversals[1:]):
+            if t1[1] == t2[1] or t1[3] == t2[3]:
+                continue
+            if t1[4] is not None and t1[4] == t2[4]:
+                continue
+            k1 = (t1[1], t1[2])
+            k2 = (t2[1], t2[2])
+            if _isReachable(adj, k1, k2) or _isReachable(adj, k2, k1):
+                continue
+            pairKey = tuple(sorted((k1, k2)))
+            if pairKey in seenSwitchPairs:
+                continue
+            seenSwitchPairs.add(pairKey)
+            reason = _chooseReason(t1[6], t2[6], "noCommonStop")
+            unconstrained.append({
+                "type": "switch",
+                "location": switch,
+                "vehID": t1[1],
+                "tripId": t1[2],
+                "signal": t1[4] or "",
+                "busStop": t1[5] or "",
+                "time": humanReadableTime(t1[0]),
+                "foeID": t2[1],
+                "foeTripId": t2[2],
+                "foeSignal": t2[4] or "",
+                "foeBusStop": t2[5] or "",
+                "foeTime": humanReadableTime(t2[0]),
+                "reason": reason,
+            })
+
+    # 2. Bidirectional-section conflicts without an active bidiPredecessor constraint
+    constrainedBidiPairs = set()
+    for clist in bidiConflicts.values():
+        for c in clist:
+            if c.active:
+                constrainedBidiPairs.add(frozenset(((c.vehID, c.tripID), (c.otherVehID, c.otherTripID))))
+
+    edge2Vehs = defaultdict(list)
+    for vehID in sorted(vehRouteInfo.keys()):
+        route, segBounds, lastStopOffset, lastTripID, lastUntil = vehRouteInfo[vehID]
+        for i, edge in enumerate(route):
+            if getBidiID(net, edge) is None:
+                continue
+            matchedSeg = None
+            for begIdx, endIdx, edgesBefore, stop in segBounds:
+                if begIdx <= i < endIdx:
+                    matchedSeg = (i - begIdx, edgesBefore, stop)
+                    break
+            sig = findSignal(net, list(reversed(route[:i + 1])), True)
+            if matchedSeg is None:
+                estTime = lastUntil + getTravelTime(net, route[lastStopOffset:i])
+                reason = "noSignal" if sig is None else "noStopAfterBidi"
+                edge2Vehs[edge].append((estTime, vehID, lastTripID, sig, None, reason))
+            else:
+                localIdx, edgesBefore, stop = matchedSeg
+                arr = getArrivalSecure(stop)
+                if arr is not None:
+                    estTime = arr - getTravelTime(net, edgesBefore[localIdx:])
+                else:
+                    estTime = (departTimes.get(vehID) or 0.0) + getTravelTime(net, route[:i])
+                if sig is None:
+                    reason = "noSignal"
+                elif arr is None:
+                    reason = "missingSchedule"
+                elif stop.getAttributeSecure("invalid", False):
+                    reason = "invalidStop"
+                else:
+                    reason = "ok"
+                edge2Vehs[edge].append((estTime, vehID, stop.prevTripId, sig, stop.busStop, reason))
+
+    seenBidiPairs = set()
+    for edge in sorted(edge2Vehs.keys()):
+        bidi = getBidiID(net, edge)
+        if bidi is None or bidi not in edge2Vehs or edge > bidi:
+            continue
+        combined = [(item[0], 0, item) for item in edge2Vehs[edge]] + [(item[0], 1, item) for item in edge2Vehs[bidi]]
+        combined.sort(key=lambda x: (x[0], x[1], x[2][1]))
+        for (_, d1, t1), (_, d2, t2) in zip(combined[:-1], combined[1:]):
+            if d1 == d2 or t1[1] == t2[1]:
+                continue
+            pairSet = frozenset(((t1[1], t1[2]), (t2[1], t2[2])))
+            if pairSet in constrainedBidiPairs or pairSet in seenBidiPairs:
+                continue
+            seenBidiPairs.add(pairSet)
+            defaultReason = "bidiDisabled" if not options.bidiConflicts else (
+                "sameSignal" if (t1[3] is not None and t1[3] == t2[3]) else "unconstrainedBidi")
+            reason = _chooseReason(t1[5], t2[5], defaultReason)
+            unconstrained.append({
+                "type": "bidi",
+                "location": edge,
+                "vehID": t1[1],
+                "tripId": t1[2],
+                "signal": t1[3] or "",
+                "busStop": t1[4] or "",
+                "time": humanReadableTime(t1[0]),
+                "foeID": t2[1],
+                "foeTripId": t2[2],
+                "foeSignal": t2[3] or "",
+                "foeBusStop": t2[4] or "",
+                "foeTime": humanReadableTime(t2[0]),
+                "reason": reason,
+            })
+
+    if options.listUnconstrained:
+        print("Found %s unconstrained conflicts" % len(unconstrained))
+        for u in unconstrained:
+            print(("Unconstrained %s conflict at '%s' between '%s' (signal='%s', stop='%s', time=%s)"
+                   + " and '%s' (signal='%s', stop='%s', time=%s): %s") % (
+                u["type"], u["location"], u["tripId"], u["signal"], u["busStop"], u["time"],
+                u["foeTripId"], u["foeSignal"], u["foeBusStop"], u["foeTime"], u["reason"]))
+
+    if options.unconstrainedOutput:
+        with open(options.unconstrainedOutput, "w") as uout:
+            sumolib.writeXMLHeader(uout, "$Id$", "unconstrainedConflicts", options=options, rootAttrs=None)  # noqa
+            for u in unconstrained:
+                uout.write(('    <conflict type="%s" location="%s" tripId="%s" foeTripId="%s"'
+                            + ' signal="%s" foeSignal="%s" busStop="%s" foeBusStop="%s"'
+                            + ' time="%s" foeTime="%s" reason="%s"/>\n') % (
+                    u["type"], u["location"], u["tripId"], u["foeTripId"],
+                    u["signal"], u["foeSignal"], u["busStop"], u["foeBusStop"],
+                    u["time"], u["foeTime"], u["reason"]))
+            uout.write("</unconstrainedConflicts>\n")
+
+
 def main(options):
     net = sumolib.net.readNet(options.netFile)
     stopEdges, stopEnds = getStopEdges(net, options.addFile)
@@ -1943,6 +2169,11 @@ def main(options):
 
     bidiConflicts = findBidiConflicts(options, net, stopEdges, uniqueRoutes,
                                       stopRoutes, vehicleStopRoutes)
+
+    if options.listUnconstrained or options.unconstrainedOutput:
+        reportUnconstrainedConflicts(options, net, uniqueRoutes, vehicleStopRoutes, departTimes,
+                                     mergeSwitches, mergeSignals, conflicts, intermediateParkingConflicts,
+                                     bidiConflicts)
 
     signals = sorted(set(list(conflicts.keys())
                          + list(foeInsertionConflicts.keys())

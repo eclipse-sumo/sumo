@@ -38,3 +38,6 @@ bidi
 
 # the trains that merge at a switch target different stopping places which belong to the same operations control point (ocp)
 one_switch_two_ocp_tracks
+
+# list conflicts for which no ordering constraint could be computed
+unconstrained

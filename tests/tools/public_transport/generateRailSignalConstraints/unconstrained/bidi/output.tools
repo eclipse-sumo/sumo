@@ -1,0 +1,9 @@
+read 4 busStops on 4 edges
+read 2 routes (2 unique) and 4 stops at 4 busStops
+processed 2 routes across 10 edges with 0 merging switches
+Found 0 stops after merging switches and 0 signals that guard switches
+Found 0 conflicts
+Found 0 insertion conflicts
+Ignored 1 bidi conflicts
+Found 1 unconstrained conflicts
+Unconstrained bidi conflict at '-c' between 't1' (signal='J1', stop='-a2', time=00:01:06) and 't0' (signal='', stop='f', time=00:01:33): noSignal
