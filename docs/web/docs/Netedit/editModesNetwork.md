@@ -34,6 +34,8 @@ When setting the option *two-way*, the reverse direction for an edge will be cre
 
 Connections establish the possible directions that can be taken by a vehicle when it arrives at a junction.
 
+Set **Lock → Connections** to preserve existing lane connections when changing an edge's lane count, creating an edge, or merging junctions in Move mode. Netedit leaves new lanes and edges disconnected and removes connections whose source or target lane is deleted.
+
 ![](../images/GNEConnections1.png)
 Connections in a Junction with six edges and eighteen lanes. Connection shapes depend of the Junction shapes. If a Junction shape is too small, the Junction takes a bubble as shape and the connections take a line as shape
 

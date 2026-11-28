@@ -35,12 +35,12 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Lane, GNEChange, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs):
+GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs, bool recomputeConnections):
     GNEChange(Supermode::NETWORK, true, false),
     myEdge(edge),
     myLane(nullptr),
     myLaneAttrs(laneAttrs),
-    myRecomputeConnections(true) {
+    myRecomputeConnections(recomputeConnections) {
     myEdge->incRef("GNEChange_Lane");
 }
 
