@@ -70,17 +70,15 @@ findIntermodalRoute modes='public' vType=' pType='slowPed'
   Stage(type=2, edges=('B0B1', 'A1B1'), travelTime=6116.466666666666, cost=6116.466666666666, length=1905.0700000000002, depart=541.0070000000003, departPos=475.0, arrivalPos=100.0)
 
 findIntermodalRoute modes='public' vType=' pType='slowPedFactor'
-  Stage(type=2, destStop=busStopC, edges=('A0B0',), travelTime=4.9929600000000445, cost=4.9929600000000445, length=5.20100000000005, depart=1.0, departPos=985.6, arrivalPos=894.8)
-  Stage(type=3, line=bus1:0, destStop=busStopD, edges=('B0B1',), travelTime=535.0079599999999, cost=535.0079599999999, length=493.9469484599505, intended=bus_bus1:0.0, depart=457.0, departPos=0.0, arrivalPos=493.94594845995044)
-  Stage(type=2, edges=('B0B1', 'A1B1'), travelTime=880.7712000000001, cost=880.7712000000001, length=1905.0700000000002, depart=541.00092, departPos=475.0, arrivalPos=100.0)
+  Stage(type=2, destStop=busStopC, edges=('A0B0',), travelTime=9.985920000000089, cost=9.985920000000089, length=5.20100000000005, depart=1.0, departPos=985.6, arrivalPos=894.8)
+  Stage(type=3, line=bus1:0, destStop=busStopD, edges=('B0B1',), travelTime=530.01592, cost=530.01592, length=493.9469484599505, intended=bus_bus1:0.0, depart=457.0, departPos=0.0, arrivalPos=493.94594845995044)
+  Stage(type=2, edges=('B0B1', 'A1B1'), travelTime=1761.5424, cost=1761.5424, length=1905.0700000000002, depart=541.0018400000001, departPos=475.0, arrivalPos=100.0)
 
 findIntermodalRoute modes='public' vType=' pType='fastPed'
   Stage(type=2, edges=('A0B0', 'B1B0', 'A1B1'), travelTime=659.5644444444445, cost=659.5644444444445, length=2471.62, depart=1.0, departPos=894.8, arrivalPos=100.0)
 
 findIntermodalRoute modes='public' vType=' pType='fastPedFactor'
-  Stage(type=2, destStop=busStopC, edges=('A0B0',), travelTime=4.9929600000000445, cost=4.9929600000000445, length=5.20100000000005, depart=1.0, departPos=985.6, arrivalPos=894.8)
-  Stage(type=3, line=bus1:0, destStop=busStopD, edges=('B0B1',), travelTime=535.0079599999999, cost=535.0079599999999, length=493.9469484599505, intended=bus_bus1:0.0, depart=457.0, departPos=0.0, arrivalPos=493.94594845995044)
-  Stage(type=2, edges=('B0B1', 'A1B1'), travelTime=880.7712000000001, cost=880.7712000000001, length=1905.0700000000002, depart=541.00092, departPos=475.0, arrivalPos=100.0)
+  Stage(type=2, edges=('A0B0', 'B1B0', 'A1B1'), travelTime=712.3296000000001, cost=712.3296000000001, length=2471.62, depart=1.0, departPos=894.8, arrivalPos=100.0)
 
 
 
