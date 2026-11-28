@@ -85,3 +85,7 @@ invalid_option
 
 # origins and destinations are junctions
 fromJunction
+
+# analyze rerouting fraction, traveltime quality, and stability (#10236)
+rerouting_analysis
+rerouting_analysis_filter

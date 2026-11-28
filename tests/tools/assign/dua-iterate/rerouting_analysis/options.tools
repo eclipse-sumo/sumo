@@ -1,0 +1,1 @@
+{CLEAR} -d data -v --traveltime --window 3 tools/assign/duaIterate_reroutingAnalysis.py

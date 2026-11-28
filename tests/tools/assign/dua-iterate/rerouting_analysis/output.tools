@@ -1,0 +1,3 @@
+file=data/000/trips_000.rou.alt.xml vehs=3.0 changed=0 frac=0.0 ttMean=100.00 ttVar=266.67 ttVarMean=0.00 ttVarVar=0.00 ids=
+file=data/001/trips_001.rou.alt.xml vehs=3.0 changed=1 frac=0.3333333333333333 ttMean=96.67 ttVar=288.89 ttVarMean=8.33 ttVarVar=138.89 ids=v0
+file=data/002/trips_002.rou.alt.xml vehs=3.0 changed=1 frac=0.3333333333333333 ttMean=90.00 ttVar=50.67 ttVarMean=48.30 ttVarVar=3223.88 ids=v1
