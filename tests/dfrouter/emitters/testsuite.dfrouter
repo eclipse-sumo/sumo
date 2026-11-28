@@ -40,3 +40,6 @@ tri_incomplete_but_sufficient
 # (user) errors on emitter usage
 errors
 routes_for_all
+
+# output of pedestrian flows (#8865)
+pedestrians

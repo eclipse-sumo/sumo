@@ -365,57 +365,98 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                 const SUMOTime ctime = departures[car];
 
                 // write
-                out.openTag(SUMO_TAG_VEHICLE);
-                out.writeAttr(SUMO_ATTR_ID, myID + "." + toString(vehicleIndex));
-                if (oc.getBool("vtype")) {
-                    out.writeAttr(SUMO_ATTR_TYPE, vtype);
-                }
-                out.writeAttr(SUMO_ATTR_DEPART, time2string(ctime));
-                if (oc.isSet("departlane")) {
-                    out.writeNonEmptyAttr(SUMO_ATTR_DEPARTLANE, oc.getString("departlane"));
-                } else {
-                    out.writeAttr(SUMO_ATTR_DEPARTLANE, SUMOXMLDefinitions::getIndexFromLane(myLaneID));
-                }
-                if (oc.isSet("departpos")) {
-                    std::string posDesc = oc.getString("departpos");
-                    if (posDesc.substr(0, 8) == "detector") {
-                        double position = myPosition;
-                        if (posDesc.length() > 8) {
-                            if (posDesc[8] == '+') {
-                                position += StringUtils::toDouble(posDesc.substr(9));
-                            } else if (posDesc[8] == '-') {
-                                position -= StringUtils::toDouble(posDesc.substr(9));
-                            } else {
-                                throw NumberFormatException("");
-                            }
-                        }
-                        out.writeAttr(SUMO_ATTR_DEPARTPOS, position);
-                    } else {
-                        out.writeNonEmptyAttr(SUMO_ATTR_DEPARTPOS, posDesc);
+                const bool peds = oc.isSet("vclass") && getVehicleClassID(oc.getString("vclass")) == SVC_PEDESTRIAN;
+                if (peds) {
+                    out.openTag(SUMO_TAG_PERSON);
+                    out.writeAttr(SUMO_ATTR_ID, myID + "." + toString(vehicleIndex));
+                    if (oc.getBool("vtype")) {
+                        out.writeAttr(SUMO_ATTR_TYPE, "pedestrian");
                     }
+                    out.writeAttr(SUMO_ATTR_DEPART, time2string(ctime));
+                    if (oc.isSet("departpos")) {
+                        std::string posDesc = oc.getString("departpos");
+                        if (posDesc.substr(0, 8) == "detector") {
+                            double position = myPosition;
+                            if (posDesc.length() > 8) {
+                                if (posDesc[8] == '+') {
+                                    position += StringUtils::toDouble(posDesc.substr(9));
+                                } else if (posDesc[8] == '-') {
+                                    position -= StringUtils::toDouble(posDesc.substr(9));
+                                } else {
+                                    throw NumberFormatException("");
+                                }
+                            }
+                            out.writeAttr(SUMO_ATTR_DEPARTPOS, position);
+                        } else {
+                            out.writeNonEmptyAttr(SUMO_ATTR_DEPARTPOS, posDesc);
+                        }
+                    } else {
+                        out.writeAttr(SUMO_ATTR_DEPARTPOS, myPosition);
+                    }
+                    out.openTag(SUMO_TAG_WALK);
+                    if (destIndex >= 0) {
+                        out.writeAttr(SUMO_ATTR_ROUTE, myRoutes->get()[destIndex].routename);
+                    } else {
+                        out.writeAttr(SUMO_ATTR_ROUTE, myID);
+                    }
+                    if (oc.isSet("arrivalpos")) {
+                        out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALPOS, oc.getString("arrivalpos"));
+                    }
+                    out.closeTag();
+                    out.closeTag();
                 } else {
-                    out.writeAttr(SUMO_ATTR_DEPARTPOS, myPosition);
+                    out.openTag(SUMO_TAG_VEHICLE);
+                    out.writeAttr(SUMO_ATTR_ID, myID + "." + toString(vehicleIndex));
+                    if (oc.getBool("vtype")) {
+                        out.writeAttr(SUMO_ATTR_TYPE, vtype);
+                    }
+                    out.writeAttr(SUMO_ATTR_DEPART, time2string(ctime));
+                    if (oc.isSet("departlane")) {
+                        out.writeNonEmptyAttr(SUMO_ATTR_DEPARTLANE, oc.getString("departlane"));
+                    } else {
+                        out.writeAttr(SUMO_ATTR_DEPARTLANE, SUMOXMLDefinitions::getIndexFromLane(myLaneID));
+                    }
+                    if (oc.isSet("departpos")) {
+                        std::string posDesc = oc.getString("departpos");
+                        if (posDesc.substr(0, 8) == "detector") {
+                            double position = myPosition;
+                            if (posDesc.length() > 8) {
+                                if (posDesc[8] == '+') {
+                                    position += StringUtils::toDouble(posDesc.substr(9));
+                                } else if (posDesc[8] == '-') {
+                                    position -= StringUtils::toDouble(posDesc.substr(9));
+                                } else {
+                                    throw NumberFormatException("");
+                                }
+                            }
+                            out.writeAttr(SUMO_ATTR_DEPARTPOS, position);
+                        } else {
+                            out.writeNonEmptyAttr(SUMO_ATTR_DEPARTPOS, posDesc);
+                        }
+                    } else {
+                        out.writeAttr(SUMO_ATTR_DEPARTPOS, myPosition);
+                    }
+                    if (oc.isSet("departspeed")) {
+                        out.writeNonEmptyAttr(SUMO_ATTR_DEPARTSPEED, oc.getString("departspeed"));
+                    } else {
+                        out.writeAttr(SUMO_ATTR_DEPARTSPEED, v);
+                    }
+                    if (oc.isSet("arrivallane")) {
+                        out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALLANE, oc.getString("arrivallane"));
+                    }
+                    if (oc.isSet("arrivalpos")) {
+                        out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALPOS, oc.getString("arrivalpos"));
+                    }
+                    if (oc.isSet("arrivalspeed")) {
+                        out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALSPEED, oc.getString("arrivalspeed"));
+                    }
+                    if (destIndex >= 0) {
+                        out.writeAttr(SUMO_ATTR_ROUTE, myRoutes->get()[destIndex].routename);
+                    } else {
+                        out.writeAttr(SUMO_ATTR_ROUTE, myID);
+                    }
+                    out.closeTag();
                 }
-                if (oc.isSet("departspeed")) {
-                    out.writeNonEmptyAttr(SUMO_ATTR_DEPARTSPEED, oc.getString("departspeed"));
-                } else {
-                    out.writeAttr(SUMO_ATTR_DEPARTSPEED, v);
-                }
-                if (oc.isSet("arrivallane")) {
-                    out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALLANE, oc.getString("arrivallane"));
-                }
-                if (oc.isSet("arrivalpos")) {
-                    out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALPOS, oc.getString("arrivalpos"));
-                }
-                if (oc.isSet("arrivalspeed")) {
-                    out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALSPEED, oc.getString("arrivalspeed"));
-                }
-                if (destIndex >= 0) {
-                    out.writeAttr(SUMO_ATTR_ROUTE, myRoutes->get()[destIndex].routename);
-                } else {
-                    out.writeAttr(SUMO_ATTR_ROUTE, myID);
-                }
-                out.closeTag();
                 srcFD.isLKW += srcFD.fLKW;
                 vehicleIndex++;
             }
@@ -644,7 +685,21 @@ RODFDetectorCon::writeEmitters(const std::string& file,
     }
     const bool forceDev = !OptionsCont::getOptions().isDefault("speeddev");
     const double speedDev = OptionsCont::getOptions().getFloat("speeddev");
-    if (OptionsCont::getOptions().getBool("vtype")) {
+    const bool peds = OptionsCont::getOptions().isSet("vclass") && getVehicleClassID(OptionsCont::getOptions().getString("vclass")) == SVC_PEDESTRIAN;
+    if (peds) {
+        if (OptionsCont::getOptions().getBool("vtype")) {
+            SUMOVTypeParameter pedType = SUMOVTypeParameter("pedestrian", SVC_PEDESTRIAN);
+            setSpeedFactorAndDev(pedType, net.getMaxSpeedFactorPKW(), net.getAvgSpeedFactorPKW(), speedDev, forceDev);
+            pedType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
+            pedType.write(vTypeOut);
+        } else {
+            SUMOVTypeParameter type = SUMOVTypeParameter(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
+            setSpeedFactorAndDev(type, MAX2(net.getMaxSpeedFactorPKW(), net.getMaxSpeedFactorLKW()), net.getAvgSpeedFactorPKW(), speedDev, forceDev);
+            if (type.parametersSet != 0) {
+                type.write(vTypeOut);
+            }
+        }
+    } else if (OptionsCont::getOptions().getBool("vtype")) {
         // write separate types
         SUMOVTypeParameter pkwType = SUMOVTypeParameter("PKW", SVC_PASSENGER);
         setSpeedFactorAndDev(pkwType, net.getMaxSpeedFactorPKW(), net.getAvgSpeedFactorPKW(), speedDev, forceDev);
