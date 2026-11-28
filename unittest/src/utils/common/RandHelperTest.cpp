@@ -129,6 +129,76 @@ TEST(RandHelper, test_sequence) {
     }
 }
 
+TEST(RandHelper, test_portable_state) {
+    const auto size = std::mt19937::state_size;
+    const unsigned long long boundary = (SAVE_ONLY_COUNT / size + 1) * size;
+    for (const auto count : {boundary - 1, boundary, boundary + 1, boundary + size / 2}) {
+        SCOPED_TRACE(count);
+        SumoRNG rng("portable");
+        rng.setSeed(23423);
+        rng.discard(count);
+        rng.count = count;
+        const std::string saved = RandHelper::saveState(&rng);
+        std::istringstream payload(saved);
+        unsigned long long savedCount;
+        ASSERT_TRUE(payload >> savedCount);
+        EXPECT_EQ(count, savedCount);
+        std::vector<std::mt19937::result_type> words;
+        for (std::mt19937::result_type word; payload >> word;) {
+            words.push_back(word);
+        }
+        ASSERT_EQ(size + 1, words.size());
+        EXPECT_EQ(size, words.back());
+
+        // Older readers can consume the portable state's history directly.
+        std::istringstream oldReader(saved);
+        std::mt19937 directlyRestored;
+        ASSERT_TRUE(oldReader >> savedCount >> directlyRestored);
+        SumoRNG restored("portable");
+        // Older MSVC and libc++ snapshots omitted the trailing cursor.
+        RandHelper::loadState(saved.substr(0, saved.rfind(' ')), &restored);
+        EXPECT_EQ(count, restored.count);
+        for (std::size_t i = 0; i < size + 1; ++i) {
+            const auto expected = rng();
+            ASSERT_EQ(expected, restored());
+            ASSERT_EQ(expected, directlyRestored());
+        }
+    }
+}
+
+TEST(RandHelper, test_legacy_state_with_cursor) {
+    const auto size = std::mt19937::state_size;
+    const unsigned long long boundary = (SAVE_ONLY_COUNT / size + 1) * size;
+    for (const auto cursor : {std::size_t{0}, std::size_t{1}, size / 2, size - 1, size}) {
+        SCOPED_TRACE(cursor);
+        const unsigned long long count = boundary + cursor;
+        SumoRNG expected("legacy");
+        expected.setSeed(23423);
+        expected.discard(count);
+        auto blockEnd = expected;
+        blockEnd.discard(size - cursor);
+
+        // At the end of a block, all libraries stream the same words. Combine those
+        // with the original cursor to reproduce libstdc++'s legacy representation.
+        std::stringstream native;
+        native << blockEnd;
+        std::ostringstream legacy;
+        legacy << count;
+        for (std::size_t i = 0; i < size; ++i) {
+            std::mt19937::result_type word;
+            ASSERT_TRUE(native >> word);
+            legacy << ' ' << word;
+        }
+        legacy << ' ' << cursor;
+        SumoRNG restored("legacy");
+        RandHelper::loadState(legacy.str(), &restored);
+        EXPECT_EQ(count, restored.count);
+        for (std::size_t i = 0; i < size + 1; ++i) {
+            ASSERT_EQ(expected(), restored());
+        }
+    }
+}
+
 /* Test the performance of the method 'rand' without parameters.*/
 // TEST(RandHelper, test_perf) {
 //     StopWatch sw;
