@@ -89,6 +89,8 @@ use_routing_device
 # using the same id twice
 duplicate_id
 destProb
+# Warn when a destination can name either an edge or a special routing action.
+reserved_destination_id
 closing_disallow_misleading_alternative
 closing_disallows_dest
 errors

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,40.00" convBoundary="0.00,0.00,200.00,80.00" origBoundary="0.00,-40.00,200.00,40.00" projParameter="!"/>
+
+    <edge id="keepDestination" from="n1" to="n3" priority="-1">
+        <lane id="keepDestination_0" index="0" speed="13.89" length="64.03" shape="105.29,42.19 151.00,78.75"/>
+    </edge>
+    <edge id="original" from="n1" to="n2" priority="-1">
+        <lane id="original_0" index="0" speed="13.89" length="100.00" shape="106.62,38.40 200.00,38.40"/>
+    </edge>
+    <edge id="start" from="n0" to="n1" priority="-1">
+        <lane id="start_0" index="0" speed="13.89" length="100.00" shape="0.00,38.40 97.38,38.40"/>
+    </edge>
+    <edge id="terminateRoute" from="n1" to="n4" priority="-1">
+        <lane id="terminateRoute_0" index="0" speed="13.89" length="64.03" shape="104.17,34.61 149.00,-1.25"/>
+    </edge>
+
+    <junction id="n0" type="dead_end" x="0.00" y="40.00" incLanes="" intLanes="" shape="0.00,40.00 0.00,36.80"/>
+    <junction id="n1" type="priority" x="100.00" y="40.00" incLanes="start_0" intLanes="" shape="104.29,43.44 106.29,40.94 105.81,40.42 105.79,40.23 105.92,40.10 106.20,40.03 106.62,40.00 106.62,36.80 105.30,36.70 104.95,36.57 104.81,36.38 104.89,36.15 105.17,35.86 103.17,33.36 101.25,35.19 100.55,35.87 99.79,36.38 98.79,36.69 97.38,36.80 97.38,40.00 100.22,40.35 101.15,40.81 102.02,41.47 103.00,42.34">
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="000"/>
+    </junction>
+    <junction id="n2" type="dead_end" x="200.00" y="40.00" incLanes="original_0" intLanes="" shape="200.00,36.80 200.00,40.00"/>
+    <junction id="n3" type="dead_end" x="150.00" y="80.00" incLanes="keepDestination_0" intLanes="" shape="152.00,77.50 150.00,80.00"/>
+    <junction id="n4" type="dead_end" x="150.00" y="0.00" incLanes="terminateRoute_0" intLanes="" shape="148.00,-2.50 150.00,0.00"/>
+
+    <connection from="start" to="terminateRoute" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="start" to="original" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="start" to="keepDestination" fromLane="0" toLane="0" dir="L" state="M"/>
+
+</net>
