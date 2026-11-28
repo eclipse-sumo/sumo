@@ -129,14 +129,17 @@ protected:
     /// @brief hide all attribute elements
     void hideAllAttributeElements();
 
+    /// @brief check whether the displayed value matches the attribute default
+    bool isDefaultValue(const std::string& value) const;
+
     /// @brief show value for check button
-    void showValueCheckButton(const std::string& value, const bool enabled, const bool computed);
+    void showValueCheckButton(const std::string& value, const bool enabled, const FXColor textColor);
 
     /// @brief show value for combo Box
-    void showValueComboBox(const GNEAttributeProperties* attrProperty, const std::string& value, const bool enabled, const bool computed);
+    void showValueComboBox(const GNEAttributeProperties* attrProperty, const std::string& value, const bool enabled, const FXColor textColor);
 
     /// @brief show value for strings
-    void showValueString(const std::string& value, const bool enabled, const bool computed);
+    void showValueString(const std::string& value, const bool enabled, const FXColor textColor);
 
     /// @brief show move lane buttons
     void showMoveLaneButtons(const std::string& laneID);

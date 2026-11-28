@@ -362,6 +362,12 @@ MFXComboBoxIcon::setTextColor(FXColor clr) {
 }
 
 
+void
+MFXComboBoxIcon::setFieldTextColor(FXColor clr) {
+    myTextFieldIcon->setTextColor(clr);
+}
+
+
 FXColor
 MFXComboBoxIcon::getTextColor() const {
     return myTextFieldIcon->getTextColor();

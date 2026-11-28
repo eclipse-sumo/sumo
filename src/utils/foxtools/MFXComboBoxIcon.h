@@ -139,6 +139,9 @@ public:
     /// @brief Return text color
     FXColor getTextColor() const;
 
+    /// @brief Set text color for the field without changing popup items.
+    void setFieldTextColor(FXColor clr);
+
     /// @brief Set the tool tip message for this combobox
     void setTipText(const FXString& txt);
 
