@@ -1,0 +1,18 @@
+<routes>
+    <route id="shared" edges="beg middle end rend"/>
+    <vehicle id="trigger-first" depart="triggered" route="shared"/>
+    <vehicle id="scheduled" depart="0" route="shared"/>
+    <vehicle id="trigger-cached" depart="triggered" route="shared"/>
+    <vehicle id="trigger-inline" depart="triggered">
+        <route edges="beg middle end rend" exitTimes="5 50 80 100"/>
+    </vehicle>
+    <person id="rider-first" depart="20">
+        <ride from="middle" to="end" lines="trigger-first"/>
+    </person>
+    <person id="rider-cached" depart="30">
+        <ride from="middle" to="end" lines="trigger-cached"/>
+    </person>
+    <person id="rider-inline" depart="40">
+        <ride from="middle" to="end" lines="trigger-inline"/>
+    </person>
+</routes>

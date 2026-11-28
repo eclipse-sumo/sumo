@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23 10:16:33.199195 by Eclipse SUMO cutRoutes.py v1_28_0+0759-22f87a6fede
+<configuration>
+    <routes-output value="out.rou.xml"/>
+    <orig-net value="three_split.net.xml"/>
+    <network value="input_net.net.xml"/>
+    <routeFiles value="input_routes.rou.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="shared" edges="middle end"/>
+    <vehicle id="trigger-first" depart="triggered" route="shared"/>
+    <vehicle id="trigger-cached" depart="triggered" route="shared"/>
+    <vehicle id="trigger-inline" depart="triggered" departLane="best" departSpeed="max">
+        <route edges="middle end"/>
+    </vehicle>
+    <vehicle id="scheduled" depart="17.81" route="shared"/>
+    <person id="rider-first" depart="20.00">
+        <ride from="middle" to="end" lines="trigger-first"/>
+    </person>
+    <person id="rider-cached" depart="30.00">
+        <ride from="middle" to="end" lines="trigger-cached"/>
+    </person>
+    <person id="rider-inline" depart="40.00">
+        <ride from="middle" to="end" lines="trigger-inline"/>
+    </person>
+</routes>
