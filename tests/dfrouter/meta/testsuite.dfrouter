@@ -21,3 +21,9 @@ with_log
 
 # Tests whether metadata output works
 with_metadata
+
+# Reject invalid string formats before saving a configuration
+invalid_string_option
+
+# Preserve option validation errors from XML configuration files
+invalid_string_config

@@ -1,0 +1,4 @@
+Error: While processing option 'xml-validation':
+ Value 'automated' must match pattern 'never|local|auto|always'.
+Error: Could not parse commandline options.
+Quitting (on error).
