@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network name="atlantis test network">
+   <attributes>
+      <attribute name="coordinateReferenceSystem" class="java.lang.String">Atlantis</attribute>
+   </attributes>
+   <nodes>
+      <node id="1" x="0.0" y="0.0"/>
+      <node id="2" x="100.0" y="0.0"/>
+   </nodes>
+   <links capperiod="01:00:00">
+      <link id="e1" from="1" to="2" length="100.0" capacity="1800" freespeed="13.89" permlanes="1" modes="car"/>
+   </links>
+</network>

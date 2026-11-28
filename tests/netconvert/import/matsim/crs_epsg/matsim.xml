@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network name="crs test network">
+   <attributes>
+      <attribute name="crs" class="java.lang.String">epsg:32632</attribute>
+   </attributes>
+   <nodes>
+      <node id="1" x="691000.0" y="5335000.0">
+         <attributes>
+            <attribute name="crs" class="java.lang.String">ignored_node_attr</attribute>
+         </attributes>
+      </node>
+      <node id="2" x="691500.0" y="5335000.0"/>
+   </nodes>
+   <links capperiod="01:00:00">
+      <link id="e1" from="1" to="2" length="500.0" capacity="1800" freespeed="13.89" permlanes="1" modes="car"/>
+   </links>
+</network>

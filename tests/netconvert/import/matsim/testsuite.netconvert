@@ -18,3 +18,9 @@
 
 # The network from the "equil" example from MATSIM 0.3.0
 0_3_0_equil_validation_local
+
+# Read MATSim CRS projection information (#13953)
+crs_epsg
+
+# Warn on unsupported MATSim coordinateReferenceSystem (#13953)
+crs_unsupported
