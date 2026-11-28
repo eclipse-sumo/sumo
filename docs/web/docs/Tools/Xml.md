@@ -110,3 +110,15 @@ Example call:
 ```
 python tools/xml/tools/xml/filterElements.py -f stopoutput.xml -o filtered.xml -t stopinfo -a delay --remove-values 0
 ```
+
+## Parsing XML in Python (`sumolib.xml`: `CompoundObject` vs. `namedtuple`)
+
+The [sumolib](Sumolib.md) `sumolib.xml` module provides two families of streaming XML parsers with distinct performance and flexibility trade-offs:
+
+| Parser Function | Return Type | Mechanism & Capabilities | When to Use |
+| --- | --- | --- | --- |
+| `parse`, `parselines` | `CompoundObject` | Uses `xml.etree.ElementTree.iterparse` to build mutable Python objects supporting arbitrary multi-line formatting, nested child elements, XML comments, `attr_conversions`, in-place editing (`setAttribute`, `addChild`), and `toXML()` serialization. | Modifying and writing XML files, reading hand-edited inputs with arbitrary attribute order or line breaks, or traversing deep element trees. |
+| `parse_fast`, `parse_fast_nested`, `parse_fast_structured` | `collections.namedtuple` | Matches single-line elements via compiled regular expressions (deriving attribute names from an XSD schema if `attrnames` is omitted) and yields lightweight immutable `namedtuple` records without DOM/SAX node allocation. | High-throughput read-only scans over large SUMO-generated files (`fcd-output`, `tripinfo-output`, `edgeData`, `rou.xml`), typically running 3x to 5x faster with minimal memory overhead. |
+
+!!! note
+    `parse_fast*` requires each target element to appear on a single line with attributes in the listed order. Pass `optional=True` when some requested attributes may be absent on part of the elements; otherwise elements missing a listed attribute will not match the regular expression.
