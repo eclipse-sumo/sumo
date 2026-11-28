@@ -1,6 +1,9 @@
 # two lanes in a simple net with lane queues
 plain
 
+# fixed jam threshold relative to each lane queue
+fixed_jam_threshold
+
 # two lanes in a simple net without lane queue
 no_queue
 
