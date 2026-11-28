@@ -38,6 +38,12 @@ from xml.sax import saxutils
 from . import xsd
 from .. import miscutils
 
+_XSI_NAMESPACE = "http://www.w3.org/2001/XMLSchema-instance"
+_XSI_SCHEMA_ATTRIBUTES = {
+    "{%s}noNamespaceSchemaLocation" % _XSI_NAMESPACE: "xsi:noNamespaceSchemaLocation",
+    "{%s}schemaLocation" % _XSI_NAMESPACE: "xsi:schemaLocation",
+}
+
 DEFAULT_ATTR_CONVERSIONS = {
     # shape-like
     'shape': lambda coords: map(lambda xy: map(float, xy.split(',')), coords.split()),
@@ -337,10 +343,21 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
             return "<%s,child_dict=%s%s>" % (self.getAttributes(), dict(self._child_dict), nodeText)
 
         def toXML(self, initialIndent="", indent="    ", withComments=False):
-            fields = [' %s="%s"' % (self._original_fields[i], xmlescape(getattr(self, k)))
-                      for i, k in enumerate(self._fields) if getattr(self, k) is not None and
-                      # see #3454
-                      '{' not in self._original_fields[i]]
+            fields = []
+            declareXsi = "xmlns:xsi" not in self._original_fields
+            for i, field in enumerate(self._fields):
+                value = getattr(self, field)
+                if value is None:
+                    continue
+                name = self._original_fields[i]
+                if name in _XSI_SCHEMA_ATTRIBUTES:
+                    if declareXsi:
+                        fields.append(' xmlns:xsi="%s"' % _XSI_NAMESPACE)
+                        declareXsi = False
+                    name = _XSI_SCHEMA_ATTRIBUTES[name]
+                elif '{' in name:
+                    continue
+                fields.append(' %s="%s"' % (name, xmlescape(value)))
             if self.isComment():
                 if withComments:
                     return initialIndent + "<!-- %s -->\n" % self._text
@@ -486,7 +503,7 @@ def create_document(root_element_name, attrs=None, schema=None):
     if attrs is None:
         attrs = {}
     if schema is None:
-        attrs["xmlns:xsi"] = "http://www.w3.org/2001/XMLSchema-instance"
+        attrs["xmlns:xsi"] = _XSI_NAMESPACE
         attrs["xsi:noNamespaceSchemaLocation"] = "http://sumo.dlr.de/xsd/" + root_element_name + "_file.xsd"
     clazz = compound_object(root_element_name, sorted(attrs.keys()))
     return clazz([attrs.get(a) for a in sorted(attrs.keys())], OrderedDict())
