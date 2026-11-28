@@ -1354,7 +1354,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
                                            std::vector<std::string>();
     const double arrivalPos = personPlanObject->hasDoubleAttribute(SUMO_ATTR_ARRIVALPOS) ? personPlanObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS) :
                               personPlanObject->hasStringAttribute(SUMO_ATTR_ARRIVALPOS) ? GNEAttributeCarrier::parse<double>(personPlanObject->getStringAttribute(SUMO_ATTR_ARRIVALPOS)) :
-                              -1;
+                              INVALID_DOUBLE;
     const double endPos = personPlanObject->hasDoubleAttribute(SUMO_ATTR_ENDPOS) ? personPlanObject->getDoubleAttribute(SUMO_ATTR_ENDPOS) :
                           personPlanObject->hasStringAttribute(SUMO_ATTR_ENDPOS) ? GNEAttributeCarrier::parse<double>(personPlanObject->getStringAttribute(SUMO_ATTR_ENDPOS)) :
                           planCreator->getClickedPositionOverLane();
@@ -1431,7 +1431,7 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
                              -1;
     const double arrivalPos = containerPlanObject->hasDoubleAttribute(SUMO_ATTR_ARRIVALPOS) ? containerPlanObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS) :
                               containerPlanObject->hasStringAttribute(SUMO_ATTR_ARRIVALPOS) ? GNEAttributeCarrier::parse<double>(containerPlanObject->getStringAttribute(SUMO_ATTR_ARRIVALPOS)) :
-                              -1;
+                              INVALID_DOUBLE;
     const double endPos = containerPlanObject->hasDoubleAttribute(SUMO_ATTR_ENDPOS) ? containerPlanObject->getDoubleAttribute(SUMO_ATTR_ENDPOS) :
                           containerPlanObject->hasStringAttribute(SUMO_ATTR_ENDPOS) ? GNEAttributeCarrier::parse<double>(containerPlanObject->getStringAttribute(SUMO_ATTR_ENDPOS)) :
                           planCreator->getClickedPositionOverLane();
@@ -1550,7 +1550,7 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
     planObject->addTimeAttribute(SUMO_ATTR_DURATION, 60);
     planObject->addTimeAttribute(SUMO_ATTR_UNTIL, 0);
     planObject->addDoubleAttribute(SUMO_ATTR_DEPARTPOS, 0);
-    planObject->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, -1);
+    planObject->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, INVALID_DOUBLE);
     planObject->addDoubleAttribute(SUMO_ATTR_ENDPOS, 0);
     planObject->addDoubleAttribute(SUMO_ATTR_SPEED, 1.39);
     planObject->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, false);

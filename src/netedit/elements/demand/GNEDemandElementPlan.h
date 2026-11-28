@@ -164,6 +164,9 @@ protected:
     double myArrivalPosition;
 
 private:
+    /// @brief return the explicit arrival offset on the lane shape
+    double getArrivalOffset(const GNELane* lane) const;
+
     /// @brief get end position radius
     double getEndPosRadius(const GUIVisualizationSettings& s, const GNESegment* segment, const bool drawHalfWidth) const;
 

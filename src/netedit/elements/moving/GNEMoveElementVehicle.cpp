@@ -72,7 +72,8 @@ GNEMoveElementVehicle::getMoveOperation() {
     if (firstLane && lastLane) {
         // get depart and arrival positions (doubles)
         const double startPosDouble = myVehicle->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
-        const double endPosDouble = (myVehicle->getAttributeDouble(SUMO_ATTR_ARRIVALPOS) < 0) ? lastLane->getLaneShape().length2D() : myVehicle->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+        const double arrivalOffset = myVehicle->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+        const double endPosDouble = arrivalOffset == -1 ? lastLane->getLaneShape().length2D() : arrivalOffset;
         // check if allow change lane
         const bool allowChangeLane = myVehicle->getNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
         // obtain diameter
