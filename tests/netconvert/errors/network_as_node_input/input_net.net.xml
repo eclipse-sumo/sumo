@@ -1,0 +1,7 @@
+<net version="1.20">
+    <edge id="e" from="a" to="b">
+        <lane id="e_0" index="0" speed="10" length="100" shape="0,-1.6 100,-1.6"/>
+    </edge>
+    <junction id="a" type="dead_end" x="0" y="0" incLanes="" intLanes=""/>
+    <junction id="b" type="dead_end" x="100" y="0" incLanes="e_0" intLanes=""/>
+</net>

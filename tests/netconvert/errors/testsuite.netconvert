@@ -4,6 +4,9 @@ false_output
 # Tests what happens if an unknown option is given
 unknown_option
 
+# Report the right option for loading a compiled network instead of PlainXML nodes
+network_as_node_input
+
 # Test for not buildable plain output
 false_plain_output
 
