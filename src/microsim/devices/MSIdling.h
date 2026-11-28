@@ -55,7 +55,9 @@ public:
 
 
 class MSIdling_Stop : public MSIdling {
-    void idle(MSDevice_Taxi* taxi);
+public:
+    void idle(MSDevice_Taxi* taxi) override;
+    void idle(MSDevice_Taxi* taxi, bool beforeStopCheck);
 };
 
 class MSIdling_RandomCircling : public MSIdling {

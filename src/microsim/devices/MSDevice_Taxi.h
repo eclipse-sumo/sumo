@@ -123,6 +123,9 @@ public:
     /// @brief Destructor.
     ~MSDevice_Taxi();
 
+    /// @brief Add the initial idle stop before meso checks the departure segment.
+    void prepareInitialMesoStop();
+
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
     /// @{
 
