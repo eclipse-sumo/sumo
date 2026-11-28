@@ -18,6 +18,9 @@
 // The Widget for add TAZ elements
 /****************************************************************************/
 
+#include <cmath>
+#include <unordered_map>
+
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
@@ -255,79 +258,41 @@ GNETAZFrame::CurrentTAZ::refreshTAZEdges() {
         // first update TAZ Statistics
         myEditedTAZ->updateTAZStatistic();
         myTAZFrameParent->myTAZCommonStatistics->updateStatistics();
-        // iterate over child TAZElements and create TAZEdges
-        for (const auto& TAZSourceSink : myEditedTAZ->getChildTAZSourceSinks()) {
-            addSourceSink(TAZSourceSink);
+        // Pair sources and sinks by edge, keeping their first occurrence order.
+        std::unordered_map<GNEEdge*, size_t> edgeIndices;
+        for (auto* sourceSink : myEditedTAZ->getChildTAZSourceSinks()) {
+            auto* edge = sourceSink->getParentEdges().front();
+            const auto [entry, inserted] = edgeIndices.emplace(edge, myTAZEdgeColors.size());
+            if (inserted) {
+                myTAZEdgeColors.emplace_back(this, edge, nullptr, nullptr);
+            }
+            auto& edgeColor = myTAZEdgeColors[entry->second];
+            if (sourceSink->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) {
+                edgeColor.source = sourceSink;
+            } else {
+                edgeColor.sink = sourceSink;
+            }
         }
-        // update colors after add all edges
-        for (auto& TAZEdgeColor : myTAZEdgeColors) {
-            TAZEdgeColor.updateColors();
+        // Calculate the weight ranges once, after matching all sources and sinks.
+        for (const auto& edgeColor : myTAZEdgeColors) {
+            if (edgeColor.source && edgeColor.sink) {
+                const double sourceWeight = edgeColor.source->getWeight();
+                const double sinkWeight = edgeColor.sink->getWeight();
+                const double combinedWeight = sourceWeight + sinkWeight;
+                const double difference = std::abs(sourceWeight - sinkWeight);
+                myMaxSourcePlusSinkWeight = MAX2(myMaxSourcePlusSinkWeight, combinedWeight);
+                myMinSourcePlusSinkWeight = myMinSourcePlusSinkWeight < 0 ? combinedWeight : MIN2(myMinSourcePlusSinkWeight, combinedWeight);
+                myMaxSourceMinusSinkWeight = MAX2(myMaxSourceMinusSinkWeight, difference);
+                myMinSourceMinusSinkWeight = myMinSourceMinusSinkWeight < 0 ? difference : MIN2(myMinSourceMinusSinkWeight, difference);
+            }
         }
-        // update edge colors
+        for (auto& edgeColor : myTAZEdgeColors) {
+            edgeColor.updateColors();
+        }
         myTAZFrameParent->myTAZEdgesGraphic->updateEdgeColors();
     }
 }
 
-
-void
-GNETAZFrame::CurrentTAZ::addSourceSink(GNETAZSourceSink* sourceSink) {
-    GNEEdge* edge = myTAZFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(sourceSink->getAttribute(SUMO_ATTR_EDGE));
-    // first check if TAZEdgeColor has to be created
-    bool createTAZEdge = true;
-    for (auto& TAZEdgeColor : myTAZEdgeColors) {
-        if (TAZEdgeColor.edge == edge) {
-            createTAZEdge = false;
-            // update TAZ Source or Sink
-            if (sourceSink->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) {
-                TAZEdgeColor.source = sourceSink;
-            } else {
-                TAZEdgeColor.sink = sourceSink;
-            }
-        }
-    }
-    // check if TAZElements has to be created
-    if (createTAZEdge) {
-        if (sourceSink->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) {
-            myTAZEdgeColors.push_back(TAZEdgeColor(this, edge, sourceSink, nullptr));
-        } else {
-            myTAZEdgeColors.push_back(TAZEdgeColor(this, edge, nullptr, sourceSink));
-        }
-    }
-    // recalculate weights
-    myMaxSourcePlusSinkWeight = 0;
-    myMinSourcePlusSinkWeight = -1;
-    myMaxSourceMinusSinkWeight = 0;
-    myMinSourceMinusSinkWeight = -1;
-    for (const auto& TAZEdgeColor : myTAZEdgeColors) {
-        // make sure that both TAZ Source and Sink exist
-        if (TAZEdgeColor.source && TAZEdgeColor.sink) {
-            // obtain source plus sink
-            double sourcePlusSink = TAZEdgeColor.source->getWeight() + TAZEdgeColor.sink->getWeight();
-            // check myMaxSourcePlusSinkWeight
-            if (sourcePlusSink > myMaxSourcePlusSinkWeight) {
-                myMaxSourcePlusSinkWeight = sourcePlusSink;
-            }
-            // check myMinSourcePlusSinkWeight
-            if ((myMinSourcePlusSinkWeight == -1) || (sourcePlusSink < myMinSourcePlusSinkWeight)) {
-                myMinSourcePlusSinkWeight = sourcePlusSink;
-            }
-            // obtain source minus sink
-            double sourceMinusSink = TAZEdgeColor.source->getWeight() - TAZEdgeColor.sink->getWeight();
-            // use valor absolute
-            if (sourceMinusSink < 0) {
-                sourceMinusSink *= -1;
-            }
-            // check myMaxSourcePlusSinkWeight
-            if (sourceMinusSink > myMaxSourceMinusSinkWeight) {
-                myMaxSourceMinusSinkWeight = sourceMinusSink;
-            }
-            // check myMinSourcePlusSinkWeight
-            if ((myMinSourceMinusSinkWeight == -1) || (sourceMinusSink < myMinSourceMinusSinkWeight)) {
-                myMinSourceMinusSinkWeight = sourceMinusSink;
-            }
-        }
-    }
-}
 
 // ---------------------------------------------------------------------------
 // GNETAZFrame::TAZCommonStatistics - methods
