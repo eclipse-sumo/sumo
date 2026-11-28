@@ -1,0 +1,3 @@
+Error: Edge 'beg' not connected to edge 'rend' for vehicle 'v0' (use option --repair to connect edges).
+Error: Route '!v0' (vehicle 'v0') is not valid.
+Quitting (on error).

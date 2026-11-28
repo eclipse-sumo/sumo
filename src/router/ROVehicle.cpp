@@ -175,7 +175,7 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
             updateIndex(replaced, current, getParameterMutable().arrivalEdge);
         }
     }
-    myRoutingSuccess = true;
+    myRoutingSuccess = routeDef->getFirstRoute() != nullptr;
 }
 
 

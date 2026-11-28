@@ -35,3 +35,11 @@ vehicle_empty_arrivalpos
 # Vehicle's arrivalspeed is empty
 vehicle_empty_arrivalspeed
 
+# Loaded route with disconnected edges
+disconnected_route
+
+# Loaded route distribution with disconnected alternative
+disconnected_route_alt
+
+# Loaded disconnected routes with --ignore-errors
+disconnected_route_ignore

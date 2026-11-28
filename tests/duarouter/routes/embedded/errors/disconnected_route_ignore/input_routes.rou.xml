@@ -1,0 +1,17 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="v0" depart="0">
+        <route edges="beg rend"/>
+    </vehicle>
+    <vehicle id="v1" depart="1">
+        <routeDistribution last="1">
+            <route probability="0.5" edges="beg rend"/>
+            <route probability="0.5" edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="v2" depart="2">
+        <routeDistribution last="0">
+            <route probability="0.5" edges="beg rend"/>
+            <route probability="0.5" edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+</routes>
