@@ -605,10 +605,10 @@ public:
     }
 
     /// @brief check if node is removable
-    bool checkIsRemovable() const;
+    bool checkIsRemovable(bool ignoreCrossings = false) const;
 
     /// @brief check if node is removable and return reason if not
-    bool checkIsRemovableReporting(std::string& reason) const;
+    bool checkIsRemovableReporting(std::string& reason, bool ignoreCrossings = false) const;
 
     /// @brief get edges to join
     std::vector<std::pair<NBEdge*, NBEdge*> > getEdgesToJoin() const;

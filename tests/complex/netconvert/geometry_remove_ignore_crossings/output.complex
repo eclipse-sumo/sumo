@@ -1,0 +1,6 @@
+Default geometry removal: middle priority, crossings :branch_c0 b bReverse; :middle_c0 a aReverse
+Ignore crossings alone: middle priority, crossings :branch_c0 b bReverse; :middle_c0 a aReverse
+Plain input with both options: joined at middle, crossings :branch_c0 a bReverse
+SUMO input with both options: joined at middle, crossings :branch_c0 a bReverse
+Protected edge: middle priority, crossings :branch_c0 b bReverse; :middle_c0 a aReverse
+Signal-controlled crossing: middle traffic_light, crossings :branch_c0 b bReverse; :middle_c0 a aReverse

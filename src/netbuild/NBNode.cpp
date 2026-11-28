@@ -2670,13 +2670,13 @@ NBNode::initRailSignalClasses(const NBNodeCont& nc) {
 
 
 bool
-NBNode::checkIsRemovable() const {
+NBNode::checkIsRemovable(bool ignoreCrossings) const {
     std::string reason;
-    return checkIsRemovableReporting(reason);
+    return checkIsRemovableReporting(reason, ignoreCrossings);
 }
 
 bool
-NBNode::checkIsRemovableReporting(std::string& reason) const {
+NBNode::checkIsRemovableReporting(std::string& reason, bool ignoreCrossings) const {
     if (getEdges().empty()) {
         return true;
     }
@@ -2689,7 +2689,7 @@ NBNode::checkIsRemovableReporting(std::string& reason) const {
         reason = "rail_signal";
         return false;
     }
-    if (myCrossings.size() != 0) {
+    if (!myCrossings.empty() && (!ignoreCrossings || myType == SumoXMLNodeType::RAIL_CROSSING)) {
         reason = "crossing";
         return false;
     }
