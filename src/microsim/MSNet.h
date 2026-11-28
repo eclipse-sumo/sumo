@@ -972,6 +972,10 @@ protected:
     /// @brief The overall time spent waiting for traci operations including
     long myTraCIMillis;
 
+    /// @brief Cumulative microseconds spent updating vehicles and persons
+    long long int myVehicleMicros = 0;
+    long long int myPersonMicros = 0;
+
     /// @brief The overall number of vehicle movements
     long long int myVehiclesMoved;
     long long int myPersonsMoved;
