@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="square/square.net.xml"/>
+        <additional-files value="square/square.tls_opt.add.xml,square/square.poi.xml,square/square.rou.xml,input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <human-readable-time value="false"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-undeparted value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="180"/>
+        <step-length value=".1"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+    <gui_only>
+        <gui-settings-file value="square/settings.xml"/>
+    </gui_only>
+
+</sumoConfiguration>

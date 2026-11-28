@@ -103,16 +103,18 @@ def main():
                                  '-v', 'false', '--no-warnings', '--no-step-log',
                                  '--tripinfo-output.write-unfinished'], cwd=base)
                 computeHighScore(scen, high, alg)
-        if scen == "rail":
-            high[scen] = []
-            print("running scenario 'rail'")
-            subprocess.call([sumolib.checkBinary('sumo'), "-c", config.replace("rail", "rail_demo"),
+        demo_cfg = config[:-8] + "_demo.sumocfg"
+        if os.path.exists(demo_cfg):
+            if scen not in high:
+                high[scen] = []
+            print("running demo scenario '%s'" % os.path.basename(demo_cfg))
+            subprocess.call([sumolib.checkBinary('sumo'), "-c", demo_cfg,
                              '--output-prefix', os.path.join("output", scen + "."),
                              '-l', "log", '--duration-log.statistics',
                              '--statistic-output', 'stats.xml',
                              '-v', 'false', '--no-warnings', '--no-step-log',
                              '--tripinfo-output.write-unfinished', "-e", str(parseEndTime(config))], cwd=base)
-            computeHighScore(scen, high)
+            computeHighScore(scen, high, "demo" if lines else "")
     print(high)
     with open(os.path.join(base, REFSCOREFILE), 'wb') as pkl:
         pickle.dump(high, pkl)

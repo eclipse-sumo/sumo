@@ -44,3 +44,6 @@ fmi
 
 # tests involving sumo-gui
 sumo-gui
+
+# sample solution for the four junctions game
+game_square_demo

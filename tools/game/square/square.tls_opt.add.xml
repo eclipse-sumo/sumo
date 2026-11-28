@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Sample solution derived via Webster's formula (tlsCycleAdaptation.py -y 2) and tlsCoordinator.py -->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="A0" type="static" programID="demo" offset="23.11">
+        <phase duration="9" state="GGggrrrrGGggrrrr"/>
+        <phase duration="2" state="yyyyrrrryyyyrrrr"/>
+        <phase duration="15" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="2" state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="A1" type="static" programID="demo" offset="0.00">
+        <phase duration="9" state="GGggrrrrGGggrrrr"/>
+        <phase duration="2" state="yyyyrrrryyyyrrrr"/>
+        <phase duration="15" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="2" state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="B0" type="static" programID="demo" offset="15.41">
+        <phase duration="9" state="GGggrrrrGGggrrrr"/>
+        <phase duration="2" state="yyyyrrrryyyyrrrr"/>
+        <phase duration="15" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="2" state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="B1" type="static" programID="demo" offset="7.70">
+        <phase duration="9" state="GGggrrrrGGggrrrr"/>
+        <phase duration="2" state="yyyyrrrryyyyrrrr"/>
+        <phase duration="15" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="2" state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+</additional>
