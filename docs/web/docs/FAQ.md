@@ -1255,6 +1255,14 @@ In older versions the fox-registry (see above) must be used to change the 'norma
 `normalfont="Arial,200"`
 (with any desired font or size)
 
+### How can I visually compare two simulation scenarios side by side?
+
+Three workflows support visual comparison across two scenarios:
+
+1. **Synchronized dual `sumo-gui` instances via TraCI**: Start two [sumo-gui](sumo-gui.md) processes with distinct connection labels (`traci.start(["sumo-gui", "-c", "a.sumocfg", "--start"], label="A")` and `label="B"`) and advance both in lockstep (`traci.switch("A"); traci.simulationStep(); traci.switch("B"); traci.simulationStep()`). Camera position and zoom can be synchronized across both windows with `traci.gui.getOffset` / `setOffset` and `traci.gui.getZoom` / `setZoom` (see [Interfacing TraCI from Python](TraCI/Interfacing_TraCI_from_Python.md)).
+2. **Combined network in a single `sumo-gui` window**: Prefix and shift the second network with [netconvert](netconvert.md) (`netconvert -s b.net.xml --prefix B_ --offset.x 2000 -o b_shifted.net.xml`), merge both networks (`netconvert -s a.net.xml,b_shifted.net.xml -o combined.net.xml`), apply the same `B_` prefix to the second scenario's routes, and open a second viewport via *View -> Open New View*.
+3. **Difference coloring on one network**: Compute traffic-measure differences between two runs with [edgeDataDiff.py](Tools/Output.md#edgedatadiffpy), load the resulting edgeData file into `sumo-gui`, and color edges *by edgeData*.
+
 ## Upgrading
 
 ### How do I upgrade SUMO?
