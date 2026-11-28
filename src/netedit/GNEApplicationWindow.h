@@ -867,6 +867,12 @@ private:
     /// @brief this method closes all windows and deletes the current simulation
     void closeAllWindows(const bool resetFilenames);
 
+    /// @brief check whether the standalone TLS file can be saved
+    bool canSaveTLSPrograms(bool saveAs) const;
+
+    /// @brief check whether the standalone edge type file can be saved
+    bool canSaveEdgeTypes(bool saveAs) const;
+
     /// @brief warns about unsaved changes and gives the user the option to abort
     bool askSaveElements(FXObject* sender, FXSelector sel, void* ptr);
 

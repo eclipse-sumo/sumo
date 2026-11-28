@@ -2897,6 +2897,7 @@ GNENet::saveEdgeTypes(const std::string& filename) {
     device.closeTag();
     // close device
     device.close();
+    mySavingStatus->edgeTypeSaved();
 }
 
 

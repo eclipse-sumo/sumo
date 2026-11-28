@@ -1,0 +1,3 @@
+<types>
+    <type id="bus" speed="20" allow="bus"/>
+</types>

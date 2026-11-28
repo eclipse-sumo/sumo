@@ -3995,8 +3995,52 @@ GNEApplicationWindow::onUpdSaveSumoConfigAs(FXObject* sender, FXSelector, void*)
     }
 }
 
+bool
+GNEApplicationWindow::canSaveTLSPrograms(bool saveAs) const {
+    if (myNet == nullptr) {
+        return false;
+    }
+    if (!saveAs) {
+        const bool hasFile = myFileBucketHandler->isFilenameDefined(FileBucket::Type::TLS);
+        if (myNet->getSavingStatus()->isTLSSaved() &&
+                !(hasFile && OptionsCont::getOptions().getBool("force-saving"))) {
+            return false;
+        }
+        if (hasFile) {
+            // Allow writing an empty file after deleting the last program.
+            return true;
+        }
+    }
+    for (const auto& junction : myNet->getAttributeCarriers()->getJunctions()) {
+        if (!junction.second->getNBNode()->getControllingTLS().empty()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+GNEApplicationWindow::canSaveEdgeTypes(bool saveAs) const {
+    if (myNet == nullptr) {
+        return false;
+    }
+    const bool hasTypes = !myNet->getAttributeCarriers()->getEdgeTypes().empty();
+    if (saveAs) {
+        return hasTypes;
+    }
+    const bool hasFile = myFileBucketHandler->isFilenameDefined(FileBucket::Type::EDGETYPE);
+    const bool canSave = !myNet->getSavingStatus()->isEdgeTypeSaved() ||
+                         (hasFile && OptionsCont::getOptions().getBool("force-saving"));
+    return canSave && (hasFile || hasTypes);
+}
+
+
 long
 GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject* obj, FXSelector sel, void* ptr) {
+    if (!canSaveTLSPrograms(false)) {
+        return 1;
+    }
     // Check if TLS Programs file was already set at start of netedit or with a previous save
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::TLS)) {
         return onCmdSaveTLSProgramsAs(obj, sel, ptr);
@@ -4005,7 +4049,7 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject* obj, FXSelector sel, void* 
         getApp()->beginWaitCursor();
         try {
             // compute before saving
-            myNet->computeNetwork(this, true); // GNEChange_TLS does not triggere GNENet:requireRecompute
+            myNet->computeNetwork(this, true);
             myNet->saveTLSPrograms(myFileBucketHandler->getDefaultFilename(FileBucket::Type::TLS));
             // write info
             WRITE_MESSAGE(TLF("TLS Programs saved in '%'.", myFileBucketHandler->getDefaultFilename(FileBucket::Type::TLS)));
@@ -4023,24 +4067,17 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject* obj, FXSelector sel, void* 
 
 
 long
-GNEApplicationWindow::onUpdSaveTLSPrograms(FXObject* sender, FXSelector, void*) {
-    if (myNet == nullptr) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else {
-        // check if there is at least one TLS
-        for (const auto& junction : myNet->getAttributeCarriers()->getJunctions()) {
-            if (junction.second->getNBNode()->getControllingTLS().size() > 0) {
-                return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-            }
-        }
-        // no TLS, then disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    }
+GNEApplicationWindow::onUpdSaveTLSPrograms(FXObject* sender, FXSelector sel, void*) {
+    const bool saveAs = FXSELID(sel) == MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS;
+    return sender->handle(this, FXSEL(SEL_COMMAND, canSaveTLSPrograms(saveAs) ? ID_ENABLE : ID_DISABLE), nullptr);
 }
 
 
 long
 GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject* obj, FXSelector sel, void* ptr) {
+    if (!canSaveEdgeTypes(false)) {
+        return 1;
+    }
     // Check if edgeType file was already set at start of netedit or with a previous save
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::EDGETYPE)) {
         return onCmdSaveEdgeTypesAs(obj, sel, ptr);
@@ -4065,14 +4102,9 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject* obj, FXSelector sel, void* pt
 
 
 long
-GNEApplicationWindow::onUpdSaveEdgeTypes(FXObject* sender, FXSelector, void*) {
-    // check if net exist and there are edge types
-    if (myNet && (myNet->getAttributeCarriers()->getEdgeTypes().size() > 0)) {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    }
-    return 1;
+GNEApplicationWindow::onUpdSaveEdgeTypes(FXObject* sender, FXSelector sel, void*) {
+    const bool saveAs = FXSELID(sel) == MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS;
+    return sender->handle(this, FXSEL(SEL_COMMAND, canSaveEdgeTypes(saveAs) ? ID_ENABLE : ID_DISABLE), nullptr);
 }
 
 
@@ -4088,6 +4120,7 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject* sender, FXSelector sel, v
     if (TLSfileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // set tls type in bucket
         myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::TLS, TLSfileDialog.getFilename());
+        myNet->getSavingStatus()->requireSaveTLS();
         // enable save netedit config
         myNet->getSavingStatus()->requireSaveNeteditConfig();
         // set focus again in viewNet
@@ -4112,6 +4145,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject* sender, FXSelector sel, voi
     if (edgeTypeFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // set tls type in bucket
         myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::EDGETYPE, edgeTypeFileDialog.getFilename());
+        myNet->getSavingStatus()->requireSaveEdgeType();
         // enable save netedit config
         myNet->getSavingStatus()->requireSaveNeteditConfig();
         // set focus again in viewNet

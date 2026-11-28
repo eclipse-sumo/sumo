@@ -121,8 +121,8 @@ GNEChange_TLS::undo() {
             myJunction->getNet()->getTLLogicCont().rename(myTlDef, myNewID);
         }
     }
-    // enable save networkElements
     myJunction->getNet()->requireRecompute();
+    myJunction->getNet()->getSavingStatus()->requireSaveTLS();
 }
 
 
@@ -145,8 +145,8 @@ GNEChange_TLS::redo() {
             myJunction->getNet()->getTLLogicCont().rename(myTlDef, myOldID);
         }
     }
-    // enable save networkElements
     myJunction->getNet()->requireRecompute();
+    myJunction->getNet()->getSavingStatus()->requireSaveTLS();
 }
 
 

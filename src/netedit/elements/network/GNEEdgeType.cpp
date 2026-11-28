@@ -556,6 +556,9 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             setCommonAttribute(key, value);
             break;
     }
+    if (myNet->getAttributeCarriers()->retrieveEdgeType(getID(), false) == this) {
+        myNet->getSavingStatus()->requireSaveEdgeType();
+    }
     // update edge selector
     if (myNet->getViewNet() && myNet->getViewParent()->getCreateEdgeFrame()->shown()) {
         myNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeAttributes()->refreshAttributesEditor();

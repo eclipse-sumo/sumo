@@ -2015,8 +2015,12 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TLTYPE: {
             // we need to make a copy of controlling TLS (because original will be updated)
             const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
+            const auto type = SUMOXMLDefinitions::TrafficLightTypes.get(value);
             for (const auto& TLS : copyOfTls) {
-                TLS->setType(SUMOXMLDefinitions::TrafficLightTypes.get(value));
+                if (TLS->getType() != type) {
+                    TLS->setType(type);
+                    myNet->getSavingStatus()->requireSaveTLS();
+                }
             }
             break;
         }
