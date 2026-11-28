@@ -1,0 +1,7 @@
+<routes>
+    <vType id="base" vClass="passenger" length="5.0">
+        <param key="createDist:length" value="uniform(4.0, 6.0)"/>
+        <param key="createDist:tau" value="normal(1.0, 0.2); [0.7, 1.3]"/>
+        <param key="customKey" value="uniform(10, 20)"/>
+    </vType>
+</routes>

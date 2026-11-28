@@ -45,6 +45,7 @@ import re
 
 from sumolib.options import ArgumentParser
 from sumolib.vehicletype import CreateVehTypeDistribution
+from sumolib.xml import parse
 
 
 def get_options(args=None):
@@ -68,6 +69,43 @@ def get_options(args=None):
     return options
 
 
+def _parseAttrSpec(attName, isParam, rawValue, limitValue, distSyntaxes):
+    attValue = rawValue.strip()
+    distName = None
+    distAttr = None
+    for dName, distSyntax in distSyntaxes.items():
+        items = re.findall(distSyntax, attValue)
+        if items:
+            distName = dName
+            distPar1 = float(items[0][0])
+            distPar2 = float(items[0][2])
+            if dName in ('normal', 'lognormal'):
+                distAttr = {"mu": distPar1, "sd": distPar2}
+            elif dName == 'normalCapped':
+                distAttr = {"mu": distPar1, "sd": distPar2,
+                            'min': float(items[0][4]), 'max': float(items[0][6])}
+            elif dName == 'uniform':
+                distAttr = {"a": distPar1, "b": distPar2}
+            elif dName == 'gamma':
+                distAttr = {"alpha": distPar1, "beta": distPar2}
+            attValue = None
+            break
+    limits = None
+    if limitValue is not None:
+        items = re.findall(
+            r'\[\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*\]', limitValue.strip())
+        if items:
+            limits = (float(items[0][0]), float(items[0][2]))
+    return {
+        "name": attName,
+        "is_param": isParam,
+        "distribution": distName,
+        "distribution_params": distAttr,
+        "bounds": limits,
+        "attribute_value": attValue
+    }
+
+
 def readConfigFile(options):
     filePath = options.configFile
     result = dict()
@@ -78,77 +116,43 @@ def readConfigFile(options):
                     'uniform': r'uniform\(%s\)' % (",".join(2 * floatRegex)),
                     'gamma': r'gamma\(%s\)' % (",".join(2 * floatRegex))}
 
+    if filePath.lower().endswith((".xml", ".xml.gz")):
+        for vtype in parse(filePath, "vType"):
+            for k, v in vtype.getAttributes():
+                if k != "id":
+                    result[k] = _parseAttrSpec(k, False, v, None, distSyntaxes)
+            for p in (vtype.param or []):
+                key = p.key.strip()
+                parts = p.value.split(";", 1)
+                limitVal = parts[1] if len(parts) == 2 else None
+                if key.startswith("createDist:"):
+                    attName = key[len("createDist:"):].strip()
+                    isParam = attName.startswith("param:")
+                    if isParam:
+                        attName = attName[len("param:"):].strip()
+                else:
+                    attName = key
+                    isParam = True
+                if attName:
+                    rKey = ("param:" + attName) if isParam else attName
+                    result[rKey] = _parseAttrSpec(attName, isParam, parts[0], limitVal, distSyntaxes)
+        return result
+
     with open(filePath) as f:
         reader = csv.reader(f, delimiter=';')
         for row in reader:
-            attName = None
-            lowerLimit = 0
-            upperLimit = None
-            if len(row) >= 2:
-                if len(row[0].strip()) > 0:
+            if len(row) >= 2 and len(row[0].strip()) > 0:
+                attName = row[0].strip()
+                if attName == "param":
+                    isParam = True
+                    del row[0]
+                    if len(row) < 2:
+                        continue
                     attName = row[0].strip()
-                    if attName == "param":
-                        # this indicates that a parameter child-element is to be created for the vTypes
-                        isParam = True
-                        del row[0]
-                        if len(row) < 2:
-                            # a parameter needs a name and a value specification
-                            continue
-                        attName = row[0].strip()
-                    else:
-                        isParam = False
-                    # check if attribute value matches given distribution
-                    # syntax
-                    attValue = row[1].strip()
-                    distFound = False
-                    distAttr = None
-                    for distName, distSyntax in distSyntaxes.items():
-                        items = re.findall(distSyntax, attValue)
-                        distFound = len(items) > 0
-                        if distFound:  # found distribution
-                            distPar1 = float(items[0][0])
-                            distPar2 = float(items[0][2])
-                            if distName == 'normal':
-                                distAttr = {"mu": distPar1, "sd": distPar2}
-                            if distName == 'lognormal':
-                                distAttr = {"mu": distPar1, "sd": distPar2}
-                            elif distName == 'normalCapped':
-                                cutLow = float(items[0][4])
-                                cutHigh = float(items[0][6])
-                                distAttr = {
-                                    "mu": distPar1, "sd": distPar2, 'min': cutLow, 'max': cutHigh}
-                            elif distName == 'uniform':
-                                distAttr = {"a": distPar1, "b": distPar2}
-                            elif distName == 'gamma':
-                                distAttr = {
-                                    "alpha": distPar1, "beta": distPar2}
-                            # can only have attValue if no distribution
-                            attValue = None
-                            break
-
-                    if not distFound:
-                        distName = None
-                        distAttr = None
-
-                    # get optional limits
-                    limits = None
-                    if len(row) == 3:
-                        limitValue = row[2].strip()
-                        items = re.findall(
-                            r'\[\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*\]', limitValue)
-                        if len(items) > 0:
-                            lowerLimit = float(items[0][0])
-                            upperLimit = float(items[0][2])
-                            limits = (lowerLimit, upperLimit)
-
-                    result[attName] = {
-                        "name": attName,
-                        "is_param": isParam,
-                        "distribution": distName,
-                        "distribution_params": distAttr,
-                        "bounds": limits,
-                        "attribute_value": attValue
-                    }
+                else:
+                    isParam = False
+                limitVal = row[2] if len(row) == 3 else None
+                result[attName] = _parseAttrSpec(attName, isParam, row[1], limitVal, distSyntaxes)
     return result
 
 

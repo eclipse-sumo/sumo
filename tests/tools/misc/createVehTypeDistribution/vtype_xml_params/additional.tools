@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 12:28:48.172527 by Eclipse SUMO createVehTypeDistribution.py v0.0.0
+  options: config.xml -o out.add.xml -n xmlDist -s 3 <doubleminus>seed 42
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vTypeDistribution id="xmlDist">
+        <vType id="xmlDist0" vClass="passenger" length="5.279" tau="0.775">
+            <param key="customKey" value="12.232"/>
+        </vType>
+        <vType id="xmlDist1" vClass="passenger" length="5.473" tau="0.755">
+            <param key="customKey" value="10.298"/>
+        </vType>
+        <vType id="xmlDist2" vClass="passenger" length="4.437" tau="1.002">
+            <param key="customKey" value="11.988"/>
+        </vType>
+    </vTypeDistribution>
+</additional>
