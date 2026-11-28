@@ -30,6 +30,7 @@
 #include <netedit/templates.h>
 #include <netedit/tools/GNENetDiffTool.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/handlers/TemplateHandler.h>
@@ -2297,6 +2298,9 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     }
     // relocate files
     sumoOptions.relocateFiles(mySumoConfigFile);
+    // Keep the exact input list when Netedit skips the additional files.
+    myApplicationWindow->getFileBucketHandler()->setSkippedSumoAdditionals(
+        ignoreAdditionals && !sumoOptions.isDefault("additional-files") ? sumoOptions.getStringVector("additional-files") : StringVector());
     // configure files in bucket
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, mySumoConfigFile);
     // set load options in netedit
@@ -2649,11 +2653,21 @@ GNEApplicationWindowHelper::FileBucketHandler::isFilenameDefined(const FileBucke
 
 
 void
+GNEApplicationWindowHelper::FileBucketHandler::setSkippedSumoAdditionals(const StringVector& files) {
+    mySkippedSumoAdditionals = files;
+}
+
+
+void
 GNEApplicationWindowHelper::FileBucketHandler::resetDefaultFilenames() {
     for (const auto& bucketPair : myBuckets) {
         bucketPair.second.front()->setFilename("");
     }
-    // update filename in options
+    // Discard inputs from the previous configuration, including files skipped when loading it.
+    mySkippedSumoAdditionals.clear();
+    mySumoOptions.resetWritable();
+    mySumoOptions.setDefault("route-files", "");
+    mySumoOptions.setDefault("additional-files", "");
     updateOptions();
 }
 
@@ -2674,9 +2688,6 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
     // set default filename depending of type
     myNeteditOptions.resetWritable();
     mySumoOptions.resetWritable();
-    // check if save sumo additionals
-    const bool sumoAdditionals = (myApplicationWindow->getEditMenuCommands().loadAdditionalsInSUMOGUI->getCheck() == TRUE);
-    const bool sumoDemandElements = (myApplicationWindow->getEditMenuCommands().loadDemandInSUMOGUI->getCheck() == TRUE);
     // sumo config (only netedit)
     if (sumoconfig.size() > 0) {
         myNeteditOptions.set("sumocfg-file", sumoconfig);
@@ -2709,10 +2720,10 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
     } else {
         myNeteditOptions.resetDefault("route-files");
     }
-    // demand file (sumo)
-    if (sumoDemandElements && (demandFile.size() > 0)) {
+    // Keep the SUMO input unless Netedit manages its replacement.
+    if (!demandFile.empty()) {
         mySumoOptions.set("route-files", demandFile);
-    } else {
+    } else if (!myNeteditOptions.getBool("ignore.routeelements")) {
         mySumoOptions.resetDefault("route-files");
     }
     // data file (only netedit)
@@ -2727,8 +2738,23 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
     } else {
         myNeteditOptions.resetDefault("meandata-files");
     }
-    // additional + meanData files (only sumo)
-    if (sumoAdditionals && (additionalMeanData.size() > 0)) {
+    // MeanData files also use additional-files. Keep skipped inputs until Netedit manages additionals.
+    if (additional.empty() && !mySkippedSumoAdditionals.empty()) {
+        StringVector inputs = mySkippedSumoAdditionals;
+        if (!meanData.empty()) {
+            const std::string base = FileHelpers::getCurrentDir() + "/.sumocfg";
+            std::set<std::string> seen;
+            for (const auto& file : inputs) {
+                seen.insert(FileHelpers::fixRelative(file, base, true));
+            }
+            for (const auto& file : StringTokenizer(meanData, ",").getVector()) {
+                if (seen.insert(FileHelpers::fixRelative(file, base, true)).second) {
+                    inputs.push_back(file);
+                }
+            }
+        }
+        mySumoOptions.set("additional-files", joinToString(inputs, ","));
+    } else if (!additionalMeanData.empty()) {
         mySumoOptions.set("additional-files", additionalMeanData);
     } else {
         mySumoOptions.resetDefault("additional-files");
