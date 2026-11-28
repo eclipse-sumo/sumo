@@ -23,11 +23,10 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <cassert>
+#include <algorithm>
 #include "MSEventControl.h"
 #include <utils/common/MsgHandler.h>
 #include <utils/common/Command.h>
-#include "MSNet.h"
 
 
 // ===========================================================================
@@ -47,6 +46,7 @@ MSEventControl::~MSEventControl() {
 
 void
 MSEventControl::addEvent(Command* operation, SUMOTime execTimeStep) {
+    std::lock_guard<std::mutex> lock(myEventsMutex);
     myEvents.emplace_back(Event(operation, execTimeStep));
     std::push_heap(myEvents.begin(), myEvents.end(), MSEventControl::eventCompare);
 }
@@ -55,35 +55,42 @@ MSEventControl::addEvent(Command* operation, SUMOTime execTimeStep) {
 void
 MSEventControl::execute(SUMOTime execTime) {
     // Execute all events that are scheduled for execTime.
-    while (!myEvents.empty()) {
-        Event currEvent = myEvents.front();
-        if (currEvent.second < 0) {
-            currEvent.second = execTime;
-        }
-        if (currEvent.second < execTime + DELTA_T) {
-            Command* command = currEvent.first;
+    while (true) {
+        Event currEvent;
+        {
+            std::lock_guard<std::mutex> lock(myEventsMutex);
+            if (myEvents.empty()) {
+                break;
+            }
+            currEvent = myEvents.front();
+            if (currEvent.second < 0) {
+                currEvent.second = execTime;
+            }
+            if (currEvent.second >= execTime + DELTA_T) {
+                break;
+            }
             std::pop_heap(myEvents.begin(), myEvents.end(), eventCompare);
             myEvents.pop_back();
-            SUMOTime time = 0;
-            try {
-                time = command->execute(execTime);
-            } catch (...) {
-                delete command;
-                throw;
-            }
+        }
+        // Commands can enqueue more work on this event controller.
+        Command* command = currEvent.first;
+        SUMOTime time = 0;
+        try {
+            time = command->execute(execTime);
+        } catch (...) {
+            delete command;
+            throw;
+        }
 
-            // Delete nonrecurring events, reinsert recurring ones
-            // with new execution time = execTime + returned offset.
-            if (time <= 0) {
-                if (time < 0) {
-                    WRITE_WARNING("Command returned negative repeat number; will be deleted.");
-                }
-                delete currEvent.first;
-            } else {
-                addEvent(currEvent.first, currEvent.second + time);
+        // Delete nonrecurring events, reinsert recurring ones
+        // with new execution time = execTime + returned offset.
+        if (time <= 0) {
+            if (time < 0) {
+                WRITE_WARNING("Command returned negative repeat number; will be deleted.");
             }
+            delete command;
         } else {
-            break;
+            addEvent(command, currEvent.second + time);
         }
     }
 }
@@ -91,6 +98,7 @@ MSEventControl::execute(SUMOTime execTime) {
 
 bool
 MSEventControl::isEmpty() {
+    std::lock_guard<std::mutex> lock(myEventsMutex);
     return myEvents.empty();
 }
 
@@ -101,6 +109,7 @@ MSEventControl::eventCompare(const Event& e1, const Event& e2) {
 
 void
 MSEventControl::clearState(SUMOTime currentTime, SUMOTime newTime) {
+    std::lock_guard<std::mutex> lock(myEventsMutex);
     for (auto eventIt = myEvents.begin(); eventIt != myEvents.end();) {
         eventIt->second = eventIt->first->shiftTime(currentTime, eventIt->second, newTime);
         if (eventIt->second >= 0) {

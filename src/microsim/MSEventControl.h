@@ -26,6 +26,7 @@
 #include <utility>
 #include <queue>
 #include <vector>
+#include <mutex>
 #include <map>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/UtilExceptions.h>
@@ -108,6 +109,9 @@ protected:
 private:
     /// @brief Event-container, holds executable events.
     std::vector<Event> myEvents;
+
+    /// @brief Protects the event queue shared by movement workers.
+    std::mutex myEventsMutex;
 
 
 private:

@@ -21,6 +21,9 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <atomic>
+#include <functional>
+#include <thread>
 #include <gtest/gtest.h>
 #include <microsim/MSEventControl.h>
 #include <utils/common/CommandMock.h>
@@ -37,4 +40,78 @@ TEST(MSEventControl, test_method_execute) {
     EXPECT_FALSE(mock->isExecuteCalled());
     eventControl.execute(5);
     EXPECT_TRUE(mock->isExecuteCalled());
+}
+
+
+namespace {
+
+class EventCallback : public Command {
+public:
+    explicit EventCallback(std::function<SUMOTime(SUMOTime)> callback) :
+        myCallback(std::move(callback)) {
+    }
+
+    SUMOTime execute(SUMOTime time) override {
+        return myCallback(time);
+    }
+
+private:
+    std::function<SUMOTime(SUMOTime)> myCallback;
+};
+
+}
+
+
+TEST(MSEventControl, concurrentEnqueue) {
+    MSEventControl eventControl;
+    constexpr int producerCount = 4;
+    constexpr int commandsPerProducer = 1000;
+    std::atomic<int> ready{0};
+    int executed = 0;
+    std::vector<std::thread> producers;
+    for (int i = 0; i < producerCount; ++i) {
+        producers.emplace_back([&] {
+            ++ready;
+            while (ready.load() < producerCount) {
+                std::this_thread::yield();
+            }
+            for (int j = 0; j < commandsPerProducer; ++j) {
+                eventControl.addEvent(new EventCallback([&executed](SUMOTime) {
+                    ++executed;
+                    return 0;
+                }), 0);
+            }
+        });
+    }
+    for (std::thread& producer : producers) {
+        producer.join();
+    }
+
+    eventControl.execute(0);
+    EXPECT_EQ(producerCount * commandsPerProducer, executed);
+    EXPECT_TRUE(eventControl.isEmpty());
+}
+
+
+TEST(MSEventControl, executeCanEnqueue) {
+    MSEventControl eventControl;
+    int executed = 0;
+    eventControl.addEvent(new EventCallback([&](SUMOTime time) {
+        ++executed;
+        if (time == 0) {
+            eventControl.addEvent(new EventCallback([&executed](SUMOTime) {
+                ++executed;
+                return 0;
+            }), time);
+            return DELTA_T;
+        }
+        return SUMOTime{0};
+    }), 0);
+
+    eventControl.execute(0);
+    EXPECT_EQ(2, executed);
+    EXPECT_FALSE(eventControl.isEmpty());
+    eventControl.execute(DELTA_T);
+    EXPECT_EQ(3, executed);
+    EXPECT_TRUE(eventControl.isEmpty());
 }
