@@ -1154,6 +1154,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "jumpUntil",              SUMO_ATTR_JUMP_UNTIL },
     { "usedEnded",              SUMO_ATTR_USED_ENDED },
     { "collision",              SUMO_ATTR_COLLISION },
+    { "intermodalCollision",    SUMO_ATTR_INTERMODAL_COLLISION },
     { "value",                  SUMO_ATTR_VALUE },
     { "prohibitor",             SUMO_ATTR_PROHIBITOR },
     { "prohibited",             SUMO_ATTR_PROHIBITED },

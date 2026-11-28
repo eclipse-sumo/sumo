@@ -897,6 +897,7 @@
         <xsd:attribute name="depart" type="timeType"/>
         <!-- save-state  -->
         <xsd:attribute name="collision" type="boolType"/>
+        <xsd:attribute name="intermodalCollision" type="boolType"/>
     </xsd:complexType>
 
     <xsd:complexType name="vTypeDistributionType">

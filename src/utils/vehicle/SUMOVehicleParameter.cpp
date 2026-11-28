@@ -336,6 +336,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
     }
     if (collision) {
         dev.writeAttr(SUMO_ATTR_COLLISION, collision);
+        if (intermodalCollision) {
+            dev.writeAttr(SUMO_ATTR_INTERMODAL_COLLISION, intermodalCollision);
+        }
     }
     // only write friendly position if is true
     if (friendlyPos) {
