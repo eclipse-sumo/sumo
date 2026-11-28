@@ -1009,6 +1009,9 @@ struct GNEApplicationWindowHelper {
         /// @brief show tool
         long showTool(FXObject* menuCommand);
 
+        /// @brief update menu availability for a tool
+        long updateTool(FXObject* menuCommand) const;
+
         /// @brief run tool dialog
         long runToolDialog(FXObject* menuCommand) const;
 

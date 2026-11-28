@@ -18,6 +18,8 @@
 // Python tools used in netedit
 /****************************************************************************/
 
+#include <filesystem>
+
 #include <netedit/GNEApplicationWindow.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/FileHelpers.h>
@@ -36,10 +38,11 @@
 // ===========================================================================
 
 GNEPythonTool::GNEPythonTool(GNEApplicationWindow* applicationWindow, const std::string& toolPath,
-                             const std::string& templateStr, FXMenuPane* menu) :
+                             const std::string& templateStr, FXMenuPane* menu, bool hasManualOptions) :
     myApplicationWindow(applicationWindow),
     myToolPath(toolPath),
-    myPythonToolName(FileHelpers::getFileFromPath(toolPath, true)) {
+    myPythonToolName(FileHelpers::getFileFromPath(toolPath, true)),
+    myOptionsAvailable(hasManualOptions) {
     // build menu command
     myMenuCommand = GUIDesigns::buildFXMenuCommandShortcut(menu, myPythonToolName, "", TL("Execute python tool '") + myPythonToolName + "'.",
                     GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), applicationWindow, MID_GNE_OPENPYTHONTOOLDIALOG);
@@ -49,6 +52,7 @@ GNEPythonTool::GNEPythonTool(GNEApplicationWindow* applicationWindow, const std:
             TemplateHandler::parseTemplate(myPythonToolsOptions, templateStr);
             // make a copy (needed for reset)
             TemplateHandler::parseTemplate(myPythonToolsOptionsOriginal, templateStr);
+            myOptionsAvailable = true;
         } catch (ProcessError& e) {
             WRITE_ERROR("Error parsing template of tool: " + myPythonToolName + " (" + e.what() + ")");
         }
@@ -77,6 +81,18 @@ GNEPythonTool::getMenuCommand() const {
 }
 
 
+bool
+GNEPythonTool::isAvailable() const {
+    if (!myOptionsAvailable) {
+        return false;
+    }
+    const auto path = getScriptPath();
+    std::error_code error;
+    return !path.empty() && std::filesystem::is_regular_file(std::filesystem::u8path(path), error) &&
+           FileHelpers::isReadable(path);
+}
+
+
 void
 GNEPythonTool::setCurrentValues() {
     // nothing to do here, use in children
@@ -91,29 +107,29 @@ GNEPythonTool::postProcessing() {
 
 std::string
 GNEPythonTool::getCommandPath() const {
-    // add python script
     const char* pythonEnv = getenv("PYTHON");
     const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
+    return python + " \"" + getScriptPath() + "\"";
+}
+
+
+std::string
+GNEPythonTool::getScriptPath() const {
     const char* sumoHomeEnv = getenv("SUMO_HOME");
-    std::string sumoHome = "";
-    if (sumoHomeEnv != nullptr && sumoHomeEnv != std::string("")) {
-        sumoHome = std::string(sumoHomeEnv);
-        // harmonise slash
-        if (sumoHome.back() == '\\') {
-            sumoHome.pop_back();
-        }
-        if (sumoHome.back() != '/') {
-            sumoHome += "/";
-        }
-        // quote string to handle spaces but prevent double quotes
-        if (sumoHome.front() != '"') {
-            sumoHome = "\"" + sumoHome;
-        }
-        if (sumoHome.back() == '"') {
-            sumoHome.pop_back();
-        }
+    std::string sumoHome = sumoHomeEnv == nullptr ? "" : sumoHomeEnv;
+    if (!sumoHome.empty() && sumoHome.front() == '"') {
+        sumoHome.erase(0, 1);
     }
-    return python + " " + sumoHome + myToolPath + "\"";
+    if (!sumoHome.empty() && sumoHome.back() == '"') {
+        sumoHome.pop_back();
+    }
+    if (sumoHome.empty()) {
+        return "";
+    }
+    if (sumoHome.back() != '/' && sumoHome.back() != '\\') {
+        sumoHome += '/';
+    }
+    return sumoHome + myToolPath;
 }
 
 

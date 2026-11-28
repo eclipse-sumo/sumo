@@ -507,6 +507,9 @@ public:
     /// @brief called if the user selects help->Documentation
     long onCmdHelp(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief open Python tool availability documentation
+    long onCmdPythonToolHelp(FXObject*, FXSelector, void*);
+
     /// @brief called if the user selects help->Changelog
     long onCmdChangelog(FXObject* sender, FXSelector sel, void* ptr);
 

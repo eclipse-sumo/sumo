@@ -1797,6 +1797,9 @@ enum {
 
     /// @{
 
+    /// @brief Netedit Python tool documentation
+    MID_GNE_PYTHON_TOOL_HELP,
+
     /// @brief last element of enum (not used)
     MID_LAST
 };
