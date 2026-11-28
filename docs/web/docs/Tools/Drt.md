@@ -121,3 +121,19 @@ After a regular interval (option `--interval`), open requests are assigned to
 vehicles of the DRT fleet and the cost matrix is passed to the auxiliary file
 `ortools_pdp.py`, where the vehicle routing problem is solved using ortools.
 The solution is translated and applied with `traci.vehicle.dispatchTaxi`.
+
+## Time Windows and Request Constraints in `drtOrtools.py`
+
+`drtOrtools.py` reads optional pickup and drop-off time windows from generic `<param>` elements on each `<person>` and enforces the following modeling rules:
+
+- **Pickup and drop-off time windows**: Set `<param key="pickup_earliest" value="..."/>` (alias `earliestPickupTime`) and `<param key="dropoff_latest" value="..."/>` (alias `latestDropoffTime`) in seconds on the `<person>` element to constrain service times:
+  ```xml
+  <person id="p0" depart="0.00">
+      <param key="pickup_earliest" value="300"/>
+      <param key="dropoff_latest" value="1200"/>
+      <ride from="edgeStart" to="edgeEnd" lines="taxi"/>
+  </person>
+  ```
+- **Explicit `from` attribute on `<ride>`**: Always specify `from="<EDGE_ID>"` on every `<ride lines="taxi"/>` element, including rides that follow a `<walk>` or a `<busStop>` with `<access>` lanes, so the reservation departure edge is unambiguous.
+- **Waiting-time rejection**: Unassigned requests whose `reservationTime + waiting_time` falls behind the current simulation time step are rejected automatically by removing the person's remaining stages (`traci.person.removeStages`).
+- **Fleet homogeneity and service durations**: All DRT vehicles in the fleet must share one `<vType>` ID. When `--cost-type time` is active, the solver adds `<vType>` `boardingDuration` plus vehicle parameters `device.taxi.pickUpDuration` and `device.taxi.dropOffDuration` to the pairwise travel-time matrix.
