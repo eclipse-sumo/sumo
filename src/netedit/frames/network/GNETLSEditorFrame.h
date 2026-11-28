@@ -301,6 +301,15 @@ public:
         /// @brief clear TLS attributes
         void clearTLSAttributes();
 
+        /// @brief get the requested program ID
+        std::string getProgramID() const;
+
+        /// @brief set the program ID shown in the editor
+        void setProgramID(const std::string& programID);
+
+        /// @brief validate the requested ID against other programs of the same traffic light
+        bool isValidProgramID();
+
         /// @brief get current offset in string format
         SUMOTime getOffset() const;
 
@@ -336,6 +345,9 @@ public:
         /// @brief Called when the user changes the offset of a TLS
         long onCmdSetOffset(FXObject*, FXSelector, void*);
 
+        /// @brief validate a change to the program ID
+        long onCmdSetProgramID(FXObject*, FXSelector, void*);
+
         /// @brief Called when the user changes parameters of a TLS
         long onCmdSetParameters(FXObject*, FXSelector, void*);
 
@@ -357,6 +369,9 @@ public:
     private:
         /// @brief pointer to TLSEditorParent
         GNETLSEditorFrame* myTLSEditorParent;
+
+        /// @brief the TextField for modifying the program ID
+        FXTextField* myProgramIDTextField = nullptr;
 
         /// @brief the TextField for modifying offset
         FXTextField* myOffsetTextField = nullptr;

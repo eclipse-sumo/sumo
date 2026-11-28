@@ -605,12 +605,18 @@ class attrs:
             TLType = 3
             offset = 13
             parameters = 15
+            programID = 16
 
         class attributesJoined:
             TLID = 2
             TLType = 3
             offset = 13
             parameters = 15
+            programID = 17
+
+        class attributesJoinedMultiplePrograms:
+            offset = 15
+            programID = 18
 
         class phases:
 
