@@ -1,0 +1,6 @@
+t=4 lastStepVehNum=1 nVehContrib=0
+t=5 lastStepVehNum=1 nVehContrib=0
+t=6 lastStepVehNum=1 nVehContrib=0
+t=7 lastStepVehNum=1 nVehContrib=1
+t=12 lastStepVehNum=1 nVehContrib=0
+matches XML nVehContrib: True
