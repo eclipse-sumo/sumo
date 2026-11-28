@@ -1788,7 +1788,28 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
     } else {
         // begin undo-redo operation
         net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(GNE_TAG_FLOW_ROUTE));
-        // first delete vehicle
+        struct StopCopy {
+            SumoXMLTag tag;
+            SUMOVehicleParameter::Stop parameters;
+            GNELane* lane;
+            GNEAdditional* stoppingPlace;
+        };
+        std::vector<StopCopy> stops;
+        const auto collectStops = [&](const GNEDemandElement* parent) {
+            for (const auto* child : parent->getChildDemandElements()) {
+                if (const auto* stop = dynamic_cast<const GNEStop*>(child)) {
+                    const auto& lanes = stop->getParentLanes();
+                    const auto& places = stop->getParentAdditionals();
+                    stops.push_back({stop->getTagProperty()->getTag(), *stop,
+                                     lanes.empty() ? nullptr : lanes.front(),
+                                     places.empty() ? nullptr : places.front()});
+                }
+            }
+        };
+        if (createEmbeddedRoute && originalRoute) {
+            collectStops(originalRoute);
+        }
+        collectStops(originalVehicle);
         net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
         // change depart
         if (!originalVehicle->getTagProperty()->isFlow()) {
@@ -1802,45 +1823,41 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             // by default, number and end enabled
             vehicleParameters.parametersSet |= GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(GNE_ATTR_FLOWPARAMETERS));
         }
-        // check if new vehicle must have an embedded route
+        vehicleParameters.tag = createEmbeddedRoute ? GNE_TAG_FLOW_WITHROUTE : GNE_TAG_FLOW_ROUTE;
+        bool built = false;
         if (createEmbeddedRoute) {
-            // change tag in vehicle parameters
-            vehicleParameters.tag = GNE_TAG_FLOW_WITHROUTE;
-            // build embedded route
             if (originalRoute) {
                 for (const auto& edge : originalRoute->getParentEdges()) {
                     edgeIDs.push_back(edge->getID());
                 }
-                routeHandler.buildFlowEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
-            } else {
-                routeHandler.buildFlowEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
             }
+            built = routeHandler.buildFlowEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
         } else if (originalRoute) {
-            // set route ID in vehicle parameters
             vehicleParameters.routeid = originalRoute->getID();
-            // create vehicle
-            routeHandler.buildFlowOverRoute(nullptr, vehicleParameters);
+            built = routeHandler.buildFlowOverRoute(nullptr, vehicleParameters);
         } else {
-            // change tag in vehicle parameters
-            vehicleParameters.tag = GNE_TAG_FLOW_ROUTE;
-            // generate a new route id
-            const std::string routeID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
-            // build route
-            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, 0, 0, DEFAULT_VEH_PROB, {});
-            // set route ID in vehicle parameters
-            vehicleParameters.routeid = routeID;
-            // create vehicle
-            routeHandler.buildFlowOverRoute(nullptr, vehicleParameters);
+            vehicleParameters.routeid = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
+            built = routeHandler.buildRoute(nullptr, vehicleParameters.routeid, vClass, edgeIDs, routeColor, 0, 0, DEFAULT_VEH_PROB, {})
+                    && routeHandler.buildFlowOverRoute(nullptr, vehicleParameters);
+        }
+        if (!built) {
+            net->getViewNet()->getUndoList()->abortLastChangeGroup();
+            return;
+        }
+        auto* flow = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
+        for (const auto& stop : stops) {
+            auto* copy = stop.lane ? new GNEStop(stop.tag, flow, stop.lane, stop.parameters)
+                         : new GNEStop(stop.tag, flow, stop.stoppingPlace, stop.parameters);
+            // Preserve explicitly edited values and flags that construction may normalize.
+            static_cast<SUMOVehicleParameter::Stop&>(*copy) = stop.parameters;
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(copy, true), true);
         }
 
         // end undo-redo operation
         net->getViewNet()->getUndoList()->end();
         // check if inspect
         if (inspectAfterTransform) {
-            // get created element
-            auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
-            // inspect it
-            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(transformedVehicle);
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(flow);
         }
     }
 }

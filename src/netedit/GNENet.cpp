@@ -780,9 +780,9 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
         while (demandElement->getChildAdditionals().size() > 0) {
             deleteAdditional(demandElement->getChildAdditionals().front(), undoList);
         }
-        // remove all child demand elements of this demandElement calling this function recursively
-        while (demandElement->getChildDemandElements().size() > 0) {
-            deleteDemandElement(demandElement->getChildDemandElements().front(), undoList);
+        // Undo appends restored children, so delete in reverse to preserve their order.
+        while (!demandElement->getChildDemandElements().empty()) {
+            deleteDemandElement(demandElement->getChildDemandElements().back(), undoList);
         }
         // remove all generic data children of this additional deleteGenericData this function recursively
         while (demandElement->getChildGenericDatas().size() > 0) {
