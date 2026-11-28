@@ -143,28 +143,29 @@ class InductionLoopDomain(Domain):
         """getLastIntervalOccupancy(string) -> double
 
         Returns the percentage of time the detector was occupied by a vehicle
-        during the previous interval.
+        during the last completed interval.
         """
         return self._getUniversal(tc.VAR_LAST_INTERVAL_OCCUPANCY, loopID)
 
     def getLastIntervalMeanSpeed(self, loopID):
         """getLastIntervalMeanSpeed(string) -> double
 
-        Returns the average speed of vehicles during the previous interval.
+        Returns the average speed of vehicles that fully passed the detector
+        during the last completed interval.
         """
         return self._getUniversal(tc.VAR_LAST_INTERVAL_SPEED, loopID)
 
     def getLastIntervalVehicleNumber(self, loopID):
         """getLastIntervalVehicleNumber(string) -> integer
 
-        Returns the number of vehicles that passed the detector during the previous interval
+        Returns the number of vehicles that fully passed the detector during the last completed interval.
         """
         return self._getUniversal(tc.VAR_LAST_INTERVAL_NUMBER, loopID)
 
     def getLastIntervalVehicleIDs(self, loopID):
         """getLastIntervalVehicleIDs(string) -> tuple(string)
 
-        Returns the ids of vehicles that passed the detector during the previous interval
+        Returns the ids of vehicles that fully passed the detector during the last completed interval.
         """
         return self._getUniversal(tc.VAR_LAST_INTERVAL_IDS, loopID)
 

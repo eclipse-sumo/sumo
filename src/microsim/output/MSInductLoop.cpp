@@ -108,7 +108,6 @@ MSInductLoop::reset() {
     myEnteredVehicleNumber = 0;
     myLastVehicleDataCont = myVehicleDataCont;
     myVehicleDataCont.clear();
-    myLastIntervalBegin = myLastIntervalEnd;
     myLastIntervalEnd = SIMSTEP;
 }
 
@@ -464,15 +463,18 @@ MSInductLoop::getLastDetectionTime() const {
 
 double
 MSInductLoop::getIntervalOccupancy(bool lastInterval) const {
+    if (lastInterval) {
+        return myLastIntervalOccupancy;
+    }
     double occupancy = 0;
-    const double csecond = lastInterval ? STEPS2TIME(myLastIntervalEnd) : SIMTIME;
-    const double aggTime = csecond - STEPS2TIME(lastInterval ? myLastIntervalBegin : myLastIntervalEnd);
+    const double csecond = SIMTIME;
+    const double aggTime = csecond - STEPS2TIME(myLastIntervalEnd);
     if (aggTime == 0) {
         return 0;
     }
-    for (const VehicleData& i : collectVehiclesOnDet(myLastIntervalEnd, false, false, true, lastInterval)) {
+    for (const VehicleData& i : collectVehiclesOnDet(myLastIntervalEnd, false, false, true)) {
         const double leaveTime = i.leaveTimeM == HAS_NOT_LEFT_DETECTOR ? csecond : MIN2(i.leaveTimeM, csecond);
-        const double entryTime = MAX2(i.entryTimeM, STEPS2TIME(lastInterval ? myLastIntervalBegin : myLastIntervalEnd));
+        const double entryTime = MAX2(i.entryTimeM, STEPS2TIME(myLastIntervalEnd));
         occupancy += MIN2(leaveTime - entryTime, aggTime);
     }
     return occupancy / aggTime * 100.;
@@ -526,10 +528,6 @@ MSInductLoop::writeXMLDetectorProlog(OutputDevice& dev) const {
 
 void
 MSInductLoop::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {
-    if (dev.isNull()) {
-        reset();
-        return;
-    }
     const double t(STEPS2TIME(stopTime - startTime));
     double occupancy = 0.;
     double speedSum = 0.;
@@ -555,13 +553,17 @@ MSInductLoop::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime sto
     for (std::map< SUMOTrafficObject*, double >::const_iterator i = myVehiclesOnDet.begin(); i != myVehiclesOnDet.end(); ++i) {
         occupancy += STEPS2TIME(stopTime) - MAX2(STEPS2TIME(startTime), i->second);
     }
-    occupancy *= 100. / t;
+    myLastIntervalOccupancy = t > 0 ? occupancy / t * 100. : 0.;
+    if (dev.isNull()) {
+        reset();
+        return;
+    }
     const double meanSpeed = contrib != 0 ? speedSum / (double)contrib : -1;
     const double harmonicMeanSpeed = contrib != 0 ? (double)contrib / inverseSpeedSum : -1;
     const double meanLength = contrib != 0 ? lengthSum / (double)contrib : -1;
     dev.openTag(SUMO_TAG_INTERVAL).writeTime(SUMO_ATTR_BEGIN, startTime).writeTime(SUMO_ATTR_END, stopTime);
     dev.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID())).writeAttr("nVehContrib", contrib);
-    dev.writeAttr("flow", flow).writeAttr("occupancy", occupancy).writeAttr("speed", meanSpeed).writeAttr("harmonicMeanSpeed", harmonicMeanSpeed);
+    dev.writeAttr("flow", flow).writeAttr("occupancy", myLastIntervalOccupancy).writeAttr("speed", meanSpeed).writeAttr("harmonicMeanSpeed", harmonicMeanSpeed);
     dev.writeAttr("length", meanLength).writeAttr("nVehEntered", myEnteredVehicleNumber).closeTag();
     reset();
 }
@@ -606,24 +608,24 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool includeEarly, bool leaveTi
 #endif
     const double t = STEPS2TIME(tMS);
     std::vector<VehicleData> ret;
-    for (const VehicleData& i : myVehicleDataCont) {
-        if ((includeEarly || !i.leftEarlyM) && (!lastInterval || i.entryTimeM < t)) {
-            if (i.entryTimeM >= t || (leaveTime && i.leaveTimeM >= t)) {
+    if (lastInterval) {
+        // Match nVehContrib and speed in writeXMLOutput. Vehicles still on the detector do not contribute yet.
+        for (const VehicleData& i : myLastVehicleDataCont) {
+            if (!i.leftEarlyM) {
                 ret.push_back(i);
             }
         }
+        return ret;
     }
-    for (const VehicleData& i : myLastVehicleDataCont) {
-        if (includeEarly || !i.leftEarlyM) {
-            if ((!lastInterval && (i.entryTimeM >= t || (leaveTime && i.leaveTimeM >= t)))
-                    || (lastInterval && i.leaveTimeM <= t + STEPS2TIME(myLastIntervalEnd - myLastIntervalBegin))) { // TODO: check duration of last interval
+    for (const VehicleDataCont* data : {&myVehicleDataCont, &myLastVehicleDataCont}) {
+        for (const VehicleData& i : *data) {
+            if ((includeEarly || !i.leftEarlyM) && (i.entryTimeM >= t || (leaveTime && i.leaveTimeM >= t))) {
                 ret.push_back(i);
             }
         }
     }
     for (const auto& i : myVehiclesOnDet) {
-        if ((!lastInterval && (i.second >= t || leaveTime || forOccupancy))
-                || (lastInterval && i.second < t && t - i.second < STEPS2TIME(DELTA_T))) { // no need to check leave time, they are still on the detector
+        if (i.second >= t || leaveTime || forOccupancy) {
             SUMOTrafficObject* const v = i.first;
             VehicleData d(*v, i.second, HAS_NOT_LEFT_DETECTOR, false);
             d.speedM = v->getSpeed();
@@ -646,6 +648,7 @@ MSInductLoop::clearState(SUMOTime time) {
     myLastLeaveTime = STEPS2TIME(time);
     myEnteredVehicleNumber = 0;
     myLastVehicleDataCont.clear();
+    myLastIntervalOccupancy = 0.;
     myVehicleDataCont.clear();
     myVehiclesOnDet.clear();
     myNextMesoLeaveTimes = TimeQueue();
