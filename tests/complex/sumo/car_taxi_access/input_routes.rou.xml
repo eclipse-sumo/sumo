@@ -1,0 +1,8 @@
+<routes>
+    <person id="by_car" depart="0">
+        <personTrip from="car_start" to="car_finish" modes="car taxi"/>
+    </person>
+    <person id="by_taxi" depart="0">
+        <personTrip from="walk_start" to="taxi_finish" modes="car taxi"/>
+    </person>
+</routes>

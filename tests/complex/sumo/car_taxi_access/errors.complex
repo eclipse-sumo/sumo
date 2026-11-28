@@ -1,0 +1,1 @@
+Warning: Ignoring vehicle type 'DEFAULT_VEHTYPE' when routing person 'by_taxi' because it is not allowed on the start edge.

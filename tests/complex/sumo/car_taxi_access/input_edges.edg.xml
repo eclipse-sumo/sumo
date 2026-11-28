@@ -1,0 +1,8 @@
+<edges>
+    <edge id="car_start" from="c0" to="c1" speed="20" allow="pedestrian passenger"/>
+    <edge id="car_finish" from="c1" to="c2" speed="20" allow="pedestrian passenger"/>
+    <edge id="walk_start" from="t0" to="t1" speed="2" allow="pedestrian"/>
+    <edge id="taxi_pickup" from="t1" to="t2" speed="20" allow="pedestrian taxi"/>
+    <edge id="taxi_finish" from="t2" to="t3" speed="20" allow="pedestrian taxi"/>
+    <edge id="taxi_depot" from="depot" to="t1" speed="20" allow="taxi"/>
+</edges>
