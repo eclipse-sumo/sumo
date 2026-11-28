@@ -21,6 +21,7 @@ setProgramLogic_types
 
 # Tests the trafficlight API
 railsignal_state
+railsignal_pzb
 
 # check that the results of getBlockingVehicles is correctly updated after calling replaceStop
 getBlocking_reroute

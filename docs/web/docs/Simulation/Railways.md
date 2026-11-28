@@ -489,6 +489,22 @@ Rail signals perform the following safety functions automatically
 - c) guard the track so that vehicles cannot enter bidirectional sections at the same time. This prevents head-on collisions.
 - d) prevent deadlocks on bidirectional sections
 
+## Signal visibility in PZB mode
+
+Set the rail signal parameter `pzb` to `true` to model a train's limited view of the signal. The train responds to red immediately. It plans to stop for a green signal until it reaches the connection's configured `visibility` distance from the normal stopping point. The distance uses the stopping point so the train can see green when stopped at a configured stop gap.
+
+The following additional file enables PZB for signal `gneJ8`. You can also update the parameter with `traci.trafficlight.setParameter(signalID, "pzb", "true")`.
+
+```xml
+<additional>
+    <tlLogic id="gneJ8" programID="0">
+        <param key="pzb" value="true"/>
+    </tlLogic>
+</additional>
+```
+
+The default is `false`. The setting applies to signal visibility. The existing block reservation and moving-block settings still determine when the signal clears.
+
 ## Moving Block Mode
 
 Functionality **a)** corresponds to the "classic" safety behavior of rail signals ([PZB](https://en.wikipedia.org/wiki/Punktf%C3%B6rmige_Zugbeeinflussung)). When option **--railsignal-moving-block** is set or individual signals are configured with parameter *moving-block* (see below), feature **a)** is disabled and trains will use their configured carFollowModel (i.e. 'Rail') for distance keeping. This is similar to the [LZB](https://en.wikipedia.org/wiki/Linienzugbeeinflussung) safety system when used with extremely short virtual blocks.

@@ -1,0 +1,9 @@
+<routes>
+    <vType id="train" vClass="rail" carFollowModel="Rail" trainType="ICE3" length="50" maxSpeed="40"/>
+    <route id="long" edges="248740648#4.1425 441932172#1 441932172#2"/>
+    <route id="ahead" edges="441932172#1 441932172#2"/>
+    <vehicle id="blocker" type="train" route="ahead" depart="0" departPos="95" departSpeed="0">
+        <stop lane="441932172#1_0" endPos="96" duration="300"/>
+    </vehicle>
+    <vehicle id="follower" type="train" route="long" depart="1" departSpeed="30"/>
+</routes>
