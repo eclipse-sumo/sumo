@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23T14:11:50.614500+00:00 by Eclipse SUMO polyconvert v1_28_0+0759-22f87a6fede
+<polyconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+
+    <input>
+        <shapefile-prefixes value="data/shape"/>
+        <shapefile.id-column value="TEST_ID"/>
+    </input>
+
+    <output>
+        <output-file value="pois.poi.xml"/>
+    </output>
+
+    <projection>
+        <proj.scale value="1.00000"/>
+        <proj.utm value="true"/>
+        <proj.plain-geo value="true"/>
+    </projection>
+
+</polyconvertConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poi id="multipointz#0" type="unknown" color="51,128,255" layer="-1.000000" lon="13.501000" lat="52.500000" z="100.25"/>
+    <poi id="multipointz#1" type="unknown" color="51,128,255" layer="-1.00" lon="13.502000" lat="52.500000" z="-3.50"/>
+</additional>
