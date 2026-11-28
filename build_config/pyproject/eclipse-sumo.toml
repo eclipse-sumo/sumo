@@ -15,7 +15,6 @@ dependencies = ["sumo-data>=0.0.0"]
 authors = [{name = "DLR and contributors", email = "sumo@dlr.de"}]
 license = "EPL-2.0 OR GPL-2.0-or-later"
 description = "A microscopic, multi-modal traffic simulation package"
-readme = "README.md"
 keywords = ["traffic", "simulation", "traci"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -24,6 +23,16 @@ classifiers = [
     "Programming Language :: C++",
     "Programming Language :: Python",
 ]
+
+[project.readme]
+content-type = "text/markdown"
+text = '''
+Eclipse SUMO simulates how vehicles and people move through a transport network. This package provides the simulator and command-line tools for building networks, generating routes, and analyzing simulation output.
+
+Install the package with `pip install eclipse-sumo`. Run a scenario with `sumo -c scenario.sumocfg` or open it with `sumo-gui -c scenario.sumocfg`.
+
+[Installation guide](https://sumo.dlr.de/docs/Installing/index.html) · [Tutorials](https://sumo.dlr.de/docs/Tutorials/index.html)
+'''
 
 [project.urls]
 Homepage = "https://sumo.dlr.de/"

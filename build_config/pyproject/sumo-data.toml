@@ -8,13 +8,22 @@ version = "0.0.0"
 authors = [{name = "DLR and contributors", email = "sumo@dlr.de"}]
 license = "EPL-2.0 OR GPL-2.0-or-later"
 description = "The python ABI version independent part of the traffic simulation Eclipse SUMO"
-readme = "README.md"
 keywords = ["traffic", "simulation", "traci"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
 ]
+
+[project.readme]
+content-type = "text/markdown"
+text = '''
+This package contains shared Eclipse SUMO runtime data, including XML schemas, network type definitions, and projection resources. It also supplies runtime libraries required by platform builds of the simulator and libsumo.
+
+The `eclipse-sumo` and `libsumo` packages install the runtime data as a dependency.
+
+[SUMO installation guide](https://sumo.dlr.de/docs/Installing/index.html)
+'''
 
 [project.urls]
 Homepage = "https://sumo.dlr.de/"

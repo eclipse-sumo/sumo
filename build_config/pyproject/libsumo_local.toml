@@ -11,5 +11,13 @@ authors = [{name = "DLR and contributors", email = "sumo@dlr.de"}]
 license = "EPL-2.0 OR GPL-2.0-or-later"
 description = "The python version of the libsumo API to communicate with the traffic simulation Eclipse SUMO"
 
+[project.readme]
+content-type = "text/markdown"
+text = '''
+libsumo runs Eclipse SUMO inside a Python process. This package contains the Python bindings compiled by the local SUMO build. It exposes the TraCI domains for stepping the simulation and querying or controlling simulated objects.
+
+[libsumo guide](https://sumo.dlr.de/docs/Libsumo.html)
+'''
+
 [tool.hatch.build.targets.wheel]
 packages = ["tools/libsumo"]
