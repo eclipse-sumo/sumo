@@ -1,0 +1,2 @@
+tests/complex/traci/chargingstation/v2x_bms_soh/runner.py
+--default.departspeed avg

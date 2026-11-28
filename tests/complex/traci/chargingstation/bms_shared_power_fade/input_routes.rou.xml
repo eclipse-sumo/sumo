@@ -1,0 +1,14 @@
+<routes>
+    <vType id="bms" accel="1" decel="5" length="5" sigma="0" emissionClass="Energy" minGap="2.5">
+        <param key="device.battery.capacity" value="100"/>
+        <param key="device.battery.maximumChargeRate" value="36000"/>
+        <param key="constantPowerIntake" value="0"/>
+    </vType>
+    <route id="road" edges="D2 L2 L12 L10 L7 D7"/>
+    <vehicle id="A" type="bms" depart="0" departPos="68" departSpeed="0" route="road">
+        <stop lane="D2_0" startPos="67" endPos="68" duration="15"/>
+    </vehicle>
+    <vehicle id="B" type="bms" depart="0" departPos="56" departSpeed="0" route="road">
+        <stop lane="D2_0" startPos="55" endPos="56" duration="15"/>
+    </vehicle>
+</routes>

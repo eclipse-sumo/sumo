@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include <cassert>
+#include <cmath>
 #include <utils/common/StringUtils.h>
 #include <utils/common/WrappingCommand.h>
 #include <utils/vehicle/SUMOVehicle.h>
@@ -40,8 +41,9 @@
 // ===========================================================================
 
 MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
-                                     const std::string& name, double chargingPower, double totalPower, double efficency, bool chargeInTransit,
-                                     SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime) :
+                                     const std::string& name, double chargingPower, double totalPower, double dischargePower, double efficency,
+                                     bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime,
+                                     double chargeRampUp, double chargeRampDown, SUMOTime chargeStopDelay) :
     MSStoppingPlace(chargingStationID, SUMO_TAG_CHARGING_STATION, std::vector<std::string>(), lane, startPos, endPos, name),
     myChargeInTransit(chargeInTransit), myChargeType(stringToChargeType(chargeType)), myTotalPowerCheckEvent(nullptr) {
     if (chargingPower < 0) {
@@ -49,6 +51,11 @@ MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLan
     } else {
         myNominalChargingPower = chargingPower;
         myTotalChargingPower = totalPower;
+    }
+    if (dischargePower < 0) {
+        WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_DISCHARGEPOWER), getID(), toString(dischargePower)))
+    } else {
+        myNominalDischargePower = dischargePower;
     }
     if (efficency < 0 || efficency > 1) {
         WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_EFFICIENCY), getID(), toString(efficency)))
@@ -59,6 +66,21 @@ MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLan
         WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_CHARGEDELAY), getID(), toString(chargeDelay)))
     } else {
         myChargeDelay = chargeDelay;
+    }
+    if (chargeRampUp < 0) {
+        WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_CHARGERAMPUP), getID(), toString(chargeRampUp)))
+    } else {
+        myChargeRampUp = chargeRampUp;
+    }
+    if (chargeRampDown < 0) {
+        WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_CHARGERAMPDOWN), getID(), toString(chargeRampDown)))
+    } else {
+        myChargeRampDown = chargeRampDown;
+    }
+    if (chargeStopDelay < 0) {
+        WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_CHARGESTOPDELAY), getID(), toString(chargeStopDelay)))
+    } else {
+        myChargeStopDelay = chargeStopDelay;
     }
     if (waitingTime < 0) {
         WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_WAITINGTIME), getID(), toString(waitingTime)))
@@ -72,9 +94,12 @@ MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLan
 
 
 MSChargingStation::MSChargingStation(const std::string& chargingStationID, const MSParkingArea* parkingArea, const std::string& name, double chargingPower,
-                                     double totalPower, double efficency, bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime) :
+                                     double totalPower, double dischargePower, double efficency, bool chargeInTransit, SUMOTime chargeDelay,
+                                     const std::string& chargeType, SUMOTime waitingTime,
+                                     double chargeRampUp, double chargeRampDown, SUMOTime chargeStopDelay) :
     MSChargingStation(chargingStationID, const_cast<MSLane&>(parkingArea->getLane()), parkingArea->getBeginLanePosition(), parkingArea->getEndLanePosition(),
-                      name, chargingPower, totalPower, efficency, chargeInTransit, chargeDelay, chargeType, waitingTime) {
+                      name, chargingPower, totalPower, dischargePower, efficency, chargeInTransit, chargeDelay, chargeType, waitingTime,
+                      chargeRampUp, chargeRampDown, chargeStopDelay) {
     myParkingArea = parkingArea;
 }
 
@@ -143,6 +168,12 @@ MSChargingStation::setChargingPower(double chargingPower) {
 
 
 void
+MSChargingStation::setDischargePower(double dischargePower) {
+    myNominalDischargePower = dischargePower;
+}
+
+
+void
 MSChargingStation::setEfficiency(double efficiency) {
     myEfficiency = efficiency;
 }
@@ -155,9 +186,172 @@ MSChargingStation::setChargeDelay(SUMOTime delay) {
 
 
 void
+MSChargingStation::setChargeRampUp(double chargeRampUp) {
+    myChargeRampUp = chargeRampUp;
+}
+
+
+void
+MSChargingStation::setChargeRampDown(double chargeRampDown) {
+    myChargeRampDown = chargeRampDown;
+}
+
+
+void
+MSChargingStation::setChargeStopDelay(SUMOTime chargeStopDelay) {
+    myChargeStopDelay = chargeStopDelay;
+}
+
+
+std::pair<double, double>
+MSChargingStation::stepSessionPower(const std::string& vehID, double targetPower, double dt) const {
+    double prevPower = 0.;
+    const auto it = mySessionState.find(vehID);
+    if (it != mySessionState.end() && it->second.lastStep == SIMSTEP - DELTA_T) {
+        prevPower = it->second.power;
+    }
+    if (dt <= 0. || prevPower == targetPower) {
+        return std::make_pair(targetPower, targetPower);
+    }
+
+    double curPower = prevPower;
+    double remDt = dt;
+    double impulseWs = 0.;
+
+    // If sign reverses across zero, first ramp magnitude down to 0 using myChargeRampDown
+    if ((curPower > 0. && targetPower < 0.) || (curPower < 0. && targetPower > 0.)) {
+        if (myChargeRampDown > 0.) {
+            const double tZero = std::fabs(curPower) / myChargeRampDown;
+            if (tZero >= remDt) {
+                double endPower = curPower + (curPower > 0. ? -1. : 1.) * myChargeRampDown * remDt;
+                if (std::fabs(endPower) < 1e-9) {
+                    endPower = 0.;
+                }
+                impulseWs += 0.5 * (curPower + endPower) * remDt;
+                return std::make_pair(impulseWs / dt, endPower);
+            }
+            impulseWs += 0.5 * curPower * tZero;
+            remDt -= tZero;
+        }
+        curPower = 0.;
+    }
+
+    if (curPower == targetPower || remDt <= 0.) {
+        impulseWs += curPower * remDt;
+        return std::make_pair(impulseWs / dt, curPower);
+    }
+
+    const bool increasingMag = std::fabs(targetPower) > std::fabs(curPower);
+    const double rate = increasingMag ? myChargeRampUp : myChargeRampDown;
+    if (rate <= 0.) {
+        impulseWs += targetPower * remDt;
+        return std::make_pair(impulseWs / dt, targetPower);
+    }
+
+    const double diff = targetPower - curPower;
+    const double tReach = std::fabs(diff) / rate;
+    if (tReach >= remDt) {
+        double endPower = curPower + (diff > 0. ? 1. : -1.) * rate * remDt;
+        if (std::fabs(endPower) < 1e-9) {
+            endPower = 0.;
+        }
+        impulseWs += 0.5 * (curPower + endPower) * remDt;
+        return std::make_pair(impulseWs / dt, endPower);
+    }
+    impulseWs += 0.5 * (curPower + targetPower) * tReach + targetPower * (remDt - tReach);
+    return std::make_pair(impulseWs / dt, targetPower);
+}
+
+
+void
+MSChargingStation::setVehiclePower(const std::string& vehID, double power) {
+    const SUMOTime now = SIMSTEP;
+    for (auto it = mySessionState.begin(); it != mySessionState.end();) {
+        if (it->first != vehID && it->second.lastStep < now - DELTA_T) {
+            it = mySessionState.erase(it);
+        } else {
+            ++it;
+        }
+    }
+    if (std::fabs(power) < 1e-9) {
+        power = 0.;
+    }
+    mySessionState[vehID] = {power, now};
+}
+
+
+void
+MSChargingStation::resetVehiclePower(const std::string& vehID) {
+    mySessionState.erase(vehID);
+}
+
+
+double
+MSChargingStation::getActualPower() const {
+    const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+    double sumPower = 0.;
+    for (const auto& kv : mySessionState) {
+        if (kv.second.lastStep == now || kv.second.lastStep == now - DELTA_T) {
+            const SUMOVehicle* const veh = MSNet::getInstance()->getVehicleControl().getVehicle(kv.first);
+            if (veh != nullptr && (veh->isOnRoad() || veh->isParking())) {
+                sumPower += kv.second.power;
+            }
+        }
+    }
+    if (std::fabs(sumPower) < 1e-9) {
+        sumPower = 0.;
+    }
+    return sumPower;
+}
+
+
+const std::string
+MSChargingStation::getParameter(const std::string& key, const std::string defaultValue) const {
+    if (key == toString(SUMO_ATTR_CHARGERAMPUP)) {
+        return toString(myChargeRampUp);
+    } else if (key == toString(SUMO_ATTR_CHARGERAMPDOWN)) {
+        return toString(myChargeRampDown);
+    } else if (key == toString(SUMO_ATTR_CHARGESTOPDELAY)) {
+        return toString(STEPS2TIME(myChargeStopDelay));
+    } else if (key == "actualPower") {
+        return toString(getActualPower());
+    }
+    return MSStoppingPlace::getParameter(key, defaultValue);
+}
+
+
+void
+MSChargingStation::setParameter(const std::string& key, const std::string& value) {
+    if (key == toString(SUMO_ATTR_CHARGERAMPUP)) {
+        const double rampUp = StringUtils::toDouble(value);
+        if (rampUp < 0.) {
+            throw InvalidArgument("Attribute " + key + " for chargingStation '" + getID() + "' must not be negative.");
+        }
+        setChargeRampUp(rampUp);
+    } else if (key == toString(SUMO_ATTR_CHARGERAMPDOWN)) {
+        const double rampDown = StringUtils::toDouble(value);
+        if (rampDown < 0.) {
+            throw InvalidArgument("Attribute " + key + " for chargingStation '" + getID() + "' must not be negative.");
+        }
+        setChargeRampDown(rampDown);
+    } else if (key == toString(SUMO_ATTR_CHARGESTOPDELAY)) {
+        const SUMOTime stopDelay = string2time(value);
+        if (stopDelay < 0) {
+            throw InvalidArgument("Attribute " + key + " for chargingStation '" + getID() + "' must not be negative.");
+        }
+        setChargeStopDelay(stopDelay);
+    } else if (key == "actualPower") {
+        throw InvalidArgument("Parameter 'actualPower' is read-only for chargingStation '" + getID() + "'.");
+    } else {
+        MSStoppingPlace::setParameter(key, value);
+    }
+}
+
+
+void
 MSChargingStation::setChargeInTransit(bool value) {
     myChargeInTransit = value;
-    if (myTotalChargingPower > 0 && myChargeInTransit && myTotalPowerCheckEvent == nullptr) {
+    if (hasTotalPowerLimit() && myChargeInTransit && myTotalPowerCheckEvent == nullptr) {
         myTotalPowerCheckEvent = new WrappingCommand<MSChargingStation>(this, &MSChargingStation::checkTotalPower);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myTotalPowerCheckEvent);
     }
@@ -167,7 +361,7 @@ MSChargingStation::setChargeInTransit(bool value) {
 void
 MSChargingStation::setChargingVehicle(bool value) {
     myChargingVehicle = value;
-    if (myTotalChargingPower > 0 && myChargingVehicle && myTotalPowerCheckEvent == nullptr) {
+    if (hasTotalPowerLimit() && myChargingVehicle && myTotalPowerCheckEvent == nullptr) {
         myTotalPowerCheckEvent = new WrappingCommand<MSChargingStation>(this, &MSChargingStation::checkTotalPower);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myTotalPowerCheckEvent);
     }
@@ -179,9 +373,9 @@ MSChargingStation::setTotalChargingPower(double totalPower) {
     if (totalPower <= 0) {
         return;
     }
-    const bool hadLimit = myTotalChargingPower > 0;
+    const bool hadLimit = hasTotalPowerLimit();
     myTotalChargingPower = totalPower;
-    if (!hadLimit && (myChargeInTransit || myChargingVehicle) && myTotalPowerCheckEvent == nullptr) {
+    if (!hadLimit && hasTotalPowerLimit() && (myChargeInTransit || myChargingVehicle) && myTotalPowerCheckEvent == nullptr) {
         myTotalPowerCheckEvent = new WrappingCommand<MSChargingStation>(this, &MSChargingStation::checkTotalPower);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myTotalPowerCheckEvent);
     }
@@ -190,25 +384,31 @@ MSChargingStation::setTotalChargingPower(double totalPower) {
 
 SUMOTime
 MSChargingStation::checkTotalPower(SUMOTime currentTime) {
-    if (!myChargeInTransit && !myChargingVehicle) {
+    if (!hasTotalPowerLimit() || (myChargeRequests.empty() && !myChargeInTransit && !myChargingVehicle)) {
         myTotalPowerCheckEvent = nullptr;
-        myChargedBatteries.clear();
+        myChargeRequests.clear();
         return 0;
     }
+
+    struct StepRequest {
+        const std::string& vehicleID;
+        MSDevice_Battery* battery;
+        double requestedWh;
+    };
     double sumReqWh = 0;
-    std::vector<Charge*> thisStepCharges;
-    for (auto& kv : myChargeValues) {
-        if (MSNet::getInstance()->getVehicleControl().getVehicle(kv.first) == nullptr) {
+    std::vector<StepRequest> requests;
+    requests.reserve(myChargeRequests.size());
+    auto& vehicleControl = MSNet::getInstance()->getVehicleControl();
+    for (const auto& item : myChargeRequests) {
+        if (item.second.timeStep != currentTime) {
             continue;
         }
-        Charge& lastcharge = kv.second.back();
-        if (lastcharge.timeStep == currentTime) {
-            sumReqWh += lastcharge.WCharged;
-            thisStepCharges.push_back(&lastcharge);
+        auto* vehicle = vehicleControl.getVehicle(item.first);
+        auto* battery = vehicle == nullptr ? nullptr : static_cast<MSDevice_Battery*>(vehicle->getDevice(typeid(MSDevice_Battery)));
+        if (battery != nullptr && battery->getChargingStation() == this) {
+            requests.push_back({item.first, battery, item.second.requestedWh});
+            sumReqWh += item.second.requestedWh;
         }
-    }
-    if (thisStepCharges.size() < 2) {
-        return DELTA_T;
     }
     const double capWh = myTotalChargingPower * myEfficiency /*W*/ * TS /*s*/ / 3600.0; // convert to Wh
 #ifdef DEBUG_SIMSTEP
@@ -221,29 +421,32 @@ MSChargingStation::checkTotalPower(SUMOTime currentTime) {
 #endif
     if (sumReqWh > capWh && sumReqWh > 0) {
         const double ratio = capWh / sumReqWh;
-        for (auto* charge : thisStepCharges) {
-            MSDevice_Battery* battery = myChargedBatteries[charge->vehicleID];
-            double abc = battery->getActualBatteryCapacity();
-
-            const double deliveredWh = charge->WCharged * ratio;
-            const double excessWh = charge->WCharged - deliveredWh;
-            charge->WCharged = deliveredWh;
-            if (charge->chargingEfficiency > 0 && TS > 0) {
-                // derive power [W] from energy [Wh]: Power = (Energy [Wh] * 3600) [Ws] / (efficiency * TS [s])
-                // ergo we are doing [Ws/s -> W]
-                charge->chargingPower = (deliveredWh * 3600.0) / (charge->chargingEfficiency * TS);
+        for (const StepRequest& request : requests) {
+            const double deliveredWh = request.requestedWh * ratio;
+            const double excessWh = request.requestedWh - deliveredWh;
+            if (excessWh == 0.) {
+                continue;
             }
-            charge->actualBatteryCapacity = abc - excessWh;
-            charge->totalEnergyCharged -= excessWh;
-
-            //  inform also battery device
-            battery->setActualBatteryCapacity(abc - excessWh);
-            battery->setEnergyCharged(deliveredWh);
-            myTotalCharge -= excessWh;
+            request.battery->setEnergyCharged(deliveredWh);
+            const auto chargeValues = myChargeValues.find(request.vehicleID);
+            if (chargeValues != myChargeValues.end() && chargeValues->second.back().timeStep == currentTime) {
+                Charge& charge = chargeValues->second.back();
+                charge.WCharged = deliveredWh;
+                if (charge.chargingEfficiency > 0 && TS > 0) {
+                    charge.chargingPower = (deliveredWh * 3600.0) / (charge.chargingEfficiency * TS);
+                }
+                charge.actualBatteryCapacity = request.battery->getActualBatteryCapacity();
+                charge.totalEnergyCharged -= excessWh;
+                myTotalCharge -= excessWh;
+            }
+            auto sIt = mySessionState.find(request.vehicleID);
+            if (sIt != mySessionState.end() && sIt->second.lastStep == currentTime && sIt->second.power > 0.) {
+                sIt->second.power *= ratio;
+            }
 
 #ifdef DEBUG_SIMSTEP
             std::cout << "time=" << time2string(currentTime)
-                      << " vehID=" << charge->vehicleID
+                      << " vehID=" << request.vehicleID
                       << " requestedWh=" << (deliveredWh + excessWh)
                       << " deliveredWh=" << deliveredWh
                       << " deliveredW="  << charge->chargingPower
@@ -254,6 +457,7 @@ MSChargingStation::checkTotalPower(SUMOTime currentTime) {
         std::cout << "===============\n\n";
 #endif
     }
+    myChargeRequests.clear();
     return DELTA_T;
 }
 
@@ -275,13 +479,19 @@ MSChargingStation::isCharging() const {
 
 
 void
-MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* battery) {
+MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* battery, double WDischarged, double deliveredGridPower) {
+    const std::string& vehID = battery->getHolder().getID();
+    if (hasTotalPowerLimit() && WCharged > 0 && WDischarged == 0) {
+        myChargeRequests[vehID] = {MSNet::getInstance()->getCurrentTimeStep(), WCharged};
+    }
     if (!OptionsCont::getOptions().isSet("chargingstations-output")) {
         return;
     }
     std::string status = "";
     if (battery->getChargingStartTime() > myChargeDelay) {
-        if (battery->getHolder().getSpeed() < battery->getStoppingThreshold()) {
+        if (WDischarged > 0) {
+            status = "dischargingStopped";
+        } else if (battery->getHolder().getSpeed() < battery->getStoppingThreshold()) {
             status = "chargingStopped";
         } else if (myChargeInTransit) {
             status = "chargingInTransit";
@@ -299,15 +509,15 @@ MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* ba
     }
     // update total charge
     myTotalCharge += WCharged;
+    myTotalDischarge += WDischarged;
     // create charge row and insert it in myChargeValues
-    const std::string vehID = battery->getHolder().getID();
     if (myChargeValues.count(vehID) == 0) {
         myChargedVehicles.push_back(vehID);
     }
-    myChargedBatteries[vehID] = battery;
+    const double reportedPower = (deliveredGridPower != INVALID_DOUBLE) ? deliveredGridPower : (WDischarged > 0 ? myNominalDischargePower : myNominalChargingPower);
     Charge C(MSNet::getInstance()->getCurrentTimeStep(), vehID, battery->getHolder().getVehicleType().getID(),
              status, WCharged, battery->getActualBatteryCapacity(), battery->getMaximumBatteryCapacity(),
-             myNominalChargingPower, myEfficiency, myTotalCharge);
+             reportedPower, myEfficiency, myTotalCharge, WDischarged);
     myChargeValues[vehID].push_back(C);
 }
 
@@ -321,6 +531,10 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
     output.openTag(SUMO_TAG_CHARGING_STATION);
     output.writeAttr(SUMO_ATTR_ID, myID);
     output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED, myTotalCharge);
+    const bool writeDischarge = writeDischargeOutput();
+    if (writeDischarge) {
+        output.writeAttr(SUMO_ATTR_TOTALENERGYDISCHARGED, myTotalDischarge);
+    }
     output.writeAttr(SUMO_ATTR_CHARGINGSTEPS, chargingSteps);
     // start writing
     if (myChargeValues.size() > 0) {
@@ -330,11 +544,13 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
             while (iStart < (int)chargeSteps.size()) {
                 int iEnd = iStart + 1;
                 double charged = chargeSteps[iStart].WCharged;
+                double discharged = chargeSteps[iStart].WDischarged;
                 while (iEnd < (int)chargeSteps.size() && chargeSteps[iEnd].timeStep == chargeSteps[iEnd - 1].timeStep + DELTA_T) {
                     charged += chargeSteps[iEnd].WCharged;
+                    discharged += chargeSteps[iEnd].WDischarged;
                     iEnd++;
                 }
-                writeVehicle(output, chargeSteps, iStart, iEnd, charged);
+                writeVehicle(output, chargeSteps, iStart, iEnd, charged, discharged, writeDischarge);
                 iStart = iEnd;
             }
         }
@@ -357,6 +573,7 @@ MSChargingStation::writeAggregatedChargingStationOutput(OutputDevice& output, bo
             }
             // aggregate values
             double charged = 0.;
+            double discharged = 0.;
             double minPower = lastCharge.chargingPower;
             double maxPower = lastCharge.chargingPower;
             double minCharge = lastCharge.WCharged;
@@ -365,6 +582,7 @@ MSChargingStation::writeAggregatedChargingStationOutput(OutputDevice& output, bo
             double maxEfficiency = lastCharge.chargingEfficiency;
             for (const auto& charge : item.second) {
                 charged += charge.WCharged;
+                discharged += charge.WDischarged;
                 if (charge.chargingPower < minPower) {
                     minPower = charge.chargingPower;
                 }
@@ -390,6 +608,9 @@ MSChargingStation::writeAggregatedChargingStationOutput(OutputDevice& output, bo
             output.writeAttr(SUMO_ATTR_VEHICLE, lastCharge.vehicleID);
             output.writeAttr(SUMO_ATTR_TYPE, lastCharge.vehicleType);
             output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE, charged);
+            if (writeDischargeOutput()) {
+                output.writeAttr(SUMO_ATTR_TOTALENERGYDISCHARGED_VEHICLE, discharged);
+            }
             output.writeAttr(SUMO_ATTR_CHARGINGBEGIN, time2string(item.second.at(0).timeStep));
             if (finished) {
                 output.writeAttr(SUMO_ATTR_CHARGINGEND, time2string(lastCharge.timeStep));
@@ -414,12 +635,16 @@ MSChargingStation::writeAggregatedChargingStationOutput(OutputDevice& output, bo
 
 
 void
-MSChargingStation::writeVehicle(OutputDevice& out, const std::vector<Charge>& chargeSteps, int iStart, int iEnd, double charged) {
+MSChargingStation::writeVehicle(OutputDevice& out, const std::vector<Charge>& chargeSteps, int iStart, int iEnd, double charged,
+                                double discharged, bool writeDischarge) {
     const Charge& first = chargeSteps[iStart];
     out.openTag(SUMO_TAG_VEHICLE);
     out.writeAttr(SUMO_ATTR_ID, first.vehicleID);
     out.writeAttr(SUMO_ATTR_TYPE, first.vehicleType);
     out.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE, charged);
+    if (writeDischarge) {
+        out.writeAttr(SUMO_ATTR_TOTALENERGYDISCHARGED_VEHICLE, discharged);
+    }
     out.writeAttr(SUMO_ATTR_CHARGINGBEGIN, time2string(first.timeStep));
     out.writeAttr(SUMO_ATTR_CHARGINGEND, time2string(chargeSteps[iEnd - 1].timeStep));
     for (int i = iStart; i < iEnd; i++) {
@@ -429,6 +654,9 @@ MSChargingStation::writeVehicle(OutputDevice& out, const std::vector<Charge>& ch
         // charge values
         out.writeAttr(SUMO_ATTR_CHARGING_STATUS, c.status);
         out.writeAttr(SUMO_ATTR_ENERGYCHARGED, c.WCharged);
+        if (writeDischarge) {
+            out.writeAttr(SUMO_ATTR_ENERGYDISCHARGED, c.WDischarged);
+        }
         out.writeAttr(SUMO_ATTR_PARTIALCHARGE, c.totalEnergyCharged);
         // charging values of charging station in this timestep
         out.writeAttr(SUMO_ATTR_CHARGINGPOWER, c.chargingPower);

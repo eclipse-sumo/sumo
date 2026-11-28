@@ -100,6 +100,11 @@ ChargingStation::getTotalPower(const std::string& stopID) {
     return Dom::getDouble(libsumo::VAR_CS_TOTAL_POWER, stopID);
 }
 
+double
+ChargingStation::getDischargePower(const std::string& stopID) {
+    return Dom::getDouble(libsumo::VAR_CS_DISCHARGE_POWER, stopID);
+}
+
 LIBTRACI_PARAMETER_IMPLEMENTATION(ChargingStation, CHARGINGSTATION)
 
 void
@@ -125,6 +130,11 @@ ChargingStation::setChargeInTransit(const std::string& stopID, bool value) {
 void
 ChargingStation::setTotalPower(const std::string& stopID, double value) {
     Dom::setDouble(libsumo::VAR_CS_TOTAL_POWER, stopID, value);
+}
+
+void
+ChargingStation::setDischargePower(const std::string& stopID, double value) {
+    Dom::setDouble(libsumo::VAR_CS_DISCHARGE_POWER, stopID, value);
 }
 
 

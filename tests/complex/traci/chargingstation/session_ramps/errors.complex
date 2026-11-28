@@ -1,0 +1,3 @@
+Error: Answered with error to command 0x45: Attribute chargeRampUp for chargingStation 'cs1' must not be negative.
+Error: Answered with error to command 0x45: Attribute chargeStopDelay for chargingStation 'cs1' must not be negative.
+Error: Answered with error to command 0x45: Parameter 'actualPower' is read-only for chargingStation 'cs1'.

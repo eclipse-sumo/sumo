@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+    <!-- bidirectional charging station: no energy is transferred during the first 3 seconds of a stop -->
+    <chargingStation id="CS1" lane="D2_0" startPos="50" endPos="70" power="22000" dischargePower="7200" efficiency="0.8" chargeDelay="3"/>
+</additional>

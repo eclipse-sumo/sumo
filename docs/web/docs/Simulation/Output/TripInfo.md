@@ -126,6 +126,7 @@ with the attributes as following
 | `actualBatteryCapacity`   | Wh   | Battery capacity of the vehicle after completing its route                          |
 | `totalEnergyConsumed`     | Wh   | Cumulative sum of energy consumption after completing the route                     |
 | `totalEnergyRegenerated`  | Wh   | Cumulative sum of regenerated energy after completing the route                     |
+| `totalEnergyDischarged`   | Wh   | Cumulative sum of energy discharged into charging stations ([vehicle-to-grid](../../Models/Electric.md#vehicle-to-grid), only written for vehicles taking part in it) |
 
 
 ## Output for vehicles that have not arrived at simulation end

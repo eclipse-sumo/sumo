@@ -1471,6 +1471,9 @@ VAR_CS_TOTAL_POWER = 0x9c
 #  shadow lane (get: vehicle)
 VAR_SHADOW_LANE_ID = 0x9d
 
+#  charging station discharge power (vehicle-to-grid)
+VAR_CS_DISCHARGE_POWER = 0xf1
+
 # @name currently wanted lane-change action
 # @{
 # @brief No action desired
