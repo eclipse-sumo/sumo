@@ -105,6 +105,7 @@ public:
     static SUMOTime jamTime;
     static SUMOTime jamTimeCrossing;
     static SUMOTime jamTimeNarrow;
+    static SUMOTime jamTimeTLS;
     /// @brief the factor on speed when jammed
     static double jamFactor;
 
@@ -296,7 +297,7 @@ protected:
         bool moveToNextLane(SUMOTime currentTime);
 
         /// @brief perform position update
-        void walk(const Obstacles& obs);
+        void walk(const Obstacles& obs, bool stoppedAtTLS = false);
 
         /// @brief returns the impatience
         double getImpatience() const;

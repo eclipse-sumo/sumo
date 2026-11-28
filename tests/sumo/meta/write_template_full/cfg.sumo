@@ -267,6 +267,7 @@
         <pedestrian.striping.jamtime value="300" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
         <pedestrian.striping.jamtime.crossing value="10" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
         <pedestrian.striping.jamtime.narrow value="1" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model &apos;striping&apos;"/>
+        <pedestrian.striping.jamtime.tls value="300" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam at a traffic light when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
         <pedestrian.striping.jamfactor value="0.25" type="FLOAT" help="Factor for reducing speed of pedestrian in jammed state"/>
         <pedestrian.striping.reserve-oncoming value="0" type="FLOAT" help="Fraction of stripes to reserve for oncoming pedestrians"/>
         <pedestrian.striping.reserve-oncoming.junctions value="0.34" type="FLOAT" help="Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas"/>

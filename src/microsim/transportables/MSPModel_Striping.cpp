@@ -89,6 +89,7 @@ int MSPModel_Striping::myWalkingAreaDetail;
 SUMOTime MSPModel_Striping::jamTime;
 SUMOTime MSPModel_Striping::jamTimeCrossing;
 SUMOTime MSPModel_Striping::jamTimeNarrow;
+SUMOTime MSPModel_Striping::jamTimeTLS;
 double MSPModel_Striping::jamFactor;
 bool MSPModel_Striping::myLegacyPosLat;
 const double MSPModel_Striping::LOOKAHEAD_SAMEDIR(4.0); // seconds
@@ -144,6 +145,10 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) {
     jamTimeNarrow = string2time(oc.getString("pedestrian.striping.jamtime.narrow"));
     if (jamTimeNarrow <= 0) {
         jamTimeNarrow = SUMOTime_MAX;
+    }
+    jamTimeTLS = string2time(oc.getString("pedestrian.striping.jamtime.tls"));
+    if (jamTimeTLS <= 0) {
+        jamTimeTLS = SUMOTime_MAX;
     }
     jamFactor = oc.getFloat("pedestrian.striping.jamfactor");
     myLegacyPosLat = oc.getBool("pedestrian.striping.legacy-departposlat");
@@ -1127,12 +1132,14 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             std::cout << "   link=" << (link == nullptr ? "NULL" : link->getViaLaneOrLane()->getID())
                       << " dist=" << dist << " d2=" << dist - p.getMinGap() << " la=" << LOOKAHEAD_SAMEDIR* speed << "\n";
         }
+        bool stoppedAtTLS = false;
         if (link != nullptr
                 // only check close before junction, @todo we should take deceleration into account here
                 && dist - p.getMinGap() < LOOKAHEAD_SAMEDIR * speed
                 // persons move before vehicles so we subtract DELTA_TO because they cannot rely on vehicles having passed the intersection in the current time step
                 && (!link->opened(currentTime - DELTA_T, speed, speed, passingLength, p.getImpatience(), speed, 0, 0, nullptr, p.ignoreRed(link), p.getPerson())
                     || p.stopForYellow(link))) {
+            stoppedAtTLS = (link->haveRed() && !p.ignoreRed(link)) || p.stopForYellow(link);
             // prevent movement passed a closed link
             Obstacles closedLink(stripes, Obstacle(p.getEdgePos(0) + dir * (dist - NUMERICAL_EPS), 0, OBSTACLE_LINKCLOSED, "closedLink_" + link->getViaLaneOrLane()->getID(), 0));
             p.mergeObstacles(currentObs, closedLink);
@@ -1183,7 +1190,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         }
 
         // walk, taking into account all obstacles
-        p.walk(currentObs);
+        p.walk(currentObs, stoppedAtTLS);
         gDebugFlag1 = false;
         if (!p.isWaitingToEnter() && !p.isJammed()) {
             Obstacle o(p);
@@ -1911,7 +1918,7 @@ MSPModel_Striping::getReserved(int stripes, double factor) {
 }
 
 void
-MSPModel_Striping::PState::walk(const Obstacles& obs) {
+MSPModel_Striping::PState::walk(const Obstacles& obs, bool stoppedAtTLS) {
     const int stripes = (int)obs.size();
     const int sMax =  stripes - 1;
     assert(stripes == numStripes(myLane));
@@ -2042,19 +2049,32 @@ MSPModel_Striping::PState::walk(const Obstacles& obs) {
        ) {
         xSpeed = 0;
     }
-    if (xSpeed == 0) {
+    const double maxTLSSpeed = stoppedAtTLS ? MAX2(0., DIST2SPEED(distToLaneEnd() - 2 * NUMERICAL_EPS)) : std::numeric_limits<double>::max();
+    if (xSpeed == 0 || (maxTLSSpeed < SUMO_const_haltingSpeed && myWaitingTime > jamTimeTLS)) {
         if (DEBUGCOND(*this)) {
             std::cout << " sharedWA=" << (myWalkingAreaFoes.find(&myLane->getEdge()) != myWalkingAreaFoes.end())
                       << " vehObs=" << Named::getIDSecure(obs[current].vehicle)
                       << " vehWait=" << STEPS2TIME(obs[current].vehicle ? obs[current].vehicle->getWaitingTime() : 0)
                       << "\n";
         }
-        if (myWaitingTime > ((myLane->isCrossing()
-                              // treat shared walkingarea like a crossing to avoid deadlocking vehicles
-                              || (myLane->isWalkingArea() && obs[current].vehicle != nullptr && obs[current].vehicle->getWaitingTime() > jamTimeCrossing
-                                  && myWalkingAreaFoes.find(&myLane->getEdge()) != myWalkingAreaFoes.end())) ? jamTimeCrossing : jamTime)
-                || (sMax == 0 && obs[0].speed * myDir < 0 && myWaitingTime > jamTimeNarrow)
-                || myAmJammed) {
+        if (maxTLSSpeed < SUMO_const_haltingSpeed) {
+            if (myWaitingTime > jamTimeTLS) {
+                if (!myAmJammed) {
+                    MSNet::getInstance()->getPersonControl().registerJammed();
+                    WRITE_WARNINGF(TL("Person '%' is jammed on edge '%', time=%."),
+                                   myPerson->getID(), myStage->getEdge()->getID(), time2string(SIMSTEP));
+                    myAmJammed = true;
+                }
+                xSpeed = vMax * jamFactor;
+            } else if (myAmJammed && stripe(myPosLat) >= 0 && stripe(myPosLat) <= sMax && xDist >= 0) {
+                myAmJammed = false;
+            }
+        } else if (myWaitingTime > ((myLane->isCrossing()
+                                     // treat shared walkingarea like a crossing to avoid deadlocking vehicles
+                                     || (myLane->isWalkingArea() && obs[current].vehicle != nullptr && obs[current].vehicle->getWaitingTime() > jamTimeCrossing
+                                         && myWalkingAreaFoes.find(&myLane->getEdge()) != myWalkingAreaFoes.end())) ? jamTimeCrossing : jamTime)
+                   || (sMax == 0 && obs[0].speed * myDir < 0 && myWaitingTime > jamTimeNarrow)
+                   || myAmJammed) {
             // squeeze slowly through the crowd ignoring others
             if (!myAmJammed) {
                 MSNet::getInstance()->getPersonControl().registerJammed();
@@ -2062,7 +2082,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs) {
                                myPerson->getID(), myStage->getEdge()->getID(), time2string(SIMSTEP));
                 myAmJammed = true;
             }
-            xSpeed = vMax * jamFactor;
+            xSpeed = MIN2(vMax * jamFactor, maxTLSSpeed);
         }
     } else if (myAmJammed && stripe(myPosLat) >= 0 && stripe(myPosLat) <= sMax && xDist >= MIN_STARTUP_DIST)  {
         myAmJammed = false;
