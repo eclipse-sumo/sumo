@@ -18,6 +18,11 @@
 // External runner for python and external tools
 /****************************************************************************/
 #include <config.h>
+#include <filesystem>
+#include <fstream>
+#include <iterator>
+#include <random>
+#include <utils/common/SysUtils.h>
 #include <utils/xml/XMLSubSys.h>
 
 #ifdef HAVE_BOOST
@@ -39,6 +44,51 @@ namespace bp = boost::process;
 
 #include "GNEExternalRunner.h"
 
+namespace {
+
+std::string
+shellCommand(const std::string& command) {
+#ifdef WIN32
+    // cmd.exe removes the outer quotes when the interpreter itself is quoted.
+    if (!command.empty() && command.front() == '"') {
+        return "\"" + command + "\"";
+    }
+#endif
+    return command;
+}
+
+
+class TemporaryOutput {
+public:
+    TemporaryOutput() {
+        std::random_device random;
+        const auto parent = std::filesystem::temp_directory_path();
+        for (int attempt = 0; attempt < 10; ++attempt) {
+            auto directory = parent / ("netedit-tool-" + std::to_string(random()));
+            if (std::filesystem::create_directory(directory)) {
+                myDirectory = std::move(directory);
+                return;
+            }
+        }
+        throw ProcessError(TL("Could not create a temporary directory for the Python tool."));
+    }
+
+    ~TemporaryOutput() {
+        std::error_code error;
+        std::filesystem::remove(file(), error);
+        std::filesystem::remove(myDirectory, error);
+    }
+
+    std::filesystem::path file() const {
+        return myDirectory / "output.txt";
+    }
+
+private:
+    std::filesystem::path myDirectory;
+};
+
+}
+
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
@@ -51,6 +101,28 @@ GNEExternalRunner::GNEExternalRunner(GNEApplicationWindow* applicationWindow) :
 
 
 GNEExternalRunner::~GNEExternalRunner() {}
+
+
+bool
+GNEExternalRunner::captureOutput(const std::string& command, std::string& output) {
+    try {
+        const TemporaryOutput temporary;
+        const auto file = temporary.file();
+        const auto encoded = file.u8string();
+        const std::string fileName(encoded.begin(), encoded.end());
+        const auto status = SysUtils::runHiddenCommand(shellCommand(command + " > \"" + fileName + "\" 2>&1"));
+        std::ifstream stream(file, std::ios::binary);
+        if (!stream) {
+            output = TL("Could not read the Python tool output.");
+            return false;
+        }
+        output.assign(std::istreambuf_iterator<char>(stream), std::istreambuf_iterator<char>());
+        return status == 0;
+    } catch (const std::exception& e) {
+        output = e.what();
+        return false;
+    }
+}
 
 
 void
@@ -170,7 +242,7 @@ GNEExternalRunner::run() {
     }
     // open process showing std::err in console
 #ifdef WIN32
-    myPipe = _popen(XMLSubSys::transcodeToLocal(runCommand + " 2>&1").c_str(), "r");
+    myPipe = _popen(XMLSubSys::transcodeToLocal(shellCommand(runCommand + " 2>&1")).c_str(), "r");
 #else
     myPipe = popen((runCommand + " 2>&1").c_str(), "r");
 #endif

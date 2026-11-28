@@ -44,6 +44,9 @@ public:
     /// @brief run tool called from dialog
     void runTool(GNERunDialog* runDialog);
 
+    /// @brief Run a tool command and capture its output for loading an options template
+    static bool captureOutput(const std::string& command, std::string& output);
+
     /// @brief abort running
     void abort();
 

@@ -178,6 +178,13 @@ GNERunDialog::onThreadEvent(FXObject*, FXSelector, void*) {
         if (myText->getText().find("Error") != -1) {
             myError = true;
         }
+        if (myText->getText().find("ModuleNotFoundError:") != -1) {
+            const std::string hint = TL("Install the missing package in the Python environment used by Netedit. "
+                                        "You can select that interpreter with the PYTHON environment variable.\n");
+            myText->appendStyledText(hint.c_str(), (int)hint.length(), 3, TRUE);
+            myText->layout();
+            myText->update();
+        }
         // check if automatically close dialog
         if (myCloseIfSucess && !myWarning && !myError) {
             return onCmdAccept(nullptr, 0, nullptr);
