@@ -1,0 +1,1 @@
+--edge-files=input_edges.edg.xml --node-files=input_nodes.nod.xml --proj "+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs +type=crs" --output=net.net.xml

@@ -1,0 +1,1 @@
+--edge-files=input_edges.edg.xml --node-files=input_nodes.nod.xml --proj epsg:25832 --proj.plain-geo --plain-output-prefix=plain --output=net.net.xml

@@ -9,3 +9,7 @@ utm_multizone
 
 # test option proj.plain-geo
 plain_geo
+
+# test lowercase epsg code and +type=crs (#12288)
+epsg
+type_crs
