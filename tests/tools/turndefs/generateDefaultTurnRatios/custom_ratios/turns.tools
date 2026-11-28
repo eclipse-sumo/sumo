@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17 23:37:49.030129 by Eclipse SUMO generateDefaultTurnRatios.py v1_28_0+0644-bda840e3afe
+<configuration>
+    <net-file value="net.net.xml"/>
+    <output-file value="turns.xml"/>
+    <begin value="0.0"/>
+    <end value="3600.0"/>
+    <straight value="0.5"/>
+    <left value="0.25"/>
+    <right value="0.2"/>
+    <turnaround value="0.05"/>
+    <skip-trivial value="True"/>
+</configuration>
+-->
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="generated" begin="0" end="3600">
+        <edgeRelation from="c2t" to="t2c" probability="0.0625"/>
+        <edgeRelation from="c2t" to="t2e" probability="0.6250"/>
+        <edgeRelation from="c2t" to="t2tn" probability="0.3125"/>
+        <edgeRelation from="e2t" to="t2c" probability="0.6667"/>
+        <edgeRelation from="e2t" to="t2e" probability="0.0667"/>
+        <edgeRelation from="e2t" to="t2tn" probability="0.2667"/>
+        <edgeRelation from="n2c" to="c2n" probability="0.0500"/>
+        <edgeRelation from="n2c" to="c2s" probability="0.5000"/>
+        <edgeRelation from="n2c" to="c2t" probability="0.2500"/>
+        <edgeRelation from="n2c" to="c2w" probability="0.2000"/>
+        <edgeRelation from="s2c" to="c2n" probability="0.5000"/>
+        <edgeRelation from="s2c" to="c2s" probability="0.0500"/>
+        <edgeRelation from="s2c" to="c2t" probability="0.2000"/>
+        <edgeRelation from="s2c" to="c2w" probability="0.2500"/>
+        <edgeRelation from="t2c" to="c2n" probability="0.2000"/>
+        <edgeRelation from="t2c" to="c2s" probability="0.2500"/>
+        <edgeRelation from="t2c" to="c2t" probability="0.0500"/>
+        <edgeRelation from="t2c" to="c2w" probability="0.5000"/>
+        <edgeRelation from="tn2t" to="t2c" probability="0.4000"/>
+        <edgeRelation from="tn2t" to="t2e" probability="0.5000"/>
+        <edgeRelation from="tn2t" to="t2tn" probability="0.1000"/>
+        <edgeRelation from="w2c" to="c2n" probability="0.2500"/>
+        <edgeRelation from="w2c" to="c2s" probability="0.2000"/>
+        <edgeRelation from="w2c" to="c2t" probability="0.5000"/>
+        <edgeRelation from="w2c" to="c2w" probability="0.0500"/>
+    </interval>
+</data>
