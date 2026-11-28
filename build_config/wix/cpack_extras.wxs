@@ -31,12 +31,12 @@
                       Value="[ProgramFiles64Folder]SUMO" Execute="immediate" />
 
         <InstallUISequence>
-            <Custom Action="SetInstallRootPerUser" Before="CostFinalize">MSIINSTALLPERUSER="1"</Custom>
-            <Custom Action="SetInstallRootPerMachine" After="SetInstallRootPerUser">NOT MSIINSTALLPERUSER="1"</Custom>
+            <Custom Action="SetInstallRootPerUser" Before="CostFinalize">NOT INSTALL_ROOT AND NOT ALLUSERS="1"</Custom>
+            <Custom Action="SetInstallRootPerMachine" After="SetInstallRootPerUser">NOT INSTALL_ROOT AND ALLUSERS="1"</Custom>
         </InstallUISequence>
         <InstallExecuteSequence>
-            <Custom Action="SetInstallRootPerUser" Before="CostFinalize">MSIINSTALLPERUSER="1"</Custom>
-            <Custom Action="SetInstallRootPerMachine" After="SetInstallRootPerUser">NOT MSIINSTALLPERUSER="1"</Custom>
+            <Custom Action="SetInstallRootPerUser" Before="CostFinalize">NOT INSTALL_ROOT AND NOT ALLUSERS="1"</Custom>
+            <Custom Action="SetInstallRootPerMachine" After="SetInstallRootPerUser">NOT INSTALL_ROOT AND ALLUSERS="1"</Custom>
         </InstallExecuteSequence>
 
         <UI>
@@ -139,85 +139,86 @@
         <ComponentGroup Id="SumoExtras" Directory="INSTALL_ROOT">
 
             <Component Id="SumoHomeEnvironment" Guid="67D3110C-F900-461F-B836-177A7AE88BB9">
-                <Condition>SUMOHOMEENV AND NOT MSIINSTALLPERUSER="1"</Condition>
+                <Condition>SUMOHOMEENV AND ALLUSERS="1"</Condition>
                 <CreateFolder/>
                 <Environment Id="SUMO_HOME"   Name="SUMO_HOME"  Value="[INSTALL_ROOT]"
                              Permanent="no" Part="all"  Action="set" System="yes" />
             </Component>
             <Component Id="SumoHomeEnvironmentUser" Guid="A43C17FA-4675-4219-8E2A-E149E06A42C4">
-                <Condition>SUMOHOMEENV AND MSIINSTALLPERUSER="1"</Condition>
+                <Condition>SUMOHOMEENV AND NOT ALLUSERS="1"</Condition>
                 <CreateFolder/>
                 <Environment Id="SUMO_HOME_USER" Name="SUMO_HOME" Value="[INSTALL_ROOT]"
                              Permanent="no" Part="all" Action="set" System="no" />
             </Component>
 
             <Component Id="SumoPathEnvironment" Guid="17359CBF-8C61-4C3D-B5A7-4407AFF096AA">
-                <Condition>PATHPYTHONENV AND NOT MSIINSTALLPERUSER="1"</Condition>
+                <Condition>PATHPYTHONENV AND ALLUSERS="1"</Condition>
                 <CreateFolder/>
                 <Environment Id="PATH"        Name="PATH"       Value="[INSTALL_ROOT]bin;[INSTALL_ROOT]tools"
                              Permanent="no" Part="last" Action="set" System="yes" />
             </Component>
             <Component Id="SumoPathEnvironmentUser" Guid="E4A47E8E-C0AB-435D-97E7-389D806CF419">
-                <Condition>PATHPYTHONENV AND MSIINSTALLPERUSER="1"</Condition>
+                <Condition>PATHPYTHONENV AND NOT ALLUSERS="1"</Condition>
                 <CreateFolder/>
                 <Environment Id="PATH_USER" Name="PATH" Value="[INSTALL_ROOT]bin;[INSTALL_ROOT]tools"
                              Permanent="no" Part="last" Action="set" System="no" />
             </Component>
 
             <Component Id="SumoPythonPathEnvironment" Guid="3C6E4C8E-C4D3-483D-93C0-546A04D360F0">
-                <Condition>PATHPYTHONENV AND NOT MSIINSTALLPERUSER="1"</Condition>
+                <Condition>PATHPYTHONENV AND ALLUSERS="1"</Condition>
                 <CreateFolder/>
                 <Environment Id="PYTHONPATH"  Name="PYTHONPATH" Value="[INSTALL_ROOT]tools"
                              Permanent="no" Part="last" Action="set" System="yes" />
             </Component>
             <Component Id="SumoPythonPathEnvironmentUser" Guid="47260E4A-760A-44E3-8F96-E8C1F6CBB57A">
-                <Condition>PATHPYTHONENV AND MSIINSTALLPERUSER="1"</Condition>
+                <Condition>PATHPYTHONENV AND NOT ALLUSERS="1"</Condition>
                 <CreateFolder/>
                 <Environment Id="PYTHONPATH_USER" Name="PYTHONPATH" Value="[INSTALL_ROOT]tools"
                              Permanent="no" Part="last" Action="set" System="no" />
             </Component>
 
+            <!-- HKMU writes registration to HKCU or HKLM according to the install scope. -->
             <Component Id="SumoFileAssociation" Guid="BD1FC8EE-2B15-11E1-BA48-028037EC0200">
                 <CreateFolder/>
 
                 <!-- "Set Program Access and Defaults" / default-program registration -->
-                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities"
+                <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]\Capabilities"
                                Name="ApplicationDescription" Value="Simulation of Urban Mobility" Type="string" />
-                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities"
+                <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]\Capabilities"
                                Name="ApplicationIcon" Value="[INSTALL_ROOT]bin\sumo-gui.exe,0" Type="string" />
-                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities"
+                <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]\Capabilities"
                                Name="ApplicationName" Value="SUMO" Type="string" />
-                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities\DefaultIcon"
+                <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]\Capabilities\DefaultIcon"
                                Value="[INSTALL_ROOT]bin\sumo-gui.exe,1" Type="string" />
-                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities\FileAssociations"
+                <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]\Capabilities\FileAssociations"
                                Name=".sumocfg" Value="Sumo.Document" Type="string" />
-                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities\MIMEAssociations"
+                <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]\Capabilities\MIMEAssociations"
                                Name="application/sumo" Value="Sumo.Document" Type="string" />
-                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities\shell\Open\command"
+                <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]\Capabilities\shell\Open\command"
                                Value="&quot;[INSTALL_ROOT]bin\sumo-gui.exe&quot; -c &quot;%1&quot;" Type="string" />
-                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\RegisteredApplications"
+                <RegistryValue Root="HKMU" Key="Software\RegisteredApplications"
                                Name="Sumo" Value="Software\[Manufacturer]\[ProductName]\Capabilities" Type="string" />
 
                 <!-- App Paths so Start->Run "sumo-gui" works -->
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sumo-gui.exe"
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sumo-gui.exe"
                                Value="[INSTALL_ROOT]bin\sumo-gui.exe" Type="string" />
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sumo-gui.exe"
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sumo-gui.exe"
                                Name="Path" Value="[INSTALL_ROOT]bin" Type="string" />
 
                 <!-- "Open with" list / Win7 jump menu pinning -->
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\sumo-gui.exe"
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Classes\Applications\sumo-gui.exe"
                                Name="FriendlyAppName" Value="SUMO GUI" Type="string" />
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\sumo-gui.exe\shell\open\command"
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Classes\Applications\sumo-gui.exe\shell\open\command"
                                Value="&quot;[INSTALL_ROOT]bin\sumo-gui.exe&quot; -c &quot;%1&quot;" Type="string" />
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\sumo-gui.exe\SupportedTypes"
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Classes\Applications\sumo-gui.exe\SupportedTypes"
                                Name=".sumocfg" Value="" Type="string" />
 
                 <!-- Sumo.Document ProgId: registry entries for the sumocfg -->
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\.sumocfg" Value="Sumo.Document" Type="string" />
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Sumo.Document" Value="SUMO Configuration File" Type="string" />
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Sumo.Document\DefaultIcon"
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Classes\.sumocfg" Value="Sumo.Document" Type="string" />
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Classes\Sumo.Document" Value="SUMO Configuration File" Type="string" />
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Classes\Sumo.Document\DefaultIcon"
                                Value="[INSTALL_ROOT]bin\sumo-gui.exe,0" Type="string" />
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Sumo.Document\shell\open\command"
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Classes\Sumo.Document\shell\open\command"
                                Value="&quot;[INSTALL_ROOT]bin\sumo-gui.exe&quot; -c &quot;%1&quot;" Type="string" />
             </Component>
 
@@ -225,43 +226,43 @@
                 <CreateFolder/>
 
                 <!-- "Set Program Access and Defaults" / default-program registration -->
-                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities"
+                <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities"
                             Name="ApplicationDescription" Value="SUMO Network Editor" Type="string" />
-                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities"
+                <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities"
                             Name="ApplicationIcon" Value="[INSTALL_ROOT]bin\netedit.exe,0" Type="string" />
-                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities"
+                <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities"
                             Name="ApplicationName" Value="SUMO Netedit" Type="string" />
-                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities\DefaultIcon"
+                <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities\DefaultIcon"
                             Value="[INSTALL_ROOT]bin\netedit.exe,1" Type="string" />
-                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities\FileAssociations"
+                <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities\FileAssociations"
                             Name=".netecfg" Value="SumoNetedit.Document" Type="string" />
-                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities\MIMEAssociations"
+                <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities\MIMEAssociations"
                             Name="application/sumo-netedit" Value="SumoNetedit.Document" Type="string" />
-                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities\shell\Open\command"
+                <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities\shell\Open\command"
                             Value="&quot;[INSTALL_ROOT]bin\netedit.exe&quot; -c &quot;%1&quot;" Type="string" />
-                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\RegisteredApplications"
+                <RegistryValue Root="HKMU" Key="Software\RegisteredApplications"
                             Name="SumoNetedit" Value="Software\[Manufacturer]\[ProductName]Netedit\Capabilities" Type="string" />
 
                 <!-- App Paths so Start->Run "netedit" works -->
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\netedit.exe"
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\netedit.exe"
                             Value="[INSTALL_ROOT]bin\netedit.exe" Type="string" />
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\netedit.exe"
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\netedit.exe"
                             Name="Path" Value="[INSTALL_ROOT]bin" Type="string" />
 
                 <!-- "Open with" list / Win7 jump menu pinning -->
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\netedit.exe"
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Classes\Applications\netedit.exe"
                             Name="FriendlyAppName" Value="SUMO Netedit" Type="string" />
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\netedit.exe\shell\open\command"
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Classes\Applications\netedit.exe\shell\open\command"
                             Value="&quot;[INSTALL_ROOT]bin\netedit.exe&quot; -c &quot;%1&quot;" Type="string" />
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\netedit.exe\SupportedTypes"
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Classes\Applications\netedit.exe\SupportedTypes"
                             Name=".netecfg" Value="" Type="string" />
 
                 <!-- SumoNetedit.Document ProgId: registry entries for the netecfg -->
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\.netecfg" Value="SumoNetedit.Document" Type="string" />
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\SumoNetedit.Document" Value="Sumo Netedit Configuration File" Type="string" />
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\SumoNetedit.Document\DefaultIcon"
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Classes\.netecfg" Value="SumoNetedit.Document" Type="string" />
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Classes\SumoNetedit.Document" Value="Sumo Netedit Configuration File" Type="string" />
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Classes\SumoNetedit.Document\DefaultIcon"
                             Value="[INSTALL_ROOT]bin\netedit.exe,0" Type="string" />
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\SumoNetedit.Document\shell\open\command"
+                <RegistryValue Root="HKMU" Key="SOFTWARE\Classes\SumoNetedit.Document\shell\open\command"
                             Value="&quot;[INSTALL_ROOT]bin\netedit.exe&quot; -c &quot;%1&quot;" Type="string" />
             </Component>
         </ComponentGroup>
