@@ -21,3 +21,6 @@ block_id
 
 # handling of coupled trains
 coupling
+
+# limit stop relocation to the platform length shortfall
+stop_edge_distance

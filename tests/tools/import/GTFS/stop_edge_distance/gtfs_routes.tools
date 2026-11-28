@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 15:45:18.153420 by Eclipse SUMO gtfs2pt.py v0.0.0
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20260101"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <bbox value="13.39,52.49,13.41,52.51"/>
+    <network value="input_net.net.xml"/>
+    <bus-stop-length value="30.0"/>
+    <radius value="15.0"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="t_move" edges="near far">
+        <stop busStop="t_move.0" duration="10" until="0"/> <!-- StartStop -->
+        <stop busStop="t_move.1" duration="10" until="30"/> <!-- MoveStop -->
+        <stop busStop="t_move.2" duration="10" until="120"/> <!-- EndStop -->
+    </route>
+    <route id="t_stay" edges="near far">
+        <stop busStop="t_move.0" duration="10" until="0"/> <!-- StartStop -->
+        <stop busStop="t_move.0" duration="10" until="30"/> <!-- StayStop -->
+        <stop busStop="t_move.2" duration="10" until="120"/> <!-- EndStop -->
+    </route>
+    <vehicle id="t_move.0" route="t_move" type="bus" depart="29390" line="R1">
+        <param key="gtfs.route_name" value="R1"/>
+    </vehicle>
+    <vehicle id="t_stay.0" route="t_stay" type="bus" depart="28790" line="R1#1">
+        <param key="gtfs.route_name" value="R1"/>
+    </vehicle>
+</routes>
