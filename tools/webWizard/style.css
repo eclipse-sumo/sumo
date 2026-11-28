@@ -82,6 +82,12 @@ canvas {
     color: #FFF;
 }
 
+#tileZoomRow select {
+    box-sizing: border-box;
+    color: #000;
+    width: 100%;
+}
+
 .images {
     overflow: hidden;
 }

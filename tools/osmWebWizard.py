@@ -341,6 +341,10 @@ class Builder(object):
             if tileGet.HAVE_GDAL:
                 tileOptions += ["--reproject", "--background-factor", "0.8"]
             try:
+                source = self.data.get("tileSource", "arcgis")
+                if source not in ("arcgis", "berlin"):
+                    raise ValueError(self.TL("Unknown background image source"))
+                tileOptions += ["--url", source]
                 os.chdir(self.tmp)
                 os.mkdir("background_images")
                 tileGet.get(tileOptions)

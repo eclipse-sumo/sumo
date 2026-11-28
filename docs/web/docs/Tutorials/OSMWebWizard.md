@@ -53,6 +53,8 @@ the next step.
 
 # Network Generation
 
+To add aerial imagery to the SUMO background, enable **Satellite background** and choose an **Image source**. Esri World Imagery is the default. Berlin aerial imagery covers Berlin.
+
 The infrastructure import from OSM into the SUMO simulation are affected by different Wizard options
 
 * by default the "Add Polygon" checkbox is checked and a road traffic simulation is generated but all types of roads and rails will be imported as well (cycle paths, footpaths, railways etc)
