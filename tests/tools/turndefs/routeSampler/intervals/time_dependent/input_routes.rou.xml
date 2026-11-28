@@ -1,0 +1,11 @@
+<routes>
+    <route id="early-route" edges="entry early"/>
+    <route id="shared-route" edges="other background"/>
+    <vehicle id="early" route="early-route" depart="0"/>
+    <vehicle id="late" depart="60">
+        <route edges="entry late" probability="1000"/>
+    </vehicle>
+    <vehicle id="final" depart="240">
+        <route edges="entry final"/>
+    </vehicle>
+</routes>

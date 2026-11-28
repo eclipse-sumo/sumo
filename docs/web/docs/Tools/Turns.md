@@ -6,6 +6,8 @@ title: Turns
 The script generates traffic (routed vehicles or flows) from *any combination* of turn-count data, edge-count and even origin-destination-count data. It requires a route file as input that defines possible routes. Routes are sampled (heuristically) from the input so that
 the resulting traffic fulfills the counting data.
 
+Use **--time-dependent-routes** to limit each sampling interval to routes of vehicles or persons that depart during that interval. A flow uses its begin time, which defaults to zero. A named route referenced by demand follows the timing of that demand. Unreferenced route definitions are available in all intervals.
+
 ## edge counts
 The data, most frequently available takes the form of traffic counts on roads (edges). This data can be passed to routeSampler.py in an [edgeData
 file](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) using option **--edgedata-files**.

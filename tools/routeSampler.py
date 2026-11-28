@@ -24,7 +24,9 @@ from __future__ import print_function
 
 import os
 import sys
-from collections import defaultdict
+from bisect import bisect_right
+from collections import defaultdict, OrderedDict
+from itertools import chain
 from math import ceil, modf
 # multiprocessing imports
 import multiprocessing
@@ -104,6 +106,8 @@ def get_options(args=None):
                     help="custom end time (seconds or H:M:S)")
     op.add_argument("-i", "--interval", category="time",
                     help="custom aggregation interval (seconds or H:M:S)")
+    op.add_argument("--time-dependent-routes", category="time", dest="timeDependentRoutes", action="store_true",
+                    help="Sample input routes only in the interval of their departure")
     op.add_argument("--depart-distribution", category="time", dest="departDistVals",
                     help="load list of densities that cover [begin, end] to customize departure time probabilities")
     op.add_argument("--timeline", category="time",
@@ -235,8 +239,9 @@ def get_options(args=None):
 
 
 class Routes:
-    def __init__(self, routefiles, keepStops, rng):
+    def __init__(self, routefiles, keepStops, rng, intervals=None, entries=None):
         self.rng = rng
+        self.keepStops = keepStops
         self.all = []
         self.departs = []
         self.edgeProbs = defaultdict(zero)
@@ -247,14 +252,30 @@ class Routes:
         self.namedRoutes = {}  # id -> index in all
         self.namedRouteStops = {}  # id -> stops
         self.vTypes = []
+        self.intervalEntries = defaultdict(list) if intervals else None
+        self.commonEntries = OrderedDict()
+        intervalStarts = [begin for begin, _, _ in intervals] if intervals else []
 
-        def addEntry(edges, attrs, depart, prob, stops):
+        def addEntry(edges, attrs, depart, prob, stops, availableAt=None, definition=False):
+            index = len(self.all)
             self.all.append(edges)
             self.vehAttrs.append(attrs)
             self.departs.append(depart)
             self.edgeProbs[edges] += prob
             if keepStops and stops:
                 self.routeStops[edges].append(stops)
+            if self.intervalEntries is not None:
+                entry = (edges, attrs, depart, prob, stops if keepStops else ())
+                if definition:
+                    self.commonEntries[index] = entry
+                elif availableAt is not None:
+                    bucket = bisect_right(intervalStarts, availableAt) - 1
+                    if bucket >= 0 and availableAt <= intervals[bucket][1]:
+                        self.intervalEntries[intervalStarts[bucket]].append(entry)
+
+        if entries is not None:
+            for entry in entries:
+                addEntry(*entry)
 
         for routefile in routefiles:
             warned = False
@@ -290,9 +311,14 @@ class Routes:
                             depart = parseTime(tag.begin)
                         except ValueError:
                             depart = None
+                    elif intervals and tag.name == 'flow':
+                        depart = 0
                     vehStops = list(tag.stop) if tag.stop else []
                     if tag.hasAttribute('route'):
-                        edges = self.all[self.namedRoutes[tag.route]]
+                        routeIndex = self.namedRoutes[tag.route]
+                        edges = self.all[routeIndex]
+                        # Referenced definitions acquire their availability from the demand that uses them.
+                        self.commonEntries.pop(routeIndex, None)
                         stops = list(self.namedRouteStops.get(tag.route, []))
                     elif tag.hasChild('route'):
                         edges = tuple(tag.route[0].edges.split())
@@ -322,7 +348,7 @@ class Routes:
                                       file=sys.stderr)
                                 rProb = 0
                             if rEdges:
-                                addEntry(rEdges, attrs, depart if rIdx == activeIdx else None, rProb, rStops)
+                                addEntry(rEdges, attrs, depart if rIdx == activeIdx else None, rProb, rStops, depart)
                         continue
                     else:
                         if not warned:
@@ -355,17 +381,23 @@ class Routes:
                     self.vTypes.append(tag)
 
                 if edges:
-                    addEntry(edges, attrs, depart, prob, stops)
+                    addEntry(edges, attrs, depart, prob, stops, depart, definition=tag.name == 'route')
 
         self.unique = sorted(list(self.edgeProbs.keys()))
         self.uniqueSets = [set(edges) for edges in self.unique]
         self.number = len(self.unique)
         self.edges2index = dict([(e, i) for i, e in enumerate(self.unique)])
-        if len(self.unique) == 0:
+        if len(self.unique) == 0 and entries is None:
             print("Error: no input routes loaded", file=sys.stderr)
             sys.exit()
         self.probabilities = np.array([self.edgeProbs[e] for e in self.unique], dtype=np.float64)
         self.unique2all = None
+
+    def forInterval(self, begin, rng):
+        entries = chain(self.commonEntries.values(), self.intervalEntries.get(begin, ()))
+        routes = Routes([], self.keepStops, rng, entries=entries)
+        routes.edgeIDs = self.edgeIDs
+        return routes
 
     def write(self, outf, prefix, intervalPrefix, routeIndex, count, writeDist=False):
         edges = self.unique[routeIndex]
@@ -997,14 +1029,14 @@ def _sample_skewed(sampleSet, rng, probabilityMap):
     return population[np.searchsorted(cdf, value)]
 
 
-def _solveIntervalMP(options, routes, interval, cpuIndex):
+def _solveIntervalMP(options, routes, interval, cpuIndex, intervalCounts):
     output_list = []
     rng = np.random.RandomState(options.seed + cpuIndex)
-    for i, (begin, end, scale) in enumerate(interval):
+    for begin, end, scale in interval:
         local_outf = StringIO()
         local_mismatch_outf = StringIO() if options.mismatchOut else None
         intervalPrefix = "%s_" % int(begin)
-        intervalCount = options.totalCount[i] if options.totalCount else None
+        intervalCount = intervalCounts.get(begin)
         uFlow, oFlow, gehOKPerc, ratioPerc, inputCount, usedRoutes, local_outf = solveInterval(
             options, routes, begin, end, intervalPrefix, local_outf, local_mismatch_outf, rng, intervalCount, scale)
 
@@ -1068,6 +1100,8 @@ def getHourFraction(options, begin, end):
 
 
 def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount, intervalScale=1.0):
+    if routes.intervalEntries is not None:
+        routes = routes.forInterval(begin, rng)
     countData = parseCounts(options, routes, begin, end, False, intervalScale)
 
     ratioIndices = None
@@ -1116,7 +1150,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
 
     totalMismatch = sum([cd.count for cd in countData])  # noqa
 
-    if totalMismatch > 0 and options.optimize is not None:
+    if routes.number > 0 and totalMismatch > 0 and options.optimize is not None:
         if options.verbose:
             print("Starting optimization for interval [%s, %s] (mismatch %s)" % (
                 begin, end, totalMismatch))
@@ -1469,14 +1503,14 @@ def writeMismatch(options, mismatchf, countData, begin, end):
 
 def main(options):
     rng = np.random.RandomState(options.seed)
-
-    with Benchmarker(options.verboseTiming, "Loading routes"):
-        routes = Routes(options.routeFiles, options.keepStops, rng)
-
     intervals = getIntervals(options)
     if len(intervals) == 0:
         print("Error: no intervals loaded", file=sys.stderr)
         sys.exit()
+
+    with Benchmarker(options.verboseTiming, "Loading routes"):
+        routes = Routes(options.routeFiles, options.keepStops, rng,
+                        intervals=intervals if options.timeDependentRoutes else None)
 
     # preliminary integrity check for the whole time range
     b = intervals[0][0]
@@ -1523,6 +1557,7 @@ def main(options):
 
     if options.totalCount:
         initTotalCounts(options, routes, intervals, b, e)
+    intervalCounts = dict(zip((begin for begin, _, _ in intervals), options.totalCount or ()))
 
     underflowSummary = sumolib.miscutils.Statistics("avg interval underflow")
     overflowSummary = sumolib.miscutils.Statistics("avg interval overflow")
@@ -1539,7 +1574,8 @@ def main(options):
         if options.threads > 1:
             # call the multiprocessing function
             results = multi_process(options.threads, intervals,
-                                    _solveIntervalMP, outf, mismatchf, options=options, routes=routes)
+                                    _solveIntervalMP, outf, mismatchf, options=options, routes=routes,
+                                    intervalCounts=intervalCounts)
             # handle the uFlow, oFlow and GEH
             for _, result in results:
                 for i, begin in enumerate(result[0]):
@@ -1551,9 +1587,9 @@ def main(options):
                     inputCountSummary.add(result[5][i], begin)
                     usedRoutesSummary.add(sum(result[6][i]), begin)
         else:
-            for i, (begin, end, scale) in enumerate(intervals):
+            for begin, end, scale in intervals:
                 intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
-                intervalCount = options.totalCount[i] if options.totalCount else None
+                intervalCount = intervalCounts.get(begin)
                 uFlow, oFlow, gehOK, ratioPerc, inputCount, usedRoutes, _ = solveInterval(
                     options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount, scale)
                 underflowSummary.add(uFlow, begin)
