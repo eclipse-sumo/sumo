@@ -3916,7 +3916,7 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
                 std::ofstream neteditCfg(XMLSubSys::transcodeToLocal(neteditConfigFile));
                 if (neteditCfg.good()) {
                     // write netedit config
-                    neteditOptions.writeConfiguration(neteditCfg, true, false, false, myFileBucketHandler->getDefaultFolder(FileBucket::Type::NETEDIT_CONFIG), true);
+                    neteditOptions.writeConfiguration(neteditCfg, true, false, false, neteditConfigFile, true);
                     // write info
                     WRITE_MESSAGE(TLF("Netedit configuration saved in '%'.", neteditConfigFile));
                     // config saved
