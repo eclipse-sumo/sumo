@@ -124,6 +124,7 @@ def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", ve
     """
     Start a sumo server using cmd, establish a connection to it and
     store it under the given label. This method is not thread-safe.
+    Automatic port selection raises FatalTraCIError when no port is available.
 
     - cmd (list): uses the Popen syntax. i.e. ['sumo', '-c', 'run.sumocfg']. The remote
       port option will be added automatically
@@ -139,6 +140,8 @@ def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", ve
         raise TraCIException("Connection '%s' is already active." % label)
     while numRetries >= 0 and not connection.has(label):
         sumoPort = getFreeSocketPort() if port is None else port
+        if sumoPort is None:
+            raise FatalTraCIError("Could not find a free TraCI port.")
         cmd2 = cmd + ["--remote-port", str(sumoPort)]
         if verbose:
             print("Calling " + ' '.join(cmd2))
