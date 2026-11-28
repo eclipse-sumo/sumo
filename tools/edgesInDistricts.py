@@ -30,6 +30,36 @@ import collections
 import sumolib
 
 
+class PredefinedTaz:
+
+    def __init__(self, taz_id, color_str=None, shape_str=None, attributes=None):
+        self.id = taz_id
+        self.color_str = color_str
+        self._shape_str = shape_str
+        self.attributes = attributes or {}
+
+    def getShapeString(self):
+        return self._shape_str or ""
+
+    def __lt__(self, other):
+        return self.id < other.id
+
+
+class EdgeStub:
+
+    def __init__(self, edge_id):
+        self._id = edge_id
+
+    def getID(self):
+        return self._id
+
+    def getLength(self):
+        return 1e9
+
+    def getSpeed(self):
+        return 1.0
+
+
 # written into the net. All members are "private".
 class DistrictEdgeComputer:
 
@@ -38,6 +68,49 @@ class DistrictEdgeComputer:
         self._districtEdges = collections.defaultdict(list)
         self._edgeDistricts = collections.defaultdict(list)
         self._invalidatedEdges = set()
+
+    def addPredefined(self, taz_files, options):
+        for tf in taz_files:
+            for taz in sumolib.xml.parse(tf, 'taz'):
+                if taz.shape:
+                    continue
+                edge_ids = []
+                if taz.edges:
+                    edge_ids.extend(taz.edges.split())
+                if taz.tazSource:
+                    for ts in taz.tazSource:
+                        if ts.id not in edge_ids:
+                            edge_ids.append(ts.id)
+                if taz.tazSink:
+                    for ts in taz.tazSink:
+                        if ts.id not in edge_ids:
+                            edge_ids.append(ts.id)
+                if not edge_ids:
+                    continue
+                params = {}
+                if taz.param:
+                    for p in taz.param:
+                        params[p.key] = p.value
+                dtaz = PredefinedTaz(taz.id, taz.attr_color if hasattr(taz, 'attr_color') else taz.color,
+                                     None, params)
+                for eid in edge_ids:
+                    if self._net is not None:
+                        if not self._net.hasEdge(eid):
+                            continue
+                        edge = self._net.getEdge(eid)
+                        if not (options.minspeed < edge.getSpeed() < options.maxspeed and
+                                (options.internal or edge.getFunction() != "internal")):
+                            continue
+                        if options.vclass is not None and not edge.allows(options.vclass):
+                            continue
+                    else:
+                        edge = EdgeStub(eid)
+                    self._districtEdges[dtaz].append(edge)
+                    self._edgeDistricts[edge].append(dtaz)
+        if options.complete:
+            for edge in self._edgeDistricts:
+                if len(self._edgeDistricts[edge]) > 1:
+                    self._invalidatedEdges.add(edge)
 
     def computeWithin(self, polygons, options):
         districtBoxes = {}
@@ -85,7 +158,7 @@ class DistrictEdgeComputer:
                 result[edge] = districts[0]
         return result
 
-    def writeResults(self, options):
+    def writeResults(self, options, sourceWeights=None, sinkWeights=None):
         fd = sumolib.openz(options.output, mode="w")
         sumolib.xml.writeHeader(fd, "$Id$", "tazs", "taz_file.xsd")
         lastId = None
@@ -99,17 +172,22 @@ class DistrictEdgeComputer:
             else:
                 color = ' color="%s"' % district.color_str if district.color_str is not None else ''
                 if options.weighted:
-                    if options.shapeinfo:
+                    if options.shapeinfo and district.getShapeString():
                         fd.write('    <taz id="%s" shape="%s"%s>\n' %
                                  (district.id, district.getShapeString(), color))
                     else:
-                        fd.write('    <taz id="%s">\n' % district.id)
+                        fd.write('    <taz id="%s"%s>\n' % (district.id, '' if not options.shapeinfo else color))
                     for edge in filtered:
-                        weight = edge.getSpeed() * edge.getLength()
+                        eid = edge.getID()
+                        if sourceWeights is not None and sinkWeights is not None:
+                            src_w = sourceWeights.get(eid, 0.0)
+                            snk_w = sinkWeights.get(eid, 0.0)
+                        else:
+                            src_w = snk_w = edge.getSpeed() * edge.getLength()
                         fd.write(
-                            '        <tazSource id="%s" weight="%.2f"/>\n' % (edge.getID(), weight))
+                            '        <tazSource id="%s" weight="%.2f"/>\n' % (eid, src_w))
                         fd.write(
-                            '        <tazSink id="%s" weight="%.2f"/>\n' % (edge.getID(), weight))
+                            '        <tazSink id="%s" weight="%.2f"/>\n' % (eid, snk_w))
                     fd.write(u"    </taz>\n")
                 else:
                     if options.shapeinfo:
@@ -175,6 +253,25 @@ def fillOptions(argParser):
                            help="merge edge lists of taz/polygons having the same value for the given parameter")
     argParser.add_argument("--min-length", type=float, category="processing",
                            default=0., help="use edges where length is greater than this (m)")
+    argParser.add_argument("--edgedata-file", dest="edgedata", category="input", type=argParser.edgedata_file,
+                           help="read edge weights from edgeData FILE (implies --weighted)", metavar="FILE")
+    argParser.add_argument("--source-attribute", dest="sourceAttr", category="processing", default="departed",
+                           help="attribute for tazSource weight when loading --edgedata-file (fallback: 'value')")
+    argParser.add_argument("--sink-attribute", dest="sinkAttr", category="processing", default="arrived",
+                           help="attribute for tazSink weight when loading --edgedata-file (fallback: 'value')")
+
+
+def loadEdgeDataWeights(fname, source_attr, sink_attr):
+    source_weights = collections.defaultdict(float)
+    sink_weights = collections.defaultdict(float)
+    for edge in sumolib.xml.parse(fname, 'edge'):
+        src_val = edge.getAttributeSecure(source_attr, edge.getAttributeSecure("value", None))
+        snk_val = edge.getAttributeSecure(sink_attr, edge.getAttributeSecure("value", None))
+        if src_val is not None:
+            source_weights[edge.id] += float(src_val)
+        if snk_val is not None:
+            sink_weights[edge.id] += float(snk_val)
+    return source_weights, sink_weights
 
 
 def parse_args(args=None):
@@ -185,22 +282,37 @@ def parse_args(args=None):
 
 if __name__ == "__main__":
     options, argParser = parse_args()
-    if not options.net_file:
+    if not options.net_file and not (options.taz_files and options.edgedata):
         argParser.print_help()
         argParser.exit("Error! Providing a network is mandatory")
 
-    if options.verbose:
-        print("Reading net '" + options.net_file + "'")
-    nets = options.net_file.split(",")
-    if len(nets) > 1:
-        print("Warning! Multiple networks specified. Parsing the first one for edges and tazs, the others for " +
-              "taz only.")
-    dec = DistrictEdgeComputer(sumolib.net.readNet(nets[0]))
-    tazFiles = nets + options.taz_files.split(",")
-    polygons = sumolib.shapes.polygon.read(tazFiles, includeTaz=True)
+    sourceWeights = None
+    sinkWeights = None
+    if options.edgedata:
+        options.weighted = True
+        sourceWeights, sinkWeights = loadEdgeDataWeights(
+            options.edgedata, options.sourceAttr, options.sinkAttr)
+
+    net = None
+    nets = []
+    if options.net_file:
+        if options.verbose:
+            print("Reading net '" + options.net_file + "'")
+        nets = options.net_file.split(",")
+        if len(nets) > 1:
+            print("Warning! Multiple networks specified. Parsing the first one for edges and tazs, the others for " +
+                  "taz only.")
+        net = sumolib.net.readNet(nets[0])
+    dec = DistrictEdgeComputer(net)
+    extraTazFiles = options.taz_files.split(",") if options.taz_files else []
+    tazFiles = nets + extraTazFiles
+    polygons = sumolib.shapes.polygon.read(tazFiles, includeTaz=True) if net is not None else []
     if options.verbose:
         print("Calculating")
-    dec.computeWithin(polygons, options)
+    if net is not None and polygons:
+        dec.computeWithin(polygons, options)
+    if extraTazFiles:
+        dec.addPredefined(extraTazFiles, options)
     if options.verbose:
         print("Writing results")
-    dec.writeResults(options)
+    dec.writeResults(options, sourceWeights, sinkWeights)

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17 22:43:27.577946 by Eclipse SUMO edgesInDistricts.py v1_28_0+0644-bda840e3afe
+  options: -n input_net.net.xml -t input_districts.xml <doubleminus>edgedata-file input_edgedata.xml -o out.add.xml -s
+-->
+
+<tazs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/taz_file.xsd">
+    <taz id="b" shape="-5.0,-5.0 5.0,-5.0 5.0,5.0 -5.0,5.0 -5.0,-5.0">
+        <tazSource id="absBeg" weight="20.00"/>
+        <tazSink id="absBeg" weight="5.00"/>
+    </taz>
+    <taz id="e" shape="1995.0,-5.0 2005.0,-5.0 2005.0,5.0 1995.0,5.0 -1995.0,-5.0" color="blue">
+        <tazSource id="absBeg" weight="20.00"/>
+        <tazSink id="absBeg" weight="5.00"/>
+        <tazSource id="absEnd" weight="0.00"/>
+        <tazSink id="absEnd" weight="15.00"/>
+        <tazSource id="end" weight="5.00"/>
+        <tazSink id="end" weight="20.00"/>
+        <tazSource id="left2end" weight="0.00"/>
+        <tazSink id="left2end" weight="0.00"/>
+        <tazSource id="middle" weight="7.50"/>
+        <tazSink id="middle" weight="7.50"/>
+    </taz>
+</tazs>

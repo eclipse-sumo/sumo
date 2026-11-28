@@ -1,0 +1,11 @@
+<meandata>
+    <interval id="0" begin="0" end="1800">
+        <edge id="absBeg" departed="12" arrived="3"/>
+        <edge id="end" departed="5" arrived="20"/>
+        <edge id="middle" value="7.5"/>
+    </interval>
+    <interval id="1" begin="1800" end="3600">
+        <edge id="absBeg" departed="8" arrived="2"/>
+        <edge id="absEnd" departed="0" arrived="15"/>
+    </interval>
+</meandata>
