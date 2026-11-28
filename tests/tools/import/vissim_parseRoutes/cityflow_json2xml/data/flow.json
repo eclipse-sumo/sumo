@@ -1,0 +1,9 @@
+[
+  {
+    "vehicle": {"length": 5.0, "width": 2.0, "maxPosAcc": 2.0, "maxNegAcc": 4.5, "minGap": 2.5, "maxSpeed": 16.67},
+    "route": ["r0", "r1"],
+    "interval": 5.0,
+    "startTime": 0,
+    "endTime": 100
+  }
+]

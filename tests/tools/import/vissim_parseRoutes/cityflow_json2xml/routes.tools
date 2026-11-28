@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="vtype_0" length="5.0" width="2.0" accel="2.0" decel="4.5" minGap="2.5" maxSpeed="16.67"/>
+    <flow id="flow_0" type="vtype_0" begin="0" end="100" period="5.0">
+        <route edges="r0 r1"/>
+    </flow>
+</routes>
