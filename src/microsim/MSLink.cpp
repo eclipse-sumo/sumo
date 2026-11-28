@@ -1062,6 +1062,24 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
             return false;
         }
     }
+    if (haveRed() && !MSGlobals::gUseMesoSim && myIndex >= 0 && myJunction->getLogic() != nullptr) {
+        // A red-light override still yields to conflicting approaches that can proceed.
+        // The junction response includes only foes with priority under the underlying road rules.
+        const auto& conflicts = myJunction->getLogic()->getFoesFor(myIndex);
+        const auto& response = myJunction->getLogic()->getResponseFor(myIndex);
+        for (const MSEdge* edge : myJunction->getIncoming()) {
+            for (const MSLane* lane : edge->getLanes()) {
+                for (const MSLink* foe : lane->getLinkCont()) {
+                    if (foe->myJunction == myJunction && foe->myIndex >= 0 && conflicts.test(foe->myIndex)
+                            && !response.test(foe->myIndex) && !foe->haveRed()
+                            && foe->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == foe->getLane(),
+                                                 impatience, decel, waitingTime, collectFoes, ego, false, dist)) {
+                        return false;
+                    }
+                }
+            }
+        }
+    }
     if (collectFoes != nullptr && collectFoes->size() > 0) {
         return false;
     }
