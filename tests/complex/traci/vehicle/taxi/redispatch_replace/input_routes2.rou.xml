@@ -1,0 +1,17 @@
+<routes>
+    <vType id="taxi" vClass="taxi">
+        <param key="has.taxi.device" value="true"/>
+    </vType>
+    <trip id="taxi_0" type="taxi" depart="0">
+        <stop lane="A0A1_0" triggered="person"/>
+    </trip>
+    <trip id="taxi_1" type="taxi" depart="0">
+        <stop lane="A2B2_0" triggered="person"/>
+    </trip>
+    <person id="a" depart="0">
+        <ride from="A1B1" to="D2D3" lines="taxi"/>
+    </person>
+    <person id="b" depart="0">
+        <ride from="B1C1" parkingArea="restricted" lines="taxi"/>
+    </person>
+</routes>

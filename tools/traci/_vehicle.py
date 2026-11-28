@@ -1489,17 +1489,23 @@ class VehicleDomain(VTypeDomain):
 
     addFull = add
 
-    def dispatchTaxi(self, vehID, reservations):
-        """dispatchTaxi(string, list(string)) -> None
+    def dispatchTaxi(self, vehID, reservations, replace=False):
+        """dispatchTaxi(string, list(string), bool) -> None
         dispatches the taxi with the given id to service the given reservations.
         If only a single reservation is given, this implies pickup and drop-off
         If multiple reservations are given, each reservation id must occur twice
         (once for pickup and once for drop-off) and the list encodes ride
-        sharing of passengers (in pickup and drop-off order)
+        sharing of passengers (in pickup and drop-off order).
+        If replace is true, omitted waiting reservations become available again.
+        Include each onboard reservation at least once to keep its drop-off.
+        An empty replacement releases all reservations of an unoccupied taxi.
         """
         if isinstance(reservations, str):
             reservations = [reservations]
-        self._setCmd(tc.CMD_TAXI_DISPATCH, vehID, "l", reservations)
+        if replace:
+            self._setCmd(tc.CMD_TAXI_DISPATCH, vehID, "tlB", 2, reservations, 1)
+        else:
+            self._setCmd(tc.CMD_TAXI_DISPATCH, vehID, "l", reservations)
 
     def remove(self, vehID, reason=tc.REMOVE_VAPORIZED):
         '''Remove vehicle with the given ID for the give reason.

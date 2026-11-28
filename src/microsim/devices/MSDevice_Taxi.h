@@ -172,6 +172,9 @@ public:
     /// @brief service the given reservations
     void dispatchShared(std::vector<const Reservation*> reservations);
 
+    /// @brief Replace the dispatch and reopen omitted pickup reservations.
+    void replaceDispatch(const std::vector<const Reservation*>& reservations);
+
     /// @brief remove the persons the taxi is currently waiting for from reservations
     void cancelCurrentCustomers();
 
@@ -261,6 +264,14 @@ private:
                      double& lastPos, const MSEdge* stopEdge, double stopPos,
                      const MSStoppingPlace* stopPlace,
                      const std::string& action, const Reservation* res, const bool isPickup);
+
+    /// @brief add a pickup or drop-off to a planned dispatch
+    void appendDispatchStop(ConstMSEdgeVector& edges, StopParVector& stops, double& lastPos,
+                            const Reservation* reservation, bool isPickup,
+                            const std::set<const MSTransportable*>& onBoard = {});
+
+    /// @brief Clear the previous dispatch stops, releasing a reached parking stop normally.
+    void clearDispatchStops(bool replace = false);
 
     /// @brief determine stopping lane for taxi
     MSLane* getStopLane(const MSEdge* edge, const std::string& action);

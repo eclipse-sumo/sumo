@@ -1,0 +1,4 @@
+Error: Answered with error to command 0xc4: Could not interpret reservations for vehicle 'taxi_0' (Cannot omit onboard reservation '0' from taxi 'taxi_taxi_0'.).
+Error: Answered with error to command 0xc4: Could not interpret reservations for vehicle 'taxi_0' (Reservation '1' is assigned to a different taxi).
+Error: Answered with error to command 0xc4: No reservations have been specified for vehicle 'taxi_0'
+Error: Answered with error to command 0xc4: Could not interpret reservations for vehicle 'taxi_0' (Could not add replacement stop for taxi 'taxi_taxi_0': parkingArea 'restricted'on lane 'C1D1_0' forbids access because vehicle 'taxi_0' does not provide any valid badge.).

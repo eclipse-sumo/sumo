@@ -334,6 +334,27 @@ MSDispatch::servedReservation(const Reservation* res, MSDevice_Taxi* taxi) {
 
 
 void
+MSDispatch::reopenReservation(const Reservation* res, MSDevice_Taxi* taxi) {
+    auto group = myRunningReservations.find(res->group);
+    if (group == myRunningReservations.end()) {
+        throw ProcessError(TL("Inconsistent running taxi reservations."));
+    }
+    auto assigned = group->second.find(res);
+    if (assigned == group->second.end() || assigned->second != taxi || res->state != Reservation::ASSIGNED) {
+        throw ProcessError(TL("Inconsistent assignment for a waiting taxi reservation."));
+    }
+    auto* waiting = const_cast<Reservation*>(res);
+    myGroupReservations[res->group].push_back(waiting);
+    group->second.erase(assigned);
+    if (group->second.empty()) {
+        myRunningReservations.erase(group);
+    }
+    waiting->state = Reservation::NEW;
+    myHasServableReservations = true;
+}
+
+
+void
 MSDispatch::swappedRunning(const Reservation* res, MSDevice_Taxi* taxi) {
 #ifdef DEBUG_RESERVATION
     std::cout << SIMTIME << " swapped res=" << res->id << " old=" << myRunningReservations[res->group][res]->getID() << " new=" << taxi->getID() << "\n";

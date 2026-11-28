@@ -2699,6 +2699,12 @@ Vehicle::highlight(const std::string& vehID, const TraCIColor& col, double size,
 
 void
 Vehicle::dispatchTaxi(const std::string& vehID,  const std::vector<std::string>& reservations) {
+    dispatchTaxi(vehID, reservations, false);
+}
+
+
+void
+Vehicle::dispatchTaxi(const std::string& vehID, const std::vector<std::string>& reservations, const bool replace) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
     MSDevice_Taxi* taxi = static_cast<MSDevice_Taxi*>(veh->getDevice(typeid(MSDevice_Taxi)));
     if (!veh->hasDeparted()) {
@@ -2715,11 +2721,11 @@ Vehicle::dispatchTaxi(const std::string& vehID,  const std::vector<std::string>&
     if (traciDispatcher == nullptr) {
         throw TraCIException("device.taxi.dispatch-algorithm 'traci' has not been loaded");
     }
-    if (reservations.size() == 0) {
+    if (reservations.empty() && !replace) {
         throw TraCIException("No reservations have been specified for vehicle '" + vehID + "'");
     }
     try {
-        traciDispatcher->interpretDispatch(taxi, reservations);
+        traciDispatcher->interpretDispatch(taxi, reservations, replace);
     } catch (InvalidArgument& e) {
         throw TraCIException("Could not interpret reservations for vehicle '" + vehID + "' (" + e.what() + ").");
     }

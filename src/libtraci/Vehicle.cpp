@@ -1289,7 +1289,24 @@ Vehicle::highlight(const std::string& vehID, const libsumo::TraCIColor& col, dou
 
 void
 Vehicle::dispatchTaxi(const std::string& vehID,  const std::vector<std::string>& reservations) {
-    Dom::setStringVector(libsumo::CMD_TAXI_DISPATCH, vehID, reservations);
+    dispatchTaxi(vehID, reservations, false);
+}
+
+
+void
+Vehicle::dispatchTaxi(const std::string& vehID, const std::vector<std::string>& reservations, const bool replace) {
+    if (!replace) {
+        Dom::setStringVector(libsumo::CMD_TAXI_DISPATCH, vehID, reservations);
+        return;
+    }
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(2);
+    content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
+    content.writeStringList(reservations);
+    content.writeUnsignedByte(libsumo::TYPE_UBYTE);
+    content.writeUnsignedByte(1);
+    Dom::set(libsumo::CMD_TAXI_DISPATCH, vehID, &content);
 }
 
 

@@ -1,0 +1,6 @@
+Rejected clearing an onboard passenger's plan without changing reservations or stops.
+Kept the onboard dropoff and served the same reopened reservation with the other taxi.
+Cleared an all-waiting plan and reassigned both original reservation IDs.
+Rejected taking another taxi's reservation and accepted a disjoint replacement once it was open.
+Legacy dispatch still appends an unassigned reservation and rejects an empty plan.
+Rejected a restricted parking stop without changing the previous taxi plan or reservations.

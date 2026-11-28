@@ -723,6 +723,13 @@ public:
     bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0,
                  MSRouteIterator* searchStart = nullptr);
 
+    /// @brief Plan appended stops against the new route suffix, starting at the current edge.
+    bool prepareStops(const ConstMSEdgeVector& route, const StopParVector& stopParams,
+                      std::list<MSStop>& prepared, std::string& errorMsg);
+
+    /// @brief Append stops after installing their planned route suffix and clearing superseded stops.
+    void appendPreparedStops(std::list<MSStop>& prepared, MSRouteIterator plannedStart);
+
     /** @brief Adds stops to the built vehicle
      *
      * This code needs to be separated from the MSBaseVehicle constructor
@@ -1231,6 +1238,14 @@ private:
 
     /// @brief helper function
     bool insertJump(int nextStopIndex, MSRouteIterator itStart, std::string& errorMsg);
+
+    /// @brief Locate and insert a stop into the live or proposed route.
+    bool insertStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset,
+                    const MSRouteIterator* searchStart, const ConstMSEdgeVector& route, MSRouteIterator currentEdge,
+                    std::list<MSStop>& stops, bool planning);
+
+    /// @brief Record loop skips and the trip ID for a live stop.
+    void recordStop(MSStop& stop);
 
     /// @brief patch stop.pars.index to record the number of skipped candidate edges before stop.edge (in a looped route)
     void setSkips(MSStop& stop, int prevActiveStops);

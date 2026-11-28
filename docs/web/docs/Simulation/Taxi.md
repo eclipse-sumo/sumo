@@ -312,6 +312,15 @@ If a taxi is not in state empty the following re-dispatch calls are supported
 - new reservations include all previous unique reservation ids exactly twice: reset current route and stops and treat as complete new dispatch. If one of the persons of the earlier reservation is already picked up, ignore the first occurrence of the reservation in the reservation list
 - new reservations mentions include all previous unique reservation ids once or twice, all customers that are mentioned once are already picked up: reset current route and stops, use the single-occurrence ids as as drop-of
 
+Pass `replace=True` to `traci.vehicle.dispatchTaxi` to replace an existing plan. A waiting reservation omitted from the new plan becomes unassigned and is reported again by `traci.person.getTaxiReservations(1)`. The reservation keeps its original ID so another taxi can serve it.
+
+Keep each onboard reservation in the replacement with its drop-off. One occurrence is enough for a fully boarded reservation. Include a pickup and a drop-off for a reservation with passengers still waiting. A single waiting reservation can be supplied once to schedule both stops, as in the ordinary dispatch call. An empty replacement list clears the plan of an unoccupied taxi.
+
+```python
+traci.vehicle.dispatchTaxi("taxi_0", [onboard_reservation_id], replace=True)
+traci.vehicle.dispatchTaxi("taxi_1", [reopened_reservation_id])
+```
+
 ## Controlling Idle Taxis
 
 The default idle algorithm ("stop") aims to ensure that the taxi doesn't exit the simulation (which were to happen if it ever drives past the final edge of its route). To this end, it makes the taxi stop where it is or uses an existing stop on the route of the taxi and sets it to `triggered="person"` (which effectively makes the taxi wait indefinitely until the next dispatch).

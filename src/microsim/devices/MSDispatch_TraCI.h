@@ -67,7 +67,7 @@ public:
     void computeDispatch(SUMOTime /*now*/, const std::vector<MSDevice_Taxi*>& /*fleet*/) override {}
 
     /// @brief trigger taxi dispatch. @note: method exists so subclasses can inject code at this point (ride sharing)
-    void interpretDispatch(MSDevice_Taxi* taxi, const std::vector<std::string>& reservationsIDs);
+    void interpretDispatch(MSDevice_Taxi* taxi, const std::vector<std::string>& reservationsIDs, bool replace = false);
 
     /// @brief split existing reservations and return the new reservation id
     std::string splitReservation(std::string resID, std::vector<std::string> personIDs);
