@@ -158,3 +158,6 @@ routingType
 
 # see #18154
 join-tram-dist
+
+# Stop after the first schema-invalid SUMO network.
+validation_fail_fast

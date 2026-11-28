@@ -1,0 +1,5 @@
+Error: attribute 'invalid' is not declared for element 'lane'
+ In file 'input_net.net.xml'
+ At line/column 8/108.
+
+Quitting (on error).
