@@ -1,0 +1,6 @@
+Entry edges (4): e2c n2c s2c w2c
+Exit edges (4): c2e c2n c2s c2w
+# begin end entryFlow exitFlow diff ratio missingEntry missingExit
+0 1800 240.00 240.00 0.00 1.0000 0 0
+1800 3600 280.00 200.00 80.00 0.7143 0 0
+# TOTAL 520.00 440.00 80.00 0.8462

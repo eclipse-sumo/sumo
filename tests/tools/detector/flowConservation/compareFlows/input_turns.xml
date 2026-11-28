@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="0" begin="0" end="1800">
+        <edgeRelation from="n2c" to="c2s" count="30"/>
+        <edgeRelation from="n2c" to="c2e" count="10"/>
+        <edgeRelation from="s2c" to="c2n" count="20"/>
+        <edgeRelation from="w2c" to="c2n" count="20"/>
+        <edgeRelation from="e2c" to="c2s" count="10"/>
+    </interval>
+    <interval id="1" begin="1800" end="3600">
+        <edgeRelation from="n2c" to="c2s" count="40"/>
+        <edgeRelation from="s2c" to="c2n" count="30"/>
+    </interval>
+</data>

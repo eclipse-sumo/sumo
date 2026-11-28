@@ -20,3 +20,6 @@ undefined2
 
 # total flow not retrievable
 undefined3
+
+# compare boundary entry and exit flows across edgeData and turn files (#11856)
+compareFlows
