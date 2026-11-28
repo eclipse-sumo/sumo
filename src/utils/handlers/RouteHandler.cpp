@@ -570,8 +570,24 @@ void
 RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const auto* route = myCommonXMLStructure.getCurrentSumoBaseObject();
+    const auto* parent = route->getParentSumoBaseObject();
+    std::string id;
+    if (parent != nullptr && parent->getTag() == SUMO_TAG_ROUTE_DISTRIBUTION && !attrs.hasAttribute(SUMO_ATTR_ID)) {
+        // SUMO gives unnamed routes an ID based on their distribution and order.
+        size_t index = 0;
+        for (const auto* sibling : parent->getSumoBaseObjectChildren()) {
+            if (sibling == route) {
+                break;
+            }
+            if (sibling->getTag() == SUMO_TAG_ROUTE) {
+                ++index;
+            }
+        }
+        id = parent->getStringAttribute(SUMO_ATTR_ID) + "#" + toString(index);
+    } else {
+        id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    }
     const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk);
     // optional attributes
     SUMOVehicleClass vClass = SUMOVehicleParserHelper::parseVehicleClass(attrs, id);
