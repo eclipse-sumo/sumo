@@ -1053,6 +1053,12 @@ public:
     /// @brief Information whether the size legend shall be drawn
     bool showSizeLegend;
 
+    /// @brief Default size-legend label size in screen pixels
+    static constexpr double DEFAULT_LEGEND_FONT_SIZE = 15;
+
+    /// @brief Size-legend label size in screen pixels
+    double legendFontSize;
+
     /// @brief Information whether the edge color legend shall be drawn
     bool showColorLegend;
 

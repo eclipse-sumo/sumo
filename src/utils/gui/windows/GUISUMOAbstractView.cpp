@@ -23,6 +23,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <algorithm>
 #include <iostream>
 #include <utility>
 #include <cmath>
@@ -685,17 +686,20 @@ GUISUMOAbstractView::paintGLGrid() const {
 void
 GUISUMOAbstractView::displayLegend() {
     // compute the scale bar length
-    int length = 1;
+    double length = 1;
     const std::string text("10000000000");
     int noDigits = 1;
-    int pixelSize = (int) m2p((double) length);
-    while (pixelSize <= 20) {
+    const double maxFontSize = std::max(GUIVisualizationSettings::DEFAULT_LEGEND_FONT_SIZE,
+                                       std::min(getWidth() / 12.0, getHeight() / 8.0));
+    const double fontSize = std::min(myVisualizationSettings->legendFontSize, maxFontSize);
+    double pixelSize = std::floor(m2p(length));
+    while (pixelSize <= fontSize * 4 / 3) {
         length *= 10;
         noDigits++;
         if (noDigits > (int)text.length()) {
             return;
         }
-        pixelSize = (int) m2p((double) length);
+        pixelSize = std::floor(m2p(length));
     }
     glLineWidth(1.0);
 
@@ -717,9 +721,9 @@ GUISUMOAbstractView::displayLegend() {
 
     double len = (double) pixelSize / (double)(getWidth() - 1) * (double) 2.0;
     glColor3d(0, 0, 0);
-    double o = double(15) / double(getHeight());
-    double o2 = o + o;
-    double oo = double(5) / double(getHeight());
+    const double o = fontSize / getHeight();
+    const double o2 = 2 * o;
+    const double oo = o / 3;
     glBegin(GL_LINES);
     // vertical
     glVertex2d(-.98, -1. + o);
@@ -733,8 +737,8 @@ GUISUMOAbstractView::displayLegend() {
     glEnd();
     GLHelper::popMatrix();
 
-    const double fontHeight = 0.1 * 300. / getHeight();
-    const double fontWidth = 0.1 * 300. / getWidth();
+    const double fontHeight = 2 * fontSize / getHeight();
+    const double fontWidth = 2 * fontSize / getWidth();
     // draw 0
     GLHelper::drawText("0", Position(-.99, -0.99 + o2 + oo), z, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
 
@@ -800,7 +804,13 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
     double textX = left - 0.01;
     double textDir = 1;
     FONSalign textAlign = FONS_ALIGN_RIGHT;
-    const double top = -0.7;
+    const double defaultFontSize = GUIVisualizationSettings::DEFAULT_LEGEND_FONT_SIZE;
+    const double legendFontSize = myVisualizationSettings->legendFontSize;
+    // Keep the vehicle color legend clear of enlarged scale-bar labels.
+    const double scaleBarOffset = leftSide && myVisualizationSettings->showSizeLegend
+                                  ? std::clamp(6 * (legendFontSize - defaultFontSize) / getHeight(), 0.0, 0.45)
+                                  : 0.0;
+    const double top = -0.7 + scaleBarOffset;
     const double bot = 0.9;
     const double dy = (top - bot) / numColors;
     const double bot2 = fixed ? bot : bot + dy / 2;
@@ -826,8 +836,11 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
     glVertex2d(left, bot2);
     glEnd();
 
-    const double fontHeight = 0.20 * 300. / getHeight();
-    const double fontWidth = 0.20 * 300. / getWidth();
+    // Keep the default font available and limit enlargement to the space between labels.
+    const double maxFontSize = std::max(2 * defaultFontSize, std::min(-dy * getHeight() / 1.8, getHeight() / 10.0));
+    const double fontSize = std::min(2 * legendFontSize, maxFontSize);
+    const double fontHeight = 2 * fontSize / getHeight();
+    const double fontWidth = 2 * fontSize / getWidth();
 
     const int fadeSteps = fixed ? 1 : 10;
     double colorStep = dy / fadeSteps;
@@ -914,7 +927,7 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
     } else if (StringUtils::startsWith(name, "by ")) {
         name = name.substr(3);
     }
-    const double topN = -0.8;
+    const double topN = -0.8 + scaleBarOffset;
     const double bgShift = 0.0;
     GLHelper::setColor(RGBColor::WHITE);
     glTranslated(0, 0, 0.1);

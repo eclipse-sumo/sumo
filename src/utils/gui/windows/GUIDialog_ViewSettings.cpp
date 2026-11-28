@@ -422,6 +422,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myDisableDottedContours->setCheck(mySettings->disableDottedContours);
     myGeometryIndicesPanel->update(mySettings->geometryIndices);
     myShowSizeLegend->setCheck(mySettings->showSizeLegend);
+    myLegendFontSize->setValue(mySettings->legendFontSize);
     myShowColorLegend->setCheck(mySettings->showColorLegend);
     myShowVehicleColorLegend->setCheck(mySettings->showVehicleColorLegend);
 
@@ -756,6 +757,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.disableDottedContours = (myDisableDottedContours->getCheck() != FALSE);
     tmpSettings.geometryIndices = myGeometryIndicesPanel->getSettings();
     tmpSettings.showSizeLegend = (myShowSizeLegend->getCheck() != FALSE);
+    tmpSettings.legendFontSize = myLegendFontSize->getValue();
     tmpSettings.showColorLegend = (myShowColorLegend->getCheck() != FALSE);
     tmpSettings.showVehicleColorLegend = (myShowVehicleColorLegend->getCheck() != FALSE);
     tmpSettings.ignoreColorSchemeFor3DVehicles = (myIgnoreColorSchemeFor3DVehicles->getCheck() != FALSE);
@@ -1696,16 +1698,24 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
     mySelectedCheck->setCheck(settings.onlySelected);
     myConstSizeCheck = new FXCheckButton(myMatrix0, TL("constant text size"), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myConstSizeCheck->setCheck(settings.constSize);
-    FXMatrix* m1 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
-    new FXLabel(m1, TL("Size"), nullptr, GUIDesignViewSettingsLabel1);
-    mySizeDial = new FXRealSpinner(m1, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
-    mySizeDial->setRange(5, 1000);
-    mySizeDial->setValue(settings.size);
+    mySizeDial = buildSizeDial(parent, target, TL("Size"), settings.size);
     FXMatrix* m2 = new FXMatrix(parent, 4, GUIDesignViewSettingsMatrix5);
     new FXLabel(m2, TL("Color"), nullptr, GUIDesignViewSettingsLabel1);
     myColorWell = new FXColorWell(m2, MFXUtils::getFXColor(settings.color), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell2);
     new FXLabel(m2, TL("Background"), nullptr, GUIDesignViewSettingsLabel1);
     myBGColorWell = new FXColorWell(m2, MFXUtils::getFXColor(settings.bgColor), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell2);
+}
+
+
+FXRealSpinner*
+GUIDialog_ViewSettings::NamePanel::buildSizeDial(FXMatrix* parent, GUIDialog_ViewSettings* target,
+                                                const char* label, double size) {
+    auto* matrix = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
+    new FXLabel(matrix, label, nullptr, GUIDesignViewSettingsLabel1);
+    auto* dial = new FXRealSpinner(matrix, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    dial->setRange(5, 1000);
+    dial->setValue(size);
+    return dial;
 }
 
 
@@ -2496,6 +2506,7 @@ GUIDialog_ViewSettings::buildLegendFrame(FXTabBook* tabbook) {
     myShowVehicleColorLegend = new FXCheckButton(m72, TL("Show Vehicle Color Legend"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowVehicleColorLegend->setCheck(mySettings->showVehicleColorLegend);
     new FXLabel(m72, "");
+    myLegendFontSize = NamePanel::buildSizeDial(m72, this, TL("Legend font size"), mySettings->legendFontSize);
 }
 
 

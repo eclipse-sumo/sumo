@@ -57,6 +57,10 @@ public:
                   const std::string& title,
                   const GUIVisualizationTextSettings& settings);
 
+        /// @brief build the standard text-size control
+        static FXRealSpinner* buildSizeDial(FXMatrix* parent, GUIDialog_ViewSettings* target,
+                                            const char* label, double size);
+
         /// @brief get settings
         GUIVisualizationTextSettings getSettings();
 
@@ -475,6 +479,9 @@ protected:
     FXCheckButton* myDrawJunctionShape = nullptr;
     FXCheckButton* myDrawCrossingsAndWalkingAreas = nullptr;
     FXCheckButton* myShowSizeLegend = nullptr;
+
+    /// @brief Legend font size
+    FXRealSpinner* myLegendFontSize = nullptr;
     FXCheckButton* myShowColorLegend = nullptr;
     FXCheckButton* myShowVehicleColorLegend = nullptr;
 
