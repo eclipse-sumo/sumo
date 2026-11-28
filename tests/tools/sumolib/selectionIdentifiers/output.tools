@@ -1,0 +1,3 @@
+Selection writer and reader preserve complete identifiers containing colons
+Lane conversion retains complete edge identifiers and merges explicit edge selections
+Selected internal lanes and edges resolve in the parsed pedestrian network

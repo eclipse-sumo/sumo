@@ -20,7 +20,7 @@ def read(file, lanes2edges=True):
     ret = {}
     fd = open(file)
     for line in fd:
-        vals = line.strip().split(":")
+        vals = line.strip().split(":", 1)
         if lanes2edges and vals[0] == "lane":
             vals[0] = "edge"
             vals[1] = vals[1][:vals[1].rfind("_")]
