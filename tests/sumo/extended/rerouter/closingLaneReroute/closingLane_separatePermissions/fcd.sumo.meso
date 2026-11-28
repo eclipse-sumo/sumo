@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-11 10:33:51 by Eclipse SUMO sumo Version v1_22_0+1425-a41f069841c
+<!-- generated on 2026-11-23T11:23:13.070868+00:00 by Eclipse SUMO sumo v1.28.0-0000000000
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -527,39 +529,39 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="208.00"/>
     <timestep time="209.00"/>
     <timestep time="210.00">
-        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.90" pos="0.00" edge="E0" slope="0.00"/>
+        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.45" pos="0.00" edge="E0" slope="0.00"/>
         <vehicle id="car.7" x="-100.00" y="-8.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="E0" slope="0.00"/>
     </timestep>
     <timestep time="211.00">
-        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.90" pos="0.00" edge="E0" slope="0.00"/>
+        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.45" pos="0.00" edge="E0" slope="0.00"/>
         <vehicle id="car.7" x="-100.00" y="-8.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="E0" slope="0.00"/>
     </timestep>
     <timestep time="212.00">
-        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.90" pos="0.00" edge="E0" slope="0.00"/>
+        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.45" pos="0.00" edge="E0" slope="0.00"/>
         <vehicle id="car.7" x="-100.00" y="-8.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="E0" slope="0.00"/>
     </timestep>
     <timestep time="213.00">
-        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.90" pos="0.00" edge="E0" slope="0.00"/>
+        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.45" pos="0.00" edge="E0" slope="0.00"/>
         <vehicle id="car.7" x="-100.00" y="-8.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="E0" slope="0.00"/>
     </timestep>
     <timestep time="214.00">
-        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.90" pos="0.00" edge="E0" slope="0.00"/>
+        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.45" pos="0.00" edge="E0" slope="0.00"/>
         <vehicle id="car.7" x="-100.00" y="-8.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="E0" slope="0.00"/>
     </timestep>
     <timestep time="215.00">
-        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.90" pos="0.00" edge="E0" slope="0.00"/>
+        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.45" pos="0.00" edge="E0" slope="0.00"/>
         <vehicle id="car.7" x="-100.00" y="-8.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="E0" slope="0.00"/>
     </timestep>
     <timestep time="216.00">
-        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.90" pos="0.00" edge="E0" slope="0.00"/>
+        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.45" pos="0.00" edge="E0" slope="0.00"/>
         <vehicle id="car.7" x="-100.00" y="-8.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="E0" slope="0.00"/>
     </timestep>
     <timestep time="217.00">
-        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.90" pos="0.00" edge="E0" slope="0.00"/>
+        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.45" pos="0.00" edge="E0" slope="0.00"/>
         <vehicle id="car.7" x="-100.00" y="-8.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" edge="E0" slope="0.00"/>
     </timestep>
     <timestep time="218.00">
-        <vehicle id="bus.3" x="0.00" y="-8.00" angle="90.00" type="bus" speed="13.89" pos="100.00" edge="E0" slope="0.00"/>
+        <vehicle id="bus.3" x="-100.00" y="-8.00" angle="90.00" type="bus" speed="12.45" pos="0.00" edge="E0" slope="0.00"/>
         <vehicle id="car.7" x="0.00" y="-8.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="100.00" edge="E0" slope="0.00"/>
     </timestep>
     <timestep time="219.00">
@@ -586,7 +588,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bus.3" x="0.00" y="-8.00" angle="90.00" type="bus" speed="13.89" pos="100.00" edge="E0" slope="0.00"/>
         <vehicle id="car.7" x="0.00" y="-8.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="100.00" edge="E0" slope="0.00"/>
     </timestep>
-    <timestep time="225.00"/>
+    <timestep time="225.00">
+        <vehicle id="bus.3" x="0.00" y="-8.00" angle="90.00" type="bus" speed="13.89" pos="100.00" edge="E0" slope="0.00"/>
+    </timestep>
     <timestep time="226.00"/>
     <timestep time="227.00"/>
     <timestep time="228.00"/>

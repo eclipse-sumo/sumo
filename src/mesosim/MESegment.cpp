@@ -235,17 +235,11 @@ MESegment::addDownstreamFollowers(const MSEdge& edge, const std::vector<int>& re
 void
 MESegment::initSegment(const MesoEdgeType& edgeType, const MSEdge& parent, const double capacity) {
 
-    myCapacity = capacity;
     if (myQueues.size() == 1) {
-        const double laneScale = capacity / myLength;
-        myQueueCapacity = capacity;
-        myTau_length = (double)TIME2STEPS(1) / MAX2(MESO_MIN_SPEED, myMeanSpeed) / laneScale;
-        // Eissfeldt p. 90 and 151 ff.
-        myTau_ff = (SUMOTime)((double)edgeType.tauff / laneScale);
-        myTau_fj = (SUMOTime)((double)edgeType.taufj / laneScale);
-        myTau_jf = (SUMOTime)((double)edgeType.taujf / laneScale);
-        myTau_jj = (SUMOTime)((double)edgeType.taujj / laneScale);
+        setSharedQueueCapacity(edgeType, capacity);
     } else {
+        myCapacity = capacity;
+        myOvertaking = edgeType.overtaking && myCapacity > myLength;
         myTau_ff = edgeType.tauff;
         myTau_fj = edgeType.taufj;
         myTau_jf = edgeType.taujf;
@@ -268,7 +262,6 @@ MESegment::initSegment(const MesoEdgeType& edgeType, const MSEdge& parent, const
                            parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED &&
                            parent.hasMinorLink());
     myMinorPenalty = edgeType.minorPenalty;
-    myOvertaking = edgeType.overtaking && myCapacity > myLength;
     // keyed by the edge id because adding or removing edges elsewhere renumbers the numerical ids
     myOvertakeKey = (long long int)((uint64_t)RandHelper::murmur3_32(parent.getID(), myIndex) << 32);
 
@@ -292,6 +285,22 @@ MESegment::MESegment(const std::string& id):
 
 
 void
+MESegment::setSharedQueueCapacity(const MesoEdgeType& edgeType, double capacity) {
+    const double laneScale = capacity / myLength;
+    const double previousScale = myQueueCapacity == 0 ? 1. : myQueueCapacity / myLength;
+    myTau_length = myTau_length * previousScale / laneScale;
+    myQueueCapacity = capacity;
+    myCapacity = capacity;
+    // Eissfeldt p. 90 and 151 ff.
+    myTau_ff = (SUMOTime)((double)edgeType.tauff / laneScale);
+    myTau_fj = (SUMOTime)((double)edgeType.taufj / laneScale);
+    myTau_jf = (SUMOTime)((double)edgeType.taujf / laneScale);
+    myTau_jj = (SUMOTime)((double)edgeType.taujj / laneScale);
+    myOvertaking = edgeType.overtaking && myCapacity > myLength;
+}
+
+
+void
 MESegment::updatePermissions() {
     if (myQueues.size() > 1) {
         for (MSLane* lane : myEdge.getLanes()) {
@@ -299,6 +308,19 @@ MESegment::updatePermissions() {
         }
     } else {
         myQueues.back().setPermissions(myEdge.getPermissions());
+        const auto& lanes = myEdge.getLanes();
+        const int usableLanes = (int)std::count_if(lanes.begin(), lanes.end(), [](const MSLane* lane) {
+            const SVCPermissions permissions = MSEdge::getMesoPermissions(lane->getPermissions());
+            // A default rerouter closure reserves the lane for authority vehicles.
+            return permissions != 0 && !(permissions == SVC_AUTHORITY && lane->hadPermissionChanges());
+        });
+        // Retain one lane's headways when no lane remains. Permissions still block new traffic.
+        const double capacity = myLength * MAX2(1, usableLanes);
+        if (myQueueCapacity != capacity) {
+            const MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(myEdge.getEdgeType());
+            setSharedQueueCapacity(edgeType, capacity);
+            recomputeJamThreshold(edgeType.jamThreshold);
+        }
     }
 }
 
