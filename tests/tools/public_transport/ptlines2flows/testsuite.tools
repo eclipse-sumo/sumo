@@ -36,3 +36,6 @@ missing_edges
 
 # join opposite lines at the terminal stops
 join
+
+# allow custom begin and end attributes per ptLine (#5284)
+custom_begin

@@ -32,6 +32,8 @@
         <xsd:attribute name="completeness" type="nonNegativeFloatType"/>
         <xsd:attribute name="vClass" type="xsd:string"/>
         <xsd:attribute name="period" type="floatType"/>
+        <xsd:attribute name="begin" type="timeType"/>
+        <xsd:attribute name="end" type="timeType"/>
         <xsd:attribute name="nightService" type="xsd:string"/>
         <xsd:attribute name="missingBefore" type="nonNegativeIntType"/>
         <xsd:attribute name="missingAfter" type="nonNegativeIntType"/>
