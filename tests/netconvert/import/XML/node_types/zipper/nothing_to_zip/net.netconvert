@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18T00:54:31.862787+00:00 by Eclipse SUMO netconvert v1_28_0+0644-bda840e3afe
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,50.00" convBoundary="0.00,0.00,300.00,100.00" origBoundary="0.00,-50.00,300.00,50.00" projParameter="!"/>
+
+    <edge id=":J_diverge_0" function="internal">
+        <lane id=":J_diverge_0_0" index="0" speed="13.89" length="6.98" shape="197.74,48.40 199.77,48.26 201.11,47.83 202.38,47.11 204.20,46.11"/>
+    </edge>
+    <edge id=":J_diverge_1" function="internal">
+        <lane id=":J_diverge_1_0" index="0" speed="13.82" length="6.85" shape="197.74,48.40 199.75,48.49 201.11,48.79 202.40,49.38 204.20,50.31"/>
+    </edge>
+    <edge id=":J_straight_0" function="internal">
+        <lane id=":J_straight_0_0" index="0" speed="13.89" length="0.10" shape="100.00,48.40 100.00,48.40"/>
+    </edge>
+
+    <edge id="e0" from="W" to="J_straight" priority="-1">
+        <lane id="e0_0" index="0" speed="13.89" length="100.00" shape="0.00,48.40 100.00,48.40"/>
+    </edge>
+    <edge id="e1" from="J_straight" to="J_diverge" priority="-1">
+        <lane id="e1_0" index="0" speed="13.89" length="97.74" shape="100.00,48.40 197.74,48.40"/>
+    </edge>
+    <edge id="e2" from="J_diverge" to="N" priority="-1">
+        <lane id="e2_0" index="0" speed="13.89" length="107.90" shape="204.20,50.31 300.72,98.57"/>
+    </edge>
+    <edge id="e3" from="J_diverge" to="S" priority="-1">
+        <lane id="e3_0" index="0" speed="13.89" length="106.30" shape="204.20,46.11 299.28,-1.43"/>
+    </edge>
+
+    <junction id="J_diverge" type="zipper" x="200.00" y="50.00" incLanes="e1_0" intLanes=":J_diverge_0_0 :J_diverge_1_0" shape="203.49,51.74 204.92,48.88 204.32,48.43 204.25,48.21 204.32,47.99 204.55,47.76 204.92,47.54 203.49,44.68 200.74,46.25 199.99,46.55 199.04,46.74 197.74,46.80 197.74,50.00 199.97,50.15 200.74,50.37 201.47,50.70 202.34,51.15">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="J_straight" type="zipper" x="100.00" y="50.00" incLanes="e0_0" intLanes=":J_straight_0_0" shape="100.00,50.00 100.00,46.80 100.00,50.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="N" type="dead_end" x="300.00" y="100.00" incLanes="e2_0" intLanes="" shape="301.43,97.14 300.00,100.00"/>
+    <junction id="S" type="dead_end" x="300.00" y="0.00" incLanes="e3_0" intLanes="" shape="298.57,-2.86 300.00,0.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="50.00" incLanes="" intLanes="" shape="0.00,50.00 0.00,46.80"/>
+
+    <connection from="e0" to="e1" fromLane="0" toLane="0" via=":J_straight_0_0" dir="s" state="M"/>
+    <connection from="e1" to="e3" fromLane="0" toLane="0" via=":J_diverge_0_0" dir="R" state="M"/>
+    <connection from="e1" to="e2" fromLane="0" toLane="0" via=":J_diverge_1_0" dir="s" state="M"/>
+
+    <connection from=":J_diverge_0" to="e3" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":J_diverge_1" to="e2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":J_straight_0" to="e1" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

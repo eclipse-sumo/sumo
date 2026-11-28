@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <node id="W" x="0.00" y="0.00" type="dead_end"/>
+    <node id="J_straight" x="100.00" y="0.00" type="zipper"/>
+    <node id="J_diverge" x="200.00" y="0.00" type="zipper"/>
+    <node id="N" x="300.00" y="50.00" type="dead_end"/>
+    <node id="S" x="300.00" y="-50.00" type="dead_end"/>
+</nodes>

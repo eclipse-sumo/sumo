@@ -34,6 +34,7 @@
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
+#include "NBAlgorithms.h"
 #include "NBEdge.h"
 #include "NBContHelper.h"
 #include "NBNode.h"
@@ -470,6 +471,23 @@ NBRequest::computeLogic(const bool checkLaneFoes) {
     auto crossings = myJunction->getCrossings();
     for (auto c : crossings) {
         pos = computeCrossingResponse(*c, pos);
+    }
+    if (myJunction->getType() == SumoXMLNodeType::ZIPPER && !NBNodeTypeComputer::isRailwayNode(myJunction)) {
+        bool hasZipper = false;
+        for (const NBEdge* const edge : myIncoming) {
+            for (const NBEdge::Connection& c : edge->getConnections()) {
+                if (myJunction->getLinkState(edge, c.toEdge, c.fromLane, c.toLane, c.mayDefinitelyPass, c.tlID) == LINKSTATE_ZIPPER) {
+                    hasZipper = true;
+                    break;
+                }
+            }
+            if (hasZipper) {
+                break;
+            }
+        }
+        if (!hasZipper) {
+            WRITE_WARNINGF(TL("Junction '%' of type 'zipper' has nothing to zip."), myJunction->getID());
+        }
     }
 }
 
