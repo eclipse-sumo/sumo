@@ -114,6 +114,10 @@ GNEAttributesEditorRow::showAttributeRow(GNEAttributesEditorType* attributeTable
     }
     myAttrProperty = attrProperty;
     const auto attribute = myAttrProperty->getAttr();
+    if (attribute == GNE_ATTR_DRAW_FILTER_TAZ_RELATIONS &&
+            !myAttributeTable->myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+        return hideAttributeRow();
+    }
     const auto tagPropertyParent = attrProperty->getTagPropertyParent();
     const auto firstEditedAC = myAttributeTable->myEditedACs.front();
     // check if we're editing multiple ACs
@@ -956,7 +960,9 @@ GNEAttributesEditorRow::enableElements(const GNEAttributeProperties* attrPropert
         }
     } else if (editModes.isCurrentSupermodeDemand() && tagProperty->isDemandElement()) {
         enableElements = true;
-    } else if (editModes.isCurrentSupermodeData() && (tagProperty->isDataElement() || tagProperty->isMeanData())) {
+    } else if (editModes.isCurrentSupermodeData() &&
+               (tagProperty->isDataElement() || tagProperty->isMeanData() ||
+                attrProperty->getAttr() == GNE_ATTR_DRAW_FILTER_TAZ_RELATIONS)) {
         enableElements = true;
     }
     if (!enableElements) {

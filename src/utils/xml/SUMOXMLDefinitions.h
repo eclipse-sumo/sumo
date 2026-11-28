@@ -1860,6 +1860,7 @@ enum SumoXMLAttr {
     GNE_ATTR_FRONTELEMENT,
     /// @brief virtual attribute used for use edges within during TAZ creation
     GNE_ATTR_EDGES_WITHIN,
+    GNE_ATTR_DRAW_FILTER_TAZ_RELATIONS,
     /// @brief no common attributes
     GNE_ATTR_NOCOMMON,
     // @}

@@ -23,6 +23,7 @@
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -412,6 +413,8 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
             }
             return toString(edgeIDs);
         }
+        case GNE_ATTR_DRAW_FILTER_TAZ_RELATIONS:
+            return toString(myNet->getAttributeCarriers()->getTAZRelationFilters().count(this) > 0);
         case GNE_ATTR_EDGES_WITHIN:
             return toString(myEdgesWithin);
         case GNE_ATTR_MIN_SOURCE:
@@ -517,6 +520,10 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case GNE_ATTR_EDGES_WITHIN:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
+        case GNE_ATTR_DRAW_FILTER_TAZ_RELATIONS:
+            setAttribute(key, value);
+            myNet->getViewNet()->updateViewNet();
+            break;
         default:
             myMoveElementShape->setMovingAttribute(key, value, undoList);
             break;
@@ -560,6 +567,7 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
+        case GNE_ATTR_DRAW_FILTER_TAZ_RELATIONS:
         case GNE_ATTR_EDGES_WITHIN:
             return canParse<bool>(value);
         default:
@@ -690,6 +698,9 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             resetAdditionalContour();
             break;
         case SUMO_ATTR_EDGES:
+            break;
+        case GNE_ATTR_DRAW_FILTER_TAZ_RELATIONS:
+            myNet->getAttributeCarriers()->setTAZRelationFilter(this, parse<bool>(value));
             break;
         case GNE_ATTR_EDGES_WITHIN:
             myEdgesWithin = parse<bool>(value);

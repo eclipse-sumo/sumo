@@ -118,6 +118,10 @@ A TAZ can be selected under the Mode "Inspect". It is easier to do the selection
 ![](../images/selectSingleTaz_from.png)
 ![](../images/selectSingleTaz_to.png)
 
+### Filter TAZ relations by zone
+
+In Data supermode, switch to Inspect mode and select a TAZ. Under **Netedit attributes**, enable **Filter relations**. Repeat for each TAZ you want to include. The incoming and outgoing relation toggles control which directions are visible. The filter stays active while you inspect a relation or another element. Clear the option on each filtered TAZ to restore filtering by the currently inspected TAZ. These settings apply to the current view session.
+
 ### Select TAZ relations
 
 #### with one demand amount criterion
