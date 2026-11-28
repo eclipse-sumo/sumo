@@ -54,7 +54,7 @@ To discuss potential collaborations, contact [sumo@dlr.de](mailto:sumo@dlr.de).
 
 ### Consultancy for Engineers (co4e)
 
-co4e GmbH is a Berlin-based spin-off of the German Aerospace Center (DLR), providing technology consultancy and specialized software solutions for systems engineering. 
+[co4e GmbH](https://co4e.com/) is a Berlin-based spin-off of the German Aerospace Center (DLR), providing technology consultancy and specialized software solutions for systems engineering. 
 The company also develops [SESAM](https://sesam.co4e.com), a collaborative cloud platform for building digital twins and running mobility simulations based on SUMO - for humans and agents.
 
 co4e offers a range of services to support SUMO users and projects:

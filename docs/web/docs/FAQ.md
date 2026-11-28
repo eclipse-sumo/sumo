@@ -53,8 +53,8 @@ title: FAQ
 - Report bugs (crashes, surprising behavior) or invalid documentation
   at [sumo-user](https://accounts.eclipse.org/mailing-list/sumo-user)
   or at <https://github.com/eclipse-sumo/sumo/issues>
-- The main development team at the [DLR](https://sumo.dlr.de) is always
-  looking for project partners. [Contact us](Contact.md) to
+- The main development team at the [DLR](https://sumo.dlr.de) and our implementation partners are always
+  looking for project partners. See [Funding and Support](Funding.md) or [contact us](Contact.md) to
   discuss your proposals.
 - Make your SUMO simulation scenarios publicly available
 - [Cite us](Publications.md) in your publications and tell
@@ -260,12 +260,13 @@ according to the above suggestions.
 
 ### I want to do a project with SUMO can you help me with the implementation?
 
-  Unfortunately, we do not have the resources to do other peoples
+  Unfortunately, we do not have the resources to do other people's
   projects for free.
-  Contact us for paid consultancy at <sumo@dlr.de>.
   We try to help out with bugs and give pointers to the relevant
-  documentation but this free support is limited to what we can do in
+  documentation, but this free community support is limited to what we can do in
   our spare time.
+  For paid support, consultancy, training, or commissioned feature development, see our [Funding and Support](Funding.md) page.
+  You can collaborate with our [implementation partners](Funding.md#implementation_partners), including the [German Aerospace Center (DLR)](Funding.md#german_aerospace_center_dlr) (<sumo@dlr.de>) and [co4e GmbH](https://co4e.com/) ([Consultancy for Engineers](Funding.md#consultancy_for_engineers_co4e)), or [fund a feature or bug fix](Funding.md#fund_a_feature_or_bug_fix) directly.
 
 ## TraCI
 
