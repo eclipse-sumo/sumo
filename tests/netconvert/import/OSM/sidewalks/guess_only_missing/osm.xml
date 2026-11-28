@@ -1,0 +1,73 @@
+<osm version="0.6">
+    <node id="1" lon="13.000" lat="52.002" />
+    <node id="2" lon="13.001" lat="52.002" />
+    <node id="3" lon="13.000" lat="52.004" />
+    <node id="4" lon="13.001" lat="52.004" />
+    <node id="5" lon="13.000" lat="52.006" />
+    <node id="6" lon="13.001" lat="52.006" />
+    <node id="7" lon="13.000" lat="52.008" />
+    <node id="8" lon="13.001" lat="52.008" />
+    <node id="9" lon="13.000" lat="52.010" />
+    <node id="10" lon="13.001" lat="52.010" />
+    <node id="11" lon="13.000" lat="52.012" />
+    <node id="12" lon="13.001" lat="52.012" />
+    <node id="13" lon="13.000" lat="52.014" />
+    <node id="14" lon="13.001" lat="52.014" />
+    <node id="15" lon="13.000" lat="52.016" />
+    <node id="16" lon="13.001" lat="52.016" />
+    <way id="100">
+        <nd ref="1" />
+        <nd ref="2" />
+        <tag k="highway" v="residential" />
+        <tag k="maxspeed" v="30" />
+    </way>
+    <way id="200">
+        <nd ref="3" />
+        <nd ref="4" />
+        <tag k="highway" v="residential" />
+        <tag k="maxspeed" v="30" />
+        <tag k="sidewalk" v="no" />
+    </way>
+    <way id="300">
+        <nd ref="5" />
+        <nd ref="6" />
+        <tag k="highway" v="residential" />
+        <tag k="maxspeed" v="30" />
+        <tag k="sidewalk" v="separate" />
+    </way>
+    <way id="400">
+        <nd ref="7" />
+        <nd ref="8" />
+        <tag k="highway" v="residential" />
+        <tag k="maxspeed" v="30" />
+        <tag k="foot" v="no" />
+    </way>
+    <way id="500">
+        <nd ref="9" />
+        <nd ref="10" />
+        <tag k="highway" v="residential" />
+        <tag k="maxspeed" v="30" />
+        <tag k="foot" v="yes" />
+    </way>
+    <way id="600">
+        <nd ref="11" />
+        <nd ref="12" />
+        <tag k="highway" v="residential" />
+        <tag k="maxspeed" v="30" />
+        <tag k="sidewalk" v="both" />
+    </way>
+    <way id="700">
+        <nd ref="13" />
+        <nd ref="14" />
+        <tag k="highway" v="residential" />
+        <tag k="maxspeed" v="30" />
+        <tag k="sidewalk" v="right" />
+    </way>
+    <way id="800">
+        <nd ref="15" />
+        <nd ref="16" />
+        <tag k="highway" v="residential" />
+        <tag k="maxspeed" v="70" />
+        <tag k="foot" v="yes" />
+    </way>
+</osm>

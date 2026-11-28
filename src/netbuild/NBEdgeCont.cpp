@@ -1030,6 +1030,9 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
         // copy lane attributes
         int laneIndex = 0;
         for (i = edges.begin(); i != edges.end(); ++i) {
+            if ((*i)->isExcludedFromSidewalkGuessing()) {
+                newEdge->excludeFromSidewalkGuessing();
+            }
             const std::vector<NBEdge::Lane>& lanes = (*i)->getLanes();
             for (int j = 0; j < (int)lanes.size(); ++j) {
                 newEdge->setPermissions(lanes[j].permissions, laneIndex);
@@ -1750,6 +1753,9 @@ NBEdgeCont::guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpee
     std::set<std::string> exclude(edges.begin(), edges.end());
     for (EdgeCont::iterator it = myEdges.begin(); it != myEdges.end(); it++) {
         NBEdge* edge = it->second;
+        if (svc == SVC_PEDESTRIAN && edge->isExcludedFromSidewalkGuessing()) {
+            continue;
+        }
         if (// not excluded
             exclude.count(edge->getID()) == 0
             // does not yet have a sidewalk/bikelane

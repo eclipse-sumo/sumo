@@ -929,11 +929,16 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         to->setRoundaboutType(RoundaboutType::NO);
     }
     const bool markOSMDirection =  from->getType() == SumoXMLNodeType::RAIL_SIGNAL || to->getType() == SumoXMLNodeType::RAIL_SIGNAL;
+    const bool excludeSidewalkGuessing = myImportSidewalks && (e->mySidewalkType != WAY_UNKNOWN
+            || ((e->myExtraAllowed | e->myExtraDisallowed) & SVC_PEDESTRIAN) != 0);
     if (addForward) {
         assert(numLanesForward > 0);
         NBEdge* nbe = new NBEdge(id, from, to, type, speed, NBEdge::UNSPECIFIED_FRICTION, numLanesForward, tc.getEdgeTypePriority(type),
                                  forwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape, lsf,
                                  StringUtils::escapeXML(streetName), origID, true);
+        if (excludeSidewalkGuessing) {
+            nbe->excludeFromSidewalkGuessing();
+        }
         if (markOSMDirection) {
             nbe->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "forward");
         }
@@ -999,6 +1004,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         NBEdge* nbe = new NBEdge(reverseID, to, from, type, speedBackward, NBEdge::UNSPECIFIED_FRICTION, numLanesBackward, tc.getEdgeTypePriority(type),
                                  backwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), lsf,
                                  StringUtils::escapeXML(streetName), origID, true);
+        if (excludeSidewalkGuessing) {
+            nbe->excludeFromSidewalkGuessing();
+        }
         if (markOSMDirection) {
             nbe->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "backward");
         }
