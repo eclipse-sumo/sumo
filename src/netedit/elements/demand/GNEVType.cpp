@@ -18,10 +18,13 @@
 // Definition of Vehicle Types in netedit
 /****************************************************************************/
 
+#include <algorithm>
+#include <cmath>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/xml/NamespaceIDs.h>
 
@@ -244,6 +247,9 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         // CFM Attributes
+        case SUMO_ATTR_SPEED_TABLE:
+        case SUMO_ATTR_MAXACCEL_PROFILE:
+        case SUMO_ATTR_DESACCEL_PROFILE:
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:
@@ -588,6 +594,9 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         // CFM Attributes
+        case SUMO_ATTR_SPEED_TABLE:
+        case SUMO_ATTR_MAXACCEL_PROFILE:
+        case SUMO_ATTR_DESACCEL_PROFILE:
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:
@@ -722,6 +731,19 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(NamespaceIDs::types, value);
         // CFM Attributes
+        case SUMO_ATTR_SPEED_TABLE:
+        case SUMO_ATTR_MAXACCEL_PROFILE:
+        case SUMO_ATTR_DESACCEL_PROFILE:
+        {
+            const auto values = StringTokenizer(value).getVector();
+            return values.size() >= 2 && std::all_of(values.begin(), values.end(), [](const std::string& entry) {
+                if (!canParse<double>(entry)) {
+                    return false;
+                }
+                const double number = parse<double>(entry);
+                return std::isfinite(number) && number >= 0;
+            });
+        }
         case SUMO_ATTR_SIGMA:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
         case SUMO_ATTR_ACCEL:
@@ -983,6 +1005,12 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     // open undo list and overwrite all values of default VType
     undoList->begin(vType, "update default " + vType->getTagStr() + " '" + DEFAULT_VTYPE_ID + "'");
     // CFM values
+    for (const auto attr : {SUMO_ATTR_SPEED_TABLE, SUMO_ATTR_MAXACCEL_PROFILE, SUMO_ATTR_DESACCEL_PROFILE}) {
+        const auto value = newVTypeParameter.getCFParamString(attr, "");
+        if (!value.empty()) {
+            vType->setAttribute(attr, value, undoList);
+        }
+    }
     if (!newVTypeParameter.getCFParamString(SUMO_ATTR_ACCEL, "").empty()) {
         vType->setAttribute(SUMO_ATTR_ACCEL, toString(newVTypeParameter.getCFParam(SUMO_ATTR_ACCEL, 0)), undoList);
     }
@@ -1342,6 +1370,9 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             id = value;
             break;
         // CFM Attributes
+        case SUMO_ATTR_SPEED_TABLE:
+        case SUMO_ATTR_MAXACCEL_PROFILE:
+        case SUMO_ATTR_DESACCEL_PROFILE:
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:

@@ -429,6 +429,12 @@ public:
         /// @brief update values
         void updateValues();
 
+        /// @brief Return the invalid acceleration table attribute, if any
+        SumoXMLAttr getInvalidProfileAttribute() const;
+
+        /// @brief Save the edited tables as part of this dialog's undo operation
+        void saveProfiles();
+
         /// @name FOX-callbacks
         /// @{
         /// @event called after change a CFM variable
@@ -451,6 +457,9 @@ public:
             /// @brief update value of Vehicle Type
             void updateValue();
 
+            SumoXMLAttr getAttribute() const;
+            std::string getValue() const;
+
         private:
             /// @brief pointer to CarFollowingModelParameters parent
             CarFollowingModelParameters* myCarFollowingModelParametersParent;
@@ -468,6 +477,11 @@ public:
 
         /// @brief vector with the Car Following Model Row
         std::vector<CarFollowingModelRow*> myRows;
+
+        /// @brief Tables edited together and validated when accepting the dialog
+        CarFollowingModelRow* mySpeedTableRow;
+        CarFollowingModelRow* myMaxAccelProfileRow;
+        CarFollowingModelRow* myDesAccelProfileRow;
 
         /// @brief Row for CarFollowModel
         MFXComboBoxIcon* myComboBoxCarFollowModel;
