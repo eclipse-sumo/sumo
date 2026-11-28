@@ -134,7 +134,6 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, const std::string& prefix, NBNod
     }
 
     // write nodes
-    TrafficLightType tlsDefaultType = SUMOXMLDefinitions::TrafficLightTypes.get(oc.getString("tls.default-type"));
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         device.openTag(SUMO_TAG_NODE);
@@ -156,17 +155,16 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, const std::string& prefix, NBNod
         // std::set is already sorted, so the output is stable
         std::set<std::string> tlsIDs;
         std::set<std::string> controlledInnerEdges;
-        std::string tlType = "";
         for (NBTrafficLightDefinition* tl : n->getControllingTLS()) {
             tlsIDs.insert(tl->getID());
             std::vector<std::string> cie = tl->getControlledInnerEdges();
             controlledInnerEdges.insert(cie.begin(), cie.end());
-            if (tl->getType() != tlsDefaultType) {
-                tlType = toString(tl->getType());
-            }
         }
         device.writeOptionalAttr(SUMO_ATTR_TLID, tlsIDs, tlsIDs.empty());
-        device.writeOptionalAttr(SUMO_ATTR_TLTYPE, tlType, tlType == "");
+        const TrafficLightType tlType = n->getDefaultTrafficLightType();
+        if (tlType != TrafficLightType::INVALID) {
+            device.writeAttr(SUMO_ATTR_TLTYPE, tlType);
+        }
         device.writeOptionalAttr(SUMO_ATTR_CONTROLLED_INNER, controlledInnerEdges, controlledInnerEdges.empty());
         NWWriter_SUMO::writeShape(device, gch, n->getShape(), SUMO_ATTR_SHAPE, useGeo, geoAccuracy, n->hasCustomShape());
         device.writeOptionalAttr(SUMO_ATTR_RADIUS, n->getRadius(), n->getRadius() == NBNode::UNSPECIFIED_RADIUS);

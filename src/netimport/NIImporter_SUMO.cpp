@@ -765,6 +765,14 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
         myLastParameterised.push_back(node);
     }
     myCurrentJunction.node = node;
+    if (attrs.hasAttribute(SUMO_ATTR_TLTYPE)) {
+        const std::string tlType = attrs.get<std::string>(SUMO_ATTR_TLTYPE, id.c_str(), ok);
+        if (SUMOXMLDefinitions::TrafficLightTypes.hasString(tlType)) {
+            node->setDefaultTrafficLightType(SUMOXMLDefinitions::TrafficLightTypes.get(tlType));
+        } else {
+            WRITE_ERRORF(TL("Unknown traffic light type '%' for node '%'."), tlType, id);
+        }
+    }
     // set optional radius
     if (attrs.hasAttribute(SUMO_ATTR_RADIUS)) {
         node->setRadius(attrs.get<double>(SUMO_ATTR_RADIUS, id.c_str(), ok));

@@ -83,11 +83,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="A0" type="priority" x="0.00" y="0.00" incLanes="B0A0_0" intLanes=":A0_0_0" shape="0.00,0.00 0.00,3.20 0.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="B0" type="traffic_light" x="100.00" y="0.00" incLanes="C0B0_0 A0B0_0" intLanes=":B0_0_0 :B0_1_0" shape="100.00,3.20 100.00,-3.20 100.00,3.20">
+    <junction id="B0" type="traffic_light" tlType="actuated" x="100.00" y="0.00" incLanes="C0B0_0 A0B0_0" intLanes=":B0_0_0 :B0_1_0" shape="100.00,3.20 100.00,-3.20 100.00,3.20">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="C0" type="traffic_light" x="200.00" y="0.00" incLanes="D0C0_0 B0C0_0" intLanes=":C0_0_0 :C0_1_0" shape="200.00,3.20 200.00,-3.20 200.00,3.20">
+    <junction id="C0" type="traffic_light" tlType="actuated" x="200.00" y="0.00" incLanes="D0C0_0 B0C0_0" intLanes=":C0_0_0 :C0_1_0" shape="200.00,3.20 200.00,-3.20 200.00,3.20">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>

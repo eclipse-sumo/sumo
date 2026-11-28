@@ -149,6 +149,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+        <xsd:attribute name="tlType" type="tlTypeType" use="optional"/>
         <xsd:attribute name="incLanes" type="xsd:string" use="required"/>
         <xsd:attribute name="intLanes" type="xsd:string" use="required"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>

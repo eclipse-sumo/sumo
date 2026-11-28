@@ -195,6 +195,9 @@ public:
         /// @brief get current program ID
         const std::string getCurrentTLSProgramID() const;
 
+        /// @brief change the type of the edited program
+        void changeProgramType(TrafficLightType type);
+
         /// @brief discard changes
         void discardChanges(const bool editJunctionAgain);
 
@@ -228,7 +231,10 @@ public:
         FOX_CONSTRUCTOR(TLSPrograms)
 
         /// @brief create (or duplicate) TLS in the given junction
-        void createTLS(GNEJunction* junction);
+        std::string createTLS(GNEJunction* junction, const std::string& templateID = "", bool useDefaultType = false);
+
+        /// @brief rebuild the current program using the given type
+        void resetCurrentProgram(TrafficLightType type);
 
         /// @brief switch program
         bool switchProgram();
@@ -248,6 +254,9 @@ public:
 
         /// @brief button for create new TLS program
         FXButton* myCreateButton = nullptr;
+
+        /// @brief button for adding a program with the junction's default type
+        FXButton* myNewProgramButton = nullptr;
 
         /// @brief button for delete existent TLS program
         FXButton* myDeleteButton = nullptr;

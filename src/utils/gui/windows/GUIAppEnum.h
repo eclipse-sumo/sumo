@@ -1797,6 +1797,9 @@ enum {
 
     /// @{
 
+    /// @brief add a TLS program with the junction's default type
+    MID_GNE_TLSFRAME_DEFINITION_NEWPROGRAM,
+
     /// @brief last element of enum (not used)
     MID_LAST
 };

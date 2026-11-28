@@ -49,14 +49,17 @@ netedit.typeKey("enter")
 # copy TLS
 netedit.copyTLS(True)
 
+# Change only the copied program.
+netedit.modifyAttribute(netedit.attrs.TLS.attributesJoined.TLType, "actuated")
+
 # type ESC (for undo-redo)
 netedit.typeKey("esc")
 
 # Check undo
-netedit.undo(referencePosition, 1)
+netedit.undo(referencePosition, 2)
 
 # Check redo
-netedit.redo(referencePosition, 1)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveExistentFile("neteditConfig")

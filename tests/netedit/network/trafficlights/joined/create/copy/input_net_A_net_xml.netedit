@@ -65,7 +65,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="30.00,-20.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
+    <location netOffset="30.00,-20.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
     <edge id=":J0_0" function="internal">
         <lane id=":J0_0_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="-4.80,11.10 -5.19,8.34 -6.38,6.37 -8.34,5.19 -11.10,4.80"/>
@@ -199,20 +199,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="31" state="GGGgrrrrGGGgrrrrGGGGGGGG"/>
         <phase duration="3"  state="GGGgrrrrGGygrrrrGGGGGGGG"/>
     </tlLogic>
-    <tlLogic id="J0" type="static" programID="1" offset="0">
-        <phase duration="31" state="GGGgGGrrGGrgrrrrGGGGGGGG"/>
+    <tlLogic id="J0" type="actuated" programID="1" offset="0">
+        <phase duration="31" state="GGGgGGrrGGrgrrrrGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyyyGGrrGGryrrrrGGGGGGGG"/>
-        <phase duration="31" state="rrrrGGGgGGrrGGrgGGGGGGGG"/>
+        <phase duration="31" state="rrrrGGGgGGrrGGrgGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrrryyyyGGrryyryGGGGGGGG"/>
-        <phase duration="31" state="GGGgrrrrGGGgrrrrGGGGGGGG"/>
+        <phase duration="31" state="GGGgrrrrGGGgrrrrGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="GGyyrrrryyyyrrrrGGGGGGGG"/>
-        <phase duration="65" state="GGrrGGrgrrrrGGGgGGGGGGGG"/>
+        <phase duration="65" state="GGrrGGrgrrrrGGGgGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyrrGGrgrrrrGGygGGGGGGGG"/>
-        <phase duration="31" state="rrrrGGGgGGrrGGrgGGGGGGGG"/>
+        <phase duration="31" state="rrrrGGGgGGrrGGrgGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrrrGGyyGGrryyryGGGGGGGG"/>
-        <phase duration="31" state="GGGgGGrrGGrgrrrrGGGGGGGG"/>
+        <phase duration="31" state="GGGgGGrrGGrgrrrrGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="GGGgyyrrGGrgrrrrGGGGGGGG"/>
-        <phase duration="31" state="GGGgrrrrGGGgrrrrGGGGGGGG"/>
+        <phase duration="31" state="GGGgrrrrGGGgrrrrGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="GGGgrrrrGGygrrrrGGGGGGGG"/>
     </tlLogic>
 
