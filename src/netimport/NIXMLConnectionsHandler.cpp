@@ -294,7 +294,8 @@ void
 NIXMLConnectionsHandler::delConnection(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
-    std::string to = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
+    const bool allDestinations = !attrs.hasAttribute(SUMO_ATTR_TO);
+    std::string to = attrs.getOpt<std::string>(SUMO_ATTR_TO, nullptr, ok, "");
     if (!ok) {
         return;
     }
@@ -303,11 +304,27 @@ NIXMLConnectionsHandler::delConnection(const SUMOSAXAttributes& attrs) {
         return;
     }
     NBEdge* fromEdge = myEdgeCont.retrieve(from);
-    NBEdge* toEdge = myEdgeCont.retrieve(to);
     if (fromEdge == nullptr) {
         myErrorMsgHandler->informf("The connection-source edge '%' to reset is not known.", from);
         return;
     }
+    if (allDestinations) {
+        if (attrs.hasAttribute(SUMO_ATTR_TO_LANE) || attrs.hasAttribute(SUMO_ATTR_LANE)) {
+            myErrorMsgHandler->inform(TL("A destination edge is required when deleting a connection by destination lane."));
+            return;
+        }
+        const int fromLane = attrs.getOpt<int>(SUMO_ATTR_FROM_LANE, from.c_str(), ok, -1);
+        if (!ok) {
+            return;
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_FROM_LANE) && (fromLane < 0 || fromLane >= fromEdge->getNumLanes())) {
+            myErrorMsgHandler->informf(TL("Invalid source lane '%' when deleting connections from edge '%'."), fromLane, from);
+            return;
+        }
+        fromEdge->removeFromConnections(nullptr, fromLane, -1, true);
+        return;
+    }
+    NBEdge* toEdge = myEdgeCont.retrieve(to);
     if (toEdge == nullptr) {
         myErrorMsgHandler->informf("The connection-destination edge '%' to reset is not known.", to);
         return;

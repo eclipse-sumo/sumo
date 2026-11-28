@@ -938,7 +938,7 @@ If you only wish to **remove** a connection it may be convenient to use
 the following xml definition:
 
 ```
-<delete from="<FROM_EDGE_ID>" to="<T0_EDGE_ID>"/>
+<delete from="<FROM_EDGE_ID>" to="<TO_EDGE_ID>"/>
 ```
 
 The attributes are the same as for the
@@ -947,12 +947,14 @@ simple connection element:
 | Attribute Name | Value Type         | Description                                                |
 | -------------- | ------------------ | ---------------------------------------------------------- |
 | **from**       | referenced edge id | The source edge id of the connection to be removed         |
-| **to**         | referenced edge id | The destination edge id of the connection to be removed    |
+| to             | referenced edge id | The destination edge id of the connection to be removed    |
 | fromLane       | referenced lane no | The source lane index of the connection to be removed      |
 | toLane         | referenced lane no | The destination lane index of the connection to be removed |
 
 !!! note
     Note that in basic format (that is, without **fromLane** and **toLane** attributes) the definition deletes **all** connections from given incoming edge to the given outgoing edge. When **fromLane** and **toLane** attributes are provided, only the connection from given lane to given lane is removed.
+
+Omit `to` to remove connections to every destination from the source edge. Set `fromLane` to remove only connections from that source lane. A `toLane` value requires a destination edge.
 
 ### Patching connections and guessing again
 
