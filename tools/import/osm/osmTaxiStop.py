@@ -22,6 +22,7 @@ import os
 import sys
 import random
 import argparse
+from xml.sax.saxutils import quoteattr
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
@@ -93,10 +94,14 @@ def main(options):
                 if bestLane:
                     pos = sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint(point, bestLane.getShape())
                     endPos = min(bestLane.getLength(), max(length, pos + length / 2))
-                    nameAttr = 'name="%s" ' % name if name else ""
+                    startPos = max(0, endPos - length)
+                    attrs = 'name=%s ' % quoteattr(name) if name else ""
+                    if options.type == "parkingArea":
+                        capacity = max(1, int(min(endPos, length) / VEHICLE_LENGTH))
+                        attrs += 'roadsideCapacity="%s" ' % capacity
                     stopID = "%s_%s" % (options.type, count)
                     print(u'    <%s id="%s" %slane="%s" startPos="%.2f" endPos="%.2f"/>' %
-                          (options.type, stopID, nameAttr, bestLane.getID(), max(0, endPos - length), endPos),
+                          (options.type, stopID, attrs, bestLane.getID(), startPos, endPos),
                           file=output)
                     if fleet_out:
                         places += int(length / VEHICLE_LENGTH) * [stopID]

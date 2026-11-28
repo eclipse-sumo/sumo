@@ -26,6 +26,7 @@ import ssl
 import json
 import collections
 import time
+from xml.sax.saxutils import quoteattr
 
 try:
     from urllib2 import urlopen, Request
@@ -120,6 +121,10 @@ def readCompressed(options, urls, context, query, roadTypesJSON, getShapes, file
             queryStringNode.append(commonQueryStringNode % (regvQueryString, query))
 
     if queryStringNode:
+        for amenity in options.amenity_types.split(","):
+            if amenity:
+                exactMatch = '<has-kv k="amenity" v=%s/>' % quoteattr(amenity)
+                queryStringNode.append(commonQueryStringNode % (exactMatch, query))
         # include all nodes that are relevant for public transport
         regvQueryString = '<has-kv k="public_transport" modv="" regv="."/>'
         queryStringNode.append(commonQueryStringNode % (regvQueryString, query))
@@ -267,6 +272,8 @@ def get_options(args):
                            default=False, help="get the corresponding wikidata")
     optParser.add_argument("-r", "--road-types", dest="roadTypes",
                            help="only delivers osm data to the specified road-types")
+    optParser.add_argument("--amenity-types", category="input", default="",
+                           help="include these comma-separated OSM amenities when filtering road types")
     optParser.add_argument("-s", "--shapes", action="store_true", default=False,
                            help="determines if polygon data (buildings, areas, etc.) is downloaded")
     optParser.add_argument("-z", "--gzip", category="output", action="store_true",

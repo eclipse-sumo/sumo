@@ -51,6 +51,10 @@ from webWizard.SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 DEFAULT_PORT = 8010
+STOPPING_PLACES = (
+    ("taxiStands", "taxi", "parkingArea", "taxi"),
+    ("chargingStations", "charging_station", "chargingStation", "passenger"),
+)
 
 try:
     basestring
@@ -194,6 +198,8 @@ class Builder(object):
         return result
 
     def build(self):
+        stoppingPlaces = [(amenity, tag, vclass) for option, amenity, tag, vclass in STOPPING_PLACES
+                          if self.data.get(option)]
         # output name for the osm file, will be used by osmBuild, can be
         # deleted after the process (but should generally be kept for rebuilding)
         self.filename("osm", "_bbox.osm.xml.gz")
@@ -214,6 +220,8 @@ class Builder(object):
                 osmArgs += ["-u", self.data["osmMirror"]]
             if 'roadTypes' in self.data:
                 osmArgs += ["-r", json.dumps(self.data["roadTypes"])]
+            if stoppingPlaces:
+                osmArgs += ["--amenity-types", ",".join(amenity for amenity, _, _ in stoppingPlaces)]
             if self.data.get("verbose"):
                 osmArgs.append("--verbose")
             # cannot write config by calling osmGet.get because saving config triggers sys.exit()
@@ -227,6 +235,7 @@ class Builder(object):
 
         self.additionalFiles = []
         self.routenames = []
+        self.stoppingPlaceFiles = []
 
         if self.data["poly"]:
             # output name for the poly file, will be used by osmBuild and sumo-gui
@@ -293,6 +302,14 @@ class Builder(object):
 
         self.report(self.TL("Converting map data"))
         osmBuild.build(options)
+        stopTool = os.path.join(SUMO_HOME, "tools", "import", "osm", "osmTaxiStop.py")
+        for amenity, tag, vclass in stoppingPlaces:
+            self.filename(amenity, ".%s.add.xml" % amenity)
+            subprocess.check_call([sys.executable, stopTool, "--osm-file", self.files["osm"],
+                                   "--net-file", self.files["net"], "--output-file", self.files[amenity],
+                                   "--amenity", amenity, "--type", tag, "--vclass", vclass])
+            self.stoppingPlaceFiles.append(self.files[amenity])
+        self.additionalFiles.extend(self.stoppingPlaceFiles)
         ptOptions = None
         hasPTFlows = False
         begin = self.data.get("begin", 0)
@@ -532,6 +549,7 @@ class Builder(object):
 
             # translate the pseudo file names to real file names
             files = list(map(lambda name: self.files[name], files))
+            files += self.stoppingPlaceFiles
 
             if self.data["vehicles"]:
                 files += self.routenames
