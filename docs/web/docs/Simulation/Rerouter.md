@@ -127,7 +127,7 @@ jams, caused by spontaneous road closing.
       When using modified permissions, one of the options **--ignore-route-errors** or **--device.rerouting-mode 8** must be set. Otherwise, vehicles which are inserted while the closing is active may raise a route error. Ignoring all route errors runs the risk of masking problems that are not related to rerouters, and thus mode=8 is recommended. It is also possible to set the rerouting mode with [generic parameters](GenericParameters.md).
 
 !!! caution
-    When using modified permissions together with option/param **device.rerouting.mode=8**, there should be at most one rerouter definition at any one time in the simulation that contains all closings. Otherwise vehicles may loop endlessly between two closed edges (because all closings other than the current rerouter are ignored).
+    When using `closingReroute` attribute `until` together with option/param **device.rerouting.mode=8**, periodic rerouting (**--device.rerouting.period** > 0) should not be enabled, as periodic reroutes outside of rerouter edges may return to a closed route.
 
 !!! note
     Closing lanes or edges by setting attribute 'allow' or 'disallow' may cause emergency braking. This can be mitigated by placing [VariableSpeedSigns](../Simulation/Variable_Speed_Signs.md) ahead of the closing and slowing down traffic briefly before the closing.
