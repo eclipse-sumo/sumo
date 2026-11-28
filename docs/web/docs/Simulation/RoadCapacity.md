@@ -142,3 +142,11 @@ The script which produces the data points for the table below can be found [here
 | random     | avg | 5826 | 6626 | 5958 | 6639 |
 | free       | avg | 5794 | 6641 | 5951 | 6659 |
 | best_prob  | avg | 5718 | 6845 | 6136 | 6854 |
+
+# Signalized Intersection Capacity and HCM Analysis
+
+SUMO provides microscopic detector and traffic-light outputs that supply the measurements required for Highway Capacity Manual (HCM) saturation flow, lane-group capacity, control delay, and queue-length calculations:
+
+- **Saturation flow rate (`s`) and approach capacity (`c = s * g / C`)**: Place [instantaneous induction loops](Output/Instantaneous_Induction_Loops_Detectors.md) or [E1 detectors](Output/Induction_Loops_Detectors_(E1).md) at the stop bar (generated automatically via [generateTLSE1Detectors.py](../Tools/Output.md#generatetlse1detectorspy)) to measure queue discharge headways `h_s` after start-up lost time (`s = 3600 / h_s`), and read effective green `g` and cycle length `C` from [traffic light switch outputs](Output/Traffic_Lights.md).
+- **Approach and intersection delay**: Generate [Multi-Entry-Exit (E3) detectors](Output/Multi-Entry-Exit_Detectors_(E3).md) around signalized junctions with [generateTLSE3Detectors.py](../Tools/Output.md#generatetlse3detectorspy) to obtain interval-aggregated `meanTimeLoss` (delay), `meanTravelTime`, `meanHaltsPerVehicle`, and `vehicleSum` (throughput) per approach or per intersection.
+- **Queue length**: Attach [Lane Area (E2) detectors](Output/Lanearea_Detectors_(E2).md) (via [generateTLSE2Detectors.py](../Tools/Output.md#generatetlse2detectorspy), optionally coupled to signal phases via the `tl` attribute) or enable `--queue-output` with `--queue-output.aggregation` (see [QueueOutput](Output/QueueOutput.md#aggregated_output)) to record cycle- or interval-aggregated maximum, median, and percentile queue lengths.
