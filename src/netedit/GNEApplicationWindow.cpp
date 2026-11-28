@@ -994,6 +994,26 @@ GNEApplicationWindow::onUpdReloadSumoConfig(FXObject* sender, FXSelector, void*)
 }
 
 
+namespace {
+
+bool
+confirmTLSFileLoad(GNEApplicationWindow* applicationWindow, GNETLSEditorFrame* tlsEditor) {
+    if (tlsEditor->getTLSJunction()->getCurrentJunction() != nullptr) {
+        const GNEQuestionBasicDialog questionDialog(applicationWindow, GNEDialog::Buttons::YES_NO,
+                TL("Load TLS Programs"),
+                TL("Loading TLS programs will end the current traffic light edit."),
+                TL("Unsaved changes will be discarded. Continue?"));
+        if (questionDialog.getResult() != GNEDialog::Result::ACCEPT) {
+            return false;
+        }
+        tlsEditor->getTLSPrograms()->discardChanges(false);
+    }
+    return true;
+}
+
+}
+
+
 long
 GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
     // get netconvert filename
@@ -1003,7 +1023,8 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
                                       GNEFileDialog::ConfigType::NETEDIT,
                                       myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
-    if (TLSfileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+    if (TLSfileDialog.getResult() == GNEDialog::Result::ACCEPT
+            && confirmTLSFileLoad(this, myNet->getViewParent()->getTLSEditorFrame())) {
         // set tls type in bucket
         myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::TLS, TLSfileDialog.getFilename());
         // load traffic lights
@@ -1015,8 +1036,10 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadTLSPrograms(FXObject*, FXSelector, void*) {
-    // load traffic lights
-    loadTrafficLights("Reloading");
+    if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::TLS)
+            && confirmTLSFileLoad(this, myNet->getViewParent()->getTLSEditorFrame())) {
+        loadTrafficLights("Reloading");
+    }
     return 1;
 }
 
