@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.5" generator="p">
+  <node id="1" lat="52.4258318" lon="13.5273019">
+    <tag k="amenity" v="parking"/>
+    <tag k="name:en" v="West Garage"/>
+  </node>
+  <node id="2" lat="52.4264038" lon="13.5267127">
+    <tag k="amenity" v="parking"/>
+    <tag k="name:en" v="East Garage"/>
+    <tag k="name" v="Parkhaus Ost"/>
+  </node>
+  <node id="3" lat="52.4262794" lon="13.5266993">
+    <tag k="amenity" v="parking"/>
+    <tag k="name" v="West Garage"/>
+  </node>
+  <node id="4" lat="52.4261457" lon="13.5272746"/>
+  <node id="5" lat="52.4262994" lon="13.5290996"/>
+
+  <way id="10" visible="true">
+    <nd ref="1"/>
+    <nd ref="2"/>
+    <nd ref="3"/>
+    <tag k="polygon" v="overpass"/>
+    <tag k="name:de" v="Nordbruecke"/>
+  </way>
+
+  <way id="11" visible="true">
+    <nd ref="3"/>
+    <nd ref="4"/>
+    <nd ref="5"/>
+    <tag k="polygon" v="overpass"/>
+    <tag k="name" v="Nordbruecke"/>
+  </way>
+
+  <way id="12" visible="true">
+    <nd ref="1"/>
+    <nd ref="4"/>
+  </way>
+  <way id="13" visible="true">
+    <nd ref="4"/>
+    <nd ref="5"/>
+    <nd ref="1"/>
+  </way>
+
+  <relation id="20" visible="true">
+    <member type="way" ref="12" role="outer"/>
+    <member type="way" ref="13" role="outer"/>
+    <tag k="type" v="multipolygon"/>
+    <tag k="leisure" v="park"/>
+    <tag k="name:en" v="Central Park"/>
+  </relation>
+</osm>
