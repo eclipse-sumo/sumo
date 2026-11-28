@@ -101,8 +101,56 @@ MSCFModel_Wiedemann::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 
 double
-MSCFModel_Wiedemann::followSpeed(const MSVehicle* const veh, double /* speed */, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const pred, const CalcReason /*usage*/) const {
-    return _v(veh, predSpeed, gap2pred, pred != nullptr ? pred->getAcceleration() : 0);
+MSCFModel_Wiedemann::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const pred, const CalcReason /*usage*/) const {
+    return _v(veh, speed, predSpeed, gap2pred, pred != nullptr ? pred->getAcceleration() : 0);
+}
+
+
+double
+MSCFModel_Wiedemann::insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
+    predSpeed = MAX2(0.0, predSpeed);
+    double vMax = MIN2(speed, MSCFModel::insertionFollowSpeed(veh, speed, gap2pred, predSpeed, predMaxDecel, pred));
+    const double dx = gap2pred + myType->getLength();
+    if (dx <= myAX) {
+        return 0.;
+    }
+    const double predAccel = pred != nullptr ? pred->getAcceleration() : 0.;
+    const double ex = 2. - myEstimation;
+    auto isSafeAt = [&](const double v) -> bool {
+        const double dv = v - predSpeed;
+        const double bx = (1. + 7. * mySecurity) * sqrt(v);
+        const double abx = myAX + bx;
+        if (dx <= abx) {
+            const double rawAccel = emergency(dv, dx, predAccel, v, gap2pred, abx, bx);
+            const double accel = MAX2(MIN2(rawAccel, myAccel), -myEmergencyDecel);
+            const double vNext = MAX2(0., v + ACCEL2SPEED(accel));
+            return v - vNext <= ACCEL2SPEED(myDecel) && (dv <= 0. || rawAccel >= -myDecel);
+        }
+        const double sdx = myAX + ex * bx;
+        const double sdvRoot = (dx - myAX) / myCX;
+        const double sdv = sdvRoot * sdvRoot;
+        const double cldv = sdv * ex * ex;
+        const double dmax = MAX2(D_MAX, brakeGap(v, myDecel, 0));
+        if ((dx < sdx && dv > cldv) || (dx >= sdx && dv > sdv && dx < dmax)) {
+            const double rawApproaching = 0.5 * dv * dv / (abx - dx) + MIN2(0., predAccel * PRED_DECEL_MULT);
+            return rawApproaching >= -myDecel;
+        }
+        return true;
+    };
+    if (!isSafeAt(vMax)) {
+        double lo = 0.;
+        double hi = vMax;
+        for (int i = 0; i < 20; ++i) {
+            const double mid = 0.5 * (lo + hi);
+            if (isSafeAt(mid)) {
+                lo = mid;
+            } else {
+                hi = mid;
+            }
+        }
+        vMax = lo;
+    }
+    return vMax;
 }
 
 
@@ -140,11 +188,11 @@ MSCFModel_Wiedemann::getSecureGap(const MSVehicle* const veh, const MSVehicle* c
 
 
 double
-MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap, double predAccel) const {
+MSCFModel_Wiedemann::_v(const MSVehicle* veh, double speed, double predSpeed, double gap, double predAccel) const {
     predSpeed = MAX2(0.0, predSpeed);
     const VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     const double dx = gap + myType->getLength(); // wiedemann uses brutto gap
-    const double v = veh->getSpeed();
+    const double v = speed;
     const double vpref = veh->getMaxSpeed();
     const double dv = v - predSpeed;
     // desired minimum following distance at low speed difference

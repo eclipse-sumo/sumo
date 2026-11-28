@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="slow" speedFactor="0.4"/>
+    <vType id="fast" speedFactor="1.0"/>
+    <vehicle id="leader0" type="slow" depart="0" departLane="0" departPos="60" departSpeed="10">
+        <route edges="beg"/>
+    </vehicle>
+    <vehicle id="ego0" type="fast" depart="0" departLane="0" departPos="15" departSpeed="max">
+        <route edges="beg"/>
+    </vehicle>
+    <vehicle id="leader1" type="slow" depart="0" departLane="1" departPos="45" departSpeed="8">
+        <route edges="beg"/>
+    </vehicle>
+    <flow id="f" type="fast" begin="0" end="60" period="1" departLane="random" departSpeed="max">
+        <route edges="beg"/>
+    </flow>
+</routes>
