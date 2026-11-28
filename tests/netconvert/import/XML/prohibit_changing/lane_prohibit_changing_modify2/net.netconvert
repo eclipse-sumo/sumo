@@ -47,11 +47,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <edge id="1" from="0" to="1" priority="-1">
         <lane id="1_0" index="0" speed="13.00" length="100.00" shape="0.00,-8.00 100.00,-8.00"/>
-        <lane id="1_1" index="1" speed="13.00" length="100.00" shape="0.00,-4.80 100.00,-4.80"/>
-        <lane id="1_2" index="2" speed="13.00" length="100.00" shape="0.00,-1.60 100.00,-1.60"/>
+        <lane id="1_1" index="1" speed="13.00" length="100.00" shape="0.00,-4.80 100.00,-4.80" changeLeft="ignoring"/>
+        <lane id="1_2" index="2" speed="13.00" length="100.00" shape="0.00,-1.60 100.00,-1.60" changeRight="ignoring"/>
     </edge>
     <edge id="2" from="1" to="2" priority="-1">
-        <lane id="2_0" index="0" speed="13.89" length="100.00" shape="100.00,-8.00 200.00,-8.00"/>
+        <lane id="2_0" index="0" speed="13.89" length="100.00" shape="100.00,-8.00 200.00,-8.00" changeLeft="ignoring" changeRight="ignoring"/>
         <lane id="2_1" index="1" speed="13.89" length="100.00" shape="100.00,-4.80 200.00,-4.80"/>
         <lane id="2_2" index="2" speed="13.89" length="100.00" shape="100.00,-1.60 200.00,-1.60"/>
     </edge>

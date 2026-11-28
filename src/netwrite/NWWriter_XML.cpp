@@ -264,10 +264,10 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
                 edevice.writeOptionalAttr(SUMO_ATTR_ACCELERATION, lane.accelRamp, !lane.accelRamp);
                 NWWriter_SUMO::writeShape(edevice, gch, lane.customShape.size() > 0 ? lane.customShape : lane.shape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy, lane.customShape.size() > 0 || writeLanes);
                 edevice.writeOptionalAttr(SUMO_ATTR_TYPE, lane.type, lane.type == "");
-                const bool changeLeft = (lane.changeLeft != SVCAll && lane.changeLeft != SVC_UNSPECIFIED && lane.changeLeft != SVC_IGNORING);
-                edevice.writeOptionalAttr(SUMO_ATTR_CHANGE_LEFT, getVehicleClassNames(lane.changeLeft), !changeLeft);
-                const bool changeRight = (lane.changeRight != SVCAll && lane.changeRight != SVC_UNSPECIFIED && lane.changeRight != SVC_IGNORING);
-                edevice.writeOptionalAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(lane.changeRight), !changeRight);
+                const bool changeLeft = (lane.changeLeft != SVCAll && lane.changeLeft != SVC_UNSPECIFIED);
+                edevice.writeOptionalAttr(SUMO_ATTR_CHANGE_LEFT, getLaneChangeClassNames(lane.changeLeft), !changeLeft);
+                const bool changeRight = (lane.changeRight != SVCAll && lane.changeRight != SVC_UNSPECIFIED);
+                edevice.writeOptionalAttr(SUMO_ATTR_CHANGE_RIGHT, getLaneChangeClassNames(lane.changeRight), !changeRight);
                 if (lane.oppositeID != "") {
                     edevice.openTag(SUMO_TAG_NEIGH);
                     edevice.writeAttr(SUMO_ATTR_LANE, lane.oppositeID);
