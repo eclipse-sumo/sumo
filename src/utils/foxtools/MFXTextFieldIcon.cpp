@@ -42,7 +42,6 @@
 #define JUSTIFY_MASK    (JUSTIFY_HZ_APART|JUSTIFY_VT_APART)
 #define TEXTFIELD_MASK  (TEXTFIELD_PASSWD|TEXTFIELD_INTEGER|TEXTFIELD_REAL|TEXTFIELD_READONLY|TEXTFIELD_ENTER_ONLY|TEXTFIELD_LIMITED|TEXTFIELD_OVERSTRIKE|TEXTFIELD_AUTOHIDE|TEXTFIELD_AUTOGRAY)
 #define ICON_SPACING    4   // Spacing between myIcon and label (2 + 2)
-#define ICON_SIZE       16
 
 // ===========================================================================
 // FOX callback mapping
@@ -879,7 +878,7 @@ MFXTextFieldIcon::drawCursor(FXuint state) {
             xx = coord(myCursorPosition) - 1;
             // add myIcon spacing
             if (myIcon) {
-                xx += ICON_SPACING + ICON_SIZE;
+                xx += ICON_SPACING + myIcon->getWidth();
             }
             // Clip rectangle around myCursorPosition
             xlo = FXMAX(xx - 2, border);
@@ -1182,7 +1181,7 @@ void MFXTextFieldIcon::drawTextRange(FXDCWindow& dc, FXint fm, FXint to) {
         }
         // check if add myIcon spacing
         if (myIcon) {
-            xx += ICON_SPACING + ICON_SIZE;
+            xx += ICON_SPACING + myIcon->getWidth();
         }
         // Reduce to avoid drawing excessive amounts of text
         lx = xx + cw * contents.index(fm);
@@ -1255,7 +1254,7 @@ void MFXTextFieldIcon::drawTextRange(FXDCWindow& dc, FXint fm, FXint to) {
         }
         // check if add myIcon spacing
         if (myIcon) {
-            xx += ICON_SPACING + ICON_SIZE;
+            xx += ICON_SPACING + myIcon->getWidth();
         }
         // Reduce to avoid drawing excessive amounts of text
         lx = xx + myFont->getTextWidth(&contents[0], fm);
@@ -1378,7 +1377,7 @@ MFXTextFieldIcon::onPaint(FXObject*, FXSelector, void* ptr) {
         int xx = coord(myCursorPosition) - 1;
         // check if add myIcon spacing
         if (myIcon) {
-            xx += ICON_SPACING + ICON_SIZE;
+            xx += ICON_SPACING + myIcon->getWidth();
         }
         dc.setForeground(myCursorColor);
         dc.fillRectangle(xx, padtop + border, 1, height - padbottom - padtop - (border << 1));
@@ -1387,7 +1386,7 @@ MFXTextFieldIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     }
     // draw myIcon
     if (myIcon) {
-        dc.drawIcon(myIcon, ICON_SPACING / 2, border + padtop + (height - padbottom - padtop - (border << 1) - ICON_SIZE) / 2);
+        dc.drawIcon(myIcon, ICON_SPACING / 2, border + padtop + (height - padbottom - padtop - (border << 1) - myIcon->getHeight()) / 2);
     }
     return 1;
 }

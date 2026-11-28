@@ -80,21 +80,13 @@ FXIMPLEMENT(GNETLSTable, FXHorizontalFrame, GNETLSTableMap, ARRAYNUMBER(GNETLSTa
 
 GNETLSTable::GNETLSTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent) :
     FXHorizontalFrame(TLSPhasesParent->getCollapsableFrame(), GUIDesignAuxiliarFrameFixedWidth(0)),
-    myProgramFont(new FXFont(getApp(), "Courier New", 10)),
-    myIndexFont(new FXFont(getApp(), "Segoe UI", 9)),
-    myIndexSelectedFont(new FXFont(getApp(), "Segoe UI", 9, FXFont::Bold)),
     myTLSPhasesParent(TLSPhasesParent) {
     // set default width
     recalcTableWidth();
 }
 
 
-GNETLSTable::~GNETLSTable() {
-    // delete fonts
-    delete myProgramFont;
-    delete myIndexFont;
-    delete myIndexSelectedFont;
-}
+GNETLSTable::~GNETLSTable() {}
 
 
 void
@@ -1176,7 +1168,7 @@ GNETLSTable::Column::getColumnMinimumWidth() {
     // check column type
     if (myType == 's') {
         // set index column width
-        columnWidth = 30;
+        columnWidth = MAX2(30, GUIDesignHeight);
     } else if (isTextFieldColumn()) {
         // calculate top label width
         columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGIN);
@@ -1244,14 +1236,14 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
         // continue depending of type
         switch (table->myColumns.at(columnIndex)->getType()) {
             case ('s'): {
+                const int indexWidth = MAX2(30, GUIDesignHeight);
                 // create labels for index
                 auto indexLabel = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                                              toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThickedFixed(30));
+                                              toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThickedFixed(indexWidth));
                 auto indexLabelBold = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                                                  toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThickedFixed(30));
-                // set fonts
-                indexLabel->setFont(myTable->myIndexFont);
-                indexLabelBold->setFont(myTable->myIndexSelectedFont);
+                                                  toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThickedFixed(indexWidth));
+                // set bold font for selected index
+                indexLabelBold->setFont(GUIMainWindow::getInstance()->getBoldFont());
                 myCells.push_back(new Cell(table, indexLabel, indexLabelBold, columnIndex, numCells));
                 break;
             }
@@ -1271,8 +1263,8 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
                 auto textField = new MFXTextFieldIcon(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
                                                       staticTooltipMenu, GUIIcon::EMPTY, table,
                                                       MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
-                // set special font
-                textField->setFont(myTable->myProgramFont);
+                // set monospace font
+                textField->setFont(GUIMainWindow::getInstance()->getMonospaceFont());
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }

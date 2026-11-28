@@ -18,6 +18,7 @@
 //
 /****************************************************************************/
 
+#include <utils/common/StdDefs.h>
 #include <utils/common/UtilExceptions.h>
 #include <fxkeys.h>
 
@@ -29,7 +30,6 @@
 // ===========================================================================
 
 #define LINE_SPACING    4   // Line spacing between items
-#define ICON_SIZE       16
 
 #define LIST_MASK   (SELECT_MASK | LIST_AUTOSELECT)
 
@@ -139,10 +139,11 @@ MFXListIcon::getDefaultWidth() {
 
 FXint
 MFXListIcon::getDefaultHeight() {
+    const FXint iconSize = (FXint)(16 * GUIDesignHeight / 23.0);
     if (visible > (int)itemFiltered.size()) {
-        return (int)itemFiltered.size() * (LINE_SPACING + FXMAX(font->getFontHeight(),  ICON_SIZE));
+        return (int)itemFiltered.size() * (LINE_SPACING + FXMAX(font->getFontHeight(), iconSize));
     } else {
-        return visible * (LINE_SPACING + FXMAX(font->getFontHeight(),  ICON_SIZE));
+        return visible * (LINE_SPACING + FXMAX(font->getFontHeight(), iconSize));
     }
 }
 

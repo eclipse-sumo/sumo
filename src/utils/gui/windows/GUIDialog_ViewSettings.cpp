@@ -2507,7 +2507,10 @@ GUIDialog_ViewSettings::buildOpenGLFrame(FXTabBook* tabbook) {
     FXMatrix* m90 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
     new FXLabel(m90, TL("UI Scaling"), nullptr, GUIDesignViewSettingsLabel1);
     myUIScale = new FXRealSpinner(m90, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    myUIScale->setRange(0.5, 10);
+    myUIScale->setIncrement(0.1);
     myUIScale->setValue(getApp()->reg().readRealEntry("SETTINGS", "uiscale", 1));
+    myUIScale->setTipText(TL("Requires application restart to take effect"));
     FXMatrix* m80 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
     myTrueZ = new FXCheckButton(m80, "Draw all objects at their true Z-level", this, MID_SIMPLE_VIEW_COLORCHANGE);
     myTrueZ->setCheck(mySettings->trueZ);

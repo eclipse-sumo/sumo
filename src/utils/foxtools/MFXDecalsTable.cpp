@@ -63,8 +63,6 @@ FXIMPLEMENT(MFXDecalsTable, FXVerticalFrame, MFXDecalsTableMap, ARRAYNUMBER(MFXD
 
 MFXDecalsTable::MFXDecalsTable(GUIDialog_ViewSettings* dialogViewSettingsParent, FXComposite* parent) :
     FXVerticalFrame(parent, GUIDesignAuxiliarFrameFixHeight),
-    myIndexFont(new FXFont(getApp(), "Segoe UI", 9)),
-    myIndexSelectedFont(new FXFont(getApp(), "Segoe UI", 9, FXFont::Bold)),
     myDialogViewSettings(dialogViewSettingsParent) {
     // create vertical frame for rows
     myColumnsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
@@ -74,11 +72,7 @@ MFXDecalsTable::MFXDecalsTable(GUIDialog_ViewSettings* dialogViewSettingsParent,
 }
 
 
-MFXDecalsTable::~MFXDecalsTable() {
-    // delete fonts
-    delete myIndexFont;
-    delete myIndexSelectedFont;
-}
+MFXDecalsTable::~MFXDecalsTable() {}
 
 
 void
@@ -772,14 +766,14 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
                 break;
             }
             case ('i'): {
+                const int indexWidth = MAX2(30, GUIDesignHeight);
                 // create labels for index
                 auto indexLabel = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                                              toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThickedFixed(30));
+                                              toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThickedFixed(indexWidth));
                 auto indexLabelBold = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                                                  toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThickedFixed(30));
-                // set fonts
-                indexLabel->setFont(myTable->myIndexFont);
-                indexLabelBold->setFont(myTable->myIndexSelectedFont);
+                                                  toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThickedFixed(indexWidth));
+                // set bold font for selected index
+                indexLabelBold->setFont(GUIMainWindow::getInstance()->getBoldFont());
                 myCells.push_back(new Cell(table, indexLabel, indexLabelBold, columnIndex, numCells));
                 break;
             }

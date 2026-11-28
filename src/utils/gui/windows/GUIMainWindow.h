@@ -82,10 +82,19 @@ public:
     /// @brief update childrens
     void updateChildren(int msg = MID_SIMSTEP);
 
-    /// @brief get bold front
+    /// @brief get bold font
     FXFont* getBoldFont();
 
-    /// @brief get fallback front
+    /// @brief get header font
+    FXFont* getHeaderFont();
+
+    /// @brief get headline font
+    FXFont* getHeadlineFont();
+
+    /// @brief get monospace font
+    FXFont* getMonospaceFont();
+
+    /// @brief get fallback font
     FXFont* getFallbackFont();
 
     /// @brief get GL Visual
@@ -245,6 +254,15 @@ protected:
 
     /// @brief Font used for popup-menu titles
     FXFont* myBoldFont = nullptr;
+
+    /// @brief Font used for frame and section headers
+    FXFont* myHeaderFont = nullptr;
+
+    /// @brief Font used for dialog headlines
+    FXFont* myHeadlineFont = nullptr;
+
+    /// @brief Monospace font used for phase state tables
+    FXFont* myMonospaceFont = nullptr;
 
     /// @brief Fallback font for extended characters support
     FXFont* myFallbackFont = nullptr;

@@ -26,6 +26,7 @@
 #include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 #include "GUIDialog_HallOfFame.h"
 
 
@@ -42,8 +43,7 @@ GUIDialog_HallOfFame::GUIDialog_HallOfFame(FXWindow* parent) :
 
     // main text
     FXVerticalFrame* descriptionFrame = new FXVerticalFrame(mainInfoFrame, GUIDesignLabelAboutInfo);
-    myHeadlineFont = new FXFont(getApp(), "Arial", 12, FXFont::Bold);
-    (new FXLabel(descriptionFrame, "SUMO Conference 2026 - Hall of Fame", nullptr, GUIDesignLabelAboutInfo))->setFont(myHeadlineFont);
+    (new FXLabel(descriptionFrame, "SUMO Conference 2026 - Hall of Fame", nullptr, GUIDesignLabelAboutInfo))->setFont(GUIMainWindow::getInstance()->getHeaderFont());
     new FXLabel(descriptionFrame, "", GUIIconSubSys::getIcon(GUIIcon::HALL_OF_FAME), GUIDesignLabelIcon);
     new FXLabel(descriptionFrame, "SUMO guru of the year: Juri Penell", nullptr, GUIDesignLabelAboutInfo);
 
@@ -64,9 +64,7 @@ GUIDialog_HallOfFame::create() {
 }
 
 
-GUIDialog_HallOfFame::~GUIDialog_HallOfFame() {
-    delete myHeadlineFont;
-}
+GUIDialog_HallOfFame::~GUIDialog_HallOfFame() {}
 
 
 /****************************************************************************/

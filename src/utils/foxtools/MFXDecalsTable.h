@@ -289,12 +289,6 @@ protected:
     /// @brief horizontal columns frame
     FXHorizontalFrame* myColumnsFrame = nullptr;
 
-    /// @brief font for index
-    FXFont* myIndexFont = nullptr;
-
-    /// @brief font for index selected
-    FXFont* myIndexSelectedFont = nullptr;
-
     /// @frame pointer to GUIDialog_ViewSettings parent
     GUIDialog_ViewSettings* myDialogViewSettings = nullptr;
 

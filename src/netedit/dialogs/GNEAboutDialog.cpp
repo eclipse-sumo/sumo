@@ -41,9 +41,8 @@ GNEAboutDialog::GNEAboutDialog(GNEApplicationWindow* applicationWindow) :
     new FXLabel(myContentFrame, "", GUIIconSubSys::getIcon(GUIIcon::SUMO_LOGO), GUIDesignLabelIcon);
     // "SUMO <VERSION>"
     FXVerticalFrame* descriptionFrame = new FXVerticalFrame(myContentFrame, GUIDesignLabelAboutInfo);
-    myHeadlineFont = new FXFont(getApp(), "Arial", 18, FXFont::Bold);
     FXLabel* neteditLabel = new FXLabel(descriptionFrame, "SUMO netedit " VERSION_STRING, nullptr, GUIDesignLabelAboutInfo);
-    neteditLabel->setFont(myHeadlineFont);
+    neteditLabel->setFont(applicationWindow->getHeadlineFont());
     new FXLabel(descriptionFrame, TL("Network editor for Eclipse SUMO, the Simulation of Urban MObility"), nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(descriptionFrame, TL("Graphical editor for road networks and infrastructure."), nullptr, GUIDesignLabelAboutInfo);
     // show modules
@@ -67,9 +66,7 @@ GNEAboutDialog::GNEAboutDialog(GNEApplicationWindow* applicationWindow) :
 }
 
 
-GNEAboutDialog::~GNEAboutDialog() {
-    delete myHeadlineFont;
-}
+GNEAboutDialog::~GNEAboutDialog() {}
 
 
 void
