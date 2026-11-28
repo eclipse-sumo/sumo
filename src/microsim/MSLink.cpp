@@ -1912,7 +1912,11 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     // crossing from the left or the right (heuristic)
                     fromLeft = foeDistToCrossing > 0.5 * foeLane->getLength();
                 } else if ((contLane && !sameSource && !ignoreIndirectBicycleTurn) || isOpposite) {
-                    gap = -std::numeric_limits<double>::max(); // always break for vehicles which are on a continuation lane or for opposite-direction vehicles
+                    if (!isOpposite && !sameTarget && pastTheCrossingPoint && !leader->isFrontOnLane(foeLane)) {
+                        // A partial occupator of a continuation lane may have cleared the crossing.
+                        continue;
+                    }
+                    gap = -std::numeric_limits<double>::max();
                 } else {
                     if (pastTheCrossingPoint && !sameTarget) {
                         // leader is completely past the crossing point

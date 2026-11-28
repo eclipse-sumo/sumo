@@ -1,0 +1,4 @@
+<connections>
+    <connection from="west" to="east" fromLane="0" toLane="0" tl="j" linkIndex="0" keepClear="false" />
+    <connection from="south" to="north" fromLane="0" toLane="0" tl="j" linkIndex="1" keepClear="false" contPos="30"/>
+</connections>
