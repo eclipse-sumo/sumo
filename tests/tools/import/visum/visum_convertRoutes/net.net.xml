@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-19T20:55:31.773721+00:00 by Eclipse SUMO netconvert v1_28_0+0656-c9253f0c1d3
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Users\Mark\AppData\Local\Temp\tmppn48xk3w\n.nod.xml"/>
+        <edge-files value="C:\Users\Mark\AppData\Local\Temp\tmppn48xk3w\e.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\Mark\AppData\Local\Temp\tmppn48xk3w\net.net.xml"/>
+    </output>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="0.00,0.00,200.00,100.00" projParameter="!"/>
+
+    <edge id=":2_0" function="internal">
+        <lane id=":2_0_0" index="0" speed="6.51" length="4.11" shape="98.40,4.00 98.75,1.55 99.59,0.15"/>
+    </edge>
+    <edge id=":2_2" function="internal">
+        <lane id=":2_2_0" index="0" speed="6.51" length="4.93" shape="99.59,0.15 99.80,-0.20 101.55,-1.25 104.00,-1.60"/>
+    </edge>
+    <edge id=":2_1" function="internal">
+        <lane id=":2_1_0" index="0" speed="13.89" length="11.20" shape="92.80,-1.60 104.00,-1.60"/>
+    </edge>
+
+    <edge id="10" from="1" to="2" priority="-1">
+        <lane id="10_0" index="0" speed="13.89" length="92.80" shape="0.00,-1.60 92.80,-1.60"/>
+    </edge>
+    <edge id="20" from="2" to="3" priority="-1">
+        <lane id="20_0" index="0" speed="13.89" length="96.00" shape="104.00,-1.60 200.00,-1.60"/>
+    </edge>
+    <edge id="30" from="4" to="2" priority="-1">
+        <lane id="30_0" index="0" speed="13.89" length="96.00" shape="98.40,100.00 98.40,4.00"/>
+    </edge>
+
+    <junction id="1" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="2" type="priority" x="100.00" y="0.00" incLanes="30_0 10_0" intLanes=":2_2_0 :2_1_0" shape="96.80,4.00 100.00,4.00 100.44,1.78 101.00,1.00 101.78,0.44 102.78,0.11 104.00,0.00 104.00,-3.20 92.80,-3.20 92.80,0.00 95.02,0.44 95.80,1.00 96.36,1.78 96.69,2.78">
+        <request index="0" response="10" foes="10" cont="1"/>
+        <request index="1" response="00" foes="01" cont="0"/>
+    </junction>
+    <junction id="3" type="dead_end" x="200.00" y="0.00" incLanes="20_0" intLanes="" shape="200.00,-3.20 200.00,0.00"/>
+    <junction id="4" type="dead_end" x="100.00" y="100.00" incLanes="" intLanes="" shape="100.00,100.00 96.80,100.00"/>
+
+    <junction id=":2_2_0" type="internal" x="99.59" y="0.15" incLanes=":2_0_0 10_0" intLanes=":2_1_0"/>
+
+    <connection from="10" to="20" fromLane="0" toLane="0" via=":2_1_0" dir="s" state="M"/>
+    <connection from="30" to="20" fromLane="0" toLane="0" via=":2_0_0" dir="l" state="m"/>
+
+    <connection from=":2_0" to="20" fromLane="0" toLane="0" via=":2_2_0" dir="l" state="m"/>
+    <connection from=":2_2" to="20" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":2_1" to="20" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
