@@ -122,6 +122,8 @@ To import all sidewalk related information, the option **--osm.sidewalks** can b
 
 By default, lane-to-lane connections are guessed by [netconvert](../../netconvert.md) and only turning restrictions are loaded from OSM to influence connection generation. When setting option **--osm.turn-lanes**, the turn direction road markings from OSM are evaluated to guide connection generation.
 
+Use **--osm.annotate-defaults** to record the source of each lane-to-lane connection in the `osmConnectionSource` parameter. The value is `input` for a lane pair supplied directly in a connection file, `turnLanes` when SUMO uses OSM lane turn signs to select the movement, and `guessed` when SUMO selects the lane pair from network geometry and other available constraints. Turn restrictions constrain the set of possible guessed lane pairs. Generated internal lanes carry the same source parameter.
+
 !!! caution
     At roads where some lanes have turn markings and others do not, the unmarked lanes are interpreted as through-lanes. This may not be correct in all cases.
 

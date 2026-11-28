@@ -133,7 +133,9 @@ public:
         /// @brief The connection was given by the user
         USER,
         /// @brief The connection was computed and validated
-        VALIDATED
+        VALIDATED,
+        /// @brief The connection was inferred from OSM lane turn signs
+        OSM_TURN_SIGNS
     };
 
 
@@ -214,6 +216,9 @@ public:
 
         /// @brief The lane the connections yields in
         int toLane;
+
+        /// @brief How this lane-to-lane connection was created
+        Lane2LaneInfoType creationType = Lane2LaneInfoType::COMPUTED;
 
         /// @brief The id of the traffic light that controls this connection
         std::string tlID;

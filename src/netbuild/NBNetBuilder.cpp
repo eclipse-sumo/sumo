@@ -741,10 +741,25 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         WRITE_WARNING(TL("Network contains very large coordinates and will probably flicker in the GUI. Check for outlying nodes and make sure the network is shifted to the coordinate origin"));
     }
 
-    // clean up OSM processing params
     if (oc.exists("osm-files") && oc.isSet("osm-files")) {
-        for (auto item : myEdgeCont) {
-            item.second->unsetParameter(NBTrafficLightDefinition::OSM_DIRECTION);
+        const bool annotate = oc.getBool("osm.annotate-defaults");
+        for (const auto& item : myEdgeCont) {
+            auto* edge = item.second;
+            edge->unsetParameter(NBTrafficLightDefinition::OSM_DIRECTION);
+            if (annotate) {
+                for (auto& connection : edge->getConnections()) {
+                    if (connection.hasParameter("osmConnectionSource")) {
+                        continue;
+                    }
+                    const char* source = "guessed";
+                    if (connection.creationType == NBEdge::Lane2LaneInfoType::USER) {
+                        source = "input";
+                    } else if (connection.creationType == NBEdge::Lane2LaneInfoType::OSM_TURN_SIGNS) {
+                        source = "turnLanes";
+                    }
+                    connection.setParameter("osmConnectionSource", source);
+                }
+            }
         }
     }
 }

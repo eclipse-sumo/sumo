@@ -3,3 +3,4 @@
 --keep-edges.by-vclass passenger
 -R
 --osm.turn-lanes
+--osm.annotate-defaults

@@ -1240,7 +1240,11 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     if (!mayUseSameDestination && hasConnectionTo(destEdge, destLane)) {
         return false;
     }
-    if (find_if(myConnections.begin(), myConnections.end(), connections_finder(lane, destEdge, destLane)) != myConnections.end()) {
+    const auto existing = std::find_if(myConnections.begin(), myConnections.end(), connections_finder(lane, destEdge, destLane));
+    if (existing != myConnections.end()) {
+        if (type == Lane2LaneInfoType::USER) {
+            existing->creationType = type;
+        }
         return true;
     }
     if ((int)myLanes.size() <= lane || destEdge->getNumLanes() <= (int)destLane) {
@@ -1261,6 +1265,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
         }
     }
     myConnections.push_back(Connection(lane, destEdge, destLane));
+    myConnections.back().creationType = type;
     if (mayDefinitelyPass) {
         myConnections.back().mayDefinitelyPass = true;
     }
@@ -2930,7 +2935,7 @@ NBEdge::applyTurnSigns() {
 #ifdef DEBUG_TURNSIGNS
                     //std::cout << "  set fromLane=" << i << " to=" << to->getID() << " toLane=" << toLaneIndex[to] << "\n";
 #endif
-                    setConnection(i, to, toLaneIndex[to], Lane2LaneInfoType::VALIDATED, true,
+                    setConnection(i, to, toLaneIndex[to], Lane2LaneInfoType::OSM_TURN_SIGNS, true,
                                   false, KEEPCLEAR_UNSPECIFIED, UNSPECIFIED_CONTPOS,
                                   UNSPECIFIED_VISIBILITY_DISTANCE, UNSPECIFIED_SPEED, UNSPECIFIED_FRICTION,
                                   myDefaultConnectionLength, PositionVector::EMPTY,
