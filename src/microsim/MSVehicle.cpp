@@ -1154,7 +1154,7 @@ MSVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, bool 
 
 // ------------ Interaction with move reminders
 void
-MSVehicle::workOnMoveReminders(double oldPos, double newPos, double newSpeed) {
+MSVehicle::workOnMoveReminders(double oldPos, double newPos, double newSpeed, double fractionalDuration) {
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
     for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
@@ -1162,7 +1162,13 @@ MSVehicle::workOnMoveReminders(double oldPos, double newPos, double newSpeed) {
         //      although a higher order quadrature-formula might be more adequate.
         //      For the euler case (where the speed is considered constant for each time step) it is conceivable that
         //      the current calculations may lead to systematic errors for large time steps (compared to reality). Refs. #2579
-        if (!rem->first->notifyMove(*this, oldPos + rem->second, newPos + rem->second, MAX2(0., newSpeed))) {
+        const double oldRelativePos = oldPos + rem->second;
+        const double newRelativePos = newPos + rem->second;
+        const double speed = MAX2(0., newSpeed);
+        const bool keep = fractionalDuration > 0
+                          ? rem->first->notifyMoveFraction(*this, oldRelativePos, newRelativePos, speed, fractionalDuration)
+                          : rem->first->notifyMove(*this, oldRelativePos, newRelativePos, speed);
+        if (!keep) {
 #ifdef _DEBUG
             if (myTraceMoveReminders) {
                 traceMoveReminder("notifyMove", rem->first, rem->second, false);
@@ -4910,6 +4916,7 @@ MSVehicle::executeMove() {
 
 void
 MSVehicle::executeFractionalMove(double dist) {
+    const double duration = dist / getSpeed();
     myState.myPos += dist;
     myState.myLastCoveredDist = dist;
     myCachedPosition = Position::INVALID;
@@ -4948,7 +4955,7 @@ MSVehicle::executeFractionalMove(double dist) {
                   << "\n";
     }
 #endif
-    workOnMoveReminders(myState.myPos - myState.myLastCoveredDist, myState.myPos, myState.mySpeed);
+    workOnMoveReminders(myState.myPos - myState.myLastCoveredDist, myState.myPos, myState.mySpeed, duration);
     if (lanes.size() > 1) {
         for (std::vector<MSLane*>::iterator i = myFurtherLanes.begin(); i != myFurtherLanes.end(); ++i) {
 #ifdef DEBUG_FURTHER
