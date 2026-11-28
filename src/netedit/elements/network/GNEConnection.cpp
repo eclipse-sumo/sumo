@@ -375,6 +375,15 @@ GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
                 mcCustomShape->disable();
             }
         }
+        if (existNBEdgeConnection()) {
+            const auto& connection = getNBEdgeConnection();
+            if (!connection.id.empty()) {
+                new FXMenuCaption(ret, TLF("Internal edge ID %", connection.id).c_str());
+            }
+            if (connection.haveVia && !connection.viaID.empty()) {
+                new FXMenuCaption(ret, TLF("Via internal edge ID %", connection.viaID).c_str());
+            }
+        }
         return ret;
     }
 }
@@ -400,6 +409,18 @@ GNEConnection::updateCenteringBoundary(const bool /*updateGrid*/) {
 
 void
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
+    if (!s.drawForViewObjectsHandler && s.internalEdgeName.show(this) && !myShapeDeprecated && existNBEdgeConnection()) {
+        const auto& connection = getNBEdgeConnection();
+        const auto drawEdgeID = [&](const std::string& id, int laneIndex, const PositionVector& shape) {
+            if (!id.empty() && !shape.empty() && (laneIndex == 0 || s.internalEdgeName.onlySelected)) {
+                GLHelper::drawTextSettings(s.internalEdgeName, id, shape.getLineCenter(), s.scale, s.angle);
+            }
+        };
+        drawEdgeID(connection.id, connection.internalLaneIndex, connection.shape);
+        if (connection.haveVia) {
+            drawEdgeID(connection.viaID, connection.internalViaLaneIndex, connection.viaShape);
+        }
+    }
     // Check if connection must be drawed
     if (checkDrawConnection()) {
         // get connection exaggeration
