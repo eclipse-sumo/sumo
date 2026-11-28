@@ -68,7 +68,7 @@ public:
     bool loadConfiguration(const std::string& file);
 
     /// @brief save configuration
-    void saveConfiguration(const std::string& file) const;
+    virtual void saveConfiguration(const std::string& file) const;
 
 protected:
     /// @brief application window

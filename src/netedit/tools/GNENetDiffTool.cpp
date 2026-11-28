@@ -18,6 +18,8 @@
 // Netdiff tool used in netedit
 /****************************************************************************/
 
+#include <fstream>
+
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -25,6 +27,7 @@
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/iodevices/PlainXMLFormatter.h>
 #include <utils/xml/XMLSubSys.h>
 
 #include "GNENetDiffTool.h"
@@ -142,6 +145,30 @@ GNENetDiffTool::getCommand() const {
 
 
 void
+GNENetDiffTool::saveConfiguration(const std::string& file) const {
+    std::ofstream out(XMLSubSys::transcodeToLocal(file));
+    if (out) {
+        PlainXMLFormatter formatter;
+        formatter.openTag(out, "configuration");
+        for (const auto& option : myPythonToolsOptions) {
+            if (!option.second->isDefault()) {
+                formatter.openTag(out, option.first);
+                formatter.writeAttr(out, SUMO_ATTR_VALUE, option.second->getValueString(), true);
+                formatter.closeTag(out);
+            }
+        }
+        formatter.closeTag(out);
+        out.close();
+    }
+    if (!out) {
+        WRITE_ERROR(TLF("Could not save tool configuration '%'.", file));
+    } else {
+        WRITE_MESSAGE(TLF("Saved % configuration.", myPythonToolName));
+    }
+}
+
+
+void
 GNENetDiffTool::fillNetDiffOptions(OptionsCont& options) {
     // build custom options for netdiff
     options.addOptionSubTopic("input");
@@ -150,6 +177,10 @@ GNENetDiffTool::fillNetDiffOptions(OptionsCont& options) {
 
     options.doRegister("modified-net", new Option_Network(""));
     options.addDescription("modified-net", "input", TL("Modified network"));
+
+    // Accept path names written by netdiff.py.
+    options.addSynonyme("original-net", "source");
+    options.addSynonyme("modified-net", "dest");
 
     options.addOptionSubTopic("output");
     options.doRegister("outprefix", new Option_FileName());

@@ -45,6 +45,9 @@ public:
     /// @brief get command (python + script + arguments)
     std::string getCommand() const;
 
+    /// @brief save NetDiff and Netedit options together
+    void saveConfiguration(const std::string& file) const override;
+
 private:
     /// @brief fill netDiff options
     void fillNetDiffOptions(OptionsCont& options);
