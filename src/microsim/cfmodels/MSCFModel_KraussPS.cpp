@@ -42,8 +42,9 @@ MSCFModel_KraussPS::~MSCFModel_KraussPS() {}
 
 double
 MSCFModel_KraussPS::maxNextSpeed(double speed, const MSVehicle* const veh) const {
-    const double aBound = getCurrentAccel(speed);
-    const double aMax = MAX2(0., aBound - GRAVITY * sin(DEG2RAD(veh->getSlope())));
+    const double maxPhys = myMaxAccelProfile.empty() ? myAccel : MIN2(myAccel, LinearApproxHelpers::getInterpolatedValue(myMaxAccelProfile, speed));
+    const double aMax = MAX2(0., maxPhys - GRAVITY * sin(DEG2RAD(veh->getSlope())));
+    const double aDes = myDesAccelProfile.empty() ? aMax : MIN2(aMax, LinearApproxHelpers::getInterpolatedValue(myDesAccelProfile, speed));
     // special case for bicycles where getMaxSpeed() is not a a technical but a rather an individual power limit
     const double typeMax = myType->getMaxSpeed() * (veh->getVClass() == SVC_BICYCLE ? veh->getChosenSpeedFactor() : 1);
     // assuming drag force is proportional to the square of speed
@@ -51,10 +52,11 @@ MSCFModel_KraussPS::maxNextSpeed(double speed, const MSVehicle* const veh) const
                             sqrt(aMax / getMaxAccel()) * typeMax,
                             // prevent emergency braking when inclination changes suddenly (momentum)
                             speed - ACCEL2SPEED(getMaxDecel()));
+    const double aBound = myDesAccelProfile.empty() ? maxPhys : MIN2(maxPhys, LinearApproxHelpers::getInterpolatedValue(myDesAccelProfile, speed));
     return MAX2(
                // prevent stalling at low speed
                aBound / 2,
-               MIN2(speed + ACCEL2SPEED(aMax), vMax));
+               MIN2(speed + ACCEL2SPEED(aDes), vMax));
 }
 
 

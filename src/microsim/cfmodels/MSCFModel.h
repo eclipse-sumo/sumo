@@ -313,7 +313,7 @@ public:
     /** @brief Get the vehicle type's maximum acceleration [m/s^2]
      * @return The maximum acceleration (in m/s^2) of vehicles of this class
      */
-    virtual double getCurrentAccel(const double speed) const;
+    virtual double getCurrentAccel(const double speed, const double slope = 0.) const;
 
 
     /** @brief Get the vehicle type's maximum acceleration profile depending on the velocity [m/s^2]
