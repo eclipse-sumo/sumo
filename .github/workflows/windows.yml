@@ -182,8 +182,14 @@ jobs:
     - name: Tests
       run: |
         $env:PATH += ";$pwd\bin"
-        $env:TEXTTEST_CI_APPS = "-a ${{ matrix.apps }}"
-        tests\runCiTests.bat texttest.exe
+        $failed = $false
+        # Run one application per TextTest invocation to avoid texttest/texttest#173
+        foreach ($app in ("${{ matrix.apps }}" -split ",")) {
+          $env:TEXTTEST_CI_APPS = "-a $app"
+          tests\runCiTests.bat texttest.exe
+          if ($LASTEXITCODE -ne 0) { $failed = $true }
+        }
+        if ($failed) { exit 1 }
 
     - name: Compressing test results
       if: failure()
