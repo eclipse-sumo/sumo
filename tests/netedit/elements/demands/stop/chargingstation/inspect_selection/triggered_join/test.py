@@ -47,10 +47,10 @@ netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.trigg
 netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.triggered, "join")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.join, ";;;;")
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.join, ";;;;")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.join, "customJoin")
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.join, "customJoin")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

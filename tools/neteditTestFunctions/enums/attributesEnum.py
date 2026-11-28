@@ -3336,61 +3336,58 @@ class attrs:
 
     class stopChargingStation:
         class create:
-            durationEnable = 8
-            duration = 9
+            duration = 8
             untilEnable = 9
             until = 10
             extensionEnable = 10
             extension = 11
-            triggered = 12
-            expected = 14
-            join = 14
-            permitted = 14
-            parking = 15
-            actType = 17
-            tripID = 18
-            line = 19
-            onDemand = 20
-            jump = 21
-            split = 22
+            triggered = 11
+            expected = 13
+            join = 13
+            permitted = 13
+            parking = 14
+            actType = 16
+            tripID = 17
+            line = 18
+            onDemand = 19
+            jump = 20
+            split = 21
 
         class inspect:
-            durationEnable = 2
-            duration = 3
+            duration = 2
             untilEnable = 3
             until = 4
             extensionEnable = 4
             extension = 5
-            triggered = 6
-            expected = 8
-            join = 8
-            permitted = 8
-            parking = 9
-            actType = 11
-            tripID = 12
-            line = 13
-            onDemand = 14
-            jump = 15
-            split = 16
+            triggered = 5
+            expected = 7
+            join = 7
+            permitted = 7
+            parking = 8
+            actType = 10
+            tripID = 11
+            line = 12
+            onDemand = 13
+            jump = 14
+            split = 15
 
         class inspectSelection:
-            durationEnable = 2
-            duration = 3
-            untilEnable = 4
-            until = 5
-            extensionEnable = 6
-            extension = 7
-            triggered = 8
-            expected = 10
-            join = 10
-            permitted = 10
-            parking = 11
-            actType = 13
-            tripID = 14
-            line = 15
-            onDemand = 16
-            jump = 17
-            split = 18
+            duration = 2
+            untilEnable = 3
+            until = 4
+            extensionEnable = 5
+            extension = 6
+            triggered = 7
+            expected = 9
+            join = 9
+            permitted = 9
+            parking = 10
+            actType = 12
+            tripID = 13
+            line = 14
+            onDemand = 15
+            jump = 16
+            split = 17
 
     # stop over parkings
 

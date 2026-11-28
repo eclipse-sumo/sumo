@@ -34,9 +34,6 @@ netedit.changeMode("stop")
 # change stop type with a valid value
 netedit.changeElement("stopFrame", "stopChargingStation")
 
-# disable duration
-netedit.modifyBoolAttribute(netedit.attrs.stopChargingStation.create.durationEnable)
-
 # enable until
 netedit.modifyBoolAttribute(netedit.attrs.stopChargingStation.create.extensionEnable)
 

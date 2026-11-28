@@ -866,6 +866,11 @@ GNEAttributesEditorRow::showValueComboBox(const GNEAttributeProperties* attrProp
             for (const auto& discreteValue : attrProperty->getDiscreteValues()) {
                 myValueComboBox->appendIconItem(discreteValue.c_str(), nullptr);
             }
+            // Display an existing person trigger even though the charging-stop editor cannot add one.
+            if (attrProperty->getAttr() == SUMO_ATTR_TRIGGERED &&
+                    attrProperty->getTagPropertyParent()->getTag() == GNE_TAG_STOP_CHARGINGSTATION && value == "person") {
+                myValueComboBox->appendIconItem(value.c_str(), nullptr);
+            }
         }
         // set current value (or disable)
         const auto index = myValueComboBox->findItem(value.c_str());
