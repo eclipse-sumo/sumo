@@ -210,6 +210,9 @@ protected:
     /// @brief The start position over lane
     double myStartPosOverLane = 0;
 
+    /// @brief Lane length used to encode an endpoint beyond a negative position's lane end
+    double myEndPositionLaneLength = 0;
+
     /// @brief The end position over lane
     double myEndPosPosOverLane = 0;
 
@@ -235,6 +238,12 @@ protected:
     GNEMoveElementLaneDouble* myMoveElementLaneDouble = nullptr;
 
 private:
+    /// @brief detector length in lane coordinates, ignoring friendly-position clipping
+    double getDetectorLength() const;
+
+    /// @brief encode the end of a single-lane detector in lane coordinates
+    double encodeEndPosition(const double start, const double length) const;
+
     /// @brief draw E2 detector
     void drawE2(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                 const double exaggeration, const bool drawGeometryPoints) const;

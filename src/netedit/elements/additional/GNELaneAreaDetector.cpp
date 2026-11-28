@@ -55,9 +55,12 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, Fil
     myJamThreshold(jamThreshold),
     myTrafficLight(trafficLight),
     myShow(show),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_POSITION, myStartPosOverLane, SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
-    // set parents
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_STARTPOS, myStartPosOverLane,
+                            SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
+    // The inspector edits pos and length. Dragging a start handle moves only that endpoint.
     setParent<GNELane*>(lane);
+    myEndPositionLaneLength = lane->getParentEdge()->getNBEdge()->getFinalLength();
+    myEndPosPosOverLane = encodeEndPosition(pos, length);
 }
 
 
@@ -106,8 +109,19 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_LANE_AREA_DETECTOR);
     // write common additional attributes
     writeAdditionalAttributes(device);
-    // write move atributes
-    myMoveElementLaneDouble->writeMoveAttributes(device, (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR));
+    // Single-lane detectors store position and length in XML.
+    if (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
+        device.writeAttr(SUMO_ATTR_LANE, getAttribute(SUMO_ATTR_LANE));
+        if (myStartPosOverLane != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_POSITION)) {
+            device.writeAttr(SUMO_ATTR_POSITION, myStartPosOverLane);
+        }
+        device.writeAttr(SUMO_ATTR_LENGTH, getDetectorLength());
+        if (myFriendlyPosition) {
+            device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
+        }
+    } else {
+        myMoveElementLaneDouble->writeMoveAttributes(device, false);
+    }
     // write common detector parameters
     writeDetectorValues(device);
     // write specific attributes
@@ -160,7 +174,12 @@ GNELaneAreaDetector::updateGeometry() {
         // compute path
         computePathElement();
     } else {
-        // Cut shape using as delimitators fixed start position and fixed end position
+        const double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        if (myStartPosOverLane < 0 && myEndPosPosOverLane >= 0) {
+            myEndPosPosOverLane += laneLength - myEndPositionLaneLength;
+        }
+        myEndPositionLaneLength = laneLength;
+        // Cut the lane shape between the resolved endpoints.
         myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(),
                                             myMoveElementLaneDouble->getStartFixedPositionOverLane(true),
                                             myMoveElementLaneDouble->getEndFixedPositionOverLane(true),
@@ -343,13 +362,14 @@ std::string
 GNELaneAreaDetector::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_STARTPOS:
             return toString(myStartPosOverLane);
         case SUMO_ATTR_ENDPOS:
             return toString(myEndPosPosOverLane);
         case SUMO_ATTR_TLID:
             return myTrafficLight;
         case SUMO_ATTR_LENGTH:
-            return toString(myEndPosPosOverLane - myStartPosOverLane);
+            return toString(getDetectorLength());
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return time2string(myTimeThreshold);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
@@ -368,11 +388,12 @@ double
 GNELaneAreaDetector::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_STARTPOS:
             return myStartPosOverLane;
         case SUMO_ATTR_ENDPOS:
             return myEndPosPosOverLane;
         case SUMO_ATTR_LENGTH:
-            return (myEndPosPosOverLane - myStartPosOverLane);
+            return getDetectorLength();
         default:
             return getDetectorAttributeDouble(key);
     }
@@ -395,6 +416,7 @@ void
 GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_TLID:
         case SUMO_ATTR_LENGTH:
@@ -415,6 +437,7 @@ bool
 GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:
             return canParse<double>(value);
         case SUMO_ATTR_TLID:
@@ -579,6 +602,11 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_POSITION:
+            if (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR && !getParentLanes().empty()) {
+                myEndPosPosOverLane = encodeEndPosition(parse<double>(value), getDetectorLength());
+            }
+            [[fallthrough]];
+        case SUMO_ATTR_STARTPOS:
             myStartPosOverLane = parse<double>(value);
             // update geometry (except for template)
             if (getParentLanes().size() > 0) {
@@ -596,7 +624,7 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
             myTrafficLight = value;
             break;
         case SUMO_ATTR_LENGTH:
-            myEndPosPosOverLane = (myStartPosOverLane + parse<double>(value));
+            myEndPosPosOverLane = encodeEndPosition(myStartPosOverLane, parse<double>(value));
             // update geometry (except for template)
             if (getParentLanes().size() > 0) {
                 updateGeometry();
@@ -618,6 +646,31 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
             setDetectorAttribute(key, value);
             break;
     }
+}
+
+double
+GNELaneAreaDetector::getDetectorLength() const {
+    double length = myEndPosPosOverLane - myStartPosOverLane;
+    if (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR && !getParentLanes().empty()) {
+        if (myStartPosOverLane < 0) {
+            length -= myEndPositionLaneLength;
+        }
+        if (myEndPosPosOverLane < 0) {
+            length += myEndPositionLaneLength;
+        }
+    }
+    return length;
+}
+
+
+double
+GNELaneAreaDetector::encodeEndPosition(const double start, const double length) const {
+    const double end = start + length;
+    if (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR && start < 0 && end >= 0 && !getParentLanes().empty()) {
+        // Nonnegative coordinates are measured from lane start.
+        return end + myEndPositionLaneLength;
+    }
+    return end;
 }
 
 /****************************************************************************/
