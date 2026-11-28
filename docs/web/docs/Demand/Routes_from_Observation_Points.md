@@ -3,7 +3,7 @@ title: Routes from Observation Points
 ---
 
 # Introduction
-Traffic counts are a common form of traffic data. This data may be available from automated counting devices such as induction loops or radar detectors or it may be obtained from manual counts. The counts apply to a specific time range and the data may cover multiple time slices. It is also possible to distinguish counts for different types of vehicles.
+Traffic counts are a common form of traffic data. This data may be available from automated counting devices such as induction loops or radar detectors or it may be obtained from manual counts. The counts apply to a specific time range and the data may cover multiple time slices. It is also possible to distinguish counts for different types of vehicles. See [Traffic Data](../Data/Traffic_Data.md) for sources of measured counts.
 
 SUMO provides several tools to generate traffic demand from such counting data. The generated traffic demand typically describes vehicles and their routes through the network along with their departure time. Sometimes vehicles that use the same route are grouped into `<flow>`-definitions.
 

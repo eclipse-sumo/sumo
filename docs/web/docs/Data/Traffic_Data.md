@@ -4,20 +4,19 @@ title: Traffic Data
 
 # Traffic Data
 
-- [Hourly traffic data for the UK](https://roadtraffic.dft.gov.uk/downloads)
-- [Hourly traffic data for Germany (Federal Roads)](https://www.bast.de/DE/Themen/Digitales/HF_1/Massnahmen/verkehrszaehlung/verkehrszaehlung.html)
-- [List of various traffic data resources collected by the Graphhopper project](https://github.com/graphhopper/open-traffic-collection)
-- [Realtime access to traffic Data of California (requires account)](https://pems.dot.ca.gov/)
-- [Swiss Dataset from ETH Zürich](https://utd19.ethz.ch/)
+Use the [Highway Detector tutorial](../Tutorials/HighwayDetector.md) to map detector locations to a SUMO network and import their measurements. See [Routes from Observation Points](../Demand/Routes_from_Observation_Points.md) for tools that generate demand from traffic counts. For complete networks and demand files, see [SUMO scenarios](Scenarios.md).
+
+## Traffic count datasets
+
+- [Great Britain, Department for Transport](https://roadtraffic.dft.gov.uk/downloads) provides count point locations, raw vehicle counts, and annual average daily flows in CSV format.
+- [Germany, BASt](https://www.govdata.de/suche/daten/automatische-zahlstellen-auf-autobahnen-und-bundesstrassen-stundenwerte) provides hourly counts from automatic stations on motorways and federal roads.
+- [California, Caltrans PeMS](https://pems.dot.ca.gov/) provides five-minute traffic measurements and station configuration files.
+- [UTD19, ETH Zurich](https://utd19.ethz.ch/) provides georeferenced detector measurements from 40 cities. Access requires registration and agreement to the academic or noncommercial use terms.
+- [GraphHopper Open Traffic Collection](https://github.com/graphhopper/open-traffic-collection) lists additional sources of traffic information.
 
 ## FSP - Data from the *Freeway Service Patrol Evaluation Project*
 
-<font color="red">This description is not yet completed</font>
-
-The data includes:
-
-- Traffic measures at induction loops
-  - per-vehicle speed and lengths
+This archive contains per-vehicle speed and length measurements from induction loops.
 
 ### Data Descriptions
 
@@ -40,9 +39,11 @@ The files are tab-delimited with the following fields:
 
 - Detector position (in meters)
 - Detector lane
-- Time (in ?)
-- vehicle speed (probably in m/s)
-- vehicle length (in m)
+- Timestamp
+- Vehicle speed
+- Vehicle length (in meters)
+
+Verify the timestamp and speed units before converting these records for use in SUMO.
 
 ### References
 

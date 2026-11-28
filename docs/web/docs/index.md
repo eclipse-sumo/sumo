@@ -27,6 +27,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Installing SUMO](Installing/index.md)
 - [Using SUMO Command Line Applications](Basics/Using_the_Command_Line_Applications.md)
 - [Tutorials](Tutorials/index.md)
+- [Ready-to-run SUMO scenarios](Data/Scenarios.md)
 - [Validating application inputs](XMLValidation.md)
 - [Tabular outputs](TabularOutputs.md)
 
@@ -77,6 +78,7 @@ This Documentation is continuously updated and always refers to the latest devel
   - [Other VISUM Demand Importers](Demand/Further_Ways_to_import_VISUM_Demand_Definitions.md)
   - [Other Vissim Demand Importers](Demand/Further_Ways_to_import_Vissim_Demand_Definitions.md)
 - [Routes from Counting Data (road counts, turn counts)](Demand/Routes_from_Observation_Points.md)
+  - [Traffic count datasets](Data/Traffic_Data.md)
 - [Routing by Turn Probabilities](Demand/Routing_by_Turn_Probabilities.md)
 - [Activity-based Demand Generation](Demand/Activity-based_Demand_Generation.md)
 - [Random Trips](Tools/Trip.md#randomtripspy)

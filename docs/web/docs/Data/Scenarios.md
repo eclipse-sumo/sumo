@@ -2,6 +2,8 @@
 title: Scenarios
 ---
 
+To build or calibrate your own scenario using measured traffic counts, see [Traffic Data](Traffic_Data.md).
+
 # We need your Help!
 
 Building a scenario is a lot of work. If you have built a SUMO scenario
