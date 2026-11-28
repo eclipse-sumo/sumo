@@ -32,6 +32,7 @@ import threading
 import subprocess
 import tempfile
 import shutil
+from pprint import pformat
 from zipfile import ZipFile
 import base64
 import ssl
@@ -130,17 +131,6 @@ vehicleNames = {
 BATCH_MODE = stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH
 BATCH_MODE |= stat.S_IWUSR
 BATCH_MODE |= stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH
-
-
-def quoted_str(s):
-    if isinstance(s, float):
-        return "%.6f" % s
-    elif not isinstance(s, str):
-        return str(s)
-    elif '"' in s or ' ' in s:
-        return '"' + s.replace('"', '\\"') + '"'
-    else:
-        return s
 
 
 class Builder(object):
@@ -403,27 +393,48 @@ class Builder(object):
             if hasPTFlows:
                 self.routenames.append(self.files["ptroutes"])
 
-            # create a batch file for reproducing calls to randomTrips.py
+            self.writeBuildScripts(ptOptions, randomTripsCalls)
+
+    def writeBuildScripts(self, ptOptions, randomTripsCalls):
+        commands = []
+        if ptOptions is not None:
+            commands.append(("ptlines2flows.py", list(map(str, self.getRelative(ptOptions)))))
+        for options in randomTripsCalls:
+            commands.append(("randomTrips.py", list(map(str, self.getRelative(options)))))
+
+        self.filename("build.py", "build.py", False)
+        buildFile = self.files["build.py"]
+        with open(buildFile, "w", encoding="utf-8", newline="\n") as script:
+            script.write("""#!/usr/bin/env python3
+
+import os
+from pathlib import Path
+import subprocess
+import sys
+
+
+""")
+            script.write("COMMANDS = " + pformat(commands, width=100) + "\n")
+            script.write("""
+
+if __name__ == "__main__":
+    if not os.environ.get("SUMO_HOME"):
+        sys.exit("Set SUMO_HOME to the SUMO installation directory.")
+    tools = Path(os.environ["SUMO_HOME"]).resolve() / "tools"
+    scenario = Path(__file__).resolve().parent
+    for tool, options in COMMANDS:
+        subprocess.run([sys.executable, str(tools / tool)] + options, cwd=scenario, check=True)
+""")
+        os.chmod(buildFile, BATCH_MODE)
+
+        self.filename("build.bat", "build.bat", False)
+        batchFile = self.files["build.bat"]
+        with open(batchFile, "w", encoding="utf-8") as launcher:
             if os.name == "posix":
-                SUMO_HOME_VAR = "$SUMO_HOME"
+                launcher.write('#!/bin/sh\nexec python3 "$(dirname "$0")/build.py"\n')
             else:
-                SUMO_HOME_VAR = "%SUMO_HOME%"
-
-            randomTripsPath = os.path.join(SUMO_HOME_VAR, "tools", "randomTrips.py")
-            ptlines2flowsPath = os.path.join(SUMO_HOME_VAR, "tools", "ptlines2flows.py")
-
-            self.filename("build.bat", "build.bat", False)
-            batchFile = self.files["build.bat"]
-            with open(batchFile, 'w') as f:
-                if os.name == "posix":
-                    f.write("#!/bin/bash\n")
-                if ptOptions is not None:
-                    f.write('python "%s" %s\n' %
-                            (ptlines2flowsPath, " ".join(map(quoted_str, self.getRelative(ptOptions)))))
-                for opts in randomTripsCalls:
-                    f.write('python "%s" %s\n' %
-                            (randomTripsPath, " ".join(map(quoted_str, self.getRelative(opts)))))
-            os.chmod(batchFile, BATCH_MODE)
+                launcher.write('@python "%~dp0build.py"\n')
+        os.chmod(batchFile, BATCH_MODE)
 
     def parseTripOpts(self, vehicle, options, publicTransport):
         "Return an option list for randomTrips.py for a given vehicle"
@@ -525,7 +536,7 @@ class Builder(object):
             files = ["net", "guisettings", "config", "run.bat"]
 
             if self.data["vehicles"] or self.data["publicTransport"]:
-                files += ["build.bat"]
+                files += ["build.py", "build.bat"]
 
             if self.data["poly"]:
                 files += ["poly"]

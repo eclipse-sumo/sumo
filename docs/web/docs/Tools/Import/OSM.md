@@ -16,7 +16,7 @@ generated and [sumo-gui](../../sumo-gui.md) is started.
 All files that make up the scenario are created in a subfolder of the
 working directory with the current timestamp (i.e.
 {{SUMO}}/tools/2021-02-22-10-00-00/). If you edit the network, you can use the
-script *build.bat* to rebuild the random demand.
+command `python build.py` to rebuild the random demand.
 
 Call:
 
