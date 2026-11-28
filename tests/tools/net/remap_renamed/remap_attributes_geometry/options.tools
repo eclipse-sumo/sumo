@@ -1,0 +1,1 @@
+{CLEAR} --orig-net source.net.xml --target-net dest.net.xml -p out -o out.net.xml -a routingType,speed tools/net/remap_attributes.py

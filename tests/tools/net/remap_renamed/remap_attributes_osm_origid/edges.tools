@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18 22:44:30.598714 by Eclipse SUMO remap_attributes.py v1_28_0+0656-c9253f0c1d3
+<configuration>
+    <orig-net value="source.net.xml"/>
+    <target-net value="dest.net.xml"/>
+    <output-file value="out.net.xml"/>
+    <patch-file-prefix value="out"/>
+    <attributes value="routingType,numLanes"/>
+    <osm.origid value="True"/>
+</configuration>
+-->
+
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <edge id="renamed_1" routingType="primary" numLanes="2"/>
+</edges>

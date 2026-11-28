@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18T22:43:55.490424+00:00 by Eclipse SUMO netconvert v1_28_0+0656-c9253f0c1d3
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Users\Mark\AppData\Local\Temp\tmpkew5t7ei\n.nod.xml"/>
+        <edge-files value="C:\Users\Mark\AppData\Local\Temp\tmpkew5t7ei\e.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\Mark\AppData\Local\Temp\tmpkew5t7ei\out.net.xml"/>
+    </output>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,0.00" origBoundary="0.00,0.00,200.00,0.00" projParameter="!"/>
+
+    <edge id=":J0_0" function="internal">
+        <lane id=":J0_0_0" index="0" speed="3.65" length="4.67" shape="0.00,1.60 -1.20,0.80 -1.60,0.00 -1.20,-0.80 0.00,-1.60"/>
+    </edge>
+    <edge id=":J1_0" function="internal">
+        <lane id=":J1_0_0" index="0" speed="3.65" length="4.67" shape="200.00,-1.60 201.20,-0.80 201.60,0.00 201.20,0.80 200.00,1.60"/>
+    </edge>
+
+    <edge id="eb" from="J0" to="J1" priority="-1" routingType="trunk_eb">
+        <lane id="eb_0" index="0" speed="25.00" length="200.00" shape="0.00,-1.60 200.00,-1.60"/>
+    </edge>
+    <edge id="wb" from="J1" to="J0" priority="-1" routingType="secondary_wb">
+        <lane id="wb_0" index="0" speed="15.00" length="200.00" shape="200.00,1.60 0.00,1.60"/>
+    </edge>
+
+    <junction id="J0" type="priority" x="0.00" y="0.00" incLanes="wb_0" intLanes=":J0_0_0" shape="0.00,0.00 0.00,3.20 0.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="J1" type="priority" x="200.00" y="0.00" incLanes="eb_0" intLanes=":J1_0_0" shape="200.00,0.00 200.00,-3.20 200.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="eb" to="wb" fromLane="0" toLane="0" via=":J1_0_0" dir="t" state="M"/>
+    <connection from="wb" to="eb" fromLane="0" toLane="0" via=":J0_0_0" dir="t" state="M"/>
+
+    <connection from=":J0_0" to="eb" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":J1_0" to="wb" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>

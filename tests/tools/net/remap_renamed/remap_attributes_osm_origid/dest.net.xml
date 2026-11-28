@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18T22:44:29.648203+00:00 by Eclipse SUMO netconvert v1_28_0+0656-c9253f0c1d3
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Users\Mark\AppData\Local\Temp\tmpu8s1dtd0\n.nod.xml"/>
+        <edge-files value="C:\Users\Mark\AppData\Local\Temp\tmpu8s1dtd0\e.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\Mark\AppData\Local\Temp\tmpu8s1dtd0\out.net.xml"/>
+    </output>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,0.00" origBoundary="0.00,0.00,200.00,0.00" projParameter="!"/>
+
+    <edge id=":B_0" function="internal">
+        <lane id=":B_0_0" index="0" speed="13.89" length="0.10" shape="100.00,-1.60 100.00,-1.60"/>
+    </edge>
+
+    <edge id="renamed_1" from="A" to="B" priority="-1">
+        <lane id="renamed_1_0" index="0" speed="13.89" length="100.00" shape="0.00,-1.60 100.00,-1.60">
+            <param key="origId" value="way100"/>
+        </lane>
+    </edge>
+    <edge id="renamed_2" from="B" to="C" priority="-1">
+        <lane id="renamed_2_0" index="0" speed="13.89" length="100.00" shape="100.00,-1.60 200.00,-1.60"/>
+    </edge>
+
+    <junction id="A" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="B" type="priority" x="100.00" y="0.00" incLanes="renamed_1_0" intLanes=":B_0_0" shape="100.00,0.00 100.00,-3.20 100.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="C" type="dead_end" x="200.00" y="0.00" incLanes="renamed_2_0" intLanes="" shape="200.00,-3.20 200.00,0.00"/>
+
+    <connection from="renamed_1" to="renamed_2" fromLane="0" toLane="0" via=":B_0_0" dir="s" state="M"/>
+
+    <connection from=":B_0" to="renamed_2" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
