@@ -1337,7 +1337,9 @@ AdditionalHandler::parseTAZAttributes(const SUMOSAXAttributes& attrs) {
     const Position center = attrs.getOpt<Position>(SUMO_ATTR_CENTER, id.c_str(), parsedOk, shape.size() > 0 ? shape.getCentroid() : Position::INVALID);
     const bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), parsedOk, false);
     const std::vector<std::string> edges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk, std::vector<std::string>());
-    const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::RED);
+    RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::RED);
+    // Retain the default drawing color separately from the presence of the XML attribute.
+    color.setValid(attrs.hasAttribute(SUMO_ATTR_COLOR));
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
     // continue if flag is ok
     if (parsedOk) {
@@ -1883,7 +1885,9 @@ AdditionalHandler::parsePolyAttributes(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const PositionVector shapeStr = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk);
     // optional attributes
-    const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::RED);
+    RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::RED);
+    // Retain the default drawing color separately from the presence of the XML attribute.
+    color.setValid(attrs.hasAttribute(SUMO_ATTR_COLOR));
     const bool geo = attrs.getOpt<bool>(SUMO_ATTR_GEO, id.c_str(), parsedOk, false);
     const bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), parsedOk, false);
     const double lineWidth = attrs.getOpt<double>(SUMO_ATTR_LINEWIDTH, id.c_str(), parsedOk, Shape::DEFAULT_LINEWIDTH);

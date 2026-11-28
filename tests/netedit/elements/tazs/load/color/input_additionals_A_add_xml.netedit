@@ -5,7 +5,8 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- TAZs -->
-    <taz id="TAZ_0" shape="-10.00,40.00 0.00,40.00 0.00,30.00 -10.00,30.00 -10.00,40.00" color="red"/>
+    <taz id="TAZ_0" shape="-10.00,40.00 0.00,40.00 0.00,30.00 -10.00,30.00 -10.00,40.00"/>
     <taz id="TAZ_2" shape="30.00,40.00 40.00,40.00 40.00,30.00 30.00,30.00 30.00,40.00" color="red"/>
     <taz id="TAZ_3" shape="30.00,40.00 40.00,40.00 40.00,30.00 30.00,30.00 30.00,40.00" color="red"/>
+    <taz id="TAZ_4" shape="30.00,40.00 40.00,40.00 40.00,30.00 30.00,30.00 30.00,40.00" color="invisible"/>
 </additional>

@@ -197,7 +197,9 @@ GNEPoly::writeAdditional(OutputDevice& device) const {
     if (getShapeType().size() > 0) {
         device.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getShapeType()));
     }
-    device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
+    if (getShapeColor().isValid()) {
+        device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
+    }
     device.writeAttr(SUMO_ATTR_FILL,  getFill());
     if (getLineWidth() != DEFAULT_LINEWIDTH) {
         device.writeAttr(SUMO_ATTR_LINEWIDTH, getLineWidth());
@@ -573,7 +575,7 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
                 return TL("No geo-conversion defined");
             }
         case SUMO_ATTR_COLOR:
-            return toString(getShapeColor());
+            return getShapeColor().isValid() ? toString(getShapeColor()) : "";
         case SUMO_ATTR_FILL:
             return toString(myFill);
         case SUMO_ATTR_LINEWIDTH:
@@ -661,7 +663,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<PositionVector>(value);
             }
         case SUMO_ATTR_COLOR:
-            return canParse<RGBColor>(value);
+            return value.empty() || canParse<RGBColor>(value);
         case SUMO_ATTR_FILL:
             return canParse<bool>(value);
         case SUMO_ATTR_LINEWIDTH:
@@ -783,9 +785,12 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateCenteringBoundary(true);
             break;
         }
-        case SUMO_ATTR_COLOR:
-            setShapeColor(parse<RGBColor>(value));
+        case SUMO_ATTR_COLOR: {
+            RGBColor color = value.empty() ? RGBColor::RED : parse<RGBColor>(value);
+            color.setValid(!value.empty());
+            setShapeColor(color);
             break;
+        }
         case SUMO_ATTR_FILL:
             myFill = parse<bool>(value);
             myAdditionalContour.clearContour();
