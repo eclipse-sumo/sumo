@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-01-20 15:12:40 by Eclipse SUMO marouter Version v1_11_0+1326-900074debd9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_taz.taz.xml"/>
+        <od-matrix-files value="input_od_vm.fma"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <netload-output value="aggregated.xml"/>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <assignment-method value="SUE"/>
+        <paths value="3"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<meandata>
+    <interval begin="0.00" end="86400.00">
+        <edge id="D1" traveltime="13.45" speed="14.87" speedRelative="0.99" entered="100.00" density="0.08" laneDensity="0.08" flowCapacityRatio="6.32"/>
+        <edge id="D2" traveltime="13.33" speed="15.00" speedRelative="1.00" entered="0.00" density="0.00" laneDensity="0.00" flowCapacityRatio="0.00"/>
+        <edge id="D3" traveltime="13.45" speed="14.87" speedRelative="0.99" entered="100.00" density="0.08" laneDensity="0.08" flowCapacityRatio="6.32"/>
+        <edge id="L10" traveltime="19.56" speed="14.93" speedRelative="1.00" entered="50.22" density="0.04" laneDensity="0.04" flowCapacityRatio="3.17"/>
+        <edge id="L11" traveltime="41.22" speed="10.00" speedRelative="1.00" entered="0.00" density="0.00" laneDensity="0.00" flowCapacityRatio="0.00"/>
+        <edge id="L12" traveltime="99.68" speed="18.00" speedRelative="1.00" entered="0.00" density="0.00" laneDensity="0.00" flowCapacityRatio="0.00"/>
+        <edge id="L13" traveltime="19.56" speed="14.93" speedRelative="1.00" entered="50.22" density="0.04" laneDensity="0.04" flowCapacityRatio="3.17"/>
+        <edge id="L14" traveltime="19.68" speed="14.93" speedRelative="1.00" entered="49.78" density="0.04" laneDensity="0.04" flowCapacityRatio="3.14"/>
+        <edge id="L15" traveltime="32.95" speed="14.87" speedRelative="0.99" entered="100.00" density="0.08" laneDensity="0.08" flowCapacityRatio="6.32"/>
+        <edge id="L16" traveltime="33.53" speed="14.87" speedRelative="0.99" entered="100.00" density="0.08" laneDensity="0.08" flowCapacityRatio="6.32"/>
+        <edge id="L2" traveltime="40.26" speed="14.87" speedRelative="0.99" entered="100.00" density="0.08" laneDensity="0.08" flowCapacityRatio="6.32"/>
+        <edge id="L3" traveltime="39.68" speed="15.00" speedRelative="1.00" entered="0.00" density="0.00" laneDensity="0.00" flowCapacityRatio="0.00"/>
+        <edge id="L4" traveltime="99.68" speed="18.00" speedRelative="1.00" entered="0.00" density="0.00" laneDensity="0.00" flowCapacityRatio="0.00"/>
+        <edge id="L5" traveltime="32.95" speed="14.87" speedRelative="0.99" entered="100.00" density="0.08" laneDensity="0.08" flowCapacityRatio="6.32"/>
+        <edge id="L6" traveltime="46.64" speed="14.93" speedRelative="1.00" entered="50.22" density="0.04" laneDensity="0.04" flowCapacityRatio="3.17"/>
+        <edge id="L7" traveltime="19.78" speed="14.93" speedRelative="1.00" entered="50.22" density="0.04" laneDensity="0.04" flowCapacityRatio="3.17"/>
+        <edge id="L8" traveltime="19.77" speed="14.93" speedRelative="1.00" entered="49.78" density="0.04" laneDensity="0.04" flowCapacityRatio="3.14"/>
+        <edge id="L9" traveltime="66.97" speed="14.93" speedRelative="1.00" entered="49.78" density="0.04" laneDensity="0.04" flowCapacityRatio="3.14"/>
+    </interval>
+</meandata>
