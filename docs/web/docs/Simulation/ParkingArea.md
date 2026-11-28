@@ -100,6 +100,24 @@ For a complete list of attributes for the "stop"-element of a vehicle
 see
 [Definition_of_Vehicles,_Vehicle_Types,_and_Routes\#Stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints).
 
+## Starting Vehicles Stationary in a Parking Area
+
+By default (`departPos="base"`), a vehicle inserts at the start of its first edge and drives to the `<parkingArea>`. Set `departPos="stop"` so the vehicle inserts directly into its `<parkingArea>` on the first edge of its route and remains parked until `duration` elapses or `until` is reached:
+
+```xml
+<vehicle id="v0" depart="0" departPos="stop">
+    <route edges="e1 e2 e3"/>
+    <stop parkingArea="pa0" until="300"/>
+</vehicle>
+```
+
+When adding vehicles dynamically via [TraCI](../TraCI/Change_Vehicle_State.md), pass `departPos="stop"` to `traci.vehicle.add` and call `traci.vehicle.setParkingAreaStop` before the next `traci.simulationStep()` so the stop is already present at insertion:
+
+```python
+traci.vehicle.add(vehID="v0", routeID="r0", typeID="DEFAULT_VEHTYPE", departPos="stop")
+traci.vehicle.setParkingAreaStop(vehID="v0", stopID="pa0", until=300)
+```
+
 # Modeling Maneuvering Times when Entering and Leaving the Parking Space
 
 When setting the (boolean) option **--parking.maneuver**, vehicles will spend extra time on the road when leaving and entering a parkingArea. This time depends on the angle of the parking lot relative to the road lane and can be configured with the vType attribute *maneuverAngleTimes*. This is a comma-separated list of number-triplets of the form *ANGLE ENTERINGTIME LEAVINGTIME*:
