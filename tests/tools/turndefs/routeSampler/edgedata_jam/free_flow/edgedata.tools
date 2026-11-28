@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-24 22:01:21.089122 by Eclipse SUMO routeSampler.py v0.0.0
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <edgedata-attribute value="count"/>
+    <edgedata-speed-threshold value="1.0"/>
+    <mismatch-output value="edgedata.xml"/>
+</configuration>
+-->
+
+<data>
+    <interval id="deficit" begin="0.0" end="100.0">
+        <edge id="AB" measuredCount="3" deficit="0" GEH="0.00"/>
+        <edge id="BC" measuredCount="7" deficit="4" GEH="10.73"/>
+    </interval>
+</data>

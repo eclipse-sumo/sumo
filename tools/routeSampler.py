@@ -61,6 +61,10 @@ def get_options(args=None):
                     help="Input TAZ (district) definitions for interpreting tazRelation files")
     op.add_argument("--edgedata-attribute", category="input", dest="edgeDataAttr", default="entered",
                     help="Read edgeData counts from the given attribute")
+    op.add_argument("--edgedata-speed-threshold", category="input", type=float, dest="edgeDataSpeedThreshold",
+                    help="Treat flow counts with measured speeds below this value as minimum demand")
+    op.add_argument("--edgedata-speed-attribute", category="input", dest="edgeDataSpeedAttr", default="speed",
+                    help="Attribute used to classify congested edgeData counts (default 'speed' in m/s)")
     op.add_argument("--arrival-attribute", category="input", dest="arrivalAttr",
                     help="Read arrival counts from the given edgeData file attribute")
     op.add_argument("--depart-attribute", category="input", dest="departAttr",
@@ -163,6 +167,9 @@ def get_options(args=None):
              and options.odFiles is None)):
         sys.stderr.write("At least one file with counting data must be loaded\n")
         sys.exit()
+    if options.edgeDataSpeedThreshold is not None and (not np.isfinite(options.edgeDataSpeedThreshold)
+                                                       or options.edgeDataSpeedThreshold <= 0):
+        op.error("--edgedata-speed-threshold must be finite and positive")
     if options.writeRouteIDs and options.writeRouteDist:
         sys.stderr.write("Only one of the options --write-route-ids and --write-route-distribution may be used\n")
         sys.exit()
@@ -489,6 +496,7 @@ class CountData:
         self.index = None
         self.origCount = count
         self.count = count
+        self.isMinimum = False
         self.edgeTuple = edgeTuple
         self.isOrigin = isOrigin
         self.isDest = isDest
@@ -542,9 +550,13 @@ class CountData:
         self.count -= n
         self.assignedCount += n
 
-    def addCount(self, count):
+    def addCount(self, count, isMinimum=False):
         self.count += count
         self.origCount += count
+        self.isMinimum = self.isMinimum or isMinimum
+
+    def deficit(self):
+        return max(0, self.count) if self.isMinimum else self.count
 
     def updateTurnRatioCounts(self, openRoutes, openCounts, updateSiblings=False):
         if self.isRatio:
@@ -698,11 +710,13 @@ def parseEdgeCounts(interval, attr, warn):
 
 
 def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
-                       isOrigin=False, isDest=False, isRatio=False, isTaz=False, warn=False, intervalScale=1.0):
+                       isOrigin=False, isDest=False, isRatio=False, isTaz=False, warn=False, intervalScale=1.0,
+                       speedAttr=None):
     locations = {}  # edges -> CountData
     result = []
     if attr is None or attr == "None":
         return result
+    attributes = attr + [speedAttr] if speedAttr is not None else attr
     for fname in fnames:
         for interval in sumolib.xml.parse(fname, 'interval', heterogeneous=True):
             iBegin = parseTime(interval.begin)
@@ -710,7 +724,8 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
             overlap = 1 if isRatio else getOverlap(begin, end, iBegin, iEnd)
             if overlap > 0:
                 # print(begin, end, interval.begin, interval.end, "overlap:", overlap)
-                for edges, value in parseFun(interval, attr, warn):
+                for edges, value in parseFun(interval, attributes, warn):
+                    speed = value.pop() if speedAttr is not None else None
                     try:
                         value = sum([float(v) for v in value])
                     except TypeError:
@@ -747,7 +762,18 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
                             print("Ignoring negative count %s for edge(s) '%s'" % (
                                 value, " ".join(edges)), file=sys.stderr)
                     elif firstData or options.merge_strategy == "sum":
-                        locations[edges].addCount(value)
+                        isMinimum = False
+                        if speedAttr is not None:
+                            try:
+                                speed = float(speed)
+                            except (TypeError, ValueError):
+                                speed = -1
+                            if np.isfinite(speed) and speed >= 0:
+                                isMinimum = speed < options.edgeDataSpeedThreshold
+                            elif warn:
+                                print("Warning: Invalid or missing '%s' in file '%s' for edge '%s'. "
+                                      "Treating its count as exact." % (speedAttr, fname, edges[0]), file=sys.stderr)
+                        locations[edges].addCount(value, isMinimum)
     return result
 
 
@@ -765,19 +791,21 @@ def parseTimeRange(fnames):
     return begin, end, minInterval
 
 
-def hasCapacity(dataIndices, countData):
+def hasCapacity(dataIndices, countData, remove=False):
     for i in dataIndices:
-        if countData[i].count <= 0:
+        cd = countData[i]
+        if cd.count <= 0 and (remove or not cd.isMinimum):
             return False
     return True
 
 
-def updateOpenRoutes(openRoutes, routeUsage, countData):
-    return list(filter(lambda r: hasCapacity(routeUsage[r], countData), openRoutes))
+def updateOpenRoutes(openRoutes, routeUsage, countData, remove=False):
+    return list(filter(lambda r: hasCapacity(routeUsage[r], countData, remove), openRoutes))
 
 
-def updateOpenCounts(openCounts, countData, openRoutes):
-    return list(filter(lambda i: countData[i].routeSet.intersection(openRoutes), openCounts))
+def updateOpenCounts(openCounts, countData, openRoutes, remove=False):
+    return [i for i in openCounts if countData[i].routeSet.intersection(openRoutes)
+            and (not countData[i].isMinimum or (not remove and countData[i].count > 0))]
 
 
 def optimize(options, countData, routes, priorRouteCounts, routeUsage, intervalCount, rng):
@@ -820,23 +848,26 @@ def optimize(options, countData, routes, priorRouteCounts, routeUsage, intervalC
     for i in range(0, m):
         for j in range(0, k):
             A[i][j] = int(relevantRoutes[j] in countData[i].routeSet)
-    A_eq = np.concatenate((A, np.identity(m)), 1)
+    constraints = np.concatenate((A, np.identity(m)), 1)
 
-    # constraint: achieve counts
+    # Exact counts have an upper bound and a penalized shortfall.
+    # Minimum counts keep the shortfall but allow routes to exceed the observation.
     b = np.asarray([cd.origCount for cd in countData])
+    minimum = np.asarray([cd.isMinimum for cd in countData])
+    exact = ~minimum
+    A_eq = constraints[exact] if any(exact) else None
+    b_eq = b[exact] if A_eq is not None else None
+    A_ub = -constraints[minimum] if any(minimum) else None
+    b_ub = -b[minimum] if A_ub is not None else None
 
     # minimization objective [routeCounts] + [slack]
     c = [options.minimizeVehs] * k + [1] * m
 
-    A_ub = None
-    b_ub = None
-
     if intervalCount is not None:
-        # add inequality to ensure that we stay below intervalCount
-        # sum of routes < intervalCount
-        # A_ub * x <= b_ub
-        A_ub = np.concatenate((np.ones((1, k)), np.zeros((1, m))), 1)
-        b_ub = np.asarray([intervalCount])
+        # Keep the total number of routes within the interval limit.
+        total = np.concatenate((np.ones((1, k)), np.zeros((1, m))), 1)
+        A_ub = total if A_ub is None else np.concatenate((A_ub, total))
+        b_ub = np.asarray([intervalCount]) if b_ub is None else np.append(b_ub, intervalCount)
 
     # print("k=%s" % k)
     # print("m=%s" % m)
@@ -849,7 +880,7 @@ def optimize(options, countData, routes, priorRouteCounts, routeUsage, intervalC
     if options.verbose:
         linProgOpts["disp"] = True
 
-    res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b, bounds=bounds, options=linProgOpts)
+    res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, bounds=bounds, options=linProgOpts)
 
     if res.success:
         sys.stdout.flush()
@@ -1023,7 +1054,9 @@ def parseCounts(options, routes, b, e, warn, intervalScale):
                                       intervalScale=intervalScale)
                  + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
                                       routes, options.edgeDataAttr, options=options, warn=warn,
-                                      intervalScale=intervalScale)
+                                      intervalScale=intervalScale,
+                                      speedAttr=(options.edgeDataSpeedAttr
+                                                 if options.edgeDataSpeedThreshold is not None else None))
                  + parseDataIntervals(parseTurnCounts, options.odFiles, b, e,
                                       routes, options.turnAttr, options=options,
                                       isOrigin=True, isDest=True, warn=warn, intervalScale=intervalScale)
@@ -1051,12 +1084,12 @@ def hasODCount(cdIndices, countData):
     return False
 
 
-def initOpen(options, routes, routeUsage, countData, unrestricted):
-    openRoutes = updateOpenRoutes(range(0, routes.number), routeUsage, countData)
+def initOpen(options, routes, routeUsage, countData, unrestricted, remove=False):
+    openRoutes = updateOpenRoutes(range(0, routes.number), routeUsage, countData, remove)
     openRoutes = [r for r in openRoutes if r not in unrestricted]
     if options.odFiles and not options.extraOD:
         openRoutes = [r for r in openRoutes if hasODCount(routeUsage[r], countData)]
-    openCounts = updateOpenCounts(range(0, len(countData)), countData, openRoutes)
+    openCounts = updateOpenCounts(range(0, len(countData)), countData, openRoutes, remove)
     return openRoutes, openCounts
 
 
@@ -1100,7 +1133,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         if options.initInputRemove:
             fully_unrestricted = set([r for r, usage in enumerate(routeUsage) if len(usage) == 0])
             negateCounts(countData)
-            openRoutes, openCounts = initOpen(options, routes, routeUsage, countData, fully_unrestricted)
+            openRoutes, openCounts = initOpen(options, routes, routeUsage, countData, fully_unrestricted, remove=True)
             routeCounts, removed = sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
                                                 None, 0, None, routeCounts, remove=True)
             if removed < 0:
@@ -1114,7 +1147,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         routeCounts, numSampled = sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
                                                ratioIndices, numSampled, intervalCount, routeCounts)
 
-    totalMismatch = sum([cd.count for cd in countData])  # noqa
+    totalMismatch = sum(cd.deficit() for cd in countData)
 
     if totalMismatch > 0 and options.optimize is not None:
         if options.verbose:
@@ -1124,6 +1157,12 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         routeCounts = optimize(options, countData, routes, routeCounts, routeUsage, intervalCount, rng)
         resetCounts(routeCounts, routeUsage, countData)
         numSampled = sum(routeCounts)
+
+    if intervalCount is not None and numSampled < intervalCount and options.optimize == "full":
+        if any(cd.isMinimum for cd in countData) and not options.noSampling:
+            openRoutes, openCounts = initOpen(options, routes, routeUsage, countData, unrestricted)
+            routeCounts, numSampled = sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
+                                                   ratioIndices, numSampled, intervalCount, routeCounts)
 
     if intervalCount is not None and numSampled < intervalCount:
         if unrestricted:
@@ -1170,12 +1209,13 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         localCount = cd.origCount - cd.count
         totalCount += localCount
         totalOrigCount += cd.origCount
-        if cd.count > 0:
-            underflow.add(cd.count, cd.edgeTuple)
-        elif cd.count < 0:
-            overflow.add(cd.count, cd.edgeTuple)
+        deficit = cd.deficit()
+        if deficit > 0:
+            underflow.add(deficit, cd.edgeTuple)
+        elif deficit < 0:
+            overflow.add(deficit, cd.edgeTuple)
         origHourly = cd.origCount / hourFraction
-        localHourly = localCount / hourFraction
+        localHourly = (cd.origCount - deficit) / hourFraction
         geh = sumolib.miscutils.geh(origHourly, localHourly)
         if geh < options.gehOk:
             numGehOK += 1
@@ -1233,7 +1273,9 @@ def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCo
                  ratioIndices, numSampled, intervalCount, routeCounts, remove=False):
     """pick a random counting location and select a new route that passes it until
        all counts are satisfied or no routes can be used anymore """
-    while openCounts:
+    hasMinimum = any(cd.isMinimum for cd in countData)
+    fillDemand = hasMinimum and not remove and intervalCount is not None
+    while openCounts or (fillDemand and openRoutes):
         if intervalCount is not None and numSampled >= intervalCount:
             break
 
@@ -1247,7 +1289,13 @@ def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCo
                 break
 
         if options.weighted:
-            routeIndex = _sample_skewed(openRoutes, rng, routes.probabilities)
+            candidates = openRoutes
+            if hasMinimum and openCounts:
+                pending = set(openCounts)
+                candidates = [r for r in openRoutes if routeUsage[r].intersection(pending)]
+            routeIndex = _sample_skewed(candidates, rng, routes.probabilities)
+        elif not openCounts:
+            routeIndex = rng.choice(openRoutes)
         else:
             # sampling equally among open counting locations appears to
             # improve GEH but it would also introduce a bias in the loaded
@@ -1278,9 +1326,10 @@ def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCo
             for dataIndex in routeUsage[routeIndex]:
                 cd = countData[dataIndex]
                 if cd.count == 0:
-                    openCounts.remove(dataIndex)
-                    for r in cd.routeSet:
-                        closedRoutes.add(r)
+                    if dataIndex in openCounts:
+                        openCounts.remove(dataIndex)
+                    if remove or not cd.isMinimum:
+                        closedRoutes.update(cd.routeSet)
 
             if remove and routeCounts[routeIndex] == 0:
                 closedRoutes.add(routeIndex)
@@ -1444,11 +1493,13 @@ def writeMismatch(options, mismatchf, countData, begin, end):
     mismatchf.write('    <interval id="deficit" begin="%s" end="%s">\n' % (begin, end))
     hourFraction = getHourFraction(options, begin, end)
     for cd in countData:
+        deficit = cd.deficit()
         geh = None if cd.isRatio else sumolib.miscutils.geh(
-            cd.origCount / hourFraction, (cd.origCount - cd.count) / hourFraction)
+            cd.origCount / hourFraction, (cd.origCount - deficit) / hourFraction)
         if len(cd.edgeTuple) == 1:
-            mismatchf.write('        <edge id="%s" measuredCount="%s" deficit="%s" GEH="%.2f"/>\n' % (
-                cd.edgeTuple[0], cd.origCount, cd.count, geh))
+            minimum = ' minimum="true" assignedCount="%s"' % cd.assignedCount if cd.isMinimum else ''
+            mismatchf.write('        <edge id="%s" measuredCount="%s" deficit="%s" GEH="%.2f"%s/>\n' % (
+                cd.edgeTuple[0], cd.origCount, deficit, geh, minimum))
         else:
             tag = 'tazRelation' if cd.isTaz else 'edgeRelation'
             orig = cd.edgeTuple[0]

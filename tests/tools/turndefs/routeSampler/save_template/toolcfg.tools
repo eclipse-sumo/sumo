@@ -6,6 +6,8 @@
     <od-files value="None" type="file" help="Input edgeRelation and tazRelation files for origin-destination counts" category="input" listSeparator=","/>
     <taz-files value="None" type="file" help="Input TAZ (district) definitions for interpreting tazRelation files" category="input" listSeparator=","/>
     <edgedata-attribute value="entered" type="string" help="Read edgeData counts from the given attribute" category="input"/>
+    <edgedata-speed-threshold value="None" type="float" help="Treat flow counts with measured speeds below this value as minimum demand" category="input"/>
+    <edgedata-speed-attribute value="speed" type="string" help="Attribute used to classify congested edgeData counts (default 'speed' in m/s)" category="input"/>
     <arrival-attribute value="None" type="string" help="Read arrival counts from the given edgeData file attribute" category="input"/>
     <depart-attribute value="None" type="string" help="Read departure counts from the given edgeData file attribute" category="input"/>
     <turn-attribute value="count" type="string" help="Read turning counts and origin-destination counts from the given attribute" category="input"/>
