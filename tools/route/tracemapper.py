@@ -19,8 +19,10 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+import csv
 import os
 import sys
+from collections import OrderedDict
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import sumolib  # noqa
@@ -55,6 +57,120 @@ def readFCD(traceFile, net, geo):
             trace.append((float(v.x), float(v.y)))
     if trace:
         yield last, trace
+
+
+def isLineTraceFormat(head, options):
+    if any(opt is not None for opt in (options.delimiter, options.id_column, options.x_column, options.y_column)):
+        return False
+    for line in head.splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if ":" not in line:
+            return False
+        _, rhs = line.split(":", 1)
+        tokens = rhs.split()
+        if not tokens:
+            return False
+        try:
+            for tok in tokens:
+                parts = tok.split(",")
+                if len(parts) != 2:
+                    return False
+                float(parts[0])
+                float(parts[1])
+            return True
+        except ValueError:
+            return False
+    return False
+
+
+def _resolveColumn(spec, header, candidates, defaultIdx=None):
+    if spec is not None:
+        if header is not None and spec in header:
+            return header.index(spec)
+        try:
+            return int(spec)
+        except ValueError:
+            sys.exit("Column '%s' not found in CSV header %s" % (spec, header))
+    if header is not None:
+        lowered = [h.strip().lower() for h in header]
+        for cand in candidates:
+            if cand in lowered:
+                return lowered.index(cand)
+        for cand in candidates:
+            for idx, col in enumerate(lowered):
+                if col.endswith("_" + cand):
+                    return idx
+        return None
+    return defaultIdx
+
+
+def readCSV(traceFile, net, options):
+    """Reads point traces from a CSV file with one location per row."""
+    with sumolib.openz(traceFile) as f:
+        rows = [line.strip() for line in f if line.strip() and not line.lstrip().startswith("#")]
+    if not rows:
+        return
+    delim = options.delimiter
+    if delim is None:
+        for candidate in (",", ";", "\t"):
+            if candidate in rows[0]:
+                delim = candidate
+                break
+    parsed = list(csv.reader(rows, delimiter=delim)) if delim else [r.split() for r in rows]
+    first = parsed[0]
+
+    def _isFloat(val):
+        try:
+            float(val)
+            return True
+        except ValueError:
+            return False
+
+    hasHeader = not all(_isFloat(c) for c in first)
+    if hasHeader and options.id_column is None and options.x_column is None and options.y_column is None:
+        if len(first) >= 3 and not _isFloat(first[0]) and _isFloat(first[1]) and _isFloat(first[2]):
+            # Headerless "id,x,y" where id is a non-numeric vehicle identifier
+            hasHeader = False
+    header = [c.strip() for c in first] if hasHeader else None
+    dataRows = parsed[1:] if hasHeader else parsed
+
+    idCands = ("id", "track_id", "vehicle_id", "veh_id", "agent_id", "trace_id", "object_id")
+    if options.geo:
+        xCands = ("lon", "longitude", "x", "pos_x", "vehicle_x")
+        yCands = ("lat", "latitude", "y", "pos_y", "vehicle_y")
+    else:
+        xCands = ("x", "lon", "longitude", "pos_x", "vehicle_x")
+        yCands = ("y", "lat", "latitude", "pos_y", "vehicle_y")
+
+    if header is not None:
+        idIdx = _resolveColumn(options.id_column, header, idCands, None)
+        xIdx = _resolveColumn(options.x_column, header, xCands, None)
+        yIdx = _resolveColumn(options.y_column, header, yCands, None)
+    elif len(first) == 2:
+        idIdx = _resolveColumn(options.id_column, None, idCands, None)
+        xIdx = _resolveColumn(options.x_column, None, xCands, 0)
+        yIdx = _resolveColumn(options.y_column, None, yCands, 1)
+    else:
+        idIdx = _resolveColumn(options.id_column, None, idCands, 0)
+        xIdx = _resolveColumn(options.x_column, None, xCands, 1)
+        yIdx = _resolveColumn(options.y_column, None, yCands, 2)
+
+    if xIdx is None or yIdx is None:
+        sys.exit("Could not determine x/y columns in '%s'; please specify --x-column and --y-column." % traceFile)
+
+    tracesById = OrderedDict()
+    for row in dataRows:
+        if max(xIdx, yIdx, idIdx if idIdx is not None else 0) >= len(row):
+            continue
+        tid = row[idIdx].strip() if idIdx is not None else "0"
+        pos = (float(row[xIdx]), float(row[yIdx]))
+        if options.geo:
+            pos = net.convertLonLat2XY(*pos)
+        tracesById.setdefault(tid, []).append(pos)
+    for tid, trace in tracesById.items():
+        yield tid, trace
 
 
 def readLines(traceFile, net, geo):
@@ -101,6 +217,14 @@ if __name__ == "__main__":
     ap.add_argument("--blur", type=float,
                     default=0, help="maximum random disturbance to route geometry")
     ap.add_argument("-l", "--layer", default=100, help="layer for generated polygons")
+    ap.add_argument("--delimiter", default=None,
+                    help="CSV field delimiter for one-location-per-line trace files (auto-detected by default)")
+    ap.add_argument("--id-column", default=None,
+                    help="CSV column name or 0-based index for trace/vehicle ID")
+    ap.add_argument("--x-column", default=None,
+                    help="CSV column name or 0-based index for x (or longitude with --geo)")
+    ap.add_argument("--y-column", default=None,
+                    help="CSV column name or 0-based index for y (or latitude with --geo)")
     ap.add_argument("-b", "--debug", action="store_true",
                     default=False, help="print out the debugging messages")
     options = ap.parse_args()
@@ -144,8 +268,10 @@ if __name__ == "__main__":
                 traces = readPOI(t, net)
             elif "<fcd" in head:
                 traces = readFCD(t, net, options.geo)
-            else:
+            elif isLineTraceFormat(head, options):
                 traces = readLines(t, net, options.geo)
+            else:
+                traces = readCSV(t, net, options)
             mapOpts = (options.delta, options.verbose, options.air_dist_factor,
                        options.fill_gaps, options.gap_penalty, options.debug, options.direction, options.vehicle_class)
             for tid, trace in traces:

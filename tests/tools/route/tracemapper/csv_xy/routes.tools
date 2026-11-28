@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-14 18:10:58.270042 by Eclipse SUMO tracemapper.py v1_28_0+0544-23f16fc96b7
+  options: -n three_split.net.xml -t data.csv -o out.rou.xml
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="0" edges="beg left2end rend"/>
+</routes>
