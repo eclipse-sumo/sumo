@@ -347,17 +347,20 @@ public:
     void analyzeCluster(NodeSet cluster, std::string& id, Position& pos,
                         bool& hasTLS, TrafficLightType& type, SumoXMLNodeType& nodeType);
 
-    /// @brief gets all joined clusters (see doc for myClusters2Join)
-    void registerJoinedCluster(const NodeSet& cluster);
-    void registerJoinedCluster(const std::set<std::string>& cluster);
+    struct JoinedCluster {
+        std::string id;
+        std::set<std::string> nodes;
+    };
 
-    /// @brief remove cluster from list (on netedit-undo)
-    void unregisterJoinedCluster(const std::set<std::string>& cluster);
+    /// @brief record a join with the ID of the resulting junction
+    void registerJoinedCluster(const NodeSet& cluster, const std::string& id);
+    void registerJoinedCluster(const std::set<std::string>& cluster, const std::string& id);
 
-    /// @brief gets all joined clusters (see doc for myClusters2Join)
-    const std::vector<std::set<std::string> >& getJoinedClusters() const {
-        return myJoinedClusters;
-    }
+    /// @brief remove the most recent matching join (on netedit-undo)
+    void unregisterJoinedCluster(const std::set<std::string>& cluster, const std::string& id);
+
+    /// @brief get disjoint clusters of original IDs for export
+    std::vector<JoinedCluster> getJoinedClusters() const;
 
     /* @brief discards traffic lights
      * @param[in] geometryLike Whether only tls at geometry-like nodes shall be discarded
@@ -463,7 +466,7 @@ private:
     std::vector<JoinCluster> myClusters2Join;
 
     /// @brief sets of node ids which were joined
-    std::vector<std::set<std::string> > myJoinedClusters;
+    std::vector<JoinedCluster> myJoinedClusters;
 
     /// @brief ids found in loaded join clusters used for error checking
     std::set<std::string> myJoined;

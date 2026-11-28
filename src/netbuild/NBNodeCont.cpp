@@ -2033,7 +2033,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
     }
 
     // remove original nodes
-    registerJoinedCluster(cluster);
+    registerJoinedCluster(cluster, newNode->getID());
     for (NBNode* n : cluster) {
         erase(n);
     }
@@ -2041,25 +2041,57 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
 
 
 void
-NBNodeCont::registerJoinedCluster(const NodeSet& cluster) {
+NBNodeCont::registerJoinedCluster(const NodeSet& cluster, const std::string& id) {
     std::set<std::string> ids;
     for (NBNode* n : cluster) {
         ids.insert(n->getID());
     }
-    myJoinedClusters.push_back(ids);
+    registerJoinedCluster(ids, id);
 }
 
-void
-NBNodeCont::registerJoinedCluster(const std::set<std::string>& cluster) {
-    myJoinedClusters.push_back(cluster);
-}
 
 void
-NBNodeCont::unregisterJoinedCluster(const std::set<std::string>& cluster) {
-    auto it = std::find(myJoinedClusters.begin(), myJoinedClusters.end(), cluster);
-    if (it != myJoinedClusters.end()) {
-        myJoinedClusters.erase(it);
+NBNodeCont::registerJoinedCluster(const std::set<std::string>& cluster, const std::string& id) {
+    myJoinedClusters.push_back({id, cluster});
+}
+
+
+void
+NBNodeCont::unregisterJoinedCluster(const std::set<std::string>& cluster, const std::string& id) {
+    const auto it = std::find_if(myJoinedClusters.rbegin(), myJoinedClusters.rend(), [&](const JoinedCluster& joined) {
+        return joined.id == id && joined.nodes == cluster;
+    });
+    if (it != myJoinedClusters.rend()) {
+        myJoinedClusters.erase(std::prev(it.base()));
     }
+}
+
+
+std::vector<NBNodeCont::JoinedCluster>
+NBNodeCont::getJoinedClusters() const {
+    std::vector<JoinedCluster> result;
+    std::map<std::string, size_t> active;
+    for (const auto& joined : myJoinedClusters) {
+        JoinedCluster& flattened = result.emplace_back();
+        for (const auto& member : joined.nodes) {
+            const auto previous = active.find(member);
+            if (previous == active.end()) {
+                flattened.nodes.insert(member);
+            } else {
+                auto& previousNodes = result[previous->second].nodes;
+                flattened.nodes.merge(previousNodes);
+                previousNodes.clear();
+                active.erase(previous);
+                // Preserve the actual result ID since flattening changes the generated one.
+                flattened.id = joined.id;
+            }
+        }
+        active[joined.id] = result.size() - 1;
+    }
+    result.erase(std::remove_if(result.begin(), result.end(), [](const JoinedCluster& joined) {
+        return joined.nodes.empty();
+    }), result.end());
+    return result;
 }
 
 

@@ -388,9 +388,12 @@ NWWriter_XML::writeJoinedJunctions(const std::string& filename, NBNodeCont& nc) 
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("nodes", "nodes_file.xsd", attrs);
-    for (const std::set<std::string>& joined : nc.getJoinedClusters()) {
-        assert(joined.size() > 0);
-        device.openTag(SUMO_TAG_JOIN).writeAttr(SUMO_ATTR_NODES, joined).closeTag();
+    for (const auto& joined : nc.getJoinedClusters()) {
+        device.openTag(SUMO_TAG_JOIN);
+        if (!joined.id.empty()) {
+            device.writeAttr(SUMO_ATTR_ID, joined.id);
+        }
+        device.writeAttr(SUMO_ATTR_NODES, joined.nodes).closeTag();
     }
     device.close();
 }
