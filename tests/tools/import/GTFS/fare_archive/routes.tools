@@ -1,0 +1,5 @@
+<routes>
+    <vehicle id="t" route="t" type="bus" depart="28800" line="R">
+        <param key="gtfs.route_name" value="R"/>
+    </vehicle>
+</routes>

@@ -21,3 +21,6 @@ block_id
 
 # handling of coupled trains
 coupling
+
+# read fare_stops.txt before closing GTFS archive
+fare_archive
