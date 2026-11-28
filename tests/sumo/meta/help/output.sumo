@@ -31,6 +31,10 @@ Input Options:
                                         state by the given offset
   --load-state.remove-vehicles STR[]   Removes vehicles with the given IDs from
                                         the loaded state
+  --load-state.remove-persons STR[]    Removes persons with the given IDs from
+                                        the loaded state
+  --load-state.remove-containers STR[]  Removes containers with the given IDs
+                                        from the loaded state
   --junction-taz                       Initialize a TAZ for every junction to
                                         use attributes toJunction and
                                         fromJunction

@@ -132,8 +132,23 @@ private:
     /// @brief vehicles that shall be removed when loading state
     std::set<std::string> myVehiclesToRemove;
 
+    /// @brief persons that shall be removed when loading state
+    std::set<std::string> myPersonsToRemove;
+
+    /// @brief containers that shall be removed when loading state
+    std::set<std::string> myContainersToRemove;
+
     /// @brief vehicles that were removed when loading state
     int myRemoved;
+
+    /// @brief persons that were removed when loading state
+    int myRemovedPersons;
+
+    /// @brief containers that were removed when loading state
+    int myRemovedContainers;
+
+    /// @brief whether the currently parsed transportable is being removed from state
+    bool mySkipTransportable;
 
     /// @brief the loaded counter of meso leader events (-1 if not given)
     long long int myMesoEventCounter;

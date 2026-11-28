@@ -214,6 +214,22 @@ public:
 
     void servedReservation(const Reservation* res, MSDevice_Taxi* taxi);
 
+    /// @brief remove state-loaded reservation mapping for a removed transportable and return its reservation id
+    std::string removeLoadedReservation(const std::string& tID) {
+        auto it = myLoadedReservations.find(tID);
+        if (it != myLoadedReservations.end()) {
+            const std::string rID = it->second;
+            myLoadedReservations.erase(it);
+            return rID;
+        }
+        return "";
+    }
+
+    /// @brief clear remaining state-loaded reservation mappings after state loading completes
+    void clearLoadedReservations() {
+        myLoadedReservations.clear();
+    }
+
 protected:
 
     /// @brief whether the given taxi has sufficient capacity to serve the reservation
