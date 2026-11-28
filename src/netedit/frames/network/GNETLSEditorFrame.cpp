@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include <algorithm>
+#include <memory>
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <netbuild/NBTrafficLightLogic.h>
@@ -31,6 +32,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEInternalTest.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_TLS.h>
 #include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
@@ -1506,6 +1508,7 @@ void
 GNETLSEditorFrame::TLSPrograms::clearTLSProgramss() {
     // clear definitions
     myTLSPrograms.clear();
+    myCleanupAllPrograms = false;
     // clear and disable myProgramComboBox
     myProgramComboBox->clearItems();
     myProgramComboBox->disable();
@@ -1528,6 +1531,14 @@ void
 GNETLSEditorFrame::TLSPrograms::markAsModified() {
     myHaveModifications = true;
     myTLSEditorParent->updateModules();
+}
+
+
+void
+GNETLSEditorFrame::TLSPrograms::queueStateCleanup() {
+    myCleanupAllPrograms = true;
+    markAsModified();
+    myTLSEditorParent->getViewNet()->setStatusBarText(TL("Save to clean unused states from all programs."));
 }
 
 
@@ -1738,6 +1749,94 @@ GNETLSEditorFrame::TLSPrograms::onCmdDefSwitchTLSProgram(FXObject*, FXSelector, 
 }
 
 
+bool
+GNETLSEditorFrame::TLSPrograms::applyStateCleanup(GNEUndoList* undoList) {
+    auto* net = myTLSEditorParent->getViewNet()->getNet();
+    auto* edited = myTLSEditorParent->myEditedDef;
+    const auto* current = getCurrentTLSPrograms();
+    std::vector<std::pair<NBTrafficLightDefinition*, std::unique_ptr<NBLoadedSUMOTLDef>>> replacements;
+    std::vector<NBLoadedSUMOTLDef*> programs{edited};
+    for (auto* definition : myTLSPrograms) {
+        if (definition != current) {
+            auto* logic = net->getTLLogicCont().getLogic(definition->getID(), definition->getProgramID());
+            if (logic == nullptr) {
+                myTLSEditorParent->getViewNet()->setStatusBarText(TLF("Cannot clean states with invalid program '%'.", definition->getProgramID()));
+                return false;
+            }
+            replacements.emplace_back(definition, std::make_unique<NBLoadedSUMOTLDef>(*definition, *logic));
+            programs.push_back(replacements.back().second.get());
+        }
+    }
+    // Link indices are shared by all programs. Preserve every used state column.
+    std::set<int> usedIndices;
+    std::set<GNECrossing*> crossings;
+    int numStates = 0;
+    for (auto* program : programs) {
+        numStates = MAX2(numStates, program->getLogic()->getNumLinks());
+        for (const auto& link : program->getControlledLinks()) {
+            usedIndices.insert(link.getTLIndex());
+            usedIndices.insert(link.getTLIndex2());
+        }
+        for (const auto* node : program->getNodes()) {
+            auto* junction = net->getAttributeCarriers()->retrieveJunction(node->getID());
+            for (auto* crossing : junction->getGNECrossings()) {
+                if (const auto* model = crossing->getNBCrossing()) {
+                    crossings.insert(crossing);
+                    usedIndices.insert(model->tlLinkIndex);
+                    usedIndices.insert(model->tlLinkIndex2);
+                }
+            }
+        }
+    }
+    std::vector<int> indexMap;
+    int nextIndex = 0;
+    for (int index = 0; index < numStates; ++index) {
+        indexMap.push_back(usedIndices.count(index) == 0 ? -1 : nextIndex++);
+    }
+    if (nextIndex == numStates) {
+        return true;
+    }
+    const auto compactedIndex = [&indexMap](int index) {
+        return index < 0 || index >= (int)indexMap.size() ? index : indexMap[index];
+    };
+    for (auto* program : programs) {
+        for (auto& link : program->getControlledLinks()) {
+            link.setTLIndex(compactedIndex(link.getTLIndex()));
+            link.setTLIndex2(compactedIndex(link.getTLIndex2()));
+        }
+        auto* logic = program->getLogic();
+        for (int index = logic->getNumLinks() - 1; index >= 0; --index) {
+            if (indexMap[index] < 0) {
+                logic->deleteStateIndex(index);
+            }
+        }
+    }
+    for (auto* crossing : crossings) {
+        const auto* model = crossing->getNBCrossing();
+        const int firstIndex = compactedIndex(model->tlLinkIndex);
+        const int secondIndex = compactedIndex(model->tlLinkIndex2);
+        if (firstIndex != model->tlLinkIndex) {
+            GNEChange_Attribute::changeAttribute(crossing, SUMO_ATTR_TLLINKINDEX, toString(firstIndex),
+                                                 toString(model->customTLIndex), undoList);
+        }
+        if (secondIndex != model->tlLinkIndex2) {
+            GNEChange_Attribute::changeAttribute(crossing, SUMO_ATTR_TLLINKINDEX2, toString(secondIndex),
+                                                 toString(model->customTLIndex2), undoList);
+        }
+    }
+    for (auto& replacement : replacements) {
+        auto* definition = replacement.second.release();
+        const auto nodes = replacement.first->getNodes();
+        for (const auto* node : nodes) {
+            auto* junction = net->getAttributeCarriers()->retrieveJunction(node->getID());
+            undoList->add(new GNEChange_TLS(junction, replacement.first, false), true);
+            undoList->add(new GNEChange_TLS(junction, definition, true), true);
+        }
+    }
+    return true;
+}
+
+
 long
 GNETLSEditorFrame::TLSPrograms::onCmdSaveChanges(FXObject*, FXSelector, void*) {
     // get junction copy
@@ -1749,6 +1848,9 @@ GNETLSEditorFrame::TLSPrograms::onCmdSaveChanges(FXObject*, FXSelector, void*) {
         const auto oldDefinition = getCurrentTLSPrograms();
         std::vector<NBNode*> nodes = oldDefinition->getNodes();
         GNEUndoList* undoList = myTLSEditorParent->getViewNet()->getUndoList();
+        if (myCleanupAllPrograms && !applyStateCleanup(undoList)) {
+            return 1;
+        }
         for (const auto& node : nodes) {
             GNEJunction* junction = myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(node->getID());
             undoList->add(new GNEChange_TLS(junction, oldDefinition, false), true);
@@ -1892,8 +1994,8 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     // create cleanup states button
     myCleanStatesButton = new MFXButtonTooltip(col1, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
             TL("Clean States") + std::string("\t") +
-            TL("Clean unused states from all phase") + std::string("\t") +
-            TL("Clean unused states from all phase. (Not allowed for multiple programs)"),
+            TL("Remove unused states from all programs") + std::string("\t") +
+            TL("Remove unused states from all programs when you save the edits."),
             nullptr, this, MID_GNE_TLSFRAME_PHASES_CLEANUP, GUIDesignButton);
     myCleanStatesButton->disable();
     // add unused states button
@@ -1928,6 +2030,7 @@ GNETLSEditorFrame::TLSPhases::~TLSPhases() {
 
 void
 GNETLSEditorFrame::TLSPhases::updateTLSPhases() {
+    myCleanStatesButton->setText(myTLSEditorParent->myTLSPrograms->getNumberOfPrograms() > 1 ? TL("Clean All Programs") : TL("Clean States"));
     if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable buttons
         myPhaseTable->disable();
@@ -2240,6 +2343,10 @@ GNETLSEditorFrame::TLSPhases::updateTLSColoring() {
 
 long
 GNETLSEditorFrame::TLSPhases::onCmdCleanStates(FXObject*, FXSelector, void*) {
+    if (myTLSEditorParent->myTLSPrograms->getNumberOfPrograms() > 1) {
+        myTLSEditorParent->myTLSPrograms->queueStateCleanup();
+        return 1;
+    }
     if (myTLSEditorParent->myEditedDef->cleanupStates()) {
         myTLSEditorParent->myTLSPrograms->markAsModified();
     }
