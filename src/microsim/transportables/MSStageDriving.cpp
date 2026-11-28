@@ -369,7 +369,7 @@ MSStageDriving::getTravelTime() const {
 
 SUMOTime
 MSStageDriving::getWaitingTime() const {
-    const SUMOTime departed = myDeparted >= 0 ? myDeparted : SIMSTEP;
+    const SUMOTime departed = myDeparted >= 0 ? myDeparted : (myArrived >= 0 ? myArrived : SIMSTEP);
     return myWaitingSince >= 0 ? departed - myWaitingSince : SUMOTime_MAX;
 }
 
