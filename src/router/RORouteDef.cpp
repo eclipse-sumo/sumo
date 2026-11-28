@@ -261,8 +261,8 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             if (prev->isConnectedTo(*cur, veh.getVClass()) && (!isRailway(veh.getVClass()) || prev->getBidiEdge() != cur)) {
                 newEdges.push_back(cur);
             } else {
-                if (initialSize > 2) {
-                    // only inform if the input is (probably) not a trip
+                if (initialSize > 2 && !myMayBeDisconnected && !isTrip) {
+                    // Gaps between mandatory edges are expected while routing a trip.
                     WRITE_MESSAGEF(TL("Edge '%' not connected to edge '%' for vehicle '%'."), (*(i - 1))->getID(), (*i)->getID(), veh.getID());
                 }
                 const ROEdge* last = newEdges.back();
