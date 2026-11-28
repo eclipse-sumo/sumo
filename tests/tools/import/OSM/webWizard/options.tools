@@ -1,1 +1,1 @@
---test-output test tools/osmWebWizard.py
+--test-output test -c input.toolcfg tools/osmWebWizard.py

@@ -7,6 +7,7 @@ webWizard
 # test what happens if there are no suitable edges for passenger traffic
 webWizard_missingEdges
 webWizard_saveTemplate
+webWizard_saveConfig
 
 # test extraction of taxi stands as chargingStations
 taxiStop

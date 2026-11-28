@@ -1,0 +1,8 @@
+<configuration>
+    <osm-file value="osm_bbox.osm.xml"/>
+    <begin value="0"/>
+    <end value="900"/>
+    <demand value="passenger:6f5,bicycle:2f2,pedestrian:4,ship:1f40"/>
+    <poly value="True"/>
+    <public-transport value="True"/>
+</configuration>
