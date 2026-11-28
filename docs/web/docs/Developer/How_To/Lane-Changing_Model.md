@@ -81,6 +81,9 @@ The call
 will be mapped onto the call
 `MSAbstractLaneChangeModel::setParameter("XYZ" , "42")` which is called on the current laneChangeModel of the vehicle.
 
+## Prototyping Custom Lane-Changing Logic via TraCI
+
+Custom lane-changing algorithms such as MOBIL can also be evaluated without modifying SUMO's C++ core. Suppress built-in strategic, cooperative, speed-gain, and keep-right maneuvers with `traci.vehicle.setLaneChangeMode(vehID, 0)` (or `256` to retain collision avoidance; see [lane change mode](../../TraCI/Change_Vehicle_State.md#lane_change_mode_0xb6)), query surrounding leaders and followers via `traci.vehicle.getLeader`, `getNeighbors`, or context subscriptions, and trigger target lane transitions with `traci.vehicle.changeLane` or `changeLaneRelative`.
 
 ## XML Validation
 
