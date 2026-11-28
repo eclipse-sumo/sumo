@@ -1,0 +1,6 @@
+<data>
+    <interval begin="0" end="60">
+        <tazRelation from="a" to="end" count="1"/>
+        <tazRelation from="b" to="end" count="1"/>
+    </interval>
+</data>

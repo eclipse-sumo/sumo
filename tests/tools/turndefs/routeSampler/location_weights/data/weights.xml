@@ -1,0 +1,6 @@
+<locationWeights>
+    <location edges="b" weight="1e300"/>
+    <location edges="b z end" weight="1e300"/>
+    <location edges="b end" weight="1e-300"/>
+    <location tazs="b end" weight="1e300"/>
+</locationWeights>
