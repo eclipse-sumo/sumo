@@ -156,7 +156,21 @@ with *maxSpeedLat* this constrains lateral movement speed.
   - nice: align with the nearest sublane boundary to the right. (to
     avoid using more sublanes than necessary)
   - {{DT_FLOAT}}: preferred lateral offset in m from the center of the lane
+- **lcLaneDiscipline**: Reluctance to stay between lanes for speed-gain maneuvers when doing so would straddle a lane boundary. default: 0, range \[0-inf\]
 - **lcMaxSpeedLatStanding**, **lcMaxSpeedLatFactor**: Compute a boundary on lateral speed using lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * speed. If factor > 0 this is an upper bound on lateral speed and if factor < it acts as a lower bound.
+
+### Selectively Disabling Sublane Behavior by Vehicle Type
+
+Setting **--lateral-resolution** activates the *SL2015* sublane model globally for all vehicles in the simulation. Mixed-traffic scenarios often require sublane filtering for motorcycles or bicycles while keeping cars and trucks aligned to full lanes. You can suppress sublane maneuvers for specific [vehicle types](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types) by combining `latAlignment="center"`, `lcSublane="0"`, `lcPushy="0"`, and `lcLaneDiscipline="1"`:
+
+```xml
+<routes>
+    <vType id="car_strict" vClass="passenger" latAlignment="center" lcSublane="0" lcPushy="0" lcLaneDiscipline="1" minGapLat="0.6"/>
+    <vType id="motorbike" vClass="motorcycle" latAlignment="compact" lcSublane="1.0" lcPushy="0.5" minGapLat="0.3"/>
+</routes>
+```
+
+In this configuration, `car_strict` vehicles remain centered in their lane and only execute full-lane changes, whereas `motorbike` vehicles share lanes and filter past slower traffic.
 
 ### Misc
 
