@@ -30,3 +30,9 @@ interior
 
 # also detect on junction interior when joining all approaches
 interior_joined
+
+# intermodal intersection with sidewalks, bike lanes, separator strips, and crossings
+intermodal
+
+# intermodal intersection with --joined --interior
+intermodal_interior_joined

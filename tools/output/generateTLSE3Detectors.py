@@ -99,35 +99,107 @@ def getOptions():
     return options
 
 
-def writeEntryExit(options, edge, detector_xml, writeExit=True):
+def isVehicleLane(lane):
+    return bool(lane.getPermissions() - set(["pedestrian"]))
+
+
+def getVehicleLanes(edge):
+    return [lane for lane in edge.getLanes() if isVehicleLane(lane)]
+
+
+def getUpstreamVehicleEdges(net, edge, distance, stopOnTLS, stopOnTurnaround):
+    ret = []
+    seen = set()
+    toProc = [[edge, 0, []]]
+    while toProc:
+        ie = toProc.pop()
+        if ie[0] in seen:
+            continue
+        seen.add(ie[0])
+        if ie[1] + ie[0].getLength() >= distance:
+            ret.append([ie[0], ie[0].getLength() + ie[1] - distance, ie[2], False])
+            continue
+        vehIncoming = [
+            ci for ci in ie[0]._incoming
+            if getVehicleLanes(ci) and any(
+                isVehicleLane(c.getFromLane()) and isVehicleLane(c.getToLane())
+                for c in ie[0]._incoming[ci])
+        ]
+        if not vehIncoming:
+            ret.append([ie[0], ie[0].getLength() + ie[1], ie[2], True])
+            continue
+        mn = []
+        stop = False
+        for ci in vehIncoming:
+            if ci not in seen:
+                prev = list(ie[2])
+                vehConns = [c for c in ie[0]._incoming[ci]
+                            if isVehicleLane(c.getFromLane()) and isVehicleLane(c.getToLane())]
+                if stopOnTLS and ci._tls and ci != edge and not stop:
+                    ret.append([ie[0], ie[1], prev, True])
+                    stop = True
+                elif (stopOnTurnaround
+                      and vehConns[0].getDirection() == sumolib.net.connection.Connection.LINKDIR_TURN
+                      and not stop):
+                    ret.append([ie[0], ie[1], prev, True])
+                    stop = True
+                else:
+                    prev.append(ie[0])
+                    mn.append([ci, ie[0].getLength() + ie[1], prev])
+        if not stop:
+            toProc.extend(mn)
+    return ret
+
+
+def collectEntryExit(options, edge, seenExits=None):
     stopOnTLS = True
     stopOnTurnaround = not options.followTurnaround
-    input_edges = network.getUpstreamEdges(
-        edge, options.requested_detector_length, stopOnTLS, stopOnTurnaround)
+    input_edges = getUpstreamVehicleEdges(
+        network, edge, options.requested_detector_length, stopOnTLS, stopOnTurnaround)
     input_edges.sort(key=lambda vals: vals[0].getID())
+    entries = []
+    exits = []
     for firstEdge, position, intermediate, aborted in input_edges:
         if aborted:
             position = .1
-        position = max(position, min(options.minPos, firstEdge.getLength()))
-        for lane in firstEdge.getLanes():
-            detector_entry_xml = detector_xml.addChild("detEntry")
-            detector_entry_xml.setAttribute("lane", lane.getID())
-            detector_entry_xml.setAttribute("pos", "%.2f" % position)
+        for lane in getVehicleLanes(firstEdge):
+            lanePos = min(lane.getLength(), max(position, min(options.minPos, lane.getLength())))
+            entries.append((lane.getID(), "%.2f" % lanePos))
 
-    if writeExit:
-        if options.interior:
-            # exit just after leaving the intersection
-            for e2 in sorted(edge.getOutgoing(), key=lambda e: e.getID()):
-                for lane in e2.getLanes():
-                    detector_exit_xml = detector_xml.addChild("detExit")
-                    detector_exit_xml.setAttribute("lane", lane.getID())
-                    detector_exit_xml.setAttribute("pos", "0")
-        else:
-            # exit just before entering the intersection
-            for lane in edge.getLanes():
-                detector_exit_xml = detector_xml.addChild("detExit")
-                detector_exit_xml.setAttribute("lane", lane.getID())
-                detector_exit_xml.setAttribute("pos", "-.1")
+    if options.interior:
+        # exit just after leaving the intersection
+        for e2 in sorted(edge.getOutgoing(), key=lambda e: e.getID()):
+            if not any(isVehicleLane(c.getFromLane()) and isVehicleLane(c.getToLane())
+                       for c in edge.getOutgoing()[e2]):
+                continue
+            for lane in getVehicleLanes(e2):
+                if seenExits is not None:
+                    if lane.getID() in seenExits:
+                        continue
+                    seenExits.add(lane.getID())
+                exits.append((lane.getID(), "0"))
+    else:
+        # exit just before entering the intersection
+        for lane in getVehicleLanes(edge):
+            if lane.getLength() < options.requested_distance_to_tls:
+                exitPos = "0"
+            elif options.requested_distance_to_tls == .1:
+                exitPos = "-.1"
+            else:
+                exitPos = "%.2f" % -options.requested_distance_to_tls
+            exits.append((lane.getID(), exitPos))
+    return entries, exits
+
+
+def writeItems(detector_xml, entries, exits):
+    for laneID, posStr in entries:
+        detector_entry_xml = detector_xml.addChild("detEntry")
+        detector_entry_xml.setAttribute("lane", laneID)
+        detector_entry_xml.setAttribute("pos", posStr)
+    for laneID, posStr in exits:
+        detector_exit_xml = detector_xml.addChild("detExit")
+        detector_exit_xml.setAttribute("lane", laneID)
+        detector_exit_xml.setAttribute("pos", posStr)
 
 
 if __name__ == "__main__":
@@ -149,28 +221,35 @@ if __name__ == "__main__":
         getEdges = sumolib.net.node.Node.getIncoming
 
     for tls in tlsList:
+        vehEdges = [e for e in sorted(getEdges(tls), key=sumolib.net.edge.Edge.getID)
+                    if getVehicleLanes(e)]
+        if not vehEdges:
+            continue
         if options.joined:
-            detector_xml = detectors_xml.addChild("e3Detector")
-            detector_xml.setAttribute("id", options.prefix + str(tls.getID()))
-            detector_xml.setAttribute("freq", str(options.frequency))
-            detector_xml.setAttribute("file", options.results)
-            generated_detectors += 1
-            writeExit = True
-            for edge in sorted(getEdges(tls), key=sumolib.net.edge.Edge.getID):
-                writeEntryExit(options, edge, detector_xml, writeExit)
-                writeExit = not options.interior
-
-        else:
-            for edge in sorted(getEdges(tls), key=sumolib.net.edge.Edge.getID):
+            seenExits = set() if options.interior else None
+            perEdgeItems = [collectEntryExit(options, edge, seenExits) for edge in vehEdges]
+            if any(entries for entries, _ in perEdgeItems) and any(exits for _, exits in perEdgeItems):
                 detector_xml = detectors_xml.addChild("e3Detector")
-                detector_xml.setAttribute(
-                    "id", options.prefix + str(tls.getID()) + "_" + str(edge.getID()))
+                detector_xml.setAttribute("id", options.prefix + str(tls.getID()))
                 detector_xml.setAttribute("freq", str(options.frequency))
                 detector_xml.setAttribute("file", options.results)
-                if options.interior:
-                    detector_xml.setAttribute("openEntry", "true")
-                writeEntryExit(options, edge, detector_xml)
+                for entries, exits in perEdgeItems:
+                    writeItems(detector_xml, entries, exits)
                 generated_detectors += 1
+
+        else:
+            for edge in vehEdges:
+                entries, exits = collectEntryExit(options, edge)
+                if entries and exits:
+                    detector_xml = detectors_xml.addChild("e3Detector")
+                    detector_xml.setAttribute(
+                        "id", options.prefix + str(tls.getID()) + "_" + str(edge.getID()))
+                    detector_xml.setAttribute("freq", str(options.frequency))
+                    detector_xml.setAttribute("file", options.results)
+                    if options.interior:
+                        detector_xml.setAttribute("openEntry", "true")
+                    writeItems(detector_xml, entries, exits)
+                    generated_detectors += 1
 
     detector_file = open(options.output, 'w')
     detector_file.write(detectors_xml.toXML())
