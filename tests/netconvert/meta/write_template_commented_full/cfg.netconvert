@@ -87,6 +87,9 @@
         <!-- Read heightmap from GeoTIFF -->
         <heightmap.geotiff value="" type="FILE"/>
 
+        <!-- Read plain XML input files PREFIX.nod.xml, PREFIX.edg.xml, PREFIX.con.xml, PREFIX.tll.xml and PREFIX.typ.xml -->
+        <plain-input-prefix value="" synonymes="q" type="STR"/>
+
     </input>
 
     <output>
