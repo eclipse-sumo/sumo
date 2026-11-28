@@ -33,6 +33,8 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include "MSDevice_Vehroutes.h"
+#include <microsim/output/MSOutputMissingValues.h>
+
 #include "MSDevice_Tripinfo.h"
 
 #define NOT_ARRIVED TIME2STEPS(-1)
@@ -358,13 +360,14 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
         departDelay = SIMSTEP - param.depart;
     }
     os.writeAttr("departDelay", time2string(departDelay));
-    os.writeAttr("arrival", time2string(myArrivalTime));
-    os.writeAttr("arrivalLane", myArrivalLane);
-    os.writeAttr("arrivalPos", myArrivalPos);
+    const bool unfinished = myArrivalTime == NOT_ARRIVED;
+    MSOutputMissingValues::write(os, "arrival", time2string(myArrivalTime), unfinished);
+    MSOutputMissingValues::write(os, "arrivalLane", myArrivalLane, unfinished || myArrivalLane.empty());
+    MSOutputMissingValues::write(os, "arrivalPos", myArrivalPos, unfinished);
     if (MSGlobals::gLateralResolution > 0) {
-        os.writeAttr("arrivalPosLat", myArrivalPosLat);
+        MSOutputMissingValues::write(os, "arrivalPosLat", myArrivalPosLat, unfinished);
     }
-    os.writeAttr("arrivalSpeed", myArrivalSpeed);
+    MSOutputMissingValues::write(os, "arrivalSpeed", myArrivalSpeed, unfinished);
     os.writeAttr("duration", time2string(duration));
     os.writeAttr("routeLength", routeLength);
     os.writeAttr(SUMO_ATTR_WAITINGTIME, time2string(myWaitingTime));
@@ -405,7 +408,7 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
             }
             break;
     }
-    os.writeAttr("vaporized", vaporized);
+    MSOutputMissingValues::write(os, "vaporized", vaporized, vaporized.empty());
     // cannot close tag because emission device output might follow
 }
 

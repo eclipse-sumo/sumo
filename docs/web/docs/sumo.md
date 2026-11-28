@@ -86,6 +86,7 @@ configuration:
 | **--netstate-dump** {{DT_FILE}} | Save complete network states into FILE |
 | **--netstate-dump.empty-edges** {{DT_BOOL}} | Write also empty edges completely when dumping; *default:* **false** |
 | **--netstate-dump.precision** {{DT_INT}} | Write positions and speeds with the given precision (default 2); *default:* **2** |
+| **--output.xml-missing-values** {{DT_STR}} | Represent missing scalar XML output values as legacy markers, empty strings or omitted attributes (legacy, empty, omit); *default:* **legacy** |
 | **--emission-output** {{DT_FILE}} | Save the emission values of each vehicle |
 | **--emission-output.precision** {{DT_INT}} | Write emission values with the given precision (default 2); *default:* **2** |
 | **--emission-output.geo** {{DT_BOOL}} | Save the positions in emission output using geo-coordinates (lon/lat); *default:* **false** |

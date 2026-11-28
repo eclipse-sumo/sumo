@@ -43,6 +43,7 @@
         <netstate-dump value="" synonymes="ndump netstate netstate-output" type="FILE" help="Save complete network states into FILE"/>
         <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate-output.empty-edges netstate.empty-edges" deprecated="dump-empty-edges" type="BOOL" help="Write also empty edges completely when dumping"/>
         <netstate-dump.precision value="2" synonymes="dump-precision netstate-output.precision netstate.precision" deprecated="dump-precision" type="INT" help="Write positions and speeds with the given precision (default 2)"/>
+        <output.xml-missing-values value="legacy" type="STR" help="Represent missing scalar XML output values as legacy markers, empty strings or omitted attributes (legacy, empty, omit)"/>
         <emission-output value="" type="FILE" help="Save the emission values of each vehicle"/>
         <emission-output.precision value="2" type="INT" help="Write emission values with the given precision (default 2)"/>
         <emission-output.geo value="false" type="BOOL" help="Save the positions in emission output using geo-coordinates (lon/lat)"/>

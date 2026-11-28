@@ -105,6 +105,9 @@
         <!-- Write positions and speeds with the given precision (default 2) -->
         <netstate-dump.precision value="2" synonymes="dump-precision netstate-output.precision netstate.precision" deprecated="dump-precision" type="INT"/>
 
+        <!-- Represent missing scalar XML output values as legacy markers, empty strings or omitted attributes (legacy, empty, omit) -->
+        <output.xml-missing-values value="legacy" type="STR"/>
+
         <!-- Save the emission values of each vehicle -->
         <emission-output value="" type="FILE"/>
 

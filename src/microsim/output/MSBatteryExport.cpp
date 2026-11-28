@@ -31,6 +31,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/devices/MSDevice_Battery.h>
 #include "MSBatteryExport.h"
+#include "MSOutputMissingValues.h"
 
 
 // ===========================================================================
@@ -69,7 +70,9 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
                 // Write Maximum battery capacity
                 of.writeAttr(SUMO_ATTR_MAXIMUMBATTERYCAPACITY, batteryToExport->getMaximumBatteryCapacity());
                 // Write Charging Station ID
-                of.writeAttr(SUMO_ATTR_CHARGINGSTATIONID, batteryToExport->getChargingStationID(), batteryToExport->getChargingStation() == nullptr);
+                const bool noChargingStation = batteryToExport->getChargingStation() == nullptr;
+                MSOutputMissingValues::write(of, SUMO_ATTR_CHARGINGSTATIONID, batteryToExport->getChargingStationID(),
+                                             noChargingStation, noChargingStation);
                 // Write Charge charged in the Battery
                 of.writeAttr(SUMO_ATTR_ENERGYCHARGED, batteryToExport->getEnergyCharged());
                 // Write ChargeInTransit
