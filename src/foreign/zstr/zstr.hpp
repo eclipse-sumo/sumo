@@ -195,16 +195,17 @@ public:
                 if (auto_detect && ! auto_detect_run)
                 {
                     auto_detect_run = true;
-                    unsigned char b0 = *reinterpret_cast< unsigned char * >(in_buff_start);
-                    unsigned char b1 = *reinterpret_cast< unsigned char * >(in_buff_start + 1);
-                    // Ref:
-                    // http://en.wikipedia.org/wiki/Gzip
-                    // http://stackoverflow.com/questions/9050260/what-does-a-zlib-header-look-like
-                    is_text = ! (in_buff_start + 2 <= in_buff_end
-                                 && ((b0 == 0x1F && b1 == 0x8B)         // gzip header
-                                     || (b0 == 0x78 && (b1 == 0x01      // zlib header
-                                                        || b1 == 0x9C
-                                                        || b1 == 0xDA))));
+                    is_text = true;
+                    if (in_buff_end - in_buff_start >= 2)
+                    {
+                        const auto b0 = static_cast<unsigned char>(in_buff_start[0]);
+                        const auto b1 = static_cast<unsigned char>(in_buff_start[1]);
+                        const bool gzip = b0 == 0x1F && b1 == 0x8B;
+                        // RFC 1950, section 2.2: DEFLATE, at most a 32 KiB window, and a valid header check.
+                        const bool zlib = (b0 & 0x0F) == Z_DEFLATED && (b0 >> 4) <= 7
+                                          && ((b0 << 8) + b1) % 31 == 0;
+                        is_text = !(gzip || zlib);
+                    }
                 }
                 if (is_text)
                 {

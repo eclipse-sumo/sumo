@@ -31,6 +31,9 @@ envVarSubstitution
 # test several command line options with and without SUMO_HOME
 xmlValidation
 
+# test automatic compression detection for network and route files
+compressedInput
+
 # testing 'extended' sumo features
 extended
 
