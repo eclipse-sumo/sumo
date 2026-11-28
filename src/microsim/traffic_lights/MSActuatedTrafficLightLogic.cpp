@@ -23,10 +23,13 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <algorithm>
 #include <cassert>
+#include <cmath>
 #include <utility>
 #include <vector>
 #include <bitset>
+#include <libsumo/TraCIDefs.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
@@ -245,7 +248,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             const double jamThreshold = getDouble("jam-threshold:" + lane->getID(), myJamThreshold);
             laneInductLoopMap[lane] = loop;
             inductLoopInfoMap[loop] = (int)myInductLoops.size();
-            myInductLoops.push_back(InductLoopInfo(loop, lane, (int)myPhases.size(), maxGap, jamThreshold));
+            myInductLoops.emplace_back(loop, lane, (int)myPhases.size(), maxGap, jamThreshold,
+                                       getDetectorBasePriority(loop->getID()));
 
             if (warn && floor(floor(inductLoopPosition / defaultLength) * myPassingTime) > STEPS2TIME(minDur)) {
                 // warn if the minGap is insufficient to clear vehicles between stop line and detector
@@ -998,13 +1002,13 @@ MSActuatedTrafficLightLogic::decideNextPhase() {
     // first target is the default when there is no traffic
     // @note: to keep the current phase, even when there is no traffic, it must be added to 'next' explicitly
     int result = cands.front();
-    int maxPrio = 0;
+    double maxPrio = 0;
     SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
     const bool canExtend = actDuration < getCurrentPhaseDef().maxDuration && !maxLinkDurationReached() && getLatest() > 0;
     if (canExtend) {
         // consider keeping the current phase until maxDur is reached
         // (only when there is still traffic in that phase)
-        int currentPrio = getPhasePriority(myStep);
+        const double currentPrio = getPhasePriority(myStep);
 #ifdef DEBUG_PHASE_SELECTION
         std::cout << SIMTIME << " p=" << myStep << " loops=" << myInductLoopsForPhase[myStep].size() << " currentPrio=" << currentPrio << "\n";
 #endif
@@ -1017,7 +1021,7 @@ MSActuatedTrafficLightLogic::decideNextPhase() {
         initTargets(myStep);
     }
     for (int step : cands) {
-        int prio = 0;
+        double prio = 0;
         for (int target : myTargets[myStep][step]) {
             prio += getPhasePriority(target);
 #ifdef DEBUG_PHASE_SELECTION
@@ -1063,7 +1067,27 @@ MSActuatedTrafficLightLogic::getTarget(int step) const {
     return std::make_pair(step, dur);
 }
 
-int
+double
+MSActuatedTrafficLightLogic::getDetectorBasePriority(const std::string& detectorID) const {
+    std::string key = "priority:" + detectorID;
+    if (!hasParameter(key) && StringUtils::startsWith(detectorID, myDetectorPrefix)) {
+        key = "priority:" + detectorID.substr(myDetectorPrefix.size());
+    }
+    return parseDetectorPriority(key, getParameter(key, "1"));
+}
+
+
+double
+MSActuatedTrafficLightLogic::parseDetectorPriority(const std::string& key, const std::string& value) const {
+    const double priority = StringUtils::toDouble(value);
+    if (!std::isfinite(priority) || priority < 0) {
+        throw InvalidArgument(TLF("Parameter '%' for actuated traffic light '%' must be finite and nonnegative.", key, getID()));
+    }
+    return priority;
+}
+
+
+double
 MSActuatedTrafficLightLogic::getDetectorPriority(const InductLoopInfo& loopInfo) const {
     MSInductLoop* loop = loopInfo.loop;
     const double actualGap = loop->getTimeSinceLastDetection();
@@ -1100,15 +1124,15 @@ MSActuatedTrafficLightLogic::getDetectorPriority(const InductLoopInfo& loopInfo)
                     return 0;
                 }
             }
-            return 1;
+            return loopInfo.priority;
         }
     }
     return 0;
 }
 
-int
+double
 MSActuatedTrafficLightLogic::getPhasePriority(int step) const {
-    int result = 0;
+    double result = 0;
     for (const InductLoopInfo* loopInfo : myInductLoopsForPhase[step]) {
         result += getDetectorPriority(*loopInfo);
     }
@@ -1582,6 +1606,26 @@ MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::str
             }
         }
         throw InvalidArgument(TLF("Invalid lane '%' in key '%' for actuated traffic light '%'", laneID, key, getID()));
+    } else if (StringUtils::startsWith(key, "priority:")) {
+        const std::string detectorID = key.substr(9);
+        const std::string prefixedID = myDetectorPrefix + detectorID;
+        const auto matches = [&detectorID, &prefixedID](const InductLoopInfo& loopInfo) {
+            return loopInfo.loop->getID() == detectorID || loopInfo.loop->getID() == prefixedID;
+        };
+        if (std::none_of(myInductLoops.begin(), myInductLoops.end(), matches)) {
+            throw libsumo::TraCIException(TLF("Unknown detector '%' in key '%' for actuated traffic light '%'.", detectorID, key, getID()));
+        }
+        try {
+            parseDetectorPriority(key, value);
+        } catch (const ProcessError& e) {
+            throw libsumo::TraCIException(e.what());
+        }
+        Parameterised::setParameter(key, value);
+        for (InductLoopInfo& loopInfo : myInductLoops) {
+            if (matches(loopInfo)) {
+                loopInfo.priority = getDetectorBasePriority(loopInfo.loop->getID());
+            }
+        }
     } else if (key == "show-detectors") {
         myShowDetectors = StringUtils::toBool(value);
         Parameterised::setParameter(key, value);

@@ -470,7 +470,7 @@ phase run more than once in the same cycle (this only happens when param
 ### Dynamic Phase Selection (Phase Skipping)
 When a phase uses attribute 'next' with a list of indices. The next phase is chosen dynamically based on the detector status of all candidate phases according to the following algorithm:
 
-- compute the priority for each phase given in 'next'. Priority is primarily given by the number of active detectors for that phase. Active means either of:
+- compute the priority for each phase given in 'next'. Priority is primarily the sum of the scores of the active detectors for that phase. Active means either of:
   - with detection gap below threshold
   - with a detection since the last time where the signal after this detector was green
 - for each crossing that will be green in the target phase and which has an approaching pedestrian, a large amount of bonus priority is assigned to that phase
@@ -480,6 +480,8 @@ When a phase uses attribute 'next' with a list of indices. The next phase is cho
   - if the traffic light uses [custom switching rules](#type_actuated_with_custom_switching_rules) then the default phase is the **last** value of the 'next' attribute
 - if a particular phase should remain active indefinitely in the absence of traffic it must have its own index in the 'next' list as well as a high maxDur value
 - if an active detector was not served for a given time threshold (param **inactive-threshold**), this detector receives bonus priority according to the time it was not served. This can be used to prevent starvation if other phases are consistently preferred due to serving more traffic
+
+Each active detector has a base score of 1. Set `<param key="priority:DETECTOR_ID" value="2.5"/>` on the `tlLogic` to assign a different score. Use a finite, nonnegative number. For a detector named `TLSID_PROGRAMID_DETECTOR_ID`, the full ID takes precedence over the shortened ID. The continuation, inactivity, and pedestrian priority bonuses keep their existing values. The priority can also be changed with TraCI using `trafficlight.setParameter`.
 
 Examples for this type of traffic light logic can be found in [{{SUMO}}/tests/sumo/tls/actuated/multiNext/dualring_simple]({{Source}}tests/sumo/tls/actuated/multiNext/dualring_simple).
 

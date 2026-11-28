@@ -156,12 +156,13 @@ protected:
     void initSwitchingRules();
 
     struct InductLoopInfo {
-        InductLoopInfo(MSInductLoop* _loop, const MSLane* _lane, int numPhases, double _maxGap, double _jamThreshold):
+        InductLoopInfo(MSInductLoop* _loop, const MSLane* _lane, int numPhases, double _maxGap, double _jamThreshold, double _priority):
             loop(_loop),
             lane(_lane),
             servedPhase(numPhases, false),
             maxGap(_maxGap),
-            jamThreshold(_jamThreshold)
+            jamThreshold(_jamThreshold),
+            priority(_priority)
         {}
 
 
@@ -175,6 +176,7 @@ protected:
         std::vector<bool> servedPhase;
         double maxGap;
         double jamThreshold;
+        double priority;
 
     };
 
@@ -223,10 +225,17 @@ protected:
     /// @brief execute assignemnts of the logic or a custom function
     void executeAssignments(const AssignmentMap& assignments, ConditionMap& conditions, const ConditionMap& forbidden = ConditionMap()) const;
 
-    int getDetectorPriority(const InductLoopInfo& loopInfo) const;
+    /// @brief get the configured base priority of a detector
+    double getDetectorBasePriority(const std::string& detectorID) const;
 
-    /// @brief count the number of active detectors for the given step
-    int getPhasePriority(int step) const;
+    /// @brief read and validate a detector priority parameter
+    double parseDetectorPriority(const std::string& key, const std::string& value) const;
+
+    /// @brief get the score of an active detector for priority-based phase selection
+    double getDetectorPriority(const InductLoopInfo& loopInfo) const;
+
+    /// @brief sum the detector and pedestrian priorities for the given step
+    double getPhasePriority(int step) const;
 
     /// @brief get the green phase following step and the transition time
     std::pair<int, SUMOTime> getTarget(int step) const;

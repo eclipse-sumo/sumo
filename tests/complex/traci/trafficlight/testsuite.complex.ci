@@ -27,6 +27,9 @@ getBlocking_reroute
 # tests interaction with actuated traffic light
 actuated
 
+# weight actuated follower phases by their active detectors
+detector_priority
+
 # tests interaction with actuated traffic light that uses custom switching conditions
 actuated_conditions
 
