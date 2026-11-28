@@ -36,6 +36,7 @@ routeRef
 
 # filter taz
 taz
+discard_taz
 
 # cutting person plans
 person

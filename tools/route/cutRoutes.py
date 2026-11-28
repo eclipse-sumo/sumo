@@ -103,6 +103,8 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
                          default=0, help="print N most missing edges")
     optParser.add_option("--discard-exit-times", action="store_true",
                          default=False, help="do not use exit times")
+    optParser.add_option("--discard-taz", action="store_true",
+                         default=False, help="omit fromTaz and toTaz attributes from vehicles and flows")
     optParser.add_argument("network", category='input', help="Provide an input network")
     optParser.add_argument("routeFiles", nargs="*", category='input',
                            help="If the given routes contain exit times, "
@@ -318,6 +320,9 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                     moving.depart = "%.2f" % newDepart
                 yield newDepart, moving
             else:
+                if options.discard_taz:
+                    moving.fromTaz = None
+                    moving.toTaz = None
                 if moving.name == 'vehicle':
                     stats.num_vehicles += 1
                     oldDepart = parseTime(moving.depart)

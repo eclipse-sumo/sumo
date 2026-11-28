@@ -109,6 +109,9 @@ This assumes the existence of a big scenario (*orig.net.xml* and
 *orig.rou.xml*). The goal is to simulate only a smaller part of the
 network (*reduced.net.xml*) keeping all of the routes that pass through
 the reduced network. Output can be a route file or a trip file.
+
+Use **--discard-taz** to remove the `fromTaz` and `toTaz` attributes from output vehicles and flows when the original traffic assignment zones are absent from the reduced network.
+
 Depending on the given options the new departure times can be computed
 from exitTimes (see [sumo](../sumo.md) option **--vehroute-output.exit-times**), extrapolated from
 the original network or simply copied from the original departure times.
