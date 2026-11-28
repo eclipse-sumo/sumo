@@ -19,7 +19,11 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <atomic>
+#include <memory>
 #include <utils/common/MsgHandler.h>
+#include <chrono>
+#include <thread>
 #include <utils/common/SystemFrame.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
@@ -30,6 +34,7 @@
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/gui/events/GUIEvent_AddView.h>
 #include <utils/gui/events/GUIEvent_CloseView.h>
+#include <utils/gui/events/GUIEvent_ShowParameterWindow.h>
 #include <utils/xml/XMLSubSys.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIRunThread.h>
@@ -42,6 +47,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/Helper.h>
+#include <libsumo/Simulation.h>
 #include <libsumo/GUI.h>
 
 
@@ -307,18 +313,17 @@ GUI::start(const std::vector<std::string>& cmd) {
     return false;
 #else
     try {
-        if (!GUI::close("Libsumo started new instance.")) {
-//            SystemFrame::close();
-        }
+        Simulation::close("Libsumo started new instance.");
         int argc = 1;
-        char array[1][10] = {{0}};
-        strcpy(array[0], "dummy");
-        char* argv[1];
-        argv[0] = array[0];
+        static char arg0[] = "sumo-gui";
+        static char* argv[2] = {arg0, nullptr};
+        argv[0] = arg0;
+        argv[1] = nullptr;
         // make the output aware of threading
         MsgHandler::setFactory(&MsgHandlerSynchronized::create);
         gSimulation = true;
         XMLSubSys::init();
+        OptionsCont::getOptions().clear();
         MSFrame::fillOptions();
         std::vector<std::string> args(cmd.begin() + 1, cmd.end());
         OptionsIO::setArgs(args);
@@ -382,14 +387,37 @@ GUI::step(SUMOTime t) {
 bool
 GUI::close(const std::string& /*reason*/) {
     if (myWindow != nullptr) {
-        myApp->stop();
         delete myWindow;
         myWindow = nullptr;
         SystemFrame::close();
         delete myApp;
+        myApp = nullptr;
         return true;
     }
     return false;
+}
+
+
+void
+GUI::openParameterWindow(const std::string& objID, const std::string& objType) {
+    const std::string fullName = (objID.empty() || objType == "network") ? "" : objType + ":" + objID;
+    try {
+        GUIMainWindow* const mw = GUIMainWindow::getInstance();
+        if (!fullName.empty()) {
+            GUIGlObject* obj = GUIGlObjectStorage::gIDStorage.getObjectBlocking(fullName);
+            if (obj == nullptr) {
+                throw TraCIException("The " + objType + " " + objID + " is not known.");
+            }
+            GUIGlObjectStorage::gIDStorage.unblockObject(obj->getGlID());
+        }
+        auto done = std::make_shared<std::atomic<bool>>(false);
+        mw->sendBlockingEvent(new GUIEvent_ShowParameterWindow(fullName, done));  // NOSONAR
+        while (!*done) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        }
+    } catch (const ProcessError&) {
+        throw TraCIException("GUI is not running, command not implemented in command line sumo");
+    }
 }
 
 

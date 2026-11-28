@@ -60,6 +60,9 @@ enum class GUIEventType {
     /**@brief Send when a view should be closed (via TraCI) */
     CLOSE_VIEW,
 
+    /**@brief Send when a parameter window should be opened */
+    SHOW_PARAMETER_WINDOW,
+
     /**@brief Send when the simulation is over;
      * @note The reason and the time step are stored within the event
     */

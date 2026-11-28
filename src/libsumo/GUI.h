@@ -84,6 +84,8 @@ public:
 
     static bool close(const std::string& reason);
 
+    static void openParameterWindow(const std::string& objID = "", const std::string& objType = "network");
+
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);

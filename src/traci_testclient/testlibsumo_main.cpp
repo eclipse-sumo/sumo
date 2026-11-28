@@ -35,13 +35,29 @@ main(int argc, char** argv) {
     for (int i = 1; i < argc; i++) {
         options.push_back(argv[i]);
     }
-    libsumo::Simulation::load(options);
+    if (options.size() > 0 && (options[0] == "sumo" || options[0] == "sumo-gui")) {
+        libsumo::Simulation::load(std::vector<std::string>(options.begin() + 1, options.end()));
+    } else {
+        libsumo::Simulation::load(options);
+    }
     std::cout << "Simulation loaded\n";
     if (options.size() == 0 || (options[0] != "sumo" && options[0] != "sumo-gui")) {
         options.insert(options.begin(), "sumo");
     }
     libsumo::Simulation::start(options);
     std::cout << "Simulation started\n";
+#ifdef HAVE_LIBSUMOGUI
+    if (libsumo::Simulation::hasGUI() && libsumo::Simulation::isLoaded()) {
+        libsumo::Simulation::step();
+        libsumo::GUI::openParameterWindow();
+        const std::vector<std::string> lanes = libsumo::Lane::getIDList();
+        if (!lanes.empty()) {
+            libsumo::GUI::openParameterWindow(lanes.front(), "lane");
+        }
+        libsumo::Simulation::step();
+        std::cout << "Parameter window opened\n";
+    }
+#endif
     libsumo::Simulation::close();
     /*
       std::vector<libsumo::TraCIStage> result = libsumo::Simulation::findIntermodalRoute("64455492", "-22913705", "public", 21600, 3, -1, -1, 0, 0,0,"ped");

@@ -60,6 +60,8 @@
 #include <utils/gui/events/GUIEvent_AddView.h>
 #include <utils/gui/events/GUIEvent_CloseView.h>
 #include <utils/gui/events/GUIEvent_Message.h>
+#include <utils/gui/events/GUIEvent_ShowParameterWindow.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/images/VClassIcons.h>
@@ -1954,6 +1956,22 @@ GUIApplicationWindow::eventOccurred() {
             case GUIEventType::CLOSE_VIEW: {
                 GUIEvent_CloseView* ave = dynamic_cast<GUIEvent_CloseView*>(e);
                 removeViewByID(ave->getCaption());
+                break;
+            }
+            case GUIEventType::SHOW_PARAMETER_WINDOW: {
+                GUIEvent_ShowParameterWindow* pe = static_cast<GUIEvent_ShowParameterWindow*>(e);
+                GUISUMOAbstractView* view = getActiveView();
+                if (view != nullptr && myRunThread->networkAvailable()) {
+                    if (pe->getFullName().empty()) {
+                        GUINet::getGUIInstance()->getParameterWindow(*this, *view);
+                    } else {
+                        GUIGlObject* obj = GUIGlObjectStorage::gIDStorage.getObjectBlocking(pe->getFullName());
+                        if (obj != nullptr) {
+                            obj->getParameterWindow(*this, *view);
+                            GUIGlObjectStorage::gIDStorage.unblockObject(obj->getGlID());
+                        }
+                    }
+                }
                 break;
             }
             case GUIEventType::SIMULATION_ENDED:
