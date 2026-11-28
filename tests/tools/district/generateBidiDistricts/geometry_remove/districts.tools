@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17 22:40:53.772808 by Eclipse SUMO generateBidiDistricts.py v1_28_0+0644-bda840e3afe
+  options: -r 15 -o districts.xml net.net.xml
+-->
+
+<tazs>
+    <taz id="detour_a" edges="detour_a"/>
+    <taz id="main_fwd" edges="main_fwd main_rev"/>
+    <taz id="main_rev" edges="main_fwd main_rev"/>
+</tazs>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17T22:40:22.686782+00:00 by Eclipse SUMO netconvert v1_28_0+0629-650f618c216
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Users\Mark\.gemini\antigravity\brain\ccc3a0cb-b99a-4eef-877f-2d9a12620d69\scratch\tmp_16030\n.nod.xml"/>
+        <edge-files value="C:\Users\Mark\.gemini\antigravity\brain\ccc3a0cb-b99a-4eef-877f-2d9a12620d69\scratch\tmp_16030\e.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="c:\Users\Mark\Desktop\sumo\tests\tools\district\generateBidiDistricts\geometry_remove\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.remove value="true"/>
+    </processing>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,80.00" origBoundary="0.00,0.00,200.00,80.00" projParameter="!"/>
+
+    <edge id=":n0_0" function="internal">
+        <lane id=":n0_0_0" index="0" speed="5.56" length="9.40" shape="10.40,1.60 7.52,1.96 6.08,3.04 6.08,4.84 7.52,7.36"/>
+    </edge>
+    <edge id=":n0_1" function="internal">
+        <lane id=":n0_1_0" index="0" speed="3.65" length="4.67" shape="10.40,1.60 9.20,0.80 8.80,-0.00 9.20,-0.80 10.40,-1.60"/>
+    </edge>
+    <edge id=":n1_0" function="internal">
+        <lane id=":n1_0_0" index="0" speed="3.65" length="1.44" shape="189.60,-1.60 190.80,-0.80"/>
+    </edge>
+    <edge id=":n1_2" function="internal">
+        <lane id=":n1_2_0" index="0" speed="3.65" length="3.23" shape="190.80,-0.80 191.20,0.00 190.80,0.80 189.60,1.60"/>
+    </edge>
+    <edge id=":n1_1" function="internal">
+        <lane id=":n1_1_0" index="0" speed="5.56" length="9.40" shape="192.48,7.36 193.92,4.84 193.92,3.04 192.48,1.96 189.60,1.60"/>
+    </edge>
+
+    <edge id="detour_a" from="n0" to="n1" priority="-1" shape="0.00,0.00 60.00,80.00 140.00,80.00 200.00,0.00">
+        <lane id="detour_a_0" index="0" speed="13.89" length="256.00" shape="7.52,7.36 60.80,78.40 139.20,78.40 192.48,7.36"/>
+    </edge>
+    <edge id="main_fwd" from="n0" to="n1" priority="-1">
+        <lane id="main_fwd_0" index="0" speed="13.89" length="179.20" shape="10.40,-1.60 189.60,-1.60"/>
+    </edge>
+    <edge id="main_rev" from="n1" to="n0" priority="-1">
+        <lane id="main_rev_0" index="0" speed="13.89" length="179.20" shape="189.60,1.60 10.40,1.60"/>
+    </edge>
+
+    <junction id="n0" type="priority" x="0.00" y="0.00" incLanes="main_rev_0" intLanes=":n0_0_0 :n0_1_0" shape="6.24,8.32 8.80,6.40 7.91,4.62 8.00,4.00 8.44,3.56 9.24,3.29 10.40,3.20 10.40,-3.20 6.73,-2.88 4.25,-1.92 2.96,-0.32 2.86,1.92 3.96,4.80">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="n1" type="priority" x="200.00" y="0.00" incLanes="main_fwd_0 detour_a_0" intLanes=":n1_2_0 :n1_1_0" shape="189.60,-3.20 189.60,3.20 191.56,3.56 192.00,4.00 192.09,4.62 191.82,5.42 191.20,6.40 193.76,8.32 196.04,4.80 197.14,1.92 197.04,-0.32 195.75,-1.92 193.27,-2.88">
+        <request index="0" response="10" foes="10" cont="1"/>
+        <request index="1" response="00" foes="01" cont="0"/>
+    </junction>
+
+    <junction id=":n1_2_0" type="internal" x="190.80" y="-0.80" incLanes=":n1_0_0 detour_a_0" intLanes=":n1_1_0"/>
+
+    <connection from="detour_a" to="main_rev" fromLane="0" toLane="0" via=":n1_1_0" dir="r" state="M"/>
+    <connection from="main_fwd" to="main_rev" fromLane="0" toLane="0" via=":n1_0_0" dir="t" state="m"/>
+    <connection from="main_rev" to="detour_a" fromLane="0" toLane="0" via=":n0_0_0" dir="r" state="M"/>
+    <connection from="main_rev" to="main_fwd" fromLane="0" toLane="0" via=":n0_1_0" dir="t" state="M"/>
+
+    <connection from=":n0_0" to="detour_a" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":n0_1" to="main_fwd" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":n1_0" to="main_rev" fromLane="0" toLane="0" via=":n1_2_0" dir="t" state="m"/>
+    <connection from=":n1_2" to="main_rev" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":n1_1" to="main_rev" fromLane="0" toLane="0" dir="r" state="M"/>
+
+</net>
