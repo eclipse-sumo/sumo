@@ -1,0 +1,1 @@
+-1 net.net.xml -2 net2.net.xml -p input.poly.xml -a j0,j1,j2 -b k0,k1,k2 -o output.poly.xml -v tools/net/reprojectpolys.py

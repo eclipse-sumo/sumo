@@ -1,0 +1,5 @@
+<net>
+    <junction id="k0" x="0.0" y="0.0"/>
+    <junction id="k1" x="100.0" y="0.0"/>
+    <junction id="k2" x="0.0" y="100.0"/>
+</net>
