@@ -291,6 +291,14 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (myShape.size() > 3) {
         GUIDesigns::buildFXMenuCommand(ret, TL("Triangulate polygon"), TL("Convert the current polygon in triangles"), nullptr, &parent, MID_GNE_POLYGON_TRIANGULATE);
     }
+    if (myTagProperty->getTag() == SUMO_TAG_POLY && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+        auto* transform = GUIDesigns::buildFXMenuCommand(ret, TL("Transform polygon to TAZ"),
+                          TL("Replace this polygon with a traffic assignment zone"), GUIIconSubSys::getIcon(GUIIcon::TAZ),
+                          &parent, MID_GNE_POLYGON_TRANSFORM_TAZ);
+        if (myShape.size() < (myShape.isClosed() ? 4 : 3)) {
+            transform->disable();
+        }
+    }
     // create a extra FXMenuCommand if mouse is over a vertex
     const int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
     if (index != -1) {
