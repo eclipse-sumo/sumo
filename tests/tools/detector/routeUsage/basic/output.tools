@@ -1,0 +1,2 @@
+routeUsage: count 3, min 2.00 (r3), max 10.00 (r1), mean 5.67, Q1 2.00, median 5.00, Q3 10.00
+restrictedRouteUsage: count 2, min 5.00 (r2), max 10.00 (r1), mean 7.50, Q1 5.00, median 10.00, Q3 10.00 total: 15

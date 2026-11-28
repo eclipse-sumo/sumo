@@ -1,0 +1,5 @@
+<additional>
+    <flow id="f1" route="r1" number="10" begin="0" end="3600"/>
+    <flow id="f2" route="r2" number="5" begin="0" end="3600"/>
+    <flow id="f3" route="r3" number="2" begin="0" end="3600"/>
+</additional>
