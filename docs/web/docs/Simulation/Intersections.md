@@ -138,6 +138,10 @@ Additionally, the computed speed will never be higher than the average
 speed of source and destination lane for that particular connection.
 
 The speed can be overruled by [setting the connection speed explicitly in the XML input](../Networks/PlainXML.md#explicitly_setting_which_edge_lane_is_connected_to_which)
+
+## Estimating Curvature and Turning Radius via TraCI
+
+TraCI and [libsumo](../Libsumo.md) do not expose a direct `getTurningRadius` or `getCurvature` method on vehicles or lanes because every lane (including internal junction lanes) is represented as a polyline of straight line segments. To approximate local curvature or turning radius at a vehicle's current location, query the lane polyline via `traci.lane.getShape(traci.vehicle.getLaneID(vehID))` (or offline via `sumolib.net.lane.getShape()`) together with `traci.vehicle.getLanePosition(vehID)`, locate the vertices upstream and downstream of that longitudinal offset, and compute the heading change divided by arc length (or fit a circle through three consecutive polyline points).
 or via [netedit](../Netedit/editModesCommon.md#inspect).
 
 # Junction Blocking
