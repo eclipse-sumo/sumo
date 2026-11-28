@@ -83,6 +83,12 @@ public:
     static void setValidation(const std::string& validationScheme, const std::string& netValidationScheme, const std::string& routeValidationScheme);
 
 
+    /// @brief Resolve a schema under SUMO_HOME, including the installed share/sumo layout.
+    /// If the file is missing, return the standard path for diagnostics.
+    /// If SUMO_HOME is unset, return an empty string.
+    static std::string getLocalSchemaPath(const std::string& filename);
+
+
     /**
      * @brief Closes the xml-subsystem
      *

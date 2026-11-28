@@ -215,12 +215,12 @@ SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId
         return new XERCES_CPP_NAMESPACE::MemBufInputSource((const XMLByte*)"", 0, "");
     }
     const std::string url = XMLSubSys::transcode(systemId);
-    const std::string::size_type pos = url.find("/xsd/");
+    const std::string schemaPath = "/xsd/";
+    const std::string::size_type pos = url.find(schemaPath);
     if (pos != std::string::npos) {
-        const char* sumoPath = std::getenv("SUMO_HOME");
+        const std::string file = XMLSubSys::getLocalSchemaPath(url.substr(pos + schemaPath.size()));
         // no need for a warning if SUMO_HOME is not set, global preparsing should have done it.
-        if (sumoPath != nullptr) {
-            const std::string file = sumoPath + std::string("/data") + url.substr(pos);
+        if (!file.empty()) {
             if (FileHelpers::isReadable(file)) {
                 XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(file.c_str());
                 XERCES_CPP_NAMESPACE::InputSource* const result = new XERCES_CPP_NAMESPACE::LocalFileInputSource(t);
