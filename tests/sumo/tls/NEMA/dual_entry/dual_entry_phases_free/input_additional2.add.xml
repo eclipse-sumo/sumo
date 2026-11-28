@@ -1,0 +1,20 @@
+<additional>
+    <tlLogic id="0" programID="01" type="NEMA">
+        <param key="ring1" value="1,2,3,4"/>
+        <param key="ring2" value="5,6,7,8"/>
+        <param key="barrierPhases" value="4,8"/>
+        <param key="barrier2Phases" value="2,6"/>
+        <param key="coordinate-mode" value="false"/>
+        <param key="minRecall" value=""/>
+        <param key="maxRecall" value=""/>
+        <param key="dualEntry" value="2,6"/>
+        <phase duration="99" minDur="5"  maxDur="15" vehext="2" yellow="3" red="2" name="1" state="rrrrrrrrrrrrrrGG"/>
+        <phase duration="99" minDur="15" maxDur="35" vehext="2" yellow="3" red="2" name="2" state="rrrrGGrrrrrrrrrr"/>
+        <phase duration="99" minDur="5"  maxDur="15" vehext="2" yellow="3" red="2" name="3" state="rrGGrrrrrrrrrrrr"/>
+        <phase duration="99" minDur="7"  maxDur="20" vehext="2" yellow="3" red="2" name="4" state="rrrrrrrrGGrrrrrr"/>
+        <phase duration="99" minDur="5"  maxDur="15" vehext="2" yellow="3" red="2" name="5" state="rrrrrrGGrrrrrrrr"/>
+        <phase duration="99" minDur="15" maxDur="35" vehext="2" yellow="3" red="2" name="6" state="rrrrrrrrrrrrGGrr"/>
+        <phase duration="99" minDur="5"  maxDur="15" vehext="2" yellow="3" red="2" name="7" state="rrrrrrrrrrGGrrrr"/>
+        <phase duration="99" minDur="7"  maxDur="20" vehext="2" yellow="3" red="2" name="8" state="GGrrrrrrrrrrrrrr"/>
+    </tlLogic>
+</additional>
