@@ -23,10 +23,11 @@ class Node:
 
     """ Nodes from a sumo network """
 
-    def __init__(self, id, type, coord, incLanes, intLanes=None):
+    def __init__(self, id, type, coord, incLanes, intLanes=None, name=None):
         self._id = id
         self._type = type
         self._coord = coord
+        self._name = name
         self._incoming = []
         self._outgoing = []
         self._foes = {}
@@ -41,6 +42,10 @@ class Node:
 
     def getID(self):
         return self._id
+
+    def getName(self):
+        """Return the junction name, or None if it is unspecified."""
+        return self._name
 
     def getTLSID(self):
         for e in self.getIncoming():

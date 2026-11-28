@@ -998,6 +998,8 @@ class NetReader(handler.ContentHandler):
                                                       attrs['incLanes'].split(" "), intLanes)
                 self._currentNode.setShape(
                     convertShape(attrs.get('shape', '')))
+                if 'name' in attrs:
+                    self._currentNode._name = attrs['name']
                 if 'fringe' in attrs:
                     self._currentNode._fringe = attrs['fringe']
 
