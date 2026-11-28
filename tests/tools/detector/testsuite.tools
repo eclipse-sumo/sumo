@@ -7,3 +7,6 @@ mapDetectors
 plotFlows
 flow2POI
 flowConservation
+filterFlows
+routeUsage
+validate

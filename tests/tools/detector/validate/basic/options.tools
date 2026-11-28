@@ -1,0 +1,1 @@
+-d input_detectors.det.xml -v input_measurements.xml input_flows.txt tools/detector/validate.py

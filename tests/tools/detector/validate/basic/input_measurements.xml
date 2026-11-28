@@ -1,0 +1,4 @@
+<detector>
+    <interval begin="0" id="validation_a" speed="10" nVehEntered="1"/>
+    <interval begin="1800" id="validation_a" speed="20" nVehEntered="2"/>
+</detector>

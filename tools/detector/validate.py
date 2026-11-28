@@ -39,9 +39,21 @@ parser.add_argument("-i", "--interval", default=15, type=parser.time,
                     help="aggregation interval in minutes (default: %(default)s)")
 parser.add_argument("-l", "--legacy", action="store_true", default=False,
                     help="legacy style, input file is whitespace separated, detector_definition")
-parser.add_argument("inputFlows", category="input", nargs=1, type=parser.file,
+parser.add_argument("inputFlows", category="input", type=parser.file,
                     help="csv file with flow input", metavar="FILE")
 options = parser.parse_args()
+if options.interval <= 0:
+    parser.error("--interval must be positive")
+
+
+def append_interval(series, interval_end, counts, weighted_speeds):
+    for detector, values in series.items():
+        count = counts[detector]
+        if count > 0:
+            values.append((interval_end, count, weighted_speeds[detector] / count))
+    counts.clear()
+    weighted_speeds.clear()
+
 
 sources = set()
 sinks = set()
@@ -52,13 +64,11 @@ if options.detectorfile:
     for det in sumolib.output.parse_fast(options.detectorfile, detDef, ["id"]):
         dets[det.id] = []
         sims[det.id] = []
-counts = {}
 c = collections.defaultdict(int)
 v = collections.defaultdict(float)
 totals = collections.defaultdict(int)
 countIn = 0
 countOut = 0
-start = 0
 end = options.interval
 with open(options.inputFlows) as f:
     skipFirst = True
@@ -73,14 +83,8 @@ with open(options.inputFlows) as f:
         detId = item[0]
         time = int(item[1])
         if time >= end:
-            counts[start] = countIn - countOut
-            start = end
-            end += options.interval
-            for det, vals in dets.items():
-                if c[det] > 0:
-                    vals.append((time, c[det], v[det] / c[det]))
-            c.clear()
-            v.clear()
+            append_interval(dets, end, c, v)
+            end = time - time % options.interval + options.interval
         if options.legacy:
             total = int(item[3])
             totalSpeed = float(item[2]) if total > 0 else 0.
@@ -95,6 +99,7 @@ with open(options.inputFlows) as f:
             countIn += total
         if detId in sinks:
             countOut += total
+append_interval(dets, end, c, v)
 print("detIn: %s detOut: %s" % (countIn, countOut))
 totalSim = collections.defaultdict(int)
 if options.validation:
@@ -102,7 +107,6 @@ if options.validation:
     v.clear()
     countIn = 0
     countOut = 0
-    start = 0
     end = options.interval
 #   <interval begin="0.00" end="60.00" id="validation_MQ11O_DS_FS1_ERU"
 #             nVehContrib="1" flow="60.00" occupancy="1.35" speed="6.19" length="5.00" nVehEntered="1"/>
@@ -110,13 +114,8 @@ if options.validation:
         detId = interval.id[11:]
         time = int(float(interval.begin) / 60)
         if time >= end:
-            start = end
-            end += options.interval
-            for det, vals in sims.items():
-                if c[det] > 0:
-                    vals.append((time, c[det], v[det] / c[det]))
-            c.clear()
-            v.clear()
+            append_interval(sims, end, c, v)
+            end = time - time % options.interval + options.interval
         c[detId] += int(interval.nVehEntered)
         totalSim[detId] += int(interval.nVehEntered)
         v[detId] += 3.6 * int(interval.nVehEntered) * float(interval.speed)
@@ -124,31 +123,32 @@ if options.validation:
             countIn += int(interval.nVehEntered)
         if detId in sinks:
             countOut += int(interval.nVehEntered)
+    append_interval(sims, end, c, v)
     print("simIn: %s simOut: %s" % (countIn, countOut))
 
 for det, vals in dets.items():
     print("Plotting", det, 'totaldet', totals[det], 'totalSim', totalSim[det])
-    plt.bar(*(zip(*vals)[:2]))  # select first and second entry (time and flow)
-    if det in sims:
-        plt.plot(*(zip(*sims[det])[:2]))
+    times, counts, speeds = zip(*vals) if vals else ((), (), ())
+    simulated = sims[det]
+    plt.bar(times, counts, label="measurement")
+    if simulated:
+        sim_times, sim_counts, sim_speeds = zip(*simulated)
+        plt.plot(sim_times, sim_counts, label="simulation")
     plt.suptitle('%s flow, totalDet: %s, totalSim: %s' %
                  (det, totals[det], totalSim[det]))
     plt.xlabel('time')
     plt.ylabel('flow')
     plt.ylim(0, 600)
-    plt.legend(["simulation", "measured value"])
+    plt.legend()
     plt.savefig('%s_flow.png' % det)
     plt.close()
-    # select first and third entry (time and speed)
-    plt.bar(*(zip(*vals)[::2]))
-    if det in sims:
-        plt.plot(*(zip(*sims[det])[::2]))
+    plt.bar(times, speeds, label="measurement")
+    if simulated:
+        plt.plot(sim_times, sim_speeds, label="simulation")
     plt.suptitle('%s_speed' % det)
     plt.xlabel('time')
     plt.ylabel('speed')
     plt.ylim(0, 200)
-    plt.legend(["simulation", "measured value"])
+    plt.legend()
     plt.savefig('%s_speed.png' % det)
     plt.close()
-plt.bar(counts.keys(), counts.values())
-plt.show()
