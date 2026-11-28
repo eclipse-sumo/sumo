@@ -1614,6 +1614,10 @@ NBNode::recheckVClassConnections(NBEdge* currentOutgoing) {
 
 void
 NBNode::recheckSpecialConnections(NBEdge* incoming, NBEdge* currentOutgoing, SVCPermissions svcSpecial) {
+    if (svcSpecial == SVC_BICYCLE && !incoming->isConnectedTo(currentOutgoing)
+            && incoming->suppressParallelCyclewayConnection(currentOutgoing)) {
+        return;
+    }
     // assume that left-turns and turn-arounds are better satisfied from lanes to the left
     const int specialTarget = currentOutgoing->getSpecialLane(svcSpecial);
     const LinkDirection dir = getDirection(incoming, currentOutgoing);
