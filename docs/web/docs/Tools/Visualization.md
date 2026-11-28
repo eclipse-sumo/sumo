@@ -369,6 +369,8 @@ The option **-t (--trajectory-type)** supports different attributes that can be 
 - **xy**: Spatial plot of driving path
 - **kt**: kilometrage vs time (combine with option **--invert-yaxis** to get a classic railway diagram).
 
+Use **--exclude-speed** to omit sustained samples at a chosen speed in m/s. The tool removes runs longer than one second by default. Set **--exclude-speed-duration** to change this duration. Supplying only the duration filters standstill runs at 0 m/s. The filter removes samples from the plot and CSV export and leaves gaps in the plotted line. Distances and accelerations retain their original values.
+
 ### Accelerations versus distances
 Input is [fcd-output](../Simulation/Output/FCDOutput.md).
 

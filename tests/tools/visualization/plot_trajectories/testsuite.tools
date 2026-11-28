@@ -2,6 +2,7 @@
 plain
 filter_edges
 filter_ids
+constant_speed
 
 # gzipped input
 gz
