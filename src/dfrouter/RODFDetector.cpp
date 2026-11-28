@@ -268,6 +268,62 @@ RODFDetector::hasRoutes() const {
 }
 
 
+void
+RODFDetector::Emission::write(OutputDevice& out, const OptionsCont& oc) const {
+    out.openTag(SUMO_TAG_VEHICLE);
+    out.writeAttr(SUMO_ATTR_ID, detector->getID() + "." + toString(index));
+    if (oc.getBool("vtype")) {
+        out.writeAttr(SUMO_ATTR_TYPE, truck ? "LKW" : "PKW");
+    }
+    out.writeAttr(SUMO_ATTR_DEPART, time2string(depart));
+    if (oc.isSet("departlane")) {
+        out.writeNonEmptyAttr(SUMO_ATTR_DEPARTLANE, oc.getString("departlane"));
+    } else {
+        out.writeAttr(SUMO_ATTR_DEPARTLANE, SUMOXMLDefinitions::getIndexFromLane(detector->myLaneID));
+    }
+    if (oc.isSet("departpos")) {
+        std::string posDesc = oc.getString("departpos");
+        if (posDesc.substr(0, 8) == "detector") {
+            double position = detector->myPosition;
+            if (posDesc.length() > 8) {
+                if (posDesc[8] == '+') {
+                    position += StringUtils::toDouble(posDesc.substr(9));
+                } else if (posDesc[8] == '-') {
+                    position -= StringUtils::toDouble(posDesc.substr(9));
+                } else {
+                    throw NumberFormatException("");
+                }
+            }
+            out.writeAttr(SUMO_ATTR_DEPARTPOS, position);
+        } else {
+            out.writeNonEmptyAttr(SUMO_ATTR_DEPARTPOS, posDesc);
+        }
+    } else {
+        out.writeAttr(SUMO_ATTR_DEPARTPOS, detector->myPosition);
+    }
+    if (oc.isSet("departspeed")) {
+        out.writeNonEmptyAttr(SUMO_ATTR_DEPARTSPEED, oc.getString("departspeed"));
+    } else {
+        out.writeAttr(SUMO_ATTR_DEPARTSPEED, speed);
+    }
+    if (oc.isSet("arrivallane")) {
+        out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALLANE, oc.getString("arrivallane"));
+    }
+    if (oc.isSet("arrivalpos")) {
+        out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALPOS, oc.getString("arrivalpos"));
+    }
+    if (oc.isSet("arrivalspeed")) {
+        out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALSPEED, oc.getString("arrivalspeed"));
+    }
+    if (routeIndex >= 0) {
+        out.writeAttr(SUMO_ATTR_ROUTE, detector->myRoutes->get()[routeIndex].routename);
+    } else {
+        out.writeAttr(SUMO_ATTR_ROUTE, detector->getID());
+    }
+    out.closeTag();
+}
+
+
 bool
 RODFDetector::writeEmitterDefinition(const std::string& file,
                                      const std::map<SUMOTime, RandomDistributor<int>* >& dists,
@@ -277,7 +333,8 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                                      bool includeUnusedRoutes,
                                      double scale,
                                      bool insertionsOnly,
-                                     double defaultSpeed) const {
+                                     double defaultSpeed,
+                                     std::vector<Emission>* sourceEmissions) const {
     OutputDevice& out = OutputDevice::getDevice(file);
     OptionsCont& oc = OptionsCont::getOptions();
     if (getType() != SOURCE_DETECTOR) {
@@ -337,7 +394,6 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
             for (int car = 0; car < numCars; ++car) {
                 // get the vehicle parameter
                 double v = -1;
-                std::string vtype;
                 int destIndex = -1;
                 if (destDist != nullptr) {
                     if (destDist->getOverallProb() > 0) {
@@ -347,13 +403,12 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                         destIndex = RandHelper::rand((int)myRoutes->get().size());
                     }
                 }
-                if (srcFD.isLKW >= 1) {
-                    srcFD.isLKW = srcFD.isLKW - 1.;
+                const bool truck = srcFD.isLKW >= 1;
+                if (truck) {
+                    srcFD.isLKW -= 1.;
                     v = srcFD.vLKW;
-                    vtype = "LKW";
                 } else {
                     v = srcFD.vPKW;
-                    vtype = "PKW";
                 }
                 // compute insertion speed
                 if (v <= 0 || v > 250) {
@@ -361,61 +416,12 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                 } else {
                     v /= 3.6;
                 }
-                // compute the departure time
-                const SUMOTime ctime = departures[car];
-
-                // write
-                out.openTag(SUMO_TAG_VEHICLE);
-                out.writeAttr(SUMO_ATTR_ID, myID + "." + toString(vehicleIndex));
-                if (oc.getBool("vtype")) {
-                    out.writeAttr(SUMO_ATTR_TYPE, vtype);
-                }
-                out.writeAttr(SUMO_ATTR_DEPART, time2string(ctime));
-                if (oc.isSet("departlane")) {
-                    out.writeNonEmptyAttr(SUMO_ATTR_DEPARTLANE, oc.getString("departlane"));
+                const Emission emission{this, departures[car], v, vehicleIndex, destIndex, truck};
+                if (sourceEmissions == nullptr) {
+                    emission.write(out, oc);
                 } else {
-                    out.writeAttr(SUMO_ATTR_DEPARTLANE, SUMOXMLDefinitions::getIndexFromLane(myLaneID));
+                    sourceEmissions->push_back(emission);
                 }
-                if (oc.isSet("departpos")) {
-                    std::string posDesc = oc.getString("departpos");
-                    if (posDesc.substr(0, 8) == "detector") {
-                        double position = myPosition;
-                        if (posDesc.length() > 8) {
-                            if (posDesc[8] == '+') {
-                                position += StringUtils::toDouble(posDesc.substr(9));
-                            } else if (posDesc[8] == '-') {
-                                position -= StringUtils::toDouble(posDesc.substr(9));
-                            } else {
-                                throw NumberFormatException("");
-                            }
-                        }
-                        out.writeAttr(SUMO_ATTR_DEPARTPOS, position);
-                    } else {
-                        out.writeNonEmptyAttr(SUMO_ATTR_DEPARTPOS, posDesc);
-                    }
-                } else {
-                    out.writeAttr(SUMO_ATTR_DEPARTPOS, myPosition);
-                }
-                if (oc.isSet("departspeed")) {
-                    out.writeNonEmptyAttr(SUMO_ATTR_DEPARTSPEED, oc.getString("departspeed"));
-                } else {
-                    out.writeAttr(SUMO_ATTR_DEPARTSPEED, v);
-                }
-                if (oc.isSet("arrivallane")) {
-                    out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALLANE, oc.getString("arrivallane"));
-                }
-                if (oc.isSet("arrivalpos")) {
-                    out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALPOS, oc.getString("arrivalpos"));
-                }
-                if (oc.isSet("arrivalspeed")) {
-                    out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALSPEED, oc.getString("arrivalspeed"));
-                }
-                if (destIndex >= 0) {
-                    out.writeAttr(SUMO_ATTR_ROUTE, myRoutes->get()[destIndex].routename);
-                } else {
-                    out.writeAttr(SUMO_ATTR_ROUTE, myID);
-                }
-                out.closeTag();
                 srcFD.isLKW += srcFD.fLKW;
                 vehicleIndex++;
             }
@@ -635,7 +641,11 @@ RODFDetectorCon::writeEmitters(const std::string& file,
     }
     //
     OutputDevice& out = OutputDevice::getDevice(file);
-    out.writeXMLHeader("additional", "additional_file.xsd");
+    if (writeCalibrators) {
+        out.writeXMLHeader("additional", "additional_file.xsd");
+    } else {
+        out.writeXMLHeader("routes", "routes_file.xsd");
+    }
     // write vType(s)
     const bool separateVTypeOutput = OptionsCont::getOptions().getString("vtype-output") != "";
     OutputDevice& vTypeOut = separateVTypeOutput ? OutputDevice::getDevice(OptionsCont::getOptions().getString("vtype-output")) : out;
@@ -664,6 +674,11 @@ RODFDetectorCon::writeEmitters(const std::string& file,
     }
 
 
+    const bool multipleSources = std::count_if(myDetectors.begin(), myDetectors.end(), [](const RODFDetector* detector) {
+        return detector->getType() == SOURCE_DETECTOR;
+    }) > 1;
+    std::vector<RODFDetector::Emission> sourceEmissions;
+
     for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
         RODFDetector* det = *i;
         // get file name for values (emitter/calibrator definition)
@@ -685,7 +700,9 @@ RODFDetectorCon::writeEmitters(const std::string& file,
             det->buildDestinationDistribution(*this, startTime, endTime, stepOffset, net, dists);
         }
         //  ... write the definition
-        if (!det->writeEmitterDefinition(defFileName, dists, flows, startTime, endTime, stepOffset, includeUnusedRoutes, scale, insertionsOnly, defaultSpeed)) {
+        auto* emissions = multipleSources && det->getType() == SOURCE_DETECTOR ? &sourceEmissions : nullptr;
+        if (!det->writeEmitterDefinition(defFileName, dists, flows, startTime, endTime, stepOffset,
+                                        includeUnusedRoutes, scale, insertionsOnly, defaultSpeed, emissions)) {
             // skip if something failed... (!!!)
             continue;
         }
@@ -696,6 +713,12 @@ RODFDetectorCon::writeEmitters(const std::string& file,
             out.openTag(SUMO_TAG_CALIBRATOR).writeAttr(SUMO_ATTR_ID, "calibrator_" + escapedID).writeAttr(SUMO_ATTR_POSITION, det->getPos());
             out.writeAttr(SUMO_ATTR_LANE, det->getLaneID()).writeAttr(SUMO_ATTR_FRIENDLY_POS, true).writeAttr(SUMO_ATTR_FILE, defFileName).closeTag();
         }
+    }
+    std::stable_sort(sourceEmissions.begin(), sourceEmissions.end(), [](const auto& lhs, const auto& rhs) {
+        return lhs.depart < rhs.depart;
+    });
+    for (const auto& emission : sourceEmissions) {
+        emission.write(out, OptionsCont::getOptions());
     }
     out.close();
     if (separateVTypeOutput) {

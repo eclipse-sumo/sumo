@@ -31,16 +31,16 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="DEFAULT_VEHTYPE" speedFactor="1.43"/>
     <routeDistribution id="MQ_beg">
         <route refId="beg_to_end" probability="1.00"/>
     </routeDistribution>
-    <vehicle id="emitter_MQ_beg_0" depart="0.00" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_30000" depart="30.00" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
     <routeDistribution id="MQ_middle">
         <route refId="middle_to_end" probability="1.00"/>
     </routeDistribution>
+    <vehicle id="emitter_MQ_beg_0" depart="0.00" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
     <vehicle id="calibrator_MQ_middle_0" depart="0.00" departLane="0" departPos="100.00" departSpeed="27.78" route="middle_to_end"/>
+    <vehicle id="emitter_MQ_beg_30000" depart="30.00" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
     <vehicle id="calibrator_MQ_middle_30000" depart="30.00" departLane="0" departPos="100.00" departSpeed="27.78" route="middle_to_end"/>
-</additional>
+</routes>

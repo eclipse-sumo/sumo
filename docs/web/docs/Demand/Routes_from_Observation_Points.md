@@ -244,28 +244,25 @@ The [dfrouter](../dfrouter.md) is unique among the **SUMO**-routing
 applications in that it outputs routes and vehicles separately. [You
 need to make sure that the list of input files is in the correct order
 for resolving references](../sumo.md#loading_order_of_input_files).
-Furthermore, [dfrouter](../dfrouter.md) currently returns unsorted
-vehicles in its emitters-output. Assuming that
-[dfrouter](../dfrouter.md) was called with the options
+[dfrouter](../dfrouter.md) writes vehicles in departure order. With the
+following options, the routes and vehicles can be loaded directly with
+`--route-files`.
 
 ```
-dfrouter --net-file net.net.xml --routes-output routes.rou.xml --emitters-output vehicles.rou.xml --measure-files flows.txt
+dfrouter --net-file net.net.xml --detector-files detectors.det.xml --measure-files flows.txt --routes-output routes.rou.xml --emitters-output vehicles.rou.xml
+sumo --net-file net.net.xml --route-files routes.rou.xml,vehicles.rou.xml
 ```
 
-sumo must be called in the following way:
+You can also load the route definitions with `--additional-files` and the
+vehicles with `--route-files`.
 
 ```
-sumo --net-file net.net.xml --additional-files routes.rou.xml,vehicles.rou.xml
+sumo --net-file net.net.xml --additional-files routes.rou.xml --route-files vehicles.rou.xml
 ```
 
-If you run the tool
-[Tools/Routes\#sort_routes.py](../Tools/Routes.md#sort_routespy)
-to sort the vehicles, either of the following will work:
-
-```
-sumo --net-file net.net.xml --route-files routes.rou.xml,sorted_vehicles.rou.xml
-sumo --net-file net.net.xml --route-files sorted_vehicles.rou.xml --additional-files routes.rou.xml
-```
+SUMO also accepts both files through `--additional-files`. Use this
+form when passing `--calibrator-output` to dfrouter so that SUMO loads
+the calibrator definitions.
 
 # flowrouter.py
 

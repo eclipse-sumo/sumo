@@ -43,6 +43,7 @@ class RODFDetectorCon;
 class RODFNet;
 struct RODFRouteDesc;
 class OutputDevice;
+class OptionsCont;
 class SUMOVTypeParameter;
 
 
@@ -156,12 +157,25 @@ public:
     /// @name Writing methods
     /// @{
 
+    /// @brief Generated vehicle and its originating detector
+    struct Emission {
+        const RODFDetector* detector;
+        SUMOTime depart;
+        double speed;
+        int index;
+        int routeIndex;
+        bool truck;
+
+        void write(OutputDevice& out, const OptionsCont& options) const;
+    };
+
     bool writeEmitterDefinition(const std::string& file,
                                 const std::map<SUMOTime, RandomDistributor<int>* >& dists,
                                 const RODFDetectorFlows& flows,
                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
                                 bool includeUnusedRoutes, double scale,
-                                bool insertionsOnly, double defaultSpeed) const;
+                                bool insertionsOnly, double defaultSpeed,
+                                std::vector<Emission>* sourceEmissions) const;
     bool writeRoutes(std::vector<std::string>& saved,
                      OutputDevice& out);
     void writeSingleSpeedTrigger(const std::string& file,
