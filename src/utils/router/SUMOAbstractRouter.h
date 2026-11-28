@@ -270,7 +270,7 @@ public:
         }
     }
 
-    inline void updateViaCost(const E* const prev, const E* const e, const V* const v, double& time, double& effort, double& length) const {
+    inline void updateViaCost(const E* const prev, const E* const e, const V* const v, double& time, double& effort, double& length, double fraction = 1.) const {
         if (prev != nullptr) {
             for (const std::pair<const E*, const E*>& follower : prev->getViaSuccessors()) {
                 if (follower.first == e) {
@@ -280,9 +280,9 @@ public:
             }
         }
         const double effortDelta = this->getEffort(e, v, time);
-        effort += effortDelta;
-        time += getTravelTime(e, v, time, effortDelta);
-        length += e->getLength();
+        effort += effortDelta * fraction;
+        time += getTravelTime(e, v, time, effortDelta) * fraction;
+        length += e->getLength() * fraction;
     }
 
     bool isValid(const std::vector<const E*>& edges, const V* const v, double t) const {
@@ -312,34 +312,34 @@ public:
     }
 
 
-    inline double recomputeCostsPos(const std::vector<const E*>& edges, const V* const v, double fromPos, double toPos, SUMOTime msTime, double* lengthp = nullptr) const {
-        double effort = recomputeCosts(edges, v, msTime, lengthp);
-        if (!edges.empty()) {
-            const E* first = edges.front();
-            if (first->getLength() == 0) {
-                if (edges.size() > 1 && edges[1]->getLength() > 0) {
-                    first = edges[1];
-                } else {
-                    return effort;
-                }
+    virtual double recomputeCostsPos(const std::vector<const E*>& edges, const V* const v, double fromPos, double toPos, SUMOTime msTime, double* lengthp = nullptr) const {
+        if (edges.empty()) {
+            return SUMOAbstractRouter<E, V>::recomputeCosts(edges, v, msTime, lengthp);
+        }
+        const size_t first = edges.front()->getLength() == 0 ? 1 : 0;
+        const size_t last = edges.back()->getLength() == 0 && edges.size() > 1 ? edges.size() - 2 : edges.size() - 1;
+        if (first >= edges.size() || edges[first]->getLength() <= 0 || edges[last]->getLength() <= 0
+                || (fromPos == 0 && toPos == edges[last]->getLength())) {
+            return SUMOAbstractRouter<E, V>::recomputeCosts(edges, v, msTime, lengthp);
+        }
+        // Advance time by the distance traveled so later edges use their entry-time weights.
+        double time = STEPS2TIME(msTime);
+        double effort = 0.;
+        double length = 0.;
+        const E* prev = nullptr;
+        for (size_t i = 0; i < edges.size(); ++i) {
+            const E* e = edges[i];
+            double fraction = 1.;
+            if (i == first || i == last) {
+                const double begin = i == first ? fromPos : 0.;
+                const double end = i == last ? toPos : e->getLength();
+                fraction = (end - begin) / e->getLength();
             }
-            const E* last = edges.back();
-            if (last->getLength() == 0) {
-                if (edges.size() > 1 && edges[edges.size() - 2]->getLength() > 0) {
-                    last = edges[edges.size() - 2];
-                } else {
-                    return effort;
-                }
-            }
-            assert(first->getLength() > 0);
-            assert(last->getLength() > 0);
-            double firstEffort = this->getEffort(first, v, STEPS2TIME(msTime));
-            double lastEffort = this->getEffort(last, v, STEPS2TIME(msTime));
-            effort -= firstEffort * fromPos / first->getLength();
-            effort -= lastEffort * (last->getLength() - toPos) / last->getLength();
-            if (lengthp != nullptr) {
-                (*lengthp) -= fromPos + last->getLength() - toPos;
-            }
+            updateViaCost(prev, e, v, time, effort, length, fraction);
+            prev = e;
+        }
+        if (lengthp != nullptr) {
+            *lengthp = length;
         }
         return effort;
     }

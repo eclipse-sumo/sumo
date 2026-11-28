@@ -126,8 +126,23 @@ public:
     }
 
 
-    double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime, double* lengthp = nullptr) const {
-        double effort = SUMOAbstractRouter<E, V>::recomputeCosts(edges, v, msTime, lengthp);
+    double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime, double* lengthp = nullptr) const override {
+        return correctReversals(edges, v, msTime, SUMOAbstractRouter<E, V>::recomputeCosts(edges, v, msTime, lengthp), lengthp);
+    }
+
+    double recomputeCostsPos(const std::vector<const E*>& edges, const V* const v, double fromPos, double toPos, SUMOTime msTime, double* lengthp = nullptr) const override {
+        return correctReversals(edges, v, msTime,
+                               SUMOAbstractRouter<E, V>::recomputeCostsPos(edges, v, fromPos, toPos, msTime, lengthp), lengthp);
+    }
+
+    inline void setBulkMode(const bool mode) {
+        if (myInternalRouter != nullptr) {
+            myInternalRouter->setBulkMode(mode);
+        }
+    }
+
+private:
+    double correctReversals(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime, double effort, double* lengthp) const {
         const E* prev = nullptr;
         // reversal corrections
         double timeCorrection = STEPS2TIME(msTime);
@@ -153,13 +168,6 @@ public:
         return effort;
     }
 
-    inline void setBulkMode(const bool mode) {
-        if (myInternalRouter != nullptr) {
-            myInternalRouter->setBulkMode(mode);
-        }
-    }
-
-private:
     RailwayRouter(RailwayRouter* other) :
         SUMOAbstractRouter<E, V>(other),
         myInternalRouter(nullptr),

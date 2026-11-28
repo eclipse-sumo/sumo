@@ -1,0 +1,4 @@
+departPos=0 arrivalPos=100 travelTime=20.00 cost=20.00 length=200.00
+departPos=0 arrivalPos=50 travelTime=15.00 cost=15.00 length=150.00
+departPos=90 arrivalPos=100 travelTime=101.00 cost=101.00 length=110.00
+departPos=90 arrivalPos=50 travelTime=51.00 cost=51.00 length=60.00
