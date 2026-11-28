@@ -30,6 +30,7 @@
 #include <assert.h>
 #include <utils/common/SysUtils.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
 
@@ -242,8 +243,8 @@ public:
             into.push_back(from);
             std::copy(best.begin(), best.end(), std::back_inserter(into));
             return true;
-        } else if (!silent && myErrorMsgHandler != nullptr) {
-            myErrorMsgHandler->informf(TL("No connection between edge '%' and edge '%' found."), from->getID(), to->getID());
+        } else if (!silent) {
+            informUnreachable(from, to);
         }
         return false;
     }
@@ -439,7 +440,50 @@ public:
         std::copy(tmp.rbegin(), tmp.rend(), std::back_inserter(edges));
     }
 
+private:
+    template <typename T>
+    static auto isStarTazConnector(const T* const e, int)
+    -> decltype(e->isTazConnector(), e->getOtherTazConnector(), bool()) {
+        return e != nullptr && e->isTazConnector() && e->getOtherTazConnector() != nullptr;
+    }
+
+    template <typename T>
+    static bool isStarTazConnector(const T* const, long) {
+        return false;
+    }
+
+    static std::string stripTazSuffix(const std::string& id) {
+        if (StringUtils::endsWith(id, "-source")) {
+            return id.substr(0, id.size() - 7);
+        }
+        if (StringUtils::endsWith(id, "-sink")) {
+            return id.substr(0, id.size() - 5);
+        }
+        return id;
+    }
+
 protected:
+    void informUnreachable(const E* const from, const E* const to) {
+        if (myErrorMsgHandler == nullptr || from == nullptr || to == nullptr) {
+            return;
+        }
+        const bool fromTaz = isStarTazConnector(from, 0);
+        const bool toTaz = isStarTazConnector(to, 0);
+        if (fromTaz && toTaz) {
+            myErrorMsgHandler->informf(TL("No route from taz '%' to taz '%' found."),
+                                       stripTazSuffix(from->getID()), stripTazSuffix(to->getID()));
+        } else if (fromTaz) {
+            myErrorMsgHandler->informf(TL("No connection between taz '%' and edge '%' found."),
+                                       stripTazSuffix(from->getID()), to->getID());
+        } else if (toTaz) {
+            myErrorMsgHandler->informf(TL("No connection between edge '%' and taz '%' found."),
+                                       from->getID(), stripTazSuffix(to->getID()));
+        } else {
+            myErrorMsgHandler->informf(TL("No connection between edge '%' and edge '%' found."),
+                                       from->getID(), to->getID());
+        }
+    }
+
     /// @brief the handler for routing errors
     MsgHandler* myErrorMsgHandler;
 

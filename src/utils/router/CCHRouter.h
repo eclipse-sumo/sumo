@@ -236,9 +236,8 @@ public:
         const double t = STEPS2TIME(msTime);
         if (!runQuery(metric, *sources, *targets, vehicle, t)) {
             this->endQuery(0);
-            if (!silent && this->myErrorMsgHandler != nullptr) {
-                this->myErrorMsgHandler->informf(TL("No connection between edge '%' and edge '%' found."),
-                                                 from->getID(), to->getID());
+            if (!silent) {
+                this->informUnreachable(from, to);
             }
             return false;
         }
