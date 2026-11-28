@@ -1444,6 +1444,71 @@ NBRailwaySignalGuesser::isTerminal(const NBEdge* e, double terminalThreshold, bo
 }
 
 
+bool
+NBRailwaySignalGuesser::hasNearbySignal(const NBEdge* edge, double distance, bool forward) {
+    const auto permitsConnection = [](const NBEdge* in, const NBEdge* out) {
+        if (in->getStep() == NBEdge::EdgeBuildingStep::INIT_REJECT_CONNECTIONS
+                || in->hasPendingConnectionRemoval(out)) {
+            return false;
+        }
+        bool connected = false;
+        const SVCPermissions permissions = in->getPermissions() & out->getPermissions() & SVC_RAIL_CLASSES;
+        for (const auto& connection : in->getConnections()) {
+            if (connection.toEdge == out) {
+                if (connection.uncontrolled
+                        || (connection.permissions != SVC_UNSPECIFIED && (permissions & ~connection.permissions) != 0)) {
+                    return false;
+                }
+                connected = true;
+            }
+        }
+        return connected || in->getStep() != NBEdge::EdgeBuildingStep::LANES2LANES_USER;
+    };
+    const SVCPermissions permissions = edge->getPermissions() & SVC_RAIL_CLASSES;
+    while (distance > 0 && permissions != 0) {
+        const NBNode* node = forward ? edge->getToNode() : edge->getFromNode();
+        if (!node->geometryLike() || node->getType() == SumoXMLNodeType::RAIL_CROSSING) {
+            return false;
+        }
+        const EdgeVector& candidates = forward ? node->getOutgoingEdges() : node->getIncomingEdges();
+        const NBEdge* next = nullptr;
+        for (const NBEdge* candidate : candidates) {
+            if (candidate != edge->getBidiEdge()) {
+                if (next != nullptr) {
+                    return false;
+                }
+                next = candidate;
+            }
+        }
+        if (next == nullptr || !isRailway(next->getPermissions())
+                || (permissions & ~next->getPermissions()) != 0) {
+            return false;
+        }
+        const NBEdge* in = forward ? edge : next;
+        const NBEdge* out = forward ? next : edge;
+        if (!permitsConnection(in, out)) {
+            return false;
+        }
+        const NBEdge* reverseIn = out->getBidiEdge();
+        const NBEdge* reverseOut = in->getBidiEdge();
+        if (reverseIn != nullptr || reverseOut != nullptr) {
+            if (reverseIn == nullptr || reverseOut == nullptr || !permitsConnection(reverseIn, reverseOut)) {
+                return false;
+            }
+        }
+        if (node->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+            return true;
+        }
+        if (node->isTLControlled()) {
+            return false;
+        }
+        distance -= next->getLoadedLength();
+        edge = next;
+    }
+    return false;
+}
+
+
 int
 NBRailwaySignalGuesser::guessByStops(NBNodeCont& nc, NBEdgeCont& ec, NBPTStopCont& sc, NBDistrictCont& dc, double minLength, bool split) {
     const double splitOffset = 10;
@@ -1456,8 +1521,11 @@ NBRailwaySignalGuesser::guessByStops(NBNodeCont& nc, NBEdgeCont& ec, NBPTStopCon
             NBNode* to = stopEdge->getToNode();
             if (canBeSignal(to)) {
                 const double stopEnd = item.second->getEndPos();
-                if (split && (!to->geometryLike() || stopEdge->getLength() - stopEnd > splitOffsetSlack)) {
-                    const double splitPos = MIN2(stopEnd + 1, MAX2(stopEdge->getLength() - splitOffset, stopEdge->getLength() / 2));
+                const bool splitAfter = split && (!to->geometryLike() || stopEdge->getLength() - stopEnd > splitOffsetSlack);
+                const double splitPos = MIN2(stopEnd + 1, MAX2(stopEdge->getLength() - splitOffset, stopEdge->getLength() / 2));
+                const double offset = splitAfter ? stopEdge->getLoadedLength() * (1 - splitPos / stopEdge->getLength()) : 0;
+                const bool nearby = hasNearbySignal(stopEdge, minLength - offset, true);
+                if (!nearby && splitAfter) {
                     const std::string nodeID = nc.createUnusedID(stopEdge->getID() + "_" + item.first, "#");
                     NBNode* n = new NBNode(nodeID, stopEdge->getGeometry().positionAtOffset(splitPos), SumoXMLNodeType::RAIL_SIGNAL);
                     nc.insert(n);
@@ -1475,7 +1543,7 @@ NBRailwaySignalGuesser::guessByStops(NBNodeCont& nc, NBEdgeCont& ec, NBPTStopCon
                         NBTurningDirectionsComputer::computeTurnDirectionsForNode(stopEdge->getFromNode(), false);
                         NBTurningDirectionsComputer::computeTurnDirectionsForNode(stopEdge->getToNode(), false);
                     }
-                } else if (!isTerminal(stopEdge, terminalThreshold, true)) {
+                } else if (!nearby && !splitAfter && !isTerminal(stopEdge, terminalThreshold, true)) {
                     to->reinit(to->getPosition(), SumoXMLNodeType::RAIL_SIGNAL);
                     addedSignals++;
                 }
@@ -1504,7 +1572,10 @@ NBRailwaySignalGuesser::guessByStops(NBNodeCont& nc, NBEdgeCont& ec, NBPTStopCon
                 const double splitPos = searchDist >= 0
                                         ? minPos
                                         : MAX2(minPos, MIN2(item.second->getStartPos(), -searchDist - 10));
-                if (split && (!from->geometryLike() || splitPos > splitOffsetSlack)) {
+                const bool splitBefore = split && (!from->geometryLike() || splitPos > splitOffsetSlack);
+                const double offset = splitBefore ? curr->getLoadedLength() * splitPos / curr->getLength() : 0;
+                const bool nearby = hasNearbySignal(curr, minLength - offset, false);
+                if (!nearby && splitBefore) {
                     const std::string nodeID = nc.createUnusedID(curr->getID() + "_" + item.first, "#");
                     NBNode* n = new NBNode(nodeID, curr->getGeometry().positionAtOffset(splitPos), SumoXMLNodeType::RAIL_SIGNAL);
                     nc.insert(n);
@@ -1522,7 +1593,7 @@ NBRailwaySignalGuesser::guessByStops(NBNodeCont& nc, NBEdgeCont& ec, NBPTStopCon
                         NBTurningDirectionsComputer::computeTurnDirectionsForNode(curr->getFromNode(), false);
                         NBTurningDirectionsComputer::computeTurnDirectionsForNode(curr->getToNode(), false);
                     }
-                } else if (!isTerminal(curr, terminalThreshold, false)) {
+                } else if (!nearby && !splitBefore && !isTerminal(curr, terminalThreshold, false)) {
                     from->reinit(from->getPosition(), SumoXMLNodeType::RAIL_SIGNAL);
                     addedSignals++;
                 }

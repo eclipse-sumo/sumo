@@ -14,6 +14,9 @@ dlr-navteq_roundtrip
 # export sumo.net.xml as matsim then reimport and check for consistency with the original net.xml
 matsim_roundtrip
 
+# Avoid short rail blocks beside existing signals when guessing signals at stops, refs #18533
+rail_signal_guess_spacing
+
 # export sumo.net.xml as opendrive then reimport and check for consistency with the original net.xml
 opendrive_roundtrip
 

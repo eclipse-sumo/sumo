@@ -1364,6 +1364,14 @@ NBEdge::isConnectedTo(const NBEdge* e, const bool ignoreTurnaround) const {
 }
 
 
+bool
+NBEdge::hasPendingConnectionRemoval(const NBEdge* to) const {
+    return std::any_of(myConnectionsToDelete.begin(), myConnectionsToDelete.end(), [to](const Connection& connection) {
+        return connection.toEdge == nullptr || connection.toEdge == to;
+    });
+}
+
+
 const EdgeVector*
 NBEdge::getConnectedSorted() {
     // check whether connections exist and if not, use edges from the node

@@ -1,0 +1,9 @@
+Nearby signals: sa sd
+At minimum spacing: b c sa sd
+Bidirectional corridor: sa sd
+Switch: c sa sd
+No existing signals: b c
+Uncontrolled direction: c sa sd
+Deleted continuation: b sd
+Split locations: sa sd
+Split locations with default spacing: platform_stop platform_stop#0 sa sd
