@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<net version="1.20">
+    <location netOffset="-391390.73,-5817855.24" convBoundary="0.00,-10.00,100.00,10.00"
+              origBoundary="13.4000,52.4999,13.4015,52.5001"
+              projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+    <edge id="e0" from="n0" to="n1" priority="1">
+        <lane id="e0_0" index="0" speed="13.89" length="100.00" shape="0.00,0.00 100.00,0.00"/>
+    </edge>
+    <junction id="n0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,1.60 0.00,-1.60"/>
+    <junction id="n1" type="dead_end" x="100.00" y="0.00" incLanes="e0_0" intLanes=""
+              shape="100.00,-1.60 100.00,1.60"/>
+</net>

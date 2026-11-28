@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 13:45:21.947462 by Eclipse SUMO osmTrafficSigns.py v0.0.0
+<configuration>
+    <osm-file value="osm.xml"/>
+    <net-file value="input_net.net.xml"/>
+    <output value="pois.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poi id="sign_301" type="traffic_sign:DE:274[50]" color="255,0,0" layer="10" lane="e0_0" pos="20.41" posLat="1.77">
+        <param key="maxspeed" value="50"/>
+        <param key="traffic_sign" value="DE:274[50]"/>
+    </poi>
+</additional>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+    <node id="301" lat="52.50002" lon="13.40030">
+        <tag k="traffic_sign" v="DE:274[50]"/>
+        <tag k="maxspeed" v="50"/>
+    </node>
+</osm>
