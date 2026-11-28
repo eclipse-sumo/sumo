@@ -39,12 +39,13 @@ class StepManager:
 
     def manageStepListeners(self, step):
         listenersToRemove = []
-        for listenerID, listener in self._stepListeners.items():
+        for listenerID, listener in list(self._stepListeners.items()):
             keep = listener.step(step)
             if not keep:
                 listenersToRemove.append(listenerID)
         for listenerID in listenersToRemove:
-            self.removeStepListener(listenerID)
+            if listenerID in self._stepListeners:
+                self.removeStepListener(listenerID)
 
     def addStepListener(self, listener):
         """addStepListener(traci.StepListener) -> int
@@ -133,8 +134,7 @@ class StepManager:
             self._traceFile.close()
 
 
-class StepListener:
-    __metaclass__ = abc.ABCMeta
+class StepListener(abc.ABC):
 
     @abc.abstractmethod
     def step(self, t=0):
