@@ -18,6 +18,7 @@
 // Representation of vehicles in netedit
 /****************************************************************************/
 
+#include <algorithm>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
@@ -38,6 +39,7 @@
 #include "GNEVehicle.h"
 #include "GNERoute.h"
 #include "GNERouteHandler.h"
+#include "GNEStop.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -775,11 +777,7 @@ GNEVehicle::updateGeometry() {
         const GNELane* firstPathLane = getFirstPathLane();
         // check path lane
         if (firstPathLane) {
-            // declare departPos
-            double posOverLane = 0;
-            if (wasSet(VEHPARS_DEPARTPOS_SET) && (departPosProcedure == DepartPosDefinition::GIVEN)) {
-                posOverLane = departPos;
-            }
+            const double posOverLane = wasSet(VEHPARS_DEPARTPOS_SET) ? getAttributeDouble(SUMO_ATTR_DEPARTPOS) : 0;
             // update Geometry
             myDemandElementGeometry.updateGeometry(firstPathLane->getLaneShape(), posOverLane, 0 /*myMovingLateralOffset*/);
             // compute route embedded associated with this vehicle
@@ -1484,6 +1482,17 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
 }
 
 
+static const GNEStop*
+findFirstVehicleStop(const GNEDemandElement* parent) {
+    for (const auto* child : parent->getChildDemandElements()) {
+        if (child->getTagProperty()->isVehicleStop() || child->getTagProperty()->isVehicleWaypoint()) {
+            return static_cast<const GNEStop*>(child);
+        }
+    }
+    return nullptr;
+}
+
+
 double
 GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
@@ -1493,13 +1502,46 @@ GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
             } else {
                 return -1;
             }
-        case SUMO_ATTR_DEPARTPOS:
-            // only return departPos it if is given
+        case SUMO_ATTR_DEPARTPOS: {
             if (departPosProcedure == DepartPosDefinition::GIVEN) {
                 return departPos;
-            } else {
+            }
+            if (departPosProcedure != DepartPosDefinition::STOP
+                    || (myTagProperty->vehicleRoute() && getRouteParent()->getTagProperty()->isRouteDistribution())) {
                 return 0;
             }
+            const GNELane* lane = getFirstPathLane();
+            if (lane == nullptr) {
+                return 0;
+            }
+            // The simulation adds route stops before vehicle stops.
+            const GNEStop* stop = nullptr;
+            if (myTagProperty->vehicleRoute()) {
+                stop = findFirstVehicleStop(getRouteParent());
+            } else if (myTagProperty->vehicleRouteEmbedded() && !getChildDemandElements().empty()) {
+                stop = findFirstVehicleStop(getChildDemandElements().front());
+            }
+            if (stop == nullptr) {
+                stop = findFirstVehicleStop(this);
+            }
+            if (stop == nullptr) {
+                return 0;
+            }
+            const auto* place = stop->getParentAdditionals().empty() ? nullptr : stop->getParentAdditionals().front();
+            const auto& stopLanes = place == nullptr ? stop->getParentLanes() : place->getParentLanes();
+            if (stopLanes.empty() || stopLanes.front()->getParentEdge() != lane->getParentEdge()) {
+                return 0;
+            }
+            double end = place != nullptr && (stop->parametersSet & STOP_END_SET) == 0
+                         ? place->getAttributeDouble(SUMO_ATTR_ENDPOS) : stop->getAttributeDouble(SUMO_ATTR_ENDPOS);
+            const double laneLength = lane->getParentEdge()->getNBEdge()->getFinalLength();
+            if (end == INVALID_DOUBLE) {
+                end = laneLength;
+            } else if (end < 0) {
+                end += laneLength;
+            }
+            return std::clamp(end, 0., laneLength) * lane->getLengthGeometryFactor();
+        }
         case SUMO_ATTR_ARRIVALLANE:
             if (wasSet(VEHPARS_ARRIVALLANE_SET) && (arrivalLaneProcedure == ArrivalLaneDefinition::GIVEN)) {
                 return arrivalLane;
@@ -1531,20 +1573,13 @@ GNEVehicle::getAttributePosition(SumoXMLAttr key) const {
             if (getParentJunctions().size() > 0) {
                 return getParentJunctions().front()->getPositionInView();
             } else {
-                // get first path lane shape
-                const PositionVector& laneShape = getFirstPathLane()->getLaneShape();
-                // check arrivalPosProcedure
-                if (departPosProcedure == DepartPosDefinition::GIVEN) {
-                    if (departPos < 0) {
-                        return laneShape.front();
-                    } else if (departPos > laneShape.length2D()) {
-                        return laneShape.back();
-                    } else {
-                        return laneShape.positionAtOffset2D(departPos);
-                    }
-                } else {
-                    return laneShape.front();
+                const auto* lane = getFirstPathLane();
+                if (lane == nullptr) {
+                    return Position::INVALID;
                 }
+                const PositionVector& laneShape = lane->getLaneShape();
+                const double offset = getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+                return laneShape.positionAtOffset2D(std::clamp(offset, 0., laneShape.length2D()));
             }
         }
         case GNE_ATTR_PLAN_GEOMETRY_ENDPOS: {
