@@ -11,6 +11,11 @@
     <CPackWiXFragment Id="#PRODUCTFEATURE">
         <ComponentGroupRef Id="SumoExtras"/>
         <ComponentGroupRef Id="SumoShortcuts" />
+        <Feature Id="SumoConfigContextMenu" Title="Configuration file context menu" Level="2"
+                 Description="Add Open with SUMO GUI and Open with Netedit to the .sumocfg context menu."
+                 AllowAdvertise="no">
+            <ComponentGroupRef Id="SumoContextMenuEntries" />
+        </Feature>
     </CPackWiXFragment>
 
 </CPackWiXPatch>

@@ -21,6 +21,8 @@ documentation in HTML format.
 - Download 64-bit installer with all extras (contains GPL code): [sumo-win64extra-{{Version}}.msi](https://sumo.dlr.de/releases/{{Version}}/sumo-win64extra-{{Version}}.msi)
 - Download 64-bit zip with all extras (contains GPL code): [sumo-win64extra-{{Version}}.zip](https://sumo.dlr.de/releases/{{Version}}/sumo-win64extra-{{Version}}.zip)
 
+To add **Open with SUMO GUI** and **Open with Netedit** to the File Explorer context menu for `.sumocfg` files, select **Configuration file context menu** on the installer's **Custom Setup** screen. In Windows 11, look under **Show more options**.
+
 Within the installation folder, you will find a folder named "**bin**".
 Here, you can find the executables (programs). You may double click on
 [sumo-gui](../sumo-gui.md) and take a look at the examples located
