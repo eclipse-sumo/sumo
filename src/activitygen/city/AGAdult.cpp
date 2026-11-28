@@ -36,16 +36,7 @@
 // ===========================================================================
 AGWorkPosition*
 AGAdult::randomFreeWorkPosition(std::vector<AGWorkPosition>* wps) {
-    std::vector<AGWorkPosition*> freePos;
-    for (std::vector<AGWorkPosition>::iterator i = wps->begin(); i != wps->end(); ++i) {
-        if (!i->isTaken()) {
-            freePos.push_back(&*i);
-        }
-    }
-    if (freePos.empty()) {
-        return nullptr;
-    }
-    return RandHelper::getRandomFrom(freePos);
+    return AGWorkPosition::randomFreeWorkPosition(wps);
 }
 
 
