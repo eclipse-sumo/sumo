@@ -84,4 +84,7 @@ public:
 
     /// @brief whether the neighboring vehicle nv is unwilling to yield to help ego merge
     static bool unwillingToHelp(const MSVehicle& ego, double plannedSpeed, const MSVehicle& nv);
+
+    /// @brief whether the given leader is stopped long enough to warrant overtaking
+    static bool overtakeStopped(const MSVehicle& ego, const MSVehicle* leader, double gap);
 };

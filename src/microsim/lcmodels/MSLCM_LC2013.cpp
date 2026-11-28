@@ -1268,7 +1268,8 @@ MSLCM_LC2013::_wantsChange(
     }
     double laDist = myLookAheadSpeed * LOOK_FORWARD * myStrategicParam * (right ? 1 : myLookaheadLeft);
     laDist += myVehicle.getVehicleType().getLengthWithGap() *  2.;
-    const bool hasStoppedLeader = leader.first != 0 && leader.first->isStopped() && leader.second < (currentDist - posOnLane);
+    const bool overtakeLeader = leader.first != nullptr && (checkOpposite ? leader.first->isStopped() : MSLCHelper::overtakeStopped(myVehicle, leader.first, leader.second));
+    const bool hasStoppedLeader = overtakeLeader && leader.second < (currentDist - posOnLane);
     const bool hasBidiLeader = myVehicle.getLane()->getBidiLane() != nullptr && MSLCHelper::isBidiLeader(leader.first, curr.bestContinuations);
     const bool hasBidiNeighLeader = neighLane.getBidiLane() != nullptr && MSLCHelper::isBidiLeader(neighLead.first, neigh.bestContinuations);
     const bool hasJunctionLeader = leader.first != nullptr && leader.first == neighLead.first;
@@ -1400,7 +1401,7 @@ MSLCM_LC2013::_wantsChange(
                                      leader.second + myVehicle.getVehicleType().getLength() + leader.first->getVehicleType().getLengthWithGap());
         const double overtakeDist2 = (neighLead.first == 0 || !neighLead.first->isStopped() ? -1 :
                                       neighLead.second + myVehicle.getVehicleType().getLength() + neighLead.first->getVehicleType().getLengthWithGap());
-        if (leader.first != 0 && (leader.first->isStopped() || hasBidiLeader) && leader.second < REACT_TO_STOPPED_DISTANCE
+        if (leader.first != 0 && (overtakeLeader || hasBidiLeader) && leader.second < REACT_TO_STOPPED_DISTANCE
                 // current destination leaves enough space to overtake the leader
                 && MIN2(neighDist, currentDist) - posOnLane > overtakeDist
                 // maybe do not overtake on the right at high speed
@@ -1450,7 +1451,7 @@ MSLCM_LC2013::_wantsChange(
 #endif
             ret = ret | LCA_STAY | LCA_STRATEGIC;
         } else if (bestLaneOffset == 0
-                   && (leader.first == 0 || !leader.first->isStopped())
+                   && !overtakeLeader
                    && !hasBidiLeader
                    && neigh.bestContinuations.back()->getLinkCont().size() != 0
                    && roundaboutBonus == 0

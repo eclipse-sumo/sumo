@@ -1256,7 +1256,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     */
 
     // react to a stopped leader on the current lane
-    if (bestLaneOffset == 0 && leaders.hasStoppedVehicle()) {
+    if (bestLaneOffset == 0 && (checkOpposite ? leaders.hasStoppedVehicle() : hasStoppedLeader(leaders))) {
         // value is doubled for the check since we change back and forth
         // laDist = 0.5 * (myVehicle.getVehicleType().getLengthWithGap() + leader.first->getVehicleType().getLengthWithGap());
         // XXX determine length of longest stopped vehicle
@@ -2367,6 +2367,20 @@ MSLCM_SL2015::getStopped(const MSLeaderDistanceInfo& ldi) {
 
 
 bool
+MSLCM_SL2015::hasStoppedLeader(const MSLeaderDistanceInfo& ldi) const {
+    if (ldi.hasVehicles()) {
+        for (int i = 0; i < ldi.numSublanes(); ++i) {
+            const CLeaderDist& leader = ldi[i];
+            if (MSLCHelper::overtakeStopped(myVehicle, leader.first, leader.second)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+bool
 MSLCM_SL2015::hasBidiLeader(const MSLeaderDistanceInfo& ldi, const std::vector<MSLane*>& conts) {
     if (ldi.hasVehicles()) {
         for (const MSVehicle* const v : ldi.getVehicles()) {
@@ -3061,7 +3075,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
         } else if (
             laneOffset != 0
             && bestLaneOffset == 0
-            && !leaders.hasStoppedVehicle()
+            && !hasStoppedLeader(leaders)
             && neigh.bestContinuations.back()->getLinkCont().size() != 0
             && roundaboutBonus == 0
             && !checkOpposite
@@ -3181,7 +3195,8 @@ MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, co
         leaders.getSubLanes(&myVehicle, 0, rightmost, leftmost);
         for (int i = rightmost; i <= leftmost; i++) {
             const CLeaderDist& leader = leaders[i];
-            if (leader.first != 0 && (leader.first->isStopped() || MSLCHelper::isBidiLeader(leader.first, conts)) && leader.second < REACT_TO_STOPPED_DISTANCE) {
+            const bool stopped = checkCurrent ? MSLCHelper::overtakeStopped(myVehicle, leader.first, leader.second) : (leader.first != nullptr && leader.first->isStopped());
+            if (leader.first != 0 && (stopped || MSLCHelper::isBidiLeader(leader.first, conts)) && leader.second < REACT_TO_STOPPED_DISTANCE) {
                 const double overtakeDist = leader.second + myVehicle.getVehicleType().getLength() + leader.first->getVehicleType().getLengthWithGap();
                 const double remaining = MIN2(neighDist, currentDist) - posOnLane;
 #ifdef DEBUG_STRATEGIC_CHANGE

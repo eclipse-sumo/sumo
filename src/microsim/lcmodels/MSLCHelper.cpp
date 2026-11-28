@@ -19,9 +19,13 @@
 /****************************************************************************/
 
 #include <microsim/MSEdge.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
+#include <microsim/MSNet.h>
+#include <microsim/MSStop.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSLCHelper.h"
 
@@ -416,5 +420,36 @@ MSLCHelper::unwillingToHelp(const MSVehicle& ego, double plannedSpeed, const MSV
         }
     }
     return false;
+}
+
+
+bool
+MSLCHelper::overtakeStopped(const MSVehicle& ego, const MSVehicle* leader, double gap) {
+    if (leader == nullptr || !leader->isStopped()) {
+        return false;
+    }
+    const MSStop& stop = leader->getNextStop();
+    if (leader->isStoppedTriggered() || stop.pars.breakDown || stop.pars.collision || stop.getSpeed() > 0
+            || leader->getLaneChangeModel().isOpposite() != ego.getLaneChangeModel().isOpposite()
+            || &leader->getLane()->getEdge() != &ego.getLane()->getEdge()) {
+        return true;
+    }
+    MSNet* const net = MSNet::getInstance();
+    if ((net->hasPersons() && net->getPersonControl().hasAnyWaiting(stop.getEdge(), const_cast<MSVehicle*>(leader)))
+            || (net->hasContainers() && net->getContainerControl().hasAnyWaiting(stop.getEdge(), const_cast<MSVehicle*>(leader)))) {
+        return true;
+    }
+    const double v = ego.getSpeed();
+    const double vMax = MAX2(NUMERICAL_EPS, ego.getLane()->getVehicleMaxSpeed(&ego));
+    const double a = MAX2(NUMERICAL_EPS, ego.getCarFollowModel().getMaxAccel());
+    const double overtakeDist = MAX2(0.0, gap) + ego.getVehicleType().getLengthWithGap() + leader->getVehicleType().getLengthWithGap();
+    double timeToPass = (sqrt(v * v + 2.0 * a * overtakeDist) - v) / a;
+    const double timeToMax = MAX2(0.0, vMax - v) / a;
+    if (timeToPass > timeToMax) {
+        const double distToMax = 0.5 * (v + vMax) * timeToMax;
+        timeToPass = timeToMax + (overtakeDist - distToMax) / MAX2(v, vMax);
+    }
+    const double lcTime = STEPS2TIME(MAX2(DELTA_T, MSGlobals::gLaneChangeDuration));
+    return STEPS2TIME(leader->remainingStopDuration()) > timeToPass + lcTime;
 }
 /****************************************************************************/

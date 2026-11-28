@@ -245,6 +245,9 @@ protected:
     /// @brief get a stopped vehicle in the given info
     static const MSVehicle* getStopped(const MSLeaderDistanceInfo& ldi);
 
+    /// @brief return true if any leader in the given info is stopped long enough to warrant overtaking
+    bool hasStoppedLeader(const MSLeaderDistanceInfo& ldi) const;
+
     /// @brief return true if any leader on the upcoming lanes is driving in the opposite direction
     bool hasBidiLeader(const MSLeaderDistanceInfo& ldi, const std::vector<MSLane*>& conts); 
 

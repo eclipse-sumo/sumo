@@ -41,10 +41,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
-    <interval begin="0.00" end="1211.00" id="laneData">
+    <interval begin="0.00" end="1208.00" id="laneData">
         <edge id="beg2">
-            <lane id="beg2_0" sampledSeconds="84013.47" traveltime="266.44" overlapTraveltime="266.57" density="23.17" overlapDensity="23.19" laneDensity="23.17" occupancy="11.59" waitingTime="452.00" timeLoss="55410.25" speed="11.24" speedRelative="0.31" departed="358" arrived="365" entered="0" left="0" laneChangedFrom="411" laneChangedTo="418" flow="936.78" distance="942849.69"/>
-            <lane id="beg2_1" sampledSeconds="109328.81" traveltime="370.58" overlapTraveltime="370.81" density="30.16" overlapDensity="30.17" laneDensity="30.16" occupancy="15.08" waitingTime="780.00" timeLoss="84087.31" speed="8.08" speedRelative="0.22" departed="265" arrived="258" entered="0" left="0" laneChangedFrom="418" laneChangedTo="411" flow="876.75" distance="882425.83"/>
+            <lane id="beg2_0" sampledSeconds="83983.92" traveltime="266.40" overlapTraveltime="266.53" density="23.22" overlapDensity="23.24" laneDensity="23.22" occupancy="11.61" waitingTime="425.00" timeLoss="55388.85" speed="11.24" speedRelative="0.31" departed="358" arrived="365" entered="0" left="0" laneChangedFrom="408" laneChangedTo="415" flow="938.93" distance="942671.57"/>
+            <lane id="beg2_1" sampledSeconds="109138.00" traveltime="369.86" overlapTraveltime="370.09" density="30.19" overlapDensity="30.20" laneDensity="30.19" occupancy="15.10" waitingTime="765.00" timeLoss="83888.41" speed="8.10" speedRelative="0.22" departed="265" arrived="258" entered="0" left="0" laneChangedFrom="415" laneChangedTo="408" flow="879.10" distance="882603.95"/>
         </edge>
     </interval>
 </meandata>
