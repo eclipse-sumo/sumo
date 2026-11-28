@@ -35,6 +35,46 @@
 
 #include "GNEVehicleFrame.h"
 
+namespace {
+
+std::string
+getRouteClassProblem(const GNEDemandElement& route, const SUMOVehicleClass vClass) {
+    const auto& edges = route.getParentEdges();
+    for (const auto* edge : edges) {
+        if ((edge->getNBEdge()->getPermissions() & vClass) != vClass) {
+            return TLF("Route '%' does not allow vehicle class '%' on edge '%'.",
+                       route.getID(), getVehicleClassNames(vClass), edge->getID());
+        }
+    }
+    const bool repeat = edges.size() > 1 && GNEAttributeCarrier::parse<int>(route.getAttribute(SUMO_ATTR_REPEAT)) > 0;
+    for (size_t i = 0; i < edges.size() && (i + 1 < edges.size() || repeat); ++i) {
+        const auto* from = edges[i]->getNBEdge();
+        const auto* to = edges[(i + 1) % edges.size()]->getNBEdge();
+        const auto& connections = from->getConnections();
+        const bool connected = std::any_of(connections.begin(), connections.end(), [&](const NBEdge::Connection& connection) {
+            return connection.toEdge == to && connection.fromLane >= 0 && connection.toLane >= 0
+                   && (from->getPermissions(connection.fromLane) & to->getPermissions(connection.toLane) & vClass) == vClass
+                   && (connection.permissions == SVC_UNSPECIFIED || (connection.permissions & vClass) == vClass);
+        });
+        if (!connected) {
+            const auto& children = route.getChildDemandElements();
+            const bool jump = std::any_of(children.begin(), children.end(), [&](const GNEDemandElement* child) {
+                return child->getTagProperty()->isVehicleStop()
+                       && !child->getAttribute(SUMO_ATTR_JUMP).empty()
+                       && child->getAttribute(GNE_ATTR_PATHSTOPINDEX) == toString(i);
+            });
+            if (!jump) {
+                return TLF("Route '%' has no connection from edge '%' to '%' for vehicle class '%'.",
+                           route.getID(), from->getID(), to->getID(), getVehicleClassNames(vClass));
+            }
+        }
+    }
+    return "";
+}
+
+}
+
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -538,6 +578,14 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
 bool
 GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* route) {
     if (route && (route->getTagProperty()->isRoute())) {
+        const auto* vehicleType = myTypeSelector->getCurrentDemandElement();
+        if (route->getTagProperty()->getTag() == SUMO_TAG_ROUTE && vehicleType->getTagProperty()->getTag() == SUMO_TAG_VTYPE) {
+            const std::string problem = getRouteClassProblem(*route, vehicleType->getVClass());
+            if (!problem.empty()) {
+                myViewNet->setStatusBarText(problem);
+                return false;
+            }
+        }
         // now check if parameters are valid
         if (!myVehicleAttributesEditor->checkAttributes(true)) {
             return false;
