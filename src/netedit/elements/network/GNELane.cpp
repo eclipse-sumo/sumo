@@ -2128,13 +2128,8 @@ GNELane::buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     FXMenuCommand* addSidewalk = GUIDesigns::buildFXMenuCommand(addSpecialLanes, TL("Sidewalk"), pedestrianIcon, &parent, MID_GNE_LANE_ADD_SIDEWALK);
     FXMenuCommand* addBikelane = GUIDesigns::buildFXMenuCommand(addSpecialLanes, TL("Bike lane"), bikeIcon, &parent, MID_GNE_LANE_ADD_BIKE);
     FXMenuCommand* addBuslane = GUIDesigns::buildFXMenuCommand(addSpecialLanes, TL("Bus lane"), busIcon, &parent, MID_GNE_LANE_ADD_BUS);
-    // if parent edge is selected, always add greenverge in front
-    if (getParentEdges().front()->isAttributeCarrierSelected()) {
-        GUIDesigns::buildFXMenuCommand(addSpecialLanes, TL("Green verge"), greenVergeIcon, &parent, MID_GNE_LANE_ADD_GREENVERGE_FRONT);
-    } else {
-        GUIDesigns::buildFXMenuCommand(addSpecialLanes, TL("Green verge (front)"), greenVergeIcon, &parent, MID_GNE_LANE_ADD_GREENVERGE_FRONT);
-        GUIDesigns::buildFXMenuCommand(addSpecialLanes, TL("Green verge (back)"), greenVergeIcon, &parent, MID_GNE_LANE_ADD_GREENVERGE_BACK);
-    }
+    GUIDesigns::buildFXMenuCommand(addSpecialLanes, TL("Green verge (front)"), greenVergeIcon, &parent, MID_GNE_LANE_ADD_GREENVERGE_FRONT);
+    GUIDesigns::buildFXMenuCommand(addSpecialLanes, TL("Green verge (back)"), greenVergeIcon, &parent, MID_GNE_LANE_ADD_GREENVERGE_BACK);
     // Create menu comands for all remove special lanes and disable it
     FXMenuCommand* removeSidewalk = GUIDesigns::buildFXMenuCommand(removeSpecialLanes, TL("Sidewalk"), pedestrianIcon, &parent, MID_GNE_LANE_REMOVE_SIDEWALK);
     removeSidewalk->disable();
