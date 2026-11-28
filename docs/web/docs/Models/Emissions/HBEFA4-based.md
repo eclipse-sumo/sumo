@@ -29,6 +29,9 @@ definition of vehicle types together with the fleet share in an average 2022 veh
 as estimated by HBEFA4.2 and the error when fitting the relevant emission (so please be
 careful if you evaluate emissions with an error value above 40%).
 
+!!! warning
+    SUMO approximates the discrete HBEFA 4.2 speed-acceleration tables with a continuous 7-term polynomial. While `CO2`, fuel consumption (`FC`), and electric energy (`FC_MJ`) achieve low relative fitting errors (around 4% to 8% across passenger cars), regulated air pollutants (`PM`, `CO`, `HC`, and `NOx`) exhibit large fitting errors on several high-share diesel and petrol passenger car classes. Examples include `PM` on `PC_diesel_Euro-4_(DPF)` (`107.23% + 3.09%`), `PC_diesel_Euro-6d-temp` (`47.19% + 3.09%`), and `PC_diesel_Euro-6d` (`45.64% + 3.09%`); `CO` on `PC_diesel_Euro-5_EA189_after_software_update` (`114.32%`), `PC_diesel_Euro-5` (`49.18%`), and the default `PC_petrol_Euro-4` (`89.31%`); and `NOx` on `PC_petrol_Euro-6d` (`57.77%`). Inspect the pollutant error columns below before drawing quantitative conclusions on `PM`, `CO`, `HC`, or `NOx`, and consider [PHEMlight V5](PHEMlight5.md) when high-accuracy transient diesel or Euro 6 pollutant modeling is required.
+
 ### Passenger Cars
 | SUMO emission class | HBEFA subsegment | HBEFA subsegment ID | fleet share 2022 | error CO2 | error CO | error HC | error FC | error NOx | error PM | error FC_MJ |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
