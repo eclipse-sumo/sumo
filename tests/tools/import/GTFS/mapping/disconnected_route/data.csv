@@ -1,0 +1,10 @@
+trip_id;block_id;route_id;route_short_name;route_type;stop_id;stop_name;stop_lat;stop_lon;stop_sequence;fare_zone;fare_token;start_char;trip_headsign;arrival_time;departure_time
+service;;line;42;3;a0;a0;52.4549587;13.5077798;0;;;;Terminal;28800;28800
+service;;line;42;3;a1;a1;52.4558473;13.5088801;1;;;;Terminal;28860;28860
+service;;line;42;3;gap_b;gap_b;52.4540000;13.5350000;2;;;;Terminal;28920;28920
+service;;line;42;3;b0;b0;52.4548513;13.5086102;3;;;;Terminal;28980;28980
+service;;line;42;3;b1;b1;52.4552173;13.5081911;4;;;;Terminal;29040;29040
+service;;line;42;3;b2;b2;52.4558666;13.5090390;5;;;;Terminal;29100;29100
+service;;line;42;3;gap_c;gap_c;52.4520000;13.5450000;6;;;;Terminal;29160;29160
+service;;line;42;3;c0;c0;52.4510949;13.5722925;7;;;;Terminal;29220;29220
+service;;line;42;3;c1;c1;52.4515552;13.5728987;8;;;;Terminal;29280;29280

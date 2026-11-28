@@ -106,3 +106,6 @@ stop_before_reversal
 
 # mapping without --stops should not create large detours for a short increase in placement accuracy (#18341)
 corner_no_stops
+
+# keep the longest route segment and drop stops on disconnected segments (#18099)
+disconnected_route
