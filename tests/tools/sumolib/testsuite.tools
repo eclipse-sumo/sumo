@@ -53,6 +53,7 @@ getOptimalPath_routingType2
 
 # testing statistics
 statistics
+statistics_arrays
 
 # read polygons
 shapes

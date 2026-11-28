@@ -22,9 +22,10 @@ import math
 import warnings
 from collections import defaultdict
 try:
-    from numpy import sqrt, set_printoptions
+    from numpy import ndarray, sqrt, set_printoptions
 except ImportError:
     from math import sqrt
+    ndarray = ()
 
 
 def round(value):  # to round in Python 3 like in Python 2
@@ -85,6 +86,11 @@ def setPrecision(formatstr, precision, isArray=False, preformatted=False):
 
 
 class Statistics:
+    """Summarize scalar samples or same-shaped NumPy arrays.
+
+    Array arithmetic is element-wise. Extrema and ranks use lexicographic order.
+    Histograms accept scalar samples.
+    """
 
     def __init__(self, label=None, abs=False, histogram=False, printMin=True, scale=1, printDev=False, printSum=False):
         self.label = label
@@ -104,17 +110,24 @@ class Statistics:
         else:
             self.counts = None
 
+    @staticmethod
+    def _arrayKey(value):
+        return tuple(value.tolist())
+
     def add(self, v, label=None):
+        isArray = isinstance(v, ndarray) and v.ndim > 0
+        if self.values and (isArray != self.isArray or (isArray and v.shape != self.values[0].shape)):
+            raise ValueError("Statistics samples must have the same shape")
+        if isArray and self.counts is not None:
+            raise ValueError("Statistics histograms require scalar samples")
+        self.isArray = isArray
         self.values.append(v)
-        isMin = v < self.min
-        if type(isMin) is not bool:
-            self.isArray = True
-            v = tuple(v)
-        if v < self.min:
-            self.min = v
+        key = self._arrayKey(v) if isArray else v
+        if key < self.min:
+            self.min = key
             self.min_label = label
-        if v > self.max:
-            self.max = v
+        if key > self.max:
+            self.max = key
             self.max_label = label
         if self.counts is not None:
             self.counts[int(round(v / self.scale))] += 1
@@ -129,6 +142,7 @@ class Statistics:
         self.max = uMin
         self.max_label = None
         self.values = []
+        self.isArray = False
         if self.counts:
             self.counts.clear()
 
@@ -189,24 +203,25 @@ class Statistics:
     def median(self):
         """return the median value"""
         if len(self.values) > 0:
-            return sorted(self.values)[len(self.values) // 2]
+            return sorted(self.values, key=self._arrayKey if self.isArray else None)[len(self.values) // 2]
         else:
             return None
 
     def median_abs(self):
         """return the median of absolute values"""
         if len(self.values) > 0:
-            return sorted(map(abs, self.values))[len(self.values) // 2]
+            return sorted(map(abs, self.values), key=self._arrayKey if self.isArray else None)[len(self.values) // 2]
         else:
             return None
 
     def quartiles(self):
-        s = sorted(self.values, key=lambda v: tuple(v) if self.isArray else v)
+        s = sorted(self.values, key=self._arrayKey if self.isArray else None)
         return s[len(self.values) // 4], s[len(self.values) // 2], s[3 * len(self.values) // 4]
 
     def rank(self, fraction):
         if len(self.values) > 0:
-            return sorted(self.values)[int(round(len(self.values) * fraction + 0.5))]
+            return sorted(self.values, key=self._arrayKey if self.isArray else None)[
+                int(round(len(self.values) * fraction + 0.5))]
         else:
             return None
 
