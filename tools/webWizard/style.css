@@ -82,6 +82,11 @@ canvas {
     color: #FFF;
 }
 
+#exact-bounds {
+    box-sizing: border-box;
+    width: 100%;
+}
+
 .images {
     overflow: hidden;
 }
