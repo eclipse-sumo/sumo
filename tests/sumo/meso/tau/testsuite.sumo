@@ -12,3 +12,6 @@ tau_jj
 
 # changing tau by using a different cf model parameter
 vehicle_tau
+
+# discharge from one lane into two after a red signal
+lane_increase

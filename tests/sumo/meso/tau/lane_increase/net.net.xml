@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,0.00" origBoundary="0.00,0.00,200.00,0.00" projParameter="!"/>
+
+    <edge id=":b_0" function="internal">
+        <lane id=":b_0_0" index="0" speed="20.00" length="8.40" shape="96.00,-1.60 98.46,-2.10 100.00,-3.20 101.54,-4.30 104.00,-4.80"/>
+        <lane id=":b_0_1" index="1" speed="20.00" length="8.40" shape="96.00,-1.60 104.00,-1.60"/>
+    </edge>
+
+    <edge id="approach" from="a" to="b" priority="-1">
+        <lane id="approach_0" index="0" speed="20.00" length="96.00" shape="0.00,-1.60 96.00,-1.60"/>
+    </edge>
+    <edge id="exit" from="b" to="c" priority="-1">
+        <lane id="exit_0" index="0" speed="20.00" length="96.00" shape="104.00,-4.80 200.00,-4.80"/>
+        <lane id="exit_1" index="1" speed="20.00" length="96.00" shape="104.00,-1.60 200.00,-1.60"/>
+    </edge>
+
+    <tlLogic id="b" type="static" programID="0" offset="0">
+        <phase duration="25" state="rr"/>
+        <phase duration="97" state="GG"/>
+        <phase duration="3" state="yy"/>
+    </tlLogic>
+
+    <junction id="a" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="b" type="traffic_light" x="100.00" y="0.00" incLanes="approach_0" intLanes=":b_0_0 :b_0_1" shape="104.00,0.00 104.00,-6.40 100.97,-5.57 99.03,-4.03 97.79,-3.44 96.00,-3.20 96.00,0.00">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="c" type="dead_end" x="200.00" y="0.00" incLanes="exit_0 exit_1" intLanes="" shape="200.00,-6.40 200.00,0.00"/>
+
+    <connection from="approach" to="exit" fromLane="0" toLane="0" via=":b_0_0" tl="b" linkIndex="0" dir="s" state="O"/>
+    <connection from="approach" to="exit" fromLane="0" toLane="1" via=":b_0_1" tl="b" linkIndex="1" dir="s" state="O"/>
+
+    <connection from=":b_0" to="exit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":b_0" to="exit" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>

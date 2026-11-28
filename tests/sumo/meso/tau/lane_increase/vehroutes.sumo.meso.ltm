@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="pack0" type="fast" depart="0.00" arrival="30.30">
+        <route edges="approach exit" exitTimes="25.00 30.30"/>
+    </vehicle>
+
+    <vehicle id="pack1" type="fast" depart="0.00" arrival="32.40">
+        <route edges="approach exit" exitTimes="27.20 32.40"/>
+    </vehicle>
+
+    <vehicle id="pack2" type="fast" depart="0.00" arrival="34.10">
+        <route edges="approach exit" exitTimes="28.90 34.10"/>
+    </vehicle>
+
+    <vehicle id="leader" type="slow" depart="125.00" arrival="170.90">
+        <route edges="approach exit" exitTimes="150.00 170.90"/>
+    </vehicle>
+
+    <vehicle id="follower0" type="fast" depart="126.00" arrival="171.80">
+        <route edges="approach exit" exitTimes="152.20 171.80"/>
+    </vehicle>
+
+    <vehicle id="follower1" type="fast" depart="127.00" arrival="172.70">
+        <route edges="approach exit" exitTimes="153.90 172.70"/>
+    </vehicle>
+
+</routes>
