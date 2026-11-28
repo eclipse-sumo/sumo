@@ -4548,7 +4548,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
             // show info
             WRITE_MESSAGE(TLF("Loading of data file '%' successfully.", bucket->getFilename()));
             // enable demand elements if there is an error creating element
-            if (previouslySaved && !dataHandler.isErrorCreatingElement()) {
+            if (previouslySaved && !dataHandler.isErrorCreatingElement() && !dataHandler.hasMergedData()) {
                 myNet->getSavingStatus()->dataElementsSaved();
             }
         }

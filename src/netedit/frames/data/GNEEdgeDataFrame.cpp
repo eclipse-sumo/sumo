@@ -47,7 +47,7 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ViewObjectsSelector& viewO
     // first check if we clicked over an edge
     if (viewObjects.getEdgeFront() && myDataSetSelector->getDataSet() && myIntervalSelector->getDataInterval()) {
         // check if exist already a edge rel single in the given edge
-        if (myIntervalSelector->getDataInterval()->edgeRelSingleExists(viewObjects.getEdgeFront())) {
+        if (myIntervalSelector->getDataInterval()->findEdgeData(viewObjects.getEdgeFront())) {
             // write warning
             WRITE_WARNINGF(TL("There is already a % in edge '%'"), toString(GNE_TAG_EDGEREL_SINGLE), viewObjects.getEdgeFront()->getID());
             // abort edge data creation

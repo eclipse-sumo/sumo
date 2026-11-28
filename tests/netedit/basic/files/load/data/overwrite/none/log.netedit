@@ -1,2 +1,11 @@
+Warning: Could not build edgeData-edge with ID 'set1[0.00,3600.00]:E10' in netedit; Found another edgeData-edge with the same ID.
+Warning: Could not build edgeData-edge with ID 'set1[0.00,3600.00]:E11' in netedit; Found another edgeData-edge with the same ID.
+Warning: Could not build edgeRelation with ID 'set1[0.00,3600.00]:-E0' in netedit; Found another edgeRelation with the same ID.
+Warning: Could not build edgeData-edge with ID 'set2[0.00,3600.00]:E10' in netedit; Found another edgeData-edge with the same ID.
+Warning: Could not build edgeData-edge with ID 'set2[0.00,3600.00]:E11' in netedit; Found another edgeData-edge with the same ID.
+Warning: Could not build edgeRelation with ID 'set2[0.00,3600.00]:-E0' in netedit; Found another edgeRelation with the same ID.
+Warning: Could not build edgeData-edge with ID 'set3[0.00,3600.00]:E10' in netedit; Found another edgeData-edge with the same ID.
+Warning: Could not build edgeData-edge with ID 'set3[0.00,3600.00]:E11' in netedit; Found another edgeData-edge with the same ID.
+Warning: Could not build edgeRelation with ID 'set3[0.00,3600.00]:-E0' in netedit; Found another edgeRelation with the same ID.
 Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
 Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.

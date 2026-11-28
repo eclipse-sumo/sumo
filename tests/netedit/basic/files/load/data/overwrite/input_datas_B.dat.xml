@@ -8,15 +8,24 @@
         <edgeRelation from="E0" to="-E1"/>
         <edge id="-E10"/>
         <edge id="-E11"/>
+        <edge id="E10" value="changed"/>
+        <edge id="E11" value="changed"/>
+        <edgeRelation from="-E0" to="E1" value="changed"/>
     </interval>
     <interval id="set2" begin="0.00" end="3600.00">
         <edgeRelation from="E0" to="-E1"/>
         <edge id="-E10"/>
         <edge id="-E11"/>
+        <edge id="E10" value="changed"/>
+        <edge id="E11" value="changed"/>
+        <edgeRelation from="-E0" to="E1" value="changed"/>
     </interval>
         <interval id="set3" begin="0.00" end="3600.00">
         <edgeRelation from="E0" to="-E1"/>
         <edge id="-E10"/>
         <edge id="-E11"/>
+        <edge id="E10" value="changed"/>
+        <edge id="E11" value="changed"/>
+        <edgeRelation from="-E0" to="E1" value="changed"/>
     </interval>
 </data>
