@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-08-27T11:14:00.971277+01:00 by Eclipse SUMO sumo v1_27_1+0490-97f65309270
+<!-- generated on 2026-11-26T02:49:07.506675+00:00 by Eclipse SUMO sumo v1.28.0-0000000000
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -63,9 +63,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <edge id="767378478" sampledSeconds="2635.90" traveltime="10.31" overlapTraveltime="10.58" density="3.83" overlapDensity="3.83" laneDensity="1.28" occupancy="0.64" waitingTime="1.69" timeLoss="5.54" speed="18.54" speedRelative="0.83" departed="0" arrived="0" entered="256" left="255" laneChangedFrom="0" laneChangedTo="0" flow="255.73" distance="48870.42"/>
     </interval>
     <interval begin="21600.00" end="25200.00" id="edge_data">
-        <edge id="767378478" sampledSeconds="5292.83" traveltime="10.27" overlapTraveltime="10.54" density="7.69" overlapDensity="7.69" laneDensity="2.56" occupancy="1.28" waitingTime="4.26" timeLoss="18.80" speed="18.61" speedRelative="0.84" departed="0" arrived="0" entered="516" left="513" laneChangedFrom="0" laneChangedTo="0" flow="515.30" distance="98474.50"/>
+        <edge id="767378478" sampledSeconds="5298.42" traveltime="10.28" overlapTraveltime="10.55" density="7.70" overlapDensity="7.70" laneDensity="2.57" occupancy="1.28" waitingTime="5.46" timeLoss="24.39" speed="18.59" speedRelative="0.84" departed="0" arrived="0" entered="516" left="513" laneChangedFrom="0" laneChangedTo="0" flow="515.30" distance="98474.50"/>
     </interval>
     <interval begin="25200.00" end="25842.00" id="edge_data">
-        <edge id="767378478" sampledSeconds="1242.00" traveltime="10.10" overlapTraveltime="10.36" density="10.12" overlapDensity="10.12" laneDensity="3.37" occupancy="1.69" waitingTime="1.00" timeLoss="8.26" speed="18.92" speedRelative="0.85" departed="0" arrived="0" entered="122" left="126" laneChangedFrom="0" laneChangedTo="0" flow="689.52" distance="23498.48"/>
+        <edge id="767378478" sampledSeconds="1242.59" traveltime="10.11" overlapTraveltime="10.37" density="10.13" overlapDensity="10.13" laneDensity="3.38" occupancy="1.69" waitingTime="1.78" timeLoss="8.85" speed="18.91" speedRelative="0.85" departed="0" arrived="0" entered="122" left="126" laneChangedFrom="0" laneChangedTo="0" flow="689.52" distance="23498.48"/>
     </interval>
 </meandata>

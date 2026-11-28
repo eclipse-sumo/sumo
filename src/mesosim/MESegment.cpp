@@ -43,7 +43,9 @@
 #include <utils/common/RandHelper.h>
 #include "MEVehicle.h"
 #include "MELoop.h"
+#include <microsim/MSStop.h>
 #include "MESegment.h"
+#include "MELSegment.h"
 
 #define DEFAULT_VEH_LENGTH_WITH_GAP (SUMOVTypeParameter::getDefault().length + SUMOVTypeParameter::getDefault().minGap)
 // avoid division by zero when driving very slowly
@@ -56,6 +58,42 @@
 #define DEBUG_COND (myEdge.isSelected())
 #define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
 
+
+
+namespace {
+bool
+checkDepartBlockTime(const MEVehicle* veh, const MESegment* seg) {
+    const SUMOVehicleParameter& pars = veh->getParameter();
+    if (pars.departProcedure == DepartDefinition::SPLIT) {
+        return false;
+    }
+    const double segStart = seg->getIndex() * seg->getLength();
+    switch (pars.departPosProcedure) {
+        case DepartPosDefinition::GIVEN:
+        case DepartPosDefinition::GIVEN_VEHROUTE: {
+            double pos = pars.departPos >= 0. ? pars.departPos : pars.departPos + seg->getEdge().getLength();
+            if (pos < 0. || pos > seg->getEdge().getLength()) {
+                pos = seg->getEdge().getLength();
+            }
+            return pos - segStart < veh->getVehicleType().getLengthWithGap();
+        }
+        case DepartPosDefinition::STOP:
+            if (veh->hasStops() && veh->getNextStop().edge == veh->getCurrentRouteEdge()) {
+                const double pos = MAX2(0.0, veh->getNextStop().getEndPos(*veh));
+                return pos - segStart < veh->getVehicleType().getLengthWithGap();
+            }
+            return true;
+        case DepartPosDefinition::FREE:
+        case DepartPosDefinition::RANDOM:
+        case DepartPosDefinition::RANDOM_FREE:
+        case DepartPosDefinition::LAST:
+        case DepartPosDefinition::SPLIT_FRONT:
+            return false;
+        default:
+            return true;
+    }
+}
+} // namespace
 
 // ===========================================================================
 // static member definition
@@ -393,11 +431,16 @@ SUMOTime
 MESegment::hasSpaceFor(const MEVehicle* const veh, const SUMOTime entryTime, int& qIdx, const bool init) const {
     SUMOTime earliestEntry = SUMOTime_MAX;
     qIdx = 0;
-    if (myNumVehicles == 0 && myQueues.size() == 1 && (init || !hasTravelingGaps(0, entryTime))) {
+    const bool isLTM = dynamic_cast<const MELSegment*>(this) != nullptr;
+    const bool checkLeaderGap = (veh->getInsertionChecks() & (int)InsertionCheck::LEADER_GAP) != 0;
+    const bool checkBlockTime = init && !isLTM && checkLeaderGap && checkDepartBlockTime(veh, this);
+    if (myNumVehicles == 0 && myQueues.size() == 1 && (init
+            ? (!checkBlockTime || entryTime >= myQueues.front().getDepartBlockTime())
+            : !hasTravelingGaps(0, entryTime))) {
         // we have always space for at least one vehicle
         if (myQueues.front().allows(veh->getVClass())) {
             return entryTime;
-        }  else {
+        } else {
             return earliestEntry;
         }
     }
@@ -436,7 +479,9 @@ MESegment::hasSpaceFor(const MEVehicle* const veh, const SUMOTime entryTime, int
                 if (q.allows(svc) && q.size() < minSize) {
                     if (init) {
                         // regular insertions and initial insertions must respect different constraints:
-                        if (veh->getInsertionChecks() == (int)InsertionCheck::NONE || hasSpaceForInsertion(q, i, newOccupancy, entryTime)) {
+                        if (veh->getInsertionChecks() == (int)InsertionCheck::NONE
+                                || ((!checkBlockTime || entryTime >= q.getDepartBlockTime())
+                                    && hasSpaceForInsertion(q, i, newOccupancy, entryTime))) {
                             qIdx = i;
                             minSize = q.size();
                         }
@@ -458,13 +503,16 @@ MESegment::hasSpaceFor(const MEVehicle* const veh, const SUMOTime entryTime, int
 
 
 bool
-MESegment::hasSpaceForInsertion(const Queue& q, int /*qIdx*/, double newOccupancy, SUMOTime /*entryTime*/) const {
+MESegment::hasSpaceForInsertion(const Queue& q, int /*qIdx*/, double newOccupancy, SUMOTime entryTime) const {
     // - regular insertions must respect entryBlockTime
     // - initial insertions should not cause additional jamming
     // - inserted vehicle should be able to continue at the current speed
     if (q.getOccupancy() <= myJamThreshold && !hasBlockedLeader() && !myTLSPenalty) {
         return newOccupancy <= myJamThreshold;
     } else {
+        if (q.getOccupancy() > myJamThreshold && q.isUpstreamJammed() && entryTime < q.getDepartBlockTime()) {
+            return false;
+        }
         return newOccupancy <= jamThresholdForSpeed(getMeanSpeed(false), -1);
     }
 }
@@ -603,6 +651,9 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, const MSMoveReminder::Not
     myNumVehicles--;
     myEdge.lock();
     MEVehicle* nextLeader = q.remove(v);
+    if (q.getOccupancy() <= myJamThreshold) {
+        q.setUpstreamJammed(false);
+    }
     v->invalidateMesoPosition();
     invalidateMesoPositions();
     myEdge.unlock();
@@ -859,6 +910,7 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
         veh->setSegment(this, PARKING_QUEUE);
         myEdge.getLanes()[0]->addParking(veh);  // TODO for GUI only
     } else {
+        const int prevSize = q.size();
         myEdge.lock();
         if (cars.empty()) {
             cars.push_back(veh);
@@ -884,12 +936,35 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
         invalidateMesoPositions();
         myEdge.unlock();
         myNumVehicles++;
+        const double vehLength = veh->getVehicleType().getLengthWithGap();
+        const double prevOccupancy = q.getOccupancy();
+        const bool wasUpstreamJammed = q.isUpstreamJammed();
+        q.setOccupancy(MIN2(myQueueCapacity, prevOccupancy + vehLength));
+        if (q.getOccupancy() > myJamThreshold && q.getOccupancy() + vehLength > myQueueCapacity) {
+            q.setUpstreamJammed(true);
+        }
         if (!isDepart && !isTeleport) {
             // departs and teleports could take place anywhere on the edge so they should not block regular flow
             // the -1 facilitates interleaving of multiple streams
-            q.setEntryBlockTime(time + tauWithVehLength(myTau_ff, veh->getVehicleType().getLengthWithGap(), veh->getVehicleType().getCarFollowModel().getHeadwayTime()) - 1);
+            q.setEntryBlockTime(time + tauWithVehLength(myTau_ff, vehLength, veh->getVehicleType().getCarFollowModel().getHeadwayTime()) - 1);
+        } else if (isDepart && !isTeleport && veh->getParameter().departProcedure != DepartDefinition::SPLIT
+                   && dynamic_cast<const MELSegment*>(this) == nullptr) {
+            if (prevOccupancy > myJamThreshold && wasUpstreamJammed && time > veh->getParameter().depart) {
+                const SUMOTime headway = tauWithVehLength(getTauJJ((double)prevSize, myQueueCapacity, myJamThreshold),
+                                                          vehLength,
+                                                          veh->getVehicleType().getCarFollowModel().getHeadwayTime());
+                const SUMOTime entry = q.getDepartBlockTime() > time - DELTA_T
+                                       ? MAX2(q.getDepartBlockTime(), veh->getParameter().depart) : time;
+                q.setDepartBlockTime(entry + headway - 1);
+            } else if (checkDepartBlockTime(veh, this)) {
+                const double laneScale = myQueues.size() == 1 ? myCapacity / myLength : 1.;
+                const SUMOTime clearTime = MAX2((SUMOTime)1, (SUMOTime)((double)DELTA_T / laneScale));
+                const SUMOTime parallelWindow = laneScale > 1. ? (SUMOTime)((laneScale - 1.) * (double)clearTime) : 0;
+                const SUMOTime entry = q.getDepartBlockTime() > time - parallelWindow
+                                       ? q.getDepartBlockTime() : time - parallelWindow;
+                q.setDepartBlockTime(entry + clearTime);
+            }
         }
-        q.setOccupancy(MIN2(myQueueCapacity, q.getOccupancy() + veh->getVehicleType().getLengthWithGap()));
         veh->setEventTime(tleave);
         veh->setUnqueuedEventTime(tleave);
         veh->setSegment(this, qIdx);
@@ -1031,6 +1106,8 @@ MESegment::clearState() {
             veh->invalidateMesoPosition();
         }
         q.getModifiableVehicles().clear();
+        q.setDepartBlockTime(SUMOTime_MIN);
+        q.setUpstreamJammed(false);
     }
 }
 

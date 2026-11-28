@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:35:13.181560+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-11-26T02:48:55.109727+00:00 by Eclipse SUMO sumo v1.28.0-0000000000
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,6 +29,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </time>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -50,7 +52,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timeSlice startTime="60000" duration="60000">
         <link id="32" amount="2" averageSpeed="1110"/>
         <link id="35" amount="2" averageSpeed="1110"/>
-        <link id="38" amount="4" averageSpeed="1040"/>
+        <link id="38" amount="4" averageSpeed="1078"/>
     </timeSlice>
     <timeSlice startTime="120000" duration="60000">
         <link id="32" amount="6" averageSpeed="1110"/>
@@ -59,7 +61,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="6" averageSpeed="1110"/>
         <link id="36" amount="4" averageSpeed="1110"/>
         <link id="37" amount="6" averageSpeed="1388"/>
-        <link id="38" amount="12" averageSpeed="1063"/>
+        <link id="38" amount="12" averageSpeed="1089"/>
         <link id="40" amount="12" averageSpeed="1388"/>
         <link id="42" amount="8" averageSpeed="1110"/>
     </timeSlice>
@@ -70,7 +72,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="12" averageSpeed="1110"/>
         <link id="36" amount="10" averageSpeed="1110"/>
         <link id="37" amount="10" averageSpeed="1388"/>
-        <link id="38" amount="12" averageSpeed="1065"/>
+        <link id="38" amount="12" averageSpeed="1090"/>
         <link id="39" amount="1" averageSpeed="1110"/>
         <link id="40" amount="12" averageSpeed="1388"/>
         <link id="41" amount="12" averageSpeed="1110"/>
@@ -84,7 +86,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="18" averageSpeed="1098"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="13" averageSpeed="1388"/>
-        <link id="38" amount="15" averageSpeed="1068"/>
+        <link id="38" amount="15" averageSpeed="1091"/>
         <link id="39" amount="6" averageSpeed="1110"/>
         <link id="40" amount="12" averageSpeed="1388"/>
         <link id="41" amount="15" averageSpeed="1110"/>
@@ -98,7 +100,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="24" averageSpeed="1088"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="19" averageSpeed="1072"/>
+        <link id="38" amount="19" averageSpeed="1093"/>
         <link id="39" amount="11" averageSpeed="1110"/>
         <link id="40" amount="12" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
@@ -112,7 +114,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="24" averageSpeed="1084"/>
         <link id="36" amount="17" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="24" averageSpeed="1077"/>
+        <link id="38" amount="24" averageSpeed="1095"/>
         <link id="39" amount="15" averageSpeed="1110"/>
         <link id="40" amount="17" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
@@ -126,7 +128,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="24" averageSpeed="1084"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="28" averageSpeed="1070"/>
+        <link id="38" amount="28" averageSpeed="1087"/>
         <link id="39" amount="18" averageSpeed="1110"/>
         <link id="40" amount="17" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
@@ -140,10 +142,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="24" averageSpeed="1085"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="30" averageSpeed="1061"/>
+        <link id="38" amount="30" averageSpeed="1079"/>
         <link id="39" amount="18" averageSpeed="1110"/>
         <link id="40" amount="18" averageSpeed="1388"/>
-        <link id="41" amount="18" averageSpeed="1110"/>
+        <link id="41" amount="17" averageSpeed="1110"/>
         <link id="42" amount="18" averageSpeed="1110"/>
         <link id="43" amount="18" averageSpeed="1388"/>
     </timeSlice>
@@ -154,7 +156,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="35" amount="24" averageSpeed="1086"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="30" averageSpeed="1056"/>
+        <link id="38" amount="30" averageSpeed="1074"/>
         <link id="39" amount="18" averageSpeed="1110"/>
         <link id="40" amount="18" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
@@ -164,25 +166,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timeSlice startTime="600000" duration="60000">
         <link id="32" amount="24" averageSpeed="1106"/>
         <link id="33" amount="18" averageSpeed="1110"/>
-        <link id="34" amount="18" averageSpeed="1388"/>
+        <link id="34" amount="17" averageSpeed="1388"/>
         <link id="35" amount="24" averageSpeed="1087"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="30" averageSpeed="1053"/>
+        <link id="38" amount="30" averageSpeed="1072"/>
         <link id="39" amount="18" averageSpeed="1110"/>
-        <link id="40" amount="18" averageSpeed="1388"/>
+        <link id="40" amount="19" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
         <link id="42" amount="18" averageSpeed="1110"/>
         <link id="43" amount="18" averageSpeed="1388"/>
     </timeSlice>
     <timeSlice startTime="660000" duration="60000">
-        <link id="32" amount="24" averageSpeed="1107"/>
+        <link id="32" amount="24" averageSpeed="1106"/>
         <link id="33" amount="18" averageSpeed="1110"/>
         <link id="34" amount="18" averageSpeed="1388"/>
         <link id="35" amount="24" averageSpeed="1088"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="30" averageSpeed="1050"/>
+        <link id="38" amount="30" averageSpeed="1071"/>
         <link id="39" amount="18" averageSpeed="1110"/>
         <link id="40" amount="18" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
@@ -190,13 +192,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="43" amount="18" averageSpeed="1388"/>
     </timeSlice>
     <timeSlice startTime="720000" duration="60000">
-        <link id="32" amount="24" averageSpeed="1107"/>
+        <link id="32" amount="24" averageSpeed="1104"/>
         <link id="33" amount="18" averageSpeed="1110"/>
         <link id="34" amount="18" averageSpeed="1388"/>
         <link id="35" amount="24" averageSpeed="1088"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="30" averageSpeed="1048"/>
+        <link id="38" amount="30" averageSpeed="1071"/>
         <link id="39" amount="18" averageSpeed="1110"/>
         <link id="40" amount="18" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
@@ -204,41 +206,41 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="43" amount="18" averageSpeed="1388"/>
     </timeSlice>
     <timeSlice startTime="780000" duration="60000">
-        <link id="32" amount="24" averageSpeed="1108"/>
+        <link id="32" amount="24" averageSpeed="1102"/>
         <link id="33" amount="18" averageSpeed="1110"/>
         <link id="34" amount="18" averageSpeed="1388"/>
         <link id="35" amount="24" averageSpeed="1088"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="30" averageSpeed="1047"/>
+        <link id="38" amount="30" averageSpeed="1071"/>
         <link id="39" amount="18" averageSpeed="1110"/>
         <link id="40" amount="18" averageSpeed="1388"/>
-        <link id="41" amount="18" averageSpeed="1110"/>
+        <link id="41" amount="19" averageSpeed="1110"/>
         <link id="42" amount="18" averageSpeed="1110"/>
         <link id="43" amount="18" averageSpeed="1388"/>
     </timeSlice>
     <timeSlice startTime="840000" duration="60000">
-        <link id="32" amount="24" averageSpeed="1108"/>
+        <link id="32" amount="24" averageSpeed="1101"/>
         <link id="33" amount="18" averageSpeed="1110"/>
         <link id="34" amount="18" averageSpeed="1388"/>
-        <link id="35" amount="24" averageSpeed="1089"/>
+        <link id="35" amount="24" averageSpeed="1088"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="30" averageSpeed="1045"/>
+        <link id="38" amount="30" averageSpeed="1070"/>
         <link id="39" amount="18" averageSpeed="1110"/>
-        <link id="40" amount="18" averageSpeed="1388"/>
+        <link id="40" amount="17" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
         <link id="42" amount="18" averageSpeed="1110"/>
         <link id="43" amount="18" averageSpeed="1388"/>
     </timeSlice>
     <timeSlice startTime="900000" duration="60000">
-        <link id="32" amount="24" averageSpeed="1108"/>
+        <link id="32" amount="24" averageSpeed="1101"/>
         <link id="33" amount="18" averageSpeed="1110"/>
         <link id="34" amount="18" averageSpeed="1388"/>
         <link id="35" amount="24" averageSpeed="1089"/>
         <link id="36" amount="18" averageSpeed="1110"/>
         <link id="37" amount="18" averageSpeed="1388"/>
-        <link id="38" amount="30" averageSpeed="1044"/>
+        <link id="38" amount="30" averageSpeed="1068"/>
         <link id="39" amount="18" averageSpeed="1110"/>
         <link id="40" amount="18" averageSpeed="1388"/>
         <link id="41" amount="18" averageSpeed="1110"/>
@@ -246,13 +248,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="43" amount="18" averageSpeed="1388"/>
     </timeSlice>
     <timeSlice startTime="960000" duration="40000">
-        <link id="32" amount="16" averageSpeed="1108"/>
+        <link id="32" amount="16" averageSpeed="1101"/>
         <link id="33" amount="12" averageSpeed="1110"/>
         <link id="34" amount="12" averageSpeed="1388"/>
         <link id="35" amount="16" averageSpeed="1089"/>
         <link id="36" amount="12" averageSpeed="1110"/>
         <link id="37" amount="12" averageSpeed="1388"/>
-        <link id="38" amount="20" averageSpeed="1043"/>
+        <link id="38" amount="20" averageSpeed="1067"/>
         <link id="39" amount="12" averageSpeed="1110"/>
         <link id="40" amount="12" averageSpeed="1388"/>
         <link id="41" amount="12" averageSpeed="1110"/>

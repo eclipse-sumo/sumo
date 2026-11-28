@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-05 10:31:27 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
+<!-- generated on 2026-11-26T02:48:56.106514+00:00 by Eclipse SUMO sumo v1.28.0-0000000000
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -25,13 +25,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -40,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -56,7 +56,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.0.1" depart="65.00" arrival="157.00">
+    <vehicle id="calibtest.0.1" depart="68.00" arrival="158.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
@@ -112,11 +112,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.200.2" depart="287.00" arrival="379.00">
+    <vehicle id="low.8" depart="288.00" departSpeed="25.025" speedFactor="1.0000" arrival="379.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="low.8" depart="288.00" departSpeed="18.5357" speedFactor="1.0000" arrival="380.00">
+    <vehicle id="calibtest.200.2" depart="293.00" arrival="383.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
@@ -124,7 +124,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.200.4" depart="299.00" arrival="391.00">
+    <vehicle id="calibtest.200.4" depart="302.00" arrival="392.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
@@ -156,7 +156,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.200.11" depart="332.00" arrival="424.00">
+    <vehicle id="calibtest.200.11" depart="335.00" arrival="425.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
@@ -200,7 +200,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.200.21" depart="377.00" arrival="469.00">
+    <vehicle id="calibtest.200.21" depart="380.00" arrival="470.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 

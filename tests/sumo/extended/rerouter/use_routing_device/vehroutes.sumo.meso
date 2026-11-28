@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 25 16:53:13 2020 by Eclipse SUMO sumo Version v1_7_0+1293-bfeda8c3db
+<!-- generated on 2026-11-26T02:48:55.885554+00:00 by Eclipse SUMO sumo v1.28.0-0000000000
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -25,8 +30,9 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <ignore-route-errors value="true"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <routing>
@@ -35,7 +41,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -44,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -132,16 +137,16 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="middle"/>
     </vehicle>
 
-    <vehicle id="no_device.0" depart="0.00" color="yellow" arrival="538.00">
+    <vehicle id="no_device.0" depart="1.00" color="yellow" arrival="538.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="0.00" probability="0" edges="beg beg2left left left2end end rend"/>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="1.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.1" depart="2.00" color="yellow" arrival="540.00">
+    <vehicle id="no_device.1" depart="3.00" color="yellow" arrival="540.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="2.00" probability="0" edges="beg beg2left left left2end end rend"/>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="3.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>

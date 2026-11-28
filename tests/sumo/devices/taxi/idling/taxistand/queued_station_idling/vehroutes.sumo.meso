@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T10:28:19.106575+01:00 by Eclipse SUMO sumo v1_26_0+1238-9348d776a1c
+<!-- generated on 2026-11-26T02:49:04.060928+00:00 by Eclipse SUMO sumo v1.28.0-0000000000
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -135,7 +135,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop parkingArea="pa_0" index="6" actType="idling"/>
     </vehicle>
 
-    <vehicle id="taxi.2" type="taxi" depart="1.00">
+    <vehicle id="taxi.2" type="taxi" depart="2.00">
         <routeDistribution>
             <route replacedOnEdge="B0C0" replacedOnIndex="1" reason="taxi:prepare_dispatch" replacedAtTime="900.00" probability="0" edges="A0B0 B0C0"/>
             <route replacedOnEdge="B0C0" replacedOnIndex="1" reason="taxi:dispatch" replacedAtTime="900.00" probability="0" edges="A0B0 B0C0 D1E1 B0C0"/>
@@ -153,7 +153,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop parkingArea="pa_0" index="6" actType="idling"/>
     </vehicle>
 
-    <vehicle id="taxi.3" type="taxi" depart="1.00">
+    <vehicle id="taxi.3" type="taxi" depart="3.00">
         <routeDistribution>
             <route replacedOnEdge="B0C0" replacedOnIndex="1" reason="taxi:prepare_dispatch" replacedAtTime="1320.00" probability="0" edges="A0B0 B0C0"/>
             <route replacedOnEdge="B0C0" replacedOnIndex="1" reason="taxi:dispatch" replacedAtTime="1320.00" probability="0" edges="A0B0 B0C0 D1E1 B0C0"/>
@@ -171,7 +171,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop parkingArea="pa_0" index="6" actType="idling"/>
     </vehicle>
 
-    <vehicle id="taxi.4" type="taxi" depart="1.00">
+    <vehicle id="taxi.4" type="taxi" depart="4.00">
         <routeDistribution>
             <route replacedOnEdge="B0C0" replacedOnIndex="1" reason="taxi:prepare_dispatch" replacedAtTime="1740.00" probability="0" edges="A0B0 B0C0"/>
             <route replacedOnEdge="B0C0" replacedOnIndex="1" reason="taxi:dispatch" replacedAtTime="1740.00" probability="0" edges="A0B0 B0C0 D1E1 B0C0"/>

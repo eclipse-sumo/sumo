@@ -118,6 +118,24 @@ protected:
             myEntryBlockTime = entryBlockTime;
         }
 
+        /// @brief return the next time at which a vehicle may depart in this queue
+        inline SUMOTime getDepartBlockTime() const {
+            return myDepartBlockTime;
+        }
+
+        /// @brief set the next time at which a vehicle may depart in this queue
+        inline void setDepartBlockTime(SUMOTime departBlockTime) {
+            myDepartBlockTime = departBlockTime;
+        }
+
+        inline bool isUpstreamJammed() const {
+            return myUpstreamJammed;
+        }
+
+        inline void setUpstreamJammed(bool jammed) {
+            myUpstreamJammed = jammed;
+        }
+
         inline SUMOTime getBlockTime() const {
             return myBlockTime;
         }
@@ -144,6 +162,12 @@ protected:
 
         /// @brief The block time for vehicles who wish to enter this queue
         SUMOTime myEntryBlockTime = SUMOTime_MIN;
+
+        /// @brief The block time for vehicles who wish to depart in this queue
+        SUMOTime myDepartBlockTime = SUMOTime_MIN;
+
+        /// @brief Whether a jam has reached the upstream end of this queue
+        bool myUpstreamJammed = false;
 
         /// @brief The block time
         SUMOTime myBlockTime = -1;
