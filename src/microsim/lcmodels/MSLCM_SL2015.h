@@ -266,7 +266,7 @@ protected:
     int checkBlockingVehicles(const MSVehicle* ego, const MSLeaderDistanceInfo& vehicles,
                               int laneOffset, double latDist, double foeOffset, bool leaders,
                               double& safeLatGapRight, double& safeLatGapLeft,
-                              std::vector<CLeaderDist>* collectBlockers = 0) const;
+                              std::vector<CLeaderDist>* collectBlockers, const MSLane* leaderLane = nullptr) const;
 
     /// @brief return whether the given intervals overlap
     static bool overlap(double right, double left, double right2, double left2);

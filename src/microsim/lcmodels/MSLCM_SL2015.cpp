@@ -2455,24 +2455,24 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double man
 
     int blocked = 0;
     blocked |= checkBlockingVehicles(&myVehicle, leaders, laneOffset, latDist, myVehicle.getLane()->getRightSideOnEdge(), true,
-                                     mySafeLatDistRight, mySafeLatDistLeft, collectLeadBlockers);
+                                     mySafeLatDistRight, mySafeLatDistLeft, collectLeadBlockers, myVehicle.getLane());
     blocked |= checkBlockingVehicles(&myVehicle, followers, laneOffset, latDist, myVehicle.getLane()->getRightSideOnEdge(), false,
                                      mySafeLatDistRight, mySafeLatDistLeft, collectFollowBlockers);
     if (laneOffset != 0) {
         blocked |= checkBlockingVehicles(&myVehicle, neighLeaders, laneOffset, latDist, neighRight, true,
-                                         mySafeLatDistRight, mySafeLatDistLeft, collectLeadBlockers);
+                                         mySafeLatDistRight, mySafeLatDistLeft, collectLeadBlockers, &neighLane);
         blocked |= checkBlockingVehicles(&myVehicle, neighFollowers, laneOffset, latDist, neighRight, false,
                                          mySafeLatDistRight, mySafeLatDistLeft, collectFollowBlockers);
     }
 
     int blockedFully = 0;
     blockedFully |= checkBlockingVehicles(&myVehicle, leaders, laneOffset, maneuverDist, myVehicle.getLane()->getRightSideOnEdge(), true,
-                                          mySafeLatDistRight, mySafeLatDistLeft, collectLeadBlockers);
+                                          mySafeLatDistRight, mySafeLatDistLeft, collectLeadBlockers, myVehicle.getLane());
     blockedFully |= checkBlockingVehicles(&myVehicle, followers, laneOffset, maneuverDist, myVehicle.getLane()->getRightSideOnEdge(), false,
                                           mySafeLatDistRight, mySafeLatDistLeft, collectFollowBlockers);
     if (laneOffset != 0) {
         blockedFully |= checkBlockingVehicles(&myVehicle, neighLeaders, laneOffset, maneuverDist, neighRight, true,
-                                              mySafeLatDistRight, mySafeLatDistLeft, collectLeadBlockers);
+                                              mySafeLatDistRight, mySafeLatDistLeft, collectLeadBlockers, &neighLane);
         blockedFully |= checkBlockingVehicles(&myVehicle, neighFollowers, laneOffset, maneuverDist, neighRight, false,
                                               mySafeLatDistRight, mySafeLatDistLeft, collectFollowBlockers);
     }
@@ -2526,7 +2526,7 @@ MSLCM_SL2015::checkBlockingVehicles(
     const MSVehicle* ego, const MSLeaderDistanceInfo& vehicles,
     int laneOffset, double latDist, double foeOffset, bool leaders,
     double& safeLatGapRight, double& safeLatGapLeft,
-    std::vector<CLeaderDist>* collectBlockers) const {
+    std::vector<CLeaderDist>* collectBlockers, const MSLane* leaderLane) const {
     // determine borders where safety/no-overlap conditions must hold
     const LaneChangeAction blockType = (laneOffset == 0
                                         ? (leaders ? LCA_BLOCKED_BY_LEADER : LCA_BLOCKED_BY_FOLLOWER)
@@ -2586,7 +2586,11 @@ MSLCM_SL2015::checkBlockingVehicles(
             }
 #endif
             if (overlapAny) {
-                if (vehDist.second < 0) {
+                const bool oncoming = leaderLane != nullptr && !isOpposite() && leader->isBidiOn(leaderLane);
+                // A newly shared sublane must leave room for both vehicles to brake.
+                const bool unsafeOncoming = oncoming && !overlapBefore
+                                            && vehDist.second < leader->getBrakeGap() + ego->getBrakeGap();
+                if (vehDist.second < 0 || unsafeOncoming) {
                     if (overlapBefore && !overlapDest && !outsideEdge()) {
 #ifdef DEBUG_BLOCKING
                         if (gDebugFlag2) {
