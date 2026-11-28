@@ -23,11 +23,14 @@
 
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/common/StringUtils.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleControl.h>
+#include <mesosim/MELoop.h>
+#include <mesosim/MESegment.h>
 #include "MSRailSignal.h"
 #include "MSRailSignalConstraint.h"
 #include "MSRailSignalControl.h"
@@ -234,10 +237,16 @@ MSRailSignalConstraint::lookupVehId(const std::string& tripId) {
 // ===========================================================================
 
 MSRailSignalConstraint_Predecessor::PassedTracker::PassedTracker(MSLane* lane) :
-    MSMoveReminder("PassedTracker_" + lane->getID(), lane, true),
+    MSMoveReminder("PassedTracker_" + lane->getID(), lane, !MSGlobals::gUseMesoSim),
     myPassed(1, ""),
-    myLastIndex(-1)
-{ }
+    myLastIndex(-1) {
+    if (MSGlobals::gUseMesoSim) {
+        MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge());
+        if (segment != nullptr) {
+            segment->addDetector(this, segment->numQueues() == 1 ? 0 : lane->getIndex());
+        }
+    }
+}
 
 bool
 MSRailSignalConstraint_Predecessor::PassedTracker::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification /*reason*/, const MSLane* /*enteredLane*/) {
@@ -248,7 +257,8 @@ MSRailSignalConstraint_Predecessor::PassedTracker::notifyEnter(SUMOTrafficObject
         std::cout << SIMTIME << " hasPassed " << veh.getID() << " tripId=" << veh.getParameter().getParameter("tripId", veh.getID()) << " index=" << myLastIndex << "\n";
     }
 #endif
-    return true;
+    // In meso only the entry to the tracked segment counts as a pass.
+    return !MSGlobals::gUseMesoSim;
 }
 
 void

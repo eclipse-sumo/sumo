@@ -32,6 +32,7 @@
 #include <microsim/MSMoveReminder.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSDriveWay.h>
+#include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/output/MSXMLRawOut.h>
 #include <microsim/output/MSDetectorFileOutput.h>
@@ -470,6 +471,24 @@ MESegment::hasSpaceForInsertion(const Queue& q, int /*qIdx*/, double newOccupanc
 }
 
 
+static const MSLink*
+findInsertionSignal(const MEVehicle* veh) {
+    for (auto edge = veh->getCurrentRouteEdge(); edge + 1 != veh->getRoute().end(); ++edge) {
+        const MSEdge* next = *(edge + 1);
+        const std::vector<MSLane*>* lanes = (*edge)->allowedLanes(*next, veh->getVClass());
+        if (lanes == nullptr || lanes->empty()) {
+            break;
+        }
+        for (const MSLink* link : lanes->front()->getLinkCont()) {
+            if (&link->getLane()->getEdge() == next && link->getTLLogic() != nullptr) {
+                return link;
+            }
+        }
+    }
+    return nullptr;
+}
+
+
 bool
 MESegment::initialise(MEVehicle* veh, SUMOTime time) {
     int qIdx = 0;
@@ -480,6 +499,14 @@ MESegment::initialise(MEVehicle* veh, SUMOTime time) {
                 && veh->getParameter().departProcedure != DepartDefinition::SPLIT
                 && MSRailSignalControl::isSignalized(veh->getVClass())
                 && isRailwayOrShared(myEdge.getPermissions())) {
+            const MSLink* signal = findInsertionSignal(veh);
+            std::string constraintInfo;
+            bool isInsertionOrder;
+            if (signal != nullptr && MSRailSignal::hasInsertionConstraint(signal, veh, constraintInfo, isInsertionOrder)) {
+                myEdge.getLanes()[0]->setParameter((isInsertionOrder ? "insertionOrder:" : "insertionConstraint:")
+                                                 + veh->getID(), constraintInfo);
+                return false;
+            }
             const MSDriveWay* dw = MSDriveWay::getDepartureDriveway(veh);
             MSEdgeVector occupied;
             if (dw->foeDriveWayOccupied(false, veh, occupied) || dw->sidingDeadlock(veh)) {
@@ -490,7 +517,6 @@ MESegment::initialise(MEVehicle* veh, SUMOTime time) {
         receive(veh, qIdx, time, true);
         if (isRail) {
             myEdge.getLanes()[0]->unsetParameter("insertionConstraint:" + veh->getID());
-            //unsetParameter("insertionOrder:" + veh->getID());
             //unsetParameter("insertionBlocked:" + veh->getID());
             //// rail_signal (not traffic_light) requires approach information for
             //// switching correctly at the start of the next simulation step

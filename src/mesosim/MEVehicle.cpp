@@ -387,6 +387,9 @@ MEVehicle::processStop() {
         if (net->hasContainers()) {
             net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
         }
+        if (!stop.pars.tripId.empty()) {
+            const_cast<SUMOVehicleParameter&>(getParameter()).setParameter("tripId", stop.pars.tripId);
+        }
         resumeFromStopping();
         hadStop = true;
     }
