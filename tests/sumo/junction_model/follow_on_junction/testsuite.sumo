@@ -25,3 +25,6 @@ merge_extraGap
 # 
 # 
 merge_extraGap2
+
+# restore junction conflict entry time after resuming stop on internal lane
+resume_stop_conflict
