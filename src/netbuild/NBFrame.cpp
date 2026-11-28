@@ -606,6 +606,9 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.doRegister("tls.allred.time", new Option_Integer(0));
     oc.addDescription("tls.allred.time", "TLS Building", TL("Set INT as fixed time for intermediate red phase after every switch"));
 
+    oc.doRegister("tls.redyellow.time", new Option_Integer(0));
+    oc.addDescription("tls.redyellow.time", "TLS Building", TL("Set INT as fixed time for intermediate red-yellow phase before every green phase"));
+
     oc.doRegister("tls.minor-left.max-speed", new Option_Float(19.44)); // 70km/h
     oc.addDescription("tls.minor-left.max-speed", "TLS Building", TL("Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles"));
 

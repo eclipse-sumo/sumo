@@ -295,6 +295,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     const SUMOTime latestEnd = UNSPECIFIED_DURATION;
     const SUMOTime greenTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.green.time"));
     SUMOTime allRedTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.allred.time"));
+    const SUMOTime redYellowTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.redyellow.time"));
     const double minorLeftSpeedThreshold = OptionsCont::getOptions().getFloat("tls.minor-left.max-speed");
     const bool noMixed = OptionsCont::getOptions().getBool("tls.no-mixed");
     // left-turn phases do not work well for joined tls, so we build incoming instead
@@ -798,6 +799,95 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         }
     }
 
+    // check for coherent signal sequence and remove yellow if preceded and followed by green
+    const std::vector<NBTrafficLightLogic::PhaseDefinition>& allPhases = logic->getPhases();
+    const int phaseCount = (int)allPhases.size();
+    const int stateSize = (int)logic->getNumLinks();
+    for (int i = 0; i < phaseCount; ++i) {
+        std::string currState = allPhases[i].state;
+        const int prevIndex = (i == 0) ? phaseCount - 1 : i - 1;
+        const std::string prevState = allPhases[prevIndex].state;
+        const std::string nextState = allPhases[(i + 1) % phaseCount].state;
+        bool updatedState = false;
+        for (int i1 = 0; i1 < stateSize; ++i1) {
+            if (currState[i1] == 'y' && (nextState[i1] == prevState[i1] || nextState[i1] == 'G') && (prevState[i1] == 'g' || prevState[i1] == 'G')) {
+                logic->setPhaseState(i, i1, (LinkState)prevState[i1]);
+                updatedState = true;
+            }
+        }
+        UNUSED_PARAMETER(updatedState);  // disable warning
+#ifdef DEBUG_PHASES
+        if (DEBUGCOND) {
+            if (updatedState) {
+                std::cout << getID() << " state of phase index " << i <<  " was patched due to yellow in between green\n";
+            }
+
+        }
+#endif
+    }
+
+    if (redYellowTime > 0 && !onlyConts && phaseCount > 0
+            && logic->getType() != TrafficLightType::NEMA
+            && logic->getType() != TrafficLightType::RAIL_SIGNAL
+            && logic->getType() != TrafficLightType::RAIL_CROSSING) {
+        const std::vector<NBTrafficLightLogic::PhaseDefinition> origPhases = logic->getPhases();
+        const int numVehLinks = MIN2((int)fromEdges.size(), stateSize);
+        auto buildRedYellowState = [&](const std::string& prevState, const std::string& nextState) -> std::string {
+            bool haveRedYellow = false;
+            std::string uState(stateSize, 'r');
+            for (int i1 = 0; i1 < stateSize; ++i1) {
+                const char prev = prevState[i1];
+                const char next = nextState[i1];
+                if (i1 < numVehLinks && (prev == 'r' || prev == 's') && (next == 'G' || next == 'g')) {
+                    uState[i1] = 'u';
+                    haveRedYellow = true;
+                } else if ((prev == 'G' || prev == 'g') && (next == 'G' || next == 'g')) {
+                    uState[i1] = (prev == 'G' && next == 'G') ? 'G' : 'g';
+                } else if (i1 < numVehLinks && (prev == 'y' || prev == 'Y') && (next == 'G' || next == 'g')) {
+                    uState[i1] = next;
+                } else if (prev == 'O' && next == 'O') {
+                    uState[i1] = 'O';
+                } else if (prev == 's' && next == 's') {
+                    uState[i1] = 's';
+                }
+            }
+            return haveRedYellow ? uState : "";
+        };
+
+        std::vector<int> newIndex(phaseCount, 0);
+        int offset = 0;
+        for (int i = 0; i < phaseCount; ++i) {
+            if (i > 0) {
+                const std::string uState = buildRedYellowState(origPhases[i - 1].state, origPhases[i].state);
+                if (!uState.empty()) {
+                    logic->addStep(redYellowTime, uState, std::vector<int>(), "", i + offset);
+                    offset++;
+                }
+            }
+            newIndex[i] = i + offset;
+        }
+        const std::string uStateWrap = buildRedYellowState(origPhases[phaseCount - 1].state, origPhases[0].state);
+        if (!uStateWrap.empty()) {
+            logic->addStep(redYellowTime, uStateWrap);
+        }
+        if (offset > 0) {
+            for (int& gp : greenPhases) {
+                gp = newIndex[gp];
+            }
+            for (int i = 0; i < (int)logic->getPhases().size(); ++i) {
+                if (!logic->getPhases()[i].next.empty()) {
+                    std::vector<int> updatedNext = logic->getPhases()[i].next;
+                    for (int& n : updatedNext) {
+                        if (n >= 0 && n < phaseCount) {
+                            n = newIndex[n];
+                        }
+                    }
+                    logic->setPhaseNext(i, updatedNext);
+                }
+            }
+        }
+    }
+
     SUMOTime totalDuration = logic->getDuration();
 
     if ((OptionsCont::getOptions().isDefault("tls.green.time") || !OptionsCont::getOptions().isDefault("tls.cycle.time")) && !isNEMA) {
@@ -829,41 +919,13 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         }
     }
 
-    // check for coherent signal sequence and remove yellow if preceded and followed by green
-    const std::vector<NBTrafficLightLogic::PhaseDefinition>& allPhases = logic->getPhases();
-    const int phaseCount = (int)allPhases.size();
-    const int stateSize = (int)logic->getNumLinks();
-    for (int i = 0; i < phaseCount; ++i) {
-        std::string currState = allPhases[i].state;
-        const int prevIndex = (i == 0) ? phaseCount - 1 : i - 1;
-        const std::string prevState = allPhases[prevIndex].state;
-        const std::string nextState = allPhases[(i + 1) % phaseCount].state;
-        bool updatedState = false;
-        for (int i1 = 0; i1 < stateSize; ++i1) {
-            if (currState[i1] == 'y' && (nextState[i1] == prevState[i1] || nextState[i1] == 'G') && (prevState[i1] == 'g' || prevState[i1] == 'G')) {
-                logic->setPhaseState(i, i1, (LinkState)prevState[i1]);
-                updatedState = true;
-            }
-        }
-        UNUSED_PARAMETER(updatedState);  // disable warning
-#ifdef DEBUG_PHASES
-        if (DEBUGCOND) {
-            if (updatedState) {
-                std::cout << getID() << " state of phase index " << i <<  " was patched due to yellow in between green\n";
-            }
-
-        }
-#endif
-    }
-
-
     myExtraConflictsReady = true;
     // this computation only makes sense for single nodes
     if (myControlledNodes.size() == 1) {
         myNeedsContRelationReady = true;
     }
     if (totalDuration > 0) {
-        if (totalDuration > 3 * (greenTime + 2 * brakingTime + leftTurnTime) && !isNEMA && getID() != DummyID) {
+        if (totalDuration > 3 * (greenTime + 2 * brakingTime + leftTurnTime + 2 * redYellowTime) && !isNEMA && getID() != DummyID) {
             WRITE_WARNINGF(TL("The traffic light '%' has a high cycle time of %."), getID(), time2string(totalDuration));
         }
         logic->closeBuilding();

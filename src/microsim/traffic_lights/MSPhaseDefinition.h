@@ -187,7 +187,7 @@ public:
         if (myState.find_first_of("gG") == std::string::npos) {
             return false;
         }
-        if (myState.find_first_of("yY") != std::string::npos) {
+        if (myState.find_first_of("yYu") != std::string::npos) {
             return false;
         }
         return true;

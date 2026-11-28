@@ -883,7 +883,7 @@ NBLoadedSUMOTLDef::guessMinMaxDuration() {
             bool needMinMaxDur = false;
             auto phase = myTLLogic->getPhases()[ip];
             std::set<int> greenIndices;
-            if (phase.state.find_first_of("yY") != std::string::npos) {
+            if (phase.state.find_first_of("yYu") != std::string::npos) {
                 continue;
             }
             for (int i = 0; i < (int)phase.state.size(); i++) {
