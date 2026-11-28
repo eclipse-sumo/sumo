@@ -575,7 +575,20 @@ GNEFileSelector::getDirectory() const {
 
 std::vector<std::string>
 GNEFileSelector::getFilenames() const {
-    return getSelectedFilesOnly();
+    const auto selected = getSelectedFilesOnly();
+    FXString selectedText;
+    for (const auto& path : selected) {
+        if (!selectedText.empty()) {
+            selectedText += ' ';
+        }
+        selectedText += "\"" + FXPath::name(path.c_str()) + "\"";
+    }
+    const auto typed = myFilenameTextField->getText();
+    if (!selected.empty() && (typed.empty() || typed == selectedText)) {
+        return selected;
+    }
+    const auto filename = getFilename();
+    return filename.empty() ? std::vector<std::string>() : std::vector<std::string>{filename};
 }
 
 
@@ -751,6 +764,20 @@ GNEFileSelector::onCmdAccept(FXObject* obj, FXSelector sel, void* ptr) {
             return 1;
         }
     }
+    if (myOpenMode == GNEFileDialog::OpenMode::LOAD_MULTIPLE) {
+        const auto filenames = getFilenames();
+        if (!filenames.empty()) {
+            for (const auto& filename : filenames) {
+                if (!FXStat::exists(myFileDialog->assureExtension(filename).c_str())) {
+                    GNEErrorBasicDialog(GNEApp, myFileDialog,
+                                        TL("File doesn't exist"),
+                                        TLF("The selected file '%' doesn't exist", filename));
+                    return 0;
+                }
+            }
+            return myFileDialog->onCmdAccept(obj, sel, ptr);
+        }
+    }
     // get filename
     std::string filename = getFilename();
     // continue if we selected a filename
@@ -777,9 +804,6 @@ GNEFileSelector::onCmdAccept(FXObject* obj, FXSelector sel, void* ptr) {
                         return 1;
                     }
                 }
-                return myFileDialog->onCmdAccept(obj, sel, ptr);
-            } else if (myOpenMode == GNEFileDialog::OpenMode::LOAD_MULTIPLE) {
-                // quick hack: don't check
                 return myFileDialog->onCmdAccept(obj, sel, ptr);
             } else {
                 // check that file exist
