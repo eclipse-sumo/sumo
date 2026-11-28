@@ -251,11 +251,7 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
     """
     Filters the gtfs-data by the given bounding box.
 
-    If using shapes, searches the main shapes of route. A main shape represents the
-    trip that is most often taken in a given public transport route. Only the paths
-    (also referred to as routes) and stops of trips with main shapes will be mapped.
-    Trips with secondary shapes will be defined by the start and end edge belonging
-    to the main shape (if they a part of the main shape).
+    If using shapes, keeps each shape and its stops for independent mapping.
     """
     stops['stop_lat'] = stops['stop_lat'].astype(float)
     stops['stop_lon'] = stops['stop_lon'].astype(float)
@@ -298,25 +294,12 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
     shapes_dict = {}
 
     if shapes is not None:
-        # search main and secondary shapes for each pt line (route and direction)
-        filtered_stops = gtfs_data.groupby(['route_id', 'direction_id', 'shape_id'])[
-            "shape_id"].size().reset_index(name='counts')
-        group_shapes = filtered_stops.groupby(['route_id', 'direction_id']).shape_id.aggregate(set).reset_index()
-
-        filtered_stops = filtered_stops.loc[filtered_stops.groupby(['route_id', 'direction_id'])['counts'].idxmax()][[  # noqa
-                                            'route_id', 'shape_id', 'direction_id']]
-        filtered_stops = pd.merge(filtered_stops, group_shapes, on=['route_id', 'direction_id'])
-
-        for row in filtered_stops.itertuples():
-            for sec_shape in row.shape_id_y:
-                shapes_dict[sec_shape] = row.shape_id_x
-
-        # create data frame with main shape for stop location
-        filtered_stops = gtfs_data[gtfs_data['shape_id'].isin(filtered_stops.shape_id_x)]
-        filtered_stops = filtered_stops[['route_id', 'shape_id', 'stop_id',
-                                        'route_short_name', 'route_type',
-                                         'trip_headsign', 'direction_id',
-                                         'stop_name', 'stop_lat', 'stop_lon']].drop_duplicates()
+        # Shapes of the same route and direction can follow separate paths.
+        shapes_dict = {shape: shape for shape in gtfs_data['shape_id'].unique()}
+        filtered_stops = gtfs_data[['route_id', 'shape_id', 'stop_id',
+                                    'route_short_name', 'route_type',
+                                    'trip_headsign', 'direction_id',
+                                    'stop_name', 'stop_lat', 'stop_lon']].drop_duplicates()
     else:
         # If not using shapes, searches for the most common sequence of stops in a route.
         # Only the paths and stops of these main sequences are mapped. Creates 'shapes' with
