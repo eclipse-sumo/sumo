@@ -126,6 +126,10 @@ also be interested in the option **--keep-edges.postload** which forces
 the unwished afterwards.
 
 It is also possible to constrain the imported edges by giving a minimum
-velocity that is allowed on an edge in order to include this edge into
+velocity that is allowed on an edge to include this edge into
 the generated network. Use **--keep-edges.min-speed** {{DT_FLOAT}} for this where {{DT_FLOAT}} is the minimum velocity an
-edge must allow in order to be included in the output in m/s.
+edge must allow to be included in the output in m/s.
+
+## Junction Corner Detail and Walkingareas
+
+[netconvert](../netconvert.md) smoothes junction corners using spline points controlled by **--junctions.corner-detail** {{DT_INT}} (default `5`). At intersections with pedestrian `walkingarea` elements, runtime pedestrian path generation connects sidewalks, footpaths, and crossings with direct trajectories that assume a convex `walkingarea` polygon. On junctions where curved corners produce a concave `walkingarea` boundary, setting **--junctions.corner-detail 0** builds straight junction corners so pedestrian trajectories stay inside the `walkingarea`.
