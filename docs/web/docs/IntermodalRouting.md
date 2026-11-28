@@ -96,3 +96,24 @@ into account:
   time in direct proportion to the straight-line distance with a
   configurable factor ([netconvert](netconvert.md) option **--railway.access-factor** {{DT_FLOAT}}). The distance can be customized in the access definition.
 - The time (expected) time penalty when calling a taxi is set by option **--persontrip.taxi.waiting-time**
+
+# Continuous Person Plans with Parked Vehicles
+
+Chaining multiple `<personTrip>` elements with `modes="car"` spawns a car for the first trip only and discards it when the person alights. A round-trip tour where a person drives a private vehicle, parks at a `<parkingArea>`, walks to an activity, and returns to the same parked vehicle can be defined with explicit `<ride>`, `<walk>`, and `<stop>` stages paired with a `depart="triggered"` vehicle whose parking stop sets `triggered="true"`:
+
+```xml
+<routes>
+    <trip id="car0" from="E0" to="E3" depart="triggered">
+        <stop parkingArea="pa0" duration="10" triggered="true"/>
+    </trip>
+    <person id="p0" depart="0">
+        <ride from="E0" to="E0" lines="car0"/>
+        <walk from="E0" to="E1"/>
+        <stop lane="E1_0" duration="600"/>
+        <walk from="E1" to="E0"/>
+        <ride from="E0" to="E3" lines="car0"/>
+    </person>
+</routes>
+```
+
+When `car0` is redirected to an alternative `<parkingArea>` by a [`<parkingAreaReroute>`](Simulation/Rerouter.md#rerouting_to_an_alternative_parking_area), SUMO automatically updates the person's alighting edge, intermediate `<walk>` endpoints, and return `<ride>` departure edge to match the new parking location. For large off-road parking lots where individual `<space>` coordinates lie far from the lane stop position, increase **--ride.stop-tolerance** (default `10` m) so the returning person can board the parked vehicle.
