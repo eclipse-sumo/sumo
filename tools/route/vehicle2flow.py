@@ -21,26 +21,33 @@ flow definitions, adding an XML entity for the repeat interval for
 easy later modification.
 """
 from __future__ import absolute_import
+import os
 import sys
 import re
-from optparse import OptionParser
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib  # noqa
 
 
-def parse_args():
+def parse_args(args=None):
     USAGE = "Usage: " + sys.argv[0] + " <routefile> [options]"
-    optParser = OptionParser()
-    optParser.add_option("-o", "--outfile", help="name of output file")
-    optParser.add_option(
-        "-r", "--repeat", default=1000, type="float", help="repeater interval")
-    optParser.add_option(
-        "-e", "--end", default=2147483, type="float", help="end of the flow")
-    optParser.add_option("-w", "--with-entities", action="store_true",
-                         default=False, help="store repeat and end as entities")
-    options, args = optParser.parse_args()
-    try:
-        options.routefile = args[0]
-    except Exception:
-        sys.exit(USAGE)
+    optParser = sumolib.options.ArgumentParser(usage=USAGE)
+    optParser.add_argument("-i", "--route-file", dest="routefile", category="input",
+                           type=optParser.route_file, help="name of input route file")
+    optParser.add_argument("-o", "--outfile", category="output",
+                           type=optParser.route_file, help="name of output file")
+    optParser.add_argument("-r", "--repeat", default=1000.0, type=float,
+                           category="processing", help="repeater interval")
+    optParser.add_argument("-e", "--end", default=2147483.0, type=float,
+                           category="processing", help="end of the flow")
+    optParser.add_argument("-w", "--with-entities", action="store_true",
+                           default=False, category="processing", help="store repeat and end as entities")
+    options, rem = optParser.parse_known_args(args=args)
+    if options.routefile is None:
+        if len(rem) == 1:
+            options.routefile = rem[0]
+        else:
+            sys.exit(USAGE)
     if options.outfile is None:
         options.outfile = options.routefile + ".rou.xml"
     return options
