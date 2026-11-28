@@ -330,6 +330,24 @@ The C++ client performance is higher:
 - plain position retrieval 80s
 - retrieval using subscriptions 28s
 
+To reproduce this comparison across `traci`, `libtraci`, and [libsumo](../Libsumo.md) on any `.sumocfg` scenario in Python, swap the client module import (`import traci`, `import libtraci as traci`, or `import libsumo as traci`) around the same benchmark loop:
+
+```py
+import time
+import libsumo as traci  # or: import traci / import libtraci as traci
+
+t0 = time.perf_counter()
+traci.start(["sumo", "-c", "run.sumocfg", "--no-step-log"])
+while traci.simulation.getMinExpectedNumber() > 0:
+    for veh_id in traci.vehicle.getIDList():
+        pos = traci.vehicle.getPosition(veh_id)
+    traci.simulationStep()
+traci.close()
+print(f"Elapsed: {time.perf_counter()-t0:.2f}s")
+```
+
+Because `libsumo` executes directly inside the SUMO process without socket serialization, direct `libsumo.vehicle.getPosition` calls approach native simulation speed and avoid the dictionary construction overhead of `subscribe` and `getAllSubscriptionResults`.
+
 ## Current and Future Development
 
 Historically TraCI used a different (single byte) command ID for every
