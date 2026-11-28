@@ -224,6 +224,7 @@
             <xsd:element name="slope-centered" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="time-to-impatience" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="default.departspeed" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="depart-speed.clamp" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="default.departlane" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.action-step-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.carfollowmodel" type="strOptionType" minOccurs="0"/>

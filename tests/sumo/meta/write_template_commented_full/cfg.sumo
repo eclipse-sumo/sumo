@@ -549,6 +549,9 @@
         <!-- Select default depart speed -->
         <default.departspeed value="avg" type="STR"/>
 
+        <!-- Limit numeric departure speeds to the selected vehicle type&apos;s maximum speed -->
+        <depart-speed.clamp value="false" type="BOOL"/>
+
         <!-- Select default depart lane -->
         <default.departlane value="best_prob" type="STR"/>
 

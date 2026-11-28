@@ -1,0 +1,11 @@
+<routes>
+    <vType id="slow" maxSpeed="5" speedDev="0"/>
+    <vType id="fast" maxSpeed="20" speedDev="0"/>
+    <vTypeDistribution id="mix" vTypes="slow fast" probabilities="1 1"/>
+    <route id="short" edges="beg"/>
+    <vehicle id="v0" depart="0"  type="mix"  route="short" departSpeed="10" arrivalPos="70"/>
+    <vehicle id="v1" depart="20" type="mix"  route="short" departSpeed="10" arrivalPos="70"/>
+    <vehicle id="v2" depart="40" type="mix"  route="short" departSpeed="10" arrivalPos="70"/>
+    <vehicle id="v3" depart="60" type="mix"  route="short" departSpeed="10" arrivalPos="70"/>
+    <vehicle id="v4" depart="80" type="slow" route="short" departSpeed="3"  arrivalPos="70"/>
+</routes>

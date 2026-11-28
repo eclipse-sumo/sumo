@@ -10,6 +10,9 @@ speed_given0
 # checks using the given speed (10)
 speed_given10
 
+# clamp a measured departure speed after selecting a type from a distribution
+speed_given_clamp
+
 # test interaction with departLane and lane-specific speed
 speed_given10_laneSpeed
 

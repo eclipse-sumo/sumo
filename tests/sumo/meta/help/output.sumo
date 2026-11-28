@@ -370,6 +370,8 @@ Processing Options:
                                         defaults to 300, non-positive values
                                         disable impatience growth
   --default.departspeed STR            Select default depart speed
+  --depart-speed.clamp                 Limit numeric departure speeds to the
+                                        selected vehicle type's maximum speed
   --default.departlane STR             Select default depart lane
   --default.action-step-length FLOAT   Length of the default interval length
                                         between action points for the

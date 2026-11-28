@@ -553,6 +553,9 @@ MSFrame::fillOptions() {
     oc.doRegister("default.departspeed", new Option_String("avg"));
     oc.addDescription("default.departspeed", "Processing", TL("Select default depart speed"));
 
+    oc.doRegister("depart-speed.clamp", new Option_Bool(false));
+    oc.addDescription("depart-speed.clamp", "Processing", TL("Limit numeric departure speeds to the selected vehicle type's maximum speed"));
+
     oc.doRegister("default.departlane", new Option_String("best_prob"));
     oc.addDescription("default.departlane", "Processing", TL("Select default depart lane"));
 
