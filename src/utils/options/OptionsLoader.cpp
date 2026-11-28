@@ -64,6 +64,9 @@ void OptionsLoader::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::
             if (key == "value" || key == "v") {
                 setValue(myItem, value);
                 myFoundValue = true;
+            } else if (key == "relative-paths" && myItem == "configuration") {
+                myRelativePaths = value == "true";
+                myFoundValue = true;
             } else if (key != "xmlns:xsi"
                        && key != "xsi:noNamespaceSchemaLocation"
                        && key != "synonymes"

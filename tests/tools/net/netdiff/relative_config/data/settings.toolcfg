@@ -1,0 +1,6 @@
+<configuration relative-paths="true">
+    <source value="source edges.xml"/>
+    <dest value="modified edges.xml"/>
+    <outprefix value="../diff"/>
+    <direct value="True"/>
+</configuration>

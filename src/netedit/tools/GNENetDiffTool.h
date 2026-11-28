@@ -43,7 +43,7 @@ public:
     void postProcessing();
 
     /// @brief get command (python + script + arguments)
-    std::string getCommand() const;
+    std::string getCommand(bool relativePaths = true) const override;
 
 private:
     /// @brief fill netDiff options

@@ -59,7 +59,7 @@ public:
     virtual void postProcessing();
 
     /// @brief get command (python + script + arguments)
-    virtual std::string getCommand() const;
+    virtual std::string getCommand(bool relativePaths = true) const;
 
     /// @brief get default value of the given parameter
     const std::string getDefaultValue(const std::string& name) const;
@@ -91,6 +91,9 @@ protected:
 
     /// @brief get command (python + script)
     std::string getCommandPath() const;
+
+    /// @brief quote a filename argument, using a relative path below the current working directory
+    static std::string getCommandFilename(const std::string& filename, bool relativePaths);
 
 private:
     /// @brief Invalidated copy constructor.
