@@ -135,9 +135,6 @@ RODFFrame::fillOptions() {
     oc.addDescription("revalidate-detectors", "Processing", TL("Recomputes detector types even if given"));
 
     // for route computation
-    oc.doRegister("revalidate-routes", new Option_Bool(false));
-    oc.addDescription("revalidate-routes", "Processing", TL("Recomputes routes even if given"));
-
     oc.doRegister("keep-unfinished-routes", new Option_Bool(false));
     oc.addSynonyme("keep-unfinished-routes", "keep-unfound-ends", true);
     oc.addDescription("keep-unfinished-routes", "Processing", TL("Keeps routes even if they have exhausted max-search-depth"));

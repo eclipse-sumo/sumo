@@ -93,7 +93,6 @@ Applications\#Configuration Files](Basics/Using_the_Command_Line_Applications.md
 | **-h** {{DT_BOOL}}<br> **--highway-mode** {{DT_BOOL}} | Switches to highway-mode; *default:* **false** |
 | **--ignore-invalid-detectors** {{DT_BOOL}} | Only warn about unparseable detectors; *default:* **false** |
 | **--revalidate-detectors** {{DT_BOOL}} | Recomputes detector types even if given; *default:* **false** |
-| **--revalidate-routes** {{DT_BOOL}} | Recomputes routes even if given; *default:* **false** |
 | **--keep-unfinished-routes** {{DT_BOOL}} | Keeps routes even if they have exhausted max-search-depth; *default:* **false** |
 | **--keep-longer-routes** {{DT_BOOL}} | Keeps routes even if a shorter one exists; *default:* **false** |
 | **--max-search-depth** {{DT_INT}} | Number of edges to follow a route without passing a detector; *default:* **30** |

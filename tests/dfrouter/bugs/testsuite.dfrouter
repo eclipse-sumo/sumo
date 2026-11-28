@@ -15,3 +15,6 @@ ticket6931BOM
 
 # invalid detector classification when there are unconvered entries to the network
 ticket13020
+
+# test --strict-sources and --emissions-only without --revalidate-routes (#522)
+ticket522
