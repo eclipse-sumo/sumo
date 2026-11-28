@@ -47,6 +47,7 @@ FXDEFMAP(GNETAZFrame::TAZSaveChanges) TAZSaveChangesMap[] = {
 FXDEFMAP(GNETAZFrame::TAZChildDefaultParameters) TAZChildDefaultParametersMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,             GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGON_SELECT,     GNETAZFrame::TAZChildDefaultParameters::onCmdSelectEdgesWithin),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ZEROFRINGEPROB, GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities),
 };
 
@@ -497,6 +498,8 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
     myUseSelectedEdges = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Use selected edges"), "", "", nullptr, this, MID_GNE_SELECT, GUIDesignButton);
     // Create button for zero fringe probabilities
     myZeroFringeProbabilities = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Set zero fringe prob."), "", "", nullptr, this, MID_GNE_SET_ZEROFRINGEPROB, GUIDesignButton);
+    mySelectEdgesWithin = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Select all edges within"), "", "", nullptr,
+                          this, MID_GNE_POLYGON_SELECT, GUIDesignButton);
     // Create information label
     std::ostringstream information;
     information
@@ -526,6 +529,7 @@ GNETAZFrame::TAZChildDefaultParameters::extendTAZChildDefaultParameters() {
     myDefaultTAZSourceFrame->show();
     myDefaultTAZSinkFrame->show();
     myUseSelectedEdges->show();
+    mySelectEdgesWithin->show();
     myInformationLabel->show();
 }
 
@@ -539,6 +543,7 @@ GNETAZFrame::TAZChildDefaultParameters::collapseTAZChildDefaultParameters() {
     myDefaultTAZSourceFrame->hide();
     myDefaultTAZSinkFrame->hide();
     myUseSelectedEdges->hide();
+    mySelectEdgesWithin->hide();
     myInformationLabel->hide();
 }
 
@@ -772,6 +777,21 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges(FXObject*, FXSelec
     myTAZFrameParent->myTAZChildDefaultParameters->updateSelectEdgesButton();
     // update view net
     myTAZFrameParent->myViewNet->updateViewNet();
+    return 1;
+}
+
+
+long
+GNETAZFrame::TAZChildDefaultParameters::onCmdSelectEdgesWithin(FXObject*, FXSelector, void*) {
+    const auto* taz = myTAZFrameParent->myCurrentTAZ->getTAZ();
+    auto* view = myTAZFrameParent->getViewNet();
+    if (taz != nullptr && taz->getShape().size() >= 3 && view->makeCurrent()) {
+        view->updateObjectsInShape(taz->getShape());
+        const auto edges = view->getViewObjectsSelector().getEdges();
+        view->makeNonCurrent();
+        myTAZFrameParent->processEdgeSelection(edges);
+        view->updateViewNet();
+    }
     return 1;
 }
 
