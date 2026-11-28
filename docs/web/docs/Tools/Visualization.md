@@ -342,7 +342,9 @@ Example use:
 python tools/plot_trajectories.py fcd.xml -t td -o plot.png -s
 ```
 
-The option **-t (--trajectory-type)** supports different attributes that can be plotted against each other. The argument is a two-letter code with each letter encoding an attribute that is derived from the fcd input.
+The option **-t (--trajectory-type)** supports different attributes that can be plotted against each other. The argument is a two-letter code with each letter encoding an attribute that is derived from the fcd input. A comma-separated list of two-letter codes (e.g., `-t td,ts,ds,ta`) can be given to render multiple subplots within a single figure.
+
+`plot_trajectories.py` also supports the [common visualization options](#common_options) such as **--xlim**, **--ylim**, **--size WIDTH,HEIGHT**, **--dpi**, **--xgrid**, and **--ygrid** (note that the short flag **-s** is reserved for the legacy **--show** option, so custom figure dimensions should be passed via **--size**).
 
 !!! note
     plot_trajectories.py is similar to [plotXMLAttributes.py](#plotxmlattributespy) but specialized for [fcd-output](../Simulation/Output/FCDOutput.md). It supports derived attributes that are not present in the loaded data (driven distance) and also allows for more filtering (**--filter-route**, **--filter-edges**).
