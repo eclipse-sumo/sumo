@@ -78,10 +78,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <junction id="C" type="rail_crossing" x="1000.00" y="100.00" incLanes="NC_0 EC_0 SC_0 WC_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0" shape="996.80,104.70 1003.20,104.70 1003.37,103.87 1003.58,103.57 1003.87,103.37 1004.24,103.24 1004.70,103.20 1004.70,96.80 1003.87,96.63 1003.58,96.43 1003.37,96.13 1003.24,95.76 1003.20,95.30 996.80,95.30 996.63,96.13 996.42,96.43 996.13,96.63 995.76,96.76 995.30,96.80 995.30,103.20 996.13,103.37 996.42,103.57 996.63,103.87 996.76,104.24">
-        <request index="0" response="0000" foes="1010" cont="0"/>
-        <request index="1" response="0101" foes="0101" cont="0"/>
-        <request index="2" response="0000" foes="1010" cont="0"/>
-        <request index="3" response="0101" foes="0101" cont="0"/>
+        <request index="0" response="1010" foes="1010" cont="0"/>
+        <request index="1" response="0000" foes="0101" cont="0"/>
+        <request index="2" response="1010" foes="1010" cont="0"/>
+        <request index="3" response="0000" foes="0101" cont="0"/>
     </junction>
     <junction id="E" type="dead_end" x="2000.00" y="100.00" incLanes="CE_0" intLanes="" shape="2000.00,100.00 2000.00,96.80 2000.00,100.00"/>
     <junction id="N" type="priority" x="1000.00" y="200.00" incLanes="CN_0" intLanes=":N_0_0" shape="1000.00,200.00 1003.20,200.00 1000.00,200.00">
@@ -95,8 +95,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="CN" to="NC" fromLane="0" toLane="0" via=":N_0_0" dir="t" state="M"/>
     <connection from="CS" to="SC" fromLane="0" toLane="0" via=":S_0_0" dir="t" state="M"/>
     <connection from="EC" to="CW" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="-1" dir="s" state="M"/>
-    <connection from="NC" to="CS" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="s" state="O"/>
-    <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_2_0" tl="C" linkIndex="1" dir="s" state="O"/>
+    <connection from="NC" to="CS" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="s" state="o"/>
+    <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_2_0" tl="C" linkIndex="1" dir="s" state="o"/>
     <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_3_0" tl="C" linkIndex="-1" dir="s" state="M"/>
 
     <connection from=":C_0" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>

@@ -51,10 +51,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <junction id="C" type="rail_crossing" x="200.00" y="100.00" incLanes="EC_0 SC_0" intLanes="" shape="200.00,104.70 203.20,104.70 203.37,103.87 203.57,103.58 203.87,103.37 204.24,103.24 204.70,103.20 204.70,100.00 203.87,99.83 203.57,99.62 203.37,99.33 203.24,98.96 203.20,98.50 200.00,98.50 199.83,99.33 199.62,99.62 199.33,99.83 198.96,99.96 198.50,100.00 198.50,103.20 199.33,103.37 199.62,103.57 199.83,103.87 199.96,104.24">
-        <request index="0" response="0100" foes="0100"/>
-        <request index="1" response="1100" foes="1100"/>
-        <request index="2" response="0000" foes="0011"/>
-        <request index="3" response="0000" foes="0010"/>
+        <request index="0" response="0000" foes="0100"/>
+        <request index="1" response="0000" foes="1100"/>
+        <request index="2" response="0011" foes="0011"/>
+        <request index="3" response="0010" foes="0010"/>
     </junction>
     <junction id="E" type="dead_end" x="400.00" y="100.00" incLanes="" intLanes="" shape="400.00,100.00 400.00,103.20"/>
     <junction id="N" type="dead_end" x="200.00" y="200.00" incLanes="CN_0" intLanes="" shape="203.20,200.00 200.00,200.00"/>
@@ -63,7 +63,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <connection from="EC" to="CN" fromLane="0" toLane="0" tl="C" linkIndex="-1" dir="r" state="M"/>
     <connection from="EC" to="CW" fromLane="0" toLane="0" tl="C" linkIndex="-1" dir="s" state="M"/>
-    <connection from="SC" to="CN" fromLane="0" toLane="0" tl="C" linkIndex="0" dir="s" state="O"/>
-    <connection from="SC" to="CW" fromLane="0" toLane="0" tl="C" linkIndex="1" dir="l" state="O"/>
+    <connection from="SC" to="CN" fromLane="0" toLane="0" tl="C" linkIndex="0" dir="s" state="o"/>
+    <connection from="SC" to="CW" fromLane="0" toLane="0" tl="C" linkIndex="1" dir="l" state="o"/>
 
 </net>
