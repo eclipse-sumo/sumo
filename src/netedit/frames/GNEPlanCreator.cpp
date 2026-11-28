@@ -51,9 +51,26 @@ FXIMPLEMENT(GNEPlanCreator,                GNEGroupBoxModule,     PathCreatorMap
 // method definitions
 // ===========================================================================
 
-GNEPlanCreator::PlanPath::PlanPath(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge) :
+GNEPlanCreator::PlanPath::PlanPath(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge,
+                                    bool implicitWalk, double departPos) :
     myConflictVClass(false),
     myConflictDisconnected(false) {
+    if (implicitWalk && pathManager->getPathCalculator()->hasWalkingGraph()) {
+        const auto path = pathManager->getPathCalculator()->calculateWalkingPath(fromEdge, toEdge, departPos, -1);
+        for (const auto& step : path) {
+            if (step.lane != nullptr) {
+                mySubPath.push_back(step.lane->getParentEdge());
+            }
+            for (const auto& pos : step.shape) {
+                myWalkingShape.push_back_noDoublePos(pos);
+            }
+        }
+        if (mySubPath.empty()) {
+            mySubPath = {fromEdge, toEdge};
+            myConflictDisconnected = true;
+        }
+        return;
+    }
     // calculate subpath using given vClass
     mySubPath = pathManager->getPathCalculator()->calculateDijkstraPath(vClass, fromEdge, toEdge);
     // if subPath is empty, try it with pedestrian (i.e. ignoring vCass)
@@ -210,6 +227,7 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
     myPreviousPlanElement = previousPlan;
     // get current plan template
     const auto& planTagProperty = planSelector->getCurrentPlanTagProperties();
+    myImplicitWalk = planTagProperty->isPlanWalk() && planTagProperty->planFromEdge() && planTagProperty->planToEdge();
     // continue depending of plan selector template
     if (planTagProperty->planRoute()) {
         myPlanParents |= ROUTE;
@@ -387,6 +405,10 @@ GNEPlanCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
         for (int i = 0; i < (int)myPath.size(); i++) {
             // get path
             const GNEPlanCreator::PlanPath& path = myPath.at(i);
+            if (!path.getWalkingShape().empty()) {
+                GLHelper::drawBoxLines(path.getWalkingShape(), lineWidth);
+                continue;
+            }
             // draw line over
             for (int j = 0; j < (int)path.getSubPath().size(); j++) {
                 const GNELane* lane = path.getSubPath().at(j)->getChildLanes().back();
@@ -416,6 +438,10 @@ GNEPlanCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
                 GLHelper::setColor(s.candidateColorSettings.special);
             } else {
                 GLHelper::setColor(RGBColor::ORANGE);
+            }
+            if (!path.getWalkingShape().empty()) {
+                GLHelper::drawBoxLines(path.getWalkingShape(), lineWidthin);
+                continue;
             }
             // draw line over
             for (int j = 0; j < (int)path.getSubPath().size(); j++) {
@@ -619,7 +645,11 @@ GNEPlanCreator::recalculatePath() {
         }
         // continue depending of edges and junctions
         if (fromEdge && toEdge) {
-            myPath.push_back(PlanPath(myPathManager, myVClass, fromEdge, toEdge));
+            const bool implicitWalk = myImplicitWalk && !myPlanParameteres.fromEdge.empty() && !myPlanParameteres.toEdge.empty();
+            const double departPos = implicitWalk && myPreviousPlanElement != nullptr ?
+                                     myPreviousPlanElement->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS) : 0;
+            myPath.emplace_back(myPathManager, myVClass, fromEdge, toEdge, implicitWalk,
+                                departPos == -1 ? INVALID_DOUBLE : departPos);
         } else if (fromEdge && !myPlanParameteres.toJunction.empty()) {
             myPath.push_back(PlanPath(myPathManager, myVClass, fromEdge, ACs->getJunctions().at(myPlanParameteres.toJunction)));
         } else if (!myPlanParameteres.fromJunction.empty() && toEdge) {

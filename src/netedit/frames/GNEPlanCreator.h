@@ -43,7 +43,8 @@ public:
 
     public:
         /// @brief constructor for from-to edges
-        PlanPath(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge);
+        PlanPath(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge,
+                 bool implicitWalk = false, double departPos = 0);
 
         /// @brief constructor for from edge and to junction
         PlanPath(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEJunction* toJunction);
@@ -57,6 +58,10 @@ public:
         /// @brief get sub path
         const std::vector<GNEEdge*>& getSubPath() const;
 
+        const PositionVector& getWalkingShape() const {
+            return myWalkingShape;
+        }
+
         /// @brief check if current path is conflict due vClass
         bool isConflictVClass() const;
 
@@ -66,6 +71,8 @@ public:
     protected:
         /// @brief sub path
         std::vector<GNEEdge*> mySubPath;
+
+        PositionVector myWalkingShape;
 
         /// @brief flag to mark this path as conflicted
         bool myConflictVClass;
@@ -184,6 +191,8 @@ protected:
 
     /// @brief current vClass
     SUMOVehicleClass myVClass;
+
+    bool myImplicitWalk = false;
 
     /// @brief allowed plan parents
     int myPlanParents;

@@ -68,7 +68,7 @@ public:
     typedef std::map<const ROLane*, RouterProhibition> LaneProhibitions;
 
     /// @brief Constructor
-    RONet();
+    explicit RONet(bool registerGlobal = true);
 
 
     /** @brief Returns the pointer to the unique instance of RONet (singleton).

@@ -79,7 +79,8 @@ public:
      * @param[in] to The node the edge ends at
      * @param[in] index The numeric id of the edge
      */
-    ROEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type, const std::string& routingType);
+    ROEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type, const std::string& routingType,
+           bool registerGlobal = true);
 
     /** @brief Constructor for dummy edge, only used when building the connectivity graph **/
     ROEdge(const std::string& id, const RONode* from, const RONode* to, SVCPermissions p);

@@ -211,6 +211,12 @@ GNEDemandElementPlan::computePlanPathElement() {
     } else if (tagProperty->planConsecutiveEdges()) {
         // calculate consecutive path using edges
         pathManager->calculateConsecutivePathEdges(myPlanElement, vClass, myPlanElement->getParentEdges());
+    } else if (tagProperty->isPlanWalk() && tagProperty->planFromEdge() && tagProperty->planToEdge() &&
+               pathManager->getPathCalculator()->hasWalkingGraph()) {
+        pathManager->calculateWalkingPath(myPlanElement, myPlanElement->getParentEdges().front(),
+                                          myPlanElement->getParentEdges().back(),
+                                          getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                          getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS));
     } else if (myPlanElement->myTagProperty->planFromJunction() && myPlanElement->myTagProperty->planToJunction()) {
         // calculate path using junctions
         pathManager->calculatePath(myPlanElement, vClass, myPlanElement->getParentJunctions().front(), myPlanElement->getParentJunctions().back());
@@ -541,6 +547,8 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
                         nextPlan->getTagProperty()->planEdge()) {
                     // if next plan is an stop over stoppingPlaces, use ends of stoppingPlace
                     return nextPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+                } else if (myArrivalPosition == -1 && tagProperty->isPlanWalk() && tagProperty->planFromEdge() && tagProperty->planToEdge()) {
+                    return myPlanElement->getParentEdges().back()->getNBEdge()->getFinalLength() / 2;
                 } else {
                     // use arrival position
                     return myArrivalPosition;
@@ -650,6 +658,8 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                     return nextPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
                 } else if (myArrivalPosition == 0) {
                     return laneShape.front();
+                } else if (myArrivalPosition == -1 && tagProperty->isPlanWalk() && tagProperty->planFromEdge() && tagProperty->planToEdge()) {
+                    return laneShape.positionAtOffset2D(laneShape.length2D() / 2);
                 } else if ((myArrivalPosition == -1) || (myArrivalPosition >= laneShape.length2D())) {
                     return laneShape.back();
                 } else {
@@ -1010,7 +1020,9 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         // declare path geometry
         GUIGeometry planGeometry;
         // update pathGeometry depending of first and last segment
-        if (segment->isFirstSegment() && segment->isLastSegment()) {
+        if (!segment->getWalkingShape().empty()) {
+            planGeometry.updateGeometry(segment->getWalkingShape());
+        } else if (segment->isFirstSegment() && segment->isLastSegment()) {
             if (tagProperty->planFromTAZ()) {
                 planGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                             getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
@@ -1075,7 +1087,8 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
             myPlanContourEnd.drawDottedContours(s, d, myPlanElement, s.dottedContourSettings.segmentWidth, true);
         }
         // declare trim geometry to draw
-        const auto& shape = (segment->isFirstSegment() || segment->isLastSegment()) ? planGeometry.getShape() : segment->getLane()->getLaneShape();
+        const auto& shape = (segment->isFirstSegment() || segment->isLastSegment() || !segment->getWalkingShape().empty()) ?
+                            planGeometry.getShape() : segment->getLane()->getLaneShape();
         // calculate contour and draw dotted geometry (always with double width)
         if (segment->isFirstSegment()) {
             segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, myPlanElement->getType(), drawingWidth, 1, true, false,
@@ -1132,7 +1145,9 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
             // Set plan color
             GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
             // check if draw lane2lane connection or a red line
-            if (segment->getPreviousLane() && segment->getNextLane()) {
+            if (!segment->getWalkingShape().empty()) {
+                GLHelper::drawBoxLines(segment->getWalkingShape(), pathWidthDouble * (drawWithDoubleWidth ? 1 : 0.5));
+            } else if (segment->getPreviousLane() && segment->getNextLane()) {
                 if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
                     // obtain lane2lane geometry
                     const GUIGeometry& lane2laneGeometry = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane());
@@ -1159,7 +1174,12 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
             segment->getContour()->drawDottedContours(s, d, myPlanElement, s.dottedContourSettings.segmentWidth, true);
         }
         // check if shape dotted contour has to be drawn
-        if (segment->getPreviousLane() && segment->getNextLane()) {
+        if (!segment->getWalkingShape().empty()) {
+            if (segment->getWalkingShape().size() > 1) {
+                segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, segment->getWalkingShape(), myPlanElement->getType(),
+                        pathWidthDouble, 1, false, false, 0, segment, segment->getJunction());
+            }
+        } else if (segment->getPreviousLane() && segment->getNextLane()) {
             if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
                 // get shape
                 const auto& shape = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape();

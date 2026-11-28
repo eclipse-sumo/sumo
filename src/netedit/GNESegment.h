@@ -20,6 +20,9 @@
 #pragma once
 #include <config.h>
 
+#include <utility>
+#include <utils/geom/PositionVector.h>
+
 // ===========================================================================
 // class declaration
 // ===========================================================================
@@ -94,6 +97,15 @@ public:
     /// @brief get junction associated with this segment
     const GNEJunction* getJunction() const;
 
+    /// @brief Oriented geometry for a routed walking segment, or empty for other paths.
+    const PositionVector& getWalkingShape() const {
+        return myWalkingShape;
+    }
+
+    void setWalkingShape(PositionVector shape) {
+        myWalkingShape = std::move(shape);
+    }
+
     /// @brief get lane index
     int getJunctionIndex() const;
 
@@ -122,6 +134,8 @@ protected:
 
     /// @brief junction associated with this segment
     const GNEJunction* myJunction;
+
+    PositionVector myWalkingShape;
 
     /// @brief lane index
     int myLaneIndex = 0;

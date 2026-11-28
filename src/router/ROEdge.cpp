@@ -54,7 +54,8 @@ double ROEdge::myEdgePriorityRange(0);
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type, const std::string& routingType) :
+ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type, const std::string& routingType,
+               bool registerGlobal) :
     Named(id),
     myFromJunction(from),
     myToJunction(to),
@@ -73,10 +74,12 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
     myOtherTazConnector(nullptr),
     myBidiEdge(nullptr),
     myTimePenalty(0) {
-    while ((int)myEdges.size() <= index) {
-        myEdges.push_back(0);
+    if (registerGlobal) {
+        if ((int)myEdges.size() <= index) {
+            myEdges.resize(index + 1, nullptr);
+        }
+        myEdges[index] = this;
     }
-    myEdges[index] = this;
     if (from == nullptr && to == nullptr) {
         // TAZ edge, no lanes
         myCombinedPermissions = SVCAll;

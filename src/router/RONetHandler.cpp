@@ -45,7 +45,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty, double tlsPenalty, double turnaroundPenalty) :
+RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty, double tlsPenalty, double turnaroundPenalty,
+                           bool useGlobalContext) :
     SUMOSAXHandler("sumo-network"),
     myNet(net),
     myNetworkVersion(0, 0),
@@ -53,7 +54,8 @@ RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ign
     myCurrentName(), myCurrentEdge(nullptr), myCurrentStoppingPlace(nullptr),
     myMinorPenalty(minorPenalty),
     myTLSPenalty(tlsPenalty),
-    myTurnaroundPenalty(turnaroundPenalty)
+    myTurnaroundPenalty(turnaroundPenalty),
+    myUseGlobalContext(useGlobalContext)
 {}
 
 
@@ -65,7 +67,9 @@ RONetHandler::myStartElement(int element,
                              const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_LOCATION:
-            setLocation(attrs);
+            if (myUseGlobalContext) {
+                setLocation(attrs);
+            }
             break;
         case SUMO_TAG_NET: {
             bool ok;
@@ -122,6 +126,9 @@ RONetHandler::myStartElement(int element,
             break;
         }
         case SUMO_TAG_PREFERENCE: {
+            if (!myUseGlobalContext) {
+                break;
+            }
             bool ok = true;
             const std::string routingType = attrs.get<std::string>(SUMO_ATTR_ROUTINGTYPE, nullptr, ok);
             const double prio = attrs.get<double>(SUMO_ATTR_PRIORITY, routingType.c_str(), ok);
@@ -250,6 +257,9 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     int priority;
     myCurrentEdge = nullptr;
     if (func == SumoXMLEdgeFunc::INTERNAL || func == SumoXMLEdgeFunc::CROSSING || func == SumoXMLEdgeFunc::WALKINGAREA) {
+        if (!myUseGlobalContext && (myCurrentName.empty() || myCurrentName.front() != ':')) {
+            throw ProcessError(TLF("Invalid internal edge '%' in network snapshot.", myCurrentName));
+        }
         assert(myCurrentName[0] == ':');
         const std::string junctionID = SUMOXMLDefinitions::getJunctionIDFromInternalEdge(myCurrentName);
         from = junctionID;
@@ -277,6 +287,9 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     }
     const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, myCurrentName.c_str(), ok, "");
     const std::string routingType = attrs.getOpt<std::string>(SUMO_ATTR_ROUTINGTYPE, myCurrentName.c_str(), ok, "");
+    if (!myUseGlobalContext && myNet.getEdge(myCurrentName) != nullptr) {
+        throw ProcessError(TLF("Duplicate edge '%' in network snapshot.", myCurrentName));
+    }
     // build the edge
     myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, fromNode, toNode, priority, type, routingType);
     myCurrentEdge->setFunction(func);
@@ -316,6 +329,9 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     if (shape.size() < 2 && myCurrentEdge->getFunction() != SumoXMLEdgeFunc::WALKINGAREA) {
+        if (!myUseGlobalContext) {
+            throw ProcessError(TLF("Invalid shape for lane '%' in network snapshot.", id));
+        }
         WRITE_ERRORF(TL("Ignoring lane '%' with broken shape."), id);
         return;
     }
