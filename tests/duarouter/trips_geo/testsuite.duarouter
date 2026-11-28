@@ -7,6 +7,9 @@ geoTrips_lonLat
 # test reading trips with geo-coordinates
 geoTrips_distance
 
+# exclude listed edges when matching coordinates
+geoTrips_excludeEdges
+
 # test mapmatching trips with geo-coordinates to junctions
 geoTrips_junctions
 

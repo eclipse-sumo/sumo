@@ -24,6 +24,7 @@
 
 #include <string>
 #include <map>
+#include <set>
 #include <vector>
 #include <iostream>
 #include <utils/iodevices/OutputDevice.h>
@@ -1295,7 +1296,20 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
 
 void
 RORouteHandler::initLaneTree(NamedRTree* tree) {
+    const OptionsCont& options = OptionsCont::getOptions();
+    const auto excluded = options.exists("mapmatch.exclude-edges") ? options.getStringVector("mapmatch.exclude-edges") : std::vector<std::string>();
+    const std::set<std::string> excludedEdges(excluded.begin(), excluded.end());
     for (const auto& edgeItem : myNet.getEdgeMap()) {
+        if (!excludedEdges.empty()) {
+            const ROEdge* edge = edgeItem.second;
+            // Internal lanes map to the following normal edge.
+            while (edge->isInternal() && !edge->getSuccessors().empty() && excludedEdges.count(edge->getID()) == 0) {
+                edge = edge->getSuccessors().front();
+            }
+            if (excludedEdges.count(edge->getID()) != 0) {
+                continue;
+            }
+        }
         for (ROLane* lane : edgeItem.second->getLanes()) {
             Boundary b = lane->getShape().getBoxBoundary();
             const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};

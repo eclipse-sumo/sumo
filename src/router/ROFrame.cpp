@@ -171,6 +171,11 @@ ROFrame::fillOptions(OptionsCont& oc, const bool isDUA, const bool isMA) {
         oc.doRegister("mapmatch.taz", new Option_Bool(false));
         oc.addDescription("mapmatch.taz", "Processing", TL("Match positions to taz instead of edges"));
 
+        if (isDUA) {
+            oc.doRegister("mapmatch.exclude-edges", new Option_StringVector());
+            oc.addDescription("mapmatch.exclude-edges", "Processing", TL("Comma separated list of edge IDs to exclude when matching input coordinates"));
+        }
+
         oc.doRegister("bulk-routing", new Option_Bool(false));
         oc.addDescription("bulk-routing", "Processing", TL("Aggregate routing queries with the same origin"));
     }
