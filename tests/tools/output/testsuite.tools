@@ -57,3 +57,6 @@ analyze_pedestrian_jam
 
 # Copy of analyze_pedestrian_jam
 analyze_teleports
+
+# generate per-edge routeDistribution definitions from route files (#6611)
+route2routeProbe

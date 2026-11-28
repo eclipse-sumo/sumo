@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="v0" depart="500">
+        <route edges="e0 e1 e2" exitTimes="950 1400 1850"/>
+    </vehicle>
+    <vehicle id="v1" depart="600">
+        <route edges="e0 e1 e3" exitTimes="850 1100 1300"/>
+    </vehicle>
+</routes>
