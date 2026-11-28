@@ -394,7 +394,7 @@ GNEConnectorFrame::ConnectionSelection::ConnectionSelection(GNEConnectorFrame* c
     GNEGroupBoxModule(connectorFrameParent, TL("Selection")) {
     // create label
     new MFXDynamicLabel(getCollapsableFrame(), (std::string("- ") + TL("Hold <SHIFT> while clicking to create unyielding connections (pass=true).")).c_str(), 0, GUIDesignLabelFrameInformation);
-    new MFXDynamicLabel(getCollapsableFrame(), (std::string("- ") + TL("Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper nodes or with incompatible permissions)")).c_str(), 0, GUIDesignLabelFrameInformation);
+    new MFXDynamicLabel(getCollapsableFrame(), (std::string("- ") + TL("Hold <CTRL> while clicking to create conflicting connections (i.e. with incompatible permissions or when a lane already has a connection from the same edge at a non-zipper junction)")).c_str(), 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -661,7 +661,8 @@ GNEConnectorFrame::getLaneStatus(const std::vector<NBEdge::Connection>& connecti
         } else {
             return LaneStatus::CONNECTED;
         }
-    } else if (srcEdge->hasConnectionTo(destEdge, toIndex)
+    } else if ((srcEdge->getToNode()->getType() != SumoXMLNodeType::ZIPPER
+                && srcEdge->hasConnectionTo(destEdge, toIndex))
                || (srcEdge->getPermissions(fromIndex) & destEdge->getPermissions(toIndex) & ~SVC_PEDESTRIAN) == 0) {
         return LaneStatus::CONFLICTED;
     } else {

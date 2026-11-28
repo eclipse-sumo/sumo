@@ -69,8 +69,7 @@ To deselect the source edge or cancel the declared connections press **<ESC\>** 
 
 #### Conflict reasons
 
-- [double connection](../Networks/PlainXML.md#multiple_connections_from_the_same_edge_to_the_same_target_lane). Usually each lane only has one predecessor from the same edge. A counter-example would be a [zipper
-  node](../Networks/PlainXML.md#node_types). May also be useful to model bus bays.
+- [double connection](../Networks/PlainXML.md#multiple_connections_from_the_same_edge_to_the_same_target_lane). Usually each lane only has one predecessor from the same edge. [Zipper nodes](../Networks/PlainXML.md#node_types) permit such connections with a regular click when the lanes have compatible permissions. Double connections may also be useful to model bus bays.
 - Incompatible permissions: The source and target lanes have no [allowed vehicle class](../Simulation/VehiclePermissions.md) in common
 - Connection from sidewalk: Lane-to-lane connections for pedestrians are usually not defined by the user. Instead, the connectivity is modeled with [pedestrian crossings](../Simulation/Pedestrians.md#generating_a_network_with_crossings_and_walkingareas).
 
