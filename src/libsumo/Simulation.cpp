@@ -420,6 +420,16 @@ Simulation::getBusStopIDList() {
     return result;
 }
 
+std::vector<std::string>
+Simulation::getContainerStopIDList() {
+    std::vector<std::string> result;
+    for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CONTAINER_STOP)) {
+        result.push_back(stop.first);
+    }
+    return result;
+}
+
+
 int
 Simulation::getBusStopWaiting(const std::string& stopID) {
     MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(stopID, SUMO_TAG_BUS_STOP);
@@ -1092,6 +1102,8 @@ Simulation::handleVariable(const std::string& objID, const int variable, Variabl
             return wrapper->wrapInt(objID, variable, getMinExpectedNumber());
         case VAR_BUS_STOP_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getBusStopIDList());
+        case VAR_CONTAINER_STOP_ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getContainerStopIDList());
         case VAR_BUS_STOP_WAITING:
             return wrapper->wrapInt(objID, variable, getBusStopWaiting(objID));
         case VAR_BUS_STOP_WAITING_IDS:

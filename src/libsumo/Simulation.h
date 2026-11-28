@@ -119,6 +119,7 @@ public:
     static std::vector<std::string> getArrivedPersonIDList();
 
     static std::vector<std::string> getBusStopIDList();
+    static std::vector<std::string> getContainerStopIDList();
     static int getBusStopWaiting(const std::string& stopID);
 
     /** @brief Returns the IDs of the transportables on a given bus stop.
