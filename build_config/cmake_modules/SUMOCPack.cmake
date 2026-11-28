@@ -76,21 +76,21 @@ set(CPACK_COMPONENTS_ALL
     include_files   # C++ headers, sources zip
     tools           # Python tools
 )
-set(CPACK_COMPONENT_RUNTIME_DISPLAY_NAME       "Main program")
-set(CPACK_COMPONENT_RUNTIME_DESCRIPTION        "SUMO binaries and libsumo / libtraci C++ dlls.")
+set(CPACK_COMPONENT_RUNTIME_DISPLAY_NAME       "!(loc.SumoRuntimeTitle)")
+set(CPACK_COMPONENT_RUNTIME_DESCRIPTION        "!(loc.SumoRuntimeDescription)")
 set(CPACK_COMPONENT_RUNTIME_REQUIRED           TRUE)
-set(CPACK_COMPONENT_DLL_DISPLAY_NAME           "Runtime libraries")
-set(CPACK_COMPONENT_DLL_DESCRIPTION            "Required Windows DLLs.")
+set(CPACK_COMPONENT_DLL_DISPLAY_NAME           "!(loc.SumoDllTitle)")
+set(CPACK_COMPONENT_DLL_DESCRIPTION            "!(loc.SumoDllDescription)")
 set(CPACK_COMPONENT_DLL_REQUIRED               TRUE)
 set(CPACK_COMPONENT_DLL_HIDDEN                 TRUE)
-set(CPACK_COMPONENT_DATA_DISPLAY_NAME          "Data")
-set(CPACK_COMPONENT_DATA_DESCRIPTION           "Additional data like XML schemata and edge type maps.")
-set(CPACK_COMPONENT_DOCS_DISPLAY_NAME          "Documentation")
-set(CPACK_COMPONENT_DOCS_DESCRIPTION           "User, Python and Java documentation, tutorials and examples.")
-set(CPACK_COMPONENT_INCLUDE_FILES_DISPLAY_NAME "Includes")
-set(CPACK_COMPONENT_INCLUDE_FILES_DESCRIPTION  "C++ header files for libsumo / libtraci.")
-set(CPACK_COMPONENT_TOOLS_DISPLAY_NAME         "Tools")
-set(CPACK_COMPONENT_TOOLS_DESCRIPTION          "Additional Python tooling.")
+set(CPACK_COMPONENT_DATA_DISPLAY_NAME          "!(loc.SumoDataTitle)")
+set(CPACK_COMPONENT_DATA_DESCRIPTION           "!(loc.SumoDataDescription)")
+set(CPACK_COMPONENT_DOCS_DISPLAY_NAME          "!(loc.SumoDocsTitle)")
+set(CPACK_COMPONENT_DOCS_DESCRIPTION           "!(loc.SumoDocsDescription)")
+set(CPACK_COMPONENT_INCLUDE_FILES_DISPLAY_NAME "!(loc.SumoIncludeTitle)")
+set(CPACK_COMPONENT_INCLUDE_FILES_DESCRIPTION  "!(loc.SumoIncludeDescription)")
+set(CPACK_COMPONENT_TOOLS_DISPLAY_NAME         "!(loc.SumoToolsTitle)")
+set(CPACK_COMPONENT_TOOLS_DESCRIPTION          "!(loc.SumoToolsDescription)")
 
 # ---------------------------------------------------------------------------
 # WIX-specific configuration
@@ -103,8 +103,8 @@ set(CPACK_WIX_UI_BANNER                "${CMAKE_SOURCE_DIR}/build_config/wix/ban
 set(CPACK_WIX_UI_DIALOG                "${CMAKE_SOURCE_DIR}/build_config/wix/dlgbmp.bmp")
 set(CPACK_WIX_PROGRAM_MENU_FOLDER      "SUMO")
 set(CPACK_WIX_ROOT_FEATURE_TITLE       "SUMO ${SUMO_CPACK_VERSION}")
-set(CPACK_WIX_ROOT_FEATURE_DESCRIPTION "Simulation of Urban MObility")
-set(CPACK_WIX_PROPERTY_ARPCOMMENTS     "Simulation of Urban MObility")
+set(CPACK_WIX_ROOT_FEATURE_DESCRIPTION "!(loc.SumoProductDescription)")
+set(CPACK_WIX_PROPERTY_ARPCOMMENTS     "!(loc.SumoProductDescription)")
 set(CPACK_WIX_PROPERTY_ARPURLINFOABOUT "https://eclipse.dev/sumo")
 set(CPACK_WIX_PROPERTY_ARPHELPLINK     "https://sumo.dlr.de/docs/")
 # It is deprecated but currently the easiest way to make a combined user/machine installer work
@@ -124,5 +124,11 @@ set(CPACK_WIX_EXTENSIONS    "WixUtilExtension")
 set(CPACK_PACKAGE_EXECUTABLES
     "sumo-gui"  "SUMO GUI"
     "netedit"   "SUMO netedit")
+
+if (MSVC)
+    # WiX supplies the standard dialog translations. Add the SUMO catalogs.
+    set(CPACK_WIX_TEMPLATE "${CMAKE_SOURCE_DIR}/build_config/wix/product.wxs.in")
+    set(CPACK_PROJECT_CONFIG_FILE "${CMAKE_SOURCE_DIR}/build_config/cmake_modules/SUMOCPackWIX.cmake")
+endif ()
 
 include(CPack)

@@ -265,3 +265,13 @@ cmake --install . --config Release
 You can also change the configuration to Debug and also enable multithreading as usual which CMake. Now to integrate the latest version of JuPedSim into SUMO, please follow the standard build procedure for Windows: since the JuPedSim install folder is at the same level of SUMO, it will be found automatically. Alternatively, you can notify CMake where is JuPedSim installed by setting `JUPEDSIM_CUSTOMDIR` when calling CMake.
 
 For further remarks on the use of JuPedSim inside SUMO, please consult [this page](../Simulation/Pedestrians.md#model_jupedsim).
+
+## Build a localized Windows installer
+
+The WiX 3 MSI uses English by default. To build a German MSI, run CPack from your configured Windows build directory after compiling SUMO.
+
+```powershell
+cpack -G WIX -C Release -B installers-de -D CPACK_WIX_CULTURES=de-DE
+```
+
+WiX supplies the standard dialog translations. The matching language file in `build_config/wix` supplies the SUMO options, component descriptions and installer messages. Other WiX cultures use English for SUMO strings. The German and English installers share the same upgrade identity.

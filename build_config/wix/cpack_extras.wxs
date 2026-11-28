@@ -40,10 +40,10 @@
         </InstallExecuteSequence>
 
         <UI>
-            <Dialog Id="SUMOOptionsDlg" Width="370" Height="270" Title="SUMO Setup Options">
-                <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="Next" />
-                <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="Back" />
-                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="Cancel">
+            <Dialog Id="SUMOOptionsDlg" Width="370" Height="270" Title="!(loc.SumoOptionsDialog)">
+                <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)" />
+                <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
+                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
                     <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
                 </Control>
 
@@ -51,40 +51,40 @@
                 <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
                 <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 
-                <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="Setup Options" />
-                <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" Text="Configure optional checks and environment settings" />
+                <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.SumoOptionsTitle)" />
+                <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.SumoOptionsDescription)" />
 
                 <Control Id="SumoHomeEnvCheckBox" Type="CheckBox" X="20" Y="50" Width="320" Height="17"
-                         Property="SUMOHOMEENV" CheckBoxValue="1" Text="Set SUMO_HOME environment variable." />
+                         Property="SUMOHOMEENV" CheckBoxValue="1" Text="!(loc.SumoHomeOption)" />
                 <Control Id="PathPythonEnvCheckBox" Type="CheckBox" X="20" Y="70" Width="320" Height="17"
-                         Property="PATHPYTHONENV" CheckBoxValue="1" Text="Add SUMO to PATH and PYTHONPATH." />
+                         Property="PATHPYTHONENV" CheckBoxValue="1" Text="!(loc.SumoPathOption)" />
 
                 <Control Id="PythonMissingText" Type="Text" X="20" Y="100" Width="300" Height="15" NoPrefix="yes"
-                         Text="{\WixUI_Font_Title}Python was not found!">
+                         Text="{\WixUI_Font_Title}!(loc.SumoPythonMissing)">
                     <Condition Action="hide">PYTHONFOUND = "1"</Condition>
                 </Control>
                 <Control Id="PythonDownloadLink" Type="Hyperlink" X="20" Y="115" Width="300" Height="30">
-                    <Text><![CDATA[It is strongly recommended to <a href="https://www.python.org/downloads/">install it</a>.]]></Text>
+                    <Text><![CDATA[!(loc.SumoPythonDownload)]]></Text>
                     <Condition Action="hide">PYTHONFOUND = "1"</Condition>
                 </Control>
                 <Control Id="RunPythonCheckBox" Type="CheckBox" X="20" Y="100" Width="320" Height="17"
-                         Property="RUNPYTHONCHECK" CheckBoxValue="1" Text="Check for recommended Python packages during installation.">
+                         Property="RUNPYTHONCHECK" CheckBoxValue="1" Text="!(loc.SumoCheckPython)">
                     <Condition Action="hide">PYTHONFOUND = "0"</Condition>
                 </Control>
                 <Control Id="PipInstallReqCheckBox" Type="CheckBox" X="20" Y="120" Width="320" Height="17"
-                         Property="PIPINSTALLREQ" CheckBoxValue="1" Text="Install the tool dependencies into the active Python.">
+                         Property="PIPINSTALLREQ" CheckBoxValue="1" Text="!(loc.SumoInstallDependencies)">
                     <Condition Action="hide">PYTHONFOUND = "0"</Condition>
                 </Control>
                 <Control Id="PipInstallLibsumoCheckBox" Type="CheckBox" X="20" Y="140" Width="320" Height="17"
-                         Property="PIPINSTALLLIBSUMO" CheckBoxValue="1" Text="Install libsumo for Python into the active Python.">
+                         Property="PIPINSTALLLIBSUMO" CheckBoxValue="1" Text="!(loc.SumoInstallLibsumo)">
                     <Condition Action="hide">PYTHONFOUND = "0"</Condition>
                 </Control>
                 <Control Id="LibsumoRemark" Type="Text" X="20" Y="160" Width="290" Height="47" NoPrefix="yes"
-                         Text="Be aware that the installation of the dependencies (by checking the boxes above) might take some minutes and will add packages to your system python even if you cancel the SUMO installation or uninstall it later. If you want to do it manually call 'pip install libsumo -r %SUMO_HOME%/tools/requirements.txt'.">
+                         Text="!(loc.SumoLibsumoRemark)">
                     <Condition Action="hide">PYTHONFOUND = "0"</Condition>
                 </Control>
                 <Control Id="WingetNote" Type="Text" X="20" Y="210" Width="290" Height="30" NoPrefix="yes"
-                         Text="Tip: Use 'winget install SUMO --scope user' to install for the current user only (no admin rights)." >
+                         Text="!(loc.SumoWingetTip)" >
                     <Condition Action="hide">MSIINSTALLPERUSER</Condition>
                 </Control>
             </Dialog>
@@ -121,7 +121,7 @@
         </Property>
 
         <CustomAction Id="SetJPSPackageCheckCmd" Property="QtExecCmdLine"
-                      Value="&quot;powershell.exe&quot; -NoProfile -WindowStyle Hidden -Command &quot;python.exe -c 'import jupedsim' 2&gt;$null; if ($LASTEXITCODE -ne 0) { (New-Object -ComObject WScript.Shell).Popup('Python package ''jupedsim'' not found. Please install via pip.', 0, 'SUMO Setup', 0x30) }&quot;" />
+                      Value="&quot;powershell.exe&quot; -NoProfile -WindowStyle Hidden -Command &quot;python.exe -c 'import jupedsim' 2&gt;$null; if ($LASTEXITCODE -ne 0) { (New-Object -ComObject WScript.Shell).Popup('!(loc.SumoJpsMissing)', 0, '!(loc.SumoSetup)', 0x30) }&quot;" />
         <CustomAction Id="CheckJPSPackage" BinaryKey="WixCA" DllEntry="CAQuietExec"
                       Execute="immediate" Return="ignore" />
 
@@ -182,7 +182,7 @@
 
                 <!-- "Set Program Access and Defaults" / default-program registration -->
                 <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities"
-                               Name="ApplicationDescription" Value="Simulation of Urban Mobility" Type="string" />
+                               Name="ApplicationDescription" Value="!(loc.SumoSimulationDescription)" Type="string" />
                 <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities"
                                Name="ApplicationIcon" Value="[INSTALL_ROOT]bin\sumo-gui.exe,0" Type="string" />
                 <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities"
@@ -214,7 +214,7 @@
 
                 <!-- Sumo.Document ProgId: registry entries for the sumocfg -->
                 <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\.sumocfg" Value="Sumo.Document" Type="string" />
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Sumo.Document" Value="SUMO Configuration File" Type="string" />
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Sumo.Document" Value="!(loc.SumoConfigFile)" Type="string" />
                 <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Sumo.Document\DefaultIcon"
                                Value="[INSTALL_ROOT]bin\sumo-gui.exe,0" Type="string" />
                 <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Sumo.Document\shell\open\command"
@@ -226,7 +226,7 @@
 
                 <!-- "Set Program Access and Defaults" / default-program registration -->
                 <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities"
-                            Name="ApplicationDescription" Value="SUMO Network Editor" Type="string" />
+                            Name="ApplicationDescription" Value="!(loc.SumoNeteditDescription)" Type="string" />
                 <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities"
                             Name="ApplicationIcon" Value="[INSTALL_ROOT]bin\netedit.exe,0" Type="string" />
                 <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities"
@@ -258,7 +258,7 @@
 
                 <!-- SumoNetedit.Document ProgId: registry entries for the netecfg -->
                 <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\.netecfg" Value="SumoNetedit.Document" Type="string" />
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\SumoNetedit.Document" Value="Sumo Netedit Configuration File" Type="string" />
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\SumoNetedit.Document" Value="!(loc.SumoNeteditConfigFile)" Type="string" />
                 <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\SumoNetedit.Document\DefaultIcon"
                             Value="[INSTALL_ROOT]bin\netedit.exe,0" Type="string" />
                 <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\SumoNetedit.Document\shell\open\command"
@@ -269,7 +269,7 @@
         <!-- <Icon Id="webwizIcon" SourceFile="webWizard.ico" /> -->
         <ComponentGroup Id="SumoShortcuts" Directory="PROGRAM_MENU_FOLDER">
             <Component Id="StartCommandLineShortcut" Guid="0F045CF0-2B14-11E1-9943-028037EC0200">
-                <Shortcut Id="startmenuBat" Name="SUMO (Command Line Environment)" Target="[INSTALL_ROOT]bin\start-command-line.bat" />
+                <Shortcut Id="startmenuBat" Name="!(loc.SumoCommandLine)" Target="[INSTALL_ROOT]bin\start-command-line.bat" />
                 <RemoveFolder Id="RemoveStartCommandLineShortcut" On="uninstall" />
                 <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]\Shortcuts"
                             Name="StartCommandLine" Value="1" Type="integer" KeyPath="yes" />
