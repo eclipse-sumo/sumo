@@ -1,0 +1,11 @@
+keepChargingStops true
+time=1.0 after dispatch stops=[('A1B1_0', ''), ('A2B2_0', 'pickup p0 (0)'), ('C2D2_0', 'dropOff p0 (0)'), ('cs0', '')]
+time=2.0 state=1 edge=A1B1 triggered=False stops=[('A2B2_0', 'pickup p0 (0)'), ('C2D2_0', 'dropOff p0 (0)'), ('cs0', '')]
+time=24.0 after re-dispatch stops=[('C2D2_0', 'dropOff p0 (0)'), ('B2C2_0', 'pickup p1 (1)'), ('D2D1_0', 'dropOff p1 (1)'), ('cs0', '')]
+time=24.0 state=2 edge=A2B2 triggered=False stops=[('C2D2_0', 'dropOff p0 (0)'), ('B2C2_0', 'pickup p1 (1)'), ('D2D1_0', 'dropOff p1 (1)'), ('cs0', '')]
+time=25.0 state=3 edge=A2B2 triggered=False stops=[('C2D2_0', 'dropOff p0 (0)'), ('B2C2_0', 'pickup p1 (1)'), ('D2D1_0', 'dropOff p1 (1)'), ('cs0', '')]
+time=38.0 state=1 edge=C2D2 triggered=False stops=[('C2D2_0', 'dropOff p0 (0)'), ('B2C2_0', 'pickup p1 (1)'), ('D2D1_0', 'dropOff p1 (1)'), ('cs0', '')]
+time=98.0 state=1 edge=C2D2 triggered=False stops=[('B2C2_0', 'pickup p1 (1)'), ('D2D1_0', 'dropOff p1 (1)'), ('cs0', '')]
+time=119.0 state=2 edge=B2C2 triggered=False stops=[('D2D1_0', 'dropOff p1 (1)'), ('cs0', '')]
+time=132.0 state=0 edge=D2D1 triggered=False stops=[('D2D1_0', 'dropOff p1 (1)'), ('cs0', '')]
+time=192.0 state=0 edge=D2D1 triggered=False stops=[('cs0', '')]

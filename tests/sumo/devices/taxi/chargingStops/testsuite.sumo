@@ -1,0 +1,11 @@
+# a charging stop in the route of the taxi is appended after the customer stops on dispatch and survives the arrival of the customer
+dispatch
+
+# as above but with device.taxi.keepChargingStops=false (charging stop is discarded on dispatch)
+dispatch_discard
+
+# an idle taxi serves two charging stops and waits at the last one
+idle
+
+# a charging stop planned by the stationfinder device survives the dispatch of the taxi
+stationfinder

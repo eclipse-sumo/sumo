@@ -180,6 +180,10 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
                 if (stage->canLeaveVehicle(transportable, myHolder, stop) && !willTransferAtJoin(transportable, joinVeh)) {
                     SUMOTime& timeForNext = myAmContainer ? stop.timeToLoadNextContainer : stop.timeToBoardNextPerson;
                     MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
+                    if (taxiDevice != nullptr && taxiDevice->hasUpcomingDropOff(transportable)) {
+                        ++i;
+                        continue;
+                    }
                     if (taxiDevice != nullptr && timeForNext == 0 && !MSGlobals::gUseMesoSim) {
                         // taxi passengers must leave at the end of the stop duration
                         timeForNext = stop.pars.started + stop.pars.duration;
