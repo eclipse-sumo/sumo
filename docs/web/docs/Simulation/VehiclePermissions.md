@@ -111,3 +111,7 @@ and *routes.rou.xml* defined with the following types:
 ```
 
 In this example, ships of type "0" would be able to use edge "E" whereas ships of type "1" would be prohibited.
+
+# Modeling Aerial and Overlay Transport Modes
+
+Emerging transport modes such as Urban Air Mobility (air taxis or drones) can be modeled by adding a dedicated overlay subnetwork of direct flight-corridor edges with elevated 3D `z` coordinates above the road network. Assign `allow="custom1"` (or `custom2`) to those aerial lanes and define matching `<vType id="uam" vClass="custom1" .../>` vehicles so ground traffic and air corridors remain segregated. Connect vertiport access edges to nearby pedestrian sidewalks or public transport stops with `<busStop>` and `<access>` elements to enable multi-modal passenger transfers via [intermodal routing](../IntermodalRouting.md) or [taxi dispatch](Taxi.md).
