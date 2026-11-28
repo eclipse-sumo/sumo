@@ -1,0 +1,8 @@
+<routes>
+    <vType id="car" vClass="passenger" sigma="0"/>
+    <vType id="bike" vClass="bicycle" sigma="0"/>
+    <route id="WE" edges="W E"/>
+    <vehicle id="car0" type="car" route="WE" depart="0" departLane="0" departPos="last" departSpeed="max"/>
+    <vehicle id="bike0" type="bike" route="WE" depart="0" departLane="1" departPos="last"/>
+    <vehicle id="car1" type="car" route="WE" depart="1" departLane="0" departPos="last"/>
+</routes>
