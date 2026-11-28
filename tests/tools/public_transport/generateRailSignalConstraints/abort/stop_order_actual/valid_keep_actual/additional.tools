@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 12:48:09.493681 by Eclipse SUMO generateRailSignalConstraints.py v1.28.0-0000000000
+<configuration>
+    <net-file value="net.net.xml"/>
+    <additional-file value="input_additional.add.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+    <output-file value="out.add.xml"/>
+    <abort-unordered value="True"/>
+    <abort-unordered.keep-actual value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <railSignalConstraints id="2D">
+        <predecessor tripId="t2" tl="2A" foes="t0"/>
+    </railSignalConstraints>
+    <railSignalConstraints id="3D">
+        <predecessor tripId="t3" tl="3A" foes="t0"/>
+    </railSignalConstraints>
+    <railSignalConstraints id="D">
+        <predecessor tripId="t1" tl="A" foes="t0"/>
+    </railSignalConstraints>
+</additional>

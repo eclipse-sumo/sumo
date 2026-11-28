@@ -14,9 +14,6 @@
     <railSignalConstraints id="2D">
         <predecessor tripId="t2" tl="2A" foes="t0"/>
     </railSignalConstraints>
-    <railSignalConstraints id="3D">
-        <predecessor tripId="t3" tl="3A" foes="t0"/>
-    </railSignalConstraints>
     <railSignalConstraints id="D">
         <predecessor tripId="t1" tl="A" foes="t0"/>
     </railSignalConstraints>
