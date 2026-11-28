@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-19 21:08:49.415267 by Eclipse SUMO remap_routes.py v1_28_0+0668-388c9872167
+<configuration>
+    <orig-net value="net.net.xml"/>
+    <target-net value="net2.net.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+    <output-file value="out.rou.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" vClass="passenger" sigma="0"/>
+    <route id="r0" edges="0 1 6 7 22 23"/>
+    <vehicle id="v0" type="car" route="r0" depart="0"/>
+    <vehicle id="v1" type="car" depart="5">
+        <route edges="2 3 13 14 20 21"/>
+        <stop lane="13_1" startPos="18.94" endPos="38.94" duration="5.00" friendlyPos="true"/>
+    </vehicle>
+    <trip id="t0" type="car" depart="10" from="0" to="23" departPos="12.43" arrivalPos="30.24"/>
+    <!--trip id="t_bad" type="car" depart="15" from="NONEXISTENT" to="B1C1"/-->
+</routes>
