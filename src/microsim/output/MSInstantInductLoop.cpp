@@ -158,7 +158,11 @@ MSInstantInductLoop::detectorUpdate(const SUMOTime /* step */) {
                 "vehID", e.vehID).writeAttr("speed", toString(e.speed)).writeAttr(
                     "length", toString(e.length)).writeAttr(
                         "type", e.typeID);
-        if (e.add != nullptr) {
+        if (!myOutputDevice.isXML()) {
+            const std::string attr = e.add == nullptr ? "" : e.add;
+            myOutputDevice.writeAttr("gap", toString(e.addValue), attr != "gap");
+            myOutputDevice.writeAttr("occupancy", toString(e.addValue), attr != "occupancy");
+        } else if (e.add != nullptr) {
             myOutputDevice.writeAttr(e.add, toString(e.addValue));
         }
         myOutputDevice.closeTag();
@@ -188,6 +192,7 @@ MSInstantInductLoop::notifyLeave(SUMOTrafficObject& veh, double /* lastPos */, M
 
 void
 MSInstantInductLoop::writeXMLDetectorProlog(OutputDevice& dev) const {
+    dev.setExpectedAttributes(0, 1);
     dev.writeXMLHeader("instantE1", "instant_e1_file.xsd");
 }
 

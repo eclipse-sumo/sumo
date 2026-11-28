@@ -277,6 +277,9 @@ void
 MSCalibrator::intervalEnd() {
     if (myOutput != nullptr) {
         writeXMLOutput(*myOutput, myCurrentStateInterval->begin, myCurrentStateInterval->end);
+        if (!myOutput->isXML()) {
+            myOutput->flush();
+        }
     }
     myDidSpeedAdaption = false;
     myInserted = 0;
@@ -693,14 +696,15 @@ MSCalibrator::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime sto
     dev.writeAttr(SUMO_ATTR_SPEED, myEdgeMeanData.getSamples() != 0
                   ? myEdgeMeanData.getTravelledDistance() / myEdgeMeanData.getSamples() : -1);
     dev.writeAttr("aspiredSpeed", myCurrentStateInterval->v);
-    if (discrepancy > 0) {
-        dev.writeAttr("vaporizedOnNextEdge", discrepancy);
+    if (discrepancy > 0 || !dev.isXML()) {
+        dev.writeAttr("vaporizedOnNextEdge", discrepancy, discrepancy <= 0);
     }
     dev.closeTag();
 }
 
 void
 MSCalibrator::writeXMLDetectorProlog(OutputDevice& dev) const {
+    dev.setExpectedAttributes(0, 1);
     dev.writeXMLHeader("calibratorstats", "calibratorstats_file.xsd");
 }
 

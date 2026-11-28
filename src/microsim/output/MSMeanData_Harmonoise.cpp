@@ -98,6 +98,8 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice& dev, const Sumo
     } else if (defaultTravelTime >= 0.) {
         // @todo default value for noise
         dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME, defaultTravelTime, attributeMask);
+    } else {
+        dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME, 0., attributeMask, true);
     }
 }
 

@@ -496,6 +496,9 @@ protected:
     virtual void writePrefix(OutputDevice& dev, const MeanDataValues& values,
                              const SumoXMLTag tag, const std::string id) const;
 
+    /// @brief Set the row depth for a homogeneous tabular output.
+    void configureColumnOutput(OutputDevice& dev, int extraDepth = 0) const;
+
     const std::vector<MeanDataValues*>* getEdgeValues(const MSEdge* edge) const;
 
 private:

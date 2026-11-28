@@ -566,6 +566,7 @@ MSE3Collector::writeXMLOutput(OutputDevice& dev,
 
 void
 MSE3Collector::writeXMLDetectorProlog(OutputDevice& dev) const {
+    dev.setExpectedAttributes(0, 1);
     dev.writeXMLHeader("e3Detector", "det_e3_file.xsd");
 }
 

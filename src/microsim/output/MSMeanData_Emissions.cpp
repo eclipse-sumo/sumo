@@ -154,6 +154,15 @@ MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoX
         dev.writeOptionalAttr(SUMO_ATTR_NOX_PERVEH,         PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::NO_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), attributeMask);
         dev.writeOptionalAttr(SUMO_ATTR_FUEL_PERVEH,        PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::FUEL, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), attributeMask);
         dev.writeOptionalAttr(SUMO_ATTR_ELECTRICITY_PERVEH, PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::ELEC, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), attributeMask);
+    } else if (!dev.isXML()) {
+        dev.setPrecision(gPrecision);
+        dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME, 0., attributeMask, true);
+        dev.setPrecision(gPrecisionEmissions);
+        for (const SumoXMLAttr attr : {SUMO_ATTR_CO_PERVEH, SUMO_ATTR_CO2_PERVEH, SUMO_ATTR_HC_PERVEH,
+                                      SUMO_ATTR_PMX_PERVEH, SUMO_ATTR_NOX_PERVEH, SUMO_ATTR_FUEL_PERVEH,
+                                      SUMO_ATTR_ELECTRICITY_PERVEH}) {
+            dev.writeOptionalAttr(attr, 0., attributeMask, true);
+        }
     }
     dev.setPrecision(gPrecision);
 }
