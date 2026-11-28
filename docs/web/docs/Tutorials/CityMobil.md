@@ -6,7 +6,7 @@ The *city_mobil* subdirectory in {{SUMO}}/docs/tutorial contains the setup for
 a simulation of a parking lot using sumo with its taxi device to build a demand
 responsive transport service. Most of the files in the directory are for the
 [old CityMobil tutorial](CityMobil_old.md),
-for the new version only `createNetTaxi.py` is relevant.
+for the new version only `createNetTaxi.py` and `constants.py` are relevant.
 
 This tutorial explains how to build such a scenario programmatically by generating
 all input files with a (python) script we call `createNetTaxi.py`. The easiest way
@@ -168,7 +168,7 @@ for row in range(DOUBLE_ROWS-1):
     edgeID = "cyber%sto%s" % (row, row + 1)
     print('    <busStop id="%sstop" lane="%s_1" startPos="2" endPos="12"/>' % (edgeID, edgeID), file=stops)
 ```
-Now we could close the additional file and already load it to the see the infrastructure.
+Now we could close the additional file and already load it to see the infrastructure.
 
 We will however reuse the additional file to start defining the vehicles (at least the vehicle types).
 Most of the vehicle type definition is for the look (the color) and the vehicle class such that
@@ -202,7 +202,7 @@ transport system answering to special transportation requests. This specialty wi
 the vehicle should not leave the scenario after it reached the end of its initial route but wait for new requests.
 
 The persons are slightly more complex as they arrive in their own car, drive to the parking lot, leave the car, walk to
-the bus stop and then enter the cybercar to got to their final destination. We do everything here in two nested loops
+the bus stop and then enter the cybercar to go to their final destination. We do everything here in two nested loops
 because we want to fill all slots of all rows.
 ```python
 for v in range(SLOTS_PER_ROW):
@@ -259,10 +259,32 @@ Feel free to change the layout of the parking lot and the behavior
 or `createNetTaxi.py`, remember to re-execute `createNetTaxi.py` before running the scenario.
 
 ## Description of the dispatching algorithm
-TBD
+
+The `parkXX_cyber.sumocfg` configurations enable the `routeExtension` taxi dispatch algorithm via `<device.taxi.dispatch-algorithm value="routeExtension"/>` (see [Taxi dispatch algorithms](../Simulation/Taxi.md#dispatch_algorithms)). Every dispatch period (60 s by default, configurable with **--device.taxi.dispatch-period**), the dispatcher processes pending customer reservations in reservation order.
+
+For each reservation, the dispatcher selects the closest available cybercar by estimated travel time and plans a route from the pickup stop to `cyberout`. Before finalizing that assignment, `routeExtension` inspects later pending reservations while the vehicle's `personCapacity` (20 in `constants.py`) still has free seats. When another reservation's pickup or drop-off edge lies along the current route, or when the current route lies along the candidate reservation's route, the dispatcher inserts the additional pickup and drop-off stops and extends the route to share the ride.
+
+Once a cybercar finishes serving its assigned passengers, it stops at its final edge (`--device.taxi.idle-algorithm stop` by default) and waits for new requests until all persons have completed their trips.
 
 ## Evaluation
-TBD
+
+To collect aggregate simulation metrics from the command line, run `sumo` with **--duration-log.statistics** (and **-v** or **--log**):
+
+```
+sumo -c park15_cyber.sumocfg --duration-log.statistics -v --tripinfo-output tripinfo_cyber.xml --device.taxi.dispatch-algorithm.output dispatch.xml
+```
+
+This reports summary statistics on vehicle route length, duration, and time loss together with pedestrian walk durations and ride waiting times. Writing **--tripinfo-output** produces one `<personinfo>` element per person containing the duration, route length, and waiting time of each `<walk>` and `<ride>` stage. Passing **--tripinfo-output.write-unfinished** also includes `<tripinfo>` entries with a `<taxi>` child element (`customers`, `occupiedDistance`, `occupiedTime`) for cybercars that remain active until the end of the simulation. Adding **--device.taxi.dispatch-algorithm.output** logs each `dispatchShared` event for analyzing ride-sharing behavior.
 
 ## Comparison with a simple bus
-TBD
+
+For every demand period (`park05` through `park45`), `createNetTaxi.py` also generates a conventional fixed-route bus configuration (`parkXX.sumocfg`) referencing `park_bus.rou.xml`. This bus flow defines two buses (`TOTAL_CAPACITY // BUS_CAPACITY`, each with `personCapacity="30"`) that serve all bus stops (`cyber0to1stop` through `cyber6to7stop` and `cyberout`) on a fixed schedule with 10 s dwell times and repeat the circuit (`400 // TOTAL_CAPACITY` loops). Because both `park_bus.rou.xml` and `park_cyber.rou.xml` use `line="taxi"`, the same demand files (`park_demandXX.rou.xml`) work unchanged for both modes.
+
+Running both configurations with the same output options allows direct comparison of passenger waiting times, ride durations, and vehicle kilometers traveled across demand levels:
+
+```
+sumo -c park15.sumocfg --duration-log.statistics -v --tripinfo-output tripinfo_bus.xml
+sumo -c park15_cyber.sumocfg --duration-log.statistics -v --tripinfo-output tripinfo_cyber.xml
+```
+
+In the default setup, cybercars are limited to `CYBER_SPEED` (5 m/s) and use the default taxi `dropOffDuration` of 60 s, whereas the regular buses run up to the edge speed limit with 10 s stop durations. Adjusting `CYBER_SPEED`, `CYBER_CAPACITY`, `BUS_CAPACITY`, and `<param key="device.taxi.dropOffDuration" value="..."/>` in `createNetTaxi.py` and `constants.py` lets you compare demand-responsive shuttles and fixed-route buses under matched speed and dwell assumptions.

@@ -207,7 +207,7 @@ bindings are included when downloading a sumo-build.
 
 - There is a [tutorial on using TraCI for adaptive traffic
   lights](../Tutorials/TraCI4Traffic_Lights.md) (using Python).
-- The [Tutorials/CityMobil](../Tutorials/CityMobil.md) tutorial
+- The [Tutorials/CityMobil (old)](../Tutorials/CityMobil_old.md) tutorial
   uses TraCI for assigning new routes to vehicles (using Python).
 - The
   [Tutorials/TraCIPedCrossing](../Tutorials/TraCIPedCrossing.md)

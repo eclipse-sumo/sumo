@@ -82,6 +82,7 @@ The SUMO User Conference is an annual event organized by the German Aerospace Ce
 * [PT from OpenStreetMap](PT_from_OpenStreetMap.md) - Creating a runnable public transit scenario entirely from [OpenStreetMap](https://www.openstreetmap.org/)
 * [Importing GTFS](GTFS.md) - Importing public transport schedules from public sources using the General Transit Feed Specification
 * [Port](port.md) - Creating a scenario that simulates the port logistics of an arbitrary port from [OpenStreetMap](https://www.openstreetmap.org/)
+* [CityMobil](CityMobil.md): Simulation of a parking lot with pedestrians, parkingAreas, and an automated shuttle service using the taxi device
 * [Containerized SUMO](Containerized_SUMO.md) - Using SUMO to run a simulation inside a docker container
 * [Containerized SUMO with GUI](Containerized_SUMO_GUI.md) - Running the SUMO GUI from inside a container
 
@@ -140,4 +141,4 @@ The following tutorials are kept for completeness but are superseded by other tu
 
 * [Import from OpenStreetMap](Import_from_OpenStreetMap.md) - Shows how to prepare a map from [OpenStreetMap](https://www.openstreetmap.org/) for traffic simulation
 * [Quick_Start_old_style](Quick_Start_old_style.md) - Build a scenario by editing the edge and node files in a text editor instead of [netedit](../Netedit/index.md)
-* [CityMobil](CityMobil.md) - Simulation of a parking lot management using automated buses. This TraCI tutorial was written before the implementation of pedestrians and parkingAreas
+* [CityMobil (old)](CityMobil_old.md): Simulation of a parking lot management using automated buses. This TraCI tutorial was written before the implementation of pedestrians and parkingAreas
