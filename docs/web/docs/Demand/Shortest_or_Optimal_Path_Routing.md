@@ -33,6 +33,7 @@ the router using an XML-file. The syntax of a single trip definition is:
 | via            | edge ids                                                | List of intermediate edge ids which shall be part of the route; the edges must be a part of the used network       |
 | fromTaz        | district id                                             | The name of the [district](../Demand/Importing_O/D_Matrices.md#describing_the_taz) the route starts at. [TAZ edges are selected so that travel time is minimized.](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignment_zones_taz)    |
 | toTaz          | district id                                             | The name of the [district](../Demand/Importing_O/D_Matrices.md#describing_the_taz) the route ends at. [TAZ edges are selected so that travel time is minimized.](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignment_zones_taz)       |
+| viaTaz         | district ids                                            | Space-separated [TAZ IDs](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignment_zones_taz) to pass through in order. |
 | type           | type id                                                 | The type id of the vehicle to generate            |
 | color          | color                                                   | This generated vehicle's color              |
 | departLane     | int/string (≥0,"random","free","departlane")            | The lane on which the vehicle shall be inserted         |

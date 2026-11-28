@@ -4,6 +4,9 @@ broken_nets
 # complex sumo tests
 sumo
 
+# Route trips and flows via named TAZs with SUMO and duarouter, refs #6477
+via_taz
+
 # complex traci tests
 traci
 

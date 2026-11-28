@@ -156,7 +156,7 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
     }
 
     // via-attributes
-    if (!attrs.hasAttribute(SUMO_ATTR_VIA) && !attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
+    if (!attrs.hasAttribute(SUMO_ATTR_VIA) && !attrs.hasAttribute(SUMO_ATTR_VIA_TAZ) && !attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
         myInsertStopEdgesAt = (int)myActiveRoute.size();
     }
     ConstMSEdgeVector viaEdges;
@@ -164,14 +164,20 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIAXY, myVehicleParameter->id.c_str(), ok), false, vClass, viaEdges, rid, false, ok);
     } else if (attrs.hasAttribute(SUMO_ATTR_VIALONLAT)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIALONLAT, myVehicleParameter->id.c_str(), ok), true, vClass, viaEdges, rid, false, ok);
-    } else if (attrs.hasAttribute(SUMO_ATTR_VIAJUNCTIONS)) {
-        for (std::string junctionID : attrs.get<std::vector<std::string> >(SUMO_ATTR_VIAJUNCTIONS, myVehicleParameter->id.c_str(), ok)) {
-            const MSEdge* viaSink = MSEdge::dictionary(junctionID + "-sink");
-            if (viaSink == nullptr) {
-                throw ProcessError("Junction-taz '" + junctionID + "' not found." + JUNCTION_TAZ_MISSING_HELP);
-            } else {
-                viaEdges.push_back(viaSink);
+    } else if (attrs.hasAttribute(SUMO_ATTR_VIAJUNCTIONS) || attrs.hasAttribute(SUMO_ATTR_VIA_TAZ)) {
+        const bool useJunction = attrs.hasAttribute(SUMO_ATTR_VIAJUNCTIONS);
+        const SumoXMLAttr viaAttr = useJunction ? SUMO_ATTR_VIAJUNCTIONS : SUMO_ATTR_VIA_TAZ;
+        for (const std::string& tazID : attrs.get<std::vector<std::string> >(viaAttr, myVehicleParameter->id.c_str(), ok)) {
+            const MSEdge* viaSink = MSEdge::dictionary(tazID + "-sink");
+            if (viaSink == nullptr || (!useJunction && !viaSink->isTazConnector())) {
+                if (useJunction) {
+                    throw ProcessError("Junction-taz '" + tazID + "' not found." + JUNCTION_TAZ_MISSING_HELP);
+                }
+                throw ProcessError(TLF("Unknown intermediate TAZ '%' %.", tazID, rid));
+            } else if (!useJunction && viaSink->getNumPredecessors() == 0) {
+                throw ProcessError(TLF("Intermediate TAZ '%' has no incoming edges %.", tazID, rid));
             }
+            viaEdges.push_back(viaSink);
         }
     } else {
         MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok),

@@ -538,6 +538,7 @@
         <xsd:attribute name="route" type="xsd:string"/>
         <xsd:attribute name="fromTaz" type="xsd:string"/>
         <xsd:attribute name="toTaz" type="xsd:string"/>
+        <xsd:attribute name="viaTaz" type="xsd:string"/>
         <xsd:attribute name="from" type="xsd:string"/>
         <xsd:attribute name="to" type="xsd:string"/>
         <xsd:attribute name="via" type="xsd:string"/>
@@ -606,6 +607,7 @@
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="fromTaz" type="xsd:string"/>
         <xsd:attribute name="toTaz" type="xsd:string"/>
+        <xsd:attribute name="viaTaz" type="xsd:string"/>
         <xsd:attribute name="from" type="xsd:string"/>
         <xsd:attribute name="to" type="xsd:string"/>
         <xsd:attribute name="via" type="xsd:string"/>
