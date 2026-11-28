@@ -112,12 +112,11 @@ class SimulationManager:
     def __init__(self, debug=False, sqlite=False):
         self._geometry_id_counter = 0
         self._simulation_id_counter = 0
-        self._region = None
+        self._region = None  # main region for the geometry, only needed for JPS >= 2.0
         self._geometries = {}  # geometry_id -> shapely.Polygon
         self._simulations = {}  # sim_id -> jps.Simulation
         self._agents = {}  # agent_id -> simulation_id
         self._stages = {}  # stage_id (waypoint or exit) -> simulation_id
-        self._journeys = {}  # journey_id -> simulation_id
         self._lock = threading.Lock()
         self._debug = debug
         self._scripts = {}  # sim_id -> SimulationScript
@@ -194,10 +193,11 @@ class SimulationManager:
             if model_class == 'GeneralizedCentrifugalForceModel':
                 if (geometry_repulsion := param_dict.pop("strength_geometry_repulsion", None)) is not None:
                     param_dict["strength_wall_repulsion"] = geometry_repulsion
-            else:
+            elif model_class == 'CollisionFreeSpeedModel':
                 # TODO model names and parameters changed
                 #  the old CollisionFreeSpeedModel is now CollisionFreeSpeedModelTordeux2016
                 #  and the new CollisionFreeSpeedModel has all parameters per agent
+                #  maybe we should store the parameters here and reuse them at agent creation
                 param_dict = {}
         # The model class is a dataclass; unset parameters keep their defaults.
         try:
@@ -385,7 +385,6 @@ class SimulationManager:
         for i in range(1, len(stage_ids)):
             journey.set_transition_for_stage(stage_ids[i-1], jps.Transition.create_fixed_transition(stage_ids[i]))
         journey_id = simulation.add_journey(journey)
-        self._journeys[journey_id] = simulation_id
         if (script := self._script(simulation_id)) is not None:
             stages = ", ".join(f"stage_{s}" for s in stage_ids)
             lines = [
