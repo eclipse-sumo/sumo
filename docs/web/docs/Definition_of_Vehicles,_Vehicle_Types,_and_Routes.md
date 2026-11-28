@@ -1328,7 +1328,7 @@ in a vehicle, route or vType.
 ```
 
 In the default visualization settings the vehicle color will be used if
-define, otherwise the type and finally the route color. [These settings can be changed.](sumo-gui.md#vehicle_visualization_settings)
+define, otherwise the type and finally the route color. [These settings can be changed.](View_Settings.md#vehicle_visualization_settings)
 
 By default color components should be given as integers in the range of
 (0,255) but other definitions are also supported:
@@ -1339,7 +1339,7 @@ color="#FF0000"
 color="red"
 ```
 
-The transparency value (alpha) only [takes effect](sumo-gui.md#transparency) when also using the vType
+The transparency value (alpha) only [takes effect](View_Settings.md#transparency) when also using the vType
 attribute *imgFile*.
 
 # Devices

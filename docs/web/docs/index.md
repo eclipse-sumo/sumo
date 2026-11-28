@@ -186,6 +186,7 @@ Below are links to some of the most important/used tools:
 - [sumo-gui](sumo-gui.md)
 - [netconvert](netconvert.md)
 - [netedit](Netedit/index.md)
+- [View Settings](View_Settings.md)
 - [netgenerate](netgenerate.md)
 - [od2trips](od2trips.md)
 - [duarouter](duarouter.md)

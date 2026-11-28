@@ -250,7 +250,7 @@ title: Changes in the 2014 releases (versions 0.20.0, 0.21.0 and 0.22.0)
   - Fixed crash when drawing persons
   - Patched building under macOS, thanks to Alex Voronov
   - lane coloring by netto occupancy no longer shows brutto
-    occupancy (see [lane coloring](../sumo-gui.md#edgelane_visualization_settings)).
+    occupancy (see [lane coloring](../View_Settings.md#edgelane_visualization_settings)).
   - drawing of simple vehicle shapes now always uses a distinct
     color for drawing details.
   - Fixed crash when closing the breakpoint editor
