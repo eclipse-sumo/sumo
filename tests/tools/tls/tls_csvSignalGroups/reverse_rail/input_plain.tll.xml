@@ -1,0 +1,10 @@
+<additional>
+    <tlLogic id="rail-crossing" type="static" programID="planned" offset="0">
+        <phase duration="30" state="G"/>
+        <phase duration="30" state="r"/>
+    </tlLogic>
+    <tlLogic id="rail-signal" type="static" programID="planned" offset="0">
+        <phase duration="40" state="G"/>
+        <phase duration="20" state="r"/>
+    </tlLogic>
+</additional>

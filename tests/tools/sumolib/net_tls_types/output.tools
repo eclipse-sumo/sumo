@@ -1,0 +1,8 @@
+withPrograms=False
+Traffic lights road-group road
+Rail crossings rail-crossing
+Rail signals rail-signal
+withPrograms=True
+Traffic lights road-group road
+Rail crossings rail-crossing
+Rail signals rail-signal

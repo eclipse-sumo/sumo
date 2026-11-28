@@ -1,0 +1,7 @@
+[collate_file]
+csv_crossing:export-rail-crossing_planned.csv
+csv_signal:export-rail-signal_planned.csv
+
+[run_dependent_text]
+csv_crossing:\r$
+csv_signal:\r$

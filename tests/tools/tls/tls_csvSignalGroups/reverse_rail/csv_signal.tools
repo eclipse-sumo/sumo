@@ -1,0 +1,10 @@
+[general]
+cycle time;60
+key;rail-signal
+subkey;planned
+offset;0
+[links]
+SG0;e3;e4
+[signal groups]
+id;on1;off1;on2;off2;transOn;transOff
+SG0;0;40;;;0;0

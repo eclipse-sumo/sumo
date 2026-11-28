@@ -38,6 +38,8 @@ The following named arguments may be given to the `readNet` function (i.e. `read
 - withInternal (bool) : import internal edges and lanes (default False)
 - withPedestrianConnections (bool) : import connections between sidewalks, crossings (default False)
 
+`net.getTrafficLights()` returns the road and pedestrian traffic light controllers. Use `net.getRailCrossings()` for level crossing controllers and `net.getRailSignals()` for railway signals. `net.getTLS(id)` looks up a controller of any of these types by ID.
+
 # usage examples
 
 ## import a network and retrieve nodes and edges
