@@ -24,7 +24,7 @@ Some attributes have pre-computed values (i.e. edge length) but can be overrule 
 By default, clicking on an edge will inspect the edge object. To inspect individual lanes of an edge either
 
 - shift-click on the lane
-- deactivate the "click selects edges" toggle button in the top bar (shortcut Alt+4) and then left-click on lanes
+- enable [**Clicks target lanes**](Toolbar_Options.md#choose_whether_clicks_target_edges_or_lanes), then click a lane
 - inspect an edge an then right-click a lane in the hierarchy view and select 'inspect'
 
 ## Inspecting Connections
@@ -86,7 +86,7 @@ The Delete mode is used to remove an element of your network. The following is p
 - Delete junctions (and all adjoining edges)
 - Delete edges
 - Delete geometry points of an edge
-- Delete a lane (when option *selection edges* is disabled)
+- Delete a lane when [**Clicks target lanes**](Toolbar_Options.md#choose_whether_clicks_target_edges_or_lanes) is enabled
 - Delete connections (available, when *show connections* is enabled)
 - Delete crossings
 - Delete additionals
@@ -121,8 +121,7 @@ Selected elements are painted with a different color
 
 ## Methods for selecting
 
-- the selection status of objects is toggled by left-clicking. When the *select edges* check-box is unset, lanes, rather than edges will
-  be selected/deselected.
+- Click an object to select or deselect it. Enable [**Clicks target lanes**](Toolbar_Options.md#choose_whether_clicks_target_edges_or_lanes) to select individual lanes.
 - by rectangle-selection via shift+leftClick+drag (When the checkbox *auto-select junctions* is enabled, junctions of selected edges will be selected automatically)
 - by matching object attributes [(see below)](#match_attribute)
 - by loading a saved selection

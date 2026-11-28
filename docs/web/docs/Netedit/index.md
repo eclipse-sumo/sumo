@@ -38,6 +38,8 @@ title: netedit
 
 ## Hotkeys
 
+See [toolbar options by edit mode](Toolbar_Options.md) for controls that change with the active mode.
+
 The entire list of shortcuts can be found [here](shortcuts.md):
 
 | File shortcuts              | Key              | Description                         |
