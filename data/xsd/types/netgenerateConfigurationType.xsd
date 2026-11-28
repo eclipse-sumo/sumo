@@ -209,6 +209,7 @@
             <xsd:element name="tls.half-offset" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tls.quarter-offset" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tls.default-type" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="tls.reset-type" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.layout" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tls.no-mixed" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.min-dur" type="intOptionType" minOccurs="0"/>
