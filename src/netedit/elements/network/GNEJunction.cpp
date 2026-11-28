@@ -1798,7 +1798,9 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVis
             myExaggeration = exaggeration;
             myTesselation.setShape(myNBNode->getShape());
             myTesselation.getShapeRef().closePolygon();
-            myTesselation.getShapeRef().scaleRelative(exaggeration);
+            if (exaggeration > 1) {
+                myTesselation.getShapeRef().scaleRelative(exaggeration);
+            }
             myTesselation.myTesselation.clear();
         }
         // check if draw tesselation or or polygon
@@ -1938,7 +1940,7 @@ GNEJunction::calculateJunctioncontour(const GUIVisualizationSettings& s, const G
         gViewObjectsHandler.selectObject(s, this, getType(), false, nullptr);
     } else {
         // always calculate for shape
-        myNetworkElementContour.calculateContourClosedShape(s, d, this, myNBNode->getShape(), getType(), exaggeration, this);
+        myNetworkElementContour.calculateContourClosedShape(s, d, this, myNBNode->getShape(), getType(), MAX2(1.0, exaggeration), this);
         // check if calculate contour for bubble
         if (drawBubble) {
             myCircleContour.calculateContourCircleShape(s, d, this, myNBNode->getPosition(), s.neteditSizeSettings.junctionBubbleRadius, getType(), exaggeration, this);

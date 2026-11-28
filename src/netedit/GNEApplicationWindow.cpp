@@ -1820,6 +1820,9 @@ GNEApplicationWindow::closeAllWindows(const bool resetFilenames) {
     // check if view has to be saved
     if (myViewNet) {
         myViewNet->saveVisualizationSettings();
+        if (myViewNet->getEditModes().isJuPedSimView() && (myViewNet->editVisualisationSettings()->junctionSize.exaggeration == 0.2)) {
+            myViewNet->editVisualisationSettings()->junctionSize.exaggeration = 1;
+        }
         // save decals and viewport for persistence (before they are cleared)
         gSchemeStorage.saveDecals(myViewNet->getDecals());
         gSchemeStorage.saveViewport(myViewNet->getChanger().getXPos(), myViewNet->getChanger().getYPos(),

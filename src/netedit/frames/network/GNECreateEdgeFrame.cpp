@@ -310,8 +310,13 @@ GNECreateEdgeFrame::EdgeTypeSelector::showDefaultShortEdgeCheckBox(const bool va
     if (value) {
         myCreateDefaultShortEdgeType->show();
     } else {
+        if (myCreateDefaultShortEdgeType->getCheck() == TRUE) {
+            myCreateDefaultEdgeType->setCheck(TRUE);
+            myCreateDefaultShortEdgeType->setCheck(FALSE);
+        }
         myCreateDefaultShortEdgeType->hide();
     }
+    recalc();
 }
 
 
