@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17 23:54:55.935418 by Eclipse SUMO edgedata2calibrators.py v1_28_0+0644-bda840e3afe
+<configuration>
+    <net-file value="net.net.xml"/>
+    <edgedata-file value="input_edgedata.xml"/>
+    <output-file value="out.add.xml"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <route id="cal_e0_fallback" edges="e0"/>
+    <route id="cal_e1_fallback" edges="e1"/>
+    <calibrator id="cal_e0" edge="e0" pos="0.00">
+        <flow begin="0" end="900" route="cal_e0_fallback" vehsPerHour="180.00" speed="12.50"/>
+        <flow begin="900" end="1800" route="cal_e0_fallback" vehsPerHour="240.00" speed="11.80"/>
+    </calibrator>
+    <calibrator id="cal_e1" edge="e1" pos="0.00">
+        <flow begin="0" end="900" route="cal_e1_fallback" vehsPerHour="120.00" speed="13.00"/>
+        <flow begin="900" end="1800" route="cal_e1_fallback" vehsPerHour="140.00"/>
+    </calibrator>
+</additional>

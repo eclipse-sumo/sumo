@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="0" begin="0" end="900">
+        <edge id="e0" entered="45" speed="12.50"/>
+        <edge id="e1" entered="30" speed="13.00"/>
+    </interval>
+    <interval id="1" begin="900" end="1800">
+        <edge id="e0" entered="60" speed="11.80"/>
+        <edge id="e1" entered="35"/>
+    </interval>
+</data>
