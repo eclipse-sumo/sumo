@@ -78,7 +78,7 @@ If Visual Studio fails at first try, it is probably because the SUMOLibraries ar
 If you need to modify settings, you can edit the `CMakeCache.txt` by opening it in your favorite text editor or via the *Project->CMake-Cache* menu. The following things might be useful:
 
 - If the libraries are not found, set `SUMO_LIBRARIES:PATH` to something like `C:/Users/tests/source/repos/SUMOLibraries` and retry
-- If a wrong Python interpreter or library is found, edit the PYTHON_* variables
+- If a wrong Python interpreter or library is found, set `Python_EXECUTABLE` (or `Python_ROOT_DIR` — note the exact `Python_` capitalization used by CMake's `FindPython` module) and see [Configuring Python for building libsumo](#configuring_python_for_building_libsumo) below
 - If you want to disable building the GUI (Fox) or usage of Proj, set the according library entries to an empty string
 - To enable console output for the *Release* build of graphical applications sumo-gui and netedit, set CONSOLE_RELEASE=1
 
@@ -130,6 +130,47 @@ From your SUMO directory you can install them using pip:
 ```bash
 pip install -r tools\requirements.txt
 ```
+
+## Configuring Python for building libsumo
+
+Building the native Python bindings ([libsumo](../Libsumo.md) and `libtraci`) on Windows requires CMake >= 3.18, SWIG (included in `SUMOLibraries`), `ENABLE_PYTHON_BINDINGS=ON` (enabled by default), and a **64-bit Python installation with C development headers and import libraries** (`include\Python.h` and `libs\python3XX.lib`) matching the `x64` build architecture.
+
+### 1. Installing the Python development headers and libraries
+
+- **Official [python.org](https://www.python.org/downloads/windows/) Windows installer (64-bit)**:
+  - Use the standard 64-bit Windows installer rather than the *Windows embeddable package (`.zip`)* (which omits `include\` and `libs\`).
+  - Standard installations include `include\Python.h` and the release import library `libs\python3XX.lib` by default.
+  - If you also want to compile `libsumo` in **Debug** mode (`--config Debug`), choose **Customize installation** (or **Modify** an existing installation in *Settings -> Apps*) -> **Advanced Options** and enable **Download debug binaries (requires VS 2017 or later)** so `libs\python3XX_d.lib` is installed.
+- **Visual Studio Installer Python**:
+  - Open the *Visual Studio Installer* -> *Modify*, select the **Python development** workload, and check **Python native development tools** under *Installation details* (this installs the C headers, release `.lib`, and debug binaries).
+- **Conda / Miniforge**:
+  - A 64-bit Conda environment already provides `<env>\include\Python.h` and `<env>\libs\python3XX.lib` for `Release` / `RelWithDebInfo` builds (activate or point CMake to the base/environment interpreter rather than a lightweight `venv` if headers/libs are missing).
+
+!!! note
+    If you point CMake to a `venv` virtual environment (`myvenv\Scripts\python.exe`), CMake resolves the headers and `.lib` files from its underlying base Python installation, which must have the development files installed.
+
+### 2. Selecting a specific Python version in CMake
+
+SUMO uses CMake's modern `FindPython` module (`find_package(Python REQUIRED COMPONENTS Interpreter OPTIONAL_COMPONENTS Development.Module)`), whose cache variables start with **`Python_`** (case-sensitive — legacy `PYTHON_EXECUTABLE` has no effect on CMake >= 3.12).
+
+When multiple Python versions are installed on the machine, pass `Python_EXECUTABLE` (or `Python_ROOT_DIR`) explicitly when configuring CMake:
+
+```
+cmake -B cmake-build -G "Visual Studio 17 2022" -A x64 -DPython_EXECUTABLE="C:/Python312/python.exe"
+```
+
+- **In Visual Studio (*Open Folder* workflow)**: Open *Project -> CMake Settings*, add `-DPython_EXECUTABLE="C:/Python312/python.exe"` to **CMake command arguments**, and run *Project -> Delete Cache and Reconfigure* so stale `Python_*` cache entries from a previously detected interpreter are cleared.
+- **In CMake GUI**: Click **Add Entry** BEFORE clicking *Configure* (or remove existing `Python_*` entries first), add `Python_EXECUTABLE` of type `FILEPATH` pointing to the desired `python.exe`, and click *Configure* -> *Generate*. Verify in the CMake output that `Found Python:` shows your chosen interpreter and that `_libsumo` appears in the generated Visual Studio solution under the `libsumo` folder.
+
+### 3. Building and importing `libsumo`
+
+Build the `_libsumo` target (or the full solution in `Release` mode):
+
+```
+cmake --build cmake-build --config Release --target _libsumo
+```
+
+In a standard source-tree build, the compiled extension (`_libsumo.pyd`) and Python wrapper files are written to `<SUMO>\tools\libsumo` (and `<SUMO>\tools\libtraci`). Make sure `<SUMO>\bin` (or `SUMOLibraries` DLLs, installed automatically via the `install_dll` dependency) is on `PATH`, add `<SUMO>\tools` to `PYTHONPATH`, and run your scripts with the **same Python major.minor version** (`3.XX`) that was used during CMake configuration.
 
 ## Manual CMake configuration
 
