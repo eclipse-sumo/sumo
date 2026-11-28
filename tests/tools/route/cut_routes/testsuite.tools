@@ -21,6 +21,7 @@ minLength
 
 # keep stops in routes
 with_stops
+stops_departure
 
 # keep bus stops in routes
 with_busstops

@@ -139,7 +139,7 @@ def hasMinLength(fromIndex, toIndex, edges, orig_net, options):
 
 
 def _cutEdgeList(areaEdges, oldDepart, exitTimes, edges, orig_net, options, stats, disconnected_action,
-                 startIdx=None, endIdx=None):
+                 startIdx=None, endIdx=None, cutStarts=None):
     startIdx = 0 if startIdx is None else int(startIdx)
     endIdx = len(edges) - 1 if endIdx is None else int(endIdx)
     firstIndex = getFirstIndex(areaEdges, edges[startIdx:endIdx + 1])
@@ -184,6 +184,8 @@ def _cutEdgeList(areaEdges, oldDepart, exitTimes, edges, orig_net, options, stat
             else:
                 newDepart = parseTime(oldDepart)
         result.append((newDepart, edges[fromIndex:toIndex + 1]))
+        if cutStarts is not None:
+            cutStarts.append(fromIndex)
         stats.num_returned += 1
     return result
 
@@ -192,7 +194,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
     areaEdges = set(aEdges)
     stats = Statistics()
     standaloneRoutes = {}  # routeID -> routeObject
-    standaloneRoutesDepart = {}  # routeID -> time or 'discard' or None
+    standaloneRouteCuts = {}  # routeID -> (departure shift, edges before entry) or 'discard'
     vehicleTypes = {}
     if options.additional_input:
         for addFile in options.additional_input.split(","):
@@ -332,23 +334,24 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                     old_route = moving.route[0]
                     routeRef = None
                 else:
-                    newDepart = standaloneRoutesDepart.get(moving.route)
-                    if newDepart == 'discard':
+                    cachedCut = standaloneRouteCuts.get(moving.route)
+                    if cachedCut == 'discard':
                         # route was already checked and discarded
                         continue
-                    elif newDepart is not None:
+                    elif cachedCut is not None:
                         # route was already treated
+                        departShift, before = cachedCut
+                        retainedEdges = set(standaloneRoutes[moving.route].edges.split())
+                        until = cut_stops(moving, busStopEdges, retainedEdges, before=before)
+                        newDepart = max(oldDepart + departShift, until)
                         if moving.name == 'vehicle':
-                            newDepart += oldDepart
                             moving.depart = "%.2f" % newDepart
                         else:
                             if moving.end:
-                                moving.end = "%.2f" % (newDepart + parseTime(moving.end))
-                            newDepart += oldDepart
+                                moving.end = "%.2f" % (newDepart - oldDepart + parseTime(moving.end))
                             moving.begin = "%.2f" % newDepart
                         if collectPT and moving.line and moving.line not in oldPTRoutes:
                             oldPTRoutes[moving.line] = standaloneRoutes[moving.route].edges.split()
-                        cut_stops(moving, busStopEdges, set(standaloneRoutes[moving.route].edges.split()))
                         moving.departEdge = None  # the cut already removed the unused edges
                         moving.arrivalEdge = None  # the cut already removed the unused edges
                         yield newDepart, moving
@@ -359,45 +362,54 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                     old_route.exitTimes = None
                 if collectPT and moving.line and moving.line not in oldPTRoutes:
                     oldPTRoutes[moving.line] = old_route.edges.split()
-                routeParts = _cutEdgeList(areaEdges, oldDepart, old_route.exitTimes,
-                                          old_route.edges.split(), orig_net, options,
-                                          stats, options.disconnected_action, moving.departEdge, moving.arrivalEdge)
+                edges = old_route.edges.split()
+                cutStarts = []
+                routeParts = _cutEdgeList(areaEdges, oldDepart, old_route.exitTimes, edges, orig_net, options,
+                                          stats, options.disconnected_action, moving.departEdge, moving.arrivalEdge,
+                                          cutStarts)
                 if options.verbose and routeParts and old_route.exitTimes is None and orig_net is None:
                     print("Could not reconstruct new departure time for %s '%s'. Using old departure time." %
                           (moving.name, moving.id))
                 old_route.exitTimes = None
                 if routeRef and not routeParts:
-                    standaloneRoutesDepart[moving.route] = 'discard'
+                    standaloneRouteCuts[moving.route] = 'discard'
+                startIndex = int(moving.departEdge or 0)
+                split = routeParts and len(routeParts) > 1
+                if split and not routeRef:
+                    # Register attributes before copying the XML object for each part.
+                    moving.setAttribute("departLane", moving.departLane)
+                    moving.setAttribute("departSpeed", moving.departSpeed)
                 for ix_part, (newDepart, remaining) in enumerate(routeParts or []):
-                    departShift = cut_stops(moving, busStopEdges, remaining)
+                    part = copy.deepcopy(moving) if split else moving
+                    partRoute = routeRef if routeRef else part.route[0]
+                    before = set(edges[startIndex:cutStarts[ix_part]])
+                    until = cut_stops(part, busStopEdges, remaining, before=before)
+                    # Inline-route stops use the vehicle's time base.
+                    routeStopOffset = oldDepart if routeRef else 0
+                    departShift = cut_stops(partRoute, busStopEdges, remaining,
+                                            newDepart - routeStopOffset, options.defaultStopDuration,
+                                            bool(routeRef), before)
+                    newDepart = max(newDepart, routeStopOffset + departShift, until)
                     if routeRef:
-                        departShift = cut_stops(routeRef, busStopEdges, remaining,
-                                                newDepart - oldDepart, options.defaultStopDuration, True)
-                        standaloneRoutesDepart[moving.route] = departShift
-                        newDepart = oldDepart + departShift
+                        standaloneRouteCuts[moving.route] = departShift, before
                         routeRef.edges = " ".join(remaining)
                         yield -1, routeRef
                     else:
-                        if ix_part > 0 or old_route.edges.split()[0] != remaining[0]:
-                            moving.setAttribute("departLane", options.defaultDepartLane)
-                            moving.setAttribute("departSpeed", options.defaultDepartSpeed)
-                        newDepart = max(newDepart, departShift)
-                        old_route.edges = " ".join(remaining)
-                    if moving.name == 'vehicle':
-                        moving.depart = "%.2f" % newDepart
+                        if ix_part > 0 or edges[0] != remaining[0]:
+                            part.setAttribute("departLane", options.defaultDepartLane)
+                            part.setAttribute("departSpeed", options.defaultDepartSpeed)
+                        partRoute.edges = " ".join(remaining)
+                    if part.name == 'vehicle':
+                        part.depart = "%.2f" % newDepart
                     else:
-                        moving.begin = "%.2f" % newDepart
-                        if moving.end:
-                            moving.end = "%.2f" % (newDepart - oldDepart + parseTime(moving.end))
-                    moving.departEdge = None  # the cut already removed the unused edges
-                    moving.arrivalEdge = None  # the cut already removed the unused edges
-                    if len(routeParts) > 1:
-                        # return copies of the vehicle for each route part
-                        yield_mov = copy.deepcopy(moving)
-                        yield_mov.id = moving.id + "_part" + str(ix_part)
-                        yield newDepart, yield_mov
-                    else:
-                        yield newDepart, moving
+                        part.begin = "%.2f" % newDepart
+                        if part.end:
+                            part.end = "%.2f" % (newDepart - oldDepart + parseTime(part.end))
+                    part.departEdge = None  # the cut already removed the unused edges
+                    part.arrivalEdge = None  # the cut already removed the unused edges
+                    if split:
+                        part.id = moving.id + "_part" + str(ix_part)
+                    yield newDepart, part
 
     if stats.teleportFactorSum > 0:
         teleports = " (avg teleportFactor %s)" % (
@@ -420,18 +432,19 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
             print(count, edge)
 
 
-def cut_stops(vehicle, busStopEdges, remaining, departShift=0, defaultDuration=0, isStandalone=False):
+def cut_stops(vehicle, busStopEdges, remaining, departShift=0, defaultDuration=0, isStandalone=False, before=None):
     if vehicle.stop:
         skippedStopDuration = 0
         haveStop = False
         for stop in list(vehicle.stop):
             until = None if stop.until is None else parseTime(stop.until)
             if stop.busStop:
+                stopEdge = busStopEdges.get(stop.busStop) if busStopEdges else None
                 if not busStopEdges:
                     print("No bus stop locations parsed, skipping bus stop '%s'." % stop.busStop)
                 elif stop.busStop not in busStopEdges:
                     print("Skipping bus stop '%s', which could not be located." % stop.busStop)
-                elif busStopEdges[stop.busStop] in remaining:
+                elif stopEdge in remaining:
                     if departShift > 0 and until is not None and isStandalone:
                         stop.until = max(0, until - departShift)
                     haveStop = True
@@ -440,10 +453,12 @@ def cut_stops(vehicle, busStopEdges, remaining, departShift=0, defaultDuration=0
                     skippedStopDuration += parseTime(stop.duration)
                 else:
                     skippedStopDuration += defaultDuration
-            elif stop.lane[:-2] in remaining:
-                haveStop = True
-                continue
-            if until is not None and not haveStop:
+            else:
+                stopEdge = sumolib.net.lane2edge(stop.lane) if stop.lane else stop.edge
+                if stopEdge in remaining:
+                    haveStop = True
+                    continue
+            if until is not None and not haveStop and (before is None or stopEdge in before):
                 if departShift < until:
                     departShift = until
             vehicle.removeChild(stop)

@@ -1,0 +1,39 @@
+<routes>
+    <route id="shared" edges="beg middle end rend">
+        <stop lane="beg_0" until="20"/>
+    </route>
+    <vehicle id="inline" depart="12">
+        <route edges="beg middle end rend">
+            <stop lane="beg_0" until="90"/>
+            <stop busStop="retained" until="200"/>
+            <stop lane="rend_0" until="900"/>
+        </route>
+    </vehicle>
+    <vehicle id="split" depart="10">
+        <route edges="beg beg2left left left2end end rend">
+            <stop lane="beg2left_0" endPos="180" duration="5"/>
+            <stop lane="left_0" until="40"/>
+            <stop lane="left2end_0" endPos="180" duration="5"/>
+        </route>
+    </vehicle>
+    <vehicle id="first-reference" route="shared" depart="30">
+        <stop lane="beg_0" until="130"/>
+    </vehicle>
+    <vehicle id="second-reference" route="shared" depart="50">
+        <stop lane="beg_0" until="175"/>
+    </vehicle>
+    <vehicle id="route-stop-only" route="shared" depart="60"/>
+    <vehicle id="downstream-stop-only" depart="70">
+        <route edges="beg middle end rend"/>
+        <stop lane="rend_0" until="500"/>
+    </vehicle>
+    <flow id="inline-flow" begin="100" end="200" number="1">
+        <route edges="beg middle end">
+            <stop lane="beg_0" until="240"/>
+            <stop busStop="retained" until="360"/>
+        </route>
+    </flow>
+    <flow id="flow" route="shared" begin="100" end="200" number="1">
+        <stop lane="beg_0" until="250"/>
+    </flow>
+</routes>

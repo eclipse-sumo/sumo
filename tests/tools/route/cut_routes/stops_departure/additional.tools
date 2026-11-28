@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23 09:36:34.726735 by Eclipse SUMO cutRoutes.py v1_28_0+0759-22f87a6fede
+<configuration>
+    <routes-output value="out.rou.xml"/>
+    <stops-output value="out.add.xml"/>
+    <additional-input value="input_additional.add.xml"/>
+    <disconnected-action value="keep"/>
+    <network value="input_net.net.xml"/>
+    <routeFiles value="input_routes.rou.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="retained" lane="middle_0" startPos="120" endPos="160"/>
+</additional>
