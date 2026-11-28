@@ -1,0 +1,4 @@
+<additional>
+    <busStop id="bs_kept" lane="middle_0" startPos="10" endPos="20"/>
+    <busStop id="bs_dropped" lane="end_0" startPos="10" endPos="20"/>
+</additional>

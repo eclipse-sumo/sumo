@@ -1,0 +1,1 @@
+-s sim.sumocfg -b 600,480,1400,520 -o cut.sumocfg tools/net/cutScenario.py

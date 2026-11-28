@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 12:28:42.895281 by Eclipse SUMO cutScenario.py v0.0.0
+<configuration>
+    <sumocfg value="sim.sumocfg"/>
+    <bbox value="600,480,1400,520"/>
+</configuration>
+-->
+
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+    <input>
+        <net-file value="cut.net.xml"/>
+        <route-files value="cut.rou.xml"/>
+        <additional-files value="cut.add.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <end value="100"/>
+    </time>
+</sumoConfiguration>
