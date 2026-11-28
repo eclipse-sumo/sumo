@@ -39,15 +39,19 @@ class PoI:
         self.lonLat = lonLat
 
     def toXML(self):
+        ret = '<poi id="%s"' % self.id
+        if self.type is not None:
+            ret += ' type="%s"' % self.type
+        if self.color is not None:
+            ret += ' color="%s"' % (self.color.toXML() if hasattr(self.color, "toXML") else self.color)
+        if self.layer is not None:
+            ret += ' layer="%s"' % self.layer
         if self.lane:
-            ret = '<poi id="%s" type="%s" color="%s" layer="%s" lane="%s" pos="%s"' % (
-                self.id, self.type, self.color.toXML(), self.layer, self.lane, self.pos)
+            ret += ' lane="%s" pos="%s"' % (self.lane, self.pos)
         elif self.lonLat:
-            ret = '<poi id="%s" type="%s" color="%s" layer="%s" lon="%s" lat="%s"' % (
-                self.id, self.type, self.color.toXML(), self.layer, self.x, self.y)
+            ret += ' lon="%s" lat="%s"' % (self.x, self.y)
         else:
-            ret = '<poi id="%s" type="%s" color="%s" layer="%s" x="%s" y="%s"' % (
-                self.id, self.type, self.color.toXML(), self.layer, self.x, self.y)
+            ret += ' x="%s" y="%s"' % (self.x, self.y)
         if len(self.attributes) == 0:
             ret += '/>'
         else:
@@ -67,17 +71,17 @@ class PoIReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'poi':
-            c = color.decodeXML(attrs['color'])
+            c = color.decodeXML(attrs['color']) if 'color' in attrs else None
+            poi_type = attrs.get('type')
+            layer = float(attrs['layer']) if 'layer' in attrs else None
             if 'lane' not in attrs:
                 if 'x' not in attrs:
-                    poi = PoI(attrs['id'], attrs['type'], float(attrs['layer']), c, float(
+                    poi = PoI(attrs['id'], poi_type, layer, c, float(
                         attrs['lon']), float(attrs['lat']), lonLat=True)
                 else:
-                    poi = PoI(attrs['id'], attrs['type'], float(
-                        attrs['layer']), c, float(attrs['x']), float(attrs['y']))
+                    poi = PoI(attrs['id'], poi_type, layer, c, float(attrs['x']), float(attrs['y']))
             else:
-                poi = PoI(attrs['id'], attrs['type'], float(
-                    attrs['layer']), c, None, None, attrs['lane'], float(attrs['pos']))
+                poi = PoI(attrs['id'], poi_type, layer, c, None, None, attrs['lane'], float(attrs['pos']))
             self._id2poi[poi.id] = poi
             self._pois.append(poi)
             self._lastPOI = poi
