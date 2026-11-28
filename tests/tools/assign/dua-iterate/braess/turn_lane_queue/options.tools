@@ -1,0 +1,1 @@
+{CLEAR} -n input_net.net.xml -r input_routes.rou.xml -l 5 --turn-lane-queues sumo--duration-log.statistics sumo--duration-log.disable tools/assign/duaIterate.py

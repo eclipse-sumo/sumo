@@ -1,0 +1,71 @@
+> Executing step 0
+>> Running router on input_routes.rou.xml
+>>> Begin time: 2026-11-19 21:56:17.303115
+>>> End time: 2026-11-19 21:56:17.853173
+>>> Duration: 0:00:00.550058
+<<
+>> Running simulation
+>>> Begin time: 2026-11-19 21:56:17.853330
+>>> End time: 2026-11-19 21:56:18.177889
+>>> Duration: 0:00:00.324559
+<<
+< Step 0 ended (duration: 0:00:00.874845)
+------------------
+
+> Executing step 1
+>> Running router on 000/input_routes_000.rou.alt.xml.gz
+>>> Begin time: 2026-11-19 21:56:18.179534
+>>> End time: 2026-11-19 21:56:18.409765
+>>> Duration: 0:00:00.230231
+<<
+>> Running simulation
+>>> Begin time: 2026-11-19 21:56:18.409846
+>>> End time: 2026-11-19 21:56:18.638653
+>>> Duration: 0:00:00.228807
+<<
+< Step 1 ended (duration: 0:00:00.459179)
+------------------
+
+> Executing step 2
+>> Running router on 001/input_routes_001.rou.alt.xml.gz
+>>> Begin time: 2026-11-19 21:56:18.640592
+>>> End time: 2026-11-19 21:56:18.841767
+>>> Duration: 0:00:00.201175
+<<
+>> Running simulation
+>>> Begin time: 2026-11-19 21:56:18.841847
+>>> End time: 2026-11-19 21:56:19.075856
+>>> Duration: 0:00:00.234009
+<<
+< Step 2 ended (duration: 0:00:00.435323)
+------------------
+
+> Executing step 3
+>> Running router on 002/input_routes_002.rou.alt.xml.gz
+>>> Begin time: 2026-11-19 21:56:19.077463
+>>> End time: 2026-11-19 21:56:19.270271
+>>> Duration: 0:00:00.192808
+<<
+>> Running simulation
+>>> Begin time: 2026-11-19 21:56:19.270344
+>>> End time: 2026-11-19 21:56:19.490776
+>>> Duration: 0:00:00.220432
+<<
+< Step 3 ended (duration: 0:00:00.413408)
+------------------
+
+> Executing step 4
+>> Running router on 003/input_routes_003.rou.alt.xml.gz
+>>> Begin time: 2026-11-19 21:56:19.493294
+>>> End time: 2026-11-19 21:56:19.693760
+>>> Duration: 0:00:00.200466
+<<
+>> Running simulation
+>>> Begin time: 2026-11-19 21:56:19.693832
+>>> End time: 2026-11-19 21:56:19.909661
+>>> Duration: 0:00:00.215829
+<<
+< Step 4 ended (duration: 0:00:00.416484)
+------------------
+
+dua-iterate ended (duration: 0:00:02.626689)
