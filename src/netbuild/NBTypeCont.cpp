@@ -149,8 +149,11 @@ NBTypeCont::EdgeTypeDefinition::needsLaneType() const {
         if (laneType.attrs.count(SUMO_ATTR_WIDTH) > 0 && laneType.width != width && laneType.width != NBEdge::UNSPECIFIED_WIDTH) {
             return true;
         }
-        if (laneType.restrictions.size() > 0) {
-            return true;
+        const double refSpeed = (laneType.attrs.count(SUMO_ATTR_SPEED) > 0 && laneType.speed != NBEdge::UNSPECIFIED_SPEED) ? laneType.speed : speed;
+        for (const auto& restriction : laneType.restrictions) {
+            if (restriction.second != refSpeed) {
+                return true;
+            }
         }
     }
     return false;
@@ -345,7 +348,14 @@ NBTypeCont::copyEdgeTypeRestrictionsAndAttrs(const std::string& fromId, const st
     if (from == myEdgeTypes.end() || to == myEdgeTypes.end()) {
         return false;
     }
-    to->second->restrictions.insert(from->second->restrictions.begin(), from->second->restrictions.end());
+    for (const auto& restriction : from->second->restrictions) {
+        auto it = to->second->restrictions.find(restriction.first);
+        if (it == to->second->restrictions.end()) {
+            to->second->restrictions[restriction.first] = restriction.second;
+        } else {
+            it->second = MAX2(it->second, restriction.second);
+        }
+    }
     to->second->attrs.insert(from->second->attrs.begin(), from->second->attrs.end());
     return true;
 }
@@ -405,6 +415,9 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into,  const std::set<std::string>& typ
         write(SUMO_ATTR_SIDEWALKWIDTH, edgeType.second->sidewalkWidth);
         write(SUMO_ATTR_BIKELANEWIDTH, edgeType.second->bikeLaneWidth);
         for (const auto& restriction : edgeType.second->restrictions) {
+            if (restriction.second == edgeType.second->speed) {
+                continue;
+            }
             // open restriction tag
             into.openTag(SUMO_TAG_RESTRICTION);
             // write vclass
@@ -441,7 +454,11 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into,  const std::set<std::string>& typ
                     into.writeAttr(SUMO_ATTR_WIDTH, laneType.width);
                 }
                 // write restrictions
+                const double laneRefSpeed = (laneType.attrs.count(SUMO_ATTR_SPEED) > 0 && laneType.speed != NBEdge::UNSPECIFIED_SPEED) ? laneType.speed : edgeType.second->speed;
                 for (const auto& restriction : laneType.restrictions) {
+                    if (restriction.second == laneRefSpeed) {
+                        continue;
+                    }
                     // open restriction tag
                     into.openTag(SUMO_TAG_RESTRICTION);
                     // write vclass
