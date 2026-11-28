@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 Initializing simpla.PlatoonManager... (PlatoonManager)
 0.5: Using vType 't_leader' for vehicle 'v.0' (PlatoonMode: 'LEADER'). (PVehicle)
 0.5: Using vType 't_follower' for vehicle 'v.0' (PlatoonMode: 'FOLLOWER'). (PVehicle)
@@ -23,10 +24,10 @@ Vehicle 'v.1' resets switch waiting time. (PVehicle)
 5.5: Adding vehicle 'v.1' (PlatoonManager)
 5.5: Checking platoon ordering (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
-5.5: leaderSpeed = 13.389411711608991
+5.5: leaderSpeed = 14.222811711608992
 leaderDecel = 4.5
-gap = 62.48998980604812
-leaderBrakeGap = 19.919593998108
+gap = 66.6569898060481
+leaderBrakeGap = 22.47648588709799
 speed = 13.032987
 decel = 4.5
 followerBrakeGap = 18.873194460241002
@@ -104,59 +105,25 @@ Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 23.5: Checking platoon ordering (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
-23.5: leaderSpeed = 13.716121975877323
-leaderDecel = 4.5
-gap = 14.773451504998377
-leaderBrakeGap = 20.903555784127203
-speed = 15.308186785078082
-decel = 4.5
-followerBrakeGap = 26.037842516315468
-headwayDist = 7.654093392539041 (PVehicle)
-23.5: Vehicle 'v.1': Setting PlatoonMode 'FOLLOWER' (PVehicle)
-23.5: Activated mode PlatoonMode.FOLLOWER for platoon '1' (['v.1']) (Platoon)
-Vehicle 'v.1' resets switch waiting time. (PVehicle)
-23.5: Vehicle 'v.0': Setting PlatoonMode 'LEADER' (PVehicle)
-23.5: Platoon '1' joined Platoon '0', which now contains vehicles:
-['v.0', 'v.1'] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 24.5: Checking platoon ordering (PlatoonManager)
-Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 25.5: Checking platoon ordering (PlatoonManager)
-Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 26.5: Checking platoon ordering (PlatoonManager)
-Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.1' resets switch waiting time. (PVehicle)
 27.5: Adding vehicle 'other.1' (PlatoonManager)
 27.5: Checking platoon ordering (PlatoonManager)
-Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-27.5: leaderSpeed = 13.67671576875495
+27.5: leaderSpeed = 14.097582768754949
 leaderDecel = 4.5
-gap = 60.11274347523577
-leaderBrakeGap = 20.78361713547892
+gap = 62.21707847523578
+leaderBrakeGap = 22.082426657988496
 speed = 11.54259
 decel = 4.5
 followerBrakeGap = 14.803487100900002
@@ -164,52 +131,36 @@ headwayDist = 11.54259 (PVehicle)
 27.5: Vehicle 'other.1': Setting PlatoonMode 'CATCHUP' (PVehicle)
 27.5: Activated mode PlatoonMode.CATCHUP for platoon '5' (['other.1']) (Platoon)
 28.5: Checking platoon ordering (PlatoonManager)
-Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 29.5: Checking platoon ordering (PlatoonManager)
-Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 30.5: Checking platoon ordering (PlatoonManager)
-Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 31.5: Checking platoon ordering (PlatoonManager)
-Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 32.5: Checking platoon ordering (PlatoonManager)
-Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 33.5: Checking platoon ordering (PlatoonManager)
-Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
+33.5: leaderSpeed = 14.719695361034574
+leaderDecel = 4.5
+gap = 14.115794242525396
+leaderBrakeGap = 24.074381280184753
+speed = 16.17004069464292
+decel = 4.5
+followerBrakeGap = 29.0522462296009
+headwayDist = 8.08502034732146 (PVehicle)
+33.5: Vehicle 'v.1': Setting PlatoonMode 'FOLLOWER' (PVehicle)
+33.5: Activated mode PlatoonMode.FOLLOWER for platoon '1' (['v.1']) (Platoon)
+Vehicle 'v.1' resets switch waiting time. (PVehicle)
+33.5: Vehicle 'v.0': Setting PlatoonMode 'LEADER' (PVehicle)
+33.5: Platoon '1' joined Platoon '0', which now contains vehicles:
+['v.0', 'v.1'] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 34.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
@@ -322,118 +273,117 @@ vehicles: ['v.0', 'v.1'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
-47.5: leaderSpeed = 13.432424682528374
-leaderDecel = 4.5
-gap = 13.723729546141158
-leaderBrakeGap = 20.0477814279775
-speed = 15.31160041710109
-decel = 4.5
-followerBrakeGap = 26.04945637033003
-headwayDist = 7.655800208550545 (PVehicle)
-47.5: Vehicle 'v.2': Setting PlatoonMode 'FOLLOWER' (PVehicle)
-47.5: Activated mode PlatoonMode.FOLLOWER for platoon '2' (['v.2']) (Platoon)
-Vehicle 'v.2' resets switch waiting time. (PVehicle)
-47.5: Platoon '2' joined Platoon '0', which now contains vehicles:
-['v.0', 'v.1', 'v.2'] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 48.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 49.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 50.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 51.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 52.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 53.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 54.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 55.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 56.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 57.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
+57.5: leaderSpeed = 13.49644791876644
+leaderDecel = 4.5
+gap = 13.203832293855044
+leaderBrakeGap = 20.239345158219443
+speed = 15.360157966828249
+decel = 4.5
+followerBrakeGap = 26.214939196213034
+headwayDist = 7.680078983414124 (PVehicle)
+Vehicle 'v.2' increases switch waiting time for PlatoonMode.FOLLOWER to 1.0 (PVehicle)
+57.5: Merging of platoons '2' (['v.2']) and '0' (['v.0', 'v.1']) would not be safe. (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 58.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
+58.5: leaderSpeed = 13.327472643115918
+leaderDecel = 4.5
+gap = 11.741751687109627
+leaderBrakeGap = 19.735725228111466
+speed = 14.653932359827076
+decel = 4.5
+followerBrakeGap = 23.85974817848746
+headwayDist = 7.326966179913538 (PVehicle)
+58.5: Vehicle 'v.2': Setting PlatoonMode 'FOLLOWER' (PVehicle)
+58.5: Activated mode PlatoonMode.FOLLOWER for platoon '2' (['v.2']) (Platoon)
+Vehicle 'v.2' resets switch waiting time. (PVehicle)
+58.5: Platoon '2' joined Platoon '0', which now contains vehicles:
+['v.0', 'v.1', 'v.2'] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 59.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
@@ -462,24 +412,6 @@ Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-61.5: leaderSpeed = 16.077633256215602
-leaderDecel = 4.5
-gap = 216.0814070518402
-leaderBrakeGap = 28.72114345792999
-speed = 13.373718634850812
-decel = 4.5
-followerBrakeGap = 19.872927791572877
-headwayDist = 13.373718634850812 (PVehicle)
-61.5: leaderSpeed = 13.373718634850812
-leaderDecel = 4.5
-gap = 14.949112728236628
-leaderBrakeGap = 19.872927791572877
-speed = 13.790410291195498
-decel = 4.5
-followerBrakeGap = 21.13060177772341
-headwayDist = 13.790410291195498 (PVehicle)
-Vehicle 'other.1' increases switch waiting time for PlatoonMode.FOLLOWER to 1.0 (PVehicle)
-61.5: Merging of platoons '5' (['other.1']) and '4' (['other.0']) would not be safe. (PlatoonManager)
 62.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -489,29 +421,6 @@ Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-62.5: leaderSpeed = 16.553514407907613
-leaderDecel = 4.5
-gap = 219.04323324439588
-leaderBrakeGap = 30.446537694756103
-speed = 13.404961309800857
-decel = 4.5
-followerBrakeGap = 19.96588752413977
-headwayDist = 13.404961309800857 (PVehicle)
-62.5: leaderSpeed = 13.404961309800857
-leaderDecel = 4.5
-gap = 14.908255579914112
-leaderBrakeGap = 19.96588752413977
-speed = 13.136325076535048
-decel = 4.5
-followerBrakeGap = 19.17367072404484
-headwayDist = 13.136325076535048 (PVehicle)
-62.5: Vehicle 'other.1': Setting PlatoonMode 'FOLLOWER' (PVehicle)
-62.5: Activated mode PlatoonMode.FOLLOWER for platoon '5' (['other.1']) (Platoon)
-Vehicle 'other.1' resets switch waiting time. (PVehicle)
-62.5: Vehicle 'other.0': Setting PlatoonMode 'LEADER' (PVehicle)
-62.5: Platoon '5' joined Platoon '4', which now contains vehicles:
-['other.0', 'other.1'] (PlatoonManager)
-63.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
 63.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -519,11 +428,6 @@ Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 64.5: Checking platoon ordering (PlatoonManager)
@@ -533,11 +437,6 @@ Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 65.5: Checking platoon ordering (PlatoonManager)
@@ -547,14 +446,8 @@ Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-66.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
 66.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -562,14 +455,8 @@ Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-67.5: Time until split from platoon for veh 'other.1': 1.0 (PVehicle)
 67.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -577,47 +464,8 @@ Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-68.5: Time until split from platoon for veh 'other.1': 0.0 (PVehicle)
-68.5: leaderSpeed = 13.319412546940148
-leaderDecel = 4.5
-gap = 15.021854092960098
-leaderBrakeGap = 19.711861177287403
-speed = 13.277319223908126
-decel = 4.5
-followerBrakeGap = 19.587467308173366
-headwayDist = 13.277319223908126 (PVehicle)
-68.5: leaderSpeed = 13.319412546940148
-leaderDecel = 4.5
-gap = 15.021854092960098
-leaderBrakeGap = 19.711861177287403
-speed = 13.277319223908126
-decel = 4.5
-followerBrakeGap = 19.587467308173366
-headwayDist = 13.277319223908126 (PVehicle)
-68.5: Vehicle 'other.1': Setting PlatoonMode 'NONE' (PVehicle)
-68.5: Activated mode PlatoonMode.NONE for platoon '6' (['other.1']) (Platoon)
-Vehicle 'other.1' resets switch waiting time. (PVehicle)
-68.5: leaderSpeed = 16.208415304759516
-leaderDecel = 4.5
-gap = 236.57906627376371
-leaderBrakeGap = 29.19030296572917
-speed = 13.319412546940148
-decel = 4.5
-followerBrakeGap = 19.711861177287403
-headwayDist = 13.319412546940148 (PVehicle)
-68.5: Vehicle 'other.0': Setting PlatoonMode 'NONE' (PVehicle)
-68.5: Activated mode PlatoonMode.NONE for platoon '4' (['other.0']) (Platoon)
-Vehicle 'other.0' resets switch waiting time. (PVehicle)
-68.5: Platoon '4' splits (ID of new platoon: '6'):
-    Platoon '4': ['other.0']
-    Platoon '6': ['other.1'] (PlatoonManager)
 68.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -627,16 +475,6 @@ Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-68.5: leaderSpeed = 13.319412546940148
-leaderDecel = 4.5
-gap = 15.021854092960098
-leaderBrakeGap = 19.711861177287403
-speed = 13.277319223908126
-decel = 4.5
-followerBrakeGap = 19.587467308173366
-headwayDist = 13.277319223908126 (PVehicle)
-68.5: Vehicle 'other.1': Setting PlatoonMode 'CATCHUP' (PVehicle)
-68.5: Activated mode PlatoonMode.CATCHUP for platoon '6' (['other.1']) (Platoon)
 69.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -655,24 +493,6 @@ Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-70.5: leaderSpeed = 15.54667943567426
-leaderDecel = 4.5
-gap = 241.7896833523938
-leaderBrakeGap = 26.85547127506855
-speed = 13.24402691308409
-decel = 4.5
-followerBrakeGap = 19.489360986055075
-headwayDist = 13.24402691308409 (PVehicle)
-70.5: leaderSpeed = 13.24402691308409
-leaderDecel = 4.5
-gap = 14.802174398862121
-leaderBrakeGap = 19.489360986055075
-speed = 13.744553593400164
-decel = 4.5
-followerBrakeGap = 20.990305942427707
-headwayDist = 13.744553593400164 (PVehicle)
-Vehicle 'other.1' increases switch waiting time for PlatoonMode.FOLLOWER to 1.0 (PVehicle)
-70.5: Merging of platoons '6' (['other.1']) and '4' (['other.0']) would not be safe. (PlatoonManager)
 71.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -681,16 +501,6 @@ vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
-71.5: leaderSpeed = 13.35337622438985
-leaderDecel = 4.5
-gap = 13.775172623073104
-leaderBrakeGap = 19.812517398900013
-speed = 15.836284686527037
-decel = 4.5
-followerBrakeGap = 27.865323630303415
-headwayDist = 7.9181423432635185 (PVehicle)
-Vehicle 'v.3' increases switch waiting time for PlatoonMode.FOLLOWER to 1.0 (PVehicle)
-71.5: Merging of platoons '3' (['v.3']) and '0' (['v.0', 'v.1', 'v.2']) would not be safe. (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 72.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
@@ -700,182 +510,110 @@ vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
-72.5: leaderSpeed = 13.707015717365122
-leaderDecel = 4.5
-gap = 12.636338132319224
-leaderBrakeGap = 20.87580887512161
-speed = 15.080792209743734
-decel = 4.5
-followerBrakeGap = 25.270032630385256
-headwayDist = 7.540396104871867 (PVehicle)
-72.5: Vehicle 'v.3': Setting PlatoonMode 'FOLLOWER' (PVehicle)
-72.5: Activated mode PlatoonMode.FOLLOWER for platoon '3' (['v.3']) (Platoon)
-Vehicle 'v.3' resets switch waiting time. (PVehicle)
-72.5: Platoon '3' joined Platoon '0', which now contains vehicles:
-['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 73.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 74.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-74.5: leaderSpeed = 14.795587105320118
-leaderDecel = 4.5
-gap = 247.5324208234366
-leaderBrakeGap = 24.323266421234997
-speed = 13.280756013907958
-decel = 4.5
-followerBrakeGap = 19.597608922328043
-headwayDist = 13.280756013907958 (PVehicle)
-74.5: leaderSpeed = 13.280756013907958
-leaderDecel = 4.5
-gap = 14.704918169146481
-leaderBrakeGap = 19.597608922328043
-speed = 13.917378379246191
-decel = 4.5
-followerBrakeGap = 21.521491216789926
-headwayDist = 13.917378379246191 (PVehicle)
-Vehicle 'other.1' increases switch waiting time for PlatoonMode.FOLLOWER to 2.0 (PVehicle)
-74.5: Merging of platoons '6' (['other.1']) and '4' (['other.0']) would not be safe. (PlatoonManager)
 75.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-75.5: leaderSpeed = 13.840670094427471
-leaderDecel = 4.5
-gap = 247.87129430084678
-leaderBrakeGap = 21.28490540697544
-speed = 13.665247969792691
-decel = 4.5
-followerBrakeGap = 20.74877800843592
-headwayDist = 13.665247969792691 (PVehicle)
-75.5: leaderSpeed = 13.665247969792691
-leaderDecel = 4.5
-gap = 14.972014005801384
-leaderBrakeGap = 20.74877800843592
-speed = 13.422635433241112
-decel = 4.5
-followerBrakeGap = 20.018571330411092
-headwayDist = 13.422635433241112 (PVehicle)
-75.5: Vehicle 'other.1': Setting PlatoonMode 'FOLLOWER' (PVehicle)
-75.5: Activated mode PlatoonMode.FOLLOWER for platoon '6' (['other.1']) (Platoon)
-Vehicle 'other.1' resets switch waiting time. (PVehicle)
-75.5: Vehicle 'other.0': Setting PlatoonMode 'LEADER' (PVehicle)
-75.5: Platoon '6' joined Platoon '4', which now contains vehicles:
-['other.0', 'other.1'] (PlatoonManager)
-76.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
 76.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-77.5: Time until split from platoon for veh 'other.1': 1.0 (PVehicle)
 77.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 78.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-79.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
 79.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 80.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
+80.5: leaderSpeed = 13.25250252074418
+leaderDecel = 4.5
+gap = 14.928170942681831
+leaderBrakeGap = 19.514313673592316
+speed = 16.510490930506027
+decel = 4.5
+followerBrakeGap = 30.288478974035755
+headwayDist = 8.255245465253013 (PVehicle)
+Vehicle 'v.3' increases switch waiting time for PlatoonMode.FOLLOWER to 1.0 (PVehicle)
+80.5: Merging of platoons '3' (['v.3']) and '0' (['v.0', 'v.1', 'v.2']) would not be safe. (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 81.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+vehicles: ['v.0', 'v.1', 'v.2'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
+81.5: leaderSpeed = 13.512570190774712
+leaderDecel = 4.5
+gap = 13.730990137468524
+leaderBrakeGap = 20.287728128957035
+speed = 14.697276263153391
+decel = 4.5
+followerBrakeGap = 24.001103283939123
+headwayDist = 7.3486381315766955 (PVehicle)
+81.5: Vehicle 'v.3': Setting PlatoonMode 'FOLLOWER' (PVehicle)
+81.5: Activated mode PlatoonMode.FOLLOWER for platoon '3' (['v.3']) (Platoon)
+Vehicle 'v.3' resets switch waiting time. (PVehicle)
+81.5: Platoon '3' joined Platoon '0', which now contains vehicles:
+['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 82.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
@@ -885,11 +623,6 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 83.5: Checking platoon ordering (PlatoonManager)
@@ -900,14 +633,8 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-84.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
 84.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -916,14 +643,8 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-85.5: Time until split from platoon for veh 'other.1': 1.0 (PVehicle)
 85.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -932,39 +653,8 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-86.5: Time until split from platoon for veh 'other.1': 0.0 (PVehicle)
-86.5: leaderSpeed = 13.368612064151094
-leaderDecel = 4.5
-gap = 15.088092876892006
-leaderBrakeGap = 19.85775428019624
-speed = 13.611602499905802
-decel = 4.5
-followerBrakeGap = 20.586191401715766
-headwayDist = 13.611602499905802 (PVehicle)
-86.5: leaderSpeed = 13.368612064151094
-leaderDecel = 4.5
-gap = 15.088092876892006
-leaderBrakeGap = 19.85775428019624
-speed = 13.611602499905802
-decel = 4.5
-followerBrakeGap = 20.586191401715766
-headwayDist = 13.611602499905802 (PVehicle)
-86.5: Vehicle 'other.1': Setting PlatoonMode 'NONE' (PVehicle)
-86.5: Activated mode PlatoonMode.NONE for platoon '7' (['other.1']) (Platoon)
-Vehicle 'other.1' resets switch waiting time. (PVehicle)
-86.5: Vehicle 'other.0': Setting PlatoonMode 'NONE' (PVehicle)
-86.5: Activated mode PlatoonMode.NONE for platoon '4' (['other.0']) (Platoon)
-Vehicle 'other.0' resets switch waiting time. (PVehicle)
-86.5: Platoon '4' splits (ID of new platoon: '7'):
-    Platoon '4': ['other.0']
-    Platoon '7': ['other.1'] (PlatoonManager)
 86.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -975,16 +665,6 @@ Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-86.5: leaderSpeed = 13.368612064151094
-leaderDecel = 4.5
-gap = 15.088092876892006
-leaderBrakeGap = 19.85775428019624
-speed = 13.611602499905802
-decel = 4.5
-followerBrakeGap = 20.586191401715766
-headwayDist = 13.611602499905802 (PVehicle)
-86.5: Vehicle 'other.1': Setting PlatoonMode 'CATCHUP' (PVehicle)
-86.5: Activated mode PlatoonMode.CATCHUP for platoon '7' (['other.1']) (Platoon)
 87.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -995,20 +675,6 @@ Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-87.5: leaderSpeed = 13.44848513346864
-leaderDecel = 4.5
-gap = 14.86435334215048
-leaderBrakeGap = 20.095750265014114
-speed = 13.565721570360035
-decel = 4.5
-followerBrakeGap = 20.447644636059056
-headwayDist = 13.565721570360035 (PVehicle)
-87.5: Vehicle 'other.1': Setting PlatoonMode 'FOLLOWER' (PVehicle)
-87.5: Activated mode PlatoonMode.FOLLOWER for platoon '7' (['other.1']) (Platoon)
-Vehicle 'other.1' resets switch waiting time. (PVehicle)
-87.5: Vehicle 'other.0': Setting PlatoonMode 'LEADER' (PVehicle)
-87.5: Platoon '7' joined Platoon '4', which now contains vehicles:
-['other.0', 'other.1'] (PlatoonManager)
 88.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1017,11 +683,6 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 89.5: Checking platoon ordering (PlatoonManager)
@@ -1032,11 +693,6 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 90.5: Checking platoon ordering (PlatoonManager)
@@ -1047,11 +703,6 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 91.5: Checking platoon ordering (PlatoonManager)
@@ -1062,11 +713,6 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 92.5: Checking platoon ordering (PlatoonManager)
@@ -1077,11 +723,6 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 93.5: Checking platoon ordering (PlatoonManager)
@@ -1092,11 +733,6 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 94.5: Checking platoon ordering (PlatoonManager)
@@ -1107,14 +743,8 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-95.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
 95.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1123,13 +753,30 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
+95.5: leaderSpeed = 13.098323142695401
+leaderDecel = 4.5
+gap = 246.36643488226974
+leaderBrakeGap = 19.062896572274436
+speed = 13.704035523244094
+decel = 4.5
+followerBrakeGap = 20.86673218025956
+headwayDist = 13.704035523244094 (PVehicle)
+95.5: leaderSpeed = 13.704035523244094
+leaderDecel = 4.5
+gap = 14.9581983226714
+leaderBrakeGap = 20.86673218025956
+speed = 13.844560373783976
+decel = 4.5
+followerBrakeGap = 21.296872438149947
+headwayDist = 13.844560373783976 (PVehicle)
+95.5: Vehicle 'other.1': Setting PlatoonMode 'FOLLOWER' (PVehicle)
+95.5: Activated mode PlatoonMode.FOLLOWER for platoon '5' (['other.1']) (Platoon)
+Vehicle 'other.1' resets switch waiting time. (PVehicle)
+95.5: Vehicle 'other.0': Setting PlatoonMode 'LEADER' (PVehicle)
+95.5: Platoon '5' joined Platoon '4', which now contains vehicles:
+['other.0', 'other.1'] (PlatoonManager)
 96.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1145,7 +792,6 @@ Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-97.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
 97.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1176,7 +822,6 @@ Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-99.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
 99.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1207,7 +852,6 @@ Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-101.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
 101.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1223,7 +867,6 @@ Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-102.5: Time until split from platoon for veh 'other.1': 1.0 (PVehicle)
 102.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1254,7 +897,6 @@ Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-104.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
 104.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1285,6 +927,7 @@ Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
+106.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
 106.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1300,6 +943,7 @@ Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
+107.5: Time until split from platoon for veh 'other.1': 1.0 (PVehicle)
 107.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1315,7 +959,6 @@ Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-108.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
 108.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1331,7 +974,6 @@ Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-109.5: Time until split from platoon for veh 'other.1': 1.0 (PVehicle)
 109.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1407,6 +1049,7 @@ Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
+114.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
 114.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1453,6 +1096,7 @@ Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
+117.5: Time until split from platoon for veh 'other.1': 1.0 (PVehicle)
 117.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1468,7 +1112,40 @@ Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-118.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
+118.5: Time until split from platoon for veh 'other.1': 0.0 (PVehicle)
+118.5: leaderSpeed = 13.511745515824297
+leaderDecel = 4.5
+gap = 15.012151016709083
+leaderBrakeGap = 20.28525187604422
+speed = 13.714412345751374
+decel = 4.5
+followerBrakeGap = 20.898345109921966
+headwayDist = 13.714412345751374 (PVehicle)
+118.5: leaderSpeed = 13.511745515824297
+leaderDecel = 4.5
+gap = 15.012151016709083
+leaderBrakeGap = 20.28525187604422
+speed = 13.714412345751374
+decel = 4.5
+followerBrakeGap = 20.898345109921966
+headwayDist = 13.714412345751374 (PVehicle)
+118.5: Vehicle 'other.1': Setting PlatoonMode 'NONE' (PVehicle)
+118.5: Activated mode PlatoonMode.NONE for platoon '6' (['other.1']) (Platoon)
+Vehicle 'other.1' resets switch waiting time. (PVehicle)
+118.5: leaderSpeed = 13.745488022967605
+leaderDecel = 4.5
+gap = 244.5641641974144
+leaderBrakeGap = 20.993160109949542
+speed = 13.511745515824297
+decel = 4.5
+followerBrakeGap = 20.28525187604422
+headwayDist = 13.511745515824297 (PVehicle)
+118.5: Vehicle 'other.0': Setting PlatoonMode 'NONE' (PVehicle)
+118.5: Activated mode PlatoonMode.NONE for platoon '4' (['other.0']) (Platoon)
+Vehicle 'other.0' resets switch waiting time. (PVehicle)
+118.5: Platoon '4' splits (ID of new platoon: '6'):
+    Platoon '4': ['other.0']
+    Platoon '6': ['other.1'] (PlatoonManager)
 118.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1477,14 +1154,18 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-119.5: Time until split from platoon for veh 'other.1': 1.0 (PVehicle)
+118.5: leaderSpeed = 13.511745515824297
+leaderDecel = 4.5
+gap = 15.012151016709083
+leaderBrakeGap = 20.28525187604422
+speed = 13.714412345751374
+decel = 4.5
+followerBrakeGap = 20.898345109921966
+headwayDist = 13.714412345751374 (PVehicle)
+118.5: Vehicle 'other.1': Setting PlatoonMode 'CATCHUP' (PVehicle)
+118.5: Activated mode PlatoonMode.CATCHUP for platoon '6' (['other.1']) (Platoon)
 119.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1493,47 +1174,8 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
-Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
-vehicles: ['other.0', 'other.1'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-120.5: Time until split from platoon for veh 'other.1': 0.0 (PVehicle)
-120.5: leaderSpeed = 13.511745515824297
-leaderDecel = 4.5
-gap = 15.01263426761659
-leaderBrakeGap = 20.28525187604422
-speed = 13.71455041743923
-decel = 4.5
-followerBrakeGap = 20.898765905831397
-headwayDist = 13.71455041743923 (PVehicle)
-120.5: leaderSpeed = 13.511745515824297
-leaderDecel = 4.5
-gap = 15.01263426761659
-leaderBrakeGap = 20.28525187604422
-speed = 13.71455041743923
-decel = 4.5
-followerBrakeGap = 20.898765905831397
-headwayDist = 13.71455041743923 (PVehicle)
-120.5: Vehicle 'other.1': Setting PlatoonMode 'NONE' (PVehicle)
-120.5: Activated mode PlatoonMode.NONE for platoon '8' (['other.1']) (Platoon)
-Vehicle 'other.1' resets switch waiting time. (PVehicle)
-120.5: leaderSpeed = 13.74582108910495
-leaderDecel = 4.5
-gap = 247.33033879511186
-leaderBrakeGap = 20.994177490409157
-speed = 13.511745515824297
-decel = 4.5
-followerBrakeGap = 20.28525187604422
-headwayDist = 13.511745515824297 (PVehicle)
-120.5: Vehicle 'other.0': Setting PlatoonMode 'NONE' (PVehicle)
-120.5: Activated mode PlatoonMode.NONE for platoon '4' (['other.0']) (Platoon)
-Vehicle 'other.0' resets switch waiting time. (PVehicle)
-120.5: Platoon '4' splits (ID of new platoon: '8'):
-    Platoon '4': ['other.0']
-    Platoon '8': ['other.1'] (PlatoonManager)
 120.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1544,16 +1186,6 @@ Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-120.5: leaderSpeed = 13.511745515824297
-leaderDecel = 4.5
-gap = 15.01263426761659
-leaderBrakeGap = 20.28525187604422
-speed = 13.71455041743923
-decel = 4.5
-followerBrakeGap = 20.898765905831397
-headwayDist = 13.71455041743923 (PVehicle)
-120.5: Vehicle 'other.1': Setting PlatoonMode 'CATCHUP' (PVehicle)
-120.5: Activated mode PlatoonMode.CATCHUP for platoon '8' (['other.1']) (Platoon)
 121.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1574,24 +1206,6 @@ Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-122.5: leaderSpeed = 13.032184054679236
-leaderDecel = 4.5
-gap = 247.37329965951426
-leaderBrakeGap = 18.87086902611508
-speed = 13.31452752077952
-decel = 4.5
-followerBrakeGap = 19.69740478906614
-headwayDist = 13.31452752077952 (PVehicle)
-122.5: leaderSpeed = 13.31452752077952
-leaderDecel = 4.5
-gap = 14.921225166062584
-leaderBrakeGap = 19.69740478906614
-speed = 13.99467429827666
-decel = 4.5
-followerBrakeGap = 21.76121207942726
-headwayDist = 13.99467429827666 (PVehicle)
-Vehicle 'other.1' increases switch waiting time for PlatoonMode.FOLLOWER to 1.0 (PVehicle)
-122.5: Merging of platoons '8' (['other.1']) and '4' (['other.0']) would not be safe. (PlatoonManager)
 123.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1642,24 +1256,6 @@ Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-127.5: leaderSpeed = 13.434673614642017
-leaderDecel = 4.5
-gap = 247.41288558614298
-leaderBrakeGap = 20.054495014662045
-speed = 13.314992388428655
-decel = 4.5
-followerBrakeGap = 19.698780255990336
-headwayDist = 13.314992388428655 (PVehicle)
-127.5: leaderSpeed = 13.314992388428655
-leaderDecel = 4.5
-gap = 14.858187387885437
-leaderBrakeGap = 19.698780255990336
-speed = 13.943320781074776
-decel = 4.5
-followerBrakeGap = 21.601799378216857
-headwayDist = 13.943320781074776 (PVehicle)
-Vehicle 'other.1' increases switch waiting time for PlatoonMode.FOLLOWER to 2.0 (PVehicle)
-127.5: Merging of platoons '8' (['other.1']) and '4' (['other.0']) would not be safe. (PlatoonManager)
 128.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1810,6 +1406,28 @@ Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
+142.5: leaderSpeed = 13.856865850405649
+leaderDecel = 4.5
+gap = 234.8387798330757
+leaderBrakeGap = 21.33474791068203
+speed = 13.682612771053247
+decel = 4.5
+followerBrakeGap = 20.801543582509932
+headwayDist = 13.682612771053247 (PVehicle)
+142.5: leaderSpeed = 13.682612771053247
+leaderDecel = 4.5
+gap = 14.881261570594688
+leaderBrakeGap = 20.801543582509932
+speed = 13.856965909758168
+decel = 4.5
+followerBrakeGap = 21.33505602491111
+headwayDist = 13.856965909758168 (PVehicle)
+142.5: Vehicle 'other.1': Setting PlatoonMode 'FOLLOWER' (PVehicle)
+142.5: Activated mode PlatoonMode.FOLLOWER for platoon '6' (['other.1']) (Platoon)
+Vehicle 'other.1' resets switch waiting time. (PVehicle)
+142.5: Vehicle 'other.0': Setting PlatoonMode 'LEADER' (PVehicle)
+142.5: Platoon '6' joined Platoon '4', which now contains vehicles:
+['other.0', 'other.1'] (PlatoonManager)
 143.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
@@ -1818,6 +1436,11 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 144.5: Checking platoon ordering (PlatoonManager)
@@ -1828,6 +1451,11 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 145.5: Checking platoon ordering (PlatoonManager)
@@ -1838,123 +1466,226 @@ Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-146.5: Checking platoon ordering (PlatoonManager)
-Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Vehicle 'v.0' resets switch waiting time. (PVehicle)
-Vehicle 'other.0' resets switch waiting time. (PVehicle)
-147.5: Checking platoon ordering (PlatoonManager)
-Platoon 0: Leader for veh 'v.0' is 'None' (not from same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.1' is 'v.0' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
-Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
-vehicles: ['v.0', 'v.1', 'v.2', 'v.3'] (PlatoonManager)
-Actual leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-registered leaders: ['None', "<PVehicle 'v.0'>", "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
-Vehicle 'v.0' resets switch waiting time. (PVehicle)
-Vehicle 'other.0' resets switch waiting time. (PVehicle)
-148.0: Removing arrived vehicle 'v.0' (PlatoonManager)
-148.0: leaderSpeed = 13.487937667707447
+146.0: Removing arrived vehicle 'v.0' (PlatoonManager)
+146.0: leaderSpeed = 13.487937667707447
 leaderDecel = 4.5
-gap = 5.983012126039512
+gap = 5.983012050917409
 leaderBrakeGap = 20.21382916977349
-speed = 14.128016809124983
+speed = 14.128016784084288
 decel = 4.5
-followerBrakeGap = 22.177873217657563
-headwayDist = 14.128016809124983 (PVehicle)
-148.5: Vehicle 'v.1': Setting PlatoonMode 'LEADER' (PVehicle)
-148.5: Checking platoon ordering (PlatoonManager)
+followerBrakeGap = 22.177873139040816
+headwayDist = 14.128016784084288 (PVehicle)
+146.5: Vehicle 'v.1': Setting PlatoonMode 'LEADER' (PVehicle)
+146.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
+146.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.1' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.2' is 'v.1' (same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.1', 'v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.1'>", "<PVehicle 'v.2'>"] (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.1' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-149.0: Removing arrived vehicle 'v.1' (PlatoonManager)
-149.0: leaderSpeed = 14.724281947513651
+147.0: Removing arrived vehicle 'v.1' (PlatoonManager)
+147.0: leaderSpeed = 14.724281926050194
 leaderDecel = 4.5
-gap = 6.313148974109595
-leaderBrakeGap = 24.089386541097376
-speed = 13.576469821616096
+gap = 6.313148918145089
+leaderBrakeGap = 24.089386470867602
+speed = 13.576469785075044
 decel = 4.5
-followerBrakeGap = 20.48005920191695
-headwayDist = 13.576469821616096 (PVehicle)
-149.5: Vehicle 'v.2': Setting PlatoonMode 'LEADER' (PVehicle)
-149.5: Checking platoon ordering (PlatoonManager)
+followerBrakeGap = 20.480059091672846
+headwayDist = 13.576469785075044 (PVehicle)
+147.5: Vehicle 'v.2': Setting PlatoonMode 'LEADER' (PVehicle)
+147.5: Time until split from platoon for veh 'other.1': 1.0 (PVehicle)
+147.5: Checking platoon ordering (PlatoonManager)
 Platoon 0: Leader for veh 'v.2' is 'None' (not from same platoon) (PlatoonManager)
 Platoon 0: Leader for veh 'v.3' is 'v.2' (same platoon) (PlatoonManager)
 vehicles: ['v.2', 'v.3'] (PlatoonManager)
 Actual leaders: ['None', "<PVehicle 'v.2'>"] (PlatoonManager)
 registered leaders: ['None', "<PVehicle 'v.2'>"] (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.2' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-150.0: Removing arrived vehicle 'v.2' (PlatoonManager)
-150.0: leaderSpeed = 15.498584304487354
+148.0: Removing arrived vehicle 'v.2' (PlatoonManager)
+148.0: leaderSpeed = 15.498584267946303
 leaderDecel = 4.5
-gap = 6.576521890269419
-leaderBrakeGap = 26.689568382589083
-speed = 14.48294438618781
+gap = 6.576521811282987
+leaderBrakeGap = 26.689568256736962
+speed = 14.482944325360332
 decel = 4.5
-followerBrakeGap = 23.306186454823223
-headwayDist = 14.48294438618781 (PVehicle)
-150.5: Vehicle 'v.3': Setting PlatoonMode 'LEADER' (PVehicle)
-150.5: Checking platoon ordering (PlatoonManager)
-150.5: Vehicle 'v.3': Setting PlatoonMode 'NONE' (PVehicle)
-150.5: Activated mode PlatoonMode.NONE for platoon '0' (['v.3']) (Platoon)
+followerBrakeGap = 23.306186259054115
+headwayDist = 14.482944325360332 (PVehicle)
+148.5: Vehicle 'v.3': Setting PlatoonMode 'LEADER' (PVehicle)
+148.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'v.3' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+148.5: Vehicle 'v.3': Setting PlatoonMode 'NONE' (PVehicle)
+148.5: Activated mode PlatoonMode.NONE for platoon '0' (['v.3']) (Platoon)
 Vehicle 'v.3' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
-151.0: Removing arrived vehicle 'v.3' (PlatoonManager)
+149.0: Removing arrived vehicle 'v.3' (PlatoonManager)
+149.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
+149.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+Vehicle 'other.0' resets switch waiting time. (PVehicle)
+150.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+Vehicle 'other.0' resets switch waiting time. (PVehicle)
+151.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
 151.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 152.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 153.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 154.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 155.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 156.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 157.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
+158.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
 158.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 159.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 160.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 161.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 162.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 163.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 164.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 165.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
+166.5: Time until split from platoon for veh 'other.1': 2.0 (PVehicle)
 166.5: Checking platoon ordering (PlatoonManager)
+Platoon 4: Leader for veh 'other.0' is 'None' (not from same platoon) (PlatoonManager)
+Platoon 4: Leader for veh 'other.1' is 'other.0' (same platoon) (PlatoonManager)
+vehicles: ['other.0', 'other.1'] (PlatoonManager)
+Actual leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
+registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
+167.0: Removing arrived vehicle 'other.0' (PlatoonManager)
+167.0: leaderSpeed = 13.533487350677607
+leaderDecel = 4.5
+gap = 15.213330633094415
+leaderBrakeGap = 20.350586652327866
+speed = 13.525039614807174
+decel = 4.5
+followerBrakeGap = 20.325188509122597
+headwayDist = 13.525039614807174 (PVehicle)
+167.0: Vehicle 'other.1': Setting PlatoonMode 'NONE' (PVehicle)
+167.0: Activated mode PlatoonMode.NONE for platoon '4' (['other.1']) (Platoon)
 167.5: Checking platoon ordering (PlatoonManager)
-Vehicle 'other.0' resets switch waiting time. (PVehicle)
-168.5: Checking platoon ordering (PlatoonManager)
-Vehicle 'other.0' resets switch waiting time. (PVehicle)
-169.5: Checking platoon ordering (PlatoonManager)
-Vehicle 'other.0' resets switch waiting time. (PVehicle)
-170.0: Removing arrived vehicle 'other.0' (PlatoonManager)
-170.5: Checking platoon ordering (PlatoonManager)
-170.5: Vehicle 'other.1': Setting PlatoonMode 'NONE' (PVehicle)
-170.5: Activated mode PlatoonMode.NONE for platoon '8' (['other.1']) (Platoon)
 Vehicle 'other.1' resets switch waiting time. (PVehicle)
-171.5: Removing arrived vehicle 'other.1' (PlatoonManager)
-171.5: Checking platoon ordering (PlatoonManager)
+168.5: Checking platoon ordering (PlatoonManager)
+Vehicle 'other.1' resets switch waiting time. (PVehicle)
+169.0: Removing arrived vehicle 'other.1' (PlatoonManager)

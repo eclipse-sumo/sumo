@@ -143,7 +143,10 @@ class GapController(traci.StepListener):
         Releases the vehicle's speed control such that sumo may take over again
         '''
         if self._speedControlActive:
-            traci.vehicle.setSpeed(self._vehID, -1)
+            try:
+                traci.vehicle.setSpeed(self._vehID, -1)
+            except traci.exceptions.TraCIException:
+                pass
             self._speedControlActive = False
 
     def _imposeSpeed(self, speed):
