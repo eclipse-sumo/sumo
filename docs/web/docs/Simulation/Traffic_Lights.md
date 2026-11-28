@@ -185,7 +185,7 @@ The following attributes/elements are used within the tlLogic element:
 | **id**         | id (string)                           | The id of the traffic light. This must be an existing traffic light id in the .net.xml file. Typically the id for a traffic light is identical with the junction id. The name may be obtained by right-clicking the red/green bars in front of a controlled intersection. |
 | **type**       | enum (static, actuated, delay_based) | The type of the traffic light (fixed phase durations, phase prolongation based on time gaps between vehicles (actuated), or on accumulated time loss of queued vehicles (delay_based) )                                                                                  |
 | **programID**  | id (string)                           | The id of the traffic light program; This must be a new program name for the traffic light id. Please note that "off" is reserved, see below.                                                                                                                             |
-| **offset**     | int or "begin"                        | The initial time offset of the program, If set to "begin", the offset will automatically match the simulation begin time so that the traffic light always starts in phase 0 |
+| **offset**     | time (float) or "begin"               | The initial time offset of the program, If set to "begin", the offset will automatically match the simulation begin time so that the traffic light always starts in phase 0 |
 
 ## <phase\> Attributes
 
@@ -193,10 +193,10 @@ Each phase is defined using the following attributes:
 
 | Attribute Name | Value Type            | Description                |
 | -------------- | --------------------- | -------------------------- |
-| **duration**   | time (int)            | The duration of the phase                                                                                                                                    |
+| **duration**   | time (float)          | The duration of the phase                                                                                                                                    |
 | **state**      | list of signal states | The traffic light states for this phase, see below                                                                                                           |
-| minDur         | time (int)            | The minimum duration of the phase when using type **actuated**. Optional, defaults to duration.                                                              |
-| maxDur         | time (int)            | The maximum duration of the phase when using type **actuated**. Optional, if minDur is not set it defaults to duration , otherwise to 2147483.                                                              |
+| minDur         | time (float)          | The minimum duration of the phase when using type **actuated**. Optional, defaults to duration.                                                              |
+| maxDur         | time (float)          | The maximum duration of the phase when using type **actuated**. Optional, if minDur is not set it defaults to duration , otherwise to 2147483.                                                              |
 | name           | string                | An optional description for the phase. This can be used to establish the correspondence between SUMO-phase-indexing and traffic engineering phase names.     |
 | next           | list of phase indices (int ...)           | The next phase in the cycle after the current. This is useful when adding extra transition phases to a traffic light plan which are not part of every cycle. Traffic lights of type 'actuated' can make use of a list of indices for selecting among alternative successor phases. |
 
@@ -994,7 +994,7 @@ and the fields in wautSwitch:
 
 | Attribute Name | Value Type | Description                                              |
 | -------------- | ---------- | -------------------------------------------------------- |
-| **time**       | int        | The time the switch will take place                      |
+| **time**       | time       | The time the switch will take place                      |
 | **to**         | string id  | The name of the program the assigned tls shall switch to |
 
 Of course, programs with the used names must be defined before this

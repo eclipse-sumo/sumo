@@ -244,14 +244,14 @@ GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem(TL("program"), false, myTLLogic.getProgramID());
     ret->mkItem(TL("phase"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentPhase));
     ret->mkItem(TL("phase name"), true, new FunctionBindingString<GUITrafficLightLogicWrapper>(this, &GUITrafficLightLogicWrapper::getCurrentPhaseName));
-    ret->mkItem(TL("duration"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentDurationSeconds));
-    ret->mkItem(TL("minDur"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentMinDurSeconds));
-    ret->mkItem(TL("maxDur"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentMaxDurSeconds));
-    ret->mkItem(TL("running duration"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getRunningDurationSeconds));
-    ret->mkItem(TL("earliestEnd"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentEarliestEndSeconds));
-    ret->mkItem(TL("latestEnd"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentLatestEndSeconds));
-    ret->mkItem(TL("time in cycle"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentTimeInCycleSeconds));
-    ret->mkItem(TL("cycle time"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getDefaultCycleTimeSeconds));
+    ret->mkItem(TL("duration"), true, new FunctionBinding<GUITrafficLightLogicWrapper, double>(this, &GUITrafficLightLogicWrapper::getCurrentDurationSeconds));
+    ret->mkItem(TL("minDur"), true, new FunctionBinding<GUITrafficLightLogicWrapper, double>(this, &GUITrafficLightLogicWrapper::getCurrentMinDurSeconds));
+    ret->mkItem(TL("maxDur"), true, new FunctionBinding<GUITrafficLightLogicWrapper, double>(this, &GUITrafficLightLogicWrapper::getCurrentMaxDurSeconds));
+    ret->mkItem(TL("running duration"), true, new FunctionBinding<GUITrafficLightLogicWrapper, double>(this, &GUITrafficLightLogicWrapper::getRunningDurationSeconds));
+    ret->mkItem(TL("earliestEnd"), true, new FunctionBinding<GUITrafficLightLogicWrapper, double>(this, &GUITrafficLightLogicWrapper::getCurrentEarliestEndSeconds));
+    ret->mkItem(TL("latestEnd"), true, new FunctionBinding<GUITrafficLightLogicWrapper, double>(this, &GUITrafficLightLogicWrapper::getCurrentLatestEndSeconds));
+    ret->mkItem(TL("time in cycle"), true, new FunctionBinding<GUITrafficLightLogicWrapper, double>(this, &GUITrafficLightLogicWrapper::getCurrentTimeInCycleSeconds));
+    ret->mkItem(TL("cycle time"), true, new FunctionBinding<GUITrafficLightLogicWrapper, double>(this, &GUITrafficLightLogicWrapper::getDefaultCycleTimeSeconds));
     MSRailSignal* rs = dynamic_cast<MSRailSignal*>(&myTLLogic);
     if (rs != nullptr) {
         ret->mkItem(TL("req driveway"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getRequestedDriveWay));
@@ -376,46 +376,46 @@ GUITrafficLightLogicWrapper::getCurrentPhaseName() const {
     return getActiveTLLogic()->getCurrentPhaseDef().getName();
 }
 
-int
+double
 GUITrafficLightLogicWrapper::getCurrentDurationSeconds() const {
-    return (int)STEPS2TIME(getActiveTLLogic()->getCurrentPhaseDef().duration);
+    return STEPS2TIME(getActiveTLLogic()->getCurrentPhaseDef().duration);
 }
 
-int
+double
 GUITrafficLightLogicWrapper::getCurrentMinDurSeconds() const {
-    return (int)STEPS2TIME(getActiveTLLogic()->getMinDur());
+    return STEPS2TIME(getActiveTLLogic()->getMinDur());
 }
 
-int
+double
 GUITrafficLightLogicWrapper::getCurrentMaxDurSeconds() const {
-    return (int)STEPS2TIME(getActiveTLLogic()->getMaxDur());
+    return STEPS2TIME(getActiveTLLogic()->getMaxDur());
 }
 
-int
+double
 GUITrafficLightLogicWrapper::getCurrentEarliestEndSeconds() const {
     const SUMOTime earliestEnd = getActiveTLLogic()->getEarliestEnd();
-    return earliestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION ? -1 : (int)STEPS2TIME(earliestEnd);
+    return earliestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION ? -1 : STEPS2TIME(earliestEnd);
 }
 
-int
+double
 GUITrafficLightLogicWrapper::getCurrentLatestEndSeconds() const {
     const SUMOTime latestEnd = getActiveTLLogic()->getLatestEnd();
-    return latestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION ? -1 : (int)STEPS2TIME(latestEnd);
+    return latestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION ? -1 : STEPS2TIME(latestEnd);
 }
 
-int
+double
 GUITrafficLightLogicWrapper::getDefaultCycleTimeSeconds() const {
-    return (int)STEPS2TIME(getActiveTLLogic()->getDefaultCycleTime());
+    return STEPS2TIME(getActiveTLLogic()->getDefaultCycleTime());
 }
 
-int
+double
 GUITrafficLightLogicWrapper::getCurrentTimeInCycleSeconds() const {
-    return (int)STEPS2TIME(getActiveTLLogic()->getTimeInCycle());
+    return STEPS2TIME(getActiveTLLogic()->getTimeInCycle());
 }
 
-int
+double
 GUITrafficLightLogicWrapper::getRunningDurationSeconds() const {
-    return (int)STEPS2TIME(getActiveTLLogic()->getSpentDuration());
+    return STEPS2TIME(getActiveTLLogic()->getSpentDuration());
 }
 
 

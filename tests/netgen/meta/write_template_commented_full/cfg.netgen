@@ -456,11 +456,11 @@
         <!-- Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended -->
         <tls.ignore-internal-junction-jam value="false" type="BOOL"/>
 
-        <!-- Use INT as cycle duration -->
-        <tls.cycle.time value="90" type="INT"/>
+        <!-- Use FLOAT as cycle duration -->
+        <tls.cycle.time value="90" type="FLOAT"/>
 
-        <!-- Use INT as green phase duration -->
-        <tls.green.time value="31" synonymes="traffic-light-green" deprecated="traffic-light-green" type="INT"/>
+        <!-- Use FLOAT as green phase duration -->
+        <tls.green.time value="31" synonymes="traffic-light-green" deprecated="traffic-light-green" type="FLOAT"/>
 
         <!-- Defines smallest vehicle deceleration -->
         <tls.yellow.min-decel value="3" synonymes="D min-decel" deprecated="min-decel" type="FLOAT"/>
@@ -468,38 +468,38 @@
         <!-- Given yellow times are patched even if being too short -->
         <tls.yellow.patch-small value="false" synonymes="patch-small-tyellow" deprecated="patch-small-tyellow" type="BOOL"/>
 
-        <!-- Set INT as fixed time for yellow phase durations -->
-        <tls.yellow.time value="-1" synonymes="traffic-light-yellow" deprecated="traffic-light-yellow" type="INT"/>
+        <!-- Set FLOAT as fixed time for yellow phase durations -->
+        <tls.yellow.time value="-1" synonymes="traffic-light-yellow" deprecated="traffic-light-yellow" type="FLOAT"/>
 
-        <!-- Set INT as fixed time for red phase duration at traffic lights that do not have a conflicting flow -->
-        <tls.red.time value="5" type="INT"/>
+        <!-- Set FLOAT as fixed time for red phase duration at traffic lights that do not have a conflicting flow -->
+        <tls.red.time value="5" type="FLOAT"/>
 
-        <!-- Set INT as fixed time for intermediate red phase after every switch -->
-        <tls.allred.time value="0" type="INT"/>
+        <!-- Set FLOAT as fixed time for intermediate red phase after every switch -->
+        <tls.allred.time value="0" type="FLOAT"/>
 
         <!-- Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles -->
         <tls.minor-left.max-speed value="19.44" type="FLOAT"/>
 
-        <!-- Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases -->
-        <tls.left-green.time value="6" type="INT"/>
+        <!-- Use FLOAT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases -->
+        <tls.left-green.time value="6" type="FLOAT"/>
 
-        <!-- Set INT as fixed time for intermediate vehext phase after every switch -->
-        <tls.nema.vehExt value="2" type="INT"/>
+        <!-- Set FLOAT as fixed time for intermediate vehext phase after every switch -->
+        <tls.nema.vehExt value="2" type="FLOAT"/>
 
-        <!-- Set INT as fixed time for intermediate NEMA yellow phase after every switch -->
-        <tls.nema.yellow value="3" type="INT"/>
+        <!-- Set FLOAT as fixed time for intermediate NEMA yellow phase after every switch -->
+        <tls.nema.yellow value="3" type="FLOAT"/>
 
-        <!-- Set INT as fixed time for intermediate NEMA red phase after every switch -->
-        <tls.nema.red value="2" type="INT"/>
+        <!-- Set FLOAT as fixed time for intermediate NEMA red phase after every switch -->
+        <tls.nema.red value="2" type="FLOAT"/>
 
-        <!-- Use INT as minimum green duration for pedestrian crossings (s). -->
-        <tls.crossing-min.time value="4" type="INT"/>
+        <!-- Use FLOAT as minimum green duration for pedestrian crossings (s). -->
+        <tls.crossing-min.time value="4" type="FLOAT"/>
 
-        <!-- Use INT as clearance time for pedestrian crossings (s). -->
-        <tls.crossing-clearance.time value="5" type="INT"/>
+        <!-- Use FLOAT as clearance time for pedestrian crossings (s). -->
+        <tls.crossing-clearance.time value="5" type="FLOAT"/>
 
-        <!-- Use INT as green phase duration for pedestrian scramble phase (s). -->
-        <tls.scramble.time value="5" type="INT"/>
+        <!-- Use FLOAT as green phase duration for pedestrian scramble phase (s). -->
+        <tls.scramble.time value="5" type="FLOAT"/>
 
         <!-- TLSs in STR[] will be shifted by half-phase -->
         <tls.half-offset value="" synonymes="tl-logics.half-offset" deprecated="tl-logics.half-offset" type="STR[]"/>
@@ -517,10 +517,10 @@
         <tls.no-mixed value="false" type="BOOL"/>
 
         <!-- Default minimum phase duration for traffic lights with variable phase length -->
-        <tls.min-dur value="5" type="INT"/>
+        <tls.min-dur value="5" type="FLOAT"/>
 
         <!-- Default maximum phase duration for traffic lights with variable phase length -->
-        <tls.max-dur value="50" type="INT"/>
+        <tls.max-dur value="50" type="FLOAT"/>
 
         <!-- Assign the same tls link index to connections that share the same states -->
         <tls.group-signals value="false" type="BOOL"/>

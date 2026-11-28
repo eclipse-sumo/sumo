@@ -118,11 +118,11 @@ NBTrafficLightDefinition::compute(const OptionsCont& oc) {
         return nullptr;
     }
     // compute the time needed to brake
-    int brakingTime = computeBrakingTime(oc.getFloat("tls.yellow.min-decel"));
+    SUMOTime brakingTime = TIME2STEPS(computeBrakingTime(oc.getFloat("tls.yellow.min-decel")));
     // perform the computation depending on whether the traffic light
     //  definition was loaded or shall be computed new completely
     if (!oc.isDefault("tls.yellow.time")) {
-        brakingTime = oc.getInt("tls.yellow.time");
+        brakingTime = TIME2STEPS(oc.getFloat("tls.yellow.time"));
     }
     NBTrafficLightLogic* ret = myCompute(brakingTime);
     ret->updateParameters(getParametersMap());

@@ -79,9 +79,9 @@ NBLoadedSUMOTLDef::~NBLoadedSUMOTLDef() {
 
 
 NBTrafficLightLogic*
-NBLoadedSUMOTLDef::myCompute(int brakingTimeSeconds) {
+NBLoadedSUMOTLDef::myCompute(SUMOTime brakingTime) {
     // @todo what to do with those parameters?
-    UNUSED_PARAMETER(brakingTimeSeconds);
+    UNUSED_PARAMETER(brakingTime);
     initExtraConflicts();
     reconstructLogic();
     myTLLogic->closeBuilding(false);
@@ -869,8 +869,8 @@ NBLoadedSUMOTLDef::guessMinMaxDuration() {
         }
     }
     if (!hasMinMaxDur) {
-        const SUMOTime minMinDur = TIME2STEPS(OptionsCont::getOptions().getInt("tls.min-dur"));
-        const SUMOTime maxDur = TIME2STEPS(OptionsCont::getOptions().getInt("tls.max-dur"));
+        const SUMOTime minMinDur = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.min-dur"));
+        const SUMOTime maxDur = TIME2STEPS(OptionsCont::getOptions().getFloat("tls.max-dur"));
         std::set<int> yellowIndices;
         for (auto phase : myTLLogic->getPhases()) {
             for (int i = 0; i < (int)phase.state.size(); i++) {

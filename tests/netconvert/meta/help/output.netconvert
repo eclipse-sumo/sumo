@@ -331,36 +331,36 @@ TLS Building Options:
   --tls.guess-signals.slack INT        Number of uncontrolled entry edges to
                                         accept and still consider the central
                                         node as a traffic light
-  --tls.cycle.time INT                 Use INT as cycle duration
-  --tls.green.time INT                 Use INT as green phase duration
+  --tls.cycle.time FLOAT               Use FLOAT as cycle duration
+  --tls.green.time FLOAT               Use FLOAT as green phase duration
   -D, --tls.yellow.min-decel FLOAT     Defines smallest vehicle deceleration
   --tls.yellow.patch-small             Given yellow times are patched even if
                                         being too short
-  --tls.yellow.time INT                Set INT as fixed time for yellow phase
+  --tls.yellow.time FLOAT              Set FLOAT as fixed time for yellow phase
                                         durations
-  --tls.red.time INT                   Set INT as fixed time for red phase
+  --tls.red.time FLOAT                 Set FLOAT as fixed time for red phase
                                         duration at traffic lights that do not
                                         have a conflicting flow
-  --tls.allred.time INT                Set INT as fixed time for intermediate
+  --tls.allred.time FLOAT              Set FLOAT as fixed time for intermediate
                                         red phase after every switch
   --tls.minor-left.max-speed FLOAT     Use FLOAT as threshold for allowing
                                         left-turning vehicles to move in the
                                         same phase as oncoming straight-going
                                         vehicles
-  --tls.left-green.time INT            Use INT as green phase duration for left
-                                        turns (s). Setting this value to 0
+  --tls.left-green.time FLOAT          Use FLOAT as green phase duration for
+                                        left turns (s). Setting this value to 0
                                         disables additional left-turning phases
-  --tls.nema.vehExt INT                Set INT as fixed time for intermediate
+  --tls.nema.vehExt FLOAT              Set FLOAT as fixed time for intermediate
                                         vehext phase after every switch
-  --tls.nema.yellow INT                Set INT as fixed time for intermediate
+  --tls.nema.yellow FLOAT              Set FLOAT as fixed time for intermediate
                                         NEMA yellow phase after every switch
-  --tls.nema.red INT                   Set INT as fixed time for intermediate
+  --tls.nema.red FLOAT                 Set FLOAT as fixed time for intermediate
                                         NEMA red phase after every switch
-  --tls.crossing-min.time INT          Use INT as minimum green duration for
+  --tls.crossing-min.time FLOAT        Use FLOAT as minimum green duration for
                                         pedestrian crossings (s).
-  --tls.crossing-clearance.time INT    Use INT as clearance time for pedestrian
-                                        crossings (s).
-  --tls.scramble.time INT              Use INT as green phase duration for
+  --tls.crossing-clearance.time FLOAT  Use FLOAT as clearance time for
+                                        pedestrian crossings (s).
+  --tls.scramble.time FLOAT            Use FLOAT as green phase duration for
                                         pedestrian scramble phase (s).
   --tls.half-offset STR[]              TLSs in STR[] will be shifted by
                                         half-phase
@@ -375,10 +375,10 @@ TLS Building Options:
   --tls.no-mixed                       Avoid phases with green and red signals
                                         for different connections from the same
                                         lane
-  --tls.min-dur INT                    Default minimum phase duration for
+  --tls.min-dur FLOAT                  Default minimum phase duration for
                                         traffic lights with variable phase
                                         length
-  --tls.max-dur INT                    Default maximum phase duration for
+  --tls.max-dur FLOAT                  Default maximum phase duration for
                                         traffic lights with variable phase
                                         length
   --tls.group-signals                  Assign the same tls link index to

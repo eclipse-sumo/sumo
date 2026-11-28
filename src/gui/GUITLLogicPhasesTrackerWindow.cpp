@@ -30,6 +30,7 @@
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/MSLink.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -581,7 +582,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                     runningGreen[j] = 0;
                 }
                 if (drawnDuration > 0) {
-                    GLHelper::drawText(toString((int)STEPS2TIME(drawnDuration)),
+                    GLHelper::drawText(StringUtils::adjustDecimalValue(STEPS2TIME(drawnDuration), 3),
                                        Position(x + xOffset, h - h9),
                                        0, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
                 }
@@ -671,10 +672,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             const SUMOTime timeInCycle = myTimeInCycle[pd - myDurations.begin()];
             // draw times at different heights
             ticShift = (ticShift % 3) + 1;
-            const std::string timeStr = (mmSS
-                                         ? StringUtils::padFront(toString((currTime % 3600000) / 60000), 2, '0') + ":"
-                                         + StringUtils::padFront(toString((currTime % 60000) / 1000), 2, '0')
-                                         : toString((int)STEPS2TIME(cycleTime ? timeInCycle : currTime)));
+            const std::string timeStr = formatTime(currTime, timeInCycle, mmSS, cycleTime);
             const double w = 10 * (double)timeStr.size() / panelWidth;
             glTranslated(glpos - w / 2., glh - h20 * ticShift, 0);
             GLHelper::drawText(timeStr, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
@@ -767,10 +765,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                 currTime = myBeginTime - (myBeginTime % tickDist);
             }
             while (pos < panelWidth + 50.) {
-                const std::string timeStr = (mmSS
-                                             ? StringUtils::padFront(toString((currTime % 3600000) / 60000), 2, '0') + ":"
-                                             + StringUtils::padFront(toString((currTime % 60000) / 1000), 2, '0')
-                                             : toString((int)STEPS2TIME(cycleTime ? findTimeInCycle(currTime) : currTime)));
+                const std::string timeStr = formatTime(currTime, cycleTime ? findTimeInCycle(currTime) : currTime, mmSS, cycleTime);
                 const double w = 10. * (double)timeStr.size() / panelWidth;
                 glTranslated(glpos - w / 2., glh - h20, 0);
                 GLHelper::drawText(timeStr, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
@@ -877,6 +872,21 @@ GUITLLogicPhasesTrackerWindow::drawAdditionalStates(GUITLLogicPhasesTrackerPanel
         GLHelper::drawText(tooltip, Position(mx, my), 0, h20, RGBColor::YELLOW, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, 20 / caller.getWidth());
     }
 }
+
+std::string
+GUITLLogicPhasesTrackerWindow::formatTime(SUMOTime currTime, SUMOTime timeInCycle, bool mmSS, bool cycleTime) {
+    if (mmSS) {
+        std::string result = StringUtils::padFront(toString((currTime % 3600000) / 60000), 2, '0') + ":"
+                             + StringUtils::padFront(toString((currTime % 60000) / 1000), 2, '0');
+        const SUMOTime subSec = currTime % 1000;
+        if (subSec != 0) {
+            result += StringUtils::adjustDecimalValue(STEPS2TIME(subSec), 3).substr(1);
+        }
+        return result;
+    }
+    return StringUtils::adjustDecimalValue(STEPS2TIME(cycleTime ? timeInCycle : currTime), 3);
+}
+
 
 SUMOTime
 GUITLLogicPhasesTrackerWindow::findTimeInCycle(SUMOTime t) {

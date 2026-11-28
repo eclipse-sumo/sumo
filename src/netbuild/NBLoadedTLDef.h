@@ -288,7 +288,7 @@ protected:
      * @return The computed logic
      * @see NBTrafficLightDefinition::myCompute
      */
-    NBTrafficLightLogic* myCompute(int brakingTimeSeconds);
+    NBTrafficLightLogic* myCompute(SUMOTime brakingTime);
 
     /** @brief Builds the list of participating nodes/edges/links
      * @see NBTrafficLightDefinition::setParticipantsInformation

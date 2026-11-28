@@ -266,7 +266,7 @@ NBLoadedTLDef::~NBLoadedTLDef() {
 
 
 NBTrafficLightLogic*
-NBLoadedTLDef::myCompute(int brakingTimeSeconds) {
+NBLoadedTLDef::myCompute(SUMOTime brakingTime) {
     MsgHandler::getWarningInstance()->clear(); // !!!
     // compute the switching times and count the signals
     std::set<SUMOTime> switchTimes;
@@ -276,7 +276,7 @@ NBLoadedTLDef::myCompute(int brakingTimeSeconds) {
         // needed later
         group->sortPhases();
         // patch the yellow time for this group
-        group->patchTYellow(TIME2STEPS(brakingTimeSeconds), OptionsCont::getOptions().getBool("tls.yellow.patch-small"));
+        group->patchTYellow(brakingTime, OptionsCont::getOptions().getBool("tls.yellow.patch-small"));
         // copy the now valid times into the container
         //  both the given red and green phases are added and also the
         //  yellow times

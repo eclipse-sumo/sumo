@@ -113,14 +113,14 @@ public:
 
     int getCurrentPhase() const;
     std::string getCurrentPhaseName() const;
-    int getCurrentDurationSeconds() const;
-    int getCurrentMinDurSeconds() const;
-    int getCurrentMaxDurSeconds() const;
-    int getCurrentEarliestEndSeconds() const;
-    int getCurrentLatestEndSeconds() const;
-    int getDefaultCycleTimeSeconds() const;
-    int getCurrentTimeInCycleSeconds() const;
-    int getRunningDurationSeconds() const;
+    double getCurrentDurationSeconds() const;
+    double getCurrentMinDurSeconds() const;
+    double getCurrentMaxDurSeconds() const;
+    double getCurrentEarliestEndSeconds() const;
+    double getCurrentLatestEndSeconds() const;
+    double getDefaultCycleTimeSeconds() const;
+    double getCurrentTimeInCycleSeconds() const;
+    double getRunningDurationSeconds() const;
 
 public:
     /**

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-30T07:28:39.612860+01:00 by Eclipse SUMO netconvert v1_27_1+0821-1b97e1932a8
+<!-- generated on 2026-11-27T19:30:00.466468+00:00 by Eclipse SUMO netconvert v1.28.0-0000000000
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -161,6 +161,12 @@
             <xsd:element name="speed.factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="speed.minimum" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="edges.join-tram-dist" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.actuated.jam-threshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.actuated.show-detectors" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="tls.actuated.passing-time" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.actuated.detector-gap" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.actuated.detector-length" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.actuated.inactive-threshold" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -207,28 +213,28 @@
             <xsd:element name="tls.guess-signals" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.guess-signals.dist" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.guess-signals.slack" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="tls.cycle.time" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="tls.green.time" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="tls.cycle.time" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.green.time" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.yellow.min-decel" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.yellow.patch-small" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="tls.yellow.time" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="tls.red.time" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="tls.allred.time" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="tls.yellow.time" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.red.time" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.allred.time" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.minor-left.max-speed" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="tls.left-green.time" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="tls.nema.vehExt" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="tls.nema.yellow" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="tls.nema.red" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="tls.crossing-min.time" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="tls.crossing-clearance.time" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="tls.scramble.time" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="tls.left-green.time" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.nema.vehExt" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.nema.yellow" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.nema.red" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.crossing-min.time" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.crossing-clearance.time" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.scramble.time" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.half-offset" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tls.quarter-offset" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tls.default-type" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tls.layout" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tls.no-mixed" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="tls.min-dur" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="tls.max-dur" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="tls.min-dur" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.max-dur" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.group-signals" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.ungroup-signals" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.rebuild" type="boolOptionType" minOccurs="0"/>
@@ -263,6 +269,7 @@
             <xsd:element name="remove-edges.by-vclass" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.by-type" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.components" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="keep-edges.components.keep-ptstops" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="remove-edges.by-type" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="remove-edges.isolated" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="keep-lanes.min-width" type="floatOptionType" minOccurs="0"/>
@@ -390,6 +397,7 @@
             <xsd:element name="osm.extra-attributes" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="osm.speedlimit-none" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.annotate-defaults" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osm.etcs-moving-block" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="matsim.keep-length" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="matsim.lanes-from-capacity" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.street-id" type="strOptionType" minOccurs="0"/>

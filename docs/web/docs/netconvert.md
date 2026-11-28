@@ -294,6 +294,12 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--speed.factor** {{DT_FLOAT}} | Modifies all edge speeds by multiplying by FLOAT; *default:* **1** |
 | **--speed.minimum** {{DT_FLOAT}} | Modifies all edge speeds to at least FLOAT; *default:* **0** |
 | **--edges.join-tram-dist** {{DT_FLOAT}} | Joins tram edges into road lanes with similar geometry (within FLOAT distance); *default:* **-1** |
+| **--tls.actuated.jam-threshold** {{DT_FLOAT}} | Sets default jam-threshold parameter for all actuation detectors; *default:* **-1** |
+| **--tls.actuated.show-detectors** {{DT_BOOL}} | Sets default show-detectors parameter for all actuation detectors; *default:* **false** |
+| **--tls.actuated.passing-time** {{DT_FLOAT}} | Sets default passing-time parameter for all actuation detectors; *default:* **-1** |
+| **--tls.actuated.detector-gap** {{DT_FLOAT}} | Sets default detector-gap parameter for all actuation detectors; *default:* **0** |
+| **--tls.actuated.detector-length** {{DT_FLOAT}} | Sets default detector-length parameter for all actuation detectors; *default:* **-1** |
+| **--tls.actuated.inactive-threshold** {{DT_FLOAT}} | Sets default inactive-threshold parameter for all actuation detectors; *default:* **-1** |
 
 ### Building Defaults
 
@@ -340,28 +346,28 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--tls.guess-signals** {{DT_BOOL}} | Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks; *default:* **false** |
 | **--tls.guess-signals.dist** {{DT_FLOAT}} | Distance for interpreting nodes as signal locations; *default:* **25** |
 | **--tls.guess-signals.slack** {{DT_INT}} | Number of uncontrolled entry edges to accept and still consider the central node as a traffic light; *default:* **0** |
-| **--tls.cycle.time** {{DT_INT}} | Use INT as cycle duration; *default:* **90** |
-| **--tls.green.time** {{DT_INT}} | Use INT as green phase duration; *default:* **31** |
+| **--tls.cycle.time** {{DT_FLOAT}} | Use FLOAT as cycle duration; *default:* **90** |
+| **--tls.green.time** {{DT_FLOAT}} | Use FLOAT as green phase duration; *default:* **31** |
 | **-D** {{DT_FLOAT}}<br> **--tls.yellow.min-decel** {{DT_FLOAT}} | Defines smallest vehicle deceleration; *default:* **3** |
 | **--tls.yellow.patch-small** {{DT_BOOL}} | Given yellow times are patched even if being too short; *default:* **false** |
-| **--tls.yellow.time** {{DT_INT}} | Set INT as fixed time for yellow phase durations; *default:* **-1** |
-| **--tls.red.time** {{DT_INT}} | Set INT as fixed time for red phase duration at traffic lights that do not have a conflicting flow; *default:* **5** |
-| **--tls.allred.time** {{DT_INT}} | Set INT as fixed time for intermediate red phase after every switch; *default:* **0** |
+| **--tls.yellow.time** {{DT_FLOAT}} | Set FLOAT as fixed time for yellow phase durations; *default:* **-1** |
+| **--tls.red.time** {{DT_FLOAT}} | Set FLOAT as fixed time for red phase duration at traffic lights that do not have a conflicting flow; *default:* **5** |
+| **--tls.allred.time** {{DT_FLOAT}} | Set FLOAT as fixed time for intermediate red phase after every switch; *default:* **0** |
 | **--tls.minor-left.max-speed** {{DT_FLOAT}} | Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles; *default:* **19.44** |
-| **--tls.left-green.time** {{DT_INT}} | Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases; *default:* **6** |
-| **--tls.nema.vehExt** {{DT_INT}} | Set INT as fixed time for intermediate vehext phase after every switch; *default:* **2** |
-| **--tls.nema.yellow** {{DT_INT}} | Set INT as fixed time for intermediate NEMA yellow phase after every switch; *default:* **3** |
-| **--tls.nema.red** {{DT_INT}} | Set INT as fixed time for intermediate NEMA red phase after every switch; *default:* **2** |
-| **--tls.crossing-min.time** {{DT_INT}} | Use INT as minimum green duration for pedestrian crossings (s).; *default:* **4** |
-| **--tls.crossing-clearance.time** {{DT_INT}} | Use INT as clearance time for pedestrian crossings (s).; *default:* **5** |
-| **--tls.scramble.time** {{DT_INT}} | Use INT as green phase duration for pedestrian scramble phase (s).; *default:* **5** |
+| **--tls.left-green.time** {{DT_FLOAT}} | Use FLOAT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases; *default:* **6** |
+| **--tls.nema.vehExt** {{DT_FLOAT}} | Set FLOAT as fixed time for intermediate vehext phase after every switch; *default:* **2** |
+| **--tls.nema.yellow** {{DT_FLOAT}} | Set FLOAT as fixed time for intermediate NEMA yellow phase after every switch; *default:* **3** |
+| **--tls.nema.red** {{DT_FLOAT}} | Set FLOAT as fixed time for intermediate NEMA red phase after every switch; *default:* **2** |
+| **--tls.crossing-min.time** {{DT_FLOAT}} | Use FLOAT as minimum green duration for pedestrian crossings (s).; *default:* **4** |
+| **--tls.crossing-clearance.time** {{DT_FLOAT}} | Use FLOAT as clearance time for pedestrian crossings (s).; *default:* **5** |
+| **--tls.scramble.time** {{DT_FLOAT}} | Use FLOAT as green phase duration for pedestrian scramble phase (s).; *default:* **5** |
 | **--tls.half-offset** {{DT_STR_LIST}} | TLSs in STR[] will be shifted by half-phase |
 | **--tls.quarter-offset** {{DT_STR_LIST}} | TLSs in STR[] will be shifted by quarter-phase |
 | **--tls.default-type** {{DT_STR}} | TLSs with unspecified type will use STR as their algorithm; *default:* **static** |
 | **--tls.layout** {{DT_STR}} | Set phase layout four grouping opposite directions or grouping all movements for one incoming edge ['opposites', 'incoming']; *default:* **opposites** |
 | **--tls.no-mixed** {{DT_BOOL}} | Avoid phases with green and red signals for different connections from the same lane; *default:* **false** |
-| **--tls.min-dur** {{DT_INT}} | Default minimum phase duration for traffic lights with variable phase length; *default:* **5** |
-| **--tls.max-dur** {{DT_INT}} | Default maximum phase duration for traffic lights with variable phase length; *default:* **50** |
+| **--tls.min-dur** {{DT_FLOAT}} | Default minimum phase duration for traffic lights with variable phase length; *default:* **5** |
+| **--tls.max-dur** {{DT_FLOAT}} | Default maximum phase duration for traffic lights with variable phase length; *default:* **50** |
 | **--tls.group-signals** {{DT_BOOL}} | Assign the same tls link index to connections that share the same states; *default:* **false** |
 | **--tls.ungroup-signals** {{DT_BOOL}} | Assign a distinct tls link index to every connection; *default:* **false** |
 | **--tls.rebuild** {{DT_BOOL}} | rebuild all traffic light plans in the network; *default:* **false** |
@@ -396,6 +402,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--remove-edges.by-vclass** {{DT_STR_LIST}} | Remove edges which allow only vclasses from STR[] |
 | **--keep-edges.by-type** {{DT_STR_LIST}} | Only keep edges where type is in STR[] |
 | **--keep-edges.components** {{DT_INT}} | Only keep the INT largest weakly connected components; *default:* **0** |
+| **--keep-edges.components.keep-ptstops** {{DT_BOOL}} | Keep rail/waterway components that contain public transport stops; *default:* **true** |
 | **--remove-edges.by-type** {{DT_STR_LIST}} | Remove edges where type is in STR[] |
 | **--remove-edges.isolated** {{DT_BOOL}} | Removes isolated edges; *default:* **false** |
 | **--keep-lanes.min-width** {{DT_FLOAT}} | Only keep lanes with width in meters > FLOAT; *default:* **0.01** |
@@ -523,6 +530,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--osm.extra-attributes** {{DT_STR_LIST}} | List of additional attributes that shall be imported from OSM via osm.all-attributes (set 'all' to import all); *default:* **all** |
 | **--osm.speedlimit-none** {{DT_FLOAT}} | The speed limit to be set when there is no actual speed limit in reality; *default:* **39.4444** |
 | **--osm.annotate-defaults** {{DT_BOOL}} | Whether edges should carry information on the usage of typemap defaults; *default:* **false** |
+| **--osm.etcs-moving-block** {{DT_BOOL}} | Whether ETCS2 track sections should default to moving-block mode; *default:* **false** |
 | **--matsim.keep-length** {{DT_BOOL}} | The edge lengths given in the MATSim-file will be kept; *default:* **false** |
 | **--matsim.lanes-from-capacity** {{DT_BOOL}} | The lane number will be computed from the capacity; *default:* **false** |
 | **--shapefile.street-id** {{DT_STR}} | Read edge ids from column STR |
