@@ -545,8 +545,8 @@
         </edge>
     </timestep>
     <timestep time="101.00">
-        <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+        <edge id=":2_0">
+            <vehicle id="Stapler_00" pos="0.00" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="102.00">
@@ -746,107 +746,107 @@
     </timestep>
     <timestep time="141.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="0.00" speed="2.07"/>
         </edge>
     </timestep>
     <timestep time="142.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="82.06" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="143.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="82.06" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="144.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="82.06" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="145.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="82.06" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="146.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="82.06" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="147.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="82.06" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="148.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="82.06" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="149.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="82.06" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="150.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="164.13" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="151.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="164.13" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="152.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="164.13" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="153.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="164.13" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="154.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="164.13" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="155.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="164.13" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="156.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="164.13" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="157.00">
         <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+            <vehicle id="Stapler_00" pos="164.13" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="158.00">
-        <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+        <edge id=":3_2">
+            <vehicle id="Stapler_00" pos="0.00" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="159.00">
-        <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+        <edge id="ed2">
+            <vehicle id="Stapler_00" pos="0.00" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="160.00">
-        <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+        <edge id="ed2">
+            <vehicle id="Stapler_00" pos="0.00" speed="10.00"/>
         </edge>
     </timestep>
     <timestep time="161.00">
-        <edge id="ed1">
-            <vehicle id="Stapler_00" pos="0.00" speed="0.00"/>
+        <edge id="ed2">
+            <vehicle id="Stapler_00" pos="0.00" speed="10.00"/>
         </edge>
     </timestep>
 </netstate>

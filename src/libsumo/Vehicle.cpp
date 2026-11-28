@@ -1480,12 +1480,7 @@ Vehicle::rerouteParkingArea(const std::string& vehID, const std::string& parking
 
 void
 Vehicle::resume(const std::string& vehID) {
-    MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
-    MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
-    if (veh == nullptr) {
-        WRITE_WARNING("resume not yet implemented for meso");
-        return;
-    }
+    MSBaseVehicle* veh = Helper::getVehicle(vehID);
     if (!veh->hasStops()) {
         throw TraCIException("Failed to resume vehicle '" + veh->getID() + "', it has no stops.");
     }
