@@ -80,36 +80,40 @@ GNEMoveElementShape::getMoveOperation() {
 }
 
 
+int
+GNEMoveElementShape::getRemovableGeometryPoint(const Position& position) const {
+    if (myMovingShape.size() > 3) {
+        const int index = myMovingShape.indexOfClosest(position);
+        const double radius = myMovedElement->getNet()->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
+        if ((index >= 0) && (myMovingShape[index].distanceSquaredTo2D(position) < radius * radius)) {
+            return index;
+        }
+    }
+    return -1;
+}
+
+
 void
 GNEMoveElementShape::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-    // get original shape
-    PositionVector shape = myMovingShape;
-    // check shape size
-    if (shape.size() > 3) {
-        // obtain index
-        int index = shape.indexOfClosest(clickedPosition);
-        // get last index
-        const int lastIndex = ((int)shape.size() - 1);
-        // get snap radius
-        const double snap_radius = myMovedElement->getNet()->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
-        // check if we have to create a new index
-        if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) < (snap_radius * snap_radius)) {
-            // check if we're deleting the first point
-            if ((index == 0) || (index == lastIndex)) {
-                // remove both geometry point
-                shape.erase(shape.begin() + lastIndex);
-                shape.erase(shape.begin());
-                // close shape
-                shape.closePolygon();
-            } else {
-                // remove geometry point
-                shape.erase(shape.begin() + index);
-            }
-            // commit new shape
-            undoList->begin(myMovedElement, TLF("remove geometry point of %", myMovedElement->getTagStr()));
-            GNEChange_Attribute::changeAttribute(myMovedElement, SUMO_ATTR_SHAPE, toString(shape), undoList);
-            undoList->end();
+    const int index = getRemovableGeometryPoint(clickedPosition);
+    if (index >= 0) {
+        PositionVector shape = myMovingShape;
+        const int lastIndex = (int)shape.size() - 1;
+        // check if we're deleting the first point
+        if ((index == 0) || (index == lastIndex)) {
+            // remove both geometry point
+            shape.erase(shape.begin() + lastIndex);
+            shape.erase(shape.begin());
+            // close shape
+            shape.closePolygon();
+        } else {
+            // remove geometry point
+            shape.erase(shape.begin() + index);
         }
+        // commit new shape
+        undoList->begin(myMovedElement, TLF("remove geometry point of %", myMovedElement->getTagStr()));
+        GNEChange_Attribute::changeAttribute(myMovedElement, SUMO_ATTR_SHAPE, toString(shape), undoList);
+        undoList->end();
     }
 }
 

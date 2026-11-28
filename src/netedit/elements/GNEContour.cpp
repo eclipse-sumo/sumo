@@ -19,7 +19,12 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/elements/moving/GNEMoveElementEdge.h>
+#include <netedit/elements/moving/GNEMoveElementShape.h>
+#include <netedit/frames/common/GNEDeleteFrame.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -29,6 +34,30 @@
 
 #include "GNEContour.h"
 #include "GNEAttributeCarrier.h"
+
+namespace {
+
+bool
+showDeleteContour(const GNEAttributeCarrier* element) {
+    const auto* net = element->getNet();
+    const auto* view = net->getViewNet();
+    if (!view->getEditModes().isCurrentSupermodeNetwork() ||
+            !net->getViewParent()->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints()) {
+        return true;
+    }
+    const auto position = view->getPositionInformation();
+    switch (element->getTagProperty()->getTag()) {
+        case SUMO_TAG_EDGE:
+            return static_cast<const GNEMoveElementEdge*>(element->getMoveElement())->getRemovableGeometryPoint(position) >= 0;
+        case SUMO_TAG_POLY:
+        case SUMO_TAG_TAZ:
+            return static_cast<const GNEMoveElementShape*>(element->getMoveElement())->getRemovableGeometryPoint(position) >= 0;
+        default:
+            return false;
+    }
+}
+
+}
 
 // ===========================================================================
 // static members
@@ -291,11 +320,11 @@ GNEContour::checkDrawPathContour(const GUIVisualizationSettings& s, const GUIVis
             return true;
         }
         // delete contour
-        if (AC->checkDrawDeleteContour()) {
+        if (AC->checkDrawDeleteContour() && showDeleteContour(AC)) {
             return true;
         }
         // delete contour (small)
-        if (AC->checkDrawDeleteContourSmall()) {
+        if (AC->checkDrawDeleteContourSmall() && showDeleteContour(AC)) {
             return true;
         }
         // select contour
@@ -343,9 +372,9 @@ GNEContour::drawDottedContours(const GUIVisualizationSettings& s, const GUIVisua
             return drawDottedContour(s, GUIDottedGeometry::DottedContourType::FRONT, lineWidth, addOffset);
         }
         // delete contour
-        if (AC->checkDrawDeleteContour()) {
+        if (AC->checkDrawDeleteContour() && showDeleteContour(AC)) {
             return drawDottedContour(s, GUIDottedGeometry::DottedContourType::REMOVE, lineWidth, addOffset);
-        } else if (AC->checkDrawDeleteContourSmall()) {
+        } else if (AC->checkDrawDeleteContourSmall() && showDeleteContour(AC)) {
             return drawDottedContour(s, GUIDottedGeometry::DottedContourType::REMOVE, s.dottedContourSettings.segmentWidthSmall, addOffset);
         }
         // select contour
