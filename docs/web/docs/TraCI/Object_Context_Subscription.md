@@ -143,9 +143,18 @@ Currently, the following context subscription filter types are implemented:
 
 ### Intercompatibility
 
-While the context subscription filters can - in principal - be combined, be aware that not all combinations will work (or at least not as expected).
-This is due to the fact that a sub-class of the filters (see last column 'uses context range' above) does not operate on the set of objects collected within the context subscription's range but operates on the set of objects defined by their respective filter parameters instead.
-Consequently, a combination of, e.g., the field-of-vision and lateral distance filter is infeasible.
+SUMO evaluates context subscription filters in two stages. First, search-geometry filters (`lanes`, `no-opposite`, `downstream distance`, `upstream distance`, `leader/follower`, `turn`, and `lateral distance`) determine the candidate vehicle set along the road network, or SUMO uses the radial context range `dist` when none of those search-geometry filters are active. Second, post-selection filters (`vClass`, `vType`, and `field of vision`) restrict the resulting candidate set by set intersection.
+
+The following compatibility rules govern filter combinations:
+
+| Filter / Combination | Behavior |
+| --- | --- |
+| `vClass`, `vType`, `field of vision` | Compatible with radial context searches and with any search-geometry filter; applied sequentially as intersections on the candidate set. |
+| `downstream distance`, `upstream distance` | Compatible with `lanes`, `leader/follower`, `turn`, and `lateral distance`. If neither `lanes` nor `lateral distance` is set, `lanes=[0]` is enabled implicitly. |
+| `no-opposite` | Takes effect with `lanes` (including implicit `lanes=[0]` from distance filters); has no effect on standalone radial searches or `lateral distance`. |
+| `leader/follower` | Requires `lanes` (added automatically by Python and C++ client helpers). Incompatible with `turn` and `lateral distance` (`leader/follower` is ignored with a warning). |
+| `lanes` + `lateral distance` | Incompatible; SUMO emits a warning, ignores `lanes` and `no-opposite`, and evaluates `lateral distance`. |
+| `turn` + `lanes` or `lateral distance` | Compatible; returns the union of conflict foes found by `turn` (using `upstream distance` as foe distance to the junction) and vehicles matched by `lanes` or `lateral distance`. |
 
 # Client library methods
 
