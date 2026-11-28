@@ -15,12 +15,30 @@
 # @author  Jakob Erdmann
 # @date    2022-09-14
 
-"""platform-independent collate_script to compare .xml.gz files"""
+"""platform-independent collate_script to compare .xml.gz and .zip/.fmu files"""
 
 import sys
 import gzip
-with gzip.open(sys.argv[1], 'r') as f:
-    if sys.version_info[0] < 3:
-        sys.stdout.write(f.read())
-    else:
-        sys.stdout.buffer.write(f.read())
+import zipfile
+
+if zipfile.is_zipfile(sys.argv[1]):
+    with zipfile.ZipFile(sys.argv[1], 'r') as zf:
+        for info in zf.infolist():
+            header = '=== %s (%o) ===\n' % (info.filename, info.external_attr >> 16)
+            data = zf.read(info.filename)
+            if sys.version_info[0] < 3:
+                sys.stdout.write(header)
+                sys.stdout.write(data)
+                if not data.endswith('\n'):
+                    sys.stdout.write('\n')
+            else:
+                sys.stdout.buffer.write(header.encode('utf-8'))
+                sys.stdout.buffer.write(data)
+                if not data.endswith(b'\n'):
+                    sys.stdout.buffer.write(b'\n')
+else:
+    with gzip.open(sys.argv[1], 'r') as f:
+        if sys.version_info[0] < 3:
+            sys.stdout.write(f.read())
+        else:
+            sys.stdout.buffer.write(f.read())

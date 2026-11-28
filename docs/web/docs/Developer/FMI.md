@@ -82,6 +82,10 @@ end note
 @enduml
 ```
 
+## Building the FMU
+
+With `ENABLE_FMI` enabled, the normal CMake build packages the FMU alongside the SUMO binaries. Use `cmake --build <build-directory> --target fmi` to build it explicitly. For a multi-configuration generator, add `--config Debug` to build the Debug FMU.
+
 ## FMU Usage
 
 Due to limitations of [version 2 of the FMI standard](https://github.com/modelica/fmi-standard/releases/download/v2.0.3/FMI-Specification-2.0.3.pdf), e.g., output scalar variables cannot be given parameters directly, we implemented a *stateful approach*.

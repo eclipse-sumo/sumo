@@ -1,0 +1,1 @@
+--output out.fmu --platform win64 --model-description data/modelDescription.xml --fmi-library data/libsumofmi2D.dll --sumo-library data/libsumocppD.dll tools/build_config/packageFMI.py
