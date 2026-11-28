@@ -254,6 +254,10 @@ The following options are available
 - **-k**, **--keep-junction-type** (default *traffic_light,traffic_light_unregulated,rail_signal*): defines which junctions are to be kept unmodified
 - **-e**, **--end-offset** (default *0*): If set, the waiting position of trains will be moved back from the conflict point by setting [edge attribute `endOffset`](../Networks/PlainXML.md#edge_descriptions).
 - **-j**, **--join-distance** (default *200*): Identifies clusters of conflict points within the given range and only guards connections that enter the cluster from the outside
+- **-s**, **--split-offset** (default *0*): Splits edges upstream of kept conflict junctions to insert rail signals at the given distance
+- **--split-range** (default *split-offset*): Skips splitting when an existing rail signal is found within the given upstream distance
+- **--stop-file**: Loads public transport stops to patch when edges are split
+- **-O**, **--stop-output**: Writes patched public transport stops to the given file (requires **--stop-file**)
 
 # patchRailPriorities.py
 
