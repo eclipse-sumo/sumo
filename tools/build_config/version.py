@@ -47,7 +47,7 @@ def get_pep440_version():
     if v.endswith("-" + (10 * "0")):
         # this is a fake version number since we could only determine the last release number, see #14228
         return v[:-11] + ".post0"
-    v = v[1:v.rfind("-")]
+    v = v[1:v.rfind("-")] if "-" in v else (v[1:] if v.startswith("v") else v)
     vs = v.split(".")
     if len(vs) == 4 and vs[3] == "post0":
         return v[:-6]
@@ -59,14 +59,17 @@ def create_version_file(versionFile, revision):
         print('#define VERSION_STRING "%s"' % revision, file=f)
 
 
-def filter_pep440(input_name, output_name):
+def filter_pep440(input_name, output_name, clean_only=False):
+    pep_ver = get_pep440_version()
+    if clean_only and ".post" in pep_ver:
+        pep_ver = pep_ver.split(".post", 1)[0]
     if input_name == "-":
-        sys.stdout.write(get_pep440_version())
+        sys.stdout.write(pep_ver)
         return
     with open(input_name) as inf:
         inp = inf.read()
     with open(output_name, "w") as outf:
-        outf.write(inp.replace('0.0.0', get_pep440_version()))
+        outf.write(inp.replace('0.0.0', pep_ver))
 
 
 def main():
@@ -95,7 +98,7 @@ def main():
             print("version control file '%s' not found" % vcsFile)
         if not exists(versionFile):
             print('trying to generate version file %s from existing header' % versionFile)
-            create_version_file(versionFile, sumolib.version.fromVersionHeader())
+            create_version_file(versionFile, sumolib.version.fromVersionHeader(rootDir=SUMO_ROOT))
     except Exception as e:
         print("Error creating", versionFile, e)
         try:
