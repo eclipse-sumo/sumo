@@ -1,2 +1,5 @@
 # Tests the poi API
 poi
+
+# Test adding POI with default color (#11260)
+default_color
