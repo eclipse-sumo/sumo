@@ -45,6 +45,12 @@ public:
     /// @brief Destructor
     ~GNEDataInterval();
 
+    /// @brief Parse numeric seconds or a formatted simulation time.
+    static double parseIntervalTime(const std::string& value);
+
+    /// @brief Check whether a data interval time is valid.
+    static bool canParseIntervalTime(const std::string& value);
+
     /// @brief methods to retrieve the elements linked to this dataInterval
     /// @{
 

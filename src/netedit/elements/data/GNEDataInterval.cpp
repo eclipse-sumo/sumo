@@ -400,11 +400,33 @@ bool
 GNEDataInterval::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_BEGIN:
-            return canParse<double>(value);
         case SUMO_ATTR_END:
-            return canParse<double>(value);
+            return canParseIntervalTime(value);
         default:
             return isCommonAttributeValid(key, value);
+    }
+}
+
+
+double
+GNEDataInterval::parseIntervalTime(const std::string& value) {
+    if (value.find(':') == std::string::npos) {
+        return parse<double>(value);
+    }
+    return STEPS2TIME(parse<SUMOTime>(value));
+}
+
+
+bool
+GNEDataInterval::canParseIntervalTime(const std::string& value) {
+    if (value.find(':') == std::string::npos) {
+        return canParse<double>(value);
+    }
+    try {
+        parseIntervalTime(value);
+        return true;
+    } catch (const ProcessError&) {
+        return false;
     }
 }
 
@@ -436,12 +458,12 @@ void
 GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_BEGIN:
-            myBegin = parse<double>(value);
+            myBegin = parseIntervalTime(value);
             // update Generic Data IDs
             updateGenericDataIDs();
             break;
         case SUMO_ATTR_END:
-            myEnd = parse<double>(value);
+            myEnd = parseIntervalTime(value);
             // update Generic Data IDs
             updateGenericDataIDs();
             break;

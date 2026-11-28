@@ -321,11 +321,11 @@ GNEGenericDataFrame::IntervalSelector::getDataInterval() const {
 long
 GNEGenericDataFrame::IntervalSelector::onCmdCreateInterval(FXObject*, FXSelector, void*) {
     // first check that begin and end are valid
-    if (GNEAttributeCarrier::canParse<double>(myBeginTextField->getText().text()) &&
-            GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text())) {
+    if (GNEDataInterval::canParseIntervalTime(myBeginTextField->getText().text()) &&
+            GNEDataInterval::canParseIntervalTime(myEndTextField->getText().text())) {
         // obtain begin and end
-        const double begin = GNEAttributeCarrier::parse<double>(myBeginTextField->getText().text());
-        const double end = GNEAttributeCarrier::parse<double>(myEndTextField->getText().text());
+        const double begin = GNEDataInterval::parseIntervalTime(myBeginTextField->getText().text());
+        const double end = GNEDataInterval::parseIntervalTime(myEndTextField->getText().text());
         // get data set parent
         GNEDataSet* dataSet = myGenericDataFrameParent->myDataSetSelector->getDataSet();
         if (dataSet && dataSet->checkNewInterval(begin, end)) {
@@ -353,16 +353,14 @@ GNEGenericDataFrame::IntervalSelector::onCmdSelectInterval(FXObject*, FXSelector
 long
 GNEGenericDataFrame::IntervalSelector::onCmdSetIntervalAttribute(FXObject* obj, FXSelector, void*) {
     if (obj == myBeginTextField) {
-        // check if begin value can be parsed to double
-        if (GNEAttributeCarrier::canParse<double>(myBeginTextField->getText().text())) {
+        if (GNEDataInterval::canParseIntervalTime(myBeginTextField->getText().text())) {
             myBeginTextField->setTextColor(GUIDesignTextColorBlack);
             myBeginTextField->killFocus();
         } else {
             myBeginTextField->setTextColor(GUIDesignTextColorRed);
         }
     } else if (obj == myEndTextField) {
-        // check if end value can be parsed to double
-        if (GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text())) {
+        if (GNEDataInterval::canParseIntervalTime(myEndTextField->getText().text())) {
             myEndTextField->setTextColor(GUIDesignTextColorBlack);
             myEndTextField->killFocus();
         } else {
