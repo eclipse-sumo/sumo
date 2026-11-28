@@ -104,6 +104,9 @@ Editing signal states can be accomplished in either of the following ways:
 
 You can also change the state by editing the phase table directly.
 
+!!! caution
+    For [NEMA traffic light controllers](../Simulation/NEMA.md) (`type="NEMA"`), SUMO identifies the lanes and link indices controlled by each NEMA phase exclusively from uppercase `G` characters in that phase's `state` string (`getLaneInfoFromNEMAState`). Every NEMA phase must therefore contain at least one uppercase `G` for its served movement; phases defined only with permissive lowercase `g` have no controlled links and can cause the controller to stall on a single phase combination.
+
 ### Joined Traffic Lights
 To edit the program of a joined traffic light, any of its junctions can be clicked in traffic light mode. This will cause connections from all controlled junctions to be highlighted. To create a joined traffic light you need to use inspect mode:
 
