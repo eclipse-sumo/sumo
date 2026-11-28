@@ -12,54 +12,43 @@ tags:
 authors:
   - name: Robert Alms
     orcid: 0000-0001-9950-3596
-    equal-contrib: true
     affiliation: 1
   - name: Pablo Alvarez Lopez
     orcid: 0000-0002-0651-6767
-    equal-contrib: true
     affiliation: 1
   - name: Angelo Banse
     orcid: 0000-0001-7615-627X
-    equal-contrib: true
     affiliation: 1
   - name: Mirko Barthauer
     orcid: 0000-0003-3177-3260
-    equal-contrib: true
     affiliation: 1
   - name: Michael Behrisch
     orcid: 0000-0002-0032-7930
-    equal-contrib: true
     affiliation: 1
   - name: Benjamin Couéraud
     orcid: 0009-0001-3739-730X
-    equal-contrib: true
     affiliation: 1
   - name: Jakob Erdmann
     orcid: 0000-0002-4195-4535
-    equal-contrib: true
     affiliation: 1
   - name: Yun-Pang Flötteröd
     orcid: 0000-0003-3620-2715
-    equal-contrib: true
     affiliation: 1
   - name: Robert Hilbrich
     orcid: 0000-0003-3793-3982
-    equal-contrib: true
     affiliation: 1
   - name: Ronald Nippold
     orcid: 0000-0003-4837-8021
-    equal-contrib: true
     affiliation: 1
   - name: Peter Wagner
     orcid: 0000-0001-9097-8026
-    equal-contrib: true
     affiliation: 1
 
 affiliations:
  - name: German Aerospace Center (DLR), Institute of Transportation Systems, Berlin, Germany
    index: 1
 
-date: 19 May 2025
+date: 24 June 2025
 bibliography: paper.bib
 ---
 
@@ -113,6 +102,8 @@ In general, the `SUMO` code base has been and continues to be maintained by the 
 
 # Acknowledgements
 
-We acknowledge financial support by the German Aerospace Center, and by multiple projects (and the related funds) that have helped a lot during the 20+ years of SUMO's development. Furthermore we thank the Eclipse Foundation for hosting the project.
+We acknowledge financial support by the German Aerospace Center and by multiple projects and related funding that have supported SUMO's development over the years. Furthermore, we thank the Eclipse Foundation for hosting the project.
+
+The author list reflects the SUMO core development team at the time of submission. We thank the project founder, Daniel Krajzewicz, as well as all past contributors, who are listed in the project's [AUTHORS](https://github.com/eclipse-sumo/sumo/blob/main/AUTHORS) file and version-control history.
 
 # References
