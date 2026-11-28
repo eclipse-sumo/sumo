@@ -1,2 +1,5 @@
 simple
 matplotlib
+
+# analyze alternative route cost distributions and variance threshold (#1337)
+alt_costs
