@@ -49,6 +49,7 @@ FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_TEST_COORDINATES,   GUIGLObjectPopupMenu::onCmdCopyTestCoordinates),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_POSITION,    GUIGLObjectPopupMenu::onCmdCopyCursorPosition),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_GEOPOSITION, GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition),
+    FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_UNSHIFTED_POSITION, GUIGLObjectPopupMenu::onCmdCopyCursorUnshiftedPosition),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_VIEW_GEOBOUNDARY,   GUIGLObjectPopupMenu::onCmdCopyViewGeoBoundary),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOW_GEOPOSITION_ONLINE, GUIGLObjectPopupMenu::onCmdShowCursorGeoPositionOnline),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS,                GUIGLObjectPopupMenu::onCmdShowPars),
@@ -211,6 +212,15 @@ GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition(FXObject*, FXSelector, void*) {
     // formatted for pasting into google maps
     const std::string posString = toString(pos.y(), gPrecisionGeo) + ", " + toString(pos.x(), gPrecisionGeo);
     GUIUserIO::copyToClipboard(*myParent->getApp(), posString);
+    return 1;
+}
+
+
+long
+GUIGLObjectPopupMenu::onCmdCopyCursorUnshiftedPosition(FXObject*, FXSelector, void*) {
+    const Position offset = GeoConvHelper::getFinal().getOffsetBase();
+    const Position unshifted(myNetworkPosition.x() - offset.x(), myNetworkPosition.y() - offset.y());
+    GUIUserIO::copyToClipboard(*myParent->getApp(), toString(unshifted));
     return 1;
 }
 

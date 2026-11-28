@@ -1797,6 +1797,9 @@ enum {
 
     /// @{
 
+    /// @brief Copy the cursor position without the network offset.
+    MID_COPY_CURSOR_UNSHIFTED_POSITION,
+
     /// @brief last element of enum (not used)
     MID_LAST
 };

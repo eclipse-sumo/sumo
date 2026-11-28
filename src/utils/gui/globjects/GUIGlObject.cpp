@@ -397,7 +397,8 @@ GUIGlObject::buildShowTypeParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSe
 void
 GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, const GUIMainWindow& app, bool addSeparator) const {
     GUIDesigns::buildFXMenuCommand(ret, TL("Copy cursor position to clipboard"), nullptr, ret, MID_COPY_CURSOR_POSITION);
-    if (GeoConvHelper::getFinal().usingGeoProjection()) {
+    const auto& geo = GeoConvHelper::getFinal();
+    if (geo.usingGeoProjection()) {
         GUIDesigns::buildFXMenuCommand(ret, TL("Copy cursor geo-position to clipboard"), nullptr, ret, MID_COPY_CURSOR_GEOPOSITION);
         // create menu pane for edge operations
         FXMenuPane* showCursorGeoPositionPane = new FXMenuPane(ret);
@@ -414,6 +415,11 @@ GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, const GUIMainWind
                 GUIDesigns::buildFXMenuCommand(showCursorGeoPositionPane, mapper.first, nullptr, ret, MID_SHOW_GEOPOSITION_ONLINE);
             }
         }
+    }
+    const Position offset = geo.getOffsetBase();
+    if (geo.usingGeoProjection() || offset.x() != 0 || offset.y() != 0) {
+        GUIDesigns::buildFXMenuCommand(ret, TL("Copy unshifted cursor position to clipboard"), nullptr, ret,
+                                       MID_COPY_CURSOR_UNSHIFTED_POSITION);
     }
     if (addSeparator) {
         new FXMenuSeparator(ret);
