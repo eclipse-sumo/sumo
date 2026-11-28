@@ -1499,7 +1499,20 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         } else {
             length = fromLane->getShape()[-1].distanceTo(toLane->getShape()[0]);
         }
-        myCurrentLink = new MSLink(fromLane, toLane, via, dir, state, length, foeVisibilityDistance, keepClear, logic, tlLinkIdx, indirect);
+        SVCPermissions connectionPermissions = SVCAll;
+        if (via == nullptr) {
+            const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, nullptr, ok, "", false);
+            const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, nullptr, ok, "");
+            if (!ok) {
+                return;
+            }
+            connectionPermissions = parseVehicleClasses(allow, disallow, myNetworkVersion);
+            if (connectionPermissions != SVCAll) {
+                myNet.setPermissionsFound();
+            }
+        }
+        myCurrentLink = new MSLink(fromLane, toLane, via, dir, state, length, foeVisibilityDistance,
+                                   keepClear, logic, tlLinkIdx, indirect, connectionPermissions);
         if (via != nullptr) {
             via->addIncomingLane(fromLane, myCurrentLink);
         } else {

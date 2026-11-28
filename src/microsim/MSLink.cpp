@@ -117,7 +117,7 @@ MSLink::ConflictInfo::getLengthBehindCrossing(const MSLink* exitLink) const {
 MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state,
                double length, double foeVisibilityDistance, bool keepClear,
                MSTrafficLightLogic* logic, int tlIndex,
-               bool indirect) :
+               bool indirect, SVCPermissions connectionPermissions) :
     myLane(succLane),
     myLaneBefore(predLane),
     myApproachingPersons(nullptr),
@@ -149,6 +149,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myParallelLeft(nullptr),
     myAmIndirect(indirect),
     myRadius(std::numeric_limits<double>::max()),
+    myConnectionPermissions(connectionPermissions),
     myPermissions(0),
     myJunction(nullptr) 
 {
@@ -185,7 +186,8 @@ MSLink::~MSLink() {
 void
 MSLink::updatePermissions() {
     // we only ever increase permission because transient permission reductions lead to invalid bestLanes assignment otherwise
-    myPermissions |= myLaneBefore->getPermissions() & myLane->getPermissions() & (myInternalLane == nullptr ? SVCAll : myInternalLane->getPermissions());
+    myPermissions |= myConnectionPermissions & myLaneBefore->getPermissions() & myLane->getPermissions()
+                     & (myInternalLane == nullptr ? SVCAll : myInternalLane->getPermissions());
 }
 
 

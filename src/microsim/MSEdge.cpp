@@ -427,7 +427,7 @@ MSEdge::rebuildAllowedTargets(const bool updateVehicles) {
             for (const MSLink* const link : lane->getLinkCont()) {
                 if (&link->getLane()->getEdge() == target) {
                     allLanes->push_back(lane);
-                    combinedTargetPermissions |= link->getLane()->getPermissions();
+                    combinedTargetPermissions |= link->getLane()->getPermissions() & link->getConnectionPermissions();
                     if (link->getViaLane() != nullptr &&
                             ((lane->getPermissions() & link->getLane()->getPermissions()) != link->getViaLane()->getPermissions())) {
                         // custom connection permissions
@@ -457,7 +457,10 @@ MSEdge::rebuildAllowedTargets(const bool updateVehicles) {
                     for (MSLane* const lane : *myLanes) {
                         if (lane->allowsVehicleClass((SUMOVehicleClass)vclass)) {
                             for (const MSLink* const link : lane->getLinkCont()) {
-                                if (link->getLane()->allowsVehicleClass((SUMOVehicleClass)vclass) && &link->getLane()->getEdge() == target && (link->getViaLane() == nullptr || link->getViaLane()->allowsVehicleClass((SUMOVehicleClass)vclass))) {
+                                if (&link->getLane()->getEdge() == target
+                                        && link->getLane()->allowsVehicleClass((SUMOVehicleClass)vclass)
+                                        && (link->getConnectionPermissions() & vclass) != 0
+                                        && (link->getViaLane() == nullptr || link->getViaLane()->allowsVehicleClass((SUMOVehicleClass)vclass))) {
                                     allowedLanes->push_back(lane);
                                 }
                             }
