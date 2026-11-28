@@ -26,6 +26,7 @@
 #include <config.h>
 
 #include <memory>
+#include <set>
 #include <utils/common/SUMOTime.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
@@ -261,9 +262,47 @@ public:
     ///        differs sufficiently from the previously perceived to be actually perceived. If so, it sets the
     ///        flag myReactionFlag[objID]=true, which should be checked just after the call to this method because
     ///        it will be overwritten by subsequent calls.
-    double getPerceivedSpeedDifference(const double trueSpeedDifference, const double trueGap, const void* objID = nullptr);
+    double getPerceivedSpeedDifference(const double trueSpeedDifference, const double trueGap, const std::string& objID = "");
     /// @see myHeadwayPerceptionError
-    double getPerceivedHeadway(const double trueGap, const void* objID = nullptr);
+    double getPerceivedHeadway(const double trueGap, const std::string& objID = "");
+
+    bool hasAssumedGap(const std::string& objID) const {
+        return myAssumedGap.find(objID) != myAssumedGap.end();
+    }
+
+    double getAssumedGap(const std::string& objID) const {
+        const auto it = myAssumedGap.find(objID);
+        return it != myAssumedGap.end() ? it->second : 0.;
+    }
+
+    void setAssumedGap(const std::string& objID, const double value) {
+        myAssumedGap[objID] = value;
+        myLockedHeadway.insert(objID);
+    }
+
+    void unsetAssumedGap(const std::string& objID) {
+        myLockedHeadway.erase(objID);
+        myAssumedGap.erase(objID);
+    }
+
+    bool hasLastPerceivedSpeedDifference(const std::string& objID) const {
+        return myLastPerceivedSpeedDifference.find(objID) != myLastPerceivedSpeedDifference.end();
+    }
+
+    double getLastPerceivedSpeedDifference(const std::string& objID) const {
+        const auto it = myLastPerceivedSpeedDifference.find(objID);
+        return it != myLastPerceivedSpeedDifference.end() ? it->second : 0.;
+    }
+
+    void setLastPerceivedSpeedDifference(const std::string& objID, const double value) {
+        myLastPerceivedSpeedDifference[objID] = value;
+        myLockedSpeedDifference.insert(objID);
+    }
+
+    void unsetLastPerceivedSpeedDifference(const std::string& objID) {
+        myLockedSpeedDifference.erase(objID);
+        myLastPerceivedSpeedDifference.erase(objID);
+    }
     /// @}
 
     inline void lockDebug() {
@@ -336,9 +375,12 @@ private:
 
     /// @brief The assumed gaps to different objects
     /// @todo: update each step to incorporate the assumed change given a specific speed difference
-    std::map<const void*, double> myAssumedGap;
+    std::map<std::string, double> myAssumedGap;
     /// @brief The last perceived speed differences to the corresponding objects
-    std::map<const void*, double> myLastPerceivedSpeedDifference;
+    std::map<std::string, double> myLastPerceivedSpeedDifference;
+    /// @brief Objects whose perceived headway / speed difference are directly controlled via TraCI
+    std::set<std::string> myLockedHeadway;
+    std::set<std::string> myLockedSpeedDifference;
     /// @}
 
     /// @brief Used to prevent infinite loops in debugging outputs, @see followSpeed() and stopSpeed() (of MSCFModel_Krauss, e.g.)
