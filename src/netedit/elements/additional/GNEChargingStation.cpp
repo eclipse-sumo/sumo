@@ -38,15 +38,20 @@ GNEChargingStation::GNEChargingStation(GNENet* net) :
 
 GNEChargingStation::GNEChargingStation(const std::string& id, GNENet* net, FileBucket* fileBucket, GNELane* lane,
                                        const double startPos, const double endPos, const std::string& name, const double chargingPower,
-                                       const double totalPower, const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay,
+                                       const double totalPower, const double dischargePower, const double efficiency, const bool chargeInTransit,
+                                       const SUMOTime chargeDelay, const double chargeRampUp, const double chargeRampDown, const SUMOTime chargeStopDelay,
                                        const std::string& chargeType, const SUMOTime waitingTime, const std::string& parkingAreaID,
                                        const bool friendlyPosition, const Parameterised::Map& parameters) :
     GNEStoppingPlace(id, net, fileBucket, SUMO_TAG_CHARGING_STATION, lane, startPos, endPos, name, friendlyPosition, RGBColor::INVISIBLE, 0, parameters),
     myChargingPower(chargingPower),
     myTotalPower(totalPower),
+    myDischargePower(dischargePower),
     myEfficiency(efficiency),
     myChargeInTransit(chargeInTransit),
     myChargeDelay(chargeDelay),
+    myChargeRampUp(chargeRampUp),
+    myChargeRampDown(chargeRampDown),
+    myChargeStopDelay(chargeStopDelay),
     myChargeType(chargeType),
     myWaitingTime(waitingTime),
     myParkingAreaID(parkingAreaID) {
@@ -87,6 +92,18 @@ GNEChargingStation::writeAdditional(OutputDevice& device) const {
     }
     if (myParkingAreaID != myTagProperty->getDefaultStringValue(SUMO_ATTR_PARKING_AREA)) {
         device.writeAttr(SUMO_ATTR_PARKING_AREA, myParkingAreaID);
+    }
+    if (myDischargePower != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_DISCHARGEPOWER)) {
+        device.writeAttr(SUMO_ATTR_DISCHARGEPOWER, toString(myDischargePower));
+    }
+    if (myChargeRampUp != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_CHARGERAMPUP)) {
+        device.writeAttr(SUMO_ATTR_CHARGERAMPUP, toString(myChargeRampUp));
+    }
+    if (myChargeRampDown != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_CHARGERAMPDOWN)) {
+        device.writeAttr(SUMO_ATTR_CHARGERAMPDOWN, toString(myChargeRampDown));
+    }
+    if (myChargeStopDelay != myTagProperty->getDefaultTimeValue(SUMO_ATTR_CHARGESTOPDELAY)) {
+        device.writeAttr(SUMO_ATTR_CHARGESTOPDELAY, time2string(myChargeStopDelay));
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
@@ -191,12 +208,20 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
             return toString(myChargingPower);
         case SUMO_ATTR_TOTALPOWER:
             return toString(myTotalPower);
+        case SUMO_ATTR_DISCHARGEPOWER:
+            return toString(myDischargePower);
         case SUMO_ATTR_EFFICIENCY:
             return toString(myEfficiency);
         case SUMO_ATTR_CHARGEINTRANSIT:
             return toString(myChargeInTransit);
         case SUMO_ATTR_CHARGEDELAY:
             return time2string(myChargeDelay);
+        case SUMO_ATTR_CHARGERAMPUP:
+            return toString(myChargeRampUp);
+        case SUMO_ATTR_CHARGERAMPDOWN:
+            return toString(myChargeRampDown);
+        case SUMO_ATTR_CHARGESTOPDELAY:
+            return time2string(myChargeStopDelay);
         case SUMO_ATTR_CHARGETYPE:
             return myChargeType;
         case SUMO_ATTR_WAITINGTIME:
@@ -216,6 +241,12 @@ GNEChargingStation::getAttributeDouble(SumoXMLAttr key) const {
             return myChargingPower;
         case SUMO_ATTR_TOTALPOWER:
             return myTotalPower;
+        case SUMO_ATTR_DISCHARGEPOWER:
+            return myDischargePower;
+        case SUMO_ATTR_CHARGERAMPUP:
+            return myChargeRampUp;
+        case SUMO_ATTR_CHARGERAMPDOWN:
+            return myChargeRampDown;
         case SUMO_ATTR_EFFICIENCY:
             return myEfficiency;
         default:
@@ -229,9 +260,13 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
     switch (key) {
         case SUMO_ATTR_CHARGINGPOWER:
         case SUMO_ATTR_TOTALPOWER:
+        case SUMO_ATTR_DISCHARGEPOWER:
         case SUMO_ATTR_EFFICIENCY:
         case SUMO_ATTR_CHARGEINTRANSIT:
         case SUMO_ATTR_CHARGEDELAY:
+        case SUMO_ATTR_CHARGERAMPUP:
+        case SUMO_ATTR_CHARGERAMPDOWN:
+        case SUMO_ATTR_CHARGESTOPDELAY:
         case SUMO_ATTR_CHARGETYPE:
         case SUMO_ATTR_WAITINGTIME:
         case SUMO_ATTR_PARKING_AREA:
@@ -249,6 +284,9 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_CHARGINGPOWER:
         case SUMO_ATTR_TOTALPOWER:
+        case SUMO_ATTR_DISCHARGEPOWER:
+        case SUMO_ATTR_CHARGERAMPUP:
+        case SUMO_ATTR_CHARGERAMPDOWN:
             return (canParse<double>(value) && parse<double>(value) >= 0);
         case SUMO_ATTR_EFFICIENCY:
             if (canParse<double>(value)) {
@@ -260,6 +298,7 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CHARGEINTRANSIT:
             return canParse<bool>(value);
         case SUMO_ATTR_CHARGEDELAY:
+        case SUMO_ATTR_CHARGESTOPDELAY:
             return canParse<SUMOTime>(value) && parse<SUMOTime>(value) >= 0;
         case SUMO_ATTR_CHARGETYPE: {
             return SUMOXMLDefinitions::ChargeTypes.hasString(value);
@@ -286,6 +325,9 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TOTALPOWER:
             myTotalPower = parse<double>(value);
             break;
+        case SUMO_ATTR_DISCHARGEPOWER:
+            myDischargePower = parse<double>(value);
+            break;
         case SUMO_ATTR_EFFICIENCY:
             myEfficiency = parse<double>(value);
             break;
@@ -294,6 +336,15 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_CHARGEDELAY:
             myChargeDelay = parse<SUMOTime>(value);
+            break;
+        case SUMO_ATTR_CHARGERAMPUP:
+            myChargeRampUp = parse<double>(value);
+            break;
+        case SUMO_ATTR_CHARGERAMPDOWN:
+            myChargeRampDown = parse<double>(value);
+            break;
+        case SUMO_ATTR_CHARGESTOPDELAY:
+            myChargeStopDelay = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_CHARGETYPE:
             myChargeType = value;

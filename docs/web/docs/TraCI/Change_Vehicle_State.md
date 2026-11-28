@@ -549,6 +549,8 @@ call](../TraCI/GenericParameters.md#set_parameter).
 - device.battery.actualBatteryCapacity (double literal)
 - device.battery.maximumBatteryCapacity (double literal)
 - device.battery.vehicleMass (double literal)
+- device.battery.maximumDischargeRate (double literal, see [vehicle-to-grid](../Models/Electric.md#vehicle-to-grid))
+- device.battery.minimumChargeLevel (double literal, see [vehicle-to-grid](../Models/Electric.md#vehicle-to-grid))
 - device.rerouting.period (double literal, set rerouting period in
   seconds)
 - device.rerouting.edge:EDGE_ID (double literal, set assumed travel

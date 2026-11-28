@@ -3,3 +3,9 @@ basic
 chargingPower
 
 efficiency
+
+discharge
+
+session_ramps
+
+discharge_state

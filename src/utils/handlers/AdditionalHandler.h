@@ -129,6 +129,7 @@ public:
      * @param[in] name Name of charging station
      * @param[in] chargingPower power charged in every timeStep
      * @param[in] totalPower max. power charged in every timeStep by all vehicles
+     * @param[in] dischargePower max. power fed into the grid per discharging vehicle (vehicle-to-grid)
      * @param[in] efficiency efficiency of the charge
      * @param[in] chargeInTransit enable or disable charge in transit
      * @param[in] chargeDelay delay in the charge
@@ -140,9 +141,10 @@ public:
      */
     virtual bool buildChargingStation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                       const double startPos, const double endPos, const std::string& name, const double chargingPower,
-                                      const double totalPower, const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const std::string& chargeType,
-                                      const SUMOTime waitingTime, const bool friendlyPosition, const std::string& parkingAreaID,
-                                      const Parameterised::Map& parameters) = 0;
+                                      const double totalPower, const double dischargePower, const double efficiency, const bool chargeInTransit,
+                                      const SUMOTime chargeDelay, const double chargeRampUp, const double chargeRampDown, const SUMOTime chargeStopDelay,
+                                      const std::string& chargeType, const SUMOTime waitingTime, const bool friendlyPosition,
+                                      const std::string& parkingAreaID, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a Parking Area
      * @param[in] sumoBaseObject sumo base object used for build

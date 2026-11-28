@@ -158,9 +158,13 @@ NLTriggerBuilder::parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttribut
     double topos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
     const double chargingPower = attrs.getOpt<double>(SUMO_ATTR_CHARGINGPOWER, id.c_str(), ok, 22000);
     const double totalPower = attrs.getOpt<double>(SUMO_ATTR_TOTALPOWER, id.c_str(), ok, -1);
+    const double dischargePower = attrs.getOpt<double>(SUMO_ATTR_DISCHARGEPOWER, id.c_str(), ok, 0);
     const double efficiency = attrs.getOpt<double>(SUMO_ATTR_EFFICIENCY, id.c_str(), ok, 0.95);
     const bool chargeInTransit = attrs.getOpt<bool>(SUMO_ATTR_CHARGEINTRANSIT, id.c_str(), ok, 0);
     const SUMOTime chargeDelay = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CHARGEDELAY, id.c_str(), ok, 0);
+    const double chargeRampUp = attrs.getOpt<double>(SUMO_ATTR_CHARGERAMPUP, id.c_str(), ok, 0);
+    const double chargeRampDown = attrs.getOpt<double>(SUMO_ATTR_CHARGERAMPDOWN, id.c_str(), ok, 0);
+    const SUMOTime chargeStopDelay = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CHARGESTOPDELAY, id.c_str(), ok, 0);
     const std::string chargeType = attrs.getOpt<std::string>(SUMO_ATTR_CHARGETYPE, id.c_str(), ok, "normal");
     const SUMOTime waitingTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_WAITINGTIME, id.c_str(), ok, 900);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
@@ -176,7 +180,8 @@ NLTriggerBuilder::parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttribut
         throw InvalidArgument("Invalid position for charging station '" + id + "'.");
     }
 
-    buildChargingStation(net, id, lane, frompos, topos, name, chargingPower, totalPower, efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime, parkingArea);
+    buildChargingStation(net, id, lane, frompos, topos, name, chargingPower, totalPower, dischargePower, efficiency, chargeInTransit, chargeDelay, chargeType,
+                         waitingTime, parkingArea, chargeRampUp, chargeRampDown, chargeStopDelay);
 }
 
 
@@ -890,11 +895,12 @@ NLTriggerBuilder::endStoppingPlace() {
 
 void
 NLTriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
-                                       const std::string& name, double chargingPower, double totalPower, double efficiency,
-                                       bool chargeInTransit, SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime, MSParkingArea* parkingArea) {
-    MSChargingStation* chargingStation = (parkingArea == nullptr) ? new MSChargingStation(id, *lane, frompos, topos, name, chargingPower, totalPower, efficiency,
-                                         chargeInTransit, chargeDelay, chargeType, waitingTime) : new MSChargingStation(id, parkingArea, name, chargingPower, totalPower, efficiency,
-                                                 chargeInTransit, chargeDelay, chargeType, waitingTime);
+                                       const std::string& name, double chargingPower, double totalPower, double dischargePower, double efficiency,
+                                       bool chargeInTransit, SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime, MSParkingArea* parkingArea,
+                                       double chargeRampUp, double chargeRampDown, SUMOTime chargeStopDelay) {
+    MSChargingStation* chargingStation = (parkingArea == nullptr) ? new MSChargingStation(id, *lane, frompos, topos, name, chargingPower, totalPower, dischargePower,
+                                         efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime, chargeRampUp, chargeRampDown, chargeStopDelay) : new MSChargingStation(id, parkingArea, name, chargingPower,
+                                                 totalPower, dischargePower, efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime, chargeRampUp, chargeRampDown, chargeStopDelay);
     if (!net.addStoppingPlace(SUMO_TAG_CHARGING_STATION, chargingStation)) {
         delete chargingStation;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");

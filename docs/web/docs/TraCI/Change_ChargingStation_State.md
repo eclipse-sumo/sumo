@@ -21,3 +21,12 @@ given is also shown in the table.
 | efficiency (0x98)        | double    | The charging efficiency | [setEfficiency](https://sumo.dlr.de/pydoc/traci/_chargingstation.html#ChargingStationDomain.setEfficiency) |
 | charge in transit (0x99) | integer   | Whether the vehicle is forced/not forced to stop for charging | [setChargeInTransit](https://sumo.dlr.de/pydoc/traci/_chargingstation.html#ChargingStationDomain.setChargeInTransit) |
 | charge delay (0x9a)      | double    | The time delay before starting charging in s | [setChargeDelay](https://sumo.dlr.de/pydoc/traci/_chargingstation.html#ChargingStationDomain.setChargeDelay) |
+| discharge power (0x9e)   | double    | The maximum power in W fed into the grid per [discharging vehicle](../Models/Electric.md#vehicle-to-grid) (0 disables discharging) | [setDischargePower](https://sumo.dlr.de/pydoc/traci/_chargingstation.html#ChargingStationDomain.setDischargePower) |
+
+## Supported Parameters
+
+In addition to [generic parameters](../TraCI/GenericParameters.md#set_parameter), `chargingstation.setParameter(stationID, key, value)` supports changing the following [session dynamics parameters](../Models/Electric.md#session_power_ramps_and_stop_delay):
+
+- `chargeRampUp` (non-negative float literal in W/s)
+- `chargeRampDown` (non-negative float literal in W/s)
+- `chargeStopDelay` (non-negative time/seconds literal)

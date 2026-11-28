@@ -1,0 +1,11 @@
+<routes>
+    <vType id="ev" emissionClass="Energy">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="35000"/>
+    </vType>
+    <vehicle id="v0" type="ev" depart="0">
+        <route edges="WC CE"/>
+        <param key="device.battery.chargeLevel" value="13000"/>
+        <stop chargingStation="cs1" duration="40"/>
+    </vehicle>
+</routes>

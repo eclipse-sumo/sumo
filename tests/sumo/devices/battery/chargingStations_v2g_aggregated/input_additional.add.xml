@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+    <!-- bidirectional charging station: feeds up to 11 kW per vehicle back into the grid -->
+    <chargingStation id="CS1" lane="D2_0" startPos="50" endPos="70" power="22000" dischargePower="11000" efficiency="0.9"/>
+</additional>
