@@ -13,11 +13,11 @@ Vehicles:
  Running: 0
  Waiting: 0
  Teleports: 1 (Collisions: 1)
- Emergency Braking: 4
+ Emergency Braking: 3
 Statistics (avg of 32):
  RouteLength: 194.90
- Speed: 8.86
- Duration: 22.55
- WaitingTime: 0.44
- TimeLoss: 4.36
+ Speed: 8.83
+ Duration: 22.58
+ WaitingTime: 0.42
+ TimeLoss: 4.40
  DepartDelay: 0.00

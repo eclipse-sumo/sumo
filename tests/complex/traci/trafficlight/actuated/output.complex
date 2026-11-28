@@ -145,45 +145,45 @@ jumping from phase 2 to 5
 140.0 phase=4
 141.0 phase=4
 142.0 phase=4
-143.0 phase=4
+143.0 phase=5
 144.0 phase=5
 145.0 phase=5
-146.0 phase=5
+146.0 phase=6
 147.0 phase=6
 148.0 phase=6
 149.0 phase=6
 150.0 phase=6
 151.0 phase=6
-152.0 phase=6
+152.0 phase=7
 153.0 phase=7
 154.0 phase=7
-155.0 phase=7
+155.0 phase=0
 156.0 phase=0
 157.0 phase=0
 158.0 phase=0
 159.0 phase=0
-160.0 phase=0
-161.0 phase=0
-162.0 phase=0
-163.0 phase=0
-164.0 phase=1
-165.0 phase=1
-166.0 phase=1
+160.0 phase=1
+161.0 phase=1
+162.0 phase=1
+163.0 phase=2
+164.0 phase=2
+165.0 phase=2
+166.0 phase=2
 167.0 phase=2
 168.0 phase=2
-169.0 phase=2
-170.0 phase=2
-171.0 phase=2
-172.0 phase=2
-173.0 phase=3
-174.0 phase=3
-175.0 phase=3
+169.0 phase=3
+170.0 phase=3
+171.0 phase=3
+172.0 phase=4
+173.0 phase=4
+174.0 phase=4
+175.0 phase=4
 176.0 phase=4
-177.0 phase=4
-178.0 phase=4
-179.0 phase=4
+177.0 phase=5
+178.0 phase=5
+179.0 phase=5
 max-gap: 10
-cycleSecond (before): 53.00
+cycleSecond (before): 22.00
 cycleTime (before): 90.00
 cycleTime (after): 55.00
 coordinated (before): 0

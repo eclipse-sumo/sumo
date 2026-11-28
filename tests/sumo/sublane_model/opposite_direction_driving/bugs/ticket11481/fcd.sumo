@@ -1962,7 +1962,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="88.00">
         <vehicle id="bike.10" lane="26967263#7_1" posLat="-1.17"/>
         <vehicle id="bike.11" lane="26967263#9_1" posLat="0.00"/>
-        <vehicle id="bike.12" lane="-26967263#9_1" posLat="0.04"/>
+        <vehicle id="bike.12" lane="-26967263#9_1" posLat="0.00"/>
         <vehicle id="bike.13" lane="26967263#8_1" posLat="1.08"/>
         <vehicle id="bike.14" lane="26967263#8_1" posLat="0.00"/>
         <vehicle id="bike.15" lane="26967263#7_1" posLat="0.00"/>

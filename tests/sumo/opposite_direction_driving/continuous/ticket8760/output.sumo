@@ -14,10 +14,10 @@ Vehicles:
  Waiting: 0
 Statistics (avg of 61):
  RouteLength: 2919.21
- Speed: 8.98
- Duration: 390.58
+ Speed: 8.99
+ Duration: 390.29
  WaitingTime: 0.59
- TimeLoss: 75.66
+ TimeLoss: 75.36
  DepartDelay: 0.03
 DijkstraRouter answered 60 queries and explored 4.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).

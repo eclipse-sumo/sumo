@@ -481,7 +481,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="veh0" speed="11.11" pos="240.09" lane="1fi_0"/>
     </timestep>
     <timestep time="148.00">
-        <vehicle id="veh0" speed="11.11" pos="2.70" lane=":m1_0_2"/>
+        <vehicle id="veh0" speed="11.11" pos="2.70" lane=":m1_0_1"/>
     </timestep>
     <timestep time="149.00">
         <vehicle id="veh0" speed="12.50" pos="11.71" lane="1si_2"/>

@@ -27,8 +27,8 @@ examining cali_WE
   getRouteID WE
   getRouteProbeID 
   getVTypes ()
-  getPassed 10
+  getPassed 9
   getInserted 13
-  getRemoved 3
+  getRemoved 4
   getParameter 42
 calibrator: cali_SN, period: 0.0 - 200.0, setFlow: 300.0

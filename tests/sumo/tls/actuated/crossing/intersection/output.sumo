@@ -20,11 +20,11 @@ Persons:
  Running: 0
 Statistics (avg of 105):
  RouteLength: 194.90
- Speed: 9.71
- Duration: 21.51
- WaitingTime: 2.07
- TimeLoss: 7.04
- DepartDelay: 0.49
+ Speed: 9.73
+ Duration: 21.48
+ WaitingTime: 2.08
+ TimeLoss: 6.99
+ DepartDelay: 0.50
 Pedestrian Statistics (avg of 9 walks):
  RouteLength: 119.19
  Duration: 100.33

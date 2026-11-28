@@ -11,12 +11,12 @@ Performance:
  UPS-Persons: 369127.272727
 Vehicles:
  Inserted: 105
- Running: 10
+ Running: 8
  Waiting: 0
- Teleports: 0 (Collisions: 15)
+ Teleports: 0 (Collisions: 18)
 Persons:
  Inserted: 220 (Loaded: 742)
- Running: 71
+ Running: 41
 DijkstraRouter answered 220 queries and explored 69.32 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 DijkstraRouter answered 105 queries and explored 6.00 edges on average.

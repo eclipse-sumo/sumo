@@ -17,7 +17,7 @@ Statistics (avg of 427):
  RouteLength: 197.63
  Speed: 4.76
  Duration: 85.94
- WaitingTime: 57.45
+ WaitingTime: 57.49
  TimeLoss: 71.19
  DepartDelay: 66.02
 DijkstraRouter answered 548 queries and explored 3.24 edges on average.

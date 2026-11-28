@@ -33,6 +33,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <lanechanges>
-    <change id="overtaking" type="emergency" time="29.00" from="WC_0" to="CW_0" dir="1" speed="0.00" pos="57.64" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.50" origLeaderSecureGap="0.00" origLeaderSpeed="0.00" latGap="None"/>
-    <change id="overtaking" type="emergency" time="37.00" from="EC_0" to="CE_0" dir="-1" speed="13.89" pos="75.58" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="overtaking" type="emergency" time="27.00" from="WC_0" to="CW_0" dir="1" speed="0.00" pos="57.64" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.50" origLeaderSecureGap="0.00" origLeaderSpeed="0.00" latGap="None"/>
+    <change id="overtaking" type="emergency" time="35.00" from="EC_0" to="CE_0" dir="-1" speed="13.89" pos="75.58" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
 </lanechanges>

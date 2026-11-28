@@ -9,16 +9,16 @@ Performance:
  Real time factor: 166.806
  UPS: 7258.548791
 Vehicles:
- Inserted: 160 (Loaded: 22167)
- Running: 47
- Waiting: 167
+ Inserted: 161 (Loaded: 22167)
+ Running: 49
+ Waiting: 166
  Teleports: 1 (Collisions: 2, Jam: 1)
-Statistics (avg of 113):
- RouteLength: 279.85
- Speed: 4.46
- Duration: 85.81
- WaitingTime: 18.74
- TimeLoss: 58.73
+Statistics (avg of 112):
+ RouteLength: 279.88
+ Speed: 4.39
+ Duration: 81.30
+ WaitingTime: 12.86
+ TimeLoss: 54.16
  DepartDelay: 2.95
 DijkstraRouter answered 22167 queries and explored 4.00 edges on average.
 DijkstraRouter spent 0.01s answering queries (0.00ms on average).

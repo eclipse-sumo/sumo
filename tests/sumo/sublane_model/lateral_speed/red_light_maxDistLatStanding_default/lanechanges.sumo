@@ -33,5 +33,5 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <lanechanges>
-    <change id="WE" type="DEFAULT_VEHTYPE" time="205.00" from=":C_16_2" to=":C_16_1" dir="-1" speed="6.07" pos="9.97" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="WE" type="DEFAULT_VEHTYPE" time="204.00" from=":C_16_2" to=":C_16_1" dir="-1" speed="3.56" pos="3.90" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
 </lanechanges>
