@@ -145,6 +145,21 @@ Lane::getShape(const std::string& laneID) {
         TraCIPosition p;
         p.x = pi->x();
         p.y = pi->y();
+        p.z = INVALID_DOUBLE_VALUE;
+        pv.value.push_back(p);
+    }
+    return pv;
+}
+
+
+TraCIPositionVector
+Lane::getShape3D(const std::string& laneID) {
+    TraCIPositionVector pv;
+    const PositionVector& shp = getLane(laneID)->getShape();
+    for (PositionVector::const_iterator pi = shp.begin(); pi != shp.end(); ++pi) {
+        TraCIPosition p;
+        p.x = pi->x();
+        p.y = pi->y();
         p.z = pi->z();
         pv.value.push_back(p);
     }
@@ -514,6 +529,8 @@ Lane::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapDouble(objID, variable, getWidth(objID));
         case VAR_SHAPE:
             return wrapper->wrapPositionVector(objID, variable, getShape(objID));
+        case VAR_SHAPE3D:
+            return wrapper->wrapPositionVector(objID, variable, getShape3D(objID));
         case VAR_PENDING_VEHICLES:
             return wrapper->wrapStringList(objID, variable, getPendingVehicles(objID));
         case VAR_ANGLE:

@@ -51,6 +51,9 @@ signature
 # testing all subscriptions
 subscription
 
+# test 3D shape retrieval and subscriptions
+shape3D
+
 # test subscription with begin and end time
 subscription_time
 

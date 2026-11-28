@@ -464,6 +464,8 @@ POSITION_ROADMAP = 0x04
 #  ****************************************
 #  DATA TYPES
 #  ****************************************
+#  3D polygon (3*n doubles)
+POLYGON_3D = 0x05
 #  Polygon (2*n doubles)
 TYPE_POLYGON = 0x06
 #  unsigned byte
@@ -999,6 +1001,9 @@ VAR_WIDTH = 0x4d
 
 #  shape (get: polygons)
 VAR_SHAPE = 0x4e
+
+#  3D shape (get: lanes, junctions)
+VAR_SHAPE3D = 0x3f
 
 #  type id (get: vehicles, polygons, pois)
 VAR_TYPE = 0x4f

@@ -140,6 +140,14 @@ public:
         return poly;
     }
 
+    static libsumo::TraCIPositionVector getPolygon3D(int var, const std::string& id, tcpip::Storage* add = nullptr) {
+        std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
+        tcpip::Storage& result = get(var, id, add, libsumo::POLYGON_3D);
+        libsumo::TraCIPositionVector poly;
+        StoHelp::readPolygon3D(result, poly);
+        return poly;
+    }
+
     static libsumo::TraCIPosition getPos(int var, const std::string& id, tcpip::Storage* add = nullptr, const bool isGeo = false) {
         std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
         tcpip::Storage& result = get(var, id, add, isGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
