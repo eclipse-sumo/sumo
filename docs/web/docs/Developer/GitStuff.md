@@ -28,6 +28,23 @@ git reset --hard
 https://sumo.dlr.de/ghis/
 
 
+## Preparing a Pull Request
+
+Follow these steps to submit a code or documentation change to [eclipse-sumo/sumo](https://github.com/eclipse-sumo/sumo) (see [Contributor Workflow](Workflow.md) for background):
+
+1. **Sign the Eclipse Contributor Agreement (ECA)**: Create an Eclipse account and sign the [ECA](https://accounts.eclipse.org/user/eca) using the exact email address configured in `git config user.email`.
+2. **Fork and create a branch**: Fork `eclipse-sumo/sumo` on GitHub, clone your fork, and create a topic branch from `main`:
+   ```bash
+   git checkout -b fix/12345-short-topic origin/main
+   ```
+3. **Enable style checks**: Install `pre-commit` (described below) so modified C++ and Python files satisfy [CodeStyle](CodeStyle.md) automatically on commit.
+4. **Commit, push, and open the PR**: Reference the GitHub issue in the commit message, sign off the commit (`-s`), push to your fork, and open a Pull Request against `main`:
+   ```bash
+   git commit -s -m "Component: concise description (#12345)"
+   git push -u origin fix/12345-short-topic
+   ```
+   For single-file documentation fixes, you can also click the edit icon at the top of any page on the SUMO documentation website to propose a Pull Request directly in the browser.
+
 ## Git commit hooks
 
 We are using [pre-commit](https://pre-commit.com). To enable it for your checkout it should suffice to do
