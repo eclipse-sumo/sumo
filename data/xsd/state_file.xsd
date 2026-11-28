@@ -201,6 +201,7 @@
         <xsd:attribute name="state" type="xsd:string" use="required"/>
         <xsd:attribute name="edges" type="xsd:string" use="required"/>
         <xsd:attribute name="color" type="colorType"/>
+        <xsd:attribute name="stopTimesAbsolute" type="boolType"/>
     </xsd:complexType>
 
     <xsd:complexType name="laneStateType">

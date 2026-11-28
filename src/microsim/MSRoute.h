@@ -71,7 +71,8 @@ public:
             const bool isPermanent, const RGBColor* const c,
             const StopParVector& stops,
             SUMOTime replacedTime = -1,
-            int replacedIndex = 0);
+            int replacedIndex = 0,
+            bool stopTimesAbsolute = false);
 
     /// Destructor
     virtual ~MSRoute();
@@ -228,6 +229,16 @@ public:
     /// Returns the stops
     const StopParVector& getStops() const;
 
+    /// @brief Whether stop times were supplied by an embedded route alternative.
+    bool hasAbsoluteStopTimes() const {
+        return myStopTimesAbsolute;
+    }
+
+    /// @brief Offset absolute flow stop times or departure-relative route stop times.
+    SUMOTime getStopTimeOffset(const SUMOVehicleParameter& vehicle) const;
+
+    static constexpr char STOP_TIMES_ABSOLUTE[] = "stopTimesAbsolute";
+
 public:
     /** @brief Adds a route to the dictionary.
      *
@@ -306,6 +317,8 @@ private:
 
     /// @brief List of the stops on the parsed route
     StopParVector myStops;
+
+    bool myStopTimesAbsolute;
 
     /// The time where this route was replaced with an alternative route (or -1)
     SUMOTime myReplacedTime;

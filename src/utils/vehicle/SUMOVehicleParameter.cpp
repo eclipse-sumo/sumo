@@ -236,7 +236,7 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
 
 
 void
-SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const bool writeTagAndParents) const {
+SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const bool writeTagAndParents, const bool saveState) const {
     if (writeTagAndParents) {
         dev.openTag(SUMO_TAG_STOP);
         if (busstop != "") {
@@ -265,7 +265,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
             }
         }
     }
-    if (index > 0) {
+    if (saveState && index == STOP_INDEX_REPEAT) {
+        dev.writeAttr(SUMO_ATTR_INDEX, "repeat");
+    } else if (index > 0) {
         dev.writeAttr(SUMO_ATTR_INDEX, index);
     }
     if ((parametersSet & STOP_POSLAT_SET) != 0 && posLat != INVALID_DOUBLE) {

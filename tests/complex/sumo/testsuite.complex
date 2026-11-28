@@ -73,3 +73,5 @@ overtake
 # test emissions for different tls configurations (old and some config files
 # missing)
 #tls_emissions
+
+repeated_embedded_routes

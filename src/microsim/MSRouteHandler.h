@@ -196,6 +196,9 @@ protected:
     /// @brief whether the active route is stored indefinitely (used by state loader)
     bool myActiveRoutePermanent;
 
+    /// @brief Whether stops of the currently parsed route use absolute times.
+    bool myActiveRouteStopTimesAbsolute;
+
     /// @brief The time at which this route was replaced (from vehroute-output)
     SUMOTime myActiveRouteReplacedAtTime;
 

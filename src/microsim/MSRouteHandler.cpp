@@ -63,6 +63,7 @@ MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly
     myActiveRouteRepeat(0),
     myActiveRoutePeriod(0),
     myActiveRoutePermanent(false),
+    myActiveRouteStopTimesAbsolute(false),
     myActiveType(ObjectTypeEnum::UNDEFINED),
     myHaveVia(false),
     myActiveTransportablePlan(nullptr),
@@ -392,6 +393,9 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
                           // handle obsolete attribute name
                           attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, myActiveRouteID.c_str(), ok, 0));
     myActiveRoutePermanent = attrs.getOpt<bool>(SUMO_ATTR_STATE, myActiveRouteID.c_str(), ok, false);
+    myActiveRouteStopTimesAbsolute = (myVehicleParameter != nullptr && myCurrentRouteDistribution != nullptr)
+                                     || (myAmLoadingState && StringUtils::toBool(
+                                             attrs.getStringSecure(MSRoute::STOP_TIMES_ABSOLUTE, "false")));
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         WRITE_WARNING(TL("Attribute 'period' is deprecated for route. Use 'cycleTime' instead."));
     }
@@ -449,6 +453,8 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                 }
                 myActiveRouteID = "";
                 myActiveRouteRefID = "";
+                myActiveRouteRepeat = 0;
+                myActiveRoutePeriod = 0;
                 return;
             }
             if (myVehicleParameter != nullptr) {
@@ -476,7 +482,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                         errSuffix = TLF(" for vehicle '%' with vClass %.", myVehicleParameter->id, getVehicleClassNames(vClass));
                     }
                 }
-                if (myActiveRoute.size() > 0 && !myActiveRoute.back()->isConnectedTo(*myActiveRoute.front(), vClass)) {
+                if (!mustReroute && !mayBeDisconnected && myActiveRoute.size() > 0 && !myActiveRoute.back()->isConnectedTo(*myActiveRoute.front(), vClass)) {
                     if (tmpStops.size() == 0 || tmpStops.back().jump < 0) {
                         throw ProcessError(TLF("Disconnected route '%' when repeating. Last edge '%' is not connected to first edge '%'%",
                                                myActiveRouteID, myActiveRoute.back()->getID(), myActiveRoute.front()->getID(), errSuffix));
@@ -486,7 +492,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
             for (int i = 0; i < myActiveRouteRepeat; i++) {
                 myActiveRoute.insert(myActiveRoute.begin(), tmpEdges.begin(), tmpEdges.end());
                 for (SUMOVehicleParameter::Stop stop : tmpStops) {
-                    if (stop.until > 0) {
+                    if (stop.until >= 0) {
                         if (myActiveRoutePeriod <= 0) {
                             const std::string description = myVehicleParameter != nullptr
                                                             ?  "for " + type + " '" + myVehicleParameter->id + "'"
@@ -495,7 +501,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                         }
                         stop.until += myActiveRoutePeriod * (i + 1);
                     }
-                    if (stop.arrival > 0) {
+                    if (stop.arrival >= 0) {
                         if (myActiveRoutePeriod <= 0) {
                             const std::string description = myVehicleParameter != nullptr
                                                             ?  "for " + type + " '" + myVehicleParameter->id + "'"
@@ -512,11 +518,18 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                 // never jump on the last stop of a repeating route
                 myActiveRouteStops.back().jump = -1;
             }
+            if (myVehicleParameter != nullptr && myCurrentRouteDistribution == nullptr) {
+                // Keep expanded embedded stops with the vehicle's other stops.
+                auto& stops = myVehicleParameter->stops;
+                stops.insert(stops.end(), myActiveRouteStops.begin(), myActiveRouteStops.end());
+                myActiveRouteStops.clear();
+            }
         }
         MSRoute* const route = new MSRoute(myActiveRouteID, myActiveRoute,
                                            myAmLoadingState ? myActiveRoutePermanent : myVehicleParameter == nullptr,
                                            myActiveRouteColor, myActiveRouteStops,
-                                           myActiveRouteReplacedAtTime, myActiveRouteReplacedIndex);
+                                           myActiveRouteReplacedAtTime, myActiveRouteReplacedIndex,
+                                           myActiveRouteStopTimesAbsolute && !myActiveRouteStops.empty());
         route->setPeriod(myActiveRoutePeriod);
         route->setCosts(myCurrentCosts);
         route->setReroute(mustReroute);
@@ -543,6 +556,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
         myActiveRouteColor = nullptr;
         myActiveRouteStops.clear();
         myActiveRouteRepeat = 0;
+        myActiveRoutePeriod = 0;
     } catch (ProcessError&) {
         deleteActivePlanAndVehicleParameter();
         throw;
@@ -835,7 +849,8 @@ MSRouteHandler::addVehicleStopsToImplicitRoute(ConstMSRoutePtr route, bool isPer
         }
     }
     ConstMSRoutePtr newRoute = std::make_shared<MSRoute>("!" + myVehicleParameter->id, edges,
-                               isPermanent, new RGBColor(route->getColor()), route->getStops());
+                               isPermanent, new RGBColor(route->getColor()), route->getStops(),
+                               -1, 0, route->hasAbsoluteStopTimes());
     if (!MSRoute::dictionary(newRoute->getID(), newRoute)) {
         throw ProcessError("Could not adapt implicit route for " + std::string(isPermanent ? "flow" : "vehicle") + "  '" + myVehicleParameter->id + "'");
     }
@@ -1305,7 +1320,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             errorSuffix = " in route '" + myActiveRouteID + "'";
         }
         SUMOVehicleParameter::Stop stop;
-        bool ok = parseStop(stop, attrs, errorSuffix, MsgHandler::getErrorInstance());
+        bool ok = parseStop(stop, attrs, errorSuffix, MsgHandler::getErrorInstance(), myAmLoadingState);
         if (!ok) {
             if (MSGlobals::gCheckRoutes) {
                 throw ProcessError();
@@ -1469,6 +1484,10 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             myActiveTransportablePlan->push_back(new MSStageWaiting(edge, toStop, stop.duration, stop.until, pos, actType, false, stop.jump));
             result = myActiveTransportablePlan->back();
 
+        } else if ((myActiveRouteRepeat > 0 || myCurrentRouteDistribution != nullptr)
+                   && myElementStack.size() >= 2 && myElementStack[myElementStack.size() - 2] == SUMO_TAG_ROUTE) {
+            myActiveRouteStops.push_back(stop);
+            result = &myActiveRouteStops.back();
         } else if (myVehicleParameter != nullptr) {
             myVehicleParameter->stops.push_back(stop);
             result = &myVehicleParameter->stops.back();

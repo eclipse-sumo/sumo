@@ -617,7 +617,7 @@ MEVehicle::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     // save past stops
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
-        stop.write(out, false);
+        stop.write(out, false, true, true);
         // do not write started and ended twice
         if ((stop.parametersSet & STOP_STARTED_SET) == 0) {
             out.writeAttr(SUMO_ATTR_STARTED, time2string(stop.started));

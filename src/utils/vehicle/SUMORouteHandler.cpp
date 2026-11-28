@@ -403,7 +403,8 @@ SUMORouteHandler::addParam(const SUMOSAXAttributes& attrs) {
 
 
 bool
-SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs, std::string errorSuffix, MsgHandler* const errorOutput) {
+SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs, std::string errorSuffix,
+                            MsgHandler* const errorOutput, bool loadState) {
     stop.parametersSet = 0;
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVAL)) {
         stop.parametersSet |= STOP_ARRIVAL_SET;
@@ -579,6 +580,8 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
         stop.index = STOP_INDEX_END;
     } else if (idx == "fit") {
         stop.index = STOP_INDEX_FIT;
+    } else if (loadState && idx == "repeat") {
+        stop.index = STOP_INDEX_REPEAT;
     } else {
         stop.index = attrs.get<int>(SUMO_ATTR_INDEX, nullptr, ok);
         if (!ok || stop.index < 0) {

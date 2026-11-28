@@ -779,7 +779,7 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
         if (addRouteStops) {
             for (StopParVector::const_iterator i = newRoute->getStops().begin(); i != newRoute->getStops().end(); ++i) {
                 std::string error;
-                addStop(*i, error, myParameter->depart + myStopUntilOffset);
+                addStop(*i, error, newRoute->getStopTimeOffset(*myParameter) + myStopUntilOffset);
                 if (error != "") {
                     WRITE_WARNING(error);
                 }
@@ -1797,7 +1797,7 @@ MSBaseVehicle::addStops(const bool ignoreStopErrors, MSRouteIterator* searchStar
     if (addRouteStops) {
         for (const SUMOVehicleParameter::Stop& stop : myRoute->getStops()) {
             std::string errorMsg;
-            if (!addStop(stop, errorMsg, myParameter->depart, searchStart) && !ignoreStopErrors) {
+            if (!addStop(stop, errorMsg, myRoute->getStopTimeOffset(*myParameter), searchStart) && !ignoreStopErrors) {
                 throw ProcessError(errorMsg);
             }
             if (errorMsg != "") {
