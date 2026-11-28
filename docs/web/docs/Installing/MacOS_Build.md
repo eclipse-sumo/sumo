@@ -181,6 +181,26 @@ Type "help", "copyright", "credits" or "license" for more information.
 !!! note
     To build JuPedSim and build SUMO with JuPedSim follow the [instructions for the Linux build](Linux_Build.md#how_to_build_jupedsim_and_then_build_sumo_with_jupedsim)
 
+### Compiling C++ Applications with `libtracicpp` and `libsumocpp`
+
+C++ applications using [Libtraci](../Libtraci.md) or [Libsumo](../Libsumo.md) can discover SUMO via CMake (`find_package(SUMO CONFIG REQUIRED)` and `target_link_libraries(app PRIVATE SUMO::libtracicpp)`) or compile directly with `clang++`.
+
+When SUMO is installed via Homebrew, set `SUMO_HOME` to `$(brew --prefix sumo)/share/sumo` so `data/` and `tools/` resolve, and pass the Homebrew `include` and `lib` directories together with `-ltracicpp` (or `-lsumocpp`):
+
+```bash
+BREW_SUMO="$(brew --prefix sumo)"
+export SUMO_HOME="$BREW_SUMO/share/sumo"
+clang++ -std=c++17 -I"$BREW_SUMO/include" test.cpp -L"$BREW_SUMO/lib" -ltracicpp -Wl,-rpath,"$BREW_SUMO/lib" -o test
+```
+
+When SUMO is built from source without `cmake --install`, headers reside under `$SUMO_HOME/src` and shared libraries (`libtracicpp.dylib` and `libsumocpp.dylib`) reside in `$SUMO_HOME/bin`:
+
+```bash
+clang++ -std=c++17 -I"$SUMO_HOME/src" test.cpp -L"$SUMO_HOME/bin" -ltracicpp -Wl,-rpath,"$SUMO_HOME/bin" -o test
+```
+
+Pass `-ltracicpp` as the linker flag because the compiler prepends `lib` automatically when resolving `libtracicpp.dylib`. Passing `-libtracicpp` causes the linker to search for a nonexistent `libibtracicpp` library.
+
 # The Macports Approach (legacy)
 
 !!! note
