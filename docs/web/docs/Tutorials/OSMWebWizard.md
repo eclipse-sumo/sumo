@@ -61,6 +61,10 @@ The infrastructure import from OSM into the SUMO simulation are affected by diff
 * if the checkbox "Import Public Transport" is enabled, then busStops and trainStops will be exported. Also buses, trams and trains will be generated that follow the public transport routes defined in OSM (but they will follow synthetic schedules).
 * if the Demand-checkbox "Bicycles" is active, then extra bicycle lanes will be added to roads where OSM contains this information
 * if the Demand-checkbox "Pedestrians" is active, then sidewalks and pedestrian crossings will be generated
+* if the checkbox "Satellite background" is enabled, background aerial tiles are downloaded and configured as `<decal>` elements for [sumo-gui](../sumo-gui.md)
+
+!!! caution
+    When "Satellite background" is enabled and GDAL (`gdalwarp` and `gdal_translate`) is available on your `PATH`, `osmWebWizard.py` keeps [netconvert](../netconvert.md)'s default UTM projection and reprojects the downloaded tiles to match the network. When `gdalwarp` or `gdal_translate` is missing, `osmWebWizard.py` switches `netconvert` to the Web Mercator projection (`+proj=merc`) so the unprojected map tiles align visually. Web Mercator inflates horizontal distances by approximately `1 / cos(latitude)`, which exaggerates edge lengths and route travel times away from the equator (by roughly a factor of 2 near 60 degrees latitude). Install GDAL on `PATH` before generating satellite scenarios to preserve accurate UTM road lengths.
 
 # Demand Generation
 
