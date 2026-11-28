@@ -41,6 +41,7 @@ The precise nature of insertion in regard to position, speed and depart
 time depend on [many
 parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes)
 as well as on the current state of the road network.
+Setting `departSpeed="random"` draws the initial speed uniformly from `[0, maxPossibleSpeed]` and does not accept custom lower or upper bounds in XML; to sample initial speeds from a restricted interval such as `[0.5 * vMax, vMax]`, assign explicit numeric `departSpeed` values per `<vehicle>` in a preprocessing script or pass the sampled speed to `traci.vehicle.add`.
 
 ## Delayed Departure
 
