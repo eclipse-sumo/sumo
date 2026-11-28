@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17 23:34:23.628809 by Eclipse SUMO junctionDistricts.py v1_28_0+0644-bda840e3afe
+<configuration>
+    <net-file value="net.net.xml"/>
+    <output value="districts.xml"/>
+    <radius value="80.0"/>
+    <internal value="True"/>
+    <junctions value="C"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <taz id="C" center="140.00,120.00" color="0,42,255" edges=":C_0 :C_1 :C_10 :C_11 :C_12 :C_13 :C_14 :C_15 :C_2 :C_3 :C_4 :C_5 :C_6 :C_7 :C_8 :C_9 :W_mid_1 e2c n2c s2c w_far2mid w_mid2c"/>
+</additional>
