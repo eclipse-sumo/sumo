@@ -31,7 +31,7 @@ class GNENetDiffTool : public GNEPythonTool {
 public:
     /// @brief Constructor
     GNENetDiffTool(GNEApplicationWindow* applicationWindow, const std::string& toolPath,
-                   FXMenuPane* menu);
+                   const std::string& templateStr, FXMenuPane* menu);
 
     /// @brief destructor
     ~GNENetDiffTool();
@@ -46,8 +46,8 @@ public:
     std::string getCommand() const;
 
 private:
-    /// @brief fill netDiff options
-    void fillNetDiffOptions(OptionsCont& options);
+    /// @brief register postprocessing options used only by Netedit
+    void fillNeteditOptions(OptionsCont& options);
 
     /// @brief load shapes
     void loadShapes(const std::string& file);

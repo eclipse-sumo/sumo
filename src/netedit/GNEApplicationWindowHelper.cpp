@@ -2096,7 +2096,7 @@ GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* toolsMenu,
     for (const auto& templateTool : templateTools) {
         if (templateTool.name == "netdiff") {
             myPythonTools.push_back(new GNENetDiffTool(myApplicationWindow, templateTool.pythonPath,
-                                    menuPaneToolMaps.at(templateTool.subfolder)));
+                                    templateTool.templateStr, menuPaneToolMaps.at(templateTool.subfolder)));
         } else if (menuPaneToolMaps.count(templateTool.subfolder) > 0) {
             myPythonTools.push_back(new GNEPythonTool(myApplicationWindow, templateTool.pythonPath,
                                     templateTool.templateStr, menuPaneToolMaps.at(templateTool.subfolder)));
