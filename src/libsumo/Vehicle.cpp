@@ -689,12 +689,7 @@ Vehicle::getStops(const std::string& vehID, int limit) {
 
 int
 Vehicle::getStopState(const std::string& vehID) {
-    MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
-    MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
-    if (veh == nullptr) {
-        WRITE_WARNING("getStopState not yet implemented for meso");
-        return 0;
-    }
+    MSBaseVehicle* veh = Helper::getVehicle(vehID);
     int result = 0;
     if (veh->isStopped()) {
         const MSStop& stop = veh->getNextStop();
