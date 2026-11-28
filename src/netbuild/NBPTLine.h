@@ -62,7 +62,7 @@ public:
 
     const std::vector<std::shared_ptr<NBPTStop> >& getStops();
     void write(OutputDevice& device);
-    void addWayNode(long long int way, long long int node);
+    void addWay(long long int way, const std::vector<long long int>& nodes);
 
     void setNumOfStops(int numStops, int missingBefore, int missingAfter);
 
@@ -145,7 +145,6 @@ private:
     std::vector<bool> myStopsRevised;
     std::map<std::string, std::vector<long long int> > myWayNodes;
     std::vector<std::string> myWays;
-    std::string myCurrentWay;
     std::string myPTLineId;
     std::string myRef;
     // official line color

@@ -48,6 +48,49 @@ const int NBPTLineCont::BWD(-1);
 // ===========================================================================
 // method definitions
 // ===========================================================================
+void
+NBPTLineCont::appendRailwayTurnarounds(const NBEdgeCont& ec, bool noTLSControlled, bool noFringe) const {
+    for (const auto& item : myPTLines) {
+        NBPTLine* line = item.second;
+        if (line->getWays().empty() || !isRailway(line->getVClass())) {
+            continue;
+        }
+        std::map<NBEdge*, NBEdge*> stopTracks;
+        for (const auto& stop : line->getStops()) {
+            NBEdge* edge = ec.retrieve(stop->getEdgeId(), false);
+            if (edge != nullptr && edge->isBidiRail()) {
+                NBEdge* reverse = edge->getTurnDestination(true);
+                stopTracks.emplace(edge, reverse);
+                stopTracks.emplace(reverse, edge);
+            }
+        }
+        const auto& route = line->getRoute();
+        for (size_t i = 1; i < route.size(); ++i) {
+            NBEdge* from = route[i - 1];
+            NBEdge* to = route[i];
+            const auto track = stopTracks.find(from);
+            if (track == stopTracks.end() || track->second != to
+                    || from->getStep() == NBEdge::EdgeBuildingStep::LANES2LANES_USER
+                    || from->isConnectedTo(to, true)
+                    || from->getToNode()->getType() == SumoXMLNodeType::RAIL_CROSSING
+                    || (noTLSControlled && from->getToNode()->isTLControlled())
+                    || (noFringe && from->getToNode()->getFringeType() == FringeType::OUTER)) {
+                continue;
+            }
+            const int fromLane = from->getNumLanes() - 1;
+            const int toLane = to->getNumLanes() - 1;
+            if ((from->getPermissions(fromLane) & to->getPermissions(toLane) & line->getVClass()) != 0
+                    && from->setConnection(fromLane, to, toLane, NBEdge::Lane2LaneInfoType::VALIDATED, false, false,
+                                           KEEPCLEAR_UNSPECIFIED, NBEdge::UNSPECIFIED_CONTPOS,
+                                           NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE, SUMO_const_haltingSpeed)) {
+                // Keep the route's reversal during lane recheck.
+                from->declareConnectionsAsLoaded(NBEdge::EdgeBuildingStep::LANES2LANES_DONE);
+            }
+        }
+    }
+}
+
+
 NBPTLineCont::~NBPTLineCont() {
     for (auto& myPTLine : myPTLines) {
         delete myPTLine.second;
@@ -154,7 +197,7 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
             wayPrev = line->getWayNodes(*(waysIdsIt - 1));
         }
         const std::vector<long long int>* wayNext = nullptr;
-        if (waysIdsIt != (waysIds.end() - 1)) {
+        if (waysIdsIt != (waysIds.end() - 1) && *(waysIdsIt + 1) != *waysIdsIt) {
             wayNext = line->getWayNodes(*(waysIdsIt + 1));
         }
         if (wayPrev == nullptr && wayNext == nullptr) {
@@ -349,6 +392,12 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont) {
                 }
                 i++;
             }
+        }
+        if (it3 != pTLine->getWays().begin() && *(it3 - 1) == *it3 && foundReverse != foundForward) {
+            // Retain the way twice only when both traversals exist in the network.
+            currentWayEdges.clear();
+            currentWayMinusEdges.clear();
+            continue;
         }
         bool fakeMinus = false;
         if (foundReverse == 0 && foundForward > 0 && isRailway(pTLine->getVClass())) {

@@ -1,0 +1,19 @@
+OSM line
+  Line 100: 10 20 -20 40
+  Line 200: 10 20 30
+  Connection 20 to -20 at 0.10 m/s
+Turnarounds disabled
+All stops
+  Connection -20 to 20 at 0.10 m/s
+  Connection 10 to -10 at 0.10 m/s
+  Connection 20 to -20 at 0.10 m/s
+Explicit connection
+  Connection 20 to -20 at 4.50 m/s
+Explicit deletion
+One-way tracks
+  Line 100: 10 20
+  Line 200: 10 20 30
+One-way tracks made bidirectional
+  Line 100: 10 20 -20 40
+  Line 200: 10 20 30
+  Connection 20 to -20 at 0.10 m/s

@@ -2890,14 +2890,37 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 }
                 ptLine->addPTStop(ptStop);
             }
-            for (long long& myWay : myWays) {
-                auto entr = myOSMEdges.find(myWay);
-                if (entr != myOSMEdges.end()) {
-                    Edge* edge = entr->second;
-                    for (long long& myCurrentNode : edge->myCurrentNodes) {
-                        ptLine->addWayNode(myWay, myCurrentNode);
+            const auto touchesEnd = [this](long long way, long long node) {
+                const auto wayIt = myOSMEdges.find(way);
+                return wayIt != myOSMEdges.end() && !wayIt->second->myCurrentNodes.empty()
+                       && (wayIt->second->myCurrentNodes.front() == node
+                           || wayIt->second->myCurrentNodes.back() == node);
+            };
+            long long lastAddedWay = INVALID_ID;
+            for (size_t i = 0; i < myWays.size(); ++i) {
+                const long long way = myWays[i];
+                const auto wayIt = myOSMEdges.find(way);
+                if (wayIt == myOSMEdges.end() || wayIt->second->myCurrentNodes.empty()) {
+                    continue;
+                }
+                const auto& nodes = wayIt->second->myCurrentNodes;
+                if (way == lastAddedWay) {
+                    // A rail line can traverse a way twice when it leaves through the end it entered.
+                    if (!isRailway(ptLine->getVClass()) || i < 2 || i + 1 == myWays.size() || myWays[i - 1] != way) {
+                        continue;
+                    }
+                    const long long before = myWays[i - 2];
+                    const long long after = myWays[i + 1];
+                    const bool beforeAtStart = touchesEnd(before, nodes.front());
+                    const bool beforeAtEnd = touchesEnd(before, nodes.back());
+                    const bool afterAtStart = touchesEnd(after, nodes.front());
+                    const bool afterAtEnd = touchesEnd(after, nodes.back());
+                    if (beforeAtStart == beforeAtEnd || beforeAtStart != afterAtStart || beforeAtEnd != afterAtEnd) {
+                        continue;
                     }
                 }
+                ptLine->addWay(way, nodes);
+                lastAddedWay = way;
             }
             ptLine->setNumOfStops((int)myStops.size(), missingBefore, missingAfter);
             if (ptLine->getStops().empty()) {
