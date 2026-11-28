@@ -15,3 +15,4 @@ speed
 
 # count how many special edges were visit per route
 edges-file
+prefer_installed_sumolib
