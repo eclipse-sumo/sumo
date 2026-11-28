@@ -19,6 +19,9 @@
 // Functions from main window of netedit
 /****************************************************************************/
 
+#include <array>
+#include <memory>
+
 #include <gui/dialogs/GUIDialog_Feedback.h>
 #include <netbuild/NBFrame.h>
 #include <netedit/changes/GNEChange_EdgeType.h>
@@ -3731,6 +3734,14 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject* sender, FXSelector sel, v
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETEDIT_CONFIG)) {
         return onCmdSaveNeteditConfigAs(sender, sel, ptr);
     } else {
+        const auto& neteditOptions = OptionsCont::getOptions();
+        const std::array<const char*, 4> plainInputs = {"node-files", "edge-files", "connection-files", "tllogic-files"};
+        for (const char* option : plainInputs) {
+            if (neteditOptions.isSet(option)) {
+                myNet->getSavingStatus()->requireSaveNetwork();
+                break;
+            }
+        }
         // save all elements giving automatic names based on patter if their file isn't defined
         if (onCmdSaveNetwork(sender, sel, ptr) != 1) {
             WRITE_MESSAGE(TL("Saving of netedit configuration aborted (due network)."));
@@ -3757,9 +3768,12 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject* sender, FXSelector sel, v
         // configuration
         std::ofstream out(XMLSubSys::transcodeToLocal(neteditConfigFile));
         if (out.good()) {
-            const auto& neteditOptions = OptionsCont::getOptions();
-            // write netedit config
-            neteditOptions.writeConfiguration(out, true, false, false, neteditConfigFile, true);
+            // The saved network already includes the plain XML imports.
+            std::unique_ptr<OptionsCont> savedOptions(neteditOptions.clone());
+            for (const char* option : plainInputs) {
+                savedOptions->resetDefault(option);
+            }
+            savedOptions->writeConfiguration(out, true, false, false, neteditConfigFile, true);
             // write info
             WRITE_MESSAGE(TLF("Netedit configuration saved in '%'.", neteditConfigFile));
             // config saved
