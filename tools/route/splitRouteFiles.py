@@ -165,7 +165,7 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID, saf
         prefix["so"] = routesPrefix.replace("mofr", "so")
     files = []
     sortedDeparts = []
-    pattern = re.compile(u'depart="([^"]+)"')
+    pattern = re.compile(r'\bdepart="([^"]+)"|<(?:flow|personFlow|containerFlow)\b[^>]*\bbegin="([^"]+)"')
     # pattern = re.compile('<vehicle.*depart="([0-9]+(\.[0-9]*)?)"')
     for routesIn in routeFiles:
         if verbose:
@@ -178,7 +178,8 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID, saf
                 break
             match = pattern.search(line)
             if match:
-                entry = (float(match.group(1)), len(files), pos)
+                depVal = match.group(1) if match.group(1) is not None else match.group(2)
+                entry = (float(depVal), len(files), pos)
                 sortedDeparts.insert(bisect.bisect(sortedDeparts, entry), entry)
             elif '<vtype' in line:
                 print("Warning. Route files use outdated tag 'vtype'")
@@ -205,11 +206,27 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID, saf
             currentTime += step
         if modifyID:
             line = re.sub('id="([^"]*)"', 'id="\\1_%s"' % idx, line)
-        nextLine = ""
-        while "</vehicle>" not in nextLine:
-            nextLine = f.readline().rstrip()
+        tagMatch = re.search(r'<(\w+)\b', line)
+        tagName = tagMatch.group(1) if tagMatch else "vehicle"
+        closingTag = "</%s>" % tagName
+        while '>' not in line:
+            rawNext = f.readline()
+            if not rawNext:
+                break
+            nextLine = rawNext.rstrip()
             if nextLine.strip():
                 line += "\n" + nextLine
+        tagEnd = line.find('>')
+        selfClosing = tagEnd > 0 and line[tagEnd - 1] == '/'
+        if not selfClosing and closingTag not in line:
+            nextLine = ""
+            while closingTag not in nextLine:
+                rawNext = f.readline()
+                if not rawNext:
+                    break
+                nextLine = rawNext.rstrip()
+                if nextLine.strip():
+                    line += "\n" + nextLine
         for day in out.keys():
             if out[day] and random.random() < factor[day]:
                 print(line, file=out[day])
@@ -225,18 +242,20 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID, saf
 
 class DepartChanger(handler.ContentHandler):
     def __init__(self, prefix, beg):
+        inFile = "%s%s.rou.xml" % (prefix, beg)
+        if not os.path.exists(inFile):
+            return
         self._offset = 86400
         self._indent = ""
-        self._ofile = open("%s%s.rou.xml" % (prefix, beg+self._offset), "w")
-        parser = make_parser()
-        parser.setContentHandler(self)
-        parser.parse("%s%s.rou.xml" % (prefix, beg))
-        self._ofile.close()
+        with open("%s%s.rou.xml" % (prefix, beg+self._offset), "w") as self._ofile:
+            parser = make_parser()
+            parser.setContentHandler(self)
+            parser.parse(inFile)
 
     def startElement(self, name, attrs):
         print("%s<%s" % (self._indent, name), end=' ', file=self._ofile)
         for attr in attrs.keys():
-            if attr == "depart":
+            if attr == "depart" or (attr in ("begin", "end") and name in ("flow", "personFlow", "containerFlow")):
                 print('%s="%s"' % (attr, float(attrs[attr])+self._offset), end=' ', file=self._ofile)
             else:
                 print('%s="%s"' % (attr, attrs[attr]), end=' ', file=self._ofile)
