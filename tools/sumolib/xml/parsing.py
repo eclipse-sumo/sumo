@@ -250,6 +250,10 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
         def getChild(self, name):
             return self._child_dict[name]
 
+        def getParams(self):
+            """Return a dictionary of direct param children, using the last value for duplicate keys."""
+            return {param.key: param.value for param in self._child_dict.get("param", ())}
+
         def addChild(self, name, attrs=None, sortAttrs=True):
             if attrs is None:
                 attrs = {}
