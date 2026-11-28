@@ -60,7 +60,7 @@ FXIMPLEMENT(GNEPythonToolDialog, GNEDialog, GNEPythonToolDialogMap, ARRAYNUMBER(
 
 GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* applicationWindow, GNEPythonTool* tool) :
     GNEDialog(applicationWindow, TL("Tool"), GUIIcon::TOOL_PYTHON, DialogType::PYTHON,
-              GNEDialog::Buttons::RUN_CANCEL_RESET, OpenType::MODAL, ResizeMode::RESIZABLE) {
+              GNEDialog::Buttons::RUN_CANCEL_RESET, OpenType::NON_MODAL, ResizeMode::RESIZABLE) {
     // create options
     auto horizontalOptionsFrame = new FXHorizontalFrame(myContentFrame, GUIDesignHorizontalFrameNoPadding);
     // build options
@@ -89,22 +89,36 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* applicationWindow
     // reset checkboxes
     mySortedCheckButton->setCheck(FALSE);
     myGroupedCheckButton->setCheck(TRUE);
-    // set myShowToolTipsMenu
-    myShowToolTipsMenu->setChecked(getApp()->reg().readIntEntry("gui", "menuToolTips", 0) != 1);
-    // set current values in options (like current folders and similar)
-    myPythonTool->setCurrentValues();
-    // build arguments
-    buildArguments(false, true);
-    // get maximum height
-    const int maximumHeight = myArgumentFrameLeft->numChildren() * GUIDesignHeight + 120;
-    // resize
-    resize(1024, maximumHeight <= 768 ? maximumHeight : 768);
     // open dialog
     openDialog();
 }
 
 
 GNEPythonToolDialog::~GNEPythonToolDialog() {}
+
+
+void
+GNEPythonToolDialog::openDialog() {
+    // if already shown and not running internal tests, raise and focus
+    if (shown() && (myApplicationWindow->getInternalTest() == nullptr)) {
+        raise();
+        setFocus();
+        return;
+    }
+    // set myShowToolTipsMenu
+    myShowToolTipsMenu->setChecked(getApp()->reg().readIntEntry("gui", "menuToolTips", 0) != 1);
+    // set current values in options (like current folders and similar)
+    myPythonTool->setCurrentValues();
+    // build arguments
+    buildArguments((mySortedCheckButton->getCheck() == TRUE), (myGroupedCheckButton->getCheck() == TRUE));
+    // set initial size on first open
+    if (id() == 0) {
+        const int maximumHeight = myArgumentFrameLeft->numChildren() * GUIDesignHeight + 120;
+        resize(1024, maximumHeight <= 768 ? maximumHeight : 768);
+    }
+    // open dialog
+    GNEDialog::openDialog();
+}
 
 
 void
@@ -300,11 +314,16 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
             numInsertedArguments++;
         }
     }
-    // check if create arguments
+    // check if create categories and arguments
     if (id() > 0) {
+        for (auto& category : myCategories) {
+            category->create();
+        }
         for (auto& argument : myArguments) {
             argument->create();
         }
+        myArgumentFrameLeft->recalc();
+        myArgumentFrameRight->recalc();
     }
     // adjust parameter column (call always after create elements)
     adjustParameterColumn();

@@ -50,6 +50,9 @@ public:
     /// @brief destructor
     ~GNEPythonToolDialog();
 
+    /// @brief open python tool dialog
+    void openDialog();
+
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
