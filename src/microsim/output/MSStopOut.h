@@ -21,6 +21,9 @@
 #include <config.h>
 
 #include <map>
+#include <mutex>
+#include <vector>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
@@ -83,6 +86,9 @@ public:
     /// @brief generate output for vehicles which are still stopped at simulation end
     void generateOutputForUnfinished();
 
+    /// @brief Write records queued during the parallel movement phase.
+    void writePending();
+
 private:
     struct StopInfo {
 
@@ -105,7 +111,25 @@ private:
         int unloadedContainers;
     };
 
+    struct StopRecord {
+        std::string id;
+        std::string vehicleType;
+        std::string location;
+        double position;
+        SUMOVehicleParameter::Stop parameters;
+        StopInfo info;
+        SUMOTime time;
+        bool simulationEnded;
+        bool waypointWithStop;
+        bool skipOnDemand;
+    };
+
+    void writeStop(const StopRecord& record);
+
     std::map<const SUMOVehicle*, StopInfo, ComparatorNumericalIdLess> myStopped;
+    std::vector<StopRecord> myPending;
+    std::mutex myMutex;
+    const bool myParallel;
 
     OutputDevice& myDevice;
 

@@ -51,6 +51,7 @@ meso
 
 # parallelization tests
 parallel
+parallel_stop_output
 
 # test insertion capacity for different options and departure attributes
 insertionCapacity
