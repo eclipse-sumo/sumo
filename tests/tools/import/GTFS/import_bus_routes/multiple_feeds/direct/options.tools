@@ -1,0 +1,1 @@
+-n net.net.xml --gtfs "data/feed A.zip,data/feed B.zip" --date 20201111 --modes bus --join-blocks --merged-csv-output out.csv --vtype-output vehtypes.xml tools/import/gtfs/gtfs2pt.py

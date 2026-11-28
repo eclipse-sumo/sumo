@@ -1,0 +1,9 @@
+Success.
+function import_gtfs called at Thu, 26 Nov 2026 14:19:11 +0000
+function import_gtfs finished after 0.007915 seconds
+function import_gtfs called at Thu, 26 Nov 2026 14:19:11 +0000
+function import_gtfs finished after 0.005471 seconds
+function precomputeRoutes called at Thu, 26 Nov 2026 14:19:11 +0000
+function precomputeRoutes finished after 0.366633 seconds
+function traceMap called at Thu, 26 Nov 2026 14:19:11 +0000
+function traceMap finished after 0.057284 seconds

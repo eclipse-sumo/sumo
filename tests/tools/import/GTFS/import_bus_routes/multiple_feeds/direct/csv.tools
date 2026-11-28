@@ -1,0 +1,18 @@
+trip_id;block_id;route_id;route_short_name;route_type;stop_id;stop_name;stop_lat;stop_lon;stop_sequence;fare_zone;fare_token;start_char;trip_headsign;arrival_time;departure_time
+feed1.132185783;feed1.4709;feed1.14781_3;418;3;feed1.120010034202;Braunschweig Rathaus;52.26519;10.525524;0.0;;;;Westpark;18900;18900
+feed1.132185783;feed1.4709;feed1.14781_3;418;3;feed1.120010032201;Braunschweig Packhof;52.26541;10.521949;1.0;;;;Westpark;18960;18960
+feed1.132185783;feed1.4709;feed1.14781_3;418;3;feed1.120010031501;Braunschweig Hintern Brüdern;52.265493;10.517161;2.0;;;;Westpark;19020;19020
+feed1.132185783;feed1.4709;feed1.14781_3;418;3;feed1.120010001502;Braunschweig Altstadtmarkt;52.262974;10.517664;3.0;;;;Westpark;19080;19080
+feed1.132185783;feed1.4709;feed1.14781_3;418;3;feed1.120010016102;Braunschweig Güldenstraße;52.262584;10.513801;4.0;;;;Westpark;19200;19200
+feed1.132185783;feed1.4709;feed1.14781_3;418;3;feed1.120010015202;Braunschweig Goslarsche Straße;52.26143;10.508923;5.0;;;;Westpark;19260;19260
+feed1.132244371;feed1.5486;feed1.14737_3;620;3;feed1.120010034205;Braunschweig Rathaus;52.263904;10.526306;0.0;;;;Steterburg(Salzgitter) Danziger Straße;19980;19980
+feed1.132244371;feed1.5486;feed1.14737_3;620;3;feed1.120010007513;Braunschweig Schloss;52.262254;10.525668;1.0;;;;Steterburg(Salzgitter) Danziger Straße;20100;20100
+feed1.132244371;feed1.5486;feed1.14737_3;620;3;feed1.120010022113;Braunschweig John-F.-Kennedy-Platz;52.258323;10.526476;2.0;;;;Steterburg(Salzgitter) Danziger Straße;20220;20220
+feed1.132244371;feed1.5486;feed1.14737_3;620;3;feed1.120010013704;Braunschweig Friedrich-Wilhelm-Platz;52.259483;10.520224;3.0;;;;Steterburg(Salzgitter) Danziger Straße;20340;20340
+feed1.132244371;feed1.5486;feed1.14737_3;620;3;feed1.120010013002;Braunschweig Europaplatz;52.257647;10.515203;4.0;;;;Steterburg(Salzgitter) Danziger Straße;20460;20460
+feed2.132185783;feed2.4709;feed2.14781_3;418;3;feed2.120010034202;Braunschweig Rathaus;52.26519;10.525524;0.0;;;;Westpark;18900;18900
+feed2.132185783;feed2.4709;feed2.14781_3;418;3;feed2.120010032201;Braunschweig Packhof;52.26541;10.521949;1.0;;;;Westpark;18960;18960
+feed2.132185783;feed2.4709;feed2.14781_3;418;3;feed2.120010031501;Braunschweig Hintern Brüdern;52.265493;10.517161;2.0;;;;Westpark;19020;19020
+feed2.132185783;feed2.4709;feed2.14781_3;418;3;feed2.120010001502;Braunschweig Altstadtmarkt;52.262974;10.517664;3.0;;;;Westpark;19080;19080
+feed2.132185783;feed2.4709;feed2.14781_3;418;3;feed2.120010016102;Braunschweig Güldenstraße;52.262584;10.513801;4.0;;;;Westpark;19200;19200
+feed2.132185783;feed2.4709;feed2.14781_3;418;3;feed2.120010015202;Braunschweig Goslarsche Straße;52.26143;10.508923;5.0;;;;Westpark;19260;19260

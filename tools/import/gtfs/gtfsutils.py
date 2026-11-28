@@ -133,13 +133,28 @@ def sha256hash(s):
     return hashlib.sha256(s.encode('utf-8')).hexdigest()
 
 
+def gtfsFiles(options):
+    """Pair each archive with a prefix for its feed-local IDs."""
+    files = options.gtfs.split(',')
+    return [(filename, 'feed%d.' % index if len(files) > 1 else '')
+            for index, filename in enumerate(files, 1)]
+
+
+def namespaceIDs(frame, prefix, *columns):
+    if prefix:
+        for column in columns:
+            if column in frame:
+                frame[column] = frame[column].map(
+                    lambda value: prefix + value if isinstance(value, str) and value else value)
+
+
 @benchmark
-def import_gtfs(options, gtfsZip):
+def import_gtfs(options, gtfsZip, filename=None):
     """
     Imports the gtfs-data and filters it by the specified date and modes.
     """
     if options.verbose:
-        print('Loading GTFS data "%s"' % options.gtfs)
+        print('Loading GTFS data "%s"' % (filename or options.gtfs))
 
     routes = pd.read_csv(gtfsZip.open('routes.txt'), dtype=str)
     stops = pd.read_csv(gtfsZip.open('stops.txt'), dtype=str)
@@ -424,9 +439,20 @@ def joinBlocks(data):
 
 
 def get_merged_data(options):
-    gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False, printErrors=True))
-    routes, trips_on_day, shapes, stops, stop_times = import_gtfs(options, gtfsZip)
-    gtfsZip.fp.close()
+    feeds = [_get_merged_feed(options, filename, prefix) for filename, prefix in gtfsFiles(options)]
+    merged = feeds[0] if len(feeds) == 1 else pd.concat(feeds, ignore_index=True)
+    if "block_id" not in merged:
+        options.joinBlocks = False
+    return merged
+
+
+def _get_merged_feed(options, filename, prefix):
+    with sumolib.openz(filename, mode="rb", tryGZip=False, printErrors=True) as stream:
+        with zipfile.ZipFile(stream) as gtfsZip:
+            routes, trips_on_day, _, stops, stop_times = import_gtfs(options, gtfsZip, filename)
+            zones = None
+            if "fare_stops.txt" in gtfsZip.namelist():
+                zones = pd.read_csv(gtfsZip.open("fare_stops.txt"), dtype=str)
 
     if options.bbox:
         stops['stop_lat'] = stops['stop_lat'].astype(float)
@@ -436,8 +462,7 @@ def get_merged_data(options):
     stop_times['arrival_time'] = stop_times['arrival_time'].map(time2sec)
     stop_times['departure_time'] = stop_times['departure_time'].map(time2sec)
 
-    if 'fare_stops.txt' in gtfsZip.namelist():
-        zones = pd.read_csv(gtfsZip.open('fare_stops.txt'), dtype=str)
+    if zones is not None:
         stops_merged = pd.merge(pd.merge(stops, stop_times, on='stop_id'), zones, on='stop_id')
     else:
         stops_merged = pd.merge(stops, stop_times, on='stop_id')
@@ -454,8 +479,8 @@ def get_merged_data(options):
     # 'block_id' is optional
     if 'block_id' not in merged.columns:
         cols.remove('block_id')
-        options.joinBlocks = False
     merged = merged[cols]
+    namespaceIDs(merged, prefix, 'trip_id', 'block_id', 'route_id', 'stop_id')
     return merged
 
 
