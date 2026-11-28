@@ -45,3 +45,4 @@ getSpentDuration2
 
 # the function should reset when switching between programs
 getSpentDuration3
+glosa_timeToSwitch
