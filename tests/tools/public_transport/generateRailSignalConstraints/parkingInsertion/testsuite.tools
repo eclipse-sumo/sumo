@@ -1,2 +1,5 @@
 # one train passes the stop and the other train is inserted there
 basic
+
+# let a scheduled passing train leave before a train parked at the same stop
+planned_overtaking
