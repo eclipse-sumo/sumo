@@ -3,3 +3,6 @@ middle_start
 
 # test option routes-for-all on a linear stretch with 3 detectors
 middle_end
+
+# export routing from an intermediate detector on the longer branch
+detour

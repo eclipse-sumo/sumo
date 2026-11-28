@@ -170,7 +170,7 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
 
     // save the routes file if it was changed or it's wished
     if (detectors.detectorsHaveRoutes() && oc.isSet("routes-output")) {
-        detectors.saveRoutes(oc.getString("routes-output"));
+        detectors.saveRoutes(oc.getString("routes-output"), oc.getBool("routes-for-all"));
     }
 
     // guess flows if wished
