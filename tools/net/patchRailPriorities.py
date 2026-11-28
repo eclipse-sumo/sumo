@@ -46,13 +46,15 @@ except:  # noqa
 NETCONVERT = sumolib.checkBinary('netconvert')
 
 
-def get_options():
+def get_options(args=None):
     HALF_CPUS = os.cpu_count() // 2 if os.cpu_count() is not None else 1
     ap = ArgumentParser()
     ap.add_argument("-n", "--net-file", category="input", dest="netfile", required=True, type=ap.net_file,
                     help="the network to read lane and edge permissions")
-    ap.add_argument("-r", "--route-files", category="input", dest="routes", required=True, type=ap.route_file_list,
+    ap.add_argument("-r", "--route-files", category="input", dest="routes", type=ap.route_file_list,
                     help="The file to road routes from (can also be a ptline-file)")
+    ap.add_argument("--max-track-dist", dest="maxTrackDist", metavar="FLOAT", default=60.0,
+                    type=float, help="Maximum distance between parallel tracks when estimating without routes")
     ap.add_argument("-s", "--stop-file", category="input", dest="stopfile", type=ap.additional_file,
                     help="The file to road stops from")
     ap.add_argument("-o", "--output-file", category="output", dest="outfile", required=True, type=ap.net_file,
@@ -91,9 +93,9 @@ def get_options():
                     help="Perform routing on multiple threads")
     ap.add_argument("-v", "--verbose", action="store_true", default=False,
                     help="tell me what you are doing")
-    options = ap.parse_args()
+    options = ap.parse_args(args=args)
 
-    options.routes = options.routes.split(',')
+    options.routes = options.routes.split(',') if options.routes else []
     if options.prefix is None:
         options.prefix = sumolib.miscutils.getBaseName(options.outfile)
     options.edges_file = options.prefix + ".edg.xml"
@@ -285,26 +287,52 @@ def parseStops(options):
     return stopIDs, stops
 
 
+def findGeometricPairs(options, net):
+    bidiEdges = [e for e in net.getEdges() if e.getBidi() is not None and e.allows(options.vclass)]
+    nearest = {}
+    for e1 in bidiEdges:
+        s1 = e1.getShape(True)
+        d1 = gh.sub(s1[-1], s1[0])
+        mid = gh.positionAtShapeOffset(s1, e1.getLength() / 2.0)
+        best, bestDist = None, options.maxTrackDist
+        for e2 in bidiEdges:
+            if e2 == e1 or e2 == e1.getBidi():
+                continue
+            s2 = e2.getShape(True)
+            d2 = gh.sub(s2[-1], s2[0])
+            if d1[0] * d2[0] + d1[1] * d2[1] <= 0:
+                continue
+            off, dist = gh.polygonOffsetAndDistanceToPoint(mid, s2)
+            if 0 < off < e2.getLength() and dist < bestDist:
+                best, bestDist = e2, dist
+        if best is not None:
+            nearest[e1.getID()] = best.getID()
+    sidings, edgeUsage = {}, {}
+    for eid1, eid2 in sorted(nearest.items()):
+        b1 = net.getEdge(eid1).getBidi().getID()
+        if nearest.get(eid2) == eid1 and eid1 < eid2 and eid1 < b1:
+            sidings[(eid1,)] = ("geom", 0, (eid2,))
+            edgeUsage[b1] = 1
+    return sidings, edgeUsage
+
+
 def main(options):
     net = sumolib.net.readNet(options.netfile)
     noSignal = None
     signalNodes = set()
     extraArgs = []
 
-    routes, edgeUsage = parseRoutes(options)
     stopIDs, stops = parseStops(options)
-    #  print("\n".join(map(str, routes.items())))
-    switches = findSwitches(options, routes, net)
-    #  print("\n".join(map(str, switches.items())))
-    sidings, sidingRoutes = findSidings(options, routes, switches, net, edgeUsage)
-    # print("found:\n", "\n".join(map(str, sidings.items())))
-
-    if options.addStopSignals or options.addSignals:
-        noSignal = set()  # tuples of main-edges
-
-    sidings = filterSidings(options, net, sidings, noSignal)
-    # print("filtered:\n", "\n".join(map(str, sidings.items())))
-    sidings = filterBidiSidings(options, net, sidings, edgeUsage)
+    if options.routes:
+        routes, edgeUsage = parseRoutes(options)
+        switches = findSwitches(options, routes, net)
+        sidings, sidingRoutes = findSidings(options, routes, switches, net, edgeUsage)
+        if options.addStopSignals or options.addSignals:
+            noSignal = set()  # tuples of main-edges
+        sidings = filterSidings(options, net, sidings, noSignal)
+        sidings = filterBidiSidings(options, net, sidings, edgeUsage)
+    else:
+        sidings, edgeUsage = findGeometricPairs(options, net)
     # print("filteredBidi:\n", "\n".join(map(str, sidings.items())))
 
     if options.addStopSignals or options.addSignals:
