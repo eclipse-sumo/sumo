@@ -114,10 +114,12 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
         throw ProcessError(TLF("The network file '%' is not accessible.", file));
     }
     PROGRESS_BEGIN_MESSAGE(TL("Loading net"));
-    RONetHandler handler(toFill, eb, !myOptions.exists("no-internal-links") || myOptions.getBool("no-internal-links"),
-                         myOptions.exists("weights.minor-penalty") ? myOptions.getFloat("weights.minor-penalty") : 0,
-                         myOptions.exists("weights.tls-penalty") ? myOptions.getFloat("weights.tls-penalty") : 0,
-                         myOptions.exists("weights.turnaround-penalty") ? myOptions.getFloat("weights.turnaround-penalty") : 0);
+    const bool ignoreInternal = !myOptions.exists("no-internal-links") || myOptions.getBool("no-internal-links");
+    const bool applyLinkPenalties = myOptions.exists("no-internal-links") && myOptions.exists("routing-algorithm");
+    RONetHandler handler(toFill, eb, ignoreInternal,
+                         applyLinkPenalties && myOptions.exists("weights.minor-penalty") ? myOptions.getFloat("weights.minor-penalty") : 0,
+                         applyLinkPenalties && myOptions.exists("weights.tls-penalty") ? myOptions.getFloat("weights.tls-penalty") : 0,
+                         applyLinkPenalties && myOptions.exists("weights.turnaround-penalty") ? myOptions.getFloat("weights.turnaround-penalty") : 0);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file, true)) {
         PROGRESS_FAILED_MESSAGE();

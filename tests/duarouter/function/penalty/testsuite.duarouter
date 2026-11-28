@@ -8,3 +8,6 @@ minor
 minor_noInternal
 tls
 tls_noInternal
+
+# test all penalties with astar and --no-internal-links (#15885)
+astar_noInternal
