@@ -540,7 +540,7 @@ GNETLSEditorFrame::editJunction(GNEJunction* junction) {
             }
         }
     } else {
-        myViewNet->setStatusBarText(TL("Unsaved modifications. Abort or Save"));
+        myViewNet->getNet()->getGNEApplicationWindow()->setStatusBarText(TL("Unsaved modifications. Abort or Save"));
     }
     updateModules();
 }
