@@ -30,6 +30,10 @@ A list of connected junctions can be quickly created by enabling the option *cha
 ![](../images/CreateEdge6.png)
 When setting the option *two-way*, the reverse direction for an edge will be created automatically (otherwise further clicks are needed to create the reverse direction manually).
 
+### Splitting a road at an existing junction
+
+Hold <kbd>Shift</kbd> and click a junction that overlaps the interior of an unconnected road. Netedit splits the road in both directions and connects the split ends to that junction. Hold <kbd>Alt</kbd> as well to split one direction.
+
 ## Edit connections
 
 Connections establish the possible directions that can be taken by a vehicle when it arrives at a junction.

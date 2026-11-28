@@ -855,6 +855,9 @@ private:
     /// @brief mouse process functions
     /// @{
 
+    /// @brief split an unrelated road under the cursor at the existing junction
+    void splitEdgeAtJunction(GNEJunction* junction);
+
     /// @brief process left button press function in Supermode Network
     void processLeftButtonPressNetwork(void* eventData);
 
