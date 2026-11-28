@@ -34,6 +34,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 
 
 // ===========================================================================
@@ -230,6 +231,9 @@ RODUAFrame::checkOptions() {
         WRITE_ERROR(error);
         ok = false;
     }
+    ok &= SUMOVehicleParserHelper::checkTransferOption(oc, "persontrip.transfer.car-walk");
+    ok &= SUMOVehicleParserHelper::checkTransferOption(oc, "persontrip.transfer.taxi-walk");
+    ok &= SUMOVehicleParserHelper::checkTransferOption(oc, "persontrip.transfer.walk-taxi");
 
     if (oc.getString("routing-algorithm") != "dijkstra" && oc.getString("weight-attribute") != "traveltime") {
         WRITE_ERRORF(TL("Routing algorithm '%' does not support weight-attribute '%'."), oc.getString("routing-algorithm"), oc.getString("weight-attribute"));

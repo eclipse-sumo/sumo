@@ -184,6 +184,8 @@ public:
      */
     static bool validProfile(SUMOVTypeParameter* vtype, const std::string data, const SumoXMLAttr attr);
 
+    static bool checkTransferOption(const OptionsCont& oc, const std::string& optionName);
+
     static int parseCarWalkTransfer(const OptionsCont& oc, const bool hasTaxi);
 
     /// @brief parse named stopping place attrs (or use stopParam attrs) and return it's tag and id
