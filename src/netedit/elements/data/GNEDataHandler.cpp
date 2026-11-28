@@ -136,7 +136,8 @@ GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBase
                 return writeError(TLF("There is already a edgeRel defined in edge '%'.", edge));
             } else {
                 // create edge data
-                GNEGenericData* edgeData = new GNEEdgeData(dataInterval, edge, parameters);
+                auto* fileOverride = myFileBucket == dataSet->getFileBucket() ? nullptr : myFileBucket;
+                GNEGenericData* edgeData = new GNEEdgeData(dataInterval, edge, parameters, fileOverride);
                 if (myAllowUndoRedo) {
                     myNet->getUndoList()->begin(edgeData, TL("add edge rel"));
                     myNet->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);

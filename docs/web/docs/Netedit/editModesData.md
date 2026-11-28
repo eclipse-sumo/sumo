@@ -26,6 +26,8 @@ EdgeData are created over a single edge.
 
 ![](../images/DataMode6.png)Inspecting an edge data
 
+Set **File** in the Netedit attributes of an inspected edge data record to save it in a separate data file. Leave the field empty to use the data set file. The selected files retain the data set ID and interval when Netedit saves and reloads them.
+
 ## Edge relation mode ![](../images/icon_modeedgereldata.png)
 
 EdgeRelDatas are created over two edges

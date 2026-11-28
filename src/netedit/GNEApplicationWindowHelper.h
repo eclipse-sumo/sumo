@@ -1211,7 +1211,7 @@ struct GNEApplicationWindowHelper {
         FileBucket* getDefaultBucket(const FileBucket::Type type) const;
 
         /// @brief get bucket
-        FileBucket* getBucket(const FileBucket::Type type, const std::string& filename, const bool create);
+        FileBucket* getBucket(const FileBucket::Type type, const std::string& filename, const bool create, const bool useDefault = true);
 
         /// @brief get vector with all fileBuckets related with the given file type
         const std::vector<FileBucket*>& getFileBuckets(const FileBucket::Type type) const;

@@ -6129,7 +6129,9 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
     } else {
         commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_SAVEFILE,
                 GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
+                tagProperties->getTag() == GNE_TAG_EDGEREL_SINGLE
+                ? GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR
+                : GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                 TL("The path to the file to save this element"));
         commonAttribute->setAlternativeName(TL("File"));
         // set filename extension
@@ -6139,6 +6141,8 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
             commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::RouteFileExtensions.getStrings());
         } else if (tagProperties->isMeanData()) {
             commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::MeanDataFileExtensions.getStrings());
+        } else if (tagProperties->isDataElement()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings());
         } else {
             commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::XMLFileExtensions.getStrings());
         }
@@ -7597,7 +7601,7 @@ GNETagPropertiesDatabase::fillDataElements() {
                 GNETagProperties::Type::DATAELEMENT | GNETagProperties::Type::GENERICDATA,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::EDGE,
-                FileBucket::Type::NOTHING,
+                FileBucket::Type::DATA,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::EDGEDATA, GUIGlObjectType::GLO_EDGEDATA, SUMO_TAG_EDGE, TL("EdgeRelationSingle"));
     }

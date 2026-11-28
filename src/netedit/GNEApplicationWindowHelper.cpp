@@ -20,6 +20,7 @@
 #include <config.h>
 #include <utils/xml/XMLSubSys.h>
 
+#include <filesystem>
 #include <regex>
 
 #include <netedit/dialogs/file/GNEFileDialog.h>
@@ -2524,6 +2525,18 @@ GNEApplicationWindowHelper::FileBucketHandler::updateAC(const GNEAttributeCarrie
 }
 
 
+namespace {
+bool
+isSameExistingFile(const std::string& first, const std::string& second) {
+    if (first.empty() || second.empty()) {
+        return false;
+    }
+    std::error_code error;
+    return std::filesystem::equivalent(std::filesystem::u8path(first), std::filesystem::u8path(second), error);
+}
+}
+
+
 bool
 GNEApplicationWindowHelper::FileBucketHandler::checkFilename(const GNEAttributeCarrier* AC, const std::string& filename) const {
     // check file properties
@@ -2531,10 +2544,11 @@ GNEApplicationWindowHelper::FileBucketHandler::checkFilename(const GNEAttributeC
         // elements with parent aren't saved in buckets
         return false;
     } else {
-        // iterate over all buckets to check if exist a bucket with this filename
+        // Data elements can select an existing output through a different path.
+        const bool dataElement = AC->getTagProperty()->isDataElement();
         for (const auto& type : FileBucket::types) {
             for (auto& bucket : myBuckets.at(type)) {
-                if (bucket->getFilename() == filename) {
+                if (bucket->getFilename() == filename || (dataElement && isSameExistingFile(filename, bucket->getFilename()))) {
                     // check if the bucket is compatible with this file
                     return AC->getTagProperty()->isFileCompatible(bucket->getType());
                 }
@@ -2575,19 +2589,20 @@ GNEApplicationWindowHelper::FileBucketHandler::getDefaultBucket(const FileBucket
 
 
 FileBucket*
-GNEApplicationWindowHelper::FileBucketHandler::getBucket(const FileBucket::Type type, const std::string& filename, const bool create) {
-    // iterate over all buckets to check if the given filename already exist
-    for (auto& bucketMap : myBuckets) {
-        for (auto& bucket : bucketMap.second) {
-            if ((bucket->getFilename() == filename) && (bucket->getType() == type)) {
-                return bucket;
-            }
+GNEApplicationWindowHelper::FileBucketHandler::getBucket(const FileBucket::Type type, const std::string& filename, const bool create, const bool useDefault) {
+    for (auto* bucket : myBuckets.at(type)) {
+        if (bucket->getFilename() == filename) {
+            return bucket;
+        }
+        // Separate data buckets must not write the same file through two paths.
+        if (type == FileBucket::Type::DATA && isSameExistingFile(filename, bucket->getFilename())) {
+            return bucket;
         }
     }
     // on this point, we need to check if create a new bucket
     if (create) {
         // if the default bucket is empty, but not the filename, update the default bucket
-        if (getDefaultFilename(type).empty() && (filename.size() > 0)) {
+        if (useDefault && getDefaultFilename(type).empty() && !filename.empty()) {
             setDefaultFilenameFile(type, filename);
             return getDefaultBucket(type);
         } else {
