@@ -45,6 +45,7 @@
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSStoppingPlaceRerouter.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
@@ -1313,6 +1314,16 @@ MSBaseVehicle::isJumping() const {
 bool
 MSBaseVehicle::isStoppedTriggered() const {
     return isStopped() && (myStops.begin()->triggered || myStops.begin()->containerTriggered || myStops.begin()->joinTriggered);
+}
+
+
+bool
+MSBaseVehicle::hasStopDemand(const MSStop& stop) {
+    MSNet* const net = MSNet::getInstance();
+    return (myPersonDevice != nullptr && myPersonDevice->anyLeavingAtStop(stop))
+           || (myContainerDevice != nullptr && myContainerDevice->anyLeavingAtStop(stop))
+           || (net->hasPersons() && net->getPersonControl().hasAnyWaiting(stop, this))
+           || (net->hasContainers() && net->getContainerControl().hasAnyWaiting(stop, this));
 }
 
 
