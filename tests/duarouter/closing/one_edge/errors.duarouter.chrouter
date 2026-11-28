@@ -1,5 +1,1 @@
-Warning: Routing algorithm CHWrapper does not support dynamic closing of edges and lanes
-Warning: Routing algorithm CHWrapper does not support dynamic closing of edges and lanes
-Warning: Routing algorithm CHWrapper does not support dynamic closing of edges and lanes
-Warning: Routing algorithm CHWrapper does not support dynamic closing of edges and lanes
-Warning: Routing algorithm CHWrapper does not support dynamic closing of edges and lanes
+Warning: Routing algorithm 'CH' does not support dynamic edge or lane closures. Use 'dijkstra', 'astar' or 'CCH'.

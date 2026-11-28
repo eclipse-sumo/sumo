@@ -42,6 +42,10 @@ to an equilibrium state (DUE).
 Duarouter has two main purposes: [Computing fastest/optimal routes](Demand/Shortest_or_Optimal_Path_Routing.md) directly as well as iteratively in the context of
 [Dynamic_User_Assignment](Demand/Dynamic_User_Assignment.md).
 
+Use **dijkstra**, **astar** or **CCH** when routing with timed edge or lane closures. **CH** and **CHWrapper** report the unsupported closures at startup and compute routes without applying them.
+
+Routes with vehicle-class speed restrictions use **CHWrapper** when **CH** is selected.
+
 ## Outputs
 
 The primary output of duarouter is a *.rou.xml* file which has its name

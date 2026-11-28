@@ -86,8 +86,7 @@ public:
         }
     }
 
-    virtual bool supportsProhibitions() const {
-        WRITE_WARNINGF(TL("Routing algorithm CHWrapper does not support dynamic closing of edges and lanes%"), "");
+    bool supportsProhibitions() const override {
         return false;
     }
 
