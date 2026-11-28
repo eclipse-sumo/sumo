@@ -748,8 +748,6 @@ GLHelper::drawText(const std::string& text, const Position& pos, const double la
         return;
     }
     GLHelper::pushMatrix();
-    glAlphaFunc(GL_GREATER, 0.5);
-    glEnable(GL_ALPHA_TEST);
 #ifdef HAVE_GL2PS
     if (myGL2PSActive) {
         glRasterPos3d(pos.x(), pos.y(), layer);
@@ -759,12 +757,16 @@ GLHelper::drawText(const std::string& text, const Position& pos, const double la
         return;
     }
 #endif
+    glPushAttrib(GL_COLOR_BUFFER_BIT);
+    glAlphaFunc(GL_GREATER, 0.5);
+    glEnable(GL_ALPHA_TEST);
     glTranslated(pos.x(), pos.y(), layer);
     glScaled(width / myFontSize, size / myFontSize, 1.);
     glRotated(-angle, 0, 0, 1);
     fonsSetAlign(myFont, align == 0 ? FONS_ALIGN_CENTER | FONS_ALIGN_MIDDLE : align);
     fonsSetColor(myFont, glfonsRGBA(col.red(), col.green(), col.blue(), col.alpha()));
     fonsDrawText(myFont, 0., 0., text.c_str(), nullptr);
+    glPopAttrib();
     GLHelper::popMatrix();
 }
 
