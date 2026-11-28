@@ -1,0 +1,26 @@
+<detectors>
+    <detectorDefinition id="A0A1" lane="A0A1_0" pos="1" type="between" />
+    <detectorDefinition id="A0B0" lane="A0B0_0" pos="1" type="between" />
+    <detectorDefinition id="A0bottom0" lane="A0bottom0_0" pos="1" type="sink" />
+    <detectorDefinition id="A0left0" lane="A0left0_0" pos="1" type="sink" />
+    <detectorDefinition id="A1A0" lane="A1A0_0" pos="1" type="between" />
+    <detectorDefinition id="A1B1" lane="A1B1_0" pos="1" type="between" />
+    <detectorDefinition id="A1left1" lane="A1left1_0" pos="1" type="sink" />
+    <detectorDefinition id="A1top0" lane="A1top0_0" pos="1" type="sink" />
+    <detectorDefinition id="B0A0" lane="B0A0_0" pos="1" type="between" />
+    <detectorDefinition id="B0B1" lane="B0B1_0" pos="1" type="between" />
+    <detectorDefinition id="B0bottom1" lane="B0bottom1_0" pos="1" type="sink" />
+    <detectorDefinition id="B0right0" lane="B0right0_0" pos="1" type="sink" />
+    <detectorDefinition id="B1A1" lane="B1A1_0" pos="1" type="between" />
+    <detectorDefinition id="B1B0" lane="B1B0_0" pos="1" type="between" />
+    <detectorDefinition id="B1right1" lane="B1right1_0" pos="1" type="sink" />
+    <detectorDefinition id="B1top1" lane="B1top1_0" pos="1" type="sink" />
+    <detectorDefinition id="bottom0A0" lane="bottom0A0_0" pos="1" type="source" />
+    <detectorDefinition id="bottom1B0" lane="bottom1B0_0" pos="1" type="source" />
+    <detectorDefinition id="left0A0" lane="left0A0_0" pos="1" type="source" />
+    <detectorDefinition id="left1A1" lane="left1A1_0" pos="1" type="source" />
+    <detectorDefinition id="right0B0" lane="right0B0_0" pos="1" type="source" />
+    <detectorDefinition id="right1B1" lane="right1B1_0" pos="1" type="source" />
+    <detectorDefinition id="top0A1" lane="top0A1_0" pos="1" type="source" />
+    <detectorDefinition id="top1B1" lane="top1B1_0" pos="1" type="source" />
+</detectors>

@@ -67,6 +67,8 @@ name of a typeDistribution).
 
 In many cases, the solutions for a given input is not unique. It is often the case, that a large proportion of the solution space contains "implausible" (i.e. looped / detour) routes. Some strategies for mitigation are described below. In some cases it may be better to use the [routeSampler tool instead](../Demand/Routes_from_Observation_Points.md#choosing_the_right_tool).
 
+Flowrouter prints a warning to standard error when a generated route revisits a road edge.
+
 ### Distribution among candidate successors
 
 By setting the option **--limit** {{DT_INT}}, the flow is assigned in multiple iterations. This can increase running time but causes

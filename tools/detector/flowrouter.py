@@ -700,27 +700,19 @@ class Net:
             totalFlow += edge.flow
             targetCount = defaultdict(lambda: 0)
             for route in edge.routes:
-                if routeOut is None:
-                    print(route)
-                    continue
-                firstReal = ''
-                lastReal = None
-                routeString = ''
-                for redge in route.edges:
-                    if redge.kind == "real":
-                        if options.lanebased:
-                            routeString += redge.label[:redge.label.rfind("_")] + " "
-                        else:
-                            routeString += redge.label + " "
-                        if firstReal == '':
-                            firstReal = redge.label
-                        lastReal = redge
-                assert firstReal != '' and lastReal is not None
+                realEdges = [edge for edge in route.edges if edge.kind == "real"]
+                assert realEdges and realEdges[0].label
+                edgeIDs = [edge.label.rsplit("_", 1)[0] if options.lanebased else edge.label for edge in realEdges]
+                lastReal = realEdges[-1]
                 index = "" if targetCount[lastReal] == 0 else ".%s" % targetCount[lastReal]
                 targetCount[lastReal] += 1
-                route.routeID = "%s_%s%s%s" % (firstReal, lastReal.label, index, suffix)
-                print('    <route id="%s" edges="%s"/>' % (
-                    route.routeID, routeString.strip()), file=routeOut)
+                route.routeID = "%s_%s%s%s" % (realEdges[0].label, lastReal.label, index, suffix)
+                if not options.quiet and len(edgeIDs) != len(set(edgeIDs)):
+                    print("Warning: route '%s' contains a loop." % route.routeID, file=sys.stderr)
+                if routeOut is None:
+                    print(route)
+                else:
+                    print('    <route id="%s" edges="%s"/>' % (route.routeID, " ".join(edgeIDs)), file=routeOut)
         if routeOut is None:
             print("total flow:", totalFlow)
 

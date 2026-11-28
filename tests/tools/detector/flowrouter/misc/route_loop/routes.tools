@@ -1,0 +1,23 @@
+<routes>
+    <route id="bottom0A0_A1left1.qPKW.0" edges="bottom0A0 A0A1 A1B1 B1B0 B0A0 A0A1 A1B1 B1A1 A1left1"/>
+    <route id="bottom0A0_A1left1.1.qPKW.0" edges="bottom0A0 A0A1 A1B1 B1B0 B0A0 A0B0 B0B1 B1A1 A1left1"/>
+    <route id="bottom0A0_A0bottom0.qPKW.0" edges="bottom0A0 A0A1 A1B1 B1B0 B0A0 A0bottom0"/>
+    <route id="bottom0A0_A1left1.2.qPKW.0" edges="bottom0A0 A0B0 B0A0 A0B0 B0B1 B1A1 A1left1"/>
+    <route id="bottom0A0_A0left0.qPKW.0" edges="bottom0A0 A0B0 B0A0 A0left0"/>
+    <route id="bottom0A0_A0bottom0.1.qPKW.0" edges="bottom0A0 A0bottom0"/>
+    <route id="bottom1B0_B0bottom1.qPKW.0" edges="bottom1B0 B0bottom1"/>
+    <route id="left0A0_A0left0.qPKW.0" edges="left0A0 A0left0"/>
+    <route id="left1A1_B0bottom1.qPKW.0" edges="left1A1 A1B1 B1B0 B0bottom1"/>
+    <route id="left1A1_A1left1.qPKW.0" edges="left1A1 A1left1"/>
+    <route id="right0B0_A1left1.qPKW.0" edges="right0B0 B0B1 B1A1 A1left1"/>
+    <route id="right0B0_B0bottom1.qPKW.0" edges="right0B0 B0bottom1"/>
+    <route id="right0B0_B0right0.qPKW.0" edges="right0B0 B0right0"/>
+    <route id="right1B1_B1right1.qPKW.0" edges="right1B1 B1right1"/>
+    <route id="top0A1_A0bottom0.qPKW.0" edges="top0A1 A1A0 A0B0 B0A0 A0bottom0"/>
+    <route id="top0A1_B0bottom1.qPKW.0" edges="top0A1 A1A0 A0B0 B0bottom1"/>
+    <route id="top0A1_B0bottom1.1.qPKW.0" edges="top0A1 A1B1 B1B0 B0bottom1"/>
+    <route id="top0A1_A1top0.qPKW.0" edges="top0A1 A1top0"/>
+    <route id="top1B1_A0bottom0.qPKW.0" edges="top1B1 B1B0 B0A0 A0bottom0"/>
+    <route id="top1B1_B1right1.qPKW.0" edges="top1B1 B1right1"/>
+    <route id="top1B1_B1top1.qPKW.0" edges="top1B1 B1top1"/>
+</routes>
