@@ -360,6 +360,22 @@ class contextualMenu:
                 subMenuAPosition = 2
                 subMenuBPosition = 0
 
+    # plans
+
+    class plans:
+
+        # center parent
+        class centerParent:
+            mainMenuPosition = 4
+            subMenuAPosition = 0
+            subMenuBPosition = 0
+
+        # add to selected
+        class addToSelected:
+            mainMenuPosition = 5
+            subMenuAPosition = 0
+            subMenuBPosition = 0
+
     # routes
 
     class routes:

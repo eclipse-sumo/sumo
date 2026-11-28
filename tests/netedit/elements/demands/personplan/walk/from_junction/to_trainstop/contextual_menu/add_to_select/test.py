@@ -58,7 +58,7 @@ netedit.changeMode("inspect")
 
 # transform
 netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.planEdge2,
-                                netedit.contextualMenu.addToSelected)
+                                netedit.contextualMenu.plans.addToSelected)
 
 # delete junction
 netedit.typeKey("delete")

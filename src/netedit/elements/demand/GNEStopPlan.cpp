@@ -84,6 +84,12 @@ GNEStopPlan::getParameters() const {
 }
 
 
+GUIGLObjectPopupMenu*
+GNEStopPlan::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    return getPlanPopUpMenu(app, parent);
+}
+
+
 void
 GNEStopPlan::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_STOP);

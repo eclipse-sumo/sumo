@@ -43,6 +43,7 @@
 // ===========================================================================
 FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CENTER,                  GUIGLObjectPopupMenu::onCmdCenter),
+    FXMAPFUNC(SEL_COMMAND,  MID_CENTER_PARENT,           GUIGLObjectPopupMenu::onCmdCenterParent),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_NAME,               GUIGLObjectPopupMenu::onCmdCopyName),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_TYPED_NAME,         GUIGLObjectPopupMenu::onCmdCopyTypedName),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_EDGE_NAME,          GUIGLObjectPopupMenu::onCmdCopyEdgeName),
@@ -144,6 +145,17 @@ GUIGLObjectPopupMenu::onCmdCenter(FXObject*, FXSelector, void*) {
     // we already know where the object is since we clicked on it -> zoom on Boundary
     if (myObject) {
         myParent->centerTo(myObject->getGlID(), true, -1);
+    } else {
+        throw ProcessError("Object is NULL");
+    }
+    return 1;
+}
+
+
+long
+GUIGLObjectPopupMenu::onCmdCenterParent(FXObject*, FXSelector, void*) {
+    if (myObject && myObject->getGLObjectParent()) {
+        myParent->centerTo(myObject->getGLObjectParent()->getGlID(), true, -1);
     } else {
         throw ProcessError("Object is NULL");
     }

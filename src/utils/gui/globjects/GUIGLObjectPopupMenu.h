@@ -93,6 +93,9 @@ public:
     /// @brief Called if the assigned objects shall be centered
     long onCmdCenter(FXObject*, FXSelector, void*);
 
+    /// @brief Called if the parent of the assigned object shall be centered
+    long onCmdCenterParent(FXObject*, FXSelector, void*);
+
     /// @brief Called if the name shall be copied to clipboard
     long onCmdCopyName(FXObject*, FXSelector, void*);
 

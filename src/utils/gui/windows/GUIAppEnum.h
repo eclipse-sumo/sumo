@@ -457,6 +457,8 @@ enum {
 
     /// @brief Center view to object - popup entry
     MID_CENTER,
+    /// @brief Center view to object parent - popup entry
+    MID_CENTER_PARENT,
     /// @brief Copy object name - popup entry
     MID_COPY_NAME,
     /// @brief Copy typed object name - popup entry
