@@ -11,6 +11,24 @@ in [sumo](../sumo.md). It is still a stub and needs be expanded.
 - [How to implement a new car-following model](../Developer/How_To/Car-Following_Model.md)
 - [More implementation notes on car-following models](../Developer/Implementation_Notes/Vehicle_Models.md)
 
+## Krauss Model Formulation (`KraussOrig1` and `Krauss`)
+
+Let `dt` denote the simulation step length (**--step-length**), `v` the ego speed, `v_l` the leader speed, `g` the net gap (`bumperGap-minGap`), `a` maximum acceleration (`accel`), `b` comfortable deceleration (`decel`), `tau` desired time headway (`tau`), `sigma` driver imperfection (`sigma`), `v_max` the minimum of vehicle `maxSpeed` and allowed lane speed, and `r` a uniform random variate in `[0, 1)`.
+
+In the original Krauss (1998) model (`carFollowModel="KraussOrig1"`) under SUMO's default semi-implicit Euler update, each step evaluates:
+
+```text
+v_safe = -b*tau + sqrt((b*tau)^2 + v_l^2 + 2*b*g)
+v_des  = min(v + a*dt, v_safe, v_max)
+v_next = max(0, v_des-sigma*a*r*dt)
+x_next = x + v_next*dt
+```
+
+SUMO's default `carFollowModel="Krauss"` refines `KraussOrig1` in two respects:
+
+1. **Discrete-step safe speed (`maximumSafeFollowSpeed`)**: Computes exact multi-step discrete braking over `dt` against `g + brakeGap(v_l, max(b, apparentDecel_l))` so vehicles stop without violating `minGap` at any step length.
+2. **Low-speed dawdling (`dawdle2`)**: When `v_des < a`, dawdling scales proportionally with `v_des` (`v_next = max(0, v_des-sigma*v_des*r*dt)`), preventing standing vehicles from stalling when accelerating from rest.
+
 ## Model Parameters
 
 Most car-following models have their own [set of parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#car-following_model_parameters).
