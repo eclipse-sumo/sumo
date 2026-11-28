@@ -284,6 +284,8 @@
         <xsd:attribute name="next" type="xsd:string" use="optional"/>
         <xsd:attribute name="last" type="xsd:string" use="optional"/>
         <xsd:attribute name="headway" type="xsd:integer" use="optional"/>
+        <xsd:attribute name="lastLeaveComplete" type="boolType" use="optional"/>
+        <xsd:attribute name="netTimeGap" type="xsd:double" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="driveWayStateType">

@@ -142,6 +142,8 @@ MSInductLoop::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSL
 #endif
             myVehiclesOnDet[&veh] = SIMTIME;
             myEnteredVehicleNumber++;
+            // A vehicle inserted on the detector has no measured front entry.
+            myLastLeaveComplete = false;
         }
     }
     return true;
@@ -170,7 +172,13 @@ MSInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
     if (newPos >= myPosition && oldPos < myPosition) {
         // entered the detector by move
         const double timeBeforeEnter = MSCFModel::passingTime(oldPos, myPosition, newPos, oldSpeed, newSpeed);
-        myVehiclesOnDet[&veh] = SIMTIME + timeBeforeEnter;
+        const double entryTime = SIMTIME + timeBeforeEnter;
+        if (!myVehiclesOnDet.empty()) {
+            myLastNetTimeGap = 0;
+        } else if (myLastLeaveComplete) {
+            myLastNetTimeGap = MAX2(0., entryTime - myLastLeaveTime);
+        }
+        myVehiclesOnDet[&veh] = entryTime;
         myEnteredVehicleNumber++;
 #ifdef DEBUG_E1_NOTIFY_MOVE
         if (DEBUG_COND) {
@@ -193,6 +201,7 @@ MSInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
                 assert(entryTime <= leaveTime);
                 myVehicleDataCont.push_back(VehicleData(veh, entryTime, leaveTime, false, myEndPosition - myPosition));
                 myLastLeaveTime = leaveTime;
+                myLastLeaveComplete = true;
 #ifdef DEBUG_E1_NOTIFY_MOVE
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << " det=" << getID() << " leftVeh=" << veh.getID() << " oldBackPos=" << oldBackPos << " newBackPos=" << newBackPos << "\n";
@@ -208,7 +217,9 @@ MSInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
         } else {
             // vehicle is already beyond the detector...
             // This can happen even if it is still registered in myVehiclesOnDet, e.g., after teleport.
-            myVehiclesOnDet.erase(&veh);
+            if (myVehiclesOnDet.erase(&veh) != 0) {
+                myLastLeaveComplete = false;
+            }
 #ifdef DEBUG_E1_NOTIFY_MOVE
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " det=" << getID() << " leftVeh=" << veh.getID() << " oldBackPos=" << oldBackPos << " newBackPos=" << newBackPos << " (unusual)\n";
@@ -260,6 +271,7 @@ MSInductLoop::notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder
             myVehiclesOnDet.erase(it);
             myVehicleDataCont.push_back(VehicleData(veh, entryTime, leaveTime, true));
             myLastLeaveTime = leaveTime;
+            myLastLeaveComplete = false;
         }
         return false;
     }
@@ -334,6 +346,15 @@ MSInductLoop::getTimeSinceLastDetection() const {
 }
 
 
+double
+MSInductLoop::getLastNetTimeGap() const {
+#ifdef HAVE_FOX
+    ScopedLocker<> lock(myNotificationMutex, myNeedLock);
+#endif
+    return myLastNetTimeGap;
+}
+
+
 void
 MSInductLoop::saveState(OutputDevice& out) const {
     out.openTag(SUMO_TAG_INDUCTION_LOOP);
@@ -344,6 +365,13 @@ MSInductLoop::saveState(OutputDevice& out) const {
         out.writeAttr(SUMO_ATTR_LAST, getTimes(myLastMesoLeaveTimes, SIMSTEP));
         // used for the next detection when a vehicle leaves the segment
         out.writeAttr(SUMO_ATTR_HEADWAY, toString<SUMOTime>(mySegment->getLastHeadway()));
+    } else {
+        if (myLastLeaveComplete && myVehiclesOnDet.empty()) {
+            out.writeAttr(SUMO_ATTR_LAST_LEAVE_COMPLETE, true);
+        }
+        if (myLastNetTimeGap >= 0) {
+            out.writeAttr(SUMO_ATTR_NET_TIME_GAP, myLastNetTimeGap);
+        }
     }
     out.closeTag();
 }
@@ -353,6 +381,8 @@ void
 MSInductLoop::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bool ok = true;
     myLastLeaveTime = attrs.get<double>(SUMO_ATTR_TIME, getID().c_str(), ok) - STEPS2TIME(offset);
+    myLastLeaveComplete = attrs.getOpt<bool>(SUMO_ATTR_LAST_LEAVE_COMPLETE, getID().c_str(), ok, false);
+    myLastNetTimeGap = attrs.getOpt<double>(SUMO_ATTR_NET_TIME_GAP, getID().c_str(), ok, -1);
     if (mySegment != nullptr) {
         for (const std::string& t : StringTokenizer(attrs.getString(SUMO_ATTR_NEXT)).getVector()) {
             myNextMesoLeaveTimes.push(StringUtils::toLong(t) - offset);
@@ -644,6 +674,8 @@ MSInductLoop::VehicleData::VehicleData(const SUMOTrafficObject& v, double entryT
 void
 MSInductLoop::clearState(SUMOTime time) {
     myLastLeaveTime = STEPS2TIME(time);
+    myLastLeaveComplete = false;
+    myLastNetTimeGap = -1;
     myEnteredVehicleNumber = 0;
     myLastVehicleDataCont.clear();
     myVehicleDataCont.clear();

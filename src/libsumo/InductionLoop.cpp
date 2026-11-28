@@ -107,6 +107,15 @@ InductionLoop::getTimeSinceDetection(const std::string& loopID) {
     return getDetector(loopID)->getTimeSinceLastDetection();
 }
 
+
+double
+InductionLoop::getLastNetTimeGap(const std::string& loopID) {
+    if (MSGlobals::gUseMesoSim) {
+        throw TraCIException("Net time gaps require microscopic induction loops.");
+    }
+    return getDetector(loopID)->getLastNetTimeGap();
+}
+
 std::vector<libsumo::TraCIVehicleData>
 InductionLoop::getVehicleData(const std::string& loopID) {
     const std::vector<MSInductLoop::VehicleData> vd = getDetector(loopID)->collectVehiclesOnDet(SIMSTEP - DELTA_T, true, true);
@@ -315,6 +324,8 @@ InductionLoop::handleVariable(const std::string& objID, const int variable, Vari
             return wrapper->wrapDouble(objID, variable, getLastStepMeanLength(objID));
         case LAST_STEP_TIME_SINCE_DETECTION:
             return wrapper->wrapDouble(objID, variable, getTimeSinceDetection(objID));
+        case LAST_NET_TIME_GAP:
+            return wrapper->wrapDouble(objID, variable, getLastNetTimeGap(objID));
         case VAR_INTERVAL_OCCUPANCY:
             return wrapper->wrapDouble(objID, variable, getIntervalOccupancy(objID));
         case VAR_INTERVAL_SPEED:

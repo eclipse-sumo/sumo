@@ -229,6 +229,9 @@ public:
      */
     double getTimeSinceLastDetection() const;
 
+    /// @brief Gap from the previous rear exit to the latest front entry, or -1 if unavailable
+    double getLastNetTimeGap() const;
+
     /** @brief Returns the time of continous occupation by the same vehicle in seconds
      * or 0 if there is no vehicle on the detector
      */
@@ -382,6 +385,12 @@ protected:
 
     /// @brief Leave-time of the last vehicle detected [s]
     double myLastLeaveTime;
+
+    /// @brief Whether the last leave time represents a full rear exit
+    bool myLastLeaveComplete = false;
+
+    /// @brief The most recently measured gap in seconds
+    double myLastNetTimeGap = -1;
 
     /// @brief extrapolated leave times for meso vehicle
     mutable TimeQueue myNextMesoLeaveTimes;

@@ -52,6 +52,7 @@ public:
     static double getLastStepOccupancy(const std::string& loopID);
     static double getLastStepMeanLength(const std::string& loopID);
     static double getTimeSinceDetection(const std::string& loopID);
+    static double getLastNetTimeGap(const std::string& loopID);
     static std::vector<libsumo::TraCIVehicleData> getVehicleData(const std::string& loopID);
 
     static double getIntervalOccupancy(const std::string& loopID);

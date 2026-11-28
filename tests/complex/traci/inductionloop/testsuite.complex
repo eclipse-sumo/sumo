@@ -15,3 +15,6 @@ persons_walk_wrongType
 
 # Tests the inductionloop API, detector for persons is on walkingArea
 persons_internalDet
+
+# Net time gaps from interpolated front and rear detection times
+net_time_gap

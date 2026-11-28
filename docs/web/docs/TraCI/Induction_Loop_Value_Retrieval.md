@@ -46,6 +46,7 @@ value is also shown in the table.
 | last interval speed (0x28)  | double | The average (time mean) speed of vehicles during the previous interval | [getLastIntervalMeanSpeed](https://sumo.dlr.de/pydoc/traci/_inductionloop.html#InductionLoopDomain.getLastIntervalMeanSpeed)  |
 | last interval number (0x29)  |int | The number of vehicles (or persons, if so configured) that passed the detector during the previous interval | [getLastIntervalVehicleNumber](https://sumo.dlr.de/pydoc/traci/_inductionloop.html#InductionLoopDomain.getLastIntervalVehicleNumber)  |
 | last interval ids (0x2a)   | stringList | The ids of vehicles (or persons, if so configured) that passed the detector during the previous interval | [getLastIntervalVehicleIDs](https://sumo.dlr.de/pydoc/traci/_inductionloop.html#InductionLoopDomain.getLastIntervalVehicleIDs)  |
+| last net time gap (0x2b) | double | The latest measured time from one vehicle's rear exit to the next vehicle's front entry [s]. Overlaps yield zero. Returns -1 until a gap is measured. Available for microscopic induction loops. | [getLastNetTimeGap](https://sumo.dlr.de/pydoc/traci/_inductionloop.html#InductionLoopDomain.getLastNetTimeGap) |
 
 ## Response 0xb0: Induction Loop Variable
 
