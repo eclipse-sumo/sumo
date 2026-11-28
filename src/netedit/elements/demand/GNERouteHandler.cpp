@@ -1289,30 +1289,59 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 } else {
                     stop = new GNEStop(stopTagType, stopParent, stoppingPlace, stopParameters);
                 }
+                int numExistingStops = 0;
+                int targetIndex = STOP_INDEX_END;
+                if (stop->getTagProperty()->isVehicleStop()) {
+                    for (const auto& child : stopParent->getChildDemandElements()) {
+                        if (child->getTagProperty()->isVehicleStop()) {
+                            numExistingStops++;
+                        }
+                    }
+                    targetIndex = GNEStop::getStopInsertionIndex(stopParent, dynamic_cast<GNEStop*>(stop), stopParameters.index);
+                }
                 // add it depending of undoDemandElements
                 if (myAllowUndoRedo) {
                     myNet->getUndoList()->begin(stop, TLF("add % in '%'", stop->getTagStr(), stopParent->getID()));
                     myNet->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
+                    if (stop->getTagProperty()->isVehicleStop() && (targetIndex >= 0) && (targetIndex < numExistingStops)) {
+                        stop->setAttribute(SUMO_ATTR_INDEX, toString(targetIndex), myNet->getUndoList());
+                    }
                     myNet->getUndoList()->end();
                 } else {
                     myNet->getAttributeCarriers()->insertDemandElement(stop);
                     stoppingPlace->addChildElement(stop);
                     stopParent->addChildElement(stop);
+                    if (stop->getTagProperty()->isVehicleStop() && (targetIndex >= 0) && (targetIndex < numExistingStops)) {
+                        stop->setAttribute(SUMO_ATTR_INDEX, toString(targetIndex), nullptr);
+                    }
                     stop->incRef("buildStoppingPlaceStop");
                 }
                 return true;
             } else if (lane) {
                 // create stop using stopParameters and lane (only for vehicles)
                 GNEDemandElement* stop = new GNEStop(stopTagType, stopParent, lane, stopParameters);
+                int numExistingStops = 0;
+                for (const auto& child : stopParent->getChildDemandElements()) {
+                    if (child->getTagProperty()->isVehicleStop()) {
+                        numExistingStops++;
+                    }
+                }
+                const int targetIndex = GNEStop::getStopInsertionIndex(stopParent, dynamic_cast<GNEStop*>(stop), stopParameters.index);
                 // add it depending of undoDemandElements
                 if (myAllowUndoRedo) {
                     myNet->getUndoList()->begin(stop, TLF("add % in '%'", stop->getTagStr(), stopParent->getID()));
                     myNet->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
+                    if ((targetIndex >= 0) && (targetIndex < numExistingStops)) {
+                        stop->setAttribute(SUMO_ATTR_INDEX, toString(targetIndex), myNet->getUndoList());
+                    }
                     myNet->getUndoList()->end();
                 } else {
                     myNet->getAttributeCarriers()->insertDemandElement(stop);
                     lane->addChildElement(stop);
                     stopParent->addChildElement(stop);
+                    if ((targetIndex >= 0) && (targetIndex < numExistingStops)) {
+                        stop->setAttribute(SUMO_ATTR_INDEX, toString(targetIndex), nullptr);
+                    }
                     stop->incRef("buildLaneStop");
                 }
                 return true;

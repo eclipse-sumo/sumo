@@ -24,6 +24,7 @@
 #include <netedit/frames/demand/GNEStopFrame.h>
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNESegment.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GLHelper.h>
@@ -54,6 +55,8 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
     myTagProperty->isVehicleWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
     // set jump
     (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
+    // unset index in template by default
+    index = INVALID_INT;
     // set locator sufix
     setStopMicrosimID();
 }
@@ -96,6 +99,8 @@ GNEStop::GNEStop(SumoXMLTag tag, GNEDemandElement* stopParent, GNEAdditional* st
     myTagProperty->isVehicleWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
     // set jump
     (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
+    // encode stop index via child element order rather than writing index attribute
+    index = STOP_INDEX_END;
     // set locator sufix
     setStopMicrosimID();
 }
@@ -140,6 +145,8 @@ GNEStop::GNEStop(SumoXMLTag tag, GNEDemandElement* stopParent, GNELane* lane,
     myTagProperty->isVehicleWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
     // set jump
     (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
+    // encode stop index via child element order rather than writing index attribute
+    index = STOP_INDEX_END;
     // set locator sufix
     setStopMicrosimID();
 }
@@ -365,9 +372,23 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             // pop layer matrix
             GLHelper::popMatrix();
             if (s.showParkingInfo) {
+                // count preceding stops of the same parent at the same position for vertical stacking
+                int repeatCount = 0;
+                const Position& labelPos = myDemandElementGeometry.getShape().back();
+                for (const auto& sibling : getParentDemandElements().front()->getChildDemandElements()) {
+                    if (sibling == this) {
+                        break;
+                    }
+                    if (sibling->getTagProperty()->isVehicleStop() &&
+                            (sibling->getDemandElementGeometry().getShape().size() > 0) &&
+                            (sibling->getDemandElementGeometry().getShape().back().distanceTo2D(labelPos) < POSITION_EPS)) {
+                        repeatCount++;
+                    }
+                }
+                const double nameSize = s.vehicleText.size / s.scale;
                 // draw above demand elements
                 GLHelper::pushMatrix();
-                glTranslated(myDemandElementGeometry.getShape().back().x(), myDemandElementGeometry.getShape().back().y(), GLO_VEHICLELABELS);
+                glTranslated(labelPos.x(), labelPos.y() - nameSize * repeatCount, GLO_VEHICLELABELS);
                 drawStopLabel(s);
                 GLHelper::popMatrix();
             }
@@ -394,19 +415,14 @@ GNEStop::drawStopLabel(const GUIVisualizationSettings& s) const {
     std::string label;
     if (stop.speed > 0) {
         label += "waypoint";
-    } else if (stop.busstop != "") {
-        label += "busStop:" + stop.busstop;
-    } else if (stop.containerstop != "") {
-        label += "containerStop:" + stop.containerstop;
-    } else if (stop.parkingarea != "") {
-        label += "parkingArea:" + stop.parkingarea;
-    } else if (stop.chargingStation != "") {
-        label += "chargingStation:" + stop.chargingStation;
+    } else if (getParentAdditionals().size() > 0) {
+        label += getParentAdditionals().front()->getTagStr() + ":" + getParentAdditionals().front()->getID();
     } else if (stop.overheadWireSegment != "") {
         label += "overheadWireSegment:" + stop.overheadWireSegment;
     } else {
         label += "stop";
     }
+    label += " index:" + getAttribute(SUMO_ATTR_INDEX);
     if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
         label += " triggered:";
         if (stop.triggered) {
@@ -579,6 +595,20 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_SPLIT:
             return split;
+        case SUMO_ATTR_INDEX:
+            if (isTemplate()) {
+                if (index == INVALID_INT) {
+                    return "";
+                } else if (index == STOP_INDEX_END) {
+                    return "end";
+                } else if (index == STOP_INDEX_FIT) {
+                    return "fit";
+                } else {
+                    return toString(index);
+                }
+            } else {
+                return getAttribute(GNE_ATTR_STOPINDEX);
+            }
         //
         case GNE_ATTR_PARENT:
             return getParentDemandElements().front()->getID();
@@ -609,8 +639,12 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
 double
 GNEStop::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_INDEX: // for writting sorted
-            return (double)myCreationIndex;
+        case SUMO_ATTR_INDEX:
+            if (isTemplate()) {
+                return (double)index;
+            } else {
+                return parse<double>(getAttribute(GNE_ATTR_STOPINDEX));
+            }
         case GNE_ATTR_STOPINDEX: {
             // extract all stops of demandElement parent
             std::vector<GNEDemandElement*> stops, filteredStops;
@@ -701,6 +735,29 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case GNE_ATTR_PARENT:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
+        case SUMO_ATTR_INDEX: {
+            if (value.empty()) {
+                return;
+            }
+            int requestedIndex = STOP_INDEX_END;
+            if (value == "end") {
+                requestedIndex = STOP_INDEX_END;
+            } else if (value == "fit") {
+                requestedIndex = STOP_INDEX_FIT;
+            } else {
+                requestedIndex = parse<int>(value);
+            }
+            const std::string oldIndex = getAttribute(SUMO_ATTR_INDEX);
+            const std::string newIndex = toString(getStopInsertionIndex(getParentDemandElements().front(), this, requestedIndex));
+            if (newIndex != oldIndex) {
+                if (undoList != nullptr) {
+                    GNEChange_Attribute::changeAttribute(this, key, newIndex, oldIndex, undoList);
+                } else {
+                    setAttribute(key, newIndex);
+                }
+            }
+            break;
+        }
         default:
             myMoveElementLaneDouble->setMovingAttribute(key, value, undoList);
             break;
@@ -818,6 +875,14 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return SUMOXMLDefinitions::isValidVehicleID(value);
             }
+        case SUMO_ATTR_INDEX:
+            if (value.empty() || (value == "end") || (value == "fit")) {
+                return true;
+            } else if (StringUtils::isInt(value)) {
+                return parse<int>(value) >= 0;
+            } else {
+                return false;
+            }
         //
         case GNE_ATTR_PARENT:
             return false;
@@ -888,6 +953,17 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
+bool
+GNEStop::isAttributeComputed(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_INDEX:
+            return !isTemplate();
+        default:
+            return false;
+    }
+}
+
+
 std::string
 GNEStop::getPopUpID() const {
     return getTagStr();
@@ -935,6 +1011,199 @@ GNEStop::getEndGeometryPositionOverLane() const {
         fixedPos += len;
     }
     return fixedPos * getParentLanes().front()->getLengthGeometryFactor();
+}
+
+
+int
+GNEStop::getStopInsertionIndex(GNEDemandElement* stopParent, const GNEStop* stop, const int requestedIndex) {
+    // collect all other vehicle stops of stopParent
+    std::vector<GNEDemandElement*> otherStops;
+    for (const auto& child : stopParent->getChildDemandElements()) {
+        if (child->getTagProperty()->isVehicleStop() && (child != stop)) {
+            otherStops.push_back(child);
+        }
+    }
+    const int numStops = (int)otherStops.size();
+    if ((requestedIndex == STOP_INDEX_END) || (requestedIndex >= numStops)) {
+        return numStops;
+    } else if (requestedIndex >= 0) {
+        return requestedIndex;
+    } else if (requestedIndex != STOP_INDEX_FIT) {
+        return numStops;
+    }
+    if (numStops == 0) {
+        return 0;
+    }
+    auto getStopEdgeAndPos = [](const GNEDemandElement* s) -> std::pair<GNEEdge*, double> {
+        GNEEdge* edge = nullptr;
+        double pos = 0.0;
+        if (s->getParentAdditionals().size() > 0) {
+            const auto stoppingPlace = s->getParentAdditionals().front();
+            edge = stoppingPlace->getParentLanes().front()->getParentEdge();
+            pos = stoppingPlace->getAttributeDouble(SUMO_ATTR_ENDPOS);
+        } else {
+            const auto lane = s->getParentLanes().front();
+            edge = lane->getParentEdge();
+            pos = s->getAttributeDouble(SUMO_ATTR_ENDPOS);
+        }
+        const double edgeLen = edge->getNBEdge()->getFinalLength();
+        if (pos == INVALID_DOUBLE) {
+            pos = edgeLen;
+        } else if (pos < 0) {
+            pos += edgeLen;
+        }
+        return std::make_pair(edge, pos);
+    };
+    auto expandRepeatedEdges = [](const GNEDemandElement* routeElem) -> std::vector<GNEEdge*> {
+        std::vector<GNEEdge*> base = routeElem->getParentEdges();
+        int repeat = 0;
+        if (routeElem->getTagProperty()->hasAttribute(SUMO_ATTR_REPEAT) &&
+                StringUtils::isInt(routeElem->getAttribute(SUMO_ATTR_REPEAT))) {
+            repeat = std::max(0, std::min(100, parse<int>(routeElem->getAttribute(SUMO_ATTR_REPEAT))));
+        }
+        std::vector<GNEEdge*> expanded;
+        expanded.reserve(base.size() * (size_t)(repeat + 1));
+        for (int r = 0; r <= repeat; r++) {
+            expanded.insert(expanded.end(), base.begin(), base.end());
+        }
+        return expanded;
+    };
+    // extract path edges of stopParent
+    std::vector<GNEEdge*> pathEdges;
+    if (stopParent->getTagProperty()->hasAttribute(SUMO_ATTR_EDGES)) {
+        pathEdges = expandRepeatedEdges(stopParent);
+    } else if (stopParent->getTagProperty()->vehicleRoute()) {
+        if (stopParent->getParentDemandElements().size() > 1) {
+            const auto routeParent = stopParent->getParentDemandElements().at(1);
+            if (routeParent->getTagProperty()->isRoute()) {
+                pathEdges = expandRepeatedEdges(routeParent);
+            } else if (routeParent->getTagProperty()->isRouteDistribution()) {
+                for (const auto& ref : routeParent->getChildDemandElements()) {
+                    if (ref->getTagProperty()->isDistributionReference() && (ref->getParentDemandElements().size() > 1)) {
+                        pathEdges = expandRepeatedEdges(ref->getParentDemandElements().at(1));
+                        break;
+                    }
+                }
+            }
+        }
+    } else if (stopParent->getTagProperty()->vehicleRouteEmbedded()) {
+        if ((stopParent->getChildDemandElements().size() > 0) &&
+                stopParent->getChildDemandElements().front()->getTagProperty()->isRoute()) {
+            pathEdges = expandRepeatedEdges(stopParent->getChildDemandElements().front());
+        }
+    } else if (stopParent->getTagProperty()->vehicleEdges()) {
+        std::vector<GNEEdge*> waypoints = {stopParent->getParentEdges().front()};
+        for (const auto& s : otherStops) {
+            GNEEdge* e = getStopEdgeAndPos(s).first;
+            if (waypoints.back() != e) {
+                waypoints.push_back(e);
+            }
+        }
+        if (waypoints.back() != stopParent->getParentEdges().back()) {
+            waypoints.push_back(stopParent->getParentEdges().back());
+        }
+        pathEdges = stopParent->getNet()->getDemandPathManager()->getPathCalculator()->calculateDijkstraPath(stopParent->getVClass(), waypoints);
+        if (pathEdges.empty()) {
+            pathEdges = waypoints;
+        }
+    } else {
+        const auto& segments = stopParent->getNet()->getDemandPathManager()->getPathElementSegments(stopParent);
+        for (const auto& seg : segments) {
+            if (seg->getLane() && (pathEdges.empty() || (pathEdges.back() != seg->getLane()->getParentEdge()))) {
+                pathEdges.push_back(seg->getLane()->getParentEdge());
+            }
+        }
+    }
+    const auto newEP = getStopEdgeAndPos(stop);
+    GNEEdge* const newEdge = newEP.first;
+    const double newPos = newEP.second;
+    if (!pathEdges.empty()) {
+        // match existing stops along pathEdges
+        std::vector<int> stopRouteIdx(numStops, -1);
+        std::vector<double> stopPos(numStops, 0.0);
+        int curRouteIdx = 0;
+        double prevPos = -1.0;
+        for (int i = 0; i < numStops; i++) {
+            const auto ep = getStopEdgeAndPos(otherStops[i]);
+            stopPos[i] = ep.second;
+            int searchFrom = curRouteIdx;
+            if ((i > 0) && (stopRouteIdx[i - 1] >= 0) && (pathEdges[stopRouteIdx[i - 1]] == ep.first) && (ep.second < prevPos)) {
+                searchFrom = stopRouteIdx[i - 1] + 1;
+            }
+            int found = -1;
+            for (int r = searchFrom; r < (int)pathEdges.size(); r++) {
+                if (pathEdges[r] == ep.first) {
+                    found = r;
+                    break;
+                }
+            }
+            stopRouteIdx[i] = found;
+            if (found >= 0) {
+                curRouteIdx = found;
+                prevPos = ep.second;
+            }
+        }
+        // find first occurrence of newEdge in pathEdges where stop fits without looping
+        for (int rNew = 0; rNew < (int)pathEdges.size(); rNew++) {
+            if (pathEdges[rNew] != newEdge) {
+                continue;
+            }
+            int idx = 0;
+            int lastValidBefore = -1;
+            for (; idx < numStops; idx++) {
+                if (stopRouteIdx[idx] < 0) {
+                    break;
+                }
+                if ((stopRouteIdx[idx] < rNew) || ((stopRouteIdx[idx] == rNew) && (stopPos[idx] <= newPos))) {
+                    lastValidBefore = idx;
+                } else {
+                    break;
+                }
+            }
+            const bool okPrev = (lastValidBefore < 0) ||
+                                (stopRouteIdx[lastValidBefore] < rNew) ||
+                                ((stopRouteIdx[lastValidBefore] == rNew) && (stopPos[lastValidBefore] <= newPos + POSITION_EPS));
+            const bool okNext = (idx >= numStops) || (stopRouteIdx[idx] < 0) ||
+                                (rNew < stopRouteIdx[idx]) ||
+                                ((rNew == stopRouteIdx[idx]) && (newPos <= stopPos[idx] + POSITION_EPS));
+            if (okPrev && okNext) {
+                return idx;
+            }
+        }
+    }
+    // fallback for trips/flows over edges when newEdge is on an alternate branch not yet in pathEdges
+    if (stopParent->getTagProperty()->vehicleEdges()) {
+        const auto pathCalc = stopParent->getNet()->getDemandPathManager()->getPathCalculator();
+        const auto vClass = stopParent->getVClass();
+        for (int cand = 0; cand <= numStops; cand++) {
+            std::vector<GNEEdge*> reqEdges = {stopParent->getParentEdges().front()};
+            bool sameEdgeOrderOK = true;
+            GNEEdge* prevStopEdge = nullptr;
+            double prevStopEndPos = -1.0;
+            for (int i = 0; i <= numStops; i++) {
+                const auto ep = (i == cand) ? newEP : getStopEdgeAndPos(otherStops[(i < cand) ? i : (i - 1)]);
+                if ((prevStopEdge == ep.first) && (ep.second < prevStopEndPos)) {
+                    sameEdgeOrderOK = false;
+                    break;
+                }
+                prevStopEdge = ep.first;
+                prevStopEndPos = ep.second;
+                if (reqEdges.back() != ep.first) {
+                    reqEdges.push_back(ep.first);
+                }
+            }
+            if (!sameEdgeOrderOK) {
+                continue;
+            }
+            if (reqEdges.back() != stopParent->getParentEdges().back()) {
+                reqEdges.push_back(stopParent->getParentEdges().back());
+            }
+            if ((reqEdges.size() == 1) || !pathCalc->calculateDijkstraPath(vClass, reqEdges).empty()) {
+                return cand;
+            }
+        }
+    }
+    return numStops;
 }
 
 // ===========================================================================
@@ -1238,6 +1507,48 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet |= STOP_SPLIT_SET;
             } else {
                 parametersSet &= ~STOP_SPLIT_SET;
+            }
+            break;
+        case SUMO_ATTR_INDEX:
+            if (isTemplate()) {
+                if (value.empty()) {
+                    index = INVALID_INT;
+                } else if (value == "end") {
+                    index = STOP_INDEX_END;
+                } else if (value == "fit") {
+                    index = STOP_INDEX_FIT;
+                } else {
+                    index = parse<int>(value);
+                }
+            } else if (!value.empty()) {
+                int requestedIndex = STOP_INDEX_END;
+                if (value == "end") {
+                    requestedIndex = STOP_INDEX_END;
+                } else if (value == "fit") {
+                    requestedIndex = STOP_INDEX_FIT;
+                } else {
+                    requestedIndex = parse<int>(value);
+                }
+                GNEDemandElement* stopParent = getParentDemandElements().front();
+                const int targetIndex = getStopInsertionIndex(stopParent, this, requestedIndex);
+                std::vector<GNEDemandElement*> nonStops;
+                std::vector<GNEDemandElement*> stops;
+                for (const auto& child : stopParent->getChildDemandElements()) {
+                    if (!child->getTagProperty()->isVehicleStop()) {
+                        nonStops.push_back(child);
+                    } else if (child != this) {
+                        stops.push_back(child);
+                    }
+                }
+                const int clampedIndex = std::max(0, std::min(targetIndex, (int)stops.size()));
+                stops.insert(stops.begin() + clampedIndex, this);
+                std::vector<GNEDemandElement*> newChildren = nonStops;
+                newChildren.insert(newChildren.end(), stops.begin(), stops.end());
+                stopParent->sortChildren(newChildren);
+                stopParent->computePathElement();
+                if (myNet->getViewNet()) {
+                    myNet->getViewNet()->updateViewNet();
+                }
             }
             break;
         //
