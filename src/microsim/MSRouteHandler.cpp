@@ -241,6 +241,14 @@ MSRouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         }
         SUMORouteHandler::myStartElement(element, attrs);
         switch (element) {
+            case SUMO_TAG_VEHICLE:
+                if (myVehicleParameter != nullptr && attrs.hasAttribute(SUMO_ATTR_VIA)) {
+                    bool ok = true;
+                    myVehicleParameter->via = attrs.get<std::vector<std::string> >(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok);
+                    ConstMSEdgeVector viaEdges;
+                    MSEdge::parseEdgesList(myVehicleParameter->via, viaEdges, "for vehicle '" + myVehicleParameter->id + "'");
+                }
+                break;
             case SUMO_TAG_PERSONFLOW:
                 addTransportable(attrs, true);
                 break;
