@@ -60,6 +60,8 @@ be repaired with the **--repair** option. When this option is enabled and by the
 repair some warnings and errors occurs, these are written in a new output file
 "invalid_osm_routes.txt".
 
+The importer sets the SUMO vehicle color from the GTFS route’s six-digit hexadecimal `route_color` in `routes.txt`. When a GTFS route has no valid color, **--osm-routes** can supply the OSM line color if available.
+
 If the option **--write-terminals** is set, then each vehicle will also record `<param>` elements that describe the terminal stop names and terminal depart/arrival times. This may be useful if the GTFS data has a scope that is larger than the loaded network.
 
 ## known stop locations

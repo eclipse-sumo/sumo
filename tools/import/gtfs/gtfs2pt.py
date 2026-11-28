@@ -640,7 +640,7 @@ def filter_trips(options, routes, stops, outf, begin, end, vehicles):
     vehDeparts = collections.defaultdict(lambda: [])
     for mode in sorted(vehicles.keys()):
         for veh in vehicles[mode]:
-            tripID, routeID, orig_depart, line, params = veh
+            tripID, routeID, orig_depart, line, params, color = veh
             if routeID in routes and len(routes[routeID][0]) > 0 and len(stops.get(routeID, [])) >= options.minStops:
                 until = stops[routeID][0].until
                 for d in range(numDays):
@@ -649,15 +649,16 @@ def filter_trips(options, routes, stops, outf, begin, end, vehicles):
                         if d != 0 and tripID.endswith(".trimmed"):
                             # only add trimmed trips the first day
                             continue
-                        vehDeparts[depart].append((mode, "%s.%s" % (tripID, d), routeID, orig_depart, line, params))
+                        vehDeparts[depart].append((mode, "%s.%s" % (tripID, d), routeID, line, params, color))
 
     vehDeparts = list(vehDeparts.items())
     if options.sort:
         vehDeparts.sort()
     for depart, vehs in vehDeparts:
-        for mode, tripID, routeID, orig_depart, line, params in vehs:
-            outf.write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s">\n' %
-                       (tripID, routeID, mode, options.ft(depart), line))
+        for mode, tripID, routeID, line, params, color in vehs:
+            colorAttr = ' color="%s"' % color if color is not None else ""
+            outf.write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s"%s>\n' %
+                       (tripID, routeID, mode, options.ft(depart), line, colorAttr))
             for k, v in params:
                 outf.write(u'        <param key="%s" value=%s/>\n' % (k, sumolib.xml.quoteattr(str(v), True)))
             outf.write(u'    </vehicle>\n')
