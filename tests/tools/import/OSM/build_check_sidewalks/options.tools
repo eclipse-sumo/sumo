@@ -1,0 +1,1 @@
+--prefix out --osm-file osm_bbox.osm.xml --check-sidewalks --netconvert-options=--simple-projection tools/osmBuild.py

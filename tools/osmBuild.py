@@ -21,6 +21,7 @@ from __future__ import absolute_import
 
 import os
 import subprocess
+import xml.etree.ElementTree as ET
 import sumolib
 
 
@@ -55,12 +56,35 @@ optParser.add_argument("-n", "--netconvert-options", category="processing",
                        default=DEFAULT_NETCONVERT_OPTS, help="comma-separated options for netconvert")
 optParser.add_argument("--pedestrians", category="processing", action="store_true",
                        default=False, help="add pedestrian infrastructure to the network")
+optParser.add_argument("--check-sidewalks", dest="check_sidewalks", category="processing", action="store_true",
+                       default=False, help="fall back to guessed sidewalks when OSM sidewalk tags are sparse")
 optParser.add_argument("-y", "--polyconvert-options", category="processing",
                        default="-v,--osm.keep-full-type", help="comma-separated options for polyconvert")
 optParser.add_argument("-z", "--gzip", action="store_true", category="processing",
                        default=False, help="save gzipped network")
 optParser.add_argument("-v", "--verbose", category="processing", action="store_true",
                        default=False, help="enable verbose netconvert output")
+
+
+LOWER_HIGHWAYS = {"secondary", "tertiary", "residential", "living_street", "unclassified"}
+
+
+def needsSidewalkGuess(osmFile, minMissingRatio=0.8, minUnservedStops=3):
+    lowerWays, missingSw, busStops = 0, 0, 0
+    with (sumolib.openz(osmFile) if isinstance(osmFile, str) else osmFile) as f:
+        for _, elem in ET.iterparse(f, events=("end",)):
+            if elem.tag in ("way", "node"):
+                tags = {t.get("k"): t.get("v") for t in elem.findall("tag")}
+                if elem.tag == "way" and tags.get("highway") in LOWER_HIGHWAYS:
+                    lowerWays += 1
+                    if not any(k.startswith("sidewalk") or k == "foot" for k in tags):
+                        missingSw += 1
+                elif tags.get("highway") == "bus_stop" or tags.get("public_transport") in ("platform", "stop_position"):
+                    busStops += 1
+                elem.clear()
+    if lowerWays > 0 and (float(missingSw) / lowerWays) >= minMissingRatio:
+        return True
+    return busStops >= minUnservedStops and missingSw > 0
 
 
 def getRelative(dirname, option):
@@ -91,7 +115,7 @@ def build(args=None, bindir=None):
     polyconvert = sumolib.checkBinary('polyconvert', bindir)
 
     netconvertOpts = [netconvert]
-    if options.pedestrians:
+    if options.pedestrians or (options.check_sidewalks and options.osm_file and needsSidewalkGuess(options.osm_file)):
         netconvertOpts += ['--sidewalks.guess', '--crossings.guess']
     if options.netconvert_typemap:
         netconvertOpts += ["-t", options.netconvert_typemap]

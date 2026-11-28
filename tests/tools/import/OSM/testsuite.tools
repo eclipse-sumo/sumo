@@ -13,3 +13,6 @@ taxiStop
 
 # review a simulation diagnostic against the source map
 mapReview
+
+# fall back to guessed sidewalks when OSM sidewalk tags are sparse
+build_check_sidewalks
