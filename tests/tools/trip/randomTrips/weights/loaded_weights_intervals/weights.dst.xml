@@ -1,0 +1,8 @@
+<edgedata>
+    <interval id="iv0" begin="0" end="10">
+        <edge id="2o" value="100"/>
+    </interval>
+    <interval id="iv1" begin="10" end="20">
+        <edge id="1o" value="100"/>
+    </interval>
+</edgedata>
