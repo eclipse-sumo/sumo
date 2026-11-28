@@ -38,6 +38,7 @@ of the context; currently, the following EGO-objects are supported:
 | lanes                      | 0x83       |
 | edges                      | 0x8a       |
 | junctions                  | 0x89       |
+| traffic lights             | 0x82       |
 | points of interest         | 0x87       |
 | polygons                   | 0x88       |
 | bus stops                  | 0x8f       |

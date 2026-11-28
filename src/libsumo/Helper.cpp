@@ -837,6 +837,9 @@ Helper::findObjectShape(int domain, const std::string& id, PositionVector& shape
         case libsumo::CMD_SUBSCRIBE_POLYGON_CONTEXT:
             Polygon::storeShape(id, shape);
             break;
+        case libsumo::CMD_SUBSCRIBE_TL_CONTEXT:
+            TrafficLight::storeShape(id, shape);
+            break;
         case libsumo::CMD_SUBSCRIBE_VEHICLE_CONTEXT:
             Vehicle::storeShape(id, shape);
             break;

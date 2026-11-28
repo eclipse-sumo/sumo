@@ -79,6 +79,8 @@ def runSingle(traciEndTime, viewRange, module, objID):
         elif module == traci.edge:
             # it's a hack, I know, but do we really need to introduce edge.getShape?
             shape = traci.lane.getShape(objID + "_0")
+        elif module == traci.trafficlight:
+            egoPos = traci.junction.getPosition(objID)
         near2 = set()
         for v in pos:
             if egoPos:
@@ -100,10 +102,10 @@ def runSingle(traciEndTime, viewRange, module, objID):
         else:
             seen1 += len(near1)
             seen2 += len(near2)
-            for v in near1:
+            for v in sorted(near1):
                 if v not in near2:
                     print("timestep %s: %s is missing in surrounding objects" % (step, v))
-            for v in near2:
+            for v in sorted(near2):
                 if v not in near1:
                     print("timestep %s: %s is missing in subscription results" % (step, v))
 
@@ -145,3 +147,5 @@ elif positionalArgs[2] == "polygon":
     runSingle(1000, float(positionalArgs[1]), traci.polygon, "poly")
 elif positionalArgs[2] == "person":
     runSingle(1000, float(positionalArgs[1]), traci.person, "p0")
+elif positionalArgs[2] == "trafficlight":
+    runSingle(80, float(positionalArgs[1]), traci.trafficlight, "0")

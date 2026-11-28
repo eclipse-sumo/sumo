@@ -30,6 +30,7 @@
 #ifndef LIBTRACI
 class MSRailSignalConstraint;
 class SUMOVehicle;
+class PositionVector;
 #endif
 
 // ===========================================================================
@@ -92,6 +93,12 @@ public:
 
 #ifndef LIBTRACI
 #ifndef SWIG
+    /** @brief Saves the shape of the requested object in the given container
+    *  @param id The id of the traffic light to retrieve
+    *  @param shape The container to fill
+    */
+    static void storeShape(const std::string& id, PositionVector& shape);
+
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
