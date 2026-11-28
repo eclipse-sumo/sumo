@@ -1,2 +1,5 @@
 Tests: parade
 Depends: sumo
+
+Tests: installed-example
+Depends: sumo, sumo-doc

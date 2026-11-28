@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+
+export SUMO_HOME=/usr/share/sumo
+sumo -c "$SUMO_HOME/docs/examples/sumo/busses/test.sumocfg" \
+    --vehroute-output "$AUTOPKGTEST_TMP/vehroutes.xml"
+test -s "$AUTOPKGTEST_TMP/vehroutes.xml"

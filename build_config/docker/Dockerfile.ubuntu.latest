@@ -3,14 +3,17 @@
 # to use it run (GUI applications won't work)
 # $ docker run -it sumo:latest bash
 # now you have a bash inside a docker container and can for instance run
-# $ sumo -c $SUMO_HOME/docs/examples/sumo/busses/test.sumocfg
+# $ sumo -c /usr/share/doc/sumo-doc/examples/sumo/busses/test.sumocfg --vehroute-output "$PWD/vehroutes.xml"
 
 FROM ubuntu:jammy
 
 ENV SUMO_HOME=/usr/share/sumo
 
 RUN apt-get -y update; apt-get -y install software-properties-common; add-apt-repository ppa:sumo/stable
-RUN apt-get -y update; apt-get -y install sumo sumo-doc sumo-tools
+# Keep SUMO examples when the base image excludes files under /usr/share/doc.
+RUN printf '%s\n' 'path-include=/usr/share/doc/sumo-doc/*' > /etc/dpkg/dpkg.cfg.d/99-sumo-doc && \
+    apt-get -y update && \
+    apt-get -y install sumo sumo-doc sumo-tools
 
 RUN useradd -ms /bin/bash sumo
 
