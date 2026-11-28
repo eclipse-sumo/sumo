@@ -26,6 +26,8 @@ import sys
 import shutil
 import pydoc
 import types
+import inspect
+from html import escape
 try:
     # this can be removed once https://github.com/python/cpython/issues/127276 has been resolved
     import importlib.resources
@@ -40,12 +42,12 @@ except ImportError:
     HAVE_PDOC = False
 
 TOOLS_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(TOOLS_DIR)
+sys.path.insert(0, TOOLS_DIR)
 import traci  # noqa
 import sumolib  # noqa
 from sumolib.miscutils import working_dir  # noqa
 if HAVE_PDOC:
-    traci.__all__ += ["_" + d._name for d in traci.DOMAINS]
+    traci.__all__ += ["main"] + ["_" + d._name for d in traci.DOMAINS]
 
 
 def pydoc_recursive(module, github_links):
@@ -61,6 +63,38 @@ def pydoc_recursive(module, github_links):
     for submod in module.__dict__.values():
         if isinstance(submod, types.ModuleType) and submod.__name__.startswith(module.__name__):
             pydoc_recursive(submod, github_links)
+
+
+def writeTraciFunctionIndex(output_dir):
+    functions = [(name, function) for name, function in inspect.getmembers(traci.main, inspect.isfunction)
+                 if not name.startswith("_") and function.__module__ == traci.main.__name__]
+    sections = [("traci", functions)]
+    for domain in sorted(traci.DOMAINS, key=lambda domain: domain._name):
+        methods = [(name, method) for name, method in inspect.getmembers(domain, inspect.ismethod)
+                   if not name.startswith("_")]
+        sections.append(("traci." + domain._name, methods))
+
+    path = os.path.join(output_dir, "traci-functions.html")
+    with open(path, "w", encoding="utf-8") as page:
+        page.write("<!DOCTYPE html>\n<html lang='en'>\n<head><meta charset='utf-8'>"
+                   "<title>TraCI Python Functions</title></head>\n<body>\n<h1>TraCI Python Functions</h1>\n"
+                   "<nav aria-label='Python modules and domains'><ul>\n")
+        for section, _ in sections:
+            page.write(f"<li><a href='#{section}'>{section}</a></li>\n")
+        page.write("</ul></nav>\n<main>\n")
+        for section, members in sections:
+            page.write(f"<h2 id='{section}'>{section}</h2>\n<ul>\n")
+            for name, function in members:
+                module = function.__module__
+                if HAVE_PDOC:
+                    href = module.replace(".", "/") + ".html#" + function.__qualname__
+                else:
+                    owner = function.__qualname__.rpartition(".")[0]
+                    href = f"{module}.html#{owner}-{name}"
+                signature = escape(f"{section}.{name}{inspect.signature(function)}")
+                page.write(f"<li><a href='{href}'><code>{signature}</code></a></li>\n")
+            page.write("</ul>\n")
+        page.write("</main>\n</body>\n</html>\n")
 
 
 if __name__ == "__main__":
@@ -81,3 +115,4 @@ if __name__ == "__main__":
             with working_dir(options.pydoc_output_dir):
                 for module in (traci, sumolib):
                     pydoc_recursive(module, not options.local_links)
+        writeTraciFunctionIndex(options.pydoc_output_dir)

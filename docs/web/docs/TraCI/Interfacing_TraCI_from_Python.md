@@ -6,10 +6,7 @@ The [TraCI](../TraCI/index.md#traci_commands) commands are split into the
 domains busstop, calibrator, chargingstation, edge, gui, inductionloop, junction, lane,
 lanearea, meandata, multientryexit, overheadwire, parkingarea, person, poi, polygon,
 rerouter, route, routeprobe, simulation, trafficlight, variablespeedsign, vehicle, and vehicletype,
-vehicle, which correspond to individual modules. For a detailed list of
-available functions see the [pydoc generated documentation](https://sumo.dlr.de/pydoc/traci.html). The source code
-can be found at
-[\[1\]](https://github.com/eclipse-sumo/sumo/tree/main/tools/traci).
+which correspond to individual modules. The [TraCI function index](https://sumo.dlr.de/pydoc/traci-functions.html) lists the Python client functions and domain methods on one page. The [Python API documentation](https://sumo.dlr.de/pydoc/traci.html) describes each module. The [Python client source](https://github.com/eclipse-sumo/sumo/tree/main/tools/traci) is available on GitHub.
 
 Please note that if performance is an issue and you don't a need GUI, it is almost always better
 to use [libsumo](../Libsumo.md) instead of traci, which has the same API.
