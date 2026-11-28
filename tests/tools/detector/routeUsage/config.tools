@@ -1,0 +1,3 @@
+[run_dependent_text]
+errors:.*[\\/]tests[\\/]\.\.[\\/]tools[\\/]{REPLACE sumo/tools/}
+errors:encoding='[^']*'{REPLACE encoding='<ENCODING>'}

@@ -1,0 +1,5 @@
+<additional>
+    <flow id="f_dist" number="100" begin="0" end="3600">
+        <routeDistribution routes="r1 r2" probabilities="0.5 0.5"/>
+    </flow>
+</additional>

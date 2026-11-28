@@ -1,0 +1,3 @@
+sumo/tools/detector/routeUsage.py:65: ResourceWarning: unclosed file <_io.TextIOWrapper name='input_restrictions.txt' mode='r' encoding='<ENCODING>'>
+  for line in open(options.restrictionfile):
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
