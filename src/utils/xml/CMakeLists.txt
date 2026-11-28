@@ -1,6 +1,4 @@
 set(utils_xml_STAT_SRCS
-   CommonXMLStructure.cpp
-   CommonXMLStructure.h
    GenericHandler.cpp
    GenericHandler.h
    GenericSAXHandler.cpp
