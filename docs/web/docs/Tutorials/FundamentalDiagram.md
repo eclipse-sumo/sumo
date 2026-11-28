@@ -128,3 +128,11 @@ Some tests cases can be obtained at
 
 !!! note
     These tests set a low value of **--end** to save time. To get a fuller fundamental diagram, increase the end time.
+
+## Multi-Lane Bottlenecks and Early Capacity Drop
+
+Aggregate flow-density plots at on-ramps, lane drops, and multi-lane bottlenecks frequently exhibit flow breakdown below the theoretical sum of single-lane capacities and below the critical edge-averaged occupancy of a homogeneous ring road:
+
+- **Localized merge-lane breakdown**: Theoretical road capacity assumes uniform free-flow headways across all lanes simultaneously (see [Road Capacity](../Simulation/RoadCapacity.md)). At a merge or bottleneck, lane-changing disturbances trigger queue formation on the merging lanes first while outer lanes remain uncongested, lowering total discharge at a lower cross-sectional mean occupancy.
+- **Stochastic headway variance**: Positive driver imperfection (`sigma > 0` in `Krauss`) and lane-changing interactions introduce run-to-run variation in the exact breakdown threshold.
+- **Activating `SL2015` sublane dynamics**: Setting `laneChangeModel="SL2015"` on a `<vType>` without **--lateral-resolution** keeps one full-width sublane per lane; pass **--lateral-resolution** (for example `0.8`) to activate continuous [sublane](../Simulation/SublaneModel.md) discretization.
