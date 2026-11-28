@@ -94,6 +94,8 @@ the following formats:
 - [a basic network view developed in the Amitran
   project](Networks/Export.md#amitran)
 
+With **--prefix.edge.signed**, a leading minus sign stays before the prefix. If two unsigned edges are the only edges between their junctions in opposite directions, the lexicographically smaller edge ID supplies the prefixed ID and the reverse edge gets the corresponding signed ID. Parallel edges receive independent prefixed IDs. The existing **--kept-ids** option preserves specified IDs, which are excluded from pairing.
+
 Using python tools, conversion of .net.xml files into further formats is supported:
 
 - [KML](Tools/Net.md#net2kmlpy)
@@ -203,6 +205,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--prefix** {{DT_STR}} | Defines a prefix for edge and junction IDs |
 | **--prefix.junction** {{DT_STR}} | Defines a prefix for junction IDs |
 | **--prefix.edge** {{DT_STR}} | Defines a prefix for edge IDs |
+| **--prefix.edge.signed** {{DT_BOOL}} | Keep leading minus signs before the edge prefix and sign unique reverse pairs; *default:* **false** |
 | **--amitran-output** {{DT_FILE}} | The generated net will be written to FILE using Amitran format |
 | **--matsim-output** {{DT_FILE}} | The generated net will be written to FILE using MATSim format |
 | **--opendrive-output** {{DT_FILE}} | The generated net will be written to FILE using OpenDRIVE format |

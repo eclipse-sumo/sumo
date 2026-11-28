@@ -96,6 +96,7 @@
             <xsd:element name="prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="prefix.junction" type="strOptionType" minOccurs="0"/>
             <xsd:element name="prefix.edge" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="prefix.edge.signed" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="amitran-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="matsim-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="opendrive-output" type="fileOptionType" minOccurs="0"/>

@@ -73,6 +73,8 @@ NWFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
 
     oc.doRegister("prefix.edge", new Option_String(""));
     oc.addDescription("prefix.edge", "Output", TL("Defines a prefix for edge IDs"));
+    oc.doRegister("prefix.edge.signed", new Option_Bool(false));
+    oc.addDescription("prefix.edge.signed", "Output", TL("Keep leading minus signs before the edge prefix and sign unique reverse pairs"));
 
 #ifdef PROJ_API_FILE
     if (!forNetgen) {

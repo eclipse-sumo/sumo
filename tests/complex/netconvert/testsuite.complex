@@ -17,6 +17,9 @@ matsim_roundtrip
 # export sumo.net.xml as opendrive then reimport and check for consistency with the original net.xml
 opendrive_roundtrip
 
+# Keep edge pairs and explicit direction signs when prefixing IDs, refs #17350
+signed_edge_prefix
+
 # check that OSM sidewalk tags correctly control pedestrian access on road lanes, refs #17758
 osm_sidewalk_access
 
