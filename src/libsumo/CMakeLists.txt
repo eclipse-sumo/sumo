@@ -204,12 +204,18 @@ if (SWIG_FOUND)
                                    $<IF:$<CONFIG:Release>,copy_directory,echo> ${CMAKE_SWIG_OUTDIR} ${CMAKE_SOURCE_DIR}/tools/libsumo)
             endif()
             if (NOT ${PYTHON_BUILD_MISSING})
+                configure_file(${CMAKE_SOURCE_DIR}/build_config/pyproject/libsumo_local.py
+                               ${CMAKE_BINARY_DIR}/libsumo_local.py COPYONLY)
                 # no isolated build here because we need to be able to do it offline (on open build service, launchpad etc.)
                 install(CODE "
-                    execute_process(COMMAND ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build_config/version.py --pep440 ${CMAKE_SOURCE_DIR}/build_config/pyproject/libsumo_local.toml pyproject.toml
-                                    WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
-                    execute_process(COMMAND ${Python_EXECUTABLE} -m pip install --no-build-isolation --prefix=\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} --no-index .
-                                    WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+                    execute_process(COMMAND \"${Python_EXECUTABLE}\" \"${CMAKE_SOURCE_DIR}/tools/build_config/version.py\"
+                                            --pep440 \"${CMAKE_SOURCE_DIR}/build_config/pyproject/libsumo_local.toml\" pyproject.toml
+                                    WORKING_DIRECTORY \"${CMAKE_BINARY_DIR}\"
+                                    COMMAND_ERROR_IS_FATAL ANY)
+                    execute_process(COMMAND \"${Python_EXECUTABLE}\" -m pip install --no-build-isolation
+                                            \"--prefix=\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}\" -f \"${CMAKE_BINARY_DIR}\" --no-index .
+                                    WORKING_DIRECTORY \"${CMAKE_BINARY_DIR}\"
+                                    COMMAND_ERROR_IS_FATAL ANY)
                 " COMPONENT python_package EXCLUDE_FROM_ALL)
             endif()
         endif()
