@@ -65,6 +65,9 @@ insertionCapacity_3lane
 # Then re-run the simulation with the saved vehroutes as input
 vehroute-roundtrip
 
+# replay a random simulation using the seed recorded in the output
+random_seed
+
 # testing option parsing
 options
 max_depart

@@ -399,12 +399,19 @@ NLBuilder::init(const bool isLibsumo) {
 void
 NLBuilder::initRandomness() {
     RandHelper::initRandGlobal();
-    RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
-    RandHelper::initRandGlobal(MSDevice::getEquipmentRNG());
-    RandHelper::initRandGlobal(OUProcess::getRNG());
-    RandHelper::initRandGlobal(MSDevice_ToC::getResponseTimeRNG());
-    RandHelper::initRandGlobal(MSDevice_BTreceiver::getRecognitionRNG());
-    MSLane::initRNGs(OptionsCont::getOptions());
+    OptionsCont& options = OptionsCont::getOptions();
+    const int seed = RandHelper::getSeed();
+    if (options.getBool("random")) {
+        // Record the seed used by this run in the output configuration.
+        options.resetWritable("seed");
+        options.set("seed", toString(seed));
+    }
+    RandHelper::initRand(MSRouteHandler::getParsingRNG(), false, seed);
+    RandHelper::initRand(MSDevice::getEquipmentRNG(), false, seed);
+    RandHelper::initRand(OUProcess::getRNG(), false, seed);
+    RandHelper::initRand(MSDevice_ToC::getResponseTimeRNG(), false, seed);
+    RandHelper::initRand(MSDevice_BTreceiver::getRecognitionRNG(), false, seed);
+    MSLane::initRNGs(options);
 }
 
 

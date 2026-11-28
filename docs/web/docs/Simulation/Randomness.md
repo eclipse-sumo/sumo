@@ -14,9 +14,7 @@ generating random numbers. This random number generator (RNG) is
 initialized with a seed value which defaults to the (arbitrary) value
 **23423**. This setup makes all applications deterministic by default as
 the sequence of random numbers is fixed for a given seed. The seed may
-be changed using the option **--seed** {{DT_INT}}. When using the option **--random** the seed will be
-chosen based on the current system time resulting in truly random
-behavior.
+be changed using the option **--seed** {{DT_INT}}. When **--random** is enabled, SUMO chooses the seed from the current system time and records it in the configuration comment in XML outputs. To reproduce that run, keep the original inputs and replace **--random** with **--seed** and the recorded value.
 
 The simulation uses multiple RNG instances to decouple different
 simulation aspects
@@ -28,7 +26,7 @@ simulation aspects
 - vehicle devices
 
 The decoupling is done to ensure that loading vehicles does not affect
-simulation behavior of earlier vehicles. All RNGs use the same seed.
+simulation behavior of earlier vehicles. The seed initializes the RNGs for each aspect. Lane RNGs use consecutive seed values starting with the run seed.
 
 ## Running repeatedly with different Seeds
 
