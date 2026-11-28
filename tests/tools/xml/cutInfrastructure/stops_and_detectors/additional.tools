@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-18 00:11:13.445746 by Eclipse SUMO cutInfrastructure.py v1_28_0+0644-bda840e3afe
+<configuration>
+    <net-file value="net.net.xml"/>
+    <additional-files value="input_additional.add.xml"/>
+    <output-file value="out.add.xml"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="bs_in" lane="e1_0" startPos="20.0" endPos="98.50">
+        <access lane="ped_in_0" pos="30.0"/>
+    </busStop>
+    <trainStop id="ts_in" lane="e2_0" startPos="10.0" endPos="50.0">
+    </trainStop>
+    <inductionLoop id="e1_in" lane="e1_0" pos="50.0" period="300" file="det.xml"/>
+    <laneAreaDetector id="e2_in" lane="e2_0" pos="50.0" length="28.50" period="300" file="det2.xml"/>
+</additional>
