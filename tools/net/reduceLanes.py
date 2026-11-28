@@ -29,13 +29,31 @@ import sys
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+else:
+    sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 import sumolib  # noqa
 from sumolib.geomhelper import polyLength  # noqa
 
 
-def parse_args():
+def read_selected_edges(selection_file):
+    selected = set()
+    with sumolib.openz(selection_file) as sf:
+        for raw in sf:
+            line = raw.strip()
+            if not line or line.startswith("#"):
+                continue
+            if line.startswith("edge:"):
+                selected.add(line[5:].strip())
+            elif ":" not in line:
+                selected.add(line)
+    return selected
+
+
+def parse_args(args=None):
     ap = sumolib.options.ArgumentParser()
     ap.add_argument("-n", "--network", category="input", type=ap.net_file, required=True, help="sumo network to use")
+    ap.add_argument("-s", "--selection-file", dest="selection_file", category="input", type=ap.file,
+                    help="Optional selection file restricting which edges are modified")
     ap.add_argument("-o", "--output-file", category="output", type=ap.edgedata_file,
                     default="reduced.edg.xml", help="The output edge patch file name")
     ap.add_argument("--too-short-output", category="output", type=ap.edgedata_file,
@@ -50,15 +68,16 @@ def parse_args():
                     help="where to perform the edge split near the junction")
     ap.add_argument("--max-priority", type=int, default=13,
                     help="the maximum priority")
-    return ap.parse_args()
+    return ap.parse_args(args=args)
 
 
-if __name__ == "__main__":
-    options = parse_args()
+def main(options):
     sys.stdout.write("Loading net %s ..." % options.network)
     sys.stdout.flush()
     net = sumolib.net.readNet(options.network)
     sys.stdout.write(" done.\n")
+
+    selected = read_selected_edges(options.selection_file) if options.selection_file else None
 
     allRoundabouts = set()
     for r in net.getRoundabouts():
@@ -78,6 +97,8 @@ if __name__ == "__main__":
             totalLength += length
             if edge.getLaneNumber() > options.min_lane_number:
                 totalMultiLaneLength += length
+            if selected is not None and edgeID not in selected:
+                continue
             if edge.getPriority() <= options.max_priority and edge.getLaneNumber() > options.min_lane_number:
                 if any([lane.getPermissions() in (set(["bus"]), set(["tram"])) for lane in edge.getLanes()]):
                     continue
@@ -104,10 +125,14 @@ if __name__ == "__main__":
 
     if tooShort and options.too_short_output:
         with open(options.too_short_output, 'w') as f:
-            for edgeID in tooShort:
+            for edgeID in sorted(tooShort):
                 f.write("edge:%s\n" % edgeID)
 
     if roundabouts and options.roundabout_output:
         with open(options.roundabout_output, 'w') as f:
-            for edgeID in roundabouts:
+            for edgeID in sorted(roundabouts):
                 f.write("edge:%s\n" % edgeID)
+
+
+if __name__ == "__main__":
+    main(parse_args())
