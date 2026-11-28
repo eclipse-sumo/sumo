@@ -39,14 +39,16 @@ GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNENet* net) :
 
 GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
                              const double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
-                             const std::vector<std::string>& lines, const double walkFactor, const std::string& group) :
+                             const std::vector<std::string>& lines, const double walkFactor, const std::string& group,
+                 const std::string& departPosLat) :
     GNEDemandElement(personParent, tag),
     GNEDemandElementPlan(this, -1, arrivalPosition),
     myVTypes(types),
     myModes(modes),
     myLines(lines),
     myWalkFactor(walkFactor),
-    myGroup(group) {
+    myGroup(group),
+    myDepartPosLat(departPosLat) {
     // set parents
     setParents<GNEJunction*>(planParameters.getJunctions());
     setParents<GNEEdge*>(planParameters.getEdges());
@@ -93,6 +95,7 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
     // write rest of attributes
     device.openTag(SUMO_TAG_PERSONTRIP);
     writeLocationAttributes(device);
+    device.writeNonEmptyAttr(SUMO_ATTR_DEPARTPOS_LAT, myDepartPosLat);
     if (myModes.size() > 0) {
         device.writeAttr(SUMO_ATTR_MODES, myModes);
     }
@@ -211,6 +214,8 @@ GNEPersonTrip::getLastPathLane() const {
 std::string
 GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
     switch (key) {
+        case SUMO_ATTR_DEPARTPOS_LAT:
+            return myDepartPosLat;
         // specific person plan attributes
         case SUMO_ATTR_MODES:
             return joinToString(myModes, " ");
@@ -248,6 +253,7 @@ GNEPersonTrip::getAttributePosition(SumoXMLAttr key) const {
 void
 GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
+        case SUMO_ATTR_DEPARTPOS_LAT:
         case SUMO_ATTR_MODES:
         case SUMO_ATTR_VTYPES:
         case SUMO_ATTR_LINES:
@@ -308,6 +314,9 @@ GNEPersonTrip::getHierarchyName() const {
 void
 GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case SUMO_ATTR_DEPARTPOS_LAT:
+            myDepartPosLat = value;
+            break;
         // specific person plan attributes
         case SUMO_ATTR_MODES:
             myModes = GNEAttributeCarrier::parse<std::vector<std::string> >(value);

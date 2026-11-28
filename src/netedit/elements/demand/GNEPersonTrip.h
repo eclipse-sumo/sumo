@@ -50,10 +50,12 @@ public:
      * @param[in] lines list of lines
      * @param[in] walkFactor walk factor
      * @param[in] group group
+     * @param[in] departPosLat lateral position at the start of this stage
      */
     GNEPersonTrip(SumoXMLTag tag, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
                   const double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
-                  const std::vector<std::string>& lines, const double walkFactor, const std::string& group);
+                  const std::vector<std::string>& lines, const double walkFactor, const std::string& group,
+            const std::string& departPosLat);
 
     /// @brief destructor
     ~GNEPersonTrip();
@@ -229,6 +231,9 @@ protected:
     std::string myGroup;
 
 private:
+    /// @brief lateral departure position or an empty string for the simulator default
+    std::string myDepartPosLat;
+
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value) override;
 

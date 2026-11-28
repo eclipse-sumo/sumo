@@ -17,6 +17,6 @@
 
 	<person id="p_2" depart="0.00">
         <walk from="Edge0" to="Edge1"/>
-        <walk to="Edge2" speed="7.5"/>
+        <walk to="Edge2" departPosLat="left" speed="7.5"/>
     </person>
 </routes>

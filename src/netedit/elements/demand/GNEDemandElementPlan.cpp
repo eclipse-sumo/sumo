@@ -23,6 +23,7 @@
 #include <netedit/GNESegment.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEDemandElementPlan.h"
@@ -690,6 +691,13 @@ GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value) {
         // common attributes
         case GNE_ATTR_PARENT:
             return false;
+        case SUMO_ATTR_DEPARTPOS_LAT: {
+            double position;
+            DepartPosLatDefinition procedure;
+            std::string error;
+            return value.empty() || SUMOVehicleParameter::parseDepartPosLat(value, myPlanElement->getTagStr(),
+                    "", position, procedure, error);
+        }
         case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_ARRIVALPOS:
             if (value.empty()) {

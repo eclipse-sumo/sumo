@@ -37,11 +37,13 @@ GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
 
 
 GNEWalk::GNEWalk(SumoXMLTag tag, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
-                 const double arrivalPosition, const double speed, const SUMOTime duration) :
+                 const double arrivalPosition, const double speed, const SUMOTime duration,
+                 const std::string& departPosLat) :
     GNEDemandElement(personParent, tag),
     GNEDemandElementPlan(this, -1, arrivalPosition),
     mySpeed(speed),
-    myDuration(duration) {
+    myDuration(duration),
+    myDepartPosLat(departPosLat) {
     // set parents
     setParents<GNEJunction*>(planParameters.getJunctions());
     setParents<GNEEdge*>(planParameters.getEdges());
@@ -88,6 +90,7 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
     // write rest of attributes
     device.openTag(SUMO_TAG_WALK);
     writeLocationAttributes(device);
+    device.writeNonEmptyAttr(SUMO_ATTR_DEPARTPOS_LAT, myDepartPosLat);
     // speed
     if (mySpeed != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_SPEED)) {
         device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
@@ -207,6 +210,8 @@ GNEWalk::getLastPathLane() const {
 std::string
 GNEWalk::getAttribute(SumoXMLAttr key) const {
     switch (key) {
+        case SUMO_ATTR_DEPARTPOS_LAT:
+            return myDepartPosLat;
         case SUMO_ATTR_SPEED:
             if (mySpeed == myTagProperty->getDefaultDoubleValue(key)) {
                 return "";
@@ -245,6 +250,7 @@ GNEWalk::getAttributePosition(SumoXMLAttr key) const {
 void
 GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
+        case SUMO_ATTR_DEPARTPOS_LAT:
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_DURATION:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
@@ -293,6 +299,9 @@ GNEWalk::getHierarchyName() const {
 void
 GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case SUMO_ATTR_DEPARTPOS_LAT:
+            myDepartPosLat = value;
+            break;
         case SUMO_ATTR_SPEED:
             if (value.empty()) {
                 mySpeed = myTagProperty->getDefaultDoubleValue(key);
