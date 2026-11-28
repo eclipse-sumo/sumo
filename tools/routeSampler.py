@@ -123,6 +123,8 @@ def get_options(args=None):
                     help="Sample routes according to their probability (or count)")
     op.add_argument("--optimize",
                     help="set optimization method level (full, INT boundary)")
+    op.add_argument("--optimize-round-down", dest="optimizeRoundDown", action="store_true",
+                    help="round down fractional route counts after optimization to avoid overflow")
     op.add_argument("--optimize-input", dest="optimizeInput", action="store_true", default=False,
                     help="Skip resampling and run optimize directly on the input routes")
     op.add_argument("--keep-attributes", dest="keepAttrs", action="store_true", default=False,
@@ -861,7 +863,7 @@ def optimize(options, countData, routes, priorRouteCounts, routeUsage, intervalC
         for index, count in zip(relevantRoutes, routeCountsR):
             # routeCounts[index] = count
             frac, countRound = modf(count)
-            if rng.random() < frac:
+            if not options.optimizeRoundDown and rng.random() < frac:
                 countRound += 1
             routeCountsRounded[index] = int(countRound)
 

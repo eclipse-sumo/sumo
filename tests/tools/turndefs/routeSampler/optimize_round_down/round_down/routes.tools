@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 13:18:21.357209 by Eclipse SUMO routeSampler.py v1.28.0-0000000000
+<configuration>
+    <route-files value="data/candidates.rou.xml"/>
+    <edgedata-files value="data/counts.xml"/>
+    <mismatch-output value="edgedata.xml"/>
+    <seed value="1"/>
+    <optimize value="full"/>
+    <optimize-round-down value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="60.0" -->
+    <vehicle id="0" depart="55.95">
+        <route edges="d"/>
+    </vehicle>
+    <vehicle id="1" depart="59.83">
+        <route edges="d"/>
+    </vehicle>
+</routes>

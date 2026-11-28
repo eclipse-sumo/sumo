@@ -79,6 +79,9 @@ gehScale
 # use linear programming to optimize route usage
 optimize_full
 
+# round down fractional route counts after optimization
+optimize_round_down
+
 # use linear programming to optimize route usage (limit 1)
 optimize_1
 
