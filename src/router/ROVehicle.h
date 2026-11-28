@@ -39,6 +39,7 @@ class ROEdge;
 class RORoute;
 class RONet;
 class RORouteDef;
+template<class E, class V> class SUMOAbstractRouter;
 
 
 // ===========================================================================
@@ -97,14 +98,23 @@ public:
 
     /// @brief information for mandatory edges
     struct Mandatory {
-        Mandatory(const ROEdge* e, double p, SUMOTime jump = -1):
+        Mandatory(const ROEdge* e, double p, SUMOTime _jump = -1, SUMOTime _jumpUntil = -1):
             edge(e),
             pos(p),
-            isJump(jump >= 0) {}
+            isJump(_jump >= 0),
+            jump(_jump),
+            jumpUntil(_jumpUntil) {}
+
+        void advanceStopTime(const ROEdge* curEdge, const ROVehicle& veh,
+                             SUMOAbstractRouter<ROEdge, ROVehicle>& router,
+                             double& curPos, SUMOTime& currentTime) const;
 
         const ROEdge* edge;
         double pos;
         bool isJump;
+        SUMOTime jump;
+        SUMOTime jumpUntil;
+        std::vector<const SUMOVehicleParameter::Stop*> stops;
     };
 
     std::vector<Mandatory> getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* requiredEnd) const;

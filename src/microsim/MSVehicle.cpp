@@ -7407,13 +7407,20 @@ MSVehicle::rerouteParkingArea(const std::string& parkingAreaID, std::string& err
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getRouterTT();
 
     // Compute the route from the current edge to the parking area edge
+    const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     ConstMSEdgeVector edgesToPark;
-    router.compute(getEdge(), getPositionOnLane(), newEdge, newParkingArea->getEndLanePosition(), this, MSNet::getInstance()->getCurrentTimeStep(), edgesToPark);
+    router.compute(getEdge(), getPositionOnLane(), newEdge, newParkingArea->getEndLanePosition(), this, now, edgesToPark);
 
     // Compute the route from the parking area edge to the end of the route
     ConstMSEdgeVector edgesFromPark;
     if (!newDestination) {
-        router.compute(newEdge, lastEdge, this, MSNet::getInstance()->getCurrentTimeStep(), edgesFromPark);
+        double toParkTT = 0.;
+        router.recomputeCostsPos(edgesToPark, this, MAX2(0.0, getPositionOnLane()), newParkingArea->getEndLanePosition(), now, nullptr, &toParkTT);
+        SUMOTime afterPark = now + TIME2STEPS(toParkTT);
+        if (!myStops.empty()) {
+            afterPark += MAX2((SUMOTime)0, myStops.front().getMinDuration(afterPark));
+        }
+        router.compute(newEdge, lastEdge, this, afterPark, edgesFromPark);
     } else {
         // adapt plans of any riders
         for (MSTransportable* p : getPersons()) {

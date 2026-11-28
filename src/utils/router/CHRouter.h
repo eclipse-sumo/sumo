@@ -301,10 +301,13 @@ public:
         assert(from != nullptr && to != nullptr);
         // assert(myHierarchyBuilder.mySPTree->validatePermissions() || vehicle->getVClass() == mySVC || mySVC == SVC_IGNORING);
         // do we need to rebuild the hierarchy?
-        if (msTime >= myValidUntil) {
+        if (msTime >= myValidUntil || (myValidUntil > myWeightPeriod && msTime < myValidUntil - myWeightPeriod)) {
             assert(myHierarchyBuilder != nullptr); // only time independent clones do not have a builder
             while (msTime >= myValidUntil) {
                 myValidUntil += myWeightPeriod;
+            }
+            while (myValidUntil > myWeightPeriod && msTime < myValidUntil - myWeightPeriod) {
+                myValidUntil -= myWeightPeriod;
             }
             this->reset(vehicle);
         }

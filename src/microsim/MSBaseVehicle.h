@@ -1080,6 +1080,8 @@ public:
         SUMOTime arrival;
         bool isSink;
         const SUMOVehicleParameter::Stop* stopPar = nullptr;
+        std::vector<const MSStop*> stops;
+        SUMOTime time = -1;
         /// @brief values set during routing and used during optimization
         int routeIndex = -1;
         bool skipped = false;
@@ -1231,6 +1233,9 @@ private:
 
     /// @brief helper function
     bool insertJump(int nextStopIndex, MSRouteIterator itStart, std::string& errorMsg);
+
+    /// @brief estimate departure time from the stop preceding nextStopIndex (or current position if 0)
+    SUMOTime estimateTimeToStop(int nextStopIndex, SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router) const;
 
     /// @brief patch stop.pars.index to record the number of skipped candidate edges before stop.edge (in a looped route)
     void setSkips(MSStop& stop, int prevActiveStops);

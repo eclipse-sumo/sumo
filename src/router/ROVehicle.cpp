@@ -205,6 +205,38 @@ ROVehicle::updateIndex(const std::shared_ptr<RORoute> replaced, const std::share
 }
 
 
+void
+ROVehicle::Mandatory::advanceStopTime(const ROEdge* curEdge, const ROVehicle& veh,
+                                      SUMOAbstractRouter<ROEdge, ROVehicle>& router,
+                                      double& curPos, SUMOTime& currentTime) const {
+    const RONet* net = RONet::getInstance();
+    for (const SUMOVehicleParameter::Stop* s : stops) {
+        if (!curEdge->isTazConnector()) {
+            const ROEdge* sEdge = net->getEdge(s->edge);
+            const double sPos = (sEdge != nullptr && sEdge->isInternal())
+                                ? curEdge->getLength()
+                                : SUMOVehicleParameter::interpretEdgePos(s->endPos, curEdge->getLength(), SUMO_ATTR_ENDPOS,
+                                        "stop of vehicle '" + veh.getID() + "' on edge '" + curEdge->getID() + "'");
+            if (sPos > curPos) {
+                double sameEdgeTT = 0.;
+                router.recomputeCostsPos({curEdge}, &veh, curPos, sPos, currentTime, nullptr, &sameEdgeTT);
+                currentTime += TIME2STEPS(sameEdgeTT);
+                curPos = sPos;
+            }
+        }
+        if (s->speed > 0) {
+            currentTime += s->until >= 0 ? MAX2((SUMOTime)0, s->until - currentTime) : 0;
+        } else {
+            SUMOTime dur = MAX2((SUMOTime)0, s->duration);
+            if (s->until >= 0) {
+                dur = MAX2(dur, s->until - currentTime);
+            }
+            currentTime += MAX2((SUMOTime)0, dur);
+        }
+    }
+}
+
+
 std::vector<ROVehicle::Mandatory>
 ROVehicle::getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* requiredEnd) const {
     const RONet* net = RONet::getInstance();
@@ -218,8 +250,53 @@ ROVehicle::getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* required
     }
     if (getParameter().via.size() != 0) {
         // via takes precedence over stop edges
+        auto stopIt = getParameter().stops.begin();
+        if (requiredStart != nullptr && net->getEdge(getParameter().via.front()) != requiredStart) {
+            while (stopIt != getParameter().stops.end()) {
+                const ROEdge* stopEdge = net->getEdge(stopIt->edge);
+                const ROEdge* matchEdge = (stopEdge != nullptr && stopEdge->isInternal()) ? stopEdge->getNormalBefore() : stopEdge;
+                if (matchEdge == requiredStart) {
+                    mandatory.front().stops.push_back(&(*stopIt));
+                    ++stopIt;
+                } else {
+                    break;
+                }
+            }
+        }
         for (const std::string& via : getParameter().via) {
-            mandatory.push_back(Mandatory(net->getEdge(via), INVALID_STOP_POS));
+            const ROEdge* viaEdge = net->getEdge(via);
+            SUMOTime jump = -1;
+            SUMOTime jumpUntil = -1;
+            std::vector<const SUMOVehicleParameter::Stop*> viaStops;
+            auto candIt = stopIt;
+            while (candIt != getParameter().stops.end()) {
+                const ROEdge* stopEdge = net->getEdge(candIt->edge);
+                const ROEdge* matchEdge = (stopEdge != nullptr && stopEdge->isInternal()) ? stopEdge->getNormalBefore() : stopEdge;
+                if (matchEdge == viaEdge) {
+                    break;
+                }
+                ++candIt;
+            }
+            if (candIt != getParameter().stops.end()) {
+                stopIt = candIt;
+                while (stopIt != getParameter().stops.end()) {
+                    const ROEdge* stopEdge = net->getEdge(stopIt->edge);
+                    const ROEdge* matchEdge = (stopEdge != nullptr && stopEdge->isInternal()) ? stopEdge->getNormalBefore() : stopEdge;
+                    if (matchEdge == viaEdge) {
+                        viaStops.push_back(&(*stopIt));
+                        if (stopIt->jump >= 0) {
+                            jump = stopIt->jump;
+                            jumpUntil = stopIt->jumpUntil;
+                        }
+                        ++stopIt;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            Mandatory m(viaEdge, INVALID_STOP_POS, jump, jumpUntil);
+            m.stops = viaStops;
+            mandatory.push_back(m);
         }
     } else {
         for (const auto& stop : getParameter().stops) {
@@ -228,11 +305,15 @@ ROVehicle::getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* required
                 // the edges before and after the internal edge are mandatory
                 const ROEdge* before = e->getNormalBefore();
                 const ROEdge* after = e->getNormalAfter();
-                mandatory.push_back(Mandatory(before, INVALID_STOP_POS));
-                mandatory.push_back(Mandatory(after, INVALID_STOP_POS, stop.jump));
+                Mandatory mBefore(before, INVALID_STOP_POS);
+                mBefore.stops.push_back(&stop);
+                mandatory.push_back(mBefore);
+                mandatory.push_back(Mandatory(after, INVALID_STOP_POS, stop.jump, stop.jumpUntil));
             } else {
                 double endPos = SUMOVehicleParameter::interpretEdgePos(stop.endPos, e->getLength(), SUMO_ATTR_ENDPOS, "stop of vehicle '" + getID() + "' on edge '" + e->getID() + "'");
-                mandatory.push_back(Mandatory(e, endPos, stop.jump));
+                Mandatory m(e, endPos, stop.jump, stop.jumpUntil);
+                m.stops.push_back(&stop);
+                mandatory.push_back(m);
             }
         }
     }

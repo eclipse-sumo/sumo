@@ -406,10 +406,13 @@ public:
             return false;
         }
 
-        if (msTime >= myValidUntil) {
+        if (msTime >= myValidUntil || (myValidUntil > myWeightPeriod && msTime < myValidUntil - myWeightPeriod)) {
             assert(myBuilder != nullptr); // only time independent clones do not have a builder
             while (msTime >= myValidUntil) {
                 myValidUntil += myWeightPeriod;
+            }
+            while (myValidUntil > myWeightPeriod && msTime < myValidUntil - myWeightPeriod) {
+                myValidUntil -= myWeightPeriod;
             }
             reset(vehicle);
         }

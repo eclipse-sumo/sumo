@@ -443,7 +443,18 @@ MSStoppingPlaceRerouter::evaluateDestination(SUMOVehicle& veh, double brakeGap, 
                 nextDestination = route.getEdges()[nextDestinationIndex];
                 nextPos = stopIndices[nextDestStopIndex].second;
             }
-            router.compute(stoppingPlaceEdge, targetPos, nextDestination, nextPos, &veh, now, edgesFromStop, true);
+            double toStopTT = 0.;
+            router.recomputeCostsPos(edgesToStop, &veh, MAX2(0.0, veh.getPositionOnLane()), MAX2(0.0, targetPos), now, nullptr, &toStopTT);
+            SUMOTime afterStop = now + TIME2STEPS(toStopTT);
+            if (veh.hasStops()) {
+                const MSStop& nextStop = veh.getNextStop();
+                if (nextStop.getSpeed() > 0) {
+                    afterStop += MAX2((SUMOTime)0, nextStop.getUntil() - afterStop);
+                } else {
+                    afterStop += MAX2((SUMOTime)0, nextStop.getMinDuration(afterStop));
+                }
+            }
+            router.compute(stoppingPlaceEdge, targetPos, nextDestination, nextPos, &veh, afterStop, edgesFromStop, true);
         }
         if (edgesFromStop.size() > 0 || newDestination) {
             stoppingPlaceValues["probability"] = prob;

@@ -341,14 +341,22 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         std::set<const MSEdge*> jumpEdges;
         std::map<const MSEdge*, StopEdgeInfo> stopsOnVia;
         for (const MSStop& stop : myStops) {
+            if (stop.reached) {
+                continue;
+            }
             if (stop.pars.jump >= 0) {
                 jumpEdges.insert(*stop.edge);
             }
             auto itsov = stopsOnVia.find(*stop.edge);
             if (itsov == stopsOnVia.end()) {
-                stopsOnVia.insert({*stop.edge, StopEdgeInfo(*stop.edge, stop.pars.priority, stop.getArrivalFallback(), stop.getEndPos(*this))});
+                StopEdgeInfo sei(*stop.edge, stop.pars.priority, stop.getArrivalFallback(), stop.getEndPos(*this));
+                sei.stopPar = &stop.pars;
+                sei.nameTag = stop.getStoppingPlaceName();
+                sei.stops.push_back(&stop);
+                stopsOnVia.insert({*stop.edge, sei});
             } else {
                 itsov->second.priority = addStopPriority(itsov->second.priority, stop.pars.priority);
+                itsov->second.stops.push_back(&stop);
             }
         }
         // via takes precedence over stop edges
@@ -363,11 +371,11 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
                 throw ProcessError(TLF("Vehicle '%' is not allowed on any lane of via edge '%'.", getID(), viaEdge->getID()));
             }
             auto itsov = stopsOnVia.find(viaEdge);
-            const double priority = (itsov == stopsOnVia.end() ? -1 : itsov->second.priority);
-            const SUMOTime arrival = (itsov == stopsOnVia.end() ? -1 : itsov->second.arrival);
-            const double pos = (itsov == stopsOnVia.end() ? 0 : itsov->second.pos);
-            stops.push_back(StopEdgeInfo(viaEdge, priority, arrival, pos));
-            // @todo determine whether the viaEdge is also used by a stop and then use the stop priority here
+            if (itsov == stopsOnVia.end()) {
+                stops.push_back(StopEdgeInfo(viaEdge, -1, -1, 0));
+            } else {
+                stops.push_back(itsov->second);
+            }
             if (jumpEdges.count(viaEdge) != 0) {
                 jumps.insert((int)stops.size());
             }
@@ -386,8 +394,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     }
 #endif
     int stopIndex = -1;
-    auto stopIt = myStops.begin();
-    SUMOTime startTime = t;
+    SUMOTime startTime = t + (isStopped() ? MAX2((SUMOTime)0, getStopDuration()) : 0);
     bool hasSkipped = false;
     const double origSourcePos = sourcePos;
     const MSEdge* origSource = source;
@@ -400,46 +407,57 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         if (jumps.count(stopIndex) != 0) {
             edges.push_back(stopEdge);
             source = stopEdge;
+            sourcePos = 0;
+            stopEdgeInfo.time = startTime;
             continue;
         }
-        // !!! need to adapt t here
-        router.compute(source, sourcePos, stopEdge, stopEdgeInfo.pos, this, t, into, silent || priority >= 0);
+        router.compute(source, sourcePos, stopEdge, stopEdgeInfo.pos, this, startTime, into, silent || priority >= 0);
 #ifdef DEBUG_REROUTE
         if (DEBUG_COND) {
-            std::cout << SIMTIME << " reroute veh=" << getID() << " source=" << source->getID() << " sourcePos=" << sourcePos << " target=" << stopEdgeInfo.edge->getID() << " targetPos=" << stopEdgeInfo.pos << " edges=" << toString(into) << "\n";
+            std::cout << SIMTIME << " reroute veh=" << getID() << " source=" << source->getID() << " sourcePos=" << sourcePos << " target=" << stopEdgeInfo.edge->getID() << " targetPos=" << stopEdgeInfo.pos << " startTime=" << time2string(startTime) << " edges=" << toString(into) << "\n";
         }
 #endif
         if (into.size() > 0) {
-            // stopIt->edge may be invalid when trying to reroute for novel stops
-            while (stopIt != myStops.end() && stopIt->lane->getNextNormal()->getID() != stopEdge->getID()) {
-                stopIt++;
-            }
-
-            startTime += TIME2STEPS(router.recomputeCostsPos(into, this, sourcePos, stopEdgeInfo.pos, startTime));
-            if (stopIt != myStops.end()) {
-                if (stopIt->pars.priority >= 0 && info != "device.rerouting") {
+            const double targetPos = (stopEdgeInfo.isSink && stopEdgeInfo.pos < 0 && into.size() > 1)
+                                     ? into[into.size() - 2]->getLength() : MAX2(0.0, stopEdgeInfo.pos);
+            double segTT = 0.;
+            router.recomputeCostsPos(into, this, MAX2(0.0, sourcePos), targetPos, startTime, nullptr, &segTT);
+            SUMOTime nextTime = startTime + TIME2STEPS(segTT);
+            if (!stopEdgeInfo.stops.empty()) {
+                if (priority >= 0 && info != "device.rerouting") {
                     // consider skipping this stop if it cannot be reached in a timely manner
-                    if (stopIt != myStops.end()) {
-                        SUMOTime arrival = stopEdgeInfo.arrival;
-                        if (arrival > 0) {
-                            SUMOTime delay = startTime - arrival;
-                            //std::cout << " t=" << time2string(t) << " veh=" << getID() << " info=" << info << " stopIndex=" << stopIndex
-                            //   << " into=" << toString(into) << " sourcePos=" << sourcePos << " stopPos=" << stopPos
-                            //   << " startTime=" << time2string(startTime) << " arrival=" << time2string(arrival) << " delay=" << time2string(delay) << "\n";
-                            if (delay > 0) {
-                                if (delay > maxDelay) {
-                                    stopEdgeInfo.skipped = true;
-                                    stopEdgeInfo.delay = delay;
-                                    hasSkipped = true;
-                                    continue;
-                                }
-                            }
+                    SUMOTime arrival = stopEdgeInfo.arrival;
+                    if (arrival > 0) {
+                        SUMOTime delay = nextTime - arrival;
+                        if (delay > maxDelay) {
+                            stopEdgeInfo.skipped = true;
+                            stopEdgeInfo.delay = delay;
+                            hasSkipped = true;
+                            continue;
                         }
                     }
                 }
+                double curPos = stopEdgeInfo.pos;
+                for (const MSStop* s : stopEdgeInfo.stops) {
+                    const double sPos = s->lane->isInternal() ? (*s->edge)->getLength() : s->getEndPos(*this);
+                    if (sPos > curPos) {
+                        double sameEdgeTT = 0.;
+                        router.recomputeCostsPos({stopEdge}, this, curPos, sPos, nextTime, nullptr, &sameEdgeTT);
+                        nextTime += TIME2STEPS(sameEdgeTT);
+                        curPos = sPos;
+                    }
+                    if (s->getSpeed() > 0) {
+                        nextTime += MAX2((SUMOTime)0, s->getUntil() - nextTime);
+                    } else {
+                        nextTime += MAX2((SUMOTime)0, s->getMinDuration(nextTime));
+                    }
+                }
+                sourcePos = curPos;
+            } else if (!stopEdgeInfo.isSink) {
                 sourcePos = stopEdgeInfo.pos;
-                startTime += stopIt->getMinDuration(startTime);
             }
+            startTime = nextTime;
+            stopEdgeInfo.time = startTime;
             edges.pop_back();
             edges.insert(edges.end(), into.begin(), into.end());
             if (edges.back()->isTazConnector()) {
@@ -1895,6 +1913,7 @@ MSBaseVehicle::getStopEdges(double& firstPos, double& lastPos, std::set<int>& ju
             result.push_back(StopEdgeInfo(*stop.edge, stop.pars.priority, stop.getArrivalFallback(), stopPos));
             result.back().nameTag = stop.getStoppingPlaceName();
             result.back().stopPar = &stop.pars;
+            result.back().stops.push_back(&stop);
             if (stop.lane->isInternal()) {
                 internalSuccessor = stop.lane->getNextNormal();
                 result.push_back(StopEdgeInfo(internalSuccessor, stop.pars.priority, stop.getArrivalFallback(), 0));
@@ -1903,6 +1922,7 @@ MSBaseVehicle::getStopEdges(double& firstPos, double& lastPos, std::set<int>& ju
             }
         } else if (prev != nullptr && prev->edge == stop.edge) {
             result.back().priority = addStopPriority(result.back().priority, stop.pars.priority);
+            result.back().stops.push_back(&stop);
         }
         prev = &stop;
         if (firstPos == INVALID_DOUBLE) {
@@ -2100,18 +2120,32 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
 
     bool newDestination = nextStopIndex == n - 1 && stops[nextStopIndex].edge == oldEdges.end() - 1;
 
+    const SUMOTime tStart = estimateTimeToStop(nextStopIndex, t, router);
+    SUMOTime tAfterStop = tStart;
     ConstMSEdgeVector toNewStop;
     if (!teleport) {
-        router.compute(*itStart, startPos, stopEdge, stop.endPos, this, t, toNewStop, true);
+        router.compute(*itStart, startPos, stopEdge, stop.endPos, this, tStart, toNewStop, true);
         if (toNewStop.size() == 0) {
             errorMsg = TLF("no route found from edge '%' to stop edge '%'", (*itStart)->getID(), stopEdge->getID());
             return false;
         }
+        double segTT = 0.;
+        router.recomputeCostsPos(toNewStop, this, MAX2(0.0, startPos), MAX2(0.0, stop.endPos), tStart, nullptr, &segTT);
+        tAfterStop += TIME2STEPS(segTT);
+    }
+    if (stop.speed > 0) {
+        tAfterStop += stop.until >= 0 ? MAX2((SUMOTime)0, stop.until - tAfterStop) : 0;
+    } else {
+        SUMOTime dur = MAX2((SUMOTime)0, stop.duration);
+        if (stop.until >= 0) {
+            dur = MAX2(dur, stop.until - tAfterStop);
+        }
+        tAfterStop += MAX2((SUMOTime)0, dur);
     }
 
     ConstMSEdgeVector fromNewStop;
     if (!newDestination) {
-        router.compute(stopEdge, stop.endPos, *itEnd, endPos, this, t, fromNewStop, true);
+        router.compute(stopEdge, stop.endPos, *itEnd, endPos, this, tAfterStop, fromNewStop, true);
         if (fromNewStop.size() == 0) {
             errorMsg = TLF("no route found from stop edge '%' to edge '%'", stopEdge->getID(), (*itEnd)->getID());
             return false;
@@ -2195,9 +2229,10 @@ MSBaseVehicle::rerouteBetweenStops(int nextStopIndex, const std::string& info, b
     auto endPos = nextStopIndex == n ? getArrivalPos() : stops[nextStopIndex].pars.endPos;
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getRouterTT();
 
+    const SUMOTime tStart = estimateTimeToStop(nextStopIndex, t, router);
     ConstMSEdgeVector newBetween;
     if (!teleport) {
-        router.compute(*itStart, startPos, *itEnd, endPos, this, t, newBetween, true);
+        router.compute(*itStart, startPos, *itEnd, endPos, this, tStart, newBetween, true);
         if (newBetween.size() == 0) {
             errorMsg = TLF("no route found from edge '%' to stop edge '%'", (*itStart)->getID(), (*itEnd)->getID());
             return false;
@@ -2282,6 +2317,41 @@ MSBaseVehicle::insertJump(int nextStopIndex, MSRouteIterator itStart, std::strin
 }
 
 
+SUMOTime
+MSBaseVehicle::estimateTimeToStop(int nextStopIndex, SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router) const {
+    SUMOTime curTime = t + (isStopped() ? MAX2((SUMOTime)0, getStopDuration()) : 0);
+    if (nextStopIndex <= 0) {
+        return curTime;
+    }
+    const int junctionOffset = ((getLane() != nullptr && getLane()->isInternal())
+                                || getRerouteOrigin() != getCurrentRouteEdge()) ? 1 : 0;
+    MSRouteIterator itCur = getCurrentRouteEdge() + junctionOffset;
+    double curPos = junctionOffset == 0 ? MAX2(0.0, getPositionOnLane()) : 0.;
+    auto stopIt = myStops.begin();
+    for (int idx = 0; idx < nextStopIndex && stopIt != myStops.end(); ++idx, ++stopIt) {
+        if (stopIt->reached) {
+            curPos = stopIt->getEndPos(*this);
+            continue;
+        }
+        const double sPos = stopIt->lane->isInternal() ? (*stopIt->edge)->getLength() : stopIt->getEndPos(*this);
+        if (stopIt->edge >= itCur && stopIt->edge < myRoute->end()) {
+            ConstMSEdgeVector seg(itCur, stopIt->edge + 1);
+            double segTT = 0.;
+            router.recomputeCostsPos(seg, this, curPos, sPos, curTime, nullptr, &segTT);
+            curTime += TIME2STEPS(segTT);
+            itCur = stopIt->edge;
+            curPos = sPos;
+        }
+        if (stopIt->getSpeed() > 0) {
+            curTime += MAX2((SUMOTime)0, stopIt->getUntil() - curTime);
+        } else {
+            curTime += MAX2((SUMOTime)0, stopIt->getMinDuration(curTime));
+        }
+    }
+    return curTime;
+}
+
+
 bool
 MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, bool teleport, std::string& errorMsg) {
     const int n = (int)myStops.size();
@@ -2347,18 +2417,32 @@ MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, co
         return ok;
     }
 
+    const SUMOTime tStart = estimateTimeToStop(nextStopIndex, t, router);
+    SUMOTime tAfterStop = tStart;
     ConstMSEdgeVector toNewStop;
     if (!teleport) {
-        router.compute(*itStart, startPos, stopEdge, stop.endPos, this, t, toNewStop, true);
+        router.compute(*itStart, startPos, stopEdge, stop.endPos, this, tStart, toNewStop, true);
         if (toNewStop.size() == 0) {
             errorMsg = TLF("no route found from edge '%' to stop edge '%'", (*itStart)->getID(), stopEdge->getID());
             return false;
         }
+        double segTT = 0.;
+        router.recomputeCostsPos(toNewStop, this, MAX2(0.0, startPos), MAX2(0.0, stop.endPos), tStart, nullptr, &segTT);
+        tAfterStop += TIME2STEPS(segTT);
+    }
+    if (stop.speed > 0) {
+        tAfterStop += stop.until >= 0 ? MAX2((SUMOTime)0, stop.until - tAfterStop) : 0;
+    } else {
+        SUMOTime dur = MAX2((SUMOTime)0, stop.duration);
+        if (stop.until >= 0) {
+            dur = MAX2(dur, stop.until - tAfterStop);
+        }
+        tAfterStop += MAX2((SUMOTime)0, dur);
     }
 
     ConstMSEdgeVector fromNewStop;
     if (!newDestination) {
-        router.compute(stopEdge, stop.endPos, *itEnd, endPos, this, t, fromNewStop, true);
+        router.compute(stopEdge, stop.endPos, *itEnd, endPos, this, tAfterStop, fromNewStop, true);
         if (fromNewStop.size() == 0) {
             errorMsg = TLF("no route found from stop edge '%' to edge '%'", stopEdge->getID(), (*itEnd)->getID());
             return false;
