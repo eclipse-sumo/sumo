@@ -18,3 +18,6 @@ filter_stops_id
 
 # see #17027
 invalid_stopPos
+
+# see #13223
+rail_crossing

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17T23:22:59.790779+00:00 by Eclipse SUMO netconvert v1_28_0+0629-650f618c216
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Users\Mark\AppData\Local\Temp\tmpjpqaa2f_\in.nod.xml"/>
+        <edge-files value="C:\Users\Mark\AppData\Local\Temp\tmpjpqaa2f_\in.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="c:\Users\Mark\Desktop\sumo\tests\tools\net\abstractRail\rail_crossing\input_net.net.xml"/>
+    </output>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,44.00" origBoundary="0.00,0.00,200.00,44.00" projParameter="!"/>
+
+    <edge id=":crossing_0" function="internal" bidi=":crossing_1">
+        <lane id=":crossing_0_0" index="0" allow="rail" speed="27.78" length="3.00" shape="101.86,20.37 98.91,19.78"/>
+    </edge>
+    <edge id=":crossing_1" function="internal" bidi=":crossing_0">
+        <lane id=":crossing_1_0" index="0" allow="rail" speed="27.78" length="3.00" shape="98.91,19.78 101.86,20.37"/>
+    </edge>
+    <edge id=":crossing_2" function="internal" bidi=":crossing_3">
+        <lane id=":crossing_2_0" index="0" allow="rail" speed="27.78" length="3.00" shape="98.14,23.63 101.09,24.22"/>
+    </edge>
+    <edge id=":crossing_3" function="internal" bidi=":crossing_2">
+        <lane id=":crossing_3_0" index="0" allow="rail" speed="27.78" length="3.00" shape="101.09,24.22 98.14,23.63"/>
+    </edge>
+    <edge id=":e0_0" function="internal">
+        <lane id=":e0_0_0" index="0" allow="rail" speed="0.10" length="0.10" shape="200.00,40.00 200.00,40.00"/>
+    </edge>
+    <edge id=":e1_0" function="internal">
+        <lane id=":e1_0_0" index="0" allow="rail" speed="0.10" length="0.10" shape="200.00,44.00 200.00,44.00"/>
+    </edge>
+    <edge id=":w0_0" function="internal">
+        <lane id=":w0_0_0" index="0" allow="rail" speed="0.10" length="0.10" shape="0.00,0.00 0.00,0.00"/>
+    </edge>
+    <edge id=":w1_0" function="internal">
+        <lane id=":w1_0_0" index="0" allow="rail" speed="0.10" length="0.10" shape="0.00,4.00 0.00,4.00"/>
+    </edge>
+
+    <edge id="-t0_a" from="crossing" to="w0" priority="-1" spreadType="center" shape="100.00,20.00 0.00,0.00" bidi="t0_a">
+        <lane id="-t0_a_0" index="0" allow="rail" speed="27.78" length="100.87" shape="98.91,19.78 0.00,0.00"/>
+    </edge>
+    <edge id="-t0_b" from="e0" to="crossing" priority="-1" spreadType="center" shape="200.00,40.00 100.00,20.00" bidi="t0_b">
+        <lane id="-t0_b_0" index="0" allow="rail" speed="27.78" length="100.09" shape="200.00,40.00 101.86,20.37"/>
+    </edge>
+    <edge id="-t1_a" from="crossing" to="w1" priority="-1" spreadType="center" shape="100.00,24.00 0.00,4.00" bidi="t1_a">
+        <lane id="-t1_a_0" index="0" allow="rail" speed="27.78" length="100.09" shape="98.14,23.63 0.00,4.00"/>
+    </edge>
+    <edge id="-t1_b" from="e1" to="crossing" priority="-1" spreadType="center" shape="200.00,44.00 100.00,24.00" bidi="t1_b">
+        <lane id="-t1_b_0" index="0" allow="rail" speed="27.78" length="100.87" shape="200.00,44.00 101.09,24.22"/>
+    </edge>
+    <edge id="t0_a" from="w0" to="crossing" priority="-1" spreadType="center" shape="0.00,0.00 100.00,20.00" bidi="-t0_a">
+        <lane id="t0_a_0" index="0" allow="rail" speed="27.78" length="100.87" shape="0.00,0.00 98.91,19.78"/>
+    </edge>
+    <edge id="t0_b" from="crossing" to="e0" priority="-1" spreadType="center" shape="100.00,20.00 200.00,40.00" bidi="-t0_b">
+        <lane id="t0_b_0" index="0" allow="rail" speed="27.78" length="100.09" shape="101.86,20.37 200.00,40.00"/>
+    </edge>
+    <edge id="t1_a" from="w1" to="crossing" priority="-1" spreadType="center" shape="0.00,4.00 100.00,24.00" bidi="-t1_a">
+        <lane id="t1_a_0" index="0" allow="rail" speed="27.78" length="100.09" shape="0.00,4.00 98.14,23.63"/>
+    </edge>
+    <edge id="t1_b" from="crossing" to="e1" priority="-1" spreadType="center" shape="100.00,24.00 200.00,44.00" bidi="-t1_b">
+        <lane id="t1_b_0" index="0" allow="rail" speed="27.78" length="100.87" shape="101.09,24.22 200.00,44.00"/>
+    </edge>
+
+    <junction id="crossing" type="priority" x="100.00" y="22.00" incLanes="-t0_b_0 t0_a_0 t1_a_0 -t1_b_0" intLanes=":crossing_0_0 :crossing_1_0 :crossing_2_0 :crossing_3_0" shape="100.77,25.79 102.17,18.80 99.23,18.21 97.83,25.20">
+        <request index="0" response="0000" foes="0000" cont="0"/>
+        <request index="1" response="0000" foes="0000" cont="0"/>
+        <request index="2" response="0000" foes="0000" cont="0"/>
+        <request index="3" response="0000" foes="0000" cont="0"/>
+    </junction>
+    <junction id="e0" type="priority" x="200.00" y="40.00" incLanes="t0_b_0" intLanes=":e0_0_0" shape="200.31,38.43 199.69,41.57 200.31,38.43 199.69,41.57">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="e1" type="priority" x="200.00" y="44.00" incLanes="t1_b_0" intLanes=":e1_0_0" shape="200.31,42.43 199.69,45.57 200.31,42.43 199.69,45.57">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="w0" type="priority" x="0.00" y="0.00" incLanes="-t0_a_0" intLanes=":w0_0_0" shape="-0.31,1.57 0.31,-1.57 -0.31,1.57 0.31,-1.57">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="w1" type="priority" x="0.00" y="4.00" incLanes="-t1_a_0" intLanes=":w1_0_0" shape="-0.31,5.57 0.31,2.43 -0.31,5.57 0.31,2.43">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="-t0_a" to="t0_a" fromLane="0" toLane="0" speed="0.10" via=":w0_0_0" dir="t" state="M"/>
+    <connection from="-t0_b" to="-t0_a" fromLane="0" toLane="0" via=":crossing_0_0" dir="s" state="M"/>
+    <connection from="-t1_a" to="t1_a" fromLane="0" toLane="0" speed="0.10" via=":w1_0_0" dir="t" state="M"/>
+    <connection from="-t1_b" to="-t1_a" fromLane="0" toLane="0" via=":crossing_3_0" dir="s" state="M"/>
+    <connection from="t0_a" to="t0_b" fromLane="0" toLane="0" via=":crossing_1_0" dir="s" state="M"/>
+    <connection from="t0_b" to="-t0_b" fromLane="0" toLane="0" speed="0.10" via=":e0_0_0" dir="t" state="M"/>
+    <connection from="t1_a" to="t1_b" fromLane="0" toLane="0" via=":crossing_2_0" dir="s" state="M"/>
+    <connection from="t1_b" to="-t1_b" fromLane="0" toLane="0" speed="0.10" via=":e1_0_0" dir="t" state="M"/>
+
+    <connection from=":crossing_0" to="-t0_a" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":crossing_1" to="t0_b" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":crossing_2" to="t1_b" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":crossing_3" to="-t1_a" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":e0_0" to="-t0_b" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":e1_0" to="-t1_b" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":w0_0" to="t0_a" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":w1_0" to="t1_a" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>
