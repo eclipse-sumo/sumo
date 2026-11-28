@@ -1,0 +1,6 @@
+<routes>
+    <vehicle id="manual" depart="0">
+        <route edges="start upper upperEnd end"/>
+    </vehicle>
+    <trip id="automatic" depart="2" from="upper" to="end"/>
+</routes>

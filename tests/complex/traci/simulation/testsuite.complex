@@ -17,3 +17,6 @@ convertRoad
 
 # Tests the simulation API
 findRoute
+
+# Test per-step reroute event retrieval and subscription
+reroutedVehicles

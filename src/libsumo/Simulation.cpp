@@ -366,6 +366,18 @@ Simulation::getEmergencyStoppingVehiclesIDList() {
 
 
 int
+Simulation::getReroutedVehicleNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VehicleState::NEWROUTE).size();
+}
+
+
+std::vector<std::string>
+Simulation::getReroutedVehicleIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VehicleState::NEWROUTE);
+}
+
+
+int
 Simulation::getStartingTeleportNumber() {
     return (int)Helper::getVehicleStateChanges(MSNet::VehicleState::STARTING_TELEPORT).size();
 }
@@ -1038,6 +1050,10 @@ Simulation::handleVariable(const std::string& objID, const int variable, Variabl
             return wrapper->wrapInt(objID, variable, getDepartedNumber());
         case VAR_DEPARTED_VEHICLES_IDS:
             return wrapper->wrapStringList(objID, variable, getDepartedIDList());
+        case VAR_REROUTED_VEHICLES_NUMBER:
+            return wrapper->wrapInt(objID, variable, getReroutedVehicleNumber());
+        case VAR_REROUTED_VEHICLES_IDS:
+            return wrapper->wrapStringList(objID, variable, getReroutedVehicleIDList());
         case VAR_TELEPORT_STARTING_VEHICLES_NUMBER:
             return wrapper->wrapInt(objID, variable, getStartingTeleportNumber());
         case VAR_TELEPORT_STARTING_VEHICLES_IDS:

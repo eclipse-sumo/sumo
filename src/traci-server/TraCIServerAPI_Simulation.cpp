@@ -60,6 +60,12 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
         case libsumo::VAR_DEPARTED_VEHICLES_IDS:
             writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VehicleState::DEPARTED);
             break;
+        case libsumo::VAR_REROUTED_VEHICLES_NUMBER:
+            writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VehicleState::NEWROUTE);
+            break;
+        case libsumo::VAR_REROUTED_VEHICLES_IDS:
+            writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VehicleState::NEWROUTE);
+            break;
         case libsumo::VAR_TELEPORT_STARTING_VEHICLES_NUMBER:
             writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VehicleState::STARTING_TELEPORT);
             break;

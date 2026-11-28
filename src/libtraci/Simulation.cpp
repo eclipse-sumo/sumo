@@ -286,6 +286,18 @@ Simulation::getEmergencyStoppingVehiclesIDList() {
 
 
 int
+Simulation::getReroutedVehicleNumber() {
+    return Dom::getInt(libsumo::VAR_REROUTED_VEHICLES_NUMBER, "");
+}
+
+
+std::vector<std::string>
+Simulation::getReroutedVehicleIDList() {
+    return Dom::getStringVector(libsumo::VAR_REROUTED_VEHICLES_IDS, "");
+}
+
+
+int
 Simulation::getStartingTeleportNumber() {
     return Dom::getInt(libsumo::VAR_TELEPORT_STARTING_VEHICLES_NUMBER, "");
 }

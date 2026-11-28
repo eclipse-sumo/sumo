@@ -1321,6 +1321,12 @@ VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER = 0x89
 #  ids of vehicles involved in a collision (get: simulation)
 VAR_EMERGENCYSTOPPING_VEHICLES_IDS = 0x8a
 
+#  number of vehicle reroute events (get: simulation)
+VAR_REROUTED_VEHICLES_NUMBER = 0x8b
+
+#  vehicle ids for reroute events (get: simulation)
+VAR_REROUTED_VEHICLES_IDS = 0x8c
+
 #  scale traffic (set, get: simulation, vehicle)
 VAR_SCALE = 0x8e
 
