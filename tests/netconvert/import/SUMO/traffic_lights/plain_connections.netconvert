@@ -55,16 +55,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <connection from="-edge_up" to="edge_up" fromLane="0" toLane="0"/>
 
-    <connection from="edge_left" to="-edge_right" fromLane="0" toLane="0"/>
-    <connection from="edge_left" to="-edge_up" fromLane="0" toLane="0"/>
-    <connection from="edge_left" to="-edge_left" fromLane="0" toLane="0"/>
+    <connection from="edge_left" to="-edge_right" fromLane="0" toLane="0" linkIndex="6"/>
+    <connection from="edge_left" to="-edge_up" fromLane="0" toLane="0" linkIndex="7"/>
+    <connection from="edge_left" to="-edge_left" fromLane="0" toLane="0" linkIndex="8"/>
 
-    <connection from="edge_right" to="-edge_up" fromLane="0" toLane="0"/>
-    <connection from="edge_right" to="-edge_left" fromLane="0" toLane="0"/>
-    <connection from="edge_right" to="-edge_right" fromLane="0" toLane="0"/>
+    <connection from="edge_right" to="-edge_up" fromLane="0" toLane="0" linkIndex="3"/>
+    <connection from="edge_right" to="-edge_left" fromLane="0" toLane="0" linkIndex="4"/>
+    <connection from="edge_right" to="-edge_right" fromLane="0" toLane="0" linkIndex="5"/>
 
-    <connection from="edge_up" to="-edge_left" fromLane="0" toLane="0"/>
-    <connection from="edge_up" to="-edge_right" fromLane="0" toLane="0"/>
-    <connection from="edge_up" to="-edge_up" fromLane="0" toLane="0"/>
+    <connection from="edge_up" to="-edge_left" fromLane="0" toLane="0" linkIndex="0"/>
+    <connection from="edge_up" to="-edge_right" fromLane="0" toLane="0" linkIndex="1"/>
+    <connection from="edge_up" to="-edge_up" fromLane="0" toLane="0" linkIndex="2"/>
 
 </connections>

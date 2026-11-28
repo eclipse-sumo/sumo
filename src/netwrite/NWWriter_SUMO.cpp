@@ -760,57 +760,59 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
     into.writeAttr(SUMO_ATTR_TO, c.toEdge->getID());
     into.writeAttr(SUMO_ATTR_FROM_LANE, c.fromLane);
     into.writeAttr(SUMO_ATTR_TO_LANE, c.toLane);
-    if (style != TLL) {
-        into.writeOptionalAttr(SUMO_ATTR_PASS, c.mayDefinitelyPass, !c.mayDefinitelyPass);
-        into.writeOptionalAttr<bool>(SUMO_ATTR_KEEP_CLEAR, false, c.keepClear != KEEPCLEAR_FALSE);
-        into.writeOptionalAttr(SUMO_ATTR_CONTPOS, c.contPos, c.contPos == NBEdge::UNSPECIFIED_CONTPOS);
-        writePermissions(into, c.permissions);
-        const bool changeLeft = (c.changeLeft != SVC_UNSPECIFIED && c.changeLeft != SVCAll && c.changeLeft != SVC_IGNORING);
-        into.writeOptionalAttr(SUMO_ATTR_CHANGE_LEFT, getVehicleClassNames(c.changeLeft), !changeLeft);
-        const bool changeRight = (c.changeRight != SVC_UNSPECIFIED && c.changeRight != SVCAll && c.changeRight != SVC_IGNORING);
-        into.writeOptionalAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(c.changeRight), !changeRight);
-        into.writeOptionalAttr(SUMO_ATTR_SPEED, c.speed, c.speed == NBEdge::UNSPECIFIED_SPEED);
-        into.writeOptionalAttr(SUMO_ATTR_LENGTH, c.customLength, c.customLength == NBEdge::UNSPECIFIED_LOADED_LENGTH);
-        writeShape(into, GeoConvHelper::getFinal(), c.customShape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy, c.customShape.size() != 0);
-        into.writeOptionalAttr(SUMO_ATTR_UNCONTROLLED, c.uncontrolled, !c.uncontrolled);
-        into.writeOptionalAttr(SUMO_ATTR_INDIRECT, c.indirectLeft, !c.indirectLeft);
-        into.writeOptionalAttr(SUMO_ATTR_TYPE, c.edgeType, c.edgeType == "");
+    into.writeOptionalAttr(SUMO_ATTR_PASS, c.mayDefinitelyPass, !c.mayDefinitelyPass);
+    into.writeOptionalAttr<bool>(SUMO_ATTR_KEEP_CLEAR, false, c.keepClear != KEEPCLEAR_FALSE);
+    into.writeOptionalAttr(SUMO_ATTR_CONTPOS, c.contPos, c.contPos == NBEdge::UNSPECIFIED_CONTPOS);
+    writePermissions(into, c.permissions);
+    const bool changeLeft = (c.changeLeft != SVC_UNSPECIFIED && c.changeLeft != SVCAll && c.changeLeft != SVC_IGNORING);
+    into.writeOptionalAttr(SUMO_ATTR_CHANGE_LEFT, getVehicleClassNames(c.changeLeft), !changeLeft);
+    const bool changeRight = (c.changeRight != SVC_UNSPECIFIED && c.changeRight != SVCAll && c.changeRight != SVC_IGNORING);
+    into.writeOptionalAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(c.changeRight), !changeRight);
+    into.writeOptionalAttr(SUMO_ATTR_SPEED, c.speed, c.speed == NBEdge::UNSPECIFIED_SPEED);
+    into.writeOptionalAttr(SUMO_ATTR_LENGTH, c.customLength, c.customLength == NBEdge::UNSPECIFIED_LOADED_LENGTH);
+    writeShape(into, GeoConvHelper::getFinal(), c.customShape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy, c.customShape.size() != 0);
+    into.writeOptionalAttr(SUMO_ATTR_UNCONTROLLED, c.uncontrolled, !c.uncontrolled);
+    into.writeOptionalAttr(SUMO_ATTR_INDIRECT, c.indirectLeft, !c.indirectLeft);
+    into.writeOptionalAttr(SUMO_ATTR_TYPE, c.edgeType, c.edgeType == "");
+    if (includeInternal) {
+        into.writeAttr(SUMO_ATTR_VIA, c.getInternalLaneID());
     }
-    if (style != PLAIN && style != PLAIN_NAVTEQ) {
-        if (includeInternal) {
-            into.writeAttr(SUMO_ATTR_VIA, c.getInternalLaneID());
-        }
-        // set information about the controlling tl if any
-        if (c.tlID != "") {
+    const NBNode* junction = from.getToNode();
+    const bool isRailSignal = junction->getType() == SumoXMLNodeType::RAIL_SIGNAL
+                              || junction->getType() == SumoXMLNodeType::RAIL_CROSSING;
+    if (!c.tlID.empty() && (style == SUMONET || !isRailSignal)) {
+        const auto& controllers = junction->getControllingTLS();
+        if (style == SUMONET || controllers.empty()
+                || std::any_of(controllers.begin(), controllers.end(), [&c](const NBTrafficLightDefinition* def) {
+                    return def->getID() != c.tlID;
+                })) {
             into.writeAttr(SUMO_ATTR_TLID, c.tlID);
-            into.writeAttr(SUMO_ATTR_TLLINKINDEX, c.tlLinkIndex);
-            if (c.tlLinkIndex2 >= 0) {
-                into.writeAttr(SUMO_ATTR_TLLINKINDEX2, c.tlLinkIndex2);
+        }
+        into.writeAttr(SUMO_ATTR_TLLINKINDEX, c.tlLinkIndex);
+        if (c.tlLinkIndex2 >= 0) {
+            into.writeAttr(SUMO_ATTR_TLLINKINDEX2, c.tlLinkIndex2);
+        }
+    }
+    if (style == SUMONET) {
+        // write the direction information
+        LinkDirection dir = from.getToNode()->getDirection(&from, c.toEdge, OptionsCont::getOptions().getBool("lefthand"));
+        assert(dir != LinkDirection::NODIR);
+        into.writeAttr(SUMO_ATTR_DIR, toString(dir));
+        // write the state information
+        const LinkState linkState = from.getToNode()->getLinkState(
+                                        &from, c.toEdge, c.fromLane, c.toLane, c.mayDefinitelyPass, c.tlID);
+        into.writeAttr(SUMO_ATTR_STATE, linkState);
+        if (linkState == LINKSTATE_MINOR
+                && c.visibility == NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE
+                && c.toEdge->getJunctionPriority(c.toEdge->getToNode()) == NBEdge::JunctionPriority::ROUNDABOUT) {
+            const double visibilityDistance = OptionsCont::getOptions().getFloat("roundabouts.visibility-distance");
+            if (visibilityDistance != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE) {
+                into.writeAttr(SUMO_ATTR_VISIBILITY_DISTANCE, visibilityDistance);
             }
         }
     }
-    if (style != TLL) {
-        if (style == SUMONET) {
-            // write the direction information
-            LinkDirection dir = from.getToNode()->getDirection(&from, c.toEdge, OptionsCont::getOptions().getBool("lefthand"));
-            assert(dir != LinkDirection::NODIR);
-            into.writeAttr(SUMO_ATTR_DIR, toString(dir));
-            // write the state information
-            const LinkState linkState = from.getToNode()->getLinkState(
-                                            &from, c.toEdge, c.fromLane, c.toLane, c.mayDefinitelyPass, c.tlID);
-            into.writeAttr(SUMO_ATTR_STATE, linkState);
-            if (linkState == LINKSTATE_MINOR
-                    && c.visibility == NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE
-                    && c.toEdge->getJunctionPriority(c.toEdge->getToNode()) == NBEdge::JunctionPriority::ROUNDABOUT) {
-                const double visibilityDistance = OptionsCont::getOptions().getFloat("roundabouts.visibility-distance");
-                if (visibilityDistance != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE) {
-                    into.writeAttr(SUMO_ATTR_VISIBILITY_DISTANCE, visibilityDistance);
-                }
-            }
-        }
-        if (c.visibility != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE) {
-            into.writeAttr(SUMO_ATTR_VISIBILITY_DISTANCE, c.visibility);
-        }
+    if (c.visibility != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE) {
+        into.writeAttr(SUMO_ATTR_VISIBILITY_DISTANCE, c.visibility);
     }
     if (style == PLAIN_NAVTEQ) {
         NWWriter_DlrNavteq::writeConnectionAttrs(into, c);

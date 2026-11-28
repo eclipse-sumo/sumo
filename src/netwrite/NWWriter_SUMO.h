@@ -57,9 +57,8 @@ public:
 
     enum ConnectionStyle {
         SUMONET, // all connection information
-        PLAIN,   // only edges and link indices
-        PLAIN_NAVTEQ, // like plain but with some extra attributes
-        TLL      // like plain but include tl information
+        PLAIN,   // plain XML connection information
+        PLAIN_NAVTEQ // like plain but with some extra attributes
     };
 
     /** @brief Writes the network into a SUMO-file

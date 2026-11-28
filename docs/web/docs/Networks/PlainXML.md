@@ -923,6 +923,9 @@ Here, a connection from the edge's "*<FROM_EDGE_ID\>*" lane with the number *<IN
 | speed          | float                                                                                                               | \-1     | specifies the maximum speed while moving across the intersection using this connection (in m/s). By default the mean speed of the edge before and after the connection is used. With the default value, the speed is set to the average of the incoming and outgoing lane or to a radius based limit if option **--junctions.limit-turn-speed** is set.                                                      |
 | shape          | List of positions; each position is encoded in x,y or x,y,z in meters (do not separate the numbers with a space\!). |         | specifies a custom shape for the internal lane(s) for this connection. By default an interpolated cubic spline is used.                                                                                                                                                                                                                                                      |
 | uncontrolled   | bool  | false   | if set to *true*, This connection will not be TLS-controlled despite its node being controlled. |
+| linkIndex | non-negative int | | Index of the connection in the signal plan's phase state. |
+| linkIndex2 | non-negative int | | Index in the phase state for the internal junction link, if controlled. |
+| tl | string | Junction's traffic light | ID of the controlling traffic light when the junction does not identify it unambiguously. |
 | allow     | list of vehicle classes    |    | set custom permissions independent of from-lane and to-lane permissions. |
 | disallow  | list of vehicle classes    |    | set custom permissions independent of from-lane and to-lane permissions. |
 | changeLeft        | list of vehicle classes | List of vehicle classes that may change left from this lane |
@@ -1113,9 +1116,9 @@ have the right of way but this can be customized by using attribute
 | SUMO specific?     | Yes                      |
 | XML Schema         | [tllogic_file.xsd](https://sumo.dlr.de/xsd/tllogic_file.xsd)         |
 
-This file describes traffic lights, signal plans and defines which
-connections they control. It consists of two types of elements described
-below. Files of this type must be loaded in
+This file defines traffic light programs. New plain exports store the signal indices in the [connection file](#connection_descriptions). Use **--tls.rebuild** to regenerate the plans and their indices.
+
+Files of this type must be loaded in
 [netconvert](../netconvert.md) using the option **--tllogic-files** {{DT_FILE}}.
 
 ## traffic light definitions
@@ -1129,9 +1132,9 @@ instead of loading them into SUMO.
 !!! caution
     Embedding [WAUTs (scheduled switching between programs)](../Simulation/Traffic_Lights.md#defining_program_switch_times_and_procedure) in the network via [netconvert](../netconvert.md) is currently not supported. These definitions must be loaded as [additional-file](../sumo.md#format_of_additional_files) at the start of the simulation.
 
-## controlled connections
+## Legacy controlled connections
 
-`<connection .../>`-elements are an extension of
+Netconvert still accepts `<connection .../>` elements in older traffic light files. These elements are an extension of
 [\#Connection_Descriptions](#connection_descriptions) and
 are used to define the relationship between a signal plan and the
 controlled connections.

@@ -40,20 +40,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <connection from="CN" to="NC" fromLane="2" toLane="2"/>
 
-    <connection from="EC" to="CN" fromLane="0" toLane="0"/>
-    <connection from="EC" to="CN" fromLane="0" toLane="1"/>
-    <connection from="EC" to="CN" fromLane="0" toLane="2"/>
-    <connection from="EC" to="CW" fromLane="0" toLane="0"/>
-    <connection from="EC" to="CW" fromLane="1" toLane="1"/>
-    <connection from="EC" to="CW" fromLane="2" toLane="2"/>
-    <connection from="EC" to="CE" fromLane="2" toLane="2"/>
+    <connection from="EC" to="CN" fromLane="0" toLane="0" linkIndex="7"/>
+    <connection from="EC" to="CN" fromLane="0" toLane="1" linkIndex="8"/>
+    <connection from="EC" to="CN" fromLane="0" toLane="2" linkIndex="9"/>
+    <connection from="EC" to="CW" fromLane="0" toLane="0" linkIndex="10"/>
+    <connection from="EC" to="CW" fromLane="1" toLane="1" linkIndex="11"/>
+    <connection from="EC" to="CW" fromLane="2" toLane="2" linkIndex="12"/>
+    <connection from="EC" to="CE" fromLane="2" toLane="2" linkIndex="13"/>
 
-    <connection from="NC" to="CW" fromLane="0" toLane="0"/>
-    <connection from="NC" to="CE" fromLane="0" toLane="0"/>
-    <connection from="NC" to="CW" fromLane="1" toLane="0"/>
-    <connection from="NC" to="CW" fromLane="2" toLane="1"/>
-    <connection from="NC" to="CE" fromLane="2" toLane="1"/>
-    <connection from="NC" to="CE" fromLane="2" toLane="2"/>
-    <connection from="NC" to="CN" fromLane="2" toLane="2"/>
+    <connection from="NC" to="CW" fromLane="0" toLane="0" linkIndex="0"/>
+    <connection from="NC" to="CE" fromLane="0" toLane="0" linkIndex="1"/>
+    <connection from="NC" to="CW" fromLane="1" toLane="0" linkIndex="2"/>
+    <connection from="NC" to="CW" fromLane="2" toLane="1" linkIndex="3"/>
+    <connection from="NC" to="CE" fromLane="2" toLane="1" linkIndex="4"/>
+    <connection from="NC" to="CE" fromLane="2" toLane="2" linkIndex="5"/>
+    <connection from="NC" to="CN" fromLane="2" toLane="2" linkIndex="6"/>
 
 </connections>

@@ -102,9 +102,8 @@ private:
     /** @brief Writes the traffic lights file
      * @param[in] oc The options to use
      * @param[in] tc The tll-container from which to read data
-     * @param[in] ec The edge-container from which to read data
      */
-    static void writeTrafficLights(const std::string& prefix, NBTrafficLightLogicCont& tc, NBEdgeCont& ec);
+    static void writeTrafficLights(const std::string& prefix, NBTrafficLightLogicCont& tc);
 
     /** @brief Writes the pt stops file
      * @param[in] oc The options to use

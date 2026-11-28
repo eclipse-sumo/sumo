@@ -28,6 +28,7 @@
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
+#include <netbuild/NBTrafficLightDefinition.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNetBuilder.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -218,6 +219,27 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
         if (attrs.hasAttribute(SUMO_ATTR_CHANGE_RIGHT)) {
             changeRight = parseVehicleClasses(attrs.get<std::string>(SUMO_ATTR_CHANGE_RIGHT, nullptr, ok), "");
         }
+        std::string tlID;
+        int linkIndex = NBConnection::InvalidTlIndex;
+        int linkIndex2 = NBConnection::InvalidTlIndex;
+        if (attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX) && !OptionsCont::getOptions().getBool("tls.rebuild")) {
+            linkIndex = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, nullptr, ok);
+            linkIndex2 = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX2, nullptr, ok, NBConnection::InvalidTlIndex);
+            tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, nullptr, ok, "");
+            const auto& controllers = from->getToNode()->getControllingTLS();
+            if (tlID.empty() && !controllers.empty()) {
+                const std::string& inferred = (*controllers.begin())->getID();
+                if (std::all_of(controllers.begin(), controllers.end(), [&inferred](const NBTrafficLightDefinition* def) {
+                    return def->getID() == inferred;
+                })) {
+                    tlID = inferred;
+                }
+            }
+            if (ok && (tlID.empty() || linkIndex < 0 || linkIndex2 < NBConnection::InvalidTlIndex)) {
+                myErrorMsgHandler->informf(TL("Invalid traffic light linkage from lane '%' to lane '%'."), from->getLaneID(fromLane), to->getLaneID(toLane));
+                return;
+            }
+        }
         if (attrs.hasAttribute(SUMO_ATTR_SHAPE) && !NBNetBuilder::transformCoordinates(customShape, true, myLocation)) {
             WRITE_ERRORF(TL("Unable to project shape for connection from edge '%' to edge '%'."), from->getID(), to->getID());
         }
@@ -236,6 +258,9 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
             NBEdge::Connection& con = from->getConnectionRef(fromLane, to, toLane);
             con.updateParameters(defaultCon.getParametersMap());
             myLastParameterised = &con;
+            if (!tlID.empty()) {
+                from->setControllingTLInformation(NBConnection(from, fromLane, to, toLane, linkIndex, linkIndex2), tlID);
+            }
         }
     } catch (NumberFormatException&) {
         myErrorMsgHandler->inform("At least one of the defined lanes was not numeric");

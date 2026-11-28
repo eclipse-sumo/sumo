@@ -39,24 +39,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="3"  state="rrrryyGGGrrryyyyyrrr"/>
     </tlLogic>
 
-    <connection from="27437972" to="27441189" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="0"/>
-    <connection from="27437972" to="27441189" fromLane="0" toLane="1" tl="joinedS_0" linkIndex="1"/>
-    <connection from="27437972" to="27441189" fromLane="1" toLane="2" tl="joinedS_0" linkIndex="2"/>
-    <connection from="27437972" to="27441189" fromLane="1" toLane="3" tl="joinedS_0" linkIndex="3"/>
-    <connection from="27441168" to="27445015#0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="12"/>
-    <connection from="27441168" to="27445015#0" fromLane="0" toLane="1" tl="joinedS_0" linkIndex="13"/>
-    <connection from="27441168" to="27445003" fromLane="0" toLane="1" tl="joinedS_0" linkIndex="14"/>
-    <connection from="27441189" to="27445000#0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="6"/>
-    <connection from="27441189" to="6137245" fromLane="1" toLane="0" tl="joinedS_0" linkIndex="7"/>
-    <connection from="27441189" to="6137245" fromLane="3" toLane="1" tl="joinedS_0" linkIndex="8"/>
-    <connection from="27441289.95" to="27445015#0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="9"/>
-    <connection from="27441289.95" to="27445003" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="10"/>
-    <connection from="27441289.95" to="27445003" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="11"/>
-    <connection from="27445003" to="27441189" fromLane="0" toLane="2" tl="joinedS_0" linkIndex="4"/>
-    <connection from="27445003" to="27441189" fromLane="1" toLane="3" tl="joinedS_0" linkIndex="5"/>
-    <connection from="46039050" to="27441289.0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="15"/>
-    <connection from="46039050" to="27441168" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="16"/>
-    <connection from="6137245" to="27441289.0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="17"/>
-    <connection from="6137245" to="27441289.0" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="18"/>
-    <connection from="6137245" to="27441168" fromLane="1" toLane="0" tl="joinedS_0" linkIndex="19"/>
 </tlLogics>

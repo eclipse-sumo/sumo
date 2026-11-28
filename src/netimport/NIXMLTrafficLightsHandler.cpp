@@ -100,6 +100,23 @@ void
 NIXMLTrafficLightsHandler::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_TLLOGIC:
+            if (myCurrentTL != nullptr && !myResetPhases && myCurrentTL->getControlledLinks().empty()) {
+                // Plain connection indices can only be assigned after reading the phases.
+                std::map<std::string, NBEdge*> incoming;
+                for (const NBNode* node : myCurrentTL->getNodes()) {
+                    for (NBEdge* edge : node->getIncomingEdges()) {
+                        incoming.emplace(edge->getID(), edge);
+                    }
+                }
+                for (const auto& item : incoming) {
+                    NBEdge* from = item.second;
+                    for (const auto& c : from->getConnections()) {
+                        if (c.tlID == myCurrentTL->getID() && c.tlLinkIndex >= 0) {
+                            myCurrentTL->addConnection(from, c.toEdge, c.fromLane, c.toLane, c.tlLinkIndex, c.tlLinkIndex2, false);
+                        }
+                    }
+                }
+            }
             myCurrentTL = nullptr;
             break;
         default:

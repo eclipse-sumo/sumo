@@ -64,36 +64,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="3"  state="rryyrrrrrrrrrrrryyrrrrrrrrrryyyy"/>
     </tlLogic>
 
-    <connection from="-142575672#2" to="578659338#1" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="12"/>
-    <connection from="-142575672#2" to="52036180#1" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="13"/>
-    <connection from="-142575672#2" to="158236381" fromLane="0" toLane="1" tl="joinedS_0" linkIndex="14"/>
-    <connection from="-142575672#2" to="52080655#0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="15"/>
-    <connection from="-142575672#2" to="81639675#0" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="16"/>
-    <connection from="-142575672#2" to="142575672#2" fromLane="1" toLane="0" tl="joinedS_0" linkIndex="17"/>
-    <connection from="-52080655#2" to="81639675#0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="26"/>
-    <connection from="-52080655#2" to="142575672#2" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="27"/>
-    <connection from="-52080655#2" to="578659338#1" fromLane="1" toLane="0" tl="joinedS_0" linkIndex="28"/>
-    <connection from="-52080655#2" to="52036180#1" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="29"/>
-    <connection from="-52080655#2" to="158236381" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="30"/>
-    <connection from="-52080655#2" to="52080655#0" fromLane="1" toLane="0" tl="joinedS_0" linkIndex="31"/>
-    <connection from="143308549#2" to="143308549#4" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="0"/>
-    <connection from="143308549#2" to="143308549#4" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="1"/>
-    <connection from="143308549#4" to="142575672#2" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="18"/>
-    <connection from="143308549#4" to="578659338#1" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="19"/>
-    <connection from="143308549#4" to="52036180#1" fromLane="0" toLane="1" tl="joinedS_0" linkIndex="20"/>
-    <connection from="143308549#4" to="158236381" fromLane="0" toLane="1" tl="joinedS_0" linkIndex="21"/>
-    <connection from="143308549#4" to="52080655#0" fromLane="1" toLane="0" tl="joinedS_0" linkIndex="22"/>
-    <connection from="143308549#4" to="81639675#0" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="23"/>
-    <connection from="179699938" to="206889079#2" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="11"/>
-    <connection from="220198808#0" to="158236381" fromLane="0" toLane="1" tl="joinedS_0" linkIndex="24"/>
-    <connection from="220198808#0" to="206889079#2" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="25"/>
-    <connection from="318210389#0" to="52080655#0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="4"/>
-    <connection from="318210389#0" to="81639675#0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="5"/>
-    <connection from="318210389#0" to="81639675#0" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="6"/>
-    <connection from="318210389#0" to="142575672#2" fromLane="1" toLane="0" tl="joinedS_0" linkIndex="7"/>
-    <connection from="318210389#0" to="578659338#1" fromLane="2" toLane="0" tl="joinedS_0" linkIndex="8"/>
-    <connection from="318210389#0" to="52036180#1" fromLane="2" toLane="1" tl="joinedS_0" linkIndex="10"/>
-    <connection from="318210389#0" to="158236381" fromLane="2" toLane="1" tl="joinedS_0" linkIndex="9"/>
-    <connection from="81639675#0" to="81639675#1" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="2"/>
-    <connection from="81639675#0" to="81639675#1" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="3"/>
 </tlLogics>
