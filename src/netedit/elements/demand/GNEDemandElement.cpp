@@ -576,7 +576,9 @@ GNEDemandElement::drawStackLabel(const int number, const std::string& element, c
     GLHelper::setColor(RGBColor(0, 128, 0));
     GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, (length * exaggeration) - (contourWidth * 2), (0.3 * exaggeration) - contourWidth);
     // draw stack label
-    GLHelper::drawText(element + "s stacked: " + toString(number), Position(0, length * exaggeration * -0.5), (.1 * exaggeration), (0.6 * exaggeration), RGBColor::WHITE, 90, 0, -1);
+    const auto& settings = myNet->getViewNet()->getVisualisationSettings();
+    const double textAngle = settings.flippedTextAngle(rotation + 90) ? -90 : 90;
+    GLHelper::drawText(element + "s stacked: " + toString(number), Position(0, length * exaggeration * -0.5), (.1 * exaggeration), (0.6 * exaggeration), RGBColor::WHITE, textAngle, 0, -1);
     // pop draw matrix
     GLHelper::popMatrix();
 }
