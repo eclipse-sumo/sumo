@@ -61,6 +61,7 @@ void
 MSDevice_Emissions::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "emissions", v, oc.isSet("emission-output"))) {
+        v.getEmissionParameters();
         into.push_back(new MSDevice_Emissions(v));
     }
 }

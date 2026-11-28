@@ -1180,7 +1180,7 @@ MSVehicle::workOnMoveReminders(double oldPos, double newPos, double newSpeed) {
     }
     if (myEnergyParams != nullptr) {
         // TODO make the vehicle energy params a derived class which is a move reminder
-        myEnergyParams->setDynamicValues(isStopped() ? getNextStop().duration : -1, isParking(), getWaitingTime(), getAngleDiff());
+        myEnergyParams->setDynamicValues(isStopped() ? MAX2((SUMOTime)0, getNextStop().duration) : -1, isStoppedParking(), getWaitingTime(), getAngleDiff());
     }
 }
 
@@ -1188,6 +1188,9 @@ MSVehicle::workOnMoveReminders(double oldPos, double newPos, double newSpeed) {
 void
 MSVehicle::workOnIdleReminders() {
     updateWaitingTime(0.);   // cf issue 2233
+    if (myEnergyParams != nullptr) {
+        myEnergyParams->setDynamicValues(-1, false, getWaitingTime(), 0.);
+    }
 
     // vehicle move reminders
     for (const auto& rem : myMoveReminders) {
@@ -7535,6 +7538,7 @@ MSVehicle::resumeFromStopping() {
             myState.myPosLat = 0;
         }
         const bool wasWaypoint = stop.getSpeed() > 0;
+        const bool wasParking = isStoppedParking();
         myPastStops.push_back(stop.pars);
         myPastStops.back().routeIndex = (int)(stop.edge - myRoute->begin());
         myStops.pop_front();
@@ -7542,6 +7546,9 @@ MSVehicle::resumeFromStopping() {
         // do not count the stopping time towards gridlock time.
         // Other outputs use an independent counter and are not affected.
         myWaitingTime = 0;
+        if (wasParking && myEnergyParams != nullptr) {
+            myEnergyParams->setDynamicValues(0, false, 0, myEnergyParams->getAngleDiff());
+        }
         myStopSpeed = getCarFollowModel().maxNextSpeed(getSpeed(), this);
         // maybe the next stop is on the same edge; let's rebuild best lanes
         updateBestLanes(true);

@@ -192,7 +192,7 @@ HelpersMMPEVEM::HelpersMMPEVEM()
 double HelpersMMPEVEM::compute(const SUMOEmissionClass c,
                                const PollutantsInterface::EmissionType e, const double v, const double a,
                                const double slope, const EnergyParams* ptr_energyParams) const {
-    if (e != PollutantsInterface::ELEC) {
+    if (e != PollutantsInterface::ELEC || (ptr_energyParams != nullptr && ptr_energyParams->isOff())) {
         return 0.0;
     }
 
