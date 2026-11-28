@@ -2982,8 +2982,13 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
             tmpTLLCont.removeProgram(def->getID(), def->getProgramID(), false);
         }
 
-        myTLSEditorParent->myTLSPhases->initPhaseTable();
-        myTLSEditorParent->myTLSPrograms->markAsModified();
+        if (tllHandler.getSeenIDs().count(myTLSEditorParent->myEditedDef->getID()) != 0) {
+            myTLSEditorParent->myTLSAttributes->setOffset(myTLSEditorParent->myEditedDef->getLogic()->getOffset());
+            myTLSEditorParent->myTLSAttributes->setParameters(myTLSEditorParent->myEditedDef->getParametersStr());
+            myTLSEditorParent->myTLSPhases->initPhaseTable();
+            myTLSEditorParent->myTLSPhases->updateTLSColoring();
+            myTLSEditorParent->myTLSPrograms->markAsModified();
+        }
     }
     myTLSEditorParent->updateModules();
     return 0;
