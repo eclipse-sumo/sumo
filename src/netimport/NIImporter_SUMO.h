@@ -210,6 +210,8 @@ private:
         bool uncontrolled;
         /// @brief Whether this connection is an indirect left turn
         bool indirectLeft;
+        /// @brief Whether this connection is a turnaround
+        bool isTurnaround;
         /// @brief optional edge type
         std::string edgeType;
     };
