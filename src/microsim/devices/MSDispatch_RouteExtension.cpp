@@ -20,8 +20,10 @@
 #include <config.h>
 
 #include <limits>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSVehicleType.h>
 #include <microsim/transportables/MSTransportable.h>
 #include "MSRoutingEngine.h"
 #include "MSDispatch_RouteExtension.h"
@@ -53,6 +55,14 @@ MSDispatch_RouteExtension::findInsertionPoint(std::vector<const Reservation*>::i
 }
 
 
+void
+MSDispatch_RouteExtension::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi*>& fleet) {
+    myReservationRouteSets.clear();
+    MSDispatch_Greedy::computeDispatch(now, fleet);
+    myReservationRouteSets.clear();
+}
+
+
 int
 MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation*>::iterator& resIt, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, std::vector<Reservation*>& reservations) {
     const Reservation* const res = *resIt;
@@ -71,6 +81,9 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation
     const Reservation* last = sequence.back();
     ConstMSEdgeVector route;
     router.compute(first->from, first->fromPos, last->to, last->toPos, &taxi->getHolder(), MAX2(now, first->pickupTime), route);
+    std::unordered_set<const MSEdge*> routeEdges(route.begin(), route.end());
+    const MSVehicleType& vType = taxi->getHolder().getVehicleType();
+    const bool canCacheRoute2 = gWeightsRandomFactor == 1. && !vType.isVehicleSpecific();
     // check whether the ride can be shared
     for (auto it2 = resIt + 1; it2 != reservations.end();) {
         Reservation* const res2 = *it2;
@@ -79,14 +92,29 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation
             it2++;
             continue;
         }
-        // check whether res2 picks up or gets picked up on the way
-        ConstMSEdgeVector route2;
-        // TODO It may be more efficient to check first whether from and to are already in the route
-        router.compute(res2->from, res2->fromPos, res2->to, res2->toPos, &taxi->getHolder(), MAX2(now, res2->pickupTime), route2);
-        const bool pickup = std::find(route.begin(), route.end(), res2->from) != route.end();
-        const bool dropoff = std::find(route.begin(), route.end(), res2->to) != route.end();
-        const bool pickup2 = std::find(route2.begin(), route2.end(), first->from) != route2.end();
-        const bool dropoff2 = std::find(route2.begin(), route2.end(), last->to) != route2.end();
+        // check first whether from and to are already on the current route before computing route2
+        const bool pickup = routeEdges.count(res2->from) != 0;
+        const bool dropoff = routeEdges.count(res2->to) != 0;
+        bool pickup2 = false;
+        bool dropoff2 = false;
+        if (!pickup || !dropoff) {
+            if (canCacheRoute2) {
+                const RouteSetKey key(&vType, taxi->getHolder().getChosenSpeedFactor(), res2);
+                auto cacheIt = myReservationRouteSets.find(key);
+                if (cacheIt == myReservationRouteSets.end()) {
+                    ConstMSEdgeVector route2;
+                    router.compute(res2->from, res2->fromPos, res2->to, res2->toPos, &taxi->getHolder(), MAX2(now, res2->pickupTime), route2);
+                    cacheIt = myReservationRouteSets.emplace(key, std::unordered_set<const MSEdge*>(route2.begin(), route2.end())).first;
+                }
+                pickup2 = cacheIt->second.count(first->from) != 0;
+                dropoff2 = cacheIt->second.count(last->to) != 0;
+            } else {
+                ConstMSEdgeVector route2;
+                router.compute(res2->from, res2->fromPos, res2->to, res2->toPos, &taxi->getHolder(), MAX2(now, res2->pickupTime), route2);
+                pickup2 = std::find(route2.begin(), route2.end(), first->from) != route2.end();
+                dropoff2 = std::find(route2.begin(), route2.end(), last->to) != route2.end();
+            }
+        }
 #ifdef DEBUG_DISPATCH
         if (DEBUG_COND2(person)) std::cout << "  consider sharing ride with " << toString(res2->persons)
                                                << " from=" << res2->from->getID() << ":" << res2->fromPos << " to=" << res2->to->getID() << ":" << res2->toPos
@@ -125,6 +153,8 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation
             last = sequence.back();
             // TODO this is wrong for non linear networks! should be reusing the route snippets from above
             router.compute(first->from, first->fromPos, last->to, last->toPos, &taxi->getHolder(), MAX2(now, first->pickupTime), route);
+            routeEdges.clear();
+            routeEdges.insert(route.begin(), route.end());
         } else {
             it2++;
         }
