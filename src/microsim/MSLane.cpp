@@ -366,7 +366,24 @@ MSLane::addMoveReminder(MSMoveReminder* rem, bool addToVehicles) {
             veh->addReminder(rem);
         }
     }
-    // XXX: Here, the partial occupators are ignored!? Refs. #3255
+}
+
+
+void
+MSLane::addReminderToPartialVehicles(MSMoveReminder* rem) const {
+    for (MSVehicle* const veh : myPartialVehicles) {
+        if (!veh->hasReminder(rem)) {
+            double offset = 0;
+            // Use the same accumulated lane lengths as reminders carried over at junctions.
+            for (const MSLane* const lane : veh->getFurtherLanes()) {
+                offset += lane->getLength();
+                if (lane == this) {
+                    veh->addReminder(rem, offset);
+                    break;
+                }
+            }
+        }
+    }
 }
 
 
@@ -376,6 +393,9 @@ MSLane::removeMoveReminder(MSMoveReminder* rem) {
     if (it != myMoveReminders.end()) {
         myMoveReminders.erase(it);
         for (MSVehicle* const veh : myVehicles) {
+            veh->removeReminder(rem);
+        }
+        for (MSVehicle* const veh : myPartialVehicles) {
             veh->removeReminder(rem);
         }
     }

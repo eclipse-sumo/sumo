@@ -309,6 +309,9 @@ public:
      */
     virtual void addMoveReminder(MSMoveReminder* rem, bool addToVehicles = true);
 
+    /// @brief Attach a reminder to vehicles whose rear still occupies this lane.
+    void addReminderToPartialVehicles(MSMoveReminder* rem) const;
+
 
     /** @brief Remove a move-reminder from move-reminder container
      *
