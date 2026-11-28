@@ -256,6 +256,11 @@ public:
         return (myEndPos - myBegPos) / myParkingFactor;
     }
 
+    /// @brief get list of lines assigned to this stop
+    inline const std::vector<std::string>& getLines() const {
+        return myLines;
+    }
+
     /// @brief get IDs of persons waiting at this stop
     void getWaitingPersonIDs(std::vector<std::string>& into) const;
 
