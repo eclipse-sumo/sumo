@@ -66,6 +66,8 @@ def get_options(args=None):
                   help="add stop with the given probability ]0, 1]")
     op.add_option("--parking-areas", default=False, type=op.additional_file,
                   help="load parkingarea definitions and stop at parkingarea on the arrival edge if possible")
+    op.add_option("--bus-stops", type=op.additional_file,
+                  help="add stops at each matching busStop from the given additional files")
     op.add_option("--start-at-stop", action="store_true",
                   default=False, help="shorten route so it starts at stop")
     op.add_option("--rel-occupancy", type=float,
@@ -88,6 +90,12 @@ def get_options(args=None):
         options.edges = options.edges.split(",")
     if options.parking_areas:
         options.parking_areas = options.parking_areas.split(",")
+    if options.bus_stops:
+        if not options.routefiles or not (options.duration or options.until):
+            op.error("--bus-stops requires --route-files and --duration or --until")
+        if options.parking_areas or options.start_at_stop:
+            op.error("--bus-stops cannot be combined with --parking-areas or --start-at-stop")
+        options.bus_stops = options.bus_stops.split(",")
 
     if not options.routefiles:
         if options.parking_areas:
@@ -174,6 +182,68 @@ def interpretDuration(duration):
         return random.randrange(int(start), int(stop))
     else:
         return duration
+
+
+def loadBusStops(stopFiles, net):
+    byEdge = defaultdict(list)
+    for filename in stopFiles:
+        for stop in sumolib.xml.parse(filename, "busStop"):
+            lane = net.getLane(stop.lane)
+            length = lane.getLength()
+            endPos = float(stop.getAttributeSecure("endPos", length))
+            if endPos < 0:
+                endPos += length
+            byEdge[lane.getEdge().getID()].append((endPos, stop.id))
+    return {edge: [stopID for _, stopID in sorted(stops)] for edge, stops in byEdge.items()}
+
+
+def addBusStops(options, route, target, stopsByEdge):
+    seen = {stop.getAttributeSecure("busStop") for obj in (route, target) if obj.hasChild("stop")
+            for stop in obj.getChild("stop")}
+    for edge in route.getAttributeSecure("edges", "").split():
+        for stopID in stopsByEdge.get(edge, ()):
+            if stopID not in seen:
+                attrs = {"busStop": stopID, "index": "fit"}
+                if options.duration:
+                    attrs["duration"] = interpretDuration(options.duration)
+                if options.until:
+                    attrs["until"] = interpretDuration(options.until)
+                target.addChild("stop", attrs=attrs)
+                seen.add(stopID)
+
+
+def writeBusStopRoutes(options, outf):
+    net = sumolib.net.readNet(options.netfile)
+    stopsByEdge = loadBusStops(options.bus_stops, net)
+    # Insert new stops after vehicle-specific stops so native "fit" can order them together.
+    localStops = {obj.route for path in options.routefiles
+                  for obj in sumolib.xml.parse(path, ("vehicle", "flow"))
+                  if obj.hasAttribute("route") and obj.hasChild("stop")}
+    shared = {}
+    if localStops:
+        shared = {route.id: route for path in options.routefiles for route in sumolib.xml.parse(path, "route")
+                  if route.getAttributeSecure("id") in localStops and route.hasAttribute("edges")}
+
+    def process(obj):
+        if obj.name == "route":
+            if obj.getAttributeSecure("id") not in shared:
+                addBusStops(options, obj, obj, stopsByEdge)
+        elif obj.name in ("vehicle", "flow"):
+            ref = obj.getAttributeSecure("route")
+            if ref in shared:
+                addBusStops(options, shared[ref], obj, stopsByEdge)
+            if obj.hasChild("route"):
+                route = obj.getChild("route")[0]
+                target = obj if obj.hasChild("stop") else route
+                addBusStops(options, route, target, stopsByEdge)
+        for child in obj.getChildList():
+            if child.name == "routeDistribution" or (obj.name == "routeDistribution" and child.name == "route"):
+                process(child)
+
+    for path in options.routefiles:
+        for obj in sumolib.xml.parse(path):
+            process(obj)
+            outf.write(obj.toXML(' ' * 4, withComments=True))
 
 
 def loadRouteFiles(options, routefile, edge2parking, outf):
@@ -352,7 +422,9 @@ def main(options):
     # with open(options.outfile, 'w', encoding="utf8") as outf:
     with open(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
-        if options.routefiles:
+        if options.bus_stops:
+            writeBusStopRoutes(options, outf)
+        elif options.routefiles:
             loadRouteFiles(options, options.routefiles, edge2parking, outf)
         else:
             generateStationary(options, edge2parking, outf)

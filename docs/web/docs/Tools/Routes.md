@@ -407,6 +407,14 @@ The following options can be used to randomize the added stops:
 - **--relpos random**: Adds stop on random offset along the edge
 - **--lane random**: Adds stop on random (permitted) lane of the stop edge
 
+## Use existing bus stops
+
+Use `--bus-stops` with an additional file that defines the bus stops. The tool matches stop lanes to the edges of explicit routes and adds each matching stop once in travel order. Existing stops keep their parameters. Load the same additional file when running SUMO.
+
+```bash
+python tools/route/addStops2Routes.py -n city.net.xml -r bus.rou.xml --bus-stops stops.add.xml --duration 15 -o bus-with-stops.rou.xml
+```
+
 ## Stationary traffic
 
 Instead of modifying a given route file by adding stops, the tool can also synthesize vehicles to fill up a given list of parkingAreas. This requires the option **--parking-areas FILE** to be set. The generated vehicles will have a stop with the configured duration/until time and leave the simulation after stopping.

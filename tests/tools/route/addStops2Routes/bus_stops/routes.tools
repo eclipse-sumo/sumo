@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23 16:52:11.407492 by Eclipse SUMO addStops2Routes.py v1_28_0+0779-4908f7ff12f
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="out.rou.xml"/>
+    <duration value="10"/>
+    <bus-stops value="input_additional.add.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <route id="shared" edges="start end"/>
+    <route id="plain" edges="start end">
+        <stop busStop="early" duration="10" index="fit"/>
+        <stop busStop="existing" duration="10" index="fit"/>
+        <stop busStop="late" duration="10" index="fit"/>
+        <stop busStop="end" duration="10" index="fit"/>
+    </route>
+    <vehicle id="named" type="bus" route="shared" depart="0">
+        <stop busStop="existing" duration="4"/>
+        <stop busStop="early" duration="10" index="fit"/>
+        <stop busStop="late" duration="10" index="fit"/>
+        <stop busStop="end" duration="10" index="fit"/>
+    </vehicle>
+    <vehicle id="namedWithoutStops" type="bus" route="shared" depart="50">
+        <stop busStop="early" duration="10" index="fit"/>
+        <stop busStop="existing" duration="10" index="fit"/>
+        <stop busStop="late" duration="10" index="fit"/>
+        <stop busStop="end" duration="10" index="fit"/>
+    </vehicle>
+    <vehicle id="simple" type="bus" route="plain" depart="100"/>
+    <vehicle id="inline" type="bus" depart="150">
+        <route edges="start end"/>
+        <stop busStop="existing" duration="6"/>
+        <stop busStop="early" duration="10" index="fit"/>
+        <stop busStop="late" duration="10" index="fit"/>
+        <stop busStop="end" duration="10" index="fit"/>
+    </vehicle>
+</routes>

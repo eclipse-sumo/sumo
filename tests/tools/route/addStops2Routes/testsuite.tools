@@ -68,3 +68,6 @@ stationary_noRoutes
 
 # tests for adding stops with a given length
 length
+
+# insert existing bus stops along shared and inline routes
+bus_stops
