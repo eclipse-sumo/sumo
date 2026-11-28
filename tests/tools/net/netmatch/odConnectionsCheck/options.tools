@@ -1,0 +1,1 @@
+{CLEAR} -n input_net.net.xml -d input_districts.xml -m input_mtx0708.fma -o output_data.txt -v tools/net/odConnectionsCheck.py

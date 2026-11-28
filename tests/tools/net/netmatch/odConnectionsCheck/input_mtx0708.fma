@@ -1,0 +1,15 @@
+$VM
+* vehicle type
+4
+* From-Time To-Time
+0.00 1.00
+* Factor
+1.00
+* District number
+3
+* names
+1 2 3
+* rows
+0 50 25
+0 0 0
+10 0 0

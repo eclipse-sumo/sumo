@@ -1,0 +1,11 @@
+3 edges read
+3 start vertices read
+3 target vertices read
+checking start vertex 1
+no connection to 3
+checking start vertex 2
+checking start vertex 3
+no connection to 1
+total OD connections: 3
+2 connections are absent!
+35.0 vehicles are absent.
