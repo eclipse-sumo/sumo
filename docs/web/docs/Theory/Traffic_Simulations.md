@@ -59,3 +59,7 @@ research as *user assignment*. For solving this, several approaches are
 available and SUMO uses the *dynamic user assignment* (DUA) approach
 developed by Christian Gawron (see
 [Gawron1998_1](../Publications.md#publications_using_sumo)).
+
+## Aligning Mesoscopic and Microscopic Simulations
+
+[Mesoscopic simulation](../Simulation/Meso.md) models road segments as discrete vehicle queues and therefore abstracts intra-lane car-following, continuous lane-changing, and internal-lane junction trajectories. Consequently, tuning longitudinal headway parameters (`--meso-tauff`, `--meso-taufj`, `--meso-taujf`, and `--meso-taujj`) alone is insufficient on urban and signalized networks. Effective calibration requires enabling **--meso-junction-control** (or **--meso-junction-control.limited**) on priority intersections, tuning **--meso-tls-penalty** and **--meso-tls-flow-penalty** at signalized intersections, activating **--meso-overtaking** on multi-lane corridors with heterogeneous speeds, and enabling **--meso-lane-queue** where turn-specific lane queues govern capacity. Because mesoscopic and microscopic models represent intersection clearance and weaving dynamics differently, parameter sets calibrated to match vehicle counts and space-mean speeds under one demand level require re-validation when demand patterns change.
