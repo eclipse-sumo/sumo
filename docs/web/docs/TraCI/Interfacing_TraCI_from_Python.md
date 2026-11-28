@@ -468,6 +468,31 @@ while traci.simulation.getMinExpectedNumber() > 0:
 traci.close()
 ```
 
+### Track per-lane travel times and vehicle trajectories
+
+TraCI does not store historical per-lane residence times on vehicles, so exact lane travel times and trajectories are collected step-by-step by comparing `traci.lane.getLastStepVehicleIDs` across consecutive simulation steps:
+
+```python
+lane_id = "E0_0"
+enter_time = {}
+prev_vehs = set()
+trajectories = {}
+dt = traci.simulation.getDeltaT()
+
+while traci.simulation.getMinExpectedNumber() > 0:
+    traci.simulationStep()
+    t = traci.simulation.getTime()
+    curr_vehs = set(traci.lane.getLastStepVehicleIDs(lane_id))
+    for veh_id in curr_vehs.difference(prev_vehs):
+        enter_time[veh_id] = t-dt
+    for veh_id in prev_vehs.difference(curr_vehs):
+        travel_time = t-enter_time.pop(veh_id)
+        print(veh_id, lane_id, travel_time)
+    for veh_id in curr_vehs:
+        trajectories.setdefault(veh_id, []).append((t, traci.vehicle.getPosition(veh_id)))
+    prev_vehs = curr_vehs
+```
+
 ### Handling Exceptions
 
 Sometimes commands raise an (recoverable) exception to indicate an error (unknown id, route not found etc.). These exceptions
