@@ -63,6 +63,20 @@ So an example of a SUMO edge type file is:
 </types>
 ```
 
+### Mesoscopic Parameters (`<meso>`)
+
+When loading `<types>` into [sumo](sumo.md) via **--additional-files** for a [mesoscopic simulation](Simulation/Meso.md#configuration_by_edge_type) (**--mesosim**), each `<type>` element may contain a `<meso>` child element (`types_file.xsd`) that overrides global `--meso-*` parameters (`tauff`, `taufj`, `taujf`, `taujj`, `jamThreshold`, `junctionControl`, `tlsPenalty`, `tlsFlowPenalty`, `minorPenalty`, `overtaking`, `edgeLength`, and `lookahead`) for all edges of that road type:
+
+```xml
+<additional>
+    <type id="highway.motorway">
+        <meso tauff="1.13" taufj="1.13" taujf="1.73" taujj="1.40" overtaking="true"/>
+    </type>
+</additional>
+```
+
+Mesoscopic segment headways (`tauff`, `taufj`, `taujf`, and `taujj`) are fixed when the network and edge types load and cannot be modified dynamically at runtime via TraCI or [Libsumo](Libsumo.md).
+
 ## Templates for OpenStreetMap
 
 The SUMO edge type file defines default values for some tags, which are
