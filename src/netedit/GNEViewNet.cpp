@@ -259,6 +259,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_BEGIN,               GNEViewNet::onCmdIntervalBarSetBegin),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_END,                 GNEViewNet::onCmdIntervalBarSetEnd),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_PARAMETER,           GNEViewNet::onCmdIntervalBarSetParameter),
+    // EdgeData
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEDATA_CHANGE_AREA,            GNEViewNet::onCmdChangeEdgeDataArea),
 };
 
 // Object implementation
@@ -3418,6 +3420,15 @@ GNEViewNet::onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*) {
     if (addtional && addtional->getTagProperty()->hasDialog()) {
         addtional->openAdditionalDialog(this);
     }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdChangeEdgeDataArea(FXObject*, FXSelector, void*) {
+    const Position popupPos = getPopupPosition();
+    destroyPopup();
+    myViewParent->getEdgeDataFrame()->openAreaDialog(popupPos);
     return 1;
 }
 

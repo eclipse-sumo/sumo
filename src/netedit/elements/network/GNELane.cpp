@@ -516,6 +516,13 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     }
     // stop if we're in data mode
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+        if (myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_EDGEDATA) {
+            new FXMenuSeparator(ret);
+            FXMenuCommand* changeArea = GUIDesigns::buildFXMenuCommand(ret, TL("Change edgeData values in area..."), GUIIconSubSys::getIcon(GUIIcon::EDGEDATA), &parent, MID_GNE_EDGEDATA_CHANGE_AREA);
+            if (myNet->getAttributeCarriers()->getDataIntervals().empty()) {
+                changeArea->disable();
+            }
+        }
         return ret;
     }
     // build lane selection
