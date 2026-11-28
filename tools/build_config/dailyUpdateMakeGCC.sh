@@ -52,7 +52,7 @@ fi
 GITREV=`tools/build_config/version.py -`
 date >> $MAKELOG
 mkdir -p wheelhouse build/$FILEPREFIX && cd build/$FILEPREFIX
-cmake ${CONFIGURE_OPT:5} -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. >> $MAKELOG 2>&1 || (echo "cmake failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+cmake ${CONFIGURE_OPT:5} -DENABLE_MAVEN_PACKAGING=ON -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. >> $MAKELOG 2>&1 || (echo "cmake failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 if make -j32 >> $MAKELOG 2>&1; then
   date >> $MAKELOG
   make lisum >> $MAKELOG 2>&1
@@ -123,7 +123,7 @@ basename $MAKEALLLOG >> $STATUSLOG
 export CXXFLAGS="$CXXFLAGS -Wall -W -pedantic -Wno-long-long -Wformat -Wformat-security"
 rm -rf build/debug-$FILEPREFIX
 mkdir build/debug-$FILEPREFIX && cd build/debug-$FILEPREFIX
-cmake ${CONFIGURE_OPT:5} -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. > $MAKEALLLOG 2>&1 || (echo "cmake debug failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
+cmake ${CONFIGURE_OPT:5} -DENABLE_MAVEN_PACKAGING=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. > $MAKEALLLOG 2>&1 || (echo "cmake debug failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
 if make -j32 >> $MAKEALLLOG 2>&1; then
   make install >> $MAKEALLLOG 2>&1 || (echo "make install with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
 else

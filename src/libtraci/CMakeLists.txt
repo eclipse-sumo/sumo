@@ -89,17 +89,24 @@ if (SWIG_FOUND)
                 target_link_libraries(libtracijni libtracistatic ${libtcpip})
             endif()
             if (MVN_EXECUTABLE)
-                ADD_CUSTOM_COMMAND(TARGET libtracijni POST_BUILD
+                set(MAVEN_PACKAGE_STAMP "libtraci-jar-$<CONFIG>.stamp")
+                add_custom_command(OUTPUT "${MAVEN_PACKAGE_STAMP}"
                     COMMAND ${Python_EXECUTABLE} ${SUMO_TOOLS_DIR}/traci/rebuildConstants.py -o java/Constants.java -j org.eclipse.sumo.libtraci.Constants
                     COMMAND ${CMAKE_COMMAND} -E ${remove_command} src/main/java/org/eclipse/sumo/libtraci
                     COMMAND ${CMAKE_COMMAND} -E make_directory src/main/java/org/eclipse/sumo/libtraci
                     COMMAND ${CMAKE_COMMAND} -E copy_directory java src/main/java/org/eclipse/sumo/libtraci
                     COMMAND ${Python_EXECUTABLE} ${SUMO_TOOLS_DIR}/build_config/pom.py libtraci $<TARGET_FILE_DIR:libtracijni>
                     COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} ${MVN_OPTS} --batch-mode package source:jar
+                    COMMAND ${CMAKE_COMMAND} -E touch "${MAVEN_PACKAGE_STAMP}"
+                    DEPENDS libtracijni
+                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+                    VERBATIM
                 )
+                add_custom_target(libtraci-jar ${MAVEN_PACKAGE_ALL} DEPENDS "${MAVEN_PACKAGE_STAMP}")
+                set_target_properties(libtraci-jar PROPERTIES FOLDER "java")
                 # this dependency avoids concurrent maven access to the repo
-                add_dependencies(libtracijni libsumojni)
-            else()
+                add_dependencies(libtraci-jar libsumo-jar)
+            elseif(ENABLE_MAVEN_PACKAGING)
                 message(WARNING "Could not build libtraci jar, maven was not found.")
             endif()
             set_target_properties(libtracijni PROPERTIES FOLDER "libtraci")

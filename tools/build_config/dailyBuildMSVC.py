@@ -110,6 +110,7 @@ def runTests(options, env, gitrev, debugSuffix=""):
 def generateCMake(generator, platform, checkOptionalLibs, python):
     buildDir = os.path.join(SUMO_HOME, "build", "cmake-build-" + platform)
     cmakeOpt = ["-DCMAKE_CXX_FLAGS_INIT=/DMSVC_TEST_SERVER",
+                "-DENABLE_MAVEN_PACKAGING=ON",
                 "-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
     if python:
         cmakeOpt += ["-DPYTHON_EXECUTABLE=%s" % python]

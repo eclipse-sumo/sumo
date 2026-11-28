@@ -126,15 +126,22 @@ if (SWIG_FOUND)
             endif()
             target_link_libraries(libsumojni ${sumo_link_libraries})
             if (MVN_EXECUTABLE)
-                ADD_CUSTOM_COMMAND(TARGET libsumojni POST_BUILD
+                set(MAVEN_PACKAGE_STAMP "libsumo-jar-$<CONFIG>.stamp")
+                add_custom_command(OUTPUT "${MAVEN_PACKAGE_STAMP}"
                     COMMAND ${Python_EXECUTABLE} ${SUMO_TOOLS_DIR}/traci/rebuildConstants.py -o java/Constants.java -j org.eclipse.sumo.libsumo.Constants
                     COMMAND ${CMAKE_COMMAND} -E ${remove_command} src/main/java/org/eclipse/sumo/libsumo
                     COMMAND ${CMAKE_COMMAND} -E make_directory src/main/java/org/eclipse/sumo/libsumo
                     COMMAND ${CMAKE_COMMAND} -E copy_directory java src/main/java/org/eclipse/sumo/libsumo
                     COMMAND ${Python_EXECUTABLE} ${SUMO_TOOLS_DIR}/build_config/pom.py libsumo $<TARGET_FILE_DIR:libsumojni>
                     COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} ${MVN_OPTS} --batch-mode package source:jar
+                    COMMAND ${CMAKE_COMMAND} -E touch "${MAVEN_PACKAGE_STAMP}"
+                    DEPENDS libsumojni
+                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+                    VERBATIM
                 )
-            else()
+                add_custom_target(libsumo-jar ${MAVEN_PACKAGE_ALL} DEPENDS "${MAVEN_PACKAGE_STAMP}")
+                set_target_properties(libsumo-jar PROPERTIES FOLDER "java")
+            elseif(ENABLE_MAVEN_PACKAGING)
                 message(WARNING "Could not build libsumo jar, maven was not found.")
             endif()
             set_target_properties(libsumojni PROPERTIES FOLDER "libsumo")
