@@ -22,6 +22,7 @@
 
 #include <iostream>
 #include <cassert>
+#include <algorithm>
 #include <cmath>
 #include <limits>
 #include <utils/common/StdDefs.h>
@@ -70,6 +71,67 @@ MEVehicle::MEVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
 double
 MEVehicle::getBackPositionOnLane(const MSLane* /* lane */) const {
     return getPositionOnLane() - getVehicleType().getLength();
+}
+
+
+std::pair<const MSBaseVehicle* const, double>
+MEVehicle::getLeaderBase(double dist, bool /* considerCrossingFoes */) const {
+    if (mySegment == nullptr || myQueIndex < 0) {
+        return std::make_pair(static_cast<const MSBaseVehicle*>(nullptr), -1);
+    }
+    const double minGap = getVehicleType().getMinGap();
+    if (dist == 0) {
+        dist = getVehicleType().getCarFollowModel().brakeGap(getSpeed()) + minGap;
+    }
+    const double pos = getPositionOnLane();
+    // leader in the same queue (the vehicle at the back of the queue leaves first)
+    const std::vector<MEVehicle*>& queue = mySegment->getQueue(myQueIndex);
+    const auto it = std::find(queue.begin(), queue.end(), this);
+    if (it != queue.end() && it + 1 != queue.end()) {
+        const MEVehicle* const lead = *(it + 1);
+        return std::make_pair(static_cast<const MSBaseVehicle*>(lead), MAX2(0.0, lead->getBackPositionOnLane(nullptr) - pos - minGap));
+    }
+    // rearmost vehicle of the following segments, starting with the rest of the current edge
+    double offset = -pos; // distance from the vehicle's front to the start of the examined edge
+    const MESegment* seg = mySegment->getNextSegment();
+    MSRouteIterator routeIt = getCurrentRouteEdge();
+    bool sameEdge = true;
+    while (true) {
+        if (seg == nullptr) {
+            offset += (*routeIt)->getLength();
+            ++routeIt;
+            if (routeIt == getRoute().end()) {
+                break;
+            }
+            seg = MSGlobals::gMesoNet->getSegmentForEdge(**routeIt);
+            sameEdge = false;
+            if (seg == nullptr) {
+                break;
+            }
+        }
+        const double segStart = offset + seg->getIndex() * seg->getLength();
+        if (segStart > dist) {
+            break;
+        }
+        const MEVehicle* lead = nullptr;
+        double leadPos = std::numeric_limits<double>::max();
+        for (int q = 0; q < seg->numQueues(); q++) {
+            if (sameEdge && q != myQueIndex && myQueIndex < seg->numQueues()) {
+                continue;
+            }
+            const std::vector<MEVehicle*>& vehs = seg->getQueue(q);
+            if (!vehs.empty() && vehs.front()->getBackPositionOnLane(nullptr) < leadPos) {
+                lead = vehs.front();
+                leadPos = lead->getBackPositionOnLane(nullptr);
+            }
+        }
+        if (lead != nullptr) {
+            const double gap = offset + leadPos - minGap;
+            return std::make_pair(static_cast<const MSBaseVehicle*>(lead), MAX2(0.0, gap));
+        }
+        seg = seg->getNextSegment();
+    }
+    return std::make_pair(static_cast<const MSBaseVehicle*>(nullptr), -1);
 }
 
 

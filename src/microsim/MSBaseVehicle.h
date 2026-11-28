@@ -994,18 +994,17 @@ public:
     const MSEdgeWeightsStorage& getWeightsStorage() const;
     MSEdgeWeightsStorage& getWeightsStorage();
 
-    /** @brief Returns the leader of the vehicle looking for a fixed distance.
+    /** @brief Returns the leader of the vehicle looking for a fixed distance (microscopic and mesoscopic).
      *
      * If the distance is not given it is calculated from the brake gap.
-     * The gap returned does not include the minGap.
+     * The gap is measured from the vehicle's front to the leader's back and reduced by the vehicle's minGap.
      * @param dist    up to which distance to look at least for a leader
-     * @param considerCrossingFoes Whether vehicles on crossing foe links should be considered
+     * @param considerCrossingFoes Whether vehicles on crossing foe links should be considered (microscopic only)
      * @return The leading vehicle together with the gap; (0, -1) if no leader was found.
      */
-    virtual std::pair<const MSVehicle* const, double> getLeader(double dist = 0, bool considerCrossingFoes = true) const {
+    virtual std::pair<const MSBaseVehicle* const, double> getLeaderBase(double dist = 0, bool considerCrossingFoes = true) const {
         UNUSED_PARAMETER(dist);
         UNUSED_PARAMETER(considerCrossingFoes);
-        WRITE_WARNING(TL("getLeader not yet implemented for meso"));
         return std::make_pair(nullptr, -1);
     }
 

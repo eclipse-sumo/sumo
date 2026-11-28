@@ -1078,6 +1078,11 @@ public:
      */
     std::pair<const MSVehicle* const, double> getLeader(double dist = 0, bool considerFoes = true) const;
 
+    /// @brief MSBaseVehicle interface for getLeader
+    std::pair<const MSBaseVehicle* const, double> getLeaderBase(double dist = 0, bool considerCrossingFoes = true) const override {
+        return getLeader(dist, considerCrossingFoes);
+    }
+
     /** @brief Returns the follower of the vehicle looking for a fixed distance.
      *
      * If the distance is not given it is set to the value of MSCFModel::brakeGap(2*roadSpeed, 4.5, 0)

@@ -63,6 +63,20 @@ public:
      */
     double getBackPositionOnLane(const MSLane* lane) const;
 
+    /** @brief Returns the leader of the vehicle (mesoscopic estimate)
+     *
+     * The leader is the next vehicle ahead in the vehicle's queue of the current segment.
+     * If there is none, it is the rearmost vehicle of the next non-empty segment along the route
+     * (same queue on the same edge, any queue on subsequent edges) that starts within dist.
+     * Positions are the mesoscopic position estimates (see MEVehicle::getPositionOnLane).
+     * The gap is leader back position minus own position minus minGap, but not below 0 because
+     * the estimates cannot resolve overlaps within a queue.
+     * Lane changes, junction foes and the lane level are not modelled.
+     * @param[in] dist up to which distance to look for a leader (0: brakeGap(speed) + minGap)
+     * @return The leader and the gap; (nullptr, -1) if none was found
+     */
+    std::pair<const MSBaseVehicle* const, double> getLeaderBase(double dist = 0, bool considerCrossingFoes = true) const override;
+
 
     /** @brief Returns the vehicle's direction in degrees
      * @return The vehicle's current angle
