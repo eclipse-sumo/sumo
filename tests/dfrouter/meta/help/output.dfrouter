@@ -70,8 +70,8 @@ Output Options:
                                         output
 
 Processing Options:
-  --guess-empty-flows                  Derive missing flow values from upstream
-                                        or downstream (not working!)
+  --guess-empty-flows                  Estimate unmeasured detector flows from
+                                        adjacent detectors
   -h, --highway-mode                   Switches to highway-mode
   --ignore-invalid-detectors           Only warn about unparseable detectors
   --revalidate-detectors               Recomputes detector types even if given

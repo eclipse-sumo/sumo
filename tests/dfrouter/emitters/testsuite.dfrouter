@@ -37,6 +37,9 @@ tri_scaling_completely_emissions_only
 # not all legs are covered with measurements but the information is sufficient to reconstruct flows
 tri_incomplete_but_sufficient
 
+# infer an unmeasured source detector from its measured follower
+guess_empty_flows
+
 # (user) errors on emitter usage
 errors
 routes_for_all

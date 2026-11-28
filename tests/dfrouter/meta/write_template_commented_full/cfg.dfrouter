@@ -111,7 +111,7 @@
     </output>
 
     <processing>
-        <!-- Derive missing flow values from upstream or downstream (not working!) -->
+        <!-- Estimate unmeasured detector flows from adjacent detectors -->
         <guess-empty-flows value="false" type="BOOL"/>
 
         <!-- Switches to highway-mode -->

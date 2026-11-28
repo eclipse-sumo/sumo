@@ -895,46 +895,65 @@ RODFDetectorCon::removeDetector(const std::string& id) {
 
 
 void
-RODFDetectorCon::guessEmptyFlows(RODFDetectorFlows& flows) {
-    // routes must be built (we have ensured this in main)
-    // detector followers/prior must be build (we have ensured this in main)
-    //
-    for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
-        RODFDetector* det = *i;
-        const std::set<const RODFDetector*>& prior = det->getPriorDetectors();
-        const std::set<const RODFDetector*>& follower = det->getFollowerDetectors();
-        int noFollowerWithRoutes = 0;
-        int noPriorWithRoutes = 0;
-        // count occurrences of detectors with/without routes
-        std::set<const RODFDetector*>::const_iterator j;
-        for (j = prior.begin(); j != prior.end(); ++j) {
-            if (flows.knows((*j)->getID())) {
-                ++noPriorWithRoutes;
+RODFDetectorCon::guessEmptyFlows(RODFDetectorFlows& flows, SUMOTime begin, SUMOTime step) {
+    // Use measurements only and keep existing measurements, including zero counts.
+    std::map<std::string, std::vector<const std::vector<FlowDef>*> > measuredNeighbors;
+    for (const RODFDetector* detector : myDetectors) {
+        if (flows.knows(detector->getID()) || myDetectorEdgeMap.at(detector->getEdgeID()).size() != 1) {
+            continue;
+        }
+
+        const auto usable = [&](const std::set<const RODFDetector*>& neighbors, bool upstream) {
+            return !neighbors.empty() && std::all_of(neighbors.begin(), neighbors.end(), [&](const RODFDetector* neighbor) {
+                const auto& reverse = upstream ? neighbor->getFollowerDetectors() : neighbor->getPriorDetectors();
+                return reverse.size() == 1 && *reverse.begin() == detector && flows.knows(neighbor->getID())
+                       && myDetectorEdgeMap.at(neighbor->getEdgeID()).size() == 1;
+            });
+        };
+        const auto* neighbors = &detector->getPriorDetectors();
+        if (!usable(*neighbors, true)) {
+            neighbors = &detector->getFollowerDetectors();
+            if (!usable(*neighbors, false)) {
+                continue;
             }
         }
-        for (j = follower.begin(); j != follower.end(); ++j) {
-            if (flows.knows((*j)->getID())) {
-                ++noFollowerWithRoutes;
+
+        // Sort by ID to sum the measured values in a reproducible order.
+        std::vector<const RODFDetector*> ordered(neighbors->begin(), neighbors->end());
+        std::sort(ordered.begin(), ordered.end(), ComparatorIdLess());
+        auto& measured = measuredNeighbors[detector->getID()];
+        for (const RODFDetector* neighbor : ordered) {
+            measured.push_back(&flows.getFlowDefs(neighbor->getID()));
+        }
+    }
+    for (const auto& candidate : measuredNeighbors) {
+        const auto& measured = candidate.second;
+        SUMOTime time = begin;
+        for (size_t index = 0; index < measured.front()->size(); ++index, time += step) {
+            FlowDef sum{};
+            double passengerSpeedWeight = 0;
+            double truckSpeedWeight = 0;
+            for (const auto* intervals : measured) {
+                const FlowDef& flow = (*intervals)[index];
+                sum.qPKW += flow.qPKW;
+                sum.qLKW += flow.qLKW;
+                if (flow.vPKW > 0 && flow.vPKW <= 250) {
+                    sum.vPKW += flow.vPKW * flow.qPKW;
+                    passengerSpeedWeight += flow.qPKW;
+                }
+                if (flow.vLKW > 0 && flow.vLKW <= 250) {
+                    sum.vLKW += flow.vLKW * flow.qLKW;
+                    truckSpeedWeight += flow.qLKW;
+                }
             }
+            if (passengerSpeedWeight > 0) {
+                sum.vPKW /= passengerSpeedWeight;
+            }
+            if (truckSpeedWeight > 0) {
+                sum.vLKW /= truckSpeedWeight;
+            }
+            flows.addFlow(candidate.first, time, sum);
         }
-
-        // do not process detectors which have no routes
-        if (!flows.knows(det->getID())) {
-            continue;
-        }
-
-        // plain case: all of the prior detectors have routes
-        if (noPriorWithRoutes == (int)prior.size()) {
-            // the number of vehicles is the sum of all vehicles on prior
-            continue;
-        }
-
-        // plain case: all of the follower detectors have routes
-        if (noFollowerWithRoutes == (int)follower.size()) {
-            // the number of vehicles is the sum of all vehicles on follower
-            continue;
-        }
-
     }
 }
 

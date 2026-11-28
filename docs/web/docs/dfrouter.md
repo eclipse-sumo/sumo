@@ -89,7 +89,7 @@ Applications\#Configuration Files](Basics/Using_the_Command_Line_Applications.md
 
 | Option | Description |
 |--------|-------------|
-| **--guess-empty-flows** {{DT_BOOL}} | Derive missing flow values from upstream or downstream (not working!); *default:* **false** |
+| **--guess-empty-flows** {{DT_BOOL}} | Estimate unmeasured detector flows from adjacent detectors; *default:* **false** |
 | **-h** {{DT_BOOL}}<br> **--highway-mode** {{DT_BOOL}} | Switches to highway-mode; *default:* **false** |
 | **--ignore-invalid-detectors** {{DT_BOOL}} | Only warn about unparseable detectors; *default:* **false** |
 | **--revalidate-detectors** {{DT_BOOL}} | Recomputes detector types even if given; *default:* **false** |
@@ -125,6 +125,8 @@ Applications\#Configuration Files](Basics/Using_the_Command_Line_Applications.md
 | **--arrivalpos** {{DT_STR}} | Assigns a default arrival position |
 | **--arrivalspeed** {{DT_STR}} | Assigns a default arrival speed |
 | **--speeddev** {{DT_FLOAT}} | The default speed deviation of vehicles; *default:* **0.1** |
+
+When enabled, **--guess-empty-flows** estimates flow for detectors without measurements. DFROUTER first looks upstream along the computed routes. It uses the upstream detectors if all of them have measurements and each leads exclusively to the detector being estimated. Otherwise, it looks downstream for measured detectors that receive traffic exclusively from that detector. It sums counts and averages speeds by vehicle count within each time interval. Detectors on edges with multiple detectors are excluded from the estimate because the route dependencies are defined by edge. Explicit zero counts are retained.
 
 ### Time
 

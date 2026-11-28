@@ -173,15 +173,15 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
         detectors.saveRoutes(oc.getString("routes-output"));
     }
 
-    // guess flows if wished
-    if (oc.getBool("guess-empty-flows")) {
-        optNet->buildDetectorDependencies(detectors);
-        detectors.guessEmptyFlows(flows);
-    }
-
     const SUMOTime begin = string2time(oc.getString("begin"));
     const SUMOTime end = string2time(oc.getString("end"));
     const SUMOTime step = string2time(oc.getString("time-step"));
+
+    // guess flows if wished
+    if (oc.getBool("guess-empty-flows")) {
+        optNet->buildDetectorDependencies(detectors);
+        detectors.guessEmptyFlows(flows, begin, step);
+    }
 
     // save emitters if wished
     if (oc.isSet("emitters-output") || oc.isSet("emitters-poi-output")) {

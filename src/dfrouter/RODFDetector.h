@@ -253,7 +253,7 @@ public:
     int getAggFlowFor(const ROEdge* edge, SUMOTime time, SUMOTime period,
                       const RODFDetectorFlows& flows) const;
 
-    void guessEmptyFlows(RODFDetectorFlows& flows);
+    void guessEmptyFlows(RODFDetectorFlows& flows, SUMOTime begin, SUMOTime step);
 
     void mesoJoin(const std::string& nid, const std::vector<std::string>& oldids);
 

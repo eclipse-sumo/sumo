@@ -1018,16 +1018,17 @@ RODFNet::buildDetectorDependencies(RODFDetectorCon& detectors) {
             continue;
         }
         // mark current detectors
-        std::vector<RODFDetector*> last;
+        std::vector<RODFDetector*> first;
         {
             const std::vector<std::string>& detNames = myDetectorsOnEdges.find((*i).second)->second;
             for (std::vector<std::string>::const_iterator j = detNames.begin(); j != detNames.end(); ++j) {
-                last.push_back(&detectors.getModifiableDetector(*j));
+                first.push_back(&detectors.getModifiableDetector(*j));
             }
         }
         // iterate over the current detector's routes
         const std::vector<RODFRouteDesc>& routes = det.getRouteVector();
         for (std::vector<RODFRouteDesc>::const_iterator j = routes.begin(); j != routes.end(); ++j) {
+            auto last = first;
             const ROEdgeVector& edges2Pass = (*j).edges2Pass;
             for (ROEdgeVector::const_iterator k = edges2Pass.begin() + 1; k != edges2Pass.end(); ++k) {
                 if (myDetectorsOnEdges.find(*k) != myDetectorsOnEdges.end()) {
