@@ -139,6 +139,9 @@ public:
         /// @brief pointer to connectorFrame parent
         GNEConnectorFrame* myConnectorFrameParent;
 
+        /// @brief Checkbox for excluding sidewalks from dead-start and dead-end selections
+        FXCheckButton* myExcludeSidewalks;
+
         /// @brief "Select Dead Ends" button
         FXButton* mySelectDeadEndsButton;
 

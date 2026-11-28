@@ -83,6 +83,10 @@ Creating two more connections.
 ![](../images/GNEConnections7.png)
 Removing all connections.
 
+### Selecting dead starts and ends
+
+In **Operations**, enable **Exclude sidewalks** to skip pedestrian-only lanes when selecting dead starts or dead ends.
+
 ## Prohibitions
 
 This mode shows right of way-rules for any selected connection using a color code. To select another connection, cancel the current one with <ESC\>.

@@ -161,6 +161,10 @@ GNEConnectorFrame::ConnectionOperations::ConnectionOperations(GNEConnectorFrame*
     GNEGroupBoxModule(connectorFrameParent, TL("Operations")),
     myConnectorFrameParent(connectorFrameParent) {
 
+    myExcludeSidewalks = GUIDesigns::buildFXCheckButton(getCollapsableFrame(), TL("Exclude sidewalks"), "",
+                         TL("Exclude pedestrian-only lanes when selecting dead starts and dead ends"),
+                         nullptr, 0, GUIDesignCheckButton);
+
     // Create "Select Dead Ends" button
     mySelectDeadEndsButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Select Dead Ends"), "", TL("Selects all lanes that have no outgoing connection (clears previous selection)"),
                              0, this, MID_GNE_CONNECTORFRAME_SELECTDEADENDS, GUIDesignButton);
@@ -189,10 +193,12 @@ long
 GNEConnectorFrame::ConnectionOperations::onCmdSelectDeadEnds(FXObject*, FXSelector, void*) {
     // select all lanes that have no successor lane
     std::vector<GNEAttributeCarrier*> deadEnds;
+    const bool excludeSidewalks = myExcludeSidewalks->getCheck() == TRUE;
     // every edge knows its outgoing connections so we can look at each edge in isolation
     for (const auto& edge : myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getChildLanes()) {
-            if (edge.second->getNBEdge()->getConnectionsFromLane(lane->getIndex()).size() == 0) {
+            if ((!excludeSidewalks || !lane->isRestricted(SVC_PEDESTRIAN))
+                    && edge.second->getNBEdge()->getConnectionsFromLane(lane->getIndex()).empty()) {
                 deadEnds.push_back(lane);
             }
         }
@@ -207,13 +213,16 @@ long
 GNEConnectorFrame::ConnectionOperations::onCmdSelectDeadStarts(FXObject*, FXSelector, void*) {
     // select all lanes that have no predecessor lane
     std::set<GNEAttributeCarrier*> deadStarts;
+    const bool excludeSidewalks = myExcludeSidewalks->getCheck() == TRUE;
     GNENet* net = myConnectorFrameParent->getViewNet()->getNet();
     // every edge knows only its outgoing connections so we look at whole junctions
     for (const auto& junction : myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
         // first collect all outgoing lanes
         for (const auto& outgoingEdge : junction.second->getGNEOutgoingEdges()) {
             for (const auto& lane : outgoingEdge->getChildLanes()) {
-                deadStarts.insert(lane);
+                if (!excludeSidewalks || !lane->isRestricted(SVC_PEDESTRIAN)) {
+                    deadStarts.insert(lane);
+                }
             }
         }
         // then remove all approached lanes
