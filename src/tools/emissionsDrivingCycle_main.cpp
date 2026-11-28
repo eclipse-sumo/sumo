@@ -167,9 +167,6 @@ main(int argc, char** argv) {
         if (!oc.isSet("timeline-file") && !oc.isSet("netstate-file")) {
             throw ProcessError(TL("Either a timeline or a netstate / amitran file must be given."));
         }
-        if (!oc.isSet("output-file") && (oc.isSet("timeline-file") || !oc.isSet("emission-output"))) {
-            throw ProcessError(TL("The output file must be given."));
-        }
         std::unique_ptr<std::ostream> outOwner;
         std::ostream* out = nullptr;
         if (oc.isSet("output-file")) {
@@ -198,8 +195,6 @@ main(int argc, char** argv) {
         OutputDevice* xmlOut = nullptr;
         if (oc.isSet("emission-output")) {
             xmlOut = &OutputDevice::getDeviceByOption("emission-output");
-        } else if (out == nullptr) {
-            out = &std::cout;
         }
         std::unique_ptr<std::ostream> sumOut(nullptr);
         if (oc.isSet("sum-output")) {
@@ -279,7 +274,7 @@ main(int argc, char** argv) {
                         }
                         double a = !computeA && st.hasNext() ? StringUtils::toDouble(st.next()) : TrajectoriesHandler::INVALID_VALUE;
                         double s = haveSlope && st.hasNext() ? StringUtils::toDouble(st.next()) : TrajectoriesHandler::INVALID_VALUE;
-                        if (handler.writeEmissions(*out, "", emissionClass, energyParams.get(), attributes, t, v, a, s)) {
+                        if (handler.writeEmissions(out, "", emissionClass, energyParams.get(), attributes, t, v, a, s)) {
                             l += v;
                             totalA += a;
                             totalS += s;

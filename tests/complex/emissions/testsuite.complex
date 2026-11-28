@@ -31,6 +31,9 @@ nefz_phemlight5_temperature
 # non-existing driving cycle file
 invalid_cycle
 
+# Aggregate emissions without a per-step output file
+totals_without_details
+
 # Battery model
 nefz_energy
 
