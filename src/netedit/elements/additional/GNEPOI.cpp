@@ -570,7 +570,7 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else {
                 // check that image can be loaded
-                return GUITexturesHelper::getTextureID(value) != -1;
+                return GUITexturesHelper::canLoadTexture(value);
             }
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && (parse<double>(value) > 0);
@@ -645,7 +645,7 @@ GNEPOI::drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSetting
             int textureID = GUITexturesHelper::getTextureID(getShapeImgFile());
             if (textureID > 0) {
                 GUITexturesHelper::drawTexturedBox(textureID,
-                                                   myWidth * 0.5 * exaggeration, myHeight * 0.5 * exaggeration,
+                                                   myWidth * -0.5 * exaggeration, myHeight * -0.5 * exaggeration,
                                                    myWidth * 0.5 * exaggeration, myHeight * 0.5 * exaggeration);
             } else {
                 // draw box
