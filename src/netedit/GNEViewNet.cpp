@@ -1766,13 +1766,66 @@ GNEViewNet::abortOperation(bool clearSelection) {
 }
 
 
+namespace {
+bool
+hasDependentDemandOrData(const GNEHierarchicalElement* element) {
+    const auto& additionals = element->getChildAdditionals();
+    return !element->getChildDemandElements().empty() || !element->getChildGenericDatas().empty()
+           || std::any_of(additionals.begin(), additionals.end(), hasDependentDemandOrData);
+}
+
+
+bool
+edgeHasDependentDemandOrData(const GNEEdge* edge) {
+    const auto& lanes = edge->getChildLanes();
+    return hasDependentDemandOrData(edge) || std::any_of(lanes.begin(), lanes.end(), hasDependentDemandOrData);
+}
+
+
+bool
+requiresDeleteConfirmation(const GNEAttributeCarrier* element) {
+    switch (element->getTagProperty()->getTag()) {
+        case SUMO_TAG_JUNCTION: {
+            const auto* junction = static_cast<const GNEJunction*>(element);
+            const auto& edges = junction->getChildEdges();
+            return !junction->getChildDemandElements().empty()
+                   || std::any_of(edges.begin(), edges.end(), edgeHasDependentDemandOrData);
+        }
+        case SUMO_TAG_EDGE:
+            return edgeHasDependentDemandOrData(static_cast<const GNEEdge*>(element));
+        case SUMO_TAG_LANE: {
+            const auto* lane = static_cast<const GNELane*>(element);
+            const auto* edge = lane->getParentEdge();
+            // Deleting the only lane also deletes the edge.
+            return edge->getChildLanes().size() == 1 ? edgeHasDependentDemandOrData(edge) : hasDependentDemandOrData(lane);
+        }
+        default: {
+            const auto* additional = dynamic_cast<const GNEAdditional*>(element);
+            return additional && hasDependentDemandOrData(additional);
+        }
+    }
+}
+}
+
+
 void
 GNEViewNet::hotkeyDel() {
     // delete elements depending of current supermode
     if (myEditModes.isCurrentSupermodeNetwork()) {
+        const auto confirmDeletion = [this](const auto& elements) {
+            if (!std::any_of(elements.begin(), elements.end(), requiresDeleteConfirmation)) {
+                return true;
+            }
+            const GNEQuestionBasicDialog question(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO,
+                    TL("Confirm deletion"), TL("Deleting these network elements will also delete demand or data elements. Continue?"));
+            return question.getResult() == GNEDialog::Result::ACCEPT;
+        };
         if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_CONNECT) || (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS)) {
             setStatusBarText(TL("Cannot delete in this mode"));
         } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) && myInspectedElements.getFirstAC()) {
+            if (!confirmDeletion(myInspectedElements.getACs())) {
+                return;
+            }
             // delete inspected elements
             myUndoList->begin(GUIIcon::MODEDELETE, TL("delete network inspected elements"));
             while (myInspectedElements.isInspectingElements()) {
@@ -1783,7 +1836,7 @@ GNEViewNet::hotkeyDel() {
             // get selected ACs
             const auto selectedNetworkACs = myNet->getAttributeCarriers()->getSelectedAttributeCarriers(false);
             // delete selected elements
-            if (selectedNetworkACs.size() > 0) {
+            if (!selectedNetworkACs.empty() && confirmDeletion(selectedNetworkACs)) {
                 myUndoList->begin(GUIIcon::MODEDELETE, TL("delete network selection"));
                 for (const auto selectedAC : selectedNetworkACs) {
                     deleteNetworkAttributeCarrier(selectedAC);
