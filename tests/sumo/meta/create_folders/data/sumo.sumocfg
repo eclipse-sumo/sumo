@@ -1,0 +1,16 @@
+<sumoConfiguration>
+    <input>
+        <net-file value="../net.net.xml"/>
+    </input>
+    <time>
+        <end value="1"/>
+    </time>
+    <output>
+        <queue-output value="nested/queue.xml"/>
+        <summary-output value="nested/summary/summary.xml"/>
+        <stop-output value="nested/stopinfos.xml"/>
+    </output>
+    <report>
+        <create-folders value="true"/>
+    </report>
+</sumoConfiguration>

@@ -142,6 +142,7 @@ Report Options:
   -W, --no-warnings                 Disables output of warnings
   --aggregate-warnings INT          Aggregate warnings of the same type
                                      whenever more than INT occur
+  --create-folders                  Create missing output directories
   -l, --log FILE                    Writes all messages to FILE (implies
                                      verbose)
   --message-log FILE                Writes all non-error messages to FILE

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23T14:47:36.835803+00:00 by Eclipse SUMO duarouter v1.28.0-0000000000
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="nested/output/routes.rou.xml"/>
+    </output>
+
+    <report>
+        <create-folders value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</duarouterConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="trip" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+</routes>

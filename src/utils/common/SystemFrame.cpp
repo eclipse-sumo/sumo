@@ -99,6 +99,9 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.doRegister("aggregate-warnings", new Option_Integer(-1));
     oc.addDescription("aggregate-warnings", "Report", TL("Aggregate warnings of the same type whenever more than INT occur"));
 
+    oc.doRegister("create-folders", new Option_Bool(false));
+    oc.addDescription("create-folders", "Report", TL("Create missing output directories"));
+
     oc.doRegister("log", 'l', new Option_FileName());
     oc.addSynonyme("log", "log-file");
     oc.addDescription("log", "Report", TL("Writes all messages to FILE (implies verbose)"));
