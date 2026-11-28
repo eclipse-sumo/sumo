@@ -52,7 +52,9 @@ GNENetDiffTool::setCurrentValues() {
     if (networkPath.empty()) {
         myPythonToolsOptions.set("outprefix", "");
     } else {
-        myPythonToolsOptions.set("outprefix", FileHelpers::getFilePath(networkPath) + "diff");
+        const auto network = FileHelpers::isAbsolute(networkPath) ? networkPath
+                             : FileHelpers::getCurrentDir() + "/" + networkPath;
+        myPythonToolsOptions.set("outprefix", FileHelpers::getFilePath(network) + "diff");
     }
 }
 
@@ -63,25 +65,26 @@ GNENetDiffTool::postProcessing() {
     if (myApplicationWindow->getViewNet()) {
         // get selector operator modul from selector frame
         auto selectorModul = myApplicationWindow->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionOperationModul();
+        const std::string prefix = resolveOutput(myPythonToolsOptions.getString("outprefix"));
         // select elements
         if (myPythonToolsOptions.getBool("select-modified")) {
-            selectorModul->loadFromFile(myPythonToolsOptions.getString("outprefix") + ".changed.sel.txt");
+            selectorModul->loadFromFile(prefix + ".changed.sel.txt");
         }
         if (myPythonToolsOptions.getBool("select-added")) {
-            selectorModul->loadFromFile(myPythonToolsOptions.getString("outprefix") + ".created.sel.txt");
+            selectorModul->loadFromFile(prefix + ".created.sel.txt");
         }
         if (myPythonToolsOptions.getBool("select-deleted")) {
-            selectorModul->loadFromFile(myPythonToolsOptions.getString("outprefix") + ".deleted.sel.txt");
+            selectorModul->loadFromFile(prefix + ".deleted.sel.txt");
         }
         // load shapes
         if (myPythonToolsOptions.getBool("load-shapes-modified")) {
-            loadShapes(myPythonToolsOptions.getString("outprefix") + ".changed.shape.add.xml");
+            loadShapes(prefix + ".changed.shape.add.xml");
         }
         if (myPythonToolsOptions.getBool("load-shapes-added")) {
-            loadShapes(myPythonToolsOptions.getString("outprefix") + ".created.shape.add.xml");
+            loadShapes(prefix + ".created.shape.add.xml");
         }
         if (myPythonToolsOptions.getBool("load-shapes-deleted")) {
-            loadShapes(myPythonToolsOptions.getString("outprefix") + ".deleted.shape.add.xml");
+            loadShapes(prefix + ".deleted.shape.add.xml");
         }
     }
 }

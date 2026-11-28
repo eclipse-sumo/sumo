@@ -84,6 +84,9 @@ public:
         /// @brief get argument
         const std::string getArgument() const;
 
+        /// @brief validate this option's output destination when applicable
+        virtual bool validateOutput(const std::string& directory) const;
+
         /// @brief check if required attribute is set
         bool requiredAttributeSet() const;
 
@@ -190,6 +193,9 @@ public:
         FileNameArgument(GNEPythonToolDialog* toolDialogParent, const GNEPythonTool* pythonTool,
                          GNEApplicationWindow* applicationWindow, FXVerticalFrame* argumentFrame,
                          const std::string name, Option* option);
+
+        /// @brief validate and highlight the output destination
+        bool validateOutput(const std::string& directory) const override;
 
         /// @brief reset to default value
         void reset();
@@ -433,6 +439,9 @@ public:
         StringArgument(GNEPythonToolDialog* toolDialogParent, const GNEPythonTool* pythonTool,
                        GNEApplicationWindow* applicationWindow, FXVerticalFrame* argumentFrame,
                        const std::string name, Option* option);
+
+        /// @brief validate a textual output path when declared in the output category
+        bool validateOutput(const std::string& directory) const override;
 
         /// @brief reset to default value
         void reset();

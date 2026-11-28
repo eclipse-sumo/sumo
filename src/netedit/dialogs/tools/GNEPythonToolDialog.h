@@ -77,6 +77,9 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
+    /// @brief update the Run button and show invalid output paths
+    long onUpdCanRun(FXObject* sender, FXSelector, void*);
+
     /// @brief event for check if required attributes was set
     long onUpdRequiredAttributes(FXObject* sender, FXSelector, void*);
 
@@ -141,6 +144,15 @@ protected:
     std::vector<GNEPythonToolDialogElements::Category*> myCategories;
 
 private:
+    /// @brief recheck options and paths before running
+    bool canRun() const;
+
+    /// @brief working directory for the child Python tool
+    FXTextField* myWorkingDirectory = nullptr;
+
+    /// @brief directory shown when no edit was made
+    std::string myInitialWorkingDirectory;
+
     /// @brief menu for tooltips menu
     MFXCheckableButton* myShowToolTipsMenu = nullptr;
 

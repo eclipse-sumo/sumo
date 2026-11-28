@@ -38,7 +38,10 @@ def main(args=None):
     ap = sumolib.options.ArgumentParser()
     ap.add_argument("file", category="input", type=ap.file, help="An XML input file")
     helpers.addPlotOptions(ap)
-    helpers.addInteractionOptions(ap)
+    ap.add_argument("-o", "--output", category="output", type=ap.file,
+                    help="directory to write plots to (an existing file selects its parent directory)")
+    ap.add_argument("-b", "--blind", action="store_true", default=False,
+                    help="If set, the figure will not be shown")
     options = ap.parse_args(args=args)
 
     if options.output is not None and os.path.exists(options.output) and os.path.isfile(options.output):
