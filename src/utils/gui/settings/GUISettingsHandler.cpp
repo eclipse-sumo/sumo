@@ -79,10 +79,22 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
                 WRITE_WARNING(TL("The 'value' attribute is deprecated for breakpoints. Please use 'time'."));
             }
             break;
-        case SUMO_TAG_VIEWSETTINGS:
+        case SUMO_TAG_VIEWSETTINGS: {
             myViewType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, nullptr, ok, "default");
             myViewType = StringUtils::to_lower_case(myViewType);
+            const auto readVisibility = [&attrs](const std::string& name) -> std::optional<bool> {
+                if (attrs.hasAttribute(name)) {
+                    return StringUtils::toBool(attrs.getStringSecure(name, ""));
+                }
+                return std::nullopt;
+            };
+            myWindowSettings.showStatusLine = readVisibility("showStatusLine");
+            myWindowSettings.showMessageWindow = readVisibility("showMessageWindow");
+            myWindowSettings.showSimulationTime = readVisibility("showSimulationTime");
+            myWindowSettings.showSimulationDelay = readVisibility("showSimulationDelay");
+            myWindowSettings.messageWindowHeight = StringUtils::toInt(attrs.getStringSecure("messageWindowHeight", "0"));
             break;
+        }
         case SUMO_TAG_VIEWSETTINGS_3D:
             mySettings.show3DTLSLinkMarkers = StringUtils::toBool(attrs.getStringSecure("show3DTLSLinkMarkers", toString(mySettings.show3DTLSLinkMarkers)));
             mySettings.show3DTLSDomes = StringUtils::toBool(attrs.getStringSecure("show3DTLSDomes", toString(mySettings.show3DTLSDomes)));

@@ -933,6 +933,12 @@ decals if the corresponding check-boxes are activated before saving.
 ```
 
 
+Set `showStatusLine`, `showMessageWindow`, `showSimulationTime`, or `showSimulationDelay` on the root `<viewsettings>` element to show or hide the corresponding controls when the simulation opens. Set `messageWindowHeight` to a positive number of pixels to size the message window.
+
+```xml
+<viewsettings showStatusLine="false" showSimulationTime="false" messageWindowHeight="160"/>
+```
+
 ## Minimal settings file
 
 It possible to reference a predefined scheme by its name alone:
