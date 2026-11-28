@@ -24,3 +24,6 @@ standalone
 
 # test generating polygons from a route file
 standalone_scaleWidth
+
+# filter routes by origin and destination TAZ (#18304)
+filter_taz

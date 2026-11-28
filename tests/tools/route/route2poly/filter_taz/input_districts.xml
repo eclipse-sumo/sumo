@@ -1,0 +1,6 @@
+<tazs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/taz_file.xsd">
+    <taz id="taz_origin" edges="4/1to3/1 4/2to3/2"/>
+    <taz id="taz_dest">
+        <tazSink id="1/1to0/1" weight="1.0"/>
+    </taz>
+</tazs>

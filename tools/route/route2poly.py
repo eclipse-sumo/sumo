@@ -26,7 +26,9 @@ import os
 import itertools
 import random
 from collections import defaultdict
-sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 from sumolib.output import parse  # noqa
 from sumolib.net import readNet  # noqa
 from sumolib.miscutils import Colorgen  # noqa
@@ -67,6 +69,12 @@ def parse_args(args):
                   help="Parse stand-alone routes that are not define as child-element of a vehicle")
     ap.add_option("--filter-output.file", dest="filterOutputFile",
                   help="only write output for edges in the given selection file")
+    ap.add_option("-t", "--taz-files", dest="tazfiles", category="input", type=ap.additional_file_list,
+                  help="load TAZ definitions from FILE(s) for filtering")
+    ap.add_option("--from-taz", dest="fromTaz", category="processing", type=str,
+                  help="only include routes starting in one of the given comma-separated TAZ IDs")
+    ap.add_option("--to-taz", dest="toTaz", category="processing", type=str,
+                  help="only include routes ending in one of the given comma-separated TAZ IDs")
     ap.add_option("--seed", type=int, help="random seed")
     options = ap.parse_args(args=args)
     if options.seed:
@@ -192,6 +200,25 @@ def filterEdges(edges, keep):
         return [e for e in edges if e in keep]
 
 
+def loadTazEdges(tazfiles):
+    sources = defaultdict(set)
+    sinks = defaultdict(set)
+    if not tazfiles:
+        return sources, sinks
+    files = tazfiles.split(',') if isinstance(tazfiles, str) else tazfiles
+    for tf in files:
+        for taz in parse(tf, 'taz'):
+            if taz.edges:
+                edges = taz.edges.split()
+                sources[taz.id].update(edges)
+                sinks[taz.id].update(edges)
+            if taz.tazSource:
+                sources[taz.id].update([s.id for s in taz.tazSource])
+            if taz.tazSink:
+                sinks[taz.id].update([s.id for s in taz.tazSink])
+    return sources, sinks
+
+
 def parseRoutes(options):
     known_ids = set()
 
@@ -213,20 +240,51 @@ def parseRoutes(options):
                 if line.startswith('edge:'):
                     keep.add(line.replace('edge:', '').strip())
 
+    from_taz_set = set(options.fromTaz.split(',')) if options.fromTaz else None
+    to_taz_set = set(options.toTaz.split(',')) if options.toTaz else None
+    taz_sources, taz_sinks = loadTazEdges(options.tazfiles)
+    allowed_src_edges = set()
+    allowed_dst_edges = set()
+    if from_taz_set and options.tazfiles:
+        for tid in from_taz_set:
+            allowed_src_edges.update(taz_sources.get(tid, ()))
+    if to_taz_set and options.tazfiles:
+        for tid in to_taz_set:
+            allowed_dst_edges.update(taz_sinks.get(tid, ()))
+
+    def matches_taz(raw_edges, veh_from_taz=None, veh_to_taz=None):
+        if not raw_edges:
+            return False
+        if from_taz_set is not None:
+            ok_from = (veh_from_taz in from_taz_set) or (bool(options.tazfiles) and raw_edges[0] in allowed_src_edges)
+            if not ok_from:
+                return False
+        if to_taz_set is not None:
+            ok_to = (veh_to_taz in to_taz_set) or (bool(options.tazfiles) and raw_edges[-1] in allowed_dst_edges)
+            if not ok_to:
+                return False
+        return True
+
     for routefile in options.routefiles:
         print("parsing %s" % routefile)
         if options.standalone:
             for route in parse(routefile, 'route'):
-                # print("found veh", vehicle.id)
-                yield unique_id(route.id), filterEdges(route.edges.split(), keep), route.probability
+                raw_edges = route.edges.split()
+                if matches_taz(raw_edges):
+                    yield unique_id(route.id), filterEdges(raw_edges, keep), route.probability
         else:
             for vehicle in parse(routefile, 'vehicle'):
-                # print("found veh", vehicle.id)
+                veh_from = vehicle.fromTaz
+                veh_to = vehicle.toTaz
                 if vehicle.routeDistribution:
                     for route in vehicle.routeDistribution[0].route:
-                        yield unique_id(vehicle.id), filterEdges(route.edges.split(), keep), None
+                        raw_edges = route.edges.split()
+                        if matches_taz(raw_edges, veh_from, veh_to):
+                            yield unique_id(vehicle.id), filterEdges(raw_edges, keep), None
                 elif vehicle.route:
-                    yield unique_id(vehicle.id), filterEdges(vehicle.route[0].edges.split(), keep), None
+                    raw_edges = vehicle.route[0].edges.split()
+                    if matches_taz(raw_edges, veh_from, veh_to):
+                        yield unique_id(vehicle.id), filterEdges(raw_edges, keep), None
 
 
 def main(args):
