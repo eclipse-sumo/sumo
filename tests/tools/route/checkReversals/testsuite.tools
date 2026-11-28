@@ -6,3 +6,4 @@ namedRoute
 
 # per-vehicle output
 output
+without_sumo_home

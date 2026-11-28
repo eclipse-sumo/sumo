@@ -31,10 +31,12 @@ import fnmatch
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+try:
     import sumolib  # noqa
-    from sumolib.miscutils import parseTime, humanReadableTime
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
+except ImportError:
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    import sumolib  # noqa
+from sumolib.miscutils import parseTime, humanReadableTime
 
 
 def get_options(args=None):
