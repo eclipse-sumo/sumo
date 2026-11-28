@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop id="ts_west" name="WestStation" lane="eb_west_0" startPos="10.00" endPos="90.00"/>
+    <trainStop id="ts_east" name="EastStation" lane="eb_east_0" startPos="50.00" endPos="140.00"/>
+</additional>

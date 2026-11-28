@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-25T06:09:05.385173+00:00 by Eclipse SUMO netconvert v1.28.0-0000000000
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="parallel"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+</netconvertConfiguration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="eb_east" from="E0" to="E1" priority="-1" numLanes="1" speed="13.89" allow="rail"/>
+    <edge id="eb_mid1" from="W1" to="M1" priority="-1" numLanes="1" speed="13.89" allow="rail"/>
+    <edge id="eb_mid2" from="M1" to="E0" priority="-1" numLanes="1" speed="13.89" allow="rail"/>
+    <edge id="eb_west" from="W0" to="W1" priority="-1" numLanes="1" speed="13.89" allow="rail"/>
+    <edge id="wb_east" from="ES1" to="ES0" priority="-1" numLanes="1" speed="13.89" allow="rail"/>
+    <edge id="wb_mid1" from="MS1" to="WS1" priority="-1" numLanes="1" speed="13.89" allow="rail"/>
+    <edge id="wb_mid2" from="ES0" to="MS1" priority="-1" numLanes="1" speed="13.89" allow="rail"/>
+</edges>

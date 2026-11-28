@@ -1,24 +1,24 @@
 Creating region file 'net.taz.xml'
 Reading net
-Processing region 'Bestensee' with 2 edges
+Processing region 'Bestensee' with 3 edges
+Starting optimization with 9 inequalities
+Optimization succeeded after 0.004416704177856445s (score=0.6000000000000001)
+Processing region 'Eichwalde' with 25 edges
+Starting optimization with 118 inequalities
+Optimization succeeded after 0.002277374267578125s (score=16.599999999999998)
+Processing region 'Königs Wusterhausen' with 121 edges
+Starting optimization with 1072 inequalities
+Optimization succeeded after 0.014788150787353516s (score=2583.6)
+Processing region 'Niederlehme' with 2 edges
 Starting optimization with 4 inequalities
-Optimization succeeded after 0.0015819072723388672s (score=0.0)
-Processing region 'Eichwalde' with 28 edges
-Starting optimization with 131 inequalities
-Optimization succeeded after 0.0016269683837890625s (score=58.400000000000006)
-Processing region 'Königs Wusterhausen' with 108 edges
-Starting optimization with 900 inequalities
-Optimization succeeded after 0.006514072418212891s (score=2451.8)
-Processing region 'Niederlehme' with 5 edges
-Starting optimization with 10 inequalities
-Optimization succeeded after 0.0005390644073486328s (score=0.0)
-Processing region 'Wildau' with 17 edges
-Starting optimization with 74 inequalities
-Optimization succeeded after 0.0008528232574462891s (score=87.60000000000001)
-Processing region 'Zeesen' with 6 edges
-Starting optimization with 18 inequalities
-Optimization succeeded after 0.0005218982696533203s (score=1.2000000000000002)
-Processing region 'Zeuthen' with 20 edges
-Starting optimization with 94 inequalities
-Optimization succeeded after 0.0008976459503173828s (score=92.0)
+Optimization succeeded after 0.0010991096496582031s (score=0.0)
+Processing region 'Wildau' with 12 edges
+Starting optimization with 55 inequalities
+Optimization succeeded after 0.0014202594757080078s (score=85.2)
+Processing region 'Zeesen' with 2 edges
+Starting optimization with 7 inequalities
+Optimization succeeded after 0.0010187625885009766s (score=0.6000000000000001)
+Processing region 'Zeuthen' with 26 edges
+Starting optimization with 126 inequalities
+Optimization succeeded after 0.0020127296447753906s (score=135.4)
 Building new net

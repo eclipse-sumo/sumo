@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-25T06:09:05.384758+00:00 by Eclipse SUMO netconvert v1.28.0-0000000000
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="parallel"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+</netconvertConfiguration>
+-->
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,2000.00,5.00" origBoundary="0.00,0.00,2000.00,5.00" projParameter="!"/>
+
+    <node id="E0" x="1850.00" y="0.00" type="priority"/>
+    <node id="E1" x="2000.00" y="0.00" type="dead_end"/>
+    <node id="ES0" x="1850.00" y="5.00" type="priority"/>
+    <node id="ES1" x="2000.00" y="5.00" type="dead_end"/>
+    <node id="M1" x="1000.00" y="0.00" type="priority"/>
+    <node id="MS1" x="1050.00" y="5.00" type="priority"/>
+    <node id="W0" x="0.00" y="0.00" type="dead_end"/>
+    <node id="W1" x="150.00" y="0.00" type="priority"/>
+    <node id="WS1" x="250.00" y="5.00" type="dead_end"/>
+</nodes>

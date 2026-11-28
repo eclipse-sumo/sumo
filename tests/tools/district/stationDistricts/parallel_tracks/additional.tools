@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-19 20:23:49.579220 by Eclipse SUMO stationDistricts.py v1_28_0+0668-388c9872167
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <stop-file value="input_additional.add.xml"/>
+    <output value="out.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <taz id="0" name="EastStation" color="0,42,255" edges="eb_east eb_mid2 wb_east wb_mid2">
+       <param key="coord" value="1945.0 -1.6"/>
+    </taz>
+    <taz id="1" name="WestStation" color="255,38,0" edges="eb_mid1 eb_west wb_mid1">
+       <param key="coord" value="50.0 -1.6"/>
+    </taz>
+</additional>

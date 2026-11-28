@@ -1,0 +1,12 @@
+<configuration>
+    <input>
+        <node-files value="parallel.nod.xml"/>
+        <edge-files value="parallel.edg.xml"/>
+    </input>
+    <output>
+        <output-file value="input_net.net.xml"/>
+    </output>
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+</configuration>
