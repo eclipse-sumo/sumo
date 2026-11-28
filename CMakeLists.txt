@@ -780,6 +780,7 @@ endif ()
 if (SKBUILD)
     set(EXCLUDE_LIBSUMO "libsumo")
     set(EXCLUDE_LIBTRACI "libtraci")
+    set(EXCLUDE_SUMOLIB "sumolib")
 endif ()
 install(DIRECTORY data/ DESTINATION ${DATA_PATH}data COMPONENT data)
 install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
@@ -790,6 +791,7 @@ install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         PATTERN "sumolib4matlab/src" EXCLUDE
         PATTERN "${EXCLUDE_LIBSUMO}" EXCLUDE
         PATTERN "${EXCLUDE_LIBTRACI}" EXCLUDE
+        PATTERN "${EXCLUDE_SUMOLIB}" EXCLUDE
         PATTERN "traas" EXCLUDE
         PATTERN "traci4matlab/src" EXCLUDE
         PATTERN "__pycache__" EXCLUDE
@@ -804,9 +806,11 @@ if (PROJ_DATA_DIR)
             PATTERN "*.tif" EXCLUDE
             PATTERN "*.txt" EXCLUDE)
 endif ()
-install(CODE "
-    execute_process(COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/build_config/version.py --pep440 \$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${DATA_PATH}tools/sumolib/version.py)
-" COMPONENT tools)
+if (NOT SKBUILD)
+    install(CODE "
+        execute_process(COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/build_config/version.py --pep440 \$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${DATA_PATH}tools/sumolib/version.py)
+    " COMPONENT tools)
+endif ()
 if (NOT WIN32)
     install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${DATA_PATH}bin)" COMPONENT runtime)
 endif ()
