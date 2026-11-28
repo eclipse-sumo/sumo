@@ -96,6 +96,15 @@ upstream when a multi-segment jam clears.
 Backward-moving jams are possible due to the headway effects when
 meso-tauff is lower than meso-taujf.
 
+### Queue Structure and `--meso-lane-queue`
+
+Mesoscopic segments group parallel lanes into queues according to two options.
+
+- **--meso-multi-queue** {{DT_BOOL}} (default *true*): Splits the final segment of an edge into separate queues for each outgoing turn direction while keeping single queues on upstream segments.
+- **--meso-lane-queue** {{DT_BOOL}} (default *false*): Builds one distinct queue per physical lane on every segment.
+
+Enabling **--meso-lane-queue** enforces per-lane vehicle class permissions (`allow` and `disallow`), sets each queue capacity to the single-lane segment length, and applies unscaled single-lane headways (`tauff`, `taufj`, `taujf`, and `taujj`) per lane. Vehicles select the least-congested compatible lane queue within the lookahead distance configured by **--meso-lookahead** {{DT_FLOAT}} (in meters). When **--meso-lane-queue** is disabled, **--meso-ignore-lanes-by-vclass** (default `pedestrian,bicycle`) excludes dedicated pedestrian and bicycle lanes from segment capacity, and SUMO emits a warning if remaining lanes on an edge differ in vehicle permissions.
+
 ### meso-jam-threshold
 
 For each queue (also called segment in the GUI) an occupancy threshold
@@ -257,9 +266,9 @@ This will turn every lane into a distinct queue instead of treating parallel lan
 Many of the output options of SUMO are supported but the resulting files
 differ somewhat:
 
-- No lane specific output is possible.
+- Lane-specific output requires **--meso-lane-queue**.
   - [<laneData\>-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md#lane-based_network_states)
-    will be treated like `<edgeData>`-output.
+    writes per-lane measures when **--meso-lane-queue** is enabled and falls back to `<edgeData>`-style aggregation otherwise.
   - [netstate-dump](../Simulation/Output/RawDump.md) will
     report vehicles as child elements of `<edge>` instead of `<lane>`.
 - Induction loops write attributes that are similar to [`<edgeData>`-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) output
