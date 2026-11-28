@@ -18,6 +18,10 @@ working directory with the current timestamp (i.e.
 {{SUMO}}/tools/2021-02-22-10-00-00/). If you edit the network, you can use the
 script *build.bat* to rebuild the random demand.
 
+Select **Save Netedit configuration** to generate an additional `osm.netecfg` file.
+Open it in [Netedit](../../Netedit/index.md) to edit the generated network, demand, and additional elements.
+Netedit must be installed where the Wizard runs. The Wizard still generates the SUMO configuration if Netedit is unavailable.
+
 Call:
 
 ```
