@@ -72,6 +72,9 @@ public:
         return myNumericalID;
     }
 
+    /**@brief Returns a named parameter (including dynamic rail signal status keys) */
+    const std::string getParameter(const std::string& key, const std::string defaultValue = "") const override;
+
     /**@brief Sets a parameter and updates internal constants */
     void setParameter(const std::string& key, const std::string& value) override;
 

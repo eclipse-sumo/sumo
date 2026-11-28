@@ -85,6 +85,10 @@ public:
         return mySignals;
     }
 
+    const std::set<MSRailSignal*, ComparatorNumericalIdLess>& getActiveSignals() const {
+        return myActiveSignals;
+    }
+
     /// switch rail signal to active
     void notifyApproach(const MSLink* link);
 

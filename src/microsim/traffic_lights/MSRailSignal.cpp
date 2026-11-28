@@ -836,6 +836,17 @@ MSRailSignal::getBlockingDriveWayIDs() const {
     }
 }
 
+const std::string
+MSRailSignal::getParameter(const std::string& key, const std::string defaultValue) const {
+    if (key == "activeSignals") {
+        return joinNamedToString(MSRailSignalControl::getInstance().getActiveSignals(), " ");
+    } else if (key == "active") {
+        const auto& active = MSRailSignalControl::getInstance().getActiveSignals();
+        return toString(active.count(const_cast<MSRailSignal*>(this)) > 0);
+    }
+    return Parameterised::getParameter(key, defaultValue);
+}
+
 void
 MSRailSignal::setParameter(const std::string& key, const std::string& value) {
     // some pre-defined parameters can be updated at runtime
