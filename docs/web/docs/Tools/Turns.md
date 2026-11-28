@@ -220,6 +220,8 @@ starting edges and inserted with high speed on a reasonable lane.
 !!! note
     Quoting of trip attributes on Linux may also use the style **--attributes 'departLane="best" departSpeed="max" departPos="random"'**
 
+With **--keep-demand**, sampled vehicles and persons carry their original parameters, stops and plans. The first walk supplies the edges used to match counts for a person, and the full plan is written in the output. The sampler assigns IDs and departure times. Combine **--keep-demand** with **--keep-attributes** to reuse eligible input IDs and times.
+
 ## Multiple vehicle types
 
 To distinguish vehicles of different types, routeSampler may be run multiple times with different attributes. Note, that it is also necessary to set the option **--prefix** to prevent duplicate ids. The example below creates traffic consisting of cars and trucks using two edgedata files with distinct count values (stored in the default attribute 'entered').

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23 16:29:42.983294 by Eclipse SUMO routeSampler.py v1_28_0+0779-4908f7ff12f
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <keep-demand value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" vClass="passenger"/>
+    <route id="commute" edges="carStart carEnd">
+        <stop lane="carEnd_0" endPos="50" duration="12"/>
+    </route>
+<!-- begin="0.0" end="60.0" -->
+    <vehicle id="0_0" depart="43.92" route="commute" type="car" departLane="best">
+        <param key="purpose" value="visit" />
+    </vehicle>
+    <person id="0_1" depart="57.04" color="0,1,0" departPos="4">
+        <walk edges="walkStart walkEnd" />
+        <ride from="walkEnd" to="activity" lines="bus" />
+        <stop lane="activity_0" endPos="20" duration="9" />
+        <param key="ticket" value="child &amp; guardian" />
+    </person>
+<!-- begin="60.0" end="120.0" -->
+    <person id="60_0" depart="69.36" color="0,1,0" departPos="4">
+        <walk edges="walkStart walkEnd" />
+        <ride from="walkEnd" to="activity" lines="bus" />
+        <stop lane="activity_0" endPos="20" duration="9" />
+        <param key="ticket" value="child &amp; guardian" />
+    </person>
+    <vehicle id="60_1" depart="69.36" route="commute" type="car" departLane="best">
+        <param key="purpose" value="visit" />
+    </vehicle>
+</routes>

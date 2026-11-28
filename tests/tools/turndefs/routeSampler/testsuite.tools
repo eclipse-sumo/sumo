@@ -33,6 +33,7 @@ keep_input
 
 # Use the input as a starting point for sampling and keep attributes
 keep_input_attrs
+keep_demand
 
 # Use the input as a starting point for sampling (with multiple data intervals)
 keep_input_intervals
