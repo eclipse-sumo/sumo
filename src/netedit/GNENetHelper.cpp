@@ -3052,6 +3052,7 @@ GNENetHelper::ACTemplate::buildTemplates() {
     myTemplates[SUMO_TAG_CALIBRATOR] = new GNECalibrator(SUMO_TAG_CALIBRATOR, myNet);
     myTemplates[GNE_TAG_CALIBRATOR_LANE] = new GNECalibrator(GNE_TAG_CALIBRATOR_LANE, myNet);
     myTemplates[GNE_TAG_CALIBRATOR_FLOW] = new GNECalibratorFlow(myNet);
+    myTemplates[GNE_TAG_CALIBRATOR_TYPEFLOW] = new GNECalibratorTypeFlow(myNet);
     myTemplates[SUMO_TAG_REROUTER] = new GNERerouter(myNet);
     myTemplates[SUMO_TAG_INTERVAL] = new GNERerouterInterval(myNet);
     myTemplates[SUMO_TAG_CLOSING_REROUTE] = new GNEClosingReroute(myNet);

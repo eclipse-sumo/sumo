@@ -470,6 +470,8 @@ enum SumoXMLTag {
     GNE_TAG_FLOW_ROUTE,
     /// @brief description of a vehicle with an embedded route
     GNE_TAG_FLOW_WITHROUTE,
+    /// @brief a type-based flow definition within a Calibrator
+    GNE_TAG_CALIBRATOR_TYPEFLOW,
     /// @brief waypoints
     GNE_TAG_WAYPOINT,
     GNE_TAG_WAYPOINT_LANE,

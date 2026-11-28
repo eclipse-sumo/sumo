@@ -28,6 +28,7 @@
 
 class GNERouteProbe;
 class GNECalibratorFlow;
+class GNECalibratorTypeFlow;
 class GNERoute;
 
 // ===========================================================================

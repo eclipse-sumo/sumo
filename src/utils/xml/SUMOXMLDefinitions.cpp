@@ -288,6 +288,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "jupedsim.obstacle",                      GNE_TAG_JPS_OBSTACLE },
     { "flowRoute",                              GNE_TAG_FLOW_ROUTE },
     { "flowWithRoute",                          GNE_TAG_FLOW_WITHROUTE },
+    { "calibratorTypeFlow",                     GNE_TAG_CALIBRATOR_TYPEFLOW },
     // GNE waypoints
     { "waypoint",                               GNE_TAG_WAYPOINT },
     { "waypointLane",                           GNE_TAG_WAYPOINT_LANE },

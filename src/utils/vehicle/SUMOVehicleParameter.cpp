@@ -101,7 +101,7 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
             dev.writeAttr(SUMO_ATTR_NUMBER, repetitionNumber);
         }
         if (wasSet(VEHPARS_VPH_SET)) {
-            dev.writeAttr(SUMO_ATTR_PERHOUR, 3600 / STEPS2TIME(repetitionOffset));
+            dev.writeAttr(SUMO_ATTR_PERHOUR, repetitionOffset == SUMOTime_MAX ? 0. : 3600 / STEPS2TIME(repetitionOffset));
         }
         // netedit uses VEHPARS_POISSON_SET
         if (wasSet(VEHPARS_PERIOD_SET) || wasSet(VEHPARS_POISSON_SET)) {

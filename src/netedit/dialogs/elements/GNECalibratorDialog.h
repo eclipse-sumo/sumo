@@ -67,6 +67,9 @@ protected:
         /// @brief add new element
         long addNewElement();
 
+        /// @brief sort rows across all calibrator flows
+        long sortRows() override;
+
         /// @brief open element dialog
         long openElementDialog(const size_t rowIndex);
 
@@ -78,8 +81,38 @@ protected:
         CalibratorFlowsList& operator=(const CalibratorFlowsList&) = delete;
     };
 
+    /// @brief calibrator type flows list
+    class CalibratorTypeFlowsList : public GNETemplateElementList<GNEAdditional, GNEAdditional, GNEChange_Additional> {
+
+    public:
+        /// @brief constructor
+        CalibratorTypeFlowsList(GNECalibratorDialog* calibratorDialog, FXVerticalFrame* contentFrame);
+
+        /// @brief add new element
+        long addNewElement();
+
+        /// @brief sort rows across all calibrator flows
+        long sortRows() override;
+
+        /// @brief open element dialog
+        long openElementDialog(const size_t rowIndex);
+
+    private:
+        /// @brief Invalidated copy constructor
+        CalibratorTypeFlowsList(const CalibratorTypeFlowsList&) = delete;
+
+        /// @brief Invalidated assignment operator
+        CalibratorTypeFlowsList& operator=(const CalibratorTypeFlowsList&) = delete;
+    };
+
+    /// @brief sort all calibrator flow children chronologically and refresh both tables
+    long sortAllCalibratorFlows();
+
     /// @brief list with calibrator flows
     CalibratorFlowsList* myCalibratorFlows;
+
+    /// @brief list with calibrator type flows
+    CalibratorTypeFlowsList* myCalibratorTypeFlows;
 
 private:
     /// @brief Invalidated copy constructor.
