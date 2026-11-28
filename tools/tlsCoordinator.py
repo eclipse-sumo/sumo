@@ -67,6 +67,8 @@ def get_options(args=None):
                          default=0.8, help="avg ratio of vehicle speed in relation to the speed limit")
     optParser.add_option("-e", "--evaluate", category="processing", action="store_true",
                          default=False, help="run the scenario and print duration statistics")
+    optParser.add_option("--pair-output", category="output", dest="pairOutput",
+                         type=ArgumentParser.file, help="write coordinated and halfCoordinated TLS pairs to XML file")
     return optParser.parse_args(args=args)
 
 
@@ -122,7 +124,7 @@ def coordinateBeforeSet(TLSP, l2, l2Pair, l2Index):
     return TLSP
 
 
-def computePairOffsets(TLSPList, verbose):
+def computePairOffsets(TLSPList, verbose, pairRecords=None):
     c1, c2, c3, c4, c5 = 0, 0, 0, 0, 0
     sets = []  # sets of coordinate TLPairs
     operation = ""
@@ -174,6 +176,10 @@ def computePairOffsets(TLSPList, verbose):
                 merge(sets, l1, l2, dt)
                 c5 += 1
                 operation = "mergeSets"
+
+        if pairRecords is not None:
+            status = "halfCoordinated" if operation == "addHalfCoordinated" else "coordinated"
+            pairRecords.append((TLSP, status, operation))
 
         if verbose:
             logAddedPair(TLSP, sets, operation)
@@ -260,11 +266,13 @@ def getTLPairs(net, routeFile, speedFactor, ignorePriority):
         rTLSList = getTLSInRoute(net, route.edges.split())
 
         for oldTL, TLelement in zip(rTLSList[:-1], rTLSList[1:]):
-            key = PairKey(oldTL.edgeID, TLelement.edgeID, oldTL.dist)
-            numVehicles = 0 if key not in TLPairs else TLPairs[key].numVehicles
-
             tl = net.getEdge(TLelement.edgeID).getTLS()
             otl = net.getEdge(oldTL.edgeID).getTLS()
+            if otl == tl:
+                continue
+            key = PairKey(oldTL.edgeID, TLelement.edgeID, TLelement.dist)
+            numVehicles = 0 if key not in TLPairs else TLPairs[key].numVehicles
+
             edge = net.getEdge(TLelement.edgeID)
             connection = TLelement.connection
             oconnection = oldTL.connection
@@ -284,8 +292,52 @@ def getTLPairs(net, routeFile, speedFactor, ignorePriority):
 
 
 def removeDuplicates(TLPairs):
-    # @todo: for multiple pairs with the same edges but different dist, keep only the one with the largest numVehicles
-    return TLPairs
+    # Merge multiple pairs connecting the same ordered (otl, tl) pair:
+    # first combine identical (edgeID, edgeID2) with different dist by keeping the one with largest numVehicles
+    # while summing counts, then keep the dominant pair per ordered (otl, tl) pair.
+    by_edges = {}
+    for key, data in TLPairs.items():
+        ekey = (key.edgeID, key.edgeID2)
+        if ekey not in by_edges:
+            by_edges[ekey] = (key, data, data.numVehicles)
+        else:
+            best_key, best_data, total_veh = by_edges[ekey]
+            total_veh += data.numVehicles
+            if (data.numVehicles, -data.travelTime) > (best_data.numVehicles, -best_data.travelTime):
+                best_key, best_data = key, data
+            by_edges[ekey] = (best_key, best_data, total_veh)
+
+    by_tls = {}
+    for _, (key, data, total_veh) in by_edges.items():
+        data = data._replace(numVehicles=total_veh)
+        tkey = (data.otl.getID(), data.tl.getID())
+        if tkey not in by_tls:
+            by_tls[tkey] = (key, data)
+        else:
+            best_key, best_data = by_tls[tkey]
+            score_new = (data.prio, data.numVehicles / max(data.travelTime, 1e-6), data.numVehicles, key)
+            score_old = (best_data.prio, best_data.numVehicles / max(best_data.travelTime, 1e-6),
+                         best_data.numVehicles, best_key)
+            merged_veh = best_data.numVehicles + data.numVehicles
+            if score_new > score_old:
+                by_tls[tkey] = (key, data._replace(numVehicles=merged_veh))
+            else:
+                by_tls[tkey] = (best_key, best_data._replace(numVehicles=merged_veh))
+
+    return dict(by_tls.values())
+
+
+def writePairOutput(outfile, pairRecords, options):
+    with open(outfile, 'w') as outf:
+        sumolib.xml.writeHeader(outf, root="tlsPairs", rootAttrs=None, options=options)
+        for pair, status, operation in pairRecords:
+            fromEdge = pair.oconnection.getFrom().getID()
+            toEdge = pair.connection.getFrom().getID()
+            outf.write(('    <pair from="%s" to="%s" fromEdge="%s" toEdge="%s" status="%s" operation="%s" '
+                        'numVehicles="%s" travelTime="%.2f" startOffset="%.2f" betweenOffset="%.2f"/>\n') % (
+                pair.otl.getID(), pair.tl.getID(), fromEdge, toEdge, status, operation,
+                pair.numVehicles, pair.travelTime, pair.startOffset, pair.betweenOffset))
+        outf.write('</tlsPairs>\n')
 
 
 def main(options):
@@ -310,8 +362,12 @@ def main(options):
             pairKey.edgeID, pairKey.edgeID2, pairData.prio, pairData.numVehicles / pairData.travelTime)
             for pairKey, pairData in tlPairsList]))
 
+    pairRecords = [] if options.pairOutput else None
     coordinatedSets = computePairOffsets(
-        [pairData for pairKey, pairData in tlPairsList], options.verbose)
+        [pairData for pairKey, pairData in tlPairsList], options.verbose, pairRecords)
+
+    if options.pairOutput:
+        writePairOutput(options.pairOutput, pairRecords, options)
 
     offsetDict = finalizeOffsets(coordinatedSets)
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17 22:46:28.271340 by Eclipse SUMO tlsCoordinator.py v1_28_0+0645-1d641fd491a
+<configuration>
+    <net-file value="net.net.xml"/>
+    <output-file value="out.add.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+    <pair-output value="out.xml"/>
+</configuration>
+-->
+
+<tlsPairs>
+    <pair from="cluster_2880146705_2880146706_2880146709_2880146710_2880146712_2880146714_29122659_29122660_31058252_31058253" to="cluster_29122661_29122662_35107209_35107210" fromEdge="137728432#4" toEdge="137728432#12" status="coordinated" operation="newSet" numVehicles="41" travelTime="28.21" startOffset="0.00" betweenOffset="28.21"/>
+    <pair from="cluster_29122661_29122662_35107209_35107210" to="cluster_2880146705_2880146706_2880146709_2880146710_2880146712_2880146714_29122659_29122660_31058252_31058253" fromEdge="5110654#1" toEdge="4603504#4" status="halfCoordinated" operation="addHalfCoordinated" numVehicles="20" travelTime="27.63" startOffset="73.21" betweenOffset="27.63"/>
+    <pair from="cluster_2880146705_2880146706_2880146709_2880146710_2880146712_2880146714_29122659_29122660_31058252_31058253" to="joinedS_0" fromEdge="4603504#4" toEdge="137728456#1" status="coordinated" operation="addAfterSet" numVehicles="14" travelTime="38.83" startOffset="0.00" betweenOffset="3.83"/>
+    <pair from="cluster_29122661_29122662_35107209_35107210" to="joinedS_0" fromEdge="137728432#12" toEdge="4662880#0" status="halfCoordinated" operation="addHalfCoordinated" numVehicles="10" travelTime="37.70" startOffset="28.21" betweenOffset="37.70"/>
+    <pair from="joinedS_0" to="cluster_2880146705_2880146706_2880146709_2880146710_2880146712_2880146714_29122659_29122660_31058252_31058253" fromEdge="4662880#0" toEdge="4830085#1" status="halfCoordinated" operation="addHalfCoordinated" numVehicles="2" travelTime="37.37" startOffset="3.83" betweenOffset="-7.63"/>
+    <pair from="joinedS_0" to="cluster_29122661_29122662_35107209_35107210" fromEdge="137728456#1" toEdge="5110654#1" status="halfCoordinated" operation="addHalfCoordinated" numVehicles="1" travelTime="37.51" startOffset="38.83" betweenOffset="-7.49"/>
+</tlsPairs>

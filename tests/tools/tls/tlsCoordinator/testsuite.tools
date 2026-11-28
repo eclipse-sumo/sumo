@@ -25,3 +25,6 @@ basic
 
 # continue on disconnected routes
 disconnected
+
+# merge duplicate TLS pairs and write coordinated/halfCoordinated pair output (#1952)
+duplicate_pairs
