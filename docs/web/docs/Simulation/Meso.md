@@ -213,7 +213,7 @@ Note, that the maximum flow cannot exceed the value at permanent green light reg
 ### Partial TLS Penalties
 
 The above two options apply to all traffic lights in the network by default.
-By adding the [generic parameter](GenericParameters.md) key `<param key="meso.tls.control" value="true"/>` to a `<tlLogic>` definition, individual traffic lights can be made exempt from the penalties and instead by treated in full detail (when option **--meso-junction-control** is also set).
+By adding the [generic parameter](GenericParameters.md) key `<param key="meso.tls.control" value="true"/>` to a `<tlLogic>` definition, SUMO applies full junction control to that traffic light and skips its statistical penalties. This parameter also works when **--meso-junction-control** is disabled.
 
 It is also possible to load an additional file where only this option is set:
 
