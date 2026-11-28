@@ -1,0 +1,35 @@
+name: macos-install
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 6 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  test-installer:
+    # The published SUMO package targets Apple Silicon.
+    runs-on: macos-26
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            tests/complex/tutorial/quickstart/data
+            tools/build_config
+
+      - name: Download PKG
+        run: curl --fail --show-error --silent --location --retry 3 https://sumo.dlr.de/daily/sumo-git.pkg --output sumo.pkg
+
+      - name: Install PKG
+        run: sudo installer -pkg sumo.pkg -target /
+
+      - name: Run quickstart simulation
+        env:
+          SUMO_HOME: /Library/Frameworks/EclipseSUMO.framework/EclipseSUMO/share/sumo
+        run: |
+          python3 tools/build_config/checkInstaller.py "$SUMO_HOME/../../bin/sumo"
