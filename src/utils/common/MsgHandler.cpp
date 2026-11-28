@@ -293,8 +293,9 @@ MsgHandler::initOutputOptions() {
     OutputDevice::getDevice("stdout");
     OutputDevice::getDevice("stderr");
     OptionsCont& oc = OptionsCont::getOptions();
-    getWarningInstance()->setAggregationThreshold(oc.getInt("aggregate-warnings"));
-    getErrorInstance()->setAggregationThreshold(oc.getInt("aggregate-warnings"));
+    const int agg = oc.getInt("aggregate-warnings");
+    getWarningInstance()->setAggregationThreshold(agg);
+    getErrorInstance()->setAggregationThreshold(agg == 0 ? 1 : agg);
     if (oc.getBool("no-warnings")) {
         getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
     }

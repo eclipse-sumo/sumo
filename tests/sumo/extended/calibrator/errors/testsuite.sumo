@@ -12,3 +12,6 @@ vClass_mismatch_ignore
 
 # see #12403
 2flows_sameInterval_noEnd
+
+# see #16621
+2flows_sameInterval_agg0
