@@ -158,7 +158,20 @@ Internally, crossing works as edges, and therefore they appear in the *net.xml* 
 ... further elements of net.xml...
 ```
 
+## Wires
+
+Use **Wire** mode (<kbd>W</kbd>) in **Network** supermode to add traction substations and overhead wire sections. NETEDIT displays an experimental-feature warning when you first open this mode.
+
+1. Select `tractionSubstation` in the **Wires** panel. Set its voltage and current limit, then click the map to place it.
+2. Select `overheadWire` and choose the substation in the parent selector.
+3. Click consecutive lanes along the wire. The first and last click set the start and end positions. For a section on one lane, click the start and end on that lane.
+4. Click **Finish path creation**. Use **Remove last lane** or <kbd>Backspace</kbd> to undo a click, or <kbd>Esc</kbd> to discard the unfinished section.
+
+Save the infrastructure using **File → Additionals and Shapes → Save Additionals**. See [the ElectricHybrid model](../Models/ElectricHybrid.md#overhead_wires) for simulation options and how to define wire clamps in XML.
+
 ## TAZ (Traffic Analysis Zones)
+
+See [TAZ elements](elementsTAZ.md) for the complete creation and editing workflow.
 
 This mode allows creating and editing [TAZ](../Demand/Importing_O/D_Matrices.md#describing_the_taz). (Shortcut Z). TAZs are composed of a closed polygon and a list of edges associated with certain weights for the inputs (Sources) and outputs (Sinks) (Similar to a [Flow Network](https://en.wikipedia.org/wiki/Flow_network)).
 
@@ -188,7 +201,7 @@ Controls after clicking over a TAZ
 ![](../images/TAZMode4.png)
 Creating two TAZEdges
 
-**Selecting and editing TAZ Edges:** If checkbox *membership* is changed to "keep", then TAZ Edges can be selected individually and their values changed. A multiple selection using a rectangle is possible with shift + right. Statistics of selected TAZEdges can be observed in "Selection Statistics"
+**Selecting and editing TAZ Edges:** If checkbox *membership* is changed to "keep", then TAZ Edges can be selected individually and their values changed. Hold <kbd>Shift</kbd> and drag with the left mouse button to select multiple edges. Statistics of selected TAZEdges can be observed in "Selection Statistics"
 
 ![](../images/TAZMode5.png)
 TAZ Edge selected (Pink)
@@ -196,9 +209,11 @@ TAZ Edge selected (Pink)
 ![](../images/TAZMode6.png)
 Selecting using rectangle
 
-**Saving and discarding changes:** All changes in TAZEdges has to be saved using button "Save Changes", or in the same way can be also discarded using "cancel changes" button.
+**Saving and discarding changes:** All changes in TAZEdges has to be saved with **Confirm changes**. Use **Cancel changes** to discard them.
 
 ## Shapes
+
+See [Shape elements](elementsShape.md) for instructions on creating polygons, geographic POIs, and lane-based POIs.
 
 This mode allows the creation of [Polygons](../Simulation/Shapes.md#polygon_definitions) and [POIs (Points of Interest)](../Simulation/Shapes.md#poi_point_of_interest_definitions) through Polygon mode (hotkey ‘P’). These objects are used for visualization and can also be accessed via TraCI. In the polygon frame you can select the type of shape to edit (Polygons or Point Of Interest), and the corresponding parameters for each one.
 
@@ -208,7 +223,7 @@ General view of the shape frame.
 ![](../images/ModePolygon2SelectingColor.png)
 Color can be edited clicking over button "color".
 
-One polygon is composed of mainly an exterior line called “shape”. In order to create a shape, you have to click on the button “start drawing” (or enter key), and click on the View above each of the points that will form the shape. To end the edition, you have to click on “stop drawing”. A right click on View will remove the last point created and the button “abort drawing” (or ESC key) will cancel the process of the creation of the shape. If you want to create a closed shape, you have to activate the option “closed shape” before starting to draw. The shape of the polygon can be opened or closed with the contextual menu or through the
+One polygon is composed of mainly an exterior line called “shape”. In order to create a shape, you have to click on the button “start drawing” (or enter key), and click on the View above each of the points that will form the shape. To end the edition, you have to click on “stop drawing”. Hold <kbd>Shift</kbd> and click the view to remove the last point and the button “abort drawing” (or ESC key) will cancel the process of the creation of the shape. If you want to create a closed shape, you have to activate the option “closed shape” before starting to draw. The shape of the polygon can be opened or closed with the contextual menu or through the
 Inspector mode.
 
 ![](../images/ModePolygon3CreatingPolygon.png)
@@ -228,7 +243,7 @@ Polygons with shape blocked.
 Besides, the contextual menu offers several options, like the aforementioned open or close shape, simplify the shape, erase a vertex of the shape and establish a vertex of the shape as the initial one.
 
 ![](../images/ModePolygon7SimplifingShape.png)
-Contextual menu of polygon. Left click over to show more options.
+Right-click the polygon to open its context menu.
 
 The Points Of Interest (POIs) are the locations in the map used to mark several elements relevant to the simulation, which don’t interact with the rest of elements (monuments, special buildings, etc.). As default, they are represented as a colored point, but can also be depicted using an image.
 
