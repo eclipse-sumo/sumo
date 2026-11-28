@@ -684,7 +684,7 @@ MSVehicle::Influencer::setOriginalSpeed(double speed) {
 
 
 int
-MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const MSEdge& currentEdge, const int currentLaneIndex, int state) {
+MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const MSEdge& currentEdge, const int currentLaneIndex, int state, bool alignsWithinLane) {
     // remove leading commands which are no longer valid
     while (myLaneTimeLine.size() == 1 || (myLaneTimeLine.size() > 1 && currentTime > myLaneTimeLine[1].first)) {
         myLaneTimeLine.erase(myLaneTimeLine.begin());
@@ -742,6 +742,9 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
                 state &= ~LCA_CHANGE_REASONS | LCA_TRACI;
             }
         } else if (mode == LC_NOCONFLICT && changeRequest != REQUEST_NONE) {
+            if (changeRequest == REQUEST_HOLD && alignsWithinLane) {
+                return state;
+            }
             if (
                 ((state & LCA_LEFT) != 0 && changeRequest != REQUEST_LEFT) ||
                 ((state & LCA_RIGHT) != 0 && changeRequest != REQUEST_RIGHT) ||
@@ -7591,12 +7594,22 @@ MSVehicle::getSpeedWithoutTraciInfluence() const {
 
 int
 MSVehicle::influenceChangeDecision(int state) {
+    return influenceChangeDecision(state, 0, 0.);
+}
+
+
+int
+MSVehicle::influenceChangeDecision(int state, int laneOffset, double latDist) {
     if (hasInfluencer()) {
+        const bool alignsWithinLane = laneOffset == 0 && latDist != 0.
+                                     && (state & LCA_CHANGE_REASONS) == LCA_SUBLANE
+                                     && !myLaneChangeModel->isOpposite()
+                                     && std::abs(getLateralPositionOnLane() + latDist) < myLane->getWidth() * .5;
         state = getInfluencer().influenceChangeDecision(
                     MSNet::getInstance()->getCurrentTimeStep(),
                     myLane->getEdge(),
                     getLaneIndex(),
-                    state);
+                    state, alignsWithinLane);
     }
     return state;
 }

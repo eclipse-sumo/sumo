@@ -2019,7 +2019,9 @@ MSLCM_SL2015::_wantsChangeSublane(
                             << " prevManeuverDist=" << getPreviousManeuverDist() << "\n";
 #endif
             }
-            if (!cancelRequest(ret + getLCA(ret, latDist), laneOffset)) {
+            const int request = ret | getLCA(ret, latDist);
+            getCanceledState(laneOffset) |= request;
+            if (myVehicle.influenceChangeDecision(request, laneOffset, latDist) == request) {
                 maneuverDist = latDist;
                 blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                         leaders, followers, blockers,
@@ -3146,7 +3148,9 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     getCanceledState(laneOffset) |= ret;
     int retTraCI = myVehicle.influenceChangeDecision(ret);
     if ((retTraCI & LCA_TRACI) != 0) {
-        if ((retTraCI & LCA_STAY) != 0) {
+        // Evaluate alignment on the held lane if the lane-change mode permits it.
+        if ((retTraCI & LCA_STAY) != 0
+                && (laneOffset != 0 || !myVehicle.getInfluencer().permitsSublaneChange())) {
             ret = retTraCI;
             latDist = 0;
         } else if (((retTraCI & LCA_RIGHT) != 0 && laneOffset < 0)

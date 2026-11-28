@@ -24,3 +24,4 @@ changeCurrent
 
 # force changing to a lane that does not continue the route
 lane_deadend
+holdAlignment
