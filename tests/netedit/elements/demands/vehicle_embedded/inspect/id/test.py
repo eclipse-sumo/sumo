@@ -28,6 +28,9 @@ neteditProcess, referencePosition = netedit.setupAndStart()
 # go to demand mode
 netedit.changeSupermode("demand")
 
+# Use spread mode before the embedded vehicle has a drawing position.
+netedit.changeEditMode(netedit.attrs.modes.demand.spreadVehicle)
+
 # go to vehicle mode
 netedit.changeMode("vehicle")
 
@@ -40,6 +43,9 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
 netedit.typeKey("enter")
+
+# One demand computation must make the vehicle available to inspect.
+netedit.computeJunctions()
 
 # go to inspect mode
 netedit.changeMode("inspect")

@@ -1607,6 +1607,20 @@ GNENet::computeDemandElements(GNEApplicationWindow* window) {
             demandElement.second->computePathElement();
         }
     }
+    const auto* view = myApplicationWindow->getViewNet();
+    if (view->getNetworkViewOptions().drawSpreadVehicles() || view->getDemandViewOptions().drawSpreadVehicles()) {
+        // Embedded routes own the edge relationship used to draw their vehicles.
+        std::set<GNEEdge*> departureEdges;
+        for (const auto& route : myAttributeCarriers->getDemandElements().at(GNE_TAG_ROUTE_EMBEDDED)) {
+            const auto& edges = route.second->getParentEdges();
+            if (!edges.empty()) {
+                departureEdges.insert(edges.front());
+            }
+        }
+        for (auto* edge : departureEdges) {
+            edge->updateVehicleSpreadGeometries();
+        }
+    }
     window->setStatusBarText(TL("Finished computing demand elements."));
 }
 
