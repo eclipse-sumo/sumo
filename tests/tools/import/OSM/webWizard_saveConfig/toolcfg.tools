@@ -1,0 +1,18 @@
+<configuration>
+    <bbox value="13.381507,52.511801,13.417790,52.527748"/>
+    <verbose value="True"/>
+    <language value="de"/>
+    <begin value="100.0"/>
+    <end value="1800.0"/>
+    <netconvert-options value="--no-turnarounds"/>
+    <demand value="passenger:10f3,bicycle:5"/>
+    <poly value="True"/>
+    <public-transport value="True"/>
+    <pt-modes value="bus,tram"/>
+    <car-only value="True"/>
+    <decal value="True"/>
+    <tile-zoom value="15"/>
+    <left-hand value="True"/>
+    <road-types value="{&quot;Highway&quot;: [&quot;motorway&quot;, &quot;primary&quot;]}"/>
+    <osm-mirror value="oapi"/>
+</configuration>
