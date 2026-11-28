@@ -18,6 +18,8 @@
 // The Widget for add Crossing elements
 /****************************************************************************/
 
+#include <algorithm>
+
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
@@ -47,6 +49,7 @@ FXDEFMAP(GNECrossingFrame::CrossingParameters) CrossingParametersMap[] = {
 
 FXDEFMAP(GNECrossingFrame::CreateCrossing) CreateCrossingMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_CREATE,  GNECrossingFrame::CreateCrossing::onCmdCreateCrossing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_APPLY, GNECrossingFrame::CreateCrossing::onCmdGuessCrossings),
 };
 
 // Object implementation
@@ -119,6 +122,7 @@ GNECrossingFrame::EdgesSelector::enableEdgeSelector(GNEJunction* currentJunction
     restoreEdgeColors();
     // Set current junction
     myCurrentJunction = currentJunction;
+    myCrossingFrameParent->myCreateCrossing->setGuessCrossingsButton(true);
     // Update view net to show the new colors
     myCrossingFrameParent->getViewNet()->updateViewNet();
     // check if use selected eges must be enabled
@@ -157,6 +161,7 @@ GNECrossingFrame::EdgesSelector::restoreEdgeColors() {
         // Update view net to show the new colors
         myCrossingFrameParent->getViewNet()->updateViewNet();
         myCurrentJunction = nullptr;
+        myCrossingFrameParent->myCreateCrossing->setGuessCrossingsButton(false);
     }
 }
 
@@ -435,6 +440,8 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
 
     // Enable or disable create crossing button depending of the current parameters
     myCrossingFrameParent->myCreateCrossing->setCreateCrossingButton(myCurrentParametersValid);
+    myCrossingFrameParent->myCreateCrossing->setGuessCrossingsButton(
+        currentJunction != nullptr && (crossingEdgeIDs.empty() || myCurrentParametersValid));
     return 0;
 }
 
@@ -454,6 +461,9 @@ GNECrossingFrame::CreateCrossing::CreateCrossing(GNECrossingFrame* crossingFrame
     // Create groupbox for create crossings
     myCreateCrossingButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Create crossing"), "", "", 0, this, MID_GNE_CREATE, GUIDesignButton);
     myCreateCrossingButton->disable();
+    myGuessCrossingsButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Guess crossings"), "", "", 0,
+                             this, MID_GNE_APPLY, GUIDesignButton);
+    myGuessCrossingsButton->disable();
 }
 
 
@@ -493,6 +503,46 @@ GNECrossingFrame::CreateCrossing::setCreateCrossingButton(bool value) {
     } else {
         myCreateCrossingButton->disable();
     }
+}
+
+
+void
+GNECrossingFrame::CreateCrossing::setGuessCrossingsButton(bool value) {
+    if (value) {
+        myGuessCrossingsButton->enable();
+    } else {
+        myGuessCrossingsButton->disable();
+    }
+}
+
+
+long
+GNECrossingFrame::CreateCrossing::onCmdGuessCrossings(FXObject*, FXSelector, void*) {
+    auto* junction = myCrossingFrameParent->myEdgeSelector->getCurrentJunction();
+    if (junction == nullptr) {
+        return 1;
+    }
+    auto* node = junction->getNBNode();
+    auto guesses = node->getCrossingGuesses();
+    guesses.erase(std::remove_if(guesses.begin(), guesses.end(), [node](const EdgeVector& edges) {
+        return node->checkCrossingDuplicated(edges);
+    }), guesses.end());
+    auto* view = myCrossingFrameParent->getViewNet();
+    if (guesses.empty()) {
+        view->setStatusBarText(TL("No additional crossings found for this junction."));
+        return 1;
+    }
+    auto* undo = view->getUndoList();
+    const bool priority = node->getGuessedCrossingPriority();
+    undo->begin(junction, TL("guess crossings"));
+    for (const auto& edges : guesses) {
+        undo->add(new GNEChange_Crossing(junction, edges, NBEdge::UNSPECIFIED_WIDTH, priority, -1, -1,
+                                        PositionVector::EMPTY, false, true), true);
+    }
+    undo->end();
+    myCrossingFrameParent->myCrossingParameters->clearEdges();
+    view->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->enableCheckBoxDisablePedestrians();
+    return 1;
 }
 
 // ---------------------------------------------------------------------------

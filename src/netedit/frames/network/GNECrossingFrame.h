@@ -219,10 +219,16 @@ public:
         /// @brief enable or disable button create crossing
         void setCreateCrossingButton(bool value);
 
+        /// @brief Enable guessing while a junction is selected.
+        void setGuessCrossingsButton(bool value);
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user press the button create edge
         long onCmdCreateCrossing(FXObject*, FXSelector, void*);
+
+        /// @brief Guess missing crossings at the current junction.
+        long onCmdGuessCrossings(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -235,6 +241,7 @@ public:
 
         /// @field FXButton for create Crossing
         FXButton* myCreateCrossingButton;
+        FXButton* myGuessCrossingsButton;
     };
 
     // ===========================================================================

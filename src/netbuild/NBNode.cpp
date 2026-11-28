@@ -2842,14 +2842,39 @@ NBNode::isDistrict() const {
 
 int
 NBNode::guessCrossings() {
+    if (!myCrossings.empty() || myDiscardAllCrossings) {
+        // user supplied crossings, do not guess
+        return 0;
+    }
+    const auto guesses = getCrossingGuesses();
+    for (const auto& edges : guesses) {
+        addCrossing(edges, NBEdge::UNSPECIFIED_WIDTH, getGuessedCrossingPriority());
+    }
+    std::sort(myCrossings.begin(), myCrossings.end(), NBNodesEdgesSorter::crossing_by_junction_angle_sorter(this, myAllEdges));
+    if (!guesses.empty() && isSimpleContinuation(true, true)) {
+        // avoid narrow node shape when there is a crossing
+        computeNodeShape(-1);
+        for (NBEdge* e : myAllEdges) {
+            e->computeEdgeShape();
+        }
+    }
+    return (int)guesses.size();
+}
+
+
+bool
+NBNode::getGuessedCrossingPriority() const {
+    return isTLControlled()
+           || (isRoundabout() && OptionsCont::getOptions().getBool("crossings.guess.roundabout-priority"));
+}
+
+
+std::vector<EdgeVector>
+NBNode::getCrossingGuesses() {
 #ifdef DEBUG_PED_STRUCTURES
     gDebugFlag1 = DEBUGCOND;
 #endif
-    int numGuessed = 0;
-    if (myCrossings.size() > 0 || myDiscardAllCrossings) {
-        // user supplied crossings, do not guess
-        return numGuessed;
-    }
+    std::vector<EdgeVector> guesses;
     DEBUGCOUT(gDebugFlag1, "guess crossings for " << getID() << "\n")
     EdgeVector allEdges = getEdgesSortedByAngleAtNodeCenter();
     // check for pedestrial lanes going clockwise around the node
@@ -2895,8 +2920,7 @@ NBNode::guessCrossings() {
                 if (candidates.size() > 0) {
                     if (hadCandidates > 0 || forbidsPedestriansAfter(normalizedLanes, i)) {
                         hadCandidates++;
-                        const int n = checkCrossing(candidates);
-                        numGuessed += n;
+                        const int n = checkCrossing(candidates, false, &guesses);
                         if (n > 0) {
                             connectedCandidates.push_back(n);
                         }
@@ -2908,8 +2932,7 @@ NBNode::guessCrossings() {
         if (hadCandidates > 0 && candidates.size() > 0) {
             // avoid wrapping around to the same sidewalk
             hadCandidates++;
-            const int n = checkCrossing(candidates);
-            numGuessed += n;
+            const int n = checkCrossing(candidates, false, &guesses);
             if (n > 0) {
                 connectedCandidates.push_back(n);
             }
@@ -2920,35 +2943,25 @@ NBNode::guessCrossings() {
     if (hadCandidates == 2 && connectedCandidates.size() == 2) {
         // One or both of them might be split: remove the one with less splits
         if (connectedCandidates.back() <= connectedCandidates.front()) {
-            numGuessed -= connectedCandidates.back();
-            myCrossings.erase(myCrossings.end() - connectedCandidates.back(), myCrossings.end());
+            guesses.erase(guesses.end() - connectedCandidates.back(), guesses.end());
         } else {
-            numGuessed -= connectedCandidates.front();
-            myCrossings.erase(myCrossings.begin(), myCrossings.begin() + connectedCandidates.front());
+            guesses.erase(guesses.begin(), guesses.begin() + connectedCandidates.front());
         }
     }
-    std::sort(myCrossings.begin(), myCrossings.end(), NBNodesEdgesSorter::crossing_by_junction_angle_sorter(this, myAllEdges));
 #ifdef DEBUG_PED_STRUCTURES
     if (gDebugFlag1) {
         std::cout << "guessedCrossings:\n";
-        for (auto& crossing : myCrossings) {
-            std::cout << "  edges=" << toString(crossing->edges) << "\n";
+        for (const auto& crossing : guesses) {
+            std::cout << "  edges=" << toString(crossing) << "\n";
         }
     }
 #endif
-    if (numGuessed > 0 && isSimpleContinuation(true, true)) {
-        // avoid narrow node shape when there is a crossing
-        computeNodeShape(-1);
-        for (NBEdge* e : myAllEdges) {
-            e->computeEdgeShape();
-        }
-    }
-    return numGuessed;
+    return guesses;
 }
 
 
 int
-NBNode::checkCrossing(EdgeVector candidates, bool checkOnly) {
+NBNode::checkCrossing(EdgeVector candidates, bool checkOnly, std::vector<EdgeVector>* guesses) {
     DEBUGCOUT(gDebugFlag1, "checkCrossing candidates=" << toString(candidates) << "\n")
     if (candidates.size() == 0) {
         DEBUGCOUT(gDebugFlag1, "no crossing added (numCandidates=" << candidates.size() << ")\n")
@@ -2972,8 +2985,11 @@ NBNode::checkCrossing(EdgeVector candidates, bool checkOnly) {
         }
         if (candidates.size() == 1 || getType() == SumoXMLNodeType::RAIL_CROSSING) {
             if (!checkOnly) {
-                addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled()
-                            || (isRoundabout() && OptionsCont::getOptions().getBool("crossings.guess.roundabout-priority")));
+                if (guesses != nullptr) {
+                    guesses->push_back(candidates);
+                } else {
+                    addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, getGuessedCrossingPriority());
+                }
                 DEBUGCOUT(gDebugFlag1, "adding crossing: " << toString(candidates) << "\n")
             }
             return 1;
@@ -3009,15 +3025,18 @@ NBNode::checkCrossing(EdgeVector candidates, bool checkOnly) {
                     DEBUGCOUT(gDebugFlag1, " prevAngle=" << prevAngle << " angle=" << angle << " intermediateWidth=" << intermediateWidth << "\n")
                     if (fabs(NBHelpers::relAngle(prevAngle, angle)) > SPLIT_CROSSING_ANGLE_THRESHOLD
                             || (intermediateWidth > SPLIT_CROSSING_WIDTH_THRESHOLD)) {
-                        return checkCrossing(EdgeVector(candidates.begin(), it), checkOnly)
-                               + checkCrossing(EdgeVector(it, candidates.end()), checkOnly);
+                        return checkCrossing(EdgeVector(candidates.begin(), it), checkOnly, guesses)
+                               + checkCrossing(EdgeVector(it, candidates.end()), checkOnly, guesses);
                     }
                 }
                 prevAngle = angle;
             }
             if (!checkOnly) {
-                addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled()
-                            || (isRoundabout() && OptionsCont::getOptions().getBool("crossings.guess.roundabout-priority")));
+                if (guesses != nullptr) {
+                    guesses->push_back(candidates);
+                } else {
+                    addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, getGuessedCrossingPriority());
+                }
                 DEBUGCOUT(gDebugFlag1, "adding crossing: " << toString(candidates) << "\n")
             }
             return 1;
