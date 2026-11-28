@@ -1,0 +1,1 @@
+-r input_routes.rou.xml -o out.rou.xml --min 10 --max 20 --mean 5 tools/route/addStopDelay.py

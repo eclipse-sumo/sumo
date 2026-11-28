@@ -25,8 +25,8 @@ import shutil
 
 # first check platform (currently only available in Windows)
 if sys.platform != "win32":
-    print("This script only works in Windows")
-    sys.exit()
+    print("This script only works in Windows", file=sys.stderr)
+    sys.exit(1)
 
 # download sumo
 print("Downloading daily SUMO...")
@@ -36,8 +36,8 @@ os.system('curl https://sumo.dlr.de/daily/sumo-win64extra-git.zip --output sumo.
 if os.path.exists("sumo.zip"):
     print("Download successful. Unzipping ...")
 else:
-    print("Error downloading SUMO")
-    sys.exit()
+    print("Error downloading SUMO", file=sys.stderr)
+    sys.exit(1)
 
 # unzip SUMO
 with zipfile.ZipFile("sumo.zip", 'r') as zip_ref:
@@ -47,8 +47,8 @@ with zipfile.ZipFile("sumo.zip", 'r') as zip_ref:
 if os.path.exists("sumo-git"):
     print("Unzip successful. Updating SUMO folder ...")
 else:
-    print("Error unzipping SUMO")
-    sys.exit()
+    print("Error unzipping SUMO", file=sys.stderr)
+    sys.exit(1)
 
 # Copy all files
 for src_dir, dirs, files in os.walk('./sumo-git'):
