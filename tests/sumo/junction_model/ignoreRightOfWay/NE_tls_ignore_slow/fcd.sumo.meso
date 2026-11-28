@@ -175,6 +175,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="foe.1" x="104.95" y="108.05" angle="0.00" type="foeType" speed="13.03" pos="0.00" edge="CN" slope="0.00"/>
     </timestep>
     <timestep time="109.00">
+        <vehicle id="ego.1" x="108.05" y="95.05" angle="90.00" type="egoType" speed="13.89" pos="0.00" edge="CE" slope="0.00"/>
         <vehicle id="ego.2" x="98.35" y="200.00" angle="180.00" type="egoType" speed="13.89" pos="0.00" edge="NC" slope="0.00"/>
         <vehicle id="foe.1" x="104.95" y="108.05" angle="0.00" type="foeType" speed="13.03" pos="0.00" edge="CN" slope="0.00"/>
     </timestep>

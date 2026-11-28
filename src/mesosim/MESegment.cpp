@@ -23,6 +23,7 @@
 #include <cmath>
 #include <limits>
 #include <utils/common/StdDefs.h>
+#include <utils/common/StringTokenizer.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunction.h>
@@ -688,13 +689,24 @@ MESegment::isOpen(const MEVehicle* veh) const {
         return PROCEED_YES;
     }
     const MSLink* link = getLink(veh);
-    const bool open = (link == nullptr
+    bool open = (link == nullptr
             || link->havePriority()
             || limitedControlOverride(link)
             || link->opened(veh->getEventTime(), veh->getSpeed(), veh->estimateLeaveSpeed(link),
                 veh->getVehicleType().getLengthWithGap(), veh->getImpatience(),
                 veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime(),
                 0, nullptr, false, veh));
+    if (open && link != nullptr && !link->havePriority() && !limitedControlOverride(link)
+            && !(link->isCont() && MSGlobals::gUsingInternalLanes)
+            && !(veh->getImpatience() == 1 && !link->getLane()->getEdge().isRoundabout())) {
+        const SUMOTime clearTime = getFoeBlockTime(link, veh);
+        if (clearTime > veh->getEventTime()) {
+            if (veh->getEventTime() <= SIMSTEP) {
+                const_cast<MEVehicle*>(veh)->setFoeBlockTime(clearTime);
+            }
+            open = false;
+        }
+    }
     if (open) {
         return PROCEED_YES;
     } else {
@@ -717,6 +729,75 @@ MESegment::limitedControlOverride(const MSLink* link) const {
     const MSEdge& targetEdge = link->getLane()->getEdge();
     const MESegment* target = MSGlobals::gMesoNet->getSegmentForEdge(targetEdge);
     return (target->getBruttoOccupancy() * 2 < target->myJamThreshold) && !targetEdge.isRoundabout();
+}
+
+
+SUMOTime
+MESegment::getFoeBlockTime(const MSLink* link, const MEVehicle* veh) const {
+    const auto& vTypeParams = veh->getVehicleType().getParameter();
+    const double ignoreJunctionProb = vTypeParams.getJMParam(SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB, 0);
+    const double ignoreFoeProb = vTypeParams.getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0);
+    const double ignoreFoeSpeed = vTypeParams.getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0);
+    const bool hasJMParams = veh->getParameter().wasSet(VEHPARS_JUNCTIONMODEL_PARAMS_SET);
+    std::vector<std::string> ignoreTypes;
+    std::vector<std::string> ignoreIDs;
+    if (hasJMParams) {
+        ignoreTypes = StringTokenizer(veh->getParameter().getParameter(toString(SUMO_ATTR_JM_IGNORE_TYPES), "")).getVector();
+        ignoreIDs = StringTokenizer(veh->getParameter().getParameter(toString(SUMO_ATTR_JM_IGNORE_IDS), "")).getVector();
+    }
+    SUMOTime result = SUMOTime_MIN;
+    const SUMOTime eventTime = veh->getEventTime();
+    const auto checkFoeLink = [&](const MSLink* const foeLink) {
+        if (foeLink->haveRed()) {
+            return;
+        }
+        const MSLane* const laneBefore = foeLink->getLaneBefore();
+        if (laneBefore == nullptr) {
+            return;
+        }
+        const MESegment* foeSeg = MSGlobals::gMesoNet->getSegmentForEdge(laneBefore->getEdge());
+        while (foeSeg != nullptr && foeSeg->getNextSegment() != nullptr) {
+            foeSeg = foeSeg->getNextSegment();
+        }
+        if (foeSeg == nullptr) {
+            return;
+        }
+        const auto it = foeSeg->myLinkBlockTimes.find(foeLink);
+        if (it == foeSeg->myLinkBlockTimes.end()) {
+            return;
+        }
+        const FoeBlockInfo& fbi = it->second;
+        if (eventTime < fbi.entryTime || eventTime >= fbi.clearTime || fbi.vehID == veh->getID()) {
+            return;
+        }
+        if (hasJMParams && (std::find(ignoreTypes.begin(), ignoreTypes.end(), fbi.vTypeID) != ignoreTypes.end()
+                            || std::find(ignoreIDs.begin(), ignoreIDs.end(), fbi.vehID) != ignoreIDs.end())) {
+            return;
+        }
+        if (ignoreJunctionProb > 0 && ignoreJunctionProb >= RandHelper::rand(veh->getRNG())) {
+            return;
+        }
+        if (ignoreFoeProb > 0 && ignoreFoeSpeed >= fbi.speed && ignoreFoeProb >= RandHelper::rand(veh->getRNG())) {
+            return;
+        }
+        result = MAX2(result, fbi.clearTime);
+    };
+    if (link->getTLLogic() != nullptr && link->getOffState() == LINKSTATE_ALLWAY_STOP
+            && link->getCorrespondingEntryLink()->getState() == LINKSTATE_ALLWAY_STOP && link->isEntryLink()) {
+        for (const MSLane* const foeLane : link->getCorrespondingExitLink()->getFoeLanes()) {
+            if (!foeLane->getIncomingLanes().empty()) {
+                const MSLink* const viaLink = foeLane->getIncomingLanes().front().viaLink;
+                if (viaLink->getLaneBefore()->isNormal()) {
+                    checkFoeLink(viaLink);
+                }
+            }
+        }
+    } else {
+        for (const MSLink* const foeLink : link->getFoeLinks()) {
+            checkFoeLink(foeLink);
+        }
+    }
+    return result;
 }
 
 
@@ -745,6 +826,22 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
     assert(isInvalid(next) || time >= q.getBlockTime());
     MSLink* const link = getLink(veh);
     if (link != nullptr) {
+        if (!isInvalid(next) && next->getIndex() == 0 && &next->getEdge() == &link->getViaLaneOrLane()->getEdge()) {
+            const MSLink::ApproachingVehicleInformation* const avi = link->getApproachingPtr(veh);
+            const SUMOTime arrivalTime = avi != nullptr ? avi->arrivalTime : time;
+            const SUMOTime leaveTime = avi != nullptr ? avi->leavingTime : link->getLeaveTime(
+                                           time, veh->getSpeed(), link->getViaLaneOrLane()->getVehicleMaxSpeed(veh),
+                                           veh->getVehicleType().getLength());
+            const SUMOTime clearTime = arrivalTime + (leaveTime - arrivalTime) / 2;
+            FoeBlockInfo& fbi = myLinkBlockTimes[link];
+            if (clearTime > time && (fbi.entryTime > time || clearTime >= fbi.clearTime)) {
+                fbi.entryTime = time;
+                fbi.clearTime = clearTime;
+                fbi.vehID = veh->getID();
+                fbi.vTypeID = veh->getVehicleType().getID();
+                fbi.speed = avi != nullptr ? avi->speed : veh->getSpeed();
+            }
+        }
         link->removeApproaching(veh);
     }
     if (veh->isStopped()) {

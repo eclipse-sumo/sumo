@@ -14,8 +14,8 @@ Vehicles:
  Waiting: 0
 Statistics (avg of 24):
  RouteLength: 195.96
- Speed: 12.78
- Duration: 15.42
- WaitingTime: 0.34
- TimeLoss: 0.82
+ Speed: 12.37
+ Duration: 16.17
+ WaitingTime: 0.64
+ TimeLoss: 1.54
  DepartDelay: 0.23

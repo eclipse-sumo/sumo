@@ -204,11 +204,20 @@ public:
      * @param[in] t The leaving time
      */
     inline void setEventTime(SUMOTime t, bool hasDelay = true) {
+        if (hasDelay && myFoeBlockTime > myEventTime && myFoeBlockTime > myLastEntryTime) {
+            t = myFoeBlockTime;
+        }
+        myFoeBlockTime = SUMOTime_MIN;
         assert(t > myLastEntryTime);
         if (hasDelay && mySegment != nullptr) {
             mySegment->getEdge().markDelayed();
         }
         myEventTime = t;
+    }
+
+    /// @brief Sets the next recheck time when blocked by a foe vehicle clearing the junction
+    inline void setFoeBlockTime(SUMOTime t) {
+        myFoeBlockTime = t;
     }
 
 
@@ -254,6 +263,7 @@ public:
         invalidateMesoPosition();
         mySegment = s;
         myQueIndex = idx;
+        myFoeBlockTime = SUMOTime_MIN;
         if (!MESegment::isInvalid(mySegment)) {
             mySegment->invalidateMesoPositions();
         }
@@ -439,6 +449,9 @@ protected:
 
     /// @brief The (planned) time of leaving the segment (cell)
     SUMOTime myEventTime;
+
+    /// @brief Next recheck time imposed by a foe vehicle clearing the junction
+    SUMOTime myFoeBlockTime = SUMOTime_MIN;
 
     /// @brief The index of the vehicle's event (orders events with the same time)
     long long int myEventIndex;

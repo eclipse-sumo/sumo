@@ -47,6 +47,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="car" depart="0.00" departLane="SC_0" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="14.00" arrivalLane="CW_0" arrivalPos="95.16" arrivalSpeed="13.89" duration="14.00" routeLength="191.45" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_car routing_car" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="car" depart="0.00" departLane="SC_0" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="14.50" arrivalLane="CW_0" arrivalPos="95.16" arrivalSpeed="13.89" duration="14.50" routeLength="191.45" waitingTime="0.31" waitingCount="0" stopTime="0.00" timeLoss="0.31" rerouteNo="0" devices="tripinfo_car routing_car" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="blocker" depart="0.00" departLane="NC_0" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="114.50" arrivalLane="CS_0" arrivalPos="92.02" arrivalSpeed="0.86" duration="114.50" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="100.00" rerouteNo="1" devices="tripinfo_blocker routing_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>
