@@ -26,8 +26,9 @@ import sys
 import re
 import random
 import pickle
-import bisect
 import ctypes
+import gzip
+import tempfile
 
 from xml.sax import make_parser, handler
 from collections import defaultdict
@@ -147,6 +148,18 @@ class RouteReader(handler.ContentHandler):
             pythonOut.close()
 
 
+def _scanRouteLine(rawLine, pos, fileIdx, pattern, sortedDeparts, vtypes):
+    """Record departure offset and copy vType definitions from a binary route line."""
+    match = pattern.search(rawLine)
+    if match:
+        sortedDeparts.append((float(match.group(1)), fileIdx, pos))
+    elif b'<vtype' in rawLine:
+        print("Warning. Route files use outdated tag 'vtype'")
+        print(rawLine.decode('utf-8', errors='replace').replace('\r\n', '\n'), file=vtypes)
+    elif b'<vType' in rawLine:
+        print(rawLine.decode('utf-8', errors='replace').replace('\r\n', '\n'), file=vtypes)
+
+
 def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID, safactor, sufactor):
     if verbose:
         print("Writing types to file", os.path.basename(typesFile))
@@ -165,31 +178,33 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID, saf
         prefix["so"] = routesPrefix.replace("mofr", "so")
     files = []
     sortedDeparts = []
-    pattern = re.compile(u'depart="([^"]+)"')
-    # pattern = re.compile('<vehicle.*depart="([0-9]+(\.[0-9]*)?)"')
+    pattern = re.compile(b'depart="([^"]+)"')
+    # pattern = re.compile('<vehicle.*depart="([0-9]+(\\.[0-9]*)?)"')
     for routesIn in routeFiles:
         if verbose:
             print("Reading routes from", routesIn)
-        f = sumolib.openz(routesIn)
-        while True:
-            pos = f.tell()
-            line = f.readline()
-            if not line:
-                break
-            match = pattern.search(line)
-            if match:
-                entry = (float(match.group(1)), len(files), pos)
-                sortedDeparts.insert(bisect.bisect(sortedDeparts, entry), entry)
-            elif '<vtype' in line:
-                print("Warning. Route files use outdated tag 'vtype'")
-                print(line, file=vtypes)
-            elif '<vType' in line:
-                print(line, file=vtypes)
+        if routesIn.endswith(".gz"):
+            # Spool decompressed bytes once so second-pass seek() avoids O(N^2) gzip rewinds.
+            f = tempfile.SpooledTemporaryFile(max_size=64 * 1024 * 1024, mode='w+b')
+            with gzip.open(routesIn, 'rb') as gzIn:
+                for rawLine in gzIn:
+                    pos = f.tell()
+                    f.write(rawLine)
+                    _scanRouteLine(rawLine, pos, len(files), pattern, sortedDeparts, vtypes)
+        else:
+            f = open(routesIn, 'rb')
+            while True:
+                pos = f.tell()
+                rawLine = f.readline()
+                if not rawLine:
+                    break
+                _scanRouteLine(rawLine, pos, len(files), pattern, sortedDeparts, vtypes)
         files.append(f)
+    sortedDeparts.sort()
     for depart, idx, pos in sortedDeparts:
         f = files[idx]
         f.seek(pos)
-        line = f.readline().rstrip()
+        line = f.readline().decode('utf-8', errors='replace').rstrip()
         while depart >= currentTime or not out["mofr"]:
             for day in out.keys():
                 if out[day]:
@@ -207,7 +222,10 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID, saf
             line = re.sub('id="([^"]*)"', 'id="\\1_%s"' % idx, line)
         nextLine = ""
         while "</vehicle>" not in nextLine:
-            nextLine = f.readline().rstrip()
+            rawNext = f.readline()
+            if not rawNext:
+                break
+            nextLine = rawNext.decode('utf-8', errors='replace').rstrip()
             if nextLine.strip():
                 line += "\n" + nextLine
         for day in out.keys():
