@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 13:11:03.290976 by Eclipse SUMO tracemapper.py v1.28.0-0000000000
+  options: -t tracefile.txt -o out.rou.xml <doubleminus>polygon-output output.poly.xml -n input_net.net.xml <doubleminus>disconnected-action split <doubleminus>vehicle-class passenger
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<poly id="disconnected.part0" color="255,0,40" layer="100" type="route" shape="0.0,498.35 495.25,498.35"/>
+<poly id="disconnected.part1" color="255,76,0" layer="100" type="route" shape="498.35,495.25 498.35,-0.05"/>
+<poly id="disconnected.part2" color="255,15,0" layer="100" type="route" shape="503.25,998.35 1496.75,998.35"/>
+<poly id="disconnected.part3" color="255,145,0" layer="100" type="route" shape="2000.0,498.35 2500.0,498.35"/>
+<poly id="connected.part0" color="255,0,201" layer="100" type="route" shape="0.0,498.35 495.25,498.35"/>
+<poly id="connected.part1" color="255,194,0" layer="100" type="route" shape="498.35,495.25 498.35,-0.05"/>
+<poly id="repairable.part0" color="171,255,0" layer="100" type="route" shape="0.0,498.35 495.25,498.35"/>
+<poly id="repairable.part1" color="255,179,0" layer="100" type="route" shape="2000.0,498.35 2500.0,498.35"/>
+</additional>

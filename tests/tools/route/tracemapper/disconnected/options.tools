@@ -1,0 +1,1 @@
+-t tracefile.txt -o out.rou.xml --polygon-output output.poly.xml

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-26 13:11:03.360232 by Eclipse SUMO tracemapper.py v1.28.0-0000000000
+  options: -t tracefile.txt -o out.rou.xml <doubleminus>polygon-output output.poly.xml -n three_split.net.xml <doubleminus>disconnected-action discard <doubleminus>fill-gaps 5000
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<poly id="connected" color="0,210,255" layer="100" type="route" shape="0.0,498.35 495.25,498.35 498.35,495.25 498.35,-0.05"/>
+<poly id="repairable" color="0,255,42" layer="100" type="route" shape="0.0,498.35 495.25,498.35 504.75,498.35 1495.25,498.35 1504.75,498.35 2000.0,498.35 2000.0,498.35 2500.0,498.35"/>
+</additional>

@@ -7,5 +7,8 @@ fillGaps
 bs
 bs3
 
+# handling for disconnected mapped routes
+disconnected
+
 # gap in mapping
 unmapped

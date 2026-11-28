@@ -1,0 +1,3 @@
+[run_dependent_text]
+poly_additional:<!-- generated on{[->]}-->
+poly_additional:color="[^"]*"{REPLACE color="<COLOR>"}
