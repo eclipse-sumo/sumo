@@ -112,29 +112,34 @@ GNEEdgeData::getColorValue(const GUIVisualizationSettings& s, int activeScheme) 
 
 bool
 GNEEdgeData::isGenericDataVisible() const {
-    // get current data edit mode
-    DataEditMode dataMode = myNet->getViewNet()->getEditModes().dataEditMode;
-    // check if we have to filter generic data
-    if ((dataMode == DataEditMode::DATA_INSPECT) || (dataMode == DataEditMode::DATA_DELETE) || (dataMode == DataEditMode::DATA_SELECT)) {
-        return isVisibleInspectDeleteSelect();
-    } else if (myDataIntervalParent->getNet()->getViewParent()->getEdgeDataFrame()->shown()) {
-        // get selected data interval and filtered attribute
-        const GNEDataInterval* dataInterval = myNet->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval();
-        const std::string filteredAttribute = myNet->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute();
-        // check interval
-        if ((dataInterval != nullptr) && (dataInterval != myDataIntervalParent)) {
-            return false;
-        }
-        // check attribute
-        if ((filteredAttribute.size() > 0) && (getParametersMap().count(filteredAttribute) == 0)) {
-            return false;
-        }
-        // all checks ok, then return true
-        return true;
-    } else {
-        // GNEEdgeDataFrame hidden, then return false
-        return false;
+    return getVisibility() == Visibility::FULL;
+}
+
+
+GNEEdgeData::Visibility
+GNEEdgeData::getVisibility() const {
+    const auto dataMode = myNet->getViewNet()->getEditModes().dataEditMode;
+    if (dataMode == DataEditMode::DATA_INSPECT || dataMode == DataEditMode::DATA_DELETE || dataMode == DataEditMode::DATA_SELECT) {
+        return isVisibleInspectDeleteSelect() ? Visibility::FULL : Visibility::HIDDEN;
     }
+    const auto edgeDataFrame = myNet->getViewParent()->getEdgeDataFrame();
+    if (!edgeDataFrame->shown()) {
+        return Visibility::HIDDEN;
+    }
+    const auto dataSet = edgeDataFrame->getDataSetSelector()->getDataSet();
+    if (dataSet && dataSet != myDataIntervalParent->getDataSetParent()) {
+        return Visibility::HIDDEN;
+    }
+    const auto dataInterval = edgeDataFrame->getIntervalSelector()->getDataInterval();
+    if (dataInterval && dataInterval != myDataIntervalParent) {
+        return Visibility::HIDDEN;
+    }
+    const auto filteredAttribute = edgeDataFrame->getAttributeSelector()->getFilteredAttribute();
+    if (filteredAttribute.empty() || hasParameter(filteredAttribute)) {
+        return Visibility::FULL;
+    }
+    // Keep data without the selected attribute visible as outlines in the active interval.
+    return dataInterval ? Visibility::OUTLINE : Visibility::HIDDEN;
 }
 
 
@@ -199,43 +204,50 @@ GNEEdgeData::computePathElement() {
 
 void
 GNEEdgeData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
-    // get color
+    if (!segment->getLane() || !myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+        return;
+    }
+    const auto visibility = getVisibility();
+    if (visibility == Visibility::HIDDEN || (visibility == Visibility::OUTLINE && s.drawForViewObjectsHandler)) {
+        return;
+    }
     const auto color = setColor(s);
-    if (segment->getLane() && (color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        // get detail level
-        const auto d = s.getDetailLevel(1);
-        // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
-            // draw over all edge's lanes
-            for (const auto& laneEdge : segment->getLane()->getParentEdge()->getChildLanes()) {
-                // Add a draw matrix
-                GLHelper::pushMatrix();
-                // Start with the drawing of the area translating matrix to origin
-                drawInLayer(GLO_EDGEDATA, offsetFront);
-                GLHelper::setColor(RGBColor::BLACK);
-                // draw geometry
-                GUIGeometry::drawGeometry(laneEdge->getDrawingConstants()->getDetail(), laneEdge->getLaneGeometry(), laneEdge->getDrawingConstants()->getDrawingWidth());
-                // translate to top
-                glTranslated(0, 0, 0.01);
-                GLHelper::setColor(color);
-                // draw internal box lines
-                GUIGeometry::drawGeometry(laneEdge->getDrawingConstants()->getDetail(), laneEdge->getLaneGeometry(), (laneEdge->getDrawingConstants()->getDrawingWidth() - 0.1));
-                // Pop last matrix
-                GLHelper::popMatrix();
-                // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
-                // draw filtered attribute
-                if (getParentEdges().front()->getChildLanes().front() == laneEdge) {
-                    drawFilteredAttribute(s, laneEdge->getLaneShape(),
-                                          myNet->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute(),
-                                          myNet->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval());
-                }
-            }
-            // draw dotted contour
-            segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+    if (color.alpha() == 0) {
+        return;
+    }
+    const auto d = s.getDetailLevel(1);
+    const auto edge = segment->getLane()->getParentEdge();
+    if (s.drawForViewObjectsHandler) {
+        segment->getContour()->calculateContourEdge(s, d, edge, this, getType(), true, true);
+        return;
+    }
+
+    const auto& lanes = edge->getChildLanes();
+    for (const auto& lane : lanes) {
+        const auto drawing = lane->getDrawingConstants();
+        const auto& geometry = lane->getLaneGeometry();
+        const double width = drawing->getDrawingWidth();
+        GLHelper::pushMatrix();
+        drawInLayer(GLO_EDGEDATA, offsetFront);
+        if (visibility == Visibility::OUTLINE) {
+            GLHelper::setColor(color);
+            GUIGeometry::drawContourGeometry(geometry, width, true);
+        } else {
+            GLHelper::setColor(RGBColor::BLACK);
+            GUIGeometry::drawGeometry(drawing->getDetail(), geometry, width);
+            glTranslated(0, 0, 0.01);
+            GLHelper::setColor(color);
+            GUIGeometry::drawGeometry(drawing->getDetail(), geometry, width - 0.1);
         }
-        // calculate contour and draw dotted geometry
-        segment->getContour()->calculateContourEdge(s, d, segment->getLane()->getParentEdge(), this, getType(), true, true);
+        GLHelper::popMatrix();
+    }
+
+    if (visibility == Visibility::FULL) {
+        GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
+        const auto edgeDataFrame = myNet->getViewParent()->getEdgeDataFrame();
+        drawFilteredAttribute(s, lanes.front()->getLaneShape(), edgeDataFrame->getAttributeSelector()->getFilteredAttribute(),
+                              edgeDataFrame->getIntervalSelector()->getDataInterval());
+        segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
     }
 }
 
