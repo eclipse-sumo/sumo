@@ -168,6 +168,13 @@ time gaps or time loss. More information about actuated traffic control
 and settings can be found at
 [Simulation/Traffic_Lights\#Actuated_Traffic_Lights](../Simulation/Traffic_Lights.md#type_actuated)).
 
+## Roundabouts and Unsignalized Approaches
+
+Long queues on an approach leg of a multi-lane roundabout typically stem from overly conservative gap acceptance or restrictive lane-to-lane connections:
+
+1. **Inspect circulatory and exit connections**: Open the roundabout in [netedit](../Netedit/index.md) connection mode (`c`) to verify that all circulatory lanes connect cleanly to downstream exit legs and that `<roundabout>` edges carry priority over entering legs (see [Intersections](../Simulation/Intersections.md)).
+2. **Tune gap acceptance with `jmTimegapMinor`**: Raising `<vType>` `impatience` alone only takes effect as waiting time accumulates toward **--time-to-impatience**. Lowering the [junction model parameter](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#junction_model_parameters) `jmTimegapMinor` below its `1.0` s default (for example `jmTimegapMinor="0.6"`) lets entering vehicles accept shorter headways in circulating traffic immediately upon arrival.
+
 # Manage Scenarios
 
 If you have two networks *A.net.xml* and *B.net.xml* you may wish to
