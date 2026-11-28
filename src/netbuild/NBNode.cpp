@@ -2150,7 +2150,7 @@ NBNode::invalidateOutgoingConnections(bool reallowSetting) {
 
 
 bool
-NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, int toLane, bool includePedCrossings) const {
+NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, int toLane, bool includePedCrossings, bool includeBidi) const {
     // unregulated->does not need to brake
     if (myRequest == nullptr) {
         return false;
@@ -2160,11 +2160,11 @@ NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane
         return true;
     }
     // maybe we need to brake due to entering a bidi-edge
-    if (to->isBidiEdge() && !from->isBidiEdge()) {
+    if (includeBidi && to->isBidiEdge() && !from->isBidiEdge()) {
         return true;
     }
     // check whether any other connection on this node prohibits this connection
-    return myRequest->mustBrake(from, to, fromLane, toLane, includePedCrossings);
+    return myRequest->mustBrake(from, to, fromLane, toLane, includePedCrossings, includeBidi);
 }
 
 bool

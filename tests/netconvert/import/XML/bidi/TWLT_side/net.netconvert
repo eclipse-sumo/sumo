@@ -101,7 +101,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <connection from="-E2" to="E4" fromLane="0" toLane="0" via=":J2_2_0" dir="r" state="M"/>
     <connection from="-E2" to="-E0" fromLane="0" toLane="0" via=":J2_3_0" dir="s" state="M"/>
-    <connection from="-E2" to="-E0" fromLane="1" toLane="1" via=":J2_3_1" dir="s" state="m"/>
+    <connection from="-E2" to="-E0" fromLane="1" toLane="1" via=":J2_3_1" dir="s" state="m" visibility="100.00"/>
     <connection from="-E4" to="-E0" fromLane="0" toLane="1" via=":J2_0_0" dir="r" state="m"/>
     <connection from="-E4" to="E2" fromLane="0" toLane="1" via=":J2_1_0" dir="l" state="m"/>
     <connection from="E0" to="E2" fromLane="0" toLane="0" via=":J2_5_0" dir="s" state="M"/>
