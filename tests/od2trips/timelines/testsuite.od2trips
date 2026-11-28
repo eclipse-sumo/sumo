@@ -30,3 +30,6 @@ timeline_flows
 
 # 24h timeline with demand gaps
 hours_demand_gaps
+
+# human readable timeline definition
+human_readable
