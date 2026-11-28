@@ -103,6 +103,7 @@ spreadType2
 
 # additional bike access
 bike_access
+motor_vehicle_access
 
 # additional bike access with oneway bikes
 oneway_bike
