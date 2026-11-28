@@ -24,6 +24,8 @@
 // ===========================================================================
 #include <config.h>
 
+#include <exception>
+#include <stdexcept>
 #include <gtest/gtest.h>
 #include <utils/common/StdDefs.h>
 #include <utils/foxtools/MFXWorkerThread.h>
@@ -32,6 +34,18 @@ class TestTask : public MFXWorkerThread::Task {
 public:
     void run(MFXWorkerThread* /* context */) {
     }
+};
+
+class ThrowingTask : public MFXWorkerThread::Task {
+public:
+    explicit ThrowingTask(std::exception_ptr error) : myError(error) {}
+
+    void run(MFXWorkerThread* /* context */) override {
+        std::rethrow_exception(myError);
+    }
+
+private:
+    const std::exception_ptr myError;
 };
 
 // ===========================================================================
@@ -54,4 +68,20 @@ TEST(MFXWorkerThread, test_get_all) {
     g.add(task3);
     g.add(task4);
     g.waitAll();
+}
+
+TEST(MFXWorkerThread, test_propagates_worker_exceptions) {
+    MFXWorkerThread::Pool pool(2);
+    pool.add(new ThrowingTask(std::make_exception_ptr(ProcessError("invalid input"))));
+    EXPECT_THROW(pool.waitAll(), ProcessError);
+
+    pool.add(new ThrowingTask(std::make_exception_ptr(std::runtime_error("simulation failed"))));
+    pool.add(new TestTask());
+    EXPECT_THROW(pool.waitAll(), std::runtime_error);
+
+    pool.add(new ThrowingTask(std::make_exception_ptr(219)));
+    EXPECT_THROW(pool.waitAll(), int);
+
+    pool.add(new TestTask());
+    EXPECT_NO_THROW(pool.waitAll());
 }
