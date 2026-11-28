@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-14 11:34:12 by Eclipse SUMO sumo Version v1_23_1+0570-960373e9433
+<!-- generated on 2026-11-18T02:07:57.316867+00:00 by Eclipse SUMO sumo v1_28_0+0644-bda840e3afe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,12 +26,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
-    <routing>
+    <persons>
         <persontrip.transfer.car-walk value="ptStops"/>
-    </routing>
+    </persons>
 
     <report>
         <xml-validation value="never"/>
@@ -54,7 +56,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </vehicle>
 
     <person id="p0" depart="0.00" arrival="597.00">
-        <ride from="beg" to="middle" arrivalPos="501.40" lines="p0_0"/>
+        <ride from="beg" to="middle" busStop="middle_0" lines="p0_0"/>
         <walk edges="middle end"/>
     </person>
 

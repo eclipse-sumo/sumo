@@ -550,22 +550,22 @@ public:
                     carSplit = new CarEdge<E, L, N, V>(myNumericalID++, stopEdge, pos);
                 }
                 splitEdge(myCarLookup[stopEdge], splitIndex, carSplit, relPos, length, needSplit, stopConn, true, false, transferCarWalk);
+                if (!transferCarWalk && transferTaxiWalk) {
+                    _IntermodalEdge* const beforeSplit = myAccessSplits[myCarLookup[stopEdge]][splitIndex];
+                    addRestrictedCarExit(beforeSplit, stopConn, gTaxiClasses);
+                }
             }
             if (needSplit) {
-                if (carSplit != nullptr && (transferCarWalk || transferTaxiWalk)) {
-                    // adding access from car to walk
+                if (carSplit != nullptr && isAccess && transferCarWalk) {
+                    // allow direct transfer from car to walk on the access edge without traversing the remote stop twice
                     _IntermodalEdge* const beforeSplit = myAccessSplits[myCarLookup[stopEdge]][splitIndex];
                     for (_IntermodalEdge* conn : {
                                 fwdSplit, backSplit
                             }) {
-                        if (transferCarWalk) {
-                            _AccessEdge* access = new _AccessEdge(myNumericalID++, beforeSplit, conn, length);
-                            addEdge(access);
-                            beforeSplit->addSuccessor(access);
-                            access->addSuccessor(conn);
-                        } else if (transferTaxiWalk) {
-                            addRestrictedCarExit(beforeSplit, stopConn, gTaxiClasses);
-                        }
+                        _AccessEdge* access = new _AccessEdge(myNumericalID++, beforeSplit, conn, length);
+                        addEdge(access);
+                        beforeSplit->addSuccessor(access);
+                        access->addSuccessor(conn);
                     }
                 }
                 if (carSplit != nullptr && transferWalkTaxi && !isAccess) {

@@ -233,3 +233,6 @@ pt_looped_need_transfer2
 # Copy of basic
 max-traveltime
 errors
+
+# preserve destination stopping place on ride stage (#17181)
+car_dest_stopping_place
