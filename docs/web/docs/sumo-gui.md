@@ -771,6 +771,8 @@ hide macro connectors. The edge names as well as the street and internal
 edge names will always be scaled to the chosen size, no matter which
 zoom step is chosen.
 
+Link decals use the current lane and connection permissions to show direction arrows for accessible turns.
+
 ## Loading Shapes and POIs
 
 [Polygonal shapes and Points of Interests

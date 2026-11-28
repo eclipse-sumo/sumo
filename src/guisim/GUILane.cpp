@@ -450,7 +450,7 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
 
 void
 GUILane::drawArrows(const GUIVisualizationSettings& s, const RGBColor& color) const {
-    if (myLinks.size() == 0) {
+    if (myLinks.empty() || isClosed()) {
         return;
     }
     const RGBColor laneCol = color.isValid() ? color : setColor(s);
@@ -466,9 +466,15 @@ GUILane::drawArrows(const GUIVisualizationSettings& s, const RGBColor& color) co
         glScaled(myWidth / SUMO_const_laneWidth, 1, 1);
     }
     for (const MSLink* const link : myLinks) {
-        LinkDirection dir = link->getDirection();
-        LinkState state = link->getState();
+        const LinkDirection dir = link->getDirection();
+        const LinkState state = link->getState();
         if (state == LINKSTATE_DEADEND || dir == LinkDirection::NODIR) {
+            continue;
+        }
+        const GUILane* const target = static_cast<const GUILane*>(link->getLane());
+        const GUILane* const next = static_cast<const GUILane*>(link->getViaLaneOrLane());
+        if (target->isClosed() || next->isClosed()
+                || (myPermissions & target->getPermissions() & next->getPermissions()) == 0) {
             continue;
         }
         switch (dir) {
