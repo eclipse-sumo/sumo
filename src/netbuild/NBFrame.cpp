@@ -707,6 +707,9 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.doRegister("keep-edges.in-geo-boundary", new Option_StringVector());
     oc.addDescription("keep-edges.in-geo-boundary", "Edge Removal", TL("Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon <lon0,lat0,lon1,lat1,...>)"));
 
+    oc.doRegister("keep-edges.in-geo-boundary-file", new Option_FileName());
+    oc.addDescription("keep-edges.in-geo-boundary-file", "Edge Removal", TL("Only keep edges within the longitude/latitude polygon in FILE. The file must contain one poly element."));
+
     if (!forNetgen) {
         oc.doRegister("keep-edges.by-vclass", new Option_StringVector());
         oc.addDescription("keep-edges.by-vclass", "Edge Removal", TL("Only keep edges which allow one of the vclasses in STR[]"));
@@ -798,6 +801,11 @@ NBFrame::checkOptions(OptionsCont& oc) {
     }
     if (oc.isSet("keep-edges.in-boundary") && oc.isSet("keep-edges.in-geo-boundary")) {
         WRITE_ERROR(TL("only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-boundary' may be given"));
+        ok = false;
+    }
+    if (oc.isSet("keep-edges.in-geo-boundary-file")
+            && (oc.isSet("keep-edges.in-boundary") || oc.isSet("keep-edges.in-geo-boundary"))) {
+        WRITE_ERROR(TL("'keep-edges.in-geo-boundary-file' cannot be combined with 'keep-edges.in-boundary' or 'keep-edges.in-geo-boundary'."));
         ok = false;
     }
     if (oc.getBool("no-internal-links") && oc.getBool("crossings.guess")) {

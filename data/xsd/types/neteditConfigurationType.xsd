@@ -274,6 +274,7 @@
             <xsd:element name="keep-edges.postload" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.in-boundary" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.in-geo-boundary" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="keep-edges.in-geo-boundary-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.by-vclass" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="remove-edges.by-vclass" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.by-type" type="strArrayOptionType" minOccurs="0"/>
