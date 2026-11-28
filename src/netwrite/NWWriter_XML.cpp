@@ -229,6 +229,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
         // write the type if given
         edevice.writeOptionalAttr(SUMO_ATTR_TYPE, e->getTypeID(), e->getTypeID() == "");
         edevice.writeOptionalAttr(SUMO_ATTR_ROUTINGTYPE, e->getRoutingType(), e->getRoutingType() == "");
+        NWWriter_SUMO::writeCurvature(edevice, *e);
         edevice.writeAttr(SUMO_ATTR_NUMLANES, e->getNumLanes());
         edevice.writeOptionalAttr(SUMO_ATTR_SPEED, e->getSpeed(), e->hasLaneSpecificSpeed());
         edevice.writeOptionalAttr(SUMO_ATTR_FRICTION, e->getFriction(), e->getFriction() == NBEdge::UNSPECIFIED_FRICTION || e->hasLaneSpecificFriction());

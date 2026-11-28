@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23T16:49:49.542819+00:00 by Eclipse SUMO netconvert v1.28.0-0000000000
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="nodes.nod.xml"/>
+        <edge-files value="edges.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="patched.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,1950.00,2354.04" origBoundary="0.00,0.00,1950.00,2354.04" projParameter="!"/>
+
+    <edge id="geometry" from="geometry0" to="geometry1" priority="-1" shape="0.00,1000.00 12.49,1000.31 24.96,1001.25 37.36,1002.81 49.67,1004.98 61.85,1007.77 73.88,1011.17 85.72,1015.16 97.35,1019.73 108.74,1024.89 119.86,1030.60 130.67,1036.87 141.16,1043.67 151.30,1050.98 161.05,1058.79 170.41,1067.08 179.34,1075.82 187.82,1085.00 195.83,1094.60 203.35,1104.58 210.37,1114.92 216.86,1125.61 222.80,1136.60 228.19,1147.88 233.01,1159.41 237.25,1171.17 240.89,1183.13 243.93,1195.25 246.36,1207.51 248.18,1219.87 249.37,1232.32 249.95,1244.80 249.89,1257.30 249.22,1269.78 247.92,1282.21 246.00,1294.56 243.46,1306.80 240.32,1318.90 236.58,1330.82 232.24,1342.55 227.32,1354.04">
+        <lane id="geometry_0" index="0" allow="rail" speed="40.00" length="499.95" shape="0.04,998.40 12.57,998.71 25.12,999.66 37.60,1001.23 49.99,1003.41 62.25,1006.22 74.35,1009.64 86.27,1013.66 97.97,1018.26 109.44,1023.45 120.63,1029.20 131.51,1035.51 142.06,1042.35 152.27,1049.71 162.08,1057.57 171.50,1065.91 180.49,1074.70 189.02,1083.94 197.08,1093.61 204.65,1103.65 211.72,1114.05 218.25,1124.81 224.23,1135.87 229.65,1147.23 234.50,1158.83 238.77,1170.67 242.43,1182.70 245.49,1194.90 247.94,1207.24 249.77,1219.68 250.97,1232.21 251.55,1244.77 251.49,1257.35 250.82,1269.91 249.51,1282.42 247.57,1294.85 245.02,1307.16 241.86,1319.34 238.09,1331.34 233.73,1343.14 228.79,1354.67"/>
+    </edge>
+    <edge id="geometryControl" from="geometryControl0" to="geometryControl1" priority="-1" shape="0.00,2000.00 12.49,2000.31 24.96,2001.25 37.36,2002.81 49.67,2004.98 61.85,2007.77 73.88,2011.17 85.72,2015.16 97.35,2019.73 108.74,2024.89 119.86,2030.60 130.67,2036.87 141.16,2043.67 151.30,2050.98 161.05,2058.79 170.41,2067.08 179.34,2075.82 187.82,2085.00 195.83,2094.60 203.35,2104.58 210.37,2114.92 216.86,2125.61 222.80,2136.60 228.19,2147.88 233.01,2159.41 237.25,2171.17 240.89,2183.13 243.93,2195.25 246.36,2207.51 248.18,2219.87 249.37,2232.32 249.95,2244.80 249.89,2257.30 249.22,2269.78 247.92,2282.21 246.00,2294.56 243.46,2306.80 240.32,2318.90 236.58,2330.82 232.24,2342.55 227.32,2354.04">
+        <lane id="geometryControl_0" index="0" allow="rail" speed="40.00" length="499.95" shape="0.04,1998.40 12.57,1998.71 25.12,1999.66 37.60,2001.23 49.99,2003.41 62.25,2006.22 74.35,2009.64 86.27,2013.66 97.97,2018.26 109.44,2023.45 120.63,2029.20 131.51,2035.51 142.06,2042.35 152.27,2049.71 162.08,2057.57 171.50,2065.91 180.49,2074.70 189.02,2083.94 197.08,2093.61 204.65,2103.65 211.72,2114.05 218.25,2124.81 224.23,2135.87 229.65,2147.23 234.50,2158.83 238.77,2170.67 242.43,2182.70 245.49,2194.90 247.94,2207.24 249.77,2219.68 250.97,2232.21 251.55,2244.77 251.49,2257.35 250.82,2269.91 249.51,2282.42 247.57,2294.85 245.02,2307.16 241.86,2319.34 238.09,2331.34 233.73,2343.14 228.79,2354.67"/>
+    </edge>
+    <edge id="geometryZero" from="geometryZero0" to="geometryZero1" priority="-1" curvature="0" shape="0.00,1500.00 12.49,1500.31 24.96,1501.25 37.36,1502.81 49.67,1504.98 61.85,1507.77 73.88,1511.17 85.72,1515.16 97.35,1519.73 108.74,1524.89 119.86,1530.60 130.67,1536.87 141.16,1543.67 151.30,1550.98 161.05,1558.79 170.41,1567.08 179.34,1575.82 187.82,1585.00 195.83,1594.60 203.35,1604.58 210.37,1614.92 216.86,1625.61 222.80,1636.60 228.19,1647.88 233.01,1659.41 237.25,1671.17 240.89,1683.13 243.93,1695.25 246.36,1707.51 248.18,1719.87 249.37,1732.32 249.95,1744.80 249.89,1757.30 249.22,1769.78 247.92,1782.21 246.00,1794.56 243.46,1806.80 240.32,1818.90 236.58,1830.82 232.24,1842.55 227.32,1854.04">
+        <lane id="geometryZero_0" index="0" allow="rail" speed="40.00" length="499.95" shape="0.04,1498.40 12.57,1498.71 25.12,1499.66 37.60,1501.23 49.99,1503.41 62.25,1506.22 74.35,1509.64 86.27,1513.66 97.97,1518.26 109.44,1523.45 120.63,1529.20 131.51,1535.51 142.06,1542.35 152.27,1549.71 162.08,1557.57 171.50,1565.91 180.49,1574.70 189.02,1583.94 197.08,1593.61 204.65,1603.65 211.72,1614.05 218.25,1624.81 224.23,1635.87 229.65,1647.23 234.50,1658.83 238.77,1670.67 242.43,1682.70 245.49,1694.90 247.94,1707.24 249.77,1719.68 250.97,1732.21 251.55,1744.77 251.49,1757.35 250.82,1769.91 249.51,1782.42 247.57,1794.85 245.02,1807.16 241.86,1819.34 238.09,1831.34 233.73,1843.14 228.79,1854.67"/>
+    </edge>
+    <edge id="negativeEntry" from="negative0" to="negative1" priority="-1">
+        <lane id="negativeEntry_0" index="0" allow="rail" speed="40.00" length="450.00" shape="0.00,-1.60 450.00,-1.60"/>
+    </edge>
+    <edge id="negativeExit" from="negative2" to="negative3" priority="-1">
+        <lane id="negativeExit_0" index="0" allow="rail" speed="40.00" length="700.00" shape="1250.00,-1.60 1950.00,-1.60"/>
+    </edge>
+    <edge id="negativeOverride" from="negative1" to="negative2" priority="-1" curvature="-0.0050000000000000001">
+        <lane id="negativeOverride_0" index="0" allow="rail" speed="40.00" length="800.00" shape="450.00,-1.60 1250.00,-1.60"/>
+    </edge>
+    <edge id="positiveEntry" from="positive0" to="positive1" priority="-1">
+        <lane id="positiveEntry_0" index="0" allow="rail" speed="40.00" length="450.00" shape="0.00,98.40 450.00,98.40"/>
+    </edge>
+    <edge id="positiveExit" from="positive2" to="positive3" priority="-1">
+        <lane id="positiveExit_0" index="0" allow="rail" speed="40.00" length="700.00" shape="1250.00,98.40 1950.00,98.40"/>
+    </edge>
+    <edge id="positiveOverride" from="positive1" to="positive2" priority="-1" curvature="0.0050000000000000001">
+        <lane id="positiveOverride_0" index="0" allow="rail" speed="40.00" length="800.00" shape="450.00,98.40 1250.00,98.40"/>
+    </edge>
+    <edge id="straightEntry" from="straight0" to="straight1" priority="-1">
+        <lane id="straightEntry_0" index="0" allow="rail" speed="40.00" length="450.00" shape="0.00,198.40 450.00,198.40"/>
+    </edge>
+    <edge id="straightExit" from="straight2" to="straight3" priority="-1">
+        <lane id="straightExit_0" index="0" allow="rail" speed="40.00" length="700.00" shape="1250.00,198.40 1950.00,198.40"/>
+    </edge>
+    <edge id="straightOverride" from="straight1" to="straight2" priority="-1" curvature="0">
+        <lane id="straightOverride_0" index="0" allow="rail" speed="40.00" length="800.00" shape="450.00,198.40 1250.00,198.40"/>
+    </edge>
+
+    <junction id="geometry0" type="dead_end" x="0.00" y="1000.00" incLanes="" intLanes="" shape="0.00,1000.00 0.08,996.80"/>
+    <junction id="geometry1" type="dead_end" x="227.32" y="1354.04" incLanes="geometry_0" intLanes="" shape="230.26,1355.30 227.32,1354.04"/>
+    <junction id="geometryControl0" type="dead_end" x="0.00" y="2000.00" incLanes="" intLanes="" shape="0.00,2000.00 0.08,1996.80"/>
+    <junction id="geometryControl1" type="dead_end" x="227.32" y="2354.04" incLanes="geometryControl_0" intLanes="" shape="230.26,2355.30 227.32,2354.04"/>
+    <junction id="geometryZero0" type="dead_end" x="0.00" y="1500.00" incLanes="" intLanes="" shape="0.00,1500.00 0.08,1496.80"/>
+    <junction id="geometryZero1" type="dead_end" x="227.32" y="1854.04" incLanes="geometryZero_0" intLanes="" shape="230.26,1855.30 227.32,1854.04"/>
+    <junction id="negative0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="negative1" type="priority" x="450.00" y="0.00" incLanes="negativeEntry_0" intLanes="" shape="450.00,0.00 450.00,-3.20 450.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="negative2" type="priority" x="1250.00" y="0.00" incLanes="negativeOverride_0" intLanes="" shape="1250.00,0.00 1250.00,-3.20 1250.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="negative3" type="dead_end" x="1950.00" y="0.00" incLanes="negativeExit_0" intLanes="" shape="1950.00,-3.20 1950.00,0.00"/>
+    <junction id="positive0" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,100.00 0.00,96.80"/>
+    <junction id="positive1" type="priority" x="450.00" y="100.00" incLanes="positiveEntry_0" intLanes="" shape="450.00,100.00 450.00,96.80 450.00,100.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="positive2" type="priority" x="1250.00" y="100.00" incLanes="positiveOverride_0" intLanes="" shape="1250.00,100.00 1250.00,96.80 1250.00,100.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="positive3" type="dead_end" x="1950.00" y="100.00" incLanes="positiveExit_0" intLanes="" shape="1950.00,96.80 1950.00,100.00"/>
+    <junction id="straight0" type="dead_end" x="0.00" y="200.00" incLanes="" intLanes="" shape="0.00,200.00 0.00,196.80"/>
+    <junction id="straight1" type="priority" x="450.00" y="200.00" incLanes="straightEntry_0" intLanes="" shape="450.00,200.00 450.00,196.80 450.00,200.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="straight2" type="priority" x="1250.00" y="200.00" incLanes="straightOverride_0" intLanes="" shape="1250.00,200.00 1250.00,196.80 1250.00,200.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="straight3" type="dead_end" x="1950.00" y="200.00" incLanes="straightExit_0" intLanes="" shape="1950.00,196.80 1950.00,200.00"/>
+
+    <connection from="negativeEntry" to="negativeOverride" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="negativeOverride" to="negativeExit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="positiveEntry" to="positiveOverride" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="positiveOverride" to="positiveExit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="straightEntry" to="straightOverride" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="straightOverride" to="straightExit" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

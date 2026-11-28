@@ -21,8 +21,11 @@
 // Exporter writing networks using the SUMO format
 /****************************************************************************/
 #include <config.h>
-#include <cmath>
 #include <algorithm>
+#include <cmath>
+#include <iomanip>
+#include <limits>
+#include <sstream>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -474,6 +477,16 @@ NWWriter_SUMO::getInternalBidi(const NBEdge* e, const NBEdge::Connection& k, dou
 }
 
 void
+NWWriter_SUMO::writeCurvature(OutputDevice& out, const NBEdge& edge) {
+    if (const auto curvature = edge.getCurvature()) {
+        std::ostringstream value;
+        value << std::setprecision(std::numeric_limits<double>::max_digits10) << *curvature;
+        out.writeAttr(SUMO_ATTR_CURVATURE, value.str());
+    }
+}
+
+
+void
 NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, LaneSpreadFunction defaultSpread) {
     // write the edge's begin
     into.openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, e.getID());
@@ -489,6 +502,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, Lane
     if (e.getRoutingType() != "") {
         into.writeAttr(SUMO_ATTR_ROUTINGTYPE, e.getRoutingType());
     }
+    writeCurvature(into, e);
     if (e.isMacroscopicConnector()) {
         into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::CONNECTOR);
     }

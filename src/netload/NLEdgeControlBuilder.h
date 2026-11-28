@@ -22,6 +22,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+#include <optional>
 
 #include <string>
 #include <vector>
@@ -80,7 +81,7 @@ public:
                           const std::string& routingType,
                           int priority,
                           const std::string& bidi,
-                          double distance);
+                          double distance, std::optional<double> curvature);
 
 
     /** @brief Adds a lane to the current edge

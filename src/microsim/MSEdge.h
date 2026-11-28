@@ -26,6 +26,7 @@
 
 #include <vector>
 #include <map>
+#include <optional>
 #include <string>
 #include <unordered_map>
 #include <iostream>
@@ -322,8 +323,16 @@ public:
         return myEdgeType;
     }
 
-    /** @brief Returns the type of the edge
-     */
+    /// @brief Sets explicit curvature in inverse metres.
+    void setCurvature(std::optional<double> curvature) {
+        myCurvature = curvature;
+    }
+
+    std::optional<double> getCurvature() const {
+        return myCurvature;
+    }
+
+    /// @brief Returns the routing type of the edge.
     const std::string& getRoutingType() const {
         return myRoutingType.empty() ? myEdgeType : myRoutingType;
     }
@@ -1008,6 +1017,9 @@ protected:
 
     /// @brief the routing type of the edge (used to look up vType and vClass specific routing preferences)
     std::string myRoutingType;
+
+    /// @brief Explicit curvature (1/m), if defined.
+    std::optional<double> myCurvature;
 
     /// @brief the priority of the edge (used during network creation)
     const int myPriority;

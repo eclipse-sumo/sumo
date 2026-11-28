@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-23T16:50:41.804448+00:00 by Eclipse SUMO sumo v1.28.0-0000000000
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+    </output>
+
+    <time>
+        <end value="200"/>
+    </time>
+
+    <report>
+        <aggregate-warnings value="5"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="geometryControl" depart="0.00" departLane="geometryControl_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="32.00" arrivalLane="geometryControl_0" arrivalPos="499.95" arrivalSpeed="27.48" duration="32.00" routeLength="499.95" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="19.41" rerouteNo="0" devices="tripinfo_geometryControl" vType="noResistance" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="geometryZero" depart="0.00" departLane="geometryZero_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="32.00" arrivalLane="geometryZero_0" arrivalPos="499.95" arrivalSpeed="27.48" duration="32.00" routeLength="499.95" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="19.41" rerouteNo="0" devices="tripinfo_geometryZero" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="geometry" depart="0.00" departLane="geometry_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="35.00" arrivalLane="geometry_0" arrivalPos="499.95" arrivalSpeed="25.00" duration="35.00" routeLength="499.95" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="21.97" rerouteNo="0" devices="tripinfo_geometry" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="straight" depart="0.00" departLane="straightEntry_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="73.00" arrivalLane="straightExit_0" arrivalPos="700.00" arrivalSpeed="40.00" duration="73.00" routeLength="1950.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="23.98" rerouteNo="0" devices="tripinfo_straight" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="negative" depart="0.00" departLane="negativeEntry_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="77.00" arrivalLane="negativeExit_0" arrivalPos="700.00" arrivalSpeed="38.59" duration="77.00" routeLength="1950.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="27.83" rerouteNo="0" devices="tripinfo_negative" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="positive" depart="0.00" departLane="positiveEntry_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="77.00" arrivalLane="positiveExit_0" arrivalPos="700.00" arrivalSpeed="38.59" duration="77.00" routeLength="1950.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="27.83" rerouteNo="0" devices="tripinfo_positive" vType="train" speedFactor="1.00" vaporized=""/>
+</tripinfos>

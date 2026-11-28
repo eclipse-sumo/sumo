@@ -26,6 +26,8 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSCFModel_Rail.h"
@@ -94,6 +96,13 @@ MSCFModel_Rail::RailVehicleVariables::loadState(const SUMOSAXAttributes& attrs) 
 
 double
 MSCFModel_Rail::RailVehicleVariables::getIntegratedRadius(const MSVehicle* veh, double curveIntegration) {
+    const MSLane* lane = veh->getLane();
+    const MSEdge* edge = lane == nullptr ? veh->getEdge() : &lane->getEdge();
+    if (const auto curvature = edge->getCurvature()) {
+        // A subsequent geometry estimate should start without samples from this edge.
+        odometerAngles.clear();
+        return *curvature == 0 ? std::numeric_limits<double>::max() : 1.0 / std::abs(*curvature);
+    }
     const double odo = veh->getOdometer();
     // add new data point
     if ((odometerAngles.empty() || odometerAngles.back().first != odo) && veh->hasDeparted()) {

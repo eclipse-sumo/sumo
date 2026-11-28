@@ -66,7 +66,8 @@ NLEdgeControlBuilder::beginEdgeParsing(
     const std::string& routingType,
     int priority,
     const std::string& bidi,
-    double distance) {
+    double distance,
+    std::optional<double> curvature) {
     // closeEdge might not have been called because the last edge had an error, so we clear the lane storage
     myLaneStorage->clear();
     // if the previous edge was broken (never registered in the static dict), remove and delete it
@@ -79,6 +80,7 @@ NLEdgeControlBuilder::beginEdgeParsing(
         throw InvalidArgument("Another edge with the id '" + id + "' exists.");
     }
     myActiveEdge = buildEdge(id, function, streetName, edgeType, routingType, priority, distance);
+    myActiveEdge->setCurvature(curvature);
     myEdges.push_back(myActiveEdge);
     if (bidi != "") {
         myBidiEdges[myActiveEdge] = bidi;

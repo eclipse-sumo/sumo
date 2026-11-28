@@ -21,6 +21,7 @@
 // Importer for networks stored in SUMO format
 /****************************************************************************/
 #include <config.h>
+#include <cmath>
 #include <string>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringUtils.h>
@@ -179,6 +180,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             ed->builtEdge->setEdgeStopOffset(-1, ed->edgeStopOffset);
             ed->builtEdge->setBidi(ed->bidi != "");
             ed->builtEdge->setRoutingType(ed->routingType);
+            ed->builtEdge->setCurvature(ed->curvature);
         }
     }
     // assign further lane attributes (edges are built)
@@ -614,6 +616,14 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge->priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1);
     myCurrentEdge->type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     myCurrentEdge->routingType = attrs.getOpt<std::string>(SUMO_ATTR_ROUTINGTYPE, id.c_str(), ok, "");
+    if (attrs.hasAttribute(SUMO_ATTR_CURVATURE)) {
+        const double curvature = attrs.get<double>(SUMO_ATTR_CURVATURE, id.c_str(), ok);
+        if (ok && std::isfinite(curvature)) {
+            myCurrentEdge->curvature = curvature;
+        } else if (ok) {
+            WRITE_ERRORF(TL("Curvature for edge '%' must be finite."), id);
+        }
+    }
     myCurrentEdge->shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok, PositionVector());
     NBNetBuilder::transformCoordinates(myCurrentEdge->shape, true, myLocation);
     myCurrentEdge->length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), ok, NBEdge::UNSPECIFIED_LOADED_LENGTH);
