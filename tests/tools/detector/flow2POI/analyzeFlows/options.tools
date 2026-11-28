@@ -1,0 +1,1 @@
+{CLEAR} -d input_detectors.add.xml -b 50 -o out.xml input_flows.txt tools/detector/analyzeFlows.py

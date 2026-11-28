@@ -46,7 +46,7 @@ def get_options(args=None):
     ap.add_argument("flowfiles", nargs="+", category="input", type=ap.file, metavar="FILE+",
                     help="read flows from FILE(s) (mandatory)")
     ap.add_argument("-d", "--detector-file", dest="detfile", category="input", type=ap.additional_file,
-                    help="read detectors from FILE (mandatory)", metavar="FILE")
+                    help="read detectors from FILE", metavar="FILE")
     ap.add_argument("-i", "--id-column", default="Detector", dest="id",
                     help="Read detector ids from the given column")
     ap.add_argument("--flow-column", dest="count", default="qPKW", type=str,
@@ -59,12 +59,18 @@ def get_options(args=None):
                     help="binning width of result histogram")
     ap.add_argument("-o", "--xml-output", category="output", type=ap.file,
                     help="output statistic to xml file")
-    options = ap.parse_args()
+    options = ap.parse_args(args=args)
     return options
 
 
 def main(options):
     counts = defaultdict(lambda: 0)
+    knownDetectors = None
+    if options.detfile is not None:
+        knownDetectors = set()
+        for detfile in options.detfile.split(','):
+            for det in sumolib.xml.parse(detfile, ['detectorDefinition', 'inductionLoop', 'e1Detector']):
+                knownDetectors.add(det.id)
 
     stats = Statistics("Total detector counts",
                        printDev=True,
@@ -79,22 +85,42 @@ def main(options):
                                 printSum=True)
 
     for file in options.flowfiles:
-        inputf = sumolib.openz(file)
-        reader = csv.DictReader(inputf, delimiter=options.delimiter)
-        checkedFields = False
-        for row in reader:
-            if not checkedFields:
-                checkedFields = True
-                for attr in ["id", "count"]:
-                    colName = getattr(options, attr)
-                    if colName not in row:
-                        sys.exit("Required column %s not found. Available columns are %s" % (
-                            colName, ",".join(row.keys())))
+        with sumolib.openz(file) as inputf:
+            reader = csv.DictReader(inputf, delimiter=options.delimiter)
+            checkedFields = False
+            for lineNo, row in enumerate(reader, 2):
+                if not checkedFields:
+                    checkedFields = True
+                    for attr in ["id", "count"]:
+                        colName = getattr(options, attr)
+                        if colName not in row:
+                            sys.exit("Required column %s not found. Available columns are %s" % (
+                                colName, ",".join(row.keys())))
 
-            detID = row[options.id]
-            count = float(row[options.count])
-            counts[detID] += count
-            intervalCounts.add(count, detID)
+                detID = row[options.id]
+                rawCount = row[options.count]
+                if rawCount is None or rawCount.strip() == "":
+                    print("Warning: Missing flow value for detector '%s' in '%s' line %d." % (
+                        detID, file, lineNo), file=sys.stderr)
+                    continue
+                try:
+                    count = float(rawCount)
+                except ValueError:
+                    print("Warning: Invalid flow value '%s' for detector '%s' in '%s' line %d." % (
+                        rawCount, detID, file, lineNo), file=sys.stderr)
+                    continue
+                counts[detID] += count
+                intervalCounts.add(count, detID)
+
+    if knownDetectors is not None:
+        unknown = sorted(set(counts.keys()) - knownDetectors)
+        if unknown:
+            print("Warning: %d detectors in flow file are not in detector file: %s" % (
+                len(unknown), ",".join(unknown)), file=sys.stderr)
+        unused = sorted(knownDetectors - set(counts.keys()))
+        if unused:
+            print("Warning: %d detectors in detector file have no flow data: %s" % (
+                len(unused), ",".join(unused)), file=sys.stderr)
 
     for detID, totalCount in counts.items():
         stats.add(totalCount, detID)
@@ -106,12 +132,12 @@ def main(options):
 
     if options.xml_output is not None:
         with open(options.xml_output, 'w') as f:
-            sumolib.writeXMLHeader(f, "$Id$", "flowStats")  # noqa
+            sumolib.xml.writeHeader(f, root="flowStats", rootAttrs=None, options=options)
             f.write(intervalCounts.toXML())
             f.write(stats.toXML())
             for c, i in highestCounts:
-                f.write('    <detector ids="%s" count="%s"/>\n' % (i, c))
-            f.write('<flowStats>\n')
+                f.write('    <detector ids=%s count="%s"/>\n' % (sumolib.xml.quoteattr(i), c))
+            f.write('</flowStats>\n')
 
 
 if __name__ == "__main__":

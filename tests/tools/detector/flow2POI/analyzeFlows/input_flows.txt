@@ -1,0 +1,7 @@
+Detector;Time;qPKW
+e1_0;0;100
+e1_1;0;50
+e1_unknown;0;20
+e1_0;30;
+e1_1;30;bad
+e1_0;60;150
