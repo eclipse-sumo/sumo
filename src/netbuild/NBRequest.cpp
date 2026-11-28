@@ -35,6 +35,8 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "NBEdge.h"
+#include "NBLoadedSUMOTLDef.h"
+#include "NBOwnTLDef.h"
 #include "NBContHelper.h"
 #include "NBNode.h"
 #include "NBRequest.h"
@@ -255,6 +257,38 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
                                  << " 1:" << from1->getID() << "->" << to1->getID()
                                  << " 2:" << from2->getID() << "->" << to2->getID() << "\n";
 #endif
+    if (myJunction->isTLControlled()) {
+        // Signal phases should let parallel cycleways proceed before motor vehicles turn across them.
+        const auto yieldsToCycleway = [this](const NBEdge* road, const NBEdge* roadTarget,
+        const NBEdge* cycleway, const NBEdge* cyclewayTarget) {
+            if ((road->getPermissions() & SVC_ROAD_MOTOR_CLASSES) == 0 || cycleway->getPermissions() != SVC_BICYCLE) {
+                return false;
+            }
+            const double separation = std::abs(NBHelpers::relAngle(road->getEndAngle(), cycleway->getEndAngle()));
+            const LinkDirection turn = myJunction->getDirection(road, roadTarget);
+            const bool sameDirection = separation <= 20 && (turn == LinkDirection::RIGHT || turn == LinkDirection::PARTRIGHT);
+            const bool oppositeDirection = separation >= 160 && (turn == LinkDirection::LEFT || turn == LinkDirection::PARTLEFT);
+            return (sameDirection || oppositeDirection)
+                   && (roadTarget == cyclewayTarget ||
+                       (cyclewayTarget->getPermissions() == SVC_BICYCLE
+                        && myJunction->getDirection(cycleway, cyclewayTarget) == LinkDirection::STRAIGHT));
+        };
+        const bool secondHasPriority = yieldsToCycleway(from1, to1, from2, to2);
+        const bool firstHasPriority = !secondHasPriority && yieldsToCycleway(from2, to2, from1, to1);
+        if (firstHasPriority || secondHasPriority) {
+            const bool rebuild = OptionsCont::getOptions().getBool("tls.rebuild");
+            const auto& definitions = myJunction->getControllingTLS();
+            const bool generated = std::all_of(definitions.begin(), definitions.end(), [rebuild](const NBTrafficLightDefinition* def) {
+                return dynamic_cast<const NBOwnTLDef*>(def) != nullptr ||
+                       (rebuild && dynamic_cast<const NBLoadedSUMOTLDef*>(def) != nullptr);
+            });
+            if (generated) {
+                myForbids[idx1][idx2] = firstHasPriority;
+                myForbids[idx2][idx1] = secondHasPriority;
+                return;
+            }
+        }
+    }
     // check the priorities if required by node type
     const bool typeEqual = myJunction->getType() == SumoXMLNodeType::RIGHT_BEFORE_LEFT || myJunction->getType() == SumoXMLNodeType::LEFT_BEFORE_RIGHT;
     if (!typeEqual) {
